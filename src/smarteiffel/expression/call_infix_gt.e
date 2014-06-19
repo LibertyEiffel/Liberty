@@ -16,15 +16,15 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 6
+   precedence: INTEGER 6
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_gt
       end
-      --|*** simplify_1_: EXPRESSION is
+      --|*** simplify_1_: EXPRESSION
       --|*** local
       --|*** ic1, ic2: INTEGER_CONSTANT
       --|*** do
@@ -48,13 +48,13 @@ feature {ANY}
       --|*** end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_GT_VISITOR) is
+   accept (visitor: CALL_INFIX_GT_VISITOR)
       do
          visitor.visit_call_infix_gt(Current)
       end
 
 feature {}
-   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+   make (lp: like target; operator_position: POSITION; rp: like arg1)
       require
          lp /= Void
          not operator_position.is_unknown

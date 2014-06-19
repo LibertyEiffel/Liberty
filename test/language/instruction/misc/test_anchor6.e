@@ -11,13 +11,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(1)
          bar(c)
       end
 
-   bar (param: like b) is
+   bar (param: like b)
       do
       end
 

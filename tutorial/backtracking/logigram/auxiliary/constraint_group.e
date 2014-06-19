@@ -19,7 +19,7 @@ feature {ANY}
    couple: LINKED_LIST[CONSTRAINT_COUPLE]
       -- the couple constraints (yes, no)
 
-   make is
+   make
          -- creation
       do
          create var_set.make
@@ -27,7 +27,7 @@ feature {ANY}
          create couple.make
       end
 
-   add (constraint: CONSTRAINT; set: HASHED_SET[ITEM_VAR]) is
+   add (constraint: CONSTRAINT; set: HASHED_SET[ITEM_VAR])
          -- record the constraint and the set of variables
       local
          clog: CONSTRAINT_LOGICAL; cpl: CONSTRAINT_COUPLE
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   union (other: like Current) is
+   union (other: like Current)
          -- add the data of other to current
       do
          var_set.union(other.var_set)
@@ -53,14 +53,14 @@ feature {ANY}
          couple.append_traversable(other.couple)
       end
 
-   build_nodes (builder: MASK_BUILDER): BACKTRACKING_NODE is
+   build_nodes (builder: MASK_BUILDER): BACKTRACKING_NODE
          -- deduce backtracking graph from the current constraints
       do
          Result := get_node(builder, var_set.lower)
       end
 
 feature {}
-   get_node (builder: MASK_BUILDER; ivar: INTEGER): BACKTRACKING_NODE is
+   get_node (builder: MASK_BUILDER; ivar: INTEGER): BACKTRACKING_NODE
          -- deduce backtracking graph from the current constraints
          -- ivar is the number of the var that will be evaluated
       do
@@ -73,7 +73,7 @@ feature {}
          end
       end
 
-   get_node_of_var (builder: MASK_BUILDER; ivar: INTEGER): BACKTRACKING_NODE_OR_LIST is
+   get_node_of_var (builder: MASK_BUILDER; ivar: INTEGER): BACKTRACKING_NODE_OR_LIST
          -- generate the alternative values of the variable ivar
       local
          v: ITEM_VAR; n: BACKTRACKING_NODE
@@ -93,7 +93,7 @@ feature {}
          end
       end
 
-   get_node_if_true (builder: MASK_BUILDER): BACKTRACKING_NODE is
+   get_node_if_true (builder: MASK_BUILDER): BACKTRACKING_NODE
       local
          i: INTEGER
       do

@@ -7,12 +7,12 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   memory: REFERENCE[STRING] is
+   memory: REFERENCE[STRING]
       once
          create Result
       end
 
-   test (other: AUX_AGENT47) is
+   test (other: AUX_AGENT47)
       local
          p: PROCEDURE[TUPLE]
       do
@@ -20,7 +20,7 @@ feature {ANY}
          p.call([])
       end
 
-   f is
+   f
       do
          assert(memory.item.is_equal("In aux agent 47%N"))
          memory.set_item(Void)

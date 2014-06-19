@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
       require
          visited /= Void
       deferred

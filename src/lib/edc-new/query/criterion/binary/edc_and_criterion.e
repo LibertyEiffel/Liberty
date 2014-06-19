@@ -10,7 +10,7 @@ create {EDC_CRITERION}
    make
 
 feature {ANY}
-   infix "and" (other: EDC_CRITERION): EDC_CRITERION is
+   infix "and" (other: EDC_CRITERION): EDC_CRITERION
       do
          list.add_last(other)
          Result := Current

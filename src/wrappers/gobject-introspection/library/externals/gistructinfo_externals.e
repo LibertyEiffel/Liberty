@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_struct_info_find_method (an_info: POINTER; a_name: POINTER): POINTER is
+	g_struct_info_find_method (an_info: POINTER; a_name: POINTER): POINTER
  		-- g_struct_info_find_method
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_alignment (an_info: POINTER): NATURAL is
+	g_struct_info_get_alignment (an_info: POINTER): NATURAL
  		-- g_struct_info_get_alignment
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_field (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_struct_info_get_field (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_struct_info_get_field
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_struct_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_struct_info_get_method
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_n_fields (an_info: POINTER): INTEGER is
+	g_struct_info_get_n_fields (an_info: POINTER): INTEGER
  		-- g_struct_info_get_n_fields
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_n_methods (an_info: POINTER): INTEGER is
+	g_struct_info_get_n_methods (an_info: POINTER): INTEGER
  		-- g_struct_info_get_n_methods
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_get_size (an_info: POINTER): NATURAL is
+	g_struct_info_get_size (an_info: POINTER): NATURAL
  		-- g_struct_info_get_size
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_is_foreign (an_info: POINTER): INTEGER is
+	g_struct_info_is_foreign (an_info: POINTER): INTEGER
  		-- g_struct_info_is_foreign
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_struct_info_is_gtype_struct (an_info: POINTER): INTEGER is
+	g_struct_info_is_gtype_struct (an_info: POINTER): INTEGER
  		-- g_struct_info_is_gtype_struct
 		external "plug_in"
 		alias "{

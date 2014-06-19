@@ -17,7 +17,7 @@ feature {ANY}
    start_position: POSITION
          -- To be shown at run-time (the one of the `sedb' call or the `ds.p' assignment).
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          if ace.boost then
             check
@@ -28,35 +28,35 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   accept (visitor: SEDB_VISITOR) is
+   accept (visitor: SEDB_VISITOR)
       do
          visitor.visit_sedb(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if not ace.boost then
             code_accumulator.current_context.add_last(Current)
@@ -67,7 +67,7 @@ feature {SEDB_VISITOR}
    info_code: CHARACTER
 
 feature {}
-   make (sp: like start_position; ic: like info_code) is
+   make (sp: like start_position; ic: like info_code)
       require
          not sp.is_unknown
          not ace.boost

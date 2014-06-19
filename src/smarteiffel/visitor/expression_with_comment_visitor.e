@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EXPRESSION_WITH_COMMENT}
-   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       require
          visited /= Void
       deferred

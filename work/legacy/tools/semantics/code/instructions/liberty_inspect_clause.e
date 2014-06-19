@@ -27,7 +27,7 @@ create {LIBERTY_INSPECT_CLAUSE}
 feature {ANY}
    instruction: LIBERTY_INSTRUCTION
 
-   values: TRAVERSABLE[LIBERTY_INSPECT_SLICE] is
+   values: TRAVERSABLE[LIBERTY_INSPECT_SLICE]
       do
          Result := values_list
       ensure
@@ -35,7 +35,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_INSPECT}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          ins: like instruction
          v: like values_list
@@ -66,7 +66,7 @@ feature {LIBERTY_INSPECT}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   add_value (a_value: LIBERTY_INSPECT_SLICE) is
+   add_value (a_value: LIBERTY_INSPECT_SLICE)
       require
          a_value /= Void
       do
@@ -76,14 +76,14 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          instruction.mark_reachable_code(mark)
          inspect_slices_marker.mark_reachable_code(mark, values)
       end
 
 feature {}
-   make (a_instruction: like instruction; a_position: like position) is
+   make (a_instruction: like instruction; a_position: like position)
       require
          a_instruction /= Void
          a_position /= Void
@@ -96,7 +96,7 @@ feature {}
          position = a_position
       end
 
-   make_specialized (a_instruction: like instruction; a_values_list: like values_list; a_position: like position) is
+   make_specialized (a_instruction: like instruction; a_values_list: like values_list; a_position: like position)
       require
          a_instruction /= Void
          a_values_list /= Void
@@ -116,7 +116,7 @@ feature {}
    inspect_slices_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSPECT_SLICE]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INSPECT_CLAUSE_VISITOR
       do

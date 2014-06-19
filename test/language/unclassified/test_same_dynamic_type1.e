@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a1, a2: ANIMAL
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(1.same_dynamic_type(2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

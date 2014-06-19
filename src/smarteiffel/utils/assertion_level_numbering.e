@@ -12,7 +12,7 @@ insert
    GLOBALS
 
 feature {ANY}
-   level_name (level: INTEGER): STRING is
+   level_name (level: INTEGER): STRING
       do
          inspect
             level
@@ -35,29 +35,29 @@ feature {ANY}
          end
       end
 
-   level_not_computed: INTEGER is 0
+   level_not_computed: INTEGER 0
          -- To memorize the fact that the assertion level is not yet known.
 
-   level_boost: INTEGER is 1
+   level_boost: INTEGER 1
          -- The -boost hight speed level. Do not check for Void target. Do
          -- not check system level validity. Optimize generated code.
 
-   level_no: INTEGER is 2
+   level_no: INTEGER 2
          -- No assertion checking of any kind.
 
-   level_require: INTEGER is 3
+   level_require: INTEGER 3
          -- Evaluate the preconditions.
 
-   level_ensure: INTEGER is 4
+   level_ensure: INTEGER 4
          -- Also evaluate postconditions.
 
-   level_invariant: INTEGER is 5
+   level_invariant: INTEGER 5
          -- Also evaluate the class invariant on entry to and return from.
 
-   level_loop: INTEGER is 6
+   level_loop: INTEGER 6
          -- Also evaluate the loop variant and the loop invariant.
 
-   level_all: INTEGER is 7
+   level_all: INTEGER 7
          -- Also evaluate the check instruction. The default value.
 
 end -- class ASSERTION_LEVEL_NUMBERING

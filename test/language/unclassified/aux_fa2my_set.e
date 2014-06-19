@@ -4,7 +4,7 @@
 class AUX_FA2MY_SET[G]
 
 feature {ANY}
-   remove is
+   remove
       local
          list: AUX_FA2MY_LINKED_LIST[G]; it: AUX_FA2ABSTRACT_ITERATOR[G]
       do

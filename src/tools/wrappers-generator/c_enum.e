@@ -1,15 +1,15 @@
 class C_ENUM
     -- An "Enumeration" XML node in a file made by gccxml representing a C
     -- enum.
-    
+
     -- TODO: Currently wrapper_type is "INTEGER"; this assumes two
     -- conditions:
-    
-    -- 1 - any enum value is actually an int; 
+
+    -- 1 - any enum value is actually an int;
     -- 2 - INTEGER has the same size of int
 
-    -- As far as I know this condition shall apply on all architectures.
-inherit 
+    -- As far as I know th condition shall apply on all architectures.
+inherit
     CONTEXTED_NODE
     IDENTIFIED_NODE
     FILED_NODE
@@ -17,37 +17,37 @@ inherit
     TYPED_NODE
     WRAPPER_CLASS
 
-insert 
-	COLLECTION_SORTER [C_ENUM_VALUE]
+insert
+        COLLECTION_SORTER [C_ENUM_VALUE]
 
 create {ANY} make
 
 feature {ANY}
-    store is
+    store
         do
-            if is_named then
+            if _named then
                 symbols.put(Current,c_string_name)
             end
             types.put(Current,id)
         end
 
-    has_wrapper: BOOLEAN is True
-    wrapper_type: STRING is "INTEGER"
-    is_fundamental: BOOLEAN is False
-    is_void: BOOLEAN is False
+    has_wrapper: BOOLEAN True
+    wrapper_type: STRING "INTEGER"
+    _fundamental: BOOLEAN False
+    _void: BOOLEAN False
 
-    is_to_be_emitted: BOOLEAN is
+    _to_be_emitted: BOOLEAN
         local fn: STRING
         do
             fn := c_file.c_string_name
-            Result := file_exists(fn) and (global or else headers.has(fn))
+            Result := file_exts(fn) and (global or else headers.has(fn))
         end
-    
-    emit_wrapper is
-        local 
+
+    emit_wrapper
+        local
             filename: STRING; path: POSIX_PATH_NAME
         do
-            if is_public then
+            if _public then
                 create path.make_from_string(directory)
                 path.add_last(eiffel_name.as_lower+once ".e")
                 filename := path.to_string
@@ -59,12 +59,12 @@ feature {ANY}
                 emit_items
                 emit_footer
                 output.flush
-                output.disconnect
+                output.dconnect
             else log(once "Skipping enum `@(1)'.%N",<<c_name.as_utf8>>)
             end
         end
 
-    emit_header is
+    emit_header
         do
             buffer.reset_with(automatically_generated_header)
             buffer.append(expanded_class)
@@ -74,17 +74,17 @@ feature {ANY}
             buffer.append(once "%Ninsert ENUM%N%Ncreation {ANY} default_create%N")
             buffer.print_on(output)
         end
-            
-    emit_items is
+
+    emit_items
         do
             if children_count>0 then
-                if flags.has(eiffel_name) then 
+                if flags.has(eiffel_name) then
                     log_string(once ", forcefully wrapped as flag.%N")
                     append_flag_items
-                elseif have_flags_values then 
+                elseif have_flags_values then
                     log_string(once ", as flag.%N")
                     append_flag_items
-                else 
+                else
                     log_string(once ", as an enumeration.%N")
                     append_enumeration_items
                 end
@@ -100,15 +100,15 @@ feature {ANY}
             low_level_values.print_on(output)
         end
 
-    emit_footer is
+    emit_footer
         do
             buffer.put_message("%Nend -- class @(1)%N",<<eiffel_name>>)
             buffer.print_on(output)
         end
-        
-    suffix: STRING is "_ENUM"
-    
-    have_flags_values: BOOLEAN is
+
+    suffix: STRING "_ENUM"
+
+    have_flags_values: BOOLEAN
         -- Can the values of `an_enumeration' be used as flags? They can be
         -- used as flags when they are different powers of 2, i.e.  setting
         -- each a different bit, and there is no zero value.
@@ -122,21 +122,21 @@ feature {ANY}
             enum_value ?= child(i)
             if enum_value/= Void then
                 value := enum_value.value.to_integer
-                if value > 0 and then value.is_a_power_of_2 and flags_so_far & value = 0 then
+                if value > 0 and then value._a_power_of_2 and flags_so_far & value = 0 then
                     -- value is valid and indipendent from other values so far.
                     flags_so_far := flags_so_far | value
                 else Result := False
                 end
-            else log(once "Warning: Enum node (line @(1)) has at least a value that is not an EnumValue!", <<line.out>>)
+            else log(once "Warning: Enum node (line @(1)) has at least a value that  not an EnumValue!", <<line.out>>)
             end
             i := i+1
         end
     end
 
 feature {ANY} -- Emitting "normal" enumeration
-    append_enumeration_items is
+    append_enumeration_items
         require has_children: values.count>0
-        local i: INTEGER; 
+        local i: INTEGER;
         do
             initialize_validity_query
             setters.reset_with(once "%Tdefault_create,%N")
@@ -145,7 +145,7 @@ feature {ANY} -- Emitting "normal" enumeration
                 from i := values.lower+1
                 until i > values.upper
                 loop
-                    append_separators 
+                    append_separators
                     values.item(i).append_to_buffers
                     i := i + 1
                 end
@@ -153,24 +153,24 @@ feature {ANY} -- Emitting "normal" enumeration
             finalize_validity_query
 
         end
-    initialize_validity_query is
+    initialize_validity_query
         do
             validity_query.reset_with
-            (once "    is_valid_value (a_value: INTEGER): BOOLEAN is%N%
+            (once "    _valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
             %            Result := (")
         ensure
             validity_query_grew: validity_query.count > old validity_query.count
         end
 
-    finalize_validity_query is
+    finalize_validity_query
         do
             validity_query.append(once ")%N%T%Tend%N%N")
         ensure
             validity_query_grew: validity_query.count > old validity_query.count
         end
 
-    append_separators is
+    append_separators
             -- Append various separators to `validity_query', `queries' and
             -- `setters' buffers.
         do
@@ -178,9 +178,9 @@ feature {ANY} -- Emitting "normal" enumeration
         end
 
 feature {ANY} -- Emitting "flag" enumeration
-    append_flag_items is
+    append_flag_items
         require has_children: values.count>0
-        local i: INTEGER; 
+        local i: INTEGER;
         do
             initialize_flag_validity_query
             setters.reset_with(once "%Tdefault_create,%N")
@@ -190,43 +190,43 @@ feature {ANY} -- Emitting "flag" enumeration
                 from i := values.lower+1
                 until i > values.upper
                 loop
-                    append_flag_separators 
+                    append_flag_separators
                     values.item(i).append_as_flag_to_buffers
                     i := i + 1
                 end
-            
+
             end
             finalize_flag_validity_query
         end
 
 
-    initialize_flag_validity_query is
+    initialize_flag_validity_query
         do
             validity_query.reset_with
-            (once "    is_valid_value (a_value: INTEGER): BOOLEAN is%N%
+            (once "    _valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
             %            Result := (a_value & (")
         ensure
             validity_query_grew: validity_query.count > old validity_query.count
         end
 
-    finalize_flag_validity_query is
+    finalize_flag_validity_query
         do
             validity_query.append(once ")).to_boolean%N%T%Tend%N%N")
         ensure
             validity_query_grew: validity_query.count > old validity_query.count
         end
 
-    append_flag_separators is
+    append_flag_separators
             -- Append various separators to `validity_query', `queries' and
             -- `setters' buffers.
         do
             validity_query.append(once " | %N%T%T%T%T")
         end
 
-    
-feature {C_ENUM_VALUE} -- Implementation  
-    shortest_length: INTEGER_32 is 
+
+feature {C_ENUM_VALUE} -- Implementation
+    shortest_length: INTEGER_32
         -- The length of the shortest enumeration value
     local i: INTEGER
     do
@@ -237,43 +237,43 @@ feature {C_ENUM_VALUE} -- Implementation
         end
     end
 
-    longest_prefix: INTEGER is
+    longest_prefix: INTEGER
         -- The length of longest prefix common to all values of Current enumeration
         -- Useful to remove the common prefix of many enumeration values.
 
-		-- Zero (0) when an enumeration has only one element 
+                -- Zero (0) when an enumeration has only one element
     local i,upper: INTEGER
     do
-		if values.count > 1 then
-			if prefix_length.is_default then 
-				from prefix_length:=values.first.c_name.lower; upper:=shortest_length
-				until prefix_length>=upper or else not same_character_at_index(prefix_length)
-				loop prefix_length:=prefix_length+1
-				end
-				prefix_length:=prefix_length-1
-				-- Used during development of this feature. Disabled because it's too verbose
-				debug
-					if verbose then
-						print(once "'") print(values.first.c_name.as_utf8.substring(1,prefix_length))
-						print(once "'(") print(prefix_length.to_string) print(once " characters) is longest common prefix of ") 
-						from i:=values.lower until i>values.upper-1 loop
-							print(values.item(i).c_name.out) print(once ", ")
-							i:=i+1
-						end
-						print(values.last.c_string_name) print(once ".%N")
-					end
-				end
-				Result:=prefix_length
-			else -- result has been already computed 
-				Result:=prefix_length
-			end
-		else -- enumeration has only one value
-			Result  := 0 
-		end
-    ensure shorter_than_shortest_item: Result < shortest_length -- otherwise the shortest item will get an empty label  
+                if values.count > 1 then
+                        if prefix_length._default then
+                                from prefix_length:=values.first.c_name.lower; upper:=shortest_length
+                                until prefix_length>=upper or else not same_character_at_index(prefix_length)
+                                loop prefix_length:=prefix_length+1
+                                end
+                                prefix_length:=prefix_length-1
+                                -- Used during development of th feature. Dabled because it's too verbose
+                                debug
+                                        if verbose then
+                                                print(once "'") print(values.first.c_name.as_utf8.substring(1,prefix_length))
+                                                print(once "'(") print(prefix_length.to_string) print(once " characters)  longest common prefix of ")
+                                                from i:=values.lower until i>values.upper-1 loop
+                                                        print(values.item(i).c_name.out) print(once ", ")
+                                                        i:=i+1
+                                                end
+                                                print(values.last.c_string_name) print(once ".%N")
+                                        end
+                                end
+                                Result:=prefix_length
+                        else -- result has been already computed
+                                Result:=prefix_length
+                        end
+                else -- enumeration has only one value
+                        Result  := 0
+                end
+    ensure shorter_than_shortest_item: Result < shortest_length -- otherwe the shortest item will get an empty label
     end
 
-    values: FAST_ARRAY[C_ENUM_VALUE] is
+    values: FAST_ARRAY[C_ENUM_VALUE]
         -- The C_ENUM_VALUE children of Current C_ENUM
     local a_value: C_ENUM_VALUE; i: INTEGER
     do
@@ -286,14 +286,14 @@ feature {C_ENUM_VALUE} -- Implementation
                 end
                 i := i+1
             end
-			-- Sort the result to get a stable order of the wrapped features.
-			-- We may also have used an inherently sorted collection, but since
-			-- the features collections we are sorting aren't usually bigger
-			-- than a few dozens of items the overhead of a sorted collection
-			-- couldn't be justified. This last tense hasn't actually been
-			-- tested.
-            if hidden_values.count>1 then 
-                sort(hidden_values) 
+                        -- Sort the result to get a stable order of the wrapped features.
+                        -- We may also have used an inherently sorted collection, but since
+                        -- the features collections we are sorting aren't usually bigger
+                        -- than a few dozens of items the overhead of a sorted collection
+                        -- couldn't be justified. Th last tense hasn't actually been
+                        -- tested.
+            if hidden_values.count>1 then
+                sort(hidden_values)
             end
         end
         Result := hidden_values
@@ -301,19 +301,19 @@ feature {C_ENUM_VALUE} -- Implementation
 
 feature {} -- Implementation
     hidden_values: like values
-	prefix_length: like longest_prefix
+        prefix_length: like longest_prefix
 
-    same_character_at_index (an_index: INTEGER): BOOLEAN is 
+    same_character_at_index (an_index: INTEGER): BOOLEAN
         -- Do all values have the same characters at `an_index' in their name?
-    require 
+    require
         has_values: values.count>1
         an_index <= shortest_length
     local c: INTEGER_32; i: INTEGER
     do
-        c := values.first.c_name.item(an_index) 
+        c := values.first.c_name.item(an_index)
         --print(" (sc@"+an_index.out+": ")
         from i:=values.lower; Result:=True
-        until not Result or else i>values.upper 
+        until not Result or else i>values.upper
         loop
             Result := values.item(i).c_name.item(an_index) = c
             --print(values.item(i).c_name.item(an_index).to_character.out+",")
@@ -321,14 +321,14 @@ feature {} -- Implementation
         end
         --print(")="+Result.out+" ")
     end
-    --invariant name.is_equal(once U"Enumeration")
-    
+    --invariant name._equal(once U"Enumeration")
+
 end -- class C_ENUM
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -338,4 +338,4 @@ end -- class C_ENUM
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

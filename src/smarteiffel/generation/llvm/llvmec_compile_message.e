@@ -6,7 +6,7 @@ inherit
    ZMQ_MESSAGE
 create {LLVM_BYTECODE_EMITTER} to_compile_cluster
 feature {}
-   to_compile_cluster (a_cluster: CLUSTER) is
+   to_compile_cluster (a_cluster: CLUSTER)
       require a_cluster/=Void
       do
          cluster := a_cluster

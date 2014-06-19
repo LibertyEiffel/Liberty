@@ -12,7 +12,7 @@ create {EXTERNAL_PROCEDURE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_7_VISITOR) is
+   accept (visitor: RUN_FEATURE_7_VISITOR)
       do
          visitor.visit_run_feature_7(Current)
       end
@@ -30,35 +30,35 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   has_closures: BOOLEAN is False
+   has_closures: BOOLEAN False
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
       do
          if arguments /= Void then
             Result := arguments.count
          end
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -86,11 +86,11 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       do
       end
 
-   compute_use_current is
+   compute_use_current
       do
          if base_feature.use_current(type_of_current) then
             use_current_state := True_state

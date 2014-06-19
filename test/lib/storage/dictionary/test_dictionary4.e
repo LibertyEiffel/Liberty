@@ -11,9 +11,9 @@ create {}
    make
 
 feature {ANY}
-   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   test (d: DICTIONARY[INTEGER, CHARACTER]) is
+   test (d: DICTIONARY[INTEGER, CHARACTER])
       local
          i: INTEGER; c: CHARACTER
       do
@@ -73,7 +73,7 @@ feature {ANY}
          end
       end
 
-   make is
+   make
       do
          test(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(12))
          test(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(12))

@@ -9,7 +9,7 @@ insert
       end
 
 feature {ANY}
-   set (in: INTEGER) is
+   set (in: INTEGER)
       do
          value := in
       ensure
@@ -19,7 +19,7 @@ feature {ANY}
 feature {ANY}
    value: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := value.is_equal(other.value)
       end

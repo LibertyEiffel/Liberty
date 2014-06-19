@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   limit: INTEGER is 100000
+   limit: INTEGER 100000
 
-   na_max: INTEGER is 9999
+   na_max: INTEGER 9999
 
    na1, na2: NATIVE_ARRAY[CHARACTER]
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -41,7 +41,7 @@ feature {ANY}
          end
       end
 
-   check_na (na: NATIVE_ARRAY[CHARACTER]) is
+   check_na (na: NATIVE_ARRAY[CHARACTER])
       local
          i: INTEGER
       do
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          if not b then
             std_output.put_string("Error in TEST_NATIVE_ARRAY7%N")

@@ -9,7 +9,7 @@ feature {ANY}
 	socket: ZMQ_REP_SOCKET
 	request, answer: ZMQ_STRING_MESSAGE
 
-	make is
+	make
 		local now: TIME; exc: ZMQ_EXCEPTION; my_pid: ABSTRACT_STRING; endpoint: STRING
 		do
 			--use_zmq
@@ -44,9 +44,9 @@ feature {ANY}
 			end
 		end
 
-		answer_template: STRING is "Greetings by server ##(1)."
+		answer_template: STRING "Greetings by server ##(1)."
 
-	use_zmq is
+	use_zmq
 		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers
 		external "plug_in"
 		alias "{

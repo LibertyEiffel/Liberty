@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -22,7 +22,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   no_leak is
+   no_leak
       local
          aux: AUX_EXPANDED01
       do

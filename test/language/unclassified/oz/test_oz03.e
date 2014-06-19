@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_OZ03A; b: AUX_OZ03B
       do

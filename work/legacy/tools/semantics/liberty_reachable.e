@@ -15,7 +15,7 @@
 deferred class LIBERTY_REACHABLE
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       deferred
       end
 

@@ -21,10 +21,10 @@ feature {ANY}
    monitor: OUTPUT_STREAM
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          stream.filtered_put_character(c)
          if monitor.is_connected then
@@ -32,13 +32,13 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
 
 feature {}
-   connect_to (a_stream: like stream; a_monitor: like monitor) is
+   connect_to (a_stream: like stream; a_monitor: like monitor)
       require
          a_stream /= Void
          a_monitor /= Void
@@ -62,7 +62,7 @@ end -- class MONITORED_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

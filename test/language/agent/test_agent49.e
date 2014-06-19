@@ -8,14 +8,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: PREDICATE[TUPLE]
       do
          exec(p)
       end
 
-   exec (p: PREDICATE[TUPLE]) is
+   exec (p: PREDICATE[TUPLE])
       do
          if p /= Void then
             if p.item([]) then

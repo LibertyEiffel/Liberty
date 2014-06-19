@@ -10,19 +10,19 @@ insert
    RUNNER_FACET
 
 feature {RUNNER_FACET}
-   call (processor: RUNNER_PROCESSOR) is
+   call (processor: RUNNER_PROCESSOR)
       do
          if not do_call(processor) then
             processor.set_exception(exceptions.System_level_type_error, once "Unknown builtin")
          end
       end
 
-   type: TYPE is
+   type: TYPE
       deferred
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   do_call (processor: RUNNER_PROCESSOR): BOOLEAN is
+   do_call (processor: RUNNER_PROCESSOR): BOOLEAN
       local
          i: INTEGER
       do
@@ -40,12 +40,12 @@ feature {RUNNER_UNTYPED_BUILTINS}
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       deferred
       end
 
 feature {RUNNER_MEMORY}
-   add_parent (a_parent: RUNNER_UNTYPED_BUILTINS) is
+   add_parent (a_parent: RUNNER_UNTYPED_BUILTINS)
       require
          a_parent /= Void
          a_parent.type = type
@@ -60,7 +60,7 @@ feature {RUNNER_MEMORY}
          parents.fast_occurrences(a_parent) = 1
       end
 
-   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT
       require
          processor /= Void
       deferred

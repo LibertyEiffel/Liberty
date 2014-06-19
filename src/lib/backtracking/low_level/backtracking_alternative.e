@@ -18,7 +18,7 @@ feature {BACKTRACKING}
    next: BACKTRACKING_NODE
          -- next alternate node
 
-   set_next (value: BACKTRACKING_NODE) is
+   set_next (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -28,7 +28,7 @@ feature {BACKTRACKING}
       end
 
 feature {ABSTRACT_BACKTRACKING}
-   next_alternative (explorer: BACKTRACKING) is
+   next_alternative (explorer: BACKTRACKING)
       do
          -- Tell to evaluate 'next' now.
          explorer.set_current_node(next)
@@ -44,7 +44,7 @@ end -- class BACKTRACKING_ALTERNATIVE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   out_it is
+   out_it
       do
          Precursor
          io.put_string("Hello child!%N")

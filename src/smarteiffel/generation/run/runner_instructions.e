@@ -12,53 +12,53 @@ create {RUNNER_PROCESSOR}
    make
 
 feature {AGENT_INSTRUCTION}
-   visit_agent_instruction (visited: AGENT_INSTRUCTION) is
+   visit_agent_instruction (visited: AGENT_INSTRUCTION)
       do
          processor.features.call_agent(visited, Current)
       end
 
 feature {ASSERTION_LIST}
-   visit_assertion_list (visited: ASSERTION_LIST) is
+   visit_assertion_list (visited: ASSERTION_LIST)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {CLASS_INVARIANT}
-   visit_class_invariant (visited: CLASS_INVARIANT) is
+   visit_class_invariant (visited: CLASS_INVARIANT)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {ENSURE_ASSERTION}
-   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   visit_ensure_assertion (visited: ENSURE_ASSERTION)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {LOOP_INVARIANT}
-   visit_loop_invariant (visited: LOOP_INVARIANT) is
+   visit_loop_invariant (visited: LOOP_INVARIANT)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {ASSIGNMENT_ATTEMPT}
-   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
+   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT)
       do
          processor.assignment.try_assign(visited)
       end
 
 feature {ASSIGNMENT}
-   visit_assignment (visited: ASSIGNMENT) is
+   visit_assignment (visited: ASSIGNMENT)
       do
          processor.assignment.do_assign(visited)
       end
 
 feature {CHECK_COMPOUND}
-   visit_check_compound (visited: CHECK_COMPOUND) is
+   visit_check_compound (visited: CHECK_COMPOUND)
       do
          if visited.must_be_generated(current_frame.type_of_current) then
             processor.check_assertions(exceptions.Check_instruction, visited.assertion_list)
@@ -66,20 +66,20 @@ feature {CHECK_COMPOUND}
       end
 
 feature {C_INLINE}
-   visit_c_inline (visited: C_INLINE) is
+   visit_c_inline (visited: C_INLINE)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {COMMENT}
-   visit_comment (visited: COMMENT) is
+   visit_comment (visited: COMMENT)
       do
          -- nothing
       end
 
 feature {COMPOUND}
-   visit_compound (visited: COMPOUND) is
+   visit_compound (visited: COMPOUND)
       do
          check
             visited.list /= Void
@@ -88,7 +88,7 @@ feature {COMPOUND}
       end
 
 feature {CREATE_INSTRUCTION}
-   visit_create_instruction (visited: CREATE_INSTRUCTION) is
+   visit_create_instruction (visited: CREATE_INSTRUCTION)
       local
          new: RUNNER_OBJECT
       do
@@ -97,13 +97,13 @@ feature {CREATE_INSTRUCTION}
       end
 
 feature {RAW_CREATE_INSTRUCTION}
-   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION)
       do
          visit_create_instruction(visited)
       end
 
 feature {DEBUG_COMPOUND}
-   visit_debug_compound (visited: DEBUG_COMPOUND) is
+   visit_debug_compound (visited: DEBUG_COMPOUND)
       do
          if visited.must_be_generated(current_frame.type_of_current) then
             if visited.compound /= Void then
@@ -113,7 +113,7 @@ feature {DEBUG_COMPOUND}
       end
 
 feature {IFTHENELSE}
-   visit_ifthenelse (visited: IFTHENELSE) is
+   visit_ifthenelse (visited: IFTHENELSE)
       local
          old_flag: like ifthen_flag
          i: INTEGER
@@ -151,7 +151,7 @@ feature {}
          -- turns true as soon as some ifelse branch was called
 
 feature {IFTHEN}
-   visit_ifthen (visited: IFTHEN) is
+   visit_ifthen (visited: IFTHEN)
       local
          condition: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
@@ -165,19 +165,19 @@ feature {IFTHEN}
       end
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
-   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT)
       do
          inspector.call(visited)
       end
 
 feature {OTHER_INSPECT_STATEMENT}
-   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
+   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT)
       do
          inspector.call(visited)
       end
 
 feature {LOOP_INSTRUCTION}
-   visit_loop_instruction (visited: LOOP_INSTRUCTION) is
+   visit_loop_instruction (visited: LOOP_INSTRUCTION)
       do
          current_frame.add_instruction(create {RUNNER_LOOP}.make(visited))
          if visited.initialize /= Void then
@@ -186,7 +186,7 @@ feature {LOOP_INSTRUCTION}
       end
 
 feature {RUNNER_LOOP}
-   visit_runner_loop (visited: RUNNER_LOOP) is
+   visit_runner_loop (visited: RUNNER_LOOP)
       local
          stop: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
@@ -203,13 +203,13 @@ feature {RUNNER_LOOP}
       end
 
 feature {NO_INVARIANT_WRAPPER}
-   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER)
       do
          visited.compound.accept(Current)
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
-   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
+   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION)
       do
          processor.set_exception(visited.error_code,
                                  once "#(1):#(2):#(3): #(4)"
@@ -220,7 +220,7 @@ feature {RUN_TIME_ERROR_INSTRUCTION}
       end
 
 feature {SEDB}
-   visit_sedb (visited: SEDB) is
+   visit_sedb (visited: SEDB)
       do
          debug ("run.data")
             std_output.put_line(once "SEDB: #(1)" # visited.info_code.out)
@@ -228,7 +228,7 @@ feature {SEDB}
       end
 
 feature {UNUSED_EXPRESSION}
-   visit_unused_expression (visited: UNUSED_EXPRESSION) is
+   visit_unused_expression (visited: UNUSED_EXPRESSION)
       local
          dropped: RUNNER_OBJECT
       do
@@ -236,57 +236,57 @@ feature {UNUSED_EXPRESSION}
       end
 
 feature {VOID_PROC_CALL}
-   visit_void_proc_call (visited: VOID_PROC_CALL) is
+   visit_void_proc_call (visited: VOID_PROC_CALL)
       do
          processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {PRECURSOR_INSTRUCTION}
-   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {}
-   visit_procedure_call (visited: PROCEDURE_CALL) is
+   visit_procedure_call (visited: PROCEDURE_CALL)
       do
          processor.features.call(visited)
       end
 
 feature {PROCEDURE_CALL_0}
-   visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
+   visit_procedure_call_0 (visited: PROCEDURE_CALL_0)
       do
          visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
-   visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
+   visit_procedure_call_1 (visited: PROCEDURE_CALL_1)
       do
          visit_procedure_call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
-   visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
+   visit_procedure_call_n (visited: PROCEDURE_CALL_N)
       do
          visit_procedure_call(visited)
       end
 
 feature {REQUIRE_ASSERTION}
-   visit_require_assertion (visited: REQUIRE_ASSERTION) is
+   visit_require_assertion (visited: REQUIRE_ASSERTION)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {RETRY_INSTRUCTION}
-   visit_retry_instruction (visited: RETRY_INSTRUCTION) is
+   visit_retry_instruction (visited: RETRY_INSTRUCTION)
       do
          current_frame.set_retry
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       do
          check
             never_called: False -- because RUNNER_INSPECTOR handles inspect
@@ -294,7 +294,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor)
       require
          a_processor /= Void
       do

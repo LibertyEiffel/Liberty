@@ -48,7 +48,7 @@ inherit
    AGENT_LAUNCHER_VISITOR
 
 feature {CLASS_TEXT}
-   visit_class_text (visited: CLASS_TEXT) is
+   visit_class_text (visited: CLASS_TEXT)
       do
          if enter_class_text(visited) then
             if not visitting_class_texts.has(visited) then
@@ -72,22 +72,22 @@ feature {CLASS_TEXT}
       end
 
 feature {}
-   enter_class_text (visited: CLASS_TEXT): BOOLEAN is
+   enter_class_text (visited: CLASS_TEXT): BOOLEAN
       do
          Result := True
       end
 
-   exit_class_text (visited: CLASS_TEXT) is
+   exit_class_text (visited: CLASS_TEXT)
       do
       end
 
-   visitting_class_texts: SET[CLASS_TEXT] is
+   visitting_class_texts: SET[CLASS_TEXT]
       once
          create {HASHED_SET[CLASS_TEXT]} Result.make
       end
 
 feature {PARENT_LISTS}
-   visit_parent_lists (visited: PARENT_LISTS) is
+   visit_parent_lists (visited: PARENT_LISTS)
       local
          i, n: INTEGER
          list: FAST_ARRAY[PARENT_EDGE]
@@ -126,17 +126,17 @@ feature {PARENT_LISTS}
       end
 
 feature {}
-   enter_parent_lists (visited: PARENT_LISTS): BOOLEAN is
+   enter_parent_lists (visited: PARENT_LISTS): BOOLEAN
       do
          Result := True
       end
 
-   exit_parent_lists (visited: PARENT_LISTS) is
+   exit_parent_lists (visited: PARENT_LISTS)
       do
       end
 
 feature {PARENT_EDGE}
-   visit_parent_edge (visited: PARENT_EDGE) is
+   visit_parent_edge (visited: PARENT_EDGE)
       do
          if enter_parent_edge(visited) then
             visited.type_mark.accept(Current)
@@ -157,17 +157,17 @@ feature {PARENT_EDGE}
       end
 
 feature {}
-   enter_parent_edge (visited: PARENT_EDGE): BOOLEAN is
+   enter_parent_edge (visited: PARENT_EDGE): BOOLEAN
       do
          Result := True
       end
 
-   exit_parent_edge (visited: PARENT_EDGE) is
+   exit_parent_edge (visited: PARENT_EDGE)
       do
       end
 
 feature {RENAME_LIST}
-   visit_rename_list (visited: RENAME_LIST) is
+   visit_rename_list (visited: RENAME_LIST)
       local
          i: INTEGER
       do
@@ -187,17 +187,17 @@ feature {RENAME_LIST}
       end
 
 feature {}
-   enter_rename_list (visited: RENAME_LIST): BOOLEAN is
+   enter_rename_list (visited: RENAME_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_rename_list (visited: RENAME_LIST) is
+   exit_rename_list (visited: RENAME_LIST)
       do
       end
 
 feature {RENAME_PAIR}
-   visit_rename_pair (visited: RENAME_PAIR) is
+   visit_rename_pair (visited: RENAME_PAIR)
       do
          if enter_rename_pair(visited) then
             visited.old_name.accept(Current)
@@ -207,17 +207,17 @@ feature {RENAME_PAIR}
       end
 
 feature {}
-   enter_rename_pair (visited: RENAME_PAIR): BOOLEAN is
+   enter_rename_pair (visited: RENAME_PAIR): BOOLEAN
       do
          Result := True
       end
 
-   exit_rename_pair (visited: RENAME_PAIR) is
+   exit_rename_pair (visited: RENAME_PAIR)
       do
       end
 
 feature {EXPORT_LIST}
-   visit_export_list (visited: EXPORT_LIST) is
+   visit_export_list (visited: EXPORT_LIST)
       local
          i: INTEGER
       do
@@ -237,17 +237,17 @@ feature {EXPORT_LIST}
       end
 
 feature {}
-   enter_export_list (visited: EXPORT_LIST): BOOLEAN is
+   enter_export_list (visited: EXPORT_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_export_list (visited: EXPORT_LIST) is
+   exit_export_list (visited: EXPORT_LIST)
       do
       end
 
 feature {EXPORT_ITEM}
-   visit_export_item (visited: EXPORT_ITEM) is
+   visit_export_item (visited: EXPORT_ITEM)
       do
          if enter_export_item(visited) then
             visited.clients.accept(Current)
@@ -259,17 +259,17 @@ feature {EXPORT_ITEM}
       end
 
 feature {}
-   enter_export_item (visited: EXPORT_ITEM): BOOLEAN is
+   enter_export_item (visited: EXPORT_ITEM): BOOLEAN
       do
          Result := True
       end
 
-   exit_export_item (visited: EXPORT_ITEM) is
+   exit_export_item (visited: EXPORT_ITEM)
       do
       end
 
 feature {FEATURE_CLAUSE_LIST}
-   visit_feature_clause_list (visited: FEATURE_CLAUSE_LIST) is
+   visit_feature_clause_list (visited: FEATURE_CLAUSE_LIST)
       local
          i: INTEGER
       do
@@ -287,17 +287,17 @@ feature {FEATURE_CLAUSE_LIST}
       end
 
 feature {}
-   enter_feature_clause_list (visited: FEATURE_CLAUSE_LIST): BOOLEAN is
+   enter_feature_clause_list (visited: FEATURE_CLAUSE_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_feature_clause_list (visited: FEATURE_CLAUSE_LIST) is
+   exit_feature_clause_list (visited: FEATURE_CLAUSE_LIST)
       do
       end
 
 feature {FEATURE_CLAUSE}
-   visit_feature_clause (visited: FEATURE_CLAUSE) is
+   visit_feature_clause (visited: FEATURE_CLAUSE)
       local
          i: INTEGER
       do
@@ -320,17 +320,17 @@ feature {FEATURE_CLAUSE}
       end
 
 feature {}
-   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN is
+   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN
       do
          Result := True
       end
 
-   exit_feature_clause (visited: FEATURE_CLAUSE) is
+   exit_feature_clause (visited: FEATURE_CLAUSE)
       do
       end
 
 feature {CREATION_CLAUSE_LIST}
-   visit_creation_clause_list (visited: CREATION_CLAUSE_LIST) is
+   visit_creation_clause_list (visited: CREATION_CLAUSE_LIST)
       local
          i: INTEGER
       do
@@ -348,17 +348,17 @@ feature {CREATION_CLAUSE_LIST}
       end
 
 feature {}
-   enter_creation_clause_list (visited: CREATION_CLAUSE_LIST): BOOLEAN is
+   enter_creation_clause_list (visited: CREATION_CLAUSE_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_creation_clause_list (visited: CREATION_CLAUSE_LIST) is
+   exit_creation_clause_list (visited: CREATION_CLAUSE_LIST)
       do
       end
 
 feature {CREATION_CLAUSE}
-   visit_creation_clause (visited: CREATION_CLAUSE) is
+   visit_creation_clause (visited: CREATION_CLAUSE)
       do
          if enter_creation_clause(visited) then
             if visited.clients /= Void then
@@ -372,17 +372,17 @@ feature {CREATION_CLAUSE}
       end
 
 feature {}
-   enter_creation_clause (visited: CREATION_CLAUSE): BOOLEAN is
+   enter_creation_clause (visited: CREATION_CLAUSE): BOOLEAN
       do
          Result := True
       end
 
-   exit_creation_clause (visited: CREATION_CLAUSE) is
+   exit_creation_clause (visited: CREATION_CLAUSE)
       do
       end
 
 feature {CLIENT_LIST}
-   visit_client_list (visited: CLIENT_LIST) is
+   visit_client_list (visited: CLIENT_LIST)
       do
          if enter_client_list(visited) then
             if visited.type_mark_list /= Void then
@@ -393,17 +393,17 @@ feature {CLIENT_LIST}
       end
 
 feature {}
-   enter_client_list (visited: CLIENT_LIST): BOOLEAN is
+   enter_client_list (visited: CLIENT_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_client_list (visited: CLIENT_LIST) is
+   exit_client_list (visited: CLIENT_LIST)
       do
       end
 
 feature {TYPE_MARK_LIST}
-   visit_type_mark_list (visited: TYPE_MARK_LIST) is
+   visit_type_mark_list (visited: TYPE_MARK_LIST)
       local
          i: INTEGER
       do
@@ -421,22 +421,22 @@ feature {TYPE_MARK_LIST}
       end
 
 feature {}
-   enter_type_mark_list (visited: TYPE_MARK_LIST): BOOLEAN is
+   enter_type_mark_list (visited: TYPE_MARK_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_type_mark_list (visited: TYPE_MARK_LIST) is
+   exit_type_mark_list (visited: TYPE_MARK_LIST)
       do
       end
 
 feature {CLASS_NAME}
-   visit_class_name (visited: CLASS_NAME) is
+   visit_class_name (visited: CLASS_NAME)
       do
       end
 
 feature {FEATURE_TEXT}
-   visit_feature_text (visited: FEATURE_TEXT) is
+   visit_feature_text (visited: FEATURE_TEXT)
       do
          if enter_feature_text(visited) then
             visited.anonymous_feature.accept(Current)
@@ -445,17 +445,17 @@ feature {FEATURE_TEXT}
       end
 
 feature {}
-   enter_feature_text (visited: FEATURE_TEXT): BOOLEAN is
+   enter_feature_text (visited: FEATURE_TEXT): BOOLEAN
       do
          Result := True
       end
 
-   exit_feature_text (visited: FEATURE_TEXT) is
+   exit_feature_text (visited: FEATURE_TEXT)
       do
       end
 
 feature {FORMAL_ARG_LIST}
-   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST)
       local
          i: INTEGER
       do
@@ -473,17 +473,17 @@ feature {FORMAL_ARG_LIST}
       end
 
 feature {}
-   enter_formal_arg_list (visited: FORMAL_ARG_LIST): BOOLEAN is
+   enter_formal_arg_list (visited: FORMAL_ARG_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   exit_formal_arg_list (visited: FORMAL_ARG_LIST)
       do
       end
 
 feature {LOCAL_VAR_LIST}
-   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+   visit_local_var_list (visited: LOCAL_VAR_LIST)
       local
          i: INTEGER
       do
@@ -501,84 +501,84 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {}
-   enter_local_var_list (visited: LOCAL_VAR_LIST): BOOLEAN is
+   enter_local_var_list (visited: LOCAL_VAR_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_local_var_list (visited: LOCAL_VAR_LIST) is
+   exit_local_var_list (visited: LOCAL_VAR_LIST)
       do
       end
 
 feature {CLOSED_OPERAND}
-   visit_closed_operand (visited: CLOSED_OPERAND) is
+   visit_closed_operand (visited: CLOSED_OPERAND)
       do
          visited.original_capture.accept(Current)
       end
 
 feature {UNUSED_EXPRESSION}
-   visit_unused_expression (visited: UNUSED_EXPRESSION) is
+   visit_unused_expression (visited: UNUSED_EXPRESSION)
       do
       end
 
 feature {LOCAL_NAME_DEF}
-   visit_local_name_def (visited: LOCAL_NAME_DEF) is
+   visit_local_name_def (visited: LOCAL_NAME_DEF)
       do
       end
 
 feature {ARGUMENT_NAME_DEF}
-   visit_argument_name_def (visited: ARGUMENT_NAME_DEF) is
+   visit_argument_name_def (visited: ARGUMENT_NAME_DEF)
       do
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name_ref (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
-   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1) is
+   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1)
       do
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       do
       end
 
 feature {SEDB}
-   visit_sedb (visited: SEDB) is
+   visit_sedb (visited: SEDB)
       do
       end
 
 feature {NO_DISPATCH}
-   visit_no_dispatch (visited: NO_DISPATCH) is
+   visit_no_dispatch (visited: NO_DISPATCH)
       do
          visited.side_effect_free_expression.accept(Current)
       end
 
 feature {TYPE}
-   visitting_types: SET[TYPE] is
+   visitting_types: SET[TYPE]
       once
          create {HASHED_SET[TYPE]} Result.make
       end
 
-   visit_type (visited: TYPE) is
+   visit_type (visited: TYPE)
       local
          i: INTEGER; gl: ARRAY[TYPE]
       do
@@ -621,17 +621,17 @@ feature {TYPE}
       end
 
 feature {}
-   enter_type (visited: TYPE): BOOLEAN is
+   enter_type (visited: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   exit_type (visited: TYPE) is
+   exit_type (visited: TYPE)
       do
       end
 
 feature {CLASS_TYPE_MARK}
-   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   visit_class_type_mark (visited: CLASS_TYPE_MARK)
       do
          if enter_class_type_mark(visited) then
             visited.class_text.accept(Current)
@@ -641,17 +641,17 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {}
-   enter_class_type_mark (visited: CLASS_TYPE_MARK): BOOLEAN is
+   enter_class_type_mark (visited: CLASS_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   exit_class_type_mark (visited: CLASS_TYPE_MARK)
       do
       end
 
 feature {CLIENT_TYPE_MARK}
-   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK)
       local
          ct: CLASS_TEXT
       do
@@ -665,17 +665,17 @@ feature {CLIENT_TYPE_MARK}
       end
 
 feature {}
-   enter_client_type_mark (visited: CLIENT_TYPE_MARK): BOOLEAN is
+   enter_client_type_mark (visited: CLIENT_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+   exit_client_type_mark (visited: CLIENT_TYPE_MARK)
       do
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       do
          if enter_like_feature_type_mark(visited) then
             --|*** visited.like_what.accept(Current)
@@ -685,17 +685,17 @@ feature {LIKE_FEATURE_TYPE_MARK}
       end
 
 feature {}
-   enter_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK): BOOLEAN is
+   enter_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   exit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       do
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       do
          if enter_like_argument_type_mark(visited) then
             visited.like_what.accept(Current)
@@ -704,22 +704,22 @@ feature {LIKE_ARGUMENT_TYPE_MARK}
       end
 
 feature {}
-   enter_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK): BOOLEAN is
+   enter_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   exit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       do
       end
 
 feature {LIKE_CURRENT_TYPE_MARK}
-   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
+   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK)
       do
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          if enter_agent_type_mark(visited) then
             visited.class_text.accept(Current)
@@ -732,34 +732,34 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {}
-   enter_agent_type_mark (visited: AGENT_TYPE_MARK): BOOLEAN is
+   enter_agent_type_mark (visited: AGENT_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   exit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
       end
 
 feature {ANY_TYPE_MARK}
-   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+   visit_any_type_mark (visited: ANY_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK)
       do
       end
 
 feature {}
-   visit_generic_type_mark (visited: TYPE_MARK) is
+   visit_generic_type_mark (visited: TYPE_MARK)
       local
          i: INTEGER
       do
@@ -776,7 +776,7 @@ feature {}
       end
 
 feature {USER_GENERIC_TYPE_MARK}
-   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       do
          if enter_user_generic_type_mark(visited) then
             visit_generic_type_mark(visited)
@@ -785,22 +785,22 @@ feature {USER_GENERIC_TYPE_MARK}
       end
 
 feature {}
-   enter_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK): BOOLEAN is
+   enter_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   exit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       do
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       do
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
          if enter_non_empty_tuple_type_mark(visited) then
             visit_generic_type_mark(visited)
@@ -809,17 +809,17 @@ feature {NON_EMPTY_TUPLE_TYPE_MARK}
       end
 
 feature {}
-   enter_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK): BOOLEAN is
+   enter_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_non_empty_tupe_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   exit_non_empty_tupe_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
       end
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
          if enter_array_type_mark(visited) then
             visited.class_text.accept(Current)
@@ -829,17 +829,17 @@ feature {ARRAY_TYPE_MARK}
       end
 
 feature {}
-   enter_array_type_mark (visited: ARRAY_TYPE_MARK): BOOLEAN is
+   enter_array_type_mark (visited: ARRAY_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   exit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          if enter_native_array_type_mark(visited) then
             visited.class_text.accept(Current)
@@ -849,17 +849,17 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   enter_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK): BOOLEAN is
+   enter_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   exit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          if enter_weak_reference_type_mark(visited) then
             visited.class_text.accept(Current)
@@ -869,53 +869,53 @@ feature {WEAK_REFERENCE_TYPE_MARK}
       end
 
 feature {}
-   enter_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK): BOOLEAN is
+   enter_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK): BOOLEAN
       do
          Result := True
       end
 
-   exit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   exit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
       end
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
          visited.class_text.accept(Current)
       end
 
 feature {WRITABLE_ATTRIBUTE}
-   visit_writable_attribute (visited: WRITABLE_ATTRIBUTE) is
+   visit_writable_attribute (visited: WRITABLE_ATTRIBUTE)
       do
          if enter_writable_attribute(visited) then
             visited.result_type.accept(Current)
@@ -924,52 +924,52 @@ feature {WRITABLE_ATTRIBUTE}
       end
 
 feature {}
-   enter_writable_attribute (visited: WRITABLE_ATTRIBUTE): BOOLEAN is
+   enter_writable_attribute (visited: WRITABLE_ATTRIBUTE): BOOLEAN
       do
          Result := True
       end
 
-   exit_writable_attribute (visited: WRITABLE_ATTRIBUTE) is
+   exit_writable_attribute (visited: WRITABLE_ATTRIBUTE)
       do
       end
 
 feature {CST_ATT_REAL}
-   visit_cst_att_real (visited: CST_ATT_REAL) is
+   visit_cst_att_real (visited: CST_ATT_REAL)
       do
       end
 
 feature {CST_ATT_INTEGER}
-   visit_cst_att_integer (visited: CST_ATT_INTEGER) is
+   visit_cst_att_integer (visited: CST_ATT_INTEGER)
       do
       end
 
 feature {CST_ATT_BOOLEAN}
-   visit_cst_att_boolean (visited: CST_ATT_BOOLEAN) is
+   visit_cst_att_boolean (visited: CST_ATT_BOOLEAN)
       do
       end
 
 feature {CST_ATT_UNIQUE}
-   visit_cst_att_unique (visited: CST_ATT_UNIQUE) is
+   visit_cst_att_unique (visited: CST_ATT_UNIQUE)
       do
       end
 
 feature {CST_ATT_STRING}
-   visit_cst_att_string (visited: CST_ATT_STRING) is
+   visit_cst_att_string (visited: CST_ATT_STRING)
       do
       end
 
 feature {CST_ATT_CHARACTER}
-   visit_cst_att_character (visited: CST_ATT_CHARACTER) is
+   visit_cst_att_character (visited: CST_ATT_CHARACTER)
       do
       end
 
 feature {}
-   visitting_anonymous_features: HASHED_SET[POINTER] is
+   visitting_anonymous_features: HASHED_SET[POINTER]
       once
          create Result.make
       end
 
-   visit_anonymous_feature (visited: ANONYMOUS_FEATURE) is
+   visit_anonymous_feature (visited: ANONYMOUS_FEATURE)
       local
          visited_pointer: POINTER
       do
@@ -981,7 +981,7 @@ feature {}
          end
       end
 
-   do_visit_anonymous_feature (visited: ANONYMOUS_FEATURE) is
+   do_visit_anonymous_feature (visited: ANONYMOUS_FEATURE)
       do
          if visited.result_type /= Void then
             visited.result_type.accept(Current)
@@ -994,12 +994,12 @@ feature {}
          end
       end
 
-   visitting_effective_routines: HASHED_SET[POINTER] is
+   visitting_effective_routines: HASHED_SET[POINTER]
       once
          create Result.make
       end
 
-   visit_effective_routine (visited: EFFECTIVE_ROUTINE) is
+   visit_effective_routine (visited: EFFECTIVE_ROUTINE)
       local
          visited_pointer: POINTER
       do
@@ -1011,7 +1011,7 @@ feature {}
          end
       end
 
-   do_visit_effective_routine (visited: EFFECTIVE_ROUTINE) is
+   do_visit_effective_routine (visited: EFFECTIVE_ROUTINE)
       do
          visit_anonymous_feature(visited)
          if visited.arguments /= Void then
@@ -1029,27 +1029,27 @@ feature {}
       end
 
 feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
+   visit_void_call (visited: VOID_CALL)
       do
       end
 
 feature {VOID_PROC_CALL}
-   visit_void_proc_call (visited: VOID_PROC_CALL) is
+   visit_void_proc_call (visited: VOID_PROC_CALL)
       do
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
-   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
+   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION)
       do
       end
 
 feature {NON_VOID_NO_DISPATCH}
-   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       do
       end
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
          if enter_native_array_item(visited) then
             visited.index.accept(Current)
@@ -1058,22 +1058,22 @@ feature {NATIVE_ARRAY_ITEM}
       end
 
 feature {}
-   enter_native_array_item (visited: NATIVE_ARRAY_ITEM): BOOLEAN is
+   enter_native_array_item (visited: NATIVE_ARRAY_ITEM): BOOLEAN
       do
          Result := True
       end
 
-   exit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   exit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
       end
 
 feature {NULL_POINTER}
-   visit_null_pointer (visited: NULL_POINTER) is
+   visit_null_pointer (visited: NULL_POINTER)
       do
       end
 
 feature {E_FUNCTION}
-   visit_e_function (visited: E_FUNCTION) is
+   visit_e_function (visited: E_FUNCTION)
       do
          if enter_e_function(visited) then
             visit_effective_routine(visited)
@@ -1082,17 +1082,17 @@ feature {E_FUNCTION}
       end
 
 feature {}
-   enter_e_function (visited: E_FUNCTION): BOOLEAN is
+   enter_e_function (visited: E_FUNCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_e_function (visited: E_FUNCTION) is
+   exit_e_function (visited: E_FUNCTION)
       do
       end
 
 feature {E_PROCEDURE}
-   visit_e_procedure (visited: E_PROCEDURE) is
+   visit_e_procedure (visited: E_PROCEDURE)
       do
          if enter_e_procedure(visited) then
             visit_effective_routine(visited)
@@ -1101,17 +1101,17 @@ feature {E_PROCEDURE}
       end
 
 feature {}
-   enter_e_procedure (visited: E_PROCEDURE): BOOLEAN is
+   enter_e_procedure (visited: E_PROCEDURE): BOOLEAN
       do
          Result := True
       end
 
-   exit_e_procedure (visited: E_PROCEDURE) is
+   exit_e_procedure (visited: E_PROCEDURE)
       do
       end
 
 feature {ONCE_FUNCTION}
-   visit_once_function (visited: ONCE_FUNCTION) is
+   visit_once_function (visited: ONCE_FUNCTION)
       do
          if enter_once_function(visited) then
             visit_effective_routine(visited)
@@ -1120,17 +1120,17 @@ feature {ONCE_FUNCTION}
       end
 
 feature {}
-   enter_once_function (visited: ONCE_FUNCTION): BOOLEAN is
+   enter_once_function (visited: ONCE_FUNCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_once_function (visited: ONCE_FUNCTION) is
+   exit_once_function (visited: ONCE_FUNCTION)
       do
       end
 
 feature {ONCE_PROCEDURE}
-   visit_once_procedure (visited: ONCE_PROCEDURE) is
+   visit_once_procedure (visited: ONCE_PROCEDURE)
       do
          if enter_once_procedure(visited) then
             visit_effective_routine(visited)
@@ -1139,17 +1139,17 @@ feature {ONCE_PROCEDURE}
       end
 
 feature {}
-   enter_once_procedure (visited: ONCE_PROCEDURE): BOOLEAN is
+   enter_once_procedure (visited: ONCE_PROCEDURE): BOOLEAN
       do
          Result := True
       end
 
-   exit_once_procedure (visited: ONCE_PROCEDURE) is
+   exit_once_procedure (visited: ONCE_PROCEDURE)
       do
       end
 
 feature {EXTERNAL_FUNCTION}
-   visit_external_function (visited: EXTERNAL_FUNCTION) is
+   visit_external_function (visited: EXTERNAL_FUNCTION)
       do
          if enter_external_function(visited) then
             visit_anonymous_feature(visited)
@@ -1158,17 +1158,17 @@ feature {EXTERNAL_FUNCTION}
       end
 
 feature {}
-   enter_external_function (visited: EXTERNAL_FUNCTION): BOOLEAN is
+   enter_external_function (visited: EXTERNAL_FUNCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_external_function (visited: EXTERNAL_FUNCTION) is
+   exit_external_function (visited: EXTERNAL_FUNCTION)
       do
       end
 
 feature {EXTERNAL_PROCEDURE}
-   visit_external_procedure (visited: EXTERNAL_PROCEDURE) is
+   visit_external_procedure (visited: EXTERNAL_PROCEDURE)
       do
          if enter_external_procedure(visited) then
             visit_anonymous_feature(visited)
@@ -1177,17 +1177,17 @@ feature {EXTERNAL_PROCEDURE}
       end
 
 feature {}
-   enter_external_procedure (visited: EXTERNAL_PROCEDURE): BOOLEAN is
+   enter_external_procedure (visited: EXTERNAL_PROCEDURE): BOOLEAN
       do
          Result := True
       end
 
-   exit_external_procedure (visited: EXTERNAL_PROCEDURE) is
+   exit_external_procedure (visited: EXTERNAL_PROCEDURE)
       do
       end
 
 feature {DEFERRED_FUNCTION}
-   visit_deferred_function (visited: DEFERRED_FUNCTION) is
+   visit_deferred_function (visited: DEFERRED_FUNCTION)
       do
          if enter_deferred_function(visited) then
             visit_anonymous_feature(visited)
@@ -1196,17 +1196,17 @@ feature {DEFERRED_FUNCTION}
       end
 
 feature {}
-   enter_deferred_function (visited: DEFERRED_FUNCTION): BOOLEAN is
+   enter_deferred_function (visited: DEFERRED_FUNCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_deferred_function (visited: DEFERRED_FUNCTION) is
+   exit_deferred_function (visited: DEFERRED_FUNCTION)
       do
       end
 
 feature {DEFERRED_PROCEDURE}
-   visit_deferred_procedure (visited: DEFERRED_PROCEDURE) is
+   visit_deferred_procedure (visited: DEFERRED_PROCEDURE)
       do
          if enter_deferred_procedure(visited) then
             visit_anonymous_feature(visited)
@@ -1215,17 +1215,17 @@ feature {DEFERRED_PROCEDURE}
       end
 
 feature {}
-   enter_deferred_procedure (visited: DEFERRED_PROCEDURE): BOOLEAN is
+   enter_deferred_procedure (visited: DEFERRED_PROCEDURE): BOOLEAN
       do
          Result := True
       end
 
-   exit_deferred_procedure (visited: DEFERRED_PROCEDURE) is
+   exit_deferred_procedure (visited: DEFERRED_PROCEDURE)
       do
       end
 
 feature {ASSERTION_LIST}
-   visit_assertion_list (visited: ASSERTION_LIST) is
+   visit_assertion_list (visited: ASSERTION_LIST)
       local
          i: INTEGER
       do
@@ -1242,7 +1242,7 @@ feature {ASSERTION_LIST}
       end
 
 feature {REQUIRE_ASSERTION}
-   visit_require_assertion (visited: REQUIRE_ASSERTION) is
+   visit_require_assertion (visited: REQUIRE_ASSERTION)
       local
          i: INTEGER
       do
@@ -1262,17 +1262,17 @@ feature {REQUIRE_ASSERTION}
       end
 
 feature {}
-   enter_require_assertion (visited: REQUIRE_ASSERTION): BOOLEAN is
+   enter_require_assertion (visited: REQUIRE_ASSERTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_require_assertion (visited: REQUIRE_ASSERTION) is
+   exit_require_assertion (visited: REQUIRE_ASSERTION)
       do
       end
 
 feature {CLASS_INVARIANT}
-   visit_class_invariant (visited: CLASS_INVARIANT) is
+   visit_class_invariant (visited: CLASS_INVARIANT)
       local
          i: INTEGER
       do
@@ -1292,17 +1292,17 @@ feature {CLASS_INVARIANT}
       end
 
 feature {}
-   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN is
+   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN
       do
          Result := True
       end
 
-   exit_class_invariant (visited: CLASS_INVARIANT) is
+   exit_class_invariant (visited: CLASS_INVARIANT)
       do
       end
 
 feature {LOOP_INVARIANT}
-   visit_loop_invariant (visited: LOOP_INVARIANT) is
+   visit_loop_invariant (visited: LOOP_INVARIANT)
       local
          i: INTEGER
       do
@@ -1322,17 +1322,17 @@ feature {LOOP_INVARIANT}
       end
 
 feature {}
-   enter_loop_invariant (visited: LOOP_INVARIANT): BOOLEAN is
+   enter_loop_invariant (visited: LOOP_INVARIANT): BOOLEAN
       do
          Result := True
       end
 
-   exit_loop_invariant (visited: LOOP_INVARIANT) is
+   exit_loop_invariant (visited: LOOP_INVARIANT)
       do
       end
 
 feature {ENSURE_ASSERTION}
-   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   visit_ensure_assertion (visited: ENSURE_ASSERTION)
       do
          if enter_ensure_assertion(visited) then
             exit_ensure_assertion(visited)
@@ -1340,17 +1340,17 @@ feature {ENSURE_ASSERTION}
       end
 
 feature {}
-   enter_ensure_assertion (visited: ENSURE_ASSERTION): BOOLEAN is
+   enter_ensure_assertion (visited: ENSURE_ASSERTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   exit_ensure_assertion (visited: ENSURE_ASSERTION)
       do
       end
 
 feature {ASSERTION}
-   visit_assertion (visited: ASSERTION) is
+   visit_assertion (visited: ASSERTION)
       do
          if enter_assertion(visited) then
             if visited.expression /= Void then
@@ -1361,27 +1361,27 @@ feature {ASSERTION}
       end
 
 feature {}
-   enter_assertion (visited: ASSERTION): BOOLEAN is
+   enter_assertion (visited: ASSERTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_assertion (visited: ASSERTION) is
+   exit_assertion (visited: ASSERTION)
       do
       end
 
 feature {FEATURE_NAME}
-   visit_feature_name (visited: FEATURE_NAME) is
+   visit_feature_name (visited: FEATURE_NAME)
       do
       end
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       do
       end
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       do
          if enter_create_expression(visited) then
             if visited.explicit_type /= Void then
@@ -1395,22 +1395,22 @@ feature {CREATE_EXPRESSION}
       end
 
 feature {}
-   enter_create_expression (visited: CREATE_EXPRESSION): BOOLEAN is
+   enter_create_expression (visited: CREATE_EXPRESSION): BOOLEAN
       do
          Result := True
       end
 
-   exit_create_expression (visited: CREATE_EXPRESSION) is
+   exit_create_expression (visited: CREATE_EXPRESSION)
       do
       end
 
 feature {ABSTRACT_CURRENT}
-   visit_abstract_current (visited: ABSTRACT_CURRENT) is
+   visit_abstract_current (visited: ABSTRACT_CURRENT)
       do
       end
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       do
          if enter_create_writable(visited) then
             visited.type_mark.accept(Current)
@@ -1419,17 +1419,17 @@ feature {CREATE_WRITABLE}
       end
 
 feature {}
-   enter_create_writable (visited: CREATE_WRITABLE): BOOLEAN is
+   enter_create_writable (visited: CREATE_WRITABLE): BOOLEAN
       do
          Result := True
       end
 
-   exit_create_writable (visited: CREATE_WRITABLE) is
+   exit_create_writable (visited: CREATE_WRITABLE)
       do
       end
 
 feature {PRECURSOR_EXPRESSION}
-   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
          if enter_precursor_expression(visited) then
             if visited.arguments /= Void then
@@ -1440,17 +1440,17 @@ feature {PRECURSOR_EXPRESSION}
       end
 
 feature {}
-   enter_precursor_expression (visited: PRECURSOR_EXPRESSION): BOOLEAN is
+   enter_precursor_expression (visited: PRECURSOR_EXPRESSION): BOOLEAN
       do
          Result := True
       end
 
-   exit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   exit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
       end
 
 feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
       local
          i: INTEGER
       do
@@ -1479,17 +1479,17 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {}
-   enter_manifest_generic (visited: MANIFEST_GENERIC): BOOLEAN is
+   enter_manifest_generic (visited: MANIFEST_GENERIC): BOOLEAN
       do
          Result := True
       end
 
-   exit_manifest_generic (visited: MANIFEST_GENERIC) is
+   exit_manifest_generic (visited: MANIFEST_GENERIC)
       do
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       local
          i: INTEGER
       do
@@ -1509,22 +1509,22 @@ feature {OLD_MANIFEST_ARRAY}
       end
 
 feature {}
-   enter_old_manifest_array (visited: OLD_MANIFEST_ARRAY): BOOLEAN is
+   enter_old_manifest_array (visited: OLD_MANIFEST_ARRAY): BOOLEAN
       do
          Result := True
       end
 
-   exit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   exit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       do
       end
 
 feature {E_VOID}
-   visit_e_void (visited: E_VOID) is
+   visit_e_void (visited: E_VOID)
       do
       end
 
 feature {FAKE_ARGUMENT}
-   visit_fake_argument (visited: FAKE_ARGUMENT) is
+   visit_fake_argument (visited: FAKE_ARGUMENT)
       do
          if enter_fake_argument(visited) then
             visited.result_type.accept(Current)
@@ -1533,37 +1533,37 @@ feature {FAKE_ARGUMENT}
       end
 
 feature {}
-   enter_fake_argument (visited: FAKE_ARGUMENT): BOOLEAN is
+   enter_fake_argument (visited: FAKE_ARGUMENT): BOOLEAN
       do
          Result := True
       end
 
-   exit_fake_argument (visited: FAKE_ARGUMENT) is
+   exit_fake_argument (visited: FAKE_ARGUMENT)
       do
       end
 
 feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
+   visit_character_constant (visited: CHARACTER_CONSTANT)
       do
       end
 
 feature {REAL_CONSTANT}
-   visit_real_constant (visited: REAL_CONSTANT) is
+   visit_real_constant (visited: REAL_CONSTANT)
       do
       end
 
 feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
+   visit_integer_constant (visited: INTEGER_CONSTANT)
       do
       end
 
 feature {NATURAL_CONSTANT}
-   visit_natural_constant (visited: NATURAL_CONSTANT) is
+   visit_natural_constant (visited: NATURAL_CONSTANT)
       do
       end
 
 feature {FEATURE_NAME_LIST}
-   visit_feature_name_list (visited: FEATURE_NAME_LIST) is
+   visit_feature_name_list (visited: FEATURE_NAME_LIST)
       local
          i: INTEGER
       do
@@ -1581,22 +1581,22 @@ feature {FEATURE_NAME_LIST}
       end
 
 feature {}
-   enter_feature_name_list (visited: FEATURE_NAME_LIST): BOOLEAN is
+   enter_feature_name_list (visited: FEATURE_NAME_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_feature_name_list (visited: FEATURE_NAME_LIST) is
+   exit_feature_name_list (visited: FEATURE_NAME_LIST)
       do
       end
 
 feature {OPEN_OPERAND}
-   visit_open_operand (visited: OPEN_OPERAND) is
+   visit_open_operand (visited: OPEN_OPERAND)
       do
       end
 
 feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
+   visit_address_of (visited: ADDRESS_OF)
       do
          if enter_address_of(visited) then
             if visited.feature_name /= Void then
@@ -1609,17 +1609,17 @@ feature {ADDRESS_OF}
       end
 
 feature {}
-   enter_address_of (visited: ADDRESS_OF): BOOLEAN is
+   enter_address_of (visited: ADDRESS_OF): BOOLEAN
       do
          Result := True
       end
 
-   exit_address_of (visited: ADDRESS_OF) is
+   exit_address_of (visited: ADDRESS_OF)
       do
       end
 
 feature {}
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST)
       local
          i: INTEGER
       do
@@ -1636,29 +1636,29 @@ feature {}
          end
       end
 
-   enter_effective_arg_list (visited: EFFECTIVE_ARG_LIST): BOOLEAN is
+   enter_effective_arg_list (visited: EFFECTIVE_ARG_LIST): BOOLEAN
       do
          Result := True
       end
 
-   exit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+   exit_effective_arg_list (visited: EFFECTIVE_ARG_LIST)
       do
       end
 
 feature {EFFECTIVE_ARG_LIST_0}
-   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0) is
+   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0)
       do
          visit_effective_arg_list(visited)
       end
 
 feature {EFFECTIVE_ARG_LIST_N}
-   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N)
       do
          visit_effective_arg_list(visited)
       end
 
 feature {}
-   visit_call_support (visited: FEATURE_CALL) is
+   visit_call_support (visited: FEATURE_CALL)
       do
          visited.target.accept(Current)
          if visited.arguments /= Void then
@@ -1667,7 +1667,7 @@ feature {}
       end
 
 feature {FUNCTION_CALL_0}
-   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+   visit_function_call_0 (visited: FUNCTION_CALL_0)
       do
          if enter_call_0_c(visited) then
             visit_call_support(visited)
@@ -1676,17 +1676,17 @@ feature {FUNCTION_CALL_0}
       end
 
 feature {}
-   enter_call_0_c (visited: FUNCTION_CALL_0): BOOLEAN is
+   enter_call_0_c (visited: FUNCTION_CALL_0): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_0_c (visited: FUNCTION_CALL_0) is
+   exit_call_0_c (visited: FUNCTION_CALL_0)
       do
       end
 
 feature {STATIC_CALL_0_C}
-   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
+   visit_static_call_0_c (visited: STATIC_CALL_0_C)
       do
          if enter_static_call_0_c(visited) then
             visit_call_support(visited)
@@ -1695,17 +1695,17 @@ feature {STATIC_CALL_0_C}
       end
 
 feature {}
-   enter_static_call_0_c (visited: STATIC_CALL_0_C): BOOLEAN is
+   enter_static_call_0_c (visited: STATIC_CALL_0_C): BOOLEAN
       do
          Result := True
       end
 
-   exit_static_call_0_c (visited: STATIC_CALL_0_C) is
+   exit_static_call_0_c (visited: STATIC_CALL_0_C)
       do
       end
 
 feature {CALL_PREFIX_NOT}
-   visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
+   visit_call_prefix_not (visited: CALL_PREFIX_NOT)
       do
          if enter_call_prefix_not(visited) then
             visit_call_support(visited)
@@ -1714,17 +1714,17 @@ feature {CALL_PREFIX_NOT}
       end
 
 feature {}
-   enter_call_prefix_not (visited: CALL_PREFIX_NOT): BOOLEAN is
+   enter_call_prefix_not (visited: CALL_PREFIX_NOT): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_prefix_not (visited: CALL_PREFIX_NOT) is
+   exit_call_prefix_not (visited: CALL_PREFIX_NOT)
       do
       end
 
 feature {CALL_PREFIX_MINUS}
-   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
+   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS)
       do
          if enter_call_prefix_minus(visited) then
             visit_call_support(visited)
@@ -1733,17 +1733,17 @@ feature {CALL_PREFIX_MINUS}
       end
 
 feature {}
-   enter_call_prefix_minus (visited: CALL_PREFIX_MINUS): BOOLEAN is
+   enter_call_prefix_minus (visited: CALL_PREFIX_MINUS): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
+   exit_call_prefix_minus (visited: CALL_PREFIX_MINUS)
       do
       end
 
 feature {CALL_PREFIX_FREEOP}
-   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
+   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP)
       do
          if enter_call_prefix_freeop(visited) then
             visit_call_support(visited)
@@ -1752,17 +1752,17 @@ feature {CALL_PREFIX_FREEOP}
       end
 
 feature {}
-   enter_call_prefix_freeop (visited: CALL_PREFIX_FREEOP): BOOLEAN is
+   enter_call_prefix_freeop (visited: CALL_PREFIX_FREEOP): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
+   exit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP)
       do
       end
 
 feature {CALL_PREFIX_PLUS}
-   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
+   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS)
       do
          if enter_call_prefix_plus(visited) then
             visit_call_support(visited)
@@ -1771,17 +1771,17 @@ feature {CALL_PREFIX_PLUS}
       end
 
 feature {}
-   enter_call_prefix_plus (visited: CALL_PREFIX_PLUS): BOOLEAN is
+   enter_call_prefix_plus (visited: CALL_PREFIX_PLUS): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
+   exit_call_prefix_plus (visited: CALL_PREFIX_PLUS)
       do
       end
 
 feature {FUNCTION_CALL_1}
-   visit_function_call_1 (visited: FUNCTION_CALL_1) is
+   visit_function_call_1 (visited: FUNCTION_CALL_1)
       do
          if enter_call_1_c(visited) then
             visit_call_support(visited)
@@ -1790,17 +1790,17 @@ feature {FUNCTION_CALL_1}
       end
 
 feature {}
-   enter_call_1_c (visited: FUNCTION_CALL_1): BOOLEAN is
+   enter_call_1_c (visited: FUNCTION_CALL_1): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_1_c (visited: FUNCTION_CALL_1) is
+   exit_call_1_c (visited: FUNCTION_CALL_1)
       do
       end
 
 feature {CALL_INFIX_AND_THEN}
-   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
+   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN)
       do
          if enter_call_infix_and_then(visited) then
             visit_call_support(visited)
@@ -1809,17 +1809,17 @@ feature {CALL_INFIX_AND_THEN}
       end
 
 feature {}
-   enter_call_infix_and_then (visited: CALL_INFIX_AND_THEN): BOOLEAN is
+   enter_call_infix_and_then (visited: CALL_INFIX_AND_THEN): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
+   exit_call_infix_and_then (visited: CALL_INFIX_AND_THEN)
       do
       end
 
 feature {CALL_INFIX_MINUS}
-   visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
+   visit_call_infix_minus (visited: CALL_INFIX_MINUS)
       do
          if enter_call_infix_minus(visited) then
             visit_call_support(visited)
@@ -1828,17 +1828,17 @@ feature {CALL_INFIX_MINUS}
       end
 
 feature {}
-   enter_call_infix_minus (visited: CALL_INFIX_MINUS): BOOLEAN is
+   enter_call_infix_minus (visited: CALL_INFIX_MINUS): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_minus (visited: CALL_INFIX_MINUS) is
+   exit_call_infix_minus (visited: CALL_INFIX_MINUS)
       do
       end
 
 feature {CALL_INFIX_TIMES}
-   visit_call_infix_times (visited: CALL_INFIX_TIMES) is
+   visit_call_infix_times (visited: CALL_INFIX_TIMES)
       do
          if enter_call_infix_times(visited) then
             visit_call_support(visited)
@@ -1847,17 +1847,17 @@ feature {CALL_INFIX_TIMES}
       end
 
 feature {}
-   enter_call_infix_times (visited: CALL_INFIX_TIMES): BOOLEAN is
+   enter_call_infix_times (visited: CALL_INFIX_TIMES): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_times (visited: CALL_INFIX_TIMES) is
+   exit_call_infix_times (visited: CALL_INFIX_TIMES)
       do
       end
 
 feature {CALL_INFIX_INT_REM}
-   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
+   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM)
       do
          if enter_call_infix_int_rem(visited) then
             visit_call_support(visited)
@@ -1866,17 +1866,17 @@ feature {CALL_INFIX_INT_REM}
       end
 
 feature {}
-   enter_call_infix_int_rem (visited: CALL_INFIX_INT_REM): BOOLEAN is
+   enter_call_infix_int_rem (visited: CALL_INFIX_INT_REM): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
+   exit_call_infix_int_rem (visited: CALL_INFIX_INT_REM)
       do
       end
 
 feature {CALL_INFIX_OR}
-   visit_call_infix_or (visited: CALL_INFIX_OR) is
+   visit_call_infix_or (visited: CALL_INFIX_OR)
       do
          if enter_call_infix_or(visited) then
             visit_call_support(visited)
@@ -1885,17 +1885,17 @@ feature {CALL_INFIX_OR}
       end
 
 feature {}
-   enter_call_infix_or (visited: CALL_INFIX_OR): BOOLEAN is
+   enter_call_infix_or (visited: CALL_INFIX_OR): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_or (visited: CALL_INFIX_OR) is
+   exit_call_infix_or (visited: CALL_INFIX_OR)
       do
       end
 
 feature {CALL_INFIX_GT}
-   visit_call_infix_gt (visited: CALL_INFIX_GT) is
+   visit_call_infix_gt (visited: CALL_INFIX_GT)
       do
          if enter_call_infix_gt(visited) then
             visit_call_support(visited)
@@ -1904,17 +1904,17 @@ feature {CALL_INFIX_GT}
       end
 
 feature {}
-   enter_call_infix_gt (visited: CALL_INFIX_GT): BOOLEAN is
+   enter_call_infix_gt (visited: CALL_INFIX_GT): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_gt (visited: CALL_INFIX_GT) is
+   exit_call_infix_gt (visited: CALL_INFIX_GT)
       do
       end
 
 feature {CALL_INFIX_LT}
-   visit_call_infix_lt (visited: CALL_INFIX_LT) is
+   visit_call_infix_lt (visited: CALL_INFIX_LT)
       do
          if enter_call_infix_lt(visited) then
             visit_call_support(visited)
@@ -1923,17 +1923,17 @@ feature {CALL_INFIX_LT}
       end
 
 feature {}
-   enter_call_infix_lt (visited: CALL_INFIX_LT): BOOLEAN is
+   enter_call_infix_lt (visited: CALL_INFIX_LT): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_lt (visited: CALL_INFIX_LT) is
+   exit_call_infix_lt (visited: CALL_INFIX_LT)
       do
       end
 
 feature {CALL_INFIX_PLUS}
-   visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
+   visit_call_infix_plus (visited: CALL_INFIX_PLUS)
       do
          if enter_call_infix_plus(visited) then
             visit_call_support(visited)
@@ -1942,17 +1942,17 @@ feature {CALL_INFIX_PLUS}
       end
 
 feature {}
-   enter_call_infix_plus (visited: CALL_INFIX_PLUS): BOOLEAN is
+   enter_call_infix_plus (visited: CALL_INFIX_PLUS): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_plus (visited: CALL_INFIX_PLUS) is
+   exit_call_infix_plus (visited: CALL_INFIX_PLUS)
       do
       end
 
 feature {CALL_INFIX_INT_DIV}
-   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
+   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV)
       do
          if enter_call_infix_int_div(visited) then
             visit_call_support(visited)
@@ -1961,17 +1961,17 @@ feature {CALL_INFIX_INT_DIV}
       end
 
 feature {}
-   enter_call_infix_int_div (visited: CALL_INFIX_INT_DIV): BOOLEAN is
+   enter_call_infix_int_div (visited: CALL_INFIX_INT_DIV): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
+   exit_call_infix_int_div (visited: CALL_INFIX_INT_DIV)
       do
       end
 
 feature {CALL_INFIX_XOR}
-   visit_call_infix_xor (visited: CALL_INFIX_XOR) is
+   visit_call_infix_xor (visited: CALL_INFIX_XOR)
       do
          if enter_call_infix_xor(visited) then
             visit_call_support(visited)
@@ -1980,17 +1980,17 @@ feature {CALL_INFIX_XOR}
       end
 
 feature {}
-   enter_call_infix_xor (visited: CALL_INFIX_XOR): BOOLEAN is
+   enter_call_infix_xor (visited: CALL_INFIX_XOR): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_xor (visited: CALL_INFIX_XOR) is
+   exit_call_infix_xor (visited: CALL_INFIX_XOR)
       do
       end
 
 feature {CALL_INFIX_POWER}
-   visit_call_infix_power (visited: CALL_INFIX_POWER) is
+   visit_call_infix_power (visited: CALL_INFIX_POWER)
       do
          if enter_call_infix_power(visited) then
             visit_call_support(visited)
@@ -1999,17 +1999,17 @@ feature {CALL_INFIX_POWER}
       end
 
 feature {}
-   enter_call_infix_power (visited: CALL_INFIX_POWER): BOOLEAN is
+   enter_call_infix_power (visited: CALL_INFIX_POWER): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_power (visited: CALL_INFIX_POWER) is
+   exit_call_infix_power (visited: CALL_INFIX_POWER)
       do
       end
 
 feature {CALL_INFIX_DIV}
-   visit_call_infix_div (visited: CALL_INFIX_DIV) is
+   visit_call_infix_div (visited: CALL_INFIX_DIV)
       do
          if enter_call_infix_div(visited) then
             visit_call_support(visited)
@@ -2018,17 +2018,17 @@ feature {CALL_INFIX_DIV}
       end
 
 feature {}
-   enter_call_infix_div (visited: CALL_INFIX_DIV): BOOLEAN is
+   enter_call_infix_div (visited: CALL_INFIX_DIV): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_div (visited: CALL_INFIX_DIV) is
+   exit_call_infix_div (visited: CALL_INFIX_DIV)
       do
       end
 
 feature {CALL_INFIX_OR_ELSE}
-   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
+   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE)
       do
          if enter_call_infix_or_else(visited) then
             visit_call_support(visited)
@@ -2037,17 +2037,17 @@ feature {CALL_INFIX_OR_ELSE}
       end
 
 feature {}
-   enter_call_infix_or_else (visited: CALL_INFIX_OR_ELSE): BOOLEAN is
+   enter_call_infix_or_else (visited: CALL_INFIX_OR_ELSE): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
+   exit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE)
       do
       end
 
 feature {CALL_INFIX_IMPLIES}
-   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
+   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES)
       do
          if enter_call_infix_implies(visited) then
             visit_call_support(visited)
@@ -2056,17 +2056,17 @@ feature {CALL_INFIX_IMPLIES}
       end
 
 feature {}
-   enter_call_infix_implies (visited: CALL_INFIX_IMPLIES): BOOLEAN is
+   enter_call_infix_implies (visited: CALL_INFIX_IMPLIES): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
+   exit_call_infix_implies (visited: CALL_INFIX_IMPLIES)
       do
       end
 
 feature {CALL_INFIX_LE}
-   visit_call_infix_le (visited: CALL_INFIX_LE) is
+   visit_call_infix_le (visited: CALL_INFIX_LE)
       do
          if enter_call_infix_le(visited) then
             visit_call_support(visited)
@@ -2075,17 +2075,17 @@ feature {CALL_INFIX_LE}
       end
 
 feature {}
-   enter_call_infix_le (visited: CALL_INFIX_LE): BOOLEAN is
+   enter_call_infix_le (visited: CALL_INFIX_LE): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_le (visited: CALL_INFIX_LE) is
+   exit_call_infix_le (visited: CALL_INFIX_LE)
       do
       end
 
 feature {CALL_INFIX_FREEOP}
-   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
+   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP)
       do
          if enter_call_infix_freeop(visited) then
             visit_call_support(visited)
@@ -2094,17 +2094,17 @@ feature {CALL_INFIX_FREEOP}
       end
 
 feature {}
-   enter_call_infix_freeop (visited: CALL_INFIX_FREEOP): BOOLEAN is
+   enter_call_infix_freeop (visited: CALL_INFIX_FREEOP): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
+   exit_call_infix_freeop (visited: CALL_INFIX_FREEOP)
       do
       end
 
 feature {CALL_INFIX_AND}
-   visit_call_infix_and (visited: CALL_INFIX_AND) is
+   visit_call_infix_and (visited: CALL_INFIX_AND)
       do
          if enter_call_infix_and(visited) then
             visit_call_support(visited)
@@ -2113,17 +2113,17 @@ feature {CALL_INFIX_AND}
       end
 
 feature {}
-   enter_call_infix_and (visited: CALL_INFIX_AND): BOOLEAN is
+   enter_call_infix_and (visited: CALL_INFIX_AND): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_and (visited: CALL_INFIX_AND) is
+   exit_call_infix_and (visited: CALL_INFIX_AND)
       do
       end
 
 feature {CALL_INFIX_GE}
-   visit_call_infix_ge (visited: CALL_INFIX_GE) is
+   visit_call_infix_ge (visited: CALL_INFIX_GE)
       do
          if enter_call_infix_ge(visited) then
             visit_call_support(visited)
@@ -2132,17 +2132,17 @@ feature {CALL_INFIX_GE}
       end
 
 feature {}
-   enter_call_infix_ge (visited: CALL_INFIX_GE): BOOLEAN is
+   enter_call_infix_ge (visited: CALL_INFIX_GE): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_infix_ge (visited: CALL_INFIX_GE) is
+   exit_call_infix_ge (visited: CALL_INFIX_GE)
       do
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       do
          if enter_built_in_eq_neq(visited) then
             visited.left_side.accept(Current)
@@ -2152,17 +2152,17 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {}
-   enter_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ): BOOLEAN is
+   enter_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ): BOOLEAN
       do
          Result := True
       end
 
-   exit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   exit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       do
       end
 
 feature {FUNCTION_CALL_N}
-   visit_function_call_n (visited: FUNCTION_CALL_N) is
+   visit_function_call_n (visited: FUNCTION_CALL_N)
       do
          if enter_call_n(visited) then
             visit_call_support(visited)
@@ -2171,22 +2171,22 @@ feature {FUNCTION_CALL_N}
       end
 
 feature {}
-   enter_call_n (visited: FUNCTION_CALL_N): BOOLEAN is
+   enter_call_n (visited: FUNCTION_CALL_N): BOOLEAN
       do
          Result := True
       end
 
-   exit_call_n (visited: FUNCTION_CALL_N) is
+   exit_call_n (visited: FUNCTION_CALL_N)
       do
       end
 
 feature {MANIFEST_STRING}
-   visit_manifest_string (visited: MANIFEST_STRING) is
+   visit_manifest_string (visited: MANIFEST_STRING)
       do
       end
 
 feature {AGENT_ARGS}
-   visit_agent_args (visited: AGENT_ARGS) is
+   visit_agent_args (visited: AGENT_ARGS)
       do
          if enter_agent_args(visited) then
             visited.agent_type.accept(Current)
@@ -2195,17 +2195,17 @@ feature {AGENT_ARGS}
       end
 
 feature {}
-   enter_agent_args (visited: AGENT_ARGS): BOOLEAN is
+   enter_agent_args (visited: AGENT_ARGS): BOOLEAN
       do
          Result := True
       end
 
-   exit_agent_args (visited: AGENT_ARGS) is
+   exit_agent_args (visited: AGENT_ARGS)
       do
       end
 
 feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
+   visit_agent_creation (visited: AGENT_CREATION)
       do
          if enter_agent_creation(visited) then
             visited.code.accept(Current)
@@ -2214,17 +2214,17 @@ feature {AGENT_CREATION}
       end
 
 feature {}
-   enter_agent_creation (visited: AGENT_CREATION): BOOLEAN is
+   enter_agent_creation (visited: AGENT_CREATION): BOOLEAN
       do
          Result := True
       end
 
-   exit_agent_creation (visited: AGENT_CREATION) is
+   exit_agent_creation (visited: AGENT_CREATION)
       do
       end
 
 feature {E_OLD}
-   visit_e_old (visited: E_OLD) is
+   visit_e_old (visited: E_OLD)
       do
          if enter_e_old(visited) then
             visited.expression.accept(Current)
@@ -2233,17 +2233,17 @@ feature {E_OLD}
       end
 
 feature {}
-   enter_e_old (visited: E_OLD): BOOLEAN is
+   enter_e_old (visited: E_OLD): BOOLEAN
       do
          Result := True
       end
 
-   exit_e_old (visited: E_OLD) is
+   exit_e_old (visited: E_OLD)
       do
       end
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       local
          i: INTEGER
       do
@@ -2261,17 +2261,17 @@ feature {FAKE_TUPLE}
       end
 
 feature {}
-   enter_fake_tuple (visited: FAKE_TUPLE): BOOLEAN is
+   enter_fake_tuple (visited: FAKE_TUPLE): BOOLEAN
       do
          Result := True
       end
 
-   exit_fake_tuple (visited: FAKE_TUPLE) is
+   exit_fake_tuple (visited: FAKE_TUPLE)
       do
       end
 
 feature {MANIFEST_TUPLE}
-   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   visit_manifest_tuple (visited: MANIFEST_TUPLE)
       do
          if enter_manifest_tuple(visited) then
             if visited.effective_arg_list /= Void then
@@ -2282,27 +2282,27 @@ feature {MANIFEST_TUPLE}
       end
 
 feature {}
-   enter_manifest_tuple (visited: MANIFEST_TUPLE): BOOLEAN is
+   enter_manifest_tuple (visited: MANIFEST_TUPLE): BOOLEAN
       do
          Result := True
       end
 
-   exit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   exit_manifest_tuple (visited: MANIFEST_TUPLE)
       do
       end
 
 feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
+   visit_implicit_cast (visited: IMPLICIT_CAST)
       do
       end
 
 feature {GENERATOR_GENERATING_TYPE}
-   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
+   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE)
       do
       end
 
 feature {AGENT_EXPRESSION}
-   visit_agent_expression (visited: AGENT_EXPRESSION) is
+   visit_agent_expression (visited: AGENT_EXPRESSION)
       do
          if enter_agent_expression(visited) then
             visited.written_link.accept(Current)
@@ -2316,22 +2316,22 @@ feature {AGENT_EXPRESSION}
       end
 
 feature {}
-   enter_agent_expression (visited: AGENT_EXPRESSION): BOOLEAN is
+   enter_agent_expression (visited: AGENT_EXPRESSION): BOOLEAN
       do
          Result := True
       end
 
-   exit_agent_expression (visited: AGENT_EXPRESSION) is
+   exit_agent_expression (visited: AGENT_EXPRESSION)
       do
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
       end
 
 feature {EXPRESSION_WITH_COMMENT}
-   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       do
          if enter_expression_with_comment(visited) then
             visited.expression.accept(Current)
@@ -2340,32 +2340,32 @@ feature {EXPRESSION_WITH_COMMENT}
       end
 
 feature {}
-   enter_expression_with_comment (visited: EXPRESSION_WITH_COMMENT): BOOLEAN is
+   enter_expression_with_comment (visited: EXPRESSION_WITH_COMMENT): BOOLEAN
       do
          Result := True
       end
 
-   exit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   exit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       do
       end
 
 feature {COMMENT}
-   visit_comment (visited: COMMENT) is
+   visit_comment (visited: COMMENT)
       do
       end
 
 feature {IMPLICIT_CURRENT}
-   visit_implicit_current (visited: IMPLICIT_CURRENT) is
+   visit_implicit_current (visited: IMPLICIT_CURRENT)
       do
       end
 
 feature {WRITTEN_CURRENT}
-   visit_written_current (visited: WRITTEN_CURRENT) is
+   visit_written_current (visited: WRITTEN_CURRENT)
       do
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
          if enter_writable_attribute_name(visited) then
             visited.feature_name.accept(Current)
@@ -2374,32 +2374,32 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       end
 
 feature {}
-   enter_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME): BOOLEAN is
+   enter_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME): BOOLEAN
       do
          Result := True
       end
 
-   exit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   exit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
       end
 
 feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
+   visit_e_true (visited: E_TRUE)
       do
       end
 
 feature {E_FALSE}
-   visit_e_false (visited: E_FALSE) is
+   visit_e_false (visited: E_FALSE)
       do
       end
 
 feature {RETRY_INSTRUCTION}
-   visit_retry_instruction (visited: RETRY_INSTRUCTION) is
+   visit_retry_instruction (visited: RETRY_INSTRUCTION)
       do
       end
 
 feature {IFTHENELSE}
-   visit_ifthenelse (visited: IFTHENELSE) is
+   visit_ifthenelse (visited: IFTHENELSE)
       local
          i: INTEGER
       do
@@ -2425,17 +2425,17 @@ feature {IFTHENELSE}
       end
 
 feature {}
-   enter_ifthenelse (visited: IFTHENELSE): BOOLEAN is
+   enter_ifthenelse (visited: IFTHENELSE): BOOLEAN
       do
          Result := True
       end
 
-   exit_ifthenelse (visited: IFTHENELSE) is
+   exit_ifthenelse (visited: IFTHENELSE)
       do
       end
 
 feature {IFTHEN}
-   visit_ifthen (visited: IFTHEN) is
+   visit_ifthen (visited: IFTHEN)
       do
          if enter_ifthen(visited) then
             visited.expression.accept(Current)
@@ -2447,17 +2447,17 @@ feature {IFTHEN}
       end
 
 feature {}
-   enter_ifthen (visited: IFTHEN): BOOLEAN is
+   enter_ifthen (visited: IFTHEN): BOOLEAN
       do
          Result := True
       end
 
-   exit_ifthen (visited: IFTHEN) is
+   exit_ifthen (visited: IFTHEN)
       do
       end
 
 feature {ASSIGNMENT}
-   visit_assignment (visited: ASSIGNMENT) is
+   visit_assignment (visited: ASSIGNMENT)
       do
          if enter_assignment(visited) then
             visited.left_side.accept(Current)
@@ -2467,17 +2467,17 @@ feature {ASSIGNMENT}
       end
 
 feature {}
-   enter_assignment (visited: ASSIGNMENT): BOOLEAN is
+   enter_assignment (visited: ASSIGNMENT): BOOLEAN
       do
          Result := True
       end
 
-   exit_assignment (visited: ASSIGNMENT) is
+   exit_assignment (visited: ASSIGNMENT)
       do
       end
 
 feature {ASSIGNMENT_CALL_ASSIGNER}
-   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER)
       do
          if enter_assignment_call_assigner(visited) then
             visited.left_side.accept(Current)
@@ -2487,17 +2487,17 @@ feature {ASSIGNMENT_CALL_ASSIGNER}
       end
 
 feature {}
-   enter_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER): BOOLEAN is
+   enter_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER): BOOLEAN
       do
          Result := True
       end
 
-   exit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+   exit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER)
       do
       end
 
 feature {ASSIGNMENT_ATTEMPT}
-   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
+   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT)
       do
          if enter_assignment_attempt(visited) then
             visited.left_side.accept(Current)
@@ -2507,17 +2507,17 @@ feature {ASSIGNMENT_ATTEMPT}
       end
 
 feature {}
-   enter_assignment_attempt (visited: ASSIGNMENT_ATTEMPT): BOOLEAN is
+   enter_assignment_attempt (visited: ASSIGNMENT_ATTEMPT): BOOLEAN
       do
          Result := True
       end
 
-   exit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
+   exit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT)
       do
       end
 
 feature {ASSIGNMENT_TEST}
-   visit_assignment_test (visited: ASSIGNMENT_TEST) is
+   visit_assignment_test (visited: ASSIGNMENT_TEST)
       do
          if enter_assignment_test(visited) then
             if visited.left_writable /= Void then
@@ -2534,17 +2534,17 @@ feature {ASSIGNMENT_TEST}
       end
 
 feature {}
-   enter_assignment_test (visited: ASSIGNMENT_TEST): BOOLEAN is
+   enter_assignment_test (visited: ASSIGNMENT_TEST): BOOLEAN
       do
          Result := True
       end
 
-   exit_assignment_test (visited: ASSIGNMENT_TEST) is
+   exit_assignment_test (visited: ASSIGNMENT_TEST)
       do
       end
 
 feature {DEBUG_COMPOUND}
-   visit_debug_compound (visited: DEBUG_COMPOUND) is
+   visit_debug_compound (visited: DEBUG_COMPOUND)
       do
          if enter_debug_compound(visited) then
             if visited.compound /= Void then
@@ -2555,17 +2555,17 @@ feature {DEBUG_COMPOUND}
       end
 
 feature {}
-   enter_debug_compound (visited: DEBUG_COMPOUND): BOOLEAN is
+   enter_debug_compound (visited: DEBUG_COMPOUND): BOOLEAN
       do
          Result := True
       end
 
-   exit_debug_compound (visited: DEBUG_COMPOUND) is
+   exit_debug_compound (visited: DEBUG_COMPOUND)
       do
       end
 
 feature {CHECK_COMPOUND}
-   visit_check_compound (visited: CHECK_COMPOUND) is
+   visit_check_compound (visited: CHECK_COMPOUND)
       do
          if enter_check_compound(visited) then
             visited.assertion_list.accept(Current)
@@ -2574,17 +2574,17 @@ feature {CHECK_COMPOUND}
       end
 
 feature {}
-   enter_check_compound (visited: CHECK_COMPOUND): BOOLEAN is
+   enter_check_compound (visited: CHECK_COMPOUND): BOOLEAN
       do
          Result := True
       end
 
-   exit_check_compound (visited: CHECK_COMPOUND) is
+   exit_check_compound (visited: CHECK_COMPOUND)
       do
       end
 
 feature {PROCEDURE_CALL_0}
-   visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
+   visit_procedure_call_0 (visited: PROCEDURE_CALL_0)
       do
          if enter_proc_call_0(visited) then
             visit_call_support(visited)
@@ -2593,17 +2593,17 @@ feature {PROCEDURE_CALL_0}
       end
 
 feature {}
-   enter_proc_call_0 (visited: PROCEDURE_CALL_0): BOOLEAN is
+   enter_proc_call_0 (visited: PROCEDURE_CALL_0): BOOLEAN
       do
          Result := True
       end
 
-   exit_proc_call_0 (visited: PROCEDURE_CALL_0) is
+   exit_proc_call_0 (visited: PROCEDURE_CALL_0)
       do
       end
 
 feature {PROCEDURE_CALL_1}
-   visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
+   visit_procedure_call_1 (visited: PROCEDURE_CALL_1)
       do
          if enter_proc_call_1(visited) then
             visit_call_support(visited)
@@ -2612,17 +2612,17 @@ feature {PROCEDURE_CALL_1}
       end
 
 feature {}
-   enter_proc_call_1 (visited: PROCEDURE_CALL_1): BOOLEAN is
+   enter_proc_call_1 (visited: PROCEDURE_CALL_1): BOOLEAN
       do
          Result := True
       end
 
-   exit_proc_call_1 (visited: PROCEDURE_CALL_1) is
+   exit_proc_call_1 (visited: PROCEDURE_CALL_1)
       do
       end
 
 feature {PROCEDURE_CALL_N}
-   visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
+   visit_procedure_call_n (visited: PROCEDURE_CALL_N)
       do
          if enter_proc_call_n(visited) then
             visit_call_support(visited)
@@ -2631,17 +2631,17 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {}
-   enter_proc_call_n (visited: PROCEDURE_CALL_N): BOOLEAN is
+   enter_proc_call_n (visited: PROCEDURE_CALL_N): BOOLEAN
       do
          Result := True
       end
 
-   exit_proc_call_n (visited: PROCEDURE_CALL_N) is
+   exit_proc_call_n (visited: PROCEDURE_CALL_N)
       do
       end
 
 feature {AGENT_INSTRUCTION}
-   visit_agent_instruction (visited: AGENT_INSTRUCTION) is
+   visit_agent_instruction (visited: AGENT_INSTRUCTION)
       do
          if enter_agent_instruction(visited) then
             visited.written_link.accept(Current)
@@ -2652,17 +2652,17 @@ feature {AGENT_INSTRUCTION}
       end
 
 feature {}
-   enter_agent_instruction (visited: AGENT_INSTRUCTION): BOOLEAN is
+   enter_agent_instruction (visited: AGENT_INSTRUCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_agent_instruction (visited: AGENT_INSTRUCTION) is
+   exit_agent_instruction (visited: AGENT_INSTRUCTION)
       do
       end
 
 feature {CREATE_INSTRUCTION}
-   visit_create_instruction (visited: CREATE_INSTRUCTION) is
+   visit_create_instruction (visited: CREATE_INSTRUCTION)
       do
          if enter_create_instruction(visited) then
             if visited.explicit_type /= Void then
@@ -2676,17 +2676,17 @@ feature {CREATE_INSTRUCTION}
       end
 
 feature {}
-   enter_create_instruction (visited: CREATE_INSTRUCTION): BOOLEAN is
+   enter_create_instruction (visited: CREATE_INSTRUCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_create_instruction (visited: CREATE_INSTRUCTION) is
+   exit_create_instruction (visited: CREATE_INSTRUCTION)
       do
       end
 
 feature {RAW_CREATE_INSTRUCTION}
-   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION)
       do
          if enter_raw_create_instruction(visited) then
             if visited.explicit_type /= Void then
@@ -2700,17 +2700,17 @@ feature {RAW_CREATE_INSTRUCTION}
       end
 
 feature {}
-   enter_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION): BOOLEAN is
+   enter_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+   exit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION)
       do
       end
 
 feature {PRECURSOR_INSTRUCTION}
-   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION)
       do
          if enter_precursor_instruction(visited) then
             if visited.arguments /= Void then
@@ -2721,17 +2721,17 @@ feature {PRECURSOR_INSTRUCTION}
       end
 
 feature {}
-   enter_precursor_instruction (visited: PRECURSOR_INSTRUCTION): BOOLEAN is
+   enter_precursor_instruction (visited: PRECURSOR_INSTRUCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+   exit_precursor_instruction (visited: PRECURSOR_INSTRUCTION)
       do
       end
 
 feature {LOOP_INSTRUCTION}
-   visit_loop_instruction (visited: LOOP_INSTRUCTION) is
+   visit_loop_instruction (visited: LOOP_INSTRUCTION)
       do
          if enter_e_loop(visited) then
             if visited.initialize /= Void then
@@ -2752,17 +2752,17 @@ feature {LOOP_INSTRUCTION}
       end
 
 feature {}
-   enter_e_loop (visited: LOOP_INSTRUCTION): BOOLEAN is
+   enter_e_loop (visited: LOOP_INSTRUCTION): BOOLEAN
       do
          Result := True
       end
 
-   exit_e_loop (visited: LOOP_INSTRUCTION) is
+   exit_e_loop (visited: LOOP_INSTRUCTION)
       do
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          if enter_loop_variant(visited) then
             visited.expression.accept(Current)
@@ -2771,17 +2771,17 @@ feature {LOOP_VARIANT}
       end
 
 feature {}
-   enter_loop_variant (visited: LOOP_VARIANT): BOOLEAN is
+   enter_loop_variant (visited: LOOP_VARIANT): BOOLEAN
       do
          Result := True
       end
 
-   exit_loop_variant (visited: LOOP_VARIANT) is
+   exit_loop_variant (visited: LOOP_VARIANT)
       do
       end
 
 feature {}
-   visit_inspect_statement (visited: INSPECT_STATEMENT) is
+   visit_inspect_statement (visited: INSPECT_STATEMENT)
       local
          clauses: FAST_ARRAY[WHEN_CLAUSE]; i: INTEGER
       do
@@ -2804,34 +2804,34 @@ feature {}
       end
 
 feature {OTHER_INSPECT_STATEMENT}
-   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
+   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT)
       do
          visit_inspect_statement(visited)
       end
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
-   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT)
       do
          visit_inspect_statement(visited)
       end
 
 feature {C_INLINE}
-   visit_c_inline (visited: C_INLINE) is
+   visit_c_inline (visited: C_INLINE)
       do
       end
 
 feature {}
-   enter_inspect_statement (visited: INSPECT_STATEMENT): BOOLEAN is
+   enter_inspect_statement (visited: INSPECT_STATEMENT): BOOLEAN
       do
          Result := True
       end
 
-   exit_inspect_statement (visited: INSPECT_STATEMENT) is
+   exit_inspect_statement (visited: INSPECT_STATEMENT)
       do
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       local
          i: INTEGER; items: FAST_ARRAY[WHEN_ITEM]
       do
@@ -2850,17 +2850,17 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   enter_when_clause (visited: WHEN_CLAUSE): BOOLEAN is
+   enter_when_clause (visited: WHEN_CLAUSE): BOOLEAN
       do
          Result := True
       end
 
-   exit_when_clause (visited: WHEN_CLAUSE) is
+   exit_when_clause (visited: WHEN_CLAUSE)
       do
       end
 
 feature {WHEN_ITEM_1}
-   visit_when_item_1 (visited: WHEN_ITEM_1) is
+   visit_when_item_1 (visited: WHEN_ITEM_1)
       do
          if enter_when_item_1(visited) then
             visited.expression.accept(Current)
@@ -2869,17 +2869,17 @@ feature {WHEN_ITEM_1}
       end
 
 feature {}
-   enter_when_item_1 (visited: WHEN_ITEM_1): BOOLEAN is
+   enter_when_item_1 (visited: WHEN_ITEM_1): BOOLEAN
       do
          Result := True
       end
 
-   exit_when_item_1 (visited: WHEN_ITEM_1) is
+   exit_when_item_1 (visited: WHEN_ITEM_1)
       do
       end
 
 feature {WHEN_ITEM_2}
-   visit_when_item_2 (visited: WHEN_ITEM_2) is
+   visit_when_item_2 (visited: WHEN_ITEM_2)
       do
          if enter_when_item_2(visited) then
             visited.lower.accept(Current)
@@ -2889,17 +2889,17 @@ feature {WHEN_ITEM_2}
       end
 
 feature {}
-   enter_when_item_2 (visited: WHEN_ITEM_2): BOOLEAN is
+   enter_when_item_2 (visited: WHEN_ITEM_2): BOOLEAN
       do
          Result := True
       end
 
-   exit_when_item_2 (visited: WHEN_ITEM_2) is
+   exit_when_item_2 (visited: WHEN_ITEM_2)
       do
       end
 
 feature {COMPOUND}
-   visit_compound (visited: COMPOUND) is
+   visit_compound (visited: COMPOUND)
       local
          l: FAST_ARRAY[INSTRUCTION]; i: INTEGER
       do
@@ -2918,7 +2918,7 @@ feature {COMPOUND}
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       local
          i: INTEGER
       do
@@ -2933,17 +2933,17 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {}
-   enter_compound (visited: COMPOUND): BOOLEAN is
+   enter_compound (visited: COMPOUND): BOOLEAN
       do
          Result := True
       end
 
-   exit_compound (visited: COMPOUND) is
+   exit_compound (visited: COMPOUND)
       do
       end
 
 feature {NO_INVARIANT_WRAPPER}
-   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER)
       do
          if enter_no_invariant_wrapper(visited) then
             visited.compound.accept(Current)
@@ -2952,17 +2952,17 @@ feature {NO_INVARIANT_WRAPPER}
       end
 
 feature {}
-   enter_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER): BOOLEAN is
+   enter_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER): BOOLEAN
       do
          Result := True
       end
 
-   exit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+   exit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER)
       do
       end
 
 feature {DECLARATION_1}
-   visit_declaration_1 (visited: DECLARATION_1) is
+   visit_declaration_1 (visited: DECLARATION_1)
       do
          if enter_declaration_1(visited) then
             visited.name.accept(Current)
@@ -2971,17 +2971,17 @@ feature {DECLARATION_1}
       end
 
 feature {}
-   enter_declaration_1 (visited: DECLARATION_1): BOOLEAN is
+   enter_declaration_1 (visited: DECLARATION_1): BOOLEAN
       do
          Result := True
       end
 
-   exit_declaration_1 (visited: DECLARATION_1) is
+   exit_declaration_1 (visited: DECLARATION_1)
       do
       end
 
 feature {DECLARATION_GROUP}
-   visit_declaration_group (visited: DECLARATION_GROUP) is
+   visit_declaration_group (visited: DECLARATION_GROUP)
       local
          i: INTEGER
          name_list: COLLECTION[LOCAL_ARGUMENT_DEF]
@@ -3001,12 +3001,12 @@ feature {DECLARATION_GROUP}
       end
 
 feature {}
-   enter_declaration_group (visited: DECLARATION_GROUP): BOOLEAN is
+   enter_declaration_group (visited: DECLARATION_GROUP): BOOLEAN
       do
          Result := True
       end
 
-   exit_declaration_group (visited: DECLARATION_GROUP) is
+   exit_declaration_group (visited: DECLARATION_GROUP)
       do
       end
 

@@ -8,7 +8,7 @@ deferred class GI_CLASS
         -- interfaces, constants and virtual functions.
 
         -- GI_INTERFACE_INFO also has prerequities which as far as I know can be
-        -- only other interfaces yet its documetnation says that a prerequisite is
+        -- only other interfaces yet its documetnation says that a prerequisite
         -- a GI_BASE_INFO which could be just anything....
 
         -- Interfaces and objects actually offer indexed accesed to their
@@ -44,21 +44,21 @@ inherit GI_BASE_INFO
         undefine out_in_tagged_out_memory end
 
 feature {ANY} -- Methods
-        methods_lower: INTEGER is 0
-        methods_upper: INTEGER is do Result:=methods_count-1 end
-        methods_count: INTEGER is
+        methods_lower: INTEGER 0
+        methods_upper: INTEGER do Result:=methods_count-1 end
+        methods_count: INTEGER
                 -- the number of methods.
                 deferred
                 end
 
-        method (n: INTEGER): GI_FUNCTION_INFO is
+        method (n: INTEGER): GI_FUNCTION_INFO
                 -- the interface type method at index `n'.
         require valid_index: n.in_range(0,methods_count-1)
         deferred
         ensure Result/=Void
         end
 
-        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
+        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO
                 -- The method with `a_name'. Void if there's no method available with that name.
         require
                 not_void: a_name /= Void
@@ -66,46 +66,46 @@ feature {ANY} -- Methods
         deferred
         end
 
-        methods_iter: METHODS_ITER is
+        methods_iter: METHODS_ITER
                 do
                         Result.set_class(Current)
                 end
 
 feature {ANY} -- Properties
-        properties_lower: INTEGER is 0
-        properties_upper: INTEGER is do Result := properties_upper-1 end
-        properties_count: INTEGER is deferred end
+        properties_lower: INTEGER 0
+        properties_upper: INTEGER do Result := properties_upper-1 end
+        properties_count: INTEGER deferred end
 
-        property (i: INTEGER): GI_PROPERTY_INFO is
+        property (i: INTEGER): GI_PROPERTY_INFO
                 -- the interface type property at index `i'.
         require valid_index: i.in_range(properties_lower,properties_upper)
         deferred
         ensure Result/=Void
         end
 
-        properties_iter: PROPERTIES_ITER is
+        properties_iter: PROPERTIES_ITER
                 -- Expanded iterator over properties
         do
                 Result.set_class(Current)
         end
 
 feature {ANY} -- Signals
-        signals_lower: INTEGER is 0
-        signals_upper: INTEGER is do Result:=signals_count-1 end
-        signals_count: INTEGER is
+        signals_lower: INTEGER 0
+        signals_upper: INTEGER do Result:=signals_count-1 end
+        signals_count: INTEGER
                 -- the number of signals that this interface type has.
         deferred
         ensure non_signals: Result>=0
         end
 
-        signal (n: INTEGER): GI_SIGNAL_INFO is
+        signal (n: INTEGER): GI_SIGNAL_INFO
                 -- The an interface type signal at index n.
         require valid_n: n.in_range(0,signals_count-1)
         deferred
         ensure Result/=Void
         end
 
-        find_signal (a_name: ABSTRACT_STRING): GI_SIGNAL_INFO is
+        find_signal (a_name: ABSTRACT_STRING): GI_SIGNAL_INFO
                 -- The information for the signal with `a_name'. Void if no such a signal exists.
         require
                 a_name /= Void
@@ -113,21 +113,21 @@ feature {ANY} -- Signals
         deferred
         end
 
-        signals_iter: SIGNALS_ITER is
+        signals_iter: SIGNALS_ITER
                 -- Expanded iterator over signals
         do
                 Result.set_class(Current)
         end
 
 feature {ANY} -- Virtual functions
-        virtual_functions_lower: INTEGER is 0
-        virtual_functions_upper: INTEGER is do Result:=virtual_functions_count-1 end
-        virtual_functions_count: INTEGER is
+        virtual_functions_lower: INTEGER 0
+        virtual_functions_upper: INTEGER do Result:=virtual_functions_count-1 end
+        virtual_functions_count: INTEGER
         deferred
         ensure non_negative: Result>=0
         end
 
-        virtual_function (n: INTEGER): GI_VFUNC_INFO is
+        virtual_function (n: INTEGER): GI_VFUNC_INFO
 
                 -- The interface type virtual function at index `n'.
         require valid_index: n.in_range(0,virtual_functions_count)
@@ -135,7 +135,7 @@ feature {ANY} -- Virtual functions
         ensure Result/=Void
         end
 
-        find_virtual_function (a_name: ABSTRACT_STRING): GI_VFUNC_INFO is
+        find_virtual_function (a_name: ABSTRACT_STRING): GI_VFUNC_INFO
                 -- The virtual function with `a_name'. Void if such a functon does not exist.
         require
                 a_name /= Void
@@ -143,28 +143,28 @@ feature {ANY} -- Virtual functions
         deferred
         end
 
-        vfuncs_iter: VFUNCS_ITER is
+        vfuncs_iter: VFUNCS_ITER
                 do
                         Result.set_class(Current)
                 end
 
 feature {ANY} -- Constants
-        constants_lower: INTEGER is 0
-        constants_upper: INTEGER is do Result := constants_count-1 end
-        constants_count: INTEGER is
+        constants_lower: INTEGER 0
+        constants_upper: INTEGER do Result := constants_count-1 end
+        constants_count: INTEGER
                 -- the number of constants that this interface type has.
         deferred
         ensure Result>=0
         end
 
-        constant (n: INTEGER): GI_CONSTANT_INFO is
+        constant (n: INTEGER): GI_CONSTANT_INFO
                 -- The interface type constant at index n.
         require valid_index: n.in_range(0,constants_count-1)
         deferred
         ensure Result/=Void
         end
 
-        constants_iter: CONSTANTS_ITER is
+        constants_iter: CONSTANTS_ITER
                 -- Expanded iterator over constans
         do
                 Result.set_class(Current)

@@ -27,12 +27,12 @@ create {ANY}
    make
 
 feature {ANY}
-   is_internals_from_generating_type_used: BOOLEAN is
+   is_internals_from_generating_type_used: BOOLEAN
       do
          Result := not internals_from_generating_type_position.is_unknown
       end
 
-   is_native_array_internals_from_generating_type_used: BOOLEAN is
+   is_native_array_internals_from_generating_type_used: BOOLEAN
       do
          Result := native_array_internals_from_generating_type_args /= Void
          check
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   is_introspected (tm: TYPE_MARK): BOOLEAN is
+   is_introspected (tm: TYPE_MARK): BOOLEAN
       local
          typed_internals: TYPE_MARK; lt: LIVE_TYPE;   unknown_position: POSITION
       do
@@ -51,7 +51,7 @@ feature {ANY}
 
 feature {EXTERNAL_FUNCTION}
    collect_internals_from_generating_type (insp: OTHER_INSPECT_STATEMENT;
-                                           sp: like internals_from_generating_type_position; nt: TYPE) is
+                                           sp: like internals_from_generating_type_position; nt: TYPE)
       local
          live_types: TRAVERSABLE[LIVE_TYPE]; dummy: TYPE
          i: INTEGER
@@ -81,7 +81,7 @@ feature {EXTERNAL_FUNCTION}
 
    collect_native_array_internals_from_generating_type (insp: OTHER_INSPECT_STATEMENT;
                                                         sp: like native_array_internals_from_generating_type_position;
-                                                        args: FORMAL_ARG_LIST; nt: TYPE) is
+                                                        args: FORMAL_ARG_LIST; nt: TYPE)
       local
          arg: ARGUMENT_NAME_REF; arg_type, dummy: TYPE
          live_types: TRAVERSABLE[LIVE_TYPE]; i: INTEGER; live_type: LIVE_TYPE
@@ -112,7 +112,7 @@ feature {EXTERNAL_FUNCTION}
          is_native_array_internals_from_generating_type_used
       end
 
-   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type; fn: STRING): INSTRUCTION is
+   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type; fn: STRING): INSTRUCTION
       do
          start_new_body_for(er, nt, True)
          if fn = as_internals_from_generating_type then
@@ -134,7 +134,7 @@ feature {EXTERNAL_FUNCTION}
       end
 
 feature {LIVE_TYPE}
-   create_blank_internals_instruction_for (live_type: LIVE_TYPE): CREATE_INSTRUCTION is
+   create_blank_internals_instruction_for (live_type: LIVE_TYPE): CREATE_INSTRUCTION
       require
          live_type.at_run_time
          create_blank_internals_used_by(live_type)
@@ -175,7 +175,7 @@ feature {LIVE_TYPE}
          create Result.make_specialized(pos, typed_internals, result_variable, make_blank)
       end
 
-   create_blank_internals_used_by (live_type: LIVE_TYPE): BOOLEAN is
+   create_blank_internals_used_by (live_type: LIVE_TYPE): BOOLEAN
       require
          live_type.at_run_time
       local
@@ -199,7 +199,7 @@ feature {LIVE_TYPE}
       end
 
 feature {EXTERNAL_ROUTINE}
-   specialize_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_typed_internals
@@ -251,7 +251,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_native_array_internals
@@ -296,7 +296,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_internals_handler (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_internals_handler (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_internals_handler
@@ -325,7 +325,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_any_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_any_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er.first_name.to_string = as_to_internals
          nt.class_text.name.to_string = as_any
@@ -340,7 +340,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   finalized_body_for_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       do
          if is_introspectable_dynamic_type(nt.canonical_type_mark) then
             start_new_body_for(er, nt, True)
@@ -348,7 +348,7 @@ feature {EXTERNAL_ROUTINE}
          end
       end
 
-   finalized_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       local
          fn: STRING
       do
@@ -362,7 +362,7 @@ feature {EXTERNAL_ROUTINE}
          end
       end
 
-   finalized_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       local
          fn: STRING
       do
@@ -375,7 +375,7 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {SMART_EIFFEL}
-   collect_internals_handler is
+   collect_internals_handler
       local
          i: INTEGER; t: TYPE
       do
@@ -404,7 +404,7 @@ feature {SMART_EIFFEL}
 feature {}
    type_internals_handler: TYPE
 
-   collect_internals_handler_for (type: TYPE; feature_name: STRING) is
+   collect_internals_handler_for (type: TYPE; feature_name: STRING)
       require
          smart_eiffel.status.is_collecting
          type.insert_inherit_test(type_internals_handler) /= unrelated_code
@@ -417,7 +417,7 @@ feature {}
          ef.collect_internals_handler(type, feature_name)
       end
 
-   wrap (wrapped: CODE): NO_INVARIANT_WRAPPER is
+   wrap (wrapped: CODE): NO_INVARIANT_WRAPPER
       do
          if wrapped /= Void then
             create Result.make(wrapped)
@@ -426,7 +426,7 @@ feature {}
          (wrapped = Void) = (Result = Void)
       end
 
-   simplify_and_wrap (wrapped: OTHER_INSPECT_STATEMENT): NO_INVARIANT_WRAPPER is
+   simplify_and_wrap (wrapped: OTHER_INSPECT_STATEMENT): NO_INVARIANT_WRAPPER
       do
          if wrapped /= Void then
             create Result.make(wrapped)
@@ -435,7 +435,7 @@ feature {}
          end
       end
 
-   internals_of (target: EXPRESSION; target_tm: TYPE_MARK; container: EXPRESSION; result_variable: RESULT): INSTRUCTION is
+   internals_of (target: EXPRESSION; target_tm: TYPE_MARK; container: EXPRESSION; result_variable: RESULT): INSTRUCTION
       require
          target /= Void
          -- target_tm is "the" type_mark of target
@@ -479,7 +479,7 @@ feature {}
          end
       end
 
-   set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION) is
+   set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION)
       local
          local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: FAST_ARRAY[LOCAL_VAR_LIST]
          routine_body: INSTRUCTION
@@ -504,7 +504,7 @@ feature {}
          smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   start_new_body_for (er: EXTERNAL_ROUTINE; nt: like new_type; ct: like can_twin) is
+   start_new_body_for (er: EXTERNAL_ROUTINE; nt: like new_type; ct: like can_twin)
       local
          capacity_hs: HASHED_STRING
          capacity_fs: FEATURE_STAMP
@@ -543,7 +543,7 @@ feature {}
          can_twin = ct
       end
 
-   is_introspectable_attribute_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_attribute_type (tm: TYPE_MARK): BOOLEAN
       require
          target_type /= Void
          tm.is_static
@@ -552,7 +552,7 @@ feature {}
             and then (tm.is_native_array implies has_capacity)
       end
 
-   is_introspectable_static_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_static_type (tm: TYPE_MARK): BOOLEAN
       require
          tm.is_static
       do
@@ -560,7 +560,7 @@ feature {}
                         or else tm.written_mark = as_native_array_internals)
       end
 
-   is_introspectable_dynamic_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_dynamic_type (tm: TYPE_MARK): BOOLEAN
       require
          tm.is_static
       do
@@ -579,14 +579,14 @@ feature {}
 
    has_capacity: BOOLEAN
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := external_routine.start_position
       ensure
          Result = external_routine.start_position
       end
 
-   arguments: FORMAL_ARG_LIST is
+   arguments: FORMAL_ARG_LIST
       do
          Result := external_routine.arguments
       ensure
@@ -601,7 +601,7 @@ feature {}
 
 feature {}
    -- Generate code for all writable attributes. Dead attributes will be sorted out during the adapt phase.
-   specialize_body_for_type_attribute_name is
+   specialize_body_for_type_attribute_name
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          arg: ARGUMENT_NAME_REF
@@ -642,7 +642,7 @@ feature {}
          end
       end
 
-   specialize_body_for_object_attribute is
+   specialize_body_for_object_attribute
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -697,7 +697,7 @@ feature {}
          end
       end
 
-   specialize_body_for_set_object_attribute is
+   specialize_body_for_set_object_attribute
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -814,7 +814,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_is_expanded is
+   specialize_body_for_type_is_expanded
       local
          result_variable: RESULT
          bool: E_TRUE
@@ -828,7 +828,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_attribute_is_expanded is
+   specialize_body_for_type_attribute_is_expanded
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          arg: ARGUMENT_NAME_REF
@@ -875,7 +875,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_can_be_assigned_to_attribute is
+   specialize_body_for_type_can_be_assigned_to_attribute
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          arg: ARGUMENT_NAME_REF
@@ -933,7 +933,7 @@ feature {}
          end
       end
 
-   specialize_body_for_make_blank is
+   specialize_body_for_make_blank
       local
          object_memory: WRITABLE_ATTRIBUTE_NAME
          create_instruction: RAW_CREATE_INSTRUCTION
@@ -943,7 +943,7 @@ feature {}
          set_and_specialize_body(Void, create_instruction)
       end
 
-   specialize_body_for_type_generating_type is
+   specialize_body_for_type_generating_type
       local
          static_generating_type: GENERATOR_GENERATING_TYPE
          result_variable: RESULT
@@ -955,7 +955,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_generator is
+   specialize_body_for_type_generator
       local
          static_generator: GENERATOR_GENERATING_TYPE
          result_variable: RESULT
@@ -967,7 +967,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_is_equal is
+   specialize_body_for_is_equal
       local
          implicit_current: IMPLICIT_CURRENT
          object_memory_fn: FEATURE_NAME
@@ -989,7 +989,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_object_as_pointer is
+   specialize_body_for_object_as_pointer
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -1015,7 +1015,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_attribute_generating_type is
+   specialize_body_for_type_attribute_generating_type
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          arg: ARGUMENT_NAME_REF
@@ -1058,7 +1058,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_attribute_generator is
+   specialize_body_for_type_attribute_generator
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          arg: ARGUMENT_NAME_REF
@@ -1101,7 +1101,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_attribute_count is
+   specialize_body_for_type_attribute_count
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          result_variable: RESULT
@@ -1117,7 +1117,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_attribute_count is
+   specialize_body_for_na_attribute_count
       local
          result_variable: RESULT
          implicit_current: IMPLICIT_CURRENT
@@ -1135,7 +1135,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_object_attribute is
+   specialize_body_for_na_object_attribute
       local
          element_type_mark: TYPE_MARK
          result_variable: RESULT
@@ -1166,7 +1166,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_set_object_attribute is
+   specialize_body_for_na_set_object_attribute
       local
          item_type_mark: TYPE_MARK
          var_name: STRING
@@ -1230,7 +1230,7 @@ feature {}
          set_and_specialize_body(lv, new_body)
       end
 
-   specialize_body_for_na_type_item_is_expanded is
+   specialize_body_for_na_type_item_is_expanded
       local
          result_variable: RESULT
          bool: E_TRUE
@@ -1244,7 +1244,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_type_can_be_assigned_to_item is
+   specialize_body_for_na_type_can_be_assigned_to_item
       local
          item_type_mark: TYPE_MARK
          arg: ARGUMENT_NAME_REF
@@ -1274,7 +1274,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_make_blank is
+   specialize_body_for_na_make_blank
       local
          object_memory: WRITABLE_ATTRIBUTE_NAME
          implicit_current: IMPLICIT_CURRENT
@@ -1303,7 +1303,7 @@ feature {}
          set_and_specialize_body(Void, compound)
       end
 
-   specialize_body_for_na_type_item_generator is
+   specialize_body_for_na_type_item_generator
       local
          result_variable: RESULT
          static_generator: GENERATOR_GENERATING_TYPE
@@ -1315,7 +1315,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_type_item_generating_type is
+   specialize_body_for_na_type_item_generating_type
       local
          result_variable: RESULT
          static_generating_type: GENERATOR_GENERATING_TYPE
@@ -1328,7 +1328,7 @@ feature {}
       end
 
 feature {}
-   finalized_body_for_internals_from_generating_type: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_internals_from_generating_type: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1391,7 +1391,7 @@ feature {}
          end
       end
 
-   finalized_body_for_valid_generating_type_for_internals: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_valid_generating_type_for_internals: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1475,7 +1475,7 @@ feature {}
          end
       end
 
-   finalized_body_for_na_internals_from_generating_type: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_na_internals_from_generating_type: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1538,7 +1538,7 @@ feature {}
          end
       end
 
-   finalized_body_for_valid_generating_type_for_na_internals: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_valid_generating_type_for_na_internals: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1609,7 +1609,7 @@ feature {}
          end
       end
 
-   finalized_body_for_type_attribute_count: INSTRUCTION is
+   finalized_body_for_type_attribute_count: INSTRUCTION
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -1664,7 +1664,7 @@ feature {}
       end
 
 feature {LOCAL_VAR_LIST}
-   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+   visit_local_var_list (visited: LOCAL_VAR_LIST)
       do
          check
             False
@@ -1672,7 +1672,7 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {FORMAL_ARG_LIST}
-   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST)
       do
          check
             False
@@ -1680,7 +1680,7 @@ feature {FORMAL_ARG_LIST}
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       do
          check
             False
@@ -1688,7 +1688,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

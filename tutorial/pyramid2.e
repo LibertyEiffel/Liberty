@@ -16,7 +16,7 @@ feature {}
 
    used: ARRAY[BOOLEAN] -- Already used numbers in `pyramid'.
 
-   make is
+   make
       local
          size: INTEGER
       do
@@ -34,7 +34,7 @@ feature {}
          fill(size)
       end
 
-   fill (size: INTEGER) is
+   fill (size: INTEGER)
          -- Fill in a `pyramid' of `size' elements.
       require
          size > 1
@@ -48,14 +48,14 @@ feature {}
          end
       end
 
-   put (value, line, column: INTEGER) is
+   put (value, line, column: INTEGER)
          -- Updtate `pyramid' and `used'.
       do
          used.put(True, value)
          pyramid.put(value, line, column)
       end
 
-   remove (line, column: INTEGER) is
+   remove (line, column: INTEGER)
          -- Updtate `pyramid' and `used'.
       do
          if pyramid.item(line, column) /= 0 then
@@ -64,7 +64,7 @@ feature {}
          end
       end
 
-   solution (column: INTEGER): BOOLEAN is
+   solution (column: INTEGER): BOOLEAN
          -- Search a solution using a back-tracking algorithm.
       local
          nb, i: INTEGER
@@ -96,7 +96,7 @@ feature {}
          end
       end
 
-   fill_column (col, val: INTEGER): BOOLEAN is
+   fill_column (col, val: INTEGER): BOOLEAN
       local
          v, i: INTEGER
       do
@@ -129,7 +129,7 @@ feature {}
       end
 
 feature {ANY}
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
          -- Display the pyramid to the standart output.
       local
          line, column: INTEGER; blanks: STRING

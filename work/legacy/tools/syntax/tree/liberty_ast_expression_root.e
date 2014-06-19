@@ -18,7 +18,7 @@ inherit
    LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-   simple_expression: S_ is
+   simple_expression: S_
       require
          is_simple_expression
       do
@@ -27,7 +27,7 @@ feature {LIBERTY_AST_HANDLER}
          Result /= Void
       end
 
-   binary_expression: B_ is
+   binary_expression: B_
       require
          is_binary_expression
       do
@@ -36,21 +36,21 @@ feature {LIBERTY_AST_HANDLER}
          Result /= Void
       end
 
-   is_simple_expression: BOOLEAN is
+   is_simple_expression: BOOLEAN
       do
          Result := not is_binary_expression
       end
 
-   is_binary_expression: BOOLEAN is
+   is_binary_expression: BOOLEAN
       do
          Result := nodes.first.name.has_suffix(once "-exp")
       end
 
 feature {ANY}
-   count: INTEGER is 1
+   count: INTEGER 1
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1 >> }
       end

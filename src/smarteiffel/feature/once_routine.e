@@ -11,13 +11,13 @@ inherit
    HASHABLE
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := names.first.hash_code
       end
 
 feature {}
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.put_string(once "once")

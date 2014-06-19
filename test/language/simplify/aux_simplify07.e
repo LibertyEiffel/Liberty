@@ -4,12 +4,12 @@
 class AUX_SIMPLIFY07
 
 feature {ANY}
-   infix "<=" (other: AUX_SIMPLIFY07): BOOLEAN is
+   infix "<=" (other: AUX_SIMPLIFY07): BOOLEAN
       do
          Result := Current.direct_call(other)
       end
 
-   direct_call (other: AUX_SIMPLIFY07): BOOLEAN is
+   direct_call (other: AUX_SIMPLIFY07): BOOLEAN
       do
          Result := True
       end

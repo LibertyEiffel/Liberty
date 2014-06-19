@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CONDITIONAL}
-   visit_liberty_conditional (v: LIBERTY_CONDITIONAL) is
+   visit_liberty_conditional (v: LIBERTY_CONDITIONAL)
       deferred
       end
 

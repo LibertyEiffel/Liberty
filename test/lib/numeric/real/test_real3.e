@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          r32_1, r32_2: REAL_32; r64_1, r64_2: REAL_64
       do
@@ -26,7 +26,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

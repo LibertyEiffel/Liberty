@@ -19,41 +19,41 @@ feature {ANY}
    written_link: PROCEDURE_CALL_1
          -- To the syntactical written one which is at the origin of the creation of `Current'.
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := written_link.start_position
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          agent_launcher_collect(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          --|*** Could be more clever ***
       end
 
-   accept (visitor: AGENT_INSTRUCTION_VISITOR) is
+   accept (visitor: AGENT_INSTRUCTION_VISITOR)
       do
          visitor.visit_agent_instruction(Current)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          written_link.pretty(indent_level)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check
             False -- (`Current' is created after that phase.)
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          t: like target; ft: like fake_tuple
       do
@@ -62,7 +62,7 @@ feature {ANY}
          Result := current_or_twin_init(t, ft)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          t: like target; ft: like fake_tuple
       do
@@ -73,7 +73,7 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          t: like target; ft: like fake_tuple; fs: FEATURE_STAMP; target_type: TYPE
       do
@@ -89,7 +89,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          t: like target; args: like fake_tuple
       do
@@ -99,7 +99,7 @@ feature {ANY}
       end
 
 feature {AGENT_INSTRUCTION}
-   init (t: like target; args: like fake_tuple) is
+   init (t: like target; args: like fake_tuple)
       require
          t /= Void
          args /= Void
@@ -112,7 +112,7 @@ feature {AGENT_INSTRUCTION}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          t: like target; args: like fake_tuple
       do
@@ -126,7 +126,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST) is
+   make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST)
       require
          wl /= Void
          at.canonical_type_mark.is_agent
@@ -147,7 +147,7 @@ feature {}
          fake_tuple /= Void
       end
 
-   current_or_twin_init (t: like target; args: like fake_tuple): like Current is
+   current_or_twin_init (t: like target; args: like fake_tuple): like Current
       require
          t /= Void
          args /= Void
@@ -160,7 +160,7 @@ feature {}
          end
       end
 
-   feature_name: FEATURE_NAME is
+   feature_name: FEATURE_NAME
       do
          Result := feature_name_memory
          if Result = Void then

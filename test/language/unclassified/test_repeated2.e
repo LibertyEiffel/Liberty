@@ -21,7 +21,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          set_min(2)
          set_max(5)

@@ -9,21 +9,21 @@ insert ANY undefine is_equal, copy end
 	STANDARD_C_LIBRARY_TYPES
 
 feature -- C type definitions (typedefs)
-	in_port_t: like uint16_t is
+	in_port_t: like uint16_t
 		-- typedef in_port_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	umode_t: NATURAL_16 is
+	umode_t: NATURAL_16
 		-- typedef umode_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	in_addr_t: like uint32_t is
+	in_addr_t: like uint32_t
 		-- typedef in_addr_t
 		-- Empty by design, used for anchored declarations.
 	do

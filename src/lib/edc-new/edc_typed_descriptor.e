@@ -5,21 +5,21 @@ insert
    EDC_DESCRIPTOR[K_]
 
 feature {ANY}
-   table: EDC_TABLE[R_] is
+   table: EDC_TABLE[R_]
       deferred
       end
 
-   find (options: EDC_QUERY_OPTION; primary_key: K_): EDC_TYPED_QUERY[R_] is
+   find (options: EDC_QUERY_OPTION; primary_key: K_): EDC_TYPED_QUERY[R_]
       do
          create {EDC_FIND[like Current, R_, K_]} Result.make(primary_key, options)
       end
 
-   fetch (options: EDC_QUERY_OPTION): EDC_TYPED_QUERY[R_] is
+   fetch (options: EDC_QUERY_OPTION): EDC_TYPED_QUERY[R_]
       do
          create {EDC_FETCH[like Current, R_, K_]} Result.make(options)
       end
 
-   delete (record: EDC_RECORD) is
+   delete (record: EDC_RECORD)
       local
          r: R_
       do
@@ -27,7 +27,7 @@ feature {ANY}
          not_yet_implemented --| **** TODO r.session.???
       end
 
-   criterion_primary_key (a_pk: K_): EDC_CRITERION is
+   criterion_primary_key (a_pk: K_): EDC_CRITERION
       require
          table.pk.count = a_pk.count
       local
@@ -38,7 +38,7 @@ feature {ANY}
       end
 
 feature {EDC_TYPED_QUERY}
-   new_record: R_ is
+   new_record: R_
       do
          create Result
       ensure
@@ -46,7 +46,7 @@ feature {EDC_TYPED_QUERY}
       end
 
 feature {}
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       local
          d: like Current
       do

@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          text_file_read: TEXT_FILE_READ; text_file_write: TEXT_FILE_WRITE; n: NUMBER
       do

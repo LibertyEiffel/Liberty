@@ -24,22 +24,22 @@ feature {ITERATOR}
    first_node, last_node: LINKED_HASHED_DICTIONARY_NODE[V_, K_]
 
 feature {ANY}
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          create {ITERATOR_ON_LINKED_HASHED_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_LINKED_HASHED_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
-   key_map_in (buffer: COLLECTION[K_]) is
+   key_map_in (buffer: COLLECTION[K_])
       local
          node: like first_node
       do
@@ -53,7 +53,7 @@ feature {ANY}
          end
       end
 
-   item_map_in (buffer: COLLECTION[V_]) is
+   item_map_in (buffer: COLLECTION[V_])
       local
          node: like first_node
       do
@@ -68,7 +68,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Agent-based features:
-   for_each_item (action: PROCEDURE[TUPLE[V_]]) is
+   for_each_item (action: PROCEDURE[TUPLE[V_]])
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -76,7 +76,7 @@ feature {ANY} -- Agent-based features:
          new_iterator_on_items.for_each(action)
       end
 
-   for_all_items (test: PREDICATE[TUPLE[V_]]): BOOLEAN is
+   for_all_items (test: PREDICATE[TUPLE[V_]]): BOOLEAN
          -- Do all items satisfy `test'?
          --
          -- See also `for_each', `exists', `aggregate'.
@@ -84,7 +84,7 @@ feature {ANY} -- Agent-based features:
          Result := new_iterator_on_items.for_all(test)
       end
 
-   exists_item (test: PREDICATE[TUPLE[V_]]): BOOLEAN is
+   exists_item (test: PREDICATE[TUPLE[V_]]): BOOLEAN
          -- Does at least one item satisfy `test'?
          --
          -- See also `for_each', `for_all', `aggregate'.
@@ -92,7 +92,7 @@ feature {ANY} -- Agent-based features:
          Result := new_iterator_on_items.exists(test)
       end
 
-   aggregate_items (action: FUNCTION[TUPLE[V_, V_], V_]; initial: V_): V_ is
+   aggregate_items (action: FUNCTION[TUPLE[V_, V_], V_]; initial: V_): V_
          -- Aggregate all the elements starting from the initial value.
          --
          -- See also `for_each', `for_all', `exists'.
@@ -101,7 +101,7 @@ feature {ANY} -- Agent-based features:
       end
 
 feature {}
-   set_cache_user (index: INTEGER) is
+   set_cache_user (index: INTEGER)
       do
          if cache_user /= index then
             if cache_iterator = Void then
@@ -124,7 +124,7 @@ feature {}
    cache_iterator: ITERATOR_ON_LINKED_HASHED_DICTIONARY_KEYS[V_, K_]
 
 feature {}
-   buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
+   buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node
       do
          Result ::= a_buckets.item(idx)
       end
@@ -135,7 +135,7 @@ feature {}
 
    nodes_list: FAST_ARRAY[LINKED_HASHED_DICTIONARY_NODE[V_, K_]]
 
-   dispose_node (node: like cache_node): like cache_node is
+   dispose_node (node: like cache_node): like cache_node
       local
          previous, next: like node
       do
@@ -165,7 +165,7 @@ feature {}
          node.set_links(Void, Void)
       end
 
-   new_node (v: V_; k: K_; next: like cache_node): like cache_node is
+   new_node (v: V_; k: K_; next: like cache_node): like cache_node
       do
          Result := Precursor(v, k, next)
          Result.set_links(last_node, Void)
@@ -195,7 +195,7 @@ end -- class ABSTRACT_LINKED_HASHED_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

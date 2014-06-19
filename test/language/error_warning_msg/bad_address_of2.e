@@ -9,12 +9,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo($Current);
       end;
 
-   foo(arg: POINTER) is
+   foo(arg: POINTER)
       do
       end;
 

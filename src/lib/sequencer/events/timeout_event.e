@@ -13,7 +13,7 @@ create {TIME_EVENTS}
    make
 
 feature {TIME_EVENTS}
-   set_timeout (timeout_ms: like timeout) is
+   set_timeout (timeout_ms: like timeout)
          -- `timeout_ms' is the max time in milliseconds to wait when the EVENTS_SET.wait begins.
       require
          not is_expected
@@ -25,13 +25,13 @@ feature {TIME_EVENTS}
       end
 
 feature {EVENTS_SET}
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       do
          events.after(timeout)
          set_expected(events)
       end
 
-   occurred (events: EVENTS_SET): BOOLEAN is
+   occurred (events: EVENTS_SET): BOOLEAN
       do
          Result := True --|*** OK??
       end
@@ -39,7 +39,7 @@ feature {EVENTS_SET}
 feature {}
    timeout: INTEGER
 
-   make is
+   make
       do
       end
 
@@ -51,7 +51,7 @@ end -- class TIMEOUT_EVENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

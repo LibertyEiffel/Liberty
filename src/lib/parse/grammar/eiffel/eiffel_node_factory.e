@@ -4,13 +4,13 @@
 deferred class EIFFEL_NODE_FACTORY
 
 feature {EIFFEL_GRAMMAR}
-   list (name: FIXED_STRING): EIFFEL_LIST_NODE is
+   list (name: FIXED_STRING): EIFFEL_LIST_NODE
       deferred
       ensure
          Result.name = name
       end
 
-   non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE is
+   non_terminal (name: FIXED_STRING; names: TRAVERSABLE[FIXED_STRING]): EIFFEL_NON_TERMINAL_NODE
       require
          not name.is_empty
          names /= Void
@@ -19,7 +19,7 @@ feature {EIFFEL_GRAMMAR}
          Result.name = name
       end
 
-   terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE is
+   terminal (name: FIXED_STRING; image: EIFFEL_IMAGE): EIFFEL_TERMINAL_NODE
       require
          not name.is_empty
          image /= Void
@@ -37,7 +37,7 @@ end -- class EIFFEL_NODE_FACTORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

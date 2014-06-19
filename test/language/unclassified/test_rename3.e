@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    e: AUX_RENAME3B
 
-   make is
+   make
       do
          create e.make
       end

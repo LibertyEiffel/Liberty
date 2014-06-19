@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          fa2: FAST_ARRAY2[INTEGER]
       do

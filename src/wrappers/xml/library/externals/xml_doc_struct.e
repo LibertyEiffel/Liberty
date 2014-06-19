@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_doc_struct_set_type (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for type field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_children (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_children (a_structure: POINTER; a_value: POINTER)
 			-- Setter for children field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_last (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_last (a_structure: POINTER; a_value: POINTER)
 			-- Setter for last field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_parent (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_parent (a_structure: POINTER; a_value: POINTER)
 			-- Setter for parent field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_next (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_next (a_structure: POINTER; a_value: POINTER)
 			-- Setter for next field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_prev (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_prev (a_structure: POINTER; a_value: POINTER)
 			-- Setter for prev field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_doc (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_doc (a_structure: POINTER; a_value: POINTER)
 			-- Setter for doc field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_compression (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_compression (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for compression field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_standalone (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_standalone (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for standalone field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_intsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_intsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for intSubset field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_extsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_extsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for extSubset field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_oldns (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_oldns (a_structure: POINTER; a_value: POINTER)
 			-- Setter for oldNs field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_version (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_version (a_structure: POINTER; a_value: POINTER)
 			-- Setter for version field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_encoding (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_encoding (a_structure: POINTER; a_value: POINTER)
 			-- Setter for encoding field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_ids (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_ids (a_structure: POINTER; a_value: POINTER)
 			-- Setter for ids field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_refs (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_refs (a_structure: POINTER; a_value: POINTER)
 			-- Setter for refs field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_url (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_url (a_structure: POINTER; a_value: POINTER)
 			-- Setter for URL field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_charset (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_charset (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for charset field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_dict (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_dict (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dict field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -248,7 +248,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_psvi (a_structure: POINTER; a_value: POINTER) is
+	xml_doc_struct_set_psvi (a_structure: POINTER; a_value: POINTER)
 			-- Setter for psvi field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -260,7 +260,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_parseflags (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_parseflags (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for parseFlags field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -272,7 +272,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_doc_struct_set_properties (a_structure: POINTER; a_value: INTEGER) is
+	xml_doc_struct_set_properties (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for properties field of XML_DOC_STRUCT structure.
 			-- TODO: setter description
 
@@ -287,7 +287,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field _private.
-	xml_doc_struct_get_type (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_type (a_structure: POINTER): INTEGER
 			-- Query for type field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -299,7 +299,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_name (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -311,7 +311,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_children (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_children (a_structure: POINTER): POINTER
 			-- Query for children field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -323,7 +323,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_last (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_last (a_structure: POINTER): POINTER
 			-- Query for last field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -335,7 +335,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_parent (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_parent (a_structure: POINTER): POINTER
 			-- Query for parent field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -347,7 +347,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_next (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_next (a_structure: POINTER): POINTER
 			-- Query for next field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -359,7 +359,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_prev (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_prev (a_structure: POINTER): POINTER
 			-- Query for prev field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -371,7 +371,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_doc (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_doc (a_structure: POINTER): POINTER
 			-- Query for doc field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -383,7 +383,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_compression (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_compression (a_structure: POINTER): INTEGER
 			-- Query for compression field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -395,7 +395,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_standalone (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_standalone (a_structure: POINTER): INTEGER
 			-- Query for standalone field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -407,7 +407,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_intsubset (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_intsubset (a_structure: POINTER): POINTER
 			-- Query for intSubset field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -419,7 +419,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_extsubset (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_extsubset (a_structure: POINTER): POINTER
 			-- Query for extSubset field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -431,7 +431,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_oldns (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_oldns (a_structure: POINTER): POINTER
 			-- Query for oldNs field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -443,7 +443,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_version (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_version (a_structure: POINTER): POINTER
 			-- Query for version field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -455,7 +455,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_encoding (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_encoding (a_structure: POINTER): POINTER
 			-- Query for encoding field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -467,7 +467,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_ids (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_ids (a_structure: POINTER): POINTER
 			-- Query for ids field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -479,7 +479,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_refs (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_refs (a_structure: POINTER): POINTER
 			-- Query for refs field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -491,7 +491,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_url (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_url (a_structure: POINTER): POINTER
 			-- Query for URL field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -503,7 +503,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_charset (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_charset (a_structure: POINTER): INTEGER
 			-- Query for charset field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -515,7 +515,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_dict (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_dict (a_structure: POINTER): POINTER
 			-- Query for dict field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -527,7 +527,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_psvi (a_structure: POINTER): POINTER is
+	xml_doc_struct_get_psvi (a_structure: POINTER): POINTER
 			-- Query for psvi field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -539,7 +539,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_parseflags (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_parseflags (a_structure: POINTER): INTEGER
 			-- Query for parseFlags field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -551,7 +551,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_doc_struct_get_properties (a_structure: POINTER): INTEGER is
+	xml_doc_struct_get_properties (a_structure: POINTER): INTEGER
 			-- Query for properties field of XML_DOC_STRUCT structure.
 			-- TODO: getter description
 
@@ -564,7 +564,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

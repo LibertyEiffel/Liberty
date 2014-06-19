@@ -10,7 +10,7 @@ create {EIFFELDOC}
    make
 
 feature {EIFFELDOC}
-   set_options (a_options: like options) is
+   set_options (a_options: like options)
       require
          a_options /= Void
       do
@@ -18,7 +18,7 @@ feature {EIFFELDOC}
       end
 
 feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC}
-   set_class_text (a_class_text: like class_text) is
+   set_class_text (a_class_text: like class_text)
       require
          a_class_text /= Void
       do
@@ -28,21 +28,21 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC}
          client := Void
       end
 
-   set_html (a_html: like html) is
+   set_html (a_html: like html)
       require
          a_html /= Void
       do
          html := a_html
       end
 
-   set_client (a_client: like client) is
+   set_client (a_client: like client)
       require
          a_client /= Void
       do
          client := a_client
       end
 
-   set_type (a_type: like type) is
+   set_type (a_type: like type)
       require
          a_type /= Void
       do
@@ -62,18 +62,18 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER_CLASSDOC, EIFFELDOC_COMMENT_STATE, EIFFELD
 
    options: EIFFELDOC_OPTIONS
 
-   write_comment (comment: COMMENT; from_sentence, to_sentence: INTEGER) is
+   write_comment (comment: COMMENT; from_sentence, to_sentence: INTEGER)
       do
          comment_writer.write(comment, Void, from_sentence, to_sentence)
       end
 
-   write_feature_comment (a_comment: COMMENT; for_feature: ANONYMOUS_FEATURE; from_sentence, to_sentence: INTEGER) is
+   write_feature_comment (a_comment: COMMENT; for_feature: ANONYMOUS_FEATURE; from_sentence, to_sentence: INTEGER)
       do
          comment_writer.write(a_comment, for_feature, from_sentence, to_sentence)
       end
 
 feature {EIFFELDOC_COMMENT_WRITER}
-   frozen all_states: FAST_ARRAY[EIFFELDOC_COMMENT_STATE] is
+   frozen all_states: FAST_ARRAY[EIFFELDOC_COMMENT_STATE]
          -- All the known states.
          --
          -- The order is very important.
@@ -101,78 +101,78 @@ feature {EIFFELDOC_COMMENT_WRITER}
                                                           >> }
       end
 
-   frozen hidden_comment: EIFFELDOC_COMMENT_STATE_HIDDEN is
+   frozen hidden_comment: EIFFELDOC_COMMENT_STATE_HIDDEN
       once
          create Result.make(Current)
       end
 
-   frozen in_bullet_list: EIFFELDOC_COMMENT_STATE_IN_BULLET_LIST is
+   frozen in_bullet_list: EIFFELDOC_COMMENT_STATE_IN_BULLET_LIST
       once
          create Result.make(Current)
       end
 
-   frozen in_numbered_list: EIFFELDOC_COMMENT_STATE_IN_NUMBERED_LIST is
+   frozen in_numbered_list: EIFFELDOC_COMMENT_STATE_IN_NUMBERED_LIST
       once
          create Result.make(Current)
       end
 
-   frozen in_preformatted: EIFFELDOC_COMMENT_STATE_IN_PREFORMATTED is
+   frozen in_preformatted: EIFFELDOC_COMMENT_STATE_IN_PREFORMATTED
       once
          create Result.make(Current)
       end
 
-   frozen beginning_of_line: EIFFELDOC_COMMENT_STATE_BEGINNING_OF_LINE is
+   frozen beginning_of_line: EIFFELDOC_COMMENT_STATE_BEGINNING_OF_LINE
       once
          create Result.make(Current)
       end
 
-   frozen in_text: EIFFELDOC_COMMENT_STATE_IN_TEXT is
+   frozen in_text: EIFFELDOC_COMMENT_STATE_IN_TEXT
       once
          create Result.make(Current)
       end
 
-   frozen in_class_name: EIFFELDOC_COMMENT_STATE_IN_CLASS_NAME is
+   frozen in_class_name: EIFFELDOC_COMMENT_STATE_IN_CLASS_NAME
       once
          create Result.make(Current)
       end
 
-   frozen in_entity_name: EIFFELDOC_COMMENT_STATE_IN_ENTITY_NAME is
+   frozen in_entity_name: EIFFELDOC_COMMENT_STATE_IN_ENTITY_NAME
       once
          create Result.make(Current)
       end
 
-   frozen in_url: EIFFELDOC_COMMENT_STATE_IN_URL is
+   frozen in_url: EIFFELDOC_COMMENT_STATE_IN_URL
       once
          create Result.make(Current)
       end
 
-   frozen in_wiki_word: EIFFELDOC_COMMENT_STATE_IN_WIKI_WORD is
+   frozen in_wiki_word: EIFFELDOC_COMMENT_STATE_IN_WIKI_WORD
       once
          create Result.make(Current)
       end
 
-   frozen in_bold: EIFFELDOC_COMMENT_STATE_IN_BOLD is
+   frozen in_bold: EIFFELDOC_COMMENT_STATE_IN_BOLD
       once
          create Result.make(Current)
       end
 
-   frozen in_italics: EIFFELDOC_COMMENT_STATE_IN_ITALICS is
+   frozen in_italics: EIFFELDOC_COMMENT_STATE_IN_ITALICS
       once
          create Result.make(Current)
       end
 
-   frozen in_character: EIFFELDOC_COMMENT_STATE_IN_CHARACTER is
+   frozen in_character: EIFFELDOC_COMMENT_STATE_IN_CHARACTER
       once
          create Result.make(Current)
       end
 
-   frozen in_string: EIFFELDOC_COMMENT_STATE_IN_STRING is
+   frozen in_string: EIFFELDOC_COMMENT_STATE_IN_STRING
       once
          create Result.make(Current)
       end
 
 feature {}
-   make is
+   make
       do
          create comment_writer.make(Current)
       end

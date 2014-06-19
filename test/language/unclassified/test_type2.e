@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          at2_integer: AUX_TYPE2[INTEGER]; at2_string: AUX_TYPE2[STRING]; li1: LINKED_LIST[INTEGER]
          ls1: LINKED_LIST[STRING]

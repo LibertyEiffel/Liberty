@@ -9,13 +9,13 @@ create {}
 feature {}
    b : BOOLEAN
 
-   f (i : INTEGER) : BOOLEAN is
+   f (i : INTEGER) : BOOLEAN
       do
       ensure
          illegal_assert: equal (strip(f), old strip(f));
       end
 
-   make is
+   make
       do
          if f(1) then end;
       end

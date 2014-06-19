@@ -10,7 +10,7 @@ create {ABSTRACT_AVL_DICTIONARY}
    make
 
 feature {ANY}
-   start is
+   start
       do
          if dico.root /= Void then
             go_first(dico.root)
@@ -18,12 +18,12 @@ feature {ANY}
          end
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := cur = Void
       end
 
-   item: TUPLE[V_, K_] is
+   item: TUPLE[V_, K_]
       local
          node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
@@ -31,13 +31,13 @@ feature {ANY}
          Result := [node.value, node.key]
       end
 
-   next is
+   next
       do
          go_next
       end
 
 feature {}
-   make (a_dico: like dico) is
+   make (a_dico: like dico)
       do
          dico := a_dico
          nodes := new_nodes
@@ -49,7 +49,7 @@ feature {}
    dico: ABSTRACT_AVL_DICTIONARY[V_, K_]
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := dico.generation
       end

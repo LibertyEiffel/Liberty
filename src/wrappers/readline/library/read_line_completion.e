@@ -22,7 +22,7 @@ create {READ_LINE}
    make
 
 feature {ANY}
-   set_completion_agent (a_completion_agent: like completion_agent) is
+   set_completion_agent (a_completion_agent: like completion_agent)
       require
          not is_busy
       do
@@ -31,7 +31,7 @@ feature {ANY}
          completion_agent = a_completion_agent
       end
 
-   is_busy: BOOLEAN is
+   is_busy: BOOLEAN
       do
          Result := rl_text /= Void
       ensure
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {} -- The CECIL completion functions
-   completion_start (text: POINTER; start_index, end_index: INTEGER) is
+   completion_start (text: POINTER; start_index, end_index: INTEGER)
       local
          completions_list: ITERABLE[ABSTRACT_STRING]
       do
@@ -53,7 +53,7 @@ feature {} -- The CECIL completion functions
          end
       end
 
-   completion_more (text: POINTER; state: INTEGER): POINTER is
+   completion_more (text: POINTER; state: INTEGER): POINTER
       do
          if completions /= Void then
             if state = 0 then
@@ -66,13 +66,13 @@ feature {} -- The CECIL completion functions
          end
       end
 
-   completion_done (text: POINTER) is
+   completion_done (text: POINTER)
       do
          completions := Void
          rl_text := Void
       end
 
-   same_text (text: POINTER): BOOLEAN is
+   same_text (text: POINTER): BOOLEAN
       do
          Result := text = rl_text.storage.to_pointer
       ensure
@@ -80,7 +80,7 @@ feature {} -- The CECIL completion functions
       end
 
 feature {}
-   make is
+   make
       do
          set_rl_attempted_completion_object(Current)
       end

@@ -23,28 +23,28 @@ feature {ANY}
    lower_manifest_expression, upper_manifest_expression: MANIFEST_EXPRESSION
          -- The corresponding values for `lower' and `upper'.
 
-   lower_value: INTEGER is
+   lower_value: INTEGER
       do
          Result := integer_value_of(lower_manifest_expression)
       end
 
-   upper_value: INTEGER is
+   upper_value: INTEGER
       do
          Result := integer_value_of(upper_manifest_expression)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := lower.start_position
       end
 
-   accept (visitor: WHEN_ITEM_2_VISITOR) is
+   accept (visitor: WHEN_ITEM_2_VISITOR)
       do
          visitor.visit_when_item_2(Current)
       end
 
 feature {WHEN_ITEM_2}
-   init (l: like lower; u: like upper) is
+   init (l: like lower; u: like upper)
       require
          l /= Void
          u /= Void
@@ -56,7 +56,7 @@ feature {WHEN_ITEM_2}
          upper = u
       end
 
-   set_lower_upper_manifest_expression (type: TYPE) is
+   set_lower_upper_manifest_expression (type: TYPE)
       do
          lower_manifest_expression := manifest_expression_check(lower, type)
          upper_manifest_expression := manifest_expression_check(upper, type)
@@ -65,7 +65,7 @@ feature {WHEN_ITEM_2}
          upper_manifest_expression /= Void
       end
 
-   set_values_character is
+   set_values_character
       require
          lower_manifest_expression /= Void
          upper_manifest_expression /= Void
@@ -74,7 +74,7 @@ feature {WHEN_ITEM_2}
          character_check(upper, upper_manifest_expression)
       end
 
-   set_values_integer is
+   set_values_integer
       require
          lower_manifest_expression /= Void
          upper_manifest_expression /= Void
@@ -84,17 +84,17 @@ feature {WHEN_ITEM_2}
       end
 
 feature {WHEN_CLAUSE}
-   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM) is
+   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM)
       do
          occurrence_1.validity_check_continued_when_item_2(type, expression_type, Current)
       end
 
-   match_value (v: INTEGER): BOOLEAN is
+   match_value (v: INTEGER): BOOLEAN
       do
          Result := v.in_range(lower_value, upper_value)
       end
 
-   collect (t: TYPE) is
+   collect (t: TYPE)
       local
          dummy: TYPE
       do
@@ -106,12 +106,12 @@ feature {WHEN_CLAUSE}
          end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := current_or_twin_init(lower.adapt_for(t), upper.adapt_for(t))
       end
 
-   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values
       local
          l, u, i: INTEGER
       do
@@ -187,25 +187,25 @@ feature {WHEN_CLAUSE}
          end
       end
 
-   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE)
       do
          set_lower_upper_manifest_expression(type)
          set_values_character
       end
 
-   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE)
       do
          set_lower_upper_manifest_expression(type)
          set_values_integer
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := lower.side_effect_free(type) and then upper.side_effect_free(type)
       end
 
 feature {}
-   make (l, u: EXPRESSION) is
+   make (l, u: EXPRESSION)
       require
          l /= Void
          u /= Void
@@ -218,17 +218,17 @@ feature {}
       end
 
 feature {WHEN_CLAUSE, WHEN_ITEM}
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       do
          Result := current_or_twin_init(lower.specialize_in(new_type), upper.specialize_in(new_type))
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := current_or_twin_init(lower.specialize_thru(parent_type, parent_edge, new_type), upper.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_and_check_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current
       do
          Result := current_or_twin_init(lower.specialize_and_check(type), upper.specialize_and_check(type))
          Result.set_lower_upper_manifest_expression(type)
@@ -236,7 +236,7 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
          Result.lower_upper_value_check
       end
 
-   specialize_and_check_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current
       do
          Result := current_or_twin_init(lower.specialize_and_check(type), upper.specialize_and_check(type))
          Result.set_lower_upper_manifest_expression(type)
@@ -244,12 +244,12 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
          Result.lower_upper_value_check
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := lower.has_been_specialized and then upper.has_been_specialized
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          lower.pretty(indent_level)
          if not pretty_printer.zen_mode then
@@ -263,7 +263,7 @@ feature {WHEN_CLAUSE, WHEN_ITEM}
       end
 
 feature {WHEN_ITEM_1}
-   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1) is
+   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1)
       do
          if occurrence_2.expression_value.in_range(lower_value, upper_value) then
             error_handler.add_position(start_position)
@@ -274,7 +274,7 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_ITEM_2}
-   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2) is
+   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2)
       do
          if occurrence_2.lower_value.in_range(lower_value, upper_value) or else occurrence_2.upper_value.in_range(lower_value, upper_value) then
             error_handler.add_position(start_position)
@@ -284,7 +284,7 @@ feature {WHEN_ITEM_2}
          end
       end
 
-   lower_upper_value_check is
+   lower_upper_value_check
       do
          if lower_value >= upper_value then
             error_handler.add_position(lower.start_position)
@@ -299,7 +299,7 @@ feature {WHEN_ITEM_2}
       end
 
 feature {}
-   current_or_twin_init (l: like lower; u: like upper): like Current is
+   current_or_twin_init (l: like lower; u: like upper): like Current
       require
          l /= Void
          u /= Void

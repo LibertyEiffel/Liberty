@@ -25,74 +25,74 @@ inherit
    EDC_COLUMN
 
 feature {ANY}
-   as_value: EDC_COLUMN_VALUE[T_] is
+   as_value: EDC_COLUMN_VALUE[T_]
       deferred
       end
 
-   infix "@", manifest (a_data: T_): EDC_MANIFEST_VALUE[T_] is
+   infix "@", manifest (a_data: T_): EDC_MANIFEST_VALUE[T_]
       do
          create Result.make(a_data)
       end
 
-   prefix "#", parameter: EDC_PARAMETER[T_] is
+   prefix "#", parameter: EDC_PARAMETER[T_]
       do
          create Result.make
       end
 
 feature {ANY} -- Convenient shorthands
-   is_null: EDC_EXPRESSION is
+   is_null: EDC_EXPRESSION
       do
          Result := as_value.is_null
       end
 
-   equals, infix "==" (other: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   equals, infix "==" (other: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.equals(other)
       end
 
-   in, infix "~~" (set: EDC_SELECT): EDC_EXPRESSION is
+   in, infix "~~" (set: EDC_SELECT): EDC_EXPRESSION
       do
          Result := as_value.in(set)
       end
 
-   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.is_like(a_value)
       end
 
-   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.lt(a_value)
       end
 
-   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.le(a_value)
       end
 
-   greter_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   greter_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.gt(a_value)
       end
 
-   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          Result := as_value.ge(a_value)
       end
 
 feature {ANY}
-   as_datum (datum: T_): EDC_TYPED_DATUM[T_] is
+   as_datum (datum: T_): EDC_TYPED_DATUM[T_]
       do
          Result := datum_factory.as_datum(datum)
       end
 
 feature {ANY}
-   item (set: EDC_RESULT_SET): EDC_TYPED_DATUM[T_] is
+   item (set: EDC_RESULT_SET): EDC_TYPED_DATUM[T_]
       do
          Result ::= set.item(Current)
       end
 
-   valid_value (a_value: EDC_DATUM): BOOLEAN is
+   valid_value (a_value: EDC_DATUM): BOOLEAN
       local
          i: INTEGER
       do
@@ -108,7 +108,7 @@ feature {ANY}
          end
       end
 
-   same_values (v1, v2: EDC_DATUM): BOOLEAN is
+   same_values (v1, v2: EDC_DATUM): BOOLEAN
       local
          tv1, tv2: EDC_TYPED_DATUM[T_]; t1, t2: T_; is_expanded: BOOLEAN
       do
@@ -127,7 +127,7 @@ feature {ANY}
          end
       end
 
-   value (a_value: EDC_DATUM): T_ is
+   value (a_value: EDC_DATUM): T_
       require
          a_value /= Void
       local
@@ -138,7 +138,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_name: like name) is
+   make (a_name: like name)
       require
          a_name.count > 0
       do

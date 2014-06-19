@@ -24,7 +24,7 @@ create {LIBERTY_FEATURE}
    specialized
 
 feature {LIBERTY_FEATURE}
-   set_the_feature (a_feature: like the_feature; replace: BOOLEAN) is
+   set_the_feature (a_feature: like the_feature; replace: BOOLEAN)
       require
          a_feature.context = local_context
          the_feature /= Void implies replace
@@ -40,7 +40,7 @@ feature {ANY}
    local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
    the_feature: LIBERTY_FEATURE
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          fnoa: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
       do
@@ -58,13 +58,13 @@ feature {ANY}
          end
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := the_feature.specialized_in(a_type).type_resolver
       end
 
 feature {}
-   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       local
          name: FIXED_STRING
       do
@@ -86,18 +86,18 @@ feature {}
          end
       end
 
-   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       do
          check Result = Void end
       end
 
-   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION
       do
          check Result = Void end
       end
 
 feature {}
-   make (a_feature_name: like feature_name; a_local_context: like local_context) is
+   make (a_feature_name: like feature_name; a_local_context: like local_context)
       require
          a_feature_name /= Void
          a_local_context /= Void
@@ -109,7 +109,7 @@ feature {}
          local_context = a_local_context
       end
 
-   specialized (a_feature_name: like feature_name; a_feature: like the_feature; a_parent: like parent) is
+   specialized (a_feature_name: like feature_name; a_feature: like the_feature; a_parent: like parent)
       require
          a_feature_name /= Void
          a_feature /= Void

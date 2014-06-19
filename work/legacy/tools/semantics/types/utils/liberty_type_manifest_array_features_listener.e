@@ -21,18 +21,18 @@ create {ANY}
    make
 
 feature {LIBERTY_TYPE}
-   on_type_known (type: LIBERTY_TYPE) is
+   on_type_known (type: LIBERTY_TYPE)
       do
          -- nothing
       end
 
-   on_type_built (type: LIBERTY_ACTUAL_TYPE) is
+   on_type_built (type: LIBERTY_ACTUAL_TYPE)
       do
          type.mark_manifest_array_features(mark)
       end
 
 feature {}
-   make (a_mark: like mark) is
+   make (a_mark: like mark)
       do
          mark := a_mark
       end

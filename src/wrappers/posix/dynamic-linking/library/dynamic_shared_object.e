@@ -17,7 +17,7 @@ insert
 create {DYNAMIC_LINKING_LOADER} from_external_pointer
 
 feature {ANY} -- Command
-	set_flags (some_flags: INTEGER) is
+	set_flags (some_flags: INTEGER)
 		-- Change the flags 
 	require are_valid_dlflags(some_flags)
 	local h,ptr: POINTER
@@ -34,18 +34,18 @@ feature {ANY} -- Command
 	end
 
 feature {DYNAMIC_LINKING_LOADER, DL_LOADER}
-	set_name (a_name: ABSTRACT_STRING) is
+	set_name (a_name: ABSTRACT_STRING)
 		do
 			name:=a_name
 		end
 
 feature {ANY} -- Symbol query
-	name: ABSTRACT_STRING is
+	name: ABSTRACT_STRING
 		-- The filename where Current have been loaded from. Void when Current refers to the main program
 		attribute
 	end
 
-	symbol (a_symbol: ABSTRACT_STRING): POINTER is
+	symbol (a_symbol: ABSTRACT_STRING): POINTER
 		-- The address where `a_symbol' - belonging to Current - is loaded into
 		-- memory.  If it is not found, either in Current or in its dependecies
 		-- Result will be default_pointer. The search performed is breadth
@@ -69,7 +69,7 @@ feature {ANY} -- Symbol query
 		-- Do not write "if a_dll.symbol("foo").is_not_null", defaull_pointer may be the actual value of "foo"
 
 		-- Do not write "my_symbol:=a_dll.symbol("foo") if a_dll.error/=Void
-		-- then print(a_dll.error)", because error is resetted every time it is
+		-- then print(a_dll.error)", because error is resetted every time it
 		-- invoked; the print command will ALWAYS fails because its argument
 		-- will be NULL.
 
@@ -85,7 +85,7 @@ feature {ANY} -- Symbol query
 		end
 
 feature {ANY} -- Error handling
-	error: FIXED_STRING is
+	error: FIXED_STRING
 		--  A human  readable description of the most recent error that
 		--  occurred during DYNAMIC_SHARED_OBJECT lifetime - creation, symbol
 		--  query and disposing. Void when no error occurred. A new string is allocated at every query
@@ -98,7 +98,7 @@ feature {ANY} -- Error handling
 	end
 
 feature {ANY} -- Disposing
-	dispose is
+	dispose
 		-- Invokes dlclose; it decrements the reference count on the dynamic library  handle  handle.   If  the  reference
 		-- count drops to zero and no other loaded libraries use symbols in it, then the dynamic library is unloaded.
 	local r: INTEGER

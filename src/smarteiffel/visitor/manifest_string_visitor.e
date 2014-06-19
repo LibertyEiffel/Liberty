@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {MANIFEST_STRING}
-   visit_manifest_string (visited: MANIFEST_STRING) is
+   visit_manifest_string (visited: MANIFEST_STRING)
       require
          visited /= Void
       deferred

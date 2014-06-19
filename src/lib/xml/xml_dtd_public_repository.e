@@ -10,7 +10,7 @@ insert
    URL_VALIDITY
 
 feature {ANY}
-   register (public_id: UNICODE_STRING; a_url: STRING) is
+   register (public_id: UNICODE_STRING; a_url: STRING)
          -- Register the public DTD `public_id' as having a local couterpart file in the given `local_path'.
       require
          valid_public_id: not public_id.is_empty
@@ -27,7 +27,7 @@ feature {ANY}
          registered: is_registered(public_id)
       end
 
-   is_registered (public_id: UNICODE_STRING): BOOLEAN is
+   is_registered (public_id: UNICODE_STRING): BOOLEAN
          -- Does the given `public_id' have a registered URL?
       require
          valid_public_id: not public_id.is_empty
@@ -36,7 +36,7 @@ feature {ANY}
       end
 
 feature {XML_DTD_PARSER}
-   public_dtd (public_id: UNICODE_STRING; a_url: URL): URL is
+   public_dtd (public_id: UNICODE_STRING; a_url: URL): URL
          -- Opens the given `public_id' either by network connection to the `url' or, if the `public_id'
          -- `is_registered', by reading the registered URL.
       require
@@ -57,30 +57,30 @@ feature {XML_DTD_PARSER}
          not is_registered(public_id) implies Result = a_url
       end
 
-   last_error: STRING is
+   last_error: STRING
          -- Meaningful only if the last call to `public_dtd' returned Void
       do
          Result := last_error_memory.item
       end
 
 feature {}
-   last_error_memory: REFERENCE[STRING] is
+   last_error_memory: REFERENCE[STRING]
       once
          create Result
       end
 
-   dtd: HASHED_DICTIONARY[URL, UNICODE_STRING] is
+   dtd: HASHED_DICTIONARY[URL, UNICODE_STRING]
          -- The registered URLs
       once
          create Result.make
       end
 
-   agent_error: PROCEDURE[TUPLE[STRING]] is
+   agent_error: PROCEDURE[TUPLE[STRING]]
       once
          Result := agent set_error(?)
       end
 
-   set_error (a_error: STRING) is
+   set_error (a_error: STRING)
       do
          last_error_memory.set_item(a_error)
       end
@@ -93,7 +93,7 @@ end -- class XML_DTD_PUBLIC_REPOSITORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

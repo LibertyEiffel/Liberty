@@ -35,7 +35,7 @@ feature {ANY}
          -- Lower index bound
 
 feature {ANY} -- Creation and Modification:
-   make (min_index, max_index: INTEGER) is
+   make (min_index, max_index: INTEGER)
          -- Prepare the array to hold values for indexes in range
          -- [`min_index' .. `max_index']. Set all values to default.
          -- When `max_index' = `min_index' - 1, the array `is_empty'.
@@ -64,7 +64,7 @@ feature {ANY} -- Creation and Modification:
          items_set: all_default
       end
 
-   with_capacity (needed_capacity, low: INTEGER) is
+   with_capacity (needed_capacity, low: INTEGER)
          -- Create an empty array with `capacity' initialized
          -- at least to `needed_capacity' and `lower' set to `low'.
       require
@@ -86,7 +86,7 @@ feature {ANY} -- Creation and Modification:
       end
 
 feature {ANY} -- Modification:
-   resize (min_index, max_index: INTEGER) is
+   resize (min_index, max_index: INTEGER)
          -- Resize to bounds `min_index' and `max_index'. Do not lose any
          -- item whose index is in both [`lower' .. `upper'] and
          -- [`min_index' .. `max_index']. New positions if any are
@@ -149,7 +149,7 @@ feature {ANY} -- Modification:
          upper = max_index
       end
 
-   reindex (new_lower: INTEGER) is
+   reindex (new_lower: INTEGER)
          -- Change indexing to take in account the expected `new_lower'
          -- index. The `upper' index is translated accordingly.
       do
@@ -161,17 +161,17 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Implementation of deferred:
-   count: INTEGER is
+   count: INTEGER
       do
          Result := upper - lower + 1
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := upper < lower -- *** Is there a better implementation ? *** Dom march  30th 2006 ***
       end
 
-   subarray (min, max: INTEGER): like Current is
+   subarray (min, max: INTEGER): like Current
       do
          Result := slice(min, max)
          Result.reindex(min)
@@ -179,18 +179,18 @@ feature {ANY} -- Implementation of deferred:
          Result.lower = min
       end
 
-   item (i: INTEGER): E_ is
+   item (i: INTEGER): E_
       do
          Result := storage.item(storage_index(i))
       end
 
-   put (element: like item; i: INTEGER) is
+   put (element: like item; i: INTEGER)
       do
          storage.put(element, storage_index(i))
          next_generation
       end
 
-   force (element: like item; index: INTEGER) is
+   force (element: like item; index: INTEGER)
       require else
          True
       do
@@ -216,7 +216,7 @@ feature {ANY} -- Implementation of deferred:
          lower = index.min(old lower)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          needed_capacity, o_s_u: INTEGER
       do
@@ -240,7 +240,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
       local
          s_u: INTEGER
       do
@@ -257,7 +257,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   remove_first is
+   remove_first
       do
          lower := lower + 1
          storage_lower := storage_lower + 1
@@ -269,7 +269,7 @@ feature {ANY} -- Implementation of deferred:
          upper = old upper
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
       local
          i: INTEGER
       do
@@ -286,7 +286,7 @@ feature {ANY} -- Implementation of deferred:
          upper = old upper
       end
 
-   remove (index: INTEGER) is
+   remove (index: INTEGER)
       do
          if index /= upper then
             if index /= lower then
@@ -302,7 +302,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   clear_count is
+   clear_count
       do
          upper := lower - 1
          next_generation
@@ -310,7 +310,7 @@ feature {ANY} -- Implementation of deferred:
          capacity = old capacity
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       local
          null_storage: like storage
       do
@@ -322,7 +322,7 @@ feature {ANY} -- Implementation of deferred:
          capacity = 0
       end
 
-   add_first (element: like item) is
+   add_first (element: like item)
       do
          make_space_for_one
          upper := upper + 1
@@ -334,14 +334,14 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   add_last (element: like item) is
+   add_last (element: like item)
       do
          make_space_for_one
          upper := upper + 1
          put(element, upper)
       end
 
-   from_collection (model: TRAVERSABLE[like item]) is
+   from_collection (model: TRAVERSABLE[like item])
       local
          i, up: INTEGER
       do
@@ -361,7 +361,7 @@ feature {ANY} -- Implementation of deferred:
          upper = model.upper
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
       local
          s_u: INTEGER
       do
@@ -377,7 +377,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   occurrences (element: like item): INTEGER is
+   occurrences (element: like item): INTEGER
       local
          s_u: INTEGER
       do
@@ -392,7 +392,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_occurrences (element: like item): INTEGER is
+   fast_occurrences (element: like item): INTEGER
       local
          s_u: INTEGER
       do
@@ -407,7 +407,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   first_index_of (element: like item): INTEGER is
+   first_index_of (element: like item): INTEGER
       local
          s_u: INTEGER
       do
@@ -428,7 +428,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   index_of (element: like item; start_index: INTEGER): INTEGER is
+   index_of (element: like item; start_index: INTEGER): INTEGER
       local
          s_start_index, s_u: INTEGER
       do
@@ -450,7 +450,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       local
          safe_equal: SAFE_EQUAL[E_]
       do
@@ -463,7 +463,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_first_index_of (element: like item): INTEGER is
+   fast_first_index_of (element: like item): INTEGER
       local
          s_u: INTEGER
       do
@@ -484,7 +484,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_index_of (element: like item; start_index: INTEGER): INTEGER
       local
          s_start_index, s_u: INTEGER
       do
@@ -506,7 +506,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          from
             Result := start_index
@@ -517,7 +517,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN
       local
          wp, owp: INTEGER
       do
@@ -534,7 +534,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          wp, owp: INTEGER
       do
@@ -551,7 +551,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   slice (min, max: INTEGER): like Current is
+   slice (min, max: INTEGER): like Current
       local
          storage_min, storage_max: INTEGER
       do
@@ -568,18 +568,18 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
       end
 
-   first: like item is
+   first: like item
       do
          Result := storage.item(storage_lower)
       end
 
 feature {}
-   make_space_for_one is
+   make_space_for_one
          -- Make sure `storage' is big enough to hold at least one
          -- more element.
       local
@@ -608,7 +608,7 @@ feature {}
          next_generation
       end
 
-   clear_slice (min, max: INTEGER) is
+   clear_slice (min, max: INTEGER)
       require
          valid_index(min)
          valid_index(max)
@@ -628,7 +628,7 @@ feature {}
          next_generation
       end
 
-   squeeze_bubble (min, max, pos, length: INTEGER) is
+   squeeze_bubble (min, max, pos, length: INTEGER)
       require
          valid_index(min)
          valid_index(max)
@@ -647,7 +647,7 @@ feature {}
          next_generation
       end
 
-   unwrap is
+   unwrap
       local
          bottom, top, free, old_bound, overlap: INTEGER; tmp: like storage
       do
@@ -701,7 +701,7 @@ feature {}
       end
 
 feature {ANY}
-   to_external: POINTER is
+   to_external: POINTER
          -- Gives C access into the internal `storage' of the ARRAY.
          -- Result is pointing the element at index `lower'.
          --
@@ -718,7 +718,7 @@ feature {ANY}
          not is_wrapped
       end
 
-   is_wrapped: BOOLEAN is
+   is_wrapped: BOOLEAN
       do
          Result := storage_lower + count > capacity
       ensure
@@ -730,7 +730,7 @@ feature {RING_ARRAY}
          -- Index of `first' in `storage'
          -- This would always be 0 for regular arrays.
 
-   storage_upper: INTEGER is
+   storage_upper: INTEGER
          -- Index of `last' in `storage'
       require
          not is_empty
@@ -740,7 +740,7 @@ feature {RING_ARRAY}
          in_storage(Result)
       end
 
-   storage_index (i: INTEGER): INTEGER is
+   storage_index (i: INTEGER): INTEGER
          -- Index in `storage' corresponding to index `i' in `Current'
       require
          valid_index(i)
@@ -753,14 +753,14 @@ feature {RING_ARRAY}
          in_storage(Result)
       end
 
-   in_storage (index: INTEGER): BOOLEAN is
+   in_storage (index: INTEGER): BOOLEAN
       do
          Result := index.in_range(0, capacity - 1)
       ensure
          Result = (0 <= index and index < capacity)
       end
 
-   wrap_point: INTEGER is
+   wrap_point: INTEGER
          -- Index in Current (seen as a COLLECTION) such that for any
          -- `valid_index'es i and j, if i < wrap_point and j >=
          -- wrap_point then storage_index(i) > storage_index(j)
@@ -775,7 +775,7 @@ feature {RING_ARRAY}
          valid_index(Result) = is_wrapped
       end
 
-   slices_are_equal (other: like Current; wp, owp: INTEGER): BOOLEAN is
+   slices_are_equal (other: like Current; wp, owp: INTEGER): BOOLEAN
       require
          wp >= owp
          lower = other.lower
@@ -793,7 +793,7 @@ feature {RING_ARRAY}
          end
       end
 
-   slices_are_equal_map (other: like Current; wp, owp: INTEGER): BOOLEAN is
+   slices_are_equal_map (other: like Current; wp, owp: INTEGER): BOOLEAN
       require
          wp >= owp
          lower = other.lower
@@ -812,7 +812,7 @@ feature {RING_ARRAY}
       end
 
 feature {} -- Garbage collector tuning (very low-level):
-   mark_native_arrays is
+   mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
          -- some elements are removed. No time is lost to clean the released area with a Void
          -- or a 0 value. (Look for example the `remove_last' implementation.)
@@ -856,13 +856,13 @@ feature {} -- Garbage collector tuning (very low-level):
       end
 
 feature {} -- Implement manifest generic creation (very low-level):
-   manifest_make (needed_capacity: INTEGER; initial_lower: INTEGER) is
+   manifest_make (needed_capacity: INTEGER; initial_lower: INTEGER)
          -- Manifest creation of a RING_ARRAY `lower' set to `initial_lower'.
       do
          make(initial_lower, initial_lower + needed_capacity - 1)
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       do
          storage.put(element, index)
       ensure
@@ -880,7 +880,7 @@ end -- class RING_ARRAY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

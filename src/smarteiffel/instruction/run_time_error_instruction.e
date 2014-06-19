@@ -22,53 +22,53 @@ feature {ANY}
    error_code: INTEGER
          -- An EXCEPTIONS error code.
 
-   error_name: STRING is
+   error_name: STRING
          -- Symbolic name for the error code to be raised when
          -- exceptions are turned on.
       do
          Result := exceptions.name_of_exception(error_code)
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := False
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   accept (visitor: RUN_TIME_ERROR_INSTRUCTION_VISITOR) is
+   accept (visitor: RUN_TIME_ERROR_INSTRUCTION_VISITOR)
       do
          visitor.visit_run_time_error_instruction(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position; em: like error_message; ec: like error_code) is
+   make (sp: like start_position; em: like error_message; ec: like error_code)
       require
          not sp.is_unknown
          em /= Void

@@ -14,28 +14,28 @@ create {}
    make
 
 feature {ANY}
-   f_0: BOOLEAN is
+   f_0: BOOLEAN
       do
          if True then
             Result := True
          end
       end
 
-   f_1 (a1: INTEGER): BOOLEAN is
+   f_1 (a1: INTEGER): BOOLEAN
       do
          if True then
             Result := True
          end
       end
 
-   f_2 (a1, a2: INTEGER): BOOLEAN is
+   f_2 (a1, a2: INTEGER): BOOLEAN
       do
          if True then
             Result := True
          end
       end
 
-   make is
+   make
       do
          if f_0 then
             assert(True)
@@ -87,33 +87,25 @@ feature {ANY}
          assert(assert_counter.item = 11)
       end
 
-   g_0: BOOLEAN is
+   g_0: BOOLEAN
       do
          if True then
          end
       end
 
-   g_1 (a1: INTEGER): BOOLEAN is
+   g_1 (a1: INTEGER): BOOLEAN
       do
          if True then
          end
       end
 
-   g_2 (a1, a2: INTEGER): BOOLEAN is
+   g_2 (a1, a2: INTEGER): BOOLEAN
       do
          if True then
          end
       end
 
-   h_0: BOOLEAN is
-      do
-         Result := False
-         if True then
-            Result := False
-         end
-      end
-
-   h_1 (a1: INTEGER): BOOLEAN is
+   h_0: BOOLEAN
       do
          Result := False
          if True then
@@ -121,7 +113,15 @@ feature {ANY}
          end
       end
 
-   h_2 (a1, a2: INTEGER): BOOLEAN is
+   h_1 (a1: INTEGER): BOOLEAN
+      do
+         Result := False
+         if True then
+            Result := False
+         end
+      end
+
+   h_2 (a1, a2: INTEGER): BOOLEAN
       do
          Result := False
          if True then

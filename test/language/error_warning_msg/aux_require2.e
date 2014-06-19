@@ -6,14 +6,14 @@ class AUX_REQUIRE2
 feature {}
    attr: INTEGER
 
-   make is
+   make
       require
          attr = 0
       do
          attr := attr + 2
       end
 
-   make2 is
+   make2
       do
          attr := attr + 2
       end

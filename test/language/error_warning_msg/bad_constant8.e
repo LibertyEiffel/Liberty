@@ -7,13 +7,13 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if f.out = Void then
          end
       end
 
-   f (x: INTEGER): INTEGER is unique
+   f (x: INTEGER): INTEGER unique
 
 end -- class BAD_CONSTANT8
 --

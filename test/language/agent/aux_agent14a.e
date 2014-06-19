@@ -4,7 +4,7 @@
 class AUX_AGENT14A[T]
 
 feature {ANY}
-   set_target (target_in: AUX_AGENT14TARG[T]) is
+   set_target (target_in: AUX_AGENT14TARG[T])
       do
          target := target_in -- compiles when line deleted
       end

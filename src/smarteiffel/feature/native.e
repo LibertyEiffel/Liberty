@@ -15,7 +15,7 @@ insert
    GLOBALS
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
@@ -23,13 +23,13 @@ feature {ANY}
    external_tag: MANIFEST_STRING
          -- The external language call description.
 
-   start_position: POSITION is
+   start_position: POSITION
          -- Of the `external_tag'.
       do
          Result := external_tag.start_position
       end
 
-   frozen pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
+   frozen pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
       do
          check
             indent_level = 1
@@ -38,7 +38,7 @@ feature {ANY}
          external_tag.pretty(3)
       end
 
-   use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
+   use_current (er: EXTERNAL_ROUTINE): BOOLEAN
          -- Is `Current' used by such a call?
       require
          er /= Void
@@ -46,13 +46,13 @@ feature {ANY}
       end
 
 feature {EXTERNAL_FUNCTION}
-   side_effect_free (target_type: TYPE; feature_text: FEATURE_TEXT): BOOLEAN is
+   side_effect_free (target_type: TYPE; feature_text: FEATURE_TEXT): BOOLEAN
       do
          -- The default is False.
       end
 
 feature {EXTERNAL_ROUTINE}
-   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE)
          -- Note1 : as an example the `collect' call is used to collect actually used NATIVE_PLUG_IN.
          -- Note 2: also used to notify to the `assignment_handler' of possible weird assignments which may be
          -- done outside of the Eiffel code.
@@ -63,18 +63,18 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {EXTERNAL_TYPE}
-   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE) is
+   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE)
       deferred
       end
 
 feature {}
-   frozen notify_external_assignments (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   frozen notify_external_assignments (type: TYPE; external_routine: EXTERNAL_ROUTINE)
          -- Must be call during `collect' by native which are not trusted.
       do
          assignment_handler.from_external(type, external_routine.arguments, external_routine.result_type)
       end
 
-   make (et: like external_tag) is
+   make (et: like external_tag)
       require
          et /= Void
       do

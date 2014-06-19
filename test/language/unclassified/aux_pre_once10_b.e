@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    foofoo: STRING
 
-   make is
+   make
       do
          foofoo := once "B"
       end

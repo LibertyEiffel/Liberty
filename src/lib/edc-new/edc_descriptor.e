@@ -4,13 +4,13 @@ insert
    EDC_CONSTANTS
 
 feature {ANY}
-   delete (record: EDC_RECORD) is
+   delete (record: EDC_RECORD)
       require
          record /= Void
       deferred
       end
 
-   criterion_primary_key (a_pk: K_): EDC_CRITERION is
+   criterion_primary_key (a_pk: K_): EDC_CRITERION
       require
          a_pk /= Void
       deferred

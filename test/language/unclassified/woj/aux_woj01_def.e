@@ -1,7 +1,7 @@
 deferred class AUX_WOJ01_DEF
 
 feature {ANY}
-   set (i: INTEGER) is
+   set (i: INTEGER)
       deferred
       end
 

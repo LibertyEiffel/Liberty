@@ -7,7 +7,7 @@ create {ANY}
    from_model
 
 feature {ANY}
-   from_model (model: COLLECTION[COLLECTION[E]]) is
+   from_model (model: COLLECTION[COLLECTION[E]])
          -- The `model' is used to fill line by line the COLLECTION2.
          -- Assume all sub-collections of `model' have the same indexing.
       local
@@ -31,12 +31,12 @@ feature {ANY}
          end
       end
 
-   put (element: like item; line, column: INTEGER) is
+   put (element: like item; line, column: INTEGER)
       do
          storage.put(element, (line - lower1) * count2 + column - lower2)
       end
 
-   item (line, column: INTEGER): E is
+   item (line, column: INTEGER): E
       do
          Result := storage.item((line - lower1) * count2 + column - lower2)
       end
@@ -46,12 +46,12 @@ feature {ANY}
 feature {ANY}
    lower1, lower2, upper1, upper2: INTEGER
 
-   count2: INTEGER is
+   count2: INTEGER
       do
          Result := upper2 - lower2 + 1
       end
 
-   make (line_min, line_max, column_min, column_max: INTEGER) is
+   make (line_min, line_max, column_min, column_max: INTEGER)
          -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
          -- `column_maximum' using arguments as new values.
          -- All elements are set to the default value of type E.
@@ -73,12 +73,12 @@ feature {ANY}
 
    capacity: INTEGER
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := count1 * count2
       end
 
-   count1: INTEGER is
+   count1: INTEGER
       do
          Result := upper1 - lower1 + 1
       end

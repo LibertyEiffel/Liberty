@@ -15,7 +15,7 @@ feature {ANY}
    var_set: HASHED_SET[ITEM_VAR]
       -- the collected vars
 
-   make is
+   make
       do
          create item_set.with_capacity(10)
          create var_set.with_capacity(10)
@@ -23,7 +23,7 @@ feature {ANY}
          not (has_item or has_var)
       end
 
-   clear is
+   clear
       do
          item_set.clear_count
          var_set.clear_count
@@ -31,21 +31,21 @@ feature {ANY}
          not (has_item or has_var)
       end
 
-   has_var: BOOLEAN is
+   has_var: BOOLEAN
       do
          Result := var_set.count > 0
       ensure
          Result = (var_set.count > 0)
       end
 
-   has_item: BOOLEAN is
+   has_item: BOOLEAN
       do
          Result := item_set.count > 0
       ensure
          Result = (item_set.count > 0)
       end
 
-   put (item: ITEM) is
+   put (item: ITEM)
          -- records the item in item_set or in var_set
          -- depending on the real type of item that can
          -- be ITEM_VAR or ITEM_ITEM

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          create aa
          aa.for_each(agent fa(?))
@@ -20,11 +20,11 @@ feature {}
 
    bb: AUX_AGENT10[CHARACTER]
 
-   fa (a: INTEGER) is
+   fa (a: INTEGER)
       do
       end
 
-   fb (b: CHARACTER) is
+   fb (b: CHARACTER)
       do
       end
 

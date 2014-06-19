@@ -15,7 +15,7 @@ insert
       end
 
 feature {ANY}
-   Default_size: INTEGER is 53
+   Default_size: INTEGER 53
          -- Minimum size for storage in number of items.
 
 feature {SET}
@@ -39,7 +39,7 @@ feature {SET} -- Internal cache handling:
          -- Meaningful only when `cache_user' is not -1.
 
 feature {}
-   create_with_capacity (new_capacity: INTEGER) is
+   create_with_capacity (new_capacity: INTEGER)
       require
          new_capacity > 0
       do
@@ -57,7 +57,7 @@ feature {}
          count := 0
       end
 
-   make is
+   make
          -- Create an empty set. Internal storage `capacity' of the set is initialized using the
          -- `Default_size' value. Then, tuning of needed storage size is done automatically according to
          -- usage. If you are really sure that your set is always really bigger than `Default_size', you may
@@ -73,7 +73,7 @@ feature {}
          capacity = Default_size
       end
 
-   with_capacity (medium_size: INTEGER) is
+   with_capacity (medium_size: INTEGER)
          -- Create an empty set using `medium_size' as an appropriate value to help initialization of
          -- `capacity'. Thus, this feature may be used in place of `make' to save some execution time if one
          -- is sure that storage size will rapidly become really bigger than `Default_size' (if not sure,
@@ -97,7 +97,7 @@ feature {ANY}
    count: INTEGER
 
 feature {ANY}
-   add (e: like item) is
+   add (e: like item)
       local
          h, idx: INTEGER; node: like cache_node
       do
@@ -123,7 +123,7 @@ feature {ANY}
          next_generation
       end
 
-   fast_add (e: like item) is
+   fast_add (e: like item)
       local
          h, idx: INTEGER; node: like cache_node
       do
@@ -149,7 +149,7 @@ feature {ANY}
          next_generation
       end
 
-   remove (e: like item) is
+   remove (e: like item)
       local
          h, idx: INTEGER; node, previous_node: like cache_node
       do
@@ -181,7 +181,7 @@ feature {ANY}
          next_generation
       end
 
-   fast_remove (e: like item) is
+   fast_remove (e: like item)
       local
          h, idx: INTEGER; node, previous_node: like cache_node
       do
@@ -213,7 +213,7 @@ feature {ANY}
          next_generation
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       local
          i: INTEGER; node: like cache_node
       do
@@ -239,7 +239,7 @@ feature {ANY}
          capacity = old capacity
       end
 
-   has (e: like item): BOOLEAN is
+   has (e: like item): BOOLEAN
       local
          idx: INTEGER; node: like cache_node
       do
@@ -254,7 +254,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   fast_has (e: like item): BOOLEAN is
+   fast_has (e: like item): BOOLEAN
       local
          idx: INTEGER; node: like cache_node
       do
@@ -269,7 +269,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   reference_at (e: like item): like item is
+   reference_at (e: like item): like item
       local
          idx: INTEGER; node: like cache_node
       do
@@ -286,13 +286,13 @@ feature {ANY}
          end
       end
 
-   item (index: INTEGER): E_ is
+   item (index: INTEGER): E_
       do
          set_cache_user(index)
          Result := cache_node.item
       end
 
-   intersection (other: like Current) is
+   intersection (other: like Current)
       local
          i, c: INTEGER; node1, node2: like cache_node
       do
@@ -335,7 +335,7 @@ feature {ANY}
          next_generation
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -357,7 +357,7 @@ feature {ANY}
          next_generation
       end
 
-   from_collection (model: COLLECTION[like item]) is
+   from_collection (model: COLLECTION[like item])
       local
          i, up: INTEGER
       do
@@ -375,7 +375,7 @@ feature {ANY}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a HASHED_SET.
       do
          with_capacity(needed_capacity)
@@ -385,12 +385,12 @@ feature {}
    free_nodes: WEAK_REFERENCE[HASHED_SET_NODE[E_]]
          -- If any, they are ready to be recycled.
 
-   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE], STRING] is
+   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE], STRING]
       once
          create {HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_SET_NODE], STRING]} Result.make
       end
 
-   dispose_node (node: HASHED_SET_NODE[E_]): HASHED_SET_NODE[E_] is
+   dispose_node (node: HASHED_SET_NODE[E_]): HASHED_SET_NODE[E_]
          -- Clear and add `node' in the `free_nodes' list.
       require
          node /= Void
@@ -405,7 +405,7 @@ feature {}
          free_nodes /= Void
       end
 
-   new_node (e: E_; next: HASHED_SET_NODE[E_]): HASHED_SET_NODE[E_] is
+   new_node (e: E_; next: HASHED_SET_NODE[E_]): HASHED_SET_NODE[E_]
          -- Recycle from `free_nodes' or create a new one.
       do
          Result := free_nodes.item
@@ -417,7 +417,7 @@ feature {}
          end
       end
 
-   increase_capacity is
+   increase_capacity
          -- There are not enough free slots: the set must grow.
       require
          should_increase_capacity(capacity, count)
@@ -452,7 +452,7 @@ feature {}
          capacity > old capacity
       end
 
-   set_cache_user (index: INTEGER) is
+   set_cache_user (index: INTEGER)
       do
          if index = cache_user + 1 then
             from
@@ -487,7 +487,7 @@ feature {}
          end
       end
 
-   hash_code (e: like item): INTEGER is
+   hash_code (e: like item): INTEGER
       require
          e /= Void
       deferred
@@ -508,7 +508,7 @@ end -- class ABSTRACT_HASHED_SET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -31,44 +31,44 @@ feature {ANY}
    target_type: TYPE
          -- Alias of `target_type_mark.type'. Static `target_type' of the target of the feature to be called.
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
          -- The corresponding one of `target_type' and `feature_name'.
       do
          Result := target_type.lookup(feature_name)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := feature_name.start_position
       end
 
-   accept (visitor: CECIL_ENTRY_VISITOR) is
+   accept (visitor: CECIL_ENTRY_VISITOR)
       do
          visitor.visit_cecil_entry(Current)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check
             False
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check
             False
          end
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       do
          check
             False
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          if code /= Void then
             code := code.adapt_for(type)
@@ -78,21 +78,21 @@ feature {ANY}
          Result = Current
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if code /= Void then
             Result := code.use_current(type)
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if code /= Void then
             code.safety_check(type)
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; lt: LIVE_TYPE
       do
@@ -117,20 +117,20 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          -- cannot return False since it is used in some assertions (see `collect')
          Result := True
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          check
             False
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             False
@@ -138,7 +138,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   anonymous_feature: ANONYMOUS_FEATURE is
+   anonymous_feature: ANONYMOUS_FEATURE
       do
          Result := feature_stamp.anonymous_feature(target_type)
       ensure
@@ -146,7 +146,7 @@ feature {ANY}
       end
 
 feature {CECIL_FILE}
-   get_started (cecil_file: CECIL_FILE) is
+   get_started (cecil_file: CECIL_FILE)
          -- Called only once to initialize `target_type', `code' and `feature_stamp'.
       require
          cecil_file /= Void
@@ -199,7 +199,7 @@ feature {CECIL_FILE}
       end
 
 feature {ANONYMOUS_FEATURE, CODE}
-   simplify (type: TYPE): CODE is
+   simplify (type: TYPE): CODE
       do
          check
             False
@@ -207,7 +207,7 @@ feature {ANONYMOUS_FEATURE, CODE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check
             False
@@ -215,7 +215,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ANY}
-   on_echo (cecil_file: CECIL_FILE) is
+   on_echo (cecil_file: CECIL_FILE)
       do
          if is_creation then
             echo.put_string(once "%Tcreate {")
@@ -230,7 +230,7 @@ feature {ANY}
          echo.put_string(once "%").%N")
       end
 
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check
             type.is_any
@@ -242,13 +242,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   run_feature: RUN_FEATURE is
+   run_feature: RUN_FEATURE
       do
          Result := feature_stamp.run_feature_for(target_type)
       end
 
 feature {}
-   make (cn: like c_name; ttm: like target_type_mark; fn: like feature_name; c: like is_creation) is
+   make (cn: like c_name; ttm: like target_type_mark; fn: like feature_name; c: like is_creation)
       require
          cn /= Void
          ttm /= Void

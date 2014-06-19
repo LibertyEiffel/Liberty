@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_log_flag_fatal_low_level)  or else
 				(a_value = g_log_flag_recursion_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_log_flag_fatal is
+	set_g_log_flag_fatal
 		do
 			value := g_log_flag_fatal_low_level
 		end
 
-	set_g_log_flag_recursion is
+	set_g_log_flag_recursion
 		do
 			value := g_log_flag_recursion_low_level
 		end
 
-	set_g_log_level_critical is
+	set_g_log_level_critical
 		do
 			value := g_log_level_critical_low_level
 		end
 
-	set_g_log_level_debug is
+	set_g_log_level_debug
 		do
 			value := g_log_level_debug_low_level
 		end
 
-	set_g_log_level_error is
+	set_g_log_level_error
 		do
 			value := g_log_level_error_low_level
 		end
 
-	set_g_log_level_info is
+	set_g_log_level_info
 		do
 			value := g_log_level_info_low_level
 		end
 
-	set_g_log_level_mask is
+	set_g_log_level_mask
 		do
 			value := g_log_level_mask_low_level
 		end
 
-	set_g_log_level_message is
+	set_g_log_level_message
 		do
 			value := g_log_level_message_low_level
 		end
 
-	set_g_log_level_warning is
+	set_g_log_level_warning
 		do
 			value := g_log_level_warning_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_log_flag_fatal: BOOLEAN is
+	is_g_log_flag_fatal: BOOLEAN
 		do
 			Result := (value=g_log_flag_fatal_low_level)
 		end
 
-	is_g_log_flag_recursion: BOOLEAN is
+	is_g_log_flag_recursion: BOOLEAN
 		do
 			Result := (value=g_log_flag_recursion_low_level)
 		end
 
-	is_g_log_level_critical: BOOLEAN is
+	is_g_log_level_critical: BOOLEAN
 		do
 			Result := (value=g_log_level_critical_low_level)
 		end
 
-	is_g_log_level_debug: BOOLEAN is
+	is_g_log_level_debug: BOOLEAN
 		do
 			Result := (value=g_log_level_debug_low_level)
 		end
 
-	is_g_log_level_error: BOOLEAN is
+	is_g_log_level_error: BOOLEAN
 		do
 			Result := (value=g_log_level_error_low_level)
 		end
 
-	is_g_log_level_info: BOOLEAN is
+	is_g_log_level_info: BOOLEAN
 		do
 			Result := (value=g_log_level_info_low_level)
 		end
 
-	is_g_log_level_mask: BOOLEAN is
+	is_g_log_level_mask: BOOLEAN
 		do
 			Result := (value=g_log_level_mask_low_level)
 		end
 
-	is_g_log_level_message: BOOLEAN is
+	is_g_log_level_message: BOOLEAN
 		do
 			Result := (value=g_log_level_message_low_level)
 		end
 
-	is_g_log_level_warning: BOOLEAN is
+	is_g_log_level_warning: BOOLEAN
 		do
 			Result := (value=g_log_level_warning_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_log_flag_fatal_low_level: INTEGER is
+	g_log_flag_fatal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_flag_recursion_low_level: INTEGER is
+	g_log_flag_recursion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_critical_low_level: INTEGER is
+	g_log_level_critical_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_debug_low_level: INTEGER is
+	g_log_level_debug_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_error_low_level: INTEGER is
+	g_log_level_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_info_low_level: INTEGER is
+	g_log_level_info_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_mask_low_level: INTEGER is
+	g_log_level_mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_message_low_level: INTEGER is
+	g_log_level_message_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_log_level_warning_low_level: INTEGER is
+	g_log_level_warning_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

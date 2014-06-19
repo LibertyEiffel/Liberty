@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_info_struct_set_class_size (a_structure: POINTER; a_value: NATURAL_16) is
+	gtype_info_struct_set_class_size (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for class_size field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_base_init (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_base_init (a_structure: POINTER; a_value: POINTER)
 			-- Setter for base_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_base_finalize (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_base_finalize (a_structure: POINTER; a_value: POINTER)
 			-- Setter for base_finalize field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_class_init (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_class_init (a_structure: POINTER; a_value: POINTER)
 			-- Setter for class_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_class_finalize (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_class_finalize (a_structure: POINTER; a_value: POINTER)
 			-- Setter for class_finalize field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_class_data (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_class_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for class_data field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_instance_size (a_structure: POINTER; a_value: NATURAL_16) is
+	gtype_info_struct_set_instance_size (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for instance_size field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_n_preallocs (a_structure: POINTER; a_value: NATURAL_16) is
+	gtype_info_struct_set_n_preallocs (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for n_preallocs field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_instance_init (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_instance_init (a_structure: POINTER; a_value: POINTER)
 			-- Setter for instance_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_info_struct_set_value_table (a_structure: POINTER; a_value: POINTER) is
+	gtype_info_struct_set_value_table (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_table field of GTYPE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_info_struct_get_class_size (a_structure: POINTER): NATURAL_16 is
+	gtype_info_struct_get_class_size (a_structure: POINTER): NATURAL_16
 			-- Query for class_size field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_base_init (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_base_init (a_structure: POINTER): POINTER
 			-- Query for base_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_base_finalize (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_base_finalize (a_structure: POINTER): POINTER
 			-- Query for base_finalize field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_class_init (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_class_init (a_structure: POINTER): POINTER
 			-- Query for class_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_class_finalize (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_class_finalize (a_structure: POINTER): POINTER
 			-- Query for class_finalize field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_class_data (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_class_data (a_structure: POINTER): POINTER
 			-- Query for class_data field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -202,7 +202,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_instance_size (a_structure: POINTER): NATURAL_16 is
+	gtype_info_struct_get_instance_size (a_structure: POINTER): NATURAL_16
 			-- Query for instance_size field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -214,7 +214,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_n_preallocs (a_structure: POINTER): NATURAL_16 is
+	gtype_info_struct_get_n_preallocs (a_structure: POINTER): NATURAL_16
 			-- Query for n_preallocs field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -226,7 +226,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_instance_init (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_instance_init (a_structure: POINTER): POINTER
 			-- Query for instance_init field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -238,7 +238,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_info_struct_get_value_table (a_structure: POINTER): POINTER is
+	gtype_info_struct_get_value_table (a_structure: POINTER): POINTER
 			-- Query for value_table field of GTYPE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -251,7 +251,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

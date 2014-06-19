@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   start_i is
+   start_i
       do
          container := Void
       end

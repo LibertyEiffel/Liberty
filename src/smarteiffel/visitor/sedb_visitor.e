@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {SEDB}
-   visit_sedb (visited: SEDB) is
+   visit_sedb (visited: SEDB)
       require
          visited /= Void
       deferred

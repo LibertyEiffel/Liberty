@@ -4,15 +4,15 @@
 class AUX_RENAME8A
 
 feature {ANY}
-   f (i: INTEGER) is
+   f (i: INTEGER)
       do
       end
 
-   g is
+   g
       do
       end
 
-   h (other: like Current) is
+   h (other: like Current)
       do
          other.f(1)
       end

@@ -10,7 +10,7 @@ inherit
    EXPRESSION
 
 feature {ANY}
-   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE
       local
          rt: TYPE
       do
@@ -20,24 +20,24 @@ feature {ANY}
          end
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   frozen side_effect_free (type: TYPE): BOOLEAN is
+   frozen side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen safety_check (type: TYPE)
       do
       end
 
    is_outside: BOOLEAN
          -- True if the local or argument is reached outside of a closure.
 
-   as_outside: like Current is
+   as_outside: like Current
       do
          if is_outside then
             Result := Current
@@ -51,7 +51,7 @@ feature {ANY}
       end
 
 feature {LOCAL_ARGUMENT_REF}
-   set_outside is
+   set_outside
       do
          is_outside := True
       ensure

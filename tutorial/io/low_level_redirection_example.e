@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          std_input.redirect_from("low_level_redirection_example.e")
          check

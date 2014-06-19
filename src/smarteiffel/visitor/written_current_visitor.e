@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {WRITTEN_CURRENT}
-   visit_written_current (visited: WRITTEN_CURRENT) is
+   visit_written_current (visited: WRITTEN_CURRENT)
       require
          visited /= Void
       deferred

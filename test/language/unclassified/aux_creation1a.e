@@ -15,12 +15,12 @@ feature {ANY}
 
    run_display_b: INTEGER
 
-   make is
+   make
       do
          run_make_a := run_make_a + 1
       end
 
-   display is
+   display
       do
          run_display_a := run_display_a + 1
       end

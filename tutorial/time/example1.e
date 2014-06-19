@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          time: TIME
       do

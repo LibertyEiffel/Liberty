@@ -14,7 +14,7 @@ feature {ANY}
    -- array: ARRAY[expanded AUX_FS1];
    array: ARRAY[AUX_FS1]
 
-   make is
+   make
       local
          aux: AUX_FS1
       do
@@ -24,7 +24,7 @@ feature {ANY}
          assert(array.item(1) = aux)
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

@@ -10,7 +10,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          aux: AUX_ATTRIBUTE03B; x: INTEGER
       do
@@ -35,13 +35,13 @@ feature {ANY}
 
    ensure_flag: BOOLEAN
 
-   set_flags_require: BOOLEAN is
+   set_flags_require: BOOLEAN
       do
          require_flag := True
          Result := True
       end
 
-   set_flags is
+   set_flags
       require
          set_flags_require
       do
@@ -49,7 +49,7 @@ feature {ANY}
          set_flags_ensure
       end
 
-   set_flags_ensure: BOOLEAN is
+   set_flags_ensure: BOOLEAN
       do
          ensure_flag := True
          Result := True

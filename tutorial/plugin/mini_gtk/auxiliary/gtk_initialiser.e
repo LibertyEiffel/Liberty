@@ -7,7 +7,7 @@ create {} -- for Cecil
    init_from_c
 
 feature {}
-   init_from_c is
+   init_from_c
       local
          argc, i: INTEGER; argv: NATIVE_ARRAY[POINTER]; s: STRING; p: POINTER
       do
@@ -37,7 +37,7 @@ feature {}
          end
       end
 
-   gtk_init (argc: INTEGER; argv: POINTER): INTEGER is
+   gtk_init (argc: INTEGER; argv: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "."

@@ -12,9 +12,9 @@ create {EIFFEL_PARSER, CREATE_INSTRUCTION}
    make
 
 feature {ANY}
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   declaration_type: TYPE_MARK is
+   declaration_type: TYPE_MARK
       local
          ct: CLASS_TEXT
       do
@@ -22,45 +22,45 @@ feature {ANY}
          Result := ct.declaration_type_of_like_current.canonical_type_mark
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       do
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       do
          Result := new_type.canonical_type_mark
       end
 
-   resolve_in, signature_resolve_in (new_type: TYPE): TYPE is
+   resolve_in, signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := new_type
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
          -- (Is always the same one.)
       once
          Result := string_aliaser.hashed_string(as_like_current)
       end
 
-   accept (visitor: LIKE_CURRENT_TYPE_MARK_VISITOR) is
+   accept (visitor: LIKE_CURRENT_TYPE_MARK_VISITOR)
       do
          visitor.visit_like_current_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_printer.hook_or(once "like", once "like ")
          short_printer.hook_or(as_current, as_current)
       end
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do

@@ -5,7 +5,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          x, y, z: POINT; t: TRIANGLE
       do
@@ -23,7 +23,7 @@ feature {ANY}
          -- Have a look at version3 of class TRIANGLE
       end
 
-   triangle_display (t: TRIANGLE) is
+   triangle_display (t: TRIANGLE)
       do
          io.put_string("TRIANGLE[%N%T")
          point_display(t.p1)
@@ -34,7 +34,7 @@ feature {ANY}
          io.put_string("%T]%N")
       end
 
-   point_display (p: POINT) is
+   point_display (p: POINT)
       do
          io.put_string("POINT[")
          io.put_real(p.x)

@@ -19,15 +19,15 @@ insert
       end
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "TERMINAL")
       end
 
-   is_coherent: BOOLEAN is True
+   is_coherent: BOOLEAN True
 
 feature {PARSE_TABLE}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       do
          if action = Void and then terminal_builder /= Void then
             action := agent call_terminal_builder(terminal_builder, ?)
@@ -35,7 +35,7 @@ feature {PARSE_TABLE}
       end
 
 feature {PARSER_FACET}
-   parse (context: C_): TRISTATE is
+   parse (context: C_): TRISTATE
       local
          memo: INTEGER; image: PARSER_IMAGE
          parse_action: PARSE_ACTION; error_message: STRING
@@ -80,7 +80,7 @@ feature {PARSER_FACET}
       end
 
 feature {}
-   make (a_parser: like parser; a_action: like action) is
+   make (a_parser: like parser; a_action: like action)
          -- `a_parser' is used to parse the input buffer; it must return Void if the terminal cannot be
          -- parsed, or a STRING containing the corresponding image that will be passed to the `action' if the
          -- terminal is reduced.
@@ -98,7 +98,7 @@ feature {}
 
    action: PROCEDURE[TUPLE[PARSER_IMAGE]]
 
-   call_action (image: PARSER_IMAGE) is
+   call_action (image: PARSER_IMAGE)
       require
          action /= Void
          image /= Void
@@ -106,7 +106,7 @@ feature {}
          action.call([image])
       end
 
-   call_terminal_builder (terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]; image: PARSER_IMAGE) is
+   call_terminal_builder (terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]; image: PARSER_IMAGE)
       do
          terminal_builder.call([name, image])
       end
@@ -122,7 +122,7 @@ end -- class PARSE_TERMINAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: PROCEDURE[TUPLE[STRING, INTEGER]]
          f: FUNCTION[TUPLE[INTEGER], INTEGER]
@@ -18,13 +18,13 @@ feature {}
          assert(f(42) = 42)
       end
 
-   paren (s: STRING; i: INTEGER) is
+   paren (s: STRING; i: INTEGER)
       do
          assert(s.is_equal("test"))
          assert(i = 42)
       end
 
-   echo (i: INTEGER): INTEGER is
+   echo (i: INTEGER): INTEGER
       do
          Result := i
       end

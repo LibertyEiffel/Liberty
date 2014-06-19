@@ -14,37 +14,37 @@ create {READ_LINE_JOB_HOLDER}
    make
 
 feature {ANY}
-   redisplay is
+   redisplay
       do
          rl_redisplay
       end
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          events.expect(std_input.event_can_read)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := events.event_occurred(std_input.event_can_read)
       end
 
-   continue is
+   continue
       do
          rl_callback_read_char
       end
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          done := False
          install
       end
 
 feature {ANY}
-   connect_to (a_prompt: ABSTRACT_STRING; a_handler: like handler) is
+   connect_to (a_prompt: ABSTRACT_STRING; a_handler: like handler)
       require
          a_handler /= Void
       do
@@ -58,7 +58,7 @@ feature {ANY}
          install
       end
 
-   stop is
+   stop
       do
          if not done then
             done := True
@@ -69,12 +69,12 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
          rl_register_job(Current)
       end
 
-   install is
+   install
       local
          p: POINTER
       do
@@ -84,7 +84,7 @@ feature {}
          rl_callback_handler_install(p, rl_handler)
       end
 
-   restore is
+   restore
       do
          rl_callback_handler_remove
       end
@@ -92,7 +92,7 @@ feature {}
    prompt: FIXED_STRING
    handler: PROCEDURE[TUPLE[STRING]]
 
-   call_handler (line: POINTER) is
+   call_handler (line: POINTER)
          -- called by CECIL
       local
          s: STRING

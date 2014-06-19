@@ -14,19 +14,19 @@ feature {ANY}
    is_set: BOOLEAN
 
 feature {CLARG_PARSER}
-   is_valid_data (arg: STRING): BOOLEAN is
+   is_valid_data (arg: STRING): BOOLEAN
       do
          Result := arg.is_integer
       end
 
 feature {}
-   set_data (context: COMMAND_LINE_CONTEXT; arg: STRING) is
+   set_data (context: COMMAND_LINE_CONTEXT; arg: STRING)
       do
          item := arg.to_integer
          is_set := True
       end
 
-   unset is
+   unset
       do
          is_set := False
       end
@@ -39,7 +39,7 @@ end -- CLARG_INTEGER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

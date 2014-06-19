@@ -37,18 +37,18 @@ create {EDC_SQLITE_DRIVER}
    make
 
 feature {ANY} -- Connection management:
-   disconnect is
+   disconnect
       do
          database.close
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := database.is_connected
       end
 
 feature {ANY} -- Session management:
-   commit is
+   commit
       local
          done: BOOLEAN
       do
@@ -67,12 +67,12 @@ feature {ANY} -- Session management:
          end
       end
 
-   new_savepoint (name: STRING): EDC_SAVEPOINT is
+   new_savepoint (name: STRING): EDC_SAVEPOINT
       do
          not_yet_implemented
       end
 
-   rollback is
+   rollback
       local
          done: BOOLEAN
       do
@@ -91,14 +91,14 @@ feature {ANY} -- Session management:
          end
       end
 
-   rollback_to (a_savepoint: EDC_SAVEPOINT) is
+   rollback_to (a_savepoint: EDC_SAVEPOINT)
       do
          not_yet_implemented
       end
 
    auto_commit: BOOLEAN
 
-   set_auto_commit (a_auto_commit: like auto_commit) is
+   set_auto_commit (a_auto_commit: like auto_commit)
       do
          auto_commit := a_auto_commit
          if a_auto_commit then
@@ -107,7 +107,7 @@ feature {ANY} -- Session management:
       end
 
 feature {ANY}
-   create_table (a_table: EDC_TABLE) is
+   create_table (a_table: EDC_TABLE)
       local
          query: STRING; t: EDC_SQLITE_TABLE; done: BOOLEAN
       do
@@ -128,7 +128,7 @@ feature {ANY}
          end
       end
 
-   drop_table (a_table: EDC_TABLE) is
+   drop_table (a_table: EDC_TABLE)
       local
          query: STRING; done: BOOLEAN
       do
@@ -152,7 +152,7 @@ feature {ANY}
          end
       end
 
-   has_table_name (a_table_name: STRING): BOOLEAN is
+   has_table_name (a_table_name: STRING): BOOLEAN
       local
          query: STRING; done: BOOLEAN
       do
@@ -174,7 +174,7 @@ feature {ANY}
          end
       end
 
-   table (a_table_name: STRING): EDC_TABLE is
+   table (a_table_name: STRING): EDC_TABLE
       local
          name, query, type: STRING; n, i, s: INTEGER; column: EDC_COLUMN; t: EDC_SQLITE_TABLE; done: BOOLEAN
       do
@@ -242,7 +242,7 @@ feature {ANY}
          end
       end
 
-   all_table_names: FAST_ARRAY[STRING] is
+   all_table_names: FAST_ARRAY[STRING]
       local
          i, n: INTEGER; query: STRING; done: BOOLEAN
       do
@@ -271,7 +271,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Fetch direction:
-   set_fetch_direction (a_fetch_direction: like fetch_direction) is
+   set_fetch_direction (a_fetch_direction: like fetch_direction)
       do
          fetch_direction := a_fetch_direction
       end
@@ -279,7 +279,7 @@ feature {ANY} -- Fetch direction:
    fetch_direction: INTEGER_8
 
 feature {EDC_CALL_HANDLER}
-   call_select (a_selectable: EDC_SELECTABLE): EDC_SQLITE_RESULT_SET is
+   call_select (a_selectable: EDC_SELECTABLE): EDC_SQLITE_RESULT_SET
       local
          query: STRING; prepared: SQLITE_PREPARED_QUERY; done: BOOLEAN
       do
@@ -299,7 +299,7 @@ feature {EDC_CALL_HANDLER}
          end
       end
 
-   call_update (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): INTEGER is
+   call_update (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): INTEGER
       local
          query: STRING; prepared: SQLITE_PREPARED_COMMAND; done: BOOLEAN
       do
@@ -321,7 +321,7 @@ feature {EDC_CALL_HANDLER}
          end
       end
 
-   call_delete (a_delete: EDC_DELETE): INTEGER is
+   call_delete (a_delete: EDC_DELETE): INTEGER
       local
          query: STRING; prepared: SQLITE_PREPARED_COMMAND; done: BOOLEAN
       do
@@ -346,7 +346,7 @@ feature {EDC_CALL_HANDLER}
          end
       end
 
-   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE]) is
+   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE])
       local
          query: STRING; done: BOOLEAN
       do
@@ -372,7 +372,7 @@ feature {EDC_CALL_HANDLER}
 feature {}
    in_transaction: BOOLEAN
 
-   check_transaction: BOOLEAN is
+   check_transaction: BOOLEAN
       local
          done: BOOLEAN
       do
@@ -402,7 +402,7 @@ feature {}
       end
 
 feature {} -- Column types
-   type_of (a_raw_type: STRING): STRING is
+   type_of (a_raw_type: STRING): STRING
       require
          not a_raw_type.is_empty
       local
@@ -417,7 +417,7 @@ feature {} -- Column types
          Result.to_upper
       end
 
-   size_of (a_raw_type: STRING): INTEGER is
+   size_of (a_raw_type: STRING): INTEGER
       require
          not a_raw_type.is_empty
       local
@@ -436,7 +436,7 @@ feature {} -- Column types
       end
 
 feature {}
-   make (a_database: like database; info: DICTIONARY[STRING, STRING]; a_error_handler: like error_handler) is
+   make (a_database: like database; info: DICTIONARY[STRING, STRING]; a_error_handler: like error_handler)
       require
          a_database /= Void
       do
@@ -454,7 +454,7 @@ feature {}
 
    tables: HASHED_DICTIONARY[EDC_SQLITE_TABLE, STRING]
 
-   set_info (info: DICTIONARY[STRING, STRING]) is
+   set_info (info: DICTIONARY[STRING, STRING])
       require
          info /= Void
       local
@@ -491,7 +491,7 @@ feature {}
       end
 
 feature {}
-   dispatch_error (query: STRING): BOOLEAN is
+   dispatch_error (query: STRING): BOOLEAN
          -- True if retry
       local
          error: EDC_ERROR
@@ -500,7 +500,7 @@ feature {}
          Result := error.handle(error_handler)
       end
 
-   edc_error (code: INTEGER; query: STRING): EDC_ERROR is
+   edc_error (code: INTEGER; query: STRING): EDC_ERROR
       do
          if code = sqlite_ok then
             check False end
@@ -560,32 +560,32 @@ feature {}
       end
 
 feature {} -- Query builders
-   create_table_query_builder: EDC_SQLITE_QUERY_BUILDER_CREATE_TABLE is
+   create_table_query_builder: EDC_SQLITE_QUERY_BUILDER_CREATE_TABLE
       once
          create Result.make(tools)
       end
 
-   select_query_builder: EDC_SQLITE_QUERY_BUILDER_SELECT is
+   select_query_builder: EDC_SQLITE_QUERY_BUILDER_SELECT
       once
          create Result.make(tools)
       end
 
-   update_query_builder: EDC_SQLITE_QUERY_BUILDER_UPDATE is
+   update_query_builder: EDC_SQLITE_QUERY_BUILDER_UPDATE
       once
          create Result.make(tools)
       end
 
-   delete_query_builder: EDC_SQLITE_QUERY_BUILDER_DELETE is
+   delete_query_builder: EDC_SQLITE_QUERY_BUILDER_DELETE
       once
          create Result.make(tools)
       end
 
-   insert_query_builder: EDC_SQLITE_QUERY_BUILDER_INSERT is
+   insert_query_builder: EDC_SQLITE_QUERY_BUILDER_INSERT
       once
          create Result.make(tools)
       end
 
-   tools: EDC_SQLITE_QUERY_BUILDER_TOOLS is
+   tools: EDC_SQLITE_QUERY_BUILDER_TOOLS
       once
          create Result.make
       end

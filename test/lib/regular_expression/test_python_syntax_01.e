@@ -21,7 +21,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          pattern: REGULAR_EXPRESSION
          text, data: STRING
@@ -78,7 +78,7 @@ feature {}
          pattern.for_all_matched_named_groups(text, agent compare_group_text("foo", ?, "aaab", ?))
       end
 
-   compare_group_text (expected_group: STRING; actual_group: FIXED_STRING; expected_data: STRING; actual_data: STRING) is
+   compare_group_text (expected_group: STRING; actual_group: FIXED_STRING; expected_data: STRING; actual_data: STRING)
       do
          assert(expected_group.is_equal(actual_group))
          assert(expected_data.is_equal(actual_data))

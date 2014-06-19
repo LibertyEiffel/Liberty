@@ -4,18 +4,18 @@
 deferred class AUX_REQUIRE1_TOOL
 
 feature {}
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end
 
-   counting_require: BOOLEAN is
+   counting_require: BOOLEAN
       do
          counter.increment
          Result := True
       end
 
-   bad_counting_require: BOOLEAN is
+   bad_counting_require: BOOLEAN
       do
          counter.increment
          Result := False

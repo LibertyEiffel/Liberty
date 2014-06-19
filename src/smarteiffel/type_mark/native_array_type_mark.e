@@ -16,38 +16,38 @@ create {ANY}
    make
 
 feature {ANY}
-   is_expanded: BOOLEAN is True
+   is_expanded: BOOLEAN True
 
-   is_reference, is_empty_expanded, is_user_expanded: BOOLEAN is False
+   is_reference, is_empty_expanded, is_user_expanded: BOOLEAN False
 
-   elements_type: TYPE_MARK is
+   elements_type: TYPE_MARK
       do
          Result := generic_list.first
       end
 
-   of_references: BOOLEAN is
+   of_references: BOOLEAN
       do
          Result := elements_type.is_reference
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
-   accept (visitor: NATIVE_ARRAY_TYPE_MARK_VISITOR) is
+   accept (visitor: NATIVE_ARRAY_TYPE_MARK_VISITOR)
       do
          visitor.visit_native_array_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_generic(shorted_type, class_text_name)
       end
 
 feature {INTROSPECTION_HANDLER}
-   typed_internals_type_mark (position: POSITION): TYPE_MARK is
+   typed_internals_type_mark (position: POSITION): TYPE_MARK
       local
          tm: TYPE_MARK
          hs: HASHED_STRING
@@ -62,7 +62,7 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {}
-   make (sp: like start_position; of_what: TYPE_MARK) is
+   make (sp: like start_position; of_what: TYPE_MARK)
       require
          not sp.is_unknown
          of_what /= Void
@@ -83,12 +83,12 @@ feature {}
          start_position = sp
       end
 
-   native_array_name: HASHED_STRING is
+   native_array_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_native_array)
       end
 
-   canonical_long_name: HASHED_STRING is
+   canonical_long_name: HASHED_STRING
       do
          Result := native_array_name
       end

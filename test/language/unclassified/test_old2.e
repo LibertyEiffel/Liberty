@@ -8,11 +8,11 @@ create {}
    make
 
 feature {ANY}
-   a1: INTEGER is 10
+   a1: INTEGER 10
 
-   a2: INTEGER is 20
+   a2: INTEGER 20
 
-   make is
+   make
       local
          i1, i2: AUX_OLD2
       do

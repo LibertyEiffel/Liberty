@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_LOOP}
-   visit_liberty_loop (v: LIBERTY_LOOP) is
+   visit_liberty_loop (v: LIBERTY_LOOP)
       deferred
       end
 

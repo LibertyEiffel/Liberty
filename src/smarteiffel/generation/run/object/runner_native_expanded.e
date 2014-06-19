@@ -16,25 +16,25 @@ feature {ANY}
    type: TYPE
    item: E_
 
-   is_initialized: BOOLEAN is True
+   is_initialized: BOOLEAN True
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          item.out_in_tagged_out_memory
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := item = other.item
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
+   builtin_to_pointer: POINTER
       do
          processor.set_exception(exceptions.Routine_failure, "to_pointer on expanded type")
       end
 
-   builtin_copy (other: RUNNER_OBJECT) is
+   builtin_copy (other: RUNNER_OBJECT)
       local
          o: like Current
       do
@@ -42,7 +42,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
          item := o.item
       end
 
-   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN
       local
          o: like Current
       do
@@ -53,18 +53,18 @@ feature {RUNNER_UNTYPED_BUILTINS}
       end
 
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   copy_if_expanded: like Current
       do
          Result := Current -- because native expanded values are flyweights
       end
 
-   as_foreign_object: FOREIGN_OBJECT is
+   as_foreign_object: FOREIGN_OBJECT
       do
          create {FOREIGN_TYPED_OBJECT[E_]} Result.with(item)
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins) is
+   make (a_processor: like processor; a_type: like type; a_item: like item; a_builtins: like builtins)
       require
          a_processor /= Void
          a_type.is_kernel_expanded

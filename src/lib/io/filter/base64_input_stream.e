@@ -15,21 +15,21 @@ create {ANY}
    connect_to
 
 feature {ANY}
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := flags.bit_test(can_unread_character_flag)
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := end_of_base64 or else Precursor
       end
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       local
          c: INTEGER
       do
@@ -74,7 +74,7 @@ feature {FILTER_INPUT_STREAM}
          set_can_unread_character(not end_of_input)
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          set_has_unread_character(True)
          set_can_unread_character(False)
@@ -90,7 +90,7 @@ feature {}
 
    unread_buffer: CHARACTER
 
-   swap_unread_buffer is
+   swap_unread_buffer
       local
          tmp_buffer: CHARACTER
       do
@@ -102,7 +102,7 @@ feature {}
          filtered_last_character = old unread_buffer
       end
 
-   set_can_unread_character (value: BOOLEAN) is
+   set_can_unread_character (value: BOOLEAN)
       do
          if value then
             flags := flags.bit_set(can_unread_character_flag)
@@ -113,12 +113,12 @@ feature {}
          can_unread_character = value
       end
 
-   has_unread_character: BOOLEAN is
+   has_unread_character: BOOLEAN
       do
          Result := flags.bit_test(has_unread_character_flag)
       end
 
-   set_has_unread_character (value: BOOLEAN) is
+   set_has_unread_character (value: BOOLEAN)
       do
          if value then
             flags := flags.bit_set(has_unread_character_flag)
@@ -129,12 +129,12 @@ feature {}
          has_unread_character = value
       end
 
-   end_of_base64: BOOLEAN is
+   end_of_base64: BOOLEAN
       do
          Result := flags.bit_test(end_of_base64_flag)
       end
 
-   set_end_of_base64 (value: BOOLEAN) is
+   set_end_of_base64 (value: BOOLEAN)
       do
          if value then
             flags := flags.bit_set(end_of_base64_flag)
@@ -146,14 +146,14 @@ feature {}
       end
 
    flags: INTEGER
-   can_unread_character_flag: INTEGER_8 is 0
-   has_unread_character_flag: INTEGER_8 is 1
-   end_of_base64_flag:        INTEGER_8 is 2
+   can_unread_character_flag: INTEGER_8 0
+   has_unread_character_flag: INTEGER_8 1
+   end_of_base64_flag:        INTEGER_8 2
 
 feature {}
-   alphabet: STRING is "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+   alphabet: STRING "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
-   b2t (c: CHARACTER): INTEGER is
+   b2t (c: CHARACTER): INTEGER
       require
          c = '=' or else alphabet.has(c)
       do
@@ -186,7 +186,7 @@ end -- class BASE64_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

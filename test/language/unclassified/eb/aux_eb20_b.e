@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   f (a_string: STRING; i, j: INTEGER): INTEGER is
+   f (a_string: STRING; i, j: INTEGER): INTEGER
       do
          Result := Precursor(a_string, i, j)
       end

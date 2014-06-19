@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          x: like Current;
       do
          x := Void;
       end;
 
-   Void: NONE is
+   Void: NONE
       do
       end;
 

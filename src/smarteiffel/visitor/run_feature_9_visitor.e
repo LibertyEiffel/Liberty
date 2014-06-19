@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RUN_FEATURE_9}
-   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+   visit_run_feature_9 (visited: RUN_FEATURE_9)
       require
          visited /= Void
       deferred

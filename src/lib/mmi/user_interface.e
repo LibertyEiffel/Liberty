@@ -7,7 +7,7 @@ insert
    NCURSES_HANDLER
 
 feature {ANY}
-   run_curses (app: UI_APPLICATION) is
+   run_curses (app: UI_APPLICATION)
          -- Create a new Curses user interface and run an internal stack
       local
          stack: LOOP_STACK
@@ -16,7 +16,7 @@ feature {ANY}
          start_curses(app, stack)
       end
 
-   start_curses (app: UI_APPLICATION; stack: LOOP_STACK) is
+   start_curses (app: UI_APPLICATION; stack: LOOP_STACK)
          -- Create a new Curses user interface, add it to the provided stack, *and* run the stack.
          -- (The loop stack is controlled by the ncurses framework)
       local
@@ -28,7 +28,7 @@ feature {ANY}
          job.start
       end
 
-   run_readline (app: UI_APPLICATION) is
+   run_readline (app: UI_APPLICATION)
          -- Create a new GNU Readline user interface and run an internal stack
       local
          stack: LOOP_STACK
@@ -38,7 +38,7 @@ feature {ANY}
          stack.run
       end
 
-   stack_readline (app: UI_APPLICATION; stack: LOOP_STACK) is
+   stack_readline (app: UI_APPLICATION; stack: LOOP_STACK)
          -- Create a new GNU Readline user interface and add it to the provided stack
       local
          job: READLINE_JOB
@@ -47,7 +47,7 @@ feature {ANY}
          stack.add_job(job)
       end
 
-   run_web (app: UI_APPLICATION) is
+   run_web (app: UI_APPLICATION)
          -- Create a new Web user interface (actually a web server) and run an internal stack
       local
          stack: LOOP_STACK
@@ -57,7 +57,7 @@ feature {ANY}
          stack.run
       end
 
-   stack_web (app: UI_APPLICATION; stack: LOOP_STACK) is
+   stack_web (app: UI_APPLICATION; stack: LOOP_STACK)
          -- Create a new Web user interface (actually a web server) and add it to the provided stack
       local
          job: WEB_JOB
@@ -74,7 +74,7 @@ end -- class USER_INTERFACE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

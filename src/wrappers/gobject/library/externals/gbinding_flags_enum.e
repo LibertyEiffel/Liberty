@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_binding_bidirectional_low_level)  or else
 				(a_value = g_binding_default_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_binding_bidirectional is
+	set_g_binding_bidirectional
 		do
 			value := g_binding_bidirectional_low_level
 		end
 
-	set_g_binding_default is
+	set_g_binding_default
 		do
 			value := g_binding_default_low_level
 		end
 
-	set_g_binding_invert_boolean is
+	set_g_binding_invert_boolean
 		do
 			value := g_binding_invert_boolean_low_level
 		end
 
-	set_g_binding_sync_create is
+	set_g_binding_sync_create
 		do
 			value := g_binding_sync_create_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_binding_bidirectional: BOOLEAN is
+	is_g_binding_bidirectional: BOOLEAN
 		do
 			Result := (value=g_binding_bidirectional_low_level)
 		end
 
-	is_g_binding_default: BOOLEAN is
+	is_g_binding_default: BOOLEAN
 		do
 			Result := (value=g_binding_default_low_level)
 		end
 
-	is_g_binding_invert_boolean: BOOLEAN is
+	is_g_binding_invert_boolean: BOOLEAN
 		do
 			Result := (value=g_binding_invert_boolean_low_level)
 		end
 
-	is_g_binding_sync_create: BOOLEAN is
+	is_g_binding_sync_create: BOOLEAN
 		do
 			Result := (value=g_binding_sync_create_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_binding_bidirectional_low_level: INTEGER is
+	g_binding_bidirectional_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_default_low_level: INTEGER is
+	g_binding_default_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_invert_boolean_low_level: INTEGER is
+	g_binding_invert_boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_sync_create_low_level: INTEGER is
+	g_binding_sync_create_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

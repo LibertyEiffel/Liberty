@@ -24,13 +24,13 @@ feature {ANY}
    target: LIBERTY_EXPRESSION
    entity: LIBERTY_FEATURE_ENTITY
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := entity.result_type
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          target.mark_reachable_code(mark)
          entity.mark_reachable_code(mark)
@@ -38,7 +38,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_TYPE, LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position) is
+   make (a_left, a_right: LIBERTY_EXPRESSION; a_entity_builder: FUNCTION[TUPLE[LIBERTY_TYPE, LIBERTY_FEATURE_NAME], LIBERTY_FEATURE_ENTITY]; a_position: like position)
       require
          a_left /= Void
          a_right /= Void
@@ -57,7 +57,7 @@ feature {}
          position = a_position
       end
 
-   new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+   new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position)
       require
          a_target /= Void
          a_actuals.count = 1
@@ -74,13 +74,13 @@ feature {}
          position = a_position
       end
 
-   infix_name: LIBERTY_FEATURE_NAME is
+   infix_name: LIBERTY_FEATURE_NAME
       attribute
       ensure
          Result.is_infix
       end
 
-   the_infix_name: FIXED_STRING is
+   the_infix_name: FIXED_STRING
       deferred
       ensure
          Result /= Void
@@ -89,12 +89,12 @@ feature {}
    actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
 feature {LIBERTY_CALL_PROMOTION}
-   set_entity (a_entity: like entity) is
+   set_entity (a_entity: like entity)
       do
          entity := a_entity
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       do
          target := a_target
       end

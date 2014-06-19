@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_TYPED_DATUM}
-   visit_edc_typed_datum (a_edc_typed_datum: EDC_TYPED_DATUM) is
+   visit_edc_typed_datum (a_edc_typed_datum: EDC_TYPED_DATUM)
       deferred
       end
 

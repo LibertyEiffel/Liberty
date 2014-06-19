@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          recurse(25_000)
       end
 
-   recurse (i: INTEGER) is
+   recurse (i: INTEGER)
       local
          p: POINT; j: INTEGER
       do

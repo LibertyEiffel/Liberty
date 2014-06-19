@@ -16,7 +16,7 @@ feature {ANY}
          -- Data in the node
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: XML_NODE_VISITOR
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_data: like data; a_line: like line; a_column: like column) is
+   make (a_data: like data; a_line: like line; a_column: like column)
       require
          a_data /= Void
          a_line > 0
@@ -47,7 +47,7 @@ end -- class XML_DATA_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       require
          visited /= Void
       deferred

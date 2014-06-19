@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (inherit_stdin_low_level | 
 				silence_stderr_low_level | 
@@ -16,54 +16,54 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_inherit_stdin is
+	set_inherit_stdin
 		do
 			value := value.bit_or(inherit_stdin_low_level)
 		end
 
-	unset_inherit_stdin is
+	unset_inherit_stdin
 		do
 			value := value.bit_xor(inherit_stdin_low_level)
 		end
 
-	set_silence_stderr is
+	set_silence_stderr
 		do
 			value := value.bit_or(silence_stderr_low_level)
 		end
 
-	unset_silence_stderr is
+	unset_silence_stderr
 		do
 			value := value.bit_xor(silence_stderr_low_level)
 		end
 
-	set_silence_stdout is
+	set_silence_stdout
 		do
 			value := value.bit_or(silence_stdout_low_level)
 		end
 
-	unset_silence_stdout is
+	unset_silence_stdout
 		do
 			value := value.bit_xor(silence_stdout_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_inherit_stdin: BOOLEAN is
+	is_inherit_stdin: BOOLEAN
 		do
 			Result := (value=inherit_stdin_low_level)
 		end
 
-	is_silence_stderr: BOOLEAN is
+	is_silence_stderr: BOOLEAN
 		do
 			Result := (value=silence_stderr_low_level)
 		end
 
-	is_silence_stdout: BOOLEAN is
+	is_silence_stdout: BOOLEAN
 		do
 			Result := (value=silence_stdout_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	inherit_stdin_low_level: INTEGER is
+	inherit_stdin_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -72,7 +72,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	silence_stderr_low_level: INTEGER is
+	silence_stderr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -81,7 +81,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	silence_stdout_low_level: INTEGER is
+	silence_stdout_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

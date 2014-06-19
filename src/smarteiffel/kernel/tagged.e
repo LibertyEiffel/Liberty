@@ -4,7 +4,7 @@
 deferred class TAGGED
 
 feature {TAGGER}
-   tag (a_tag: FIXED_STRING): TAGGED_DATA is
+   tag (a_tag: FIXED_STRING): TAGGED_DATA
       require
          sensible_tag: a_tag.intern = a_tag
       do
@@ -13,7 +13,7 @@ feature {TAGGER}
          end
       end
 
-   set_tag (a_tag: FIXED_STRING; a_data: TAGGED_DATA) is
+   set_tag (a_tag: FIXED_STRING; a_data: TAGGED_DATA)
       require
          sensible_tag: a_tag.intern = a_tag
          sensible_data: a_data /= Void

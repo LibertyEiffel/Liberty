@@ -33,7 +33,7 @@ create {EDC_COLUMN}
    make
 
 feature {}
-   typed_accept (a_visitor: ESE_TYPED_VISITOR[T_]) is
+   typed_accept (a_visitor: ESE_TYPED_VISITOR[T_])
       local
          v: EDC_PARAMETER_VISITOR[T_]
       do
@@ -46,7 +46,7 @@ feature {ANY}
 
    item: T_
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          t: T_
       do
@@ -58,7 +58,7 @@ feature {ANY}
          end
       end
 
-   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_] is
+   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_]
       do
          Result := datum
       end
@@ -66,19 +66,19 @@ feature {ANY}
 feature {EDC_EXPRESSION}
    can_call: BOOLEAN
 
-   open_count: INTEGER is
+   open_count: INTEGER
       do
          if not can_call then
             Result := 1
          end
       end
 
-   clear_prepare is
+   clear_prepare
       do
          can_call := False
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       local
          a_value: EDC_MANIFEST_VALUE[T_]
       do
@@ -95,7 +95,7 @@ feature {EDC_EXPRESSION}
          end
       end
 
-   do_set_parameter_positions (a_position: INTEGER): INTEGER is
+   do_set_parameter_positions (a_position: INTEGER): INTEGER
       require
          a_position > 0
       do
@@ -104,13 +104,13 @@ feature {EDC_EXPRESSION}
       end
 
 feature {ANY}
-   datum: EDC_TYPED_DATUM[T_] is
+   datum: EDC_TYPED_DATUM[T_]
       do
          Result := datum_factory.as_datum(item)
       end
 
 feature {}
-   make is
+   make
       do
       end
 

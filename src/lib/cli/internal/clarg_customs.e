@@ -15,7 +15,7 @@ create {COMMAND_LINE_ARGUMENT_FACTORY}
    optional, positional
 
 feature {CLARG_PARSER}
-   is_valid_data (arg: STRING): BOOLEAN is
+   is_valid_data (arg: STRING): BOOLEAN
       local
          default_value: D_
       do
@@ -29,13 +29,13 @@ feature {CLARG_PARSER}
       end
 
 feature {}
-   decode_ (arg: STRING): D_ is
+   decode_ (arg: STRING): D_
       do
          Result := decode.item([arg])
       end
 
 feature {}
-   optional (a_short, a_long, a_name, a_usage: ABSTRACT_STRING; a_validate: like validate; a_decode: like decode) is
+   optional (a_short, a_long, a_name, a_usage: ABSTRACT_STRING; a_validate: like validate; a_decode: like decode)
       require
          a_short /= Void implies a_short.count = 1
          a_short /= Void or else a_long /= Void
@@ -55,7 +55,7 @@ feature {}
          decode = a_decode
       end
 
-   positional (a_name, a_usage: ABSTRACT_STRING; a_validate: like validate; a_decode: like decode) is
+   positional (a_name, a_usage: ABSTRACT_STRING; a_validate: like validate; a_decode: like decode)
       require
          a_name /= Void
          a_decode /= Void
@@ -85,7 +85,7 @@ end -- CLARG_CUSTOMS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

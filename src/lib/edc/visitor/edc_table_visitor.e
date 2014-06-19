@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_TABLE}
-   visit_table (a_table: EDC_TABLE) is
+   visit_table (a_table: EDC_TABLE)
       deferred
       end
 

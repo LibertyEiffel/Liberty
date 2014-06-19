@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   make is
+   make
       do
          assert(assert_counter.item = 1)
          Precursor

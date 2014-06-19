@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
+   visit_integer_constant (visited: INTEGER_CONSTANT)
       require
          visited /= Void
       deferred

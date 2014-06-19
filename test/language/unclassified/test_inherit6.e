@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_INHERIT6A; b: AUX_INHERIT6B
       do
@@ -54,7 +54,7 @@ feature {ANY}
          assert(new_count = 15)
       end
 
-   foo is
+   foo
       do
          count := count + 1
       end

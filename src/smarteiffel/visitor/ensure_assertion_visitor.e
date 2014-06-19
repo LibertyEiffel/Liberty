@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ENSURE_ASSERTION}
-   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   visit_ensure_assertion (visited: ENSURE_ASSERTION)
       require
          visited /= Void
       deferred

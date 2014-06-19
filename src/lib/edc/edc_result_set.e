@@ -25,7 +25,7 @@ insert
    EDC_CONSTANTS
 
 feature {ANY} -- Connection:
-   disconnect is
+   disconnect
       require
          is_connected
       deferred
@@ -33,31 +33,31 @@ feature {ANY} -- Connection:
          not is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       deferred
       ensure
          Result implies connection.is_connected
       end
 
-   connection: EDC_CONNECTION is
+   connection: EDC_CONNECTION
          -- back-link to the connection
       deferred
       end
 
 feature {ANY} -- Data query:
-   is_after_last: BOOLEAN is
+   is_after_last: BOOLEAN
       require
          is_connected
       deferred
       end
 
-   is_before_first: BOOLEAN is
+   is_before_first: BOOLEAN
       require
          is_connected
       deferred
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       require
          is_connected
       do
@@ -68,7 +68,7 @@ feature {ANY} -- Data query:
          is_after_last implies Result
       end
 
-   next is
+   next
       require
          is_connected
          not is_after_last
@@ -77,7 +77,7 @@ feature {ANY} -- Data query:
          not is_before_first
       end
 
-   previous is
+   previous
       require
          is_connected
          not is_before_first
@@ -87,18 +87,18 @@ feature {ANY} -- Data query:
       end
 
 feature {EDC_CONNECTION}
-   update (values: TRAVERSABLE[EDC_VALUE]) is
+   update (values: TRAVERSABLE[EDC_VALUE])
          -- Update the current row
       deferred
       end
 
-   delete is
+   delete
          -- Delete the current row
       deferred
       end
 
 feature {ANY}
-   fetch_direction: INTEGER_8 is
+   fetch_direction: INTEGER_8
       require
          is_connected
       deferred
@@ -106,11 +106,11 @@ feature {ANY}
          Result = fetch_forward or else Result = fetch_backward
       end
 
-   column_count: INTEGER is
+   column_count: INTEGER
       deferred
       end
 
-   column (index: INTEGER): EDC_COLUMN is
+   column (index: INTEGER): EDC_COLUMN
       require
          index.in_range(0, column_count - 1)
       deferred
@@ -118,14 +118,14 @@ feature {ANY}
          Result /= Void
       end
 
-   column_named (column_name: STRING): EDC_COLUMN is
+   column_named (column_name: STRING): EDC_COLUMN
       require
          not column_name.is_empty
       deferred
       end
 
 feature {EDC_COLUMN}
-   item (a_column: EDC_COLUMN): EDC_DATUM is
+   item (a_column: EDC_COLUMN): EDC_DATUM
       deferred
       end
 

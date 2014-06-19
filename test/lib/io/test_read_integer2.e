@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          sfr: TEXT_FILE_READ; i: INTEGER
       do

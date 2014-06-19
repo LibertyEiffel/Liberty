@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   c: AUX_EB7B1[G] is
+   c: AUX_EB7B1[G]
       do
          create Result
       end

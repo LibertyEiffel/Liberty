@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_array: ARRAY[INTEGER]; bool: BOOLEAN
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   greater_than (item, value: INTEGER): BOOLEAN is
+   greater_than (item, value: INTEGER): BOOLEAN
       do
          Result := item > value
       end

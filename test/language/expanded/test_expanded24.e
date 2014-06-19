@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          fa.fb.set_value(True)
       end
 
-   fa: AUX_EXPANDED24A is
+   fa: AUX_EXPANDED24A
       do
          Result.set_value('a')
       end

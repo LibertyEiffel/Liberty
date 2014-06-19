@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	ZMQ_TYPES
 feature {} -- Low-level setters
 
-	zmq_msg_t_struct_set_content (a_structure: POINTER; a_value: POINTER) is
+	zmq_msg_t_struct_set_content (a_structure: POINTER; a_value: POINTER)
 			-- Setter for content field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	zmq_msg_t_struct_set_flags (a_structure: POINTER; a_value: CHARACTER) is
+	zmq_msg_t_struct_set_flags (a_structure: POINTER; a_value: CHARACTER)
 			-- Setter for flags field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	zmq_msg_t_struct_set_vsm_size (a_structure: POINTER; a_value: CHARACTER) is
+	zmq_msg_t_struct_set_vsm_size (a_structure: POINTER; a_value: CHARACTER)
 			-- Setter for vsm_size field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	zmq_msg_t_struct_set_vsm_data (a_structure: POINTER; a_value: POINTER) is
+	zmq_msg_t_struct_set_vsm_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for vsm_data field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	zmq_msg_t_struct_get_content (a_structure: POINTER): POINTER is
+	zmq_msg_t_struct_get_content (a_structure: POINTER): POINTER
 			-- Query for content field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	zmq_msg_t_struct_get_flags (a_structure: POINTER): CHARACTER is
+	zmq_msg_t_struct_get_flags (a_structure: POINTER): CHARACTER
 			-- Query for flags field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	zmq_msg_t_struct_get_vsm_size (a_structure: POINTER): CHARACTER is
+	zmq_msg_t_struct_get_vsm_size (a_structure: POINTER): CHARACTER
 			-- Query for vsm_size field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	zmq_msg_t_struct_get_vsm_data (a_structure: POINTER): POINTER is
+	zmq_msg_t_struct_get_vsm_data (a_structure: POINTER): POINTER
 			-- Query for vsm_data field of ZMQ_MSG_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

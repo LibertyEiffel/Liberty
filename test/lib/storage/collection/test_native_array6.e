@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_NATIVE_ARRAY6[REAL]
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(aux.native_array.item(1) = 2.5)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

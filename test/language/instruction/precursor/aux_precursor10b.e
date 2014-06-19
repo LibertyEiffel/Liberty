@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   f: ARRAY[STRING] is
+   f: ARRAY[STRING]
       once
          Result := Precursor
          Result.add_last("bar")

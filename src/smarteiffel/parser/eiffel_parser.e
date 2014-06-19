@@ -28,7 +28,7 @@ feature {ANY}
    total_time: INTEGER_64
 
 feature {SMART_EIFFEL}
-   analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT is
+   analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT
       require
          not is_running
          not smart_eiffel.is_ready
@@ -138,7 +138,7 @@ feature {SMART_EIFFEL}
          not parser_buffer.is_ready
       end
 
-   analyse_buffer: CLASS_TEXT is
+   analyse_buffer: CLASS_TEXT
          -- Scan the header of the `parser_buffer' in order to find the name of
          -- the class in order to launch `analyse_class' with the appropriate
          -- argument. (This is used for to handle the "include" option of ACE
@@ -197,13 +197,13 @@ feature {SMART_EIFFEL}
       end
 
 feature {ACE, COMMAND_LINE_TOOLS}
-   set_no_rescue is
+   set_no_rescue
       do
          no_rescue := True
       end
 
 feature {CECIL_FILE}
-   connect_to_cecil (a_path: STRING): STRING is
+   connect_to_cecil (a_path: STRING): STRING
          -- Return the cecil file user's include path (first information).
       require
          not is_running
@@ -251,12 +251,12 @@ feature {CECIL_FILE}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := cc = end_of_text
       end
 
-   parse_c_name: STRING is
+   parse_c_name: STRING
       do
          from
             create Result.make(32)
@@ -269,7 +269,7 @@ feature {CECIL_FILE}
          skip_comments
       end
 
-   parse_type_mark: TYPE_MARK is
+   parse_type_mark: TYPE_MARK
       do
          if a_static_type_mark(False) then
             Result := last_type_mark
@@ -282,7 +282,7 @@ feature {CECIL_FILE}
          nb_errors = 0
       end
 
-   parse_feature_name: FEATURE_NAME is
+   parse_feature_name: FEATURE_NAME
       do
          if a_feature_name then
             Result := last_feature_name
@@ -295,19 +295,19 @@ feature {CECIL_FILE}
          nb_errors = 0
       end
 
-   parse_cecil_is_creation: BOOLEAN is
+   parse_cecil_is_creation: BOOLEAN
       do
          Result := a_creation_keyword
       end
 
-   disconnect is
+   disconnect
       do
          is_running := False
          parser_buffer.release
       end
 
 feature {}
-   a_creation_keyword: BOOLEAN is
+   a_creation_keyword: BOOLEAN
       local
          l, c: INTEGER
       do
@@ -324,7 +324,7 @@ feature {}
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       do
          show_total_time
          show_nb_warnings
@@ -332,14 +332,14 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   show_total_time is
+   show_total_time
       do
          echo.put_string("Total time spent in parser: ")
          echo.put_time(total_time)
          echo.put_new_line
       end
 
-   show_nb_warnings is
+   show_nb_warnings
       local
          do_it: BOOLEAN
       do
@@ -354,26 +354,26 @@ feature {}
          end
       end
 
-   show_nb_errors is
+   show_nb_errors
       do
          show_nb(nb_errors, once " error")
       end
 
 feature {COMPILE_TO_C, RUN, LLVMEC}
-   set_drop_comments is
+   set_drop_comments
       do
          drop_comments := True
       end
 
 feature {}
    -- To add extra contextual information:
-   Expression_syntax_flag: INTEGER_8 is           0
+   Expression_syntax_flag: INTEGER_8           0
          -- Any possible complex expression.
-   Instruction_syntax_flag: INTEGER_8 is          1
+   Instruction_syntax_flag: INTEGER_8          1
          -- Any possible complex instruction.
-   Atomic_syntax_flag: INTEGER_8 is               2
+   Atomic_syntax_flag: INTEGER_8               2
          -- Simple value whith not dot.
-   When_inspect_syntax_flag: INTEGER_8 is         3
+   When_inspect_syntax_flag: INTEGER_8         3
          -- Expression in "when" part of "inspect".
 
 feature {}
@@ -437,27 +437,27 @@ feature {}
 
    last_tag_mark: TAG_NAME
 
-   S_just_started_manifest_number_or_generic_manifest: INTEGER is 0
-   S_after_sign_of_some_number:                        INTEGER is 1
-   S_after_open_curly_brace:                           INTEGER is 2
-   S_inside_some_number:                               INTEGER is 3
-   S_inside_a_real_just_after_the_dot:                 INTEGER is 4
-   S_after_real_waiting_the_closing_curly:             INTEGER is 5
-   S_after_integer_waiting_the_closing_curly:          INTEGER is 6
-   S_first_hexadecimal_digit:                          INTEGER is 7
-   S_inside_hexadecimal:                               INTEGER is 8
-   S_after_hexadecimal_waiting_the_closing_curly:      INTEGER is 9
-   S_after_type_mark:                                  INTEGER is 10
-   S_inside_fractional_part_of_a_real:                 INTEGER is 11
-   S_just_after_the_e_of_exponent_part_of_a_real:      INTEGER is 12
-   S_inside_exponent_part_of_a_real:                   INTEGER is 13
-   S_inside_manifest_generic:                          INTEGER is 14
+   S_just_started_manifest_number_or_generic_manifest: INTEGER 0
+   S_after_sign_of_some_number:                        INTEGER 1
+   S_after_open_curly_brace:                           INTEGER 2
+   S_inside_some_number:                               INTEGER 3
+   S_inside_a_real_just_after_the_dot:                 INTEGER 4
+   S_after_real_waiting_the_closing_curly:             INTEGER 5
+   S_after_integer_waiting_the_closing_curly:          INTEGER 6
+   S_first_hexadecimal_digit:                          INTEGER 7
+   S_inside_hexadecimal:                               INTEGER 8
+   S_after_hexadecimal_waiting_the_closing_curly:      INTEGER 9
+   S_after_type_mark:                                  INTEGER 10
+   S_inside_fractional_part_of_a_real:                 INTEGER 11
+   S_just_after_the_e_of_exponent_part_of_a_real:      INTEGER 12
+   S_inside_exponent_part_of_a_real:                   INTEGER 13
+   S_inside_manifest_generic:                          INTEGER 14
 
-   S_finished_with_no_error_and_true:                  INTEGER is 20
-   S_finished_with_no_error_and_false:                 INTEGER is 21
+   S_finished_with_no_error_and_true:                  INTEGER 20
+   S_finished_with_no_error_and_false:                 INTEGER 21
 
 
-   a_manifest_or_type_test (syntax_flag: INTEGER_8): BOOLEAN is
+   a_manifest_or_type_test (syntax_flag: INTEGER_8): BOOLEAN
          --  ++ manifest_or_type_test_expression -> manifest_or_type_test [ "." after_a_dot ]
          --  ++ manifest_or_type_test -> integer |
          --  ++                      real |
@@ -1136,7 +1136,7 @@ feature {}
          (Result and (syntax_flag = Expression_syntax_flag)) implies last_expression /= Void
       end
 
-   integer_overflow_error (l, c: INTEGER; normal_integer_view: STRING) is
+   integer_overflow_error (l, c: INTEGER; normal_integer_view: STRING)
       do
          error_handler.add_position(pos(l, c))
          error_handler.append(once "Overflow while reading integer constant. Value `")
@@ -1145,7 +1145,7 @@ feature {}
          error_handler.print_as_error
       end
 
-   a_argument_ (args: like arguments; closure_rank: INTEGER): BOOLEAN is
+   a_argument_ (args: like arguments; closure_rank: INTEGER): BOOLEAN
       local
          rank: INTEGER
       do
@@ -1167,7 +1167,7 @@ feature {}
          end
       end
 
-   a_argument: BOOLEAN is
+   a_argument: BOOLEAN
       local
          i: INTEGER
       do
@@ -1184,7 +1184,7 @@ feature {}
          end
       end
 
-   check_name_rank (name: LOCAL_ARGUMENT_DEF; dl: DECLARATION_LIST; err: STRING): BOOLEAN is
+   check_name_rank (name: LOCAL_ARGUMENT_DEF; dl: DECLARATION_LIST; err: STRING): BOOLEAN
       local
          rank: INTEGER
       do
@@ -1201,7 +1201,7 @@ feature {}
          end
       end
 
-   check_name_rank_and_closure (name: LOCAL_ARGUMENT_DEF) is
+   check_name_rank_and_closure (name: LOCAL_ARGUMENT_DEF)
       local
          i: INTEGER; failed: BOOLEAN
       do
@@ -1227,7 +1227,7 @@ feature {}
          end
       end
 
-   a_formal_arg_list: BOOLEAN is
+   a_formal_arg_list: BOOLEAN
          --  ++ formal_arg_list -> ["(" {declaration_group ";" ...} ")"]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
@@ -1336,7 +1336,7 @@ feature {}
          end
       end
 
-   error_handler_append_info_about_feature_name is
+   error_handler_append_info_about_feature_name
       do
          error_handler.append(once "Cannot use an uppercase letter inside such an identifier. %
          %Yes, this rule is strict, but it is better for all of us to be able %
@@ -1347,7 +1347,7 @@ feature {}
          %the compiler.")
       end
 
-   a_local_name_def: BOOLEAN is
+   a_local_name_def: BOOLEAN
          -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME_DEF name.
          -- See also `a_local_name_ref' and use the good one.
       local
@@ -1423,20 +1423,20 @@ feature {}
          end
       end
 
-   S_waiting_for_the_first_name_of_a_group: INTEGER is 0
-   S_waiting_for_colon_or_semicolon:        INTEGER is 1
-   S_waiting_for_a_second_local_name:       INTEGER is 2
-   S_waiting_for_a_type_mark:               INTEGER is 3
-   S_waiting_for_optional_colon:            INTEGER is 4
+   S_waiting_for_the_first_name_of_a_group: INTEGER 0
+   S_waiting_for_colon_or_semicolon:        INTEGER 1
+   S_waiting_for_a_second_local_name:       INTEGER 2
+   S_waiting_for_a_type_mark:               INTEGER 3
+   S_waiting_for_optional_colon:            INTEGER 4
 
-   check_local_var_rank_and_closure (name: LOCAL_NAME_DEF) is
+   check_local_var_rank_and_closure (name: LOCAL_NAME_DEF)
       do
          if check_name_rank(name, arguments, em26) then
             check_name_rank_and_closure(name)
          end
       end
 
-   a_local_var_list is
+   a_local_var_list
          --  ++ local_var_list -> [{declaration_group ";" ...}]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
@@ -1546,7 +1546,7 @@ feature {}
          end
       end
 
-   a_local_name_ref_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN is
+   a_local_name_ref_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN
          -- Used to detect the usage of some local variable.
          -- See also `a_local_name_def' and use the good one.
       local
@@ -1574,7 +1574,7 @@ feature {}
          end
       end
 
-   a_local_name_ref: BOOLEAN is
+   a_local_name_ref: BOOLEAN
       local
          i: INTEGER
       do
@@ -1591,13 +1591,13 @@ feature {}
          end
       end
 
-   get_comment: COMMENT is
+   get_comment: COMMENT
       do
          Result := last_comment
          last_comment := Void
       end
 
-   skip2 (c1, c2: CHARACTER): BOOLEAN is
+   skip2 (c1, c2: CHARACTER): BOOLEAN
       require
          c1 /= '%N' and c2 /= '%N'
       do
@@ -1616,7 +1616,7 @@ feature {}
          end
       end
 
-   skip3 (c1, c2, c3: CHARACTER): BOOLEAN is
+   skip3 (c1, c2, c3: CHARACTER): BOOLEAN
       require
          c1 /= '%N' and c2 /= '%N' and c3 /= '%N'
       do
@@ -1641,7 +1641,7 @@ feature {}
          end
       end
 
-   skip1unless2 (c1, c2: CHARACTER): BOOLEAN is
+   skip1unless2 (c1, c2: CHARACTER): BOOLEAN
       do
          start_line := line
          start_column := column
@@ -1657,7 +1657,7 @@ feature {}
          end
       end
 
-   a_character_constant (syntax_flag: INTEGER_8): BOOLEAN is
+   a_character_constant (syntax_flag: INTEGER_8): BOOLEAN
       require
          (syntax_flag = Atomic_syntax_flag) xor
          (syntax_flag = Expression_syntax_flag) xor
@@ -1887,7 +1887,7 @@ feature {}
          end
       end
 
-   an_allowed_expression_in_when_of_inspect: BOOLEAN is
+   an_allowed_expression_in_when_of_inspect: BOOLEAN
          -- Only True for static values allowed in "when of inspect".
       local
          implicit_current: IMPLICIT_CURRENT; sfn: FEATURE_NAME
@@ -1922,7 +1922,7 @@ feature {}
          end
       end
 
-   a_class_name: BOOLEAN is
+   a_class_name: BOOLEAN
          -- The class name found is left in the `token_buffer'.
       local
          stop: BOOLEAN
@@ -1961,7 +1961,7 @@ feature {}
          no_class_name_looks_like_a_keyword: Result implies (not token_buffer.isa_keyword)
       end
 
-   a_base_class_name: BOOLEAN is
+   a_base_class_name: BOOLEAN
       do
          if a_class_name then
             Result := True
@@ -1969,7 +1969,7 @@ feature {}
          end
       end
 
-   a_base_class_name_def is
+   a_base_class_name_def
          -- Read the current class text name which is just after the "class" keyword.
       local
          cn: CLASS_NAME; bc: CLASS_TEXT
@@ -2013,7 +2013,7 @@ feature {}
          end
       end
 
-   a_formal_generic_type_mark: BOOLEAN is
+   a_formal_generic_type_mark: BOOLEAN
       local
          sp: POSITION; fga: FORMAL_GENERIC_ARG; cn: CLASS_NAME; rank: INTEGER
       do
@@ -2035,11 +2035,11 @@ feature {}
          end
       end
 
-   freeop_prefix: INTEGER_8 is 1
-   freeop_infix: INTEGER_8 is 2
-   freeop_alias: INTEGER_8 is 3
+   freeop_prefix: INTEGER_8 1
+   freeop_infix: INTEGER_8 2
+   freeop_alias: INTEGER_8 3
 
-   a_free_operator_definition (freeop: INTEGER_8; sp: POSITION): BOOLEAN is
+   a_free_operator_definition (freeop: INTEGER_8; sp: POSITION): BOOLEAN
          -- A free operator name definition (the one which comes after the
          -- "infix" keyword or the "prefix" keyword at the definition
          -- place). A free operator must start and finish with one of the
@@ -2101,7 +2101,7 @@ feature {}
          end
       end
 
-   a_free_operator_usage (freeop: INTEGER_8): BOOLEAN is
+   a_free_operator_usage (freeop: INTEGER_8): BOOLEAN
          -- Syntactically, a free operator must start and finish with one
          -- of the following set of characters:  +-*/\=<>@#|&~
          -- Because of priority, traditional operators are not handled here.
@@ -2183,7 +2183,7 @@ feature {}
          end
       end
 
-   a_retry: BOOLEAN is
+   a_retry: BOOLEAN
       do
          if a_keyword(fz_retry) then
             if not inside_rescue_flag then
@@ -2196,7 +2196,7 @@ feature {}
          end
       end
 
-   a_address_of: BOOLEAN is
+   a_address_of: BOOLEAN
          --  ++ address_of -> "$" identifier
       local
          sp: POSITION; sfn: FEATURE_NAME; local_name: EXPRESSION
@@ -2229,7 +2229,7 @@ feature {}
          end
       end
 
-   a_actuals: EFFECTIVE_ARG_LIST is
+   a_actuals: EFFECTIVE_ARG_LIST
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++
       do
@@ -2242,7 +2242,7 @@ feature {}
          end
       end
 
-   a_actuals_until (close: CHARACTER; allow_empty: BOOLEAN): EFFECTIVE_ARG_LIST is
+   a_actuals_until (close: CHARACTER; allow_empty: BOOLEAN): EFFECTIVE_ARG_LIST
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++                ^
          --  ++
@@ -2292,7 +2292,7 @@ feature {}
          end
       end
 
-   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
          --  ++ after_a_dot -> identifier [actuals] ["." after_a_dot]
          --  ++
       require
@@ -2312,7 +2312,7 @@ feature {}
          end
       end
 
-   a_alias_parentheses (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   a_alias_parentheses (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
          --  ++ alias_parentheses -> "(" {actual "," ...} ")"
          --  ++                      ^
       require
@@ -2331,7 +2331,7 @@ feature {}
          Result := a_r10(do_instruction, target, fn, eal)
       end
 
-   a_alias_brackets (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   a_alias_brackets (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
          --  ++ alias_brackets -> "[" {actual "," ...} "]"
          --  ++                   ^
       require
@@ -2350,7 +2350,7 @@ feature {}
          Result := a_r10(do_instruction, target, fn, eal)
       end
 
-   a_assignment_or_procedure_call: BOOLEAN is
+   a_assignment_or_procedure_call: BOOLEAN
          --  ++ assignment_or_procedure_call -> "(" expression ")" r10 |
          --  ++                       "Precursor" ["{" type_mark "}"] [actuals] r10 |
          --  ++                       "Current" r10 |
@@ -2530,7 +2530,7 @@ feature {}
          Result implies last_instruction /= Void
       end
 
-   a_assignment_call_assigner (do_expression: BOOLEAN): BOOLEAN is
+   a_assignment_call_assigner (do_expression: BOOLEAN): BOOLEAN
       local
          pc: PROCEDURE_CALL; fc: FUNCTION_CALL
          l, c: INTEGER
@@ -2585,13 +2585,13 @@ feature {}
          end
       end
 
-   a_assertion_buffer: FAST_ARRAY[ASSERTION] is
+   a_assertion_buffer: FAST_ARRAY[ASSERTION]
          -- Used only inside `a_assertion'.
       once
          create Result.with_capacity(32)
       end
 
-   a_assertion: FAST_ARRAY[ASSERTION] is
+   a_assertion: FAST_ARRAY[ASSERTION]
          --  ++ assertion -> {assertion_clause ";" ...}
          --  ++ assertion_clause -> [identifier ":"] [expression] [comment]
          --  ++
@@ -2692,124 +2692,124 @@ feature {}
       end
 
 feature {EXTERNAL_PROCEDURE, FEATURE_CALL}
-   brackets_name: HASHED_STRING is
+   brackets_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_brackets)
       end
 
-   parentheses_name: HASHED_STRING is
+   parentheses_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_parentheses)
       end
 
-   le_name: HASHED_STRING is
+   le_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_le)
       end
 
-   ge_name: HASHED_STRING is
+   ge_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_ge)
       end
 
-   slash_slash_name: HASHED_STRING is
+   slash_slash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_slash_slash)
       end
 
-   backslash_backslash_name: HASHED_STRING is
+   backslash_backslash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_backslash_backslash)
       end
 
-   muls_name: HASHED_STRING is
+   muls_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_muls)
       end
 
-   slash_name: HASHED_STRING is
+   slash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_slash)
       end
 
-   gt_name: HASHED_STRING is
+   gt_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_gt)
       end
 
-   lt_name: HASHED_STRING is
+   lt_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_lt)
       end
 
-   pow_name: HASHED_STRING is
+   pow_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_pow)
       end
 
-   xor_name: HASHED_STRING is
+   xor_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_xor)
       end
 
-   implies_name: HASHED_STRING is
+   implies_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_implies)
       end
 
-   and_name: HASHED_STRING is
+   and_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_and)
       end
 
-   or_name: HASHED_STRING is
+   or_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_or)
       end
 
-   sharp_plus_name: HASHED_STRING is
+   sharp_plus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_plus)
       end
 
-   sharp_minus_name: HASHED_STRING is
+   sharp_minus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_minus)
       end
 
-   sharp_muls_name: HASHED_STRING is
+   sharp_muls_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_muls)
       end
 
-   plus_name: HASHED_STRING is
+   plus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_plus)
       end
 
-   minus_name: HASHED_STRING is
+   minus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_minus)
       end
 
-   not_name: HASHED_STRING is
+   not_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_not)
       end
 
 feature {}
-   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING) is
+   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING)
       do
          create last_manifest_string.make(p, once_flag, unicode_flag, string)
          last_manifest_string.set_source_view(source_view)
       end
 
-   may_expand_var is
+   may_expand_var
       do
          buffer.extend('$')
       end
 
-   a_binary (sp: POSITION): BOOLEAN is
+   a_binary (sp: POSITION): BOOLEAN
          --  ++ binary -> "<=" | ">=" | "//" | "\\" |
          --  ++           "+" | "-" | "*" | "/" | "<" | ">" | "^" |
          --  ++           xor" | "implies" | "and then" | "and" |
@@ -2867,7 +2867,7 @@ feature {}
          end
       end
 
-   a_boolean_constant: BOOLEAN is
+   a_boolean_constant: BOOLEAN
          --  ++ boolean_constant -> "True" | "False"
          --  ++
       do
@@ -2880,7 +2880,7 @@ feature {}
          end
       end
 
-   a_check: BOOLEAN is
+   a_check: BOOLEAN
          --  ++ check -> "check" assertion [indexing] "end"
          --  ++
       local
@@ -2906,7 +2906,7 @@ feature {}
          end
       end
 
-   a_class_declaration is
+   a_class_declaration
          --  ++ class_declaration -> [indexing]
          --  ++                      ["expanded" | "deferred" | "separate"]
          --  ++                      "class" class_text_name
@@ -3032,7 +3032,7 @@ feature {}
          end
       end
 
-   a_static_type_mark (for_client_list: BOOLEAN): BOOLEAN is
+   a_static_type_mark (for_client_list: BOOLEAN): BOOLEAN
          --  ++ base_type_mark -> "ANY" | ARRAY "[" type_mark "]" | "BOOLEAN" |
          --  ++         "CHARACTER" | "DOUBLE" | "INTEGER" |
          --  ++         "POINTER" | "REAL" | "STRING" | "TUPLE" |
@@ -3376,7 +3376,7 @@ feature {}
          end
       end
 
-   a_type_mark_inside_client_list: BOOLEAN is
+   a_type_mark_inside_client_list: BOOLEAN
       local
          fn: FEATURE_NAME; ctm: CLASS_TYPE_MARK
       do
@@ -3416,7 +3416,7 @@ feature {}
          end
       end
 
-   a_conversion_list is
+   a_conversion_list
          --  ++ conversion_list -> type_mark_list
          --  ++
       local
@@ -3436,7 +3436,7 @@ feature {}
          --create Result.make(sp, list)
       end
 
-   a_clients: CLIENT_LIST is
+   a_clients: CLIENT_LIST
          --  ++ clients -> type_mark_list
          --  ++
       local
@@ -3456,7 +3456,7 @@ feature {}
          Result /= Void
       end
 
-   a_type_mark_list: TYPE_MARK_LIST is
+   a_type_mark_list: TYPE_MARK_LIST
          --  ++ type_mark_list -> "{" { class_text_name "," ... } "}"
          --  ++
       local
@@ -3526,7 +3526,7 @@ feature {}
          end
       end
 
-   a_compound1: INSTRUCTION is
+   a_compound1: INSTRUCTION
          --  ++ compound -> {instruction ";" ...}
          --  ++
       local
@@ -3571,7 +3571,7 @@ feature {}
          cc /= ';'
       end
 
-   a_compound2 (compound_of, terminator: STRING): INSTRUCTION is
+   a_compound2 (compound_of, terminator: STRING): INSTRUCTION
          -- Call `a_compound1' and then enforce the `terminator' at the end.
       do
          Result := a_compound1
@@ -3586,7 +3586,7 @@ feature {}
          end
       end
 
-   a_exp2 (compound_of, terminator: STRING): EXPRESSION is
+   a_exp2 (compound_of, terminator: STRING): EXPRESSION
          -- Call `a_expression' and then enforce the `terminator' at the end.
       do
          if a_expression then
@@ -3610,7 +3610,7 @@ feature {}
          Result /= Void
       end
 
-   a_conditional_exp: BOOLEAN is
+   a_conditional_exp: BOOLEAN
          --  ++ conditional_exp -> "if" expression "then" expression
          --  ++                    [ {"elseif" expression "then" expression ...}+ ]
          --  ++                    [ "else" expression ]
@@ -3687,7 +3687,7 @@ feature {}
          end
       end
 
-   a_conditional: BOOLEAN is
+   a_conditional: BOOLEAN
          --  ++ conditional -> "if" expression "then" compound
          --  ++                [ {"elseif" expression "then" compound ...}+ ]
          --  ++                [ "else" compound ]
@@ -3771,7 +3771,7 @@ feature {}
          end
       end
 
-   no_void_after_elseif_check (expression: EXPRESSION) is
+   no_void_after_elseif_check (expression: EXPRESSION)
       do
          if expression.is_void then
             error_handler.add_position(expression.start_position)
@@ -3780,7 +3780,7 @@ feature {}
          end
       end
 
-   a_then_compound: INSTRUCTION is
+   a_then_compound: INSTRUCTION
          --  ++ then_compound -> "then" compound
       do
          if not a_keyword(fz_then) then
@@ -3791,7 +3791,7 @@ feature {}
          Result := a_compound1
       end
 
-   a_then_exp: EXPRESSION is
+   a_then_exp: EXPRESSION
          --  ++ then_exp -> "then" expression
       do
          if not a_keyword(fz_then) then
@@ -3808,7 +3808,7 @@ feature {}
          end
       end
 
-   a_old_creation: BOOLEAN is
+   a_old_creation: BOOLEAN
          --  ++ old_creation -> "!"[type_mark]"!" writable
          --  ++                 ["." procedure_name [actuals]]
          --  ++
@@ -3854,7 +3854,7 @@ feature {}
          end
       end
 
-   a_c_inline_c: BOOLEAN is
+   a_c_inline_c: BOOLEAN
          --  ++ c_inline_c -> "c_inline_c" "(" manifest_string ")"
          --  ++
       local
@@ -3887,7 +3887,7 @@ feature {}
          end
       end
 
-   a_c_inline_h: BOOLEAN is
+   a_c_inline_h: BOOLEAN
          --  ++ c_inline_h -> "c_inline_h" "(" manifest_string ")"
          --  ++
       local
@@ -3916,7 +3916,7 @@ feature {}
          end
       end
 
-   a_create_instruction: BOOLEAN is
+   a_create_instruction: BOOLEAN
          --  ++ create_instruction -> "create" ["{" type "}"] writable
          --  ++                       ["." procedure_name [actuals]]
          --  ++
@@ -3956,7 +3956,7 @@ feature {}
          end
       end
 
-   a_create_expression: BOOLEAN is
+   a_create_expression: BOOLEAN
          --  ++ create_expression -> "create" "{" type "}" ["." procedure_name [actuals]]
          --  ++
       local
@@ -3998,7 +3998,7 @@ feature {}
          end
       end
 
-   a_creation_clause (sp: POSITION; with_clients: BOOLEAN): CREATION_CLAUSE is
+   a_creation_clause (sp: POSITION; with_clients: BOOLEAN): CREATION_CLAUSE
          --  ++ creation_clause -> [clients] [comment] feature_list
          --  ++
       local
@@ -4021,7 +4021,7 @@ feature {}
          create Result.make(sp, clients, comments, last_feature_name_list)
       end
 
-   a_convert_clause (sp: POSITION) is
+   a_convert_clause (sp: POSITION)
          --  ++ convert_clause -> {feature_name conversion_clause ...}
          --  ++
       local
@@ -4060,7 +4060,7 @@ feature {}
          end
       end
 
-   a_conversion_clause is
+   a_conversion_clause
          --  ++ conversion_clause -> conversion_procedure |
          --  ++                      conversion_query
          --  ++
@@ -4072,7 +4072,7 @@ feature {}
          end
       end
 
-   a_conversion_procedure: BOOLEAN is
+   a_conversion_procedure: BOOLEAN
          --  ++ conversion_procedure -> '(' conversion_list ')'
          --  ++
       local
@@ -4090,7 +4090,7 @@ feature {}
          end
       end
 
-   a_conversion_query: BOOLEAN is
+   a_conversion_query: BOOLEAN
          --  ++ conversion_query -> ':' conversion_list
          --  ++
       local
@@ -4103,7 +4103,7 @@ feature {}
          end
       end
 
-   a_debug: BOOLEAN is
+   a_debug: BOOLEAN
          --  ++ debug -> "debug" "(" {manifest_string "," ...} ")"
          --  ++                  compound "end"
          --  ++
@@ -4140,7 +4140,7 @@ feature {}
          end
       end
 
-   a_expression: BOOLEAN is
+   a_expression: BOOLEAN
          --  ++ expression -> "<<" { expression "," ... } ">>" |
          --  ++               e1 r1
          --  ++
@@ -4197,7 +4197,7 @@ feature {}
          Result implies last_expression /= Void
       end
 
-   a_e1: BOOLEAN is
+   a_e1: BOOLEAN
          --  ++ e1 -> e2 r2
          --  ++
       do
@@ -4207,7 +4207,7 @@ feature {}
          end
       end
 
-   a_e2: BOOLEAN is
+   a_e2: BOOLEAN
          --  ++ e2 -> e3 r3
          --  ++
       do
@@ -4217,7 +4217,7 @@ feature {}
          end
       end
 
-   a_e3: BOOLEAN is
+   a_e3: BOOLEAN
          --  ++ e3 -> e4 r4
          --  ++
       do
@@ -4227,7 +4227,7 @@ feature {}
          end
       end
 
-   a_e4: BOOLEAN is
+   a_e4: BOOLEAN
          --  ++ e4 -> e5 r5
          --  ++
       do
@@ -4237,7 +4237,7 @@ feature {}
          end
       end
 
-   a_e5: BOOLEAN is
+   a_e5: BOOLEAN
          --  ++ e5 -> e6 r6
          --  ++
       do
@@ -4247,7 +4247,7 @@ feature {}
          end
       end
 
-   a_e6: BOOLEAN is
+   a_e6: BOOLEAN
          --  ++ e6 -> e7 r7
          --  ++
       do
@@ -4257,7 +4257,7 @@ feature {}
          end
       end
 
-   a_e7: BOOLEAN is
+   a_e7: BOOLEAN
          --  ++ e7 -> e8 r8
          --  ++
       do
@@ -4267,7 +4267,7 @@ feature {}
          end
       end
 
-   a_e8: BOOLEAN is
+   a_e8: BOOLEAN
          --  ++ e8 -> "not" e8 |
          --  ++       "+" e8 |
          --  ++       "-" e8 |
@@ -4331,7 +4331,7 @@ feature {}
          end
       end
 
-   a_e9: BOOLEAN is
+   a_e9: BOOLEAN
          --  ++ e9 -> e10 |
          --  ++       "old" e10
          --  ++
@@ -4358,7 +4358,7 @@ feature {}
          end
       end
 
-   a_e10: BOOLEAN is
+   a_e10: BOOLEAN
          --  ++ e10 -> "(" expression ")" r10 |
          --  ++       "[" {Expression "," ...} "]" |
          --  ++       "True" | "False" |
@@ -4625,12 +4625,12 @@ feature {}
 
    inline_agent_counter: INTEGER
 
-   inline_agents: FAST_ARRAY[FEATURE_TEXT] is
+   inline_agents: FAST_ARRAY[FEATURE_TEXT]
       once
          create Result.with_capacity(256)
       end
 
-   a_is: BOOLEAN is
+   a_is: BOOLEAN
       do
          if a_keyword(fz_is) then
             error_handler.append(once "Keyword %"is%" is deprecated.")
@@ -4640,7 +4640,7 @@ feature {}
          end
       end
 
-   a_inline_agent: FEATURE_TEXT is
+   a_inline_agent: FEATURE_TEXT
          --  ++ inline_agent -> formal_arg_list
          --  ++                 [":" type]
          --  ++                 "is" routine
@@ -4771,7 +4771,7 @@ feature {}
          end
       end
 
-   a_external: FEATURE_TEXT is
+   a_external: FEATURE_TEXT
          --  ++ external -> "<external-specification>" external_name
          --  ++ external_name -> ["alias" manifest_string]
          --  ++
@@ -4783,7 +4783,7 @@ feature {}
          Result := tmp_feature.as_external_routine(l, alias_tag)
       end
 
-   a_external_specification: NATIVE is
+   a_external_specification: NATIVE
       local
          external_tag: MANIFEST_STRING
       do
@@ -4811,7 +4811,7 @@ feature {}
          end
       end
 
-   a_external_name: MANIFEST_STRING is
+   a_external_name: MANIFEST_STRING
       do
          if a_keyword(fz_alias) then
             if not a_manifest_string(True) then
@@ -4824,7 +4824,7 @@ feature {}
          end
       end
 
-   a_feature_name_list: BOOLEAN is
+   a_feature_name_list: BOOLEAN
          --  ++ feature_name_list -> {feature_name "," ...}
          --  ++
          --
@@ -4890,7 +4890,7 @@ feature {}
          end
       end
 
-   a_feature_name: BOOLEAN is
+   a_feature_name: BOOLEAN
          --  ++ feature_name -> prefix |
          --  ++                 infix |
          --  ++                 simple_feature_name
@@ -4913,7 +4913,7 @@ feature {}
          end
       end
 
-   a_feature_clause is
+   a_feature_clause
          --  ++ feature_clause -> [clients] [comment] feature_declaration_list
          --  ++
       local
@@ -4940,7 +4940,7 @@ feature {}
          end
       end
 
-   a_possibly_frozen_feature_name: BOOLEAN is
+   a_possibly_frozen_feature_name: BOOLEAN
       do
          if a_keyword(fz_frozen) then
             if a_feature_name then
@@ -4973,7 +4973,7 @@ feature {}
          end
       end
 
-   a_feature_declaration: BOOLEAN is
+   a_feature_declaration: BOOLEAN
          --  ++ feature_declaration -> {["frozen"] feature_name "," ...}+
          --  ++                        formal_arg_list
          --  ++                        [":" type]
@@ -5152,7 +5152,7 @@ feature {}
          tmp_feature.done
       end
 
-   check_alias is
+   check_alias
       local
          i: INTEGER; a: FEATURE_NAME
       do
@@ -5191,7 +5191,7 @@ feature {}
          end
       end
 
-   a_formal_generic_list is
+   a_formal_generic_list
          --  ++ formal_generic_list -> ["[" {formal_generic "," ...} "]"]
          --  ++ formal_generic -> class_text_name ["->" static_type_mark]
          --  ++
@@ -5301,7 +5301,7 @@ feature {}
          end
       end
 
-   a_function_call: BOOLEAN is
+   a_function_call: BOOLEAN
          --  ++ function_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -5313,7 +5313,7 @@ feature {}
          Result := a_r10(False, implicit_current, sfn, a_actuals)
       end
 
-   a_index_clause (a_indexingable: INDEXINGABLE; a_spec: STRING): BOOLEAN is
+   a_index_clause (a_indexingable: INDEXINGABLE; a_spec: STRING): BOOLEAN
          --  ++ index_clause -> [identifier ":"] {index_value "," ...}+
          --  ++
       require
@@ -5359,7 +5359,7 @@ feature {}
          end
       end
 
-   a_index_value: BOOLEAN is
+   a_index_value: BOOLEAN
          --  ++ index_value -> identifier | manifest_constant
          --  ++
       do
@@ -5371,7 +5371,7 @@ feature {}
          end
       end
 
-   a_indexing (a_indexingable: INDEXINGABLE; a_spec: STRING) is
+   a_indexing (a_indexingable: INDEXINGABLE; a_spec: STRING)
          --  ++ indexing -> "indexing" {index_clause ";" ...}
          --  ++
       local
@@ -5395,7 +5395,7 @@ feature {}
          end
       end
 
-   a_infix: BOOLEAN is
+   a_infix: BOOLEAN
          --  ++ infix -> "infix" "%"" binary "%""
          --  ++          "infix" "%"" free_operator "%""
          --  ++
@@ -5427,7 +5427,7 @@ feature {}
          end
       end
 
-   a_inspect: BOOLEAN is
+   a_inspect: BOOLEAN
          --  ++ inspect -> "inspect" expression
          --  ++            {when_part ...}
          --  ++            ["else" compound]
@@ -5491,7 +5491,7 @@ feature {}
          end
       end
 
-   a_instruction: BOOLEAN is
+   a_instruction: BOOLEAN
          --  ++ instruction -> check | debug | conditionnal | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
@@ -5616,7 +5616,7 @@ feature {}
 
    eiffel_parser_stamp: INTEGER
 
-   a_loop: BOOLEAN is
+   a_loop: BOOLEAN
          --  ++ loop -> "from" compound
          --  ++         ["invariant"] assertion
          --  ++         ["variant" [identifier ":"] expression]
@@ -5691,7 +5691,7 @@ feature {}
          end
       end
 
-   a_new_export_list is
+   a_new_export_list
          --  ++ new_export_list -> ["export" {new_export_item ";" ...}]
          --  ++ new_export_item -> clients "all" |
          --  ++                    clients feature_list
@@ -5772,7 +5772,7 @@ feature {}
          end
       end
 
-   a_parent_list is
+   a_parent_list
          --  ++ inherit_text -> ["external" ***]
          --  ++                 ["inherit" {parent ";" ...}]
          --  ++                 ["insert" {parent ";" ...} ]
@@ -5850,7 +5850,7 @@ feature {}
          last_class_text.create_parent_lists_using(inherit_hc, inherit_list, insert_hc, insert_list)
       end
 
-   a_parent_edge (is_insert_flag: BOOLEAN): BOOLEAN is
+   a_parent_edge (is_insert_flag: BOOLEAN): BOOLEAN
          --  ++ parent -> static_type_mark
          --  ++           ["rename" rename_list]
          --  ++           new_export_list
@@ -5942,7 +5942,7 @@ feature {}
          end
       end
 
-   a_alias (fn: like last_feature_name): BOOLEAN is
+   a_alias (fn: like last_feature_name): BOOLEAN
          --  ++ alias -> "alias" "%"" unary "%""
          --  ++          "alias" "%"" free_operator "%""
          --  ++
@@ -5983,7 +5983,7 @@ feature {}
          end
       end
 
-   a_prefix: BOOLEAN is
+   a_prefix: BOOLEAN
          --  ++ prefix -> "prefix" "%"" unary "%""
          --  ++           "prefix" "%"" free_operator "%""
          --  ++
@@ -6015,7 +6015,7 @@ feature {}
          end
       end
 
-   a_procedure_call: BOOLEAN is
+   a_procedure_call: BOOLEAN
          --  ++ procedure_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -6027,7 +6027,7 @@ feature {}
          Result := a_r10(True, implicit_current, sfn, a_actuals)
       end
 
-   a_rename_list is
+   a_rename_list
          --  ++ rename_list -> {rename_pair "," ...}
          --  ++
       do
@@ -6039,7 +6039,7 @@ feature {}
          end
       end
 
-   a_rename_pair: BOOLEAN is
+   a_rename_pair: BOOLEAN
          --  ++ rename_pair -> identifier "as" identifier
          --  ++
       local
@@ -6071,7 +6071,7 @@ feature {}
          end
       end
 
-   a_routine (expect_routine: BOOLEAN): FEATURE_TEXT is
+   a_routine (expect_routine: BOOLEAN): FEATURE_TEXT
          --  ++ routine -> ["obsolete" manifest_string]
          --  ++            ["require" ["else"] assertion]
          --  ++            ["local" entity_declaration_list]
@@ -6160,7 +6160,7 @@ feature {}
          expect_routine implies Result /= Void
       end
 
-   a_routine_body (expected: BOOLEAN): FEATURE_TEXT is
+   a_routine_body (expected: BOOLEAN): FEATURE_TEXT
          --  ++ routine_body -> "deferred" |
          --  ++                 "external" external |
          --  ++                 "do" compound |
@@ -6197,7 +6197,7 @@ feature {}
          expected implies Result /= Void
       end
 
-   a_r1 (left_part: like last_expression) is
+   a_r1 (left_part: like last_expression)
          --  ++ r1 -> "implies" e1 r1 |
          --  ++       ^
          --  ++
@@ -6219,7 +6219,7 @@ feature {}
          end
       end
 
-   a_r2 (left_part: like last_expression) is
+   a_r2 (left_part: like last_expression)
          --  ++ r2 -> "or else" e2 r2 |
          --  ++       "or" e2 r2 |
          --  ++       "xor" e2 r2 |
@@ -6258,7 +6258,7 @@ feature {}
          end
       end
 
-   a_r3 (left_part: like last_expression) is
+   a_r3 (left_part: like last_expression)
          --  ++ r3 -> "and then" e3 r3 |
          --  ++       "and" e3 r3 |
          --  ++       ^
@@ -6288,7 +6288,7 @@ feature {}
          end
       end
 
-   a_r4 (left_part: like last_expression) is
+   a_r4 (left_part: like last_expression)
          --  ++ r4 -> "=" e4 r4 |
          --  ++       "/=" e4 r4 |
          --  ++       "<=" e4 r4 |
@@ -6357,7 +6357,7 @@ feature {}
          end
       end
 
-   a_r5 (left_part: like last_expression) is
+   a_r5 (left_part: like last_expression)
          --  ++ r5 -> "+" e5 r5 |
          --  ++       "-" e5 r5 |
          --  ++       ^
@@ -6388,7 +6388,7 @@ feature {}
          end
       end
 
-   a_r6 (left_part: like last_expression) is
+   a_r6 (left_part: like last_expression)
          --  ++ r6 -> "*" e6 r6 |
          --  ++       "//" e6 r6 |
          --  ++       "\\" e6 r6 |
@@ -6439,7 +6439,7 @@ feature {}
          end
       end
 
-   a_r7 (left_part: like last_expression) is
+   a_r7 (left_part: like last_expression)
          --  ++ r7 -> "^" e7 r7 |
          --  ++       ^
          --  ++
@@ -6461,7 +6461,7 @@ feature {}
          end
       end
 
-   a_r8 (left_part: like last_expression) is
+   a_r8 (left_part: like last_expression)
          --  ++ r8 -> free_operator e8 r8 |
          --  ++       ^
          --  ++
@@ -6489,7 +6489,7 @@ feature {}
          end
       end
 
-   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN is
+   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN
          --  ++ r10 -> "." after_a_dot |
          --  ++        "(" alias_parentheses |
          --  ++        "[" alias_brackets |
@@ -6536,7 +6536,7 @@ feature {}
          end
       end
 
-   a_tag_mark: BOOLEAN is
+   a_tag_mark: BOOLEAN
          --  ++ tag_mark -> identifier ":"
          --  ++
       local
@@ -6554,7 +6554,7 @@ feature {}
          end
       end
 
-   a_type_mark (for_client_list: BOOLEAN): BOOLEAN is
+   a_type_mark (for_client_list: BOOLEAN): BOOLEAN
          --  ++ type_mark -> static_type_mark |
          --  ++              formal_generic_type_mark |
          --  ++              "like" "Current" |
@@ -6614,13 +6614,13 @@ feature {}
       end
 
 feature {TOKEN_BUFFER}
-   pos (l, c: INTEGER): POSITION is
+   pos (l, c: INTEGER): POSITION
       do
          Result.set(l, c, current_id, last_class_text)
       end
 
 feature {}
-   valid_parent_edge_type_check (type_mark: TYPE_MARK) is
+   valid_parent_edge_type_check (type_mark: TYPE_MARK)
          -- Check that no anchored type are used.
       require
          type_mark /= Void
@@ -6645,7 +6645,7 @@ feature {}
          end
       end
 
-   inside_function_precursor_check (exp: EXPRESSION) is
+   inside_function_precursor_check (exp: EXPRESSION)
       do
          if not inside_function_flag then
             error_handler.append(once "Inside a procedure, a Precursor call must be a procedure call %
@@ -6655,7 +6655,7 @@ feature {}
          end
       end
 
-   a_unary (sp: POSITION): BOOLEAN is
+   a_unary (sp: POSITION): BOOLEAN
          --  ++ unary -> "not" | "+" | "-"
          --  ++
       do
@@ -6671,7 +6671,7 @@ feature {}
          end
       end
 
-   a_when_part (manifest_string_flag: INTEGER; when_clause: WHEN_CLAUSE): INTEGER is
+   a_when_part (manifest_string_flag: INTEGER; when_clause: WHEN_CLAUSE): INTEGER
          --  ++ when_part -> "when" {when_part_item "," ...} then compound
          --  ++
          --  ++ when_part_item -> constant ".." constant |
@@ -6780,7 +6780,7 @@ feature {}
          valid_manifest_string_flag: (Result = -1) or else (Result = 1)
       end
 
-   a_writable: BOOLEAN is
+   a_writable: BOOLEAN
          -- Which is Result, some local variable or some writable attribute name.
          -- The `Result' is made available in `last_expression'
       local
@@ -6815,7 +6815,7 @@ feature {}
          end
       end
 
-   mandatory_writable: EXPRESSION is
+   mandatory_writable: EXPRESSION
          -- Skip and return the writable which is mandatory here.
       do
          if a_writable then
@@ -6839,7 +6839,7 @@ feature {}
          Result /= Void
       end
 
-   to_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): EXPRESSION is
+   to_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): EXPRESSION
       require
          t /= Void
       do
@@ -6857,7 +6857,7 @@ feature {}
          end
       end
 
-   to_proc_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): PROCEDURE_CALL is
+   to_proc_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): PROCEDURE_CALL
       do
          if fn = Void then
             error_handler.add_position(current_position)
@@ -6872,7 +6872,7 @@ feature {}
          end
       end
 
-   a_ordinary_feature_name_or_local_name: BOOLEAN is
+   a_ordinary_feature_name_or_local_name: BOOLEAN
          -- Is there some name here which looks like an ordinary feature name or which looks like an ordinary local
          -- variable name (`Result' is not an ordinary local name). If such a name is detected, the corresponding
          -- identifier is made available in `token_buffer'.
@@ -6931,7 +6931,7 @@ feature {}
          end
       end
 
-   a_non_allowed_very_strange_identifier: BOOLEAN is
+   a_non_allowed_very_strange_identifier: BOOLEAN
          -- Is there some name here which looks like a very strange identifier (not `a_ordinary_feature_name_or_local_name'
          -- and not `a_class_name' and not a keyword). If such a weird name is detected, the corresponding identifier
          -- is made available in the `token_buffer'. The `current_position' is never changed whatever the Result. In case
@@ -7006,7 +7006,7 @@ feature {}
          end
       end
 
-   show_nb (nb: INTEGER; tail: STRING) is
+   show_nb (nb: INTEGER; tail: STRING)
       do
          if nb > 0 then
             echo.w_put_string(fz_error_stars)
@@ -7021,12 +7021,12 @@ feature {}
 
    tmp_feature: TMP_FEATURE
 
-   faof: FAST_ARRAY[FEATURE_TEXT] is
+   faof: FAST_ARRAY[FEATURE_TEXT]
       once
          create Result.with_capacity(256)
       end
 
-   err_exp (sp: POSITION; prefix_flag: BOOLEAN; operator: STRING) is
+   err_exp (sp: POSITION; prefix_flag: BOOLEAN; operator: STRING)
          -- When an error occurs in the right hand side of some `operator'.
       local
          msg: STRING
@@ -7045,7 +7045,7 @@ feature {}
          error_handler.print_as_fatal_error
       end
 
-   expression_with_comment (e: EXPRESSION): EXPRESSION is
+   expression_with_comment (e: EXPRESSION): EXPRESSION
          -- There is some following comment, `e' may be wrapped
          -- inside some EXPRESSION_WITH_COMMENT object.
       local
@@ -7059,14 +7059,14 @@ feature {}
          end
       end
 
-   unknown_external_language (external_tag: MANIFEST_STRING) is
+   unknown_external_language (external_tag: MANIFEST_STRING)
       do
          error_handler.add_position(external_tag.start_position)
          error_handler.append(once "Unknown external language specification.")
          error_handler.print_as_fatal_error
       end
 
-   unused_once_warning_check is
+   unused_once_warning_check
       do
          if last_manifest_string.once_flag then
             error_handler.add_position(last_manifest_string.start_position)
@@ -7075,7 +7075,7 @@ feature {}
          end
       end
 
-   create_infix_prefix (freeop: INTEGER_8; l, c: INTEGER) is
+   create_infix_prefix (freeop: INTEGER_8; l, c: INTEGER)
       require
          freeop.in_range(freeop_prefix, freeop_alias)
       local
@@ -7093,7 +7093,7 @@ feature {}
          end
       end
 
-   anchored_creation_check (type: TYPE_MARK) is
+   anchored_creation_check (type: TYPE_MARK)
       do
          if type.is_anchored then
             if type.is_like_current then
@@ -7107,7 +7107,7 @@ feature {}
          end
       end
 
-   void_current_comparison_check (e1, e2: EXPRESSION) is
+   void_current_comparison_check (e1, e2: EXPRESSION)
       require
          e1 /= Void
          e2 /= Void
@@ -7116,7 +7116,7 @@ feature {}
          void_current_comparison_check_(e2, e1)
       end
 
-   void_current_comparison_check_ (e1, e2: EXPRESSION) is
+   void_current_comparison_check_ (e1, e2: EXPRESSION)
       do
          -- Forbid comparison of `Current' with Void (may be useful for beginners):
          if e1.is_current and then e2.is_void then
@@ -7129,7 +7129,7 @@ feature {}
          end
       end
 
-   a_precursor_type_mark (sp: POSITION): TYPE_MARK is
+   a_precursor_type_mark (sp: POSITION): TYPE_MARK
          -- To continue the work after the first '{'.
       do
          if not a_type_mark(False) then
@@ -7154,18 +7154,18 @@ feature {}
          Result /= Void
       end
 
-   a_keyword_precursor: BOOLEAN is
+   a_keyword_precursor: BOOLEAN
       do
          Result := a_keyword(as_precursor) or else a_keyword(once "precursor")
          -- Stay relax Dominique ;-)
       end
 
-   no_static_simplify: BOOLEAN is
+   no_static_simplify: BOOLEAN
       once
          Result := smart_eiffel.pretty_flag or else smart_eiffel.short_or_class_check_flag
       end
 
-   static_simplify (expression: EXPRESSION): EXPRESSION is
+   static_simplify (expression: EXPRESSION): EXPRESSION
       require
          expression /= Void
       do
@@ -7178,7 +7178,7 @@ feature {}
          Result /= Void
       end
 
-   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
       require
          target /= Void
       do
@@ -7194,7 +7194,7 @@ feature {}
          end
       end
 
-   a_keyword_void: BOOLEAN is
+   a_keyword_void: BOOLEAN
       do
          if a_keyword(as_void) then
             Result := True
@@ -7206,7 +7206,7 @@ feature {}
          end
       end
 
-   a_keyword_result: BOOLEAN is
+   a_keyword_result: BOOLEAN
       do
          if a_keyword(as_result) then
             Result := True
@@ -7218,7 +7218,7 @@ feature {}
          end
       end
 
-   a_keyword_current: BOOLEAN is
+   a_keyword_current: BOOLEAN
       do
          if a_keyword(as_current) then
             Result := True
@@ -7230,7 +7230,7 @@ feature {}
          end
       end
 
-   a_keyword_true: BOOLEAN is
+   a_keyword_true: BOOLEAN
       do
          if a_keyword(fz_true) then
             Result := True
@@ -7242,7 +7242,7 @@ feature {}
          end
       end
 
-   a_keyword_false: BOOLEAN is
+   a_keyword_false: BOOLEAN
       do
          if a_keyword(fz_false) then
             Result := True
@@ -7254,7 +7254,7 @@ feature {}
          end
       end
 
-   no_void_check (expression: EXPRESSION; msg: STRING) is
+   no_void_check (expression: EXPRESSION; msg: STRING)
       require
          expression /= Void
          msg /= Void
@@ -7267,13 +7267,13 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
          create tmp_feature.initialize
          tmp_feature.done
       end
 
-   unused_tmp_features: STACK[TMP_FEATURE] is
+   unused_tmp_features: STACK[TMP_FEATURE]
       once
          create Result.make
       end

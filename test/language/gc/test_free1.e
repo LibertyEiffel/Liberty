@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    i: INTEGER
 
-   make is
+   make
       local
          s: STRING; array: FAST_ARRAY[STRING]
       do

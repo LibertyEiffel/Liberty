@@ -10,43 +10,43 @@ inherit
    CODE
 
 feature {ANY}
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       deferred
       end
 
-   is_current: BOOLEAN is
+   is_current: BOOLEAN
          -- Is it a `Current' like expression (really written `Current' or some implicit not-written `Current')?
       deferred
       end
 
-   is_implicit_current: BOOLEAN is
+   is_implicit_current: BOOLEAN
          -- Is it an implicit Current (i.e., not explicitely written)?
       deferred
       ensure
          Result implies is_current
       end
 
-   is_manifest_string: BOOLEAN is
+   is_manifest_string: BOOLEAN
          -- Is it a manifest string (i.e. a basic manifest string or some verbatim manifest string)?
       deferred
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
          -- Is it the built-in Void?
       deferred
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
          -- Is it the pseudo local variable `Result' ?
       deferred
       end
 
-   is_writable: BOOLEAN is
+   is_writable: BOOLEAN
          -- Is is something that one can find on the left-hand-side of the := operator ?
       deferred
       end
 
-   frozen is_default_value: BOOLEAN is
+   frozen is_default_value: BOOLEAN
          -- True if `Current' represents `Void', `False' , `0', '%U' or whatever is a default value. Also note
          -- that some default values like NULL_POINTER, cannot be written in pure Eiffel.
          -- (Thanks to the new ?:= operator, this `is_default_value' frozen definition is pretty fine.)
@@ -72,7 +72,7 @@ feature {ANY}
          end
       end
 
-   frozen is_stored_in_some_local_variable: BOOLEAN is
+   frozen is_stored_in_some_local_variable: BOOLEAN
          -- True if `Current' is stored in some local variable of the _target_ language. It does not
          -- mean that `Current' is writable! The goal here is to avoid creating an extra local
          -- storage in the _target_ language.
@@ -96,7 +96,7 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
          -- This method may be called to solve the `Current' expression type knowing that the `Current'
          -- expression `has_been_specialized' for the `type' given as an argument. It is important to keep
          -- in mind that the `resolve_in' function must not be called from some `specialize_in' or
@@ -116,13 +116,13 @@ feature {ANY}
          Result /= Void
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       deferred
       ensure
          (Result /= Void) implies (Result = resolve_in(type))
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
          -- The static type one can deduce from the declaration written in source text. As inheritance and
          -- redefinitions are ignored, it's the type to use for a lookup (for a method with this expression as
          -- target).
@@ -135,7 +135,7 @@ feature {ANY}
          Result /= Void
       end
 
-   written_declaration_type_mark: TYPE_MARK is
+   written_declaration_type_mark: TYPE_MARK
          -- This variant of `declaration_type' is used to check the left-hand side of "?:=", "::=" or "?="
          -- and the generic creation constraints.
          -- Note: this is the written one i.e. not always a static one.
@@ -148,13 +148,13 @@ feature {ANY}
          Result /= Void
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
          -- True if the expression has always the same static value regardless the context of the code.
          -- For example, this is True for True, False, Void, 2, "foo", 2.5, etc.
       deferred
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
          -- A non Void `Result' indicates that `Current' cannot be Void and that `Current' drives
          -- exactely to a single possible dynamic TYPE.
       require
@@ -165,13 +165,13 @@ feature {ANY}
          Result /= Void implies Result.live_type /= Void
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       deferred
       ensure then
          Result.is_an_acceptable_replacement(type, Current)
       end
 
-   static_simplify: EXPRESSION is
+   static_simplify: EXPRESSION
          -- This one is working completely out of context and is called directly by the parser only for
          -- some typical expressions.
       require
@@ -184,14 +184,14 @@ feature {ANY}
          Result /= Void
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
          -- Handling of precedence (priority of expressions).
       deferred
       ensure
          1 <= Result and Result <= atomic_precedence
       end
 
-   frozen base_class_written: CLASS_TEXT is
+   frozen base_class_written: CLASS_TEXT
          -- The base class where this expression is written.
       require
          not start_position.is_unknown
@@ -199,7 +199,7 @@ feature {ANY}
          Result := start_position.class_text
       end
 
-   frozen written_in: CLASS_NAME is
+   frozen written_in: CLASS_NAME
          -- The name of the base class where this expression is written.
       require
          not start_position.is_unknown
@@ -207,7 +207,7 @@ feature {ANY}
          Result := start_position.class_text_name
       end
 
-   frozen is_an_acceptable_replacement (type: TYPE; other: EXPRESSION): BOOLEAN is
+   frozen is_an_acceptable_replacement (type: TYPE; other: EXPRESSION): BOOLEAN
          -- Well, it is just for debug (see ensure).
       local
          type_of_current, type_of_other: TYPE; fake_tuple_1, fake_tuple_2: FAKE_TUPLE; i: INTEGER
@@ -241,7 +241,7 @@ feature {ANY}
          assertion_check_only: Result
       end
 
-   frozen inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): EXPRESSION is
+   frozen inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): EXPRESSION
       require
          code_accumulator /= Void
          type /= Void
@@ -256,7 +256,7 @@ feature {ANY}
       end
 
 feature {ANY} -- For `pretty' and `short':
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
          -- True when we do have to add an extra pair of brackets if the `Current' expression is the target
          -- of a call. As an example, this is True for infix calls. (This feature is used for `pretty' as
          -- well as for `short'). As another example, it is also true (-1).foo because of the usual low
@@ -264,25 +264,25 @@ feature {ANY} -- For `pretty' and `short':
       deferred
       end
 
-   pretty_target (indent_level: INTEGER) is
-         -- For `pretty'. Print the expression viewed as a target plus the corresponding dot when it is
+   pretty_target (indent_level: INTEGER)
+         -- For `pretty'. Print the expression viewed as a target plus the corresponding dot when it
          -- necessary.
       deferred
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
          -- For `pretty'. Add a bracket pair around `Current' only when it is necessary.
       deferred
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
          -- Produce the short command output in the given context `type'.
       require
          type /= Void
       deferred
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
          -- Produce the short command output in the given context `type'.
          -- Same as `short', but here, the `Current' expression is itself the target of some
          -- call, hence this call may add a dot (".") only when it is needed.
@@ -291,7 +291,7 @@ feature {ANY} -- For `pretty' and `short':
       deferred
       end
 
-   frozen bracketed_short (type: TYPE) is
+   frozen bracketed_short (type: TYPE)
       require
          type /= Void
       do

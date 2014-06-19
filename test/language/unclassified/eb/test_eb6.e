@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_EB6C
       do

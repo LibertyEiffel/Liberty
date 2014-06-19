@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          avl: AVL_SET[INTEGER]
          i: ITERATOR[INTEGER]

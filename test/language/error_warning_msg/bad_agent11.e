@@ -8,12 +8,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(agent io.put_string)
       end
 
-   foo(p: PROCEDURE[TUPLE]) is
+   foo(p: PROCEDURE[TUPLE])
       do
          p.call([])
       end

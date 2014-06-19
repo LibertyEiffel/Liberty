@@ -7,10 +7,10 @@ create {}
    make
 
 feature {}
-   value: INTEGER_32 is 17
+   value: INTEGER_32 17
    callback_value: INTEGER
 
-   make is
+   make
       local
          a: FOREIGN_AGENT
          p: FOREIGN_PARAMETERS
@@ -28,7 +28,7 @@ feature {}
 
    types: FOREIGN_TYPES
 
-   callback (v: like value): INTEGER is
+   callback (v: like value): INTEGER
       do
          callback_value := v
          Result := v

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -35,13 +35,13 @@ feature {}
 
    variant_counter: INTEGER
 
-   do_loop_invariant (i: INTEGER): BOOLEAN is
+   do_loop_invariant (i: INTEGER): BOOLEAN
       do
          invariant_counter := invariant_counter + 1
          Result := True
       end
 
-   do_loop_variant (i: INTEGER): INTEGER is
+   do_loop_variant (i: INTEGER): INTEGER
       do
          variant_counter := variant_counter + 1
          Result := 50 - i

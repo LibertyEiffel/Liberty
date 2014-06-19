@@ -13,20 +13,20 @@ inherit
       end
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   operator: STRING is
+   operator: STRING
       deferred
       end
 
-   frozen bracketed_pretty (indent_level: INTEGER) is
+   frozen bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          feature_name.pretty(indent_level)
          if feature_name.to_string.last.is_letter then
@@ -41,7 +41,7 @@ feature {ANY}
          end
       end
 
-   frozen pretty_target (indent_level: INTEGER) is
+   frozen pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -49,7 +49,7 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       do
          short_printer.put_prefix_name(feature_name)
          if target.precedence < precedence then
@@ -59,14 +59,14 @@ feature {ANY}
          end
       end
 
-   frozen short_target (type: TYPE) is
+   frozen short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
 feature {}
-   frozen with (t: like target; fn: like feature_name) is
+   frozen with (t: like target; fn: like feature_name)
       require
          t /= Void
          fn /= Void

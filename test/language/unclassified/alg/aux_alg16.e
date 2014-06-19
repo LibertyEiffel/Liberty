@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    item: INTEGER
 
-   make is
+   make
       do
          item := 1
       end

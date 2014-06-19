@@ -11,12 +11,12 @@ inherit
       end
 
 feature {ANY}
-   make (nb_r, nb_c: INTEGER) is
+   make (nb_r, nb_c: INTEGER)
       do
          array_make(nb_c * nb_r)
       end
 
-   make_unit (nb_r, nb_c: INTEGER) is
+   make_unit (nb_r, nb_c: INTEGER)
       local
          index: INTEGER; value: E; max_index: INTEGER
       do
@@ -36,23 +36,23 @@ feature {ANY}
          end
       end
 
-   item (l, c: INTEGER): E is
+   item (l, c: INTEGER): E
       do
          Result := array_item(translate_indexes(l, c))
       end
 
-   put (v: E; l, c: INTEGER) is
+   put (v: E; l, c: INTEGER)
       do
          array_put(v, translate_indexes(l, c))
       end
 
-   row (l: INTEGER): AUX_JLP8_ROW_PROVIDER[E] is
+   row (l: INTEGER): AUX_JLP8_ROW_PROVIDER[E]
       do
          create Result.make(Current, l)
       end
 
-   rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]] is
-         -- MATRIX_ROWS[E] is
+   rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]]
+         -- MATRIX_ROWS[E]
       local
          p: AUX_JLP8_MATRIX_ROWS[E]
       do
@@ -61,7 +61,7 @@ feature {ANY}
          Result := p
       end
 
-   set_row (l: INTEGER; p: AUX_JLP8_PROVIDER[E]) is
+   set_row (l: INTEGER; p: AUX_JLP8_PROVIDER[E])
       local
          index: INTEGER
       do
@@ -80,17 +80,17 @@ feature {ANY}
 feature {ANY}
    nb_row: INTEGER
 
-   valid_row (r: INTEGER): BOOLEAN is
+   valid_row (r: INTEGER): BOOLEAN
       do
          Result := r < nb_row
       end
 
-   valid_column (c: INTEGER): BOOLEAN is
+   valid_column (c: INTEGER): BOOLEAN
       do
          Result := c < nb_column
       end
 
-   valid_indexes (l, c: INTEGER): BOOLEAN is
+   valid_indexes (l, c: INTEGER): BOOLEAN
       do
          Result := valid_row(l) and valid_column(c)
       end
@@ -101,7 +101,7 @@ feature {ANY}
 
    incr_column: INTEGER
 
-   translate_indexes (l, c: INTEGER): INTEGER is
+   translate_indexes (l, c: INTEGER): INTEGER
       deferred
       end
 

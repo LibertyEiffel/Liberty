@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = flag_fatal_low_level)  or else
 				(a_value = flag_recursion_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_flag_fatal is
+	set_flag_fatal
 		do
 			value := flag_fatal_low_level
 		end
 
-	set_flag_recursion is
+	set_flag_recursion
 		do
 			value := flag_recursion_low_level
 		end
 
-	set_level_critical is
+	set_level_critical
 		do
 			value := level_critical_low_level
 		end
 
-	set_level_debug is
+	set_level_debug
 		do
 			value := level_debug_low_level
 		end
 
-	set_level_error is
+	set_level_error
 		do
 			value := level_error_low_level
 		end
 
-	set_level_info is
+	set_level_info
 		do
 			value := level_info_low_level
 		end
 
-	set_level_mask is
+	set_level_mask
 		do
 			value := level_mask_low_level
 		end
 
-	set_level_message is
+	set_level_message
 		do
 			value := level_message_low_level
 		end
 
-	set_level_warning is
+	set_level_warning
 		do
 			value := level_warning_low_level
 		end
 
 feature {ANY} -- Queries
-	is_flag_fatal: BOOLEAN is
+	is_flag_fatal: BOOLEAN
 		do
 			Result := (value=flag_fatal_low_level)
 		end
 
-	is_flag_recursion: BOOLEAN is
+	is_flag_recursion: BOOLEAN
 		do
 			Result := (value=flag_recursion_low_level)
 		end
 
-	is_level_critical: BOOLEAN is
+	is_level_critical: BOOLEAN
 		do
 			Result := (value=level_critical_low_level)
 		end
 
-	is_level_debug: BOOLEAN is
+	is_level_debug: BOOLEAN
 		do
 			Result := (value=level_debug_low_level)
 		end
 
-	is_level_error: BOOLEAN is
+	is_level_error: BOOLEAN
 		do
 			Result := (value=level_error_low_level)
 		end
 
-	is_level_info: BOOLEAN is
+	is_level_info: BOOLEAN
 		do
 			Result := (value=level_info_low_level)
 		end
 
-	is_level_mask: BOOLEAN is
+	is_level_mask: BOOLEAN
 		do
 			Result := (value=level_mask_low_level)
 		end
 
-	is_level_message: BOOLEAN is
+	is_level_message: BOOLEAN
 		do
 			Result := (value=level_message_low_level)
 		end
 
-	is_level_warning: BOOLEAN is
+	is_level_warning: BOOLEAN
 		do
 			Result := (value=level_warning_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	flag_fatal_low_level: INTEGER is
+	flag_fatal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	flag_recursion_low_level: INTEGER is
+	flag_recursion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_critical_low_level: INTEGER is
+	level_critical_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_debug_low_level: INTEGER is
+	level_debug_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_error_low_level: INTEGER is
+	level_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_info_low_level: INTEGER is
+	level_info_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_mask_low_level: INTEGER is
+	level_mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_message_low_level: INTEGER is
+	level_message_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	level_warning_low_level: INTEGER is
+	level_warning_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

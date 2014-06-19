@@ -12,17 +12,17 @@ create {ANY}
 feature {ANY}
    text_file_write: TEXT_FILE_WRITE
 
-   make is
+   make
       do
          create text_file_write.connect_to(once "before_exit.new")
       end
 
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end
 
-   dispose is
+   dispose
       do
          if counter.item = 0 then
             text_file_write.put_string("The before_exit run is ok.%N")

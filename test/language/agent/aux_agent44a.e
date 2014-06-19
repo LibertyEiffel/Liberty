@@ -4,12 +4,12 @@
 class AUX_AGENT44A
 
 feature {ANY}
-   f is
+   f
       do
          execution := "A"
       end
 
-   p: PROCEDURE[TUPLE[AUX_AGENT44A]] is
+   p: PROCEDURE[TUPLE[AUX_AGENT44A]]
       do
          Result := agent {AUX_AGENT44A}.f
       end

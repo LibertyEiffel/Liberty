@@ -11,34 +11,34 @@ insert
    C_AGENT_CREATION_MIXIN
 
 feature {} -- cpp access helpers for a bit of prettiness
-   out_h: STRING is
+   out_h: STRING
       do
          Result := cpp.out_h_buffer
       end
 
-   flush_out_h is
+   flush_out_h
       do
          cpp.write_out_h_buffer
          cpp.out_h_buffer.clear_count
       end
 
-   out_c: STRING is
+   out_c: STRING
       do
          Result := cpp.out_c_buffer
       end
 
-   function_signature: STRING is
+   function_signature: STRING
       do
          Result := cpp.pending_c_function_signature
       end
 
-   function_body: STRING is
+   function_body: STRING
       do
          Result := cpp.pending_c_function_body
       end
 
 feature {} -- pending_c_function_counter
-   pending_c_function_counter_tag (tagged: TAGGED): INTEGER is
+   pending_c_function_counter_tag (tagged: TAGGED): INTEGER
       require
          tagged /= Void
       local
@@ -50,7 +50,7 @@ feature {} -- pending_c_function_counter
          end
       end
 
-   set_pending_c_function_counter_tag (tagged: TAGGED) is
+   set_pending_c_function_counter_tag (tagged: TAGGED)
       require
          tagged /= Void
       local
@@ -70,18 +70,18 @@ feature {} -- pending_c_function_counter
          pending_c_function_counter_tag(tagged) = cpp.pending_c_function_counter
       end
 
-   pending_c_function_counter_tag_key: FIXED_STRING is
+   pending_c_function_counter_tag_key: FIXED_STRING
       once
          Result := "pending_c_function_counter_tag".intern
       end
 
-   pending_c_function_counter_tag_values: HASHED_DICTIONARY[TAGGED_INTEGER, INTEGER] is
+   pending_c_function_counter_tag_values: HASHED_DICTIONARY[TAGGED_INTEGER, INTEGER]
       once
          create Result.make
       end
 
 feature {} -- internal_c_local
-   internal_c_local_tag (tagged: TAGGED): INTERNAL_C_LOCAL is
+   internal_c_local_tag (tagged: TAGGED): INTERNAL_C_LOCAL
       require
          tagged /= Void
       local
@@ -93,7 +93,7 @@ feature {} -- internal_c_local
          end
       end
 
-   set_internal_c_local_tag (tagged: TAGGED; c_local: INTERNAL_C_LOCAL) is
+   set_internal_c_local_tag (tagged: TAGGED; c_local: INTERNAL_C_LOCAL)
       require
          tagged /= Void
          internal_c_local_tag(tagged) = Void
@@ -112,7 +112,7 @@ feature {} -- internal_c_local
          internal_c_local_tag(tagged) = c_local
       end
 
-   unlock_internal_c_local_tag (tagged: TAGGED) is
+   unlock_internal_c_local_tag (tagged: TAGGED)
       require
          tagged /= Void
       local
@@ -127,13 +127,13 @@ feature {} -- internal_c_local
          internal_c_local_tag(tagged) = Void
       end
 
-   internal_c_local_tag_key: FIXED_STRING is
+   internal_c_local_tag_key: FIXED_STRING
       once
          Result := "internal_c_local_tag".intern
       end
 
 feature {}
-   native_array_type_in (ref: NATIVE_ARRAY_TYPE_MARK; str: STRING) is
+   native_array_type_in (ref: NATIVE_ARRAY_TYPE_MARK; str: STRING)
       local
          et: TYPE_MARK
       do
@@ -147,7 +147,7 @@ feature {}
          end
       end
 
-   rank_name_in (rank: INTEGER; tag, buffer: STRING) is
+   rank_name_in (rank: INTEGER; tag, buffer: STRING)
       do
          buffer.append(tag)
          if rank = -1 then
@@ -158,25 +158,25 @@ feature {}
          end
       end
 
-   closed_operand_name_in (co: CLOSED_OPERAND; buffer: STRING) is
+   closed_operand_name_in (co: CLOSED_OPERAND; buffer: STRING)
       do
          rank_name_in(co.rank, once "closed_", buffer)
       end
 
-   open_operand_name_in (oo: OPEN_OPERAND; buffer: STRING) is
+   open_operand_name_in (oo: OPEN_OPERAND; buffer: STRING)
       do
          rank_name_in(oo.rank, once "open_", buffer)
       end
 
 feature {}
-   expanded_initializer (tm: TYPE): BOOLEAN is
+   expanded_initializer (tm: TYPE): BOOLEAN
       do
          if tm.is_user_expanded then
             Result := tm.live_type.default_create_run_feature /= Void
          end
       end
 
-   rf7_does_need_c_wrapper (rf7: RUN_FEATURE_7): BOOLEAN is
+   rf7_does_need_c_wrapper (rf7: RUN_FEATURE_7): BOOLEAN
       do
          if rf7.base_feature.is_generated_eiffel then
             Result := True
@@ -189,7 +189,7 @@ feature {}
          end
       end
 
-   rf8_does_need_c_wrapper (rf8: RUN_FEATURE_8): BOOLEAN is
+   rf8_does_need_c_wrapper (rf8: RUN_FEATURE_8): BOOLEAN
       do
          if rf8.base_feature.is_generated_eiffel then
             Result := True
@@ -202,9 +202,9 @@ feature {}
          end
       end
 
-   put_c_field_name (rf2: RUN_FEATURE_2) is
+   put_c_field_name (rf2: RUN_FEATURE_2)
          --  Emit using `cpp' the corresponding field name with an extra C comment which
-         --  include the offset of the corresponding C field. This extra C comment is
+         --  include the offset of the corresponding C field. This extra C comment
          --  mandatory to force C recompilation, because the field may move from one
          --  compilation to another.
       require
@@ -216,14 +216,14 @@ feature {}
       end
 
 feature {}
-   fe_c2c (rf: RUN_FEATURE) is
+   fe_c2c (rf: RUN_FEATURE)
       do
          error_handler.add_position(rf.start_position)
          error_handler.append(once "Command 'compile_to_c' cannot compile this code.")
          error_handler.print_as_fatal_error
       end
 
-   extra_c_prototype_in_cpp_out_h_buffer (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE) is
+   extra_c_prototype_in_cpp_out_h_buffer (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE)
       local
          arguments: FORMAL_ARG_LIST; i: INTEGER
       do

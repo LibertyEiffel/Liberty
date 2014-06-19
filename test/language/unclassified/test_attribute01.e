@@ -14,7 +14,7 @@ feature {}
 
    a2, b2: INTEGER
 
-   main is
+   main
       do
          a1 := 1
          a2 := 1

@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          io.put_string("The French format :%N")
          create {TIME_IN_FRENCH} time_formatter
@@ -28,7 +28,7 @@ feature {}
 
    time_formatter: TIME_FORMATTER
 
-   show_time is
+   show_time
       local
          time: TIME
       do

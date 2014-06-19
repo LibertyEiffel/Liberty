@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_WRITABLE_FEATURE}
-   visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE) is
+   visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE)
       deferred
       end
 

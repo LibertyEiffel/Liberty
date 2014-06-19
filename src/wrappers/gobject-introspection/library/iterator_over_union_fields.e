@@ -2,29 +2,29 @@ class ITERATOR_OVER_UNION_FIELDS
 inherit ITERATOR[GI_FIELD_INFO]
 create {GI_UNION_INFO} from_union
 feature {} -- Creation
-	from_union (a_union: GI_UNION_INFO) is
+	from_union (a_union: GI_UNION_INFO)
 	require a_union/=Void
 	do
 		union:=a_union
 	end
 
 feature {ANY}
-	start is
+	start
 	do
 		i:=union.fields_lower
 	end
 
-	item: GI_FIELD_INFO is
+	item: GI_FIELD_INFO
 		do
 			Result := union.field(i)
 		end
 
-	is_off: BOOLEAN is 
+	is_off: BOOLEAN 
 	do
 		Result:= i>union.fields_upper
 	end
 
-	next is
+	next
 	do
 		i:=i+1
 	end
@@ -34,11 +34,11 @@ feature {}
 	i: INTEGER	
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

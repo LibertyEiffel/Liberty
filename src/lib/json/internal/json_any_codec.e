@@ -7,26 +7,26 @@ insert
    JSON_HANDLER
 
 feature {JSON_HANDLER}
-   create_array: JSON_DATA is
+   create_array: JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   add_to_array (array, value: JSON_DATA) is
+   add_to_array (array, value: JSON_DATA)
       require
          array /= Void
          value /= Void
       deferred
       end
 
-   create_object: JSON_DATA is
+   create_object: JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   add_to_object (object, key, value: JSON_DATA) is
+   add_to_object (object, key, value: JSON_DATA)
       require
          object /= Void
          key /= Void
@@ -34,31 +34,31 @@ feature {JSON_HANDLER}
       deferred
       end
 
-   create_string (string: JSON_STRING): JSON_DATA is
+   create_string (string: JSON_STRING): JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   create_number (number: JSON_NUMBER): JSON_DATA is
+   create_number (number: JSON_NUMBER): JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   true_value: JSON_DATA is
+   true_value: JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   false_value: JSON_DATA is
+   false_value: JSON_DATA
       deferred
       ensure
          Result /= Void
       end
 
-   null_value: JSON_DATA is
+   null_value: JSON_DATA
       deferred
       ensure
          Result /= Void
@@ -72,7 +72,7 @@ end -- class JSON_ANY_CODEC
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CLOSED_OPERAND}
-   visit_closed_operand (visited: CLOSED_OPERAND) is
+   visit_closed_operand (visited: CLOSED_OPERAND)
       require
          visited /= Void
       deferred

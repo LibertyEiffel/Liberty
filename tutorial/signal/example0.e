@@ -9,7 +9,7 @@ create {ANY}
 feature {}
    event: SIGNAL_0
 
-   make is
+   make
       do
          create event.make
          register
@@ -19,7 +19,7 @@ feature {}
          event.emit
       end
 
-   register is
+   register
          -- In real examples, other objects will connect to the event so
          -- arbitrary function of they choise may be executed when the
          -- event occur.
@@ -29,7 +29,7 @@ feature {}
          event.connect(agent foo)
       end
 
-   foo is
+   foo
       do
          io.put_string(once "This function makes what is to be%
              % done for this event%N")

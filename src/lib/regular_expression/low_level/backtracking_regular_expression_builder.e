@@ -19,7 +19,7 @@ insert
       end
 
 feature {ANY} -- make
-   make is
+   make
          -- Initialise the attributes.
       do
          Precursor
@@ -32,14 +32,14 @@ feature {ANY} -- behaviors
          -- Is the match case insensitive?
          -- Default is False
 
-   is_case_sensitive: BOOLEAN is
+   is_case_sensitive: BOOLEAN
          -- Is the match case sensitive?
          -- Default is True
       do
          Result := not is_case_insensitive
       end
 
-   set_case_sensitive is
+   set_case_sensitive
          -- Set the match as case sensitive.
       do
          is_case_insensitive := False
@@ -47,7 +47,7 @@ feature {ANY} -- behaviors
          definition: is_case_insensitive = False and is_case_sensitive = True
       end
 
-   set_case_insensitive is
+   set_case_insensitive
          -- Set the match as case insensitive.
       do
          is_case_insensitive := True
@@ -59,7 +59,7 @@ feature {ANY} -- behaviors
          -- Does the "any character" mark match a newline?
          -- Default is False
 
-   set_any_match_newline is
+   set_any_match_newline
          -- The "any character" mark will match a newline.
       do
          does_any_match_newline := True
@@ -67,7 +67,7 @@ feature {ANY} -- behaviors
          definition: does_any_match_newline = True
       end
 
-   set_any_dont_match_newline is
+   set_any_dont_match_newline
          -- The "any character" mark will not match a newline.
       do
          does_any_match_newline := False
@@ -79,7 +79,7 @@ feature {ANY} -- behaviors
          -- Does the begin/end marks match line boundary?
          -- Default is False
 
-   does_match_text_boundary: BOOLEAN is
+   does_match_text_boundary: BOOLEAN
          -- Does the begin/end marks match text boundary?
          -- Default is True
       do
@@ -88,7 +88,7 @@ feature {ANY} -- behaviors
          definition: Result = not does_match_line_boundary
       end
 
-   set_match_line_boundary is
+   set_match_line_boundary
          -- The begin/end marks will match line boundary.
       do
          does_match_line_boundary := True
@@ -96,7 +96,7 @@ feature {ANY} -- behaviors
          definition: does_match_line_boundary = True and does_match_text_boundary = False
       end
 
-   set_match_text_boundary is
+   set_match_text_boundary
          -- The begin/end marks will match text boundary.
       do
          does_match_line_boundary := False
@@ -104,7 +104,7 @@ feature {ANY} -- behaviors
          definition: does_match_line_boundary = False and does_match_text_boundary = True
       end
 
-   set_default_options is
+   set_default_options
          -- Set the default options
       do
          set_case_sensitive
@@ -121,7 +121,7 @@ feature {} -- internal behavior
          -- Does match a maximal repeat?
          -- Default is False
 
-   set_greedy is
+   set_greedy
          -- Will match a maximal repeat.
       do
          is_greedy := True
@@ -129,7 +129,7 @@ feature {} -- internal behavior
          definition: is_greedy = True
       end
 
-   set_not_greedy is
+   set_not_greedy
          -- Will match a minimal repeat.
       do
          is_greedy := False
@@ -143,7 +143,7 @@ feature {} -- internal behavior
    is_looking_behind: BOOLEAN
          -- Is building a look-behind term?
 
-   is_looking_around: BOOLEAN is
+   is_looking_around: BOOLEAN
          -- Is building look-ahead or look-behind?
       do
          Result := is_looking_ahead or else is_looking_behind
@@ -153,7 +153,7 @@ feature {} -- internal behavior
          -- Is the current look-around positive or negative?
 
 feature {ANY} -- parsing
-   parse_expression (expr: like expression) is
+   parse_expression (expr: like expression)
          -- Set the expression to parse and parse it.
          -- When no error the result if put in feature
          -- 'last_regular_expression'.
@@ -168,7 +168,7 @@ feature {ANY} -- parsing
          error_or_result: has_error xor has_result
       end
 
-   parse is
+   parse
          -- Parse the current expression.
          -- The result if any is got through 'last_regular_expression'
       require
@@ -193,7 +193,7 @@ feature {ANY} -- parsing
       end
 
 feature {ANY} -- results
-   has_result: BOOLEAN is
+   has_result: BOOLEAN
          -- Did the last 'parse' or 'parse_expression' produced
          -- a result in 'last_regular_expression'?
       do
@@ -207,7 +207,7 @@ feature {ANY} -- results
          -- 'parse' or 'parse_expression'
 
 feature {}
-   internal_parse is
+   internal_parse
          -- The parse function to be implemented by the
          -- effective builders.
       require
@@ -229,16 +229,16 @@ feature {} -- build
    last_group_count: INTEGER
          -- The count of groups currently found.
 
-   last_substrings_names: HASHED_BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING] is
+   last_substrings_names: HASHED_BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
          -- The names of the named subgroups
       once
          create Result.with_capacity(10)
       end
 
-   Repeat_infiny: INTEGER is -1
+   Repeat_infiny: INTEGER -1
          -- Constant that means "infinite repitition".
 
-   emit (item: BACKTRACKING_NODE) is
+   emit (item: BACKTRACKING_NODE)
          -- Pushs 'item' on the stack.
          -- [..] -> [.., item]
       require
@@ -250,7 +250,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   unemit: BACKTRACKING_NODE is
+   unemit: BACKTRACKING_NODE
          -- Pops the Result from the stack.
          -- [... Result] -> [...]
       require
@@ -262,7 +262,7 @@ feature {} -- build
          stack_count_decreased_by_one: stack.count = old stack.count - 1
       end
 
-   emit_any_character is
+   emit_any_character
          -- Push the match to any characters
       do
          if does_any_match_newline then
@@ -272,7 +272,7 @@ feature {} -- build
          end
       end
 
-   emit_begin_of_line is
+   emit_begin_of_line
          -- Push the match to begin of a line
       do
          if does_match_line_boundary then
@@ -282,7 +282,7 @@ feature {} -- build
          end
       end
 
-   emit_end_of_line is
+   emit_end_of_line
          -- Push the match to end of a line
       do
          if does_match_line_boundary then
@@ -292,7 +292,7 @@ feature {} -- build
          end
       end
 
-   prepare_group is
+   prepare_group
          -- Declares that a new group begins.
       do
          last_group_count := last_group_count + 1
@@ -304,7 +304,7 @@ feature {} -- build
          group_pushed: group_stack.last = last_group_count
       end
 
-   emit_group is
+   emit_group
          -- Push the "end of group" item and update the
          -- group indicators
          -- [.. X] -> [.., end_group(i)]
@@ -329,7 +329,7 @@ feature {} -- build
          group_stack_count_decreased_by_one: group_stack.count = old group_stack.count - 1
       end
 
-   emit_begin_group is
+   emit_begin_group
          -- Push the "begin of group" item and update the
          -- group indicators
          -- [..] -> [.., begin_group(i)]
@@ -347,7 +347,7 @@ feature {} -- build
          group_pushed: group_stack.last = last_group_count
       end
 
-   emit_end_group is
+   emit_end_group
          -- Push the "end of group" item and update the
          -- group indicators
          -- [..] -> [.., end_group(i)]
@@ -365,7 +365,7 @@ feature {} -- build
          group_stack_count_decreased_by_one: group_stack.count = old group_stack.count - 1
       end
 
-   emit_match_previous_group (group: INTEGER) is
+   emit_match_previous_group (group: INTEGER)
          -- Push the item that matches the character 'char'
          -- [..] -> [.., previous_group(group)]
       require
@@ -382,7 +382,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_match_single (char: CHARACTER) is
+   emit_match_single (char: CHARACTER)
          -- Push the item that matches the character 'char'
          -- [..] -> [.., char]
       do
@@ -396,7 +396,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_match_range (lower, upper: CHARACTER) is
+   emit_match_range (lower, upper: CHARACTER)
          -- Push the item that matches the character range 'lower'..'upper'.
          -- [..] -> [.., lower..upper]
       require
@@ -452,7 +452,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_match_text (text: STRING) is
+   emit_match_text (text: STRING)
          -- Push the item that matches the 'text'
          -- [..] -> [.., text]
       do
@@ -469,7 +469,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   begin_collect is
+   begin_collect
          -- Begin to collect a collection of items by pushing Void on the stack.
          -- After calling 'begin_collect', one of the features
          -- 'end_collect_or' or 'end_collect_and' have to be called.
@@ -484,7 +484,7 @@ feature {} -- build
          emit_group_count_incremented: stack.fast_occurrences(Void) = old stack.fast_occurrences(Void) + 1
       end
 
-   is_collect_empty: BOOLEAN is
+   is_collect_empty: BOOLEAN
          -- True if currently begun collect is empty
       require
          is_collecting: stack.fast_occurrences(Void) > 0
@@ -494,7 +494,7 @@ feature {} -- build
          definition: Result = (stack.last = Void)
       end
 
-   end_collect_true is
+   end_collect_true
          -- Replace an empty collection by TRUE
          -- [.., Void] -> [.., TRUE]
       require
@@ -504,7 +504,7 @@ feature {} -- build
          stack.put(the_true_node, stack.upper)
       end
 
-   end_collect_or is
+   end_collect_or
          -- Collects the item on the stack until the collect mark (a Void)
          -- and replace it by a single item that is a or of all of them.
          -- The collection must not be empty.
@@ -539,7 +539,7 @@ feature {} -- build
          emit_group_count_decremented: stack.fast_occurrences(Void) = old stack.fast_occurrences(Void) - 1
       end
 
-   revert_and_list(x: BACKTRACKING_NODE_AND_LIST): BACKTRACKING_NODE_AND_LIST is
+   revert_and_list(x: BACKTRACKING_NODE_AND_LIST): BACKTRACKING_NODE_AND_LIST
       local
          y, n: BACKTRACKING_NODE_AND_LIST
       do
@@ -555,7 +555,7 @@ feature {} -- build
          end
       end
 
-   end_collect_and is
+   end_collect_and
          -- Collects the item on the stack until the collect mark (a Void)
          -- and replace it by a single item that is a and of all of them.
          -- The collection must not be empty.
@@ -593,7 +593,7 @@ feature {} -- build
          emit_group_count_decremented: stack.fast_occurrences(Void) = old stack.fast_occurrences(Void) - 1
       end
 
-   emit_not is
+   emit_not
          -- Replaces the top of the stack by its negation.
          -- [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or TRUE)
@@ -610,7 +610,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_not_then_any is
+   emit_not_then_any
          -- Replaces the top of the stack by its negation followed by any.
          -- [.., X] -> [.., not(X)]
          -- (where not(X) is like (X and (CUT and FALSE)) or ANY)
@@ -627,7 +627,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_true_or is
+   emit_true_or
          -- Replaces the top of the stack by true or it
          -- [.., X] -> [.., true or X]
       require
@@ -643,7 +643,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_or_true is
+   emit_or_true
          -- Replaces the top of the stack by it or true
          -- [.., X] -> [.., X or true]
       require
@@ -659,7 +659,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_controled_or_true is
+   emit_controled_or_true
          -- Replaces the top of the stack by
          -- if is_greedy then [.., X] -> [.., X or true]
          --              else [.., X] -> [.., true or X]
@@ -670,7 +670,7 @@ feature {} -- build
          emit(controled_or_true_item(x))
       end
 
-   controled_or_true_item (x: BACKTRACKING_NODE): BACKTRACKING_NODE is
+   controled_or_true_item (x: BACKTRACKING_NODE): BACKTRACKING_NODE
          -- Returns an item for " 'x' or true ". The returned item depend on
          -- the flag 'is_greedy'.
          -- if is_greedy then Result = (X or true)
@@ -683,7 +683,7 @@ feature {} -- build
          end
       end
 
-   emit_repeat (mini, maxi: INTEGER) is
+   emit_repeat (mini, maxi: INTEGER)
          -- Takes the top of the stack and replace it with
          -- a construction that will evaluate the repeating of
          -- it from 'mini' to 'maxi' times.
@@ -742,7 +742,7 @@ feature {} -- build
          stack_not_empty: stack.count > 0
       end
 
-   emit_looking is
+   emit_looking
       require
          enougth_data: stack.count > 0
          is_looking: is_looking_around
@@ -769,7 +769,7 @@ end -- class BACKTRACKING_REGULAR_EXPRESSION_BUILDER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

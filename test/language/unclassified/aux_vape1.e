@@ -4,13 +4,13 @@
 class AUX_VAPE1
 
 feature {TEST_VAPE1}
-   do_it is
+   do_it
       require
          yes
       do
       end
 
-   yes: BOOLEAN is
+   yes: BOOLEAN
       do
          Result := True
       end

@@ -13,13 +13,13 @@ feature {ANY}
    feature_name: FIXED_STRING
    arguments: TUPLE
 
-   counter_ready: BOOLEAN is
+   counter_ready: BOOLEAN
       do
          Result := counter /= Void
       end
 
 feature {ANY}
-   times, infix "*" (how_many: INTEGER): like Current is
+   times, infix "*" (how_many: INTEGER): like Current
       require
          not ready
          not counter_ready
@@ -32,7 +32,7 @@ feature {ANY}
          --counter.item = how_many
       end
 
-   whenever: like Current is
+   whenever: like Current
       require
          not ready
          not counter_ready
@@ -45,13 +45,13 @@ feature {ANY}
       end
 
 feature {}
-   counter_any_time: MOCK_TIMES_ANY is
+   counter_any_time: MOCK_TIMES_ANY
       once
          create Result
       end
 
 feature {ANY}
-   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments): BOOLEAN is
+   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments): BOOLEAN
       require
          ready
          a_target /= Void
@@ -65,7 +65,7 @@ feature {ANY}
       end
 
 feature {MOCK_OBJECT}
-   call is
+   call
       require
          can_call(target, feature_name, arguments)
       do
@@ -74,7 +74,7 @@ feature {MOCK_OBJECT}
       end
 
 feature {MOCK_EXPECTATION_GROUP}
-   done is
+   done
       do
          if counter = Void then
             create {MOCK_TIMES_COUNTER} counter.set_item(1)
@@ -84,12 +84,12 @@ feature {MOCK_EXPECTATION_GROUP}
          ready
       end
 
-   all_called is
+   all_called
       do
          counter.all_called
       end
 
-   all_done_message_in (message: STRING) is
+   all_done_message_in (message: STRING)
       require
          message /= Void
          ready
@@ -99,18 +99,18 @@ feature {MOCK_EXPECTATION_GROUP}
          end
       end
 
-   all_done: BOOLEAN is
+   all_done: BOOLEAN
       do
          Result := counter.all_done
       end
 
 feature {}
-   do_call is
+   do_call
       deferred
       end
 
 feature {}
-   make (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments) is
+   make (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments)
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -142,7 +142,7 @@ end -- class MOCK_EXPECTATION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -37,7 +37,7 @@ inherit
    EDC_OR_EXPRESSION_VISITOR
 
 feature {}
-   make (a_untyped: like untyped) is
+   make (a_untyped: like untyped)
       require
          a_untyped /= Void
       do
@@ -49,61 +49,61 @@ feature {}
    untyped: EDC_SQLITE_QUERY_BUILDER_TOOLS
 
 feature {EDC_BLOB_COLUMN_VALUE}
-   visit_blob_column_value (a_string_column_value: EDC_BLOB_COLUMN_VALUE) is
+   visit_blob_column_value (a_string_column_value: EDC_BLOB_COLUMN_VALUE)
       do
          a_string_column_value.accept(untyped)
       end
 
 feature {EDC_CHARACTER_COLUMN_VALUE}
-   visit_character_column_value (a_character_column_value: EDC_CHARACTER_COLUMN_VALUE) is
+   visit_character_column_value (a_character_column_value: EDC_CHARACTER_COLUMN_VALUE)
       do
          a_character_column_value.accept(untyped)
       end
 
 feature {EDC_INCREMENT_VALUE}
-   visit_increment_value (a_increment_value: EDC_INCREMENT_VALUE) is
+   visit_increment_value (a_increment_value: EDC_INCREMENT_VALUE)
       do
          a_increment_value.accept(untyped)
       end
 
 feature {EDC_INTEGER_COLUMN_VALUE}
-   visit_integer_column_value (a_integer_column_value: EDC_INTEGER_COLUMN_VALUE) is
+   visit_integer_column_value (a_integer_column_value: EDC_INTEGER_COLUMN_VALUE)
       do
          a_integer_column_value.accept(untyped)
       end
 
 feature {EDC_STRING_COLUMN_VALUE}
-   visit_string_column_value (a_string_column_value: EDC_STRING_COLUMN_VALUE) is
+   visit_string_column_value (a_string_column_value: EDC_STRING_COLUMN_VALUE)
       do
          a_string_column_value.accept(untyped)
       end
 
 feature {EDC_TIME_COLUMN_VALUE}
-   visit_time_column_value (a_time_column_value: EDC_TIME_COLUMN_VALUE) is
+   visit_time_column_value (a_time_column_value: EDC_TIME_COLUMN_VALUE)
       do
          a_time_column_value.accept(untyped)
       end
 
 feature {EDC_AND_EXPRESSION}
-   visit_and_expression (a_and_expression: EDC_AND_EXPRESSION) is
+   visit_and_expression (a_and_expression: EDC_AND_EXPRESSION)
       do
          a_and_expression.accept(untyped)
       end
 
 feature {EDC_LIKE_EXPRESSION}
-   visit_like_expression (a_like_expression: EDC_LIKE_EXPRESSION) is
+   visit_like_expression (a_like_expression: EDC_LIKE_EXPRESSION)
       do
          a_like_expression.accept(untyped)
       end
 
 feature {EDC_NOT_EXPRESSION}
-   visit_not_expression (a_not_expression: EDC_NOT_EXPRESSION) is
+   visit_not_expression (a_not_expression: EDC_NOT_EXPRESSION)
       do
          a_not_expression.accept(untyped)
       end
 
 feature {EDC_OR_EXPRESSION}
-   visit_or_expression (a_or_expression: EDC_OR_EXPRESSION) is
+   visit_or_expression (a_or_expression: EDC_OR_EXPRESSION)
       do
          a_or_expression.accept(untyped)
       end

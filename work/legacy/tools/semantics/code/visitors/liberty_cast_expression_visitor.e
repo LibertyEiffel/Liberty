@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CAST_EXPRESSION}
-   visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
+   visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION)
       deferred
       end
 

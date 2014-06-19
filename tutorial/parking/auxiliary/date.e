@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   display_on (stream: OUTPUT_STREAM) is
+   display_on (stream: OUTPUT_STREAM)
          -- To display `Current' on `stream'.
       local
          hour, m: INTEGER
@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   minutes_to (after: DATE): INTEGER is
+   minutes_to (after: DATE): INTEGER
          -- Count of minutes to go to `after'.
       require
          after >= Current
@@ -41,7 +41,7 @@ feature {ANY}
          Result >= 0
       end
 
-   day_night_to (d2: DATE): TUPLE[INTEGER, INTEGER] is
+   day_night_to (d2: DATE): TUPLE[INTEGER, INTEGER]
          --The `Result' is a couple of INTEGER where:
          --    Result.first: Night time.
          --    Result.second: Day time.
@@ -71,7 +71,7 @@ feature {ANY}
          Result.first + Result.second = minutes_to(d2)
       end
 
-   infix ">=" (d2: like Current): BOOLEAN is
+   infix ">=" (d2: like Current): BOOLEAN
       require
          d2 /= Void
       do
@@ -82,20 +82,20 @@ feature {ANY}
          end
       end
 
-   day_time: BOOLEAN is
+   day_time: BOOLEAN
          -- Is it Sunny ?
       do
          Result := min >= 6 * 60 and min <= 22 * 60
       end
 
-   nigth_time: BOOLEAN is
+   nigth_time: BOOLEAN
          -- Is it the night ?
       do
          Result := not day_time
       end
 
 feature {ANY} -- Modifications:
-   make (vday, vmin: INTEGER) is
+   make (vday, vmin: INTEGER)
       do
          day := vday
          min := vmin
@@ -104,7 +104,7 @@ feature {ANY} -- Modifications:
          min = vmin
       end
 
-   add_time (nb_min: INTEGER) is
+   add_time (nb_min: INTEGER)
       do
          min := min + nb_min
          if min >= 24 * 60 then

@@ -4,13 +4,13 @@
 deferred class AUX_DEFERRED1_D
 
 feature {ANY}
-   
-   make is
+
+   make
       do
       end;
-   
-   r is do end;
-   
+
+   r do end;
+
 end -- class AUX_DEFERRED1_D
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
@@ -49,4 +49,3 @@ end -- class AUX_DEFERRED1_D
 --
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------------------------
-

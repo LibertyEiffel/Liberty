@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       require
          visited /= Void
       deferred

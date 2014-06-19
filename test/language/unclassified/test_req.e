@@ -14,7 +14,7 @@ feature {ANY}
 
    req_b: REQ_B
 
-   make is
+   make
       do
          create req_a
          req_a.ra

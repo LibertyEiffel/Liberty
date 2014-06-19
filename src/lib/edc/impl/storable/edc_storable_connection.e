@@ -28,7 +28,7 @@ create {EDC_STORABLE_DRIVER}
    prepare_connect
 
 feature {ANY}
-   is_equal (other: EDC_CONNECTION): BOOLEAN is
+   is_equal (other: EDC_CONNECTION): BOOLEAN
       local
          othercnx: like Current
       do
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Connection management:
-   disconnect is
+   disconnect
       do
          if auto_commit then
             commit
@@ -47,25 +47,25 @@ feature {ANY} -- Connection management:
          repository := Void
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := repository /= Void
       end
 
 feature {ANY} -- Session management:
-   commit is
+   commit
       do
          transient.register(to_internals, transient_key)
          repository.commit
          transient.unregister(transient_key)
       end
 
-   new_savepoint (name: STRING): EDC_STORABLE_SAVEPOINT is
+   new_savepoint (name: STRING): EDC_STORABLE_SAVEPOINT
       do
          create Result.make(name, repository)
       end
 
-   rollback is
+   rollback
          -- The current implementation is quite brutal because it invalidates any EDC_TABLE reference.
          --|*** TODO: it means there is an indirection missing.
       local
@@ -77,7 +77,7 @@ feature {ANY} -- Session management:
          transient.unregister(transient_key)
       end
 
-   rollback_to (a_savepoint: EDC_STORABLE_SAVEPOINT) is
+   rollback_to (a_savepoint: EDC_STORABLE_SAVEPOINT)
          -- The current implementation is quite brutal because it invalidates any EDC_TABLE reference.
          --|*** TODO: it means there is an indirection missing.
       do
@@ -90,13 +90,13 @@ feature {ANY} -- Session management:
 
    auto_commit: BOOLEAN
 
-   set_auto_commit (a_auto_commit: like auto_commit) is
+   set_auto_commit (a_auto_commit: like auto_commit)
       do
          auto_commit := a_auto_commit
       end
 
 feature {}
-   clear_repository is
+   clear_repository
       local
          i: INTEGER
       do
@@ -112,7 +112,7 @@ feature {}
       end
 
 feature {}
-   debug_remove (t: EDC_TABLE) is
+   debug_remove (t: EDC_TABLE)
       local
          i: INTEGER
       do
@@ -130,7 +130,7 @@ feature {}
       end
 
 feature {ANY}
-   create_table (a_table: EDC_TABLE) is
+   create_table (a_table: EDC_TABLE)
       local
          t: EDC_STORABLE_TABLE
       do
@@ -143,7 +143,7 @@ feature {ANY}
          commit
       end
 
-   drop_table (a_table: EDC_TABLE) is
+   drop_table (a_table: EDC_TABLE)
       do
          debug
             debug_remove(a_table)
@@ -153,17 +153,17 @@ feature {ANY}
          commit
       end
 
-   has_table_name (a_table_name: STRING): BOOLEAN is
+   has_table_name (a_table_name: STRING): BOOLEAN
       do
          Result := repository.has(a_table_name)
       end
 
-   table (a_table_name: STRING): EDC_TABLE is
+   table (a_table_name: STRING): EDC_TABLE
       do
          Result := repository.at(a_table_name).table
       end
 
-   all_table_names: FAST_ARRAY[STRING] is
+   all_table_names: FAST_ARRAY[STRING]
       local
          i: INTEGER
       do
@@ -179,7 +179,7 @@ feature {ANY}
       end
 
 feature {EDC_STORABLE_EXPRESSION_SELECTOR}
-   xml_table (a_table_name: STRING): EDC_STORABLE_TABLE is
+   xml_table (a_table_name: STRING): EDC_STORABLE_TABLE
       do
          if repository.has(a_table_name) then
             Result := repository.at(a_table_name)
@@ -187,7 +187,7 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
       end
 
 feature {ANY} -- Fetch direction:
-   set_fetch_direction (a_fetch_direction: like fetch_direction) is
+   set_fetch_direction (a_fetch_direction: like fetch_direction)
       do
          fetch_direction := a_fetch_direction
       end
@@ -195,14 +195,14 @@ feature {ANY} -- Fetch direction:
    fetch_direction: INTEGER_8
 
 feature {EDC_CALL_HANDLER}
-   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET is
+   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET
       local
          selector: EDC_STORABLE_SELECTOR
       do
          Result := selector.call(Current, a_selectable)
       end
 
-   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE]) is
+   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE])
       local
          t: EDC_STORABLE_TABLE; row: FAST_ARRAY[EDC_DATUM]; v: EDC_VALUE; i: INTEGER
       do
@@ -232,7 +232,7 @@ feature {}
          -- only exists in debug mode
 
 feature {EDC_STORABLE_DRIVER}
-   connect_to (a_repository: like repository) is
+   connect_to (a_repository: like repository)
       require
          a_repository.is_connected
          a_repository.is_updateable
@@ -247,13 +247,13 @@ feature {EDC_STORABLE_DRIVER}
       end
 
 feature {}
-   prepare_connect is
+   prepare_connect
       do
          transient.register(to_internals, transient_key)
       end
 
    transient: REPOSITORY_TRANSIENT
 
-   transient_key: STRING is "EDC_STORABLE_CONNECTION"
+   transient_key: STRING "EDC_STORABLE_CONNECTION"
 
 end -- class EDC_STORABLE_CONNECTION

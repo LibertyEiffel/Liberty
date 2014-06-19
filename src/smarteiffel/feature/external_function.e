@@ -24,14 +24,14 @@ create {CLASS_TEXT}
 feature {ANY}
    result_type: TYPE_MARK
 
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
          Result := native.side_effect_free(target_type, feature_text)
       end
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          name: STRING; ic1: INTEGER_CONSTANT; cc: CHARACTER_CONSTANT; sp: POSITION
          integer_tm: INTEGER_TYPE_MARK; v: INTEGER_64
@@ -158,7 +158,7 @@ feature {CALL_0}
 
 feature {CALL_1}
    inline_expression_1 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          name: STRING; ic1, ic2: INTEGER_CONSTANT; bc1, bc2: BOOLEAN_CONSTANT
          integer_8: INTEGER_8; integer_16: INTEGER_16; integer_32: INTEGER_32
@@ -885,7 +885,7 @@ feature {CALL_1}
       end
 
 feature {}
-   true_or_false (bool: BOOLEAN; sp: POSITION): BOOLEAN_CONSTANT is
+   true_or_false (bool: BOOLEAN; sp: POSITION): BOOLEAN_CONSTANT
       do
          if bool then
             create {E_TRUE} Result.make(sp)
@@ -894,25 +894,25 @@ feature {}
          end
       end
 
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_8 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_8
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: EXTERNAL_FUNCTION_VISITOR) is
+   accept (visitor: EXTERNAL_FUNCTION_VISITOR)
       do
          visitor.visit_external_function(Current)
       end
 
 feature {INTROSPECTION_HANDLER}
-   collect_internals_handler (t: TYPE; fn: STRING) is
+   collect_internals_handler (t: TYPE; fn: STRING)
       do
          routine_body := introspection_handler.finalized_body_for_internals_handler(Current, t, fn)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -929,7 +929,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
@@ -948,7 +948,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {}
-   hook_collect (t: TYPE) is
+   hook_collect (t: TYPE)
       local
          n: STRING
          fs: FEATURE_STAMP
@@ -987,7 +987,7 @@ feature {}
       end
 
 feature {}
-   frozen collect_body (type: TYPE) is
+   frozen collect_body (type: TYPE)
       local
          rt, dummy: TYPE
       do
@@ -1007,7 +1007,7 @@ feature {}
       end
 
 feature {EXTERNAL_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -1016,7 +1016,7 @@ feature {EXTERNAL_FUNCTION}
 
 feature {}
    make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; l: like native; en: like alias_string) is
+      ra: like require_assertion; l: like native; en: like alias_string)
       require
          rt /= Void
          l /= Void
@@ -1026,7 +1026,7 @@ feature {}
          make_external_routine(l, en)
       end
 
-   non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; rt: like result_type; l: like native) is
+   non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; rt: like result_type; l: like native)
       require
          ct /= Void
          fn /= Void
@@ -1038,12 +1038,12 @@ feature {}
          make(fa, rt, Void, Void, Void, l, Void)
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_FUNCTION} Result.from_effective(fn, arguments, result_type, require_assertion, ensure_assertion, bc, permissions)
       end
 
-   integer_constant (expression: EXPRESSION): INTEGER_CONSTANT is
+   integer_constant (expression: EXPRESSION): INTEGER_CONSTANT
          -- To unwarped IMPLICIT_CAST too in a single step.
       require
          expression /= Void

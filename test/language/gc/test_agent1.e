@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, mem: INTEGER; a: ARRAY[INTEGER]
       do
@@ -32,7 +32,7 @@ feature {ANY}
 
    sum: INTEGER
 
-   increment (v: INTEGER) is
+   increment (v: INTEGER)
       do
          sum := sum + v
       end

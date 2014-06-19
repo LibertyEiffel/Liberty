@@ -10,7 +10,7 @@ insert
       end
 
 feature {} -- External calls
-   rl_attempted_completion_object: READ_LINE_COMPLETION is
+   rl_attempted_completion_object: READ_LINE_COMPLETION
          -- rl_attempted_completion_function
       external "plug_in"
       alias "{
@@ -20,7 +20,7 @@ feature {} -- External calls
       }"
       end
 
-   set_rl_attempted_completion_object (a_value: READ_LINE_COMPLETION) is
+   set_rl_attempted_completion_object (a_value: READ_LINE_COMPLETION)
          -- Set variable rl_attempted_completion_function value
       external "plug_in"
       alias "{
@@ -30,7 +30,7 @@ feature {} -- External calls
       }"
       end
 
-   rl_handler: POINTER is
+   rl_handler: POINTER
          -- An external handler function
       external "plug_in"
       alias "{
@@ -40,7 +40,7 @@ feature {} -- External calls
       }"
       end
 
-   rl_register_job (job: READ_LINE_JOB) is
+   rl_register_job (job: READ_LINE_JOB)
       -- Register the job for callback handling
       external "plug_in"
       alias "{

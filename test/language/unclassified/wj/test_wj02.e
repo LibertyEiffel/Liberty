@@ -5,7 +5,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: AUX_WJ02A1; c: AUX_WJ02C1
       do

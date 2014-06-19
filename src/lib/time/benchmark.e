@@ -14,7 +14,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (n: like name) is
+   make (n: like name)
       require
          n /= Void
       do
@@ -30,7 +30,7 @@ feature {ANY}
          counter = 0
       end
 
-   start is
+   start
       require
          not in_progress
       do
@@ -40,7 +40,7 @@ feature {ANY}
          in_progress
       end
 
-   next is
+   next
       require
          in_progress
       local
@@ -63,7 +63,7 @@ feature {ANY}
          in_progress
       end
 
-   stop is
+   stop
       require
          in_progress
       do
@@ -74,7 +74,7 @@ feature {ANY}
          not in_progress
       end
 
-   break is
+   break
          -- useful for loop termination
       require
          in_progress
@@ -97,7 +97,7 @@ feature {ANY}
 
    total_time: REAL -- in seconds
 
-   mean_time: REAL is
+   mean_time: REAL
          -- in seconds
       require
          counter > 0
@@ -105,12 +105,12 @@ feature {ANY}
          Result := total_time / counter
       end
 
-   set_custom_print (cp: like custom_print) is
+   set_custom_print (cp: like custom_print)
       do
          custom_print := cp
       end
 
-   print_now is
+   print_now
       do
          if custom_print /= Void then
             custom_print.call([Current])
@@ -120,7 +120,7 @@ feature {ANY}
          last_print := total_time
       end
 
-   smart_print is
+   smart_print
       do
          if total_time - last_print > total_time / 10 + 1 then
             print_now
@@ -134,7 +134,7 @@ feature {}
 
    custom_print: PROCEDURE[TUPLE[BENCHMARK]] -- Used if non Void. See also default_print
 
-   default_print is
+   default_print
          -- Used if custom_print is Void
       require
          counter > 0
@@ -170,7 +170,7 @@ end -- class BENCHMARK
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

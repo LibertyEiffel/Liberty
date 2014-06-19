@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          foo: AUX_INHERIT19
       do

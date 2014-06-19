@@ -16,7 +16,7 @@ create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          out_h.copy(once "%N#define gc_mark")
          ltid_in(visited.type.live_type, out_h, False, False)
@@ -28,7 +28,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          -- ------------------------------------ Declare na_envXXX :
          if smart_eiffel.thread_used then
@@ -54,7 +54,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   gc_reference_ (visited: TYPE_MARK; for_closure: BOOLEAN) is
+   gc_reference_ (visited: TYPE_MARK; for_closure: BOOLEAN)
       require
          visited.is_expanded implies for_closure
       local
@@ -133,7 +133,7 @@ feature {}
          end
       end
 
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       do
          gc_reference_(visited, False)
          if visited.type.has_local_closure then
@@ -141,21 +141,21 @@ feature {}
          end
       end
 
-   gc_kernel_expanded (visited: TYPE_MARK) is
+   gc_kernel_expanded (visited: TYPE_MARK)
       do
          if visited.type.has_local_closure then
             gc_reference_(visited, True)
          end
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_expanded (visited: TYPE_MARK)
       do
       end
 
 feature {}
    structer: C_GARBAGE_COLLECTOR_STRUCTER
 
-   make is
+   make
       do
          create structer.make
       end

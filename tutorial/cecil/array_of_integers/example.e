@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          values := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
          call_c_prog(values)
@@ -21,7 +21,7 @@ feature {ANY}
 feature {}
    values: ARRAY[INTEGER]
 
-   call_c_prog (v: ARRAY[INTEGER]) is
+   call_c_prog (v: ARRAY[INTEGER])
       external "C"
       alias "c_prog"
       end

@@ -10,17 +10,17 @@ create {}
    make
 
 feature {ANY}
-   data: INTEGER is
+   data: INTEGER
       once
       end
 
-   make is
+   make
       do
          assert(data = 0)
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -10,17 +10,17 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: NO_INVARIANT_WRAPPER_VISITOR) is
+   accept (visitor: NO_INVARIANT_WRAPPER_VISITOR)
       do
          visitor.visit_no_invariant_wrapper(Current)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := compound.start_position
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          new_compound: like compound
       do
@@ -28,12 +28,12 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := compound.has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          new_compound: like compound
       do
@@ -41,7 +41,7 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       local
          new_compound: like compound
       do
@@ -49,7 +49,7 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   specialize_without_checks (type: TYPE): INSTRUCTION is
+   specialize_without_checks (type: TYPE): INSTRUCTION
       local
          new_compound: like compound
          ci: CREATE_INSTRUCTION
@@ -63,22 +63,22 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := compound.side_effect_free(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := compound.use_current(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          compound.safety_check(type)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          -- Non-written code
          check
@@ -86,14 +86,14 @@ feature {ANY}
          end
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       local
          dummy: TYPE
       do
          dummy := compound.collect(t)
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          new_compound: like compound
       do
@@ -101,7 +101,7 @@ feature {ANY}
          Result := current_or_twin_init(new_compound)
       end
 
-   end_mark_comment: BOOLEAN is
+   end_mark_comment: BOOLEAN
       local
          instruction: INSTRUCTION
       do
@@ -112,7 +112,7 @@ feature {ANY}
       end
 
 feature {ANONYMOUS_FEATURE, CODE, INTROSPECTION_HANDLER}
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          new_compound: like compound
       do
@@ -121,7 +121,7 @@ feature {ANONYMOUS_FEATURE, CODE, INTROSPECTION_HANDLER}
       end
 
 feature {NO_INVARIANT_WRAPPER}
-   make, init (compound_: like compound) is
+   make, init (compound_: like compound)
       require
          compound_ /= Void
       do
@@ -134,13 +134,13 @@ feature {NO_INVARIANT_WRAPPER, NO_INVARIANT_WRAPPER_VISITOR}
    compound: CODE
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          compound.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
 feature {}
-   current_or_twin_init (compound_: like compound): like Current is
+   current_or_twin_init (compound_: like compound): like Current
       do
          if compound_ /= Void then
             if compound = compound_ then

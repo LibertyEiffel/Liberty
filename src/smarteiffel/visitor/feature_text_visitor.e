@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FEATURE_TEXT}
-   visit_feature_text (visited: FEATURE_TEXT) is
+   visit_feature_text (visited: FEATURE_TEXT)
       require
          visited /= Void
       deferred

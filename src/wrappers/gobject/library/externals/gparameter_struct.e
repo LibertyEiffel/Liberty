@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparameter_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	gparameter_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of GPARAMETER_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gparameter_struct_get_name (a_structure: POINTER): POINTER is
+	gparameter_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of GPARAMETER_STRUCT structure.
 			-- TODO: getter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field value.
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

@@ -6,18 +6,18 @@ insert
 feature {ANY}
    name: FIXED_STRING
 
-   fields: TRAVERSABLE[EDC_ANY_FIELD] is
+   fields: TRAVERSABLE[EDC_ANY_FIELD]
       do
          Result := fields_
       end
 
-   pk: TRAVERSABLE[EDC_ANY_FIELD] is
+   pk: TRAVERSABLE[EDC_ANY_FIELD]
       do
          Result := pk_
       end
 
 feature {EDC_ANY_FIELD}
-   add_field (a_field: EDC_ANY_FIELD) is
+   add_field (a_field: EDC_ANY_FIELD)
       require
          a_field.table = Current
       do

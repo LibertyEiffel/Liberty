@@ -14,11 +14,11 @@ create {ANY}
    make
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
    arguments: EFFECTIVE_ARG_LIST
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a.count = arguments.count
@@ -26,17 +26,17 @@ feature {ANY}
          arguments := a
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := dot_precedence
       end
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
       do
          Result := arguments.count
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          fs: like feature_stamp; t: like target; arg: like arguments
@@ -63,7 +63,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          t: like target; arg: like arguments; fs: like feature_stamp
@@ -95,7 +95,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          --|*** Except for the `function_check' calls (Dom. march 28th 2004) ***
       local
@@ -181,18 +181,18 @@ feature {ANY}
       end
 
 feature {FUNCTION_CALL_N}
-   reset_feature_stamp is
+   reset_feature_stamp
       do
          feature_stamp := Void
       end
 
-   set_target_and_arg (t: like target; arg: like arguments) is
+   set_target_and_arg (t: like target; arg: like arguments)
       do
          target := t
          arguments := arg
       end
 
-   init (t: like target; arg: like arguments; fs: like feature_stamp) is
+   init (t: like target; arg: like arguments; fs: like feature_stamp)
       do
          target := t
          arguments := arg
@@ -200,7 +200,7 @@ feature {FUNCTION_CALL_N}
       end
 
 feature {ANY}
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       local
          t: like target; args: like arguments; target_type: TYPE; af: ANONYMOUS_FEATURE
          inline_memo: INLINE_MEMO; call_n: FUNCTION_CALL_N
@@ -233,14 +233,14 @@ feature {ANY}
          end
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          target.pretty_target(indent_level)
          pretty_printer.put_string(feature_name.to_string)
          arguments.pretty(indent_level)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          target_type: TYPE; fs: FEATURE_STAMP
       do
@@ -251,19 +251,19 @@ feature {ANY}
          arguments.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   accept (visitor: FUNCTION_CALL_N_VISITOR) is
+   accept (visitor: FUNCTION_CALL_N_VISITOR)
       do
          visitor.visit_function_call_n(Current)
       end
 
 feature {}
-   make (t: like target; sn: like feature_name; a: like arguments) is
+   make (t: like target; sn: like feature_name; a: like arguments)
       require
          t /= Void
          sn /= Void

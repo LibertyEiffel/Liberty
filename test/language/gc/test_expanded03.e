@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -22,7 +22,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   no_leak is
+   no_leak
       local
          a: AUX_EXPANDED03A[REAL]; b: AUX_EXPANDED03B[REAL]; s: STRING
       do

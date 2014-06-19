@@ -12,7 +12,7 @@ create {EDC_DESCRIPTOR}
    make
 
 feature {ANY}
-   list (session: EDC_SESSION): TRAVERSABLE[R_] is
+   list (session: EDC_SESSION): TRAVERSABLE[R_]
       do
          Result := Precursor(session)
       ensure then
@@ -20,7 +20,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_pk: K_; a_options: like options) is
+   make (a_pk: K_; a_options: like options)
       require
          a_options /= Void
       do

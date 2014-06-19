@@ -31,27 +31,27 @@ insert
       end
 
 feature {ANY}
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
          -- Sum with `other' (commutative).
       external "built_in"
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
          -- Result of substracting `other'.
       external "built_in"
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
          -- Product by `other'.
       external "built_in"
       end
 
-   infix "/" (other: like Current): REAL is
+   infix "/" (other: like Current): REAL
          -- Division by `other'.
       external "built_in"
       end
 
-   infix "//" (other: like Current): like Current is
+   infix "//" (other: like Current): like Current
          -- Quotient of the euclidian division of `Current' by `other'.
          -- The corresponding remainder is given by infix "\\".
          --
@@ -59,7 +59,7 @@ feature {ANY}
       external "built_in"
       end
 
-   infix "\\" (other: like Current): like Current is
+   infix "\\" (other: like Current): like Current
          -- Remainder of the euclidian division of `Current' by `other'.
          -- By definition, `0 <= Result < other.abs'.
          --
@@ -67,39 +67,39 @@ feature {ANY}
       external "built_in"
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix "<=" (other: like Current): BOOLEAN is
+   infix "<=" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix ">" (other: like Current): BOOLEAN is
+   infix ">" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix ">=" (other: like Current): BOOLEAN is
+   infix ">=" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   is_odd: BOOLEAN is
+   is_odd: BOOLEAN
          -- Is odd?
       deferred
       end
 
-   is_even: BOOLEAN is
+   is_even: BOOLEAN
          -- Is even?
       deferred
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
 feature {ANY} -- Conversions:
-   to_string: STRING is
+   to_string: STRING
          -- The decimal view of `Current' into a new allocated STRING.
          -- For example, if `Current' is 3 the `Result' is "3".
          --
@@ -110,7 +110,7 @@ feature {ANY} -- Conversions:
          Result := string_buffer.twin
       end
 
-   to_unicode_string: UNICODE_STRING is
+   to_unicode_string: UNICODE_STRING
          -- The decimal view of `Current' into a new allocated UNICODE_STRING.
          -- For example, if `Current' is -1 the `Result' is U"-1".
          --
@@ -121,7 +121,7 @@ feature {ANY} -- Conversions:
          Result := unicode_string_buffer.twin
       end
 
-   append_in_format (buffer: STRING; s: INTEGER) is
+   append_in_format (buffer: STRING; s: INTEGER)
          -- Append in the `buffer' the equivalent of `to_string_format'.
          -- If you look for performances, you should always prefer `append_in_format' which allow you
          -- to recycle a unique common `buffer' (each call of `to_string_format' allocate a new object!).
@@ -147,7 +147,7 @@ feature {ANY} -- Conversions:
          buffer.count >= old buffer.count + s
       end
 
-   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
+   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER)
          -- Append in the `buffer' the equivalent of `to_unicode_string_format'.
          -- If you look for performances, you should always prefer `append_in_unicode_format' which allow
          -- you to recycle a unique common `buffer' (each call of `to_unicode_string_format' allocate a
@@ -174,7 +174,7 @@ feature {ANY} -- Conversions:
          buffer.count >= old buffer.count + s
       end
 
-   decimal_digit: CHARACTER is
+   decimal_digit: CHARACTER
          -- Gives the corresponding CHARACTER for range 0..9.
          --
          -- See also `hexadecimal_digit'.
@@ -183,7 +183,7 @@ feature {ANY} -- Conversions:
          (once "0123456789").has(Result)
       end
 
-   hexadecimal_digit: CHARACTER is
+   hexadecimal_digit: CHARACTER
          -- Gives the corresponding CHARACTER for range 0..15.
          --
          -- See also `decimal_digit'.
@@ -192,14 +192,14 @@ feature {ANY} -- Conversions:
          (once "0123456789ABCDEF").has(Result)
       end
 
-   to_character: CHARACTER is
+   to_character: CHARACTER
          -- Return the coresponding ASCII character.
          --
          -- See also `to_boolean', `to_number', `to_string'.
       deferred
       end
 
-   to_number: NUMBER is
+   to_number: NUMBER
          -- Convert `Current' into a new allocated NUMBER.
          --
          -- See also `to_boolean', `to_string', `to_character', `to_hexadecimal'.
@@ -209,36 +209,36 @@ feature {ANY} -- Conversions:
       end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
-   infix "#+" (other: like Current): like Current is
+   infix "#+" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#-" (other: like Current): like Current is
+   infix "#-" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#\\" (other: like Current): like Current is
+   infix "#\\" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#//" (other: like Current): like Current is
+   infix "#//" (other: like Current): like Current
       external "built_in"
       end
 
 feature {ANY} -- Object printing
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          Current.append_in(tagged_out_memory)
       end
 
-   to_hexadecimal: STRING is
+   to_hexadecimal: STRING
       do
          string_buffer.clear_count
          to_hexadecimal_in(string_buffer)
          Result := string_buffer.twin
       end
 
-   to_hexadecimal_in (buffer: STRING) is
+   to_hexadecimal_in (buffer: STRING)
       local
          index, timez: INTEGER;
          value, val_mask: like Current
@@ -258,8 +258,8 @@ feature {ANY} -- Object printing
             timez := timez - 1
          end
       end
-	
-   append_in (buffer: STRING) is
+
+   append_in (buffer: STRING)
          -- Append in the `buffer' the equivalent of `to_string'.
          -- If you look for performances, you should always prefer `append_in' which allow you to recycle
          -- a unique common `buffer' (each call of `to_string' allocate a new object!).
@@ -270,7 +270,7 @@ feature {ANY} -- Object printing
       deferred
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
          -- Append in the `buffer' the equivalent of `to_unicode_string'.
          -- If you look for performances, you should always prefer `append_in_unicode' which allow you to recycle
          -- a unique common `buffer' (each call of `to_unicode_string' allocate a new object!).
@@ -282,7 +282,7 @@ feature {ANY} -- Object printing
       end
 
 feature {ANY} -- Bitwise Logical Operators:
-   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
+   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current
          -- Rotate by `s' positions right.
          --
          -- See also `bit_rotate_left' and `bit_rotate'.
@@ -291,7 +291,7 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
-   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
+   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current
          -- Rotate by `s' positions left.
          --
          -- See also `bit_rotate_right' and `bit_rotate'.
@@ -300,7 +300,7 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
-   bit_rotate (s: INTEGER_8): like Current is
+   bit_rotate (s: INTEGER_8): like Current
          -- Rotate by `s' positions (positive `s' shifts right, negative left
          --
          -- See also `bit_rotate_right' and `bit_rotate_left'.
@@ -309,40 +309,40 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
-   prefix "~", bit_not: like Current is
+   prefix "~", bit_not: like Current
          -- One's complement of `Current'.
       external "built_in"
       end
 
-   infix "&", bit_and (other: like Current): like Current is
+   infix "&", bit_and (other: like Current): like Current
          -- Bitwise logical and of `Current' with `other'.
       external "built_in"
       end
 
-   infix "|", bit_or (other: like Current): like Current is
+   infix "|", bit_or (other: like Current): like Current
          -- Bitwise logical inclusive or of `Current' with `other'.
       external "built_in"
       end
 
-   bit_xor (other: like Current): like Current is
+   bit_xor (other: like Current): like Current
          -- Bitwise logical exclusive or of `Current' with `other'.
       external "built_in"
       end
 
-   infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
+   infix "|>>", bit_shift_right (s: INTEGER_8): like Current
          -- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
       external "built_in"
       end
 
-	infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
+        infix "|<<", bit_shift_left (s: INTEGER_8): like Current
          -- Shift by `s' positions left bits falling off the end are lost.
       external "built_in"
       end
-				 
+
 feature {ANY} -- Size query
-   bit_count: INTEGER_8 is
+   bit_count: INTEGER_8
          -- The number of bits used to store the value of Current
-		 -- (it is 8 for NATURAL_8, 16 for NATURAL_16 and so on)
+                 -- (it is 8 for NATURAL_8, 16 for NATURAL_16 and so on)
          -- This is actually used only for assertion here, in NATURAL_GENERAL.
       deferred
       ensure
@@ -350,12 +350,12 @@ feature {ANY} -- Size query
       end
 
 feature {}
-	string_buffer: STRING is
+   string_buffer: STRING
       once
          create Result.make(128)
       end
 
-   unicode_string_buffer: UNICODE_STRING is
+   unicode_string_buffer: UNICODE_STRING
       once
          create Result.make(128)
       end
@@ -368,7 +368,7 @@ end -- class NATURAL_GENERAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tab: ARRAY[STRING]; s: COLLECTION_SORTER[STRING]
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(tab.is_equal({ARRAY[STRING] 1, << "+fr", "abc", "hello world", "test1", "test3", "try" >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

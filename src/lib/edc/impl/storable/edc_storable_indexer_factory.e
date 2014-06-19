@@ -28,7 +28,7 @@ create {EDC_STORABLE_INDEX}
    make
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS is
+   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS
       do
          check
             False
@@ -36,7 +36,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {EDC_STORABLE_INDEX}
-   new_indexer (a_index: EDC_INDEX; a_table: like table): like res is
+   new_indexer (a_index: EDC_INDEX; a_table: like table): like res
       do
          table := a_table
          a_index.accept(Current)
@@ -44,7 +44,7 @@ feature {EDC_STORABLE_INDEX}
       end
 
 feature {EDC_PRIMARY_KEY}
-   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is
+   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY)
       do
          create {EDC_STORABLE_PRIMARY_KEY_INDEXER} res.make(a_primary_key, table)
       end
@@ -54,7 +54,7 @@ feature {}
 
    res: EDC_STORABLE_INDEXER
 
-   make is
+   make
       do
       end
 

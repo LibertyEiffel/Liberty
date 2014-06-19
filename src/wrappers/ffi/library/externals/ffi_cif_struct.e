@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	FFI_TYPES
 feature {} -- Low-level setters
 
-	ffi_cif_struct_set_abi (a_structure: POINTER; a_value: INTEGER) is
+	ffi_cif_struct_set_abi (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for abi field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_nargs (a_structure: POINTER; a_value: NATURAL) is
+	ffi_cif_struct_set_nargs (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for nargs field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_arg_types (a_structure: POINTER; a_value: POINTER) is
+	ffi_cif_struct_set_arg_types (a_structure: POINTER; a_value: POINTER)
 			-- Setter for arg_types field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_rtype (a_structure: POINTER; a_value: POINTER) is
+	ffi_cif_struct_set_rtype (a_structure: POINTER; a_value: POINTER)
 			-- Setter for rtype field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_bytes (a_structure: POINTER; a_value: NATURAL) is
+	ffi_cif_struct_set_bytes (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for bytes field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_cif_struct_set_flags (a_structure: POINTER; a_value: NATURAL) is
+	ffi_cif_struct_set_flags (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for flags field of FFI_CIF_STRUCT structure.
 			-- TODO: setter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ffi_cif_struct_get_abi (a_structure: POINTER): INTEGER is
+	ffi_cif_struct_get_abi (a_structure: POINTER): INTEGER
 			-- Query for abi field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_nargs (a_structure: POINTER): NATURAL is
+	ffi_cif_struct_get_nargs (a_structure: POINTER): NATURAL
 			-- Query for nargs field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_arg_types (a_structure: POINTER): POINTER is
+	ffi_cif_struct_get_arg_types (a_structure: POINTER): POINTER
 			-- Query for arg_types field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_rtype (a_structure: POINTER): POINTER is
+	ffi_cif_struct_get_rtype (a_structure: POINTER): POINTER
 			-- Query for rtype field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_bytes (a_structure: POINTER): NATURAL is
+	ffi_cif_struct_get_bytes (a_structure: POINTER): NATURAL
 			-- Query for bytes field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_cif_struct_get_flags (a_structure: POINTER): NATURAL is
+	ffi_cif_struct_get_flags (a_structure: POINTER): NATURAL
 			-- Query for flags field of FFI_CIF_STRUCT structure.
 			-- TODO: getter description
 
@@ -155,7 +155,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

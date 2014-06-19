@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          -- Si on enleve Precursor, ca marche
          Precursor

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CST_ATT_UNIQUE}
-   visit_cst_att_unique (visited: CST_ATT_UNIQUE) is
+   visit_cst_att_unique (visited: CST_ATT_UNIQUE)
       require
          visited /= Void
       deferred

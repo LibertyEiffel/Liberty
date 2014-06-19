@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          a: AUX_EXAMPLE_DEBUG_A; b: AUX_EXAMPLE_DEBUG_B; c: AUX_EXAMPLE_DEBUG_C
       do

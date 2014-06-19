@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   f: AUX_U01R1 is
+   f: AUX_U01R1
       do
       end
 

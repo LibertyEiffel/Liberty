@@ -11,7 +11,7 @@ inherit
 feature {ANY}
    foo: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := foo = other.foo
       end

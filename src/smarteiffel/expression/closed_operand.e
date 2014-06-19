@@ -27,18 +27,18 @@ feature {ANY}
          -- For each context TYPE, the corresponding specialized `original_capture' EXPRESSION. Thus,
          -- an CLOSED_OPERAND object is never twinned.
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := original_capture.declaration_type
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          capture_memory.put(original_capture.specialize_in(type), type)
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -53,7 +53,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          expression: EXPRESSION
       do
@@ -66,7 +66,7 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       local
          expression: EXPRESSION
       do
@@ -79,7 +79,7 @@ feature {ANY}
          Result := Current
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          if is_current then
             capture_memory.put(original_capture, type)
@@ -89,13 +89,13 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          capture_memory.put(capture_memory.reference_at(type).simplify(type), type)
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          expression: EXPRESSION
       do
@@ -103,7 +103,7 @@ feature {ANY}
          Result := expression.collect(type)
       end
 
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if inside_agent_launcher_flag then
             code_accumulator.current_context.add_last(Current)
@@ -114,100 +114,100 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := capture_memory.reference_at(type).non_void_no_dispatch_type(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := capture_memory.reference_at(type).side_effect_free(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
          capture_memory.put(capture_memory.reference_at(type).adapt_for(type), type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := capture_memory.reference_at(type).use_current(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          capture_memory.reference_at(type).safety_check(type)
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := original_capture.precedence
       end
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_current: BOOLEAN is
+   is_current: BOOLEAN
       do
          Result := original_capture.is_current
       end
 
-   is_implicit_current: BOOLEAN is
+   is_implicit_current: BOOLEAN
       do
          Result := original_capture.is_implicit_current
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
       do
          Result := original_capture.is_void
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := original_capture.is_static
       end
 
-   is_manifest_string: BOOLEAN is
+   is_manifest_string: BOOLEAN
       do
          Result := original_capture.is_manifest_string
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := original_capture.is_result
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          capture_memory.reference_at(type).short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          capture_memory.reference_at(type).short_target(type)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          original_capture.pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          original_capture.pretty_target(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          original_capture.bracketed_pretty(indent_level)
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          Result := original_capture.extra_bracket_flag
       end
 
-   accept (visitor: CLOSED_OPERAND_VISITOR) is
+   accept (visitor: CLOSED_OPERAND_VISITOR)
       do
          visitor.visit_closed_operand(Current)
       end
@@ -215,13 +215,13 @@ feature {ANY}
 feature {AGENT_CREATION, CLOSED_OPERAND_VISITOR}
    inside_agent_launcher_flag: BOOLEAN
 
-   set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
+   set_inside_agent_launcher_flag (flag_value: BOOLEAN)
       do
          inside_agent_launcher_flag := flag_value
       end
 
 feature {}
-   make (r: like rank; c: like original_capture) is
+   make (r: like rank; c: like original_capture)
       require
          (r = -1) or else (r > 0)
       do

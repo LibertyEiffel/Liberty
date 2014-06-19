@@ -7,7 +7,7 @@ inherit
    AUX_JLP8_CROSS[E, E, E]
 
 feature {ANY}
-   cross_operation (a, b: E): E is
+   cross_operation (a, b: E): E
       do
          Result := a * b
       end

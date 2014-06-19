@@ -21,17 +21,17 @@ create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {}
-   new_integer (value: INTEGER_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+   new_integer (value: INTEGER_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
          Result := interpreter.new_integer_64(value, builtin_call.position)
       end
 
-   left, target: INTEGER_64 is
+   left, target: INTEGER_64
       do
          Result := int64_target
       end
 
-   right: INTEGER_64 is
+   right: INTEGER_64
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do

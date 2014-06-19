@@ -14,7 +14,7 @@ insert
    ANY
 
 feature {ANY}
-   same_files (path1, path2: ABSTRACT_STRING): BOOLEAN is
+   same_files (path1, path2: ABSTRACT_STRING): BOOLEAN
          -- True if the `path1' file exists and has the very same content as file `path2'.
       require
          path1 /= Void
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   same_physical_file (path1, path2: ABSTRACT_STRING): BOOLEAN is
+   same_physical_file (path1, path2: ABSTRACT_STRING): BOOLEAN
          -- True if `path1' and `path2' physically refer to the same file (e.g. symlinks to a same file will
          -- return True here)
       require
@@ -45,7 +45,7 @@ feature {ANY}
          Result  := io_same_physical_file(path1.to_external, path2.to_external)
       end
 
-   file_exists (path: ABSTRACT_STRING): BOOLEAN is
+   file_exists (path: ABSTRACT_STRING): BOOLEAN
       require
          path /= Void
          path.count > 0
@@ -53,7 +53,7 @@ feature {ANY}
          Result := io_file_exists(path.to_external)
       end
 
-   is_readable (path: ABSTRACT_STRING): BOOLEAN is
+   is_readable (path: ABSTRACT_STRING): BOOLEAN
          -- True if `path' file exists and is either a readable file or an accessible directory.
       require
          path /= Void
@@ -75,7 +75,7 @@ feature {ANY}
          end
       end
 
-   is_empty (path: ABSTRACT_STRING): BOOLEAN is
+   is_empty (path: ABSTRACT_STRING): BOOLEAN
          -- True if `path' file exists, is readable and is an empty file.
       require 
          path/=Void
@@ -89,7 +89,7 @@ feature {ANY}
          end
       end
 
-   rename_to (old_path, new_path: ABSTRACT_STRING) is
+   rename_to (old_path, new_path: ABSTRACT_STRING)
          -- Try to change the name or the location of a file.
       require
          old_path /= Void
@@ -105,7 +105,7 @@ feature {ANY}
          io_rename(p1, p2)
       end
 
-   copy_to (source_path, target_path: ABSTRACT_STRING) is
+   copy_to (source_path, target_path: ABSTRACT_STRING)
          -- Try to copy the source into the target.
       require
          source_path /= Void
@@ -118,7 +118,7 @@ feature {ANY}
          io_copy(src, tgt)
       end
 
-   delete (path: ABSTRACT_STRING) is
+   delete (path: ABSTRACT_STRING)
          -- Try to delete the given `path' file.
       require
          path /= Void
@@ -129,7 +129,7 @@ feature {ANY}
          io_remove(p)
       end
 
-   size_of (path: ABSTRACT_STRING): INTEGER is
+   size_of (path: ABSTRACT_STRING): INTEGER
          -- Total size of file `path' in number of bytes.
          -- When the corresponding file does not exists, the Result is negative.
       require
@@ -142,7 +142,7 @@ feature {ANY}
          Result := fstat_st_size(p)
       end
 
-   last_change_of (path: ABSTRACT_STRING): TIME is
+   last_change_of (path: ABSTRACT_STRING): TIME
          -- Of the last modification of `path'.
       require
          path /= Void
@@ -155,7 +155,7 @@ feature {ANY}
          Result.set_time_memory(time_memory)
       end
 
-   is_file (path: ABSTRACT_STRING): BOOLEAN is
+   is_file (path: ABSTRACT_STRING): BOOLEAN
          -- Is `path' a regular file?
       require
          path /= Void
@@ -164,7 +164,7 @@ feature {ANY}
          Result := fstat_st_is_file(path.to_external)
       end
 
-   is_directory (path: ABSTRACT_STRING): BOOLEAN is
+   is_directory (path: ABSTRACT_STRING): BOOLEAN
          -- Is `path' a directory?
       require
          path /= Void
@@ -174,7 +174,7 @@ feature {ANY}
       end
 
 feature {}
-   io_remove (path: POINTER) is
+   io_remove (path: POINTER)
          -- To implement `delete'.
       external "plug_in"
       alias "{
@@ -184,7 +184,7 @@ feature {}
          }"
       end
 
-   io_rename (old_path, new_path: POINTER) is
+   io_rename (old_path, new_path: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -193,7 +193,7 @@ feature {}
          }"
       end
 
-   io_copy (source, target: POINTER) is
+   io_copy (source, target: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -202,7 +202,7 @@ feature {}
          }"
       end
 
-   io_file_exists (path: POINTER): BOOLEAN is
+   io_file_exists (path: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -211,7 +211,7 @@ feature {}
          }"
       end
 
-   io_same_physical_file (path1, path2: POINTER): BOOLEAN is
+   io_same_physical_file (path1, path2: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -220,7 +220,7 @@ feature {}
          }"
       end
 
-   fstat_st_size (path: POINTER): INTEGER is
+   fstat_st_size (path: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -229,7 +229,7 @@ feature {}
          }"
       end
 
-   fstat_st_mtime (path: POINTER): INTEGER_64 is
+   fstat_st_mtime (path: POINTER): INTEGER_64
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -238,7 +238,7 @@ feature {}
          }"
       end
 
-   fstat_st_is_file (path: POINTER): BOOLEAN is
+   fstat_st_is_file (path: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -247,7 +247,7 @@ feature {}
          }"
       end
 
-   fstat_st_is_dir (path: POINTER): BOOLEAN is
+   fstat_st_is_dir (path: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -256,17 +256,17 @@ feature {}
          }"
       end
 
-   tfr1: TEXT_FILE_READ is
+   tfr1: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   tfr2: TEXT_FILE_READ is
+   tfr2: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(256)
       end
@@ -279,7 +279,7 @@ end -- class FILE_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

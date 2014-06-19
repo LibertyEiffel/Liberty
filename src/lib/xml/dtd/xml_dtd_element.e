@@ -20,7 +20,7 @@ create {XML_DTD_VALIDATOR}
 feature {ANY}
    name: UNICODE_STRING
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('<')
          name.utf8_encode_in(tagged_out_memory)
@@ -34,7 +34,7 @@ feature {ANY}
       end
 
 feature {XML_DTD_VALIDATOR}
-   build is
+   build
          -- Prepare to build the element's structure
       do
          -- remove crumbs from a possibly failed previous build
@@ -45,7 +45,7 @@ feature {XML_DTD_VALIDATOR, XML_DTD_NODE}
    is_built: BOOLEAN
 
 feature {XML_DTD_VALIDATOR} -- Data validation
-   is_valid_attributes (xml_attributes: DICTIONARY[UNICODE_STRING, UNICODE_STRING]): BOOLEAN is
+   is_valid_attributes (xml_attributes: DICTIONARY[UNICODE_STRING, UNICODE_STRING]): BOOLEAN
       local
          i: INTEGER
       do
@@ -61,7 +61,7 @@ feature {XML_DTD_VALIDATOR} -- Data validation
       end
 
 feature {XML_DTD_NODE} -- Tree validation
-   is_valid_child (explorer: XML_DTD_VALIDATOR; node_name: UNICODE_STRING; children: FAST_ARRAY[XML_DTD_NODE]): BOOLEAN is
+   is_valid_child (explorer: XML_DTD_VALIDATOR; node_name: UNICODE_STRING; children: FAST_ARRAY[XML_DTD_NODE]): BOOLEAN
       require
          explorer /= Void
          children /= Void
@@ -70,7 +70,7 @@ feature {XML_DTD_NODE} -- Tree validation
          Result := explorer.backtrack_is_valid(children, structure, node_name)
       end
 
-   is_valid_data (explorer: XML_DTD_VALIDATOR; data: UNICODE_STRING; children: FAST_ARRAY[XML_DTD_NODE]): BOOLEAN is
+   is_valid_data (explorer: XML_DTD_VALIDATOR; data: UNICODE_STRING; children: FAST_ARRAY[XML_DTD_NODE]): BOOLEAN
       require
          explorer /= Void
          children /= Void
@@ -80,7 +80,7 @@ feature {XML_DTD_NODE} -- Tree validation
       end
 
 feature {ANY} -- Tree structure validation
-   explore (explorer: XML_DTD_VALIDATOR) is
+   explore (explorer: XML_DTD_VALIDATOR)
       do
          explorer.backtrack_valid_child(Current)
       end
@@ -89,34 +89,34 @@ feature {} -- The element's structure
    structure: BACKTRACKING_NODE
          -- the element's structure
 
-   building_stack: FAST_ARRAY[BACKTRACKING_NODE] is
+   building_stack: FAST_ARRAY[BACKTRACKING_NODE]
          -- Used when building the element. A once object is enough since we only build one element at a time.
       once
          create Result.make(0)
       end
 
-   build_pop is
+   build_pop
       do
          building_stack.remove_last
       end
 
-   build_add (n: BACKTRACKING_NODE) is
+   build_add (n: BACKTRACKING_NODE)
       do
          building_stack.add_last(n)
       end
 
-   build_push (n: BACKTRACKING_NODE) is
+   build_push (n: BACKTRACKING_NODE)
       do
          building_stack.put(n, building_stack.upper)
       end
 
-   build_top: BACKTRACKING_NODE is
+   build_top: BACKTRACKING_NODE
       do
          Result := building_stack.last
       end
 
 feature {XML_DTD_VALIDATOR} -- Building element's structure
-   close_fix is
+   close_fix
       do
          check
             building_stack.count = 1
@@ -127,27 +127,27 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          building_stack.is_empty
       end
 
-   close_exactly_one is
+   close_exactly_one
       do
          build_push(node_and_end(build_top))
       end
 
-   close_zero_or_one is
+   close_zero_or_one
       do
          build_push(zero_or_one_node(build_top))
       end
 
-   close_zero_or_more is
+   close_zero_or_more
       do
          build_push(zero_or_more_node(build_top))
       end
 
-   close_one_or_more is
+   close_one_or_more
       do
          build_push(one_or_more_node(build_top))
       end
 
-   add_list is
+   add_list
       require
          building_stack.count > 1
       local
@@ -162,7 +162,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          building_stack.count = old building_stack.count - 1
       end
 
-   add_alt is
+   add_alt
       require
          building_stack.count > 1
       local
@@ -177,42 +177,42 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          building_stack.count = old building_stack.count - 1
       end
 
-   child_pcdata is
+   child_pcdata
       do
          build_add(pcdata_node)
       end
 
-   child_any is
+   child_any
       do
          build_add(any_node)
       end
 
-   child_empty is
+   child_empty
       do
          build_add(empty_node)
       end
 
-   child_one_or_more (elt: XML_DTD_ELEMENT) is
+   child_one_or_more (elt: XML_DTD_ELEMENT)
       do
          build_add(one_or_more_node(elt))
       end
 
-   child_zero_or_more (elt: XML_DTD_ELEMENT) is
+   child_zero_or_more (elt: XML_DTD_ELEMENT)
       do
          build_add(zero_or_more_node(elt))
       end
 
-   child_zero_or_one (elt: XML_DTD_ELEMENT) is
+   child_zero_or_one (elt: XML_DTD_ELEMENT)
       do
          build_add(zero_or_one_node(elt))
       end
 
-   child_exactly_one (elt: XML_DTD_ELEMENT) is
+   child_exactly_one (elt: XML_DTD_ELEMENT)
       do
          build_add(node_and_end(elt))
       end
 
-   commit is
+   commit
       require
          not is_built
       do
@@ -225,7 +225,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
       end
 
 feature {} -- Multiplicity helpers
-   one_or_more_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is
+   one_or_more_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE
       local
          a: BACKTRACKING_NODE_AND_PAIR; b: BACKTRACKING_NODE_OR_TRUE
       do
@@ -235,7 +235,7 @@ feature {} -- Multiplicity helpers
          Result := a
       end
 
-   zero_or_more_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is
+   zero_or_more_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE
       local
          a: BACKTRACKING_NODE_AND_PAIR; b: BACKTRACKING_NODE_OR_TRUE
       do
@@ -245,33 +245,33 @@ feature {} -- Multiplicity helpers
          Result := b
       end
 
-   zero_or_one_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is
+   zero_or_one_node (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE
       do
          create {BACKTRACKING_NODE_OR_TRUE} Result.make(a_node)
       end
 
-   node_and_end (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE is
+   node_and_end (a_node: BACKTRACKING_NODE): BACKTRACKING_NODE
       do
          create {BACKTRACKING_NODE_AND_PAIR} Result.make(a_node, end_node)
       end
 
 feature {} -- Special nodes
-   any_node: XML_DTD_ANY_NODE is
+   any_node: XML_DTD_ANY_NODE
       once
          create Result.make
       end
 
-   empty_node: XML_DTD_EMPTY_NODE is
+   empty_node: XML_DTD_EMPTY_NODE
       once
          create Result.make
       end
 
-   end_node: XML_DTD_END_NODE is
+   end_node: XML_DTD_END_NODE
       once
          create Result.make
       end
 
-   pcdata_node: XML_DTD_PCDATA_NODE is
+   pcdata_node: XML_DTD_PCDATA_NODE
       once
          create Result.make
       end
@@ -281,24 +281,24 @@ feature {XML_DTD_VALIDATOR} -- Adding attributes
 
    current_attribute: XML_DTD_ATTRIBUTE
 
-   building_attlist: BOOLEAN is
+   building_attlist: BOOLEAN
       do
          Result := current_attribute /= Void
       end
 
-   adding_attlist (attribute_name: UNICODE_STRING): BOOLEAN is
+   adding_attlist (attribute_name: UNICODE_STRING): BOOLEAN
       do
          Result := current_attribute /= Void and then current_attribute.name.is_equal(attribute_name)
       ensure
          Result implies building_attlist
       end
 
-   has_attlist (attribute_name: UNICODE_STRING): BOOLEAN is
+   has_attlist (attribute_name: UNICODE_STRING): BOOLEAN
       do
          Result := attributes.has(attribute_name)
       end
 
-   add_attlist (attribute_name: UNICODE_STRING) is
+   add_attlist (attribute_name: UNICODE_STRING)
       require
          not has_attlist(attribute_name)
          not building_attlist
@@ -316,7 +316,7 @@ feature {XML_DTD_VALIDATOR} -- Adding attributes
          building_attlist
       end
 
-   commit_attlist (attribute_name: UNICODE_STRING) is
+   commit_attlist (attribute_name: UNICODE_STRING)
       require
          adding_attlist(attribute_name)
       do
@@ -326,98 +326,98 @@ feature {XML_DTD_VALIDATOR} -- Adding attributes
          not building_attlist
       end
 
-   attlist_list_value (value: UNICODE_STRING) is
+   attlist_list_value (value: UNICODE_STRING)
       require
          building_attlist
       do
          current_attribute.list_value(value)
       end
 
-   attlist_cdata is
+   attlist_cdata
       require
          building_attlist
       do
          current_attribute.cdata
       end
 
-   attlist_id is
+   attlist_id
       require
          building_attlist
       do
          current_attribute.id
       end
 
-   attlist_idref is
+   attlist_idref
       require
          building_attlist
       do
          current_attribute.idref
       end
 
-   attlist_idrefs is
+   attlist_idrefs
       require
          building_attlist
       do
          current_attribute.idrefs
       end
 
-   attlist_nmtoken is
+   attlist_nmtoken
       require
          building_attlist
       do
          current_attribute.nmtoken
       end
 
-   attlist_nmtokens is
+   attlist_nmtokens
       require
          building_attlist
       do
          current_attribute.nmtokens
       end
 
-   attlist_entity is
+   attlist_entity
       require
          building_attlist
       do
          current_attribute.entity
       end
 
-   attlist_entities is
+   attlist_entities
       require
          building_attlist
       do
          current_attribute.entities
       end
 
-   attlist_notation is
+   attlist_notation
       require
          building_attlist
       do
          current_attribute.notation
       end
 
-   attlist_required is
+   attlist_required
       require
          building_attlist
       do
          current_attribute.required
       end
 
-   attlist_implied is
+   attlist_implied
       require
          building_attlist
       do
          current_attribute.implied
       end
 
-   attlist_valid_fixed (value: UNICODE_STRING): BOOLEAN is
+   attlist_valid_fixed (value: UNICODE_STRING): BOOLEAN
       require
          building_attlist
       do
          Result := current_attribute.valid_fixed_value(value)
       end
 
-   attlist_fixed (value: UNICODE_STRING) is
+   attlist_fixed (value: UNICODE_STRING)
       require
          building_attlist
          attlist_valid_fixed(value)
@@ -425,7 +425,7 @@ feature {XML_DTD_VALIDATOR} -- Adding attributes
          current_attribute.fixed(value)
       end
 
-   attlist_default_value (value: UNICODE_STRING) is
+   attlist_default_value (value: UNICODE_STRING)
       require
          building_attlist
       do
@@ -433,7 +433,7 @@ feature {XML_DTD_VALIDATOR} -- Adding attributes
       end
 
 feature {XML_DTD_VALIDATOR} -- Constructor
-   make (a_name: like name) is
+   make (a_name: like name)
       require
          not a_name.is_empty
       do
@@ -456,7 +456,7 @@ feature {XML_DTD_VALIDATOR} -- Constructor
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          is_built := False
          structure := Void
@@ -469,12 +469,12 @@ feature {RECYCLING_POOL}
       end
 
 feature {} -- Memory management
-   attributes_pool: RECYCLING_POOL[XML_DTD_ATTRIBUTE] is
+   attributes_pool: RECYCLING_POOL[XML_DTD_ATTRIBUTE]
       once
          create Result.make
       end
 
-   recycle_attributes is
+   recycle_attributes
       local
          i: INTEGER
       do
@@ -503,7 +503,7 @@ end -- class XML_DTD_ELEMENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

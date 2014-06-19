@@ -8,7 +8,7 @@ feature {ANY}
    y: REAL
       -- The `y' coordinate.
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate the `Current' POINT.
       do
          -- Modification of the `Current' POINT.

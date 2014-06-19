@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          verbose_option: COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
          arg1: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
@@ -48,7 +48,7 @@ feature {}
          assert(verbose_option.item = 2)
       end
 
-   setup is
+   setup
       do
          command_arguments.make(1)
       end

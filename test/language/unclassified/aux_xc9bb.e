@@ -14,12 +14,12 @@ create {ANY}
 feature {ANY}
    a: INTEGER
 
-   make is
+   make
       do
          a := 1
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          if Current = other then
          else

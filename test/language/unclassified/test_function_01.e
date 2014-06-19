@@ -6,12 +6,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          verify ("Hello","Hello")
       end
 
-   verify (v1, v2: ABSTRACT_STRING) is
+   verify (v1, v2: ABSTRACT_STRING)
       do
          assert(v1.is_equal(v2))
       end

@@ -28,28 +28,28 @@ create {EDC_STORABLE_TRAVERSABLE}
    make
 
 feature {ANY}
-   start is
+   start
       do
          index := traversable.lower
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := not traversable.valid_index(index)
       end
 
-   item: EDC_DATUM is
+   item: EDC_DATUM
       do
          Result := traversable.item(index)
       end
 
-   next is
+   next
       do
          index := index + 1
       end
 
 feature {}
-   make (a_traversable: like traversable) is
+   make (a_traversable: like traversable)
       do
          traversable := a_traversable
       end

@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   build_masks (builder: MASK_BUILDER) is
+   build_masks (builder: MASK_BUILDER)
       do
          builder.goto(item1, item2)
          builder.and_no

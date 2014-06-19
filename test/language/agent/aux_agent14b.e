@@ -7,17 +7,17 @@ inherit
    AUX_AGENT14A[T]
 
 feature {ANY}
-   do_set_proc is
+   do_set_proc
       do
          set_proc(agent some_proc)
          -- compiles when line deleted
       end
 
-   set_proc (proc_in: PROCEDURE[TUPLE]) is
+   set_proc (proc_in: PROCEDURE[TUPLE])
       do
       end
 
-   some_proc is
+   some_proc
       do
       end
 

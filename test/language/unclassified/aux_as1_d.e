@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   message is
+   message
       do
          stream.extend('D')
       end

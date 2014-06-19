@@ -11,7 +11,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          string: STRING; collection: FAST_ARRAY[AUX_SZ513]; integer: INTEGER; aux_sz513: AUX_SZ513
       do

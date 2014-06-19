@@ -6,12 +6,12 @@ expanded class AUX_EXPANDED20
 feature {ANY}
    a, b: INTEGER
 
-   set_a (v: INTEGER) is
+   set_a (v: INTEGER)
       do
          a := v
       end
 
-   set_b (v: INTEGER) is
+   set_b (v: INTEGER)
       do
          b := v
       end

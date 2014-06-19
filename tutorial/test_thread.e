@@ -9,7 +9,7 @@ feature {}
    ready_lock, io_lock: THREAD_LOCK
    ready: INTEGER
 
-   make is
+   make
       local
          t: THREAD[STRING, TUPLE[STRING, INTEGER_8]]
          c1, c2: THREAD_CONTEXT[STRING, TUPLE]
@@ -46,7 +46,7 @@ feature {}
          end
       end
 
-   in_thread (in: STRING; count: INTEGER_8): STRING is
+   in_thread (in: STRING; count: INTEGER_8): STRING
       local
          i, r: INTEGER
       do

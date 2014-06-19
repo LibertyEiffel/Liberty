@@ -22,7 +22,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {LIBERTY_ASSIGNMENT_ATTEMPT}
-   visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT) is
+   visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT)
       local
          assignment: LIBERTY_INTERPRETER_ASSIGNMENT
       do
@@ -32,7 +32,7 @@ feature {LIBERTY_ASSIGNMENT_ATTEMPT}
       end
 
 feature {LIBERTY_ASSIGNMENT_FORCED}
-   visit_liberty_assignment_forced (v: LIBERTY_ASSIGNMENT_FORCED) is
+   visit_liberty_assignment_forced (v: LIBERTY_ASSIGNMENT_FORCED)
       local
          assignment: LIBERTY_INTERPRETER_ASSIGNMENT
       do
@@ -42,7 +42,7 @@ feature {LIBERTY_ASSIGNMENT_FORCED}
       end
 
 feature {LIBERTY_ASSIGNMENT_REGULAR}
-   visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
+   visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR)
       local
          assignment: LIBERTY_INTERPRETER_ASSIGNMENT
       do
@@ -52,7 +52,7 @@ feature {LIBERTY_ASSIGNMENT_REGULAR}
       end
 
 feature {LIBERTY_CALL_INSTRUCTION}
-   visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
+   visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION)
       local
          target: LIBERTY_INTERPRETER_OBJECT
          target_type: LIBERTY_ACTUAL_TYPE
@@ -69,13 +69,13 @@ feature {LIBERTY_CALL_INSTRUCTION}
       end
 
 feature {LIBERTY_CHECK_INSTRUCTION}
-   visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
+   visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION)
       do
          interpreter.assertions.validate(v.checks, once "Check")
       end
 
 feature {LIBERTY_COMPOUND}
-   visit_liberty_compound (v: LIBERTY_COMPOUND) is
+   visit_liberty_compound (v: LIBERTY_COMPOUND)
       local
          i: INTEGER
       do
@@ -90,7 +90,7 @@ feature {LIBERTY_COMPOUND}
       end
 
 feature {LIBERTY_CONDITIONAL}
-   visit_liberty_conditional (v: LIBERTY_CONDITIONAL) is
+   visit_liberty_conditional (v: LIBERTY_CONDITIONAL)
       local
          i: INTEGER
       do
@@ -113,7 +113,7 @@ feature {LIBERTY_CONDITIONAL}
       end
 
 feature {LIBERTY_CONDITION}
-   visit_liberty_condition (v: LIBERTY_CONDITION) is
+   visit_liberty_condition (v: LIBERTY_CONDITION)
       local
          c: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
       do
@@ -128,7 +128,7 @@ feature {LIBERTY_CONDITION}
       end
 
 feature {LIBERTY_CREATION_INSTRUCTION}
-   visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION) is
+   visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION)
       local
          assignment: LIBERTY_INTERPRETER_ASSIGNMENT
          new_object: LIBERTY_INTERPRETER_OBJECT
@@ -142,7 +142,7 @@ feature {LIBERTY_CREATION_INSTRUCTION}
       end
 
 feature {LIBERTY_DEBUG}
-   visit_liberty_debug (v: LIBERTY_DEBUG) is
+   visit_liberty_debug (v: LIBERTY_DEBUG)
       do
          if options.debug_enabled then --| TODO: use v.keys
             v.instruction.accept(Current)
@@ -150,19 +150,19 @@ feature {LIBERTY_DEBUG}
       end
 
 feature {LIBERTY_DEFAULT}
-   visit_liberty_default (v: LIBERTY_DEFAULT) is
+   visit_liberty_default (v: LIBERTY_DEFAULT)
       do
          v.instruction.accept(Current)
       end
 
 feature {LIBERTY_EMPTY}
-   visit_liberty_empty (v: LIBERTY_EMPTY) is
+   visit_liberty_empty (v: LIBERTY_EMPTY)
       do
          -- well, nothing
       end
 
 feature {LIBERTY_INSPECT}
-   visit_liberty_inspect (v: LIBERTY_INSPECT) is
+   visit_liberty_inspect (v: LIBERTY_INSPECT)
       local
          exp: LIBERTY_INTERPRETER_OBJECT
          i, n: INTEGER
@@ -199,7 +199,7 @@ feature {LIBERTY_INSPECT}
       end
 
 feature {LIBERTY_INSPECT_CLAUSE}
-   visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE) is
+   visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE)
       local
          i, n: INTEGER; found: BOOLEAN
       do
@@ -224,7 +224,7 @@ feature {LIBERTY_INSPECT_CLAUSE}
       end
 
 feature {LIBERTY_INSPECT_SLICE}
-   visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE) is
+   visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE)
       local
          lower, upper: LIBERTY_INTERPRETER_OBJECT
       do
@@ -246,7 +246,7 @@ feature {LIBERTY_INSPECT_SLICE}
       end
 
 feature {LIBERTY_LOOP}
-   visit_liberty_loop (v: LIBERTY_LOOP) is
+   visit_liberty_loop (v: LIBERTY_LOOP)
       local
          exp_until: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
          done, check_invariant, check_variant: BOOLEAN
@@ -282,7 +282,7 @@ feature {LIBERTY_LOOP}
       end
 
 feature {LIBERTY_VARIANT}
-   visit_liberty_variant (v: LIBERTY_VARIANT) is
+   visit_liberty_variant (v: LIBERTY_VARIANT)
       local
          exp_variant: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -299,19 +299,19 @@ feature {LIBERTY_VARIANT}
       end
 
 feature {LIBERTY_PRECURSOR_INSTRUCTION}
-   visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION) is
+   visit_liberty_precursor_instruction (v: LIBERTY_PRECURSOR_INSTRUCTION)
       do
          interpreter.call_precursor(v.the_feature, v.actuals, v.position)
       end
 
 feature {LIBERTY_RETRY}
-   visit_liberty_retry (v: LIBERTY_RETRY) is
+   visit_liberty_retry (v: LIBERTY_RETRY)
       do
          not_yet_implemented
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

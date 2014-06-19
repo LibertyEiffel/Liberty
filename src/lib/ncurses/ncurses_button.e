@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   refresh_later is
+   refresh_later
       do
          if is_focused then
             set_attribute(ncurses.a_reverse)
@@ -26,7 +26,7 @@ feature {ANY}
 
    is_focused: BOOLEAN
 
-   set_focused (enable: BOOLEAN) is
+   set_focused (enable: BOOLEAN)
       do
          is_focused := enable
       ensure
@@ -41,7 +41,7 @@ end -- class NCURSES_BUTTON
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

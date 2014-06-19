@@ -15,7 +15,7 @@ create {}
 feature {ANY}
    array_int: ARRAY[INTEGER]
 
-   make is
+   make
       local
          i: INTEGER; random: PRESS_RANDOM_NUMBER_GENERATOR
       do

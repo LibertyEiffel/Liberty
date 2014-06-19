@@ -29,49 +29,49 @@ feature {ANY}
    collect_flag: BOOLEAN
          -- Indicate that `original_expression' must be collected.
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   accept (visitor: INTERNAL_LOCAL2_VISITOR) is
+   accept (visitor: INTERNAL_LOCAL2_VISITOR)
       do
          visitor.visit_internal_local2(Current)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          -- Could be better when `result_type' is a leaf.
       end
 
-   written_declaration_type_mark: TYPE_MARK is
+   written_declaration_type_mark: TYPE_MARK
       do
          Result := original_expression.written_declaration_type_mark
       end
 
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := original_expression.resolve_in(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := original_expression.declaration_type
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          if collect_flag then
             Result := original_expression.collect(type)
@@ -80,25 +80,25 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
 feature {ASSIGNMENT}
-   unlock is
+   unlock
       do
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
@@ -107,7 +107,7 @@ feature {INTERNAL_LOCAL2_VISITOR}
    tag: STRING
 
 feature {ANY}
-   hash_tag: FIXED_STRING is
+   hash_tag: FIXED_STRING
       local
          buffer: STRING
       do
@@ -123,7 +123,7 @@ feature {ANY}
       end
 
 feature {}
-   make (sp: like start_position; oe: like original_expression; t: like tag; cf: like collect_flag) is
+   make (sp: like start_position; oe: like original_expression; t: like tag; cf: like collect_flag)
       require
          not sp.is_unknown
          oe /= Void

@@ -30,7 +30,7 @@ create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_STRING_COLUMN_VALUE_VISITOR
       do
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Expressions
-   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[STRING]): EDC_EXPRESSION is
+   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[STRING]): EDC_EXPRESSION
       require else
          True
       do

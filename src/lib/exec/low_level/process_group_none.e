@@ -10,20 +10,20 @@ create {PROCESS_FACTORY}
    make
 
 feature {ANY}
-   wait: PROCESS is
+   wait: PROCESS
       do
       end
 
-   finished: PROCESS is
+   finished: PROCESS
       do
       end
 
-   count: INTEGER is 0
+   count: INTEGER 0
 
-   capacity: INTEGER is 0
+   capacity: INTEGER 0
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -35,7 +35,7 @@ end -- class PROCESS_GROUP_NONE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

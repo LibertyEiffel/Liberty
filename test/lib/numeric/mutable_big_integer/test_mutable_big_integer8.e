@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          step: INTEGER
       do
@@ -24,7 +24,7 @@ feature {ANY}
          end
       end
 
-   shift_left_then_come_back (step: INTEGER) is
+   shift_left_then_come_back (step: INTEGER)
       require
          step.in_range(0, power_2_memory.upper - 1)
       local
@@ -54,7 +54,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then
@@ -65,7 +65,7 @@ feature {ANY}
          end
       end
 
-   power_2_memory: FAST_ARRAY[INTEGER_64] is
+   power_2_memory: FAST_ARRAY[INTEGER_64]
          -- The associated power 2 value at the corresponding index.
          -- (Valid for range [2^0 .. 2^62].)
       local

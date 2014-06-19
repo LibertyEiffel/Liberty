@@ -8,17 +8,17 @@ create {}
    make
 
 feature {ANY} -- Essayer de compiler avec c2c en -debug_check ....
-   do_nothing is
+   do_nothing
       do
       end
 
-   make is
+   make
       do
          make1
          make2
       end
 
-   make1 is
+   make1
       local
          i: INTEGER
       do
@@ -27,7 +27,7 @@ feature {ANY} -- Essayer de compiler avec c2c en -debug_check ....
          end
       end
 
-   make2 is
+   make2
       local
          i: INTEGER
       do

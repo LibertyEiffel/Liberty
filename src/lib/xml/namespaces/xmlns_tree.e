@@ -17,13 +17,13 @@ feature {ANY}
    root: XMLNS_COMPOSITE_NODE
          -- The root of the tree
 
-   attribute_at (a_attribute_name: UNICODE_STRING): UNICODE_STRING is
+   attribute_at (a_attribute_name: UNICODE_STRING): UNICODE_STRING
          -- Usually to recover the "version" or "encoding" attributes
       do
          Result := tree_attributes.reference_at(a_attribute_name)
       end
 
-   set_processing_instruction (target: UNICODE_STRING; processor: PROCEDURE[TUPLE[UNICODE_STRING]]) is
+   set_processing_instruction (target: UNICODE_STRING; processor: PROCEDURE[TUPLE[UNICODE_STRING]])
       require
          target /= Void
          processor /= Void
@@ -46,18 +46,18 @@ feature {}
 
    open_nodes: STACK[XMLNS_COMPOSITE_NODE]
 
-   processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]], UNICODE_STRING] is
+   processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]], UNICODE_STRING]
       once
          create Result.make
       end
 
 feature {XMLNS_PARSER}
-   with_attribute (attribute_namespace, attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_namespace, attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER)
       do
          attributes_for(attribute_namespace).put(attribute_value.twin, attribute_name.twin)
       end
 
-   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
       local
          node: XMLNS_COMPOSITE_NODE; i, j: INTEGER; att: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]; ns: UNICODE_STRING
       do
@@ -95,7 +95,7 @@ feature {XMLNS_PARSER}
          open_nodes.push(node)
       end
 
-   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
       local
          node: XMLNS_COMPOSITE_NODE
       do
@@ -108,13 +108,13 @@ feature {XMLNS_PARSER}
          end
       end
 
-   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
       do
          open_node(node_namespace, node_name, line, column)
          close_node(node_namespace, node_name, line, column)
       end
 
-   xml_header (line, column: INTEGER) is
+   xml_header (line, column: INTEGER)
       do
          check
             tree_attributes.is_empty
@@ -123,7 +123,7 @@ feature {XMLNS_PARSER}
          clear_attributes
       end
 
-   processing_instruction (a_target, a_data: UNICODE_STRING) is
+   processing_instruction (a_target, a_data: UNICODE_STRING)
       local
          processors: FAST_ARRAY[PROCEDURE[TUPLE[UNICODE_STRING]]]; i: INTEGER
       do
@@ -140,26 +140,26 @@ feature {XMLNS_PARSER}
          end
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
       do
          if not open_nodes.is_empty then
             Result := open_nodes.top.name
          end
       end
 
-   current_namespace: UNICODE_STRING is
+   current_namespace: UNICODE_STRING
       do
          if not open_nodes.is_empty then
             Result := open_nodes.top.namespace
          end
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
       do
          -- The default tree does not recognize any other entity than XML defaults.
       end
 
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
       local
          d: XMLNS_DATA_NODE
       do
@@ -167,7 +167,7 @@ feature {XMLNS_PARSER}
          open_nodes.top.add_child(d)
       end
 
-   parse_error (line, column: INTEGER; message: STRING) is
+   parse_error (line, column: INTEGER; message: STRING)
       do
          at_error := True
          if error_handler /= Void then
@@ -188,7 +188,7 @@ feature {XMLNS_PARSER}
 feature {}
    error_handler: PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]
 
-   make (url: URL) is
+   make (url: URL)
          -- read the xml tree at the given `url'
       require
          url.is_connected implies url.read
@@ -202,29 +202,29 @@ feature {}
          parser.disconnect
       end
 
-   with_error_handler (url: URL; a_error_handler: like error_handler) is
+   with_error_handler (url: URL; a_error_handler: like error_handler)
       do
          error_handler := a_error_handler
          make(url)
       end
 
-   new_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): XMLNS_COMPOSITE_NODE is
+   new_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): XMLNS_COMPOSITE_NODE
       do
          create Result.make(node_namespace, node_name, line, column)
       end
 
-   parser: XMLNS_PARSER is
+   parser: XMLNS_PARSER
       once
          create Result.make
       end
 
 feature {} -- Memory management
-   unused_attributes: FAST_ARRAY[WEAK_REFERENCE[HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]] is
+   unused_attributes: FAST_ARRAY[WEAK_REFERENCE[HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]]
       once
          create Result.make(0)
       end
 
-   new_attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] is
+   new_attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
       local
          i: INTEGER
       do
@@ -245,7 +245,7 @@ feature {} -- Memory management
          Result.is_empty
       end
 
-   old_attributes (a_attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]) is
+   old_attributes (a_attributes: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING])
       local
          i: INTEGER; done: BOOLEAN; wr: WEAK_REFERENCE[HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]
       do
@@ -267,7 +267,7 @@ feature {} -- Memory management
          end
       end
 
-   attributes_for (namespace: UNICODE_STRING): HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING] is
+   attributes_for (namespace: UNICODE_STRING): HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
       do
          if namespace = Void then
             Result := no_namespace_attributes
@@ -284,7 +284,7 @@ feature {} -- Memory management
          namespace = Void implies Result = no_namespace_attributes
       end
 
-   clear_attributes is
+   clear_attributes
       local
          i: INTEGER
       do
@@ -311,7 +311,7 @@ end -- class XMLNS_TREE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

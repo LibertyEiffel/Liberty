@@ -4,13 +4,13 @@ inherit
    EDC_QUERY
 
 feature {ANY}
-   list (session: EDC_SESSION): TRAVERSABLE[R_] is
+   list (session: EDC_SESSION): TRAVERSABLE[R_]
       require
          session.is_open
          options.valid_session(session)
       deferred
       ensure
-         Result.for_all(agent (record: R_; s: EDC_SESSION): BOOLEAN is do Result := record.session = s end (?, session)) --| **** TODO closure
+         Result.for_all(agent (record: R_; s: EDC_SESSION): BOOLEAN do Result := record.session = s end (?, session)) --| **** TODO closure
       end
 
    options: EDC_QUERY_OPTION

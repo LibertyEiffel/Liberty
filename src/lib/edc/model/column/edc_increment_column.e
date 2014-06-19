@@ -25,7 +25,7 @@ inherit
    EDC_COMPARABLE_COLUMN[INTEGER_32]
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_INCREMENT_COLUMN_VISITOR
       do
@@ -33,12 +33,12 @@ feature {ANY}
          v.visit_increment_column(Current)
       end
 
-   hash_code (a_value: EDC_DATUM): INTEGER is
+   hash_code (a_value: EDC_DATUM): INTEGER
       do
          Result := value(a_value).hash_code
       end
 
-   as_value: EDC_INCREMENT_COLUMN_VALUE is
+   as_value: EDC_INCREMENT_COLUMN_VALUE
       do
          create Result.make(Current)
       end

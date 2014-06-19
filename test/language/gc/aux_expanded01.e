@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    string: STRING
 
-   make is
+   make
       do
          create string.make_filled(' ', 16)
       end

@@ -27,12 +27,12 @@ feature {XML_PARSER}
 
    point: XML_DTD_NODE
 
-   with_attribute (attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER)
       do
          attributes.add(new_string(attribute_value), new_string(attribute_name))
       end
 
-   is_valid_open_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_open_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
       do
          if point = Void then
             Result := root_element.name.is_equal(node_name)
@@ -48,7 +48,7 @@ feature {XML_PARSER}
          end
       end
 
-   is_valid_close_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_close_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
       do
          if point = Void then
             -- not valid!
@@ -58,19 +58,19 @@ feature {XML_PARSER}
          end
       end
 
-   is_valid_open_close_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_open_close_node (node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
       do
          Result := is_valid_open_node(node_name, line, column)
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
       do
          if point /= Void then
             Result := point.name
          end
       end
 
-   open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_name: UNICODE_STRING; line, column: INTEGER)
       local
          e: XML_DTD_ELEMENT
       do
@@ -82,7 +82,7 @@ feature {XML_PARSER}
          end
       end
 
-   close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       local
          p: like point
       do
@@ -97,47 +97,47 @@ feature {XML_PARSER}
          point := p
       end
 
-   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          open_node(node_name, line, column)
          close_node(node_name, line, column)
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
       do
          Result := entities.reference_at(a_entity)
       end
 
-   entity_url (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity_url (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
          -- When the parser reads an '''&entity;'''. Returns the entity URL if it is a SYSTEM entity.
       do
          Result := entity_urls.reference_at(a_entity)
       end
 
-   is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN
       do
          if point /= Void then
             Result := point.is_valid_data(Current, a_data)
          end
       end
 
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
       do
          -- DTD does not validate data, so we don't keep it
       end
 
-   the_end is
+   the_end
       do
          recycle_dtd_validator(Current)
       end
 
 feature {} -- Nodes management, for validation
-   nodes_pool: RECYCLING_POOL[XML_DTD_NODE] is
+   nodes_pool: RECYCLING_POOL[XML_DTD_NODE]
       once
          create Result.make
       end
 
-   new_node (node: XML_DTD_ELEMENT; parent: XML_DTD_NODE): XML_DTD_NODE is
+   new_node (node: XML_DTD_ELEMENT; parent: XML_DTD_NODE): XML_DTD_NODE
       do
          if nodes_pool.is_empty then
             create Result.make
@@ -157,7 +157,7 @@ feature {} -- Nodes management, for validation
          Result.parent = parent
       end
 
-   free_node (a_node: XML_DTD_NODE) is
+   free_node (a_node: XML_DTD_NODE)
       local
          node: XML_DTD_NODE
       do
@@ -175,7 +175,7 @@ feature {} -- Nodes management, for validation
       end
 
 feature {} -- Attributes string management
-   clear_attributes is
+   clear_attributes
       local
          key, item: UNICODE_STRING
       do
@@ -192,7 +192,7 @@ feature {} -- Attributes string management
       end
 
 feature {XML_DTD_PARSER}
-   parse_done is
+   parse_done
          -- Called when done parsing the DTD
       do
          debug
@@ -206,12 +206,12 @@ feature {XML_DTD_PARSER} -- <!ELEMENT . . .>
 
    current_element: XML_DTD_ELEMENT
 
-   element_built (element_name: UNICODE_STRING): BOOLEAN is
+   element_built (element_name: UNICODE_STRING): BOOLEAN
       do
          Result := get_element(element_name).is_built
       end
 
-   adding_element (element_name: UNICODE_STRING): BOOLEAN is
+   adding_element (element_name: UNICODE_STRING): BOOLEAN
       do
          Result := current_element /= Void and then current_element.name.is_equal(element_name)
       ensure
@@ -219,12 +219,12 @@ feature {XML_DTD_PARSER} -- <!ELEMENT . . .>
          Result implies building_element
       end
 
-   building_element: BOOLEAN is
+   building_element: BOOLEAN
       do
          Result := current_element /= Void
       end
 
-   add_element (element_name: UNICODE_STRING) is
+   add_element (element_name: UNICODE_STRING)
       require
          not element_built(element_name)
          not building_element
@@ -235,7 +235,7 @@ feature {XML_DTD_PARSER} -- <!ELEMENT . . .>
          adding_element(element_name)
       end
 
-   commit_element (element_name: UNICODE_STRING) is
+   commit_element (element_name: UNICODE_STRING)
       require
          adding_element(element_name)
       do
@@ -246,98 +246,98 @@ feature {XML_DTD_PARSER} -- <!ELEMENT . . .>
          not building_element
       end
 
-   close_fix is
+   close_fix
       require
          building_element
       do
          current_element.close_fix
       end
 
-   close_exactly_one is
+   close_exactly_one
       require
          building_element
       do
          current_element.close_exactly_one
       end
 
-   close_zero_or_one is
+   close_zero_or_one
       require
          building_element
       do
          current_element.close_zero_or_one
       end
 
-   close_zero_or_more is
+   close_zero_or_more
       require
          building_element
       do
          current_element.close_zero_or_more
       end
 
-   close_one_or_more is
+   close_one_or_more
       require
          building_element
       do
          current_element.close_one_or_more
       end
 
-   add_list is
+   add_list
       require
          building_element
       do
          current_element.add_list
       end
 
-   add_alt is
+   add_alt
       require
          building_element
       do
          current_element.add_alt
       end
 
-   child_pcdata is
+   child_pcdata
       require
          building_element
       do
          current_element.child_pcdata
       end
 
-   child_any is
+   child_any
       require
          building_element
       do
          current_element.child_any
       end
 
-   child_empty is
+   child_empty
       require
          building_element
       do
          current_element.child_empty
       end
 
-   child_one_or_more (node: UNICODE_STRING) is
+   child_one_or_more (node: UNICODE_STRING)
       require
          building_element
       do
          current_element.child_one_or_more(get_element(node))
       end
 
-   child_zero_or_more (node: UNICODE_STRING) is
+   child_zero_or_more (node: UNICODE_STRING)
       require
          building_element
       do
          current_element.child_zero_or_more(get_element(node))
       end
 
-   child_zero_or_one (node: UNICODE_STRING) is
+   child_zero_or_one (node: UNICODE_STRING)
       require
          building_element
       do
          current_element.child_zero_or_one(get_element(node))
       end
 
-   child_exactly_one (node: UNICODE_STRING) is
+   child_exactly_one (node: UNICODE_STRING)
       require
          building_element
       do
@@ -345,12 +345,12 @@ feature {XML_DTD_PARSER} -- <!ELEMENT . . .>
       end
 
 feature {}
-   root_element: XML_DTD_ELEMENT is
+   root_element: XML_DTD_ELEMENT
       do
          Result := get_element(root_name)
       end
 
-   get_element (element_name: UNICODE_STRING): XML_DTD_ELEMENT is
+   get_element (element_name: UNICODE_STRING): XML_DTD_ELEMENT
       local
          eltname: UNICODE_STRING
       do
@@ -369,7 +369,7 @@ feature {}
          Result.name.is_equal(element_name)
       end
 
-   elements_pool: RECYCLING_POOL[XML_DTD_ELEMENT] is
+   elements_pool: RECYCLING_POOL[XML_DTD_ELEMENT]
       once
          create Result.make
       end
@@ -377,7 +377,7 @@ feature {}
 feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
    attlist_element: XML_DTD_ELEMENT
 
-   building_attlist: BOOLEAN is
+   building_attlist: BOOLEAN
       do
          Result := attlist_element /= Void
          check
@@ -385,7 +385,7 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
          end
       end
 
-   has_attlist (element_name, attribute_name: UNICODE_STRING): BOOLEAN is
+   has_attlist (element_name, attribute_name: UNICODE_STRING): BOOLEAN
       local
          elt: XML_DTD_ELEMENT
       do
@@ -397,14 +397,14 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
          Result implies building_attlist
       end
 
-   adding_attlist (element_name, attribute_name: UNICODE_STRING): BOOLEAN is
+   adding_attlist (element_name, attribute_name: UNICODE_STRING): BOOLEAN
       do
          Result := attlist_element /= Void and then attlist_element.name.is_equal(element_name) and then attlist_element.adding_attlist(attribute_name)
       ensure
          Result implies building_attlist
       end
 
-   add_attlist (element_name, attribute_name: UNICODE_STRING) is
+   add_attlist (element_name, attribute_name: UNICODE_STRING)
       require
          element_built(element_name)
          not building_element
@@ -416,7 +416,7 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
          building_attlist
       end
 
-   commit_attlist (element_name, attribute_name: UNICODE_STRING) is
+   commit_attlist (element_name, attribute_name: UNICODE_STRING)
       require
          adding_attlist(element_name, attribute_name)
       do
@@ -426,98 +426,98 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
          not building_attlist
       end
 
-   addlist_list_value (value: UNICODE_STRING) is
+   addlist_list_value (value: UNICODE_STRING)
       require
          building_attlist
       do
          attlist_element.attlist_list_value(value)
       end
 
-   attlist_cdata is
+   attlist_cdata
       require
          building_attlist
       do
          attlist_element.attlist_cdata
       end
 
-   attlist_id is
+   attlist_id
       require
          building_attlist
       do
          attlist_element.attlist_id
       end
 
-   attlist_idref is
+   attlist_idref
       require
          building_attlist
       do
          attlist_element.attlist_idref
       end
 
-   attlist_idrefs is
+   attlist_idrefs
       require
          building_attlist
       do
          attlist_element.attlist_idrefs
       end
 
-   attlist_nmtoken is
+   attlist_nmtoken
       require
          building_attlist
       do
          attlist_element.attlist_nmtoken
       end
 
-   attlist_nmtokens is
+   attlist_nmtokens
       require
          building_attlist
       do
          attlist_element.attlist_nmtokens
       end
 
-   attlist_entity is
+   attlist_entity
       require
          building_attlist
       do
          attlist_element.attlist_entity
       end
 
-   attlist_entities is
+   attlist_entities
       require
          building_attlist
       do
          attlist_element.attlist_entities
       end
 
-   attlist_notation is
+   attlist_notation
       require
          building_attlist
       do
          attlist_element.attlist_notation
       end
 
-   attlist_required is
+   attlist_required
       require
          building_attlist
       do
          attlist_element.attlist_required
       end
 
-   attlist_implied is
+   attlist_implied
       require
          building_attlist
       do
          attlist_element.attlist_implied
       end
 
-   attlist_valid_fixed (value: UNICODE_STRING): BOOLEAN is
+   attlist_valid_fixed (value: UNICODE_STRING): BOOLEAN
       require
          building_attlist
       do
          Result := attlist_element.attlist_valid_fixed(value)
       end
 
-   attlist_fixed (value: UNICODE_STRING) is
+   attlist_fixed (value: UNICODE_STRING)
       require
          building_attlist
          attlist_valid_fixed(value)
@@ -525,7 +525,7 @@ feature {XML_DTD_PARSER} -- <!ATTLIST . . .>
          attlist_element.attlist_fixed(value)
       end
 
-   attlist_default_value (value: UNICODE_STRING) is
+   attlist_default_value (value: UNICODE_STRING)
       require
          building_attlist
       do
@@ -536,12 +536,12 @@ feature {XML_DTD_PARSER} -- <!ENTITY . . .>
    entities: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
    entity_urls: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
 
-   has_entity (entity_name: UNICODE_STRING): BOOLEAN is
+   has_entity (entity_name: UNICODE_STRING): BOOLEAN
       do
          Result := entities.has(entity_name)
       end
 
-   add_entity (entity_name, entity_value, entity__url: UNICODE_STRING) is
+   add_entity (entity_name, entity_value, entity__url: UNICODE_STRING)
       require
          not has_entity(entity_name)
       do
@@ -556,7 +556,7 @@ feature {XML_DTD_PARSER} -- <!ENTITY . . .>
       end
 
 feature {XML_DTD_ELEMENT}
-   backtrack_valid_data (a_children: FAST_ARRAY[XML_DTD_NODE]; a_node: like backtrack_node; a_data: like backtrack_pcdata): BOOLEAN is
+   backtrack_valid_data (a_children: FAST_ARRAY[XML_DTD_NODE]; a_node: like backtrack_node; a_data: like backtrack_pcdata): BOOLEAN
       require
          a_node /= Void
       do
@@ -570,7 +570,7 @@ feature {XML_DTD_ELEMENT}
          Result := backtrack_ok
       end
 
-   backtrack_is_valid (a_children: like backtrack_children; a_node: like backtrack_node; a_next: like backtrack_next): BOOLEAN is
+   backtrack_is_valid (a_children: like backtrack_children; a_node: like backtrack_node; a_next: like backtrack_next): BOOLEAN
       require
          a_node /= Void
          --| `a_next' can be Void, it means we are trying to close the node
@@ -586,7 +586,7 @@ feature {XML_DTD_ELEMENT}
       end
 
 feature {XML_DTD_ELEMENT}
-   backtrack_valid_child (n: XML_DTD_ELEMENT) is
+   backtrack_valid_child (n: XML_DTD_ELEMENT)
       require
          n /= Void
       do
@@ -608,7 +608,7 @@ feature {XML_DTD_ELEMENT}
       end
 
 feature {XML_DTD_PCDATA_NODE}
-   backtrack_valid_pcdata is
+   backtrack_valid_pcdata
       do
          if backtrack_children.valid_index(backtrack_index) then
             backtrack_index := backtrack_index + 1
@@ -624,14 +624,14 @@ feature {XML_DTD_PCDATA_NODE}
       end
 
 feature {XML_DTD_ANY_NODE}
-   backtrack_valid_any is
+   backtrack_valid_any
       do
          backtrack_ok := True
          stop_search_loop := True
       end
 
 feature {XML_DTD_EMPTY_NODE}
-   backtrack_valid_empty is
+   backtrack_valid_empty
       do
          if backtrack_children.is_empty then
             backtrack_ok := True
@@ -642,7 +642,7 @@ feature {XML_DTD_EMPTY_NODE}
       end
 
 feature {XML_DTD_END_NODE}
-   backtrack_valid_end is
+   backtrack_valid_end
       do
          if backtrack_children.valid_index(backtrack_index) or else backtrack_next /= Void then
             backtrack
@@ -660,28 +660,28 @@ feature {} -- Backtracking internals
    backtrack_next: UNICODE_STRING
    context: FAST_ARRAY[INTEGER]
 
-   context_clear is
+   context_clear
       do
          context.clear_count
       end
 
-   context_push is
+   context_push
       do
          context.add_last(backtrack_index)
       end
 
-   context_restore is
+   context_restore
       do
          backtrack_index := context.last
       end
 
-   context_restore_and_pop is
+   context_restore_and_pop
       do
          context_restore
          context_cut
       end
 
-   context_cut is
+   context_cut
       do
          context.remove_last
       end
@@ -689,7 +689,7 @@ feature {} -- Backtracking internals
 feature {XML_DTD_MEMORY}
    root_name: UNICODE_STRING
 
-   make (root_node_name: like root_name) is
+   make (root_node_name: like root_name)
       require
          not root_node_name.is_empty
       do
@@ -706,7 +706,7 @@ feature {XML_DTD_MEMORY}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          attributes.clear_count
          recycle_elements
@@ -716,7 +716,7 @@ feature {RECYCLING_POOL}
       end
 
 feature {}
-   recycle_elements is
+   recycle_elements
       local
          i: INTEGER
       do
@@ -733,7 +733,7 @@ feature {}
          elements.is_empty
       end
 
-   recycle_entity_urls is
+   recycle_entity_urls
       local
          i: INTEGER
       do
@@ -761,7 +761,7 @@ end -- class XML_DTD_VALIDATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

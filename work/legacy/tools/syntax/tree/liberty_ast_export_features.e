@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_all: BOOLEAN is
+   is_all: BOOLEAN
       do
          Result := nodes.item(0).name.is_equal(once "KW all")
       end
 
-   feature_names: EIFFEL_LIST_NODE is
+   feature_names: EIFFEL_LIST_NODE
       require
          not is_all
       do
@@ -34,12 +34,12 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is 1
+   count: INTEGER 1
 
-   name: STRING is "Export_Features"
+   name: STRING "Export_Features"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1 >> }
       end

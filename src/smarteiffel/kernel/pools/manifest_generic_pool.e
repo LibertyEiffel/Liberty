@@ -10,13 +10,13 @@ insert
    GLOBALS
 
 feature {}
-   collected_manifest_generic: HASHED_SET[MANIFEST_GENERIC] is
+   collected_manifest_generic: HASHED_SET[MANIFEST_GENERIC]
       once
          create Result.make
       end
 
 feature {MANIFEST_GENERIC}
-   collect (manifest_generic: MANIFEST_GENERIC) is
+   collect (manifest_generic: MANIFEST_GENERIC)
       require
          manifest_generic /= Void
       do
@@ -24,14 +24,14 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
          -- Called before a re-collect cycle.
       do
          collected_manifest_generic.clear_count
       end
 
 feature {ANY}
-   for_each (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]]) is
+   for_each (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]])
       require
          action /= Void
       do

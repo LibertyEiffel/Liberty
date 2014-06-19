@@ -7,17 +7,17 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   make is
+   make
       do
          assert(ga.foo.is_equal("bar"))
       end
 
-   ga: like Current is
+   ga: like Current
       do
          create Result
       end
 
-   foo: STRING is
+   foo: STRING
       do
          Result := "bar"
       end

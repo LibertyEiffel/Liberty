@@ -19,18 +19,18 @@ create {ANY}
    make
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := port
       end
 
-   pid: INTEGER is
+   pid: INTEGER
       do
          Result := proc.id
       end
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
@@ -49,7 +49,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          if starting then
             Result := events.event_occurred(timeout)
@@ -69,7 +69,7 @@ feature {LOOP_ITEM}
          log.trace.put_line(once " => Facade #(1): is_ready: #(2)" # port.out # Result.out)
       end
 
-   continue is
+   continue
       do
          if starting then
             if channel = Void then
@@ -121,19 +121,19 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          check False end
       end
 
 feature {ANY}
-   server_running: BOOLEAN is
+   server_running: BOOLEAN
       do
          Result := channel /= Void and then channel.is_connected
       end
 
 feature {}
-   make (a_port: like port; a_commands: like commands; a_on_reply: like on_reply; a_on_done: like on_done) is
+   make (a_port: like port; a_commands: like commands; a_on_reply: like on_reply; a_on_done: like on_done)
       require
          a_commands /= Void
          a_on_reply /= Void
@@ -153,14 +153,14 @@ feature {}
          on_done = a_on_done
       end
 
-   process_factory: PROCESS_FACTORY is
+   process_factory: PROCESS_FACTORY
       once
          Result.set_direct_input(True)
          Result.set_direct_output(True)
          Result.set_direct_error(True)
       end
 
-   server_start is
+   server_start
       local
          args: FAST_ARRAY[STRING]
       do
@@ -188,7 +188,7 @@ feature {}
    on_reply: PROCEDURE[TUPLE[INTEGER, FIXED_STRING, STRING]]
    on_done: PROCEDURE[TUPLE[INTEGER, INTEGER]]
 
-   open_channel is
+   open_channel
       require
          channel = Void or else not channel.is_connected
       do
@@ -213,14 +213,14 @@ feature {}
 
    starting: BOOLEAN
 
-   busy: BOOLEAN is
+   busy: BOOLEAN
       do
          Result := reply /= Void
       end
 
    proc: PROCESS
 
-   set_done (status: INTEGER) is
+   set_done (status: INTEGER)
       do
          log.info.put_line(once "Facade #(1): done: #(2)" # port.out # status.out)
          on_done.call([port, status])

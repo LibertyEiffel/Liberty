@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
-   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN) is
+   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN)
       deferred
       end
 

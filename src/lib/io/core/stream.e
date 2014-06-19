@@ -20,12 +20,12 @@ insert
    DISPOSABLE
 
 feature {ANY}
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- True if the stream is connected. Only in that case can data be transfered via this stream.
       deferred
       end
 
-   disconnect is
+   disconnect
          -- Try to disconnect the stream. Note that it *does not* ensure that the stream will effectively be
          -- disconnected (some terminal streams, for instance, are always connected) but the feature can be
          -- used to "shake off" filters.
@@ -35,7 +35,7 @@ feature {ANY}
       deferred
       end
 
-   descriptor: INTEGER is
+   descriptor: INTEGER
          -- Some OS-dependent descriptor. Mainly used by the sequencer library (see READY_CONDITION).
       require
          is_connected
@@ -44,7 +44,7 @@ feature {ANY}
          Result := filtered_descriptor
       end
 
-   has_descriptor: BOOLEAN is
+   has_descriptor: BOOLEAN
          -- True if that stream can be associated to some OS-meaningful descriptor.
       require
          is_connected
@@ -52,14 +52,14 @@ feature {ANY}
          Result := filtered_has_descriptor
       end
 
-   can_disconnect: BOOLEAN is
+   can_disconnect: BOOLEAN
          -- True if the stream can be safely disconnected (without data loss, etc.)
       require
          is_connected
       deferred
       end
 
-   frozen url: URL is
+   frozen url: URL
          -- The URL to this stream as resource
       do
          Result := url_memory
@@ -75,14 +75,14 @@ feature {ANY}
 feature {}
    url_memory: URL
 
-   new_url: URL is
+   new_url: URL
       deferred
       ensure
          Result /= Void
       end
 
 feature {STREAM_HANDLER}
-   stream_pointer: POINTER is
+   stream_pointer: POINTER
          -- Some Back-end-dependent pointer (FILE* in C, InputStream or OutputStream in Java)
       require
          is_connected
@@ -91,7 +91,7 @@ feature {STREAM_HANDLER}
          Result := filtered_stream_pointer
       end
 
-   has_stream_pointer: BOOLEAN is
+   has_stream_pointer: BOOLEAN
          -- True if that stream can be associated to some Back-end-meaningful stream pointer.
       require
          is_connected
@@ -100,7 +100,7 @@ feature {STREAM_HANDLER}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
          -- Find the descriptor of the terminal stream... Filters do not have descriptors of their own
       require
          is_connected
@@ -108,14 +108,14 @@ feature {FILTER}
       deferred
       end
 
-   filtered_has_descriptor: BOOLEAN is
+   filtered_has_descriptor: BOOLEAN
          -- True if the underlying terminal stream has a descriptor
       require
          is_connected
       deferred
       end
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
          -- Find the pointer of the terminal stream... Filters do not have pointers of their own
       require
          is_connected
@@ -123,7 +123,7 @@ feature {FILTER}
       deferred
       end
 
-   filtered_has_stream_pointer: BOOLEAN is
+   filtered_has_stream_pointer: BOOLEAN
          -- True if the underlying terminal stream has a pointer
       require
          is_connected
@@ -131,7 +131,7 @@ feature {FILTER}
       end
 
 feature {ANY}
-   event_exception: EVENT_DESCRIPTOR is
+   event_exception: EVENT_DESCRIPTOR
       do
          Result := stream_exception
          if Result = Void then
@@ -144,7 +144,7 @@ feature {}
    stream_exception: STREAM_EXCEPTION
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if is_connected then
             disconnect
@@ -157,7 +157,7 @@ feature {RECYCLING_POOL}
       end
 
 feature {}
-   dispose is
+   dispose
       do
          if is_connected and then can_disconnect then
             check
@@ -170,7 +170,7 @@ feature {}
       end
 
 feature {}
-   sequencer_descriptor (file: POINTER): INTEGER is
+   sequencer_descriptor (file: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -187,7 +187,7 @@ end -- class STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

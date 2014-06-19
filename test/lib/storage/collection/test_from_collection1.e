@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
       do
@@ -47,27 +47,27 @@ feature {ANY}
       end
 
 feature {}
-   model1: ARRAY[INTEGER] is
+   model1: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << 6, 7, 8, 9 >> }
       end
 
-   model2: ARRAY[INTEGER] is
+   model2: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << 1, 2 >> }
       end
 
-   model3: ARRAY[INTEGER] is
+   model3: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << -1, -3, 6, 7, 8, 9 >> }
       end
 
-   model4: LINKED_LIST[INTEGER] is
+   model4: LINKED_LIST[INTEGER]
       once
          create Result.make
       end
 
-   test (c, model: COLLECTION[INTEGER]) is
+   test (c, model: COLLECTION[INTEGER])
       local
          i1, i2: INTEGER
       do
@@ -84,7 +84,7 @@ feature {}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

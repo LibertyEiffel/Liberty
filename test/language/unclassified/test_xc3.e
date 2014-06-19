@@ -10,11 +10,11 @@ create {}
 feature {ANY}
    a: AUX_XC3S2A[AUX_XC3SG]
 
-   fn (l: AUX_XC3AA[AUX_XC3GG]) is
+   fn (l: AUX_XC3AA[AUX_XC3GG])
       do
       end
 
-   make is
+   make
       do
          fn(a)
       end

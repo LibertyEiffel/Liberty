@@ -11,25 +11,25 @@ create {}
    make
 
 feature {}
-   normal_routine1: AUX_ALG16 is
+   normal_routine1: AUX_ALG16
       do
       end
 
-   normal_routine2: AUX_ALG16 is
+   normal_routine2: AUX_ALG16
       do
          create Result.make
       end
 
-   once_routine1: AUX_ALG16 is
+   once_routine1: AUX_ALG16
       once
       end
 
-   once_routine2: AUX_ALG16 is
+   once_routine2: AUX_ALG16
       once
          create Result.make
       end
 
-   make is
+   make
       do
          assert(normal_routine1.item = 1)
          assert(normal_routine2.item = 1)

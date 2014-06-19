@@ -22,7 +22,7 @@ insert
 create {ANY} communicating_over
 
 feature {} -- Creation
-        communicating_over (an_endpoint: ABSTRACT_STRING) is
+        communicating_over (an_endpoint: ABSTRACT_STRING)
                 -- Start a new worker process that will wait for commands over a øMQ socket connected to `an_endpoint'
         require an_endpoint/=Void
         do
@@ -31,7 +31,7 @@ feature {} -- Creation
         end
 
 feature {ANY} -- Commands
-        run is
+        run
                 local command: ZMQ_STRING_MESSAGE
                 do
                         pid := process_id;
@@ -54,7 +54,7 @@ feature {ANY} -- Commands
                 end
 
 feature {ANY} -- Implementation
-        process (a_command: ZMQ_STRING_MESSAGE) is
+        process (a_command: ZMQ_STRING_MESSAGE)
                 require a_command/=Void
                 local words: COLLECTION[STRING]; index: INTEGER; cluster: CLUSTER
                 do
@@ -73,7 +73,7 @@ feature {ANY} -- Implementation
                         ("Cluster '#(2)' (##(3)) compiled by worker #(1)%N" # &pid # cluster.name # &index).print_on(std_output)
                 end
 
-        compile_class, visit_class_text (a_class: CLASS_TEXT) is
+        compile_class, visit_class_text (a_class: CLASS_TEXT)
                 local name: STRING; bc_fn: STRING -- bytecode filename
                 do
                         -- Avoid recompiling if possible. If text of the class itself or
@@ -101,7 +101,7 @@ feature {ANY} -- Implementation
                         -- For each attribute or parameter-less query define an accessor function. Note that Eiffel
                 end
 
-        compile_feature (a_feature: ANONYMOUS_FEATURE; its_name: FEATURE_NAME) is
+        compile_feature (a_feature: ANONYMOUS_FEATURE; its_name: FEATURE_NAME)
                 require a_feature/=Void
                 local name: ABSTRACT_STRING;
 
@@ -257,7 +257,7 @@ feature {ANY} -- Manifest expressions
 feature {ANY} -- Constant expression
         visit_character_constant (visited: CHARACTER_CONSTANT) is do not_yet_implemented end
         visit_integer_constant (visited: INTEGER_CONSTANT) is do not_yet_implemented end
-        visit_real_constant (a_real_constant: REAL_CONSTANT) is
+        visit_real_constant (a_real_constant: REAL_CONSTANT)
                 local llvm_constant: LLVM_CONSTANT_FP
                 do
                         -- We could rely on

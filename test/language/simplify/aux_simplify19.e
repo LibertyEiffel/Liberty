@@ -7,7 +7,7 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   aux_simplify19_test is
+   aux_simplify19_test
       do
          if {TEST_SIMPLIFY19} ?:= Current then
             assert(True)

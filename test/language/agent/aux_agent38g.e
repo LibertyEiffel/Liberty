@@ -4,7 +4,7 @@
 class AUX_AGENT38G[E -> AUX_AGENT38A]
 
 feature {ANY}
-   set_agent (a_proc: ROUTINE[TUPLE[E]]) is
+   set_agent (a_proc: ROUTINE[TUPLE[E]])
       do
          proc := a_proc
       end

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          create text.make (<<G_TYPE_STRING>>)
       end

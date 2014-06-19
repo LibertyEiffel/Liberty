@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_DELETE}
-   visit_delete (a_delete: EDC_DELETE) is
+   visit_delete (a_delete: EDC_DELETE)
       deferred
       end
 

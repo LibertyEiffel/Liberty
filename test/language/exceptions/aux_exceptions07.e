@@ -6,12 +6,12 @@ class AUX_EXCEPTIONS07
 feature {ANY}
    value: INTEGER
 
-   do_invariant_violation is
+   do_invariant_violation
       do
          value := 1
       end
 
-   restore_invariant is
+   restore_invariant
       do
          value := 0
       end

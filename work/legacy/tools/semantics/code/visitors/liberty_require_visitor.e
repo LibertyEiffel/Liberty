@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_REQUIRE}
-   visit_liberty_require (v: LIBERTY_REQUIRE) is
+   visit_liberty_require (v: LIBERTY_REQUIRE)
       deferred
       end
 

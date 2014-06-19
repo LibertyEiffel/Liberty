@@ -16,7 +16,7 @@ create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -31,7 +31,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -105,13 +105,13 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          gc_weak_reference(visited)
       end
 
 feature {}
-   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; is_weak_ref, for_closure: BOOLEAN) is
+   gc_reference_sweep (visited: TYPE_MARK; lt: LIVE_TYPE; is_weak_ref, for_closure: BOOLEAN)
       require
          lt = visited.type.live_type
          lt.is_expanded implies for_closure
@@ -205,7 +205,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference_update_weak_ref_item (visited: TYPE_MARK; lt: LIVE_TYPE) is
+   gc_reference_update_weak_ref_item (visited: TYPE_MARK; lt: LIVE_TYPE)
       require
          lt = visited.type.live_type
       local
@@ -244,7 +244,7 @@ feature {}
          end
       end
 
-   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_reference_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN)
       require
          lt = visited.type.live_type
          lt.is_expanded implies for_closure
@@ -279,7 +279,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_reference_align_mark (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN)
       require
          lt = visited.type.live_type
          lt.is_expanded implies for_closure
@@ -294,7 +294,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_reference_fsoc_model (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN)
       require
          lt = visited.type.live_type
          lt.is_expanded implies for_closure
@@ -311,7 +311,7 @@ feature {}
          cpp.write_extern_2(cpp.out_h_buffer, cpp.out_c_buffer)
       end
 
-   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_reference_new (visited: TYPE_MARK; lt: LIVE_TYPE; for_closure: BOOLEAN)
       require
          lt = visited.type.live_type
          lt.is_expanded implies for_closure
@@ -396,7 +396,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -416,7 +416,7 @@ feature {}
          end
       end
 
-   gc_weak_reference (visited: TYPE_MARK) is
+   gc_weak_reference (visited: TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -437,7 +437,7 @@ feature {}
          end
       end
 
-   gc_kernel_expanded (visited: TYPE_MARK) is
+   gc_kernel_expanded (visited: TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -452,7 +452,7 @@ feature {}
          end
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_expanded (visited: TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -477,7 +477,7 @@ feature {}
          end
       end
 
-   generate_once_gc_update_weak_ref_item_polymorph (visited: TYPE_MARK) is
+   generate_once_gc_update_weak_ref_item_polymorph (visited: TYPE_MARK)
       require
          visited.is_reference -- is_weak_ref
          not cpp.pending_c_function
@@ -508,7 +508,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   gc_set_fsoh_marked (lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_set_fsoh_marked (lt: LIVE_TYPE; for_closure: BOOLEAN)
       require
          cpp.pending_c_function
          lt.is_expanded implies for_closure
@@ -520,7 +520,7 @@ feature {}
          end
       end
 
-   gc_mark_fixed_size (lt: LIVE_TYPE; is_unmarked: BOOLEAN) is
+   gc_mark_fixed_size (lt: LIVE_TYPE; is_unmarked: BOOLEAN)
          -- The main purpose is to compute for example the best body for the corresponding
          -- gc_markXXX function (as well as gc_align_markXXX). In fact, this feature can
          -- be called to produce C code when C variable `o' is not NULL and when `o' is of
@@ -617,7 +617,7 @@ feature {}
          end
       end
 
-   insert_native_array_collector_flag (lt: LIVE_TYPE): BOOLEAN is
+   insert_native_array_collector_flag (lt: LIVE_TYPE): BOOLEAN
       require
          lt /= Void
       local
@@ -627,7 +627,7 @@ feature {}
          Result := must_collect /= Void and then must_collect.item
       end
 
-   mark_attribute (lt: LIVE_TYPE; rf2: RUN_FEATURE_2) is
+   mark_attribute (lt: LIVE_TYPE; rf2: RUN_FEATURE_2)
       require
          cpp.pending_c_function
       local
@@ -672,7 +672,7 @@ feature {}
          end
       end
 
-   gc_align_mark_fixed_size (lt: LIVE_TYPE; for_closure: BOOLEAN) is
+   gc_align_mark_fixed_size (lt: LIVE_TYPE; for_closure: BOOLEAN)
          -- Compute the best body for gc_align_markXXX of a fixed_size object.
       require
          cpp.pending_c_function
@@ -704,7 +704,7 @@ feature {}
          function_body.append(once "}%N}%N")
       end
 
-   gc_mark_na (visited: NATIVE_ARRAY_TYPE_MARK) is
+   gc_mark_na (visited: NATIVE_ARRAY_TYPE_MARK)
          -- The main purpose is to compute for example the best body for the gc_markXXX function.
          -- Actually, this feature may be called to produce C code when C variable `o' is not NULL.
       require
@@ -739,7 +739,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
          Precursor
          create wa_buf.with_capacity(24)

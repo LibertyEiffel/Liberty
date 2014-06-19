@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = again_low_level)  or else
 				(a_value = eof_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_again is
+	set_again
 		do
 			value := again_low_level
 		end
 
-	set_eof is
+	set_eof
 		do
 			value := eof_low_level
 		end
 
-	set_error is
+	set_error
 		do
 			value := error_low_level
 		end
 
-	set_normal is
+	set_normal
 		do
 			value := normal_low_level
 		end
 
 feature {ANY} -- Queries
-	is_again: BOOLEAN is
+	is_again: BOOLEAN
 		do
 			Result := (value=again_low_level)
 		end
 
-	is_eof: BOOLEAN is
+	is_eof: BOOLEAN
 		do
 			Result := (value=eof_low_level)
 		end
 
-	is_error: BOOLEAN is
+	is_error: BOOLEAN
 		do
 			Result := (value=error_low_level)
 		end
 
-	is_normal: BOOLEAN is
+	is_normal: BOOLEAN
 		do
 			Result := (value=normal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	again_low_level: INTEGER is
+	again_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	eof_low_level: INTEGER is
+	eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	error_low_level: INTEGER is
+	error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	normal_low_level: INTEGER is
+	normal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

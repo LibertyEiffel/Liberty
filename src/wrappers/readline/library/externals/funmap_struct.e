@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	READLINE_TYPES
 feature {} -- Low-level setters
 
-	funmap_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	funmap_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of FUNMAP_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	funmap_struct_set_function (a_structure: POINTER; a_value: POINTER) is
+	funmap_struct_set_function (a_structure: POINTER; a_value: POINTER)
 			-- Setter for function field of FUNMAP_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	funmap_struct_get_name (a_structure: POINTER): POINTER is
+	funmap_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of FUNMAP_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	funmap_struct_get_function (a_structure: POINTER): POINTER is
+	funmap_struct_get_function (a_structure: POINTER): POINTER
 			-- Query for function field of FUNMAP_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

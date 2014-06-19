@@ -12,7 +12,7 @@ create {ANY}
    set_work
 
 feature {ANY}
-   set_work (t: like task; tr: like task_restart; prio: INTEGER) is
+   set_work (t: like task; tr: like task_restart; prio: INTEGER)
          -- t has to return True while continue
       require
          t /= Void
@@ -28,7 +28,7 @@ feature {ANY}
 feature {LOOP_ITEM}
    done: BOOLEAN
 
-   continue is
+   continue
       local
          cont: BOOLEAN
       do
@@ -36,7 +36,7 @@ feature {LOOP_ITEM}
          done := not cont
       end
 
-   restart is
+   restart
       do
          if task_restart /= Void then
             task_restart.call([])
@@ -57,7 +57,7 @@ end -- class SIMPLE_BACKGROUND_JOB
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

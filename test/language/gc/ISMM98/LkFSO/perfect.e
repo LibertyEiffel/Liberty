@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          t: TRIANGLE; p1, p2, p3: POINT; i: INTEGER
       do

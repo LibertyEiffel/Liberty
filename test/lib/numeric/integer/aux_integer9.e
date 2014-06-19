@@ -4,7 +4,7 @@
 class AUX_INTEGER9
 
 feature {ANY}
-   foo_it (foo: NUMERIC) is
+   foo_it (foo: NUMERIC)
       require
          foo /= Void
       local

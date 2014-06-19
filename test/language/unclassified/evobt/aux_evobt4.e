@@ -4,7 +4,7 @@
 deferred class AUX_EVOBT4
 
 feature {ANY}
-   show: BOOLEAN is
+   show: BOOLEAN
       deferred
       ensure
          True

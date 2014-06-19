@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          -- Testing infix "+":
          if -128 + 127  = -1 then

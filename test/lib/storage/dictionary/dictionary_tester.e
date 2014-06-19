@@ -15,132 +15,132 @@ create {ANY}
    test
 
 feature {ANY}
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       do
          Result := tested.reference_at(k)
          assert(Result = ref.reference_at(k))
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       do
          Result := tested.fast_reference_at(k)
          assert(Result = ref.fast_reference_at(k))
       end
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       do
          Result := tested.internal_key(k)
          assert(Result = ref.internal_key(k))
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       do
          tested.add(v, k)
          ref.add(v, k)
          same_dictionaries
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       do
          Result := tested.fast_has(k)
          assert(Result = ref.fast_has(k))
       end
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       do
          Result := tested.has(k)
          assert(Result = ref.has(k))
       end
 
-   remove (k: K_) is
+   remove (k: K_)
       do
          tested.remove(k)
          ref.remove(k)
          same_dictionaries
       end
 
-   clear_count is
+   clear_count
       do
          tested.clear_count
          ref.clear_count
          same_dictionaries
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       do
          tested.clear_count_and_capacity
          ref.clear_count_and_capacity
          same_dictionaries
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       do
          Result := tested.capacity.min(ref.capacity)
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       do
          Result := tested.fast_at(k)
          assert(Result = ref.fast_at(k))
       end
 
-   fast_remove (k: K_) is
+   fast_remove (k: K_)
       do
          tested.fast_remove(k)
          ref.fast_remove(k)
          same_dictionaries
       end
 
-   item (i: INTEGER): V_ is
+   item (i: INTEGER): V_
       do
          Result := tested.item(i)
          -- No assertion here
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_)
       do
          tested.fast_put(v, k)
          ref.fast_put(v, k)
          same_dictionaries
       end
 
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       do
          tested.put(v, k)
          ref.put(v, k)
          same_dictionaries
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       do
          Result := tested.at(k)
          assert(Result = ref.at(k))
       end
 
-   key (i: INTEGER): K_ is
+   key (i: INTEGER): K_
       do
          Result := tested.key(i)
          -- No assertion here
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := tested.count
          assert(Result = ref.count)
       end
 
-   get_new_iterator_on_keys: ITERATOR[K_] is
+   get_new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
 feature {}
-   make is
+   make
       do
          clear_count
       end
 
-   test (tested_: like tested) is
+   test (tested_: like tested)
       local
          i: INTEGER
       do
@@ -156,13 +156,13 @@ feature {}
          end
       end
 
-   same_dictionaries is
+   same_dictionaries
       do
          included_in(ref, tested)
          included_in(tested, ref)
       end
 
-   included_in (a, b: DICTIONARY[V_, K_]) is
+   included_in (a, b: DICTIONARY[V_, K_])
       local
          i: INTEGER; v: V_; k: K_
       do

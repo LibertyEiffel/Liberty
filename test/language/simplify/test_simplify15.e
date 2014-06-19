@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   animal: ANIMAL is
+   animal: ANIMAL
       once
          create {DOG} Result
       end
@@ -20,7 +20,7 @@ feature {}
 
    cat: CAT
 
-   make is
+   make
       do
          if cat ?:= animal then
             c_inline_c("simplify error #1 in boost_simplify14")

@@ -20,21 +20,21 @@ create {NCURSES_PAD}
    make_sub_pad
 
 feature {ANY}
-   create_sub_pad (x, y, columns, lines: INTEGER): NCURSES_PAD is
+   create_sub_pad (x, y, columns, lines: INTEGER): NCURSES_PAD
       require
          ncurses.is_enabled
       do
          create Result.make_sub_pad(Current, x, y, columns, lines)
       end
 
-   set_visible (vl, vt: INTEGER) is
+   set_visible (vl, vt: INTEGER)
          -- Convenience only
       do
          set_visible_left(vl)
          set_visible_top(vt)
       end
 
-   set_visible_left (vl: like visible_left) is
+   set_visible_left (vl: like visible_left)
       require
          vl >= 0
       do
@@ -45,7 +45,7 @@ feature {ANY}
 
    visible_left: INTEGER
 
-   set_visible_top (vt: like visible_top) is
+   set_visible_top (vt: like visible_top)
       require
          vt >= 0
       do
@@ -56,7 +56,7 @@ feature {ANY}
 
    visible_top: INTEGER
 
-   set_viewport (x, y, w, h: INTEGER) is
+   set_viewport (x, y, w, h: INTEGER)
       require
          x.in_range(0, parent.width - 2)
          y.in_range(0, parent.height - 2)
@@ -78,7 +78,7 @@ feature {ANY}
 
    viewport_left, viewport_top, viewport_width, viewport_height: INTEGER
 
-   refresh_later is
+   refresh_later
       local
          ok: INTEGER
       do
@@ -87,14 +87,14 @@ feature {ANY}
       end
 
 feature {}
-   make_pad (columns, lines: INTEGER) is
+   make_pad (columns, lines: INTEGER)
       do
          set_widget(newpad(lines, columns))
          set_parent(ncurses.get_root_window)
          init
       end
 
-   make_sub_pad (p: NCURSES_PAD; x, y, columns, lines: INTEGER) is
+   make_sub_pad (p: NCURSES_PAD; x, y, columns, lines: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -103,7 +103,7 @@ feature {}
          init
       end
 
-   newpad (h, w: INTEGER): POINTER is
+   newpad (h, w: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -112,7 +112,7 @@ feature {}
          }"
       end
 
-   subpad (orig: POINTER; h, w, y, x: INTEGER): POINTER is
+   subpad (orig: POINTER; h, w, y, x: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -121,7 +121,7 @@ feature {}
          }"
       end
 
-   pnoutrefresh (pad: POINTER; pminrow, pmincol, sminrow, smincol, smaxrow, smaxcol: INTEGER): INTEGER is
+   pnoutrefresh (pad: POINTER; pminrow, pmincol, sminrow, smincol, smaxrow, smaxcol: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -138,7 +138,7 @@ end -- class NCURSES_PAD
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

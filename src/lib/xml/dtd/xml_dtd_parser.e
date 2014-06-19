@@ -22,12 +22,12 @@ create {XML_PARSER}
    make
 
 feature {XML_PARSER} -- Error reporting
-   has_error: BOOLEAN is
+   has_error: BOOLEAN
       do
          Result := error /= Void
       end
 
-   error_message: STRING is
+   error_message: STRING
       require
          has_error
       do
@@ -36,7 +36,7 @@ feature {XML_PARSER} -- Error reporting
       end
 
 feature {XML_PARSER}
-   parse (a_buffer: like buffer): XML_DTD_VALIDATOR is
+   parse (a_buffer: like buffer): XML_DTD_VALIDATOR
       require
          a_buffer /= Void
       local
@@ -97,7 +97,7 @@ feature {}
    urls: FAST_ARRAY[URL]
    buffers: FAST_ARRAY[UNICODE_PARSER_BUFFER]
 
-   set_buffer (a_buffer: UNICODE_PARSER_BUFFER) is
+   set_buffer (a_buffer: UNICODE_PARSER_BUFFER)
       do
          if urls = Void then
             create urls.make(0)
@@ -107,7 +107,7 @@ feature {}
          buffers.add_last(a_buffer)
       end
 
-   set_url (a_url: URL) is
+   set_url (a_url: URL)
       local
          u: URL; b: UNICODE_PARSER_BUFFER
       do
@@ -140,21 +140,21 @@ feature {}
          end
       end
 
-   url: URL is
+   url: URL
       do
          if urls /= Void then
             Result := urls.last
          end
       end
 
-   buffer: UNICODE_PARSER_BUFFER is
+   buffer: UNICODE_PARSER_BUFFER
       do
          if buffers /= Void then
             Result := buffers.last
          end
       end
 
-   relative_url (a_url: STRING): URL is
+   relative_url (a_url: STRING): URL
       require
          not a_url.is_empty
       local
@@ -179,7 +179,7 @@ feature {}
          Result.read_only
       end
 
-   parse_system_dtd (validator: XML_DTD_VALIDATOR): URL is
+   parse_system_dtd (validator: XML_DTD_VALIDATOR): URL
       local
          path, err: STRING
       do
@@ -207,7 +207,7 @@ feature {}
          has_error implies Result = Void
       end
 
-   parse_public_dtd (validator: XML_DTD_VALIDATOR): URL is
+   parse_public_dtd (validator: XML_DTD_VALIDATOR): URL
       local
          p, pubid: UNICODE_STRING; dtd_url, err: STRING; u: URL; repo: XML_DTD_PUBLIC_REPOSITORY
       do
@@ -247,7 +247,7 @@ feature {}
          has_error implies Result = Void
       end
 
-   parse_external_dtd (validator: XML_DTD_VALIDATOR; a_url: URL) is
+   parse_external_dtd (validator: XML_DTD_VALIDATOR; a_url: URL)
       require
          a_url.is_connected
          not has_error
@@ -274,7 +274,7 @@ feature {}
          buffer.index = old buffer.index
       end
 
-   parse_inline_dtd (validator: XML_DTD_VALIDATOR) is
+   parse_inline_dtd (validator: XML_DTD_VALIDATOR)
       do
          skip_blanks
          if skip('[') then
@@ -286,7 +286,7 @@ feature {}
          end
       end
 
-   parse_dtd (validator: XML_DTD_VALIDATOR; standalone: BOOLEAN) is
+   parse_dtd (validator: XML_DTD_VALIDATOR; standalone: BOOLEAN)
       local
          done: BOOLEAN; id: STRING
       do
@@ -351,7 +351,7 @@ feature {}
          end
       end
 
-   parse_xml_header is
+   parse_xml_header
       local
          done: BOOLEAN
       do
@@ -380,7 +380,7 @@ feature {}
          end
       end
 
-   parse_attribute: BOOLEAN is
+   parse_attribute: BOOLEAN
          -- an attribute in the XML header
       local
          a, an_attribute, value: STRING
@@ -415,7 +415,7 @@ feature {}
          end
       end
 
-   skip_comment is
+   skip_comment
       local
          state: INTEGER
       do
@@ -453,7 +453,7 @@ feature {}
          end
       end
 
-   parse_element (validator: XML_DTD_VALIDATOR) is
+   parse_element (validator: XML_DTD_VALIDATOR)
       local
          node: UNICODE_STRING
       do
@@ -472,7 +472,7 @@ feature {}
          end
       end
 
-   parse_element_children (validator: XML_DTD_VALIDATOR) is
+   parse_element_children (validator: XML_DTD_VALIDATOR)
       do
          parse_element_child_list(validator)
          if not has_error then
@@ -485,7 +485,7 @@ feature {}
          end
       end
 
-   parse_element_child_list (validator: XML_DTD_VALIDATOR) is
+   parse_element_child_list (validator: XML_DTD_VALIDATOR)
       local
          done: BOOLEAN
       do
@@ -504,7 +504,7 @@ feature {}
          end
       end
 
-   parse_element_child_alt (validator: XML_DTD_VALIDATOR) is
+   parse_element_child_alt (validator: XML_DTD_VALIDATOR)
       local
          done: BOOLEAN
       do
@@ -523,7 +523,7 @@ feature {}
          end
       end
 
-   parse_element_child (validator: XML_DTD_VALIDATOR) is
+   parse_element_child (validator: XML_DTD_VALIDATOR)
       local
          node: UNICODE_STRING
       do
@@ -587,7 +587,7 @@ feature {}
          end
       end
 
-   parse_attlist (validator: XML_DTD_VALIDATOR) is
+   parse_attlist (validator: XML_DTD_VALIDATOR)
       local
          n, node, att, id: UNICODE_STRING; sid: STRING; done: BOOLEAN
       do
@@ -687,7 +687,7 @@ feature {}
          end
       end
 
-   parse_attlist_option (validator: XML_DTD_VALIDATOR) is
+   parse_attlist_option (validator: XML_DTD_VALIDATOR)
       local
          id: STRING; val: UNICODE_STRING
       do
@@ -734,7 +734,7 @@ feature {}
          end
       end
 
-   parse_entity (validator: XML_DTD_VALIDATOR) is
+   parse_entity (validator: XML_DTD_VALIDATOR)
       local
          peid, id, val, pubid: UNICODE_STRING; sval: STRING; uval: UNICODE_STRING
       do
@@ -839,7 +839,7 @@ feature {}
       end
 
 feature {}
-   entity_system_file (path: STRING): UNICODE_STRING is
+   entity_system_file (path: STRING): UNICODE_STRING
       local
          u: URL
       do
@@ -856,7 +856,7 @@ feature {}
          end
       end
 
-   entity_public_url (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING is
+   entity_public_url (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING
       local
          repo: XML_DTD_PUBLIC_REPOSITORY; u, file_url: URL
       do
@@ -874,7 +874,7 @@ feature {}
          end
       end
 
-   entity_public_file (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING is
+   entity_public_file (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING
       local
          repo: XML_DTD_PUBLIC_REPOSITORY; u, file_url: URL; err: STRING
       do
@@ -901,7 +901,7 @@ feature {}
          end
       end
 
-   read_stream_in (a_buffer: UNICODE_STRING; u: URL) is
+   read_stream_in (a_buffer: UNICODE_STRING; u: URL)
       require
          u.is_connected
       local
@@ -929,7 +929,7 @@ feature {}
 feature {}
    in_comment: BOOLEAN
 
-   next is
+   next
       local
          pe_entity_name, string: UNICODE_STRING; err: STRING
       do
@@ -1014,7 +1014,7 @@ feature {}
          end
       end
 
-   current_character: INTEGER is
+   current_character: INTEGER
       do
          if pe_entity_names = Void or else pe_entity_names.is_empty then
             Result := Precursor
@@ -1023,7 +1023,7 @@ feature {}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          if pe_entity_names = Void or else pe_entity_names.is_empty then
             Result := Precursor
@@ -1036,14 +1036,14 @@ feature {}
    pe_entities: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
    pe_index: INTEGER
 
-   has_pe_entity (pe_entity_name: UNICODE_STRING): BOOLEAN is
+   has_pe_entity (pe_entity_name: UNICODE_STRING): BOOLEAN
       do
          if pe_entities /= Void then
             Result := pe_entities.has(pe_entity_name)
          end
       end
 
-   add_pe_entity (pe_entity_name, string: UNICODE_STRING) is
+   add_pe_entity (pe_entity_name, string: UNICODE_STRING)
       require
          not has_pe_entity(pe_entity_name)
       do
@@ -1054,15 +1054,15 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   Error_end_of_file: STRING is "Unexpected end of file"
+   Error_end_of_file: STRING "Unexpected end of file"
 
    error: STRING
 
-   set_error (a_error: STRING) is
+   set_error (a_error: STRING)
       local
          i: INTEGER
       do
@@ -1095,7 +1095,7 @@ end -- class XML_DTD_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

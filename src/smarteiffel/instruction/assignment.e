@@ -19,7 +19,7 @@ create {ANY}
    inline_make
 
 feature {ANY}
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          rs: like right_side
       do
@@ -32,7 +32,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          l, r: EXPRESSION
       do
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          l, r: EXPRESSION
       do
@@ -58,7 +58,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       local
          l, r: EXPRESSION; lt, rt: TYPE; written_site: STRING
          call_twin: FUNCTION_CALL_0
@@ -118,7 +118,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          semi_colon_flag: BOOLEAN; expression_with_comment: EXPRESSION_WITH_COMMENT
       do
@@ -145,12 +145,12 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: ASSIGNMENT_VISITOR) is
+   accept (visitor: ASSIGNMENT_VISITOR)
       do
          visitor.visit_assignment(Current)
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       local
          left_type, right_type: TYPE; left_live_type: LIVE_TYPE
       do
@@ -169,7 +169,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          l: like left_side; r: like right_side
       do
@@ -183,7 +183,7 @@ feature {ANY}
       end
 
 feature {}
-   fatal_error_for (msg: STRING; context_type, lt, rt: TYPE) is
+   fatal_error_for (msg: STRING; context_type, lt, rt: TYPE)
       require
          error_handler.is_empty
       do
@@ -207,7 +207,7 @@ feature {}
          error_handler.print_as_fatal_error
       end
 
-   make (ls: like left_side; rs: like right_side) is
+   make (ls: like left_side; rs: like right_side)
          -- Note: this creation procedure is for example called by the `eiffel_parser' which is in charge
          -- of checking that `ls' is actually a writable entity. (See also `inline_make'.)
       require
@@ -222,7 +222,7 @@ feature {}
          right_side = rs
       end
 
-   inline_make (ls: like left_side; rs: like right_side) is
+   inline_make (ls: like left_side; rs: like right_side)
          -- This creation procedure is called to inline for example a procedure which is actually an
          -- attribute setter, hence the `is_writable' property is not necessary. (See also `make'.)
       require
@@ -237,7 +237,7 @@ feature {}
       end
 
 feature {ANONYMOUS_FEATURE}
-   reset_default_value_in_local_or_result (type: TYPE): BOOLEAN is
+   reset_default_value_in_local_or_result (type: TYPE): BOOLEAN
          -- Does this statement reset a local or Result to its default value?
       local
          result_type: TYPE; integer_constant: INTEGER_CONSTANT; implicit_cast: IMPLICIT_CAST
@@ -275,7 +275,7 @@ feature {ANONYMOUS_FEATURE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          rs: like right_side; code_accumulator_index: INTEGER
       do

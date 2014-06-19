@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          path: STRING
       do

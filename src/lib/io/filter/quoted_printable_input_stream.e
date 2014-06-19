@@ -16,10 +16,10 @@ feature {ANY}
    last_character_flag: BOOLEAN
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       local
          c: CHARACTER
       do
@@ -37,7 +37,7 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          swap_last_character
          last_character_flag := True
@@ -46,7 +46,7 @@ feature {FILTER_INPUT_STREAM}
    filtered_last_character: CHARACTER
 
 feature {}
-   read_quoted_character: BOOLEAN is
+   read_quoted_character: BOOLEAN
       local
          s: STRING; i: INTEGER
       do
@@ -67,7 +67,7 @@ feature {}
 
    last_character_swap: CHARACTER
 
-   swap_last_character is
+   swap_last_character
       local
          c: CHARACTER
       do
@@ -76,7 +76,7 @@ feature {}
          last_character_swap := c
       end
 
-   from_hexadecimal (s: STRING): INTEGER is
+   from_hexadecimal (s: STRING): INTEGER
       local
          i, n: INTEGER; c: CHARACTER
       do
@@ -110,7 +110,7 @@ end -- class QUOTED_PRINTABLE_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -15,7 +15,7 @@ feature {ANY}
 
    t_real: ARRAY[REAL]
 
-   make is
+   make
       local
          cat: CAT; dog: DOG
       do
@@ -39,7 +39,7 @@ feature {ANY}
          t_animal := {ARRAY[ANIMAL] 1, << cat, dog >> }
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

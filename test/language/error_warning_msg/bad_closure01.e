@@ -4,12 +4,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: INTEGER
       do
          (
-            agent is
+            agent
                do
                   a := 5
                end

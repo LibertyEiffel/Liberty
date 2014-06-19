@@ -6,7 +6,7 @@ expanded class AUX_EG14B
 feature {ANY}
    a: AUX_EG14A
 
-   put (x: INTEGER; i: INTEGER) is
+   put (x: INTEGER; i: INTEGER)
       do
          a.put(x, i)
       end

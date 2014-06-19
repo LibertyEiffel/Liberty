@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CST_ATT_CHARACTER}
-   visit_cst_att_character (visited: CST_ATT_CHARACTER) is
+   visit_cst_att_character (visited: CST_ATT_CHARACTER)
       require
          visited /= Void
       deferred

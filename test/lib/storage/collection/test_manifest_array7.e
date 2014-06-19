@@ -11,7 +11,7 @@ feature {ANY}
 
    t_quadruped: ARRAY[QUADRUPED]
 
-   make is
+   make
       local
          cat: CAT
       do
@@ -22,7 +22,7 @@ feature {ANY}
          assert(t_quadruped.first = t_animal.first)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

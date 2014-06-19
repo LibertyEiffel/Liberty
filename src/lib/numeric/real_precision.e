@@ -4,7 +4,7 @@
 expanded class REAL_PRECISION
 
 feature {ANY}
-   set_precision (a_precision: like precision) is
+   set_precision (a_precision: like precision)
          -- Set the mantissa precision, used by the `~=' operator
          -- The nearer to 0, the more precise.
       require
@@ -15,7 +15,7 @@ feature {ANY}
          precision = a_precision
       end
 
-   precision: INTEGER_8 is
+   precision: INTEGER_8
       do
          Result := precision_ref.item
       ensure
@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {}
-   precision_ref: REFERENCE[INTEGER_8] is
+   precision_ref: REFERENCE[INTEGER_8]
       once
          create Result.set_item(3)
       end
@@ -36,7 +36,7 @@ end -- class REAL_PRECISION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

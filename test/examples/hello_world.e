@@ -4,7 +4,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          std_output.put_line("Hello, world!")
          debug

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {IFTHENELSE_EXP}
-   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP)
       require
          visited /= Void
       deferred

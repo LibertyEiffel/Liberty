@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = default_abi_low_level)  or else
 				(a_value = first_abi_low_level)  or else
@@ -18,59 +18,59 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_default_abi is
+	set_default_abi
 		do
 			value := default_abi_low_level
 		end
 
-	set_first_abi is
+	set_first_abi
 		do
 			value := first_abi_low_level
 		end
 
-	set_last_abi is
+	set_last_abi
 		do
 			value := last_abi_low_level
 		end
 
-	set_sysv is
+	set_sysv
 		do
 			value := sysv_low_level
 		end
 
-	set_unix64 is
+	set_unix64
 		do
 			value := unix64_low_level
 		end
 
 feature {ANY} -- Queries
-	is_default_abi: BOOLEAN is
+	is_default_abi: BOOLEAN
 		do
 			Result := (value=default_abi_low_level)
 		end
 
-	is_first_abi: BOOLEAN is
+	is_first_abi: BOOLEAN
 		do
 			Result := (value=first_abi_low_level)
 		end
 
-	is_last_abi: BOOLEAN is
+	is_last_abi: BOOLEAN
 		do
 			Result := (value=last_abi_low_level)
 		end
 
-	is_sysv: BOOLEAN is
+	is_sysv: BOOLEAN
 		do
 			Result := (value=sysv_low_level)
 		end
 
-	is_unix64: BOOLEAN is
+	is_unix64: BOOLEAN
 		do
 			Result := (value=unix64_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	default_abi_low_level: INTEGER is
+	default_abi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	first_abi_low_level: INTEGER is
+	first_abi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	last_abi_low_level: INTEGER is
+	last_abi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sysv_low_level: INTEGER is
+	sysv_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unix64_low_level: INTEGER is
+	unix64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

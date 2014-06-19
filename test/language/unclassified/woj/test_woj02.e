@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          -- (2) Use expanded types:
          create r_exp.set_item(exp)

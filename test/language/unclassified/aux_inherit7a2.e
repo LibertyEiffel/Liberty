@@ -7,7 +7,7 @@ inherit
    AUX_INHERIT7A
 
 feature {ANY} -- Access
-   x: AUX_INHERIT7B2 is
+   x: AUX_INHERIT7B2
       do
          create Result.make(4, Current)
       end

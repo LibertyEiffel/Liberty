@@ -17,7 +17,7 @@ feature {ANY}
          -- Indicate wheter the live code uses EXCEPTIONS or not.
 
 feature {C_CODE_COMPILER}
-   bad_inspect_value (p: POSITION) is
+   bad_inspect_value (p: POSITION)
          -- When some Eiffel "inspect" instruction without the optional "else" part does not match the input.
       require
          cpp.pending_c_function
@@ -33,27 +33,27 @@ feature {C_CODE_COMPILER}
       end
 
 feature {RUN_FEATURE, EXTERNAL_ROUTINE}
-   set_used is
+   set_used
       do
          used := True
       end
 
 feature {C_PRETTY_PRINTER}
-   customize_c_runtime is
+   customize_c_runtime
       do
          if used then
             cpp.sys_runtime_h_and_c(once "exceptions")
          end
       end
 
-   initialize_runtime is
+   initialize_runtime
       do
          if used then
             cpp.pending_c_function_body.append(once "setup_signal_handler();%N")
          end
       end
 
-   se_evobt is
+   se_evobt
       require
          ace.boost
       do
@@ -65,7 +65,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

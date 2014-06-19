@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xml_hash_add_entry (a_table: POINTER; a_name: POINTER; an_userdata: POINTER): INTEGER is
+	xml_hash_add_entry (a_table: POINTER; a_name: POINTER; an_userdata: POINTER): INTEGER
  		-- xmlHashAddEntry
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_add_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; an_userdata: POINTER): INTEGER is
+	xml_hash_add_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; an_userdata: POINTER): INTEGER
  		-- xmlHashAddEntry2
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_add_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; an_userdata: POINTER): INTEGER is
+	xml_hash_add_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; an_userdata: POINTER): INTEGER
  		-- xmlHashAddEntry3
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_copy (a_table: POINTER; a_f: POINTER): POINTER is
+	xml_hash_copy (a_table: POINTER; a_f: POINTER): POINTER
  		-- xmlHashCopy
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_create (a_size: INTEGER): POINTER is
+	xml_hash_create (a_size: INTEGER): POINTER
  		-- xmlHashCreate
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_create_dict (a_size: INTEGER; a_dict: POINTER): POINTER is
+	xml_hash_create_dict (a_size: INTEGER; a_dict: POINTER): POINTER
  		-- xmlHashCreateDict
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_free (a_table: POINTER; a_f: POINTER) is
+	xml_hash_free (a_table: POINTER; a_f: POINTER)
  		-- xmlHashFree
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_lookup (a_table: POINTER; a_name: POINTER): POINTER is
+	xml_hash_lookup (a_table: POINTER; a_name: POINTER): POINTER
  		-- xmlHashLookup
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_lookup2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER): POINTER is
+	xml_hash_lookup2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER): POINTER
  		-- xmlHashLookup2
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_lookup3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER): POINTER is
+	xml_hash_lookup3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER): POINTER
  		-- xmlHashLookup3
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_qlookup (a_table: POINTER; a_name: POINTER; a_prefix: POINTER): POINTER is
+	xml_hash_qlookup (a_table: POINTER; a_name: POINTER; a_prefix: POINTER): POINTER
  		-- xmlHashQLookup
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_qlookup2 (a_table: POINTER; a_name: POINTER; a_prefix: POINTER; a_name2: POINTER; a_prefix2: POINTER): POINTER is
+	xml_hash_qlookup2 (a_table: POINTER; a_name: POINTER; a_prefix: POINTER; a_name2: POINTER; a_prefix2: POINTER): POINTER
  		-- xmlHashQLookup2
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_qlookup3 (a_table: POINTER; a_name: POINTER; a_prefix: POINTER; a_name2: POINTER; a_prefix2: POINTER; a_name3: POINTER; a_prefix3: POINTER): POINTER is
+	xml_hash_qlookup3 (a_table: POINTER; a_name: POINTER; a_prefix: POINTER; a_name2: POINTER; a_prefix2: POINTER; a_name3: POINTER; a_prefix3: POINTER): POINTER
  		-- xmlHashQLookup3
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_remove_entry (a_table: POINTER; a_name: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_remove_entry (a_table: POINTER; a_name: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashRemoveEntry
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_remove_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_remove_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashRemoveEntry2
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_remove_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_remove_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashRemoveEntry3
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_scan (a_table: POINTER; a_f: POINTER; a_data: POINTER) is
+	xml_hash_scan (a_table: POINTER; a_f: POINTER; a_data: POINTER)
  		-- xmlHashScan
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_scan3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER; a_data: POINTER) is
+	xml_hash_scan3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER; a_data: POINTER)
  		-- xmlHashScan3
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_scan_full (a_table: POINTER; a_f: POINTER; a_data: POINTER) is
+	xml_hash_scan_full (a_table: POINTER; a_f: POINTER; a_data: POINTER)
  		-- xmlHashScanFull
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_scan_full3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER; a_data: POINTER) is
+	xml_hash_scan_full3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; a_f: POINTER; a_data: POINTER)
  		-- xmlHashScanFull3
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_size (a_table: POINTER): INTEGER is
+	xml_hash_size (a_table: POINTER): INTEGER
  		-- xmlHashSize
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_update_entry (a_table: POINTER; a_name: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_update_entry (a_table: POINTER; a_name: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashUpdateEntry
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_update_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_update_entry2 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashUpdateEntry2
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_hash_update_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER is
+	xml_hash_update_entry3 (a_table: POINTER; a_name: POINTER; a_name2: POINTER; a_name3: POINTER; an_userdata: POINTER; a_f: POINTER): INTEGER
  		-- xmlHashUpdateEntry3
 		external "plug_in"
 		alias "{

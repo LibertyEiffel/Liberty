@@ -16,15 +16,15 @@ create {AGENT_CREATION, CALL_INFIX}
    with
 
 feature {ANY}
-   precedence: INTEGER is 10
+   precedence: INTEGER 10
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := feature_name.to_string
       end
-      --|*** simplify_1_: EXPRESSION is
+      --|*** simplify_1_: EXPRESSION
       --|*** do
       --|*** target := target.simplify_1
       --|*** arguments.simplify_1
@@ -33,13 +33,13 @@ feature {ANY}
       --|*** end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_FREEOP_VISITOR) is
+   accept (visitor: CALL_INFIX_FREEOP_VISITOR)
       do
          visitor.visit_call_infix_freeop(Current)
       end
 
 feature {}
-   make (lp: like target; in: like feature_name; rp: like arg1) is
+   make (lp: like target; in: like feature_name; rp: like arg1)
       require
          lp /= Void
          in.is_free_operator

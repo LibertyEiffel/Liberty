@@ -14,7 +14,7 @@ insert
    SINGLETON
 
 feature {ANY}
-   start_with (ms: MANIFEST_STRING) is
+   start_with (ms: MANIFEST_STRING)
          -- Getting started with `ms', the `item' is set with the first non-blank character.
       require
          ms /= Void
@@ -29,7 +29,7 @@ feature {ANY}
          not is_off implies not item.is_separator
       end
 
-   item: CHARACTER is
+   item: CHARACTER
          -- The one at current position.
       require
          not is_off
@@ -37,19 +37,19 @@ feature {ANY}
          Result := to_string.item(idx)
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := idx > count
       end
 
-   next is
+   next
       require
          not is_off
       do
          idx := idx + 1
       end
 
-   skip_separators is
+   skip_separators
          -- (Use `is_separator' of class CHARACTER.)
       do
          from
@@ -62,7 +62,7 @@ feature {ANY}
          not is_off implies not item.is_separator
       end
 
-   a_keyword (keyword: STRING): BOOLEAN is
+   a_keyword (keyword: STRING): BOOLEAN
          -- Look for a `keyword' beginning strictly at current position, then,
          -- `skip_separators' is automatically called. A keyword is never followed
          -- by a character of this set: {'A'..'Z','a'..'z','0'..'9','_'}.
@@ -97,7 +97,7 @@ feature {ANY}
          is_off or else not item.is_separator
       end
 
-   a_word (keyword: STRING): BOOLEAN is
+   a_word (keyword: STRING): BOOLEAN
          -- Is it a single stand-alone `keyword'?
       require
          not item.is_separator
@@ -116,8 +116,8 @@ feature {ANY}
          Result implies is_off
       end
 
-   a_file_or_directory_path: STRING is
-         -- To be called when we have to find a directory or a file path name. Variables substitution is
+   a_file_or_directory_path: STRING
+         -- To be called when we have to find a directory or a file path name. Variables substitution
          -- performed automatically.
          -- (Note that this function does not check that the file (or the directory) actually exists.)
       require
@@ -159,7 +159,7 @@ feature {ANY}
          skip_separators_called: is_off or else not item.is_separator
       end
 
-   an_identifier: STRING is
+   an_identifier: STRING
       local
          stop: BOOLEAN
       do
@@ -193,7 +193,7 @@ feature {ANY}
          skip_separators_called: is_off or else not item.is_separator
       end
 
-   a_name: STRING is
+   a_name: STRING
       do
          --|*** (Dom may 7th 2004) ***
          --| Because I am tired:
@@ -202,7 +202,7 @@ feature {ANY}
          skip_separators_called: is_off or else not item.is_separator
       end
 
-   a_include: STRING is
+   a_include: STRING
          -- Always return some file name wich may looks like a file to include: "....foo.h" or <...foo.h>.
          -- When the file name is not properly brace with "..." or <...>, the standard "..." are automatically
          -- added.
@@ -242,14 +242,14 @@ feature {ANY}
          is_off or else not item.is_separator
       end
 
-   a_field_or_variable_name: STRING is
+   a_field_or_variable_name: STRING
       do
          Result := a_type_cast
       ensure
          is_off or else not item.is_separator
       end
 
-   a_type_cast: STRING is
+   a_type_cast: STRING
          -- Read an expected C cast.
       require
          not item.is_separator
@@ -288,7 +288,7 @@ feature {ANY}
          is_off or else not item.is_separator
       end
 
-   a_signature: FAST_ARRAY[STRING] is
+   a_signature: FAST_ARRAY[STRING]
          -- Read the expected external signature.
       require
          not item.is_separator
@@ -328,7 +328,7 @@ feature {ANY}
       end
 
 feature {NATIVE_PLUG_IN}
-   show_position_with_fatal_error (msg: STRING) is
+   show_position_with_fatal_error (msg: STRING)
          -- To help the user to locate the position of the `fatal_error' (no return from this call).
       local
          i: INTEGER

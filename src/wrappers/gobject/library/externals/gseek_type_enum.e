@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_seek_cur_low_level)  or else
 				(a_value = g_seek_end_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_seek_cur is
+	set_g_seek_cur
 		do
 			value := g_seek_cur_low_level
 		end
 
-	set_g_seek_end is
+	set_g_seek_end
 		do
 			value := g_seek_end_low_level
 		end
 
-	set_g_seek_set is
+	set_g_seek_set
 		do
 			value := g_seek_set_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_seek_cur: BOOLEAN is
+	is_g_seek_cur: BOOLEAN
 		do
 			Result := (value=g_seek_cur_low_level)
 		end
 
-	is_g_seek_end: BOOLEAN is
+	is_g_seek_end: BOOLEAN
 		do
 			Result := (value=g_seek_end_low_level)
 		end
 
-	is_g_seek_set: BOOLEAN is
+	is_g_seek_set: BOOLEAN
 		do
 			Result := (value=g_seek_set_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_seek_cur_low_level: INTEGER is
+	g_seek_cur_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_seek_end_low_level: INTEGER is
+	g_seek_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_seek_set_low_level: INTEGER is
+	g_seek_set_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

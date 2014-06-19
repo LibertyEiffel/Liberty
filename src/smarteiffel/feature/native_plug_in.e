@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {SMART_EIFFEL}
-   customize_runtime is
+   customize_runtime
       do
          plugin.include(start_position)
       end
@@ -25,14 +25,14 @@ feature {NATIVE_PLUG_IN, NATIVE_PLUG_IN_VISITOR}
    plugin: PLUGIN
 
 feature {ANY}
-   use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
+   use_current (er: EXTERNAL_ROUTINE): BOOLEAN
       do
          -- No. Only arguments are used.
       end
 
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          check -- Must be collected.
             plugin /= Void
@@ -40,23 +40,23 @@ feature {ANY}
          Result := plugin.is_equal(other.plugin) and then feature_name.same_as(other.feature_name)
       end
 
-   c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING) is
+   c_define_function (rf8: RUN_FEATURE_8; bcn, name: STRING)
       do
          -- This is obviously defined outside.
       end
 
-   c_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING) is
+   c_define_procedure (rf7: RUN_FEATURE_7; bcn, name: STRING)
       do
          -- This is obviously defined outside.
       end
 
-   accept (visitor: NATIVE_PLUG_IN_VISITOR) is
+   accept (visitor: NATIVE_PLUG_IN_VISITOR)
       do
          visitor.visit_native_plug_in(Current)
       end
 
 feature {EXTERNAL_ROUTINE}
-   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE)
       do
          if plugin = Void then
             parse_alias_string(external_routine.alias_string)
@@ -68,7 +68,7 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {EXTERNAL_TYPE}
-   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE) is
+   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE)
       local
          type_name, default_value: STRING
       do
@@ -84,7 +84,7 @@ feature {EXTERNAL_TYPE}
          smart_eiffel.register_plug_in(Current)
       end
 
-   do_collect is
+   do_collect
       do
          hash_code := plugin.hash_code.bit_xor(feature_name.hash_code)
          smart_eiffel.register_plug_in(Current)
@@ -93,7 +93,7 @@ feature {EXTERNAL_TYPE}
 feature {}
    alias_data: DICTIONARY[STRING, STRING]
 
-   parse_alias_string (alias_string: MANIFEST_STRING) is
+   parse_alias_string (alias_string: MANIFEST_STRING)
       local
          location, module_name, key, value: STRING
       do
@@ -140,7 +140,7 @@ feature {}
          feature_name /= Void
       end
 
-   required_key (key: STRING): STRING is
+   required_key (key: STRING): STRING
       do
          Result := alias_data.reference_at(key)
          if Result = Void then
@@ -151,7 +151,7 @@ feature {}
          alias_data.remove(key)
       end
 
-   check_unused_keys is
+   check_unused_keys
       local
          i: INTEGER
       do

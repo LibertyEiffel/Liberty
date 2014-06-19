@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_source_set_closure (a_source: POINTER; a_closure: POINTER) is
+	g_source_set_closure (a_source: POINTER; a_closure: POINTER)
  		-- g_source_set_closure
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_source_set_dummy_callback (a_source: POINTER) is
+	g_source_set_dummy_callback (a_source: POINTER)
  		-- g_source_set_dummy_callback
 		external "plug_in"
 		alias "{

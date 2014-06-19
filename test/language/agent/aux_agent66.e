@@ -5,13 +5,13 @@ expanded class AUX_AGENT66
    -- A "dummy expanded" class
 
 feature {TEST_AGENT66}
-   an_agent: ROUTINE[TUPLE] is
+   an_agent: ROUTINE[TUPLE]
       do
          Result := agent do_something
       end
 
 feature {}
-   do_something is
+   do_something
       do
       end
 

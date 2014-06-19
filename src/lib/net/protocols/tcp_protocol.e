@@ -17,14 +17,14 @@ insert
 feature {ANY}
    error: STRING
 
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       do
          Result := is_absolute_uri(a_uri)
       end
 
    sync: BOOLEAN
 
-   set_sync (a_sync: BOOLEAN) is
+   set_sync (a_sync: BOOLEAN)
       do
          sync := a_sync
       ensure
@@ -32,7 +32,7 @@ feature {ANY}
       end
 
 feature {URL}
-   connect_to (url: URL; read, write: BOOLEAN) is
+   connect_to (url: URL; read, write: BOOLEAN)
       local
          nrl: NETWORK_RESOURCE_LOCATOR
          ios: SOCKET_INPUT_OUTPUT_STREAM
@@ -54,11 +54,11 @@ feature {URL}
          end
       end
 
-   standard_port: INTEGER is
+   standard_port: INTEGER
       deferred
       end
 
-   locator (a_uri: STRING): NETWORK_RESOURCE_LOCATOR is
+   locator (a_uri: STRING): NETWORK_RESOURCE_LOCATOR
       do
          if locators.is_empty then
             create Result.set_uri(a_uri)
@@ -68,7 +68,7 @@ feature {URL}
          end
       end
 
-   recycle_locator (a_locator: RESOURCE_LOCATOR) is
+   recycle_locator (a_locator: RESOURCE_LOCATOR)
       local
          nrl: NETWORK_RESOURCE_LOCATOR
       do
@@ -77,7 +77,7 @@ feature {URL}
       end
 
 feature {}
-   tcp_connect_to (ios: SOCKET_INPUT_OUTPUT_STREAM; url: URL; read, write: BOOLEAN) is
+   tcp_connect_to (ios: SOCKET_INPUT_OUTPUT_STREAM; url: URL; read, write: BOOLEAN)
       require
          ios.is_connected
          url.uri /= Void
@@ -85,7 +85,7 @@ feature {}
       deferred
       end
 
-   locators: RECYCLING_POOL[NETWORK_RESOURCE_LOCATOR] is
+   locators: RECYCLING_POOL[NETWORK_RESOURCE_LOCATOR]
       once
          create Result.make
       end
@@ -98,7 +98,7 @@ end -- class TCP_PROTOCOL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,7 +4,7 @@
 class AUX_PRECURSOR08A
 
 feature {ANY}
-   f: ARRAY[STRING] is
+   f: ARRAY[STRING]
       once
          create Result.with_capacity(1, 1)
       end

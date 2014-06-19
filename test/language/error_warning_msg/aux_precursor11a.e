@@ -4,7 +4,7 @@
 class AUX_PRECURSOR11A
 
 feature {ANY}
-   foo is
+   foo
       do
       end
 

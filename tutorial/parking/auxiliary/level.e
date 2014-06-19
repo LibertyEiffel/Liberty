@@ -7,26 +7,26 @@ feature {ANY}
    occupied_slot_count: INTEGER
       -- Total count of occupied places in the `Current' level.
 
-   free_slot_count: INTEGER is
+   free_slot_count: INTEGER
          -- Total count of free places in the `Current' level.
       do
          Result := car_slots.count - occupied_slot_count
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
          -- Of the level.
       do
          Result := car_slots.count
       end
 
-   is_full: BOOLEAN is
+   is_full: BOOLEAN
          -- Is this level full?
       do
          Result := occupied_slot_count = capacity
       end
 
 feature {ANY} -- Modifications:
-   make (max_cars: INTEGER) is
+   make (max_cars: INTEGER)
       require
          max_cars > 0
       do
@@ -36,7 +36,7 @@ feature {ANY} -- Modifications:
          occupied_slot_count = 0
       end
 
-   arrival (car: CAR) is
+   arrival (car: CAR)
       require
          car /= Void
          not is_full
@@ -56,7 +56,7 @@ feature {ANY} -- Modifications:
          occupied_slot_count >= old occupied_slot_count + 1
       end
 
-   departure (car_number: INTEGER; departure_time: DATE; hour_price: REAL): REAL is
+   departure (car_number: INTEGER; departure_time: DATE; hour_price: REAL): REAL
          -- Gives price to pay or -1 when car is not at this level.
       require
          car_number > 0

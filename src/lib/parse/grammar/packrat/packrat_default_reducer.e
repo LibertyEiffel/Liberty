@@ -14,7 +14,7 @@ create {PACKRAT_GRAMMAR}
    make
 
 feature {}
-   make is
+   make
       do
          last_image := ""
          last_nonterminal_def := ""
@@ -27,7 +27,7 @@ feature {}
       end
 
 feature {PACKRAT_GRAMMAR}
-   parsed_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+   parsed_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
       local
          i: INTEGER
          key: FIXED_STRING; item: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
@@ -51,44 +51,44 @@ feature {PACKRAT_GRAMMAR}
       end
 
 feature {PACKRAT_GRAMMAR}
-   reduce_nonterminal_def is
+   reduce_nonterminal_def
       do
          last_nonterminal_def.copy(last_nonterminal_name)
          reset_image
       end
 
-   reduce_grammar is
+   reduce_grammar
       do
          add_atom(last_nonterminal_def.intern, create {PACKRAT_NON_TERMINAL}.make(last_pattern))
          reset_pattern
          reset_nonterminal_def
       end
 
-   reduce_pattern_first_alternative is
+   reduce_pattern_first_alternative
       do
          first_alternative := last_alternative
          reset_alternative
       end
 
-   reduce_pattern_alternative is
+   reduce_pattern_alternative
       do
          last_choice.add_last(seq(last_alternative, one, Void, Void))
          reset_alternative
       end
 
-   reduce_pattern is
+   reduce_pattern
       do
          last_pattern := seq(first_alternative, one, Void, Void)
          last_choice.for_each(agent reduce_pattern_map(?))
          reset_choice
       end
 
-   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE)
       do
          last_pattern := last_pattern / alt
       end
 
-   reduce_alternative_lookahead is
+   reduce_alternative_lookahead
       do
          check
             last_lookahead /= lookahead_none
@@ -103,11 +103,11 @@ feature {PACKRAT_GRAMMAR}
          reset_lookahead
       end
 
-   reduce_alternative_suffix_tag is
+   reduce_alternative_suffix_tag
       do
       end
 
-   reduce_alternative_tag is
+   reduce_alternative_tag
       do
          check
             last_lookahead = lookahead_none
@@ -119,15 +119,15 @@ feature {PACKRAT_GRAMMAR}
          last_alternative.add_last(last_primary)
       end
 
-   reduce_alternative is
+   reduce_alternative
       do
       end
 
-   reduce_quantifier is
+   reduce_quantifier
       do
       end
 
-   reduce_suffix is
+   reduce_suffix
       do
          if last_quantifier /= one then
             last_primary := seq(<< last_primary >>, last_quantifier, Void, Void)
@@ -135,12 +135,12 @@ feature {PACKRAT_GRAMMAR}
          end
       end
 
-   reduce_primary_as_nested_pattern is
+   reduce_primary_as_nested_pattern
       do
          last_primary := last_pattern
       end
 
-   reduce_primary_as_any is
+   reduce_primary_as_any
       local
          terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
@@ -153,7 +153,7 @@ feature {PACKRAT_GRAMMAR}
          last_primary := ref(terminal_name)
       end
 
-   reduce_primary_as_literal is
+   reduce_primary_as_literal
       local
          terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
       do
@@ -166,7 +166,7 @@ feature {PACKRAT_GRAMMAR}
          last_primary := ref(terminal_name)
       end
 
-   reduce_primay_as_charclass is
+   reduce_primay_as_charclass
       local
          terminal_name: FIXED_STRING; terminal: PACKRAT_TERMINAL
          regex: REGULAR_EXPRESSION; regex_factory: REGULAR_EXPRESSION_BUILDER
@@ -181,88 +181,88 @@ feature {PACKRAT_GRAMMAR}
          last_primary := ref(terminal_name)
       end
 
-   reduce_primary_as_nonterminal is
+   reduce_primary_as_nonterminal
       do
          last_primary := ref(last_nonterminal_name)
          reset_image
       end
 
-   reduce_literal_start is
+   reduce_literal_start
       do
          reset_image
       end
 
-   reduce_literal_string is
+   reduce_literal_string
       do
       end
 
-   reduce_literal is
+   reduce_literal
       do
          last_literal.copy(last_image)
          reset_image
       end
 
-   reduce_tag_start is
+   reduce_tag_start
       do
          reset_image
       end
 
-   reduce_tag_string is
+   reduce_tag_string
       do
       end
 
-   reduce_tag is
+   reduce_tag
       do
          last_tag.copy(last_image)
          reset_image
       end
 
-   reduce_charclass_start is
+   reduce_charclass_start
       do
          reset_image
       end
 
-   reduce_charclass_range is
+   reduce_charclass_range
       do
       end
 
-   reduce_charclass_char is
+   reduce_charclass_char
       do
       end
 
-   reduce_charclass_class is
+   reduce_charclass_class
       do
       end
 
-   reduce_charclass is
+   reduce_charclass
       do
          last_charclass.copy(last_image)
          reset_image
       end
 
-   reduce_nonterminal_name is
+   reduce_nonterminal_name
       do
       end
 
-   reduce_nonterminal is
+   reduce_nonterminal
       do
          last_nonterminal_name.copy(last_image)
          reset_image
       end
 
-   reduce_space is
+   reduce_space
       do
       end
 
-   reduce_image_left_arrow (image: PARSER_IMAGE) is
+   reduce_image_left_arrow (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_slash (image: PARSER_IMAGE) is
+   reduce_image_slash (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_not_and (image: PARSER_IMAGE) is
+   reduce_image_not_and (image: PARSER_IMAGE)
       local
          pi: PACKRAT_IMAGE
       do
@@ -276,7 +276,7 @@ feature {PACKRAT_GRAMMAR}
          end
       end
 
-   reduce_image_star_plus_why (image: PARSER_IMAGE) is
+   reduce_image_star_plus_why (image: PARSER_IMAGE)
       local
          pi: PACKRAT_IMAGE
       do
@@ -292,18 +292,18 @@ feature {PACKRAT_GRAMMAR}
          end
       end
 
-   reduce_image_open_paren (image: PARSER_IMAGE) is
+   reduce_image_open_paren (image: PARSER_IMAGE)
       do
          save_pattern
       end
 
-   reduce_image_close_paren (image: PARSER_IMAGE) is
+   reduce_image_close_paren (image: PARSER_IMAGE)
       do
          last_pattern.set_paren(True)
          restore_pattern
       end
 
-   reduce_image_anychar, reduce_image_letter, reduce_image_regex, reduce_image_string (image: PARSER_IMAGE) is
+   reduce_image_anychar, reduce_image_letter, reduce_image_regex, reduce_image_string (image: PARSER_IMAGE)
       local
          pi: PACKRAT_IMAGE
       do
@@ -311,37 +311,37 @@ feature {PACKRAT_GRAMMAR}
          last_image.append(pi.image)
       end
 
-   reduce_image_quote (image: PARSER_IMAGE) is
+   reduce_image_quote (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_hyphen (image: PARSER_IMAGE) is
+   reduce_image_hyphen (image: PARSER_IMAGE)
       do
          last_image.extend('-')
       end
 
-   reduce_image_dot (image: PARSER_IMAGE) is
+   reduce_image_dot (image: PARSER_IMAGE)
       do
          last_image.extend('.')
       end
 
-   reduce_image_open_bracket (image: PARSER_IMAGE) is
+   reduce_image_open_bracket (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_close_bracket (image: PARSER_IMAGE) is
+   reduce_image_close_bracket (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_open_curly (image: PARSER_IMAGE) is
+   reduce_image_open_curly (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_close_curly (image: PARSER_IMAGE) is
+   reduce_image_close_curly (image: PARSER_IMAGE)
       do
       end
 
-   reduce_image_space (image: PARSER_IMAGE) is
+   reduce_image_space (image: PARSER_IMAGE)
       do
       end
 
@@ -356,11 +356,11 @@ feature {} -- build the grammar
 
    last_image, last_nonterminal_def, last_nonterminal_name, last_charclass, last_literal, last_tag: STRING
 
-   lookahead_none: INTEGER_8 is 0
-   lookahead_and: INTEGER_8 is 1
-   lookahead_not: INTEGER_8 is 2
+   lookahead_none: INTEGER_8 0
+   lookahead_and: INTEGER_8 1
+   lookahead_not: INTEGER_8 2
 
-   add_atom (a_name: FIXED_STRING; a_atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]) is
+   add_atom (a_name: FIXED_STRING; a_atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT])
       require
          a_name /= Void
          a_atom /= Void
@@ -377,7 +377,7 @@ feature {} -- build the grammar
          atom(a_name) = a_atom
       end
 
-   atom (a_name: FIXED_STRING): PARSE_ATOM[PACKRAT_PARSE_CONTEXT] is
+   atom (a_name: FIXED_STRING): PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
       require
          a_name /= Void
       do
@@ -386,47 +386,47 @@ feature {} -- build the grammar
          end
       end
 
-   reset_nonterminal_def is
+   reset_nonterminal_def
       do
          last_nonterminal_def.clear_count
       end
 
-   reset_image is
+   reset_image
       do
          last_image.clear_count
       end
 
-   reset_quantifier is
+   reset_quantifier
       do
          last_quantifier := one
       end
 
-   reset_lookahead is
+   reset_lookahead
       do
          last_lookahead := lookahead_none
       end
 
-   reset_alternative is
+   reset_alternative
       do
          create last_alternative.make(0)
       end
 
-   reset_choice is
+   reset_choice
       do
          create last_choice.make(0)
       end
 
-   reset_pattern is
+   reset_pattern
       do
          last_pattern := Void
       end
 
-   reset_tag is
+   reset_tag
       do
          last_tag.clear_count
       end
 
-   reset_build_data is
+   reset_build_data
       do
          if last_atoms /= Void then
             last_atoms.clear_count
@@ -444,7 +444,7 @@ feature {} -- build the grammar
 
    last_patterns_stack: STACK[TUPLE[FAST_ARRAY[PACKRAT_ALTERNATIVE], FAST_ARRAY[PACKRAT_PRIMARY], FAST_ARRAY[PACKRAT_PRIMARY]]]
 
-   save_pattern is
+   save_pattern
       do
          if last_patterns_stack = Void then
             create last_patterns_stack.with_capacity(4)
@@ -454,7 +454,7 @@ feature {} -- build the grammar
          reset_alternative
       end
 
-   restore_pattern is
+   restore_pattern
       do
          last_choice := last_patterns_stack.top.first
          last_alternative := last_patterns_stack.top.second
@@ -474,7 +474,7 @@ end -- class PACKRAT_DEFAULT_REDUCER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

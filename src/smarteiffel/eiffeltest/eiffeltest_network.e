@@ -7,7 +7,7 @@ feature {ANY}
    port: INTEGER
 
 feature {}
-   access: like access_ is
+   access: like access_
       local
          address: IPV4_ADDRESS
       do
@@ -23,7 +23,7 @@ feature {}
    access_: TCP_ACCESS
    port_: INTEGER
 
-   port_is_invariant: BOOLEAN is
+   port_is_invariant: BOOLEAN
       do
          if port_ = 0 then
             port_ := port

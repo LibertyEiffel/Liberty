@@ -14,13 +14,13 @@ create {}
 feature {}
    local_io: STD_INPUT_OUTPUT
 
-   make is
+   make
       do
          local_io := io
          foo(3)
       end
 
-   foo (tmp: INTEGER) is
+   foo (tmp: INTEGER)
       local
          dummy: INTEGER
       do
@@ -28,7 +28,7 @@ feature {}
          exec(agent local_io.is_connected)
       end
 
-   exec (p: PREDICATE[TUPLE]) is
+   exec (p: PREDICATE[TUPLE])
       do
          assert(p.item([]))
       end

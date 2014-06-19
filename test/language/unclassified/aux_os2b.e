@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   foo: INTEGER is
+   foo: INTEGER
       do
          Result := Result.object_size
       end

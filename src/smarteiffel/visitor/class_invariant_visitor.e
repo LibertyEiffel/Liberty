@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CLASS_INVARIANT}
-   visit_class_invariant (visited: CLASS_INVARIANT) is
+   visit_class_invariant (visited: CLASS_INVARIANT)
       require
          visited /= Void
       deferred

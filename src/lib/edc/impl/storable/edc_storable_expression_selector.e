@@ -25,18 +25,18 @@ create {EDC_STORABLE_SELECTOR}
    make
 
 feature {EDC_STORABLE_SELECTOR}
-   clear is
+   clear
       do
          columns.clear_count
          data.clear_count
       end
 
-   add (a_column: EDC_COLUMN) is
+   add (a_column: EDC_COLUMN)
       do
          columns.add_last(a_column)
       end
 
-   call (a_connection: EDC_STORABLE_CONNECTION; a_where_clause: EDC_EXPRESSION): EDC_STORABLE_RESULT_SET is
+   call (a_connection: EDC_STORABLE_CONNECTION; a_where_clause: EDC_EXPRESSION): EDC_STORABLE_RESULT_SET
       do
          find_index(a_connection)
          create res.make(a_connection, columns.twin)
@@ -47,7 +47,7 @@ feature {EDC_STORABLE_SELECTOR}
       end
 
 feature {}
-   find_index (a_connection: EDC_STORABLE_CONNECTION) is
+   find_index (a_connection: EDC_STORABLE_CONNECTION)
          -- Try to use indexes (to avoid a full scan) if some are defined.
       local
          i, j: INTEGER; a_data: EDC_STORABLE_DATA; index: EDC_STORABLE_INDEX; table: EDC_STORABLE_TABLE
@@ -80,7 +80,7 @@ feature {}
          end
       end
 
-   match_rows (data_index, fill: INTEGER; a_where_clause: EDC_EXPRESSION) is
+   match_rows (data_index, fill: INTEGER; a_where_clause: EDC_EXPRESSION)
          -- The core algorithm (recursive)
       require
          data_index.in_range(data.lower, data.upper + 1)
@@ -132,12 +132,12 @@ feature {}
       end
 
 feature {}
-   data_comparator: PREDICATE[TUPLE[EDC_STORABLE_DATA, EDC_STORABLE_DATA]] is
+   data_comparator: PREDICATE[TUPLE[EDC_STORABLE_DATA, EDC_STORABLE_DATA]]
       once
          Result := agent data_compare
       end
 
-   data_compare (d1, d2: EDC_STORABLE_DATA): BOOLEAN is
+   data_compare (d1, d2: EDC_STORABLE_DATA): BOOLEAN
       do
          Result := d1.count > d2.count
       end
@@ -151,14 +151,14 @@ feature {}
 
    res: EDC_STORABLE_RESULT_SET
 
-   make is
+   make
       do
          create columns.make(0)
          create data.make(0)
          create join.make(0)
       end
 
-   join_count: INTEGER is
+   join_count: INTEGER
       local
          i: INTEGER
       do

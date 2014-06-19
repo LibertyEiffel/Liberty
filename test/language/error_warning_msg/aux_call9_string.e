@@ -4,11 +4,11 @@
 class AUX_CALL9_STRING
 
 feature {ANY}
-   append, append_string (s: STRING) is
+   append, append_string (s: STRING)
       do
       end
 
-   append_substring (s: STRING; start_index, end_index: INTEGER) is
+   append_substring (s: STRING; start_index, end_index: INTEGER)
       do
       end
    

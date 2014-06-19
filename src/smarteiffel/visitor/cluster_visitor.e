@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CLUSTER}
-   visit_cluster (visited: CLUSTER) is
+   visit_cluster (visited: CLUSTER)
       require
          visited /= Void
       deferred

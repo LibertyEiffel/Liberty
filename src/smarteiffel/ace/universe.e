@@ -15,10 +15,10 @@ create {CLASSES_TREE_FACTORY}
    make
 
 feature {ANY}
-   to_string: STRING is "Universe"
+   to_string: STRING "Universe"
 
 feature {ACE}
-   add_entry (a_distance: INTEGER; system_path, path, name: STRING; discard_silently: BOOLEAN) is
+   add_entry (a_distance: INTEGER; system_path, path, name: STRING; discard_silently: BOOLEAN)
       require
          a_distance > 0
          name /= Void
@@ -37,18 +37,18 @@ feature {ACE}
       end
 
 feature {CLASSES_TREE_FACTORY}
-   has_physical_cluster (system_path: STRING): BOOLEAN is
+   has_physical_cluster (system_path: STRING): BOOLEAN
       do
          Result := find_physical_cluster(system_path) /= Void
       end
 
 feature {}
-   make is
+   make
       do
          create classeses.with_capacity(4)
       end
 
-   show_name is
+   show_name
       do
          echo.put_string(once "<Universe>")
       end

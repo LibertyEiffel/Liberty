@@ -22,15 +22,15 @@
 deferred class EDC_SQLITE_QUERY_BUILDER
 
 feature {EDC_SQLITE_CONNECTION}
-   prepared_arguments: FAST_ARRAY[ANY] is
+   prepared_arguments: FAST_ARRAY[ANY]
       once
          create Result.make(0)
       end
 
 feature {}
-   current_query: STRING is ""
+   current_query: STRING ""
 
-   query_table (a_table: EDC_TABLE) is
+   query_table (a_table: EDC_TABLE)
       require
          a_table /= Void
       do
@@ -39,7 +39,7 @@ feature {}
          current_query.extend('"')
       end
 
-   query_column (a_column: EDC_COLUMN) is
+   query_column (a_column: EDC_COLUMN)
       require
          a_column /= Void
       do
@@ -50,7 +50,7 @@ feature {}
          current_query.extend('"')
       end
 
-   query_column_short (a_column: EDC_COLUMN) is
+   query_column_short (a_column: EDC_COLUMN)
       require
          a_column /= Void
       do
@@ -59,7 +59,7 @@ feature {}
          current_query.extend('"')
       end
 
-   query_value (a_value: EDC_VALUE) is
+   query_value (a_value: EDC_VALUE)
       require
          tools /= Void
       do
@@ -70,7 +70,7 @@ feature {}
          end
       end
 
-   query_expression (a_expression: EDC_EXPRESSION) is
+   query_expression (a_expression: EDC_EXPRESSION)
       require
          tools /= Void
          a_expression /= Void

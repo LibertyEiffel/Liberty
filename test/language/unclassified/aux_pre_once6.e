@@ -4,7 +4,7 @@
 class AUX_PRE_ONCE6
 
 feature {ANY}
-   aux: FAST_ARRAY[INTEGER] is
+   aux: FAST_ARRAY[INTEGER]
       once
          create Result.make(1)
       end

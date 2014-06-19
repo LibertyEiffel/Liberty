@@ -4,16 +4,16 @@
 class AUX_JLP7[X -> REAL]
 
 feature {ANY}
-   nb_owner: INTEGER is 2
+   nb_owner: INTEGER 2
 
    depth: X
 
-   set_depth (v: X) is
+   set_depth (v: X)
       do
          depth := v
       end
 
-   owner (k: X): INTEGER is
+   owner (k: X): INTEGER
       do
          Result := (k / depth).floor.force_to_integer_32 \\ nb_owner
       end

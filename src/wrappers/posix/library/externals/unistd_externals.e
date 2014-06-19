@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	access (a_name: POINTER; a_type: INTEGER): INTEGER is
+	access (a_name: POINTER; a_type: INTEGER): INTEGER
  		-- access
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	acct (a_name: POINTER): INTEGER is
+	acct (a_name: POINTER): INTEGER
  		-- acct
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	alarm (a_seconds: NATURAL): NATURAL is
+	alarm (a_seconds: NATURAL): NATURAL
  		-- alarm
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	brk (an_addr: POINTER): INTEGER is
+	brk (an_addr: POINTER): INTEGER
  		-- brk
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	chdir (a_path: POINTER): INTEGER is
+	chdir (a_path: POINTER): INTEGER
  		-- chdir
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	chown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
+	chown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER
  		-- chown
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	chroot (a_path: POINTER): INTEGER is
+	chroot (a_path: POINTER): INTEGER
  		-- chroot
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	close (a_fd: INTEGER): INTEGER is
+	close (a_fd: INTEGER): INTEGER
  		-- close
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	crypt (a_key: POINTER; a_salt: POINTER): POINTER is
+	crypt (a_key: POINTER; a_salt: POINTER): POINTER
  		-- crypt
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ctermid (a_s: POINTER): POINTER is
+	ctermid (a_s: POINTER): POINTER
  		-- ctermid
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	daemon (a_nochdir: INTEGER; a_noclose: INTEGER): INTEGER is
+	daemon (a_nochdir: INTEGER; a_noclose: INTEGER): INTEGER
  		-- daemon
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dup (a_fd: INTEGER): INTEGER is
+	dup (a_fd: INTEGER): INTEGER
  		-- dup
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dup2 (a_fd: INTEGER; a_fd2: INTEGER): INTEGER is
+	dup2 (a_fd: INTEGER; a_fd2: INTEGER): INTEGER
  		-- dup2
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dup3 (a_fd: INTEGER; a_fd2: INTEGER; a_flags: INTEGER): INTEGER is
+	dup3 (a_fd: INTEGER; a_fd2: INTEGER; a_flags: INTEGER): INTEGER
  		-- dup3
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	eaccess (a_name: POINTER; a_type: INTEGER): INTEGER is
+	eaccess (a_name: POINTER; a_type: INTEGER): INTEGER
  		-- eaccess
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	encrypt (a_libc_block: POINTER; an_edflag: INTEGER) is
+	encrypt (a_libc_block: POINTER; an_edflag: INTEGER)
  		-- encrypt
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	endusershell is
+	endusershell
  		-- endusershell
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	environ: POINTER is
+	environ: POINTER
  		-- environ
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_environ: POINTER is
+	address_of_environ: POINTER
  		-- Address of environ
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_environ (a_value: POINTER) is
+	set_environ (a_value: POINTER)
 		-- Set variable environ value
 		external "plug_in"
 		alias "{
@@ -210,7 +210,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable __environ skipped.
-	euidaccess (a_name: POINTER; a_type: INTEGER): INTEGER is
+	euidaccess (a_name: POINTER; a_type: INTEGER): INTEGER
  		-- euidaccess
 		external "plug_in"
 		alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execl (a_path: POINTER; an_arg: POINTER): INTEGER is
+	execl (a_path: POINTER; an_arg: POINTER): INTEGER
  		-- execl (variadic call) 
 		external "plug_in"
 		alias "{
@@ -230,7 +230,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execle (a_path: POINTER; an_arg: POINTER): INTEGER is
+	execle (a_path: POINTER; an_arg: POINTER): INTEGER
  		-- execle (variadic call) 
 		external "plug_in"
 		alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execlp (a_file: POINTER; an_arg: POINTER): INTEGER is
+	execlp (a_file: POINTER; an_arg: POINTER): INTEGER
  		-- execlp (variadic call) 
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execv (a_path: POINTER; an_argv: POINTER): INTEGER is
+	execv (a_path: POINTER; an_argv: POINTER): INTEGER
  		-- execv
 		external "plug_in"
 		alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execve (a_path: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER is
+	execve (a_path: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER
  		-- execve
 		external "plug_in"
 		alias "{
@@ -270,7 +270,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execvp (a_file: POINTER; an_argv: POINTER): INTEGER is
+	execvp (a_file: POINTER; an_argv: POINTER): INTEGER
  		-- execvp
 		external "plug_in"
 		alias "{
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	execvpe (a_file: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER is
+	execvpe (a_file: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER
  		-- execvpe
 		external "plug_in"
 		alias "{
@@ -291,7 +291,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function _exit skipped.
-	faccessat (a_fd: INTEGER; a_file: POINTER; a_type: INTEGER; a_flag: INTEGER): INTEGER is
+	faccessat (a_fd: INTEGER; a_file: POINTER; a_type: INTEGER; a_flag: INTEGER): INTEGER
  		-- faccessat
 		external "plug_in"
 		alias "{
@@ -301,7 +301,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fchdir (a_fd: INTEGER): INTEGER is
+	fchdir (a_fd: INTEGER): INTEGER
  		-- fchdir
 		external "plug_in"
 		alias "{
@@ -311,7 +311,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fchown (a_fd: INTEGER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
+	fchown (a_fd: INTEGER; an_owner: NATURAL; a_group: NATURAL): INTEGER
  		-- fchown
 		external "plug_in"
 		alias "{
@@ -321,7 +321,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fchownat (a_fd: INTEGER; a_file: POINTER; an_owner: NATURAL; a_group: NATURAL; a_flag: INTEGER): INTEGER is
+	fchownat (a_fd: INTEGER; a_file: POINTER; an_owner: NATURAL; a_group: NATURAL; a_flag: INTEGER): INTEGER
  		-- fchownat
 		external "plug_in"
 		alias "{
@@ -331,7 +331,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fdatasync (a_fildes: INTEGER): INTEGER is
+	fdatasync (a_fildes: INTEGER): INTEGER
  		-- fdatasync
 		external "plug_in"
 		alias "{
@@ -341,7 +341,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fexecve (a_fd: INTEGER; an_argv: POINTER; an_envp: POINTER): INTEGER is
+	fexecve (a_fd: INTEGER; an_argv: POINTER; an_envp: POINTER): INTEGER
  		-- fexecve
 		external "plug_in"
 		alias "{
@@ -351,7 +351,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fork: INTEGER is
+	fork: INTEGER
  		-- fork
 		external "plug_in"
 		alias "{
@@ -361,7 +361,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fpathconf (a_fd: INTEGER; a_name: INTEGER): like long is
+	fpathconf (a_fd: INTEGER; a_name: INTEGER): like long
  		-- fpathconf
 		external "plug_in"
 		alias "{
@@ -371,7 +371,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fsync (a_fd: INTEGER): INTEGER is
+	fsync (a_fd: INTEGER): INTEGER
  		-- fsync
 		external "plug_in"
 		alias "{
@@ -381,7 +381,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftruncate (a_fd: INTEGER; a_length: like long): INTEGER is
+	ftruncate (a_fd: INTEGER; a_length: like long): INTEGER
  		-- ftruncate
 		external "plug_in"
 		alias "{
@@ -391,7 +391,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ftruncate64 (a_fd: INTEGER; a_length: INTEGER_64): INTEGER is
+	ftruncate64 (a_fd: INTEGER; a_length: INTEGER_64): INTEGER
  		-- ftruncate64
 		external "plug_in"
 		alias "{
@@ -401,7 +401,7 @@ feature {} -- External calls
 		}"
 		end
 
-	get_current_dir_name: POINTER is
+	get_current_dir_name: POINTER
  		-- get_current_dir_name
 		external "plug_in"
 		alias "{
@@ -411,7 +411,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdtablesize: INTEGER is
+	getdtablesize: INTEGER
  		-- getdtablesize
 		external "plug_in"
 		alias "{
@@ -421,7 +421,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getegid: NATURAL is
+	getegid: NATURAL
  		-- getegid
 		external "plug_in"
 		alias "{
@@ -431,7 +431,7 @@ feature {} -- External calls
 		}"
 		end
 
-	geteuid: NATURAL is
+	geteuid: NATURAL
  		-- geteuid
 		external "plug_in"
 		alias "{
@@ -441,7 +441,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getgid: NATURAL is
+	getgid: NATURAL
  		-- getgid
 		external "plug_in"
 		alias "{
@@ -451,7 +451,7 @@ feature {} -- External calls
 		}"
 		end
 
-	gethostid: like long is
+	gethostid: like long
  		-- gethostid
 		external "plug_in"
 		alias "{
@@ -461,7 +461,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getlogin: POINTER is
+	getlogin: POINTER
  		-- getlogin
 		external "plug_in"
 		alias "{
@@ -471,7 +471,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getpagesize: INTEGER is
+	getpagesize: INTEGER
  		-- getpagesize
 		external "plug_in"
 		alias "{
@@ -481,7 +481,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getpass (a_prompt: POINTER): POINTER is
+	getpass (a_prompt: POINTER): POINTER
  		-- getpass
 		external "plug_in"
 		alias "{
@@ -492,7 +492,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __getpgid skipped.
-	getpgid (a_pid: INTEGER): INTEGER is
+	getpgid (a_pid: INTEGER): INTEGER
  		-- getpgid
 		external "plug_in"
 		alias "{
@@ -502,7 +502,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getpgrp: INTEGER is
+	getpgrp: INTEGER
  		-- getpgrp
 		external "plug_in"
 		alias "{
@@ -512,7 +512,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getpid: INTEGER is
+	getpid: INTEGER
  		-- getpid
 		external "plug_in"
 		alias "{
@@ -522,7 +522,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getppid: INTEGER is
+	getppid: INTEGER
  		-- getppid
 		external "plug_in"
 		alias "{
@@ -532,7 +532,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getresgid (a_rgid: POINTER; an_egid: POINTER; a_sgid: POINTER): INTEGER is
+	getresgid (a_rgid: POINTER; an_egid: POINTER; a_sgid: POINTER): INTEGER
  		-- getresgid
 		external "plug_in"
 		alias "{
@@ -542,7 +542,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getresuid (a_ruid: POINTER; an_euid: POINTER; a_suid: POINTER): INTEGER is
+	getresuid (a_ruid: POINTER; an_euid: POINTER; a_suid: POINTER): INTEGER
  		-- getresuid
 		external "plug_in"
 		alias "{
@@ -552,7 +552,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getsid (a_pid: INTEGER): INTEGER is
+	getsid (a_pid: INTEGER): INTEGER
  		-- getsid
 		external "plug_in"
 		alias "{
@@ -562,7 +562,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getuid: NATURAL is
+	getuid: NATURAL
  		-- getuid
 		external "plug_in"
 		alias "{
@@ -572,7 +572,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getusershell: POINTER is
+	getusershell: POINTER
  		-- getusershell
 		external "plug_in"
 		alias "{
@@ -582,7 +582,7 @@ feature {} -- External calls
 		}"
 		end
 
-	group_member (a_gid: NATURAL): INTEGER is
+	group_member (a_gid: NATURAL): INTEGER
  		-- group_member
 		external "plug_in"
 		alias "{
@@ -592,7 +592,7 @@ feature {} -- External calls
 		}"
 		end
 
-	isatty (a_fd: INTEGER): INTEGER is
+	isatty (a_fd: INTEGER): INTEGER
  		-- isatty
 		external "plug_in"
 		alias "{
@@ -602,7 +602,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lchown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER is
+	lchown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER
  		-- lchown
 		external "plug_in"
 		alias "{
@@ -612,7 +612,7 @@ feature {} -- External calls
 		}"
 		end
 
-	link (a_from_external: POINTER; a_to: POINTER): INTEGER is
+	link (a_from_external: POINTER; a_to: POINTER): INTEGER
  		-- link
 		external "plug_in"
 		alias "{
@@ -622,7 +622,7 @@ feature {} -- External calls
 		}"
 		end
 
-	linkat (a_fromfd: INTEGER; a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER; a_flags: INTEGER): INTEGER is
+	linkat (a_fromfd: INTEGER; a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER; a_flags: INTEGER): INTEGER
  		-- linkat
 		external "plug_in"
 		alias "{
@@ -632,7 +632,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lseek (a_fd: INTEGER; an_offset: like long; a_whence: INTEGER): like long is
+	lseek (a_fd: INTEGER; an_offset: like long; a_whence: INTEGER): like long
  		-- lseek
 		external "plug_in"
 		alias "{
@@ -642,7 +642,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lseek64 (a_fd: INTEGER; an_offset: INTEGER_64; a_whence: INTEGER): INTEGER_64 is
+	lseek64 (a_fd: INTEGER; an_offset: INTEGER_64; a_whence: INTEGER): INTEGER_64
  		-- lseek64
 		external "plug_in"
 		alias "{
@@ -652,7 +652,7 @@ feature {} -- External calls
 		}"
 		end
 
-	nice (an_inc: INTEGER): INTEGER is
+	nice (an_inc: INTEGER): INTEGER
  		-- nice
 		external "plug_in"
 		alias "{
@@ -662,7 +662,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pathconf (a_path: POINTER; a_name: INTEGER): like long is
+	pathconf (a_path: POINTER; a_name: INTEGER): like long
  		-- pathconf
 		external "plug_in"
 		alias "{
@@ -672,7 +672,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pause: INTEGER is
+	pause: INTEGER
  		-- pause
 		external "plug_in"
 		alias "{
@@ -682,7 +682,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pipe (a_pipedes: POINTER): INTEGER is
+	pipe (a_pipedes: POINTER): INTEGER
  		-- pipe
 		external "plug_in"
 		alias "{
@@ -692,7 +692,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pipe2 (a_pipedes: POINTER; a_flags: INTEGER): INTEGER is
+	pipe2 (a_pipedes: POINTER; a_flags: INTEGER): INTEGER
  		-- pipe2
 		external "plug_in"
 		alias "{
@@ -702,7 +702,7 @@ feature {} -- External calls
 		}"
 		end
 
-	profil (a_sample_buffer: POINTER; a_size: like size_t; an_offset: like size_t; a_scale: NATURAL): INTEGER is
+	profil (a_sample_buffer: POINTER; a_size: like size_t; an_offset: like size_t; a_scale: NATURAL): INTEGER
  		-- profil
 		external "plug_in"
 		alias "{
@@ -712,7 +712,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pwrite (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: like long): like ssize_t is
+	pwrite (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: like long): like ssize_t
  		-- pwrite
 		external "plug_in"
 		alias "{
@@ -722,7 +722,7 @@ feature {} -- External calls
 		}"
 		end
 
-	pwrite64 (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: INTEGER_64): like ssize_t is
+	pwrite64 (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: INTEGER_64): like ssize_t
  		-- pwrite64
 		external "plug_in"
 		alias "{
@@ -732,7 +732,7 @@ feature {} -- External calls
 		}"
 		end
 
-	revoke (a_file: POINTER): INTEGER is
+	revoke (a_file: POINTER): INTEGER
  		-- revoke
 		external "plug_in"
 		alias "{
@@ -742,7 +742,7 @@ feature {} -- External calls
 		}"
 		end
 
-	rmdir (a_path: POINTER): INTEGER is
+	rmdir (a_path: POINTER): INTEGER
  		-- rmdir
 		external "plug_in"
 		alias "{
@@ -752,7 +752,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sbrk (a_delta: like intptr_t): POINTER is
+	sbrk (a_delta: like intptr_t): POINTER
  		-- sbrk
 		external "plug_in"
 		alias "{
@@ -762,7 +762,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setdomainname (a_name: POINTER; a_len: like size_t): INTEGER is
+	setdomainname (a_name: POINTER; a_len: like size_t): INTEGER
  		-- setdomainname
 		external "plug_in"
 		alias "{
@@ -772,7 +772,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setegid (a_gid: NATURAL): INTEGER is
+	setegid (a_gid: NATURAL): INTEGER
  		-- setegid
 		external "plug_in"
 		alias "{
@@ -782,7 +782,7 @@ feature {} -- External calls
 		}"
 		end
 
-	seteuid (an_uid: NATURAL): INTEGER is
+	seteuid (an_uid: NATURAL): INTEGER
  		-- seteuid
 		external "plug_in"
 		alias "{
@@ -792,7 +792,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setgid (a_gid: NATURAL): INTEGER is
+	setgid (a_gid: NATURAL): INTEGER
  		-- setgid
 		external "plug_in"
 		alias "{
@@ -802,7 +802,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sethostid (an_id: like long): INTEGER is
+	sethostid (an_id: like long): INTEGER
  		-- sethostid
 		external "plug_in"
 		alias "{
@@ -812,7 +812,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sethostname (a_name: POINTER; a_len: like size_t): INTEGER is
+	sethostname (a_name: POINTER; a_len: like size_t): INTEGER
  		-- sethostname
 		external "plug_in"
 		alias "{
@@ -822,7 +822,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setlogin (a_name: POINTER): INTEGER is
+	setlogin (a_name: POINTER): INTEGER
  		-- setlogin
 		external "plug_in"
 		alias "{
@@ -832,7 +832,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setpgid (a_pid: INTEGER; a_pgid: INTEGER): INTEGER is
+	setpgid (a_pid: INTEGER; a_pgid: INTEGER): INTEGER
  		-- setpgid
 		external "plug_in"
 		alias "{
@@ -842,7 +842,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setpgrp: INTEGER is
+	setpgrp: INTEGER
  		-- setpgrp
 		external "plug_in"
 		alias "{
@@ -852,7 +852,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setregid (a_rgid: NATURAL; an_egid: NATURAL): INTEGER is
+	setregid (a_rgid: NATURAL; an_egid: NATURAL): INTEGER
  		-- setregid
 		external "plug_in"
 		alias "{
@@ -862,7 +862,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setresgid (a_rgid: NATURAL; an_egid: NATURAL; a_sgid: NATURAL): INTEGER is
+	setresgid (a_rgid: NATURAL; an_egid: NATURAL; a_sgid: NATURAL): INTEGER
  		-- setresgid
 		external "plug_in"
 		alias "{
@@ -872,7 +872,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setresuid (a_ruid: NATURAL; an_euid: NATURAL; a_suid: NATURAL): INTEGER is
+	setresuid (a_ruid: NATURAL; an_euid: NATURAL; a_suid: NATURAL): INTEGER
  		-- setresuid
 		external "plug_in"
 		alias "{
@@ -882,7 +882,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setreuid (a_ruid: NATURAL; an_euid: NATURAL): INTEGER is
+	setreuid (a_ruid: NATURAL; an_euid: NATURAL): INTEGER
  		-- setreuid
 		external "plug_in"
 		alias "{
@@ -892,7 +892,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setsid: INTEGER is
+	setsid: INTEGER
  		-- setsid
 		external "plug_in"
 		alias "{
@@ -902,7 +902,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setuid (an_uid: NATURAL): INTEGER is
+	setuid (an_uid: NATURAL): INTEGER
  		-- setuid
 		external "plug_in"
 		alias "{
@@ -912,7 +912,7 @@ feature {} -- External calls
 		}"
 		end
 
-	setusershell is
+	setusershell
  		-- setusershell
 		external "plug_in"
 		alias "{
@@ -922,7 +922,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sleep (a_seconds: NATURAL): NATURAL is
+	sleep (a_seconds: NATURAL): NATURAL
  		-- sleep
 		external "plug_in"
 		alias "{
@@ -932,7 +932,7 @@ feature {} -- External calls
 		}"
 		end
 
-	swab (a_from_external: POINTER; a_to: POINTER; a_n: like ssize_t) is
+	swab (a_from_external: POINTER; a_to: POINTER; a_n: like ssize_t)
  		-- swab
 		external "plug_in"
 		alias "{
@@ -942,7 +942,7 @@ feature {} -- External calls
 		}"
 		end
 
-	symlink (a_from_external: POINTER; a_to: POINTER): INTEGER is
+	symlink (a_from_external: POINTER; a_to: POINTER): INTEGER
  		-- symlink
 		external "plug_in"
 		alias "{
@@ -952,7 +952,7 @@ feature {} -- External calls
 		}"
 		end
 
-	symlinkat (a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER): INTEGER is
+	symlinkat (a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER): INTEGER
  		-- symlinkat
 		external "plug_in"
 		alias "{
@@ -962,7 +962,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sync is
+	sync
  		-- sync
 		external "plug_in"
 		alias "{
@@ -972,7 +972,7 @@ feature {} -- External calls
 		}"
 		end
 
-	syncfs (a_fd: INTEGER): INTEGER is
+	syncfs (a_fd: INTEGER): INTEGER
  		-- syncfs
 		external "plug_in"
 		alias "{
@@ -982,7 +982,7 @@ feature {} -- External calls
 		}"
 		end
 
-	syscall (a_sysno: like long): like long is
+	syscall (a_sysno: like long): like long
  		-- syscall (variadic call) 
 		external "plug_in"
 		alias "{
@@ -992,7 +992,7 @@ feature {} -- External calls
 		}"
 		end
 
-	sysconf (a_name: INTEGER): like long is
+	sysconf (a_name: INTEGER): like long
  		-- sysconf
 		external "plug_in"
 		alias "{
@@ -1002,7 +1002,7 @@ feature {} -- External calls
 		}"
 		end
 
-	tcgetpgrp (a_fd: INTEGER): INTEGER is
+	tcgetpgrp (a_fd: INTEGER): INTEGER
  		-- tcgetpgrp
 		external "plug_in"
 		alias "{
@@ -1012,7 +1012,7 @@ feature {} -- External calls
 		}"
 		end
 
-	tcsetpgrp (a_fd: INTEGER; a_pgrp_id: INTEGER): INTEGER is
+	tcsetpgrp (a_fd: INTEGER; a_pgrp_id: INTEGER): INTEGER
  		-- tcsetpgrp
 		external "plug_in"
 		alias "{
@@ -1022,7 +1022,7 @@ feature {} -- External calls
 		}"
 		end
 
-	truncate (a_file: POINTER; a_length: like long): INTEGER is
+	truncate (a_file: POINTER; a_length: like long): INTEGER
  		-- truncate
 		external "plug_in"
 		alias "{
@@ -1032,7 +1032,7 @@ feature {} -- External calls
 		}"
 		end
 
-	truncate64 (a_file: POINTER; a_length: INTEGER_64): INTEGER is
+	truncate64 (a_file: POINTER; a_length: INTEGER_64): INTEGER
  		-- truncate64
 		external "plug_in"
 		alias "{
@@ -1042,7 +1042,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ttyname (a_fd: INTEGER): POINTER is
+	ttyname (a_fd: INTEGER): POINTER
  		-- ttyname
 		external "plug_in"
 		alias "{
@@ -1052,7 +1052,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ttyslot: INTEGER is
+	ttyslot: INTEGER
  		-- ttyslot
 		external "plug_in"
 		alias "{
@@ -1062,7 +1062,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ualarm (a_value: NATURAL; an_interval: NATURAL): NATURAL is
+	ualarm (a_value: NATURAL; an_interval: NATURAL): NATURAL
  		-- ualarm
 		external "plug_in"
 		alias "{
@@ -1072,7 +1072,7 @@ feature {} -- External calls
 		}"
 		end
 
-	unlink (a_name: POINTER): INTEGER is
+	unlink (a_name: POINTER): INTEGER
  		-- unlink
 		external "plug_in"
 		alias "{
@@ -1082,7 +1082,7 @@ feature {} -- External calls
 		}"
 		end
 
-	unlinkat (a_fd: INTEGER; a_name: POINTER; a_flag: INTEGER): INTEGER is
+	unlinkat (a_fd: INTEGER; a_name: POINTER; a_flag: INTEGER): INTEGER
  		-- unlinkat
 		external "plug_in"
 		alias "{
@@ -1092,7 +1092,7 @@ feature {} -- External calls
 		}"
 		end
 
-	usleep (an_useconds: NATURAL): INTEGER is
+	usleep (an_useconds: NATURAL): INTEGER
  		-- usleep
 		external "plug_in"
 		alias "{
@@ -1102,7 +1102,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vfork: INTEGER is
+	vfork: INTEGER
  		-- vfork
 		external "plug_in"
 		alias "{
@@ -1112,7 +1112,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vhangup: INTEGER is
+	vhangup: INTEGER
  		-- vhangup
 		external "plug_in"
 		alias "{
@@ -1122,7 +1122,7 @@ feature {} -- External calls
 		}"
 		end
 
-	write (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t): like ssize_t is
+	write (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t): like ssize_t
  		-- write
 		external "plug_in"
 		alias "{

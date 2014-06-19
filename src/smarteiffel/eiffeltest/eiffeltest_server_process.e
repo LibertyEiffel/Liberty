@@ -24,7 +24,7 @@ create {EIFFELTEST_SERVER_RUN_TESTS}
    default_create
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          port := other.port
          process := other.process
@@ -32,7 +32,7 @@ feature {ANY}
          cmd := other.cmd
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          check
             same_process: port = other.port
@@ -43,21 +43,21 @@ feature {ANY}
       end
 
 feature {EIFFELTEST_SERVER_RUN_TESTS}
-   id: INTEGER is
+   id: INTEGER
       require
          is_running
       do
          Result := process.id
       end
 
-   is_finished: BOOLEAN is
+   is_finished: BOOLEAN
       require
          is_running
       do
          Result := process.is_finished
       end
 
-   on_done (a_status: INTEGER) is
+   on_done (a_status: INTEGER)
       do
          if not done then
             done := True
@@ -69,7 +69,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          end
       end
 
-   on_timeout is
+   on_timeout
       local
          mypid, pid, status: INTEGER
       do
@@ -100,7 +100,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          end
       end
 
-   set (a_port: like port; a_timeout: like timeout; a_cmd: like cmd; a_cleanup: like cleanup) is
+   set (a_port: like port; a_timeout: like timeout; a_cmd: like cmd; a_cleanup: like cleanup)
       require
          a_port > 0
          not is_set
@@ -121,7 +121,7 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
          not is_running
       end
 
-   run is
+   run
       require
          is_set
          not is_running
@@ -146,12 +146,12 @@ feature {EIFFELTEST_SERVER_RUN_TESTS}
 feature {EIFFELTEST_SERVER_RUN_TESTS, EIFFELTEST_SERVER_PROCESS}
    cmd: STRING
 
-   is_running: BOOLEAN is
+   is_running: BOOLEAN
       do
          Result := process /= Void
       end
 
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
       do
          Result := port > 0
       end
@@ -163,7 +163,7 @@ feature {EIFFELTEST_SERVER_PROCESS}
    timeout: INTEGER
    done: BOOLEAN
 
-   process_factory_: PROCESS_FACTORY is
+   process_factory_: PROCESS_FACTORY
       once
          Result.set_direct_input(True)
          Result.set_direct_output(True)
@@ -171,7 +171,7 @@ feature {EIFFELTEST_SERVER_PROCESS}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          cmd := Void
          process := Void

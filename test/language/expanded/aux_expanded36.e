@@ -8,7 +8,7 @@ create {ANY}
    make, default_create
 
 feature {ANY}
-   make (n_: like n) is
+   make (n_: like n)
       do
          n := n_
       ensure

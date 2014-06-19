@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux_simplify19: AUX_SIMPLIFY19; boost_simplify19: TEST_SIMPLIFY19
       do

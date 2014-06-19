@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
          -- Make
       do
          test_1.f
       end
 
 feature {}
-   test_1 is
+   test_1
       do
       end
 

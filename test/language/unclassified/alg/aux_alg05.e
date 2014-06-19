@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    field: INTEGER
 
-   make is
+   make
       do
          field := field + 1
       end

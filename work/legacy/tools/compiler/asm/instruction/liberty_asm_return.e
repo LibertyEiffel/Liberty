@@ -24,7 +24,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_INSTRUCTION_VISITOR
       do
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

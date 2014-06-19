@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_array: ARRAY[STRING]
       do
@@ -16,7 +16,7 @@ feature {ANY}
       end
 
 feature {}
-   print_item (item: STRING) is
+   print_item (item: STRING)
       do
          number := number + 1
          std_output.put_character('#')

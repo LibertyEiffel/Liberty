@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          d: AUX_GENERIC3B[INTEGER];
       do

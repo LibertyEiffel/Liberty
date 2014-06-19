@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tsd: AUX_JMJ3TS[REAL]; tpt: AUX_JMJ3TPT[REAL]
       do

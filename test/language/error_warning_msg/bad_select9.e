@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          c: AUX_SELECT9CC; r: AUX_SELECT9RR
       do

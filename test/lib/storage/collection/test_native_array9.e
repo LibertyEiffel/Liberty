@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b: NATIVE_ARRAY[ANY]
       do
@@ -17,7 +17,7 @@ feature {ANY}
          assert(a = b)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

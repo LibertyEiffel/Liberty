@@ -12,28 +12,28 @@ insert
    TRAVERSABLE[EIFFEL_NODE]
 
 feature {ANY}
-   frozen new_iterator: ITERATOR[EIFFEL_NODE] is
+   frozen new_iterator: ITERATOR[EIFFEL_NODE]
       do
          check
             dont_use_this: False
          end
       end
 
-   source_line: INTEGER is
+   source_line: INTEGER
       do
          if count > 0 then
             Result := first.source_line
          end
       end
 
-   source_column: INTEGER is
+   source_column: INTEGER
       do
          if count > 0 then
             Result := first.source_column
          end
       end
 
-   source_index: INTEGER is
+   source_index: INTEGER
       do
          if count > 0 then
             Result := first.source_index
@@ -41,7 +41,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_GRAMMAR}
-   add (a_child: like item) is
+   add (a_child: like item)
       deferred
       ensure
          count = old count + 1
@@ -56,7 +56,7 @@ end -- class EIFFEL_LIST_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

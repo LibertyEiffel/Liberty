@@ -18,19 +18,19 @@ inherit
    LIBERTY_ASM_VISITOR
 
 feature {LIBERTY_ASM_INSTRUCTION_PROXY}
-   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER) is
+   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER) is
+   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER) is
+   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER)
       require
          a_instruction /= Void
       deferred

@@ -10,12 +10,12 @@ create {}
    make
 
 feature {ANY}
-   file_tools: FILE_TOOLS is
+   file_tools: FILE_TOOLS
       once
          create Result
       end
 
-   make is
+   make
       local
          bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
       do

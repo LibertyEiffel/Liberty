@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[ABSTRACT_STRING]
       do
@@ -15,7 +15,7 @@ feature {ANY}
          assert(a.upper = 1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -4,12 +4,12 @@ create {AUX_AUTOMATON_01}
    make
 
 feature {AUX_AUTOMATON_01}
-   output: FIXED_STRING is
+   output: FIXED_STRING
       do
          Result := output_memory.intern
       end
 
-   extend is
+   extend
       do
          output_memory.extend(current_character)
       ensure
@@ -17,26 +17,26 @@ feature {AUX_AUTOMATON_01}
          output.last = current_character
       end
 
-   current_character: CHARACTER is
+   current_character: CHARACTER
       require
          not is_off
       do
          Result := input.item(index)
       end
 
-   next is
+   next
       do
          index := index + 1
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := not input.valid_index(index)
       end
 
    success: BOOLEAN
 
-   set_success (s: BOOLEAN) is
+   set_success (s: BOOLEAN)
       do
          success := s
       ensure
@@ -44,7 +44,7 @@ feature {AUX_AUTOMATON_01}
       end
 
 feature {}
-   make (a_string: ABSTRACT_STRING) is
+   make (a_string: ABSTRACT_STRING)
       require
          a_string /= Void
       do

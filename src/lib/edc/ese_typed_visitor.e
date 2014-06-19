@@ -28,14 +28,14 @@ inherit
 	ESE_VISITOR
 
 feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-	as_typed (item_type_generator: STRING): ESE_VISITOR is
+	as_typed (item_type_generator: STRING): ESE_VISITOR
 			-- correctly recast by calling the `untyped' visitor
 		do
 			Result := untyped.as_typed(item_type_generator)
 		end
 
 feature {}
-	untyped: ESE_VISITOR is
+	untyped: ESE_VISITOR
 		deferred
 		end
 

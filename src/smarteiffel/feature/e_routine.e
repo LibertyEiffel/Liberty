@@ -22,7 +22,7 @@ feature {ANY}
 
    end_comment: COMMENT
 
-   is_attribute: BOOLEAN is False
+   is_attribute: BOOLEAN False
 
    local_vars: LOCAL_VAR_LIST
 
@@ -30,7 +30,7 @@ feature {ANY}
 
    has_closures: BOOLEAN
 
-   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
+   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
       local
          fn: FEATURE_NAME; il, level2, level3: INTEGER
       do
@@ -57,7 +57,6 @@ feature {ANY}
             end
             pretty_printer.put_type_mark(result_type)
          end
-         pretty_printer.keyword(once "is")
          pretty_printer.set_indent_level(level2)
          if header_comment /= Void then
             il := pretty_printer.indent_level_for_header_comment_of_feature + indent_level
@@ -91,7 +90,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_PARSER}
-   set_end_comment (ec: like end_comment) is
+   set_end_comment (ec: like end_comment)
       require else
          end_comment = Void
          ec /= Void
@@ -102,12 +101,12 @@ feature {EIFFEL_PARSER}
       end
 
 feature {FEATURE_TEXT, EIFFEL_PARSER}
-   set_rescue_compound (rc: like rescue_compound) is
+   set_rescue_compound (rc: like rescue_compound)
       deferred
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -123,7 +122,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -140,14 +139,14 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {E_ROUTINE}
-   set_arguments (args: like arguments; cfal: like closure_arguments) is
+   set_arguments (args: like arguments; cfal: like closure_arguments)
       do
          arguments := args
          closure_arguments := cfal
       end
 
 feature {}
-   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion; c: like has_closures) is
+   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion; c: like has_closures)
       do
          header_comment := hc
          arguments := fa
@@ -156,11 +155,11 @@ feature {}
          has_closures := c
       end
 
-   pretty_print_routine_body (indent_level: INTEGER) is
+   pretty_print_routine_body (indent_level: INTEGER)
       deferred
       end
 
-   pretty_print_rescue (indent_level: INTEGER) is
+   pretty_print_rescue (indent_level: INTEGER)
       deferred
       end
 

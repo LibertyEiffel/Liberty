@@ -13,35 +13,35 @@ create {COMMAND_LINE_ARGUMENT}
    make
 
 feature {ANY}
-   is_repeatable: BOOLEAN is False
+   is_repeatable: BOOLEAN False
 
-   prefix "not": COMMAND_LINE_ARGUMENT is
+   prefix "not": COMMAND_LINE_ARGUMENT
       do
          Result := arg
       end
 
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
       do
          Result := not arg.is_set
       end
 
-   is_mandatory: BOOLEAN is
+   is_mandatory: BOOLEAN
       do
          Result := arg.is_mandatory
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
       do
          Result := not arg.is_set_at(context)
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   prepare_parse is
+   prepare_parse
       do
          arg.prepare_parse
       end
 
-   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       do
          Result := arg.parse_command_line(context)
          if not Result.is_parsed then
@@ -52,12 +52,12 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          end
       end
 
-   undo_parse (context: COMMAND_LINE_CONTEXT) is
+   undo_parse (context: COMMAND_LINE_CONTEXT)
       do
          arg.undo_parse(context)
       end
 
-   usage_summary (stream: OUTPUT_STREAM) is
+   usage_summary (stream: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -68,7 +68,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          detailed := False
       end
 
-   usage_details (stream: OUTPUT_STREAM) is
+   usage_details (stream: OUTPUT_STREAM)
       do
          if not detailed then
             arg.usage_details(stream)
@@ -79,7 +79,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
 feature {}
    arg: COMMAND_LINE_ARGUMENT
 
-   make (a_arg: COMMAND_LINE_ARGUMENT) is
+   make (a_arg: COMMAND_LINE_ARGUMENT)
       require
          a_arg /= Void
       do
@@ -99,7 +99,7 @@ end -- class CLARG_NOT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

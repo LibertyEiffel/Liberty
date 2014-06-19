@@ -21,7 +21,7 @@ feature {}
 feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
    context_level: INTEGER
 
-   open_new_context is
+   open_new_context
          -- Start a new context, usually at INSTRUCTION boundary.
       do
          context_level := context_level + 1
@@ -39,7 +39,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
    current_context: FAST_ARRAY[CODE]
          -- The top-most context.
 
-   close_current_context is
+   close_current_context
          -- Get the CODE of the top-most context and pop.
       require
          context_level >= 0
@@ -52,7 +52,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
          end
       end
 
-   current_context_to_instruction: INSTRUCTION is
+   current_context_to_instruction: INSTRUCTION
          -- Transform the whole `current_context' into some INSTRUCTION.
       do
          if current_context.is_empty then
@@ -72,7 +72,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
          current_context.count = 0
       end
 
-   current_context_to_expression: EXPRESSION is
+   current_context_to_expression: EXPRESSION
          -- Transform the whole `current_context' into some EXPRESSION.
       require
          current_context.count > 0
@@ -90,7 +90,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
 
    sedb_counter: INTEGER
 
-   add_sedb (position: POSITION; info_code: CHARACTER) is
+   add_sedb (position: POSITION; info_code: CHARACTER)
          -- Where `info_code' is an extra argument passed to the "sedb" C function (see
          -- SmartEiffel/sys/runtime/c/sedb.c for documentation).
       require
@@ -108,7 +108,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, FEATURE_CALL, EFFECTIVE_ROUTINE}
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       do
          if sedb_counter = 0 then
             echo.put_string(once "No SEDB objects added.%N")
@@ -119,7 +119,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {AGENT_CREATION, CECIL_ENTRY, ADDRESS_OF}
-   current_context_to_code: CODE is
+   current_context_to_code: CODE
          -- Transform the whole `current_context' into some CODE.
       do
          if current_context.is_empty then
@@ -134,7 +134,7 @@ feature {AGENT_CREATION, CECIL_ENTRY, ADDRESS_OF}
       end
 
 feature {}
-   make is
+   make
       do
          create code_stack.with_capacity(128)
          context_level := -1

@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {} -- Initialization
-   make (fl: INTEGER; a: AUX_INHERIT7A2) is
+   make (fl: INTEGER; a: AUX_INHERIT7A2)
       do
          flags := fl
          as_expanded := a.as_expanded.x

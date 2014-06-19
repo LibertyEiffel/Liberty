@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(not ("").is_integer)
          assert(("153548").is_integer)

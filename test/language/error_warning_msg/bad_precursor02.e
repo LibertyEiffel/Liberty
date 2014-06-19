@@ -12,14 +12,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          x: INTEGER
       do
          x := function
       end
 
-   function: INTEGER is
+   function: INTEGER
       do
          Precursor
       end

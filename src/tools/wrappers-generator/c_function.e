@@ -11,77 +11,77 @@ inherit
 create {ANY} make
 
 feature {ANY}
-	store is
+	store
 		do
 			symbols.put(Current,c_string_name)
 			functions.add_first(Current)
 		end
 
-	returns: UNICODE_STRING is
+	returns: UNICODE_STRING
 		do
 			Result := attribute_at(once U"returns")
 		end
 
-	return_type: TYPED_NODE is
+	return_type: TYPED_NODE
 		do
 			Result := types.at(returns)
 		end
 
-	compute_eiffel_name is
+	compute_eiffel_name
 		do
 			cached_eiffel_name := eiffel_feature(c_string_name)	
 		end
 
-	has_arguments: BOOLEAN is
+	has_arguments: BOOLEAN
 		-- Does Current function have arguments?
 	do
 		Result := children_count>0
 	end
 
-	is_variadic: BOOLEAN is
+	_variadic: BOOLEAN
 		-- Does current function accept a variable number of arguments?
 	do
 		if has_arguments 
-			then Result := argument(children_count).is_ellipsis
+			then Result := argument(children_count)._ellips
 		else Result:=False
 		end
 	end
 
-	is_wrappable: BOOLEAN is
+	_wrappable: BOOLEAN
 		-- Are all arguments wrappable and its return type either void or
-		-- wrappable? The variadic part of the function, the ellipsis ("...")
+		-- wrappable? The variadic part of the function, the ellips ("...")
 		-- is ignored. 
 	local i: INTEGER_32
 	do
-		Result := (return_type.is_void or return_type.has_wrapper)
+		Result := (return_type._void or return_type.has_wrapper)
 	    if Result then
 			-- Check for 
 			from i:=children_count until not Result or i<1 loop
-				Result := argument(i).has_wrapper or else argument(i).is_ellipsis
+				Result := argument(i).has_wrapper or else argument(i)._ellips
 				i := i-1
 			end
 		end
 	end
 
-	is_to_be_emitted: BOOLEAN is
+	_to_be_emitted: BOOLEAN
 		do
 			not_yet_implemented
 		end
 
-	wrap_on (a_stream: OUTPUT_STREAM) is 
+	wrap_on (a_stream: OUTPUT_STREAM)  
 		do
-			if not is_wrappable then
-				log("Function `@(1)' is not wrappable%N", <<c_string_name>>) 
+			if not _wrappable then
+				log("Function `@(1)'  not wrappable%N", <<c_string_name>>) 
 				buffer.reset
 				buffer.put_message(once "	-- function @(1) (at line @(2) in file @(3) is not wrappable%N",
 				<<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
 				-- TODO: provide the reason; using developer_exception_name
 				-- triggers some recursion bug AFAIK. Paolo 2009-10-02
-			elseif not is_public then
+			elseif not _public then
 				log(once "Skipping 'hidden' function `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<c_string_name>>)
-			elseif not namespace.is_main then
-				log(once "Skipping function `@(1)' belonging to namespace @(2) which is not wrapped%N",
+			elseif not namespace._main then
+				log(once "Skipping function `@(1)' belonging to namespace @(2) which  not wrapped%N",
 				<<c_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- function @(1) in unwrapped namespace @(2) skipped.%N",
 				<<c_string_name, namespace.c_string_name>>)
@@ -100,7 +100,7 @@ feature {ANY}
 			buffer.print_on(a_stream)
 		end
 
-	append_description is
+	append_description
 			-- Put a description on 'buffer' formatting it as an Eiffel comment
 			-- with lines shorter that 'description_lenght' characters.  		
 		
@@ -114,7 +114,7 @@ feature {ANY}
 			-- 	from 
 			-- 		iter:=a_description.get_new_iterator; iter.start; 
 			-- 		buffer.append(once "%N%T%T-- "); length:=0
-			-- 	until iter.is_off loop
+			-- 	until iter._off loop
 			-- 		word := iter.item
 			-- 		new_length := length + word.count
 			-- 		if new_length>description_lenght then
@@ -130,19 +130,19 @@ feature {ANY}
 			-- end
 		end
 
-	append_arguments is
+	append_arguments
 			-- Append the arguments of function referred by `a_node' into
 			-- `buffer'. 
 
-			-- C requires at least one argument before the eventual ellipsis;
-			-- C++ allows ellipsis to be the only argument. (source
-			-- http://publib.boulder.ibm.com/infocenter/iadthelp/v7r0/index.jsp?topic=/com.ibm.etools.iseries.langref.doc/as400clr155.htm)  
+			-- C requires at least one argument before the eventual ellips;
+			-- C++ allows ellips to be the only argument. (source
+			-- http://publib.boulder.ibm.com/infocenter/iadthelp/v7r0/index.jsp?topic=/com.ibm.etools.eries.langref.doc/as400clr155.htm)  
 		require has_arguments
 		local i, last: INTEGER
 		do
 			buffer.append(once " (")
-			-- Omit the eventual ellipsis
-			if is_variadic then -- Skip the last argument
+			-- Omit the eventual ellips
+			if _variadic then -- Skip the last argument
 				last:=children_count-1
 			else last:= children_count
 			end
@@ -157,35 +157,35 @@ feature {ANY}
 			buffer.append(once ")")
 		end
 
-	append_return_type is
+	append_return_type
 			-- Append the Eiffel equivalent type of the return type of
 			-- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
 			-- POINTER is". When result of `a_node' is "void" only " is" is appended.
 		do
-			if return_type.is_void then 
+			if return_type._void then 
 				-- don't print anything; the correct "return type" of a C
 				-- function returning void (i.e. a command) is an empty string.
 			else
 				buffer.append(once ": ")
 				buffer.append(return_type.wrapper_type)
 			end
-			buffer.append(once " is%N")
+			buffer.append(once " %N")
 		rescue
 			log(once "Unwrappable return type: @(1)... ",<<developer_exception_name>>)
 		end
 
-	append_body is
+	append_body
 			-- Append the body of function to `buffer'
 		local
 			actual_c_symbol,description: STRING
 		do
 			description := c_string_name
-			if is_variadic then
+			if _variadic then
 				description := description+variadic_function_note
 			end
 			-- Deal with argument-less functions like "fork". An
 			-- argument-less function returning an integer shall be marked with
-			-- "()", the empty argument list, otherwise the C compiler will
+			-- "()", the empty argument lt, otherwe the C compiler will
 			-- interpret it as the address of the call casted to an integer.
 			if not has_arguments then actual_c_symbol := c_string_name+(once "()")
 			else actual_c_symbol := c_string_name
@@ -200,7 +200,7 @@ feature {ANY}
 			%		}%"%N%
 			%		end%N%N",
 			<<description, actual_c_symbol>>)
-			-- For debugging purpose the line where the node occurred were once printed in the comment, like this:
+			-- For debugging purpose the line where the node occurred were once printed in the comment, like th:
 
 			-- buffer.put_message(once "%
 			-- % 		-- @(1) (node at line @(3))%N%
@@ -213,24 +213,24 @@ feature {ANY}
 			-- %		end%N%N",
 			-- <<description, actual_c_symbol, line.out>>)
 
-			-- this feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
+			-- th feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
 		end
 		
 feature {} -- Implementation
-	argument (an_index: INTEGER): C_FUNCTION_ARGUMENT is
+	argument (an_index: INTEGER): C_FUNCTION_ARGUMENT
 		-- The argument at `an_index'.	
 	do
 		Result?=child(an_index)
 	ensure no_child_with_wrong_type: Result/=Void
 	end
 
--- invariant name.is_equal(once U"Function")
+-- invariant name._equal(once U"Function")
 end -- class C_FUNCTION
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -240,4 +240,4 @@ end -- class C_FUNCTION
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

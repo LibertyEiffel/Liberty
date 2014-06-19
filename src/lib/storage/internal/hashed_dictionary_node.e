@@ -20,21 +20,21 @@ feature {ABSTRACT_HASHED_DICTIONARY}
    next: like Current
          -- The `next' one when some clash occurs.
 
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item := i
       ensure
          item = i
       end
 
-   set_next (n: like next) is
+   set_next (n: like next)
       do
          next := n
       ensure
          next = n
       end
 
-   make (i: like item; k: like key; n: like next) is
+   make (i: like item; k: like key; n: like next)
       do
          item := i
          key := k
@@ -53,7 +53,7 @@ end -- class HASHED_DICTIONARY_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gsignal_invocation_hint_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL) is
+	gsignal_invocation_hint_struct_set_signal_id (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for signal_id field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_invocation_hint_struct_set_detail (a_structure: POINTER; a_value: NATURAL) is
+	gsignal_invocation_hint_struct_set_detail (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for detail field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gsignal_invocation_hint_struct_set_run_type (a_structure: POINTER; a_value: INTEGER) is
+	gsignal_invocation_hint_struct_set_run_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for run_type field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gsignal_invocation_hint_struct_get_signal_id (a_structure: POINTER): NATURAL is
+	gsignal_invocation_hint_struct_get_signal_id (a_structure: POINTER): NATURAL
 			-- Query for signal_id field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_invocation_hint_struct_get_detail (a_structure: POINTER): NATURAL is
+	gsignal_invocation_hint_struct_get_detail (a_structure: POINTER): NATURAL
 			-- Query for detail field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gsignal_invocation_hint_struct_get_run_type (a_structure: POINTER): INTEGER is
+	gsignal_invocation_hint_struct_get_run_type (a_structure: POINTER): INTEGER
 			-- Query for run_type field of GSIGNAL_INVOCATION_HINT_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

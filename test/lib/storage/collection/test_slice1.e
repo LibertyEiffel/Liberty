@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          model2: FAST_ARRAY[INTEGER]; model3: ARRAY[INTEGER]
       do
@@ -25,7 +25,7 @@ feature {ANY}
          test(model3)
       end
 
-   test (model: COLLECTION[INTEGER]) is
+   test (model: COLLECTION[INTEGER])
       local
          a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
       do
@@ -40,7 +40,7 @@ feature {ANY}
       end
 
 feature {}
-   test1 (model: COLLECTION[INTEGER]) is
+   test1 (model: COLLECTION[INTEGER])
       local
          slice: like model
       do

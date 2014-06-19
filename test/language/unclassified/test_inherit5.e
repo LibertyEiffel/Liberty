@@ -17,13 +17,13 @@ create {}
    make
 
 feature {ANY}
-   foo is
+   foo
       do
          aux_foo
          foo_count := foo_count + 1
       end
 
-   make is
+   make
       local
          aux: AUX_INHERIT5
       do
@@ -36,7 +36,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

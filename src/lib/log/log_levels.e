@@ -7,22 +7,22 @@ expanded class LOG_LEVELS
 --
 
 feature {ANY}
-   trace: LOG_LEVEL is
+   trace: LOG_LEVEL
       once
          create Result.make(2, "TRACE".intern)
       end
 
-   info: LOG_LEVEL is
+   info: LOG_LEVEL
       once
          create Result.make(1, "INFO ".intern)
       end
 
-   warning: LOG_LEVEL is
+   warning: LOG_LEVEL
       once
          create Result.make(0, "WARN ".intern)
       end
 
-   error: LOG_LEVEL is
+   error: LOG_LEVEL
       once
          create Result.make(-1, "ERROR".intern)
       end
@@ -35,7 +35,7 @@ end -- class LOG_LEVELS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,7 +4,7 @@
 deferred class INPUT_STREAM_TOOLS
 
 feature {ANY}
-   read_character is
+   read_character
          -- If `read_character' fail, `end_of_input' is set. Else, use `last_character'.
          -- Read tutorial or io cluster documentation to learn the `read_character' usage pattern.
       require
@@ -16,7 +16,7 @@ feature {ANY}
          not end_of_input implies valid_last_character
       end
 
-   read_line_in (buffer: STRING) is
+   read_line_in (buffer: STRING)
          -- Same job as `read_line' but storage is directly done in `buffer'.
          -- Read tutorial or io cluster documentation to learn the `read_line' usage pattern.
       require
@@ -26,7 +26,7 @@ feature {ANY}
       deferred
       end
 
-   read_available_in (buffer: STRING; limit: INTEGER) is
+   read_available_in (buffer: STRING; limit: INTEGER)
          -- Same job as `read_available' but storage is directly done in `buffer'.
          -- The usage pattern is the same as for `read_line'.
       require
@@ -37,14 +37,14 @@ feature {ANY}
       deferred
       end
 
-   unread_character is
+   unread_character
       require
          is_connected
          not is_filtered and then can_unread_character
       deferred
       end
 
-   last_character: CHARACTER is
+   last_character: CHARACTER
       require
          is_connected
          not end_of_input
@@ -52,7 +52,7 @@ feature {ANY}
       deferred
       end
 
-   can_read_character: BOOLEAN is
+   can_read_character: BOOLEAN
          -- Note that this state is usually temporary. Usually it is called until either it becomes True or
          -- the stream is disconnected:
          --
@@ -74,26 +74,26 @@ feature {ANY}
          Result implies not end_of_input
       end
 
-   can_read_line: BOOLEAN is
+   can_read_line: BOOLEAN
       require
          is_connected
       deferred
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       require
          is_connected
          valid_last_character
       deferred
       end
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       require
          is_connected
       deferred
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
          -- `end_of_input' means the previous attempt in character reading failed because the end has been
          -- reached. So `last_character' is not valid and you are not allowed to do any read attempt
          -- anymore.
@@ -110,16 +110,16 @@ feature {ANY}
       deferred
       end
 
-   is_filtered: BOOLEAN is
+   is_filtered: BOOLEAN
       deferred
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       deferred
       end
 
 feature {ANY} -- Skipping separators:
-   skip_separators is
+   skip_separators
          -- Skip all separators (see `is_separator' of class CHARACTER) and make the first non-separator
          -- available in `last_character'. This non-separator character is pushed back into the stream (see
          -- `unread_character') to be available one more time (the next `read_character' will consider this
@@ -140,7 +140,7 @@ feature {ANY} -- Skipping separators:
          end
       end
 
-   skip_separators_using (separators: STRING) is
+   skip_separators_using (separators: STRING)
          -- Same job as `skip_separators' using the `separators' set.
       require
          is_connected
@@ -159,7 +159,7 @@ feature {ANY} -- Skipping separators:
          end
       end
 
-   skip_remainder_of_line is
+   skip_remainder_of_line
          -- Skip all the remainder of the line including the end of line delimiter itself.
       require
          is_connected
@@ -198,7 +198,7 @@ feature {ANY} -- Skipping separators:
       end
 
 feature {ANY} -- To read one number at a time:
-   read_integer is
+   read_integer
          -- Read an integer according to the Eiffel syntax.  Make result available in `last_integer'.  Heading
          -- separators are automatically skipped using `is_separator' of class CHARACTER.  Trailing separators
          -- are not skipped.
@@ -283,7 +283,7 @@ feature {ANY} -- To read one number at a time:
    valid_last_real: BOOLEAN
          -- Was the last call to `read_real' successful ?
 
-   read_real is
+   read_real
          -- Read a REAL and make the result available in `last_real'.
       require
          is_connected
@@ -411,7 +411,7 @@ feature {ANY} -- To read one number at a time:
       end
 
 feature {ANY} -- To read one line or one word at a time:
-   last_string: STRING is
+   last_string: STRING
          -- Access to the unique common buffer to get for example the result computed by `read_line',
          -- `read_word', `newline', etc. This is a once function (the same common buffer is used for all
          -- streams).
@@ -419,7 +419,7 @@ feature {ANY} -- To read one line or one word at a time:
          create Result.make(1024)
       end
 
-   read_line is
+   read_line
          -- Read a complete line ended by '%N' or `end_of_input'. Make the result available in `last_string'
          -- common buffer. The end of line character (usually '%N') is not added in the `last_string' buffer.
          -- Read tutorial or io cluster documentation to learn the read_line usage pattern.
@@ -433,7 +433,7 @@ feature {ANY} -- To read one line or one word at a time:
          read_line_in(last_string)
       end
 
-   read_available (limit: INTEGER) is
+   read_available (limit: INTEGER)
          -- Read as many characters as possible, as long as the stream does not block and up to the given limit.
          --
          -- See also `read_available_in'.
@@ -445,7 +445,7 @@ feature {ANY} -- To read one line or one word at a time:
          read_available_in(last_string, limit)
       end
 
-   read_word is
+   read_word
          -- Read a word using `is_separator' of class CHARACTER. The result is available in the `last_string'
          -- common buffer. Heading separators are automatically skipped. Trailing separators are not skipped
          -- (`last_character' is left on the first one). If `end_of_input' is encountered, Result can be the
@@ -468,7 +468,7 @@ feature {ANY} -- To read one line or one word at a time:
          end
       end
 
-   newline is
+   newline
          -- Consume input until newline ('%N') is found. The corresponding STRING is stored in `last_string'
          -- common buffer.
       require
@@ -492,7 +492,7 @@ feature {ANY} -- To read one line or one word at a time:
          end
       end
 
-   reach_and_skip (keyword: STRING) is
+   reach_and_skip (keyword: STRING)
          -- Try to skip enough characters in order to reach the `keyword' which is skipped too. If the
          -- `keyword' is not in the remainder of this stream, the process is stopped as soon as `end_of_input'
          -- occurs.
@@ -561,7 +561,7 @@ feature {ANY} -- To read one line or one word at a time:
       end
 
 feature {ANY} -- Other features:
-   read_word_using (separators: STRING) is
+   read_word_using (separators: STRING)
          -- Same job as `read_word' using `separators'.
       require
          is_connected
@@ -582,7 +582,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   read_tail_in (str: STRING) is
+   read_tail_in (str: STRING)
          -- Read all remaining character of the stream in `str'.
       require
          is_connected
@@ -603,7 +603,7 @@ feature {ANY} -- Other features:
       end
 
 feature {}
-   io_getc (stream: POINTER): INTEGER is
+   io_getc (stream: POINTER): INTEGER
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -612,7 +612,7 @@ feature {}
     }"
       end
 
-   io_ungetc (byte: CHARACTER; stream: POINTER) is
+   io_ungetc (byte: CHARACTER; stream: POINTER)
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -621,7 +621,7 @@ feature {}
     }"
       end
 
-   io_fread (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER is
+   io_fread (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER
          -- return size read or 0 if end of input (-1 on error => exception ?)
       external "plug_in"
       alias "{
@@ -631,7 +631,7 @@ feature {}
     }"
       end
 
-   eof: INTEGER is
+   eof: INTEGER
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -648,7 +648,7 @@ end -- class INPUT_STREAM_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

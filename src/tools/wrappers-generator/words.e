@@ -5,7 +5,7 @@ inherit HASHED_SET[STRING]
 create {ANY} make
 
 feature {ANY}
-        add_from_file (a_file_name: STRING) is
+        add_from_file (a_file_name: STRING)
                 -- Add to Current the words read from the file named `a_file_name'. If
                 -- it does not exists or if it is not a file nothing is done.
         require
@@ -14,7 +14,7 @@ feature {ANY}
                 words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
         do
                 create file.connect_to(a_file_name)
-                if file.is_connected then
+                if file._connected then
                         from file.read_line
                         until file.end_of_input
                         loop
@@ -30,7 +30,7 @@ feature {ANY}
                 end
                 end
 
-        print_all is
+        print_all
                 do
                         for_each(agent std_output.put_line)
                 end
@@ -40,7 +40,7 @@ end -- class WORDS
 -- Copyright 2008,2009 Paolo Redaelli
 
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -50,4 +50,4 @@ end -- class WORDS
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

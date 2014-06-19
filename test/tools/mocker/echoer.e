@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   check_echo (x: STRING) is
+   check_echo (x: STRING)
       local
          y: STRING
       do
@@ -17,7 +17,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_echo: like echo) is
+   make (a_echo: like echo)
       require
          a_echo /= Void
       do

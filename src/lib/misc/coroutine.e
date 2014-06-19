@@ -1,7 +1,7 @@
 deferred class COROUTINE[O_ -> TUPLE, Y_]
 
 feature {ANY}
-   item (o: O_): ITERATOR[Y_] is
+   item (o: O_): ITERATOR[Y_]
       local
          i: ANY_COROUTINE_ITERATOR
       do
@@ -12,12 +12,12 @@ feature {ANY}
       end
 
 feature {COROUTINE_ITERATOR}
-   invoke (arguments: O_) is
+   invoke (arguments: O_)
          -- Define this routine, and call `yield' each time a value should be sent back to the caller.
       deferred
       end
 
-   set_iterator (a_iterator: like iterator) is
+   set_iterator (a_iterator: like iterator)
       do
          iterator := a_iterator
       ensure
@@ -27,7 +27,7 @@ feature {COROUTINE_ITERATOR}
 feature {}
    iterator: COROUTINE_ITERATOR[O_, Y_]
 
-   frozen yield (value: Y_) is
+   frozen yield (value: Y_)
       local
          i: like iterator
       do

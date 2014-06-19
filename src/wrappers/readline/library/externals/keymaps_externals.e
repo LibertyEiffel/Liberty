@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	emacs_ctlx_keymap: POINTER is
+	emacs_ctlx_keymap: POINTER
  		-- emacs_ctlx_keymap
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_emacs_ctlx_keymap: POINTER is
+	address_of_emacs_ctlx_keymap: POINTER
  		-- Address of emacs_ctlx_keymap
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_emacs_ctlx_keymap (a_value: POINTER) is
+	set_emacs_ctlx_keymap (a_value: POINTER)
 		-- Set variable emacs_ctlx_keymap value
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	emacs_meta_keymap: POINTER is
+	emacs_meta_keymap: POINTER
  		-- emacs_meta_keymap
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_emacs_meta_keymap: POINTER is
+	address_of_emacs_meta_keymap: POINTER
  		-- Address of emacs_meta_keymap
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_emacs_meta_keymap (a_value: POINTER) is
+	set_emacs_meta_keymap (a_value: POINTER)
 		-- Set variable emacs_meta_keymap value
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	emacs_standard_keymap: POINTER is
+	emacs_standard_keymap: POINTER
  		-- emacs_standard_keymap
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_emacs_standard_keymap: POINTER is
+	address_of_emacs_standard_keymap: POINTER
  		-- Address of emacs_standard_keymap
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_emacs_standard_keymap (a_value: POINTER) is
+	set_emacs_standard_keymap (a_value: POINTER)
 		-- Set variable emacs_standard_keymap value
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vi_insertion_keymap: POINTER is
+	vi_insertion_keymap: POINTER
  		-- vi_insertion_keymap
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_vi_insertion_keymap: POINTER is
+	address_of_vi_insertion_keymap: POINTER
  		-- Address of vi_insertion_keymap
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_vi_insertion_keymap (a_value: POINTER) is
+	set_vi_insertion_keymap (a_value: POINTER)
 		-- Set variable vi_insertion_keymap value
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	vi_movement_keymap: POINTER is
+	vi_movement_keymap: POINTER
  		-- vi_movement_keymap
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_vi_movement_keymap: POINTER is
+	address_of_vi_movement_keymap: POINTER
  		-- Address of vi_movement_keymap
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_vi_movement_keymap (a_value: POINTER) is
+	set_vi_movement_keymap (a_value: POINTER)
 		-- Set variable vi_movement_keymap value
 		external "plug_in"
 		alias "{

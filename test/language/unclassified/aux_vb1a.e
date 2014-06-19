@@ -6,7 +6,7 @@ expanded class AUX_VB1A
 feature {ANY}
    pt: INTEGER
 
-   a_feature: INTEGER is
+   a_feature: INTEGER
       do
          Result := pt
       end

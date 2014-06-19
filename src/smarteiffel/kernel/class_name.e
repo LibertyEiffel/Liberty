@@ -30,7 +30,7 @@ feature {ANY}
 
    allow_missing: BOOLEAN
 
-   predefined: BOOLEAN is
+   predefined: BOOLEAN
          -- All following classes are handled in a special way by the *_TYPE_MARK corresponding class.
       do
          inspect
@@ -45,12 +45,12 @@ feature {ANY}
          end
       end
 
-   looks_like_a_formal_generic_name: BOOLEAN is
+   looks_like_a_formal_generic_name: BOOLEAN
       do
          Result := to_string.last = '_'
       end
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
          -- The corresponding one unique instance.
       do
          Result := class_text_memory
@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   try_class_text: CLASS_TEXT is
+   try_class_text: CLASS_TEXT
       require
          not_done_to_report_errors: error_handler.is_empty
       do
@@ -79,35 +79,35 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := to_string = other.to_string
       end
 
-   is_tuple_related: BOOLEAN is
+   is_tuple_related: BOOLEAN
          -- Is it some TUPLE-related name ("TUPLE", "TUPLE 1", "TUPLE 2", etc.)?
       do
          Result := hashed_name.is_tuple_related
       end
 
-   accept (visitor: CLASS_NAME_VISITOR) is
+   accept (visitor: CLASS_NAME_VISITOR)
       do
          visitor.visit_class_name(Current)
       end
 
 feature {}
-   class_name_cache: CLASS_NAME is
+   class_name_cache: CLASS_NAME
       once
          create Result.unknown_position(string_aliaser.hashed_string(as_any), True)
       end
 
 feature {SMART_EIFFEL}
-   tuple_count: INTEGER is
+   tuple_count: INTEGER
       require
          is_tuple_related
       local
@@ -123,7 +123,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {EIFFEL_PARSER, CLASS_TEXT, TYPE_MARK}
-   set_accurate_position (sp: like start_position) is
+   set_accurate_position (sp: like start_position)
       do
          start_position := sp
       ensure
@@ -131,7 +131,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT, TYPE_MARK}
       end
 
 feature {LIVE_TYPE, ANONYMOUS_FEATURE}
-   get_export_permission_of (other: CLASS_NAME): BOOLEAN is
+   get_export_permission_of (other: CLASS_NAME): BOOLEAN
       require
          to_string /= other.to_string
       local
@@ -160,7 +160,7 @@ feature {CLASS_NAME, CLASS_NAME_VISITOR}
    has_tried_to_load: BOOLEAN
 
 feature {CLASS_NAME}
-   set_class_text_memory (bcm: like class_text_memory) is
+   set_class_text_memory (bcm: like class_text_memory)
       require
          bcm /= Void
          class_text_memory = Void
@@ -171,13 +171,13 @@ feature {CLASS_NAME}
       end
 
 feature {CLASS_NAME_VISITOR, CLASS_TEXT}
-   set_string (s: STRING) is
+   set_string (s: STRING)
       do
          set_hashed_name(string_aliaser.hashed_string(s))
       end
 
 feature {INTEGER_TYPE_MARK, NATURAL_TYPE_MARK}
-   set_hashed_name (hn: HASHED_STRING) is
+   set_hashed_name (hn: HASHED_STRING)
       require
          hn /= Void
       do
@@ -191,7 +191,7 @@ feature {INTEGER_TYPE_MARK, NATURAL_TYPE_MARK}
       end
 
 feature {ANY}
-   make (hn: like hashed_name; sp: like start_position; am: like allow_missing) is
+   make (hn: like hashed_name; sp: like start_position; am: like allow_missing)
       require
          hn /= Void
       do
@@ -206,7 +206,7 @@ feature {ANY}
          hash_code = to_string.hash_code
       end
 
-   unknown_position (hn: like hashed_name; am: like allow_missing) is
+   unknown_position (hn: like hashed_name; am: like allow_missing)
       require
          hn /= Void
       local

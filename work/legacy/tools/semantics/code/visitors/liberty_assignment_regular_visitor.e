@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ASSIGNMENT_REGULAR}
-   visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR) is
+   visit_liberty_assignment_regular (v: LIBERTY_ASSIGNMENT_REGULAR)
       deferred
       end
 

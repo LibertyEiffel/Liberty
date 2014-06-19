@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {PARENT_EDGE}
-   visit_parent_edge (visited: PARENT_EDGE) is
+   visit_parent_edge (visited: PARENT_EDGE)
       require
          visited /= Void
       deferred

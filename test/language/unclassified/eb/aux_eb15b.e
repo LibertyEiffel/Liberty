@@ -20,7 +20,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
       end
 

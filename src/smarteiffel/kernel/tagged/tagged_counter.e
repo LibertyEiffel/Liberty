@@ -15,13 +15,13 @@ create {ANY}
 feature {ANY}
    item: COUNTER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {}
-   make is
+   make
       do
          create item
       end

@@ -8,7 +8,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          integer: INTEGER
       do

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT) is
+   visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT)
       require
          a_object /= Void
       deferred

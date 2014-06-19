@@ -6,22 +6,22 @@ insert
    UNICODE_CHARACTERS
 
 feature {ANY}
-   line: INTEGER is
+   line: INTEGER
       do
          Result := buffer.line
       end
 
-   column: INTEGER is
+   column: INTEGER
       do
          Result := buffer.column
       end
 
 feature {}
-   buffer: UNICODE_PARSER_BUFFER is
+   buffer: UNICODE_PARSER_BUFFER
       deferred
       end
 
-   skip_blanks is
+   skip_blanks
       require
          buffer.is_connected
       do
@@ -33,14 +33,14 @@ feature {}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       require
          buffer.is_connected
       do
          Result := buffer.end_of_input
       end
 
-   next is
+   next
       require
          buffer.is_connected
          not end_of_input
@@ -48,7 +48,7 @@ feature {}
          buffer.next
       end
 
-   previous is
+   previous
       require
          buffer.is_connected
          buffer.index > 0
@@ -56,7 +56,7 @@ feature {}
          buffer.previous
       end
 
-   current_character: INTEGER is
+   current_character: INTEGER
       require
          buffer.is_connected
          not end_of_input
@@ -64,7 +64,7 @@ feature {}
          Result := buffer.code
       end
 
-   skip (character: CHARACTER): BOOLEAN is
+   skip (character: CHARACTER): BOOLEAN
       require
          buffer.is_connected
       do
@@ -77,7 +77,7 @@ feature {}
          end
       end
 
-   skip2 (char1, char2: CHARACTER): BOOLEAN is
+   skip2 (char1, char2: CHARACTER): BOOLEAN
       require
          buffer.is_connected
       do
@@ -90,7 +90,7 @@ feature {}
          end
       end
 
-   skip_word (word: STRING): BOOLEAN is
+   skip_word (word: STRING): BOOLEAN
       require
          buffer.is_connected
          not word.is_empty
@@ -113,7 +113,7 @@ feature {}
          end
       end
 
-   is_identifier_start (unicode: INTEGER): BOOLEAN is
+   is_identifier_start (unicode: INTEGER): BOOLEAN
       require
          buffer.is_connected
       do
@@ -129,7 +129,7 @@ feature {}
          end
       end
 
-   is_identifier_part (unicode: INTEGER): BOOLEAN is
+   is_identifier_part (unicode: INTEGER): BOOLEAN
       require
          buffer.is_connected
       do
@@ -145,7 +145,7 @@ feature {}
          end
       end
 
-   read_identifier: UNICODE_STRING is
+   read_identifier: UNICODE_STRING
       require
          buffer.is_connected
       local
@@ -184,7 +184,7 @@ feature {}
          end
       end
 
-   read_string: UNICODE_STRING is
+   read_string: UNICODE_STRING
       require
          buffer.is_connected
          current_character = '%''.code or else current_character = '"'.code
@@ -214,7 +214,7 @@ feature {}
          end
       end
 
-   read_identifier_as_string: STRING is
+   read_identifier_as_string: STRING
       require
          buffer.is_connected
       local
@@ -228,7 +228,7 @@ feature {}
          end
       end
 
-   read_string_as_string: STRING is
+   read_string_as_string: STRING
       require
          buffer.is_connected
       local
@@ -253,7 +253,7 @@ end -- class XML_PARSER_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -9,7 +9,7 @@ create {}
 feature {}
    session: EDC_SESSION
 
-   main is
+   main
       local
          d_employee: EMPLOYEE_DESCRIPTOR
          employees: TRAVERSABLE[EMPLOYEE]

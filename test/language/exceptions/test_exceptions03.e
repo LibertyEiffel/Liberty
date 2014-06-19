@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    s: STRING
 
-   make is
+   make
       do
          execution_trace.add_last(0)
          routine_1
@@ -20,7 +20,7 @@ feature {ANY}
          is_true({ARRAY[INTEGER] 1, << 0, 1, 3, 5, 6, 4, 2, 1, 3, 5 >> }.is_equal(execution_trace))
       end
 
-   routine_1 is
+   routine_1
       do
          execution_trace.add_last(1)
          routine_2
@@ -31,7 +31,7 @@ feature {ANY}
          retry
       end
 
-   routine_2 is
+   routine_2
       do
          execution_trace.add_last(3)
          routine_3
@@ -40,7 +40,7 @@ feature {ANY}
          execution_trace.add_last(4)
       end
 
-   routine_3 is
+   routine_3
       do
          execution_trace.add_last(5)
          s.extend('f')
@@ -49,12 +49,12 @@ feature {ANY}
       end
 
 feature {}
-   execution_trace: ARRAY[INTEGER] is
+   execution_trace: ARRAY[INTEGER]
       once
          create Result.make(1, 0)
       end
 
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

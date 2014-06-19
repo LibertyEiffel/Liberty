@@ -6,7 +6,7 @@ class AUX_FA3B2
 feature {ANY}
    autre: STRING
 
-   init_autre is
+   init_autre
       do
          autre := "autre"
       end

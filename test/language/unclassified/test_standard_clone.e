@@ -20,7 +20,7 @@ feature {ANY}
 
    t1, t2: TRIANGLE
 
-   make is
+   make
       do
          s1 := "foo"
          s2 := s1.standard_twin

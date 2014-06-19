@@ -28,12 +28,12 @@ create {ANY}
    make
 
 feature {ANY}
-   as_value: EDC_TIME_COLUMN_VALUE is
+   as_value: EDC_TIME_COLUMN_VALUE
       do
          create Result.make(Current)
       end
 
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_TIME_COLUMN_VISITOR
       do
@@ -41,7 +41,7 @@ feature {ANY}
          v.visit_time_column(Current)
       end
 
-   hash_code (a_value: EDC_DATUM): INTEGER is
+   hash_code (a_value: EDC_DATUM): INTEGER
       do
          Result := value(a_value).hash_code
       end

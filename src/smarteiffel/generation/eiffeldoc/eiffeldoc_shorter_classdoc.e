@@ -31,11 +31,11 @@ create {EIFFELDOC_SHORTER}
    make
 
 feature {}
-   invariant_phase:        INTEGER is 1
-   summary_creation_phase: INTEGER is 2
-   summary_features_phase: INTEGER is 3
-   details_creation_phase: INTEGER is 4
-   details_features_phase: INTEGER is 5
+   invariant_phase:        INTEGER 1
+   summary_creation_phase: INTEGER 2
+   summary_features_phase: INTEGER 3
+   details_creation_phase: INTEGER 4
+   details_features_phase: INTEGER 5
 
 feature {EIFFELDOC_SHORTER}
    find_clients: EIFFELDOC_SHORTER_FIND_CLIENTS
@@ -43,7 +43,7 @@ feature {EIFFELDOC_SHORTER}
    clients: TYPE_MARK_LIST
 
    generate (a_class_text: CLASS_TEXT; a_client: like client; a_filename: STRING;
-            inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
+            inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT])
       local
          obs: MANIFEST_STRING; comment: COMMENT
       do
@@ -162,13 +162,13 @@ feature {EIFFELDOC_SHORTER}
          html.disconnect
       end
 
-   depends: HASHED_SET[CLASS_NAME] is
+   depends: HASHED_SET[CLASS_NAME]
       once
          create Result.make
       end
 
 feature {}
-   open_root_block is
+   open_root_block
       -- Write the `top' anchor.
       -- Write tabs.
       -- Open the `root' block and write the block title.
@@ -238,7 +238,7 @@ feature {}
          html.in_a_body
       end
 
-   close_root_block is
+   close_root_block
       require
          html /= Void and then html.in_a_body
       do
@@ -246,7 +246,7 @@ feature {}
       end
 
 feature {} -- Sorting and displaying lists of classes:
-   put_parent_classes (title: STRING; parents: FAST_ARRAY[PARENT_EDGE]) is
+   put_parent_classes (title: STRING; parents: FAST_ARRAY[PARENT_EDGE])
       local
          i: INTEGER
       do
@@ -262,7 +262,7 @@ feature {} -- Sorting and displaying lists of classes:
          put_list_of_classes(title)
       end
 
-   put_children_classes (title: STRING; children: FAST_ARRAY[CLASS_TEXT]) is
+   put_children_classes (title: STRING; children: FAST_ARRAY[CLASS_TEXT])
       require
          title /= Void
          children /= list_of_classes
@@ -273,7 +273,7 @@ feature {} -- Sorting and displaying lists of classes:
          put_list_of_classes(title)
       end
 
-   put_list_of_classes (title: STRING) is
+   put_list_of_classes (title: STRING)
       require
          title /= Void
          not list_of_classes.is_empty
@@ -296,7 +296,7 @@ feature {} -- Sorting and displaying lists of classes:
          end
       end
 
-   sort_list_of_classes is
+   sort_list_of_classes
       local
          c: COMPARATOR_COLLECTION_SORTER[CLASS_TEXT]
       do
@@ -304,23 +304,23 @@ feature {} -- Sorting and displaying lists of classes:
          c.sort(list_of_classes)
       end
 
-   compare_class_texts (x, y: CLASS_TEXT): BOOLEAN is
+   compare_class_texts (x, y: CLASS_TEXT): BOOLEAN
       do
          Result := x.name.to_string < y.name.to_string
       end
 
-   class_texts_comparator: PREDICATE[TUPLE[CLASS_TEXT, CLASS_TEXT]] is
+   class_texts_comparator: PREDICATE[TUPLE[CLASS_TEXT, CLASS_TEXT]]
       once
          Result := agent compare_class_texts(?, ?)
       end
 
-   list_of_classes: FAST_ARRAY[CLASS_TEXT] is
+   list_of_classes: FAST_ARRAY[CLASS_TEXT]
       once
          create Result.make(0)
       end
 
 feature {}
-   put_class_invariant (ct: CLASS_TEXT) is
+   put_class_invariant (ct: CLASS_TEXT)
       local
          phase_memory: like phase
       do
@@ -337,7 +337,7 @@ feature {}
          phase := phase_memory
       end
 
-   browse_class (ct: CLASS_TEXT) is
+   browse_class (ct: CLASS_TEXT)
       local
          pl: PARENT_LISTS
       do
@@ -358,7 +358,7 @@ feature {}
          end
       end
 
-   browse_inherit_items (items: FAST_ARRAY[PARENT_EDGE]) is
+   browse_inherit_items (items: FAST_ARRAY[PARENT_EDGE])
       local
          i: INTEGER; ct: CLASS_TEXT
       do
@@ -378,7 +378,7 @@ feature {}
       end
 
 feature {}
-   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN is
+   enter_class_invariant (visited: CLASS_INVARIANT): BOOLEAN
       do
          if phase = invariant_phase then
             print_assertion_list(visited, Void)
@@ -386,13 +386,13 @@ feature {}
       end
 
 feature {}
-   enter_parent_lists (visited: PARENT_LISTS): BOOLEAN is
+   enter_parent_lists (visited: PARENT_LISTS): BOOLEAN
       do
       ensure
          not Result
       end
 
-   enter_class_text (visited: CLASS_TEXT): BOOLEAN is
+   enter_class_text (visited: CLASS_TEXT): BOOLEAN
       do
          Result := not entered
          entered := True
@@ -406,7 +406,7 @@ feature {}
 
    feature_clause_comment_printed: BOOLEAN
 
-   enter_creation_clause_list (visited: CREATION_CLAUSE_LIST): BOOLEAN is
+   enter_creation_clause_list (visited: CREATION_CLAUSE_LIST): BOOLEAN
       do
          inspect
             phase
@@ -421,7 +421,7 @@ feature {}
          end
       end
 
-   enter_creation_clause (visited: CREATION_CLAUSE): BOOLEAN is
+   enter_creation_clause (visited: CREATION_CLAUSE): BOOLEAN
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -446,7 +446,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   exit_creation_clause (visited: CREATION_CLAUSE) is
+   exit_creation_clause (visited: CREATION_CLAUSE)
       do
          inspect
             phase
@@ -462,7 +462,7 @@ feature {}
          end
       end
 
-   enter_feature_clause_list (visited: FEATURE_CLAUSE_LIST): BOOLEAN is
+   enter_feature_clause_list (visited: FEATURE_CLAUSE_LIST): BOOLEAN
       do
          inspect
             phase
@@ -479,7 +479,7 @@ feature {}
          end
       end
 
-   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN is
+   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       do
@@ -516,7 +516,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   exit_feature_clause (visited: FEATURE_CLAUSE) is
+   exit_feature_clause (visited: FEATURE_CLAUSE)
       do
          inspect
             phase
@@ -532,7 +532,7 @@ feature {}
          end
       end
 
-   enter_feature_text (visited: FEATURE_TEXT): BOOLEAN is
+   enter_feature_text (visited: FEATURE_TEXT): BOOLEAN
       local
          do_print: BOOLEAN; fs: FEATURE_STAMP; fn: FEATURE_NAME; af: ANONYMOUS_FEATURE; i: INTEGER
       do
@@ -585,12 +585,12 @@ feature {}
          not Result
       end
 
-   found_features: FAST_ARRAY[FEATURE_STAMP] is
+   found_features: FAST_ARRAY[FEATURE_STAMP]
       once
          create Result.with_capacity(16)
       end
 
-   print_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE) is
+   print_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
       do
          inspect
             phase
@@ -614,7 +614,7 @@ feature {}
          end
       end
 
-   print_feature_summary (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE) is
+   print_feature_summary (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -682,7 +682,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   print_feature_details (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE) is
+   print_feature_details (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -859,7 +859,7 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   require_is_empty (ra: REQUIRE_ASSERTION): BOOLEAN is
+   require_is_empty (ra: REQUIRE_ASSERTION): BOOLEAN
       require
          ra /= Void
       local
@@ -881,7 +881,7 @@ feature {}
          end
       end
 
-   assertion_list_is_empty (al: ASSERTION_LIST): BOOLEAN is
+   assertion_list_is_empty (al: ASSERTION_LIST): BOOLEAN
       require
          al /= Void
       local
@@ -903,7 +903,7 @@ feature {}
          end
       end
 
-   print_require (ra: REQUIRE_ASSERTION; for_feature: ANONYMOUS_FEATURE) is
+   print_require (ra: REQUIRE_ASSERTION; for_feature: ANONYMOUS_FEATURE)
       local
          i: INTEGER; has_else: BOOLEAN
       do
@@ -934,7 +934,7 @@ feature {}
          end
       end
 
-   print_assertion_list (al: ASSERTION_LIST; for_feature: ANONYMOUS_FEATURE) is
+   print_assertion_list (al: ASSERTION_LIST; for_feature: ANONYMOUS_FEATURE)
       local
          i: INTEGER
       do
@@ -952,7 +952,7 @@ feature {}
          end
       end
 
-   print_assertion (a: ASSERTION; for_feature: ANONYMOUS_FEATURE) is
+   print_assertion (a: ASSERTION; for_feature: ANONYMOUS_FEATURE)
       local
          ewc: EXPRESSION_WITH_COMMENT; e: EXPRESSION; c: COMMENT
       do
@@ -987,7 +987,7 @@ feature {}
       end
 
 feature {}
-   visit_generic_type_mark (visited: GENERIC_TYPE_MARK) is
+   visit_generic_type_mark (visited: GENERIC_TYPE_MARK)
       local
          list: ARRAY[TYPE_MARK]; i: INTEGER
       do
@@ -1009,7 +1009,7 @@ feature {}
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          put_class_name(visited.class_text_name, True)
          html.put_character('[')
@@ -1025,7 +1025,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {FEATURE_NAME}
-   visit_feature_name (visited: FEATURE_NAME) is
+   visit_feature_name (visited: FEATURE_NAME)
       do
          inspect
             phase
@@ -1042,13 +1042,13 @@ feature {FEATURE_NAME}
       end
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK)
       do
          html.put_string(visited.written_mark)
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       local
          fs: FEATURE_STAMP; ct: TYPE
       do
@@ -1059,25 +1059,25 @@ feature {LIKE_FEATURE_TYPE_MARK}
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       do
          put_type_mark(visited.declaration_type)
       end
 
 feature {LIKE_CURRENT_TYPE_MARK}
-   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
+   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK)
       do
          put_class(context_class_text, True)
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
          html.put_string(visited.to_string)
       end
 
 feature {EFFECTIVE_ARG_LIST}
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST)
       local
          i: INTEGER
       do
@@ -1095,25 +1095,25 @@ feature {EFFECTIVE_ARG_LIST}
       end
 
 feature {MANIFEST_STRING}
-   visit_manifest_string (visited: MANIFEST_STRING) is
+   visit_manifest_string (visited: MANIFEST_STRING)
       do
          html.put_string(visited.source_view)
       end
 
 feature {WRITTEN_CURRENT}
-   visit_written_current (visited: WRITTEN_CURRENT) is
+   visit_written_current (visited: WRITTEN_CURRENT)
       do
          html.put_string(visited.to_string)
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
          html.put_string(once "Result")
       end
 
 feature {E_OLD}
-   visit_e_old (visited: E_OLD) is
+   visit_e_old (visited: E_OLD)
       do
          html.put_string(old_str)
          html.put_character(' ')
@@ -1121,7 +1121,7 @@ feature {E_OLD}
       end
 
 feature {}
-   visit_call_support (visited: FEATURE_CALL) is
+   visit_call_support (visited: FEATURE_CALL)
       local
          t: EXPRESSION; fn:FEATURE_NAME; args: EFFECTIVE_ARG_LIST; ref:STRING
          name: STRING
@@ -1199,7 +1199,7 @@ feature {}
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       do
          visited.left_side.accept(Current)
          html.put_character(' ')
@@ -1213,54 +1213,54 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
+   visit_implicit_cast (visited: IMPLICIT_CAST)
       do
          visited.expression.accept(Current)
       end
 
 feature {E_VOID}
-   visit_e_void (visited: E_VOID) is
+   visit_e_void (visited: E_VOID)
       do
          html.put_string(visited.to_string)
       end
 feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
+   visit_e_true (visited: E_TRUE)
       do
          html.put_string(visited.to_string)
       end
 
 feature {E_FALSE}
-   visit_e_false (visited: E_FALSE) is
+   visit_e_false (visited: E_FALSE)
       do
          html.put_string(visited.to_string)
       end
 
 feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
+   visit_character_constant (visited: CHARACTER_CONSTANT)
       do
          html.put_string(visited.to_string)
       end
 
 feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
+   visit_integer_constant (visited: INTEGER_CONSTANT)
       do
          html.put_string(visited.to_string)
       end
 
 feature {NATURAL_CONSTANT}
-   visit_natural_constant (visited: NATURAL_CONSTANT) is
+   visit_natural_constant (visited: NATURAL_CONSTANT)
       do
          html.put_string(visited.to_string)
       end
 
 feature {REAL_CONSTANT}
-   visit_real_constant (visited: REAL_CONSTANT) is
+   visit_real_constant (visited: REAL_CONSTANT)
       do
          html.put_string(visited.to_string)
       end
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       do
          html.put_string(once "(create {")
          put_class_name(visited.explicit_type.class_text_name, class_text /= visited.explicit_type.class_text)
@@ -1274,29 +1274,29 @@ feature {CREATE_EXPRESSION}
 feature {}
    class_text: CLASS_TEXT
 
-   client: TYPE_MARK is
+   client: TYPE_MARK
       do
          Result := context.client
       end
 
    phase: INTEGER
 
-   options: EIFFELDOC_OPTIONS is
+   options: EIFFELDOC_OPTIONS
       do
          Result := context.options
       end
 
-   html: EIFFELDOC_OUTPUT_STREAM is
+   html: EIFFELDOC_OUTPUT_STREAM
       do
          Result := context.html
       end
 
-   context_class_text: CLASS_TEXT is
+   context_class_text: CLASS_TEXT
       do
          Result := context.class_text
       end
 
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do
@@ -1304,7 +1304,7 @@ feature {}
          create find_clients.make
       end
 
-   put_type_mark (visited: TYPE_MARK) is
+   put_type_mark (visited: TYPE_MARK)
       local
          list: ARRAY[TYPE_MARK]; i: INTEGER
       do
@@ -1331,7 +1331,7 @@ feature {}
          end
       end
 
-   put_class (ct: CLASS_TEXT; show_generic: BOOLEAN) is
+   put_class (ct: CLASS_TEXT; show_generic: BOOLEAN)
       local
          class_name: CLASS_NAME; i: INTEGER; arg: FORMAL_GENERIC_ARG
       do
@@ -1367,7 +1367,7 @@ feature {}
          end
       end
 
-   put_class_name (class_name: CLASS_NAME; anchored: BOOLEAN) is
+   put_class_name (class_name: CLASS_NAME; anchored: BOOLEAN)
       local
          anchor: STRING
       do
@@ -1377,7 +1377,7 @@ feature {}
          put_class_name_string(class_name.to_string, anchor)
       end
 
-   put_class_name_string (class_name_string, anchor: STRING) is
+   put_class_name_string (class_name_string, anchor: STRING)
          -- Must be called '''only''' by `put_class_name'
       do
          if anchor = Void then
@@ -1391,7 +1391,7 @@ feature {}
          end
       end
 
-   is_generic_name (class_name: CLASS_NAME; context_class: CLASS_TEXT): BOOLEAN is
+   is_generic_name (class_name: CLASS_NAME; context_class: CLASS_TEXT): BOOLEAN
       local
          i: INTEGER
       do

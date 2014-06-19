@@ -28,7 +28,7 @@ create {EDC_STORABLE_INDEX}
    make
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS is
+   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS
       do
          check
             False
@@ -36,7 +36,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {EDC_STORABLE_INDEX}
-   can_add (a_index: like index; a_table: like table; a_row: like row): BOOLEAN is
+   can_add (a_index: like index; a_table: like table; a_row: like row): BOOLEAN
       do
          index := a_index
          table := a_table
@@ -46,7 +46,7 @@ feature {EDC_STORABLE_INDEX}
       end
 
 feature {EDC_PRIMARY_KEY}
-   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is
+   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY)
       local
          i, c: INTEGER; col: EDC_COLUMN; over: BOOLEAN
       do
@@ -71,7 +71,7 @@ feature {EDC_PRIMARY_KEY}
       end
 
 feature {}
-   has_value (a_column: EDC_COLUMN; a_value: EDC_DATUM): BOOLEAN is
+   has_value (a_column: EDC_COLUMN; a_value: EDC_DATUM): BOOLEAN
       local
          c, i: INTEGER
       do
@@ -97,7 +97,7 @@ feature {}
 
    res: BOOLEAN
 
-   make is
+   make
       do
       end
 

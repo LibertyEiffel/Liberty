@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {INDEX_CLAUSE}
-   visit_index_clause (visited: INDEX_CLAUSE) is
+   visit_index_clause (visited: INDEX_CLAUSE)
       require
          visited /= Void
       deferred

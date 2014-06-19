@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_JMJ2A[ARRAY[REAL]]; b: AUX_JMJ2B[REAL]
       do
@@ -16,7 +16,7 @@ feature {ANY}
          a := b
       end
 
-   do_invariant: BOOLEAN is
+   do_invariant: BOOLEAN
       local
          a: ARRAY[REAL]
       do

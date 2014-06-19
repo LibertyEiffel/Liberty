@@ -31,13 +31,13 @@ feature {ANY}
    url: STRING
 
 feature {ANY}
-   handle (handler: EDC_ERROR_HANDLER): BOOLEAN is
+   handle (handler: EDC_ERROR_HANDLER): BOOLEAN
       do
          Result := handler.connection_failed(Current)
       end
 
 feature {}
-   make (a_url: like url) is
+   make (a_url: like url)
       require
          a_url /= Void
       do

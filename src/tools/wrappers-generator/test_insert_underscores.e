@@ -2,7 +2,7 @@ class TEST_INSERT_UNDERSCORES
 insert NAME_CONVERTER
 create {ANY} test
 feature {ANY} 
-	test is
+	test
 		do
 			check
 				insert_underscores("CamelCase")~"Camel_Case"

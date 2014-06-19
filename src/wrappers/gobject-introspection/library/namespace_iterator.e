@@ -12,7 +12,7 @@ insert GIREPOSITORY_EXTERNALS
 create {GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
 
 feature {} -- Creation
-	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is
+	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING)
 		do 
 			("Iterator over #(1) namespace%N" # a_namespace).print_on(std_output)
 			repo_ptr := a_repository.handle
@@ -27,23 +27,23 @@ feature {} -- Creation
 	end
 
 feature {ANY}
-	start is
+	start
 		do
 			index := 0
 		end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result := index>n_infos
 		end
 
-	item: GI_BASE_INFO is
+	item: GI_BASE_INFO
 		do
 			("Iterator item #(1)%N" # &index).print_on(std_output)
 			Result := wrapper(g_irepository_get_info(repo_ptr,namespace.to_external,index))
 		end
 
-	next is
+	next
 		do
 			index:=index+1
 		end

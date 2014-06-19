@@ -38,12 +38,12 @@ insert
       end
 
 feature {EDC_CONNECTION_FACTORY}
-   valid_url (url: STRING): BOOLEAN is
+   valid_url (url: STRING): BOOLEAN
       do
          Result := url.has_prefix(once "gda://")
       end
 
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_GDA_CONNECTION is
+   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_GDA_CONNECTION
       local
          provider_id, parameters: STRING; i: INTEGER; cnx: GDA_CONNECTION
       do
@@ -77,12 +77,12 @@ feature {EDC_CONNECTION_FACTORY}
       end
 
 feature {}
-   gda: GDA_CLIENT is
+   gda: GDA_CLIENT
       once
          create Result.make
       end
 
-   default_create is
+   default_create
       once
          libgda.init("EDC", "0.1", create {FAST_ARRAY[STRING]}.make(0))
       end

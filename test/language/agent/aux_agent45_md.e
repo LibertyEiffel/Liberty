@@ -5,7 +5,7 @@ deferred class AUX_AGENT45_MD
    -- master
 
 feature {ANY}
-   frozen show is
+   frozen show
       do
          if slave /= Void then
             action := agent slave.show

@@ -6,14 +6,14 @@ inherit
    VISITOR
 
 feature {XMLNS_COMPOSITE_NODE}
-   visit_composite_node (node: XMLNS_COMPOSITE_NODE) is
+   visit_composite_node (node: XMLNS_COMPOSITE_NODE)
       require
          node /= Void
       deferred
       end
 
 feature {XMLNS_DATA_NODE}
-   visit_data_node (node: XMLNS_DATA_NODE) is
+   visit_data_node (node: XMLNS_DATA_NODE)
       require
          node /= Void
       deferred
@@ -27,7 +27,7 @@ end -- class XMLNS_NODE_VISITOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -21,7 +21,7 @@ create {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR, LIBERTY_INTERPRETER_NATIVE_ARR
    make, with_storage
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          interpreter := other.interpreter
          accessor := other.accessor
@@ -30,7 +30,7 @@ feature {ANY}
          elements := other.elements
       end
 
-   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN
       local
          o: like Current
       do
@@ -42,52 +42,52 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := elements.to_pointer.hash_code
       end
 
-   item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+   item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT
       do
          Result := accessor.retrieve(elements.item(index))
       end
 
-   put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
+   put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER)
       do
          elements.put(accessor.store(o), index)
       end
 
-   first: LIBERTY_INTERPRETER_OBJECT is
+   first: LIBERTY_INTERPRETER_OBJECT
       do
          Result := accessor.retrieve(elements.first)
       end
 
-   last: LIBERTY_INTERPRETER_OBJECT is
+   last: LIBERTY_INTERPRETER_OBJECT
       do
          Result := accessor.retrieve(elements.last)
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := elements.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := elements.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := elements.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := elements.is_empty
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -109,7 +109,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       local
          i: INTEGER
          o: like Current
@@ -130,12 +130,12 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          end
       end
 
-   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       do
          Result := builtin_is_equal(other, a_position)
       end
 
-   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       local
          o: like Current
       do
@@ -147,23 +147,23 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          end
       end
 
-   builtin_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_twin (a_position: LIBERTY_POSITION): like Current
       do
          create Result.with_storage(interpreter, type, item_type, elements, elements.capacity, a_position)
       end
 
-   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       do
          builtin_copy(other, a_position)
       end
 
-   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current
       do
          create Result.with_storage(interpreter, type, item_type, elements, elements.capacity, a_position)
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          i: INTEGER; elements_twin: like elements
       do
@@ -183,7 +183,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
          end
       end
 
-   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
+   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN
       local
          i: INTEGER
          na: LIBERTY_INTERPRETER_NATIVE_ARRAY
@@ -212,7 +212,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
-   show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
+   show_stack (o: OUTPUT_STREAM; indent: INTEGER)
       local
          e: E_; i: INTEGER
       do
@@ -246,17 +246,17 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
-   builtin_element_sizeof: INTEGER is
+   builtin_element_sizeof: INTEGER
       do
          not_yet_implemented
       end
 
-   builtin_calloc (capacity: INTEGER; a_position: LIBERTY_POSITION): like Current is
+   builtin_calloc (capacity: INTEGER; a_position: LIBERTY_POSITION): like Current
       do
          create Result.make(interpreter, type, item_type, default_pointer, capacity, a_position)
       end
 
-   builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER) is
+   builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER)
       local
          i, j: INTEGER
       do
@@ -273,7 +273,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
       end
 
 feature {}
-   make (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_storage: POINTER; a_capacity: INTEGER; a_position: like position) is
+   make (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_storage: POINTER; a_capacity: INTEGER; a_position: like position)
       require
          a_interpreter /= Void
          a_type /= Void
@@ -299,7 +299,7 @@ feature {}
          position = a_position
       end
 
-   with_storage (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_elements: TRAVERSABLE[E_]; a_capacity: INTEGER; a_position: like position) is
+   with_storage (a_interpreter: like interpreter; a_type: like type; a_item_type: like item_type; a_elements: TRAVERSABLE[E_]; a_capacity: INTEGER; a_position: like position)
       require
          a_interpreter /= Void
          a_elements /= Void
@@ -329,12 +329,12 @@ feature {}
          position = a_position
       end
 
-   expanded_twin: like Current is
+   expanded_twin: like Current
       do
          Result := twin
       end
 
-   accessor_factory: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY is
+   accessor_factory: LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY
       once
          create Result.make
       end
@@ -346,13 +346,13 @@ feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED, LIBERTY_INTERPRETER_OBJECT_PRIN
    elements: FAST_ARRAY[E_]
 
 feature {LIBERTY_INTERPRETER_TO_EXTERNAL}
-   to_external: POINTER is
+   to_external: POINTER
       do
          Result := elements.to_external
       end
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR}
-   from_external (a_external: POINTER; a_capacity: INTEGER) is
+   from_external (a_external: POINTER; a_capacity: INTEGER)
       do
          elements.from_external(a_external, a_capacity)
       end

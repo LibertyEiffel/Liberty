@@ -14,32 +14,32 @@ insert NAME_CONVERTER
 create {ANY} make
 
 feature {ANY}
-        store is
+        store
                 do
                         create {LINKED_LIST[C_FIELD]} fields.make
                         types.put(Current,id)
-                        if is_named then
+                        if _named then
                                 symbols.put(Current,c_string_name)
                         end
                         composed_types.put(Current,id)
                 end
 
-        is_fundamental: BOOLEAN is False
+        _fundamental: BOOLEAN False
 
-        is_void: BOOLEAN is False
+        _void: BOOLEAN False
 
-        has_wrapper: BOOLEAN is False
+        has_wrapper: BOOLEAN False
 
-        c_type: STRING is
+        c_type: STRING
                 do
-                        if is_artificial then
+                        if _artificial then
                                 Result := once "struct"
                         else
                                 Result := once ""
                         end
                 end
 
-        wrapper_type: STRING is
+        wrapper_type: STRING
                 do
                         debug
                                 print(once
@@ -49,19 +49,19 @@ feature {ANY}
                         not_yet_implemented -- Result := eiffel_name
                 end
 
-        is_to_be_emitted: BOOLEAN is
+        _to_be_emitted: BOOLEAN
                 do
-                        Result:= is_named and then (is_public or has_assigned_name) and then
+                        Result:= _named and then (_public or has_assigned_name) and then
                         (global or else headers.has(c_file.c_string_name))
                 end
-        emit_wrapper is
+        emit_wrapper
                 -- Emit a reference wrapper for Current C structure.
 
                 -- A reference wrapper handles the structure as a memory area referred by a pointer.
                 -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
         local path: POSIX_PATH_NAME; filename: STRING
         do
-                if is_to_be_emitted then
+                if _to_be_emitted then
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
                         filename := path.to_string
@@ -73,16 +73,16 @@ feature {ANY}
                         emit_size
                         emit_footer
                         output.flush
-                        output.disconnect
+                        output.dconnect
                 else
-                        if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
+                        if _anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
                         else log(once "Struct @(1) skipped%N", <<c_string_name>>)
                         end
 
                 end
         end
 
-        emit_header is
+        emit_header
                 -- Append the header of Current structure to `buffer'.
         do
                 buffer.append(automatically_generated_header)
@@ -94,11 +94,11 @@ feature {ANY}
                 buffer.print_on(output)
         end
 
-        emit_members is
+        emit_members
                 -- local
                 --      members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
                 do
-                        if fields/=Void and then not fields.is_empty then
+                        if fields/=Void and then not fields._empty then
                                 setters.reset; queries.reset
                                 setters.append(setters_header)
                                 queries.append(queries_header)
@@ -111,13 +111,13 @@ feature {ANY}
                         end
                 end
 
-        emit_size is
+        emit_size
                 -- Append to `output' the `struct_size' query for Current.
         do
                 -- buffer.reset
                 buffer.put_message(once
                 "feature {WRAPPER, WRAPPER_HANDLER} -- Structure size%N%
-                %       struct_size: like size_t is%N%
+                %       struct_size: like size_t %N%
                 %               external %"plug_in%"%N%
                 %               alias %"{%N%
                 %                       location: %".%"%N%
@@ -131,7 +131,7 @@ feature {ANY}
                 ("#define sizeof_"|c_string_name|" (sizeof("|c_type|" "|c_string_name|"))%N").print_on(include)
                 end
 
-        emit_footer is
+        emit_footer
                 do
                         buffer.append(once "end -- class ")
                         buffer.append(eiffel_name)
@@ -140,14 +140,14 @@ feature {ANY}
                         buffer.print_on(output)
                 end
 
-        is_artificial: BOOLEAN is
+        _artificial: BOOLEAN
                 do
-                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
+                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial")._equal(once U"1")
                 end
 
-        suffix: STRING is "_STRUCT"
+        suffix: STRING "_STRUCT"
 
-        struct_inherits: STRING is "%N%Ninsert STANDARD_C_LIBRARY_TYPES%N%N"
+        struct_inherits: STRING "%N%Ninsert STANDARD_C_LIBRARY_TYPES%N%N"
         -- TODO: the above reference to STANDARD_C_LIBRARY_TYPES creates requires
         -- to wrap standard C library using a file called
         -- "standard-c-library.gcc-xml"; allow the user to specify its name,
@@ -156,7 +156,7 @@ end -- class C_STRUCT_NODE
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -166,4 +166,4 @@ end -- class C_STRUCT_NODE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

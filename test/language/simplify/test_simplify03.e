@@ -18,7 +18,7 @@ create {TEST_SIMPLIFY03}
    make_1, make_2, make_like_string
 
 feature {}
-   make is
+   make
       do
          assert_counter.reset
          assert(assert_counter.item = 0)
@@ -65,34 +65,34 @@ feature {}
          end
       end
 
-   once_make_1: TEST_SIMPLIFY03 is
+   once_make_1: TEST_SIMPLIFY03
       once
          create Result.make_1
       end
 
-   once_make_2: TEST_SIMPLIFY03 is
+   once_make_2: TEST_SIMPLIFY03
       once
          create Result.make_2
       end
 
-   once_make_like_string: TEST_SIMPLIFY03 is
+   once_make_like_string: TEST_SIMPLIFY03
       once
          create Result.make_like_string(0)
       end
 
-   once_make_tuple: TUPLE[INTEGER_8, CHARACTER] is
+   once_make_tuple: TUPLE[INTEGER_8, CHARACTER]
       once
          Result := [1, 'A']
       end
 
-   make_1 is
+   make_1
       local
          i: INTEGER
       do
          i := i + 1
       end
 
-   make_2 is
+   make_2
       local
          i: INTEGER
       do
@@ -104,7 +104,7 @@ feature {}
 
    storage: NATIVE_ARRAY[CHARACTER]
 
-   make_like_string (needed_capacity: INTEGER) is
+   make_like_string (needed_capacity: INTEGER)
          -- Initialize the string to have at least `needed_capacity' characters of storage.
       require
          non_negative_size: needed_capacity >= 0
@@ -121,12 +121,12 @@ feature {}
          empty_string: count = 0
       end
 
-   once_counter: COUNTER is
+   once_counter: COUNTER
       once
          create Result
       end
 
-   once_string: STRING is
+   once_string: STRING
       once
          Result := once ""
       end

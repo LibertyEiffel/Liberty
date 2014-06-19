@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED24B
 feature {ANY}
    value: BOOLEAN
 
-   set_value (v: BOOLEAN) is
+   set_value (v: BOOLEAN)
       do
          value := v
       end

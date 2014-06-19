@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          tcp: TCP_ACCESS; host: HOST; ip: IPV4_ADDRESS
       do
@@ -21,7 +21,7 @@ feature {}
          test_server(tcp)
       end
 
-   test_socket (access: TCP_ACCESS) is
+   test_socket (access: TCP_ACCESS)
          -- First tutorial: simple network connection
       local
          ios: SOCKET_INPUT_OUTPUT_STREAM
@@ -46,7 +46,7 @@ feature {}
          end
       end
 
-   test_server (access: TCP_ACCESS) is
+   test_server (access: TCP_ACCESS)
          -- Second tutorial: create a server. This one is trivial, see MULTIPLEX_SERVER for a real-life
          -- example
       local
@@ -77,7 +77,7 @@ feature {}
 feature {}
    stack: LOOP_STACK
 
-   handle_connect (ios: SOCKET_INPUT_OUTPUT_STREAM) is
+   handle_connect (ios: SOCKET_INPUT_OUTPUT_STREAM)
          -- Handle a connection to the server. Acts as an echo server.
       local
          stop: BOOLEAN; s: STRING

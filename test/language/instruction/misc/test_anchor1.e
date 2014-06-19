@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: AUX_ANCHOR1A; b: AUX_ANCHOR1B
       do

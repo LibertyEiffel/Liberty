@@ -30,7 +30,7 @@ create {TCP_PROTOCOL}
    set_uri
 
 feature {TCP_PROTOCOL}
-   set_uri (a_uri: STRING) is
+   set_uri (a_uri: STRING)
       local
          i, j, k: INTEGER; s: STRING
       do
@@ -109,29 +109,29 @@ feature {TCP_PROTOCOL}
       end
 
 feature {ANY}
-   uri: STRING is
+   uri: STRING
       do
          Result := uri_string(username, password, host, port, path, arguments, anchor)
       end
 
 feature {URL_VALIDITY}
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       do
          Result := is_absolute_uri(a_uri) or else is_relative_uri(a_uri)
       end
 
 feature {URL}
-   absolute_uri (a_uri: STRING): BOOLEAN is
+   absolute_uri (a_uri: STRING): BOOLEAN
       do
          Result := is_absolute_uri(a_uri)
       end
 
-   relative_uri (a_uri: STRING): BOOLEAN is
+   relative_uri (a_uri: STRING): BOOLEAN
       do
          Result := is_relative_uri(a_uri)
       end
 
-   set_relative (a_uri: STRING) is
+   set_relative (a_uri: STRING)
       local
          i: INTEGER
       do
@@ -170,7 +170,7 @@ feature {ANY}
          -- The optional anchor.
 
 feature {}
-   set_host (a_host: like host) is
+   set_host (a_host: like host)
          -- Sets the host name.
       require
          not a_host.is_empty
@@ -184,7 +184,7 @@ feature {}
          host.is_equal(a_host)
       end
 
-   set_port (a_port: like port) is
+   set_port (a_port: like port)
          -- Sets the port number; 0 means use the standard port of the protocol.
       require
          a_port >= 0
@@ -194,7 +194,7 @@ feature {}
          port = a_port
       end
 
-   set_username (a_username: like username) is
+   set_username (a_username: like username)
          -- Sets an optional user name; Void clears it.
       do
          if username /= Void then
@@ -206,7 +206,7 @@ feature {}
          username.is_equal(a_username)
       end
 
-   set_password (a_password: like password) is
+   set_password (a_password: like password)
          -- Sets an optional password; Void clears it.
       require
          a_password /= Void implies username /= Void
@@ -220,7 +220,7 @@ feature {}
          password.is_equal(a_password)
       end
 
-   set_path (a_path: like path) is
+   set_path (a_path: like path)
          -- Sets the path.
       require
          not a_path.is_empty
@@ -234,7 +234,7 @@ feature {}
          path.is_equal(a_path)
       end
 
-   set_arguments (a_argument_name, a_argument_value: STRING) is
+   set_arguments (a_argument_name, a_argument_value: STRING)
          -- Sets an optional argument. May be called more than once to add more arguments. A Void name clears
          -- all the arguments.
       require
@@ -259,7 +259,7 @@ feature {}
          end
       end
 
-   set_anchor (a_anchor: like anchor) is
+   set_anchor (a_anchor: like anchor)
          -- Sets an optional anchor.
       do
          if a_anchor = Void then
@@ -279,7 +279,7 @@ feature {}
          a_anchor /= Void implies anchor.is_equal(a_anchor)
       end
 
-   uri_string (a_user, a_pwd, a_host: STRING; a_port: INTEGER; a_path, a_args, a_anchor: STRING): STRING is
+   uri_string (a_user, a_pwd, a_host: STRING; a_port: INTEGER; a_path, a_args, a_anchor: STRING): STRING
       do
          Result := once ""
          Result.copy(once "//")
@@ -313,7 +313,7 @@ feature {}
       end
 
 feature {}
-   encode (string: STRING): STRING is
+   encode (string: STRING): STRING
       require
          string /= Void
       local
@@ -343,7 +343,7 @@ feature {}
          Result /= Void
       end
 
-   decode (string: STRING): STRING is
+   decode (string: STRING): STRING
       require
          string /= Void
       local
@@ -387,13 +387,13 @@ feature {}
          end
       end
 
-   string_pool: STRING_RECYCLING_POOL is
+   string_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          string_pool.recycle(host)
          string_pool.recycle(path)
@@ -428,7 +428,7 @@ end -- class NETWORK_RESOURCE_LOCATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

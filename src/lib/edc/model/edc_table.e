@@ -33,7 +33,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_TABLE_VISITOR
       do
@@ -42,7 +42,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := connection /= Void and then connection.is_connected
       end
@@ -51,12 +51,12 @@ feature {ANY}
 
    connection: EDC_CONNECTION
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := name.is_equal(other.name) and then (connection = other.connection or else connection.is_equal(other.connection))
       end
 
-   prefix "*", all_columns: FAST_ARRAY[EDC_COLUMN] is
+   prefix "*", all_columns: FAST_ARRAY[EDC_COLUMN]
       do
          if all_columns_memory = Void then
             create all_columns_memory.make(0)
@@ -70,29 +70,29 @@ feature {}
    all_columns_memory: FAST_ARRAY[EDC_COLUMN]
 
 feature {ANY} -- Columns
-   count_column: INTEGER is
+   count_column: INTEGER
       do
          Result := columns.count
       end
 
-   lower_column: INTEGER is
+   lower_column: INTEGER
       do
          Result := columns.lower
       end
 
-   upper_column: INTEGER is
+   upper_column: INTEGER
       do
          Result := columns.upper
       end
 
-   item_column (i: INTEGER): EDC_COLUMN is
+   item_column (i: INTEGER): EDC_COLUMN
       require
          i.in_range(lower_column, upper_column)
       do
          Result := columns.item(i)
       end
 
-   column (column_name: STRING): EDC_COLUMN is
+   column (column_name: STRING): EDC_COLUMN
       require
          not column_name.is_empty
       local
@@ -106,7 +106,7 @@ feature {ANY} -- Columns
          Result /= Void implies has_column(Result) and then Result.name.is_equal(column_name)
       end
 
-   add_column (a_column: EDC_COLUMN) is
+   add_column (a_column: EDC_COLUMN)
       require
          not has_column(a_column)
       do
@@ -116,7 +116,7 @@ feature {ANY} -- Columns
          has_column(a_column)
       end
 
-   remove_column (a_column: EDC_COLUMN) is
+   remove_column (a_column: EDC_COLUMN)
       require
          has_column(a_column)
       do
@@ -126,7 +126,7 @@ feature {ANY} -- Columns
          not has_column(a_column)
       end
 
-   has_column (a_column: EDC_COLUMN): BOOLEAN is
+   has_column (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := a_column.table = Current
          check
@@ -134,12 +134,12 @@ feature {ANY} -- Columns
          end
       end
 
-   index_of_column (a_column: EDC_COLUMN): INTEGER is
+   index_of_column (a_column: EDC_COLUMN): INTEGER
       do
          Result := columns.first_index_of(a_column)
       end
 
-   same_rows (row1, row2: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   same_rows (row1, row2: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       local
          i: INTEGER
       do
@@ -155,21 +155,21 @@ feature {ANY} -- Columns
       end
 
 feature {ANY}
-   count_index: INTEGER is
+   count_index: INTEGER
       do
          if index /= Void then
             Result := index.count
          end
       end
 
-   lower_index: INTEGER is
+   lower_index: INTEGER
       do
          if index /= Void then
             Result := index.lower
          end
       end
 
-   upper_index: INTEGER is
+   upper_index: INTEGER
       do
          if index /= Void then
             Result := index.upper
@@ -178,14 +178,14 @@ feature {ANY}
          end
       end
 
-   has_index (a_index: EDC_INDEX): BOOLEAN is
+   has_index (a_index: EDC_INDEX): BOOLEAN
       do
          if index /= Void then
             Result := index.has(a_index)
          end
       end
 
-   item_index (i: INTEGER): EDC_INDEX is
+   item_index (i: INTEGER): EDC_INDEX
       require
          i.in_range(lower_index, upper_index)
       do
@@ -194,7 +194,7 @@ feature {ANY}
          end
       end
 
-   add_index (a_index: EDC_INDEX) is
+   add_index (a_index: EDC_INDEX)
       require
          a_index.table = Void
          a_index.can_add_to(Current)
@@ -210,7 +210,7 @@ feature {ANY}
          a_index.table = Current
       end
 
-   remove_index (a_index: EDC_INDEX) is
+   remove_index (a_index: EDC_INDEX)
       require
          a_index.table = Current
          has_index(a_index)
@@ -223,7 +223,7 @@ feature {ANY}
       end
 
 feature {}
-   index_of_column_by_name (column_name: STRING): INTEGER is
+   index_of_column_by_name (column_name: STRING): INTEGER
       local
          i: INTEGER
       do
@@ -241,7 +241,7 @@ feature {}
       end
 
 feature {}
-   make (a_name: STRING) is
+   make (a_name: STRING)
       require
          a_name.count > 0
       do
@@ -250,7 +250,7 @@ feature {}
       end
 
 feature {EDC_CONNECTION}
-   set_connection (a_connection: like connection) is
+   set_connection (a_connection: like connection)
       do
          connection := a_connection
       ensure

@@ -20,7 +20,7 @@ create {ANY}
 feature {ANY}
    hash_coder: FUNCTION[TUPLE[E_], INTEGER]
 
-   make (a_hash_coder: like hash_coder) is
+   make (a_hash_coder: like hash_coder)
       require
          a_hash_coder /= Void
       do
@@ -30,7 +30,7 @@ feature {ANY}
          hash_coder = a_hash_coder
       end
 
-   with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER) is
+   with_capacity (a_hash_coder: like hash_coder; medium_size: INTEGER)
       require
          a_hash_coder /= Void
          medium_size > 0
@@ -41,7 +41,7 @@ feature {ANY}
          hash_coder = a_hash_coder
       end
 
-   from_collection (a_hash_coder: like hash_coder; model: COLLECTION[like item]) is
+   from_collection (a_hash_coder: like hash_coder; model: COLLECTION[like item])
       require
          a_hash_coder /= Void
          model /= Void
@@ -53,7 +53,7 @@ feature {ANY}
       end
 
 feature {}
-   hash_code (e: E_): INTEGER is
+   hash_code (e: E_): INTEGER
       do
          Result := hash_coder.item([e])
       end
@@ -69,7 +69,7 @@ end -- class EXT_HASHED_SET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

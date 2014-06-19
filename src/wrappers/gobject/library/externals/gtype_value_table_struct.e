@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_value_table_struct_set_value_init (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_value_init (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_init field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_value_free (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_value_free (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_free field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_value_copy (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_value_copy (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_copy field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_value_peek_pointer (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_value_peek_pointer (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_peek_pointer field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_collect_format (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_collect_format (a_structure: POINTER; a_value: POINTER)
 			-- Setter for collect_format field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_collect_value (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_collect_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for collect_value field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_lcopy_format (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_lcopy_format (a_structure: POINTER; a_value: POINTER)
 			-- Setter for lcopy_format field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_value_table_struct_set_lcopy_value (a_structure: POINTER; a_value: POINTER) is
+	gtype_value_table_struct_set_lcopy_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for lcopy_value field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: setter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_value_table_struct_get_value_init (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_value_init (a_structure: POINTER): POINTER
 			-- Query for value_init field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_value_free (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_value_free (a_structure: POINTER): POINTER
 			-- Query for value_free field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_value_copy (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_value_copy (a_structure: POINTER): POINTER
 			-- Query for value_copy field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_value_peek_pointer (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_value_peek_pointer (a_structure: POINTER): POINTER
 			-- Query for value_peek_pointer field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_collect_format (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_collect_format (a_structure: POINTER): POINTER
 			-- Query for collect_format field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_collect_value (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_collect_value (a_structure: POINTER): POINTER
 			-- Query for collect_value field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_lcopy_format (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_lcopy_format (a_structure: POINTER): POINTER
 			-- Query for lcopy_format field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_value_table_struct_get_lcopy_value (a_structure: POINTER): POINTER is
+	gtype_value_table_struct_get_lcopy_value (a_structure: POINTER): POINTER
 			-- Query for lcopy_value field of GTYPE_VALUE_TABLE_STRUCT structure.
 			-- TODO: getter description
 
@@ -203,7 +203,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

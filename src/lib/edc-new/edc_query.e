@@ -1,7 +1,7 @@
 deferred class EDC_QUERY
 
 feature {ANY}
-   where (crit: EDC_CRITERION): like Current is
+   where (crit: EDC_CRITERION): like Current
       require
          not has_where
          crit /= Void
@@ -14,7 +14,7 @@ feature {ANY}
          Result = Current
       end
 
-   having (crit: EDC_CRITERION): like Current is
+   having (crit: EDC_CRITERION): like Current
       require
          not has_having
          crit /= Void
@@ -27,7 +27,7 @@ feature {ANY}
          Result = Current
       end
 
-   order_by (crit: EDC_ORDERING): like Current is
+   order_by (crit: EDC_ORDERING): like Current
       require
          not has_order_by
          crit /= Void
@@ -40,21 +40,21 @@ feature {ANY}
          Result = Current
       end
 
-   has_where: BOOLEAN is
+   has_where: BOOLEAN
       do
          Result := crit_where /= Void
       ensure
          definition: Result = (crit_where /= Void)
       end
 
-   has_having: BOOLEAN is
+   has_having: BOOLEAN
       do
          Result := crit_having /= Void
       ensure
          definition: Result = (crit_having /= Void)
       end
 
-   has_order_by: BOOLEAN is
+   has_order_by: BOOLEAN
       do
          Result := crit_order_by /= Void
       ensure

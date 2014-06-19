@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          some_path: STRING; basic_directory: BASIC_DIRECTORY
       do
@@ -34,12 +34,12 @@ feature {}
          io.put_string("%N.")
       end
 
-   already_visited_places: ARRAY[STRING] is
+   already_visited_places: ARRAY[STRING]
       once
          create Result.with_capacity(1, 32)
       end
 
-   recursive_list_of (some_path: STRING) is
+   recursive_list_of (some_path: STRING)
       local
          file_tools: FILE_TOOLS
          basic_directory: BASIC_DIRECTORY; some_entry, another_path: STRING

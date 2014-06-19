@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    i: INTEGER
 
-   make (v: INTEGER) is
+   make (v: INTEGER)
       do
          i := v
       end

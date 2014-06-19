@@ -8,14 +8,14 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          pointer: POINTER
       do
          pointer := malloc(pointer)
       end
 
-   malloc (p: POINTER): POINTER is
+   malloc (p: POINTER): POINTER
       require
          has_handle: p = default_pointer
       external "C inline"

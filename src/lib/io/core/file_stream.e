@@ -14,7 +14,7 @@ feature {ANY}
    path: STRING
          -- Not Void when connected to the corresponding file on the disk.
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- Is this file connected to some file of the operating system?
       do
          Result := path /= Void
@@ -22,7 +22,7 @@ feature {ANY}
          definition: Result = (path /= Void)
       end
 
-   connect_to (new_path: ABSTRACT_STRING) is
+   connect_to (new_path: ABSTRACT_STRING)
          -- Try to connect to an existing file of the operating system.
       require
          not is_connected
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   set_path (new_path: ABSTRACT_STRING) is
+   set_path (new_path: ABSTRACT_STRING)
       do
          if path = Void then
             path := new_path.out
@@ -59,7 +59,7 @@ end -- class FILE_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

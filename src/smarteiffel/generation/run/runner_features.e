@@ -18,7 +18,7 @@ feature {RUNNER_PROCESSOR}
    current_frame: RUNNER_FRAME
 
 feature {RUNNER_FACET}
-   call (a_call: FEATURE_CALL) is
+   call (a_call: FEATURE_CALL)
       require
          a_call /= Void
       local
@@ -33,7 +33,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   item (a_call: FEATURE_CALL): RUNNER_OBJECT is
+   item (a_call: FEATURE_CALL): RUNNER_OBJECT
       require
          a_call /= Void
       local
@@ -45,7 +45,7 @@ feature {RUNNER_FACET}
                               a_call.run_feature_for(current_frame.type_of_current))
       end
 
-   non_void (a_call: NON_VOID_NO_DISPATCH): RUNNER_OBJECT is
+   non_void (a_call: NON_VOID_NO_DISPATCH): RUNNER_OBJECT
       require
          a_call /= Void
       local
@@ -67,7 +67,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   new (a_type: TYPE; a_call: PROCEDURE_CALL): RUNNER_OBJECT is
+   new (a_type: TYPE; a_call: PROCEDURE_CALL): RUNNER_OBJECT
       require
          a_type /= Void
       local
@@ -84,7 +84,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   manifest_new (a_manifest: MANIFEST_GENERIC): RUNNER_OBJECT is
+   manifest_new (a_manifest: MANIFEST_GENERIC): RUNNER_OBJECT
       require
          a_manifest /= Void
       local
@@ -132,7 +132,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   call_agent (launcher: AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR) is
+   call_agent (launcher: AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR)
          -- calling `call' or `item' on an agent
       local
          agent_launcher: RUNNER_AGENT_LAUNCHER
@@ -142,7 +142,7 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_PROCESSOR}
-   run (rf: RUN_FEATURE) is
+   run (rf: RUN_FEATURE)
       local
          root_object: RUNNER_OBJECT
          return: RUNNER_OBJECT
@@ -156,13 +156,13 @@ feature {RUNNER_PROCESSOR}
       end
 
 feature {}
-   arguments (a_call: FEATURE_CALL; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   arguments (a_call: FEATURE_CALL; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT]
          -- evaluates the arguments of the call in the given frame
       do
          Result := indexable_arguments(a_call.arguments, a_frame)
       end
 
-   manifest_arguments (a_capacity: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   manifest_arguments (a_capacity: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT]
          -- evaluates the arguments in the given frame
       local
          extra: FAST_ARRAY[RUNNER_OBJECT]
@@ -175,7 +175,7 @@ feature {}
          end
       end
 
-   manifest_arguments_slice (a_index: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   manifest_arguments_slice (a_index: INTEGER; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT]
          -- evaluates the arguments in the given frame
       local
          extra: FAST_ARRAY[RUNNER_OBJECT]
@@ -184,7 +184,7 @@ feature {}
          Result := indexable_arguments_slice(extra, a_arguments, start, count, a_frame)
       end
 
-   indexable_arguments (a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   indexable_arguments (a_arguments: INDEXABLE[EXPRESSION]; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT]
          -- evaluates the arguments in the given frame
       do
          if a_arguments /= Void then
@@ -192,7 +192,7 @@ feature {}
          end
       end
 
-   indexable_arguments_slice (a_extra_arguments: INDEXABLE[RUNNER_OBJECT]; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT] is
+   indexable_arguments_slice (a_extra_arguments: INDEXABLE[RUNNER_OBJECT]; a_arguments: INDEXABLE[EXPRESSION]; start, count: INTEGER; a_frame: like current_frame): FAST_ARRAY[RUNNER_OBJECT]
          -- evaluates one slice of arguments in the given frame
       require
          at_least_some_arguments: a_arguments /= Void or else a_extra_arguments /= Void
@@ -251,12 +251,12 @@ feature {}
          a_extra_arguments /= Void implies Result.count = a_extra_arguments.count + count
       end
 
-   idem_arguments (a_arguments: like arguments): like arguments is
+   idem_arguments (a_arguments: like arguments): like arguments
       do
          Result := a_arguments
       end
 
-   execute_rf (a_target: RUNNER_OBJECT; is_new, check_invariant: BOOLEAN; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT is
+   execute_rf (a_target: RUNNER_OBJECT; is_new, check_invariant: BOOLEAN; a_arguments: FUNCTION[TUPLE, TRAVERSABLE[RUNNER_OBJECT]]; a_rf: RUN_FEATURE): RUNNER_OBJECT
       require
          a_target /= Void
          --| **** TODO a_target.type = a_rf.type_of_current
@@ -277,7 +277,7 @@ feature {}
          end
       end
 
-   execute_non_void (a_target: RUNNER_OBJECT; a_non_void: NON_VOID_NO_DISPATCH): RUNNER_OBJECT is
+   execute_non_void (a_target: RUNNER_OBJECT; a_non_void: NON_VOID_NO_DISPATCH): RUNNER_OBJECT
       require
          a_target /= Void
          a_non_void /= Void
@@ -296,7 +296,7 @@ feature {}
          Result /= Void
       end
 
-   execute_agent (a_launcher: RUNNER_AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR) is
+   execute_agent (a_launcher: RUNNER_AGENT_LAUNCHER; a_executor: RUNNER_EXECUTOR)
       require
          a_launcher /= Void
       local
@@ -313,7 +313,7 @@ feature {}
          end
       end
 
-   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: RUNNER_EXECUTOR; a_rf: RUN_FEATURE; is_new, check_invariant: BOOLEAN; a_tag: ABSTRACT_STRING) is
+   execute_frame (a_frame: like current_frame; a_executable: VISITABLE; a_executor: RUNNER_EXECUTOR; a_rf: RUN_FEATURE; is_new, check_invariant: BOOLEAN; a_tag: ABSTRACT_STRING)
       require
          a_frame /= Void
          a_rf /= Void implies a_executable = a_rf
@@ -388,14 +388,14 @@ feature {}
       end
 
 feature {RUN_FEATURE_1}
-   visit_run_feature_1 (visited: RUN_FEATURE_1) is
+   visit_run_feature_1 (visited: RUN_FEATURE_1)
       do
          current_frame.force_eval_arguments
          current_frame.set_return(processor.expressions.eval(visited.value))
       end
 
 feature {RUN_FEATURE_2}
-   visit_run_feature_2 (visited: RUN_FEATURE_2) is
+   visit_run_feature_2 (visited: RUN_FEATURE_2)
       local
          target: RUNNER_STRUCTURED_OBJECT
       do
@@ -405,7 +405,7 @@ feature {RUN_FEATURE_2}
       end
 
 feature {}
-   execute_routine (a_routine: RUN_FEATURE) is
+   execute_routine (a_routine: RUN_FEATURE)
       do
          if a_routine.routine_body /= Void then
             from
@@ -421,7 +421,7 @@ feature {}
       end
 
 feature {RUN_FEATURE_3}
-   visit_run_feature_3 (visited: RUN_FEATURE_3) is
+   visit_run_feature_3 (visited: RUN_FEATURE_3)
       do
          current_frame.force_eval_arguments
          execute_routine(visited)
@@ -431,14 +431,14 @@ feature {RUN_FEATURE_3}
       end
 
 feature {RUN_FEATURE_4}
-   visit_run_feature_4 (visited: RUN_FEATURE_4) is
+   visit_run_feature_4 (visited: RUN_FEATURE_4)
       do
          current_frame.force_eval_arguments
          execute_routine(visited)
       end
 
 feature {RUN_FEATURE_5}
-   visit_run_feature_5 (visited: RUN_FEATURE_5) is
+   visit_run_feature_5 (visited: RUN_FEATURE_5)
       do
          current_frame.force_eval_arguments
          if once_run_features.fast_has(visited.base_feature) then
@@ -455,7 +455,7 @@ feature {RUN_FEATURE_5}
       end
 
 feature {RUN_FEATURE_6}
-   visit_run_feature_6 (visited: RUN_FEATURE_6) is
+   visit_run_feature_6 (visited: RUN_FEATURE_6)
       do
          current_frame.force_eval_arguments
          if once_run_features.fast_has(visited.base_feature) then
@@ -470,44 +470,44 @@ feature {}
    once_run_features: HASHED_DICTIONARY[RUNNER_OBJECT, ONCE_ROUTINE]
 
 feature {RUN_FEATURE_7}
-   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+   visit_run_feature_7 (visited: RUN_FEATURE_7)
       do
          visited.base_feature.native.accept(Current)
       end
 
 feature {RUN_FEATURE_8}
-   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+   visit_run_feature_8 (visited: RUN_FEATURE_8)
       do
          visited.base_feature.native.accept(Current)
       end
 
 feature {RUN_FEATURE_9}
-   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+   visit_run_feature_9 (visited: RUN_FEATURE_9)
       do
          --| **** TODO: deferred feature called
       end
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       do
          current_frame.target.builtins.call(processor)
          current_frame.execute
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
          break --| **** TODO
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          break --| **** TODO
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       local
          plugin: RUNNER_PLUGIN
       do
@@ -517,7 +517,7 @@ feature {NATIVE_PLUG_IN}
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor)
       require
          a_processor /= Void
       do

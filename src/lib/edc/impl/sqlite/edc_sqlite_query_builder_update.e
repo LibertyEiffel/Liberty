@@ -31,7 +31,7 @@ create {EDC_SQLITE_CONNECTION}
    make
 
 feature {}
-   make (a_tools: like tools) is
+   make (a_tools: like tools)
       require
          a_tools /= Void
       do
@@ -41,7 +41,7 @@ feature {}
       end
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): VISITOR is
+   as_typed (item_type_generator: STRING): VISITOR
       do
          check
             False
@@ -49,7 +49,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {EDC_CONNECTION}
-   query_for (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): STRING is
+   query_for (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): STRING
          -- Always returns the same STRING
       require
          a_update.count = a_values.count

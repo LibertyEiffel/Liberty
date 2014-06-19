@@ -16,14 +16,14 @@ create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT}
    make_specialized
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := dot_precedence
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          target_type: TYPE; fs: FEATURE_STAMP
       do
@@ -33,26 +33,26 @@ feature {ANY}
          target_type.get_feature_name(fs).short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          target.pretty_target(indent_level)
          pretty_printer.put_string(feature_name.to_string)
       end
 
 feature {ANY}
-   accept (visitor: FUNCTION_CALL_0_VISITOR) is
+   accept (visitor: FUNCTION_CALL_0_VISITOR)
       do
          visitor.visit_function_call_0(Current)
       end
 
 feature {}
-   make (t: like target; fn: like feature_name) is
+   make (t: like target; fn: like feature_name)
       require
          t /= Void
          fn /= Void
@@ -64,7 +64,7 @@ feature {}
          feature_name = fn
       end
 
-   make_specialized (t: like target; type: TYPE; fn: like feature_name) is
+   make_specialized (t: like target; type: TYPE; fn: like feature_name)
       do
          make(t, fn)
          feature_stamp := type.search(fn)

@@ -10,7 +10,7 @@ create {C_PLUGIN_FACTORY, FAKE_PLUGIN}
 	make
 
 feature {SYSTEM_TOOLS}
-	try_auto_init is
+	try_auto_init
 		local
 			i: INTEGER; ok: BOOLEAN; p: PLUGIN
 		do
@@ -63,7 +63,7 @@ feature {ANY}
 	auto_init_done: BOOLEAN
 
 feature {}
-	plugin_echo (log: STRING) is
+	plugin_echo (log: STRING)
 		do
 			echo.put_string(once "Plugin ")
 			echo.put_string(name)
@@ -72,7 +72,7 @@ feature {}
 		end
 
 feature {NATIVE_PLUG_IN}
-	include (position: POSITION) is
+	include (position: POSITION)
 		local
 			ok: BOOLEAN; i: INTEGER; string_array: FAST_ARRAY[STRING]; string: STRING
 		do
@@ -195,7 +195,7 @@ feature {}
 	is_included: BOOLEAN
 	start_position: POSITION
 
-	make (position: POSITION; a_name, a_path: STRING) is
+	make (position: POSITION; a_name, a_path: STRING)
 		local
 			plugin_path, b, c, entry, filepath: STRING
 		do
@@ -283,7 +283,7 @@ feature {}
 			end
 		end
 
-	add_c_source (a_c_source: STRING) is
+	add_c_source (a_c_source: STRING)
 		do
 			if c_sources = Void then
 				create c_sources.with_capacity(2)
@@ -294,7 +294,7 @@ feature {}
 			c_sources.add_last(a_c_source)
 		end
 
-	add_c_header (a_c_header: STRING) is
+	add_c_header (a_c_header: STRING)
 		do
 			if c_headers = Void then
 				create c_headers.with_capacity(2)
@@ -324,7 +324,7 @@ feature {}
 	c_auto_init_plugin_deps_name: FAST_ARRAY[STRING]
 
 feature {}
-	read_auto_init (filename: STRING) is
+	read_auto_init (filename: STRING)
 		local
 			sections: ITERATOR[STRING]
 		do
@@ -359,7 +359,7 @@ feature {}
 			end
 		end
 
-	read (filename: STRING): FAST_ARRAY[STRING] is
+	read (filename: STRING): FAST_ARRAY[STRING]
 		local
 			b: STRING; string_array: ITERATOR[STRING]
 		do

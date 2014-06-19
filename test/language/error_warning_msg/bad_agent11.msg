@@ -7,6 +7,6 @@ Line 13 column 14 in BAD_AGENT11 (/home/cadrian/Workspace/Dev/Liberty/test/langu
          foo(agent io.put_string)
              ^                   
 Line 16 column 11 in BAD_AGENT11 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent11.e):
-   foo(p: PROCEDURE[TUPLE]) is
-          ^                   
+   foo(p: PROCEDURE[TUPLE])
+          ^                
 ------

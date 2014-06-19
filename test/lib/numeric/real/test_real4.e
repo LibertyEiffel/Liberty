@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          view: STRING; real_32: REAL_32; real: REAL
       do

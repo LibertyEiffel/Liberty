@@ -21,7 +21,7 @@ create {ANY}
    make
 
 feature {ANY}
-   run is
+   run
       do
          if commands.count > 0 then
             if commands.count < servers_count then
@@ -35,13 +35,13 @@ feature {ANY}
          end
       end
 
-   success: BOOLEAN is
+   success: BOOLEAN
       do
          Result := test_results.for_all(agent {EIFFELTEST_CLIENT_RESULT}.success)
       end
 
 feature {}
-   start_servers is
+   start_servers
       require
          test_results = Void
       local
@@ -70,7 +70,7 @@ feature {}
          servers_list.count = servers_count
       end
 
-   on_reply (expected_port, actual_port: INTEGER; command: FIXED_STRING; reply: STRING) is
+   on_reply (expected_port, actual_port: INTEGER; command: FIXED_STRING; reply: STRING)
       do
          if expected_port = actual_port then
             log.info.put_line(once "Server #(1) [#(2)]: #(3)" # actual_port.out # command # reply)
@@ -80,7 +80,7 @@ feature {}
          end
       end
 
-   on_done (expected_port, actual_port, status: INTEGER) is
+   on_done (expected_port, actual_port, status: INTEGER)
       do
          if expected_port = actual_port then
             log.info.put_line(once "Server #(1): exit (status #(2))" # actual_port.out # status.out)
@@ -93,7 +93,7 @@ feature {}
          end
       end
 
-   on_killed (server: EIFFELTEST_CLIENT_SOCKET; pid, status: INTEGER) is
+   on_killed (server: EIFFELTEST_CLIENT_SOCKET; pid, status: INTEGER)
       local
          test_result: EIFFELTEST_CLIENT_RESULT
       do
@@ -112,7 +112,7 @@ feature {}
 feature {}
    collection_sorter: COLLECTION_SORTER[FIXED_STRING]
 
-   scan_tree_ (force: BOOLEAN; root, eiffeltest_path: STRING; logger: OUTPUT_STREAM) is
+   scan_tree_ (force: BOOLEAN; root, eiffeltest_path: STRING; logger: OUTPUT_STREAM)
       require
          root /= Void
          logger.is_connected
@@ -180,7 +180,7 @@ feature {}
          end
       end
 
-   scan_tree (force: BOOLEAN; root: STRING; logger: OUTPUT_STREAM) is
+   scan_tree (force: BOOLEAN; root: STRING; logger: OUTPUT_STREAM)
       require
          root /= Void
          logger.is_connected
@@ -208,7 +208,7 @@ feature {}
          end
       end
 
-   is_ignored (name: STRING): BOOLEAN is
+   is_ignored (name: STRING): BOOLEAN
       require
          not name.is_empty
       do
@@ -222,7 +222,7 @@ feature {}
       end
 
 feature {}
-   make (a_servers_count: like servers_count; force: BOOLEAN; root: STRING) is
+   make (a_servers_count: like servers_count; force: BOOLEAN; root: STRING)
       do
          servers_count := a_servers_count
          create commands.make
@@ -233,7 +233,7 @@ feature {}
          end
       end
 
-   stack: LOOP_STACK is
+   stack: LOOP_STACK
       once
          create Result.make
       end

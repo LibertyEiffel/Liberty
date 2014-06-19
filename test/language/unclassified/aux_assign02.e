@@ -7,14 +7,14 @@ insert
       end
 
 feature {ANY}
-   infix "+" (value: INTEGER): INTEGER is
+   infix "+" (value: INTEGER): INTEGER
       do
          if values.fast_has(value) then
             Result := values.fast_at(value)
          end
       end
 
-   set_item (res, val: INTEGER) assign infix "+" is
+   set_item (res, val: INTEGER) assign infix "+"
       do
          values.put(res, val)
       ensure
@@ -24,7 +24,7 @@ feature {ANY}
 feature {}
    values: HASHED_DICTIONARY[INTEGER, INTEGER]
 
-   default_create is
+   default_create
       do
          create values.make
       end

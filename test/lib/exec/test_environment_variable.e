@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          sys: SYSTEM; value: STRING
       do

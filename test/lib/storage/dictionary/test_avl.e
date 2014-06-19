@@ -10,13 +10,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          test_dictionary
          test_set
       end
 
-   test_dictionary is
+   test_dictionary
       local
          dico: AVL_DICTIONARY[STRING, STRING]
          iter: ITERATOR[STRING]
@@ -64,7 +64,7 @@ feature {}
          assert(iter.is_off)
       end
 
-   test_set is
+   test_set
       local
          set: AVL_SET[STRING]
          iter: ITERATOR[STRING]

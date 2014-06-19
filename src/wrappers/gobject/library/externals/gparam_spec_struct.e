@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_flags (a_structure: POINTER; a_value: INTEGER) is
+	gparam_spec_struct_set_flags (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for flags field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_value_type (a_structure: POINTER; a_value: like long_unsigned) is
+	gparam_spec_struct_set_value_type (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for value_type field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_owner_type (a_structure: POINTER; a_value: like long_unsigned) is
+	gparam_spec_struct_set_owner_type (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for owner_type field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_qdata (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_struct_set_qdata (a_structure: POINTER; a_value: POINTER)
 			-- Setter for qdata field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL) is
+	gparam_spec_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for ref_count field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_struct_set_param_id (a_structure: POINTER; a_value: NATURAL) is
+	gparam_spec_struct_set_param_id (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for param_id field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: setter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_instance.
-	gparam_spec_struct_get_name (a_structure: POINTER): POINTER is
+	gparam_spec_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_struct_get_flags (a_structure: POINTER): INTEGER is
+	gparam_spec_struct_get_flags (a_structure: POINTER): INTEGER
 			-- Query for flags field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -119,7 +119,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_struct_get_value_type (a_structure: POINTER): like long_unsigned is
+	gparam_spec_struct_get_value_type (a_structure: POINTER): like long_unsigned
 			-- Query for value_type field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_struct_get_owner_type (a_structure: POINTER): like long_unsigned is
+	gparam_spec_struct_get_owner_type (a_structure: POINTER): like long_unsigned
 			-- Query for owner_type field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -145,7 +145,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field _nick.
 	-- Unwrappable field _blurb.
-	gparam_spec_struct_get_qdata (a_structure: POINTER): POINTER is
+	gparam_spec_struct_get_qdata (a_structure: POINTER): POINTER
 			-- Query for qdata field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -157,7 +157,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_struct_get_ref_count (a_structure: POINTER): NATURAL is
+	gparam_spec_struct_get_ref_count (a_structure: POINTER): NATURAL
 			-- Query for ref_count field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -169,7 +169,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_struct_get_param_id (a_structure: POINTER): NATURAL is
+	gparam_spec_struct_get_param_id (a_structure: POINTER): NATURAL
 			-- Query for param_id field of GPARAM_SPEC_STRUCT structure.
 			-- TODO: getter description
 
@@ -182,7 +182,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

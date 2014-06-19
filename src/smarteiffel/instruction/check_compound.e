@@ -17,14 +17,14 @@ create {ANY}
    make
 
 feature {ANY}
-   end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN True
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := ace.boost
       end
 
-   start_position: POSITION is
+   start_position: POSITION
          -- Of keyword "check".
       do
          if assertion_list /= Void then
@@ -32,7 +32,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          al: like assertion_list
       do
@@ -42,7 +42,7 @@ feature {ANY}
          Result := current_or_twin_init(al)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          al: like assertion_list
       do
@@ -52,7 +52,7 @@ feature {ANY}
          Result := current_or_twin_init(al)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          al: like assertion_list
       do
@@ -62,7 +62,7 @@ feature {ANY}
          Result := current_or_twin_init(al)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if assertion_list = Void then
             Result := True
@@ -71,12 +71,12 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          assertion_list.safety_check(type)
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          al: like assertion_list
       do
@@ -89,26 +89,26 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if not ace.boost then
             Result := assertion_list.use_current(type)
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          if assertion_list /= Void then
             assertion_list.pretty_as_check_compound(indent_level, Current)
          end
       end
 
-   accept (visitor: CHECK_COMPOUND_VISITOR) is
+   accept (visitor: CHECK_COMPOUND_VISITOR)
       do
          visitor.visit_check_compound(Current)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -117,7 +117,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          if must_be_generated(type) then
             Result := current_or_twin_init(assertion_list.adapt_for(type))
@@ -127,7 +127,7 @@ feature {ANY}
       end
 
 feature {CHECK_COMPOUND}
-   init (al: like assertion_list) is
+   init (al: like assertion_list)
       do
          assertion_list := al
       ensure
@@ -138,7 +138,7 @@ feature {CHECK_COMPOUND_VISITOR}
    assertion_list: ASSERTION_LIST
          -- (May be Void when there is only a comment after a "check" keyword.)
 
-   must_be_generated (type: TYPE): BOOLEAN is
+   must_be_generated (type: TYPE): BOOLEAN
       do
          if assertion_list /= Void then
             Result := type.class_text.all_check
@@ -146,7 +146,7 @@ feature {CHECK_COMPOUND_VISITOR}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          al: like assertion_list
       do
@@ -159,7 +159,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (sp: like start_position; hc: COMMENT; l: FAST_ARRAY[ASSERTION]) is
+   make (sp: like start_position; hc: COMMENT; l: FAST_ARRAY[ASSERTION])
       require
          not sp.is_unknown
       do
@@ -168,7 +168,7 @@ feature {}
          end
       end
 
-   current_or_twin_init (al: like assertion_list): like Current is
+   current_or_twin_init (al: like assertion_list): like Current
       do
          if assertion_list = al then
             Result := Current

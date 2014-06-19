@@ -4,17 +4,17 @@ create {TEST_AUTOMATON_01}
    make
 
 feature {TEST_AUTOMATON_01}
-   run is
+   run
       do
          automaton.run(once "start", context);
       end
 
-   is_number: BOOLEAN is
+   is_number: BOOLEAN
       do
          Result := context.success
       end
 
-   found_number: FIXED_STRING is
+   found_number: FIXED_STRING
       require
          is_number
       do
@@ -22,7 +22,7 @@ feature {TEST_AUTOMATON_01}
       end
 
 feature {}
-   make (a_input: ABSTRACT_STRING) is
+   make (a_input: ABSTRACT_STRING)
       require
          a_input /= Void
       do
@@ -36,7 +36,7 @@ feature {} -- automaton implementation
    -- Note: since the automaton is a once function, no agent may rely on Current.
    -- That's why the automaton allows us to pass some context around.
 
-   read_next (ctx: like context) is
+   read_next (ctx: like context)
       do
          ctx.next
          debug("test/aux_automaton_01")
@@ -48,37 +48,37 @@ feature {} -- automaton implementation
          end
       end
 
-   on_read_figure (ctx: like context): BOOLEAN is
+   on_read_figure (ctx: like context): BOOLEAN
       do
          if not ctx.is_off then
             Result := ctx.current_character.is_digit
          end
       end
 
-   on_read_dot (ctx: like context): BOOLEAN is
+   on_read_dot (ctx: like context): BOOLEAN
       do
          if not ctx.is_off then
             Result := ctx.current_character = '.'
          end
       end
 
-   on_end_of_text (ctx: like context): BOOLEAN is
+   on_end_of_text (ctx: like context): BOOLEAN
       do
          Result := ctx.is_off
       end
 
-   otherwise: BOOLEAN is
+   otherwise: BOOLEAN
       do
          Result := True
       end
 
-   transition (next: STRING; ctx: like context): STRING is
+   transition (next: STRING; ctx: like context): STRING
       do
          ctx.extend
          Result := next
       end
 
-   transition_end (next: STRING; ctx: like context): STRING is
+   transition_end (next: STRING; ctx: like context): STRING
       do
          inspect next
          when "success" then
@@ -89,12 +89,12 @@ feature {} -- automaton implementation
          Result := next
       end
 
-   finished: STRING is
+   finished: STRING
       do
          check Result = Void end
       end
 
-   automaton: AUTOMATON[AUX_AUTOMATON_01_CONTEXT] is
+   automaton: AUTOMATON[AUX_AUTOMATON_01_CONTEXT]
       once
          Result := {AUTOMATON[AUX_AUTOMATON_01_CONTEXT] <<
                                                           "start", {STATE[AUX_AUTOMATON_01_CONTEXT] <<

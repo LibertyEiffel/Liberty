@@ -9,7 +9,7 @@ expanded class RUNNER_FRAME_WATERMARK
 feature {RUNNER_FRAME} -- some utils
    item: INTEGER
 
-   set (a_item: like item) is
+   set (a_item: like item)
       do
          item := a_item
       ensure

@@ -16,12 +16,12 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {}
-   default_wiki_prefix: STRING is "http://wiki.liberty-eiffel.org/en/index.php/"
+   default_wiki_prefix: STRING "http://wiki.liberty-eiffel.org/en/index.php/"
 
    wiki_prefix: STRING
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       do
          if offset < comment.count - 1 then
             if comment.item(offset) = '[' and then comment.item(offset + 1) = '[' and then comment.substring_index(once "]]", offset) > offset then
@@ -32,7 +32,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          pipe, bracket: INTEGER
       do
@@ -58,16 +58,16 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          html.close_anchor
          states.pop
       end
 
-   handle_first: BOOLEAN is True
+   handle_first: BOOLEAN True
 
 feature {}
-   generate_wiki_word (comment: STRING; first, last: INTEGER; close_anchor: BOOLEAN) is
+   generate_wiki_word (comment: STRING; first, last: INTEGER; close_anchor: BOOLEAN)
       local
          buffer, url: STRING
       do
@@ -87,7 +87,7 @@ feature {}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

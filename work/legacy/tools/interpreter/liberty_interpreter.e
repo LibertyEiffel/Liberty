@@ -21,7 +21,7 @@ create {LIBERTYI}
    make
 
 feature {LIBERTYI}
-   run is
+   run
       local
          root_object: LIBERTY_INTERPRETER_OBJECT
       do
@@ -41,19 +41,19 @@ feature {ANY}
    root_feature_name: LIBERTY_FEATURE_NAME
    root_feature: LIBERTY_FEATURE_DEFINITION
 
-   frame_lower: INTEGER is
+   frame_lower: INTEGER
       do
          Result := call_stack.lower
       end
 
-   frame_upper: INTEGER is
+   frame_upper: INTEGER
       do
          Result := call_stack.upper
       end
 
    current_frame: INTEGER
 
-   break is
+   break
       local
          done: BOOLEAN
       do
@@ -70,14 +70,14 @@ feature {ANY}
          end
       end
 
-   show_current_frame (o: OUTPUT_STREAM) is
+   show_current_frame (o: OUTPUT_STREAM)
       do
          o.put_integer(current_frame + 1)
          o.put_character('%T')
          call_stack.item(current_frame).show_stack(o)
       end
 
-   show_stack (o: OUTPUT_STREAM) is
+   show_stack (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -104,7 +104,7 @@ feature {ANY}
          o.put_line(once "====================== [Top of stack] =======================")
       end
 
-   fatal_error (reason: ABSTRACT_STRING; position: LIBERTY_POSITION) is
+   fatal_error (reason: ABSTRACT_STRING; position: LIBERTY_POSITION)
       do
          if not gathering_old_values then
             std_error.put_new_line
@@ -132,12 +132,12 @@ feature {ANY}
          end
       end
 
-   gathering_old_values: BOOLEAN is
+   gathering_old_values: BOOLEAN
       do
          Result := gathering_old_values_counter > 0
       end
 
-   ensure_built (a_type: LIBERTY_ACTUAL_TYPE) is
+   ensure_built (a_type: LIBERTY_ACTUAL_TYPE)
       do
          universe.build_types(root_type, root_feature_name, a_type)
       end
@@ -156,7 +156,7 @@ feature {ANY}
 
    universe: LIBERTY_UNIVERSE
 
-   expressions: LIBERTY_INTERPRETER_EXPRESSIONS is
+   expressions: LIBERTY_INTERPRETER_EXPRESSIONS
       do
          if gathering_old_values then
             Result := postcondition_browser
@@ -167,7 +167,7 @@ feature {ANY}
          Result /= Void
       end
 
-   call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
+   call_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION)
       local
          call: LIBERTY_INTERPRETER_FEATURE_CALL
       do
@@ -177,7 +177,7 @@ feature {ANY}
          end
       end
 
-   item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   item_feature (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          call: LIBERTY_INTERPRETER_FEATURE_CALL
       do
@@ -185,14 +185,14 @@ feature {ANY}
          Result := call.returned_object
       end
 
-   call_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION) is
+   call_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION)
       local
          dummy: LIBERTY_INTERPRETER_FEATURE_CALL
       do
          dummy := do_precursor(a_precursor, actuals, a_position)
       end
 
-   item_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   item_precursor (a_precursor: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          call: LIBERTY_INTERPRETER_FEATURE_CALL
       do
@@ -200,7 +200,7 @@ feature {ANY}
          Result := call.returned_object
       end
 
-   default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   default_object (type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       do
          ensure_built(type)
          if type.is_expanded then
@@ -212,14 +212,14 @@ feature {ANY}
          end
       end
 
-   void_object (type: LIBERTY_KNOWN_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   void_object (type: LIBERTY_KNOWN_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       require
          not type.is_expanded
       do
          create {LIBERTY_INTERPRETER_VOID} Result.make(Current, type, a_position)
       end
 
-   new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   new_object (object_type: LIBERTY_ACTUAL_TYPE; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       do
          ensure_built(object_type)
          if object_type.is_deferred then
@@ -232,7 +232,7 @@ feature {ANY}
          Result := creator.new_object(object_type, a_position)
       end
 
-   new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+   new_array (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY
       do
          check
             type.parameters.count = 1
@@ -247,7 +247,7 @@ feature {ANY}
          Result := array_creator.new_array(type, capacity, a_position)
       end
 
-   array_from_external (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY is
+   array_from_external (type: LIBERTY_ACTUAL_TYPE; capacity: INTEGER; elements: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_NATIVE_ARRAY
       do
          check
             type.parameters.count = 1
@@ -261,7 +261,7 @@ feature {ANY}
          Result := array_creator.from_external(type, capacity, elements, a_position)
       end
 
-   new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   new_string (manifest: STRING; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          the_new_string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
          new_string_capacity, new_string_count: LIBERTY_INTERPRETER_OBJECT
@@ -287,43 +287,43 @@ feature {ANY}
          Result := the_new_string
       end
 
-   new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_BOOLEAN is
+   new_boolean (manifest: BOOLEAN; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_BOOLEAN
       do
          ensure_built(universe.type_boolean)
          create Result.with_item(Current, universe.type_boolean, manifest, a_position)
       end
 
-   new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
+   new_integer_64 (manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
       do
          ensure_built(universe.type_integer_64)
          create Result.with_item(Current, universe.type_integer_64, manifest, a_position)
       end
 
-   new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
+   new_integer_32 (manifest: INTEGER_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
       do
          ensure_built(universe.type_integer_32)
          create Result.with_item(Current, universe.type_integer_32, manifest, a_position)
       end
 
-   new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
+   new_integer (manifest: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
       do
          ensure_built(universe.type_integer)
          create Result.with_item(Current, universe.type_integer, manifest, a_position)
       end
 
-   new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
+   new_integer_16 (manifest: INTEGER_16; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
       do
          ensure_built(universe.type_integer_16)
          create Result.with_item(Current, universe.type_integer_16, manifest, a_position)
       end
 
-   new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64] is
+   new_integer_8 (manifest: INTEGER_8; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[INTEGER_64]
       do
          ensure_built(universe.type_integer_8)
          create Result.with_item(Current, universe.type_integer_8, manifest, a_position)
       end
 
-   new_typed_integer (actual_type: LIBERTY_ACTUAL_TYPE; manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   new_typed_integer (actual_type: LIBERTY_ACTUAL_TYPE; manifest: INTEGER_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          i8: INTEGER_8; i16: INTEGER_16; i32: INTEGER_32
          manifest_type: LIBERTY_ACTUAL_TYPE
@@ -360,49 +360,49 @@ feature {ANY}
          Result.result_type = actual_type
       end
 
-   new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
+   new_real (manifest: REAL; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
       do
          ensure_built(universe.type_real)
          create Result.with_item(Current, universe.type_real, manifest, a_position)
       end
 
-   new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
+   new_real_128 (manifest: REAL_128; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
       do
          ensure_built(universe.type_real_128)
          create Result.with_item(Current, universe.type_real_128, manifest, a_position)
       end
 
-   new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
+   new_real_80 (manifest: REAL_80; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
       do
          ensure_built(universe.type_real_80)
          create Result.with_item(Current, universe.type_real_80, manifest, a_position)
       end
 
-   new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
+   new_real_64 (manifest: REAL_64; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
       do
          ensure_built(universe.type_real_64)
          create Result.with_item(Current, universe.type_real_64, manifest, a_position)
       end
 
-   new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128] is
+   new_real_32 (manifest: REAL_32; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[REAL_128]
       do
          ensure_built(universe.type_real_32)
          create Result.with_item(Current, universe.type_real_32, manifest, a_position)
       end
 
-   new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER] is
+   new_character (manifest: CHARACTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[CHARACTER]
       do
          ensure_built(universe.type_character)
          create Result.with_item(Current, universe.type_character, manifest, a_position)
       end
 
-   new_pointer (manifest: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER] is
+   new_pointer (manifest: POINTER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT_HASHABLE[POINTER]
       do
          ensure_built(universe.type_pointer)
          create Result.with_item(Current, universe.type_pointer, manifest, a_position)
       end
 
-   new_agent (a_agent: LIBERTY_AGENT): LIBERTY_INTERPRETER_AGENT is
+   new_agent (a_agent: LIBERTY_AGENT): LIBERTY_INTERPRETER_AGENT
       local
          agent_type: LIBERTY_ACTUAL_TYPE
          arguments: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
@@ -426,7 +426,7 @@ feature {ANY}
          Result.set_call(target, a_agent.call, arguments)
       end
 
-   new_tuple (a_tuple: LIBERTY_TUPLE): LIBERTY_INTERPRETER_TUPLE is
+   new_tuple (a_tuple: LIBERTY_TUPLE): LIBERTY_INTERPRETER_TUPLE
       local
          tuple_type: LIBERTY_ACTUAL_TYPE
       do
@@ -435,7 +435,7 @@ feature {ANY}
          Result ::= new_object(tuple_type, a_tuple.position)
       end
 
-   old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
+   old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT
       local
          actual_type: LIBERTY_ACTUAL_TYPE
       do
@@ -450,24 +450,24 @@ feature {ANY}
       end
 
 feature {LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL}
-   debug_step (number_of_steps: INTEGER) is
+   debug_step (number_of_steps: INTEGER)
       require
          number_of_steps > 0
       do
          debugger.steps.after(number_of_steps)
       end
 
-   debug_step_in is
+   debug_step_in
       do
          debugger.steps.at_call_entry
       end
 
-   debug_step_out is
+   debug_step_out
       do
          debugger.steps.at_call_exit
       end
 
-   set_current_frame (f: like current_frame) is
+   set_current_frame (f: like current_frame)
       require
          f.in_range(frame_lower, frame_upper)
       do
@@ -477,7 +477,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_VISITOR_IMPL}
       end
 
 feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
-   start_gathering_old_values is
+   start_gathering_old_values
       do
          gathering_old_values_counter := gathering_old_values_counter + 1
       ensure
@@ -485,7 +485,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
          gathering_old_values_counter = old gathering_old_values_counter + 1
       end
 
-   finished_gathering_old_values is
+   finished_gathering_old_values
       require
          gathering_old_values
       do
@@ -494,12 +494,12 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
          gathering_old_values_counter = old gathering_old_values_counter - 1
       end
 
-   has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN is
+   has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN
       do
          Result := current_feature.has_old_value(a_expression)
       end
 
-   start_evaluating_old_value is
+   start_evaluating_old_value
       require
          gathering_old_values
       do
@@ -509,7 +509,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
          evaluating_old_value
       end
 
-   add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT) is
+   add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT)
       require
          gathering_old_values
          evaluating_old_value
@@ -527,7 +527,7 @@ feature {LIBERTY_INTERPRETER_POSTCONDITION_BROWSER}
          gathering_old_values
       end
 
-   evaluating_old_value: BOOLEAN is
+   evaluating_old_value: BOOLEAN
       do
          Result := not evaluating_old_value_stack.is_empty
       end
@@ -540,7 +540,7 @@ feature {}
    evaluating_old_value_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
 feature {}
-   do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
+   do_call (a_target: LIBERTY_INTERPRETER_OBJECT; feature_to_call: LIBERTY_FEATURE_DEFINITION; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL
       do
          create Result.make(Current, a_target, feature_to_call, actuals, a_position)
          debug ("interpreter.call")
@@ -568,7 +568,7 @@ feature {}
          end
       end
 
-   do_precursor (a_feature: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL is
+   do_precursor (a_feature: LIBERTY_FEATURE; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_FEATURE_CALL
       do
          create Result.make_precursor(Current, current_feature.target, a_feature, actuals, a_position)
          debug ("interpreter.call")
@@ -601,7 +601,7 @@ feature {}
       end
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-   set_evaluating_parameters (cf: like current_feature) is
+   set_evaluating_parameters (cf: like current_feature)
       require
          cf /= Void
          not is_evaluating_parameters(cf)
@@ -618,7 +618,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
          is_evaluating_parameters(cf)
       end
 
-   unset_evaluating_parameters (cf: like current_feature) is
+   unset_evaluating_parameters (cf: like current_feature)
       require
          cf /= Void
          is_evaluating_parameters(cf)
@@ -635,7 +635,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
          not is_evaluating_parameters(cf)
       end
 
-   is_evaluating_parameters (cf: like current_feature): BOOLEAN is
+   is_evaluating_parameters (cf: like current_feature): BOOLEAN
       require
          cf /= Void
       do
@@ -648,12 +648,12 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
 feature {}
    feature_evaluating_parameters: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
-   current_feature: LIBERTY_INTERPRETER_FEATURE_CALL is
+   current_feature: LIBERTY_INTERPRETER_FEATURE_CALL
       do
          Result := call_stack.last
       end
 
-   debug_value (tag, name, op: ABSTRACT_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+   debug_value (tag, name, op: ABSTRACT_STRING; value: LIBERTY_INTERPRETER_OBJECT)
       do
          std_output.put_string(" **** {")
          std_output.put_string(current_feature.definition_type.full_name)
@@ -667,7 +667,7 @@ feature {}
       end
 
 feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_INTERPRETER_INSTRUCTIONS}
-   target: LIBERTY_INTERPRETER_OBJECT is
+   target: LIBERTY_INTERPRETER_OBJECT
       do
          Result := current_feature.target
          debug ("interpreter.internals")
@@ -675,7 +675,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_
          end
       end
 
-   local_value (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+   local_value (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT
       do
          Result := current_feature.local_value(name)
          debug ("interpreter.internals")
@@ -683,7 +683,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_
          end
       end
 
-   returned_object: LIBERTY_INTERPRETER_OBJECT is
+   returned_object: LIBERTY_INTERPRETER_OBJECT
       do
          Result := current_feature.returned_object
          debug ("interpreter.internals")
@@ -691,7 +691,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_
          end
       end
 
-   writable_feature (name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
+   writable_feature (name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT
       do
          Result := current_feature.writable_feature(name)
          debug ("interpreter.internals")
@@ -699,7 +699,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_
          end
       end
 
-   parameter (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+   parameter (name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT
       do
          Result := current_feature.parameter(name)
          debug ("interpreter.internals")
@@ -708,12 +708,12 @@ feature {LIBERTY_INTERPRETER_DEBUGGER, LIBERTY_INTERPRETER_EXPRESSIONS, LIBERTY_
       end
 
 feature {LIBERTY_INTERPRETER_ASSIGNMENT}
-   local_static_type (name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
+   local_static_type (name: FIXED_STRING): LIBERTY_ACTUAL_TYPE
       do
          Result := current_feature.local_static_type(name)
       end
 
-   set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+   set_local_value (name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT)
       do
          current_feature.set_local_value(name, value)
          debug ("interpreter.internals")
@@ -721,12 +721,12 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
          end
       end
 
-   returned_static_type: LIBERTY_ACTUAL_TYPE is
+   returned_static_type: LIBERTY_ACTUAL_TYPE
       do
          Result := current_feature.returned_static_type
       end
 
-   set_returned_object (value: LIBERTY_INTERPRETER_OBJECT) is
+   set_returned_object (value: LIBERTY_INTERPRETER_OBJECT)
       do
          current_feature.set_returned_object(value)
          debug ("interpreter.internals")
@@ -734,12 +734,12 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
          end
       end
 
-   writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
+   writable_feature_static_type (name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE
       do
          Result := current_feature.writable_feature_static_type(name)
       end
 
-   set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT) is
+   set_writable_feature (name: LIBERTY_FEATURE_NAME; value: LIBERTY_INTERPRETER_OBJECT)
       do
          current_feature.set_writable_feature(name, value)
          debug ("interpreter.internals")
@@ -748,13 +748,13 @@ feature {LIBERTY_INTERPRETER_ASSIGNMENT}
       end
 
 feature {LIBERTY_INTERPRETER_ASSERTION_CHECKER}
-   evaluate_feature_parameters is
+   evaluate_feature_parameters
       do
          current_feature.evaluate_parameters
       end
 
 feature {}
-   make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: like root_feature_name) is
+   make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: like root_feature_name)
       require
          a_universe /= Void
       do
@@ -798,7 +798,7 @@ feature {}
 
    native_array_of_character: LIBERTY_ACTUAL_TYPE
 
-   root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION] is
+   root_feature_actuals: COLLECTION[LIBERTY_EXPRESSION]
       once
          create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
       ensure
@@ -807,22 +807,22 @@ feature {}
 
    call_stack: COLLECTION[LIBERTY_INTERPRETER_FEATURE_CALL]
 
-   capacity_name: FIXED_STRING is
+   capacity_name: FIXED_STRING
       once
          Result := "capacity".intern
       end
 
-   count_name: FIXED_STRING is
+   count_name: FIXED_STRING
       once
          Result := "count".intern
       end
 
-   storage_name: FIXED_STRING is
+   storage_name: FIXED_STRING
       once
          Result := "storage".intern
       end
 
-   readline: READLINE_INPUT_STREAM is
+   readline: READLINE_INPUT_STREAM
       once
          create Result.make
       end

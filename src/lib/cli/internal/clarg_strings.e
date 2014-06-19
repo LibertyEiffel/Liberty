@@ -10,13 +10,13 @@ create {COMMAND_LINE_ARGUMENT_FACTORY}
    optional, positional
 
 feature {CLARG_PARSER}
-   is_valid_data (arg: STRING): BOOLEAN is
+   is_valid_data (arg: STRING): BOOLEAN
       do
          Result := True
       end
 
 feature {}
-   decode (arg: STRING): FIXED_STRING is
+   decode (arg: STRING): FIXED_STRING
       do
          Result := arg.intern
       end
@@ -29,7 +29,7 @@ end -- CLARG_STRINGS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

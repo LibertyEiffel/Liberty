@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(3.gcd(4) = 1)
          assert(4.gcd(4) = 4)
@@ -16,7 +16,7 @@ feature {ANY}
          assert(9.gcd(12) = 3)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

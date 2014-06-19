@@ -4,7 +4,7 @@
 deferred class AUX_CREATE04
 
 feature {ANY}
-   g (aux: AUX_CREATE04) is
+   g (aux: AUX_CREATE04)
       do
          if Current /= aux then
          end

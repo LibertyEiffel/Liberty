@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          file: TEXT_FILE_WRITE; html: HTML_OUTPUT_STREAM
       do

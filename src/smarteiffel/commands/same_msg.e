@@ -11,7 +11,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          error_message_comparator: ERROR_MESSAGE_COMPARATOR
       do

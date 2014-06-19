@@ -7,13 +7,13 @@ inherit
    EXPRESSION_ITEM_GLOBALS
 
 feature {ANY}
-   pool: POOL_ALTERNATIVE is
+   pool: POOL_ALTERNATIVE
       once
          create Result.make
       end
 
 feature {ABSTRACT_BACKTRACKING}
-   next_alternative (explorer: EXPAND_EXPRESSION) is
+   next_alternative (explorer: EXPAND_EXPRESSION)
       do
          explorer.stack.resize(count)
          if Iterate and then item.type = Or_item then
@@ -32,7 +32,7 @@ feature {}
    count: INTEGER
 
 feature {EXPAND_EXPRESSION}
-   make (itm: EXPRESSION_ITEM; cnt: INTEGER) is
+   make (itm: EXPRESSION_ITEM; cnt: INTEGER)
       do
          count := cnt
          item := itm

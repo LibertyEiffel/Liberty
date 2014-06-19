@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	creat (a_file: POINTER; a_mode: NATURAL): INTEGER is
+	creat (a_file: POINTER; a_mode: NATURAL): INTEGER
  		-- creat
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	creat64 (a_file: POINTER; a_mode: NATURAL): INTEGER is
+	creat64 (a_file: POINTER; a_mode: NATURAL): INTEGER
  		-- creat64
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	fcntl (a_fd: INTEGER; a_cmd: INTEGER): INTEGER is
+	fcntl (a_fd: INTEGER; a_cmd: INTEGER): INTEGER
  		-- fcntl (variadic call) 
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lockf (a_fd: INTEGER; a_cmd: INTEGER; a_len: like long): INTEGER is
+	lockf (a_fd: INTEGER; a_cmd: INTEGER; a_len: like long): INTEGER
  		-- lockf
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	lockf64 (a_fd: INTEGER; a_cmd: INTEGER; a_len: INTEGER_64): INTEGER is
+	lockf64 (a_fd: INTEGER; a_cmd: INTEGER; a_len: INTEGER_64): INTEGER
  		-- lockf64
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fadvise (a_fd: INTEGER; an_offset: like long; a_len: like long; an_advise: INTEGER): INTEGER is
+	posix_fadvise (a_fd: INTEGER; an_offset: like long; a_len: like long; an_advise: INTEGER): INTEGER
  		-- posix_fadvise
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fadvise64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER): INTEGER is
+	posix_fadvise64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64; an_advise: INTEGER): INTEGER
  		-- posix_fadvise64
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fallocate (a_fd: INTEGER; an_offset: like long; a_len: like long): INTEGER is
+	posix_fallocate (a_fd: INTEGER; an_offset: like long; a_len: like long): INTEGER
  		-- posix_fallocate
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	posix_fallocate64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER is
+	posix_fallocate64 (a_fd: INTEGER; an_offset: INTEGER_64; a_len: INTEGER_64): INTEGER
  		-- posix_fallocate64
 		external "plug_in"
 		alias "{

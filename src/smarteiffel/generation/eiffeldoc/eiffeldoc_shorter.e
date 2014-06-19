@@ -13,7 +13,7 @@ create {EIFFELDOC_CORE}
    make
 
 feature {EIFFELDOC_CORE}
-   short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT]) is
+   short_for (ct: CLASS_TEXT; inherit_children, insert_children: FAST_ARRAY[CLASS_TEXT])
          -- The filename of the class file is returned
       local
          fn: STRING; i: INTEGER; client: TYPE_MARK
@@ -45,13 +45,13 @@ feature {EIFFELDOC_CORE}
          end
       end
 
-   depends: HASHED_SET[CLASS_NAME] is
+   depends: HASHED_SET[CLASS_NAME]
       once
          create Result.make
       end
 
 feature {}
-   make (a_context: EIFFELDOC_CONTEXT) is
+   make (a_context: EIFFELDOC_CONTEXT)
       do
          options := a_context.options
          create find_clients.make
@@ -70,18 +70,18 @@ feature {}
    clients: TYPE_MARK_LIST
 
 feature {ANY}
-   command_name: STRING is ""
+   command_name: STRING ""
 
-   command_line_help_summary: STRING is ""
+   command_line_help_summary: STRING ""
 
 feature {}
-   valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING ""
 
-   parse_arguments is
+   parse_arguments
       do
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          -- Always False
       end

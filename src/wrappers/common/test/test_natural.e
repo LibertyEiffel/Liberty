@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n0, n1, n2, n3, n4, n5, n6, n7, n8, n10: NATURAL_8
       do

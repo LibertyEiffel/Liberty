@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: AUX_SIMPLIFY17
       do
@@ -20,7 +20,7 @@ feature {}
       end
 
 feature {ANY}
-   item: INTEGER is
+   item: INTEGER
          -- The access to this feature (see process_3) crashes smarteiffel on 'call_0.e'.
          -- If you use a parameter at this point, allso 'call_1.e' will crash.
       do

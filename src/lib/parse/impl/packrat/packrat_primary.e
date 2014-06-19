@@ -21,39 +21,39 @@ insert
       end
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
-   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE is
+   frozen positive_lookahead, prefix "@": PACKRAT_ALTERNATIVE
       do
          create {PACKRAT_AND} Result.make(Current)
       end
 
-   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE is
+   frozen negative_lookahead, prefix "~": PACKRAT_ALTERNATIVE
       do
          create {PACKRAT_NOT} Result.make(Current)
       end
 
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       deferred
       ensure
          must_be_coherent: Result
       end
 
 feature {ANY}
-   accept (visitor: PACKRAT_VISITOR) is
+   accept (visitor: PACKRAT_VISITOR)
       deferred
       end
 
 feature {PACKRAT_INTERNAL}
-   frozen parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   frozen parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       require
          context /= Void
       local
@@ -93,11 +93,11 @@ feature {PACKRAT_INTERNAL}
          Result /= yes implies context.buffer.current_index = old context.buffer.current_index
       end
 
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       deferred
       end
 
-   set_nt (a_nt: like nt) is
+   set_nt (a_nt: like nt)
       require
          a_nt /= Void
       do
@@ -108,7 +108,7 @@ feature {PACKRAT_INTERNAL}
 
    nt: PACKRAT_NON_TERMINAL
 
-   set_paren (a_paren: like need_paren) is
+   set_paren (a_paren: like need_paren)
       do
          need_paren := a_paren
       ensure
@@ -119,7 +119,7 @@ feature {PACKRAT_INTERNAL, PACKRAT_VISITOR}
    need_paren: BOOLEAN
 
 feature {}
-   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       require
          context /= Void
       deferred
@@ -135,7 +135,7 @@ end -- class PACKRAT_PRIMARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

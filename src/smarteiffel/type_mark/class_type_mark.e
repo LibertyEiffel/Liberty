@@ -14,14 +14,14 @@ create {ANY}
 feature {ANY}
    class_text_name: CLASS_NAME
 
-   is_generic: BOOLEAN is False
+   is_generic: BOOLEAN False
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
-   type: TYPE is
+   type: TYPE
       do
          if type_memory = Void then
             type_memory := smart_eiffel.get_type_for_non_generic(Current, False)
@@ -29,68 +29,68 @@ feature {ANY}
          Result := type_memory
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := class_text.is_expanded
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := not class_text.is_expanded
       end
 
-   is_user_expanded: BOOLEAN is
+   is_user_expanded: BOOLEAN
       do
          Result := is_expanded
       end
 
-   is_empty_expanded: BOOLEAN is
+   is_empty_expanded: BOOLEAN
       do
          if is_expanded and then not type.has_external_type then
             Result := type.live_type.writable_attributes = Void
          end
       end
 
-   generic_list: ARRAY[TYPE_MARK] is
+   generic_list: ARRAY[TYPE_MARK]
       do
          check
             False -- Because of the inherited require.
          end
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := class_text.id
       end
 
-   accept (visitor: CLASS_TYPE_MARK_VISITOR) is
+   accept (visitor: CLASS_TYPE_MARK_VISITOR)
       do
          visitor.visit_class_type_mark(Current)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := class_text_name.start_position
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := canonical_long_name
       end
 
 feature {TYPE_MARK}
-   frozen short_ (shorted_type: TYPE) is
+   frozen short_ (shorted_type: TYPE)
       do
          short_printer.put_class_name(class_text_name)
       end
 
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          if start_position /= sp then
             class_text_name := class_text_name.twin
@@ -101,7 +101,7 @@ feature {TYPE_MARK}
 feature {}
    type_memory: like type
 
-   make (ctn: like class_text_name) is
+   make (ctn: like class_text_name)
       require
          not ctn.predefined
          not ctn.is_tuple_related

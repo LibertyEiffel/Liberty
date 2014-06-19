@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    done: BOOLEAN
 
-   status: INTEGER is
+   status: INTEGER
       require
          done
       attribute
@@ -20,7 +20,7 @@ feature {ANY}
 
    reply: STRING
 
-   set_done (a_status: like status) is
+   set_done (a_status: like status)
       require
          not done
       do
@@ -31,7 +31,7 @@ feature {ANY}
          status = a_status
       end
 
-   set_reply (a_reply: like reply) is
+   set_reply (a_reply: like reply)
       require
          a_reply /= Void
       do
@@ -40,7 +40,7 @@ feature {ANY}
          reply = a_reply
       end
 
-   success: BOOLEAN is
+   success: BOOLEAN
       local
          split: ARRAY[STRING]
          nb_failed: INTEGER
@@ -60,7 +60,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

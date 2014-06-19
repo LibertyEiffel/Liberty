@@ -13,7 +13,7 @@ feature {ANY}
    decoded: E_
 
 feature {}
-   make (a_image: like image; a_decoded: like decoded; a_blanks: like blanks; a_position: like position) is
+   make (a_image: like image; a_decoded: like decoded; a_blanks: like blanks; a_position: like position)
       require
          a_image /= Void
          a_decoded /= Void
@@ -40,7 +40,7 @@ end -- class TYPED_EIFFEL_IMAGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

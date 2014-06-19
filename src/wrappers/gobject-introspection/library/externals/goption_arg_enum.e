@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = callback_low_level)  or else
 				(a_value = double_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_callback is
+	set_callback
 		do
 			value := callback_low_level
 		end
 
-	set_double is
+	set_double
 		do
 			value := double_low_level
 		end
 
-	set_filename is
+	set_filename
 		do
 			value := filename_low_level
 		end
 
-	set_filename_array is
+	set_filename_array
 		do
 			value := filename_array_low_level
 		end
 
-	set_int is
+	set_int
 		do
 			value := int_low_level
 		end
 
-	set_int64 is
+	set_int64
 		do
 			value := int64_low_level
 		end
 
-	set_none is
+	set_none
 		do
 			value := none_low_level
 		end
 
-	set_string is
+	set_string
 		do
 			value := string_low_level
 		end
 
-	set_string_array is
+	set_string_array
 		do
 			value := string_array_low_level
 		end
 
 feature {ANY} -- Queries
-	is_callback: BOOLEAN is
+	is_callback: BOOLEAN
 		do
 			Result := (value=callback_low_level)
 		end
 
-	is_double: BOOLEAN is
+	is_double: BOOLEAN
 		do
 			Result := (value=double_low_level)
 		end
 
-	is_filename: BOOLEAN is
+	is_filename: BOOLEAN
 		do
 			Result := (value=filename_low_level)
 		end
 
-	is_filename_array: BOOLEAN is
+	is_filename_array: BOOLEAN
 		do
 			Result := (value=filename_array_low_level)
 		end
 
-	is_int: BOOLEAN is
+	is_int: BOOLEAN
 		do
 			Result := (value=int_low_level)
 		end
 
-	is_int64: BOOLEAN is
+	is_int64: BOOLEAN
 		do
 			Result := (value=int64_low_level)
 		end
 
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=none_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 		do
 			Result := (value=string_low_level)
 		end
 
-	is_string_array: BOOLEAN is
+	is_string_array: BOOLEAN
 		do
 			Result := (value=string_array_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	callback_low_level: INTEGER is
+	callback_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	double_low_level: INTEGER is
+	double_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	filename_low_level: INTEGER is
+	filename_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	filename_array_low_level: INTEGER is
+	filename_array_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_low_level: INTEGER is
+	int_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int64_low_level: INTEGER is
+	int64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	none_low_level: INTEGER is
+	none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string_low_level: INTEGER is
+	string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string_array_low_level: INTEGER is
+	string_array_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

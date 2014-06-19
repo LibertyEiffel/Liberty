@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert('A' < 'B')
          assert('B' > 'A')
@@ -20,7 +20,7 @@ feature {ANY}
          assert('%/254/' >= '%/0/')
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

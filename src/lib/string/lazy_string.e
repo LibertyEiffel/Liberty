@@ -17,132 +17,132 @@ create {ANY}
    make
 
 feature {ANY} -- redefinitions
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append(once "[lazy outter: ")
          tagged_out_memory.append(outter.out)
          tagged_out_memory.append(once "]")
       end
 
-   immutable: BOOLEAN is True
+   immutable: BOOLEAN True
 
-   new_iterator: ITERATOR[CHARACTER] is
+   new_iterator: ITERATOR[CHARACTER]
       do
          Result := lazy_out_.new_iterator
       end
 
-   lazy_out, prefix "&": ABSTRACT_STRING is
+   lazy_out, prefix "&": ABSTRACT_STRING
       do
          Result := Current
       end
 
 feature {ANY} -- from ABSTRACT_STRING
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          check False end
       end
 
-   item (i: INTEGER): CHARACTER is
+   item (i: INTEGER): CHARACTER
       do
          Result := lazy_out_.item(i)
       end
 
-   is_equal, same_as (other: ABSTRACT_STRING): BOOLEAN is
+   is_equal, same_as (other: ABSTRACT_STRING): BOOLEAN
       do
          Result := lazy_out_.is_equal(other)
       end
 
-   occurrences (c: CHARACTER): INTEGER is
+   occurrences (c: CHARACTER): INTEGER
       do
          Result := lazy_out_.occurrences(c)
       end
 
-   infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
+   infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING
       do
          create {ROPE} Result.from_strings(Current, other)
       end
 
-   first: CHARACTER is
+   first: CHARACTER
       do
          Result := lazy_out_.first
       end
 
-   last: CHARACTER is
+   last: CHARACTER
       do
          Result := lazy_out_.last
       end
 
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
       do
          create Result.make(agent substring_out(Current, start_index, end_index))
       end
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
       do
          Result := lazy_out_.intern
       end
 
-   to_external: POINTER is
+   to_external: POINTER
       do
          Result := lazy_out_.to_external
       end
 
 feature {ANY} -- from SEARCHABLE
-   has (x: like item): BOOLEAN is
+   has (x: like item): BOOLEAN
       do
          Result := lazy_out_.has(x)
       end
 
-   fast_has (x: like item): BOOLEAN is
+   fast_has (x: like item): BOOLEAN
       do
          Result := lazy_out_.fast_has(x)
       end
 
-   index_of (element: like item; start_index: INTEGER): INTEGER is
+   index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := lazy_out_.index_of(element, start_index)
       end
 
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := lazy_out_.reverse_index_of(element, start_index)
       end
 
-   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := lazy_out_.fast_index_of(element, start_index)
       end
 
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := lazy_out_.fast_reverse_index_of(element, start_index)
       end
 
 feature {ANY} -- from HOARD
-   count: INTEGER is
+   count: INTEGER
       do
          Result := lazy_out_.count
       end
 
 feature {ANY} -- from HASHABLE
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := lazy_out_.hash_code
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
       end
 
 feature {STRING_HANDLER}
-   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER)
       do
          lazy_out_.copy_slice_to_native(start_index, end_index, target, target_offset)
       end
 
 feature {}
-   make (a_outter: like outter) is
+   make (a_outter: like outter)
       require
          a_outter /= Void
       do
@@ -151,7 +151,7 @@ feature {}
          outter = a_outter
       end
 
-   substring_out (a_lazy_string: like Current; start_index, end_index: INTEGER): ABSTRACT_STRING is
+   substring_out (a_lazy_string: like Current; start_index, end_index: INTEGER): ABSTRACT_STRING
       do
          Result := a_lazy_string.lazy_out_.substring(start_index, end_index)
       end
@@ -161,7 +161,7 @@ feature {}
    lazy_out_memory: WEAK_REFERENCE[ABSTRACT_STRING]
 
 feature {LAZY_STRING}
-   lazy_out_: ABSTRACT_STRING is
+   lazy_out_: ABSTRACT_STRING
       do
          if lazy_out_memory /= Void then
             Result := lazy_out_memory.item
@@ -187,7 +187,7 @@ end -- class LAZY_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

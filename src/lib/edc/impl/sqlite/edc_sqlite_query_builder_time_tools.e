@@ -42,13 +42,13 @@ create {EDC_SQLITE_QUERY_BUILDER_TOOLS}
    make
 
 feature {EDC_MANIFEST_VALUE}
-   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[TIME]) is
+   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_PARAMETER}
-   visit_parameter (a_parameter: EDC_PARAMETER[TIME]) is
+   visit_parameter (a_parameter: EDC_PARAMETER[TIME])
       local
          r: REFERENCE[TIME]
       do
@@ -58,43 +58,43 @@ feature {EDC_PARAMETER}
       end
 
 feature {EDC_EQUALS_EXPRESSION}
-   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[TIME]) is
+   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_GE_EXPRESSION}
-   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[TIME]) is
+   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_GT_EXPRESSION}
-   visit_gt_expression (a_gt_expression: EDC_GT_EXPRESSION[TIME]) is
+   visit_gt_expression (a_gt_expression: EDC_GT_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_IN_EXPRESSION}
-   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[TIME]) is
+   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_ISNULL_EXPRESSION}
-   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[TIME]) is
+   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_LE_EXPRESSION}
-   visit_le_expression (a_le_expression: EDC_LE_EXPRESSION[TIME]) is
+   visit_le_expression (a_le_expression: EDC_LE_EXPRESSION[TIME])
       do
          not_yet_implemented
       end
 
 feature {EDC_LT_EXPRESSION}
-   visit_lt_expression (a_lt_expression: EDC_LT_EXPRESSION[TIME]) is
+   visit_lt_expression (a_lt_expression: EDC_LT_EXPRESSION[TIME])
       do
          not_yet_implemented
       end

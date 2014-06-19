@@ -12,7 +12,7 @@ feature {ANY}
 
    item: ITEM
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       require
          group.is_like_integer
          not is_off
@@ -20,13 +20,13 @@ feature {ANY}
          Result := item.to_integer
       end
 
-   make (the_group: like group; the_name: like name) is
+   make (the_group: like group; the_name: like name)
       do
          group := the_group
          name := the_name
       end
 
-   start is
+   start
       do
          if group.item_count = 0 then
             item := Void
@@ -37,14 +37,14 @@ feature {ANY}
          group.item_count > 0 /= is_off
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := item /= Void
       ensure
          Result = (item /= Void)
       end
 
-   next is
+   next
       require
          not is_off
       do
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   goto_index (idx: INTEGER) is
+   goto_index (idx: INTEGER)
       require
          idx.in_range(0, group.item_count - 1)
       do

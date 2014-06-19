@@ -4,7 +4,7 @@
 class AUX_FA2DICO[G, K]
 
 feature {ANY}
-   remove is
+   remove
       local
          container: AUX_FA2MY_SET[AUX_FA2DICO_NODE[G, K]]
       do

@@ -21,7 +21,7 @@ insert
    SINGLETON
 
 feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL, MANIFEST_GENERIC, AGENT_LAUNCHER, CREATE_WRITABLE, AGENT_POOL}
-   collect_normal (source, destination: TYPE) is
+   collect_normal (source, destination: TYPE)
          -- Collect normal allowed assignment of `source' into `destination' (see export and require).
       require
          not_too_early: smart_eiffel.status.is_collecting
@@ -32,7 +32,7 @@ feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL, MANIFEST_GENERIC, AGENT_L
       end
 
 feature {ASSIGNMENT_ATTEMPT, EFFECTIVE_ARG_LIST}
-   collect_force (source, destination: TYPE) is
+   collect_force (source, destination: TYPE)
          -- Collect a possibly non normal assignment of `source' into `destination' (see export and require).
       require
          not_too_early: smart_eiffel.status.is_collecting
@@ -61,7 +61,7 @@ feature {ASSIGNMENT_ATTEMPT, EFFECTIVE_ARG_LIST}
       end
 
 feature {SMART_EIFFEL}
-   recompute_all_run_time_sets is
+   recompute_all_run_time_sets
       local
          i: INTEGER; gn: GRAPH_NODE; magic, new_magic: INTEGER
       do
@@ -87,7 +87,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CALL_1, FAKE_TUPLE, E_FUNCTION}
-   implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION is
+   implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION
          -- If necessary, wrap the source `expression' inside an IMPLICIT_CAST invisible wrapper object,
          -- hence the name of this function.
       require
@@ -107,7 +107,7 @@ feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CAL
       end
 
 feature {}
-   implicit_cast_ (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION is
+   implicit_cast_ (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION
       do
          if expression_type = destination_type then
             Result := expression
@@ -132,7 +132,7 @@ feature {}
       end
 
 feature {LIVE_TYPE}
-   id_extra_information (tfw: TEXT_FILE_WRITE; lt: LIVE_TYPE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE; lt: LIVE_TYPE)
       local
          graph_node: GRAPH_NODE
       do
@@ -147,7 +147,7 @@ feature {LIVE_TYPE}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
          -- Called before a re-collect cycle.
       local
          i: INTEGER
@@ -164,7 +164,7 @@ feature {SMART_EIFFEL}
          end
       end
 
-   echo_information is
+   echo_information
       local
          i, n: INTEGER; graph_node: GRAPH_NODE
       do
@@ -185,7 +185,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   graph_node_for (type: TYPE): GRAPH_NODE is
+   graph_node_for (type: TYPE): GRAPH_NODE
       require
          type /= Void
       do
@@ -197,7 +197,7 @@ feature {}
       end
 
 feature {NATIVE, CECIL_ENTRY}
-   from_external (type: TYPE; args: FORMAL_ARG_LIST; result_type: TYPE_MARK) is
+   from_external (type: TYPE; args: FORMAL_ARG_LIST; result_type: TYPE_MARK)
       require
          type /= Void
       local
@@ -220,23 +220,23 @@ feature {NATIVE, CECIL_ENTRY}
       end
 
 feature {}
-   buffer: STRING is
+   buffer: STRING
       once
          create Result.make(128)
       end
 
-   graph_node_dictionary: HASHED_DICTIONARY[GRAPH_NODE, TYPE] is
+   graph_node_dictionary: HASHED_DICTIONARY[GRAPH_NODE, TYPE]
          -- To get the corresponding GRAPH_NODE.
       once
          create Result.with_capacity(512)
       end
 
-   external_types: SET[TYPE] is
+   external_types: SET[TYPE]
       once
          create {HASHED_SET[TYPE]} Result.make
       end
 
-   from_external_ (type: TYPE; type_mark: TYPE_MARK) is
+   from_external_ (type: TYPE; type_mark: TYPE_MARK)
       require
          type_mark /= Void
       local

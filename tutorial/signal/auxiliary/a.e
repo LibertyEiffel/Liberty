@@ -9,13 +9,13 @@ feature {ANY}
    value: INTEGER
 
 feature {}
-   make is
+   make
       do
          create value_changed.make
       end
 
 feature {ANY}
-   set_val (v: INTEGER) is
+   set_val (v: INTEGER)
       do
          -- Only emit if value really change (see signals.txt: when
          -- to use). Avoid infinite looping in case of cyclic connections.

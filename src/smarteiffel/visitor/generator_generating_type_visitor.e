@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {GENERATOR_GENERATING_TYPE}
-   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
+   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE)
       require
          visited /= Void
       deferred

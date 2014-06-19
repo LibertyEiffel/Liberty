@@ -53,12 +53,12 @@ feature {ANY}
 feature {ANY}
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.locations.is_equal(locations)
       end
 
-   location_of (a_class_name: FIXED_STRING): FIXED_STRING is
+   location_of (a_class_name: FIXED_STRING): FIXED_STRING
       do
          Result := class_names.fast_reference_at(a_class_name)
          -- if Result = Void then
@@ -66,13 +66,13 @@ feature {ANY}
          -- end
       end
 
-   has_parent (a_cluster: LIBERTY_CLUSTER): BOOLEAN is
+   has_parent (a_cluster: LIBERTY_CLUSTER): BOOLEAN
       do
          Result := a_cluster = Current or else (Current /= root and then parent.has_parent(a_cluster))
       end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
-   find (a_class_name: FIXED_STRING): LIBERTY_CLUSTER is
+   find (a_class_name: FIXED_STRING): LIBERTY_CLUSTER
       local
          filename: STRING
          new_mark: like find_mark
@@ -92,7 +92,7 @@ feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_RESOLVER}
       end
 
 feature {LIBERTY_CLUSTER}
-   find_cluster (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER is
+   find_cluster (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER
       local
          i: INTEGER
       do
@@ -115,7 +115,7 @@ feature {LIBERTY_CLUSTER}
          end
       end
 
-   log_cluster_tree (tab: INTEGER) is
+   log_cluster_tree (tab: INTEGER)
       require
          tab >= 0
       local
@@ -146,7 +146,7 @@ feature {LIBERTY_CLUSTER}
       end
 
 feature {} -- find
-   find_here (a_location: FIXED_STRING; a_file_name: STRING): BOOLEAN is
+   find_here (a_location: FIXED_STRING; a_file_name: STRING): BOOLEAN
       local
          here: STRING
       do
@@ -168,7 +168,7 @@ feature {} -- find
          end
       end
 
-   find_child (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER is
+   find_child (a_class_name: FIXED_STRING; a_file_name: STRING; new_mark: like find_mark): LIBERTY_CLUSTER
       local
          child: LIBERTY_CLUSTER
          i: INTEGER
@@ -187,7 +187,7 @@ feature {} -- find
       end
 
 feature {}
-   make_void is
+   make_void
       do
          name := "<Void>".intern
          create class_names.with_capacity(0)
@@ -195,7 +195,7 @@ feature {}
          depth := -1
       end
 
-   make_root is
+   make_root
       local
          c: FAST_ARRAY[LIBERTY_CLUSTER]
          etc: LIBERTY_ETC
@@ -213,7 +213,7 @@ feature {}
          depth = 0
       end
 
-   add_if_root (a_etc: LIBERTY_ETC_CLUSTER; a_children: FAST_ARRAY[LIBERTY_CLUSTER]) is
+   add_if_root (a_etc: LIBERTY_ETC_CLUSTER; a_children: FAST_ARRAY[LIBERTY_CLUSTER])
       require
          is_root: root = Current
          in_other_words: depth = 0
@@ -226,7 +226,7 @@ feature {}
          end
       end
 
-   make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_parent: like parent; a_root: like root) is
+   make_from_etc (a_etc: LIBERTY_ETC_CLUSTER; a_parent: like parent; a_root: like root)
       require
          a_etc /= Void
          a_root /= Void
@@ -259,7 +259,7 @@ feature {}
          locations = a_etc.locations
       end
 
-   add_needs (a_etc: LIBERTY_ETC_NEEDS; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_root: like root) is
+   add_needs (a_etc: LIBERTY_ETC_NEEDS; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_root: like root)
       require
          a_root.depth = 0
       do
@@ -275,7 +275,7 @@ feature {}
          end
       end
 
-   make_from_loadpath (a_loadpath: STRING; a_parent: like parent; a_root: like root) is
+   make_from_loadpath (a_loadpath: STRING; a_parent: like parent; a_root: like root)
       require
          a_loadpath /= Void
          a_root.depth = 0
@@ -314,7 +314,7 @@ feature {}
          parent = a_parent
       end
 
-   read_loadpath (a_loadpath, a_location_directory: STRING) is
+   read_loadpath (a_loadpath, a_location_directory: STRING)
       require
          root /= Void
          ft.is_file(a_loadpath)
@@ -343,7 +343,7 @@ feature {}
          children := c
       end
 
-   process_loadpath (a_locations: FAST_ARRAY[FIXED_STRING]; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_location_directory, loadpath_line: STRING) is
+   process_loadpath (a_locations: FAST_ARRAY[FIXED_STRING]; a_children: FAST_ARRAY[LIBERTY_CLUSTER]; a_location_directory, loadpath_line: STRING)
       require
          a_locations /= Void
          a_children /= Void
@@ -382,7 +382,7 @@ feature {}
 
    dir: BASIC_DIRECTORY
 
-   tfr: TEXT_FILE_READ is
+   tfr: TEXT_FILE_READ
       once
          create Result.make
       end
@@ -394,12 +394,12 @@ feature {}
    root: LIBERTY_CLUSTER
    parent: LIBERTY_CLUSTER
 
-   loadpath_entry: POSIX_PATH_NAME is
+   loadpath_entry: POSIX_PATH_NAME
       once
          create Result.make_empty
       end
 
-   loadpath_notation: UNIX_DIRECTORY_NOTATION is
+   loadpath_notation: UNIX_DIRECTORY_NOTATION
       once
          create Result
       end
@@ -408,7 +408,7 @@ feature {}
    find_mark: INTEGER
    logged: BOOLEAN
 
-   find_mark_counter: COUNTER is
+   find_mark_counter: COUNTER
       once
          create Result
       end

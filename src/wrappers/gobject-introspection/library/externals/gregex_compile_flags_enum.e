@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = anchored_low_level)  or else
 				(a_value = bsr_anycrlf_low_level)  or else
@@ -31,189 +31,189 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_anchored is
+	set_anchored
 		do
 			value := anchored_low_level
 		end
 
-	set_bsr_anycrlf is
+	set_bsr_anycrlf
 		do
 			value := bsr_anycrlf_low_level
 		end
 
-	set_caseless is
+	set_caseless
 		do
 			value := caseless_low_level
 		end
 
-	set_dollar_endonly is
+	set_dollar_endonly
 		do
 			value := dollar_endonly_low_level
 		end
 
-	set_dotall is
+	set_dotall
 		do
 			value := dotall_low_level
 		end
 
-	set_dupnames is
+	set_dupnames
 		do
 			value := dupnames_low_level
 		end
 
-	set_extended is
+	set_extended
 		do
 			value := extended_low_level
 		end
 
-	set_firstline is
+	set_firstline
 		do
 			value := firstline_low_level
 		end
 
-	set_javascript_compat is
+	set_javascript_compat
 		do
 			value := javascript_compat_low_level
 		end
 
-	set_multiline is
+	set_multiline
 		do
 			value := multiline_low_level
 		end
 
-	set_newline_anycrlf is
+	set_newline_anycrlf
 		do
 			value := newline_anycrlf_low_level
 		end
 
-	set_newline_cr is
+	set_newline_cr
 		do
 			value := newline_cr_low_level
 		end
 
-	set_newline_crlf is
+	set_newline_crlf
 		do
 			value := newline_crlf_low_level
 		end
 
-	set_newline_lf is
+	set_newline_lf
 		do
 			value := newline_lf_low_level
 		end
 
-	set_no_auto_capture is
+	set_no_auto_capture
 		do
 			value := no_auto_capture_low_level
 		end
 
-	set_optimize is
+	set_optimize
 		do
 			value := optimize_low_level
 		end
 
-	set_raw is
+	set_raw
 		do
 			value := raw_low_level
 		end
 
-	set_ungreedy is
+	set_ungreedy
 		do
 			value := ungreedy_low_level
 		end
 
 feature {ANY} -- Queries
-	is_anchored: BOOLEAN is
+	is_anchored: BOOLEAN
 		do
 			Result := (value=anchored_low_level)
 		end
 
-	is_bsr_anycrlf: BOOLEAN is
+	is_bsr_anycrlf: BOOLEAN
 		do
 			Result := (value=bsr_anycrlf_low_level)
 		end
 
-	is_caseless: BOOLEAN is
+	is_caseless: BOOLEAN
 		do
 			Result := (value=caseless_low_level)
 		end
 
-	is_dollar_endonly: BOOLEAN is
+	is_dollar_endonly: BOOLEAN
 		do
 			Result := (value=dollar_endonly_low_level)
 		end
 
-	is_dotall: BOOLEAN is
+	is_dotall: BOOLEAN
 		do
 			Result := (value=dotall_low_level)
 		end
 
-	is_dupnames: BOOLEAN is
+	is_dupnames: BOOLEAN
 		do
 			Result := (value=dupnames_low_level)
 		end
 
-	is_extended: BOOLEAN is
+	is_extended: BOOLEAN
 		do
 			Result := (value=extended_low_level)
 		end
 
-	is_firstline: BOOLEAN is
+	is_firstline: BOOLEAN
 		do
 			Result := (value=firstline_low_level)
 		end
 
-	is_javascript_compat: BOOLEAN is
+	is_javascript_compat: BOOLEAN
 		do
 			Result := (value=javascript_compat_low_level)
 		end
 
-	is_multiline: BOOLEAN is
+	is_multiline: BOOLEAN
 		do
 			Result := (value=multiline_low_level)
 		end
 
-	is_newline_anycrlf: BOOLEAN is
+	is_newline_anycrlf: BOOLEAN
 		do
 			Result := (value=newline_anycrlf_low_level)
 		end
 
-	is_newline_cr: BOOLEAN is
+	is_newline_cr: BOOLEAN
 		do
 			Result := (value=newline_cr_low_level)
 		end
 
-	is_newline_crlf: BOOLEAN is
+	is_newline_crlf: BOOLEAN
 		do
 			Result := (value=newline_crlf_low_level)
 		end
 
-	is_newline_lf: BOOLEAN is
+	is_newline_lf: BOOLEAN
 		do
 			Result := (value=newline_lf_low_level)
 		end
 
-	is_no_auto_capture: BOOLEAN is
+	is_no_auto_capture: BOOLEAN
 		do
 			Result := (value=no_auto_capture_low_level)
 		end
 
-	is_optimize: BOOLEAN is
+	is_optimize: BOOLEAN
 		do
 			Result := (value=optimize_low_level)
 		end
 
-	is_raw: BOOLEAN is
+	is_raw: BOOLEAN
 		do
 			Result := (value=raw_low_level)
 		end
 
-	is_ungreedy: BOOLEAN is
+	is_ungreedy: BOOLEAN
 		do
 			Result := (value=ungreedy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	anchored_low_level: INTEGER is
+	anchored_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bsr_anycrlf_low_level: INTEGER is
+	bsr_anycrlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	caseless_low_level: INTEGER is
+	caseless_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dollar_endonly_low_level: INTEGER is
+	dollar_endonly_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dotall_low_level: INTEGER is
+	dotall_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dupnames_low_level: INTEGER is
+	dupnames_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -267,7 +267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	extended_low_level: INTEGER is
+	extended_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -276,7 +276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	firstline_low_level: INTEGER is
+	firstline_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -285,7 +285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	javascript_compat_low_level: INTEGER is
+	javascript_compat_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	multiline_low_level: INTEGER is
+	multiline_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -303,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_anycrlf_low_level: INTEGER is
+	newline_anycrlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -312,7 +312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_cr_low_level: INTEGER is
+	newline_cr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -321,7 +321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_crlf_low_level: INTEGER is
+	newline_crlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	newline_lf_low_level: INTEGER is
+	newline_lf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_auto_capture_low_level: INTEGER is
+	no_auto_capture_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	optimize_low_level: INTEGER is
+	optimize_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -357,7 +357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	raw_low_level: INTEGER is
+	raw_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -366,7 +366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ungreedy_low_level: INTEGER is
+	ungreedy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

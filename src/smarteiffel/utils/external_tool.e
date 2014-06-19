@@ -17,13 +17,13 @@ inherit
       end
 
 feature {ANY}
-   command_line_name: STRING is
+   command_line_name: STRING
       do
          Result := argument(0)
       end
 
 feature {}
-   bootstrap is
+   bootstrap
       do
          -- Be sure that `system_tools' is created as soon as possible
          if system_tools /= Void then
@@ -45,7 +45,7 @@ feature {}
          end
       end
 
-   parse_arguments is
+   parse_arguments
          -- You can use `flag_match' and the like (many features are predefined to help parsing)
          --
          -- Be sure, also, to correctly define `is_valid_argument_for_ace_mode' if some arguments must be
@@ -64,7 +64,7 @@ feature {}
    root_procedure_name: STRING
          -- The name of the root procedure, if an ACE file is not used.
 
-   use_short_mode: BOOLEAN is
+   use_short_mode: BOOLEAN
          -- The "compilation" mode of the compiler is maybe too strict. In most cases, short is better
          -- suited. Hence you should redefine this feature as `True'. In some cases though you may want to set
          -- it to `False' and see what it brings.

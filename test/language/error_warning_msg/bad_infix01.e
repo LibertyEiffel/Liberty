@@ -10,11 +10,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   infix "+": like Current is
+   infix "+": like Current
       do
          Result := Current
       end

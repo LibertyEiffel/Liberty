@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   foo (x: like Current): like Current is
+   foo (x: like Current): like Current
       require
          super_req_foo
       do
@@ -16,7 +16,7 @@ feature {ANY}
          super_ens_foo
       end
 
-   make is
+   make
       local
          aux: AUX_RENAME2
       do
@@ -30,40 +30,40 @@ feature {ANY}
       end
 
 feature {ANY}
-   super_req_foo_mem: STRING is ""
+   super_req_foo_mem: STRING ""
 
-   super_ens_foo_mem: STRING is ""
+   super_ens_foo_mem: STRING ""
 
-   req_foo_mem: STRING is ""
+   req_foo_mem: STRING ""
 
-   ens_foo_mem: STRING is ""
+   ens_foo_mem: STRING ""
 
-   super_req_foo: BOOLEAN is
+   super_req_foo: BOOLEAN
       do
          super_req_foo_mem.extend(' ')
          Result := Current = Current
       end
 
-   super_ens_foo: BOOLEAN is
+   super_ens_foo: BOOLEAN
       do
          super_ens_foo_mem.extend(' ')
          Result := Current = Current
       end
 
-   req_foo: BOOLEAN is
+   req_foo: BOOLEAN
       do
          req_foo_mem.extend(' ')
          Result := Current = Current
       end
 
-   ens_foo: BOOLEAN is
+   ens_foo: BOOLEAN
       do
          ens_foo_mem.extend(' ')
          Result := Current = Current
       end
 
 feature {ANY}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

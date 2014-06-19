@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert((agent "foo" + ?).item(["bar"]).is_equal("foobar"))
          assert((agent 2 * ?).item([2]) = 4)

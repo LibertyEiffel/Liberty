@@ -7,7 +7,7 @@ expanded class ARGUMENTS
    --
 
 feature {ANY}
-   argument_count: INTEGER is
+   argument_count: INTEGER
          -- Number of arguments given to command that started system execution (command name does not count).
       do
          Result := command_arguments.upper
@@ -15,7 +15,7 @@ feature {ANY}
          Result >= 0
       end
 
-   argument (i: INTEGER): STRING is
+   argument (i: INTEGER): STRING
          -- `i' th argument of command that started system execution
          -- Gives the command name if `i' is 0.
       require
@@ -27,13 +27,13 @@ feature {ANY}
          Result /= Void
       end
 
-   command_name: STRING is
+   command_name: STRING
       do
          Result := command_arguments.item(0)
       end
 
 feature {}
-   frozen command_arguments: FAST_ARRAY[STRING] is
+   frozen command_arguments: FAST_ARRAY[STRING]
          -- Give acces to arguments command line including the command name at index 0.
          -- This is a once function, so you can modify command-line arguments!
          -- (NOTE: just be sure not to remove the first argument, although you may change it)
@@ -55,12 +55,12 @@ feature {}
       end
 
 feature {} -- Implementation of ARGUMENTS (do not use directly):
-   se_argc: INTEGER is
+   se_argc: INTEGER
          -- To implement `command_arguments'
       external "built_in"
       end
 
-   se_argv (i: INTEGER): STRING is
+   se_argv (i: INTEGER): STRING
          -- To implement `command_arguments'
       external "built_in"
       end
@@ -73,7 +73,7 @@ end -- class ARGUMENTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,7 +4,7 @@
 deferred class AUX_JOIN1A
 
 feature {ANY}
-   v: AUX_JOIN1A is
+   v: AUX_JOIN1A
       deferred
       end
 

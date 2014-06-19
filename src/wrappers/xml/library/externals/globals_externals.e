@@ -11,7 +11,7 @@ feature {} -- External calls
 
 	-- `hidden' function __docbDefaultSAXHandler skipped.
 	-- Variable docbDefaultSAXHandler (at line 256 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
-	address_of_docb_default_saxhandler: POINTER is
+	address_of_docb_default_saxhandler: POINTER
  		-- Address of docb_default_saxhandler
 		external "plug_in"
 		alias "{
@@ -23,7 +23,7 @@ feature {} -- External calls
 
 	-- `hidden' function __htmlDefaultSAXHandler skipped.
 	-- Variable htmlDefaultSAXHandler (at line 266 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
-	address_of_html_default_saxhandler: POINTER is
+	address_of_html_default_saxhandler: POINTER
  		-- Address of html_default_saxhandler
 		external "plug_in"
 		alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __oldXMLWDcompatibility skipped.
-	old_xmlwdcompatibility: INTEGER is
+	old_xmlwdcompatibility: INTEGER
  		-- old_xmlwdcompatibility
 		external "plug_in"
 		alias "{
@@ -44,7 +44,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_old_xmlwdcompatibility: POINTER is
+	address_of_old_xmlwdcompatibility: POINTER
  		-- Address of old_xmlwdcompatibility
 		external "plug_in"
 		alias "{
@@ -54,7 +54,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_old_xmlwdcompatibility (a_value: INTEGER) is
+	set_old_xmlwdcompatibility (a_value: INTEGER)
 		-- Set variable old_xmlwdcompatibility value
 		external "plug_in"
 		alias "{
@@ -65,7 +65,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlBufferAllocScheme skipped.
-	xml_buffer_alloc_scheme: INTEGER is
+	xml_buffer_alloc_scheme: INTEGER
  		-- xml_buffer_alloc_scheme
 		external "plug_in"
 		alias "{
@@ -75,7 +75,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_buffer_alloc_scheme: POINTER is
+	address_of_xml_buffer_alloc_scheme: POINTER
  		-- Address of xml_buffer_alloc_scheme
 		external "plug_in"
 		alias "{
@@ -85,7 +85,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_buffer_alloc_scheme (a_value: INTEGER) is
+	set_xml_buffer_alloc_scheme (a_value: INTEGER)
 		-- Set variable xml_buffer_alloc_scheme value
 		external "plug_in"
 		alias "{
@@ -95,7 +95,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_cleanup_globals is
+	xml_cleanup_globals
  		-- xmlCleanupGlobals
 		external "plug_in"
 		alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlDefaultBufferSize skipped.
-	xml_default_buffer_size: INTEGER is
+	xml_default_buffer_size: INTEGER
  		-- xml_default_buffer_size
 		external "plug_in"
 		alias "{
@@ -116,7 +116,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_default_buffer_size: POINTER is
+	address_of_xml_default_buffer_size: POINTER
  		-- Address of xml_default_buffer_size
 		external "plug_in"
 		alias "{
@@ -126,7 +126,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_default_buffer_size (a_value: INTEGER) is
+	set_xml_default_buffer_size (a_value: INTEGER)
 		-- Set variable xml_default_buffer_size value
 		external "plug_in"
 		alias "{
@@ -138,7 +138,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlDefaultSAXHandler skipped.
 	-- Variable xmlDefaultSAXHandler (at line 316 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
-	address_of_xml_default_saxhandler: POINTER is
+	address_of_xml_default_saxhandler: POINTER
  		-- Address of xml_default_saxhandler
 		external "plug_in"
 		alias "{
@@ -150,7 +150,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlDefaultSAXLocator skipped.
 	-- Variable xmlDefaultSAXLocator (at line 324 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
-	address_of_xml_default_saxlocator: POINTER is
+	address_of_xml_default_saxlocator: POINTER
  		-- Address of xml_default_saxlocator
 		external "plug_in"
 		alias "{
@@ -160,7 +160,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_deregister_node_default (a_func: POINTER): POINTER is
+	xml_deregister_node_default (a_func: POINTER): POINTER
  		-- xmlDeregisterNodeDefault
 		external "plug_in"
 		alias "{
@@ -170,7 +170,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_deregister_node_default_value: POINTER is
+	xml_deregister_node_default_value: POINTER
  		-- xml_deregister_node_default_value
 		external "plug_in"
 		alias "{
@@ -180,7 +180,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_deregister_node_default_value: POINTER is
+	address_of_xml_deregister_node_default_value: POINTER
  		-- Address of xml_deregister_node_default_value
 		external "plug_in"
 		alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_deregister_node_default_value (a_value: POINTER) is
+	set_xml_deregister_node_default_value (a_value: POINTER)
 		-- Set variable xml_deregister_node_default_value value
 		external "plug_in"
 		alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlDeregisterNodeDefaultValue skipped.
 	-- `hidden' function __xmlDoValidityCheckingDefaultValue skipped.
-	xml_do_validity_checking_default_value: INTEGER is
+	xml_do_validity_checking_default_value: INTEGER
  		-- xml_do_validity_checking_default_value
 		external "plug_in"
 		alias "{
@@ -212,7 +212,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_do_validity_checking_default_value: POINTER is
+	address_of_xml_do_validity_checking_default_value: POINTER
  		-- Address of xml_do_validity_checking_default_value
 		external "plug_in"
 		alias "{
@@ -222,7 +222,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_do_validity_checking_default_value (a_value: INTEGER) is
+	set_xml_do_validity_checking_default_value (a_value: INTEGER)
 		-- Set variable xml_do_validity_checking_default_value value
 		external "plug_in"
 		alias "{
@@ -232,7 +232,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_free: POINTER is
+	xml_free: POINTER
  		-- xml_free
 		external "plug_in"
 		alias "{
@@ -242,7 +242,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_free: POINTER is
+	address_of_xml_free: POINTER
  		-- Address of xml_free
 		external "plug_in"
 		alias "{
@@ -252,7 +252,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_free (a_value: POINTER) is
+	set_xml_free (a_value: POINTER)
 		-- Set variable xml_free value
 		external "plug_in"
 		alias "{
@@ -263,7 +263,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlGenericError skipped.
-	xml_generic_error: POINTER is
+	xml_generic_error: POINTER
  		-- xml_generic_error
 		external "plug_in"
 		alias "{
@@ -273,7 +273,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_generic_error: POINTER is
+	address_of_xml_generic_error: POINTER
  		-- Address of xml_generic_error
 		external "plug_in"
 		alias "{
@@ -283,7 +283,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_generic_error (a_value: POINTER) is
+	set_xml_generic_error (a_value: POINTER)
 		-- Set variable xml_generic_error value
 		external "plug_in"
 		alias "{
@@ -294,7 +294,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlGenericErrorContext skipped.
-	xml_generic_error_context: POINTER is
+	xml_generic_error_context: POINTER
  		-- xml_generic_error_context
 		external "plug_in"
 		alias "{
@@ -304,7 +304,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_generic_error_context: POINTER is
+	address_of_xml_generic_error_context: POINTER
  		-- Address of xml_generic_error_context
 		external "plug_in"
 		alias "{
@@ -314,7 +314,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_generic_error_context (a_value: POINTER) is
+	set_xml_generic_error_context (a_value: POINTER)
 		-- Set variable xml_generic_error_context value
 		external "plug_in"
 		alias "{
@@ -325,7 +325,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlGetWarningsDefaultValue skipped.
-	xml_get_warnings_default_value: INTEGER is
+	xml_get_warnings_default_value: INTEGER
  		-- xml_get_warnings_default_value
 		external "plug_in"
 		alias "{
@@ -335,7 +335,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_get_warnings_default_value: POINTER is
+	address_of_xml_get_warnings_default_value: POINTER
  		-- Address of xml_get_warnings_default_value
 		external "plug_in"
 		alias "{
@@ -345,7 +345,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_get_warnings_default_value (a_value: INTEGER) is
+	set_xml_get_warnings_default_value (a_value: INTEGER)
 		-- Set variable xml_get_warnings_default_value value
 		external "plug_in"
 		alias "{
@@ -355,7 +355,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_indent_tree_output: INTEGER is
+	xml_indent_tree_output: INTEGER
  		-- xml_indent_tree_output
 		external "plug_in"
 		alias "{
@@ -365,7 +365,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_indent_tree_output: POINTER is
+	address_of_xml_indent_tree_output: POINTER
  		-- Address of xml_indent_tree_output
 		external "plug_in"
 		alias "{
@@ -375,7 +375,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_indent_tree_output (a_value: INTEGER) is
+	set_xml_indent_tree_output (a_value: INTEGER)
 		-- Set variable xml_indent_tree_output value
 		external "plug_in"
 		alias "{
@@ -386,7 +386,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlIndentTreeOutput skipped.
-	xml_init_globals is
+	xml_init_globals
  		-- xmlInitGlobals
 		external "plug_in"
 		alias "{
@@ -396,7 +396,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_initialize_global_state (a_gs: POINTER) is
+	xml_initialize_global_state (a_gs: POINTER)
  		-- xmlInitializeGlobalState
 		external "plug_in"
 		alias "{
@@ -407,7 +407,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlKeepBlanksDefaultValue skipped.
-	xml_keep_blanks_default_value: INTEGER is
+	xml_keep_blanks_default_value: INTEGER
  		-- xml_keep_blanks_default_value
 		external "plug_in"
 		alias "{
@@ -417,7 +417,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_keep_blanks_default_value: POINTER is
+	address_of_xml_keep_blanks_default_value: POINTER
  		-- Address of xml_keep_blanks_default_value
 		external "plug_in"
 		alias "{
@@ -427,7 +427,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_keep_blanks_default_value (a_value: INTEGER) is
+	set_xml_keep_blanks_default_value (a_value: INTEGER)
 		-- Set variable xml_keep_blanks_default_value value
 		external "plug_in"
 		alias "{
@@ -439,7 +439,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlLastError skipped.
 	-- Variable xmlLastError (at line 275 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
-	address_of_xml_last_error: POINTER is
+	address_of_xml_last_error: POINTER
  		-- Address of xml_last_error
 		external "plug_in"
 		alias "{
@@ -450,7 +450,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlLineNumbersDefaultValue skipped.
-	xml_line_numbers_default_value: INTEGER is
+	xml_line_numbers_default_value: INTEGER
  		-- xml_line_numbers_default_value
 		external "plug_in"
 		alias "{
@@ -460,7 +460,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_line_numbers_default_value: POINTER is
+	address_of_xml_line_numbers_default_value: POINTER
  		-- Address of xml_line_numbers_default_value
 		external "plug_in"
 		alias "{
@@ -470,7 +470,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_line_numbers_default_value (a_value: INTEGER) is
+	set_xml_line_numbers_default_value (a_value: INTEGER)
 		-- Set variable xml_line_numbers_default_value value
 		external "plug_in"
 		alias "{
@@ -480,7 +480,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_load_ext_dtd_default_value: INTEGER is
+	xml_load_ext_dtd_default_value: INTEGER
  		-- xml_load_ext_dtd_default_value
 		external "plug_in"
 		alias "{
@@ -490,7 +490,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_load_ext_dtd_default_value: POINTER is
+	address_of_xml_load_ext_dtd_default_value: POINTER
  		-- Address of xml_load_ext_dtd_default_value
 		external "plug_in"
 		alias "{
@@ -500,7 +500,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_load_ext_dtd_default_value (a_value: INTEGER) is
+	set_xml_load_ext_dtd_default_value (a_value: INTEGER)
 		-- Set variable xml_load_ext_dtd_default_value value
 		external "plug_in"
 		alias "{
@@ -511,7 +511,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlLoadExtDtdDefaultValue skipped.
-	xml_malloc: POINTER is
+	xml_malloc: POINTER
  		-- xml_malloc
 		external "plug_in"
 		alias "{
@@ -521,7 +521,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_malloc: POINTER is
+	address_of_xml_malloc: POINTER
  		-- Address of xml_malloc
 		external "plug_in"
 		alias "{
@@ -531,7 +531,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_malloc (a_value: POINTER) is
+	set_xml_malloc (a_value: POINTER)
 		-- Set variable xml_malloc value
 		external "plug_in"
 		alias "{
@@ -541,7 +541,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_malloc_atomic: POINTER is
+	xml_malloc_atomic: POINTER
  		-- xml_malloc_atomic
 		external "plug_in"
 		alias "{
@@ -551,7 +551,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_malloc_atomic: POINTER is
+	address_of_xml_malloc_atomic: POINTER
  		-- Address of xml_malloc_atomic
 		external "plug_in"
 		alias "{
@@ -561,7 +561,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_malloc_atomic (a_value: POINTER) is
+	set_xml_malloc_atomic (a_value: POINTER)
 		-- Set variable xml_malloc_atomic value
 		external "plug_in"
 		alias "{
@@ -571,7 +571,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_mem_strdup: POINTER is
+	xml_mem_strdup: POINTER
  		-- xml_mem_strdup
 		external "plug_in"
 		alias "{
@@ -581,7 +581,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_mem_strdup: POINTER is
+	address_of_xml_mem_strdup: POINTER
  		-- Address of xml_mem_strdup
 		external "plug_in"
 		alias "{
@@ -591,7 +591,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_mem_strdup (a_value: POINTER) is
+	set_xml_mem_strdup (a_value: POINTER)
 		-- Set variable xml_mem_strdup value
 		external "plug_in"
 		alias "{
@@ -601,7 +601,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_output_buffer_create_filename_default (a_func: POINTER): POINTER is
+	xml_output_buffer_create_filename_default (a_func: POINTER): POINTER
  		-- xmlOutputBufferCreateFilenameDefault
 		external "plug_in"
 		alias "{
@@ -611,7 +611,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_output_buffer_create_filename_value: POINTER is
+	xml_output_buffer_create_filename_value: POINTER
  		-- xml_output_buffer_create_filename_value
 		external "plug_in"
 		alias "{
@@ -621,7 +621,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_output_buffer_create_filename_value: POINTER is
+	address_of_xml_output_buffer_create_filename_value: POINTER
  		-- Address of xml_output_buffer_create_filename_value
 		external "plug_in"
 		alias "{
@@ -631,7 +631,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_output_buffer_create_filename_value (a_value: POINTER) is
+	set_xml_output_buffer_create_filename_value (a_value: POINTER)
 		-- Set variable xml_output_buffer_create_filename_value value
 		external "plug_in"
 		alias "{
@@ -643,7 +643,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlOutputBufferCreateFilenameValue skipped.
 	-- `hidden' function __xmlParserDebugEntities skipped.
-	xml_parser_debug_entities: INTEGER is
+	xml_parser_debug_entities: INTEGER
  		-- xml_parser_debug_entities
 		external "plug_in"
 		alias "{
@@ -653,7 +653,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_parser_debug_entities: POINTER is
+	address_of_xml_parser_debug_entities: POINTER
  		-- Address of xml_parser_debug_entities
 		external "plug_in"
 		alias "{
@@ -663,7 +663,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_parser_debug_entities (a_value: INTEGER) is
+	set_xml_parser_debug_entities (a_value: INTEGER)
 		-- Set variable xml_parser_debug_entities value
 		external "plug_in"
 		alias "{
@@ -673,7 +673,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER is
+	xml_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER
  		-- xmlParserInputBufferCreateFilenameDefault
 		external "plug_in"
 		alias "{
@@ -684,7 +684,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlParserInputBufferCreateFilenameValue skipped.
-	xml_parser_input_buffer_create_filename_value: POINTER is
+	xml_parser_input_buffer_create_filename_value: POINTER
  		-- xml_parser_input_buffer_create_filename_value
 		external "plug_in"
 		alias "{
@@ -694,7 +694,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_parser_input_buffer_create_filename_value: POINTER is
+	address_of_xml_parser_input_buffer_create_filename_value: POINTER
  		-- Address of xml_parser_input_buffer_create_filename_value
 		external "plug_in"
 		alias "{
@@ -704,7 +704,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_parser_input_buffer_create_filename_value (a_value: POINTER) is
+	set_xml_parser_input_buffer_create_filename_value (a_value: POINTER)
 		-- Set variable xml_parser_input_buffer_create_filename_value value
 		external "plug_in"
 		alias "{
@@ -715,7 +715,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlParserVersion skipped.
-	xml_parser_version: POINTER is
+	xml_parser_version: POINTER
  		-- xml_parser_version
 		external "plug_in"
 		alias "{
@@ -725,7 +725,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_parser_version: POINTER is
+	address_of_xml_parser_version: POINTER
  		-- Address of xml_parser_version
 		external "plug_in"
 		alias "{
@@ -735,7 +735,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_parser_version (a_value: POINTER) is
+	set_xml_parser_version (a_value: POINTER)
 		-- Set variable xml_parser_version value
 		external "plug_in"
 		alias "{
@@ -746,7 +746,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlPedanticParserDefaultValue skipped.
-	xml_pedantic_parser_default_value: INTEGER is
+	xml_pedantic_parser_default_value: INTEGER
  		-- xml_pedantic_parser_default_value
 		external "plug_in"
 		alias "{
@@ -756,7 +756,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_pedantic_parser_default_value: POINTER is
+	address_of_xml_pedantic_parser_default_value: POINTER
  		-- Address of xml_pedantic_parser_default_value
 		external "plug_in"
 		alias "{
@@ -766,7 +766,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_pedantic_parser_default_value (a_value: INTEGER) is
+	set_xml_pedantic_parser_default_value (a_value: INTEGER)
 		-- Set variable xml_pedantic_parser_default_value value
 		external "plug_in"
 		alias "{
@@ -776,7 +776,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_realloc: POINTER is
+	xml_realloc: POINTER
  		-- xml_realloc
 		external "plug_in"
 		alias "{
@@ -786,7 +786,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_realloc: POINTER is
+	address_of_xml_realloc: POINTER
  		-- Address of xml_realloc
 		external "plug_in"
 		alias "{
@@ -796,7 +796,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_realloc (a_value: POINTER) is
+	set_xml_realloc (a_value: POINTER)
 		-- Set variable xml_realloc value
 		external "plug_in"
 		alias "{
@@ -806,7 +806,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_register_node_default (a_func: POINTER): POINTER is
+	xml_register_node_default (a_func: POINTER): POINTER
  		-- xmlRegisterNodeDefault
 		external "plug_in"
 		alias "{
@@ -816,7 +816,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_register_node_default_value: POINTER is
+	xml_register_node_default_value: POINTER
  		-- xml_register_node_default_value
 		external "plug_in"
 		alias "{
@@ -826,7 +826,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_register_node_default_value: POINTER is
+	address_of_xml_register_node_default_value: POINTER
  		-- Address of xml_register_node_default_value
 		external "plug_in"
 		alias "{
@@ -836,7 +836,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_register_node_default_value (a_value: POINTER) is
+	set_xml_register_node_default_value (a_value: POINTER)
 		-- Set variable xml_register_node_default_value value
 		external "plug_in"
 		alias "{
@@ -847,7 +847,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlRegisterNodeDefaultValue skipped.
-	xml_save_no_empty_tags: INTEGER is
+	xml_save_no_empty_tags: INTEGER
  		-- xml_save_no_empty_tags
 		external "plug_in"
 		alias "{
@@ -857,7 +857,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_save_no_empty_tags: POINTER is
+	address_of_xml_save_no_empty_tags: POINTER
  		-- Address of xml_save_no_empty_tags
 		external "plug_in"
 		alias "{
@@ -867,7 +867,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_save_no_empty_tags (a_value: INTEGER) is
+	set_xml_save_no_empty_tags (a_value: INTEGER)
 		-- Set variable xml_save_no_empty_tags value
 		external "plug_in"
 		alias "{
@@ -878,7 +878,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlSaveNoEmptyTags skipped.
-	xml_structured_error: POINTER is
+	xml_structured_error: POINTER
  		-- xml_structured_error
 		external "plug_in"
 		alias "{
@@ -888,7 +888,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_structured_error: POINTER is
+	address_of_xml_structured_error: POINTER
  		-- Address of xml_structured_error
 		external "plug_in"
 		alias "{
@@ -898,7 +898,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_structured_error (a_value: POINTER) is
+	set_xml_structured_error (a_value: POINTER)
 		-- Set variable xml_structured_error value
 		external "plug_in"
 		alias "{
@@ -910,7 +910,7 @@ feature {} -- External calls
 
 	-- `hidden' function __xmlStructuredError skipped.
 	-- `hidden' function __xmlStructuredErrorContext skipped.
-	xml_structured_error_context: POINTER is
+	xml_structured_error_context: POINTER
  		-- xml_structured_error_context
 		external "plug_in"
 		alias "{
@@ -920,7 +920,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_structured_error_context: POINTER is
+	address_of_xml_structured_error_context: POINTER
  		-- Address of xml_structured_error_context
 		external "plug_in"
 		alias "{
@@ -930,7 +930,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_structured_error_context (a_value: POINTER) is
+	set_xml_structured_error_context (a_value: POINTER)
 		-- Set variable xml_structured_error_context value
 		external "plug_in"
 		alias "{
@@ -940,7 +940,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_substitute_entities_default_value: INTEGER is
+	xml_substitute_entities_default_value: INTEGER
  		-- xml_substitute_entities_default_value
 		external "plug_in"
 		alias "{
@@ -950,7 +950,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_substitute_entities_default_value: POINTER is
+	address_of_xml_substitute_entities_default_value: POINTER
  		-- Address of xml_substitute_entities_default_value
 		external "plug_in"
 		alias "{
@@ -960,7 +960,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_substitute_entities_default_value (a_value: INTEGER) is
+	set_xml_substitute_entities_default_value (a_value: INTEGER)
 		-- Set variable xml_substitute_entities_default_value value
 		external "plug_in"
 		alias "{
@@ -971,7 +971,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __xmlSubstituteEntitiesDefaultValue skipped.
-	xml_thr_def_buffer_alloc_scheme (a_v: INTEGER): INTEGER is
+	xml_thr_def_buffer_alloc_scheme (a_v: INTEGER): INTEGER
  		-- xmlThrDefBufferAllocScheme
 		external "plug_in"
 		alias "{
@@ -981,7 +981,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_default_buffer_size (a_v: INTEGER): INTEGER is
+	xml_thr_def_default_buffer_size (a_v: INTEGER): INTEGER
  		-- xmlThrDefDefaultBufferSize
 		external "plug_in"
 		alias "{
@@ -991,7 +991,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_deregister_node_default (a_func: POINTER): POINTER is
+	xml_thr_def_deregister_node_default (a_func: POINTER): POINTER
  		-- xmlThrDefDeregisterNodeDefault
 		external "plug_in"
 		alias "{
@@ -1001,7 +1001,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_do_validity_checking_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_do_validity_checking_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefDoValidityCheckingDefaultValue
 		external "plug_in"
 		alias "{
@@ -1011,7 +1011,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_get_warnings_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_get_warnings_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefGetWarningsDefaultValue
 		external "plug_in"
 		alias "{
@@ -1021,7 +1021,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_indent_tree_output (a_v: INTEGER): INTEGER is
+	xml_thr_def_indent_tree_output (a_v: INTEGER): INTEGER
  		-- xmlThrDefIndentTreeOutput
 		external "plug_in"
 		alias "{
@@ -1031,7 +1031,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_keep_blanks_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_keep_blanks_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefKeepBlanksDefaultValue
 		external "plug_in"
 		alias "{
@@ -1041,7 +1041,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_line_numbers_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_line_numbers_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefLineNumbersDefaultValue
 		external "plug_in"
 		alias "{
@@ -1051,7 +1051,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_load_ext_dtd_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_load_ext_dtd_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefLoadExtDtdDefaultValue
 		external "plug_in"
 		alias "{
@@ -1061,7 +1061,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_output_buffer_create_filename_default (a_func: POINTER): POINTER is
+	xml_thr_def_output_buffer_create_filename_default (a_func: POINTER): POINTER
  		-- xmlThrDefOutputBufferCreateFilenameDefault
 		external "plug_in"
 		alias "{
@@ -1071,7 +1071,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_parser_debug_entities (a_v: INTEGER): INTEGER is
+	xml_thr_def_parser_debug_entities (a_v: INTEGER): INTEGER
  		-- xmlThrDefParserDebugEntities
 		external "plug_in"
 		alias "{
@@ -1081,7 +1081,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER is
+	xml_thr_def_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER
  		-- xmlThrDefParserInputBufferCreateFilenameDefault
 		external "plug_in"
 		alias "{
@@ -1091,7 +1091,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_pedantic_parser_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_pedantic_parser_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefPedanticParserDefaultValue
 		external "plug_in"
 		alias "{
@@ -1101,7 +1101,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_register_node_default (a_func: POINTER): POINTER is
+	xml_thr_def_register_node_default (a_func: POINTER): POINTER
  		-- xmlThrDefRegisterNodeDefault
 		external "plug_in"
 		alias "{
@@ -1111,7 +1111,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_save_no_empty_tags (a_v: INTEGER): INTEGER is
+	xml_thr_def_save_no_empty_tags (a_v: INTEGER): INTEGER
  		-- xmlThrDefSaveNoEmptyTags
 		external "plug_in"
 		alias "{
@@ -1121,7 +1121,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_set_generic_error_func (a_ctx: POINTER; a_handler: POINTER) is
+	xml_thr_def_set_generic_error_func (a_ctx: POINTER; a_handler: POINTER)
  		-- xmlThrDefSetGenericErrorFunc
 		external "plug_in"
 		alias "{
@@ -1131,7 +1131,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_set_structured_error_func (a_ctx: POINTER; a_handler: POINTER) is
+	xml_thr_def_set_structured_error_func (a_ctx: POINTER; a_handler: POINTER)
  		-- xmlThrDefSetStructuredErrorFunc
 		external "plug_in"
 		alias "{
@@ -1141,7 +1141,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_substitute_entities_default_value (a_v: INTEGER): INTEGER is
+	xml_thr_def_substitute_entities_default_value (a_v: INTEGER): INTEGER
  		-- xmlThrDefSubstituteEntitiesDefaultValue
 		external "plug_in"
 		alias "{
@@ -1151,7 +1151,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_thr_def_tree_indent_string (a_v: POINTER): POINTER is
+	xml_thr_def_tree_indent_string (a_v: POINTER): POINTER
  		-- xmlThrDefTreeIndentString
 		external "plug_in"
 		alias "{
@@ -1161,7 +1161,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_tree_indent_string: POINTER is
+	xml_tree_indent_string: POINTER
  		-- xml_tree_indent_string
 		external "plug_in"
 		alias "{
@@ -1171,7 +1171,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_xml_tree_indent_string: POINTER is
+	address_of_xml_tree_indent_string: POINTER
  		-- Address of xml_tree_indent_string
 		external "plug_in"
 		alias "{
@@ -1181,7 +1181,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_xml_tree_indent_string (a_value: POINTER) is
+	set_xml_tree_indent_string (a_value: POINTER)
 		-- Set variable xml_tree_indent_string value
 		external "plug_in"
 		alias "{

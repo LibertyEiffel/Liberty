@@ -31,7 +31,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_STRING_COLUMN_VISITOR
       do
@@ -39,14 +39,14 @@ feature {ANY}
          v.visit_string_column(Current)
       end
 
-   hash_code (a_value: EDC_DATUM): INTEGER is
+   hash_code (a_value: EDC_DATUM): INTEGER
       do
          Result := value(a_value).hash_code
       end
 
    size: INTEGER
 
-   valid_value (a_value: EDC_DATUM): BOOLEAN is
+   valid_value (a_value: EDC_DATUM): BOOLEAN
       local
          v: EDC_TYPED_DATUM[STRING]
       do
@@ -57,13 +57,13 @@ feature {ANY}
          end
       end
 
-   as_value: EDC_STRING_COLUMN_VALUE is
+   as_value: EDC_STRING_COLUMN_VALUE
       do
          create Result.make(Current)
       end
 
 feature {}
-   make (a_name: like name; a_size: like size) is
+   make (a_name: like name; a_size: like size)
       require
          a_name.count > 0
          a_size > 0

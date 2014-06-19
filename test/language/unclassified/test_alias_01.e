@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a, b: AUX_ALIAS_01
       do

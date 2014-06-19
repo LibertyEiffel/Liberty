@@ -16,7 +16,7 @@ feature {ANY}
    number: INTEGER
          -- the number of the group
 
-   make (num: INTEGER) is
+   make (num: INTEGER)
       require
          natural_number: num >= 0
       do
@@ -26,7 +26,7 @@ feature {ANY}
          natural_number: number >= 0
       end
 
-   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION) is
+   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION)
       do
          matcher.set_group_last_index(number)
          matcher.continue
@@ -40,7 +40,7 @@ end -- class REGULAR_EXPRESSION_ITEM_END_GROUP
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

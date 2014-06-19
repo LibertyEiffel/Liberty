@@ -12,7 +12,7 @@ feature {ANY}
    text: STRING
 
 feature {HTML_ELEMENT}
-   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       local
          i: INTEGER; s: STRING
       do
@@ -38,7 +38,7 @@ feature {HTML_ELEMENT}
          Result implies buffer.last = '.'
       end
 
-   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       local
          i, depth: INTEGER; entity: STRING; c: CHARACTER; in_entity, stop_now: BOOLEAN
       do
@@ -89,7 +89,7 @@ feature {HTML_ELEMENT}
       end
 
 feature {}
-   make (a_text: like text; a_parent: like parent) is
+   make (a_text: like text; a_parent: like parent)
       require
          a_text /= Void
       do
@@ -108,7 +108,7 @@ end -- class HTML_TEXT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

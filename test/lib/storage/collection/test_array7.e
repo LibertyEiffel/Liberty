@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: ARRAY[INTEGER_8]; b: ARRAY[ARRAY[INTEGER_8]]; c: ARRAY[STRING]; d: ARRAY[AUX_ARRAY7]; e: ARRAY[INTEGER_64]
          g: ARRAY[CHARACTER]
@@ -71,12 +71,12 @@ feature {}
 
    aux1: AUX_ARRAY7
 
-   aux2: AUX_ARRAY7 is
+   aux2: AUX_ARRAY7
       once
          Result.set(8, 9, 7)
       end
 
-   verify (v1, v2: ANY) is
+   verify (v1, v2: ANY)
       do
          assert(v1.is_equal(v2))
       end

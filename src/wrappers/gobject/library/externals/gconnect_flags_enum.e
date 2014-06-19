@@ -7,31 +7,31 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (g_connect_after_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_connect_after is
+	set_g_connect_after
 		do
 			value := value.bit_or(g_connect_after_low_level)
 		end
 
-	unset_g_connect_after is
+	unset_g_connect_after
 		do
 			value := value.bit_xor(g_connect_after_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_connect_after: BOOLEAN is
+	is_g_connect_after: BOOLEAN
 		do
 			Result := (value=g_connect_after_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_connect_after_low_level: INTEGER is
+	g_connect_after_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

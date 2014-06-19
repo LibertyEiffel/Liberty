@@ -4,7 +4,7 @@
 class AUX_LD01_TOTO[E, G -> AUX_LD01_KIKI[E]]
 
 feature {ANY}
-   setdatas (pardata_e: E; pardata_g: G) is
+   setdatas (pardata_e: E; pardata_g: G)
       do
          data_g := pardata_g
          data_g.setdata(pardata_e)

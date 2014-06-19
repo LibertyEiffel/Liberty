@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          ab, iloop: INTEGER; small_string: STRING
       do
@@ -44,7 +44,7 @@ feature {ANY}
 feature {}
    allocated_bytes_memory: INTEGER
 
-   allocated_mem_display is
+   allocated_mem_display
       do
          if allocated_bytes_memory /= allocated_bytes then
             allocated_bytes_memory := allocated_bytes
@@ -56,7 +56,7 @@ feature {}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

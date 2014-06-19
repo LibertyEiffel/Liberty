@@ -3,11 +3,11 @@
 deferred class EXPR
 
 feature {ANY}
-   to_integer: INTEGER is
+   to_integer: INTEGER
       deferred
       end
 
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
       deferred
       end
 

@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          wd: DIRECTORY
       do
@@ -19,7 +19,7 @@ feature {ANY}
       end
 
 feature {}
-   recursive_list (a_dir: DIRECTORY) is
+   recursive_list (a_dir: DIRECTORY)
          -- Lists the contents of the directory, and tries to list the
          -- subdirectories
       local

@@ -22,19 +22,19 @@
 deferred class EDC_STORABLE_INDEXER
 
 feature {EDC_STORABLE_INDEX}
-   count: INTEGER is
+   count: INTEGER
       deferred
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       deferred
       end
 
-   item (i: INTEGER): FAST_ARRAY[EDC_DATUM] is
+   item (i: INTEGER): FAST_ARRAY[EDC_DATUM]
       require
          i.in_range(lower, upper)
       deferred
@@ -42,27 +42,27 @@ feature {EDC_STORABLE_INDEX}
          Result /= Void
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       require
          a_row.count = table.table.count_column
       deferred
       end
 
-   index: EDC_INDEX is
+   index: EDC_INDEX
       deferred
       end
 
-   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       deferred
       end
 
-   add (a_row: FAST_ARRAY[EDC_DATUM]) is
+   add (a_row: FAST_ARRAY[EDC_DATUM])
       require
          can_add(a_row)
       deferred
       end
 
-   remove (a_row: FAST_ARRAY[EDC_DATUM]) is
+   remove (a_row: FAST_ARRAY[EDC_DATUM])
       deferred
       end
 

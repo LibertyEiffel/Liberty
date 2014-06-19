@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = april_low_level)  or else
 				(a_value = august_low_level)  or else
@@ -26,139 +26,139 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_april is
+	set_april
 		do
 			value := april_low_level
 		end
 
-	set_august is
+	set_august
 		do
 			value := august_low_level
 		end
 
-	set_bad_month is
+	set_bad_month
 		do
 			value := bad_month_low_level
 		end
 
-	set_december is
+	set_december
 		do
 			value := december_low_level
 		end
 
-	set_february is
+	set_february
 		do
 			value := february_low_level
 		end
 
-	set_january is
+	set_january
 		do
 			value := january_low_level
 		end
 
-	set_july is
+	set_july
 		do
 			value := july_low_level
 		end
 
-	set_june is
+	set_june
 		do
 			value := june_low_level
 		end
 
-	set_march is
+	set_march
 		do
 			value := march_low_level
 		end
 
-	set_may is
+	set_may
 		do
 			value := may_low_level
 		end
 
-	set_november is
+	set_november
 		do
 			value := november_low_level
 		end
 
-	set_october is
+	set_october
 		do
 			value := october_low_level
 		end
 
-	set_september is
+	set_september
 		do
 			value := september_low_level
 		end
 
 feature {ANY} -- Queries
-	is_april: BOOLEAN is
+	is_april: BOOLEAN
 		do
 			Result := (value=april_low_level)
 		end
 
-	is_august: BOOLEAN is
+	is_august: BOOLEAN
 		do
 			Result := (value=august_low_level)
 		end
 
-	is_bad_month: BOOLEAN is
+	is_bad_month: BOOLEAN
 		do
 			Result := (value=bad_month_low_level)
 		end
 
-	is_december: BOOLEAN is
+	is_december: BOOLEAN
 		do
 			Result := (value=december_low_level)
 		end
 
-	is_february: BOOLEAN is
+	is_february: BOOLEAN
 		do
 			Result := (value=february_low_level)
 		end
 
-	is_january: BOOLEAN is
+	is_january: BOOLEAN
 		do
 			Result := (value=january_low_level)
 		end
 
-	is_july: BOOLEAN is
+	is_july: BOOLEAN
 		do
 			Result := (value=july_low_level)
 		end
 
-	is_june: BOOLEAN is
+	is_june: BOOLEAN
 		do
 			Result := (value=june_low_level)
 		end
 
-	is_march: BOOLEAN is
+	is_march: BOOLEAN
 		do
 			Result := (value=march_low_level)
 		end
 
-	is_may: BOOLEAN is
+	is_may: BOOLEAN
 		do
 			Result := (value=may_low_level)
 		end
 
-	is_november: BOOLEAN is
+	is_november: BOOLEAN
 		do
 			Result := (value=november_low_level)
 		end
 
-	is_october: BOOLEAN is
+	is_october: BOOLEAN
 		do
 			Result := (value=october_low_level)
 		end
 
-	is_september: BOOLEAN is
+	is_september: BOOLEAN
 		do
 			Result := (value=september_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	april_low_level: INTEGER is
+	april_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -167,7 +167,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	august_low_level: INTEGER is
+	august_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -176,7 +176,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bad_month_low_level: INTEGER is
+	bad_month_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -185,7 +185,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	december_low_level: INTEGER is
+	december_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -194,7 +194,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	february_low_level: INTEGER is
+	february_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -203,7 +203,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	january_low_level: INTEGER is
+	january_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -212,7 +212,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	july_low_level: INTEGER is
+	july_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -221,7 +221,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	june_low_level: INTEGER is
+	june_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -230,7 +230,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	march_low_level: INTEGER is
+	march_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -239,7 +239,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	may_low_level: INTEGER is
+	may_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -248,7 +248,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	november_low_level: INTEGER is
+	november_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -257,7 +257,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	october_low_level: INTEGER is
+	october_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -266,7 +266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	september_low_level: INTEGER is
+	september_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

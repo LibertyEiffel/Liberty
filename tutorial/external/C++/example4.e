@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bar_pointer: POINTER; c: CHARACTER
       do
@@ -23,7 +23,7 @@ feature {ANY}
          delete_bar(bar_pointer)
       end
 
-   new_bar (c: CHARACTER): POINTER is
+   new_bar (c: CHARACTER): POINTER
          -- Creation of a C++ `Bar' object. The file "Bar.h" must be
          -- #included and the C++ creation function has one argument
          -- (matching with `c') of type EIF_CHARACTER (matching with
@@ -33,7 +33,7 @@ feature {ANY}
                ]"
       end
 
-   do_print_and_return (i: INTEGER): CHARACTER is
+   do_print_and_return (i: INTEGER): CHARACTER
          -- Calling static `Bar::do_print_and_return' passing `i' as argument.
          -- The returned C++ type is char which is supposed to match
          -- with CHARACTER. The file "Bar.h" must be #included (if not
@@ -43,7 +43,7 @@ feature {ANY}
                ]"
       end
 
-   delete_bar (bar_pointer: POINTER) is
+   delete_bar (bar_pointer: POINTER)
          -- Calling C++ delete of class `Bar' on `bar_pointer'. The file
          -- "Bar.h" must be #included (if not yet done).
       external "[

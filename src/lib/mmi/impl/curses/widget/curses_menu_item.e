@@ -10,15 +10,15 @@ insert
    CURSES_ITEM[UI_MENU_ITEM]
 
 feature {CURSES_ITEM}
-   start: BOOLEAN is
+   start: BOOLEAN
       deferred
       end
 
-   key_pressed (code: INTEGER): BOOLEAN is
+   key_pressed (code: INTEGER): BOOLEAN
       deferred
       end
 
-   resized: BOOLEAN is
+   resized: BOOLEAN
       deferred
       end
 
@@ -30,7 +30,7 @@ end -- class CURSES_MENU_ITEM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

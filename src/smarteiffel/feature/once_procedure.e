@@ -13,28 +13,28 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
 feature {ANY}
-   accept (visitor: ONCE_PROCEDURE_VISITOR) is
+   accept (visitor: ONCE_PROCEDURE_VISITOR)
       do
          visitor.visit_once_procedure(Current)
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_5 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_5
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {}
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
       end

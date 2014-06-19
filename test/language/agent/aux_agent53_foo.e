@@ -4,17 +4,17 @@
 deferred class AUX_AGENT53_FOO
 
 feature {ANY}
-   has1: BOOLEAN is
+   has1: BOOLEAN
       do
          Result := stats1.first > 3
       end
 
-   has2: BOOLEAN is
+   has2: BOOLEAN
       do
          Result := stats1.second > 3
       end
 
-   stats1: TUPLE[INTEGER, INTEGER] is
+   stats1: TUPLE[INTEGER, INTEGER]
       do
          Result := [{INTEGER_32 1}, {INTEGER_32 2}]
       end

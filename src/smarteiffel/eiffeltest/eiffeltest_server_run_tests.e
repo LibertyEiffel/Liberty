@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
@@ -35,7 +35,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          if process_list.is_empty then
             Result := events.event_occurred(stream.event_can_write)
@@ -45,7 +45,7 @@ feature {LOOP_ITEM}
          log.trace.put_line(once "Server #(1): is_ready tests runner: #(2)" # port.out # Result.out)
       end
 
-   continue is
+   continue
       local
          test_file: FIXED_STRING
          process: EIFFELTEST_SERVER_PROCESS
@@ -75,19 +75,19 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := not stream.is_connected
          log.trace.put_line(once "Server #(1): tests runner done: #(2)" # port.out # Result.out)
       end
 
-   restart is
+   restart
       do
          check False end
       end
 
 feature {} -- Good tests: tests that must pass
-   check_good_test (test_file: FIXED_STRING) is
+   check_good_test (test_file: FIXED_STRING)
       require
          test_file.has_prefix(once "test")
          test_file.has_suffix(once ".e")
@@ -157,7 +157,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   check_mocks_with (test_file: FIXED_STRING) is
+   check_mocks_with (test_file: FIXED_STRING)
       require
          test_file.has_prefix(once "test")
          test_file.has_suffix(once ".e")
@@ -189,7 +189,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   test_file_check_with (options: STRING; test_file: FIXED_STRING) is
+   test_file_check_with (options: STRING; test_file: FIXED_STRING)
       require
          not options.is_empty
          test_file.has_prefix(once "test_")
@@ -262,7 +262,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   run_file_check_with (options, cmd, exe_name: STRING; cecil_flag: BOOLEAN; test_file: FIXED_STRING) is
+   run_file_check_with (options, cmd, exe_name: STRING; cecil_flag: BOOLEAN; test_file: FIXED_STRING)
       local
          cleanup: PROCEDURE[TUPLE]
       do
@@ -271,7 +271,7 @@ feature {} -- Good tests: tests that must pass
             status := status + 1
          else
             if cecil_flag then
-               cleanup := agent (options_, exe_name_: STRING) is
+               cleanup := agent (options_, exe_name_: STRING)
                           local
                              dummy: BOOLEAN
                           do
@@ -286,7 +286,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   ace_test (test_file: FIXED_STRING): BOOLEAN is
+   ace_test (test_file: FIXED_STRING): BOOLEAN
          -- Result is True when `test_file' appears to be an ACE test.
       require
          test_file.has_prefix(once "test_")
@@ -316,7 +316,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   run_ace_test (test_file: FIXED_STRING; cmd, exe_name: STRING) is
+   run_ace_test (test_file: FIXED_STRING; cmd, exe_name: STRING)
       do
          if file_tools.file_exists(exe_name) then
             running_of(test_file, exe_name, Void, Void)
@@ -327,7 +327,7 @@ feature {} -- Good tests: tests that must pass
          strings.recycle(exe_name)
       end
 
-   change_exe_name (test_file: FIXED_STRING): STRING is
+   change_exe_name (test_file: FIXED_STRING): STRING
       require
          test_file.has_suffix(once ".e")
       do
@@ -339,7 +339,7 @@ feature {} -- Good tests: tests that must pass
          not Result.is_empty
       end
 
-   running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE]) is
+   running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE])
       local
          log_line, exe_path: STRING
          bd: BASIC_DIRECTORY
@@ -371,7 +371,7 @@ feature {} -- Good tests: tests that must pass
          end
       end
 
-   cleanup_running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE]; was_run: BOOLEAN) is
+   cleanup_running_of (test_file: FIXED_STRING; exe_name: STRING; options: STRING; when_done: PROCEDURE[TUPLE]; was_run: BOOLEAN)
       local
          log_line, cmd: STRING; dummy: BOOLEAN
       do
@@ -412,7 +412,7 @@ feature {} -- Good tests: tests that must pass
       end
 
 feature {} -- Bad tests: tests that must fail
-   check_bad_test (bad_file: FIXED_STRING) is
+   check_bad_test (bad_file: FIXED_STRING)
       require
          bad_file.has_prefix(once "bad")
          bad_file.has_suffix(once ".e")
@@ -447,7 +447,7 @@ feature {} -- Bad tests: tests that must fail
          end
       end
 
-   run_bad_test (new, msg, exe_name: STRING; bad_file: FIXED_STRING) is
+   run_bad_test (new, msg, exe_name: STRING; bad_file: FIXED_STRING)
       local
          dummy: BOOLEAN
       do
@@ -480,7 +480,7 @@ feature {} -- Bad tests: tests that must fail
          strings.recycle(exe_name)
       end
 
-   cleanup_bad_test (bad_file: FIXED_STRING) is
+   cleanup_bad_test (bad_file: FIXED_STRING)
       local
          cmd, h_file: STRING
       do
@@ -501,7 +501,7 @@ feature {} -- Bad tests: tests that must fail
       end
 
 feature {}
-   disconnect is
+   disconnect
       require
          not done
       do
@@ -521,7 +521,7 @@ feature {}
    collection_sorter: COLLECTION_SORTER[FIXED_STRING]
    good_tests, bad_tests: RING_ARRAY[FIXED_STRING]
 
-   load_tests is
+   load_tests
       do
          if not done then
             open_log_file
@@ -534,7 +534,7 @@ feature {}
          end
       end
 
-   load_unit_tests is
+   load_unit_tests
       require
          not done
       local
@@ -581,7 +581,7 @@ feature {}
          end
       end
 
-   plural (count: INTEGER): STRING is
+   plural (count: INTEGER): STRING
       do
          if count = 1 then
             Result := once ""
@@ -590,7 +590,7 @@ feature {}
          end
       end
 
-   list (tests: TRAVERSABLE[FIXED_STRING]): STRING is
+   list (tests: TRAVERSABLE[FIXED_STRING]): STRING
       local
          i: INTEGER
       do
@@ -607,7 +607,7 @@ feature {}
          end
       end
 
-   check_excluded_lst is
+   check_excluded_lst
       require
          not done
       local
@@ -643,7 +643,7 @@ se c -ensure_check
          end
       end
 
-   load_excluded_lst (filepath: STRING) is
+   load_excluded_lst (filepath: STRING)
       local
          tfr: TEXT_FILE_READ
       do
@@ -669,7 +669,7 @@ se c -ensure_check
 
    excluded_patterns: FAST_ARRAY[EIFFELTEST_PATTERN]
 
-   check_unused_excluded_patterns is
+   check_unused_excluded_patterns
       require
          test_log.is_connected
       local
@@ -707,7 +707,7 @@ se c -ensure_check
          end
       end
 
-   open_log_file is
+   open_log_file
       require
          not done
       local
@@ -728,7 +728,7 @@ se c -ensure_check
       end
 
 feature {}
-   excluded_execution_of (log_line: ABSTRACT_STRING; action: PROCEDURE[TUPLE]): BOOLEAN is
+   excluded_execution_of (log_line: ABSTRACT_STRING; action: PROCEDURE[TUPLE]): BOOLEAN
       require
          not log_line.is_empty
          action /= Void
@@ -753,7 +753,7 @@ feature {}
          end
       end
 
-   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]; timeout: INTEGER) is
+   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]; timeout: INTEGER)
       local
          system: SYSTEM; exit_status: INTEGER
          process: EIFFELTEST_SERVER_PROCESS
@@ -779,7 +779,7 @@ feature {}
          end
       end
 
-   cleanup_execute_command (exit_status: INTEGER; log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE]) is
+   cleanup_execute_command (exit_status: INTEGER; log_line, cmd: STRING; bad_file_flag: BOOLEAN; when_done: PROCEDURE[TUPLE])
       do
          if exit_status = exit_success_code then
             log.trace.put_line(once "Server #(1): command successful: #(2)" # port.out # cmd)
@@ -800,7 +800,7 @@ feature {}
       end
 
 feature {}
-   make (a_port: like port; a_path: like path; a_stream: like stream; a_server: like server) is
+   make (a_port: like port; a_path: like path; a_stream: like stream; a_server: like server)
       require
          a_path /= Void
          a_stream.is_connected
@@ -836,12 +836,12 @@ feature {}
    process_list: RING_ARRAY[EIFFELTEST_SERVER_PROCESS]
    running_level: INTEGER
 
-   error_message_comparator: ERROR_MESSAGE_COMPARATOR is
+   error_message_comparator: ERROR_MESSAGE_COMPARATOR
       once
          create Result.make
       end
 
-   on_pid (a_pid, a_status: INTEGER) is
+   on_pid (a_pid, a_status: INTEGER)
          -- This feature is called on behalf of the waitpid job
       local
          process: EIFFELTEST_SERVER_PROCESS
@@ -853,7 +853,7 @@ feature {}
          end
       end
 
-   on_timeout is
+   on_timeout
          -- This feature is called on behalf of the waitpid job
       local
          process: EIFFELTEST_SERVER_PROCESS
@@ -865,7 +865,7 @@ feature {}
          end
       end
 
-   unqueue_process is
+   unqueue_process
       do
          log.trace.put_line(once "Server #(1): unqueueing process: #(2)" # port.out # process_list.first.cmd)
          process_pool.recycle(process_list.first)
@@ -876,12 +876,12 @@ feature {}
          end
       end
 
-   strings: STRING_RECYCLING_POOL is
+   strings: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
-   process_pool: RECYCLING_POOL[EIFFELTEST_SERVER_PROCESS] is
+   process_pool: RECYCLING_POOL[EIFFELTEST_SERVER_PROCESS]
       once
          create Result.make
       end

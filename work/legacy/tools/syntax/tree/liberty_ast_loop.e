@@ -21,38 +21,38 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   from_clause: LIBERTY_AST_FROM is
+   from_clause: LIBERTY_AST_FROM
       do
          Result ::= nodes.item(0)
       end
 
-   invariant_clause: LIBERTY_AST_INVARIANT is
+   invariant_clause: LIBERTY_AST_INVARIANT
       do
          Result ::= nodes.item(1)
       end
 
-   variant_clause: LIBERTY_AST_VARIANT is
+   variant_clause: LIBERTY_AST_VARIANT
       do
          Result ::= nodes.item(2)
       end
 
-   expression: LIBERTY_AST_EXPRESSION is
+   expression: LIBERTY_AST_EXPRESSION
       do
          Result ::= nodes.item(4)
       end
 
-   instructions: EIFFEL_LIST_NODE is
+   instructions: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(6)
       end
 
 feature {ANY}
-   count: INTEGER is 8
+   count: INTEGER 8
 
-   name: STRING is "Loop"
+   name: STRING "Loop"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 8 >> }
       end

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ASSIGNMENT_CALL_ASSIGNER}
-   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER)
       require
          visited /= Void
       deferred

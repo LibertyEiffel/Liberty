@@ -16,7 +16,7 @@ create {ARRAY}
    make_array
 
 feature {}
-   make is
+   make
       local
          x, y: like item; b: BOOLEAN
       do

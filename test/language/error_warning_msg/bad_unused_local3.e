@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          unused: AUX_UNUSED_LOCAL3
       do

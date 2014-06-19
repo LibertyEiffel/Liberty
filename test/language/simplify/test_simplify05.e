@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do
@@ -498,7 +498,7 @@ feature {ANY}
          check_order(68)
       end
 
-   no_evaluation: BOOLEAN is
+   no_evaluation: BOOLEAN
          -- Should never be called.
       do
          -- To make this function not computable.
@@ -509,17 +509,17 @@ feature {ANY}
          std_output.put_string("TEST_SIMPLIFY05: ERROR (no_evaluation).%N")
       end
 
-   a_integer_3: INTEGER is
+   a_integer_3: INTEGER
       do
          Result := 1 + 2
       end
 
-   a_void_1: ANY is
+   a_void_1: ANY
       do
          Result := Void
       end
 
-   a_void_2: ANY is
+   a_void_2: ANY
       do
       end
 
@@ -527,7 +527,7 @@ feature {ANY}
          -- To check that `check_order' call are in the original
          -- order.
 
-   check_order (n: INTEGER) is
+   check_order (n: INTEGER)
       do
          if n /= previous_n then
             sedb_breakpoint
@@ -538,13 +538,13 @@ feature {ANY}
          previous_n := previous_n + 1
       end
 
-   is_order (r: BOOLEAN; n: INTEGER): BOOLEAN is
+   is_order (r: BOOLEAN; n: INTEGER): BOOLEAN
       do
          check_order(n)
          Result := r
       end
 
-   never_here is
+   never_here
       do
          sedb_breakpoint
          std_output.put_string("TEST_SIMPLIFY_2: ERROR 'never_here' executed.%N")

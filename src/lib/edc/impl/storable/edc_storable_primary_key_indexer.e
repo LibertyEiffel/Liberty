@@ -28,27 +28,27 @@ create {EDC_STORABLE_INDEXER_FACTORY}
    make
 
 feature {EDC_STORABLE_INDEX}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := rows.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := rows.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := rows.upper
       end
 
-   item (i: INTEGER): FAST_ARRAY[EDC_DATUM] is
+   item (i: INTEGER): FAST_ARRAY[EDC_DATUM]
       do
          Result := rows.item(i).row
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          buffer.set_row(a_row)
          Result := rows.has(buffer)
@@ -56,25 +56,25 @@ feature {EDC_STORABLE_INDEX}
 
    index: EDC_PRIMARY_KEY
 
-   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          -- make sure that the primary key is not already used
          Result := not has(a_row)
       end
 
-   add (a_row: FAST_ARRAY[EDC_DATUM]) is
+   add (a_row: FAST_ARRAY[EDC_DATUM])
       do
          rows.add(create {EDC_STORABLE_PRIMARY_KEY}.make(index, a_row))
       end
 
-   remove (a_row: FAST_ARRAY[EDC_DATUM]) is
+   remove (a_row: FAST_ARRAY[EDC_DATUM])
       do
          buffer.set_row(a_row)
          rows.remove(buffer)
       end
 
 feature {}
-   make (a_primary_key: like index; a_table: like table) is
+   make (a_primary_key: like index; a_table: like table)
       do
          index := a_primary_key
          table := a_table

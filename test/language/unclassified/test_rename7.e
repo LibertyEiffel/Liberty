@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b, bl, br: AUX_RENAME7B[INTEGER]
       do

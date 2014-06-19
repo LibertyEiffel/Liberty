@@ -17,7 +17,7 @@ create {}
 feature {ANY}
    path: STRING
 
-   make is
+   make
       do
          if path /= Void then
             path := "Xavier Cregut"

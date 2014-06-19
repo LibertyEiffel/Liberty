@@ -7,18 +7,18 @@ create {EDC_DUMMY_SESSION}
    make
 
 feature {EDC_FIELD}
-   item (record: EDC_RECORD; field: EDC_FIELD[E_]): E_ is
+   item (record: EDC_RECORD; field: EDC_FIELD[E_]): E_
       do
          Result := dataset.reference_at(session.session_data(record).internal_id)
       end
 
-   set (record: EDC_RECORD; field: EDC_FIELD[E_]; i: E_) is
+   set (record: EDC_RECORD; field: EDC_FIELD[E_]; i: E_)
       do
          dataset.fast_put(i, session.session_data(record).internal_id)
       end
 
 feature {}
-   make (a_session: like session) is
+   make (a_session: like session)
       require
          a_session /= Void
       do

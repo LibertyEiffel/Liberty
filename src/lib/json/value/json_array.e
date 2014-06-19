@@ -17,48 +17,48 @@ create {JSON_HANDLER}
    make
 
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := array.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := array.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := array.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := array.is_empty
       end
 
-   first: JSON_VALUE is
+   first: JSON_VALUE
       do
          Result := array.first
       end
 
-   last: JSON_VALUE is
+   last: JSON_VALUE
       do
          Result := array.last
       end
 
-   item (index: INTEGER): JSON_VALUE is
+   item (index: INTEGER): JSON_VALUE
       do
          Result := array.item(index)
       end
 
-   new_iterator: ITERATOR[JSON_VALUE] is
+   new_iterator: ITERATOR[JSON_VALUE]
       do
          Result := array.new_iterator
       end
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: JSON_VISITOR
       do
@@ -66,12 +66,12 @@ feature {ANY}
          v.visit_array(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := array.is_equal(other.array)
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -94,7 +94,7 @@ feature {JSON_HANDLER}
    array: TRAVERSABLE[JSON_VALUE]
 
 feature {}
-   make (a_array: like array) is
+   make (a_array: like array)
       require
          a_array /= Void
       do
@@ -114,7 +114,7 @@ end -- class JSON_ARRAY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

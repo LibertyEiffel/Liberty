@@ -7,32 +7,32 @@ inherit
    EIFFELDOC_COMMENT_STATE
 
 feature {}
-   is_list_marker (c: CHARACTER): BOOLEAN is
+   is_list_marker (c: CHARACTER): BOOLEAN
          -- True if the character at the beginning of the line is a list marker (bullet, number, and so forth)
       deferred
       end
 
-   open_lists (how_many: INTEGER) is
+   open_lists (how_many: INTEGER)
          -- Open new lists. Also open a list item.
       require
          how_many > 0
       deferred
       end
 
-   close_lists (how_many: INTEGER) is
+   close_lists (how_many: INTEGER)
          -- Close lists. If `how_many' < `depth', also open a new list item.
       require
          how_many.in_range(1, depth)
       deferred
       end
 
-   next_list_item is
+   next_list_item
          -- Open another list item
       deferred
       end
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       local
          i: INTEGER
       do
@@ -63,7 +63,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          d: INTEGER; newitem: BOOLEAN
       do
@@ -137,14 +137,14 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          (Result = offset) = (depth = 0)
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          close_lists(depth)
          depth := 0
          states.pop
       end
 
-   handle_first: BOOLEAN is True
+   handle_first: BOOLEAN True
 
 feature {}
    list_marker_offset: INTEGER

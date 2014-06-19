@@ -13,7 +13,7 @@ feature {ERROR_HANDLER}
    data: RING_ARRAY[TAGGED_ERROR]
 
 feature {}
-   make is
+   make
       do
          create data.with_capacity(4, 0)
       ensure

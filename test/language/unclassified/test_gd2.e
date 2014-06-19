@@ -17,7 +17,7 @@ feature {ANY}
    str_array: ARRAY[STRING]
 
 feature {ANY} -- Creation
-   make is
+   make
       local
          thingy: STRING
       do

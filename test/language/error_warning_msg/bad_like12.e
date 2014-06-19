@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: AUX_LIKE12B
       do

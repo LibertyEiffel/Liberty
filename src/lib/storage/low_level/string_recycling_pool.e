@@ -25,7 +25,7 @@ create {ANY}
    make
 
 feature {ANY}
-   new: STRING is
+   new: STRING
          -- A brand new STRING with a small default capacity.
       do
          Result := best_fit(32)
@@ -33,7 +33,7 @@ feature {ANY}
          Result.is_empty
       end
 
-   best_fit (capacity: INTEGER): STRING is
+   best_fit (capacity: INTEGER): STRING
          -- A STRING with a capacity at least as great as the given `capacity'.
       local
          i: INTEGER; gc: BOOLEAN
@@ -76,7 +76,7 @@ feature {ANY}
          Result.capacity >= capacity
       end
 
-   new_twin (string: STRING): STRING is
+   new_twin (string: STRING): STRING
          -- A copy of the given `string'.
       require
          string /= Void
@@ -88,7 +88,7 @@ feature {ANY}
          Result.is_equal(string)
       end
 
-   recycle (string: STRING) is
+   recycle (string: STRING)
          -- Recycles the `string'. Note that you should not use the `string' again ''(don't keep any reference
          -- on it)'', but use `new', `best_fit' or `new_twin' to obtain a new STRING.
       local
@@ -122,7 +122,7 @@ feature {}
    strings: FAST_ARRAY[STRING_RECYCLING_ITEM]
          -- The recycled strings
 
-   make is
+   make
       do
          create strings.make(0)
       end
@@ -140,7 +140,7 @@ end -- class STRING_RECYCLING_POOL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

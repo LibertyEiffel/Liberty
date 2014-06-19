@@ -13,21 +13,21 @@ create {CURSES_JOB}
    make
 
 feature {UI_MENU}
-   add (a_child: CURSES_MENU_ITEM) is
+   add (a_child: CURSES_MENU_ITEM)
       do
          not_yet_implemented
       end
 
 feature {CURSES_ITEM}
-   start: BOOLEAN is
+   start: BOOLEAN
       do
       end
 
-   key_pressed (code: INTEGER): BOOLEAN is
+   key_pressed (code: INTEGER): BOOLEAN
       do
       end
 
-   resized: BOOLEAN is
+   resized: BOOLEAN
       do
       end
 
@@ -39,7 +39,7 @@ end -- class CURSES_MENU
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

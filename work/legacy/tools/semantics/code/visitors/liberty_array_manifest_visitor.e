@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ARRAY_MANIFEST}
-   visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST) is
+   visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST)
       deferred
       end
 

@@ -14,19 +14,19 @@ create {ANY}
    make
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := name.start_position
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       do
          buffer.append(name.to_string)
          buffer.append(once ": ")
          name.result_type.pretty_in(buffer)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          name.short(type)
          short_printer.hook_or("hook305", ": ")
@@ -34,15 +34,15 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: DECLARATION_1_VISITOR) is
+   accept (visitor: DECLARATION_1_VISITOR)
       do
          visitor.visit_declaration_1(Current)
       end
 
 feature {DECLARATION_LIST}
-   count: INTEGER is 1
+   count: INTEGER 1
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          n: like name
       do
@@ -55,7 +55,7 @@ feature {DECLARATION_LIST}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          n: like name
       do
@@ -70,19 +70,19 @@ feature {DECLARATION_LIST}
 
 feature {DECLARATION, DECLARATION_LIST}
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := name.has_been_specialized
       end
 
 feature {FORMAL_ARG_LIST}
-   append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
+   append_in_formal_arg_list (fal: FORMAL_ARG_LIST)
       do
          fal.add_last(name)
       end
 
 feature {LOCAL_VAR_LIST}
-   append_in_local_var_list (lvl: LOCAL_VAR_LIST) is
+   append_in_local_var_list (lvl: LOCAL_VAR_LIST)
       do
          lvl.add_last(name)
       end
@@ -92,7 +92,7 @@ feature {DECLARATION_1_VISITOR}
          -- Of the declared variable.
 
 feature {DECLARATION_1}
-   set_name(n: like name) is
+   set_name(n: like name)
       require
          n /= Void
       do
@@ -102,7 +102,7 @@ feature {DECLARATION_1}
       end
 
 feature {}
-   make (n: like name; type: TYPE_MARK) is
+   make (n: like name; type: TYPE_MARK)
       require
          n /= Void
       do

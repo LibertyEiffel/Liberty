@@ -7,64 +7,64 @@ create {EDC_DESCRIPTOR}
    make, with_options
 
 feature {ANY}
-   is_null: EDC_FIELD_CRITERION[REF_] is
+   is_null: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   is_not_null: EDC_FIELD_CRITERION[REF_] is
+   is_not_null: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   ge: EDC_FIELD_CRITERION[REF_] is
+   ge: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   gt: EDC_FIELD_CRITERION[REF_] is
+   gt: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   le: EDC_FIELD_CRITERION[REF_] is
+   le: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   lt: EDC_FIELD_CRITERION[REF_] is
+   lt: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   eq: EDC_FIELD_CRITERION[REF_] is
+   eq: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
-   ne: EDC_FIELD_CRITERION[REF_] is
+   ne: EDC_FIELD_CRITERION[REF_]
       do
          not_yet_implemented
       end
 
 feature {EDC_RECORD}
-   item (r: R_): REF_ is
+   item (r: R_): REF_
       do
          not_yet_implemented
       end
 
-   set (r: R_; i: like item) is
+   set (r: R_; i: like item)
       do
          not_yet_implemented
       end
 
 feature {}
-   make (a_table: like table; a_ref_table: like ref_table; a_name: ABSTRACT_STRING) is
+   make (a_table: like table; a_ref_table: like ref_table; a_name: ABSTRACT_STRING)
       do
          with_options(a_table, a_ref_table, a_name, Void)
       end
 
-   with_options (a_table: like table; a_ref_table: like ref_table; a_name: ABSTRACT_STRING; a_options: like options) is
+   with_options (a_table: like table; a_ref_table: like ref_table; a_name: ABSTRACT_STRING; a_options: like options)
       require
          a_table /= Void
          a_ref_table /= Void

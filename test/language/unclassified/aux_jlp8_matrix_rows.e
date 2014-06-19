@@ -9,12 +9,12 @@ inherit
       end
 
 feature {ANY}
-   make (m: AUX_JLP8_MATRIX[E]) is
+   make (m: AUX_JLP8_MATRIX[E])
       do
          matrix := m
       end
 
-   start is
+   start
       do
          row := 0
          if not exhausted then
@@ -22,7 +22,7 @@ feature {ANY}
          end
       end
 
-   next is
+   next
       do
          row := row + matrix.incr_row
          if not exhausted then
@@ -30,21 +30,21 @@ feature {ANY}
          end
       end
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       do
          Result := row >= matrix.nb_row
       end
 
    item: AUX_JLP8_ROW_PROVIDER[E]
 
-   is_runnable: BOOLEAN is
+   is_runnable: BOOLEAN
       do
          Result := matrix /= Void
       end
 
    aborted: BOOLEAN
 
-   abort is
+   abort
       do
          row := matrix.nb_row
          aborted := True

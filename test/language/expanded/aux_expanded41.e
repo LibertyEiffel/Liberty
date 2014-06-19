@@ -9,7 +9,7 @@ insert
       end
 
 feature {ANY}
-   default_create is
+   default_create
       do
          id := counter.item
          counter.next
@@ -19,25 +19,25 @@ feature {ANY}
 
    value: INTEGER
 
-   set_value (a_value: like value) is
+   set_value (a_value: like value)
       do
          value := a_value
       ensure
          value = a_value
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := value = other.value
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          value := other.value
       end
 
 feature {}
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end

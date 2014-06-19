@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_markup_collect_boolean_low_level)  or else
 				(a_value = g_markup_collect_invalid_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_markup_collect_boolean is
+	set_g_markup_collect_boolean
 		do
 			value := g_markup_collect_boolean_low_level
 		end
 
-	set_g_markup_collect_invalid is
+	set_g_markup_collect_invalid
 		do
 			value := g_markup_collect_invalid_low_level
 		end
 
-	set_g_markup_collect_optional is
+	set_g_markup_collect_optional
 		do
 			value := g_markup_collect_optional_low_level
 		end
 
-	set_g_markup_collect_strdup is
+	set_g_markup_collect_strdup
 		do
 			value := g_markup_collect_strdup_low_level
 		end
 
-	set_g_markup_collect_string is
+	set_g_markup_collect_string
 		do
 			value := g_markup_collect_string_low_level
 		end
 
-	set_g_markup_collect_tristate is
+	set_g_markup_collect_tristate
 		do
 			value := g_markup_collect_tristate_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_markup_collect_boolean: BOOLEAN is
+	is_g_markup_collect_boolean: BOOLEAN
 		do
 			Result := (value=g_markup_collect_boolean_low_level)
 		end
 
-	is_g_markup_collect_invalid: BOOLEAN is
+	is_g_markup_collect_invalid: BOOLEAN
 		do
 			Result := (value=g_markup_collect_invalid_low_level)
 		end
 
-	is_g_markup_collect_optional: BOOLEAN is
+	is_g_markup_collect_optional: BOOLEAN
 		do
 			Result := (value=g_markup_collect_optional_low_level)
 		end
 
-	is_g_markup_collect_strdup: BOOLEAN is
+	is_g_markup_collect_strdup: BOOLEAN
 		do
 			Result := (value=g_markup_collect_strdup_low_level)
 		end
 
-	is_g_markup_collect_string: BOOLEAN is
+	is_g_markup_collect_string: BOOLEAN
 		do
 			Result := (value=g_markup_collect_string_low_level)
 		end
 
-	is_g_markup_collect_tristate: BOOLEAN is
+	is_g_markup_collect_tristate: BOOLEAN
 		do
 			Result := (value=g_markup_collect_tristate_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_markup_collect_boolean_low_level: INTEGER is
+	g_markup_collect_boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_invalid_low_level: INTEGER is
+	g_markup_collect_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_optional_low_level: INTEGER is
+	g_markup_collect_optional_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_strdup_low_level: INTEGER is
+	g_markup_collect_strdup_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_string_low_level: INTEGER is
+	g_markup_collect_string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_collect_tristate_low_level: INTEGER is
+	g_markup_collect_tristate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

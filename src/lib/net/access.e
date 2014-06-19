@@ -16,13 +16,13 @@ feature {ANY}
    error: STRING
          -- If an error occurred
 
-   server: SOCKET_SERVER is
+   server: SOCKET_SERVER
          -- Start a server on the given access on localhost, listening to connections bound to the given
          -- address.
       deferred
       end
 
-   stream: SOCKET_INPUT_OUTPUT_STREAM is
+   stream: SOCKET_INPUT_OUTPUT_STREAM
          -- Open a connection to the remote address and access.
       do
          Result := a_stream
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {}
-   a_stream: CLIENT_SOCKET_INPUT_OUTPUT_STREAM is
+   a_stream: CLIENT_SOCKET_INPUT_OUTPUT_STREAM
       local
          s: like socket
       do
@@ -41,7 +41,7 @@ feature {}
          end
       end
 
-   socket: SOCKET is
+   socket: SOCKET
          -- Create a low-level socket connected to the remote address and host.
       do
          Result := address.new_socket(Current)
@@ -60,7 +60,7 @@ end -- class ACCESS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

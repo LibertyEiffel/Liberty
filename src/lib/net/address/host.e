@@ -23,7 +23,7 @@ feature {ANY}
    hostname: STRING
          -- The name of the host
 
-   ip: IPV4_ADDRESS is
+   ip: IPV4_ADDRESS
       do
          if resolved = Void and then error = Void then
             resolve
@@ -31,12 +31,12 @@ feature {ANY}
          Result := resolved
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := ip.hash_code
       end
 
-   out: STRING is
+   out: STRING
       do
          Result := hostname + " (" + ip.out + ")"
       end
@@ -44,7 +44,7 @@ feature {ANY}
 feature {}
    resolved: IPV4_ADDRESS
 
-   resolve is
+   resolve
          -- Resolve the host address by looking for the IP address (uses DNS resolution)
       require
          resolved = Void
@@ -65,7 +65,7 @@ feature {}
       end
 
 feature {ACCESS, ADDRESS}
-   new_socket (access: ACCESS): SOCKET is
+   new_socket (access: ACCESS): SOCKET
       do
          Result := ip.new_socket(access)
          if not Result.is_connected then
@@ -74,7 +74,7 @@ feature {ACCESS, ADDRESS}
       end
 
 feature {}
-   make (a_hostname: STRING) is
+   make (a_hostname: STRING)
       require
          a_hostname /= Void
       do
@@ -89,7 +89,7 @@ end -- class HOST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

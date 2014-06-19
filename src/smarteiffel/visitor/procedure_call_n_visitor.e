@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {PROCEDURE_CALL_N}
-   visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
+   visit_procedure_call_n (visited: PROCEDURE_CALL_N)
       require
          visited /= Void
       deferred

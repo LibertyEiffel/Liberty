@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       require
          visited /= Void
       deferred

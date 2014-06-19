@@ -8,7 +8,7 @@ feature {ANY}
 
 	left, right: NODE
 
-	test: INTEGER is
+	test: INTEGER
 		do
 			Result := value
 			if left /= Void then
@@ -16,7 +16,7 @@ feature {ANY}
 			end
 		end
 
-	make (v: INTEGER; l, r: NODE) is
+	make (v: INTEGER; l, r: NODE)
 		do
 			value := v
 			left := l

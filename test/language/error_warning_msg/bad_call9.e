@@ -9,7 +9,7 @@ create {}
 feature {}
    to_string: STRING
 
-   main is
+   main
       local
          string: AUX_CALL9_STRING; i: INTEGER
       do

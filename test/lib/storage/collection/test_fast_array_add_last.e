@@ -11,7 +11,7 @@ create {}
 feature {ANY}
    fai: FAST_ARRAY[INTEGER]
 
-   make is
+   make
       do
          create fai
          assert(fai.count = 0);

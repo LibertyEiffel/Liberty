@@ -18,7 +18,7 @@ create {LIBERTY_TAGS}
    make
 
 feature {ANY}
-   add (a_value: T_; tagged: LIBERTY_TAGGED) is
+   add (a_value: T_; tagged: LIBERTY_TAGGED)
       require
          not is_set(tagged)
       local
@@ -30,7 +30,7 @@ feature {ANY}
          is_set(tagged)
       end
 
-   set (a_value: T_; tagged: LIBERTY_TAGGED) is
+   set (a_value: T_; tagged: LIBERTY_TAGGED)
       local
          tag: LIBERTY_TYPED_TAG[T_]
       do
@@ -40,14 +40,14 @@ feature {ANY}
          is_set(tagged)
       end
 
-   is_set (tagged: LIBERTY_TAGGED): BOOLEAN is
+   is_set (tagged: LIBERTY_TAGGED): BOOLEAN
       require
          tagged /= Void
       do
          Result := tagged.tag_set(id)
       end
 
-   value (tagged: LIBERTY_TAGGED): T_ is
+   value (tagged: LIBERTY_TAGGED): T_
       require
          is_set(tagged)
       local
@@ -61,7 +61,7 @@ feature {LIBERTY_TAGGED, LIBERTY_TAG}
    id: FIXED_STRING
 
 feature {}
-   make (a_id: like id) is
+   make (a_id: like id)
       require
          a_id /= Void
       do

@@ -17,28 +17,28 @@ create {}
    make
 
 feature {ANY}
-   require_trace: STRING is
+   require_trace: STRING
       once
          create Result.make(0)
       end
 
-   body_trace: STRING is
+   body_trace: STRING
       once
          create Result.make(0)
       end
 
-   ensure_trace: STRING is
+   ensure_trace: STRING
       once
          create Result.make(0)
       end
 
-   update_trace (actual_trace: STRING; step_mark: STRING): BOOLEAN is
+   update_trace (actual_trace: STRING; step_mark: STRING): BOOLEAN
       do
          actual_trace.append(step_mark)
          Result := True
       end
 
-   once_procedure (step_mark: STRING) is
+   once_procedure (step_mark: STRING)
       require
          update_trace(require_trace, "RP")
       once
@@ -47,7 +47,7 @@ feature {ANY}
          update_trace(ensure_trace, "EP")
       end
 
-   make is
+   make
       local
          require_trace_view, ensure_trace_view, once_function_result: STRING
       do
@@ -78,7 +78,7 @@ feature {ANY}
 
    require_flag: BOOLEAN
 
-   set_require_flag: BOOLEAN is
+   set_require_flag: BOOLEAN
       do
          require_flag := True
          Result := True
@@ -86,13 +86,13 @@ feature {ANY}
 
    ensure_flag: BOOLEAN
 
-   set_ensure_flag: BOOLEAN is
+   set_ensure_flag: BOOLEAN
       do
          ensure_flag := True
          Result := True
       end
 
-   setup_flags is
+   setup_flags
       require
          set_require_flag
       do
@@ -100,7 +100,7 @@ feature {ANY}
          set_ensure_flag
       end
 
-   once_function (step_mark: STRING): STRING is
+   once_function (step_mark: STRING): STRING
       require
          update_trace(require_trace, "RP")
       once

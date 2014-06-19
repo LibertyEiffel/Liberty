@@ -10,15 +10,15 @@ create {}
    make
 
 feature {ANY}
-   u5, u6, u7: INTEGER is unique
+   u5, u6, u7: INTEGER unique
 
-   u1: INTEGER is unique
+   u1: INTEGER unique
 
-   u2: INTEGER is unique
+   u2: INTEGER unique
 
-   u3, u4: INTEGER is unique
+   u3, u4: INTEGER unique
 
-   make is
+   make
       local
          aux_unique1: AUX_UNIQUE1
       do
@@ -31,7 +31,7 @@ feature {ANY}
          assert(aux_unique1.u4 = u4)
       end
 
-   do_it is
+   do_it
       do
          assert(u1 > 0)
          assert(u1 /= u2)

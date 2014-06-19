@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ASSIGNMENT_TEST}
-   visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
+   visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST)
       deferred
       end
 

@@ -25,18 +25,18 @@ feature {ANY}
    wiki_prefix: STRING
 
 feature {EIFFELDOC, EIFFELDOC_SHORTER}
-   generate_jsfile is
+   generate_jsfile
       do
          generate_js(js, real_js)
       end
 
-   generate_stylesheets is
+   generate_stylesheets
       do
          generate_css(css, real_css)
       end
 
 feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SHORTER_CLASSDOC}
-   open_tabs (html: HTML_OUTPUT_STREAM) is
+   open_tabs (html: HTML_OUTPUT_STREAM)
       require
          html /= Void
       do
@@ -44,7 +44,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.open_list
       end
 
-   add_menu_tabs (html: HTML_OUTPUT_STREAM) is
+   add_menu_tabs (html: HTML_OUTPUT_STREAM)
       local
          i: INTEGER; separator: STRING
       do
@@ -60,7 +60,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          end
       end
 
-   add_tab (html: HTML_OUTPUT_STREAM; name, address, separator: STRING) is
+   add_tab (html: HTML_OUTPUT_STREAM; name, address, separator: STRING)
       require
          html /= Void
          name /= Void
@@ -83,14 +83,14 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          end
       end
 
-   close_tabs (html: HTML_OUTPUT_STREAM) is
+   close_tabs (html: HTML_OUTPUT_STREAM)
       require
          html /= Void
       do
          html.close_list
       end
 
-   open_menu (html: HTML_OUTPUT_STREAM; name, selected: STRING) is
+   open_menu (html: HTML_OUTPUT_STREAM; name, selected: STRING)
       do
          html.with_attribute(once "class", once "points_of_view_block")
          html.open_div
@@ -127,7 +127,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.open_list
       end
 
-   add_menu_item (html: HTML_OUTPUT_STREAM; name, address: STRING) is
+   add_menu_item (html: HTML_OUTPUT_STREAM; name, address: STRING)
       require
          html /= Void
          name /= Void
@@ -140,7 +140,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.close_list_item
       end
 
-   close_menu (html: HTML_OUTPUT_STREAM) is
+   close_menu (html: HTML_OUTPUT_STREAM)
       require
          html /= Void
       do
@@ -150,7 +150,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
       end
 
 feature {EIFFELDOC}
-   parse_argument (i: INTEGER): INTEGER is
+   parse_argument (i: INTEGER): INTEGER
          -- Returns the number of arguments it used (0 if the argument was not matched)
       require
          i.in_range(1, argument_count)
@@ -220,7 +220,7 @@ feature {EIFFELDOC}
          end
       end
 
-   set_default_arguments is
+   set_default_arguments
       do
          if title = Void then
             title := once "Generated Documentation"
@@ -230,12 +230,12 @@ feature {EIFFELDOC}
          end
       end
 
-   command_usage: STRING is
+   command_usage: STRING
       do
          Result := once "{-title title} {-menu address title}... {-js file} {-css file} {-depends} "
       end
 
-   command_help: STRING is
+   command_help: STRING
       do
          Result := once "[
                          -title             the title of the generated documentation
@@ -247,14 +247,14 @@ feature {EIFFELDOC}
                          -menu              a menu item (in the header Ariadne thread)
                                             - its address
                                             - its displayed title
-                                            There may be more than one menu item; the ordering is
+                                            There may be more than one menu item; the ordering
                                             implied by the command line.
 
                          -menu_separator    a text that will be put between the menu items
 
                          -ariadne_separator a text that will be put between the ariadne thread items
 
-                         -depends           generate dependant classes even if their cluster is
+                         -depends           generate dependant classes even if their cluster
                                             pruned
 
                          -wiki_prefix       the wiki home URL for wiki words
@@ -266,7 +266,7 @@ feature {EIFFELDOC}
       end
 
 feature {}
-   generate_css (css_fn, real_css_fn: STRING) is
+   generate_css (css_fn, real_css_fn: STRING)
       require
          real_css_fn /= Void
       local
@@ -279,7 +279,7 @@ feature {}
          end
       end
 
-   generate_js (js_fn, real_js_fn: STRING) is
+   generate_js (js_fn, real_js_fn: STRING)
       require
          real_js_fn /= Void
       local
@@ -290,7 +290,7 @@ feature {}
          end
       end
 
-   copy_file (from_file, to_file: STRING) is
+   copy_file (from_file, to_file: STRING)
       local
          source: TEXT_FILE_READ; target: TEXT_FILE_WRITE
       do
@@ -328,7 +328,7 @@ feature {}
          end
       end
 
-   generate_default_css (real_css_fn: STRING) is
+   generate_default_css (real_css_fn: STRING)
       local
          f: TEXT_FILE_WRITE
       do
@@ -361,7 +361,7 @@ feature {}
       end
 
 feature {}
-   make (e: EIFFELDOC) is
+   make (e: EIFFELDOC)
       do
          eiffeldoc := e
          menu_separator := once ""

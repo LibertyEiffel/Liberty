@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_array: ARRAY[FRUIT]
       do

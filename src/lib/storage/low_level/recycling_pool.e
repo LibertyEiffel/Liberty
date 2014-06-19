@@ -39,7 +39,7 @@ create {RECYCLING_POOL}
    collection_make
 
 feature {ANY}
-   item: R_ is
+   item: R_
          --
          -- Returns a recycled object, if there is one to be obtained. Returns Void otherwise.
          --
@@ -54,7 +54,7 @@ feature {ANY}
          Result /= Void
       end
 
-  recycle (an_item: like item) is
+  recycle (an_item: like item)
          --
          -- Stores the object as being reuseable. Automatically calls the "recycle" feature of the object.
          --
@@ -77,7 +77,7 @@ feature {ANY}
       end
 
 feature {}
-   mark_native_arrays is
+   mark_native_arrays
       do
          clear_count
       end
@@ -90,7 +90,7 @@ end -- class RECYCLING_POOL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

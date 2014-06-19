@@ -4,11 +4,11 @@
 deferred class AUX_PRE_ONCE10_A
 
 feature {ANY}
-   foofoo: STRING is
+   foofoo: STRING
       deferred
       end
 
-   frozen barbar: STRING is
+   frozen barbar: STRING
       do
          Result := foofoo
       end

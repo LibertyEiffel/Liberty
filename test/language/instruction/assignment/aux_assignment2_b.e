@@ -7,12 +7,12 @@ inherit
    AUX_ASSIGNMENT2_A
 
 feature {ANY}
-   foo (other: AUX_ASSIGNMENT2_A) is
+   foo (other: AUX_ASSIGNMENT2_A)
       do
          anchor := other
       end
 
-   crash_if_not_c is
+   crash_if_not_c
       do
          crash
       end

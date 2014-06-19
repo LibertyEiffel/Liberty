@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (g_option_flag_filename_low_level | 
 				g_option_flag_in_main_low_level | 
@@ -19,99 +19,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_option_flag_filename is
+	set_g_option_flag_filename
 		do
 			value := value.bit_or(g_option_flag_filename_low_level)
 		end
 
-	unset_g_option_flag_filename is
+	unset_g_option_flag_filename
 		do
 			value := value.bit_xor(g_option_flag_filename_low_level)
 		end
 
-	set_g_option_flag_in_main is
+	set_g_option_flag_in_main
 		do
 			value := value.bit_or(g_option_flag_in_main_low_level)
 		end
 
-	unset_g_option_flag_in_main is
+	unset_g_option_flag_in_main
 		do
 			value := value.bit_xor(g_option_flag_in_main_low_level)
 		end
 
-	set_g_option_flag_no_arg is
+	set_g_option_flag_no_arg
 		do
 			value := value.bit_or(g_option_flag_no_arg_low_level)
 		end
 
-	unset_g_option_flag_no_arg is
+	unset_g_option_flag_no_arg
 		do
 			value := value.bit_xor(g_option_flag_no_arg_low_level)
 		end
 
-	set_g_option_flag_noalias is
+	set_g_option_flag_noalias
 		do
 			value := value.bit_or(g_option_flag_noalias_low_level)
 		end
 
-	unset_g_option_flag_noalias is
+	unset_g_option_flag_noalias
 		do
 			value := value.bit_xor(g_option_flag_noalias_low_level)
 		end
 
-	set_g_option_flag_optional_arg is
+	set_g_option_flag_optional_arg
 		do
 			value := value.bit_or(g_option_flag_optional_arg_low_level)
 		end
 
-	unset_g_option_flag_optional_arg is
+	unset_g_option_flag_optional_arg
 		do
 			value := value.bit_xor(g_option_flag_optional_arg_low_level)
 		end
 
-	set_g_option_flag_reverse is
+	set_g_option_flag_reverse
 		do
 			value := value.bit_or(g_option_flag_reverse_low_level)
 		end
 
-	unset_g_option_flag_reverse is
+	unset_g_option_flag_reverse
 		do
 			value := value.bit_xor(g_option_flag_reverse_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_option_flag_filename: BOOLEAN is
+	is_g_option_flag_filename: BOOLEAN
 		do
 			Result := (value=g_option_flag_filename_low_level)
 		end
 
-	is_g_option_flag_in_main: BOOLEAN is
+	is_g_option_flag_in_main: BOOLEAN
 		do
 			Result := (value=g_option_flag_in_main_low_level)
 		end
 
-	is_g_option_flag_no_arg: BOOLEAN is
+	is_g_option_flag_no_arg: BOOLEAN
 		do
 			Result := (value=g_option_flag_no_arg_low_level)
 		end
 
-	is_g_option_flag_noalias: BOOLEAN is
+	is_g_option_flag_noalias: BOOLEAN
 		do
 			Result := (value=g_option_flag_noalias_low_level)
 		end
 
-	is_g_option_flag_optional_arg: BOOLEAN is
+	is_g_option_flag_optional_arg: BOOLEAN
 		do
 			Result := (value=g_option_flag_optional_arg_low_level)
 		end
 
-	is_g_option_flag_reverse: BOOLEAN is
+	is_g_option_flag_reverse: BOOLEAN
 		do
 			Result := (value=g_option_flag_reverse_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_option_flag_filename_low_level: INTEGER is
+	g_option_flag_filename_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -120,7 +120,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_flag_in_main_low_level: INTEGER is
+	g_option_flag_in_main_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -129,7 +129,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_flag_no_arg_low_level: INTEGER is
+	g_option_flag_no_arg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -138,7 +138,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_flag_noalias_low_level: INTEGER is
+	g_option_flag_noalias_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -147,7 +147,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_flag_optional_arg_low_level: INTEGER is
+	g_option_flag_optional_arg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -156,7 +156,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_flag_reverse_low_level: INTEGER is
+	g_option_flag_reverse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

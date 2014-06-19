@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {VOID_PROC_CALL}
-   visit_void_proc_call (visited: VOID_PROC_CALL) is
+   visit_void_proc_call (visited: VOID_PROC_CALL)
       require
          visited /= Void
       deferred

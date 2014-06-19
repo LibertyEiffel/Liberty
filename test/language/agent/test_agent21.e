@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create assertions.make
          assertions.add_last(agent is_flawed(?))
@@ -22,7 +22,7 @@ feature {ANY}
 
    assertions: LINKED_LIST[FUNCTION[TUPLE[STRING], BOOLEAN]]
 
-   is_flawed (message_: STRING): BOOLEAN is
+   is_flawed (message_: STRING): BOOLEAN
       do
          Result := (once "is flawed?").is_equal(message_)
       end

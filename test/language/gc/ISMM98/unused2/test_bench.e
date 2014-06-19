@@ -7,9 +7,9 @@ create {}
    make
 
 feature {ANY} --| **** TODO: tuning : INTEGER is 4_000_000; BDW BOUCLE !!!
-   tuning: INTEGER is 1_000_000
+   tuning: INTEGER 1_000_000
 
-   make is
+   make
       local
          i, j: INTEGER; link1, link2: LINK[REAL]
       do

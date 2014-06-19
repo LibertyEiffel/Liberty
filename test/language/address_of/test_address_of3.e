@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          i: INTEGER
       do
@@ -15,12 +15,12 @@ feature {}
          assert(i = 7)
       end
 
-   foo: INTEGER is
+   foo: INTEGER
       do
          Result := 7
       end
 
-   call_foo_with_pointer (pointer: POINTER): INTEGER is
+   call_foo_with_pointer (pointer: POINTER): INTEGER
       external "C inline"
       alias "((int (*) (void*))$pointer)(C)"
       end

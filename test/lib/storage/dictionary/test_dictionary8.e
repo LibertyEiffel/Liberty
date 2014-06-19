@@ -10,7 +10,7 @@ feature {ANY}
    dict_a: DICTIONARY[INTEGER, INTEGER]
    dict_b: DICTIONARY[STRING, INTEGER]
 
-   make is
+   make
       local
          itere_a: ITERATOR[INTEGER]; itere_b: ITERATOR[STRING]
       do

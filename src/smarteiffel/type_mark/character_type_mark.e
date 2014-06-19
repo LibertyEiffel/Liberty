@@ -15,46 +15,46 @@ create {ANY}
    make
 
 feature {ANY}
-   id: INTEGER is 3
+   id: INTEGER 3
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
          -- (Is always the same one.)
       once
          Result := string_aliaser.hashed_string(as_character)
       end
 
-   type: TYPE is
+   type: TYPE
          --|*** TYPE creation can be quite recursive, so this cannot be a once function <FM-14/10/2004>
       do
          Result := smart_eiffel.type_character
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   default_expression (sp: POSITION): EXPRESSION is
+   default_expression (sp: POSITION): EXPRESSION
       do
          create {CHARACTER_CONSTANT} Result.with(sp, '%U')
       end
 
-   accept (visitor: CHARACTER_TYPE_MARK_VISITOR) is
+   accept (visitor: CHARACTER_TYPE_MARK_VISITOR)
       do
          visitor.visit_character_type_mark(Current)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_character)
       end
 
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is 'c'
+   structure_mark: CHARACTER 'c'
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       do
          create class_text_name.make(written_name, sp, False)
       end

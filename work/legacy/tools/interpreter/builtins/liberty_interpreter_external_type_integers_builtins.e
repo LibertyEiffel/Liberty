@@ -26,11 +26,11 @@ inherit
       end
 
 feature {}
-   new_integer (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+   new_integer (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       deferred
       end
 
-   int64_target: INTEGER_64 is
+   int64_target: INTEGER_64
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -38,7 +38,7 @@ feature {}
          Result := obj.item
       end
 
-   right_as_integer_8: INTEGER_8 is
+   right_as_integer_8: INTEGER_8
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -48,52 +48,52 @@ feature {}
       end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-   call_add (f: LIBERTY_FEATURE) is
+   call_add (f: LIBERTY_FEATURE)
       do
          returned := new_integer(left + right)
       end
 
-   call_subtract (f: LIBERTY_FEATURE) is
+   call_subtract (f: LIBERTY_FEATURE)
       do
          returned := new_integer(left - right)
       end
 
-   call_times (f: LIBERTY_FEATURE) is
+   call_times (f: LIBERTY_FEATURE)
       do
          returned := new_integer(left * right)
       end
 
-   call_divide (f: LIBERTY_FEATURE) is
+   call_divide (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_real(left / right, builtin_call.position)
       end
 
-   call_less_or_equal (f: LIBERTY_FEATURE) is
+   call_less_or_equal (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left <= right, builtin_call.position)
       end
 
-   call_less_than (f: LIBERTY_FEATURE) is
+   call_less_than (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left < right, builtin_call.position)
       end
 
-   call_greater_or_equal (f: LIBERTY_FEATURE) is
+   call_greater_or_equal (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left >= right, builtin_call.position)
       end
 
-   call_greater_than (f: LIBERTY_FEATURE) is
+   call_greater_than (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left > right, builtin_call.position)
       end
 
-   call_negative (f: LIBERTY_FEATURE) is
+   call_negative (f: LIBERTY_FEATURE)
       do
          returned := new_integer(-target)
       end
 
-   call_other (f: LIBERTY_FEATURE) is
+   call_other (f: LIBERTY_FEATURE)
       do
          inspect
             builtin_call.name

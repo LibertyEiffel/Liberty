@@ -7,7 +7,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          impossible_directory_path: STRING
       do

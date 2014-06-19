@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
-   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
+   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION)
       require
          visited /= Void
       deferred

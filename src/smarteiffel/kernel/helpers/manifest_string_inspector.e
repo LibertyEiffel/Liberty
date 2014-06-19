@@ -24,7 +24,7 @@ feature {INSPECT_STATEMENT_VISITOR}
 
    headers: FAST_ARRAY[STRING]
 
-   has_empty: BOOLEAN is
+   has_empty: BOOLEAN
       local
          unknown_position: POSITION
       do
@@ -34,7 +34,7 @@ feature {INSPECT_STATEMENT_VISITOR}
 feature {}
    start_position: POSITION
 
-   make (ei: INSPECT_STATEMENT) is
+   make (ei: INSPECT_STATEMENT)
       require
          ei /= Void
       local
@@ -123,7 +123,7 @@ feature {}
    empty_index: INTEGER
 
 feature {INSPECT_STATEMENT}
-   simplify (type: TYPE; inspect_statement: INSPECT_STATEMENT): INSTRUCTION is
+   simplify (type: TYPE; inspect_statement: INSPECT_STATEMENT): INSTRUCTION
       local
          exp, count_call, local_expression: EXPRESSION; assign_expression, string_inspect: INSTRUCTION
          item_call: FUNCTION_CALL_1; i, s, c: INTEGER; inspect_compound, compound: COMPOUND
@@ -185,7 +185,7 @@ feature {INSPECT_STATEMENT}
 
 feature {}
    inline_inspect (type: TYPE; state_local: INTERNAL_LOCAL2; item_call: FUNCTION_CALL_1; count_call: EXPRESSION;
-                   a_prefix: STRING; pos: POSITION): INSTRUCTION is
+                   a_prefix: STRING; pos: POSITION): INSTRUCTION
       local
          i_call: FUNCTION_CALL_1
          args: EFFECTIVE_ARG_LIST_N

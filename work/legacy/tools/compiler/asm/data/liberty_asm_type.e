@@ -29,12 +29,12 @@ feature {ANY}
    attributes_count: INTEGER
          -- Number of attributes
 
-   methods_count: INTEGER is
+   methods_count: INTEGER
       do
          Result := methods.count
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := id = other.id
             and then attributes_count = other.attributes_count
@@ -42,7 +42,7 @@ feature {ANY}
             and then methods.for_all(agent other.methods.has)
       end
 
-   method (index: INTEGER): LIBERTY_ASM_METHOD is
+   method (index: INTEGER): LIBERTY_ASM_METHOD
       require
          index.in_range(0, methods_count - 1)
       do
@@ -51,14 +51,14 @@ feature {ANY}
          Result /= Void
       end
 
-   do_all_methods (action: PROCEDURE[TUPLE[LIBERTY_ASM_METHOD]]) is
+   do_all_methods (action: PROCEDURE[TUPLE[LIBERTY_ASM_METHOD]])
       require
          action /= Void
       do
          methods.do_all(action)
       end
 
-   resolve_method (method_id: INTEGER): LIBERTY_ASM_METHOD is
+   resolve_method (method_id: INTEGER): LIBERTY_ASM_METHOD
       do
          if methods.valid_index(method_id) then
             Result := method(method_id)
@@ -66,7 +66,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_ASM_METHOD}
-   add_method (a_method: LIBERTY_ASM_METHOD): INTEGER is
+   add_method (a_method: LIBERTY_ASM_METHOD): INTEGER
       require
          a_method /= Void
          resolve_method(a_method.id) = Void
@@ -78,7 +78,7 @@ feature {LIBERTY_ASM_METHOD}
          method(methods_count - 1) = a_method
       end
 
-   has_method (a_method: LIBERTY_ASM_METHOD): BOOLEAN is
+   has_method (a_method: LIBERTY_ASM_METHOD): BOOLEAN
       require
          a_method.type = Current
       do
@@ -88,7 +88,7 @@ feature {LIBERTY_ASM_METHOD}
       end
 
 feature {}
-   make (a_id: like id; a_attributes_count: like attributes_count) is
+   make (a_id: like id; a_attributes_count: like attributes_count)
       require
          a_attributes_count >= 0
       do

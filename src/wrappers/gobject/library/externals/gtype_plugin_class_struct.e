@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_plugin_class_struct_set_use_plugin (a_structure: POINTER; a_value: POINTER) is
+	gtype_plugin_class_struct_set_use_plugin (a_structure: POINTER; a_value: POINTER)
 			-- Setter for use_plugin field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_plugin_class_struct_set_unuse_plugin (a_structure: POINTER; a_value: POINTER) is
+	gtype_plugin_class_struct_set_unuse_plugin (a_structure: POINTER; a_value: POINTER)
 			-- Setter for unuse_plugin field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_plugin_class_struct_set_complete_type_info (a_structure: POINTER; a_value: POINTER) is
+	gtype_plugin_class_struct_set_complete_type_info (a_structure: POINTER; a_value: POINTER)
 			-- Setter for complete_type_info field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_plugin_class_struct_set_complete_interface_info (a_structure: POINTER; a_value: POINTER) is
+	gtype_plugin_class_struct_set_complete_interface_info (a_structure: POINTER; a_value: POINTER)
 			-- Setter for complete_interface_info field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field base_iface.
-	gtype_plugin_class_struct_get_use_plugin (a_structure: POINTER): POINTER is
+	gtype_plugin_class_struct_get_use_plugin (a_structure: POINTER): POINTER
 			-- Query for use_plugin field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_plugin_class_struct_get_unuse_plugin (a_structure: POINTER): POINTER is
+	gtype_plugin_class_struct_get_unuse_plugin (a_structure: POINTER): POINTER
 			-- Query for unuse_plugin field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_plugin_class_struct_get_complete_type_info (a_structure: POINTER): POINTER is
+	gtype_plugin_class_struct_get_complete_type_info (a_structure: POINTER): POINTER
 			-- Query for complete_type_info field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_plugin_class_struct_get_complete_interface_info (a_structure: POINTER): POINTER is
+	gtype_plugin_class_struct_get_complete_interface_info (a_structure: POINTER): POINTER
 			-- Query for complete_interface_info field of GTYPE_PLUGIN_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -108,7 +108,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

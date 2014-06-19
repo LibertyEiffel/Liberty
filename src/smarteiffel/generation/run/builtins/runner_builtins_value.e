@@ -14,7 +14,7 @@ feature {ANY}
    item: E_
 
 feature {}
-   set (a_processor: like processor; a_item: like item) is
+   set (a_processor: like processor; a_item: like item)
       do
          processor := a_processor
          item := a_item

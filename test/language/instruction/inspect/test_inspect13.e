@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          toto: STRING; e: like exception
       do

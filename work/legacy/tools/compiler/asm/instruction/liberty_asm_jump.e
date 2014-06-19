@@ -30,7 +30,7 @@ feature {ANY}
    target: LIBERTY_ASM_INSTRUCTION
          -- the jump target
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          eq: SAFE_EQUAL[LIBERTY_ASM_INSTRUCTION]
       do
@@ -38,14 +38,14 @@ feature {ANY}
             and then Precursor(other)
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       do
          target := a_target
       ensure
          target = a_target
       end
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_INSTRUCTION_VISITOR
       do
@@ -54,7 +54,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

@@ -29,29 +29,29 @@ feature {ANY}
 
    agent_type: TYPE
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := signature.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := signature.is_equal(other.signature)
       end
 
-   accept (visitor: AGENT_ARGS_VISITOR) is
+   accept (visitor: AGENT_ARGS_VISITOR)
       do
          visitor.visit_agent_args(Current)
       end
 
 feature {ANY}
-   agent_result: TYPE is
+   agent_result: TYPE
       do
          Result := agent_type.agent_result
       end
 
 feature {}
-   make (s: like signature; at: like agent_type) is
+   make (s: like signature; at: like agent_type)
       require
          s /= Void
          at.canonical_type_mark.is_agent

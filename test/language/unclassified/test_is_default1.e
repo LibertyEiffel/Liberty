@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          foo: STRING; i: INTEGER
       do
@@ -20,7 +20,7 @@ feature {ANY}
          assert(not foo.is_default)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

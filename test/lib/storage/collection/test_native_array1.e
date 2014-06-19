@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b: NATIVE_ARRAY[CHARACTER]
       do
@@ -33,7 +33,7 @@ feature {ANY}
          assert(a.memcmp(b, 2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

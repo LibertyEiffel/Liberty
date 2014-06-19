@@ -33,18 +33,18 @@ insert
 create {ANY} from_external_pointer
 
 feature {ANY} 
-	root:  XML2_NODE is
+	root:  XML2_NODE
 		do
 			Result:=cache.wrapper(xml_doc_get_root_element(handle))
 		end
 
 feature {} -- Implementation
-	free (p: POINTER) is
+	free (p: POINTER)
 		do
 			xml_free (p)
 		end
 
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C use <libxml/tree.h>"
 		alias "size_of (xmlDoc)"
 		end

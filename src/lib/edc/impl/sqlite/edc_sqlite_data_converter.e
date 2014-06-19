@@ -33,7 +33,7 @@ create {EDC_SQLITE_RESULT_SET}
    make
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS is
+   as_typed (item_type_generator: STRING): EDC_SQLITE_QUERY_BUILDER_TOOLS
       do
          check
             False
@@ -42,7 +42,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
 
 feature {EDC_SQLITE_RESULT_SET}
    datum (a_column: EDC_COLUMN; a_result_set: like result_set; a_row_index: like row_index
-      a_column_index: like column_index): EDC_DATUM is
+      a_column_index: like column_index): EDC_DATUM
       do
          result_set := a_result_set
          row_index := a_row_index
@@ -52,7 +52,7 @@ feature {EDC_SQLITE_RESULT_SET}
       end
 
 feature {EDC_BLOB_COLUMN}
-   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN) is
+   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN)
       local
          d: STRING
       do
@@ -61,7 +61,7 @@ feature {EDC_BLOB_COLUMN}
       end
 
 feature {EDC_CHARACTER_COLUMN}
-   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN) is
+   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN)
       local
          d: INTEGER
       do
@@ -70,7 +70,7 @@ feature {EDC_CHARACTER_COLUMN}
       end
 
 feature {EDC_INCREMENT_COLUMN}
-   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN) is
+   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN)
       local
          d: INTEGER
       do
@@ -79,7 +79,7 @@ feature {EDC_INCREMENT_COLUMN}
       end
 
 feature {EDC_INTEGER_COLUMN}
-   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is
+   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN)
       local
          d: INTEGER
       do
@@ -88,7 +88,7 @@ feature {EDC_INTEGER_COLUMN}
       end
 
 feature {EDC_STRING_COLUMN}
-   visit_string_column (a_string_column: EDC_STRING_COLUMN) is
+   visit_string_column (a_string_column: EDC_STRING_COLUMN)
       local
          d: STRING
       do
@@ -97,7 +97,7 @@ feature {EDC_STRING_COLUMN}
       end
 
 feature {EDC_TIME_COLUMN}
-   visit_time_column (a_time_column: EDC_TIME_COLUMN) is
+   visit_time_column (a_time_column: EDC_TIME_COLUMN)
       do
          not_yet_implemented
       end
@@ -111,7 +111,7 @@ feature {}
 
    the_datum: EDC_DATUM
 
-   make is
+   make
       do
       end
 

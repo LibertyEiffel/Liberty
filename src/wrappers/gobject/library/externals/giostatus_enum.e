@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_io_status_again_low_level)  or else
 				(a_value = g_io_status_eof_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_io_status_again is
+	set_g_io_status_again
 		do
 			value := g_io_status_again_low_level
 		end
 
-	set_g_io_status_eof is
+	set_g_io_status_eof
 		do
 			value := g_io_status_eof_low_level
 		end
 
-	set_g_io_status_error is
+	set_g_io_status_error
 		do
 			value := g_io_status_error_low_level
 		end
 
-	set_g_io_status_normal is
+	set_g_io_status_normal
 		do
 			value := g_io_status_normal_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_io_status_again: BOOLEAN is
+	is_g_io_status_again: BOOLEAN
 		do
 			Result := (value=g_io_status_again_low_level)
 		end
 
-	is_g_io_status_eof: BOOLEAN is
+	is_g_io_status_eof: BOOLEAN
 		do
 			Result := (value=g_io_status_eof_low_level)
 		end
 
-	is_g_io_status_error: BOOLEAN is
+	is_g_io_status_error: BOOLEAN
 		do
 			Result := (value=g_io_status_error_low_level)
 		end
 
-	is_g_io_status_normal: BOOLEAN is
+	is_g_io_status_normal: BOOLEAN
 		do
 			Result := (value=g_io_status_normal_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_io_status_again_low_level: INTEGER is
+	g_io_status_again_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_eof_low_level: INTEGER is
+	g_io_status_eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_error_low_level: INTEGER is
+	g_io_status_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_status_normal_low_level: INTEGER is
+	g_io_status_normal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

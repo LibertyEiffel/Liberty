@@ -13,13 +13,13 @@ create {EDC_CONSTANTS}
    make
 
 feature {ANY}
-   valid_session (session: EDC_SESSION): BOOLEAN is
+   valid_session (session: EDC_SESSION): BOOLEAN
       do
          Result := session.in_transaction
       end
 
 feature {}
-   make is
+   make
       do
       end
 

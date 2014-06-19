@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_format_size_default_low_level)  or else
 				(a_value = g_format_size_iec_units_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_format_size_default is
+	set_g_format_size_default
 		do
 			value := g_format_size_default_low_level
 		end
 
-	set_g_format_size_iec_units is
+	set_g_format_size_iec_units
 		do
 			value := g_format_size_iec_units_low_level
 		end
 
-	set_g_format_size_long_format is
+	set_g_format_size_long_format
 		do
 			value := g_format_size_long_format_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_format_size_default: BOOLEAN is
+	is_g_format_size_default: BOOLEAN
 		do
 			Result := (value=g_format_size_default_low_level)
 		end
 
-	is_g_format_size_iec_units: BOOLEAN is
+	is_g_format_size_iec_units: BOOLEAN
 		do
 			Result := (value=g_format_size_iec_units_low_level)
 		end
 
-	is_g_format_size_long_format: BOOLEAN is
+	is_g_format_size_long_format: BOOLEAN
 		do
 			Result := (value=g_format_size_long_format_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_format_size_default_low_level: INTEGER is
+	g_format_size_default_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_format_size_iec_units_low_level: INTEGER is
+	g_format_size_iec_units_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_format_size_long_format_low_level: INTEGER is
+	g_format_size_long_format_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

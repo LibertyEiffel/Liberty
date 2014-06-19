@@ -27,19 +27,19 @@ feature {HASHED_DICTIONARY}
          -- using HASHED_CAPACITY).
 
 feature {}
-   hash_code (k: K_): INTEGER is
+   hash_code (k: K_): INTEGER
       require
          k /= Void
       deferred
       end
 
-   buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node is
+   buckets_item (a_buckets: like buckets; idx: INTEGER): like cache_node
       do
          Result := a_buckets.item(idx)
       end
 
 feature {ANY}
-   Default_size: INTEGER is 53
+   Default_size: INTEGER 53
          -- Default size for the storage area in number of items.
 
    capacity: INTEGER
@@ -47,7 +47,7 @@ feature {ANY}
 
    count: INTEGER
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       local
          idx: INTEGER; node: like cache_node
       do
@@ -62,7 +62,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       local
          idx: INTEGER; node: like cache_node
       do
@@ -77,7 +77,7 @@ feature {ANY}
          Result := node.item
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       local
          idx: INTEGER; node: like cache_node
       do
@@ -94,7 +94,7 @@ feature {ANY}
          end
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       local
          idx: INTEGER; node: like cache_node
       do
@@ -109,7 +109,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       local
          idx: INTEGER; node: like cache_node
       do
@@ -124,7 +124,7 @@ feature {ANY}
          Result := node.item
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       local
          idx: INTEGER; node: like cache_node
       do
@@ -142,7 +142,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       local
          h, idx: INTEGER; node: like cache_node
       do
@@ -173,7 +173,7 @@ feature {ANY}
          next_generation
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_)
       local
          h, idx: INTEGER; node: like cache_node
       do
@@ -204,7 +204,7 @@ feature {ANY}
          next_generation
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       local
          idx: INTEGER; node: like cache_node
       do
@@ -222,7 +222,7 @@ feature {ANY}
          next_generation
       end
 
-   remove (k: K_) is
+   remove (k: K_)
       local
          h, idx: INTEGER; node, previous_node: like cache_node
       do
@@ -260,7 +260,7 @@ feature {ANY}
          next_generation
       end
 
-   fast_remove (k: K_) is
+   fast_remove (k: K_)
       local
          h, idx: INTEGER; node, previous_node: like cache_node
       do
@@ -298,7 +298,7 @@ feature {ANY}
          next_generation
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       local
          i: INTEGER; node: like cache_node
       do
@@ -327,36 +327,36 @@ feature {ANY}
          capacity = old capacity
       end
 
-   set_item (v: V_; index: INTEGER) is
+   set_item (v: V_; index: INTEGER)
       do
          set_cache_user(index)
          cache_node.set_item(v)
          next_generation
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          set_cache_user(index)
          Result := cache_node.item
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          set_cache_user(index)
          Result := cache_node.key
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
-   key_map_in (buffer: COLLECTION[K_]) is
+   key_map_in (buffer: COLLECTION[K_])
       local
          node: like cache_node; i, idx: INTEGER
       do
@@ -382,7 +382,7 @@ feature {ANY}
          end
       end
 
-   item_map_in (buffer: COLLECTION[V_]) is
+   item_map_in (buffer: COLLECTION[V_])
       local
          node: like cache_node; i, idx: INTEGER
       do
@@ -408,7 +408,7 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -433,7 +433,7 @@ feature {ANY}
          end
       end
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       local
          node: like cache_node
       do
@@ -449,14 +449,14 @@ feature {ANY}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a HASHED_DICTIONARY.
       do
          with_capacity(needed_capacity)
       end
 
 feature {}
-   increase_capacity is
+   increase_capacity
          -- There are not enough free slots: the dictionary must grow.
       require
          should_increase_capacity(capacity, count)
@@ -491,7 +491,7 @@ feature {}
          capacity > old capacity
       end
 
-   set_cache_user (index: INTEGER) is
+   set_cache_user (index: INTEGER)
          -- Set the internal memory cache (`cache_user', `cache_node' and `cache_buckets') to the appropriate
          -- valid value.
       require
@@ -552,7 +552,7 @@ feature {}
    nodes_list: FAST_ARRAY[HASHED_DICTIONARY_NODE[V_, K_]]
          -- Only in debug: the nodes list, in insertion order. Useful with sedb when browsing the nodes
 
-   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE], STRING] is
+   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE], STRING]
       local
          fn: WEAK_REFERENCE[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE], STRING]]
       once
@@ -561,7 +561,7 @@ feature {}
          Result.add(fn, Result.generating_type)
       end
 
-   dispose_node (node: like cache_node): like cache_node is
+   dispose_node (node: like cache_node): like cache_node
          -- Add `node' in the `free_nodes' list.
       require
          node /= Void
@@ -573,7 +573,7 @@ feature {}
          Result = old node.next
       end
 
-   new_node (v: V_; k: K_; next: like cache_node): like cache_node is
+   new_node (v: V_; k: K_; next: like cache_node): like cache_node
          -- Recycle from `free_nodes' or create a new one.
       do
          Result := free_nodes.item
@@ -585,7 +585,7 @@ feature {}
          end
       end
 
-   create_with_capacity (new_capacity: INTEGER) is
+   create_with_capacity (new_capacity: INTEGER)
       require
          new_capacity > 0
       do
@@ -603,7 +603,7 @@ feature {}
          end
       end
 
-   make, default_create is
+   make, default_create
          -- Create an empty dictionary. Internal storage `capacity' of the dictionary is initialized using the
          -- `Default_size' value. Then, tuning of needed storage `capacity' is performed automatically
          -- according to usage. If you are really sure that your dictionary is always really bigger than
@@ -614,7 +614,7 @@ feature {}
          capacity = Default_size
       end
 
-   with_capacity (medium_size: INTEGER) is
+   with_capacity (medium_size: INTEGER)
          -- May be used to save some execution time if one is sure that storage size will rapidly become
          -- really bigger than `Default_size'.  When first `remove' occurs, storage size may naturally become
          -- smaller than `medium_size'. Afterall, tuning of storage size is done automatically according to
@@ -644,7 +644,7 @@ end -- class ABSTRACT_HASHED_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

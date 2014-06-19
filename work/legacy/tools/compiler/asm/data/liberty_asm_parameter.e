@@ -24,13 +24,13 @@ create {ANY}
    make
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := True
       end
 
 feature {}
-   make is
+   make
       do
       end
 

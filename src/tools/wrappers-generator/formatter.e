@@ -14,10 +14,10 @@ create {ANY}
 	default_create
 
 feature {ANY}
-	clear, reset is
+	clear, reset
 			-- Clears the content of Current's buffer.
 		do
-			if buffer.is_empty then
+			if buffer._empty then
 				debug
 					std_error.put_line(once "Unnecessary invocation of FORMATTER.reset")
 					-- That's way too verbose print_run_time_stack
@@ -27,31 +27,31 @@ feature {ANY}
 			end
 		end
 
-	reset_with (a_string: STRING) is
+	reset_with (a_string: STRING)
 			-- Overwrite the content of Current's buffer with a copy of `a_string'.
 		do
 			buffer.copy(a_string)
 		end
 
-	out: STRING is
+	out: STRING
 			-- A newly create copy of Current content
 		do
 			create Result.copy(buffer)
 		end
 
-	append (a_string: STRING) is
+	append (a_string: STRING)
 			-- Append `a_string' to the content of Current
 		do
 			buffer.append(a_string)
 		end
 
-	append_new_line is
+	append_new_line
 		-- Append a new line to Current
 	do
 		buffer.append(once "%N")
 	end
 
-	append_on (a_string: STRING) is
+	append_on (a_string: STRING)
 			-- Append the content of Current to `a_string'
 		require
 			a_string /= Void
@@ -59,39 +59,39 @@ feature {ANY}
 			a_string.append(buffer)
 		end
 
-	print_on (a_stream: OUTPUT_STREAM) is
+	print_on (a_stream: OUTPUT_STREAM)
 			-- Put current content on `a_stream'
 		do
 			a_stream.put_string(buffer)
 			reset
-		ensure is_empty
+		ensure _empty
 		end
 
-	is_empty: BOOLEAN is
+	_empty: BOOLEAN
 			-- Is current empty?
 		do
-			Result := buffer.is_empty
+			Result := buffer._empty
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- Content length
 		do
 			Result := buffer.count
 		end
 
 
-	default_create is
+	default_create
 		do
 			create buffer.make_empty
 		end
 
-	put (c: CHARACTER) is
+	put (c: CHARACTER)
 		do
 			buffer.append_character(c)
 		end
 
 feature {} -- Implementation
-	put_item (item: ABSTRACT_STRING) is
+	put_item (item: ABSTRACT_STRING)
 		do
 			buffer.append(item.out)
 		end
@@ -103,7 +103,7 @@ end -- class FORMATTER
 -- Copyright 2008,2009 Paolo Redaelli
 
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -113,4 +113,4 @@ end -- class FORMATTER
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

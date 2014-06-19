@@ -16,7 +16,7 @@ create {RUNNER_INSTRUCTIONS}
 feature {RUNNER_INSTRUCTIONS}
    processor: RUNNER_PROCESSOR
 
-   call (a_inspect: INSPECT_STATEMENT) is
+   call (a_inspect: INSPECT_STATEMENT)
       local
          old_value: like value; old_found: like found
          i: INTEGER
@@ -50,7 +50,7 @@ feature {RUNNER_INSTRUCTIONS}
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       local
          i: INTEGER
       do
@@ -74,7 +74,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {WHEN_ITEM_1}
-   visit_when_item_1 (visited: WHEN_ITEM_1) is
+   visit_when_item_1 (visited: WHEN_ITEM_1)
       local
          item: RUNNER_OBJECT
       do
@@ -89,13 +89,13 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_ITEM_2}
-   visit_when_item_2 (visited: WHEN_ITEM_2) is
+   visit_when_item_2 (visited: WHEN_ITEM_2)
       do
          break --| **** TODO
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor)
       require
          a_processor /= Void
       do

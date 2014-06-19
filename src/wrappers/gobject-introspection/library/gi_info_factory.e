@@ -8,7 +8,7 @@ inherit WRAPPER_FACTORY [GI_BASE_INFO]
 insert GIBASEINFO_EXTERNALS undefine default_create end
 
 feature {WRAPPER, WRAPPER_HANDLER}
-	wrapper (a_pointer: POINTER): GI_BASE_INFO is
+	wrapper (a_pointer: POINTER): GI_BASE_INFO
 		local type: GIINFO_TYPE_ENUM
 		do
 			type.set(g_base_info_get_type(a_pointer))

@@ -8,7 +8,7 @@ class REGULAR_EXPRESSION_STRING_SCANNER
    --
 
 feature {ANY} -- make
-   make is
+   make
          -- Initialise the attributes.
       do
          create last_string.make(10)
@@ -18,7 +18,7 @@ feature {ANY} -- basic
    scanned_string: ABSTRACT_STRING
          -- The expression being currently build.
 
-   set_scanned_string (string: like scanned_string) is
+   set_scanned_string (string: like scanned_string)
          -- Set the 'scanned_string' with 'string'.
       do
          scanned_string := string
@@ -34,7 +34,7 @@ feature {ANY} -- error managment
    has_error: BOOLEAN
          -- True when an error was encountered
 
-   clear_error is
+   clear_error
          -- Remove the error flag
       do
          has_error := False
@@ -42,7 +42,7 @@ feature {ANY} -- error managment
          has_no_error: not has_error
       end
 
-   last_error: STRING is
+   last_error: STRING
          -- Returns a string recorded for the error.
       require
          has_error: has_error
@@ -52,7 +52,7 @@ feature {ANY} -- error managment
          not_void: Result /= Void
       end
 
-   set_error (message: STRING) is
+   set_error (message: STRING)
          -- Set has_error and last_error.
          -- The explaining error string 'last_error'
          -- is created as follow: "Error at position 'position': 'message'.".
@@ -84,7 +84,7 @@ feature {ANY} -- scanning
          -- True when 'last_character' is valid.
          -- Is like 'scanned_string.valid_index(position)'
 
-   valid_previous_character: BOOLEAN is
+   valid_previous_character: BOOLEAN
          -- True if the position-1 is a valid position.
       require
          scanned_string /= Void
@@ -94,7 +94,7 @@ feature {ANY} -- scanning
          definition: Result = scanned_string.valid_index(position - 1)
       end
 
-   previous_character: like last_character is
+   previous_character: like last_character
          -- The character at position-1.
       require
          valid_previous_character
@@ -104,7 +104,7 @@ feature {ANY} -- scanning
          definition: Result = scanned_string.item(position - 1)
       end
 
-   valid_next_character: BOOLEAN is
+   valid_next_character: BOOLEAN
          -- True if the position+1 is a valid position.
       require
          scanned_string /= Void
@@ -114,7 +114,7 @@ feature {ANY} -- scanning
          definition: Result = scanned_string.valid_index(position + 1)
       end
 
-   next_character: like last_character is
+   next_character: like last_character
          -- The character at position+1.
       require
          valid_next_character
@@ -124,7 +124,7 @@ feature {ANY} -- scanning
          definition: Result = scanned_string.item(position + 1)
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
          -- True when all the characters of 'scanned_string'
          -- are scanned.
       do
@@ -133,7 +133,7 @@ feature {ANY} -- scanning
          implies_last_character_not_valid: Result implies not valid_last_character
       end
 
-   goto_position (pos: INTEGER) is
+   goto_position (pos: INTEGER)
          -- Change the currently scanned position to 'pos'.
          -- Updates 'last_character' and 'valid_last_character' to
          -- reflect the new position value.
@@ -153,7 +153,7 @@ feature {ANY} -- scanning
          character_updated: valid_last_character implies last_character = scanned_string.item(position)
       end
 
-   read_character is
+   read_character
          -- Reads the next character.
       require
          has_no_error: not has_error
@@ -165,7 +165,7 @@ feature {ANY} -- scanning
          has_no_error: not has_error
       end
 
-   read_integer is
+   read_integer
          -- Reads an integer value beginning at the
          -- currently scanned position.
          -- The readen value is stored in 'last_integer'.
@@ -191,7 +191,7 @@ feature {ANY} -- scanning
    saved_position: INTEGER
          -- The saved position (only one is currently enougth).
 
-   save_position is
+   save_position
          -- Saves the current scanning position.
       require
          not_at_end: not end_of_input
@@ -203,7 +203,7 @@ feature {ANY} -- scanning
          saved_position_set: saved_position = position
       end
 
-   restore_saved_position is
+   restore_saved_position
          -- Restore the scanning position to the last saved one.
       do
          goto_position(saved_position)
@@ -229,7 +229,7 @@ end -- class REGULAR_EXPRESSION_STRING_SCANNER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

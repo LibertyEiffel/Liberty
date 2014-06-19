@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       require
          visited /= Void
       deferred

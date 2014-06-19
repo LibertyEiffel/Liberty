@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make (sd: AUX_PH4_SPLAY_DICTIONARY[ANY, I]) is
+   make (sd: AUX_PH4_SPLAY_DICTIONARY[ANY, I])
       do
          --***    node:=sd.lowest_node
       end
 
-   index: I is
+   index: I
       do
          --***    Result:=node.index
       end

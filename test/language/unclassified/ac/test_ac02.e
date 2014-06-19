@@ -11,9 +11,9 @@ create {}
    make
 
 feature {ANY}
-   Test_count: INTEGER is 10
+   Test_count: INTEGER 10
 
-   make is
+   make
       local
          c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX; rnd_generator: PRESS_RANDOM_NUMBER_GENERATOR
          i: INTEGER
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   random_complex (rnd: RANDOM_NUMBER_GENERATOR): AUX_AC_COMPLEX is
+   random_complex (rnd: RANDOM_NUMBER_GENERATOR): AUX_AC_COMPLEX
       local
          re: REAL; im: REAL
       do
@@ -47,7 +47,7 @@ feature {ANY}
          Result.set_item(re, im)
       end
 
-   test_plus (x, y, z: AUX_AC_COMPLEX) is
+   test_plus (x, y, z: AUX_AC_COMPLEX)
       local
          zero: AUX_AC_COMPLEX
       do
@@ -57,7 +57,7 @@ feature {ANY}
          --         assert(((x + y) + z) = (x + (y + z)));
       end
 
-   test_times (x, y, z: AUX_AC_COMPLEX) is
+   test_times (x, y, z: AUX_AC_COMPLEX)
       local
          one: AUX_AC_COMPLEX
       do
@@ -67,7 +67,7 @@ feature {ANY}
          --         assert(((x * y) * z) = (x * (y * z)));
       end
 
-   test_plus_and_times (x, y, z: AUX_AC_COMPLEX) is
+   test_plus_and_times (x, y, z: AUX_AC_COMPLEX)
       do
          --         assert(((x + y) * z) = (x * z + y * z));
       end

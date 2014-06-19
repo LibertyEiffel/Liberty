@@ -16,61 +16,61 @@ create {RUNNER_INSTRUCTIONS}
    make
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := loop_instruction.start_position
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check False end
       end
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check False end
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       do
          check False end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          check False end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := loop_instruction.side_effect_free(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := loop_instruction.use_current(type)
       end
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          check False end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          check False end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check False end
       end
 
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: RUNNER_LOOP_VISITOR
       do
@@ -79,19 +79,19 @@ feature {ANY}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST, NO_INVARIANT_WRAPPER}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check False end
       end
 
 feature {ANONYMOUS_FEATURE, CODE, INTROSPECTION_HANDLER}
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          check False end
       end
 
 feature {}
-   make (a_loop: like loop_instruction) is
+   make (a_loop: like loop_instruction)
       require
          a_loop /= Void
       do

@@ -25,7 +25,7 @@ inherit
    ESE_TYPED_VISITOR[T_]
 
 feature {EDC_EQUALS_EXPRESSION}
-   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[T_]) is
+   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[T_])
       deferred
       end
 

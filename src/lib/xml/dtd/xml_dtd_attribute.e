@@ -11,7 +11,7 @@ create {XML_DTD_ELEMENT}
    make
 
 feature {XML_DTD_ELEMENT} -- validation
-   is_valid (attributes: DICTIONARY[UNICODE_STRING, UNICODE_STRING]): BOOLEAN is
+   is_valid (attributes: DICTIONARY[UNICODE_STRING, UNICODE_STRING]): BOOLEAN
       local
          value: UNICODE_STRING
       do
@@ -28,7 +28,7 @@ feature {XML_DTD_ELEMENT} -- validation
 feature {XML_DTD_ELEMENT} -- building
    name: UNICODE_STRING
 
-   list_value (value: UNICODE_STRING) is
+   list_value (value: UNICODE_STRING)
       do
          if list = Void then
             create {HASHED_SET[UNICODE_STRING]} list.make
@@ -36,85 +36,85 @@ feature {XML_DTD_ELEMENT} -- building
          list.add(value)
       end
 
-   cdata is
+   cdata
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   id is
+   id
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   idref is
+   idref
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   idrefs is
+   idrefs
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   nmtoken is
+   nmtoken
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   nmtokens is
+   nmtokens
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   entity is
+   entity
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   entities is
+   entities
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   notation is
+   notation
       do
          check
             list /= Void implies list.is_empty
          end
       end
 
-   required is
+   required
       do
          is_required := True
       end
 
-   implied is
+   implied
       do
          is_required := False
       end
 
-   valid_fixed_value (value: like default): BOOLEAN is
+   valid_fixed_value (value: like default): BOOLEAN
       do
          Result := list = Void or else list.is_empty or else list.has(value)
       end
 
-   fixed (value: like default) is
+   fixed (value: like default)
       require
          valid_fixed_value(value)
       do
@@ -126,7 +126,7 @@ feature {XML_DTD_ELEMENT} -- building
          default := value
       end
 
-   default_value (value: like default) is
+   default_value (value: like default)
       do
          is_required := False
          check
@@ -140,13 +140,13 @@ feature {}
 
    is_required: BOOLEAN
 
-   is_implied: BOOLEAN is
+   is_implied: BOOLEAN
       do
          Result := not is_required
       end
 
 feature {XML_DTD_ELEMENT}
-   make (a_name: like name) is
+   make (a_name: like name)
       require
          not a_name.is_empty
       do
@@ -158,7 +158,7 @@ feature {XML_DTD_ELEMENT}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if list /= Void then
             list.clear_count
@@ -180,7 +180,7 @@ end -- class XML_DTD_ATTRIBUTE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -41,12 +41,12 @@ feature {LIBERTY_ACTUAL_TYPE}
    automaton_context: AUTOMATON_CONTEXT[LIBERTY_TYPE_BUILDER]
    has_loaded_features: BOOLEAN
 
-   current_state: FIXED_STRING is
+   current_state: FIXED_STRING
       do
          Result := automaton_context.current_state.name
       end
 
-   build_more is
+   build_more
       require
          not is_built
       local
@@ -62,13 +62,13 @@ feature {LIBERTY_ACTUAL_TYPE}
          end
       end
 
-   is_built: BOOLEAN is
+   is_built: BOOLEAN
       do
          Result := not automaton_context.is_valid
       end
 
 feature {LIBERTY_TYPE_BUILDER}
-   transition (to_state: STATE[LIBERTY_TYPE_BUILDER]; actual_transition: FUNCTION[TUPLE[LIBERTY_TYPE_BUILDER, STATE[LIBERTY_TYPE_BUILDER]], ABSTRACT_STRING]): ABSTRACT_STRING is
+   transition (to_state: STATE[LIBERTY_TYPE_BUILDER]; actual_transition: FUNCTION[TUPLE[LIBERTY_TYPE_BUILDER, STATE[LIBERTY_TYPE_BUILDER]], ABSTRACT_STRING]): ABSTRACT_STRING
       do
          type_lookup.push(type_resolver)
          Result := actual_transition.item([Current, to_state])
@@ -78,7 +78,7 @@ feature {LIBERTY_TYPE_BUILDER}
          type_lookup.pop
       end
 
-   ready: BOOLEAN is
+   ready: BOOLEAN
          -- Is the type ready to be initialized?
       do
          if init = Void then
@@ -90,7 +90,7 @@ feature {LIBERTY_TYPE_BUILDER}
          Result := init.is_ready
       end
 
-   init_header: STRING is
+   init_header: STRING
          -- Initialize the type using its header: check the name and compare the formal type parameters to the
          -- given effective parameters.
       do
@@ -102,14 +102,14 @@ feature {LIBERTY_TYPE_BUILDER}
          Result := once "loading parents"
       end
 
-   can_load_parents: BOOLEAN is
+   can_load_parents: BOOLEAN
       do
          Result := not errors.has_error and then type.is_reachable
       ensure
          not type.is_reachable implies not Result
       end
 
-   load_parents: STRING is
+   load_parents: STRING
          -- Just load the parent types, not trying to import anything yet, just to let the universe know that
          -- those classes will be needed, and for us to be able to iterate through all the type's parents
       require
@@ -133,7 +133,7 @@ feature {LIBERTY_TYPE_BUILDER}
          end
       end
 
-   can_load_parent_features: BOOLEAN is
+   can_load_parent_features: BOOLEAN
          -- True if all the parents have finished loading their features
       require
          type.is_reachable
@@ -156,7 +156,7 @@ feature {LIBERTY_TYPE_BUILDER}
          end
       end
 
-   load_parent_features: STRING is
+   load_parent_features: STRING
          -- Load the parent features, considering renamings, redefinitions and so on
       require
          type.is_reachable
@@ -175,7 +175,7 @@ feature {LIBERTY_TYPE_BUILDER}
          Result := once "loading features"
       end
 
-   load_features: STRING is
+   load_features: STRING
          -- Load the type's own features, not trying to reconcile anchors yet.
          -- The full semantics tree of each feature is built here.
       require
@@ -196,7 +196,7 @@ feature {LIBERTY_TYPE_BUILDER}
          Result := once "checking type"
       end
 
-   check_type: STRING is
+   check_type: STRING
          -- Check the type integrity: types conformance (assignments), BOOLEAN (assertions, if, until....),
          -- arguments of feature calls (type, count... including agents), and so on
       require
@@ -216,19 +216,19 @@ feature {LIBERTY_TYPE_BUILDER}
          end
       end
 
-   no_errors: BOOLEAN is
+   no_errors: BOOLEAN
       do
          Result := not errors.has_error
       end
 
-   otherwise: BOOLEAN is True
+   otherwise: BOOLEAN True
 
-   stay (state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING is
+   stay (state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING
       do
          Result := state.name
       end
 
-   abort (state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING is
+   abort (state: STATE[LIBERTY_TYPE_BUILDER]): FIXED_STRING
       require
          errors.has_error
       do
@@ -242,7 +242,7 @@ feature {}
    features_loader: LIBERTY_TYPE_FEATURES_LOADER
 
 feature {}
-   check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE]): BOOLEAN is
+   check_have_loaded_features (parents: INDEXABLE[LIBERTY_ACTUAL_TYPE]): BOOLEAN
       local
          i: INTEGER
       do
@@ -266,7 +266,7 @@ feature {}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE is
+   effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): LIBERTY_ACTUAL_TYPE
       require
          formal_parameter_name /= Void
          has_effective_generic_parameter(formal_parameter_name)
@@ -274,7 +274,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          Result := effective_generic_parameters.reference_at(formal_parameter_name.intern)
       end
 
-   has_effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): BOOLEAN is
+   has_effective_generic_parameter (formal_parameter_name: ABSTRACT_STRING): BOOLEAN
       require
          formal_parameter_name /= Void
       do
@@ -282,7 +282,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_TYPE_INIT}
-   set_effective_generic_parameters (effective: like effective_generic_parameters) is
+   set_effective_generic_parameters (effective: like effective_generic_parameters)
       require
          useful: not effective.is_empty
       do
@@ -298,7 +298,7 @@ feature {LIBERTY_TYPE_INIT}
       end
 
 feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
-   set_redefined_features (redefined: like redefined_features) is
+   set_redefined_features (redefined: like redefined_features)
       require
          useful: not redefined.is_empty
       do
@@ -312,7 +312,7 @@ feature {}
          -- key: generic parameter name (e.g. E_)
          -- value: effective parameter (e.g. STRING)
 
-   empty_effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING] is
+   empty_effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
       once
          -- Special common case (no effective parameters) factored out, using the smallest possible structure
          -- (an empty AVL tree)
@@ -321,13 +321,13 @@ feature {}
 
    redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
-   no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME] is
+   no_redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
       once
          create {AVL_DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]} Result.make
       end
 
 feature {}
-   make (a_type: like type; a_universe: like universe) is
+   make (a_type: like type; a_universe: like universe)
       require
          a_type /= Void
          a_universe /= Void
@@ -351,7 +351,7 @@ feature {}
    current_entity: LIBERTY_CURRENT
 
 feature {}
-   automaton: AUTOMATON[LIBERTY_TYPE_BUILDER] is
+   automaton: AUTOMATON[LIBERTY_TYPE_BUILDER]
       once
          Result := {AUTOMATON[LIBERTY_TYPE_BUILDER] <<
 

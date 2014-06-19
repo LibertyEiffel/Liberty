@@ -12,7 +12,7 @@ feature {ANY}
    -- arr: ARRAY[expanded AUX_EXPANDED14];
    arr: ARRAY[AUX_EXPANDED14]
 
-   make is
+   make
       local
          i: INTEGER; v: AUX_EXPANDED14
       do

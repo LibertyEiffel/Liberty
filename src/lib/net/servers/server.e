@@ -9,7 +9,7 @@ deferred class SERVER[C_ -> CONNECTION]
    --
 
 feature {ANY}
-   start (access: ACCESS) is
+   start (access: ACCESS)
          -- Start a server at the given access point.
       do
          -- First create a job stack (see the Sequencer tutorial for details)
@@ -22,7 +22,7 @@ feature {ANY}
          end
       end
 
-   start_in_stack (access: ACCESS; a_stack: like stack; a_shutdown_handler: like shutdown_handler): BOOLEAN is
+   start_in_stack (access: ACCESS; a_stack: like stack; a_shutdown_handler: like shutdown_handler): BOOLEAN
          -- Start the server in the given stack. True if the server effectively started.
       do
          shutdown_handler := a_shutdown_handler
@@ -30,12 +30,12 @@ feature {ANY}
          Result := common_start(access)
       end
 
-   set_logger (a_logger: like logger) is
+   set_logger (a_logger: like logger)
       do
          logger := a_logger
       end
 
-   log (a_message: STRING) is
+   log (a_message: STRING)
       do
          if logger /= Void then
             logger.call([a_message])
@@ -46,12 +46,12 @@ feature {}
    logger: PROCEDURE[TUPLE[STRING]]
 
 feature {}
-   standalone_handler_agent: like shutdown_handler is
+   standalone_handler_agent: like shutdown_handler
       do
          Result := agent standalone_shutdown
       end
 
-   common_start (access: ACCESS): BOOLEAN is
+   common_start (access: ACCESS): BOOLEAN
       local
          errors: SOCKET_ERRORS; serv: SOCKET_SERVER
       do
@@ -73,12 +73,12 @@ feature {}
       end
 
 feature {}
-   handle_error (error_message: STRING) is
+   handle_error (error_message: STRING)
          -- What to do when there was an error
       deferred
       end
 
-   new_connection: C_ is
+   new_connection: C_
          -- Create a new connection
       deferred
       end
@@ -92,8 +92,8 @@ feature {}
 
    shutdown_handler: PROCEDURE[TUPLE[like Current]]
 
-   handle_connect (a_io: SOCKET_INPUT_OUTPUT_STREAM) is
-         -- Handle a connection to the server. This feature is called back by the server when a connection is
+   handle_connect (a_io: SOCKET_INPUT_OUTPUT_STREAM)
+         -- Handle a connection to the server. This feature is called back by the server when a connection
          -- attempted (see the `when_connect' feature of SOCKET_SERVER)
       local
          cnx: C_
@@ -104,7 +104,7 @@ feature {}
          connections := connections + 1
       end
 
-   handle_shutdown (a_server: like server) is
+   handle_shutdown (a_server: like server)
          -- Shutdown gracefully when all connections are closed. This feature is called back by the server
          -- when it is asked to shut down (see the `when_shutdown' feature of SOCKET_SERVER)
       require
@@ -116,7 +116,7 @@ feature {}
          end
       end
 
-   standalone_shutdown (a_server: like Current) is
+   standalone_shutdown (a_server: like Current)
       require
          a_server = Current
       do
@@ -131,7 +131,7 @@ end -- class SERVER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

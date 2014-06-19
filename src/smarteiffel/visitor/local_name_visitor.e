@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LOCAL_NAME}
-   visit_local_name (visited: LOCAL_NAME) is
+   visit_local_name (visited: LOCAL_NAME)
       require
          visited /= Void
       do

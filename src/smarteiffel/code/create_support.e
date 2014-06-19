@@ -24,12 +24,12 @@ feature {ANY}
 
    default_create_call: BOOLEAN
 
-   frozen side_effect_free (type: TYPE): BOOLEAN is
+   frozen side_effect_free (type: TYPE): BOOLEAN
       do
          -- Memory allocation.
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen safety_check (type: TYPE)
       local
          args: like arguments
       do
@@ -41,7 +41,7 @@ feature {ANY}
          end
       end
 
-   created_type (type: TYPE): TYPE is
+   created_type (type: TYPE): TYPE
       require
          type /= Void
       deferred
@@ -50,7 +50,7 @@ feature {ANY}
       end
 
 feature {ONCE_ROUTINE_POOL, PRECOMPUTABLE_ROUTINE_DETECTOR, HIDDEN_EXPRESSION_DETECTOR}
-   creation_procedure (type_to_create: TYPE): E_ROUTINE is
+   creation_procedure (type_to_create: TYPE): E_ROUTINE
       require
          type_to_create /= Void
          default_create_is_inherited: call /= Void
@@ -67,7 +67,7 @@ feature {ONCE_ROUTINE_POOL, PRECOMPUTABLE_ROUTINE_DETECTOR, HIDDEN_EXPRESSION_DE
       end
 
 feature {CREATE_SUPPORT}
-   specialize_checks (type: TYPE) is
+   specialize_checks (type: TYPE)
          -- Check the validity of the CREATION_INSTRUCTION / CREATION_EXPRESSION where `type' is the
          -- `specialize_and_check' argument. (Note because of possible redefinition checks are not wrapped inside a
          -- `is_the_validity_check_site_of' call.)
@@ -210,7 +210,7 @@ feature {CREATE_SUPPORT}
       end
 
 feature {CREATE_SUPPORT}
-   set_call (c: like call) is
+   set_call (c: like call)
       require
          c /= Void
       do
@@ -220,7 +220,7 @@ feature {CREATE_SUPPORT}
       end
 
 feature {MANIFEST_TUPLE, CREATE_INSTRUCTION_VISITOR, CREATE_EXPRESSION_VISITOR}
-   arguments: EFFECTIVE_ARG_LIST is
+   arguments: EFFECTIVE_ARG_LIST
       require
          call /= Void
       do

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -16,12 +16,12 @@ feature {ANY}
          end
       end
 
-   foo is
+   foo
       do
          bar
       end
 
-   bar is
+   bar
       do
          foo
       end

@@ -16,7 +16,7 @@ feature {ANY}
    second: BACKTRACKING_NODE
          -- second node of the sequence
 
-   make (frst, scnd: BACKTRACKING_NODE) is
+   make (frst, scnd: BACKTRACKING_NODE)
       require
          first_not_void: frst /= Void
          second_not_void: scnd /= Void
@@ -29,7 +29,7 @@ feature {ANY}
          second_not_void: second /= Void
       end
 
-   set_first (value: BACKTRACKING_NODE) is
+   set_first (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -39,7 +39,7 @@ feature {ANY}
          first_not_void: first /= Void
       end
 
-   set_second (value: BACKTRACKING_NODE) is
+   set_second (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -61,7 +61,7 @@ end -- class BACKTRACKING_NODE_BINARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

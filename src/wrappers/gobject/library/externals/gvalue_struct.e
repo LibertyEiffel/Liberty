@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gvalue_struct_set_g_type (a_structure: POINTER; a_value: like long_unsigned) is
+	gvalue_struct_set_g_type (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for g_type field of GVALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gvalue_struct_set_data (a_structure: POINTER; a_value: POINTER) is
+	gvalue_struct_set_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data field of GVALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gvalue_struct_get_g_type (a_structure: POINTER): like long_unsigned is
+	gvalue_struct_get_g_type (a_structure: POINTER): like long_unsigned
 			-- Query for g_type field of GVALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gvalue_struct_get_data (a_structure: POINTER): POINTER is
+	gvalue_struct_get_data (a_structure: POINTER): POINTER
 			-- Query for data field of GVALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

@@ -7,12 +7,12 @@ create {}
    truc
 
 feature {ANY}
-   truc is
+   truc
       do
          bidule(0)
       end
 
-   bidule (machin: INTEGER) is
+   bidule (machin: INTEGER)
       do
          machin := 0
       end

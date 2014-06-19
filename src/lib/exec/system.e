@@ -10,7 +10,7 @@ insert
    ANY
 
 feature {ANY}
-   get_environment_variable (variable: STRING): STRING is
+   get_environment_variable (variable: STRING): STRING
          -- Try to get the value of the system environment `variable' or some
          -- `variable' in the system registry. Gives Void when no information
          -- about the `variable' is available. Under UNIX like system, this
@@ -29,7 +29,7 @@ feature {ANY}
          end
       end
 
-   set_environment_variable (variable, value: STRING) is
+   set_environment_variable (variable, value: STRING)
          -- Try to assign the system environment `variable' with `value'.
       require
          variable /= Void
@@ -38,7 +38,7 @@ feature {ANY}
          basic_putenv(variable.to_external, value.to_external)
       end
 
-   execute_command (system_command_line: ABSTRACT_STRING): INTEGER is
+   execute_command (system_command_line: ABSTRACT_STRING): INTEGER
          -- To execute a `system_command_line' as for example, "ls -l" on UNIX.
          -- The `Result' depends of the actual operating system. As an exemple,
          -- this `execute' feature is under UNIX the equivalent of a `system' call.
@@ -58,7 +58,7 @@ feature {ANY}
          Result := basic_system(p)
       end
 
-   execute_command_line (system_command_line: ABSTRACT_STRING) is
+   execute_command_line (system_command_line: ABSTRACT_STRING)
          -- The equivalent of `execute_command' without `Result'.
       require
          only_one_command: not system_command_line.has('%N')
@@ -68,7 +68,7 @@ feature {ANY}
       end
 
 feature {}
-   basic_getenv (environment_variable: POINTER): POINTER is
+   basic_getenv (environment_variable: POINTER): POINTER
          -- To implement `get_environment_variable'.
       external "plug_in"
       alias "{
@@ -78,7 +78,7 @@ feature {}
          }"
       end
 
-   basic_putenv (variable, value: POINTER) is
+   basic_putenv (variable, value: POINTER)
          -- To implement `set_environment_variable'.
       external "plug_in"
       alias "{
@@ -88,7 +88,7 @@ feature {}
          }"
       end
 
-   basic_system (system_command_line: POINTER): INTEGER is
+   basic_system (system_command_line: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -105,7 +105,7 @@ end -- class SYSTEM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

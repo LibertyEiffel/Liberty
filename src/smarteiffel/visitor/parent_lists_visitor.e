@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {PARENT_LISTS}
-   visit_parent_lists (visited: PARENT_LISTS) is
+   visit_parent_lists (visited: PARENT_LISTS)
       require
          visited /= Void
       deferred

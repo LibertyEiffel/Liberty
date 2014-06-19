@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bad_utf8_low_level)  or else
 				(a_value = empty_low_level)  or else
@@ -20,79 +20,79 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bad_utf8 is
+	set_bad_utf8
 		do
 			value := bad_utf8_low_level
 		end
 
-	set_empty is
+	set_empty
 		do
 			value := empty_low_level
 		end
 
-	set_invalid_content is
+	set_invalid_content
 		do
 			value := invalid_content_low_level
 		end
 
-	set_missing_attribute is
+	set_missing_attribute
 		do
 			value := missing_attribute_low_level
 		end
 
-	set_parse is
+	set_parse
 		do
 			value := parse_low_level
 		end
 
-	set_unknown_attribute is
+	set_unknown_attribute
 		do
 			value := unknown_attribute_low_level
 		end
 
-	set_unknown_element is
+	set_unknown_element
 		do
 			value := unknown_element_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bad_utf8: BOOLEAN is
+	is_bad_utf8: BOOLEAN
 		do
 			Result := (value=bad_utf8_low_level)
 		end
 
-	is_empty: BOOLEAN is
+	is_empty: BOOLEAN
 		do
 			Result := (value=empty_low_level)
 		end
 
-	is_invalid_content: BOOLEAN is
+	is_invalid_content: BOOLEAN
 		do
 			Result := (value=invalid_content_low_level)
 		end
 
-	is_missing_attribute: BOOLEAN is
+	is_missing_attribute: BOOLEAN
 		do
 			Result := (value=missing_attribute_low_level)
 		end
 
-	is_parse: BOOLEAN is
+	is_parse: BOOLEAN
 		do
 			Result := (value=parse_low_level)
 		end
 
-	is_unknown_attribute: BOOLEAN is
+	is_unknown_attribute: BOOLEAN
 		do
 			Result := (value=unknown_attribute_low_level)
 		end
 
-	is_unknown_element: BOOLEAN is
+	is_unknown_element: BOOLEAN
 		do
 			Result := (value=unknown_element_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_utf8_low_level: INTEGER is
+	bad_utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -101,7 +101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	empty_low_level: INTEGER is
+	empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -110,7 +110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_content_low_level: INTEGER is
+	invalid_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -119,7 +119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	missing_attribute_low_level: INTEGER is
+	missing_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -128,7 +128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	parse_low_level: INTEGER is
+	parse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -137,7 +137,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_attribute_low_level: INTEGER is
+	unknown_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -146,7 +146,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_element_low_level: INTEGER is
+	unknown_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

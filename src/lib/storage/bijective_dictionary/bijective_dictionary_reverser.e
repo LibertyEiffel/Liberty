@@ -11,83 +11,83 @@ create {ANY}
    from_bijective_dictionary
 
 feature {ANY}
-   from_bijective_dictionary (bijective_dictionary_: like bijective_dictionary) is
+   from_bijective_dictionary (bijective_dictionary_: like bijective_dictionary)
       do
          bijective_dictionary := bijective_dictionary_
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := bijective_dictionary.count
       end
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       do
          Result := bijective_dictionary.has_value(k)
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       do
          Result := bijective_dictionary.key_at(k)
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       do
          if has(k) then
             Result := at(k)
          end
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       do
          Result := bijective_dictionary.fast_has_value(k)
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       do
          Result := bijective_dictionary.fast_key_at(k)
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       do
          if fast_has(k) then
             Result := fast_at(k)
          end
       end
 
-   has_value (v: V_): BOOLEAN is
+   has_value (v: V_): BOOLEAN
       do
          Result := bijective_dictionary.has(v)
       end
 
-   key_at (v: V_): K_ is
+   key_at (v: V_): K_
       do
          Result := bijective_dictionary.at(v)
       end
 
-   fast_has_value (v: V_): BOOLEAN is
+   fast_has_value (v: V_): BOOLEAN
       do
          Result := bijective_dictionary.fast_has(v)
       end
 
-   fast_key_at (v: V_): K_ is
+   fast_key_at (v: V_): K_
       do
          Result := bijective_dictionary.fast_at(v)
       end
 
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       do
          remove(k)
          add(v, k)
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       do
          bijective_dictionary.add(k, v)
          next_generation
       end
 
-   remove (k: K_) is
+   remove (k: K_)
       local
          v: V_
       do
@@ -98,39 +98,39 @@ feature {ANY}
          next_generation
       end
 
-   clear_count is
+   clear_count
       do
          bijective_dictionary.clear_count
          next_generation
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       do
          bijective_dictionary.clear_count_and_capacity
          next_generation
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       do
          Result := bijective_dictionary.capacity
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          Result := bijective_dictionary.key(index)
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          Result := bijective_dictionary.item(index)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          bijective_dictionary := other.bijective_dictionary
       end
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       do
          Result := key_at(at(k))
       end
@@ -146,7 +146,7 @@ end -- class BIJECTIVE_DICTIONARY_REVERSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

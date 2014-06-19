@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: BAD_RENAME1;
       do

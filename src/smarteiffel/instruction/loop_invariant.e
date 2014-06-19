@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: ASSERTION_LIST_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR)
       do
          visitor.visit_loop_invariant(Current)
       end

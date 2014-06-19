@@ -13,12 +13,12 @@ create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          function_body.append(once "if(")
          memory.info_nb_in(visited, function_body, False)
@@ -32,7 +32,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       do
          function_body.append(once ";%Nif(")
          memory.info_nb_in(visited, function_body, False)
@@ -49,11 +49,11 @@ feature {}
          function_body.append(once ");%N")
       end
 
-   gc_kernel_expanded (visited: TYPE_MARK) is
+   gc_kernel_expanded (visited: TYPE_MARK)
       do
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_expanded (visited: TYPE_MARK)
       do
       end
 

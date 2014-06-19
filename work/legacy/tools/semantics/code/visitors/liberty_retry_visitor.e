@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_RETRY}
-   visit_liberty_retry (v: LIBERTY_RETRY) is
+   visit_liberty_retry (v: LIBERTY_RETRY)
       deferred
       end
 

@@ -5,12 +5,12 @@ inherit
    TERMINAL_GET_TEXT[STRING]
 
 feature {ANY}
-   translation (message: STRING): STRING is
+   translation (message: STRING): STRING
       do
          Result := message
       end
 
-   number_translation (message_1, message_other: STRING; n: INTEGER): like translation is
+   number_translation (message_1, message_other: STRING; n: INTEGER): like translation
       do
          if n = 1 then
             Result := message_1
@@ -20,22 +20,22 @@ feature {ANY}
       end
 
 feature {FILTER_GET_TEXT}
-   domain_translation (domain_name, message: STRING): like translation is
+   domain_translation (domain_name, message: STRING): like translation
       do
          Result := translation(message)
       end
 
-   domain_number_translation (domain_name: STRING; message_1, message_other: STRING; n: INTEGER): like translation is
+   domain_number_translation (domain_name: STRING; message_1, message_other: STRING; n: INTEGER): like translation
       do
          Result := number_translation(message_1, message_other, n)
       end
 
-   register_domain (domain_name: STRING) is
+   register_domain (domain_name: STRING)
       do
       end
 
 feature {ANY}
-   set_environment_variable (variable, value: STRING) is
+   set_environment_variable (variable, value: STRING)
       local
          system: SYSTEM
       do
@@ -43,7 +43,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   set_message_locale (locale_name: like message_locale) is
+   set_message_locale (locale_name: like message_locale)
       do
          if message_locale = Void then
             message_locale := locale_name.twin
@@ -52,7 +52,7 @@ feature {ANY}
          end
       end
 
-   set_default_message_locale is
+   set_default_message_locale
       do
          if message_locale = Void then
             message_locale := ""
@@ -64,18 +64,18 @@ feature {ANY}
 
    message_locale: STRING
 
-   is_message_locale_set: BOOLEAN is
+   is_message_locale_set: BOOLEAN
       do
          Result := message_locale /= Void
       end
 
 feature {ANY}
-   is_text_domain_set: BOOLEAN is
+   is_text_domain_set: BOOLEAN
       do
          Result := text_domain /= Void and then not text_domain.is_empty
       end
 
-   is_text_domain_set_up (domain_name: STRING): BOOLEAN is
+   is_text_domain_set_up (domain_name: STRING): BOOLEAN
       do
          Result := True
       ensure
@@ -83,12 +83,12 @@ feature {ANY}
       end
 
 feature {ANY}
-   bind_text_domain_code_set (domain_name: like text_domain; code_set: like text_domain_code_set) is
+   bind_text_domain_code_set (domain_name: like text_domain; code_set: like text_domain_code_set)
       do
          text_domain_code_sets.put(code_set, domain_name)
       end
 
-   text_domain_code_set (domain_name: like text_domain): STRING is
+   text_domain_code_set (domain_name: like text_domain): STRING
       do
          Result := text_domain_code_sets.reference_at(domain_name)
       end

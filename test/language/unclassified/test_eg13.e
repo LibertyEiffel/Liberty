@@ -10,12 +10,12 @@ create {}
 feature {ANY}
    attr: AUX_EG13
 
-   item (i: INTEGER): REAL is
+   item (i: INTEGER): REAL
       do
          Result := attr.item(i)
       end
 
-   make is
+   make
       local
          bool: BOOLEAN
       do
@@ -24,7 +24,7 @@ feature {ANY}
          end
       end
 
-   make2 is
+   make2
       do
          --    print(item(1))
       end

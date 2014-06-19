@@ -13,7 +13,7 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_ARRAY[E_, O_] is
+   new (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_ARRAY[E_, O_]
       local
          empty_storage: NATIVE_ARRAY[E_]
       do
@@ -21,13 +21,13 @@ feature {RUNNER_MEMORY}
       end
 
 feature {RUNNER_MEMORY, RUNNER_NATIVE_ARRAY}
-   with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_] is
+   with_storage (processor: RUNNER_PROCESSOR; capacity: INTEGER; storage: NATIVE_ARRAY[E_]): RUNNER_NATIVE_ARRAY[E_, O_]
       do
          create Result.make(processor, type, element_type, capacity, storage, retriever, setter, Current)
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -57,14 +57,14 @@ feature {}
       end
 
 feature {}
-   builtin_element_sizeof (processor: RUNNER_PROCESSOR) is
+   builtin_element_sizeof (processor: RUNNER_PROCESSOR)
       local
          na: NATIVE_ARRAY[E_]
       do
          processor.current_frame.set_return(processor.new_integer(na.element_sizeof))
       end
 
-   builtin_calloc (processor: RUNNER_PROCESSOR) is
+   builtin_calloc (processor: RUNNER_PROCESSOR)
       local
          nb_elements: RUNNER_NATIVE_EXPANDED[INTEGER_64]
          caller: RUNNER_NATIVE_ARRAY[E_, O_]
@@ -74,7 +74,7 @@ feature {}
          processor.current_frame.set_return(caller.builtin_calloc(nb_elements.item))
       end
 
-   builtin_item (processor: RUNNER_PROCESSOR) is
+   builtin_item (processor: RUNNER_PROCESSOR)
       local
          index: RUNNER_NATIVE_EXPANDED[INTEGER_64]
          caller: RUNNER_NATIVE_ARRAY[E_, O_]
@@ -89,7 +89,7 @@ feature {}
          end
       end
 
-   builtin_put (processor: RUNNER_PROCESSOR) is
+   builtin_put (processor: RUNNER_PROCESSOR)
       local
          index: RUNNER_NATIVE_EXPANDED[INTEGER_64]
          item: O_
@@ -101,7 +101,7 @@ feature {}
          caller.put(item, index.item)
       end
 
-   builtin_slice_copy (processor: RUNNER_PROCESSOR) is
+   builtin_slice_copy (processor: RUNNER_PROCESSOR)
       local
          at, src_min, src_max: RUNNER_NATIVE_EXPANDED[INTEGER_64]
          caller, src: RUNNER_NATIVE_ARRAY[E_, O_]
@@ -119,13 +119,13 @@ feature {}
          caller.slice_copy(at.item, src, src_min.item, src_max.item)
       end
 
-   builtin_from_pointer (processor: RUNNER_PROCESSOR) is
+   builtin_from_pointer (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
 feature {}
-   make (a_type: like type; a_element_type: like element_type; a_retriever: like retriever; a_setter: like setter) is
+   make (a_type: like type; a_element_type: like element_type; a_retriever: like retriever; a_setter: like setter)
       require
          a_type /= Void
          a_element_type /= Void

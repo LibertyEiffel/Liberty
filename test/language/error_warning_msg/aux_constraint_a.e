@@ -9,12 +9,12 @@ create {ANY}
 feature {ANY}
    x: X;
 
-   make(vx: X) is
+   make(vx: X)
       do
     x := vx;
       end;
 
-   foo is
+   foo
       local
     y: like x;
       do

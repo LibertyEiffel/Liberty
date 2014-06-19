@@ -15,12 +15,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          foo
       end
 
-   foo is
+   foo
       do
          Precursor -- Is really ambiguous !
       end

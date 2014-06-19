@@ -31,6 +31,6 @@ Line 12 column 31 in BAD_AGENT24 (/home/cadrian/Workspace/Dev/Liberty/test/langu
          (agent proc(?)).call([Void])
                               ^      
 Line 13 column 24 in PROCEDURE (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/procedure.e):
-   call alias "()" (o: O_) is
-                       ^     
+   call alias "()" (o: O_)
+                       ^  
 ------

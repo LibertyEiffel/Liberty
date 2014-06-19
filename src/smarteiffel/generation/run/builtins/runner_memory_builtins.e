@@ -13,13 +13,13 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT
       do
          create Result.make(processor, type, Current)
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -46,33 +46,33 @@ feature {}
       end
 
 feature {}
-   builtin_collecting (processor: RUNNER_PROCESSOR) is
+   builtin_collecting (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(processor.memory.is_gc_started))
       end
 
-   builtin_collection_off (processor: RUNNER_PROCESSOR) is
+   builtin_collection_off (processor: RUNNER_PROCESSOR)
       do
          processor.memory.stop_gc
       end
 
-   builtin_collection_on (processor: RUNNER_PROCESSOR) is
+   builtin_collection_on (processor: RUNNER_PROCESSOR)
       do
          processor.memory.start_gc
       end
 
-   builtin_full_collect (processor: RUNNER_PROCESSOR) is
+   builtin_full_collect (processor: RUNNER_PROCESSOR)
       do
          processor.memory.run_gc
       end
 
-   builtin_collector_counter (processor: RUNNER_PROCESSOR) is
+   builtin_collector_counter (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer_32(processor.memory.gc_count))
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

@@ -12,7 +12,7 @@ create {EIFFEL_NODE_FACTORY}
 feature {ANY}
    name: FIXED_STRING
 
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: EIFFEL_NON_TERMINAL_NODE_IMPL_VISITOR
       do
@@ -20,50 +20,50 @@ feature {ANY}
          v.visit_eiffel_non_terminal_node_impl(Current)
       end
 
-   name_at (index: INTEGER): FIXED_STRING is
+   name_at (index: INTEGER): FIXED_STRING
       do
          Result := names.item(index - lower + names.lower)
       end
 
-   node_at (index: INTEGER): EIFFEL_NODE is
+   node_at (index: INTEGER): EIFFEL_NODE
       do
          Result := nodes.item(index)
       end
 
-   valid_index (index: INTEGER): BOOLEAN is
+   valid_index (index: INTEGER): BOOLEAN
       do
          Result := nodes.valid_index(index)
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := nodes.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := nodes.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := nodes.is_empty
       end
 
 feature {EIFFEL_GRAMMAR}
-   set (index: INTEGER; node: EIFFEL_NODE) is
+   set (index: INTEGER; node: EIFFEL_NODE)
       do
          nodes.put(node, index)
          node.set_parent(Current)
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       local
          i: INTEGER
       do
@@ -81,7 +81,7 @@ feature {EIFFEL_NODE_HANDLER}
          end
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -97,7 +97,7 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {}
-   make (a_name: like name; a_names: like names) is
+   make (a_name: like name; a_names: like names)
       do
          name := a_name
          names := a_names
@@ -122,7 +122,7 @@ end -- class EIFFEL_NON_TERMINAL_NODE_IMPL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

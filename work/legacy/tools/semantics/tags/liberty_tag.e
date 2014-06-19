@@ -15,7 +15,7 @@
 deferred class LIBERTY_TAG
 
 feature {ANY}
-   id: FIXED_STRING is
+   id: FIXED_STRING
       deferred
       ensure
          Result /= Void

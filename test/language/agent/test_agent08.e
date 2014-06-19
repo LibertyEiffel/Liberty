@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          create aa.with_capacity(10, 1)
          create bb.with_capacity(10, 1)

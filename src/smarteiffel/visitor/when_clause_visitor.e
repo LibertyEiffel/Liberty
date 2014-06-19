@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       require
          visited /= Void
       deferred

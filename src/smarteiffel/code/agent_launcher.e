@@ -24,7 +24,7 @@ feature {ANY}
          -- Computed using `fake_tuple'.
 
 feature {ANY}
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if target.use_current(type) then
             Result := True
@@ -33,19 +33,19 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := target.has_been_specialized and then fake_tuple.has_been_specialized
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          target.safety_check(type)
          fake_tuple.safety_check(type)
       end
 
 feature {AGENT_LAUNCHER}
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          i, count: INTEGER; expression: EXPRESSION; formal, actual: TYPE; open: ARRAY[TYPE]
       do
@@ -117,7 +117,7 @@ feature {AGENT_LAUNCHER}
       end
 
 feature {}
-   agent_launcher_collect (type: TYPE) is
+   agent_launcher_collect (type: TYPE)
       local
          target_type, actual_type: TYPE; formal_types: ARRAY[TYPE]; i: INTEGER
          expression: EXPRESSION

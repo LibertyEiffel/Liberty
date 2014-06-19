@@ -7,22 +7,22 @@ class BACKTRACKING_NODE_GLOBALS
    --
 
 feature {ANY} -- and/or basics
-   the_cut_node: BACKTRACKING_NODE_CUT is
+   the_cut_node: BACKTRACKING_NODE_CUT
       once
          create Result
       end
 
-   the_true_node: BACKTRACKING_NODE_TRUE is
+   the_true_node: BACKTRACKING_NODE_TRUE
       once
          create Result
       end
 
-   the_false_node: BACKTRACKING_NODE_FALSE is
+   the_false_node: BACKTRACKING_NODE_FALSE
       once
          create Result
       end
 
-   the_cut_and_false_node: BACKTRACKING_NODE_CUT_AND_FALSE is
+   the_cut_and_false_node: BACKTRACKING_NODE_CUT_AND_FALSE
       once
          create Result
       end
@@ -35,7 +35,7 @@ end -- class BACKTRACKING_NODE_GLOBALS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

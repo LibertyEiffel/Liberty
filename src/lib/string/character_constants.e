@@ -8,59 +8,59 @@ expanded class CHARACTER_CONSTANTS
    --
 
 feature {ANY} -- Character names:
-   Ctrl_a: CHARACTER is '%/1/'
+   Ctrl_a: CHARACTER '%/1/'
 
-   Ctrl_b: CHARACTER is '%/2/'
+   Ctrl_b: CHARACTER '%/2/'
 
-   Ctrl_c: CHARACTER is '%/3/'
+   Ctrl_c: CHARACTER '%/3/'
 
-   Ctrl_d: CHARACTER is '%/4/'
+   Ctrl_d: CHARACTER '%/4/'
 
-   Ctrl_e: CHARACTER is '%/5/'
+   Ctrl_e: CHARACTER '%/5/'
 
-   Ctrl_f: CHARACTER is '%/6/'
+   Ctrl_f: CHARACTER '%/6/'
 
-   Ctrl_g: CHARACTER is '%/7/'
+   Ctrl_g: CHARACTER '%/7/'
 
-   Ch_bs: CHARACTER is '%/8/'
+   Ch_bs: CHARACTER '%/8/'
 
-   Ch_tab: CHARACTER is '%/9/'
+   Ch_tab: CHARACTER '%/9/'
 
-   Ctrl_j: CHARACTER is '%/10/'
+   Ctrl_j: CHARACTER '%/10/'
 
-   Ctrl_k: CHARACTER is '%/11/'
+   Ctrl_k: CHARACTER '%/11/'
 
-   Ctrl_l: CHARACTER is '%/12/'
+   Ctrl_l: CHARACTER '%/12/'
 
-   Ctrl_m: CHARACTER is '%/13/'
+   Ctrl_m: CHARACTER '%/13/'
 
-   Ctrl_n: CHARACTER is '%/14/'
+   Ctrl_n: CHARACTER '%/14/'
 
-   Ctrl_o: CHARACTER is '%/15/'
+   Ctrl_o: CHARACTER '%/15/'
 
-   Ctrl_p: CHARACTER is '%/16/'
+   Ctrl_p: CHARACTER '%/16/'
 
-   Ctrl_q: CHARACTER is '%/17/'
+   Ctrl_q: CHARACTER '%/17/'
 
-   Ctrl_r: CHARACTER is '%/18/'
+   Ctrl_r: CHARACTER '%/18/'
 
-   Ctrl_s: CHARACTER is '%/19/'
+   Ctrl_s: CHARACTER '%/19/'
 
-   Ctrl_t: CHARACTER is '%/20/'
+   Ctrl_t: CHARACTER '%/20/'
 
-   Ctrl_u: CHARACTER is '%/21/'
+   Ctrl_u: CHARACTER '%/21/'
 
-   Ctrl_v: CHARACTER is '%/22/'
+   Ctrl_v: CHARACTER '%/22/'
 
-   Ctrl_w: CHARACTER is '%/23/'
+   Ctrl_w: CHARACTER '%/23/'
 
-   Ctrl_x: CHARACTER is '%/24/'
+   Ctrl_x: CHARACTER '%/24/'
 
-   Ctrl_y: CHARACTER is '%/25/'
+   Ctrl_y: CHARACTER '%/25/'
 
-   Ctrl_z: CHARACTER is '%/26/'
+   Ctrl_z: CHARACTER '%/26/'
 
-   Ch_del: CHARACTER is '%/127/'
+   Ch_del: CHARACTER '%/127/'
 
 end -- class CHARACTER_CONSTANTS
 --
@@ -70,7 +70,7 @@ end -- class CHARACTER_CONSTANTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

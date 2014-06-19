@@ -16,29 +16,29 @@ create {CURSES_JOB}
    make
 
 feature {UI_PANEL}
-   add (a_child: CURSES_WIDGET[UI_WIDGET]) is
+   add (a_child: CURSES_WIDGET[UI_WIDGET])
       do
          children.add(a_child, a_child.id)
       end
 
 feature {CURSES_ITEM}
-   start: BOOLEAN is
+   start: BOOLEAN
       do
          Result := children.for_all(agent {CURSES_WIDGET[UI_WIDGET]}.start)
       end
 
-   key_pressed (code: INTEGER): BOOLEAN is
+   key_pressed (code: INTEGER): BOOLEAN
       do
       end
 
-   resized: BOOLEAN is
+   resized: BOOLEAN
       do
       end
 
 feature {}
    children: HASHED_DICTIONARY[CURSES_WIDGET[UI_WIDGET], FIXED_STRING]
 
-   make (a_ui: like ui) is
+   make (a_ui: like ui)
       do
          Precursor(a_ui)
          create children.make
@@ -55,7 +55,7 @@ end -- class CURSES_PANEL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

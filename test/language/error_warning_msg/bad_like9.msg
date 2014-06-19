@@ -7,6 +7,6 @@ Line 16 column 23 in BAD_LIKE9 (/home/cadrian/Workspace/Dev/Liberty/test/languag
          b := same_as(a)
                       ^ 
 Line 19 column 18 in BAD_LIKE9 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_like9.e):
-   same_as(some: AUX_LIKE8B): like some is
-                 ^                        
+   same_as(some: AUX_LIKE8B): like some
+                 ^                     
 ------

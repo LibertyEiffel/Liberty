@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -16,14 +16,14 @@ feature {ANY}
          end
       end
 
-   foo is
+   foo
       local
          t: TEST_INFINITE_INLINING03
       do
          t.bar
       end
 
-   bar is
+   bar
       local
          t: TEST_INFINITE_INLINING03
       do

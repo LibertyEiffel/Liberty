@@ -12,26 +12,26 @@ create {ANY}
 feature {ANY}
    label: UNICODE_STRING
 
-   set_label (a_label: UNICODE_STRING) is
+   set_label (a_label: UNICODE_STRING)
       do
          label := a_label
       end
 
 feature {ANY}
-   on_click (action: PROCEDURE[TUPLE[UI_BUTTON]]) is
+   on_click (action: PROCEDURE[TUPLE[UI_BUTTON]])
       require
          action /= Void
       do
          actions.add_last(action)
       end
 
-   click is
+   click
       do
          actions.for_each(agent (action: PROCEDURE[TUPLE[UI_BUTTON]]) is do action.call([Current]) end)
       end
 
 feature {}
-   make (a_id: ABSTRACT_STRING) is
+   make (a_id: ABSTRACT_STRING)
       require
          a_id /= Void
       do
@@ -44,7 +44,7 @@ feature {}
    actions: FAST_ARRAY[PROCEDURE[TUPLE[UI_BUTTON]]]
 
 feature {}
-   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM
       do
          Result := a_job.connect_bridge_button(Current)
       end
@@ -57,7 +57,7 @@ end -- class UI_BUTTON
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

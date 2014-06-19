@@ -28,7 +28,7 @@ create {EDC_GDA_CONNECTION}
    make
 
 feature {ANY}
-   name: STRING is
+   name: STRING
       do
          Result := transaction.name
       ensure
@@ -37,7 +37,7 @@ feature {ANY}
 
    is_active: BOOLEAN
 
-   release is
+   release
       do
          check
             not is_null
@@ -50,7 +50,7 @@ feature {ANY}
       end
 
 feature {EDC_GDA_CONNECTION, EDC_GDA_TRANSACTION}
-   commit_to (t: like Current): EDC_GDA_TRANSACTION is
+   commit_to (t: like Current): EDC_GDA_TRANSACTION
       require
          t.is_active
       do
@@ -67,7 +67,7 @@ feature {EDC_GDA_CONNECTION, EDC_GDA_TRANSACTION}
          Result.is_active
       end
 
-   rollback_to (t: like Current): EDC_GDA_TRANSACTION is
+   rollback_to (t: like Current): EDC_GDA_TRANSACTION
       require
          t.is_active
       do
@@ -85,7 +85,7 @@ feature {EDC_GDA_CONNECTION, EDC_GDA_TRANSACTION}
       end
 
 feature {EDC_GDA_TRANSACTION}
-   set_previous (a_previous: like previous) is
+   set_previous (a_previous: like previous)
       require
          a_previous /= Void
       do
@@ -95,7 +95,7 @@ feature {EDC_GDA_TRANSACTION}
       end
 
 feature {}
-   make (a_name: like name; a_next: like next; a_connection: like connection) is
+   make (a_name: like name; a_next: like next; a_connection: like connection)
       require
          a_name /= Void
          a_next /= Void
@@ -113,7 +113,7 @@ feature {}
          connection = a_connection
       end
 
-   null is
+   null
       do
          is_active := True
          next := Current
@@ -121,12 +121,12 @@ feature {}
          is_null
       end
 
-   is_null: BOOLEAN is
+   is_null: BOOLEAN
       do
          Result := transaction = Void
       end
 
-   gda: GDA_CLIENT is
+   gda: GDA_CLIENT
       do
          Result := connection.gda
       end

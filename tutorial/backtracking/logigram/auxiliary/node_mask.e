@@ -13,13 +13,13 @@ feature {ANY}
 
    index: INTEGER
 
-   make (i: INTEGER; m: BIT_STRING) is
+   make (i: INTEGER; m: BIT_STRING)
       do
          index := i
          mask := m
       end
 
-   explore (situation: SITUATION) is
+   explore (situation: SITUATION)
       do
          if situation.change(index, mask) then
             situation.continue

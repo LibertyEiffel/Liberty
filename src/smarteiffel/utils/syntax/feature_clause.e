@@ -26,14 +26,14 @@ feature {ANY}
    class_text: CLASS_TEXT
          -- The one where `Current' is written.
 
-   pretty is
+   pretty
       do
          if list = Void or else list.is_empty or else not list.first.is_inline_agent then
             do_pretty
          end
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if clients /= Void then
             Result := clients.start_position
@@ -41,7 +41,7 @@ feature {ANY}
       end
 
 feature {FEATURE_CLAUSE_LIST}
-   for_short (bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK) is
+   for_short (bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK)
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -65,7 +65,7 @@ feature {FEATURE_CLAUSE_LIST}
       end
 
 feature {FEATURE_NAME_LIST}
-   do_heading_for_short (bcn: CLASS_NAME) is
+   do_heading_for_short (bcn: CLASS_NAME)
       do
          if comment = Void then
             short_printer.hook_or("hook202", "feature(s) from ")
@@ -81,7 +81,7 @@ feature {FEATURE_NAME_LIST}
       end
 
 feature {FEATURE_CLAUSE_LIST}
-   add_into (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       require
          fd /= Void
       local
@@ -101,7 +101,7 @@ feature {FEATURE_CLAUSE_LIST}
       end
 
 feature {ANY}
-   accept (visitor: FEATURE_CLAUSE_VISITOR) is
+   accept (visitor: FEATURE_CLAUSE_VISITOR)
       do
          visitor.visit_feature_clause(Current)
       end
@@ -113,7 +113,7 @@ feature {FEATURE_CLAUSE_VISITOR}
          -- single DICTIONARY (see CLASS_TEXT).
 
 feature {}
-   make (ct: like class_text; c: like clients; cm: COMMENT; l: like list) is
+   make (ct: like class_text; c: like clients; cm: COMMENT; l: like list)
       require
          ct /= Void
          c /= Void
@@ -130,7 +130,7 @@ feature {}
          list = l
       end
 
-   do_pretty is
+   do_pretty
       local
          i: INTEGER
       do

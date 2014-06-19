@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {COROUTINE_ITERATOR}
-   invoke (args: TUPLE) is
+   invoke (args: TUPLE)
       local
          i: INTEGER
       do
@@ -22,7 +22,7 @@ feature {COROUTINE_ITERATOR}
       end
 
 feature {}
-   make (a_max: like max) is
+   make (a_max: like max)
       require
          a_max > 0
       do

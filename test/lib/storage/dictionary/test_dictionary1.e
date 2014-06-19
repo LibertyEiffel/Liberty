@@ -10,17 +10,17 @@ create {}
    make
 
 feature {ANY}
-   k1: STRING is "k1"
-   k2: STRING is "k2"
-   k3: STRING is "k3"
-   k4: STRING is "k4"
+   k1: STRING "k1"
+   k2: STRING "k2"
+   k3: STRING "k3"
+   k4: STRING "k4"
 
-   v1: STRING is "v1"
-   v2: STRING is "v2"
-   v3: STRING is "v3"
-   v4: STRING is "v4"
+   v1: STRING "v1"
+   v2: STRING "v2"
+   v3: STRING "v3"
+   v4: STRING "v4"
 
-   test (d: DICTIONARY[STRING, STRING]) is
+   test (d: DICTIONARY[STRING, STRING])
       local
          k, v: STRING; i: INTEGER; v_list, k_list: ARRAY[STRING]
       do
@@ -99,7 +99,7 @@ feature {ANY}
          assert(d.count = 0)
       end
 
-   make is
+   make
       do
          test(create {HASHED_DICTIONARY[STRING, STRING]}.make)
          test(create {PYTHON_DICTIONARY[STRING, STRING]}.make)

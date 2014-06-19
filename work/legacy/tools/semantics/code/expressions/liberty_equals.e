@@ -21,7 +21,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_EQUALS}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_EQUALS_VISITOR
       do
@@ -30,7 +30,7 @@ feature {ANY}
       end
 
 feature {}
-   make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
+   make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current
       do
          create Result.make(a_left, a_right, a_result_type, a_position)
       end

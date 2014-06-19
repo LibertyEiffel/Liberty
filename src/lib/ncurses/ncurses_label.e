@@ -24,13 +24,13 @@ feature {ANY}
 
    text: STRING
 
-   refresh_later is
+   refresh_later
       do
          put_string_at(text, (width - text.count) // 2, (height - 1) // 2)
          Precursor
       end
 
-   set_text (t: like text) is
+   set_text (t: like text)
       do
          if t.count + 1 > width then
             text := t.substring(1, width - 1)
@@ -40,7 +40,7 @@ feature {ANY}
       end
 
 feature {}
-   make (p: like parent; t: like text; x, y, w, h: INTEGER) is
+   make (p: like parent; t: like text; x, y, w, h: INTEGER)
       require
          p /= Void
          t /= Void
@@ -65,7 +65,7 @@ end -- class NCURSES_LABEL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

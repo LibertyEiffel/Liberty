@@ -26,14 +26,14 @@ feature {ANY}
 
    loop_body: INSTRUCTION
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          --|*** Could be better. ***
       end
 
-   end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN True
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          --|*** VARIANT *** INVARIANT ***
          if initialize /= Void then
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          bc: BOOLEAN_CONSTANT; it: like initialize; lv: like loop_variant; ue: like until_expression; lb: like loop_body
       do
@@ -73,7 +73,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          loop_check_flag: BOOLEAN
       do
@@ -93,7 +93,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
@@ -118,7 +118,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
@@ -143,7 +143,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
@@ -169,7 +169,7 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := initialize /= Void implies initialize.has_been_specialized
          if Result and loop_invariant /= Void then
@@ -184,12 +184,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: LOOP_INSTRUCTION_VISITOR) is
+   accept (visitor: LOOP_INSTRUCTION_VISITOR)
       do
          visitor.visit_loop_instruction(Current)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          semi_colon_flag: BOOLEAN
       do
@@ -229,7 +229,7 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE; loop_check_flag: BOOLEAN
       do
@@ -256,7 +256,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
          lb: like loop_body
@@ -282,7 +282,7 @@ feature {ANY}
       end
 
 feature {LOOP_INSTRUCTION}
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          dt: TYPE
       do
@@ -301,7 +301,7 @@ feature {LOOP_INSTRUCTION}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          loop_instruction: like Current
          it: like initialize; li: like loop_invariant; lv: like loop_variant; ue: like until_expression
@@ -336,13 +336,13 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   loop_check (type: TYPE): BOOLEAN is
+   loop_check (type: TYPE): BOOLEAN
       do
          Result := type.class_text.loop_check
       end
 
    make (sp: like start_position; i: like initialize; li: like loop_invariant; lv: like loop_variant
-      ue: like until_expression; lb: like loop_body) is
+      ue: like until_expression; lb: like loop_body)
       require
          not sp.is_unknown
          ue /= Void

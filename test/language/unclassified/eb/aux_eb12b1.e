@@ -9,7 +9,7 @@ inherit
       end
 
 feature {AUX_EB12A}
-   g is
+   g
       do
       end
 

@@ -7,7 +7,7 @@ feature {PROCESS}
    pipe: POINTER --| **** TODO: memory leak, never deallocated
 
 feature {}
-   create_pipe is
+   create_pipe
       do
          if pipe.is_null then
             pipe := basic_exec_alloc_pipe
@@ -18,7 +18,7 @@ feature {}
          end
       end
 
-   basic_exec_alloc_pipe: POINTER is
+   basic_exec_alloc_pipe: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -27,7 +27,7 @@ feature {}
          }"
       end
 
-   basic_exec_free_pipe (p: POINTER) is
+   basic_exec_free_pipe (p: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -36,7 +36,7 @@ feature {}
          }"
       end
 
-   basic_exec_init_pipe (p: POINTER): BOOLEAN is
+   basic_exec_init_pipe (p: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -53,7 +53,7 @@ end -- class EXEC_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

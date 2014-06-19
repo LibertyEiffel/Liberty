@@ -10,7 +10,7 @@ create {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM
       local
          s: STREAM
          file: FILE_STREAM
@@ -27,7 +27,7 @@ feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
       end
 
 feature {}
-   make (a_parent: like parent; a_condition: like condition; a_retention: like retention) is
+   make (a_parent: like parent; a_condition: like condition; a_retention: like retention)
       require
          a_parent /= Void
          a_condition /= Void
@@ -45,7 +45,7 @@ feature {}
    condition: PREDICATE[TUPLE[FILE_STREAM]]
    retention: INTEGER_64
 
-   file_pattern (base_name: STRING): REGULAR_EXPRESSION is
+   file_pattern (base_name: STRING): REGULAR_EXPRESSION
       local
          file_name: STRING; i: INTEGER; c: CHARACTER
          regex: REGULAR_EXPRESSION_BUILDER
@@ -73,7 +73,7 @@ feature {}
          Result := regex.convert_posix_pattern(file_name)
       end
 
-   rotate (file: FILE_STREAM): FILE_STREAM is
+   rotate (file: FILE_STREAM): FILE_STREAM
       require
          file.is_connected
       local
@@ -123,7 +123,7 @@ feature {}
          not file.is_connected
       end
 
-   map (dir_name: STRING; file_name_pattern: REGULAR_EXPRESSION; action: PROCEDURE[TUPLE[INTEGER, STRING]]) is
+   map (dir_name: STRING; file_name_pattern: REGULAR_EXPRESSION; action: PROCEDURE[TUPLE[INTEGER, STRING]])
          -- non-Void if the file exists; in that case the result contains the exact name of the log file.
       require
          dir_name /= Void
@@ -158,14 +158,14 @@ feature {}
 
    last_index: INTEGER
 
-   set_last_index (index: INTEGER) is
+   set_last_index (index: INTEGER)
       do
          if index > last_index then
             last_index := index
          end
       end
 
-   rotate_file (dir_name: STRING; file_name_pattern: REGULAR_EXPRESSION; at_index, index: INTEGER; file_name: STRING) is
+   rotate_file (dir_name: STRING; file_name_pattern: REGULAR_EXPRESSION; at_index, index: INTEGER; file_name: STRING)
       require
          last_index > 0
       local
@@ -204,7 +204,7 @@ end -- class LOG_FILE_ROTATED
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

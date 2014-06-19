@@ -27,17 +27,17 @@ insert
       end
 
 feature{}
-   mark_native_arrays is
+   mark_native_arrays
          -- This routine is magically called by the garbage collector. This routine is supposed to mark
          -- only reachable slots for all attributes of type NATIVE_ARRAY by using the `mark_item'
          -- built_in.
       deferred
       end
 
-   mark_item (native_array: NATIVE_ARRAY[E_]; index: INTEGER) is
+   mark_item (native_array: NATIVE_ARRAY[E_]; index: INTEGER)
          -- To be used _only_ inside the definition of `mark_native_arrays'.
          -- Forces the garbage collector to continue the marking process on the `index'-th element of
-         -- the `native_array'. The element at `index' can be Void or not Void (the Void-ness test is
+         -- the `native_array'. The element at `index' can be Void or not Void (the Void-ness test
          -- performed inside the `mark_item' itself).
       external "built_in"
       end
@@ -51,7 +51,7 @@ end -- class NATIVE_ARRAY_COLLECTOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -17,28 +17,28 @@ feature {ANY}
          -- instruction was parsed after the other. The `eiffel_parser_stamp' is used to `unlock'
          -- temporary INTERNAL_C_LOCAL.
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       deferred
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       deferred
       ensure
          Result = Void
       end
 
-   end_mark_comment: BOOLEAN is
+   end_mark_comment: BOOLEAN
          -- True for instructions which may have a possible "end" mark comment.
          -- As an example, it is True for a "loop", or an "inspect" statement.
          -- It is False for an assignment or for a simple procedure call.
       deferred
       end
 
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       deferred
       end
 
-   frozen inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): INSTRUCTION is
+   frozen inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): INSTRUCTION
       require
          code_accumulator /= Void
          type /= Void
@@ -52,12 +52,12 @@ feature {ANY}
       end
 
 feature {ANONYMOUS_FEATURE, CODE, INTROSPECTION_HANDLER}
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       deferred
       end
 
 feature {EIFFEL_PARSER, COMPOUND, ASSIGNMENT, PROCEDURE_CALL}
-   set_eiffel_parser_stamp (eps: like eiffel_parser_stamp) is
+   set_eiffel_parser_stamp (eps: like eiffel_parser_stamp)
       do
          eiffel_parser_stamp := eps
       end

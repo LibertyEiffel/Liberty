@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          test
       end

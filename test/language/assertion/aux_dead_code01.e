@@ -7,7 +7,7 @@ create {TEST_DEAD_CODE01}
    make
 
 feature {}
-   make is
+   make
       do
          io.put_string(once "") -- does nothing, but with a flourish
       end

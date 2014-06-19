@@ -13,18 +13,18 @@ create {MEMORY_HANDLER}
    make
 
 feature {ANY}
-   must_collect (live_type: LIVE_TYPE): TAGGED_FLAG is
+   must_collect (live_type: LIVE_TYPE): TAGGED_FLAG
       do
          Result ::= get_tag(live_type)
       end
 
-   is_enabled (class_text: CLASS_TEXT): TAGGED_FLAG is
+   is_enabled (class_text: CLASS_TEXT): TAGGED_FLAG
       do
          Result ::= get_tag(class_text)
       end
 
 feature {LIVE_TYPE}
-   collect (live_type: LIVE_TYPE) is
+   collect (live_type: LIVE_TYPE)
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; args: FORMAL_ARG_LIST
          flag: TAGGED_FLAG
@@ -64,7 +64,7 @@ feature {LIVE_TYPE}
       end
 
 feature {}
-   is_native_array_collector_enabled (class_text: CLASS_TEXT): BOOLEAN is
+   is_native_array_collector_enabled (class_text: CLASS_TEXT): BOOLEAN
       local
          flag: TAGGED_FLAG
       do
@@ -82,7 +82,7 @@ feature {}
          Result := flag.item
       end
 
-   is_native_array_collector_enabled_ (parent_lists: PARENT_LISTS): BOOLEAN is
+   is_native_array_collector_enabled_ (parent_lists: PARENT_LISTS): BOOLEAN
       local
          i: INTEGER
       do
@@ -112,14 +112,14 @@ feature {}
       end
 
 feature {}
-   get_tag (tagged: TAGGED): TAGGED_DATA is
+   get_tag (tagged: TAGGED): TAGGED_DATA
       require
          tagged /= Void
       do
          Result := tagged.tag(tag_key)
       end
 
-   set_tag (tagged: TAGGED; data: TAGGED_DATA) is
+   set_tag (tagged: TAGGED; data: TAGGED_DATA)
       require
          tagged /= Void
          data /= Void
@@ -130,22 +130,22 @@ feature {}
          tagged.tag(tag_key) = data
       end
 
-   tag_key: FIXED_STRING is
+   tag_key: FIXED_STRING
       once
          Result := "native_array_collector_tag".intern
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   yes: TAGGED_FLAG is
+   yes: TAGGED_FLAG
       once
          create Result.as_true
       end
 
-   no: TAGGED_FLAG is
+   no: TAGGED_FLAG
       once
          create Result.as_false
       end

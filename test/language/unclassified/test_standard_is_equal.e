@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
       do

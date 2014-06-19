@@ -7,7 +7,7 @@ inherit
    ANY
 
 feature {ANY}
-   f is
+   f
       do
       end
 

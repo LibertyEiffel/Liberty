@@ -24,10 +24,10 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {ANY}
-   name: STRING is "Invariant"
+   name: STRING "Invariant"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 3 >> }
       end

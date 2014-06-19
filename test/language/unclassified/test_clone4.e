@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d1, d2, d: REAL_64
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(d = 2.0)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -28,7 +28,7 @@ feature {ANY}
    is_require_else: BOOLEAN
          -- Is it a "require else"?
 
-   end_mark_comment: BOOLEAN is
+   end_mark_comment: BOOLEAN
       do
          check
             False -- This one must never be called.
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             local_require /= Void
@@ -49,7 +49,7 @@ feature {ANY}
          end
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if local_require /= Void then
             Result := local_require.start_position
@@ -58,14 +58,14 @@ feature {ANY}
          end
       end
 
-   header_comment: COMMENT is
+   header_comment: COMMENT
       do
          if local_require /= Void then
             Result := local_require.header_comment
          end
       end
 
-   short (type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN) is
+   short (type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN)
       local
          i: INTEGER
       do
@@ -95,7 +95,7 @@ feature {ANY}
       end
 
 feature {REQUIRE_ASSERTION}
-   short_(type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN) is
+   short_(type: TYPE; client: TYPE_MARK; hide_current: BOOLEAN)
          -- Short the require without printing the `require' keyword.
          --*** Some indent level should be added (PH 16/07/08)
       local
@@ -124,7 +124,7 @@ feature {REQUIRE_ASSERTION}
       end
 
 feature {}
-   short_list (type: TYPE; al: ASSERTION_LIST; h1, r1: STRING; client: TYPE_MARK; hide_current: BOOLEAN) is
+   short_list (type: TYPE; al: ASSERTION_LIST; h1, r1: STRING; client: TYPE_MARK; hide_current: BOOLEAN)
       local
          i: INTEGER
       do
@@ -215,7 +215,7 @@ feature {}
       end
 
 feature {ANY}
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          lr: like local_require
       do
@@ -230,7 +230,7 @@ feature {ANY}
          -- specialize_in does not apply to direct_parents_require
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -251,7 +251,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
@@ -292,7 +292,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
@@ -333,7 +333,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          i: INTEGER; dummy: TYPE
       do
@@ -352,7 +352,7 @@ feature {ANY}
          end
       end
 
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require; require_assertion: like Current
@@ -404,7 +404,7 @@ feature {ANY}
          code_accumulator.current_context.add_last(require_assertion)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          i: INTEGER;     lr: like local_require; ra1, ra2: REQUIRE_ASSERTION
          pr: like direct_parents_require
@@ -445,7 +445,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -464,7 +464,7 @@ feature {ANY}
          end
       end
 
-   is_always_true (type: TYPE): BOOLEAN is
+   is_always_true (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -484,7 +484,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -503,7 +503,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       do
          check
             simplify_is_only_made_for_boost: False
@@ -511,7 +511,7 @@ feature {ANY}
          not_yet_implemented -- To be sure.
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -532,23 +532,23 @@ feature {ANY}
          end
       end
 
-   accept (visitor: REQUIRE_ASSERTION_VISITOR) is
+   accept (visitor: REQUIRE_ASSERTION_VISITOR)
       do
          visitor.visit_require_assertion(Current)
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := 1
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       end
 
-   count: INTEGER is
+   count: INTEGER
       local
          i: INTEGER
       do
@@ -569,9 +569,9 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          count > 0
       end
 
-   is_empty: BOOLEAN is False
+   is_empty: BOOLEAN False
 
-   item (i: INTEGER): ASSERTION_LIST is
+   item (i: INTEGER): ASSERTION_LIST
       local
          j, k, c: INTEGER
       do
@@ -596,7 +596,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-   first: like item is
+   first: like item
       do
          if local_require = Void then
             Result := direct_parents_require.first.first
@@ -605,7 +605,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-   last: like item is
+   last: like item
       do
          if direct_parents_require = Void then
             Result := local_require
@@ -615,7 +615,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
       end
 
 feature {}
-   new_iterator: ITERATOR[ASSERTION_LIST] is
+   new_iterator: ITERATOR[ASSERTION_LIST]
       do
          check
             False -- Just use the usual pattern instead please.
@@ -623,7 +623,7 @@ feature {}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   add_parent_require (parent_require: like Current) is
+   add_parent_require (parent_require: like Current)
          -- Add `parent_require' to `Current' only if it is really new code (i.e. using `start_position' to decide.).
       require
          parent_require /= Void
@@ -639,7 +639,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {}
-   has_item_located_at (sp: POSITION): BOOLEAN is
+   has_item_located_at (sp: POSITION): BOOLEAN
       require
          not sp.is_unknown
       local
@@ -658,7 +658,7 @@ feature {}
       end
 
 feature {REQUIRE_ASSERTION}
-   set_direct_parents_require (pr: like direct_parents_require) is
+   set_direct_parents_require (pr: like direct_parents_require)
       require
          pr /= Void
       do
@@ -667,7 +667,7 @@ feature {REQUIRE_ASSERTION}
          direct_parents_require = pr
       end
 
-   set_local_require (lr: like local_require) is
+   set_local_require (lr: like local_require)
       require
          lr /= Void
       do
@@ -683,7 +683,7 @@ feature {REQUIRE_ASSERTION, REQUIRE_ASSERTION_VISITOR, ANONYMOUS_FEATURE_MIXER}
          -- if `local_require' failed, then every parent has to succed
 
 feature {}
-   make (sp: like start_position; else_flag: BOOLEAN; hc: like header_comment; l: FAST_ARRAY[ASSERTION]) is
+   make (sp: like start_position; else_flag: BOOLEAN; hc: like header_comment; l: FAST_ARRAY[ASSERTION])
       require
          not sp.is_unknown
          l /= Void implies not l.is_empty
@@ -695,7 +695,7 @@ feature {}
          is_require_else = else_flag
       end
 
-   from_parents(ra1, ra2: REQUIRE_ASSERTION) is
+   from_parents(ra1, ra2: REQUIRE_ASSERTION)
       require
          ra1 /= Void
          ra2 /= Void

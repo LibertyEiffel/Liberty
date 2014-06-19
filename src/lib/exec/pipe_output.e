@@ -19,7 +19,7 @@ create {ANY}
    make, connect_to, named
 
 feature {ANY}
-   connect_to (a_input: like input) is
+   connect_to (a_input: like input)
       require
          a_input.is_new
       do
@@ -32,7 +32,7 @@ feature {ANY}
 
    is_connected: BOOLEAN
 
-   disconnect is
+   disconnect
       do
          basic_exec_pipe_in_disconnect(data)
          is_connected := False
@@ -40,7 +40,7 @@ feature {ANY}
 
    input: PIPE_INPUT
 
-   is_new: BOOLEAN is
+   is_new: BOOLEAN
       do
          Result := data = default_pointer
       end
@@ -51,7 +51,7 @@ feature {ANY}
 
    valid_last_character: BOOLEAN
 
-   has_error: BOOLEAN is
+   has_error: BOOLEAN
       require
          is_connected
       local
@@ -61,7 +61,7 @@ feature {ANY}
          Result := s /= default_pointer
       end
 
-   error: STRING is
+   error: STRING
       require
          is_connected
          has_error
@@ -70,7 +70,7 @@ feature {ANY}
          Result.from_external_copy(basic_exec_pipe_error(data))
       end
 
-   set_read_failure_controler (a_controler: like read_failure_controler) is
+   set_read_failure_controler (a_controler: like read_failure_controler)
       require
          not is_connected
       do
@@ -83,7 +83,7 @@ feature {PIPE_INPUT, PROCESS}
    data: POINTER
 
 feature {PIPE_INPUT}
-   handshake (a_input: like input) is
+   handshake (a_input: like input)
       require
          a_input.is_new
       do
@@ -93,21 +93,21 @@ feature {PIPE_INPUT}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := basic_exec_pipe_in_fd(data)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          check False end
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
-   filtered_read_character is
+   filtered_read_character
       local
          ok, noread: BOOLEAN; n: INTEGER
       do
@@ -166,7 +166,7 @@ feature {FILTER}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          switch_unread
          unread_flag := True
@@ -176,11 +176,11 @@ feature {FILTER}
    filtered_last_character: CHARACTER
 
 feature {}
-   make is
+   make
       do
       end
 
-   named (path: STRING; a_controler: like read_failure_controler) is
+   named (path: STRING; a_controler: like read_failure_controler)
       require
          path /= Void
       do
@@ -193,7 +193,7 @@ feature {}
    unread_char: CHARACTER
    unread_flag: BOOLEAN
 
-   switch_unread is
+   switch_unread
       local
          c: CHARACTER
       do
@@ -212,7 +212,7 @@ end -- PIPE_OUTPUT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

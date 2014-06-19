@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	genum_class_struct_set_minimum (a_structure: POINTER; a_value: INTEGER) is
+	genum_class_struct_set_minimum (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for minimum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	genum_class_struct_set_maximum (a_structure: POINTER; a_value: INTEGER) is
+	genum_class_struct_set_maximum (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for maximum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	genum_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL) is
+	genum_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for n_values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	genum_class_struct_set_values (a_structure: POINTER; a_value: POINTER) is
+	genum_class_struct_set_values (a_structure: POINTER; a_value: POINTER)
 			-- Setter for values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	genum_class_struct_get_minimum (a_structure: POINTER): INTEGER is
+	genum_class_struct_get_minimum (a_structure: POINTER): INTEGER
 			-- Query for minimum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	genum_class_struct_get_maximum (a_structure: POINTER): INTEGER is
+	genum_class_struct_get_maximum (a_structure: POINTER): INTEGER
 			-- Query for maximum field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	genum_class_struct_get_n_values (a_structure: POINTER): NATURAL is
+	genum_class_struct_get_n_values (a_structure: POINTER): NATURAL
 			-- Query for n_values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	genum_class_struct_get_values (a_structure: POINTER): POINTER is
+	genum_class_struct_get_values (a_structure: POINTER): POINTER
 			-- Query for values field of GENUM_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -108,7 +108,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

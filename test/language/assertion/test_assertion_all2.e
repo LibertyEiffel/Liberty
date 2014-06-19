@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          x: AUX_ALL_CHECK_TEST1
       do

@@ -13,20 +13,20 @@ create {ANY}
    make
 
 feature {ANY}
-   arg_count: INTEGER is 0
+   arg_count: INTEGER 0
 
-   arguments: EFFECTIVE_ARG_LIST is
+   arguments: EFFECTIVE_ARG_LIST
       do
       end
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a = Void
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          t: like target; fs: like feature_stamp
@@ -55,7 +55,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          t: like target; fs: like feature_stamp
@@ -91,7 +91,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
          ----------- Duplicate code call_0/proc_call_0  -----------
          --|*** Except for the `procedure_check' call (Dom. march 28th 2004) ***
       local
@@ -162,7 +162,7 @@ feature {ANY}
          end
       end
 
-   frozen simplify (type: TYPE): INSTRUCTION is
+   frozen simplify (type: TYPE): INSTRUCTION
       local
          t: like target; target_type: TYPE; af: ANONYMOUS_FEATURE; inline_memo: INLINE_MEMO
          proc_call_0: PROCEDURE_CALL_0
@@ -207,13 +207,13 @@ feature {ANY}
       --|*** end
       --|*** end
 
-   accept (visitor: PROCEDURE_CALL_0_VISITOR) is
+   accept (visitor: PROCEDURE_CALL_0_VISITOR)
       do
          visitor.visit_procedure_call_0(Current)
       end
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_with (new_target: EXPRESSION): like Current is
+   frozen inline_with (new_target: EXPRESSION): like Current
       require
          new_target /= Void
       do
@@ -222,7 +222,7 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {}
-   make (t: like target; fn: like feature_name) is
+   make (t: like target; fn: like feature_name)
       require
          t /= Void
          fn /= Void

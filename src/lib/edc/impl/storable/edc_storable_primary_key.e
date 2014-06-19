@@ -30,13 +30,13 @@ create {EDC_STORABLE_PRIMARY_KEY_INDEXER}
 feature {ANY}
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := index = other.index and then index.table.same_rows(row, other.row)
       end
 
 feature {EDC_STORABLE_PRIMARY_KEY_INDEXER}
-   set_row (a_row: like row) is
+   set_row (a_row: like row)
       require
          a_row /= Void
       do
@@ -45,7 +45,7 @@ feature {EDC_STORABLE_PRIMARY_KEY_INDEXER}
       end
 
 feature {}
-   make (a_index: like index; a_row: like row) is
+   make (a_index: like index; a_row: like row)
       do
          index := a_index
          row := a_row
@@ -54,7 +54,7 @@ feature {}
          end
       end
 
-   set_hash_code is
+   set_hash_code
       local
          i, x: INTEGER; col: EDC_COLUMN
       do

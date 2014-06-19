@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a1, a2: ARRAY[INTEGER]; b1, b2: INTEGER
       do
@@ -23,7 +23,7 @@ feature {ANY}
          assert(a1.is_equal(a2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

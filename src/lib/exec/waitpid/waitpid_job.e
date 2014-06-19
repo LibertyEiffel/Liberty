@@ -24,12 +24,12 @@ create {PROCESS_WAIT}
    make
 
 feature {ANY}
-   stop is
+   stop
       do
          done := True
       end
 
-   arm (a_timeout: like timeout) is
+   arm (a_timeout: like timeout)
       require
          timeout >= -1
       do
@@ -45,7 +45,7 @@ feature {ANY}
          not triggered
       end
 
-   disarm is
+   disarm
       require
          armed
       do
@@ -54,7 +54,7 @@ feature {ANY}
          not armed
       end
 
-   trigger (a_timeout: like timeout) is
+   trigger (a_timeout: like timeout)
       require
          timeout >= -1
       do
@@ -72,7 +72,7 @@ feature {ANY}
 
    timeout: INTEGER
 
-   set_action (a_tag: ABSTRACT_STRING; a_on_waitpid: PROCEDURE[TUPLE[INTEGER, INTEGER]]; a_on_timeout: PROCEDURE[TUPLE]) is
+   set_action (a_tag: ABSTRACT_STRING; a_on_waitpid: PROCEDURE[TUPLE[INTEGER, INTEGER]]; a_on_timeout: PROCEDURE[TUPLE])
       require
          a_tag /= Void
       local
@@ -87,7 +87,7 @@ feature {ANY}
          has_action(a_tag)
       end
 
-   unset_action (a_tag: ABSTRACT_STRING) is
+   unset_action (a_tag: ABSTRACT_STRING)
       require
          a_tag /= Void
       do
@@ -99,13 +99,13 @@ feature {ANY}
          not has_action(a_tag)
       end
 
-   has_action (a_tag: ABSTRACT_STRING): BOOLEAN is
+   has_action (a_tag: ABSTRACT_STRING): BOOLEAN
       do
          Result := actions.fast_has(a_tag.intern)
       end
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
@@ -123,7 +123,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          if running then
             if timeout_event /= Void and then events.event_occurred(timeout_event) then
@@ -143,7 +143,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   continue is
+   continue
       local
          i, pid, status: INTEGER
       do
@@ -197,13 +197,13 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          done := False
       end
 
 feature {}
-   make is
+   make
       do
          create actions.make
       end
@@ -220,7 +220,7 @@ end -- WAITPID_JOB
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

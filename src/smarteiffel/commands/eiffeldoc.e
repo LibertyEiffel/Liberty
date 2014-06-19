@@ -22,7 +22,7 @@ create {}
    make
 
 feature {ANY}
-   usage: STRING is
+   usage: STRING
       once
          Result := "Usage: "
          Result.append(command_line_name)
@@ -70,7 +70,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       local
          o: like options
       do
@@ -95,14 +95,14 @@ feature {}
          write_clusters
       end
 
-   get_started is
+   get_started
       do
          create core.make(context)
          ace.for_all_clusters(agent load_cluster(?))
          core.do_doc
       end
 
-   load_cluster (cluster: CLUSTER) is
+   load_cluster (cluster: CLUSTER)
       require
          cluster /= Void
       do
@@ -112,19 +112,19 @@ feature {}
          cluster.accept(Current)
       end
 
-   context: EIFFELDOC_CONTEXT is
+   context: EIFFELDOC_CONTEXT
       once
          create Result.make
       end
 
-   options: EIFFELDOC_OPTIONS is
+   options: EIFFELDOC_OPTIONS
       do
          Result := context.options
       end
 
    core: EIFFELDOC_CORE
 
-   parse_arguments is
+   parse_arguments
       local
          i, n: INTEGER
       do
@@ -190,7 +190,7 @@ feature {}
          end
       end
 
-   set_loadpath (loadpath: STRING): BOOLEAN is
+   set_loadpath (loadpath: STRING): BOOLEAN
       do
          if loadpath.has_suffix(once ".ace") or else loadpath.has_suffix(once ".ACE") then
             -- nothing to do: bootstrap takes care of that
@@ -201,17 +201,17 @@ feature {}
          end
       end
 
-   use_short_mode: BOOLEAN is True
+   use_short_mode: BOOLEAN True
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          Result := is_verbose_flag(arg)
             or else is_version_flag(arg)
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -verbose and -version flags are allowed in ACE%Nfile mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the -verbose and -version flags are allowed in ACE%Nfile mode.%N"
 
-   is_valid_class_name (name: STRING): BOOLEAN is
+   is_valid_class_name (name: STRING): BOOLEAN
          -- Does it follow the syntactic rules for a class name?  I.e. an uppercase letter followed by
          -- optional uppercase letters, digits and underscores.
       local
@@ -236,7 +236,7 @@ feature {}
       end
 
 feature {CLUSTER}
-   visit_cluster (visited: CLUSTER) is
+   visit_cluster (visited: CLUSTER)
       local
          bd: BASIC_DIRECTORY; p, s: STRING; cn: HASHED_STRING; ct: CLASS_TEXT
       do
@@ -288,7 +288,7 @@ feature {CLUSTER}
       end
 
 feature {} -- Pruned clusters
-   pruned_cluster (cluster: CLUSTER): BOOLEAN is
+   pruned_cluster (cluster: CLUSTER): BOOLEAN
       local
          i: INTEGER; name, s: STRING
       do
@@ -307,7 +307,7 @@ feature {} -- Pruned clusters
    pruned_clusters: FAST_ARRAY[STRING]
 
 feature {} -- General HTML files
-   open_root_block (html: EIFFELDOC_OUTPUT_STREAM) is
+   open_root_block (html: EIFFELDOC_OUTPUT_STREAM)
       -- Write the `top' anchor.
       -- Write tabs.
       -- Open the `root' block and write the block title.
@@ -339,14 +339,14 @@ feature {} -- General HTML files
          html.in_a_body
       end
 
-   close_root_block (html: EIFFELDOC_OUTPUT_STREAM) is
+   close_root_block (html: EIFFELDOC_OUTPUT_STREAM)
       require
          html /= Void and then html.in_a_body
       do
          html.close_div
       end
 
-   display_name (tag, cluster, default_cluster_name: STRING): STRING is
+   display_name (tag, cluster, default_cluster_name: STRING): STRING
       require
          cluster /= Void
       local
@@ -409,7 +409,7 @@ feature {} -- General HTML files
          end
       end
 
-   write_clusters is
+   write_clusters
       local
          i: INTEGER
          cluster: STRING
@@ -462,7 +462,7 @@ feature {} -- General HTML files
          html.disconnect
       end
 
-   write_sub_clusters (i: INTEGER; html: EIFFELDOC_OUTPUT_STREAM) : INTEGER is
+   write_sub_clusters (i: INTEGER; html: EIFFELDOC_OUTPUT_STREAM) : INTEGER
       require
          i.in_range(clusters.lower, clusters.upper)
          html /= Void
@@ -503,7 +503,7 @@ feature {} -- General HTML files
          end
       end
 
-   write_all_clusters (html: EIFFELDOC_OUTPUT_STREAM) is
+   write_all_clusters (html: EIFFELDOC_OUTPUT_STREAM)
       local
          current_index: CHARACTER; i, j: INTEGER; clazz, url, index: STRING
          urls, clu: FAST_ARRAY[STRING]; com: FAST_ARRAY[COMMENT]
@@ -598,7 +598,7 @@ feature {} -- General HTML files
          close_block(html)
       end
 
-   write_classes_for_cluster (cluster: STRING; html: EIFFELDOC_OUTPUT_STREAM) is
+   write_classes_for_cluster (cluster: STRING; html: EIFFELDOC_OUTPUT_STREAM)
       require
          cluster /= Void
          html /= Void
@@ -637,7 +637,7 @@ feature {} -- General HTML files
          end
       end
 
-   write_cluster (cluster: CLUSTER) is
+   write_cluster (cluster: CLUSTER)
       do
          add_cluster(cluster)
       end
@@ -657,22 +657,22 @@ feature {} -- Support features for html writing
 
    comments: FAST_ARRAY[FAST_ARRAY[COMMENT]]
 
-   cluster_summary: TEXT_FILE_READ is
+   cluster_summary: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   body_node: EIFFELDOC_HTML is
+   body_node: EIFFELDOC_HTML
       once
          create Result.make
       end
 
-   cluster_name (a_cluster: CLUSTER): STRING is
+   cluster_name (a_cluster: CLUSTER): STRING
       do
          Result := a_cluster.name
       end
 
-   add_cluster (cluster: CLUSTER) is
+   add_cluster (cluster: CLUSTER)
       local
          i: INTEGER; s: STRING; sorter: COLLECTION_SORTER[STRING]; bd: BASIC_DIRECTORY; ft: FILE_TOOLS
          html_parser: HTML_PARSER
@@ -709,7 +709,7 @@ feature {} -- Support features for html writing
          end
       end
 
-   add_class (ct: CLASS_TEXT) is
+   add_class (ct: CLASS_TEXT)
       local
          list, urls, clu: FAST_ARRAY[STRING]; com: FAST_ARRAY[COMMENT]; sorter: COLLECTION_SORTER[STRING]; cluster, clazz: STRING
          i: INTEGER
@@ -743,7 +743,7 @@ feature {} -- Support features for html writing
          core.add(ct)
       end
 
-   write_description (hp: HTML_PARSER; html: EIFFELDOC_OUTPUT_STREAM; stop_at_dot: BOOLEAN) is
+   write_description (hp: HTML_PARSER; html: EIFFELDOC_OUTPUT_STREAM; stop_at_dot: BOOLEAN)
       require
          hp /= Void
          html /= Void
@@ -760,7 +760,7 @@ feature {} -- Support features for html writing
          end
       end
 
-   body (hp: HTML_PARSER): EIFFELDOC_HTML is
+   body (hp: HTML_PARSER): EIFFELDOC_HTML
       local
          i: INTEGER; e: HTML_ELEMENT; node: HTML_NODE
       do
@@ -782,7 +782,7 @@ feature {} -- Support features for html writing
          end
       end
 
-   find_body (node: HTML_NODE): HTML_NODE is
+   find_body (node: HTML_NODE): HTML_NODE
       require
          node /= Void
       local

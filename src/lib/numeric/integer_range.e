@@ -16,7 +16,7 @@ feature {ANY}
    lower: INTEGER
    upper: INTEGER
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          first.out_in_tagged_out_memory
@@ -25,49 +25,49 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := upper - lower + 1
       end
 
-   first: E_ is
+   first: E_
       do
          Result := item(lower)
       end
 
-   last: E_ is
+   last: E_
       do
          Result := item(upper)
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          create {INTEGER_RANGE_ITERATOR[E_]} Result.make(lower, upper, itemize)
       end
 
-   item (i: INTEGER): E_ is
+   item (i: INTEGER): E_
       do
          Result := itemize.item([i])
       end
 
-   is_empty: BOOLEAN is False
+   is_empty: BOOLEAN False
 
-   has, fast_has (i: INTEGER): BOOLEAN is
+   has, fast_has (i: INTEGER): BOOLEAN
       do
          Result := i.in_range(lower, upper)
       end
 
-   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i: E_; start: INTEGER): INTEGER is
+   index_of, fast_index_of, reverse_index_of, fast_reverse_index_of (i: E_; start: INTEGER): INTEGER
       do
          Result := indexize.item([i])
       end
 
-   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: E_): INTEGER is
+   first_index_of, fast_first_index_of, last_index_of, fast_last_index_of (i: E_): INTEGER
       do
          Result := indexize.item([i])
       end
 
-   make (low, up: INTEGER; a_itemize: like itemize; a_indexize: like indexize) is
+   make (low, up: INTEGER; a_itemize: like itemize; a_indexize: like indexize)
       require
          low <= up
          a_itemize /= Void
@@ -100,7 +100,7 @@ end -- class INTEGER_RANGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

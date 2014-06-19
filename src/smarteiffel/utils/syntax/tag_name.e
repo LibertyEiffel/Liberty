@@ -15,7 +15,7 @@ feature {ANY}
    hashed_name: HASHED_STRING
          -- The corresponding unique one.
 
-   to_string: STRING is
+   to_string: STRING
          -- An alias for `hashed_name.to_string'.
       do
          Result := hashed_name.to_string
@@ -23,12 +23,12 @@ feature {ANY}
 
    start_position: POSITION
 
-   to_key: STRING is
+   to_key: STRING
       do
          Result := to_string
       end
 
-   short is
+   short
       local
          i: INTEGER; c: CHARACTER
       do
@@ -50,13 +50,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: TAG_NAME_VISITOR) is
+   accept (visitor: TAG_NAME_VISITOR)
       do
          visitor.visit_tag_name(Current)
       end
 
 feature {}
-   make (hn: like hashed_name; sp: like start_position) is
+   make (hn: like hashed_name; sp: like start_position)
       require
          hn /= Void
       do

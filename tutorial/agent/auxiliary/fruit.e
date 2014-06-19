@@ -1,7 +1,7 @@
 deferred class FRUIT
 
 feature {ANY}
-   display is
+   display
       deferred
       end
 

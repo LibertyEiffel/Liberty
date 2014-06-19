@@ -21,35 +21,35 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_external: BOOLEAN is
+   is_external: BOOLEAN
       do
          Result := count = 1
       ensure
          Result = not is_regular
       end
 
-   is_regular: BOOLEAN is
+   is_regular: BOOLEAN
       do
          Result := count = 2
       ensure
          Result = not is_external
       end
 
-   local_block: LIBERTY_AST_LOCAL_BLOCK is
+   local_block: LIBERTY_AST_LOCAL_BLOCK
       require
          is_regular
       do
          Result ::= nodes.item(0)
       end
 
-   do_block: LIBERTY_AST_DO_BLOCK is
+   do_block: LIBERTY_AST_DO_BLOCK
       require
          is_regular
       do
          Result ::= nodes.item(1)
       end
 
-   external_clause: LIBERTY_AST_EXTERNAL is
+   external_clause: LIBERTY_AST_EXTERNAL
       require
          is_external
       do
@@ -57,15 +57,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Routine_Execution"
+   name: STRING "Routine_Execution"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

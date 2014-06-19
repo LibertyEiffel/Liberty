@@ -26,7 +26,7 @@ insert
    ABSTRACT_SORTER[X]
 
 feature {}
-   lt (x, y: X): BOOLEAN is
+   lt (x, y: X): BOOLEAN
       do
          Result := y < x
       end
@@ -39,7 +39,7 @@ end -- class REVERSE_COLLECTION_SORTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

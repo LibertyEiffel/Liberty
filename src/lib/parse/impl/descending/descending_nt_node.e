@@ -27,7 +27,7 @@ create {DESCENDING_NT_NODE}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -57,7 +57,7 @@ feature {ANY}
       end
 
 feature {DESCENDING_NON_TERMINAL}
-   add (rule: TRAVERSABLE[FIXED_STRING]; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
+   add (rule: TRAVERSABLE[FIXED_STRING]; a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]])
       local
          node: DESCENDING_NT_NODE; name: FIXED_STRING
       do
@@ -81,7 +81,7 @@ feature {DESCENDING_NON_TERMINAL}
          end
       end
 
-   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
+   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE
       local
          parse_action: PARSE_ACTION
       do
@@ -104,7 +104,7 @@ feature {DESCENDING_NON_TERMINAL}
       end
 
 feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       local
          i: INTEGER
       do
@@ -127,7 +127,7 @@ feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
          must_be_coherent: Result
       end
 
-   set_default_tree_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: COLLECTION[FIXED_STRING]) is
+   set_default_tree_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: COLLECTION[FIXED_STRING])
       require
          non_terminal_builder /= Void
       local
@@ -205,7 +205,7 @@ feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
          end
       end
 
-   set_non_terminal (a_non_terminal: like nt) is
+   set_non_terminal (a_non_terminal: like nt)
       local
          i: INTEGER
       do
@@ -225,7 +225,7 @@ feature {DESCENDING_NON_TERMINAL, DESCENDING_NT_NODE}
       end
 
 feature {DESCENDING_NT_NODE}
-   do_add (a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; rule: TRAVERSABLE[FIXED_STRING]; i: INTEGER) is
+   do_add (a_action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; rule: TRAVERSABLE[FIXED_STRING]; i: INTEGER)
       require
          rule.valid_index(i)
          rule.item(i) = prefix_name
@@ -254,7 +254,7 @@ feature {DESCENDING_NT_NODE}
          end
       end
 
-   do_parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
+   do_parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE
       require
          not_root: prefix_name /= Void
       local
@@ -302,7 +302,7 @@ feature {DESCENDING_NT_NODE}
       end
 
 feature {}
-   parse_suffices (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
+   parse_suffices (context: DESCENDING_PARSE_CONTEXT): TRISTATE
       require
          suffices /= Void
       local
@@ -363,13 +363,13 @@ feature {}
       end
 
 feature {}
-   call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: TRAVERSABLE[FIXED_STRING]) is
+   call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; path: TRAVERSABLE[FIXED_STRING])
       do
          non_terminal_builder.call([nt.name, path])
       end
 
 feature {}
-   make (a_prefix_name: like prefix_name; a_nt: like nt) is
+   make (a_prefix_name: like prefix_name; a_nt: like nt)
       require
          a_prefix_name /= Void
          a_nt /= Void
@@ -381,7 +381,7 @@ feature {}
          nt = a_nt
       end
 
-   root (a_nt: like nt) is
+   root (a_nt: like nt)
       require
          a_nt /= Void
       do
@@ -394,7 +394,7 @@ feature {}
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -415,7 +415,7 @@ feature {ANY}
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          i: INTEGER
       do
@@ -457,7 +457,7 @@ end -- class DESCENDING_NT_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -21,13 +21,13 @@ create {LIBERTY_ASM_INSTRUCTION_PROXY}
    make
 
 feature {LIBERTY_ASM_INSTRUCTION_PROXY}
-   start (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY) is
+   start (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY)
       do
          kind := kind_unset
          a_instruction.accept(Current)
       end
 
-   confirm (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY) is
+   confirm (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY)
       do
          a_instruction.accept(Current)
          inspect kind
@@ -45,7 +45,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
    confirmed: BOOLEAN
 
 feature {LIBERTY_ASM_INSTRUCTION_PROXY}
-   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_type_id: INTEGER) is
+   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_type_id: INTEGER)
       do
          inspect
             kind
@@ -60,7 +60,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
          end
       end
 
-   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_method_id, a_type_id: INTEGER) is
+   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_method_id, a_type_id: INTEGER)
       do
          inspect
             kind
@@ -79,7 +79,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
          end
       end
 
-   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_position: INTEGER) is
+   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; a_position: INTEGER)
       do
          inspect
             kind
@@ -95,7 +95,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -104,10 +104,10 @@ feature {}
    method_id: INTEGER
    position: INTEGER
 
-   kind_error:  INTEGER_8 is -1
-   kind_unset:  INTEGER_8 is  0
-   kind_new:    INTEGER_8 is  1
-   kind_invoke: INTEGER_8 is  2
-   kind_jump:   INTEGER_8 is  3
+   kind_error:  INTEGER_8 -1
+   kind_unset:  INTEGER_8  0
+   kind_new:    INTEGER_8  1
+   kind_invoke: INTEGER_8  2
+   kind_jump:   INTEGER_8  3
 
 end -- class LIBERTY_ASM_INSTRUCTION_PROXY_EQUAL_VISITOR

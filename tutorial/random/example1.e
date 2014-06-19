@@ -4,7 +4,7 @@ create {ANY}
    main
 
 feature {}
-   main is
+   main
       local
          count, range, column: INTEGER
       do
@@ -34,7 +34,7 @@ feature {}
       end
 
 feature {}
-   random_number_generator: RANDOM_NUMBER_GENERATOR is
+   random_number_generator: RANDOM_NUMBER_GENERATOR
          -- Note: this is a once function in order to use always the same RANDOM_NUMBER_GENERATOR.
       once
          create {MINIMAL_RANDOM_NUMBER_GENERATOR} Result.make

@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_buffer_alloc_doubleit_low_level)  or else
 				(a_value = xml_buffer_alloc_exact_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_buffer_alloc_doubleit is
+	set_xml_buffer_alloc_doubleit
 		do
 			value := xml_buffer_alloc_doubleit_low_level
 		end
 
-	set_xml_buffer_alloc_exact is
+	set_xml_buffer_alloc_exact
 		do
 			value := xml_buffer_alloc_exact_low_level
 		end
 
-	set_xml_buffer_alloc_immutable is
+	set_xml_buffer_alloc_immutable
 		do
 			value := xml_buffer_alloc_immutable_low_level
 		end
 
-	set_xml_buffer_alloc_io is
+	set_xml_buffer_alloc_io
 		do
 			value := xml_buffer_alloc_io_low_level
 		end
 
 feature -- Queries
-	is_xml_buffer_alloc_doubleit: BOOLEAN is
+	is_xml_buffer_alloc_doubleit: BOOLEAN
 		do
 			Result := (value=xml_buffer_alloc_doubleit_low_level)
 		end
 
-	is_xml_buffer_alloc_exact: BOOLEAN is
+	is_xml_buffer_alloc_exact: BOOLEAN
 		do
 			Result := (value=xml_buffer_alloc_exact_low_level)
 		end
 
-	is_xml_buffer_alloc_immutable: BOOLEAN is
+	is_xml_buffer_alloc_immutable: BOOLEAN
 		do
 			Result := (value=xml_buffer_alloc_immutable_low_level)
 		end
 
-	is_xml_buffer_alloc_io: BOOLEAN is
+	is_xml_buffer_alloc_io: BOOLEAN
 		do
 			Result := (value=xml_buffer_alloc_io_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_buffer_alloc_doubleit_low_level: INTEGER is
+	xml_buffer_alloc_doubleit_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_buffer_alloc_exact_low_level: INTEGER is
+	xml_buffer_alloc_exact_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_buffer_alloc_immutable_low_level: INTEGER is
+	xml_buffer_alloc_immutable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_buffer_alloc_io_low_level: INTEGER is
+	xml_buffer_alloc_io_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

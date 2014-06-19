@@ -27,7 +27,7 @@ feature {ANY}
    expression: LIBERTY_EXPRESSION
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: LIBERTY_EXPRESSION
       do
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   is_valid_type (a_expression: like expression; a_result_type: like result_type): BOOLEAN is
+   is_valid_type (a_expression: like expression; a_result_type: like result_type): BOOLEAN
       require
          a_expression /= Void
          a_result_type /= Void
@@ -53,7 +53,7 @@ feature {ANY}
             or else a_expression.result_type.known_type.converts_to(actual_type)
       end
 
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CAST_EXPRESSION_VISITOR
       do
@@ -62,13 +62,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          expression.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_expression: like expression; a_result_type: like result_type) is
+   make (a_expression: like expression; a_result_type: like result_type)
       require
          a_expression /= Void
          a_result_type /= Void

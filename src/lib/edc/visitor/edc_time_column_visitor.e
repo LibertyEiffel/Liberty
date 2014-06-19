@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_TIME_COLUMN}
-   visit_time_column (a_time_column: EDC_TIME_COLUMN) is
+   visit_time_column (a_time_column: EDC_TIME_COLUMN)
       deferred
       end
 

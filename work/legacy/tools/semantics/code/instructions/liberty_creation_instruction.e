@@ -24,12 +24,12 @@ feature {ANY}
    writable: LIBERTY_WRITABLE
    feature_entity: LIBERTY_FEATURE_ENTITY
 
-   feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   feature_arguments: TRAVERSABLE[LIBERTY_EXPRESSION]
       do
          Result := feature_arguments_list
       end
 
-   type: LIBERTY_TYPE is
+   type: LIBERTY_TYPE
       do
          if explicit_type = Void then
             Result := writable.result_type
@@ -38,9 +38,9 @@ feature {ANY}
          end
       end
 
-   is_known: BOOLEAN is True
+   is_known: BOOLEAN True
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          w: like writable
          fe: like feature_entity
@@ -77,7 +77,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          type.mark_reachable_code(mark)
          writable.mark_reachable_code(mark)
@@ -86,7 +86,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_writable: like writable; a_type: like type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments_list; a_position: like position) is
+   make (a_writable: like writable; a_type: like type; a_feature_entity: like feature_entity; a_feature_arguments: like feature_arguments_list; a_position: like position)
       require
          a_writable /= Void
          a_feature_entity /= Void
@@ -110,7 +110,7 @@ feature {}
    feature_arguments_list: COLLECTION[LIBERTY_EXPRESSION]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CREATION_INSTRUCTION_VISITOR
       do

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          memory: INTEGER
       do
@@ -22,7 +22,7 @@ feature {ANY}
          assert(assert_counter.item = memory + 2)
       end
 
-   callback is
+   callback
       do
          assert(True)
       end

@@ -7,7 +7,7 @@ inherit
    CLASSES
 
 feature {CLUSTERS}
-   find_physical_cluster (system_path: STRING): CLUSTER is
+   find_physical_cluster (system_path: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -22,7 +22,7 @@ feature {CLUSTERS}
       end
 
 feature {} -- Tree handling
-   add_classes (a_classes: CLASSES) is
+   add_classes (a_classes: CLASSES)
       require
          a_classes.parent = Void
       local
@@ -49,7 +49,7 @@ feature {} -- Tree handling
       end
 
 feature {ACE, CLASSES} -- Searching
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -64,7 +64,7 @@ feature {ACE, CLASSES} -- Searching
       end
 
    clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
-      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
+      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER)
       local
          i, child_distance: INTEGER; c: CLASSES
       do
@@ -82,7 +82,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   cluster_by_directory_path (path: STRING): CLUSTER is
+   cluster_by_directory_path (path: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -96,7 +96,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       local
          i: INTEGER
       do
@@ -110,7 +110,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       local
          i: INTEGER
       do
@@ -124,7 +124,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   cluster_count: INTEGER is
+   cluster_count: INTEGER
       local
          i: INTEGER
       do
@@ -138,7 +138,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   has_class (class_name: HASHED_STRING): BOOLEAN is
+   has_class (class_name: HASHED_STRING): BOOLEAN
       local
          i: INTEGER
       do
@@ -152,7 +152,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   has_cluster (c: CLUSTER): BOOLEAN is
+   has_cluster (c: CLUSTER): BOOLEAN
       local
          i: INTEGER
       do
@@ -166,7 +166,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       local
          i: INTEGER
       do
@@ -180,7 +180,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]]) is
+   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       local
          i: INTEGER
       do
@@ -194,7 +194,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   cluster_at (index: INTEGER): CLUSTER is
+   cluster_at (index: INTEGER): CLUSTER
       local
          i, n, c: INTEGER; classes: CLASSES
       do
@@ -219,7 +219,7 @@ feature {ACE, CLASSES} -- Searching
       end
 
 feature {ACE, CLUSTERS} -- Liberty Eiffel specific
-   parse_include is
+   parse_include
       local
          i: INTEGER
       do
@@ -233,7 +233,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
       local
          i: INTEGER
       do
@@ -247,7 +247,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
       local
          i: INTEGER
       do
@@ -261,7 +261,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   get_started (level: INTEGER) is
+   get_started (level: INTEGER)
       local
          i: INTEGER
       do
@@ -275,7 +275,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   show (tab: INTEGER) is
+   show (tab: INTEGER)
       local
          i, t: INTEGER
       do
@@ -303,7 +303,7 @@ feature {}
    classeses: FAST_ARRAY[CLASSES]
          -- Sorted by growing distance. Pretty name ain't it :-)
 
-   show_name is
+   show_name
       deferred
       end
 

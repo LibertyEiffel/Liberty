@@ -22,7 +22,7 @@ create {ANY}
    from_strings
 
 feature {ANY} -- Creation
-   from_strings (left_string, right_string: ABSTRACT_STRING) is
+   from_strings (left_string, right_string: ABSTRACT_STRING)
       require
          left_string /= Void
          right_string /= Void
@@ -31,18 +31,18 @@ feature {ANY} -- Creation
          right := right_string
       end
 
-   copy (another: like Current) is
+   copy (another: like Current)
       do
          from_strings(another.left, another.right)
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := left.count + right.count
       end
 
-   item (an_index: INTEGER): CHARACTER is
+   item (an_index: INTEGER): CHARACTER
          -- Random access is an O(count) operation for a ROPE.
       do
          if an_index <= split_index then
@@ -52,7 +52,7 @@ feature {ANY}
          end
       end
 
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
       local
          left_substring, right_substring: ABSTRACT_STRING
       do
@@ -69,13 +69,13 @@ feature {ANY}
          create Result.from_strings(left_substring, right_substring)
       end
 
-   occurrences (c: CHARACTER): INTEGER is
+   occurrences (c: CHARACTER): INTEGER
       do
          Result := left.occurrences(c) + right.occurrences(c)
       end
 
 feature {ANY}
-   infix "<" (other: ABSTRACT_STRING): BOOLEAN is
+   infix "<" (other: ABSTRACT_STRING): BOOLEAN
       local
          i: INTEGER; done: BOOLEAN
       do
@@ -95,18 +95,18 @@ feature {ANY}
          end
       end
 
-   is_equal (other: ABSTRACT_STRING): BOOLEAN is
+   is_equal (other: ABSTRACT_STRING): BOOLEAN
          -- O(min(count,other.count))
       do
          Result := same_as(other)
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := computed_hash_code
       end
 
-   same_as (other: ABSTRACT_STRING): BOOLEAN is
+   same_as (other: ABSTRACT_STRING): BOOLEAN
          -- O(min(count,other.count))
       local
          i: INTEGER
@@ -125,22 +125,22 @@ feature {ANY}
          end
       end
 
-   first: CHARACTER is
+   first: CHARACTER
       do
          Result := left.first
       end
 
-   last: CHARACTER is
+   last: CHARACTER
       do
          Result := right.last
       end
 
-   has, fast_has (c: CHARACTER): BOOLEAN is
+   has, fast_has (c: CHARACTER): BOOLEAN
       do
          Result := left.has(c) or else right.has(c)
       end
 
-   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER
       do
          if start_index > split_index then
             Result := right.index_of(c, start_index - split_index) + split_index
@@ -152,7 +152,7 @@ feature {ANY}
          end
       end
 
-   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER
       do
          if start_index <= split_index then
             Result := left.reverse_index_of(c, start_index)
@@ -166,13 +166,13 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(left)
          tagged_out_memory.append(right)
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append(once "[left: ")
          left.fill_tagged_out_memory
@@ -182,7 +182,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Concatenation
-   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
+   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING
          -- A newly allocated string containing Current and `another'
          -- concatenated. Implementation may choose any effective heir of
          -- ABSTRACT_STRING.
@@ -201,24 +201,24 @@ feature {ANY} -- Concatenation
       end
 
 feature {ANY} -- Iterating and other features
-   new_iterator: ITERATOR[CHARACTER] is
+   new_iterator: ITERATOR[CHARACTER]
       do
          create {ITERATOR_ON_ROPE} Result.make(Current)
       end
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
       do
          Result := out.intern
       end
 
 feature {ANY} -- Interfacing with C string:
-   to_external: POINTER is
+   to_external: POINTER
       do
          Result := out.to_external
       end
 
 feature {ANY}
-   recycle is
+   recycle
       do
          left := once ""
          right := left
@@ -229,7 +229,7 @@ feature {ABSTRACT_STRING, ITERATOR_ON_ROPE} -- Implementation
          -- The left and right parts of the ROPE
 
 feature {} -- Split index
-   split_index: INTEGER is
+   split_index: INTEGER
          -- The index where the rope is split. It corresponds to the length of ther left part of the ROPE.
       do
          Result := left.upper
@@ -249,7 +249,7 @@ end -- class ROPE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

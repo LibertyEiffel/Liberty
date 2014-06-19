@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a: NATIVE_ARRAY[CHARACTER]
 
-   make is
+   make
       do
          a := a.calloc(2)
          a.put('a', 0)
@@ -21,7 +21,7 @@ feature {ANY}
          assert(a.item(1) = 'b')
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

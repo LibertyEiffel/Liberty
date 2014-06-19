@@ -10,13 +10,13 @@ deferred class OBSERVABLE
    --
 
 feature {ANY}
-   add (o: OBSERVER[like Current]) is
+   add (o: OBSERVER[like Current])
          -- Add an observer that should be notified
       do
          observers.add_last(o)
       end
 
-   remove (o: OBSERVER[like Current]) is
+   remove (o: OBSERVER[like Current])
          -- Remove an observer that should not be notified anymore
       require
          has(o)
@@ -27,14 +27,14 @@ feature {ANY}
          observers.remove(i)
       end
 
-   has (o: OBSERVER[like Current]): BOOLEAN is
+   has (o: OBSERVER[like Current]): BOOLEAN
          -- True if the observer will be notified when the state of Current changes
       do
          Result := observers.has(o)
       end
 
 feature {}
-   notify is
+   notify
          -- Notify all the observers that the state of Current changed
       do
          observers.for_each(agent {OBSERVER[like Current]}.update(Current))
@@ -55,7 +55,7 @@ end -- class OBSERVABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

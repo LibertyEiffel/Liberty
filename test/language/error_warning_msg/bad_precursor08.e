@@ -17,12 +17,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          routine
       end
 
-   routine is
+   routine
       do
          Precursor {like Current}
          Precursor {AUX_PRECURSOR08B}

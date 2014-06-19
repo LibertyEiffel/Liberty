@@ -21,12 +21,12 @@ create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {}
-   new_real (value: REAL_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+   new_real (value: REAL_64): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
          Result := interpreter.new_real_64(value, builtin_call.position)
       end
 
-   left, target: REAL_64 is
+   left, target: REAL_64
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -34,7 +34,7 @@ feature {}
          Result := obj.item.force_to_real_64
       end
 
-   right: REAL_64 is
+   right: REAL_64
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -43,7 +43,7 @@ feature {}
          Result := obj.item.force_to_real_64
       end
 
-   call_specific (f: LIBERTY_FEATURE) is
+   call_specific (f: LIBERTY_FEATURE)
       do
          inspect
             builtin_call.name.out

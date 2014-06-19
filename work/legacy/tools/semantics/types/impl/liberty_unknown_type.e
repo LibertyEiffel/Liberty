@@ -34,37 +34,37 @@ create {LIBERTY_TYPE_RESOLVER}
    make
 
 feature {ANY}
-   known_type: LIBERTY_KNOWN_TYPE is
+   known_type: LIBERTY_KNOWN_TYPE
       do
          check Result = Void end
       end
 
-   is_known: BOOLEAN is False
+   is_known: BOOLEAN False
 
    full_name: FIXED_STRING
 
-   hash_code: INTEGER is 19741215
+   hash_code: INTEGER 19741215
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "{unknown type ")
          tagged_out_memory.append(full_name)
          tagged_out_memory.extend('}')
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   full_name_in (buffer: STRING) is
+   full_name_in (buffer: STRING)
       do
          buffer.append(full_name)
       end
 
 feature {}
-   make (a_full_name: like full_name) is
+   make (a_full_name: like full_name)
       require
          a_full_name /= Void
       do

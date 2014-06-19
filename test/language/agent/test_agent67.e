@@ -10,10 +10,10 @@ create {}
    make
 
 feature {}
-   hello: STRING is "hello"
-   world: STRING is "world"
+   hello: STRING "hello"
+   world: STRING "world"
 
-   make is
+   make
       local
          a, b, c, d: PROCEDURE[TUPLE]
       do
@@ -29,7 +29,7 @@ feature {}
          assert(not a.is_equal(d))
       end
 
-   println (s: STRING) is
+   println (s: STRING)
       do
          std_output.put_line(s)
       end

@@ -21,12 +21,12 @@ feature {ANY}
    start_position: POSITION
          -- Of the opening square bracket.
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := list.count
       end
 
-   item (i: INTEGER): FORMAL_GENERIC_ARG is
+   item (i: INTEGER): FORMAL_GENERIC_ARG
       require
          i.in_range(1, count)
       do
@@ -35,7 +35,7 @@ feature {ANY}
          Result /= Void
       end
 
-   pretty is
+   pretty
       local
          i: INTEGER
       do
@@ -54,7 +54,7 @@ feature {ANY}
          pretty_printer.put_character(']')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -74,7 +74,7 @@ feature {ANY}
       end
 
 feature {TYPE, GENERIC_TYPE_MARK}
-   constraint_genericity_check (t: TYPE; actual_list: ARRAY[TYPE_MARK]; actual_position: POSITION) is
+   constraint_genericity_check (t: TYPE; actual_list: ARRAY[TYPE_MARK]; actual_position: POSITION)
       require
          actual_list.count = count
       local
@@ -128,7 +128,7 @@ feature {TYPE, GENERIC_TYPE_MARK}
       end
 
 feature {CLASS_TEXT}
-   generic_formal_arguments_check is
+   generic_formal_arguments_check
       local
          i: INTEGER
       do
@@ -143,7 +143,7 @@ feature {CLASS_TEXT}
       end
 
 feature {EIFFEL_PARSER}
-   add_last (fga: FORMAL_GENERIC_ARG) is
+   add_last (fga: FORMAL_GENERIC_ARG)
       require
          fga /= Void
       local
@@ -172,7 +172,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {ANY}
-   accept (visitor: FORMAL_GENERIC_LIST_VISITOR) is
+   accept (visitor: FORMAL_GENERIC_LIST_VISITOR)
       do
          visitor.visit_formal_generic_list(Current)
       end
@@ -180,7 +180,7 @@ feature {ANY}
 feature {}
    list: ARRAY[FORMAL_GENERIC_ARG]
 
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do

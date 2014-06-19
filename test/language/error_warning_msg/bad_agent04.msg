@@ -7,6 +7,6 @@ Line 17 column 23 in BAD_AGENT04 (/home/cadrian/Workspace/Dev/Liberty/test/langu
          my_agent.call([tuple.first],3);
                       ^                 
 Line 13 column 20 in PROCEDURE (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/procedure.e):
-   call alias "()" (o: O_) is
-                   ^         
+   call alias "()" (o: O_)
+                   ^      
 ------

@@ -13,7 +13,7 @@ feature {ANY}
 
    c: like b
 
-   make is
+   make
       do
          c := Current
       end

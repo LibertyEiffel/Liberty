@@ -4,13 +4,13 @@
 class AUX_REDEFINE1A
 
 feature {ANY}
-   foo (array: ARRAY[ANY]) is
+   foo (array: ARRAY[ANY])
       require
       -- Stupid bug :-(
       do
       end
 
-   bar (array: ARRAY[ANY]) is
+   bar (array: ARRAY[ANY])
       do
          array.put(Void, 1)
       end

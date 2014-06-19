@@ -12,7 +12,7 @@ feature {ANY}
    
    j: INTEGER
    
-   main is
+   main
       local
          i: INTEGER
       do
@@ -36,12 +36,12 @@ feature {ANY}
          end
       end
    
-   item1(i: INTEGER): INTEGER is
+   item1(i: INTEGER): INTEGER
       do
          Result := a.item(1 + (i*j))
       end
    
-   item2(i: INTEGER): INTEGER is
+   item2(i: INTEGER): INTEGER
          -- same as item1 
       do
          Result := a.item((i*j) + 1)

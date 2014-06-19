@@ -24,7 +24,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {ANY}
-   convert_object (a_source: like source; a_target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   convert_object (a_source: like source; a_target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       require
          a_source.type.converts_to(a_target_type)
       do
@@ -48,7 +48,7 @@ feature {}
    converted: LIBERTY_INTERPRETER_OBJECT
 
 feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
-   convert_integer_8_16 is
+   convert_integer_8_16
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -56,7 +56,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_16(int.item.to_integer_16, int.position)
       end
 
-   convert_integer_8_32 is
+   convert_integer_8_32
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -64,7 +64,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_32(int.item.to_integer_32, int.position)
       end
 
-   convert_integer_8_64 is
+   convert_integer_8_64
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -72,7 +72,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_64(int.item, int.position)
       end
 
-   convert_integer_16_32 is
+   convert_integer_16_32
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -80,7 +80,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_32(int.item.to_integer_32, int.position)
       end
 
-   convert_integer_16_64 is
+   convert_integer_16_64
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -88,7 +88,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_64(int.item, int.position)
       end
 
-   convert_integer_32_64 is
+   convert_integer_32_64
       local
          int: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -96,7 +96,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_integer_64(int.item, int.position)
       end
 
-   convert_real_32_64 is
+   convert_real_32_64
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -104,7 +104,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_64(flt.item.force_to_real_64, flt.position)
       end
 
-   convert_real_32_80 is
+   convert_real_32_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -112,7 +112,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item.force_to_real_64, flt.position)
       end
 
-   convert_real_32_128 is
+   convert_real_32_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -120,7 +120,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item, flt.position)
       end
 
-   convert_real_64_80 is
+   convert_real_64_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -128,7 +128,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item, flt.position)
       end
 
-   convert_real_64_128 is
+   convert_real_64_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -136,7 +136,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item, flt.position)
       end
 
-   convert_real_80_128 is
+   convert_real_80_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -144,7 +144,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item, flt.position)
       end
 
-   convert_integer_64_real_128 is
+   convert_integer_64_real_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -152,7 +152,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item, flt.position)
       end
 
-   convert_integer_64_real_80 is
+   convert_integer_64_real_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -160,7 +160,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item, flt.position)
       end
 
-   convert_integer_32_real_128 is
+   convert_integer_32_real_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -168,7 +168,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item.to_integer_32, flt.position)
       end
 
-   convert_integer_32_real_80 is
+   convert_integer_32_real_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -176,7 +176,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item.to_integer_32, flt.position)
       end
 
-   convert_integer_32_real_64 is
+   convert_integer_32_real_64
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -184,7 +184,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_64(flt.item.to_integer_32, flt.position)
       end
 
-   convert_integer_16_real_128 is
+   convert_integer_16_real_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -192,7 +192,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item.to_integer_16, flt.position)
       end
 
-   convert_integer_16_real_80 is
+   convert_integer_16_real_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -200,7 +200,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item.to_integer_16, flt.position)
       end
 
-   convert_integer_16_real_64 is
+   convert_integer_16_real_64
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -208,7 +208,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_64(flt.item.to_integer_16, flt.position)
       end
 
-   convert_integer_16_real_32 is
+   convert_integer_16_real_32
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -216,7 +216,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_32(flt.item.to_integer_16, flt.position)
       end
 
-   convert_integer_8_real_128 is
+   convert_integer_8_real_128
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -224,7 +224,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_128(flt.item.to_integer_8, flt.position)
       end
 
-   convert_integer_8_real_80 is
+   convert_integer_8_real_80
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -232,7 +232,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_80(flt.item.to_integer_8, flt.position)
       end
 
-   convert_integer_8_real_64 is
+   convert_integer_8_real_64
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -240,7 +240,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
          converted := interpreter.new_real_64(flt.item.to_integer_8, flt.position)
       end
 
-   convert_integer_8_real_32 is
+   convert_integer_8_real_32
       local
          flt: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -249,7 +249,7 @@ feature {LIBERTY_UNIVERSE} -- Legacy conversion rules
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

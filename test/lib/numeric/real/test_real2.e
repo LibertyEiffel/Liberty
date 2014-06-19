@@ -7,19 +7,19 @@ create {}
    make
 
 feature {ANY}
-   r1: REAL is -2.0
+   r1: REAL -2.0
 
-   r2: REAL is 3.14
+   r2: REAL 3.14
 
-   r3: REAL is -3.0
+   r3: REAL -3.0
 
-   r4: REAL is 3.0
+   r4: REAL 3.0
 
-   i1: INTEGER is -3
+   i1: INTEGER -3
 
-   i2: INTEGER is 3
+   i2: INTEGER 3
 
-   make is
+   make
       do
          assert(r1 = -2.0)
          assert(r2 = 3.14)
@@ -34,7 +34,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

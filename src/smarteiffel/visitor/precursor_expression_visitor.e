@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {PRECURSOR_EXPRESSION}
-   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       require
          visited /= Void
       deferred

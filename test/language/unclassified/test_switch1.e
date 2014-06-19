@@ -8,13 +8,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(std_output)
          foo(io)
       end
 
-   foo (file: OUTPUT_STREAM) is
+   foo (file: OUTPUT_STREAM)
       local
          b: BOOLEAN
       do

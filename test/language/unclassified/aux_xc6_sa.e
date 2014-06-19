@@ -7,7 +7,7 @@ inherit
    AUX_XC6_AA
 
 feature {ANY}
-   g is
+   g
       do
       end
 

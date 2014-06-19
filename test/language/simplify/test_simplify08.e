@@ -23,7 +23,7 @@ feature {ANY}
 
    bs: EIFFELTEST_TOOLS
 
-   make is
+   make
       local
          c: like Current
       do

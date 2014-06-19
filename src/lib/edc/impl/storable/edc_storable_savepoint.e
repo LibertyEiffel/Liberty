@@ -30,19 +30,19 @@ create {EDC_STORABLE_CONNECTION}
 feature {ANY}
    name: STRING
 
-   is_active: BOOLEAN is
+   is_active: BOOLEAN
       do
          Result := repository /= Void
       end
 
-   release is
+   release
       do
          stream := Void
          repository := Void
       end
 
 feature {EDC_STORABLE_CONNECTION}
-   restore (a_repository: REPOSITORY[EDC_STORABLE_TABLE]) is
+   restore (a_repository: REPOSITORY[EDC_STORABLE_TABLE])
       require
          is_active
          a_repository.is_empty
@@ -62,7 +62,7 @@ feature {EDC_STORABLE_CONNECTION}
       end
 
 feature {}
-   make (a_name: like name; a_repository: REPOSITORY[EDC_STORABLE_TABLE]) is
+   make (a_name: like name; a_repository: REPOSITORY[EDC_STORABLE_TABLE])
       local
          i: INTEGER
       do

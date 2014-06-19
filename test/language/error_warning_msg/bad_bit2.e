@@ -7,11 +7,11 @@ create {}
    make
 
 feature {ANY}
-   N1: INTEGER is 8;
+   N1: INTEGER 8;
 
-   N2: INTEGER is 7;
+   N2: INTEGER 7;
 
-   make is
+   make
       local
          bn1: BIT N1;
          bn2: BIT N2;

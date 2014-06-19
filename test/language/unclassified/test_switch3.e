@@ -14,7 +14,7 @@ feature {ANY}
 
    store0: NATIVE_ARRAY[ANIMAL]
 
-   make is
+   make
       local
          c: CAT; d: DOG
       do

@@ -7,37 +7,37 @@ inherit
    INSTRUCTION
 
 feature {ANY}
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   frozen specialize_in (type: TYPE): like Current is
+   frozen specialize_in (type: TYPE): like Current
       do
          check
             non_written_code: False
          end
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check
             non_written_code: False
          end
       end
 
-   frozen specialize_and_check (type: TYPE): INSTRUCTION is
+   frozen specialize_and_check (type: TYPE): INSTRUCTION
       do
          check
             non_written_code: False
          end
       end
 
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          check
             non_written_code: False
          end
       end
 
-   frozen end_mark_comment: BOOLEAN is
+   frozen end_mark_comment: BOOLEAN
       do
          check
             non_written_code: False

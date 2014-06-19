@@ -7,22 +7,22 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          p1
       end
 
-   p1 is
+   p1
       do
          p2
       end
 
-   p2 is
+   p2
       do
          p3
       end
 
-   p3 is
+   p3
       do
       end
 

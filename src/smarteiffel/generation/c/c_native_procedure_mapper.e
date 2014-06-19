@@ -26,7 +26,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   compile (a_rf7: RUN_FEATURE_7) is
+   compile (a_rf7: RUN_FEATURE_7)
       require
          rf7_does_need_c_wrapper(a_rf7)
       local
@@ -56,7 +56,7 @@ feature {}
    rf7: RUN_FEATURE_7
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       local
          cbd: BOOLEAN
       do
@@ -208,7 +208,7 @@ feature {NATIVE_BUILT_IN}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
          if not cpp.c_plus_plus_registered(visited) then
             extra_c_prototype(visited.external_tag.start_position, type_of_current, rf7.base_feature)
@@ -219,7 +219,7 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          visited.parse_external_tag
          if visited.need_prototype and then not cpp.c_registered(visited) then
@@ -231,14 +231,14 @@ feature {NATIVE_C}
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       do
          mapping_plug_in(visited, rf7.arguments)
          function_body.append(once ";%N")
       end
 
 feature {} -- built-ins
-   c_mapping_native_array_procedure is
+   c_mapping_native_array_procedure
       local
          elt_type: TYPE
       do
@@ -296,7 +296,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_integer_procedure is
+   c_mapping_integer_procedure
       do
          if as_bit_put = name then
             function_body.append(once "if(")
@@ -332,7 +332,7 @@ feature {} -- built-ins
       end
 
 feature {} -- Threads
-   c_mapping_thread_context_proc is
+   c_mapping_thread_context_proc
       do
          if as_run = name then
             function_body.append(once "((T")
@@ -351,7 +351,7 @@ feature {} -- Threads
          end
       end
 
-   c_mapping_thread_lock_proc is
+   c_mapping_thread_lock_proc
       do
          if as_lock = name then
             function_body.append(once "se_thread_lock_lock((")
@@ -384,12 +384,12 @@ feature {} -- Threads
          end
       end
 
-   fs_thread_name: HASHED_STRING is
+   fs_thread_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(once "thread")
       end
 
-   fs_args_name: HASHED_STRING is
+   fs_args_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(once "args")
       end

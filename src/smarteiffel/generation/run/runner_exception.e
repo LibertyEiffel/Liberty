@@ -15,17 +15,17 @@ feature {RUNNER_FACET}
    parent: RUNNER_EXCEPTION
    exception: INTEGER
 
-   processor: RUNNER_PROCESSOR is
+   processor: RUNNER_PROCESSOR
       do
          Result := frame.processor
       end
 
-   print_stack is
+   print_stack
       do
          frame.print_stack(std_error)
       end
 
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       require
          parent = Void
          a_parent /= Void
@@ -36,7 +36,7 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   make (a_exception: like exception; a_message: like message; a_processor: RUNNER_PROCESSOR; a_parent: like parent) is
+   make (a_exception: like exception; a_message: like message; a_processor: RUNNER_PROCESSOR; a_parent: like parent)
       require
          a_exception.in_range(exceptions.Check_instruction, exceptions.System_level_type_error)
          a_message /= Void

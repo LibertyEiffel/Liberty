@@ -13,9 +13,9 @@ inherit
       end
 
 feature {ANY}
-   frozen is_generic: BOOLEAN is True
+   frozen is_generic: BOOLEAN True
 
-   class_text_name: CLASS_NAME is
+   class_text_name: CLASS_NAME
          -- It can be "ARRAY", "NATIVE_ARRAY", "TUPLE", "DICTIONARY", "PROCEDURE", etc. with the correct
          -- `start_position'.
       require else
@@ -26,7 +26,7 @@ feature {ANY}
    generic_list: ARRAY[TYPE_MARK]
          --|*** (Should be turned one day into a FAST_ARRAY in order to save a little bit memory.) ***
 
-   frozen type: TYPE is
+   frozen type: TYPE
       do
          if type_memory = Void then
             type_memory := smart_eiffel.get_type(Current, False)
@@ -34,7 +34,7 @@ feature {ANY}
          Result := type_memory
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -54,12 +54,12 @@ feature {ANY}
          buffer.extend(']')
       end
 
-   frozen start_position: POSITION is
+   frozen start_position: POSITION
       do
          Result := class_text_name.start_position
       end
 
-   frozen is_static: BOOLEAN is
+   frozen is_static: BOOLEAN
       local
          i: INTEGER
       do
@@ -78,7 +78,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       local
          i: INTEGER
       do
@@ -93,7 +93,7 @@ feature {ANY}
          Current.update_static_memory(new_type)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK
       local
          tm1, tm2: TYPE_MARK; i: INTEGER; gl: like generic_list
       do
@@ -124,12 +124,12 @@ feature {ANY}
          Result.update_static_memory(new_type)
       end
 
-   frozen has_been_specialized: BOOLEAN is
+   frozen has_been_specialized: BOOLEAN
       do
          Result := is_static or else not static_memory.is_empty
       end
 
-   frozen declaration_type: TYPE_MARK is
+   frozen declaration_type: TYPE_MARK
        local
           tm1, tm2: TYPE_MARK; i: INTEGER; gl: like generic_list
          static_generic_type_mark: like Current
@@ -166,7 +166,7 @@ feature {ANY}
          Result.generic_list.count = generic_list.count
       end
 
-   frozen written_name: HASHED_STRING is
+   frozen written_name: HASHED_STRING
       local
          i: INTEGER; gl: like generic_list; buffer: STRING
       do
@@ -214,7 +214,7 @@ feature {ANY}
          end
       end
 
-   frozen to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   frozen to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       local
          static_tuple: TUPLE[TYPE, TYPE]
       do
@@ -235,7 +235,7 @@ feature {ANY}
          end
       end
 
-   frozen signature_resolve_in (new_type: TYPE): TYPE is
+   frozen signature_resolve_in (new_type: TYPE): TYPE
       local
          i: INTEGER; gl: like generic_list; static_generic_type_mark: like Current
       do
@@ -262,7 +262,7 @@ feature {ANY}
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       local
          ln: STRING; i: INTEGER
       do
@@ -296,7 +296,7 @@ feature {}
          -- To cache `declaration_type'.
 
 feature {GENERIC_TYPE_MARK}
-   frozen set_generic_list(gl: like generic_list) is
+   frozen set_generic_list(gl: like generic_list)
       do
          written_name_memory := Void
          signature_resolved_memory := Void
@@ -306,7 +306,7 @@ feature {GENERIC_TYPE_MARK}
          generic_list = gl
       end
 
-   frozen set_static_generic_list (gl: like generic_list) is
+   frozen set_static_generic_list (gl: like generic_list)
          -- Where `gl' is completely static.
       require
          generic_list.count = gl.count
@@ -321,7 +321,7 @@ feature {GENERIC_TYPE_MARK}
          generic_list = gl
       end
 
-   frozen recompute_declaration_type is
+   frozen recompute_declaration_type
        local
           tm1, tm2, tm3 : TYPE_MARK; i, current_ok, memory_ok: INTEGER; gl: like generic_list
          static_generic_type_mark: like Current
@@ -370,7 +370,7 @@ feature {GENERIC_TYPE_MARK}
       end
 
 feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
-   update_static_memory (new_type: TYPE) is
+   update_static_memory (new_type: TYPE)
       local
          static: TUPLE[TYPE, TYPE]; t1, t2: TYPE
       do
@@ -388,7 +388,7 @@ feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
       end
 
 feature {}
-   new_static_type_in (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE is
+   new_static_type_in (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE
       local
          i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
          static_generic_type_mark: like Current
@@ -422,7 +422,7 @@ feature {}
       end
 
 feature {TYPE_MARK}
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       local
          i: INTEGER
          tm1, tm2: TYPE_MARK
@@ -459,7 +459,7 @@ feature {TYPE_MARK}
 feature {}
    type_memory: like type
 
-   frozen short_generic (shorted_type: TYPE; ctn: like class_text_name) is
+   frozen short_generic (shorted_type: TYPE; ctn: like class_text_name)
          -- To implement all `short_' in subclasses.
       local
          i: INTEGER

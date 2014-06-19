@@ -16,7 +16,7 @@ insert
    AVL_CONSTANTS
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          item.out_in_tagged_out_memory
          tagged_out_memory.extend('(')
@@ -46,7 +46,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          -- `imbalanced_left' (the left branch is the longer) or
          -- `imbalanced_right' (the right branch is the longer)
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 1
          if left /= Void then
@@ -57,7 +57,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          end
       end
 
-   height: INTEGER is
+   height: INTEGER
       do
          if left /= Void then
             Result := left.height
@@ -68,7 +68,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          Result := Result + 1
       end
 
-   map_in (map: COLLECTION[like Current]) is
+   map_in (map: COLLECTION[like Current])
       require
          map /= Void
       do
@@ -83,7 +83,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          map.count = old map.count + count
       end
 
-   has (e: like item): BOOLEAN is
+   has (e: like item): BOOLEAN
          -- Is element `e' in the tree?
       do
          Result := safe_equal.test(item, e)
@@ -96,7 +96,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          end
       end
 
-   fast_has (e: like item): BOOLEAN is
+   fast_has (e: like item): BOOLEAN
          -- Is element `e' in the tree?
       do
          Result := item = e
@@ -111,7 +111,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          Result implies count > 0
       end
 
-   at (e: like item): like Current is
+   at (e: like item): like Current
          -- Is element `e' in the tree?
       do
          if safe_equal.test(item, e) then
@@ -127,7 +127,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          end
       end
 
-   set_item (i: like item) is
+   set_item (i: like item)
       require
       -- Equality admitted for the free list
          left /= Void implies safe_equal.test(left.item, i) or else ordered(left.item, i)
@@ -138,7 +138,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          item = i
       end
 
-   set_left (l: like left) is
+   set_left (l: like left)
       require
       -- Equality admitted for the free list
          l /= Void implies safe_equal.test(l.item, item) or else ordered(l.item, item)
@@ -148,7 +148,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          left = l
       end
 
-   set_right (r: like right) is
+   set_right (r: like right)
       require
          r /= Void implies ordered(item, r.item)
       do
@@ -157,7 +157,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
          right = r
       end
 
-   set_balance (b: like balance) is
+   set_balance (b: like balance)
       do
          balance := b
       ensure
@@ -165,7 +165,7 @@ feature {AVL_TREE_NODE, AVL_TREE, AVL_TREE_ITERATOR}
       end
 
 feature {AVL_TREE} -- Rotations:
-   rotate_right: like Current is
+   rotate_right: like Current
          -- Proceeds to some reorganisation and returns the upper node.
       local
          left_right: like Current
@@ -178,7 +178,7 @@ feature {AVL_TREE} -- Rotations:
          Result /= Void
       end
 
-   rotate_left: like Current is
+   rotate_left: like Current
          -- Proceeds to some reorganisation and returns the upper node.
       local
          right_left: like Current
@@ -192,7 +192,7 @@ feature {AVL_TREE} -- Rotations:
       end
 
 feature {}
-   ordered (e1, e2: E_): BOOLEAN is
+   ordered (e1, e2: E_): BOOLEAN
          -- True if [e1, e2] is a correctly ordered sequence; usually, e1 < e2
       require
          e1 /= Void
@@ -201,7 +201,7 @@ feature {}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       local
          e: E_
       do
@@ -218,7 +218,7 @@ end -- class AVL_TREE_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

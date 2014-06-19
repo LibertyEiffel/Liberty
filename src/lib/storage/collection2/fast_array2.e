@@ -26,11 +26,11 @@ feature {FAST_ARRAY2}
    capacity: INTEGER -- of `storage'.
 
 feature {ANY}
-   lower1: INTEGER is 0
+   lower1: INTEGER 0
 
-   lower2: INTEGER is 0
+   lower2: INTEGER 0
 
-   make (new_count1, new_count2: INTEGER) is
+   make (new_count1, new_count2: INTEGER)
          -- Create or reset Current with new dimensions.
          -- All elements are set to the default value of type E_.
       require
@@ -54,7 +54,7 @@ feature {ANY}
          all_default
       end
 
-   from_collection2 (model: COLLECTION2[like item]) is
+   from_collection2 (model: COLLECTION2[like item])
          -- Uses the `model' to update Current.
       local
          line, column, l, c: INTEGER
@@ -81,7 +81,7 @@ feature {ANY}
          end
       end
 
-   from_collection (contents: COLLECTION[E_]; new_count1, new_count2: INTEGER) is
+   from_collection (contents: COLLECTION[E_]; new_count1, new_count2: INTEGER)
          --  Reset all bounds using `new_count#i'.
          --  Copy all elements of `contents', line by line into Current.
       require
@@ -106,7 +106,7 @@ feature {ANY}
          count = contents.count
       end
 
-   from_model (model: COLLECTION[COLLECTION[E_]]) is
+   from_model (model: COLLECTION[COLLECTION[E_]])
          -- The `model' is used to fill line by line the COLLECTION2.
          -- Assume all sub-collections of `model' have the number of items.
       local
@@ -138,7 +138,7 @@ feature {ANY}
          end
       end
 
-   sub_collection2 (line_min, line_max, column_min, column_max: INTEGER): like Current is
+   sub_collection2 (line_min, line_max, column_min, column_max: INTEGER): like Current
       local
          line, column, l, c: INTEGER
       do
@@ -165,17 +165,17 @@ feature {ANY}
       end
 
 feature {ANY} -- Implementation of others feature from COLLECTION2:
-   item (line, column: INTEGER): E_ is
+   item (line, column: INTEGER): E_
       do
          Result := storage.item(line * count2 + column)
       end
 
-   put (x: like item; line, column: INTEGER) is
+   put (x: like item; line, column: INTEGER)
       do
          storage.put(x, line * count2 + column)
       end
 
-   force (element: like item; line, column: INTEGER) is
+   force (element: like item; line, column: INTEGER)
       do
          if not valid_index(line, column) then
             resize(1 + line.max(upper1), 1 + column.max(upper2))
@@ -183,7 +183,7 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
          put(element, line, column)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          count1 := other.count1
          upper1 := count1 - 1
@@ -198,18 +198,18 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
       end
 
 feature {ANY} -- Writing:
-   set_all_with (x: E_) is
+   set_all_with (x: E_)
          --  All element are set with the value x.
       do
          storage.set_all_with(x, count - 1)
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
       do
          Result := storage.all_default(count - 1)
       end
 
-   slice (line_min, line_max, column_min, column_max: INTEGER): like Current is
+   slice (line_min, line_max, column_min, column_max: INTEGER): like Current
       obsolete "Use sub_collection2 instead"
       require
          valid_index(line_min, column_min)
@@ -220,7 +220,7 @@ feature {ANY} -- Writing:
          Result := sub_collection2(line_min, line_max, column_min, column_max)
       end
 
-   set_slice (element: like item; l1, up1, l2, up2: INTEGER) is
+   set_slice (element: like item; l1, up1, l2, up2: INTEGER)
          -- Set all the elements in the
          -- range [(l1,up1),(l2,up2)] of
          -- Current with the element 'element'.
@@ -249,7 +249,7 @@ feature {ANY} -- Writing:
          end
       end
 
-   swap (line1, column1, line2, column2: INTEGER) is
+   swap (line1, column1, line2, column2: INTEGER)
       local
          tmp: like item; c2, index1, index2: INTEGER
       do
@@ -262,18 +262,18 @@ feature {ANY} -- Writing:
       end
 
 feature {ANY} -- Looking and comparison:
-   occurrences (elt: E_): INTEGER is
+   occurrences (elt: E_): INTEGER
       do
          Result := storage.occurrences(elt, count - 1)
       end
 
-   fast_occurrences (elt: E_): INTEGER is
+   fast_occurrences (elt: E_): INTEGER
       do
          Result := storage.fast_occurrences(elt, count - 1)
       end
 
 feature {ANY} -- Resizing:
-   resize (new_count1, new_count2: INTEGER) is
+   resize (new_count1, new_count2: INTEGER)
       require
          new_count1 >= 0
          new_count2 >= 0
@@ -310,7 +310,7 @@ feature {ANY} -- Resizing:
       end
 
 feature {ANY} -- Looking and Searching:
-   has (x: like item): BOOLEAN is
+   has (x: like item): BOOLEAN
          -- Look for `x' using `equal' for comparison.
       do
          if count > 0 then
@@ -318,7 +318,7 @@ feature {ANY} -- Looking and Searching:
          end
       end
 
-   fast_has (x: like item): BOOLEAN is
+   fast_has (x: like item): BOOLEAN
          -- Same as `has' but use `=' for comparison
       do
          if count > 0 then
@@ -327,17 +327,17 @@ feature {ANY} -- Looking and Searching:
       end
 
 feature {ANY} -- Other features:
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
       do
          storage.replace_all(old_value, new_value, count - 1)
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
       do
          storage.fast_replace_all(old_value, new_value, count - 1)
       end
 
-   transpose is
+   transpose
          -- Transpose the Current array
       local
          i, j: INTEGER; tmp: INTEGER; oldc1, oldc2: INTEGER
@@ -364,14 +364,14 @@ feature {ANY} -- Other features:
          resize(oldc2, oldc1)
       end
 
-   to_external: POINTER is
+   to_external: POINTER
          -- Gives C access to the internal `storage' (may be dangerous).
       do
          Result := storage.to_external
       end
 
 feature {} -- Garbage collector tuning (very low-level):
-   mark_native_arrays is
+   mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
          -- some elements are removed. No time is lost to clean the released area with a Void 
          -- or a 0 value. Thus, the unused area of `storage' may contains references of 
@@ -394,7 +394,7 @@ feature {} -- Garbage collector tuning (very low-level):
       end
 
 feature {} -- Implement manifest generic creation (very low-level):
-   manifest_make (needed_capacity: INTEGER; new_count1, new_count2: INTEGER) is
+   manifest_make (needed_capacity: INTEGER; new_count1, new_count2: INTEGER)
          -- Create a FAST_ARRAY2[E_] with `new_count1' lines and `new_count2' columns.
       require
          new_count1 > 0
@@ -404,7 +404,7 @@ feature {} -- Implement manifest generic creation (very low-level):
          make(new_count1, new_count2)
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
          -- The `element's are stored line by line.
       do
          storage.put(element, index)
@@ -424,7 +424,7 @@ end -- class FAST_ARRAY2
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

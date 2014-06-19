@@ -29,7 +29,7 @@ create {EDC_VALUE}
    make
 
 feature {}
-   typed_accept (a_visitor: ESE_TYPED_VISITOR[T_]) is
+   typed_accept (a_visitor: ESE_TYPED_VISITOR[T_])
       local
          v: EDC_ISNULL_EXPRESSION_VISITOR[T_]
       do
@@ -38,7 +38,7 @@ feature {}
       end
 
 feature {}
-   make (a_exp: like exp) is
+   make (a_exp: like exp)
       require
          a_exp /= Void
       do
@@ -51,11 +51,11 @@ feature {ANY}
    exp: EDC_TYPED_VALUE[T_]
 
 feature {ANY}
-   can_call: BOOLEAN is True
+   can_call: BOOLEAN True
 
-   open_count: INTEGER is 0
+   open_count: INTEGER 0
 
-   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN is
+   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN
       local
          e: EDC_TYPED_DATUM[T_]
       do
@@ -63,23 +63,23 @@ feature {ANY}
          Result := e = Void
       end
 
-   can_match (a_column: EDC_COLUMN): BOOLEAN is
+   can_match (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := exp.is_column(a_column)
       end
 
 feature {EDC_SELECTABLE, EDC_EXPRESSION}
-   clear_prepare is
+   clear_prepare
       do
          exp.clear_prepare
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       do
          Result := exp.do_prepare_call(arguments, cursor)
       end
 
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       do
          Result := exp.do_set_parameter_positions(position)
       end

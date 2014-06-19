@@ -10,13 +10,13 @@ create {ANY}
    make
 
 feature {ANY}
-   show: BOOLEAN is
+   show: BOOLEAN
       do
          Result := True
       end
 
 feature {}
-   make is
+   make
       do
       end
 

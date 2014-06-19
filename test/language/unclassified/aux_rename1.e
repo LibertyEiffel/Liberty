@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   r: INTEGER is
+   r: INTEGER
       do
          Result := 2
       end

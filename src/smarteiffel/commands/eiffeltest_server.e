@@ -23,9 +23,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "eiffeltest_server"
+   command_line_name: STRING "eiffeltest_server"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: eiffeltest_server <port>
 
       Information:
@@ -38,7 +38,7 @@ feature {ANY}
 feature {}
    port: INTEGER
 
-   main is
+   main
       local
          stack: LOOP_STACK
          socket: EIFFELTEST_SERVER_SOCKET
@@ -52,7 +52,7 @@ feature {}
          stack.run
       end
 
-   make is
+   make
       local
          log_conf: LOG_CONFIGURATION
          conf: STRING_INPUT_STREAM
@@ -65,12 +65,12 @@ feature {}
          log configuration
          root #(1)
          output
-            default is
+            default
                file "#(3)"
                rotated each day keeping 5
             end
          logger
-            #(1) is
+            #(1)
                output default
                level #(2)
             end
@@ -81,7 +81,7 @@ feature {}
 
    level: STRING
 
-   parse_arguments is
+   parse_arguments
       local
          i: INTEGER; arg: STRING
       do
@@ -136,12 +136,12 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          check not Result end
       end
 
-   valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING ""
 
 end -- class EIFFELTEST_SERVER
 --

@@ -1,7 +1,7 @@
 class C_FACTORY
 
 feature {ANY}
-   string_make (c_string: NATIVE_ARRAY[CHARACTER]): STRING is
+   string_make (c_string: NATIVE_ARRAY[CHARACTER]): STRING
          -- Creates a new Eiffel STRING using `c_string' contents as
          -- a model (for the contents of the new STRING).
       require

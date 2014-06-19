@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_ref_struct_set_next (a_structure: POINTER; a_value: POINTER) is
+	xml_ref_struct_set_next (a_structure: POINTER; a_value: POINTER)
 			-- Setter for next field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_ref_struct_set_value (a_structure: POINTER; a_value: POINTER) is
+	xml_ref_struct_set_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_ref_struct_set_attr (a_structure: POINTER; a_value: POINTER) is
+	xml_ref_struct_set_attr (a_structure: POINTER; a_value: POINTER)
 			-- Setter for attr field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_ref_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	xml_ref_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_ref_struct_set_lineno (a_structure: POINTER; a_value: INTEGER) is
+	xml_ref_struct_set_lineno (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for lineno field of XML_REF_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_ref_struct_get_next (a_structure: POINTER): POINTER is
+	xml_ref_struct_get_next (a_structure: POINTER): POINTER
 			-- Query for next field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_ref_struct_get_value (a_structure: POINTER): POINTER is
+	xml_ref_struct_get_value (a_structure: POINTER): POINTER
 			-- Query for value field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_ref_struct_get_attr (a_structure: POINTER): POINTER is
+	xml_ref_struct_get_attr (a_structure: POINTER): POINTER
 			-- Query for attr field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_ref_struct_get_name (a_structure: POINTER): POINTER is
+	xml_ref_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_ref_struct_get_lineno (a_structure: POINTER): INTEGER is
+	xml_ref_struct_get_lineno (a_structure: POINTER): INTEGER
 			-- Query for lineno field of XML_REF_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

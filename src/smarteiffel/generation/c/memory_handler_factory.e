@@ -4,49 +4,49 @@
 expanded class MEMORY_HANDLER_FACTORY
 
 feature {ANY}
-   set_no_gc is
+   set_no_gc
       do
          mode.set_item(Mode_off)
       ensure
          is_no_gc
       end
 
-   set_bdw_gc is
+   set_bdw_gc
       do
          mode.set_item(Mode_bdw)
       ensure
          is_bdw_gc
       end
 
-   set_info_flag is
+   set_info_flag
       do
          info.set_item(True)
       ensure
          has_info_flag
       end
 
-   is_no_gc: BOOLEAN is
+   is_no_gc: BOOLEAN
       do
          Result := mode.item = Mode_off
       end
 
-   is_bdw_gc: BOOLEAN is
+   is_bdw_gc: BOOLEAN
       do
          Result := mode.item = Mode_bdw
       end
 
-   is_se_gc: BOOLEAN is
+   is_se_gc: BOOLEAN
       do
          Result := mode.item = Mode_standard
       end
 
-   has_info_flag: BOOLEAN is
+   has_info_flag: BOOLEAN
       do
          Result := info.item
       end
 
 feature {C_PRETTY_PRINTER}
-   create_memory_handler: MEMORY_HANDLER is
+   create_memory_handler: MEMORY_HANDLER
       do
          inspect
             mode.item
@@ -62,19 +62,19 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   mode: REFERENCE[INTEGER] is
+   mode: REFERENCE[INTEGER]
       once
          create Result.set_item(Mode_standard)
       end
 
-   info: REFERENCE[BOOLEAN] is
+   info: REFERENCE[BOOLEAN]
       once
          create Result
       end
 
-   Mode_standard: INTEGER is 0
-   Mode_off: INTEGER is -1
-   Mode_bdw: INTEGER is 1
+   Mode_standard: INTEGER 0
+   Mode_off: INTEGER -1
+   Mode_bdw: INTEGER 1
 
 end -- class MEMORY_HANDLER_FACTORY
 --

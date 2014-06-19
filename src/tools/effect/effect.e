@@ -1,5 +1,5 @@
 -- This file is part of Liberty The GNU Eiffel Compiler Tools and Libraries.
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 class EFFECT
    --
@@ -14,24 +14,24 @@ create {}
    make
 
 feature {ANY}
-   liberty_authors: STRING is "C.ADRIAN"
-   liberty_dates: STRING is "2011-2013"
+   liberty_authors: STRING "C.ADRIAN"
+   liberty_dates: STRING "2011-2013"
 
 feature {}
    output_effect, output_reduce, output_position, output_image: TEXT_FILE_WRITE
 
-   connect_or_die (name: ABSTRACT_STRING): TEXT_FILE_WRITE is
+   connect_or_die (name: ABSTRACT_STRING): TEXT_FILE_WRITE
       do
          create Result.connect_to(name)
-         if not Result.is_connected then
+         if not Result._connected then
             std_error.put_line("Cannot write file: #(1)" # name)
             die_with_code(1)
          end
       ensure
-         Result.is_connected
+         Result._connected
       end
 
-   generate (name: FIXED_STRING; input: INPUT_STREAM) is
+   generate (name: FIXED_STRING; input: INPUT_STREAM)
       local
          grammar: PACKRAT_GRAMMAR
          source: STRING
@@ -92,7 +92,7 @@ feature {}
             make
 
          feature {ANY}
-            table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+            table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
                do
                   Result := table_memory
                   if Result = Void then
@@ -102,7 +102,7 @@ feature {}
                end
 
          feature {}
-            make (a_reducer: like reducer) is
+            make (a_reducer: like reducer)
                require
                   a_reducer /= Void
                do
@@ -179,24 +179,24 @@ feature {}
 
          -- ----------------------------------------------------------------------
 
-         output_effect.disconnect
-         output_reduce.disconnect
-         output_position.disconnect
-         output_image.disconnect
+         output_effect.dconnect
+         output_reduce.dconnect
+         output_position.dconnect
+         output_image.dconnect
       end
 
 feature {}
-   make is
+   make
       local
          input: REGULAR_FILE
       do
          if not arguments.parse_command_line then
             arguments.usage(std_error)
             die_with_code(1)
-         elseif option_help.is_set then
+         elseif option_help._set then
             arguments.usage(std_output)
             die_with_code(0)
-         elseif not argument_file.is_set then
+         elseif not argument_file._set then
             arguments.usage(std_error)
             die_with_code(1)
          end
@@ -208,26 +208,26 @@ feature {}
             die_with_code(1)
          end
 
-         if not input.exists then
-            std_error.put_line("File does not exist: #(1)" # input.path)
+         if not input.exts then
+            std_error.put_line("File does not ext: #(1)" # input.path)
             die_with_code(1)
          end
 
          generate(input.name.substring(input.name.lower, input.name.upper - 3), input.read)
-         input.read.disconnect
+         input.read.dconnect
       end
 
-   arguments: COMMAND_LINE_ARGUMENTS is
+   arguments: COMMAND_LINE_ARGUMENTS
       once
          create Result.make(option_help or argument_file)
       end
 
-   argument_file: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   argument_file: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       once
          Result := cli_factory.positional_file("grammar.ef", "The file containing the grammar (*.ef files)")
       end
 
-   option_help: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
+   option_help: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
       once
          Result := cli_factory.option_boolean("h", "help", "Command usage")
       end
@@ -240,7 +240,7 @@ end -- class EFFECT
 -- Copyright notice below. Please read.
 --
 -- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
--- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- as publhed by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free

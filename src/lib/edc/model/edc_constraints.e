@@ -22,7 +22,7 @@
 expanded class EDC_CONSTRAINTS
 
 feature {ANY}
-   Not_null: EDC_CONSTRAINT is
+   Not_null: EDC_CONSTRAINT
       do
          create {EDC_NOT_NULL_CONSTRAINT} Result.make
       end

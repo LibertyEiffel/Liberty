@@ -13,7 +13,7 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT
       do
          check
             False
@@ -21,7 +21,7 @@ feature {RUNNER_MEMORY}
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -87,32 +87,32 @@ feature {}
       end
 
 feature {}
-   builtin_generating_type (processor: RUNNER_PROCESSOR) is
+   builtin_generating_type (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_manifest_string(processor.current_frame.target.type.name.to_string, True))
       end
 
-   builtin_generator (processor: RUNNER_PROCESSOR) is
+   builtin_generator (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_manifest_string(processor.current_frame.target.type.class_text.name.to_string, True))
       end
 
-   builtin_same_dynamic_type (processor: RUNNER_PROCESSOR) is
+   builtin_same_dynamic_type (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(processor.current_frame.target.type = processor.current_frame.arguments.first.type))
       end
 
-   builtin_is_equal (processor: RUNNER_PROCESSOR) is
+   builtin_is_equal (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(processor.current_frame.target.builtin_is_equal(processor.current_frame.arguments.first)))
       end
 
-   builtin_is_deep_equal (processor: RUNNER_PROCESSOR) is
+   builtin_is_deep_equal (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_twin (processor: RUNNER_PROCESSOR) is
+   builtin_twin (processor: RUNNER_PROCESSOR)
       local
          object: RUNNER_OBJECT
       do
@@ -121,27 +121,27 @@ feature {}
          processor.current_frame.set_return(object)
       end
 
-   builtin_copy (processor: RUNNER_PROCESSOR) is
+   builtin_copy (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.target.builtin_copy(processor.current_frame.arguments.first)
       end
 
-   builtin_deep_twin (processor: RUNNER_PROCESSOR) is
+   builtin_deep_twin (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_trace_switch (processor: RUNNER_PROCESSOR) is
+   builtin_trace_switch (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_break (processor: RUNNER_PROCESSOR) is
+   builtin_break (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_die_with_code (processor: RUNNER_PROCESSOR) is
+   builtin_die_with_code (processor: RUNNER_PROCESSOR)
       local
          exit_code: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
@@ -149,43 +149,43 @@ feature {}
          die_with_code(exit_code.item.to_integer_32)
       end
 
-   builtin_to_pointer (processor: RUNNER_PROCESSOR) is
+   builtin_to_pointer (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_pointer(processor.current_frame.target.builtin_to_pointer))
       end
 
-   builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR) is
+   builtin_is_basic_expanded_type (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_object_size (processor: RUNNER_PROCESSOR) is
+   builtin_object_size (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_c_inline_h (processor: RUNNER_PROCESSOR) is
+   builtin_c_inline_h (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_c_inline_c (processor: RUNNER_PROCESSOR) is
+   builtin_c_inline_c (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
-   builtin_print_run_time_stack (processor: RUNNER_PROCESSOR) is
+   builtin_print_run_time_stack (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.print_stack(std_output)
       end
 
-   builtin_to_internals (processor: RUNNER_PROCESSOR) is
+   builtin_to_internals (processor: RUNNER_PROCESSOR)
       do
          break --| **** TODO
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

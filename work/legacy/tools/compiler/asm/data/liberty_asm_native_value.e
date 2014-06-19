@@ -27,17 +27,17 @@ create {ANY}
    integer, pointer
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := kind = other.kind
       end
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
       do
          Result := kind = kind_integer
       end
 
-   is_pointer: BOOLEAN is
+   is_pointer: BOOLEAN
       do
          Result := kind = kind_pointer
       end
@@ -46,17 +46,17 @@ feature {LIBERTY_ASM_NATIVE_VALUE}
    kind: INTEGER_8
 
 feature {}
-   integer is
+   integer
       do
          kind := kind_integer
       end
 
-   pointer is
+   pointer
       do
          kind := kind_pointer
       end
 
-   kind_integer: INTEGER_8 is 1
-   kind_pointer: INTEGER_8 is 2
+   kind_integer: INTEGER_8 1
+   kind_pointer: INTEGER_8 2
 
 end -- class LIBERTY_ASM_NATIVE_VALUE

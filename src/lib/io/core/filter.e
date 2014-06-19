@@ -12,7 +12,7 @@ deferred class FILTER
    --
 
 feature {ANY}
-   connect_to (a_stream: like stream) is
+   connect_to (a_stream: like stream)
          -- Connect the filter to some underlying stream.
       require
          not is_connected
@@ -25,13 +25,13 @@ feature {ANY}
          is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- True if the filter is connected to some underlying stream.
       do
          Result := stream /= Void and then stream.is_connected
       end
 
-   disconnect is
+   disconnect
          -- Disconnect from the underlying stream.
       require
          is_connected
@@ -42,34 +42,34 @@ feature {ANY}
          stream = Void
       end
 
-   can_disconnect: BOOLEAN is
+   can_disconnect: BOOLEAN
       do
          Result := local_can_disconnect and then stream.can_disconnect
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := stream.filtered_descriptor
       end
 
-   filtered_has_descriptor: BOOLEAN is
+   filtered_has_descriptor: BOOLEAN
       do
          Result := stream.filtered_has_descriptor
       end
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := stream.filtered_stream_pointer
       end
 
-   filtered_has_stream_pointer: BOOLEAN is
+   filtered_has_stream_pointer: BOOLEAN
       do
          Result := stream.filtered_has_stream_pointer
       end
 
 feature {}
-   local_can_disconnect: BOOLEAN is
+   local_can_disconnect: BOOLEAN
          -- True if this stream can be safely disconnected (without data loss, etc.) without taking into
          -- account the state of the underlying stream.
       deferred
@@ -79,7 +79,7 @@ feature {}
          -- The underlying stream (i.e. the filtered one)
 
 feature {STREAM}
-   do_detach is
+   do_detach
          -- Used by the underlying stream to require not to be filtered anymore
       deferred
       ensure
@@ -97,7 +97,7 @@ end -- class FILTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

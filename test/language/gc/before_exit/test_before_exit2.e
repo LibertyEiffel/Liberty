@@ -15,7 +15,7 @@ feature {}
    file_tools: FILE_TOOLS
    system: SYSTEM
 
-   make is
+   make
       local
          aux: AUX_BEFORE_EXIT2
       do

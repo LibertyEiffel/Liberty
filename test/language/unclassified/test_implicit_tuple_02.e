@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          printf
       end
 
-   printf (arg: TUPLE) is
+   printf (arg: TUPLE)
       do
          assert(arg.count = 0)
          assert(arg.out.is_equal("[]"))

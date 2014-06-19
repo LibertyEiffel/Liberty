@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   init (i: INTEGER): INTEGER is
+   init (i: INTEGER): INTEGER
       do
          Result := 5 * i
       end

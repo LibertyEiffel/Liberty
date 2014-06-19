@@ -9,29 +9,29 @@ create {}
 feature {ANY}
    proc1val: INTEGER
 
-   proc1 is
+   proc1
       once
          proc1
          proc1val := proc1val + 1
       end
 
-   fonc1: INTEGER is
+   fonc1: INTEGER
       once
          -- *** Result := fonc1 -- No more recursive once ! ***
          Result := Result + 1
       end
 
-   crossf1: INTEGER is
+   crossf1: INTEGER
       once
          Result := 3 -- *** crossf2;
       end
 
-   crossf2: INTEGER is
+   crossf2: INTEGER
       once
          Result := 2 + crossf1
       end
 
-   make is
+   make
       do
          proc1
          assert(proc1val = 1)
@@ -42,7 +42,7 @@ feature {ANY}
          -- It is not really clear in E.T.L. :-(
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {UNUSED_EXPRESSION}
-   visit_unused_expression (visited: UNUSED_EXPRESSION) is
+   visit_unused_expression (visited: UNUSED_EXPRESSION)
       require
          visited /= Void
       deferred

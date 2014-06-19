@@ -15,9 +15,9 @@ create {}
    make
 
 feature {}
-   range: INTEGER is 10
+   range: INTEGER 10
 
-   make is
+   make
       local
          a1, a2: FAST_ARRAY[INTEGER]; m: MEMORY
       do

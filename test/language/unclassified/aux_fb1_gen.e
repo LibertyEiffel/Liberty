@@ -6,7 +6,7 @@ class AUX_FB1_GEN[E -> AUX_FB1_REF]
 feature {ANY}
    item: E
 
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item := i
       end

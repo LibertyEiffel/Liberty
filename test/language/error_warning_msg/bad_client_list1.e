@@ -4,7 +4,7 @@ create {}
    main
 
 feature {not_a_class_name_here}
-   main is
+   main
       do
       end
 

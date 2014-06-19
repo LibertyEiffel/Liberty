@@ -17,7 +17,7 @@ feature {}
 
    ad: ARRAY[REAL]
 
-   make is
+   make
       local
          i: INTEGER
       do

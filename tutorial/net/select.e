@@ -7,7 +7,7 @@ create {ANY}
 feature {ANY}
    events: EVENTS_SET
 
-   make is
+   make
          -- Connect to the server started by the SOCKETS class in the same cluster. You must compile and start
          -- it first.
       do
@@ -26,7 +26,7 @@ feature {ANY}
          disconnect
       end
 
-   read (ms: INTEGER) is
+   read (ms: INTEGER)
       local
          time_events: TIME_EVENTS
       do
@@ -58,7 +58,7 @@ feature {ANY}
 
    ios: SOCKET_INPUT_OUTPUT_STREAM
 
-   connect_to (host: STRING; port: INTEGER) is
+   connect_to (host: STRING; port: INTEGER)
          -- connect TCP stream to destination host and port
       local
          tcp: TCP_ACCESS; tcp_host: HOST
@@ -72,13 +72,13 @@ feature {ANY}
          end
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- is the stream connected
       do
          Result := ios.is_connected
       end
 
-   disconnect is
+   disconnect
          -- disconnect the stream
       require
          is_connected

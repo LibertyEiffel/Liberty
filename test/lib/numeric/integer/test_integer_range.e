@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          sum: INTEGER
       do
@@ -15,7 +15,7 @@ feature {}
          assert(sum = (1000*1001)//2)
       end
 
-   add (a, b: INTEGER): INTEGER is
+   add (a, b: INTEGER): INTEGER
       do
          Result := a + b
       end

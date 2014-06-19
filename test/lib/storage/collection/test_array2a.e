@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tab2: ARRAY2[INTEGER_8]
       do

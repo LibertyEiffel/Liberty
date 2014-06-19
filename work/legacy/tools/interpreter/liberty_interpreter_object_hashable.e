@@ -21,18 +21,18 @@ create {LIBERTY_INTERPRETER_OBJECT_CREATOR, LIBERTY_INTERPRETER_OBJECT_NATIVE, L
    make, with_item
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := item.hash_code
       end
 
-   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       do
          not_yet_implemented
       end
 
 feature {}
-   expanded_twin: like Current is
+   expanded_twin: like Current
       do
          create Result.with_item(interpreter, type, item, position)
       end

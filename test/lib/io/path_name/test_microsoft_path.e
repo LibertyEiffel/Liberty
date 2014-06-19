@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          set_up
          test_count
@@ -63,7 +63,7 @@ feature {}
          tear_down
       end
 
-   set_up is
+   set_up
       local
          sys: SYSTEM; bd: BASIC_DIRECTORY
       do
@@ -86,7 +86,7 @@ feature {}
          -- Path where tests are being run. Used to restore state
          -- between tests, not for the tests themselvesl.
 
-   tear_down is
+   tear_down
       local
          sys: SYSTEM; bd: BASIC_DIRECTORY
       do
@@ -96,18 +96,18 @@ feature {}
 
    empty, single, root, absolute, multi_slash, final_slash, simple, drive, drive_root, drive_path, drive2_root: MICROSOFT_PATH_NAME
 
-   mkpath (s: STRING): MICROSOFT_PATH_NAME is
+   mkpath (s: STRING): MICROSOFT_PATH_NAME
       do
          create Result.make_from_string(s)
       end
 
 feature {}
-   assert_integers_equal (name: STRING; i1, i2: INTEGER) is
+   assert_integers_equal (name: STRING; i1, i2: INTEGER)
       do
          assert(name, i1 = i2)
       end
 
-   assert_equal (name: STRING; o1, o2: STRING) is
+   assert_equal (name: STRING; o1, o2: STRING)
       do
          assert(name, o1.is_equal(o2))
       end
@@ -116,7 +116,7 @@ feature {} -- Tests
    path: MICROSOFT_PATH_NAME
          --  MISSING exists, same_file, expand_shellouts
 
-   test_count is
+   test_count
       do
          assert_integers_equal("empty", 0, empty.count)
          assert_integers_equal("single", 1, single.count)
@@ -127,7 +127,7 @@ feature {} -- Tests
          assert_integers_equal("simple", 4, simple.count)
       end
 
-   test_last is
+   test_last
       do
          assert_equal("single", "xyz.png", single.last)
          assert_equal("absolute", "y.txt", absolute.last)
@@ -136,7 +136,7 @@ feature {} -- Tests
          assert_equal("simple", "d.", simple.last)
       end
 
-   test_extension is
+   test_extension
       do
          assert_equal("single", ".png", single.extension)
          assert_equal("absolute", ".txt", absolute.extension)
@@ -145,7 +145,7 @@ feature {} -- Tests
          assert_equal("simple", ".", simple.extension)
       end
 
-   test_is_absolute is
+   test_is_absolute
       do
          assert("empty", not empty.is_absolute)
          assert("single", not single.is_absolute)
@@ -156,7 +156,7 @@ feature {} -- Tests
          assert("simple", not simple.is_absolute)
       end
 
-   test_plus is
+   test_plus
       do
          assert_equal("empty_empty", "", (empty + empty).to_string)
          assert_equal("empty_simple", simple.to_string, (empty + simple).to_string)
@@ -174,7 +174,7 @@ feature {} -- Tests
          assert_equal("drivepath_single", "c:\path\xyz.png", (drive_path + single).to_string)
       end
 
-   test_to_absolute is
+   test_to_absolute
       local
          bd: BASIC_DIRECTORY
       do
@@ -195,7 +195,7 @@ feature {} -- Tests
          assert_equal("simple", "\usr\bin\a\b\ccc\d.", simple.to_string)
       end
 
-   test_normalize is
+   test_normalize
       local
          p: MICROSOFT_PATH_NAME
       do
@@ -236,7 +236,7 @@ feature {} -- Tests
          assert_equal("drive_only", "c:.", p.to_string)
       end
 
-   test_is_normalized is
+   test_is_normalized
       do
          assert("empty", not empty.is_normalized)
          assert("single", single.is_normalized)
@@ -261,7 +261,7 @@ feature {} -- Tests
          assert("root_this", not mkpath("\.").is_normalized)
       end
 
-   test_remove_last is
+   test_remove_last
       do
          single.remove_last
          assert_equal("single", "", single.to_string)
@@ -277,7 +277,7 @@ feature {} -- Tests
          assert_equal("drive_path", "c:\", drive_path.to_string)
       end
 
-   test_add_last is
+   test_add_last
       do
          assert_equal("empty", "foo", (empty / "foo").to_string)
          assert_equal("single", "xyz.png\foo", (single / "foo").to_string)
@@ -288,7 +288,7 @@ feature {} -- Tests
          assert_equal("simple", "a\b\ccc\d.\foo", (simple / "foo").to_string)
       end
 
-   test_expand_user is
+   test_expand_user
       local
          p: MICROSOFT_PATH_NAME; sys: SYSTEM
       do
@@ -306,11 +306,11 @@ feature {} -- Tests
          p.expand_user
          assert_equal("home_from_$HOME", "\boot\vmlinuz", p.to_string)
       end
-   --   test_expand_explicit_user is
+   --   test_expand_explicit_user
    --           do
    --                   crash -- not done yet
    --           end
-   --   test_common_prefix is
+   --   test_common_prefix
    --           do
    --                   assert_equal ("empty", "", (mkpath("").common_prefix(mkpath(""))).to_string)
    --                   assert_equal ("root", "/", (mkpath("/bin").common_prefix(mkpath("/usr/bin"))).to_string)
@@ -319,7 +319,7 @@ feature {} -- Tests
    --                   assert_equal ("complete", "/usr/bin/", (mkpath("/usr/bin/X11R6").common_prefix(mkpath("/usr/bin/foo"))).to_string)
    --           end
 
-   test_expand_variables is
+   test_expand_variables
       local
          p1, p2: MICROSOFT_PATH_NAME; sys: SYSTEM
       do
@@ -361,7 +361,7 @@ feature {} -- Tests
       end
 
 feature {ANY} -- Bugfix tests
-   test_join_invalidates_cache is
+   test_join_invalidates_cache
       local
          p1, p2: MICROSOFT_PATH_NAME
       do

@@ -31,37 +31,37 @@ insert
 feature {ANY}
    table: EDC_TABLE
 
-   can_add_to (a_table: like table): BOOLEAN is
+   can_add_to (a_table: like table): BOOLEAN
       require
          a_table /= Void
       deferred
       end
 
-   has (a_column: EDC_COLUMN): BOOLEAN is
+   has (a_column: EDC_COLUMN): BOOLEAN
       require
          a_column /= Void
       deferred
       end
 
-   index_of (a_column: EDC_COLUMN): INTEGER is
+   index_of (a_column: EDC_COLUMN): INTEGER
       require
          a_column /= Void
       deferred
       end
 
-   count: INTEGER is
+   count: INTEGER
       deferred
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       deferred
       end
 
-   item (i: INTEGER): EDC_COLUMN is
+   item (i: INTEGER): EDC_COLUMN
       require
          i.in_range(lower, upper)
       deferred
@@ -70,7 +70,7 @@ feature {ANY}
       end
 
 feature {EDC_TABLE}
-   set_table (a_table: like table) is
+   set_table (a_table: like table)
       require
          table = Void implies can_add_to(a_table)
          table /= Void implies a_table = Void

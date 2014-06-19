@@ -5,7 +5,7 @@ insert
 		redefine default_create end
 
 feature {ANY}
-	default_create is
+	default_create
 		do
 			-- Setting generation and iterable_generation to different values
 			-- so that any invocation of the queries and commands requiring
@@ -17,26 +17,26 @@ feature {ANY}
 
 
 feature {ANY}
-	set_enum (an_enum: GI_ENUM_INFO) is
+	set_enum (an_enum: GI_ENUM_INFO)
 	require an_enum /= Void
 	do
 		enum := an_enum
 		iterable_generation := generation
 	end
 
-	start is
+	start
 	do
 		i:=enum.lower
 	end
 
-	item: GI_VALUE_INFO is
+	item: GI_VALUE_INFO
 		do
 			Result := enum.item(i)
 		end
 
 	next is do i:=i+1 end
 
-	is_off: BOOLEAN is 
+	is_off: BOOLEAN 
 	do
 		Result:=enum.valid_index(i)
 	end
@@ -46,11 +46,11 @@ feature {}
 	i: INTEGER
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

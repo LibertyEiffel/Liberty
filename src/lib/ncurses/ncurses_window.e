@@ -26,7 +26,7 @@ create {NCURSES}
    make_root_window
 
 feature {ANY} -- Writing:
-   put_character_at (character: CHARACTER; x, y: INTEGER) is
+   put_character_at (character: CHARACTER; x, y: INTEGER)
          -- Put `character' at cursor position `x', `y'.
          -- The cursor is left, just after the `character'.
          --
@@ -38,7 +38,7 @@ feature {ANY} -- Writing:
          ncurses.check_for_error(mvwaddch(widget, y, x, character.code) = ncurses.ok)
       end
 
-   put_character (character: CHARACTER) is
+   put_character (character: CHARACTER)
          -- Put `character' at `cursor_x', `cursor_y'.
          -- The cursor is left, just after the `character'.
          --
@@ -49,7 +49,7 @@ feature {ANY} -- Writing:
          put_character_at(character, cursor_x, cursor_y)
       end
 
-   put_string_at (string: STRING; x, y: INTEGER) is
+   put_string_at (string: STRING; x, y: INTEGER)
          -- Put the `string' at cursor position `x', `y'.
          -- The cursor is left, just after the `string'.
          --
@@ -62,7 +62,7 @@ feature {ANY} -- Writing:
          ncurses.check_for_error(mvwaddstr(widget, y, x, string.to_external) = ncurses.ok)
       end
 
-   put_string (string: STRING) is
+   put_string (string: STRING)
          -- Put the `string' at  `cursor_x', `cursor_y'.
          -- The cursor is left, just after the `string'.
          --
@@ -74,7 +74,7 @@ feature {ANY} -- Writing:
          put_string_at(string, cursor_x, cursor_y)
       end
 
-   put_integer_at (integer: INTEGER_64; x, y: INTEGER) is
+   put_integer_at (integer: INTEGER_64; x, y: INTEGER)
          -- Put the `integer' at cursor position `x', `y'.
          -- The cursor is left, just after the `integer'.
          --
@@ -91,7 +91,7 @@ feature {ANY} -- Writing:
          put_string_at(buffer, cursor_x, cursor_y)
       end
 
-   put_integer (integer: INTEGER_64) is
+   put_integer (integer: INTEGER_64)
          -- Put the `integer' at `cursor_x', `cursor_y'.
          -- The cursor is left, just after the `integer'.
          --
@@ -103,7 +103,7 @@ feature {ANY} -- Writing:
       end
 
 feature {ANY} -- Cursor:
-   cursor_x: INTEGER is
+   cursor_x: INTEGER
          -- X coordinate of the cursor (left-most column is 0).
          --
          -- See also `cursor_y'.
@@ -115,7 +115,7 @@ feature {ANY} -- Cursor:
          valid_cursor_x(Result)
       end
 
-   valid_cursor_x (x: INTEGER): BOOLEAN is
+   valid_cursor_x (x: INTEGER): BOOLEAN
          -- Is `y' a valid line for the cursor position?
          --
          -- See also `cursor_x', `valid_cursor_y'.
@@ -125,7 +125,7 @@ feature {ANY} -- Cursor:
          definition: Result = x.in_range(0, width - 1)
       end
 
-   cursor_y: INTEGER is
+   cursor_y: INTEGER
          -- Y coordinate of the cursor (upper-most line is 0).
          --
          -- See also `cursor_x'.
@@ -137,7 +137,7 @@ feature {ANY} -- Cursor:
          Result >= 0
       end
 
-   valid_cursor_y (y: INTEGER): BOOLEAN is
+   valid_cursor_y (y: INTEGER): BOOLEAN
          -- Is `y' a valid line for the cursor position?
          --
          -- See also `cursor_y', `valid_cursor_x'.
@@ -147,7 +147,7 @@ feature {ANY} -- Cursor:
          definition: Result = y.in_range(0, height - 1)
       end
 
-   set_cursor (x, y: INTEGER) is
+   set_cursor (x, y: INTEGER)
       require
          ncurses.is_enabled
          valid_cursor(x, y)
@@ -158,7 +158,7 @@ feature {ANY} -- Cursor:
          cursor_y = y
       end
 
-   valid_cursor (x, y: INTEGER): BOOLEAN is
+   valid_cursor (x, y: INTEGER): BOOLEAN
          -- Is `x' and `y' a valid cursor position?
       do
          Result := valid_cursor_x(x) and then valid_cursor_y(y)
@@ -167,7 +167,7 @@ feature {ANY} -- Cursor:
       end
 
 feature {ANY} -- Size and position:
-   width: INTEGER is
+   width: INTEGER
          -- The number of columns.
       do
          Result := wgetwidth(widget)
@@ -175,7 +175,7 @@ feature {ANY} -- Size and position:
          Result > 0
       end
 
-   height: INTEGER is
+   height: INTEGER
          -- The number of lines.
       do
          Result := wgetheight(widget)
@@ -183,7 +183,7 @@ feature {ANY} -- Size and position:
          Result > 0
       end
 
-   left: INTEGER is
+   left: INTEGER
          -- ???
          --
          -- See also `top', `move_to'.
@@ -191,7 +191,7 @@ feature {ANY} -- Size and position:
          Result := wgetleft(widget)
       end
 
-   top: INTEGER is
+   top: INTEGER
          -- ???
          --
          -- See also `left', `move_to'.
@@ -199,7 +199,7 @@ feature {ANY} -- Size and position:
          Result := wgettop(widget)
       end
 
-   move_to_and_resize (x, y, w, h: INTEGER) is
+   move_to_and_resize (x, y, w, h: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -220,7 +220,7 @@ feature {ANY} -- Size and position:
          height = h
       end
 
-   resize (w, h: INTEGER) is
+   resize (w, h: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -233,7 +233,7 @@ feature {ANY} -- Size and position:
          height = h
       end
 
-   move_to (x, y: INTEGER) is
+   move_to (x, y: INTEGER)
          -- Moves the window relatively to its parent
          --
          -- See also `left', `top'.
@@ -253,7 +253,7 @@ feature {ANY} -- Size and position:
       end
 
 feature {ANY}
-   create_sub_window (x, y, columns, lines: INTEGER): NCURSES_WINDOW is
+   create_sub_window (x, y, columns, lines: INTEGER): NCURSES_WINDOW
          -- Creates a child window
       require
          ncurses.is_enabled
@@ -261,7 +261,7 @@ feature {ANY}
          create Result.make_sub_window(Current, x, y, columns, lines)
       end
 
-   set_attribute (an_attribute: INTEGER) is
+   set_attribute (an_attribute: INTEGER)
          --|*** ??? C'EST QUOI UN ATTRIBUTE ???
          -- This attribute will be set for further writes.
       require
@@ -270,7 +270,7 @@ feature {ANY}
          ncurses.check_for_error(wattron(widget, an_attribute) = ncurses.ok)
       end
 
-   unset_attribute (an_attribute: INTEGER) is
+   unset_attribute (an_attribute: INTEGER)
          -- This attribute will be unset for further writes.
       require
          ncurses.is_enabled
@@ -278,7 +278,7 @@ feature {ANY}
          ncurses.check_for_error(wattroff(widget, an_attribute) = ncurses.ok)
       end
 
-   set_background_character (character: INTEGER) is
+   set_background_character (character: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -286,7 +286,7 @@ feature {ANY}
          ncurses.check_for_error(wbkgd(widget, get_background_character | get_background_attribute) = ncurses.ok)
       end
 
-   set_background_attribute (an_attribute: INTEGER) is
+   set_background_attribute (an_attribute: INTEGER)
          -- This attribute affects the current background.
       require
          ncurses.is_enabled
@@ -298,7 +298,7 @@ feature {ANY}
    get_background_character: INTEGER
    get_background_attribute: INTEGER
 
-   draw_any_border (left_border, right_border, top_border, bottom_border, upper_left_border, upper_right_border, lower_left_border, lower_right_border: INTEGER) is
+   draw_any_border (left_border, right_border, top_border, bottom_border, upper_left_border, upper_right_border, lower_left_border, lower_right_border: INTEGER)
          -- Draws any kind of border.
       require
          ncurses.is_enabled
@@ -306,27 +306,27 @@ feature {ANY}
          ncurses.check_for_error(wborder(widget, left_border, right_border, top_border, bottom_border, upper_left_border, upper_right_border, lower_left_border, lower_right_border) = ncurses.ok)
       end
 
-   draw_border is
+   draw_border
          -- Draws common single-line border.
       do
          draw_any_border(vertical_line, vertical_line, horizontal_line, horizontal_line, upper_left_corner, upper_right_corner, lower_left_corner, lower_right_corner)
       end
 
-   draw_horizontal_line (x, y, character, size: INTEGER) is
+   draw_horizontal_line (x, y, character, size: INTEGER)
       require
          ncurses.is_enabled
       do
          ncurses.check_for_error(mvwhline(widget, y, x, character, size) = ncurses.ok)
       end
 
-   draw_vertical_line (x, y, character, size: INTEGER) is
+   draw_vertical_line (x, y, character, size: INTEGER)
       require
          ncurses.is_enabled
       do
          ncurses.check_for_error(mvwvline(widget, y, x, character, size) = ncurses.ok)
       end
 
-   clear is
+   clear
          -- Clear the whole window and reset the cursor at 0 0 (upper-left corner).
       require
          ncurses.is_enabled
@@ -334,7 +334,7 @@ feature {ANY}
          ncurses.check_for_error(wclear(widget) = ncurses.ok)
       end
 
-   clear_to_bottom is
+   clear_to_bottom
          -- Clears from cursor to the bottom of the window.
       require
          ncurses.is_enabled
@@ -342,7 +342,7 @@ feature {ANY}
          ncurses.check_for_error(wclrtobot(widget) = ncurses.ok)
       end
 
-   clear_to_end_of_line is
+   clear_to_end_of_line
          -- Clears from cursor to the end of the line.
       require
          ncurses.is_enabled
@@ -350,14 +350,14 @@ feature {ANY}
          ncurses.check_for_error(wclrtoeol(widget) = ncurses.ok)
       end
 
-   delete_character is
+   delete_character
       require
          ncurses.is_enabled
       do
          ncurses.check_for_error(wdelch(widget) = ncurses.ok)
       end
 
-   delete_character_at (x, y: INTEGER) is
+   delete_character_at (x, y: INTEGER)
          -- All characters to the right of the position are moved one position to the left.
       require
          ncurses.is_enabled
@@ -365,7 +365,7 @@ feature {ANY}
          ncurses.check_for_error(mvwdelch(widget, y, x) = ncurses.ok)
       end
 
-   delete_lines_below (lines: INTEGER) is
+   delete_lines_below (lines: INTEGER)
          -- Inserts lines below the cursor's line.
          -- The `lines' bottom lines are clears.
       require
@@ -375,7 +375,7 @@ feature {ANY}
          ncurses.check_for_error(winsdelln(widget, -lines) = ncurses.ok)
       end
 
-   insert_lines_above (lines: INTEGER) is
+   insert_lines_above (lines: INTEGER)
          -- Inserts lines above the cursor's line.
          -- The `lines' bottom lines are lost.
       require
@@ -385,7 +385,7 @@ feature {ANY}
          ncurses.check_for_error(winsdelln(widget, lines) = ncurses.ok)
       end
 
-   wait_keypress_and_echo_at (x, y: INTEGER): INTEGER is
+   wait_keypress_and_echo_at (x, y: INTEGER): INTEGER
       require
          ncurses.is_enabled
       do
@@ -393,14 +393,14 @@ feature {ANY}
          Result := mvwgetch(widget, y, x)
       end
 
-   wait_keypress: INTEGER is
+   wait_keypress: INTEGER
       do
          Result := wait_keypress_and_echo_at(cursor_x, cursor_y)
       end
 
    last_keypress: INTEGER
 
-   poll_keypress_for_and_echo_at (delay, x, y: INTEGER): BOOLEAN is
+   poll_keypress_for_and_echo_at (delay, x, y: INTEGER): BOOLEAN
       require
          ncurses.is_enabled
          delay >= 0
@@ -420,22 +420,22 @@ feature {ANY}
          end
       end
 
-   poll_keypress_for (delay: INTEGER): BOOLEAN is
+   poll_keypress_for (delay: INTEGER): BOOLEAN
       do
          Result := poll_keypress_for_and_echo_at(delay, cursor_x, cursor_y)
       end
 
-   poll_keypress: BOOLEAN is
+   poll_keypress: BOOLEAN
       do
          Result := poll_keypress_for(0)
       end
 
-   poll_keypress_and_echo_at (x, y: INTEGER): BOOLEAN is
+   poll_keypress_and_echo_at (x, y: INTEGER): BOOLEAN
       do
          Result := poll_keypress_for_and_echo_at(0, x, y)
       end
 
-   read_string_and_echo_at (size, x, y: INTEGER): STRING is
+   read_string_and_echo_at (size, x, y: INTEGER): STRING
          -- Reads size-specific string from keyboard.
       require
          ncurses.is_enabled
@@ -448,13 +448,13 @@ feature {ANY}
          end
       end
 
-   read_string (size: INTEGER): STRING is
+   read_string (size: INTEGER): STRING
          -- Reads size-specific string from keyboard.
       do
          Result := read_string_and_echo_at(size, cursor_x, cursor_y)
       end
 
-   auto_refresh (enable: BOOLEAN) is
+   auto_refresh (enable: BOOLEAN)
          -- Automatically refreshes the window at every write.
          -- This *really* slows things down.
          --
@@ -465,7 +465,7 @@ feature {ANY}
          immedok(widget, enable.to_integer)
       end
 
-   refresh_later is
+   refresh_later
          -- Defers the refreshing until NCURSES.`refresh_pending' or `refresh_now' is called.
          --
          -- See also `auto_refresh', `refresh_now'.
@@ -475,7 +475,7 @@ feature {ANY}
          ncurses.check_for_error(wnoutrefresh(widget) = ncurses.ok)
       end
 
-   get_character_at (x, y: INTEGER): INTEGER is
+   get_character_at (x, y: INTEGER): INTEGER
          -- Reads window content.
       require
          ncurses.is_enabled
@@ -483,12 +483,12 @@ feature {ANY}
          Result := mvwinch(widget, y, x) & ncurses.a_chartext
       end
 
-   get_character: INTEGER is
+   get_character: INTEGER
       do
          Result := get_character_at(cursor_x, cursor_y)
       end
 
-   get_attributes_at (x, y: INTEGER): INTEGER is
+   get_attributes_at (x, y: INTEGER): INTEGER
          -- Reads window content.
       require
          ncurses.is_enabled
@@ -496,12 +496,12 @@ feature {ANY}
          Result := mvwinch(widget, y, x) & ncurses.a_attributes
       end
 
-   get_attributes: INTEGER is
+   get_attributes: INTEGER
       do
          Result := get_attributes_at(cursor_x, cursor_y)
       end
 
-   get_color_at (x, y: INTEGER): INTEGER is
+   get_color_at (x, y: INTEGER): INTEGER
          -- Reads window content.
       require
          ncurses.is_enabled
@@ -509,12 +509,12 @@ feature {ANY}
          Result := mvwinch(widget, y, x) & ncurses.a_color
       end
 
-   get_color: INTEGER is
+   get_color: INTEGER
       do
          Result := get_color_at(cursor_x, cursor_y)
       end
 
-   change_character_at (ch, x, y: INTEGER) is
+   change_character_at (ch, x, y: INTEGER)
          -- Change `ch' at cursor position `x', `y'.
          -- The cursor is left, just after the `ch'.
          --
@@ -531,7 +531,7 @@ feature {ANY}
          end
       end
 
-   change_character (ch: INTEGER) is
+   change_character (ch: INTEGER)
          -- Put `ch' at `cursor_x', `cursor_y'.
          -- The cursor is left, just after the `ch'.
          --
@@ -542,7 +542,7 @@ feature {ANY}
          change_character_at(ch, cursor_x, cursor_y)
       end
 
-   insert_character_at (ch, x, y: INTEGER) is
+   insert_character_at (ch, x, y: INTEGER)
          -- All characters to the right are moved one position to the right.
          -- The rightmost character is lost.
       require
@@ -551,12 +551,12 @@ feature {ANY}
          ncurses.check_for_error(mvwinsch(widget, y, x, ch) = ncurses.ok)
       end
 
-   insert_character (ch: INTEGER) is
+   insert_character (ch: INTEGER)
       do
          insert_character_at(ch, cursor_x, cursor_y)
       end
 
-   insert_string_at (string: STRING; x, y: INTEGER) is
+   insert_string_at (string: STRING; x, y: INTEGER)
          -- All characters to the right are shifted right.
          -- Rightmost characters are lost.
       require
@@ -565,12 +565,12 @@ feature {ANY}
          ncurses.check_for_error(mvwinsstr(widget, y, x, string.to_external) = ncurses.ok)
       end
 
-   insert_string (string: STRING) is
+   insert_string (string: STRING)
       do
          insert_string_at(string, cursor_x, cursor_y)
       end
 
-   get_string_at (size, x, y: INTEGER): STRING is
+   get_string_at (size, x, y: INTEGER): STRING
          -- Reads string content.
       require
          ncurses.is_enabled
@@ -583,12 +583,12 @@ feature {ANY}
          end
       end
 
-   get_string (size: INTEGER): STRING is
+   get_string (size: INTEGER): STRING
       do
          Result := get_string_at(size, cursor_x, cursor_x)
       end
 
-   set_autoscroll_policy (enable: BOOLEAN) is
+   set_autoscroll_policy (enable: BOOLEAN)
          -- Enables/disables automatic scrolling.
       require
          ncurses.is_enabled
@@ -600,7 +600,7 @@ feature {ANY}
 
    get_autoscroll_policy: BOOLEAN
 
-   scroll_up (lines: INTEGER) is
+   scroll_up (lines: INTEGER)
       require
          ncurses.is_enabled
          lines >= 0
@@ -608,7 +608,7 @@ feature {ANY}
          ncurses.check_for_error(wscrl(widget, lines) = ncurses.ok)
       end
 
-   scroll_down (lines: INTEGER) is
+   scroll_down (lines: INTEGER)
       require
          ncurses.is_enabled
          lines >= 0
@@ -616,7 +616,7 @@ feature {ANY}
          ncurses.check_for_error(wscrl(widget, -lines) = ncurses.ok)
       end
 
-   set_scrolling_region (s, e: INTEGER) is
+   set_scrolling_region (s, e: INTEGER)
          -- Select the scrolling region.
       require
          ncurses.is_enabled
@@ -624,7 +624,7 @@ feature {ANY}
          ncurses.check_for_error(wsetscrreg(widget, s, e) = ncurses.ok)
       end
 
-   set_synchronize_policy (enable: BOOLEAN) is
+   set_synchronize_policy (enable: BOOLEAN)
          -- Enables/disables automatic synchronizing.
          -- See `synchronize_parents_window'.
       require
@@ -633,7 +633,7 @@ feature {ANY}
          ncurses.check_for_error(syncok(widget, enable.to_integer) = ncurses.ok)
       end
 
-   synchronize_parents_window is
+   synchronize_parents_window
          -- Touches all locations in ancestors that are changed in the current window
       require
          ncurses.is_enabled
@@ -641,7 +641,7 @@ feature {ANY}
          wsyncup(widget)
       end
 
-   synchronize_parents_cursor is
+   synchronize_parents_cursor
          -- Updates the cursor position of all ancestors to the current cursor position.
       require
          ncurses.is_enabled
@@ -650,16 +650,16 @@ feature {ANY}
       end
 
 feature {NCURSES_WIDGET}
-   get_window: NCURSES_WINDOW is
+   get_window: NCURSES_WINDOW
       do
          Result := Current
       end
 
-   parent_resized is
+   parent_resized
       do
       end
 
-   delete is
+   delete
       do
          Precursor
          if not disposed then
@@ -669,25 +669,25 @@ feature {NCURSES_WIDGET}
       end
 
 feature {ANY}
-   set_default_colors is
+   set_default_colors
       do
          set_both_colors(white_color, black_color)
       end
 
-   set_both_colors (fg: like get_fg_color; bg: like get_bg_color) is
+   set_both_colors (fg: like get_fg_color; bg: like get_bg_color)
       do
          get_fg_color := fg
          get_bg_color := bg
          set_attribute(ncurses.get_color_pair(get_fg_color, get_bg_color))
       end
 
-   set_fg_color (fg: like get_fg_color) is
+   set_fg_color (fg: like get_fg_color)
       do
          get_fg_color := fg
          set_attribute(ncurses.get_color_pair(get_fg_color, get_bg_color))
       end
 
-   set_bg_color (bg: like get_bg_color) is
+   set_bg_color (bg: like get_bg_color)
       do
          get_bg_color := bg
          set_attribute(ncurses.get_color_pair(get_fg_color, get_bg_color))
@@ -697,7 +697,7 @@ feature {ANY}
    get_bg_color: INTEGER
 
 feature {NCURSES_WINDOW}
-   set_widget (w: like widget) is
+   set_widget (w: like widget)
       require
          w.is_not_null
       do
@@ -712,7 +712,7 @@ feature {NCURSES_WINDOW, NCURSES_PAD}
 feature {}
    disposed: BOOLEAN
 
-   make (x, y, columns, lines: INTEGER) is
+   make (x, y, columns, lines: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -721,7 +721,7 @@ feature {}
          init
       end
 
-   make_sub_window (w: NCURSES_WINDOW; x, y, columns, lines: INTEGER) is
+   make_sub_window (w: NCURSES_WINDOW; x, y, columns, lines: INTEGER)
       require
          ncurses.is_enabled
       do
@@ -731,7 +731,7 @@ feature {}
          init
       end
 
-   make_root_window (w: like widget) is
+   make_root_window (w: like widget)
          -- This constructor is meant to be called once by NCURSE.`start_ncurses'.
       require
          ncurses.is_enabled
@@ -740,7 +740,7 @@ feature {}
          init
       end
 
-   init is
+   init
       do
          set_keypad
          set_cursor(0, 0)
@@ -748,7 +748,7 @@ feature {}
          ncurses.check_for_error(leaveok(widget, cursor_can_move) = ncurses.ok)
       end
 
-   set_keypad is
+   set_keypad
          -- Activates special "function" keys detection.
       require
          ncurses.is_enabled
@@ -756,10 +756,10 @@ feature {}
          ncurses.check_for_error(keypad(widget, 1) = ncurses.ok)
       end
 
-   cursor_can_move: BOOLEAN is False -- will be True for text entry widgets
+   cursor_can_move: BOOLEAN False -- will be True for text entry widgets
 
 feature {} -- Below are plug_in connections to the curses library.
-   newwin (lines, columns, y, x: INTEGER): POINTER is
+   newwin (lines, columns, y, x: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -768,7 +768,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   delwin (win: POINTER): INTEGER is
+   delwin (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -777,7 +777,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwin (win: POINTER; y, x: INTEGER): INTEGER is
+   mvwin (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -786,7 +786,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvderwin (win: POINTER; y, x: INTEGER): INTEGER is
+   mvderwin (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -795,7 +795,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   derwin (win: POINTER; lines, columns, y, x: INTEGER): POINTER is
+   derwin (win: POINTER; lines, columns, y, x: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -804,7 +804,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   touchwin (win: POINTER) is
+   touchwin (win: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -813,7 +813,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwaddch (win: POINTER; y, x, ch: INTEGER): INTEGER is
+   mvwaddch (win: POINTER; y, x, ch: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -822,7 +822,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwaddstr (win: POINTER; y, x: INTEGER; str: POINTER): INTEGER is
+   mvwaddstr (win: POINTER; y, x: INTEGER; str: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -831,7 +831,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wattron (win: POINTER; attrs: INTEGER): INTEGER is
+   wattron (win: POINTER; attrs: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -840,7 +840,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wattroff (win: POINTER; attrs: INTEGER): INTEGER is
+   wattroff (win: POINTER; attrs: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -849,7 +849,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wbkgd (win: POINTER; ch: INTEGER): INTEGER is
+   wbkgd (win: POINTER; ch: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -858,7 +858,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgetwidth (win: POINTER): INTEGER is
+   wgetwidth (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -867,7 +867,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgetheight (win: POINTER): INTEGER is
+   wgetheight (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -876,7 +876,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wclear (win: POINTER): INTEGER is
+   wclear (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -885,7 +885,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wclrtobot (win: POINTER): INTEGER is
+   wclrtobot (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -894,7 +894,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wclrtoeol (win: POINTER): INTEGER is
+   wclrtoeol (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -903,7 +903,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wdelch (win: POINTER): INTEGER is
+   wdelch (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -912,7 +912,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwdelch (win: POINTER; y, x: INTEGER): INTEGER is
+   mvwdelch (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -921,7 +921,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   winsdelln (win: POINTER; n: INTEGER): INTEGER is
+   winsdelln (win: POINTER; n: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -930,7 +930,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgetleft (win: POINTER): INTEGER is
+   wgetleft (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -939,7 +939,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgettop (win: POINTER): INTEGER is
+   wgettop (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -948,7 +948,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wtimeout (win: POINTER; delay: INTEGER) is
+   wtimeout (win: POINTER; delay: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -957,7 +957,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwgetch (win: POINTER; y, x: INTEGER): INTEGER is
+   mvwgetch (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -966,7 +966,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   keypad (win: POINTER; bf: INTEGER): INTEGER is
+   keypad (win: POINTER; bf: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -975,7 +975,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwreadstring (win: POINTER; size, x, y: INTEGER): POINTER is
+   mvwreadstring (win: POINTER; size, x, y: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -984,7 +984,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgetcursorx (win: POINTER): INTEGER is
+   wgetcursorx (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -993,7 +993,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wgetcursory (win: POINTER): INTEGER is
+   wgetcursory (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1002,7 +1002,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   immedok (win: POINTER; bf: INTEGER) is
+   immedok (win: POINTER; bf: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1011,7 +1011,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wnoutrefresh (win: POINTER): INTEGER is
+   wnoutrefresh (win: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1020,7 +1020,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwinch (win: POINTER; y, x: INTEGER): INTEGER is
+   mvwinch (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1029,7 +1029,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwinsch (win: POINTER; y, x, ch: INTEGER): INTEGER is
+   mvwinsch (win: POINTER; y, x, ch: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1038,7 +1038,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwinsstr (win: POINTER; y, x: INTEGER; str: POINTER): INTEGER is
+   mvwinsstr (win: POINTER; y, x: INTEGER; str: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1047,7 +1047,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwgetstring (win: POINTER; size, x, y: INTEGER): POINTER is
+   mvwgetstring (win: POINTER; size, x, y: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1056,7 +1056,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wmove (win: POINTER; y, x: INTEGER): INTEGER is
+   wmove (win: POINTER; y, x: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1065,7 +1065,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   idlok (win: POINTER; bf: INTEGER): INTEGER is
+   idlok (win: POINTER; bf: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1074,7 +1074,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   scrollok (win: POINTER; bf: INTEGER): INTEGER is
+   scrollok (win: POINTER; bf: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1083,7 +1083,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   leaveok (win: POINTER; bf: BOOLEAN): INTEGER is
+   leaveok (win: POINTER; bf: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1092,7 +1092,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wscrl (win: POINTER; n: INTEGER): INTEGER is
+   wscrl (win: POINTER; n: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1101,7 +1101,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wsetscrreg (win: POINTER; t, b: INTEGER): INTEGER is
+   wsetscrreg (win: POINTER; t, b: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1110,7 +1110,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wsyncup (win: POINTER) is
+   wsyncup (win: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1119,7 +1119,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wcursyncup (win: POINTER) is
+   wcursyncup (win: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1128,7 +1128,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   syncok (win: POINTER; bf: INTEGER): INTEGER is
+   syncok (win: POINTER; bf: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1137,7 +1137,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wresize (win: POINTER; lines, columns: INTEGER): INTEGER is
+   wresize (win: POINTER; lines, columns: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1146,7 +1146,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   wborder (win: POINTER; ls, rs, ts, bs, tl, tr, bl, br: INTEGER): INTEGER is
+   wborder (win: POINTER; ls, rs, ts, bs, tl, tr, bl, br: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1155,7 +1155,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwhline (win: POINTER; y, x, ch, n: INTEGER): INTEGER is
+   mvwhline (win: POINTER; y, x, ch, n: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1164,7 +1164,7 @@ feature {} -- Below are plug_in connections to the curses library.
          }"
       end
 
-   mvwvline (win: POINTER; y, x, ch, n: INTEGER): INTEGER is
+   mvwvline (win: POINTER; y, x, ch, n: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -1184,7 +1184,7 @@ end -- class NCURSES_WINDOW
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

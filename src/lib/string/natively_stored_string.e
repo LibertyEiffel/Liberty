@@ -17,25 +17,25 @@ feature {STRING_HANDLER}
    storage: NATIVE_ARRAY[CHARACTER]
          -- The place where characters are stored.
 
-   storage_lower: INTEGER is
+   storage_lower: INTEGER
          -- The index of the first character of `storage' effectively used.
       attribute
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       attribute
       end
 
    capacity: INTEGER
          -- Capacity of the `storage' area.
 
-   item (i: INTEGER): CHARACTER is
+   item (i: INTEGER): CHARACTER
       do
          Result := storage.item(i - lower + storage_lower)
       end
 
-   is_equal (other: ABSTRACT_STRING): BOOLEAN is
+   is_equal (other: ABSTRACT_STRING): BOOLEAN
          -- It `other' does not conform to NATIVELY_STORED_STRING this query is an O(count.max(other.count))
          -- operation, requiring iterating over both strings.
       local
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   same_as (other: ABSTRACT_STRING): BOOLEAN is
+   same_as (other: ABSTRACT_STRING): BOOLEAN
       local
          nss: NATIVELY_STORED_STRING
          i, j: INTEGER
@@ -93,7 +93,7 @@ feature {ANY}
          end
       end
 
-   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (c: CHARACTER; start_index: INTEGER): INTEGER
       local
          index: INTEGER
       do
@@ -105,7 +105,7 @@ feature {ANY}
          end
       end
 
-   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER is
+   reverse_index_of, fast_reverse_index_of (c: CHARACTER; start_index: INTEGER): INTEGER
          -- Index of first occurrence of `c' at or before `start_index',
          -- The index will be invalid, smaller than `lower' when no occurrence is found;
          -- The search is done in reverse direction, which means from the
@@ -124,19 +124,19 @@ feature {ANY}
          end
       end
 
-   has, fast_has (c: CHARACTER): BOOLEAN is
+   has, fast_has (c: CHARACTER): BOOLEAN
       do
          Result := storage.slice_fast_has(c, storage_lower, storage_lower + count - 1)
       end
 
-   occurrences (c: CHARACTER): INTEGER is
+   occurrences (c: CHARACTER): INTEGER
       do
          Result := storage.slice_fast_occurrences(c, storage_lower, storage_lower + count - 1)
       end
 
 feature {ANY} -- Concatenation
-   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING is
-         -- Current and `another' concatenating into a new object. The actual effective type of Result is
+   infix "&" (another: ABSTRACT_STRING): ABSTRACT_STRING
+         -- Current and `another' concatenating into a new object. The actual effective type of Result
          -- chosen by the implementation, possibly based on heuristics.
       do
          if another.is_empty then
@@ -149,17 +149,17 @@ feature {ANY} -- Concatenation
       end
 
 feature {ANY} -- Access
-   first: CHARACTER is
+   first: CHARACTER
       do
          Result := storage.item(storage_lower)
       end
 
-   last: CHARACTER is
+   last: CHARACTER
       do
          Result := storage.item(storage_lower + count - 1)
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append(once "[count: ")
          count.append_in(tagged_out_memory)
@@ -170,13 +170,13 @@ feature {ANY} -- Access
          tagged_out_memory.append(once "%"]")
       end
 
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
       do
          file.put_natively_stored_string(Current)
       end
 
 feature {STRING_HANDLER}
-   set_count (new_count: like count) is
+   set_count (new_count: like count)
       require
          new_count <= capacity
       do
@@ -185,7 +185,7 @@ feature {STRING_HANDLER}
          count = new_count
       end
 
-   ensure_capacity (needed_capacity: like capacity) is
+   ensure_capacity (needed_capacity: like capacity)
       require
          needed_capacity >= 0
       local
@@ -229,7 +229,7 @@ feature {STRING_HANDLER}
          capacity >= needed_capacity
       end
 
-   set_storage (new_storage: like storage; new_capacity: like capacity) is
+   set_storage (new_storage: like storage; new_capacity: like capacity)
       require
          count <= new_capacity
       do
@@ -248,13 +248,13 @@ feature {STRING_HANDLER}
       end
 
 feature {STRING_HANDLER}
-   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER)
       do
          target.slice_copy(target_offset, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
       end
 
 feature {} -- storage signature: only in all_check mode
-   check_set_storage_signature: BOOLEAN is
+   check_set_storage_signature: BOOLEAN
       require
          storage.is_not_null
          storage_signature_count = 4
@@ -272,7 +272,7 @@ feature {} -- storage signature: only in all_check mode
 feature {STRING_HANDLER}
    has_storage_signature: BOOLEAN
 
-   check_valid_storage_signature: BOOLEAN is
+   check_valid_storage_signature: BOOLEAN
       require
          has_storage_signature
       do
@@ -285,7 +285,7 @@ feature {STRING_HANDLER}
          end
       end
 
-   check_can_have_storage_signature: BOOLEAN is
+   check_can_have_storage_signature: BOOLEAN
       do
          if storage_signature_count = 0 then
             storage_signature_count := 4
@@ -314,7 +314,7 @@ end -- class NATIVELY_STORED_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

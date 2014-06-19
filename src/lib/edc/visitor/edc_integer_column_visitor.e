@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_INTEGER_COLUMN}
-   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is
+   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN)
       deferred
       end
 

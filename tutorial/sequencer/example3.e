@@ -17,7 +17,7 @@ feature {}
 
    time: MICROSECOND_TIME
 
-   make is
+   make
       do
          time.update
          create lm.make
@@ -29,13 +29,13 @@ feature {}
 
    done: BOOLEAN
 
-   do_count: BOOLEAN is
+   do_count: BOOLEAN
       do
          counter := counter + 1
          Result := not done
       end
 
-   running: BOOLEAN is
+   running: BOOLEAN
       local
          s: STRING
       do
@@ -56,7 +56,7 @@ feature {}
          Result := not done
       end
 
-   progress_print: BOOLEAN is
+   progress_print: BOOLEAN
       local
          now: MICROSECOND_TIME
       do

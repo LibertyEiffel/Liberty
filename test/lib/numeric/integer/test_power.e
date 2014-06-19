@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER_64
       do
@@ -15,7 +15,7 @@ feature {ANY}
          assert(2 ^ 2 ^ 3 = 256)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

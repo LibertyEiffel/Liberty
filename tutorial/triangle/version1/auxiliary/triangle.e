@@ -11,7 +11,7 @@ feature {ANY}
    p3: POINT
       -- Third point.
 
-   make (a, b, c: POINT) is
+   make (a, b, c: POINT)
          -- To initialize the `Current' TRIANGLE.
       do
          p1 := a
@@ -19,7 +19,7 @@ feature {ANY}
          p3 := c
       end
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate the `Current' TRIANGLE.
       do
          p1.translate(dx, dy)

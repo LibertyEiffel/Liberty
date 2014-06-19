@@ -7,7 +7,7 @@ insert
    GLOBALS
 
 feature {SYSTEM_TOOLS}
-   new (position: POSITION; a_name, a_path: STRING): PLUGIN is
+   new (position: POSITION; a_name, a_path: STRING): PLUGIN
       deferred
       end
 

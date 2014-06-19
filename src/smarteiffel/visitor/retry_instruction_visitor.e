@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RETRY_INSTRUCTION}
-   visit_retry_instruction (visited: RETRY_INSTRUCTION) is
+   visit_retry_instruction (visited: RETRY_INSTRUCTION)
       require
          visited /= Void
       deferred

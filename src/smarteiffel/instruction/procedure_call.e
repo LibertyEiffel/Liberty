@@ -14,7 +14,7 @@ inherit
    FEATURE_CALL
 
 feature {ANY}
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          target.pretty_target(indent_level)
@@ -29,7 +29,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   frozen has_been_specialized: BOOLEAN is
+   frozen has_been_specialized: BOOLEAN
       do
          Result := target.has_been_specialized
          if Result and then arguments /= Void then
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
 feature {FEATURE_CALL, CREATE_SUPPORT}
    creation_type: TYPE_MARK
@@ -51,7 +51,7 @@ feature {FEATURE_CALL, CREATE_SUPPORT}
          --|*** Dom: jan 9th 2004 ***
 
 feature {CREATE_SUPPORT}
-   set_creation_type (ct: like creation_type) is
+   set_creation_type (ct: like creation_type)
       require
          ct.is_static
       do
@@ -60,7 +60,7 @@ feature {CREATE_SUPPORT}
          creation_type = ct
       end
 
-   frozen collect_create (t: TYPE; target_type: TYPE; target_pos: POSITION) is
+   frozen collect_create (t: TYPE; target_type: TYPE; target_pos: POSITION)
          -- also given is the type of the *target* (that's the difference with collect)
          -- Used by CREATE_SUPPORT
          --|*** That's almost copy-pasted from FEATURE_CALL.collect_exp :-(
@@ -87,7 +87,7 @@ feature {CREATE_SUPPORT}
       end
 
 feature {CREATE_SUPPORT}
-   simplify_arguments (type: TYPE): PROCEDURE_CALL is
+   simplify_arguments (type: TYPE): PROCEDURE_CALL
       local
          args: like arguments
       do
@@ -107,7 +107,7 @@ feature {CREATE_SUPPORT}
       end
 
 feature {CREATE_EXPRESSION}
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       require
          type /= Void
       local
@@ -124,7 +124,7 @@ feature {CREATE_EXPRESSION}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   frozen inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   frozen inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          t: like target; inspect_statement: OTHER_INSPECT_STATEMENT; fs: FEATURE_STAMP
          target_type, non_void_no_dispatch, tt: TYPE; target_live_type, live_type: LIVE_TYPE
@@ -303,11 +303,11 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   frozen afd_check_hook is
+   frozen afd_check_hook
       do
       end
 
-   frozen procedure_check (type: TYPE; af: ANONYMOUS_FEATURE) is
+   frozen procedure_check (type: TYPE; af: ANONYMOUS_FEATURE)
          -- Check that the feature found is really a procedure.
       require
          af /= Void

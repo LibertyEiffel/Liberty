@@ -11,7 +11,7 @@ feature {ANY}
    start_position: POSITION
 
 feature {TYPE}
-   collect is
+   collect
       do
          if type_name = Void then
             check
@@ -25,7 +25,7 @@ feature {TYPE}
       end
 
 feature {NATIVE}
-   set (type_name_: like type_name; default_value_: like default_value) is
+   set (type_name_: like type_name; default_value_: like default_value)
       require
          type_name = Void
          type_name_ /= Void
@@ -44,7 +44,7 @@ feature {}
 
    alias_tag: MANIFEST_STRING
 
-   make (native_: like native; alias_tag_: like alias_tag; start_position_: like start_position) is
+   make (native_: like native; alias_tag_: like alias_tag; start_position_: like start_position)
       require
          native_ /= Void
          alias_tag_ /= Void

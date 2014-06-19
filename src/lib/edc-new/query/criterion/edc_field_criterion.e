@@ -4,11 +4,11 @@ inherit
    EDC_CRITERION
 
 feature {ANY}
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
       deferred
       end
 
-   value (e: E_): like Current is
+   value (e: E_): like Current
       require
          not is_set
       deferred
@@ -17,7 +17,7 @@ feature {ANY}
          Result = Current
       end
 
-   field (f: EDC_FIELD[E_]): like Current is
+   field (f: EDC_FIELD[E_]): like Current
       require
          not is_set
       deferred
@@ -26,7 +26,7 @@ feature {ANY}
          Result = Current
       end
 
-   argument: like Current is
+   argument: like Current
       require
          not is_set
       deferred

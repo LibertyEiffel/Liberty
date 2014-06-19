@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    container: ARRAY[ARRAY[P]]
 
-   make is
+   make
       do
          create container.make(0, 0)
          container.put(create {ARRAY[P]}.make(1, 0), 0)

@@ -8,12 +8,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          foo
       end
 
-   foo is
+   foo
       require
          first_assertion_level
       do
@@ -21,7 +21,7 @@ feature {}
          first_assertion_level
       end
 
-   first_assertion_level: BOOLEAN is
+   first_assertion_level: BOOLEAN
       require
          second_assertion_level
       do
@@ -30,7 +30,7 @@ feature {}
          second_assertion_level
       end
 
-   second_assertion_level: BOOLEAN is False
+   second_assertion_level: BOOLEAN False
 
 invariant
    first_assertion_level

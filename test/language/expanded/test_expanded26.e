@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b: AUX_EXPANDED26A
       do

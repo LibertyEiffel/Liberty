@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {ANY}
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -26,7 +26,7 @@ feature {ANY}
          Result := then_expression.collect(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          bc: BOOLEAN_CONSTANT; e: like expression; tc: like then_expression
       do
@@ -47,7 +47,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression
       do
@@ -56,25 +56,25 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
          then_expression.safety_check(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
             or else then_expression.use_current(type)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_(indent_level, once "if")
          pretty_end_if(indent_level)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression
       do
@@ -83,7 +83,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression; tc: like then_expression
       do
@@ -92,7 +92,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression
       do
@@ -102,54 +102,54 @@ feature {ANY}
          Result.specialize_check_(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
          Result := then_expression.has_been_specialized
       end
 
-   accept (visitor: IFTHEN_EXP_VISITOR) is
+   accept (visitor: IFTHEN_EXP_VISITOR)
       do
          visitor.visit_ifthen_exp(Current)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          check False end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check False end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          check False end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check False end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check False end
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          check False end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check False end
       end
 
 feature {IFTHEN_EXP}
-   init (e: like expression; tc: like then_expression) is
+   init (e: like expression; tc: like then_expression)
       require
          e /= Void
          tc /= Void
@@ -162,7 +162,7 @@ feature {IFTHEN_EXP}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          e: like expression; tc: like then_expression
       do
@@ -176,7 +176,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   current_or_twin_init (e: like expression; tc: like then_expression): like Current is
+   current_or_twin_init (e: like expression; tc: like then_expression): like Current
       do
          if e = expression and then tc = then_expression then
             Result := Current
@@ -186,7 +186,7 @@ feature {}
          end
       end
 
-   make (sp: like start_position; e: like expression; tc: like then_expression) is
+   make (sp: like start_position; e: like expression; tc: like then_expression)
       require
          not sp.is_unknown
          e /= Void

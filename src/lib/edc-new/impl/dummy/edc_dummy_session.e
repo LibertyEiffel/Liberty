@@ -10,13 +10,13 @@ create {ANY}
    default_create, open
 
 feature {ANY}
-   open is
+   open
       do
          default_create
          is_open := True
       end
 
-   close is
+   close
       do
          is_open := False
       end
@@ -24,19 +24,19 @@ feature {ANY}
    is_open: BOOLEAN
 
 feature {ANY}
-   begin is
+   begin
       do
          in_transaction := True
       end
 
-   commit, rollback is
+   commit, rollback
       do
          in_transaction := False
       end
 
    in_transaction: BOOLEAN
 
-   add (record: EDC_RECORD) is
+   add (record: EDC_RECORD)
       local
          record_data: like session_data
       do
@@ -46,12 +46,12 @@ feature {ANY}
       end
 
 feature {}
-   select_data_in (data: FAST_ARRAY[EDC_SESSION_DATA]; table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING) is
+   select_data_in (data: FAST_ARRAY[EDC_SESSION_DATA]; table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING)
       do
       end
 
 feature {}
-   default_create is
+   default_create
       do
          if string_field = Void then
             check
@@ -65,7 +65,7 @@ feature {}
       end
 
 feature {EDC_DUMMY_SESSION_FETCH}
-   session_data (record: EDC_RECORD): EDC_DUMMY_SESSION_DATA is
+   session_data (record: EDC_RECORD): EDC_DUMMY_SESSION_DATA
       require
          added: record.session_data /= Void
       do

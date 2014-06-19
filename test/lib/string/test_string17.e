@@ -6,12 +6,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          foo("-123456-","78")
       end
 
-   foo (a,b: ABSTRACT_STRING) is
+   foo (a,b: ABSTRACT_STRING)
       local x: STRING; l,m: INTEGER_32
       do
          l := a.count; m:= b.count

@@ -17,7 +17,7 @@ feature {ANY}
    path: STRING
 
 feature {}
-   make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path) is
+   make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path)
       require
          a_class_name.is_tuple_related implies a_class_name.to_string = as_tuple
       do

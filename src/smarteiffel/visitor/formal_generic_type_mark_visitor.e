@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK)
       require
          visited /= Void
       deferred

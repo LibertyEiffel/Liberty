@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(Character_bits >= 8)
          assert(Minimum_character_code = 0)
@@ -25,7 +25,7 @@ feature {ANY}
          assert(Maximum_integer >= 32768)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

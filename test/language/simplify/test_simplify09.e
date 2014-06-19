@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: like Current; i, j: INTEGER
       do

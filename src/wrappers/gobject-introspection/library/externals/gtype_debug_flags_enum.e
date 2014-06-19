@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = mask_low_level)  or else
 				(a_value = none_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_mask is
+	set_mask
 		do
 			value := mask_low_level
 		end
 
-	set_none is
+	set_none
 		do
 			value := none_low_level
 		end
 
-	set_objects is
+	set_objects
 		do
 			value := objects_low_level
 		end
 
-	set_signals is
+	set_signals
 		do
 			value := signals_low_level
 		end
 
 feature {ANY} -- Queries
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=mask_low_level)
 		end
 
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=none_low_level)
 		end
 
-	is_objects: BOOLEAN is
+	is_objects: BOOLEAN
 		do
 			Result := (value=objects_low_level)
 		end
 
-	is_signals: BOOLEAN is
+	is_signals: BOOLEAN
 		do
 			Result := (value=signals_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	mask_low_level: INTEGER is
+	mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	none_low_level: INTEGER is
+	none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	objects_low_level: INTEGER is
+	objects_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	signals_low_level: INTEGER is
+	signals_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -28,13 +28,13 @@ insert
    EDC_CONSTANTS
 
 feature {EDC_CONNECTION_FACTORY}
-   valid_url (url: STRING): BOOLEAN is
+   valid_url (url: STRING): BOOLEAN
       require
          not url.is_empty
       deferred
       end
 
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION is
+   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION
       require
          valid_url(url)
       deferred

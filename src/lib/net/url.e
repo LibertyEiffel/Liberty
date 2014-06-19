@@ -33,7 +33,7 @@ create {STREAM}
    from_stream
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          u: like uri
       do
@@ -58,7 +58,7 @@ feature {ANY}
          not is_connected
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if protocol = Void then
             Result := other.protocol = Void
@@ -71,7 +71,7 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          if uri = Void then
             if protocol /= Void then
@@ -82,7 +82,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if is_stream then
             tagged_out_memory.append(once "URL(stream)")
@@ -102,13 +102,13 @@ feature {ANY}
       end
 
 feature {ANY} -- URL connection:
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- True if the URL is connected to the resource it points to.
       do
          Result := protocol /= Void and then protocol.is_connected
       end
 
-   can_connect: BOOLEAN is
+   can_connect: BOOLEAN
       do
          Result := uri /= Void
          check
@@ -116,7 +116,7 @@ feature {ANY} -- URL connection:
          end
       end
 
-   connect is
+   connect
          -- Connect to the resource pointed by this URL.
       require
          not is_connected
@@ -128,7 +128,7 @@ feature {ANY} -- URL connection:
          end
       end
 
-   disconnect is
+   disconnect
          -- Disconnect from the resource pointed by this URL.
       require
          is_connected
@@ -138,7 +138,7 @@ feature {ANY} -- URL connection:
          not is_connected
       end
 
-   input: INPUT_STREAM is
+   input: INPUT_STREAM
          -- Data coming from the resource this URL points to.
       require
          is_connected
@@ -147,7 +147,7 @@ feature {ANY} -- URL connection:
          Result := protocol.input
       end
 
-   output: OUTPUT_STREAM is
+   output: OUTPUT_STREAM
          -- Data going to the resource this URL points to.
       require
          is_connected
@@ -156,7 +156,7 @@ feature {ANY} -- URL connection:
          Result := protocol.output
       end
 
-   read_only is
+   read_only
       require
          not is_connected
       do
@@ -167,7 +167,7 @@ feature {ANY} -- URL connection:
          not write
       end
 
-   write_only is
+   write_only
       require
          not is_connected
       do
@@ -178,7 +178,7 @@ feature {ANY} -- URL connection:
          write
       end
 
-   read_write is
+   read_write
       require
          not is_connected
       do
@@ -194,7 +194,7 @@ feature {ANY} -- URL connection:
    is_stream: BOOLEAN
 
 feature {ANY} -- URL data:
-   absolute (a_url: STRING) is
+   absolute (a_url: STRING)
       require
          valid_url(a_url)
          not is_stream
@@ -214,7 +214,7 @@ feature {ANY} -- URL data:
          not is_stream
       end
 
-   relative (url: URL; relative_uri: STRING) is
+   relative (url: URL; relative_uri: STRING)
       require
          url /= Void
          not is_stream
@@ -232,13 +232,13 @@ feature {ANY} -- URL data:
          not is_stream
       end
 
-   set_error_handler (a_error_handler: like error_handler) is
+   set_error_handler (a_error_handler: like error_handler)
       do
          error_handler := a_error_handler
       end
 
 feature {STREAM}
-   from_stream (a_stream: STREAM; a_read: like read; a_write: like write) is
+   from_stream (a_stream: STREAM; a_read: like read; a_write: like write)
       require
          a_stream /= Void
       local
@@ -255,7 +255,7 @@ feature {STREAM}
       end
 
 feature {}
-   set_protocol (protocol_name: STRING) is
+   set_protocol (protocol_name: STRING)
          -- Sets the protocol.
       require
          protocol_name /= Void
@@ -268,7 +268,7 @@ feature {}
          protocol.name.is_equal(protocol_name)
       end
 
-   set_uri (a_uri: STRING) is
+   set_uri (a_uri: STRING)
          -- Sets the resource name.
       require
          protocol /= Void
@@ -280,7 +280,7 @@ feature {}
          uri.uri.is_equal(a_uri)
       end
 
-   unset_protocol is
+   unset_protocol
       local
          pp: PROTOCOLS
       do
@@ -292,7 +292,7 @@ feature {}
          protocol = Void
       end
 
-   unset_uri is
+   unset_uri
       do
          if uri /= Void then
             protocol.recycle_locator(uri)
@@ -313,13 +313,13 @@ feature {}
    error_handler: PROCEDURE[TUPLE[STRING]]
          -- An optional error handler
 
-   string_pool: STRING_RECYCLING_POOL is
+   string_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          unset_uri
          unset_protocol
@@ -340,7 +340,7 @@ end -- class URL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

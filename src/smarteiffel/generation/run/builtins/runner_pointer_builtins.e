@@ -13,7 +13,7 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT
       do
          check
             False
@@ -21,7 +21,7 @@ feature {RUNNER_MEMORY}
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -36,18 +36,18 @@ feature {}
       end
 
 feature {}
-   builtin_is_not_null (processor: RUNNER_PROCESSOR) is
+   builtin_is_not_null (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item.is_not_null))
       end
 
 feature {}
-   make is
+   make
       do
       end
 
 feature {RUNNER_FACET}
-   type: TYPE is
+   type: TYPE
       do
          Result := smart_eiffel.type_pointer
       end

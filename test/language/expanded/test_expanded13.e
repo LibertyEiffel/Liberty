@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          e1, e2: EXPANDED1
       do
@@ -23,7 +23,7 @@ feature {ANY}
          assert(e1.x = 2)
       end
 
-   add_two (e: EXPANDED1): EXPANDED1 is
+   add_two (e: EXPANDED1): EXPANDED1
       do
          Result.set_x(e.x + 2)
       end

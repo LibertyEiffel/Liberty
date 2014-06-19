@@ -12,7 +12,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          ncurses.enable
          root_window := ncurses.get_root_window
@@ -28,7 +28,7 @@ feature {}
          ncurses.start
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       local
          cursor_x, cursor_y: INTEGER
       do
@@ -95,14 +95,14 @@ feature {}
 
    root_window: NCURSES_WINDOW
 
-   integer_info_at_line (line_number: INTEGER; label: STRING; value: INTEGER) is
+   integer_info_at_line (line_number: INTEGER; label: STRING; value: INTEGER)
       do
          root_window.put_string_at(label, 0, line_number)
          root_window.clear_to_end_of_line
          root_window.put_integer(value)
       end
 
-   translate_to_unique_character_code (key_code: INTEGER): CHARACTER is
+   translate_to_unique_character_code (key_code: INTEGER): CHARACTER
       do
          if key_code = key_left then
             Result := Ctrl_b

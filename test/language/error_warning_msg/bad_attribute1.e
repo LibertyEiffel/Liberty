@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    non_existant_type: NON_EXISTANT_TYPE
 
-   main is
+   main
       do
          if non_existant_type = Void then
             -- To be sure that the attribute is used...

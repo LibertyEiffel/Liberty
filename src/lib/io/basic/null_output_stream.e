@@ -14,41 +14,41 @@ inherit
       end
 
 feature {ANY}
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   disconnect is
+   disconnect
       do
          filter := Void
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
       end
 
-   filtered_flush is
+   filtered_flush
       do
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          std_error.put_string("NULL_OUTPUT_STREAM.filtered_descriptor has been called!%N")
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("NULL_INPUT_STREAM.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
-   dispose is
+   dispose
       do
          -- No need to force people to disconnect such a STREAM.
       end
@@ -61,7 +61,7 @@ end -- class NULL_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

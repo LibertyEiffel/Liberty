@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          check_compare(1, 2)
          --
@@ -50,7 +50,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then
@@ -61,7 +61,7 @@ feature {ANY}
          end
       end
 
-   check_compare (a, b: INTEGER_64) is
+   check_compare (a, b: INTEGER_64)
       local
          c, d: INTEGER_64; mbia, mbib: MUTABLE_BIG_INTEGER
       do

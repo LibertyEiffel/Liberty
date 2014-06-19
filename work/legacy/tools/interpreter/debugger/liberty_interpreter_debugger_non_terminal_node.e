@@ -26,7 +26,7 @@ create {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
    make
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: LIBERTY_INTERPRETER_DEBUGGER_VISITOR
       do
@@ -35,7 +35,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_action: like action; a_name: like name; a_names: like names) is
+   make (a_action: like action; a_name: like name; a_names: like names)
       require
          a_action /= Void
       do

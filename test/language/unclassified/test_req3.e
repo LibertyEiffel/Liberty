@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    a: AUX_REQ3F
 
-   make is
+   make
       do
          create a.make
       end

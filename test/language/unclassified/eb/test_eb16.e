@@ -16,7 +16,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          boolean: BOOLEAN
       do
@@ -25,7 +25,7 @@ feature {ANY}
          end
       end
 
-   f: TEST_EB16 is
+   f: TEST_EB16
       do
       end
 

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[REAL]; fa: FAST_ARRAY[REAL]; ll: LINKED_LIST[REAL]; l2l: TWO_WAY_LINKED_LIST[REAL]
       do
@@ -27,13 +27,13 @@ feature {ANY}
       end
 
 feature {}
-   test (c: COLLECTION[REAL]) is
+   test (c: COLLECTION[REAL])
       do
          c.set_all_with(2.55)
          assert(c.occurrences(2.55) = c.count)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

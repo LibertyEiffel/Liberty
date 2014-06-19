@@ -9,7 +9,7 @@ create {}
 feature {}
    s: COLLECTION_SORTER[INTEGER_64]
 
-   make is
+   make
       local
          tab: ARRAY[INTEGER_64]
       do
@@ -21,7 +21,7 @@ feature {}
          assert(tab.is_equal({ARRAY[INTEGER_64] 1, << 1, 2, 3, 3, 4, 5, 9 >> }), tab)
       end
 
-   assert (b: BOOLEAN; tab: ARRAY[INTEGER_64]) is
+   assert (b: BOOLEAN; tab: ARRAY[INTEGER_64])
       do
          cpt := cpt + 1
          if not b or else not s.is_sorted(tab) then

@@ -25,11 +25,11 @@ deferred class EDC_CONSTANTS
    --
 
 feature {ANY} -- Constants:
-   fetch_forward: INTEGER_8 is 1
-   fetch_backward: INTEGER_8 is -1
+   fetch_forward: INTEGER_8 1
+   fetch_backward: INTEGER_8 -1
 
 feature {ANY} -- Error handling:
-   default_error_handler: EDC_ERROR_HANDLER is
+   default_error_handler: EDC_ERROR_HANDLER
       once
          create {EDC_ERROR_DEFAULT_HANDLER} Result.make
       end

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       require
          visited /= Void
       deferred

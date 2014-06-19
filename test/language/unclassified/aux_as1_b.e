@@ -7,7 +7,7 @@ inherit
    AUX_AS1_ANY
 
 feature {ANY}
-   message is
+   message
       do
          stream.extend('B')
       end

@@ -14,50 +14,50 @@ feature {ANY}
    start_position: POSITION
          -- Of the first character of the name.
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   to_string: STRING is
+   to_string: STRING
       deferred
       end
 
-   rank: INTEGER is
+   rank: INTEGER
          -- in the corresponding flat list.
       deferred
       ensure
          Result >= 1
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
       end
 
-   frozen to_key: STRING is
+   frozen to_key: STRING
       do
          Result := to_string
       end
 
-   frozen precedence: INTEGER is
+   frozen precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   frozen pretty_target (indent_level: INTEGER) is
+   frozen pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
          pretty_printer.put_character('.')
       end
 
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       local
          i: INTEGER; c: CHARACTER
       do
@@ -78,7 +78,7 @@ feature {ANY}
          short_printer.hook("Aan")
       end
 
-   frozen short_target (type: TYPE) is
+   frozen short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot

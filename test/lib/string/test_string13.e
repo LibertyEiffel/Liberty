@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(("1.5").is_real)
          assert(("1").is_real)

@@ -26,7 +26,7 @@ feature {RUNNER_FACET}
    memory: RUNNER_MEMORY
          -- shared by all processors
 
-   current_frame: RUNNER_FRAME is
+   current_frame: RUNNER_FRAME
       do
          Result := features.current_frame
       end
@@ -34,7 +34,7 @@ feature {RUNNER_FACET}
 feature {RUNNER_FACET} -- Exceptions
    exception: RUNNER_EXCEPTION
 
-   set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING) is
+   set_exception (a_exception: INTEGER; a_message: ABSTRACT_STRING)
       do
          create exception.make(a_exception, a_message.intern, Current, exception)
          break --| **** useful breakpoint for debug.
@@ -42,13 +42,13 @@ feature {RUNNER_FACET} -- Exceptions
          exception.message = a_message.intern
       end
 
-   clear_exception is
+   clear_exception
       do
          exception := Void
       end
 
 feature {RUNNER_FEATURES} -- Contract checking
-   check_invariant (type: TYPE) is
+   check_invariant (type: TYPE)
       require
          type /= Void
          current_frame.target.type = type
@@ -70,7 +70,7 @@ feature {RUNNER_FEATURES} -- Contract checking
          end
       end
 
-   check_require (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+   check_require (target: RUNNER_OBJECT; rf: RUN_FEATURE)
       require
          target /= Void
          rf /= Void
@@ -121,7 +121,7 @@ feature {RUNNER_FEATURES} -- Contract checking
          end
       end
 
-   prepare_old (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+   prepare_old (target: RUNNER_OBJECT; rf: RUN_FEATURE)
       require
          rf /= Void
       local
@@ -152,7 +152,7 @@ feature {RUNNER_FEATURES} -- Contract checking
          end
       end
 
-   check_ensure (target: RUNNER_OBJECT; rf: RUN_FEATURE) is
+   check_ensure (target: RUNNER_OBJECT; rf: RUN_FEATURE)
       require
          rf /= Void
       local
@@ -173,7 +173,7 @@ feature {RUNNER_FEATURES} -- Contract checking
       end
 
 feature {RUNNER_FACET}
-   check_assertions (exception_type: INTEGER; assertions: ASSERTION_LIST) is
+   check_assertions (exception_type: INTEGER; assertions: ASSERTION_LIST)
       require
          exception = Void
          assertions /= Void
@@ -202,7 +202,7 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   assertion_string (exception_type: INTEGER; assertion: ASSERTION): STRING is
+   assertion_string (exception_type: INTEGER; assertion: ASSERTION): STRING
       do
          Result := once ""
          Result.copy(exceptions.name_of_exception(exception_type))
@@ -223,12 +223,12 @@ feature {}
          end
       end
 
-   assertion_displayer: RUNNER_DISPLAYER is
+   assertion_displayer: RUNNER_DISPLAYER
       once
          create Result.make(assertion_displayer_stream)
       end
 
-   assertion_displayer_stream: STRING_OUTPUT_STREAM is
+   assertion_displayer_stream: STRING_OUTPUT_STREAM
       once
          create Result.make
       end
@@ -249,7 +249,7 @@ feature {} -- fly-weights
    reals_extended: HASHED_DICTIONARY[RUNNER_NATIVE_EXPANDED[REAL_EXTENDED], REAL_EXTENDED]
 
 feature {RUNNER_FACET}
-   new_object (type: TYPE): RUNNER_OBJECT is
+   new_object (type: TYPE): RUNNER_OBJECT
       require
          alive: type.live_type /= Void
       do
@@ -264,7 +264,7 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_expanded (type: TYPE): RUNNER_OBJECT is
+   default_expanded (type: TYPE): RUNNER_OBJECT
       require
          type.is_expanded
       local
@@ -280,12 +280,12 @@ feature {RUNNER_FACET}
          Result /= Void
       end
 
-   default_boolean: RUNNER_NATIVE_EXPANDED[BOOLEAN] is
+   default_boolean: RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
          Result := new_boolean(False)
       end
 
-   new_boolean (boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
+   new_boolean (boolean: BOOLEAN): RUNNER_NATIVE_EXPANDED[BOOLEAN]
       do
          Result := booleans.item(boolean.to_integer)
          if Result = Void then
@@ -298,12 +298,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_character: RUNNER_NATIVE_EXPANDED[CHARACTER] is
+   default_character: RUNNER_NATIVE_EXPANDED[CHARACTER]
       do
          Result := new_character('%U')
       end
 
-   new_character (character: CHARACTER): RUNNER_NATIVE_EXPANDED[CHARACTER] is
+   new_character (character: CHARACTER): RUNNER_NATIVE_EXPANDED[CHARACTER]
       do
          Result := characters.fast_reference_at(character)
          if Result = Void then
@@ -316,14 +316,14 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_native_array_character: RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
+   default_native_array_character: RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]]
       local
          storage: NATIVE_ARRAY[CHARACTER]
       do
          Result := new_native_array_character(0, storage)
       end
 
-   new_native_array_character (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]): RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]] is
+   new_native_array_character (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]): RUNNER_NATIVE_ARRAY[CHARACTER, RUNNER_NATIVE_EXPANDED[CHARACTER]]
       do
          Result := memory.new_native_array_character(Current, capacity, storage)
       ensure
@@ -332,12 +332,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_pointer: RUNNER_NATIVE_EXPANDED[POINTER] is
+   default_pointer: RUNNER_NATIVE_EXPANDED[POINTER]
       do
          Result := new_pointer(default_pointer_)
       end
 
-   new_pointer (pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER] is
+   new_pointer (pointer: POINTER): RUNNER_NATIVE_EXPANDED[POINTER]
       do
          Result := memory.new_pointer(Current, pointer)
       ensure
@@ -346,7 +346,7 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   new_integer (a_integer: INTEGER_64): RUNNER_OBJECT is
+   new_integer (a_integer: INTEGER_64): RUNNER_OBJECT
       do
          if a_integer.fit_integer_8 then
             Result := new_integer_8(a_integer.to_integer_8)
@@ -359,12 +359,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   default_integer_8: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   default_integer_8: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := new_integer_8(0)
       end
 
-   new_integer_8 (integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_8 (integer_8: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := integers_8.fast_reference_at(integer_8)
          if Result = Void then
@@ -377,12 +377,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_16: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   default_integer_16: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := new_integer_16(0)
       end
 
-   new_integer_16 (integer_16: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_16 (integer_16: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := integers_16.fast_reference_at(integer_16)
          if Result = Void then
@@ -395,12 +395,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_32: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   default_integer_32: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := new_integer_32(0)
       end
 
-   new_integer_32 (integer_32: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_32 (integer_32: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := integers_32.fast_reference_at(integer_32)
          if Result = Void then
@@ -413,12 +413,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_integer_64: RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   default_integer_64: RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := new_integer_64(0)
       end
 
-   new_integer_64 (integer_64: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_64 (integer_64: INTEGER_64): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       do
          Result := integers_64.fast_reference_at(integer_64)
          if Result = Void then
@@ -431,12 +431,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_8: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   default_natural_8: RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := new_natural_8(0.to_natural_64)
       end
 
-   new_natural_8 (natural_8: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   new_natural_8 (natural_8: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := naturals_8.fast_reference_at(natural_8)
          if Result = Void then
@@ -449,12 +449,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_16: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   default_natural_16: RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := new_natural_16(0.to_natural_64)
       end
 
-   new_natural_16 (natural_16: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   new_natural_16 (natural_16: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := naturals_16.fast_reference_at(natural_16)
          if Result = Void then
@@ -467,12 +467,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_32: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   default_natural_32: RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := new_natural_32(0.to_natural_64)
       end
 
-   new_natural_32 (natural_32: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   new_natural_32 (natural_32: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := naturals_32.fast_reference_at(natural_32)
          if Result = Void then
@@ -485,12 +485,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_natural_64: RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   default_natural_64: RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := new_natural_64(0.to_natural_64)
       end
 
-   new_natural_64 (natural_64: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+   new_natural_64 (natural_64: NATURAL_64): RUNNER_NATIVE_EXPANDED[NATURAL_64]
       do
          Result := naturals_64.fast_reference_at(natural_64)
          if Result = Void then
@@ -503,12 +503,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_internals_handler_if_exists: RUNNER_OBJECT is
+   default_internals_handler_if_exists: RUNNER_OBJECT
       do
          Result := new_internals_handler_if_exists(Void) --| **** TODO
       end
 
-   new_internals_handler_if_exists (internals_handler: INTERNALS_HANDLER): RUNNER_OBJECT is
+   new_internals_handler_if_exists (internals_handler: INTERNALS_HANDLER): RUNNER_OBJECT
       do
          Result := memory.new_internals_handler_if_exists(Current, internals_handler)
       ensure
@@ -517,12 +517,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_real_32: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   default_real_32: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := new_real_32(0.0)
       end
 
-   new_real_32 (real_32: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_32 (real_32: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := reals_32.fast_reference_at(real_32)
          if Result = Void then
@@ -535,12 +535,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_real_64: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   default_real_64: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := new_real_64(0.0)
       end
 
-   new_real_64 (real_64: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_64 (real_64: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := reals_64.fast_reference_at(real_64)
          if Result = Void then
@@ -553,12 +553,12 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   default_real_extended: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   default_real_extended: RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := new_real_extended(0.0)
       end
 
-   new_real_extended (real_extended: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_extended (real_extended: REAL_EXTENDED): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       do
          Result := reals_extended.fast_reference_at(real_extended)
          if Result = Void then
@@ -571,7 +571,7 @@ feature {RUNNER_FACET}
          good_processor: Result.processor = Current
       end
 
-   new_manifest_string (content: ABSTRACT_STRING; is_once: BOOLEAN): RUNNER_OBJECT is
+   new_manifest_string (content: ABSTRACT_STRING; is_once: BOOLEAN): RUNNER_OBJECT
       local
          manifest_string: FIXED_STRING
       do
@@ -587,7 +587,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   new_agent (agent_creation: AGENT_CREATION): RUNNER_AGENT_OBJECT is
+   new_agent (agent_creation: AGENT_CREATION): RUNNER_AGENT_OBJECT
       do
          Result := memory.new_agent(Current, agent_creation)
       end
@@ -595,7 +595,7 @@ feature {RUNNER_FACET}
 feature {}
    once_manifest_strings: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
 
-   new_manifest_string_ (manifest_string: FIXED_STRING): RUNNER_STRUCTURED_OBJECT is
+   new_manifest_string_ (manifest_string: FIXED_STRING): RUNNER_STRUCTURED_OBJECT
       do
          Result ::= new_object(smart_eiffel.type_string)
          Result.set_field(once "count",         new_integer_32(manifest_string.count))
@@ -605,14 +605,14 @@ feature {}
       end
 
 feature {RUNNER}
-   run (rf: RUN_FEATURE) is
+   run (rf: RUN_FEATURE)
       do
          features.run(rf)
          check_exception
       end
 
 feature {}
-   check_exception is
+   check_exception
       do
          if exception /= Void then
             print_exception(exception)
@@ -622,7 +622,7 @@ feature {}
          no_exception_or_dead: old exception = Void
       end
 
-   print_exception (a_exception: RUNNER_EXCEPTION) is
+   print_exception (a_exception: RUNNER_EXCEPTION)
       require
          a_exception /= Void
       do
@@ -641,12 +641,12 @@ feature {}
       end
 
 feature {RUNNER_PLUGIN}
-   plugin_agent (a_name: FIXED_STRING): FOREIGN_AGENT is
+   plugin_agent (a_name: FIXED_STRING): FOREIGN_AGENT
       do
          Result := plugin_agents.fast_reference_at(a_name)
       end
 
-   set_plugin_agent (a_agent: FOREIGN_AGENT; a_name: FIXED_STRING) is
+   set_plugin_agent (a_agent: FOREIGN_AGENT; a_name: FIXED_STRING)
       require
          a_agent /= Void
          a_name /= Void
@@ -658,7 +658,7 @@ feature {RUNNER_PLUGIN}
       end
 
 feature {}
-   make (a_memory: like memory) is
+   make (a_memory: like memory)
       require
          a_memory /= Void
       do

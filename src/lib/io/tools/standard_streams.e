@@ -28,44 +28,44 @@ feature {ANY}
    std_error: OUTPUT_STREAM
 
 feature {ANY}
-   set_std_input (a_std_input: like std_input) is
+   set_std_input (a_std_input: like std_input)
       require
          a_std_input.is_connected
       do
          std_input := a_std_input
       end
 
-   restore_std_input is
+   restore_std_input
       do
          set_std_input(any_std_input)
       end
 
-   set_std_output (a_std_output: like std_output) is
+   set_std_output (a_std_output: like std_output)
       require
          a_std_output.is_connected
       do
          std_output := a_std_output
       end
 
-   restore_std_output is
+   restore_std_output
       do
          set_std_output(any_std_output)
       end
 
-   set_std_error (a_std_error: like std_error) is
+   set_std_error (a_std_error: like std_error)
       require
          a_std_error.is_connected
       do
          std_error := a_std_error
       end
 
-   restore_std_error is
+   restore_std_error
       do
          set_std_error(any_std_error)
       end
 
 feature {}
-   make is
+   make
       do
          restore_std_input
          restore_std_output
@@ -80,7 +80,7 @@ end -- class STANDARD_STREAMS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

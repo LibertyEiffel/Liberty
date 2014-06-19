@@ -29,12 +29,12 @@ inherit
 feature {ANY}
    column: EDC_TYPED_COLUMN[T_]
 
-   item (set: EDC_RESULT_SET): EDC_TYPED_DATUM[T_] is
+   item (set: EDC_RESULT_SET): EDC_TYPED_DATUM[T_]
       do
          Result := column.item(set)
       end
 
-   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_] is
+   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_]
       local
          i: INTEGER
       do
@@ -51,22 +51,22 @@ feature {ANY}
       end
 
 feature {EDC_EXPRESSION}
-   can_call: BOOLEAN is True
+   can_call: BOOLEAN True
 
-   open_count: INTEGER is 0
+   open_count: INTEGER 0
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       do
          Result := cursor
       end
 
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       do
          Result := position
       end
 
 feature {}
-   make (a_column: like column) is
+   make (a_column: like column)
       require
          a_column /= Void
       do
@@ -74,7 +74,7 @@ feature {}
       end
 
 feature {ANY}
-   datum: EDC_DATUM is
+   datum: EDC_DATUM
       require
          False
       do
@@ -85,7 +85,7 @@ feature {ANY}
       end
 
 feature {EDC_EXPRESSION}
-   is_column (a_column: EDC_COLUMN): BOOLEAN is
+   is_column (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := column = a_column or else column.is_equal(a_column)
       end

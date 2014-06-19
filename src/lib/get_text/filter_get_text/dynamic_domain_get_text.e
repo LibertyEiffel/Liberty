@@ -7,7 +7,7 @@ create {FILTER_GET_TEXT}
    make
 
 feature {}
-   make (domain_name: STRING; filtered_: like filtered) is
+   make (domain_name: STRING; filtered_: like filtered)
       do
          text_domain := domain_name
          connect_to(filtered_)

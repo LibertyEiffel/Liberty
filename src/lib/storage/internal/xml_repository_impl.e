@@ -45,47 +45,47 @@ insert
    UNICODE_CHARACTERS
 
 feature {} -- Implementation of update
-   update_name: STRING is ""
+   update_name: STRING ""
 
-   update_ref: STRING is ""
+   update_ref: STRING ""
 
-   update_type: STRING is ""
+   update_type: STRING ""
 
-   update_value: STRING is ""
+   update_value: STRING ""
 
-   update_capacity: STRING is ""
+   update_capacity: STRING ""
 
-   update_version: STRING is ""
+   update_version: STRING ""
 
-   xml: XML_PARSER is
+   xml: XML_PARSER
       once
          create Result.make
       end
 
-   do_update (in_stream: INPUT_STREAM) is
+   do_update (in_stream: INPUT_STREAM)
       do
          xml.connect_to(in_stream.url)
          xml.parse(Current)
       end
 
-   last_line: INTEGER is
+   last_line: INTEGER
       do
          Result := xml.line
       end
 
-   last_column: INTEGER is
+   last_column: INTEGER
       do
          Result := xml.column
       end
 
 feature {}
-   open_nodes: FAST_ARRAY[STRING] is
+   open_nodes: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(4)
       end
 
 feature {XML_PARSER}
-   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER)
       local
          error: STRING
       do
@@ -111,7 +111,7 @@ feature {XML_PARSER}
          end
       end
 
-   open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_name: UNICODE_STRING; line, column: INTEGER)
       local
          n, s, error: STRING; layout: REPOSITORY_LAYOUT
       do
@@ -151,7 +151,7 @@ feature {XML_PARSER}
          clear_attributes
       end
 
-   close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       local
          error: STRING
       do
@@ -179,13 +179,13 @@ feature {XML_PARSER}
          end
       end
 
-   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          open_node(node_name, line, column)
          close_node(node_name, line, column)
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
       do
          Result := once U""
          Result.clear_count
@@ -194,32 +194,32 @@ feature {XML_PARSER}
          end
       end
 
-   xml_header (line, column: INTEGER) is
+   xml_header (line, column: INTEGER)
       do
          clear_attributes
       end
 
-   processing_instruction (a_target, a_data: UNICODE_STRING) is
+   processing_instruction (a_target, a_data: UNICODE_STRING)
       do
          fire_update_error(once "Unexpected processing instruction", last_line, last_column)
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
       do
          fire_update_error(once "Unexpected entity", line, column)
       end
 
-   open_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL)
          -- XML_REPOSITORY doen't use entity urls
       do
          fire_update_error(once "Unexpected entityurl", last_line, last_column)
       end
 
-   close_entity_url (a_entity: UNICODE_STRING; a_url: URL) is
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL)
       do
       end
-   
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
       local
          i: INTEGER; break: BOOLEAN
       do
@@ -235,7 +235,7 @@ feature {XML_PARSER}
          end
       end
 
-   parse_error (line, column: INTEGER; message: STRING) is
+   parse_error (line, column: INTEGER; message: STRING)
       do
          at_error := True
          fire_update_error(message, line, column)
@@ -244,9 +244,9 @@ feature {XML_PARSER}
    at_error: BOOLEAN
 
 feature {} -- Internals
-   frozen version: STRING is "1"
+   frozen version: STRING "1"
 
-   clear_attributes is
+   clear_attributes
       do
          update_name.clear_count
          update_ref.clear_count
@@ -256,18 +256,18 @@ feature {} -- Internals
          update_version.clear_count
       end
 
-   strings: STRING_RECYCLING_POOL is
+   strings: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
 feature {} -- Default transient objects
-   register_transient_objects is
+   register_transient_objects
       do
          transient.register(to_internals, once "Repository")
       end
 
-   unregister_transient_objects is
+   unregister_transient_objects
       do
          transient.unregister(once "Repository")
       end
@@ -280,7 +280,7 @@ end -- class XML_REPOSITORY_IMPL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

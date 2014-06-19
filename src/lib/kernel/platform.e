@@ -7,35 +7,35 @@ insert
    ANY
 
 feature {} -- Maximum:
-   Maximum_character_code: INTEGER_16 is
+   Maximum_character_code: INTEGER_16
          -- Largest supported code for CHARACTER values.
       external "built_in"
       ensure
          meaningful: Result >= 127
       end
 
-   Maximum_integer_8: INTEGER_8 is 127
+   Maximum_integer_8: INTEGER_8 127
          -- Largest supported value of type INTEGER_8.
 
-   Maximum_integer_16: INTEGER_16 is 32767
+   Maximum_integer_16: INTEGER_16 32767
          -- Largest supported value of type INTEGER_16.
 
-   Maximum_integer, Maximum_integer_32: INTEGER is 2147483647
+   Maximum_integer, Maximum_integer_32: INTEGER 2147483647
          -- Largest supported value of type INTEGER/INTEGER_32.
 
-   Maximum_integer_64: INTEGER_64 is 9223372036854775807
+   Maximum_integer_64: INTEGER_64 9223372036854775807
          -- Largest supported value of type INTEGER_64.
 
-   Maximum_real_32: REAL_32 is {REAL_32 3.4028234663852885981170418348451692544e+38}
+   Maximum_real_32: REAL_32 {REAL_32 3.4028234663852885981170418348451692544e+38}
          -- Largest non-special (no NaNs nor infinity) supported value of type REAL_32.
 
-   Maximum_real, Maximum_real_64: REAL_64 is
+   Maximum_real, Maximum_real_64: REAL_64
          -- Largest non-special (no NaNs nor infinity) supported value of type REAL.
          -- Just to give an idea of this value: 1.79769313486231570....e+308
       external "built_in"
       end
 
-   Maximum_real_80: REAL_80 is
+   Maximum_real_80: REAL_80
          -- Largest supported value of type REAL_80.
       external "built_in"
       ensure
@@ -43,35 +43,35 @@ feature {} -- Maximum:
       end
 
 feature {} -- Minimum:
-   Minimum_character_code: INTEGER_16 is
+   Minimum_character_code: INTEGER_16
          -- Smallest supported code for CHARACTER values.
       external "built_in"
       ensure
          meaningful: Result <= 0
       end
 
-   Minimum_integer_8: INTEGER_8 is -128
+   Minimum_integer_8: INTEGER_8 -128
          -- Smallest supported value of type INTEGER_8.
 
-   Minimum_integer_16: INTEGER_16 is -32768
+   Minimum_integer_16: INTEGER_16 -32768
          -- Smallest supported value of type INTEGER_16.
 
-   Minimum_integer, Minimum_integer_32: INTEGER is -2147483648
+   Minimum_integer, Minimum_integer_32: INTEGER -2147483648
          -- Smallest supported value of type INTEGER/INTEGER_32.
 
-   Minimum_integer_64: INTEGER_64 is -9223372036854775808
+   Minimum_integer_64: INTEGER_64 -9223372036854775808
          -- Smallest supported value of type INTEGER_64.
 
-   Minimum_real_32: REAL_32 is {REAL_32 -3.40282346638528859811704183484516925440e+38}
+   Minimum_real_32: REAL_32 {REAL_32 -3.40282346638528859811704183484516925440e+38}
          -- Smallest non-special (no NaNs nor infinity) supported value of type REAL_32.
 
-   Minimum_real, Minimum_real_64: REAL_64 is
+   Minimum_real, Minimum_real_64: REAL_64
          -- Smallest non-special (no NaNs nor infinity) supported value of type REAL.
          -- Just to give an idea of this value: -1.79769313486231570....e+308
       external "built_in"
       end
 
-   Minimum_real_80: REAL is
+   Minimum_real_80: REAL
          -- Smallest supported value of type REAL_80.
       external "built_in"
       ensure
@@ -79,14 +79,14 @@ feature {} -- Minimum:
       end
 
 feature {} -- Bits:
-   Boolean_bits: INTEGER is
+   Boolean_bits: INTEGER
          -- Number of bits in a value of type BOOLEAN.
       external "built_in"
       ensure
          meaningful: Result >= 1
       end
 
-   Character_bits: INTEGER is
+   Character_bits: INTEGER
          -- Number of bits in a value of type CHARACTER.
       external "built_in"
       ensure
@@ -94,17 +94,17 @@ feature {} -- Bits:
          large_enough: {INTEGER_32 2 } ^ Result >= Maximum_character_code
       end
 
-   Integer_bits: INTEGER is
+   Integer_bits: INTEGER
          -- Number of bits in a value of type INTEGER.
       external "built_in"
       ensure
          integer_definition: Result = 32
       end
 
-   Real_bits: INTEGER is 64
+   Real_bits: INTEGER 64
          -- Number of bits in a value of type REAL.
 
-   Pointer_bits: INTEGER is
+   Pointer_bits: INTEGER
          -- Number of bits in a value of type POINTER.
       external "built_in"
       end
@@ -117,7 +117,7 @@ end -- class PLATFORM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

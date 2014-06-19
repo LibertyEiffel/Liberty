@@ -13,7 +13,7 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT
       do
          check
             False
@@ -21,7 +21,7 @@ feature {RUNNER_MEMORY}
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -39,18 +39,18 @@ feature {}
       end
 
 feature {}
-   builtin_call (processor: RUNNER_PROCESSOR) is
+   builtin_call (processor: RUNNER_PROCESSOR)
       do
          processor.set_exception(exceptions.Routine_failure, "Unexpected call (agent call is normally optimized away)")
       end
 
-   builtin_item (processor: RUNNER_PROCESSOR) is
+   builtin_item (processor: RUNNER_PROCESSOR)
       do
          processor.set_exception(exceptions.Routine_failure, "Unexpected call (agent call is normally optimized away)")
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       do
          type := a_type
       ensure

@@ -11,7 +11,7 @@ insert
 feature {ANY}
    pt2: INTEGER
 
-   a_feature: INTEGER is
+   a_feature: INTEGER
       do
          Result := pt + pt2
       end

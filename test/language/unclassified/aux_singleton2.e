@@ -4,7 +4,7 @@
 class AUX_SINGLETON2
 
 feature {}
-   singleton_memory: AUX_SINGLETON2 is
+   singleton_memory: AUX_SINGLETON2
       once
          Result := Current
       end

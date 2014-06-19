@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (g_file_test_exists_low_level | 
 				g_file_test_is_executable_low_level | 
@@ -17,69 +17,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_file_test_exists is
+	set_g_file_test_exists
 		do
 			value := value.bit_or(g_file_test_exists_low_level)
 		end
 
-	unset_g_file_test_exists is
+	unset_g_file_test_exists
 		do
 			value := value.bit_xor(g_file_test_exists_low_level)
 		end
 
-	set_g_file_test_is_executable is
+	set_g_file_test_is_executable
 		do
 			value := value.bit_or(g_file_test_is_executable_low_level)
 		end
 
-	unset_g_file_test_is_executable is
+	unset_g_file_test_is_executable
 		do
 			value := value.bit_xor(g_file_test_is_executable_low_level)
 		end
 
-	set_g_file_test_is_regular is
+	set_g_file_test_is_regular
 		do
 			value := value.bit_or(g_file_test_is_regular_low_level)
 		end
 
-	unset_g_file_test_is_regular is
+	unset_g_file_test_is_regular
 		do
 			value := value.bit_xor(g_file_test_is_regular_low_level)
 		end
 
-	set_g_file_test_is_symlink is
+	set_g_file_test_is_symlink
 		do
 			value := value.bit_or(g_file_test_is_symlink_low_level)
 		end
 
-	unset_g_file_test_is_symlink is
+	unset_g_file_test_is_symlink
 		do
 			value := value.bit_xor(g_file_test_is_symlink_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_file_test_exists: BOOLEAN is
+	is_g_file_test_exists: BOOLEAN
 		do
 			Result := (value=g_file_test_exists_low_level)
 		end
 
-	is_g_file_test_is_executable: BOOLEAN is
+	is_g_file_test_is_executable: BOOLEAN
 		do
 			Result := (value=g_file_test_is_executable_low_level)
 		end
 
-	is_g_file_test_is_regular: BOOLEAN is
+	is_g_file_test_is_regular: BOOLEAN
 		do
 			Result := (value=g_file_test_is_regular_low_level)
 		end
 
-	is_g_file_test_is_symlink: BOOLEAN is
+	is_g_file_test_is_symlink: BOOLEAN
 		do
 			Result := (value=g_file_test_is_symlink_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_file_test_exists_low_level: INTEGER is
+	g_file_test_exists_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_file_test_is_executable_low_level: INTEGER is
+	g_file_test_is_executable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_file_test_is_regular_low_level: INTEGER is
+	g_file_test_is_regular_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_file_test_is_symlink_low_level: INTEGER is
+	g_file_test_is_symlink_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

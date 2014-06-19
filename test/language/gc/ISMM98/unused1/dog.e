@@ -10,13 +10,13 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          name := once "Lassie"
       end
 
 feature {ANY}
-   is_cat: BOOLEAN is False
+   is_cat: BOOLEAN False
 
 end -- class DOG
 --

@@ -20,7 +20,7 @@ feature {}
 
    buffer: STRING
 
-   make is
+   make
       local
          tcp: TCP_ACCESS; host: LOCALHOST; count: INTEGER_16
       do
@@ -54,7 +54,7 @@ feature {}
          end
       end
 
-   wait_answer is
+   wait_answer
       local
          stack: LOOP_STACK
       do
@@ -65,7 +65,7 @@ feature {}
       end
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          if ios.is_connected then
             events.expect(ios.event_can_read)
@@ -74,12 +74,12 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := not done and then events.event_occurred(ios.event_can_read)
       end
 
-   continue is
+   continue
       do
          buffer.clear_count
          ios.read_available_in(buffer, buffer.capacity)
@@ -89,7 +89,7 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          done := False
       end

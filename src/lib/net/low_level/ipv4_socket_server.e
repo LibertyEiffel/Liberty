@@ -15,12 +15,12 @@ feature {}
    access: IPV4_ACCESS
 
 feature {SOCKET_INPUT_OUTPUT_STREAM}
-   bind (a_sync: BOOLEAN): SOCKET is
+   bind (a_sync: BOOLEAN): SOCKET
       do
          Result := bind_socket(a_sync)
       end
 
-   has_socket (socket: SOCKET): BOOLEAN is
+   has_socket (socket: SOCKET): BOOLEAN
       local
          isk: IPV4_SOCKET
       do
@@ -30,7 +30,7 @@ feature {SOCKET_INPUT_OUTPUT_STREAM}
          end
       end
 
-   socket_disconnected (socket: SOCKET) is
+   socket_disconnected (socket: SOCKET)
       local
          isk: IPV4_SOCKET
       do
@@ -42,13 +42,13 @@ feature {}
    connected_sockets: FAST_ARRAY[IPV4_SOCKET]
          -- The currently connected sockets
 
-   sockets_pool: RECYCLING_POOL[IPV4_SOCKET] is
+   sockets_pool: RECYCLING_POOL[IPV4_SOCKET]
          -- Common array containing all the currently disconnected sockets.
       once
          create Result.make
       end
 
-   bind_socket (a_sync: BOOLEAN): IPV4_SOCKET is
+   bind_socket (a_sync: BOOLEAN): IPV4_SOCKET
       do
          if sockets_pool.is_empty then
             create Result.bind(Current, a_sync)
@@ -68,7 +68,7 @@ feature {}
          not Result.is_connected implies error /= Void
       end
 
-   unbind_socket (socket: IPV4_SOCKET) is
+   unbind_socket (socket: IPV4_SOCKET)
       require
          connected_sockets.fast_has(socket)
       local
@@ -81,7 +81,7 @@ feature {}
          not connected_sockets.fast_has(socket)
       end
 
-   kill_connections is
+   kill_connections
       local
          s: SOCKET
       do
@@ -97,7 +97,7 @@ feature {}
       end
 
 feature {}
-   make (a_access: like access; a_socket_fd: like fd) is
+   make (a_access: like access; a_socket_fd: like fd)
          -- Connect to an access, which must also provide the file descriptor
       require
          a_access /= Void
@@ -117,7 +117,7 @@ end -- class IPV4_SOCKET_SERVER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

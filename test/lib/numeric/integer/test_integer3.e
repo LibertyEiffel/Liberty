@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; s: STRING
       do
@@ -40,7 +40,7 @@ feature {ANY}
          assert(1234567 = 1234567)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

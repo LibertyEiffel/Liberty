@@ -4,7 +4,7 @@
 class AUX_ANCHOR6
 
 feature {ANY}
-   foo (param: like c) is
+   foo (param: like c)
       do
       end
 

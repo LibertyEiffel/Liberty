@@ -13,7 +13,7 @@ feature {RUNNER_PROCESSOR}
    processor: RUNNER_PROCESSOR
 
 feature {} -- helper
-   current_frame: RUNNER_FRAME is
+   current_frame: RUNNER_FRAME
       do
          Result := processor.current_frame
       end

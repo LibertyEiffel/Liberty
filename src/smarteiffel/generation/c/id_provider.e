@@ -30,7 +30,7 @@ feature {POSITION}
          --| complex, and requires two distinct dictionaries. FM
 
 feature {COMPILE_TO_C}
-   disk_save is
+   disk_save
       local
          i: INTEGER; tfw: TEXT_FILE_WRITE
       do
@@ -49,7 +49,7 @@ feature {COMPILE_TO_C}
       end
 
 feature {}
-   disk_save_ids (tfw: TEXT_FILE_WRITE; ids: like id_memory; cluster_name: STRING) is
+   disk_save_ids (tfw: TEXT_FILE_WRITE; ids: like id_memory; cluster_name: STRING)
       local
          i: INTEGER; id: INTEGER_16; name: HASHED_STRING
          cluster: CLUSTER
@@ -108,7 +108,7 @@ feature {}
       end
 
 feature {PARSER, CLASS_TEXT, LIVE_TYPE, C_PRETTY_PRINTER}
-   item (hashed_string: HASHED_STRING; cluster: CLUSTER): INTEGER_16 is
+   item (hashed_string: HASHED_STRING; cluster: CLUSTER): INTEGER_16
          -- `hashed_string' should be a full type name; `cluster' is the cluster where the class_text of the
          -- type is located.
       require
@@ -139,7 +139,7 @@ feature {PARSER, CLASS_TEXT, LIVE_TYPE, C_PRETTY_PRINTER}
       end
 
 feature {EIFFEL_PARSER}
-   high_item (hashed_string: HASHED_STRING): INTEGER_16 is
+   high_item (hashed_string: HASHED_STRING): INTEGER_16
          -- Works like `item', except that if a new ID is allocated,
          -- it is chosen high.
       require
@@ -164,7 +164,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {}
-   too_many_live_types_error is
+   too_many_live_types_error
       require
          max_id = min_id - 1
       local
@@ -179,7 +179,7 @@ feature {}
       end
 
 feature {POSITION}
-   alias_of (id: INTEGER_16): HASHED_STRING is
+   alias_of (id: INTEGER_16): HASHED_STRING
       local
          i: INTEGER
       do
@@ -215,12 +215,12 @@ feature {POSITION}
    count_alias_of: INTEGER
 
 feature {}
-   per_cluster_id_memory: DICTIONARY[DICTIONARY[INTEGER_16, HASHED_STRING], STRING] is
+   per_cluster_id_memory: DICTIONARY[DICTIONARY[INTEGER_16, HASHED_STRING], STRING]
       once
          create {HASHED_DICTIONARY[DICTIONARY[INTEGER_16, HASHED_STRING], STRING]} Result.with_capacity(16)
       end
 
-   cluster_id_memory (cluster: CLUSTER): like id_memory is
+   cluster_id_memory (cluster: CLUSTER): like id_memory
       require
          cluster /= Void
       do
@@ -234,14 +234,14 @@ feature {}
          definition: per_cluster_id_memory.reference_at(cluster.name) = Result
       end
 
-   id_memory: DICTIONARY[INTEGER_16, HASHED_STRING] is
+   id_memory: DICTIONARY[INTEGER_16, HASHED_STRING]
          -- The ids of classes without a cluster...
          --|*** TODO: Should disappear! Why should we keep ids for Cecil files?
       once
          create {HASHED_DICTIONARY[INTEGER_16, HASHED_STRING]} Result.with_capacity(2048)
       end
 
-   class_name_of (string: STRING): STRING is
+   class_name_of (string: STRING): STRING
       local
          i: INTEGER; ta: TYPE_ALIASING
       do
@@ -265,7 +265,7 @@ feature {}
          string.is_equal((old (string.twin)))
       end
 
-   id_memory_add (id: INTEGER_16; string: STRING; is_default_class: BOOLEAN) is
+   id_memory_add (id: INTEGER_16; string: STRING; is_default_class: BOOLEAN)
       require
          string_aliaser.registered_one(string)
       local
@@ -294,7 +294,7 @@ feature {}
          end
       end
 
-   cluster_id_memory_add (id: INTEGER_16; type_name, cluster_name: STRING) is
+   cluster_id_memory_add (id: INTEGER_16; type_name, cluster_name: STRING)
       require
          string_aliaser.registered_one(type_name)
          string_aliaser.registered_one(cluster_name)
@@ -312,7 +312,7 @@ feature {}
          end
       end
 
-   make is
+   make
       local
          p: POSITION
       do
@@ -342,7 +342,7 @@ feature {}
          end
       end
 
-   disk_restore is
+   disk_restore
       local
          cc: CHARACTER; type_name, cluster_name: STRING; id, item_count: INTEGER_16; tfr: TEXT_FILE_READ; state: INTEGER_8
          predefined_ids: INTEGER_16; hashed_type_name: HASHED_STRING; p: POSITION
@@ -495,7 +495,7 @@ feature {}
          end
       end
 
-   is_valid_type_mark (name: STRING): BOOLEAN is
+   is_valid_type_mark (name: STRING): BOOLEAN
          -- Does it follow the syntactic rules for a type name?  I.e. an uppercase letter followed by
          -- optional uppercase letters, digits and underscores with correctly nested square brackets.
       local
@@ -534,7 +534,7 @@ feature {}
          end
       end
 
-   temporary_type_name: STRING is
+   temporary_type_name: STRING
       once
          create Result.make(128)
       end

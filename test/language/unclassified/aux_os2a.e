@@ -4,7 +4,7 @@
 class AUX_OS2A
 
 feature {ANY}
-   foo: INTEGER is
+   foo: INTEGER
       do
          assert(1 = 1.object_size)
          assert(4 = 1.to_integer_32.object_size)
@@ -14,7 +14,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

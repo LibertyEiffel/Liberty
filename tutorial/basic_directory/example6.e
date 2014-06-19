@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          directory_path: STRING; basic_directory: BASIC_DIRECTORY
       do
@@ -36,7 +36,7 @@ feature {}
          display_content_of(basic_directory)
       end
 
-   display_content_of (basic_directory: BASIC_DIRECTORY) is
+   display_content_of (basic_directory: BASIC_DIRECTORY)
       require
          basic_directory.is_connected
       do

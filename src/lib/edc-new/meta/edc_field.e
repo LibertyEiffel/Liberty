@@ -7,12 +7,12 @@ inherit
       end
 
 feature {ANY}
-   default: E_ is
+   default: E_
          -- Default value of the field
       do
       end
 
-   is_null, is_not_null: EDC_FIELD_CRITERION[E_] is
+   is_null, is_not_null: EDC_FIELD_CRITERION[E_]
       require
          default = Void
       deferred
@@ -20,13 +20,13 @@ feature {ANY}
          Result /= Void
       end
 
-   ge, gt, le, lt, eq, ne: EDC_FIELD_CRITERION[E_] is
+   ge, gt, le, lt, eq, ne: EDC_FIELD_CRITERION[E_]
       deferred
       ensure
          Result /= Void
       end
 
-   infix "<=" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix "<=" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -35,7 +35,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix "<" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix "<" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -44,7 +44,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix ">=" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix ">=" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -53,7 +53,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix ">" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix ">" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix "==" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix "==" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -71,7 +71,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix "=/=" (value: E_): EDC_FIELD_CRITERION[E_] is
+   infix "=/=" (value: E_): EDC_FIELD_CRITERION[E_]
       require
          value /= Void
       do
@@ -81,7 +81,7 @@ feature {ANY}
       end
 
 feature {EDC_DESCRIPTOR}
-   add_validator (a_validator: PREDICATE[TUPLE[E_]]) is
+   add_validator (a_validator: PREDICATE[TUPLE[E_]])
       do
          if validators = Void then
             create validators.with_capacity(2)

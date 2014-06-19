@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bad_agent: FUNCTION[TUPLE[STRING], STRING]
       do

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       require
          visited /= Void
       deferred

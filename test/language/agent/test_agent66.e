@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          ag: ROUTINE[TUPLE]; aux: AUX_AGENT66
       do

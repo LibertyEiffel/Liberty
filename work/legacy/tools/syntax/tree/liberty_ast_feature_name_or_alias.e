@@ -21,35 +21,35 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_infix: BOOLEAN is
+   is_infix: BOOLEAN
       do
          Result := count = 2 and then nodes.first.name.is_equal(once "KW infix")
       ensure
          Result implies not is_regular and then not is_prefix
       end
 
-   is_prefix: BOOLEAN is
+   is_prefix: BOOLEAN
       do
          Result := count = 2 and then nodes.first.name.is_equal(once "KW prefix")
       ensure
          Result implies not is_regular and then not is_infix
       end
 
-   is_regular: BOOLEAN is
+   is_regular: BOOLEAN
       do
          Result := count = 1
       ensure
          Result implies not is_prefix and then not is_infix
       end
 
-   entity_name: LIBERTY_AST_ENTITY_NAME is
+   entity_name: LIBERTY_AST_ENTITY_NAME
       require
          is_regular
       do
          Result ::= nodes.item(0)
       end
 
-   free_operator_name: LIBERTY_AST_STRING is
+   free_operator_name: LIBERTY_AST_STRING
       require
          is_prefix or else is_infix
       do
@@ -57,15 +57,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Feature_Name_Or_Alias"
+   name: STRING "Feature_Name_Or_Alias"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

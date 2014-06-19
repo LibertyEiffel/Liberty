@@ -15,7 +15,7 @@ create {ANY}
    make_empty, make_root, make_current, make_from_string
 
 feature {ANY} -- Creation
-   make_empty is
+   make_empty
       do
          if path = Void then
             create path.make_empty
@@ -30,7 +30,7 @@ feature {ANY} -- Creation
          drive = no_drive
       end
 
-   make_root is
+   make_root
       do
          make_empty
          path.extend(directory_separator)
@@ -39,7 +39,7 @@ feature {ANY} -- Creation
          to_string.is_equal(once "\")
       end
 
-   make_current is
+   make_current
       do
          make_empty
          path.extend('.')
@@ -48,7 +48,7 @@ feature {ANY} -- Creation
          to_string.is_equal(once ".")
       end
 
-   make_from_string (s: STRING) is
+   make_from_string (s: STRING)
       do
          if s = to_string then
          elseif s = path then
@@ -69,18 +69,18 @@ feature {ANY} -- Creation
       end
 
 feature {ANY} -- Constants
-   up_directory: STRING is ".."
+   up_directory: STRING ".."
 
-   this_directory: STRING is "."
+   this_directory: STRING "."
 
-   extension_separator: CHARACTER is '.'
+   extension_separator: CHARACTER '.'
 
-   directory_separator: CHARACTER is '\'
+   directory_separator: CHARACTER '\'
 
-   drive_separator: CHARACTER is ':'
+   drive_separator: CHARACTER ':'
 
 feature {ANY} -- Access
-   to_string: STRING is
+   to_string: STRING
       do
          if path = Void then
             -- This special case is needed because of the old expression in make_from_string's postcondition.
@@ -100,7 +100,7 @@ feature {ANY} -- Access
          end
       end
 
-   drive_specification: STRING is
+   drive_specification: STRING
       do
          Result := "X:"
          Result.clear_count
@@ -115,7 +115,7 @@ feature {ANY} -- Access
          not Result.is_empty implies Result.item(2) = ':'
       end
 
-   count: INTEGER is
+   count: INTEGER
       local
          p: INTEGER; sep: BOOLEAN
       do
@@ -139,7 +139,7 @@ feature {ANY} -- Access
          end
       end
 
-   last: STRING is
+   last: STRING
       local
          p: INTEGER
       do
@@ -155,7 +155,7 @@ feature {ANY} -- Access
          to_string.has_suffix(Result)
       end
 
-   extension: STRING is
+   extension: STRING
       local
          p: INTEGER
       do
@@ -168,12 +168,12 @@ feature {ANY} -- Access
          end
       end
 
-   is_absolute: BOOLEAN is
+   is_absolute: BOOLEAN
       do
          Result := not path.is_empty and then is_separator(path.first)
       end
 
-   is_normalized: BOOLEAN is
+   is_normalized: BOOLEAN
       local
          elem: STRING; scan: STRING
       do
@@ -221,24 +221,24 @@ feature {ANY} -- Access
          Result implies not to_string.is_empty
       end
 
-   is_separator (ch: CHARACTER): BOOLEAN is
+   is_separator (ch: CHARACTER): BOOLEAN
          -- Is `ch' a possible path separator? ( '/'  or '\' )
       do
          Result := ch = '/' or ch = directory_separator
       end
 
-   is_valid_path (a_path: STRING): BOOLEAN is
+   is_valid_path (a_path: STRING): BOOLEAN
       do
          --|*** Not nearly strict enough <FM-24/03/2003>
          Result := not a_path.is_empty
       end
 
-   is_valid_file_name (elem: STRING): BOOLEAN is
+   is_valid_file_name (elem: STRING): BOOLEAN
       do
          Result := Precursor(elem) and then not elem.has('/')
       end
 
-   exists: BOOLEAN is
+   exists: BOOLEAN
          --      local
          --         i: FILE_INFORMATION
       do
@@ -248,7 +248,7 @@ feature {ANY} -- Access
          -- FIXME: No way to do this
       end
 
-   same_file (other: like Current): BOOLEAN is
+   same_file (other: like Current): BOOLEAN
          --      local
          --         i, j: FILE_INFORMATION
       do
@@ -261,7 +261,7 @@ feature {ANY} -- Access
       end
 
 feature {ANY} -- Operations
-   to_absolute is
+   to_absolute
       local
          bd: BASIC_DIRECTORY
       do
@@ -274,7 +274,7 @@ feature {ANY} -- Operations
          normalize
       end
 
-   normalize is
+   normalize
       do
          tmp.copy(Current)
          make_from_path_name(tmp)
@@ -283,7 +283,7 @@ feature {ANY} -- Operations
          end
       end
 
-   normalize_case is
+   normalize_case
       do
          drive := drive.to_lower
          path.to_lower
@@ -291,7 +291,7 @@ feature {ANY} -- Operations
          valid_cache := False
       end
 
-   remove_last is
+   remove_last
       local
          p: INTEGER
       do
@@ -310,7 +310,7 @@ feature {ANY} -- Operations
          (old to_string.twin).has_prefix(to_string)
       end
 
-   add_last (elem: STRING) is
+   add_last (elem: STRING)
       do
          if not path.is_empty and then not is_separator(path.last) then
             path.extend(directory_separator)
@@ -319,7 +319,7 @@ feature {ANY} -- Operations
          valid_cache := False
       end
 
-   expand_user is
+   expand_user
       local
          sys: SYSTEM; home: STRING; p: INTEGER
       do
@@ -354,13 +354,13 @@ feature {ANY} -- Operations
          end
       end
 
-   expand_shellouts is
+   expand_shellouts
       do
          not_yet_implemented
       end
 
 feature {ANY} -- Copying, comparison
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          if Current /= other then
             make_empty
@@ -370,7 +370,7 @@ feature {ANY} -- Copying, comparison
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          -- Note: case insensitive
          Result := drive.same_as(other.drive) and then path.same_as(other.path)
@@ -381,7 +381,7 @@ feature {MICROSOFT_PATH_NAME} -- Representation
          -- Drive letter, or '%U' if none
 
 feature {PATH_JOINER}
-   start_join (a_drive: STRING; absoluteness: INTEGER) is
+   start_join (a_drive: STRING; absoluteness: INTEGER)
       local
          new_drive: like drive
       do
@@ -409,7 +409,7 @@ feature {PATH_JOINER}
          not valid_cache
       end
 
-   join_element (element: STRING) is
+   join_element (element: STRING)
       do
          Precursor(element)
          valid_cache := False
@@ -417,7 +417,7 @@ feature {PATH_JOINER}
          not valid_cache
       end
 
-   end_join is
+   end_join
       local
          dl: like drive
       do
@@ -429,19 +429,19 @@ feature {PATH_JOINER}
       end
 
 feature {} -- Representation
-   no_drive: CHARACTER is '%U'
+   no_drive: CHARACTER '%U'
 
    to_string_cache: STRING
 
    valid_cache: BOOLEAN
 
 feature {} -- Internal
-   tmp: MICROSOFT_PATH_NAME is
+   tmp: MICROSOFT_PATH_NAME
       once
          create Result.make_empty
       end
 
-   start_join_to (other: PATH_JOINER): INTEGER is
+   start_join_to (other: PATH_JOINER): INTEGER
       local
          slash_count: INTEGER
       do
@@ -475,7 +475,7 @@ end -- class MICROSOFT_PATH_NAME
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

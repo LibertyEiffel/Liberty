@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CALL_INFIX_TIMES}
-   visit_call_infix_times (visited: CALL_INFIX_TIMES) is
+   visit_call_infix_times (visited: CALL_INFIX_TIMES)
       require
          visited /= Void
       deferred

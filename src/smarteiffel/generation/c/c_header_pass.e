@@ -17,7 +17,7 @@ insert
    SINGLETON
 
 feature {C_PRETTY_PRINTER}
-   compile is
+   compile
       do
          out_h.copy(header_comment)
          flush_out_h
@@ -26,16 +26,16 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   header_comment: STRING is
+   header_comment: STRING
       deferred
       end
 
-   pre_compile is
+   pre_compile
       deferred
       end
 
 feature {}
-   standard_c_struct (type_mark: TYPE_MARK) is
+   standard_c_struct (type_mark: TYPE_MARK)
          -- Produce C code for the standard C struct (for user's
          -- expanded or reference as well).
       require
@@ -113,7 +113,7 @@ feature {}
          end
       end
 
-   standard_c_object_model (type_mark: TYPE_MARK) is
+   standard_c_object_model (type_mark: TYPE_MARK)
          -- Produce C code to define the model object.
       require
          type_mark.is_static
@@ -132,7 +132,7 @@ feature {}
          cpp.write_extern_2(out_h, out_c)
       end
 
-   frozen standard_c_typedef (type_mark: TYPE_MARK) is
+   frozen standard_c_typedef (type_mark: TYPE_MARK)
       require
          type_mark.type.live_type.at_run_time
       local
@@ -158,7 +158,7 @@ feature {}
          flush_out_h
       end
 
-   c_object_model_in (live_type: LIVE_TYPE) is
+   c_object_model_in (live_type: LIVE_TYPE)
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf2: RUN_FEATURE_2; t: TYPE_MARK
       do
@@ -197,7 +197,7 @@ feature {}
       end
 
 feature {CLIENT_TYPE_MARK}
-   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK)
       do
          check False end
       end

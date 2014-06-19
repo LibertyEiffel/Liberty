@@ -17,17 +17,17 @@ create {ANY}
    make, with_capacity
 
 feature {ANY} -- Basic access:
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       do
          Result := keys.has(k)
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       do
          Result := items.item(keys.first_index_of(k))
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       local
          i: INTEGER
       do
@@ -37,17 +37,17 @@ feature {ANY} -- Basic access:
          end
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       do
          Result := keys.fast_has(k)
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       do
          Result := items.item(keys.fast_first_index_of(k))
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       local
          i: INTEGER
       do
@@ -58,7 +58,7 @@ feature {ANY} -- Basic access:
       end
 
 feature {ANY}
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       local
          i: INTEGER
       do
@@ -70,7 +70,7 @@ feature {ANY}
          end
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_)
       local
          i: INTEGER
       do
@@ -82,14 +82,14 @@ feature {ANY}
          end
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       do
          keys.add_last(k)
          items.add_last(v)
       end
 
 feature {ANY} -- Removing:
-   remove (k: K_) is
+   remove (k: K_)
       local
          i: INTEGER
       do
@@ -100,7 +100,7 @@ feature {ANY} -- Removing:
          end
       end
 
-   fast_remove (k: K_) is
+   fast_remove (k: K_)
       local
          i: INTEGER
       do
@@ -111,73 +111,73 @@ feature {ANY} -- Removing:
          end
       end
 
-   clear_count is
+   clear_count
       do
          keys.clear_count
          items.clear_count
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       do
          keys.clear_count_and_capacity
          items.clear_count_and_capacity
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       do
          Result := keys.capacity -- see also invariant
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := keys.count -- see also invariant
       end
 
 feature {ANY} -- To provide iterating facilities:
-   set_item (v: V_; index: INTEGER) is
+   set_item (v: V_; index: INTEGER)
       do
          items.put(v, index - 1)
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          Result := items.item(index - 1)
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          Result := keys.item(index - 1)
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          Result := items.new_iterator
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          Result := keys.new_iterator
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          not_yet_implemented
       end
 
 feature {ANY} -- Other features:
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       do
          Result := keys.item(keys.first_index_of(k))
       end
 
 feature {}
-   make is
+   make
       do
          create keys.make(0)
          create items.make(0)
       end
 
-   with_capacity (needed_capacity: like capacity) is
+   with_capacity (needed_capacity: like capacity)
       require
          needed_capacity >= 0
       do
@@ -203,7 +203,7 @@ end -- class ARRAY_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

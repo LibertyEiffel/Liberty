@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -26,7 +26,7 @@ feature {ANY}
          end
       end
 
-   res: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+   res: FAST_ARRAY[MUTABLE_BIG_INTEGER]
          -- Expected results.
       once
          Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("1000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000000"), create {MUTABLE_BIG_INTEGER}.from_string("-99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("99999999999999999999999999999999999999999999999999"), create {MUTABLE_BIG_INTEGER}.from_string("-100000000000000000000000000000000000000000000000001"), create {MUTABLE_BIG_INTEGER}.from_string("100000000000000000000000000000000000000000000000001") >> }

@@ -17,7 +17,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b, q, r: NUMBER
       do

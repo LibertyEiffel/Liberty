@@ -4,12 +4,12 @@
 deferred class AUX_EVOBT1
 
 feature {}
-   context: REFERENCE[AUX_EVOBT2] is
+   context: REFERENCE[AUX_EVOBT2]
       once
          create Result
       end
 
-   x: AUX_EVOBT4 is
+   x: AUX_EVOBT4
       do
          Result := context.item.x_
       end

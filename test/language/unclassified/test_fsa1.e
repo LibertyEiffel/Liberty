@@ -8,7 +8,7 @@ create {TEST_FSA2}
    program
 
 feature {}
-   program is
+   program
       do
          test_class := create {AUX_FSA1_CLASS3}.make
          test_class.apply

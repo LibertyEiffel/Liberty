@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          string1, string2: STRING; r: BOOLEAN; aux1, aux2: AUX_SIMPLIFY07
       do

@@ -6,7 +6,7 @@
 class SOCKET_PLUG_IN
 
 feature {}
-   last_error: STRING is
+   last_error: STRING
       local
          e: POINTER
       do
@@ -17,7 +17,7 @@ feature {}
          end
       end
 
-   last_error_number: INTEGER is
+   last_error_number: INTEGER
       require
          last_error /= Void
       do
@@ -25,7 +25,7 @@ feature {}
       end
 
 feature {} -- Plugin
-   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_tcp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -34,7 +34,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_udp (ip_a, ip_b, ip_c, ip_d: INTEGER; a_port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -43,7 +43,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local (a_port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_local (a_port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -52,7 +52,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_select (a_fd: INTEGER; a_timeout: REAL): INTEGER is
+   net_select (a_fd: INTEGER; a_timeout: REAL): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -61,7 +61,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_read (a_fd, a_count: INTEGER; a_buffer: POINTER; sync: BOOLEAN): INTEGER is
+   net_read (a_fd, a_count: INTEGER; a_buffer: POINTER; sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -70,7 +70,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_write (a_fd, a_count: INTEGER; a_buffer: NATIVE_ARRAY[CHARACTER]): INTEGER is
+   net_write (a_fd, a_count: INTEGER; a_buffer: NATIVE_ARRAY[CHARACTER]): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -79,7 +79,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]; a_sync: BOOLEAN) is
+   net_accept (a_fd: INTEGER; a_val: NATIVE_ARRAY[INTEGER]; a_sync: BOOLEAN)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -88,7 +88,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_disconnect (a_fd: INTEGER) is
+   net_disconnect (a_fd: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -97,7 +97,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_shutdown (a_fd: INTEGER) is
+   net_shutdown (a_fd: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -106,7 +106,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_last_error: POINTER is
+   net_last_error: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -115,7 +115,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_last_error_number: INTEGER is
+   net_last_error_number: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -124,7 +124,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_last_error_try_again: BOOLEAN is
+   net_last_error_try_again: BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -133,7 +133,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_hostname (a_hostname: POINTER): INTEGER is
+   net_hostname (a_hostname: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -142,7 +142,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_tcp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -151,7 +151,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_udp_server (port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -160,7 +160,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local_server (port: INTEGER; a_sync: BOOLEAN): INTEGER is
+   net_local_server (port: INTEGER; a_sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -169,7 +169,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_bind_server(socket, port, sockfamily: INTEGER): INTEGER is
+   net_bind_server(socket, port, sockfamily: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -178,7 +178,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_set_int_option(fd, level, optname, opt_val: INTEGER): INTEGER is
+   net_set_int_option(fd, level, optname, opt_val: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -187,7 +187,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_tcp_socket (sync: BOOLEAN): INTEGER is
+   net_tcp_socket (sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -196,7 +196,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_udp_socket (sync: BOOLEAN): INTEGER is
+   net_udp_socket (sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -205,7 +205,7 @@ feature {} -- Plugin
          }"
       end
 
-   net_local_socket (sync: BOOLEAN): INTEGER is
+   net_local_socket (sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -215,7 +215,7 @@ feature {} -- Plugin
       end
 
 feature {} -- Name resolution -- see LOCALHOST
-   net_gethostname: POINTER is
+   net_gethostname: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -224,7 +224,7 @@ feature {} -- Name resolution -- see LOCALHOST
          }"
       end
 
-   net_sethostname (hn: POINTER; size: INTEGER) is
+   net_sethostname (hn: POINTER; size: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -233,7 +233,7 @@ feature {} -- Name resolution -- see LOCALHOST
          }"
       end
 
-   net_getdomainname: POINTER is
+   net_getdomainname: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -242,7 +242,7 @@ feature {} -- Name resolution -- see LOCALHOST
          }"
       end
 
-   net_setdomainname (dn: POINTER; size: INTEGER) is
+   net_setdomainname (dn: POINTER; size: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -252,7 +252,7 @@ feature {} -- Name resolution -- see LOCALHOST
       end
 
 feature {} -- Macros for setting options
-   sol_socket: INTEGER is
+   sol_socket: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -261,7 +261,7 @@ feature {} -- Macros for setting options
          }"
       end
 
-   so_reuse_addr: INTEGER is
+   so_reuse_addr: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -270,7 +270,7 @@ feature {} -- Macros for setting options
          }"
       end
 
-   af_inet: INTEGER is
+   af_inet: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -287,7 +287,7 @@ end -- class SOCKET_PLUG_IN
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,17 +4,17 @@
 deferred class AUX_ASSIGNMENT_A
 
 feature {ANY}
-   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
+   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B
       deferred
       end
 
-   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_B is
+   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_B
       deferred
       end
 
    value: INTEGER
 
-   set_value (v: INTEGER) is
+   set_value (v: INTEGER)
       do
          value := v
       end

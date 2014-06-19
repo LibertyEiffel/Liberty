@@ -4,7 +4,7 @@
 class AUX_REDEFINE2
 
 feature {ANY}
-   frozen test is
+   frozen test
       do
       end
 end -- class AUX_REDEFINE2

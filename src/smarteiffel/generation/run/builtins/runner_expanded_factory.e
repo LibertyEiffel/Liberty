@@ -7,7 +7,7 @@ insert
    RUNNER_FACET
 
 feature {RUNNER_TYPED_BUILTINS}
-   new (processor: RUNNER_PROCESSOR; value: E_; type: TYPE): RUNNER_NATIVE_EXPANDED[E_] is
+   new (processor: RUNNER_PROCESSOR; value: E_; type: TYPE): RUNNER_NATIVE_EXPANDED[E_]
       local
          the_value: RUNNER_BUILTINS_VALUE[E_]
       do
@@ -16,7 +16,7 @@ feature {RUNNER_TYPED_BUILTINS}
       end
 
 feature {}
-   factories: HASHED_DICTIONARY[FUNCTION[TUPLE[RUNNER_BUILTINS_ANY_VALUE], RUNNER_OBJECT], TYPE] is
+   factories: HASHED_DICTIONARY[FUNCTION[TUPLE[RUNNER_BUILTINS_ANY_VALUE], RUNNER_OBJECT], TYPE]
       once
          Result := {HASHED_DICTIONARY[FUNCTION[TUPLE[RUNNER_BUILTINS_ANY_VALUE], RUNNER_OBJECT], TYPE]
          <<
@@ -37,7 +37,7 @@ feature {}
          >>}
       end
 
-   new_boolean (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[BOOLEAN] is
+   new_boolean (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[BOOLEAN]
       local
          the_value: RUNNER_BUILTINS_VALUE[BOOLEAN]
       do
@@ -45,7 +45,7 @@ feature {}
          Result := the_value.processor.new_boolean(the_value.item)
       end
 
-   new_character (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[CHARACTER] is
+   new_character (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[CHARACTER]
       local
          the_value: RUNNER_BUILTINS_VALUE[CHARACTER]
       do
@@ -53,7 +53,7 @@ feature {}
          Result := the_value.processor.new_character(the_value.item)
       end
 
-   new_pointer (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[POINTER] is
+   new_pointer (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[POINTER]
       local
          the_value: RUNNER_BUILTINS_VALUE[POINTER]
       do
@@ -61,7 +61,7 @@ feature {}
          Result := the_value.processor.new_pointer(the_value.item)
       end
 
-   new_integer_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       local
          the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
@@ -69,7 +69,7 @@ feature {}
          Result := the_value.processor.new_integer_8(the_value.item)
       end
 
-   new_integer_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       local
          the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
@@ -77,7 +77,7 @@ feature {}
          Result := the_value.processor.new_integer_16(the_value.item)
       end
 
-   new_integer_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       local
          the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
@@ -85,7 +85,7 @@ feature {}
          Result := the_value.processor.new_integer_32(the_value.item)
       end
 
-   new_integer_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64] is
+   new_integer_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[INTEGER_64]
       local
          the_value: RUNNER_BUILTINS_VALUE[INTEGER_64]
       do
@@ -93,7 +93,7 @@ feature {}
          Result := the_value.processor.new_integer_64(the_value.item)
       end
 
---   new_natural_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_8] is
+--   new_natural_8 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_8]
 --      local
 --         the_value: RUNNER_BUILTINS_VALUE[NATURAL_8]
 --      do
@@ -101,7 +101,7 @@ feature {}
 --         Result := the_value.processor.new_natural_8(the_value.item)
 --      end
 --
---   new_natural_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_16] is
+--   new_natural_16 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_16]
 --      local
 --         the_value: RUNNER_BUILTINS_VALUE[NATURAL_16]
 --      do
@@ -109,7 +109,7 @@ feature {}
 --         Result := the_value.processor.new_natural_16(the_value.item)
 --      end
 --
---   new_natural_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_32] is
+--   new_natural_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_32]
 --      local
 --         the_value: RUNNER_BUILTINS_VALUE[NATURAL_32]
 --      do
@@ -117,7 +117,7 @@ feature {}
 --         Result := the_value.processor.new_natural_32(the_value.item)
 --      end
 --
---   new_natural_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_64] is
+--   new_natural_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[NATURAL_64]
 --      local
 --         the_value: RUNNER_BUILTINS_VALUE[NATURAL_64]
 --      do
@@ -125,7 +125,7 @@ feature {}
 --         Result := the_value.processor.new_natural_64(the_value.item)
 --      end
 
-   new_real_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_32 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       local
          the_value: RUNNER_BUILTINS_VALUE[REAL_32]
       do
@@ -133,7 +133,7 @@ feature {}
          Result := the_value.processor.new_real_32(the_value.item)
       end
 
-   new_real_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_64 (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       local
          the_value: RUNNER_BUILTINS_VALUE[REAL_64]
       do
@@ -141,7 +141,7 @@ feature {}
          Result := the_value.processor.new_real_64(the_value.item)
       end
 
-   new_real_extended (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED] is
+   new_real_extended (value: RUNNER_BUILTINS_ANY_VALUE): RUNNER_NATIVE_EXPANDED[REAL_EXTENDED]
       local
          the_value: RUNNER_BUILTINS_VALUE[REAL_EXTENDED]
       do

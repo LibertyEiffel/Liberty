@@ -12,13 +12,13 @@ create {}
 feature {ANY}
    ab: ARRAY[BOOLEAN]
 
-   make is
+   make
       do
          ab := {ARRAY[BOOLEAN] 1, << True >> }
          r
       end
 
-   r is
+   r
       require
          ab @ 1
       do

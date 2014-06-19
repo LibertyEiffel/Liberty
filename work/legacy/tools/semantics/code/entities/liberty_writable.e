@@ -18,7 +18,7 @@ inherit
    LIBERTY_ENTITY
 
 feature {ANY}
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       deferred
       ensure
          Result /= Void

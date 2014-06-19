@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: INTEGER
       do
          a := 3
          (
-            agent (i: INTEGER) is
+            agent (i: INTEGER)
                do
                   assert(a = 3)
                   assert(i = 5)

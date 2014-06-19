@@ -7,7 +7,7 @@ create {ANY}
    make_from_string
 
 feature {}
-   make_from_string (a_string: like string) is
+   make_from_string (a_string: like string)
       do
          string := a_string
       end

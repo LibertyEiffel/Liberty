@@ -4,21 +4,21 @@
 expanded class MOCK_EXPECTATIONS
 
 feature {EIFFELTEST_TOOLS}
-   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
          not is_replaying
       do
          groups.expect(expectations)
       end
 
-   next is
+   next
       require
          not is_replaying
       do
          groups.next
       end
 
-   replay_all is
+   replay_all
       require
          not is_replaying
       do
@@ -27,13 +27,13 @@ feature {EIFFELTEST_TOOLS}
          is_replaying
       end
 
-   is_replaying: BOOLEAN is
+   is_replaying: BOOLEAN
       do
          Result := groups.is_replaying
       end
 
 feature {MOCK_EXPECT}
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION is
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -46,7 +46,7 @@ feature {MOCK_EXPECT}
       end
 
 feature {}
-   groups: MOCK_EXPECTATION_GROUPS is
+   groups: MOCK_EXPECTATION_GROUPS
       once
          create Result.make
       end
@@ -59,7 +59,7 @@ end -- class MOCK_EXPECTATIONS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_thread_priority_high_low_level)  or else
 				(a_value = g_thread_priority_low_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_thread_priority_high is
+	set_g_thread_priority_high
 		do
 			value := g_thread_priority_high_low_level
 		end
 
-	set_g_thread_priority_low is
+	set_g_thread_priority_low
 		do
 			value := g_thread_priority_low_low_level
 		end
 
-	set_g_thread_priority_normal is
+	set_g_thread_priority_normal
 		do
 			value := g_thread_priority_normal_low_level
 		end
 
-	set_g_thread_priority_urgent is
+	set_g_thread_priority_urgent
 		do
 			value := g_thread_priority_urgent_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_thread_priority_high: BOOLEAN is
+	is_g_thread_priority_high: BOOLEAN
 		do
 			Result := (value=g_thread_priority_high_low_level)
 		end
 
-	is_g_thread_priority_low: BOOLEAN is
+	is_g_thread_priority_low: BOOLEAN
 		do
 			Result := (value=g_thread_priority_low_low_level)
 		end
 
-	is_g_thread_priority_normal: BOOLEAN is
+	is_g_thread_priority_normal: BOOLEAN
 		do
 			Result := (value=g_thread_priority_normal_low_level)
 		end
 
-	is_g_thread_priority_urgent: BOOLEAN is
+	is_g_thread_priority_urgent: BOOLEAN
 		do
 			Result := (value=g_thread_priority_urgent_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_thread_priority_high_low_level: INTEGER is
+	g_thread_priority_high_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_thread_priority_low_low_level: INTEGER is
+	g_thread_priority_low_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_thread_priority_normal_low_level: INTEGER is
+	g_thread_priority_normal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_thread_priority_urgent_low_level: INTEGER is
+	g_thread_priority_urgent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

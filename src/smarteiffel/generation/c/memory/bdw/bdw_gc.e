@@ -12,13 +12,13 @@ create {MEMORY_HANDLER_FACTORY}
    make
 
 feature {ACE}
-   ace_option (txt: STRING) is
+   ace_option (txt: STRING)
       do
          txt.append("   collect(%"bdw%")%N")
       end
 
 feature {C_PRETTY_PRINTER} -- C code phases
-   pre_customize_c_runtime is
+   pre_customize_c_runtime
       local
          gc_debug_env: STRING
       do
@@ -46,17 +46,17 @@ feature {C_PRETTY_PRINTER} -- C code phases
          cpp.write_out_h_buffer
       end
 
-   customize_c_runtime is
+   customize_c_runtime
       do
          system_tools.add_bdwgc_lib
       end
 
-   define1 is
+   define1
       do
          echo.put_string(once "Adding Boehm-Demers-Weiser Garbage Collector.%N")
       end
 
-   define2 is
+   define2
       local
          i: INTEGER; lt: LIVE_TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]; root_type: TYPE
       do
@@ -94,11 +94,11 @@ feature {C_PRETTY_PRINTER} -- C code phases
          gc_define2.extra_functions
       end
 
-   pre_initialize_runtime is
+   pre_initialize_runtime
       do
       end
 
-   initialize_runtime is
+   initialize_runtime
       do
          cpp.pending_c_function_body.append(once "GC_java_finalization=1;%N%
                                                  %GC_finalize_on_demand=1;%N%
@@ -107,16 +107,16 @@ feature {C_PRETTY_PRINTER} -- C code phases
                                                  %GC_stackbottom=(char*)(void*)&argc;%N")
       end
 
-   initialize_thread is
+   initialize_thread
       do
          cpp.pending_c_function_body.append(once "GC_stackbottom=(char*)(void*)&C;%N")
       end
 
-   post_initialize_runtime is
+   post_initialize_runtime
       do
       end
 
-   gc_info_before_exit is
+   gc_info_before_exit
       do
          cpp.pending_c_function_body.append(once "GC_enable();%N%
                                                  %eiffel_root_object=NULL;%N%
@@ -129,24 +129,24 @@ feature {C_PRETTY_PRINTER} -- C code phases
                                                  %handle(SE_HANDLE_EXIT_GC,NULL);%N")
       end
 
-   pre_cecil_define is
+   pre_cecil_define
       do
       end
 
-   cecil_define is
+   cecil_define
       do
       end
 
-   post_cecil_define is
+   post_cecil_define
       do
       end
 
-   echo_information is
+   echo_information
       do
       end
 
 feature {C_PRETTY_PRINTER} -- specific objects
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
+   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN)
       do
          if string_at_run_time then
             c_code.append(once "s=(T7*)bdw_mallocT7(1);%N")
@@ -155,7 +155,7 @@ feature {C_PRETTY_PRINTER} -- specific objects
          end
       end
 
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN) is
+   native9_in (c_code: STRING; string_at_run_time: BOOLEAN)
       do
          if string_at_run_time then
             c_code.append(once "bdw_mallocT9")
@@ -168,15 +168,15 @@ feature {} -- memory-specific handling aspects
    native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
 
 feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
-   add_extra_collectors is
+   add_extra_collectors
       do
          live_type_extra_collectors.add_last(native_array_collector)
       end
 
-   may_need_size_table: BOOLEAN is False
+   may_need_size_table: BOOLEAN False
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
-   malloc (lt: LIVE_TYPE) is
+   malloc (lt: LIVE_TYPE)
       do
          if lt.at_run_time then
             cpp.pending_c_function_body.append(once "bdw_mallocT")
@@ -187,12 +187,12 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
          end
       end
 
-   malloc_closure (lt: LIVE_TYPE) is
+   malloc_closure (lt: LIVE_TYPE)
       do
          cpp.pending_c_function_body.append(once "se_malloc(sizeof(void*))")
       end
 
-   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
+   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE])
       do
          if lt.at_run_time then
             cpp.pending_c_function_body.append(once "bdw_mallocT")
@@ -206,38 +206,38 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
-   gc_disable is
+   gc_disable
       do
          cpp.pending_c_function_body.append(once "GC_disable();%N")
       end
 
-   gc_enable is
+   gc_enable
       do
          cpp.pending_c_function_body.append(once "GC_enable();%N")
       end
 
-   gc_collect is
+   gc_collect
       do
          cpp.pending_c_function_body.append(once "gc_start();%N")
       end
 
-   gc_is_collecting is
+   gc_is_collecting
       do
          cpp.pending_c_function_body.append(once "(!GC_dont_gc)")
       end
 
-   gc_counter is
+   gc_counter
       do
          cpp.pending_c_function_body.append(once "(GC_gc_no)")
       end
 
-   gc_allocated_bytes is
+   gc_allocated_bytes
       do
          cpp.pending_c_function_body.append(once "(GC_get_heap_size())")
       end
 
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
-   weak_item (lt: LIVE_TYPE) is
+   weak_item (lt: LIVE_TYPE)
       do
          cpp.pending_c_function_body.append(once "((")
          cpp.pending_c_function_body.append(cpp.result_type.for(lt.type.generic_list.first.canonical_type_mark))
@@ -246,7 +246,7 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
          cpp.pending_c_function_body.append(once ")))")
       end
 
-   weak_set_item (lt: LIVE_TYPE) is
+   weak_set_item (lt: LIVE_TYPE)
       do
          cpp.pending_c_function_body.append(once "bdw_weakref_setlink((bdw_Twr*)(")
          cpp.put_target_as_value
@@ -256,33 +256,33 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
-   assign_agent_data (mold_id: STRING) is
+   assign_agent_data (mold_id: STRING)
       do
       end
 
-   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
+   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]])
       do
       end
 
-   define_agent_data (mold_id: STRING) is
+   define_agent_data (mold_id: STRING)
       do
       end
 
-   define_agent_data_is_equal is
+   define_agent_data_is_equal
       do
       end
 
-   define_agent_data_0 is
+   define_agent_data_0
       do
       end
 
 feature {C_COMPILATION_MIXIN}
-   checkpoint is
+   checkpoint
       do
       end
 
 feature {C_NATIVE_PROCEDURE_MAPPER}
-   mark_item (rf7: RUN_FEATURE_7) is
+   mark_item (rf7: RUN_FEATURE_7)
       local
          elt_type: TYPE
       do
@@ -308,26 +308,26 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
       end
 
 feature {C_PRETTY_PRINTER}
-   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       do
       end
 
-   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       do
       end
 
 feature {C_HEADER_PASS_0}
-   register_wa_list (live_type: LIVE_TYPE) is
+   register_wa_list (live_type: LIVE_TYPE)
       do
       end
 
 feature {C_COMPILATION_MIXIN}
-   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN
       do
          check not Result end
       end
 
-   extra_c_struct (type_mark: TYPE_MARK) is
+   extra_c_struct (type_mark: TYPE_MARK)
       local
          flag: TAGGED_FLAG
       do
@@ -337,7 +337,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   extra_c_model (type_mark: TYPE_MARK) is
+   extra_c_model (type_mark: TYPE_MARK)
       local
          flag: TAGGED_FLAG
       do
@@ -347,7 +347,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE)
       local
          flag: TAGGED_FLAG
       do
@@ -360,7 +360,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
+   define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE])
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")
@@ -369,7 +369,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   manifest_string_mark (i, id: INTEGER) is
+   manifest_string_mark (i, id: INTEGER)
       do
          cpp.pending_c_function_body.append(once "bdw_ms[")
          (i-1).append_in(cpp.pending_c_function_body)
@@ -377,7 +377,7 @@ feature {}
       end
 
 feature {BDW_GC_DEFINE2}
-   get_memory_dispose (lt: LIVE_TYPE): RUN_FEATURE_3 is
+   get_memory_dispose (lt: LIVE_TYPE): RUN_FEATURE_3
       require
          lt /= Void
       do
@@ -388,7 +388,7 @@ feature {}
    gc_define2: BDW_GC_DEFINE2
    assign_na: BDW_ASSIGN_NATIVE_ARRAY
 
-   make is
+   make
       do
          create assign_na.make(Current)
          create native_array_collector.make

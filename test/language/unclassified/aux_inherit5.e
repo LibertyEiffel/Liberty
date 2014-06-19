@@ -6,7 +6,7 @@ class AUX_INHERIT5
 feature {ANY}
    foo_count: INTEGER
 
-   foo is
+   foo
       do
          foo_count := foo_count + 1
       end

@@ -32,27 +32,27 @@ create {ANY}
    make
 
 feature { SERC_FACTORY}
-   system_list: FAST_ARRAY[STRING] is
+   system_list: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING]         <<unix_system, windows_system, cygwin_system, beos_system,
                                          macintosh_system, amiga_system, dos_system,
                                          os2_system, open_vms_system, elate_system>> }
       end
 
-   compiler_list: FAST_ARRAY[STRING] is
+   compiler_list: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING] << gcc, gpp, lcc_win32, cc, wcl386, bcc32, cl, sas_c, dice, vbcc,
                                           ccc, vpcc, open_vms_cc, tcc, distcc >> }
       end
 
-   c_plus_plus_compiler_list: FAST_ARRAY[STRING] is
+   c_plus_plus_compiler_list: FAST_ARRAY[STRING]
          -- Compilers (among `compiler_list') which can handle C++
       once
          Result := {FAST_ARRAY[STRING] << gpp, cc_pp, cl, bcc32, wcl386, vpcc, distcc, fz_none -- special no-C++ compiler
                                           >> }
       end
 
-   set_system_name (name: STRING) is
+   set_system_name (name: STRING)
       require
          system_list.fast_has(name)
       do
@@ -61,12 +61,12 @@ feature { SERC_FACTORY}
          is_unix_like := Void
       end
 
-   set_system_flavor (name: STRING) is
+   set_system_flavor (name: STRING)
       do
          system_flavor := name
       end
 
-   add_x_suffix (cmd: STRING) is
+   add_x_suffix (cmd: STRING)
       local
          suffix: STRING
       do
@@ -76,7 +76,7 @@ feature { SERC_FACTORY}
          end
       end
 
-   make is
+   make
       local
          rcf: SERC_FACTORY
       do
@@ -122,13 +122,13 @@ feature {C_PLUGIN, C_SPLITTER}
    system_flavor: STRING
 
 feature {ECHO}
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
       do
          Result := config.environment(var)
       end
 
 feature {}
-   set_automatic_system_name is
+   set_automatic_system_name
          -- Sets a "not very smart" default `system_name' value
       require
          basic_directory.system_notation_detected
@@ -161,20 +161,20 @@ feature {}
       end
 
 feature {BDW_GC}
-   add_bdwgc_lib is
+   add_bdwgc_lib
       do
          add_external_lib(once "gc")
       end
 
 feature {C_PRETTY_PRINTER}
-   add_pthread_lib is
+   add_pthread_lib
       do
          add_external_lib(once "pthread")
          add_external_lib(once "rt") -- used by timespec timeouts
       end
 
 feature {}
-   add_lib_math_do_it_again is
+   add_lib_math_do_it_again
       do
          if beos_system = system_name then
          elseif c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
@@ -208,7 +208,7 @@ feature {}
       end
 
 feature {}
-   verify_system_name is
+   verify_system_name
       local
          i: INTEGER
       do
@@ -244,7 +244,7 @@ feature {}
          -- data are retrieved from the `ini_file'.
 
 feature {SE}
-   load_tools_in (tools: DICTIONARY[STRING, STRING]) is
+   load_tools_in (tools: DICTIONARY[STRING, STRING])
       require
          tools.is_empty
       do
@@ -255,7 +255,7 @@ feature {ANY}
    config: SE_CONFIG
 
 feature {}
-   set_config is
+   set_config
       local
          rcf: SERC_FACTORY
          s: STRING
@@ -315,7 +315,7 @@ feature {}
       end
 
 feature {}
-   include_config_loadpaths is
+   include_config_loadpaths
       local
          loadpaths: HASHED_DICTIONARY[STRING, STRING]; i: INTEGER
       once
@@ -344,22 +344,22 @@ feature {}
          -- For example, under UNIX: "/usr/lib/SmartEiffel/short/"
 
 feature {SE, COMPILE}
-   set_sys_directory (sysdir: STRING) is
+   set_sys_directory (sysdir: STRING)
       do
          sys_directory := sysdir
       end
 
-   set_bin_directory (bindir: STRING) is
+   set_bin_directory (bindir: STRING)
       do
          bin_directory := bindir
       end
 
-   set_short_directory (shortdir: STRING) is
+   set_short_directory (shortdir: STRING)
       do
          short_directory := shortdir
       end
 
-   append_command_path_to (command, command_name: STRING) is
+   append_command_path_to (command, command_name: STRING)
          -- Append in `command' the correct path for `command_name'.
       local
          bd: BASIC_DIRECTORY; tmp_file: STRING
@@ -381,7 +381,7 @@ feature {SE, COMPILE}
          end
       end
 
-   remove_other_extra_files (name: STRING) is
+   remove_other_extra_files (name: STRING)
          -- Remove some other extra file which may be created while
          -- compiling `name' root class in split mode.
       local
@@ -394,7 +394,7 @@ feature {SE, COMPILE}
       end
 
 feature {COMPILE}
-   remove_make_script_and_other_extra_files is
+   remove_make_script_and_other_extra_files
          -- Remove the *.make file script and some other extra files.
       local
          name: STRING
@@ -404,7 +404,7 @@ feature {COMPILE}
          remove_other_extra_files(name)
       end
 
-   cygnus_bug (make_file: TEXT_FILE_READ; make_script_name: STRING) is
+   cygnus_bug (make_file: TEXT_FILE_READ; make_script_name: STRING)
          -- Because of a bug in cygnus on windows 95/NT.
       local
          time_out: INTEGER
@@ -421,7 +421,7 @@ feature {COMPILE}
       end
 
 feature {COMPILE, CLEAN}
-   new_make_script: STRING is
+   new_make_script: STRING
          -- Compute the corresponding make file script name and remove
          -- the old existing one if any.
       do
@@ -432,7 +432,7 @@ feature {COMPILE, CLEAN}
       end
 
 feature {SHORT_PRINTER}
-   format_directory (format: STRING): STRING is
+   format_directory (format: STRING): STRING
       require
          format /= Void
       do
@@ -442,7 +442,7 @@ feature {SHORT_PRINTER}
       end
 
 feature {ANY}
-   is_c_plus_plus_file_path (path: STRING): BOOLEAN is
+   is_c_plus_plus_file_path (path: STRING): BOOLEAN
          -- True when there `path' has one of the following
          -- suffix: ".cpp", ".cc", or ".C".
       do
@@ -456,7 +456,7 @@ feature {ANY}
       end
 
 feature {CLUSTER, ACE}
-   file_path (parent_path, file_name: STRING) is
+   file_path (parent_path, file_name: STRING)
          -- Use the `system_name' knowledge to call feature `compute_file_path_with'
          -- of BASIC_DIRECTORY. The `parent_path' is modified accordingly.
       do
@@ -466,13 +466,13 @@ feature {CLUSTER, ACE}
       end
 
 feature {COMMAND_LINE_TOOLS}
-   set_plugin_factory (factory: like plugin_factory) is
+   set_plugin_factory (factory: like plugin_factory)
       do
          plugin_factory := factory
       end
 
 feature {ANY}
-   make_suffix: STRING is
+   make_suffix: STRING
          -- Suffix for make file produced by `compile_to_c'.
       once
          if dos_system = system_name then
@@ -490,7 +490,7 @@ feature {ANY}
          end
       end
 
-   x_suffix: STRING is
+   x_suffix: STRING
          -- Executable files suffix.
       once
          if dos_system = system_name then
@@ -514,7 +514,7 @@ feature {ANY}
          Result /= Void
       end
 
-   object_suffix: STRING is
+   object_suffix: STRING
          -- Of object File produced by the C Compiler.
       once
          if c_compiler = gcc or else c_compiler = gpp or else c_compiler = distcc then
@@ -547,7 +547,7 @@ feature {ANY}
          end
       end
 
-   precompiled_header_suffix: STRING is
+   precompiled_header_suffix: STRING
          -- Suffix for precompiled header. Void if none.
       once
          if gcc = c_compiler or else gpp = c_compiler or else distcc = c_compiler then
@@ -558,13 +558,13 @@ feature {ANY}
       end
 
 feature {C_PRETTY_PRINTER, C_COMPILATION_MIXIN}
-   add_lib_math is
+   add_lib_math
       once
          add_lib_math_do_it_again
       end
 
 feature {COMPILE, COMPILE_TO_C}
-   extra_arg (arg: STRING; argi: INTEGER; next_arg: STRING): INTEGER is
+   extra_arg (arg: STRING; argi: INTEGER; next_arg: STRING): INTEGER
       require
          arg /= Void
          argi >= 1
@@ -647,14 +647,14 @@ feature {COMPILE, COMPILE_TO_C}
       end
 
 feature {C_PLUGIN}
-   append_c_linker_option (arg: STRING) is
+   append_c_linker_option (arg: STRING)
       require
          arg /= Void
       do
          append_token(c_linker_options, arg)
       end
 
-   append_c_compiler_option (arg: STRING) is
+   append_c_compiler_option (arg: STRING)
       require
          arg /= Void
       do
@@ -662,7 +662,7 @@ feature {C_PLUGIN}
       end
 
 feature {ANY}
-   environment_variable_substitution (path, line: STRING) is
+   environment_variable_substitution (path, line: STRING)
          -- The only one accepted notation is:        ${...}. The substitution is performed in `line'.
          -- When given the `path' information is used to emit an error message when the variable does not exists.
          -- If any, substitute in `line' some "system.se" well-known key (i.e. "sys", "bin" or "short").
@@ -732,7 +732,7 @@ feature {ANY}
       end
 
 feature {SE, ACE, COMMAND_LINE_TOOLS}
-   bad_use_exit (command_name, command_line_help_summary: STRING) is
+   bad_use_exit (command_name, command_line_help_summary: STRING)
          -- Print the traditional `command_line_help_summary' as well as some extra information to find more help.
       require
          command_name /= Void
@@ -758,7 +758,7 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
          die_with_code(exit_failure_code)
       end
 
-   set_c_compiler (cc_arg: STRING) is
+   set_c_compiler (cc_arg: STRING)
          -- If `cc_arg' is not Void, this `cc_arg' is used as the C compiler.
          -- Otherwise, when `cc_arg' is Void, do nothing (the C compiler will
          -- be set later).
@@ -801,7 +801,7 @@ feature {SE, ACE, COMMAND_LINE_TOOLS}
       end
 
 feature {}
-   add_libraries_from_compiler_options is
+   add_libraries_from_compiler_options
          -- Extract additionnal libs from c_compiler_options
       local
          i, j: INTEGER; lib_name: STRING
@@ -859,24 +859,24 @@ feature {}
       end
 
 feature {ACE, COMPILE_TO_C, STRING_COMMAND_LINE}
-   set_no_strip is
+   set_no_strip
       do
          no_strip := True
       end
 
 feature {ACE, C_PRETTY_PRINTER}
-   c_compiler_options: STRING is ""
+   c_compiler_options: STRING ""
          -- C compiler options including extra include path,
          -- optimization flags, etc.
 
-   c_linker_options: STRING is ""
+   c_linker_options: STRING ""
          -- Those options are only to be passed to the linker.
 
 feature {}
-   c_plugin_compiler_options: STRING is ""
+   c_plugin_compiler_options: STRING ""
 
 feature {C_PRETTY_PRINTER}
-   main_function_return_type_in (pending_c_function_signature: STRING) is
+   main_function_return_type_in (pending_c_function_signature: STRING)
       do
          if open_vms_system = system_name then
             pending_c_function_signature.append(once "void")
@@ -885,7 +885,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   main_function_exit_in (pending_c_function_body: STRING) is
+   main_function_exit_in (pending_c_function_body: STRING)
       do
          pending_c_function_body.append(once "exit(0);%N")
          if open_vms_system = system_name then
@@ -895,9 +895,9 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   sys_runtime (name: STRING; suffix: CHARACTER) is
+   sys_runtime (name: STRING; suffix: CHARACTER)
          -- Prepare `tmp_file_read' to access the corresponding file of the
-         -- Liberty Eiffel sys/runtime directory. The complete path is
+         -- Liberty Eiffel sys/runtime directory. The complete path
          -- always available in `tmp_path' to the caller in order to emit an
          -- error message when the corresponding file is not found. (This
          -- routine does not emit errors message itself just because this
@@ -910,7 +910,7 @@ feature {C_PRETTY_PRINTER}
          echo.tfr_connect(tmp_file_read, tmp_path)
       end
 
-   mandatory_sys_runtime (name: STRING; suffix: CHARACTER) is
+   mandatory_sys_runtime (name: STRING; suffix: CHARACTER)
          -- Same as `sys_runtime', but emit an error message when the
          -- corresponding file does not exists.
       do
@@ -920,7 +920,7 @@ feature {C_PRETTY_PRINTER}
          tmp_file_read.is_connected
       end
 
-   path_h: STRING is
+   path_h: STRING
          -- Create a new STRING which is the name of the main *.h file.
       do
          Result := ace.root_class_name.to_string.twin
@@ -936,7 +936,7 @@ feature {C_PRETTY_PRINTER}
          Result.append(h_suffix)
       end
 
-   strip_executable: STRING is
+   strip_executable: STRING
       local
          executable_name: STRING
       do
@@ -965,14 +965,14 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   add_c_plus_plus_file (f: STRING) is
+   add_c_plus_plus_file (f: STRING)
       require
          is_c_plus_plus_file_path(f)
       do
          append_token(external_c_plus_plus_files, f)
       end
 
-   is_linking_mandatory: BOOLEAN is
+   is_linking_mandatory: BOOLEAN
          -- Is it mandatory to link again this executable even when
          -- nothing has changed in the generated C code ?
       do
@@ -985,7 +985,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   add_lib_profile is
+   add_lib_profile
       once
          if system_name = unix_system then
             add_external_lib("rt")
@@ -993,7 +993,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {NATIVE_PLUG_IN}
-   plugin (location, name: STRING; position: POSITION): PLUGIN is
+   plugin (location, name: STRING; position: POSITION): PLUGIN
       local
          n, p: STRING
          location_plugins: DICTIONARY[PLUGIN, STRING]
@@ -1019,7 +1019,7 @@ feature {NATIVE_PLUG_IN}
       end
 
 feature {}
-   absolute_path (a_position: POSITION; a_path: STRING): STRING is
+   absolute_path (a_position: POSITION; a_path: STRING): STRING
       local
          bd: BASIC_DIRECTORY
       do
@@ -1031,7 +1031,7 @@ feature {}
       end
 
 feature {C_PRETTY_PRINTER}
-   auto_init_plugins is
+   auto_init_plugins
       local
          i, j: INTEGER; done: BOOLEAN; p: PLUGIN
          location_plugins: DICTIONARY[PLUGIN, STRING]
@@ -1066,14 +1066,14 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {PLUGIN}
-   libraries_module: STRING is
+   libraries_module: STRING
       do
          Result := once ""
          Result.copy(once "libraries_")
          Result.append(system_name)
       end
 
-   loaded_plugin (location, name: STRING): PLUGIN is
+   loaded_plugin (location, name: STRING): PLUGIN
       local
          p: STRING; location_plugins: DICTIONARY[PLUGIN, STRING]
       do
@@ -1089,7 +1089,7 @@ feature {PLUGIN}
       end
 
 feature {ANY}
-   precompile_header_supported: BOOLEAN is
+   precompile_header_supported: BOOLEAN
       require
          c_compiler /= Void
       do
@@ -1097,7 +1097,7 @@ feature {ANY}
       end
 
 feature {C_PRETTY_PRINTER, C_SPLITTER}
-   h_precompiler_command (h_file_name: STRING): STRING is
+   h_precompiler_command (h_file_name: STRING): STRING
       require
          ace.precompile_header
       do
@@ -1111,7 +1111,7 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
          append_token(Result, h_file_name)
       end
 
-   c_compiler_command (c_file_name: STRING): STRING is
+   c_compiler_command (c_file_name: STRING): STRING
          -- Where c_file_name is the name of one slice.
       do
          Result := once "...This is a local once buffer..."
@@ -1215,7 +1215,7 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
          end
       end
 
-   linker_command (c_name: STRING; objects: FAST_ARRAY[STRING]): STRING is
+   linker_command (c_name: STRING; objects: FAST_ARRAY[STRING]): STRING
          -- Where `c_name' is only the prefix name (i.e. "compile_to_c")
          -- and `objects' is the list ob the objects to link
       require
@@ -1425,13 +1425,13 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
       end
 
 feature {} -- SAS/c support functions:
-   Scoptions_exists: BOOLEAN is
+   Scoptions_exists: BOOLEAN
          -- Is there a file "SCOPTIONS" in the current directory?
       once
          Result := (create {FILE_TOOLS}).is_readable(once "SCOPTIONS")
       end
 
-   sas_c_compiler_options (split: BOOLEAN): STRING is
+   sas_c_compiler_options (split: BOOLEAN): STRING
          -- C compiler options or "" if no SCOPTIONS exists.
          -- If `split' is True, "Data=Far" is used, otherwise
          -- "Data=Auto".
@@ -1460,7 +1460,7 @@ feature {} -- SAS/c support functions:
       end
 
 feature {ACE}
-   read_loadpath_files is
+   read_loadpath_files
          -- For command line mode only (no ACE file used). Reads the loadpath files given on the command line,
          -- then either the loadpath.se in the current directory or the currnet directory itself as a cluster,
          -- and finally the configuration loadpaths.
@@ -1532,7 +1532,7 @@ feature {ACE}
          end
       end
 
-   system_name_in (msg: STRING) is
+   system_name_in (msg: STRING)
          -- Append in `msg' the current `system_name'.
       do
          if system_name /= Void then
@@ -1545,7 +1545,7 @@ feature {ACE}
          end
       end
 
-   set_external_header_path (a_paths: STRING) is
+   set_external_header_path (a_paths: STRING)
          -- Set `external_header_path' to `a_paths', but format it according to rules
          -- for current C compiler.
       local
@@ -1562,7 +1562,7 @@ feature {ACE}
          end
       end
 
-   set_external_lib_path (a_paths: STRING) is
+   set_external_lib_path (a_paths: STRING)
          -- Set `external_lib_path' to `a_paths', but format it according to rules for
          -- current C compiler and linker.
       local
@@ -1579,7 +1579,7 @@ feature {ACE}
          end
       end
 
-   set_external_lib (a_libs: STRING) is
+   set_external_lib (a_libs: STRING)
          -- Set `external_lib' to `a_libs', but format it according to rules for
          -- current C compiler and linker.
       local
@@ -1596,19 +1596,19 @@ feature {ACE}
          end
       end
 
-   external_object_files: STRING is ""
+   external_object_files: STRING ""
          -- External object files.
 
-   external_c_files: STRING is ""
+   external_c_files: STRING ""
          -- External C files.
 
-   external_c_plus_plus_files: STRING is ""
+   external_c_plus_plus_files: STRING ""
          -- External C++ files.
 
    no_strip: BOOLEAN
 
 feature {ECHO}
-   parent_directory (some_path: STRING) is
+   parent_directory (some_path: STRING)
          -- Use the `system_name' knowledge to call feature `compute_parent_directory_of'
          -- of BASIC_DIRECTORY. The `some_path' is modified accordingly.
       require
@@ -1620,7 +1620,7 @@ feature {ECHO}
       end
 
 feature {}
-   is_absolute (path: STRING): BOOLEAN is
+   is_absolute (path: STRING): BOOLEAN
          -- Always False on non-winlike and non-unixlike systems
       require
          set_likes_called: is_win_like /= Void
@@ -1649,7 +1649,7 @@ feature {}
          end
       end
 
-   is_relative (path: STRING): BOOLEAN is
+   is_relative (path: STRING): BOOLEAN
          -- Always True on non-winlike and non-unixlike systems
       require
          set_likes_called: is_win_like /= Void
@@ -1661,7 +1661,7 @@ feature {}
 
    is_unix_like: REFERENCE[BOOLEAN]
 
-   set_likes is
+   set_likes
          -- Just speed up repeated tests on system by setting `is_win_like'and `is_unix_like'
       local
          s: STRING
@@ -1682,7 +1682,7 @@ feature {}
 feature {}
    basic_directory: BASIC_DIRECTORY
 
-   set_basic_directory_notation is
+   set_basic_directory_notation
       local
          s: STRING; notation: DIRECTORY_NOTATION
       once
@@ -1714,7 +1714,7 @@ feature {}
          end
       end
 
-   subdirectory (parent_path, entry_name: STRING) is
+   subdirectory (parent_path, entry_name: STRING)
          -- Use the `system_name' knowledge to call feature `compute_subdirectory_with'
          -- of BASIC_DIRECTORY. The `parent_path' is modified accordingly.
       require
@@ -1726,7 +1726,7 @@ feature {}
          parent_path.copy(basic_directory.last_entry)
       end
 
-   append_token (line, token: STRING) is
+   append_token (line, token: STRING)
       do
          if not token.is_empty then
             if token.first /= ' ' then
@@ -1738,7 +1738,7 @@ feature {}
          end
       end
 
-   append_tokens (line: STRING; tokens: FAST_ARRAY[STRING]) is
+   append_tokens (line: STRING; tokens: FAST_ARRAY[STRING])
       local
          i: INTEGER
       do
@@ -1752,7 +1752,7 @@ feature {}
          end
       end
 
-   external_c_files_for_lcc_win32 (cmd: STRING) is
+   external_c_files_for_lcc_win32 (cmd: STRING)
          -- Because lcc_win32 does not accept *.c file while linking as
          -- other C compiler do :-(
       local
@@ -1782,7 +1782,7 @@ feature {}
       end
 
 feature {ID_PROVIDER}
-   id_file_path: STRING is
+   id_file_path: STRING
       once
          Result := path_h
          Result.remove_suffix(h_suffix)
@@ -1790,7 +1790,7 @@ feature {ID_PROVIDER}
       end
 
 feature {}
-   check_c_plus_plus is
+   check_c_plus_plus
          -- Check if we must use the C++ compiler; in that case, we switch to
          -- it if it is available
       once
@@ -1824,7 +1824,7 @@ feature {}
       end
 
 feature {}
-   add_config_loadpath_file (loadpath_file, loadpath_name: STRING) is
+   add_config_loadpath_file (loadpath_file, loadpath_name: STRING)
          -- This file will also be read by `read_loadpath_files', with the cluster name prefix
          -- `loadpath_name'.
       do
@@ -1837,7 +1837,7 @@ feature {}
       end
 
 feature {COMMAND_LINE_TOOLS}
-   add_loadpath_file (loadpath_file: STRING) is
+   add_loadpath_file (loadpath_file: STRING)
          -- This file will also be read by `read_loadpath_files'
       do
          if extra_loadpath_files = Void then
@@ -1846,7 +1846,7 @@ feature {COMMAND_LINE_TOOLS}
          extra_loadpath_files.add_last(loadpath_file)
       end
 
-   add_smarteiffel_c_mode_options is
+   add_smarteiffel_c_mode_options
          -- Adds the Liberty Eiffel options for the chosen C mode; then add the
          -- libraries for the C compiler
       local
@@ -1874,7 +1874,7 @@ feature {ACE, COMMAND_LINE_TOOLS}
          -- will be selected; otherwise, the user has explicitely used the
          -- -c_mode option; this one will be used.
 
-   set_default_c_mode (c_mode: STRING) is
+   set_default_c_mode (c_mode: STRING)
          -- Sets the C mode to use. If an alternate C mode has been set, this
          -- feature does nothing.
       do
@@ -1883,7 +1883,7 @@ feature {ACE, COMMAND_LINE_TOOLS}
          end
       end
 
-   set_alternate_c_mode (c_mode: STRING) is
+   set_alternate_c_mode (c_mode: STRING)
          -- Sets an alternate C mode (the user explicitely used the -c_mode
          -- flag)
       do
@@ -1904,19 +1904,19 @@ feature {C_PLUGIN}
 feature {}
    c_compiler_mode: INTEGER
 
-   c_compiler_none: INTEGER is unique
+   c_compiler_none: INTEGER unique
          -- Value of `c_compiler_none' indicating that neither -cc nor -c_mode
          -- were used (yet).
 
-   c_compiler_cc: INTEGER is unique
+   c_compiler_cc: INTEGER unique
          -- Value of `c_compiler_mode' indicating that `set_c_compiler' was
          -- used with a non-Void value
 
-   c_compiler_cmode: INTEGER is unique
+   c_compiler_cmode: INTEGER unique
          -- Value of `c_compiler_mode' indicating that `set_alternate_c_mode'
          -- was used.
 
-   compiler_path_of (compiler: STRING): STRING is
+   compiler_path_of (compiler: STRING): STRING
       do
          if compiler = gcc then
             Result := gcc
@@ -1953,7 +1953,7 @@ feature {}
          end
       end
 
-   strip_path_or_default (explicit_strip_path: STRING): STRING is
+   strip_path_or_default (explicit_strip_path: STRING): STRING
       do
          if explicit_strip_path /= Void then
             Result := explicit_strip_path
@@ -1968,7 +1968,7 @@ feature {}
          explicit_strip_path /= Void implies Result = explicit_strip_path
       end
 
-   linker_path_of (compiler: STRING): STRING is
+   linker_path_of (compiler: STRING): STRING
       do
          if compiler = gcc then
             Result := gcc
@@ -2005,7 +2005,7 @@ feature {}
          end
       end
 
-   set_c_mode (c_mode: STRING) is
+   set_c_mode (c_mode: STRING)
       local
          i: INTEGER; cmode: SE_C_MODE
       do
@@ -2120,10 +2120,10 @@ feature {}
    c_strip_path: STRING
          -- The path to the real C strip
 
-   c_mode_compiler_options: STRING is ""
+   c_mode_compiler_options: STRING ""
          -- The compiler options set by the C mode
 
-   c_mode_linker_options: STRING is ""
+   c_mode_linker_options: STRING ""
          -- The linker options set by the C mode
 
    cpp_compiler: STRING
@@ -2138,10 +2138,10 @@ feature {}
    cpp_strip_path: STRING
          -- The path to the real C++ strip
 
-   cpp_mode_compiler_options: STRING is ""
+   cpp_mode_compiler_options: STRING ""
          -- The C++ compiler options set by the C mode
 
-   cpp_mode_linker_options: STRING is ""
+   cpp_mode_linker_options: STRING ""
          -- The C++ linker options set by the C mode
 
    ace_compiler_options: STRING
@@ -2158,34 +2158,34 @@ feature {}
          -- chosen C mode. Useful to emit warnings (e.g. when using no_split)
 
 feature {ACE}
-   set_ace_compiler_options (options: STRING) is
+   set_ace_compiler_options (options: STRING)
       do
          ace_compiler_options := options
       end
 
-   set_ace_linker_options (options: STRING) is
+   set_ace_linker_options (options: STRING)
       do
          ace_linker_options := options
       end
 
-   set_ace_external_lib_path (extlibpath: STRING) is
+   set_ace_external_lib_path (extlibpath: STRING)
       do
          add_external_lib_path(extlibpath)
       end
 
-   set_ace_external_lib (extlib: STRING) is
+   set_ace_external_lib (extlib: STRING)
       do
          add_external_lib(extlib)
       end
 
-   external_libs: FAST_ARRAY[STRING] is
+   external_libs: FAST_ARRAY[STRING]
          -- The external libs before being added to the `external_lib' (before
          -- the compiler is known, no such addition can take place)
       once
          create Result.with_capacity(2)
       end
 
-   external_lib_paths: FAST_ARRAY[STRING] is
+   external_lib_paths: FAST_ARRAY[STRING]
          -- The external lib paths before being added to the
          -- `external_lib_path' (before the compiler is known, no such
          -- addition can take place)
@@ -2193,7 +2193,7 @@ feature {ACE}
          create Result.with_capacity(2)
       end
 
-   get_started is
+   get_started
       local
          i: INTEGER
       do
@@ -2221,16 +2221,16 @@ feature {ACE}
       end
 
 feature {}
-   external_header_path: STRING is ""
+   external_header_path: STRING ""
          -- Additional paths where .h files can be found.
 
-   external_lib_path: STRING is ""
+   external_lib_path: STRING ""
          -- External libraries path to be added at link time.
 
-   external_lib: STRING is ""
+   external_lib: STRING ""
          -- External libraries to be added at link time.
 
-   sys_runtime_ (name: STRING; suffix: CHARACTER) is
+   sys_runtime_ (name: STRING; suffix: CHARACTER)
          -- Common part to implement `sys_runtime' and `mandatory_sys_runtime'.
       require
          name /= Void
@@ -2248,7 +2248,7 @@ feature {}
          bd.system_notation.to_file_path_with(tmp_path, tmp_file)
       end
 
-   show_compiler_list_then_exit (list: like compiler_list) is
+   show_compiler_list_then_exit (list: like compiler_list)
       local
          i: INTEGER
       do
@@ -2265,7 +2265,7 @@ feature {}
          die_with_code(exit_failure_code)
       end
 
-   add_executable_name (cmd: STRING) is
+   add_executable_name (cmd: STRING)
       local
          executable_name: STRING
       do
@@ -2371,10 +2371,10 @@ feature {}
       end
 
 feature {PLUGIN}
-   add_external_header_path (path: STRING) is
+   add_external_header_path (path: STRING)
          -- Append `path' to `external_header_path' taking into account
          -- how the current linker likes it to get this path.
-         -- If `path' appears to be already formatted, no formatting is
+         -- If `path' appears to be already formatted, no formatting
          -- added by this routine.
       require
          not path.is_empty
@@ -2388,10 +2388,10 @@ feature {PLUGIN}
          append_if_not_already(external_header_path, token_buffer)
       end
 
-   add_external_lib (lib: STRING) is
+   add_external_lib (lib: STRING)
          -- Append `lib' to `external_lib' taking into account
          -- how the current linker likes it to get an additional library.
-         -- If `lib' appears to be already formatted, no formatting is
+         -- If `lib' appears to be already formatted, no formatting
          -- added by this routine.
       require
          not lib.is_empty
@@ -2417,10 +2417,10 @@ feature {PLUGIN}
          append_if_not_already(external_lib, token_buffer)
       end
 
-   add_external_lib_path (path: STRING) is
+   add_external_lib_path (path: STRING)
          -- Append `path' to `external_lib_path' taking into account
          -- how the current linker likes it to get this path.
-         -- If `path' appears to be already formatted, no formatting is
+         -- If `path' appears to be already formatted, no formatting
          -- added by this routine.
       require
          not path.is_empty
@@ -2448,7 +2448,7 @@ feature {PLUGIN}
       end
 
 feature {}
-   append_if_not_already (command_buffer, token: STRING) is
+   append_if_not_already (command_buffer, token: STRING)
          -- Append the `token' to the `command_buffer' if it is not already in
          -- the buffer.
          --| Patch proposed by Tim Wilson-Brown <twilsonb@mac.com>, enhanced by
@@ -2483,37 +2483,37 @@ feature {}
       end
 
 feature {} -- Strings:
-   exe_suffix: STRING is ".exe"
+   exe_suffix: STRING ".exe"
 
-   o_suffix: STRING is ".o"
+   o_suffix: STRING ".o"
 
-   obj_suffix: STRING is ".obj"
+   obj_suffix: STRING ".obj"
 
-   c_flag: STRING is "-c"
+   c_flag: STRING "-c"
 
-   o_flag: STRING is "-o"
+   o_flag: STRING "-o"
 
-   e_flag: STRING is "-e"
+   e_flag: STRING "-e"
 
-   s_flag: STRING is "-s"
+   s_flag: STRING "-s"
 
-   lcc: STRING is "lcc"
+   lcc: STRING "lcc"
 
-   vc: STRING is "vc"
+   vc: STRING "vc"
 
-   dcc: STRING is "dcc"
+   dcc: STRING "dcc"
 
-   lcclnk: STRING is "lcclnk"
+   lcclnk: STRING "lcclnk"
 
-   lnk_suffix: STRING is ".lnk"
+   lnk_suffix: STRING ".lnk"
 
-   libm: STRING is "m"
+   libm: STRING "m"
 
-   l_flag: STRING is "-L"
+   l_flag: STRING "-L"
 
-   o2: STRING is "-O2"
+   o2: STRING "-O2"
 
-   libcpml: STRING is "cpml"
+   libcpml: STRING "cpml"
 
 feature {}
    extra_loadpath_files: FAST_ARRAY[STRING]
@@ -2526,12 +2526,12 @@ feature {}
    plugin_factory: PLUGIN_FACTORY
 
 feature {} -- Buffers:
-   token_buffer: STRING is
+   token_buffer: STRING
       once
          create Result.make(128)
       end
 
-   c_mode_memory: STRING is
+   c_mode_memory: STRING
       once
          create Result.make(16)
       end

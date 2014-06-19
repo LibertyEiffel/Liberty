@@ -14,7 +14,7 @@ create {ANY}
 feature {ANY}
    color: STRING
 
-   make (vx, vy: REAL; c: STRING) is
+   make (vx, vy: REAL; c: STRING)
       do
          point_make(vx, vy)
          color := c

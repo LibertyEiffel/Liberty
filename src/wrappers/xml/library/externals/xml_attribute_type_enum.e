@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_attribute_cdata_low_level)  or else
 				(a_value = xml_attribute_entities_low_level)  or else
@@ -23,109 +23,109 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_attribute_cdata is
+	set_xml_attribute_cdata
 		do
 			value := xml_attribute_cdata_low_level
 		end
 
-	set_xml_attribute_entities is
+	set_xml_attribute_entities
 		do
 			value := xml_attribute_entities_low_level
 		end
 
-	set_xml_attribute_entity is
+	set_xml_attribute_entity
 		do
 			value := xml_attribute_entity_low_level
 		end
 
-	set_xml_attribute_enumeration is
+	set_xml_attribute_enumeration
 		do
 			value := xml_attribute_enumeration_low_level
 		end
 
-	set_xml_attribute_id is
+	set_xml_attribute_id
 		do
 			value := xml_attribute_id_low_level
 		end
 
-	set_xml_attribute_idref is
+	set_xml_attribute_idref
 		do
 			value := xml_attribute_idref_low_level
 		end
 
-	set_xml_attribute_idrefs is
+	set_xml_attribute_idrefs
 		do
 			value := xml_attribute_idrefs_low_level
 		end
 
-	set_xml_attribute_nmtoken is
+	set_xml_attribute_nmtoken
 		do
 			value := xml_attribute_nmtoken_low_level
 		end
 
-	set_xml_attribute_nmtokens is
+	set_xml_attribute_nmtokens
 		do
 			value := xml_attribute_nmtokens_low_level
 		end
 
-	set_xml_attribute_notation is
+	set_xml_attribute_notation
 		do
 			value := xml_attribute_notation_low_level
 		end
 
 feature -- Queries
-	is_xml_attribute_cdata: BOOLEAN is
+	is_xml_attribute_cdata: BOOLEAN
 		do
 			Result := (value=xml_attribute_cdata_low_level)
 		end
 
-	is_xml_attribute_entities: BOOLEAN is
+	is_xml_attribute_entities: BOOLEAN
 		do
 			Result := (value=xml_attribute_entities_low_level)
 		end
 
-	is_xml_attribute_entity: BOOLEAN is
+	is_xml_attribute_entity: BOOLEAN
 		do
 			Result := (value=xml_attribute_entity_low_level)
 		end
 
-	is_xml_attribute_enumeration: BOOLEAN is
+	is_xml_attribute_enumeration: BOOLEAN
 		do
 			Result := (value=xml_attribute_enumeration_low_level)
 		end
 
-	is_xml_attribute_id: BOOLEAN is
+	is_xml_attribute_id: BOOLEAN
 		do
 			Result := (value=xml_attribute_id_low_level)
 		end
 
-	is_xml_attribute_idref: BOOLEAN is
+	is_xml_attribute_idref: BOOLEAN
 		do
 			Result := (value=xml_attribute_idref_low_level)
 		end
 
-	is_xml_attribute_idrefs: BOOLEAN is
+	is_xml_attribute_idrefs: BOOLEAN
 		do
 			Result := (value=xml_attribute_idrefs_low_level)
 		end
 
-	is_xml_attribute_nmtoken: BOOLEAN is
+	is_xml_attribute_nmtoken: BOOLEAN
 		do
 			Result := (value=xml_attribute_nmtoken_low_level)
 		end
 
-	is_xml_attribute_nmtokens: BOOLEAN is
+	is_xml_attribute_nmtokens: BOOLEAN
 		do
 			Result := (value=xml_attribute_nmtokens_low_level)
 		end
 
-	is_xml_attribute_notation: BOOLEAN is
+	is_xml_attribute_notation: BOOLEAN
 		do
 			Result := (value=xml_attribute_notation_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_attribute_cdata_low_level: INTEGER is
+	xml_attribute_cdata_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_entities_low_level: INTEGER is
+	xml_attribute_entities_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_entity_low_level: INTEGER is
+	xml_attribute_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_enumeration_low_level: INTEGER is
+	xml_attribute_enumeration_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_id_low_level: INTEGER is
+	xml_attribute_id_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_idref_low_level: INTEGER is
+	xml_attribute_idref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_idrefs_low_level: INTEGER is
+	xml_attribute_idrefs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,7 +188,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_nmtoken_low_level: INTEGER is
+	xml_attribute_nmtoken_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -197,7 +197,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_nmtokens_low_level: INTEGER is
+	xml_attribute_nmtokens_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -206,7 +206,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_notation_low_level: INTEGER is
+	xml_attribute_notation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

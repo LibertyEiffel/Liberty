@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(("foo").first_substring_index("foo") = 1)
          assert(("foo ").first_substring_index("foo") = 1)

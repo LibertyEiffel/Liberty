@@ -30,7 +30,7 @@ create {EDC_BLOB}
    from_string
 
 feature {EDC_BLOB}
-   from_string (a_string: like string) is
+   from_string (a_string: like string)
       do
          if string = Void then
             string := a_string.twin
@@ -40,36 +40,36 @@ feature {EDC_BLOB}
          offset := string.lower - 1
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := once ""
          Result.copy(string)
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := offset > string.upper
       end
 
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := offset >= string.lower
       end
 
-   disconnect is
+   disconnect
       do
          filter := Void
       end
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       do
          Result := string.valid_index(offset)
       end
 
-   append_in (a_string: STRING) is
+   append_in (a_string: STRING)
          -- Append the contents of the internal buffer to the given string.
       require
          a_string /= Void
@@ -77,7 +77,7 @@ feature {ANY}
          a_string.append(string)
       end
 
-   clear is
+   clear
          -- Remove all stored characters
       do
          string.clear_count
@@ -87,50 +87,50 @@ feature {ANY}
       end
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
          offset := offset + 1
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          offset := offset - 1
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := string.item(offset)
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          string.extend(c)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          -- nothing to do
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          check
             False
          end
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          check
             False
          end
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
    string: STRING

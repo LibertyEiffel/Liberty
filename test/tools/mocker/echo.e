@@ -1,11 +1,11 @@
 deferred class ECHO
 
 feature {ANY}
-   ping is
+   ping
       deferred
       end
 
-   echo (something: STRING): STRING is
+   echo (something: STRING): STRING
       require
          something /= Void
       deferred

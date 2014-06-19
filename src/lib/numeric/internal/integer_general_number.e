@@ -12,7 +12,7 @@ inherit
       end
 
 feature {ANY}
-   abs: INTEGER_GENERAL_NUMBER is
+   abs: INTEGER_GENERAL_NUMBER
       do
          if is_negative then
             Result ::= -Current
@@ -21,7 +21,7 @@ feature {ANY}
          end
       end
 
-   factorial: NUMBER is
+   factorial: NUMBER
       do
          if is_zero or else is_one then
             Result := one
@@ -40,18 +40,18 @@ feature {ANY}
          end
       end
 
-   numerator: INTEGER_GENERAL_NUMBER is
+   numerator: INTEGER_GENERAL_NUMBER
       do
          Result := Current
       end
 
-   denominator: INTEGER_GENERAL_NUMBER is
+   denominator: INTEGER_GENERAL_NUMBER
       do
          Result := integer_general_number_one
       end
 
 feature {ANY}
-   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN) is
+   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN)
       local
          n: INTEGER
       do
@@ -69,7 +69,7 @@ feature {ANY}
       end
 
 feature {NUMBER} -- Implementation:
-   integer_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   integer_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
@@ -77,7 +77,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   remainder_of_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   remainder_of_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
@@ -85,7 +85,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   integer_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   integer_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
@@ -93,7 +93,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   remainder_of_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   remainder_of_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
@@ -102,7 +102,7 @@ feature {NUMBER} -- Implementation:
       end
 
 feature {NUMBER} -- Implementation:
-   gcd_with_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd_with_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          other.put_into_mutable_big_integer(mutable_register2)
@@ -111,7 +111,7 @@ feature {NUMBER} -- Implementation:
       end
 
 feature {NUMBER}
-   put_into_mutable_big_integer (mut: MUTABLE_BIG_INTEGER) is
+   put_into_mutable_big_integer (mut: MUTABLE_BIG_INTEGER)
       require
          mut /= Void
       deferred
@@ -120,21 +120,21 @@ feature {NUMBER}
       end
 
 feature {INTEGER_GENERAL_NUMBER}
-   integer_general_number_zero: INTEGER_GENERAL_NUMBER is
+   integer_general_number_zero: INTEGER_GENERAL_NUMBER
       once
          Result ::= zero
       ensure
          Result.is_zero
       end
 
-   integer_general_number_one: INTEGER_GENERAL_NUMBER is
+   integer_general_number_one: INTEGER_GENERAL_NUMBER
       once
          Result ::= one
       ensure
          Result.is_one
       end
 
-   integer_general_number_one_negative: INTEGER_GENERAL_NUMBER is
+   integer_general_number_one_negative: INTEGER_GENERAL_NUMBER
       once
          Result ::= -integer_general_number_one
       ensure
@@ -149,7 +149,7 @@ end -- class INTEGER_GENERAL_NUMBER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

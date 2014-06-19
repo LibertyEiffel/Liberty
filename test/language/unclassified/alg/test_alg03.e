@@ -17,7 +17,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(a = 0)
          assert(b = 0)

@@ -4,7 +4,7 @@
 class AUX_REQ3A
 
 feature {ANY}
-   f: AUX_REQ3B is
+   f: AUX_REQ3B
       once
          create Result
       end

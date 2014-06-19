@@ -6,7 +6,7 @@ class AUX_NATIVE_ARRAY6[E]
 feature {ANY}
    native_array: NATIVE_ARRAY[E]
 
-   calloc (nb: INTEGER) is
+   calloc (nb: INTEGER)
       do
          native_array := native_array.calloc(nb)
       end

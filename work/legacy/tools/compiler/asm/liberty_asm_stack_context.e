@@ -18,18 +18,18 @@ create {LIBERTY_ASM_INSTRUCTION}
    make
 
 feature {LIBERTY_ASM_INSTRUCTION}
-   resolve: LIBERTY_ASM_INSTRUCTION is
+   resolve: LIBERTY_ASM_INSTRUCTION
       do
          (instructions.lower |..| (instructions.upper - 1)).do_all(agent set_next_instruction)
          Result := instructions.first
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := values.count
       end
 
-   get (a_count: INTEGER): ITERATOR[LIBERTY_ASM_STACK_VALUE] is
+   get (a_count: INTEGER): ITERATOR[LIBERTY_ASM_STACK_VALUE]
          -- Returns a slice of values, starting at the top of the values stack and going down.
       require
          a_count <= count
@@ -39,7 +39,7 @@ feature {LIBERTY_ASM_INSTRUCTION}
          Result.count = a_count
       end
 
-   put (a_instruction: LIBERTY_ASM_INSTRUCTION; a_value: LIBERTY_ASM_STACK_VALUE) is
+   put (a_instruction: LIBERTY_ASM_INSTRUCTION; a_value: LIBERTY_ASM_STACK_VALUE)
          -- Adds an instruction. If `a_value' is not Void, it means it is pushd on the stack by the
          -- instruction.
       require
@@ -52,7 +52,7 @@ feature {LIBERTY_ASM_INSTRUCTION}
          end
       end
 
-   drop (a_count: INTEGER) is
+   drop (a_count: INTEGER)
          -- Drop `a_count' values and all the instructions that generated them
       require
          a_count <= count
@@ -77,7 +77,7 @@ feature {LIBERTY_ASM_INSTRUCTION}
       end
 
 feature {}
-   make is
+   make
       do
          create instructions.make
          create values.make
@@ -86,7 +86,7 @@ feature {}
    instructions: FAST_ARRAY[LIBERTY_ASM_INSTRUCTION]
    values: FAST_ARRAY[LIBERTY_ASM_STACK_VALUE]
 
-   set_next_instruction (index: INTEGER) is
+   set_next_instruction (index: INTEGER)
       require
          index.in_range(instructions.lower, instructions.upper - 1)
       do
@@ -95,7 +95,7 @@ feature {}
          instructions.item(index).next = instructions.item(index + 1)
       end
 
-   valid_instruction_index (a_value: LIBERTY_ASM_STACK_VALUE): BOOLEAN is
+   valid_instruction_index (a_value: LIBERTY_ASM_STACK_VALUE): BOOLEAN
       do
          Result := instructions.valid_index(a_value.instruction_index)
       end

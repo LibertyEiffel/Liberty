@@ -9,7 +9,7 @@ insert
 create {ANY} make
 
 feature {ANY} -- Creating
-	make is
+	make
 		local msg: STRING; ptr: POINTER
 	do
 			create call.prepare(my_function, ffi_type_sint32, <<ffi_type_pointer>>)
@@ -26,7 +26,7 @@ feature {ANY} -- Creating
 feature {ANY} 
 	call_result: INTEGER_64;
 	call: FFI_CALL
-	my_function: POINTER is
+	my_function: POINTER
 		external "C inline"
 		alias "puts"
 		end

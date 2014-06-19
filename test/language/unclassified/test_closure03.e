@@ -7,16 +7,16 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          run("foo")
       end
 
-   run (a: STRING) is
+   run (a: STRING)
       local
          p: PROCEDURE[TUPLE[STRING]]
       do
-         p := agent (i: STRING) is
+         p := agent (i: STRING)
                  do
                     assert(a ~ "foo")
                     assert(i ~ "bar")

@@ -11,7 +11,7 @@ inherit
       end;
 
 feature {ANY}
-   f is
+   f
       do
          aa_f;
          io.put_string ("CC.f%N");

@@ -23,7 +23,7 @@ insert
 create {ANY} default_create 
 
 feature {ANY}
-	default_create is
+	default_create
    		-- Creates the singleton process-global default GIRepository.
 		
 		-- It is not currently supported to have multiple repositories in a
@@ -39,7 +39,7 @@ feature {ANY}
 		end
 
 feature {ANY}
- 	prepend_search_path (a_directory: ABSTRACT_STRING) is
+ 	prepend_search_path (a_directory: ABSTRACT_STRING)
 		-- Prepends `a_directory' to the search path that is used to search
 		-- shared libraries referenced by imported namespaces.  Multiple calls
 		-- to this function all contribute to the final list of paths. The list
@@ -78,7 +78,7 @@ feature {ANY}
  --   -----------------------------------------------------------------------------------------------------------------------
  --
 
-	registered (a_name_space, a_version: ABSTRACT_STRING): BOOLEAN is
+	registered (a_name_space, a_version: ABSTRACT_STRING): BOOLEAN
 		-- Is `a_name_space' currently loaded? Specific version of `a_name_space' can be checked when `a_version' is not Void. 
 		-- When 'a_version' is Void latest version is checked.
 	require a_name_space/=Void
@@ -89,7 +89,7 @@ feature {ANY}
 	end
 
 
-	find_by_name (a_namespace, a_name: ABSTRACT_STRING): GI_BASE_INFO is
+	find_by_name (a_namespace, a_name: ABSTRACT_STRING): GI_BASE_INFO
 		-- Searches for `a_name' entry in `a_namespace'. Before calling this function for a particular namespace, you must call
 		--  `load' once to load the namespace, or otherwise ensure the namespace has already been loaded.
  		
@@ -105,7 +105,7 @@ feature {ANY}
 		Result := wrapper_or_void (g_irepository_find_by_name (handle,a_namespace.to_external, a_name.to_external))
 	end
 
-	load (a_name_space, a_version: ABSTRACT_STRING): GI_TYPELIB is
+	load (a_name_space, a_version: ABSTRACT_STRING): GI_TYPELIB
 		-- The GObject Introspection typelib object representing `a_name_space'
 		-- (e.g. "Gtk"). It will force `a_name_space' to be loaded if it isn't
 		-- already. If `a_name_space' is not loaded, this function will search
@@ -166,7 +166,7 @@ feature {ANY}
 		end
  
  	
-	loaded_namespaces: STRING_ARRAY is
+	loaded_namespaces: STRING_ARRAY
 		-- The list of currently loaded namespaces (in UTF8).
 	do
 		create Result.from_external_null_array(g_irepository_get_loaded_namespaces (handle))
@@ -188,7 +188,7 @@ feature {ANY}
  --
  --   -----------------------------------------------------------------------------------------------------------------------
  --
- 	namespace_iterator (a_namespace: ABSTRACT_STRING): NAMESPACE_ITERATOR is
+ 	namespace_iterator (a_namespace: ABSTRACT_STRING): NAMESPACE_ITERATOR
 		-- A newly allocated iterator over the
 		-- metadata features of an already
 		-- loaded `a_namespace'. 

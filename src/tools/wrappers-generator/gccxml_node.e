@@ -9,21 +9,21 @@ feature {ANY} -- Assigned name
         assigned_name: STRING
                 -- The name under which Current will be forcefully wrapped to.
 
-        set_name (a_name: STRING) is
+        set_name (a_name: STRING)
                 -- Set `assigned_name' to `a_name'.
         require a_name/=Void
         do
                 assigned_name:=a_name.twin
-        ensure definition: assigned_name.is_equal(a_name)
+        ensure definition: assigned_name._equal(a_name)
         end
 
-        has_assigned_name: BOOLEAN is
+        has_assigned_name: BOOLEAN
                 do
                         Result:= assigned_name/=Void
                 end
 
 feature {ANY} -- Collection-like command
-        for_each (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]]) is
+        for_each (a_procedure: PROCEDURE[TUPLE[GCCXML_NODE]])
                         -- Apply 'a_procedure' to all heir nodes of known type.
                 local i: INTEGER; node: GCCXML_NODE
                 do
@@ -36,7 +36,7 @@ feature {ANY} -- Collection-like command
                         end
                 end
 
-        emit_wrappers is
+        emit_wrappers
                 -- Recursively descend the tree invoking emit_wrapper on WRAPPER_CLASS nodes.
         local i: INTEGER; node: GCCXML_NODE; wrapper: WRAPPER_CLASS
         do
@@ -53,7 +53,7 @@ end -- class GCCXML_NODE
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -63,4 +63,4 @@ end -- class GCCXML_NODE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

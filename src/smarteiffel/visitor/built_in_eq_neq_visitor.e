@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       require
          visited /= Void
       deferred

@@ -22,7 +22,7 @@
 expanded class EDC_DATUM_FACTORY[D_]
 
 feature {EDC_TYPED_VALUE, EDC_TYPED_COLUMN}
-   as_datum (item: D_): EDC_TYPED_DATUM[D_] is
+   as_datum (item: D_): EDC_TYPED_DATUM[D_]
       do
          if item /= Void then
             create Result.set_item(item)

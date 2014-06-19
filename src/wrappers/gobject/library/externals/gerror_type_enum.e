@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_err_digit_radix_low_level)  or else
 				(a_value = g_err_float_malformed_low_level)  or else
@@ -21,89 +21,89 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_err_digit_radix is
+	set_g_err_digit_radix
 		do
 			value := g_err_digit_radix_low_level
 		end
 
-	set_g_err_float_malformed is
+	set_g_err_float_malformed
 		do
 			value := g_err_float_malformed_low_level
 		end
 
-	set_g_err_float_radix is
+	set_g_err_float_radix
 		do
 			value := g_err_float_radix_low_level
 		end
 
-	set_g_err_non_digit_in_const is
+	set_g_err_non_digit_in_const
 		do
 			value := g_err_non_digit_in_const_low_level
 		end
 
-	set_g_err_unexp_eof is
+	set_g_err_unexp_eof
 		do
 			value := g_err_unexp_eof_low_level
 		end
 
-	set_g_err_unexp_eof_in_comment is
+	set_g_err_unexp_eof_in_comment
 		do
 			value := g_err_unexp_eof_in_comment_low_level
 		end
 
-	set_g_err_unexp_eof_in_string is
+	set_g_err_unexp_eof_in_string
 		do
 			value := g_err_unexp_eof_in_string_low_level
 		end
 
-	set_g_err_unknown is
+	set_g_err_unknown
 		do
 			value := g_err_unknown_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_err_digit_radix: BOOLEAN is
+	is_g_err_digit_radix: BOOLEAN
 		do
 			Result := (value=g_err_digit_radix_low_level)
 		end
 
-	is_g_err_float_malformed: BOOLEAN is
+	is_g_err_float_malformed: BOOLEAN
 		do
 			Result := (value=g_err_float_malformed_low_level)
 		end
 
-	is_g_err_float_radix: BOOLEAN is
+	is_g_err_float_radix: BOOLEAN
 		do
 			Result := (value=g_err_float_radix_low_level)
 		end
 
-	is_g_err_non_digit_in_const: BOOLEAN is
+	is_g_err_non_digit_in_const: BOOLEAN
 		do
 			Result := (value=g_err_non_digit_in_const_low_level)
 		end
 
-	is_g_err_unexp_eof: BOOLEAN is
+	is_g_err_unexp_eof: BOOLEAN
 		do
 			Result := (value=g_err_unexp_eof_low_level)
 		end
 
-	is_g_err_unexp_eof_in_comment: BOOLEAN is
+	is_g_err_unexp_eof_in_comment: BOOLEAN
 		do
 			Result := (value=g_err_unexp_eof_in_comment_low_level)
 		end
 
-	is_g_err_unexp_eof_in_string: BOOLEAN is
+	is_g_err_unexp_eof_in_string: BOOLEAN
 		do
 			Result := (value=g_err_unexp_eof_in_string_low_level)
 		end
 
-	is_g_err_unknown: BOOLEAN is
+	is_g_err_unknown: BOOLEAN
 		do
 			Result := (value=g_err_unknown_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_err_digit_radix_low_level: INTEGER is
+	g_err_digit_radix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_float_malformed_low_level: INTEGER is
+	g_err_float_malformed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_float_radix_low_level: INTEGER is
+	g_err_float_radix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -130,7 +130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_non_digit_in_const_low_level: INTEGER is
+	g_err_non_digit_in_const_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_unexp_eof_low_level: INTEGER is
+	g_err_unexp_eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_unexp_eof_in_comment_low_level: INTEGER is
+	g_err_unexp_eof_in_comment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -157,7 +157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_unexp_eof_in_string_low_level: INTEGER is
+	g_err_unexp_eof_in_string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -166,7 +166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_err_unknown_low_level: INTEGER is
+	g_err_unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

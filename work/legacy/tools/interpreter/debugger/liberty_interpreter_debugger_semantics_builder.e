@@ -25,7 +25,7 @@ create {LIBERTY_INTERPRETER_DEBUGGER}
    make
 
 feature {ANY}
-   expression (exp: LIBERTY_AST_EXPRESSION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_EXPRESSION is
+   expression (exp: LIBERTY_AST_EXPRESSION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_EXPRESSION
       local
          local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
       do
@@ -35,7 +35,7 @@ feature {ANY}
          Result := sem_expression(exp, local_context)
       end
 
-   instruction (exp: LIBERTY_AST_INSTRUCTION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INSTRUCTION is
+   instruction (exp: LIBERTY_AST_INSTRUCTION; current_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INSTRUCTION
       local
          local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
       do
@@ -46,12 +46,12 @@ feature {ANY}
       end
 
 feature {}
-   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION
       do
          std_error.put_string(once "*** Cannot call Precursor")
       end
 
-   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION
       do
          std_error.put_string(once "*** Cannot call Precursor")
       end
@@ -59,18 +59,18 @@ feature {}
    ast: LIBERTY_AST_NON_TERMINAL_NODE
    type: LIBERTY_ACTUAL_TYPE
 
-   current_entity: LIBERTY_CURRENT is
+   current_entity: LIBERTY_CURRENT
       do
          Result := type.current_entity
       end
 
-   file: FIXED_STRING is
+   file: FIXED_STRING
       once
          Result := "<command line>".intern
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -78,7 +78,7 @@ feature {}
       end
 
    interpreter: LIBERTY_INTERPRETER
-   universe: LIBERTY_UNIVERSE is
+   universe: LIBERTY_UNIVERSE
       do
          Result := interpreter.universe
       end

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       note
          what: "the creation procedure"
       do

@@ -24,7 +24,7 @@ create {}
    make
 
 feature {}
-   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME)
       require
          root /= Void
          root_feature_name /= Void
@@ -42,6 +42,6 @@ feature {}
          log.info.put_line("Done.")
       end
 
-   default_log_location: STRING is "${path_liberty}/resources/log/libertyc-log.rc"
+   default_log_location: STRING "${path_liberty}/resources/log/libertyc-log.rc"
 
 end

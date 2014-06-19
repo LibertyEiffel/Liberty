@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       require
          loc = 0
       local

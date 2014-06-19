@@ -20,7 +20,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          g
          assert(f_count = 1)
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

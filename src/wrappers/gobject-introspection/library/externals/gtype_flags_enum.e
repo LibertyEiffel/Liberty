@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (abstract_low_level | 
 				value_abstract_low_level)).to_boolean
@@ -15,39 +15,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_abstract is
+	set_abstract
 		do
 			value := value.bit_or(abstract_low_level)
 		end
 
-	unset_abstract is
+	unset_abstract
 		do
 			value := value.bit_xor(abstract_low_level)
 		end
 
-	set_value_abstract is
+	set_value_abstract
 		do
 			value := value.bit_or(value_abstract_low_level)
 		end
 
-	unset_value_abstract is
+	unset_value_abstract
 		do
 			value := value.bit_xor(value_abstract_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_abstract: BOOLEAN is
+	is_abstract: BOOLEAN
 		do
 			Result := (value=abstract_low_level)
 		end
 
-	is_value_abstract: BOOLEAN is
+	is_value_abstract: BOOLEAN
 		do
 			Result := (value=value_abstract_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	abstract_low_level: INTEGER is
+	abstract_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -56,7 +56,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	value_abstract_low_level: INTEGER is
+	value_abstract_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

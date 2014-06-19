@@ -30,12 +30,12 @@ feature {ANY}
    file: FIXED_STRING
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := name.is_equal(other.name) and then cluster.is_equal(other.cluster)
       end
 
-   make (a_cluster: like cluster; a_name: like name; a_position: like position) is
+   make (a_cluster: like cluster; a_name: like name; a_position: like position)
       require
          a_cluster /= Void
          a_name /= Void
@@ -51,7 +51,7 @@ feature {ANY}
          position = a_position
       end
 
-   make_void (a_position: like position) is
+   make_void (a_position: like position)
       do
          create cluster.make_void
          name := "<Void>".intern
@@ -61,7 +61,7 @@ feature {ANY}
          position = a_position
       end
 
-   compute_file is
+   compute_file
       local
          n, f: STRING
       do
@@ -88,7 +88,7 @@ feature {ANY}
       end
 
 feature {}
-   compute_hash_code is
+   compute_hash_code
       local
          h: like hash_code
       do

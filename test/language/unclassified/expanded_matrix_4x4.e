@@ -4,7 +4,7 @@
 expanded class EXPANDED_MATRIX_4X4[T]
 
 feature {ANY}
-   put (x: like item) is
+   put (x: like item)
       do
          item := x
       end

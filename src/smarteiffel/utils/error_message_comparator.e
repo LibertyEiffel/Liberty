@@ -21,7 +21,7 @@ feature {ANY}
 
    error_message: STRING
 
-   do_compare (msg_file_path, new_file_path: STRING) is
+   do_compare (msg_file_path, new_file_path: STRING)
          -- Perform the comparison between the reference file `msg_file_path' and the `new_file_path'.
          -- Check whether those two files are identical (remove version numbers, Unix/DOS path of files,
          -- blanks, tabs as well as non-meaningful line feed or informations...).
@@ -86,13 +86,13 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
          create error_message.make(128)
          error_flag := False
       end
 
-   error_exit is
+   error_exit
       do
          error_flag := True
          stop_flag := True
@@ -114,7 +114,7 @@ feature {}
          new_file.disconnect
       end
 
-   successful_exit is
+   successful_exit
       do
          error_flag := False
          stop_flag := True
@@ -122,7 +122,7 @@ feature {}
          new_file.disconnect
       end
 
-   standard_forth (m: TEXT_FILE_READ): CHARACTER is
+   standard_forth (m: TEXT_FILE_READ): CHARACTER
       require
          not m.end_of_input
       local
@@ -152,7 +152,7 @@ feature {}
          end
       end
 
-   inside_bracket_forth (m: TEXT_FILE_READ): CHARACTER is
+   inside_bracket_forth (m: TEXT_FILE_READ): CHARACTER
       local
          stop: BOOLEAN
       do
@@ -170,7 +170,7 @@ feature {}
          end
       end
 
-   unix_path_forth (m: TEXT_FILE_READ): CHARACTER is
+   unix_path_forth (m: TEXT_FILE_READ): CHARACTER
       local
          stop: BOOLEAN
       do

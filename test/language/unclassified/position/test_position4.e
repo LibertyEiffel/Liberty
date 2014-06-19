@@ -13,7 +13,7 @@ feature {ANY}
 
    aux: AUX_POSITION4
 
-   pos (l, c: INTEGER): AUX_POSITION is
+   pos (l, c: INTEGER): AUX_POSITION
       require
          l >= 1
          c >= 1
@@ -21,7 +21,7 @@ feature {ANY}
          Result.set(l, c, current_class_id.to_integer_16)
       end
 
-   make is
+   make
       local
          str: STRING
       do
@@ -37,7 +37,7 @@ feature {ANY}
          assert(aux.position.id = 3)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

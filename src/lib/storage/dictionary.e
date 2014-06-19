@@ -16,7 +16,7 @@ inherit
    MAP[V_, K_]
 
 feature {ANY} -- Adding:
-   put (v: V_; k: K_) assign at is
+   put (v: V_; k: K_) assign at
          -- Change some existing entry or `add' the new one. If there is as yet no key `k' in the dictionary,
          -- enter it with item `v'. Otherwise overwrite the item associated with key `k'.
          -- As the `put' procedure actually uses `is_equal', you may consider to use `fast_put' for expanded
@@ -30,7 +30,7 @@ feature {ANY} -- Adding:
          v = at(k)
       end
 
-   fast_put (v: V_; k: K_) assign fast_at is
+   fast_put (v: V_; k: K_) assign fast_at
          -- Same job as `put', but uses basic `=' for comparison.
          -- If you are sure that `k' is not an existing entry, please consider using `add'
          -- to get very best performances.
@@ -43,7 +43,7 @@ feature {ANY} -- Adding:
          v = at(k)
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
          -- To add a new entry `k' with its associated value `v'.
          -- Actually, this is equivalent to call `put', but it may run a little bit faster.
          --
@@ -56,7 +56,7 @@ feature {ANY} -- Adding:
          v = at(k)
       end
 
-   set_item (v: V_; index: INTEGER) is
+   set_item (v: V_; index: INTEGER)
       require
          valid_index(index)
       deferred
@@ -66,7 +66,7 @@ feature {ANY} -- Adding:
       end
 
 feature {ANY} -- Removing:
-   remove (k: K_) is
+   remove (k: K_)
          -- Remove entry `k' (which may exist or not before this call).
          -- As the `remove' procedure actually uses `is_equal', you may consider to use `fast_remove' for expanded
          -- objects as well while trying to get the very best performances.
@@ -79,7 +79,7 @@ feature {ANY} -- Removing:
          not has(k)
       end
 
-   fast_remove (k: K_) is
+   fast_remove (k: K_)
          -- Same job as `remove', but uses basic `=' for comparison.
          --
          -- See also `remove', `clear_count'.
@@ -90,7 +90,7 @@ feature {ANY} -- Removing:
          not fast_has(k)
       end
 
-   clear_count is
+   clear_count
          -- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
          -- by this call.
          --
@@ -101,7 +101,7 @@ feature {ANY} -- Removing:
          capacity = old capacity
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
          -- reduced after this call.
          --
@@ -112,7 +112,7 @@ feature {ANY} -- Removing:
          capacity <= old capacity
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
          -- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
          -- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
          -- the `capacity' value may not be always accurate depending of the implementation (anyway, this
@@ -121,7 +121,7 @@ feature {ANY} -- Removing:
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Reinitialize by copying all associations of `other'.
       local
          i: INTEGER
@@ -137,7 +137,7 @@ feature {ANY}
          end
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          create {ITERATOR_ON_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       ensure then
@@ -145,7 +145,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
          -- Creates an empty dictionary.
       deferred
       ensure
@@ -153,24 +153,24 @@ feature {}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a dictionary.
       do
          make
       end
 
-   manifest_put (index: INTEGER; v: V_; k: K_) is
+   manifest_put (index: INTEGER; v: V_; k: K_)
       require
          not has(k)
       do
          add(v, k)
       end
 
-   manifest_semicolon_check: INTEGER is 2
+   manifest_semicolon_check: INTEGER 2
          -- Put semicolons between successive value-key pairs.
 
 feature {}
-   key_safe_equal (k1, k2: K_): BOOLEAN is
+   key_safe_equal (k1, k2: K_): BOOLEAN
          -- Because keys are never Void, we do not rely on the SAFE_EQUAL class.
       require
          k1 /= Void
@@ -191,7 +191,7 @@ end -- class DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

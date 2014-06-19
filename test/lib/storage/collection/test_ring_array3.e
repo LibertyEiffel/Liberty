@@ -11,7 +11,7 @@ create {}
 feature {}
    aux: AUX_RING_ARRAY3
 
-   make is
+   make
       do
          create aux.test
       end

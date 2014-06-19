@@ -10,7 +10,7 @@ feature {ANY}
    is_disposed: BOOLEAN
 
 feature {}
-   dispose is
+   dispose
       do
          is_disposed := True
       end

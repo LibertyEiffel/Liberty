@@ -12,7 +12,7 @@ create {}
 feature {}
    file_tools: FILE_TOOLS
 
-   main is
+   main
       local
          i: INTEGER
       do

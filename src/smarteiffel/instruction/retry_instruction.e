@@ -15,52 +15,52 @@ create {ANY}
 feature {ANY}
    start_position: POSITION
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   specialize_in (type: TYPE): like Current is
-      do
-         Result := Current
-      end
-
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is True
-
-   specialize_and_check (type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
-      do
-      end
+   has_been_specialized: BOOLEAN True
 
-   side_effect_free (type: TYPE): BOOLEAN is
-      do
-      end
-
-   adapt_for (t: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   safety_check (type: TYPE) is
+   collect (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   side_effect_free (type: TYPE): BOOLEAN
+      do
+      end
+
+   adapt_for (t: TYPE): like Current
+      do
+         Result := Current
+      end
+
+   safety_check (type: TYPE)
+      do
+      end
+
+   simplify (type: TYPE): INSTRUCTION
       do
          Result := Current --|*** To be done *** (Dom. april 29th 2004) ***
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.put_string(once "retry")
@@ -70,19 +70,19 @@ feature {ANY}
          pretty_printer.set_indent_level(indent_level)
       end
 
-   accept (visitor: RETRY_INSTRUCTION_VISITOR) is
+   accept (visitor: RETRY_INSTRUCTION_VISITOR)
       do
          visitor.visit_retry_instruction(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       do
          start_position := sp
       end

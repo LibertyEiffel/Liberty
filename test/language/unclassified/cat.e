@@ -10,17 +10,17 @@ inherit
    ANY
 
 feature {ANY}
-   is_cat: BOOLEAN is
+   is_cat: BOOLEAN
       do
          Result := True
       end
 
-   fornicate_with (quadrupede: CAT): CAT is
+   fornicate_with (quadrupede: CAT): CAT
       do
          Result := Current
       end
 
-   cry is
+   cry
       do
          std_output.put_string("MIAOU")
       end

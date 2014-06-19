@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (med_par: TEST_CREATE04) is
+   make (med_par: TEST_CREATE04)
       do
       end
 

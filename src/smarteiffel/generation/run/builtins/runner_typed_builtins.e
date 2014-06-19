@@ -10,17 +10,17 @@ inherit
    RUNNER_UNTYPED_BUILTINS
 
 feature {}
-   left (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
+   left (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_]
       do
          Result ::= processor.current_frame.target
       end
 
-   right (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_] is
+   right (processor: RUNNER_PROCESSOR): RUNNER_NATIVE_EXPANDED[E_]
       do
          Result ::= processor.current_frame.arguments.first
       end
 
-   set_return (processor: RUNNER_PROCESSOR; value: E_) is
+   set_return (processor: RUNNER_PROCESSOR; value: E_)
       local
          the_factory: RUNNER_EXPANDED_FACTORY[E_]
       do

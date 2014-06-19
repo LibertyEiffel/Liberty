@@ -12,54 +12,54 @@ create {RUNNER_MEMORY}
 feature {ANY}
    builtins: RUNNER_UNTYPED_BUILTINS
 
-   is_initialized: BOOLEAN is False
+   is_initialized: BOOLEAN False
 
-   processor: RUNNER_PROCESSOR is
+   processor: RUNNER_PROCESSOR
       do
          Result := agent_object.processor
       end
 
    type: TYPE
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          not_yet_implemented
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          not_yet_implemented
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
+   builtin_to_pointer: POINTER
       do
          Result := to_pointer
       end
 
-   builtin_copy (other: RUNNER_OBJECT) is
+   builtin_copy (other: RUNNER_OBJECT)
       do
          not_yet_implemented
       end
 
-   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN
       do
          not_yet_implemented
       end
 
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   copy_if_expanded: like Current
       do
          Result := Current
       end
 
-   as_foreign_object: FOREIGN_OBJECT is
+   as_foreign_object: FOREIGN_OBJECT
       do
          not_yet_implemented
       end
 
 feature {}
-   make (a_agent_object: like agent_object; a_type: like type) is
+   make (a_agent_object: like agent_object; a_type: like type)
       require
          a_agent_object /= Void
          a_type.live_type /= Void

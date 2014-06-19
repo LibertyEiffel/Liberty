@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   rand: RANDOM_NUMBER_GENERATOR is
+   rand: RANDOM_NUMBER_GENERATOR
       local
          tmp: MINIMAL_RANDOM_NUMBER_GENERATOR
       once
@@ -18,7 +18,7 @@ feature {ANY}
          Result := tmp
       end
 
-   make is
+   make
       do
       end
 

@@ -14,21 +14,21 @@ insert
    SINGLETON
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          if thread_types /= Void then
             Result := thread_types.count
          end
       end
 
-   type (i: INTEGER): TYPE is
+   type (i: INTEGER): TYPE
       require
          i.in_range(1, count)
       do
          Result := thread_types.key(i)
       end
 
-   call (i: INTEGER): EXPRESSION is
+   call (i: INTEGER): EXPRESSION
       require
          i.in_range(1, count)
       do
@@ -36,7 +36,7 @@ feature {ANY}
       end
 
 feature {NATIVE_BUILT_IN}
-   collect (t: like type; sp: POSITION) is
+   collect (t: like type; sp: POSITION)
       require
          not sp.is_unknown
          t.class_text.name.to_string = as_thread_context
@@ -60,7 +60,7 @@ feature {NATIVE_BUILT_IN}
       end
 
 feature {LIVE_TYPE}
-   simplify (t: like type) is
+   simplify (t: like type)
       require
          t.class_text.name.to_string = as_thread_context
       local
@@ -80,7 +80,7 @@ feature {LIVE_TYPE}
 feature {}
    thread_types: HASHED_DICTIONARY[EXPRESSION, TYPE]
 
-   create_call (t: TYPE; sp: POSITION): EXPRESSION is
+   create_call (t: TYPE; sp: POSITION): EXPRESSION
          -- synthetic call to the agent
       require
          not sp.is_unknown
@@ -106,7 +106,7 @@ feature {}
          smart_eiffel.set_specializing_feature_variables(Void, Void)
       end
 
-   thread_routine (sp: POSITION): EXPRESSION is
+   thread_routine (sp: POSITION): EXPRESSION
       require
          not sp.is_unknown
       local
@@ -117,7 +117,7 @@ feature {}
          Result := c
       end
 
-   thread_args (sp: POSITION): EXPRESSION is
+   thread_args (sp: POSITION): EXPRESSION
       require
          not sp.is_unknown
       local
@@ -127,29 +127,29 @@ feature {}
          Result := c
       end
 
-   tuple_to_arguments (tuple_args_ref: LOCAL_NAME_REF; sp: POSITION): EFFECTIVE_ARG_LIST is
+   tuple_to_arguments (tuple_args_ref: LOCAL_NAME_REF; sp: POSITION): EFFECTIVE_ARG_LIST
       require
          not sp.is_unknown
       do
          create {EFFECTIVE_ARG_LIST_N} Result.make_1(sp, tuple_args_ref)
       end
 
-   fn_item: FEATURE_NAME is
+   fn_item: FEATURE_NAME
       once
          create Result.unknown_position(as_item)
       end
 
-   fn_thread: FEATURE_NAME is
+   fn_thread: FEATURE_NAME
       once
          create Result.unknown_position("thread")
       end
 
-   fn_routine: FEATURE_NAME is
+   fn_routine: FEATURE_NAME
       once
          create Result.unknown_position("routine")
       end
 
-   fn_args: FEATURE_NAME is
+   fn_args: FEATURE_NAME
       once
          create Result.unknown_position("args")
       end

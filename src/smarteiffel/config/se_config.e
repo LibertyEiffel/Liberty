@@ -7,59 +7,59 @@ insert
    GLOBALS
 
 feature {ANY}
-   bin: STRING is
+   bin: STRING
       deferred
       end
 
-   sys: STRING is
+   sys: STRING
       deferred
       end
 
-   short: STRING is
+   short: STRING
       deferred
       end
 
-   os: STRING is
+   os: STRING
       deferred
       end
 
-   flavor: STRING is
+   flavor: STRING
       deferred
       end
 
-   jobs: INTEGER is
+   jobs: INTEGER
       deferred
       end
 
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
       deferred
       end
 
-   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING])
       require
          loadpaths /= Void
       deferred
       end
 
-   tools_in (tools: DICTIONARY[STRING, STRING]) is
+   tools_in (tools: DICTIONARY[STRING, STRING])
       require
          tools /= Void
       deferred
       end
 
-   environment_in (env: DICTIONARY[STRING, STRING]) is
+   environment_in (env: DICTIONARY[STRING, STRING])
       require
          env /= Void
       deferred
       end
 
-   c_mode (a_c_mode: STRING): SE_C_MODE is
+   c_mode (a_c_mode: STRING): SE_C_MODE
       require
          not a_c_mode.is_empty
       deferred
       end
 
-   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING])
       require
          c_modes /= Void
       deferred

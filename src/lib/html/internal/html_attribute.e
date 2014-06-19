@@ -10,13 +10,13 @@ feature {ANY}
 
    value: STRING
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := ""
          append_in(Result)
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       do
          buffer.append(name)
          if value /= Void then
@@ -26,13 +26,13 @@ feature {ANY}
          end
       end
 
-   to_html_stream (html: HTML_OUTPUT_STREAM) is
+   to_html_stream (html: HTML_OUTPUT_STREAM)
       do
          html.with_attribute(name, value)
       end
 
 feature {}
-   make (a_name, a_value: STRING) is
+   make (a_name, a_value: STRING)
       require
          a_name /= Void
       do
@@ -48,7 +48,7 @@ end -- class HTML_ATTRIBUTE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -12,13 +12,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          true_error_here_to_keep_track_of_the_previous_warning
       end
 
 feature {ANY}
-   out: STRING is
+   out: STRING
       do
       end
 

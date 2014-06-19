@@ -28,7 +28,7 @@ create {EDC_INCREMENT_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_INCREMENT_VALUE_VISITOR
       do
@@ -39,34 +39,34 @@ feature {ANY}
 feature {ANY}
    item: INTEGER
 
-   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[INTEGER] is
+   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[INTEGER]
       do
          Result := datum_factory.as_datum(item)
       end
 
 feature {EDC_EXPRESSION}
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       do
          Result := position
       end
 
-   can_call: BOOLEAN is True
+   can_call: BOOLEAN True
 
-   open_count: INTEGER is 0
+   open_count: INTEGER 0
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       do
          Result := cursor
       end
 
 feature {ANY}
-   datum: EDC_DATUM is
+   datum: EDC_DATUM
       do
          Result := datum_factory.as_datum(item)
       end
 
 feature {}
-   make is
+   make
       do
       end
 

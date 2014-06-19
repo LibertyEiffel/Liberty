@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[ANY]; a: ARRAY[INTEGER]
       do

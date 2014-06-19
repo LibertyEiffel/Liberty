@@ -14,44 +14,44 @@ create {RUNNER_FEATURES}
    make
 
 feature {RUNNER_FEATURES}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := non_void.start_position
       end
 
 feature {RUNNER_FACET}
-   name: FEATURE_NAME is
+   name: FEATURE_NAME
       do
          Result := feature_stamp.name
       end
 
-   arguments: TRAVERSABLE[RUNNER_OBJECT] is
+   arguments: TRAVERSABLE[RUNNER_OBJECT]
       do
          -- always Void
       end
 
-   type_of_current: TYPE is
+   type_of_current: TYPE
       do
          Result := non_void.context_type
       end
 
-   type_of_result: TYPE is
+   type_of_result: TYPE
       do
          Result := non_void.dynamic_type
       end
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       do
          Result := non_void.feature_stamp
       end
 
-   formal_arguments: FORMAL_ARG_LIST is
+   formal_arguments: FORMAL_ARG_LIST
       do
          -- always Void
       end
 
 feature {}
-   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_non_void: like non_void) is
+   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_non_void: like non_void)
       require
          a_processor /= Void
          a_target /= Void
@@ -69,7 +69,7 @@ feature {}
 
    non_void: NON_VOID_NO_DISPATCH
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
          -- always Void
       end

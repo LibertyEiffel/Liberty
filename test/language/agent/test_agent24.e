@@ -11,17 +11,17 @@ create {}
    make
 
 feature {ANY}
-   check_int (a: INTEGER) is
+   check_int (a: INTEGER)
       do
          assert(expected = a)
       end
 
-   check_aux (a: AUX_AGENT24) is
+   check_aux (a: AUX_AGENT24)
       do
          assert(expected = a.n)
       end
 
-   make is
+   make
       local
          action: ROUTINE[TUPLE[AUX_AGENT24]]; action2: ROUTINE[TUPLE[INTEGER]]; a: AUX_AGENT24
       do

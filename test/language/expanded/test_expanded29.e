@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          l: AUX_EXPANDED29BAR
       do

@@ -42,20 +42,20 @@ create {EDC_SQLITE_QUERY_BUILDER_TOOLS}
    make
 
 feature {EDC_MANIFEST_VALUE}
-   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[STRING]) is
+   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[STRING])
       do
          put_string(a_manifest_value.item)
       end
 
 feature {EDC_PARAMETER}
-   visit_parameter (a_parameter: EDC_PARAMETER[STRING]) is
+   visit_parameter (a_parameter: EDC_PARAMETER[STRING])
       do
          current_query.extend('?')
          prepared_arguments.add_last(a_parameter.item)
       end
 
 feature {}
-   put_string (s: STRING) is
+   put_string (s: STRING)
       local
          i: INTEGER
       do
@@ -76,7 +76,7 @@ feature {}
       end
 
 feature {EDC_EQUALS_EXPRESSION}
-   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[STRING]) is
+   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[STRING])
       do
          a_equals_expression.left.accept(Current)
          current_query.append(once " = ")
@@ -84,7 +84,7 @@ feature {EDC_EQUALS_EXPRESSION}
       end
 
 feature {EDC_GE_EXPRESSION}
-   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[STRING]) is
+   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[STRING])
       do
          a_ge_expression.left.accept(Current)
          current_query.append(once " >= ")
@@ -92,7 +92,7 @@ feature {EDC_GE_EXPRESSION}
       end
 
 feature {EDC_GT_EXPRESSION}
-   visit_gt_expression (a_gt_expression: EDC_GT_EXPRESSION[STRING]) is
+   visit_gt_expression (a_gt_expression: EDC_GT_EXPRESSION[STRING])
       do
          a_gt_expression.left.accept(Current)
          current_query.append(once " > ")
@@ -100,7 +100,7 @@ feature {EDC_GT_EXPRESSION}
       end
 
 feature {EDC_IN_EXPRESSION}
-   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[STRING]) is
+   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[STRING])
       do
          a_in_expression.left.accept(Current)
          current_query.append(once " in ")
@@ -108,14 +108,14 @@ feature {EDC_IN_EXPRESSION}
       end
 
 feature {EDC_ISNULL_EXPRESSION}
-   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[STRING]) is
+   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[STRING])
       do
          a_isnull_expression.exp.accept(Current)
          current_query.append(once " is null")
       end
 
 feature {EDC_LE_EXPRESSION}
-   visit_le_expression (a_le_expression: EDC_LE_EXPRESSION[STRING]) is
+   visit_le_expression (a_le_expression: EDC_LE_EXPRESSION[STRING])
       do
          a_le_expression.left.accept(Current)
          current_query.append(once " <= ")
@@ -123,7 +123,7 @@ feature {EDC_LE_EXPRESSION}
       end
 
 feature {EDC_LT_EXPRESSION}
-   visit_lt_expression (a_lt_expression: EDC_LT_EXPRESSION[STRING]) is
+   visit_lt_expression (a_lt_expression: EDC_LT_EXPRESSION[STRING])
       do
          a_lt_expression.left.accept(Current)
          current_query.append(once " < ")

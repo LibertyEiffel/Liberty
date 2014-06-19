@@ -21,6 +21,6 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {ANY}
-   name: STRING is "Expression_No_Array"
+   name: STRING "Expression_No_Array"
 
 end

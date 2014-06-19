@@ -32,13 +32,13 @@ feature {}
    outputs: HASHED_DICTIONARY[LOG_OUTPUT, FIXED_STRING]
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       do
          pass.call([node])
       end
 
 feature {}
-   do_pass_1 (on_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   do_pass_1 (on_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; node: EIFFEL_NON_TERMINAL_NODE_IMPL)
          -- Create outputs and loggers
       require
          on_error /= Void
@@ -202,7 +202,7 @@ feature {}
          end
       end
 
-   do_pass_2 (on_error: PROCEDURE[TUPLE[STRING]]; node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   do_pass_2 (on_error: PROCEDURE[TUPLE[STRING]]; node: EIFFEL_NON_TERMINAL_NODE_IMPL)
          -- Attach loggers' parents
       require
          on_error /= Void
@@ -263,7 +263,7 @@ feature {}
 
    file_options: LOG_FILE_OPTIONS
 
-   each_days (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_days (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       local
@@ -279,7 +279,7 @@ feature {}
          end
       end
 
-   each_weeks (stream: FILE_STREAM; number: INTEGER_64; week_day: INTEGER): BOOLEAN is
+   each_weeks (stream: FILE_STREAM; number: INTEGER_64; week_day: INTEGER): BOOLEAN
       require
          number > 0
          week_day.in_range(0, 6)
@@ -301,7 +301,7 @@ feature {}
          end
       end
 
-   each_months (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_months (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       local
@@ -316,7 +316,7 @@ feature {}
          end
       end
 
-   each_years (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_years (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       local
@@ -331,7 +331,7 @@ feature {}
          end
       end
 
-   each_hours (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_hours (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       local
@@ -347,7 +347,7 @@ feature {}
          end
       end
 
-   each_minutes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_minutes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       local
@@ -363,7 +363,7 @@ feature {}
          end
       end
 
-   each_bytes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN is
+   each_bytes (stream: FILE_STREAM; number: INTEGER_64): BOOLEAN
       require
          number > 0
       do
@@ -373,7 +373,7 @@ feature {}
    ft: FILE_TOOLS
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL) is
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       local
          string: TYPED_EIFFEL_IMAGE[STRING]
       do
@@ -401,24 +401,24 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
          end
       end
 
-   fatal_error (message: STRING) is
+   fatal_error (message: STRING)
       do
          std_error.put_line(message)
          die_with_code(1)
       end
 
-   default_path_resolver: FUNCTION[TUPLE[STRING], STRING] is
+   default_path_resolver: FUNCTION[TUPLE[STRING], STRING]
       once
          Result := agent resolve_path(?)
       end
 
-   resolve_path (a_path: STRING): STRING is
+   resolve_path (a_path: STRING): STRING
       do
          Result := a_path
       end
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL) is
+   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       local
          i: INTEGER
       do
@@ -433,7 +433,7 @@ feature {EIFFEL_LIST_NODE_IMPL}
       end
 
 feature {LOG_CONFIGURATION}
-   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
+   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE])
       local
          load_item: TUPLE[INPUT_STREAM, PROCEDURE[TUPLE[STRING]], FUNCTION[TUPLE[STRING], STRING], PROCEDURE[TUPLE]]
       do
@@ -455,7 +455,7 @@ feature {LOG_CONFIGURATION}
          end
       end
 
-   conf_logger (a_tag: FIXED_STRING): LOGGER is
+   conf_logger (a_tag: FIXED_STRING): LOGGER
       require
          a_tag.intern = a_tag
       local
@@ -487,7 +487,7 @@ feature {LOG_CONFIGURATION}
          Result.tag = a_tag
       end
 
-   generation_id: INTEGER is
+   generation_id: INTEGER
       do
          Result := generations.item
       end
@@ -496,7 +496,7 @@ feature {}
    load_queue: RING_ARRAY[TUPLE[INPUT_STREAM, PROCEDURE[TUPLE[STRING]], FUNCTION[TUPLE[STRING], STRING], PROCEDURE[TUPLE]]]
    loading: BOOLEAN
 
-   load_ (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
+   load_ (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; a_path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE])
       require
          a_stream.is_connected
       local
@@ -559,7 +559,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
          create loggers.make
          create outputs.make
@@ -567,7 +567,7 @@ feature {}
          create load_queue.make(1, 0)
       end
 
-   load_default is
+   load_default
       local
          in: TEXT_FILE_READ
          o: LOG_OUTPUT
@@ -604,29 +604,29 @@ feature {}
 
    levels: LOG_LEVELS
 
-   grammar: LOG_GRAMMAR is
+   grammar: LOG_GRAMMAR
       once
          create Result.make(create {LOG_NODE_FACTORY}.make)
       end
 
-   parser_buffer: MINI_PARSER_BUFFER is
+   parser_buffer: MINI_PARSER_BUFFER
       once
          create Result
       end
 
-   parser: DESCENDING_PARSER is
+   parser: DESCENDING_PARSER
       once
          create Result.make
       end
 
-   default_output: LOG_OUTPUT is
+   default_output: LOG_OUTPUT
       once
          create Result.make(agent pass_through(std_output), "*default*".intern)
       end
 
    generations: COUNTER
 
-   pass_through (a_output: OUTPUT_STREAM): OUTPUT_STREAM is
+   pass_through (a_output: OUTPUT_STREAM): OUTPUT_STREAM
       do
          Result := a_output
       end
@@ -639,7 +639,7 @@ end -- class LOG_INTERNAL_CONF
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

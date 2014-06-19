@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; fa: FAST_ARRAY[REAL_64]
       do

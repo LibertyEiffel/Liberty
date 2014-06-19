@@ -15,9 +15,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "sedb"
+   command_line_name: STRING "sedb"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
                     Usage: sedb -help
                            sedb -version
                            sedb <directory>
@@ -29,7 +29,7 @@ feature {ANY}
                                          ]"
 
 feature {}
-   make is
+   make
       local
          arg: STRING; runner: SEDB_RUNNER
       do
@@ -52,14 +52,14 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          check
             False
          end
       end
 
-   valid_argument_for_ace_mode: STRING is
+   valid_argument_for_ace_mode: STRING
       do
          check
             False

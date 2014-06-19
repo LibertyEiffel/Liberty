@@ -12,7 +12,7 @@ create {EXTERNAL_FUNCTION}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_8_VISITOR) is
+   accept (visitor: RUN_FEATURE_8_VISITOR)
       do
          visitor.visit_run_feature_8(Current)
       end
@@ -32,29 +32,29 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   has_closures: BOOLEAN is False
+   has_closures: BOOLEAN False
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
       do
          if arguments /= Void then
             Result := arguments.count
          end
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -82,7 +82,7 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       do
          -- Adapt the result type:
          result_type := base_feature.result_type.resolve_in(type_of_current).canonical_type_mark --|*** CAD: need of resolve_in?
@@ -90,7 +90,7 @@ feature {}
          result_type /= Void
       end
 
-   compute_use_current is
+   compute_use_current
       do
          smart_eiffel.push_context(base_feature)
          if base_feature.use_current(type_of_current) then

@@ -19,16 +19,16 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 7
+   precedence: INTEGER 7
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_minus
       end
 
-   static_simplify: EXPRESSION is
+   static_simplify: EXPRESSION
       local
          ic1, ic2: INTEGER_CONSTANT; v1, v2: INTEGER_64; number: NUMBER
       do
@@ -66,13 +66,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_MINUS_VISITOR) is
+   accept (visitor: CALL_INFIX_MINUS_VISITOR)
       do
          visitor.visit_call_infix_minus(Current)
       end
 
 feature {}
-   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+   make (lp: like target; operator_position: POSITION; rp: like arg1)
       require
          lp /= Void
          not operator_position.is_unknown

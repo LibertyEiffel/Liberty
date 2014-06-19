@@ -34,7 +34,7 @@ create {ANY}
    make
 
 feature {}
-   make (a_error_handler: like error_handler) is
+   make (a_error_handler: like error_handler)
       require
          a_error_handler /= Void
       do
@@ -47,12 +47,12 @@ feature {}
    error_handler: EDC_ERROR_HANDLER
 
 feature {}
-   init is
+   init
       once
          init_sqlite
       end
 
-   init_sqlite is
+   init_sqlite
       external "plug_in"
       alias "{
          location: "${sys}/plugins/edc/impl"
@@ -62,12 +62,12 @@ feature {}
       end
 
 feature {EDC_CONNECTION_FACTORY}
-   valid_url (url: STRING): BOOLEAN is
+   valid_url (url: STRING): BOOLEAN
       do
          Result := url.has_prefix(once "sqlite://")
       end
 
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_SQLITE_CONNECTION is
+   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_SQLITE_CONNECTION
       local
          file: STRING; db: SQLITE_DATABASE; done: BOOLEAN
       do

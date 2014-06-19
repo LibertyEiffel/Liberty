@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          e1, e2: SUB_EXPANDED3
       do

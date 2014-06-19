@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_OR_ELSE}
-   visit_liberty_or_else (v: LIBERTY_OR_ELSE) is
+   visit_liberty_or_else (v: LIBERTY_OR_ELSE)
       deferred
       end
 

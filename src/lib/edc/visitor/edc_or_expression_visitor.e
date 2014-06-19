@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_OR_EXPRESSION}
-   visit_or_expression (a_or_expression: EDC_OR_EXPRESSION) is
+   visit_or_expression (a_or_expression: EDC_OR_EXPRESSION)
       deferred
       end
 

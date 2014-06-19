@@ -13,19 +13,19 @@ create {ANY}
    make, with_when_list, make_strippable
 
 feature {ANY}
-   accept (visitor: OTHER_INSPECT_STATEMENT_VISITOR) is
+   accept (visitor: OTHER_INSPECT_STATEMENT_VISITOR)
       do
          visitor.visit_other_inspect_statement(Current)
       end
 
-   dynamic_dispatch_flag: BOOLEAN is
+   dynamic_dispatch_flag: BOOLEAN
          -- Indicate that the intent of `Current' is to implement dynamic dispatch.
       do
          Result := dynamic_dispatch_temporary1 /= Void
       end
 
 feature {PROCEDURE_CALL, FUNCTION_CALL}
-   set_dynamic_dispatch_flag (ddt1: like dynamic_dispatch_temporary1) is
+   set_dynamic_dispatch_flag (ddt1: like dynamic_dispatch_temporary1)
       require
          ddt1 /= Void
       do
@@ -35,7 +35,7 @@ feature {PROCEDURE_CALL, FUNCTION_CALL}
       end
 
 feature {INSPECT_STATEMENT}
-   validity_check (type, expression_type: TYPE) is
+   validity_check (type, expression_type: TYPE)
       local
          i: INTEGER
       do

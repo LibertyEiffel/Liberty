@@ -13,7 +13,7 @@ create {JSON_HANDLER}
    make
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: JSON_VISITOR
       do
@@ -21,7 +21,7 @@ feature {ANY}
          v.visit_object(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          i: INTEGER; k: JSON_STRING; v, ov: JSON_VALUE
          eq: SAFE_EQUAL[JSON_VALUE]
@@ -44,7 +44,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -65,7 +65,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   item (key: ABSTRACT_STRING): JSON_VALUE is
+   item (key: ABSTRACT_STRING): JSON_VALUE
       require
          key /= Void
       do
@@ -76,7 +76,7 @@ feature {JSON_HANDLER}
    members: MAP[JSON_VALUE, JSON_STRING]
 
 feature {}
-   make (a_members: like members) is
+   make (a_members: like members)
       require
          a_members /= Void
       do
@@ -96,7 +96,7 @@ end -- class JSON_OBJECT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

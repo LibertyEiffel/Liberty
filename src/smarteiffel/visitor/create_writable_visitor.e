@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       require
          visited /= Void
       deferred

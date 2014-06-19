@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          source.set(42)
          assert(source.value = 42)

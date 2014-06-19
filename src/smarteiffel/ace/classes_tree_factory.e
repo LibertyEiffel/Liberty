@@ -7,13 +7,13 @@ insert
    GLOBALS
 
 feature {ACE}
-   universe: UNIVERSE is
+   universe: UNIVERSE
       once
          create Result.make
       end
 
 feature {CLASSES}
-   classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES is
+   classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES
       require
          not name.is_empty
          string_aliaser.registered_one(name)
@@ -56,7 +56,7 @@ feature {CLASSES}
 feature {}
    file_tools: FILE_TOOLS
 
-   classes_memory: DICTIONARY[CLASSES, STRING] is
+   classes_memory: DICTIONARY[CLASSES, STRING]
       once
          create {HASHED_DICTIONARY[CLASSES, STRING]} Result.make
       end

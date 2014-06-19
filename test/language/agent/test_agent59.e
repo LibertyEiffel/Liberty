@@ -11,7 +11,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          string: STRING
       do
@@ -22,13 +22,13 @@ feature {ANY}
 
    field_list: ARRAY[STRING]
 
-   object_contents: STRING is
+   object_contents: STRING
       do
          Result := "bar"
          field_list.for_each(agent show_content(Result, ?))
       end
 
-   show_content (bar, foo: STRING) is
+   show_content (bar, foo: STRING)
       do
          assert(bar.is_equal("bar"))
          assert(foo.is_equal("foo"))

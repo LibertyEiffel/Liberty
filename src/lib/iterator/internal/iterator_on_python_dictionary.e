@@ -18,7 +18,7 @@ feature {}
          --  Memorize the current position.
 
 feature {ANY}
-   make (d: like dictionary) is
+   make (d: like dictionary)
       require
          d /= Void
       do
@@ -28,29 +28,29 @@ feature {ANY}
          dictionary = d
       end
 
-   start is
+   start
       do
          item_index := dictionary.next_internal_index(-1)
          generation := iterable_generation
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := not dictionary.valid_internal_index(item_index)
       end
 
-   item: TUPLE[V_, K_] is
+   item: TUPLE[V_, K_]
       do
          Result := [dictionary.item(item_index), dictionary.key(item_index)]
       end
 
-   next is
+   next
       do
          item_index := dictionary.next_internal_index(item_index)
       end
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := dictionary.generation
       end
@@ -65,7 +65,7 @@ end -- class ITERATOR_ON_PYTHON_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

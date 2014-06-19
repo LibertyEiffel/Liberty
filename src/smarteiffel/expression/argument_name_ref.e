@@ -27,17 +27,17 @@ feature {ANY}
          -- `formal_arg_list' ... BUT IT DOES NOT WORK BECAUSE FOR EXAMPLE
          -- like Current ARE HARD CODED INSIDE `formal_arg_list' *** DOM April 14th 2008 ***
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := formal_arg_list.name(rank).to_string
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := formal_arg_list.type_mark(rank).resolve_in(type)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          fal: like formal_arg_list
       do
@@ -58,7 +58,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          fal: like formal_arg_list
       do
@@ -77,7 +77,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          fal: like formal_arg_list
       do
@@ -95,17 +95,17 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := declaration_type /= Void
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := formal_arg_list.name(rank).collect(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          af: ANONYMOUS_FEATURE; fal: FORMAL_ARG_LIST
       do
@@ -130,13 +130,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ARGUMENT_NAME_REF_VISITOR) is
+   accept (visitor: ARGUMENT_NAME_REF_VISITOR)
       do
          visitor.visit_argument_name_ref(Current)
       end
 
 feature {ARGUMENT_NAME_REF}
-   set_formal_arg_list (fal: like formal_arg_list) is
+   set_formal_arg_list (fal: like formal_arg_list)
       require
          fal /= Void
       do
@@ -146,7 +146,7 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {INTROSPECTION_HANDLER}
-   set_declaration_type (declaration_type_: like declaration_type) is
+   set_declaration_type (declaration_type_: like declaration_type)
       require
          declaration_type_ /= Void
       do
@@ -159,14 +159,14 @@ feature {LIKE_ARGUMENT_TYPE_MARK} --|*** PH: should be {}
    formal_arg_list: FORMAL_ARG_LIST
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank; cr: like closure_rank) is
+   refer_to (sp: POSITION; fal: FORMAL_ARG_LIST; r: like rank; cr: like closure_rank)
       require
          not sp.is_unknown
          r.in_range(1, fal.count)

@@ -4,7 +4,7 @@
 class AUX_AGENT08A
 
 feature {ANY}
-   foo is
+   foo
       do
       end
 

@@ -13,7 +13,7 @@ feature {ANY}
    item: INTERNAL_C_LOCAL
 
 feature {C_COMPILATION_MIXIN}
-   set_item (a_item: like item) is
+   set_item (a_item: like item)
       require
          (a_item = Void) xor (item = Void)
       do

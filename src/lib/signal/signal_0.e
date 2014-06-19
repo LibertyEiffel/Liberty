@@ -15,7 +15,7 @@ feature {}
    index, last: INTEGER
          -- work to do while emit is between index and last.
 
-   make is
+   make
          -- Initialize new signal object
       do
          create callbacks.make(0)
@@ -24,7 +24,7 @@ feature {}
       end
 
 feature {ANY}
-   connect (p: PROCEDURE[TUPLE]) is
+   connect (p: PROCEDURE[TUPLE])
          -- Connect procedure to be called when signal is emitted
          -- See also last_connect_id
       require
@@ -36,7 +36,7 @@ feature {ANY}
          last_connect_id = p
       end
 
-   emit is
+   emit
          -- Emit signal, ie. already registred procedure will be called
          -- in registration order except if removed by another before.
       do
@@ -51,7 +51,7 @@ feature {ANY}
          end
       end
 
-   last_connect_id: PROCEDURE[TUPLE] is
+   last_connect_id: PROCEDURE[TUPLE]
          -- return identifier on the last connect which may be used
          -- for disconnect (unregister procedure)
       require
@@ -62,7 +62,7 @@ feature {ANY}
          Result /= Void
       end
 
-   disconnect (connect_identifier: PROCEDURE[TUPLE]) is
+   disconnect (connect_identifier: PROCEDURE[TUPLE])
          -- Unregister procedure for this signal. If the same
          -- procedure was registred many times, only first is removed.
       local
@@ -81,7 +81,7 @@ feature {ANY}
          old (not callbacks.fast_has(connect_identifier)) implies callbacks.count = old callbacks.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- return True if no callback is registred for this signal
       do
          Result := callbacks.is_empty
@@ -98,7 +98,7 @@ end -- class SIGNAL_0
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

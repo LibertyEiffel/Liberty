@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
+   visit_e_true (visited: E_TRUE)
       require
          visited /= Void
       deferred

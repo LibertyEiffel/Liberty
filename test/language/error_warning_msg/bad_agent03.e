@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_agent: PROCEDURE[TUPLE[INTEGER]];
          tuple: TUPLE[INTEGER];
@@ -18,7 +18,7 @@ feature {ANY}
       end;
 
 feature {}
-   proc(i: INTEGER) is
+   proc(i: INTEGER)
       do
          std_output.put_integer(i);
       end;

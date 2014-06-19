@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       require
          visited /= Void
       deferred

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]
       do
@@ -18,7 +18,7 @@ feature {}
          my_collection.for_each(agent print_item('#', ?))
       end
 
-   print_item (c: CHARACTER; item: STRING) is
+   print_item (c: CHARACTER; item: STRING)
       do
          label_assert("check hash / #(1)" # item, c = '#')
          number := number + 1

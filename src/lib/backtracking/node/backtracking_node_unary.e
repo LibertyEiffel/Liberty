@@ -13,7 +13,7 @@ feature {ANY}
    node: BACKTRACKING_NODE
          -- the node
 
-   make, set_node (value: BACKTRACKING_NODE) is
+   make, set_node (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -34,7 +34,7 @@ end -- class BACKTRACKING_NODE_UNARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -51,7 +51,7 @@ create {ANY}
    make
 
 feature {ANY} -- make
-   make is
+   make
          -- read one line and treat it until end of input
       do
          from
@@ -66,7 +66,7 @@ feature {ANY} -- make
          end
       end
 
-   initialise is
+   initialise
          -- initialisation
       do
          create buffer.make(10)
@@ -76,7 +76,7 @@ feature {ANY} -- make
 feature {ANY} -- enumeration of expansions
    root, current_item: EXPRESSION_ITEM
 
-   goto_item (item: like current_item) is
+   goto_item (item: like current_item)
          -- set the 'current_item' to 'item'
       do
          current_item := item
@@ -86,7 +86,7 @@ feature {ANY} -- enumeration of expansions
 
    stack: FAST_ARRAY[EXPRESSION_ITEM]
 
-   expand_all is
+   expand_all
          -- print all the expansions of the root
       local
          i, n: INTEGER
@@ -124,7 +124,7 @@ feature {ANY} -- enumeration of expansions
          io.flush
       end
 
-   evaluate_current_state is
+   evaluate_current_state
          -- Here is how must be driven the and or explorer
          -- Only the basic features are called
          -- the evaluation of 'current_item' is made depending
@@ -168,12 +168,12 @@ feature {ANY} -- enumeration of expansions
          end
       end
 
-   context_clear, context_push, context_restore, context_restore_and_pop, context_cut is
+   context_clear, context_push, context_restore, context_restore_and_pop, context_cut
       do
       end
 
 feature {ANY} -- parsing
-   parse is
+   parse
          -- initialise the mini_parser_buffer behavior
          -- then call parse and treat syntax errors with
          -- exceptions
@@ -213,7 +213,7 @@ feature {ANY} -- parsing
          retry
       end
 
-   parse_alternative: EXPRESSION_ITEM is
+   parse_alternative: EXPRESSION_ITEM
          -- parse an alternative recurssively to construct tree
          -- balanced to the right because it is more efficient
       do
@@ -225,7 +225,7 @@ feature {ANY} -- parsing
          end
       end
 
-   parse_sequence: EXPRESSION_ITEM is
+   parse_sequence: EXPRESSION_ITEM
          -- parse a sequence recurssively to construct tree
          -- balanced to the right because it is more efficient
       do
@@ -235,7 +235,7 @@ feature {ANY} -- parsing
          end
       end
 
-   parse_term: EXPRESSION_ITEM is
+   parse_term: EXPRESSION_ITEM
          -- parse a term
       do
          -- skip any '.' that are noise
@@ -277,12 +277,12 @@ feature {ANY} -- parsing
          end
       end
 
-   the_empty_item: EXPRESSION_ITEM is
+   the_empty_item: EXPRESSION_ITEM
       once
          create Result.make_empty
       end
 
-   the_failure_item: EXPRESSION_ITEM is
+   the_failure_item: EXPRESSION_ITEM
       once
          create Result.make_failure
       end

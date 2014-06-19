@@ -25,7 +25,7 @@ inherit
    ESE_TYPED_VISITOR[T_]
 
 feature {EDC_MANIFEST_VALUE}
-   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[T_]) is
+   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[T_])
       deferred
       end
 

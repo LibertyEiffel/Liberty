@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (message_position_: like message_position; declaration_type_: like declaration_type) is
+   make (message_position_: like message_position; declaration_type_: like declaration_type)
       do
          message_position := message_position_
          declaration_type := declaration_type_
@@ -16,7 +16,7 @@ feature {ANY}
          declaration_type = declaration_type_
       end
 
-   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE) is
+   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE)
       local
          string: STRING; message: EXPRESSION
       do

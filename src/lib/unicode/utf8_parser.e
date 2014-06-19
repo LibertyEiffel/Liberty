@@ -12,7 +12,7 @@ insert
    STRING_HANDLER
 
 feature {ANY}
-   decode (utf8_string: STRING; unicode_string: UNICODE_STRING) is
+   decode (utf8_string: STRING; unicode_string: UNICODE_STRING)
          -- Decode the `utf8_string' and append it in `unicode_string'.
          -- After this call the `first_error' attribute may be non Void
          -- to explain the error encountered during the `utf8_string'
@@ -140,7 +140,7 @@ end -- class UTF8_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -27,21 +27,21 @@ create {LIBERTY_ARRAY_MANIFEST}
    specialized
 
 feature {ANY}
-   parameters: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   parameters: TRAVERSABLE[LIBERTY_EXPRESSION]
       do
          Result := parameters_list
       ensure
          Result = parameters_list
       end
 
-   contents: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   contents: TRAVERSABLE[LIBERTY_EXPRESSION]
       do
          Result := contents_list
       ensure
          Result = contents_list
       end
 
-   separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR] is
+   separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR]
       do
          Result := separators_list
       ensure
@@ -50,7 +50,7 @@ feature {ANY}
 
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like result_type
          p: like parameters_list
@@ -67,7 +67,7 @@ feature {ANY}
       end
 
 feature {}
-   specialized_expressions (a_expressions: COLLECTION[LIBERTY_EXPRESSION]; a_type: LIBERTY_ACTUAL_TYPE): COLLECTION[LIBERTY_EXPRESSION] is
+   specialized_expressions (a_expressions: COLLECTION[LIBERTY_EXPRESSION]; a_type: LIBERTY_ACTUAL_TYPE): COLLECTION[LIBERTY_EXPRESSION]
       local
          e: LIBERTY_EXPRESSION
          i: INTEGER
@@ -90,7 +90,7 @@ feature {}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          result_type.mark_reachable_code(mark)
          expressions_marker.mark_reachable_code(mark, parameters_list)
@@ -98,19 +98,19 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   add_parameter (a_parameter: LIBERTY_EXPRESSION) is
+   add_parameter (a_parameter: LIBERTY_EXPRESSION)
       do
          parameters_list.add_last(a_parameter)
       end
 
-   add_content (a_content: LIBERTY_EXPRESSION; a_separator: LIBERTY_ARRAY_MANIFEST_SEPARATOR) is
+   add_content (a_content: LIBERTY_EXPRESSION; a_separator: LIBERTY_ARRAY_MANIFEST_SEPARATOR)
       do
          contents_list.add_last(a_content)
          separators_list.add_last(a_separator)
       end
 
 feature {}
-   make (a_type: like result_type; a_position: like position) is
+   make (a_type: like result_type; a_position: like position)
       require
          a_type /= Void
          a_position /= Void
@@ -125,7 +125,7 @@ feature {}
          position = a_position
       end
 
-   make_array (a_type: like result_type; a_contents: like contents_list; a_separators: like separators_list; a_position: like position) is
+   make_array (a_type: like result_type; a_contents: like contents_list; a_separators: like separators_list; a_position: like position)
       require
          a_type /= Void
          a_contents /= Void
@@ -145,7 +145,7 @@ feature {}
          position = a_position
       end
 
-   specialized (a_type: like result_type; a_parameters: like parameters_list; a_contents: like contents_list; a_separators: like separators_list; a_position: like position) is
+   specialized (a_type: like result_type; a_parameters: like parameters_list; a_contents: like contents_list; a_separators: like separators_list; a_position: like position)
       require
          a_type /= Void
          a_position /= Void
@@ -172,7 +172,7 @@ feature {}
    separators_list: COLLECTION[LIBERTY_ARRAY_MANIFEST_SEPARATOR]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_ARRAY_MANIFEST_VISITOR
       do

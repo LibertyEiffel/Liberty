@@ -7,20 +7,20 @@ inherit
    CODE_CONTEXT
 
 feature {CODE_PRINTER}
-   code: INTEGER is
+   code: INTEGER
       do
          Result := C_create_instruction
       end
 
-   valid_anonymous_feature: BOOLEAN is True
+   valid_anonymous_feature: BOOLEAN True
 
-   valid_target: BOOLEAN is False
+   valid_target: BOOLEAN False
 
-   valid_effective_arguments: BOOLEAN is True
+   valid_effective_arguments: BOOLEAN True
 
-   valid_static_type: BOOLEAN is True
+   valid_static_type: BOOLEAN True
 
-   valid_internal_c_local: BOOLEAN is True
+   valid_internal_c_local: BOOLEAN True
 
 end -- class CODE_CONTEXT_CREATE_INSTRUCTION
 --

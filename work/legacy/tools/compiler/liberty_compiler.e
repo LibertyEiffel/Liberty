@@ -29,13 +29,13 @@ feature {}
    all_types: SET[LIBERTY_ACTUAL_TYPE]
 
 feature {LIBERTYC}
-   compile_classes is
+   compile_classes
          -- Compile all the classes used by the program, if they need rebuilding.
       do
 
       end
 
-   finalize is
+   finalize
          -- Builds (links) the final executable.
          -- Also adds specific runtime frameworks, such as a tailored GC etc.
       do
@@ -43,7 +43,7 @@ feature {LIBERTYC}
 
 feature {}
    make (a_universe: like universe; a_root_type: like root_type; a_root_feature_name: like root_feature_name;
-         a_check_level: like check_level; a_debug: like is_debug) is
+         a_check_level: like check_level; a_debug: like is_debug)
       require
          a_universe /= Void
          a_root_type /= Void
@@ -79,7 +79,7 @@ feature {}
 
    universe: LIBERTY_UNIVERSE
 
-   ensure_built (a_type: LIBERTY_ACTUAL_TYPE) is
+   ensure_built (a_type: LIBERTY_ACTUAL_TYPE)
       do
          universe.build_types(root_type, root_feature_name, a_type)
       end

@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   add (a_path: STRING) is
+   add (a_path: STRING)
       require
          a_path /= Void
       local
@@ -19,7 +19,7 @@ feature {ANY}
          count > 0
       end
 
-   display (stream: OUTPUT_STREAM) is
+   display (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       local
@@ -37,12 +37,12 @@ feature {ANY}
          stream.put_line(once "================================================================")
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := commands.count
       end
 
-   is_empty (client: EIFFELTEST_CLIENT_SOCKET): BOOLEAN is
+   is_empty (client: EIFFELTEST_CLIENT_SOCKET): BOOLEAN
       do
          if commands.is_empty then
             Result := disconnected_clients.fast_has(client)
@@ -52,7 +52,7 @@ feature {ANY}
          count > 0 implies not Result
       end
 
-   item (client: EIFFELTEST_CLIENT_SOCKET): FIXED_STRING is
+   item (client: EIFFELTEST_CLIENT_SOCKET): FIXED_STRING
       require
          not is_empty(client)
       do
@@ -63,7 +63,7 @@ feature {ANY}
          end
       end
 
-   remove (client: EIFFELTEST_CLIENT_SOCKET) is
+   remove (client: EIFFELTEST_CLIENT_SOCKET)
       require
          not is_empty(client)
       do
@@ -77,7 +77,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
          create commands.make(1, 0)
          create disconnected_clients.make
@@ -86,7 +86,7 @@ feature {}
    commands: RING_ARRAY[FIXED_STRING]
    disconnected_clients: HASHED_SET[EIFFELTEST_CLIENT_SOCKET]
 
-   disconnect_item: FIXED_STRING is
+   disconnect_item: FIXED_STRING
       once
          Result := "disconnect".intern
       end

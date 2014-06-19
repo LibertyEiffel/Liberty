@@ -11,21 +11,21 @@ create {MOCK_EXPECTATIONS}
    make
 
 feature {MOCK_EXPECTATIONS}
-   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
          not is_replaying
       do
          groups.last.expect(expectations)
       end
 
-   next is
+   next
       require
          not is_replaying
       do
          groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
-   replay_all is
+   replay_all
       require
          not is_replaying
       do
@@ -34,13 +34,13 @@ feature {MOCK_EXPECTATIONS}
          is_replaying
       end
 
-   is_replaying: BOOLEAN is
+   is_replaying: BOOLEAN
       do
          Result := groups.valid_index(check_index.item)
       end
 
 feature {}
-   check_all_done is
+   check_all_done
       require
          is_replaying
       do
@@ -48,7 +48,7 @@ feature {}
       end
 
 feature {MOCK_EXPECTATIONS}
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION is
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -70,7 +70,7 @@ feature {MOCK_EXPECTATIONS}
       end
 
 feature {}
-   make is
+   make
       do
          create groups.with_capacity(2)
          create check_index.set_item(groups.lower - 1)
@@ -80,7 +80,7 @@ feature {}
    check_index: COUNTER
    groups: FAST_ARRAY[MOCK_EXPECTATION_GROUP]
 
-   all_done_message: STRING is
+   all_done_message: STRING
       require
          not all_done
       do
@@ -88,12 +88,12 @@ feature {}
          groups.for_each(agent {MOCK_EXPECTATION_GROUP}.all_done_message_in(Result))
       end
 
-   all_done: BOOLEAN is
+   all_done: BOOLEAN
       do
          Result := groups.for_all(agent {MOCK_EXPECTATION_GROUP}.all_done)
       end
 
-   dispose is
+   dispose
       do
          if is_replaying then
             check_all_done
@@ -111,7 +111,7 @@ end -- class MOCK_EXPECTATION_GROUPS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

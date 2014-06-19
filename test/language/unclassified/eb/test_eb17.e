@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create b1
          assert(not b1.test("a", "b"))
@@ -20,7 +20,7 @@ feature {ANY}
 
    b2: AUX_EB17[INTEGER]
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

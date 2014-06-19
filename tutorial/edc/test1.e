@@ -28,14 +28,14 @@ create {}
    test_all, test_xml, test_sqlite, test_gda
 
 feature {} -- root procedures
-   test_all is
+   test_all
       do
          test_xml
          test_sqlite
          test_gda
       end
 
-   test_xml is
+   test_xml
       do
          register_driver(create {EDC_STORABLE_XML_FILE_DRIVER})
          io.put_new_line
@@ -44,7 +44,7 @@ feature {} -- root procedures
          test("xml://test.xml", Void)
       end
 
-   test_sqlite is
+   test_sqlite
       local
 --         info: DICTIONARY[STRING, STRING]
       do
@@ -61,7 +61,7 @@ feature {} -- root procedures
 --         test("sqlite://test.db", info)
       end
 
-   test_gda is
+   test_gda
       local
          info: DICTIONARY[STRING, STRING]
       do
@@ -74,7 +74,7 @@ feature {} -- root procedures
       end
 
 feature {} -- test implementation
-   test (url: STRING; info: DICTIONARY[STRING, STRING]) is
+   test (url: STRING; info: DICTIONARY[STRING, STRING])
       local
          cnx: EDC_CONNECTION; set: EDC_RESULT_SET; query: EDC_SELECT; users: EDC_TABLE
          user_id, user_name: EDC_STRING_COLUMN
@@ -127,7 +127,7 @@ feature {} -- test implementation
          show_result_set(query.call({FAST_ARRAY[EDC_VALUE] << user_name @ "Dupont" >> }))
       end
 
-   show_result_set (set: EDC_RESULT_SET) is
+   show_result_set (set: EDC_RESULT_SET)
       local
          i: INTEGER; id, name: EDC_TYPED_DATUM[STRING]
       do

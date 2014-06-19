@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CLIENT_LIST}
-   visit_client_list (visited: CLIENT_LIST) is
+   visit_client_list (visited: CLIENT_LIST)
       require
          visited /= Void
       deferred

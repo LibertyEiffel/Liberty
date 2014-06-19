@@ -21,7 +21,7 @@ insert MULTIPROCESSING
 create {LLVM_GLOBALS} make
 
 feature {SMART_EIFFEL}
-   compile is
+   compile
          -- Entry point of actual bytecode generation.
          local workers_count: INTEGER
       do
@@ -69,7 +69,7 @@ feature {SMART_EIFFEL}
                         -- controller.connect(controller_path)
 
                         -- Tell
-                        (1|..|ace.cluster_count).for_each(agent (an_index: INTEGER_32) is
+                        (1|..|ace.cluster_count).for_each(agent (an_index: INTEGER_32)
                         local message: ZMQ_STRING_MESSAGE
                         do
                                 create message.from_string("compile-cluster "| &an_index)
@@ -88,18 +88,18 @@ feature {SMART_EIFFEL}
         workers: FAST_ARRAY[LLVM_WORKER]
 
 feature {ANY}
-   get_started is
+   get_started
       require
          smart_eiffel.status.is_safety_checking
       do
          smart_eiffel.status.set_generating
       end
 
-   make is
+   make
       do
       end
 
-        is_equal (another: like Current): BOOLEAN is
+        is_equal (another: like Current): BOOLEAN
                 do
                         Result := to_pointer = another.to_pointer
                 end

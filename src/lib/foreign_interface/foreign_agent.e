@@ -4,7 +4,7 @@
 deferred class FOREIGN_AGENT
 
 feature {ANY}
-   call (parameters: FOREIGN_PARAMETERS) is
+   call (parameters: FOREIGN_PARAMETERS)
       require
          parameters.match_types(parameter_types)
          result_type = types.nothing
@@ -14,7 +14,7 @@ feature {ANY}
          ffi_call.invoke(null, parameters.as_arrayed_collection)
       end
 
-   item (parameters: FOREIGN_PARAMETERS): FOREIGN_OBJECT is
+   item (parameters: FOREIGN_PARAMETERS): FOREIGN_OBJECT
       require
          parameters.match_types(parameter_types)
          result_type /= types.nothing
@@ -32,7 +32,7 @@ feature {}
    ffi_call: FFI_CALL
    types: FOREIGN_TYPES
 
-   prepare (a_function: POINTER) is
+   prepare (a_function: POINTER)
       require
          ffi_call = Void
          a_function.is_not_null
@@ -68,7 +68,7 @@ end -- class FOREIGN_AGENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -14,39 +14,39 @@ insert
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := not is_connected or else stream.end_of_input
       end
 
-   can_read_character: BOOLEAN is
+   can_read_character: BOOLEAN
       do
          Result := is_connected and then stream.can_read_character
       end
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       do
          Result := is_connected and then stream.valid_last_character
       end
 
-   can_read_line: BOOLEAN is
+   can_read_line: BOOLEAN
       do
          Result := is_connected and then stream.can_read_line
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := is_connected and then stream.can_unread_character
       end
 
-   disconnect is
+   disconnect
       do
          stream.disconnect
          stream := Void
       end
 
 feature {STREAM}
-   do_detach is
+   do_detach
       do
          if filter /= Void then
             filter.do_detach
@@ -66,7 +66,7 @@ end -- class FILTER_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

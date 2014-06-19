@@ -10,27 +10,27 @@ inherit
    JSON_ANY_CODEC
 
 feature {JSON_HANDLER}
-   build (data: DATA_): JSON_TEXT is
+   build (data: DATA_): JSON_TEXT
       deferred
       ensure
          Result /= Void
       end
 
-   parse (data: INPUT_STREAM): JSON_TEXT is
+   parse (data: INPUT_STREAM): JSON_TEXT
       require
          data.is_connected
       do
          Result := parser.parse_json_text(data)
       end
 
-   on_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+   on_error (message: ABSTRACT_STRING; line, column: INTEGER)
       deferred
       end
 
 feature {}
    parser_: WEAK_REFERENCE[JSON_PARSER]
 
-   parser: JSON_PARSER is
+   parser: JSON_PARSER
       do
          if parser_ = Void then
             create Result.make(agent on_error)
@@ -52,7 +52,7 @@ end -- class JSON_CODEC
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

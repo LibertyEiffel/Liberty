@@ -12,7 +12,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          file: TEXT_FILE_READ
       do
@@ -24,7 +24,7 @@ feature {ANY}
          end
       end
 
-   load (p_file: INPUT_STREAM) is
+   load (p_file: INPUT_STREAM)
       require
          p_file.is_connected
       do

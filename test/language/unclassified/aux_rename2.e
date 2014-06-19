@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   foo (x: like Current): like Current is
+   foo (x: like Current): like Current
       require
          req_foo
       do

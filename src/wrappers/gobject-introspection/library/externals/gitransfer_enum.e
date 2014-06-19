@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = container_low_level)  or else
 				(a_value = everything_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_container is
+	set_container
 		do
 			value := container_low_level
 		end
 
-	set_everything is
+	set_everything
 		do
 			value := everything_low_level
 		end
 
-	set_nothing is
+	set_nothing
 		do
 			value := nothing_low_level
 		end
 
 feature {ANY} -- Queries
-	is_container: BOOLEAN is
+	is_container: BOOLEAN
 		do
 			Result := (value=container_low_level)
 		end
 
-	is_everything: BOOLEAN is
+	is_everything: BOOLEAN
 		do
 			Result := (value=everything_low_level)
 		end
 
-	is_nothing: BOOLEAN is
+	is_nothing: BOOLEAN
 		do
 			Result := (value=nothing_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	container_low_level: INTEGER is
+	container_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	everything_low_level: INTEGER is
+	everything_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nothing_low_level: INTEGER is
+	nothing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

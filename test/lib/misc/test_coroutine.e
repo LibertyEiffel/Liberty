@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   max: INTEGER is 10
+   max: INTEGER 10
 
-   make is
+   make
       local
          coro: AUX_COROUTINE
          i: ITERATOR[INTEGER]

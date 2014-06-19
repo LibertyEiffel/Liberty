@@ -27,7 +27,7 @@ feature {ANY}
 
    t1, t2: TRIANGLE
 
-   main is
+   main
       local
          test_clone: like Current
       do
@@ -71,11 +71,11 @@ feature {ANY}
          assert(test_clone.t2 = Void)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := True
       end

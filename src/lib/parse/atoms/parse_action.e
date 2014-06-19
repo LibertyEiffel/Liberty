@@ -10,13 +10,13 @@ feature {ANY}
    name: ABSTRACT_STRING
          -- useful for debug
 
-   call is
+   call
       do
          action.call([])
       end
 
 feature {PARSER_FACET}
-   set_name (a_name: like name) is
+   set_name (a_name: like name)
       do
          name := a_name
       ensure
@@ -24,7 +24,7 @@ feature {PARSER_FACET}
       end
 
 feature {}
-   make (a_action: like action) is
+   make (a_action: like action)
       require
          a_action /= Void
       do
@@ -46,7 +46,7 @@ end -- PARSE_ACTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

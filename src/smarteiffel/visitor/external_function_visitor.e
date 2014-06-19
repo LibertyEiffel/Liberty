@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EXTERNAL_FUNCTION}
-   visit_external_function (visited: EXTERNAL_FUNCTION) is
+   visit_external_function (visited: EXTERNAL_FUNCTION)
       require
          visited /= Void
       deferred

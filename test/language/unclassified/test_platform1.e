@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(Boolean_bits >= Character_bits)
          assert(32 = Integer_bits)
@@ -25,7 +25,7 @@ feature {ANY}
          assert(Maximum_real_64 > Minimum_real_64)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

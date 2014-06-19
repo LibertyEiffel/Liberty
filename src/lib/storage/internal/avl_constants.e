@@ -9,11 +9,11 @@ insert
       end
 
 feature {}
-   balanced: INTEGER is 0
+   balanced: INTEGER 0
 
-   imbalanced_left: INTEGER is -1
+   imbalanced_left: INTEGER -1
 
-   imbalanced_right: INTEGER is 1
+   imbalanced_right: INTEGER 1
 
 end -- class AVL_CONSTANTS
 --
@@ -23,7 +23,7 @@ end -- class AVL_CONSTANTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

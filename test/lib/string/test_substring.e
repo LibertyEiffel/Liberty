@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s1, s2: STRING
       do
@@ -68,7 +68,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

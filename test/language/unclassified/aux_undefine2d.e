@@ -7,7 +7,7 @@ inherit
    AUX_UNDEFINE2C
 
 feature {ANY}
-   my_renamed_feature is
+   my_renamed_feature
       do
       end
 

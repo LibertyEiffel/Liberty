@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {OLD_MANIFEST_ARRAY}
-   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       require
          visited /= Void
       deferred

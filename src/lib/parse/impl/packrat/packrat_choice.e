@@ -13,7 +13,7 @@ create {PACKRAT_ALTERNATIVE}
    make
 
 feature {ANY}
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       local
          i: INTEGER
       do
@@ -28,23 +28,23 @@ feature {ANY}
          end
       end
 
-   infix "/" (other: PACKRAT_ALTERNATIVE): PACKRAT_PATTERN is
+   infix "/" (other: PACKRAT_ALTERNATIVE): PACKRAT_PATTERN
       do
          alternatives.add_last(other)
          Result := Current
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := alternatives.is_equal(other.alternatives)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          alternatives := other.alternatives.twin
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -61,13 +61,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: PACKRAT_VISITOR) is
+   accept (visitor: PACKRAT_VISITOR)
       do
          visitor.visit_choice(Current)
       end
 
 feature {}
-   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       local
          i: INTEGER
       do
@@ -89,7 +89,7 @@ feature {}
       end
 
 feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       local
          i: INTEGER
       do
@@ -103,7 +103,7 @@ feature {PACKRAT_INTERNAL}
          end
       end
 
-   set_nt (a_nt: like nt) is
+   set_nt (a_nt: like nt)
       local
          i: INTEGER
       do
@@ -119,7 +119,7 @@ feature {PACKRAT_INTERNAL}
       end
 
 feature {}
-   make (first, second: PACKRAT_ALTERNATIVE) is
+   make (first, second: PACKRAT_ALTERNATIVE)
       require
          first /= Void
          second /= Void
@@ -138,7 +138,7 @@ feature {PACKRAT_CHOICE, PACKRAT_VISITOR}
 
 invariant
    useful: alternatives.count > 1
-   correct: alternatives.for_all(agent (alt: PACKRAT_ALTERNATIVE): BOOLEAN is do Result := alt /= Void end(?))
+   correct: alternatives.for_all(agent (alt: PACKRAT_ALTERNATIVE): BOOLEAN do Result := alt /= Void end(?))
 
 end -- class PACKRAT_CHOICE
 --
@@ -148,7 +148,7 @@ end -- class PACKRAT_CHOICE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

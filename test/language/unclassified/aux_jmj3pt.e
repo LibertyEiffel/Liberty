@@ -10,22 +10,22 @@ create {ANY}
    make
 
 feature {ANY}
-   north: like item is
+   north: like item
       do
          Result := container.item(i - 1, j)
       end
 
-   south: like item is
+   south: like item
       do
          Result := container.item(i + 1, j)
       end
 
-   west: like item is
+   west: like item
       do
          Result := container.item(i, j - 1)
       end
 
-   east: like item is
+   east: like item
       do
          Result := container.item(i, j + 1)
       end

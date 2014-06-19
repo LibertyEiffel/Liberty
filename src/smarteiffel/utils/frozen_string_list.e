@@ -7,261 +7,261 @@ deferred class FROZEN_STRING_LIST
    --
 
 feature {} -- The keywords section:
-   fz_adapt: STRING is "adapt"
+   fz_adapt: STRING "adapt"
 
-   fz_alias: STRING is "alias"
+   fz_alias: STRING "alias"
 
-   fz_all: STRING is "all"
+   fz_all: STRING "all"
 
-   fz_as: STRING is "as"
+   fz_as: STRING "as"
 
-   fz_assertion: STRING is "assertion"
+   fz_assertion: STRING "assertion"
 
-   fz_assertion_flat_check: STRING is "assertion_flat_check"
+   fz_assertion_flat_check: STRING "assertion_flat_check"
 
-   fz_assign: STRING is "assign"
+   fz_assign: STRING "assign"
 
-   fz_begin_c_compile: STRING is "# Beginning of parallelizable section"
+   fz_begin_c_compile: STRING "# Beginning of parallelizable section"
 
-   fz_boost: STRING is "boost"
+   fz_boost: STRING "boost"
 
-   fz_check: STRING is "check"
+   fz_check: STRING "check"
 
-   fz_class: STRING is "class"
+   fz_class: STRING "class"
 
-   fz_cluster: STRING is "cluster"
+   fz_cluster: STRING "cluster"
 
-   fz_convert: STRING is "convert"
+   fz_convert: STRING "convert"
 
-   fz_create: STRING is "create"
+   fz_create: STRING "create"
 
-   fz_creation: STRING is "creation"
+   fz_creation: STRING "creation"
 
-   fz_debug: STRING is "debug"
+   fz_debug: STRING "debug"
 
-   fz_default: STRING is "default"
+   fz_default: STRING "default"
 
-   fz_deferred: STRING is "deferred"
+   fz_deferred: STRING "deferred"
 
-   fz_do: STRING is "do"
+   fz_do: STRING "do"
 
-   fz_else: STRING is "else"
+   fz_else: STRING "else"
 
-   fz_elseif: STRING is "elseif"
+   fz_elseif: STRING "elseif"
 
-   fz_end: STRING is "end"
+   fz_end: STRING "end"
 
-   fz_end_c_compile: STRING is "# End of parallelizable section"
+   fz_end_c_compile: STRING "# End of parallelizable section"
 
-   fz_ensure: STRING is "ensure"
+   fz_ensure: STRING "ensure"
 
-   fz_exclude: STRING is "exclude"
+   fz_exclude: STRING "exclude"
 
-   fz_expanded: STRING is "expanded"
+   fz_expanded: STRING "expanded"
 
-   fz_export: STRING is "export"
+   fz_export: STRING "export"
 
-   fz_external: STRING is "external"
+   fz_external: STRING "external"
 
-   fz_false: STRING is "False"
+   fz_false: STRING "False"
 
-   fz_feature: STRING is "feature"
+   fz_feature: STRING "feature"
 
-   fz_from: STRING is "from"
+   fz_from: STRING "from"
 
-   fz_frozen: STRING is "frozen"
+   fz_frozen: STRING "frozen"
 
-   fz_generate: STRING is "generate"
+   fz_generate: STRING "generate"
 
-   fz_if: STRING is "if"
+   fz_if: STRING "if"
 
-   fz_include: STRING is "include"
+   fz_include: STRING "include"
 
-   fz_indexing: STRING is "indexing"
+   fz_indexing: STRING "indexing"
 
-   fz_infix: STRING is "infix"
+   fz_infix: STRING "infix"
 
-   fz_inherit: STRING is "inherit"
+   fz_inherit: STRING "inherit"
 
-   fz_insert: STRING is "insert"
+   fz_insert: STRING "insert"
 
-   fz_inline: STRING is "inline"
+   fz_inline: STRING "inline"
 
-   fz_inspect: STRING is "inspect"
+   fz_inspect: STRING "inspect"
 
-   fz_invariant: STRING is "invariant"
+   fz_invariant: STRING "invariant"
 
-   fz_is: STRING is "is"
+   fz_is: STRING "is"
 
-   fz_like: STRING is "like"
+   fz_like: STRING "like"
 
-   fz_local: STRING is "local"
+   fz_local: STRING "local"
 
-   fz_loop: STRING is "loop"
+   fz_loop: STRING "loop"
 
-   fz_no: STRING is "no"
+   fz_no: STRING "no"
 
-   fz_note: STRING is "note"
+   fz_note: STRING "note"
 
-   fz_obsolete: STRING is "obsolete"
+   fz_obsolete: STRING "obsolete"
 
-   fz_old: STRING is "old"
+   fz_old: STRING "old"
 
-   fz_once: STRING is "once"
+   fz_once: STRING "once"
 
-   fz_option: STRING is "option"
+   fz_option: STRING "option"
 
-   fz_prefix: STRING is "prefix"
+   fz_prefix: STRING "prefix"
 
-   fz_redefine: STRING is "redefine"
+   fz_redefine: STRING "redefine"
 
-   fz_rename: STRING is "rename"
+   fz_rename: STRING "rename"
 
-   fz_require: STRING is "require"
+   fz_require: STRING "require"
 
-   fz_rescue: STRING is "rescue"
+   fz_rescue: STRING "rescue"
 
-   fz_retry: STRING is "retry"
+   fz_retry: STRING "retry"
 
-   fz_runtime: STRING is "runtime"
+   fz_runtime: STRING "runtime"
 
-   fz_separate: STRING is "separate"
+   fz_separate: STRING "separate"
 
-   fz_reference: STRING is "reference"
+   fz_reference: STRING "reference"
 
-   fz_then: STRING is "then"
+   fz_then: STRING "then"
 
-   fz_trace: STRING is "trace"
+   fz_trace: STRING "trace"
 
-   fz_true: STRING is "True"
+   fz_true: STRING "True"
 
-   fz_undefine: STRING is "undefine"
+   fz_undefine: STRING "undefine"
 
-   fz_unique: STRING is "unique"
+   fz_unique: STRING "unique"
 
-   fz_until: STRING is "until"
+   fz_until: STRING "until"
 
-   fz_use: STRING is "use"
+   fz_use: STRING "use"
 
-   fz_variant: STRING is "variant"
+   fz_variant: STRING "variant"
 
-   fz_when: STRING is "when"
+   fz_when: STRING "when"
 
-   fz_yes: STRING is "yes"
+   fz_yes: STRING "yes"
 
 feature {} -- Most of them are message parts:
-   fz_cad: STRING is "Cyclic anchored definition."
+   fz_cad: STRING "Cyclic anchored definition."
 
-   fz_dtideena: STRING is " has no compiler-defined `deep_twin' or `is_deep_equal' %
+   fz_dtideena: STRING " has no compiler-defined `deep_twin' or `is_deep_equal' %
    %because the corresponding allocated size is not part of the %
    %NATIVE_ARRAY object. The client class of this NATIVE_ARRAY %
    %type is supposed to use a `capacity' attribute which contains %
    %the corresponding number of allocated items (see STRING or %
    %ARRAY for example)."
 
-   fz_error_stars: STRING is "****** "
+   fz_error_stars: STRING "****** "
 
-   fz_vuar4: STRING is "The $ operator must be followed by the final name of a feature which is not a %
+   fz_vuar4: STRING "The $ operator must be followed by the final name of a feature which is not a %
                %constant attribute or by the name of some local variable as well."
 
 feature {} -- Some other names:
-   fz_bin: STRING is "bin"
+   fz_bin: STRING "bin"
 
-   fz_c_shift_left: STRING is "<<"
+   fz_c_shift_left: STRING "<<"
 
-   fz_c_shift_right: STRING is ">>"
+   fz_c_shift_right: STRING ">>"
 
-   fz_install: STRING is "install"
+   fz_install: STRING "install"
 
-   fz_jobs: STRING is "jobs"
+   fz_jobs: STRING "jobs"
 
-   fz_no_check: STRING is "no_check"
+   fz_no_check: STRING "no_check"
 
-   fz_none: STRING is "none"
+   fz_none: STRING "none"
 
-   fz_smarteiffel: STRING is "SmartEiffel"
+   fz_smarteiffel: STRING "SmartEiffel"
 
-   fz_seconf: STRING is "SmartEiffel"
+   fz_seconf: STRING "SmartEiffel"
          -- the environment name pointing on the config file
 
-   fz_se_runtime: STRING is "SmartEiffelRuntime"
+   fz_se_runtime: STRING "SmartEiffelRuntime"
 
-   fz_system_se: STRING is "system.se"
+   fz_system_se: STRING "system.se"
 
 feature {} -- The known keys of the INI file:
-   fz_conf_general: STRING is "General"
+   fz_conf_general: STRING "General"
 
-   fz_conf_loadpath: STRING is "Loadpath"
+   fz_conf_loadpath: STRING "Loadpath"
 
-   fz_conf_environment: STRING is "Environment"
+   fz_conf_environment: STRING "Environment"
          -- since version 2
 
-   fz_conf_se_tools: STRING is "Tools"
+   fz_conf_se_tools: STRING "Tools"
          -- since version 3
 
-   fz_conf_bin: STRING is "bin"
+   fz_conf_bin: STRING "bin"
 
-   fz_conf_lib: STRING is "lib"
+   fz_conf_lib: STRING "lib"
 
-   fz_conf_sys: STRING is "sys"
+   fz_conf_sys: STRING "sys"
 
-   fz_conf_short: STRING is "short"
+   fz_conf_short: STRING "short"
 
-   fz_conf_tools: STRING is "tools"
+   fz_conf_tools: STRING "tools"
 
-   fz_conf_os: STRING is "os"
+   fz_conf_os: STRING "os"
 
-   fz_conf_flavor: STRING is "flavor"
+   fz_conf_flavor: STRING "flavor"
 
-   fz_conf_jobs: STRING is "jobs"
+   fz_conf_jobs: STRING "jobs"
 
-   fz_conf_boost: STRING is "boost"
+   fz_conf_boost: STRING "boost"
 
-   fz_conf_no_check: STRING is "no_check"
+   fz_conf_no_check: STRING "no_check"
 
-   fz_conf_require_check: STRING is "require_check"
+   fz_conf_require_check: STRING "require_check"
 
-   fz_conf_ensure_check: STRING is "ensure_check"
+   fz_conf_ensure_check: STRING "ensure_check"
 
-   fz_conf_invariant_check: STRING is "invariant_check"
+   fz_conf_invariant_check: STRING "invariant_check"
 
-   fz_conf_loop_check: STRING is "loop_check"
+   fz_conf_loop_check: STRING "loop_check"
 
-   fz_conf_all_check: STRING is "all_check"
+   fz_conf_all_check: STRING "all_check"
 
-   fz_conf_debug_check: STRING is "debug_check"
+   fz_conf_debug_check: STRING "debug_check"
 
-   fz_conf_flat_check: STRING is "flat_check"
+   fz_conf_flat_check: STRING "flat_check"
 
-   fz_conf_smarteiffel_options: STRING is "smarteiffel_options"
+   fz_conf_smarteiffel_options: STRING "smarteiffel_options"
 
-   fz_conf_undefined: STRING is "undefined"
+   fz_conf_undefined: STRING "undefined"
 
-   fz_conf_tag: STRING is "tag"
+   fz_conf_tag: STRING "tag"
 
-   fz_conf_compiler_type: STRING is "c_compiler_type"
+   fz_conf_compiler_type: STRING "c_compiler_type"
 
-   fz_conf_compiler_path: STRING is "c_compiler_path"
+   fz_conf_compiler_path: STRING "c_compiler_path"
 
-   fz_conf_linker_path: STRING is "c_linker_path"
+   fz_conf_linker_path: STRING "c_linker_path"
 
-   fz_conf_strip_path: STRING is "c_strip_path"
+   fz_conf_strip_path: STRING "c_strip_path"
 
-   fz_conf_compiler_options: STRING is "c_compiler_options"
+   fz_conf_compiler_options: STRING "c_compiler_options"
 
-   fz_conf_linker_options: STRING is "c_linker_options"
+   fz_conf_linker_options: STRING "c_linker_options"
 
-   fz_conf_cpp_compiler_type: STRING is "cpp_compiler_type"
+   fz_conf_cpp_compiler_type: STRING "cpp_compiler_type"
 
-   fz_conf_cpp_compiler_path: STRING is "cpp_compiler_path"
+   fz_conf_cpp_compiler_path: STRING "cpp_compiler_path"
 
-   fz_conf_cpp_compiler_options: STRING is "cpp_compiler_options"
+   fz_conf_cpp_compiler_options: STRING "cpp_compiler_options"
 
-   fz_conf_cpp_linker_path: STRING is "cpp_linker_path"
+   fz_conf_cpp_linker_path: STRING "cpp_linker_path"
 
-   fz_conf_cpp_strip_path: STRING is "cpp_strip_path"
+   fz_conf_cpp_strip_path: STRING "cpp_strip_path"
 
-   fz_conf_cpp_linker_options: STRING is "cpp_linker_options"
+   fz_conf_cpp_linker_options: STRING "cpp_linker_options"
 
 end -- class FROZEN_STRING_LIST
 --

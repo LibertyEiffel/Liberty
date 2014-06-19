@@ -12,51 +12,51 @@ create {ANY}
    from_dictionary
 
 feature {ANY}
-   from_dictionary (dictionary_: like dictionary) is
+   from_dictionary (dictionary_: like dictionary)
       do
          dictionary := dictionary_
       end
 
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := dictionary.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := dictionary.upper
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := dictionary.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := dictionary.is_empty
       end
 
 feature {ANY}
-   item (i: INTEGER): K_ is
+   item (i: INTEGER): K_
       do
          Result := dictionary.key(i)
       end
 
-   first: like item is
+   first: like item
       do
          Result := item(lower)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
 feature {ANY}
-   new_iterator: ITERATOR[K_] is
+   new_iterator: ITERATOR[K_]
       do
          Result := dictionary.new_iterator_on_keys
       end
@@ -72,7 +72,7 @@ end -- class DICTIONARY_KEY_TRAVERSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

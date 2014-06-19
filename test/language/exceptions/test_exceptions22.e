@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, c: POLYMORPHIC1; b: POLYMORPHIC2; number, counter: INTEGER
       do

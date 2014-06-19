@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          x: INTEGER; format: STRING
       do
@@ -38,21 +38,21 @@ feature {ANY}
       end
 
 feature {}
-   printf_integer (format: POINTER; i: INTEGER) is
+   printf_integer (format: POINTER; i: INTEGER)
          -- Call the C predefined `printf' function using `format' and `i'.
          -- (Also note here the signature example.)
       external "C macro signature (char*,int)"
       alias "printf"
       end
 
-   printf_real (format: POINTER; d: REAL) is
+   printf_real (format: POINTER; d: REAL)
          -- Call the C predefined `printf' function using `format' and `i'.
          -- (Also note here the signature example.)
       external "C macro signature (char*,double)"
       alias "printf"
       end
 
-   inline_printf_integer (i: INTEGER) is
+   inline_printf_integer (i: INTEGER)
          -- Using the inline C definition. (Inside the alias string,
          -- the $i refer the `i' argument.)
       external "C inline"
@@ -62,7 +62,7 @@ feature {}
              ]"
       end
 
-   sum (a, b: INTEGER): INTEGER is
+   sum (a, b: INTEGER): INTEGER
          -- Using the inline C definition. (Inside the alias string,
          -- the $a refer the `a' argument.)
       external "C inline"

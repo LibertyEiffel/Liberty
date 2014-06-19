@@ -18,7 +18,7 @@ feature {ANY}
    desc: STRING
 
 feature {}
-   make is
+   make
       do
          create value_changed.make
          value_changed.connect(agent foo(?))
@@ -38,7 +38,7 @@ feature {}
       end
 
 feature {ANY}
-   foo (v: TUPLE[STRING, INTEGER, INTEGER]) is
+   foo (v: TUPLE[STRING, INTEGER, INTEGER])
       do
          io.put_string(v.first)
          io.put_string(once ": ")

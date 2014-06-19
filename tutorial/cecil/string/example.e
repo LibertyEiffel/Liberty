@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          string: STRING
       do
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
 feature {}
-   call_c_prog (str: STRING) is
+   call_c_prog (str: STRING)
       external "C"
       alias "c_prog"
       end

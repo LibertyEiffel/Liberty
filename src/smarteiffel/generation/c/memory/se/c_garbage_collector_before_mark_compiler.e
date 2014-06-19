@@ -13,7 +13,7 @@ create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          if visited.type.has_local_closure then
             memory.free_in(visited, function_body, True)
@@ -22,7 +22,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          function_body.append(once "if(")
          memory.na_env_in(visited, function_body)
@@ -42,7 +42,7 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       do
          memory.free_in(visited, function_body, False)
          function_body.append(once "=(void*)0;%N")
@@ -52,11 +52,11 @@ feature {}
          end
       end
 
-   gc_kernel_expanded (visited: TYPE_MARK) is
+   gc_kernel_expanded (visited: TYPE_MARK)
       do
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_expanded (visited: TYPE_MARK)
       do
       end
 

@@ -28,7 +28,7 @@ create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_UPDATE_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   call (values: TRAVERSABLE[EDC_VALUE]; arguments: TRAVERSABLE[EDC_VALUE]): INTEGER is
+   call (values: TRAVERSABLE[EDC_VALUE]; arguments: TRAVERSABLE[EDC_VALUE]): INTEGER
          -- Set the selected rows to the given values and return the number of changed rows
       require
          values.count = columns.count
@@ -55,12 +55,12 @@ feature {ANY}
          Result := connection.call_update(Current, values)
       end
 
-   table: EDC_TABLE is
+   table: EDC_TABLE
       do
          Result := item(lower).table
       end
 
-   all_columns_are_in_the_same_table: BOOLEAN is
+   all_columns_are_in_the_same_table: BOOLEAN
       local
          i: INTEGER; t: EDC_TABLE
       do

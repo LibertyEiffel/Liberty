@@ -4,12 +4,12 @@
 class AUX_AS1_ANY
 
 feature {ANY}
-   stream: STRING is
+   stream: STRING
       once
          create Result.make(10)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          Result := left.to_integer + right.to_integer
       end

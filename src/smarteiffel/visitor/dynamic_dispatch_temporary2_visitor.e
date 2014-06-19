@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       require
          visited /= Void
       deferred

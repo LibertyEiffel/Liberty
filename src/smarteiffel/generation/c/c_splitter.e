@@ -10,14 +10,14 @@ insert
    GLOBALS
 
 feature {}
-   do_split is
+   do_split
       require
          not dont_split
       deferred
       end
 
 feature {CLEAN}
-   should_clean (path_c, file_name: STRING): BOOLEAN is
+   should_clean (path_c, file_name: STRING): BOOLEAN
       require
          path_c /= Void
          file_name /= Void
@@ -25,7 +25,7 @@ feature {CLEAN}
       end
 
 feature {C_PRETTY_PRINTER}
-   connect (path_c: STRING) is
+   connect (path_c: STRING)
       require
          path_c /= Void
          not out_c.is_connected
@@ -37,11 +37,11 @@ feature {C_PRETTY_PRINTER}
          out_c.is_connected
       end
 
-   connect_cpp (cpp_path_c: STRING) is
+   connect_cpp (cpp_path_c: STRING)
       do
       end
 
-   split_now is
+   split_now
       require
          not dont_split
       do
@@ -51,15 +51,15 @@ feature {C_PRETTY_PRINTER}
          cpp.begin_c_file
       end
 
-   set_live_type (a_live_type: like live_type) is
+   set_live_type (a_live_type: like live_type)
       deferred
       end
 
-   live_type: LIVE_TYPE is
+   live_type: LIVE_TYPE
       deferred
       end
 
-   should_split (features_count: INTEGER): BOOLEAN is
+   should_split (features_count: INTEGER): BOOLEAN
       require
          features_count >= 0
       deferred
@@ -67,18 +67,18 @@ feature {C_PRETTY_PRINTER}
          dont_split implies not Result
       end
 
-   linker_command (c_file_prefix: STRING): STRING is
+   linker_command (c_file_prefix: STRING): STRING
       require
          not c_file_prefix.is_empty
       deferred
       end
 
-   out_c: TEXT_FILE_WRITE is
+   out_c: TEXT_FILE_WRITE
       once
          create Result.make
       end
 
-   set_dont_split (please_dont: BOOLEAN) is
+   set_dont_split (please_dont: BOOLEAN)
       do
          dont_split := please_dont
       ensure
@@ -87,7 +87,7 @@ feature {C_PRETTY_PRINTER}
 
    dont_split: BOOLEAN
 
-   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
+   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN
          -- True if some compilation should occur, False if the executable is up to date.
       require
          out_make.is_connected
@@ -95,20 +95,20 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {ACE}
-   pretty_ace_in (txt: STRING) is
+   pretty_ace_in (txt: STRING)
       require
          txt /= Void
       deferred
       end
 
 feature {}
-   connect_out_c is
+   connect_out_c
       deferred
       ensure
          out_c.is_connected
       end
 
-   c_connect (real_c_path: STRING) is
+   c_connect (real_c_path: STRING)
       do
          out_c.connect_to(real_c_path)
          if out_c.is_connected then

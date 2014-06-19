@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_SUBTRACT}
-   visit_liberty_subtract (v: LIBERTY_SUBTRACT) is
+   visit_liberty_subtract (v: LIBERTY_SUBTRACT)
       deferred
       end
 

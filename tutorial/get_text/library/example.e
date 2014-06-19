@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          lib: LIBRARY
       do
@@ -14,7 +14,7 @@ feature {}
          lib.print_hello
       end
 
-   translator: PROGRAM_TRANSLATOR is
+   translator: PROGRAM_TRANSLATOR
       once
          create Result.init
       end

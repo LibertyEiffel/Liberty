@@ -18,7 +18,7 @@ inherit
    HASHED_DICTIONARY_NODE[E_, LIBERTY_TYPE_DESCRIPTOR]
 
 feature {LIBERTY_TYPE_DESCRIPTOR_DICTIONARY}
-   set_key (td: LIBERTY_TYPE_DESCRIPTOR) is
+   set_key (td: LIBERTY_TYPE_DESCRIPTOR)
       do
          key := td
       end

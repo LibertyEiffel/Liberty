@@ -8,7 +8,7 @@ obsolete "In release 2.3, the new name for this class is RANDOM_NUMBER_GENERATOR
          
    
 feature {ANY} -- Creation procedures:
-   make is
+   make
          -- Create the generator with an automatic hazardous setting of
          -- the `seed_value'.
          -- Because automatic setting may be done using internal address
@@ -18,19 +18,19 @@ feature {ANY} -- Creation procedures:
       deferred
       end
 
-   with_seed (seed_value: INTEGER) is
+   with_seed (seed_value: INTEGER)
          -- Create the generator with an explicit `seed_value'.
       deferred
       end
 
 feature {ANY}
-   next is
+   next
          -- Compute next random number in sequence.
       deferred
       end
 
 feature {ANY} -- No modifications:
-   last_double: REAL is
+   last_double: REAL
          -- Look at the last computed number.
          -- Range 0 to 1
       obsolete "Use `last_real' instead (nov 4th 2004)."
@@ -40,7 +40,7 @@ feature {ANY} -- No modifications:
          Result > 0 and Result <= 1
       end
 
-   last_real: REAL is
+   last_real: REAL
          -- Look at the last computed number.
          -- Range 0 to 1
       deferred
@@ -48,7 +48,7 @@ feature {ANY} -- No modifications:
          Result > 0 and Result <= 1
       end
 
-   last_integer (n: INTEGER): INTEGER is
+   last_integer (n: INTEGER): INTEGER
          -- Look the last computed number.
          -- Range 1 to `n'.
       require
@@ -59,7 +59,7 @@ feature {ANY} -- No modifications:
       end
 
 feature {}
-   clock_based_random_seed: INTEGER is
+   clock_based_random_seed: INTEGER
          -- Some positive random value to be used as a seed which may change as much as possible in a random 
          -- way.
       local
@@ -84,7 +84,7 @@ end -- class GEN_RAND
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

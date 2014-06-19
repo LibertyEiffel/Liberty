@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ENTITY_REFERENCE}
-   visit_liberty_entity_reference (v: LIBERTY_ENTITY_REFERENCE) is
+   visit_liberty_entity_reference (v: LIBERTY_ENTITY_REFERENCE)
       deferred
       end
 

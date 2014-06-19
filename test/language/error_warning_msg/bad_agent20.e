@@ -9,13 +9,13 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          if (agent foo([?])).item([True]) then
          end
       end
 
-   foo (repeat: TUPLE[BOOLEAN]): BOOLEAN is
+   foo (repeat: TUPLE[BOOLEAN]): BOOLEAN
       do
          Result := repeat.first
       end

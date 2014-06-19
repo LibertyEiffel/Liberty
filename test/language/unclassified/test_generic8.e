@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          ta_i: AUX_GENERIC8A[INTEGER]; ta_c: AUX_GENERIC8A[CHARACTER]; tb: AUX_GENERIC8B
       do

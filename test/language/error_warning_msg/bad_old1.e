@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   f (i: INTEGER) is
+   f (i: INTEGER)
       do
       ensure
          illegal_assert: i = old (1 + old i)
       end
 
-   make is
+   make
       do
       end
 

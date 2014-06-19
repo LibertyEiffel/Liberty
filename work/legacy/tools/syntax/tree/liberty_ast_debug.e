@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   debug_keys: LIBERTY_AST_DEBUG_KEYS is
+   debug_keys: LIBERTY_AST_DEBUG_KEYS
       do
          Result ::= nodes.item(1)
       end
 
-   instructions: EIFFEL_LIST_NODE is
+   instructions: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(2)
       end
 
 feature {ANY}
-   count: INTEGER is 4
+   count: INTEGER 4
 
-   name: STRING is "Debug"
+   name: STRING "Debug"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 4 >> }
       end

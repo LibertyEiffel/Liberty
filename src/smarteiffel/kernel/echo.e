@@ -17,13 +17,13 @@ feature {ANY}
    is_verbose: BOOLEAN
          -- Is the `echo' in -verbose mode (default is False).
 
-   is_redirected: BOOLEAN is
+   is_redirected: BOOLEAN
          -- Is the `echo' redirected (when -output_error_warning_on flag is used).
       do
          Result := output_state /= state_on_output
       end
 
-   before_exit_close is
+   before_exit_close
          -- Must be called just before exit in order to remove a possibly empty `redirect_output_on'
          -- file.
       local
@@ -46,7 +46,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
          -- Setting the default `output_stream':
          output_stream := std_output
@@ -54,7 +54,7 @@ feature {}
       end
 
 feature {ANY} -- To echo some additional information (echo is only done when `is_verbose' is True).
-   put_string (msg: ABSTRACT_STRING) is
+   put_string (msg: ABSTRACT_STRING)
       do
          if is_verbose then
             output_stream.put_string(msg)
@@ -62,7 +62,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_line (msg: ABSTRACT_STRING) is
+   put_line (msg: ABSTRACT_STRING)
       do
          if is_verbose then
             output_stream.put_line(msg)
@@ -70,7 +70,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_character (c: CHARACTER) is
+   put_character (c: CHARACTER)
       do
          if is_verbose then
             output_stream.put_character(c)
@@ -78,7 +78,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_new_line is
+   put_new_line
       do
          if is_verbose then
             output_stream.put_new_line
@@ -86,7 +86,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_integer (i: INTEGER) is
+   put_integer (i: INTEGER)
       do
          if is_verbose then
             output_stream.put_integer(i)
@@ -94,7 +94,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_real_format (real: REAL; format: INTEGER) is
+   put_real_format (real: REAL; format: INTEGER)
       do
          if is_verbose then
             output_stream.put_real_format(real, format)
@@ -102,7 +102,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_position (position: POSITION) is
+   put_position (position: POSITION)
          -- Echo the `position' inside brakets.
       do
          if is_verbose then
@@ -121,7 +121,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   put_spaces (n: INTEGER) is
+   put_spaces (n: INTEGER)
       require
          n >= 0
       local
@@ -140,7 +140,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          output_stream.flush
       end
 
-   put_time (time: INTEGER_64) is
+   put_time (time: INTEGER_64)
       local
          ts, d, h, m, s, u: INTEGER_64
       do
@@ -176,7 +176,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   file_removing (path: STRING) is
+   file_removing (path: STRING)
          -- If `path' is an existing file, echo a message on `output_stream'
          -- while removing the file. Otherwise, do nothing.
       require
@@ -192,7 +192,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          may_fail: True or not (create {FILE_TOOLS}).is_readable(path)
       end
 
-   file_renaming (old_path, new_path: STRING) is
+   file_renaming (old_path, new_path: STRING)
       require
          old_path /= Void
          new_path /= Void
@@ -205,7 +205,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          (create {FILE_TOOLS}).rename_to(old_path, new_path)
       end
 
-   tfw_connect (tfw: TEXT_FILE_WRITE; path: STRING) is
+   tfw_connect (tfw: TEXT_FILE_WRITE; path: STRING)
       require
          not tfw.is_connected
          path /= Void
@@ -225,7 +225,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          tfw.is_connected
       end
 
-   tfr_connect (tfr: TEXT_FILE_READ; path: STRING) is
+   tfr_connect (tfr: TEXT_FILE_READ; path: STRING)
       require
          not tfr.is_connected
          path /= Void
@@ -236,7 +236,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          tfr.connect_to(path)
       end
 
-   tfr_connect_or_exit (tfr: TEXT_FILE_READ; path: STRING) is
+   tfr_connect_or_exit (tfr: TEXT_FILE_READ; path: STRING)
       require
          not tfr.is_connected
          path /= Void
@@ -252,7 +252,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          tfr.is_connected
       end
 
-   read_word_in (tfr: TEXT_FILE_READ): STRING is
+   read_word_in (tfr: TEXT_FILE_READ): STRING
       require
          tfr.is_connected
       do
@@ -272,7 +272,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          tfr.is_connected
       end
 
-   system_call (cmd: STRING): INTEGER is
+   system_call (cmd: STRING): INTEGER
          -- To trace `SYSTEM.execute' calls. When the `cmd' is composed of
          -- more than one line, each line is treated separately with one
          -- `execute' call.
@@ -306,7 +306,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   print_count (msg: STRING; count: INTEGER) is
+   print_count (msg: STRING; count: INTEGER)
       require
          count >= 0
       do
@@ -328,7 +328,7 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          end
       end
 
-   getenv (variable, file: STRING): STRING is
+   getenv (variable, file: STRING): STRING
          -- To echo every `{SYSTEM}.get_environment_variable' for all tools of
          -- Liberty Eiffel (because of magic variables and for SmallEiffel
          -- backward compatibility). When the `file' is not Void, it means
@@ -414,31 +414,31 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       end
 
 feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbose' status).
-   w_put_string (msg: ABSTRACT_STRING) is
+   w_put_string (msg: ABSTRACT_STRING)
       do
          error_stream.put_string(msg)
          error_stream.flush
       end
 
-   w_put_line (msg: ABSTRACT_STRING) is
+   w_put_line (msg: ABSTRACT_STRING)
       do
          error_stream.put_line(msg)
          error_stream.flush
       end
 
-   w_put_character (c: CHARACTER) is
+   w_put_character (c: CHARACTER)
       do
          error_stream.put_character(c)
          error_stream.flush
       end
 
-   w_put_integer (i: INTEGER) is
+   w_put_integer (i: INTEGER)
       do
          error_stream.put_integer(i)
          error_stream.flush
       end
 
-   w_put_spaces (n: INTEGER) is
+   w_put_spaces (n: INTEGER)
       require
          n >= 0
       local
@@ -455,7 +455,7 @@ feature {ANY} -- To echo warnings or error messages (echoing whatever `is_verbos
          error_stream.flush
       end
 
-   w_put_new_line is
+   w_put_new_line
       do
          error_stream.put_new_line
          error_stream.flush
@@ -476,7 +476,7 @@ feature {}
    output_path: STRING
 
 feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
-   redirect_output_on (new_output_path: ABSTRACT_STRING) is
+   redirect_output_on (new_output_path: ABSTRACT_STRING)
          -- -output_error_warning_on
       require
          not new_output_path.is_empty
@@ -502,7 +502,7 @@ feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
          is_redirected_on_file
       end
 
-   put_padded_num (num: INTEGER_64; precision: INTEGER) is
+   put_padded_num (num: INTEGER_64; precision: INTEGER)
       require
          is_verbose
          precision > 0
@@ -524,7 +524,7 @@ feature {COMPILE_TO_C, RUN, COMMAND_LINE_TOOLS}
       end
 
 feature {COMPILE, SE}
-   redirect_output_on_dev_null is
+   redirect_output_on_dev_null
       require
          is_redirected_on_std_output
       do
@@ -535,7 +535,7 @@ feature {COMPILE, SE}
       end
 
 feature {ANY}
-   redirect_output_to (new_output_stream: like output_stream; new_error_stream: like error_stream) is
+   redirect_output_to (new_output_stream: like output_stream; new_error_stream: like error_stream)
       require
          new_output_stream.is_connected
          new_error_stream.is_connected
@@ -549,28 +549,28 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_redirected_on_std_output: BOOLEAN is
+   is_redirected_on_std_output: BOOLEAN
       do
          Result := output_state = state_on_output
       end
 
-   is_redirected_on_dev_null: BOOLEAN is
+   is_redirected_on_dev_null: BOOLEAN
       do
          Result := output_state = state_on_null
       end
 
-   is_redirected_on_file: BOOLEAN is
+   is_redirected_on_file: BOOLEAN
       do
          Result := output_state = state_on_file
       end
 
-   is_redirected_on_other: BOOLEAN is
+   is_redirected_on_other: BOOLEAN
       do
          Result := output_state = state_on_other
       end
 
 feature {ACE, ACE_HANDLER}
-   set_verbose is
+   set_verbose
       do
          is_verbose := True
       ensure
@@ -578,7 +578,7 @@ feature {ACE, ACE_HANDLER}
       end
 
 feature {COMMAND_LINE_TOOLS}
-   set_verbose_with (v: BOOLEAN) is
+   set_verbose_with (v: BOOLEAN)
       do
          is_verbose := v
       ensure
@@ -586,7 +586,7 @@ feature {COMMAND_LINE_TOOLS}
       end
 
 feature {ACE_CHECK, COMMAND_LINE_TOOLS}
-   unset_verbose is
+   unset_verbose
       do
          is_verbose := False
       ensure
@@ -594,20 +594,20 @@ feature {ACE_CHECK, COMMAND_LINE_TOOLS}
       end
 
 feature {}
-   fz_smalleiffel: STRING is "SmallEiffel"
+   fz_smalleiffel: STRING "SmallEiffel"
 
-   fz_smalleiffeldirectory: STRING is "SmallEiffelDirectory"
+   fz_smalleiffeldirectory: STRING "SmallEiffelDirectory"
 
-   fz_smarteiffeldirectory: STRING is "SmartEiffelDirectory"
+   fz_smarteiffeldirectory: STRING "SmartEiffelDirectory"
 
 feature {}
-   state_on_output: INTEGER is 0
+   state_on_output: INTEGER 0
 
-   state_on_null: INTEGER is 1
+   state_on_null: INTEGER 1
 
-   state_on_file: INTEGER is 2
+   state_on_file: INTEGER 2
 
-   state_on_other: INTEGER is 3
+   state_on_other: INTEGER 3
 
 invariant
    output_stream.is_connected

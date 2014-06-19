@@ -22,42 +22,42 @@ create {LIBERTY_INTERPRETER_OBJECT_CREATOR}
    make
 
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := tuple.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := tuple.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := tuple.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := tuple.is_empty
       end
 
-   first: LIBERTY_INTERPRETER_OBJECT is
+   first: LIBERTY_INTERPRETER_OBJECT
       do
          Result := tuple.first
       end
 
-   last: LIBERTY_INTERPRETER_OBJECT is
+   last: LIBERTY_INTERPRETER_OBJECT
       do
          Result := tuple.last
       end
 
-   item (i: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+   item (i: INTEGER): LIBERTY_INTERPRETER_OBJECT
       do
          Result := tuple.item(i)
       end
 
-   new_iterator: ITERATOR[LIBERTY_INTERPRETER_OBJECT] is
+   new_iterator: ITERATOR[LIBERTY_INTERPRETER_OBJECT]
       do
          Result := tuple.new_iterator
       end
@@ -65,60 +65,60 @@ feature {ANY}
 feature {ANY}
    type: LIBERTY_ACTUAL_TYPE
 
-   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       do
          not_yet_implemented
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       do
          not_yet_implemented
       end
 
-   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       do
          not_yet_implemented
       end
 
-   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       do
          not_yet_implemented
       end
 
-   builtin_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_twin (a_position: LIBERTY_POSITION): like Current
       do
          not_yet_implemented
       end
 
-   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       do
          not_yet_implemented
       end
 
-   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       do
          not_yet_implemented
       end
 
-   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
+   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
-   show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
+   show_stack (o: OUTPUT_STREAM; indent: INTEGER)
       local
          i: INTEGER
       do
@@ -139,26 +139,26 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {}
-   expanded_twin: like Current is
+   expanded_twin: like Current
       do
          check False end
       end
 
 feature {LIBERTY_INTERPRETER_EXPRESSIONS}
-   ensure_capacity (capacity: INTEGER) is
+   ensure_capacity (capacity: INTEGER)
       do
          tuple.with_capacity(capacity)
       ensure
          tuple.capacity >= capacity
       end
 
-   add_last (a_object: LIBERTY_INTERPRETER_OBJECT) is
+   add_last (a_object: LIBERTY_INTERPRETER_OBJECT)
       do
          tuple.add_last(a_object)
       end
 
 feature {}
-   make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
+   make (a_interpreter: like interpreter; a_type: like type; a_position: like position)
       require
          a_interpreter /= Void
          a_type /= Void

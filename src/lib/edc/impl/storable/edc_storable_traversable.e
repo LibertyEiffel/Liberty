@@ -28,51 +28,51 @@ create {EDC_STORABLE_DATA}
    make
 
 feature {ANY} -- Indexing:
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := data.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := data.upper
       end
 
 feature {ANY} -- Counting:
-   count: INTEGER is
+   count: INTEGER
       do
          Result := data.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := count = 0
       end
 
 feature {ANY} -- Accessing:
-   item (i: INTEGER): EDC_DATUM is
+   item (i: INTEGER): EDC_DATUM
       do
          Result := data.item(i).item(index)
       end
 
-   first: like item is
+   first: like item
       do
          Result := item(lower)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
 feature {ANY} -- Other features:
-   g_get_new_iterator: ITERATOR[EDC_DATUM] is
+   g_get_new_iterator: ITERATOR[EDC_DATUM]
       do
          create {EDC_STORABLE_ITERATOR} Result.make(Current)
       end
 
 feature {}
-   make (a_data: like data; a_index: like index) is
+   make (a_data: like data; a_index: like index)
       do
          data := a_data
          index := a_index

@@ -7,7 +7,7 @@ insert
    INTEGER_GENERAL
 
 feature {ANY} -- Conversions:
-   fit_integer_8: BOOLEAN is
+   fit_integer_8: BOOLEAN
          -- Does `Current' fit in INTEGER_8?
       do
          if Current >= -128 then
@@ -17,7 +17,7 @@ feature {ANY} -- Conversions:
          Result = Current.in_range(-128, 127)
       end
 
-   to_integer_8: INTEGER_8 is
+   to_integer_8: INTEGER_8
          -- Explicit conversion to INTEGER_8.
       require
          fit_integer_8
@@ -26,7 +26,7 @@ feature {ANY} -- Conversions:
          Current.is_equal(Result)
       end
 
-   to_integer_32: INTEGER_32 is
+   to_integer_32: INTEGER_32
          -- Explicit conversion to INTEGER_32.
       do
          Result := Current
@@ -34,7 +34,7 @@ feature {ANY} -- Conversions:
          Current = Result
       end
 
-   to_integer_64: INTEGER_64 is
+   to_integer_64: INTEGER_64
          -- Explicit conversion to INTEGER_64.
       do
          Result := Current
@@ -42,7 +42,7 @@ feature {ANY} -- Conversions:
          Current = Result
       end
 
-   fit_natural_8: BOOLEAN is
+   fit_natural_8: BOOLEAN
          -- Does `Current' fit in NATURAL_8?
       do
          if Current >= 0 then
@@ -52,7 +52,7 @@ feature {ANY} -- Conversions:
          Result = Current.in_range(0, 255)
       end
 
-   to_natural_8: NATURAL_8 is
+   to_natural_8: NATURAL_8
          -- Explicit conversion to NATURAL_8.
       require
          fit_natural_8
@@ -61,7 +61,7 @@ feature {ANY} -- Conversions:
          Result.to_integer_16 = Current
       end
 
-   to_natural_16: NATURAL_16 is
+   to_natural_16: NATURAL_16
          -- Explicit conversion to NATURAL_16.
       require
          Current >= 0
@@ -70,7 +70,7 @@ feature {ANY} -- Conversions:
          Result.to_integer_16 = Current
       end
 
-   to_natural_32: NATURAL_32 is
+   to_natural_32: NATURAL_32
          -- Explicit conversion to NATURAL_32.
       require
          Current >= 0
@@ -79,7 +79,7 @@ feature {ANY} -- Conversions:
          Result.to_integer_16 = Current
       end
 
-   to_natural_64: NATURAL_64 is
+   to_natural_64: NATURAL_64
          -- Explicit conversion to NATURAL_64.
       require
          Current >= 0
@@ -88,19 +88,19 @@ feature {ANY} -- Conversions:
          Result.to_integer_16 = Current
       end
 
-   to_real_32: REAL_32 is
+   to_real_32: REAL_32
          -- Explicit conversion to REAL_32.
       do
          Result := Current
       end
 
-   to_real_64: REAL_64 is
+   to_real_64: REAL_64
          -- Explicit conversion to REAL_64.
       do
          Result := Current
       end
 
-   to_number: NUMBER is
+   to_number: NUMBER
          -- Explicit conversion to NUMBER.
       local
          number_tools: NUMBER_TOOLS
@@ -110,12 +110,12 @@ feature {ANY} -- Conversions:
          Result @= Current
       end
 
-   decimal_digit: CHARACTER is
+   decimal_digit: CHARACTER
       do
          Result := (Current + '0'.code).to_character
       end
 
-   hexadecimal_digit: CHARACTER is
+   hexadecimal_digit: CHARACTER
       do
          if Current <= 9 then
             Result := (Current + '0'.code).to_character
@@ -124,7 +124,7 @@ feature {ANY} -- Conversions:
          end
       end
 
-   infix "|..|" (other: INTEGER_16): INTEGER_RANGE[INTEGER_16] is
+   infix "|..|" (other: INTEGER_16): INTEGER_RANGE[INTEGER_16]
       require
          Current <= other
       do
@@ -132,53 +132,53 @@ feature {ANY} -- Conversions:
       end
 
 feature {}
-   integer_range_itemize: FUNCTION[TUPLE[INTEGER], INTEGER_16] is
+   integer_range_itemize: FUNCTION[TUPLE[INTEGER], INTEGER_16]
       once
-         Result := agent (i: INTEGER): INTEGER_16 is do Result := i.to_integer_16 end (?)
+         Result := agent (i: INTEGER): INTEGER_16 do Result := i.to_integer_16 end (?)
       end
 
-   integer_range_indexize: FUNCTION[TUPLE[INTEGER_16], INTEGER] is
+   integer_range_indexize: FUNCTION[TUPLE[INTEGER_16], INTEGER]
       once
-         Result := agent (i: INTEGER_16): INTEGER is do Result := i.to_integer_32 end (?)
+         Result := agent (i: INTEGER_16): INTEGER do Result := i.to_integer_32 end (?)
       end
 
 feature {ANY}
-   low_8: INTEGER_8 is
+   low_8: INTEGER_8
          -- The 8 low bits of `Current' (i.e. the right-most part).
       external "built_in"
       end
 
-   high_8: INTEGER_8 is
+   high_8: INTEGER_8
          -- The 8 high bits of `Current' (i.e. the left-most part).
       do
          Result := (Current |>> 8).low_8
       end
 
-   one: INTEGER_8 is 1
+   one: INTEGER_8 1
 
-   zero: INTEGER_8 is 0
+   zero: INTEGER_8 0
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := Current & 0x7FFF
       end
 
-   sqrt: REAL is
+   sqrt: REAL
       do
          Result := to_real_64.sqrt
       end
 
-   log: REAL is
+   log: REAL
       do
          Result := to_real_64.log
       end
 
-   log10: REAL is
+   log10: REAL
       do
          Result := to_real_64.log10
       end
 
-   bit_count: INTEGER_8 is 16
+   bit_count: INTEGER_8 16
 
 end -- class INTEGER_16
 --
@@ -188,7 +188,7 @@ end -- class INTEGER_16
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

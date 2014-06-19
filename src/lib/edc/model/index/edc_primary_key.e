@@ -28,7 +28,7 @@ create {ANY}
    make, manifest_creation
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_PRIMARY_KEY_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   can_add_to (a_table: like table): BOOLEAN is
+   can_add_to (a_table: like table): BOOLEAN
       local
          i: INTEGER
       do
@@ -62,38 +62,38 @@ feature {ANY}
          end
       end
 
-   has (a_column: EDC_COLUMN): BOOLEAN is
+   has (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := columns.has(a_column)
       end
 
-   index_of (a_column: EDC_COLUMN): INTEGER is
+   index_of (a_column: EDC_COLUMN): INTEGER
       do
          Result := columns.first_index_of(a_column)
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := columns.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := columns.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := columns.upper
       end
 
-   item (i: INTEGER): EDC_COLUMN is
+   item (i: INTEGER): EDC_COLUMN
       do
          Result := columns.item(i)
       end
 
 feature {}
-   make (a_columns: TRAVERSABLE[EDC_COLUMN]) is
+   make (a_columns: TRAVERSABLE[EDC_COLUMN])
       local
          i: INTEGER
       do
@@ -111,14 +111,14 @@ feature {}
    columns: FAST_ARRAY[EDC_COLUMN]
 
 feature {} -- Implement manifest generic creation (very low-level):
-   manifest_semicolon_check: BOOLEAN is False
+   manifest_semicolon_check: BOOLEAN False
 
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
       do
          create columns.make(needed_capacity)
       end
 
-   manifest_put (index: INTEGER; element: EDC_COLUMN) is
+   manifest_put (index: INTEGER; element: EDC_COLUMN)
       do
          columns.put(element, index)
       end

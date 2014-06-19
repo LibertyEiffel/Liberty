@@ -10,25 +10,25 @@ insert
    DISPOSABLE
 
 feature {ANY}
-   name: STRING is
+   name: STRING
       deferred
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       deferred
       end
 
-   error: STRING is
+   error: STRING
       deferred
       end
 
 feature {URL_VALIDITY}
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       deferred
       end
 
 feature {URL}
-   connect_to (url: URL; read, write: BOOLEAN) is
+   connect_to (url: URL; read, write: BOOLEAN)
       require
          url.uri /= Void
          not is_connected
@@ -36,7 +36,7 @@ feature {URL}
       deferred
       end
 
-   disconnect is
+   disconnect
       require
          is_connected
       deferred
@@ -44,19 +44,19 @@ feature {URL}
          not is_connected
       end
 
-   input: INPUT_STREAM is
+   input: INPUT_STREAM
       require
          is_connected
       deferred
       end
 
-   output: OUTPUT_STREAM is
+   output: OUTPUT_STREAM
       require
          is_connected
       deferred
       end
 
-   locator (a_uri: STRING): RESOURCE_LOCATOR is
+   locator (a_uri: STRING): RESOURCE_LOCATOR
          -- PROTOCOL is a factory of RESOURCE_LOCATOR
       require
          valid_uri(a_uri)
@@ -65,14 +65,14 @@ feature {URL}
          Result.uri.is_equal(a_uri)
       end
 
-   recycle_locator (a_locator: RESOURCE_LOCATOR) is
+   recycle_locator (a_locator: RESOURCE_LOCATOR)
       require
          a_locator /= Void
       deferred
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if is_connected then
             disconnect
@@ -85,7 +85,7 @@ feature {RECYCLING_POOL}
       end
 
 feature {}
-   dispose is
+   dispose
       do
          if is_connected then
             disconnect
@@ -108,7 +108,7 @@ end -- class PROTOCOL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

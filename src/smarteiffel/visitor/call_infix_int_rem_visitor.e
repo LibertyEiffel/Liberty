@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CALL_INFIX_INT_REM}
-   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
+   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM)
       require
          visited /= Void
       deferred

@@ -15,7 +15,7 @@ deferred class COMMAND_LINE_ARGUMENT
    --
 
 feature {ANY}
-   infix "or", infix "or else" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT is
+   infix "or", infix "or else" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT
          -- Arguments disjunction. Useful to implement mutually exclusive sets of arguments.
       require
          other /= Void
@@ -25,7 +25,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix "and", infix "and then" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT is
+   infix "and", infix "and then" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT
          -- Arguments conjunction. All the arguments are checked, in any order.
       require
          other /= Void
@@ -35,7 +35,7 @@ feature {ANY}
          Result /= Void
       end
 
-   prefix "not": COMMAND_LINE_ARGUMENT is
+   prefix "not": COMMAND_LINE_ARGUMENT
          -- (tentative; don't use it, the semantics is not well defined)
       do
          create {CLARG_NOT} Result.make(Current)
@@ -44,35 +44,35 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
          -- True if the option is present and correct.
       deferred
       end
 
-   is_mandatory: BOOLEAN is
+   is_mandatory: BOOLEAN
          -- True if the argument must be present.
       deferred
       end
 
-   is_repeatable: BOOLEAN is
+   is_repeatable: BOOLEAN
          -- True if the argument is repeatable; False if unique.
       deferred
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   prepare_parse is
+   prepare_parse
       deferred
       ensure
          not is_set
       end
 
-   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       require
          context.is_parsed
       deferred
       end
 
-   undo_parse (context: COMMAND_LINE_CONTEXT) is
+   undo_parse (context: COMMAND_LINE_CONTEXT)
       require
          is_set_at(context)
       deferred
@@ -81,7 +81,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          ;(not is_repeatable) implies not is_set
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
          -- True if the option is present and correct at the given context.
       require
          context.is_parsed
@@ -91,20 +91,20 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          ;(not is_repeatable) implies (Result = is_set)
       end
 
-   usage_summary (stream: OUTPUT_STREAM) is
+   usage_summary (stream: OUTPUT_STREAM)
       deferred
       ensure
          not detailed
       end
 
-   usage_details (stream: OUTPUT_STREAM) is
+   usage_details (stream: OUTPUT_STREAM)
       deferred
       ensure
          detailed
       end
 
 feature {}
-   detailed: BOOLEAN is
+   detailed: BOOLEAN
       deferred
       end
 
@@ -116,7 +116,7 @@ end -- class COMMAND_LINE_ARGUMENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

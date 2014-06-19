@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          io.put_string(("").twin.substring(1, 0))
       end

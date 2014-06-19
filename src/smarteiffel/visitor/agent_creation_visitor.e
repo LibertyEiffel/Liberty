@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
+   visit_agent_creation (visited: AGENT_CREATION)
       require
          visited /= Void
       deferred

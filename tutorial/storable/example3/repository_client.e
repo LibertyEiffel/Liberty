@@ -12,7 +12,7 @@ create {ANY}
 feature {}
    repository: REPOSITORY[STRING]
 
-   make is
+   make
       do
          open_repository
          display_repository
@@ -25,7 +25,7 @@ feature {}
 feature {} -- Implementation
    ios: SOCKET_INPUT_OUTPUT_STREAM
 
-   open_repository is
+   open_repository
          -- Open the repository
       local
          access: TCP_ACCESS
@@ -54,12 +54,12 @@ feature {} -- Implementation
          repository.update
       end
 
-   close_repository is
+   close_repository
       do
          ios.disconnect
       end
 
-   display_repository is
+   display_repository
          -- Display the contents of the repository
       local
          i: INTEGER
@@ -78,7 +78,7 @@ feature {} -- Implementation
          end
       end
 
-   ask_new_variable is
+   ask_new_variable
          -- Ask for a new variable and put it in the repository
       local
          name, value: STRING

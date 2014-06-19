@@ -30,7 +30,7 @@ feature {ANY}
    parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]
    position: LIBERTY_POSITION
 
-   definition_type: LIBERTY_ACTUAL_TYPE is
+   definition_type: LIBERTY_ACTUAL_TYPE
       do
          Result := bound_feature.definition_type
       end
@@ -41,7 +41,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
    bound_feature: LIBERTY_FEATURE
 
 feature {LIBERTY_INTERPRETER}
-   call (debug_steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS) is
+   call (debug_steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS)
       do
          check not prepare end
 
@@ -84,13 +84,13 @@ feature {LIBERTY_INTERPRETER}
       end
 
 feature {LIBERTY_FEATURE_ACCELERATOR}
-   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR)
       do
          bound_feature.accelerate_call(a)
       end
 
 feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
-   evaluate_parameters is
+   evaluate_parameters
       local
          i: INTEGER; p: FAST_ARRAY[LIBERTY_INTERPRETER_OBJECT]
          val: LIBERTY_INTERPRETER_OBJECT
@@ -142,7 +142,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER}
 feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY_INTERPRETER_EXTERNAL_PLUGINS}
    returned_object: LIBERTY_INTERPRETER_OBJECT
 
-   set_returned_object (a_returned_object: like returned_object) is
+   set_returned_object (a_returned_object: like returned_object)
       do
          if returned_static_type = Void then
             check a_returned_object = Void end
@@ -161,17 +161,17 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
          returned_object = a_returned_object
       end
 
-   local_static_type (local_name: FIXED_STRING): LIBERTY_ACTUAL_TYPE is
+   local_static_type (local_name: FIXED_STRING): LIBERTY_ACTUAL_TYPE
       do
          Result := local_types.reference_at(local_name)
       end
 
-   set_local_value (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT) is
+   set_local_value (local_name: FIXED_STRING; value: LIBERTY_INTERPRETER_OBJECT)
       do
          local_map.put(value, local_name)
       end
 
-   local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+   local_value (local_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT
       do
          if local_map = Void then
             interpreter.fatal_error("Locals map not ready!", position)
@@ -179,7 +179,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
          Result := local_map.fast_reference_at(local_name)
       end
 
-   parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+   parameter (parameter_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT
       do
          if parameter_map = Void then
             interpreter.fatal_error("Parameters map not ready!", position)
@@ -187,12 +187,12 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
          Result := parameter_map.fast_reference_at(parameter_name)
       end
 
-   writable_feature_static_type (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE is
+   writable_feature_static_type (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_ACTUAL_TYPE
       do
          Result ::= target.type.feature_definition(a_feature_name).result_type.known_type
       end
 
-   set_writable_feature (a_name: LIBERTY_FEATURE_NAME; a_value: LIBERTY_INTERPRETER_OBJECT) is
+   set_writable_feature (a_name: LIBERTY_FEATURE_NAME; a_value: LIBERTY_INTERPRETER_OBJECT)
       local
          struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
       do
@@ -200,7 +200,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
          struct.put_attribute(a_name.name, a_value)
       end
 
-   writable_feature (a_name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT is
+   writable_feature (a_name: LIBERTY_FEATURE_NAME): LIBERTY_INTERPRETER_OBJECT
       local
          struct: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
       do
@@ -210,7 +210,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
 
    raised_exception: LIBERTY_INTERPRETER_EXCEPTION
 
-   raise (a_exception: like raised_exception) is
+   raise (a_exception: like raised_exception)
       do
          raised_exception := a_exception
       ensure
@@ -218,7 +218,7 @@ feature {LIBERTY_INTERPRETER, LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL, LIBERTY
       end
 
 feature {ANY}
-   show_stack (o: OUTPUT_STREAM) is
+   show_stack (o: OUTPUT_STREAM)
       do
          o.put_string(once "Feature {")
          o.put_string(target.type.full_name)
@@ -244,17 +244,17 @@ feature {ANY}
       end
 
 feature {}
-   show_parameter_map (o: OUTPUT_STREAM) is
+   show_parameter_map (o: OUTPUT_STREAM)
       do
          show_map(parameter_map, once "Parameters", o)
       end
 
-   show_local_map (o: OUTPUT_STREAM) is
+   show_local_map (o: OUTPUT_STREAM)
       do
          show_map(local_map, once "Locals", o)
       end
 
-   show_map (map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]; tag: STRING; o: OUTPUT_STREAM) is
+   show_map (map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]; tag: STRING; o: OUTPUT_STREAM)
       local
          i: INTEGER; obj: LIBERTY_INTERPRETER_OBJECT
       do
@@ -282,7 +282,7 @@ feature {}
       end
 
 feature {LIBERTY_FEATURE_ATTRIBUTE}
-   visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE) is
+   visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE)
       local
          t: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
          fn: LIBERTY_FEATURE_NAME
@@ -314,7 +314,7 @@ feature {LIBERTY_FEATURE_ATTRIBUTE}
       end
 
 feature {LIBERTY_FEATURE_CONSTANT}
-   visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT) is
+   visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT)
       do
          if prepare then
             evaluate_parameters
@@ -325,14 +325,14 @@ feature {LIBERTY_FEATURE_CONSTANT}
       end
 
 feature {LIBERTY_FEATURE_DEFERRED}
-   visit_liberty_feature_deferred (v: LIBERTY_FEATURE_DEFERRED) is
+   visit_liberty_feature_deferred (v: LIBERTY_FEATURE_DEFERRED)
       do
          evaluate_parameters
          interpreter.fatal_error("Deferred feature called", position)
       end
 
 feature {LIBERTY_FEATURE_DO}
-   visit_liberty_feature_do (v: LIBERTY_FEATURE_DO) is
+   visit_liberty_feature_do (v: LIBERTY_FEATURE_DO)
       do
          if prepare then
             evaluate_parameters
@@ -343,7 +343,7 @@ feature {LIBERTY_FEATURE_DO}
       end
 
 feature {LIBERTY_FEATURE_EXTERNAL}
-   visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL) is
+   visit_liberty_feature_external (v: LIBERTY_FEATURE_EXTERNAL)
       do
          if prepare then
             inspect
@@ -369,7 +369,7 @@ feature {LIBERTY_FEATURE_EXTERNAL}
       end
 
 feature {LIBERTY_FEATURE_ONCE}
-   visit_liberty_feature_once (v: LIBERTY_FEATURE_ONCE) is
+   visit_liberty_feature_once (v: LIBERTY_FEATURE_ONCE)
       local
          tags: LIBERTY_TAGS
       do
@@ -389,13 +389,13 @@ feature {LIBERTY_FEATURE_ONCE}
       end
 
 feature {LIBERTY_FEATURE_REDEFINED}
-   visit_liberty_feature_redefined (v: LIBERTY_FEATURE_REDEFINED) is
+   visit_liberty_feature_redefined (v: LIBERTY_FEATURE_REDEFINED)
       do
          v.redefined_feature.accept(Current)
       end
 
 feature {LIBERTY_FEATURE_UNIQUE}
-   visit_liberty_feature_unique (v: LIBERTY_FEATURE_UNIQUE) is
+   visit_liberty_feature_unique (v: LIBERTY_FEATURE_UNIQUE)
       do
          if prepare then
             evaluate_parameters
@@ -405,7 +405,7 @@ feature {LIBERTY_FEATURE_UNIQUE}
       end
 
 feature {}
-   make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: LIBERTY_FEATURE_DEFINITION; a_actuals: like actuals; a_position: like position) is
+   make (a_interpreter: like interpreter; a_target: like target; a_feature_definition: LIBERTY_FEATURE_DEFINITION; a_actuals: like actuals; a_position: like position)
       require
          a_interpreter /= Void
          a_target /= Void
@@ -435,7 +435,7 @@ feature {}
          actuals = a_actuals
       end
 
-   make_precursor (a_interpreter: like interpreter; a_target: like target; a_precursor: LIBERTY_FEATURE; a_actuals: like actuals; a_position: like position) is
+   make_precursor (a_interpreter: like interpreter; a_target: like target; a_precursor: LIBERTY_FEATURE; a_actuals: like actuals; a_position: like position)
       require
          a_interpreter /= Void
          a_target /= Void
@@ -461,7 +461,7 @@ feature {}
 
    feature_name: LIBERTY_FEATURE_NAME
 
-   name_precursor: FIXED_STRING is
+   name_precursor: FIXED_STRING
       once
          Result := "Precursor".intern
       end
@@ -475,17 +475,17 @@ feature {}
    local_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
    local_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
 
-   empty_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING] is
+   empty_types: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
       once
          create {AVL_DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]} Result.make
       end
 
-   empty_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING] is
+   empty_map: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
       once
          create {AVL_DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]} Result.make
       end
 
-   prepare_parameter_map (f: LIBERTY_FEATURE) is
+   prepare_parameter_map (f: LIBERTY_FEATURE)
       require
          parameters /= Void
       local
@@ -523,7 +523,7 @@ feature {}
          parameter_map /= Void
       end
 
-   prepare_local_map (f: LIBERTY_FEATURE_ROUTINE) is
+   prepare_local_map (f: LIBERTY_FEATURE_ROUTINE)
       local
          i: INTEGER; l: LIBERTY_LOCAL; def: LIBERTY_INTERPRETER_OBJECT
          actual_type: LIBERTY_ACTUAL_TYPE
@@ -553,12 +553,12 @@ feature {}
       end
 
 feature {LIBERTY_INTERPRETER}
-   has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN is
+   has_old_value (a_expression: LIBERTY_EXPRESSION): BOOLEAN
       do
          Result := old_values.fast_has(a_expression)
       end
 
-   old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT is
+   old_value (a_expression: LIBERTY_EXPRESSION): LIBERTY_INTERPRETER_OBJECT
       require
          has_old_value(a_expression)
       local
@@ -571,7 +571,7 @@ feature {LIBERTY_INTERPRETER}
          Result := t.first
       end
 
-   add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING; a_fatal_position: LIBERTY_POSITION) is
+   add_old_value (a_expression: LIBERTY_EXPRESSION; a_value: LIBERTY_INTERPRETER_OBJECT; a_fatal_error: FIXED_STRING; a_fatal_position: LIBERTY_POSITION)
       require
          not has_old_value(a_expression)
       do
@@ -592,7 +592,7 @@ feature {LIBERTY_INTERPRETER}
       end
 
 feature {}
-   check_invariant is
+   check_invariant
       require
          options.is_invariant_checked
       do
@@ -605,7 +605,7 @@ feature {}
          end
       end
 
-   check_precondition is
+   check_precondition
       require
          options.is_require_checked
       do
@@ -618,7 +618,7 @@ feature {}
          end
       end
 
-   prepare_postcondition is
+   prepare_postcondition
       require
          options.is_ensure_checked
       do
@@ -631,7 +631,7 @@ feature {}
          end
       end
 
-   check_postcondition is
+   check_postcondition
       require
          options.is_ensure_checked
       do
@@ -649,7 +649,7 @@ feature {}
    old_values: DICTIONARY[TUPLE[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING, LIBERTY_POSITION], LIBERTY_EXPRESSION]
    prepare: BOOLEAN
 
-   debug_step (step: STRING) is
+   debug_step (step: STRING)
       do
          std_output.put_new_line
          std_output.put_string(once " >>> ")
@@ -660,7 +660,7 @@ feature {}
          std_output.put_line(step)
       end
 
-   log_call (tag: STRING) is
+   log_call (tag: STRING)
       require
          log.is_trace
       local

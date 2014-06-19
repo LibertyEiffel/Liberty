@@ -10,26 +10,26 @@ feature {}
    torch: LIBERTY_ENLIGHTENING_THE_WORLD
    type_lookup: LIBERTY_TYPE_LOOKUP
 
-   universe: LIBERTY_UNIVERSE is
+   universe: LIBERTY_UNIVERSE
       deferred
       end
 
    effective_generic_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
-   ast: LIBERTY_AST_NON_TERMINAL_NODE is
+   ast: LIBERTY_AST_NON_TERMINAL_NODE
       deferred
       ensure
          Result /= Void
       end
 
-   file: FIXED_STRING is
+   file: FIXED_STRING
       deferred
       ensure
          Result /= Void
       end
 
 feature {}
-   decoded_string (string_image: LIBERTY_AST_STRING): STRING is
+   decoded_string (string_image: LIBERTY_AST_STRING): STRING
       require
          {TYPED_EIFFEL_IMAGE[STRING]} ?:= string_image.image
       local
@@ -40,7 +40,7 @@ feature {}
       end
 
 feature {}
-   semantics_position_at (a_node: EIFFEL_NODE): LIBERTY_POSITION is
+   semantics_position_at (a_node: EIFFEL_NODE): LIBERTY_POSITION
       require
          {LIBERTY_AST_TERMINAL_NODE} ?:= a_node
       local
@@ -50,12 +50,12 @@ feature {}
          Result := image_semantics_position_at(node.image)
       end
 
-   image_semantics_position_at (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
+   image_semantics_position_at (a_image: EIFFEL_IMAGE): LIBERTY_POSITION
       do
          Result := errors.semantics_position(a_image.index, ast, file)
       end
 
-   semantics_position_after (a_node: EIFFEL_NODE): LIBERTY_POSITION is
+   semantics_position_after (a_node: EIFFEL_NODE): LIBERTY_POSITION
       require
          {LIBERTY_AST_TERMINAL_NODE} ?:= a_node
       local
@@ -65,7 +65,7 @@ feature {}
          Result := image_semantics_position_after(node.image)
       end
 
-   image_semantics_position_after (a_image: EIFFEL_IMAGE): LIBERTY_POSITION is
+   image_semantics_position_after (a_image: EIFFEL_IMAGE): LIBERTY_POSITION
       do
          Result := errors.semantics_position(a_image.index + a_image.image.count, ast, file)
       end

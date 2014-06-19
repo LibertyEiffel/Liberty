@@ -23,7 +23,7 @@ create {MULTIPLEX_SERVER}
    make
 
 feature {LOOP_ITEM}
-   continue is
+   continue
       local
          s: STRING
       do
@@ -48,7 +48,7 @@ feature {LOOP_ITEM}
       end
 
 feature {SERVER}
-   set_io (a_io: like ios) is
+   set_io (a_io: like ios)
          -- Called by the server when the connection is initiated. The stream is the socket into which the
          -- connection is plugged.
       do
@@ -60,14 +60,14 @@ feature {SERVER}
       end
 
 feature {}
-   make (a_server: like server) is
+   make (a_server: like server)
       do
          counter.increment
          id := counter.item
          server := a_server
       end
 
-   handle_disconnect (a_io: like ios) is
+   handle_disconnect (a_io: like ios)
       require
          a_io = ios
          done
@@ -79,7 +79,7 @@ feature {}
 
    server: MULTIPLEX_SERVER
 
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end

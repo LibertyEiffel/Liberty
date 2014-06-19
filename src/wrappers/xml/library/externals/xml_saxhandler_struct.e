@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_saxhandler_struct_set_internalsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_internalsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for internalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_isstandalone (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_isstandalone (a_structure: POINTER; a_value: POINTER)
 			-- Setter for isStandalone field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_hasinternalsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_hasinternalsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for hasInternalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_hasexternalsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_hasexternalsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for hasExternalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_resolveentity (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_resolveentity (a_structure: POINTER; a_value: POINTER)
 			-- Setter for resolveEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_getentity (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_getentity (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_entitydecl (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_entitydecl (a_structure: POINTER; a_value: POINTER)
 			-- Setter for entityDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_notationdecl (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_notationdecl (a_structure: POINTER; a_value: POINTER)
 			-- Setter for notationDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_attributedecl (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_attributedecl (a_structure: POINTER; a_value: POINTER)
 			-- Setter for attributeDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_elementdecl (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_elementdecl (a_structure: POINTER; a_value: POINTER)
 			-- Setter for elementDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_unparsedentitydecl (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_unparsedentitydecl (a_structure: POINTER; a_value: POINTER)
 			-- Setter for unparsedEntityDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_setdocumentlocator (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_setdocumentlocator (a_structure: POINTER; a_value: POINTER)
 			-- Setter for setDocumentLocator field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_startdocument (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_startdocument (a_structure: POINTER; a_value: POINTER)
 			-- Setter for startDocument field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_enddocument (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_enddocument (a_structure: POINTER; a_value: POINTER)
 			-- Setter for endDocument field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_startelement (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_startelement (a_structure: POINTER; a_value: POINTER)
 			-- Setter for startElement field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_endelement (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_endelement (a_structure: POINTER; a_value: POINTER)
 			-- Setter for endElement field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -200,7 +200,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_reference (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_reference (a_structure: POINTER; a_value: POINTER)
 			-- Setter for reference field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -212,7 +212,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_characters (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_characters (a_structure: POINTER; a_value: POINTER)
 			-- Setter for characters field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -224,7 +224,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_ignorablewhitespace (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_ignorablewhitespace (a_structure: POINTER; a_value: POINTER)
 			-- Setter for ignorableWhitespace field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -236,7 +236,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_processinginstruction (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_processinginstruction (a_structure: POINTER; a_value: POINTER)
 			-- Setter for processingInstruction field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -248,7 +248,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_comment (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_comment (a_structure: POINTER; a_value: POINTER)
 			-- Setter for comment field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -260,7 +260,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_warning (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_warning (a_structure: POINTER; a_value: POINTER)
 			-- Setter for warning field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -272,7 +272,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_error (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_error (a_structure: POINTER; a_value: POINTER)
 			-- Setter for error field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -284,7 +284,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_fatalerror (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_fatalerror (a_structure: POINTER; a_value: POINTER)
 			-- Setter for fatalError field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -296,7 +296,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_getparameterentity (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_getparameterentity (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getParameterEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -308,7 +308,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_cdatablock (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_cdatablock (a_structure: POINTER; a_value: POINTER)
 			-- Setter for cdataBlock field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -320,7 +320,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_externalsubset (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_externalsubset (a_structure: POINTER; a_value: POINTER)
 			-- Setter for externalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -332,7 +332,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_initialized (a_structure: POINTER; a_value: NATURAL) is
+	xml_saxhandler_struct_set_initialized (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for initialized field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -344,7 +344,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_startelementns (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_startelementns (a_structure: POINTER; a_value: POINTER)
 			-- Setter for startElementNs field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -356,7 +356,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_endelementns (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_endelementns (a_structure: POINTER; a_value: POINTER)
 			-- Setter for endElementNs field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -368,7 +368,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxhandler_struct_set_serror (a_structure: POINTER; a_value: POINTER) is
+	xml_saxhandler_struct_set_serror (a_structure: POINTER; a_value: POINTER)
 			-- Setter for serror field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -382,7 +382,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_saxhandler_struct_get_internalsubset (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_internalsubset (a_structure: POINTER): POINTER
 			-- Query for internalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -394,7 +394,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_isstandalone (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_isstandalone (a_structure: POINTER): POINTER
 			-- Query for isStandalone field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -406,7 +406,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_hasinternalsubset (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_hasinternalsubset (a_structure: POINTER): POINTER
 			-- Query for hasInternalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -418,7 +418,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_hasexternalsubset (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_hasexternalsubset (a_structure: POINTER): POINTER
 			-- Query for hasExternalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -430,7 +430,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_resolveentity (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_resolveentity (a_structure: POINTER): POINTER
 			-- Query for resolveEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -442,7 +442,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_getentity (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_getentity (a_structure: POINTER): POINTER
 			-- Query for getEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -454,7 +454,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_entitydecl (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_entitydecl (a_structure: POINTER): POINTER
 			-- Query for entityDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -466,7 +466,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_notationdecl (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_notationdecl (a_structure: POINTER): POINTER
 			-- Query for notationDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -478,7 +478,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_attributedecl (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_attributedecl (a_structure: POINTER): POINTER
 			-- Query for attributeDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -490,7 +490,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_elementdecl (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_elementdecl (a_structure: POINTER): POINTER
 			-- Query for elementDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -502,7 +502,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_unparsedentitydecl (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_unparsedentitydecl (a_structure: POINTER): POINTER
 			-- Query for unparsedEntityDecl field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -514,7 +514,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_setdocumentlocator (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_setdocumentlocator (a_structure: POINTER): POINTER
 			-- Query for setDocumentLocator field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -526,7 +526,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_startdocument (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_startdocument (a_structure: POINTER): POINTER
 			-- Query for startDocument field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -538,7 +538,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_enddocument (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_enddocument (a_structure: POINTER): POINTER
 			-- Query for endDocument field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -550,7 +550,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_startelement (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_startelement (a_structure: POINTER): POINTER
 			-- Query for startElement field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -562,7 +562,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_endelement (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_endelement (a_structure: POINTER): POINTER
 			-- Query for endElement field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -574,7 +574,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_reference (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_reference (a_structure: POINTER): POINTER
 			-- Query for reference field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -586,7 +586,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_characters (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_characters (a_structure: POINTER): POINTER
 			-- Query for characters field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -598,7 +598,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_ignorablewhitespace (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_ignorablewhitespace (a_structure: POINTER): POINTER
 			-- Query for ignorableWhitespace field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -610,7 +610,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_processinginstruction (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_processinginstruction (a_structure: POINTER): POINTER
 			-- Query for processingInstruction field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -622,7 +622,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_comment (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_comment (a_structure: POINTER): POINTER
 			-- Query for comment field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -634,7 +634,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_warning (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_warning (a_structure: POINTER): POINTER
 			-- Query for warning field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -646,7 +646,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_error (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_error (a_structure: POINTER): POINTER
 			-- Query for error field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -658,7 +658,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_fatalerror (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_fatalerror (a_structure: POINTER): POINTER
 			-- Query for fatalError field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -670,7 +670,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_getparameterentity (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_getparameterentity (a_structure: POINTER): POINTER
 			-- Query for getParameterEntity field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -682,7 +682,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_cdatablock (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_cdatablock (a_structure: POINTER): POINTER
 			-- Query for cdataBlock field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -694,7 +694,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_externalsubset (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_externalsubset (a_structure: POINTER): POINTER
 			-- Query for externalSubset field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -706,7 +706,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_initialized (a_structure: POINTER): NATURAL is
+	xml_saxhandler_struct_get_initialized (a_structure: POINTER): NATURAL
 			-- Query for initialized field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -719,7 +719,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field _private.
-	xml_saxhandler_struct_get_startelementns (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_startelementns (a_structure: POINTER): POINTER
 			-- Query for startElementNs field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -731,7 +731,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_endelementns (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_endelementns (a_structure: POINTER): POINTER
 			-- Query for endElementNs field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -743,7 +743,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxhandler_struct_get_serror (a_structure: POINTER): POINTER is
+	xml_saxhandler_struct_get_serror (a_structure: POINTER): POINTER
 			-- Query for serror field of XML_SAXHANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -756,7 +756,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

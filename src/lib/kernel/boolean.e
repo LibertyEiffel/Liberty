@@ -12,7 +12,7 @@ insert
       end
 
 feature {ANY}
-   infix "and" (other: BOOLEAN): BOOLEAN is
+   infix "and" (other: BOOLEAN): BOOLEAN
          -- `and' of Current with `other'.
          --
          -- Note: when evaluation of `other' has no side effects, it
@@ -22,17 +22,17 @@ feature {ANY}
          Result := Current and then other
       end
 
-   infix "and then" (other: BOOLEAN): BOOLEAN is
+   infix "and then" (other: BOOLEAN): BOOLEAN
          -- Semi-strict `and' of Current with `other'.
       external "built_in"
       end
 
-   infix "implies" (other: BOOLEAN): BOOLEAN is
+   infix "implies" (other: BOOLEAN): BOOLEAN
          -- Does Current imply `other'.
       external "built_in"
       end
 
-   infix "or" (other: BOOLEAN): BOOLEAN is
+   infix "or" (other: BOOLEAN): BOOLEAN
          -- `or' of Current with `other'
          --
          -- Note: when evaluation of `other' has no side effects, it
@@ -42,24 +42,24 @@ feature {ANY}
          Result := Current or else other
       end
 
-   infix "or else" (other: BOOLEAN): BOOLEAN is
+   infix "or else" (other: BOOLEAN): BOOLEAN
          -- Semi-strict `or' of Current with `other'
       external "built_in"
       end
 
-   infix "xor" (other: BOOLEAN): BOOLEAN is
+   infix "xor" (other: BOOLEAN): BOOLEAN
          -- `xor' of Current with `other'
       do
          Result := Current /= other
       end
 
-   prefix "not": BOOLEAN is
+   prefix "not": BOOLEAN
          -- `not' of Current.
       do
          Result := Current = False
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          if Current then
             Result := once "True"
@@ -71,7 +71,7 @@ feature {ANY}
          ;(once "False").is_equal(Result) implies not Current
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          if Current then
             Result := 1
@@ -83,7 +83,7 @@ feature {ANY}
          Result = 0 implies not Current
       end
 
-   to_character: CHARACTER is
+   to_character: CHARACTER
       do
          if Current then
             Result := '1'
@@ -95,13 +95,13 @@ feature {ANY}
          Result = '0' implies not Current
       end
 
-   append_in (str: STRING) is
+   append_in (str: STRING)
       do
          str.append(to_string)
       end
 
 feature {ANY} -- Object Printing:
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          tagged_out_memory.append(to_string)
       end
@@ -114,7 +114,7 @@ end -- class BOOLEAN
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

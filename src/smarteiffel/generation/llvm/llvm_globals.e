@@ -8,11 +8,11 @@ insert
    GLOBALS
 
 feature {}
-   frozen llvm_bytecode_emitter: LLVM_BYTECODE_EMITTER is
+   frozen llvm_bytecode_emitter: LLVM_BYTECODE_EMITTER
       once
          create Result.make
       end
-   frozen user_args: FAST_ARRAY[STRING] is
+   frozen user_args: FAST_ARRAY[STRING]
       once
          create Result.make(0)
       end

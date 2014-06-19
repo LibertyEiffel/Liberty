@@ -12,12 +12,12 @@ create {}
    make
 
 feature {ANY}
-   r: INTEGER is
+   r: INTEGER
       do
          Result := 1
       end
 
-   make is
+   make
       local
          aux: AUX_RENAME1; c: TEST_RENAME1
       do
@@ -32,7 +32,7 @@ feature {ANY}
          assert(c.r = 1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

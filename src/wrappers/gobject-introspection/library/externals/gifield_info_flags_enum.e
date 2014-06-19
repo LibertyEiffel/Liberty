@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (readable_low_level | 
 				writable_low_level)).to_boolean
@@ -15,39 +15,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_readable is
+	set_readable
 		do
 			value := value.bit_or(readable_low_level)
 		end
 
-	unset_readable is
+	unset_readable
 		do
 			value := value.bit_xor(readable_low_level)
 		end
 
-	set_writable is
+	set_writable
 		do
 			value := value.bit_or(writable_low_level)
 		end
 
-	unset_writable is
+	unset_writable
 		do
 			value := value.bit_xor(writable_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_readable: BOOLEAN is
+	is_readable: BOOLEAN
 		do
 			Result := (value=readable_low_level)
 		end
 
-	is_writable: BOOLEAN is
+	is_writable: BOOLEAN
 		do
 			Result := (value=writable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	readable_low_level: INTEGER is
+	readable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -56,7 +56,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	writable_low_level: INTEGER is
+	writable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

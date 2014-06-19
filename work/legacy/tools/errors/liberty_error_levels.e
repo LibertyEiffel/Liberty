@@ -15,20 +15,20 @@
 expanded class LIBERTY_ERROR_LEVELS
 
 feature {ANY} -- Error levels
-   level_system_error: INTEGER_8 is -2
-   level_fatal_error: INTEGER_8 is -1
-   level_error: INTEGER_8 is 0
-   level_warning: INTEGER_8 is 1
-   level_info: INTEGER_8 is 2
-   level_verbose: INTEGER_8 is 3
-   level_debug: INTEGER_8 is 4
+   level_system_error: INTEGER_8 -2
+   level_fatal_error: INTEGER_8 -1
+   level_error: INTEGER_8 0
+   level_warning: INTEGER_8 1
+   level_info: INTEGER_8 2
+   level_verbose: INTEGER_8 3
+   level_debug: INTEGER_8 4
 
-   valid_level (a_level: INTEGER_8): BOOLEAN is
+   valid_level (a_level: INTEGER_8): BOOLEAN
       do
          Result := a_level.in_range(level_system_error, level_debug)
       end
 
-   level_tag (a_level: INTEGER_8): STRING is
+   level_tag (a_level: INTEGER_8): STRING
       require
          valid_level(a_level)
       do

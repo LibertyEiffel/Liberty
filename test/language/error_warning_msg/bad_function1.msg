@@ -6,8 +6,8 @@ Line 12 column 5 in BAD_FUNCTION1 (/home/cadrian/Workspace/Dev/Liberty/test/lang
     foo
     ^  
 Line 15 column 4 in BAD_FUNCTION1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_function1.e):
-   foo: BOOLEAN is
-   ^              
+   foo: BOOLEAN
+   ^           
 ------
 ****** Fatal Error: This call has a result value (and you must
 use it).

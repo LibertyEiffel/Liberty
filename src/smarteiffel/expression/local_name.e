@@ -10,15 +10,15 @@ insert
    LOCAL_ARGUMENT
 
 feature {ANY}
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
 feature {}
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(256)
       end

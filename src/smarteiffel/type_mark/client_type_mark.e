@@ -15,14 +15,14 @@ create {ANY}
    make
 
 feature {ANY}
-   class_text_name: CLASS_NAME is
+   class_text_name: CLASS_NAME
       do
          check False end
       end
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       local
          gl: ARRAY[TYPE_MARK]; static_tuple: TUPLE[TYPE, TYPE]
          ugtm: USER_GENERIC_TYPE_MARK
@@ -52,17 +52,17 @@ feature {ANY}
          end
       end
 
-   is_generic: BOOLEAN is
+   is_generic: BOOLEAN
       do
          Result := class_text.is_generic
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
       do
          Result := class_type_mark.written_name
       end
 
-   type: TYPE is
+   type: TYPE
       do
          check
             must_have_been_resolved_before: False
@@ -70,32 +70,32 @@ feature {ANY}
          sedb_breakpoint
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := to_static(new_type, False).type
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := class_type_mark.is_expanded
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := class_type_mark.is_reference
       end
 
-   is_user_expanded: BOOLEAN is
+   is_user_expanded: BOOLEAN
       do
          Result := is_expanded
       end
 
-   is_empty_expanded: BOOLEAN is
+   is_empty_expanded: BOOLEAN
       do
          Result := class_type_mark.is_empty_expanded
       end
 
-   generic_list: ARRAY[TYPE_MARK] is
+   generic_list: ARRAY[TYPE_MARK]
       do
          if is_generic then
             Result := generic_list_memory
@@ -106,37 +106,37 @@ feature {ANY}
          end
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := class_type_mark.id
       end
 
-   accept (visitor: CLIENT_TYPE_MARK_VISITOR) is
+   accept (visitor: CLIENT_TYPE_MARK_VISITOR)
       do
          visitor.visit_client_type_mark(Current)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := class_type_mark.start_position
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := specialized_type_mark /= Void
       end
 
-   signature_resolve_in (new_type: TYPE): TYPE is
+   signature_resolve_in (new_type: TYPE): TYPE
       do
          check False end
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       do
          specialized_type_mark := to_static(new_type, True)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): CLIENT_TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): CLIENT_TYPE_MARK
       local
          stm: like specialized_type_mark
       do
@@ -154,40 +154,40 @@ feature {ANY}
          end
       end
 
-   declaration_type: TYPE_MARK is
+   declaration_type: TYPE_MARK
       do
          check False end
       end
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
       do
          Result := class_type_mark.class_text
       end
 
-   try_class_text: CLASS_TEXT is
+   try_class_text: CLASS_TEXT
       do
          Result := class_type_mark.try_class_text
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := canonical_long_name
       end
 
 feature {TYPE_MARK}
-   frozen short_ (shorted_type: TYPE) is
+   frozen short_ (shorted_type: TYPE)
       do
          class_type_mark.short_(shorted_type)
       end
 
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          check False end
       end
 
 feature {CLIENT_TYPE_MARK}
-   set_specialized_type_mark (stm: like specialized_type_mark) is
+   set_specialized_type_mark (stm: like specialized_type_mark)
       require
          stm /= Void
          specialized_type_mark /= Void
@@ -198,7 +198,7 @@ feature {CLIENT_TYPE_MARK}
       end
 
 feature {}
-   make (ctm: like class_type_mark) is
+   make (ctm: like class_type_mark)
       require
          ctm /= Void
       do

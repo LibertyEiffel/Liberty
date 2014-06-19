@@ -15,28 +15,28 @@ feature {ANY}
    tag: FIXED_STRING
 
 feature {ANY} -- Logging streams
-   trace: OUTPUT_STREAM is
+   trace: OUTPUT_STREAM
       do
          Result := levels.trace.stream(Current)
       ensure
          Result /= Void
       end
 
-   info: OUTPUT_STREAM is
+   info: OUTPUT_STREAM
       do
          Result := levels.info.stream(Current)
       ensure
          Result /= Void
       end
 
-   warning: OUTPUT_STREAM is
+   warning: OUTPUT_STREAM
       do
          Result := levels.warning.stream(Current)
       ensure
          Result /= Void
       end
 
-   error: OUTPUT_STREAM is
+   error: OUTPUT_STREAM
       do
          Result := levels.error.stream(Current)
       ensure
@@ -44,28 +44,28 @@ feature {ANY} -- Logging streams
       end
 
 feature {ANY} -- Logging checks
-   is_trace: BOOLEAN is
+   is_trace: BOOLEAN
       do
          Result := levels.trace.does_log(level)
       end
 
-   is_info: BOOLEAN is
+   is_info: BOOLEAN
       do
          Result := levels.info.does_log(level)
       end
 
-   is_warning: BOOLEAN is
+   is_warning: BOOLEAN
       do
          Result := levels.warning.does_log(level)
       end
 
-   is_error: BOOLEAN is
+   is_error: BOOLEAN
       do
          Result := levels.error.does_log(level)
       end
 
 feature {ANY} -- Log level
-   set_level (a_level: like level) is
+   set_level (a_level: like level)
       require
          a_level /= Void
       do
@@ -75,7 +75,7 @@ feature {ANY} -- Log level
       end
 
 feature {LOG_INTERNAL_CONF} -- Parent logger
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       require
          a_parent /= Void
       do
@@ -89,7 +89,7 @@ feature {LOG_INTERNAL_CONF, LOG_LEVEL} -- Log output, internal usage only
    output: LOG_OUTPUT
 
 feature {LOGGING}
-   is_valid: BOOLEAN is
+   is_valid: BOOLEAN
       local
          conf: LOG_CONFIGURATION
       do
@@ -97,7 +97,7 @@ feature {LOGGING}
       end
 
 feature {}
-   make (a_output: LOG_OUTPUT; a_tag: like tag; a_id: like generation_id) is
+   make (a_output: LOG_OUTPUT; a_tag: like tag; a_id: like generation_id)
       require
          a_output /= Void
       do
@@ -129,7 +129,7 @@ end -- class LOGGER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

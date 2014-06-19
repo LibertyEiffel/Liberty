@@ -15,19 +15,19 @@ insert
    ACE_HANDLER
 
 feature {ANY}
-   command_line_name: STRING is
+   command_line_name: STRING
          -- Is supposed to return the name of the command itself (eg. "compile", "compile_to_c", "finder",
          -- "clean", etc.).
       deferred
       end
 
-   command_line_help_summary: STRING is
+   command_line_help_summary: STRING
          -- The traditional "-help" flag summary of information about available options.
       deferred
       end
 
 feature {}
-   flag_match (flag, arg: STRING): BOOLEAN is
+   flag_match (flag, arg: STRING): BOOLEAN
          -- Does `arg' smoothly match with the `flag' model?  Where `arg' can be like -`flag' or --`flag' as
          -- well as the classic Windows notation /`flag' too.
          --
@@ -68,20 +68,20 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
          -- Is the `arg' command line argument allowed in ACE file mode ?
       require
          arg /= Void
       deferred
       end
 
-   valid_argument_for_ace_mode: STRING is
+   valid_argument_for_ace_mode: STRING
          -- An explanation to be given to the user when the call to `is_valid_argument_for_ace_mode' returns
          -- False.
       deferred
       end
 
-   is_help_flag (flag: STRING): BOOLEAN is
+   is_help_flag (flag: STRING): BOOLEAN
          -- Is it like some traditional help `flag'?
       local
          echo_verbose_status_save: BOOLEAN
@@ -111,7 +111,7 @@ feature {}
    help_flag: BOOLEAN
          -- Memory of `is_help_flag'.
 
-   search_for_echo_redirect_flag: STRING is
+   search_for_echo_redirect_flag: STRING
          -- Seach for the -output_error_warning_on flag amongs arguments in order to apply redirection as
          -- early as possible (should be called first when the command accept this flag).
          -- A non Void `Result' indicates the redirection path.
@@ -158,7 +158,7 @@ feature {}
          end
       end
 
-   search_for_verbose_flag is
+   search_for_verbose_flag
          -- Seach the -verbose flag amongs arguments in order to become verbose as soon as possible (should be
          -- called after `search_for_echo_redirect_flag' when the command accept this flag).
       local
@@ -179,12 +179,12 @@ feature {}
          echo.put_line(smart_eiffel.copyright)
       end
 
-   valid_arg_index (i: INTEGER): BOOLEAN is
+   valid_arg_index (i: INTEGER): BOOLEAN
       do
          Result := i.in_range(1, argument_count)
       end
 
-   search_for_cc_flag is
+   search_for_cc_flag
          -- To know about the C compiler as soon as possible.
       local
          i, argc: INTEGER; c_compiler: STRING
@@ -207,7 +207,7 @@ feature {}
          system_tools.set_c_compiler(c_compiler)
       end
 
-   ace_file_mode: BOOLEAN is
+   ace_file_mode: BOOLEAN
          -- Search for some ACE file name in the command line arguments.  When some argument has the
          -- appropriate suffix (ie. ".ace" or ".ACE"), the `ace' parser is automatically launched in order to
          -- parse this configuration file. The caller is then notified that we are now in ACE mode (the result
@@ -256,14 +256,14 @@ feature {}
          end
       end
 
-   is_some_flag (arg: STRING): BOOLEAN is
+   is_some_flag (arg: STRING): BOOLEAN
       do
          if not arg.is_empty then
             Result := arg.first = '-' or else arg.first = '/' or else arg.is_equal(once "?")
          end
       end
 
-   is_relax_flag (flag: STRING): BOOLEAN is
+   is_relax_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_relax, flag) then
             Result := True
@@ -271,7 +271,7 @@ feature {}
          end
       end
 
-   is_case_insensitive_flag (flag: STRING): BOOLEAN is
+   is_case_insensitive_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_case_insensitive, flag) then
             echo.w_put_string(command_line_name)
@@ -280,7 +280,7 @@ feature {}
          end
       end
 
-   is_style_warning_flag (flag: STRING): BOOLEAN is
+   is_style_warning_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_style_warning, flag) then
             Result := True
@@ -288,7 +288,7 @@ feature {}
          end
       end
 
-   is_flymake_mode_flag (flag: STRING): BOOLEAN is
+   is_flymake_mode_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_flymake_mode, flag) then
             Result := True
@@ -296,7 +296,7 @@ feature {}
          end
       end
 
-   is_no_warning_flag (flag: STRING): BOOLEAN is
+   is_no_warning_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_no_warning, flag) then
             Result := True
@@ -304,7 +304,7 @@ feature {}
          end
       end
 
-   is_trace_flag (flag: STRING): BOOLEAN is
+   is_trace_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_sedb, flag) then
             Result := True
@@ -319,7 +319,7 @@ feature {}
          end
       end
 
-   is_verbose_flag (flag: STRING): BOOLEAN is
+   is_verbose_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_verbose, flag) then
             echo.set_verbose
@@ -327,7 +327,7 @@ feature {}
          end
       end
 
-   is_clean_flag (flag: STRING): BOOLEAN is
+   is_clean_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_clean, flag) then
             ace.set_clean(True)
@@ -335,7 +335,7 @@ feature {}
          end
       end
 
-   is_version_flag (flag: STRING): BOOLEAN is
+   is_version_flag (flag: STRING): BOOLEAN
       do
          Result := is_version_flag_no_exit(flag)
          if Result then
@@ -352,7 +352,7 @@ feature {}
          end
       end
 
-   is_version_flag_no_exit (flag: STRING): BOOLEAN is
+   is_version_flag_no_exit (flag: STRING): BOOLEAN
       do
          if flag_match(fz_version, flag) or else flag_match(once "v", flag) then
             if not version_flag then
@@ -366,7 +366,7 @@ feature {}
    version_flag: BOOLEAN
          -- Memory of `is_version_flag'.
 
-   is_a_compilation_level_flag (flag: STRING): BOOLEAN is
+   is_a_compilation_level_flag (flag: STRING): BOOLEAN
          -- Is the `flag' one of this list: "-boost", "-no_check", "-require_check", "-ensure_check",
          -- "-invariant_check", "-loop_check", "-all_check", or "-debug_check" ?
       do
@@ -400,7 +400,7 @@ feature {}
          end
       end
 
-   is_debug_flag (flag: STRING): BOOLEAN is
+   is_debug_flag (flag: STRING): BOOLEAN
          -- Is the `flag' "-debug"
       do
          if flag_match(fz_debug, flag) then
@@ -409,7 +409,7 @@ feature {}
          end
       end
 
-   is_flat_check_flag (flag: STRING): BOOLEAN is
+   is_flat_check_flag (flag: STRING): BOOLEAN
          -- Is the `flag' "-flat_check"
       do
          if flag_match(fz_conf_flat_check, flag) then
@@ -418,7 +418,7 @@ feature {}
          end
       end
 
-   is_output_error_warning_on_flag (flag: STRING; argi: INTEGER): BOOLEAN is
+   is_output_error_warning_on_flag (flag: STRING; argi: INTEGER): BOOLEAN
       do
          if flag_match(once "output_error_warning_on", flag) then
             Result := True
@@ -430,7 +430,7 @@ feature {}
          end
       end
 
-   is_cecil_flag (flag: STRING; argi: INTEGER): BOOLEAN is
+   is_cecil_flag (flag: STRING; argi: INTEGER): BOOLEAN
       do
          if flag_match(fz_cecil, flag) then
             Result := True
@@ -444,7 +444,7 @@ feature {}
          end
       end
 
-   is_o_flag (flag: STRING; argi: INTEGER): BOOLEAN is
+   is_o_flag (flag: STRING; argi: INTEGER): BOOLEAN
       local
          executable_name: STRING
       do
@@ -468,7 +468,7 @@ feature {}
          end
       end
 
-   is_safety_check_flag (flag: STRING): BOOLEAN is
+   is_safety_check_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_safety_check, flag) then
             ace.set_safety_check
@@ -476,7 +476,7 @@ feature {}
          end
       end
 
-   is_manifest_string_trace_flag (flag: STRING): BOOLEAN is
+   is_manifest_string_trace_flag (flag: STRING): BOOLEAN
       do
          if flag_match(fz_manifest_string_trace, flag) then
             ace.set_manifest_string_trace
@@ -484,7 +484,7 @@ feature {}
          end
       end
 
-   is_no_rescue_flag (flag: STRING): BOOLEAN is
+   is_no_rescue_flag (flag: STRING): BOOLEAN
       do
          if flag_match(once "no_rescue", flag) then
             eiffel_parser.set_no_rescue
@@ -492,7 +492,7 @@ feature {}
          end
       end
 
-   is_high_memory_compiler (flag: STRING): BOOLEAN is
+   is_high_memory_compiler (flag: STRING): BOOLEAN
       do
          if flag_match(fz_high_memory_compiler, flag) then
             ace.set_high_memory_compiler
@@ -500,7 +500,7 @@ feature {}
          end
       end
 
-   is_profile (flag: STRING): BOOLEAN is
+   is_profile (flag: STRING): BOOLEAN
       do
          if flag_match(fz_profile, flag) then
             ace.set_profile
@@ -508,7 +508,7 @@ feature {}
          end
       end
 
-   is_run (flag: STRING): BOOLEAN is
+   is_run (flag: STRING): BOOLEAN
       do
          if flag_match(fz_flag_run, flag) then
             ace.set_run
@@ -518,7 +518,7 @@ feature {}
 
    level_flag: STRING
 
-   check_for_level (new_level_flag: STRING) is
+   check_for_level (new_level_flag: STRING)
       do
          if level_flag /= Void then
             if not level_flag.same_as(new_level_flag) then
@@ -535,7 +535,7 @@ feature {}
          end
       end
 
-   unknown_flag_exit (flag: STRING) is
+   unknown_flag_exit (flag: STRING)
       do
          echo.w_put_string(command_line_name)
          echo.w_put_string(": unknown flag %"")

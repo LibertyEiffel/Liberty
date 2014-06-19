@@ -15,7 +15,7 @@
 expanded class LIBERTY_REACHABLE_COLLECTION_MARKER[E_ -> LIBERTY_REACHABLE]
 
 feature {LIBERTY_REACHABLE}
-   mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_]) is
+   mark_reachable_code (mark: INTEGER; elements: INDEXABLE[E_])
       require
          elements /= Void
       local

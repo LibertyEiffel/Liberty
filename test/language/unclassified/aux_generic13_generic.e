@@ -4,7 +4,7 @@
 class AUX_GENERIC13_GENERIC[C_ -> AUX_GENERIC13_CONSTRAINT create make end]
 
 feature {ANY}
-   new: C_ is
+   new: C_
       do
          create Result.make
       end

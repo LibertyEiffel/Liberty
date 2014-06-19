@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_signal_info_get_class_closure (an_info: POINTER): POINTER is
+	g_signal_info_get_class_closure (an_info: POINTER): POINTER
  		-- g_signal_info_get_class_closure
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_signal_info_get_flags (an_info: POINTER): INTEGER is
+	g_signal_info_get_flags (an_info: POINTER): INTEGER
  		-- g_signal_info_get_flags
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_signal_info_true_stops_emit (an_info: POINTER): INTEGER is
+	g_signal_info_true_stops_emit (an_info: POINTER): INTEGER
  		-- g_signal_info_true_stops_emit
 		external "plug_in"
 		alias "{

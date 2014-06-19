@@ -15,12 +15,12 @@ create {}
    make
 
 feature {ANY}
-   out: STRING is
+   out: STRING
       do
          Result := Precursor + Precursor
       end
 
-   make is
+   make
       local
          string: STRING
       do

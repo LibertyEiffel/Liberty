@@ -10,7 +10,7 @@ create {ANY} make
 
 feature  {ANY}
 
-        make is
+        make
                 local gtk: GI_TYPELIB; namespaces: NAMESPACE_ITERATOR
                 do
                         g_type_init
@@ -23,7 +23,7 @@ feature  {ANY}
 
         repository: GI_REPOSITORY
 
-        emit (an_info: GI_BASE_INFO) is
+        emit (an_info: GI_BASE_INFO)
                 require an_info/=Void
                 do
                         an_info.print_on(std_output)

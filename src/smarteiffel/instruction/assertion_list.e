@@ -27,7 +27,7 @@ feature {ANY}
 
    header_comment: COMMENT
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          i: INTEGER; a1, a2: ASSERTION; l: like list
       do
@@ -61,7 +61,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; a1, a2: ASSERTION; l: like list
       do
@@ -95,7 +95,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          i: INTEGER; a1, a2: ASSERTION; l: like list
       do
@@ -129,7 +129,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -146,7 +146,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -163,7 +163,7 @@ feature {ANY}
          end
       end
 
-   is_always_true (type: TYPE): BOOLEAN is
+   is_always_true (type: TYPE): BOOLEAN
       local
          i: INTEGER; assertion: ASSERTION
       do
@@ -181,7 +181,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          i: INTEGER; dummy: TYPE
       do
@@ -197,7 +197,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -213,7 +213,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       do
          check
             simplify_is_only_made_for_boost: False
@@ -221,7 +221,7 @@ feature {ANY}
          not_yet_implemented -- To be warned as well in -boost mode.
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          i: INTEGER; a1, a2: ASSERTION; l: like list
       do
@@ -255,12 +255,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ASSERTION_LIST_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR)
       do
          visitor.visit_assertion_list(Current)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -276,12 +276,12 @@ feature {ANY}
          end
       end
 
-   set_header_comment (hc: like header_comment) is
+   set_header_comment (hc: like header_comment)
       do
          header_comment := hc
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             False -- This one must never be called.
@@ -289,7 +289,7 @@ feature {ANY}
          not_yet_implemented -- To be warned as well in -boost mode.
       end
 
-   end_mark_comment: BOOLEAN is
+   end_mark_comment: BOOLEAN
       do
          check
             False
@@ -297,14 +297,14 @@ feature {ANY}
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   lower: INTEGER is
+   lower: INTEGER
       do
          if not is_empty then
             Result := list.lower
          end
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          if is_empty then
             Result := -1
@@ -313,34 +313,34 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          if not is_empty then
             Result := list.count
          end
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := list = Void
       end
 
-   item (i: INTEGER): ASSERTION is
+   item (i: INTEGER): ASSERTION
       do
          Result := list.item(i)
       end
 
-   first: like item is
+   first: like item
       do
          Result := list.first
       end
 
-   last: like item is
+   last: like item
       do
          Result := list.last
       end
 
-   new_iterator: ITERATOR[ASSERTION] is
+   new_iterator: ITERATOR[ASSERTION]
       do
          Result := list.new_iterator
       end
@@ -349,7 +349,7 @@ feature {ASSERTION_LIST_VISITOR}
    list: FAST_ARRAY[ASSERTION]
 
 feature {}
-   make (sp: like start_position; hc: like header_comment; l: like list) is
+   make (sp: like start_position; hc: like header_comment; l: like list)
       require
          not sp.is_unknown
          l /= Void implies not l.is_empty
@@ -365,7 +365,7 @@ feature {}
       end
 
 feature {CLASS_TEXT, REQUIRE_ASSERTION}
-   pretty_print_with_tag (indent_level: INTEGER; name: STRING) is
+   pretty_print_with_tag (indent_level: INTEGER; name: STRING)
          -- Where `name' can be "require", "require else", "ensure", "ensure then" or "check" as well.
       local
          index_in_pretty_printer, i: INTEGER
@@ -400,7 +400,7 @@ feature {CLASS_TEXT, REQUIRE_ASSERTION}
       end
 
 feature {TYPE, ANONYMOUS_FEATURE_MIXER}
-   add_items_from (other_list: like Current): like Current is
+   add_items_from (other_list: like Current): like Current
          -- Add inherited `other_list' to `Current' only if it is really new code (i.e. using
          -- `start_position' to decide.).
       require
@@ -444,7 +444,7 @@ feature {TYPE, ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {ASSERTION_LIST}
-   has_assertion_located_at (sp: POSITION): BOOLEAN is
+   has_assertion_located_at (sp: POSITION): BOOLEAN
          -- Is there already the source code of the assertion located at `sp' ?
       require
          not sp.is_unknown
@@ -463,7 +463,7 @@ feature {ASSERTION_LIST}
          end
       end
 
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l /= Void
       do
@@ -473,13 +473,13 @@ feature {ASSERTION_LIST}
       end
 
 feature {LOOP_INSTRUCTION}
-   pretty_as_loop_invariant (indent_level: INTEGER) is
+   pretty_as_loop_invariant (indent_level: INTEGER)
       do
          pretty_print_with_tag(indent_level, once "invariant")
       end
 
 feature {CHECK_COMPOUND}
-   pretty_as_check_compound (indent_level: INTEGER; chk: CHECK_COMPOUND) is
+   pretty_as_check_compound (indent_level: INTEGER; chk: CHECK_COMPOUND)
       require
          chk /= Void
       do
@@ -493,7 +493,7 @@ feature {CHECK_COMPOUND}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER; assertion1, assertion2: ASSERTION; l: like list; al: like Current
       do

@@ -9,14 +9,14 @@ insert
       end
 
 feature {ANY}
-   default_create is
+   default_create
       local
          x: AUX_EXPANDED40_EXP
       do
          x := exp
       end
 
-   dummy is
+   dummy
       local
          i: INTEGER
       do

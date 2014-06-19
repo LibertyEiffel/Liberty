@@ -15,13 +15,13 @@ create {ANY}
 feature {ANY}
    item: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := item = other.item
       end
 
 feature {}
-   set_item (a_item: like item) is
+   set_item (a_item: like item)
       do
          item := a_item
       ensure

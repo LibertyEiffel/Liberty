@@ -4,7 +4,7 @@
 deferred class AUX_SCR1A
 
 feature {ANY}
-   manager: AUX_SCR1B is
+   manager: AUX_SCR1B
       once
          create Result.make
       end

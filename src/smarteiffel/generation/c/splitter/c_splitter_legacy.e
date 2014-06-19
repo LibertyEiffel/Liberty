@@ -15,7 +15,7 @@ create {ACE, CLEAN}
    make
 
 feature {}
-   check_clean (path_c, c: STRING): BOOLEAN is
+   check_clean (path_c, c: STRING): BOOLEAN
       do
          if c.has_prefix(path_c) then
             c.remove_prefix(path_c)
@@ -23,32 +23,32 @@ feature {}
          end
       end
 
-   do_split is
+   do_split
       do
          split_id := split_id + 1
       end
 
-   current_c_file_suffix: STRING is
+   current_c_file_suffix: STRING
       do
          Result := once ""
          Result.clear_count
          split_id.append_in(Result)
       end
 
-   c_files_suffixes: ITERATOR[STRING] is
+   c_files_suffixes: ITERATOR[STRING]
       do
          create {C_SPLITTER_LEGACY_ITERATOR} Result.make(split_id)
       end
 
 feature {C_PRETTY_PRINTER}
-   set_live_type (a_live_type: like live_type) is
+   set_live_type (a_live_type: like live_type)
       do
          live_type := a_live_type
       end
 
    live_type: LIVE_TYPE
 
-   should_split (functions_count: INTEGER): BOOLEAN is
+   should_split (functions_count: INTEGER): BOOLEAN
       do
          if not dont_split then
             Result := out_c.character_count > 150_000
@@ -61,7 +61,7 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   linker_command (c_file_prefix: STRING): STRING is
+   linker_command (c_file_prefix: STRING): STRING
       local
          objects: FAST_ARRAY[STRING]
       do
@@ -71,13 +71,13 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {ACE}
-   pretty_ace_in (txt: STRING) is
+   pretty_ace_in (txt: STRING)
       do
          txt.append("   split (%"legacy%")%N")
       end
 
 feature {}
-   make is
+   make
       do
          split_id := 1
          echo.put_string(once "Legacy splitter enabled.%N")
@@ -85,7 +85,7 @@ feature {}
 
    split_id: INTEGER
 
-   add_objects (objects: FAST_ARRAY[STRING]) is
+   add_objects (objects: FAST_ARRAY[STRING])
          -- Add objects files numbered from 1 to `split_id' included.
       local
          i: INTEGER; short_command: BOOLEAN
@@ -118,7 +118,7 @@ feature {}
          end
       end
 
-   add_objects_ (objects: FAST_ARRAY[STRING]; c_name: STRING; min, max: INTEGER) is
+   add_objects_ (objects: FAST_ARRAY[STRING]; c_name: STRING; min, max: INTEGER)
          -- This is a good recursive example ;-)
       require
          max.in_range(1, 99)

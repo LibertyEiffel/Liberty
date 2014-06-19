@@ -10,18 +10,18 @@ insert
    COLLECTION[E_]
 
 feature {ANY}
-   lower: INTEGER is 1
+   lower: INTEGER 1
          -- Lower index bound is frozen.
 
    upper: INTEGER
          -- Memorized upper index bound.
 
-   make is
+   make
          -- Make an empty list
       deferred
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
       local
          i: INTEGER
       do
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
       local
          i: INTEGER
       do
@@ -49,24 +49,24 @@ feature {ANY}
          end
       end
 
-   first_index_of (element: like item): INTEGER is
+   first_index_of (element: like item): INTEGER
       do
          Result := index_of(element, lower)
       end
          
-   fast_first_index_of (element: like item): INTEGER is
+   fast_first_index_of (element: like item): INTEGER
       do
          Result := fast_index_of(element, lower)
       end
          
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a list of items of type E_.
       do
          make
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       do
          add_last(element)
       end
@@ -79,7 +79,7 @@ end -- class LINKED_COLLECTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

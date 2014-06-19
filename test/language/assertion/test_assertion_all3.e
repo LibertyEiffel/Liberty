@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    check_counter: INTEGER
 
-   main is
+   main
       local
          fa2: FAST_ARRAY2[INTEGER]
       do
@@ -24,7 +24,7 @@ feature {ANY}
          assert(check_counter = 1)
       end
 
-   check_call: BOOLEAN is
+   check_call: BOOLEAN
       do
          check_counter := check_counter + 1
          Result := True

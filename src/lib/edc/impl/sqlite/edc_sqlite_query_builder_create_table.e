@@ -40,7 +40,7 @@ create {EDC_SQLITE_CONNECTION}
    make
 
 feature {}
-   make (a_tools: like tools) is
+   make (a_tools: like tools)
       require
          a_tools /= Void
       do
@@ -51,14 +51,14 @@ feature {}
 
    state: INTEGER
 
-   state_create_table_columns: INTEGER is 0
+   state_create_table_columns: INTEGER 0
 
-   state_create_table_constraints: INTEGER is 1
+   state_create_table_constraints: INTEGER 1
 
-   state_create_index: INTEGER is 2
+   state_create_index: INTEGER 2
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): VISITOR is
+   as_typed (item_type_generator: STRING): VISITOR
       do
          check
             no_untyped_visitor: False
@@ -66,7 +66,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {EDC_CONNECTION}
-   query_for (a_table: EDC_TABLE): STRING is
+   query_for (a_table: EDC_TABLE): STRING
          -- Always returns the same STRING
       do
          Result := current_query
@@ -75,7 +75,7 @@ feature {EDC_CONNECTION}
       end
 
 feature {}
-   append_column_constraints (a_column: EDC_COLUMN) is
+   append_column_constraints (a_column: EDC_COLUMN)
       local
          i: INTEGER
       do
@@ -91,7 +91,7 @@ feature {}
       end
 
 feature {EDC_BLOB_COLUMN}
-   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN) is
+   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN)
       do
          query_column_short(a_blob_column)
          current_query.append(once " BLOB")
@@ -99,7 +99,7 @@ feature {EDC_BLOB_COLUMN}
       end
 
 feature {EDC_CHARACTER_COLUMN}
-   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN) is
+   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN)
       do
          query_column_short(a_character_column)
          current_query.append(once " VARCHAR(1)")
@@ -107,7 +107,7 @@ feature {EDC_CHARACTER_COLUMN}
       end
 
 feature {EDC_INCREMENT_COLUMN}
-   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN) is
+   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN)
       do
          query_column_short(a_increment_column)
          current_query.append(once " INTEGER")
@@ -115,7 +115,7 @@ feature {EDC_INCREMENT_COLUMN}
       end
 
 feature {EDC_INTEGER_COLUMN}
-   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is
+   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN)
       do
          query_column_short(a_integer_column)
          current_query.append(once " INTEGER")
@@ -123,7 +123,7 @@ feature {EDC_INTEGER_COLUMN}
       end
 
 feature {EDC_STRING_COLUMN}
-   visit_string_column (a_string_column: EDC_STRING_COLUMN) is
+   visit_string_column (a_string_column: EDC_STRING_COLUMN)
       do
          query_column_short(a_string_column)
          current_query.append(once " TEXT")
@@ -131,7 +131,7 @@ feature {EDC_STRING_COLUMN}
       end
 
 feature {EDC_TIME_COLUMN}
-   visit_time_column (a_time_column: EDC_TIME_COLUMN) is
+   visit_time_column (a_time_column: EDC_TIME_COLUMN)
       do
          query_column_short(a_time_column)
          current_query.append(once " TIMESTAMP")
@@ -139,7 +139,7 @@ feature {EDC_TIME_COLUMN}
       end
 
 feature {EDC_TABLE}
-   visit_table (a_table: EDC_TABLE) is
+   visit_table (a_table: EDC_TABLE)
       local
          i: INTEGER
       do
@@ -181,7 +181,7 @@ feature {EDC_TABLE}
       end
 
 feature {EDC_PRIMARY_KEY}
-   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is
+   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY)
       local
          i: INTEGER
       do
@@ -203,7 +203,7 @@ feature {EDC_PRIMARY_KEY}
       end
 
 feature {EDC_NOT_NULL_CONSTRAINT}
-   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT) is
+   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT)
       do
          current_query.append(once " NOT NULL")
       end

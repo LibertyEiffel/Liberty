@@ -22,35 +22,35 @@ feature {ANY}
    rank: INTEGER
          -- The `rank' in the corresponding declaration list.
 
-   is_outside (type: TYPE): BOOLEAN is
+   is_outside (type: TYPE): BOOLEAN
          -- True if the local or argument is reached from inside a closure.
       do
          Result := outside_set /= Void and then outside_set.fast_has(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          not_yet_implemented
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       do
          not_yet_implemented
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := result_type.resolve_in(type)
       end
 
-   is_used (type: TYPE): BOOLEAN is
+   is_used (type: TYPE): BOOLEAN
          -- True if some C code must be generated for this local variable (i.e. this routine now
          -- handles correctly user expanded types with a side-effect default creation).
       deferred
       end
 
 feature {DECLARATION_LIST}
-   set_rank (r: like rank) is
+   set_rank (r: like rank)
       require
          r >= 1
       do
@@ -60,7 +60,7 @@ feature {DECLARATION_LIST}
       end
 
 feature {LOCAL_ARGUMENT_DEF, DECLARATION_LIST, DECLARATION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -70,7 +70,7 @@ feature {LOCAL_ARGUMENT_DEF, DECLARATION_LIST, DECLARATION}
       end
 
 feature {DECLARATION_LIST}
-   name_clash_check (type: TYPE) is
+   name_clash_check (type: TYPE)
          -- Check for name clash between argument/feature or local/feature.
          -- (Note: clash between local/argument are checked during parsing.)
       require
@@ -79,13 +79,13 @@ feature {DECLARATION_LIST}
       end
 
 feature {ANY}
-   frozen specialize_in (type: TYPE): like Current is
+   frozen specialize_in (type: TYPE): like Current
       do
          result_type.specialize_in(type)
          Result := Current
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          rt: like result_type
       do
@@ -98,17 +98,17 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := result_type.has_been_specialized
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       deferred
       end
 
 feature {LOCAL_ARGUMENT_REF}
-   set_outside (type: TYPE) is
+   set_outside (type: TYPE)
       do
          if outside_set = Void then
             create outside_set.make
@@ -123,7 +123,7 @@ feature {LOCAL_ARGUMENT_REF}
 feature {}
    outside_set: HASHED_SET[TYPE]
 
-   name_clash_check_ (type: TYPE; msg: STRING) is
+   name_clash_check_ (type: TYPE; msg: STRING)
       require
          type /= Void
          msg /= Void

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RAW_CREATE_INSTRUCTION}
-   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION)
       require
          visited /= Void
       deferred

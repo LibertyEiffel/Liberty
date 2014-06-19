@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (g_ascii_alnum_low_level | 
 				g_ascii_cntrl_low_level | 
@@ -23,159 +23,159 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_ascii_alnum is
+	set_g_ascii_alnum
 		do
 			value := value.bit_or(g_ascii_alnum_low_level)
 		end
 
-	unset_g_ascii_alnum is
+	unset_g_ascii_alnum
 		do
 			value := value.bit_xor(g_ascii_alnum_low_level)
 		end
 
-	set_g_ascii_cntrl is
+	set_g_ascii_cntrl
 		do
 			value := value.bit_or(g_ascii_cntrl_low_level)
 		end
 
-	unset_g_ascii_cntrl is
+	unset_g_ascii_cntrl
 		do
 			value := value.bit_xor(g_ascii_cntrl_low_level)
 		end
 
-	set_g_ascii_digit is
+	set_g_ascii_digit
 		do
 			value := value.bit_or(g_ascii_digit_low_level)
 		end
 
-	unset_g_ascii_digit is
+	unset_g_ascii_digit
 		do
 			value := value.bit_xor(g_ascii_digit_low_level)
 		end
 
-	set_g_ascii_graph is
+	set_g_ascii_graph
 		do
 			value := value.bit_or(g_ascii_graph_low_level)
 		end
 
-	unset_g_ascii_graph is
+	unset_g_ascii_graph
 		do
 			value := value.bit_xor(g_ascii_graph_low_level)
 		end
 
-	set_g_ascii_lower is
+	set_g_ascii_lower
 		do
 			value := value.bit_or(g_ascii_lower_low_level)
 		end
 
-	unset_g_ascii_lower is
+	unset_g_ascii_lower
 		do
 			value := value.bit_xor(g_ascii_lower_low_level)
 		end
 
-	set_g_ascii_print is
+	set_g_ascii_print
 		do
 			value := value.bit_or(g_ascii_print_low_level)
 		end
 
-	unset_g_ascii_print is
+	unset_g_ascii_print
 		do
 			value := value.bit_xor(g_ascii_print_low_level)
 		end
 
-	set_g_ascii_punct is
+	set_g_ascii_punct
 		do
 			value := value.bit_or(g_ascii_punct_low_level)
 		end
 
-	unset_g_ascii_punct is
+	unset_g_ascii_punct
 		do
 			value := value.bit_xor(g_ascii_punct_low_level)
 		end
 
-	set_g_ascii_space is
+	set_g_ascii_space
 		do
 			value := value.bit_or(g_ascii_space_low_level)
 		end
 
-	unset_g_ascii_space is
+	unset_g_ascii_space
 		do
 			value := value.bit_xor(g_ascii_space_low_level)
 		end
 
-	set_g_ascii_upper is
+	set_g_ascii_upper
 		do
 			value := value.bit_or(g_ascii_upper_low_level)
 		end
 
-	unset_g_ascii_upper is
+	unset_g_ascii_upper
 		do
 			value := value.bit_xor(g_ascii_upper_low_level)
 		end
 
-	set_g_ascii_xdigit is
+	set_g_ascii_xdigit
 		do
 			value := value.bit_or(g_ascii_xdigit_low_level)
 		end
 
-	unset_g_ascii_xdigit is
+	unset_g_ascii_xdigit
 		do
 			value := value.bit_xor(g_ascii_xdigit_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_ascii_alnum: BOOLEAN is
+	is_g_ascii_alnum: BOOLEAN
 		do
 			Result := (value=g_ascii_alnum_low_level)
 		end
 
-	is_g_ascii_cntrl: BOOLEAN is
+	is_g_ascii_cntrl: BOOLEAN
 		do
 			Result := (value=g_ascii_cntrl_low_level)
 		end
 
-	is_g_ascii_digit: BOOLEAN is
+	is_g_ascii_digit: BOOLEAN
 		do
 			Result := (value=g_ascii_digit_low_level)
 		end
 
-	is_g_ascii_graph: BOOLEAN is
+	is_g_ascii_graph: BOOLEAN
 		do
 			Result := (value=g_ascii_graph_low_level)
 		end
 
-	is_g_ascii_lower: BOOLEAN is
+	is_g_ascii_lower: BOOLEAN
 		do
 			Result := (value=g_ascii_lower_low_level)
 		end
 
-	is_g_ascii_print: BOOLEAN is
+	is_g_ascii_print: BOOLEAN
 		do
 			Result := (value=g_ascii_print_low_level)
 		end
 
-	is_g_ascii_punct: BOOLEAN is
+	is_g_ascii_punct: BOOLEAN
 		do
 			Result := (value=g_ascii_punct_low_level)
 		end
 
-	is_g_ascii_space: BOOLEAN is
+	is_g_ascii_space: BOOLEAN
 		do
 			Result := (value=g_ascii_space_low_level)
 		end
 
-	is_g_ascii_upper: BOOLEAN is
+	is_g_ascii_upper: BOOLEAN
 		do
 			Result := (value=g_ascii_upper_low_level)
 		end
 
-	is_g_ascii_xdigit: BOOLEAN is
+	is_g_ascii_xdigit: BOOLEAN
 		do
 			Result := (value=g_ascii_xdigit_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_ascii_alnum_low_level: INTEGER is
+	g_ascii_alnum_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -184,7 +184,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_cntrl_low_level: INTEGER is
+	g_ascii_cntrl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -193,7 +193,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_digit_low_level: INTEGER is
+	g_ascii_digit_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -202,7 +202,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_graph_low_level: INTEGER is
+	g_ascii_graph_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -211,7 +211,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_lower_low_level: INTEGER is
+	g_ascii_lower_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -220,7 +220,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_print_low_level: INTEGER is
+	g_ascii_print_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -229,7 +229,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_punct_low_level: INTEGER is
+	g_ascii_punct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -238,7 +238,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_space_low_level: INTEGER is
+	g_ascii_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -247,7 +247,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_upper_low_level: INTEGER is
+	g_ascii_upper_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -256,7 +256,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_ascii_xdigit_low_level: INTEGER is
+	g_ascii_xdigit_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

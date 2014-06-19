@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   pretty is
+   pretty
       local
          i, rank: INTEGER
       do
@@ -34,13 +34,13 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: RENAME_LIST_VISITOR) is
+   accept (visitor: RENAME_LIST_VISITOR)
       do
          visitor.visit_rename_list(Current)
       end
 
 feature {PARENT_EDGE}
-   name_in_child (fn: FEATURE_NAME): FEATURE_NAME is
+   name_in_child (fn: FEATURE_NAME): FEATURE_NAME
          -- Gives Void or the name of `fn' after renaming if any.
       require
          fn /= Void
@@ -66,7 +66,7 @@ feature {PARENT_EDGE}
          end
       end
 
-   name_in_parent (fn: FEATURE_NAME): FEATURE_NAME is
+   name_in_parent (fn: FEATURE_NAME): FEATURE_NAME
          -- Assume `fn' is the result of a previous `name_in_child' call.
       require
          fn /= Void
@@ -88,7 +88,7 @@ feature {PARENT_EDGE}
          fn = name_in_child(Result)
       end
 
-   is_target_of_rename (fn: FEATURE_NAME): BOOLEAN is
+   is_target_of_rename (fn: FEATURE_NAME): BOOLEAN
       require
          fn /= Void
       local
@@ -105,7 +105,7 @@ feature {PARENT_EDGE}
          end
       end
 
-   is_source_of_rename (fn: FEATURE_NAME): BOOLEAN is
+   is_source_of_rename (fn: FEATURE_NAME): BOOLEAN
       require
          fn /= Void
       local
@@ -122,14 +122,14 @@ feature {PARENT_EDGE}
          end
       end
 
-   add_last (rp: RENAME_PAIR) is
+   add_last (rp: RENAME_PAIR)
       require
          rp /= Void
       do
          list.add_last(rp)
       end
 
-   initialize_and_check_level_1 is
+   initialize_and_check_level_1
       local
          i, j: INTEGER; rp1, rp2: RENAME_PAIR
       do
@@ -157,7 +157,7 @@ feature {PARENT_EDGE}
          end
       end
 
-   check_level_2 (parent_type: TYPE) is
+   check_level_2 (parent_type: TYPE)
       require
          parent_type /= Void
       local
@@ -184,12 +184,12 @@ feature {PARENT_EDGE}
          end
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := list.count
       end
 
-   item (i: INTEGER): RENAME_PAIR is
+   item (i: INTEGER): RENAME_PAIR
       require
          i.in_range(1, count)
       do
@@ -200,7 +200,7 @@ feature {RENAME_LIST_VISITOR}
    list: FAST_ARRAY[RENAME_PAIR]
 
 feature {}
-   make (first: RENAME_PAIR) is
+   make (first: RENAME_PAIR)
       require
          first /= Void
       do

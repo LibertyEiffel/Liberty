@@ -4,7 +4,7 @@
 expanded class MAP_AGGREGATOR[V_, K_, R_]
 
 feature {ANY}
-   map, map_iter (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_ is
+   map, map_iter (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_
       local
          i: ITERATOR[K_]
       do
@@ -19,7 +19,7 @@ feature {ANY}
          end
       end
 
-   map_index (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_ is
+   map_index (items: MAP[V_, K_]; action: FUNCTION[TUPLE[V_, K_, R_], R_]; initial: R_): R_
       local
          i: INTEGER
       do
@@ -42,7 +42,7 @@ end -- class MAP_AGGREGATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

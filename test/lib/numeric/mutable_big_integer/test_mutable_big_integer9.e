@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          check_sign(0, 0, "+")
          check_sign(0, 1, "+")
@@ -45,7 +45,7 @@ feature {ANY}
          check_sign(Minimum_integer, Minimum_integer, "-")
       end
 
-   check_sign (a, b: INTEGER_64; sign: STRING) is
+   check_sign (a, b: INTEGER_64; sign: STRING)
       local
          c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
       do

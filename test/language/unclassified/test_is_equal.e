@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          animal1, animal2: ANIMAL; p1, p2: LIB_TEST_POINT; any1, any2: ANY; cp1, cp2: COLORED_POINT
       do
@@ -36,7 +36,7 @@ feature {ANY}
          assert(not any1.is_equal(any2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

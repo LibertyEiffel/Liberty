@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          plugin_factory: FAKE_PLUGIN_FACTORY
       do
@@ -30,7 +30,7 @@ feature {ANY}
          print_info(std_output)
       end
 
-   parse_arguments is
+   parse_arguments
       local
          argi: INTEGER; arg: STRING
       do
@@ -59,22 +59,22 @@ feature {ANY}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
       end
 
-   compile is
+   compile
       do
       end
 
-   valid_argument_for_ace_mode: STRING is "Do not use arguments in ace mode"
+   valid_argument_for_ace_mode: STRING "Do not use arguments in ace mode"
 
-   use_short_mode: BOOLEAN is False
+   use_short_mode: BOOLEAN False
 
-   usage: STRING is "x_get_text root_class"
+   usage: STRING "x_get_text root_class"
 
 feature {}
-   find_get_text_seeds is
+   find_get_text_seeds
       local
          hs: HASHED_STRING; get_text_class_name: CLASS_NAME; get_text_type: TYPE; fn: FEATURE_NAME
          seed: FEATURE_STAMP; get_text_declaration: GET_TEXT_DECLARATION
@@ -112,7 +112,7 @@ feature {}
          end
       end
 
-   find_get_text_stamps is
+   find_get_text_stamps
       local
          i, j: INTEGER; types: DICTIONARY[TYPE, HASHED_STRING]; type, declaration_type: TYPE
          seed, stamp: FEATURE_STAMP
@@ -150,7 +150,7 @@ feature {}
 
    get_text_seeds: DICTIONARY[ABSTRACT_GET_TEXT_DECLARATION, FEATURE_STAMP]
 
-   do_compile is
+   do_compile
       local
          hashed_root_class_name: HASHED_STRING; root_name: CLASS_NAME; root: CLASS_TEXT; root_type: TYPE
       do
@@ -167,7 +167,7 @@ feature {}
          end
       end
 
-   print_info (output: OUTPUT_STREAM) is
+   print_info (output: OUTPUT_STREAM)
       local
          i: INTEGER
          t: TIME
@@ -245,23 +245,23 @@ msgstr[1] ""
          end
       end
 
-   visit_feature_stamp (visited: FEATURE_STAMP) is
+   visit_feature_stamp (visited: FEATURE_STAMP)
       do
          crash
       end
 
-   fz_found_at: STRING is "#(1) found at #(2)"
+   fz_found_at: STRING "#(1) found at #(2)"
 
-   fz_found_as: STRING is "#(1) found as #(2)(#(3))"
+   fz_found_as: STRING "#(1) found as #(2)(#(3))"
 
-   fz_not_found: STRING is "#(1) not found"
+   fz_not_found: STRING "#(1) not found"
 
-   fz_get_text_class: STRING is "GET_TEXT"
+   fz_get_text_class: STRING "GET_TEXT"
 
-   fz_number_get_text_class: STRING is "NUMBER_GET_TEXT"
+   fz_number_get_text_class: STRING "NUMBER_GET_TEXT"
 
-   fz_get_text: STRING is "translation"
+   fz_get_text: STRING "translation"
 
-   fz_number_get_text: STRING is "number_translation"
+   fz_number_get_text: STRING "number_translation"
 
 end -- class X_GET_TEXT

@@ -20,7 +20,7 @@ create {ANY}
    make
 
 feature {ANY}
-   expression (i: INTEGER): EXPRESSION is
+   expression (i: INTEGER): EXPRESSION
       do
          check False end
       end
@@ -28,17 +28,17 @@ feature {ANY}
    start_position: POSITION
    end_position: POSITION
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check False end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check False end
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST
       local
          fal: FORMAL_ARG_LIST; formal_type: TYPE
       do
@@ -58,105 +58,105 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       do
          Result := Void
          smart_eiffel.magic_count_increment
       end
 
-   static_simplify is
+   static_simplify
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          check not Result end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
       end
 
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
 feature {EIFFEL_PARSER, EFFECTIVE_ARG_LIST}
-   set_end_position (p: POSITION) assign end_position is
+   set_end_position (p: POSITION) assign end_position
       do
          end_position := p
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   count: INTEGER is 0
+   count: INTEGER 0
 
-   is_empty: BOOLEAN is True
+   is_empty: BOOLEAN True
 
-   item (i: INTEGER): EXPRESSION is
+   item (i: INTEGER): EXPRESSION
       do
          check False end
       end
 
-   first: like item is
+   first: like item
       do
          check False end
       end
 
-   last: like item is
+   last: like item
       do
          check False end
       end
 
 feature {CODE}
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current
       do
          Result := Current
       end
 
 feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
-   specialize_and_check_on_expressions (type: TYPE): like Current is
+   specialize_and_check_on_expressions (type: TYPE): like Current
       do
          Result := Current
       end
 
 feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
 feature {FEATURE_CALL}
-   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE) is
+   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE)
       do
       end
 
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   to_fake_tuple (type: TYPE): FAKE_TUPLE is
+   to_fake_tuple (type: TYPE): FAKE_TUPLE
       do
          check False end
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}
-   put (e: EXPRESSION; i: INTEGER) is
+   put (e: EXPRESSION; i: INTEGER)
       do
          check False end
       end
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: EFFECTIVE_ARG_LIST_0_VISITOR
       do
@@ -165,13 +165,13 @@ feature {ANY}
       end
 
 feature {PROCEDURE_CALL_N}
-   create_inline: like Current is
+   create_inline: like Current
       do
          Result := Current
       end
 
 feature {}
-   specialize_count_error (af_position: POSITION; fal: FORMAL_ARG_LIST) is
+   specialize_count_error (af_position: POSITION; fal: FORMAL_ARG_LIST)
       require
          fal /= Void
       do
@@ -188,7 +188,7 @@ feature {}
       end
 
 feature {}
-   make (sp: POSITION) is
+   make (sp: POSITION)
       require
          not sp.is_unknown
       do

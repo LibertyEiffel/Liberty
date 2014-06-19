@@ -9,13 +9,13 @@ inherit
 feature {ANY}
    attribute_require_counter: INTEGER
 
-   attribute_require: BOOLEAN is
+   attribute_require: BOOLEAN
       do
          attribute_require_counter := attribute_require_counter + 1
          Result := True
       end
 
-   value: INTEGER is
+   value: INTEGER
       require else
          attribute_require
       attribute
@@ -25,7 +25,7 @@ feature {ANY}
 
    attribute_ensure_counter: INTEGER
 
-   attribute_ensure: BOOLEAN is
+   attribute_ensure: BOOLEAN
       do
          attribute_ensure_counter := attribute_ensure_counter + 1
          Result := True

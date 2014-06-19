@@ -10,11 +10,11 @@ feature {ANY}
    reduce: E
 
 feature {ANY}
-   reduce_operation (old_result: E; e: E): E is
+   reduce_operation (old_result: E; e: E): E
       deferred
       end
 
-   item_action (e: E) is
+   item_action (e: E)
       do
          reduce := reduce_operation(reduce, e)
       end

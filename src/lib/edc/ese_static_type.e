@@ -27,7 +27,7 @@ expanded class ESE_STATIC_TYPE[T_]
 	--
 
 feature {ESE_TYPED_VISITABLE}
-	type_name: STRING is
+	type_name: STRING
 		local
 			i: INTEGER
 		do

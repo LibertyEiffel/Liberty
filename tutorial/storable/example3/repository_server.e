@@ -20,14 +20,14 @@ create {ANY}
    make
 
 feature {REPOSITORY_CONNECTION}
-   update_from_io_stream (io_stream: INPUT_STREAM) is
+   update_from_io_stream (io_stream: INPUT_STREAM)
       require
          io_stream.is_connected
       do
          update_from_stream(io_stream)
       end
 
-   write_to_io_stream (io_stream: OUTPUT_STREAM) is
+   write_to_io_stream (io_stream: OUTPUT_STREAM)
       require
          io_stream.is_connected
       do
@@ -35,7 +35,7 @@ feature {REPOSITORY_CONNECTION}
       end
 
 feature {}
-   make is
+   make
       local
          host: HOST; tcp: TCP_ACCESS
       do
@@ -46,7 +46,7 @@ feature {}
          start(tcp)
       end
 
-   handle_error (error_message: STRING) is
+   handle_error (error_message: STRING)
       do
          if error_message /= Void then
             std_error.put_string(error_message)
@@ -57,25 +57,25 @@ feature {}
          die_with_code(1)
       end
 
-   new_connection: REPOSITORY_CONNECTION is
+   new_connection: REPOSITORY_CONNECTION
       do
          create Result.make(Current)
       end
 
 feature {REPOSITORY_CONNECTION}
-   shutdown is
+   shutdown
          -- A connection asked the server to shut down
       do
          server.shutdown
       end
 
-   halt is
+   halt
          -- A connection asked the server to halt
       do
          server.halt
       end
 
-   connection_done (a_connection: REPOSITORY_CONNECTION) is
+   connection_done (a_connection: REPOSITORY_CONNECTION)
          -- A connection is just finished.
       do
          connections := connections - 1

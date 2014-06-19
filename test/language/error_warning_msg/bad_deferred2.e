@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   foo is
+   foo
       deferred
       end
 

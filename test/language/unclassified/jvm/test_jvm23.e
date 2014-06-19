@@ -10,13 +10,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(1, 2, 'c', Current)
       end
 
 feature {}
-   foo (v1, v2: INTEGER; c1: CHARACTER; o1: ANY) is
+   foo (v1, v2: INTEGER; c1: CHARACTER; o1: ANY)
       local
          lv1, lv2: INTEGER; lc1: CHARACTER; lo1: ANY
       do

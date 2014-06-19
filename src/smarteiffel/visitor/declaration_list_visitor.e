@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {DECLARATION_LIST}
-   visit_declaration_list (visited: DECLARATION_LIST) is
+   visit_declaration_list (visited: DECLARATION_LIST)
       require
          visited /= Void
       do

@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {}
-   make (a_in: like in_stream; a_out: like out_stream) is
+   make (a_in: like in_stream; a_out: like out_stream)
       do
          in_stream := a_in
          out_stream := a_out
@@ -26,7 +26,7 @@ feature {}
    out_stream: OUTPUT_STREAM
 
 feature {ANY}
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          -- Yes, it is an "and" and not an "or": it must be strong enough,
          -- otherwise the system won't work
@@ -34,66 +34,66 @@ feature {ANY}
             and then (out_stream /= Void and then out_stream.is_connected)
       end
 
-   disconnect is
+   disconnect
       do
          in_stream.disconnect
          out_stream.disconnect
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := in_stream.end_of_input
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := in_stream.can_unread_character
       end
 
 feature {FILTER_INPUT_STREAM} -- input features:
-   filtered_read_character is
+   filtered_read_character
       do
          in_stream.read_character
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          in_stream.unread_character
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := in_stream.last_character
       end
 
 feature {FILTER_OUTPUT_STREAM} -- output features:
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          out_stream.put_character(c)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          out_stream.flush
       end
 
 feature {FILTER} -- meaningless features:
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          std_error.put_string("INPUT_OUTPUT_STREAM_CONNECTOR.filtered_descriptor has been called!%N")
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("INPUT_OUTPUT_STREAM_CONNECTOR.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 invariant
    not_filtered: not input_is_filtered and not output_is_filtered
@@ -106,7 +106,7 @@ end -- class SIMPLE_INPUT_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

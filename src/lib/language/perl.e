@@ -27,7 +27,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       require
          not interpreter_started
       do
@@ -40,7 +40,7 @@ feature {}
 feature {ANY}
    interpreter_started: BOOLEAN
 
-   destroy is
+   destroy
       require
          interpreter_started
       do
@@ -51,7 +51,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Perl code execution
-   instruction (command: STRING) is
+   instruction (command: STRING)
          -- `command' is evaluated as an instruction (no result).
          --
          -- See also `expression'.
@@ -62,7 +62,7 @@ feature {ANY} -- Perl code execution
          eval_command(command.to_external, True)
       end
 
-   expression (command: STRING) is
+   expression (command: STRING)
          -- `command' is evaluated and the result is reachable with last_* functions.
          --
          -- See also `read_variable', `instruction', `last_integer', `last_real', `last_string'...
@@ -74,7 +74,7 @@ feature {ANY} -- Perl code execution
       end
 
 feature {ANY} -- Reading values from perl
-   existant_variable (variable_name: STRING): BOOLEAN is
+   existant_variable (variable_name: STRING): BOOLEAN
          -- Check if some perl variable with the name `variable_name' does
          -- exist. It's not related to the `undef' perl value.
          --
@@ -86,7 +86,7 @@ feature {ANY} -- Reading values from perl
          Result := get_sv(variable_name.to_external, False).is_not_null
       end
 
-   defined_variable (variable_name: STRING): BOOLEAN is
+   defined_variable (variable_name: STRING): BOOLEAN
          -- Returns `True' if the perl variable with the name `variable_name' does
          -- not have the perl `undef' value.
          --
@@ -99,7 +99,7 @@ feature {ANY} -- Reading values from perl
          Result := sv_ok(get_sv(variable_name.to_external, False)) /= 0
       end
 
-   read_variable (variable_name: STRING) is
+   read_variable (variable_name: STRING)
          -- Read the perl variable with name `variable_name'. The
          -- result is available with last_* functions.
          --
@@ -112,7 +112,7 @@ feature {ANY} -- Reading values from perl
          last_result := get_sv(variable_name.to_external, False)
       end
 
-   last_result_is_integer: BOOLEAN is
+   last_result_is_integer: BOOLEAN
          -- True if the result of the last interpreted expression or read variable is of integer type.
          --
          -- See also `last_integer', `expression'.
@@ -122,7 +122,7 @@ feature {ANY} -- Reading values from perl
          Result := sv_is_int(last_result) /= 0
       end
 
-   last_integer: INTEGER is
+   last_integer: INTEGER
          -- Access to the result of the last interpreted expression or read variable when it is of integer type.
          --
          -- See also `last_result_is_integer', `expression'.
@@ -135,7 +135,7 @@ feature {ANY} -- Reading values from perl
 feature {}
    last_result: POINTER
 
-   start_perl_interpreter is
+   start_perl_interpreter
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -144,7 +144,7 @@ feature {}
          }"
       end
 
-   eval_command (string: POINTER; boolean: BOOLEAN) is
+   eval_command (string: POINTER; boolean: BOOLEAN)
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -153,7 +153,7 @@ feature {}
          }"
       end
 
-   eval_expression (string: POINTER; boolean: BOOLEAN): POINTER is
+   eval_expression (string: POINTER; boolean: BOOLEAN): POINTER
          -- return type is SV*
       external "plug_in"
       alias "{
@@ -163,7 +163,7 @@ feature {}
          }"
       end
 
-   sv_ok (sv_star: POINTER): INTEGER is
+   sv_ok (sv_star: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -172,7 +172,7 @@ feature {}
          }"
       end
 
-   get_sv (string: POINTER; boolean: BOOLEAN): POINTER is
+   get_sv (string: POINTER; boolean: BOOLEAN): POINTER
          -- return type is SV*
       external "plug_in"
       alias "{
@@ -182,7 +182,7 @@ feature {}
          }"
       end
 
-   sv_is_int (sv_star: POINTER): INTEGER is
+   sv_is_int (sv_star: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -191,7 +191,7 @@ feature {}
          }"
       end
 
-   sv_to_int (sv_star: POINTER): INTEGER is
+   sv_to_int (sv_star: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -200,7 +200,7 @@ feature {}
          }"
       end
 
-   perl_interpreter_destroy is
+   perl_interpreter_destroy
       external "plug_in"
       alias "{
          location: "${sys}/plugins/language"
@@ -217,7 +217,7 @@ end -- class PERL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

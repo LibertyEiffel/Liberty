@@ -9,7 +9,7 @@ insert
 	DLFCNEXTERNALS
 
 feature {ANY} -- Queries
-	alreadey_loaded (a_library: ABSTRACT_STRING): BOOLEAN is
+	alreadey_loaded (a_library: ABSTRACT_STRING): BOOLEAN
 		-- Has `a_library' already been loaded?
 
 		-- Note: this features require Glibc and is not POSIX
@@ -20,7 +20,7 @@ feature {ANY} -- Queries
 		Result:= dlopen(a_library.to_external,rtld_now|rtld_noload).is_not_null
 	end
 
-	main_program: DYNAMIC_SHARED_OBJECT is
+	main_program: DYNAMIC_SHARED_OBJECT
 		-- The main program accessible as a dynamic shared object.
 
 		-- Symbols will be searched in the main program, followed by all shared
@@ -30,7 +30,7 @@ feature {ANY} -- Queries
 		create Result.from_external_pointer(dlopen(default_pointer, rtld_now))
 	end
 
-	new_dynamic_shared_object (a_filename: ABSTRACT_STRING; some_flags: INTEGER): DYNAMIC_SHARED_OBJECT is
+	new_dynamic_shared_object (a_filename: ABSTRACT_STRING; some_flags: INTEGER): DYNAMIC_SHARED_OBJECT
 		-- A newly allocated dynamic shared object (also known as "library")
 		-- located at `a_filename'. If `a_filename' contains a slash ("/"),
 		-- then it is interpreted as a (relative or absolute) pathname.

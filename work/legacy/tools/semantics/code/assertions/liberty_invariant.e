@@ -24,7 +24,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_INVARIANT}
    make
 
 feature {}
-   make (a_assertions: like assertions_list) is
+   make (a_assertions: like assertions_list)
       require
          a_assertions /= Void
       do
@@ -33,13 +33,13 @@ feature {}
          assertions_list = a_assertions
       end
 
-   specialized (a_assertions: like assertions_list): like Current is
+   specialized (a_assertions: like assertions_list): like Current
       do
          create Result.make(a_assertions)
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INVARIANT_VISITOR
       do

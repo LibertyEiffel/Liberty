@@ -20,42 +20,42 @@ feature {ANY}
 
    value: STRING
 
-   make_failure is
+   make_failure
       do
          type := Failure_item
       end
 
-   make_success is
+   make_success
       do
          type := Success_item
       end
 
-   make_empty is
+   make_empty
       do
          type := Empty_item
       end
 
-   make_value (val: STRING) is
+   make_value (val: STRING)
       do
          type := Value_item
          value := val
       end
 
-   make_or (f, s: like Current) is
+   make_or (f, s: like Current)
       do
          type := Or_item
          first := f
          second := s
       end
 
-   make_and (f, s: like Current) is
+   make_and (f, s: like Current)
       do
          type := And_item
          first := f
          second := s
       end
 
-   out: STRING is
+   out: STRING
       do
          inspect
             type

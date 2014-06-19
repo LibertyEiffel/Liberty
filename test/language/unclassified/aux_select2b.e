@@ -15,7 +15,7 @@ insert
       end
 
 feature {ANY}
-   new_foo: STRING is
+   new_foo: STRING
       do
          Result := foo_a.twin
          Result.append("new")

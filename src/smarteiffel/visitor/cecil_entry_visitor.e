@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CECIL_ENTRY}
-   visit_cecil_entry (visited: CECIL_ENTRY) is
+   visit_cecil_entry (visited: CECIL_ENTRY)
       require
          visited /= Void
       deferred

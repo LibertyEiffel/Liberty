@@ -5,7 +5,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create ref.make
          -- (1) Use refence types:

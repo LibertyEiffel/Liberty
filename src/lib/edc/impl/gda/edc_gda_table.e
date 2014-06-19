@@ -28,7 +28,7 @@ feature {EDC_GDA_CONNECTION}
    table: EDC_TABLE
 
 feature {}
-   make (t: GDA_DICT_TABLE) is
+   make (t: GDA_DICT_TABLE)
       do
          not_yet_implemented
       end

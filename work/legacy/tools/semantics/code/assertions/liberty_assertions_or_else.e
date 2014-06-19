@@ -21,7 +21,7 @@ create {LIBERTY_ASSERTIONS}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_ASSERTIONS_OR_ELSE_VISITOR
       do

@@ -17,7 +17,7 @@ feature {}
    item_index: INTEGER
 
 feature {ANY}
-   make (d: SET[E_]) is
+   make (d: SET[E_])
       require
          d /= Void
       do
@@ -27,29 +27,29 @@ feature {ANY}
          set = d
       end
 
-   start is
+   start
       do
          item_index := 1
          generation := iterable_generation
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := item_index > set.count
       end
 
-   item: E_ is
+   item: E_
       do
          Result := set.item(item_index)
       end
 
-   next is
+   next
       do
          item_index := item_index + 1
       end
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := set.generation
       end
@@ -64,7 +64,7 @@ end -- class ITERATOR_ON_SET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

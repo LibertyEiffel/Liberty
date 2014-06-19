@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          x: ABSTRACT_STRING
       do
@@ -27,7 +27,7 @@ feature {}
          label_assert("Consecutive replacements", "a babau is a fantasy".replacing("ba","ten")~"a tentenu is a fantasy")
       end
 
-   echo (s: ABSTRACT_STRING) is
+   echo (s: ABSTRACT_STRING)
       do
          s.print_on(std_output)
       end

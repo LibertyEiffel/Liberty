@@ -12,7 +12,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n: NUMBER; d: REAL_64
       do

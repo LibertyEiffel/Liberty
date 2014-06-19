@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d: DIRECTORY; s: ABSTRACT_STRING; f: TEXT_FILE_READ
       do

@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    incr: BOOLEAN
 
-   make is
+   make
       local
          i, j, k: INTEGER; a: ARRAY[STRING]; s: STRING; rand: PRESS_RANDOM_NUMBER_GENERATOR
       do

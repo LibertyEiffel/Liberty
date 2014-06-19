@@ -28,14 +28,14 @@ insert
    EDC_CONSTANTS
 
 feature {ANY} -- Connections:
-   frozen register_driver (a_driver: EDC_DRIVER) is
+   frozen register_driver (a_driver: EDC_DRIVER)
       require
          a_driver /= Void
       do
          factory.register_driver(a_driver)
       end
 
-   connect_to (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION is
+   connect_to (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION
          -- Latest registered drivers are considered first
       require
          not url.is_empty
@@ -46,7 +46,7 @@ feature {ANY} -- Connections:
          Result /= Void implies Result.is_connected
       end
 
-   can_connect_to (url: STRING): BOOLEAN is
+   can_connect_to (url: STRING): BOOLEAN
       require
          not url.is_empty
       do

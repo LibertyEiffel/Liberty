@@ -28,12 +28,12 @@ create {EDC_STORABLE_EXPRESSION_SELECTOR}
    make
 
 feature {ANY} -- Connection:
-   disconnect is
+   disconnect
       do
          connection := Void
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := connection /= Void and then connection.is_connected
       end
@@ -41,33 +41,33 @@ feature {ANY} -- Connection:
    connection: EDC_STORABLE_CONNECTION
 
 feature {ANY} -- Data query:
-   is_after_last: BOOLEAN is
+   is_after_last: BOOLEAN
       do
          Result := cursor > rows.upper
       end
 
-   is_before_first: BOOLEAN is
+   is_before_first: BOOLEAN
       do
          Result := cursor < rows.lower
       end
 
-   next is
+   next
       do
          cursor := cursor + 1
       end
 
-   previous is
+   previous
       do
          cursor := cursor - 1
       end
 
 feature {EDC_CONNECTION}
-   update (new_values: TRAVERSABLE[EDC_VALUE]) is
+   update (new_values: TRAVERSABLE[EDC_VALUE])
       do
          not_yet_implemented
       end
 
-   delete is
+   delete
       do
          not_yet_implemented
       end
@@ -75,17 +75,17 @@ feature {EDC_CONNECTION}
 feature {ANY}
    fetch_direction: INTEGER_8
 
-   column_count: INTEGER is
+   column_count: INTEGER
       do
          Result := columns.count
       end
 
-   column (index: INTEGER): EDC_COLUMN is
+   column (index: INTEGER): EDC_COLUMN
       do
          Result := columns.item(index)
       end
 
-   column_named (column_name: STRING): EDC_COLUMN is
+   column_named (column_name: STRING): EDC_COLUMN
       local
          i: INTEGER; col: EDC_COLUMN
       do
@@ -103,7 +103,7 @@ feature {ANY}
       end
 
 feature {EDC_COLUMN}
-   item (a_column: EDC_COLUMN): EDC_DATUM is
+   item (a_column: EDC_COLUMN): EDC_DATUM
       local
          i: INTEGER
       do
@@ -112,7 +112,7 @@ feature {EDC_COLUMN}
       end
 
 feature {EDC_STORABLE_EXPRESSION_SELECTOR}
-   add (a_row: FAST_ARRAY[EDC_DATUM]) is
+   add (a_row: FAST_ARRAY[EDC_DATUM])
       require
          valid_row(a_row)
          not has(a_row)
@@ -120,7 +120,7 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
          rows.add_last(a_row)
       end
 
-   valid_row (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   valid_row (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       local
          i: INTEGER
       do
@@ -135,7 +135,7 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
          end
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       require
          valid_row(a_row)
       local
@@ -161,7 +161,7 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
       end
 
 feature {}
-   make (a_connection: EDC_STORABLE_CONNECTION; a_columns: like columns) is
+   make (a_connection: EDC_STORABLE_CONNECTION; a_columns: like columns)
       require
          a_columns.count > 0
       do

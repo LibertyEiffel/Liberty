@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xlink_type_extended_low_level)  or else
 				(a_value = xlink_type_extended_set_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xlink_type_extended is
+	set_xlink_type_extended
 		do
 			value := xlink_type_extended_low_level
 		end
 
-	set_xlink_type_extended_set is
+	set_xlink_type_extended_set
 		do
 			value := xlink_type_extended_set_low_level
 		end
 
-	set_xlink_type_none is
+	set_xlink_type_none
 		do
 			value := xlink_type_none_low_level
 		end
 
-	set_xlink_type_simple is
+	set_xlink_type_simple
 		do
 			value := xlink_type_simple_low_level
 		end
 
 feature -- Queries
-	is_xlink_type_extended: BOOLEAN is
+	is_xlink_type_extended: BOOLEAN
 		do
 			Result := (value=xlink_type_extended_low_level)
 		end
 
-	is_xlink_type_extended_set: BOOLEAN is
+	is_xlink_type_extended_set: BOOLEAN
 		do
 			Result := (value=xlink_type_extended_set_low_level)
 		end
 
-	is_xlink_type_none: BOOLEAN is
+	is_xlink_type_none: BOOLEAN
 		do
 			Result := (value=xlink_type_none_low_level)
 		end
 
-	is_xlink_type_simple: BOOLEAN is
+	is_xlink_type_simple: BOOLEAN
 		do
 			Result := (value=xlink_type_simple_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xlink_type_extended_low_level: INTEGER is
+	xlink_type_extended_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xlink_type_extended_set_low_level: INTEGER is
+	xlink_type_extended_set_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xlink_type_none_low_level: INTEGER is
+	xlink_type_none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xlink_type_simple_low_level: INTEGER is
+	xlink_type_simple_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -16,7 +16,7 @@ feature {ANY}
    really_end: BOOLEAN
          -- is the end of text even after new line searched?
 
-   make (real: BOOLEAN) is
+   make (real: BOOLEAN)
          -- creation
       do
          really_end := real
@@ -24,7 +24,7 @@ feature {ANY}
          definition: really_end = real
       end
 
-   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION) is
+   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION)
       do
          if matcher.is_end_of_text(really_end) then
             matcher.continue
@@ -41,7 +41,7 @@ end -- class REGULAR_EXPRESSION_ITEM_END_OF_TEXT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

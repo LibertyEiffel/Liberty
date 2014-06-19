@@ -7,11 +7,11 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   se_call is
+   se_call
       do
          flag := True
       ensure

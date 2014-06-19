@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = acces_low_level)  or else
 				(a_value = again_low_level)  or else
@@ -38,259 +38,259 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_acces is
+	set_acces
 		do
 			value := acces_low_level
 		end
 
-	set_again is
+	set_again
 		do
 			value := again_low_level
 		end
 
-	set_badf is
+	set_badf
 		do
 			value := badf_low_level
 		end
 
-	set_exist is
+	set_exist
 		do
 			value := exist_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_fault is
+	set_fault
 		do
 			value := fault_low_level
 		end
 
-	set_intr is
+	set_intr
 		do
 			value := intr_low_level
 		end
 
-	set_inval is
+	set_inval
 		do
 			value := inval_low_level
 		end
 
-	set_io is
+	set_io
 		do
 			value := io_low_level
 		end
 
-	set_isdir is
+	set_isdir
 		do
 			value := isdir_low_level
 		end
 
-	set_loop_external is
+	set_loop_external
 		do
 			value := loop_external_low_level
 		end
 
-	set_mfile is
+	set_mfile
 		do
 			value := mfile_low_level
 		end
 
-	set_nametoolong is
+	set_nametoolong
 		do
 			value := nametoolong_low_level
 		end
 
-	set_nfile is
+	set_nfile
 		do
 			value := nfile_low_level
 		end
 
-	set_nodev is
+	set_nodev
 		do
 			value := nodev_low_level
 		end
 
-	set_noent is
+	set_noent
 		do
 			value := noent_low_level
 		end
 
-	set_nomem is
+	set_nomem
 		do
 			value := nomem_low_level
 		end
 
-	set_nospc is
+	set_nospc
 		do
 			value := nospc_low_level
 		end
 
-	set_nosys is
+	set_nosys
 		do
 			value := nosys_low_level
 		end
 
-	set_notdir is
+	set_notdir
 		do
 			value := notdir_low_level
 		end
 
-	set_nxio is
+	set_nxio
 		do
 			value := nxio_low_level
 		end
 
-	set_perm is
+	set_perm
 		do
 			value := perm_low_level
 		end
 
-	set_pipe is
+	set_pipe
 		do
 			value := pipe_low_level
 		end
 
-	set_rofs is
+	set_rofs
 		do
 			value := rofs_low_level
 		end
 
-	set_txtbsy is
+	set_txtbsy
 		do
 			value := txtbsy_low_level
 		end
 
 feature {ANY} -- Queries
-	is_acces: BOOLEAN is
+	is_acces: BOOLEAN
 		do
 			Result := (value=acces_low_level)
 		end
 
-	is_again: BOOLEAN is
+	is_again: BOOLEAN
 		do
 			Result := (value=again_low_level)
 		end
 
-	is_badf: BOOLEAN is
+	is_badf: BOOLEAN
 		do
 			Result := (value=badf_low_level)
 		end
 
-	is_exist: BOOLEAN is
+	is_exist: BOOLEAN
 		do
 			Result := (value=exist_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_fault: BOOLEAN is
+	is_fault: BOOLEAN
 		do
 			Result := (value=fault_low_level)
 		end
 
-	is_intr: BOOLEAN is
+	is_intr: BOOLEAN
 		do
 			Result := (value=intr_low_level)
 		end
 
-	is_inval: BOOLEAN is
+	is_inval: BOOLEAN
 		do
 			Result := (value=inval_low_level)
 		end
 
-	is_io: BOOLEAN is
+	is_io: BOOLEAN
 		do
 			Result := (value=io_low_level)
 		end
 
-	is_isdir: BOOLEAN is
+	is_isdir: BOOLEAN
 		do
 			Result := (value=isdir_low_level)
 		end
 
-	is_loop_external: BOOLEAN is
+	is_loop_external: BOOLEAN
 		do
 			Result := (value=loop_external_low_level)
 		end
 
-	is_mfile: BOOLEAN is
+	is_mfile: BOOLEAN
 		do
 			Result := (value=mfile_low_level)
 		end
 
-	is_nametoolong: BOOLEAN is
+	is_nametoolong: BOOLEAN
 		do
 			Result := (value=nametoolong_low_level)
 		end
 
-	is_nfile: BOOLEAN is
+	is_nfile: BOOLEAN
 		do
 			Result := (value=nfile_low_level)
 		end
 
-	is_nodev: BOOLEAN is
+	is_nodev: BOOLEAN
 		do
 			Result := (value=nodev_low_level)
 		end
 
-	is_noent: BOOLEAN is
+	is_noent: BOOLEAN
 		do
 			Result := (value=noent_low_level)
 		end
 
-	is_nomem: BOOLEAN is
+	is_nomem: BOOLEAN
 		do
 			Result := (value=nomem_low_level)
 		end
 
-	is_nospc: BOOLEAN is
+	is_nospc: BOOLEAN
 		do
 			Result := (value=nospc_low_level)
 		end
 
-	is_nosys: BOOLEAN is
+	is_nosys: BOOLEAN
 		do
 			Result := (value=nosys_low_level)
 		end
 
-	is_notdir: BOOLEAN is
+	is_notdir: BOOLEAN
 		do
 			Result := (value=notdir_low_level)
 		end
 
-	is_nxio: BOOLEAN is
+	is_nxio: BOOLEAN
 		do
 			Result := (value=nxio_low_level)
 		end
 
-	is_perm: BOOLEAN is
+	is_perm: BOOLEAN
 		do
 			Result := (value=perm_low_level)
 		end
 
-	is_pipe: BOOLEAN is
+	is_pipe: BOOLEAN
 		do
 			Result := (value=pipe_low_level)
 		end
 
-	is_rofs: BOOLEAN is
+	is_rofs: BOOLEAN
 		do
 			Result := (value=rofs_low_level)
 		end
 
-	is_txtbsy: BOOLEAN is
+	is_txtbsy: BOOLEAN
 		do
 			Result := (value=txtbsy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	acces_low_level: INTEGER is
+	acces_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -299,7 +299,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	again_low_level: INTEGER is
+	again_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -308,7 +308,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	badf_low_level: INTEGER is
+	badf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -317,7 +317,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	exist_low_level: INTEGER is
+	exist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -326,7 +326,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -335,7 +335,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fault_low_level: INTEGER is
+	fault_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -344,7 +344,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	intr_low_level: INTEGER is
+	intr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -353,7 +353,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inval_low_level: INTEGER is
+	inval_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -362,7 +362,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	io_low_level: INTEGER is
+	io_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -371,7 +371,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	isdir_low_level: INTEGER is
+	isdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -380,7 +380,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	loop_external_low_level: INTEGER is
+	loop_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -389,7 +389,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mfile_low_level: INTEGER is
+	mfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -398,7 +398,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nametoolong_low_level: INTEGER is
+	nametoolong_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -407,7 +407,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nfile_low_level: INTEGER is
+	nfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -416,7 +416,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nodev_low_level: INTEGER is
+	nodev_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -425,7 +425,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noent_low_level: INTEGER is
+	noent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -434,7 +434,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nomem_low_level: INTEGER is
+	nomem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -443,7 +443,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nospc_low_level: INTEGER is
+	nospc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -452,7 +452,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nosys_low_level: INTEGER is
+	nosys_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -461,7 +461,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	notdir_low_level: INTEGER is
+	notdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -470,7 +470,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nxio_low_level: INTEGER is
+	nxio_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -479,7 +479,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	perm_low_level: INTEGER is
+	perm_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -488,7 +488,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pipe_low_level: INTEGER is
+	pipe_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -497,7 +497,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	rofs_low_level: INTEGER is
+	rofs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -506,7 +506,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	txtbsy_low_level: INTEGER is
+	txtbsy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

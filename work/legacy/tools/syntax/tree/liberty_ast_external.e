@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   definition: LIBERTY_AST_STRING is
+   definition: LIBERTY_AST_STRING
       do
          Result ::= nodes.item(1)
       end
 
-   alias_clause: LIBERTY_AST_ALIAS is
+   alias_clause: LIBERTY_AST_ALIAS
       do
          Result ::= nodes.item(2)
       end
 
 feature {ANY}
-   count: INTEGER is 3
+   count: INTEGER 3
 
-   name: STRING is "External"
+   name: STRING "External"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 3 >> }
       end

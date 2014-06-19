@@ -7,20 +7,20 @@ inherit
    CODE_CONTEXT
 
 feature {CODE_PRINTER}
-   code: INTEGER is
+   code: INTEGER
       do
          Result := C_direct_call
       end
 
-   valid_anonymous_feature: BOOLEAN is True
-   
-   valid_target: BOOLEAN is True
+   valid_anonymous_feature: BOOLEAN True
 
-   valid_effective_arguments: BOOLEAN is True
+   valid_target: BOOLEAN True
 
-   valid_static_type: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN True
 
-   valid_internal_c_local: BOOLEAN is False
+   valid_static_type: BOOLEAN False
+
+   valid_internal_c_local: BOOLEAN False
 
 end -- class CODE_CONTEXT_DIRECT_CALL
 --

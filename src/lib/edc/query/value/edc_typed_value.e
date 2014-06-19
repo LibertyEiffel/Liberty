@@ -25,36 +25,36 @@ inherit
    EDC_VALUE
 
 feature {ANY}
-   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_] is
+   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_TYPED_DATUM[T_]
       deferred
       ensure
          Result /= Void implies Result.item /= Void
       end
 
 feature {ANY} -- Expressions
-   is_null: EDC_EXPRESSION is
+   is_null: EDC_EXPRESSION
       do
          create {EDC_ISNULL_EXPRESSION[T_]} Result.make(Current)
       end
 
-   equals, infix "==" (other: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   equals, infix "==" (other: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       do
          create {EDC_EQUALS_EXPRESSION[T_]} Result.make(Current, other)
       end
 
-   in, infix "~~" (set: EDC_SELECT): EDC_EXPRESSION is
+   in, infix "~~" (set: EDC_SELECT): EDC_EXPRESSION
       do
          create {EDC_IN_EXPRESSION[T_]} Result.make(Current, set)
       end
 
-   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   is_like, infix "~=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       require
          False
       do
          -- nothing
       end
 
-   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       require
          at_least_one_column: not_recursive
       do
@@ -63,7 +63,7 @@ feature {ANY} -- Expressions
          ok_not_recursive
       end
 
-   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       require
          at_least_one_column: not_recursive
       do
@@ -72,7 +72,7 @@ feature {ANY} -- Expressions
          ok_not_recursive
       end
 
-   greater_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   greater_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       require
          at_least_one_column: not_recursive
       do
@@ -81,7 +81,7 @@ feature {ANY} -- Expressions
          ok_not_recursive
       end
 
-   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION is
+   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[T_]): EDC_EXPRESSION
       require
          at_least_one_column: not_recursive
       do
@@ -91,14 +91,14 @@ feature {ANY} -- Expressions
       end
 
 feature {ANY} -- Protect comparison functions with this trick.
-   not_recursive: BOOLEAN is
+   not_recursive: BOOLEAN
          -- Be sure that at least one of both values (either left or right) is a column
       do
          Result := not recursive
          recursive := True
       end
 
-   ok_not_recursive: BOOLEAN is
+   ok_not_recursive: BOOLEAN
          -- Called in the comparison functions' postcondition to reset the at-least-one-column test.
       do
          Result := recursive
@@ -106,12 +106,12 @@ feature {ANY} -- Protect comparison functions with this trick.
       end
 
 feature {EDC_EXPRESSION}
-   is_column (a_column: EDC_COLUMN): BOOLEAN is
+   is_column (a_column: EDC_COLUMN): BOOLEAN
       do
          -- defaults to False
       end
 
-   clear_prepare is
+   clear_prepare
       do
       end
 

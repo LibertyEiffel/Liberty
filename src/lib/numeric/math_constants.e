@@ -8,14 +8,16 @@ expanded class MATH_CONSTANTS
    --
 
 feature {ANY} -- Maths constants:
-   Pi: REAL is 3.1415926535897932384626
+   Pi: REAL 3.1415926535897932384626
+         -- pi
 
-   Evalue: REAL is 2.7182818284590452353602
+   Evalue: REAL 2.7182818284590452353602
+         -- e
 
-   Deg: REAL is 57.2957795130823208767981
+   Deg: REAL 57.2957795130823208767981
          -- Degrees/Radian
 
-   Phi: REAL is 1.6180339887498948482045
+   Phi: REAL 1.6180339887498948482045
          -- Golden Ratio
 
 end -- class MATH_CONSTANTS
@@ -26,7 +28,7 @@ end -- class MATH_CONSTANTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

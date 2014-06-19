@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_COMPOUND}
-   visit_liberty_compound (v: LIBERTY_COMPOUND) is
+   visit_liberty_compound (v: LIBERTY_COMPOUND)
       deferred
       end
 

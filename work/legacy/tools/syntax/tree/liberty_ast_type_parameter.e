@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   class_name: LIBERTY_AST_CLASS_NAME is
+   class_name: LIBERTY_AST_CLASS_NAME
       do
          Result ::= nodes.item(0)
       end
 
-   has_constraint: BOOLEAN is
+   has_constraint: BOOLEAN
       do
          Result := count = 3
          check
@@ -34,7 +34,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   constraint: LIBERTY_AST_TYPE_DEFINITION is
+   constraint: LIBERTY_AST_TYPE_DEFINITION
       require
          has_constraint
       do
@@ -42,15 +42,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Type_Parameter"
+   name: STRING "Type_Parameter"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 3 >> }
       end

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {TAG_NAME}
-   visit_tag_name (visited: TAG_NAME) is
+   visit_tag_name (visited: TAG_NAME)
       require
          visited /= Void
       deferred

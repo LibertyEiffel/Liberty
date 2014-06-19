@@ -13,15 +13,15 @@ create {ANY}
    with_when_list
 
 feature {ANY}
-   dynamic_dispatch_flag: BOOLEAN is False
+   dynamic_dispatch_flag: BOOLEAN False
 
-   accept (visitor: MANIFEST_STRING_INSPECT_STATEMENT_VISITOR) is
+   accept (visitor: MANIFEST_STRING_INSPECT_STATEMENT_VISITOR)
       do
          visitor.visit_manifest_string_inspect_statement(Current)
       end
 
 feature {INSPECT_STATEMENT}
-   validity_check (type, expression_type: TYPE) is
+   validity_check (type, expression_type: TYPE)
       do
          if not expression_type.is_string and then not expression_type.is_fixed_string then
             error_handler.add_position(expression.start_position)
@@ -35,7 +35,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {}
-   canonical_form (wl: like when_list): BOOLEAN is
+   canonical_form (wl: like when_list): BOOLEAN
          -- To summarize: the `when_list' is never empty and each "when" clause has
          -- only MANIFEST_STRING as members.
       require

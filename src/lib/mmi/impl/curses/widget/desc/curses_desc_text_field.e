@@ -10,31 +10,31 @@ create {CURSES_DESCRIPTOR}
    make
 
 feature {CURSES_DESCRIPTOR}
-   build (parent: NCURSES_WINDOW) is
+   build (parent: NCURSES_WINDOW)
       do
          -- TODO
          create {NCURSES_LABEL} ncurses_widget.make(parent, once "-", 0, 0, 1, 1)
       end
 
-   layout (a_x, a_y, a_width, a_height: INTEGER) is
+   layout (a_x, a_y, a_width, a_height: INTEGER)
       do
          ncurses_widget.move_to_and_resize(a_x, a_y, a_width, a_height)
       end
 
    x, y, width, height: INTEGER
 
-   min_width, max_width: INTEGER is
+   min_width, max_width: INTEGER
       do
          Result := text.value.count.max(1)
       end
 
-   min_height, max_height: INTEGER is
+   min_height, max_height: INTEGER
       do
          Result := 1
       end
 
 feature {}
-   make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+   make (ui: UI_WINDOW; desc: JSON_OBJECT)
       local
          str: JSON_STRING
       do
@@ -52,7 +52,7 @@ end -- class CURSES_DESC_TEXT_FIELD
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

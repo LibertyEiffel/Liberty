@@ -13,32 +13,32 @@ create {MAKE_RELEASE}
    make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}
-   start (job: MAKE_RELEASE_JOB) is
+   start (job: MAKE_RELEASE_JOB)
       do
       end
 
-   set_title (a_message: STRING) is
+   set_title (a_message: STRING)
       do
       end
 
-   set_action (a_message: STRING) is
+   set_action (a_message: STRING)
       do
       end
 
-   set_progress (a_value, a_max: INTEGER; a_message: STRING) is
+   set_progress (a_value, a_max: INTEGER; a_message: STRING)
       do
       end
 
-   die (death_code: INTEGER) is
+   die (death_code: INTEGER)
       do
       end
 
-   run_command (a_command: STRING): INTEGER is
+   run_command (a_command: STRING): INTEGER
       do
       end
 
 feature {}
-   make is
+   make
       do
       end
 

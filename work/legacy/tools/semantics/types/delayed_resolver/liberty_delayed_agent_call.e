@@ -21,7 +21,7 @@ create {LIBERTY_AGENT, LIBERTY_DELAYED_AGENT_CALL}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if can_resolve then
             resolved.out_in_tagged_out_memory
@@ -32,33 +32,33 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := full_name_memory.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {LIBERTY_DELAYED_TYPE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       do
          Result := call.can_compute_agent_type
       end
 
-   resolved: LIBERTY_KNOWN_TYPE is
+   resolved: LIBERTY_KNOWN_TYPE
       do
          Result := call.agent_type
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       do
          Result := full_name_memory
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          c: like call
       do
@@ -74,7 +74,7 @@ feature {LIBERTY_DELAYED_TYPE}
       end
 
 feature {}
-   make (a_call: like call) is
+   make (a_call: like call)
       require
          a_call /= Void
       do

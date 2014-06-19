@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_INHERIT_FIXED_ARRAY1
       do
@@ -21,7 +21,7 @@ feature {ANY}
          assert(aux.item(2) = 1.5)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

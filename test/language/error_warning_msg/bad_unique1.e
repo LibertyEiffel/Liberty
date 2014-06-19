@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   dummy is unique;
+   dummy unique;
 
-   make is
+   make
       local
          x: INTEGER;
       do

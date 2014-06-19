@@ -13,7 +13,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			i, n: INTEGER; u, v: FIXED_ARRAY[DOUBLE]; vv, vbv: DOUBLE
 		do
@@ -52,7 +52,7 @@ feature {ANY}
 			io.put_new_line
 		end
 
-	eval_ata_times_u (u, atau: FIXED_ARRAY[DOUBLE]) is
+	eval_ata_times_u (u, atau: FIXED_ARRAY[DOUBLE])
 		local
 			tmp: FIXED_ARRAY[DOUBLE]
 		do
@@ -61,7 +61,7 @@ feature {ANY}
 			eval_at_times_u(tmp, atau)
 		end
 
-	eval_a_times_u (u, au: FIXED_ARRAY[DOUBLE]) is
+	eval_a_times_u (u, au: FIXED_ARRAY[DOUBLE])
 		local
 			i, j, n: INTEGER; x: DOUBLE
 		do
@@ -84,7 +84,7 @@ feature {ANY}
 			end
 		end
 
-	eval_at_times_u (u, au: FIXED_ARRAY[DOUBLE]) is
+	eval_at_times_u (u, au: FIXED_ARRAY[DOUBLE])
 		local
 			i, j, n: INTEGER; x: DOUBLE
 		do
@@ -107,7 +107,7 @@ feature {ANY}
 			end
 		end
 
-	eval_a (i, j: INTEGER): DOUBLE is
+	eval_a (i, j: INTEGER): DOUBLE
 		do
 			Result := (1.0).to_double / (((i + j) * (i + j + 1)) // 2 + i + 1).to_double
 		end

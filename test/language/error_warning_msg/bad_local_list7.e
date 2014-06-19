@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          string: STRING_g
       do

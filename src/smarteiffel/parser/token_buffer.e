@@ -11,30 +11,30 @@ insert
    GLOBALS
 
 feature {PARSER}
-   buffer: STRING is "... once unique buffer .................................."
+   buffer: STRING "... once unique buffer .................................."
 
    line: INTEGER
 
    column: INTEGER
 
-   reset (l: like line; c: like column) is
+   reset (l: like line; c: like column)
       do
          line := l
          column := c
          buffer.clear_count
       end
 
-   extend (ch: CHARACTER) is
+   extend (ch: CHARACTER)
       do
          buffer.extend(ch)
       end
 
-   append (s: STRING) is
+   append (s: STRING)
       do
          buffer.append(s)
       end
 
-   is_current: BOOLEAN is
+   is_current: BOOLEAN
       do
          inspect
             buffer
@@ -44,7 +44,7 @@ feature {PARSER}
          end
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          inspect
             buffer
@@ -54,7 +54,7 @@ feature {PARSER}
          end
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
       do
          inspect
             buffer
@@ -64,7 +64,7 @@ feature {PARSER}
          end
       end
 
-   hashed_string: HASHED_STRING is
+   hashed_string: HASHED_STRING
       do
          if hashed_string_memory = Void or else not hashed_string_memory.to_string.is_equal(buffer) then
             hashed_string_memory := string_aliaser.hashed_string(buffer)
@@ -72,7 +72,7 @@ feature {PARSER}
          Result := hashed_string_memory
       end
 
-   isa_keyword: BOOLEAN is
+   isa_keyword: BOOLEAN
       do
          inspect
             buffer
@@ -93,59 +93,59 @@ feature {PARSER}
          end
       end
 
-   to_argument_name_def: ARGUMENT_NAME_DEF is
+   to_argument_name_def: ARGUMENT_NAME_DEF
       do
          create Result.make(start_position, buffer)
       end
 
-   to_argument_name_ref (fal: FORMAL_ARG_LIST; rank, closure_rank: INTEGER): ARGUMENT_NAME_REF is
+   to_argument_name_ref (fal: FORMAL_ARG_LIST; rank, closure_rank: INTEGER): ARGUMENT_NAME_REF
       do
          create Result.refer_to(start_position, fal, rank, closure_rank)
       end
 
-   to_class_name (allow_missing: BOOLEAN): CLASS_NAME is
+   to_class_name (allow_missing: BOOLEAN): CLASS_NAME
       do
          create Result.make(string_aliaser.hashed_string(buffer), start_position, allow_missing)
       end
 
-   to_feature_name: FEATURE_NAME is
+   to_feature_name: FEATURE_NAME
       do
          create Result.ordinary_name(hashed_string, start_position)
       end
 
-   to_writable_attribute_name: WRITABLE_ATTRIBUTE_NAME is
+   to_writable_attribute_name: WRITABLE_ATTRIBUTE_NAME
       do
          create Result.make(hashed_string, start_position)
       end
 
-   to_manifest_string: MANIFEST_STRING is
+   to_manifest_string: MANIFEST_STRING
       do
          create Result.from_identifier(start_position, hashed_string)
       end
 
-   to_local_name_def: LOCAL_NAME_DEF is
+   to_local_name_def: LOCAL_NAME_DEF
       do
          create Result.make(start_position, buffer)
       end
 
-   to_local_name_ref (lvl: LOCAL_VAR_LIST; rank, closure_rank: INTEGER): LOCAL_NAME_REF is
+   to_local_name_ref (lvl: LOCAL_VAR_LIST; rank, closure_rank: INTEGER): LOCAL_NAME_REF
       do
          create Result.refer_to(start_position, lvl, rank, closure_rank)
       end
 
-   to_tag_name: TAG_NAME is
+   to_tag_name: TAG_NAME
       do
          create Result.make(hashed_string, start_position)
       end
 
 feature {INI_PARSER}
-   case_sensitive_aliased_string: STRING is
+   case_sensitive_aliased_string: STRING
       do
          Result := hashed_string.to_string
       end
 
 feature {EIFFEL_PARSER}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := eiffel_parser.pos(line, column)
       end

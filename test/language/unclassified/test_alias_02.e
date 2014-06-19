@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          f: like sq
          g: like u
@@ -30,21 +30,21 @@ feature {}
          assert(sq(4) = 16)
       end
 
-   sq: FUNCTION[TUPLE[INTEGER], INTEGER] is
+   sq: FUNCTION[TUPLE[INTEGER], INTEGER]
       do
          Result := agent square(?)
       end
 
-   square (i: INTEGER): INTEGER is
+   square (i: INTEGER): INTEGER
       do
          Result := i*i
       end
 
-   u: FUNCTION[TUPLE, INTEGER] is
+   u: FUNCTION[TUPLE, INTEGER]
       do
          Result := agent universal
       end
 
-   universal: INTEGER is 42
+   universal: INTEGER 42
 
 end

@@ -21,27 +21,27 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_times: BOOLEAN is
+   is_times: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW *")
       end
 
-   is_divide: BOOLEAN is
+   is_divide: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW /")
       end
 
-   is_int_divide: BOOLEAN is
+   is_int_divide: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW //")
       end
 
-   is_int_remainder: BOOLEAN is
+   is_int_remainder: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW \\")
       end
 
 feature {ANY}
-   name: STRING is "e6-exp"
+   name: STRING "e6-exp"
 
 end

@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          i: INTEGER; path: STRING; bfr: BINARY_FILE_READ
       do
@@ -30,7 +30,7 @@ feature {}
          bfr.disconnect
       end
 
-   size: INTEGER is 2118
+   size: INTEGER 2118
 
 end -- class TEST_BINARY_FILE_READ
 --

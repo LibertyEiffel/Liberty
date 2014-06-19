@@ -25,19 +25,19 @@ create {LIBERTY_ASM_CODES}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
 feature {LIBERTY_ASM_CODES}
-   set_positions (a_types: COLLECTION[LIBERTY_ASM_TYPE]) is
+   set_positions (a_types: COLLECTION[LIBERTY_ASM_TYPE])
       require
          a_types /= Void
       do
          a_types.do_all(agent visit_type)
       end
 
-   sizeof (a_instruction: LIBERTY_ASM_INSTRUCTION): INTEGER is
+   sizeof (a_instruction: LIBERTY_ASM_INSTRUCTION): INTEGER
       do
          counter := 0
          a_instruction.accept(Current)
@@ -45,14 +45,14 @@ feature {LIBERTY_ASM_CODES}
       end
 
 feature {}
-   visit_type (a_type: LIBERTY_ASM_TYPE) is
+   visit_type (a_type: LIBERTY_ASM_TYPE)
       require
          a_type /= Void
       do
          a_type.do_all_methods(agent visit_method)
       end
 
-   visit_method (a_method: LIBERTY_ASM_METHOD) is
+   visit_method (a_method: LIBERTY_ASM_METHOD)
       require
          a_method /= Void
       do
@@ -62,7 +62,7 @@ feature {}
          visit_code(a_method.postcondition, agent a_method.set_postcondition_size)
       end
 
-   visit_code (a_code: LIBERTY_ASM_INSTRUCTION; size_setter: PROCEDURE[TUPLE[INTEGER]]) is
+   visit_code (a_code: LIBERTY_ASM_INSTRUCTION; size_setter: PROCEDURE[TUPLE[INTEGER]])
       local
          code: LIBERTY_ASM_INSTRUCTION
       do
@@ -85,7 +85,7 @@ feature {}
 
    counter: INTEGER
 
-   set_position (a_instruction: LIBERTY_ASM_INSTRUCTION; size: INTEGER) is
+   set_position (a_instruction: LIBERTY_ASM_INSTRUCTION; size: INTEGER)
       require
          a_instruction /= Void
          size > 0
@@ -98,87 +98,87 @@ feature {}
       end
 
 feature {LIBERTY_ASM_INSTRUCTION}
-   visit_and (a_instruction: LIBERTY_ASM_AND) is
+   visit_and (a_instruction: LIBERTY_ASM_AND)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE) is
+   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE)
       do
          set_position(a_instruction, 9)
       end
 
-   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER) is
+   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER)
       do
          set_position(a_instruction, 9)
       end
 
-   visit_jump (a_instruction: LIBERTY_ASM_JUMP) is
+   visit_jump (a_instruction: LIBERTY_ASM_JUMP)
       do
          set_position(a_instruction, 5)
       end
 
-   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER) is
+   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER)
       do
          set_position(a_instruction, 5)
       end
 
-   visit_new (a_instruction: LIBERTY_ASM_NEW) is
+   visit_new (a_instruction: LIBERTY_ASM_NEW)
       do
          set_position(a_instruction, 5)
       end
 
-   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER) is
+   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER)
       do
          set_position(a_instruction, 5)
       end
 
-   visit_not (a_instruction: LIBERTY_ASM_NOT) is
+   visit_not (a_instruction: LIBERTY_ASM_NOT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_or (a_instruction: LIBERTY_ASM_OR) is
+   visit_or (a_instruction: LIBERTY_ASM_OR)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_return (a_instruction: LIBERTY_ASM_RETURN) is
+   visit_return (a_instruction: LIBERTY_ASM_RETURN)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT) is
+   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT)
       do
          set_position(a_instruction, 5)
       end
 
-   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT) is
+   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT) is
+   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT) is
+   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT) is
+   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT) is
+   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT)
       do
          set_position(a_instruction, 1)
       end
 
-   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE) is
+   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE)
       do
          set_position(a_instruction, 6 + a_instruction.arguments.count)
       end

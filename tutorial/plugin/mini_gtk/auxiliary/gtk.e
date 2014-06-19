@@ -1,7 +1,7 @@
 expanded class GTK
 
 feature {}
-   gtk_main is
+   gtk_main
       external "plug_in"
       alias "{
          location: "."
@@ -10,7 +10,7 @@ feature {}
          }"
       end
 
-   gtk_main_quit is
+   gtk_main_quit
       external "plug_in"
       alias "{
          location: "."

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_string_struct_set_default_value (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_string_struct_set_default_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for default_value field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_cset_first (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_string_struct_set_cset_first (a_structure: POINTER; a_value: POINTER)
 			-- Setter for cset_first field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_cset_nth (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_string_struct_set_cset_nth (a_structure: POINTER; a_value: POINTER)
 			-- Setter for cset_nth field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_substitutor (a_structure: POINTER; a_value: CHARACTER) is
+	gparam_spec_string_struct_set_substitutor (a_structure: POINTER; a_value: CHARACTER)
 			-- Setter for substitutor field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_null_fold_if_empty (a_structure: POINTER; a_value: NATURAL) is
+	gparam_spec_string_struct_set_null_fold_if_empty (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for null_fold_if_empty field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_string_struct_set_ensure_non_null (a_structure: POINTER; a_value: NATURAL) is
+	gparam_spec_string_struct_set_ensure_non_null (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for ensure_non_null field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: setter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_string_struct_get_default_value (a_structure: POINTER): POINTER is
+	gparam_spec_string_struct_get_default_value (a_structure: POINTER): POINTER
 			-- Query for default_value field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_cset_first (a_structure: POINTER): POINTER is
+	gparam_spec_string_struct_get_cset_first (a_structure: POINTER): POINTER
 			-- Query for cset_first field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_cset_nth (a_structure: POINTER): POINTER is
+	gparam_spec_string_struct_get_cset_nth (a_structure: POINTER): POINTER
 			-- Query for cset_nth field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -119,7 +119,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_substitutor (a_structure: POINTER): CHARACTER is
+	gparam_spec_string_struct_get_substitutor (a_structure: POINTER): CHARACTER
 			-- Query for substitutor field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_null_fold_if_empty (a_structure: POINTER): NATURAL is
+	gparam_spec_string_struct_get_null_fold_if_empty (a_structure: POINTER): NATURAL
 			-- Query for null_fold_if_empty field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -143,7 +143,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_string_struct_get_ensure_non_null (a_structure: POINTER): NATURAL is
+	gparam_spec_string_struct_get_ensure_non_null (a_structure: POINTER): NATURAL
 			-- Query for ensure_non_null field of GPARAM_SPEC_STRING_STRUCT structure.
 			-- TODO: getter description
 
@@ -156,7 +156,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

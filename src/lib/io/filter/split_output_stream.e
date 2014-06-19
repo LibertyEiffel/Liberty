@@ -16,10 +16,10 @@ create {ANY}
     connect_to
 
 feature {ANY} -- creation
-   Default_line_length: INTEGER is 76
+   Default_line_length: INTEGER 76
          -- This length is the default for Base64 (see http://www.faqs.org/rfcs/rfc2045)
 
-   Default_line_separator: STRING is "%R%N"
+   Default_line_separator: STRING "%R%N"
 
    line_length: INTEGER
          -- Length of a line
@@ -27,14 +27,14 @@ feature {ANY} -- creation
    line_separator: STRING
          -- What to put at the end of a line (e.g. Quoted-Printable would set "=%R%N" here)
 
-   connect_to (a_stream: like stream) is
+   connect_to (a_stream: like stream)
       do
          Precursor(a_stream)
          set_line_length(Default_line_length)
          set_line_separator(Default_line_separator)
       end
 
-   set_line_length (a_length: like line_length) is
+   set_line_length (a_length: like line_length)
       require
          a_length > 0
       do
@@ -43,7 +43,7 @@ feature {ANY} -- creation
          line_length = a_length
       end
 
-   set_line_separator (a_separator: like line_separator) is
+   set_line_separator (a_separator: like line_separator)
       require
          a_separator.count > 0
       do
@@ -53,7 +53,7 @@ feature {ANY} -- creation
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       local
          i: INTEGER
       do
@@ -78,7 +78,7 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
@@ -87,7 +87,7 @@ feature {}
    current_line_length: INTEGER
          -- The length of the current line
 
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 invariant
    line_length > 0
@@ -100,7 +100,7 @@ end -- SPLIT_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

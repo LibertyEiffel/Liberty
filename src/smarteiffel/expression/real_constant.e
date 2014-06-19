@@ -18,13 +18,13 @@ feature {ANY}
 
    result_type: REAL_TYPE_MARK
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          -- Because of the usual low priority of prefix minus:
          Result := normalized_view.first = '-'
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          if result_type = Void then
             Result := smart_eiffel.type_real_64
@@ -41,23 +41,23 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   simplify_1_, simplify_2: like Current is
+   simplify_1_, simplify_2: like Current
       do
          Result := Current
       end
 
-   to_string: STRING is
+   to_string: STRING
          -- Which is actually exactely the way the real was written by the user (see also `normalized_view').
       do
          Result := pretty_view
       end
 
-   normalized_view: STRING is
+   normalized_view: STRING
          -- Return our internal normalized notation:
          --    0.0      --> 0e0
          --    1.0      --> 1e0
@@ -174,13 +174,13 @@ feature {ANY}
          Result := normalized_memory
       end
 
-   accept (visitor: REAL_CONSTANT_VISITOR) is
+   accept (visitor: REAL_CONSTANT_VISITOR)
       do
          visitor.visit_real_constant(Current)
       end
 
 feature {IMPLICIT_CAST, TMP_FEATURE}
-   set_result_type (type_mark: TYPE_MARK) is
+   set_result_type (type_mark: TYPE_MARK)
       require
          type_mark.is_real
       do
@@ -193,7 +193,7 @@ feature {}
    normalized_memory: STRING
          -- (See `normalized_view'.)
 
-   make (sp: like start_position; pv: like pretty_view; rt: like result_type) is
+   make (sp: like start_position; pv: like pretty_view; rt: like result_type)
       require
          not sp.is_unknown
          not pv.is_empty

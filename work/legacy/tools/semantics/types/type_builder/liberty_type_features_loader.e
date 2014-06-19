@@ -28,7 +28,7 @@ create {LIBERTY_TYPE_BUILDER}
 
 feature {}
    make (a_builder: like builder; a_current_entity: like current_entity; a_universe: like universe;
-      a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
+      a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features)
       require
          a_builder /= Void
          a_current_entity /= Void
@@ -54,7 +54,7 @@ feature {}
    universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
-   load is
+   load
       local
          ast_class: LIBERTY_AST_ONE_CLASS
       do
@@ -70,7 +70,7 @@ feature {LIBERTY_TYPE_BUILDER}
       end
 
 feature {}
-   add_features (features: EIFFEL_LIST_NODE) is
+   add_features (features: EIFFEL_LIST_NODE)
       local
          i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
          f: LIBERTY_AST_FEATURE; fd: LIBERTY_AST_FEATURE_DEFINITION
@@ -95,7 +95,7 @@ feature {}
          end
       end
 
-   add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION) is
+   add_feature (clients: COLLECTION[LIBERTY_TYPE]; a_feature: LIBERTY_AST_FEATURE_DEFINITION)
       local
          result_type: LIBERTY_TYPE
          the_feature: LIBERTY_FEATURE
@@ -145,7 +145,7 @@ feature {}
          type_lookup.pop
       end
 
-   routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE is
+   routine_definition (routine_def: LIBERTY_AST_ROUTINE_DEFINITION; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE
       require
          local_context /= Void
       local
@@ -210,7 +210,7 @@ feature {}
          not errors.has_error implies Result /= Void
       end
 
-   feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_REQUIRE is
+   feature_precondition (precondition: LIBERTY_AST_REQUIRE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_REQUIRE
       require
          precondition /= Void
          local_context /= Void
@@ -233,7 +233,7 @@ feature {}
          not errors.has_error implies Result /= Void
       end
 
-   feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_ENSURE is
+   feature_postcondition (postcondition: LIBERTY_AST_ENSURE; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_ENSURE
       require
          postcondition /= Void
          local_context /= Void
@@ -254,7 +254,7 @@ feature {}
          not errors.has_error implies Result /= Void
       end
 
-   feature_constant (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE_CONSTANT is
+   feature_constant (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_FEATURE_CONSTANT
       require
          local_context.result_type /= Void
       local
@@ -274,7 +274,7 @@ feature {}
          end
       end
 
-   add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE]) is
+   add_feature_definition (a_feature: LIBERTY_FEATURE; names: EIFFEL_LIST_NODE; clients: COLLECTION[LIBERTY_TYPE])
       local
          i: INTEGER; name: LIBERTY_AST_FEATURE_NAME; feature_name: LIBERTY_FEATURE_NAME
          fd_parent, fd: LIBERTY_FEATURE_DEFINITION
@@ -336,7 +336,7 @@ feature {}
          end
       end
 
-   check_that_all_redefined_features_were_redefined is
+   check_that_all_redefined_features_were_redefined
       local
          i: INTEGER; feature_name: LIBERTY_FEATURE_NAME
       do
@@ -357,7 +357,7 @@ feature {}
       end
 
 feature {}
-   add_creations (creations: EIFFEL_LIST_NODE) is
+   add_creations (creations: EIFFEL_LIST_NODE)
       local
          i, j: INTEGER; clients: COLLECTION[LIBERTY_TYPE]
          c: LIBERTY_AST_CLASS_CREATION; fn: LIBERTY_AST_FEATURE_NAME
@@ -382,7 +382,7 @@ feature {}
          end
       end
 
-   add_creation (a_clients: COLLECTION[LIBERTY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME) is
+   add_creation (a_clients: COLLECTION[LIBERTY_TYPE]; fn: LIBERTY_AST_FEATURE_NAME)
       local
          the_feature: LIBERTY_FEATURE_DEFINITION
          feature_name: LIBERTY_FEATURE_NAME
@@ -399,7 +399,7 @@ feature {}
       end
 
 feature {}
-   class_invariant (invariant_clause: LIBERTY_AST_INVARIANT): LIBERTY_INVARIANT is
+   class_invariant (invariant_clause: LIBERTY_AST_INVARIANT): LIBERTY_INVARIANT
       do
          --|*** TODO
       end
@@ -407,7 +407,7 @@ feature {}
 feature {}
    redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]
 
-   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION
       local
          f: LIBERTY_FEATURE
          precursor_type: LIBERTY_ACTUAL_TYPE
@@ -431,7 +431,7 @@ feature {}
          end
       end
 
-   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION
       local
          f: LIBERTY_FEATURE
          precursor_type: LIBERTY_ACTUAL_TYPE

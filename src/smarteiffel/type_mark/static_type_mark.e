@@ -10,30 +10,30 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   frozen has_been_specialized: BOOLEAN is True
+   frozen has_been_specialized: BOOLEAN True
 
-   frozen specialize_in (new_type: TYPE) is
+   frozen specialize_in (new_type: TYPE)
       do
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
-      do
-         Result := Current
-      end
-
-   frozen declaration_type: TYPE_MARK is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK
       do
          Result := Current
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   frozen declaration_type: TYPE_MARK
       do
          Result := Current
       end
 
-   frozen signature_resolve_in (new_type: TYPE): TYPE is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
+      do
+         Result := Current
+      end
+
+   frozen signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end

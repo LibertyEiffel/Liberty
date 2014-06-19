@@ -13,7 +13,7 @@ create {ACE, CLEAN}
    make
 
 feature {CLEAN}
-   should_clean (path_c, file_name: STRING): BOOLEAN is
+   should_clean (path_c, file_name: STRING): BOOLEAN
       local
          c: STRING
       do
@@ -24,29 +24,29 @@ feature {CLEAN}
       end
 
 feature {}
-   do_split is
+   do_split
       do
       end
 
-   connect_out_c is
+   connect_out_c
       do
          c_connect(c_path)
       end
 
 feature {C_PRETTY_PRINTER}
-   set_live_type (a_live_type: like live_type) is
+   set_live_type (a_live_type: like live_type)
       do
          live_type := a_live_type
       end
 
    live_type: LIVE_TYPE
 
-   should_split (functions_count: INTEGER): BOOLEAN is
+   should_split (functions_count: INTEGER): BOOLEAN
       do
          -- always False
       end
 
-   linker_command (c_file_prefix: STRING): STRING is
+   linker_command (c_file_prefix: STRING): STRING
       local
          o_name: STRING
       do
@@ -57,20 +57,20 @@ feature {C_PRETTY_PRINTER}
          Result := system_tools.linker_command(c_file_prefix, {FAST_ARRAY[STRING] << o_name >>})
       end
 
-   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
+   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN
       do
          out_make.put_line(system_tools.c_compiler_command(c_path))
          Result := True
       end
 
 feature {ACE}
-   pretty_ace_in (txt: STRING) is
+   pretty_ace_in (txt: STRING)
       do
          txt.append("   split (no)%N")
       end
 
 feature {}
-   make is
+   make
       do
          echo.put_string(once "No split enabled.%N")
       end

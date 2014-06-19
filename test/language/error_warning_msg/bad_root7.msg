@@ -7,8 +7,8 @@ Line 8 column 4 in BAD_ROOT7 (/home/cadrian/Workspace/Dev/Liberty/test/language/
    main
    ^   
 Line 11 column 4 in BAD_ROOT7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_root7.e):
-   main: INTEGER is
-   ^               
+   main: INTEGER
+   ^            
 ------
 ****** Fatal Error: Correct the previous error first.
 

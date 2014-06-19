@@ -23,12 +23,12 @@ feature {ANY}
    start_position: POSITION
          -- Of the the opening bracket when list is really written.
 
-   is_omitted: BOOLEAN is
+   is_omitted: BOOLEAN
       do
          Result := start_position.is_unknown
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          if is_omitted then
             pretty_printer.put_string(once "{ANY}")
@@ -41,7 +41,7 @@ feature {ANY}
          end
       end
 
-   gives_permission_to (tm: TYPE_MARK; target_type: TYPE): BOOLEAN is
+   gives_permission_to (tm: TYPE_MARK; target_type: TYPE): BOOLEAN
          -- Check whether `tm' is a member (or a subclass as well) of the `Current' client
          -- list. (No error report done here in `error_handler').
       require
@@ -67,7 +67,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   gives_permission_to_any: BOOLEAN is
+   gives_permission_to_any: BOOLEAN
          -- Check whether the `Current' client list gives permission to all
          -- classes. (No error report done here in `error_handler').
       do
@@ -86,7 +86,7 @@ feature {ANY}
          (old (error_handler.is_empty)) implies error_handler.is_empty
       end
 
-   gives_no_permission: BOOLEAN is
+   gives_no_permission: BOOLEAN
          -- Check whether the `Current' client list gives no permission at all
          -- (No error report done here in `error_handler').
       do
@@ -102,7 +102,7 @@ feature {ANY}
          (old (error_handler.is_empty)) implies error_handler.is_empty
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := (other = Current or else
                     other.type_mark_list = type_mark_list or else
@@ -113,13 +113,13 @@ feature {ANY}
          Result = (wider_than(other) and other.wider_than(Current))
       end
 
-   accept (visitor: CLIENT_LIST_VISITOR) is
+   accept (visitor: CLIENT_LIST_VISITOR)
       do
          visitor.visit_client_list(Current)
       end
 
 feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER}
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       require
          new_type /= Void
       do
@@ -130,7 +130,7 @@ feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER}
          has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
          has_been_specialized
          parent_type /= Void
@@ -152,7 +152,7 @@ feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER, CLIENT_LIST}
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if type_mark_list = Void then
             Result := True
@@ -164,7 +164,7 @@ feature {ANONYMOUS_FEATURE, ANONYMOUS_FEATURE_MIXER, CLIENT_LIST}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER, CLIENT_LIST_VISITOR}
-   append_in (b: STRING) is
+   append_in (b: STRING)
       do
          if is_omitted then
             b.append(once "{ANY}")
@@ -181,7 +181,7 @@ feature {ANONYMOUS_FEATURE_MIXER, CLIENT_LIST_VISITOR}
       end
 
 feature {ANY}
-   eiffel_view: STRING is
+   eiffel_view: STRING
          -- The Eiffel view of the allowed classe(s) list. (Because of clients list merging, the
          -- `Current' clients list may be located on many Eiffel source files. This function is also
          -- useful to remind default abbreviated notation as omitted list or empty list.)
@@ -217,7 +217,7 @@ feature {ANY}
       end
 
 feature {CLASS_TEXT, CLIENT_LIST, FEATURE_CALL}
-   locate_in_error_handler is
+   locate_in_error_handler
          -- Add one or more related positions in the `error_handler'.
       do
          if type_mark_list = Void then
@@ -228,7 +228,7 @@ feature {CLASS_TEXT, CLIENT_LIST, FEATURE_CALL}
       end
 
 feature {CLIENT_LIST, ANONYMOUS_FEATURE_MIXER}
-   wider_than (other: like Current): BOOLEAN is
+   wider_than (other: like Current): BOOLEAN
       do
          if Current = other then
             Result := True
@@ -250,7 +250,7 @@ feature {CLIENT_LIST, ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {EXPORT_LIST, ANONYMOUS_FEATURE_MIXER}
-   merge_with (other: like Current): like Current is
+   merge_with (other: like Current): like Current
          -- Is actually the union of `Current' and `other'.
       require
          other /= Void
@@ -281,7 +281,7 @@ feature {CLIENT_LIST, CLIENT_LIST_VISITOR}
    type_mark_list: TYPE_MARK_LIST
 
 feature {}
-   make (sp: like start_position; tml: like type_mark_list) is
+   make (sp: like start_position; tml: like type_mark_list)
          -- When the client list is really written.
       require
          not sp.is_unknown
@@ -297,13 +297,13 @@ feature {}
          type_mark_list = tml
       end
 
-   omitted is
+   omitted
          -- When the client list is omitted. (Remind that when the client list is omitted, it is like
          -- {ANY}.)
       do
       end
 
-   merge (sp: like start_position; tml1, tml2: like type_mark_list) is
+   merge (sp: like start_position; tml1, tml2: like type_mark_list)
       require
          not sp.is_unknown
       do

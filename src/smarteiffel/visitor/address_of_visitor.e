@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
+   visit_address_of (visited: ADDRESS_OF)
       require
          visited /= Void
       deferred

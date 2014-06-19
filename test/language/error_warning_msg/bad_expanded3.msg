@@ -9,9 +9,9 @@ Line 7 columns 4, 20 in AUX_EXPANDED3 (/home/cadrian/Workspace/Dev/Liberty/test/
    make_1, make_2, make_3
    ^               ^     
 Line 10 column 4 in AUX_EXPANDED3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_expanded3.e):
-   make_1 is
-   ^        
+   make_1
+   ^     
 Line 24 column 4 in AUX_EXPANDED3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_expanded3.e):
-   make_3 is
-   ^        
+   make_3
+   ^     
 ------

@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          loc1: AUX_LD04[STRING, STRING]; loc2: AUX_LD04[ARRAY[INTEGER], COLLECTION[INTEGER]]
       do

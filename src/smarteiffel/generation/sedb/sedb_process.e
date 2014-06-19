@@ -10,7 +10,7 @@ create {SEDB_RUNNER}
    make
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          debug
             std_error.put_line(once ">> Process " + pid.out + ": prepare")
@@ -23,7 +23,7 @@ feature {LOOP_ITEM}
          events.expect(pipe_out.event_can_read)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          if not command.is_empty then
             ready_write := events.event_occurred(pipe_in.event_can_write)
@@ -35,7 +35,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   continue is
+   continue
       do
          if ready_read then
             debug
@@ -75,13 +75,13 @@ feature {LOOP_ITEM}
          end
       end
 
-   restart is
+   restart
       do
          status := status_unknown
       end
 
 feature {ANY}
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := status = status_not_running
       end
@@ -89,7 +89,7 @@ feature {ANY}
 feature {SEDB_RUNNER}
    pid: INTEGER
 
-   set_command (a_command: like command) is
+   set_command (a_command: like command)
       require
          a_command/= Void
       do
@@ -100,20 +100,20 @@ feature {SEDB_RUNNER}
          command.is_equal(a_command)
       end
 
-   tail: STRING is
+   tail: STRING
       do
          Result := once ""
          Result.copy(pipe_tail)
       end
 
-   clear_tail is
+   clear_tail
       do
          pipe_tail.clear_count
       ensure
          tail.is_empty
       end
 
-   set_current (enable: BOOLEAN) is
+   set_current (enable: BOOLEAN)
       do
          if enable then
             if buffered then
@@ -128,7 +128,7 @@ feature {SEDB_RUNNER}
          buffered = not enable
       end
 
-   list is
+   list
       do
          if status /= status_not_running then
             std_output.put_character(' ')
@@ -148,13 +148,13 @@ feature {SEDB_RUNNER}
          end
       end
 
-   killed is
+   killed
       do
          status := status_not_running
       end
 
 feature {}
-   make (a_path: like path; a_pid: like pid) is
+   make (a_path: like path; a_pid: like pid)
       require
          not a_path.is_empty
       do
@@ -180,7 +180,7 @@ feature {}
          status = status_unknown
       end
 
-   path_for (pipe: STRING): STRING is
+   path_for (pipe: STRING): STRING
       local
          s: STRING
       do
@@ -195,9 +195,9 @@ feature {}
       end
 
    status: INTEGER
-   status_unknown: INTEGER is 0
-   status_still_running: INTEGER is 1
-   status_not_running: INTEGER is 2
+   status_unknown: INTEGER 0
+   status_still_running: INTEGER 1
+   status_not_running: INTEGER 2
 
    path: STRING
    command: STRING
@@ -214,7 +214,7 @@ feature {}
 
    buffered: BOOLEAN
 
-   write_failure (again: BOOLEAN): BOOLEAN is
+   write_failure (again: BOOLEAN): BOOLEAN
       do
          debug
             std_error.put_line(once ">> Process " + pid.out + once ": write failure")
@@ -229,7 +229,7 @@ feature {}
          Result := True
       end
 
-   read_failure (again: BOOLEAN): BOOLEAN is
+   read_failure (again: BOOLEAN): BOOLEAN
       do
          debug
             std_error.put_line(once ">> Process " + pid.out + once ": read failure")

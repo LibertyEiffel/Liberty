@@ -10,11 +10,11 @@ create {MOCK_EXPECTATION_GROUPS}
    make
 
 feature {MOCK_EXPECTATION_GROUPS}
-   expect (a_expectations: TRAVERSABLE[MOCK_EXPECTATION]) is
+   expect (a_expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
          not a_expectations.exists(agent {MOCK_EXPECTATION}.ready)
       do
-         a_expectations.for_each(agent (expectation: MOCK_EXPECTATION) is
+         a_expectations.for_each(agent (expectation: MOCK_EXPECTATION)
                                  local
                                     exps: FAST_ARRAY[MOCK_EXPECTATION]
                                  do
@@ -30,7 +30,7 @@ feature {MOCK_EXPECTATION_GROUPS}
          a_expectations.for_all(agent {MOCK_EXPECTATION}.ready)
       end
 
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION is
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -57,34 +57,34 @@ feature {MOCK_EXPECTATION_GROUPS}
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
       end
 
-   all_called is
+   all_called
       do
          expectations.for_each(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_each(agent {MOCK_EXPECTATION}.all_called))
       end
 
-   all_done_message_in (message: STRING) is
+   all_done_message_in (message: STRING)
       require
          message /= Void
       do
          expectations.for_each(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_each(agent {MOCK_EXPECTATION}.all_done_message_in(message)))
       end
 
-   all_done: BOOLEAN is
+   all_done: BOOLEAN
       do
          Result := expectations.for_all(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_all(agent {MOCK_EXPECTATION}.all_done))
       end
 
 feature {}
-   make is
+   make
       do
          create expectations.make(hash_coder)
       end
 
    expectations: EXT_HASHED_DICTIONARY[FAST_ARRAY[MOCK_EXPECTATION], MOCK_OBJECT]
 
-   hash_coder: FUNCTION[TUPLE[MOCK_OBJECT], INTEGER] is
+   hash_coder: FUNCTION[TUPLE[MOCK_OBJECT], INTEGER]
       once
-         Result := agent (a_target: MOCK_OBJECT): INTEGER is
+         Result := agent (a_target: MOCK_OBJECT): INTEGER
                       require
                          a_target /= Void
                       do
@@ -93,9 +93,9 @@ feature {}
       end
 
 invariant
-   expectations.for_all(agent (exps: FAST_ARRAY[MOCK_EXPECTATION]; target: MOCK_OBJECT): BOOLEAN is
+   expectations.for_all(agent (exps: FAST_ARRAY[MOCK_EXPECTATION]; target: MOCK_OBJECT): BOOLEAN
                            do
-                              Result := exps.for_all(agent (exp: MOCK_EXPECTATION): BOOLEAN is
+                              Result := exps.for_all(agent (exp: MOCK_EXPECTATION): BOOLEAN
                                                         do
                                                            Result := exp.target = target
                                                         end (?))
@@ -109,7 +109,7 @@ end -- class MOCK_EXPECTATION_GROUP
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

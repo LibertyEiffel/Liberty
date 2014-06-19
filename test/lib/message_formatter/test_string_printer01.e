@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: STRING_PRINTER
          s: STRING; sos: STRING_OUTPUT_STREAM

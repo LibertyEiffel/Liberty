@@ -13,25 +13,25 @@ inherit
 
 create {ANY} make
 feature {ANY} 
-	store is
+	store
 		do
 			namespaces.put(Current,id)
-			if not is_main then
+			if not _main then
 				symbols.put(Current,c_string_name)
 			end
 		end
 
-	is_main: BOOLEAN is
+	_main: BOOLEAN
 		-- Is Current name space the "main" default namespace? The default namespace is named "::"
 	do
-		Result:=c_string_name.is_equal(once "::")
+		Result:=c_string_name._equal(once "::")
 	end
 
-	path: PATH_NAME is
+	path: PATH_NAME
 		-- Path of the directory representing Current namespace
 	do
 		if cached_path=Void then
-			if is_main then create {POSIX_PATH_NAME} cached_path.make_current 
+			if _main then create {POSIX_PATH_NAME} cached_path.make_current 
 			else -- Recursively build the path
 				cached_path := namespace.path / c_string_name
 			end
@@ -39,18 +39,18 @@ feature {ANY}
 		Result := cached_path
 	end
 
-	are_members_wrapped: BOOLEAN is
-		-- Shall the members of this namespace be wrapped?
+	are_members_wrapped: BOOLEAN
+		-- Shall the members of th namespace be wrapped?
 		attribute
 	end
 
-	compute_eiffel_name is 
+	compute_eiffel_name  
 		-- Compute cluster name as basename of path (its last part).
 	do
 		cached_eiffel_name := path.last
 	end
 
-	emit_wrapper is
+	emit_wrapper
 		-- The wrapper of a namespace actually is not any Liberty code but only
 		-- a directory that will be the cluster representing that namespace.
 	do
@@ -59,10 +59,10 @@ feature {ANY}
 		-- Try to create the directory and forget about the result
 		log_string("Faking creation of «"+path.to_string+"»directory%N")
 		-- 	outcome :=  bd.create_new_directory(path.to_string);
-		-- 	if path.is_directory then
+		-- 	if path._directory then
 		-- 		are_members_wrapped:=True 
 		-- 		-- Each gccxml node will query its containing namespace to see if it shall be wrapped.
-		-- 	else -- directory still doesn't exists, we cannot wrap its content. 
+		-- 	else -- directory still doesn't exts, we cannot wrap its content. 
 		-- 		log("Namespace `@(1)' would be wrapped into `@(2)', but it is not a directory or could not be created: its contents shall not be wrapped.%N",
 		-- 		<<c_string_name, path.to_string>>)
 		-- 	end
@@ -72,13 +72,13 @@ feature {STORABLE_NODE} -- Contained nodes
 	
 feature {} -- Implementation
 	cached_path: PATH_NAME
--- invariant name.is_equal(once "Namespace")
+-- invariant name._equal(once "Namespace")
 end -- class C_NAMESPACE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -88,4 +88,4 @@ end -- class C_NAMESPACE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

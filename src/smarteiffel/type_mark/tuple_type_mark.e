@@ -12,41 +12,41 @@ inherit
       end
 
 feature {ANY}
-   is_tuple: BOOLEAN is True
+   is_tuple: BOOLEAN True
 
-   is_reference: BOOLEAN is True
+   is_reference: BOOLEAN True
 
-   is_expanded, is_user_expanded, is_empty_expanded: BOOLEAN is False
+   is_expanded, is_user_expanded, is_empty_expanded: BOOLEAN False
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       deferred
       end
 
-   as_type_mark: TYPE_MARK is
+   as_type_mark: TYPE_MARK
       deferred
       end
 
-   generic_list: ARRAY[TYPE_MARK] is
+   generic_list: ARRAY[TYPE_MARK]
       deferred
       end
 
-   type: TYPE is
+   type: TYPE
       deferred
       end
 
-   count: INTEGER is
+   count: INTEGER
       deferred
       ensure
          Result >= 0
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
 feature {}
-   canonical_long_name: HASHED_STRING is
+   canonical_long_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end

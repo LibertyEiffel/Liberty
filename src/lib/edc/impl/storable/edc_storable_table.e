@@ -34,27 +34,27 @@ create {EDC_STORABLE_CONNECTION}
    make
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := rows.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := rows.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := rows.upper
       end
 
-   item (i: INTEGER): FAST_ARRAY[EDC_DATUM] is
+   item (i: INTEGER): FAST_ARRAY[EDC_DATUM]
       do
          Result := rows.item(i)
       end
 
-   index_of (a_row: FAST_ARRAY[EDC_DATUM]): INTEGER is
+   index_of (a_row: FAST_ARRAY[EDC_DATUM]): INTEGER
       local
          i: INTEGER; found: BOOLEAN; row: FAST_ARRAY[EDC_DATUM]
       do
@@ -73,13 +73,13 @@ feature {ANY}
          end
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          Result := rows.valid_index(index_of(a_row))
       end
 
 feature {EDC_STORABLE_INDEX}
-   same_rows (row1, row2: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   same_rows (row1, row2: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          Result := table.same_rows(row1, row2)
       end
@@ -87,18 +87,18 @@ feature {EDC_STORABLE_INDEX}
 feature {ANY}
    table: EDC_TABLE
 
-   has_column (a_column: EDC_COLUMN): BOOLEAN is
+   has_column (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := a_column.table = table
       end
 
-   index_of_column (a_column: EDC_COLUMN): INTEGER is
+   index_of_column (a_column: EDC_COLUMN): INTEGER
       do
          Result := table.index_of_column(a_column)
       end
 
 feature {EDC_STORABLE_CONNECTION}
-   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       local
          i: INTEGER
       do
@@ -113,7 +113,7 @@ feature {EDC_STORABLE_CONNECTION}
          end
       end
 
-   add (a_row: FAST_ARRAY[EDC_DATUM]) is
+   add (a_row: FAST_ARRAY[EDC_DATUM])
       require
          can_add(a_row)
       local
@@ -142,7 +142,7 @@ feature {EDC_STORABLE_CONNECTION}
          has(a_row)
       end
 
-   remove (a_row: FAST_ARRAY[EDC_DATUM]) is
+   remove (a_row: FAST_ARRAY[EDC_DATUM])
       require
          has(a_row)
       local
@@ -164,22 +164,22 @@ feature {EDC_STORABLE_CONNECTION}
       end
 
 feature {EDC_STORABLE_EXPRESSION_SELECTOR}
-   index_count: INTEGER is
+   index_count: INTEGER
       do
          Result := indexes.count
       end
 
-   index_lower: INTEGER is
+   index_lower: INTEGER
       do
          Result := indexes.lower
       end
 
-   index_upper: INTEGER is
+   index_upper: INTEGER
       do
          Result := indexes.upper
       end
 
-   index_item (i: INTEGER): EDC_STORABLE_INDEX is
+   index_item (i: INTEGER): EDC_STORABLE_INDEX
       require
          i.in_range(index_lower, index_upper)
       do
@@ -187,7 +187,7 @@ feature {EDC_STORABLE_EXPRESSION_SELECTOR}
       end
 
 feature {}
-   make (a_table: EDC_TABLE) is
+   make (a_table: EDC_TABLE)
       local
          i: INTEGER
       do

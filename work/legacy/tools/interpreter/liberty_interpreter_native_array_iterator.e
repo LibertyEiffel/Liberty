@@ -21,28 +21,28 @@ create {LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED}
    make
 
 feature {ANY}
-   start is
+   start
       do
          elements.start
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := elements.is_off
       end
 
-   item: LIBERTY_INTERPRETER_OBJECT is
+   item: LIBERTY_INTERPRETER_OBJECT
       do
          Result := accessor.retrieve(elements.item)
       end
 
-   next is
+   next
       do
          elements.next
       end
 
 feature {}
-   make (a_elements: like elements; a_accessor: like accessor) is
+   make (a_elements: like elements; a_accessor: like accessor)
       require
          a_elements /= Void
          a_accessor /= Void

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xml_dict_cleanup is
+	xml_dict_cleanup
  		-- xmlDictCleanup
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_create: POINTER is
+	xml_dict_create: POINTER
  		-- xmlDictCreate
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_create_sub (a_sub: POINTER): POINTER is
+	xml_dict_create_sub (a_sub: POINTER): POINTER
  		-- xmlDictCreateSub
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_exists (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER is
+	xml_dict_exists (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER
  		-- xmlDictExists
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_free (a_dict: POINTER) is
+	xml_dict_free (a_dict: POINTER)
  		-- xmlDictFree
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_lookup (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER is
+	xml_dict_lookup (a_dict: POINTER; a_name: POINTER; a_len: INTEGER): POINTER
  		-- xmlDictLookup
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_owns (a_dict: POINTER; a_str: POINTER): INTEGER is
+	xml_dict_owns (a_dict: POINTER; a_str: POINTER): INTEGER
  		-- xmlDictOwns
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_qlookup (a_dict: POINTER; a_prefix: POINTER; a_name: POINTER): POINTER is
+	xml_dict_qlookup (a_dict: POINTER; a_prefix: POINTER; a_name: POINTER): POINTER
  		-- xmlDictQLookup
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_reference (a_dict: POINTER): INTEGER is
+	xml_dict_reference (a_dict: POINTER): INTEGER
  		-- xmlDictReference
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_dict_size (a_dict: POINTER): INTEGER is
+	xml_dict_size (a_dict: POINTER): INTEGER
  		-- xmlDictSize
 		external "plug_in"
 		alias "{

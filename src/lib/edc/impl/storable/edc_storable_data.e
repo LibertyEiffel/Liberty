@@ -22,19 +22,19 @@
 deferred class EDC_STORABLE_DATA
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       deferred
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       deferred
       end
 
-   item (i: INTEGER): FAST_ARRAY[EDC_DATUM] is
+   item (i: INTEGER): FAST_ARRAY[EDC_DATUM]
       require
          i.in_range(lower, upper)
       deferred
@@ -42,19 +42,19 @@ feature {ANY}
          Result /= Void
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       deferred
       end
 
-   has_column (a_column: EDC_COLUMN): BOOLEAN is
+   has_column (a_column: EDC_COLUMN): BOOLEAN
       deferred
       end
 
-   index_of_column (a_column: EDC_COLUMN): INTEGER is
+   index_of_column (a_column: EDC_COLUMN): INTEGER
       deferred
       end
 
-   traversable (a_column: EDC_COLUMN): TRAVERSABLE[EDC_DATUM] is
+   traversable (a_column: EDC_COLUMN): TRAVERSABLE[EDC_DATUM]
       require
          has_column(a_column)
       do

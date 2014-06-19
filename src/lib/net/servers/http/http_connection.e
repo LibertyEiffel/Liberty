@@ -19,7 +19,7 @@ insert
    DISPOSABLE
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
@@ -36,7 +36,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          inspect
             answer_state
@@ -47,7 +47,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          if ios.is_connected then
             inspect
@@ -62,7 +62,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   continue is
+   continue
       local
          c: CHARACTER
          log: STRING
@@ -128,16 +128,16 @@ feature {LOOP_ITEM}
 
 feature {}
    answer_state: INTEGER
-   answer_state_read: INTEGER is 0
-   answer_state_prepare: INTEGER is 1
-   answer_state_write: INTEGER is 2
+   answer_state_read: INTEGER 0
+   answer_state_prepare: INTEGER 1
+   answer_state_write: INTEGER 2
 
    read_buffer: STRING
    content_length: INTEGER
    content_count: INTEGER
 
 feature {HTTP_SERVER}
-   set_server (a_server: like server) is
+   set_server (a_server: like server)
       do
          server := a_server
          state := state_request_line
@@ -149,7 +149,7 @@ feature {HTTP_SERVER}
       end
 
 feature {SERVER}
-   set_io (a_io: like ios) is
+   set_io (a_io: like ios)
       do
          Precursor(a_io)
          a_io.when_disconnect(agent handle_disconnect(?))
@@ -158,7 +158,7 @@ feature {SERVER}
 feature {}
    server: HTTP_SERVER
 
-   handle_disconnect (a_io: like ios) is
+   handle_disconnect (a_io: like ios)
       require
          a_io = ios
          done
@@ -170,14 +170,14 @@ feature {}
 feature {} -- The HTTP protocol (see RFC 2616)
    state: INTEGER
 
-   state_request_line: INTEGER is 0
-   state_header: INTEGER is 1
-   state_body: INTEGER is 2
+   state_request_line: INTEGER 0
+   state_header: INTEGER 1
+   state_body: INTEGER 2
 
    method_handler: HTTP_METHOD_HANDLER
    request_line: STRING
 
-   call_state is
+   call_state
       require
          answer_state = answer_state_read
       do
@@ -193,7 +193,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
          read_buffer.clear_count
       end
 
-   a_request_line (line: STRING) is
+   a_request_line (line: STRING)
       require
          answer_state = answer_state_read
       local
@@ -224,7 +224,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
          end
       end
 
-   a_header (line: STRING) is
+   a_header (line: STRING)
       do
          if line.is_empty then
             state := state_body
@@ -246,7 +246,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
    header_key: STRING
    header_value: STRING
 
-   parse_header (line: STRING) is
+   parse_header (line: STRING)
       local
          i: INTEGER
       do
@@ -273,7 +273,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
          end
       end
 
-   a_body (line: STRING) is
+   a_body (line: STRING)
       do
          if line.is_empty then
             answer_state := answer_state_prepare
@@ -283,7 +283,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
       end
 
 feature {}
-   get_method_handler (method, uri, version: STRING): HTTP_METHOD_HANDLER is
+   get_method_handler (method, uri, version: STRING): HTTP_METHOD_HANDLER
       require
          method.as_upper.is_equal(method)
       deferred
@@ -294,7 +294,7 @@ feature {}
    disconnected: BOOLEAN
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if not disconnected then
             handle_disconnect(ios)
@@ -302,7 +302,7 @@ feature {RECYCLING_POOL}
       end
 
 feature {}
-   dispose is
+   dispose
       do
          if not disconnected then
             handle_disconnect(ios)
@@ -320,7 +320,7 @@ end -- class HTTP_CONNECTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

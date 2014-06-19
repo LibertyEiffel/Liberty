@@ -9,7 +9,7 @@ expanded class EXPANDED1
 feature {ANY}
    x: INTEGER
 
-   set_x (value: INTEGER) is
+   set_x (value: INTEGER)
       do
          x := value
       end

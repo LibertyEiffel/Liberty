@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       require
          visited /= Void
       deferred

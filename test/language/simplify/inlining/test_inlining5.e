@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          a1 := Current
          a2 := Current
@@ -22,34 +22,34 @@ feature {ANY}
 feature {TEST_INLINING5}
    a1: like Current
 
-   f1: INTEGER is
+   f1: INTEGER
       do
          Result := a1.f2
       end
 
    a2: like Current
 
-   f2: INTEGER is
+   f2: INTEGER
       do
          Result := a2.f3
       end
 
    a3: like Current
 
-   f3: INTEGER is
+   f3: INTEGER
       do
          Result := a3.f4
       end
 
    a4: INTEGER
 
-   f4: INTEGER is
+   f4: INTEGER
       do
          Result := a4
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

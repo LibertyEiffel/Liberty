@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          ab: AUX_AGENT33AB; ac: AUX_AGENT33AC; b: AUX_AGENT33B; c: AUX_AGENT33C
       do
@@ -26,12 +26,12 @@ feature {}
          assert(assert_counter.item = 2)
       end
 
-   rb (b: AUX_AGENT33B) is
+   rb (b: AUX_AGENT33B)
       do
          assert(assert_counter.item = 0)
       end
 
-   rc (c: AUX_AGENT33C) is
+   rc (c: AUX_AGENT33C)
       do
          assert(assert_counter.item = 1)
       end

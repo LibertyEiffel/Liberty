@@ -1,7 +1,7 @@
 class BAD_ALIAS_04
 
 feature {ANY}
-   neg alias "not" is
+   neg alias "not"
       do
       end
 

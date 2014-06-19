@@ -13,23 +13,23 @@ create {ANY}
 feature {}
    world1, world2: ARRAY2[INTEGER_8]
 
-   empty: INTEGER_8 is 1
+   empty: INTEGER_8 1
 
-   healthy: INTEGER_8 is 0
+   healthy: INTEGER_8 0
 
-   di: ARRAY[INTEGER_8] is
+   di: ARRAY[INTEGER_8]
       once
          Result := {ARRAY[INTEGER_8] 1, << -1, -1, -1, 0, 1, 1, 1, 0 >> }
       end
 
-   dj: ARRAY[INTEGER_8] is
+   dj: ARRAY[INTEGER_8]
       once
          Result := {ARRAY[INTEGER_8] 1, << -1, 0, 1, 1, 1, 0, -1, -1 >> }
       end
 
-   error_msg: STRING is "Error : do it again !%N"
+   error_msg: STRING "Error : do it again !%N"
 
-   yes_or_no (question: STRING; default_answer: BOOLEAN): BOOLEAN is
+   yes_or_no (question: STRING; default_answer: BOOLEAN): BOOLEAN
       do
          io.put_string(question)
          io.put_string(once "(y/n)? ")
@@ -53,7 +53,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
          -- Try to spreads an illness through a set of people.
       local
          day: INTEGER; fed_up: BOOLEAN
@@ -74,7 +74,7 @@ feature {}
          end
       end
 
-   first_day is
+   first_day
          -- Create the world in the 1st day's state.
       local
          i, j: INTEGER; ill_state: INTEGER_8; ok: BOOLEAN
@@ -162,7 +162,7 @@ feature {}
          world2 := world1.twin
       end
 
-   display is
+   display
          -- Displays current `world2'.
       local
          i, j: INTEGER
@@ -219,7 +219,7 @@ feature {}
          io.put_string(once "+%N")
       end
 
-   next_day is
+   next_day
          -- `world1' and `world2' are swapped.
       local
          i, j: INTEGER
@@ -250,7 +250,7 @@ feature {}
       end
 
 feature {}
-   cure_or_die (i, j: INTEGER) is
+   cure_or_die (i, j: INTEGER)
          -- When ill, inspects if must be death or more ill or cured.
       do
          inspect
@@ -266,7 +266,7 @@ feature {}
          end
       end
 
-   die (i, j: INTEGER) is
+   die (i, j: INTEGER)
          -- When two days ill, dies or more ill ?
       local
          d, k: INTEGER
@@ -290,7 +290,7 @@ feature {}
          end
       end
 
-   spread (i, j: INTEGER) is
+   spread (i, j: INTEGER)
          -- spread the illness ?
       local
          d: INTEGER
@@ -311,13 +311,13 @@ feature {}
          end
       end
 
-   ill (i, j: INTEGER): BOOLEAN is
+   ill (i, j: INTEGER): BOOLEAN
          -- Is there someone is ill at `i', `j'.
       do
          Result := v(i, j) < 0
       end
 
-   v (i, j: INTEGER): INTEGER is
+   v (i, j: INTEGER): INTEGER
          -- Gives `empty' when out of range or the
          -- value in `world1'
       do

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xml_check_version (a_version: INTEGER) is
+	xml_check_version (a_version: INTEGER)
  		-- xmlCheckVersion
 		external "plug_in"
 		alias "{

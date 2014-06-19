@@ -19,7 +19,7 @@ feature {ANY}
    forced_flag: BOOLEAN
          -- Indicate that it is a forced one (i.e ::=).
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          rs: like right_side; left_type, right_type: TYPE; right_run_time_set: RUN_TIME_SET
          counter1, counter2, i: INTEGER
@@ -103,7 +103,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          l, r: EXPRESSION
       do
@@ -116,7 +116,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          l, r: EXPRESSION
       do
@@ -129,7 +129,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          l, r: EXPRESSION; l_dt, r_dt: TYPE
       do
@@ -205,7 +205,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          semi_colon_flag: BOOLEAN; expression_with_comment: EXPRESSION_WITH_COMMENT
       do
@@ -236,7 +236,7 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       local
          left_type, right_type: TYPE; left_live_type: LIVE_TYPE; right_rts: RUN_TIME_SET; i: INTEGER
       do
@@ -263,7 +263,7 @@ feature {ANY}
          assignment_handler.collect_force(right_type, left_type)
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          l: like left_side; r: like right_side
       do
@@ -276,13 +276,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ASSIGNMENT_ATTEMPT_VISITOR) is
+   accept (visitor: ASSIGNMENT_ATTEMPT_VISITOR)
       do
          visitor.visit_assignment_attempt(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          rs: like right_side
       do
@@ -298,7 +298,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (ls: like left_side; rs: like right_side; f: like forced_flag) is
+   make (ls: like left_side; rs: like right_side; f: like forced_flag)
       require
          ls /= Void
          rs /= Void

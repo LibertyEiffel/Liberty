@@ -4,7 +4,7 @@
 deferred class AUX_05A
 
 feature {ANY}
-   print_msg is
+   print_msg
       deferred
       end
 

@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {ANY}
-   server: SOCKET_SERVER is
+   server: SOCKET_SERVER
       local
          fd: INTEGER
       do
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   set_address_reuse (value: BOOLEAN) is
+   set_address_reuse (value: BOOLEAN)
          -- When `value', servers are created with reusable addresses
          -- See SO_REUSEADDR in IP sockets documentation for details
       do
@@ -43,7 +43,7 @@ feature {ANY}
          -- Should created servers should be created with a reusable bind address?
 
 feature {}
-   make (a_address: ADDRESS; a_port: INTEGER; a_sync: BOOLEAN) is
+   make (a_address: ADDRESS; a_port: INTEGER; a_sync: BOOLEAN)
          -- Access to a server on the given host address listening at the given port
       require
          a_address /= Void
@@ -57,7 +57,7 @@ feature {}
    sync: BOOLEAN
 
 feature {} -- Option handling
-   set_preopen_options(fd: INTEGER) is
+   set_preopen_options(fd: INTEGER)
          -- Set the socket options that should be set after creating the
          -- socket and before binding it
       do
@@ -66,7 +66,7 @@ feature {} -- Option handling
          end
       end
 
-   set_integer_socket_option(fd, opt_name, opt_val: INTEGER) is
+   set_integer_socket_option(fd, opt_name, opt_val: INTEGER)
       local
          op_result: INTEGER
       do
@@ -79,7 +79,7 @@ feature {} -- Option handling
       end
 
 feature {IPV4_ADDRESS}
-   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
+   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET
       do
          create {IPV4_SOCKET} Result.make_tcp(a, b, c, d, port, sync)
       end
@@ -92,7 +92,7 @@ end -- class TCP_ACCESS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

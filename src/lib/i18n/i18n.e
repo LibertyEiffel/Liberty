@@ -4,13 +4,13 @@
 expanded class I18N
 
 feature {ANY}
-   locale: LOCALE is
+   locale: LOCALE
          -- The currently set locale
       do
          Result := locale_memory.item
       end
 
-   set_locale (a_locale: like locale) is
+   set_locale (a_locale: like locale)
          -- Set the current locale
       do
          locale_memory.set_item(a_locale)
@@ -20,119 +20,119 @@ feature {ANY}
       end
 
 feature {ANY} -- Useful constants
-   canada: LOCALE is
+   canada: LOCALE
       once
          create Result.make_country("en", "CA")
       end
 
-   canada_french, quebec: LOCALE is
+   canada_french, quebec: LOCALE
       once
          create Result.make_country("fr", "CA")
       end
 
-   china: LOCALE is
+   china: LOCALE
       once
          create Result.make_country("zh", "CN")
       end
 
-   chinese: LOCALE is
+   chinese: LOCALE
       once
          create Result.make_language("zh")
       end
 
-   english: LOCALE is
+   english: LOCALE
       once
          create Result.make_language("en")
       end
 
-   france: LOCALE is
+   france: LOCALE
       once
          create Result.make_country("fr", "FR")
       end
 
-   french: LOCALE is
+   french: LOCALE
       once
          create Result.make_language("fr")
       end
 
-   german: LOCALE is
+   german: LOCALE
       once
          create Result.make_language("de")
       end
 
-   germany: LOCALE is
+   germany: LOCALE
       once
          create Result.make_country("de", "DE")
       end
 
-   italian: LOCALE is
+   italian: LOCALE
       once
          create Result.make_language("it")
       end
 
-   italy: LOCALE is
+   italy: LOCALE
       once
          create Result.make_country("it", "IT")
       end
 
-   japan: LOCALE is
+   japan: LOCALE
       once
          create Result.make_country("jp", "JP")
       end
 
-   japanese: LOCALE is
+   japanese: LOCALE
       once
          create Result.make_language("jp")
       end
 
-   korea: LOCALE is
+   korea: LOCALE
       once
          create Result.make_country("ko", "KR")
       end
 
-   korean: LOCALE is
+   korean: LOCALE
       once
          create Result.make_language("ko")
       end
 
-   prc: LOCALE is
+   prc: LOCALE
       once
          create Result.make_country("zh", "CN")
       end
 
-   simplified_chinese: LOCALE is
+   simplified_chinese: LOCALE
       once
          create Result.make_country("zh", "CN")
       end
 
-   taiwan: LOCALE is
+   taiwan: LOCALE
       once
          create Result.make_country("zh", "TW")
       end
 
-   traditional_chinese: LOCALE is
+   traditional_chinese: LOCALE
       once
          create Result.make_country("zh", "TW")
       end
 
-   uk: LOCALE is
+   uk: LOCALE
       once
          create Result.make_country("en", "GB")
       end
 
-   us: LOCALE is
+   us: LOCALE
       once
          create Result.make_country("en", "US")
       end
 
 feature {}
-   locale_memory: REFERENCE[LOCALE] is
+   locale_memory: REFERENCE[LOCALE]
       once
          create Result
          fix_locale(Result.item)
       end
 
-   fix_locale (a_locale: like locale) is
+   fix_locale (a_locale: like locale)
          -- low-level access to the native localization
       local
          language, country, encoding: POINTER
@@ -147,7 +147,7 @@ feature {}
          i18n_set_system_locale(language, country, encoding)
       end
 
-   i18n_set_system_locale (language, country, encoding: POINTER) is
+   i18n_set_system_locale (language, country, encoding: POINTER)
       external "plug_in"
       alias "{
          location: "externals"
@@ -164,7 +164,7 @@ end -- class I18N
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

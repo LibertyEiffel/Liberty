@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = failed_low_level)  or else
 				(a_value = fbig_low_level)  or else
@@ -22,99 +22,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_fbig is
+	set_fbig
 		do
 			value := fbig_low_level
 		end
 
-	set_inval is
+	set_inval
 		do
 			value := inval_low_level
 		end
 
-	set_io is
+	set_io
 		do
 			value := io_low_level
 		end
 
-	set_isdir is
+	set_isdir
 		do
 			value := isdir_low_level
 		end
 
-	set_nospc is
+	set_nospc
 		do
 			value := nospc_low_level
 		end
 
-	set_nxio is
+	set_nxio
 		do
 			value := nxio_low_level
 		end
 
-	set_overflow is
+	set_overflow
 		do
 			value := overflow_low_level
 		end
 
-	set_pipe is
+	set_pipe
 		do
 			value := pipe_low_level
 		end
 
 feature {ANY} -- Queries
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_fbig: BOOLEAN is
+	is_fbig: BOOLEAN
 		do
 			Result := (value=fbig_low_level)
 		end
 
-	is_inval: BOOLEAN is
+	is_inval: BOOLEAN
 		do
 			Result := (value=inval_low_level)
 		end
 
-	is_io: BOOLEAN is
+	is_io: BOOLEAN
 		do
 			Result := (value=io_low_level)
 		end
 
-	is_isdir: BOOLEAN is
+	is_isdir: BOOLEAN
 		do
 			Result := (value=isdir_low_level)
 		end
 
-	is_nospc: BOOLEAN is
+	is_nospc: BOOLEAN
 		do
 			Result := (value=nospc_low_level)
 		end
 
-	is_nxio: BOOLEAN is
+	is_nxio: BOOLEAN
 		do
 			Result := (value=nxio_low_level)
 		end
 
-	is_overflow: BOOLEAN is
+	is_overflow: BOOLEAN
 		do
 			Result := (value=overflow_low_level)
 		end
 
-	is_pipe: BOOLEAN is
+	is_pipe: BOOLEAN
 		do
 			Result := (value=pipe_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fbig_low_level: INTEGER is
+	fbig_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inval_low_level: INTEGER is
+	inval_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	io_low_level: INTEGER is
+	io_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	isdir_low_level: INTEGER is
+	isdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nospc_low_level: INTEGER is
+	nospc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nxio_low_level: INTEGER is
+	nxio_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	overflow_low_level: INTEGER is
+	overflow_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pipe_low_level: INTEGER is
+	pipe_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

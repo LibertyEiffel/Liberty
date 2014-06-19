@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_INCREMENT_COLUMN_VALUE}
-   visit_increment_column_value (a_increment_column_value: EDC_INCREMENT_COLUMN_VALUE) is
+   visit_increment_column_value (a_increment_column_value: EDC_INCREMENT_COLUMN_VALUE)
       deferred
       end
 

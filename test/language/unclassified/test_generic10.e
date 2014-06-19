@@ -13,7 +13,7 @@ feature {ANY}
 
    dict_b: AUX_GENERIC10_DICTIONARY[STRING, INTEGER]
 
-   make is
+   make
       local
          itere_a: AUX_GENERIC10_ITERATOR[INTEGER]; itere_b: AUX_GENERIC10_ITERATOR[STRING]
       do

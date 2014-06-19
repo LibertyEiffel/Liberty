@@ -9,6 +9,6 @@ create {ANY}
    init
 
 feature {ANY}
-   text_domain: STRING is "simple_example"
+   text_domain: STRING "simple_example"
 
 end -- class TRANSLATOR

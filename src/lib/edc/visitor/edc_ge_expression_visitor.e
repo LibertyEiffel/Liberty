@@ -25,7 +25,7 @@ inherit
    ESE_TYPED_VISITOR[N_]
 
 feature {EDC_GE_EXPRESSION}
-   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[N_]) is
+   visit_ge_expression (a_ge_expression: EDC_GE_EXPRESSION[N_])
       deferred
       end
 

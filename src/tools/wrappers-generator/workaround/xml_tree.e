@@ -1,4 +1,4 @@
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 class XML_TREE
 	--
@@ -17,13 +17,13 @@ feature {ANY}
 	root: XML_NODE
 			-- The root of the tree
 
-	attribute_at (a_attribute_name: STRING): STRING is
+	attribute_at (a_attribute_name: STRING): STRING
 			-- Usually to recover the "version" or "encoding" attributes
 		do
 			Result := tree_attributes.reference_at(a_attribute_name)
 		end
 
-	set_processing_instruction (target: STRING; processor: PROCEDURE[TUPLE[STRING]]) is
+	set_processing_instruction (target: STRING; processor: PROCEDURE[TUPLE[STRING]])
 		require
 			target /= Void
 			processor /= Void
@@ -45,13 +45,13 @@ feature {}
 
 	open_nodes: STACK[XML_NODE]
 
-	processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[STRING]]], STRING] is
+	processing_instructions: HASHED_DICTIONARY[FAST_ARRAY[PROCEDURE[TUPLE[STRING]]], STRING]
 		once
 			create Result.make
 		end
 
 feature {XML_PARSER}
-	with_attribute (attribute_name: STRING; attribute_value: STRING; line, column: INTEGER) is
+	with_attribute (attribute_name: STRING; attribute_value: STRING; line, column: INTEGER)
 		do
 			if attribute_value=Void
 			 then attributes.put(Void, attribute_name.twin)
@@ -59,7 +59,7 @@ feature {XML_PARSER}
 			end
 		end
 
-	open_node (node_name: STRING; line, column: INTEGER) is
+	open_node (node_name: STRING; line, column: INTEGER)
 		local
 			node: XML_NODE; i: INTEGER
 		do
@@ -76,35 +76,35 @@ feature {XML_PARSER}
 			open_nodes.push(node)
 		end
 
-	close_node (node_name: STRING; line, column: INTEGER) is
+	close_node (node_name: STRING; line, column: INTEGER)
 		local
 			node: XML_NODE
 		do
 			node := open_nodes.top
 			open_nodes.pop
-			if open_nodes.is_empty then
+			if open_nodes._empty then
 				root := node
 			else
 				open_nodes.top.add_child(node)
 			end
 		end
 
-	open_close_node (node_name: STRING; line, column: INTEGER) is
+	open_close_node (node_name: STRING; line, column: INTEGER)
 		do
 			open_node(node_name, line, column)
 			close_node(node_name, line, column)
 		end
 
-	xml_header (line, column: INTEGER) is
+	xml_header (line, column: INTEGER)
 		do
 			check
-				tree_attributes.is_empty
+				tree_attributes._empty
 			end
 			tree_attributes.copy(attributes)
 			attributes.clear_count
 		end
 
-	processing_instruction (a_target, a_data: STRING) is
+	processing_instruction (a_target, a_data: STRING)
 		local
 			processors: FAST_ARRAY[PROCEDURE[TUPLE[STRING]]]; i: INTEGER
 		do
@@ -121,24 +121,24 @@ feature {XML_PARSER}
 			end
 		end
 
-	current_node: STRING is
+	current_node: STRING
 		do
-			if not open_nodes.is_empty then
+			if not open_nodes._empty then
 				Result := open_nodes.top.name
 			end
 		end
 
-	entity (a_entity: STRING; line, column: INTEGER): STRING is
+	entity (a_entity: STRING; line, column: INTEGER): STRING
 		do
 			-- The default tree does not recognize any other entity than XML defaults.
 		end
 
-	data (a_data: STRING; line, column: INTEGER) is
+	data (a_data: STRING; line, column: INTEGER)
 		do
 			open_nodes.top.set_data(a_data.twin)
 		end
 
-	parse_error (line, column: INTEGER; message: STRING) is
+	parse_error (line, column: INTEGER; message: STRING)
 		do
 			at_error := True
 			if error_handler /= Void then
@@ -159,10 +159,10 @@ feature {XML_PARSER}
 feature {}
 	error_handler: PROCEDURE[TUPLE[INTEGER, INTEGER, STRING]]
 
-	make (in: INPUT_STREAM) is
+	make (in: INPUT_STREAM)
 			-- read the xml tree in the given input stream
 		require
-			in.is_connected
+			in._connected
 		do
 			create attributes.make
 			create tree_attributes.make
@@ -171,18 +171,18 @@ feature {}
 			parser.parse(Current)
 		end
 
-	with_error_handler (in: INPUT_STREAM; a_error_handler: like error_handler) is
+	with_error_handler (in: INPUT_STREAM; a_error_handler: like error_handler)
 		do
 			error_handler := a_error_handler
 			make(in)
 		end
 
-	new_node (node_name: STRING; line, column: INTEGER): XML_NODE is
+	new_node (node_name: STRING; line, column: INTEGER): XML_NODE
 		do
 			create Result.make(node_name, line, column)
 		end
 
-	parser: XML_PARSER is
+	parser: XML_PARSER
 		once
 			create Result.make
 		end
@@ -200,11 +200,11 @@ end -- class XML_TREE
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 -- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- limitation the rights to use, copy, modify, merge, publh, dtribute, sublicense, and/or sell copies of
 -- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
 -- conditions:
 --
--- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- The above copyright notice and th permsion notice shall be included in all copies or substantial
 -- portions of the Software.
 --
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT

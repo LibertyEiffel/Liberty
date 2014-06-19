@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          view: STRING
       do
@@ -26,7 +26,7 @@ feature {ANY}
          assert(("X").is_equal('X'.out))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

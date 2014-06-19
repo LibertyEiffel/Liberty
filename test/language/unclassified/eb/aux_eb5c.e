@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   f is
+   f
       deferred
       end
 

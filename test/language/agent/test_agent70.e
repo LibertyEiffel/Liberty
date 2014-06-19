@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   data: AVL_DICTIONARY[STRING, INTEGER] is
+   data: AVL_DICTIONARY[STRING, INTEGER]
       once
          create Result.make
          Result.add("foo", 1)
@@ -15,7 +15,7 @@ feature {}
          Result.add("duck", 2)
       end
 
-   make is
+   make
       local
          i: INTEGER
          checker: PREDICATE[TUPLE[STRING, INTEGER]]
@@ -38,7 +38,7 @@ feature {}
          end
       end
 
-   do_check (actual: STRING; index: INTEGER; expected: INDEXABLE[STRING]): BOOLEAN is
+   do_check (actual: STRING; index: INTEGER; expected: INDEXABLE[STRING]): BOOLEAN
       do
          Result := actual.is_equal(expected.item(index))
       end

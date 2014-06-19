@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (i: like item) is
+   make (i: like item)
       do
          if parents = Void then
             create parents.make(0)
@@ -40,22 +40,22 @@ feature {ANY}
 
    children: FAST_ARRAY[like Current]
 
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item := i
       end
 
-   parents_count: INTEGER is
+   parents_count: INTEGER
       do
          Result := parents.count
       end
 
-   children_count: INTEGER is
+   children_count: INTEGER
       do
          Result := children.count
       end
 
-   add_parent (node: like Current) is
+   add_parent (node: like Current)
       require
          node /= Void
       local
@@ -68,7 +68,7 @@ feature {ANY}
          tmp.add_last(0)
       end
 
-   add_child (node: like Current) is
+   add_child (node: like Current)
       require
          node /= Void
       local
@@ -81,7 +81,7 @@ feature {ANY}
          tmp.add_last(0)
       end
 
-   remove_parent (node: like Current) is
+   remove_parent (node: like Current)
       require
          has_parent(node)
       local
@@ -96,17 +96,17 @@ feature {ANY}
          parents_edge.remove(i)
       end
 
-   has_parent_edge (id: INTEGER): BOOLEAN is
+   has_parent_edge (id: INTEGER): BOOLEAN
       do
          Result := parents_edge.fast_has(id)
       end
 
-   has_child_edge (id: INTEGER): BOOLEAN is
+   has_child_edge (id: INTEGER): BOOLEAN
       do
          Result := children_edge.fast_has(id)
       end
 
-   remove_child (node: like Current) is
+   remove_child (node: like Current)
       require
          has_child(node)
       local
@@ -121,7 +121,7 @@ feature {ANY}
          children_edge.remove(i)
       end
 
-   remove_parent_edge (id: INTEGER): like Current is
+   remove_parent_edge (id: INTEGER): like Current
          -- Return connected node.
       require
          has_parent_edge(id)
@@ -137,7 +137,7 @@ feature {ANY}
          not has_parent_edge(id)
       end
 
-   restore_parent_edge (id: INTEGER; node: like Current) is
+   restore_parent_edge (id: INTEGER; node: like Current)
       require
          not has_parent_edge(id)
          has_parent_edge(-1)
@@ -168,7 +168,7 @@ feature {ANY}
          has_parent_edge(id)
       end
 
-   remove_child_edge (id: INTEGER): like Current is
+   remove_child_edge (id: INTEGER): like Current
          -- Return connected node.
       require
          has_child_edge(id)
@@ -184,7 +184,7 @@ feature {ANY}
          not has_child_edge(id)
       end
 
-   restore_child_edge (id: INTEGER; node: like Current) is
+   restore_child_edge (id: INTEGER; node: like Current)
       require
          not has_child_edge(id)
          has_child_edge(-1)
@@ -215,7 +215,7 @@ feature {ANY}
          has_child_edge(id)
       end
 
-   deep_reset_edges is
+   deep_reset_edges
          -- Set edge identifiers with values starting from 0.
       local
          max, i: INTEGER; node: like Current
@@ -236,80 +236,80 @@ feature {ANY}
          deep_unmark_connected
       end
 
-   parent (i: INTEGER): like Current is
+   parent (i: INTEGER): like Current
       require
          i.in_range(1, parents_count)
       do
          Result := parents.item(i - 1)
       end
 
-   child (i: INTEGER): like Current is
+   child (i: INTEGER): like Current
       require
          i.in_range(1, children_count)
       do
          Result := children.item(i - 1)
       end
 
-   has_parent (other: like Current): BOOLEAN is
+   has_parent (other: like Current): BOOLEAN
       do
          Result := parents.has(other)
       ensure
          Result = other.has_child(Current)
       end
 
-   has_child (other: like Current): BOOLEAN is
+   has_child (other: like Current): BOOLEAN
       do
          Result := children.has(other)
       ensure
          Result = other.has_parent(Current)
       end
 
-   parent_edge (i: INTEGER): INTEGER is
+   parent_edge (i: INTEGER): INTEGER
       require
          i.in_range(1, parents_count)
       do
          Result := parents_edge.item(i - 1)
       end
 
-   child_edge (i: INTEGER): INTEGER is
+   child_edge (i: INTEGER): INTEGER
       require
          i.in_range(1, children_count)
       do
          Result := children_edge.item(i - 1)
       end
 
-   has_cycle: BOOLEAN is
+   has_cycle: BOOLEAN
       do
          Result := has_parent_cycle or else has_children_cycle
       end
 
-   has_parent_cycle: BOOLEAN is
+   has_parent_cycle: BOOLEAN
       do
          Result := internal_has_parent_cycle
          clean_mark_score
       end
 
-   has_children_cycle: BOOLEAN is
+   has_children_cycle: BOOLEAN
       do
          Result := internal_has_children_cycle
          clean_mark_score
       end
 
-   is_toplevel: BOOLEAN is
+   is_toplevel: BOOLEAN
       do
          Result := parents.is_empty
       ensure
          Result = (parents_count = 0)
       end
 
-   is_leaf: BOOLEAN is
+   is_leaf: BOOLEAN
       do
          Result := children.is_empty
       ensure
          Result = (children_count = 0)
       end
 
-   is_connected_to (other: like Current): BOOLEAN is
+   is_connected_to (other: like Current): BOOLEAN
       require
          other /= Void
       do
@@ -319,7 +319,7 @@ feature {ANY}
          Result = (distance(other) /= Maximum_integer)
       end
 
-   distance (other: like Current): INTEGER is
+   distance (other: like Current): INTEGER
       require
          other /= Void
       local
@@ -339,7 +339,7 @@ feature {ANY}
          is_connected_to(other) = (distance(other) /= Maximum_integer)
       end
 
-   set_rank is
+   set_rank
       require
          not has_cycle --TODO: no graph cycle
       do
@@ -354,7 +354,7 @@ feature {ANY}
          deep_unmark_connected
       end
 
-   add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]]) is
+   add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]])
          -- Add in `list' all nodes belonging to the same graph as `Current'
       require
          list /= Void
@@ -363,7 +363,7 @@ feature {ANY}
          deep_unmark_connected
       end
 
-   fill_path_to (path: COLLECTION[INTEGER]; destination: like Current) is
+   fill_path_to (path: COLLECTION[INTEGER]; destination: like Current)
          -- Add in `path' edges identifiers corresponding to a path
          -- from current node to `destination' node.
       require
@@ -379,13 +379,13 @@ feature {ANY}
          deep_unmark_connected
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := item.hash_code
       end
 
 feature {HIERARCHIC_GRAPH_NODE}
-   internal_has_parent_cycle: BOOLEAN is
+   internal_has_parent_cycle: BOOLEAN
       local
          i: INTEGER
       do
@@ -405,7 +405,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          mark := False
       end
 
-   internal_has_children_cycle: BOOLEAN is
+   internal_has_children_cycle: BOOLEAN
       local
          i: INTEGER
       do
@@ -425,7 +425,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          mark := False
       end
 
-   internal_is_connected_to (other: like Current): BOOLEAN is
+   internal_is_connected_to (other: like Current): BOOLEAN
       require
          other /= Void
       local
@@ -457,7 +457,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_unmark_parents is
+   internal_unmark_parents
       local
          i: INTEGER
       do
@@ -472,7 +472,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_unmark_children is
+   internal_unmark_children
       local
          i: INTEGER
       do
@@ -486,7 +486,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_unmark_connected is
+   internal_unmark_connected
          -- unmark parents and children
       local
          i: INTEGER
@@ -510,7 +510,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_deep_reset_edges: INTEGER is
+   internal_deep_reset_edges: INTEGER
       local
          i: INTEGER; node: like Current
       do
@@ -542,7 +542,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_deep_init_edges (use: INTEGER): INTEGER is
+   internal_deep_init_edges (use: INTEGER): INTEGER
       local
          i, j: INTEGER; node: like Current; n_list: FAST_ARRAY[like Current]; e_list: FAST_ARRAY[INTEGER]
       do
@@ -614,7 +614,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_distance (other: like Current; pos, max: INTEGER): INTEGER is
+   internal_distance (other: like Current; pos, max: INTEGER): INTEGER
          -- Returns Maximum_integer if unaccessibility detected
          -- Returns -1 when break needed
          -- Distance from current point otherwise
@@ -679,7 +679,7 @@ feature {HIERARCHIC_GRAPH_NODE}
       --|*** Result = -1 or Result = Maximum_integer or Result.in_range(0, max-pos)
       end
 
-   clean_mark_score is
+   clean_mark_score
       local
          i: INTEGER
       do
@@ -706,7 +706,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_set_rank is
+   internal_set_rank
       local
          min, max: INTEGER; i: INTEGER; max_changed: BOOLEAN
       do
@@ -797,7 +797,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]]) is
+   internal_add_connected_nodes_in (list: COLLECTION[HIERARCHIC_GRAPH_NODE[E_]])
       local
          i: INTEGER
       do
@@ -825,7 +825,7 @@ feature {HIERARCHIC_GRAPH_NODE}
          end
       end
 
-   internal_fill_path_to (path: COLLECTION[INTEGER]; destination: like Current; position: INTEGER): BOOLEAN is
+   internal_fill_path_to (path: COLLECTION[INTEGER]; destination: like Current; position: INTEGER): BOOLEAN
       local
          i: INTEGER; pos: INTEGER; node: like Current
       do
@@ -867,12 +867,12 @@ feature {HIERARCHIC_GRAPH_NODE}
       end
 
 feature {}
-   invariant_checking_mode: REFERENCE[BOOLEAN] is
+   invariant_checking_mode: REFERENCE[BOOLEAN]
       once
          create Result
       end
 
-   valid_parents: BOOLEAN is
+   valid_parents: BOOLEAN
       local
          i: INTEGER; element: like Current
       do
@@ -889,7 +889,7 @@ feature {}
          Result := Result and parents.count = parents_edge.count
       end
 
-   valid_children: BOOLEAN is
+   valid_children: BOOLEAN
       local
          i: INTEGER; element: like Current
       do
@@ -906,7 +906,7 @@ feature {}
          Result := Result and children.count = children_edge.count
       end
 
-   valid_parents_and_children: BOOLEAN is
+   valid_parents_and_children: BOOLEAN
       do
          if not invariant_checking_mode.item then
             set_invariant_checking_mode(True)
@@ -921,14 +921,14 @@ feature {}
          assertion_only: Result
       end
 
-   set_invariant_checking_mode (new_mode: BOOLEAN) is
+   set_invariant_checking_mode (new_mode: BOOLEAN)
       require
          new_mode /= invariant_checking_mode.item
       do
          invariant_checking_mode.set_item(new_mode)
       end
 
-   deconnect_current is
+   deconnect_current
       local
          i, j: INTEGER; tmp: like parents
       do
@@ -979,17 +979,17 @@ feature {HIERARCHIC_GRAPH_NODE} --|*** feature?
 
    mark: BOOLEAN
 
-   unmark is
+   unmark
       do
          mark := False
       end
 
-   set_mark is
+   set_mark
       do
          mark := True
       end
 
-   deep_unmark_connected is
+   deep_unmark_connected
          -- deep unmark parents and children (paths stops at unmarked nodes)
       local
          i: INTEGER
@@ -1031,7 +1031,7 @@ end -- class HIERARCHIC_GRAPH_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

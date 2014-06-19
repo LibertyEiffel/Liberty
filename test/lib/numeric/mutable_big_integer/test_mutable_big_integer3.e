@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          mbia, mbib: MUTABLE_BIG_INTEGER
       do
@@ -81,7 +81,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then
@@ -92,7 +92,7 @@ feature {ANY}
          end
       end
 
-   check_add (a, b: INTEGER_64) is
+   check_add (a, b: INTEGER_64)
       local
          c: INTEGER_64; mbia, mbib: MUTABLE_BIG_INTEGER
       do
@@ -114,7 +114,7 @@ feature {ANY}
          assert(mbia.to_integer_64 = a)
       end
 
-   check_add_to (a, b: INTEGER_64) is
+   check_add_to (a, b: INTEGER_64)
       local
          c: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
       do

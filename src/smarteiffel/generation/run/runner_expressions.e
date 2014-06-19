@@ -17,7 +17,7 @@ create {RUNNER_PROCESSOR}
    make
 
 feature {RUNNER_FACET}
-   execute (a_executable: VISITABLE) is
+   execute (a_executable: VISITABLE)
       local
          watermark: RUNNER_FRAME_WATERMARK
          old_return: like return
@@ -29,7 +29,7 @@ feature {RUNNER_FACET}
          current_frame.execute_until(watermark)
       end
 
-   eval (a_expression: EXPRESSION): RUNNER_OBJECT is
+   eval (a_expression: EXPRESSION): RUNNER_OBJECT
       require
          a_expression /= Void
       local
@@ -44,51 +44,51 @@ feature {RUNNER_FACET}
       end
 
 feature {IMPLICIT_CURRENT}
-   visit_implicit_current (visited: IMPLICIT_CURRENT) is
+   visit_implicit_current (visited: IMPLICIT_CURRENT)
       do
          return := current_frame.target
       end
 
 feature {WRITTEN_CURRENT}
-   visit_written_current (visited: WRITTEN_CURRENT) is
+   visit_written_current (visited: WRITTEN_CURRENT)
       do
          return := current_frame.target
       end
 
 feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
+   visit_address_of (visited: ADDRESS_OF)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
+   visit_agent_creation (visited: AGENT_CREATION)
       do
          return := processor.new_agent(visited)
       end
 
 feature {AGENT_EXPRESSION}
-   visit_agent_expression (visited: AGENT_EXPRESSION) is
+   visit_agent_expression (visited: AGENT_EXPRESSION)
       do
          processor.features.call_agent(visited, Current)
       end
 
 feature {ASSERTION}
-   visit_assertion (visited: ASSERTION) is
+   visit_assertion (visited: ASSERTION)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {ASSIGNMENT_TEST}
-   visit_assignment_test (visited: ASSIGNMENT_TEST) is
+   visit_assignment_test (visited: ASSIGNMENT_TEST)
       do
          return := processor.new_boolean(processor.assignment.test_assign(visited))
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       local
          left, right: RUNNER_OBJECT; eq: BOOLEAN
       do
@@ -105,25 +105,25 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {CLOSED_OPERAND}
-   visit_closed_operand (visited: CLOSED_OPERAND) is
+   visit_closed_operand (visited: CLOSED_OPERAND)
       do
          visited.capture_memory.at(current_frame.type_of_current).accept(Current)
       end
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       do
          return := processor.features.new(visited.created_type(current_frame.type_of_current), visited.call)
       end
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       do
          visited.writable.accept(Current)
       end
 
 feature {E_OLD}
-   visit_e_old (visited: E_OLD) is
+   visit_e_old (visited: E_OLD)
       local
          id: TAGGED_INTEGER
       do
@@ -135,202 +135,202 @@ feature {E_OLD}
       end
 
 feature {EXPRESSION_WITH_COMMENT}
-   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       do
          visited.expression.accept(Current)
       end
 
 feature {FAKE_ARGUMENT}
-   visit_fake_argument (visited: FAKE_ARGUMENT) is
+   visit_fake_argument (visited: FAKE_ARGUMENT)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {}
-   visit_function_call (visited: FUNCTION_CALL) is
+   visit_function_call (visited: FUNCTION_CALL)
       do
          return := processor.features.item(visited)
       end
 
 feature {CALL_PREFIX_MINUS}
-   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
+   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_FREEOP}
-   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
+   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_NOT}
-   visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
+   visit_call_prefix_not (visited: CALL_PREFIX_NOT)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_PREFIX_PLUS}
-   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
+   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS)
       do
          visit_function_call(visited)
       end
 
 feature {STATIC_CALL_0_C}
-   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
+   visit_static_call_0_c (visited: STATIC_CALL_0_C)
       do
          visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_0}
-   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+   visit_function_call_0 (visited: FUNCTION_CALL_0)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_AND_THEN}
-   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
+   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_AND}
-   visit_call_infix_and (visited: CALL_INFIX_AND) is
+   visit_call_infix_and (visited: CALL_INFIX_AND)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_DIV}
-   visit_call_infix_div (visited: CALL_INFIX_DIV) is
+   visit_call_infix_div (visited: CALL_INFIX_DIV)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_FREEOP}
-   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
+   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_GE}
-   visit_call_infix_ge (visited: CALL_INFIX_GE) is
+   visit_call_infix_ge (visited: CALL_INFIX_GE)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_GT}
-   visit_call_infix_gt (visited: CALL_INFIX_GT) is
+   visit_call_infix_gt (visited: CALL_INFIX_GT)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_IMPLIES}
-   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
+   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_INT_DIV}
-   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
+   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_INT_REM}
-   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
+   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_LE}
-   visit_call_infix_le (visited: CALL_INFIX_LE) is
+   visit_call_infix_le (visited: CALL_INFIX_LE)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_LT}
-   visit_call_infix_lt (visited: CALL_INFIX_LT) is
+   visit_call_infix_lt (visited: CALL_INFIX_LT)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_MINUS}
-   visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
+   visit_call_infix_minus (visited: CALL_INFIX_MINUS)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_OR_ELSE}
-   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
+   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_OR}
-   visit_call_infix_or (visited: CALL_INFIX_OR) is
+   visit_call_infix_or (visited: CALL_INFIX_OR)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_PLUS}
-   visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
+   visit_call_infix_plus (visited: CALL_INFIX_PLUS)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_POWER}
-   visit_call_infix_power (visited: CALL_INFIX_POWER) is
+   visit_call_infix_power (visited: CALL_INFIX_POWER)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_TIMES}
-   visit_call_infix_times (visited: CALL_INFIX_TIMES) is
+   visit_call_infix_times (visited: CALL_INFIX_TIMES)
       do
          visit_function_call(visited)
       end
 
 feature {CALL_INFIX_XOR}
-   visit_call_infix_xor (visited: CALL_INFIX_XOR) is
+   visit_call_infix_xor (visited: CALL_INFIX_XOR)
       do
          visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_1}
-   visit_function_call_1 (visited: FUNCTION_CALL_1) is
+   visit_function_call_1 (visited: FUNCTION_CALL_1)
       do
          visit_function_call(visited)
       end
 
 feature {FUNCTION_CALL_N}
-   visit_function_call_n (visited: FUNCTION_CALL_N) is
+   visit_function_call_n (visited: FUNCTION_CALL_N)
       do
          visit_function_call(visited)
       end
 
 feature {GENERATOR_GENERATING_TYPE}
-   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
+   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE)
       do
          return := processor.new_manifest_string(visited.target_type.name.to_string, True)
       end
 
 feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
+   visit_implicit_cast (visited: IMPLICIT_CAST)
       do
          implicit_cast_type := visited.resolved_memory
          -- example: RUNNER_NATIVE_EXPANDED[INTEGER_8] -> RUNNER_NATIVE_EXPANDED[INTEGER_32]
@@ -339,44 +339,44 @@ feature {IMPLICIT_CAST}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
          return := current_frame.arguments.item(visited.rank - 1)
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name_ref (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
          return := current_frame.local_object(visited.to_string)
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {E_FALSE}
-   visit_e_false (visited: E_FALSE) is
+   visit_e_false (visited: E_FALSE)
       do
          return := processor.new_boolean(False)
       end
 
 feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
+   visit_e_true (visited: E_TRUE)
       do
          return := processor.new_boolean(True)
       end
 
 feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
+   visit_character_constant (visited: CHARACTER_CONSTANT)
       do
          return := processor.new_character(visited.value)
       end
 
 feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
+   visit_integer_constant (visited: INTEGER_CONSTANT)
       local
          size: INTEGER; integer_type_mark: INTEGER_TYPE_MARK
       do
@@ -400,46 +400,46 @@ feature {INTEGER_CONSTANT}
       end
 
 feature {REAL_CONSTANT}
-   visit_real_constant (visited: REAL_CONSTANT) is
+   visit_real_constant (visited: REAL_CONSTANT)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {E_VOID}
-   visit_e_void (visited: E_VOID) is
+   visit_e_void (visited: E_VOID)
       do
          return := Void
       end
 
 feature {MANIFEST_STRING}
-   visit_manifest_string (visited: MANIFEST_STRING) is
+   visit_manifest_string (visited: MANIFEST_STRING)
       do
          return := processor.new_manifest_string(visited.to_string, visited.once_flag)
       end
 
 feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
       do
          return := processor.features.manifest_new(visited)
       end
 
 feature {MANIFEST_TUPLE}
-   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   visit_manifest_tuple (visited: MANIFEST_TUPLE)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {OPEN_OPERAND}
-   visit_open_operand (visited: OPEN_OPERAND) is
+   visit_open_operand (visited: OPEN_OPERAND)
       local
          frame: RUNNER_AGENT_FRAME
       do
@@ -452,33 +452,33 @@ feature {OPEN_OPERAND}
       end
 
 feature {PRECURSOR_EXPRESSION}
-   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
          return := expand(current_frame.return)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
          std_output.put_line(once "%N%N**** TODO ****%N%N")
          break --| **** TODO
       end
 
 feature {NO_DISPATCH}
-   visit_no_dispatch (visited: NO_DISPATCH) is
+   visit_no_dispatch (visited: NO_DISPATCH)
       do
          visited.side_effect_free_expression.accept(Current)
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       local
          type: TYPE
       do
@@ -492,13 +492,13 @@ feature {INTERNAL_LOCAL2}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
-   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1) is
+   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1)
       do
          visited.target.accept(Current)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       local
          id: INTEGER_64
       do
@@ -515,37 +515,37 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       do
          visited.dynamic_dispatch_temporary1.accept(Current)
       end
 
 feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
+   visit_void_call (visited: VOID_CALL)
       do
          processor.set_exception(exceptions.Void_call_target, "Void call")
       end
 
 feature {NULL_POINTER}
-   visit_null_pointer (visited: NULL_POINTER) is
+   visit_null_pointer (visited: NULL_POINTER)
       do
          return := processor.default_pointer
       end
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
          break --| **** TODO
       end
 
 feature {NON_VOID_NO_DISPATCH}
-   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       do
          return := processor.features.non_void(visited)
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       local
          i: INTEGER; watermark: RUNNER_FRAME_WATERMARK; inst: INSTRUCTION; exp: EXPRESSION
       do
@@ -565,7 +565,7 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor)
       require
          a_processor /= Void
       do
@@ -577,7 +577,7 @@ feature {}
    return: RUNNER_OBJECT
    implicit_cast_type: TYPE
 
-   tag_id: FIXED_STRING is
+   tag_id: FIXED_STRING
       once
          Result := "run.id".intern
       end

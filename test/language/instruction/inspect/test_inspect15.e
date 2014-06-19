@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(test("a") = 1)
          assert(test("ab") = 2)
@@ -28,7 +28,7 @@ feature {}
          assert(test("acd") = 0)
       end
 
-   test (s: STRING): INTEGER is
+   test (s: STRING): INTEGER
       do
          inspect
             s

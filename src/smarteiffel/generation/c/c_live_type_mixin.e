@@ -11,7 +11,7 @@ insert
    SINGLETON
 
 feature {ANY}
-   is_compiled (live_type: LIVE_TYPE): BOOLEAN is
+   is_compiled (live_type: LIVE_TYPE): BOOLEAN
       require
          live_type /= Void
       do
@@ -19,7 +19,7 @@ feature {ANY}
       end
 
 feature {}
-   compile_live_type (live_type: LIVE_TYPE) is
+   compile_live_type (live_type: LIVE_TYPE)
       require
          live_type /= Void
       do
@@ -29,7 +29,7 @@ feature {}
          end
       end
 
-   do_compile (live_type: LIVE_TYPE) is
+   do_compile (live_type: LIVE_TYPE)
       require
          live_type /= Void
          live_type.at_run_time
@@ -37,7 +37,7 @@ feature {}
       end
 
 feature {}
-   set_compiled (live_type: LIVE_TYPE) is
+   set_compiled (live_type: LIVE_TYPE)
       require
          live_type /= Void
          not is_compiled(live_type)
@@ -49,7 +49,7 @@ feature {}
 
    compiled: HASHED_SET[LIVE_TYPE]
 
-   make is
+   make
       do
          create compiled.make
       end

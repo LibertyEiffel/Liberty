@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tfw: TEXT_FILE_WRITE; ft: FILE_TOOLS; txt, cpy, msg: STRING
       do

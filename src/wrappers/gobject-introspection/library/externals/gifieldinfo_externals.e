@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_field_info_get_field (a_field_info: POINTER; a_mem: POINTER; a_value: POINTER): INTEGER is
+	g_field_info_get_field (a_field_info: POINTER; a_mem: POINTER; a_value: POINTER): INTEGER
  		-- g_field_info_get_field
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_field_info_get_flags (an_info: POINTER): INTEGER is
+	g_field_info_get_flags (an_info: POINTER): INTEGER
  		-- g_field_info_get_flags
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_field_info_get_offset (an_info: POINTER): INTEGER is
+	g_field_info_get_offset (an_info: POINTER): INTEGER
  		-- g_field_info_get_offset
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_field_info_get_size (an_info: POINTER): INTEGER is
+	g_field_info_get_size (an_info: POINTER): INTEGER
  		-- g_field_info_get_size
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_field_info_get_type (an_info: POINTER): POINTER is
+	g_field_info_get_type (an_info: POINTER): POINTER
  		-- g_field_info_get_type
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_field_info_set_field (a_field_info: POINTER; a_mem: POINTER; a_value: POINTER): INTEGER is
+	g_field_info_set_field (a_field_info: POINTER; a_mem: POINTER; a_value: POINTER): INTEGER
  		-- g_field_info_set_field
 		external "plug_in"
 		alias "{

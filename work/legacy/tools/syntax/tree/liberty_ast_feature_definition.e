@@ -21,39 +21,39 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   indexing_clause: LIBERTY_AST_INDEXING is
+   indexing_clause: LIBERTY_AST_INDEXING
       do
          Result ::= nodes.item(0)
       end
 
-   signature: LIBERTY_AST_SIGNATURE is
+   signature: LIBERTY_AST_SIGNATURE
       do
          Result ::= nodes.item(1)
       end
 
-   has_routine_definition: BOOLEAN is
+   has_routine_definition: BOOLEAN
       do
          Result := count = 4 and then nodes.item(3).name.is_equal(once "Routine_Definition")
       end
 
-   is_constant: BOOLEAN is
+   is_constant: BOOLEAN
       do
          Result := count = 4 and then nodes.item(3).name.is_equal(once "Manifest_Or_Type_Test")
       end
 
-   is_unique: BOOLEAN is
+   is_unique: BOOLEAN
       do
          Result := count = 4 and then nodes.item(3).name.is_equal(once "KW unique")
       end
 
-   routine_definition: LIBERTY_AST_ROUTINE_DEFINITION is
+   routine_definition: LIBERTY_AST_ROUTINE_DEFINITION
       require
          has_routine_definition
       do
          Result ::= nodes.item(3)
       end
 
-   constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST is
+   constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST
       require
          is_constant
       do
@@ -61,15 +61,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Feature_Definition"
+   name: STRING "Feature_Definition"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 2, 4 >> }
       end

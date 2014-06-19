@@ -21,7 +21,7 @@ create {ANY}
    default_create
 
 feature {ANY}
-   execute (program: STRING; arguments: TRAVERSABLE[STRING]): PROCESS is
+   execute (program: STRING; arguments: TRAVERSABLE[STRING]): PROCESS
          -- Execute the given `program' (how the program is discovered is os-dependant), passing to it the
          -- `arguments'. The environment is cleared if `keep_environment' is False.
       require
@@ -31,7 +31,7 @@ feature {ANY}
          Result.execute(program, arguments, keep_environment)
       end
 
-   execute_command_line (command_line: STRING): PROCESS is
+   execute_command_line (command_line: STRING): PROCESS
          -- Execute the given `program' (how the program is discovered is os-dependant), passing to it the
          -- `arguments'. The environment is cleared if `keep_environment' is False.
       require
@@ -42,7 +42,7 @@ feature {ANY}
          Result.execute_command_line(command_line, keep_environment)
       end
 
-   create_process: PROCESS is
+   create_process: PROCESS
       do
          if basic_exec_system = basic_exec_system_posix then
             create {PROCESS_POSIX} Result.make
@@ -62,7 +62,7 @@ feature {ANY}
 feature {ANY}
    keep_environment: BOOLEAN
 
-   set_keep_environment (keep_environment_: like keep_environment) is
+   set_keep_environment (keep_environment_: like keep_environment)
       do
          keep_environment := keep_environment_
       ensure
@@ -72,7 +72,7 @@ feature {ANY}
 feature {ANY}
    group: PROCESS_GROUP
 
-   create_group: PROCESS_GROUP is
+   create_group: PROCESS_GROUP
       do
          if basic_exec_system = basic_exec_system_posix then
             create {PROCESS_GROUP_POSIX} Result.make
@@ -85,12 +85,12 @@ feature {ANY}
          end
       end
 
-   default_group: PROCESS_GROUP is
+   default_group: PROCESS_GROUP
       once
          Result := create_group
       end
 
-   set_group (a_group: like group) is
+   set_group (a_group: like group)
       require
          a_group /= Void
       do
@@ -104,7 +104,7 @@ feature {ANY}
          -- Is the program's input stream read directly from the
          -- standard input stream rather than from `input'?
 
-   set_direct_input (direct_input_: like direct_input) is
+   set_direct_input (direct_input_: like direct_input)
       do
          direct_input := direct_input_
       ensure
@@ -115,7 +115,7 @@ feature {ANY}
          -- Is the program's output stream sent directly to the
          -- standard output stream rather than to `output'?
 
-   set_direct_output (direct_output_: like direct_output) is
+   set_direct_output (direct_output_: like direct_output)
       do
          direct_output := direct_output_
       ensure
@@ -126,7 +126,7 @@ feature {ANY}
          -- Is the program's error stream sent directly to the
          -- standard error stream rather than to `error'?
 
-   set_direct_error (direct_error_: like direct_error) is
+   set_direct_error (direct_error_: like direct_error)
       do
          direct_error := direct_error_
       ensure
@@ -134,7 +134,7 @@ feature {ANY}
       end
 
 feature {}
-   default_create is
+   default_create
       do
          group := default_group
          keep_environment := True
@@ -143,7 +143,7 @@ feature {}
 feature {}
    -- plugin features
 
-   basic_exec_system: INTEGER is
+   basic_exec_system: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -152,7 +152,7 @@ feature {}
          }"
       end
 
-   basic_exec_system_posix: INTEGER is
+   basic_exec_system_posix: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -161,7 +161,7 @@ feature {}
          }"
       end
 
-   basic_exec_system_win32: INTEGER is
+   basic_exec_system_win32: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -170,7 +170,7 @@ feature {}
          }"
       end
 
-   basic_exec_system_none: INTEGER is
+   basic_exec_system_none: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -187,7 +187,7 @@ end -- class PROCESS_FACTORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

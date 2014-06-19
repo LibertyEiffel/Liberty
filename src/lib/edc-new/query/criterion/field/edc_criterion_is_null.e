@@ -7,23 +7,23 @@ create {EDC_FIELD}
    make
 
 feature {ANY}
-   is_set: BOOLEAN is True
+   is_set: BOOLEAN True
 
-   value (e: E_): like Current is
+   value (e: E_): like Current
       do
          check
             non_sense: False
          end
       end
 
-   field (f: EDC_FIELD[E_]): like Current is
+   field (f: EDC_FIELD[E_]): like Current
       do
          check
             non_sense: False
          end
       end
 
-   argument: like Current is
+   argument: like Current
       do
          check
             non_sense: False
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_comp_field: like comp_field; a_yes: like yes) is
+   make (a_comp_field: like comp_field; a_yes: like yes)
       require
          a_comp_field /= Void
       do

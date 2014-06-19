@@ -22,7 +22,7 @@ create   {INTROSPECTION_HANDLER}
    make_specialized, typed_internals
 
 feature {ANY}
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       local
          w: like writable; c: like call
       do
@@ -36,7 +36,7 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type, w, c)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          et: like explicit_type; w: like writable; c: like call
       do
@@ -50,18 +50,18 @@ feature {ANY}
          Result := current_or_twin_init(et, w, c)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := specialize_without_checks(type)
          Result.specialize_checks(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := writable.has_been_specialized and then (call /= Void implies call.has_been_specialized)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          writable_type: TYPE; lt: LIVE_TYPE; type_to_create: TYPE
       do
@@ -78,7 +78,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          w: like writable; c: like call; et: like explicit_type
       do
@@ -92,7 +92,7 @@ feature {ANY}
          Result := current_or_twin_init(et, w, c)
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       local
          args: like arguments
       do
@@ -106,7 +106,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          c: like call; creation_proc: E_ROUTINE; args: EFFECTIVE_ARG_LIST; type_to_create: TYPE
       do
@@ -129,7 +129,7 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type, writable, c)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "create")
@@ -153,14 +153,14 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   accept (visitor: CREATE_INSTRUCTION_VISITOR) is
+   accept (visitor: CREATE_INSTRUCTION_VISITOR)
       do
          visitor.visit_create_instruction(Current)
       end
 
-   created_type (type: TYPE): TYPE is
+   created_type (type: TYPE): TYPE
       do
          if explicit_type /= Void then
             Result := explicit_type.resolve_in(type)
@@ -169,7 +169,7 @@ feature {ANY}
          end
       end
 
-   specialize_without_checks (type: TYPE): like Current is
+   specialize_without_checks (type: TYPE): like Current
       local
          w: like writable; c: like call; creation_type: TYPE; fs: FEATURE_STAMP
          name: FEATURE_NAME; test_default: BOOLEAN
@@ -208,7 +208,7 @@ feature {ANY}
       end
 
 feature {CREATE_INSTRUCTION, EXTERNAL_ROUTINE}
-   init (et: like explicit_type; w: like writable; c: like call) is
+   init (et: like explicit_type; w: like writable; c: like call)
       require
          w /= Void
       do
@@ -222,7 +222,7 @@ feature {CREATE_INSTRUCTION, EXTERNAL_ROUTINE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          create_instruction: like Current; args: EFFECTIVE_ARG_LIST; c: like call
       do
@@ -245,7 +245,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (sp: like start_position; et: like explicit_type; w: like writable; c: like call) is
+   make (sp: like start_position; et: like explicit_type; w: like writable; c: like call)
       require
          not sp.is_unknown
          w /= Void
@@ -269,7 +269,7 @@ feature {}
          call = c
       end
 
-   make_specialized (sp: like start_position; et: like explicit_type; w: like writable; c: like call) is
+   make_specialized (sp: like start_position; et: like explicit_type; w: like writable; c: like call)
       require
          not sp.is_unknown
          et.is_static
@@ -290,7 +290,7 @@ feature {}
          call = c
       end
 
-   typed_internals (sp: like start_position; type: TYPE) is
+   typed_internals (sp: like start_position; type: TYPE)
       require
          not sp.is_unknown
          type /= Void
@@ -312,7 +312,7 @@ feature {}
          create {PROCEDURE_CALL_1} call.make(writable, fn, eal)
       end
 
-   current_or_twin_init (et: like explicit_type; w: like writable; c: like call): like Current is
+   current_or_twin_init (et: like explicit_type; w: like writable; c: like call): like Current
       require
          w /= Void
       do

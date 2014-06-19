@@ -10,7 +10,7 @@ insert
 		end
 
 feature {ANY}
-	copy (other: like Current) is
+	copy (other: like Current)
 		do
 			q.copy(other.q)
 			r.copy(other.r)
@@ -18,7 +18,7 @@ feature {ANY}
 			t.copy(other.t)
 		end
 
-	is_equal (other: like Current): BOOLEAN is
+	is_equal (other: like Current): BOOLEAN
 		do
 			Result := q.is_equal(other.q) and then r.is_equal(other.r) and then s.is_equal(other.s) and then t.is_equal(other.t)
 		end
@@ -27,7 +27,7 @@ feature {TRANSFORMATION}
 	q, r, s, t: MUTABLE_BIG_INTEGER
 
 feature {PI_DIGIT_SPIGOT}
-	qrst (a_q, a_r, a_s, a_t: INTEGER) is
+	qrst (a_q, a_r, a_s, a_t: INTEGER)
 		do
 			q.from_integer(a_q)
 			r.from_integer(a_r)
@@ -36,7 +36,7 @@ feature {PI_DIGIT_SPIGOT}
 			k := 0
 		end
 
-	next is
+	next
 		do
 			k := k + 1
 			q.from_integer(k)
@@ -45,7 +45,7 @@ feature {PI_DIGIT_SPIGOT}
 			t.from_integer(2 * k + 1)
 		end
 
-	extract (j: INTEGER): INTEGER is
+	extract (j: INTEGER): INTEGER
 		do
 			tmp1.from_integer(j)
 			-- n = q*j+r
@@ -61,7 +61,7 @@ feature {PI_DIGIT_SPIGOT}
 			Result := tmp2.to_integer_32 -- Because 'to_integer' from official release is obsolete
 		end
 
-	compose (a: like Current) is
+	compose (a: like Current)
 		do
 			tmp1.copy(s)
 			-- ns = s*a.q + t*a.s
@@ -86,22 +86,22 @@ feature {PI_DIGIT_SPIGOT}
 feature {}
 	k: INTEGER
 
-	tmp1: MUTABLE_BIG_INTEGER is
+	tmp1: MUTABLE_BIG_INTEGER
 		once
 			create Result.from_integer(0)
 		end
 
-	tmp2: MUTABLE_BIG_INTEGER is
+	tmp2: MUTABLE_BIG_INTEGER
 		once
 			create Result.from_integer(0)
 		end
 
-	tmp3: MUTABLE_BIG_INTEGER is
+	tmp3: MUTABLE_BIG_INTEGER
 		once
 			create Result.from_integer(0)
 		end
 
-	default_create is
+	default_create
 		do
 			create q.from_integer(0)
 			create r.from_integer(0)

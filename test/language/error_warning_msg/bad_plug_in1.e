@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: POINTER
       do
          p := open(p)
       end
 
-   open (p: POINTER): POINTER is
+   open (p: POINTER): POINTER
       external "plug_in"
       end
 

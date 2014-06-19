@@ -4,7 +4,7 @@
 class AUX_RENAME3
 
 feature {ANY}
-   frozen do_nothing is
+   frozen do_nothing
       do
       end
 

@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    ncurses_list: NCURSES_LIST[ANY]
 
-   make is
+   make
       local
          root_window, sub_window: NCURSES_WINDOW
       do
@@ -40,7 +40,7 @@ feature {ANY}
          ncurses.start
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       do
          if key_code = key_down then
             ncurses_list.set_focus_on((ncurses_list.focused + 1).min(ncurses_list.upper))

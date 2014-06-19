@@ -11,29 +11,29 @@ feature {ANY}
 
    name: STRING
 
-   index: INTEGER is
+   index: INTEGER
       require
          not is_off
       deferred
       end
 
-   is_like_integer: BOOLEAN is
+   is_like_integer: BOOLEAN
       do
          Result := group.is_like_integer
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       require
          is_like_integer
          not is_off
       deferred
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       deferred
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end

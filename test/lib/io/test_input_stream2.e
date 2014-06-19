@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          text_file_read: TEXT_FILE_READ
       do

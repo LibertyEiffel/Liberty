@@ -13,7 +13,7 @@ feature {ANY}
    value: CHARACTER
 
 feature {}
-   make_a is
+   make_a
       local
          c: CHARACTER
       do

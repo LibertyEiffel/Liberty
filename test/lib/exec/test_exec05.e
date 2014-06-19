@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          pf: PROCESS_FACTORY; p: PROCESS
       do
@@ -25,7 +25,7 @@ feature {}
          end
       end
 
-   run_process (process: PROCESS): PROCESS is
+   run_process (process: PROCESS): PROCESS
       do
          process.execute(argument(0),
          << once "arg">>, True)

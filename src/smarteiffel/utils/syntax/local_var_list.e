@@ -13,12 +13,12 @@ create {ANY}
    make
 
 feature {ANY}
-   name (i: INTEGER): LOCAL_NAME_DEF is
+   name (i: INTEGER): LOCAL_NAME_DEF
       do
          Result := flat_list.item(i)
       end
 
-   collect (t: TYPE) is
+   collect (t: TYPE)
       local
          i, c: INTEGER; t2: TYPE
       do
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       require
          smart_eiffel.status.collecting_done
       local
@@ -56,7 +56,7 @@ feature {ANY}
          end
       end
 
-   pretty is
+   pretty
       local
          i, j, column, wrap_limit: INTEGER; buffer: STRING; c: CHARACTER
       do
@@ -141,13 +141,13 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: LOCAL_VAR_LIST_VISITOR) is
+   accept (visitor: LOCAL_VAR_LIST_VISITOR)
       do
          visitor.visit_local_var_list(Current)
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT_DEF) is
+   add_last (n: LOCAL_ARGUMENT_DEF)
       require
          {LOCAL_NAME_DEF} ?:= n
       local
@@ -173,7 +173,7 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (sp: POSITION; l: like list) is
+   make (sp: POSITION; l: like list)
       require
          l.lower = 1
          not l.is_empty

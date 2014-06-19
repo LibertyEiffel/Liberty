@@ -14,7 +14,7 @@ feature {ANY}
          -- For the indexing of the class.
 
 feature {}
-   pretty_index (indent_level: INTEGER; a_spec: STRING) is
+   pretty_index (indent_level: INTEGER; a_spec: STRING)
       do
          if index_list /= Void then
             index_list.pretty(indent_level, a_spec)
@@ -29,7 +29,7 @@ feature {}
       end
 
 feature {EIFFEL_PARSER}
-   add_index_clause (index_clause: INDEX_CLAUSE) is
+   add_index_clause (index_clause: INDEX_CLAUSE)
       require
          index_clause /= Void
       do
@@ -41,7 +41,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {INDEXINGABLE}
-   set_index_list (a_index_list: like index_list) is
+   set_index_list (a_index_list: like index_list)
       require
          brand_new: index_list = Void
       do

@@ -31,7 +31,7 @@ feature {ANY}
    item: D_
 
 feature {}
-   set_item (a_item: like item) is
+   set_item (a_item: like item)
       require
          a_item /= Void
       do

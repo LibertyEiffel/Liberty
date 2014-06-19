@@ -10,7 +10,7 @@ create {ANY}
    attach
 
 feature {ANY}
-   cross_operation (e, f: E): BOOLEAN is
+   cross_operation (e, f: E): BOOLEAN
       do
          Result := e.is_equal(f)
       end

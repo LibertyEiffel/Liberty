@@ -4,7 +4,7 @@
 class AUX_FA2MY_LINKED_LIST[G]
 
 feature {ANY}
-   iterator: AUX_FA2LINKED_ITERATOR[G] is
+   iterator: AUX_FA2LINKED_ITERATOR[G]
       do
          create Result
       end

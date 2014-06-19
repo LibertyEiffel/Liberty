@@ -7,6 +7,6 @@ create {ANY}
    connect_to
 
 feature {ANY}
-   text_domain: STRING is "library_example_library"
+   text_domain: STRING "library_example_library"
 
 end -- class LIBRARY_TRANSLATOR

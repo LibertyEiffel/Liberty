@@ -13,13 +13,13 @@ feature {ANY}
    left_side: EXPRESSION
    right_side: EXPRESSION
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if left_side.use_current(type) then
             Result := True
@@ -28,18 +28,18 @@ feature {ANY}
          end
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := left_side.start_position
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := left_side.has_been_specialized
          Result := Result and right_side.has_been_specialized
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          right_side.safety_check(type)
       end

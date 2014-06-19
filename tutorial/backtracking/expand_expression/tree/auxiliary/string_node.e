@@ -9,14 +9,14 @@ create {ANY}
 feature {ANY}
    value: STRING
 
-   make (val: STRING) is
+   make (val: STRING)
       do
          value := val
       ensure
          definition: value = val
       end
 
-   explore (expander: EXPAND_EXPRESSION) is
+   explore (expander: EXPAND_EXPRESSION)
       do
          expander.stack.add_last(value)
          expander.continue

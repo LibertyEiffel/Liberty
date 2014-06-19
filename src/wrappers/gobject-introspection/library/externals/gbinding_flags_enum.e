@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bidirectional_low_level)  or else
 				(a_value = default_external_low_level)  or else
@@ -17,49 +17,49 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bidirectional is
+	set_bidirectional
 		do
 			value := bidirectional_low_level
 		end
 
-	set_default_external is
+	set_default_external
 		do
 			value := default_external_low_level
 		end
 
-	set_invert_boolean is
+	set_invert_boolean
 		do
 			value := invert_boolean_low_level
 		end
 
-	set_sync_create is
+	set_sync_create
 		do
 			value := sync_create_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bidirectional: BOOLEAN is
+	is_bidirectional: BOOLEAN
 		do
 			Result := (value=bidirectional_low_level)
 		end
 
-	is_default_external: BOOLEAN is
+	is_default_external: BOOLEAN
 		do
 			Result := (value=default_external_low_level)
 		end
 
-	is_invert_boolean: BOOLEAN is
+	is_invert_boolean: BOOLEAN
 		do
 			Result := (value=invert_boolean_low_level)
 		end
 
-	is_sync_create: BOOLEAN is
+	is_sync_create: BOOLEAN
 		do
 			Result := (value=sync_create_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bidirectional_low_level: INTEGER is
+	bidirectional_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	default_external_low_level: INTEGER is
+	default_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invert_boolean_low_level: INTEGER is
+	invert_boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sync_create_low_level: INTEGER is
+	sync_create_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

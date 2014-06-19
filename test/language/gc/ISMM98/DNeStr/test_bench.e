@@ -7,11 +7,11 @@ create {}
    make
 
 feature {ANY}
-   tuning: INTEGER is 4_000_000
+   tuning: INTEGER 4_000_000
 
    link1, link2: LINK[INTEGER]
 
-   make is
+   make
       local
          i, j: INTEGER
       do

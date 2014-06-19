@@ -11,14 +11,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if Current.is_equal(Current) then
             make;
          end;
       end;
 
-   is_equal(other: like Current): BOOLEAN is
+   is_equal(other: like Current): BOOLEAN
       do
       end;
 

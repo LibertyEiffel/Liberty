@@ -31,7 +31,7 @@ create {EDC_SQLITE_CONNECTION}
    make
 
 feature {}
-   make (a_tools: like tools) is
+   make (a_tools: like tools)
       require
          a_tools /= Void
       do
@@ -41,7 +41,7 @@ feature {}
       end
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): VISITOR is
+   as_typed (item_type_generator: STRING): VISITOR
       do
          check
             False
@@ -49,7 +49,7 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {EDC_CONNECTION}
-   query_for (a_selectable: EDC_SELECTABLE): STRING is
+   query_for (a_selectable: EDC_SELECTABLE): STRING
          -- Always returns the same STRING
       local
          i: INTEGER; column: EDC_COLUMN; table: EDC_TABLE
@@ -92,7 +92,7 @@ feature {EDC_CONNECTION}
       end
 
 feature {}
-   tables_memory: HASHED_DICTIONARY[EDC_TABLE, STRING] is
+   tables_memory: HASHED_DICTIONARY[EDC_TABLE, STRING]
       once
          create Result.make
       end

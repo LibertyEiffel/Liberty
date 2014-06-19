@@ -13,12 +13,12 @@ create {ANY}
    make
 
 feature {ANY}
-   name (i: INTEGER): ARGUMENT_NAME_DEF is
+   name (i: INTEGER): ARGUMENT_NAME_DEF
       do
          Result := flat_list.item(i)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i, j, column, wrap_limit: INTEGER; buffer: STRING; c: CHARACTER
       do
@@ -98,7 +98,7 @@ feature {ANY}
          pretty_printer.put_character(')')
       end
 
-   short (shorted_type: TYPE) is
+   short (shorted_type: TYPE)
       local
          i: INTEGER
       do
@@ -117,13 +117,13 @@ feature {ANY}
          short_printer.hook_or(once "hook306", once ")")
       end
 
-   accept (visitor: FORMAL_ARG_LIST_VISITOR) is
+   accept (visitor: FORMAL_ARG_LIST_VISITOR)
       do
          visitor.visit_formal_arg_list(Current)
       end
 
 feature {AGENT_CREATION}
-   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST_N is
+   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST_N
          -- Create the corresponding omitted open arguments list.
       local
          rank: INTEGER; open_operand_1, open_operand: OPEN_OPERAND; resolved: TYPE; remainder: FAST_ARRAY[EXPRESSION]
@@ -153,7 +153,7 @@ feature {AGENT_CREATION}
       end
 
 feature {ANY}
-   has_like_current: BOOLEAN is
+   has_like_current: BOOLEAN
       local
          i: INTEGER
       do
@@ -168,7 +168,7 @@ feature {ANY}
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT_DEF) is
+   add_last (n: LOCAL_ARGUMENT_DEF)
       require
          {ARGUMENT_NAME_DEF} ?:= n
       local
@@ -194,7 +194,7 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (sp: POSITION; l: like list) is
+   make (sp: POSITION; l: like list)
          -- Parsing creation procedure.
       require
          l.lower = 1
@@ -266,7 +266,7 @@ feature {}
          flat_list /= Void
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(32)
       end

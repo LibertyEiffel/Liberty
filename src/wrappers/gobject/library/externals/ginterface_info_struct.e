@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	ginterface_info_struct_set_interface_init (a_structure: POINTER; a_value: POINTER) is
+	ginterface_info_struct_set_interface_init (a_structure: POINTER; a_value: POINTER)
 			-- Setter for interface_init field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ginterface_info_struct_set_interface_finalize (a_structure: POINTER; a_value: POINTER) is
+	ginterface_info_struct_set_interface_finalize (a_structure: POINTER; a_value: POINTER)
 			-- Setter for interface_finalize field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ginterface_info_struct_set_interface_data (a_structure: POINTER; a_value: POINTER) is
+	ginterface_info_struct_set_interface_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for interface_data field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ginterface_info_struct_get_interface_init (a_structure: POINTER): POINTER is
+	ginterface_info_struct_get_interface_init (a_structure: POINTER): POINTER
 			-- Query for interface_init field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ginterface_info_struct_get_interface_finalize (a_structure: POINTER): POINTER is
+	ginterface_info_struct_get_interface_finalize (a_structure: POINTER): POINTER
 			-- Query for interface_finalize field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ginterface_info_struct_get_interface_data (a_structure: POINTER): POINTER is
+	ginterface_info_struct_get_interface_data (a_structure: POINTER): POINTER
 			-- Query for interface_data field of GINTERFACE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

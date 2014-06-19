@@ -9,7 +9,7 @@ insert
 create {} make
 
 feature {}
-   make is do end
+   make do end
 
 end -- class BAD_INHERIT8
 --

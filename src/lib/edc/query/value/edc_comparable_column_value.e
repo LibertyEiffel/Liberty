@@ -28,22 +28,22 @@ inherit
       end
 
 feature {ANY} -- Expressions
-   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION is
+   less_than, lt, infix "<" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION
       do
          create {EDC_LT_EXPRESSION[C_]} Result.make(Current, a_value)
       end
 
-   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION is
+   less_than_or_equal, le, infix "<=" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION
       do
          create {EDC_LE_EXPRESSION[C_]} Result.make(Current, a_value)
       end
 
-   greater_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION is
+   greater_than, gt, infix ">" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION
       do
          create {EDC_GT_EXPRESSION[C_]} Result.make(Current, a_value)
       end
 
-   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION is
+   greater_than_or_equal, ge, infix ">=" (a_value: EDC_TYPED_VALUE[C_]): EDC_EXPRESSION
       do
          create {EDC_GE_EXPRESSION[C_]} Result.make(Current, a_value)
       end

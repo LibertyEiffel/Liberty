@@ -15,28 +15,28 @@
 expanded class LIBERTY_MAIN_LOG_LEVEL
 
 feature {ANY}
-   is_error: BOOLEAN is
+   is_error: BOOLEAN
       do
          Result := value = log_error
       end
 
-   is_warning: BOOLEAN is
+   is_warning: BOOLEAN
       do
          Result := value = log_warning
       end
 
-   is_info: BOOLEAN is
+   is_info: BOOLEAN
       do
          Result := value = log_info
       end
 
-   is_trace: BOOLEAN is
+   is_trace: BOOLEAN
       do
          Result := value = log_trace
       end
 
 feature {LIBERTY_MAIN}
-   valid_arg (arg: STRING): BOOLEAN is
+   valid_arg (arg: STRING): BOOLEAN
       do
          inspect
             arg
@@ -46,7 +46,7 @@ feature {LIBERTY_MAIN}
          end
       end
 
-   set (arg: STRING): LIBERTY_MAIN_LOG_LEVEL is
+   set (arg: STRING): LIBERTY_MAIN_LOG_LEVEL
       do
          inspect
             arg
@@ -67,10 +67,10 @@ feature {LIBERTY_MAIN}
 feature {}
    value: INTEGER_8
 
-   log_error: INTEGER_8 is -2
-   log_warning: INTEGER_8 is -1
-   log_info: INTEGER_8 is 0
-   log_trace: INTEGER_8 is 1
+   log_error: INTEGER_8 -2
+   log_warning: INTEGER_8 -1
+   log_info: INTEGER_8 0
+   log_trace: INTEGER_8 1
 
 invariant
    value.in_range(log_error, log_trace)

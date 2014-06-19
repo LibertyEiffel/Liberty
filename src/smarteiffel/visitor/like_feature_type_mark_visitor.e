@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       require
          visited /= Void
       deferred

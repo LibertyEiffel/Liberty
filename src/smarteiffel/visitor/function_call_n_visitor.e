@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FUNCTION_CALL_N}
-   visit_function_call_n (visited: FUNCTION_CALL_N) is
+   visit_function_call_n (visited: FUNCTION_CALL_N)
       require
          visited /= Void
       deferred

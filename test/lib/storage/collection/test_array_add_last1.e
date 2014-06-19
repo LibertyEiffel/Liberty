@@ -17,7 +17,7 @@ feature {ANY}
 
    t_any: ARRAY[ANY]
 
-   make is
+   make
       local
          i: INTEGER; cat: CAT
       do
@@ -54,7 +54,7 @@ feature {ANY}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

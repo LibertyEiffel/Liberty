@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   start is
+   start
       do
          provider.start
          if not exhausted then
@@ -20,7 +20,7 @@ feature {ANY}
 
    item: F
 
-   next is
+   next
       do
          provider.next
          if not exhausted then
@@ -28,16 +28,16 @@ feature {ANY}
          end
       end
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       do
          Result := provider.exhausted
       end
 
-   map_operation (e: E): F is
+   map_operation (e: E): F
       deferred
       end
 
-   item_action (e: E) is
+   item_action (e: E)
       do
          item := map_operation(e)
       end

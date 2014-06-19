@@ -1,3 +1,6 @@
+-- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
+-- See the Copyright notice at the end of this file.
+--
 class EXTRACT_INTERNALS
 
 inherit
@@ -24,7 +27,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          plugin_factory: FAKE_PLUGIN_FACTORY
       do
@@ -35,7 +38,7 @@ feature {ANY}
          smart_eiffel.compile(Current)
       end
 
-   parse_arguments is
+   parse_arguments
       local
          argi: INTEGER; arg: STRING
       do
@@ -76,7 +79,7 @@ feature {ANY}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          Result := is_version_flag(arg)
             or else is_flymake_mode_flag(arg)
@@ -85,7 +88,7 @@ feature {ANY}
             or else is_verbose_flag(arg)
       end
 
-   compile is
+   compile
       local
          live_types: TRAVERSABLE[LIVE_TYPE]
          i: INTEGER
@@ -151,11 +154,11 @@ feature {ANY}
          cecil_stream.disconnect
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
 
-   use_short_mode: BOOLEAN is False
+   use_short_mode: BOOLEAN False
 
-   usage: STRING is "[
+   usage: STRING "[
    Usage: extract_internals [options] <RootClass> <RootProcedure> ...
       or: extract_internals [options] <ACEfileName>.ace
 
@@ -174,7 +177,7 @@ feature {ANY}
    ]"
 
 feature {}
-   put_live_fields (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE) is
+   put_live_fields (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE)
       local
          wa: ARRAY[RUN_FEATURE_2]
          i: INTEGER
@@ -198,7 +201,7 @@ feature {}
          end
       end
 
-   put_native_array_internals (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE) is
+   put_native_array_internals (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE)
       local
          unknown_position: POSITION
          nai_lt: LIVE_TYPE
@@ -207,7 +210,7 @@ feature {}
          put_call(cecil_stream, nai_lt, once "make_blank", True)
       end
 
-   put_call (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE; name: STRING; is_creation: BOOLEAN) is
+   put_call (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE; name: STRING; is_creation: BOOLEAN)
       do
          cecil_stream.put_string(once "ih")
          if is_creation then
@@ -225,7 +228,7 @@ feature {}
          cecil_stream.put_new_line
       end
 
-   put_create_call (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE) is
+   put_create_call (cecil_stream: OUTPUT_STREAM; live_type: LIVE_TYPE)
       local
          ccl: CREATION_CLAUSE_LIST; fs: FEATURE_STAMP; name: STRING
       do
@@ -239,7 +242,7 @@ feature {}
          put_call(cecil_stream, live_type, name, True)
       end
 
-   tm_internals_handler: CLASS_TYPE_MARK is
+   tm_internals_handler: CLASS_TYPE_MARK
       local
          cn_internals_handler: CLASS_NAME
       once
@@ -247,7 +250,7 @@ feature {}
          create Result.make(cn_internals_handler)
       end
 
-   creation_procedures (type_mark: TYPE_MARK): FAST_ARRAY[WEIGHTED_CREATION_PROCEDURE] is
+   creation_procedures (type_mark: TYPE_MARK): FAST_ARRAY[WEIGHTED_CREATION_PROCEDURE]
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -298,17 +301,17 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   resolved_creations: FAST_ARRAY[STRING] is
+   resolved_creations: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(4096)
       end
 
-   creation_pending: FAST_ARRAY[BOOLEAN] is
+   creation_pending: FAST_ARRAY[BOOLEAN]
       once
          create Result.with_capacity(4096)
       end
 
-   resolved_creation (type: TYPE): STRING is
+   resolved_creation (type: TYPE): STRING
       require
          type /= Void
       local
@@ -320,7 +323,7 @@ feature {}
          end
       end
 
-   is_pending (type: TYPE): BOOLEAN is
+   is_pending (type: TYPE): BOOLEAN
       require
          type /= Void
       local
@@ -332,7 +335,7 @@ feature {}
          end
       end
 
-   set_pending (type: TYPE) is
+   set_pending (type: TYPE)
       require
          type /= Void
       local
@@ -343,13 +346,37 @@ feature {}
       end
 
 feature {CREATION_CLAUSE_LIST}
-   visit_creation_clause_list (visited: CREATION_CLAUSE_LIST) is
+   visit_creation_clause_list (visited: CREATION_CLAUSE_LIST)
       do
       end
 
 feature {CREATION_CLAUSE}
-   visit_creation_clause (visited: CREATION_CLAUSE) is
+   visit_creation_clause (visited: CREATION_CLAUSE)
       do
       end
 
 end -- class EXTRACT_INTERNALS
+--
+-- ------------------------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
+-- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
+-- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
+-- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
+-- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+--
+-- Copyright(C) 2011-2014: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+--
+-- http://www.gnu.org/software/liberty-eiffel/
+--
+--
+-- Liberty Eiffel is based on SmartEiffel (Copyrights below)
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- ------------------------------------------------------------------------------------------------------------------------------

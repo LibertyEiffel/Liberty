@@ -8,7 +8,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       once -- Root procedure must not be a once procedure.
       end
 

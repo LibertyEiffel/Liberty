@@ -18,7 +18,7 @@ feature {ANY}
    denominator: INTEGER_GENERAL_NUMBER
 
 feature {NUMBER}
-   make (n, d: INTEGER_GENERAL_NUMBER) is
+   make (n, d: INTEGER_GENERAL_NUMBER)
          -- Create a simplified large_fraction
       require
          not ((n \\ d) @= 0)
@@ -37,7 +37,7 @@ feature {NUMBER}
          end
       end
 
-   make_simply (n, d: INTEGER_GENERAL_NUMBER) is
+   make_simply (n, d: INTEGER_GENERAL_NUMBER)
          -- create a large_fraction without simplify it
       require
          d.is_positive
@@ -52,7 +52,7 @@ feature {NUMBER}
       end
 
 feature {ANY}
-   inverse: NUMBER is
+   inverse: NUMBER
       local
          tmp1, tmp2: INTEGER_GENERAL_NUMBER
       do
@@ -69,7 +69,7 @@ feature {ANY}
          end
       end
 
-   prefix "-": NUMBER is
+   prefix "-": NUMBER
       local
          tmp: INTEGER_GENERAL_NUMBER
       do
@@ -77,31 +77,31 @@ feature {ANY}
          create {FRACTION_WITH_BIG_INTEGER_NUMBER} Result.make_simply(tmp, denominator)
       end
 
-   infix "+" (other: NUMBER): NUMBER is
+   infix "+" (other: NUMBER): NUMBER
       do
          Result := other.add_with_fraction_with_big_integer_number(Current)
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       do
          numerator.append_in(buffer)
          buffer.extend('/')
          denominator.append_in(buffer)
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
       do
          numerator.append_in_unicode(buffer)
          buffer.extend('/'.code)
          denominator.append_in_unicode(buffer)
       end
 
-   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN) is
+   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN)
       do
          decimal_in(buffer, numerator, denominator, is_negative, digits, all_digits)
       end
 
-   is_equal (other: NUMBER): BOOLEAN is
+   is_equal (other: NUMBER): BOOLEAN
       local
          n2: like Current
       do
@@ -111,19 +111,19 @@ feature {ANY}
          end
       end
 
-   force_to_real_64: REAL_64 is
+   force_to_real_64: REAL_64
          --|*** This is not very good, bad precision on big numbers
          --| (Vincent Croizier, 05/07/04) ***
       do
          Result := numerator.force_to_real_64 / denominator.force_to_real_64
       end
 
-   infix "*" (other: NUMBER): NUMBER is
+   infix "*" (other: NUMBER): NUMBER
       do
          Result := other.multiply_with_fraction_with_big_integer_number(Current)
       end
 
-   infix "@+" (other: INTEGER_64): NUMBER is
+   infix "@+" (other: INTEGER_64): NUMBER
          -- Sum of 'Current' and 'other'.
       local
          tmp: INTEGER_GENERAL_NUMBER
@@ -133,7 +133,7 @@ feature {ANY}
       end
 
 feature {NUMBER, NUMBER_TOOLS}
-   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       local
          tmp: INTEGER_GENERAL_NUMBER
       do
@@ -141,7 +141,7 @@ feature {NUMBER, NUMBER_TOOLS}
          Result := from_two_integer_general_number(tmp, denominator)
       end
 
-   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       local
          new_num, new_den, dg, d1, d2, g: INTEGER_GENERAL_NUMBER
       do
@@ -190,7 +190,7 @@ feature {NUMBER, NUMBER_TOOLS}
          end
       end
 
-   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       local
          g, n, d: INTEGER_GENERAL_NUMBER
       do
@@ -204,7 +204,7 @@ feature {NUMBER, NUMBER_TOOLS}
          end
       end
 
-   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       local
          g1, g2, n, d: INTEGER_GENERAL_NUMBER
       do
@@ -220,7 +220,7 @@ feature {NUMBER, NUMBER_TOOLS}
       end
 
 feature {ANY}
-   infix "@*" (other: INTEGER_64): NUMBER is
+   infix "@*" (other: INTEGER_64): NUMBER
       local
          tmp1, tmp2, g: INTEGER_GENERAL_NUMBER
       do
@@ -240,7 +240,7 @@ feature {ANY}
          end
       end
 
-   infix "@/" (other: INTEGER_64): NUMBER is
+   infix "@/" (other: INTEGER_64): NUMBER
       local
          tmp1, tmp2, g: INTEGER_GENERAL_NUMBER
       do
@@ -274,7 +274,7 @@ feature {ANY}
          end
       end
 
-   infix "@<" (other: INTEGER_64): BOOLEAN is
+   infix "@<" (other: INTEGER_64): BOOLEAN
       do
          if is_negative then
             if other < 0 then
@@ -289,27 +289,27 @@ feature {ANY}
          end
       end
 
-   infix "@>" (other: INTEGER_64): BOOLEAN is
+   infix "@>" (other: INTEGER_64): BOOLEAN
       do
          Result := not (Current @< other)
       end
 
-   infix "@<=" (other: INTEGER_64): BOOLEAN is
+   infix "@<=" (other: INTEGER_64): BOOLEAN
       do
          Result := Current @< other
       end
 
-   infix "@>=" (other: INTEGER_64): BOOLEAN is
+   infix "@>=" (other: INTEGER_64): BOOLEAN
       do
          Result := not (Current @< other)
       end
 
-   infix "<" (other: NUMBER): BOOLEAN is
+   infix "<" (other: NUMBER): BOOLEAN
       do
          Result := other.greater_with_fraction_with_big_integer_number(Current)
       end
 
-   infix "#=" (other: REAL_64): BOOLEAN is
+   infix "#=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -324,7 +324,7 @@ feature {ANY}
          end
       end
 
-   infix "#<" (other: REAL_64): BOOLEAN is
+   infix "#<" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -341,7 +341,7 @@ feature {ANY}
          end
       end
 
-   infix "#<=" (other: REAL_64): BOOLEAN is
+   infix "#<=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -358,7 +358,7 @@ feature {ANY}
          end
       end
 
-   infix "#>=" (other: REAL_64): BOOLEAN is
+   infix "#>=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -375,7 +375,7 @@ feature {ANY}
          end
       end
 
-   infix "#>" (other: REAL_64): BOOLEAN is
+   infix "#>" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -393,12 +393,12 @@ feature {ANY}
       end
 
 feature {NUMBER, NUMBER_TOOLS}
-   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN
       do
          Result := denominator.multiply_with_big_integer_number(other) < numerator
       end
 
-   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN
       do
          if is_negative = other.is_negative then
             Result := numerator * other.denominator > other.numerator * denominator
@@ -415,7 +415,7 @@ end -- class FRACTION_WITH_BIG_INTEGER_NUMBER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

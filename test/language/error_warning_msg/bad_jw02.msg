@@ -7,6 +7,6 @@ Line 18 column 26 in BAD_JW02 (/home/cadrian/Workspace/Dev/Liberty/test/language
          io.put_string(h.item);
                          ^     
 Line 66 column 19 in OUTPUT_STREAM_TOOLS (/home/cadrian/Workspace/Dev/Liberty/src/lib/io/low_level/output_stream_tools.e):
-   put_string (s: ABSTRACT_STRING) is
-                  ^                  
+   put_string (s: ABSTRACT_STRING)
+                  ^               
 ------

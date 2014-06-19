@@ -27,23 +27,23 @@ create {LIBERTY_ERRORS}
    make
 
 feature {ANY}
-   is_unknown: BOOLEAN is True
+   is_unknown: BOOLEAN True
 
 feature {LIBERTY_ERROR}
-   emit (stream: OUTPUT_STREAM) is
+   emit (stream: OUTPUT_STREAM)
       do
          stream.put_line(once "Unknown position")
       end
 
 feature {}
-   make is
+   make
       do
          file := unknown_file
       end
 
-   source: STRING is ""
+   source: STRING ""
 
-   unknown_file: FIXED_STRING is
+   unknown_file: FIXED_STRING
       once
          Result := "Unknown file".intern
       end

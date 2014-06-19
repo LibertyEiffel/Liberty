@@ -5,7 +5,7 @@ class GI_UNION_INFO
         -- discriminator, which is a field deciding what type of real union
         -- fields
 
-        -- As unions in the C language has fields but not methods this wrapper is
+        -- As unions in the C language has fields but not methods this wrapper
         -- made indexable over its fields throught proper inheritance of INDEXABLE,
         -- while providing indexable-like features over the functions provided.
 
@@ -41,20 +41,20 @@ insert
 create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Fields
-        fields_lower: INTEGER is 0
-        fields_upper: INTEGER is do Result := fields_count-1 end
-        fields_count: INTEGER is
+        fields_lower: INTEGER 0
+        fields_upper: INTEGER do Result := fields_count-1 end
+        fields_count: INTEGER
                 -- The number of fields that this object type has.
         do
                 Result := g_union_info_get_n_fields(handle)
         end
 
-        has_no_fields: BOOLEAN is
+        has_no_fields: BOOLEAN
                 do
                         Result := fields_count=0
                 end
 
-        field (n: INTEGER): GI_FIELD_INFO is
+        field (n: INTEGER): GI_FIELD_INFO
                 -- The field object at index n.
         do
                 create Result.from_external_pointer(g_union_info_get_field(handle,n))
@@ -62,24 +62,24 @@ feature {ANY} -- Fields
         ensure not_void: Result/=Void
         end
 
-        first_field: GI_FIELD_INFO is do Result:=field(fields_lower) end
-        last_field: GI_FIELD_INFO is do Result:=field(fields_upper) end
+        first_field: GI_FIELD_INFO do Result:=field(fields_lower) end
+        last_field: GI_FIELD_INFO do Result:=field(fields_upper) end
 
-        new_fields_iterator: ITERATOR_OVER_UNION_FIELDS is
+        new_fields_iterator: ITERATOR_OVER_UNION_FIELDS
                 do
                         create Result.from_union(Current)
                 end
 
 feature {ANY} -- Methods
-        methods_lower: INTEGER is 0
-        methods_upper: INTEGER is do Result := methods_count-1 end
-        methods_count: INTEGER is
+        methods_lower: INTEGER 0
+        methods_upper: INTEGER do Result := methods_count-1 end
+        methods_count: INTEGER
                 -- The number of methods Current object has
         do
                 Result := g_union_info_get_n_methods (handle)
         end
 
-        method (n: INTEGER): GI_FUNCTION_INFO is
+        method (n: INTEGER): GI_FUNCTION_INFO
                 -- The method object at index `n'
         do
                 create Result.from_external_pointer(g_union_info_get_method(handle,n))
@@ -87,7 +87,7 @@ feature {ANY} -- Methods
         ensure not_void: Result/=Void
         end
 
-        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
+        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO
                 -- The method with `a_name'. Void if no method exists with that name
         require
                 not_void_name: a_name/=Void
@@ -101,7 +101,7 @@ feature {ANY} -- Methods
                 -- g_union_info_find_method returns a GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
         end
 
-        for_each_method (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]]) is
+        for_each_method (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]])
         local i: INTEGER
         do
                 from i:=methods_lower until i>methods_upper loop
@@ -110,7 +110,7 @@ feature {ANY} -- Methods
                 end
         end
 
-        for_all_methods (a_test: FUNCTION[TUPLE[GI_FUNCTION_INFO],BOOLEAN]): BOOLEAN is
+        for_all_methods (a_test: FUNCTION[TUPLE[GI_FUNCTION_INFO],BOOLEAN]): BOOLEAN
                 local i: INTEGER
                 do
                         from Result := True; i := methods_lower
@@ -121,7 +121,7 @@ feature {ANY} -- Methods
                         end
                 end
 
-        exists_method (test: PREDICATE[TUPLE[GI_FUNCTION_INFO]]): BOOLEAN is
+        exists_method (test: PREDICATE[TUPLE[GI_FUNCTION_INFO]]): BOOLEAN
         local i: INTEGER
         do
                 from i:=methods_lower until Result or else i>methods_upper
@@ -132,20 +132,20 @@ feature {ANY} -- Methods
         end
 
 feature {ANY}
-        is_discriminated: BOOLEAN is
+        is_discriminated: BOOLEAN
                 -- Does Current union contain a discriminator field?
         do
                 Result:= g_union_info_is_discriminated(handle).to_boolean
         end
 
-        discriminator_offset: INTEGER is
+        discriminator_offset: INTEGER
                 -- Offset of the discrimantor
         require is_discriminated
         do
                 Result := g_union_info_get_discriminator_offset(handle)
         end
 
-        discriminator_type: GI_TYPE_INFO is
+        discriminator_type: GI_TYPE_INFO
                 -- the type information of the union discriminator.
         require is_discriminated
         do
@@ -154,7 +154,7 @@ feature {ANY}
         ensure not_void: Result/=Void
         end
 
-        discriminator (n: INTEGER) : GI_CONSTANT_INFO is
+        discriminator (n: INTEGER) : GI_CONSTANT_INFO
                 -- the discriminator value assigned for n-th union field, i.e. n-th
                 -- union field is the active one if discriminator contains this
                 -- constant.
@@ -163,20 +163,20 @@ feature {ANY}
                 --g_union_info_get_discriminator returns the GIConstantInfo, free it with g_base_info_unref() when done. [transfer full]
         end
 
-        size: NATURAL is
+        size: NATURAL
                 -- The total size of the union in bytes
         do
                 Result := g_union_info_get_size(handle)
         end
 
-        alignment: NATURAL is
+        alignment: NATURAL
                 -- The required alignment of the union in bytes.
         do
                 Result := g_union_info_get_alignment(handle)
         end
 
 feature {ANY}
-        out_in_tagged_out_memory is
+        out_in_tagged_out_memory
                 do
                         not_yet_implemented
                 end

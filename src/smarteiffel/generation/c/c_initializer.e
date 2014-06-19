@@ -15,7 +15,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   for (type_mark: TYPE_MARK): STRING is
+   for (type_mark: TYPE_MARK): STRING
       require
          type_mark.is_static
       do
@@ -27,37 +27,37 @@ feature {ANY}
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {USER_GENERIC_TYPE_MARK}
-   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       do
          if visited.is_expanded then
             c_initialize_user_expanded(visited)
@@ -67,43 +67,43 @@ feature {USER_GENERIC_TYPE_MARK}
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       do
          crash
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       do
          crash
       end
 
 feature {LIKE_CURRENT_TYPE_MARK}
-   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
+   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK)
       do
          crash
       end
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK)
       do
          crash
       end
 
 feature {ANY_TYPE_MARK}
-   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+   visit_any_type_mark (visited: ANY_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {CLASS_TYPE_MARK}
-   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   visit_class_type_mark (visited: CLASS_TYPE_MARK)
       do
          if visited.is_expanded then
             check
@@ -120,61 +120,61 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {CLIENT_TYPE_MARK}
-   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK)
       do
          check False end
       end
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
          buffer.append(once "0")
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
          buffer.append(once "'\0'")
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
          buffer.append(once "0")
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
          buffer.append(once "0")
       end
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
          buffer.append(once "0.0")
       end
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       do
          buffer.append(once "(void*)0")
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   buffer: STRING is "................"
+   buffer: STRING "................"
 
-   frozen c_initialize_user_expanded (type_mark: TYPE_MARK) is
+   frozen c_initialize_user_expanded (type_mark: TYPE_MARK)
          -- For all kinds of `is_user_expanded' including `is_empty_expanded' as well.
       require
          type_mark.is_user_expanded

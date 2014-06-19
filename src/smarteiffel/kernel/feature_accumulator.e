@@ -26,7 +26,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          create feature_stamps_memory.with_capacity(6000)
          create features.with_capacity(1024)
@@ -47,7 +47,7 @@ feature {}
    feature_count: INTEGER
 
 feature {ANY}
-   feature_stamp_of (feature_name: FEATURE_NAME): FEATURE_STAMP is
+   feature_stamp_of (feature_name: FEATURE_NAME): FEATURE_STAMP
       require
          feature_name /= Void
       do
@@ -61,7 +61,7 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       local
          i, rename_count: INTEGER
       do
@@ -88,7 +88,7 @@ feature {TYPE, LIKE_FEATURE_TYPE_MARK, FUNCTION_CALL, SMART_EIFFEL}
 feature {TYPE}
    current_fn: FEATURE_NAME -- Final name of the current feature being merged in context_type
 
-   start (a_context_type: TYPE) is
+   start (a_context_type: TYPE)
       require
          context_type = Void -- no other type is being accumulating at this time
          a_context_type /= Void
@@ -111,7 +111,7 @@ feature {TYPE}
          smart_eiffel.status.specializing_type = a_context_type
       end
 
-   new_feature (a_final_fn: FEATURE_NAME) is
+   new_feature (a_final_fn: FEATURE_NAME)
       require
          context_type /= Void
          a_final_fn /= Void
@@ -138,7 +138,7 @@ feature {TYPE}
       end
 
    add_parent_definition (parent_type: TYPE; parent_edge: PARENT_EDGE
-                          parent_feature_stamp: FEATURE_STAMP; parent_feature_name: FEATURE_NAME) is
+                          parent_feature_stamp: FEATURE_STAMP; parent_feature_name: FEATURE_NAME)
       require
          current_fn /= Void
          parent_edge /= Void implies context_type.direct_thru_step(parent_type, parent_edge)
@@ -185,7 +185,7 @@ feature {TYPE}
          context_type = old context_type
       end
 
-   add_local_definition (an_af: ANONYMOUS_FEATURE) is
+   add_local_definition (an_af: ANONYMOUS_FEATURE)
       require
          context_type /= Void
          current_fn /= Void
@@ -230,7 +230,7 @@ feature {TYPE}
          context_type = old context_type
       end
 
-   finalize is
+   finalize
       require
          context_type /= Void
       local
@@ -305,7 +305,7 @@ feature {TYPE}
          context_type = Void
       end
 
-   collect_assigner (mix_assigner: ANONYMOUS_FEATURE_MIXER) is
+   collect_assigner (mix_assigner: ANONYMOUS_FEATURE_MIXER)
          -- If the feature declares an assigner, find the corresponding assigned feature and links to it
       local
          assigned: FEATURE_NAME; fs_assigned: FEATURE_STAMP; af_assigned: ANONYMOUS_FEATURE; i: INTEGER
@@ -342,7 +342,7 @@ feature {TYPE}
          end
       end
 
-   collect_assigner_ (mix_assigner: ANONYMOUS_FEATURE_MIXER; assigned: FEATURE_NAME; fs_assigned: FEATURE_STAMP; af_assigned: ANONYMOUS_FEATURE) is
+   collect_assigner_ (mix_assigner: ANONYMOUS_FEATURE_MIXER; assigned: FEATURE_NAME; fs_assigned: FEATURE_STAMP; af_assigned: ANONYMOUS_FEATURE)
       require
          af_assigned = fs_assigned.anonymous_feature(context_type)
       local
@@ -408,17 +408,17 @@ feature {TYPE}
          af_assigned.set_assigner(mix_assigner.feature_name)
       end
 
-   is_known (fn: FEATURE_NAME): BOOLEAN is
+   is_known (fn: FEATURE_NAME): BOOLEAN
       do
          Result := features_dictionary.has(fn)
       end
 
-   new_incomplete_type is
+   new_incomplete_type
       do
          waiting_type := waiting_type + 1
       end
 
-   register (t: TYPE) is
+   register (t: TYPE)
       do
          pending_list.add(t)
          if context_type = Void and then waiting_type = pending_list.count then
@@ -427,7 +427,7 @@ feature {TYPE}
       end
 
 feature {}
-   to_feature (a_final_fn: FEATURE_NAME) is
+   to_feature (a_final_fn: FEATURE_NAME)
       require
          a_final_fn /= Void implies not is_known(a_final_fn)
       local
@@ -458,7 +458,7 @@ feature {}
          error_handler.is_empty -- If it wasn't on entry, then the function dies with a fatal error
       end
 
-   do_pending_types is
+   do_pending_types
       local
          type: TYPE
       do
@@ -487,7 +487,7 @@ feature {}
       end
 
 feature {LIKE_FEATURE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, FUNCTION_CALL}
-   find_type_for (fs: FEATURE_STAMP): TYPE_MARK is
+   find_type_for (fs: FEATURE_STAMP): TYPE_MARK
       local
          fn: FEATURE_NAME; afm: ANONYMOUS_FEATURE_MIXER
       do
@@ -506,7 +506,7 @@ feature {LIKE_FEATURE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, FUNCTION_CALL}
       end
 
 feature {TYPE}
-   anonymous_feature_for (fn: FEATURE_NAME): ANONYMOUS_FEATURE is
+   anonymous_feature_for (fn: FEATURE_NAME): ANONYMOUS_FEATURE
       local
          afm: ANONYMOUS_FEATURE_MIXER
       do
@@ -521,19 +521,19 @@ feature {}
 
    specialize_and_check_in_progress: BOOLEAN
 
-   initial_state: INTEGER_8 is 0
+   initial_state: INTEGER_8 0
 
-   deferred_state: INTEGER_8 is 1
+   deferred_state: INTEGER_8 1
 
-   concrete_state: INTEGER_8 is 2
+   concrete_state: INTEGER_8 2
 
-   redefine_state: INTEGER_8 is 3
+   redefine_state: INTEGER_8 3
 
-   mismatch_state: INTEGER_8 is 4
+   mismatch_state: INTEGER_8 4
 
-   join_state: INTEGER_8 is 5
+   join_state: INTEGER_8 5
 
-   transitions: ARRAY[ARRAY[INTEGER_8]] is
+   transitions: ARRAY[ARRAY[INTEGER_8]]
       once
          Result := {ARRAY[ARRAY[INTEGER_8]] 1,
          <<   --  deferred,      concrete,       redefine,       mismatch
@@ -548,7 +548,7 @@ feature {}
       end
 
    next_state (current_state, transition: INTEGER_8; a_type: TYPE; parent_edge: PARENT_EDGE
-      an_af: ANONYMOUS_FEATURE): INTEGER_8 is
+      an_af: ANONYMOUS_FEATURE): INTEGER_8
          -- Try to merge fn and the already collected feature.
          -- Collected feature is updated.
       require
@@ -605,7 +605,7 @@ feature {}
       end
 
    transition_index (parent_fn: FEATURE_NAME; parent_edge: PARENT_EDGE
-      an_anonymous_feature: ANONYMOUS_FEATURE): INTEGER_8 is
+      an_anonymous_feature: ANONYMOUS_FEATURE): INTEGER_8
          -- Result value: 1 = deferred
          --               2 = redefine
          --               3 = concrete
@@ -670,7 +670,7 @@ feature {}
          Result.to_integer_32.in_range(transitions.lower, transitions.upper)
       end
 
-   valid_features_dictionary: BOOLEAN is
+   valid_features_dictionary: BOOLEAN
       local
          i: INTEGER
       do
@@ -685,7 +685,7 @@ feature {}
          end
       end
 
-   check_and_merge_seeds is
+   check_and_merge_seeds
       local
          i: INTEGER
          afn: ABSOLUTE_FEATURE_NAME
@@ -750,7 +750,7 @@ feature {}
          seeds.count = old seeds.count + old seeds_of_current_feature.count
       end
 
-   finish_insert_seeds is
+   finish_insert_seeds
       local
          i: INTEGER
          afn: ABSOLUTE_FEATURE_NAME

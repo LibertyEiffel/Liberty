@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          real_extended: REAL_EXTENDED; view: STRING
       do

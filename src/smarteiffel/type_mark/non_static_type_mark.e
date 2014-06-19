@@ -10,65 +10,65 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   frozen is_static: BOOLEAN is False
+   frozen is_static: BOOLEAN False
 
-   frozen type: TYPE is
+   frozen type: TYPE
       do
          check
             False
          end
       end
 
-   frozen is_reference: BOOLEAN is
+   frozen is_reference: BOOLEAN
       do
          check
             False
          end
       end
 
-   frozen is_expanded: BOOLEAN is
+   frozen is_expanded: BOOLEAN
       do
          check
             False
          end
       end
 
-   frozen is_generic: BOOLEAN is
+   frozen is_generic: BOOLEAN
       do
          check
             False
          end
       end
 
-   frozen generic_list: ARRAY[TYPE_MARK] is
+   frozen generic_list: ARRAY[TYPE_MARK]
       do
          check
             False
          end
       end
 
-   frozen id: INTEGER is
+   frozen id: INTEGER
       do
          check
             False
          end
       end
 
-   frozen class_text_name: CLASS_NAME is
+   frozen class_text_name: CLASS_NAME
       do
          check
             False
          end
       end
 
-   frozen is_user_expanded: BOOLEAN is
+   frozen is_user_expanded: BOOLEAN
       do
          check
             False
          end
       end
 
-   frozen is_empty_expanded: BOOLEAN is
+   frozen is_empty_expanded: BOOLEAN
       do
          check
             False
@@ -76,7 +76,7 @@ feature {ANY}
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   frozen long_name: HASHED_STRING is
+   frozen long_name: HASHED_STRING
       do
          check
             False
@@ -84,7 +84,7 @@ feature {TYPE, TYPE_MARK, SMART_EIFFEL}
       end
 
 feature {LIVE_TYPE, TYPE_MARK}
-   frozen just_before_gc_mark_in (str: STRING) is
+   frozen just_before_gc_mark_in (str: STRING)
       do
          check
             False

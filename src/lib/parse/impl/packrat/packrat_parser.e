@@ -12,7 +12,7 @@ inherit
    ABSTRACT_PARSER[PACKRAT_PARSE_CONTEXT]
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN
       local
          context: PACKRAT_PARSE_CONTEXT
          atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]
@@ -45,7 +45,7 @@ end -- class PACKRAT_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

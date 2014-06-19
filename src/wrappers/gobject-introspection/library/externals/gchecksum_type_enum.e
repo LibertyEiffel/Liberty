@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = md5_low_level)  or else
 				(a_value = sha1_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_md5 is
+	set_md5
 		do
 			value := md5_low_level
 		end
 
-	set_sha1 is
+	set_sha1
 		do
 			value := sha1_low_level
 		end
 
-	set_sha256 is
+	set_sha256
 		do
 			value := sha256_low_level
 		end
 
 feature {ANY} -- Queries
-	is_md5: BOOLEAN is
+	is_md5: BOOLEAN
 		do
 			Result := (value=md5_low_level)
 		end
 
-	is_sha1: BOOLEAN is
+	is_sha1: BOOLEAN
 		do
 			Result := (value=sha1_low_level)
 		end
 
-	is_sha256: BOOLEAN is
+	is_sha256: BOOLEAN
 		do
 			Result := (value=sha256_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	md5_low_level: INTEGER is
+	md5_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sha1_low_level: INTEGER is
+	sha1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	sha256_low_level: INTEGER is
+	sha256_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

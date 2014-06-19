@@ -16,7 +16,7 @@ create {RUNNER_GLOBALS}
    make
 
 feature {SMART_EIFFEL}
-   compile is
+   compile
          -- Code interpretation happens here.
       do
          if nb_errors = 0 then
@@ -33,7 +33,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   get_started is
+   get_started
       require
          smart_eiffel.status.is_safety_checking
       do
@@ -41,7 +41,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       local
          memory: RUNNER_MEMORY
       do

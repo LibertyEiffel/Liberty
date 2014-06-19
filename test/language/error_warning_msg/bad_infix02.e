@@ -10,11 +10,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   infix "+" (a, b: like Current): like Current is
+   infix "+" (a, b: like Current): like Current
       do
          if a /= Void then
             Result := a

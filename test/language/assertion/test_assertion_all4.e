@@ -17,7 +17,7 @@ feature {ANY}
 
    invariant_counter: INTEGER
 
-   main is
+   main
       local
          i: INTEGER
       do
@@ -38,13 +38,13 @@ feature {ANY}
          assert(invariant_counter = 11)
       end
 
-   variant_call: INTEGER is
+   variant_call: INTEGER
       do
          variant_counter := variant_counter + 1
          Result := 50
       end
 
-   invariant_call: BOOLEAN is
+   invariant_call: BOOLEAN
       do
          invariant_counter := invariant_counter + 1
          Result := True

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gcclosure_struct_set_callback (a_structure: POINTER; a_value: POINTER) is
+	gcclosure_struct_set_callback (a_structure: POINTER; a_value: POINTER)
 			-- Setter for callback field of GCCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field closure.
-	gcclosure_struct_get_callback (a_structure: POINTER): POINTER is
+	gcclosure_struct_get_callback (a_structure: POINTER): POINTER
 			-- Query for callback field of GCCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

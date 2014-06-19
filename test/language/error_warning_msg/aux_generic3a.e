@@ -2,7 +2,7 @@
 -- See the Copyright notice at the end of this file.
 --
 deferred class AUX_GENERIC3A[G,K]
-feature {ANY} machin(x: K) is deferred end
+feature {ANY} machin(x: K) deferred end
 end -- class AUX_GENERIC3A
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

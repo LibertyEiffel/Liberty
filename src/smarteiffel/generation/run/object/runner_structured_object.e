@@ -26,7 +26,7 @@ feature {ANY}
 
    is_initialized: BOOLEAN
 
-   set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+   set_field (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT)
       do
          debug ("run.data")
             std_output.put_line(once "    >>>> field #(1) := #(2)" # a_name # repr(a_value))
@@ -34,7 +34,7 @@ feature {ANY}
          fields.fast_put(expand(a_value), a_name.intern)
       end
 
-   field (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
+   field (a_name: ABSTRACT_STRING): RUNNER_OBJECT
       do
          Result := expand(fields.fast_at(a_name.intern))
          debug ("run.data")
@@ -42,11 +42,11 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          type.long_name.out_in_tagged_out_memory
          tagged_out_memory.extend('[')
-         fields.for_each(agent (o: RUNNER_OBJECT; f: FIXED_STRING) is
+         fields.for_each(agent (o: RUNNER_OBJECT; f: FIXED_STRING)
                        do
                           f.out_in_tagged_out_memory
                           tagged_out_memory.extend('=')
@@ -60,13 +60,13 @@ feature {ANY}
          tagged_out_memory.put(']', tagged_out_memory.upper)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if type.is_reference then
             Result := Current = other
          else
             Result := other.fields.count = fields.count
-               and then other.fields.for_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING): BOOLEAN is
+               and then other.fields.for_all(agent (o: RUNNER_OBJECT; f: FIXED_STRING): BOOLEAN
                                              local
                                                 o0: RUNNER_OBJECT
                                              do
@@ -79,30 +79,30 @@ feature {ANY}
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
+   builtin_to_pointer: POINTER
       do
          Result := to_pointer
       end
 
-   builtin_copy (other: RUNNER_OBJECT) is
+   builtin_copy (other: RUNNER_OBJECT)
       local
          o: like Current
       do
          o ::= expand(other)
-         o.fields.for_each(agent (object: RUNNER_OBJECT; name: FIXED_STRING) is
+         o.fields.for_each(agent (object: RUNNER_OBJECT; name: FIXED_STRING)
                          do
                             fields.fast_put(expand(object), name)
                          end)
       end
 
-   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN
       local
          o: like Current
       do
          if other.type = type then
             o ::= other
             if o.fields.count = fields.count then
-               Result := o.fields.for_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING): BOOLEAN is
+               Result := o.fields.for_all(agent (object: RUNNER_OBJECT; name: FIXED_STRING): BOOLEAN
                                           local
                                              my_object: RUNNER_OBJECT
                                           do
@@ -116,7 +116,7 @@ feature {RUNNER_UNTYPED_BUILTINS}
       end
 
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   copy_if_expanded: like Current
       do
          if type.is_reference then
             Result := Current
@@ -128,12 +128,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   as_foreign_object: FOREIGN_OBJECT is
+   as_foreign_object: FOREIGN_OBJECT
       do
          not_yet_implemented
       end
 
-   set_initialized is
+   set_initialized
       require
          not is_initialized
       do
@@ -143,19 +143,19 @@ feature {RUNNER_FACET}
       end
 
 feature {}
-   copy_expanded (model: like Current) is
+   copy_expanded (model: like Current)
       require
          model.type.is_expanded
       do
          make(model.processor, model.type, model.builtins)
-         model.fields.for_each(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING) is
+         model.fields.for_each(agent (field_value: RUNNER_OBJECT; field_name: FIXED_STRING)
                              do
                                 fields.fast_put(expand(field_value), field_name)
                              end)
       end
 
 feature {}
-   make (a_processor: like processor; a_type: like type; a_builtins: like builtins) is
+   make (a_processor: like processor; a_type: like type; a_builtins: like builtins)
       require
          a_processor /= Void
          a_type.live_type /= Void
@@ -174,10 +174,10 @@ feature {}
          is_initialized = a_type.is_expanded
       end
 
-   initialize_fields is
+   initialize_fields
       do
          create fields.make
-         type.writable_attributes.for_each(agent (stamp: FEATURE_STAMP) is
+         type.writable_attributes.for_each(agent (stamp: FEATURE_STAMP)
                                          local
                                             rf: RUN_FEATURE; t: TYPE; o: RUNNER_OBJECT
                                          do
@@ -202,7 +202,7 @@ feature {RUNNER_STRUCTURED_OBJECT}
    fields: HASHED_DICTIONARY[RUNNER_OBJECT, FIXED_STRING]
 
 feature {TYPE}
-   visit_type (visited: TYPE) is
+   visit_type (visited: TYPE)
       do
          check False end -- I only need to insert TYPE_VISITOR to access some TYPE features
       end

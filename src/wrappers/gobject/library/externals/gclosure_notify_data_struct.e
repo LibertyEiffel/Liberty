@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gclosure_notify_data_struct_set_data (a_structure: POINTER; a_value: POINTER) is
+	gclosure_notify_data_struct_set_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data field of GCLOSURE_NOTIFY_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_notify_data_struct_set_notify (a_structure: POINTER; a_value: POINTER) is
+	gclosure_notify_data_struct_set_notify (a_structure: POINTER; a_value: POINTER)
 			-- Setter for notify field of GCLOSURE_NOTIFY_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gclosure_notify_data_struct_get_data (a_structure: POINTER): POINTER is
+	gclosure_notify_data_struct_get_data (a_structure: POINTER): POINTER
 			-- Query for data field of GCLOSURE_NOTIFY_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_notify_data_struct_get_notify (a_structure: POINTER): POINTER is
+	gclosure_notify_data_struct_get_notify (a_structure: POINTER): POINTER
 			-- Query for notify field of GCLOSURE_NOTIFY_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

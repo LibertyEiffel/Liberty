@@ -13,7 +13,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
       do
@@ -26,7 +26,7 @@ feature {}
          p.call([[x]])
       end
 
-   foo (value: TUPLE[INTEGER]) is
+   foo (value: TUPLE[INTEGER])
       do
          assert(value.first = 1)
       end

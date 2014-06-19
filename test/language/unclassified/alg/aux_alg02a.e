@@ -9,7 +9,7 @@ insert
 feature {ANY}
    a: INTEGER
 
-   make is
+   make
       do
          a := 1
       end

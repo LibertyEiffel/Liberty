@@ -15,9 +15,9 @@ inherit
    INPUT_STREAM
 
 feature {ANY}
-   can_read_character, can_read_line, can_disconnect: BOOLEAN is True
+   can_read_character, can_read_line, can_disconnect: BOOLEAN True
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       do
          Result := can_unread_character
       end
@@ -30,7 +30,7 @@ end -- class TERMINAL_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

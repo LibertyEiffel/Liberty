@@ -10,7 +10,7 @@ insert
    RUNNER_PROCESSOR_FACET
 
 feature {RUNNER_FACET}
-   execute (a_executable: VISITABLE) is
+   execute (a_executable: VISITABLE)
       require
          a_executable /= Void
       local

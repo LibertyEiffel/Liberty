@@ -18,13 +18,13 @@ create {HTTP_PROTOCOL}
    connect_to
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := state = the_end
       end
 
 feature {HTTP_PROTOCOL}
-   start is
+   start
       local
          key, value, low_value: STRING
       do
@@ -117,7 +117,7 @@ feature {HTTP_PROTOCOL}
    return_code: STRING
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       local
          c: CHARACTER
       do
@@ -132,7 +132,7 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          stream.filtered_unread_character
       end
@@ -140,7 +140,7 @@ feature {FILTER_INPUT_STREAM}
    filtered_last_character: CHARACTER
 
 feature {}
-   read_body_character (c: CHARACTER) is
+   read_body_character (c: CHARACTER)
       local
          buffer: STRING; end_of_line: BOOLEAN; cc: CHARACTER
       do
@@ -182,7 +182,7 @@ feature {}
          end
       end
 
-   from_hexadecimal (s: STRING): INTEGER is
+   from_hexadecimal (s: STRING): INTEGER
       local
          i, n: INTEGER; c: CHARACTER
       do
@@ -208,7 +208,7 @@ feature {}
          end
       end
 
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
    state: INTEGER
 
@@ -220,15 +220,15 @@ feature {}
 
    cookies: HASHED_DICTIONARY[STRING, STRING]
 
-   new_line: STRING is "%R%N"
+   new_line: STRING "%R%N"
 
-   in_headers: INTEGER is 1
+   in_headers: INTEGER 1
 
-   in_body: INTEGER is 2
+   in_body: INTEGER 2
 
-   the_end: INTEGER is 254
+   the_end: INTEGER 254
 
-   error: INTEGER is 255
+   error: INTEGER 255
 
 end -- class HTTP_CLIENT_INPUT_STREAM
 --
@@ -238,7 +238,7 @@ end -- class HTTP_CLIENT_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

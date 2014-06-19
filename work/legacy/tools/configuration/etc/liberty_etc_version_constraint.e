@@ -21,7 +21,7 @@ create {LIBERTY_ETC_VISITOR_IMPL}
    make
 
 feature {ANY}
-   check_validity (a_cluster: LIBERTY_ETC_CLUSTER) is
+   check_validity (a_cluster: LIBERTY_ETC_CLUSTER)
       do
          if not operator.item([a_cluster.version, version]) then
             std_error.put_line("*** Version mismatch: " + a_cluster.name
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_operator: like operator; a_version: like version) is
+   make (a_operator: like operator; a_version: like version)
       require
          a_operator /= Void
          a_version /= Void

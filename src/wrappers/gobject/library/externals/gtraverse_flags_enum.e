@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_traverse_all_low_level)  or else
 				(a_value = g_traverse_leafs_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_traverse_all is
+	set_g_traverse_all
 		do
 			value := g_traverse_all_low_level
 		end
 
-	set_g_traverse_leafs is
+	set_g_traverse_leafs
 		do
 			value := g_traverse_leafs_low_level
 		end
 
-	set_g_traverse_leaves is
+	set_g_traverse_leaves
 		do
 			value := g_traverse_leaves_low_level
 		end
 
-	set_g_traverse_mask is
+	set_g_traverse_mask
 		do
 			value := g_traverse_mask_low_level
 		end
 
-	set_g_traverse_non_leafs is
+	set_g_traverse_non_leafs
 		do
 			value := g_traverse_non_leafs_low_level
 		end
 
-	set_g_traverse_non_leaves is
+	set_g_traverse_non_leaves
 		do
 			value := g_traverse_non_leaves_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_traverse_all: BOOLEAN is
+	is_g_traverse_all: BOOLEAN
 		do
 			Result := (value=g_traverse_all_low_level)
 		end
 
-	is_g_traverse_leafs: BOOLEAN is
+	is_g_traverse_leafs: BOOLEAN
 		do
 			Result := (value=g_traverse_leafs_low_level)
 		end
 
-	is_g_traverse_leaves: BOOLEAN is
+	is_g_traverse_leaves: BOOLEAN
 		do
 			Result := (value=g_traverse_leaves_low_level)
 		end
 
-	is_g_traverse_mask: BOOLEAN is
+	is_g_traverse_mask: BOOLEAN
 		do
 			Result := (value=g_traverse_mask_low_level)
 		end
 
-	is_g_traverse_non_leafs: BOOLEAN is
+	is_g_traverse_non_leafs: BOOLEAN
 		do
 			Result := (value=g_traverse_non_leafs_low_level)
 		end
 
-	is_g_traverse_non_leaves: BOOLEAN is
+	is_g_traverse_non_leaves: BOOLEAN
 		do
 			Result := (value=g_traverse_non_leaves_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_traverse_all_low_level: INTEGER is
+	g_traverse_all_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_leafs_low_level: INTEGER is
+	g_traverse_leafs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_leaves_low_level: INTEGER is
+	g_traverse_leaves_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_mask_low_level: INTEGER is
+	g_traverse_mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_non_leafs_low_level: INTEGER is
+	g_traverse_non_leafs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_non_leaves_low_level: INTEGER is
+	g_traverse_non_leaves_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

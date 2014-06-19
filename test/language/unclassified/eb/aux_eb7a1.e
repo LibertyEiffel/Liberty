@@ -4,7 +4,7 @@
 class AUX_EB7A1[G]
 
 feature {ANY}
-   is_valid: BOOLEAN is
+   is_valid: BOOLEAN
       local
          a: like b
       do

@@ -30,17 +30,17 @@ feature {ANY}
 
    written_declaration_type_mark: TYPE_MARK
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := local_var_list.type_mark(rank).resolve_in(type)
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := local_var_list.name(rank).to_string
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          lvl: like local_var_list
       do
@@ -65,7 +65,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          lvl: like local_var_list
       do
@@ -84,7 +84,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          lvl: like local_var_list
          mhf: MEMORY_HANDLER_FACTORY
@@ -108,17 +108,17 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := declaration_type /= Void
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := local_var_list.name(rank).collect(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          af: ANONYMOUS_FEATURE; er: E_ROUTINE; lvl: LOCAL_VAR_LIST
       do
@@ -138,13 +138,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: LOCAL_NAME_REF_VISITOR) is
+   accept (visitor: LOCAL_NAME_REF_VISITOR)
       do
          visitor.visit_local_name_ref(Current)
       end
 
 feature {LOCAL_NAME_REF}
-   set_local_var_list (lvl: like local_var_list) is
+   set_local_var_list (lvl: like local_var_list)
       require
          lvl /= Void
       do
@@ -154,7 +154,7 @@ feature {LOCAL_NAME_REF}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
@@ -163,7 +163,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 feature {}
    local_var_list: LOCAL_VAR_LIST
 
-   refer_to (sp: POSITION; lvl: LOCAL_VAR_LIST; r: like rank; cr: like closure_rank) is
+   refer_to (sp: POSITION; lvl: LOCAL_VAR_LIST; r: like rank; cr: like closure_rank)
          -- Using name `r' of `lvl' at place `sp'.
       require
          not sp.is_unknown

@@ -4,7 +4,7 @@
 class AUX_EB1A
 
 feature {ANY}
-   a: BOOLEAN is
+   a: BOOLEAN
       do
       end
 

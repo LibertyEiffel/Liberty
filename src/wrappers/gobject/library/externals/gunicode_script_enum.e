@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_unicode_script_arabic_low_level)  or else
 				(a_value = g_unicode_script_armenian_low_level)  or else
@@ -117,1049 +117,1049 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_unicode_script_arabic is
+	set_g_unicode_script_arabic
 		do
 			value := g_unicode_script_arabic_low_level
 		end
 
-	set_g_unicode_script_armenian is
+	set_g_unicode_script_armenian
 		do
 			value := g_unicode_script_armenian_low_level
 		end
 
-	set_g_unicode_script_avestan is
+	set_g_unicode_script_avestan
 		do
 			value := g_unicode_script_avestan_low_level
 		end
 
-	set_g_unicode_script_balinese is
+	set_g_unicode_script_balinese
 		do
 			value := g_unicode_script_balinese_low_level
 		end
 
-	set_g_unicode_script_bamum is
+	set_g_unicode_script_bamum
 		do
 			value := g_unicode_script_bamum_low_level
 		end
 
-	set_g_unicode_script_batak is
+	set_g_unicode_script_batak
 		do
 			value := g_unicode_script_batak_low_level
 		end
 
-	set_g_unicode_script_bengali is
+	set_g_unicode_script_bengali
 		do
 			value := g_unicode_script_bengali_low_level
 		end
 
-	set_g_unicode_script_bopomofo is
+	set_g_unicode_script_bopomofo
 		do
 			value := g_unicode_script_bopomofo_low_level
 		end
 
-	set_g_unicode_script_brahmi is
+	set_g_unicode_script_brahmi
 		do
 			value := g_unicode_script_brahmi_low_level
 		end
 
-	set_g_unicode_script_braille is
+	set_g_unicode_script_braille
 		do
 			value := g_unicode_script_braille_low_level
 		end
 
-	set_g_unicode_script_buginese is
+	set_g_unicode_script_buginese
 		do
 			value := g_unicode_script_buginese_low_level
 		end
 
-	set_g_unicode_script_buhid is
+	set_g_unicode_script_buhid
 		do
 			value := g_unicode_script_buhid_low_level
 		end
 
-	set_g_unicode_script_canadian_aboriginal is
+	set_g_unicode_script_canadian_aboriginal
 		do
 			value := g_unicode_script_canadian_aboriginal_low_level
 		end
 
-	set_g_unicode_script_carian is
+	set_g_unicode_script_carian
 		do
 			value := g_unicode_script_carian_low_level
 		end
 
-	set_g_unicode_script_chakma is
+	set_g_unicode_script_chakma
 		do
 			value := g_unicode_script_chakma_low_level
 		end
 
-	set_g_unicode_script_cham is
+	set_g_unicode_script_cham
 		do
 			value := g_unicode_script_cham_low_level
 		end
 
-	set_g_unicode_script_cherokee is
+	set_g_unicode_script_cherokee
 		do
 			value := g_unicode_script_cherokee_low_level
 		end
 
-	set_g_unicode_script_common is
+	set_g_unicode_script_common
 		do
 			value := g_unicode_script_common_low_level
 		end
 
-	set_g_unicode_script_coptic is
+	set_g_unicode_script_coptic
 		do
 			value := g_unicode_script_coptic_low_level
 		end
 
-	set_g_unicode_script_cuneiform is
+	set_g_unicode_script_cuneiform
 		do
 			value := g_unicode_script_cuneiform_low_level
 		end
 
-	set_g_unicode_script_cypriot is
+	set_g_unicode_script_cypriot
 		do
 			value := g_unicode_script_cypriot_low_level
 		end
 
-	set_g_unicode_script_cyrillic is
+	set_g_unicode_script_cyrillic
 		do
 			value := g_unicode_script_cyrillic_low_level
 		end
 
-	set_g_unicode_script_deseret is
+	set_g_unicode_script_deseret
 		do
 			value := g_unicode_script_deseret_low_level
 		end
 
-	set_g_unicode_script_devanagari is
+	set_g_unicode_script_devanagari
 		do
 			value := g_unicode_script_devanagari_low_level
 		end
 
-	set_g_unicode_script_egyptian_hieroglyphs is
+	set_g_unicode_script_egyptian_hieroglyphs
 		do
 			value := g_unicode_script_egyptian_hieroglyphs_low_level
 		end
 
-	set_g_unicode_script_ethiopic is
+	set_g_unicode_script_ethiopic
 		do
 			value := g_unicode_script_ethiopic_low_level
 		end
 
-	set_g_unicode_script_georgian is
+	set_g_unicode_script_georgian
 		do
 			value := g_unicode_script_georgian_low_level
 		end
 
-	set_g_unicode_script_glagolitic is
+	set_g_unicode_script_glagolitic
 		do
 			value := g_unicode_script_glagolitic_low_level
 		end
 
-	set_g_unicode_script_gothic is
+	set_g_unicode_script_gothic
 		do
 			value := g_unicode_script_gothic_low_level
 		end
 
-	set_g_unicode_script_greek is
+	set_g_unicode_script_greek
 		do
 			value := g_unicode_script_greek_low_level
 		end
 
-	set_g_unicode_script_gujarati is
+	set_g_unicode_script_gujarati
 		do
 			value := g_unicode_script_gujarati_low_level
 		end
 
-	set_g_unicode_script_gurmukhi is
+	set_g_unicode_script_gurmukhi
 		do
 			value := g_unicode_script_gurmukhi_low_level
 		end
 
-	set_g_unicode_script_han is
+	set_g_unicode_script_han
 		do
 			value := g_unicode_script_han_low_level
 		end
 
-	set_g_unicode_script_hangul is
+	set_g_unicode_script_hangul
 		do
 			value := g_unicode_script_hangul_low_level
 		end
 
-	set_g_unicode_script_hanunoo is
+	set_g_unicode_script_hanunoo
 		do
 			value := g_unicode_script_hanunoo_low_level
 		end
 
-	set_g_unicode_script_hebrew is
+	set_g_unicode_script_hebrew
 		do
 			value := g_unicode_script_hebrew_low_level
 		end
 
-	set_g_unicode_script_hiragana is
+	set_g_unicode_script_hiragana
 		do
 			value := g_unicode_script_hiragana_low_level
 		end
 
-	set_g_unicode_script_imperial_aramaic is
+	set_g_unicode_script_imperial_aramaic
 		do
 			value := g_unicode_script_imperial_aramaic_low_level
 		end
 
-	set_g_unicode_script_inherited is
+	set_g_unicode_script_inherited
 		do
 			value := g_unicode_script_inherited_low_level
 		end
 
-	set_g_unicode_script_inscriptional_pahlavi is
+	set_g_unicode_script_inscriptional_pahlavi
 		do
 			value := g_unicode_script_inscriptional_pahlavi_low_level
 		end
 
-	set_g_unicode_script_inscriptional_parthian is
+	set_g_unicode_script_inscriptional_parthian
 		do
 			value := g_unicode_script_inscriptional_parthian_low_level
 		end
 
-	set_g_unicode_script_invalid_code is
+	set_g_unicode_script_invalid_code
 		do
 			value := g_unicode_script_invalid_code_low_level
 		end
 
-	set_g_unicode_script_javanese is
+	set_g_unicode_script_javanese
 		do
 			value := g_unicode_script_javanese_low_level
 		end
 
-	set_g_unicode_script_kaithi is
+	set_g_unicode_script_kaithi
 		do
 			value := g_unicode_script_kaithi_low_level
 		end
 
-	set_g_unicode_script_kannada is
+	set_g_unicode_script_kannada
 		do
 			value := g_unicode_script_kannada_low_level
 		end
 
-	set_g_unicode_script_katakana is
+	set_g_unicode_script_katakana
 		do
 			value := g_unicode_script_katakana_low_level
 		end
 
-	set_g_unicode_script_kayah_li is
+	set_g_unicode_script_kayah_li
 		do
 			value := g_unicode_script_kayah_li_low_level
 		end
 
-	set_g_unicode_script_kharoshthi is
+	set_g_unicode_script_kharoshthi
 		do
 			value := g_unicode_script_kharoshthi_low_level
 		end
 
-	set_g_unicode_script_khmer is
+	set_g_unicode_script_khmer
 		do
 			value := g_unicode_script_khmer_low_level
 		end
 
-	set_g_unicode_script_lao is
+	set_g_unicode_script_lao
 		do
 			value := g_unicode_script_lao_low_level
 		end
 
-	set_g_unicode_script_latin is
+	set_g_unicode_script_latin
 		do
 			value := g_unicode_script_latin_low_level
 		end
 
-	set_g_unicode_script_lepcha is
+	set_g_unicode_script_lepcha
 		do
 			value := g_unicode_script_lepcha_low_level
 		end
 
-	set_g_unicode_script_limbu is
+	set_g_unicode_script_limbu
 		do
 			value := g_unicode_script_limbu_low_level
 		end
 
-	set_g_unicode_script_linear_b is
+	set_g_unicode_script_linear_b
 		do
 			value := g_unicode_script_linear_b_low_level
 		end
 
-	set_g_unicode_script_lisu is
+	set_g_unicode_script_lisu
 		do
 			value := g_unicode_script_lisu_low_level
 		end
 
-	set_g_unicode_script_lycian is
+	set_g_unicode_script_lycian
 		do
 			value := g_unicode_script_lycian_low_level
 		end
 
-	set_g_unicode_script_lydian is
+	set_g_unicode_script_lydian
 		do
 			value := g_unicode_script_lydian_low_level
 		end
 
-	set_g_unicode_script_malayalam is
+	set_g_unicode_script_malayalam
 		do
 			value := g_unicode_script_malayalam_low_level
 		end
 
-	set_g_unicode_script_mandaic is
+	set_g_unicode_script_mandaic
 		do
 			value := g_unicode_script_mandaic_low_level
 		end
 
-	set_g_unicode_script_meetei_mayek is
+	set_g_unicode_script_meetei_mayek
 		do
 			value := g_unicode_script_meetei_mayek_low_level
 		end
 
-	set_g_unicode_script_meroitic_cursive is
+	set_g_unicode_script_meroitic_cursive
 		do
 			value := g_unicode_script_meroitic_cursive_low_level
 		end
 
-	set_g_unicode_script_meroitic_hieroglyphs is
+	set_g_unicode_script_meroitic_hieroglyphs
 		do
 			value := g_unicode_script_meroitic_hieroglyphs_low_level
 		end
 
-	set_g_unicode_script_miao is
+	set_g_unicode_script_miao
 		do
 			value := g_unicode_script_miao_low_level
 		end
 
-	set_g_unicode_script_mongolian is
+	set_g_unicode_script_mongolian
 		do
 			value := g_unicode_script_mongolian_low_level
 		end
 
-	set_g_unicode_script_myanmar is
+	set_g_unicode_script_myanmar
 		do
 			value := g_unicode_script_myanmar_low_level
 		end
 
-	set_g_unicode_script_new_tai_lue is
+	set_g_unicode_script_new_tai_lue
 		do
 			value := g_unicode_script_new_tai_lue_low_level
 		end
 
-	set_g_unicode_script_nko is
+	set_g_unicode_script_nko
 		do
 			value := g_unicode_script_nko_low_level
 		end
 
-	set_g_unicode_script_ogham is
+	set_g_unicode_script_ogham
 		do
 			value := g_unicode_script_ogham_low_level
 		end
 
-	set_g_unicode_script_ol_chiki is
+	set_g_unicode_script_ol_chiki
 		do
 			value := g_unicode_script_ol_chiki_low_level
 		end
 
-	set_g_unicode_script_old_italic is
+	set_g_unicode_script_old_italic
 		do
 			value := g_unicode_script_old_italic_low_level
 		end
 
-	set_g_unicode_script_old_persian is
+	set_g_unicode_script_old_persian
 		do
 			value := g_unicode_script_old_persian_low_level
 		end
 
-	set_g_unicode_script_old_south_arabian is
+	set_g_unicode_script_old_south_arabian
 		do
 			value := g_unicode_script_old_south_arabian_low_level
 		end
 
-	set_g_unicode_script_old_turkic is
+	set_g_unicode_script_old_turkic
 		do
 			value := g_unicode_script_old_turkic_low_level
 		end
 
-	set_g_unicode_script_oriya is
+	set_g_unicode_script_oriya
 		do
 			value := g_unicode_script_oriya_low_level
 		end
 
-	set_g_unicode_script_osmanya is
+	set_g_unicode_script_osmanya
 		do
 			value := g_unicode_script_osmanya_low_level
 		end
 
-	set_g_unicode_script_phags_pa is
+	set_g_unicode_script_phags_pa
 		do
 			value := g_unicode_script_phags_pa_low_level
 		end
 
-	set_g_unicode_script_phoenician is
+	set_g_unicode_script_phoenician
 		do
 			value := g_unicode_script_phoenician_low_level
 		end
 
-	set_g_unicode_script_rejang is
+	set_g_unicode_script_rejang
 		do
 			value := g_unicode_script_rejang_low_level
 		end
 
-	set_g_unicode_script_runic is
+	set_g_unicode_script_runic
 		do
 			value := g_unicode_script_runic_low_level
 		end
 
-	set_g_unicode_script_samaritan is
+	set_g_unicode_script_samaritan
 		do
 			value := g_unicode_script_samaritan_low_level
 		end
 
-	set_g_unicode_script_saurashtra is
+	set_g_unicode_script_saurashtra
 		do
 			value := g_unicode_script_saurashtra_low_level
 		end
 
-	set_g_unicode_script_sharada is
+	set_g_unicode_script_sharada
 		do
 			value := g_unicode_script_sharada_low_level
 		end
 
-	set_g_unicode_script_shavian is
+	set_g_unicode_script_shavian
 		do
 			value := g_unicode_script_shavian_low_level
 		end
 
-	set_g_unicode_script_sinhala is
+	set_g_unicode_script_sinhala
 		do
 			value := g_unicode_script_sinhala_low_level
 		end
 
-	set_g_unicode_script_sora_sompeng is
+	set_g_unicode_script_sora_sompeng
 		do
 			value := g_unicode_script_sora_sompeng_low_level
 		end
 
-	set_g_unicode_script_sundanese is
+	set_g_unicode_script_sundanese
 		do
 			value := g_unicode_script_sundanese_low_level
 		end
 
-	set_g_unicode_script_syloti_nagri is
+	set_g_unicode_script_syloti_nagri
 		do
 			value := g_unicode_script_syloti_nagri_low_level
 		end
 
-	set_g_unicode_script_syriac is
+	set_g_unicode_script_syriac
 		do
 			value := g_unicode_script_syriac_low_level
 		end
 
-	set_g_unicode_script_tagalog is
+	set_g_unicode_script_tagalog
 		do
 			value := g_unicode_script_tagalog_low_level
 		end
 
-	set_g_unicode_script_tagbanwa is
+	set_g_unicode_script_tagbanwa
 		do
 			value := g_unicode_script_tagbanwa_low_level
 		end
 
-	set_g_unicode_script_tai_le is
+	set_g_unicode_script_tai_le
 		do
 			value := g_unicode_script_tai_le_low_level
 		end
 
-	set_g_unicode_script_tai_tham is
+	set_g_unicode_script_tai_tham
 		do
 			value := g_unicode_script_tai_tham_low_level
 		end
 
-	set_g_unicode_script_tai_viet is
+	set_g_unicode_script_tai_viet
 		do
 			value := g_unicode_script_tai_viet_low_level
 		end
 
-	set_g_unicode_script_takri is
+	set_g_unicode_script_takri
 		do
 			value := g_unicode_script_takri_low_level
 		end
 
-	set_g_unicode_script_tamil is
+	set_g_unicode_script_tamil
 		do
 			value := g_unicode_script_tamil_low_level
 		end
 
-	set_g_unicode_script_telugu is
+	set_g_unicode_script_telugu
 		do
 			value := g_unicode_script_telugu_low_level
 		end
 
-	set_g_unicode_script_thaana is
+	set_g_unicode_script_thaana
 		do
 			value := g_unicode_script_thaana_low_level
 		end
 
-	set_g_unicode_script_thai is
+	set_g_unicode_script_thai
 		do
 			value := g_unicode_script_thai_low_level
 		end
 
-	set_g_unicode_script_tibetan is
+	set_g_unicode_script_tibetan
 		do
 			value := g_unicode_script_tibetan_low_level
 		end
 
-	set_g_unicode_script_tifinagh is
+	set_g_unicode_script_tifinagh
 		do
 			value := g_unicode_script_tifinagh_low_level
 		end
 
-	set_g_unicode_script_ugaritic is
+	set_g_unicode_script_ugaritic
 		do
 			value := g_unicode_script_ugaritic_low_level
 		end
 
-	set_g_unicode_script_unknown is
+	set_g_unicode_script_unknown
 		do
 			value := g_unicode_script_unknown_low_level
 		end
 
-	set_g_unicode_script_vai is
+	set_g_unicode_script_vai
 		do
 			value := g_unicode_script_vai_low_level
 		end
 
-	set_g_unicode_script_yi is
+	set_g_unicode_script_yi
 		do
 			value := g_unicode_script_yi_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_unicode_script_arabic: BOOLEAN is
+	is_g_unicode_script_arabic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_arabic_low_level)
 		end
 
-	is_g_unicode_script_armenian: BOOLEAN is
+	is_g_unicode_script_armenian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_armenian_low_level)
 		end
 
-	is_g_unicode_script_avestan: BOOLEAN is
+	is_g_unicode_script_avestan: BOOLEAN
 		do
 			Result := (value=g_unicode_script_avestan_low_level)
 		end
 
-	is_g_unicode_script_balinese: BOOLEAN is
+	is_g_unicode_script_balinese: BOOLEAN
 		do
 			Result := (value=g_unicode_script_balinese_low_level)
 		end
 
-	is_g_unicode_script_bamum: BOOLEAN is
+	is_g_unicode_script_bamum: BOOLEAN
 		do
 			Result := (value=g_unicode_script_bamum_low_level)
 		end
 
-	is_g_unicode_script_batak: BOOLEAN is
+	is_g_unicode_script_batak: BOOLEAN
 		do
 			Result := (value=g_unicode_script_batak_low_level)
 		end
 
-	is_g_unicode_script_bengali: BOOLEAN is
+	is_g_unicode_script_bengali: BOOLEAN
 		do
 			Result := (value=g_unicode_script_bengali_low_level)
 		end
 
-	is_g_unicode_script_bopomofo: BOOLEAN is
+	is_g_unicode_script_bopomofo: BOOLEAN
 		do
 			Result := (value=g_unicode_script_bopomofo_low_level)
 		end
 
-	is_g_unicode_script_brahmi: BOOLEAN is
+	is_g_unicode_script_brahmi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_brahmi_low_level)
 		end
 
-	is_g_unicode_script_braille: BOOLEAN is
+	is_g_unicode_script_braille: BOOLEAN
 		do
 			Result := (value=g_unicode_script_braille_low_level)
 		end
 
-	is_g_unicode_script_buginese: BOOLEAN is
+	is_g_unicode_script_buginese: BOOLEAN
 		do
 			Result := (value=g_unicode_script_buginese_low_level)
 		end
 
-	is_g_unicode_script_buhid: BOOLEAN is
+	is_g_unicode_script_buhid: BOOLEAN
 		do
 			Result := (value=g_unicode_script_buhid_low_level)
 		end
 
-	is_g_unicode_script_canadian_aboriginal: BOOLEAN is
+	is_g_unicode_script_canadian_aboriginal: BOOLEAN
 		do
 			Result := (value=g_unicode_script_canadian_aboriginal_low_level)
 		end
 
-	is_g_unicode_script_carian: BOOLEAN is
+	is_g_unicode_script_carian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_carian_low_level)
 		end
 
-	is_g_unicode_script_chakma: BOOLEAN is
+	is_g_unicode_script_chakma: BOOLEAN
 		do
 			Result := (value=g_unicode_script_chakma_low_level)
 		end
 
-	is_g_unicode_script_cham: BOOLEAN is
+	is_g_unicode_script_cham: BOOLEAN
 		do
 			Result := (value=g_unicode_script_cham_low_level)
 		end
 
-	is_g_unicode_script_cherokee: BOOLEAN is
+	is_g_unicode_script_cherokee: BOOLEAN
 		do
 			Result := (value=g_unicode_script_cherokee_low_level)
 		end
 
-	is_g_unicode_script_common: BOOLEAN is
+	is_g_unicode_script_common: BOOLEAN
 		do
 			Result := (value=g_unicode_script_common_low_level)
 		end
 
-	is_g_unicode_script_coptic: BOOLEAN is
+	is_g_unicode_script_coptic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_coptic_low_level)
 		end
 
-	is_g_unicode_script_cuneiform: BOOLEAN is
+	is_g_unicode_script_cuneiform: BOOLEAN
 		do
 			Result := (value=g_unicode_script_cuneiform_low_level)
 		end
 
-	is_g_unicode_script_cypriot: BOOLEAN is
+	is_g_unicode_script_cypriot: BOOLEAN
 		do
 			Result := (value=g_unicode_script_cypriot_low_level)
 		end
 
-	is_g_unicode_script_cyrillic: BOOLEAN is
+	is_g_unicode_script_cyrillic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_cyrillic_low_level)
 		end
 
-	is_g_unicode_script_deseret: BOOLEAN is
+	is_g_unicode_script_deseret: BOOLEAN
 		do
 			Result := (value=g_unicode_script_deseret_low_level)
 		end
 
-	is_g_unicode_script_devanagari: BOOLEAN is
+	is_g_unicode_script_devanagari: BOOLEAN
 		do
 			Result := (value=g_unicode_script_devanagari_low_level)
 		end
 
-	is_g_unicode_script_egyptian_hieroglyphs: BOOLEAN is
+	is_g_unicode_script_egyptian_hieroglyphs: BOOLEAN
 		do
 			Result := (value=g_unicode_script_egyptian_hieroglyphs_low_level)
 		end
 
-	is_g_unicode_script_ethiopic: BOOLEAN is
+	is_g_unicode_script_ethiopic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_ethiopic_low_level)
 		end
 
-	is_g_unicode_script_georgian: BOOLEAN is
+	is_g_unicode_script_georgian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_georgian_low_level)
 		end
 
-	is_g_unicode_script_glagolitic: BOOLEAN is
+	is_g_unicode_script_glagolitic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_glagolitic_low_level)
 		end
 
-	is_g_unicode_script_gothic: BOOLEAN is
+	is_g_unicode_script_gothic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_gothic_low_level)
 		end
 
-	is_g_unicode_script_greek: BOOLEAN is
+	is_g_unicode_script_greek: BOOLEAN
 		do
 			Result := (value=g_unicode_script_greek_low_level)
 		end
 
-	is_g_unicode_script_gujarati: BOOLEAN is
+	is_g_unicode_script_gujarati: BOOLEAN
 		do
 			Result := (value=g_unicode_script_gujarati_low_level)
 		end
 
-	is_g_unicode_script_gurmukhi: BOOLEAN is
+	is_g_unicode_script_gurmukhi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_gurmukhi_low_level)
 		end
 
-	is_g_unicode_script_han: BOOLEAN is
+	is_g_unicode_script_han: BOOLEAN
 		do
 			Result := (value=g_unicode_script_han_low_level)
 		end
 
-	is_g_unicode_script_hangul: BOOLEAN is
+	is_g_unicode_script_hangul: BOOLEAN
 		do
 			Result := (value=g_unicode_script_hangul_low_level)
 		end
 
-	is_g_unicode_script_hanunoo: BOOLEAN is
+	is_g_unicode_script_hanunoo: BOOLEAN
 		do
 			Result := (value=g_unicode_script_hanunoo_low_level)
 		end
 
-	is_g_unicode_script_hebrew: BOOLEAN is
+	is_g_unicode_script_hebrew: BOOLEAN
 		do
 			Result := (value=g_unicode_script_hebrew_low_level)
 		end
 
-	is_g_unicode_script_hiragana: BOOLEAN is
+	is_g_unicode_script_hiragana: BOOLEAN
 		do
 			Result := (value=g_unicode_script_hiragana_low_level)
 		end
 
-	is_g_unicode_script_imperial_aramaic: BOOLEAN is
+	is_g_unicode_script_imperial_aramaic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_imperial_aramaic_low_level)
 		end
 
-	is_g_unicode_script_inherited: BOOLEAN is
+	is_g_unicode_script_inherited: BOOLEAN
 		do
 			Result := (value=g_unicode_script_inherited_low_level)
 		end
 
-	is_g_unicode_script_inscriptional_pahlavi: BOOLEAN is
+	is_g_unicode_script_inscriptional_pahlavi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_inscriptional_pahlavi_low_level)
 		end
 
-	is_g_unicode_script_inscriptional_parthian: BOOLEAN is
+	is_g_unicode_script_inscriptional_parthian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_inscriptional_parthian_low_level)
 		end
 
-	is_g_unicode_script_invalid_code: BOOLEAN is
+	is_g_unicode_script_invalid_code: BOOLEAN
 		do
 			Result := (value=g_unicode_script_invalid_code_low_level)
 		end
 
-	is_g_unicode_script_javanese: BOOLEAN is
+	is_g_unicode_script_javanese: BOOLEAN
 		do
 			Result := (value=g_unicode_script_javanese_low_level)
 		end
 
-	is_g_unicode_script_kaithi: BOOLEAN is
+	is_g_unicode_script_kaithi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_kaithi_low_level)
 		end
 
-	is_g_unicode_script_kannada: BOOLEAN is
+	is_g_unicode_script_kannada: BOOLEAN
 		do
 			Result := (value=g_unicode_script_kannada_low_level)
 		end
 
-	is_g_unicode_script_katakana: BOOLEAN is
+	is_g_unicode_script_katakana: BOOLEAN
 		do
 			Result := (value=g_unicode_script_katakana_low_level)
 		end
 
-	is_g_unicode_script_kayah_li: BOOLEAN is
+	is_g_unicode_script_kayah_li: BOOLEAN
 		do
 			Result := (value=g_unicode_script_kayah_li_low_level)
 		end
 
-	is_g_unicode_script_kharoshthi: BOOLEAN is
+	is_g_unicode_script_kharoshthi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_kharoshthi_low_level)
 		end
 
-	is_g_unicode_script_khmer: BOOLEAN is
+	is_g_unicode_script_khmer: BOOLEAN
 		do
 			Result := (value=g_unicode_script_khmer_low_level)
 		end
 
-	is_g_unicode_script_lao: BOOLEAN is
+	is_g_unicode_script_lao: BOOLEAN
 		do
 			Result := (value=g_unicode_script_lao_low_level)
 		end
 
-	is_g_unicode_script_latin: BOOLEAN is
+	is_g_unicode_script_latin: BOOLEAN
 		do
 			Result := (value=g_unicode_script_latin_low_level)
 		end
 
-	is_g_unicode_script_lepcha: BOOLEAN is
+	is_g_unicode_script_lepcha: BOOLEAN
 		do
 			Result := (value=g_unicode_script_lepcha_low_level)
 		end
 
-	is_g_unicode_script_limbu: BOOLEAN is
+	is_g_unicode_script_limbu: BOOLEAN
 		do
 			Result := (value=g_unicode_script_limbu_low_level)
 		end
 
-	is_g_unicode_script_linear_b: BOOLEAN is
+	is_g_unicode_script_linear_b: BOOLEAN
 		do
 			Result := (value=g_unicode_script_linear_b_low_level)
 		end
 
-	is_g_unicode_script_lisu: BOOLEAN is
+	is_g_unicode_script_lisu: BOOLEAN
 		do
 			Result := (value=g_unicode_script_lisu_low_level)
 		end
 
-	is_g_unicode_script_lycian: BOOLEAN is
+	is_g_unicode_script_lycian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_lycian_low_level)
 		end
 
-	is_g_unicode_script_lydian: BOOLEAN is
+	is_g_unicode_script_lydian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_lydian_low_level)
 		end
 
-	is_g_unicode_script_malayalam: BOOLEAN is
+	is_g_unicode_script_malayalam: BOOLEAN
 		do
 			Result := (value=g_unicode_script_malayalam_low_level)
 		end
 
-	is_g_unicode_script_mandaic: BOOLEAN is
+	is_g_unicode_script_mandaic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_mandaic_low_level)
 		end
 
-	is_g_unicode_script_meetei_mayek: BOOLEAN is
+	is_g_unicode_script_meetei_mayek: BOOLEAN
 		do
 			Result := (value=g_unicode_script_meetei_mayek_low_level)
 		end
 
-	is_g_unicode_script_meroitic_cursive: BOOLEAN is
+	is_g_unicode_script_meroitic_cursive: BOOLEAN
 		do
 			Result := (value=g_unicode_script_meroitic_cursive_low_level)
 		end
 
-	is_g_unicode_script_meroitic_hieroglyphs: BOOLEAN is
+	is_g_unicode_script_meroitic_hieroglyphs: BOOLEAN
 		do
 			Result := (value=g_unicode_script_meroitic_hieroglyphs_low_level)
 		end
 
-	is_g_unicode_script_miao: BOOLEAN is
+	is_g_unicode_script_miao: BOOLEAN
 		do
 			Result := (value=g_unicode_script_miao_low_level)
 		end
 
-	is_g_unicode_script_mongolian: BOOLEAN is
+	is_g_unicode_script_mongolian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_mongolian_low_level)
 		end
 
-	is_g_unicode_script_myanmar: BOOLEAN is
+	is_g_unicode_script_myanmar: BOOLEAN
 		do
 			Result := (value=g_unicode_script_myanmar_low_level)
 		end
 
-	is_g_unicode_script_new_tai_lue: BOOLEAN is
+	is_g_unicode_script_new_tai_lue: BOOLEAN
 		do
 			Result := (value=g_unicode_script_new_tai_lue_low_level)
 		end
 
-	is_g_unicode_script_nko: BOOLEAN is
+	is_g_unicode_script_nko: BOOLEAN
 		do
 			Result := (value=g_unicode_script_nko_low_level)
 		end
 
-	is_g_unicode_script_ogham: BOOLEAN is
+	is_g_unicode_script_ogham: BOOLEAN
 		do
 			Result := (value=g_unicode_script_ogham_low_level)
 		end
 
-	is_g_unicode_script_ol_chiki: BOOLEAN is
+	is_g_unicode_script_ol_chiki: BOOLEAN
 		do
 			Result := (value=g_unicode_script_ol_chiki_low_level)
 		end
 
-	is_g_unicode_script_old_italic: BOOLEAN is
+	is_g_unicode_script_old_italic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_old_italic_low_level)
 		end
 
-	is_g_unicode_script_old_persian: BOOLEAN is
+	is_g_unicode_script_old_persian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_old_persian_low_level)
 		end
 
-	is_g_unicode_script_old_south_arabian: BOOLEAN is
+	is_g_unicode_script_old_south_arabian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_old_south_arabian_low_level)
 		end
 
-	is_g_unicode_script_old_turkic: BOOLEAN is
+	is_g_unicode_script_old_turkic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_old_turkic_low_level)
 		end
 
-	is_g_unicode_script_oriya: BOOLEAN is
+	is_g_unicode_script_oriya: BOOLEAN
 		do
 			Result := (value=g_unicode_script_oriya_low_level)
 		end
 
-	is_g_unicode_script_osmanya: BOOLEAN is
+	is_g_unicode_script_osmanya: BOOLEAN
 		do
 			Result := (value=g_unicode_script_osmanya_low_level)
 		end
 
-	is_g_unicode_script_phags_pa: BOOLEAN is
+	is_g_unicode_script_phags_pa: BOOLEAN
 		do
 			Result := (value=g_unicode_script_phags_pa_low_level)
 		end
 
-	is_g_unicode_script_phoenician: BOOLEAN is
+	is_g_unicode_script_phoenician: BOOLEAN
 		do
 			Result := (value=g_unicode_script_phoenician_low_level)
 		end
 
-	is_g_unicode_script_rejang: BOOLEAN is
+	is_g_unicode_script_rejang: BOOLEAN
 		do
 			Result := (value=g_unicode_script_rejang_low_level)
 		end
 
-	is_g_unicode_script_runic: BOOLEAN is
+	is_g_unicode_script_runic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_runic_low_level)
 		end
 
-	is_g_unicode_script_samaritan: BOOLEAN is
+	is_g_unicode_script_samaritan: BOOLEAN
 		do
 			Result := (value=g_unicode_script_samaritan_low_level)
 		end
 
-	is_g_unicode_script_saurashtra: BOOLEAN is
+	is_g_unicode_script_saurashtra: BOOLEAN
 		do
 			Result := (value=g_unicode_script_saurashtra_low_level)
 		end
 
-	is_g_unicode_script_sharada: BOOLEAN is
+	is_g_unicode_script_sharada: BOOLEAN
 		do
 			Result := (value=g_unicode_script_sharada_low_level)
 		end
 
-	is_g_unicode_script_shavian: BOOLEAN is
+	is_g_unicode_script_shavian: BOOLEAN
 		do
 			Result := (value=g_unicode_script_shavian_low_level)
 		end
 
-	is_g_unicode_script_sinhala: BOOLEAN is
+	is_g_unicode_script_sinhala: BOOLEAN
 		do
 			Result := (value=g_unicode_script_sinhala_low_level)
 		end
 
-	is_g_unicode_script_sora_sompeng: BOOLEAN is
+	is_g_unicode_script_sora_sompeng: BOOLEAN
 		do
 			Result := (value=g_unicode_script_sora_sompeng_low_level)
 		end
 
-	is_g_unicode_script_sundanese: BOOLEAN is
+	is_g_unicode_script_sundanese: BOOLEAN
 		do
 			Result := (value=g_unicode_script_sundanese_low_level)
 		end
 
-	is_g_unicode_script_syloti_nagri: BOOLEAN is
+	is_g_unicode_script_syloti_nagri: BOOLEAN
 		do
 			Result := (value=g_unicode_script_syloti_nagri_low_level)
 		end
 
-	is_g_unicode_script_syriac: BOOLEAN is
+	is_g_unicode_script_syriac: BOOLEAN
 		do
 			Result := (value=g_unicode_script_syriac_low_level)
 		end
 
-	is_g_unicode_script_tagalog: BOOLEAN is
+	is_g_unicode_script_tagalog: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tagalog_low_level)
 		end
 
-	is_g_unicode_script_tagbanwa: BOOLEAN is
+	is_g_unicode_script_tagbanwa: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tagbanwa_low_level)
 		end
 
-	is_g_unicode_script_tai_le: BOOLEAN is
+	is_g_unicode_script_tai_le: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tai_le_low_level)
 		end
 
-	is_g_unicode_script_tai_tham: BOOLEAN is
+	is_g_unicode_script_tai_tham: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tai_tham_low_level)
 		end
 
-	is_g_unicode_script_tai_viet: BOOLEAN is
+	is_g_unicode_script_tai_viet: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tai_viet_low_level)
 		end
 
-	is_g_unicode_script_takri: BOOLEAN is
+	is_g_unicode_script_takri: BOOLEAN
 		do
 			Result := (value=g_unicode_script_takri_low_level)
 		end
 
-	is_g_unicode_script_tamil: BOOLEAN is
+	is_g_unicode_script_tamil: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tamil_low_level)
 		end
 
-	is_g_unicode_script_telugu: BOOLEAN is
+	is_g_unicode_script_telugu: BOOLEAN
 		do
 			Result := (value=g_unicode_script_telugu_low_level)
 		end
 
-	is_g_unicode_script_thaana: BOOLEAN is
+	is_g_unicode_script_thaana: BOOLEAN
 		do
 			Result := (value=g_unicode_script_thaana_low_level)
 		end
 
-	is_g_unicode_script_thai: BOOLEAN is
+	is_g_unicode_script_thai: BOOLEAN
 		do
 			Result := (value=g_unicode_script_thai_low_level)
 		end
 
-	is_g_unicode_script_tibetan: BOOLEAN is
+	is_g_unicode_script_tibetan: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tibetan_low_level)
 		end
 
-	is_g_unicode_script_tifinagh: BOOLEAN is
+	is_g_unicode_script_tifinagh: BOOLEAN
 		do
 			Result := (value=g_unicode_script_tifinagh_low_level)
 		end
 
-	is_g_unicode_script_ugaritic: BOOLEAN is
+	is_g_unicode_script_ugaritic: BOOLEAN
 		do
 			Result := (value=g_unicode_script_ugaritic_low_level)
 		end
 
-	is_g_unicode_script_unknown: BOOLEAN is
+	is_g_unicode_script_unknown: BOOLEAN
 		do
 			Result := (value=g_unicode_script_unknown_low_level)
 		end
 
-	is_g_unicode_script_vai: BOOLEAN is
+	is_g_unicode_script_vai: BOOLEAN
 		do
 			Result := (value=g_unicode_script_vai_low_level)
 		end
 
-	is_g_unicode_script_yi: BOOLEAN is
+	is_g_unicode_script_yi: BOOLEAN
 		do
 			Result := (value=g_unicode_script_yi_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_unicode_script_arabic_low_level: INTEGER is
+	g_unicode_script_arabic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1168,7 +1168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_armenian_low_level: INTEGER is
+	g_unicode_script_armenian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1177,7 +1177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_avestan_low_level: INTEGER is
+	g_unicode_script_avestan_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1186,7 +1186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_balinese_low_level: INTEGER is
+	g_unicode_script_balinese_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1195,7 +1195,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_bamum_low_level: INTEGER is
+	g_unicode_script_bamum_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1204,7 +1204,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_batak_low_level: INTEGER is
+	g_unicode_script_batak_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1213,7 +1213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_bengali_low_level: INTEGER is
+	g_unicode_script_bengali_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1222,7 +1222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_bopomofo_low_level: INTEGER is
+	g_unicode_script_bopomofo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1231,7 +1231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_brahmi_low_level: INTEGER is
+	g_unicode_script_brahmi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1240,7 +1240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_braille_low_level: INTEGER is
+	g_unicode_script_braille_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1249,7 +1249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_buginese_low_level: INTEGER is
+	g_unicode_script_buginese_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1258,7 +1258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_buhid_low_level: INTEGER is
+	g_unicode_script_buhid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1267,7 +1267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_canadian_aboriginal_low_level: INTEGER is
+	g_unicode_script_canadian_aboriginal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1276,7 +1276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_carian_low_level: INTEGER is
+	g_unicode_script_carian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1285,7 +1285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_chakma_low_level: INTEGER is
+	g_unicode_script_chakma_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1294,7 +1294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_cham_low_level: INTEGER is
+	g_unicode_script_cham_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1303,7 +1303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_cherokee_low_level: INTEGER is
+	g_unicode_script_cherokee_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1312,7 +1312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_common_low_level: INTEGER is
+	g_unicode_script_common_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1321,7 +1321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_coptic_low_level: INTEGER is
+	g_unicode_script_coptic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1330,7 +1330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_cuneiform_low_level: INTEGER is
+	g_unicode_script_cuneiform_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1339,7 +1339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_cypriot_low_level: INTEGER is
+	g_unicode_script_cypriot_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1348,7 +1348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_cyrillic_low_level: INTEGER is
+	g_unicode_script_cyrillic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1357,7 +1357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_deseret_low_level: INTEGER is
+	g_unicode_script_deseret_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1366,7 +1366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_devanagari_low_level: INTEGER is
+	g_unicode_script_devanagari_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1375,7 +1375,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_egyptian_hieroglyphs_low_level: INTEGER is
+	g_unicode_script_egyptian_hieroglyphs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1384,7 +1384,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_ethiopic_low_level: INTEGER is
+	g_unicode_script_ethiopic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1393,7 +1393,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_georgian_low_level: INTEGER is
+	g_unicode_script_georgian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1402,7 +1402,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_glagolitic_low_level: INTEGER is
+	g_unicode_script_glagolitic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1411,7 +1411,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_gothic_low_level: INTEGER is
+	g_unicode_script_gothic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1420,7 +1420,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_greek_low_level: INTEGER is
+	g_unicode_script_greek_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1429,7 +1429,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_gujarati_low_level: INTEGER is
+	g_unicode_script_gujarati_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1438,7 +1438,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_gurmukhi_low_level: INTEGER is
+	g_unicode_script_gurmukhi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1447,7 +1447,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_han_low_level: INTEGER is
+	g_unicode_script_han_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1456,7 +1456,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_hangul_low_level: INTEGER is
+	g_unicode_script_hangul_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1465,7 +1465,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_hanunoo_low_level: INTEGER is
+	g_unicode_script_hanunoo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1474,7 +1474,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_hebrew_low_level: INTEGER is
+	g_unicode_script_hebrew_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1483,7 +1483,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_hiragana_low_level: INTEGER is
+	g_unicode_script_hiragana_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1492,7 +1492,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_imperial_aramaic_low_level: INTEGER is
+	g_unicode_script_imperial_aramaic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1501,7 +1501,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_inherited_low_level: INTEGER is
+	g_unicode_script_inherited_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1510,7 +1510,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_inscriptional_pahlavi_low_level: INTEGER is
+	g_unicode_script_inscriptional_pahlavi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1519,7 +1519,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_inscriptional_parthian_low_level: INTEGER is
+	g_unicode_script_inscriptional_parthian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1528,7 +1528,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_invalid_code_low_level: INTEGER is
+	g_unicode_script_invalid_code_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1537,7 +1537,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_javanese_low_level: INTEGER is
+	g_unicode_script_javanese_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1546,7 +1546,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_kaithi_low_level: INTEGER is
+	g_unicode_script_kaithi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1555,7 +1555,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_kannada_low_level: INTEGER is
+	g_unicode_script_kannada_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1564,7 +1564,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_katakana_low_level: INTEGER is
+	g_unicode_script_katakana_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1573,7 +1573,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_kayah_li_low_level: INTEGER is
+	g_unicode_script_kayah_li_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1582,7 +1582,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_kharoshthi_low_level: INTEGER is
+	g_unicode_script_kharoshthi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1591,7 +1591,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_khmer_low_level: INTEGER is
+	g_unicode_script_khmer_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1600,7 +1600,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_lao_low_level: INTEGER is
+	g_unicode_script_lao_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1609,7 +1609,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_latin_low_level: INTEGER is
+	g_unicode_script_latin_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1618,7 +1618,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_lepcha_low_level: INTEGER is
+	g_unicode_script_lepcha_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1627,7 +1627,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_limbu_low_level: INTEGER is
+	g_unicode_script_limbu_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1636,7 +1636,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_linear_b_low_level: INTEGER is
+	g_unicode_script_linear_b_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1645,7 +1645,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_lisu_low_level: INTEGER is
+	g_unicode_script_lisu_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1654,7 +1654,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_lycian_low_level: INTEGER is
+	g_unicode_script_lycian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1663,7 +1663,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_lydian_low_level: INTEGER is
+	g_unicode_script_lydian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1672,7 +1672,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_malayalam_low_level: INTEGER is
+	g_unicode_script_malayalam_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1681,7 +1681,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_mandaic_low_level: INTEGER is
+	g_unicode_script_mandaic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1690,7 +1690,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_meetei_mayek_low_level: INTEGER is
+	g_unicode_script_meetei_mayek_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1699,7 +1699,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_meroitic_cursive_low_level: INTEGER is
+	g_unicode_script_meroitic_cursive_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1708,7 +1708,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_meroitic_hieroglyphs_low_level: INTEGER is
+	g_unicode_script_meroitic_hieroglyphs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1717,7 +1717,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_miao_low_level: INTEGER is
+	g_unicode_script_miao_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1726,7 +1726,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_mongolian_low_level: INTEGER is
+	g_unicode_script_mongolian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1735,7 +1735,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_myanmar_low_level: INTEGER is
+	g_unicode_script_myanmar_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1744,7 +1744,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_new_tai_lue_low_level: INTEGER is
+	g_unicode_script_new_tai_lue_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1753,7 +1753,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_nko_low_level: INTEGER is
+	g_unicode_script_nko_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1762,7 +1762,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_ogham_low_level: INTEGER is
+	g_unicode_script_ogham_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1771,7 +1771,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_ol_chiki_low_level: INTEGER is
+	g_unicode_script_ol_chiki_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1780,7 +1780,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_old_italic_low_level: INTEGER is
+	g_unicode_script_old_italic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1789,7 +1789,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_old_persian_low_level: INTEGER is
+	g_unicode_script_old_persian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1798,7 +1798,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_old_south_arabian_low_level: INTEGER is
+	g_unicode_script_old_south_arabian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1807,7 +1807,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_old_turkic_low_level: INTEGER is
+	g_unicode_script_old_turkic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1816,7 +1816,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_oriya_low_level: INTEGER is
+	g_unicode_script_oriya_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1825,7 +1825,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_osmanya_low_level: INTEGER is
+	g_unicode_script_osmanya_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1834,7 +1834,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_phags_pa_low_level: INTEGER is
+	g_unicode_script_phags_pa_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1843,7 +1843,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_phoenician_low_level: INTEGER is
+	g_unicode_script_phoenician_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1852,7 +1852,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_rejang_low_level: INTEGER is
+	g_unicode_script_rejang_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1861,7 +1861,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_runic_low_level: INTEGER is
+	g_unicode_script_runic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1870,7 +1870,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_samaritan_low_level: INTEGER is
+	g_unicode_script_samaritan_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1879,7 +1879,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_saurashtra_low_level: INTEGER is
+	g_unicode_script_saurashtra_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1888,7 +1888,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_sharada_low_level: INTEGER is
+	g_unicode_script_sharada_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1897,7 +1897,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_shavian_low_level: INTEGER is
+	g_unicode_script_shavian_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1906,7 +1906,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_sinhala_low_level: INTEGER is
+	g_unicode_script_sinhala_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1915,7 +1915,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_sora_sompeng_low_level: INTEGER is
+	g_unicode_script_sora_sompeng_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1924,7 +1924,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_sundanese_low_level: INTEGER is
+	g_unicode_script_sundanese_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1933,7 +1933,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_syloti_nagri_low_level: INTEGER is
+	g_unicode_script_syloti_nagri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1942,7 +1942,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_syriac_low_level: INTEGER is
+	g_unicode_script_syriac_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1951,7 +1951,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tagalog_low_level: INTEGER is
+	g_unicode_script_tagalog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1960,7 +1960,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tagbanwa_low_level: INTEGER is
+	g_unicode_script_tagbanwa_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1969,7 +1969,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tai_le_low_level: INTEGER is
+	g_unicode_script_tai_le_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1978,7 +1978,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tai_tham_low_level: INTEGER is
+	g_unicode_script_tai_tham_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1987,7 +1987,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tai_viet_low_level: INTEGER is
+	g_unicode_script_tai_viet_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -1996,7 +1996,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_takri_low_level: INTEGER is
+	g_unicode_script_takri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2005,7 +2005,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tamil_low_level: INTEGER is
+	g_unicode_script_tamil_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2014,7 +2014,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_telugu_low_level: INTEGER is
+	g_unicode_script_telugu_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2023,7 +2023,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_thaana_low_level: INTEGER is
+	g_unicode_script_thaana_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2032,7 +2032,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_thai_low_level: INTEGER is
+	g_unicode_script_thai_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2041,7 +2041,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tibetan_low_level: INTEGER is
+	g_unicode_script_tibetan_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2050,7 +2050,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_tifinagh_low_level: INTEGER is
+	g_unicode_script_tifinagh_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2059,7 +2059,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_ugaritic_low_level: INTEGER is
+	g_unicode_script_ugaritic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2068,7 +2068,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_unknown_low_level: INTEGER is
+	g_unicode_script_unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2077,7 +2077,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_vai_low_level: INTEGER is
+	g_unicode_script_vai_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -2086,7 +2086,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_script_yi_low_level: INTEGER is
+	g_unicode_script_yi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

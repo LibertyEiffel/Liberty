@@ -14,7 +14,7 @@ feature {ANY}
 
    image: EIFFEL_IMAGE
 
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: EIFFEL_TERMINAL_NODE_IMPL_VISITOR
       do
@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       do
          do_indent(output, indent, p)
          output.put_character('"')
@@ -32,7 +32,7 @@ feature {EIFFEL_NODE_HANDLER}
          output.put_line(image.image)
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       do
          o.put_string(image.blanks)
          o.put_string(image.image)
@@ -40,7 +40,7 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {}
-   make (a_name: like name; a_image: like image) is
+   make (a_name: like name; a_image: like image)
       do
          name := a_name
          image := a_image
@@ -57,7 +57,7 @@ end -- class EIFFEL_TERMINAL_NODE_IMPL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

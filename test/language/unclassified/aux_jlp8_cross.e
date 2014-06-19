@@ -9,51 +9,51 @@ inherit
       end
 
 feature {ANY}
-   attach (p1: AUX_JLP8_PROVIDER[E]; p2: AUX_JLP8_PROVIDER[F]) is
+   attach (p1: AUX_JLP8_PROVIDER[E]; p2: AUX_JLP8_PROVIDER[F])
       do
          prov1 := p1
          prov2 := p2
       end
 
-   start is
+   start
       do
          prov1.start
          prov2.start
       end
 
-   next is
+   next
       do
          prov1.next
          prov2.next
       end
 
-   item: G is
+   item: G
       do
          Result := cross_operation(prov1.item, prov2.item)
       end
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       do
          Result := prov1.exhausted or prov2.exhausted
       end
 
-   abort is
+   abort
       do
          prov1.abort
          prov2.abort
       end
 
-   aborted: BOOLEAN is
+   aborted: BOOLEAN
       do
          Result := prov1.aborted or prov2.aborted
       end
 
-   is_runnable: BOOLEAN is
+   is_runnable: BOOLEAN
       do
          Result := prov1 /= Void and prov2 /= Void
       end
 
-   cross_operation (e: E; f: F): G is
+   cross_operation (e: E; f: F): G
       deferred
       end
 

@@ -14,12 +14,12 @@ create {CLUSTER}
    make
 
 feature {CLUSTER}
-   class_count: INTEGER is
+   class_count: INTEGER
       do
          Result := classes.count
       end
 
-   cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS is
+   cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS
       do
          if a_class_name.is_tuple_related then
             Result := classes.fast_reference_at(hash_tuple)
@@ -28,7 +28,7 @@ feature {CLUSTER}
          end
       end
 
-   has (a_class_name: HASHED_STRING): BOOLEAN is
+   has (a_class_name: HASHED_STRING): BOOLEAN
       do
          if a_class_name.is_tuple_related then
             Result := classes.fast_has(hash_tuple)
@@ -37,7 +37,7 @@ feature {CLUSTER}
          end
       end
 
-   add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING) is
+   add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING)
       require
          cluster_class(a_class_name) = Void
       local
@@ -55,7 +55,7 @@ feature {CLUSTER}
       end
 
 feature {}
-   hash_tuple: HASHED_STRING is
+   hash_tuple: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end
@@ -64,7 +64,7 @@ feature {}
 
    cluster: CLUSTER
 
-   make (a_cluster: CLUSTER) is
+   make (a_cluster: CLUSTER)
       do
          cluster := a_cluster
          create classes.make

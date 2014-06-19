@@ -18,14 +18,14 @@ insert
       end
 
 feature {ANY}
-   make (u, v: AUX_JLP8_PROVIDER[E]) is
+   make (u, v: AUX_JLP8_PROVIDER[E])
       do
          create cross
          cross.attach(u, v)
          make_sum(cross)
       end
 
-   is_runnable: BOOLEAN is
+   is_runnable: BOOLEAN
       do
          Result := sum_is_runnable and cross.is_runnable
       end

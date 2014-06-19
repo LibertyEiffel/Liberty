@@ -4,9 +4,9 @@
 deferred class AUX_VDUS3
 
 feature {ANY}
-   a is deferred end
+   a deferred end
 
-   b is deferred end
+   b deferred end
 
 end -- class AUX_VDUS3
 --

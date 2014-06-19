@@ -28,7 +28,7 @@ create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_INSERT_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   values (a_row: TRAVERSABLE[EDC_VALUE]): like Current is
+   values (a_row: TRAVERSABLE[EDC_VALUE]): like Current
       require
          valid_row(a_row)
       local
@@ -58,12 +58,12 @@ feature {ANY}
          chain: Result = Current
       end
 
-   valid_row (a_row: TRAVERSABLE[EDC_VALUE]): BOOLEAN is
+   valid_row (a_row: TRAVERSABLE[EDC_VALUE]): BOOLEAN
       do
          Result := a_row /= Void and then a_row.count = columns.count
       end
 
-   call is
+   call
       local
          i: INTEGER
       do
@@ -74,7 +74,7 @@ feature {ANY}
       end
 
 feature {EDC_CONNECTION}
-   valid_columns (a_columns: TRAVERSABLE[EDC_COLUMN]): BOOLEAN is
+   valid_columns (a_columns: TRAVERSABLE[EDC_COLUMN]): BOOLEAN
       local
          i: INTEGER; t: EDC_TABLE
       do
@@ -91,7 +91,7 @@ feature {EDC_CONNECTION}
       end
 
 feature {}
-   make (a_connection: like connection; a_columns: TRAVERSABLE[EDC_COLUMN]) is
+   make (a_connection: like connection; a_columns: TRAVERSABLE[EDC_COLUMN])
       require
          a_connection /= Void
          in_same_table: valid_columns(a_columns)

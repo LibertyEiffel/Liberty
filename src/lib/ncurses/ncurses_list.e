@@ -25,7 +25,7 @@ feature {ANY}
 
    height: INTEGER
 
-   refresh_later is
+   refresh_later
       local
          i: INTEGER
       do
@@ -53,28 +53,28 @@ feature {ANY}
          end
       end
 
-   add_first (string: STRING; elt: E_) is
+   add_first (string: STRING; elt: E_)
       require
          string /= Void
       do
          items.add_first(create {NCURSES_LIST_ITEM[E_]}.make(False, string, elt))
       end
 
-   add_last (string: STRING; elt: E_) is
+   add_last (string: STRING; elt: E_)
       require
          string /= Void
       do
          items.add_last(create {NCURSES_LIST_ITEM[E_]}.make(False, string, elt))
       end
 
-   add (string: STRING; elt: E_; index: INTEGER) is
+   add (string: STRING; elt: E_; index: INTEGER)
       require
          string /= Void
       do
          items.add(create {NCURSES_LIST_ITEM[E_]}.make(False, string, elt), index)
       end
 
-   put (string: STRING; elt: E_; index: INTEGER) is
+   put (string: STRING; elt: E_; index: INTEGER)
       require
          string /= Void
       local
@@ -86,7 +86,7 @@ feature {ANY}
          ncurses_list_item.set_value(elt)
       end
 
-   select_item (index: INTEGER) is
+   select_item (index: INTEGER)
       local
          i: INTEGER
       do
@@ -107,19 +107,19 @@ feature {ANY}
          items.item(index).set_is_selected(True)
       end
 
-   deselect_item (index: INTEGER) is
+   deselect_item (index: INTEGER)
       do
          items.item(index).set_is_selected(False)
       end
 
-   is_selected (index: INTEGER): BOOLEAN is
+   is_selected (index: INTEGER): BOOLEAN
       do
          Result := items.item(index).is_selected
       end
 
    is_multiple_selection_allowed: BOOLEAN
 
-   allow_multiple_selection (b: like is_multiple_selection_allowed) is
+   allow_multiple_selection (b: like is_multiple_selection_allowed)
       local
          i: INTEGER
       do
@@ -138,7 +138,7 @@ feature {ANY}
          end
       end
 
-   get_selection: HASHED_DICTIONARY[E_, INTEGER] is
+   get_selection: HASHED_DICTIONARY[E_, INTEGER]
       local
          i: INTEGER
       do
@@ -157,7 +157,7 @@ feature {ANY}
          end
       end
 
-   set_focus_on (index: INTEGER) is
+   set_focus_on (index: INTEGER)
       require
          items.valid_index(index)
       do
@@ -169,58 +169,58 @@ feature {ANY}
    focused: INTEGER
 
 feature {ANY} -- The TRAVERSABLE ability:
-   count: INTEGER is
+   count: INTEGER
       do
          Result := items.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := items.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := items.upper
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := items.is_empty
       end
 
-   item (i: INTEGER): E_ is
+   item (i: INTEGER): E_
       do
          Result := items.item(i).value
       end
 
-   first: like item is
+   first: like item
       do
          Result := item(lower)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          not_yet_implemented
       end
 
 feature {NCURSES_WIDGET}
-   get_window: NCURSES_WINDOW is
+   get_window: NCURSES_WINDOW
       do
          Result := window
       end
 
-   parent_resized is
+   parent_resized
       do
       end
 
 feature {}
-   make (p: like parent; x, y, w, h: INTEGER) is
+   make (p: like parent; x, y, w, h: INTEGER)
       require
          ncurses.is_enabled
          p /= Void
@@ -262,7 +262,7 @@ end -- class NCURSES_LIST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_PREFIX_OPERATOR}
-   visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR) is
+   visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR)
       deferred
       end
 

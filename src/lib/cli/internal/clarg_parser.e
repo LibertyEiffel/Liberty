@@ -19,41 +19,41 @@ feature {ANY}
    index: INTEGER
    is_mandatory: BOOLEAN
 
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
       deferred
       end
 
-   force_index (a_index: like index) is
+   force_index (a_index: like index)
       do
          index := a_index
       ensure
          index = a_index
       end
 
-   is_optional: BOOLEAN is
+   is_optional: BOOLEAN
       do
          Result := not is_mandatory and then not is_positional
       end
 
-   is_positional: BOOLEAN is
+   is_positional: BOOLEAN
       do
          Result := short = Void and then long = Void
       end
 
-   can_be_mandatory: BOOLEAN is True
+   can_be_mandatory: BOOLEAN True
 
-   can_be_optional: BOOLEAN is
+   can_be_optional: BOOLEAN
       do
          Result := is_optional
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(name)
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       do
          if is_positional then
             Result := parse_positional(context)
@@ -71,7 +71,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          end
       end
 
-   usage_summary (stream: OUTPUT_STREAM) is
+   usage_summary (stream: OUTPUT_STREAM)
       do
          if not is_mandatory then
             stream.put_character('{')
@@ -100,7 +100,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          detailed := False
       end
 
-   usage_details (stream: OUTPUT_STREAM) is
+   usage_details (stream: OUTPUT_STREAM)
       do
          if not detailed then
             usage_summary(stream)
@@ -121,18 +121,18 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          end
       end
 
-   set_mandatory (parent_option: like Current; enable: BOOLEAN) is
+   set_mandatory (parent_option: like Current; enable: BOOLEAN)
       do
          parent := parent_option
          is_mandatory := enable
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
       deferred
       end
 
 feature {} -- parsing
-   parse_positional (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_positional (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       require
          is_positional
       local
@@ -153,7 +153,7 @@ feature {} -- parsing
          end
       end
 
-   parse_short (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_short (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       require
          not is_positional
          short /= Void
@@ -195,7 +195,7 @@ feature {} -- parsing
          end
       end
 
-   parse_long (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_long (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       require
          not is_positional
          long /= Void
@@ -226,7 +226,7 @@ feature {} -- parsing
       end
 
 feature {CLARG_PARSER}
-   set_data_ (context: COMMAND_LINE_CONTEXT; data: STRING) is
+   set_data_ (context: COMMAND_LINE_CONTEXT; data: STRING)
       require
          is_valid_data(data)
          parent /= Void implies parent.is_valid_data(data)
@@ -237,12 +237,12 @@ feature {CLARG_PARSER}
          end
       end
 
-   is_valid_data (data: STRING): BOOLEAN is
+   is_valid_data (data: STRING): BOOLEAN
       deferred
       end
 
 feature {}
-   set_data (context: COMMAND_LINE_CONTEXT; data: STRING) is
+   set_data (context: COMMAND_LINE_CONTEXT; data: STRING)
       require
          is_valid_data(data)
       deferred
@@ -251,7 +251,7 @@ feature {}
       end
 
 feature {}
-   optional (a_short, a_long, a_name, a_usage: ABSTRACT_STRING) is
+   optional (a_short, a_long, a_name, a_usage: ABSTRACT_STRING)
       require
          a_short /= Void implies a_short.count = 1
          a_short /= Void or else a_long /= Void
@@ -275,7 +275,7 @@ feature {}
          a_usage /= Void implies usage.is_equal(a_usage)
       end
 
-   positional (a_name, a_usage: ABSTRACT_STRING) is
+   positional (a_name, a_usage: ABSTRACT_STRING)
       require
          a_name /= Void
       do
@@ -307,7 +307,7 @@ end -- class CLARG_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

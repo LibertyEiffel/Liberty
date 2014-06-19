@@ -19,117 +19,117 @@ deferred class LIBERTY_FEATURE_ACCELERATOR
    --
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-   call_implies (f: LIBERTY_FEATURE) is
+   call_implies (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_or_else (f: LIBERTY_FEATURE) is
+   call_or_else (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_or (f: LIBERTY_FEATURE) is
+   call_or (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_xor (f: LIBERTY_FEATURE) is
+   call_xor (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_and_then (f: LIBERTY_FEATURE) is
+   call_and_then (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_and (f: LIBERTY_FEATURE) is
+   call_and (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_less_or_equal (f: LIBERTY_FEATURE) is
+   call_less_or_equal (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_less_than (f: LIBERTY_FEATURE) is
+   call_less_than (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_greater_or_equal (f: LIBERTY_FEATURE) is
+   call_greater_or_equal (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_greater_than (f: LIBERTY_FEATURE) is
+   call_greater_than (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_add (f: LIBERTY_FEATURE) is
+   call_add (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_subtract (f: LIBERTY_FEATURE) is
+   call_subtract (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_times (f: LIBERTY_FEATURE) is
+   call_times (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_divide (f: LIBERTY_FEATURE) is
+   call_divide (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_int_divide (f: LIBERTY_FEATURE) is
+   call_int_divide (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_int_remainder (f: LIBERTY_FEATURE) is
+   call_int_remainder (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_power (f: LIBERTY_FEATURE) is
+   call_power (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_positive (f: LIBERTY_FEATURE) is
+   call_positive (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_negative (f: LIBERTY_FEATURE) is
+   call_negative (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_not (f: LIBERTY_FEATURE) is
+   call_not (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_free_prefix (f: LIBERTY_FEATURE) is
+   call_free_prefix (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_free_infix (f: LIBERTY_FEATURE) is
+   call_free_infix (f: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   call_other (f: LIBERTY_FEATURE) is
+   call_other (f: LIBERTY_FEATURE)
       do
          check False end
       end

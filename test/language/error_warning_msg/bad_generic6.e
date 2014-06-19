@@ -10,7 +10,7 @@ create {}
 feature {}
    a: AUX_GENERIC6[INTEGER]
 
-   make is
+   make
       do
          create a.make(10)
          print(a.my_t)

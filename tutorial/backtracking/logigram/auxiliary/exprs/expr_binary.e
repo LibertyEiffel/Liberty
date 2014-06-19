@@ -8,13 +8,13 @@ inherit
 feature {ANY}
    left, right: EXPR
 
-   make (lft, rght: EXPR) is
+   make (lft, rght: EXPR)
       do
          left := lft
          right := rght
       end
 
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
       do
          left.get_items(collector)
          right.get_items(collector)

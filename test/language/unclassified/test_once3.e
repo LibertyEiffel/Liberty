@@ -7,22 +7,22 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(once_a.value = 'a')
       end
 
-   once_a: AUX_ONCE3A is
+   once_a: AUX_ONCE3A
       once
          create Result.make_a
       end
 
-   once_b: AUX_ONCE3B is
+   once_b: AUX_ONCE3B
       once
          create Result.make_b
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

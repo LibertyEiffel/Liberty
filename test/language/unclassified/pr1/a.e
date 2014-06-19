@@ -6,12 +6,12 @@ inherit
       end
 
 feature {ANY}
-   default_create is
+   default_create
       do
          label := "foo"
       end
 
-   foo is
+   foo
       do
          print(label)
          -- print_run_time_stack

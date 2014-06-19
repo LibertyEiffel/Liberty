@@ -28,7 +28,7 @@ create {EDC_TYPED_COLUMN}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_TIME_COLUMN_VALUE_VISITOR
       do

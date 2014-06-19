@@ -27,7 +27,7 @@ feature {ANY}
    expression: LIBERTY_EXPRESSION
    body: LIBERTY_INSTRUCTION
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          i: like init
          iv: like invariant_clause
@@ -50,7 +50,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          init.mark_reachable_code(mark)
          invariant_clause.mark_reachable_code(mark)
@@ -62,7 +62,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body; a_position: like position) is
+   make (a_init: like init; a_invariant_clause: like invariant_clause; a_variant_clause: like variant_clause; a_expression: like expression; a_body: like body; a_position: like position)
       require
          a_init /= Void
          a_invariant_clause /= Void
@@ -86,7 +86,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_LOOP_VISITOR
       do

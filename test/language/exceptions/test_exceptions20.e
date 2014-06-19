@@ -14,19 +14,19 @@ create {}
 feature {ANY}
    string: STRING
 
-   make is
+   make
       do
          foo
       rescue
          retry
       end
 
-   foo is
+   foo
       do
          string.extend(' ')
       end
 
-   default_rescue is
+   default_rescue
       do
          create string.make(3)
       end

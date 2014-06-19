@@ -10,12 +10,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(+Current = Current)
       end
 
-   prefix "+" (something: INTEGER): like Current is
+   prefix "+" (something: INTEGER): like Current
       do
          Result := Current
       end

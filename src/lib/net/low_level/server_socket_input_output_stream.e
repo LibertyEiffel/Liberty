@@ -14,14 +14,14 @@ create {SOCKET_SERVER}
    connect_to
 
 feature {ANY}
-   disconnect is
+   disconnect
       do
          detach
          server.unbind(socket)
       end
 
 feature {}
-   connect_to (a_server: SOCKET_SERVER; a_sync: BOOLEAN) is
+   connect_to (a_server: SOCKET_SERVER; a_sync: BOOLEAN)
       require
          a_server /= Void
       do
@@ -33,7 +33,7 @@ feature {}
    socket: SOCKET
    server: SOCKET_SERVER
 
-   socket_disconnected (a_socket: SOCKET) is
+   socket_disconnected (a_socket: SOCKET)
       do
          if server.has_socket(a_socket) then
             server.socket_disconnected(a_socket)
@@ -52,7 +52,7 @@ end -- class SERVER_SOCKET_INPUT_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

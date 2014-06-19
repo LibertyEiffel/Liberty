@@ -20,13 +20,13 @@ class ZMQ_SUB_SOCKET
 inherit ZMQ_RECEIVING_SOCKET
 create {ZMQ_CONTEXT} from_external_pointer
 feature {ANY} -- Message subscribing
-	subscribe_to_all is
+	subscribe_to_all
 		do
 			not_yet_implemented
 		end
 
 
-	subscribe_to (a_prefix: ABSTRACT_STRING) is
+	subscribe_to (a_prefix: ABSTRACT_STRING)
 		-- 		   ZMQ_SUBSCRIBE: Establish message filter
 		--        The ZMQ_SUBSCRIBE option shall establish a new message filter on a ZMQ_SUB socket. Newly created ZMQ_SUB sockets shall filter
 		--        out all incoming messages, therefore you should call this option to establish an initial message filter.

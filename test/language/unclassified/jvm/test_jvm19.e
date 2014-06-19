@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    aa: RING_ARRAY[CHARACTER]
 
-   make is
+   make
       local
          cr: REFERENCE[CHARACTER]; a: ANY_REFERENCE
       do
@@ -60,7 +60,7 @@ feature {ANY}
          assert(97 = aa.item(1).code)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

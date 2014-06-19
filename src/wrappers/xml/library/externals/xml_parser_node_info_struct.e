@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_parser_node_info_struct_set_node (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_node_info_struct_set_node (a_structure: POINTER; a_value: POINTER)
 			-- Setter for node field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_node_info_struct_set_begin_pos (a_structure: POINTER; a_value: like long_unsigned) is
+	xml_parser_node_info_struct_set_begin_pos (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for begin_pos field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_node_info_struct_set_begin_line (a_structure: POINTER; a_value: like long_unsigned) is
+	xml_parser_node_info_struct_set_begin_line (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for begin_line field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_node_info_struct_set_end_pos (a_structure: POINTER; a_value: like long_unsigned) is
+	xml_parser_node_info_struct_set_end_pos (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for end_pos field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_node_info_struct_set_end_line (a_structure: POINTER; a_value: like long_unsigned) is
+	xml_parser_node_info_struct_set_end_line (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for end_line field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_parser_node_info_struct_get_node (a_structure: POINTER): POINTER is
+	xml_parser_node_info_struct_get_node (a_structure: POINTER): POINTER
 			-- Query for node field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_node_info_struct_get_begin_pos (a_structure: POINTER): like long_unsigned is
+	xml_parser_node_info_struct_get_begin_pos (a_structure: POINTER): like long_unsigned
 			-- Query for begin_pos field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_node_info_struct_get_begin_line (a_structure: POINTER): like long_unsigned is
+	xml_parser_node_info_struct_get_begin_line (a_structure: POINTER): like long_unsigned
 			-- Query for begin_line field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_node_info_struct_get_end_pos (a_structure: POINTER): like long_unsigned is
+	xml_parser_node_info_struct_get_end_pos (a_structure: POINTER): like long_unsigned
 			-- Query for end_pos field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_node_info_struct_get_end_line (a_structure: POINTER): like long_unsigned is
+	xml_parser_node_info_struct_get_end_line (a_structure: POINTER): like long_unsigned
 			-- Query for end_line field of XML_PARSER_NODE_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

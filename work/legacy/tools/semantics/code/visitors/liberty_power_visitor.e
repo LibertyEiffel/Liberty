@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_POWER}
-   visit_liberty_power (v: LIBERTY_POWER) is
+   visit_liberty_power (v: LIBERTY_POWER)
       deferred
       end
 

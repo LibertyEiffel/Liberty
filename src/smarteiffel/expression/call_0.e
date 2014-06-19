@@ -10,20 +10,20 @@ inherit
    FUNCTION_CALL
 
 feature {ANY}
-   arg_count: INTEGER is 0
+   arg_count: INTEGER 0
 
-   frozen arguments: EFFECTIVE_ARG_LIST is
+   frozen arguments: EFFECTIVE_ARG_LIST
       do
       end
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a = Void
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          fs: like feature_stamp; t: like target
@@ -46,7 +46,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          t: like target; fs: like feature_stamp
@@ -76,7 +76,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
          --|*** PH/Dom(22/01/04) Improvement: save the result of
          --|"target.declaration_type.search(feature_name)" because it
          --|will not change. Hope the memory penalty is not too big
@@ -156,7 +156,7 @@ feature {ANY}
          end
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       local
          t: like target; target_type: TYPE; af: ANONYMOUS_FEATURE; inline_memo: INLINE_MEMO
          external_function: EXTERNAL_FUNCTION
@@ -196,7 +196,7 @@ feature {ANY}
       end
 
 feature {}
-   simplify_limit_reached: BOOLEAN is
+   simplify_limit_reached: BOOLEAN
          -- To avoid possible infinite inlinings during simplify.
       local
          c: FUNCTION_CALL; stop: BOOLEAN; nested_calls_counter: INTEGER
@@ -230,7 +230,7 @@ feature {}
          end
       end
 
-   current_or_twin_init (t: like target; fs: like feature_stamp): like Current is
+   current_or_twin_init (t: like target; fs: like feature_stamp): like Current
       do
          if t = target and then feature_stamp = fs then
             Result := Current
@@ -244,7 +244,7 @@ feature {}
    arguments_0: EFFECTIVE_ARG_LIST_0
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_with (new_target: EXPRESSION): like Current is
+   frozen inline_with (new_target: EXPRESSION): like Current
       require
          new_target /= Void
       do
@@ -253,7 +253,7 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {WHEN_ITEM}
-   frozen manifest_expression (type: TYPE): MANIFEST_EXPRESSION is
+   frozen manifest_expression (type: TYPE): MANIFEST_EXPRESSION
       do
          check
             target.is_current

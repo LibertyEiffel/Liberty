@@ -15,7 +15,7 @@ create {ANY}
    from_effective
 
 feature {ANY}
-   accept (visitor: DEFERRED_FUNCTION_VISITOR) is
+   accept (visitor: DEFERRED_FUNCTION_VISITOR)
       do
          visitor.visit_deferred_function(Current)
       end
@@ -24,7 +24,7 @@ feature {ANY}
    result_type: TYPE_MARK
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -41,7 +41,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
@@ -60,7 +60,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {DEFERRED_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -69,7 +69,7 @@ feature {DEFERRED_FUNCTION}
 
 feature {}
    make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion) is
+      ra: like require_assertion)
       require
          rt /= Void
       do
@@ -78,7 +78,7 @@ feature {}
       end
 
    from_effective (fn: FEATURE_NAME; fa: like arguments; rt: like result_type; ra: like require_assertion
-      ea: like ensure_assertion; bc: like class_text; pe: like permissions) is
+      ea: like ensure_assertion; bc: like class_text; pe: like permissions)
       do
          feature_text := bc.non_written(fn, Current)
          make(fa, rt, Void, Void, ra)

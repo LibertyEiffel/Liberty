@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s: STRING
       do
@@ -24,11 +24,11 @@ feature {ANY}
          end
       end
 
-   foo: STRING is "foo"
+   foo: STRING "foo"
 
-   one: INTEGER is 1
+   one: INTEGER 1
 
-   yes: BOOLEAN is True
+   yes: BOOLEAN True
 
 end -- class TEST_JVM14
 --

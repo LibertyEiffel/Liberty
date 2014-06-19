@@ -397,8 +397,8 @@ feature {ANY}
 The source lines involved by the message are the following:
 
 Line 30 column 4 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
-   generating_type: STRING is
-   ^                         
+   generating_type: STRING
+   ^                      
 Line 7 column 14 in AUX_EXPORT3B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_export3b.e):
       export {NONE} all
              ^         

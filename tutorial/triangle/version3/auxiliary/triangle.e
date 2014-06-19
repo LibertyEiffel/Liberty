@@ -14,7 +14,7 @@ feature {ANY}
    p3: POINT
       -- Third point.
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate `Current' using `dx' and `dy'.
       do
          p1.translate(dx, dy)
@@ -22,7 +22,7 @@ feature {ANY}
          p3.translate(dx, dy)
       end
 
-   display_on (stream: OUTPUT_STREAM) is
+   display_on (stream: OUTPUT_STREAM)
          -- To display `Current' on the `stream'.
       require
          stream.is_connected
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a, b, c: POINT) is
+   make (a, b, c: POINT)
          -- To create a new TRIANGLE.
       require
          a /= Void

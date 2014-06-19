@@ -13,17 +13,17 @@ create {ANY}
    from_native_array
 
 feature {ANY}
-   is_positive: BOOLEAN is
+   is_positive: BOOLEAN
       do
          Result := not negative
       end
 
-   is_negative: BOOLEAN is
+   is_negative: BOOLEAN
       do
          Result := negative
       end
 
-   infix "\\" (other: NUMBER): NUMBER is
+   infix "\\" (other: NUMBER): NUMBER
       local
          oth: INTEGER_GENERAL_NUMBER
       do
@@ -31,7 +31,7 @@ feature {ANY}
          Result := oth.remainder_of_divide_big_integer_number(Current)
       end
 
-   infix "@\\" (other: INTEGER_64): NUMBER is
+   infix "@\\" (other: INTEGER_64): NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          mutable_register2.from_integer_64(other)
@@ -40,7 +40,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Misc:
-   hash_code: INTEGER is
+   hash_code: INTEGER
       local
          i, c, v: INTEGER
       do
@@ -65,20 +65,20 @@ feature {ANY} -- Misc:
          end
       end
 
-   gcd (other: NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd (other: NUMBER): INTEGER_GENERAL_NUMBER
       do
          Result := other.gcd_with_big_integer_number(Current)
       end
 
-   is_integer_value: BOOLEAN is False
+   is_integer_value: BOOLEAN False
 
-   force_to_real_64: REAL_64 is
+   force_to_real_64: REAL_64
       do
          put_into_mutable_big_integer(mutable_register1)
          Result := mutable_register1.force_to_real_64
       end
 
-   prefix "-": NUMBER is
+   prefix "-": NUMBER
       do
          if is_positive and then capacity = 2 and then storage.item(0) = 0 and then storage.item(1) = Minimum_integer then
             create {INTEGER_64_NUMBER} Result.make(Minimum_integer_64)
@@ -87,12 +87,12 @@ feature {ANY} -- Misc:
          end
       end
 
-   infix "+" (other: NUMBER): NUMBER is
+   infix "+" (other: NUMBER): NUMBER
       do
          Result := other.add_with_big_integer_number(Current)
       end
 
-   infix "//" (other: NUMBER): NUMBER is
+   infix "//" (other: NUMBER): NUMBER
       local
          oth: INTEGER_GENERAL_NUMBER
       do
@@ -100,7 +100,7 @@ feature {ANY} -- Misc:
          Result := oth.integer_divide_big_integer_number(Current)
       end
 
-   infix "@//" (other: INTEGER_64): NUMBER is
+   infix "@//" (other: INTEGER_64): NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          mutable_register2.from_integer_64(other)
@@ -108,24 +108,24 @@ feature {ANY} -- Misc:
          Result := mutable_register3.to_integer_general_number
       end
 
-   infix "*" (other: NUMBER): NUMBER is
+   infix "*" (other: NUMBER): NUMBER
       do
          Result := other.multiply_with_big_integer_number(Current)
       end
 
-   infix "@/" (other: INTEGER_64): NUMBER is
+   infix "@/" (other: INTEGER_64): NUMBER
       do
          Result := from_integer_general_number_and_integer(Current, other)
       end
 
-   infix "@+" (other: INTEGER_64): NUMBER is
+   infix "@+" (other: INTEGER_64): NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          mutable_register1.add_integer_64(other)
          Result := mutable_register1.to_integer_general_number
       end
 
-   infix "@*" (other: INTEGER_64): NUMBER is
+   infix "@*" (other: INTEGER_64): NUMBER
       do
          if other = 0 then
             create {INTEGER_64_NUMBER} Result.make(0)
@@ -142,7 +142,7 @@ feature {ANY} -- Misc:
       end
 
 feature {NUMBER}
-   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          other.put_into_mutable_big_integer(mutable_register2)
@@ -150,13 +150,13 @@ feature {NUMBER}
          Result := mutable_register1.to_integer_general_number
       end
 
-   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       do
          Result := other.add_with_big_integer_number(Current)
       end
 
 feature {NUMBER} -- Multiplication
-   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          other.put_into_mutable_big_integer(mutable_register2)
@@ -164,13 +164,13 @@ feature {NUMBER} -- Multiplication
          Result := mutable_register3.to_integer_general_number
       end
 
-   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       do
          Result := other.multiply_with_big_integer_number(Current)
       end
 
 feature {NUMBER} -- division
-   integer_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   integer_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       do
          if other @= Minimum_integer_64 and then is_positive and then capacity = 2 and then storage.item(0) = 0 and then storage.item(1) = Minimum_integer then
             Result := integer_general_number_one_negative
@@ -179,7 +179,7 @@ feature {NUMBER} -- division
          end
       end
 
-   remainder_of_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   remainder_of_divide_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       do
          if other @= Minimum_integer_64 and then is_positive and then capacity = 2 and then storage.item(0) = 0 and then storage.item(1) = Minimum_integer then
             Result := integer_general_number_zero
@@ -188,7 +188,7 @@ feature {NUMBER} -- division
          end
       end
 
-   integer_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   integer_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       do
          put_into_mutable_big_integer(mutable_register2)
          other.put_into_mutable_big_integer(mutable_register1)
@@ -196,7 +196,7 @@ feature {NUMBER} -- division
          Result := mutable_register3.to_integer_general_number
       end
 
-   remainder_of_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   remainder_of_divide_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       do
          put_into_mutable_big_integer(mutable_register2)
          other.put_into_mutable_big_integer(mutable_register1)
@@ -205,7 +205,7 @@ feature {NUMBER} -- division
       end
 
 feature {NUMBER} -- Implementation:
-   gcd_with_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd_with_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       do
          put_into_mutable_big_integer(mutable_register1)
          other.put_into_mutable_big_integer(mutable_register2)
@@ -214,7 +214,7 @@ feature {NUMBER} -- Implementation:
       end
 
 feature {ANY}
-   inverse: NUMBER is
+   inverse: NUMBER
       local
          tmp: INTEGER_GENERAL_NUMBER
       do
@@ -226,38 +226,38 @@ feature {ANY}
          end
       end
 
-   infix "@=" (other: INTEGER_64): BOOLEAN is
+   infix "@=" (other: INTEGER_64): BOOLEAN
       do
       end
 
-   infix "@<" (other: INTEGER_64): BOOLEAN is
+   infix "@<" (other: INTEGER_64): BOOLEAN
       do
          Result := negative
       end
 
-   infix "@>" (other: INTEGER_64): BOOLEAN is
+   infix "@>" (other: INTEGER_64): BOOLEAN
       do
          Result := not negative
       end
 
-   infix "@>=" (other: INTEGER_64): BOOLEAN is
+   infix "@>=" (other: INTEGER_64): BOOLEAN
       do
          Result := not negative
       end
 
-   infix "@<=" (other: INTEGER_64): BOOLEAN is
+   infix "@<=" (other: INTEGER_64): BOOLEAN
       do
          Result := negative
       end
 
 feature {ANY} -- comparisons with NUMBER
-   infix "<" (other: NUMBER): BOOLEAN is
+   infix "<" (other: NUMBER): BOOLEAN
       do
          Result := other.greater_with_big_integer_number(Current)
       end
 
 feature {ANY} -- comparisons with REAL_64
-   infix "#=" (other: REAL_64): BOOLEAN is
+   infix "#=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -276,7 +276,7 @@ feature {ANY} -- comparisons with REAL_64
          end
       end
 
-   infix "#<" (other: REAL_64): BOOLEAN is
+   infix "#<" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -298,7 +298,7 @@ feature {ANY} -- comparisons with REAL_64
          end
       end
 
-   infix "#<=" (other: REAL_64): BOOLEAN is
+   infix "#<=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -320,7 +320,7 @@ feature {ANY} -- comparisons with REAL_64
          end
       end
 
-   infix "#>" (other: REAL_64): BOOLEAN is
+   infix "#>" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -342,7 +342,7 @@ feature {ANY} -- comparisons with REAL_64
          end
       end
 
-   infix "#>=" (other: REAL_64): BOOLEAN is
+   infix "#>=" (other: REAL_64): BOOLEAN
       do
          if is_negative then
             if other >= 0 then
@@ -365,7 +365,7 @@ feature {ANY} -- comparisons with REAL_64
       end
 
 feature {NUMBER, NUMBER_TOOLS}
-   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN
       local
          i, other_capacity: INTEGER; other_storage: like storage
       do
@@ -391,17 +391,17 @@ feature {NUMBER, NUMBER_TOOLS}
          end
       end
 
-   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN
       do
          Result := not other.greater_with_big_integer_number(Current)
       end
 
 feature {ANY}
-   is_zero: BOOLEAN is False
+   is_zero: BOOLEAN False
 
-   is_one: BOOLEAN is False
+   is_one: BOOLEAN False
 
-   is_equal (other: NUMBER): BOOLEAN is
+   is_equal (other: NUMBER): BOOLEAN
          -- Compares two LARGE_INTEGERs. As they both have same sign
          -- comparison is done with absolute values.
       local
@@ -426,27 +426,27 @@ feature {ANY}
          end
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       do
          put_into_mutable_big_integer(mutable_register1)
          mutable_register1.append_in(buffer)
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
       do
          put_into_mutable_big_integer(mutable_register1)
          mutable_register1.append_in_unicode(buffer)
       end
 
 feature {NUMBER}
-   value: NATIVE_ARRAY[INTEGER] is
+   value: NATIVE_ARRAY[INTEGER]
       do
          Result := storage
       ensure
          Result = storage
       end
 
-   value_length: INTEGER is
+   value_length: INTEGER
       do
          Result := capacity
       ensure
@@ -454,7 +454,7 @@ feature {NUMBER}
       end
 
 feature {MUTABLE_BIG_INTEGER}
-   from_native_array (na: NATIVE_ARRAY[INTEGER]; cap: INTEGER; neg: BOOLEAN) is
+   from_native_array (na: NATIVE_ARRAY[INTEGER]; cap: INTEGER; neg: BOOLEAN)
       require
       --na.item(cap - 1) /= 0 --|*** To be completed (class invariant) (Vincent Croizier, 02/07/04) ***
       do
@@ -468,17 +468,17 @@ feature {MUTABLE_BIG_INTEGER}
       end
 
 feature {NUMBER}
-   put_into_mutable_big_integer (mut: MUTABLE_BIG_INTEGER) is
+   put_into_mutable_big_integer (mut: MUTABLE_BIG_INTEGER)
       do
          mut.from_native_array(storage, capacity, negative)
       end
 
-   is_natural_64_: BOOLEAN is
+   is_natural_64_: BOOLEAN
       do
          Result := capacity = 2
       end
-   
-   to_natural_64_: NATURAL_64 is
+
+   to_natural_64_: NATURAL_64
       do
          Result := signed_32_to_unsigned_64(storage.item(1))
          --|*** Replace the following by a 32 left-shift:
@@ -487,13 +487,13 @@ feature {NUMBER}
          --|*** (Dom. sept. 14th 2007).
          Result := Result + signed_32_to_unsigned_64(storage.item(0))
       end
-   
+
 feature {}
-   signed_32_to_unsigned_64 (integer_32: INTEGER): NATURAL_64 is
+   signed_32_to_unsigned_64 (integer_32: INTEGER): NATURAL_64
       external "C inline"
       alias "((uint64_t)(((uint32_t)($integer_32))))"
       end
-   
+
    negative: BOOLEAN
 
    capacity: INTEGER
@@ -514,7 +514,7 @@ end -- class BIG_INTEGER_NUMBER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

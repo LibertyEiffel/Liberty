@@ -10,7 +10,7 @@ insert
    RUNNER_GLOBALS
 
 feature {} -- some utils
-   expand (object: RUNNER_OBJECT): RUNNER_OBJECT is
+   expand (object: RUNNER_OBJECT): RUNNER_OBJECT
       do
          if object /= Void then
             Result := object.copy_if_expanded

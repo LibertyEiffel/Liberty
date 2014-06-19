@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Redefined because SmartEiffel's default is_equal generates bad code in some strange situations
       do
          Result := position = other.position
@@ -24,22 +24,22 @@ feature {ANY}
    blanks: STRING
          -- the leading blanks and comments (before the `image' itself)
 
-   line: INTEGER is
+   line: INTEGER
       do
          Result := position.line
       end
 
-   column: INTEGER is
+   column: INTEGER
       do
          Result := position.column
       end
 
-   index: INTEGER is
+   index: INTEGER
       do
          Result := position.index
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(image)
       end
@@ -59,7 +59,7 @@ end -- class EIFFEL_IMAGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

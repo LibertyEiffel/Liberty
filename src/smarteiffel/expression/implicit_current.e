@@ -10,15 +10,15 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: IMPLICIT_CURRENT_VISITOR) is
+   accept (visitor: IMPLICIT_CURRENT_VISITOR)
       do
          visitor.visit_implicit_current(Current)
       end
 
-   is_implicit_current: BOOLEAN is True
+   is_implicit_current: BOOLEAN True
 
 feature {}
-   is_written: BOOLEAN is False
+   is_written: BOOLEAN False
 
 end -- class IMPLICIT_CURRENT
 --

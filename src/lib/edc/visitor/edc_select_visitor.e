@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_SELECT}
-   visit_select (a_select: EDC_SELECT) is
+   visit_select (a_select: EDC_SELECT)
       deferred
       end
 

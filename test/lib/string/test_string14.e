@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          --*** RESTORE COMMENTED OUT CODE TO SHOW THE BUG
          --    s: STRING

@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_and_then: BOOLEAN is
+   is_and_then: BOOLEAN
       do
          Result := count = 4
          check
@@ -32,7 +32,7 @@ feature {LIBERTY_AST_HANDLER}
          Result implies not is_empty
       end
 
-   is_and: BOOLEAN is
+   is_and: BOOLEAN
       do
          Result := count = 3
          check
@@ -41,6 +41,6 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   name: STRING is "e3-exp"
+   name: STRING "e3-exp"
 
 end

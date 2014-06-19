@@ -21,7 +21,7 @@ feature {ANY}
    cluster: LIBERTY_ETC_CLUSTER
 
 feature {LIBERTY_ETC_CLUSTER}
-   check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
+   check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING])
       require
          all_clusters /= Void
       do
@@ -41,7 +41,7 @@ feature {LIBERTY_ETC_CLUSTER}
 
    in_cycle: BOOLEAN
 
-   set_in_cycle is
+   set_in_cycle
       do
          in_cycle := True
       ensure
@@ -49,7 +49,7 @@ feature {LIBERTY_ETC_CLUSTER}
       end
 
 feature {}
-   make (a_cluster_name: like cluster_name; a_cluster: like cluster; a_constraints: like constraints) is
+   make (a_cluster_name: like cluster_name; a_cluster: like cluster; a_constraints: like constraints)
       require
          a_cluster_name /= Void
          a_constraints /= Void

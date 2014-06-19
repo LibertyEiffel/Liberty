@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {COMMENT}
-   visit_comment (visited: COMMENT) is
+   visit_comment (visited: COMMENT)
       require
          visited /= Void
       deferred

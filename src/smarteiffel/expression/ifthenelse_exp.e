@@ -30,7 +30,7 @@ feature {ANY}
 
    else_part: EXPRESSION
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -51,7 +51,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -70,7 +70,7 @@ feature {ANY}
          else_part.safety_check(type)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
          ec: like else_part
@@ -105,7 +105,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
          ec: like else_part
@@ -140,7 +140,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
          ec: like else_part
@@ -176,7 +176,7 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -197,7 +197,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          e: like expression; tc: like then_expression; eil: like elseif_list; ifthen: IFTHEN_EXP
          ec: like else_part; bc: BOOLEAN_CONSTANT
@@ -288,7 +288,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -310,12 +310,12 @@ feature {ANY}
          pretty_end_if(indent_level)
       end
 
-   accept (visitor: IFTHENELSE_EXP_VISITOR) is
+   accept (visitor: IFTHENELSE_EXP_VISITOR)
       do
          visitor.visit_ifthenelse_exp(Current)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       local
          i: INTEGER
       do
@@ -342,7 +342,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE; i: INTEGER
       do
@@ -370,7 +370,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression; tc: like then_expression; eil: like elseif_list; it1, it2: IFTHEN_EXP; i: INTEGER
          ec: like else_part; bc: BOOLEAN_CONSTANT
@@ -423,19 +423,19 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -445,19 +445,19 @@ feature {ANY}
 
    declaration_type: TYPE
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          --| **** TODO
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
 feature {EIFFEL_PARSER}
-   set_else (ec: like else_part) is
+   set_else (ec: like else_part)
       require
          ec /= Void
       do
@@ -466,7 +466,7 @@ feature {EIFFEL_PARSER}
          else_part = ec
       end
 
-   add_elseif (ifthen: IFTHEN_EXP) is
+   add_elseif (ifthen: IFTHEN_EXP)
       require
          ifthen /= Void
       do
@@ -474,7 +474,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {IFTHENELSE_EXP}
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -491,7 +491,7 @@ feature {IFTHENELSE_EXP}
          end
       end
 
-   init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part) is
+   init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part)
       do
          expression := e
          then_expression := tc
@@ -505,7 +505,7 @@ feature {IFTHENELSE_EXP}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
          -- Because complex BOOLEAN expression may needs to let escape dynamic dispatch instructions,
          -- "elseif" constructions are removed and replaced by imbricated "else if then...". Thus,
          -- extra statements needed by dynamic dispatch have a place to go (between "else" and "if").
@@ -531,7 +531,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN_EXP]; eil_idx: INTEGER) is
+   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN_EXP]; eil_idx: INTEGER)
          -- Recursive continuation of `inline_dynamic_dispatch_'.
       local
          e: like expression; tc: like then_expression; eil_item: IFTHEN_EXP; ec: like else_part; i: EXPRESSION
@@ -573,7 +573,7 @@ feature {}
       end
 
 feature {}
-   current_or_twin_init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part): like Current is
+   current_or_twin_init (e: like expression; tc: like then_expression; eil: like elseif_list; ec: like else_part): like Current
       require
          e /= Void
       do
@@ -590,7 +590,7 @@ feature {}
          Result.else_part = ec
       end
 
-   with_else (sp: like start_position; e: like expression; tc: like then_expression; ec: like else_part) is
+   with_else (sp: like start_position; e: like expression; tc: like then_expression; ec: like else_part)
       require
          not sp.is_unknown
          e /= Void
@@ -607,7 +607,7 @@ feature {}
          else_part = ec
       end
 
-   with_elseif (sp: like start_position; e: like expression; tc: like then_expression; ifthen: IFTHEN_EXP) is
+   with_elseif (sp: like start_position; e: like expression; tc: like then_expression; ifthen: IFTHEN_EXP)
       require
          not sp.is_unknown
          e /= Void
@@ -625,7 +625,7 @@ feature {}
       end
 
    with_elseif_and_else (sp: like start_position; e: like expression; tc: like then_expression; eil: like elseif_list
-                         ec: like else_part) is
+                         ec: like else_part)
       require
          not sp.is_unknown
          e /= Void
@@ -644,7 +644,7 @@ feature {}
          else_part = ec
       end
 
-   simplify_elseif_list (type: TYPE; twin_already_done: BOOLEAN; eil: like elseif_list): like elseif_list is
+   simplify_elseif_list (type: TYPE; twin_already_done: BOOLEAN; eil: like elseif_list): like elseif_list
       require
          type /= Void
          eil.count >= 1
@@ -713,7 +713,7 @@ feature {}
          (Result = elseif_list) = (smart_eiffel.magic_count = old smart_eiffel.magic_count)
       end
 
-   canonical_form: BOOLEAN is
+   canonical_form: BOOLEAN
       do
          if else_part /= Void then
             Result := elseif_list /= Void implies not elseif_list.is_empty
@@ -725,12 +725,12 @@ feature {}
 feature {}
    resolve_map: HASHED_DICTIONARY[TYPE, TYPE]
 
-   resolve_set: FAST_ARRAY[TYPE] is
+   resolve_set: FAST_ARRAY[TYPE]
       once
          create Result.make(0)
       end
 
-   filter_resolve_set (perform: BOOLEAN; t: TYPE) is
+   filter_resolve_set (perform: BOOLEAN; t: TYPE)
       do
          if perform and then not resolve_set.fast_has(t) then
             resolve_set.add_last(t)
@@ -747,7 +747,7 @@ feature {}
          (not perform) implies resolve_set.count = old resolve_set.count
       end
 
-   resolve_resolve_set: TYPE is
+   resolve_resolve_set: TYPE
       require
          not resolve_set.is_empty
       do
@@ -760,7 +760,7 @@ feature {}
          end
       end
 
-   resolve_resolve_set_ (type: TYPE; i: INTEGER): TYPE is
+   resolve_resolve_set_ (type: TYPE; i: INTEGER): TYPE
       local
          t: TYPE
       do

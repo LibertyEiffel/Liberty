@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d1: HASHED_DICTIONARY[INTEGER, CHARACTER]; d2: HASHED_DICTIONARY[INTEGER, INTEGER]
          d3: HASHED_DICTIONARY[INTEGER, REAL_32]; d4: HASHED_DICTIONARY[INTEGER, REAL_64]

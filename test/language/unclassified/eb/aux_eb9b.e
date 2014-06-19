@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do

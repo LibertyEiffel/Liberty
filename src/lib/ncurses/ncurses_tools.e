@@ -9,23 +9,23 @@ expanded class NCURSES_TOOLS
    --
 
 feature {ANY}
-   ncurses: NCURSES is
+   ncurses: NCURSES
          -- Access to the `ncurses' singleton.
       once
          create Result.make
       end
 
 feature {ANY}
-   invisible_cursor_mode: INTEGER is 0
+   invisible_cursor_mode: INTEGER 0
          -- In this mode the cursor is invisible.
 
-   default_visible_cursor_mode: INTEGER is 1
+   default_visible_cursor_mode: INTEGER 1
          -- The default visible cursor mode.
 
-   special_visible_cursor_mode: INTEGER is 2
+   special_visible_cursor_mode: INTEGER 2
          -- In this mode cursor may blink in a more special or in a more visible way.
 
-   valid_cursor_visibility (code: INTEGER): BOOLEAN is
+   valid_cursor_visibility (code: INTEGER): BOOLEAN
          -- Chack that code is one of `invisible_cursor_mode', `default_visible_cursor_mode'
          -- or `special_visible_cursor_mode'.
       do
@@ -51,7 +51,7 @@ end -- class NCURSES_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

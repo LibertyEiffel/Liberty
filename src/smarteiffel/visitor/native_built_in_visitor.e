@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       require
          visited /= Void
       deferred

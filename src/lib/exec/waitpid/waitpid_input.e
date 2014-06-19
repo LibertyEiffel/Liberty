@@ -31,67 +31,67 @@ create {PROCESS_WAIT}
    make
 
 feature {ANY}
-   is_connected: BOOLEAN is True
-   can_disconnect: BOOLEAN is False
+   is_connected: BOOLEAN True
+   can_disconnect: BOOLEAN False
 
-   disconnect is
+   disconnect
       do
          check False end
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := index > 0
       end
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       do
          Result := index <= upper
       end
 
-   end_of_input: BOOLEAN is False
+   end_of_input: BOOLEAN False
 
-   pid: INTEGER is
+   pid: INTEGER
       require
          has_oob_info
       do
          Result := oob_info_pid.first
       end
 
-   status: INTEGER is
+   status: INTEGER
       require
          has_oob_info
       do
          Result := oob_info_status.first
       end
 
-   has_oob_info: BOOLEAN is
+   has_oob_info: BOOLEAN
       do
          Result := not oob_info_status.is_empty
       end
 
-   drop_oop_info is
+   drop_oop_info
       do
          oob_info_pid.remove_first
          oob_info_status.remove_first
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := basic_exec_waitpid_fd
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          check False end
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
-   filtered_read_character is
+   filtered_read_character
       do
          if index < upper then
             index := index + 1
@@ -100,18 +100,18 @@ feature {FILTER}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          index := index - 1
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := buffer.item(index)
       end
 
 feature {}
-   make is
+   make
       do
          buffer := buffer.calloc(128)
          create oob_info_pid.make(1, 0)
@@ -125,7 +125,7 @@ feature {}
    oob_info_pid: RING_ARRAY[INTEGER]
    oob_info_status: RING_ARRAY[INTEGER]
 
-   set_oob_info (a_pid, a_status: INTEGER) is
+   set_oob_info (a_pid, a_status: INTEGER)
       do
          debug ("waitpid")
             log.trace.put_line("OOB info: pid=#(1) status=#(2)" # a_pid.out # a_status.out)
@@ -134,13 +134,13 @@ feature {}
          oob_info_status.add_last(a_status)
       end
 
-   read_buffer is
+   read_buffer
       do
          upper := basic_exec_waitpid_read_buffer(buffer.to_external) - 1
          index := 0
       end
 
-   basic_exec_waitpid_read_buffer (data: POINTER): INTEGER is
+   basic_exec_waitpid_read_buffer (data: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -149,7 +149,7 @@ feature {}
          }"
       end
 
-   basic_exec_waitpid_fd: INTEGER is
+   basic_exec_waitpid_fd: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -158,7 +158,7 @@ feature {}
          }"
       end
 
-   basic_exec_waitpid_init (obj: WAITPID_INPUT) is
+   basic_exec_waitpid_init (obj: WAITPID_INPUT)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -180,7 +180,7 @@ end -- WAITPID_INPUT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

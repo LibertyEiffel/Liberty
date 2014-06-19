@@ -26,37 +26,37 @@ inherit
       end
 
 feature {ANY}
-   current_entity: LIBERTY_CURRENT is
+   current_entity: LIBERTY_CURRENT
       deferred
       end
 
-   is_known: BOOLEAN is True
+   is_known: BOOLEAN True
 
-   file: FIXED_STRING is
+   file: FIXED_STRING
       deferred
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       deferred
       end
 
-   is_obsolete: BOOLEAN is
+   is_obsolete: BOOLEAN
       deferred
       end
 
-   cluster: LIBERTY_CLUSTER is
+   cluster: LIBERTY_CLUSTER
       deferred
       end
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
       deferred
       end
 
-   parameters: TRAVERSABLE[LIBERTY_TYPE] is
+   parameters: TRAVERSABLE[LIBERTY_TYPE]
       deferred
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       local
          buffer: STRING
       do
@@ -71,75 +71,75 @@ feature {ANY}
          end
       end
 
-   is_deferred: BOOLEAN is
+   is_deferred: BOOLEAN
       require
          is_runtime_category_set
       deferred
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       require
          is_runtime_category_set
       deferred
       end
 
-   is_separate: BOOLEAN is
+   is_separate: BOOLEAN
       require
          is_runtime_category_set
       deferred
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       require
          is_runtime_category_set
       deferred
       end
 
-   is_runtime_category_set: BOOLEAN is
+   is_runtime_category_set: BOOLEAN
       deferred
       end
 
-   the_invariant: LIBERTY_INVARIANT is
+   the_invariant: LIBERTY_INVARIANT
       deferred
       end
 
-   has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
+   has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN
       deferred
       end
 
-   feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION is
+   feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION
       require
          has_feature(a_feature_name)
       deferred
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
-   accept (visitor: LIBERTY_TYPE_VISITOR) is
+   accept (visitor: LIBERTY_TYPE_VISITOR)
       deferred
       end
 
 feature {ANY}
-   debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
+   debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN)
       deferred
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   full_name_in (buffer: STRING) is
+   full_name_in (buffer: STRING)
       deferred
       end
 
-   same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+   same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN
       require
          other /= Void
       deferred
       end
 
 feature {ANY} -- Inheritance
-   is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN
       require
          other /= Void
       deferred
@@ -147,14 +147,14 @@ feature {ANY} -- Inheritance
          Result implies is_child_of(other)
       end
 
-   is_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN
       require
          other /= Void
       do
          Result := is_conform_to(other) or else is_non_conformant_child_of(other)
       end
 
-   is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN
       require
          other /= Void
       deferred
@@ -162,7 +162,7 @@ feature {ANY} -- Inheritance
          Result implies is_child_of(other)
       end
 
-   common_conformant_parent_with (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE is
+   common_conformant_parent_with (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE
       require
          other /= Void
       do
@@ -181,13 +181,13 @@ feature {ANY} -- Inheritance
          end
       end
 
-   converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN
       require
          target_type /= Void
       deferred
       end
 
-   do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER) is
+   do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER)
       require
          target_type /= Void
          converts_to(target_type)
@@ -196,13 +196,13 @@ feature {ANY} -- Inheritance
       end
 
 feature {ANY} -- Representation
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          full_name_in(tagged_out_memory)
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   common_parent (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE is
+   common_parent (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE
          -- To implement `common_conformant_parent_with'.
          -- Conformant common parent lookup.
       require
@@ -211,17 +211,17 @@ feature {LIBERTY_KNOWN_TYPE}
       end
 
 feature {LIBERTY_TYPE_BUILDER}
-   has_no_parents: BOOLEAN is
+   has_no_parents: BOOLEAN
       deferred
       end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
-   has_loaded_features: BOOLEAN is
+   has_loaded_features: BOOLEAN
       deferred
       end
 
 feature {LIBERTY_UNIVERSE}
-   set_reachable (mark: INTEGER) is
+   set_reachable (mark: INTEGER)
       do
          mark_reachable_code(mark)
       end
@@ -229,7 +229,7 @@ feature {LIBERTY_UNIVERSE}
 feature {}
    full_name_memory: FIXED_STRING
 
-   full_name_pool: STRING_RECYCLING_POOL is
+   full_name_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end

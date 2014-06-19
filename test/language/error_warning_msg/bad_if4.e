@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          if True then
          elseif Void then

@@ -7,13 +7,13 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if f(5).out = Void then
          end
       end
 
-   f: INTEGER is 3
+   f: INTEGER 3
 
 end -- class BAD_CONSTANT7
 --

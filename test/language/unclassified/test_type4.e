@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          li1: LINKED_LIST[INTEGER]; ls1: LINKED_LIST[STRING]
       do

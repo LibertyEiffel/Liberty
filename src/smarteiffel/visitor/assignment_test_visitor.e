@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ASSIGNMENT_TEST}
-   visit_assignment_test (visited: ASSIGNMENT_TEST) is
+   visit_assignment_test (visited: ASSIGNMENT_TEST)
       require
          visited /= Void
       deferred

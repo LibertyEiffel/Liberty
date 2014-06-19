@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   cause_exception is
+   cause_exception
       local
          dummy: BOOLEAN
       do

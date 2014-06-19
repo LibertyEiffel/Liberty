@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          table: AUX_GENERIC6HT[INTEGER, STRING]
       do
@@ -17,7 +17,7 @@ feature {ANY}
          display(table)
       end
 
-   display (l: AUX_GENERIC6XCT[INTEGER]) is
+   display (l: AUX_GENERIC6XCT[INTEGER])
       do
          from
             l.start

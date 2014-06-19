@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i64: INTEGER_64
       do
@@ -18,7 +18,7 @@ feature {ANY}
          --    assert(i64 = -2147483648)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

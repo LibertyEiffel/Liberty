@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          count := 0
          root := Void
@@ -15,12 +15,12 @@ feature {ANY}
 
    count: INTEGER
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := root = Void
       end
 
-   has (index: I): BOOLEAN is
+   has (index: I): BOOLEAN
       local
          tmp_node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -50,7 +50,7 @@ feature {ANY}
          end
       end
 
-   item (index: I): E is
+   item (index: I): E
       local
          chk: BOOLEAN
       do
@@ -58,12 +58,12 @@ feature {ANY}
          Result := root.item
       end
 
-   new_iterator: AUX_PH4_SPLAY_DICTIONARY_ITERATOR[I] is
+   new_iterator: AUX_PH4_SPLAY_DICTIONARY_ITERATOR[I]
       do
          create Result.make(Void)
       end
 
-   put (value: E; index: I) is
+   put (value: E; index: I)
       local
          elem, tmp: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -105,13 +105,13 @@ feature {ANY}
          end
       end
 
-   lowest_node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I] is
+   lowest_node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
          Result := lowest_node_in_subtree(root)
          splay(Result)
       end
 
-   next_highest (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I] is
+   next_highest (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
          splay(node)
          if root.right /= Void then
@@ -120,7 +120,7 @@ feature {ANY}
          end
       end
 
-   lowest_node_in_subtree (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I] is
+   lowest_node_in_subtree (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       local
          elem: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -138,7 +138,7 @@ feature {ANY}
          end
       end
 
-   splay (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]) is
+   splay (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I])
       local
          parent: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -185,7 +185,7 @@ feature {ANY}
          end
       end
 
-   rotate_right (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]) is
+   rotate_right (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I])
       local
          parent: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -208,7 +208,7 @@ feature {ANY}
          parent.set_parent(node)
       end
 
-   rotate_left (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]) is
+   rotate_left (node: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I])
       local
          parent: AUX_PH4_SPLAY_DICTIONARY_ITEM[E, I]
       do

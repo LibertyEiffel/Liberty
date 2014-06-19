@@ -25,7 +25,7 @@ inherit
    ESE_TYPED_VISITOR[T_]
 
 feature {EDC_PARAMETER}
-   visit_parameter (a_parameter: EDC_PARAMETER[T_]) is
+   visit_parameter (a_parameter: EDC_PARAMETER[T_])
       deferred
       end
 

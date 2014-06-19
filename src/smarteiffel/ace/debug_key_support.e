@@ -7,7 +7,7 @@ insert
    GLOBALS
 
 feature {}
-   match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN is
+   match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN
       local
          key: STRING; i: INTEGER
       do
@@ -28,7 +28,7 @@ feature {}
          end
       end
 
-   add_default_debug_key (key: STRING) is
+   add_default_debug_key (key: STRING)
       require
          key /= Void
       do

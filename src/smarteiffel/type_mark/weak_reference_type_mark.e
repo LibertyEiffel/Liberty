@@ -16,38 +16,38 @@ create {ANY}
    make
 
 feature {ANY}
-   is_reference: BOOLEAN is True
+   is_reference: BOOLEAN True
 
-   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN is False
+   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN False
 
-   elements_type: TYPE_MARK is
+   elements_type: TYPE_MARK
       do
          Result := generic_list.first
       end
 
-   of_references: BOOLEAN is
+   of_references: BOOLEAN
       do
          Result := elements_type.is_reference
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
-   accept (visitor: WEAK_REFERENCE_TYPE_MARK_VISITOR) is
+   accept (visitor: WEAK_REFERENCE_TYPE_MARK_VISITOR)
       do
          visitor.visit_weak_reference_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_generic(shorted_type, class_text_name)
       end
 
 feature {TYPE}
-   special_weak_reference_extra_check is
+   special_weak_reference_extra_check
       require
          is_static
       local
@@ -65,7 +65,7 @@ feature {TYPE}
       end
 
 feature {}
-   make (sp: like start_position; of_what: TYPE_MARK) is
+   make (sp: like start_position; of_what: TYPE_MARK)
       require
          not sp.is_unknown
          of_what /= Void
@@ -86,18 +86,18 @@ feature {}
          start_position = sp
       end
 
-   weak_reference_name: HASHED_STRING is
+   weak_reference_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_weak_reference)
       end
 
-   canonical_long_name: HASHED_STRING is
+   canonical_long_name: HASHED_STRING
       do
          Result := weak_reference_name
       end
 
 feature {ANY}
-   weak_reference_argument (lt: LIVE_TYPE): LIVE_TYPE is
+   weak_reference_argument (lt: LIVE_TYPE): LIVE_TYPE
       do
          Result := generic_list.first.type.live_type
       end

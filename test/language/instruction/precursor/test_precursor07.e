@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: AUX_PRECURSOR07B; c: AUX_PRECURSOR07C
       do

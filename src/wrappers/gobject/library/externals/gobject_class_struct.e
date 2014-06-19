@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gobject_class_struct_set_construct_properties (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_construct_properties (a_structure: POINTER; a_value: POINTER)
 			-- Setter for construct_properties field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_constructor (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_constructor (a_structure: POINTER; a_value: POINTER)
 			-- Setter for constructor field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_set_property (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_set_property (a_structure: POINTER; a_value: POINTER)
 			-- Setter for set_property field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_get_property (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_get_property (a_structure: POINTER; a_value: POINTER)
 			-- Setter for get_property field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_dispose (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_dispose (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dispose field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_finalize (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_finalize (a_structure: POINTER; a_value: POINTER)
 			-- Setter for finalize field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_dispatch_properties_changed (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_dispatch_properties_changed (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dispatch_properties_changed field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_notify (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_notify (a_structure: POINTER; a_value: POINTER)
 			-- Setter for notify field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_constructed (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_constructed (a_structure: POINTER; a_value: POINTER)
 			-- Setter for constructed field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_flags (a_structure: POINTER; a_value: NATURAL) is
+	gobject_class_struct_set_flags (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for flags field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_pdummy (a_structure: POINTER; a_value: POINTER) is
+	gobject_class_struct_set_pdummy (a_structure: POINTER; a_value: POINTER)
 			-- Setter for pdummy field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -143,7 +143,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	gobject_class_struct_get_construct_properties (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_construct_properties (a_structure: POINTER): POINTER
 			-- Query for construct_properties field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -155,7 +155,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_constructor (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_constructor (a_structure: POINTER): POINTER
 			-- Query for constructor field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -167,7 +167,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_set_property (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_set_property (a_structure: POINTER): POINTER
 			-- Query for set_property field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -179,7 +179,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_get_property (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_get_property (a_structure: POINTER): POINTER
 			-- Query for get_property field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -191,7 +191,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_dispose (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_dispose (a_structure: POINTER): POINTER
 			-- Query for dispose field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -203,7 +203,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_finalize (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_finalize (a_structure: POINTER): POINTER
 			-- Query for finalize field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -215,7 +215,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_dispatch_properties_changed (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_dispatch_properties_changed (a_structure: POINTER): POINTER
 			-- Query for dispatch_properties_changed field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -227,7 +227,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_notify (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_notify (a_structure: POINTER): POINTER
 			-- Query for notify field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -239,7 +239,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_constructed (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_constructed (a_structure: POINTER): POINTER
 			-- Query for constructed field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -251,7 +251,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_flags (a_structure: POINTER): NATURAL is
+	gobject_class_struct_get_flags (a_structure: POINTER): NATURAL
 			-- Query for flags field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -263,7 +263,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_pdummy (a_structure: POINTER): POINTER is
+	gobject_class_struct_get_pdummy (a_structure: POINTER): POINTER
 			-- Query for pdummy field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -276,7 +276,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

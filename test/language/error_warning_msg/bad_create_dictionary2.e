@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          dico: DICTIONARY[INTEGER, INTEGER]
       do

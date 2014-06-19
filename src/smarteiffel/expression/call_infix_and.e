@@ -16,23 +16,23 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 5
+   precedence: INTEGER 5
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_and
       end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_AND_VISITOR) is
+   accept (visitor: CALL_INFIX_AND_VISITOR)
       do
          visitor.visit_call_infix_and(Current)
       end
 
 feature {}
-   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+   make (lp: like target; operator_position: POSITION; rp: like arg1)
       require
          lp /= Void
          not operator_position.is_unknown

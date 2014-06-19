@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_UNUSED_LOCAL4
       do

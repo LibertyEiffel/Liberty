@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CST_ATT_BOOLEAN}
-   visit_cst_att_boolean (visited: CST_ATT_BOOLEAN) is
+   visit_cst_att_boolean (visited: CST_ATT_BOOLEAN)
       require
          visited /= Void
       deferred

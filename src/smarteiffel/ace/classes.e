@@ -13,18 +13,18 @@ feature {ANY}
    distance: INTEGER
          -- Distance to the parent
 
-   classes_notation: UNIX_DIRECTORY_NOTATION is
+   classes_notation: UNIX_DIRECTORY_NOTATION
          -- Cluster paths are UNIX-like
       once
          create Result
       end
 
-   to_string: STRING is
+   to_string: STRING
       deferred
       end
 
 feature {CLUSTERS} -- Tree handling
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       do
          parent := a_parent
       ensure
@@ -32,12 +32,12 @@ feature {CLUSTERS} -- Tree handling
       end
 
 feature {CLUSTERS}
-   find_physical_cluster (system_path: STRING): CLUSTER is
+   find_physical_cluster (system_path: STRING): CLUSTER
       deferred
       end
 
 feature {ACE, CLASSES} -- Searching
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
       require
          not cluster_name.is_empty
          string_aliaser.registered_one(cluster_name)
@@ -47,7 +47,7 @@ feature {ACE, CLASSES} -- Searching
       end
 
    clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
-      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
+      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER)
       require
          coherent: clusters.count = distances.count
          obviously: skip /= Current
@@ -58,68 +58,68 @@ feature {ACE, CLASSES} -- Searching
          all_kept: (old clusters.twin).for_all(agent clusters.fast_has(?))
       end
 
-   cluster_by_directory_path (path: STRING): CLUSTER is
+   cluster_by_directory_path (path: STRING): CLUSTER
       require
          not path.is_empty
       deferred
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       deferred
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       deferred
       end
 
-   cluster_count: INTEGER is
+   cluster_count: INTEGER
       deferred
       end
 
-   cluster_at (i: INTEGER): CLUSTER is
+   cluster_at (i: INTEGER): CLUSTER
       require
          i.in_range(1, cluster_count)
       deferred
       end
 
-   has_class (class_name: HASHED_STRING): BOOLEAN is
+   has_class (class_name: HASHED_STRING): BOOLEAN
       deferred
       end
 
-   has_cluster (c: CLUSTER): BOOLEAN is
+   has_cluster (c: CLUSTER): BOOLEAN
       require
          c /= Void
       deferred
       end
 
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       deferred
       end
 
-   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]]) is
+   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       deferred
       end
 
 feature {ACE, CLUSTERS} -- Liberty Eiffel specific
-   parse_include is
+   parse_include
          -- Look for some class(es) to be loaded first because of some "include" option.
       require
          using_ace_file: ace.file_path /= Void
       deferred
       end
 
-   get_started (level: INTEGER) is
+   get_started (level: INTEGER)
       deferred
       end
 
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
          -- When pretty-printing the ACE file
       require
          txt /= Void
       deferred
       end
 
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
          -- Append in `msg' a viewable version of the Current as well as some other informations to help the
          -- user to fix the problem.
       require
@@ -127,23 +127,23 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
       deferred
       end
 
-   show (tab: INTEGER) is
+   show (tab: INTEGER)
          -- Tree display in verbose mode
       deferred
       end
 
 feature {ACE} -- Path transformation
-   is_classes_path (path: STRING): BOOLEAN is
+   is_classes_path (path: STRING): BOOLEAN
       do
          Result := classes_notation.is_valid_path(path)
       end
 
-   is_system_path (path: STRING): BOOLEAN is
+   is_system_path (path: STRING): BOOLEAN
       do
          Result := system_notation.is_valid_path(path)
       end
 
-   system_notation: DIRECTORY_NOTATION is
+   system_notation: DIRECTORY_NOTATION
       once
          basic_directory.ensure_system_notation
          Result := basic_directory.system_notation
@@ -151,7 +151,7 @@ feature {ACE} -- Path transformation
          Result /= Void
       end
 
-   classes_path_to_system_path (classes_path: STRING): STRING is
+   classes_path_to_system_path (classes_path: STRING): STRING
       require
          not classes_path.is_empty
          is_classes_path(classes_path)
@@ -165,7 +165,7 @@ feature {ACE} -- Path transformation
          classes_notation.is_absolute_path(classes_path) implies system_notation.is_absolute_path(Result)
       end
 
-   system_path_to_classes_path (system_path: STRING): STRING is
+   system_path_to_classes_path (system_path: STRING): STRING
       require
          not system_path.is_empty
          is_system_path(system_path)
@@ -192,7 +192,7 @@ feature {ACE} -- Path transformation
       end
 
 feature {}
-   show_tabs (tabs: INTEGER) is
+   show_tabs (tabs: INTEGER)
       local
          i: INTEGER
       do

@@ -8,28 +8,28 @@ expanded class MEMORY
    --
 
 feature {ANY} -- Garbage collector information and tuning:
-   frozen collecting: BOOLEAN is
+   frozen collecting: BOOLEAN
          -- Is garbage collection enabled?
       external "built_in"
       end
 
-   frozen collection_off is
+   frozen collection_off
          -- Disable garbage collection.
       external "built_in"
       end
 
-   frozen collection_on is
+   frozen collection_on
          -- Enable garbage collection.
       external "built_in"
       end
 
-   frozen full_collect is
-         -- Force a full collection cycle if garbage collection is
+   frozen full_collect
+         -- Force a full collection cycle if garbage collection
          -- enabled (i.e. `collecting' is True); do nothing otherwise.
       external "built_in"
       end
 
-   frozen collector_counter: INTEGER is
+   frozen collector_counter: INTEGER
          -- The number of collections actually performed or -1 when the
          -- system is not using any garbage collector (i.e. when
          -- the system is compiled using the -no_gc flag).
@@ -39,7 +39,7 @@ feature {ANY} -- Garbage collector information and tuning:
       end
 
 feature {ANY} -- SmartEiffel Garbage collector information and tuning:
-   frozen smart_eiffel_collector: BOOLEAN is
+   frozen smart_eiffel_collector: BOOLEAN
          -- Is the SmartEiffel garbage collector really used?
       do
          Result := collector_counter >= 0
@@ -47,7 +47,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          Result = (collector_counter >= 0)
       end
 
-   frozen low_memory_strategy: BOOLEAN is
+   frozen low_memory_strategy: BOOLEAN
          -- Is the low memory strategy in use? When this strategy is used,
          -- the garbage collector try to use as few memory as possible.
       require
@@ -58,7 +58,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          c_inline_c("#endif%N")
       end
 
-   frozen set_low_memory_strategy is
+   frozen set_low_memory_strategy
       require
          smart_eiffel_collector
       do
@@ -70,7 +70,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          low_memory_strategy
       end
 
-   frozen high_memory_strategy: BOOLEAN is
+   frozen high_memory_strategy: BOOLEAN
          -- Is the high memory strategy in use? When this strategy is used,
          -- the garbage collector assume that more memory can be allocated
          -- if necessary.
@@ -82,7 +82,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          c_inline_c("#endif%N")
       end
 
-   frozen set_high_memory_strategy is
+   frozen set_high_memory_strategy
       require
          smart_eiffel_collector
       do
@@ -94,7 +94,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          high_memory_strategy
       end
 
-   frozen default_memory_strategy: BOOLEAN is
+   frozen default_memory_strategy: BOOLEAN
          -- Is the default memory strategy in use? This is the default initial
          -- mode for the garbage collector (somewhere between `low_memory_strategy'
          -- and `high_memory_strategy').
@@ -106,7 +106,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          c_inline_c("#endif%N")
       end
 
-   frozen set_default_memory_strategy is
+   frozen set_default_memory_strategy
       require
          smart_eiffel_collector
       do
@@ -118,7 +118,7 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
          default_memory_strategy
       end
 
-   frozen allocated_bytes: INTEGER is
+   frozen allocated_bytes: INTEGER
          -- Total number of allocated bytes of memory in the heap.
       require
          smart_eiffel_collector
@@ -133,7 +133,7 @@ end -- class MEMORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

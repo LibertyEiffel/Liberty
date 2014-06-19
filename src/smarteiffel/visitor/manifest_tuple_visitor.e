@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {MANIFEST_TUPLE}
-   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   visit_manifest_tuple (visited: MANIFEST_TUPLE)
       require
          visited /= Void
       deferred

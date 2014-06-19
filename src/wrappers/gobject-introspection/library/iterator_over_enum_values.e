@@ -2,29 +2,29 @@ class ITERATOR_OVER_ENUM_VALUES
 inherit ITERATOR[GI_VALUE_INFO]
 create {GI_ENUM_INFO} from_enum
 feature {} -- Creation
-	from_enum (an_enum: GI_ENUM_INFO) is
+	from_enum (an_enum: GI_ENUM_INFO)
 	require a_enum/=Void
 	do
 		enum:=an_enum
 	end
 
 feature {ANY}
-	start is
+	start
 	do
 		i:=enum.lower
 	end
 
-	item: GI_VALUE_INFO is
+	item: GI_VALUE_INFO
 		do
 			Result := enum.item(i)
 		end
 
-	is_off: BOOLEAN is 
+	is_off: BOOLEAN 
 	do
 		Result:=enum.valid_index(i)
 	end
 
-	next is
+	next
 	do
 		i:=i+1
 	end
@@ -34,11 +34,11 @@ feature {}
 	i: INTEGER	
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

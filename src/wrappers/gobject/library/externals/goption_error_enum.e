@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_option_error_bad_value_low_level)  or else
 				(a_value = g_option_error_failed_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_option_error_bad_value is
+	set_g_option_error_bad_value
 		do
 			value := g_option_error_bad_value_low_level
 		end
 
-	set_g_option_error_failed is
+	set_g_option_error_failed
 		do
 			value := g_option_error_failed_low_level
 		end
 
-	set_g_option_error_unknown_option is
+	set_g_option_error_unknown_option
 		do
 			value := g_option_error_unknown_option_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_option_error_bad_value: BOOLEAN is
+	is_g_option_error_bad_value: BOOLEAN
 		do
 			Result := (value=g_option_error_bad_value_low_level)
 		end
 
-	is_g_option_error_failed: BOOLEAN is
+	is_g_option_error_failed: BOOLEAN
 		do
 			Result := (value=g_option_error_failed_low_level)
 		end
 
-	is_g_option_error_unknown_option: BOOLEAN is
+	is_g_option_error_unknown_option: BOOLEAN
 		do
 			Result := (value=g_option_error_unknown_option_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_option_error_bad_value_low_level: INTEGER is
+	g_option_error_bad_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_error_failed_low_level: INTEGER is
+	g_option_error_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_error_unknown_option_low_level: INTEGER is
+	g_option_error_unknown_option_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

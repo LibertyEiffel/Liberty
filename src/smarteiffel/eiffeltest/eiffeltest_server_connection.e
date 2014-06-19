@@ -13,19 +13,19 @@ create {ANY}
    make
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          log.trace.put_line(once "Server #(1): prepare connection" # port.out)
          events.expect(stream.event_can_read)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := events.event_occurred(stream.event_can_read)
          log.trace.put_line(once "Server #(1): is_ready connection: #(2)" # port.out # Result.out)
       end
 
-   continue is
+   continue
       do
          log.trace.put_line(once "Server #(1): reading new command" # port.out)
          stream.read_line
@@ -41,19 +41,19 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := path /= Void
          log.trace.put_line(once "Server #(1): connection done: #(2)" # port.out # Result.out)
       end
 
-   restart is
+   restart
       do
          check False end
       end
 
 feature {}
-   make (a_port: like port; a_stream: like stream; a_server: like server; a_on_connect: like on_connect) is
+   make (a_port: like port; a_stream: like stream; a_server: like server; a_on_connect: like on_connect)
       require
          a_stream.is_connected
          a_server /= Void

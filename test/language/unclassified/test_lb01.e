@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: INTEGER; b, c: REAL_64
       do

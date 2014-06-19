@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          x: INTEGER
       do
          routine if x > 3 then end
       end
 
-   routine is
+   routine
       do
          Precursor
       end

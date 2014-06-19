@@ -13,7 +13,7 @@ feature {HTTP_CONNECTION}
 
    prepare_ok: BOOLEAN
 
-   prepare_answer is
+   prepare_answer
       local
          f: TEXT_FILE_READ
       do
@@ -32,19 +32,19 @@ feature {HTTP_CONNECTION}
          prepare_ok := True
       end
 
-   add_header (header: STRING) is
+   add_header (header: STRING)
       do
          std_output.put_string(once "HEADER: ")
          std_output.put_line(header)
       end
 
-   add_body (body: STRING) is
+   add_body (body: STRING)
       do
          std_output.put_string(once "BODY: ")
          std_output.put_line(body)
       end
 
-   make (a_method: like method; a_uri, a_version: STRING) is
+   make (a_method: like method; a_uri, a_version: STRING)
       require
          a_method.is_equal(once "GET") or else a_method.is_equal(once "POST")
       local
@@ -78,20 +78,20 @@ feature {HTTP_CONNECTION}
          version.is_equal(a_version)
       end
 
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
          events.expect(t.timeout(0))
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := True
       end
 
 feature {}
-   file: TEXT_FILE_READ is
+   file: TEXT_FILE_READ
       local
          cwd, path: STRING; bd: BASIC_DIRECTORY; ft: FILE_TOOLS; i, o: INTEGER
       do
@@ -139,13 +139,13 @@ feature {}
          Result /= Void implies Result.is_connected
       end
 
-   tfr: TEXT_FILE_READ is
+   tfr: TEXT_FILE_READ
       once
          create Result.make
       end
 
 feature {}
-   fill_body (f: TEXT_FILE_READ) is
+   fill_body (f: TEXT_FILE_READ)
       do
          from
          until

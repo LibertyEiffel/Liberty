@@ -4,7 +4,7 @@ create {ANY}
    main
 
 feature {}
-   main is
+   main
       local
          count: INTEGER
       do
@@ -23,7 +23,7 @@ feature {}
       end
 
 feature {}
-   random_generator: RANDOM_NUMBER_GENERATOR is
+   random_generator: RANDOM_NUMBER_GENERATOR
       once
          create {PRESS_RANDOM_NUMBER_GENERATOR} Result.make
       end

@@ -8,7 +8,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main: INTEGER is
+   main: INTEGER
       do -- Root procedure must not be a function.
       end
 

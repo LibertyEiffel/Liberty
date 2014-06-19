@@ -28,7 +28,7 @@ create {EDC_CONSTRAINTS}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_NOT_NULL_CONSTRAINT_VISITOR
       do
@@ -37,13 +37,13 @@ feature {ANY}
       end
 
 feature {EDC_COLUMN}
-   valid_value (a_value: EDC_DATUM): BOOLEAN is
+   valid_value (a_value: EDC_DATUM): BOOLEAN
       do
          Result := a_value /= Void
       end
 
 feature {}
-   make is
+   make
       do
       end
 

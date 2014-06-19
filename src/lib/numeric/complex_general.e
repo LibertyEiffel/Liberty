@@ -20,20 +20,20 @@ insert
       end
 
 feature {ANY}
-   set_i is
+   set_i
          -- Set Current to the imaginary unit
       do
          real := real.zero
          imaginary := imaginary.one
       end
 
-   set, set_cartesian (a_real_part, an_imaginary_part: A_SIZE) is
+   set, set_cartesian (a_real_part, an_imaginary_part: A_SIZE)
       do
          real := a_real_part
          imaginary := an_imaginary_part
       end
 
-   set_polar (a_modulus, a_phase: A_SIZE) is
+   set_polar (a_modulus, a_phase: A_SIZE)
       do
          real := a_modulus * a_phase.cos
          imaginary := a_modulus * a_phase.sin
@@ -41,22 +41,22 @@ feature {ANY}
       end
 
 feature {ANY}
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       do
          Result.set(real + other.real, imaginary + other.imaginary)
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
       do
          Result.set(real - other.real, imaginary - other.imaginary)
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
       do
          Result.set(real * other.real - imaginary * other.imaginary, imaginary * other.real + real * other.imaginary)
       end
 
-   infix "/" (other: like Current): like Current is
+   infix "/" (other: like Current): like Current
       local
          den: A_SIZE
       do
@@ -64,7 +64,7 @@ feature {ANY}
          Result.set(real * other.real - imaginary * other.imaginary, imaginary * other.real + real * other.imaginary)
       end
 
-   infix "^" (e: INTEGER): like Current is
+   infix "^" (e: INTEGER): like Current
       local
          ci, ni: INTEGER
       do
@@ -90,33 +90,33 @@ feature {ANY}
          end
       end
 
-   prefix "+": like Current is
+   prefix "+": like Current
       do
          Result := Current
       end
 
-   prefix "-": like Current is
+   prefix "-": like Current
       do
          Result.set(-real, -imaginary)
       end
 
-   divisible (other: like Current): BOOLEAN is
+   divisible (other: like Current): BOOLEAN
       do
          Result := other /= zero
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := (real + imaginary).hash_code
          -- Note: it is debatabe if such an hash code implementation is actually useful.
       end
 
-   real_sign: INTEGER_8 is
+   real_sign: INTEGER_8
       do
          Result := real.sign
       end
 
-   sign: like Current is
+   sign: like Current
       require
          not is_zero
       local
@@ -128,33 +128,33 @@ feature {ANY}
          -- but it may be implemented in a better way.
       end
 
-   is_zero: BOOLEAN is
+   is_zero: BOOLEAN
       do
          Result := real ~= real.zero and imaginary ~= real.zero
       end
 
-   zero: like Current is
+   zero: like Current
       do
          Result.set(real.zero, imaginary.zero)
       end
 
-   one: like Current is
+   one: like Current
       do
          Result.set(real.one, imaginary.zero)
       end
 
-   i: like Current is
+   i: like Current
          -- Imaginary unit
       do
          Result.set_i
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := real = other.real and then imaginary = other.imaginary
       end
 
-   is_near_equal, infix "~=" (other: like Current): BOOLEAN is
+   is_near_equal, infix "~=" (other: like Current): BOOLEAN
       do
          debug
             print(&Current + " ~= " + &other + "%N")
@@ -162,7 +162,7 @@ feature {ANY}
          Result := real ~= other.real and imaginary ~= other.imaginary
       end
 
-   conjugate: like Current is
+   conjugate: like Current
       do
          Result.set(real, -imaginary)
       end
@@ -171,14 +171,14 @@ feature {ANY} -- Cartesian representation
    real, imaginary: A_SIZE
 
 feature {ANY} -- Polar representation
-   modulus: A_SIZE is
+   modulus: A_SIZE
       do
          Result := squared_modulus.sqrt
       ensure
          non_negative: Result.sign /= -1
       end
 
-   phase: A_SIZE is
+   phase: A_SIZE
       require
          not is_zero
       do
@@ -199,7 +199,7 @@ feature {ANY} -- Polar representation
          -- end
       end
 
-   squared_modulus: A_SIZE is
+   squared_modulus: A_SIZE
       do
          Result := real * real + imaginary * imaginary
          -- Note: NUMERIC does not have infix "^" (an_exponent: INTEGER): like Current...
@@ -208,7 +208,7 @@ feature {ANY} -- Polar representation
       end
 
 feature {ANY} -- Object Printing:
-   out: STRING is
+   out: STRING
          -- do
          --    Result := "("
          --    real.append_in(Result)
@@ -229,7 +229,7 @@ feature {ANY} -- Object Printing:
          Result.append(once ")")
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append("real, ")
          real.fill_tagged_out_memory
@@ -245,7 +245,7 @@ end -- class COMPLEX_GENERAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

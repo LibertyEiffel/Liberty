@@ -18,7 +18,7 @@ feature {ANY}
    width: INTEGER
          -- The maximum width of the text to display
 
-   disconnect is
+   disconnect
       local
          i: INTEGER
       do
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          inspect
             c
@@ -68,7 +68,7 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
          -- '''Note''': can be dangerous because it does not take word boundaries into account!
       do
          if not word.is_empty then
@@ -77,10 +77,10 @@ feature {FILTER_OUTPUT_STREAM}
       end
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 feature {ANY}
-   make (a_width: like width) is
+   make (a_width: like width)
       require
          a_width > 0
          not is_connected
@@ -103,7 +103,7 @@ feature {}
 
    tab: INTEGER
 
-   flush_word is
+   flush_word
       require
          is_connected
          not word.is_empty
@@ -182,7 +182,7 @@ end -- class WORDS_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

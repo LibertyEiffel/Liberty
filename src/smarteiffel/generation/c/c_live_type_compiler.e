@@ -24,7 +24,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {C_PRETTY_PRINTER}
-   compile (live_type: LIVE_TYPE; depth: INTEGER) is
+   compile (live_type: LIVE_TYPE; depth: INTEGER)
       require
          live_type /= Void
          depth >= 0
@@ -63,7 +63,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   do_compile (live_type: LIVE_TYPE) is
+   do_compile (live_type: LIVE_TYPE)
       local
          i, feature_count: INTEGER; rf: RUN_FEATURE
       do
@@ -112,12 +112,12 @@ feature {}
          live_type.type.do_all_address_of(agent_address_of_c_define)
       end
 
-   agent_address_of_c_define: PROCEDURE[TUPLE[ADDRESS_OF]] is
+   agent_address_of_c_define: PROCEDURE[TUPLE[ADDRESS_OF]]
       once
          Result := agent address_of_c_define(?)
       end
 
-   address_of_c_define (address_of: ADDRESS_OF) is
+   address_of_c_define (address_of: ADDRESS_OF)
       local
          result_type: TYPE_MARK; af: ANONYMOUS_FEATURE; expression: EXPRESSION; target_type: TYPE
       do
@@ -158,7 +158,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   define_agent_creation_for (type: TYPE) is
+   define_agent_creation_for (type: TYPE)
       local
          agent_creation_list: FAST_ARRAY[AGENT_CREATION]; i: INTEGER
          agent_creation: AGENT_CREATION; buffer, mold_id: STRING
@@ -182,7 +182,7 @@ feature {}
          end
       end
 
-   define_agent_creation_function (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; integer_mold_id: INTEGER) is
+   define_agent_creation_function (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; integer_mold_id: INTEGER)
       local
          boost: BOOLEAN; agent_type, agent_result: TYPE; tm: TYPE_MARK; i: INTEGER
          expression: EXPRESSION; open_operand: OPEN_OPERAND; closed_operand: CLOSED_OPERAND
@@ -251,7 +251,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER)
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -271,7 +271,7 @@ feature {}
                                       function_body.append(once ");%N")
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -352,7 +352,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER)
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -370,7 +370,7 @@ feature {}
                                       argument_name.rank.append_in(function_signature)
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -419,7 +419,7 @@ feature {}
             end
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; closure_rank: INTEGER)
                                    do
                                       function_body.append(once "u->CA_")
                                       (closure_rank+1).append_in(function_body)
@@ -432,7 +432,7 @@ feature {}
                                       function_body.append(once ";%N")
                                    end(?, ?))
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME_DEF) is
+                             agent (local_name: LOCAL_NAME_DEF)
                                 do
                                    function_body.append(once "u->CL_")
                                    function_body.append(local_name.to_string)
@@ -449,12 +449,12 @@ feature {}
          end
       end
 
-   is_equal_agent_creation_function_generated: HASHED_SET[STRING] is
+   is_equal_agent_creation_function_generated: HASHED_SET[STRING]
       once
          create Result.make
       end
 
-   is_equal_agent_creation_define_function (agent_creation: AGENT_CREATION; type: TYPE) is
+   is_equal_agent_creation_define_function (agent_creation: AGENT_CREATION; type: TYPE)
       local
          i: INTEGER; closed_operand: CLOSED_OPERAND; t: TYPE; is_equal_mold_id: STRING
       do
@@ -509,7 +509,7 @@ feature {}
          end
       end
 
-   define_agent_creation_type (agent_creation: AGENT_CREATION; type: TYPE; boost: BOOLEAN; mold_id: STRING; integer_mold_id: INTEGER): TYPE is
+   define_agent_creation_type (agent_creation: AGENT_CREATION; type: TYPE; boost: BOOLEAN; mold_id: STRING; integer_mold_id: INTEGER): TYPE
          -- The Result is the `agent_type'.
       require
          boost = ace.boost
@@ -579,7 +579,7 @@ feature {}
             out_h.append(once " R;%N")
          end
          for_all_argument_names(agent_creation, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER)
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -595,7 +595,7 @@ feature {}
                                       out_h.append(once ";%N")
                                    end(?, type, ?)) --| **** TODO: closure on type
          for_all_local_names(agent_creation, type,
-                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE) is
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
                                 local
                                    local_tm: TYPE_MARK
                                 do
@@ -612,12 +612,12 @@ feature {}
          end
       end
 
-   is_equal_agent_creation_type_generated: HASHED_SET[STRING] is
+   is_equal_agent_creation_type_generated: HASHED_SET[STRING]
       once
          create Result.make
       end
 
-   is_equal_agent_creation_define_type_for (agent_creation: AGENT_CREATION; type: TYPE) is
+   is_equal_agent_creation_define_type_for (agent_creation: AGENT_CREATION; type: TYPE)
          -- An alias type just to allow simple type casts.
       local
          i: INTEGER; expression: EXPRESSION; is_equal_mold_id: STRING
@@ -658,7 +658,7 @@ feature {}
          end
       end
 
-   is_equal_mold_id_in (agent_creation: AGENT_CREATION; type: TYPE; buffer: STRING) is
+   is_equal_mold_id_in (agent_creation: AGENT_CREATION; type: TYPE; buffer: STRING)
       local
          i: INTEGER
       do
@@ -678,7 +678,7 @@ feature {}
          agent_creation.original_function_call.feature_name.mapping_c_in(buffer)
       end
 
-   create_function_define (live_type: LIVE_TYPE; fs: FEATURE_STAMP) is
+   create_function_define (live_type: LIVE_TYPE; fs: FEATURE_STAMP)
          -- Note that `fs' may be Void for the case of a create expression with no call.
       local
          boost: BOOLEAN; args: FORMAL_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL
@@ -771,7 +771,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   define_c_signature (run_feature: RUN_FEATURE) is
+   define_c_signature (run_feature: RUN_FEATURE)
       require
          run_feature /= Void
          run_feature.type_of_current.live_type.at_run_time
@@ -833,7 +833,7 @@ feature {}
          cpp.pending_c_function
       end
 
-   args_compile_to_c_in (args: FORMAL_ARG_LIST; type: TYPE) is
+   args_compile_to_c_in (args: FORMAL_ARG_LIST; type: TYPE)
       local
          i: INTEGER; static_tm: TYPE_MARK
       do
@@ -856,7 +856,7 @@ feature {}
          end
       end
 
-   closure_args_compile_to_c_in (bf: ANONYMOUS_FEATURE; type: TYPE) is
+   closure_args_compile_to_c_in (bf: ANONYMOUS_FEATURE; type: TYPE)
       local
          i, j: INTEGER; local_name: LOCAL_ARGUMENT_DEF; static_tm: TYPE_MARK
       do
@@ -923,7 +923,7 @@ feature {}
          end
       end
 
-   c_frame_descriptor (run_feature: RUN_FEATURE) is
+   c_frame_descriptor (run_feature: RUN_FEATURE)
          -- Initialize all `c_frame_descriptor' variables accordingly.
       require
          ace.no_check
@@ -981,7 +981,7 @@ feature {}
          end
       end
 
-   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; is_local: BOOLEAN; closure_rank: INTEGER) is
+   args_c_frame_descriptor (args: DECLARATION_LIST; type: TYPE; is_local: BOOLEAN; closure_rank: INTEGER)
       require
          ace.no_check
          is_local = ({LOCAL_VAR_LIST} ?:= args)
@@ -1028,7 +1028,7 @@ feature {}
          end
       end
 
-   c_define_opening (run_feature: RUN_FEATURE) is
+   c_define_opening (run_feature: RUN_FEATURE)
          -- Define opening section in C function.
       local
          t: TYPE_MARK; no_check: BOOLEAN; lt: LIVE_TYPE; rf: RUN_FEATURE;
@@ -1170,7 +1170,7 @@ feature {}
          cpp.memory.checkpoint
       end
 
-   initialize_expanded (local_var_list: LOCAL_VAR_LIST; type: TYPE) is
+   initialize_expanded (local_var_list: LOCAL_VAR_LIST; type: TYPE)
       require
          local_var_list /= Void
          cpp.pending_c_function
@@ -1219,7 +1219,7 @@ feature {}
          end
       end
 
-   put_c_name_tag (run_feature: RUN_FEATURE) is
+   put_c_name_tag (run_feature: RUN_FEATURE)
       require
          ace.no_check
       local
@@ -1255,7 +1255,7 @@ feature {}
          function_body.extend('%"')
       end
 
-   c_initialize_frame_information (run_feature: RUN_FEATURE; c_locals_count: INTEGER) is
+   c_initialize_frame_information (run_feature: RUN_FEATURE; c_locals_count: INTEGER)
       require
          ace.no_check
       local
@@ -1312,7 +1312,7 @@ feature {}
          end
       end
 
-   c_define_closing (run_feature: RUN_FEATURE) is
+   c_define_closing (run_feature: RUN_FEATURE)
          -- Define closing section in the corresponding C function (code for ensure checking, free memory of
          -- expanded, run stack pop, etc.).
       do
@@ -1341,31 +1341,31 @@ feature {}
          smart_eiffel.pop_context(run_feature.base_feature)
       end
 
-   c_frame_descriptor_format: STRING is
+   c_frame_descriptor_format: STRING
          -- The format to print `Current' and other locals.
       once
          create Result.make(512)
       end
 
-   c_frame_descriptor_locals: STRING is
+   c_frame_descriptor_locals: STRING
          -- To initialize field `locals' of `se_dump_stack'.
       once
          create Result.make(512)
       end
 
 feature {LIVE_TYPE}
-   visit_live_type (visited: LIVE_TYPE) is
+   visit_live_type (visited: LIVE_TYPE)
       do
          compile_live_type(visited)
       end
 
 feature {RUN_FEATURE_1}
-   visit_run_feature_1 (visited: RUN_FEATURE_1) is
+   visit_run_feature_1 (visited: RUN_FEATURE_1)
       do
       end
 
 feature {RUN_FEATURE_2}
-   visit_run_feature_2 (visited: RUN_FEATURE_2) is
+   visit_run_feature_2 (visited: RUN_FEATURE_2)
       do
          if visited.need_c_function then
             cpp.prepare_c_function
@@ -1381,7 +1381,7 @@ feature {RUN_FEATURE_2}
       end
 
 feature {RUN_FEATURE_3}
-   visit_run_feature_3 (visited: RUN_FEATURE_3) is
+   visit_run_feature_3 (visited: RUN_FEATURE_3)
       do
          if visited.use_current then
             cpp.incr_procedure_count
@@ -1403,7 +1403,7 @@ feature {RUN_FEATURE_3}
       end
 
 feature {RUN_FEATURE_4}
-   visit_run_feature_4 (visited: RUN_FEATURE_4) is
+   visit_run_feature_4 (visited: RUN_FEATURE_4)
       do
          if visited.use_current then
             cpp.incr_function_count
@@ -1422,7 +1422,7 @@ feature {RUN_FEATURE_4}
       end
 
 feature {RUN_FEATURE_5}
-   visit_run_feature_5 (visited: RUN_FEATURE_5) is
+   visit_run_feature_5 (visited: RUN_FEATURE_5)
       do
          cpp.c_define_o_flag(visited)
          cpp.prepare_c_function
@@ -1438,7 +1438,7 @@ feature {RUN_FEATURE_5}
       end
 
 feature {RUN_FEATURE_6}
-   visit_run_feature_6 (visited: RUN_FEATURE_6) is
+   visit_run_feature_6 (visited: RUN_FEATURE_6)
       do
          cpp.c_define_o_result(visited)
          if not visited.is_precomputable_once then
@@ -1460,7 +1460,7 @@ feature {RUN_FEATURE_6}
       end
 
 feature {RUN_FEATURE_7}
-   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+   visit_run_feature_7 (visited: RUN_FEATURE_7)
       local
          bf: EXTERNAL_PROCEDURE; native: NATIVE
       do
@@ -1485,7 +1485,7 @@ feature {RUN_FEATURE_7}
       end
 
 feature {RUN_FEATURE_8}
-   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+   visit_run_feature_8 (visited: RUN_FEATURE_8)
       local
          bf: EXTERNAL_FUNCTION; native: NATIVE
       do
@@ -1513,7 +1513,7 @@ feature {RUN_FEATURE_8}
       end
 
 feature {RUN_FEATURE_9}
-   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+   visit_run_feature_9 (visited: RUN_FEATURE_9)
       local
          msg: STRING
       do
@@ -1546,7 +1546,7 @@ feature {RUN_FEATURE_9}
       end
 
 feature {}
-   define_check_class_invariant_c_function (live_type: LIVE_TYPE) is
+   define_check_class_invariant_c_function (live_type: LIVE_TYPE)
       require
          live_type.at_run_time
          not live_type.class_invariant.is_always_true(live_type.type)
@@ -1600,7 +1600,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   compile_to_c_old_memory (e_old: E_OLD; type: TYPE) is
+   compile_to_c_old_memory (e_old: E_OLD; type: TYPE)
          -- Produce the C code which stores the old value at the routine entry.
       local
          assign_old: STRING

@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY} --  {ALL}
-   apply is
+   apply
       do
          dummy := 3
       end

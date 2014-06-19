@@ -17,7 +17,7 @@ feature {ANY}
 
    active_tab: INTEGER
 
-   main is
+   main
       local
          root_window, sub_window: NCURSES_WINDOW; labels: FAST_ARRAY[NCURSES_LABEL]
       do
@@ -50,7 +50,7 @@ feature {ANY}
          ncurses.start
       end
 
-   key_press (key: INTEGER) is
+   key_press (key: INTEGER)
       do
          -- Move left
          if key = key_left and then active_tab > tabs.lower then

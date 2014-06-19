@@ -18,13 +18,13 @@ inherit
    LIBERTY_ASSERTIONS
 
 feature {ANY}
-   assertions: TRAVERSABLE[LIBERTY_ASSERTION] is
+   assertions: TRAVERSABLE[LIBERTY_ASSERTION]
       do
          Result := assertions_list
       end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          al: like assertions_list
          a: LIBERTY_ASSERTION
@@ -53,7 +53,7 @@ feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
       end
 
 feature {}
-   specialized (a_assertions: like assertions_list): like Current is
+   specialized (a_assertions: like assertions_list): like Current
       deferred
       ensure
          Result /= Current
@@ -61,7 +61,7 @@ feature {}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          assertions_marker.mark_reachable_code(mark, assertions)
       end

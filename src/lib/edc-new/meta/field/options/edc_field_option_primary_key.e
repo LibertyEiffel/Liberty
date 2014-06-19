@@ -13,7 +13,7 @@ create {EDC_CONSTANTS}
    make
 
 feature {}
-   make is
+   make
       do
       end
 

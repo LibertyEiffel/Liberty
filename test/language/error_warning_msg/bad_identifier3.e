@@ -10,11 +10,11 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
       end
 
-   SDL_showCursor (status: INTEGER): INTEGER is
+   SDL_showCursor (status: INTEGER): INTEGER
       do
       end
 

@@ -6,7 +6,7 @@ inherit
    FILTER_GET_TEXT[STRING, UNICODE_STRING]
 
 feature {ANY}
-   connect_to (filtered_: like filtered) is
+   connect_to (filtered_: like filtered)
       require
          filtered_ /= Void
       do
@@ -14,7 +14,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   translation (message: STRING): UNICODE_STRING is
+   translation (message: STRING): UNICODE_STRING
       local
          utf_8_string: STRING
       do
@@ -26,7 +26,7 @@ feature {ANY}
       end
 
 feature {FILTER_GET_TEXT}
-   domain_translation (domain_name, message: STRING): like translation is
+   domain_translation (domain_name, message: STRING): like translation
       local
          utf_8_string: STRING
       do
@@ -38,12 +38,12 @@ feature {FILTER_GET_TEXT}
       end
 
 feature {ANY}
-   is_text_domain_set: BOOLEAN is
+   is_text_domain_set: BOOLEAN
       do
          Result := text_domain.is_equal(filtered.text_domain)
       end
 
-   is_text_domain_set_up (domain_name: STRING): BOOLEAN is
+   is_text_domain_set_up (domain_name: STRING): BOOLEAN
       local
          code_set: STRING
       do
@@ -56,7 +56,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   text_domain_code_set (domain_name: like text_domain): STRING is
+   text_domain_code_set (domain_name: like text_domain): STRING
       do
          Result := "UTF-32"
       end

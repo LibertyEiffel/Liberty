@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
       do
@@ -47,27 +47,27 @@ feature {ANY}
       end
 
 feature {}
-   model1a: ARRAY[INTEGER] is
+   model1a: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << 6, 7, 8, 9 >> }
       end
 
-   model2a: ARRAY[INTEGER] is
+   model2a: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << 1, 2 >> }
       end
 
-   model3a: ARRAY[INTEGER] is
+   model3a: ARRAY[INTEGER]
       once
          Result := {ARRAY[INTEGER] 1, << -1, -3, 6, 7, 8, 9 >> }
       end
 
-   model4a: ARRAY[INTEGER] is
+   model4a: ARRAY[INTEGER]
       once
          create Result.make(2, 1)
       end
 
-   model1fa: FAST_ARRAY[INTEGER] is
+   model1fa: FAST_ARRAY[INTEGER]
       once
          create Result.with_capacity(4)
          Result.add_last(6)
@@ -76,14 +76,14 @@ feature {}
          Result.add_last(9)
       end
 
-   model2fa: FAST_ARRAY[INTEGER] is
+   model2fa: FAST_ARRAY[INTEGER]
       once
          create Result.with_capacity(2)
          Result.add_last(1)
          Result.add_last(2)
       end
 
-   model3fa: FAST_ARRAY[INTEGER] is
+   model3fa: FAST_ARRAY[INTEGER]
       once
          create Result.with_capacity(6)
          Result.add_last(-1)
@@ -94,12 +94,12 @@ feature {}
          Result.add_last(9)
       end
 
-   model4fa: FAST_ARRAY[INTEGER] is
+   model4fa: FAST_ARRAY[INTEGER]
       once
          create Result.make(0)
       end
 
-   model1ll: LINKED_LIST[INTEGER] is
+   model1ll: LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(6)
@@ -108,14 +108,14 @@ feature {}
          Result.add_last(9)
       end
 
-   model2ll: LINKED_LIST[INTEGER] is
+   model2ll: LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(1)
          Result.add_last(2)
       end
 
-   model3ll: LINKED_LIST[INTEGER] is
+   model3ll: LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(-1)
@@ -126,12 +126,12 @@ feature {}
          Result.add_last(9)
       end
 
-   model4ll: LINKED_LIST[INTEGER] is
+   model4ll: LINKED_LIST[INTEGER]
       once
          create Result.make
       end
 
-   model1l2l: TWO_WAY_LINKED_LIST[INTEGER] is
+   model1l2l: TWO_WAY_LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(6)
@@ -140,14 +140,14 @@ feature {}
          Result.add_last(9)
       end
 
-   model2l2l: TWO_WAY_LINKED_LIST[INTEGER] is
+   model2l2l: TWO_WAY_LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(1)
          Result.add_last(2)
       end
 
-   model3l2l: TWO_WAY_LINKED_LIST[INTEGER] is
+   model3l2l: TWO_WAY_LINKED_LIST[INTEGER]
       once
          create Result.make
          Result.add_last(-1)
@@ -158,12 +158,12 @@ feature {}
          Result.add_last(9)
       end
 
-   model4l2l: TWO_WAY_LINKED_LIST[INTEGER] is
+   model4l2l: TWO_WAY_LINKED_LIST[INTEGER]
       once
          create Result.make
       end
 
-   test (c, model: COLLECTION[INTEGER]) is
+   test (c, model: COLLECTION[INTEGER])
       local
          i1, i2: INTEGER
       do
@@ -180,7 +180,7 @@ feature {}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -15,14 +15,14 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          root_class_name := as_any
          bootstrap
          ace.for_all_clusters(agent visit_cluster(?))
       end
 
-   parse_arguments is
+   parse_arguments
       local
          argi: INTEGER; arg: STRING
       do
@@ -49,7 +49,7 @@ feature {}
          end
       end
 
-   add_loadpath (loadpath: STRING): BOOLEAN is
+   add_loadpath (loadpath: STRING): BOOLEAN
       do
          if loadpath.has_suffix(once ".ace") or else loadpath.has_suffix(once ".ACE") then
             -- nothing to do: bootstrap takes care of that
@@ -60,17 +60,17 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          -- This is called by smart_eiffel.ace from a loop similar to the one in parse_arguments
          Result := is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg)
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
 
-   use_short_mode: BOOLEAN is True
+   use_short_mode: BOOLEAN True
 
-   usage: STRING is "[
+   usage: STRING "[
    Usage: eiffeldoc_like [options] <LoadPathFileName>.se ...
       or: eiffeldoc_like [options] <ACEfileName>.ace
 
@@ -89,7 +89,7 @@ feature {}
    ]"
 
 feature {CLUSTER}
-   visit_cluster (a_cluster: CLUSTER) is
+   visit_cluster (a_cluster: CLUSTER)
          -- For each class in `a_cluster' print its name
       local
          path: STRING; directory: DIRECTORY

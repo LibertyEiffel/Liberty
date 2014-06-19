@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   a is
+   a
       do
       end
 

@@ -27,24 +27,24 @@ feature {ANY}
 
    usage: FIXED_STRING
 
-   is_mandatory: BOOLEAN is False
-   can_be_mandatory: BOOLEAN is False
-   is_optional: BOOLEAN is True
-   can_be_optional: BOOLEAN is True
-   is_positional: BOOLEAN is False
-   is_repeatable: BOOLEAN is False
+   is_mandatory: BOOLEAN False
+   can_be_mandatory: BOOLEAN False
+   is_optional: BOOLEAN True
+   can_be_optional: BOOLEAN True
+   is_positional: BOOLEAN False
+   is_repeatable: BOOLEAN False
 
-   is_set: BOOLEAN is
+   is_set: BOOLEAN
       do
          Result := item
       end
 
-   force_index (a_index: INTEGER) is
+   force_index (a_index: INTEGER)
       do
          check False end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if long /= Void then
             tagged_out_memory.append(once "--")
@@ -56,12 +56,12 @@ feature {ANY}
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   prepare_parse is
+   prepare_parse
       do
          item := False
       end
 
-   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       local
          arg: STRING
       do
@@ -88,17 +88,17 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          end
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
       do
          Result := item
       end
 
-   undo_parse (context: COMMAND_LINE_CONTEXT) is
+   undo_parse (context: COMMAND_LINE_CONTEXT)
       do
          item := False
       end
 
-   usage_summary (stream: OUTPUT_STREAM) is
+   usage_summary (stream: OUTPUT_STREAM)
       do
          if short /= Void then
             if long /= Void then
@@ -116,7 +116,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          detailed := False
       end
 
-   usage_details (stream: OUTPUT_STREAM) is
+   usage_details (stream: OUTPUT_STREAM)
       do
          if not detailed then
             usage_summary(stream)
@@ -131,13 +131,13 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          end
       end
 
-   set_mandatory (parent_option: like Current; enable: BOOLEAN) is
+   set_mandatory (parent_option: like Current; enable: BOOLEAN)
       do
          check False end
       end
 
 feature {}
-   make (a_short, a_long, a_usage: ABSTRACT_STRING) is
+   make (a_short, a_long, a_usage: ABSTRACT_STRING)
       require
          a_short /= Void implies a_short.count = 1
          a_short /= Void or else a_long /= Void
@@ -173,7 +173,7 @@ end -- class CLARG_BOOLEAN
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

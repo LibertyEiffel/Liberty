@@ -12,13 +12,13 @@ insert
    ANY
 
 feature {ANY}
-   test, safe_equal (e1, e2: E_): BOOLEAN is
+   test, safe_equal (e1, e2: E_): BOOLEAN
          -- In order to avoid run-time type errors, feature `safe_equal' calls `is_equal' only when
          -- `e1' and `e2' have exactly the same dynamic type.
       local
          e_type: E_
       do
-         -- Note: the following implementation may appear complicated, but this is
+         -- Note: the following implementation may appear complicated, but this
          -- automatically optimized by the compiler.
          if e1 = e2 then
             Result := True
@@ -41,7 +41,7 @@ end -- class SAFE_EQUAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -18,7 +18,7 @@ create {RUNNER_PROCESSOR}
    make
 
 feature {RUNNER_EXPRESSIONS}
-   test_assign (assignment: ASSIGNMENT_TEST): BOOLEAN is
+   test_assign (assignment: ASSIGNMENT_TEST): BOOLEAN
       local
          right: RUNNER_OBJECT; left_type: TYPE
       do
@@ -32,7 +32,7 @@ feature {RUNNER_EXPRESSIONS}
       end
 
 feature {RUNNER_INSTRUCTIONS}
-   do_assign (assignment: ASSIGNMENT) is
+   do_assign (assignment: ASSIGNMENT)
       local
          right: RUNNER_OBJECT
       do
@@ -40,7 +40,7 @@ feature {RUNNER_INSTRUCTIONS}
          assign_to(right, assignment.left_side)
       end
 
-   try_assign (assignment: ASSIGNMENT_ATTEMPT) is
+   try_assign (assignment: ASSIGNMENT_ATTEMPT)
       local
          right: RUNNER_OBJECT; left_type: TYPE
       do
@@ -59,7 +59,7 @@ feature {RUNNER_INSTRUCTIONS}
          end
       end
 
-   assign_to (a_value: RUNNER_OBJECT; a_writable: EXPRESSION) is
+   assign_to (a_value: RUNNER_OBJECT; a_writable: EXPRESSION)
       do
          value := a_value
          a_writable.accept(Current)
@@ -67,14 +67,14 @@ feature {RUNNER_INSTRUCTIONS}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name_ref (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
          current_frame.set_local_object(visited.to_string, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       local
          target: RUNNER_STRUCTURED_OBJECT
       do
@@ -84,27 +84,27 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
          current_frame.set_return(value)
          entity_type := current_frame.type_of_result
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
          current_frame.set_internal_local_object(visited, value)
          entity_type := visited.resolve_in(current_frame.type_of_current)
       end
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       do
          visited.writable.accept(Current)
       end
 
 feature {FUNCTION_CALL_0}
-   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+   visit_function_call_0 (visited: FUNCTION_CALL_0)
       local
          target: RUNNER_STRUCTURED_OBJECT
          field_name: STRING; af: ANONYMOUS_FEATURE
@@ -120,7 +120,7 @@ feature {FUNCTION_CALL_0}
       end
 
 feature {}
-   type_mark (writable: EXPRESSION): TYPE_MARK is
+   type_mark (writable: EXPRESSION): TYPE_MARK
       do
          Result := writable.written_declaration_type_mark.to_static(current_frame.target.type, False)
       ensure
@@ -128,7 +128,7 @@ feature {}
       end
 
 feature {}
-   make (a_processor: like processor) is
+   make (a_processor: like processor)
       require
          a_processor /= Void
       do

@@ -17,69 +17,69 @@ feature {ANY}
 
    type_mark: TYPE_MARK
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       once
          Result := smart_eiffel.type_pointer
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          -- This is not Void:
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   accept (visitor: NULL_POINTER_VISITOR) is
+   accept (visitor: NULL_POINTER_VISITOR)
       do
          visitor.visit_null_pointer(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position; tm: like type_mark) is
+   make (sp: like start_position; tm: like type_mark)
       require
          not sp.is_unknown
          tm.is_static

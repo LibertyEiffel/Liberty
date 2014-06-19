@@ -7,20 +7,20 @@ inherit
    CODE_CONTEXT
 
 feature {CODE_PRINTER}
-   code: INTEGER is
+   code: INTEGER
       do
          Result := C_inside_twin
       end
 
-   valid_anonymous_feature: BOOLEAN is False
+   valid_anonymous_feature: BOOLEAN False
 
-   valid_target: BOOLEAN is False
+   valid_target: BOOLEAN False
 
-   valid_effective_arguments: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN False
 
-   valid_static_type: BOOLEAN is False
+   valid_static_type: BOOLEAN False
 
-   valid_internal_c_local: BOOLEAN is False
+   valid_internal_c_local: BOOLEAN False
 
 end -- class CODE_CONTEXT_INSIDE_TWIN
 --

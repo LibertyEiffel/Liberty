@@ -10,13 +10,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       require
          a_condition
       do
       end
 
-   a_condition: BOOLEAN is
+   a_condition: BOOLEAN
       do
          Result := True
       end

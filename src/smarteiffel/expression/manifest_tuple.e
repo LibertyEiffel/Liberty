@@ -20,30 +20,30 @@ feature {ANY}
          -- Provided by the `eiffel_parser': the list of expressions inside square brackets.
          -- This `effective_arg_list' is Void for the empty TUPLE.
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_current, is_implicit_current: BOOLEAN is False
+   is_current, is_implicit_current: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   precedence: INTEGER is 2
+   precedence: INTEGER 2
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -64,7 +64,7 @@ feature {ANY}
          pretty_printer.put_character(']')
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -93,13 +93,13 @@ feature {ANY}
          short_printer.hook_or(once "close_sb",once "]")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          cx: like create_expression; eal: like effective_arg_list
       do
@@ -112,7 +112,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          cx: like create_expression; eal: like effective_arg_list
       do
@@ -125,7 +125,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          cx: like create_expression; eal: like effective_arg_list; i: INTEGER
          expression: EXPRESSION; void_type: TYPE
@@ -174,7 +174,7 @@ feature {ANY}
          Result.create_expression /= Void
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if create_expression /= Void then
             Result := create_expression.has_been_specialized
@@ -183,17 +183,17 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := create_expression.resolve_in(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := create_expression.declaration_type
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          ce: like create_expression
       do
@@ -201,28 +201,28 @@ feature {ANY}
          Result := current_or_twin_init(effective_arg_list, ce)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := create_expression.collect(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          -- Back to the canonical form:
          Result := create_expression.simplify(type)
          smart_eiffel.magic_count_increment
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -238,7 +238,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -254,7 +254,7 @@ feature {ANY}
          end
       end
 
-   accept (visitor: MANIFEST_TUPLE_VISITOR) is
+   accept (visitor: MANIFEST_TUPLE_VISITOR)
       do
          visitor.visit_manifest_tuple(Current)
       end
@@ -266,7 +266,7 @@ feature {MANIFEST_TUPLE, MANIFEST_TUPLE_VISITOR}
          -- expression: create {TUPLE[CHARACTER]}.make('a')
 
 feature {MANIFEST_TUPLE}
-   init (eal: like effective_arg_list; ce: like create_expression) is
+   init (eal: like effective_arg_list; ce: like create_expression)
       do
          debug
             if effective_arg_list /= Void then
@@ -283,14 +283,14 @@ feature {MANIFEST_TUPLE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          -- Back to the canonical form:
          create_expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
 feature {}
-   make (sp: like start_position; eal: like effective_arg_list) is
+   make (sp: like start_position; eal: like effective_arg_list)
       require
          not sp.is_unknown
       local
@@ -308,7 +308,7 @@ feature {}
          effective_arg_list = eal
       end
 
-   current_or_twin_init (eal: like effective_arg_list; ce: like create_expression): like Current is
+   current_or_twin_init (eal: like effective_arg_list; ce: like create_expression): like Current
       do
          if eal = effective_arg_list and then ce = create_expression then
             Result := Current
@@ -321,7 +321,7 @@ feature {}
          Result.effective_arg_list = eal
       end
 
-   create_expression_for (type: TYPE; eal: EFFECTIVE_ARG_LIST): CREATE_EXPRESSION is
+   create_expression_for (type: TYPE; eal: EFFECTIVE_ARG_LIST): CREATE_EXPRESSION
          -- Create the corresponding TUPLE create expression knowing that `eal' has already got its
          -- `specialize_and_check' call using `type'.
       require

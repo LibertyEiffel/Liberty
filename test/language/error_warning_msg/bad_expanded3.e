@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create e.make(2)
       end

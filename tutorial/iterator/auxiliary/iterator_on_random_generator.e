@@ -12,7 +12,7 @@ feature {ANY}
 
    item: INTEGER
 
-   start is
+   start
       do
          random_number_generator.with_seed(seed)
          random_number_generator.next
@@ -20,28 +20,28 @@ feature {ANY}
          item := random_number_generator.last_integer(range)
       end
 
-   next is
+   next
       do
          random_number_generator.next
          left := left - 1
          item := random_number_generator.last_integer(range)
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := left = 0
       end
 
 feature {}
-   seed: INTEGER is 5555
+   seed: INTEGER 5555
 
-   range: INTEGER is 256
+   range: INTEGER 256
 
    left: INTEGER
 
    random_number_generator: MINIMAL_RANDOM_NUMBER_GENERATOR
 
-   make (c: like count) is
+   make (c: like count)
       require
          count >= 0
       do
@@ -50,7 +50,7 @@ feature {}
       end
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is 0
-   generation: INTEGER is 0
+   iterable_generation: INTEGER 0
+   generation: INTEGER 0
 
 end -- class ITERATOR_ON_RANDOM_GENERATOR

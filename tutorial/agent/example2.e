@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]; my_list: LINKED_LIST[STRING]; my_set: SET[STRING]
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   print_item (item: STRING) is
+   print_item (item: STRING)
       do
          std_output.put_string(item)
          std_output.put_character('%N')

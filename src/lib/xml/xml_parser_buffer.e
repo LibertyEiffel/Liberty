@@ -16,7 +16,7 @@ feature {XML_PARSER}
    url: URL
    entity: UNICODE_STRING
 
-   set (a_buffer: like buffer; a_url: like url; a_entity: like entity) is
+   set (a_buffer: like buffer; a_url: like url; a_entity: like entity)
       do
          buffer := a_buffer
          url := a_url
@@ -27,7 +27,7 @@ feature {XML_PARSER}
          entity = a_entity
       end
 
-   default_create is
+   default_create
       do
          set(Void, Void, Void)
       end
@@ -40,7 +40,7 @@ end -- class XML_PARSER_BUFFER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

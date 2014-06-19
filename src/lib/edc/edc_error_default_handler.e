@@ -28,7 +28,7 @@ create {EDC_CONSTANTS}
    make
 
 feature {EDC_ERROR_CONNECTION_FAILED}
-   connection_failed (error: EDC_ERROR_CONNECTION_FAILED): BOOLEAN is
+   connection_failed (error: EDC_ERROR_CONNECTION_FAILED): BOOLEAN
       do
          std_error.put_line("Connection failed: " + error.url)
          sedb_breakpoint
@@ -36,7 +36,7 @@ feature {EDC_ERROR_CONNECTION_FAILED}
       end
 
 feature {EDC_ERROR_ACCESS_DENIED}
-   access_denied (error: EDC_ERROR_ACCESS_DENIED): BOOLEAN is
+   access_denied (error: EDC_ERROR_ACCESS_DENIED): BOOLEAN
       do
          std_error.put_line("Access denied (" + error.reason + "): " + error.query)
          sedb_breakpoint
@@ -44,7 +44,7 @@ feature {EDC_ERROR_ACCESS_DENIED}
       end
 
 feature {EDC_ERROR_LOCKED}
-   locked (error: EDC_ERROR_LOCKED): BOOLEAN is
+   locked (error: EDC_ERROR_LOCKED): BOOLEAN
       do
          std_error.put_line("Locked (" + error.reason + "): " + error.query)
          sedb_breakpoint
@@ -52,7 +52,7 @@ feature {EDC_ERROR_LOCKED}
       end
 
 feature {EDC_ERROR_QUERY_FAILED}
-   query_failed (error: EDC_ERROR_QUERY_FAILED): BOOLEAN is
+   query_failed (error: EDC_ERROR_QUERY_FAILED): BOOLEAN
       do
          std_error.put_line("Query failed (" + error.reason + "): <" + error.query + ">")
          sedb_breakpoint
@@ -60,7 +60,7 @@ feature {EDC_ERROR_QUERY_FAILED}
       end
 
 feature {EDC_ERROR_UNKNOWN}
-   unknown (error: EDC_ERROR_UNKNOWN): BOOLEAN is
+   unknown (error: EDC_ERROR_UNKNOWN): BOOLEAN
       do
          std_error.put_line("Unknown error (" + error.reason + ")")
          sedb_breakpoint
@@ -68,7 +68,7 @@ feature {EDC_ERROR_UNKNOWN}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

@@ -7,7 +7,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		do
 			std_output.put_string("hello world")
 			std_output.put_new_line

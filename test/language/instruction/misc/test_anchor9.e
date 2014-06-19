@@ -13,12 +13,12 @@ feature {ANY}
    foo3: PROCEDURE[like triplet]
 
 feature {ANY}
-   make is
+   make
       do
          foo3 := agent bar(?, ?, ?)
       end
 
-   bar (a: INTEGER; b: STRING; c: REAL_64) is
+   bar (a: INTEGER; b: STRING; c: REAL_64)
       do
       end
 

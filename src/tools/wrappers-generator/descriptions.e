@@ -6,7 +6,7 @@ insert
         SHARED_SETTINGS
         NAME_CONVERTER
 feature {ANY} -- Descriptions reading
-        read_descriptions_from (a_file_name: STRING) is
+        read_descriptions_from (a_file_name: STRING)
                 -- Read description comment for classes and features from the file
                 -- named `a_file_name',
                 -- filling `class_descriptions' and `feature_descriptions'. Leading and
@@ -16,15 +16,15 @@ feature {ANY} -- Descriptions reading
                 -- Description text".
         require
                 a_file_name/=Void
-                file_exists(a_file_name)
-                is_file(a_file_name)
+                file_exts(a_file_name)
+                _file(a_file_name)
         local
                 line, described: STRING;
                 words: LINKED_LIST[STRING]
                 descriptions: TEXT_FILE_READ
         do
                 create descriptions.connect_to(a_file_name)
-                if descriptions.is_connected then
+                if descriptions._connected then
                         from descriptions.read_line
                         until descriptions.end_of_input
                         loop
@@ -37,7 +37,7 @@ feature {ANY} -- Descriptions reading
                                 else
                                         create words.make
                                         line.split_in (words)
-                                        if not words.is_empty then
+                                        if not words._empty then
                                                 described := words.first
                                                 words.remove_first
                                                 read_description(described,words)
@@ -47,7 +47,7 @@ feature {ANY} -- Descriptions reading
                                 descriptions.read_line
                         end
                         check descriptions.end_of_input end
-                        descriptions.disconnect
+                        descriptions.dconnect
                 else
                         debug
                                 log(once "Couldn't connect to `@(1)' to read descriptions.%N",<<a_file_name>>)
@@ -55,7 +55,7 @@ feature {ANY} -- Descriptions reading
                 end
         end
 
-        read_description (a_described: STRING; a_description: COLLECTION[STRING]) is
+        read_description (a_described: STRING; a_description: COLLECTION[STRING])
                 -- When `a_described' is a valid class name (i.e. "CLASS_NAME_01") `a_description' is added into `class_descriptions'; when `a_described' is a valid class name with a feature name with a dot in the middle (like "ANOTHER_CLASS.my_feature_12_foo"); adds
                 -- `a_description' is added into `feature_descriptions' in the latter.
 
@@ -72,9 +72,9 @@ feature {ANY} -- Descriptions reading
                         -- Look for class name and feature name
                         inspect a_described.occurrences('.')
                         when 0 then -- could be a class
-                                if is_valid_class_name(a_described) then
+                                if _valid_class_name(a_described) then
                                         debug
-                                                log(once "Description for class @(1) is %"",<<a_described>>)
+                                                log(once "Description for class @(1)  %"",<<a_described>>)
                                                 a_description.for_each(agent log_word)
                                                 log_string(once "%".%N")
                                         end
@@ -88,7 +88,7 @@ feature {ANY} -- Descriptions reading
                                         described_class   := a_described.substring(1,dot-1)
                                         described_feature := a_described.substring(dot+1,a_described.count)
                                         debug
-                                                log(once "Description for feature @(1) of @(2) is %"",<<described_feature,described_class>>)
+                                                log(once "Description for feature @(1) of @(2)  %"",<<described_feature,described_class>>)
                                                 a_description.for_each(agent log_word)
                                                 log_string(once "%".%N")
                                         end
@@ -107,7 +107,7 @@ feature {ANY} -- Descriptions reading
         end
 
 feature {ANY} -- Outputting descriptions
-        emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER) is
+        emit_description_on (a_description: COLLECTION[STRING]; a_formatter: FORMATTER)
                         -- Put 'a_description' on 'a_formatter' formatting it as an Eiffel
                         -- comment with lines shorter that 'description_lenght' characters.
                         -- Nothing is done when `a_description' is Void.
@@ -118,7 +118,7 @@ feature {ANY} -- Outputting descriptions
                                 from
                                         iter:=a_description.new_iterator; iter.start;
                                         a_formatter.append(comment); length:=0
-                                until iter.is_off loop
+                                until iter._off loop
                                         word := iter.item
                                         new_length := length + word.count
                                         if new_length>description_lenght then
@@ -136,7 +136,7 @@ feature {ANY} -- Outputting descriptions
 
 
 feature {ANY} -- Queries
-        feature_description (a_class_name, a_feature_name: STRING): COLLECTION[STRING] is
+        feature_description (a_class_name, a_feature_name: STRING): COLLECTION[STRING]
                 -- The description of `a_feature_name' in `a_class_name'. Void when
                 -- there is no description.
         require a_class_name/=Void
@@ -153,15 +153,15 @@ feature {ANY} -- Queries
 
 
 feature {ANY} -- Descriptions
-        description_lenght: INTEGER is 70
+        description_lenght: INTEGER 70
 
-        class_descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING] is
+        class_descriptions: HASHED_DICTIONARY[COLLECTION[STRING],STRING]
                 -- Class description comments. Key is classname.
         once
                 create Result.make
         end
 
-        feature_descriptions: HASHED_DICTIONARY[HASHED_DICTIONARY[COLLECTION[STRING],STRING],STRING] is
+        feature_descriptions: HASHED_DICTIONARY[HASHED_DICTIONARY[COLLECTION[STRING],STRING],STRING]
                 -- Feature descriptions dictionary. The outer dictionary is indexed by
                 -- classname, the inner one by feature name. So to get the description of
                 -- feature foo in class BAR you shall invoke
@@ -175,7 +175,7 @@ end -- class DESCRIPTIONS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -185,4 +185,4 @@ end -- class DESCRIPTIONS
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

@@ -16,7 +16,7 @@ create {INDEXINGABLE}
    make
 
 feature {ANY}
-   pretty (indent_level: INTEGER; a_spec: STRING) is
+   pretty (indent_level: INTEGER; a_spec: STRING)
       local
          i: INTEGER; header: BOOLEAN; e: SAFE_EQUAL[STRING]
       do
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   accept (visitor: INDEX_LIST_VISITOR) is
+   accept (visitor: INDEX_LIST_VISITOR)
       do
          visitor.visit_index_list(Current)
       end
@@ -46,7 +46,7 @@ feature {INDEX_LIST_VISITOR}
    list: FAST_ARRAY[INDEX_CLAUSE]
 
 feature {}
-   make (first: INDEX_CLAUSE) is
+   make (first: INDEX_CLAUSE)
       require
          first /= Void
       do
@@ -57,7 +57,7 @@ feature {}
       end
 
 feature {INDEXINGABLE}
-   add_last (ic: INDEX_CLAUSE) is
+   add_last (ic: INDEX_CLAUSE)
       require
          ic /= Void
       do

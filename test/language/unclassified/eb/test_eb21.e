@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          p: POINTER; a: ABSTRACT_STRING; s: STRING
       do
@@ -22,11 +22,11 @@ feature {ANY}
          --a := Void
       end
 
-   malloc (x: INTEGER): POINTER is
+   malloc (x: INTEGER): POINTER
       external "C macro"
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

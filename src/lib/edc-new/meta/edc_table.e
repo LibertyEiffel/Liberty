@@ -7,7 +7,7 @@ create {EDC_DESCRIPTOR}
    make
 
 feature {}
-   make (a_name: ABSTRACT_STRING) is
+   make (a_name: ABSTRACT_STRING)
       require
          not a_name.is_empty
       do

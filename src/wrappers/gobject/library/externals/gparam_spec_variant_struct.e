@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_variant_struct_set_type (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_variant_struct_set_type (a_structure: POINTER; a_value: POINTER)
 			-- Setter for type field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_variant_struct_set_default_value (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_variant_struct_set_default_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for default_value field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_variant_struct_set_padding (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_variant_struct_set_padding (a_structure: POINTER; a_value: POINTER)
 			-- Setter for padding field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_variant_struct_get_type (a_structure: POINTER): POINTER is
+	gparam_spec_variant_struct_get_type (a_structure: POINTER): POINTER
 			-- Query for type field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_variant_struct_get_default_value (a_structure: POINTER): POINTER is
+	gparam_spec_variant_struct_get_default_value (a_structure: POINTER): POINTER
 			-- Query for default_value field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_variant_struct_get_padding (a_structure: POINTER): POINTER is
+	gparam_spec_variant_struct_get_padding (a_structure: POINTER): POINTER
 			-- Query for padding field of GPARAM_SPEC_VARIANT_STRUCT structure.
 			-- TODO: getter description
 
@@ -84,7 +84,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

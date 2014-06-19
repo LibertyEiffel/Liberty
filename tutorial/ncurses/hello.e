@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          root_window: NCURSES_WINDOW
       do
@@ -27,7 +27,7 @@ feature {}
          std_output.put_string("...normal terminal mode restored.%N")
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       local
          root_window: NCURSES_WINDOW
       do

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CHECK_INSTRUCTION}
-   visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION) is
+   visit_liberty_check_instruction (v: LIBERTY_CHECK_INSTRUCTION)
       deferred
       end
 

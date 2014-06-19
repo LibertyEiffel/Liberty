@@ -30,13 +30,13 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: EDC_CONNECTION): BOOLEAN is
+   is_equal (other: EDC_CONNECTION): BOOLEAN
          -- to freeze signature
       deferred
       end
 
 feature {ANY} -- Connection management:
-   disconnect is
+   disconnect
          -- Disconnect from the data source
       require
          is_connected
@@ -45,13 +45,13 @@ feature {ANY} -- Connection management:
          not is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- Is the data source connected?
       deferred
       end
 
 feature {ANY} -- Error management:
-   set_error_handler (a_error_handler: like error_handler) is
+   set_error_handler (a_error_handler: like error_handler)
       do
          error_handler := a_error_handler
       ensure
@@ -62,14 +62,14 @@ feature {ANY} -- Error management:
          -- Used to handle errors.
 
 feature {ANY} -- Session management:
-   commit is
+   commit
          -- Commit changed data back to the data source
       require
          is_connected
       deferred
       end
 
-   new_savepoint (name: STRING): EDC_SAVEPOINT is
+   new_savepoint (name: STRING): EDC_SAVEPOINT
          -- A new savepoint
       require
          is_connected
@@ -80,14 +80,14 @@ feature {ANY} -- Session management:
          Result.name.is_equal(name)
       end
 
-   rollback is
+   rollback
          -- Forgets and changed data
       require
          is_connected
       deferred
       end
 
-   rollback_to (a_savepoint: EDC_SAVEPOINT) is
+   rollback_to (a_savepoint: EDC_SAVEPOINT)
          -- Rolls the data back to the given savepoint
       require
          is_connected
@@ -97,14 +97,14 @@ feature {ANY} -- Session management:
          not a_savepoint.is_active
       end
 
-   auto_commit: BOOLEAN is
+   auto_commit: BOOLEAN
          -- True if any data changed is immediately committed
       require
          is_connected
       deferred
       end
 
-   set_auto_commit (a_auto_commit: like auto_commit) is
+   set_auto_commit (a_auto_commit: like auto_commit)
          -- Sets the `auto_commit' mode
       require
          is_connected
@@ -114,7 +114,7 @@ feature {ANY} -- Session management:
       end
 
 feature {ANY}
-   create_table (a_table: EDC_TABLE) is
+   create_table (a_table: EDC_TABLE)
          -- Create the table in the data source
       require
          a_table.connection = Void
@@ -125,28 +125,28 @@ feature {ANY}
          a_table.connection = Current
       end
 
-   drop_table (a_table: EDC_TABLE) is
+   drop_table (a_table: EDC_TABLE)
          -- Drops the given table
       require
          known_table: a_table.connection = Current
       deferred
       end
 
-   has_table_name (a_table_name: STRING): BOOLEAN is
+   has_table_name (a_table_name: STRING): BOOLEAN
          -- Does the data source know this table?
       require
          not a_table_name.is_empty
       deferred
       end
 
-   table (a_table_name: STRING): EDC_TABLE is
+   table (a_table_name: STRING): EDC_TABLE
          -- The table in the data source
       require
          has_table_name(a_table_name)
       deferred
       end
 
-   all_table_names: COLLECTION[STRING] is
+   all_table_names: COLLECTION[STRING]
          -- The names of all the known tables
       deferred
       ensure
@@ -154,7 +154,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Fetch direction:
-   set_fetch_direction (a_fetch_direction: like fetch_direction) is
+   set_fetch_direction (a_fetch_direction: like fetch_direction)
          -- Sets the `fetch_diection'
       require
          a_fetch_direction = fetch_forward or else a_fetch_direction = fetch_backward
@@ -163,7 +163,7 @@ feature {ANY} -- Fetch direction:
          fetch_direction = a_fetch_direction
       end
 
-   fetch_direction: INTEGER_8 is
+   fetch_direction: INTEGER_8
          -- Direction in which the data is returned
       deferred
       ensure
@@ -171,7 +171,7 @@ feature {ANY} -- Fetch direction:
       end
 
 feature {ANY}
-   select_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_SELECT is
+   select_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_SELECT
          -- Starts a select query that will return data from the data source
       require
          columns.count > 0
@@ -181,7 +181,7 @@ feature {ANY}
          Result /= Void
       end
 
-   insert_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_INSERT is
+   insert_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_INSERT
          -- Starts an insert query that will insert data in the data source
       require
          columns.count > 0
@@ -191,7 +191,7 @@ feature {ANY}
          Result /= Void
       end
 
-   update_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_UPDATE is
+   update_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_UPDATE
          -- Starts an update query that will modify some data in the data source
       require
          columns.count > 0
@@ -201,7 +201,7 @@ feature {ANY}
          Result /= Void
       end
 
-   delete_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_DELETE is
+   delete_data (columns: TRAVERSABLE[EDC_COLUMN]): EDC_DELETE
          -- Starts a delete query that will remove some data from the data source
       require
          columns.count > 0
@@ -212,7 +212,7 @@ feature {ANY}
       end
 
 feature {EDC_CALL_HANDLER}
-   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET is
+   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET
          -- The real implementation of data retrieval from the data source
       require
          a_selectable /= Void
@@ -221,7 +221,7 @@ feature {EDC_CALL_HANDLER}
          Result /= Void implies Result.is_before_first
       end
 
-   call_update (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): INTEGER is
+   call_update (a_update: EDC_UPDATE; a_values: TRAVERSABLE[EDC_VALUE]): INTEGER
          -- The real implementation of data update from the data source. Default implementation provided.
       require
          a_update /= Void
@@ -243,7 +243,7 @@ feature {EDC_CALL_HANDLER}
          end
       end
 
-   call_delete (a_delete: EDC_DELETE): INTEGER is
+   call_delete (a_delete: EDC_DELETE): INTEGER
          -- The real implementation of data removal from the data source. Default implementation provided.
       require
          a_delete /= Void
@@ -263,7 +263,7 @@ feature {EDC_CALL_HANDLER}
          end
       end
 
-   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE]) is
+   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE])
          -- The real implementation of data storage in the data source
       require
          not a_columns.is_empty

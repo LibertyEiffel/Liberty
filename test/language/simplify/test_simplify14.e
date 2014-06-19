@@ -17,7 +17,7 @@ feature {}
 
    cat: CAT
 
-   make is
+   make
       do
          create {DOG} animal
          if dog ?:= animal then

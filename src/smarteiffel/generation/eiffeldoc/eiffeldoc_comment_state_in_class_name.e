@@ -13,7 +13,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       local
          done: BOOLEAN
       do
@@ -43,7 +43,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          Result := Result and then (next_offset - offset >= 2)
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          buffer: STRING; ct: CLASS_TEXT
       do
@@ -64,24 +64,24 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          check
             False
          end
       end
 
-   handle_first: BOOLEAN is False
+   handle_first: BOOLEAN False
 
 feature {}
    next_offset: INTEGER
 
-   class_name: CLASS_NAME is
+   class_name: CLASS_NAME
       once
          create Result.unknown_position(string_aliaser.hashed_string("INTEGER"), True)
       end
 
-   put_class_name (ct: CLASS_TEXT) is
+   put_class_name (ct: CLASS_TEXT)
       local
          cn, address: STRING
       do
@@ -98,7 +98,7 @@ feature {}
          end
       end
 
-   is_generic_name (cn: STRING): BOOLEAN is
+   is_generic_name (cn: STRING): BOOLEAN
       local
          i: INTEGER
       do
@@ -114,7 +114,7 @@ feature {}
          end
       end
 
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

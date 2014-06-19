@@ -10,10 +10,10 @@ create {}
 feature {}
    anchor : REAL;
 
-   zero : like anchor is 0.0;
+   zero : like anchor 0.0;
 
 feature {}
-   make is
+   make
       do
       end
 

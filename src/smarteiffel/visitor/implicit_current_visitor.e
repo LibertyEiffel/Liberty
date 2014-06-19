@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {IMPLICIT_CURRENT}
-   visit_implicit_current (visited: IMPLICIT_CURRENT) is
+   visit_implicit_current (visited: IMPLICIT_CURRENT)
       require
          visited /= Void
       deferred

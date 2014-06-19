@@ -19,25 +19,25 @@ insert
    LIBERTY_POSITIONABLE
 
 feature {ANY}
-   target: LIBERTY_EXPRESSION is
+   target: LIBERTY_EXPRESSION
       deferred
       end
 
-   entity: LIBERTY_FEATURE_ENTITY is
+   entity: LIBERTY_FEATURE_ENTITY
       deferred
       end
 
-   actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
       do
          Result := actuals_list
       end
 
-   is_implicit_current: BOOLEAN is
+   is_implicit_current: BOOLEAN
       do
          Result := target = Void
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          t: like target
          e: like entity
@@ -72,7 +72,7 @@ feature {ANY}
       end
 
 feature {}
-   register_for_promotion is
+   register_for_promotion
       require
          explicit_current: target /= Void
       do
@@ -83,7 +83,7 @@ feature {}
 
    promotion: LIBERTY_CALL_PROMOTION[like Current]
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       require
          a_entity /= Void
          a_actuals /= Void
@@ -96,12 +96,12 @@ feature {}
          Result.position = a_position
       end
 
-   actuals_list: COLLECTION[LIBERTY_EXPRESSION] is
+   actuals_list: COLLECTION[LIBERTY_EXPRESSION]
       deferred
       end
 
 feature {LIBERTY_CALL_PROMOTION}
-   set_entity (a_entity: like entity) is
+   set_entity (a_entity: like entity)
       require
          a_entity /= Void
       deferred
@@ -109,7 +109,7 @@ feature {LIBERTY_CALL_PROMOTION}
          entity = a_entity
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       require
          explicit_current: target /= Void
          still_explicit: a_target /= Void

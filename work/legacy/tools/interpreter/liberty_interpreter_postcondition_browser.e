@@ -25,7 +25,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-   gather_old (contract: LIBERTY_ASSERTIONS) is
+   gather_old (contract: LIBERTY_ASSERTIONS)
       do
          if contract /= Void then
             interpreter.start_gathering_old_values
@@ -35,7 +35,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {LIBERTY_OLD}
-   visit_liberty_old (v: LIBERTY_OLD) is
+   visit_liberty_old (v: LIBERTY_OLD)
       do
          if not interpreter.has_old_value(v.expression) then
             interpreter.start_evaluating_old_value
@@ -45,69 +45,69 @@ feature {LIBERTY_OLD}
       end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
-   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN) is
+   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN)
       do
          v.left.accept(Current)
          v.right.accept(Current)
       end
 
 feature {LIBERTY_ASSERTIONS_OR_ELSE}
-   visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE) is
+   visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE)
       do
          v.left.accept(Current)
          v.right.accept(Current)
       end
 
 feature {LIBERTY_CHECK}
-   visit_liberty_check (v: LIBERTY_CHECK) is
+   visit_liberty_check (v: LIBERTY_CHECK)
       do
          check False end
       end
 
 feature {LIBERTY_ENSURE}
-   visit_liberty_ensure (v: LIBERTY_ENSURE) is
+   visit_liberty_ensure (v: LIBERTY_ENSURE)
       do
          gather_written_assertions(v)
       end
 
 feature {LIBERTY_ENSURE_THEN}
-   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN) is
+   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN)
       do
          gather_written_assertions(v)
       end
 
 feature {LIBERTY_INVARIANT}
-   visit_liberty_invariant (v: LIBERTY_INVARIANT) is
+   visit_liberty_invariant (v: LIBERTY_INVARIANT)
       do
          check False end
       end
 
 feature {LIBERTY_REQUIRE}
-   visit_liberty_require (v: LIBERTY_REQUIRE) is
+   visit_liberty_require (v: LIBERTY_REQUIRE)
       do
          check False end
       end
 
 feature {LIBERTY_REQUIRE_ELSE}
-   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE) is
+   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE)
       do
          check False end
       end
 
 feature {LIBERTY_REQUIRE_THEN}
-   visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN) is
+   visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN)
       do
          check False end
       end
 
 feature {LIBERTY_VARIANT}
-   visit_liberty_variant (v: LIBERTY_VARIANT) is
+   visit_liberty_variant (v: LIBERTY_VARIANT)
       do
          check False end
       end
 
 feature {}
-   gather_written_assertions (contract: LIBERTY_WRITTEN_ASSERTIONS) is
+   gather_written_assertions (contract: LIBERTY_WRITTEN_ASSERTIONS)
       local
          assertions: TRAVERSABLE[LIBERTY_ASSERTION]
          i: INTEGER
@@ -124,7 +124,7 @@ feature {}
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       do
          interpreter := a_interpreter
       end

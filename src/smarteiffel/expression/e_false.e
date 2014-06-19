@@ -13,15 +13,15 @@ create {ANY}
    make
 
 feature {ANY}
-   value: BOOLEAN is False
+   value: BOOLEAN False
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := fz_false
       end
 
 feature {ANY}
-   accept (visitor: E_FALSE_VISITOR) is
+   accept (visitor: E_FALSE_VISITOR)
       do
          visitor.visit_e_false(Current)
       end

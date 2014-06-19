@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          foo_pointer: POINTER
       do
@@ -25,7 +25,7 @@ feature {ANY}
          io.put_new_line
       end
 
-   new_foo: POINTER is
+   new_foo: POINTER
          -- Creation of a C++ `Foo' object. The file "Foo.h" must be
          -- #included and the C++ creation function has no argument.
       external "[
@@ -33,7 +33,7 @@ feature {ANY}
                ]"
       end
 
-   set_integer (foo_pointer: POINTER; i: INTEGER) is
+   set_integer (foo_pointer: POINTER; i: INTEGER)
          -- Calling C++ `set_integer' member function of C++ class `Foo'
          -- using `foo_pointer' as target. This member procedure as
          -- an argument (matching with `i') of type EIF_INTEGER (which match
@@ -44,7 +44,7 @@ feature {ANY}
                ]"
       end
 
-   get_integer (foo_pointer: POINTER): INTEGER is
+   get_integer (foo_pointer: POINTER): INTEGER
          -- Calling a C++ `get_integer' member function using `foo_pointer' as
          -- target. The file "Foo.h" must be #included (if not yet done).
       external "[
@@ -52,7 +52,7 @@ feature {ANY}
                ]"
       end
 
-   set_real (foo_pointer: POINTER; r: REAL) is
+   set_real (foo_pointer: POINTER; r: REAL)
          -- Calling `set_real' C++ member procedure using `foo_pointer' as target
          -- and `r' as argument. The file "Foo.h" must be #included (if not
          -- yet done).
@@ -61,7 +61,7 @@ feature {ANY}
                ]"
       end
 
-   get_real (foo_pointer: POINTER): REAL is
+   get_real (foo_pointer: POINTER): REAL
          -- Calling `get_real' C++ member function using `foo_pointer' as target.
          -- The file "Foo.h" must be #included (if not yet done).
       external "[

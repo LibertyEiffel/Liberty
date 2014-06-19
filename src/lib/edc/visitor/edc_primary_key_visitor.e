@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_PRIMARY_KEY}
-   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is
+   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY)
       deferred
       end
 

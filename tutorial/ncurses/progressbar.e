@@ -13,7 +13,7 @@ feature {}
 
    root_window, sub_window: NCURSES_WINDOW
 
-   main is
+   main
       do
          ncurses.enable
          ncurses.set_cursor_visibility(ncurses.invisible_cursor_mode)
@@ -32,7 +32,7 @@ feature {}
          ncurses.start
       end
 
-   redraw is
+   redraw
       do
          root_window.put_string("Press <left> and <right> for slow changes.")
          root_window.put_string_at("Press <page down> and <page up> for fast changes.", 0, 1)
@@ -42,7 +42,7 @@ feature {}
          root_window.redraw_now
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       do
          if key_code.to_character.to_upper = 'T' then
             progress_bar.display_value(not progress_bar.is_value_displayed)

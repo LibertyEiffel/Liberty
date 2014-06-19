@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   when_slices: EIFFEL_LIST_NODE is
+   when_slices: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(1)
       end
 
-   instructions: EIFFEL_LIST_NODE is
+   instructions: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(3)
       end
 
 feature {ANY}
-   count: INTEGER is 4
+   count: INTEGER 4
 
-   name: STRING is "When"
+   name: STRING "When"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 4 >> }
       end

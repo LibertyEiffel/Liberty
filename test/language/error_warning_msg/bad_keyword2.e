@@ -8,7 +8,7 @@ create {}
 
 feature {}
 
-   make is
+   make
       local
          agent: INTEGER;
       do

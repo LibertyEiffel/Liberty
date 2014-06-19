@@ -12,7 +12,7 @@ create {ANY}
    make, array_make
 
 feature {ANY}
-   make (init: ARRAY[E]) is
+   make (init: ARRAY[E])
       local
          i: INTEGER
       do
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

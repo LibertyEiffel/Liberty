@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
 feature {}
-   dispose is
+   dispose
       do
          dispose_count := dispose_count + 1
          if dispose_count > 1 then

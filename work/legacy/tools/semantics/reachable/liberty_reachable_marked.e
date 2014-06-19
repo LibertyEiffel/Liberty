@@ -21,7 +21,7 @@ insert
    LIBERTY_REACHABLE
 
 feature {ANY} -- The "reachable" property
-   frozen is_reachable: BOOLEAN is
+   frozen is_reachable: BOOLEAN
       do
          Result := reachable_mark > 0
       ensure
@@ -29,7 +29,7 @@ feature {ANY} -- The "reachable" property
       end
 
 feature {LIBERTY_REACHABLE}
-   mark_reachable_code (mark: like reachable_mark) is
+   mark_reachable_code (mark: like reachable_mark)
       require
          mark > 0
       deferred
@@ -39,7 +39,7 @@ feature {LIBERTY_REACHABLE}
       end
 
 feature {} -- Contract implementation: check the "once reachable, always reachable" behaviour
-   frozen ensure_is_reachable: BOOLEAN is
+   frozen ensure_is_reachable: BOOLEAN
       do
          reachable_memory := True
          Result := is_reachable

@@ -19,7 +19,7 @@ create {ANY}
 feature {ANY}
    old_name, new_name: FEATURE_NAME
 
-   make (on:like old_name; nn: like new_name) is
+   make (on:like old_name; nn: like new_name)
       require
          on /= Void
          nn /= Void
@@ -50,7 +50,7 @@ feature {ANY}
          new_name = nn
       end
 
-   pretty (rank: INTEGER) is
+   pretty (rank: INTEGER)
       do
          if rank > 1 then
             pretty_printer.set_indent_level(3)
@@ -60,7 +60,7 @@ feature {ANY}
          new_name.declaration_pretty_print
       end
 
-   accept (visitor: RENAME_PAIR_VISITOR) is
+   accept (visitor: RENAME_PAIR_VISITOR)
       do
          visitor.visit_rename_pair(Current)
       end

@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          tfr: TEXT_FILE_READ
       do

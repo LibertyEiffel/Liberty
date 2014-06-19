@@ -4,7 +4,7 @@
 class AUX_AL1C
 
 feature {ANY}
-   foo is
+   foo
       local
          str: STRING
       do

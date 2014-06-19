@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[AUX_EXPANDED20]
       do

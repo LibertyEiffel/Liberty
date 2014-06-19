@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
@@ -21,7 +21,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       do
          if target.side_effect_free(type) and then
             target.non_void_no_dispatch_type(type) /= Void and then
@@ -42,7 +42,7 @@ feature {ANY}
    result_type: TYPE_MARK
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -59,7 +59,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
@@ -78,19 +78,19 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_6 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_6
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: ONCE_FUNCTION_VISITOR) is
+   accept (visitor: ONCE_FUNCTION_VISITOR)
       do
          visitor.visit_once_function(Current)
       end
 
 feature {ONCE_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -98,7 +98,7 @@ feature {ONCE_FUNCTION}
       end
 
 feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
-   hook_collect (t: TYPE) is
+   hook_collect (t: TYPE)
       local
          flush_type: TYPE
       do
@@ -112,7 +112,7 @@ feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
          end
       end
 
-   hook_for (lt: LIVE_TYPE) is
+   hook_for (lt: LIVE_TYPE)
       do
          --|*** rf: RUN_FEATURE; t: TYPE
          --| Make live STD_OUTPUT.flush
@@ -129,7 +129,7 @@ feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
 
 feature {}
    make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
       require
          rt /= Void
       do
@@ -140,12 +140,12 @@ feature {}
          result_type := rt
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_FUNCTION} Result.from_effective(fn, arguments, result_type, require_assertion, ensure_assertion, bc, permissions)
       end
 
-   type_std_output: CLASS_TYPE_MARK is
+   type_std_output: CLASS_TYPE_MARK
          --|*** Could be better (see caller) ***
          --|*** (Dom Oct. 21th 2005)
       local

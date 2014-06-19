@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
          --***      local
          --***         coll: ARRAY[INTEGER]
       do

@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_convert_error_bad_uri_low_level)  or else
 				(a_value = g_convert_error_failed_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_convert_error_bad_uri is
+	set_g_convert_error_bad_uri
 		do
 			value := g_convert_error_bad_uri_low_level
 		end
 
-	set_g_convert_error_failed is
+	set_g_convert_error_failed
 		do
 			value := g_convert_error_failed_low_level
 		end
 
-	set_g_convert_error_illegal_sequence is
+	set_g_convert_error_illegal_sequence
 		do
 			value := g_convert_error_illegal_sequence_low_level
 		end
 
-	set_g_convert_error_no_conversion is
+	set_g_convert_error_no_conversion
 		do
 			value := g_convert_error_no_conversion_low_level
 		end
 
-	set_g_convert_error_not_absolute_path is
+	set_g_convert_error_not_absolute_path
 		do
 			value := g_convert_error_not_absolute_path_low_level
 		end
 
-	set_g_convert_error_partial_input is
+	set_g_convert_error_partial_input
 		do
 			value := g_convert_error_partial_input_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_convert_error_bad_uri: BOOLEAN is
+	is_g_convert_error_bad_uri: BOOLEAN
 		do
 			Result := (value=g_convert_error_bad_uri_low_level)
 		end
 
-	is_g_convert_error_failed: BOOLEAN is
+	is_g_convert_error_failed: BOOLEAN
 		do
 			Result := (value=g_convert_error_failed_low_level)
 		end
 
-	is_g_convert_error_illegal_sequence: BOOLEAN is
+	is_g_convert_error_illegal_sequence: BOOLEAN
 		do
 			Result := (value=g_convert_error_illegal_sequence_low_level)
 		end
 
-	is_g_convert_error_no_conversion: BOOLEAN is
+	is_g_convert_error_no_conversion: BOOLEAN
 		do
 			Result := (value=g_convert_error_no_conversion_low_level)
 		end
 
-	is_g_convert_error_not_absolute_path: BOOLEAN is
+	is_g_convert_error_not_absolute_path: BOOLEAN
 		do
 			Result := (value=g_convert_error_not_absolute_path_low_level)
 		end
 
-	is_g_convert_error_partial_input: BOOLEAN is
+	is_g_convert_error_partial_input: BOOLEAN
 		do
 			Result := (value=g_convert_error_partial_input_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_convert_error_bad_uri_low_level: INTEGER is
+	g_convert_error_bad_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_failed_low_level: INTEGER is
+	g_convert_error_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_illegal_sequence_low_level: INTEGER is
+	g_convert_error_illegal_sequence_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_no_conversion_low_level: INTEGER is
+	g_convert_error_no_conversion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_not_absolute_path_low_level: INTEGER is
+	g_convert_error_not_absolute_path_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_partial_input_low_level: INTEGER is
+	g_convert_error_partial_input_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

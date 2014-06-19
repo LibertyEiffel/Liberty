@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -27,11 +27,11 @@ feature {ANY}
          i := bar(i)
       end
 
-   foo (x: INTEGER) is
+   foo (x: INTEGER)
       do
       end
 
-   bar (x: INTEGER): INTEGER is
+   bar (x: INTEGER): INTEGER
       do
       end
 

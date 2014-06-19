@@ -9,7 +9,7 @@ create {}
 feature {}
    my_int: INTEGER
 
-   make is
+   make
       local
          bwr: WEAK_REFERENCE[like my_int]
       do

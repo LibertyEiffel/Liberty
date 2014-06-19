@@ -10,7 +10,7 @@ inherit
    C_SPLITTER
 
 feature {CLEAN}
-   should_clean (path_c, file_name: STRING): BOOLEAN is
+   should_clean (path_c, file_name: STRING): BOOLEAN
       local
          c: STRING
       do
@@ -22,7 +22,7 @@ feature {CLEAN}
       end
 
 feature {C_PRETTY_PRINTER}
-   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN is
+   write_make_file (out_make: TEXT_FILE_WRITE): BOOLEAN
       local
          ft: FILE_TOOLS; recompile: BOOLEAN; c_name: STRING
          c_files: like c_files_suffixes
@@ -60,11 +60,11 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   check_clean (path_c, c: STRING): BOOLEAN is
+   check_clean (path_c, c: STRING): BOOLEAN
       deferred
       end
 
-   check_and_remove_suffix (c: STRING): BOOLEAN is
+   check_and_remove_suffix (c: STRING): BOOLEAN
       do
          if c.has_suffix(once ".c") then
             c.remove_suffix(once ".c")
@@ -83,7 +83,7 @@ feature {}
          Result implies c.count < old (c.count)
       end
 
-   backup_tfw_connect (suffix: STRING) is
+   backup_tfw_connect (suffix: STRING)
       local
          ft: FILE_TOOLS; real_c_path: STRING
       do
@@ -100,16 +100,16 @@ feature {}
          c_connect(real_c_path)
       end
 
-   connect_out_c is
+   connect_out_c
       do
          backup_tfw_connect(current_c_file_suffix)
       end
 
-   current_c_file_suffix: STRING is
+   current_c_file_suffix: STRING
       deferred
       end
 
-   path_in (str, suffix, ext: STRING) is
+   path_in (str, suffix, ext: STRING)
       require
          ext.first = '.'
       do
@@ -119,16 +119,16 @@ feature {}
          str.append(ext)
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(256)
       end
 
-   c_files_suffixes: ITERATOR[STRING] is
+   c_files_suffixes: ITERATOR[STRING]
       deferred
       end
 
-   c_draft_file_extension: STRING is ".secd" -- Liberty Eiffel C Draft
+   c_draft_file_extension: STRING ".secd" -- Liberty Eiffel C Draft
 
 end -- class C_SPLITTER_SPLIT
 --

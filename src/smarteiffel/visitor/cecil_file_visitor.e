@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CECIL_FILE}
-   visit_cecil_file (visited: CECIL_FILE) is
+   visit_cecil_file (visited: CECIL_FILE)
       require
          visited /= Void
       deferred

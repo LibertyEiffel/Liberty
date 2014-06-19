@@ -22,7 +22,7 @@ feature {ANY}
 
    bit_count: INTEGER
 
-   id: INTEGER is
+   id: INTEGER
       do
          inspect
             bit_count
@@ -35,17 +35,17 @@ feature {ANY}
          end
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       do
          buffer.append(pretty_name.to_string)
       end
 
-   type: TYPE is
+   type: TYPE
       do
          inspect
             bit_count
@@ -58,29 +58,29 @@ feature {ANY}
          end
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   default_expression (sp: POSITION): EXPRESSION is
+   default_expression (sp: POSITION): EXPRESSION
       do
          create {REAL_CONSTANT} Result.make(sp, once "0.0", Current)
       end
 
-   accept (visitor: REAL_TYPE_MARK_VISITOR) is
+   accept (visitor: REAL_TYPE_MARK_VISITOR)
       do
          visitor.visit_real_type_mark(Current)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
 feature {TYPE}
-   can_be_assigned_to (other: TYPE_MARK): BOOLEAN is
+   can_be_assigned_to (other: TYPE_MARK): BOOLEAN
       local
          real_type_mark: REAL_TYPE_MARK; integer_type_mark: INTEGER_TYPE_MARK
       do
@@ -100,7 +100,7 @@ feature {TYPE}
       end
 
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is
+   structure_mark: CHARACTER
       do
          inspect
             bit_count
@@ -114,14 +114,14 @@ feature {LIVE_TYPE}
       end
 
 feature {}
-   real_32 (sp: like start_position) is
+   real_32 (sp: like start_position)
       do
          pretty_name := real_32_name
          bit_count := 32
          create class_text_name.make(real_32_name, sp, False)
       end
 
-   real_64 (sp: like start_position) is
+   real_64 (sp: like start_position)
       do
          pretty_name := real_64_name
          bit_count := 64
@@ -129,7 +129,7 @@ feature {}
          -- It is not an error, the `class_text_name' is actually "REAL" internally.
       end
 
-   real (sp: like start_position) is
+   real (sp: like start_position)
       local
          ta: TYPE_ALIASING
       do
@@ -138,7 +138,7 @@ feature {}
          create class_text_name.make(ta.real_alias, sp, False)
       end
 
-   real_80 (sp: like start_position) is
+   real_80 (sp: like start_position)
       do
          pretty_name := real_80_name
          bit_count := 80
@@ -146,7 +146,7 @@ feature {}
          -- It is not an error, the `class_text_name' is actually "REAL_EXTENDED" internally.
       end
 
-   real_128 (sp: like start_position) is
+   real_128 (sp: like start_position)
       do
          pretty_name := real_128_name
          bit_count := 80
@@ -154,39 +154,39 @@ feature {}
          -- It is not an error, the `class_text_name' is actually "REAL_EXTENDED" internally.
       end
 
-   real_extended (sp: like start_position) is
+   real_extended (sp: like start_position)
       do
          pretty_name := real_extended_name
          bit_count := 80
          create class_text_name.make(real_extended_name, sp, False)
       end
 
-   real_32_name: HASHED_STRING is
+   real_32_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_32)
       end
 
-   real_64_name: HASHED_STRING is
+   real_64_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_64)
       end
 
-   real_name: HASHED_STRING is
+   real_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real)
       end
 
-   real_80_name: HASHED_STRING is
+   real_80_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_80)
       end
 
-   real_128_name: HASHED_STRING is
+   real_128_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_128)
       end
 
-   real_extended_name: HASHED_STRING is
+   real_extended_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_extended)
       end

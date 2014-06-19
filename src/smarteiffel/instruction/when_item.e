@@ -14,12 +14,12 @@ insert
    GLOBALS
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       deferred
       end
 
 feature {WHEN_CLAUSE}
-   validity_check (type, expression_type: TYPE; container: INSPECT_STATEMENT) is
+   validity_check (type, expression_type: TYPE; container: INSPECT_STATEMENT)
       require
          type /= Void
          expression_type /= Void
@@ -28,12 +28,12 @@ feature {WHEN_CLAUSE}
          container.validity_check_continued(type, expression_type, Current)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       deferred
       end
 
 feature {WHEN_CLAUSE}
-   validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN is
+   validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN
       require
          type /= Void
          expression_type /= Void
@@ -48,7 +48,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM) is
+   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM)
       require
          type /= Void
          expression_type /= Void
@@ -57,7 +57,7 @@ feature {}
       end
 
 feature {WHEN_CLAUSE}
-   collect (t: TYPE) is
+   collect (t: TYPE)
       require
          has_been_specialized
          t.feature_collection_done
@@ -66,13 +66,13 @@ feature {WHEN_CLAUSE}
       deferred
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       deferred
       end
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -82,7 +82,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -97,7 +97,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_and_check_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -109,7 +109,7 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_and_check_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current
          --|*** May become a procedure because this is always static ???
          --|*** (Dom. 20 dec 2003)
       require
@@ -121,41 +121,41 @@ feature {WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values
       deferred
       ensure
          Result /= Void
       end
 
-   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE)
       require
          container /= Void
       deferred
       end
 
-   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE)
       require
          container /= Void
       deferred
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       deferred
       end
 
-   match_value (v: INTEGER): BOOLEAN is
+   match_value (v: INTEGER): BOOLEAN
       deferred
       end
 
 feature {WHEN_CLAUSE, WHEN_ITEM}
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       deferred
       ensure
          Result
       end
 
 feature {}
-   locate_in_values (values: RING_ARRAY[INTEGER]; v: INTEGER): INTEGER is
+   locate_in_values (values: RING_ARRAY[INTEGER]; v: INTEGER): INTEGER
          -- Returns index in values table where `v' would be inserted.
       require
          values /= Void
@@ -173,7 +173,7 @@ feature {}
          (Result > values.upper) implies (v > values.item(Result - 1))
       end
 
-   frozen manifest_expression_check (expression: EXPRESSION; type: TYPE): MANIFEST_EXPRESSION is
+   frozen manifest_expression_check (expression: EXPRESSION; type: TYPE): MANIFEST_EXPRESSION
          -- Check that the `expression' is a valid bound for a when item (i.e. this is a statically
          -- computable expression).
       require
@@ -193,7 +193,7 @@ feature {}
          Result /= Void
       end
 
-   frozen integer_check (e: EXPRESSION; me: MANIFEST_EXPRESSION) is
+   frozen integer_check (e: EXPRESSION; me: MANIFEST_EXPRESSION)
          -- Where `e' is `me' itself or the corresponding static call.
       require
          e /= Void
@@ -209,7 +209,7 @@ feature {}
          end
       end
 
-   frozen character_check (e: EXPRESSION; me: MANIFEST_EXPRESSION) is
+   frozen character_check (e: EXPRESSION; me: MANIFEST_EXPRESSION)
          -- Where `e' is `me' itself or the corresponding static call.
       require
          e /= Void
@@ -225,7 +225,7 @@ feature {}
          end
       end
 
-   frozen explain_fatal_error (e: EXPRESSION; me: MANIFEST_EXPRESSION) is
+   frozen explain_fatal_error (e: EXPRESSION; me: MANIFEST_EXPRESSION)
          -- Where `e' is `me' itself or the corresponding static call.
       require
          e /= Void
@@ -240,7 +240,7 @@ feature {}
          error_handler.print_as_fatal_error
       end
 
-   integer_value_of (manifest_expression: MANIFEST_EXPRESSION): INTEGER is
+   integer_value_of (manifest_expression: MANIFEST_EXPRESSION): INTEGER
       require
          manifest_expression /= Void
       local
@@ -258,7 +258,7 @@ feature {}
       end
 
 feature {WHEN_ITEM_1}
-   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1) is
+   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1)
       require
          type /= Void
          expression_type /= Void
@@ -267,7 +267,7 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_ITEM_2}
-   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2) is
+   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2)
       require
          type /= Void
          expression_type /= Void

@@ -28,7 +28,7 @@ feature {EDC_SQLITE_CONNECTION}
    table: EDC_TABLE
 
 feature {}
-   with_table (a_table: like table) is
+   with_table (a_table: like table)
       require
          a_table /= Void
       do
@@ -37,7 +37,7 @@ feature {}
          table = a_table
       end
 
-   make (a_table_name: STRING) is
+   make (a_table_name: STRING)
       require
          not a_table_name.is_empty
       do

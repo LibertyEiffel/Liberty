@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: RING_ARRAY[CHARACTER]; s: COLLECTION_SORTER[CHARACTER]
       do
@@ -20,7 +20,7 @@ feature {}
          assert(tab.is_equal({RING_ARRAY[CHARACTER] 4, << '$', '*', ',', '5', '7', ';', '=', 'a', 'l', 'r', 'z' >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

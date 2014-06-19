@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = a_2big_low_level)  or else
 				(a_value = acces_low_level)  or else
@@ -34,219 +34,219 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_a_2big is
+	set_a_2big
 		do
 			value := a_2big_low_level
 		end
 
-	set_acces is
+	set_acces
 		do
 			value := acces_low_level
 		end
 
-	set_chdir is
+	set_chdir
 		do
 			value := chdir_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_fork is
+	set_fork
 		do
 			value := fork_low_level
 		end
 
-	set_inval is
+	set_inval
 		do
 			value := inval_low_level
 		end
 
-	set_io is
+	set_io
 		do
 			value := io_low_level
 		end
 
-	set_isdir is
+	set_isdir
 		do
 			value := isdir_low_level
 		end
 
-	set_libbad is
+	set_libbad
 		do
 			value := libbad_low_level
 		end
 
-	set_loop_external is
+	set_loop_external
 		do
 			value := loop_external_low_level
 		end
 
-	set_mfile is
+	set_mfile
 		do
 			value := mfile_low_level
 		end
 
-	set_nametoolong is
+	set_nametoolong
 		do
 			value := nametoolong_low_level
 		end
 
-	set_nfile is
+	set_nfile
 		do
 			value := nfile_low_level
 		end
 
-	set_noent is
+	set_noent
 		do
 			value := noent_low_level
 		end
 
-	set_noexec is
+	set_noexec
 		do
 			value := noexec_low_level
 		end
 
-	set_nomem is
+	set_nomem
 		do
 			value := nomem_low_level
 		end
 
-	set_notdir is
+	set_notdir
 		do
 			value := notdir_low_level
 		end
 
-	set_perm is
+	set_perm
 		do
 			value := perm_low_level
 		end
 
-	set_read is
+	set_read
 		do
 			value := read_low_level
 		end
 
-	set_too_big is
+	set_too_big
 		do
 			value := too_big_low_level
 		end
 
-	set_txtbusy is
+	set_txtbusy
 		do
 			value := txtbusy_low_level
 		end
 
 feature {ANY} -- Queries
-	is_a_2big: BOOLEAN is
+	is_a_2big: BOOLEAN
 		do
 			Result := (value=a_2big_low_level)
 		end
 
-	is_acces: BOOLEAN is
+	is_acces: BOOLEAN
 		do
 			Result := (value=acces_low_level)
 		end
 
-	is_chdir: BOOLEAN is
+	is_chdir: BOOLEAN
 		do
 			Result := (value=chdir_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_fork: BOOLEAN is
+	is_fork: BOOLEAN
 		do
 			Result := (value=fork_low_level)
 		end
 
-	is_inval: BOOLEAN is
+	is_inval: BOOLEAN
 		do
 			Result := (value=inval_low_level)
 		end
 
-	is_io: BOOLEAN is
+	is_io: BOOLEAN
 		do
 			Result := (value=io_low_level)
 		end
 
-	is_isdir: BOOLEAN is
+	is_isdir: BOOLEAN
 		do
 			Result := (value=isdir_low_level)
 		end
 
-	is_libbad: BOOLEAN is
+	is_libbad: BOOLEAN
 		do
 			Result := (value=libbad_low_level)
 		end
 
-	is_loop_external: BOOLEAN is
+	is_loop_external: BOOLEAN
 		do
 			Result := (value=loop_external_low_level)
 		end
 
-	is_mfile: BOOLEAN is
+	is_mfile: BOOLEAN
 		do
 			Result := (value=mfile_low_level)
 		end
 
-	is_nametoolong: BOOLEAN is
+	is_nametoolong: BOOLEAN
 		do
 			Result := (value=nametoolong_low_level)
 		end
 
-	is_nfile: BOOLEAN is
+	is_nfile: BOOLEAN
 		do
 			Result := (value=nfile_low_level)
 		end
 
-	is_noent: BOOLEAN is
+	is_noent: BOOLEAN
 		do
 			Result := (value=noent_low_level)
 		end
 
-	is_noexec: BOOLEAN is
+	is_noexec: BOOLEAN
 		do
 			Result := (value=noexec_low_level)
 		end
 
-	is_nomem: BOOLEAN is
+	is_nomem: BOOLEAN
 		do
 			Result := (value=nomem_low_level)
 		end
 
-	is_notdir: BOOLEAN is
+	is_notdir: BOOLEAN
 		do
 			Result := (value=notdir_low_level)
 		end
 
-	is_perm: BOOLEAN is
+	is_perm: BOOLEAN
 		do
 			Result := (value=perm_low_level)
 		end
 
-	is_read: BOOLEAN is
+	is_read: BOOLEAN
 		do
 			Result := (value=read_low_level)
 		end
 
-	is_too_big: BOOLEAN is
+	is_too_big: BOOLEAN
 		do
 			Result := (value=too_big_low_level)
 		end
 
-	is_txtbusy: BOOLEAN is
+	is_txtbusy: BOOLEAN
 		do
 			Result := (value=txtbusy_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	a_2big_low_level: INTEGER is
+	a_2big_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -255,7 +255,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	acces_low_level: INTEGER is
+	acces_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -264,7 +264,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	chdir_low_level: INTEGER is
+	chdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -273,7 +273,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -282,7 +282,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	fork_low_level: INTEGER is
+	fork_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -291,7 +291,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inval_low_level: INTEGER is
+	inval_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -300,7 +300,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	io_low_level: INTEGER is
+	io_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -309,7 +309,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	isdir_low_level: INTEGER is
+	isdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -318,7 +318,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	libbad_low_level: INTEGER is
+	libbad_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -327,7 +327,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	loop_external_low_level: INTEGER is
+	loop_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -336,7 +336,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mfile_low_level: INTEGER is
+	mfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -345,7 +345,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nametoolong_low_level: INTEGER is
+	nametoolong_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -354,7 +354,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nfile_low_level: INTEGER is
+	nfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -363,7 +363,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noent_low_level: INTEGER is
+	noent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -372,7 +372,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	noexec_low_level: INTEGER is
+	noexec_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -381,7 +381,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nomem_low_level: INTEGER is
+	nomem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -390,7 +390,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	notdir_low_level: INTEGER is
+	notdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -399,7 +399,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	perm_low_level: INTEGER is
+	perm_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -408,7 +408,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	read_low_level: INTEGER is
+	read_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -417,7 +417,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	too_big_low_level: INTEGER is
+	too_big_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -426,7 +426,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	txtbusy_low_level: INTEGER is
+	txtbusy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -15,12 +15,12 @@ feature {ANY}
 
    msg: STRING
 
-   no_arg is
+   no_arg
       do
          last_call := 1
       end
 
-   str_arg (s: STRING) is
+   str_arg (s: STRING)
       do
          last_call := 2
          msg := s
@@ -28,12 +28,12 @@ feature {ANY}
 
    action: PROCEDURE[TUPLE[STRING]]
 
-   set_action (a: like action) is
+   set_action (a: like action)
       do
          action := a
       end
 
-   perform is
+   perform
       local
          a_no_arg: PROCEDURE[TUPLE]
       do
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   make is
+   make
       do
          set_action(agent no_arg)
          perform

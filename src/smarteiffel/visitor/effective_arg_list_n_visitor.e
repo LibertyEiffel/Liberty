@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EFFECTIVE_ARG_LIST_N}
-   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N)
       require
          visited /= Void
       deferred

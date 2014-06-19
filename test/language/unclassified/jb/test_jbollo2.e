@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          put_seed(5)
          next print(value.out+"%N")
@@ -22,7 +22,7 @@ feature {}
          next print(value.out+"%N")
       end
 
-   next is
+   next
       do
          put_value(seed #+ 1)
          put_seed(seed #* 19 #+ -45)

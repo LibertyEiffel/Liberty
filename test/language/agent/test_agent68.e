@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   output: NULL_OUTPUT_STREAM is
+   output: NULL_OUTPUT_STREAM
       once
          create Result
       end
 
-   make is
+   make
       local
          actions: FAST_ARRAY[TUPLE[STRING, PROCEDURE[TUPLE]]]
          i: INTEGER
@@ -32,7 +32,7 @@ feature {}
          end
       end
 
-   say (something: STRING) is
+   say (something: STRING)
       do
          output.put_line(something)
       end

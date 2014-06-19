@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   start (args: T_): THREAD_CONTEXT[R_, T_] is
+   start (args: T_): THREAD_CONTEXT[R_, T_]
          -- Starts the thread. The returned context gives some information on the running thread.
       require
          args /= Void
@@ -18,7 +18,7 @@ feature {ANY}
          Result /= Void
       end
 
-   wait (args: T_): R_ is
+   wait (args: T_): R_
          -- Convenient function that waits for a result. Use with caution, deadlocks lurk this way.
       require
          args /= Void
@@ -36,7 +36,7 @@ feature {THREAD_CONTEXT}
    routine: FUNCTION[T_, R_]
 
 feature {}
-   make (a_routine: like routine) is
+   make (a_routine: like routine)
       require
          a_routine /= Void
       do
@@ -56,7 +56,7 @@ end -- class THREAD
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

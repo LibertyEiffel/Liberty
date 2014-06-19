@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   e8: LIBERTY_AST_E8 is
+   e8: LIBERTY_AST_E8
       do
          Result ::= nodes.item(0)
       end
 
-   r8: LIBERTY_AST_R8 is
+   r8: LIBERTY_AST_R8
       do
          Result ::= nodes.item(1)
       end
 
 feature {ANY}
-   count: INTEGER is 2
+   count: INTEGER 2
 
-   name: STRING is "e7"
+   name: STRING "e7"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 2 >> }
       end

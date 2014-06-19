@@ -11,7 +11,7 @@ insert
 create {ANY} make
 
 feature {ANY} -- Creating
-	make is
+	make
 		local res: FOREIGN_OBJECT; args: FOREIGN_PARAMETERS
 	do
 		create call.make(my_function,<<types.c_string>>, types.sint32)
@@ -30,7 +30,7 @@ feature {ANY}
 
 	call: FOREIGN_EXTERNAL_FUNCTION
 
-	my_function: POINTER is
+	my_function: POINTER
 		external "C inline"
 		alias "puts"
 		end

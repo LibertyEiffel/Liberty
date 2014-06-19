@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_INHERIT_ARRAY4
       do

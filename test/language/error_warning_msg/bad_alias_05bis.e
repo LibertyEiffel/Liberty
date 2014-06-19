@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(universal
                 () = 42)
       end
 
-   universal: INTEGER is 42
+   universal: INTEGER 42
 
 end

@@ -27,7 +27,7 @@ feature {ANY}
    types: COLLECTION[LIBERTY_ASM_TYPE]
    main: LIBERTY_ASM_METHOD
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := types.count = other.types.count
             and then types.for_all(agent other.types.has)
@@ -35,7 +35,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_types: like types; a_main: like main) is
+   make (a_types: like types; a_main: like main)
       require
          a_types /= Void
          a_main /= Void

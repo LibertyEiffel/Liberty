@@ -12,12 +12,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo_it(42)
       end
 
-   foo_it (foo: INTEGER) is
+   foo_it (foo: INTEGER)
       local
          bar: like foo
       do

@@ -3,7 +3,7 @@
 --
 class AUX_LIKE12A
 feature {ANY}
-   t: INTEGER is
+   t: INTEGER
       do
       end
    f: COLLECTION[like t]

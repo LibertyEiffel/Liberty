@@ -6,13 +6,13 @@ deferred class AUX_RENAME3A
 feature {ANY}
    nb_element: INTEGER
 
-   plein: BOOLEAN is
+   plein: BOOLEAN
       require
          nb_element > 0
       deferred
       end
 
-   read_nb_element: INTEGER is
+   read_nb_element: INTEGER
       do
          Result := nb_element
       end

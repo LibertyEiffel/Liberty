@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          real_32: REAL_32; real_64: REAL_64; real: REAL; real_extended: REAL_EXTENDED; string: STRING
       do

@@ -14,12 +14,12 @@ feature {ANY}
 
    sweep_count: INTEGER
 
-   make (s: STRING) is
+   make (s: STRING)
       do
          name := s
       end
 
-   dispose is
+   dispose
       do
          sweep_count := sweep_count + 1
          if sweep_count > 1 then

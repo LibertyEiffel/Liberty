@@ -23,18 +23,18 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   for_rf7 (rf7: RUN_FEATURE_7): BOOLEAN is
+   for_rf7 (rf7: RUN_FEATURE_7): BOOLEAN
       do
          Result := for(rf7.base_feature.native, rf7.type_of_current, rf7.base_feature.first_name.to_string)
       end
 
-   for_rf8 (rf8: RUN_FEATURE_8): BOOLEAN is
+   for_rf8 (rf8: RUN_FEATURE_8): BOOLEAN
       do
          Result := for(rf8.base_feature.native, rf8.type_of_current, rf8.base_feature.first_name.to_string)
       end
 
 feature {}
-   for (native: NATIVE; a_type_of_current: like type_of_current; a_name: like name): BOOLEAN is
+   for (native: NATIVE; a_type_of_current: like type_of_current; a_name: like name): BOOLEAN
       local
          old_type_of_current: like type_of_current; old_name: like name
       do
@@ -57,7 +57,7 @@ feature {}
    name: STRING
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       do
          if as_and_then = name then
             check
@@ -100,26 +100,26 @@ feature {NATIVE_BUILT_IN}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
          flag := True
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          visited.parse_external_tag
          flag := ace.no_check and then not visited.c_inline
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       do
          -- *** VERIFIER ***
       end
 
 feature {}
-   make is
+   make
       do
       end
 

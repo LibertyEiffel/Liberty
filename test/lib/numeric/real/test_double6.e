@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          pi: REAL_64; s: STRING
       do
@@ -71,7 +71,7 @@ feature {ANY}
          assert(s.item(s.count) /= '.')
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

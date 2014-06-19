@@ -24,7 +24,7 @@ create {}
    make
 
 feature {}
-   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME)
       local
          interpreter: LIBERTY_INTERPRETER
          options: LIBERTY_INTERPRETER_OPTIONS
@@ -36,6 +36,6 @@ feature {}
          log.info.put_line(once "Exiting the liberty interpreter.")
       end
 
-   default_log_location: STRING is "${path_liberty}/resources/log/libertyi-log.rc"
+   default_log_location: STRING "${path_liberty}/resources/log/libertyi-log.rc"
 
 end -- class LIBERTYI

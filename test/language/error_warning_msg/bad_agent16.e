@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_function: FUNCTION[TUPLE[INTEGER_8], INTEGER]; i: INTEGER
       do

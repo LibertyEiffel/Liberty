@@ -20,7 +20,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   compile (a_rf8: RUN_FEATURE_8) is
+   compile (a_rf8: RUN_FEATURE_8)
       require
          rf8_does_need_c_wrapper(a_rf8)
       local
@@ -52,7 +52,7 @@ feature {}
    bcn, name: STRING
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       local
          cbd, cda: BOOLEAN; live_type_of_current: LIVE_TYPE; copy_run_feature: RUN_FEATURE
          i, id: INTEGER
@@ -436,7 +436,7 @@ feature {NATIVE_BUILT_IN}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
          if cpp.c_plus_plus_registered(visited) then
             extra_c_prototype(visited.external_tag.start_position, type_of_current, rf8.base_feature)
@@ -446,7 +446,7 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          visited.parse_external_tag
          if visited.need_prototype and then not cpp.c_registered(visited) then
@@ -457,13 +457,13 @@ feature {NATIVE_C}
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       do
          mapping_plug_in(visited, rf8.arguments)
       end
 
 feature {}
-   extra_c_prototype (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE) is
+   extra_c_prototype (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE)
       do
          extra_c_prototype_in_cpp_out_h_buffer(position, context_type, er)
          out_h.append(once ";%N")
@@ -472,7 +472,7 @@ feature {}
          cpp.write_out_c_buffer
       end
 
-   mapping_c (visited: NATIVE_C; er: EXTERNAL_ROUTINE; wrapped, is_function: BOOLEAN; arg_count: INTEGER) is
+   mapping_c (visited: NATIVE_C; er: EXTERNAL_ROUTINE; wrapped, is_function: BOOLEAN; arg_count: INTEGER)
          -- Where `wrapped' means that the code is wrapped inside some function (-no_check mode).
       local
          tcbd, stop: BOOLEAN; p: POSITION; c_code, arg: STRING; cc: CHARACTER; i, arg_idx: INTEGER
@@ -620,7 +620,7 @@ feature {}
          cpp.put_position_comment(p)
       end
 
-   mapping_plug_in (plugin: NATIVE_PLUG_IN; arguments: FORMAL_ARG_LIST) is
+   mapping_plug_in (plugin: NATIVE_PLUG_IN; arguments: FORMAL_ARG_LIST)
       local
          cbd: BOOLEAN
       do
@@ -640,7 +640,7 @@ feature {}
       end
 
 feature {} -- built-ins
-   c_mapping_standard_twin is
+   c_mapping_standard_twin
       do
          if type_of_current.is_kernel_expanded then
             cpp.put_target_as_value
@@ -668,7 +668,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_native_array_function is
+   c_mapping_native_array_function
       local
          elt_type: TYPE; tcbd: BOOLEAN
       do
@@ -731,7 +731,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_real is
+   c_mapping_real
       require
          type_of_current.is_real
          rf8.arg_count = 0 or rf8.arg_count = 1
@@ -882,7 +882,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_integer_function is
+   c_mapping_integer_function
       require
          type_of_current.is_integer
       local
@@ -1058,7 +1058,7 @@ feature {} -- built-ins
          end
       end
 
-   c_modular_computation (integer_bit_count: INTEGER; operator: CHARACTER) is
+   c_modular_computation (integer_bit_count: INTEGER; operator: CHARACTER)
       do
          function_body.append(once "(int")
          integer_bit_count.append_in(function_body)
@@ -1075,7 +1075,7 @@ feature {} -- built-ins
          function_body.append(once ")))")
       end
 
-   c_mapping_natural_function is
+   c_mapping_natural_function
       require
          type_of_current.is_natural
       local
@@ -1203,7 +1203,7 @@ feature {} -- built-ins
          end
       end
 
-   c_deep_twin_body (live_type: LIVE_TYPE) is
+   c_deep_twin_body (live_type: LIVE_TYPE)
       require
          cpp.pending_c_function
          live_type.at_run_time
@@ -1329,7 +1329,7 @@ feature {} -- built-ins
          internal_c_local.unlock
       end
 
-   c_field_access (live_type: LIVE_TYPE; internal_c_local: INTERNAL_C_LOCAL; field_name: STRING) is
+   c_field_access (live_type: LIVE_TYPE; internal_c_local: INTERNAL_C_LOCAL; field_name: STRING)
       do
          if live_type.is_reference then
             function_body.append(once "((T")
@@ -1350,7 +1350,7 @@ feature {} -- built-ins
          function_body.append(field_name)
       end
 
-   is_deep_equal_c_code (live_type: LIVE_TYPE) is
+   is_deep_equal_c_code (live_type: LIVE_TYPE)
       require
          cpp.pending_c_function
       local
@@ -1483,10 +1483,10 @@ feature {} -- built-ins
          function_body.append(once "}%Nse_deep_equal_trats()%N")
       end
 
-   em1: STRING is "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
+   em1: STRING "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
 
 feature {} -- C++
-   wrapped_external_call_in (visited: NATIVE_C_PLUS_PLUS; body: STRING; er: EXTERNAL_ROUTINE; arg_count: INTEGER) is
+   wrapped_external_call_in (visited: NATIVE_C_PLUS_PLUS; body: STRING; er: EXTERNAL_ROUTINE; arg_count: INTEGER)
       local
          i: INTEGER
       do
@@ -1514,7 +1514,7 @@ feature {} -- C++
       end
 
 feature {}
-   make is
+   make
       do
       end
 

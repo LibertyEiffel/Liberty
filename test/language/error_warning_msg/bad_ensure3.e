@@ -12,7 +12,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          make
 
@@ -20,14 +20,14 @@ feature {}
          make2
       end
 
-   make is
+   make
       do
          attr := attr + 2
       ensure -- 'ensure then' is needed
          attr = 2
       end
 
-   make2 is
+   make2
       do
          attr := attr + 2
       ensure then -- 'ensure' is needed

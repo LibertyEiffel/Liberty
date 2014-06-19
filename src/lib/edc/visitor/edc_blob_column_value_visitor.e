@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_BLOB_COLUMN_VALUE}
-   visit_blob_column_value (a_string_column_value: EDC_BLOB_COLUMN_VALUE) is
+   visit_blob_column_value (a_string_column_value: EDC_BLOB_COLUMN_VALUE)
       deferred
       end
 

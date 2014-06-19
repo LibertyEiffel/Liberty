@@ -12,38 +12,38 @@ inherit
 create {ANY} make
 
 feature {ANY} 
-	store is
+	store
 		do
 			types.fast_put(Current,id)	
 		end
 
 
-	is_fundamental: BOOLEAN is
+	_fundamental: BOOLEAN
 		do
-			Result:=types.at(type).is_fundamental
+			Result:=types.at(type)._fundamental
 		end
 
-	is_void: BOOLEAN is
+	_void: BOOLEAN
 		do
-			Result:=types.at(type).is_void
+			Result:=types.at(type)._void
 		end
 
-	has_wrapper: BOOLEAN is
+	has_wrapper: BOOLEAN
 		do
 			Result:=types.at(type).has_wrapper
 		end
 		
-	wrapper_type: STRING is
+	wrapper_type: STRING
 		do
 			Result:= types.at(type).wrapper_type
 		end
-	-- invariant name.is_equal(once U"CvQualifiedType")
+	-- invariant name._equal(once U"CvQualifiedType")
 end -- class C_QUALIFIED_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -53,4 +53,4 @@ end -- class C_QUALIFIED_TYPE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

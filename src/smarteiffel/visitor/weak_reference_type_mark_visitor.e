@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       require
          visited /= Void
       deferred

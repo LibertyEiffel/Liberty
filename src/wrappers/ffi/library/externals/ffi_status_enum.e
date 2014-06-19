@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bad_abi_low_level)  or else
 				(a_value = bad_typedef_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bad_abi is
+	set_bad_abi
 		do
 			value := bad_abi_low_level
 		end
 
-	set_bad_typedef is
+	set_bad_typedef
 		do
 			value := bad_typedef_low_level
 		end
 
-	set_ok is
+	set_ok
 		do
 			value := ok_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bad_abi: BOOLEAN is
+	is_bad_abi: BOOLEAN
 		do
 			Result := (value=bad_abi_low_level)
 		end
 
-	is_bad_typedef: BOOLEAN is
+	is_bad_typedef: BOOLEAN
 		do
 			Result := (value=bad_typedef_low_level)
 		end
 
-	is_ok: BOOLEAN is
+	is_ok: BOOLEAN
 		do
 			Result := (value=ok_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_abi_low_level: INTEGER is
+	bad_abi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	bad_typedef_low_level: INTEGER is
+	bad_typedef_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ok_low_level: INTEGER is
+	ok_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

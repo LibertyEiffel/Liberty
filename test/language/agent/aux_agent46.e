@@ -7,7 +7,7 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   test is
+   test
       local
          p: PROCEDURE[TUPLE]
       do
@@ -15,7 +15,7 @@ feature {ANY}
          p.call([])
       end
 
-   f is
+   f
       do
          assert(assert_counter.item = 0)
       end

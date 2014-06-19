@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
          --***      local
          --***         h1, h2: HASHABLE
          --*** What for Mister Bezault ;-)

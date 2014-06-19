@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       require
          visited /= Void
       deferred

@@ -16,12 +16,12 @@ create {}
 feature {ANY}
    x: TEST_JB01
 
-   p: STRING is
+   p: STRING
       do
          Result := "TEST.p"
       end
 
-   make is
+   make
       local
          a: TEST_JB01; b: AUX_JB01; v1, v2: STRING
       do
@@ -55,7 +55,7 @@ feature {ANY}
          assert(a.p.is_equal("TEST.p"))
       end
 
-   assert (boolean: BOOLEAN) is
+   assert (boolean: BOOLEAN)
       do
          cpt := cpt + 1
          if not boolean then

@@ -25,7 +25,7 @@ inherit
    VISITABLE
 
 feature {ANY}
-   infix "and" (other: EDC_EXPRESSION): EDC_EXPRESSION is
+   infix "and" (other: EDC_EXPRESSION): EDC_EXPRESSION
       require
          other /= Void
       do
@@ -34,7 +34,7 @@ feature {ANY}
          Result /= Void
       end
 
-   infix "or" (other: EDC_EXPRESSION): EDC_EXPRESSION is
+   infix "or" (other: EDC_EXPRESSION): EDC_EXPRESSION
       require
          other /= Void
       do
@@ -43,7 +43,7 @@ feature {ANY}
          Result /= Void
       end
 
-   prefix "not": EDC_EXPRESSION is
+   prefix "not": EDC_EXPRESSION
       do
          create {EDC_NOT_EXPRESSION} Result.make(Current)
       ensure
@@ -51,20 +51,20 @@ feature {ANY}
       end
 
 feature {ANY}
-   can_call: BOOLEAN is
+   can_call: BOOLEAN
       deferred
       end
 
-   open_count: INTEGER is
+   open_count: INTEGER
       deferred
       end
 
 feature {EDC_SELECTABLE, EDC_EXPRESSION}
-   clear_prepare is
+   clear_prepare
       deferred
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       require
          arguments /= Void implies arguments.count >= open_count
          arguments /= Void implies arguments.valid_index(cursor)
@@ -74,26 +74,26 @@ feature {EDC_SELECTABLE, EDC_EXPRESSION}
          can_call
       end
 
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       deferred
       end
 
 feature {ANY}
-   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN is
+   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN
          -- True if the expression matches for the given columns and data.
       require
          a_columns.count = a_data.count
       deferred
       end
 
-   can_match (a_column: EDC_COLUMN): BOOLEAN is
+   can_match (a_column: EDC_COLUMN): BOOLEAN
          -- True if the expression ''can match'' for the column `a_column' (i.e. not necessarily matches, but
          -- ''can'').
       deferred
       end
 
 feature {EDC_SELECTABLE}
-   set_parameter_positions is
+   set_parameter_positions
       local
          lost: INTEGER
       do

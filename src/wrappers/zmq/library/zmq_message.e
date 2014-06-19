@@ -16,7 +16,7 @@ insert
 create {ANY} copy,default_create, with_size
 
 feature {} -- Creation
-	default_create is
+	default_create
 		-- Initialize an empty ØMQ message
 		do
 			handle := malloc(struct_size)
@@ -24,7 +24,7 @@ feature {} -- Creation
 			if is_unsuccessful then throw(zmq_exception) end
 		end
 
-	with_size (a_size: like size) is
+	with_size (a_size: like size)
 		-- Initialize a ØMQ message `a_size' bytes long. The implementation
 		-- chooses whether it is more efficient to store message content on the
 		-- stack (small  messages) or  on  the  heap  (large  messages).
@@ -37,7 +37,7 @@ feature {} -- Creation
 		if is_unsuccessful then throw(zmq_exception) end
 	end
 
-	--with (some_data: ANY) is
+	--with (some_data: ANY)
 	--	-- Initialize a ØMQ message with `some_data'; the
 	--	-- physical piece of memory is referred by and NOT copied. This means
 	--	-- that 
@@ -64,7 +64,7 @@ feature {} -- Creation
 	--end
 
 feature {ANY} -- Queries
-	size: like zmq_msg_size is
+	size: like zmq_msg_size
 		-- the size of message content
 	
 		-- TODO: shall be like size_t
@@ -73,14 +73,14 @@ feature {ANY} -- Queries
 	end
 
 feature {ANY} -- Convertions.
-	as_string_message: ZMQ_STRING_MESSAGE is
+	as_string_message: ZMQ_STRING_MESSAGE
 		-- A string message with the same content of
 	do
 		create Result.from_message(Current)
 	end
 
 feature {ANY} -- Disposing
-	dispose is
+	dispose
 		do
 			close
 			free(handle)
@@ -88,7 +88,7 @@ feature {ANY} -- Disposing
 	
 
 feature {ANY} -- Command
-	initialize is
+	initialize
 		-- Initialize message
 	do
 		is_successful := zmq_msg_init(handle)=0
@@ -96,7 +96,7 @@ feature {ANY} -- Command
 	end
 
 feature {ZMQ_RECEIVING_SOCKET} 
-	update is
+	update
 		-- Do whatever is needed to update the status of Current. Used by
 		-- receive commands of a ZMQ_RECEIVING_SOCKET.  For example a
 		-- ZMQ_STRING_MESSAGE will look for its actual lenght after being
@@ -104,12 +104,12 @@ feature {ZMQ_RECEIVING_SOCKET}
 	do end
 
 feature {} -- Implementation
-	close is
+	close
 		do
 			handle_return_value(zmq_msg_close(handle))
 		end
 	
-	data: POINTER is
+	data: POINTER
 		do
 			Result:=zmq_msg_data(handle)
 		end

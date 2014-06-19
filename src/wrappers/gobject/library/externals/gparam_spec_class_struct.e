@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_class_struct_set_value_type (a_structure: POINTER; a_value: like long_unsigned) is
+	gparam_spec_class_struct_set_value_type (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for value_type field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_class_struct_set_finalize (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_class_struct_set_finalize (a_structure: POINTER; a_value: POINTER)
 			-- Setter for finalize field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_class_struct_set_value_set_default (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_class_struct_set_value_set_default (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_set_default field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_class_struct_set_value_validate (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_class_struct_set_value_validate (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_validate field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_class_struct_set_values_cmp (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_class_struct_set_values_cmp (a_structure: POINTER; a_value: POINTER)
 			-- Setter for values_cmp field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_class_struct_set_dummy (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_class_struct_set_dummy (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dummy field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	gparam_spec_class_struct_get_value_type (a_structure: POINTER): like long_unsigned is
+	gparam_spec_class_struct_get_value_type (a_structure: POINTER): like long_unsigned
 			-- Query for value_type field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_class_struct_get_finalize (a_structure: POINTER): POINTER is
+	gparam_spec_class_struct_get_finalize (a_structure: POINTER): POINTER
 			-- Query for finalize field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_class_struct_get_value_set_default (a_structure: POINTER): POINTER is
+	gparam_spec_class_struct_get_value_set_default (a_structure: POINTER): POINTER
 			-- Query for value_set_default field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -119,7 +119,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_class_struct_get_value_validate (a_structure: POINTER): POINTER is
+	gparam_spec_class_struct_get_value_validate (a_structure: POINTER): POINTER
 			-- Query for value_validate field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_class_struct_get_values_cmp (a_structure: POINTER): POINTER is
+	gparam_spec_class_struct_get_values_cmp (a_structure: POINTER): POINTER
 			-- Query for values_cmp field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -143,7 +143,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_class_struct_get_dummy (a_structure: POINTER): POINTER is
+	gparam_spec_class_struct_get_dummy (a_structure: POINTER): POINTER
 			-- Query for dummy field of GPARAM_SPEC_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -156,7 +156,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

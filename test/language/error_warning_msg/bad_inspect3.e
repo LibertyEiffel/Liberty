@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          inspect "toto"
          when toto then
          end
       end
 
-   toto: STRING is "toto"
+   toto: STRING "toto"
 
 end -- class BAD_INSPECT3
 --

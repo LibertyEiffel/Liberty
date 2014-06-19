@@ -5,7 +5,7 @@ insert
 
 create make
 feature 
-	make is
+	make
 		local gtk: GI_TYPELIB
 		do
 			g_type_init

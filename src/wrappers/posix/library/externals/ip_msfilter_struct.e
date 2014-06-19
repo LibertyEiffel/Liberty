@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ip_msfilter_struct_set_imsf_fmode (a_structure: POINTER; a_value: like uint32_t) is
+	ip_msfilter_struct_set_imsf_fmode (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for imsf_fmode field of IP_MSFILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ip_msfilter_struct_set_imsf_numsrc (a_structure: POINTER; a_value: like uint32_t) is
+	ip_msfilter_struct_set_imsf_numsrc (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for imsf_numsrc field of IP_MSFILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ip_msfilter_struct_set_imsf_slist (a_structure: POINTER; a_value: POINTER) is
+	ip_msfilter_struct_set_imsf_slist (a_structure: POINTER; a_value: POINTER)
 			-- Setter for imsf_slist field of IP_MSFILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -48,7 +48,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field imsf_multiaddr.
 	-- Unwrappable field imsf_interface.
-	ip_msfilter_struct_get_imsf_fmode (a_structure: POINTER): like uint32_t is
+	ip_msfilter_struct_get_imsf_fmode (a_structure: POINTER): like uint32_t
 			-- Query for imsf_fmode field of IP_MSFILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -60,7 +60,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ip_msfilter_struct_get_imsf_numsrc (a_structure: POINTER): like uint32_t is
+	ip_msfilter_struct_get_imsf_numsrc (a_structure: POINTER): like uint32_t
 			-- Query for imsf_numsrc field of IP_MSFILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -72,7 +72,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ip_msfilter_struct_get_imsf_slist (a_structure: POINTER): POINTER is
+	ip_msfilter_struct_get_imsf_slist (a_structure: POINTER): POINTER
 			-- Query for imsf_slist field of IP_MSFILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -85,7 +85,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

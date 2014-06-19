@@ -28,22 +28,22 @@ inherit
    VISITABLE
 
 feature {ANY}
-   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_DATUM is
+   value (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): EDC_DATUM
       require
          a_columns.count = a_data.count
       deferred
       end
 
 feature {EDC_EXPRESSION}
-   can_call: BOOLEAN is
+   can_call: BOOLEAN
       deferred
       end
 
-   open_count: INTEGER is
+   open_count: INTEGER
       deferred
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       require
          arguments = Void implies open_count = 0
          arguments /= Void implies arguments.count >= open_count
@@ -55,12 +55,12 @@ feature {EDC_EXPRESSION}
          can_call
       end
 
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       deferred
       end
 
 feature {ANY}
-   datum: EDC_DATUM is
+   datum: EDC_DATUM
       deferred
       end
 

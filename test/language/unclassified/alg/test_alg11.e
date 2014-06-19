@@ -26,7 +26,7 @@ feature {ANY}
 
    tw: ARRAY[AUX_ALG11W]
 
-   make is
+   make
       do
          create t
          create u

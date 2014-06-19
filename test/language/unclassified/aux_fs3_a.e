@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    f: X
 
-   make (vf: like f) is
+   make (vf: like f)
       do
          f := vf
          f.q

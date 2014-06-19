@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d1, d2: REAL; r1, r2: REAL_32
       do

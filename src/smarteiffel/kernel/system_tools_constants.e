@@ -4,58 +4,58 @@
 class SYSTEM_TOOLS_CONSTANTS
 
 feature {SERC_FACTORY, C_SPLITTER} -- Currently handled system list:
-   unix_system: STRING is "UNIX"
+   unix_system: STRING "UNIX"
 
-   windows_system: STRING is "Windows"
+   windows_system: STRING "Windows"
 
-   cygwin_system: STRING is "Cygwin"
+   cygwin_system: STRING "Cygwin"
 
-   beos_system: STRING is "BeOS"
+   beos_system: STRING "BeOS"
 
-   macintosh_system: STRING is "Macintosh"
+   macintosh_system: STRING "Macintosh"
 
-   amiga_system: STRING is "Amiga"
+   amiga_system: STRING "Amiga"
 
-   dos_system: STRING is "DOS"
+   dos_system: STRING "DOS"
 
-   os2_system: STRING is "OS2"
+   os2_system: STRING "OS2"
 
-   open_vms_system: STRING is "OpenVMS"
+   open_vms_system: STRING "OpenVMS"
 
-   elate_system: STRING is "Elate"
+   elate_system: STRING "Elate"
 
 feature {} -- Currently handled C/C++ compiler list:
-   gcc: STRING is "gcc"
+   gcc: STRING "gcc"
 
-   gpp: STRING is "g++"
+   gpp: STRING "g++"
 
-   distcc: STRING is "distcc"
+   distcc: STRING "distcc"
 
-   lcc_win32: STRING is "lcc-win32"
+   lcc_win32: STRING "lcc-win32"
 
-   cc: STRING is "cc"
+   cc: STRING "cc"
 
-   cc_pp: STRING is "CC"
+   cc_pp: STRING "CC"
 
-   wcl386: STRING is "wcl386"
+   wcl386: STRING "wcl386"
 
-   bcc32: STRING is "bcc32"
+   bcc32: STRING "bcc32"
 
-   cl: STRING is "cl"
+   cl: STRING "cl"
 
-   sas_c: STRING is "sc"
+   sas_c: STRING "sc"
 
-   dice: STRING is "dice"
+   dice: STRING "dice"
 
-   vbcc: STRING is "vbcc"
+   vbcc: STRING "vbcc"
 
-   ccc: STRING is "ccc"
+   ccc: STRING "ccc"
 
-   vpcc: STRING is "vpcc"
+   vpcc: STRING "vpcc"
 
-   open_vms_cc: STRING is "OpenVMS_CC"
+   open_vms_cc: STRING "OpenVMS_CC"
 
-   tcc: STRING is "tcc"
+   tcc: STRING "tcc"
 
 end -- class SYSTEM_TOOLS_CONSTANTS
 --

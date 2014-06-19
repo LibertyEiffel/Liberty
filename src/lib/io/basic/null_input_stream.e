@@ -14,51 +14,51 @@ inherit
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is False
+   end_of_input: BOOLEAN False
 
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   can_unread_character: BOOLEAN is True
+   can_unread_character: BOOLEAN True
 
-   disconnect is
+   disconnect
       do
          filter := Void
       end
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
       end
 
-   filtered_last_character: CHARACTER is '%U'
+   filtered_last_character: CHARACTER '%U'
 
-   filtered_read_line_in (buffer: STRING) is
+   filtered_read_line_in (buffer: STRING)
       do
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          std_error.put_string("NULL_INPUT_STREAM.filtered_descriptor has been called!%N")
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("NULL_INPUT_STREAM.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
-   dispose is
+   dispose
       do
          -- No need to force people to disconnect such a STREAM.
       end
@@ -71,7 +71,7 @@ end -- class NULL_INPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

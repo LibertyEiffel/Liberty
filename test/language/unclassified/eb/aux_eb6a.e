@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   foo is
+   foo
       do
       end
 

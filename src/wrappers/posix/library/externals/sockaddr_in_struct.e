@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	sockaddr_in_struct_set_sin_family (a_structure: POINTER; a_value: NATURAL_16) is
+	sockaddr_in_struct_set_sin_family (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for sin_family field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	sockaddr_in_struct_set_sin_port (a_structure: POINTER; a_value: like uint16_t) is
+	sockaddr_in_struct_set_sin_port (a_structure: POINTER; a_value: like uint16_t)
 			-- Setter for sin_port field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	sockaddr_in_struct_set_sin_zero (a_structure: POINTER; a_value: POINTER) is
+	sockaddr_in_struct_set_sin_zero (a_structure: POINTER; a_value: POINTER)
 			-- Setter for sin_zero field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	sockaddr_in_struct_get_sin_family (a_structure: POINTER): NATURAL_16 is
+	sockaddr_in_struct_get_sin_family (a_structure: POINTER): NATURAL_16
 			-- Query for sin_family field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	sockaddr_in_struct_get_sin_port (a_structure: POINTER): like uint16_t is
+	sockaddr_in_struct_get_sin_port (a_structure: POINTER): like uint16_t
 			-- Query for sin_port field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field sin_addr.
-	sockaddr_in_struct_get_sin_zero (a_structure: POINTER): POINTER is
+	sockaddr_in_struct_get_sin_zero (a_structure: POINTER): POINTER
 			-- Query for sin_zero field of SOCKADDR_IN_STRUCT structure.
 			-- TODO: getter description
 
@@ -84,7 +84,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

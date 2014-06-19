@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (v: STRING) is
+   make (v: STRING)
       local
          i: INTEGER
       do

@@ -7,7 +7,7 @@ deferred class INTERNALS_HANDLER
    --
 
 feature {}
-   frozen valid_generating_type_for_internals (type: STRING): BOOLEAN is
+   frozen valid_generating_type_for_internals (type: STRING): BOOLEAN
       require
          type /= Void
       external "built_in"
@@ -15,7 +15,7 @@ feature {}
          Result implies not type.has_prefix(once "NATIVE_ARRAY")
       end
 
-   frozen internals_from_generating_type (type: STRING): INTERNALS is
+   frozen internals_from_generating_type (type: STRING): INTERNALS
       require
          valid_generating_type_for_internals(type)
       external "built_in"
@@ -24,7 +24,7 @@ feature {}
          Result.object_can_be_modified
       end
 
-   frozen valid_generating_type_for_native_array_internals (type: STRING): BOOLEAN is
+   frozen valid_generating_type_for_native_array_internals (type: STRING): BOOLEAN
       require
          type /= Void
       external "built_in"
@@ -32,7 +32,7 @@ feature {}
          Result implies type.has_prefix(once "NATIVE_ARRAY")
       end
 
-   frozen native_array_internals_from_generating_type (type: STRING; capacity: INTEGER): INTERNALS is
+   frozen native_array_internals_from_generating_type (type: STRING; capacity: INTEGER): INTERNALS
       require
          valid_generating_type_for_native_array_internals(type)
       external "built_in"
@@ -49,7 +49,7 @@ end -- class INTERNALS_HANDLER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

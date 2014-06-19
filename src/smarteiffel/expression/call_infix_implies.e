@@ -18,23 +18,23 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 3
+   precedence: INTEGER 3
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_implies
       end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_IMPLIES_VISITOR) is
+   accept (visitor: CALL_INFIX_IMPLIES_VISITOR)
       do
          visitor.visit_call_infix_implies(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          lp: like target; rp: like arg1; then_compound, else_compound: INSTRUCTION; ifthenelse: IFTHENELSE
          internal_local2: INTERNAL_LOCAL2; sp: POSITION
@@ -72,7 +72,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+   make (lp: like target; operator_position: POSITION; rp: like arg1)
       require
          lp /= Void
          not operator_position.is_unknown

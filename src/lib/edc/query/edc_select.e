@@ -28,7 +28,7 @@ create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_SELECT_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   call (arguments: TRAVERSABLE[EDC_VALUE]): EDC_RESULT_SET is
+   call (arguments: TRAVERSABLE[EDC_VALUE]): EDC_RESULT_SET
       require
          arguments = Void implies open_count = 0
          arguments /= Void implies arguments.count = open_count
@@ -55,7 +55,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   order_by (a_columns: TRAVERSABLE[EDC_COLUMN]): like Current is
+   order_by (a_columns: TRAVERSABLE[EDC_COLUMN]): like Current
       do
          not_yet_implemented
          Result := Current

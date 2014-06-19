@@ -10,7 +10,7 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := is_set = other.is_set
             and then memo = other.memo
@@ -20,14 +20,14 @@ feature {ANY}
 feature {PACKRAT_INTERNAL}
    is_set: BOOLEAN
 
-   memo: INTEGER is
+   memo: INTEGER
       require
          is_set
       do
          Result := my_memo
       end
 
-   action_count: INTEGER is
+   action_count: INTEGER
       require
          is_set
       do
@@ -35,7 +35,7 @@ feature {PACKRAT_INTERNAL}
       end
 
 feature {PACKRAT_PARSE_CONTEXT}
-   set (a_memo: like memo; a_action_count: like action_count) is
+   set (a_memo: like memo; a_action_count: like action_count)
       require
          not is_set
       do
@@ -59,7 +59,7 @@ end -- class PACKRAT_CONTEXT_MEMO
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

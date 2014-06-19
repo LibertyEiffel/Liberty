@@ -11,14 +11,14 @@ create {}
    make
 
 feature {ANY} -- Initialization
-   make is
+   make
       do
          assert(x > 139.9)
          assert(x < 140.1)
       end
 
 feature {ANY} -- Constant
-   x: REAL is 140.0
+   x: REAL 140.0
          -- Value parsed is 14.0 !
 
 end -- class TEST_REAL_CONSTANT03

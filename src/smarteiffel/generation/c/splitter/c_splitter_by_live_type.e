@@ -16,7 +16,7 @@ create {ACE, CLEAN}
    make
 
 feature {}
-   check_clean (path_c, c: STRING): BOOLEAN is
+   check_clean (path_c, c: STRING): BOOLEAN
       do
          if c.has_prefix(path_c) then
             c.remove_prefix(path_c)
@@ -27,12 +27,12 @@ feature {}
          end
       end
 
-   do_split is
+   do_split
       do
          count := suffixes.count
       end
 
-   current_id: INTEGER is
+   current_id: INTEGER
       do
          if live_type /= Void then
             Result := live_type.id
@@ -41,20 +41,20 @@ feature {}
          end
       end
 
-   current_c_file_suffix: STRING is
+   current_c_file_suffix: STRING
       do
          Result := once ""
          Result.copy(once "_T")
          current_id.append_in(Result)
       end
 
-   c_files_suffixes: ITERATOR[STRING] is
+   c_files_suffixes: ITERATOR[STRING]
       do
          Result := suffixes.new_iterator
       end
 
 feature {}
-   append_suffix is
+   append_suffix
       local
          i, id: INTEGER
       do
@@ -65,13 +65,13 @@ feature {}
       end
 
 feature {C_PRETTY_PRINTER}
-   connect (path_c: STRING) is
+   connect (path_c: STRING)
       do
          Precursor(path_c)
          append_suffix
       end
 
-   set_live_type (a_live_type: like live_type) is
+   set_live_type (a_live_type: like live_type)
       do
          live_type := a_live_type
          append_suffix
@@ -79,14 +79,14 @@ feature {C_PRETTY_PRINTER}
 
    live_type: LIVE_TYPE
 
-   should_split (functions_count: INTEGER): BOOLEAN is
+   should_split (functions_count: INTEGER): BOOLEAN
       do
          if not dont_split then
             Result := count < suffixes.count -- True if a new LIVE_TYPE has been set
          end
       end
 
-   linker_command (c_file_prefix: STRING): STRING is
+   linker_command (c_file_prefix: STRING): STRING
       local
          c_name, object: STRING; objects: FAST_ARRAY[STRING]; i: INTEGER
       do
@@ -108,13 +108,13 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {ACE}
-   pretty_ace_in (txt: STRING) is
+   pretty_ace_in (txt: STRING)
       do
          txt.append("   split (%"by type%")%N")
       end
 
 feature {}
-   make is
+   make
       do
          create suffixes.make(0)
          create ids.make(0)

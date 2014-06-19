@@ -19,7 +19,7 @@ create {ANY}
    make_aux
 
 feature {ANY}
-   make is
+   make
       local
          temp: like Current
       do
@@ -27,7 +27,7 @@ feature {ANY}
          assert(temp.generating_type.is_equal("TEST_PRECURSOR14"))
       end
 
-   foo: like Current is
+   foo: like Current
       do
          Result := Precursor
       end

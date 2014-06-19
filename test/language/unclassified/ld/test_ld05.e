@@ -12,7 +12,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          expanded_object_once.set_value(21)
       end

@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = default_external_low_level)  or else
 				(a_value = iec_units_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_default_external is
+	set_default_external
 		do
 			value := default_external_low_level
 		end
 
-	set_iec_units is
+	set_iec_units
 		do
 			value := iec_units_low_level
 		end
 
-	set_long_format is
+	set_long_format
 		do
 			value := long_format_low_level
 		end
 
 feature {ANY} -- Queries
-	is_default_external: BOOLEAN is
+	is_default_external: BOOLEAN
 		do
 			Result := (value=default_external_low_level)
 		end
 
-	is_iec_units: BOOLEAN is
+	is_iec_units: BOOLEAN
 		do
 			Result := (value=iec_units_low_level)
 		end
 
-	is_long_format: BOOLEAN is
+	is_long_format: BOOLEAN
 		do
 			Result := (value=long_format_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	default_external_low_level: INTEGER is
+	default_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	iec_units_low_level: INTEGER is
+	iec_units_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	long_format_low_level: INTEGER is
+	long_format_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

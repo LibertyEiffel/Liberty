@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          l_integer: LINKED_LIST[INTEGER];
          c: COLLECTION[STRING];

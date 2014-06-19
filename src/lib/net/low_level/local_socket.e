@@ -18,7 +18,7 @@ feature {SOCKET_HANDLER}
    port: INTEGER
 
 feature {SOCKET_SERVER, SOCKET_HANDLER}
-   bind (server: SOCKET_SERVER; a_sync: BOOLEAN) is
+   bind (server: SOCKET_SERVER; a_sync: BOOLEAN)
          -- Binds the socket to the server.
       do
          if bind_values.is_null then
@@ -43,7 +43,7 @@ feature {SOCKET_SERVER, SOCKET_HANDLER}
       end
 
 feature {}
-   make (a_port: INTEGER; a_sync: BOOLEAN) is
+   make (a_port: INTEGER; a_sync: BOOLEAN)
       do
          set_sync(a_sync)
          if last_delayed_read = Void then
@@ -63,7 +63,7 @@ end -- class LOCAL_SOCKET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

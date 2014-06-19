@@ -27,7 +27,7 @@ create {}
    make
 
 feature {}
-   find_string (string: STRING): BOOLEAN is
+   find_string (string: STRING): BOOLEAN
       do
          inspect string
          when "dummy" then
@@ -37,7 +37,7 @@ feature {}
          end
       end
 
-   make is
+   make
       do
          assert(find_string("dummy"))
       end

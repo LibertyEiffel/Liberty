@@ -14,7 +14,7 @@ feature {ANY}
 
    aa: AUX_XC2AA[INTEGER]
 
-   make is
+   make
       do
          aa := s2a
       end

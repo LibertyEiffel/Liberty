@@ -7,18 +7,18 @@ inherit
    MESSAGE_FORMATTER[CHARACTER, ABSTRACT_STRING]
 
 feature {}
-   delimiter: CHARACTER is '@'
+   delimiter: CHARACTER '@'
 
-   opening_brace: CHARACTER is '('
+   opening_brace: CHARACTER '('
 
-   closing_brace: CHARACTER is ')'
+   closing_brace: CHARACTER ')'
 
-   is_digit (c: CHARACTER): BOOLEAN is
+   is_digit (c: CHARACTER): BOOLEAN
       do
          Result := c.is_digit
       end
 
-   value (c: CHARACTER): INTEGER is
+   value (c: CHARACTER): INTEGER
       do
          Result := c.value
       end
@@ -31,7 +31,7 @@ end -- class STRING_FORMATTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

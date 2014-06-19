@@ -15,7 +15,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          make_foo;
       end;

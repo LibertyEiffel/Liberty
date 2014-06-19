@@ -14,12 +14,12 @@ insert
       end
 
 feature {ANY}
-   f1 is
+   f1
       do
          print("TEST_INTEGER1: ERROR in TEST_SELECT1.%N")
       end
 
-   f2 is
+   f2
       do
          -- print ("F2%N")
       end

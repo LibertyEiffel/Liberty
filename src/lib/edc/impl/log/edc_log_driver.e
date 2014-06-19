@@ -40,7 +40,7 @@ create {ANY}
    make
 
 feature {EDC_CONNECTION_FACTORY}
-   valid_url (url: STRING): BOOLEAN is
+   valid_url (url: STRING): BOOLEAN
       local
          suburl: STRING
       do
@@ -50,7 +50,7 @@ feature {EDC_CONNECTION_FACTORY}
          end
       end
 
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION is
+   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION
       do
          log.put_string(once "-- connecting to ")
          log.put_string(url)
@@ -59,7 +59,7 @@ feature {EDC_CONNECTION_FACTORY}
       end
 
 feature {}
-   nested_url (url: STRING): STRING is
+   nested_url (url: STRING): STRING
       local
          suburl: STRING
       do
@@ -72,7 +72,7 @@ feature {}
       end
 
 feature {}
-   make (a_log: like log) is
+   make (a_log: like log)
       require
          a_log /= Void
       do

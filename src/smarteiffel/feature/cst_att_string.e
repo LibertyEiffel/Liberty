@@ -13,7 +13,7 @@ create {CST_ATT_STRING}
    with
 
 feature {ANY}
-   accept (visitor: CST_ATT_STRING_VISITOR) is
+   accept (visitor: CST_ATT_STRING_VISITOR)
       do
          visitor.visit_cst_att_string(Current)
       end
@@ -27,7 +27,7 @@ feature {}
          -- in most cases, this is simply one, because people are not
          -- used to have a lot of synonyms).
 
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
          --|*** remove rank and change add_into_ to use default definition.
       local
          n: like names; fn: FEATURE_NAME; i: INTEGER; cst_att_string: like Current
@@ -50,7 +50,7 @@ feature {}
          end
       end
 
-   make (rt: like result_type; ms: MANIFEST_STRING) is
+   make (rt: like result_type; ms: MANIFEST_STRING)
       require
          rt /= Void
          ms /= Void
@@ -62,7 +62,7 @@ feature {}
          value_memory = ms
       end
 
-   with (ft: like feature_text; model: like Current; r: like rank) is
+   with (ft: like feature_text; model: like Current; r: like rank)
       require
          ft /= Void
          model /= Void
@@ -78,7 +78,7 @@ feature {}
          value /= model.value and value.is_equal(model.value)
       end
 
-   pretty_constant_value (indent_level: INTEGER) is
+   pretty_constant_value (indent_level: INTEGER)
       do
          value_memory.pretty_without_once(indent_level)
       end

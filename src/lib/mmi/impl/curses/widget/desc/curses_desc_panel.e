@@ -10,53 +10,53 @@ create {CURSES_DESCRIPTOR}
    make
 
 feature {CURSES_DESCRIPTOR}
-   build (parent: NCURSES_WINDOW) is
+   build (parent: NCURSES_WINDOW)
       do
          layout_manager.build(parent)
          ncurses_widget := layout_manager.ncurses_widget
       end
 
-   layout (a_x, a_y, a_width, a_height: INTEGER) is
+   layout (a_x, a_y, a_width, a_height: INTEGER)
       do
          layout_manager.layout(a_x, a_y, a_width, a_height)
       end
 
-   x: INTEGER is
+   x: INTEGER
       do
          Result := layout_manager.x
       end
 
-   y: INTEGER is
+   y: INTEGER
       do
          Result := layout_manager.y
       end
 
-   width: INTEGER is
+   width: INTEGER
       do
          Result := layout_manager.width
       end
 
-   height: INTEGER is
+   height: INTEGER
       do
          Result := layout_manager.height
       end
 
-   min_width: INTEGER is
+   min_width: INTEGER
       do
          Result := layout_manager.min_width
       end
 
-   min_height: INTEGER is
+   min_height: INTEGER
       do
          Result := layout_manager.min_height
       end
 
-   max_width: INTEGER is
+   max_width: INTEGER
       do
          Result := layout_manager.max_width
       end
 
-   max_height: INTEGER is
+   max_height: INTEGER
       do
          Result := layout_manager.max_height
       end
@@ -64,7 +64,7 @@ feature {CURSES_DESCRIPTOR}
 feature {}
    layout_manager: CURSES_DESC_LAYOUT
 
-   make (ui: UI_WINDOW; desc: JSON_VALUE) is
+   make (ui: UI_WINDOW; desc: JSON_VALUE)
       local
          descriptor: JSON_OBJECT
          layout_val: JSON_VALUE
@@ -97,7 +97,7 @@ feature {}
          end
       end
 
-   make_layout (ui: UI_WINDOW; layout_str: JSON_STRING; layout_ary: JSON_ARRAY; widgets: JSON_VALUE) is
+   make_layout (ui: UI_WINDOW; layout_str: JSON_STRING; layout_ary: JSON_ARRAY; widgets: JSON_VALUE)
       require
          layout_str /= Void
          layout_ary /= Void implies layout_ary.first = layout_str
@@ -125,7 +125,7 @@ end -- class CURSES_DESC_PANEL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

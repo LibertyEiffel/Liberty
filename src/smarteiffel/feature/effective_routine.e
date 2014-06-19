@@ -13,9 +13,9 @@ inherit
       end
 
 feature {ANY}
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   frozen rescue_compound_in (type: TYPE): like rescue_compound is
+   frozen rescue_compound_in (type: TYPE): like rescue_compound
       do
          Result := rescue_compound
          if Result = Void then
@@ -25,12 +25,12 @@ feature {ANY}
 
    rescue_compound: INSTRUCTION
 
-   set_rescue_compound (rc: like rescue_compound) is
+   set_rescue_compound (rc: like rescue_compound)
       do
          rescue_compound := rc
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := True
          if local_vars /= Void then
@@ -52,7 +52,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if routine_body /= Void then
             Result := routine_body.use_current(type)
@@ -71,7 +71,7 @@ feature {ANY}
       end
 
 feature {FEATURE_ACCUMULATOR}
-   frozen same_body_as (other: ANONYMOUS_FEATURE): BOOLEAN is
+   frozen same_body_as (other: ANONYMOUS_FEATURE): BOOLEAN
       do
          Result := Precursor(other)
          if Result then
@@ -80,7 +80,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
          cfa: like closure_arguments
@@ -123,7 +123,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          lv_memory: like local_vars; clv_memory: like closure_local_vars
          fa_memory: like arguments; cfa_memory: like closure_arguments
@@ -170,7 +170,7 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
          cfa: like closure_arguments
@@ -213,7 +213,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          rb: like routine_body; rc: like rescue_compound
       do
@@ -236,7 +236,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
       end
 
 feature {EFFECTIVE_ROUTINE}
-   init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; rc: like rescue_compound) is
+   init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; rc: like rescue_compound)
       do
          local_vars := lv
          closure_local_vars := clv
@@ -252,7 +252,7 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {}
-   collect_body (type: TYPE) is
+   collect_body (type: TYPE)
       local
          dummy: TYPE
       do
@@ -270,22 +270,22 @@ feature {}
       end
 
 feature {}
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       do
          add_into_shared(ft, fd)
       end
 
    use_current_state: INTEGER
 
-   computed_true: INTEGER is unique
+   computed_true: INTEGER unique
 
-   computed_false: INTEGER is unique
+   computed_false: INTEGER unique
 
-   not_computed: INTEGER is unique
+   not_computed: INTEGER unique
 
-   in_computation: INTEGER is unique
+   in_computation: INTEGER unique
 
-   pretty_print_routine_body (indent_level: INTEGER) is
+   pretty_print_routine_body (indent_level: INTEGER)
       do
          if local_vars /= Void then
             local_vars.pretty
@@ -296,11 +296,11 @@ feature {}
          end
       end
 
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       deferred
       end
 
-   pretty_print_rescue (indent_level: INTEGER) is
+   pretty_print_rescue (indent_level: INTEGER)
       do
          if rescue_compound /= Void then
             pretty_printer.set_indent_level(indent_level)
@@ -310,7 +310,7 @@ feature {}
       end
 
    make_effective_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
       do
          make_routine(fa, om, hc, ra, c)
          local_vars := lv
@@ -322,7 +322,7 @@ feature {}
          has_closures = c
       end
 
-   left_most_current_direct_call_0_sequence (type: TYPE; e: EXPRESSION): CALL_0 is
+   left_most_current_direct_call_0_sequence (type: TYPE; e: EXPRESSION): CALL_0
          -- Is `e' a direct inlinable sequence of CALL_0 with a left-most Current?
          -- Examples: Current.foo
          --           Current.foo.bar
@@ -376,7 +376,7 @@ feature {}
       end
 
    left_most_current_direct_call_0_sequence_inline (type: TYPE; call_0: CALL_0; target_type: TYPE
-      target: EXPRESSION): CALL_0 is
+      target: EXPRESSION): CALL_0
       require
          type /= Void
          call_0.resolve_in(target_type) /= Void
@@ -396,7 +396,7 @@ feature {}
       end
 
 feature {ANONYMOUS_FEATURE}
-   no_rescue_no_local_expanded_in (type: TYPE): BOOLEAN is
+   no_rescue_no_local_expanded_in (type: TYPE): BOOLEAN
       do
          Result := True
          if local_vars /= Void then
@@ -411,7 +411,7 @@ feature {ANONYMOUS_FEATURE}
       end
 
 feature {}
-   remove_first_redundant_initialisation (type: TYPE; rb: like routine_body): INSTRUCTION is
+   remove_first_redundant_initialisation (type: TYPE; rb: like routine_body): INSTRUCTION
          -- The goal is to remove the first assignment of `rb' when this assignment
          -- (re)set the default value to some local (or Result).
       require
@@ -440,7 +440,7 @@ feature {}
       end
 
 feature {}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          position: POSITION; compound: COMPOUND; sedb: INSTRUCTION
       do

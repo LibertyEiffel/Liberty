@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    bad_type: like Current
 
-   make is
+   make
       local
          p: PROCEDURE[like bad_type]
       do

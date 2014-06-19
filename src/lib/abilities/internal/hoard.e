@@ -8,7 +8,7 @@ deferred class HOARD[E_]
    --
 
 feature {ANY} -- Counting:
-   count: INTEGER is
+   count: INTEGER
          -- Number of available items in the hoard.
          --
          -- See also `is_empty'
@@ -17,7 +17,7 @@ feature {ANY} -- Counting:
          Result >= 0
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Is the hoard empty ?
          --
          -- See also `count'.
@@ -27,7 +27,7 @@ feature {ANY} -- Counting:
       end
 
 feature {ANY} -- Agent-based features:
-   for_each (action: PROCEDURE[TUPLE[E_]]) is
+   for_each (action: PROCEDURE[TUPLE[E_]])
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -36,7 +36,7 @@ feature {ANY} -- Agent-based features:
       deferred
       end
 
-   frozen do_all (action: ROUTINE[TUPLE[E_]]) is
+   frozen do_all (action: ROUTINE[TUPLE[E_]])
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -54,7 +54,7 @@ feature {ANY} -- Agent-based features:
          for_each(p)
       end
 
-   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Do all items satisfy `test'?
          --
          -- See also `for_each', `exists', `aggregate'.
@@ -63,7 +63,7 @@ feature {ANY} -- Agent-based features:
       deferred
       end
 
-   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Does at least one item satisfy `test'?
          --
          -- See also `for_each', `for_all', `aggregate'.
@@ -72,7 +72,7 @@ feature {ANY} -- Agent-based features:
       deferred
       end
 
-   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_
          -- Aggregate all the elements starting from the initial value.
          --
          -- See also `for_each', `for_all', `exists'.
@@ -89,7 +89,7 @@ end -- class HOARD
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

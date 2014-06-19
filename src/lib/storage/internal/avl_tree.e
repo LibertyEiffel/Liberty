@@ -11,7 +11,7 @@ insert
    AVL_CONSTANTS
 
 feature {ANY}
-   debug_string: STRING is
+   debug_string: STRING
       do
          if root = Void then
             Result := once "Void"
@@ -25,12 +25,12 @@ feature {ANY}
    count: INTEGER
 
 feature {ANY} -- Adding and removing:
-   remove (e: E_) is
+   remove (e: E_)
       do
          root := do_remove(root, e)
       end
 
-   fast_remove (e: E_) is
+   fast_remove (e: E_)
       do
          root := fast_do_remove(root, e)
       end
@@ -42,15 +42,15 @@ feature {}
 
    item_memory: E_
 
-   set_value_and_key (n: like a_new_node) is
+   set_value_and_key (n: like a_new_node)
       deferred
       end
 
-   set_value (n: like a_new_node) is
+   set_value (n: like a_new_node)
       deferred
       end
 
-   fast_do_insert (n: like a_new_node): like a_new_node is
+   fast_do_insert (n: like a_new_node): like a_new_node
       do
          if n = Void then
             Result := new_node
@@ -86,7 +86,7 @@ feature {}
          rebalance = (node_height(Result) > old node_height(n))
       end
 
-   do_insert (n: like a_new_node): like a_new_node is
+   do_insert (n: like a_new_node): like a_new_node
       do
          if n = Void then
             Result := new_node
@@ -122,7 +122,7 @@ feature {}
          rebalance = (node_height(Result) > old node_height(n))
       end
 
-   left_grown (n: like a_new_node): like a_new_node is
+   left_grown (n: like a_new_node): like a_new_node
       require
          rebalance
          n /= Void
@@ -166,7 +166,7 @@ feature {}
          rebalance = (node_height(Result) > 1 + old node_height(n.right).max(node_height(n.left) - 1))
       end
 
-   right_grown (n: like a_new_node): like a_new_node is
+   right_grown (n: like a_new_node): like a_new_node
       require
          rebalance
          n /= Void
@@ -210,7 +210,7 @@ feature {}
          rebalance = (node_height(Result) > 1 + old node_height(n.left).max(node_height(n.right) - 1))
       end
 
-   fast_do_remove (n: like a_new_node; e: E_): like a_new_node is
+   fast_do_remove (n: like a_new_node; e: E_): like a_new_node
       do
          if n = Void then
             rebalance := False
@@ -252,7 +252,7 @@ feature {}
          rebalance = (node_height(Result) < old node_height(n))
       end
 
-   do_remove (n: like a_new_node; e: E_): like a_new_node is
+   do_remove (n: like a_new_node; e: E_): like a_new_node
       do
          if n = Void then
             rebalance := False
@@ -289,7 +289,7 @@ feature {}
          rebalance = (node_height(Result) < old node_height(n))
       end
 
-   remove_right (n1, n2: like a_new_node): like a_new_node is
+   remove_right (n1, n2: like a_new_node): like a_new_node
       require
          n1 /= Void
          n2 /= Void
@@ -310,7 +310,7 @@ feature {}
          rebalance = (node_height(Result) < old node_height(n2))
       end
 
-   left_shrunk (n: like a_new_node): like a_new_node is
+   left_shrunk (n: like a_new_node): like a_new_node
       require
          rebalance
          n /= Void
@@ -359,7 +359,7 @@ feature {}
          rebalance = (node_height(Result) < 1 + old node_height(n.right).max(node_height(n.left) + 1))
       end
 
-   right_shrunk (n: like a_new_node): like a_new_node is
+   right_shrunk (n: like a_new_node): like a_new_node
       require
          rebalance
          n /= Void
@@ -408,7 +408,7 @@ feature {}
          rebalance = (node_height(Result) < 1 + old node_height(n.left).max(node_height(n.right) + 1))
       end
 
-   exchange_and_discard (n1, n2: like a_new_node) is
+   exchange_and_discard (n1, n2: like a_new_node)
       require
          n1 /= Void
          n2 /= Void
@@ -419,7 +419,7 @@ feature {}
          rebalance
       end
 
-   clear_nodes (node: like a_new_node) is
+   clear_nodes (node: like a_new_node)
       do
          if node.left /= Void then
             clear_nodes(node.left)
@@ -430,7 +430,7 @@ feature {}
          discard_node(node)
       end
 
-   node_height (node: like a_new_node): INTEGER is
+   node_height (node: like a_new_node): INTEGER
       do
          if node /= Void then
             Result := node.height
@@ -438,20 +438,20 @@ feature {}
       end
 
 feature {ANY} -- Looking and searching:
-   has (e: E_): BOOLEAN is
+   has (e: E_): BOOLEAN
          -- Is element `e' in the set?
       do
          Result := root /= Void and then root.has(e)
       end
 
-   fast_has (e: E_): BOOLEAN is
+   fast_has (e: E_): BOOLEAN
          -- Is element `e' in the set?
       do
          Result := root /= Void and then root.fast_has(e)
       end
 
 feature {} -- Iterating internals:
-   build_map is
+   build_map
       require
          build_needed: map_dirty
       do
@@ -472,7 +472,7 @@ feature {} -- Iterating internals:
          -- `build_map'.
 
 feature {}
-   new_node: like a_new_node is
+   new_node: like a_new_node
       do
          if lost_nodes.is_empty then
             Result := a_new_node
@@ -481,18 +481,18 @@ feature {}
          end
       end
 
-   a_new_node: AVL_TREE_NODE[E_] is
+   a_new_node: AVL_TREE_NODE[E_]
       deferred
       end
 
-   discard_node (n: like a_new_node) is
+   discard_node (n: like a_new_node)
       require
          n /= Void
       do
          lost_nodes.recycle(n)
       end
 
-   lost_nodes: RECYCLING_POOL[like a_new_node] is
+   lost_nodes: RECYCLING_POOL[like a_new_node]
       local
          key: FIXED_STRING
       do
@@ -510,12 +510,12 @@ feature {}
 
    lost_nodes_memory: like lost_nodes
 
-   lost_nodes_pool: HASHED_DICTIONARY[RECYCLING_POOL[AVL_TREE_NODE_ANY], FIXED_STRING] is
+   lost_nodes_pool: HASHED_DICTIONARY[RECYCLING_POOL[AVL_TREE_NODE_ANY], FIXED_STRING]
       once
          create Result.make
       end
 
-   ordered (e1, e2: E_): BOOLEAN is
+   ordered (e1, e2: E_): BOOLEAN
          -- True if [e1, e2] is a correctly ordered sequence; usually, e1 < e2
       require
          e1 /= Void
@@ -537,7 +537,7 @@ end -- class AVL_TREE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

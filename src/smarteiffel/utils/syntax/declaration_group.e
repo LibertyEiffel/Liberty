@@ -11,7 +11,7 @@ class DECLARATION_GROUP
    --           --------------
    --
    -- Exemple 2 :
-   --         bip(foo, bar : ZOO) is
+   --         bip(foo, bar : ZOO)
    --             --------------
    --
    -- See Eiffel3 grammar for more details.
@@ -27,7 +27,7 @@ create {EIFFEL_PARSER}
    make
 
 feature {ANY}
-   accept (visitor: DECLARATION_GROUP_VISITOR) is
+   accept (visitor: DECLARATION_GROUP_VISITOR)
       do
          visitor.visit_declaration_group(Current)
       end
@@ -36,7 +36,7 @@ feature {DECLARATION_GROUP_VISITOR}
    name_list: ARRAY[LOCAL_ARGUMENT_DEF]
 
 feature {}
-   make (nl: like name_list; type: TYPE_MARK) is
+   make (nl: like name_list; type: TYPE_MARK)
       require
          nl /= Void
          1 < nl.count
@@ -58,7 +58,7 @@ feature {}
       end
 
 feature {ANY}
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -80,7 +80,7 @@ feature {ANY}
          name_list.first.result_type.pretty_in(buffer)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -100,12 +100,12 @@ feature {ANY}
       end
 
 feature {DECLARATION_LIST}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := name_list.upper
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          la1, la2: LOCAL_ARGUMENT_DEF; nl: like name_list; i: INTEGER
       do
@@ -135,7 +135,7 @@ feature {DECLARATION_LIST}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          la1, la2: LOCAL_ARGUMENT_DEF; nl: like name_list; i: INTEGER
       do
@@ -167,7 +167,7 @@ feature {DECLARATION_LIST}
 
 feature {DECLARATION, DECLARATION_LIST}
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -183,7 +183,7 @@ feature {DECLARATION, DECLARATION_LIST}
       end
 
 feature {FORMAL_ARG_LIST}
-   append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
+   append_in_formal_arg_list (fal: FORMAL_ARG_LIST)
       local
          i: INTEGER
       do
@@ -198,7 +198,7 @@ feature {FORMAL_ARG_LIST}
       end
 
 feature {LOCAL_VAR_LIST}
-   append_in_local_var_list (lvl: LOCAL_VAR_LIST) is
+   append_in_local_var_list (lvl: LOCAL_VAR_LIST)
       local
          i: INTEGER
       do
@@ -213,7 +213,7 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {DECLARATION_GROUP}
-   set_name_list(nl: like name_list) is
+   set_name_list(nl: like name_list)
       require
          nl /= Void
       do

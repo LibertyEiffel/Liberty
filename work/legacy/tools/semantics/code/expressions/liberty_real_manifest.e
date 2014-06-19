@@ -21,7 +21,7 @@ create {LIBERTY_BUILDER_TOOLS}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_REAL_MANIFEST_VISITOR
       do

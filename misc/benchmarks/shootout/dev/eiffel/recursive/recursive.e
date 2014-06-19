@@ -14,7 +14,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			n: INTEGER
 		do
@@ -33,7 +33,7 @@ feature {ANY}
 			io.put_string("Tak(3.0,2.0,1.0): " + tak_real(3.0, 2.0, 1.0).to_string_format(1) + "%N")
 		end
 
-	ack (x, y: INTEGER): INTEGER is
+	ack (x, y: INTEGER): INTEGER
 		do
 			if x = 0 then
 				Result := y + 1
@@ -44,7 +44,7 @@ feature {ANY}
 			end
 		end
 
-	fib_integer (n: INTEGER): INTEGER is
+	fib_integer (n: INTEGER): INTEGER
 		do
 			if n < 2 then
 				Result := 1
@@ -53,7 +53,7 @@ feature {ANY}
 			end
 		end
 
-	fib_real (r: REAL): REAL is
+	fib_real (r: REAL): REAL
 		do
 			if r < 2.0 then
 				Result := 1.0
@@ -62,7 +62,7 @@ feature {ANY}
 			end
 		end
 
-	tak_integer (x, y, z: INTEGER): INTEGER is
+	tak_integer (x, y, z: INTEGER): INTEGER
 		do
 			if y < x then
 				Result := tak_integer(tak_integer(x - 1, y, z), tak_integer(y - 1, z, x), tak_integer(z - 1, x, y))
@@ -71,7 +71,7 @@ feature {ANY}
 			end
 		end
 
-	tak_real (x, y, z: REAL): REAL is
+	tak_real (x, y, z: REAL): REAL
 		do
 			if y < x then
 				Result := tak_real(tak_real(x - 1.0, y, z), tak_real(y - 1.0, z, x), tak_real(z - 1.0, x, y))

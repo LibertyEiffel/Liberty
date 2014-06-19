@@ -8,13 +8,13 @@ insert
    PACKRAT_INTERNAL
 
 feature {}
-   reset_features is
+   reset_features
       do
          create position
       end
 
 feature {}
-   parse_any (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE is
+   parse_any (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE
       do
          if not buffer.end_reached then
             Result := new_image(buffer.current_character)
@@ -23,7 +23,7 @@ feature {}
          end
       end
 
-   parse_regex (buffer: MINI_PARSER_BUFFER; regex: REGULAR_EXPRESSION): PACKRAT_IMAGE is
+   parse_regex (buffer: MINI_PARSER_BUFFER; regex: REGULAR_EXPRESSION): PACKRAT_IMAGE
          -- the regex must parse exactly one character
       local
          string: STRING
@@ -39,7 +39,7 @@ feature {}
          end
       end
 
-   parse_string (buffer: MINI_PARSER_BUFFER; string: STRING): PACKRAT_IMAGE is
+   parse_string (buffer: MINI_PARSER_BUFFER; string: STRING): PACKRAT_IMAGE
       local
          old_position: like position; i: INTEGER; valid: BOOLEAN
       do
@@ -66,7 +66,7 @@ feature {}
       end
 
 feature {} -- low-level image memory
-   flyweight: AVL_DICTIONARY[STRING, CHARACTER] is
+   flyweight: AVL_DICTIONARY[STRING, CHARACTER]
       once
          Result := {AVL_DICTIONARY[STRING, CHARACTER] <<
                                                         "a", 'a';
@@ -114,12 +114,12 @@ feature {} -- low-level image memory
       end
 
 feature {} -- buffer moves
-   next_character (buffer: MINI_PARSER_BUFFER) is
+   next_character (buffer: MINI_PARSER_BUFFER)
       do
          position := position.next(buffer)
       end
 
-   restore (buffer: MINI_PARSER_BUFFER; a_position: like position) is
+   restore (buffer: MINI_PARSER_BUFFER; a_position: like position)
       do
          position := a_position
          buffer.set_current_index(position.index)
@@ -127,7 +127,7 @@ feature {} -- buffer moves
 
    position: PACKRAT_POSITION
 
-   new_image (char: CHARACTER): PACKRAT_IMAGE is
+   new_image (char: CHARACTER): PACKRAT_IMAGE
       local
          image: STRING
       do
@@ -148,7 +148,7 @@ end -- class PACKRAT_FEATURES
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

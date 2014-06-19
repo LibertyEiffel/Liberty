@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INT_DIVIDE}
-   visit_liberty_int_divide (v: LIBERTY_INT_DIVIDE) is
+   visit_liberty_int_divide (v: LIBERTY_INT_DIVIDE)
       deferred
       end
 

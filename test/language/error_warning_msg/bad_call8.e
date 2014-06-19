@@ -8,14 +8,14 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          multiplier(42)
       end
 
    toto: INTEGER
 
-   multiplier (p_scalaire: REAL) is
+   multiplier (p_scalaire: REAL)
       do
          toto := (toto * p_scalaire).rounded.to_integer_32
       end

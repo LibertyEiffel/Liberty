@@ -19,12 +19,12 @@ feature {ANY}
 
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.matches(class_name, feature_name)
       end
 
-   matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN is
+   matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN
       do
          if class_name = Void then
             Result := class_name_ = Void
@@ -43,7 +43,7 @@ feature {ANY}
       end
 
 feature {}
-   make (class_name_: like class_name; feature_name_: like feature_name) is
+   make (class_name_: like class_name; feature_name_: like feature_name)
       require
          class_name_ /= Void
          feature_name_ /= Void

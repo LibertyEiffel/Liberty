@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (is_constructor_low_level | 
 				is_getter_low_level | 
@@ -19,99 +19,99 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_is_constructor is
+	set_is_constructor
 		do
 			value := value.bit_or(is_constructor_low_level)
 		end
 
-	unset_is_constructor is
+	unset_is_constructor
 		do
 			value := value.bit_xor(is_constructor_low_level)
 		end
 
-	set_is_getter is
+	set_is_getter
 		do
 			value := value.bit_or(is_getter_low_level)
 		end
 
-	unset_is_getter is
+	unset_is_getter
 		do
 			value := value.bit_xor(is_getter_low_level)
 		end
 
-	set_is_method is
+	set_is_method
 		do
 			value := value.bit_or(is_method_low_level)
 		end
 
-	unset_is_method is
+	unset_is_method
 		do
 			value := value.bit_xor(is_method_low_level)
 		end
 
-	set_is_setter is
+	set_is_setter
 		do
 			value := value.bit_or(is_setter_low_level)
 		end
 
-	unset_is_setter is
+	unset_is_setter
 		do
 			value := value.bit_xor(is_setter_low_level)
 		end
 
-	set_throws is
+	set_throws
 		do
 			value := value.bit_or(throws_low_level)
 		end
 
-	unset_throws is
+	unset_throws
 		do
 			value := value.bit_xor(throws_low_level)
 		end
 
-	set_wraps_vfunc is
+	set_wraps_vfunc
 		do
 			value := value.bit_or(wraps_vfunc_low_level)
 		end
 
-	unset_wraps_vfunc is
+	unset_wraps_vfunc
 		do
 			value := value.bit_xor(wraps_vfunc_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_is_constructor: BOOLEAN is
+	is_is_constructor: BOOLEAN
 		do
 			Result := (value=is_constructor_low_level)
 		end
 
-	is_is_getter: BOOLEAN is
+	is_is_getter: BOOLEAN
 		do
 			Result := (value=is_getter_low_level)
 		end
 
-	is_is_method: BOOLEAN is
+	is_is_method: BOOLEAN
 		do
 			Result := (value=is_method_low_level)
 		end
 
-	is_is_setter: BOOLEAN is
+	is_is_setter: BOOLEAN
 		do
 			Result := (value=is_setter_low_level)
 		end
 
-	is_throws: BOOLEAN is
+	is_throws: BOOLEAN
 		do
 			Result := (value=throws_low_level)
 		end
 
-	is_wraps_vfunc: BOOLEAN is
+	is_wraps_vfunc: BOOLEAN
 		do
 			Result := (value=wraps_vfunc_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	is_constructor_low_level: INTEGER is
+	is_constructor_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -120,7 +120,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_getter_low_level: INTEGER is
+	is_getter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -129,7 +129,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_method_low_level: INTEGER is
+	is_method_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -138,7 +138,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_setter_low_level: INTEGER is
+	is_setter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -147,7 +147,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	throws_low_level: INTEGER is
+	throws_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -156,7 +156,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	wraps_vfunc_low_level: INTEGER is
+	wraps_vfunc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

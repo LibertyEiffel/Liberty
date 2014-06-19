@@ -13,7 +13,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			i, n: INTEGER; u, v: FAST_ARRAY[REAL_64]; vv, vbv: REAL_64
 		do
@@ -52,7 +52,7 @@ feature {ANY}
 			io.put_new_line
 		end
 
-	eval_ata_times_u (u, atau: FAST_ARRAY[REAL_64]) is
+	eval_ata_times_u (u, atau: FAST_ARRAY[REAL_64])
 		local
 			tmp: FAST_ARRAY[REAL_64]
 		do
@@ -61,7 +61,7 @@ feature {ANY}
 			eval_at_times_u(tmp, atau)
 		end
 
-	eval_a_times_u (u, au: FAST_ARRAY[REAL_64]) is
+	eval_a_times_u (u, au: FAST_ARRAY[REAL_64])
 		local
 			i, j, n: INTEGER; x: REAL_64
 		do
@@ -84,7 +84,7 @@ feature {ANY}
 			end
 		end
 
-	eval_at_times_u (u, au: FAST_ARRAY[REAL_64]) is
+	eval_at_times_u (u, au: FAST_ARRAY[REAL_64])
 		local
 			i, j, n: INTEGER; x: REAL_64
 		do
@@ -107,7 +107,7 @@ feature {ANY}
 			end
 		end
 
-	eval_a (i, j: INTEGER): REAL_64 is
+	eval_a (i, j: INTEGER): REAL_64
 		do
 			Result := 1.0 / (((i + j) * (i + j + 1)) #// 2 + i + 1).to_real_64
 		end

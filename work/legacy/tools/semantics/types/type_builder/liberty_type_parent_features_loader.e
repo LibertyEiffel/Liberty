@@ -26,7 +26,7 @@ create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {}
-   make (a_builder: like builder; a_current_entity: like current_entity; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features) is
+   make (a_builder: like builder; a_current_entity: like current_entity; a_universe: like universe; a_effective_generic_parameters: like effective_generic_parameters; a_redefined_features: like redefined_features)
       require
          a_builder /= Void
          a_current_entity /= Void
@@ -52,7 +52,7 @@ feature {}
    universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
-   load is
+   load
       local
          has_parents: BOOLEAN
       do
@@ -69,7 +69,7 @@ feature {LIBERTY_TYPE_BUILDER}
       end
 
 feature {}
-   inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents: BOOLEAN): BOOLEAN is
+   inject_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; had_parents: BOOLEAN): BOOLEAN
       local
          i: INTEGER; parent_clause: LIBERTY_AST_PARENT
          parent: LIBERTY_TYPE; actual_parent: LIBERTY_ACTUAL_TYPE
@@ -97,12 +97,12 @@ feature {}
          end
       end
 
-   inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE) is
+   inject_parent_invariant (parent: LIBERTY_ACTUAL_TYPE)
       do
          --|*** TODO
       end
 
-   inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE) is
+   inject_parent_features (parent: LIBERTY_ACTUAL_TYPE; clause: LIBERTY_AST_PARENT_CLAUSE)
       local
          i: INTEGER; fd, parent_fd, actual_fd: LIBERTY_FEATURE_DEFINITION; feature_name: LIBERTY_FEATURE_NAME
          pf: like parent_features; rf_count: INTEGER
@@ -194,7 +194,7 @@ feature {}
          end
       end
 
-   rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME; parent: LIBERTY_ACTUAL_TYPE) is
+   rename_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_RENAME; parent: LIBERTY_ACTUAL_TYPE)
       local
          i: INTEGER; r: LIBERTY_AST_RENAME; old_name, new_name: LIBERTY_FEATURE_NAME
          fd, fd2: LIBERTY_FEATURE_DEFINITION
@@ -231,7 +231,7 @@ feature {}
          end
       end
 
-   export_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_EXPORT) is
+   export_features (pf: like parent_features; clause: LIBERTY_AST_PARENT_EXPORT)
       local
          i, j: INTEGER; e: LIBERTY_AST_EXPORT; ef: LIBERTY_AST_EXPORT_FEATURES; feature_name: LIBERTY_FEATURE_NAME; fn: LIBERTY_AST_FEATURE_NAME
          clients: COLLECTION[LIBERTY_TYPE]
@@ -277,7 +277,7 @@ feature {}
          end
       end
 
-   undefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE) is
+   undefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_UNDEFINE)
          -- replace the feature by a LIBERTY_FEATURE_DEFERRED
       local
          i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
@@ -318,7 +318,7 @@ feature {}
          end
       end
 
-   redefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE): INTEGER is
+   redefine_features (parent: LIBERTY_ACTUAL_TYPE; pf: like parent_features; clause: LIBERTY_AST_PARENT_REDEFINE): INTEGER
          -- replace the feature by a LIBERTY_FEATURE_REDEFINED
       local
          i: INTEGER; feature_name: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
@@ -368,7 +368,7 @@ feature {}
          end
       end
 
-   push_parent_features_in_type is
+   push_parent_features_in_type
       local
          i: INTEGER
          fn, k: LIBERTY_FEATURE_NAME

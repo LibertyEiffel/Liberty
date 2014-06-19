@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
+   visit_implicit_cast (visited: IMPLICIT_CAST)
       require
          visited /= Void
       deferred

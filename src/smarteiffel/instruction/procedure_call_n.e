@@ -15,7 +15,7 @@ create {ANY}
 feature {ANY}
    arguments: EFFECTIVE_ARG_LIST
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a.count = arguments.count
@@ -23,7 +23,7 @@ feature {ANY}
          arguments := a
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          fs: like feature_stamp; t: like target; arg: like arguments
@@ -50,7 +50,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          t: like target; arg: like arguments; fs: like feature_stamp
@@ -82,7 +82,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          --|*** Except for the `procedure_check' call (Dom. march 28th 2004) ***
       local
@@ -160,7 +160,7 @@ feature {ANY}
          end
       end
 
-   frozen simplify (type: TYPE): INSTRUCTION is
+   frozen simplify (type: TYPE): INSTRUCTION
       local
          t: like target; args: like arguments; target_type: TYPE; af: ANONYMOUS_FEATURE
          inline_memo: INLINE_MEMO; proc_call_n: PROCEDURE_CALL_N
@@ -207,19 +207,19 @@ feature {ANY}
       --|*** end
       --|*** end
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
       do
          Result := arguments.count
       end
 
 feature {ANY}
-   accept (visitor: PROCEDURE_CALL_N_VISITOR) is
+   accept (visitor: PROCEDURE_CALL_N_VISITOR)
       do
          visitor.visit_procedure_call_n(Current)
       end
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_2 (new_target, new_arg1, new_arg2: EXPRESSION): like Current is
+   frozen inline_2 (new_target, new_arg1, new_arg2: EXPRESSION): like Current
       require
          new_target /= Void
          new_arg1 /= Void
@@ -230,7 +230,7 @@ feature {EFFECTIVE_ROUTINE}
          Result.set_arguments(create {EFFECTIVE_ARG_LIST_N}.make_2(start_position, new_arg1, new_arg2))
       end
 
-   frozen inline_with (new_target: EXPRESSION; new_args: like arguments): like Current is
+   frozen inline_with (new_target: EXPRESSION; new_args: like arguments): like Current
       require
          new_target /= Void
          new_args /= Void
@@ -241,13 +241,13 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {PROCEDURE_CALL_N}
-   set_target_and_arg (t: like target; arg: like arguments) is
+   set_target_and_arg (t: like target; arg: like arguments)
       do
          target := t
          arguments := arg
       end
 
-   init (t: like target; arg: like arguments; fs: like feature_stamp) is
+   init (t: like target; arg: like arguments; fs: like feature_stamp)
       do
          target := t
          arguments := arg
@@ -255,7 +255,7 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {}
-   make (t: like target; sn: like feature_name; a: like arguments) is
+   make (t: like target; sn: like feature_name; a: like arguments)
       require
          t /= Void
          sn /= Void

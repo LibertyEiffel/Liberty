@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {DEBUG_COMPOUND}
-   visit_debug_compound (visited: DEBUG_COMPOUND) is
+   visit_debug_compound (visited: DEBUG_COMPOUND)
       require
          visited /= Void
       deferred

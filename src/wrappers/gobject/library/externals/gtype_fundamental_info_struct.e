@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_fundamental_info_struct_set_type_flags (a_structure: POINTER; a_value: INTEGER) is
+	gtype_fundamental_info_struct_set_type_flags (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for type_flags field of GTYPE_FUNDAMENTAL_INFO_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gtype_fundamental_info_struct_get_type_flags (a_structure: POINTER): INTEGER is
+	gtype_fundamental_info_struct_get_type_flags (a_structure: POINTER): INTEGER
 			-- Query for type_flags field of GTYPE_FUNDAMENTAL_INFO_STRUCT structure.
 			-- TODO: getter description
 
@@ -35,7 +35,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

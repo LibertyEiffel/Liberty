@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "ace_check"
+   command_line_name: STRING "ace_check"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: ace_check [options] <ACEfileName>.ace
 
       The ace_check command helps you to check the syntax of your ACE file.
@@ -27,7 +27,7 @@ feature {ANY}
         ]"
 
 feature {}
-   make is
+   make
       local
          argi: INTEGER; arg, view: STRING; verbose: BOOLEAN; string_command_line: STRING_COMMAND_LINE
       do
@@ -68,7 +68,7 @@ feature {}
          --*** std_output.put_string(view)
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          if is_some_flag(arg) then
             if is_version_flag(arg) or else is_help_flag(arg) then
@@ -79,7 +79,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -verbose, -version, and -help flags are allowed.%N"
+   valid_argument_for_ace_mode: STRING "Only the -verbose, -version, and -help flags are allowed.%N"
 
 end -- class ACE_CHECK
 --

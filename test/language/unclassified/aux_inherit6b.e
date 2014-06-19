@@ -7,16 +7,16 @@ insert
    ANY
 
 feature {ANY}
-   foo is
+   foo
       deferred
       end
 
-   bar is
+   bar
       do
          count := count + 2
       end
 
-   foo2 is
+   foo2
       do
          count := count + 7
       end

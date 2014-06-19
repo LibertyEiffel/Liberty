@@ -21,7 +21,7 @@ inherit
 create {ANY} make
 
 feature {} -- Creation
-	make (n_prealloced: INTEGER) is
+	make (n_prealloced: INTEGER)
 			-- Allocate and initialize a new GValueArray, optionally
 			-- preserve space for `n_prealloced' elements. New arrays
 			-- always contain 0 elements, regardless of the value of
@@ -39,7 +39,7 @@ feature {ANY}
 		end
 
 feature {ANY} -- Duplication
-	copy (a_source: like Current) is
+	copy (a_source: like Current)
 			-- Construct an exact copy of a GValueArray by duplicating
 			-- all its contents.
 		require else valid_source: a_source /= Void
@@ -48,20 +48,20 @@ feature {ANY} -- Duplication
 		end
 
 feature {ANY} -- Array-like features
-	to_external: POINTER is
+	to_external: POINTER
 			-- Gives C access into the internal `storage' of the G_VALUE_ARRAY.
 		do
 			Result:=get_values (handle)
 		end
 
-	count: INTEGER is
+	count: INTEGER
 			-- Number of available indices.
 		do
 			Result := get_n_values(handle)
 		ensure positive: Result >= 0
 		end
 
-	item (an_index: INTEGER): G_VALUE is
+	item (an_index: INTEGER): G_VALUE
 			-- the value at `an_index' contained in Current.
 		require
 			positive_integer: an_index >= 0
@@ -70,7 +70,7 @@ feature {ANY} -- Array-like features
 			create Result.from_external_pointer (g_value_array_get_nth (handle, an_index))
 		end
 
-	append (a_value: G_VALUE) is
+	append (a_value: G_VALUE)
 			-- Insert a copy of `a_value' as last element of Current.
 		require valid_value: a_value/=Void
 		do
@@ -78,7 +78,7 @@ feature {ANY} -- Array-like features
 		ensure number_increased: count = old count + 1
 		end
 
-	prepend (a_value: G_VALUE) is
+	prepend (a_value: G_VALUE)
 			-- Insert a copy of `a_value' as firsr element of Current.
 		require valid_value: a_value/=Void
 		do
@@ -86,7 +86,7 @@ feature {ANY} -- Array-like features
 		ensure number_increased: count = old count + 1
 		end
 
-	insert (an_index: INTEGER; a_value: G_VALUE) is
+	insert (an_index: INTEGER; a_value: G_VALUE)
 			-- Insert a copy of `a_value' at `an_index' position of
 			-- Current.
 		require
@@ -97,7 +97,7 @@ feature {ANY} -- Array-like features
 		ensure number_increased: count = old count + 1
 		end
 
-	remove (an_index: INTEGER) is
+	remove (an_index: INTEGER)
 			-- Remove the value at position `an_index'.
 		require valid_index: an_index.in_range (0,count-1)
 		do
@@ -133,69 +133,69 @@ feature {ANY} -- Array-like features
 	-- Returns : 	the GValueArray passed in as value_array
 
 feature {} -- External calls
-	g_value_array_get_nth (a_value_array: POINTER; an_index: INTEGER): POINTER is -- GValue
+	g_value_array_get_nth (a_value_array: POINTER; an_index: INTEGER): POINTER -- GValue
 			-- Note: an_index is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 
-	g_value_array_new (n_prealloced: INTEGER): POINTER is -- GValueArray
+	g_value_array_new (n_prealloced: INTEGER): POINTER -- GValueArray
 			-- Note: n_prealloced is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 	
-	g_value_array_copy (a_value_array: POINTER): POINTER is -- GValueArray
+	g_value_array_copy (a_value_array: POINTER): POINTER -- GValueArray
 			-- Note: a_value_array is a const POINTER
 		external "C use <glib-object.h>"
 		end
 	
-	g_value_array_free (a_value_array: POINTER) is
+	g_value_array_free (a_value_array: POINTER)
 			-- Actually it is g_value_array_free
 		external "C use <glib-object.h>"
 		end
 	
-	g_value_array_append (a_value_array, a_value: POINTER): POINTER is -- GValueArray
+	g_value_array_append (a_value_array, a_value: POINTER): POINTER -- GValueArray
 		external "C use <glib-object.h>"
 		end
 
-	g_value_array_prepend (a_value_array, a_value: POINTER): POINTER is -- GValueArray
+	g_value_array_prepend (a_value_array, a_value: POINTER): POINTER -- GValueArray
 		external "C use <glib-object.h>"
 		end
 
-	g_value_array_insert (a_value_array: POINTER; an_index: INTEGER; a_value: POINTER): POINTER is -- GValueArray
+	g_value_array_insert (a_value_array: POINTER; an_index: INTEGER; a_value: POINTER): POINTER -- GValueArray
 			-- Note: an_index is a guint, a NATURAL
 		external "C use <glib-object.h>"
 		end
 
-	g_value_array_remove (a_value_array: POINTER; an_index: INTEGER): POINTER is -- GValueArray
+	g_value_array_remove (a_value_array: POINTER; an_index: INTEGER): POINTER -- GValueArray
 		-- Note: an_index is a guint
 		external "C use <glib-object.h>"
 		end
 
-	g_value_array_sort (a_value_array, a_compare_func: POINTER): POINTER is -- GValueArray
+	g_value_array_sort (a_value_array, a_compare_func: POINTER): POINTER -- GValueArray
 		external "C use <glib-object.h>"
 		end
 	
-	g_value_array_sort_with_data (a_value_array, a_compare_func, user_data: POINTER): POINTER is -- GValueArray
+	g_value_array_sort_with_data (a_value_array, a_compare_func, user_data: POINTER): POINTER -- GValueArray
 		external "C use <glib-object.h>"
 		end
 
 feature {} -- GValueArray struct
 
-	get_n_values (a_gvalue_array: POINTER): INTEGER is
+	get_n_values (a_gvalue_array: POINTER): INTEGER
 			-- Get n_values from a GValueArray struct. It is a guint, the
 			-- number of values contained in the array
 		external "C struct get n_values use <glib-object.h>"
 		ensure positive: Result >= 0
 		end
 
-	get_values (a_gvalue_array: POINTER): POINTER is
+	get_values (a_gvalue_array: POINTER): POINTER
 			-- Get values from a GValueArray struct. It is C pointer to 
 			-- the array of values
 		external "C struct get values use <glib-object.h>"
 		end
 	
 feature {ANY} -- Size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GValueArray)"
 		end

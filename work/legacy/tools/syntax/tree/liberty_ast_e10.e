@@ -21,19 +21,19 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_call: BOOLEAN is
+   is_call: BOOLEAN
       do
          Result := count = 1 and then nodes.first.name.is_equal(once "Call")
       end
 
-   call: LIBERTY_AST_CALL is
+   call: LIBERTY_AST_CALL
       require
          is_call
       do
          Result ::= nodes.item(0)
       end
 
-   is_tuple: BOOLEAN is
+   is_tuple: BOOLEAN
       do
          Result := nodes.first.name.is_equal(once "KW [")
          check
@@ -41,7 +41,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   tuple_actuals: EIFFEL_LIST_NODE is
+   tuple_actuals: EIFFEL_LIST_NODE
          -- Void if empty tuple
       require
          is_tuple
@@ -51,12 +51,12 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   is_open_argument: BOOLEAN is
+   is_open_argument: BOOLEAN
       do
          Result := count = 1 and then nodes.first.name.is_equal(once "KW ?")
       end
 
-   is_inline_agent: BOOLEAN is
+   is_inline_agent: BOOLEAN
       do
          Result := count = 4
          check
@@ -64,66 +64,66 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   inline_agent_signature: LIBERTY_AST_AGENT_SIGNATURE is
+   inline_agent_signature: LIBERTY_AST_AGENT_SIGNATURE
       require
          is_inline_agent
       do
          Result ::= nodes.item(0)
       end
 
-   inline_agent_definition: LIBERTY_AST_ROUTINE_DEFINITION is
+   inline_agent_definition: LIBERTY_AST_ROUTINE_DEFINITION
       require
          is_inline_agent
       do
          Result ::= nodes.item(2)
       end
 
-   inline_agent_actuals: LIBERTY_AST_ACTUALS is
+   inline_agent_actuals: LIBERTY_AST_ACTUALS
       require
          is_inline_agent
       do
          Result ::= nodes.item(3)
       end
 
-   is_agent_creation: BOOLEAN is
+   is_agent_creation: BOOLEAN
       do
          Result := count = 2 and then nodes.item(0).name.is_equal(once "KW agent")
       end
 
-   agent_creation_expression: LIBERTY_AST_EXPRESSION is
+   agent_creation_expression: LIBERTY_AST_EXPRESSION
       require
          is_agent_creation
       do
          Result ::= nodes.item(1)
       end
 
-   is_creation_expression: BOOLEAN is
+   is_creation_expression: BOOLEAN
       do
          Result := count = 1 and then nodes.item(0).name.is_equal(once "Creation_Expression")
       end
 
-   creation_expression: LIBERTY_AST_CREATION_EXPRESSION is
+   creation_expression: LIBERTY_AST_CREATION_EXPRESSION
       require
          is_creation_expression
       do
          Result ::= nodes.item(0)
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
       do
          Result := count = 1 and then nodes.item(0).name.is_equal(once "KW Void")
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "e10"
+   name: STRING "e10"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2, 3, 4 >> }
       end

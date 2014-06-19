@@ -7,7 +7,7 @@ feature {ANY}
    descriptor: D_
 
 feature {ANY}
-   delete is
+   delete
       do
          descriptor.delete(Current)
       end

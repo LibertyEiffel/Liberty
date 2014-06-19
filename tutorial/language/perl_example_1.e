@@ -5,7 +5,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          perl: PERL
       do

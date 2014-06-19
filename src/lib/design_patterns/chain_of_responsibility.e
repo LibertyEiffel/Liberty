@@ -17,13 +17,13 @@ inherit
    COMMAND
 
 feature {ANY}
-   add (c: CHAIN_HANDLER[like Current]) is
+   add (c: CHAIN_HANDLER[like Current])
          -- Add a handler to the Chain.
       do
          chain.add_last(c)
       end
 
-   remove (c: CHAIN_HANDLER[like Current]) is
+   remove (c: CHAIN_HANDLER[like Current])
          -- Remove a handler from the Chain.
       require
          has(c)
@@ -34,14 +34,14 @@ feature {ANY}
          chain.remove(i)
       end
 
-   has (c: CHAIN_HANDLER[like Current]): BOOLEAN is
+   has (c: CHAIN_HANDLER[like Current]): BOOLEAN
          -- Does the handler belong to the chain?
       do
          Result := chain.has(c)
       end
 
 feature {ANY}
-   execute is
+   execute
          -- Find a suitable handler to handle a request.
       local
          i: INTEGER; ok: BOOLEAN
@@ -73,7 +73,7 @@ end -- class CHAIN_OF_RESPONSIBILITY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

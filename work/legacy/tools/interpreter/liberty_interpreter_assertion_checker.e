@@ -21,7 +21,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
-   validate (contract: LIBERTY_ASSERTIONS; error_message: ABSTRACT_STRING) is
+   validate (contract: LIBERTY_ASSERTIONS; error_message: ABSTRACT_STRING)
       do
          failed_tag := Void
          if contract /= Void then
@@ -33,7 +33,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL, LIBERTY_INTERPRETER_INSTRUCTIONS}
       end
 
 feature {LIBERTY_ASSERTIONS_AND_THEN}
-   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN) is
+   visit_liberty_assertions_and_then (v: LIBERTY_ASSERTIONS_AND_THEN)
       do
          v.left.accept(Current)
          if failed_tag = Void then
@@ -42,7 +42,7 @@ feature {LIBERTY_ASSERTIONS_AND_THEN}
       end
 
 feature {LIBERTY_ASSERTIONS_OR_ELSE}
-   visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE) is
+   visit_liberty_assertions_or_else (v: LIBERTY_ASSERTIONS_OR_ELSE)
       local
          tag_left: FIXED_STRING
       do
@@ -57,55 +57,55 @@ feature {LIBERTY_ASSERTIONS_OR_ELSE}
       end
 
 feature {LIBERTY_CHECK}
-   visit_liberty_check (v: LIBERTY_CHECK) is
+   visit_liberty_check (v: LIBERTY_CHECK)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_ENSURE}
-   visit_liberty_ensure (v: LIBERTY_ENSURE) is
+   visit_liberty_ensure (v: LIBERTY_ENSURE)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_ENSURE_THEN}
-   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN) is
+   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_INVARIANT}
-   visit_liberty_invariant (v: LIBERTY_INVARIANT) is
+   visit_liberty_invariant (v: LIBERTY_INVARIANT)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_REQUIRE}
-   visit_liberty_require (v: LIBERTY_REQUIRE) is
+   visit_liberty_require (v: LIBERTY_REQUIRE)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_REQUIRE_ELSE}
-   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE) is
+   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_REQUIRE_THEN}
-   visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN) is
+   visit_liberty_require_then (v: LIBERTY_REQUIRE_THEN)
       do
          check_written_assertions(v)
       end
 
 feature {LIBERTY_VARIANT}
-   visit_liberty_variant (v: LIBERTY_VARIANT) is
+   visit_liberty_variant (v: LIBERTY_VARIANT)
       do
          check False end
       end
 
 feature {}
-   check_written_assertions (contract: LIBERTY_WRITTEN_ASSERTIONS) is
+   check_written_assertions (contract: LIBERTY_WRITTEN_ASSERTIONS)
       local
          assertions: TRAVERSABLE[LIBERTY_ASSERTION]
          assertion: LIBERTY_ASSERTION
@@ -134,7 +134,7 @@ feature {}
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

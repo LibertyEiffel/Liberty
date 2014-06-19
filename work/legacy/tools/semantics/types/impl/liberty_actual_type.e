@@ -49,98 +49,98 @@ create {LIBERTY_UNIVERSE}
 feature {ANY}
    current_entity: LIBERTY_CURRENT
 
-   known_type: LIBERTY_ACTUAL_TYPE is
+   known_type: LIBERTY_ACTUAL_TYPE
       do
          Result := Current
       end
 
-   file: FIXED_STRING is
+   file: FIXED_STRING
       do
          Result := descriptor.file
       end
 
    obsolete_message: STRING
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := descriptor.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
-   is_obsolete: BOOLEAN is
+   is_obsolete: BOOLEAN
       do
          Result := obsolete_message /= Void
       end
 
-   cluster: LIBERTY_CLUSTER is
+   cluster: LIBERTY_CLUSTER
       do
          Result := descriptor.cluster
       end
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
       do
          Result := descriptor.name
       end
 
-   parameters: TRAVERSABLE[LIBERTY_TYPE] is
+   parameters: TRAVERSABLE[LIBERTY_TYPE]
       do
          Result := descriptor.parameters
       end
 
-   is_deferred: BOOLEAN is
+   is_deferred: BOOLEAN
       do
          Result := runtime_category = deferred_category
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := runtime_category = expanded_category
       end
 
-   is_separate: BOOLEAN is
+   is_separate: BOOLEAN
       do
          Result := runtime_category = separate_category
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := runtime_category = reference_category
       end
 
-   is_runtime_category_set: BOOLEAN is
+   is_runtime_category_set: BOOLEAN
       do
          Result := runtime_category /= 0
       end
 
    the_invariant: LIBERTY_INVARIANT
 
-   has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN is
+   has_feature (a_feature_name: LIBERTY_FEATURE_NAME): BOOLEAN
       do
          Result := features.has(a_feature_name)
       end
 
-   feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION is
+   feature_definition (a_feature_name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_DEFINITION
       do
          Result := features.at(a_feature_name)
       end
 
    type_resolver: LIBERTY_TYPE_RESOLVER_IN_TYPE
 
-   accept (visitor: LIBERTY_TYPE_VISITOR) is
+   accept (visitor: LIBERTY_TYPE_VISITOR)
       do
          visit.call([visitor, Current])
       end
 
-   converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   converts_to (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN
       do
          Result := has_converter(target_type)
       end
 
-   do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER) is
+   do_convert (target_type: LIBERTY_ACTUAL_TYPE; a_converter: LIBERTY_TYPE_CONVERTER)
       do
          converter(target_type).call([a_converter])
       end
@@ -149,13 +149,13 @@ feature {ANY}
          -- True if Current's type may be promoted in order to fix arithmetic operations (available only on a
          -- very few select kernel types such as integers, naturals and reals)
 
-   is_built: BOOLEAN is
+   is_built: BOOLEAN
       do
          Result := builder.is_built
       end
 
 feature {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
-   add_listener (a_listener: LIBERTY_TYPE_LISTENER) is
+   add_listener (a_listener: LIBERTY_TYPE_LISTENER)
       do
          a_listener.on_type_known(Current)
          if is_built then
@@ -168,7 +168,7 @@ feature {LIBERTY_TYPE_LISTENER, LIBERTY_TYPE}
       end
 
 feature {}
-   fire_type_built is
+   fire_type_built
       local
          i: INTEGER
       do
@@ -184,7 +184,7 @@ feature {}
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   full_name_in (buffer: STRING) is
+   full_name_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -209,7 +209,7 @@ feature {LIBERTY_KNOWN_TYPE}
       end
 
 feature {ANY}
-   debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN) is
+   debug_display (o: OUTPUT_STREAM; show_features: BOOLEAN)
       local
          i: INTEGER; fn: LIBERTY_FEATURE_NAME; fd: LIBERTY_FEATURE_DEFINITION
       do
@@ -249,7 +249,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Inheritance
-   is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_conform_to (other: LIBERTY_KNOWN_TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -270,7 +270,7 @@ feature {ANY} -- Inheritance
          end
       end
 
-   is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_non_conformant_child_of (other: LIBERTY_KNOWN_TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -304,7 +304,7 @@ feature {ANY} -- Inheritance
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   common_parent (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE is
+   common_parent (other: LIBERTY_KNOWN_TYPE): LIBERTY_KNOWN_TYPE
          -- To implement `common_conformant_parent_with'.
          -- Conformant common parent lookup.
       local
@@ -328,13 +328,13 @@ feature {LIBERTY_KNOWN_TYPE}
          end
       end
 
-   same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+   same_base_class_as (other: LIBERTY_ACTUAL_TYPE): BOOLEAN
       do
          Result := name = other.name and then descriptor.cluster = other.descriptor.cluster
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   set_obsolete (message: like obsolete_message) is
+   set_obsolete (message: like obsolete_message)
       require
          message /= Void
       do
@@ -344,7 +344,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          obsolete_message = message
       end
 
-   set_deferred is
+   set_deferred
       require
          not is_runtime_category_set
       do
@@ -354,7 +354,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          is_deferred
       end
 
-   set_expanded is
+   set_expanded
       require
          not is_runtime_category_set
       do
@@ -364,7 +364,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          is_expanded
       end
 
-   set_separate is
+   set_separate
       require
          not is_runtime_category_set
       do
@@ -374,7 +374,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          is_separate
       end
 
-   set_reference is
+   set_reference
       require
          not is_runtime_category_set
       do
@@ -384,7 +384,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          is_reference
       end
 
-   add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN) is
+   add_parent (a_parent: LIBERTY_ACTUAL_TYPE; conformant: BOOLEAN)
       require
          a_parent /= Void
       do
@@ -414,14 +414,14 @@ feature {LIBERTY_BUILDER_TOOLS}
 
    features: DICTIONARY[LIBERTY_FEATURE_DEFINITION, LIBERTY_FEATURE_NAME]
 
-   set_invariant (a_invariant: like the_invariant) is
+   set_invariant (a_invariant: like the_invariant)
       do
          the_invariant := a_invariant
       ensure
          the_invariant = a_invariant
       end
 
-   add_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
+   add_feature (a_feature: LIBERTY_FEATURE_DEFINITION)
       require
          not has_feature(a_feature.feature_name)
       do
@@ -432,7 +432,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          feature_definition(a_feature.feature_name) = a_feature
       end
 
-   replace_feature (a_feature: LIBERTY_FEATURE_DEFINITION) is
+   replace_feature (a_feature: LIBERTY_FEATURE_DEFINITION)
       require
          has_feature(a_feature.feature_name)
          feature_definition(a_feature.feature_name) /= a_feature
@@ -448,20 +448,20 @@ feature {LIBERTY_BUILDER_TOOLS}
          feature_definition(a_feature.feature_name) = a_feature
       end
 
-   descriptor_position: LIBERTY_POSITION is
+   descriptor_position: LIBERTY_POSITION
       do
          Result := descriptor.position
       end
 
 feature {LIBERTY_UNIVERSE} -- Semantics building
-   start_build (universe: LIBERTY_UNIVERSE) is
+   start_build (universe: LIBERTY_UNIVERSE)
       require
          not errors.has_error
       do
          create builder.make(Current, universe)
       end
 
-   build_more is
+   build_more
       require
          not is_built
       do
@@ -471,14 +471,14 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
          end
       end
 
-   set_may_promote_current is
+   set_may_promote_current
       do
          may_promote_current:= True
       ensure
          may_promote_current
       end
 
-   add_converter (target_type: LIBERTY_ACTUAL_TYPE; a_converter: like converter) is
+   add_converter (target_type: LIBERTY_ACTUAL_TYPE; a_converter: like converter)
       require
          not has_converter(target_type)
       do
@@ -490,18 +490,18 @@ feature {LIBERTY_UNIVERSE} -- Semantics building
          converter(target_type) = a_converter
       end
 
-   has_converter (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   has_converter (target_type: LIBERTY_KNOWN_TYPE): BOOLEAN
       do
          Result := converters /= Void and then converters.fast_has(target_type)
       end
 
-   converter (target_type: LIBERTY_ACTUAL_TYPE): PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]] is
+   converter (target_type: LIBERTY_ACTUAL_TYPE): PROCEDURE[TUPLE[LIBERTY_TYPE_CONVERTER]]
       do
          Result := converters.fast_at(target_type)
       end
 
 feature {}
-   check_validity is
+   check_validity
       do
          --| TODO
       end
@@ -510,12 +510,12 @@ feature {LIBERTY_TYPE_BUILDER}
    conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
    non_conformant_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
 
-   has_no_parents: BOOLEAN is
+   has_no_parents: BOOLEAN
       do
          Result := conformant_parents = no_parents and then non_conformant_parents = no_parents
       end
 
-   set_type_resolver (a_type_resolver: like type_resolver) is
+   set_type_resolver (a_type_resolver: like type_resolver)
       require
          a_type_resolver.current_type = Current
          type_resolver = Void
@@ -526,13 +526,13 @@ feature {LIBERTY_TYPE_BUILDER}
       end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_TYPE_BUILDER}
-   has_loaded_features: BOOLEAN is
+   has_loaded_features: BOOLEAN
       do
          Result := builder.has_loaded_features
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       local
          i: INTEGER; param: LIBERTY_TYPE
       do
@@ -563,7 +563,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {LIBERTY_SEMANTICS_BUILDER}
-   set_has_manifest_array is
+   set_has_manifest_array
       do
          has_manifest_array := True
          if reachable_mark > 0 then
@@ -574,7 +574,7 @@ feature {LIBERTY_SEMANTICS_BUILDER}
       end
 
 feature {LIBERTY_TYPE_MANIFEST_ARRAY_FEATURES_LISTENER}
-   mark_manifest_array_features (mark: like reachable_mark) is
+   mark_manifest_array_features (mark: like reachable_mark)
       local
          fd_put, fd_make, fd_creation: like feature_definition
       do
@@ -625,7 +625,7 @@ feature {LIBERTY_AST_HANDLER}
    ast: LIBERTY_AST_ONE_CLASS
 
 feature {}
-   make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast; a_visit: like visit) is
+   make (a_descriptor: like descriptor; a_conformance_checker: like conformance_checker; a_ast: like ast; a_visit: like visit)
       require
          a_descriptor /= Void
          a_conformance_checker /= Void
@@ -653,16 +653,16 @@ feature {}
 
    runtime_category: INTEGER_8
 
-   deferred_category: INTEGER_8 is 1
-   expanded_category: INTEGER_8 is 2
-   separate_category: INTEGER_8 is 4
-   reference_category: INTEGER_8 is 8
+   deferred_category: INTEGER_8 1
+   expanded_category: INTEGER_8 2
+   separate_category: INTEGER_8 4
+   reference_category: INTEGER_8 8
 
    errors: LIBERTY_ERRORS
    builder: LIBERTY_TYPE_BUILDER
    visit: PROCEDURE[TUPLE[LIBERTY_TYPE_VISITOR, LIBERTY_ACTUAL_TYPE]]
 
-   no_parents: COLLECTION[LIBERTY_ACTUAL_TYPE] is
+   no_parents: COLLECTION[LIBERTY_ACTUAL_TYPE]
       once
          create {FAST_ARRAY[LIBERTY_ACTUAL_TYPE]} Result.with_capacity(0)
       end
@@ -682,7 +682,7 @@ invariant
    descriptor /= Void
    file /= Void
    features /= Void
-   features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN is
+   features.for_all(agent (fd: LIBERTY_FEATURE_DEFINITION; fn: LIBERTY_FEATURE_NAME): BOOLEAN
       do
          Result := fd.feature_name.is_equal(fn)
             and then fd.current_type = Current

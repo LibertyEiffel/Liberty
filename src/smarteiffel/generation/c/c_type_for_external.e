@@ -16,7 +16,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   for (type_mark: TYPE_MARK): STRING is
+   for (type_mark: TYPE_MARK): STRING
       require else
          type_mark = Void
       do
@@ -30,7 +30,7 @@ feature {ANY}
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          visited.generic_list.first.accept(Current)
          buffer.extend('*')

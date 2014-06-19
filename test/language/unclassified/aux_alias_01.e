@@ -3,7 +3,7 @@ class AUX_ALIAS_01
 feature {ANY}
    i: INTEGER
 
-   add alias "+" (n: INTEGER): like Current is
+   add alias "+" (n: INTEGER): like Current
       do
          i := i + n
          Result := Current
@@ -12,7 +12,7 @@ feature {ANY}
          Result = Current
       end
 
-   minus alias "-" (n: INTEGER): like Current is
+   minus alias "-" (n: INTEGER): like Current
       do
          i := i - n
          Result := Current
@@ -21,7 +21,7 @@ feature {ANY}
          Result = Current
       end
 
-   neg alias "-": like Current is
+   neg alias "-": like Current
       do
          i := -i
          Result := Current
@@ -30,12 +30,12 @@ feature {ANY}
          Result = Current
       end
 
-   item alias "[]" (index: INTEGER_8): INTEGER is
+   item alias "[]" (index: INTEGER_8): INTEGER
       do
          Result := i |>> index
       end
 
-   set_item (value: INTEGER; index: INTEGER_8) assign item is
+   set_item (value: INTEGER; index: INTEGER_8) assign item
       do
          i := value |<< index
       ensure

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          ai: ARRAY[INTEGER]; aai: ARRAY[ARRAY[INTEGER]]
       do

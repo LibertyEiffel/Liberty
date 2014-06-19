@@ -20,7 +20,7 @@ create {BDW_GC}
    make
 
 feature {BDW_GC}
-   for (a_assignment: like assignment; a_type: like type) is
+   for (a_assignment: like assignment; a_type: like type)
       require
          a_assignment.left_side.is_writable
          a_type /= Void
@@ -33,44 +33,44 @@ feature {BDW_GC}
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       do
          visited.last.accept(Current)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
       end
 
 feature {EXPRESSION_WITH_COMMENT}
-   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       do
          visited.expression.accept(Current)
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name_ref (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
       end
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
          cpp.pending_c_function_body.append(once "GC_call_with_alloc_lock((GC_fn_type)bdw_na_assignT")
          type.id.append_in(cpp.pending_c_function_body)
@@ -88,7 +88,7 @@ feature {}
    type: TYPE
    bdw: BDW_GC
 
-   make (a_bdw: like bdw) is
+   make (a_bdw: like bdw)
       require
          a_bdw /= Void
       do

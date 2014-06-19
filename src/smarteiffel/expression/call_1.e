@@ -12,11 +12,11 @@ inherit
       end
 
 feature {ANY}
-   arg_count: INTEGER is 1
+   arg_count: INTEGER 1
 
    arguments: EFFECTIVE_ARG_LIST
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a.count = 1
@@ -24,12 +24,12 @@ feature {ANY}
          arguments := a
       end
 
-   frozen arg1: EXPRESSION is
+   frozen arg1: EXPRESSION
       do
          Result := arguments.first
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       local
          target_type, argument_type: TYPE
       do
@@ -59,7 +59,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---- except balancing rule here ---------------
       local
@@ -82,7 +82,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          t: like target; arg: like arguments; fs: like feature_stamp
@@ -104,7 +104,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---------------except AGENT_INSTRUCTION stuff ------------------------------
          --|*** Except for the `function_check' call (Dom. march 28th 2004) ***
@@ -220,7 +220,7 @@ feature {ANY}
          end
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       local
          t: like target; args: like arguments; target_type: TYPE; af: ANONYMOUS_FEATURE
          inline_memo: INLINE_MEMO
@@ -248,7 +248,7 @@ feature {ANY}
       end
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_with (new_target, new_arg1: EXPRESSION): like Current is
+   frozen inline_with (new_target, new_arg1: EXPRESSION): like Current
       require
          new_target /= Void
          new_arg1 /= Void
@@ -259,7 +259,7 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {CALL_1}
-   init (t: like target; arg: like arguments; fs: like feature_stamp) is
+   init (t: like target; arg: like arguments; fs: like feature_stamp)
       do
          target := t
          arguments := arg
@@ -267,7 +267,7 @@ feature {CALL_1}
       end
 
 feature {}
-   current_or_twin_init (t: like target; arg: like arguments; fs: like feature_stamp): like Current is
+   current_or_twin_init (t: like target; arg: like arguments; fs: like feature_stamp): like Current
       do
          if t = target and then feature_stamp = fs and then arg = arguments then
             Result := Current
@@ -277,7 +277,7 @@ feature {}
          end
       end
 
-   is_balanced_operator (operator_name: STRING): BOOLEAN is
+   is_balanced_operator (operator_name: STRING): BOOLEAN
          -- Obviously, the list is limited to usual maths notations.
       do
          inspect
@@ -291,7 +291,7 @@ feature {}
          end
       end
 
-   is_question_mark_open_operand (expression: EXPRESSION): BOOLEAN is
+   is_question_mark_open_operand (expression: EXPRESSION): BOOLEAN
       local
          open_operand: OPEN_OPERAND
       do

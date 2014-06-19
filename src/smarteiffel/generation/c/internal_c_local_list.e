@@ -10,7 +10,7 @@ insert
    GLOBALS
    
 feature {}
-   internal_c_local_pool: FAST_ARRAY[INTERNAL_C_LOCAL] is
+   internal_c_local_pool: FAST_ARRAY[INTERNAL_C_LOCAL]
          -- All allocated INTERNAL_C_LOCAL objects since the beginning. This array is only growing 
          -- and its purpose is to avoid creating many new INTERNAL_C_LOCAL objects for each 
          -- new `pending_c_function' run.
@@ -19,7 +19,7 @@ feature {}
       end
 
 feature {C_PRETTY_PRINTER}
-   lock_local (stamps_stack: FAST_ARRAY[INTEGER]; type: TYPE; tag: STRING): INTERNAL_C_LOCAL is
+   lock_local (stamps_stack: FAST_ARRAY[INTEGER]; type: TYPE; tag: STRING): INTERNAL_C_LOCAL
          -- Reuse some un-locked variable or add/create a new one.
       require
          not stamps_stack.is_empty
@@ -46,7 +46,7 @@ feature {C_PRETTY_PRINTER}
          Result /= Void
       end
 
-   declaration_dump (out_c: TEXT_FILE_WRITE) is
+   declaration_dump (out_c: TEXT_FILE_WRITE)
       local
          i: INTEGER; stop: BOOLEAN; internal_c_local: INTERNAL_C_LOCAL;  buffer: STRING
       do
@@ -73,7 +73,7 @@ feature {C_PRETTY_PRINTER}
 
    declared_tmp_counter: INTEGER
    
-   echo_information is
+   echo_information
       do
          echo.put_string("Declared INTERNAL_C_LOCAL: ")
          echo.put_integer(declared_tmp_counter)

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {AGENT_EXPRESSION}
-   visit_agent_expression (visited: AGENT_EXPRESSION) is
+   visit_agent_expression (visited: AGENT_EXPRESSION)
       require
          visited /= Void
       deferred

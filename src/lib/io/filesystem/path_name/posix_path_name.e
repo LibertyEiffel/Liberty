@@ -17,7 +17,7 @@ create {ANY}
    make_empty, make_root, make_current, make_from_string
 
 feature {ANY} -- Creation
-   make_empty is
+   make_empty
       do
          if to_string = Void then
             to_string := ""
@@ -26,7 +26,7 @@ feature {ANY} -- Creation
          end
       end
 
-   make_root is
+   make_root
       do
          make_empty
          to_string.extend('/')
@@ -34,7 +34,7 @@ feature {ANY} -- Creation
          to_string.is_equal(once "/")
       end
 
-   make_current is
+   make_current
       do
          make_empty
          to_string.extend('.')
@@ -42,7 +42,7 @@ feature {ANY} -- Creation
          to_string.is_equal(once ".")
       end
 
-   make_from_string (s: STRING) is
+   make_from_string (s: STRING)
       do
          if to_string = Void then
             to_string := s.twin
@@ -52,22 +52,22 @@ feature {ANY} -- Creation
       end
 
 feature {ANY} -- Constants
-   extension_separator: CHARACTER is '.'
+   extension_separator: CHARACTER '.'
 
-   directory_separator: CHARACTER is '/'
+   directory_separator: CHARACTER '/'
 
-   up_directory: STRING is ".."
+   up_directory: STRING ".."
 
-   this_directory: STRING is "."
+   this_directory: STRING "."
 
 feature {ANY} -- Access
-   drive_specification: STRING is
+   drive_specification: STRING
       do
       ensure then
          Result = Void
       end
 
-   count: INTEGER is
+   count: INTEGER
       local
          p: INTEGER; sep: BOOLEAN
       do
@@ -91,52 +91,52 @@ feature {ANY} -- Access
          end
       end
 
-   last: STRING is
+   last: STRING
       local
          p: INTEGER
       do
-		  p := to_string.last_index_of(directory_separator) + 1
-		  -- check to_string.is_valid_index(p) end
-		  Result := to_string.substring(p, to_string.upper)
+        p := to_string.last_index_of(directory_separator) + 1
+        -- check to_string.is_valid_index(p) end
+        Result := to_string.substring(p, to_string.upper)
       ensure then
          to_string.has_suffix(Result)
       end
 
-	extension: STRING is
-		local
-			p: INTEGER -- the position of the eventual (last) separator (usually a point)
-			as_string: like to_string
-		do
-			-- A naive implementation, requiring an hidden allocation could be 
-			-- Result := last; Result := Result.right(Result.last_index_of(extention_separator)) 
-			-- beside requiring "right"
-			Result := once ""
-			as_string := to_string -- let's cache the complete path as a string in the eventuality that an heir of POSIX_PATH_NAME redefine to_string into a computed feature (a function)
-			p := as_string.last_index_of(extension_separator)
-			if p > as_string.lower then 
-				if p > as_string.last_index_of(directory_separator) then
-					Result := as_string.substring(p, as_string.upper)
-				else 
-					check 
-						not last.has(extension_separator) -- Current is like "xxx.d/we"
-					end
-				end
-			else 
-				-- path should be like "./without_extension" or like "../asd/./qwerty"
-				check
-					Result.is_empty
-				end
-			end
-		end
+   extension: STRING
+      local
+         p: INTEGER -- the position of the eventual (last) separator (usually a point)
+         as_string: like to_string
+      do
+         -- A naive implementation, requiring an hidden allocation could be
+         -- Result := last; Result := Result.right(Result.last_index_of(extention_separator))
+         -- beside requiring "right"
+         Result := once ""
+         as_string := to_string -- let's cache the complete path as a string in the eventuality that an heir of POSIX_PATH_NAME redefine to_string into a computed feature (a function)
+         p := as_string.last_index_of(extension_separator)
+         if p > as_string.lower then
+            if p > as_string.last_index_of(directory_separator) then
+               Result := as_string.substring(p, as_string.upper)
+            else
+               check
+                  not last.has(extension_separator) -- Current is like "xxx.d/we"
+               end
+            end
+         else
+            -- path should be like "./without_extension" or like "../asd/./qwerty"
+            check
+               Result.is_empty
+            end
+         end
+      end
 
-   is_absolute: BOOLEAN is
+   is_absolute: BOOLEAN
       do
          Result := not to_string.is_empty and then to_string.first = '/'
       ensure
          definition: Result = (not to_string.is_empty and then to_string.first = '/')
       end
 
-   is_normalized: BOOLEAN is
+   is_normalized: BOOLEAN
       local
          elem: STRING; scan: STRING
       do
@@ -182,14 +182,14 @@ feature {ANY} -- Access
          Result implies to_string.last /= '/' or else to_string.is_equal(once "/") or else to_string.is_equal(once "//")
       end
 
-   is_valid_path (path: STRING): BOOLEAN is
+   is_valid_path (path: STRING): BOOLEAN
       do
          --|*** Not nearly strict enough <FM-24/03/2003>
          Result := not path.is_empty
       end
 
 feature {ANY} -- Operations
-   to_absolute is
+   to_absolute
       local
          bd: BASIC_DIRECTORY
       do
@@ -202,7 +202,7 @@ feature {ANY} -- Operations
          normalize
       end
 
-   normalize is
+   normalize
       do
          tmp.copy(Current)
          make_from_path_name(tmp)
@@ -211,7 +211,7 @@ feature {ANY} -- Operations
          end
       end
 
-   normalize_case is
+   normalize_case
       do
          -- POSIX filesystem is case-sensitive
          -- There are no secondary separators
@@ -219,7 +219,7 @@ feature {ANY} -- Operations
          to_string.is_equal(old to_string.twin)
       end
 
-   remove_last is
+   remove_last
       local
          p: INTEGER
       do
@@ -237,7 +237,7 @@ feature {ANY} -- Operations
          (old to_string.twin).has_prefix(to_string)
       end
 
-   add_last (elem: STRING) is
+   add_last (elem: STRING)
       do
          if not is_empty then
             to_string.extend_unless('/')
@@ -245,7 +245,7 @@ feature {ANY} -- Operations
          to_string.append(elem)
       end
 
-   expand_user is
+   expand_user
       local
          user_home: STRING; sys: SYSTEM; p: INTEGER
       do
@@ -267,13 +267,13 @@ feature {ANY} -- Operations
          end
       end
 
-   expand_shellouts is
+   expand_shellouts
       do
          not_yet_implemented
       end
 
 feature {ANY} -- Copying, comparison
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          if Current /= other then
             if to_string = Void then
@@ -284,13 +284,13 @@ feature {ANY} -- Copying, comparison
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := to_string.is_equal(other.to_string)
       end
 
 feature {PATH_JOINER}
-   start_join (drive: STRING; absoluteness: INTEGER) is
+   start_join (drive: STRING; absoluteness: INTEGER)
       do
          inspect absoluteness
          when 0 then
@@ -302,14 +302,14 @@ feature {PATH_JOINER}
       end
 
 feature {} -- Auxiliar constants/onces
-   tmp: POSIX_PATH_NAME is
+   tmp: POSIX_PATH_NAME
       once
          create Result.make_empty
       end
 
-   double_slash: STRING is "//"
+   double_slash: STRING "//"
 
-   start_join_to (other: PATH_JOINER): INTEGER is
+   start_join_to (other: PATH_JOINER): INTEGER
       local
          slash_count: INTEGER
       do
@@ -340,7 +340,7 @@ end -- class POSIX_PATH_NAME
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

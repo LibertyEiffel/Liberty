@@ -23,21 +23,21 @@ insert
    VISITABLE
 
 feature {ANY}
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       deferred
       ensure
          Result /= Void or else result_type_may_be_void
       end
 
-   result_type_may_be_void: BOOLEAN is
+   result_type_may_be_void: BOOLEAN
       do
          Result := is_agent_call
       end
 
-   is_agent_call: BOOLEAN is False
-   is_open_argument: BOOLEAN is False
+   is_agent_call: BOOLEAN False
+   is_open_argument: BOOLEAN False
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       deferred

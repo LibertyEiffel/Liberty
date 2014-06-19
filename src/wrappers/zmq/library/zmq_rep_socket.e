@@ -2,7 +2,7 @@ class ZMQ_REP_SOCKET
         -- A ZMQ_REP socket that receives requests from and send replies to a client.
 
         -- It allows only an alternating sequence of request (receive) and and
-        -- subsequent reply (send) commands. Each request received is
+        -- subsequent reply (send) commands. Each request received
         -- fair-queued from among all clients, and each reply sent is routed to
         -- the client that issued the last request. If the original requester
         -- doesn’t exist any more the reply is silently discarded.

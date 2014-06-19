@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -15,7 +15,7 @@ feature {ANY}
 
    d0, d1: AUX_ALG12
 
-   make is
+   make
       do
          create tab.with_capacity(2, 0)
          create d0.make("d0")

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_EQUALS}
-   visit_liberty_equals (v: LIBERTY_EQUALS) is
+   visit_liberty_equals (v: LIBERTY_EQUALS)
       deferred
       end
 

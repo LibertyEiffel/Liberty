@@ -12,7 +12,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field __in6_u.
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

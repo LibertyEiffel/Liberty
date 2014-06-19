@@ -12,7 +12,7 @@ feature {ANY}
 
    an_any: FAST_ARRAY[ANY]
 
-   make is
+   make
       local
          i, upper: INTEGER
       do

@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          bc2_make;
          -- autres initialisations

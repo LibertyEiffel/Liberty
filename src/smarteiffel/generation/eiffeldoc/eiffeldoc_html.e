@@ -13,7 +13,7 @@ create {EIFFELDOC}
    make
 
 feature {HTML_ELEMENT}
-   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       local
          i: INTEGER
       do
@@ -42,7 +42,7 @@ feature {HTML_ELEMENT}
          end
       end
 
-   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       local
          i: INTEGER
       do
@@ -71,7 +71,7 @@ feature {HTML_ELEMENT}
       end
 
 feature {EIFFELDOC}
-   set (a_node: like node) is
+   set (a_node: like node)
       require
          a_node /= Void
       do
@@ -81,7 +81,7 @@ feature {EIFFELDOC}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

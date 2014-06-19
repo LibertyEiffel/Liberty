@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FEATURE_STAMP}
-   visit_feature_stamp (visited: FEATURE_STAMP) is
+   visit_feature_stamp (visited: FEATURE_STAMP)
       require
          visited /= Void
       deferred

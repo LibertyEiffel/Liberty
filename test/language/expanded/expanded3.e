@@ -9,12 +9,12 @@ create {ANY}
 feature {ANY}
    pt: POINT
 
-   make is
+   make
       do
          create pt.make(2, 2)
       end
 
-   set_pt (p: POINT) is
+   set_pt (p: POINT)
       do
          pt := p
       ensure

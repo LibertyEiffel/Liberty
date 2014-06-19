@@ -8,13 +8,13 @@ create {}
    make
 
 feature {ANY}
-   foo, bar: INTEGER is
+   foo, bar: INTEGER
       once
          count := count + 1
          Result := count
       end
 
-   make is
+   make
       do
          assert(foo = 1)
          assert(bar = 1)

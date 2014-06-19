@@ -24,7 +24,7 @@ create {LIBERTY_CONDITIONAL}
    make_specialized
 
 feature {ANY}
-   conditions: TRAVERSABLE[LIBERTY_CONDITION] is
+   conditions: TRAVERSABLE[LIBERTY_CONDITION]
       do
          Result := conditions_list
       ensure
@@ -33,7 +33,7 @@ feature {ANY}
 
    else_clause: LIBERTY_DEFAULT
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          i: INTEGER
          c: like conditions_list
@@ -66,14 +66,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   add_condition (a_condition: LIBERTY_CONDITION) is
+   add_condition (a_condition: LIBERTY_CONDITION)
       do
          conditions_list.add_last(a_condition)
       ensure
          conditions.last = a_condition
       end
 
-   set_else_clause (a_else_clause: like else_clause) is
+   set_else_clause (a_else_clause: like else_clause)
       do
          else_clause := a_else_clause
       ensure
@@ -81,7 +81,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          conditions_marker.mark_reachable_code(mark, conditions)
          if else_clause /= Void then
@@ -90,7 +90,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_position: like position) is
+   make (a_position: like position)
       require
          a_position /= Void
       do
@@ -100,7 +100,7 @@ feature {}
          position = a_position
       end
 
-   make_specialized (a_conditions: like conditions_list; a_else: like else_clause; a_position: like position) is
+   make_specialized (a_conditions: like conditions_list; a_else: like else_clause; a_position: like position)
       require
          a_conditions /= Void
          a_position /= Void
@@ -119,7 +119,7 @@ feature {}
    conditions_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_CONDITION]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CONDITIONAL_VISITOR
       do

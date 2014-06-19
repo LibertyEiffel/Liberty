@@ -28,19 +28,19 @@ insert
       end
 
 feature {ANY}
-   capacity: INTEGER is 0
+   capacity: INTEGER 0
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       do
          Result := root.at(k).value
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       do
          Result := root.fast_at(k).value
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       local
          n: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
@@ -52,7 +52,7 @@ feature {ANY}
          end
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       local
          n: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       do
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   put, add (v: V_; k: K_) is
+   put, add (v: V_; k: K_)
       do
          value_memory := v
          key_memory := k
@@ -72,7 +72,7 @@ feature {ANY}
          next_generation
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_)
       do
          value_memory := v
          key_memory := k
@@ -80,31 +80,31 @@ feature {ANY}
          next_generation
       end
 
-   occurrences (v: V_): INTEGER is
+   occurrences (v: V_): INTEGER
       do
          if root /= Void then
             Result := root.occurrences(v)
          end
       end
 
-   fast_occurrences (v: V_): INTEGER is
+   fast_occurrences (v: V_): INTEGER
       do
          if root /= Void then
             Result := root.fast_occurrences(v)
          end
       end
 
-   key_at (v: V_): K_ is
+   key_at (v: V_): K_
       do
          Result := root.key_at(v)
       end
 
-   fast_key_at (v: V_): K_ is
+   fast_key_at (v: V_): K_
       do
          Result := root.fast_key_at(v)
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       do
          if not is_empty then
             clear_nodes(root)
@@ -115,7 +115,7 @@ feature {ANY}
          next_generation
       end
 
-   set_item (v: V_; index: INTEGER) is
+   set_item (v: V_; index: INTEGER)
       do
          if map_dirty then
             build_map
@@ -124,7 +124,7 @@ feature {ANY}
          next_generation
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          if map_dirty then
             build_map
@@ -132,7 +132,7 @@ feature {ANY}
          Result := map.item(index - 1).value
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          if map_dirty then
             build_map
@@ -140,27 +140,27 @@ feature {ANY}
          Result := map.item(index - 1).key
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_AVL_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          create {ITERATOR_ON_AVL_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_AVL_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       do
          Result := root.at(k).key
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          make
          Precursor(other)
@@ -170,21 +170,21 @@ feature {ANY}
 feature {}
    value_memory: V_
 
-   set_value_and_key (n: like a_new_node) is
+   set_value_and_key (n: like a_new_node)
       do
          n.set(value_memory, key_memory)
       end
 
-   set_value (n: like a_new_node) is
+   set_value (n: like a_new_node)
       do
          n.set_value(value_memory)
       end
 
-   a_new_node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_] is
+   a_new_node: ABSTRACT_AVL_DICTIONARY_NODE[V_, K_]
       deferred
       end
 
-   exchange_and_discard (n1, n2: like root) is
+   exchange_and_discard (n1, n2: like root)
       do
          map_dirty := True
          n1.set_key(n2.key)
@@ -194,7 +194,7 @@ feature {}
          discard_node(n2)
       end
 
-   make, default_create is
+   make, default_create
       do
          create map.make(0)
          next_generation
@@ -208,7 +208,7 @@ end -- class ABSTRACT_AVL_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

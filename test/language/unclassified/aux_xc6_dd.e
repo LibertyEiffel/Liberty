@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (i: like item) is
+   make (i: like item)
       do
          item := i
       end

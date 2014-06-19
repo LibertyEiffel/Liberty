@@ -8,12 +8,12 @@ create {ANY}
    make
 
 feature {}
-   repository_name: STRING is "my_repository.xml"
+   repository_name: STRING "my_repository.xml"
 
    xml_repository: XML_FILE_REPOSITORY[STRING]
       -- One can store several STRINGs in that `xml_repository'.
 
-   make is
+   make
       local
          string_1, string_2: STRING
       do

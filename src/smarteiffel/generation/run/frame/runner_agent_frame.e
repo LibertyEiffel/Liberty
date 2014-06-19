@@ -14,44 +14,44 @@ create {RUNNER_FEATURES}
    make
 
 feature {RUNNER_FEATURES}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := launcher.start_position
       end
 
 feature {RUNNER_FACET}
-   name: FEATURE_NAME is
+   name: FEATURE_NAME
       do
          Result := feature_stamp.name
       end
 
-   arguments: TRAVERSABLE[RUNNER_OBJECT] is
+   arguments: TRAVERSABLE[RUNNER_OBJECT]
       do
          Result := launcher.arguments
       end
 
-   type_of_current: TYPE is
+   type_of_current: TYPE
       do
          Result := launcher.target.type
       end
 
-   type_of_result: TYPE is
+   type_of_result: TYPE
       do
          Result := launcher.result_type
       end
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       do
          Result := launcher.feature_stamp
       end
 
-   formal_arguments: FORMAL_ARG_LIST is
+   formal_arguments: FORMAL_ARG_LIST
       do
          not_yet_implemented
       end
 
 feature {}
-   make (a_processor: like processor; a_caller: like caller; a_launcher: like launcher) is
+   make (a_processor: like processor; a_caller: like caller; a_launcher: like launcher)
       require
          a_processor /= Void
          a_launcher /= Void
@@ -67,7 +67,7 @@ feature {}
 
    launcher: RUNNER_AGENT_LAUNCHER
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
          -- always Void
       end

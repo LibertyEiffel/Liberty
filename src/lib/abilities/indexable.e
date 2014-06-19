@@ -28,21 +28,21 @@ inherit
       end
 
 feature {ANY} -- Indexing:
-   lower: INTEGER is
+   lower: INTEGER
          -- Minimum index.
          --
          -- See also `upper', `valid_index', `item'.
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
          -- Maximum index.
          --
          -- See also `lower', `valid_index', `item'.
       deferred
       end
 
-   valid_index (i: INTEGER): BOOLEAN is
+   valid_index (i: INTEGER): BOOLEAN
          -- True when `i' is valid (i.e., inside actual bounds).
          --
          -- See also `lower', `upper', `item'.
@@ -53,7 +53,7 @@ feature {ANY} -- Indexing:
       end
 
 feature {ANY} -- Accessing:
-   item (i: INTEGER): E_ is
+   item (i: INTEGER): E_
          -- Item at the corresponding index `i'.
          --
          -- See also `lower', `upper', `valid_index'.
@@ -62,7 +62,7 @@ feature {ANY} -- Accessing:
       deferred
       end
 
-   first: like item is
+   first: like item
          -- The very `first' item.
          --
          -- See also `last', `item'.
@@ -73,7 +73,7 @@ feature {ANY} -- Accessing:
          definition: Result = item(lower)
       end
 
-   last: like item is
+   last: like item
          -- The `last' item.
          --
          -- See also `first', `item'.
@@ -85,7 +85,7 @@ feature {ANY} -- Accessing:
       end
 
 feature {ANY} -- Agent-based features:
-   for_each (action: PROCEDURE[TUPLE[E_]]) is
+   for_each (action: PROCEDURE[TUPLE[E_]])
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -102,7 +102,7 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Do all items satisfy `test'?
          --
          -- See also `for_each', `exists', `aggregate'.
@@ -120,7 +120,7 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Does at least one item satisfy `test'?
          --
          -- See also `for_each', `for_all', `aggregate'.
@@ -137,7 +137,7 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_
          -- Aggregate all the elements starting from the initial value.
          --
          -- See also `for_each', `for_all', `exists'.
@@ -156,7 +156,7 @@ feature {ANY} -- Agent-based features:
       end
 
 feature {ANY} -- Printing:
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER; v: like item
       do
@@ -190,7 +190,7 @@ end -- class INDEXABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

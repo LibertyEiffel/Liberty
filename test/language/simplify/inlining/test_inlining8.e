@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a1: like Current
 
-   make is
+   make
       do
          a1 := Current
          if get_a4 /= Current then
@@ -17,22 +17,22 @@ feature {ANY}
          end
       end
 
-   get_a1: like Current is
+   get_a1: like Current
       do
          Result := a1
       end
 
-   get_a2: like Current is
+   get_a2: like Current
       do
          Result := get_a1
       end
 
-   get_a3: like Current is
+   get_a3: like Current
       do
          Result := get_a2
       end
 
-   get_a4: like Current is
+   get_a4: like Current
       do
          Result := get_a3
       end

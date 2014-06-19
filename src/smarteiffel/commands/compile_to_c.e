@@ -13,9 +13,9 @@ create {}
    make, make_shrink
 
 feature {ANY}
-   command_line_name: STRING is "compile_to_c"
+   command_line_name: STRING "compile_to_c"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: compile_to_c [options] <RootClass> <RootProcedure> ...
          or: compile_to_c [options] <ACEfileName>.ace
 
@@ -30,7 +30,7 @@ feature {ANY}
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the compiler is
+        -verbose            Display detailed information about what the compiler
                              doing
 
       Warning and Error levels:
@@ -89,13 +89,13 @@ feature {ANY}
       ]"
 
 feature {}
-   make_shrink is
+   make_shrink
       do
          shrink_generic_types_memory.set_item(True)
          make
       end
 
-   make is
+   make
          -- Command line parsing has two passes: first, options are parsed and then, the extra options are added.
       local
          string_command_line: STRING_COMMAND_LINE; echo_redirect: STRING
@@ -136,7 +136,7 @@ feature {}
          echo.before_exit_close
       end
 
-   parse_command_line (pass: INTEGER) is
+   parse_command_line (pass: INTEGER)
       local
          argi: INTEGER; arg: STRING
          mhf: MEMORY_HANDLER_FACTORY
@@ -276,7 +276,7 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          Result := is_version_flag(arg)
             or else is_flymake_mode_flag(arg)
@@ -286,7 +286,7 @@ feature {}
             or else is_relax_flag(arg)
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version, -help and -relax are allowed in ACE%Nfile mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help and -relax are allowed in ACE%Nfile mode.%N"
 
 end -- class COMPILE_TO_C
 --

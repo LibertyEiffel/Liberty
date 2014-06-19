@@ -16,7 +16,7 @@ feature {ANY}
    unbound: CONSTRAINT_GROUP
       -- the constarints that are not bound to any variable
 
-   make is
+   make
          -- creation
       do
          create groups.make
@@ -24,7 +24,7 @@ feature {ANY}
          create collector.make
       end
 
-   add (constraint: CONSTRAINT) is
+   add (constraint: CONSTRAINT)
          -- add a constraint, taking care of where it must go:
          -- either in the unbound group or in one of the groups
          -- bound to variables
@@ -84,7 +84,7 @@ feature {ANY}
          end
       end
 
-   build_nodes (builder: MASK_BUILDER): BACKTRACKING_NODE_AND_LIST is
+   build_nodes (builder: MASK_BUILDER): BACKTRACKING_NODE_AND_LIST
          -- Creates the backtracking tree corresponding to the constraints.
       local
          i: INTEGER; n: BACKTRACKING_NODE

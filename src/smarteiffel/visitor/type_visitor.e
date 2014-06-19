@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {TYPE}
-   visit_type (visited: TYPE) is
+   visit_type (visited: TYPE)
       require
          visited /= Void
       deferred

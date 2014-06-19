@@ -24,29 +24,29 @@ create {ANY}
    make
 
 feature {ANY}
-   lower: INTEGER is 0
+   lower: INTEGER 0
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count - 1
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := keys.count
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          make(other.items, other.keys)
       end
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       do
          Result := keys.valid_index(index_of(k))
       end
 
-   at, reference_at (k: K_): V_ is
+   at, reference_at (k: K_): V_
       local
          index: INTEGER
       do
@@ -54,12 +54,12 @@ feature {ANY}
          Result := items.item(index - keys.lower + items.lower)
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       do
          Result := keys.valid_index(fast_index_of(k))
       end
 
-   fast_at, fast_reference_at (k: K_): V_ is
+   fast_at, fast_reference_at (k: K_): V_
       local
          index: INTEGER
       do
@@ -67,33 +67,33 @@ feature {ANY}
          Result := items.item(index - keys.lower + items.lower)
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          Result := items.item(index + items.lower)
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          Result := keys.item(index + keys.lower)
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          Result := items.new_iterator
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          Result := keys.new_iterator
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_ZIP[V_, K_]} Result.make(new_iterator_on_items, new_iterator_on_keys)
       end
 
 feature {ANY} -- Other features:
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       local
          index: INTEGER
       do
@@ -102,7 +102,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY}
-   make (a_items: like items; a_keys: like keys) is
+   make (a_items: like items; a_keys: like keys)
       require
          a_items.count = a_keys.count
       do
@@ -118,7 +118,7 @@ feature {ZIP}
    keys: TRAVERSABLE[K_]
 
 feature {}
-   index_of (k: K_): INTEGER is
+   index_of (k: K_): INTEGER
       local
          i: INTEGER
       do
@@ -135,7 +135,7 @@ feature {}
          end
       end
 
-   fast_index_of (k: K_): INTEGER is
+   fast_index_of (k: K_): INTEGER
       local
          i: INTEGER
       do
@@ -163,7 +163,7 @@ end -- class ZIP
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

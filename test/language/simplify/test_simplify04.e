@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do
@@ -237,7 +237,7 @@ feature {ANY}
          assert(cpt = 33)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

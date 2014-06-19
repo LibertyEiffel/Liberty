@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       require
          visited /= Void
       deferred

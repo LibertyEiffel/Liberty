@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(2.in_range(1, 3))
          assert(1.in_range(1, 3))
@@ -26,7 +26,7 @@ feature {ANY}
          assert(("aac").in_range("aaa", "ccc"))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

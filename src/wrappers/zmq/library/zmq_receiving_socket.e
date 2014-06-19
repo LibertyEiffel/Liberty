@@ -5,7 +5,7 @@ inherit
 	ZMQ_SOCKET
 
 feature {ANY} -- Receiving messages
-	receive (a_message: ZMQ_MESSAGE) is
+	receive (a_message: ZMQ_MESSAGE)
 		-- Receive an eventual incoming message from Current socket, putting it
 		-- into `a_message'; this command does not block. 
 		-- `is_successful' and `errno' are updated.		
@@ -23,7 +23,7 @@ feature {ANY} -- Receiving messages
 	--	is_successful or errno=eagain
 	end
 
-	wait_for (a_message: ZMQ_MESSAGE) is
+	wait_for (a_message: ZMQ_MESSAGE)
 		-- Wait until an incoming message in received by Current socket, putting it
 		-- into `a_message'; this command blocks until `a_message' is received. 
 		-- `is_successful' and `errno' are updated.	

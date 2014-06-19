@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          c: COMPARABLE
          h: HASHABLE

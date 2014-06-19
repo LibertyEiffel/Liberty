@@ -4,13 +4,13 @@ create {TEST_CLI_07}
    make
 
 feature {TEST_CLI_07}
-   items: MAP[FIXED_STRING, FIXED_STRING] is
+   items: MAP[FIXED_STRING, FIXED_STRING]
       do
          Result := items_
       end
 
 feature {}
-   make (val: STRING) is
+   make (val: STRING)
       local
          done: BOOLEAN
          key, value: FIXED_STRING
@@ -35,7 +35,7 @@ feature {}
          end
       end
 
-   pattern: REGULAR_EXPRESSION is
+   pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once

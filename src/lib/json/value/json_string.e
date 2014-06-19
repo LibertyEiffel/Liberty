@@ -23,7 +23,7 @@ create {JSON_HANDLER}
    make, from_string
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: JSON_VISITOR
       do
@@ -33,12 +33,12 @@ feature {ANY}
 
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := string.is_equal(other.string)
       end
 
-   append_in (str: STRING; raw: BOOLEAN) is
+   append_in (str: STRING; raw: BOOLEAN)
          -- Append the JSON string into `str'
          -- If `raw' is True, append raw utf8 codes; otherwise, use '\u' sequences
       require
@@ -51,7 +51,7 @@ feature {ANY}
          strout.disconnect
       end
 
-   write_to (str: OUTPUT_STREAM; raw: BOOLEAN) is
+   write_to (str: OUTPUT_STREAM; raw: BOOLEAN)
          -- Write the JSON string to `str'
          -- If `raw' is True, write raw utf8 codes; otherwise, use '\u' sequences
       require
@@ -87,7 +87,7 @@ feature {ANY}
          str.put_character('"')
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "JSON_STRING[")
          append_in(tagged_out_memory, False)
@@ -98,7 +98,7 @@ feature {JSON_HANDLER}
    string: UNICODE_STRING
 
 feature {}
-   make (a_string: like string) is
+   make (a_string: like string)
       require
          a_string /= Void
       do
@@ -109,12 +109,12 @@ feature {}
          set_string_invariant(a_string)
       end
 
-   from_string (a_string: ABSTRACT_STRING) is
+   from_string (a_string: ABSTRACT_STRING)
       do
          make(create {UNICODE_STRING}.from_utf8(a_string.out))
       end
 
-   append_unicode_in (str: OUTPUT_STREAM; u: INTEGER) is
+   append_unicode_in (str: OUTPUT_STREAM; u: INTEGER)
       local
          h: INTEGER; hex: STRING
       do
@@ -133,7 +133,7 @@ feature {}
          end
       end
 
-   set_string_invariant (a_string: like string): BOOLEAN is
+   set_string_invariant (a_string: like string): BOOLEAN
       require
          a_string /= Void
       do
@@ -156,7 +156,7 @@ end -- class JSON_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -13,7 +13,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       local
          i: INTEGER
       do
@@ -28,11 +28,11 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   feature_name: STRING is ""
+   feature_name: STRING ""
 
    next_offset: INTEGER
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          with_anchor: BOOLEAN; n: STRING; fs: FEATURE_STAMP; fn: FEATURE_NAME; af: ANONYMOUS_FEATURE
          feature_name_buffer: FEATURE_NAME
@@ -125,17 +125,17 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          states.count = old states.count
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          check
             False
          end
       end
 
-   handle_first: BOOLEAN is True
+   handle_first: BOOLEAN True
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

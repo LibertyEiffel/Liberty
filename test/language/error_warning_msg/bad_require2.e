@@ -13,7 +13,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          make
          make
@@ -22,14 +22,14 @@ feature {}
          make2
       end
 
-   make is
+   make
       require --'require else' needed
          attr = 2
       do
          attr := attr + 2
       end
 
-   make2 is
+   make2
       require else --'require' needed
          attr = 0
       do

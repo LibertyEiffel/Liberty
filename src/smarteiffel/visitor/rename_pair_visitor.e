@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RENAME_PAIR}
-   visit_rename_pair (visited: RENAME_PAIR) is
+   visit_rename_pair (visited: RENAME_PAIR)
       require
          visited /= Void
       deferred

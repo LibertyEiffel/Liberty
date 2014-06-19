@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   MY_FUNCTION: STRING is
+   MY_FUNCTION: STRING
       do
       end
 

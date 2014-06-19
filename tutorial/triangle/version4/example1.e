@@ -5,7 +5,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          p1: POINT; file_name: STRING; file: TEXT_FILE_WRITE
       do

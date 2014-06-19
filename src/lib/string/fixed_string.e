@@ -20,7 +20,7 @@ create {FIXED_STRING}
    make_from_fixed_string
 
 feature {ANY} -- Creation:
-   make_from_string (model: STRING) is
+   make_from_string (model: STRING)
          -- Initialize from the characters of `model'.
       require
          not immutable
@@ -59,7 +59,7 @@ feature {ANY} -- Creation:
 feature {ANY}
    hash_code: INTEGER
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
          -- A shared version of this string.
       local
          strings: FAST_ARRAY[FIXED_STRING]
@@ -83,18 +83,18 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          fill_tagged_out_memory
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append(Current)
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
          -- In fact this feature can only be used at creation time (see `immutable').
       do
          check
@@ -118,7 +118,7 @@ feature {ANY}
    immutable: BOOLEAN
 
 feature {ABSTRACT_STRING}
-   do_intern (strings: FAST_ARRAY[FIXED_STRING]) is
+   do_intern (strings: FAST_ARRAY[FIXED_STRING])
       require
          interned.fast_reference_at(hash_code) = strings
          not is_interned
@@ -134,13 +134,13 @@ feature {ANY}
    is_interned: BOOLEAN
 
 feature {ANY} -- Other features:
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
       do
          create Result.make_from_fixed_string(Current, start_index, end_index)
       end
 
 feature {}
-   make_from_fixed_string (other: FIXED_STRING; start_index, end_index: INTEGER) is
+   make_from_fixed_string (other: FIXED_STRING; start_index, end_index: INTEGER)
       require
          other /= Void
          valid_start_index: other.valid_index(start_index)
@@ -167,7 +167,7 @@ feature {}
       end
 
 feature {ANY} -- Interfacing with C string:
-   to_external: POINTER is
+   to_external: POINTER
       do
          if is_shared then
             unshare
@@ -176,7 +176,7 @@ feature {ANY} -- Interfacing with C string:
       end
 
 feature {STRING_HANDLER} -- Creation from C string:
-   from_external (p: POINTER) is
+   from_external (p: POINTER)
          -- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
          -- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
          -- FIXED_STRING.
@@ -210,7 +210,7 @@ feature {STRING_HANDLER} -- Creation from C string:
          immutable
       end
 
-   from_external_copy (p: POINTER) is
+   from_external_copy (p: POINTER)
          -- Internal `storage' is set using a copy of `p'. Assume `p' has a null character at the end in order
          -- to compute the Eiffel `count'. This extra null character is not part of the Eiffel
          -- FIXED_STRING.
@@ -245,7 +245,7 @@ feature {STRING_HANDLER} -- Creation from C string:
          immutable
       end
 
-   from_external_sized_copy (p: POINTER; size: INTEGER) is
+   from_external_sized_copy (p: POINTER; size: INTEGER)
          -- Internal `storage' is set using a copy of `p'.  'size' characters are copied, setting then 'count'
          -- to at most `size'. If the C string is shorter though then its size is used instead.
          -- Also consider `from_external_copy' to choose the most appropriate.
@@ -283,7 +283,7 @@ feature {STRING_HANDLER} -- Creation from C string:
       end
 
 feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
-   recycle is
+   recycle
       local
          s: like storage
       do
@@ -294,14 +294,14 @@ feature {RECYCLING_POOL, STRING_RECYCLING_POOL, STRING_HANDLER}
       end
 
 feature {STRING_HANDLER} -- Copy On Write:
-   is_shared: BOOLEAN is
+   is_shared: BOOLEAN
       do
          Result := holders.count > 1
       end
 
    holders: FAST_ARRAY[FIXED_STRING]
 
-   share_with (other: like Current) is
+   share_with (other: like Current)
       do
          if holders = Void then
             -- when called by twin
@@ -318,7 +318,7 @@ feature {STRING_HANDLER} -- Copy On Write:
          holders.add_last(Current)
       end
 
-   unshare is
+   unshare
       require
          is_shared
       local
@@ -340,7 +340,7 @@ feature {STRING_HANDLER} -- Copy On Write:
       end
 
 feature {} -- Holders management:
-   new_holders: like holders is
+   new_holders: like holders
       local
          wr: WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]
       do
@@ -368,7 +368,7 @@ feature {} -- Holders management:
          Result.first = Current
       end
 
-   free_holders (a_holders: like holders) is
+   free_holders (a_holders: like holders)
       require
          a_holders.is_empty
       local
@@ -387,18 +387,18 @@ feature {} -- Holders management:
          holders_memory.add_last(wr)
       end
 
-   holders_memory: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]] is
+   holders_memory: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]
       once
          create Result.with_capacity(1024)
       end
 
-   weakrefs: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]] is
+   weakrefs: FAST_ARRAY[WEAK_REFERENCE[FAST_ARRAY[FIXED_STRING]]]
       once
          create Result.with_capacity(1024)
       end
 
 feature {} -- Invariant checking:
-   is_storage_unchanged: BOOLEAN is
+   is_storage_unchanged: BOOLEAN
       do
          if original = Void then
             original := twin
@@ -411,7 +411,7 @@ feature {} -- Invariant checking:
    original: like Current
 
 feature {STRING_HANDLER}
-   check_can_have_storage_signature: BOOLEAN is
+   check_can_have_storage_signature: BOOLEAN
       do
          Result := True
       end
@@ -426,7 +426,7 @@ invariant
    ;(immutable and not is_shared) implies (count > 0 implies (storage.item(count-1) = '%U' or else storage.item(count) = '%U'))
    ;(immutable and not is_shared) implies (storage.item(count) = '%U' implies capacity = count + 1)
    holders.fast_has(Current)
-   holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN is do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
+   holders.for_all(agent (holder: FIXED_STRING; p: POINTER): BOOLEAN do Result := holder.storage.to_pointer = p end (?, storage.to_pointer))
    is_interned = (interned.fast_has(hash_code) and then interned.fast_reference_at(hash_code).fast_has(Current))
    is_interned implies immutable
    --is_storage_unchanged
@@ -439,7 +439,7 @@ end -- class FIXED_STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

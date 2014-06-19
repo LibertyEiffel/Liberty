@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_UPDATE}
-   visit_update (a_update: EDC_UPDATE) is
+   visit_update (a_update: EDC_UPDATE)
       deferred
       end
 

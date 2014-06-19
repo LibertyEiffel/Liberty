@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EXTERNAL_PROCEDURE}
-   visit_external_procedure (visited: EXTERNAL_PROCEDURE) is
+   visit_external_procedure (visited: EXTERNAL_PROCEDURE)
       require
          visited /= Void
       deferred

@@ -4,7 +4,7 @@
 class AUX_GENERIC11[E_]
 
 feature {ANY}
-   do_it is
+   do_it
       local
          e: E_
       do

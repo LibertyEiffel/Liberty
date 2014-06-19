@@ -8,7 +8,7 @@ deferred class MINI_PARSER_MEMORY
    --
 
 feature {ANY}
-   memo (buffer: MINI_PARSER_BUFFER): INTEGER is
+   memo (buffer: MINI_PARSER_BUFFER): INTEGER
          -- returns an identifier that uniquely identifies a buffer index.
       require
          buffer /= Void
@@ -17,7 +17,7 @@ feature {ANY}
          valid_memo(Result, buffer)
       end
 
-   restore (a_memo: like memo; buffer: MINI_PARSER_BUFFER) is
+   restore (a_memo: like memo; buffer: MINI_PARSER_BUFFER)
          -- restores the buffer index using the given memo
       require
          valid_memo(a_memo, buffer)
@@ -25,7 +25,7 @@ feature {ANY}
       deferred
       end
 
-   valid_memo (a_memo: like memo; buffer: MINI_PARSER_BUFFER): BOOLEAN is
+   valid_memo (a_memo: like memo; buffer: MINI_PARSER_BUFFER): BOOLEAN
          -- True if the memo represents a valid index in the buffer
       deferred
       end
@@ -38,7 +38,7 @@ end -- class MINI_PARSER_MEMORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

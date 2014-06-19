@@ -27,25 +27,25 @@ create {ANY}
    manifest_creation
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('{')
          parser_tree.out_in_tagged_out_memory
          tagged_out_memory.extend('}')
       end
 
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       do
          Result := parser_tree.is_coherent
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   pretty_print_on (stream: OUTPUT_STREAM)
       do
          not_yet_implemented
       end
 
 feature {PARSE_TABLE}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       do
          if non_terminal_builder /= Void then
             save_tree_builder_path
@@ -55,7 +55,7 @@ feature {PARSE_TABLE}
       end
 
 feature {PARSER_FACET}
-   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE is
+   parse (context: DESCENDING_PARSE_CONTEXT): TRISTATE
       do
          Result := parser_tree.parse(context)
          if Result = yes then
@@ -81,19 +81,19 @@ feature {PARSER_FACET}
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          name := other.name
          parser_tree := other.parser_tree.twin
          parser_tree.set_non_terminal(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := name.is_equal(other.name) and then parser_tree.is_equal(other.parser_tree)
       end
 
-   add (rule: TRAVERSABLE[FIXED_STRING]; action: PROCEDURE[TUPLE]) is
+   add (rule: TRAVERSABLE[FIXED_STRING]; action: PROCEDURE[TUPLE])
       do
          parser_tree.add(rule, action)
       end
@@ -102,19 +102,19 @@ feature {DESCENDING_NON_TERMINAL}
    parser_tree: DESCENDING_NT_NODE
 
 feature {}
-   tree_builder_path_used: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]] is
+   tree_builder_path_used: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]]
       once
          create Result.make(0)
       end
 
-   tree_builder_path_free: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]] is
+   tree_builder_path_free: FAST_ARRAY[FAST_ARRAY[FIXED_STRING]]
       once
          create Result.make(0)
       end
 
    tree_builder_path: FAST_ARRAY[FIXED_STRING]
 
-   save_tree_builder_path is
+   save_tree_builder_path
       do
          if tree_builder_path = Void then
             tree_builder_path := free_tree_builder_path
@@ -128,7 +128,7 @@ feature {}
          ;(old (tree_builder_path /= Void and then not tree_builder_path.is_empty)) implies (tree_builder_path_used.count = old tree_builder_path_used.count + 1)
       end
 
-   restore_tree_builder_path is
+   restore_tree_builder_path
       require
          tree_builder_path.is_empty
       do
@@ -143,7 +143,7 @@ feature {}
          ;(not old tree_builder_path_used.is_empty) implies (tree_builder_path_used.count = old tree_builder_path_used.count - 1)
       end
 
-   free_tree_builder_path: like tree_builder_path is
+   free_tree_builder_path: like tree_builder_path
       do
          if tree_builder_path_free.is_empty then
             create Result.make(0)
@@ -156,12 +156,12 @@ feature {}
       end
 
 feature {}
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
       do
          create parser_tree.root(Current)
       end
 
-   manifest_put (index: INTEGER; rule: TRAVERSABLE[ABSTRACT_STRING]; action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
+   manifest_put (index: INTEGER; rule: TRAVERSABLE[ABSTRACT_STRING]; action: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]])
       require
          rule /= Void
       local
@@ -180,7 +180,7 @@ feature {}
          parser_tree.add(fixed_rule, action)
       end
 
-   manifest_semicolon_check: INTEGER is 2
+   manifest_semicolon_check: INTEGER 2
 
 end -- class DESCENDING_NON_TERMINAL
 --
@@ -190,7 +190,7 @@ end -- class DESCENDING_NON_TERMINAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

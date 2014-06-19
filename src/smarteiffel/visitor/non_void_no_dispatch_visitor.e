@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NON_VOID_NO_DISPATCH}
-   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       require
          visited /= Void
       deferred

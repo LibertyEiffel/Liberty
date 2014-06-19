@@ -7,18 +7,18 @@ create {}
    make, make_1
 
 feature {}
-   make is
+   make
       do
          if once_make_1 = Void then
          end
       end
 
-   once_make_1: like Current is
+   once_make_1: like Current
       do
          create make_1
       end
 
-   make_1 is
+   make_1
       local
          i: INTEGER
       do

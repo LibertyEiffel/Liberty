@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       require
          visited /= Void
       deferred

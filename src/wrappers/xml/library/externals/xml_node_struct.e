@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_node_struct_set_type (a_structure: POINTER; a_value: INTEGER) is
+	xml_node_struct_set_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for type field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_children (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_children (a_structure: POINTER; a_value: POINTER)
 			-- Setter for children field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_last (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_last (a_structure: POINTER; a_value: POINTER)
 			-- Setter for last field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_parent (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_parent (a_structure: POINTER; a_value: POINTER)
 			-- Setter for parent field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_next (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_next (a_structure: POINTER; a_value: POINTER)
 			-- Setter for next field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_prev (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_prev (a_structure: POINTER; a_value: POINTER)
 			-- Setter for prev field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_doc (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_doc (a_structure: POINTER; a_value: POINTER)
 			-- Setter for doc field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_ns (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_ns (a_structure: POINTER; a_value: POINTER)
 			-- Setter for ns field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_content (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_content (a_structure: POINTER; a_value: POINTER)
 			-- Setter for content field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_properties (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_properties (a_structure: POINTER; a_value: POINTER)
 			-- Setter for properties field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_nsdef (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_nsdef (a_structure: POINTER; a_value: POINTER)
 			-- Setter for nsDef field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_psvi (a_structure: POINTER; a_value: POINTER) is
+	xml_node_struct_set_psvi (a_structure: POINTER; a_value: POINTER)
 			-- Setter for psvi field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_line (a_structure: POINTER; a_value: NATURAL_16) is
+	xml_node_struct_set_line (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for line field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_node_struct_set_extra (a_structure: POINTER; a_value: NATURAL_16) is
+	xml_node_struct_set_extra (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for extra field of XML_NODE_STRUCT structure.
 			-- TODO: setter description
 
@@ -191,7 +191,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field _private.
-	xml_node_struct_get_type (a_structure: POINTER): INTEGER is
+	xml_node_struct_get_type (a_structure: POINTER): INTEGER
 			-- Query for type field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -203,7 +203,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_name (a_structure: POINTER): POINTER is
+	xml_node_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -215,7 +215,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_children (a_structure: POINTER): POINTER is
+	xml_node_struct_get_children (a_structure: POINTER): POINTER
 			-- Query for children field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -227,7 +227,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_last (a_structure: POINTER): POINTER is
+	xml_node_struct_get_last (a_structure: POINTER): POINTER
 			-- Query for last field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -239,7 +239,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_parent (a_structure: POINTER): POINTER is
+	xml_node_struct_get_parent (a_structure: POINTER): POINTER
 			-- Query for parent field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -251,7 +251,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_next (a_structure: POINTER): POINTER is
+	xml_node_struct_get_next (a_structure: POINTER): POINTER
 			-- Query for next field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -263,7 +263,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_prev (a_structure: POINTER): POINTER is
+	xml_node_struct_get_prev (a_structure: POINTER): POINTER
 			-- Query for prev field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -275,7 +275,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_doc (a_structure: POINTER): POINTER is
+	xml_node_struct_get_doc (a_structure: POINTER): POINTER
 			-- Query for doc field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -287,7 +287,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_ns (a_structure: POINTER): POINTER is
+	xml_node_struct_get_ns (a_structure: POINTER): POINTER
 			-- Query for ns field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -299,7 +299,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_content (a_structure: POINTER): POINTER is
+	xml_node_struct_get_content (a_structure: POINTER): POINTER
 			-- Query for content field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -311,7 +311,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_properties (a_structure: POINTER): POINTER is
+	xml_node_struct_get_properties (a_structure: POINTER): POINTER
 			-- Query for properties field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -323,7 +323,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_nsdef (a_structure: POINTER): POINTER is
+	xml_node_struct_get_nsdef (a_structure: POINTER): POINTER
 			-- Query for nsDef field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -335,7 +335,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_psvi (a_structure: POINTER): POINTER is
+	xml_node_struct_get_psvi (a_structure: POINTER): POINTER
 			-- Query for psvi field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -347,7 +347,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_line (a_structure: POINTER): NATURAL_16 is
+	xml_node_struct_get_line (a_structure: POINTER): NATURAL_16
 			-- Query for line field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -359,7 +359,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_node_struct_get_extra (a_structure: POINTER): NATURAL_16 is
+	xml_node_struct_get_extra (a_structure: POINTER): NATURAL_16
 			-- Query for extra field of XML_NODE_STRUCT structure.
 			-- TODO: getter description
 
@@ -372,7 +372,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

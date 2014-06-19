@@ -10,9 +10,9 @@ create {ANY}
 	make
 
 feature {}
-	step: INTEGER is 10
+	step: INTEGER 10
 
-	make is
+	make
 		local
 			digits: PI_DIGIT_SPIGOT; n, i, j: INTEGER
 		do

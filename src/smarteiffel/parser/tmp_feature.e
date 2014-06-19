@@ -17,7 +17,7 @@ create {EIFFEL_PARSER}
    initialize
 
 feature {EIFFEL_PARSER}
-   first_name: FEATURE_NAME is
+   first_name: FEATURE_NAME
       do
          Result := names.first
       end
@@ -44,7 +44,7 @@ feature {EIFFEL_PARSER}
 
    has_closures: BOOLEAN
 
-   initialize is
+   initialize
       require
          not busy
       do
@@ -77,14 +77,14 @@ feature {EIFFEL_PARSER}
          busy
       end
 
-   set_has_closures is
+   set_has_closures
       do
          has_closures := True
       ensure
          has_closures
       end
 
-   done is
+   done
       require
          busy
       do
@@ -93,28 +93,28 @@ feature {EIFFEL_PARSER}
          not busy
       end
 
-   add_synonym (a_name: FEATURE_NAME) is
+   add_synonym (a_name: FEATURE_NAME)
       require
          a_name /= Void
       do
          names.add_last(a_name)
       end
 
-   set_assigned (a: like assigned) is
+   set_assigned (a: like assigned)
       require
          a /= Void
       do
          assigned := a
       end
 
-   set_arguments (args: like arguments) is
+   set_arguments (args: like arguments)
       require
          args /= Void
       do
          arguments := args
       end
 
-   set_type (t: like type) is
+   set_type (t: like type)
       require
          t /= Void
       do
@@ -123,34 +123,34 @@ feature {EIFFEL_PARSER}
          type = t
       end
 
-   set_header_comment (hc: like header_comment) is
+   set_header_comment (hc: like header_comment)
       do
          header_comment := hc
       end
 
-   set_obsolete_mark (om: like obsolete_mark) is
+   set_obsolete_mark (om: like obsolete_mark)
       do
          obsolete_mark := om
       end
 
-   set_local_vars (lv: like local_vars) is
+   set_local_vars (lv: like local_vars)
       do
          local_vars := lv
       end
 
-   set_require (sp: POSITION; else_flag: BOOLEAN; hc: COMMENT; al: FAST_ARRAY[ASSERTION]) is
+   set_require (sp: POSITION; else_flag: BOOLEAN; hc: COMMENT; al: FAST_ARRAY[ASSERTION])
       do
          if hc /= Void or else al /= Void then
             create require_assertion.make(sp, else_flag, hc, al)
          end
       end
 
-   set_routine_body (rb: like routine_body) is
+   set_routine_body (rb: like routine_body)
       do
          routine_body := rb
       end
 
-   as_writable_attribute: FEATURE_TEXT is
+   as_writable_attribute: FEATURE_TEXT
       require
          type /= Void
          arguments = Void
@@ -164,7 +164,7 @@ feature {EIFFEL_PARSER}
          create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion, index_list)
       end
 
-   as_boolean_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_boolean_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
          {BOOLEAN_CONSTANT} ?:= value
@@ -188,7 +188,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_character_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_character_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
          {CHARACTER_CONSTANT} ?:= value
@@ -211,7 +211,7 @@ feature {EIFFEL_PARSER}
          create Result.character_constant(n, type, character_constant, index_list)
       end
 
-   as_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
          not has_closures
@@ -286,7 +286,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT is
+   as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT
       require
          not has_closures
       do
@@ -304,7 +304,7 @@ feature {EIFFEL_PARSER}
          create Result.string_constant(n, type, value, index_list)
       end
 
-   as_deferred_routine: FEATURE_TEXT is
+   as_deferred_routine: FEATURE_TEXT
       require
          not has_closures
       do
@@ -319,7 +319,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
+   as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT
       require
          not has_closures
       do
@@ -334,7 +334,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_once_routine: FEATURE_TEXT is
+   as_once_routine: FEATURE_TEXT
       do
          if type = Void then
             create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
@@ -347,7 +347,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_procedure_or_function: FEATURE_TEXT is
+   as_procedure_or_function: FEATURE_TEXT
       do
          if type = Void then
             create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
@@ -360,7 +360,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_unique_constant: FEATURE_TEXT is
+   as_unique_constant: FEATURE_TEXT
       require
          not has_closures
       do
@@ -379,7 +379,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {}
-   constant_attribute_common_checks (constant_expression: EXPRESSION) is
+   constant_attribute_common_checks (constant_expression: EXPRESSION)
          -- Where `constant_expression' is the one written just after the "is" keyword (except for
          -- a "unique" definition).
       do
@@ -413,7 +413,7 @@ feature {}
          end
       end
 
-   n: FEATURE_NAME_LIST is
+   n: FEATURE_NAME_LIST
       require
          not names.is_empty
       do

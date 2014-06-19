@@ -44,28 +44,28 @@ feature {ANY}
    manifest_put_feature_stamp: FEATURE_STAMP
          -- Unique too (see `created_type')
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       require
          created_type /= Void
       do
          Result := created_type.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          check
             created_type /= Void
@@ -74,7 +74,7 @@ feature {ANY}
          Result := created_type = other.created_type
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          if created_type /= Void then
             Result := created_type
@@ -83,7 +83,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if optional_arguments /= Void then
             Result := use_current_of(type, optional_arguments)
@@ -93,12 +93,12 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := False
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i, sc_count: INTEGER; left_margin: STRING
       do
@@ -141,20 +141,20 @@ feature {ANY}
          pretty_printer.put_string(once " >> }")
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -189,13 +189,13 @@ feature {ANY}
          short_printer.hook_or(once "close_curly_bracket", once "}")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          oa: like optional_arguments; il: like item_list
       do
@@ -212,7 +212,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          tm: like type_mark; oa: like optional_arguments; il: like item_list
       do
@@ -232,7 +232,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          oa: like optional_arguments; il: like item_list; af: ANONYMOUS_FEATURE
          cst_att_boolean: CST_ATT_BOOLEAN; cst_att_integer: CST_ATT_INTEGER
@@ -368,7 +368,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if optional_arguments /= Void then
             Result := has_been_specialized_of(optional_arguments)
@@ -380,7 +380,7 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := created_type
          check
@@ -388,7 +388,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE; formal_arg_list: FORMAL_ARG_LIST; expression_type, destination_type: TYPE
          fal_idx, list_idx: INTEGER; expression: EXPRESSION
@@ -444,7 +444,7 @@ feature {ANY}
          manifest_generic_pool.collect(Current)
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          oa: like optional_arguments; il: like item_list
       do
@@ -460,7 +460,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if optional_arguments /= Void then
             safety_check_of(type, optional_arguments)
@@ -468,7 +468,7 @@ feature {ANY}
          safety_check_of(type, item_list)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          if created_type /= Void then
             Result := created_type
@@ -479,7 +479,7 @@ feature {ANY}
          Result /= Void
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          oa: like optional_arguments; il: like item_list
       do
@@ -495,18 +495,18 @@ feature {ANY}
          end
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   accept (visitor: MANIFEST_GENERIC_VISITOR) is
+   accept (visitor: MANIFEST_GENERIC_VISITOR)
       do
          visitor.visit_manifest_generic(Current)
       end
 
 feature {MANIFEST_GENERIC}
-   init (oa, il: FAST_ARRAY[EXPRESSION]) is
+   init (oa, il: FAST_ARRAY[EXPRESSION])
       require
          not il.is_empty
       do
@@ -518,7 +518,7 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   specialize_and_check_from_old_manifest_array (type: TYPE) is
+   specialize_and_check_from_old_manifest_array (type: TYPE)
          -- Finish initialization of `Current' in order to reach a normal `specialize_and_check' state.
          -- Here `Current' is the canonical form of some OLD_MANIFEST_ARRAY.
       do
@@ -528,7 +528,7 @@ feature {OLD_MANIFEST_ARRAY}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          oa: like optional_arguments; il: like item_list; mg: like Current
       do
@@ -549,7 +549,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          -- Not unknown when some irregular usage of the ";" (semicolon) has been detected by the parser.
 
    make (sp: like start_position; tm: like type_mark; oa, il: FAST_ARRAY[EXPRESSION]
-         sc: like semicolon_count; ip: like irregular_position) is
+         sc: like semicolon_count; ip: like irregular_position)
       require
          not sp.is_unknown
          tm /= Void
@@ -578,7 +578,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          item_list = il
       end
 
-   specialize_in_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
+   specialize_in_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION]
       require
          not l.is_empty
       local
@@ -611,7 +611,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
    specialize_thru_of (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE
-      l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
+      l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION]
       require
          not l.is_empty
       local
@@ -643,7 +643,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          Result.count = l.count
       end
 
-   optional_arguments_specialize_and_check (type: TYPE): FAST_ARRAY[EXPRESSION] is
+   optional_arguments_specialize_and_check (type: TYPE): FAST_ARRAY[EXPRESSION]
       require
          not optional_arguments.is_empty
       local
@@ -675,7 +675,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          Result.count = optional_arguments.count
       end
 
-   use_current_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): BOOLEAN is
+   use_current_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): BOOLEAN
       require
          not l.is_empty
       local
@@ -691,7 +691,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-   has_been_specialized_of (l: FAST_ARRAY[EXPRESSION]): BOOLEAN is
+   has_been_specialized_of (l: FAST_ARRAY[EXPRESSION]): BOOLEAN
       require
          not l.is_empty
       local
@@ -707,7 +707,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-   simplify_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
+   simplify_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION]
       require
          not l.is_empty
       local
@@ -739,7 +739,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          Result.count = l.count
       end
 
-   adapt_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION] is
+   adapt_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]): FAST_ARRAY[EXPRESSION]
       require
          not l.is_empty
       local
@@ -771,7 +771,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          Result.count = l.count
       end
 
-   safety_check_of (type: TYPE; l: FAST_ARRAY[EXPRESSION]) is
+   safety_check_of (type: TYPE; l: FAST_ARRAY[EXPRESSION])
       require
          not l.is_empty
       local
@@ -787,7 +787,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
          end
       end
 
-   item_list_specialize_and_check (type: TYPE): like item_list is
+   item_list_specialize_and_check (type: TYPE): like item_list
       require
          type /= Void
       local
@@ -823,7 +823,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
    specialize_check (e: EXPRESSION; type: TYPE;
-                       destination_type_mark: TYPE_MARK; destination_type: TYPE): EXPRESSION is
+                       destination_type_mark: TYPE_MARK; destination_type: TYPE): EXPRESSION
       require
          e /= Void
          type /= Void

@@ -9,7 +9,7 @@ insert
    LOGGING
 
 feature {}
-   widget (ui: UI_WINDOW; desc: JSON_VALUE): CURSES_DESC_WIDGET is
+   widget (ui: UI_WINDOW; desc: JSON_VALUE): CURSES_DESC_WIDGET
       local
          desc_widget: JSON_OBJECT
          factory: FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET]
@@ -29,7 +29,7 @@ feature {}
          end
       end
 
-   new_widget (desc_widget: JSON_OBJECT; res, item: FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET]; key: STRING): FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET] is
+   new_widget (desc_widget: JSON_OBJECT; res, item: FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET]; key: STRING): FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET]
       do
          if res /= Void then
             Result := res
@@ -42,7 +42,7 @@ feature {}
          end
       end
 
-   widgets_factory: MAP[FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET], STRING] is
+   widgets_factory: MAP[FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET], STRING]
       once
          Result := {HASHED_DICTIONARY[FUNCTION[TUPLE[UI_WINDOW, JSON_OBJECT], CURSES_DESC_WIDGET], STRING]
          <<
@@ -52,7 +52,7 @@ feature {}
          >>}
       end
 
-   new_panel (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_PANEL is
+   new_panel (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_PANEL
       local
          val: JSON_VALUE
          obj: JSON_OBJECT
@@ -67,12 +67,12 @@ feature {}
          end
       end
 
-   new_button (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_BUTTON is
+   new_button (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_BUTTON
       do
          create Result.make(ui, value)
       end
 
-   new_text_field (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_TEXT_FIELD is
+   new_text_field (ui: UI_WINDOW; value: JSON_OBJECT): CURSES_DESC_TEXT_FIELD
       do
          create Result.make(ui, value)
       end
@@ -85,7 +85,7 @@ end -- class CURSES_DESCRIPTOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

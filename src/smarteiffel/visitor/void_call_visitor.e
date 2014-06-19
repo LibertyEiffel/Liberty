@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
+   visit_void_call (visited: VOID_CALL)
       require
          visited /= Void
       deferred

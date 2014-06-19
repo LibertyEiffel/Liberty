@@ -23,7 +23,7 @@ create {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
    last_call_failed: BOOLEAN
 
-   call is
+   call
       do
          last_call_failed := False
          builtin_call.definition_type.accept(Current)
@@ -34,7 +34,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTINS}
       end
 
 feature {}
-   make (a_interpreter: like interpreter; a_builtin_call: like builtin_call) is
+   make (a_interpreter: like interpreter; a_builtin_call: like builtin_call)
       require
          a_interpreter /= Void
          a_builtin_call /= Void
@@ -50,7 +50,7 @@ feature {}
    builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL
 
 feature {LIBERTY_UNIVERSE}
-   visit_type_any (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_any (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_any_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS
@@ -64,7 +64,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_arguments (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_arguments (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_arguments_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_ARGUMENTS_BUILTINS
@@ -78,7 +78,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_platform (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_platform_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_PLATFORM_BUILTINS
@@ -92,7 +92,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_pointer (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_pointer_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_POINTER_BUILTINS
@@ -106,7 +106,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_integer_64_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_64_BUILTINS
@@ -120,7 +120,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_integer_32_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_32_BUILTINS
@@ -134,7 +134,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_integer_16_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_16_BUILTINS
@@ -148,7 +148,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_integer_8_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_8_BUILTINS
@@ -162,7 +162,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_real_64_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_64_BUILTINS
@@ -176,7 +176,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_real_32_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_32_BUILTINS
@@ -190,7 +190,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_real_80_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_80_BUILTINS
@@ -204,7 +204,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_real_128_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_128_BUILTINS
@@ -218,7 +218,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_character (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_character (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_character_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_CHARACTER_BUILTINS
@@ -232,7 +232,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_string (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_string_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_STRING_BUILTINS
@@ -246,7 +246,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_boolean (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_boolean_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_BOOLEAN_BUILTINS
@@ -260,7 +260,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_native_array (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_native_array_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS
@@ -274,7 +274,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_tuple (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_tuple_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_TUPLE_BUILTINS
@@ -288,7 +288,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_routine (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_routine_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_ROUTINE_BUILTINS
@@ -302,7 +302,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_procedure (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_procedure_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_PROCEDURE_BUILTINS
@@ -316,7 +316,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_function (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_function (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_function_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_FUNCTION_BUILTINS
@@ -330,7 +330,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_predicate (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_predicate (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          type_predicate_builtins: LIBERTY_INTERPRETER_EXTERNAL_TYPE_PREDICATE_BUILTINS
@@ -344,7 +344,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_user_type (type: LIBERTY_ACTUAL_TYPE) is
+   visit_user_type (type: LIBERTY_ACTUAL_TYPE)
       local
          ret: LIBERTY_INTERPRETER_OBJECT
          user_type_builtins: LIBERTY_INTERPRETER_EXTERNAL_USER_TYPE_BUILTINS
@@ -359,7 +359,7 @@ feature {LIBERTY_UNIVERSE}
       end
 
 feature {LIBERTY_VOID_TYPE}
-   visit_void (type: LIBERTY_VOID_TYPE) is
+   visit_void (type: LIBERTY_VOID_TYPE)
       do
          check False end
       end

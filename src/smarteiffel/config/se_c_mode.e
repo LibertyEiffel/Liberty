@@ -42,7 +42,7 @@ feature {}
       a_c_linker_options: like c_linker_options; a_cpp_compiler: like cpp_compiler
       a_cpp_compiler_path: like cpp_compiler_path; a_cpp_linker_path: like cpp_linker_path
       a_cpp_strip_path: like cpp_strip_path; a_cpp_compiler_options: like cpp_compiler_options
-      a_cpp_linker_options: like cpp_linker_options; a_smarteiffel_options: like smarteiffel_options) is
+      a_cpp_linker_options: like cpp_linker_options; a_smarteiffel_options: like smarteiffel_options)
       do
          c_compiler := a_c_compiler
          c_compiler_path := a_c_compiler_path

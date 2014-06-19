@@ -5,7 +5,7 @@ class AUX_CREATION2
 create {ANY}
     make
 feature {ANY}
-   make is do end;
+   make do end;
 end -- class AUX_CREATION2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

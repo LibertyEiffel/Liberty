@@ -62,32 +62,32 @@ feature {ANY}
    has_closures: BOOLEAN
          -- True if the feature contains inline agents
 
-   clients: CLIENT_LIST is
+   clients: CLIENT_LIST
       do
          Result := feature_clause.clients
       ensure
          Result /= Void
       end
 
-   require_assertion: REQUIRE_ASSERTION is
+   require_assertion: REQUIRE_ASSERTION
          -- Not Void if any.
       do
          Result := anonymous_feature.require_assertion
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
          -- Not Void if any.
       do
          Result := anonymous_feature.rescue_compound
       end
 
-   ensure_assertion: ENSURE_ASSERTION is
+   ensure_assertion: ENSURE_ASSERTION
          -- Not Void if any.
       do
          Result := anonymous_feature.ensure_assertion
       end
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
       do
          Result := feature_clause.class_text
       ensure
@@ -95,7 +95,7 @@ feature {ANY}
       end
 
 feature {AGENT_CREATION}
-   inline_agent_pretty (indent_level: INTEGER) is
+   inline_agent_pretty (indent_level: INTEGER)
       require
          is_inline_agent
       do
@@ -103,7 +103,7 @@ feature {AGENT_CREATION}
       end
 
 feature {FEATURE_CLAUSE}
-   pretty is
+   pretty
       require
          pretty_printer.indent_level = 1
          not is_inline_agent
@@ -114,7 +114,7 @@ feature {FEATURE_CLAUSE}
          pretty_printer.indent_level = 0
       end
 
-   add_into (fc: like feature_clause; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into (fc: like feature_clause; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       require
          fc /= Void
          fd /= Void
@@ -154,7 +154,7 @@ feature {}
    closure_local_vars: FAST_ARRAY[LOCAL_VAR_LIST]
 
 feature {EIFFEL_PARSER}
-   set_inline_agent (ca: COLLECTION[FORMAL_ARG_LIST]; clv: COLLECTION[LOCAL_VAR_LIST]) is
+   set_inline_agent (ca: COLLECTION[FORMAL_ARG_LIST]; clv: COLLECTION[LOCAL_VAR_LIST])
       require
          ca /= Void
          clv /= Void
@@ -174,7 +174,7 @@ feature {EIFFEL_PARSER}
             and then (not ca.is_empty
                implies closure_arguments.count = ca.count
                and then (
-                  ((closure_arguments.lower)|..|(closure_arguments.upper)).for_all(agent (i: INTEGER; ca_: COLLECTION[FORMAL_ARG_LIST]): BOOLEAN is
+                  ((closure_arguments.lower)|..|(closure_arguments.upper)).for_all(agent (i: INTEGER; ca_: COLLECTION[FORMAL_ARG_LIST]): BOOLEAN
                                                                                       do
                                                                                          Result := closure_arguments.item(i) = ca_.item(i - closure_arguments.lower + ca_.lower)
                                                                                       end (?, ca)) --| **** TODO: closure (bug)
@@ -184,14 +184,14 @@ feature {EIFFEL_PARSER}
             and then (not clv.is_empty
                implies closure_local_vars.count = clv.count
                and then (
-                  ((closure_local_vars.lower)|..|(closure_local_vars.upper)).for_all(agent (i: INTEGER; clv_: COLLECTION[LOCAL_VAR_LIST]): BOOLEAN is
+                  ((closure_local_vars.lower)|..|(closure_local_vars.upper)).for_all(agent (i: INTEGER; clv_: COLLECTION[LOCAL_VAR_LIST]): BOOLEAN
                                                                                         do
                                                                                            Result := closure_local_vars.item(i) = clv_.item(i - closure_local_vars.lower + clv_.lower)
                                                                                         end (?, clv)) --| **** TODO: closure (bug)
                ))
       end
 
-   set_header_comment (hc: COMMENT) is
+   set_header_comment (hc: COMMENT)
       do
          header_comment := hc
          if anonymous_feature /= Void then
@@ -201,7 +201,7 @@ feature {EIFFEL_PARSER}
          header_comment = hc
       end
 
-   set_rescue_compound (c: INSTRUCTION) is
+   set_rescue_compound (c: INSTRUCTION)
       require
          not eiffel_parser.no_rescue
          c /= Void
@@ -211,7 +211,7 @@ feature {EIFFEL_PARSER}
          rescue_compound = c
       end
 
-   set_ensure_assertion (ea: like ensure_assertion) is
+   set_ensure_assertion (ea: like ensure_assertion)
       require
          ea /= Void
       do
@@ -220,7 +220,7 @@ feature {EIFFEL_PARSER}
          ensure_assertion = ea
       end
 
-   set_sedb_trace_before_exit (position: POSITION) is
+   set_sedb_trace_before_exit (position: POSITION)
       require
          not position.is_unknown
       do
@@ -230,14 +230,14 @@ feature {EIFFEL_PARSER}
       end
 
 feature {ANY}
-   accept (visitor: FEATURE_TEXT_VISITOR) is
+   accept (visitor: FEATURE_TEXT_VISITOR)
       do
          visitor.visit_feature_text(Current)
       end
 
 feature {}
    writable_attribute (n: like names; rt: like result_type; om: like obsolete_mark
-                       hc: like header_comment; ra: like require_assertion; idx: like index_list) is
+                       hc: like header_comment; ra: like require_assertion; idx: like index_list)
       require
          n /= Void
       do
@@ -256,7 +256,7 @@ feature {}
 
    once_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
                    ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
-                   aa: like assigned; idx: like index_list; c: like has_closures) is
+                   aa: like assigned; idx: like index_list; c: like has_closures)
       require
          n /= Void
       do
@@ -279,7 +279,7 @@ feature {}
 
    once_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                   hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-                  routine_body: INSTRUCTION; idx: like index_list; c: like has_closures) is
+                  routine_body: INSTRUCTION; idx: like index_list; c: like has_closures)
       require
          n /= Void
          rt /= Void
@@ -303,7 +303,7 @@ feature {}
 
    e_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
                 ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
-                aa: like assigned; idx: like index_list; c: like has_closures) is
+                aa: like assigned; idx: like index_list; c: like has_closures)
       require
          n /= Void
       do
@@ -326,7 +326,7 @@ feature {}
 
    e_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-               routine_body: INSTRUCTION; idx: like index_list; c: like has_closures) is
+               routine_body: INSTRUCTION; idx: like index_list; c: like has_closures)
       require
          n /= Void
          rt /= Void
@@ -349,7 +349,7 @@ feature {}
       end
 
    deferred_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                       ra: like require_assertion; aa: like assigned; idx: like index_list) is
+                       ra: like require_assertion; aa: like assigned; idx: like index_list)
       require
          n /= Void
       do
@@ -369,7 +369,7 @@ feature {}
       end
 
    deferred_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
-                      hc: like header_comment; ra: like require_assertion; idx: like index_list) is
+                      hc: like header_comment; ra: like require_assertion; idx: like index_list)
       require
          n /= Void
          rt /= Void
@@ -391,7 +391,7 @@ feature {}
 
    external_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
                        ra: like require_assertion; native: NATIVE; alias_tag: MANIFEST_STRING
-                       aa: like assigned; idx: like index_list) is
+                       aa: like assigned; idx: like index_list)
       require
          n /= Void
       do
@@ -412,7 +412,7 @@ feature {}
 
    external_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                       hc: like header_comment; ra: like require_assertion; native: NATIVE
-                      alias_tag: MANIFEST_STRING; idx: like index_list) is
+                      alias_tag: MANIFEST_STRING; idx: like index_list)
       require
          n /= Void
          rt /= Void
@@ -432,7 +432,7 @@ feature {}
          header_comment = hc
       end
 
-   string_constant (n: like names; rt: like result_type; ms: MANIFEST_STRING; idx: like index_list) is
+   string_constant (n: like names; rt: like result_type; ms: MANIFEST_STRING; idx: like index_list)
       require
          n /= Void
          rt.is_string
@@ -449,7 +449,7 @@ feature {}
          result_type = rt
       end
 
-   character_constant (n: like names; rt: like result_type; cc: CHARACTER_CONSTANT; idx: like index_list) is
+   character_constant (n: like names; rt: like result_type; cc: CHARACTER_CONSTANT; idx: like index_list)
       require
          n /= Void
          rt.is_character
@@ -466,7 +466,7 @@ feature {}
          result_type = rt
       end
 
-   boolean_constant (n: like names; rt: like result_type; bc: BOOLEAN_CONSTANT; idx: like index_list) is
+   boolean_constant (n: like names; rt: like result_type; bc: BOOLEAN_CONSTANT; idx: like index_list)
       require
          n /= Void
          rt.is_boolean
@@ -483,7 +483,7 @@ feature {}
          result_type = rt
       end
 
-   integer_constant (n: like names; rt: like result_type; ic: INTEGER_CONSTANT; idx: like index_list) is
+   integer_constant (n: like names; rt: like result_type; ic: INTEGER_CONSTANT; idx: like index_list)
       require
          n /= Void
          rt.is_integer
@@ -501,7 +501,7 @@ feature {}
          result_type = rt
       end
 
-   real_constant (n: like names; rt: like result_type; rc: REAL_CONSTANT; idx: like index_list) is
+   real_constant (n: like names; rt: like result_type; rc: REAL_CONSTANT; idx: like index_list)
       require
          n /= Void
          rt.is_real
@@ -519,7 +519,7 @@ feature {}
          result_type = rt
       end
 
-   unique_constant (n: like names; rt: like result_type; idx: like index_list) is
+   unique_constant (n: like names; rt: like result_type; idx: like index_list)
       require
          n /= Void
          rt.is_integer
@@ -535,7 +535,7 @@ feature {}
          result_type = rt
       end
 
-   non_written_one (fc: like feature_clause; n: like names; af: like anonymous_feature) is
+   non_written_one (fc: like feature_clause; n: like names; af: like anonymous_feature)
          -- To create automatically-generated features.
       require
          fc /= Void

@@ -35,7 +35,7 @@ create {EDC_LOG_CONNECTION}
    make
 
 feature {EDC_LOG_CONNECTION}
-   log_create (a_table: EDC_TABLE) is
+   log_create (a_table: EDC_TABLE)
       local
          i, j: INTEGER; column: EDC_COLUMN; index: EDC_INDEX
       do
@@ -78,7 +78,7 @@ feature {EDC_LOG_CONNECTION}
          log.put_string(once ")%N")
       end
 
-   log_drop (a_table: EDC_TABLE) is
+   log_drop (a_table: EDC_TABLE)
       do
          log.put_string(once "drop table %"")
          log.put_string(a_table.name)
@@ -86,37 +86,37 @@ feature {EDC_LOG_CONNECTION}
       end
 
 feature {EDC_NOT_NULL_CONSTRAINT}
-   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT) is
+   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT)
       do
          log.put_string(once " not null")
       end
 
 feature {EDC_BLOB_COLUMN}
-   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN) is
+   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN)
       do
          log.put_string(once " BLOB")
       end
 
 feature {EDC_CHARACTER_COLUMN}
-   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN) is
+   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN)
       do
          log.put_string(once " CHAR")
       end
 
 feature {EDC_INCREMENT_COLUMN}
-   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN) is
+   visit_increment_column (a_increment_column: EDC_INCREMENT_COLUMN)
       do
          log.put_string(once " INCREMENT")
       end
 
 feature {EDC_INTEGER_COLUMN}
-   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is
+   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN)
       do
          log.put_string(once " INTEGER")
       end
 
 feature {EDC_STRING_COLUMN}
-   visit_string_column (a_string_column: EDC_STRING_COLUMN) is
+   visit_string_column (a_string_column: EDC_STRING_COLUMN)
       do
          log.put_string(once " VARCHAR(")
          log.put_integer(a_string_column.size)
@@ -124,13 +124,13 @@ feature {EDC_STRING_COLUMN}
       end
 
 feature {EDC_TIME_COLUMN}
-   visit_time_column (a_time_column: EDC_TIME_COLUMN) is
+   visit_time_column (a_time_column: EDC_TIME_COLUMN)
       do
          log.put_string(once " TIME")
       end
 
 feature {EDC_PRIMARY_KEY}
-   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY) is
+   visit_primary_key (a_primary_key: EDC_PRIMARY_KEY)
       local
          i: INTEGER
       do
@@ -152,7 +152,7 @@ feature {EDC_PRIMARY_KEY}
       end
 
 feature {}
-   make (a_log: like log) is
+   make (a_log: like log)
       do
          log := a_log
       end

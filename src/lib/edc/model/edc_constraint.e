@@ -33,18 +33,18 @@ insert
    HASHABLE
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
 
 feature {EDC_COLUMN}
-   valid_value (a_value: EDC_DATUM): BOOLEAN is
+   valid_value (a_value: EDC_DATUM): BOOLEAN
       deferred
       end
 

@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          addr1: POINTER; local_debug: STRING; addr2: POINTER; addr3: POINTER; aux: AUX_DEAD_CODE01
          exit_code: INTEGER
@@ -43,7 +43,7 @@ feature {}
 
    debug_info: STRING
 
-   get_address (p: POINTER): POINTER is
+   get_address (p: POINTER): POINTER
       do
          Result := p
       end

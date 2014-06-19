@@ -4,7 +4,7 @@
 class AUX_TYPE2[E]
 
 feature {ANY}
-   rout (l1: COLLECTION[E]; v1, v2, v3: E) is
+   rout (l1: COLLECTION[E]; v1, v2, v3: E)
       do
          l1.put(v1, 1)
       end

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gobject_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL) is
+	gobject_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for ref_count field of GOBJECT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_struct_set_qdata (a_structure: POINTER; a_value: POINTER) is
+	gobject_struct_set_qdata (a_structure: POINTER; a_value: POINTER)
 			-- Setter for qdata field of GOBJECT_STRUCT structure.
 			-- TODO: setter description
 
@@ -35,7 +35,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_instance.
-	gobject_struct_get_ref_count (a_structure: POINTER): NATURAL is
+	gobject_struct_get_ref_count (a_structure: POINTER): NATURAL
 			-- Query for ref_count field of GOBJECT_STRUCT structure.
 			-- TODO: getter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_struct_get_qdata (a_structure: POINTER): POINTER is
+	gobject_struct_get_qdata (a_structure: POINTER): POINTER
 			-- Query for qdata field of GOBJECT_STRUCT structure.
 			-- TODO: getter description
 
@@ -60,7 +60,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   f (other: like Current) is
+   f (other: like Current)
       do
       end
 

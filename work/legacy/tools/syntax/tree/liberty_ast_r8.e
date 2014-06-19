@@ -24,7 +24,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_free_operator: BOOLEAN is
+   is_free_operator: BOOLEAN
       do
          Result := not is_empty
          check
@@ -32,7 +32,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   free_operator: LIBERTY_AST_TERMINAL_NODE is
+   free_operator: LIBERTY_AST_TERMINAL_NODE
       require
          is_free_operator
       do
@@ -40,6 +40,6 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   name: STRING is "r8"
+   name: STRING "r8"
 
 end

@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    fai: FAST_ARRAY[INTEGER]
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

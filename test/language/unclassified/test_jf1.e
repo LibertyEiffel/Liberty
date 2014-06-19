@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do
@@ -21,7 +21,7 @@ feature {ANY}
       end
 
 feature {}
-   regle_yacc_5 (dollar_1: INTEGER; dollar_2: INTEGER): STRING is
+   regle_yacc_5 (dollar_1: INTEGER; dollar_2: INTEGER): STRING
       require
          check_idf(dollar_1)
          check_idf(dollar_2)
@@ -30,7 +30,7 @@ feature {}
          Result := " regle_yacc_5%N"
       end
 
-   check_idf (x: INTEGER): BOOLEAN is
+   check_idf (x: INTEGER): BOOLEAN
       do
       end
 

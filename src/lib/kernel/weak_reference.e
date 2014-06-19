@@ -20,12 +20,12 @@ create {ANY}
    set_item
 
 feature {ANY}
-   item: G_ is
+   item: G_
          -- Return a (strong) reference to the object
       external "built_in"
       end
 
-   set_item (i: like item) assign item is
+   set_item (i: like item) assign item
          -- Set the object to be weak referenced
       external "built_in"
       ensure
@@ -40,7 +40,7 @@ end -- class WEAK_REFERENCE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

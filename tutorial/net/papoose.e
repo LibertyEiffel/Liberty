@@ -2,7 +2,7 @@ class PAPOOSE
    --
    -- PAPOOSE is not
    -- Apache,
-   -- PAPOOSE is
+   -- PAPOOSE
    -- Object
    -- Oriented, written for
    -- Smart
@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          host: LOCALHOST; tcp: TCP_ACCESS; server: HTTP_SERVER
       do
@@ -27,29 +27,29 @@ feature {ANY}
          server.start(tcp)
       end
 
-   log (msg: STRING) is
+   log (msg: STRING)
       do
          access.put_line(msg)
          access.flush
       end
 
-   error_handler (text: STRING) is
+   error_handler (text: STRING)
       do
          error.put_line(text)
          error.flush
       end
 
-   new_connection: PAPOOSE_CONNECTION is
+   new_connection: PAPOOSE_CONNECTION
       do
          create Result.make(Void)
       end
 
-   access: TEXT_FILE_WRITE is
+   access: TEXT_FILE_WRITE
       once
          create Result.connect_for_appending_to(once "access.log")
       end
 
-   error: TEXT_FILE_WRITE is
+   error: TEXT_FILE_WRITE
       once
          create Result.connect_for_appending_to(once "error.log")
       end

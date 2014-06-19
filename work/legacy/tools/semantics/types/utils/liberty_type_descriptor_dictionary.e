@@ -28,108 +28,108 @@ create {LIBERTY_UNIVERSE}
    make, with_capacity
 
 feature {ANY}
-   add (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+   add (e: E_; td: LIBERTY_TYPE_DESCRIPTOR)
       do
          dico.add(e, td)
          td.add_change_listener(Current)
       end
 
-   put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+   put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR)
       do
          dico.put(e, td)
          td.add_change_listener(Current)
       end
 
-   fast_put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR) is
+   fast_put (e: E_; td: LIBERTY_TYPE_DESCRIPTOR)
       do
          dico.fast_put(e, td)
          td.add_change_listener(Current)
       end
 
-   remove (td: LIBERTY_TYPE_DESCRIPTOR) is
+   remove (td: LIBERTY_TYPE_DESCRIPTOR)
       do
          dico.remove(td)
          td.remove_change_listener(Current)
       end
 
-   fast_remove (td: LIBERTY_TYPE_DESCRIPTOR) is
+   fast_remove (td: LIBERTY_TYPE_DESCRIPTOR)
       do
          dico.fast_remove(td)
          td.remove_change_listener(Current)
       end
 
-   has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
+   has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN
       do
          Result := dico.has(td)
       end
 
-   at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+   at (td: LIBERTY_TYPE_DESCRIPTOR): E_
       do
          Result := dico.at(td)
       end
 
-   reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+   reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_
       do
          Result := dico.reference_at(td)
       end
 
-   fast_has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN is
+   fast_has (td: LIBERTY_TYPE_DESCRIPTOR): BOOLEAN
       do
          Result := dico.fast_has(td)
       end
 
-   fast_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+   fast_at (td: LIBERTY_TYPE_DESCRIPTOR): E_
       do
          Result := dico.fast_at(td)
       end
 
-   fast_reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_ is
+   fast_reference_at (td: LIBERTY_TYPE_DESCRIPTOR): E_
       do
          Result := dico.fast_reference_at(td)
       end
 
-   clear_count is
+   clear_count
       do
          dico.clear_count
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       do
          dico.clear_count_and_capacity
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := dico.count
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       do
          Result := dico.capacity
       end
 
-   item (index: INTEGER): E_ is
+   item (index: INTEGER): E_
       do
          Result := dico.item(index)
       end
 
-   key (index: INTEGER): LIBERTY_TYPE_DESCRIPTOR is
+   key (index: INTEGER): LIBERTY_TYPE_DESCRIPTOR
       do
          Result := dico.key(index)
       end
 
-   new_iterator_on_keys: ITERATOR[LIBERTY_TYPE_DESCRIPTOR] is
+   new_iterator_on_keys: ITERATOR[LIBERTY_TYPE_DESCRIPTOR]
       do
          Result := dico.new_iterator_on_keys
       end
 
-   internal_key (td: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE_DESCRIPTOR is
+   internal_key (td: LIBERTY_TYPE_DESCRIPTOR): LIBERTY_TYPE_DESCRIPTOR
       do
          Result := dico.internal_key(td)
       end
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
-   on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR) is
+   on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR)
       local
          i: INTEGER
          e: E_
@@ -153,14 +153,14 @@ feature {LIBERTY_TYPE_DESCRIPTOR}
       end
 
 feature {}
-   with_capacity (c: INTEGER) is
+   with_capacity (c: INTEGER)
       require
          c >= 0
       do
          create dico.with_capacity(c)
       end
 
-   make is
+   make
       do
          create dico.make
       end

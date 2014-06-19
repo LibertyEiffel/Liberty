@@ -22,20 +22,20 @@ feature {ANY}
    index: EXPRESSION
          -- The array index
 
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := array = Void
       end
 
    declaration_type: TYPE
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          if array = Void then
             Result := declaration_type
@@ -44,7 +44,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          if array = Void then
             Result := True
@@ -53,7 +53,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          a: like array; i: like index; dt: like declaration_type
       do
@@ -70,17 +70,17 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          index.safety_check(type)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          a: like array; i: like index; dt: like declaration_type
       do
@@ -99,25 +99,25 @@ feature {ANY}
 
    start_position: POSITION
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := index.collect(type)
          Result := resolve_in(type)
       end
 
-   accept (visitor: NATIVE_ARRAY_ITEM_VISITOR) is
+   accept (visitor: NATIVE_ARRAY_ITEM_VISITOR)
       do
          visitor.visit_native_array_item(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make_ (a_position: like start_position; a_array: like array; a_index: like index; a_declaration_type: like declaration_type) is
+   make_ (a_position: like start_position; a_array: like array; a_index: like index; a_declaration_type: like declaration_type)
       do
          start_position := a_position
          array := a_array
@@ -130,12 +130,12 @@ feature {}
          declaration_type = a_declaration_type
       end
 
-   make (a_position: like start_position; a_index: like index; a_declaration_type: like declaration_type) is
+   make (a_position: like start_position; a_index: like index; a_declaration_type: like declaration_type)
       do
          make_(a_position, Void, a_index, a_declaration_type)
       end
 
-   make_array (a_position: like start_position; a_array: like array; a_index: like index) is
+   make_array (a_position: like start_position; a_array: like array; a_index: like index)
       do
          make_(a_position, a_array, a_index, Void)
       end

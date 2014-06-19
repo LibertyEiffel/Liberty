@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_unicode_break_after_low_level)  or else
 				(a_value = g_unicode_break_alphabetic_low_level)  or else
@@ -52,399 +52,399 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_unicode_break_after is
+	set_g_unicode_break_after
 		do
 			value := g_unicode_break_after_low_level
 		end
 
-	set_g_unicode_break_alphabetic is
+	set_g_unicode_break_alphabetic
 		do
 			value := g_unicode_break_alphabetic_low_level
 		end
 
-	set_g_unicode_break_ambiguous is
+	set_g_unicode_break_ambiguous
 		do
 			value := g_unicode_break_ambiguous_low_level
 		end
 
-	set_g_unicode_break_before is
+	set_g_unicode_break_before
 		do
 			value := g_unicode_break_before_low_level
 		end
 
-	set_g_unicode_break_before_and_after is
+	set_g_unicode_break_before_and_after
 		do
 			value := g_unicode_break_before_and_after_low_level
 		end
 
-	set_g_unicode_break_carriage_return is
+	set_g_unicode_break_carriage_return
 		do
 			value := g_unicode_break_carriage_return_low_level
 		end
 
-	set_g_unicode_break_close_paranthesis is
+	set_g_unicode_break_close_paranthesis
 		do
 			value := g_unicode_break_close_paranthesis_low_level
 		end
 
-	set_g_unicode_break_close_punctuation is
+	set_g_unicode_break_close_punctuation
 		do
 			value := g_unicode_break_close_punctuation_low_level
 		end
 
-	set_g_unicode_break_combining_mark is
+	set_g_unicode_break_combining_mark
 		do
 			value := g_unicode_break_combining_mark_low_level
 		end
 
-	set_g_unicode_break_complex_context is
+	set_g_unicode_break_complex_context
 		do
 			value := g_unicode_break_complex_context_low_level
 		end
 
-	set_g_unicode_break_conditional_japanese_starter is
+	set_g_unicode_break_conditional_japanese_starter
 		do
 			value := g_unicode_break_conditional_japanese_starter_low_level
 		end
 
-	set_g_unicode_break_contingent is
+	set_g_unicode_break_contingent
 		do
 			value := g_unicode_break_contingent_low_level
 		end
 
-	set_g_unicode_break_exclamation is
+	set_g_unicode_break_exclamation
 		do
 			value := g_unicode_break_exclamation_low_level
 		end
 
-	set_g_unicode_break_hangul_l_jamo is
+	set_g_unicode_break_hangul_l_jamo
 		do
 			value := g_unicode_break_hangul_l_jamo_low_level
 		end
 
-	set_g_unicode_break_hangul_lv_syllable is
+	set_g_unicode_break_hangul_lv_syllable
 		do
 			value := g_unicode_break_hangul_lv_syllable_low_level
 		end
 
-	set_g_unicode_break_hangul_lvt_syllable is
+	set_g_unicode_break_hangul_lvt_syllable
 		do
 			value := g_unicode_break_hangul_lvt_syllable_low_level
 		end
 
-	set_g_unicode_break_hangul_t_jamo is
+	set_g_unicode_break_hangul_t_jamo
 		do
 			value := g_unicode_break_hangul_t_jamo_low_level
 		end
 
-	set_g_unicode_break_hangul_v_jamo is
+	set_g_unicode_break_hangul_v_jamo
 		do
 			value := g_unicode_break_hangul_v_jamo_low_level
 		end
 
-	set_g_unicode_break_hebrew_letter is
+	set_g_unicode_break_hebrew_letter
 		do
 			value := g_unicode_break_hebrew_letter_low_level
 		end
 
-	set_g_unicode_break_hyphen is
+	set_g_unicode_break_hyphen
 		do
 			value := g_unicode_break_hyphen_low_level
 		end
 
-	set_g_unicode_break_ideographic is
+	set_g_unicode_break_ideographic
 		do
 			value := g_unicode_break_ideographic_low_level
 		end
 
-	set_g_unicode_break_infix_separator is
+	set_g_unicode_break_infix_separator
 		do
 			value := g_unicode_break_infix_separator_low_level
 		end
 
-	set_g_unicode_break_inseparable is
+	set_g_unicode_break_inseparable
 		do
 			value := g_unicode_break_inseparable_low_level
 		end
 
-	set_g_unicode_break_line_feed is
+	set_g_unicode_break_line_feed
 		do
 			value := g_unicode_break_line_feed_low_level
 		end
 
-	set_g_unicode_break_mandatory is
+	set_g_unicode_break_mandatory
 		do
 			value := g_unicode_break_mandatory_low_level
 		end
 
-	set_g_unicode_break_next_line is
+	set_g_unicode_break_next_line
 		do
 			value := g_unicode_break_next_line_low_level
 		end
 
-	set_g_unicode_break_non_breaking_glue is
+	set_g_unicode_break_non_breaking_glue
 		do
 			value := g_unicode_break_non_breaking_glue_low_level
 		end
 
-	set_g_unicode_break_non_starter is
+	set_g_unicode_break_non_starter
 		do
 			value := g_unicode_break_non_starter_low_level
 		end
 
-	set_g_unicode_break_numeric is
+	set_g_unicode_break_numeric
 		do
 			value := g_unicode_break_numeric_low_level
 		end
 
-	set_g_unicode_break_open_punctuation is
+	set_g_unicode_break_open_punctuation
 		do
 			value := g_unicode_break_open_punctuation_low_level
 		end
 
-	set_g_unicode_break_postfix is
+	set_g_unicode_break_postfix
 		do
 			value := g_unicode_break_postfix_low_level
 		end
 
-	set_g_unicode_break_prefix is
+	set_g_unicode_break_prefix
 		do
 			value := g_unicode_break_prefix_low_level
 		end
 
-	set_g_unicode_break_quotation is
+	set_g_unicode_break_quotation
 		do
 			value := g_unicode_break_quotation_low_level
 		end
 
-	set_g_unicode_break_space is
+	set_g_unicode_break_space
 		do
 			value := g_unicode_break_space_low_level
 		end
 
-	set_g_unicode_break_surrogate is
+	set_g_unicode_break_surrogate
 		do
 			value := g_unicode_break_surrogate_low_level
 		end
 
-	set_g_unicode_break_symbol is
+	set_g_unicode_break_symbol
 		do
 			value := g_unicode_break_symbol_low_level
 		end
 
-	set_g_unicode_break_unknown is
+	set_g_unicode_break_unknown
 		do
 			value := g_unicode_break_unknown_low_level
 		end
 
-	set_g_unicode_break_word_joiner is
+	set_g_unicode_break_word_joiner
 		do
 			value := g_unicode_break_word_joiner_low_level
 		end
 
-	set_g_unicode_break_zero_width_space is
+	set_g_unicode_break_zero_width_space
 		do
 			value := g_unicode_break_zero_width_space_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_unicode_break_after: BOOLEAN is
+	is_g_unicode_break_after: BOOLEAN
 		do
 			Result := (value=g_unicode_break_after_low_level)
 		end
 
-	is_g_unicode_break_alphabetic: BOOLEAN is
+	is_g_unicode_break_alphabetic: BOOLEAN
 		do
 			Result := (value=g_unicode_break_alphabetic_low_level)
 		end
 
-	is_g_unicode_break_ambiguous: BOOLEAN is
+	is_g_unicode_break_ambiguous: BOOLEAN
 		do
 			Result := (value=g_unicode_break_ambiguous_low_level)
 		end
 
-	is_g_unicode_break_before: BOOLEAN is
+	is_g_unicode_break_before: BOOLEAN
 		do
 			Result := (value=g_unicode_break_before_low_level)
 		end
 
-	is_g_unicode_break_before_and_after: BOOLEAN is
+	is_g_unicode_break_before_and_after: BOOLEAN
 		do
 			Result := (value=g_unicode_break_before_and_after_low_level)
 		end
 
-	is_g_unicode_break_carriage_return: BOOLEAN is
+	is_g_unicode_break_carriage_return: BOOLEAN
 		do
 			Result := (value=g_unicode_break_carriage_return_low_level)
 		end
 
-	is_g_unicode_break_close_paranthesis: BOOLEAN is
+	is_g_unicode_break_close_paranthesis: BOOLEAN
 		do
 			Result := (value=g_unicode_break_close_paranthesis_low_level)
 		end
 
-	is_g_unicode_break_close_punctuation: BOOLEAN is
+	is_g_unicode_break_close_punctuation: BOOLEAN
 		do
 			Result := (value=g_unicode_break_close_punctuation_low_level)
 		end
 
-	is_g_unicode_break_combining_mark: BOOLEAN is
+	is_g_unicode_break_combining_mark: BOOLEAN
 		do
 			Result := (value=g_unicode_break_combining_mark_low_level)
 		end
 
-	is_g_unicode_break_complex_context: BOOLEAN is
+	is_g_unicode_break_complex_context: BOOLEAN
 		do
 			Result := (value=g_unicode_break_complex_context_low_level)
 		end
 
-	is_g_unicode_break_conditional_japanese_starter: BOOLEAN is
+	is_g_unicode_break_conditional_japanese_starter: BOOLEAN
 		do
 			Result := (value=g_unicode_break_conditional_japanese_starter_low_level)
 		end
 
-	is_g_unicode_break_contingent: BOOLEAN is
+	is_g_unicode_break_contingent: BOOLEAN
 		do
 			Result := (value=g_unicode_break_contingent_low_level)
 		end
 
-	is_g_unicode_break_exclamation: BOOLEAN is
+	is_g_unicode_break_exclamation: BOOLEAN
 		do
 			Result := (value=g_unicode_break_exclamation_low_level)
 		end
 
-	is_g_unicode_break_hangul_l_jamo: BOOLEAN is
+	is_g_unicode_break_hangul_l_jamo: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hangul_l_jamo_low_level)
 		end
 
-	is_g_unicode_break_hangul_lv_syllable: BOOLEAN is
+	is_g_unicode_break_hangul_lv_syllable: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hangul_lv_syllable_low_level)
 		end
 
-	is_g_unicode_break_hangul_lvt_syllable: BOOLEAN is
+	is_g_unicode_break_hangul_lvt_syllable: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hangul_lvt_syllable_low_level)
 		end
 
-	is_g_unicode_break_hangul_t_jamo: BOOLEAN is
+	is_g_unicode_break_hangul_t_jamo: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hangul_t_jamo_low_level)
 		end
 
-	is_g_unicode_break_hangul_v_jamo: BOOLEAN is
+	is_g_unicode_break_hangul_v_jamo: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hangul_v_jamo_low_level)
 		end
 
-	is_g_unicode_break_hebrew_letter: BOOLEAN is
+	is_g_unicode_break_hebrew_letter: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hebrew_letter_low_level)
 		end
 
-	is_g_unicode_break_hyphen: BOOLEAN is
+	is_g_unicode_break_hyphen: BOOLEAN
 		do
 			Result := (value=g_unicode_break_hyphen_low_level)
 		end
 
-	is_g_unicode_break_ideographic: BOOLEAN is
+	is_g_unicode_break_ideographic: BOOLEAN
 		do
 			Result := (value=g_unicode_break_ideographic_low_level)
 		end
 
-	is_g_unicode_break_infix_separator: BOOLEAN is
+	is_g_unicode_break_infix_separator: BOOLEAN
 		do
 			Result := (value=g_unicode_break_infix_separator_low_level)
 		end
 
-	is_g_unicode_break_inseparable: BOOLEAN is
+	is_g_unicode_break_inseparable: BOOLEAN
 		do
 			Result := (value=g_unicode_break_inseparable_low_level)
 		end
 
-	is_g_unicode_break_line_feed: BOOLEAN is
+	is_g_unicode_break_line_feed: BOOLEAN
 		do
 			Result := (value=g_unicode_break_line_feed_low_level)
 		end
 
-	is_g_unicode_break_mandatory: BOOLEAN is
+	is_g_unicode_break_mandatory: BOOLEAN
 		do
 			Result := (value=g_unicode_break_mandatory_low_level)
 		end
 
-	is_g_unicode_break_next_line: BOOLEAN is
+	is_g_unicode_break_next_line: BOOLEAN
 		do
 			Result := (value=g_unicode_break_next_line_low_level)
 		end
 
-	is_g_unicode_break_non_breaking_glue: BOOLEAN is
+	is_g_unicode_break_non_breaking_glue: BOOLEAN
 		do
 			Result := (value=g_unicode_break_non_breaking_glue_low_level)
 		end
 
-	is_g_unicode_break_non_starter: BOOLEAN is
+	is_g_unicode_break_non_starter: BOOLEAN
 		do
 			Result := (value=g_unicode_break_non_starter_low_level)
 		end
 
-	is_g_unicode_break_numeric: BOOLEAN is
+	is_g_unicode_break_numeric: BOOLEAN
 		do
 			Result := (value=g_unicode_break_numeric_low_level)
 		end
 
-	is_g_unicode_break_open_punctuation: BOOLEAN is
+	is_g_unicode_break_open_punctuation: BOOLEAN
 		do
 			Result := (value=g_unicode_break_open_punctuation_low_level)
 		end
 
-	is_g_unicode_break_postfix: BOOLEAN is
+	is_g_unicode_break_postfix: BOOLEAN
 		do
 			Result := (value=g_unicode_break_postfix_low_level)
 		end
 
-	is_g_unicode_break_prefix: BOOLEAN is
+	is_g_unicode_break_prefix: BOOLEAN
 		do
 			Result := (value=g_unicode_break_prefix_low_level)
 		end
 
-	is_g_unicode_break_quotation: BOOLEAN is
+	is_g_unicode_break_quotation: BOOLEAN
 		do
 			Result := (value=g_unicode_break_quotation_low_level)
 		end
 
-	is_g_unicode_break_space: BOOLEAN is
+	is_g_unicode_break_space: BOOLEAN
 		do
 			Result := (value=g_unicode_break_space_low_level)
 		end
 
-	is_g_unicode_break_surrogate: BOOLEAN is
+	is_g_unicode_break_surrogate: BOOLEAN
 		do
 			Result := (value=g_unicode_break_surrogate_low_level)
 		end
 
-	is_g_unicode_break_symbol: BOOLEAN is
+	is_g_unicode_break_symbol: BOOLEAN
 		do
 			Result := (value=g_unicode_break_symbol_low_level)
 		end
 
-	is_g_unicode_break_unknown: BOOLEAN is
+	is_g_unicode_break_unknown: BOOLEAN
 		do
 			Result := (value=g_unicode_break_unknown_low_level)
 		end
 
-	is_g_unicode_break_word_joiner: BOOLEAN is
+	is_g_unicode_break_word_joiner: BOOLEAN
 		do
 			Result := (value=g_unicode_break_word_joiner_low_level)
 		end
 
-	is_g_unicode_break_zero_width_space: BOOLEAN is
+	is_g_unicode_break_zero_width_space: BOOLEAN
 		do
 			Result := (value=g_unicode_break_zero_width_space_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_unicode_break_after_low_level: INTEGER is
+	g_unicode_break_after_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -453,7 +453,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_alphabetic_low_level: INTEGER is
+	g_unicode_break_alphabetic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -462,7 +462,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_ambiguous_low_level: INTEGER is
+	g_unicode_break_ambiguous_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -471,7 +471,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_before_low_level: INTEGER is
+	g_unicode_break_before_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -480,7 +480,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_before_and_after_low_level: INTEGER is
+	g_unicode_break_before_and_after_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -489,7 +489,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_carriage_return_low_level: INTEGER is
+	g_unicode_break_carriage_return_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -498,7 +498,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_close_paranthesis_low_level: INTEGER is
+	g_unicode_break_close_paranthesis_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -507,7 +507,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_close_punctuation_low_level: INTEGER is
+	g_unicode_break_close_punctuation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -516,7 +516,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_combining_mark_low_level: INTEGER is
+	g_unicode_break_combining_mark_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -525,7 +525,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_complex_context_low_level: INTEGER is
+	g_unicode_break_complex_context_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -534,7 +534,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_conditional_japanese_starter_low_level: INTEGER is
+	g_unicode_break_conditional_japanese_starter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -543,7 +543,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_contingent_low_level: INTEGER is
+	g_unicode_break_contingent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -552,7 +552,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_exclamation_low_level: INTEGER is
+	g_unicode_break_exclamation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -561,7 +561,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hangul_l_jamo_low_level: INTEGER is
+	g_unicode_break_hangul_l_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -570,7 +570,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hangul_lv_syllable_low_level: INTEGER is
+	g_unicode_break_hangul_lv_syllable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -579,7 +579,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hangul_lvt_syllable_low_level: INTEGER is
+	g_unicode_break_hangul_lvt_syllable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -588,7 +588,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hangul_t_jamo_low_level: INTEGER is
+	g_unicode_break_hangul_t_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -597,7 +597,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hangul_v_jamo_low_level: INTEGER is
+	g_unicode_break_hangul_v_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -606,7 +606,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hebrew_letter_low_level: INTEGER is
+	g_unicode_break_hebrew_letter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -615,7 +615,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_hyphen_low_level: INTEGER is
+	g_unicode_break_hyphen_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -624,7 +624,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_ideographic_low_level: INTEGER is
+	g_unicode_break_ideographic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -633,7 +633,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_infix_separator_low_level: INTEGER is
+	g_unicode_break_infix_separator_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -642,7 +642,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_inseparable_low_level: INTEGER is
+	g_unicode_break_inseparable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -651,7 +651,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_line_feed_low_level: INTEGER is
+	g_unicode_break_line_feed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -660,7 +660,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_mandatory_low_level: INTEGER is
+	g_unicode_break_mandatory_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -669,7 +669,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_next_line_low_level: INTEGER is
+	g_unicode_break_next_line_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -678,7 +678,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_non_breaking_glue_low_level: INTEGER is
+	g_unicode_break_non_breaking_glue_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -687,7 +687,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_non_starter_low_level: INTEGER is
+	g_unicode_break_non_starter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -696,7 +696,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_numeric_low_level: INTEGER is
+	g_unicode_break_numeric_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -705,7 +705,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_open_punctuation_low_level: INTEGER is
+	g_unicode_break_open_punctuation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -714,7 +714,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_postfix_low_level: INTEGER is
+	g_unicode_break_postfix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -723,7 +723,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_prefix_low_level: INTEGER is
+	g_unicode_break_prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -732,7 +732,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_quotation_low_level: INTEGER is
+	g_unicode_break_quotation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -741,7 +741,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_space_low_level: INTEGER is
+	g_unicode_break_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -750,7 +750,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_surrogate_low_level: INTEGER is
+	g_unicode_break_surrogate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -759,7 +759,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_symbol_low_level: INTEGER is
+	g_unicode_break_symbol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -768,7 +768,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_unknown_low_level: INTEGER is
+	g_unicode_break_unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -777,7 +777,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_word_joiner_low_level: INTEGER is
+	g_unicode_break_word_joiner_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -786,7 +786,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_unicode_break_zero_width_space_low_level: INTEGER is
+	g_unicode_break_zero_width_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

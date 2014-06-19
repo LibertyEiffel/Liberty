@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          dict: LINKED_HASHED_DICTIONARY[INTEGER, STRING]
          list_keys: FAST_ARRAY[STRING]
@@ -34,7 +34,7 @@ feature {}
          assert(dict.new_iterator_on_items.for_all(agent check_list_items(?, list_items)))
       end
 
-   check_list_keys (key: STRING; list_keys: COLLECTION[STRING]): BOOLEAN is
+   check_list_keys (key: STRING; list_keys: COLLECTION[STRING]): BOOLEAN
       do
          Result := list_keys.item(list_key_index).is_equal(key)
          list_key_index := list_key_index + 1
@@ -42,7 +42,7 @@ feature {}
 
    list_key_index: INTEGER
 
-   check_list_items (item: INTEGER; list_items: COLLECTION[INTEGER]): BOOLEAN is
+   check_list_items (item: INTEGER; list_items: COLLECTION[INTEGER]): BOOLEAN
       do
          Result := list_items.item(list_item_index) = item
          list_item_index := list_item_index + 1

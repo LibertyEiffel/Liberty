@@ -12,7 +12,7 @@ create {CLASS_TEXT}
    make
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
          -- Number of items in `Current'.
       do
          Result := list.count
@@ -20,7 +20,7 @@ feature {ANY}
          Result > 0
       end
 
-   pretty is
+   pretty
       local
          i: INTEGER
       do
@@ -41,7 +41,7 @@ feature {ANY}
       end
 
 feature {CLASS_CHECKER, SHORT_PRINTER}
-   for_short (ctn: CLASS_NAME; parent, context_type: TYPE; client: TYPE_MARK) is
+   for_short (ctn: CLASS_NAME; parent, context_type: TYPE; client: TYPE_MARK)
       require
          ctn = parent.class_text.name
          Current = parent.class_text.feature_clause_list
@@ -60,7 +60,7 @@ feature {CLASS_CHECKER, SHORT_PRINTER}
       end
 
 feature {CLASS_TEXT}
-   get_started (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   get_started (fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       require
          fd /= Void
       local
@@ -76,7 +76,7 @@ feature {CLASS_TEXT}
          end
       end
 
-   add_last (fc: FEATURE_CLAUSE) is
+   add_last (fc: FEATURE_CLAUSE)
       require
          fc /= Void
       do
@@ -84,7 +84,7 @@ feature {CLASS_TEXT}
       end
 
 feature {ANY}
-   accept (visitor: FEATURE_CLAUSE_LIST_VISITOR) is
+   accept (visitor: FEATURE_CLAUSE_LIST_VISITOR)
       do
          visitor.visit_feature_clause_list(Current)
       end
@@ -93,7 +93,7 @@ feature {FEATURE_CLAUSE_LIST_VISITOR}
    list: FAST_ARRAY[FEATURE_CLAUSE]
 
 feature {}
-   make (first: FEATURE_CLAUSE) is
+   make (first: FEATURE_CLAUSE)
       require
          first /= Void
       do

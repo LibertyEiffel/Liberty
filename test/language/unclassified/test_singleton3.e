@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    i: INTEGER
 
-   make is
+   make
       local
          aux: AUX_SINGLETON3
       do

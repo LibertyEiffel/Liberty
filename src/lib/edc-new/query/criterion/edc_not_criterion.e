@@ -10,13 +10,13 @@ create {EDC_CRITERION}
    make
 
 feature {ANY}
-   prefix "not": EDC_CRITERION is
+   prefix "not": EDC_CRITERION
       do
          Result := crit
       end
 
 feature {}
-   make (one: EDC_CRITERION) is
+   make (one: EDC_CRITERION)
       require
          one /= Void
       do

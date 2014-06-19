@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_ERROR_CONNECTION_FAILED}
-   connection_failed (error: EDC_ERROR_CONNECTION_FAILED): BOOLEAN is
+   connection_failed (error: EDC_ERROR_CONNECTION_FAILED): BOOLEAN
          -- True if retry, False if ignore
       require
          error /= Void
@@ -33,7 +33,7 @@ feature {EDC_ERROR_CONNECTION_FAILED}
       end
 
 feature {EDC_ERROR_ACCESS_DENIED}
-   access_denied (error: EDC_ERROR_ACCESS_DENIED): BOOLEAN is
+   access_denied (error: EDC_ERROR_ACCESS_DENIED): BOOLEAN
          -- True if retry, False if ignore
       require
          error /= Void
@@ -41,7 +41,7 @@ feature {EDC_ERROR_ACCESS_DENIED}
       end
 
 feature {EDC_ERROR_LOCKED}
-   locked (error: EDC_ERROR_LOCKED): BOOLEAN is
+   locked (error: EDC_ERROR_LOCKED): BOOLEAN
          -- True if retry, False if ignore
       require
          error /= Void
@@ -49,7 +49,7 @@ feature {EDC_ERROR_LOCKED}
       end
 
 feature {EDC_ERROR_QUERY_FAILED}
-   query_failed (error: EDC_ERROR_QUERY_FAILED): BOOLEAN is
+   query_failed (error: EDC_ERROR_QUERY_FAILED): BOOLEAN
          -- True if retry, False if ignore
       require
          error /= Void
@@ -57,7 +57,7 @@ feature {EDC_ERROR_QUERY_FAILED}
       end
 
 feature {EDC_ERROR_UNKNOWN}
-   unknown (error: EDC_ERROR_UNKNOWN): BOOLEAN is
+   unknown (error: EDC_ERROR_UNKNOWN): BOOLEAN
          -- True if retry, False if ignore
       require
          error /= Void

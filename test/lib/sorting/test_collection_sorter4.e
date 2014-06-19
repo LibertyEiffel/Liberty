@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          sorter: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
       do
@@ -32,7 +32,7 @@ feature {}
 
    compteur: INTEGER -- Pour numeroter les tests.
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          compteur := compteur + 1
          if not bool then

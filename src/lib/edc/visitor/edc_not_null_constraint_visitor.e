@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_NOT_NULL_CONSTRAINT}
-   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT) is
+   visit_not_null_constraint (a_not_null_constraint: EDC_NOT_NULL_CONSTRAINT)
       deferred
       end
 

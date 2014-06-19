@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   foo: INTEGER is
+   foo: INTEGER
       once
          Result := 1
       end
 
-   make is
+   make
       local
          aux: AUX_ONCE1
       do

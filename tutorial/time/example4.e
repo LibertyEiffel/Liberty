@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          time: TIME; format: TIME_IN_FRENCH
       do

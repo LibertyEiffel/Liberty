@@ -30,7 +30,7 @@ feature {ANY}
 
    is_known: BOOLEAN
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       do
          if is_known then
             Result := known_type.full_name
@@ -39,22 +39,22 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := delayed_resolver.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          full_name.out_in_tagged_out_memory
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          dr: like delayed_resolver
       do
@@ -67,7 +67,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: like reachable_mark) is
+   mark_reachable_code (mark: like reachable_mark)
       local
          old_mark: like reachable_mark
       do
@@ -79,20 +79,20 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   full_name_in (buffer: STRING) is
+   full_name_in (buffer: STRING)
       do
          buffer.append(full_name)
       end
 
 feature {LIBERTY_UNIVERSE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       require
          not is_known
       do
          Result := delayed_resolver.can_resolve
       end
 
-   resolve is
+   resolve
       require
          can_resolve
       do
@@ -105,7 +105,7 @@ feature {LIBERTY_UNIVERSE}
       end
 
 feature {}
-   make (a_delayed_resolver: like delayed_resolver) is
+   make (a_delayed_resolver: like delayed_resolver)
       require
          a_delayed_resolver /= Void
       do

@@ -13,7 +13,7 @@ create {PACKRAT_INTERNAL}
    default_create
 
 feature {PACKRAT_INTERNAL}
-   next (buffer: MINI_PARSER_BUFFER): like Current is
+   next (buffer: MINI_PARSER_BUFFER): like Current
       do
          buffer.next
          index := buffer.current_index
@@ -38,13 +38,13 @@ feature {PACKRAT_INTERNAL}
    index: INTEGER
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := index = other.index
       end
 
 feature {}
-   default_create is
+   default_create
       do
          index := 1
          line := 1
@@ -59,7 +59,7 @@ end -- class PACKRAT_POSITION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

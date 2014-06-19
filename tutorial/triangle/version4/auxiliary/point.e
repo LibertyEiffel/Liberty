@@ -11,7 +11,7 @@ feature {ANY}
    y: REAL
       -- The `y' coordinate.
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate `Current' using `dx' and `dy'.
       do
          x := x + dx
@@ -21,7 +21,7 @@ feature {ANY}
          y = dy + old y
       end
 
-   display_on (stream: OUTPUT_STREAM) is
+   display_on (stream: OUTPUT_STREAM)
          -- Display `Current' on the `stream'.
       require
          stream.is_connected
@@ -36,7 +36,7 @@ feature {ANY}
       end
 
 feature {}
-   make (vx, vy: REAL) is
+   make (vx, vy: REAL)
          -- To create a new POINT.
       do
          x := vx

@@ -15,33 +15,33 @@ insert
 create {ANY} make
 
 feature {ANY}
-        store is
+        store
                 do
                         files.put(Current,id)
                         check
-                                is_named
+                                _named
                         end
                         symbols.put(Current,c_string_name)
                         files_by_name.put(Current,c_string_name)
                         create features
                 end
 
-        is_to_be_emitted: BOOLEAN is
+        _to_be_emitted: BOOLEAN
                 do
-                        Result := file_exists(c_string_name) and (global or else headers.has(c_string_name))
+                        Result := file_exts(c_string_name) and (global or else headers.has(c_string_name))
                 end
 
-        emit_wrapper is
+        emit_wrapper
                 -- Emits into a deferred class named like the file itself the wrappers
                 -- for all the function and the variable contained into Current file.
         local path: POSIX_PATH_NAME
         do
-                if is_to_be_emitted then
+                if _to_be_emitted then
 
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
-                        -- if path.is_file then
-                        --      log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
+                        -- if path._file then
+                        --      log(once "Copying exting file @(1) onto @(1).orig.%N",<<path.to_string>>)
                         --      copy_to(path.to_string, path.to_string+once ".orig")
                         -- end
                         log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",
@@ -55,12 +55,12 @@ feature {ANY}
             end
                         features.for_each(agent {WRAPPER_FEATURE}.wrap_on(output))
                         emit_footer_on(output)
-                        output.disconnect
+                        output.dconnect
                 else log(once "Skipping file '@(1)'.%N",<<c_string_name>>)
                 end
         end
 
-        emit_header_on (a_stream: OUTPUT_STREAM) is
+        emit_header_on (a_stream: OUTPUT_STREAM)
                         -- Put on `output' the header on an "external" class named 'eiffel_name'
                         -- from the beginning until the "feature {} -- External calls" label
                         -- included
@@ -75,22 +75,22 @@ feature {ANY}
                          a_stream.put_string(externals_header) --line
                 end
 
-        emit_footer_on (a_stream: OUTPUT_STREAM) is
+        emit_footer_on (a_stream: OUTPUT_STREAM)
                 require a_stream/=Void
                 do
                         a_stream.put_string(once "%Nend -- class ")
                         a_stream.put_line  (eiffel_name)
                 end
 
-        suffix: STRING is "_EXTERNALS"
+        suffix: STRING "_EXTERNALS"
 
-        compute_eiffel_name is
+        compute_eiffel_name
                 local path: POSIX_PATH_NAME
                 do
                         -- The Eiffel class name for `c_name'; extension is removed,
                         -- CamelCase is converted into CAMEL_CASE, dashes are converted to
                         -- underscores, `suffix' is added at the endi, eventual; i.e.:
-                        -- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
+                        -- class_name_from_header("/usr/include/foo/bar/maman.h")._equal("MAMAN_EXTERNALS")
                         create path.make_from_string(c_string_name)
                         create cached_eiffel_name.copy(path.last)
                         cached_eiffel_name.remove_tail(path.extension.count)
@@ -120,13 +120,13 @@ feature {ANY} -- Content
         -- designed for efficient random access by index which is required by quick
         -- sort.
 
--- invariant name.is_equal(once U"File")
+-- invariant name._equal(once U"File")
 end -- class C_FILE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -136,4 +136,4 @@ end -- class C_FILE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

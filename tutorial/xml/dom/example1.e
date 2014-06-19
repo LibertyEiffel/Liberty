@@ -15,7 +15,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          in: TEXT_FILE_READ; tree: XML_TREE; version: UNICODE_STRING
       do
@@ -46,12 +46,12 @@ feature {}
    indent: INTEGER
 
 feature {XML_DATA_NODE}
-   visit_data_node (node: XML_DATA_NODE) is
+   visit_data_node (node: XML_DATA_NODE)
       do -- data not displayed in this example
       end
 
 feature {XML_COMPOSITE_NODE}
-   visit_composite_node (node: XML_COMPOSITE_NODE) is
+   visit_composite_node (node: XML_COMPOSITE_NODE)
       local
          i, start_indent: INTEGER
       do
@@ -100,7 +100,7 @@ feature {XML_COMPOSITE_NODE}
          indent := start_indent
       end
 
-   error (line, column: INTEGER) is
+   error (line, column: INTEGER)
       do
          std_error.put_string(once "Error at ")
          std_error.put_integer(line)

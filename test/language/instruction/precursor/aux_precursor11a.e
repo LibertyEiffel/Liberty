@@ -6,7 +6,7 @@ class AUX_PRECURSOR11A
 feature {ANY}
    array: ARRAY[STRING]
 
-   f is
+   f
       once
          create array.with_capacity(1, 1)
          array.add_last("foo")

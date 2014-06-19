@@ -21,6 +21,6 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {ANY}
-   name: STRING is "Parent_Rename"
+   name: STRING "Parent_Rename"
 
 end

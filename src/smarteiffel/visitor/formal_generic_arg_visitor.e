@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FORMAL_GENERIC_ARG}
-   visit_formal_generic_arg (visited: FORMAL_GENERIC_ARG) is
+   visit_formal_generic_arg (visited: FORMAL_GENERIC_ARG)
       require
          visited /= Void
       deferred

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tsd: AUX_DIABLE6[REAL]
       do

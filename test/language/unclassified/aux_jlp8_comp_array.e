@@ -9,7 +9,7 @@ inherit
 feature {ANY}
    capacity: INTEGER
 
-   make (nb: INTEGER) is
+   make (nb: INTEGER)
       do
          storage := storage.realloc(capacity, nb)
          -- For NATIVE_ARRAY
@@ -17,17 +17,17 @@ feature {ANY}
          init(0, nb - 1)
       end
 
-   put (elem: E; i: INTEGER) is
+   put (elem: E; i: INTEGER)
       do
          storage.put(elem, i)
       end
 
-   item (i: INTEGER): E is
+   item (i: INTEGER): E
       do
          Result := storage.item(i)
       end
 
-   resize (new_size: INTEGER) is
+   resize (new_size: INTEGER)
       do
          if new_size > capacity then
             storage := storage.realloc(capacity, new_size)

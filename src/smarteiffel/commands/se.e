@@ -14,13 +14,13 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "se"
+   command_line_name: STRING "se"
 
 feature {}
    plugins: FAST_ARRAY[STRING]
    plugin_commands: FAST_ARRAY[STRING]
 
-   make is
+   make
       local
          plugin: STRING
       do
@@ -55,7 +55,7 @@ feature {}
          end
       end
 
-   load_plugins is
+   load_plugins
       local
          t: AVL_DICTIONARY[STRING, STRING]
          i: INTEGER
@@ -75,7 +75,7 @@ feature {}
          end
       end
 
-   call_plugin (plugin: STRING) is
+   call_plugin (plugin: STRING)
       require
          plugins.has(plugin)
       local
@@ -98,7 +98,7 @@ feature {}
          end
       end
 
-   do_plugin_call (plugin: STRING; arguments: FAST_ARRAY[STRING]): INTEGER is
+   do_plugin_call (plugin: STRING; arguments: FAST_ARRAY[STRING]): INTEGER
          -- synchronous call. Waits for the plugin to terminate before going on.
       local
          i: INTEGER; cmd: STRING
@@ -118,7 +118,7 @@ feature {}
          Result := echo.system_call(cmd)
       end
 
-   command_line_help_summary: STRING is
+   command_line_help_summary: STRING
       local
          i, n, c: INTEGER
       once
@@ -188,7 +188,7 @@ feature {}
                         ]")
       end
 
-   print_all_version_numbers (version_arg: STRING) is
+   print_all_version_numbers (version_arg: STRING)
       local
          arg: FAST_ARRAY[STRING]
          i, status: INTEGER
@@ -224,21 +224,21 @@ feature {}
          echo.set_verbose_with(echo_verbose_status_save)
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          check
             False
          end
       end
 
-   valid_argument_for_ace_mode: STRING is
+   valid_argument_for_ace_mode: STRING
       do
          check
             False
          end
       end
 
-   set_verbose is
+   set_verbose
       local
          i: INTEGER; ok: BOOLEAN
       do
@@ -254,7 +254,7 @@ feature {}
          end
       end
 
-   command_name_length: INTEGER is
+   command_name_length: INTEGER
       local
          i: INTEGER
       once
@@ -271,7 +271,7 @@ feature {}
       end
 
 feature {} -- Show env
-   show_environment (a_c_mode: STRING) is
+   show_environment (a_c_mode: STRING)
       local
          i: INTEGER; tools, env, loadpath: AVL_DICTIONARY[STRING, STRING]
          c_modes: AVL_DICTIONARY[SE_C_MODE, STRING]; c_mode: SE_C_MODE

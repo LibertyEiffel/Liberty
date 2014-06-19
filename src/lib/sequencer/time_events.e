@@ -4,7 +4,7 @@
 expanded class TIME_EVENTS
 
 feature {ANY}
-   timeout (timeout_ms: INTEGER): TIMEOUT_EVENT is
+   timeout (timeout_ms: INTEGER): TIMEOUT_EVENT
          -- `timeout_ms' is the max time in milliseconds to wait starting from when EVENTS_SET.wait
          -- is called.
       do
@@ -20,7 +20,7 @@ feature {ANY}
          Result.set_timeout(timeout_ms)
       end
 
-   in_time (timeout_ms: INTEGER): DATE_EVENT is
+   in_time (timeout_ms: INTEGER): DATE_EVENT
          -- `timeout_ms' is the maximum time in milliseconds to wait starting from now.
       do
          Result ::= item(date_events)
@@ -35,7 +35,7 @@ feature {ANY}
          Result.in_time(timeout_ms)
       end
 
-   at_date (date: MICROSECOND_TIME): DATE_EVENT is
+   at_date (date: MICROSECOND_TIME): DATE_EVENT
          -- `date' is the latest moment `wait' can wait.
       do
          Result ::= item(date_events)
@@ -51,7 +51,7 @@ feature {ANY}
       end
 
 feature {}
-   item (events: FAST_ARRAY[WEAK_REFERENCE[TIME_EVENT]]): TIME_EVENT is
+   item (events: FAST_ARRAY[WEAK_REFERENCE[TIME_EVENT]]): TIME_EVENT
       local
          i: INTEGER
       do
@@ -75,12 +75,12 @@ feature {}
       end
 
 feature {}
-   timeout_events: FAST_ARRAY[WEAK_REFERENCE[TIMEOUT_EVENT]] is
+   timeout_events: FAST_ARRAY[WEAK_REFERENCE[TIMEOUT_EVENT]]
       once
          create Result.make(0)
       end
 
-   date_events: FAST_ARRAY[WEAK_REFERENCE[DATE_EVENT]] is
+   date_events: FAST_ARRAY[WEAK_REFERENCE[DATE_EVENT]]
       once
          create Result.make(0)
       end
@@ -95,7 +95,7 @@ end -- class TIME_EVENTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,7 +4,7 @@
 class AUX_REDEFINE14
 
 feature {ANY}
-   foo (bar: INTEGER_32) is
+   foo (bar: INTEGER_32)
       do
       end
 

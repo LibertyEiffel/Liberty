@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FAKE_ARGUMENT}
-   visit_fake_argument (visited: FAKE_ARGUMENT) is
+   visit_fake_argument (visited: FAKE_ARGUMENT)
       require
          visited /= Void
       deferred

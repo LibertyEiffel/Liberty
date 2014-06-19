@@ -16,7 +16,7 @@ create {PROCESS_FACTORY}
    make
 
 feature {ANY}
-   wait: PROCESS_POSIX is
+   wait: PROCESS_POSIX
       local
          process_id, status: INTEGER
       do
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   finished: PROCESS_POSIX is
+   finished: PROCESS_POSIX
       local
          process_id, status: INTEGER
       do
@@ -54,13 +54,13 @@ feature {ANY}
          end
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := id_map.count
       end
 
 feature {PROCESS_POSIX}
-   register (process: PROCESS_POSIX) is
+   register (process: PROCESS_POSIX)
       local
          process_id: INTEGER
       do
@@ -68,7 +68,7 @@ feature {PROCESS_POSIX}
          id_map.put(process, process_id)
       end
 
-   unregister (process: PROCESS_POSIX) is
+   unregister (process: PROCESS_POSIX)
       local
          process_id: INTEGER
       do
@@ -77,7 +77,7 @@ feature {PROCESS_POSIX}
       end
 
 feature {}
-   make is
+   make
       do
          create id_map.make
          data := basic_exec_alloc_data
@@ -87,7 +87,7 @@ feature {}
 
    data: POINTER
 
-   basic_exec_posix_wait_any (dat: POINTER) is
+   basic_exec_posix_wait_any (dat: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -96,7 +96,7 @@ feature {}
          }"
       end
 
-   basic_exec_posix_any_finished (dat: POINTER) is
+   basic_exec_posix_any_finished (dat: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -105,7 +105,7 @@ feature {}
          }"
       end
 
-   basic_exec_alloc_data: like data is
+   basic_exec_alloc_data: like data
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -114,7 +114,7 @@ feature {}
          }"
       end
 
-   basic_exec_id (dat: like data): INTEGER is
+   basic_exec_id (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -123,7 +123,7 @@ feature {}
          }"
       end
 
-   basic_exec_status (dat: like data): INTEGER is
+   basic_exec_status (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -140,7 +140,7 @@ end -- class PROCESS_GROUP_POSIX
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

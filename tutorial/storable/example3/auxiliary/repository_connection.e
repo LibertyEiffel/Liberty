@@ -12,7 +12,7 @@ create {REPOSITORY_SERVER}
    make
 
 feature {LOOP_ITEM}
-   continue is
+   continue
       do
          server.update_from_io_stream(ios)
          if not ios.is_connected then
@@ -24,7 +24,7 @@ feature {LOOP_ITEM}
       end
 
 feature {SERVER}
-   set_io (a_io: like ios) is
+   set_io (a_io: like ios)
       do
          Precursor(a_io)
          a_io.when_disconnect(agent handle_disconnect(?))
@@ -38,7 +38,7 @@ feature {SERVER}
 feature {}
    server: REPOSITORY_SERVER
 
-   handle_disconnect (a_io: like ios) is
+   handle_disconnect (a_io: like ios)
       require
          a_io = ios
          done
@@ -46,7 +46,7 @@ feature {}
          server.connection_done(Current)
       end
 
-   make (a_server: like server) is
+   make (a_server: like server)
       require
          a_server /= Void
       do

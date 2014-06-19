@@ -19,22 +19,22 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 4
+   precedence: INTEGER 4
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_or_else
       end
 
-   accept (visitor: CALL_INFIX_OR_ELSE_VISITOR) is
+   accept (visitor: CALL_INFIX_OR_ELSE_VISITOR)
       do
          visitor.visit_call_infix_or_else(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          left: like target; right: like arg1; compound: INSTRUCTION; ifthenelse: IFTHENELSE
          sp: POSITION; internal_local2: INTERNAL_LOCAL2;
@@ -67,7 +67,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (left: like target; operator_position: POSITION; right: like arg1) is
+   make (left: like target; operator_position: POSITION; right: like arg1)
       require
          left /= Void
          not operator_position.is_unknown

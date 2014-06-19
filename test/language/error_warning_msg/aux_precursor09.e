@@ -7,11 +7,11 @@ create {ANY}
    make_aux
 
 feature {ANY}
-   make_aux is
+   make_aux
       do
       end
 
-   foo: like Current is
+   foo: like Current
       do
          Result := create {AUX_PRECURSOR09}.make_aux
       end

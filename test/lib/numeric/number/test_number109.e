@@ -4,7 +4,7 @@
 class TEST_NUMBER109
    --
    -- Test of depassement of INTEGER_64_NUMBER capacity
-   -- during a division between 2 integers which is
+   -- during a division between 2 integers which
    -- symbolized by a BIG_INTEGER_NUMBER
    -- Result is an small integer
    --
@@ -16,7 +16,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b, q, r: NUMBER
       do

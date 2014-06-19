@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          foo_option: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
          bar_option: COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
@@ -320,7 +320,7 @@ feature {}
          assert(remaining_parameters.item.item(2).is_equal(once "oh well"))
       end
 
-   setup is
+   setup
       do
          command_arguments.make(1)
       end

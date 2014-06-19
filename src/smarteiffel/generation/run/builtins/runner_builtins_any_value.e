@@ -4,7 +4,7 @@
 deferred class RUNNER_BUILTINS_ANY_VALUE
 
 feature {ANY}
-   processor: RUNNER_PROCESSOR is
+   processor: RUNNER_PROCESSOR
       deferred
       end
 

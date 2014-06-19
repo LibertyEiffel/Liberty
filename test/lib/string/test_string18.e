@@ -6,7 +6,7 @@ create {}
 	make
 
 feature {ANY} 
-   make is
+   make
 	   local x,y: STRING
 	   do
 		   print("plain strin%N")
@@ -26,7 +26,7 @@ feature {ANY}
 		   assert(y.count = 7)
       end
 
-   translate (a_name: STRING): STRING is
+   translate (a_name: STRING): STRING
       do
          create Result.copy(a_name)
          -- Remove header underscores.
@@ -61,7 +61,7 @@ feature {ANY}
          end
       end
 
-   insert_underscores (a_string: STRING) is
+   insert_underscores (a_string: STRING)
          -- Insert an underscore ('_') before each uppercase letter following a lowercase one.
       require
          a_string /= Void
@@ -83,7 +83,7 @@ feature {ANY}
          end
       end
 
-	addr: POINTER is
+	addr: POINTER
 		external "C inline"
 		alias "%"__addr%""
 		end

@@ -4,7 +4,7 @@
 deferred class AUX_GENERIC13_CONSTRAINT
 
 feature {}
-   make is
+   make
       deferred
       end
 

@@ -22,11 +22,11 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   do_it is
+   do_it
       do
          io.put_string("Hi from Eiffel world.%N")
       end

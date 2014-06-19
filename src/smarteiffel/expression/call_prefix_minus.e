@@ -18,14 +18,14 @@ create {ANY}
    make, with
 
 feature {ANY}
-   precedence: INTEGER is 11
+   precedence: INTEGER 11
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_minus
       end
 
-   static_simplify: EXPRESSION is
+   static_simplify: EXPRESSION
       local
          ic: INTEGER_CONSTANT; v: INTEGER_64
       do
@@ -48,13 +48,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: CALL_PREFIX_MINUS_VISITOR) is
+   accept (visitor: CALL_PREFIX_MINUS_VISITOR)
       do
          visitor.visit_call_prefix_minus(Current)
       end
 
 feature {}
-   make (operator_position: POSITION; rp: like target) is
+   make (operator_position: POSITION; rp: like target)
       require
          not operator_position.is_unknown
          rp /= Void

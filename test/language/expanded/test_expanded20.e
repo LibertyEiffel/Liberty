@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          f1.set_a(2)
       end
 
-   f1: AUX_EXPANDED20 is
+   f1: AUX_EXPANDED20
       do
          Result.set_a(1)
          Result.set_b(2)

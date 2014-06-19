@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          debug ("trace 1")
             -- Executed (Default key)

@@ -4,7 +4,7 @@
 deferred class AUX_ANCHOR10_ABSTRACT[G]
 
 feature {ANY}
-   item: G is
+   item: G
       deferred
       end
 

@@ -30,28 +30,28 @@ feature {ANY}
    flymake_mode: BOOLEAN
          -- To display messages in a format recognized by emacs (flymake)
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- True when nothing stored in `explanation' and `positions'.
       do
          Result := explanation.is_empty and then positions.is_empty
       end
 
-   set_no_warning is
+   set_no_warning
       do
          no_warning := True
       end
 
-   set_style_warning is
+   set_style_warning
       do
          style_warning := True
       end
 
-   set_flymake_mode is
+   set_flymake_mode
       do
          flymake_mode := True
       end
 
-   append (s: STRING) is
+   append (s: STRING)
          -- Append text `s' to the current `explanation'.
       require
          not s.is_empty
@@ -61,7 +61,7 @@ feature {ANY}
          not is_empty
       end
 
-   append_integer (i: INTEGER) is
+   append_integer (i: INTEGER)
          -- Append integer `i' to the current `explanation'.
       do
          i.append_in(explanation)
@@ -69,7 +69,7 @@ feature {ANY}
          not is_empty
       end
 
-   append_integer_64 (i: INTEGER_64) is
+   append_integer_64 (i: INTEGER_64)
          -- Append integer `i' to the current `explanation'.
       do
          i.append_in(explanation)
@@ -77,7 +77,7 @@ feature {ANY}
          not is_empty
       end
 
-   extend (c: CHARACTER) is
+   extend (c: CHARACTER)
          -- Append `c' to the current `explanation'.
       do
          explanation.extend(c)
@@ -85,7 +85,7 @@ feature {ANY}
          not is_empty
       end
 
-   add_position (p: POSITION) is
+   add_position (p: POSITION)
          -- If necessary, add `p' to the already known `positions'.
       do
          if p.is_unknown then
@@ -94,21 +94,21 @@ feature {ANY}
          end
       end
 
-   add_type_mark (type_mark: TYPE_MARK) is
+   add_type_mark (type_mark: TYPE_MARK)
       require
          type_mark /= Void
       do
          type_mark.pretty_in(explanation)
       end
 
-   add_type (type: TYPE) is
+   add_type (type: TYPE)
       require
          type /= Void
       do
          type.canonical_type_mark.pretty_in(explanation)
       end
 
-   add_raw_code (code: CODE) is
+   add_raw_code (code: CODE)
          -- Add a piece of `code' in the message.
          -- Note: the `start_position' of `code' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
@@ -118,7 +118,7 @@ feature {ANY}
          pretty_printer.code_in(explanation, code)
       end
 
-   add_expression (expression: EXPRESSION) is
+   add_expression (expression: EXPRESSION)
          -- Add a piece of `expression' in the message.
          -- Note: the `start_position' of `expression' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
@@ -130,7 +130,7 @@ feature {ANY}
          explanation.extend('%'')
       end
 
-   add_instruction (instruction: INSTRUCTION) is
+   add_instruction (instruction: INSTRUCTION)
          -- Add a piece of `instruction' in the message.
          -- Note: the `start_position' of `instruction' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
@@ -142,7 +142,7 @@ feature {ANY}
          explanation.extend('%N')
       end
 
-   add_feature_name (fn: FEATURE_NAME) is
+   add_feature_name (fn: FEATURE_NAME)
          -- Useful to show `fn' which may be an infix or a prefix name as well as an ordinary feature name.
          -- Note: the `start_position' of `fn' is not automatically added by this call because it may be not
          -- meaningful in some context (it is up to the caller to do it when useful).
@@ -164,7 +164,7 @@ feature {ANY}
          end
       end
 
-   add_context_info (ct: TYPE_MARK) is
+   add_context_info (ct: TYPE_MARK)
       require
          ct.is_static
       do
@@ -173,7 +173,7 @@ feature {ANY}
          append(once " . The validation context is used to compute all anchored type marks.)")
       end
 
-   print_as_style_warning is
+   print_as_style_warning
          -- Print `explanation' as a Warning report.
          -- After printing, `explanation' and `positions' are reset.
       require
@@ -186,7 +186,7 @@ feature {ANY}
          end
       end
 
-   print_as_warning is
+   print_as_warning
          -- Print or save `explanation' as a Warning report.
          -- After printing, `explanation' and `positions' are reset.
       require
@@ -203,7 +203,7 @@ feature {ANY}
          end
       end
 
-   print_live_warnings is
+   print_live_warnings
          -- Print all warnings not already printed, provided that they belong to a live type.
       local
          i: INTEGER; lt: LIVE_TYPE
@@ -223,7 +223,7 @@ feature {ANY}
          end
       end
 
-   print_as_error is
+   print_as_error
          -- Print `explanation' as an Error report.
          -- After printing, `explanation' and `positions' are reset.
       require
@@ -243,7 +243,7 @@ feature {ANY}
          error_counter = old error_counter + 1
       end
 
-   print_as_fatal_error is
+   print_as_fatal_error
          -- Print `explanation' as a Fatal Error.
          -- Execution is stopped after this call.
       require
@@ -260,7 +260,7 @@ feature {ANY}
          end
       end
 
-   print_as_internal_error is
+   print_as_internal_error
          -- Print `explanation' as an Internal Error.
          -- Execution is crashed after this call.
       require
@@ -272,7 +272,7 @@ feature {ANY}
          crash
       end
 
-   cancel is
+   cancel
          -- Cancel a prepared report without printing it.
       do
          explanation.clear_count
@@ -281,14 +281,14 @@ feature {ANY}
          is_empty
       end
 
-   cancel_positions is
+   cancel_positions
          -- Cancel only the positions, keeping the Message.
       do
          positions.clear_count
       end
 
 feature {}
-   save_error (tag: STRING) is
+   save_error (tag: STRING)
       require
          not is_empty
          not positions.is_empty
@@ -327,7 +327,7 @@ feature {}
          is_empty
       end
 
-   emit_all_warnings is
+   emit_all_warnings
       local
          i: INTEGER
          error: TAGGED_ERROR
@@ -354,7 +354,7 @@ feature {}
          positions.is_equal(old positions.twin)
       end
 
-   emit_warnings (class_text: CLASS_TEXT) is
+   emit_warnings (class_text: CLASS_TEXT)
       require
          class_text /= Void
       local
@@ -380,7 +380,7 @@ feature {}
          end
       end
 
-   emit_error (tag: STRING; error: TAGGED_ERROR) is
+   emit_error (tag: STRING; error: TAGGED_ERROR)
       require
          is_empty
          not error.is_emitted
@@ -395,12 +395,12 @@ feature {}
          error.is_emitted
       end
 
-   errors_pool: RECYCLING_POOL[TAGGED_ERROR] is
+   errors_pool: RECYCLING_POOL[TAGGED_ERROR]
       once
          create Result.make
       end
 
-   new_error: TAGGED_ERROR is
+   new_error: TAGGED_ERROR
       do
          --Result := errors_pool.item
          --if Result = Void then
@@ -412,7 +412,7 @@ feature {}
       end
 
 feature {ANY}
-   when_fatal_error (a_action: like action) is
+   when_fatal_error (a_action: like action)
       do
          action := a_action
       end
@@ -421,21 +421,21 @@ feature {}
    action: PROCEDURE[TUPLE]
 
 feature {}
-   explanation: STRING is
+   explanation: STRING
          -- Current `explanation' text to be print with next Warning,
          -- the next Error or the next Fatal Error.
       once
          create Result.make(1024)
       end
 
-   positions: FAST_ARRAY[POSITION] is
+   positions: FAST_ARRAY[POSITION]
          -- The list of `positions' to be shown with next Warning,
          -- the next Error or the next Fatal Error.
       once
          create Result.with_capacity(16)
       end
 
-   do_print (tag: STRING) is
+   do_print (tag: STRING)
       do
          if flymake_mode then
             do_print_flymake(tag)
@@ -447,7 +447,7 @@ feature {}
          is_empty
       end
 
-   do_print_flymake (tag: STRING) is
+   do_print_flymake (tag: STRING)
       local
          err: INTEGER; pos: POSITION
       do
@@ -473,7 +473,7 @@ feature {}
          echo.w_put_line(explanation)
       end
 
-   do_print_standard (tag: STRING) is
+   do_print_standard (tag: STRING)
       local
          i, cpt: INTEGER; cc: CHARACTER
       do
@@ -518,7 +518,7 @@ feature {}
          echo.w_put_string(once "------%N")
       end
 
-   get_positions_on_same_line (p: FAST_ARRAY[POSITION]) is
+   get_positions_on_same_line (p: FAST_ARRAY[POSITION])
          -- Find the suffix of `positions' such that all POSITIONS of
          -- the suffix are on the same line of the same source file.
          -- Remove this suffix from `positions' and put in into `p',
@@ -568,7 +568,7 @@ feature {}
          p.first.line = p.last.line -- i.e. all positions of p are on the same line
       end
 
-   print_error_header (cn: CLASS_NAME; file_path: STRING; line_number: INTEGER; pos: FAST_ARRAY[POSITION]) is
+   print_error_header (cn: CLASS_NAME; file_path: STRING; line_number: INTEGER; pos: FAST_ARRAY[POSITION])
          -- Print a line of the form "Line xx column(s) yy, zz in CLASS_NAME (some/file/path):%N"
       require
          pos.count > 0
@@ -610,7 +610,7 @@ feature {}
          echo.w_put_string(":%N")
       end
 
-   detab_line (line: STRING): INTEGER is
+   detab_line (line: STRING): INTEGER
          -- Replace all leading tabs of `line' with spaces, and return the number of spaces that must
          -- be prepended to `line' to compensate for this change.
       require
@@ -633,7 +633,7 @@ feature {}
          line.count = old (line.count)
       end
 
-   put_arrows_into (line: STRING; p: FAST_ARRAY[POSITION]) is
+   put_arrows_into (line: STRING; p: FAST_ARRAY[POSITION])
          -- Replace the characters of `line' that are at column numbers from `p' by '^'. Replace
          -- all remaining non-tab characters by spaces.
       require
@@ -667,7 +667,7 @@ feature {}
          line.count = old (line.count)
       end
 
-   print_spaces (number: INTEGER) is
+   print_spaces (number: INTEGER)
          -- Print `number' spaces.
       require
          number >= 0
@@ -684,7 +684,7 @@ feature {}
          end
       end
 
-   display_lines is
+   display_lines
          -- Sort `positions' and display them.
       local
          pos: POSITION; s: REVERSE_COLLECTION_SORTER[POSITION]; cn: CLASS_NAME; li, offset: INTEGER
@@ -719,7 +719,7 @@ feature {}
          positions.is_empty
       end
 
-   get_line (file_path: STRING; li: INTEGER): STRING is
+   get_line (file_path: STRING; li: INTEGER): STRING
       require
          not file_path.is_empty
          li > 0
@@ -742,7 +742,7 @@ feature {}
          end
       end
 
-   warning_tag: STRING is "Warning"
+   warning_tag: STRING "Warning"
 
 end -- class ERROR_HANDLER
 --

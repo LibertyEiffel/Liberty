@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {INDEX_LIST}
-   visit_index_list (visited: INDEX_LIST) is
+   visit_index_list (visited: INDEX_LIST)
       require
          visited /= Void
       deferred

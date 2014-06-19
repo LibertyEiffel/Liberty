@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_DEBUG}
-   visit_liberty_debug (v: LIBERTY_DEBUG) is
+   visit_liberty_debug (v: LIBERTY_DEBUG)
       deferred
       end
 

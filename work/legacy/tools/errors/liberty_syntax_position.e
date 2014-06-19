@@ -24,10 +24,10 @@ feature {ANY}
    source: STRING
 
 feature {ANY}
-   is_unknown: BOOLEAN is False
+   is_unknown: BOOLEAN False
 
 feature {}
-   make (a_index: like index; a_source: like source; a_file: like file) is
+   make (a_index: like index; a_source: like source; a_file: like file)
       require
          a_source /= Void
          a_index.in_range(a_source.lower, a_source.upper)

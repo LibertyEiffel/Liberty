@@ -13,7 +13,7 @@ create {WEB_JOB}
    make
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          if context = Void then
             events.expect(stream.event_can_read)
@@ -22,7 +22,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := abort
          if not Result then
@@ -34,7 +34,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   continue is
+   continue
       local
          end_of_context: BOOLEAN
       do
@@ -67,13 +67,13 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          check False end
       end
 
 feature {}
-   make (a_application: like application; a_stream: like stream) is
+   make (a_application: like application; a_stream: like stream)
       require
          a_application /= Void
          a_stream.is_connected
@@ -87,7 +87,7 @@ feature {}
    stream: SOCKET_INPUT_OUTPUT_STREAM
    context: WEB_CONTEXT
 
-   on_disconnect is
+   on_disconnect
       do
          abort := True
       end
@@ -107,7 +107,7 @@ end -- class WEB_CONNECTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

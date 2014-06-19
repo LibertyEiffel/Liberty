@@ -5,7 +5,7 @@ class REFERENCE[E_]
    --
    -- This class is useful to share a common volatile expanded value between different objects or as the
    -- result of a once function.
-   -- So in most cases the E_ type is expanded and the reference to the REFERENCE[E_] container object is
+   -- So in most cases the E_ type is expanded and the reference to the REFERENCE[E_] container object
    -- shared.
    --
 
@@ -18,14 +18,14 @@ create {ANY}
 feature {ANY}
    item: E_
 
-   set_item (i: like item) assign item is
+   set_item (i: like item) assign item
       do
          item := i
       ensure
          item = i
       end
 
-   clear is
+   clear
          -- Reset `item' with the default value.
       local
          default_item: like item
@@ -41,7 +41,7 @@ end -- class REFERENCE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

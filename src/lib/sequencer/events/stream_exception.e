@@ -13,13 +13,13 @@ create {STREAM}
    make
 
 feature {EVENTS_SET}
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       do
          events.when_exception(stream)
          set_expected(events)
       end
 
-   occurred (events: EVENTS_SET): BOOLEAN is
+   occurred (events: EVENTS_SET): BOOLEAN
       do
          Result := events.is_exception(stream)
       end
@@ -27,7 +27,7 @@ feature {EVENTS_SET}
 feature {}
    stream: STREAM
 
-   make (a_stream: like stream) is
+   make (a_stream: like stream)
       require
          not is_expected
          a_stream /= Void
@@ -47,7 +47,7 @@ end -- class STREAM_EXCEPTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

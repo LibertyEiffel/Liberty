@@ -28,54 +28,54 @@ create {EDC_STORABLE_TABLE}
    make
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := indexer.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := indexer.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := indexer.upper
       end
 
-   item (i: INTEGER): FAST_ARRAY[EDC_DATUM] is
+   item (i: INTEGER): FAST_ARRAY[EDC_DATUM]
       do
          Result := indexer.item(i)
       end
 
-   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   has (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          Result := indexer.has(a_row)
       end
 
 feature {ANY}
-   index: EDC_INDEX is
+   index: EDC_INDEX
       do
          Result := indexer.index
       end
 
-   has_column (a_column: EDC_COLUMN): BOOLEAN is
+   has_column (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := index.has(a_column)
       end
 
-   index_of_column (a_column: EDC_COLUMN): INTEGER is
+   index_of_column (a_column: EDC_COLUMN): INTEGER
       do
          Result := index.index_of(a_column)
       end
 
 feature {EDC_STORABLE_TABLE}
-   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN is
+   can_add (a_row: FAST_ARRAY[EDC_DATUM]): BOOLEAN
       do
          Result := indexer.can_add(a_row)
       end
 
-   add (a_row: FAST_ARRAY[EDC_DATUM]) is
+   add (a_row: FAST_ARRAY[EDC_DATUM])
       require
          can_add(a_row)
       do
@@ -84,7 +84,7 @@ feature {EDC_STORABLE_TABLE}
          has(a_row)
       end
 
-   remove (a_row: FAST_ARRAY[EDC_DATUM]) is
+   remove (a_row: FAST_ARRAY[EDC_DATUM])
       require
          has(a_row)
       do
@@ -92,7 +92,7 @@ feature {EDC_STORABLE_TABLE}
       end
 
 feature {}
-   make (a_index: like index; a_table: EDC_STORABLE_TABLE) is
+   make (a_index: like index; a_table: EDC_STORABLE_TABLE)
       require
          a_index /= Void
          a_table /= Void
@@ -103,14 +103,14 @@ feature {}
          indexer.table = a_table
       end
 
-   add_verifier: EDC_STORABLE_ADD_VERIFIER is
+   add_verifier: EDC_STORABLE_ADD_VERIFIER
       once
          create Result.make
       end
 
    indexer: EDC_STORABLE_INDEXER
 
-   factory: EDC_STORABLE_INDEXER_FACTORY is
+   factory: EDC_STORABLE_INDEXER_FACTORY
       once
          create Result.make
       end

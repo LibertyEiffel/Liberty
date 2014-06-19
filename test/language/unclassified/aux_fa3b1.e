@@ -9,12 +9,12 @@ insert
 feature {ANY}
    ref: STRING
 
-   get_ref: STRING is
+   get_ref: STRING
       do
          Result := ref
       end
 
-   init_ref is
+   init_ref
       do
          ref := "ref"
       end

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_binding_flags_get_type: like long_unsigned is
+	g_binding_flags_get_type: like long_unsigned
  		-- g_binding_flags_get_type
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_flags (a_binding: POINTER): INTEGER is
+	g_binding_get_flags (a_binding: POINTER): INTEGER
  		-- g_binding_get_flags
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_source (a_binding: POINTER): POINTER is
+	g_binding_get_source (a_binding: POINTER): POINTER
  		-- g_binding_get_source
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_source_property (a_binding: POINTER): POINTER is
+	g_binding_get_source_property (a_binding: POINTER): POINTER
  		-- g_binding_get_source_property
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_target (a_binding: POINTER): POINTER is
+	g_binding_get_target (a_binding: POINTER): POINTER
  		-- g_binding_get_target
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_target_property (a_binding: POINTER): POINTER is
+	g_binding_get_target_property (a_binding: POINTER): POINTER
  		-- g_binding_get_target_property
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_binding_get_type: like long_unsigned is
+	g_binding_get_type: like long_unsigned
  		-- g_binding_get_type
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_bind_property (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER): POINTER is
+	g_object_bind_property (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER): POINTER
  		-- g_object_bind_property
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_bind_property_full (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER; a_transform_to: POINTER; a_transform_from: POINTER; an_user_data: POINTER; a_notify: POINTER): POINTER is
+	g_object_bind_property_full (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER; a_transform_to: POINTER; a_transform_from: POINTER; an_user_data: POINTER; a_notify: POINTER): POINTER
  		-- g_object_bind_property_full
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_bind_property_with_closures (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER; a_transform_to: POINTER; a_transform_from: POINTER): POINTER is
+	g_object_bind_property_with_closures (a_source: POINTER; a_source_property: POINTER; a_target: POINTER; a_target_property: POINTER; a_flags: INTEGER; a_transform_to: POINTER; a_transform_from: POINTER): POINTER
  		-- g_object_bind_property_with_closures
 		external "plug_in"
 		alias "{

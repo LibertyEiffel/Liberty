@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   string: LIBERTY_AST_STRING is
+   string: LIBERTY_AST_STRING
       require
          count > 0
       do
@@ -29,15 +29,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Obsolete"
+   name: STRING "Obsolete"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 2 >> }
       end

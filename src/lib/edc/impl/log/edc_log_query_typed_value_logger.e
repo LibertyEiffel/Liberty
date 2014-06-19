@@ -30,19 +30,19 @@ create {EDC_LOG_QUERY_LOGGER}
    make
 
 feature {EDC_MANIFEST_VALUE}
-   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[T_]) is
+   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[T_])
       do
          put.call([a_manifest_value.item])
       end
 
 feature {EDC_PARAMETER}
-   visit_parameter (a_parameter: EDC_PARAMETER[T_]) is
+   visit_parameter (a_parameter: EDC_PARAMETER[T_])
       do
          put.call([a_parameter.item])
       end
 
 feature {}
-   make (a_put: like put) is
+   make (a_put: like put)
       require
          a_put /= Void
       do

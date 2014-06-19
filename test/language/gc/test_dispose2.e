@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          ref, aux: AUX_DISPOSE2
       do

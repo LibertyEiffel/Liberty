@@ -8,7 +8,7 @@ feature {ANY}
 
    y: like x
 
-   p: STRING is
+   p: STRING
       do
          Result := "AUX.p"
       end

@@ -13,19 +13,19 @@ create {}
    default_create
 
 feature {ANY} -- Creation
-   default_create is
+   default_create
       do
          external_object := cpp_new
          set_value(25)
          assert(value = 25)
       end
 
-   set_value (v: INTEGER) is
+   set_value (v: INTEGER)
       do
          cpp_set_value(external_object, v)
       end
 
-   value: INTEGER is
+   value: INTEGER
       do
          Result := cpp_value(external_object)
       end
@@ -33,21 +33,21 @@ feature {ANY} -- Creation
 feature {} -- Implementation
    external_object: POINTER
 
-   cpp_value (instance: POINTER): INTEGER is
+   cpp_value (instance: POINTER): INTEGER
       external "[
                   C++ [Overload "aux_overload01.h"](): int
                 ]"
       alias "value"
       end
 
-   cpp_set_value (instance: POINTER; v: INTEGER) is
+   cpp_set_value (instance: POINTER; v: INTEGER)
       external "[
                   C++ [Overload "aux_overload01.h"](int)
                 ]"
       alias "value"
       end
 
-   cpp_new: POINTER is
+   cpp_new: POINTER
       external "[
                   C++ [new Overload "aux_overload01.h"]()
                 ]"

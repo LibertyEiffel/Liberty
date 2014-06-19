@@ -10,11 +10,11 @@ create {}
    make
 
 feature {ANY}
-   foo: STRING is "foo"
+   foo: STRING "foo"
 
-   bar: STRING is "bar"
+   bar: STRING "bar"
 
-   make is
+   make
       do
          assert((
          <<foo, bar>>).is_equal({ARRAY[STRING] 1, << foo, bar >> }))
@@ -28,12 +28,12 @@ feature {ANY}
          <<1, 2>>).item(1) = 1)
       end
 
-   cat: CAT is
+   cat: CAT
       once
          create Result
       end
 
-   dog: DOG is
+   dog: DOG
       once
          create Result
       end

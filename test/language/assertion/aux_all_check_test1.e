@@ -9,29 +9,29 @@ create {ANY}
 feature {ANY}
    require_count, ensure_count, invariant_count: INTEGER
 
-   do_require: BOOLEAN is
+   do_require: BOOLEAN
       do
          require_count := require_count + 1
          Result := True
       end
 
-   do_ensure: BOOLEAN is
+   do_ensure: BOOLEAN
       do
          ensure_count := ensure_count + 1
          Result := True
       end
 
-   do_invariant: BOOLEAN is
+   do_invariant: BOOLEAN
       do
          invariant_count := invariant_count + 1
          Result := True
       end
 
-   make is
+   make
       do
       end
 
-   foo is
+   foo
       require
          do_require
       do
@@ -39,7 +39,7 @@ feature {ANY}
          do_ensure
       end
 
-   bar is
+   bar
       do
          foo
       end

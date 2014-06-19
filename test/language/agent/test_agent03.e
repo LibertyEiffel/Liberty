@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]; agent1: PROCEDURE[TUPLE]; agent2: FUNCTION[TUPLE[APPLE], STRING]
          string: STRING; memo: INTEGER
@@ -36,7 +36,7 @@ feature {}
          assert("foo".is_equal((agent function1(?)).item(["foo"])))
       end
 
-   function1 (s: STRING): STRING is
+   function1 (s: STRING): STRING
       do
          number := number + 1
          Result := s
@@ -53,18 +53,18 @@ feature {}
          end
       end
 
-   function2 (f: FRUIT): STRING is
+   function2 (f: FRUIT): STRING
       do
          Result := f.generator
          assert(Result.is_equal("APPLE"))
       end
 
-   print3 is
+   print3
       do
          assert(True)
       end
 
-   print_item1 (c: CHARACTER; item: STRING) is
+   print_item1 (c: CHARACTER; item: STRING)
       require
          c /= '%U'
          item /= Void
@@ -82,7 +82,7 @@ feature {}
          end
       end
 
-   print_item2 (item: STRING) is
+   print_item2 (item: STRING)
       do
          print_item1('#', item)
       end

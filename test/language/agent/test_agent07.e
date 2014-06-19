@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          (agent proc(?)).call(['H'])
          (agent proc(?)).call(['e'])
@@ -18,7 +18,7 @@ feature {ANY}
       end
 
 feature {}
-   proc (c: CHARACTER) is
+   proc (c: CHARACTER)
       do
          debug
             std_output.put_character(c)

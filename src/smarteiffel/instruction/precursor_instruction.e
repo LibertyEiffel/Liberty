@@ -14,14 +14,14 @@ create {ANY}
    make
 
 feature {ANY}
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   accept (visitor: PRECURSOR_INSTRUCTION_VISITOR) is
+   accept (visitor: PRECURSOR_INSTRUCTION_VISITOR)
       do
          visitor.visit_precursor_instruction(Current)
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          --|*** Attention ici on fait simple : si le Precursor s'appelle
          --| lui-même, la liaison dynamique est suivie (-> rappel de la
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_(indent_level)

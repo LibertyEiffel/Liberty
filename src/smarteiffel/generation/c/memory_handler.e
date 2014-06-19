@@ -13,7 +13,7 @@ feature {ANY}
          -- True when Garbage Collector Information need to be printed.
 
 feature {MEMORY_HANDLER_FACTORY}
-   set_info_flag is
+   set_info_flag
       do
          info_flag := True
       ensure
@@ -21,7 +21,7 @@ feature {MEMORY_HANDLER_FACTORY}
       end
 
 feature {ACE}
-   ace_option (txt: STRING) is
+   ace_option (txt: STRING)
          -- Puts the collect option in the ACE text
       require
          txt /= Void
@@ -29,154 +29,154 @@ feature {ACE}
       end
 
 feature {C_PRETTY_PRINTER} -- C code phases
-   pre_customize_c_runtime is
+   pre_customize_c_runtime
          -- Code customization: #defines
       deferred
       end
 
-   customize_c_runtime is
+   customize_c_runtime
          -- Code customization
       deferred
       end
 
-   define1 is
+   define1
          -- GC definitions code (just after customize)
       deferred
       end
 
-   define2 is
+   define2
          -- Most GC code is generated here
       deferred
       ensure
          smart_eiffel.magic_count = old smart_eiffel.magic_count
       end
 
-   pre_initialize_runtime is
+   pre_initialize_runtime
          -- Code for runtime customization before calling "initialize_eiffel_runtime". Used to set the stack
          -- bottom.
       deferred
       end
 
-   initialize_runtime is
+   initialize_runtime
          -- Code for runtime startup in the "initialize_eiffel_runtime" C function
       deferred
       end
 
-   post_initialize_runtime is
+   post_initialize_runtime
          -- Code for runtime customization in the "initialize_eiffel_runtime" C function, after precomputable
          -- objects (manifest strings, precomputable once objects) have been created
       deferred
       end
 
-   initialize_thread is
+   initialize_thread
          -- Code for runtime customization at thread start. Used to set the stack bottom.
       deferred
       end
 
-   gc_info_before_exit is
+   gc_info_before_exit
          -- Code for runtime cleanup in the "atexit" C function
       deferred
       end
 
-   pre_cecil_define is
+   pre_cecil_define
          -- Code for cecil calls
       deferred
       end
 
-   cecil_define is
+   cecil_define
          -- Code for cecil calls
       deferred
       end
 
-   post_cecil_define is
+   post_cecil_define
          -- Code for cecil calls
       deferred
       end
 
-   echo_information is
+   echo_information
       deferred
       end
 
 feature {C_PRETTY_PRINTER} -- specific objects
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
+   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN)
          -- Code to create a new Manifest STRING and assign it in the "s" local C variable.
       deferred
       end
 
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN) is
+   native9_in (c_code: STRING; string_at_run_time: BOOLEAN)
          -- Code to create a new native array as expression
       deferred
       end
 
 feature {C_PRETTY_PRINTER} -- memory-specific handling aspects
-   add_extra_collectors is
+   add_extra_collectors
          -- Add memory-related extra LIVE_TYPE collectors
       deferred
       end
 
-   may_need_size_table: BOOLEAN is
+   may_need_size_table: BOOLEAN
       deferred
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
-   malloc (lt: LIVE_TYPE) is
+   malloc (lt: LIVE_TYPE)
          -- Code to create an object of the given live type
       deferred
       end
 
-   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
+   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE])
          -- Code to create many objects of the given live type
          -- `n' represents the code that gives the number of objects to create, and will be called at the
          -- right time.
       deferred
       end
 
-   malloc_closure (lt: LIVE_TYPE) is
+   malloc_closure (lt: LIVE_TYPE)
       require
          lt.type.has_local_closure
       deferred
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
-   gc_disable is
+   gc_disable
          -- Code to disable garbage collection
       deferred
       end
 
-   gc_enable is
+   gc_enable
          -- Code to enable garbage collection
       deferred
       end
 
-   gc_collect is
+   gc_collect
          -- Code to start a full GC collect
       deferred
       end
 
-   gc_is_collecting is
+   gc_is_collecting
          -- Code to check if the gc is collecting as an expression
       deferred
       end
 
-   gc_counter is
+   gc_counter
          -- Code that gives the number of GC cycles as an expression
       deferred
       end
 
-   gc_allocated_bytes is
+   gc_allocated_bytes
          -- Code that gives the currently allocated bytes as an expression
       deferred
       end
 
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
-   weak_item (lt: LIVE_TYPE) is
+   weak_item (lt: LIVE_TYPE)
          -- Code to get the weak reference item
       require
          -- lt is a WEAK_REFERENCE type
       deferred
       end
 
-   weak_set_item (lt: LIVE_TYPE) is
+   weak_set_item (lt: LIVE_TYPE)
          -- Code to set the weak reference item
       require
          -- lt is a WEAK_REFERENCE type
@@ -184,7 +184,7 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
-   assign_agent_data (mold_id: STRING) is
+   assign_agent_data (mold_id: STRING)
          -- At agent creation time: specific memory handling data may be assigned
          -- See also `define_agent_data' for the struct fields to define
       require
@@ -192,7 +192,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       deferred
       end
 
-   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
+   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]])
          -- Code (usually functions) that handle agents memory, assigned above, called below
       require
          agent_creation /= Void
@@ -202,75 +202,75 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
       deferred
       end
 
-   define_agent_data (mold_id: STRING) is
+   define_agent_data (mold_id: STRING)
          -- At agent structure definition: specific memory handles may be added to the struct
       require
          mold_id /= Void
       deferred
       end
 
-   define_agent_data_is_equal is
+   define_agent_data_is_equal
          -- See C_LIVE_TYPE_COMPILER.is_equal_agent_creation_define_type_for
       deferred
       end
 
-   define_agent_data_0 is
+   define_agent_data_0
          -- See C_PRETTY_PRINTER.customize_agent_pool_runtime_1
       deferred
       end
 
 feature {C_COMPILATION_MIXIN}
-   checkpoint is
+   checkpoint
       deferred
       end
 
 feature {C_NATIVE_PROCEDURE_MAPPER}
-   mark_item (rf7: RUN_FEATURE_7) is
+   mark_item (rf7: RUN_FEATURE_7)
          -- the `mark_item' function code
       deferred
       end
 
 feature {C_PRETTY_PRINTER}
-   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       deferred
       end
 
-   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       deferred
       end
 
 feature {C_HEADER_PASS_0}
-   register_wa_list (live_type: LIVE_TYPE) is
+   register_wa_list (live_type: LIVE_TYPE)
       deferred
       end
 
 feature {C_COMPILATION_MIXIN}
-   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN
       require
          type_mark /= Void
       deferred
       end
 
-   extra_c_struct (type_mark: TYPE_MARK) is
+   extra_c_struct (type_mark: TYPE_MARK)
       require
          type_mark /= Void
       deferred
       end
 
-   extra_c_model (type_mark: TYPE_MARK) is
+   extra_c_model (type_mark: TYPE_MARK)
       require
          type_mark /= Void
       deferred
       end
 
-   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE)
       require
          type /= Void
          assignment.right_side.resolve_in(type).is_native_array
       deferred
       end
 
-   put_ref_in_native_array (rf7: RUN_FEATURE_7) is
+   put_ref_in_native_array (rf7: RUN_FEATURE_7)
       require
          rf7.type_of_current.generic_list.first.is_reference
       do
@@ -284,7 +284,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {ANY}
-   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
+   allocation_of (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE)
          -- Heap-allocation into `internal_c_local' of a new object of some `created_live_type'.
       require
          cpp.pending_c_function
@@ -308,7 +308,7 @@ feature {ANY}
       end
 
 feature {}
-   define_manifest_string_mark is
+   define_manifest_string_mark
       local
          i, mdc, ms_count, function_count, id, us_id: INTEGER; ms: MANIFEST_STRING
       do
@@ -355,7 +355,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   manifest_string_mark_signature (number: INTEGER) is
+   manifest_string_mark_signature (number: INTEGER)
       require
          cpp.pending_c_function
       do
@@ -364,7 +364,7 @@ feature {}
          cpp.pending_c_function_signature.append(once "(void)")
       end
 
-   manifest_string_mark (i, id: INTEGER) is
+   manifest_string_mark (i, id: INTEGER)
       require
          i.in_range(1, manifest_string_pool.collected_once_count)
          manifest_string_pool.collected_once_item(i).unicode_flag implies (
@@ -378,8 +378,8 @@ feature {}
       end
 
 feature {}
-   initialize_user_expanded_attributes (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE) is
-         -- Produce C code to initialize, if any, expanded attributes of the newly `created_live_type' which is
+   initialize_user_expanded_attributes (internal_c_local: INTERNAL_C_LOCAL; created_live_type: LIVE_TYPE)
+         -- Produce C code to initialize, if any, expanded attributes of the newly `created_live_type' which
          -- currently stored in the `internal_c_local'.
       require
          smart_eiffel.is_ready
@@ -442,7 +442,7 @@ feature {}
       end
 
 feature {}
-   generate_dispose (o: STRING; rf3: RUN_FEATURE_3; live_type: LIVE_TYPE) is
+   generate_dispose (o: STRING; rf3: RUN_FEATURE_3; live_type: LIVE_TYPE)
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          not o.is_empty

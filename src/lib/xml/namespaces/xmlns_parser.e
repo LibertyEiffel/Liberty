@@ -19,7 +19,7 @@ create {ANY}
    connect_to, make
 
 feature {ANY}
-   parse (a_callbacks: XMLNS_CALLBACKS) is
+   parse (a_callbacks: XMLNS_CALLBACKS)
          -- Parse an XML documents by sending parsing events to the given `callbacks'
       require
          is_connected
@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   connect_to (a_url: URL) is
+   connect_to (a_url: URL)
          -- Connect to the given XML document
       require
          not is_connected
@@ -41,7 +41,7 @@ feature {ANY}
          parser.connect_to(a_url)
       end
 
-   disconnect is
+   disconnect
       require
          is_connected
       do
@@ -50,23 +50,23 @@ feature {ANY}
          not is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := parser.is_connected
       end
 
-   line: INTEGER is
+   line: INTEGER
       do
          Result := parser.line
       end
 
-   column: INTEGER is
+   column: INTEGER
       do
          Result := parser.column
       end
 
 feature {}
-   make is
+   make
          -- Create a not connected parser
       do
          if parser = Void then -- this test is useful when called from `connect_to'
@@ -89,18 +89,18 @@ feature {}
    callbacks: XMLNS_CALLBACKS
 
 feature {XML_NAMESPACES}
-   set_validator (a_validator: XMLNS_VALIDATOR) is
+   set_validator (a_validator: XMLNS_VALIDATOR)
       do
          callbacks.set_validator(a_validator)
       end
 
-   validator: XMLNS_VALIDATOR is
+   validator: XMLNS_VALIDATOR
       do
          Result := callbacks.validator
       end
 
 feature {XML_PARSER}
-   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; l, c: INTEGER) is
+   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; l, c: INTEGER)
       do
          if not attributes_for_new_node then
             namespaces.add_last(new_namespaces)
@@ -119,7 +119,7 @@ feature {XML_PARSER}
          end
       end
 
-   open_node (node_name: UNICODE_STRING; l, c: INTEGER) is
+   open_node (node_name: UNICODE_STRING; l, c: INTEGER)
       do
          if attributes_for_new_node then
             attributes_for_new_node := False
@@ -139,7 +139,7 @@ feature {XML_PARSER}
          end
       end
 
-   close_node (node_name: UNICODE_STRING; l, c: INTEGER) is
+   close_node (node_name: UNICODE_STRING; l, c: INTEGER)
       do
          split_namespace(node_name, l, c)
          if not at_error then
@@ -156,7 +156,7 @@ feature {XML_PARSER}
          end
       end
 
-   open_close_node (node_name: UNICODE_STRING; l, c: INTEGER) is
+   open_close_node (node_name: UNICODE_STRING; l, c: INTEGER)
       local
          local_namespaces: BOOLEAN
       do
@@ -181,17 +181,17 @@ feature {XML_PARSER}
          end
       end
 
-   xml_header (l, c: INTEGER) is
+   xml_header (l, c: INTEGER)
       do
          callbacks.xml_header(l, c)
       end
 
-   processing_instruction (a_target, a_data: UNICODE_STRING) is
+   processing_instruction (a_target, a_data: UNICODE_STRING)
       do
          callbacks.processing_instruction(a_target, a_data)
       end
 
-   entity (a_entity: UNICODE_STRING; l, c: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; l, c: INTEGER): UNICODE_STRING
       do
          if validator = Void then
             Result := callbacks.entity(a_entity, l, c)
@@ -203,7 +203,7 @@ feature {XML_PARSER}
          end
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
       local
          ns, cn: UNICODE_STRING
       do
@@ -221,7 +221,7 @@ feature {XML_PARSER}
          end
       end
 
-   data (a_data: UNICODE_STRING; l, c: INTEGER) is
+   data (a_data: UNICODE_STRING; l, c: INTEGER)
       do
          if validator = Void then
             callbacks.data(a_data, l, c)
@@ -233,12 +233,12 @@ feature {XML_PARSER}
          end
       end
 
-   parse_error (l, c: INTEGER; message: STRING) is
+   parse_error (l, c: INTEGER; message: STRING)
       do
          callbacks.parse_error(l, c, message)
       end
 
-   at_error: BOOLEAN is
+   at_error: BOOLEAN
       do
          Result := callbacks.at_error
       end
@@ -250,7 +250,7 @@ feature {}
    name: UNICODE_STRING
          -- set by `split_namespace'
 
-   split_namespace (a_name: UNICODE_STRING; l, c: INTEGER) is
+   split_namespace (a_name: UNICODE_STRING; l, c: INTEGER)
          -- Sets `namespace' and `name' according to the given name, splitting at the first colon (':'). If
          -- there is no colon, `namespace' is Void and `name' contains the full given name. Otherwise
          -- `namespace' contains the URI of the namespace and `name' contains the part of the given name after
@@ -280,7 +280,7 @@ feature {}
    namespaces: FAST_ARRAY[BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]
          -- The known namespaces
 
-   xml_attribute (attribute_name, attribute_value: UNICODE_STRING; l, c: INTEGER) is
+   xml_attribute (attribute_name, attribute_value: UNICODE_STRING; l, c: INTEGER)
       require
          attribute_name /= Void
       local
@@ -320,7 +320,7 @@ feature {}
          end
       end
 
-   find_namespace (a_namespace_ref: UNICODE_STRING): UNICODE_STRING is
+   find_namespace (a_namespace_ref: UNICODE_STRING): UNICODE_STRING
       local
          i: INTEGER
       do
@@ -334,7 +334,7 @@ feature {}
          end
       end
 
-   find_namespace_ref (a_namespace: UNICODE_STRING): UNICODE_STRING is
+   find_namespace_ref (a_namespace: UNICODE_STRING): UNICODE_STRING
       local
          i: INTEGER; ns: BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
       do
@@ -354,12 +354,12 @@ feature {}
    attributes_for_new_node: BOOLEAN
 
 feature {} -- Memory management
-   unused_namespaces: FAST_ARRAY[WEAK_REFERENCE[BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]] is
+   unused_namespaces: FAST_ARRAY[WEAK_REFERENCE[BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]]
       once
          create Result.make(0)
       end
 
-   new_namespaces: BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING] is
+   new_namespaces: BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
       local
          i: INTEGER
       do
@@ -382,7 +382,7 @@ feature {} -- Memory management
          Result.is_empty
       end
 
-   old_namespaces (a_namespaces: BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]) is
+   old_namespaces (a_namespaces: BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING])
       local
          i: INTEGER; done: BOOLEAN; wr: WEAK_REFERENCE[BIJECTIVE_DICTIONARY[UNICODE_STRING, UNICODE_STRING]]; k, v: UNICODE_STRING
       do
@@ -415,12 +415,12 @@ feature {} -- Memory management
          end
       end
 
-   string_pool: RECYCLING_POOL[UNICODE_STRING] is
+   string_pool: RECYCLING_POOL[UNICODE_STRING]
       once
          create Result.make
       end
 
-   string_twin (unicode: UNICODE_STRING): UNICODE_STRING is
+   string_twin (unicode: UNICODE_STRING): UNICODE_STRING
       require
          unicode /= Void
       do
@@ -434,7 +434,7 @@ feature {} -- Memory management
          Result.is_equal(unicode)
       end
 
-   string_recycle (unicode: UNICODE_STRING) is
+   string_recycle (unicode: UNICODE_STRING)
       do
          string_pool.recycle(unicode)
       end
@@ -447,7 +447,7 @@ end -- class XMLNS_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

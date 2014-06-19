@@ -15,13 +15,13 @@ feature {ANY}
 
    alias_string: MANIFEST_STRING
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   frozen rescue_compound: INSTRUCTION is
+   frozen rescue_compound: INSTRUCTION
       do
       end
 
-   frozen set_rescue_compound (rc: like rescue_compound) is
+   frozen set_rescue_compound (rc: like rescue_compound)
       do
          if rc /= Void then
             error_handler.add_position(rc.start_position)
@@ -32,7 +32,7 @@ feature {ANY}
          error_handler.print_as_fatal_error
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
          Result := native.use_current(Current)
          if not Result and then not ace.boost then
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   external_name: STRING is
+   external_name: STRING
       local
          tmp: STRING
       do
@@ -61,7 +61,7 @@ feature {ANY}
          end
       end
 
-   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          type_name: STRING
          lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
@@ -98,7 +98,7 @@ feature {ANY}
          end
       end
 
-   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          lv, lv_memory: like local_vars
          clv, clv_memory: like closure_local_vars
@@ -126,7 +126,7 @@ feature {ANY}
          smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   specialize_and_check (type: TYPE): E_ROUTINE is
+   specialize_and_check (type: TYPE): E_ROUTINE
       local
          lv_memory: like local_vars; clv_memory: like closure_local_vars
          fa_memory: like arguments; cfa_memory: like closure_arguments
@@ -171,7 +171,7 @@ feature {ANY}
          smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := (routine_body /= Void implies routine_body.has_been_specialized)
             and then (local_vars /= Void implies local_vars.has_been_specialized)
@@ -186,7 +186,7 @@ feature {ANY}
       end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          rb: like routine_body
       do
@@ -211,7 +211,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
       end
 
 feature {ANY}
-   argument_rank_of (arg_name: STRING): INTEGER is
+   argument_rank_of (arg_name: STRING): INTEGER
          -- Gives 0 or the index of `arg_name'.
       require
          string_aliaser.registered_one(arg_name)
@@ -225,7 +225,7 @@ feature {ANY}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   c_plus_plus_name: STRING is
+   c_plus_plus_name: STRING
          -- The name of the corresponding member in C++ is the
          -- `alias_string' if any or the `first_name' itself.
       do
@@ -237,12 +237,12 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {}
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       do
          add_into_shared(ft, fd)
       end
 
-   pretty_print_routine_body (indent_level: INTEGER) is
+   pretty_print_routine_body (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "external")
@@ -254,11 +254,11 @@ feature {}
          end
       end
 
-   pretty_print_rescue (indent_level: INTEGER) is
+   pretty_print_rescue (indent_level: INTEGER)
       do
       end
 
-   make_external_routine (n: like native; description: like alias_string) is
+   make_external_routine (n: like native; description: like alias_string)
       require
          n /= Void
       do
@@ -267,7 +267,7 @@ feature {}
       end
 
    current_or_twin_init_no_body (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; is_generated: like is_generated_eiffel;
-      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
+      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current
       do
          if lv = local_vars and then clv = closure_local_vars and then cfa = closure_arguments and then Void = routine_body and then is_generated = is_generated_eiffel
             and then ea = ensure_assertion and then ra = require_assertion then
@@ -283,7 +283,7 @@ feature {}
       end
 
 feature {RUN_FEATURE_7, RUN_FEATURE_8}
-   adapt_routine_body_for (t: TYPE): like routine_body is
+   adapt_routine_body_for (t: TYPE): like routine_body
          -- Remove parts of the body that are not needed because they
          -- refer to dead features.
       local
@@ -311,7 +311,7 @@ feature {ANY}
          -- Must `routine_body' be used instead of `native' ?
 
 feature {INTROSPECTION_HANDLER}
-   set_routine_body (rb: like routine_body) is
+   set_routine_body (rb: like routine_body)
       require
          is_generated_eiffel
          rb /= Void
@@ -323,7 +323,7 @@ feature {INTROSPECTION_HANDLER}
 
 feature {EXTERNAL_ROUTINE}
    init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; is_generated: like is_generated_eiffel;
-         ea: like ensure_assertion; ra: like require_assertion) is
+         ea: like ensure_assertion; ra: like require_assertion)
       do
          local_vars := lv
          closure_local_vars := clv
@@ -344,7 +344,7 @@ feature {EXTERNAL_ROUTINE}
 
 feature {INTROSPECTION_HANDLER}
    current_or_twin_init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; is_generated: like is_generated_eiffel;
-      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
+      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current
       require
          routine_body /= Void implies rb /= Void
       do
@@ -362,7 +362,7 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if routine_body /= Void then
             routine_body := routine_body.inline_dynamic_dispatch(code_accumulator, type)

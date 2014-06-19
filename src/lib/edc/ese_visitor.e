@@ -29,7 +29,7 @@ inherit
 	VISITOR
 
 feature {ESE_TYPED_VISITABLE, ESE_VISITOR}
-	as_typed (item_type_generator: STRING): ESE_VISITOR is
+	as_typed (item_type_generator: STRING): ESE_VISITOR
 			-- can be force-assigned to a ESE_TYPED_VISITOR of the "good" type
 		deferred
 		ensure

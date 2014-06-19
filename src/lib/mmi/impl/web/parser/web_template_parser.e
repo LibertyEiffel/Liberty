@@ -14,7 +14,7 @@ create {ANY}
    make
 
 feature {ANY}
-   parse (source: ABSTRACT_STRING; a_replace: like replace): ABSTRACT_STRING is
+   parse (source: ABSTRACT_STRING; a_replace: like replace): ABSTRACT_STRING
       require
          a_replace /= Void
       local
@@ -48,7 +48,7 @@ feature {ANY}
    parse_error: PARSE_ERROR
 
 feature {}
-   reduce_non_terminal (a_name: FIXED_STRING) is
+   reduce_non_terminal (a_name: FIXED_STRING)
       require
          replace /= Void
       local
@@ -110,7 +110,7 @@ feature {}
          end
       end
 
-   reduce_terminal (a_name: FIXED_STRING; a_image: PARSER_IMAGE) is
+   reduce_terminal (a_name: FIXED_STRING; a_image: PARSER_IMAGE)
       local
          p_image: PACKRAT_IMAGE
       do
@@ -128,7 +128,7 @@ feature {}
    data, replaced: FAST_ARRAY[ABSTRACT_STRING]
 
 feature {}
-   make is
+   make
       do
          create data.make(0)
          create replaced.make(0)
@@ -136,7 +136,7 @@ feature {}
 
    replace: FUNCTION[TUPLE[STRING, COLLECTION[STRING]], ABSTRACT_STRING]
 
-   table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+   table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
       local
          grammar: PACKRAT_GRAMMAR
          source: STRING
@@ -164,7 +164,7 @@ feature {}
          log.info.put_line("grammar parsed.")
       end
 
-   parser: PACKRAT_PARSER is
+   parser: PACKRAT_PARSER
       once
          create Result
       end
@@ -177,7 +177,7 @@ end -- class WEB_TEMPLATE_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

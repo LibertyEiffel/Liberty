@@ -19,7 +19,7 @@ feature {ANY}
          -- The one actually written in the source code (`as_natural_8', `as_natural_16', `as_natural'
          -- or `as_natural_64').
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
       local
          ta: TYPE_ALIASING
       do
@@ -38,7 +38,7 @@ feature {ANY}
    bit_count: INTEGER
          -- Can be 8, 16, 32 or 64.
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
          -- Can be: NATURAL_8, NATURAL_16, INTEGER_32 or INTEGER_64.
       do
          inspect
@@ -54,17 +54,17 @@ feature {ANY}
          end
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       do
          buffer.append(pretty_name.to_string)
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := class_text.id
       end
 
-   type: TYPE is
+   type: TYPE
       do
          inspect
             bit_count
@@ -79,29 +79,29 @@ feature {ANY}
          end
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   default_expression (sp: POSITION): EXPRESSION is
+   default_expression (sp: POSITION): EXPRESSION
       do
          create {NATURAL_CONSTANT} Result.with(0.to_natural_64, sp, Current)
       end
 
-   accept (visitor: NATURAL_TYPE_MARK_VISITOR) is
+   accept (visitor: NATURAL_TYPE_MARK_VISITOR)
       do
          visitor.visit_natural_type_mark(Current)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is
+   structure_mark: CHARACTER
       do
          inspect
             bit_count
@@ -117,7 +117,7 @@ feature {LIVE_TYPE}
       end
 
 feature {TYPE}
-   can_be_assigned_to (other: TYPE_MARK): BOOLEAN is
+   can_be_assigned_to (other: TYPE_MARK): BOOLEAN
       local
          natural_type_mark: NATURAL_TYPE_MARK
       do
@@ -131,28 +131,28 @@ feature {TYPE}
       end
 
 feature {ANY}
-   natural_8 (sp: like start_position) is
+   natural_8 (sp: like start_position)
       do
          bit_count := 8
          pretty_name := natural_8_name
          create class_text_name.make(natural_8_name, sp, False)
       end
 
-   natural_16 (sp: like start_position) is
+   natural_16 (sp: like start_position)
       do
          bit_count := 16
          pretty_name := natural_16_name
          create class_text_name.make(natural_16_name, sp, False)
       end
 
-   natural_32 (sp: like start_position) is
+   natural_32 (sp: like start_position)
       do
          bit_count := 32
          pretty_name := natural_32_name
          create class_text_name.make(natural_32_name, sp, False)
       end
 
-   natural (sp: like start_position) is
+   natural (sp: like start_position)
       local
          ta: TYPE_ALIASING
       do
@@ -161,34 +161,34 @@ feature {ANY}
          create class_text_name.make(ta.natural_alias, sp, False)
       end
 
-   natural_64 (sp: like start_position) is
+   natural_64 (sp: like start_position)
       do
          bit_count := 64
          pretty_name := natural_64_name
          create class_text_name.make(natural_64_name, sp, False)
       end
 
-   natural_8_name: HASHED_STRING is
+   natural_8_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural_8)
       end
 
-   natural_16_name: HASHED_STRING is
+   natural_16_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural_16)
       end
 
-   natural_32_name: HASHED_STRING is
+   natural_32_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural_32)
       end
 
-   natural_name: HASHED_STRING is
+   natural_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural)
       end
 
-   natural_64_name: HASHED_STRING is
+   natural_64_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural_64)
       end

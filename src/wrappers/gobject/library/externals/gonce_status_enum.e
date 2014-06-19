@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_once_status_notcalled_low_level)  or else
 				(a_value = g_once_status_progress_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_once_status_notcalled is
+	set_g_once_status_notcalled
 		do
 			value := g_once_status_notcalled_low_level
 		end
 
-	set_g_once_status_progress is
+	set_g_once_status_progress
 		do
 			value := g_once_status_progress_low_level
 		end
 
-	set_g_once_status_ready is
+	set_g_once_status_ready
 		do
 			value := g_once_status_ready_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_once_status_notcalled: BOOLEAN is
+	is_g_once_status_notcalled: BOOLEAN
 		do
 			Result := (value=g_once_status_notcalled_low_level)
 		end
 
-	is_g_once_status_progress: BOOLEAN is
+	is_g_once_status_progress: BOOLEAN
 		do
 			Result := (value=g_once_status_progress_low_level)
 		end
 
-	is_g_once_status_ready: BOOLEAN is
+	is_g_once_status_ready: BOOLEAN
 		do
 			Result := (value=g_once_status_ready_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_once_status_notcalled_low_level: INTEGER is
+	g_once_status_notcalled_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_once_status_progress_low_level: INTEGER is
+	g_once_status_progress_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_once_status_ready_low_level: INTEGER is
+	g_once_status_ready_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

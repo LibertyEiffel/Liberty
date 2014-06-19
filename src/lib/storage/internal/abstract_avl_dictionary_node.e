@@ -22,14 +22,14 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
 
    value: V_
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       ensure
          value = v
       end
 
-   fast_at (k: like key): like Current is
+   fast_at (k: like key): like Current
          -- Is element `e' in the tree?
       do
          if key = k then
@@ -48,17 +48,17 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
          end
       end
 
-   occurrences (v: V_): INTEGER is
+   occurrences (v: V_): INTEGER
       do
          Result := occurrences_(v, 0)
       end
 
-   fast_occurrences (v: V_): INTEGER is
+   fast_occurrences (v: V_): INTEGER
       do
          Result := fast_occurrences_(v, 0)
       end
 
-   key_at (v: V_): K_ is
+   key_at (v: V_): K_
       do
          if safe_equal_value.test(v, value) then
             Result := key
@@ -69,7 +69,7 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
          end
       end
 
-   fast_key_at (v: V_): K_ is
+   fast_key_at (v: V_): K_
       do
          if v = value then
             Result := key
@@ -81,7 +81,7 @@ feature {ABSTRACT_AVL_DICTIONARY, ABSTRACT_AVL_DICTIONARY_NODE, ITERATOR_ON_AVL_
       end
 
 feature {ABSTRACT_AVL_DICTIONARY_NODE}
-   occurrences_ (v: V_; cnt: INTEGER): INTEGER is
+   occurrences_ (v: V_; cnt: INTEGER): INTEGER
       do
          Result := cnt
          if safe_equal_value.test(v, value) then
@@ -97,7 +97,7 @@ feature {ABSTRACT_AVL_DICTIONARY_NODE}
          Result >= cnt
       end
 
-   fast_occurrences_ (v: V_; cnt: INTEGER): INTEGER is
+   fast_occurrences_ (v: V_; cnt: INTEGER): INTEGER
       do
          Result := cnt
          if v = value then
@@ -114,7 +114,7 @@ feature {ABSTRACT_AVL_DICTIONARY_NODE}
       end
 
 feature {ABSTRACT_AVL_DICTIONARY}
-   set (v: like value; k: like key) is
+   set (v: like value; k: like key)
       do
          set_balance(balanced)
          left := Void
@@ -127,7 +127,7 @@ feature {ABSTRACT_AVL_DICTIONARY}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       local
          v: V_
       do
@@ -143,7 +143,7 @@ end -- class ABSTRACT_AVL_DICTIONARY_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

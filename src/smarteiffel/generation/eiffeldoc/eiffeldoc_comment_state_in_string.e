@@ -15,12 +15,12 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       do
          Result := offset < comment.count and then comment.item(offset) = '"' and then comment.index_of('"', offset + 1) > offset
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          i: INTEGER
       do
@@ -34,20 +34,20 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          Result := i + 1
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          check
             False
          end
       end
 
-   handle_first: BOOLEAN is True
+   handle_first: BOOLEAN True
 
 feature {}
-   buffer: STRING is ""
+   buffer: STRING ""
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

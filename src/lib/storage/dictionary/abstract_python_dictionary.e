@@ -15,14 +15,14 @@ inherit
       end
 
 feature {ANY}
-   Default_size: INTEGER is 16
+   Default_size: INTEGER 16
 
    capacity: INTEGER
          -- Of the `storage' area. A power of two.
 
    count: INTEGER
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       local
          index: INTEGER
       do
@@ -30,12 +30,12 @@ feature {ANY}
          Result := index >= 0
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       do
          Result := storage.item(index_of(k)).item
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       local
          index: INTEGER
       do
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       local
          index: INTEGER
       do
@@ -53,12 +53,12 @@ feature {ANY}
          Result := index >= 0
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       do
          Result := storage.item(fast_index_of(k)).item
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       local
          index: INTEGER
       do
@@ -69,7 +69,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
          index: INTEGER
@@ -91,7 +91,7 @@ feature {ANY}
          end
       end
 
-   fast_put (v: V_; k: K_) is
+   fast_put (v: V_; k: K_)
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
          index: INTEGER
@@ -113,7 +113,7 @@ feature {ANY}
          end
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
       do
@@ -126,7 +126,7 @@ feature {ANY}
          next_generation
       end
 
-   remove (k: K_) is
+   remove (k: K_)
       local
          i, index: INTEGER
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
@@ -154,7 +154,7 @@ feature {ANY}
          end
       end
 
-   fast_remove (k: K_) is
+   fast_remove (k: K_)
       local
          i, index: INTEGER
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
@@ -182,7 +182,7 @@ feature {ANY}
          end
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
       do
@@ -193,7 +193,7 @@ feature {ANY}
          capacity = old capacity
       end
 
-   set_item (v: V_; index: INTEGER) is
+   set_item (v: V_; index: INTEGER)
       local
          item_: PYTHON_DICTIONARY_NODE[V_, K_]
          i: INTEGER
@@ -205,32 +205,32 @@ feature {ANY}
          next_generation
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          Result := storage.item(internal_index(index)).item
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          Result := storage.item(internal_index(index)).key
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_PYTHON_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          create {ITERATOR_ON_PYTHON_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_PYTHON_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
-   key_map_in (buffer: COLLECTION[K_]) is
+   key_map_in (buffer: COLLECTION[K_])
       local
          i: INTEGER
       do
@@ -244,7 +244,7 @@ feature {ANY}
          end
       end
 
-   item_map_in (buffer: COLLECTION[V_]) is
+   item_map_in (buffer: COLLECTION[V_])
       local
          i: INTEGER
       do
@@ -258,7 +258,7 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -274,7 +274,7 @@ feature {ANY}
          end
       end
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
       do
          Result := storage.item(index_of(k)).key
       end
@@ -282,7 +282,7 @@ feature {ANY}
 feature {ABSTRACT_PYTHON_DICTIONARY}
    storage: NATIVE_ARRAY[PYTHON_DICTIONARY_NODE[V_, K_]]
 
-   ensure_capacity (new_capacity: INTEGER) is
+   ensure_capacity (new_capacity: INTEGER)
       require
          new_capacity.is_a_power_of_2
       local
@@ -319,12 +319,12 @@ feature {ABSTRACT_PYTHON_DICTIONARY}
       end
 
 feature {ANY}
-   valid_internal_index (index: INTEGER): BOOLEAN is
+   valid_internal_index (index: INTEGER): BOOLEAN
       do
          Result := index.in_range(0, capacity - 1) and then storage.item(index).is_set
       end
 
-   next_internal_index (index: INTEGER): INTEGER is
+   next_internal_index (index: INTEGER): INTEGER
       require
          start_or_ongoing_iteration: index = -1 or else valid_internal_index(index)
       do
@@ -343,7 +343,7 @@ feature {ANY}
          done_or_ongoing_iteration: Result = capacity or else valid_internal_index(Result)
       end
 
-   internal_index (index: INTEGER): INTEGER is
+   internal_index (index: INTEGER): INTEGER
       require
          valid_index(index)
       local
@@ -361,13 +361,13 @@ feature {ANY}
       end
 
 feature {}
-   hash_code (k: K_): INTEGER is
+   hash_code (k: K_): INTEGER
       require
          k /= Void
       deferred
       end
 
-   index_of (k: K_): INTEGER is
+   index_of (k: K_): INTEGER
       require
          k /= Void
       local
@@ -402,7 +402,7 @@ feature {}
          negative_is_insert_index: Result < 0 implies (not storage.item(-Result - 1).is_set)
       end
 
-   fast_index_of (k: K_): INTEGER is
+   fast_index_of (k: K_): INTEGER
       require
          k /= Void
       local
@@ -437,17 +437,17 @@ feature {}
          negative_is_insert_index: Result < 0 implies ((-Result - 1).in_range(0, capacity - 1) and then not storage.item(-Result - 1).is_set)
       end
 
-   stew_shift: INTEGER_8 is 5
+   stew_shift: INTEGER_8 5
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a HASHED_DICTIONARY.
       do
          with_capacity(needed_capacity)
       end
 
 feature {} -- Creation procedures
-   create_with_capacity (new_capacity: INTEGER) is
+   create_with_capacity (new_capacity: INTEGER)
       require
          new_capacity > 0
       do
@@ -455,7 +455,7 @@ feature {} -- Creation procedures
          count := 0
       end
 
-   powered_capacity (medium_size: INTEGER): INTEGER is
+   powered_capacity (medium_size: INTEGER): INTEGER
       do
          if medium_size > 0 then
             Result := medium_size #- 1
@@ -471,7 +471,7 @@ feature {} -- Creation procedures
          Result.is_a_power_of_2
       end
 
-   make is
+   make
          -- Create an empty dictionary. Internal storage `capacity' of the dictionary is initialized using the
          -- `Default_size' value. Then, tuning of needed storage `capacity' is performed automatically
          -- according to usage. If you are really sure that your dictionary is always really bigger than
@@ -482,7 +482,7 @@ feature {} -- Creation procedures
          capacity = Default_size
       end
 
-   with_capacity (medium_size: INTEGER) is
+   with_capacity (medium_size: INTEGER)
          -- May be used to save some execution time if one is sure that storage size will rapidly become
          -- really bigger than `Default_size'.  When first `remove' occurs, storage size may naturally become
          -- smaller than `medium_size'. Afterall, tuning of storage size is done automatically according to
@@ -509,7 +509,7 @@ end -- class ABSTRACT_PYTHON_DICTIONARY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

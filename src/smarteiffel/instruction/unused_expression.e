@@ -17,34 +17,34 @@ feature {ANY}
    expression: EXPRESSION
          -- The unused one.
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := expression.start_position
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
          dummy := expression.collect(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := expression.side_effect_free(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression
       do
@@ -56,7 +56,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          e: like expression
       do
@@ -72,13 +72,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: UNUSED_EXPRESSION_VISITOR) is
+   accept (visitor: UNUSED_EXPRESSION_VISITOR)
       do
          visitor.visit_unused_expression(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if not expression.side_effect_free(type) then
             code_accumulator.current_context.add_last(Current)
@@ -86,7 +86,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (e: like expression) is
+   make (e: like expression)
       require
          e /= Void
       do

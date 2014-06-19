@@ -1,33 +1,33 @@
 deferred class WRAPPER_CLASS
-	-- A node of an Gcc-Xml file reprenting an entity wrappable by a
-	-- Liberty class also containing the wrapper features of child
-	-- and/or related nodes.
+   -- A node of an Gcc-Xml file reprenting an entity wrappable by a
+   -- Liberty class also containing the wrapper features of child
+   -- and/or related nodes.
 
-inherit 
-	WRAPPABLE_NODE 
-		redefine compute_eiffel_name -- To make sure that it is a correct class name	
-		end
+inherit
+   WRAPPABLE_NODE
+      redefine compute_eiffel_name -- To make sure that it is a correct class name
+      end
 
 feature {ANY}
-	emit_wrapper is
-		deferred
-		end
+   emit_wrapper
+      deferred
+      end
 
-	compute_eiffel_name is
-		do
-			cached_eiffel_name := eiffel_class_name(c_string_name,suffix)
-		end
+   compute_eiffel_name
+      do
+         cached_eiffel_name := eiffel_class_name(c_string_name,suffix)
+      end
 
-	suffix: STRING is deferred end
+   suffix: STRING deferred end
 
 feature {} -- Implementation
-	output: TERMINAL_OUTPUT_STREAM
+   output: TERMINAL_OUTPUT_STREAM
 
 end -- class WRAPPER_CLASS
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -37,4 +37,4 @@ end -- class WRAPPER_CLASS
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

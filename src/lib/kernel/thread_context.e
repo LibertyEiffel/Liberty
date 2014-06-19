@@ -10,7 +10,7 @@ feature {ANY}
    thread: THREAD[R_, T_]
    args: T_
 
-   wait is
+   wait
          -- Wait for the thread to finish
       require
          is_started
@@ -19,19 +19,19 @@ feature {ANY}
          is_finished
       end
 
-   is_started: BOOLEAN is
+   is_started: BOOLEAN
          -- True if the thread did actually start
       attribute
       end
 
-   is_finished: BOOLEAN is
+   is_finished: BOOLEAN
          -- True when the thread has finished
       require
          is_started
       attribute
       end
 
-   status: R_ is
+   status: R_
          -- The returning value
       require
          is_started
@@ -40,14 +40,14 @@ feature {ANY}
       end
 
 feature {THREAD}
-   run is
+   run
       require
          not is_started
       external "built_in"
       end
 
 feature {THREAD}
-   make (t: like thread; a: like args) is
+   make (t: like thread; a: like args)
       require
          t /= Void
          a /= Void
@@ -73,7 +73,7 @@ end -- class THREAD_CONTEXT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

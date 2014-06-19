@@ -25,33 +25,33 @@ feature {ANY}
    right_side: EXPRESSION
          -- The left-hand side part.
 
-   precedence: INTEGER is 6
+   precedence: INTEGER 6
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := left_side.start_position
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := left_side.is_static and then right_side.is_static
       end
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          if left_side.precedence = atomic_precedence then
             left_side.short(type)
@@ -79,13 +79,13 @@ feature {ANY}
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -93,14 +93,14 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          -- The `left_side' first:
          if left_side.precedence = atomic_precedence then
@@ -132,22 +132,22 @@ feature {ANY}
          end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       once -- <-- Yes it is once
          Result := smart_eiffel.type_boolean
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := left_side.side_effect_free(type) and then right_side.side_effect_free(type)
       end
 
-   specialize_in (type: TYPE): EXPRESSION is
+   specialize_in (type: TYPE): EXPRESSION
       local
          ls: like left_side; rs: like right_side
       do
@@ -156,7 +156,7 @@ feature {ANY}
          Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): EXPRESSION is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): EXPRESSION
       local
          ls: like left_side; rs: like right_side
       do
@@ -165,7 +165,7 @@ feature {ANY}
          Result := current_or_twin_init(ls, rs)
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       local
          ls: like left_side; rs: like right_side
       do
@@ -181,12 +181,12 @@ feature {ANY}
          Result := specialized(ls, rs, type, True)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := left_side.has_been_specialized and then right_side.has_been_specialized
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          ls: like left_side; rs: like right_side; built_in_eq_neq: BUILT_IN_EQ_NEQ
       do
@@ -224,12 +224,12 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := left_side.use_current(type) or else right_side.use_current(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          t, dummy: TYPE
       do
@@ -251,7 +251,7 @@ feature {ANY}
          Result := declaration_type
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          ls: like left_side; rs: like right_side
       do
@@ -265,24 +265,24 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          left_side.safety_check(type)
          right_side.safety_check(type)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result :=  resolve_in(type)
       end
 
-   accept (visitor: BUILT_IN_EQ_NEQ_VISITOR) is
+   accept (visitor: BUILT_IN_EQ_NEQ_VISITOR)
       do
          visitor.visit_built_in_eq_neq(Current)
       end
 
 feature {}
-   specialized (ls: like left_side; rs: like right_side; type: TYPE; specialize_more: BOOLEAN): EXPRESSION is
+   specialized (ls: like left_side; rs: like right_side; type: TYPE; specialize_more: BOOLEAN): EXPRESSION
       local
          t: TYPE
       do
@@ -304,7 +304,7 @@ feature {}
          end
       end
 
-   current_or_twin_init (ls: like left_side; rs: like right_side): like Current is
+   current_or_twin_init (ls: like left_side; rs: like right_side): like Current
       do
          if ls = left_side and then rs = right_side then
             Result := Current
@@ -315,7 +315,7 @@ feature {}
       end
 
 feature {E_FUNCTION}
-   inline_with (new_left_side, new_right_side: EXPRESSION; type: TYPE): EXPRESSION is
+   inline_with (new_left_side, new_right_side: EXPRESSION; type: TYPE): EXPRESSION
       require
          new_left_side /= Void
          new_right_side /= Void
@@ -324,7 +324,7 @@ feature {E_FUNCTION}
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   set_left_and_right (ls: like left_side; rs: like right_side) is
+   set_left_and_right (ls: like left_side; rs: like right_side)
       require
          ls /= Void
          rs /= Void
@@ -337,7 +337,7 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          ls: like left_side; rs: like right_side; built_in_eq_neq: like Current
       do
@@ -357,7 +357,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   basic_make (flag: like eq_flag; ls: like left_side; op: like operator_position; rs: like right_side) is
+   basic_make (flag: like eq_flag; ls: like left_side; op: like operator_position; rs: like right_side)
       require
          ls /= Void
          not op.is_unknown
@@ -374,17 +374,17 @@ feature {}
          right_side = rs
       end
 
-   make_eq (ls: like left_side; op: like operator_position; rs: like right_side) is
+   make_eq (ls: like left_side; op: like operator_position; rs: like right_side)
       do
          basic_make(True, ls, op, rs)
       end
 
-   make_neq (ls: like left_side; op: like operator_position; rs: like right_side) is
+   make_neq (ls: like left_side; op: like operator_position; rs: like right_side)
       do
          basic_make(False, ls, op, rs)
       end
 
-   simplify_boolean_constant (e1, e2: EXPRESSION): EXPRESSION is
+   simplify_boolean_constant (e1, e2: EXPRESSION): EXPRESSION
          -- To simplify comparison with True / False.
       require
          e1 /= Void
@@ -414,7 +414,7 @@ feature {}
          end
       end
 
-   simplify_character_constant (e1, e2: EXPRESSION): EXPRESSION is
+   simplify_character_constant (e1, e2: EXPRESSION): EXPRESSION
       local
          cc1, cc2: CHARACTER_CONSTANT
       do
@@ -432,7 +432,7 @@ feature {}
          end
       end
 
-   simplify_void (type: TYPE; e1, e2: EXPRESSION): EXPRESSION is
+   simplify_void (type: TYPE; e1, e2: EXPRESSION): EXPRESSION
       local
          non_void_type, always_void_type: TYPE
       do
@@ -469,7 +469,7 @@ feature {}
          end
       end
 
-   simplify_integer_real (e1, e2: EXPRESSION): EXPRESSION is
+   simplify_integer_real (e1, e2: EXPRESSION): EXPRESSION
       local
          ic1, ic2: INTEGER_CONSTANT; rc1, rc2: REAL_CONSTANT
       do
@@ -500,7 +500,7 @@ feature {}
          end
       end
 
-   simplify_null_pointer (e1, e2: EXPRESSION): EXPRESSION is
+   simplify_null_pointer (e1, e2: EXPRESSION): EXPRESSION
       local
          np1, np2: NULL_POINTER
       do
@@ -514,7 +514,7 @@ feature {}
          end
       end
 
-   void_comparison_check (type: TYPE; void_position: POSITION; expression: EXPRESSION) is
+   void_comparison_check (type: TYPE; void_position: POSITION; expression: EXPRESSION)
          -- Check what has to be checked when the `expression' is compared with Void.
       require
          not void_position.is_unknown
@@ -552,7 +552,7 @@ feature {}
          end
       end
 
-   specialize_and_check_standard_comparison_check (t, arg: EXPRESSION; type: TYPE) is
+   specialize_and_check_standard_comparison_check (t, arg: EXPRESSION; type: TYPE)
       require
          not t.is_void
          not arg.is_void
@@ -629,7 +629,7 @@ feature {}
          end
       end
 
-   true_or_false (boolean: BOOLEAN): EXPRESSION is
+   true_or_false (boolean: BOOLEAN): EXPRESSION
          -- (Often used by simplify.)
       do
          if boolean then

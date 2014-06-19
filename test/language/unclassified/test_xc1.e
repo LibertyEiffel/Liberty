@@ -8,14 +8,14 @@ create {}
    make
 
 feature {ANY}
-   f (x: AUX_XC1AA[STRING]) is
+   f (x: AUX_XC1AA[STRING])
       local
          str: STRING
       do
          str := x.item
       end
 
-   make is
+   make
       local
          b: AUX_XC1BB
       do

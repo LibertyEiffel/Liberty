@@ -15,7 +15,7 @@ create {ANY}
 feature {ANY}
    item: E_
 
-   set_item (item_: like item) is
+   set_item (item_: like item)
       require
          item_ /= Void
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          item.out_in_tagged_out_memory
       end
@@ -38,7 +38,7 @@ end -- class PRINTABLE_REFERENCE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

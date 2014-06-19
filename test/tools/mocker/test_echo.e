@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          echo: ECHO_EXPECT
          echoer: ECHOER

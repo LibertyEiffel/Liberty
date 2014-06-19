@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          int: INTERNALS
          type_attribute_name, type_attribute_generator, type_attribute_generating_type: STRING

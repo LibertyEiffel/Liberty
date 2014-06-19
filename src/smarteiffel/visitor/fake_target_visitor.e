@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       require
          visited /= Void
       deferred

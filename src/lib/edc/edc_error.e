@@ -22,7 +22,7 @@
 deferred class EDC_ERROR
 
 feature {ANY}
-   handle (error: EDC_ERROR_HANDLER): BOOLEAN is
+   handle (error: EDC_ERROR_HANDLER): BOOLEAN
       deferred
       end
 

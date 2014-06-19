@@ -9,7 +9,7 @@ deferred class EIFFELTEST_TOOLS
    --
 
 feature {ANY} -- Action when an assert fails
-   when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]) is
+   when_test_fails (what_to_do: PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]])
       require
          what_to_do /= Void
       do
@@ -22,7 +22,7 @@ feature {ANY} -- Mock features
    scenario: MOCK_EXPECTATIONS
 
 feature {ANY} -- `assert' methods used by tests
-   assert (test: BOOLEAN) is
+   assert (test: BOOLEAN)
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, an error message is printed
          -- on `std_output'; a `breakpoint' allow you to find out what is going wrong
@@ -33,7 +33,7 @@ feature {ANY} -- `assert' methods used by tests
          message_assert(counter_to_message, test)
       end
 
-   label_assert (label: ABSTRACT_STRING; test: BOOLEAN) is
+   label_assert (label: ABSTRACT_STRING; test: BOOLEAN)
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, the label is printed
          -- on `std_output'; a `breakpoint' allow you to find out what is going wrong
@@ -46,7 +46,7 @@ feature {ANY} -- `assert' methods used by tests
          message_assert(agent label_to_message(label), test)
       end
 
-   message_assert (message_generator: FUNCTION[TUPLE, ABSTRACT_STRING]; test: BOOLEAN) is
+   message_assert (message_generator: FUNCTION[TUPLE, ABSTRACT_STRING]; test: BOOLEAN)
          -- Check that `test' is actually True. If `test' is True, nothing happens except that the
          -- `assert_counter' is incremented by one. When `test' is False, the generated message is printed
          -- on `std_output'; a `breakpoint' allow you to find out what is going wrong
@@ -66,12 +66,12 @@ feature {ANY} -- `assert' methods used by tests
       end
 
 feature {} -- timer features
-   start_timer: MICROSECOND_TIME is
+   start_timer: MICROSECOND_TIME
       do
          Result.update
       end
 
-   stop_timer (start: MICROSECOND_TIME) is
+   stop_timer (start: MICROSECOND_TIME)
       local
          stop: MICROSECOND_TIME
       do
@@ -85,7 +85,7 @@ feature {} -- timer features
          io.put_line(once ")")
       end
 
-   timed (action: PROCEDURE[TUPLE]) is
+   timed (action: PROCEDURE[TUPLE])
       local
          start: MICROSECOND_TIME
       do
@@ -95,13 +95,13 @@ feature {} -- timer features
       end
 
 feature {}
-   assert_counter: COUNTER is
+   assert_counter: COUNTER
          -- Unique once COUNTER used to count `assert' calls.
       once
          create Result
       end
 
-   assertion_flag: STRING is
+   assertion_flag: STRING
       do
          Current.probe_assertion_level -- call via the explicit "Current" target to force invariant check.
          inspect
@@ -122,45 +122,45 @@ feature {}
       end
 
    assertion_level: INTEGER
-   assertion_level_none: INTEGER is 0
-   assertion_level_require: INTEGER is 1
-   assertion_level_ensure: INTEGER is 2
-   assertion_level_class_invariant: INTEGER is 3
-   assertion_level_loop_invariant: INTEGER is 4
-   assertion_level_check: INTEGER is 5
+   assertion_level_none: INTEGER 0
+   assertion_level_require: INTEGER 1
+   assertion_level_ensure: INTEGER 2
+   assertion_level_class_invariant: INTEGER 3
+   assertion_level_loop_invariant: INTEGER 4
+   assertion_level_check: INTEGER 5
 
-   set_require: BOOLEAN is
+   set_require: BOOLEAN
       do
          assertion_level := assertion_level.max(assertion_level_require)
          Result := True
       end
 
-   set_loop_invariant: BOOLEAN is
+   set_loop_invariant: BOOLEAN
       do
          assertion_level := assertion_level.max(assertion_level_loop_invariant)
          Result := True
       end
 
-   set_check: BOOLEAN is
+   set_check: BOOLEAN
       do
          assertion_level := assertion_level.max(assertion_level_check)
          Result := True
       end
 
-   set_ensure: BOOLEAN is
+   set_ensure: BOOLEAN
       do
          assertion_level := assertion_level.max(assertion_level_ensure)
          Result := True
       end
 
-   set_class_invariant: BOOLEAN is
+   set_class_invariant: BOOLEAN
       do
          assertion_level := assertion_level.max(assertion_level_class_invariant)
          Result := True
       end
 
 feature {EIFFELTEST_TOOLS}
-   probe_assertion_level is
+   probe_assertion_level
       require
          set_require
       do
@@ -179,12 +179,12 @@ feature {EIFFELTEST_TOOLS}
       end
 
 feature {}
-   test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]] is
+   test_failed: REFERENCE[PROCEDURE[TUPLE[INTEGER, ABSTRACT_STRING, ABSTRACT_STRING, ABSTRACT_STRING]]]
       once
          create Result.set_item(agent default_test_failed(?, ?, ?, ?))
       end
 
-   default_test_failed (id: INTEGER; lbl, gen, ass_flag: ABSTRACT_STRING) is
+   default_test_failed (id: INTEGER; lbl, gen, ass_flag: ABSTRACT_STRING)
       require
          lbl /= Void
          gen /= Void
@@ -202,17 +202,17 @@ feature {}
          die_with_code(1)
       end
 
-   counter_to_message: FUNCTION[TUPLE, ABSTRACT_STRING] is
+   counter_to_message: FUNCTION[TUPLE, ABSTRACT_STRING]
       once
          Result := agent count_to_message
       end
 
-   count_to_message: ABSTRACT_STRING is
+   count_to_message: ABSTRACT_STRING
       do
          Result := "number #(1)" # &assert_counter.item
       end
 
-   label_to_message (label: ABSTRACT_STRING): ABSTRACT_STRING is
+   label_to_message (label: ABSTRACT_STRING): ABSTRACT_STRING
       require
          label /= Void
       do
@@ -233,7 +233,7 @@ end -- class EIFFELTEST_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

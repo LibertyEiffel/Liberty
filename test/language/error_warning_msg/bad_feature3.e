@@ -8,14 +8,14 @@ create {}
    make
 
 feature {} -- Initialization
-   make is
+   make
          -- Make
       do
          test_1
       end
 
 feature {} -- Test
-   test_1 is
+   test_1
       local
       do
          create s.make (20)

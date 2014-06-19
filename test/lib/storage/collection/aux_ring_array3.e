@@ -15,7 +15,7 @@ create {ANY}
    test, make
 
 feature {ANY}
-   test is
+   test
       do
          make(0, 0)
          assert(item(0) = 0)

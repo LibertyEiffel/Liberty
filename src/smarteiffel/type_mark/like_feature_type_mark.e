@@ -22,7 +22,7 @@ feature {ANY}
 
    declaration_type: TYPE_MARK
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       local
          result_tm: TYPE_MARK; fs: FEATURE_STAMP
       do
@@ -49,7 +49,7 @@ feature {ANY}
          feature_stamp_memory.reference_at(new_type).has_type(new_type)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          old_fs, new_fs: FEATURE_STAMP; result_tm, new_declaration_type: TYPE_MARK
       do
@@ -85,12 +85,12 @@ feature {ANY}
          Result.feature_stamp_memory.reference_at(new_type).has_type(new_type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := not feature_stamp_memory.is_empty
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       local
          fs: FEATURE_STAMP
       do
@@ -106,7 +106,7 @@ feature {ANY}
          Result := Result.to_static(new_type, False)
       end
 
-   signature_resolve_in (new_type: TYPE): TYPE is
+   signature_resolve_in (new_type: TYPE): TYPE
       local
          fs: FEATURE_STAMP
       do
@@ -118,13 +118,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: LIKE_FEATURE_TYPE_MARK_VISITOR) is
+   accept (visitor: LIKE_FEATURE_TYPE_MARK_VISITOR)
       do
          visitor.visit_like_feature_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
@@ -134,7 +134,7 @@ feature {TYPE_MARK}
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   twin_feature_stamp_memory (new_fs: FEATURE_STAMP; new_type: TYPE) is
+   twin_feature_stamp_memory (new_fs: FEATURE_STAMP; new_type: TYPE)
       require
          new_fs /= Void
          new_type /= Void
@@ -149,7 +149,7 @@ feature {LIKE_FEATURE_TYPE_MARK}
 
    feature_stamp_memory: HASHED_DICTIONARY[FEATURE_STAMP, TYPE]
 
-   set_declaration_type (dt: like declaration_type) is
+   set_declaration_type (dt: like declaration_type)
       require
          dt.written_name /= declaration_type.written_name
       do
@@ -161,7 +161,7 @@ feature {LIKE_FEATURE_TYPE_MARK}
 feature {}
    debug_info: STRING
 
-   make (sp: like start_position; lw: like like_what) is
+   make (sp: like start_position; lw: like like_what)
       require
          not sp.is_unknown
          lw /= Void

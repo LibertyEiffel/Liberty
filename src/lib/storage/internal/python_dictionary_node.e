@@ -13,7 +13,7 @@ create {ABSTRACT_PYTHON_DICTIONARY}
    make, default_create
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if is_set and then other.is_set then
             Result := safe_equal_key.test(key, other.key)
@@ -26,13 +26,13 @@ feature {ANY}
 feature {ABSTRACT_PYTHON_DICTIONARY, PYTHON_DICTIONARY_NODE}
    hash_code: INTEGER
 
-   key: K_ is
+   key: K_
       require
          is_set
       attribute
       end
 
-   item: V_ is
+   item: V_
       require
          is_set
       attribute
@@ -40,7 +40,7 @@ feature {ABSTRACT_PYTHON_DICTIONARY, PYTHON_DICTIONARY_NODE}
 
    is_set: BOOLEAN
 
-   set (a_item: like item) is
+   set (a_item: like item)
       require
          is_set
       do
@@ -52,7 +52,7 @@ feature {ABSTRACT_PYTHON_DICTIONARY, PYTHON_DICTIONARY_NODE}
       end
 
 feature {}
-   default_create is
+   default_create
       local
          def_key: K_; def_item: V_
       do
@@ -64,7 +64,7 @@ feature {}
          not is_set
       end
 
-   make (a_item: like item; a_key: like key; a_hash: like hash_code) is
+   make (a_item: like item; a_key: like key; a_hash: like hash_code)
       do
          hash_code := a_hash
          key := a_key
@@ -88,7 +88,7 @@ end -- class PYTHON_DICTIONARY_NODE[V_, K_]
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

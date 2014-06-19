@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(not ({ARRAY[BOOLEAN] 1, << True, False >> } = Void))
          assert({ARRAY[INTEGER_8] 1, << 1, 2 >> } /= Void)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -12,7 +12,7 @@ feature {}
 
    menubar: NCURSES_MENUBAR[STRING]
 
-   make is
+   make
       local
          items: HASHED_DICTIONARY[HASHED_DICTIONARY[STRING, STRING], STRING]; item: HASHED_DICTIONARY[STRING, STRING]
       do
@@ -53,7 +53,7 @@ feature {}
          ncurses.start
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       local
          selected: STRING
       do

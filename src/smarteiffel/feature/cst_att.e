@@ -10,9 +10,9 @@ inherit
    ATTRIBUTE
       redefine inline_expression_0
       end
-   
+
 feature {ANY}
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if ace.boost then
             Result := True
@@ -24,31 +24,31 @@ feature {ANY}
          end
       end
 
-   frozen value: EXPRESSION is
+   frozen value: EXPRESSION
       do
          Result := value_memory
       ensure
          Result /= Void
       end
 
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   debug_list: HASHED_SET[STRING] is
+   debug_list: HASHED_SET[STRING]
       once
          create Result.make
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          -- To reach this point, we are using `Current'.
          --|*** Not sure, but I prefer to be pessimistic ! *** (Dom. june 12th 2004) ***
          Result := True
       end
 
-   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
+   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
       local
          il: INTEGER
       do
@@ -60,7 +60,7 @@ feature {ANY}
          pretty_print_names
          pretty_printer.put_string(once ": ")
          pretty_printer.put_type_mark(result_type)
-         pretty_printer.put_string(once " is ")
+         pretty_printer.put_string(once " ")
          pretty_constant_value(2)
          if header_comment /= Void then
             il := pretty_printer.indent_level_for_header_comment_of_feature + 1
@@ -73,7 +73,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       do
          if target.side_effect_free(type) then
             Result := smart_eiffel.get_inline_memo
@@ -83,42 +83,42 @@ feature {CALL_0}
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_1 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_1
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current
       do
          Result := Current
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current
       do
          Result := Current
       end
 
 feature {}
-   value_memory: EXPRESSION is
+   value_memory: EXPRESSION
       deferred
       end
 
-   pretty_constant_value (indent_level: INTEGER) is
+   pretty_constant_value (indent_level: INTEGER)
       deferred
       end
 
-   collect_body (t: TYPE) is
+   collect_body (t: TYPE)
       local
          t2: TYPE
       do
@@ -126,10 +126,10 @@ feature {}
       end
 
 feature {}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
       end
-   
+
 end -- class CST_ATT
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

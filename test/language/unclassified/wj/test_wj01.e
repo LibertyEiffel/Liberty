@@ -5,7 +5,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          create a.make("a")
          create c

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gclosure_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_ref_count (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for ref_count field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_meta_marshal_nouse (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_meta_marshal_nouse (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for meta_marshal_nouse field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_n_guards (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_n_guards (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for n_guards field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_n_fnotifiers (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_n_fnotifiers (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for n_fnotifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_n_inotifiers (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_n_inotifiers (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for n_inotifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_in_inotify (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_in_inotify (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for in_inotify field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_floating (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_floating (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for floating field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_derivative_flag (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_derivative_flag (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for derivative_flag field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_in_marshal (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_in_marshal (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for in_marshal field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_is_invalid (a_structure: POINTER; a_value: NATURAL) is
+	gclosure_struct_set_is_invalid (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for is_invalid field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_marshal (a_structure: POINTER; a_value: POINTER) is
+	gclosure_struct_set_marshal (a_structure: POINTER; a_value: POINTER)
 			-- Setter for marshal field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_data (a_structure: POINTER; a_value: POINTER) is
+	gclosure_struct_set_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gclosure_struct_set_notifiers (a_structure: POINTER; a_value: POINTER) is
+	gclosure_struct_set_notifiers (a_structure: POINTER; a_value: POINTER)
 			-- Setter for notifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gclosure_struct_get_ref_count (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_ref_count (a_structure: POINTER): NATURAL
 			-- Query for ref_count field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_meta_marshal_nouse (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_meta_marshal_nouse (a_structure: POINTER): NATURAL
 			-- Query for meta_marshal_nouse field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_n_guards (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_n_guards (a_structure: POINTER): NATURAL
 			-- Query for n_guards field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -202,7 +202,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_n_fnotifiers (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_n_fnotifiers (a_structure: POINTER): NATURAL
 			-- Query for n_fnotifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -214,7 +214,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_n_inotifiers (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_n_inotifiers (a_structure: POINTER): NATURAL
 			-- Query for n_inotifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -226,7 +226,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_in_inotify (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_in_inotify (a_structure: POINTER): NATURAL
 			-- Query for in_inotify field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -238,7 +238,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_floating (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_floating (a_structure: POINTER): NATURAL
 			-- Query for floating field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -250,7 +250,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_derivative_flag (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_derivative_flag (a_structure: POINTER): NATURAL
 			-- Query for derivative_flag field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -262,7 +262,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_in_marshal (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_in_marshal (a_structure: POINTER): NATURAL
 			-- Query for in_marshal field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -274,7 +274,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_is_invalid (a_structure: POINTER): NATURAL is
+	gclosure_struct_get_is_invalid (a_structure: POINTER): NATURAL
 			-- Query for is_invalid field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_marshal (a_structure: POINTER): POINTER is
+	gclosure_struct_get_marshal (a_structure: POINTER): POINTER
 			-- Query for marshal field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -298,7 +298,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_data (a_structure: POINTER): POINTER is
+	gclosure_struct_get_data (a_structure: POINTER): POINTER
 			-- Query for data field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -310,7 +310,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gclosure_struct_get_notifiers (a_structure: POINTER): POINTER is
+	gclosure_struct_get_notifiers (a_structure: POINTER): POINTER
 			-- Query for notifiers field of GCLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -323,7 +323,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

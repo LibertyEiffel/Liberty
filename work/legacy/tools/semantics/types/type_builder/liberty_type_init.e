@@ -24,7 +24,7 @@ create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {}
-   make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters) is
+   make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters)
       require
          a_builder /= Void
          a_type /= Void
@@ -44,7 +44,7 @@ feature {}
    universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
-   init_type_header is
+   init_type_header
       local
          class_header: LIBERTY_AST_CLASS_HEADER
          marker: LIBERTY_AST_CLASS_MARKER
@@ -95,7 +95,7 @@ feature {LIBERTY_TYPE_BUILDER}
          torch.burn
       end
 
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
       local
          i: INTEGER
       do

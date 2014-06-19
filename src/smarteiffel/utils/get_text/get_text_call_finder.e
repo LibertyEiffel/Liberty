@@ -9,7 +9,7 @@ insert
    X_GET_TEXT_GLOBALS
 
 feature {CLASS_TEXT}
-   visit_class_text (visited: CLASS_TEXT) is
+   visit_class_text (visited: CLASS_TEXT)
       local
          i: INTEGER; feature_dictionary: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]; class_invariant: ASSERTION_LIST
       do
@@ -37,7 +37,7 @@ feature {CLASS_TEXT}
       end
 
 feature {PRECURSOR_EXPRESSION}
-   exit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   exit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       local
          arguments: EFFECTIVE_ARG_LIST
          declaration: ABSTRACT_GET_TEXT_DECLARATION
@@ -56,7 +56,7 @@ feature {}
 
    current_routine_stamp: FEATURE_STAMP
 
-   visit_call_support (visited: FEATURE_CALL) is
+   visit_call_support (visited: FEATURE_CALL)
       local
          arguments: EFFECTIVE_ARG_LIST
          start_position: POSITION

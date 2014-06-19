@@ -12,7 +12,7 @@ create {DEFERRED_ROUTINE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_9_VISITOR) is
+   accept (visitor: RUN_FEATURE_9_VISITOR)
       do
          visitor.visit_run_feature_9(Current)
       end
@@ -28,30 +28,30 @@ feature {ANY}
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is True
+   is_deferred: BOOLEAN True
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   has_closures: BOOLEAN is False
+   has_closures: BOOLEAN False
 
-   routine_body: INSTRUCTION is
+   routine_body: INSTRUCTION
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
       do
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -72,7 +72,7 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       local
          rt: TYPE_MARK
       do
@@ -85,7 +85,7 @@ feature {}
          base_feature.result_type /= Void implies result_type /= Void
       end
 
-   compute_use_current is
+   compute_use_current
       do
          use_current_state := True_state
       end

@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          n64: NATURAL_64; debug_view: STRING
       do

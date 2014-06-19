@@ -16,13 +16,13 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: ASSERTION_LIST_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR)
       do
          visitor.visit_class_invariant(Current)
       end
 
 feature {SHORT_PRINTER}
-   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: TYPE_MARK) is
+   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: TYPE_MARK)
       local
          i: INTEGER
       do

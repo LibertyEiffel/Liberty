@@ -13,7 +13,7 @@ create {}
 feature {ANY}
    data: ARRAY[STRING]
 
-   for_each (action: PROCEDURE[TUPLE[STRING]]) is
+   for_each (action: PROCEDURE[TUPLE[STRING]])
       local
          i: INTEGER
       do
@@ -27,7 +27,7 @@ feature {ANY}
          end
       end
 
-   make is
+   make
       local
          test: STRING
       do
@@ -36,7 +36,7 @@ feature {ANY}
          for_each(agent print_string(?, True))
       end
 
-   print_string (s: STRING; new_line: BOOLEAN) is
+   print_string (s: STRING; new_line: BOOLEAN)
       do
          assert(new_line)
          inspect

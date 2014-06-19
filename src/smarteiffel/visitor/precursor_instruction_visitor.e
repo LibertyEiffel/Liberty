@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {PRECURSOR_INSTRUCTION}
-   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION)
       require
          visited /= Void
       deferred

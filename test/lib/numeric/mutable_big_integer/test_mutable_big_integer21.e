@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -29,22 +29,22 @@ feature {ANY}
          verify(numbers1)
       end
 
-   res_is_int: FAST_ARRAY[BOOLEAN] is
+   res_is_int: FAST_ARRAY[BOOLEAN]
       once
          Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, False, False, False, False, False, False, False, False, False, False, False, False, False, False >> }
       end
 
-   res_is_int_64: FAST_ARRAY[BOOLEAN] is
+   res_is_int_64: FAST_ARRAY[BOOLEAN]
       once
          Result := {FAST_ARRAY[BOOLEAN] << True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, False, True, True, True, False, False, False, False, False, False, False, False >> }
       end
 
-   res_to_int: FAST_ARRAY[INTEGER] is
+   res_to_int: FAST_ARRAY[INTEGER]
       once
          Result := {FAST_ARRAY[INTEGER] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, 0, Minimum_integer, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 >> }
       end
 
-   res_to_int_64: FAST_ARRAY[INTEGER_64] is
+   res_to_int_64: FAST_ARRAY[INTEGER_64]
       once
          Result := {FAST_ARRAY[INTEGER_64] << 0, 1, -1, 2, -2, 3, -3, 1000, -1000, 1000000000, -1000000000, Maximum_integer, -Maximum_integer, -Minimum_integer.to_integer_64, Minimum_integer, Maximum_integer_64, -Maximum_integer_64, 0, Minimum_integer_64, 1000000000000000000, -1000000000000000000, 0, 0, 0, 0, 0, 0, 0 >> }
       end

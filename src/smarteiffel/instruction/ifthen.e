@@ -17,7 +17,7 @@ create {ANY}
    make
 
 feature {ANY}
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -27,7 +27,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          bc: BOOLEAN_CONSTANT; e: like expression; tc: like then_compound
       do
@@ -50,7 +50,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound
       do
@@ -61,7 +61,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
          if then_compound /= Void then
@@ -69,7 +69,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
          if not Result and then then_compound /= Void then
@@ -77,13 +77,13 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_(indent_level, once "if")
          pretty_end_if(indent_level)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound
       do
@@ -94,7 +94,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression; tc: like then_compound
       do
@@ -105,7 +105,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound
       do
@@ -117,7 +117,7 @@ feature {ANY}
          Result.specialize_check_(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
          if then_compound /= Void then
@@ -125,13 +125,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: IFTHEN_VISITOR) is
+   accept (visitor: IFTHEN_VISITOR)
       do
          visitor.visit_ifthen(Current)
       end
 
 feature {IFTHEN}
-   init (e: like expression; tc: like then_compound) is
+   init (e: like expression; tc: like then_compound)
       require
          e /= Void
       do
@@ -143,7 +143,7 @@ feature {IFTHEN}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          e: like expression; tc: like then_compound; internal_local2: INTERNAL_LOCAL2
       do
@@ -157,7 +157,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
             code_accumulator.close_current_context
          end
          if tc = Void then
-            -- Note that we can do the following simplification because we are sure that `Current' is
+            -- Note that we can do the following simplification because we are sure that `Current'
             -- not a member of some "elseif" list (see `inline_dynamic_dispatch_' of IF_THEN_ELSE).
             if e.side_effect_free(type) then
                -- Well, nothing is always better.
@@ -171,7 +171,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   current_or_twin_init (e: like expression; tc: like then_compound): like Current is
+   current_or_twin_init (e: like expression; tc: like then_compound): like Current
       do
          if e = expression and then tc = then_compound then
             Result := Current
@@ -181,7 +181,7 @@ feature {}
          end
       end
 
-   make (sp: like start_position; e: like expression; tc: like then_compound) is
+   make (sp: like start_position; e: like expression; tc: like then_compound)
       require
          not sp.is_unknown
          e /= Void

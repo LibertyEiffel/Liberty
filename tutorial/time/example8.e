@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          external_loop, internal_loop: BENCHMARK; i, j: INTEGER
       do
@@ -45,7 +45,7 @@ feature {}
          std_output.put_new_line
       end
 
-   dummy is
+   dummy
       do
       end
 

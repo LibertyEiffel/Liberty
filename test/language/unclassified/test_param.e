@@ -11,7 +11,7 @@ feature {}
    table: HASHED_DICTIONARY[INTEGER, INTEGER]
 
 feature {ANY}
-   make is
+   make
       do
          create table.make
          ecrire01(10, 15)
@@ -39,47 +39,47 @@ feature {ANY}
          assert(table @ 12 = 12)
       end
 
-   ecrire01 (a, b: INTEGER) is
+   ecrire01 (a, b: INTEGER)
       do
          table.put(b, a)
       end
 
-   ecrire02 (a, b: INTEGER) is
+   ecrire02 (a, b: INTEGER)
       do
          table.put(a, a)
       end
 
-   ecrire03 (a, b: INTEGER) is
+   ecrire03 (a, b: INTEGER)
       do
          table.put(a + 1, b)
       end
 
-   ecrire04 (a, b: INTEGER) is
+   ecrire04 (a, b: INTEGER)
       do
          table.put(2 + a, b)
       end
 
-   ecrire05 (a, b: INTEGER) is
+   ecrire05 (a, b: INTEGER)
       do
          table.put(b, 2 - a)
       end
 
-   ecrire06 (a, b: INTEGER) is
+   ecrire06 (a, b: INTEGER)
       do
          table.put(b + 1, a - 2)
       end
 
-   ecrire07 (a, b: INTEGER) is
+   ecrire07 (a, b: INTEGER)
       do
          table.put(-a, +b)
       end
 
-   ecrire08 (a, b: INTEGER) is
+   ecrire08 (a, b: INTEGER)
       do
          table.put(a + (1 + 1), b - (4 - 1))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

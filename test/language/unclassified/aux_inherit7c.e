@@ -7,11 +7,11 @@ inherit
    AUX_INHERIT7A
 
 feature {ANY}
-   x: AUX_INHERIT7B is
+   x: AUX_INHERIT7B
       do
       end
 
-   run (b: AUX_INHERIT7B) is
+   run (b: AUX_INHERIT7B)
       do
          if not b.is_foo and b.is_bar then
          else

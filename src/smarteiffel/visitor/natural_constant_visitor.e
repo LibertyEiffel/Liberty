@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NATURAL_CONSTANT}
-   visit_natural_constant (visited: NATURAL_CONSTANT) is
+   visit_natural_constant (visited: NATURAL_CONSTANT)
       require
          visited /= Void
       deferred

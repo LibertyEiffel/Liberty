@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   u1: INTEGER is unique
+   u1: INTEGER unique
 
-   u2: INTEGER is unique
+   u2: INTEGER unique
 
-   make is
+   make
       do
          if u1 < u2 then The compiler should choke on this wrong code
          end

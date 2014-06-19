@@ -13,18 +13,18 @@ create {RUNNER_FEATURES}
    make
 
 feature {RUNNER_FEATURES}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := rf.start_position
       end
 
 feature {RUNNER_FACET}
-   name: FEATURE_NAME is
+   name: FEATURE_NAME
       do
          Result := rf.name
       end
 
-   arguments: TRAVERSABLE[RUNNER_OBJECT] is
+   arguments: TRAVERSABLE[RUNNER_OBJECT]
       do
          if arguments_set then
             Result := arguments_memory
@@ -38,12 +38,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   type_of_current: TYPE is
+   type_of_current: TYPE
       do
          Result := rf.type_of_current
       end
 
-   type_of_result: TYPE is
+   type_of_result: TYPE
       local
          tm: TYPE_MARK
       do
@@ -53,18 +53,18 @@ feature {RUNNER_FACET}
          end
       end
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       do
          Result := rf.feature_stamp
       end
 
-   formal_arguments: FORMAL_ARG_LIST is
+   formal_arguments: FORMAL_ARG_LIST
       do
          Result := rf.arguments
       end
 
 feature {}
-   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_arguments_factory: like arguments_factory; a_rf: like rf) is
+   make (a_processor: like processor; a_caller: like caller; a_target: like target; a_arguments_factory: like arguments_factory; a_rf: like rf)
       require
          a_processor /= Void
          a_target /= Void
@@ -87,7 +87,7 @@ feature {}
          a_rf.local_vars = Void implies locals = Void
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
          Result := rf.local_vars
       end

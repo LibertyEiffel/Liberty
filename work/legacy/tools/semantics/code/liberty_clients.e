@@ -22,54 +22,54 @@ create {LIBERTY_BUILDER_TOOLS}
    make
 
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := clients.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := clients.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := clients.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := clients.is_empty
       end
 
-   item (i: INTEGER): LIBERTY_ACTUAL_TYPE is
+   item (i: INTEGER): LIBERTY_ACTUAL_TYPE
       do
          Result := clients.item(i)
       end
 
-   first: like item is
+   first: like item
       do
          Result := clients.first
       end
 
-   last: like item is
+   last: like item
       do
          Result := clients.last
       end
 
-   new_iterator: ITERATOR[LIBERTY_ACTUAL_TYPE] is
+   new_iterator: ITERATOR[LIBERTY_ACTUAL_TYPE]
       do
          Result := clients.new_iterator
       end
 
 feature {LIBERTY_AST_CLIENT}
-   visit_liberty_ast_client (v: LIBERTY_AST_CLIENT) is
+   visit_liberty_ast_client (v: LIBERTY_AST_CLIENT)
       do
          clients.add_last(type_lookup.resolver.get_export_type(v.type_definition)
       end
 
 feature {}
-   make (a_origin: like origin; a_clients: TRAVERSABLE[LIBERTY_AST_CLASS_NAME]; a_universe: like universe) is
+   make (a_origin: like origin; a_clients: TRAVERSABLE[LIBERTY_AST_CLASS_NAME]; a_universe: like universe)
       require
          a_clients /= Void
          a_universe /= Void

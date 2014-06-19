@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          splay: AUX_PH01_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH01_SPLAY_DICTIONARY_ITERATOR[INTEGER]
          rand: PRESS_RANDOM_NUMBER_GENERATOR; i: INTEGER; index: INTEGER

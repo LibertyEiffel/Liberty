@@ -18,7 +18,7 @@ create {ANY}
 feature {ANY}
    first: FEATURE_NAME
 
-   item (i: INTEGER): FEATURE_NAME is
+   item (i: INTEGER): FEATURE_NAME
       require
          i.in_range(1, count)
       do
@@ -31,7 +31,7 @@ feature {ANY}
          Result /= Void
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          if remainder = Void then
             Result := 1
@@ -40,14 +40,14 @@ feature {ANY}
          end
       end
 
-   has (fn: FEATURE_NAME): BOOLEAN is
+   has (fn: FEATURE_NAME): BOOLEAN
       require
          fn /= Void
       do
          Result := index_of(fn) > 0
       end
 
-   internal_name (fn: FEATURE_NAME): FEATURE_NAME is
+   internal_name (fn: FEATURE_NAME): FEATURE_NAME
          -- If present, give back the one actually stored in `Current'.
       require
          fn /= Void
@@ -70,7 +70,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -90,7 +90,7 @@ feature {ANY}
          end
       end
 
-   short is
+   short
       local
          i: INTEGER
       do
@@ -109,7 +109,7 @@ feature {ANY}
          end
       end
 
-   all_positions_in_error_handler is
+   all_positions_in_error_handler
       local
          i: INTEGER
       do
@@ -123,13 +123,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: FEATURE_NAME_LIST_VISITOR) is
+   accept (visitor: FEATURE_NAME_LIST_VISITOR)
       do
          visitor.visit_feature_name_list(Current)
       end
 
 feature {EIFFEL_PARSER}
-   add_last (fn: FEATURE_NAME) is
+   add_last (fn: FEATURE_NAME)
       require
          fn /= Void
       local
@@ -149,7 +149,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {FEATURE_CLAUSE}
-   for_short (fc: FEATURE_CLAUSE; heading_done: BOOLEAN; bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK): BOOLEAN is
+   for_short (fc: FEATURE_CLAUSE; heading_done: BOOLEAN; bcn: CLASS_NAME; parent, type: TYPE; client: TYPE_MARK): BOOLEAN
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
@@ -192,7 +192,7 @@ feature {FEATURE_CLAUSE}
       end
 
 feature {RUN_FEATURE_1}
-   index_of (fn: FEATURE_NAME): INTEGER is
+   index_of (fn: FEATURE_NAME): INTEGER
       require
          fn /= Void
       do
@@ -218,7 +218,7 @@ feature {RUN_FEATURE_1}
       end
 
 feature {CREATION_CLAUSE}
-   has_make: BOOLEAN is
+   has_make: BOOLEAN
          -- Is the "make" name member of this list ?
       local
          i: INTEGER
@@ -235,7 +235,7 @@ feature {CREATION_CLAUSE}
          end
       end
 
-   root_creation_search (a_name: STRING): FEATURE_NAME is
+   root_creation_search (a_name: STRING): FEATURE_NAME
       local
          i: INTEGER; fn: FEATURE_NAME
       do
@@ -256,7 +256,7 @@ feature {}
    remainder: FAST_ARRAY[FEATURE_NAME]
          -- Non Void when the list has more than one element.
 
-   make_1 (fn: FEATURE_NAME) is
+   make_1 (fn: FEATURE_NAME)
       require
          fn /= Void
       do
@@ -266,7 +266,7 @@ feature {}
          item(1) = fn
       end
 
-   make_n (list: FAST_ARRAY[FEATURE_NAME]) is
+   make_n (list: FAST_ARRAY[FEATURE_NAME])
          -- Note: also check for multiple occurrences.
       require
          not list.is_empty
@@ -308,7 +308,7 @@ feature {}
          count = list.count
       end
 
-   fe_multiple (fn1, fn2: FEATURE_NAME) is
+   fe_multiple (fn1, fn2: FEATURE_NAME)
       do
          error_handler.add_position(fn1.start_position)
          error_handler.add_position(fn2.start_position)

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tester: AUX_XML_CONFORMANCE
          bd: BASIC_DIRECTORY

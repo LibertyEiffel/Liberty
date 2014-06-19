@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
@@ -21,7 +21,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION;   return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION;   return_type: TYPE): INLINE_MEMO
       local
          assignment: ASSIGNMENT; built_in_eq_neq: BUILT_IN_EQ_NEQ; call_0: CALL_0
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN
@@ -127,7 +127,7 @@ feature {CALL_0}
 
 feature {CALL_1}
    inline_expression_1 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
          built_in_eq_neq: BUILT_IN_EQ_NEQ; call_1: CALL_1; bc: BOOLEAN_CONSTANT; name: STRING
@@ -225,7 +225,7 @@ feature {CALL_1}
 
 feature {FUNCTION_CALL_N}
    inline_expression_n (type: TYPE; feature_stamp: FEATURE_STAMP; target_type: TYPE; target: EXPRESSION
-                        args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO is
+                        args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
          argument_name_ref: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
@@ -295,19 +295,19 @@ feature {FUNCTION_CALL_N}
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_4 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_4
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: E_FUNCTION_VISITOR) is
+   accept (visitor: E_FUNCTION_VISITOR)
       do
          visitor.visit_e_function(Current)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
          args: like arguments; cfal: like closure_arguments
       do
@@ -324,7 +324,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
@@ -343,7 +343,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {E_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -352,7 +352,7 @@ feature {E_FUNCTION}
 
 feature {}
    make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures) is
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
       require
          rt /= Void
       do
@@ -360,18 +360,18 @@ feature {}
          result_type := rt
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_FUNCTION} Result.from_effective(fn, arguments, result_type, require_assertion, ensure_assertion, bc, permissions)
       end
 
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "do")
       end
 
-   inline_call_1 (type: TYPE; call_1: CALL_1; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): CALL_1 is
+   inline_call_1 (type: TYPE; call_1: CALL_1; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): CALL_1
       require
          target /= Void
          arg1 /= Void
@@ -398,7 +398,7 @@ feature {}
                --*** (PR 01/05/08) Sorry, it's too complex (and wrong
                --as shown by test_fast_array6). We test here if the
                --argument of the call is a call with a static
-               --argument! f(i*j+1), here 1 is static. Now, what is
+               --argument! f(i*j+1), here 1 is static. Now, what
                --the possible inlining?
                --***Turned off with "if False"
 
@@ -414,7 +414,7 @@ feature {}
          end
       end
 
-   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): EXPRESSION is
+   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): EXPRESSION
       require
          target /= Void
          arg1 /= Void
@@ -449,7 +449,7 @@ feature {}
          end
       end
 
-   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): EXPRESSION is
+   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): EXPRESSION
       do
          Result := inline_eq_neq0_(type, built_in_eq_neq, built_in_eq_neq.left_side, built_in_eq_neq.right_side, target_type, target)
          if Result = Void then
@@ -457,7 +457,7 @@ feature {}
          end
       end
 
-   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): EXPRESSION is
+   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): EXPRESSION
       local
          call_0: CALL_0
       do

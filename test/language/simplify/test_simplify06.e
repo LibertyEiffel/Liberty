@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    dead: AUX_SIMPLIFY06
 
-   make is
+   make
       do
          check_order(0)
          if dead /= Void then
@@ -32,12 +32,12 @@ feature {ANY}
          check_order(4)
       end
 
-   foo (i: INTEGER): like dead is
+   foo (i: INTEGER): like dead
       do
          Result := dead
       end
 
-   bar (i: INTEGER; j: like dead): like dead is
+   bar (i: INTEGER; j: like dead): like dead
       do
          Result := dead
       end
@@ -45,7 +45,7 @@ feature {ANY}
    previous_n: INTEGER
          -- To check that `check_order' call are in the original order.
 
-   check_order (n: INTEGER) is
+   check_order (n: INTEGER)
       do
          if n /= previous_n then
             sedb_breakpoint

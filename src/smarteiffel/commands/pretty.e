@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "pretty"
+   command_line_name: STRING "pretty"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: pretty [options] <SourceFilePath> ...
 
       Option summary:
@@ -23,7 +23,7 @@ feature {ANY}
       Information:
         -help               Display this help information
         -version            Display Liberty Eiffel version information
-        -verbose            Display detailed information about what the programe is
+        -verbose            Display detailed information about what the programe
                              doing
 
       Warning levels:
@@ -39,14 +39,14 @@ feature {ANY}
 
            ]"
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
       end
 
-   valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING ""
 
 feature {}
-   make is
+   make
       local
          i: INTEGER; arg, style, file_path: STRING
       do
@@ -139,12 +139,12 @@ feature {}
          end
       end
 
-   file_path_list: FAST_ARRAY[STRING] is
+   file_path_list: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(12)
       end
 
-   selected_style_check (style, arg: STRING): STRING is
+   selected_style_check (style, arg: STRING): STRING
          -- To check that two different styles are not given at command line.
       require
          not arg.is_empty
@@ -163,7 +163,7 @@ feature {}
          Result = arg
       end
 
-   pretty_for (file_path: STRING) is
+   pretty_for (file_path: STRING)
       require
          not file_path.is_empty
          not file_path.has_suffix(once "tuple.e")
@@ -226,14 +226,14 @@ feature {}
          end
       end
 
-   copyright_header_for_gnu: STRING is "{
+   copyright_header_for_gnu: STRING "{
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
 
    }"
 
-   copyright_footer_for_gnu: STRING is "{
+   copyright_footer_for_gnu: STRING "{
 
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
@@ -262,13 +262,13 @@ feature {}
 
    }"
 
-   copyright_header_for_lib: STRING is "{
+   copyright_header_for_lib: STRING "{
 -- See the Copyright notice at the end of this file.
 --
 
    }"
 
-   copyright_footer_for_lib: STRING is "{
+   copyright_footer_for_lib: STRING "{
 
 --
 -- ------------------------------------------------------------------------------------------------------------

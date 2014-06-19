@@ -4,11 +4,11 @@
 deferred class AUX_XC4_B
 
 feature {ANY}
-   std_f: CHARACTER is
+   std_f: CHARACTER
       deferred
       end
 
-   f: CHARACTER is
+   f: CHARACTER
       do
          Result := (std_f.code + 1).to_character
       end

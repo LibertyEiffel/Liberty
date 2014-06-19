@@ -28,7 +28,7 @@ create {EDC_CONNECTION}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_DELETE_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   call (arguments: TRAVERSABLE[EDC_VALUE]): INTEGER is
+   call (arguments: TRAVERSABLE[EDC_VALUE]): INTEGER
          -- Delete the selected rows and return the number of deleted rows
       require
          arguments.count = open_count
@@ -53,12 +53,12 @@ feature {ANY}
          Result := connection.call_delete(Current)
       end
 
-   table: EDC_TABLE is
+   table: EDC_TABLE
       do
          Result := item(lower).table
       end
 
-   all_columns_are_in_the_same_table: BOOLEAN is
+   all_columns_are_in_the_same_table: BOOLEAN
       local
          i: INTEGER; t: EDC_TABLE
       do

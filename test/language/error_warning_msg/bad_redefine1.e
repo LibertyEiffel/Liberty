@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          file: TEXT_FILE_WRITE;
       do
@@ -18,7 +18,7 @@ feature {}
          end;
       end;
 
-   foo(file: TEXT_FILE_WRITE): INTEGER is
+   foo(file: TEXT_FILE_WRITE): INTEGER
       do
       end;
 

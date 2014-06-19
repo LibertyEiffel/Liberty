@@ -6,7 +6,7 @@ deferred class XMLNS_CALLBACKS
    --
 
 feature {XMLNS_PARSER}
-   set_validator (a_validator: like validator) is
+   set_validator (a_validator: like validator)
          -- Sets a validator for this XML file.
       require
          validator = Void
@@ -20,7 +20,7 @@ feature {XMLNS_PARSER}
    validator: XMLNS_VALIDATOR
          -- The XML validator for this file (usually an XML Schema)
 
-   with_attribute (attribute_namespace, attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_namespace, attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER)
          -- Called by the parser to add an attribute of a node BEFORE calling `open_node'
       require
          not attribute_name.is_empty
@@ -28,7 +28,7 @@ feature {XMLNS_PARSER}
       deferred
       end
 
-   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads an opening node
       require
          not node_name.is_empty
@@ -39,7 +39,7 @@ feature {XMLNS_PARSER}
                                                                            and then current_namespace.is_equal(node_namespace)))
       end
 
-   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads a closing node
       require
          not node_name.is_empty
@@ -49,26 +49,26 @@ feature {XMLNS_PARSER}
       deferred
       end
 
-   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads a node that opens and closes immediately (syntax "<node/>")
       require
          not node_name.is_empty
       deferred
       end
 
-   xml_header (line, column: INTEGER) is
+   xml_header (line, column: INTEGER)
          -- Called by the parser if a "<?xml ... ?>" header is read.
          -- Note that with_attribute may have been called first (usually with the version and encoding
          -- attributes)
       deferred
       end
 
-   processing_instruction (a_target, a_data: UNICODE_STRING) is
+   processing_instruction (a_target, a_data: UNICODE_STRING)
          -- Called by the parser if a "<?...?>" processing instruction is read.
       deferred
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
          -- Called by the parser when an '''&entity;''' is found. Note that standard XML attributes (''lt'',
          -- ''gt'', ''amp'', ''apos'' and ''quot'') are automatically handled and not given to this feature
          -- (they cannot be bypassed).
@@ -76,24 +76,24 @@ feature {XMLNS_PARSER}
       deferred
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
          -- The current node
       deferred
       end
 
-   current_namespace: UNICODE_STRING is
+   current_namespace: UNICODE_STRING
          -- The current namespace
       deferred
       end
 
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
          -- Called by the parser when the node contains raw data
       require
          not a_data.is_empty
       deferred
       end
 
-   parse_error (line, column: INTEGER; message: STRING) is
+   parse_error (line, column: INTEGER; message: STRING)
          -- Called by the parser if there is an error
       require
          message /= Void
@@ -102,7 +102,7 @@ feature {XMLNS_PARSER}
          at_error
       end
 
-   at_error: BOOLEAN is
+   at_error: BOOLEAN
          -- True if there was at least an error
       deferred
       end
@@ -115,7 +115,7 @@ end -- class XMLNS_CALLBACKS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

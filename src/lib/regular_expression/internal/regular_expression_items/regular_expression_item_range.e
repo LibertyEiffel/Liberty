@@ -16,7 +16,7 @@ feature {ANY}
    lower, upper: CHARACTER
          -- lower and upper range
 
-   make (low, up: CHARACTER) is
+   make (low, up: CHARACTER)
       do
          lower := low
          upper := up
@@ -24,7 +24,7 @@ feature {ANY}
          definition: lower = low and upper = up
       end
 
-   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION) is
+   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION)
       do
          if matcher.valid_last_character and then matcher.last_character.in_range(lower, upper) then
             matcher.advance
@@ -42,7 +42,7 @@ end -- class REGULAR_EXPRESSION_ITEM_RANGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

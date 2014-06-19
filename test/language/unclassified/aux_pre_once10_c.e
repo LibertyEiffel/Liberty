@@ -7,7 +7,7 @@ inherit
    AUX_PRE_ONCE10_A
 
 feature {ANY}
-   foofoo: STRING is
+   foofoo: STRING
       once
          create Result.make(1)
       end

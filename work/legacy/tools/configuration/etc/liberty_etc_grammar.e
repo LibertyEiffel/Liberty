@@ -27,7 +27,7 @@ create {LIBERTY_ETC}
    make
 
 feature {}
-   the_table: PARSE_TABLE is
+   the_table: PARSE_TABLE
       once
          Result := {PARSE_TABLE <<
                                   -- Non terminals
@@ -154,7 +154,7 @@ feature {}
                                   >> };
       end
 
-   parse_class_or_cluster_name (allow_dots: BOOLEAN; buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_class_or_cluster_name (allow_dots: BOOLEAN; buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position, dot_position: like position; image: STRING; c: CHARACTER; s: INTEGER
       do

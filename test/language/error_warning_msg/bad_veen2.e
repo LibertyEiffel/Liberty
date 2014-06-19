@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   f (i : INTEGER) : BOOLEAN is
+   f (i : INTEGER) : BOOLEAN
       local
          j : INTEGER
       do
@@ -16,7 +16,7 @@ feature {}
          illegal_assert: i = old j
       end
 
-   make is
+   make
       do
          print (f(0))
          print (f(1))

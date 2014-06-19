@@ -19,7 +19,7 @@ feature {ANY}
 
    height: INTEGER
 
-   refresh_later is
+   refresh_later
       local
          x, y, i: INTEGER
       do
@@ -55,7 +55,7 @@ feature {ANY}
 
    has_border: BOOLEAN
 
-   get_choice: E_ is
+   get_choice: E_
       obsolete "use read_choice and last_choice"
       do
          read_choice
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   read_choice is
+   read_choice
       local
          key: INTEGER; done: BOOLEAN
       do
@@ -96,7 +96,7 @@ feature {ANY}
 
    valid_choice: BOOLEAN
 
-   last_choice: E_ is
+   last_choice: E_
       require
          valid_choice
       do
@@ -107,17 +107,17 @@ feature {}
    last_choice_memory: E_
 
 feature {NCURSES_WIDGET}
-   get_window: NCURSES_WINDOW is
+   get_window: NCURSES_WINDOW
       do
          Result := window
       end
 
-   parent_resized is
+   parent_resized
       do
       end
 
 feature {}
-   make (p: like parent; x, y: INTEGER; t: like tag; its: like items; with_border: BOOLEAN) is
+   make (p: like parent; x, y: INTEGER; t: like tag; its: like items; with_border: BOOLEAN)
       require
          ncurses.is_enabled
          p /= Void
@@ -174,7 +174,7 @@ end -- class NCURSES_MENU
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

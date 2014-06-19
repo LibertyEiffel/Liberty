@@ -5,7 +5,7 @@ class CLASS_CHECK
    --
    -- The `class_check' command.
    --
-   -- Note: actually, from the implementation point of view, doing "class_check my_class" is
+   -- Note: actually, from the implementation point of view, doing "class_check my_class"
    -- equivalent to run "short -all_features my_class > /dev/null".
    --
 
@@ -16,9 +16,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "class_check"
+   command_line_name: STRING "class_check"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: class_check [options] <ClassName>
 
       Option summary:
@@ -39,14 +39,14 @@ feature {ANY}
       ]"
 
 feature {}
-   make is
+   make
       do
          create {NULL_OUTPUT_STREAM} output
          start
          smart_eiffel.very_last_information
       end
 
-   parse_arguments is
+   parse_arguments
       local
          i: INTEGER; arg: STRING
       do
@@ -93,7 +93,7 @@ feature {}
          set_format(once "plain")
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
          -- Because of style options, this function always returns True.
          -- Futhermore, this function is used for non ACE mode too.
       do
@@ -115,7 +115,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -version, -help, -no_warning, and -style_warning are%N%
+   valid_argument_for_ace_mode: STRING "Only the -version, -help, -no_warning, and -style_warning are%N%
       %allowed in ACE file mode.%N"
 
 end -- class CLASS_CHECK

@@ -22,22 +22,22 @@ feature {ANY}
    image: STRING
          -- the real image of the token
 
-   line: INTEGER is
+   line: INTEGER
       do
          Result := position.line
       end
 
-   column: INTEGER is
+   column: INTEGER
       do
          Result := position.column
       end
 
-   index: INTEGER is
+   index: INTEGER
       do
          Result := position.index
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(image)
       end
@@ -46,7 +46,7 @@ feature {}
    position: PACKRAT_POSITION
          -- the position of the `image' (discarding the leading `blanks')
 
-   make (a_image: like image; a_position: like position) is
+   make (a_image: like image; a_position: like position)
       require
          a_image /= Void
       do
@@ -68,7 +68,7 @@ end -- class PACKRAT_IMAGE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

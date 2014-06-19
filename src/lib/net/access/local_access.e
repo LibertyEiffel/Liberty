@@ -21,7 +21,7 @@ feature {ANY}
    port: INTEGER
    address: LOCALHOST
 
-   server: SOCKET_SERVER is
+   server: SOCKET_SERVER
       local
          fd: INTEGER
       do
@@ -32,13 +32,13 @@ feature {ANY}
       end
 
 feature {ADDRESS}
-   new_local_socket: SOCKET is
+   new_local_socket: SOCKET
       do
          create {LOCAL_SOCKET} Result.make(port, sync)
       end
 
 feature {}
-   make (a_address: LOCALHOST; a_port: INTEGER; a_sync: BOOLEAN) is
+   make (a_address: LOCALHOST; a_port: INTEGER; a_sync: BOOLEAN)
          -- Access to a server on the given host address listening at the given port
       require
          a_address /= Void
@@ -62,7 +62,7 @@ end -- class LOCAL_ACCESS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

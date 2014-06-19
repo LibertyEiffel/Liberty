@@ -10,7 +10,7 @@ create {C_GARBAGE_COLLECTOR_HEADER_COMPILER}
    make
 
 feature {C_GARBAGE_COLLECTOR_HEADER_COMPILER}
-   for (lt: LIVE_TYPE): STRING is
+   for (lt: LIVE_TYPE): STRING
       do
          struct.copy(once "struct {")
          check
@@ -32,7 +32,7 @@ feature {C_GARBAGE_COLLECTOR_HEADER_COMPILER}
       end
 
 feature {C_GARBAGE_COLLECTOR_STRUCTER}
-   fill_struct (lt: LIVE_TYPE) is
+   fill_struct (lt: LIVE_TYPE)
       require
          lt.writable_attributes /= Void
       local
@@ -52,7 +52,7 @@ feature {C_GARBAGE_COLLECTOR_STRUCTER}
       end
 
 feature {}
-   append_field_name is
+   append_field_name
       do
          counter := counter + 1
          if struct.last /= '*' and then struct.last /= '}' then
@@ -64,35 +64,35 @@ feature {}
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {USER_GENERIC_TYPE_MARK}
-   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -110,58 +110,58 @@ feature {USER_GENERIC_TYPE_MARK}
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {LIKE_ARGUMENT_TYPE_MARK}
-   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK) is
+   visit_like_argument_type_mark (visited: LIKE_ARGUMENT_TYPE_MARK)
       do
          crash
       end
 
 feature {LIKE_FEATURE_TYPE_MARK}
-   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK) is
+   visit_like_feature_type_mark (visited: LIKE_FEATURE_TYPE_MARK)
       do
          crash
       end
 
 feature {LIKE_CURRENT_TYPE_MARK}
-   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK) is
+   visit_like_current_type_mark (visited: LIKE_CURRENT_TYPE_MARK)
       do
          crash
       end
 
 feature {CLIENT_TYPE_MARK}
-   visit_client_type_mark (visited: CLIENT_TYPE_MARK) is
+   visit_client_type_mark (visited: CLIENT_TYPE_MARK)
       do
          crash
       end
 
 feature {FORMAL_GENERIC_TYPE_MARK}
-   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK) is
+   visit_formal_generic_type_mark (visited: FORMAL_GENERIC_TYPE_MARK)
       do
          crash
       end
 
 feature {ANY_TYPE_MARK}
-   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+   visit_any_type_mark (visited: ANY_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {CLASS_TYPE_MARK}
-   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   visit_class_type_mark (visited: CLASS_TYPE_MARK)
       local
          lt: LIVE_TYPE
       do
@@ -179,21 +179,21 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
          struct.append(once "char")
          append_field_name
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
          struct.append(once "char")
          append_field_name
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
          struct.append(once "int")
          visited.bit_count.append_in(struct)
@@ -202,7 +202,7 @@ feature {INTEGER_TYPE_MARK}
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
          struct.append(once "uint")
          visited.bit_count.append_in(struct)
@@ -211,14 +211,14 @@ feature {NATURAL_TYPE_MARK}
       end
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
          struct.append(once "real")
          visited.bit_count.append_in(struct)
@@ -227,14 +227,14 @@ feature {REAL_TYPE_MARK}
       end
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       do
          struct.append(void_star)
          append_field_name
       end
 
 feature {}
-   make is
+   make
       do
          struct := ""
       end
@@ -243,7 +243,7 @@ feature {}
    type: TYPE
    counter: INTEGER
 
-   void_star: STRING is "void*"
+   void_star: STRING "void*"
 
 end -- class C_GARBAGE_COLLECTOR_STRUCTER
 --

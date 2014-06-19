@@ -5,7 +5,7 @@ insert
 create {GI_INTERFACE_INFO} default_create
 
 feature {ANY}
-	default_create is
+	default_create
 		do
 			-- Setting generation and iterable_generation to different values
 			-- so that any invocation of the queries and commands requiring
@@ -16,29 +16,29 @@ feature {ANY}
 		end
 
 feature {GI_INTERFACE_INFO}
-	from_interface (an_interface: GI_INTERFACE_INFO) is
+	from_interface (an_interface: GI_INTERFACE_INFO)
 	do
 		interface:=an_interface
 		iterable_generation:=generation
 	end
 
 feature {ANY}
-	start is
+	start
 	do
 		i:=interface.prerequisites_lower
 	end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
 	  do
 		  Result := i>interface.prerequisites_upper
       end
 
-	item: GI_BASE_INFO is
+	item: GI_BASE_INFO
 		do
 			Result:=interface.prerequisite(i)
 		end
 
-	next is
+	next
 		do
 			i:=i+1
 		end
@@ -47,11 +47,11 @@ feature {} -- Implementation
 	interface: GI_INTERFACE_INFO
 	i: INTEGER
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

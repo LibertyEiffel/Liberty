@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   get_fresh_instance: EXPAND_SEQUENCE is
+   get_fresh_instance: EXPAND_SEQUENCE
       do
          create Result
       end

@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: TUPLE[STRING]; void_string: STRING
       do

@@ -11,7 +11,7 @@ feature {ANY}
    -- arr: ARRAY[expanded INTEGER]
    arr: ARRAY[INTEGER]
 
-   make is
+   make
       local
          ei: INTEGER
       do

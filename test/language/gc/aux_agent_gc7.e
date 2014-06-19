@@ -11,12 +11,12 @@ feature {ANY}
 
    next: like Current
 
-   set_patient (p: AUX_AGENT_GC3) is
+   set_patient (p: AUX_AGENT_GC3)
       do
          patient := p
       end
 
-   set_next (n: like Current) is
+   set_next (n: like Current)
       do
          next := n
       end

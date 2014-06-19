@@ -14,7 +14,7 @@ create {ANY}
 feature {ANY}
    value: INTEGER
 
-   default_create is
+   default_create
       do
          value := 1
       end

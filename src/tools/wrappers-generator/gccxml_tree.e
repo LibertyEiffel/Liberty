@@ -1,7 +1,7 @@
 class GCCXML_TREE
         -- A partially validated representation of an XML file made by gccxml
 
-        -- Effective heirs will emit wrappers using the plugin machanism.
+        -- Effective heirs will emit wrappers using the plugin machanm.
 inherit XML_TREE redefine make, new_node, open_node end
 
 insert
@@ -14,13 +14,13 @@ insert
 create {ANY} make
 
 feature {ANY}
-        make (url: URL) is
+        make (url: URL)
                 do
                         create moved.make
                         Precursor(url)
                 end
 
-        new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
+        new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE
                 do
                         inspect node_name.as_utf8
                         when "Argument" then create {C_ARGUMENT} Result.make(node_name,line,column)
@@ -31,7 +31,7 @@ feature {ANY}
                         when "Converter" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
                         when "CvQualifiedType" then create {C_QUALIFIED_TYPE} Result.make(node_name,line,column)
                         when "Destructor" then create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
-                        when "Ellipsis" then create {C_ELLIPSIS} Result.make(node_name, line, column)
+                        when "Ellips" then create {C_ELLIPSIS} Result.make(node_name, line, column)
                         when "Enumeration" then create {C_ENUM} Result.make(node_name, line, column)
                         when "EnumValue" then create {C_ENUM_VALUE} Result.make(node_name, line, column)
                         when "Field" then create {C_FIELD} Result.make(node_name, line, column)
@@ -54,13 +54,13 @@ feature {ANY}
                         when "Unimplemented" then create {UNIMPLEMENTED_NODE} Result.make(node_name,line,column)
                         when "Variable" then create {C_VARIABLE} Result.make(node_name, line, column)
                         else
-                                raise(node_name.as_utf8+" does not have an GCCXML_NODE")
+                                rae(node_name.as_utf8+" does not have an GCCXML_NODE")
                                 -- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
                         end
-                        -- TODO: turn this into an inspect when UNICODE_STRING will be comparable
+                        -- TODO: turn th into an inspect when UNICODE_STRING will be comparable
                 end
 
-        open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+        open_node (node_name: UNICODE_STRING; line, column: INTEGER)
         local storable: STORABLE_NODE
         do
                 Precursor (node_name, line, column)
@@ -69,7 +69,7 @@ feature {ANY}
         end
 
 feature {ANY} -- Wrappers emittions
-        emit_wrappers is
+        emit_wrappers
                 local
                         node: GCCXML_NODE;
                 do
@@ -94,7 +94,7 @@ feature {ANY} -- Wrappers emittions
                         -- are not necessary since "node ::= root" actually requires root to be a GCCXML_NODE
                 end
 
-        move_feature (a_feature: WRAPPER_FEATURE) is
+        move_feature (a_feature: WRAPPER_FEATURE)
         require a_feature/=Void
         local destination: STRING; file: C_FILE
         do
@@ -111,24 +111,24 @@ feature {ANY} -- Wrappers emittions
         end
 
 feature {ANY}
-        read_flags_from (a_file_name: STRING) is
-                -- Read the list of enumeration that shall be wrapped as flags from the
+        read_flags_from (a_file_name: STRING)
+                -- Read the lt of enumeration that shall be wrapped as flags from the
                 -- file named `a_file_name'.
         require
                 a_file_name/=Void
-                file_exists(a_file_name)
-                is_file(a_file_name)
+                file_exts(a_file_name)
+                _file(a_file_name)
         do
                 flags.add_from_file(a_file_name)
         end
 
-        read_avoided_from (a_file_name: STRING) is
-                -- Read from the file named `a_file_name' the list of symbols that will
+        read_avoided_from (a_file_name: STRING)
+                -- Read from the file named `a_file_name' the lt of symbols that will
                 -- be avoided, i.e. not wrapped.
         require
                 a_file_name/=Void
-                file_exists(a_file_name)
-                is_file(a_file_name)
+                file_exts(a_file_name)
+                _file(a_file_name)
         do
                 avoided.add_from_file(a_file_name)
         end
@@ -140,19 +140,19 @@ feature {ANY}
         -- enumeration, a struct, a union and so on, the value will not be taken in
         -- count.
 
-        read_moved_from (a_name: STRING) is
+        read_moved_from (a_name: STRING)
                 -- Read the file with `a_name' and fills `moved' dictionary. For each line the
                 -- first word will be used as key, the second as value. The rest of the
                 -- line is ignored and may be considered comment.
-                -- Used to read the list of renamed symbols and moved functions.
+                -- Used to read the lt of renamed symbols and moved functions.
         require
                 a_name/=Void
-                file_exists(a_name)
-                is_file(a_name)
+                file_exts(a_name)
+                _file(a_name)
         local file: TEXT_FILE_READ; symbol, value: STRING; words: STRING_INPUT_STREAM
         do
                 create file.connect_to(a_name)
-                check file.is_connected end
+                check file._connected end
                 from file.read_line
                 until file.end_of_input loop
                         if file.last_string.has_prefix(once "--") then
@@ -160,10 +160,10 @@ feature {ANY}
                         else
                                 create words.from_string(file.last_string)
                                 words.read_word
-                                if not words.last_string.is_empty then
+                                if not words.last_string._empty then
                                         symbol := words.last_string.twin
                                         words.read_word
-                                        if not words.last_string.is_empty then
+                                        if not words.last_string._empty then
                                                 value := words.last_string.twin
                                                 log(once "Symbol @(1) moved to @(2)%N",<<symbol,value>>)
                                                 moved.put(value,symbol)
@@ -175,7 +175,7 @@ feature {ANY}
                 end
         end
 
-        move_symbol (a_file_name, a_symbol: STRING) is
+        move_symbol (a_file_name, a_symbol: STRING)
                 -- Makes `a_symbol' as if it was part of file with `a_file_name'.
         local f: C_FILE; symbol: MOVABLE_NODE
         do
@@ -200,7 +200,7 @@ end -- class GCCXML_TREE
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -210,4 +210,4 @@ end -- class GCCXML_TREE
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

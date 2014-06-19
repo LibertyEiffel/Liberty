@@ -14,7 +14,7 @@ inherit
    ANY_AVL_SET_NODE
 
 feature {ABSTRACT_AVL_SET}
-   set (i: like item) is
+   set (i: like item)
       do
          set_balance(balanced)
          left := Void
@@ -32,7 +32,7 @@ end -- class ABSTRACT_AVL_SET_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

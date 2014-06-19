@@ -7,6 +7,6 @@ Line 12 column 14 in BAD_CONSTANT7 (/home/cadrian/Workspace/Dev/Liberty/test/lan
          if f(5).out = Void then
              ^                  
 Line 16 column 4 in BAD_CONSTANT7 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constant7.e):
-   f: INTEGER is 3
-   ^              
+   f: INTEGER 3
+   ^           
 ------

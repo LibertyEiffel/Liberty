@@ -12,7 +12,7 @@ create {ONCE_FUNCTION}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_6_VISITOR) is
+   accept (visitor: RUN_FEATURE_6_VISITOR)
       do
          visitor.visit_run_feature_6(Current)
       end
@@ -34,29 +34,29 @@ feature {ANY}
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is True
+   is_once_function: BOOLEAN True
 
-   has_closures: BOOLEAN is
+   has_closures: BOOLEAN
       do
          Result := base_feature.has_closures
       end
 
-   is_precomputable_once: BOOLEAN is
+   is_precomputable_once: BOOLEAN
       do
          Result := once_routine_pool.is_precomputed(base_feature)
       end
 
-   side_effect_free: BOOLEAN is
+   side_effect_free: BOOLEAN
       do
          Result := is_precomputable_once
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -94,7 +94,7 @@ feature {}
          once_routine_pool.register_function(Current)
       end
 
-   set_result_type is
+   set_result_type
       do
          -- Adapt the result type:
          result_type := base_feature.result_type.resolve_in(type_of_current).canonical_type_mark --|*** CAD: need of resolve_in?
@@ -103,7 +103,7 @@ feature {}
       end
 
 feature {}
-   compute_use_current is
+   compute_use_current
       do
          if type_of_current.is_reference then
             if ace.no_check then

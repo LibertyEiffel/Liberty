@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {ANY}
-   count: INTEGER is 1
+   count: INTEGER 1
 
-   name: STRING is "Retry"
+   name: STRING "Retry"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1 >> }
       end

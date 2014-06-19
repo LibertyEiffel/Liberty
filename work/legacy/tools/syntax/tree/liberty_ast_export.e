@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   clients: LIBERTY_AST_CLIENTS is
+   clients: LIBERTY_AST_CLIENTS
       do
          Result ::= nodes.item(0)
       end
 
-   features: LIBERTY_AST_EXPORT_FEATURES is
+   features: LIBERTY_AST_EXPORT_FEATURES
       do
          Result ::= nodes.item(1)
       end
 
 feature {ANY}
-   count: INTEGER is 2
+   count: INTEGER 2
 
-   name: STRING is "Export"
+   name: STRING "Export"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 2 >> }
       end

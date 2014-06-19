@@ -21,37 +21,37 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_eq: BOOLEAN is
+   is_eq: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW =")
       end
 
-   is_ne: BOOLEAN is
+   is_ne: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW /=")
       end
 
-   is_le: BOOLEAN is
+   is_le: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW <=")
       end
 
-   is_lt: BOOLEAN is
+   is_lt: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW <")
       end
 
-   is_ge: BOOLEAN is
+   is_ge: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW >=")
       end
 
-   is_gt: BOOLEAN is
+   is_gt: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW >")
       end
 
 feature {ANY}
-   name: STRING is "e4-exp"
+   name: STRING "e4-exp"
 
 end

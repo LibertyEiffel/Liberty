@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    array_int: ARRAY[INTEGER]
 
-   make is
+   make
       local
          size: INTEGER; i: INTEGER
       do

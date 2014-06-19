@@ -24,7 +24,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER}
    should_continue: BOOLEAN
 
 feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
-   visit_entry (a_entry: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+   visit_entry (a_entry: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE)
       do
          should_continue := False
          check
@@ -62,7 +62,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
          end
       end
 
-   visit_show (a_show: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+   visit_show (a_show: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE)
       do
          check
             a_show.lower = 0
@@ -76,7 +76,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
          end
       end
 
-   visit_step (a_step: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+   visit_step (a_step: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE)
       local
          step_count_node: EIFFEL_TERMINAL_NODE_IMPL
          step_count: TYPED_EIFFEL_IMAGE[INTEGER_64]
@@ -105,7 +105,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
          end
       end
 
-   visit_up (a_up: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+   visit_up (a_up: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE)
       local
          up_node: EIFFEL_TERMINAL_NODE_IMPL
          up: TYPED_EIFFEL_IMAGE[INTEGER_64]
@@ -123,7 +123,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
          end
       end
 
-   visit_down (a_down: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE) is
+   visit_down (a_down: LIBERTY_INTERPRETER_DEBUGGER_NON_TERMINAL_NODE)
       local
          down_node: EIFFEL_TERMINAL_NODE_IMPL
          down: TYPED_EIFFEL_IMAGE[INTEGER_64]
@@ -142,7 +142,7 @@ feature {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}
       end
 
 feature {}
-   set_frame (delta: INTEGER_64) is
+   set_frame (delta: INTEGER_64)
       local
          new_frame: INTEGER
       do
@@ -157,7 +157,7 @@ feature {}
          interpreter.set_current_frame(new_frame)
       end
 
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

@@ -9,12 +9,12 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := standard_is_equal(other)
       end
 
-   is_near_equal (other: like Current): BOOLEAN is
+   is_near_equal (other: like Current): BOOLEAN
       do
          Result := re ~= other.re and im ~= other.im
       end
@@ -23,33 +23,33 @@ feature {ANY}
 
    im: REAL
 
-   make (r, i: REAL): like Current is
+   make (r, i: REAL): like Current
       do
          Result.set_item(r, i)
       end
 
-   set_item (r, i: REAL) is
+   set_item (r, i: REAL)
       do
          re := r
          im := i
       end
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       do
          Result.set_item(re + other.re, im + other.im)
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
       do
          Result.set_item(re - other.re, im - other.im)
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
       do
          Result.set_item(re * other.re - im * other.im, re * other.im + im * other.re)
       end
 
-   infix "/" (other: like Current): like Current is
+   infix "/" (other: like Current): like Current
          -- The ratio of self and `other'.
          -- From Numerical Recipes in C, 2nd ed. p. 949.
       local
@@ -66,54 +66,54 @@ feature {ANY}
          end
       end
 
-   prefix "-": like Current is
+   prefix "-": like Current
       do
          Result.set_item(-re, -im)
       end
 
-   prefix "+": like Current is
+   prefix "+": like Current
       do
          Result.set_item(re, im)
       end
 
-   valid_divisor (other: like Current): BOOLEAN is
+   valid_divisor (other: like Current): BOOLEAN
       do
          Result := other /= zero
       end
 
-   sign: INTEGER_8 is
+   sign: INTEGER_8
       do
          check
             False
          end
       end
 
-   divisible (other: like Current): BOOLEAN is
+   divisible (other: like Current): BOOLEAN
       do
          Result := re /= 0 or else im /= 0
       end
 
-   one: like Current is
+   one: like Current
       do
          Result.set_item(re.one, im.zero)
       end
 
-   zero: like Current is
+   zero: like Current
       do
          Result.set_item(re.zero, im.zero)
       end
 
-   plus_scalar (scalar: REAL): like Current is
+   plus_scalar (scalar: REAL): like Current
       do
          Result.set_item(re + scalar, im)
       end
 
-   times_scalar (scalar: REAL): like Current is
+   times_scalar (scalar: REAL): like Current
       do
          Result.set_item(re * scalar, im * scalar)
       end
 
-   exp: like Current is
+   exp: like Current
          -- The complex exponential `e^self'.
       local
          rp: REAL
@@ -122,7 +122,7 @@ feature {ANY}
          Result.set_item(rp * im.cos, rp * im.sin)
       end
 
-   out: STRING is
+   out: STRING
       do
          create Result.make(24)
          Result.append("(")
@@ -134,13 +134,13 @@ feature {ANY}
          not Result.is_empty
       end
 
-   set_item_numeric (other: like Current) is
+   set_item_numeric (other: like Current)
       do
          set_item(other.re, other.im)
       end
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := re.hash_code + im.hash_code
       end

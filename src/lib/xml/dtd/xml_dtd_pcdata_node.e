@@ -12,19 +12,19 @@ create {XML_DTD_ELEMENT}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "PCDATA")
       end
 
 feature {ANY} -- Tree structure validation
-   explore (explorer: XML_DTD_VALIDATOR) is
+   explore (explorer: XML_DTD_VALIDATOR)
       do
          explorer.backtrack_valid_pcdata
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -36,7 +36,7 @@ end -- class XML_DTD_PCDATA_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

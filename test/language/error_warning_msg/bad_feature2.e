@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is do i := 10 end
+   make do i := 10 end
 
 end -- class BAD_FEATURE2
 --

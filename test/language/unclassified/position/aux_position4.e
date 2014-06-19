@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    position: AUX_POSITION
 
-   make (p: like position) is
+   make (p: like position)
       do
          position := p
       end

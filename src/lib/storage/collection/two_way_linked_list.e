@@ -37,7 +37,7 @@ feature {TWO_WAY_LINKED_LIST}
          -- `mem_lnk' and `mem_idx' is 0
 
 feature {ANY}
-   make is
+   make
       do
          if free_nodes = Void then
             -- It is a brand new one:
@@ -54,12 +54,12 @@ feature {ANY}
          count = 0
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := first_link = Void
       end
 
-   add_first (element: like item) is
+   add_first (element: like item)
       do
          if first_link = Void then
             first_link := new_node(element, Void, Void)
@@ -78,7 +78,7 @@ feature {ANY}
          upper = 1 + old upper
       end
 
-   add_last (element: like item) is
+   add_last (element: like item)
       do
          if first_link = Void then
             first_link := new_node(element, Void, Void)
@@ -94,7 +94,7 @@ feature {ANY}
          next_generation
       end
 
-   add (element: like item; index: INTEGER) is
+   add (element: like item; index: INTEGER)
       local
          link: like first_link
       do
@@ -114,7 +114,7 @@ feature {ANY}
          next_generation
       end
 
-   remove_first is
+   remove_first
       do
          if upper = 1 then
             first_link := dispose_node(first_link)
@@ -139,7 +139,7 @@ feature {ANY}
          next_generation
       end
 
-   remove (index: INTEGER) is
+   remove (index: INTEGER)
       local
          link: like first_link
       do
@@ -160,17 +160,17 @@ feature {ANY}
          next_generation
       end
 
-   first: like item is
+   first: like item
       do
          Result := first_link.item
       end
 
-   last: like item is
+   last: like item
       do
          Result := last_link.item
       end
 
-   item (index: INTEGER): E_ is
+   item (index: INTEGER): E_
       do
          if index /= mem_idx then
             go_item(index)
@@ -178,7 +178,7 @@ feature {ANY}
          Result := mem_lnk.item
       end
 
-   put (element: like item; index: INTEGER) is
+   put (element: like item; index: INTEGER)
       do
          if index /= mem_idx then
             go_item(index)
@@ -187,12 +187,12 @@ feature {ANY}
          next_generation
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := upper
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
       do
          if first_link /= Void then
             first_link.set_all_with(v)
@@ -200,12 +200,12 @@ feature {ANY}
          next_generation
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          from_collection(other)
       end
 
-   fast_is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN
       local
          lnk1, lnk2: like first_link
       do
@@ -226,7 +226,7 @@ feature {ANY}
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          lnk1, lnk2: like first_link; safe_equal: SAFE_EQUAL[E_]
       do
@@ -247,7 +247,7 @@ feature {ANY}
          end
       end
 
-   index_of (x: like item; start_index: INTEGER): INTEGER is
+   index_of (x: like item; start_index: INTEGER): INTEGER
       local
          safe_equal: SAFE_EQUAL[E_]
       do
@@ -260,7 +260,7 @@ feature {ANY}
          end
       end
 
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       local
          safe_equal: SAFE_EQUAL[E_]; temporary_idx: like mem_idx; temporary_lnk: like mem_lnk
       do
@@ -283,7 +283,7 @@ feature {ANY}
          end
       end
 
-   fast_index_of (x: like item; start_index: INTEGER): INTEGER is
+   fast_index_of (x: like item; start_index: INTEGER): INTEGER
       local
          u: like upper
       do
@@ -297,7 +297,7 @@ feature {ANY}
          end
       end
 
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       local
          temporary_idx: like mem_idx; temporary_lnk: like mem_lnk
       do
@@ -320,7 +320,7 @@ feature {ANY}
          end
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       local
          lnk: like first_link
       do
@@ -343,7 +343,7 @@ feature {ANY}
          upper = 0
       end
 
-   from_collection (model: TRAVERSABLE[like item]) is
+   from_collection (model: TRAVERSABLE[like item])
       local
          i, up: INTEGER
       do
@@ -367,7 +367,7 @@ feature {ANY}
          next_generation
       end
 
-   slice (low, up: INTEGER): like Current is
+   slice (low, up: INTEGER): like Current
       local
          lnk: like first_link; i: INTEGER
       do
@@ -387,7 +387,7 @@ feature {ANY}
          end
       end
 
-   occurrences (element: like item): INTEGER is
+   occurrences (element: like item): INTEGER
       local
          lnk: like first_link; safe_equal: SAFE_EQUAL[E_]
       do
@@ -403,7 +403,7 @@ feature {ANY}
          end
       end
 
-   fast_occurrences (element: like item): INTEGER is
+   fast_occurrences (element: like item): INTEGER
       local
          lnk: like first_link
       do
@@ -419,7 +419,7 @@ feature {ANY}
          end
       end
 
-   force (element: E_; index: INTEGER) is
+   force (element: E_; index: INTEGER)
       local
          v: like element
       do
@@ -432,7 +432,7 @@ feature {ANY}
          put(element, index)
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
       local
          l: like first_link; d: like item
       do
@@ -450,7 +450,7 @@ feature {ANY}
          end
       end
 
-   remove_last is
+   remove_last
       local
          link: like last_link
       do
@@ -477,7 +477,7 @@ feature {ANY}
          next_generation
       end
 
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
       local
          i: INTEGER; safe_equal: SAFE_EQUAL[E_]
       do
@@ -493,7 +493,7 @@ feature {ANY}
          end
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
       local
          i: INTEGER
       do
@@ -509,7 +509,7 @@ feature {ANY}
          end
       end
 
-   reverse is
+   reverse
       local
          temp: E_; low: like first_link; high: like first_link; i: INTEGER
       do
@@ -533,13 +533,13 @@ feature {ANY}
          next_generation
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          create {ITERATOR_ON_TWO_WAY_LINKED_LIST[E_]} Result.make(Current)
       end
 
 feature {}
-   go_item (index: INTEGER) is
+   go_item (index: INTEGER)
       require
          valid_index(index)
          mem_idx /= index
@@ -593,12 +593,12 @@ feature {}
    free_nodes: WEAK_REFERENCE[TWO_WAY_LINKED_LIST_NODE[E_]]
          -- If any, they are ready to be recycled.
 
-   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_TWO_WAY_LINKED_LIST_NODE], STRING] is
+   common_free_nodes: DICTIONARY[WEAK_REFERENCE[ANY_TWO_WAY_LINKED_LIST_NODE], STRING]
       once
          create {HASHED_DICTIONARY[WEAK_REFERENCE[ANY_TWO_WAY_LINKED_LIST_NODE], STRING]} Result.make
       end
 
-   dispose_node (node: TWO_WAY_LINKED_LIST_NODE[E_]): TWO_WAY_LINKED_LIST_NODE[E_] is
+   dispose_node (node: TWO_WAY_LINKED_LIST_NODE[E_]): TWO_WAY_LINKED_LIST_NODE[E_]
          -- Add `node' in the `free_nodes' list.
       require
          node /= Void
@@ -612,7 +612,7 @@ feature {}
          Result = old node.next
       end
 
-   new_node (e: E_; previous, next: TWO_WAY_LINKED_LIST_NODE[E_]): TWO_WAY_LINKED_LIST_NODE[E_] is
+   new_node (e: E_; previous, next: TWO_WAY_LINKED_LIST_NODE[E_]): TWO_WAY_LINKED_LIST_NODE[E_]
          -- Recycle from `free_nodes' or create a new one.
       do
          Result := free_nodes.item
@@ -636,7 +636,7 @@ end -- class TWO_WAY_LINKED_LIST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

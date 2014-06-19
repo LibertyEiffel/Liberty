@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gobject_construct_param_struct_set_pspec (a_structure: POINTER; a_value: POINTER) is
+	gobject_construct_param_struct_set_pspec (a_structure: POINTER; a_value: POINTER)
 			-- Setter for pspec field of GOBJECT_CONSTRUCT_PARAM_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_construct_param_struct_set_value (a_structure: POINTER; a_value: POINTER) is
+	gobject_construct_param_struct_set_value (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value field of GOBJECT_CONSTRUCT_PARAM_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gobject_construct_param_struct_get_pspec (a_structure: POINTER): POINTER is
+	gobject_construct_param_struct_get_pspec (a_structure: POINTER): POINTER
 			-- Query for pspec field of GOBJECT_CONSTRUCT_PARAM_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_construct_param_struct_get_value (a_structure: POINTER): POINTER is
+	gobject_construct_param_struct_get_value (a_structure: POINTER): POINTER
 			-- Query for value field of GOBJECT_CONSTRUCT_PARAM_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

@@ -9,7 +9,7 @@ create {ANY}
 feature {}
    iterator: ITERATOR_ON_RANDOM_GENERATOR
 
-   make is
+   make
       do
          create iterator.make(10)
          io.put_string("First traversal :%N")
@@ -18,7 +18,7 @@ feature {}
          traverse
       end
 
-   traverse is
+   traverse
       do
          from
             iterator.start

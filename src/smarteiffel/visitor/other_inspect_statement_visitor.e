@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {OTHER_INSPECT_STATEMENT}
-   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
+   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT)
       require
          visited /= Void
       deferred

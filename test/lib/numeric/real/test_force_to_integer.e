@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          integer_16: INTEGER_16; integer_32: INTEGER_32; integer_64: INTEGER_64; real_32: REAL_32; real_64: REAL_64
       do

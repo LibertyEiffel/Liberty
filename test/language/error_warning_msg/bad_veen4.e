@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       require
          i -- No ... (*** but the message can be better :-()
       local

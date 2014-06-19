@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_JP2[INTEGER]
       do
@@ -17,7 +17,7 @@ feature {ANY}
          assert(aux.foo.generating_type.is_equal("AUX_JP2[INTEGER_32]"))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

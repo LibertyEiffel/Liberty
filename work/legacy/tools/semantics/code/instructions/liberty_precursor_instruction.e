@@ -24,7 +24,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_PRECURSOR_INSTRUCTION}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_PRECURSOR_INSTRUCTION_VISITOR
       do
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current
       do
          create Result.make(a_feature, a_actuals, a_position)
       end

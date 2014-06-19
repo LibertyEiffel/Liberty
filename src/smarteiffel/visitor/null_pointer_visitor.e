@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NULL_POINTER}
-   visit_null_pointer (visited: NULL_POINTER) is
+   visit_null_pointer (visited: NULL_POINTER)
       require
          visited /= Void
       deferred

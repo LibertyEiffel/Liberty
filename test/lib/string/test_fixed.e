@@ -10,14 +10,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          mem_usage: INTEGER
       do
          mem_usage := allocated_bytes
-         n.times(agent is
+         n.times(agent
             do
-               n.times(agent is
+               n.times(agent
                   do
                      create foo.from_external(foo_ptr)
                   end)
@@ -30,11 +30,11 @@ feature {}
          assert(foo.is_equal("my-const-string"))
       end
 
-   n: INTEGER_32 is 16
+   n: INTEGER_32 16
 
    foo: FIXED_STRING
 
-   foo_ptr: POINTER is
+   foo_ptr: POINTER
       external "C inline"
       alias "[
          "my-const-string"

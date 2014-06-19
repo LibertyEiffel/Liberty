@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_exp_atom_low_level)  or else
 				(a_value = xml_exp_count_low_level)  or else
@@ -19,69 +19,69 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_exp_atom is
+	set_xml_exp_atom
 		do
 			value := xml_exp_atom_low_level
 		end
 
-	set_xml_exp_count is
+	set_xml_exp_count
 		do
 			value := xml_exp_count_low_level
 		end
 
-	set_xml_exp_empty is
+	set_xml_exp_empty
 		do
 			value := xml_exp_empty_low_level
 		end
 
-	set_xml_exp_forbid is
+	set_xml_exp_forbid
 		do
 			value := xml_exp_forbid_low_level
 		end
 
-	set_xml_exp_or is
+	set_xml_exp_or
 		do
 			value := xml_exp_or_low_level
 		end
 
-	set_xml_exp_seq is
+	set_xml_exp_seq
 		do
 			value := xml_exp_seq_low_level
 		end
 
 feature -- Queries
-	is_xml_exp_atom: BOOLEAN is
+	is_xml_exp_atom: BOOLEAN
 		do
 			Result := (value=xml_exp_atom_low_level)
 		end
 
-	is_xml_exp_count: BOOLEAN is
+	is_xml_exp_count: BOOLEAN
 		do
 			Result := (value=xml_exp_count_low_level)
 		end
 
-	is_xml_exp_empty: BOOLEAN is
+	is_xml_exp_empty: BOOLEAN
 		do
 			Result := (value=xml_exp_empty_low_level)
 		end
 
-	is_xml_exp_forbid: BOOLEAN is
+	is_xml_exp_forbid: BOOLEAN
 		do
 			Result := (value=xml_exp_forbid_low_level)
 		end
 
-	is_xml_exp_or: BOOLEAN is
+	is_xml_exp_or: BOOLEAN
 		do
 			Result := (value=xml_exp_or_low_level)
 		end
 
-	is_xml_exp_seq: BOOLEAN is
+	is_xml_exp_seq: BOOLEAN
 		do
 			Result := (value=xml_exp_seq_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_exp_atom_low_level: INTEGER is
+	xml_exp_atom_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_exp_count_low_level: INTEGER is
+	xml_exp_count_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_exp_empty_low_level: INTEGER is
+	xml_exp_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_exp_forbid_low_level: INTEGER is
+	xml_exp_forbid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_exp_or_low_level: INTEGER is
+	xml_exp_or_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_exp_seq_low_level: INTEGER is
+	xml_exp_seq_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

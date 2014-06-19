@@ -4,7 +4,7 @@
 class AUX_REDEFINE3A
 
 feature {ANY}
-   display: CHARACTER is
+   display: CHARACTER
       local
          my_current: like Current
       do

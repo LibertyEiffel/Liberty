@@ -8,13 +8,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if dummy then end
       end
 
 feature {ANY}
-   dummy: BOOLEAN is
+   dummy: BOOLEAN
       do
          Result := False
       end

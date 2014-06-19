@@ -15,7 +15,7 @@
 deferred class LIBERTY_ETC_CONSTRAINT
 
 feature {ANY}
-   check_validity (a_cluster: LIBERTY_ETC_CLUSTER) is
+   check_validity (a_cluster: LIBERTY_ETC_CLUSTER)
       require
          a_cluster /= Void
       deferred

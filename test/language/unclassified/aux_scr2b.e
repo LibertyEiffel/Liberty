@@ -7,17 +7,17 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create clients.make(0, 2)
       end
 
 feature {AUX_SCR2A}
-   manage (d: AUX_SCR2A) is
+   manage (d: AUX_SCR2A)
       do
       end
 
-   is_managed (d: AUX_SCR2A): BOOLEAN is
+   is_managed (d: AUX_SCR2A): BOOLEAN
       do
          Result := d /= Void
       end

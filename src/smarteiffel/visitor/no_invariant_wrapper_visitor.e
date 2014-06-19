@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NO_INVARIANT_WRAPPER}
-   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER)
       require
          visited /= Void
       deferred

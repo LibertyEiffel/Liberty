@@ -11,18 +11,18 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          precomputable.set_item(1)
          assert(not_precomputable = 1)
       end
 
-   precomputable: REFERENCE[INTEGER] is
+   precomputable: REFERENCE[INTEGER]
       once
          create Result
       end
 
-   not_precomputable: INTEGER is
+   not_precomputable: INTEGER
       once
          Result := precomputable.item
       end

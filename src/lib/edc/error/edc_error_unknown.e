@@ -28,18 +28,18 @@ create {ANY}
    make
 
 feature {ANY}
-   code: STRING is "Unknown"
+   code: STRING "Unknown"
 
    reason: STRING
 
 feature {ANY}
-   handle (handler: EDC_ERROR_HANDLER): BOOLEAN is
+   handle (handler: EDC_ERROR_HANDLER): BOOLEAN
       do
          Result := handler.unknown(Current)
       end
 
 feature {}
-   make (a_reason: like reason) is
+   make (a_reason: like reason)
       require
          a_reason /= Void
       do

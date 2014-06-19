@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -18,7 +18,7 @@ feature {}
          end
       end
 
-   foo is
+   foo
       do
       end
 

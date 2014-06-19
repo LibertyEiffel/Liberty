@@ -9,9 +9,9 @@ inherit
       end
 
 feature {ANY}
-   is_dog: BOOLEAN is True
+   is_dog: BOOLEAN True
 
-   cry is
+   cry
       do
          std_output.put_string("OUARF")
       end

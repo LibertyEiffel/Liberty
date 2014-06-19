@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER
       do
@@ -32,7 +32,7 @@ feature {ANY}
 
    n_memory: INTEGER
 
-   n: INTEGER is
+   n: INTEGER
       do
          Result := n_memory
          n_memory := n_memory + 1
@@ -40,14 +40,14 @@ feature {ANY}
 
    func: FUNCTION[TUPLE, INTEGER]
 
-   func_run (i: INTEGER): INTEGER is
+   func_run (i: INTEGER): INTEGER
       do
          Result := i
       end
 
    proc: PROCEDURE[TUPLE]
 
-   proc_run (i: INTEGER) is
+   proc_run (i: INTEGER)
       do
          n_memory := i
       end

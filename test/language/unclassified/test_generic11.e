@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          p: AUX_GENERIC11[ARRAY[STRING]]
       do

@@ -14,7 +14,7 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other /= Current and then aa_is_equal(other)
       end

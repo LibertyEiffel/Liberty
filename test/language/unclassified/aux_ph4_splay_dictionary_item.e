@@ -13,7 +13,7 @@ feature {ANY}
 
    parent, left, right: like Current
 
-   make (i: E; ind: I; p, l, r: like Current) is
+   make (i: E; ind: I; p, l, r: like Current)
       do
          index := ind
          item := i
@@ -22,17 +22,17 @@ feature {ANY}
          right := r
       end
 
-   set_parent (p: like parent) is
+   set_parent (p: like parent)
       do
          parent := p
       end
 
-   set_left (l: like left) is
+   set_left (l: like left)
       do
          left := l
       end
 
-   set_right (r: like right) is
+   set_right (r: like right)
       do
          right := r
       end

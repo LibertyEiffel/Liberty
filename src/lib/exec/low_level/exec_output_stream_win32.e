@@ -18,19 +18,19 @@ create {PROCESS}
 feature {ANY}
    is_connected: BOOLEAN
 
-   can_put_character (c: CHARACTER): BOOLEAN is
+   can_put_character (c: CHARACTER): BOOLEAN
       do
          Result := not process.is_finished
       end
 
-   disconnect is
+   disconnect
       do
          is_connected := False
          basic_exec_close(handle)
       end
 
 feature {FILTER}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          basic_exec_put_character(handle, c)
          if c = '%N' then
@@ -38,29 +38,29 @@ feature {FILTER}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          basic_exec_flush(handle)
       end
 
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          std_error.put_string("EXEC_OUTPUT_STREAM_WIN32.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("EXEC_OUTPUT_STREAM_WIN32.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {PROCESS}
-   make (a_process: like process) is
+   make (a_process: like process)
       require
          a_process /= Void
          process /= Void implies process = a_process
@@ -78,7 +78,7 @@ feature {PROCESS}
 feature {}
    handle: POINTER
 
-   basic_exec_get_out_handle (a_pipe: POINTER): POINTER is
+   basic_exec_get_out_handle (a_pipe: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -87,7 +87,7 @@ feature {}
          }"
       end
 
-   basic_exec_put_character (handle_: POINTER; c: CHARACTER) is
+   basic_exec_put_character (handle_: POINTER; c: CHARACTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -96,7 +96,7 @@ feature {}
          }"
       end
 
-   basic_exec_flush (handle_: POINTER) is
+   basic_exec_flush (handle_: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -105,7 +105,7 @@ feature {}
          }"
       end
 
-   basic_exec_close (handle_: POINTER) is
+   basic_exec_close (handle_: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -122,7 +122,7 @@ end -- class EXEC_OUTPUT_STREAM_WIN32
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

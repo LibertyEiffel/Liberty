@@ -8,11 +8,11 @@ create {}
    make
 
 feature {ANY}
-   f1 (max_depth: INTEGER) is
+   f1 (max_depth: INTEGER)
       do
       end
 
-   make is
+   make
       local
          list: FAST_ARRAY[like Current]
       do

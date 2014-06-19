@@ -4,7 +4,7 @@ inherit
    EDC_CRITERION
 
 feature {}
-   make (one, two: EDC_CRITERION) is
+   make (one, two: EDC_CRITERION)
       require
          one /= Void
          two /= Void

@@ -6,7 +6,7 @@ class AUX_PRECURSOR02
 feature {ANY}
    value: INTEGER
 
-   foo is
+   foo
       do
          value := value + 1
       end

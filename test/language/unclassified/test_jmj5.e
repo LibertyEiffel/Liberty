@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux_jmj5: AUX_JMJ5
       do

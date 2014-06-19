@@ -13,28 +13,28 @@ feature {RUNNER_FACET}
    arguments: FAST_ARRAY[RUNNER_OBJECT]
    target: RUNNER_OBJECT
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := agent_launcher.target.start_position
       end
 
-   code: CODE is
+   code: CODE
       do
          Result := agent_object.code
       end
 
-   result_type: TYPE is
+   result_type: TYPE
       do
          Result := agent_launcher.agent_args.agent_result
       end
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       do
          Result := agent_object.feature_stamp
       end
 
 feature {}
-   make (a_processor: like processor; a_agent_launcher: like agent_launcher) is
+   make (a_processor: like processor; a_agent_launcher: like agent_launcher)
       require
          a_agent_launcher /= Void
       do
@@ -53,7 +53,7 @@ feature {}
    agent_object: RUNNER_AGENT_OBJECT
 
 feature {}
-   agent_operand (rank: INTEGER): RUNNER_OBJECT is
+   agent_operand (rank: INTEGER): RUNNER_OBJECT
       local
          arg: RUNNER_OBJECT
          open: RUNNER_OPEN_OPERAND
@@ -68,7 +68,7 @@ feature {}
          end
       end
 
-   put_agent_argument (rank: INTEGER) is
+   put_agent_argument (rank: INTEGER)
       require
          rank.in_range(1, agent_object.upper)
       do

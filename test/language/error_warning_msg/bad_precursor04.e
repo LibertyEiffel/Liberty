@@ -12,13 +12,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          routine(4);
       end;
 
 feature {ANY}
-   routine(i: INTEGER) is
+   routine(i: INTEGER)
       do
          Precursor('A');
       end;

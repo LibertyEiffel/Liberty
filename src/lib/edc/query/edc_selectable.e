@@ -27,7 +27,7 @@ inherit
 feature {ANY}
    where_clause: EDC_EXPRESSION
 
-   open_count: INTEGER is
+   open_count: INTEGER
          -- The number of open arguments
       do
          if where_clause /= Void then
@@ -36,14 +36,14 @@ feature {ANY}
       end
 
 feature {EDC_EXPRESSION}
-   clear_prepare is
+   clear_prepare
       do
          if where_clause /= Void then
             where_clause.clear_prepare
          end
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
          -- If the query has open arguments, fill them with the supplied values
       require
          arguments /= Void implies arguments.count >= open_count
@@ -59,22 +59,22 @@ feature {EDC_EXPRESSION}
       end
 
 feature {ANY} -- Columns:
-   count: INTEGER is
+   count: INTEGER
       do
          Result := columns.count
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := columns.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := columns.upper
       end
 
-   item (i: INTEGER): EDC_COLUMN is
+   item (i: INTEGER): EDC_COLUMN
       require
          i.in_range(lower, upper)
       do
@@ -82,7 +82,7 @@ feature {ANY} -- Columns:
       end
 
 feature {ANY}
-   where (a_where_clause: like where_clause): like Current is
+   where (a_where_clause: like where_clause): like Current
       require
          a_where_clause /= Void
          where_clause = Void
@@ -95,7 +95,7 @@ feature {ANY}
       end
 
 feature {EDC_EXPRESSION}
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       do
          if where_clause = Void then
             Result := position
@@ -105,7 +105,7 @@ feature {EDC_EXPRESSION}
       end
 
 feature {}
-   make (a_connection: like connection; a_columns: TRAVERSABLE[EDC_COLUMN]) is
+   make (a_connection: like connection; a_columns: TRAVERSABLE[EDC_COLUMN])
       require
          a_columns.count > 0
       local
@@ -129,7 +129,7 @@ feature {EDC_CONNECTION, EDC_INTERNALS_HANDLER}
    columns: FAST_ARRAY[EDC_COLUMN]
 
 feature {EDC_EXPRESSION}
-   can_call: BOOLEAN is
+   can_call: BOOLEAN
          -- Check that all open arguments are filled with values
       do
          Result := where_clause = Void or else where_clause.can_call

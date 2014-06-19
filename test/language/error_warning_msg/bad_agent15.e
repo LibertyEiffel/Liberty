@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_procedure: PROCEDURE[TUPLE]
       do

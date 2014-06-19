@@ -7,13 +7,13 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   make is
+   make
       do
          reset
          assert(reset_count = 2)
       end
 
-   reset is
+   reset
       do
          reset_count := reset_count + 1
       end

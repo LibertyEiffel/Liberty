@@ -7,12 +7,12 @@ create {FOREIGN_DLL_LOADER}
    make
 
 feature {ANY}
-   filename: FIXED_STRING is
+   filename: FIXED_STRING
       do
          Result ::= dso.name
       end
 
-   function (name: ABSTRACT_STRING; a_parameter_types: TRAVERSABLE[FOREIGN_TYPE]; a_result_type: FOREIGN_TYPE): FOREIGN_AGENT is
+   function (name: ABSTRACT_STRING; a_parameter_types: TRAVERSABLE[FOREIGN_TYPE]; a_result_type: FOREIGN_TYPE): FOREIGN_AGENT
       require
          name /= Void
       local
@@ -36,7 +36,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_dso: like dso) is
+   make (a_dso: like dso)
       require
          a_dso /= Void
       do
@@ -62,7 +62,7 @@ end -- class FOREIGN_DLL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

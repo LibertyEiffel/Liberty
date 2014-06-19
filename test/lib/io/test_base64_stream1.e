@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          in64: BASE64_INPUT_STREAM; out64: BASE64_OUTPUT_STREAM; ins: STRING_INPUT_STREAM; outs: STRING_OUTPUT_STREAM
          str: STRING
@@ -27,7 +27,7 @@ feature {ANY}
          ins.disconnect
       end
 
-   msg: STRING is "Jell-o world"
+   msg: STRING "Jell-o world"
 
 end -- class TEST_BASE64_STREAM1
 --

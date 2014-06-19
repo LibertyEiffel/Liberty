@@ -6,7 +6,7 @@ class AUX_JMJ2A[T]
 feature {ANY}
    container: COLLECTION[T]
 
-   set (new: like container) is
+   set (new: like container)
       do
          container := new
       end

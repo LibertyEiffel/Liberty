@@ -60,14 +60,14 @@ feature {ANY}
    context_features: HASHED_DICTIONARY[ANONYMOUS_FEATURE, TYPE]
          -- The containing feature for each type
 
-   is_current, is_implicit_current: BOOLEAN is False
+   is_current, is_implicit_current: BOOLEAN False
 
    inline_feature: FEATURE_TEXT
          -- non-Void if the agent is an inline agent (useful for pretty, also for closure parts)
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := resolve_in(start_position.class_text.declaration_type_of_like_current)
       end
@@ -77,7 +77,7 @@ feature {ANY}
 
    has_omitted_open_arguments: BOOLEAN
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          function_call: FUNCTION_CALL
       do
@@ -93,7 +93,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; o1, o2: OPEN_OPERAND; l: like open_operand_list
          c: like code
@@ -137,7 +137,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          if {FUNCTION_CALL} ?:= code then
             Result := specialize_and_check_function(type)
@@ -146,12 +146,12 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := code.has_been_specialized
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       local
          function_call: FUNCTION_CALL
          open_type_list: ARRAY[TYPE_MARK]; af: ANONYMOUS_FEATURE; target_type: TYPE
@@ -199,7 +199,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -211,7 +211,7 @@ feature {ANY}
          agent_pool.agent_creation_collect(type, Current, Result)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          c: like code
       do
@@ -235,12 +235,12 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          c: like code
       do
@@ -263,39 +263,39 @@ feature {ANY}
          end
       end
 
-   accept (visitor: AGENT_CREATION_VISITOR) is
+   accept (visitor: AGENT_CREATION_VISITOR)
       do
          visitor.visit_agent_creation(Current)
       end
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := False -- Because of memory allocation.
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          code.safety_check(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if code /= Void then
             Result := code.use_current(type)
          end
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          pretty_printer.keyword(once "agent")
          if inline_feature /= Void then
@@ -308,7 +308,7 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -316,26 +316,26 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.hook_or(as_agent, as_agent)
          short_printer.put_character(' ')
          code.to_expression.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
 feature {}
-   specialize_and_check_function (type: TYPE): like Current is
+   specialize_and_check_function (type: TYPE): like Current
       require
          {FUNCTION_CALL} ?:= code
       local
@@ -438,7 +438,7 @@ feature {}
          Result.set_feature_stamp(fs)
       end
 
-   specialize_and_check_procedure (type: TYPE): like Current is
+   specialize_and_check_procedure (type: TYPE): like Current
       require
          {PROCEDURE_CALL} ?:= code
       local
@@ -503,7 +503,7 @@ feature {}
       end
 
 feature {ANY}
-   mold_id_in (type: TYPE; buffer: STRING) is
+   mold_id_in (type: TYPE; buffer: STRING)
          -- Identify the corresponding AGENT_CREATION function.
       do
          buffer.append(once "agenT")
@@ -516,13 +516,13 @@ feature {ANY}
          start_position.column.append_in(buffer)
       end
 
-   same_mold_id_as (other: like Current): BOOLEAN is
+   same_mold_id_as (other: like Current): BOOLEAN
       do
          Result := start_position = other.start_position
       end
 
 feature {AGENT_CREATION}
-   set_code (c: like code) is
+   set_code (c: like code)
       require
          c /= Void
       do
@@ -531,7 +531,7 @@ feature {AGENT_CREATION}
          code = c
       end
 
-   set_feature_stamp (fs: like feature_stamp) is
+   set_feature_stamp (fs: like feature_stamp)
       require
          fs /= Void
       do
@@ -540,7 +540,7 @@ feature {AGENT_CREATION}
          feature_stamp = fs
       end
 
-   set_open_operand_list (l: like open_operand_list) is
+   set_open_operand_list (l: like open_operand_list)
       require
          l.count = open_operand_list.count
       do
@@ -548,7 +548,7 @@ feature {AGENT_CREATION}
       end
 
 feature {}
-   make (sp: like start_position; function_call: like original_function_call; a_inline_feature: like inline_feature) is
+   make (sp: like start_position; function_call: like original_function_call; a_inline_feature: like inline_feature)
       require
          not sp.is_unknown
          function_call /= Void
@@ -612,7 +612,7 @@ feature {}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          c: like code; ac: like Current; i: INTEGER
       do
@@ -646,7 +646,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   warn_omitted_open_arguments is
+   warn_omitted_open_arguments
       require
          has_omitted_open_arguments
       local
@@ -666,7 +666,7 @@ feature {}
       end
 
 feature {AGENT_CREATION}
-   omitted_open_arguments_update (omitted_arguments: EFFECTIVE_ARG_LIST) is
+   omitted_open_arguments_update (omitted_arguments: EFFECTIVE_ARG_LIST)
       require
          omitted_arguments.count >= 1
       local
@@ -690,7 +690,7 @@ feature {AGENT_CREATION}
       end
 
 feature {ANY}
-   stored_closed_operand (type: TYPE; closed_operand: CLOSED_OPERAND): BOOLEAN is
+   stored_closed_operand (type: TYPE; closed_operand: CLOSED_OPERAND): BOOLEAN
          -- Is the `closed_operand' stored inside the agent memory.
       require
          closed_operand /= Void
@@ -706,7 +706,7 @@ feature {ANY}
          end
       end
 
-   is_equal_used_in (agent_type: TYPE): BOOLEAN is
+   is_equal_used_in (agent_type: TYPE): BOOLEAN
          -- Because it is quite uncommon to use `is_equal' between two agents, this feature make it
          -- easy to skip the corresponding runtime support.
       require
@@ -716,7 +716,7 @@ feature {ANY}
       end
 
 feature {C_LIVE_TYPE_COMPILER}
-   set_inside_agent_launcher_flag (flag_value: BOOLEAN) is
+   set_inside_agent_launcher_flag (flag_value: BOOLEAN)
       local
          i: INTEGER
       do

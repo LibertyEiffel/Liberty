@@ -12,7 +12,7 @@ feature {ANY}
    port: INTEGER
 
 feature {IPV4_ADDRESS}
-   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET is
+   new_ipv4_socket (a, b, c, d: INTEGER): SOCKET
       deferred
       ensure
          Result /= Void
@@ -26,7 +26,7 @@ end -- class IPV4_ACCESS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -10,9 +10,9 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   frozen is_generic: BOOLEAN is False
+   frozen is_generic: BOOLEAN False
 
-   frozen generic_list: ARRAY[TYPE_MARK] is
+   frozen generic_list: ARRAY[TYPE_MARK]
       do
          check
             False -- Because of the inherited require.

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n: AUX_JW01NAMED_THING; h: AUX_JW01HOLDER[AUX_JW01NAMED_THING]; bool: BOOLEAN
       do

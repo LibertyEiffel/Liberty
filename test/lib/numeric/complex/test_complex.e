@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          set_precision(5);
 
@@ -37,7 +37,7 @@ feature {ANY}
 
    rnd: PRESS_RANDOM_NUMBER_GENERATOR
 
-   test_random is
+   test_random
       do
          a := random_complex(rnd)
          b := random_complex(rnd)
@@ -48,7 +48,7 @@ feature {ANY}
          test_plus_and_times
       end
 
-   test_plus is
+   test_plus
       local
          tmp1, tmp2: COMPLEX_64
       do
@@ -60,7 +60,7 @@ feature {ANY}
          label_assert ("tmp1=tmp2",tmp1 ~= tmp2)
       end
 
-   test_times is
+   test_times
       do
          label_assert ("a*1=a",a*one = a)
          label_assert ("a*1~=a",(a*one) ~= a)
@@ -68,14 +68,14 @@ feature {ANY}
          label_assert ("a*b*c ~ a*(b*c)", (a*b*c) ~= (a*(b*c)))
       end
 
-   test_plus_and_times is
+   test_plus_and_times
       do
          label_assert ("(a+b)*c = a*c + b*c", ((a+b)*c) ~= (a*c + b*c))
       end
 
    a,b,c,d: COMPLEX_64
 
-   random_complex (a_gen: RANDOM_NUMBER_GENERATOR): COMPLEX_64 is
+   random_complex (a_gen: RANDOM_NUMBER_GENERATOR): COMPLEX_64
       local
          re,im: REAL_64
       do

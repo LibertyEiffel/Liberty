@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: AUX_COPY1;
       do

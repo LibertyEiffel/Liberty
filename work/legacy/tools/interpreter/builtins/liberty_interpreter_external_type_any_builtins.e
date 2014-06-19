@@ -21,7 +21,7 @@ create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT
       do
          last_call_failed := False
          builtin_call.evaluate_parameters
@@ -78,7 +78,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
       end
 
 feature {}
-   do_die_with_code (status: LIBERTY_INTERPRETER_OBJECT) is
+   do_die_with_code (status: LIBERTY_INTERPRETER_OBJECT)
       local
          sts: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do

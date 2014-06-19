@@ -16,13 +16,13 @@ create {ANY}
    make
 
 feature {ANY}
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := result_type.resolve_in(type)
          live_reference_counter_increment
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          --|*** (PH 25/08/04) should be identical with
          --|*** ARGUMENT_NAME_DEF.adapt_for, so put it in LOCAL_ARGUMENT_DEF.
@@ -30,13 +30,13 @@ feature {ANY}
          Result := Current
       end
 
-   accept (visitor: LOCAL_NAME_DEF_VISITOR) is
+   accept (visitor: LOCAL_NAME_DEF_VISITOR)
       do
          visitor.visit_local_name_def(Current)
       end
 
 feature {ANY}
-   is_used (type: TYPE): BOOLEAN is
+   is_used (type: TYPE): BOOLEAN
       local
          actual_type: TYPE
       do
@@ -51,24 +51,24 @@ feature {ANY}
       end
 
 feature {DECLARATION_LIST}
-   name_clash_check (type: TYPE) is
+   name_clash_check (type: TYPE)
       do
          name_clash_check_(type, once "Conflict between local/feature name (VRLE).")
       end
 
 feature {LOCAL_NAME_REF}
-   parsing_reference_counter_increment is
+   parsing_reference_counter_increment
       do
          parsing_reference_counter := parsing_reference_counter + 1
       end
 
-   live_reference_counter_increment is
+   live_reference_counter_increment
       do
          live_reference_counter := live_reference_counter + 1
       end
 
 feature {LOCAL_NAME_DEF}
-   usage_warning_check (type: TYPE) is
+   usage_warning_check (type: TYPE)
       do
          if parsing_reference_counter = 0 then
             if is_used(type) then
@@ -88,7 +88,7 @@ feature {}
    live_reference_counter: INTEGER
          -- How many actual usage encountered in the living code?
 
-   make (sp: POSITION; n: STRING) is
+   make (sp: POSITION; n: STRING)
       require
          not sp.is_unknown
          not n.is_empty

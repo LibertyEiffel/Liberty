@@ -7,7 +7,7 @@ insert
    RUNNER_FACET
 
 feature {RUNNER_FEATURES}
-   execute is
+   execute
       local
          empty_watermark: RUNNER_FRAME_WATERMARK
       do
@@ -19,12 +19,12 @@ feature {RUNNER_FEATURES}
    finished: BOOLEAN
    state: STRING
 
-   start_position: POSITION is
+   start_position: POSITION
       deferred
       end
 
 feature {RUNNER_FACET}
-   debug_stack is
+   debug_stack
       do
          debug ("run.callstack")
             std_output.put_line(once "%N~~8<~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~8<~~")
@@ -34,7 +34,7 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FRAME}
-   show_callstack is
+   show_callstack
       do
          if caller /= Void then
             caller.show_callstack
@@ -50,33 +50,33 @@ feature {RUNNER_FACET}
 
    depth: INTEGER
 
-   name: FEATURE_NAME is
+   name: FEATURE_NAME
       deferred
       end
 
-   arguments: TRAVERSABLE[RUNNER_OBJECT] is
+   arguments: TRAVERSABLE[RUNNER_OBJECT]
       deferred
       end
 
    return: RUNNER_OBJECT
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       deferred
       end
 
-   formal_arguments: FORMAL_ARG_LIST is
+   formal_arguments: FORMAL_ARG_LIST
       deferred
       end
 
-   type_of_current: TYPE is
+   type_of_current: TYPE
       deferred
       end
 
-   type_of_result: TYPE is
+   type_of_result: TYPE
       deferred
       end
 
-   print_stack (stream: OUTPUT_STREAM) is
+   print_stack (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       do
@@ -87,7 +87,7 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FACET}
-   position: POSITION is
+   position: POSITION
       do
          if current_instruction = Void then
             Result := start_position
@@ -96,12 +96,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   watermark: RUNNER_FRAME_WATERMARK is
+   watermark: RUNNER_FRAME_WATERMARK
       do
          Result.set(instructions_list.count)
       end
 
-   execute_until (a_watermark: like watermark) is
+   execute_until (a_watermark: like watermark)
       local
          old_instruction: like current_instruction
       do
@@ -129,7 +129,7 @@ feature {RUNNER_FACET}
          retry
       end
 
-   set_retry is
+   set_retry
       do
          processor.clear_exception
          finished := False
@@ -137,7 +137,7 @@ feature {RUNNER_FACET}
       end
 
 feature {RUNNER_FEATURES} -- Contract checking
-   set_state (a_state: like state) is
+   set_state (a_state: like state)
       do
          if a_state = Void then
             state := once "done"
@@ -151,14 +151,14 @@ feature {RUNNER_FEATURES} -- Contract checking
       end
 
 feature {RUNNER_FACET}
-   force_eval_arguments is
+   force_eval_arguments
       local
          arg: like arguments
       do
          arg := arguments
       end
 
-   set_return (a_return: like return) is
+   set_return (a_return: like return)
       require
          type_of_result /= Void
          a_return /= Void implies a_return.type.can_be_assigned_to(type_of_result)
@@ -172,7 +172,7 @@ feature {RUNNER_FACET}
          return = a_return or else (type_of_result.is_expanded and then return.is_equal(a_return))
       end
 
-   set_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT) is
+   set_local_object (a_name: ABSTRACT_STRING; a_value: RUNNER_OBJECT)
       require
          has_local(a_name)
       do
@@ -184,7 +184,7 @@ feature {RUNNER_FACET}
          local_object(a_name) = a_value
       end
 
-   local_object (a_name: ABSTRACT_STRING): RUNNER_OBJECT is
+   local_object (a_name: ABSTRACT_STRING): RUNNER_OBJECT
       require
          has_local(a_name)
       do
@@ -194,12 +194,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   has_local (a_name: ABSTRACT_STRING): BOOLEAN is
+   has_local (a_name: ABSTRACT_STRING): BOOLEAN
       do
          Result := locals /= Void and then locals.fast_has(a_name.intern)
       end
 
-   set_internal_local_object (a_internal: INTERNAL_LOCAL2; a_value: RUNNER_OBJECT) is
+   set_internal_local_object (a_internal: INTERNAL_LOCAL2; a_value: RUNNER_OBJECT)
       do
          if internal_locals = Void then
             create internal_locals.make
@@ -212,7 +212,7 @@ feature {RUNNER_FACET}
          internal_local_object(a_internal) = a_value
       end
 
-   internal_local_object (a_internal: INTERNAL_LOCAL2): RUNNER_OBJECT is
+   internal_local_object (a_internal: INTERNAL_LOCAL2): RUNNER_OBJECT
       do
          if internal_locals /= Void then
             Result := expand(internal_locals.fast_reference_at(a_internal.hash_tag))
@@ -222,20 +222,20 @@ feature {RUNNER_FACET}
          end
       end
 
-   has_internal_local (a_internal: INTERNAL_LOCAL2): BOOLEAN is
+   has_internal_local (a_internal: INTERNAL_LOCAL2): BOOLEAN
       do
          Result := internal_locals /= Void and then internal_locals.fast_has(a_internal.hash_tag)
       end
 
 feature {RUNNER_FACET}
-   add_instruction (a_instruction: INSTRUCTION) is
+   add_instruction (a_instruction: INSTRUCTION)
       require
          a_instruction /= Void
       do
          instructions_list.add_last(a_instruction)
       end
 
-   add_instructions (a_instructions: TRAVERSABLE[INSTRUCTION]) is
+   add_instructions (a_instructions: TRAVERSABLE[INSTRUCTION])
       require
          a_instructions /= Void
          a_instructions.for_all(instruction_is_not_void)
@@ -254,14 +254,14 @@ feature {RUNNER_FACET}
          all_added: instructions_list.count = old instructions_list.count + a_instructions.count
          added_last_in_reverse_order: (create {ZIP[INSTRUCTION, INTEGER]}.make(a_instructions,
                                                                                1 |..| a_instructions.count)
-                                       ).for_all(agent (inst: INSTRUCTION; i: INTEGER): BOOLEAN is
+                                       ).for_all(agent (inst: INSTRUCTION; i: INTEGER): BOOLEAN
                                                  do
                                                     Result := inst = instructions_list.item(instructions_list.upper - i + 1)
                                                  end)
       end
 
 feature {RUNNER_FACET}
-   old_value (id: INTEGER): RUNNER_OBJECT is
+   old_value (id: INTEGER): RUNNER_OBJECT
       do
          if old_values /= Void then
             Result := old_values.fast_reference_at(id)
@@ -271,7 +271,7 @@ feature {RUNNER_FACET}
          end
       end
 
-   set_old_value (id: INTEGER; a_value: RUNNER_OBJECT) is
+   set_old_value (id: INTEGER; a_value: RUNNER_OBJECT)
       do
          debug ("run.data")
             std_output.put_line(once "**** set old: #(1) := #(2)" # id.out # repr(a_value))
@@ -285,7 +285,7 @@ feature {RUNNER_FACET}
 feature {}
    current_instruction: INSTRUCTION
 
-   show_frame is
+   show_frame
       local
          frame_name: STRING
       do
@@ -293,7 +293,7 @@ feature {}
          frame_name.clear_count
          name.complete_name_in(frame_name)
          std_output.put_line(once "(#(1)) {#(2)}.#(3) -- #(4)" # depth.out # target.type.name.to_string # frame_name # state)
-         instructions_list.for_each(agent (i: INSTRUCTION) is
+         instructions_list.for_each(agent (i: INSTRUCTION)
                                   do
                                      std_output.put_string(once "     - ")
                                      i.accept(displayer)
@@ -306,7 +306,7 @@ feature {}
          end
       end
 
-   print_frame (stream: OUTPUT_STREAM) is
+   print_frame (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       local
@@ -328,7 +328,7 @@ feature {}
       end
 
 feature {}
-   make (a_processor: like processor; a_caller: like caller; a_target: like target) is
+   make (a_processor: like processor; a_caller: like caller; a_target: like target)
       require
          a_processor /= Void
          a_target /= Void
@@ -351,11 +351,11 @@ feature {}
          target = a_target
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       deferred
       end
 
-   initialize_locals is
+   initialize_locals
       local
          lv: like local_vars; local_name: LOCAL_NAME_DEF; local_type: TYPE; i: INTEGER
       do
@@ -386,14 +386,14 @@ feature {}
 
    instructions_list: RING_ARRAY[INSTRUCTION]
 
-   instruction_is_not_void: PREDICATE[TUPLE[INSTRUCTION]] is
+   instruction_is_not_void: PREDICATE[TUPLE[INSTRUCTION]]
       once
-         Result := agent (inst: INSTRUCTION): BOOLEAN is do Result := inst /= Void end
+         Result := agent (inst: INSTRUCTION): BOOLEAN do Result := inst /= Void end
       ensure
          Result /= Void
       end
 
-   raised_exception is
+   raised_exception
       do
          if exceptions.is_signal then
             processor.set_exception(exceptions.Os_signal, once "Internal error: OS signal #" + exceptions.signal_number.out)

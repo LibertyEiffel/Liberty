@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, upper: INTEGER; an_array: FAST_ARRAY[ANY]; an_any: FAST_ARRAY[ANY]
       do

@@ -35,7 +35,7 @@ inherit
    WRAPPER_HANDLER
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   wrapper (a_pointer: POINTER): ITEM_ is
+   wrapper (a_pointer: POINTER): ITEM_
          -- The wrapper for `a_pointer'. It could be newly created or
          -- retrieved from a cache, a dictionary, from the underlying
          -- object, depending on the implementation.
@@ -49,8 +49,8 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
          correct: Result.handle = a_pointer
       end
 
-   wrapper_or_void (a_pointer: POINTER): ITEM_ is
-         -- A wrapper for `a_pointer' or Void if `a_pointer' is
+   wrapper_or_void (a_pointer: POINTER): ITEM_
+         -- A wrapper for `a_pointer' or Void if `a_pointer'
          -- default_pointer (NULL in C). A commodity feature to
          -- replace the following code snippet:
          -- my_gobject: A_WRAPPER
@@ -62,7 +62,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
          --   end
          -- end
          -- with
-         -- my_gobject: A_G_OBJECT_HEIR is
+         -- my_gobject: A_G_OBJECT_HEIR
          --   do
          --     Result := factory.wrapper_or_void(get_foo(handle))
          --   end

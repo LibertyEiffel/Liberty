@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]; my_list: LINKED_LIST[STRING]; my_set: HASHED_SET[STRING]
       do
@@ -28,7 +28,7 @@ feature {}
 
    counter: INTEGER
 
-   print_item (item: STRING) is
+   print_item (item: STRING)
       do
          counter := counter + 1
          inspect

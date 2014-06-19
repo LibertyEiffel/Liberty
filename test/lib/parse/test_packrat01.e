@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          grammar: PACKRAT_GRAMMAR
          parser: PACKRAT_PARSER

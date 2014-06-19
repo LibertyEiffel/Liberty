@@ -9,7 +9,7 @@ create
    main
 
 feature {}
-   main is
+   main
       do
       end
    

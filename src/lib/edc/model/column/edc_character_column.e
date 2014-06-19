@@ -31,7 +31,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_CHARACTER_COLUMN_VISITOR
       do
@@ -39,7 +39,7 @@ feature {ANY}
          v.visit_character_column(Current)
       end
 
-   as_value: EDC_CHARACTER_COLUMN_VALUE is
+   as_value: EDC_CHARACTER_COLUMN_VALUE
       do
          create Result.make(Current)
       end

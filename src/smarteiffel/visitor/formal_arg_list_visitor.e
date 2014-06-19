@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {FORMAL_ARG_LIST}
-   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST)
       require
          visited /= Void
       deferred

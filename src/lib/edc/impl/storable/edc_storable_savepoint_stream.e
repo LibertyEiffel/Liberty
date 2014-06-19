@@ -30,83 +30,83 @@ create {EDC_STORABLE_SAVEPOINT}
    make
 
 feature {ANY}
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   can_disconnect: BOOLEAN is False
+   can_disconnect: BOOLEAN False
 
-   disconnect is
+   disconnect
       do
          crash
       end
 
 feature {EDC_STORABLE_SAVEPOINT}
-   reset is
+   reset
       do
          index := 0
       end
 
-   clear is
+   clear
       do
          buffer.clear_count
          reset
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := index > buffer.upper
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := index > buffer.lower
       end
 
 feature {FILTER_INPUT_STREAM} -- input features:
-   filtered_read_character is
+   filtered_read_character
       do
          index := index + 1
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          index := index - 1
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := buffer.item(index)
       end
 
 feature {FILTER_OUTPUT_STREAM} -- output features:
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          buffer.force(c, index)
          index := index + 1
       end
 
-   filtered_flush is
+   filtered_flush
       do
          -- nothing
       end
 
 feature {FILTER} -- meaningless features:
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
-   make is
+   make
       do
          create buffer.with_capacity(4096)
          index := 0

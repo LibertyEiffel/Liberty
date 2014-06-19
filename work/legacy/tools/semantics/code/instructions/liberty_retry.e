@@ -25,13 +25,13 @@ create {LIBERTY_FEATURE_LOCAL_CONTEXT}
 feature {ANY}
    the_feature: LIBERTY_FEATURE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-   set_feature (a_feature: like the_feature) is
+   set_feature (a_feature: like the_feature)
       require
          a_feature /= Void
       do
@@ -41,7 +41,7 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          check
             the_feature /= Void implies the_feature.is_reachable
@@ -49,7 +49,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_position: like position) is
+   make (a_position: like position)
       require
          a_position /= Void
       do
@@ -59,7 +59,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_RETRY_VISITOR
       do

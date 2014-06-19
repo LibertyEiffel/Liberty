@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    x, y: REAL
 
-   make (vx, vy: REAL) is
+   make (vx, vy: REAL)
       do
          x := vx
          y := vy

@@ -24,7 +24,7 @@ feature {EFFECTIVE_ARG_LIST, EFFECTIVE_ARG_LIST_N_VISITOR}
          -- Corresponding list of actual arguments.
 
 feature {ANY}
-   expression (i: INTEGER): EXPRESSION is
+   expression (i: INTEGER): EXPRESSION
       do
          if i = 1 then
             Result := first_one
@@ -36,7 +36,7 @@ feature {ANY}
    start_position: POSITION
    end_position: POSITION
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          i: INTEGER; fo: like first_one; rem: like remainder; exp1, exp2: EXPRESSION
       do
@@ -86,7 +86,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; fo: like first_one; rem: like remainder; exp1, exp2: EXPRESSION
       do
@@ -135,7 +135,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST_N is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST_N
          --|*** Change exportation to verify what's follow:
          --| (Must be called specialize_and_check of call_proc_call and precursor_call and AGENT_CREATION as well).
          --|*** (Dom. feb 7th 2004)
@@ -238,7 +238,7 @@ feature {ANY}
          Result.specialize_check_count(t, target_type, fal)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -255,7 +255,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          fo: like first_one; rem: like remainder; i: INTEGER; e1, e2: EXPRESSION
       do
@@ -293,7 +293,7 @@ feature {ANY}
          end
       end
 
-   static_simplify is
+   static_simplify
       local
          i: INTEGER
       do
@@ -310,7 +310,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -325,7 +325,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -339,7 +339,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -353,7 +353,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -372,7 +372,7 @@ feature {ANY}
          pretty_printer.put_character(')')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -391,7 +391,7 @@ feature {ANY}
          short_printer.hook_or(once "cl_eal", once ")")
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
          -- Is True when only `is_static' expression are used.
       local
          i: INTEGER
@@ -408,13 +408,13 @@ feature {ANY}
       end
 
 feature {EIFFEL_PARSER, EFFECTIVE_ARG_LIST}
-   set_end_position (p: POSITION) assign end_position is
+   set_end_position (p: POSITION) assign end_position
       do
          end_position := p
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   count: INTEGER is
+   count: INTEGER
       do
          if remainder = Void then
             Result := 1
@@ -423,9 +423,9 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-   is_empty: BOOLEAN is False
+   is_empty: BOOLEAN False
 
-   item (i: INTEGER): EXPRESSION is
+   item (i: INTEGER): EXPRESSION
       do
          if i = 1 then
             Result := first_one
@@ -434,12 +434,12 @@ feature {ANY} -- Implementation of TRAVERSABLE:
          end
       end
 
-   first: like item is
+   first: like item
       do
          Result := first_one
       end
 
-   last: like item is
+   last: like item
       do
          if remainder = Void then
             Result := first_one
@@ -449,7 +449,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
       end
 
 feature {CODE}
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current
       local
          fo: like first_one; rem: like remainder; i: INTEGER; exp1, exp2: EXPRESSION
       do
@@ -494,7 +494,7 @@ feature {CODE}
       end
 
 feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
-   specialize_and_check_on_expressions (type: TYPE): like Current is
+   specialize_and_check_on_expressions (type: TYPE): like Current
       local
          i: INTEGER; fo: like first_one; rem: like remainder; exp1, exp2: EXPRESSION
       do
@@ -545,7 +545,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
       end
 
 feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          i: INTEGER; fo: like first_one; rem: like remainder; exp1, exp2: EXPRESSION
       do
@@ -596,7 +596,7 @@ feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
       end
 
 feature {FEATURE_CALL}
-   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE) is
+   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE)
          -- arguments are written in `t' and the feature stamp `fs' is used with a target of type `feature_type'.
       local
          i, j: INTEGER; sub_type, arg_type, formal_type: TYPE; first_fal: INTEGER; rts: RUN_TIME_SET
@@ -660,7 +660,7 @@ feature {FEATURE_CALL}
       end
 
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   to_fake_tuple (type: TYPE): FAKE_TUPLE is
+   to_fake_tuple (type: TYPE): FAKE_TUPLE
       local
          tuple_expression: MANIFEST_TUPLE; tuple_type: TYPE; tuple_type_mark: TUPLE_TYPE_MARK
          eal: EFFECTIVE_ARG_LIST_N; r: like remainder; fc0_1, fc0_2: FUNCTION_CALL_0
@@ -716,7 +716,7 @@ feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}
-   put (e: EXPRESSION; i: INTEGER) is
+   put (e: EXPRESSION; i: INTEGER)
       do
          if i = 1 then
             first_one := e
@@ -726,18 +726,18 @@ feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}
       end
 
 feature {EFFECTIVE_ARG_LIST}
-   set_first_one (fo: like first_one) is
+   set_first_one (fo: like first_one)
       do
          first_one := fo
       end
 
-   set_remainder (rem: like remainder) is
+   set_remainder (rem: like remainder)
       do
          remainder := rem
       end
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: EFFECTIVE_ARG_LIST_N_VISITOR
       do
@@ -746,7 +746,7 @@ feature {ANY}
       end
 
 feature {PROCEDURE_CALL_N}
-   create_inline: like Current is
+   create_inline: like Current
       do
          Result := twin
          if remainder /= Void then
@@ -755,7 +755,7 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {EFFECTIVE_ARG_LIST}
-   specialize_and_check_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE; is_last: BOOLEAN; fal: FORMAL_ARG_LIST): EXPRESSION is
+   specialize_and_check_basic (t: TYPE; exp: EXPRESSION; formal_type_mark: TYPE_MARK; target_type: TYPE; is_last: BOOLEAN; fal: FORMAL_ARG_LIST): EXPRESSION
          -- `exp' is interpreted in `t', `formal_type_mark' in `target_type'
          -- `is_last` and `fal` are used for implicit tuple as last argument, if need be
       require
@@ -807,7 +807,7 @@ feature {EFFECTIVE_ARG_LIST}
          Result.has_been_specialized
       end
 
-   specialize_check_count (t, target_type: TYPE; fal: FORMAL_ARG_LIST) is
+   specialize_check_count (t, target_type: TYPE; fal: FORMAL_ARG_LIST)
       local
          fal_count: INTEGER
       do
@@ -846,17 +846,17 @@ feature {EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   collecting_formal: FAST_ARRAY[FORMAL_ARG_LIST] is
+   collecting_formal: FAST_ARRAY[FORMAL_ARG_LIST]
       once
          create Result.with_capacity(10)
       end
 
-   collecting_formal_sub_type: FAST_ARRAY[TYPE] is
+   collecting_formal_sub_type: FAST_ARRAY[TYPE]
       once
          create Result.with_capacity(10)
       end
 
-   make_1 (sp: POSITION; e: EXPRESSION) is
+   make_1 (sp: POSITION; e: EXPRESSION)
       require
          not sp.is_unknown
          e /= Void
@@ -868,7 +868,7 @@ feature {}
          first = e
       end
 
-   make_2 (sp: POSITION; e1, e2: EXPRESSION) is
+   make_2 (sp: POSITION; e1, e2: EXPRESSION)
       require
          not sp.is_unknown
          e1 /= Void
@@ -884,7 +884,7 @@ feature {}
          expression(2) = e2
       end
 
-   make_n (sp: POSITION; fo: like first_one; r: like remainder) is
+   make_n (sp: POSITION; fo: like first_one; r: like remainder)
       require
          not sp.is_unknown
          fo /= Void
@@ -897,7 +897,7 @@ feature {}
          remainder = r
       end
 
-   em2: STRING is "Bad number of arguments."
+   em2: STRING "Bad number of arguments."
 
 invariant
    first_one /= Void

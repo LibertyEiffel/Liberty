@@ -9,13 +9,13 @@ create {ANY}
 feature {}
    arg: E
 
-   make (e: E) is
+   make (e: E)
       do
          arg := e
       end
 
 feature {ANY}
-   bizarre is
+   bizarre
          -- Vous avez dit bizarre ?
          -- Comme c'est etrange...
       local

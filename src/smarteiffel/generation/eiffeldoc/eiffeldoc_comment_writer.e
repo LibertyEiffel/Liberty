@@ -21,7 +21,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_CONTEXT}
-   write (comment: COMMENT; for_feature: ANONYMOUS_FEATURE; first_sentence, last_sentence: INTEGER) is
+   write (comment: COMMENT; for_feature: ANONYMOUS_FEATURE; first_sentence, last_sentence: INTEGER)
          -- Write the comment from sentence `first_sentence' (included) to the sentence `last_sentence'
          -- (excluded).  If `last_sentence' = 0, then all the sentences from `from_sentence' will be written.
       require
@@ -59,7 +59,7 @@ feature {EIFFELDOC_CONTEXT}
       end
 
 feature {}
-   append_comment_line_in (line: STRING) is
+   append_comment_line_in (line: STRING)
          -- Appends a formatted comment `line' in the `buffer' (only the given sentence interval are actually
          -- included).
          -- Some care is taken to correctly finish a sentence (i.e. cases when a dot is in parentheses, or
@@ -284,20 +284,20 @@ feature {}
          end
       end
 
-   extend (c: CHARACTER) is
+   extend (c: CHARACTER)
       do
          if sentence_count.in_range(from_sentence, to_sentence) then
             buffer.extend(c)
          end
       end
 
-   comment_open_braces: FAST_ARRAY[CHARACTER] is
+   comment_open_braces: FAST_ARRAY[CHARACTER]
       once
          create Result.make(0)
       end
 
 feature {}
-   put_comment_buffer (for_feature: ANONYMOUS_FEATURE) is
+   put_comment_buffer (for_feature: ANONYMOUS_FEATURE)
       require
          not buffer.is_empty
       local
@@ -368,7 +368,7 @@ feature {}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       do
          context := a_context
          create states.make
@@ -380,7 +380,7 @@ feature {}
 
    sentence_count: INTEGER
 
-   buffer: STRING is ""
+   buffer: STRING ""
 
    from_sentence, to_sentence: INTEGER
 

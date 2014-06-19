@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {WHEN_ITEM_2}
-   visit_when_item_2 (visited: WHEN_ITEM_2) is
+   visit_when_item_2 (visited: WHEN_ITEM_2)
       require
          visited /= Void
       deferred

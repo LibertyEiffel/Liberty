@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_element_content_mult_low_level)  or else
 				(a_value = xml_element_content_once_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_element_content_mult is
+	set_xml_element_content_mult
 		do
 			value := xml_element_content_mult_low_level
 		end
 
-	set_xml_element_content_once is
+	set_xml_element_content_once
 		do
 			value := xml_element_content_once_low_level
 		end
 
-	set_xml_element_content_opt is
+	set_xml_element_content_opt
 		do
 			value := xml_element_content_opt_low_level
 		end
 
-	set_xml_element_content_plus is
+	set_xml_element_content_plus
 		do
 			value := xml_element_content_plus_low_level
 		end
 
 feature -- Queries
-	is_xml_element_content_mult: BOOLEAN is
+	is_xml_element_content_mult: BOOLEAN
 		do
 			Result := (value=xml_element_content_mult_low_level)
 		end
 
-	is_xml_element_content_once: BOOLEAN is
+	is_xml_element_content_once: BOOLEAN
 		do
 			Result := (value=xml_element_content_once_low_level)
 		end
 
-	is_xml_element_content_opt: BOOLEAN is
+	is_xml_element_content_opt: BOOLEAN
 		do
 			Result := (value=xml_element_content_opt_low_level)
 		end
 
-	is_xml_element_content_plus: BOOLEAN is
+	is_xml_element_content_plus: BOOLEAN
 		do
 			Result := (value=xml_element_content_plus_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_element_content_mult_low_level: INTEGER is
+	xml_element_content_mult_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_element_content_once_low_level: INTEGER is
+	xml_element_content_once_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_element_content_opt_low_level: INTEGER is
+	xml_element_content_opt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_element_content_plus_low_level: INTEGER is
+	xml_element_content_plus_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -24,7 +24,7 @@ create {ANY}
    make, with_capacity
 
 feature {ANY}
-   execute is
+   execute
       local
          i: INTEGER
       do
@@ -38,12 +38,12 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          Precursor {FAST_ARRAY} (other)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Precursor {FAST_ARRAY} (other)
       end
@@ -56,7 +56,7 @@ end -- class MACRO_COMMAND
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

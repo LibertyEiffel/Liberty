@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_REQUIRE_ELSE}
-   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE) is
+   visit_liberty_require_else (v: LIBERTY_REQUIRE_ELSE)
       deferred
       end
 

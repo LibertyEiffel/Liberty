@@ -12,7 +12,7 @@ feature {ANY}
 
    b: AUX_REDEFINE3B
 
-   make is
+   make
       do
          create a
          create b

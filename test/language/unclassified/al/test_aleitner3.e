@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo := "bar"
          bar("bar")
@@ -18,7 +18,7 @@ feature {ANY}
 
    foo2: STRING
 
-   bar (b: like foo) is
+   bar (b: like foo)
       local
          bool: BOOLEAN
       do

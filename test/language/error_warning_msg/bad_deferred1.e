@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux_deferred1_d: AUX_DEFERRED1_D
          td_ar: ARRAY[AUX_DEFERRED1_D]

@@ -23,7 +23,7 @@ create {ANY}
    connect_to, make
 
 feature {ANY}
-   parse (a_callbacks: like callbacks) is
+   parse (a_callbacks: like callbacks)
          -- Parse an XML documents by sending parsing events to the given `callbacks'
       require
          is_connected
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   connect_to (a_url: URL) is
+   connect_to (a_url: URL)
       require
          not is_connected
          a_url.is_connected implies a_url.read
@@ -57,7 +57,7 @@ feature {ANY}
          a_url.is_connected implies (a_url = buffer.url and then is_connected)
       end
 
-   disconnect is
+   disconnect
       require
          is_connected
       do
@@ -71,7 +71,7 @@ feature {ANY}
          not is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := open_buffers /= Void and then not open_buffers.is_empty and then buffer.is_connected
       end
@@ -80,12 +80,12 @@ feature {}
    callbacks: XML_CALLBACKS
    url: URL
 
-   set_url (a_url: like url) is
+   set_url (a_url: like url)
       do
          url := a_url
       end
 
-   parse_node (at_root: BOOLEAN): INTEGER is
+   parse_node (at_root: BOOLEAN): INTEGER
          -- True if a node was successfully parsed
       require
          is_connected
@@ -402,7 +402,7 @@ feature {}
          <<Parse_again, Parse_done, Parse_error>>).has(Result)
       end
 
-   read_name: UNICODE_STRING is
+   read_name: UNICODE_STRING
       local
          name: UNICODE_STRING
       do
@@ -413,7 +413,7 @@ feature {}
          end
       end
 
-   parse_attribute (a_buffer: UNICODE_PARSER_BUFFER): INTEGER is
+   parse_attribute (a_buffer: UNICODE_PARSER_BUFFER): INTEGER
          -- if `a_buffer' if not Void and the attribute is "encoding", set the buffer's encoding.
       local
          a, an_attribute, value: UNICODE_STRING; l, c: INTEGER; sa, sv: STRING
@@ -464,7 +464,7 @@ feature {}
          end
       end
 
-   parse_children: INTEGER is
+   parse_children: INTEGER
       do
          from
             Result := parse_node(False)
@@ -482,7 +482,7 @@ feature {}
          (<<Parse_again, Parse_done, Parse_error>>).has(Result)
       end
 
-   read_cdata is
+   read_cdata
       local
          l, c, s: INTEGER; b: UNICODE_STRING
       do
@@ -533,7 +533,7 @@ feature {}
          end
       end
 
-   read_dtd is
+   read_dtd
       require
          is_connected
       do
@@ -545,14 +545,14 @@ feature {}
       end
 
 feature {}
-   Parse_again: INTEGER is 0
+   Parse_again: INTEGER 0
 
-   Parse_done: INTEGER is 1
+   Parse_done: INTEGER 1
 
-   Parse_error: INTEGER is -1
+   Parse_error: INTEGER -1
 
 feature {}
-   next is
+   next
       do
          if buffer.end_of_input then
             disconnect_buffer
@@ -560,13 +560,13 @@ feature {}
          buffer.next
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := buffer.end_of_input and then open_buffers.count = 1
       end
 
 feature {}
-   buffer: UNICODE_PARSER_BUFFER is
+   buffer: UNICODE_PARSER_BUFFER
       do
          if not open_buffers.is_empty then
             Result := open_buffers.top.buffer
@@ -575,19 +575,19 @@ feature {}
          definition: open_buffers.is_empty or else Result = open_buffers.top.buffer
       end
 
-   make is
+   make
          -- Create a not connected parser
       do
          create open_buffers.make
          create urls.make
       end
 
-   dtd_parser: XML_DTD_PARSER is
+   dtd_parser: XML_DTD_PARSER
       once
          create Result.make
       end
 
-   validator: XML_VALIDATOR is
+   validator: XML_VALIDATOR
       do
          Result := callbacks.validator
       end
@@ -595,12 +595,12 @@ feature {}
    open_buffers: STACK[XML_PARSER_BUFFER]
    urls: STACK[URL]
 
-   closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
+   closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER]
       once
          create Result.make
       end
 
-   connect_buffer (a_url, a_face_url: URL; a_entity_name: UNICODE_STRING) is
+   connect_buffer (a_url, a_face_url: URL; a_entity_name: UNICODE_STRING)
       require
          a_face_url /= Void implies a_entity_name /= Void
       local
@@ -652,7 +652,7 @@ feature {}
          )
       end
 
-   connect_buffer_entity_value (entity_name, entity_value, entity_url: UNICODE_STRING) is
+   connect_buffer_entity_value (entity_name, entity_value, entity_url: UNICODE_STRING)
          --| **** TODO: hunt memory leaks
       require
          entity_value /= Void
@@ -678,7 +678,7 @@ feature {}
          connect_buffer(sis.url, a_url, entity_name)
       end
 
-   disconnect_buffer is
+   disconnect_buffer
       require
          not open_buffers.is_empty
       do
@@ -695,7 +695,7 @@ feature {}
          not (old buffer).is_connected
       end
 
-   url_pool: RECYCLING_POOL[URL] is
+   url_pool: RECYCLING_POOL[URL]
       once
          create Result.make
       end
@@ -713,7 +713,7 @@ end -- class XML_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

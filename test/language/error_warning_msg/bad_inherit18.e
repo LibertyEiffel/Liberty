@@ -13,7 +13,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          an_attribute := 1 -- No more attribute here !
       end

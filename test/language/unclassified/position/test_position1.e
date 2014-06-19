@@ -7,11 +7,11 @@ create {}
    make
 
 feature {ANY}
-   dummy: AUX_POSITION is
+   dummy: AUX_POSITION
       do
       end
 
-   make is
+   make
       local
          p1: like dummy
       do
@@ -48,7 +48,7 @@ feature {ANY}
          assert(p1.id = 2048)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

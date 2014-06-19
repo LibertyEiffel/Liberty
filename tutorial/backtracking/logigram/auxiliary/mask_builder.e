@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (situ: SITUATION) is
+   make (situ: SITUATION)
          -- creation
       do
          permut := situ.permut
@@ -16,7 +16,7 @@ feature {ANY}
          create mask.make(permut.count)
       end
 
-   clear is
+   clear
          -- reset the state
       do
          mask_array.clear_all
@@ -24,13 +24,13 @@ feature {ANY}
          is_ok := True
       end
 
-   and_yes is
+   and_yes
          -- make the previous association mandatory
       do
          change(False)
       end
 
-   and_no is
+   and_no
          -- make the previous association forbidden
       do
          change(True)
@@ -39,7 +39,7 @@ feature {ANY}
    is_ok: BOOLEAN
       -- is possible (has no impossibility)
 
-   goto (it1, it2: ITEM) is
+   goto (it1, it2: ITEM)
          -- select the association of two items
       local
          g1, g2: INTEGER
@@ -66,7 +66,7 @@ feature {ANY}
          mask /= Void
       end
 
-   get_node: BACKTRACKING_NODE_AND_LIST is
+   get_node: BACKTRACKING_NODE_AND_LIST
          -- create the backtracking node corresponding to
          -- the currently built masks
       require
@@ -103,7 +103,7 @@ feature {}
    mask: BIT_STRING
       -- selected mask
 
-   change (test: BOOLEAN) is
+   change (test: BOOLEAN)
          -- update the mask
       local
          i: INTEGER

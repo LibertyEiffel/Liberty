@@ -4,7 +4,7 @@
 class AUX_ML01A
 
 feature {ANY}
-   out_it is
+   out_it
       do
          io.put_string("Hello parent!%N")
       end

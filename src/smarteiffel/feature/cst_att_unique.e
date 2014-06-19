@@ -16,7 +16,7 @@ create {CST_ATT_UNIQUE}
         with
 
 feature {ANY}
-        accept (visitor: CST_ATT_UNIQUE_VISITOR) is
+        accept (visitor: CST_ATT_UNIQUE_VISITOR)
                 do
                         visitor.visit_cst_att_unique(Current)
                 end
@@ -29,7 +29,7 @@ feature {}
 
         value_memory: INTEGER_CONSTANT
 
-        add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+        add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
                 local
                         n: like names; fn: FEATURE_NAME; i, max: INTEGER; ic: INTEGER_CONSTANT; sp: POSITION
                 do
@@ -56,7 +56,7 @@ feature {}
                         end
                 end
 
-        with (ft: like feature_text; r: like rank; rt: like result_type; ic: INTEGER_CONSTANT) is
+        with (ft: like feature_text; r: like rank; rt: like result_type; ic: INTEGER_CONSTANT)
                 require
                         ft /= Void
                         r >= 1
@@ -72,7 +72,7 @@ feature {}
                         value = ic
                 end
 
-        make (rt: like result_type) is
+        make (rt: like result_type)
                 require
                         rt.is_integer
                 do
@@ -81,12 +81,12 @@ feature {}
                         result_type = rt
                 end
 
-        pretty_constant_value (indent_level: INTEGER) is
+        pretty_constant_value (indent_level: INTEGER)
                 do
                         pretty_printer.put_string(once "unique")
                 end
 
-        counter: COUNTER is
+        counter: COUNTER
                 once
                         create Result
                 end

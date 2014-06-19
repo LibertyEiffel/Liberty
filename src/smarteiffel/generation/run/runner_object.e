@@ -10,28 +10,28 @@ insert
       end
 
 feature {ANY}
-   builtins: RUNNER_UNTYPED_BUILTINS is
+   builtins: RUNNER_UNTYPED_BUILTINS
       deferred
       end
 
-   processor: RUNNER_PROCESSOR is
+   processor: RUNNER_PROCESSOR
       deferred
       end
 
-   type: TYPE is
+   type: TYPE
       deferred
       end
 
-   is_initialized: BOOLEAN is
+   is_initialized: BOOLEAN
       deferred
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
+   builtin_to_pointer: POINTER
       deferred
       end
 
-   builtin_copy (other: RUNNER_OBJECT) is
+   builtin_copy (other: RUNNER_OBJECT)
       require
          other /= Void
          other.type = type
@@ -39,21 +39,21 @@ feature {RUNNER_UNTYPED_BUILTINS}
       deferred
       end
 
-   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN
       require
          other /= Void
       deferred
       end
 
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   copy_if_expanded: like Current
       deferred
       ensure
          Result.is_equal(Current)
          type.is_reference implies Result = Current
       end
 
-   eq (other: RUNNER_OBJECT): BOOLEAN is
+   eq (other: RUNNER_OBJECT): BOOLEAN
       local
          o: like Current
       do
@@ -63,12 +63,12 @@ feature {RUNNER_FACET}
          end
       end
 
-   as_foreign_object: FOREIGN_OBJECT is
+   as_foreign_object: FOREIGN_OBJECT
       deferred
       end
 
 feature {RUNNER_PROCESSOR} -- Contract checking anti-infinite recursion
-   check_and_set_position (position: POSITION): BOOLEAN is
+   check_and_set_position (position: POSITION): BOOLEAN
          -- True if the position was added
       do
          if checking_positions = Void then
@@ -83,7 +83,7 @@ feature {RUNNER_PROCESSOR} -- Contract checking anti-infinite recursion
          Result implies old (checking_positions = Void or else not checking_positions.fast_has(position))
       end
 
-   clear_position (position: POSITION) is
+   clear_position (position: POSITION)
       require
          checking_positions.fast_has(position)
       do

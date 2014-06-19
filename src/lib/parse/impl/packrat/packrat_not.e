@@ -10,19 +10,19 @@ create {ANY}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('!')
          primary.out_in_tagged_out_memory
       end
 
-   accept (visitor: PACKRAT_VISITOR) is
+   accept (visitor: PACKRAT_VISITOR)
       do
          visitor.visit_not(Current)
       end
 
 feature {}
-   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       local
          memo: PACKRAT_CONTEXT_MEMO
       do
@@ -43,7 +43,7 @@ end -- class PACKRAT_NOT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

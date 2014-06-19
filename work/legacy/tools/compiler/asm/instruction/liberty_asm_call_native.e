@@ -31,7 +31,7 @@ feature {ANY}
    arguments: COLLECTION[LIBERTY_ASM_NATIVE_VALUE]
    return: LIBERTY_ASM_NATIVE_VALUE
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := symbol = other.symbol
             and then arguments.is_equal(other.arguments)
@@ -39,7 +39,7 @@ feature {ANY}
             and then Precursor(other)
       end
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_INSTRUCTION_VISITOR
       do
@@ -48,7 +48,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_symbol: like symbol; a_arguments: like arguments; a_return: like return) is
+   make (a_symbol: like symbol; a_arguments: like arguments; a_return: like return)
       require
          a_symbol /= Void
          a_arguments /= Void

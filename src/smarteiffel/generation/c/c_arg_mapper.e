@@ -29,7 +29,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {}
-   visit_abstract_current (visited: ABSTRACT_CURRENT) is
+   visit_abstract_current (visited: ABSTRACT_CURRENT)
       do
          if type.is_reference then
             cpp.pending_c_function_body.append(once "(T0*)")
@@ -44,31 +44,31 @@ feature {}
          end
       end
 
-   compile_arg (arg: EXPRESSION) is
+   compile_arg (arg: EXPRESSION)
       do
          arg.accept(Current)
       end
 
 feature {ASSERTION}
-   visit_assertion (visited: ASSERTION) is
+   visit_assertion (visited: ASSERTION)
       do
          crash
       end
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       do
          crash -- Not a fake argument
       end
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       do
          crash
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
          function_body.append(once "/*`")
          function_body.append(visited.to_string)
@@ -84,13 +84,13 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       local
          i: INTEGER; exp: EXPRESSION
       do
@@ -111,13 +111,13 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
          not_yet_implemented
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
          crash -- Cannot be syntactically in arg position.
       end

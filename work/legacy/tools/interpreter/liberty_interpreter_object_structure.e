@@ -27,7 +27,7 @@ feature {ANY}
    type: LIBERTY_ACTUAL_TYPE
    hash_code: INTEGER
 
-   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN
       local
          is_equal_feature: LIBERTY_FEATURE_DEFINITION
          expanded_equal: LIBERTY_INTERPRETER_OBJECT_BOOLEAN
@@ -45,12 +45,12 @@ feature {ANY}
          end
       end
 
-   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       do
          not_yet_implemented
       end
 
-   put_attribute (a_attribute_name: FIXED_STRING; a_attribute: LIBERTY_INTERPRETER_OBJECT) is
+   put_attribute (a_attribute_name: FIXED_STRING; a_attribute: LIBERTY_INTERPRETER_OBJECT)
       require
          a_attribute /= Void
       do
@@ -59,7 +59,7 @@ feature {ANY}
          attribute_object(a_attribute_name) = a_attribute
       end
 
-   del_attribute (a_attribute_name: FIXED_STRING) is
+   del_attribute (a_attribute_name: FIXED_STRING)
       require
          a_attribute_name /= Void
       do
@@ -67,14 +67,14 @@ feature {ANY}
          not has_attribute(a_attribute_name)
       end
 
-   has_attribute (a_attribute_name: FIXED_STRING): BOOLEAN is
+   has_attribute (a_attribute_name: FIXED_STRING): BOOLEAN
       require
          a_attribute_name /= Void
       do
          Result := attributes.fast_has(a_attribute_name)
       end
 
-   attribute_object (a_attribute_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT is
+   attribute_object (a_attribute_name: FIXED_STRING): LIBERTY_INTERPRETER_OBJECT
       require
          a_attribute_name /= Void
       do
@@ -82,7 +82,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       local
          source: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
          i: INTEGER
@@ -106,12 +106,12 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          end
       end
 
-   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       do
          Result := builtin_is_equal(other, a_position)
       end
 
-   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       local
          source: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
          i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
@@ -133,7 +133,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          end
       end
 
-   builtin_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_twin (a_position: LIBERTY_POSITION): like Current
       local
          copy_feature: LIBERTY_FEATURE_DEFINITION
       do
@@ -142,12 +142,12 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          interpreter.call_feature(Result, copy_feature, {FAST_ARRAY[LIBERTY_EXPRESSION] << Current >> }, a_position)
       end
 
-   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       do
          builtin_copy(other, a_position)
       end
 
-   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current
       local
          copy_feature: LIBERTY_FEATURE_DEFINITION
       do
@@ -157,7 +157,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
          att: like attributes
@@ -179,7 +179,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
          end
       end
 
-   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
+   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN
       local
          i: INTEGER; o: LIBERTY_INTERPRETER_OBJECT
          compared: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
@@ -205,7 +205,7 @@ feature {LIBERTY_INTERPRETER_OBJECT}
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
-   show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
+   show_stack (o: OUTPUT_STREAM; indent: INTEGER)
       local
          i: INTEGER
       do
@@ -244,7 +244,7 @@ feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
 feature {}
    showing: BOOLEAN
 
-   make (a_interpreter: like interpreter; a_type: like type; a_position: like position) is
+   make (a_interpreter: like interpreter; a_type: like type; a_position: like position)
       require
          a_interpreter /= Void
          a_type /= Void
@@ -261,7 +261,7 @@ feature {}
          position = a_position
       end
 
-   with_attributes (a_interpreter: like interpreter; a_type: like type; a_attributes: like attributes; a_hash_code: like hash_code; a_position: like position) is
+   with_attributes (a_interpreter: like interpreter; a_type: like type; a_attributes: like attributes; a_hash_code: like hash_code; a_position: like position)
       require
          a_interpreter /= Void
          a_type /= Void
@@ -285,7 +285,7 @@ feature {LIBERTY_INTERPRETER_OBJECT_STRUCTURE}
    attributes: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, FIXED_STRING]
 
 feature {}
-   expanded_is_equal (other: like Current): BOOLEAN is
+   expanded_is_equal (other: like Current): BOOLEAN
       require
          other.type = type
          type.is_expanded
@@ -306,7 +306,7 @@ feature {}
          end
       end
 
-   expanded_twin: like Current is
+   expanded_twin: like Current
       local
          i: INTEGER; att: like attributes
       do
@@ -322,22 +322,22 @@ feature {}
          create Result.with_attributes(interpreter, type, att, hash_code, position)
       end
 
-   copy_feature_name: LIBERTY_FEATURE_NAME is
+   copy_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("copy".intern)
       end
 
-   standard_copy_feature_name: LIBERTY_FEATURE_NAME is
+   standard_copy_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("standard_copy".intern)
       end
 
-   is_equal_feature_name: LIBERTY_FEATURE_NAME is
+   is_equal_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("is_equal".intern)
       end
 
-   new_hash_code: INTEGER is
+   new_hash_code: INTEGER
       do
          if type.is_expanded then
             hash_code_producer.increment
@@ -347,7 +347,7 @@ feature {}
          end
       end
 
-   hash_code_producer: COUNTER is
+   hash_code_producer: COUNTER
       once
          create Result
       end

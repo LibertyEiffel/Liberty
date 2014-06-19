@@ -4,14 +4,14 @@
 class AUX_EB7A[G]
 
 feature {ANY}
-   f: G is
+   f: G
       local
          q: like c
       do
          q := c
       end
 
-   c: AUX_EB7A1[G] is
+   c: AUX_EB7A1[G]
       do
          create Result
       end

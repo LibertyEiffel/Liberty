@@ -7,17 +7,17 @@ create {ANY}
    make
 
 feature {ANY}
-   make (a: INTEGER) is
+   make (a: INTEGER)
       do
          attrib := a
       end
 
-   infix "-" (Other: like Current): INTEGER is
+   infix "-" (Other: like Current): INTEGER
       do
          Result := Other.attrib - attrib
       end
 
-   add (n: INTEGER) is
+   add (n: INTEGER)
       do
          attrib := attrib + n
       ensure

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_parser_input_buffer_struct_set_context (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_context (a_structure: POINTER; a_value: POINTER)
 			-- Setter for context field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_readcallback (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_readcallback (a_structure: POINTER; a_value: POINTER)
 			-- Setter for readcallback field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_closecallback (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_closecallback (a_structure: POINTER; a_value: POINTER)
 			-- Setter for closecallback field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_encoder (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_encoder (a_structure: POINTER; a_value: POINTER)
 			-- Setter for encoder field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_buffer (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_buffer (a_structure: POINTER; a_value: POINTER)
 			-- Setter for buffer field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_raw (a_structure: POINTER; a_value: POINTER) is
+	xml_parser_input_buffer_struct_set_raw (a_structure: POINTER; a_value: POINTER)
 			-- Setter for raw field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_compressed (a_structure: POINTER; a_value: INTEGER) is
+	xml_parser_input_buffer_struct_set_compressed (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for compressed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER) is
+	xml_parser_input_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for error field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_parser_input_buffer_struct_set_rawconsumed (a_structure: POINTER; a_value: like long_unsigned) is
+	xml_parser_input_buffer_struct_set_rawconsumed (a_structure: POINTER; a_value: like long_unsigned)
 			-- Setter for rawconsumed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_parser_input_buffer_struct_get_context (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_context (a_structure: POINTER): POINTER
 			-- Query for context field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_readcallback (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_readcallback (a_structure: POINTER): POINTER
 			-- Query for readcallback field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_closecallback (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_closecallback (a_structure: POINTER): POINTER
 			-- Query for closecallback field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_encoder (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_encoder (a_structure: POINTER): POINTER
 			-- Query for encoder field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_buffer (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_buffer (a_structure: POINTER): POINTER
 			-- Query for buffer field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_raw (a_structure: POINTER): POINTER is
+	xml_parser_input_buffer_struct_get_raw (a_structure: POINTER): POINTER
 			-- Query for raw field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_compressed (a_structure: POINTER): INTEGER is
+	xml_parser_input_buffer_struct_get_compressed (a_structure: POINTER): INTEGER
 			-- Query for compressed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -202,7 +202,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_error (a_structure: POINTER): INTEGER is
+	xml_parser_input_buffer_struct_get_error (a_structure: POINTER): INTEGER
 			-- Query for error field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -214,7 +214,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_parser_input_buffer_struct_get_rawconsumed (a_structure: POINTER): like long_unsigned is
+	xml_parser_input_buffer_struct_get_rawconsumed (a_structure: POINTER): like long_unsigned
 			-- Query for rawconsumed field of XML_PARSER_INPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -227,7 +227,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

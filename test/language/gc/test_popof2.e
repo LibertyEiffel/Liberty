@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          hand: HAND2; wins, losses: INTEGER; card1, card2, card3, card4, card5: INTEGER
       do

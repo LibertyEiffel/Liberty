@@ -18,14 +18,14 @@ inherit
    LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-   expression: E_ is
+   expression: E_
       require
          not is_empty
       do
          Result ::= nodes.item(nodes.upper-1)
       end
 
-   remainder: like Current is
+   remainder: like Current
       require
          not is_empty
       do
@@ -33,13 +33,13 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 3 >> }
       end

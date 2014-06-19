@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {PACKRAT_NON_TERMINAL}
-   visit_non_terminal (visited: PACKRAT_NON_TERMINAL) is
+   visit_non_terminal (visited: PACKRAT_NON_TERMINAL)
       do
          stream.put_string(visited.name)
          stream.put_string(once " <- ")
@@ -22,20 +22,20 @@ feature {PACKRAT_NON_TERMINAL}
       end
 
 feature {PACKRAT_TERMINAL}
-   visit_terminal (visited: PACKRAT_TERMINAL) is
+   visit_terminal (visited: PACKRAT_TERMINAL)
       do
          -- nothing
       end
 
 feature {PACKRAT_AND}
-   visit_and (visited: PACKRAT_AND) is
+   visit_and (visited: PACKRAT_AND)
       do
          stream.put_character('&')
          visited.primary.accept(Current)
       end
 
 feature {PACKRAT_CHOICE}
-   visit_choice (visited: PACKRAT_CHOICE) is
+   visit_choice (visited: PACKRAT_CHOICE)
       local
          i: INTEGER
       do
@@ -59,14 +59,14 @@ feature {PACKRAT_CHOICE}
       end
 
 feature {PACKRAT_NOT}
-   visit_not (visited: PACKRAT_NOT) is
+   visit_not (visited: PACKRAT_NOT)
       do
          stream.put_character('!')
          visited.primary.accept(Current)
       end
 
 feature {PACKRAT_REFERENCE}
-   visit_reference (visited: PACKRAT_REFERENCE) is
+   visit_reference (visited: PACKRAT_REFERENCE)
       do
          if visited.need_paren then
             stream.put_character('(')
@@ -78,7 +78,7 @@ feature {PACKRAT_REFERENCE}
       end
 
 feature {PACKRAT_SEQUENCE}
-   visit_sequence (visited: PACKRAT_SEQUENCE) is
+   visit_sequence (visited: PACKRAT_SEQUENCE)
       local
          i: INTEGER
       do
@@ -120,7 +120,7 @@ feature {PACKRAT_SEQUENCE}
 feature {}
    stream: OUTPUT_STREAM
 
-   make (a_stream: like stream) is
+   make (a_stream: like stream)
       require
          a_stream.is_connected
       do
@@ -140,7 +140,7 @@ end -- class PACKRAT_PRETTY_PRINTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

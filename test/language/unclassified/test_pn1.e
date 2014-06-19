@@ -21,7 +21,7 @@ feature
 
 -----------------------------------------------------------------------------
 
-   make is
+   make
       local
          point_array:     ARRAY[AUX_PN1]
       do
@@ -31,7 +31,7 @@ feature
 
 -----------------------------------------------------------------------------
 
-   c_code_bug (points_p:   ARRAY[AUX_PN1]) is
+   c_code_bug (points_p:   ARRAY[AUX_PN1])
       local
          a:       REAL
       do

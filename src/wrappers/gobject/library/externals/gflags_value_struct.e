@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gflags_value_struct_set_value (a_structure: POINTER; a_value: NATURAL) is
+	gflags_value_struct_set_value (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for value field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gflags_value_struct_set_value_name (a_structure: POINTER; a_value: POINTER) is
+	gflags_value_struct_set_value_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_name field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gflags_value_struct_set_value_nick (a_structure: POINTER; a_value: POINTER) is
+	gflags_value_struct_set_value_nick (a_structure: POINTER; a_value: POINTER)
 			-- Setter for value_nick field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gflags_value_struct_get_value (a_structure: POINTER): NATURAL is
+	gflags_value_struct_get_value (a_structure: POINTER): NATURAL
 			-- Query for value field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gflags_value_struct_get_value_name (a_structure: POINTER): POINTER is
+	gflags_value_struct_get_value_name (a_structure: POINTER): POINTER
 			-- Query for value_name field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gflags_value_struct_get_value_nick (a_structure: POINTER): POINTER is
+	gflags_value_struct_get_value_nick (a_structure: POINTER): POINTER
 			-- Query for value_nick field of GFLAGS_VALUE_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

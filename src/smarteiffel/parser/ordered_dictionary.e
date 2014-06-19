@@ -16,7 +16,7 @@ create {ANY}
    make, with_capacity
 
 feature {ANY}
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       do
          if has(k) then
             Precursor(v, k)
@@ -25,7 +25,7 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -45,31 +45,31 @@ feature {ANY}
          end
       end
 
-   clear_count is
+   clear_count
       do
          Precursor
          ordered_keys.clear_count
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
       do
          Precursor
          ordered_keys.clear_count_and_capacity
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       do
          Precursor(v, k)
          ordered_keys.add_last(k)
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          Result := ordered_keys.new_iterator
       end
 
 feature {}
-   create_with_capacity (medium_size: INTEGER) is
+   create_with_capacity (medium_size: INTEGER)
       do
          Precursor(medium_size)
          create ordered_keys.with_capacity(medium_size)

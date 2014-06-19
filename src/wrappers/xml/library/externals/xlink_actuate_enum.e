@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xlink_actuate_auto_low_level)  or else
 				(a_value = xlink_actuate_none_low_level)  or else
@@ -16,39 +16,39 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xlink_actuate_auto is
+	set_xlink_actuate_auto
 		do
 			value := xlink_actuate_auto_low_level
 		end
 
-	set_xlink_actuate_none is
+	set_xlink_actuate_none
 		do
 			value := xlink_actuate_none_low_level
 		end
 
-	set_xlink_actuate_onrequest is
+	set_xlink_actuate_onrequest
 		do
 			value := xlink_actuate_onrequest_low_level
 		end
 
 feature -- Queries
-	is_xlink_actuate_auto: BOOLEAN is
+	is_xlink_actuate_auto: BOOLEAN
 		do
 			Result := (value=xlink_actuate_auto_low_level)
 		end
 
-	is_xlink_actuate_none: BOOLEAN is
+	is_xlink_actuate_none: BOOLEAN
 		do
 			Result := (value=xlink_actuate_none_low_level)
 		end
 
-	is_xlink_actuate_onrequest: BOOLEAN is
+	is_xlink_actuate_onrequest: BOOLEAN
 		do
 			Result := (value=xlink_actuate_onrequest_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xlink_actuate_auto_low_level: INTEGER is
+	xlink_actuate_auto_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xlink_actuate_none_low_level: INTEGER is
+	xlink_actuate_none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xlink_actuate_onrequest_low_level: INTEGER is
+	xlink_actuate_onrequest_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

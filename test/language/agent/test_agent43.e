@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          --***         coll: ARRAY[reference INTEGER]
          --***         create coll.make(1, 0)

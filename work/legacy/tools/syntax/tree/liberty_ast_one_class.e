@@ -21,48 +21,48 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   class_header: LIBERTY_AST_CLASS_HEADER is
+   class_header: LIBERTY_AST_CLASS_HEADER
       do
          Result ::= nodes.item(0)
       end
 
-   obsolete_clause: LIBERTY_AST_OBSOLETE is
+   obsolete_clause: LIBERTY_AST_OBSOLETE
       do
          Result ::= nodes.item(1)
       end
 
-   inherit_clause: LIBERTY_AST_INHERIT is
+   inherit_clause: LIBERTY_AST_INHERIT
       do
          Result ::= nodes.item(2)
       end
 
-   insert_clause: LIBERTY_AST_INSERT is
+   insert_clause: LIBERTY_AST_INSERT
       do
          Result ::= nodes.item(3)
       end
 
-   creations: EIFFEL_LIST_NODE is
+   creations: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(4)
       end
 
-   features: EIFFEL_LIST_NODE is
+   features: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(5)
       end
 
-   invariant_clause: LIBERTY_AST_INVARIANT is
+   invariant_clause: LIBERTY_AST_INVARIANT
       do
          Result ::= nodes.item(6)
       end
 
 feature {ANY}
-   count: INTEGER is 8
+   count: INTEGER 8
 
-   name: STRING is "One_Class"
+   name: STRING "One_Class"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 8 >> }
       end

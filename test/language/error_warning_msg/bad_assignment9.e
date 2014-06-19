@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          integer_8: INTEGER_8
          integer_16: INTEGER_16

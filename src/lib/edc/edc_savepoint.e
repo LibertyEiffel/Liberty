@@ -25,17 +25,17 @@ insert
    EDC_CONSTANTS
 
 feature {ANY}
-   name: STRING is
+   name: STRING
       deferred
       ensure
          not name.is_empty
       end
 
-   is_active: BOOLEAN is
+   is_active: BOOLEAN
       deferred
       end
 
-   release is
+   release
       require
          is_active
       deferred

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, n: INTEGER; r: REAL; avl: AVL_DICTIONARY[INTEGER, REAL]; rng: PRESS_RANDOM_NUMBER_GENERATOR
       do

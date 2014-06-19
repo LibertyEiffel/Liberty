@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if foo = 0 then
          end
       end
 
-   foo: INTEGER is
+   foo: INTEGER
       external "plug_in"
       alias "{
          location: "."

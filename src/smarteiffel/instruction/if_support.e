@@ -19,15 +19,15 @@ feature {ANY}
    then_compound: INSTRUCTION
          -- Not Void if any.
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          --|*** Could be better ***
       end
 
-   end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN True
 
 feature {IF_SUPPORT}
-   frozen specialize_check_ (type: TYPE) is
+   frozen specialize_check_ (type: TYPE)
       local
          dt: TYPE
       do
@@ -44,7 +44,7 @@ feature {IF_SUPPORT}
          end
       end
 
-   frozen pretty_ (indent_level: INTEGER; first_keyword: STRING) is
+   frozen pretty_ (indent_level: INTEGER; first_keyword: STRING)
       require
          first_keyword.is_equal(once "if") or first_keyword.is_equal(once "elseif")
       do
@@ -59,7 +59,7 @@ feature {IF_SUPPORT}
          end
       end
 
-   frozen pretty_end_if (indent_level: INTEGER) is
+   frozen pretty_end_if (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "end")

@@ -18,23 +18,23 @@ feature {ANY}
 
    capacity: INTEGER
 
-   is_initialized: BOOLEAN is True
+   is_initialized: BOOLEAN True
 
-   item (index: INTEGER_64): O_ is
+   item (index: INTEGER_64): O_
       require
          index.in_range(0, capacity - 1)
       do
          Result := retriever.item([processor, storage.item(index.to_integer_32)])
       end
 
-   put (a_item: O_; index: INTEGER_64) is
+   put (a_item: O_; index: INTEGER_64)
       require
          index.in_range(0, capacity - 1)
       do
          storage.put(setter.item([a_item]), index.to_integer_32)
       end
 
-   slice_copy (at: INTEGER_64; src: like Current; src_min, src_max: INTEGER_64) is
+   slice_copy (at: INTEGER_64; src: like Current; src_min, src_max: INTEGER_64)
       local
          index: INTEGER_64
       do
@@ -56,7 +56,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER; o: like item
       do
@@ -88,34 +88,34 @@ feature {ANY}
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := storage.is_equal(other.storage)
       end
 
 feature {RUNNER_UNTYPED_BUILTINS}
-   builtin_to_pointer: POINTER is
+   builtin_to_pointer: POINTER
       do
          Result := storage.to_pointer
       end
 
-   builtin_copy (other: RUNNER_OBJECT) is
+   builtin_copy (other: RUNNER_OBJECT)
       do
          not_yet_implemented
       end
 
-   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN is
+   builtin_is_equal (other: RUNNER_OBJECT): BOOLEAN
       do
          not_yet_implemented
       end
 
 feature {RUNNER_FACET}
-   copy_if_expanded: like Current is
+   copy_if_expanded: like Current
       do
          Result := Current
       end
 
-   as_foreign_object: FOREIGN_OBJECT is
+   as_foreign_object: FOREIGN_OBJECT
       do
          create {FOREIGN_TYPED_OBJECT[NATIVE_ARRAY[E_]]} Result.with(storage)
       end
@@ -124,7 +124,7 @@ feature {}
    make (a_processor: like processor; a_type: like type; a_element_type: like element_type;
          a_capacity: like capacity; a_storage: like storage;
          a_retriever: like retriever; a_setter: like setter;
-         a_builtins: like builtins) is
+         a_builtins: like builtins)
       require
          a_processor /= Void
          a_type /= Void
@@ -159,7 +159,7 @@ feature {RUNNER_NATIVE_ARRAY}
    setter: FUNCTION[TUPLE[O_], E_]
 
 feature {RUNNER_FACET}
-   builtin_calloc (nb_elements: INTEGER_64): like Current is
+   builtin_calloc (nb_elements: INTEGER_64): like Current
       require
          nb_elements.fit_integer_32
       local

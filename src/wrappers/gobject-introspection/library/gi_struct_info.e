@@ -35,20 +35,20 @@ insert
 create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Fields
-        fields_lower: INTEGER is 0
-        fields_upper: INTEGER is do Result := fields_count-1 end
-        fields_count: INTEGER is
+        fields_lower: INTEGER 0
+        fields_upper: INTEGER do Result := fields_count-1 end
+        fields_count: INTEGER
                 -- The number of fields that this object type has.
         do
                 Result := g_struct_info_get_n_fields(handle)
         end
 
-        has_no_fields: BOOLEAN is
+        has_no_fields: BOOLEAN
                 do
                         Result := fields_count=0
                 end
 
-        field (n: INTEGER): GI_FIELD_INFO is
+        field (n: INTEGER): GI_FIELD_INFO
                 -- The field object at index n.
         do
                 create Result.from_external_pointer(g_struct_info_get_field(handle,n))
@@ -56,25 +56,25 @@ feature {ANY} -- Fields
         ensure not_void: Result/=Void
         end
 
-        first_field: GI_FIELD_INFO is do Result:=field(fields_lower) end
-        last_field: GI_FIELD_INFO is do Result:=field(fields_upper) end
+        first_field: GI_FIELD_INFO do Result:=field(fields_lower) end
+        last_field: GI_FIELD_INFO do Result:=field(fields_upper) end
 
 
-    new_fields_iterator: ITERATOR_OVER_STRUCT_FIELDS is
+    new_fields_iterator: ITERATOR_OVER_STRUCT_FIELDS
         do
             create Result.from_struct(Current)
         end
 
 feature {ANY} -- Methods
-        methods_lower: INTEGER is 0
-        methods_upper: INTEGER is do Result := methods_count-1 end
-        methods_count: INTEGER is
+        methods_lower: INTEGER 0
+        methods_upper: INTEGER do Result := methods_count-1 end
+        methods_count: INTEGER
                 -- The number of methods Current object has
         do
                 Result := g_struct_info_get_n_methods (handle)
         end
 
-        method (n: INTEGER): GI_FUNCTION_INFO is
+        method (n: INTEGER): GI_FUNCTION_INFO
                 -- The method object at index `n'
     require n.in_range(methods_lower,methods_upper)
         do
@@ -83,7 +83,7 @@ feature {ANY} -- Methods
         ensure not_void: Result/=Void
         end
 
-        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO is
+        find_method (a_name: ABSTRACT_STRING): GI_FUNCTION_INFO
                 -- The method with `a_name'. Void if no method exists with that name
         require
                 not_void_name: a_name/=Void
@@ -98,25 +98,25 @@ feature {ANY} -- Methods
         end
 
 feature {ANY}
-        out_in_tagged_out_memory is
+        out_in_tagged_out_memory
         do
                 not_yet_implemented
         end
 
-        size: NATURAL is
+        size: NATURAL
                 -- The total size of the structure in bytes
         do
                 Result := g_struct_info_get_size(handle)
         end
 
-        alignment: NATURAL is
+        alignment: NATURAL
                 -- the required alignment of the structure.
         do
                 Result := g_struct_info_get_alignment(handle)
         end
 
 
-        is_gtype_struct: BOOLEAN is
+        is_gtype_struct: BOOLEAN
                 -- Does this structure represent the "class structure" for some GObject
                 -- or GInterface? This query is mainly useful to hide this kind of
                 -- structure from generated public APIs.
@@ -124,7 +124,7 @@ feature {ANY}
                 Result := g_struct_info_is_gtype_struct(handle).to_boolean
         end
 
-        is_foreign: BOOLEAN is
+        is_foreign: BOOLEAN
                 --
         do
                 Result := g_struct_info_is_foreign(handle).to_boolean

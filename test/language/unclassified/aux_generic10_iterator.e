@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (d: AUX_GENERIC10_DICTIONARY[E, INTEGER]) is
+   make (d: AUX_GENERIC10_DICTIONARY[E, INTEGER])
       do
       end
 

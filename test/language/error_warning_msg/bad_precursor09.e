@@ -13,7 +13,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          temp : like Current
       do
@@ -21,7 +21,7 @@ feature {}
       end
 
 feature {ANY}
-   foo: like Current is
+   foo: like Current
       local
          a : BAD_PRECURSOR09
       do

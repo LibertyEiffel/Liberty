@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          ---- Original:
          -- conv(1);
@@ -15,11 +15,11 @@ feature {ANY}
          conv("toto")
       end
 
-   conv (x: ABSTRACT_STRING) is
+   conv (x: ABSTRACT_STRING)
       do
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

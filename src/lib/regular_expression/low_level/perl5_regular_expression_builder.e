@@ -16,7 +16,7 @@ feature {ANY} -- options
    has_extended_ligibility: BOOLEAN
          -- Is the extended ligibility active?
 
-   set_extended_ligibility is
+   set_extended_ligibility
          -- Activate extended ligibility.
       do
          has_extended_ligibility := True
@@ -24,7 +24,7 @@ feature {ANY} -- options
          definition: has_extended_ligibility = True
       end
 
-   set_no_extended_ligibility is
+   set_no_extended_ligibility
          -- Desactivate extended ligibility.
       do
          has_extended_ligibility := False
@@ -32,7 +32,7 @@ feature {ANY} -- options
          definition: has_extended_ligibility = False
       end
 
-   set_default_options is
+   set_default_options
          -- Set the default options
       do
          Precursor
@@ -45,7 +45,7 @@ feature {PERL5_REGULAR_EXPRESSION_BUILDER} -- scanning
    has_unterminated_comment: BOOLEAN
          -- was an unterminated comment sequence (?#... detected
 
-   skip_blanks_and_comments is
+   skip_blanks_and_comments
          -- Skips the blanks and comments when the extended legibility
          -- option is set.
       require
@@ -93,14 +93,14 @@ feature {PERL5_REGULAR_EXPRESSION_BUILDER} -- scanning
       end
 
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER} -- parsing
-   read_character is
+   read_character
          -- Goto to the next character that is not a blank or a comment.
       do
          Precursor
          skip_blanks_and_comments
       end
 
-   read_integer is
+   read_integer
          -- Reads in 'last_integer' the current integer values and
          -- then goto to the next character that is not a blank or a comment.
       do
@@ -108,7 +108,7 @@ feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER} -- parsing
          skip_blanks_and_comments
       end
 
-   emit_repeat (mini, maxi: INTEGER) is
+   emit_repeat (mini, maxi: INTEGER)
          -- Takes the top of the stack and replace it with
          -- a construction that will evaluate the repeating of
          -- it from 'mini' to 'maxi' times.
@@ -124,7 +124,7 @@ feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER} -- parsing
       end
 
 feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
-   parse_alternative is
+   parse_alternative
       local
          saved_is_case_insensitive, saved_does_match_line_boundary, saved_does_any_match_newline,
          saved_has_extended_ligibility: BOOLEAN
@@ -144,7 +144,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          end
       end
 
-   parse_group is
+   parse_group
          -- Parses a group. A group is either a posix group
          -- or an extanded pattern group.
       local
@@ -166,7 +166,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          end
       end
 
-   parse_escaped is
+   parse_escaped
          -- Parses an escaped character.
          -- escaped     ::= '\' CHARACTER
       do
@@ -176,7 +176,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          end
       end
 
-   parse_union_factor is
+   parse_union_factor
          -- Parses a union factor.
          -- union_factor::= '[.' TEXT '.]' | '[:' CLASS ':]' | '[:<:]' | '[:>:]' | CHARACTER
       local
@@ -246,7 +246,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
       end
 
 feature {} -- parsing
-   internal_parse_escaped (in_union: BOOLEAN) is
+   internal_parse_escaped (in_union: BOOLEAN)
       require
          has_no_error: not has_error
          not_at_end: not end_of_input
@@ -352,7 +352,7 @@ feature {} -- parsing
          end
       end
 
-   parse_posix_indication is
+   parse_posix_indication
       do
          if end_of_input then
             set_error(once "class missing in \p or \P construct")
@@ -385,7 +385,7 @@ feature {} -- parsing
          end
       end
 
-   parse_extended_pattern is
+   parse_extended_pattern
       require
          has_no_error: not has_error
          not_at_end: not end_of_input
@@ -477,7 +477,7 @@ feature {} -- parsing
          end
       end
 
-   parse_looking (ahead: BOOLEAN) is
+   parse_looking (ahead: BOOLEAN)
       require
          has_no_error: not has_error
          not_at_end: not end_of_input
@@ -501,7 +501,7 @@ feature {} -- parsing
          end
       end
 
-   read_modifiers (level: BOOLEAN) is
+   read_modifiers (level: BOOLEAN)
       require
          has_no_error: not has_error
       local
@@ -541,7 +541,7 @@ end -- class PERL5_REGULAR_EXPRESSION_BUILDER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

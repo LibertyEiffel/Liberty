@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = undo_begin_low_level)  or else
 				(a_value = undo_delete_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_undo_begin is
+	set_undo_begin
 		do
 			value := undo_begin_low_level
 		end
 
-	set_undo_delete is
+	set_undo_delete
 		do
 			value := undo_delete_low_level
 		end
 
-	set_undo_end is
+	set_undo_end
 		do
 			value := undo_end_low_level
 		end
 
-	set_undo_insert is
+	set_undo_insert
 		do
 			value := undo_insert_low_level
 		end
 
 feature -- Queries
-	is_undo_begin: BOOLEAN is
+	is_undo_begin: BOOLEAN
 		do
 			Result := (value=undo_begin_low_level)
 		end
 
-	is_undo_delete: BOOLEAN is
+	is_undo_delete: BOOLEAN
 		do
 			Result := (value=undo_delete_low_level)
 		end
 
-	is_undo_end: BOOLEAN is
+	is_undo_end: BOOLEAN
 		do
 			Result := (value=undo_end_low_level)
 		end
 
-	is_undo_insert: BOOLEAN is
+	is_undo_insert: BOOLEAN
 		do
 			Result := (value=undo_insert_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	undo_begin_low_level: INTEGER is
+	undo_begin_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	undo_delete_low_level: INTEGER is
+	undo_delete_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	undo_end_low_level: INTEGER is
+	undo_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	undo_insert_low_level: INTEGER is
+	undo_insert_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

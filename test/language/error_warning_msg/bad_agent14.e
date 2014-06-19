@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]
       do
@@ -16,7 +16,7 @@ feature {ANY}
       end
 
 feature {}
-   print_item(item: STRING; c: CHARACTER) is
+   print_item(item: STRING; c: CHARACTER)
       do
       end
 

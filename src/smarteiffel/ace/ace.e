@@ -40,7 +40,7 @@ feature {ANY}
          -- In command line mode, a Void value means that "a.out" is to be
          -- used for C mode while using gcc for example.
 
-   root_class_name: HASHED_STRING is
+   root_class_name: HASHED_STRING
          -- The name of the root class using only upper case letters. This
          -- is actually the generating type of the very first live object at
          -- runtime. This `root_class_name' is after the "root" keyword in
@@ -51,7 +51,7 @@ feature {ANY}
          end
       end
 
-   root_procedure_name: STRING is
+   root_procedure_name: STRING
          -- The name of the procedure which is actually the main program.
          -- This procedure is supposed to be member of the creation clause
          -- of `root_class_name'.
@@ -67,7 +67,7 @@ feature {ANY}
          Result := root_procedure_name_memory
       end
 
-   root_class_names: FAST_ARRAY[HASHED_STRING] is
+   root_class_names: FAST_ARRAY[HASHED_STRING]
          -- All the class names given on the command line
       once
          create Result.with_capacity(1)
@@ -75,44 +75,44 @@ feature {ANY}
       --|*** Boost level for debuging purpose. Should decode boost option
       --|if we decide to keep it.
 
-   boost1: BOOLEAN is True
+   boost1: BOOLEAN True
 
-   boost2: BOOLEAN is False
+   boost2: BOOLEAN False
 
-   boost3: BOOLEAN is False
+   boost3: BOOLEAN False
 
-   boost: BOOLEAN is
+   boost: BOOLEAN
       do
          Result := highest_encountered_level = level_boost
       end
 
-   no_check: BOOLEAN is
+   no_check: BOOLEAN
          -- The system level value (see also {CLASS_TEXT}.no_check).
       do
          Result := highest_encountered_level >= level_no
       end
 
-   require_check: BOOLEAN is
+   require_check: BOOLEAN
       do
          Result := highest_encountered_level >= level_require
       end
 
-   ensure_check: BOOLEAN is
+   ensure_check: BOOLEAN
       do
          Result := highest_encountered_level >= level_ensure
       end
 
-   invariant_check: BOOLEAN is
+   invariant_check: BOOLEAN
       do
          Result := highest_encountered_level >= level_invariant
       end
 
-   loop_check: BOOLEAN is
+   loop_check: BOOLEAN
       do
          Result := highest_encountered_level >= level_loop
       end
 
-   all_check: BOOLEAN is
+   all_check: BOOLEAN
       do
          Result := highest_encountered_level >= level_all
       end
@@ -140,8 +140,8 @@ feature {ANY}
          -- Is the -precompile_header flag used ?
          --|*** ensure Result implies system_tools.precompile_header_supported    (as soon as ensure on attribute is supported)
 
-   sedb: BOOLEAN is
-         -- The -sedb flag is used or some class of the ACE file is
+   sedb: BOOLEAN
+         -- The -sedb flag is used or some class of the ACE file
          -- in trace mode. (When `sedb' is set, files sys/runtime/sedb.[ch]
          -- are included.)
       do
@@ -155,7 +155,7 @@ feature {ANY}
    hard_clean: BOOLEAN
 
 feature {CLASS_TEXT}
-   trace_of (a_class_text: CLASS_TEXT): BOOLEAN is
+   trace_of (a_class_text: CLASS_TEXT): BOOLEAN
          -- Is the -sedb trace mode enabled for `a_class_text'.
       local
          cluster: CLUSTER
@@ -174,7 +174,7 @@ feature {CLASS_TEXT}
       end
 
 feature {DEBUG_COMPOUND}
-   is_debug_checked (e_debug: DEBUG_COMPOUND; type: TYPE): BOOLEAN is
+   is_debug_checked (e_debug: DEBUG_COMPOUND; type: TYPE): BOOLEAN
          -- Is this `e_debug' statement is active or not?
          -- Note: during the execution of this routine, the
          -- `default_assertion_level' may be switched from `level_boost' to
@@ -202,7 +202,7 @@ feature {DEBUG_COMPOUND}
       end
 
 feature {CLASS_TEXT}
-   assertion_level_of (a_class_text: CLASS_TEXT): INTEGER is
+   assertion_level_of (a_class_text: CLASS_TEXT): INTEGER
       require
          avoid_recomputation: a_class_text.assertion_level_not_yet_computed
       local
@@ -219,7 +219,7 @@ feature {CLASS_TEXT}
       end
 
 feature {ACE_HANDLER}
-   analyse_ace_file (fp: like file_path) is
+   analyse_ace_file (fp: like file_path)
          -- Parse `fp' which is supposed to be some file containing an ACE description.
       require
          not fp.is_empty
@@ -302,7 +302,7 @@ feature {ACE_HANDLER}
       end
 
 feature {}
-   set_default_c_mode is
+   set_default_c_mode
       local
          c_mode: STRING
       do
@@ -323,7 +323,7 @@ feature {}
       end
 
 feature {ACE_HANDLER}
-   set_root_class_name_using (command_line_name: STRING) is
+   set_root_class_name_using (command_line_name: STRING)
          -- Compute the `root_class_name' name using the `command_line_name' as a model.
          -- Trailing Eiffel file suffix is removed if any.
          -- Leading path is also removed if any.
@@ -340,7 +340,7 @@ feature {ACE_HANDLER}
          not root_class_names.last.to_string.has_suffix(eiffel_suffix)
       end
 
-   set_root_procedure_name (rp: STRING) is
+   set_root_procedure_name (rp: STRING)
       do
          root_procedure_name_memory := rp
       ensure
@@ -348,7 +348,7 @@ feature {ACE_HANDLER}
       end
 
 feature {}
-   class_name_using (name: STRING): STRING is
+   class_name_using (name: STRING): STRING
          -- Compute some Eiffel class name using the `name' information which can be some complete file path
          -- notation with some Eiffel file suffix. The result is written using the standard Eiffel notation
          -- for class names (upper case letters only).
@@ -393,19 +393,19 @@ feature {COMPILE}
          -- Should the clean command be launched after compilation?
 
 feature {ACE_HANDLER}
-   set_relax is
+   set_relax
       do
          relax := True
       end
 
-   set_precompile_header is
+   set_precompile_header
       require
          system_tools.precompile_header_supported
       do
          precompile_header := True
       end
 
-   set_default_level is
+   set_default_level
       do
          if default_assertion_level = level_not_computed then
             default_assertion_level := level_all
@@ -414,42 +414,42 @@ feature {ACE_HANDLER}
          set_default_c_mode
       end
 
-   set_boost is
+   set_boost
       do
          default_assertion_level := level_boost
       end
 
-   set_no_check is
+   set_no_check
       do
          default_assertion_level := level_no
       end
 
-   set_require_check is
+   set_require_check
       do
          default_assertion_level := level_require
       end
 
-   set_ensure_check is
+   set_ensure_check
       do
          default_assertion_level := level_ensure
       end
 
-   set_invariant_check is
+   set_invariant_check
       do
          default_assertion_level := level_invariant
       end
 
-   set_loop_check is
+   set_loop_check
       do
          default_assertion_level := level_loop
       end
 
-   set_all_check is
+   set_all_check
       do
          default_assertion_level := level_all
       end
 
-   set_debug_check is
+   set_debug_check
       do
          error_handler.append(once "-debug_check is deprecated. Please use -debug and another -*_check assertion level. This defaults to -all_check.")
          error_handler.print_as_warning
@@ -457,17 +457,17 @@ feature {ACE_HANDLER}
          set_command_line_debug
       end
 
-   set_command_line_debug is
+   set_command_line_debug
       do
          default_debug_keys := {FAST_ARRAY[STRING] << fz_yes >> }
       end
 
-   set_flat_check is
+   set_flat_check
       do
          flat_check := True
       end
 
-   command_line_parsed (command_name: STRING) is
+   command_line_parsed (command_name: STRING)
          -- Should be called the end of command line argument parsing
          -- (i.e. only in command line mode) to check among other things
          -- that the root class was actually given as argument.
@@ -492,7 +492,7 @@ feature {ACE_HANDLER}
          default_assertion_level /= level_not_computed
       end
 
-   set_default_trace is
+   set_default_trace
       do
          default_trace := True
          sedb_flag := True
@@ -500,56 +500,56 @@ feature {ACE_HANDLER}
          default_trace = True
       end
 
-   set_executable_name (name: STRING) is
+   set_executable_name (name: STRING)
       do
          executable_name := name
       ensure
          executable_name = name
       end
 
-   set_clean (flag: BOOLEAN) is
+   set_clean (flag: BOOLEAN)
       do
          clean := flag
       end
 
-   set_safety_check is
+   set_safety_check
       do
          safety_check := True
       end
 
-   set_manifest_string_trace is
+   set_manifest_string_trace
       do
          manifest_string_trace := True
       end
 
-   set_high_memory_compiler is
+   set_high_memory_compiler
       do
          high_memory_compiler := True
       end
 
-   set_profile is
+   set_profile
       do
          profile := True
       end
 
-   set_run is
+   set_run
       do
          run := True
       end
 
-   set_clean_classes is
+   set_clean_classes
       do
          clean_classes := True
          set_run
       end
 
-   set_hard_clean is
+   set_hard_clean
       do
          hard_clean := True
       end
 
 feature {}
-   best_cluster_of (origin: CLASSES; class_name: CLASS_NAME; skip: CLASSES): CLUSTER is
+   best_cluster_of (origin: CLASSES; class_name: CLASS_NAME; skip: CLASSES): CLUSTER
       local
          c: like clusters_; d: like distances_
       do
@@ -587,18 +587,18 @@ feature {}
          end
       end
 
-   clusters_: FAST_ARRAY[CLUSTER] is
+   clusters_: FAST_ARRAY[CLUSTER]
       once
          create Result.make(0)
       end
 
-   distances_: FAST_ARRAY[INTEGER] is
+   distances_: FAST_ARRAY[INTEGER]
       once
          create Result.make(0)
       end
 
 feature {SMART_EIFFEL} -- Class loading
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
       require
          not cluster_name.is_empty
          string_aliaser.registered_one(cluster_name)
@@ -608,13 +608,13 @@ feature {SMART_EIFFEL} -- Class loading
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   cluster_of (class_name: CLASS_NAME; start_cluster: CLUSTER): CLUSTER is
+   cluster_of (class_name: CLASS_NAME; start_cluster: CLUSTER): CLUSTER
       require
          class_name /= Void
       local
          origin, last_origin: CLUSTERS; ct: CLASS_TEXT
       do
-         -- The principle is the following: let's say we try to find the class C, whose `class_name' is
+         -- The principle is the following: let's say we try to find the class C, whose `class_name'
          -- given. Usually that `class_name' is written in a class A, somewhere belonging to some cluster. We
          -- try to find C in a cluster which is closest to A's cluster. It means:
          -- * First, look at subclusters of A's cluster. The less deep, the better.
@@ -660,7 +660,7 @@ feature {SMART_EIFFEL} -- Class loading
          Result = Void implies class_name.allow_missing
       end
 
-   all_class_texts (class_name: CLASS_NAME): FAST_ARRAY[CLASS_TEXT] is
+   all_class_texts (class_name: CLASS_NAME): FAST_ARRAY[CLASS_TEXT]
       local
          i: INTEGER; cluster: CLUSTER; c: like clusters_; d: like distances_
       do
@@ -681,7 +681,7 @@ feature {SMART_EIFFEL} -- Class loading
          end
       end
 
-   class_text (class_name: CLASS_NAME; load: BOOLEAN; cluster: CLUSTER): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME; load: BOOLEAN; cluster: CLUSTER): CLASS_TEXT
          -- The `load' flag must be True if we want to load the class if it is not already loaded. If False,
          -- we don't load the class and the result may be Void.
          -- If `cluster' is not Void it overrides the information in `class_name'.
@@ -707,18 +707,18 @@ feature {SMART_EIFFEL} -- Class loading
          Result = Void implies class_name.allow_missing
       end
 
-   remove (a_class_text: CLASS_TEXT) is
+   remove (a_class_text: CLASS_TEXT)
       do
          a_class_text.cluster.remove(a_class_text)
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       do
          Result := universe.loaded_class_count
       end
 
 feature {}
-   find_class_text (class_name: CLASS_NAME; load: BOOLEAN; a_cluster: CLUSTER): CLASS_TEXT is
+   find_class_text (class_name: CLASS_NAME; load: BOOLEAN; a_cluster: CLUSTER): CLASS_TEXT
       require
          class_name /= Void
       local
@@ -760,24 +760,24 @@ feature {}
          end
       end
 
-   no_pov_classes: HASHED_DICTIONARY[CLASS_TEXT, HASHED_STRING] is
+   no_pov_classes: HASHED_DICTIONARY[CLASS_TEXT, HASHED_STRING]
       once
          create Result.make
       end
 
-   pov_classes: HASHED_DICTIONARY[HASHED_DICTIONARY[CLASS_TEXT, HASHED_STRING], STRING] is
+   pov_classes: HASHED_DICTIONARY[HASHED_DICTIONARY[CLASS_TEXT, HASHED_STRING], STRING]
       once
          create Result.make
       end
 
 feature {ANY}
-   has (class_name: HASHED_STRING): BOOLEAN is
+   has (class_name: HASHED_STRING): BOOLEAN
       do
          Result := universe.has_class(class_name)
       end
 
 feature {SMART_EIFFEL}
-   parse_include is
+   parse_include
          -- Look for some class(es) to be loaded first because of some "include" option.
       do
          if file_path /= Void then
@@ -785,7 +785,7 @@ feature {SMART_EIFFEL}
          end
       end
 
-   cluster_by_directory_path (path: STRING): CLUSTER is
+   cluster_by_directory_path (path: STRING): CLUSTER
       require
          not path.is_empty
       do
@@ -795,7 +795,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {ACE_CHECK}
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
          -- Performs the `ace_check' and also prepare in `txt' a pretty version of the Ace file as
          -- it is memorized (can be also used to pretty one's ACE file).
       require
@@ -898,7 +898,7 @@ feature {ACE_CHECK}
       end
 
 feature {SYSTEM_TOOLS, CLUSTER}
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
          -- Append in `msg' a viewable version of the `cluster_list' as well as
          -- some other informations to help the user to fix the problem.
       require
@@ -943,18 +943,18 @@ feature {SYSTEM_TOOLS, CLUSTER}
       end
 
 feature {ANY}
-   cluster_count: INTEGER is
+   cluster_count: INTEGER
       do
          Result := universe.cluster_count
       end
 
-   cluster_at (i: INTEGER): CLUSTER is
+   cluster_at (i: INTEGER): CLUSTER
       do
          Result := universe.cluster_at(i)
       end
 
 feature {}
-   get_started is
+   get_started
          -- Should be called to set some default values at the end of
          -- command line parsing or at the end of the ACE file parsing.
       do
@@ -989,7 +989,7 @@ feature {CLUSTER}
          -- -require_check, ...). When the ACE file is used, this value memorize the
          -- information after "assertion" tag of the default section.
 
-   default_debug (e_debug: DEBUG_COMPOUND): BOOLEAN is
+   default_debug (e_debug: DEBUG_COMPOUND): BOOLEAN
       require
          e_debug /= Void
       do
@@ -1000,7 +1000,7 @@ feature {CLUSTER}
       end
 
 feature {}
-   set_root_class_name (rcn: HASHED_STRING) is
+   set_root_class_name (rcn: HASHED_STRING)
       do
          root_class_names.add_last(rcn)
       ensure
@@ -1008,7 +1008,7 @@ feature {}
       end
 
 feature {SYSTEM_TOOLS}
-   add_loadpath (name, path: STRING; distance: INTEGER; discard_silently: BOOLEAN) is
+   add_loadpath (name, path: STRING; distance: INTEGER; discard_silently: BOOLEAN)
       require
          name /= Void
          path /= Void
@@ -1036,7 +1036,7 @@ feature {C_PRETTY_PRINTER}
          -- The splitter to use
 
 feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_TOOLS}
-   set_no_split (flag: BOOLEAN) is
+   set_no_split (flag: BOOLEAN)
       do
          if flag then
             create {C_SPLITTER_NO_SPLIT} splitter.make
@@ -1048,7 +1048,7 @@ feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_
          flag implies ({C_SPLITTER_NO_SPLIT} ?:= splitter)
       end
 
-   set_split (value: STRING) is
+   set_split (value: STRING)
       do
          if value = Void then
             create {C_SPLITTER_NO_SPLIT} splitter.make
@@ -1067,7 +1067,7 @@ feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_
          end
       end
 
-   set_no_main is
+   set_no_main
       do
          no_main := True
       ensure
@@ -1075,38 +1075,38 @@ feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_
       end
 
 feature {ANY}
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       do
          universe.for_all(action)
       end
 
-   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]]) is
+   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       do
          universe.for_all_clusters(action)
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       do
          Result := universe.loaded_class_count
       end
 
 feature {CLUSTER}
-   new_cluster (a_cluster: CLUSTER) is
+   new_cluster (a_cluster: CLUSTER)
       do
          new_clusters.add_last(a_cluster)
       end
 
 feature {}
-   new_clusters: FAST_ARRAY[CLUSTER] is
+   new_clusters: FAST_ARRAY[CLUSTER]
       once
          create Result.make(0)
       end
 
-   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING) is
+   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING)
       do
       end
 
-   may_expand_var is
+   may_expand_var
       local
          envar, value: STRING; c, l: INTEGER
       do
@@ -1144,7 +1144,7 @@ feature {}
          end
       end
 
-   a_identifier: STRING is
+   a_identifier: STRING
          -- Analyse an Eiffel identifier.
       local
          stop: BOOLEAN
@@ -1187,7 +1187,7 @@ feature {}
          string_aliaser.registered_one(Result)
       end
 
-   a_string: STRING is
+   a_string: STRING
          -- Analyse a notation like the one for manifest strings,
          -- returning only the content of the manifest string and
          -- expanding system environment variables (syntax: ${name})
@@ -1213,7 +1213,7 @@ feature {}
          not Result.is_empty
       end
 
-   a_cluster_mark is
+   a_cluster_mark
       do
          -- At time being, this is just syntactic sugar because
          -- clusters are not handled :-(
@@ -1225,7 +1225,7 @@ feature {}
          end
       end
 
-   a_system_level_defaults: BOOLEAN is
+   a_system_level_defaults: BOOLEAN
          -- The `Result' is used to delay the `echo.is_verbose' value setting
       local
          stop: BOOLEAN; dummy: like default_assertion_level
@@ -1305,7 +1305,7 @@ feature {}
          end
       end
 
-   a_collect_value is
+   a_collect_value
       local
          mhf: MEMORY_HANDLER_FACTORY
       do
@@ -1330,7 +1330,7 @@ feature {}
          end
       end
 
-   a_cluster_clause_list: BOOLEAN is
+   a_cluster_clause_list: BOOLEAN
          --++ clusters --> "cluster" { cluster_clause ";" ...}
       local
          stop: BOOLEAN
@@ -1353,7 +1353,7 @@ feature {}
          end
       end
 
-   a_cluster_clause: BOOLEAN is
+   a_cluster_clause: BOOLEAN
          --++ cluster_clause --> [cluster_tag]
          --++                     directory_name
          --++                     directory_name/loadpath.se
@@ -1406,7 +1406,7 @@ feature {}
          end
       end
 
-   new_universe_entry (distance: INTEGER; path, name: STRING) is
+   new_universe_entry (distance: INTEGER; path, name: STRING)
       require
          distance > 0
          path /= Void
@@ -1422,7 +1422,7 @@ feature {}
          end
       end
 
-   a_cluster_properties is
+   a_cluster_properties
          --++ cluster_properties -->
          --++     [use]
          --++     [include]
@@ -1533,7 +1533,7 @@ feature {}
          new_clusters.clear_count
       end
 
-   a_option_in_cluster_properties: BOOLEAN is
+   a_option_in_cluster_properties: BOOLEAN
          -- Possible option after the keyword "option" in one
          -- `cluster' description.
       local
@@ -1614,9 +1614,9 @@ feature {}
          end
       end
 
-   a_class_name: BOOLEAN is
+   a_class_name: BOOLEAN
          -- A single class name strictly written using only uppercase letter
-         -- in order to avoid any possible ambiguities. When the `Result' is
+         -- in order to avoid any possible ambiguities. When the `Result'
          -- True, the corresponding class name is stored as usual in the
          -- `token_buffer' buffer.
       do
@@ -1640,7 +1640,7 @@ feature {}
          end
       end
 
-   a_external is
+   a_external
       local
          stop: BOOLEAN
       do
@@ -1690,7 +1690,7 @@ feature {}
          end
       end
 
-   a_generate is
+   a_generate
       local
          stop, value: BOOLEAN; mhf: MEMORY_HANDLER_FACTORY
       do
@@ -1754,7 +1754,7 @@ feature {}
          splitter /= Void
       end
 
-   a_yes_no_all: BOOLEAN is
+   a_yes_no_all: BOOLEAN
          -- Return True for a notation like "(yes)" or for a notation
          -- like "(all)". Return False for a notation like "(no)".
       do
@@ -1779,7 +1779,7 @@ feature {}
          end
       end
 
-   a_assertion_level: INTEGER is
+   a_assertion_level: INTEGER
       do
          if not skip1('(') then
             error_handler.add_position(current_position)
@@ -1824,7 +1824,7 @@ feature {}
          Result.in_range(level_boost, level_all)
       end
 
-   a_debug_key: STRING is
+   a_debug_key: STRING
          -- Return some acceptable notation for a debug key: "yes",
          -- "no" or some user defined key.
       do
@@ -1849,7 +1849,7 @@ feature {}
          end
       end
 
-   a_split_key: STRING is
+   a_split_key: STRING
          -- Return some acceptable notation for a split key: "yes",
          -- "no" or some user defined key.
       do
@@ -1872,7 +1872,7 @@ feature {}
          end
       end
 
-   a_cecil_file: STRING is
+   a_cecil_file: STRING
          -- Return some acceptable notation for a cecil file
       do
          if not skip1('(') then
@@ -1888,12 +1888,12 @@ feature {}
          end
       end
 
-   pos (l, c: INTEGER): POSITION is
+   pos (l, c: INTEGER): POSITION
       do
          Result.set_in_ace_file(l, c)
       end
 
-   universe: UNIVERSE is
+   universe: UNIVERSE
       local
          factory: CLASSES_TREE_FACTORY
       once
@@ -1902,14 +1902,14 @@ feature {}
 
    root_procedure_name_memory: STRING
 
-   has_cluster (c: CLUSTER): BOOLEAN is
+   has_cluster (c: CLUSTER): BOOLEAN
       require
          c /= Void
       do
          Result := universe.has_cluster(c)
       end
 
-   fatal_error_in (section_name: STRING) is
+   fatal_error_in (section_name: STRING)
       do
          error_handler.add_position(current_position)
          error_handler.append(once "Error in the %"")
@@ -1918,7 +1918,7 @@ feature {}
          error_handler.print_as_fatal_error
       end
 
-   set_highest_encountered_level (level: INTEGER) is
+   set_highest_encountered_level (level: INTEGER)
       do
          if level > highest_encountered_level then
             highest_encountered_level := level

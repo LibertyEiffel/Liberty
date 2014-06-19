@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {SMART_EIFFEL}
-   compile is
+   compile
       local
          types: DICTIONARY[TYPE, HASHED_STRING]; i, upper: INTEGER
       do
@@ -31,7 +31,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   make is
+   make
       local
          plugin_factory: FAKE_PLUGIN_FACTORY
       do
@@ -41,7 +41,7 @@ feature {}
          smart_eiffel.compile(Current)
       end
 
-   parse_arguments is
+   parse_arguments
       local
          argi: INTEGER; arg: STRING
       do
@@ -77,17 +77,17 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          -- This is called by smart_eiffel.ace from a loop similar to the one in parse_arguments
          Result := is_version_flag(arg) or else is_style_warning_flag(arg) or else is_no_warning_flag(arg) or else is_verbose_flag(arg)
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version and -help are allowed%Nin ACE file mode.%N"
 
-   use_short_mode: BOOLEAN is False
+   use_short_mode: BOOLEAN False
 
-   usage: STRING is "[
+   usage: STRING "[
    Usage: compiler_like [options] <RootClass> <RootProcedure> ...
       or: compiler_like [options] <ACEfileName>.ace
 

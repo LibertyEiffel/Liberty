@@ -31,7 +31,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       require
          create_events
       do
@@ -50,7 +50,7 @@ feature {ANY}
          -- using `wait'. Then this object is `queryable', that means that you can query the state of the
          -- events, using `event_occurred'.
 
-   reset is
+   reset
          -- Reset the event descriptors.
          --
          -- See also:
@@ -75,7 +75,7 @@ feature {ANY}
          queryable = False
       end
 
-   wait is
+   wait
          -- Blocks until requested condition (max time and/or data).
          --
          -- See also:
@@ -111,7 +111,7 @@ feature {ANY}
          queryable
       end
 
-   expect (event: EVENT_DESCRIPTOR) is
+   expect (event: EVENT_DESCRIPTOR)
          -- `wait' will return if that `event' happens.
       require
          not event_expected(event)
@@ -123,7 +123,7 @@ feature {ANY}
          event_expected(event)
       end
 
-   event_occurred (event: EVENT_DESCRIPTOR): BOOLEAN is
+   event_occurred (event: EVENT_DESCRIPTOR): BOOLEAN
          -- True if `wait' returned because that `event' happened.
       require
          event_expected(event)
@@ -133,64 +133,64 @@ feature {ANY}
       end
 
 feature {EVENTS_SET_HANDLER} -- low level features
-   expect_readable (descriptor: INTEGER) is
+   expect_readable (descriptor: INTEGER)
       do
          sequencer_watch(read_set, descriptor)
          read_size := read_size + 1
          highest := highest.max(descriptor)
       end
 
-   can_read (descriptor: INTEGER): BOOLEAN is
+   can_read (descriptor: INTEGER): BOOLEAN
       do
          Result := sequencer_is_ready(read_set, descriptor)
       end
 
-   expect_writeable (descriptor: INTEGER) is
+   expect_writeable (descriptor: INTEGER)
       do
          sequencer_watch(write_set, descriptor)
          write_size := write_size + 1
          highest := highest.max(descriptor)
       end
 
-   can_write (descriptor: INTEGER): BOOLEAN is
+   can_write (descriptor: INTEGER): BOOLEAN
       do
          Result := sequencer_is_ready(write_set, descriptor)
       end
 
-   expect_exception (descriptor: INTEGER) is
+   expect_exception (descriptor: INTEGER)
       do
           sequencer_watch(exception_set, descriptor)
           exception_size := exception_size + 1
           highest := highest.max(descriptor)
       end
 
-   has_exception (descriptor: INTEGER): BOOLEAN is
+   has_exception (descriptor: INTEGER): BOOLEAN
       do
          Result := sequencer_is_ready(exception_set, descriptor)
       end
 
-   set_read_size (rs: like read_size) is
+   set_read_size (rs: like read_size)
       require
          rs > read_size
       do
          read_size := rs
       end
 
-   set_write_size (ws: like write_size) is
+   set_write_size (ws: like write_size)
       require
          ws > write_size
       do
          write_size := ws
       end
 
-   set_exception_size (es: like exception_size) is
+   set_exception_size (es: like exception_size)
       require
          es > exception_size
       do
          exception_size := es
       end
 
-   set_highest (h: like highest) is
+   set_highest (h: like highest)
       require
          h > highest
       do
@@ -198,7 +198,7 @@ feature {EVENTS_SET_HANDLER} -- low level features
       end
 
 feature {EVENT_DESCRIPTOR}
-   after (timeout_ms: INTEGER) is
+   after (timeout_ms: INTEGER)
          -- `timeout_ms' is the max time in milliseconds to wait when
          -- wait begin.
       require
@@ -208,7 +208,7 @@ feature {EVENT_DESCRIPTOR}
          timeout := timeout.min(timeout_ms)
       end
 
-   at (date: MICROSECOND_TIME) is
+   at (date: MICROSECOND_TIME)
          -- `date' is the last moment `wait' can wait.
       require
          not queryable
@@ -221,7 +221,7 @@ feature {EVENT_DESCRIPTOR}
          end
       end
 
-   when_data (file: INPUT_STREAM) is
+   when_data (file: INPUT_STREAM)
       require
          file /= Void
          file.is_connected
@@ -231,7 +231,7 @@ feature {EVENT_DESCRIPTOR}
          expect_readable(file.descriptor)
       end
 
-   is_data (file: INPUT_STREAM): BOOLEAN is
+   is_data (file: INPUT_STREAM): BOOLEAN
       require
          file /= Void
          file.is_connected
@@ -241,7 +241,7 @@ feature {EVENT_DESCRIPTOR}
          Result := can_read(file.descriptor)
       end
 
-   when_connection (server: SOCKET_SERVER) is
+   when_connection (server: SOCKET_SERVER)
       require
          server /= Void
          not queryable
@@ -249,7 +249,7 @@ feature {EVENT_DESCRIPTOR}
          expect_readable(server.fd)
       end
 
-   is_connection (server: SOCKET_SERVER): BOOLEAN is
+   is_connection (server: SOCKET_SERVER): BOOLEAN
       require
          server /= Void
          queryable
@@ -257,7 +257,7 @@ feature {EVENT_DESCRIPTOR}
          Result := can_read(server.fd)
       end
 
-   when_free (file: OUTPUT_STREAM) is
+   when_free (file: OUTPUT_STREAM)
       require
          file /= Void
          file.is_connected
@@ -267,7 +267,7 @@ feature {EVENT_DESCRIPTOR}
          expect_writeable(file.descriptor)
       end
 
-   is_free (file: OUTPUT_STREAM): BOOLEAN is
+   is_free (file: OUTPUT_STREAM): BOOLEAN
       require
          file /= Void
          file.is_connected
@@ -277,7 +277,7 @@ feature {EVENT_DESCRIPTOR}
          Result := can_write(file.descriptor)
       end
 
-    when_exception (file: STREAM) is
+    when_exception (file: STREAM)
        require
           file /= Void
           file.is_connected
@@ -287,7 +287,7 @@ feature {EVENT_DESCRIPTOR}
          expect_exception(file.descriptor)
        end
 
-    is_exception (file: STREAM): BOOLEAN is
+    is_exception (file: STREAM): BOOLEAN
        require
           file /= Void
           file.is_connected
@@ -298,7 +298,7 @@ feature {EVENT_DESCRIPTOR}
        end
 
 feature {JOB, TIME_EVENT}
-   current_time: MICROSECOND_TIME is
+   current_time: MICROSECOND_TIME
       do
          if not current_time_valid then
             current_time_valid := True
@@ -308,7 +308,7 @@ feature {JOB, TIME_EVENT}
       end
 
 feature {ANY} -- Expected events
-   event_expected (a_event: EVENT_DESCRIPTOR): BOOLEAN is
+   event_expected (a_event: EVENT_DESCRIPTOR): BOOLEAN
          -- True in check modes if the event is expected. Always False in boost mode. Exported to {ANY} only
          -- because the language requires it.
          --
@@ -332,7 +332,7 @@ feature {} -- Expected events
          -- This array is created only if the assertion level is at least require_check. That's why all the
          -- functions below are used only in contracts.
 
-   mark_event_as_expected (a_event: EVENT_DESCRIPTOR): BOOLEAN is
+   mark_event_as_expected (a_event: EVENT_DESCRIPTOR): BOOLEAN
          -- Mark the event as expected and return True. Use only in require clauses.
       do
          events.add_last(a_event)
@@ -341,7 +341,7 @@ feature {} -- Expected events
          Result
       end
 
-   create_events: BOOLEAN is
+   create_events: BOOLEAN
          -- Create the events array. Use only in require clauses.
       do
          if events = Void then
@@ -350,7 +350,7 @@ feature {} -- Expected events
          end
       end
 
-   reset_events: BOOLEAN is
+   reset_events: BOOLEAN
          -- Empties the events array. Use only in require clauses.
       local
          i: INTEGER
@@ -392,7 +392,7 @@ feature {}
 
    highest: INTEGER
 
-   sequencer_create_set: POINTER is
+   sequencer_create_set: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -401,7 +401,7 @@ feature {}
          }"
       end
 
-   sequencer_reset (set: POINTER) is
+   sequencer_reset (set: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -410,7 +410,7 @@ feature {}
          }"
       end
 
-   sequencer_watch (set: POINTER; file: INTEGER) is
+   sequencer_watch (set: POINTER; file: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -419,7 +419,7 @@ feature {}
          }"
       end
 
-   sequencer_is_ready (set: POINTER; file: INTEGER): BOOLEAN is
+   sequencer_is_ready (set: POINTER; file: INTEGER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -428,7 +428,7 @@ feature {}
          }"
       end
 
-   sequencer_wait (n: INTEGER; rset: POINTER; rsize: INTEGER; wset: POINTER; wsize: INTEGER; eset:POINTER; esize: INTEGER; s, us: INTEGER): INTEGER is
+   sequencer_wait (n: INTEGER; rset: POINTER; rsize: INTEGER; wset: POINTER; wsize: INTEGER; eset:POINTER; esize: INTEGER; s, us: INTEGER): INTEGER
          --return -1 if signal interupt occured
       external "plug_in"
       alias "{
@@ -446,7 +446,7 @@ end -- class EVENTS_SET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

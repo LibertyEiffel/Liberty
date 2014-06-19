@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CREATION_INSTRUCTION}
-   visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION) is
+   visit_liberty_creation_instruction (v: LIBERTY_CREATION_INSTRUCTION)
       deferred
       end
 

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s: STRING; c: CHARACTER; value: INTEGER
       do

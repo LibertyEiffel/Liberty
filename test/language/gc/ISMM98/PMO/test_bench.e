@@ -13,7 +13,7 @@ feature {ANY}
 
    peach: PEACH
 
-   make is
+   make
       local
          i, limit: INTEGER
       do

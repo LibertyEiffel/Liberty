@@ -10,7 +10,7 @@ insert
    LOGGING
 
 feature {}
-   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job) is
+   connect (a_application: UI_APPLICATION; a_on_new_job: like on_new_job)
       require
          a_application /= Void
       local
@@ -35,7 +35,7 @@ feature {}
    on_new_job: PROCEDURE[TUPLE[JOB]]
 
 feature {UI_ITEM}
-   connect_bridge_application (ui: UI_APPLICATION): UI_CONNECT_TYPED_ITEM[like new_bridge_application] is
+   connect_bridge_application (ui: UI_APPLICATION): UI_CONNECT_TYPED_ITEM[like new_bridge_application]
       require
          ui /= Void
       do
@@ -44,7 +44,7 @@ feature {UI_ITEM}
          create Result.set_item(application)
       end
 
-   connect_bridge_window (ui: UI_WINDOW): UI_CONNECT_TYPED_ITEM[like new_bridge_window] is
+   connect_bridge_window (ui: UI_WINDOW): UI_CONNECT_TYPED_ITEM[like new_bridge_window]
       require
          ui /= Void
       local
@@ -55,7 +55,7 @@ feature {UI_ITEM}
          create Result.set_item(window)
       end
 
-   connect_bridge_panel (ui: UI_PANEL): UI_CONNECT_TYPED_ITEM[like new_bridge_panel] is
+   connect_bridge_panel (ui: UI_PANEL): UI_CONNECT_TYPED_ITEM[like new_bridge_panel]
       require
          ui /= Void
       local
@@ -66,7 +66,7 @@ feature {UI_ITEM}
          create Result.set_item(panel)
       end
 
-   connect_bridge_menu (ui: UI_MENU): UI_CONNECT_TYPED_ITEM[like new_bridge_menu] is
+   connect_bridge_menu (ui: UI_MENU): UI_CONNECT_TYPED_ITEM[like new_bridge_menu]
       require
          ui /= Void
       local
@@ -77,7 +77,7 @@ feature {UI_ITEM}
          create Result.set_item(menu)
       end
 
-   connect_bridge_text_field (ui: UI_TEXT_FIELD): UI_CONNECT_TYPED_ITEM[like new_bridge_text_field] is
+   connect_bridge_text_field (ui: UI_TEXT_FIELD): UI_CONNECT_TYPED_ITEM[like new_bridge_text_field]
       require
          ui /= Void
       local
@@ -88,7 +88,7 @@ feature {UI_ITEM}
          create Result.set_item(text_field)
       end
 
-   connect_bridge_button (ui: UI_BUTTON): UI_CONNECT_TYPED_ITEM[like new_bridge_button] is
+   connect_bridge_button (ui: UI_BUTTON): UI_CONNECT_TYPED_ITEM[like new_bridge_button]
       require
          ui /= Void
       local
@@ -100,7 +100,7 @@ feature {UI_ITEM}
       end
 
 feature {}
-   new_bridge_application (ui: UI_APPLICATION): like application is
+   new_bridge_application (ui: UI_APPLICATION): like application
       require
          ui /= Void
       deferred
@@ -108,7 +108,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_window (ui: UI_WINDOW): UI_TYPED_BRIDGE_WINDOW[like Current, UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]], UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]]] is
+   new_bridge_window (ui: UI_WINDOW): UI_TYPED_BRIDGE_WINDOW[like Current, UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]], UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]]]
       require
          ui /= Void
       deferred
@@ -116,7 +116,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_panel (ui: UI_PANEL): UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]] is
+   new_bridge_panel (ui: UI_PANEL): UI_TYPED_BRIDGE_PANEL[like Current, UI_TYPED_BRIDGE_WIDGET[like Current]]
       require
          ui /= Void
       deferred
@@ -124,7 +124,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_menu (ui: UI_MENU): UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]] is
+   new_bridge_menu (ui: UI_MENU): UI_TYPED_BRIDGE_MENU[like Current, UI_TYPED_BRIDGE_MENU_ITEM[like Current]]
       require
          ui /= Void
       deferred
@@ -132,7 +132,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_text_field (ui: UI_TEXT_FIELD): UI_TYPED_BRIDGE_TEXT_FIELD[like Current] is
+   new_bridge_text_field (ui: UI_TEXT_FIELD): UI_TYPED_BRIDGE_TEXT_FIELD[like Current]
       require
          ui /= Void
       deferred
@@ -140,7 +140,7 @@ feature {}
          Result /= Void
       end
 
-   new_bridge_button (ui: UI_BUTTON): UI_TYPED_BRIDGE_BUTTON[like Current] is
+   new_bridge_button (ui: UI_BUTTON): UI_TYPED_BRIDGE_BUTTON[like Current]
       require
          ui /= Void
       deferred
@@ -159,7 +159,7 @@ end -- class UI_JOB
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

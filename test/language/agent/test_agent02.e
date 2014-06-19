@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]
       do
@@ -21,7 +21,7 @@ feature {ANY}
       end
 
 feature {}
-   print_item1 (c: CHARACTER; item: STRING) is
+   print_item1 (c: CHARACTER; item: STRING)
       require
          c /= '%U'
          item /= Void
@@ -39,7 +39,7 @@ feature {}
          end
       end
 
-   print_item2 (item: STRING) is
+   print_item2 (item: STRING)
       do
          print_item1('#', item)
       end

@@ -28,13 +28,13 @@ inherit
    EDC_STORABLE_DRIVER[XML_FILE_REPOSITORY[EDC_STORABLE_TABLE]]
 
 feature {EDC_CONNECTION_FACTORY}
-   valid_url (url: STRING): BOOLEAN is
+   valid_url (url: STRING): BOOLEAN
       do
          Result := url.has_prefix(once "xml://")
       end
 
 feature {}
-   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): XML_FILE_REPOSITORY[EDC_STORABLE_TABLE] is
+   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): XML_FILE_REPOSITORY[EDC_STORABLE_TABLE]
       local
          filename: STRING
       do
@@ -47,7 +47,7 @@ feature {}
          end
       end
 
-   repositories: DICTIONARY[XML_FILE_REPOSITORY[EDC_STORABLE_TABLE], STRING] is
+   repositories: DICTIONARY[XML_FILE_REPOSITORY[EDC_STORABLE_TABLE], STRING]
       once
          create {HASHED_DICTIONARY[XML_FILE_REPOSITORY[EDC_STORABLE_TABLE], STRING]} Result.make
       end

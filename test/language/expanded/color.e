@@ -12,7 +12,7 @@ create {ANY}
    default_create, make_rgb
 
 feature {ANY}
-   make_rgb (r, g, b: INTEGER_8) is
+   make_rgb (r, g, b: INTEGER_8)
       do
          red := r
          green := g
@@ -20,7 +20,7 @@ feature {ANY}
          alpha := 0
       end
 
-   to_integer_32: INTEGER_32 is
+   to_integer_32: INTEGER_32
       do
          Result := alpha.to_integer_32
          Result := red.to_integer_32
@@ -28,7 +28,7 @@ feature {ANY}
          Result := blue.to_integer_32
       end
 
-   out: STRING is
+   out: STRING
       do
          Result := alpha.out + red.out + green.out + blue.out + to_integer_32.to_hexadecimal
       end

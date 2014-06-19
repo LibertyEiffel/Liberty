@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          check
             gcd(3, 4) = 1
@@ -20,7 +20,7 @@ feature {ANY}
          end
       end
 
-   gcd (value_1, value_2: INTEGER): INTEGER is
+   gcd (value_1, value_2: INTEGER): INTEGER
          -- Great Common Divisor of `value_1' and `value_2'.
       require
          value_1 > 0

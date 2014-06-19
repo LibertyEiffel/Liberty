@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_CHARACTER_COLUMN_VALUE}
-   visit_character_column_value (a_character_column_value: EDC_CHARACTER_COLUMN_VALUE) is
+   visit_character_column_value (a_character_column_value: EDC_CHARACTER_COLUMN_VALUE)
       deferred
       end
 

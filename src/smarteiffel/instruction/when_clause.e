@@ -32,21 +32,21 @@ feature {ANY}
    compound: INSTRUCTION
          -- Of the when clause if any.
 
-   end_mark_comment: BOOLEAN is
+   end_mark_comment: BOOLEAN
       do
          check
             False -- Current is not really an INSTRUCTION.
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if compound /= Void then
             Result := compound.use_current(type)
          end
       end
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       local
          i: INTEGER; c: like compound; l: like list; wi1, wi2: WHEN_ITEM
       do
@@ -89,7 +89,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; c: like compound; l: like list; wi1, wi2: WHEN_ITEM
       do
@@ -132,7 +132,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       do
          check
             False -- *** Why is the work done in INSPECT_STATEMENT ?? *** DOM April 20th 2008 ***
@@ -140,7 +140,7 @@ feature {ANY}
          not_yet_implemented -- To be warned even in -boost mode.
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -155,7 +155,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -172,13 +172,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: WHEN_CLAUSE_VISITOR) is
+   accept (visitor: WHEN_CLAUSE_VISITOR)
       do
          visitor.visit_when_clause(Current)
       end
 
 feature {INSPECT_STATEMENT}
-   create_merged_with (other: like Current): like Current is
+   create_merged_with (other: like Current): like Current
          -- Assuming that `Current' has the same compound as `other', the `Result' is the merged.
       require
          values_not_yet_computed: values = Void
@@ -192,7 +192,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {WHEN_CLAUSE_VISITOR}
-   is_more_complex_than (other: like Current): BOOLEAN is
+   is_more_complex_than (other: like Current): BOOLEAN
       do
          Result := list.count > other.list.count
       end
@@ -200,7 +200,7 @@ feature {WHEN_CLAUSE_VISITOR}
 feature {INSPECT_STATEMENT}
    condition_live_type: LIVE_TYPE
 
-   set_condition_live_type (clt: like condition_live_type) is
+   set_condition_live_type (clt: like condition_live_type)
       do
          condition_live_type := clt
       ensure
@@ -208,7 +208,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {ANY}
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          i: INTEGER; dummy: TYPE
       do
@@ -231,7 +231,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          c: like compound
       do
@@ -246,7 +246,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -279,14 +279,14 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if compound /= Void then
             compound.safety_check(type)
          end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          i: INTEGER; c: like compound; l: like list; wi1, wi2: WHEN_ITEM
       do
@@ -324,7 +324,7 @@ feature {ANY}
       end
 
 feature {}
-   parser_make (sp: like start_position; hc: like header_comment) is
+   parser_make (sp: like start_position; hc: like header_comment)
       require
          not sp.is_unknown
       do
@@ -335,7 +335,7 @@ feature {}
          start_position = sp
       end
 
-   make (inspect_statement: INSPECT_STATEMENT; sp: like start_position; hc: like header_comment) is
+   make (inspect_statement: INSPECT_STATEMENT; sp: like start_position; hc: like header_comment)
       require
          inspect_statement /= Void
          not sp.is_unknown
@@ -348,7 +348,7 @@ feature {}
          start_position = sp
       end
 
-   make_strippable (inspect_statement: INSPECT_STATEMENT; condition: like strip_condition) is
+   make_strippable (inspect_statement: INSPECT_STATEMENT; condition: like strip_condition)
       require
          inspect_statement /= Void
          condition /= Void
@@ -360,7 +360,7 @@ feature {}
          strip_condition = condition
       end
 
-   make_dynamic_dispatch (inspect_statement: INSPECT_STATEMENT; sp: like start_position; lt: like dispatch_live_type) is
+   make_dynamic_dispatch (inspect_statement: INSPECT_STATEMENT; sp: like start_position; lt: like dispatch_live_type)
       require
          inspect_statement /= Void
          lt /= Void
@@ -374,7 +374,7 @@ feature {}
       end
 
 feature {INSPECT_STATEMENT}
-   validity_check (type, expression_type: TYPE; container: INSPECT_STATEMENT) is
+   validity_check (type, expression_type: TYPE; container: INSPECT_STATEMENT)
       require
          type /= Void
          expression_type /= Void
@@ -392,7 +392,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN is
+   validity_check_continued (type, expression_type: TYPE; occurrence_1: WHEN_ITEM): BOOLEAN
       require
          type /= Void
          expression_type /= Void
@@ -412,7 +412,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {INSPECT_STATEMENT}
-   includes_integer (v: INTEGER): BOOLEAN is
+   includes_integer (v: INTEGER): BOOLEAN
       local
          i: INTEGER
       do
@@ -428,7 +428,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   includes_integer_between (l, u: INTEGER): BOOLEAN is
+   includes_integer_between (l, u: INTEGER): BOOLEAN
       require
          invalid_range: l < u
       local
@@ -446,7 +446,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   largest_range_of_values: INTEGER is
+   largest_range_of_values: INTEGER
          -- The largest number of consecutive values - returns 0 if none
       local
          i, range: INTEGER
@@ -467,7 +467,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {INSPECT_STATEMENT, WHEN_CLAUSE}
-   specialize_and_check_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -510,7 +510,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_and_check_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -526,7 +526,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_and_check_when_items_integer (type: TYPE; c: like compound): like Current is
+   specialize_and_check_when_items_integer (type: TYPE; c: like compound): like Current
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -566,7 +566,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
          Result.has_been_specialized
       end
 
-   specialize_and_check_string (type: TYPE): like Current is
+   specialize_and_check_string (type: TYPE): like Current
       require
          has_been_specialized
          not smart_eiffel.status.is_specializing
@@ -588,7 +588,7 @@ feature {INSPECT_STATEMENT, WHEN_CLAUSE}
       end
 
 feature {INSPECT_STATEMENT}
-   compute_values (type: TYPE) is
+   compute_values (type: TYPE)
       local
          i: INTEGER; debug_values: like values
       do
@@ -617,7 +617,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   force_internal_integer_values (type: TYPE) is
+   force_internal_integer_values (type: TYPE)
       local
          i: INTEGER
       do
@@ -631,7 +631,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   force_internal_character_values (type: TYPE) is
+   force_internal_character_values (type: TYPE)
       local
          i: INTEGER
       do
@@ -645,7 +645,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   match_value (v: INTEGER): BOOLEAN is
+   match_value (v: INTEGER): BOOLEAN
       local
          i: INTEGER
       do
@@ -659,7 +659,7 @@ feature {INSPECT_STATEMENT}
          end
       end
 
-   strip_or_set_value (v: INTEGER; specialize_type, condition_type: TYPE): like Current is
+   strip_or_set_value (v: INTEGER; specialize_type, condition_type: TYPE): like Current
       local
          l: like list; ic: INTEGER_CONSTANT
       do
@@ -683,7 +683,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {}
-   is_live (condition_type: TYPE): BOOLEAN is
+   is_live (condition_type: TYPE): BOOLEAN
       local
          af: ANONYMOUS_FEATURE; tm: TYPE_MARK
       do
@@ -698,7 +698,7 @@ feature {}
       end
 
 feature {WHEN_CLAUSE, INTROSPECTION_HANDLER, MANIFEST_STRING_INSPECTOR, FEATURE_CALL}
-   add_value (v: EXPRESSION) is
+   add_value (v: EXPRESSION)
       require
          v /= Void
       local
@@ -709,7 +709,7 @@ feature {WHEN_CLAUSE, INTROSPECTION_HANDLER, MANIFEST_STRING_INSPECTOR, FEATURE_
       end
 
 feature {EIFFEL_PARSER, WHEN_CLAUSE, INTROSPECTION_HANDLER, MANIFEST_STRING_INSPECTOR}
-   add_slice (min, max: EXPRESSION) is
+   add_slice (min, max: EXPRESSION)
       require
          min /= Void
          max /= Void
@@ -723,7 +723,7 @@ feature {EIFFEL_PARSER, WHEN_CLAUSE, INTROSPECTION_HANDLER, MANIFEST_STRING_INSP
       end
 
 feature {WHEN_CLAUSE, INTROSPECTION_HANDLER}
-   init (c: like compound; l: like list) is
+   init (c: like compound; l: like list)
       require
          l /= Void
       do
@@ -735,7 +735,7 @@ feature {WHEN_CLAUSE, INTROSPECTION_HANDLER}
       end
 
 feature {WHEN_CLAUSE, CODE, EIFFEL_PARSER, INTROSPECTION_HANDLER, MANIFEST_STRING_INSPECTOR}
-   set_compound (c: like compound) is
+   set_compound (c: like compound)
       do
          compound := c
       ensure
@@ -759,7 +759,7 @@ feature {WHEN_CLAUSE, WHEN_CLAUSE_VISITOR}
          --      values 1,4
 
 feature {WHEN_CLAUSE}
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l /= Void
       do
@@ -769,7 +769,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          c: like compound; when_clause: like Current
       do
@@ -789,7 +789,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {EIFFEL_PARSER}
-   parser_add_value (manifest_string_flag: INTEGER; allowed_constant: EXPRESSION): INTEGER is
+   parser_add_value (manifest_string_flag: INTEGER; allowed_constant: EXPRESSION): INTEGER
       require
          allowed_constant /= Void
       do
@@ -829,7 +829,7 @@ feature {}
    strip_condition: FEATURE_STAMP
    dispatch_live_type: LIVE_TYPE
 
-   no_manifest_string_slice_check (expression: EXPRESSION) is
+   no_manifest_string_slice_check (expression: EXPRESSION)
       do
          if expression.is_manifest_string then
             error_handler.add_position(expression.start_position)
@@ -838,9 +838,9 @@ feature {}
          end
       end
 
-   em1: STRING is "Bad when clause."
+   em1: STRING "Bad when clause."
 
-   em2: STRING is "Empty when clause in inspect."
+   em2: STRING "Empty when clause in inspect."
 
 invariant
    list /= Void

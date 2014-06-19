@@ -10,15 +10,15 @@ insert
    WEB_ITEM[I_]
 
 feature {WEB_ITEM}
-   save (context: WEB_CONTEXT) is
+   save (context: WEB_CONTEXT)
       deferred
       end
 
-   run (context: WEB_CONTEXT) is
+   run (context: WEB_CONTEXT)
       deferred
       end
 
-   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING
       deferred
       end
 
@@ -30,7 +30,7 @@ end -- class WEB_WIDGET
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

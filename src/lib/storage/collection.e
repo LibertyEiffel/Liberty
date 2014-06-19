@@ -32,7 +32,7 @@ inherit
       end
 
 feature {ANY} -- Accessing:
-   frozen infix "@" (i: INTEGER): E_ is
+   frozen infix "@" (i: INTEGER): E_
          -- The infix notation which is actually just a synonym for `item'.
          --
          -- See also `item'.
@@ -45,7 +45,7 @@ feature {ANY} -- Accessing:
       end
 
 feature {ANY} -- Writing:
-   put (element: like item; i: INTEGER) assign item is
+   put (element: like item; i: INTEGER) assign item
          -- Make `element' the item at index `i'.
          --
          -- See also `lower', `upper', `valid_index', `item', `swap', `force'.
@@ -57,7 +57,7 @@ feature {ANY} -- Writing:
          count = old count
       end
 
-   swap (i1, i2: INTEGER) is
+   swap (i1, i2: INTEGER)
          -- Swap item at index `i1' with item at index `i2'.
          --
          -- See also `item', `put'.
@@ -76,7 +76,7 @@ feature {ANY} -- Writing:
          count = old count
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
          -- Set all items with value `v'.
          --
          -- See also `set_slice_with'.
@@ -85,7 +85,7 @@ feature {ANY} -- Writing:
          count = old count
       end
 
-   set_slice_with (v: like item; lower_index, upper_index: INTEGER) is
+   set_slice_with (v: like item; lower_index, upper_index: INTEGER)
          -- Set all items in range [`lower_index' .. `upper_index'] with `v'.
          --
          -- See also `set_all_with'.
@@ -108,7 +108,7 @@ feature {ANY} -- Writing:
          count = old count
       end
 
-   clear_all is
+   clear_all
          -- Set every item to its default value. The `count' is not affected.
          --
          -- See also `clear', `all_default'.
@@ -123,7 +123,7 @@ feature {ANY} -- Writing:
       end
 
 feature {ANY} -- Adding:
-   add_first (element: like item) is
+   add_first (element: like item)
          -- Add a new item in first position : `count' is increased by
          -- one and all other items are shifted right.
          --
@@ -136,7 +136,7 @@ feature {ANY} -- Adding:
          upper = 1 + old upper
       end
 
-   add_last (element: like item) is
+   add_last (element: like item)
          -- Add a new item at the end : `count' is increased by one.
          --
          -- See also `add_first', `last', `first', `add'.
@@ -148,7 +148,7 @@ feature {ANY} -- Adding:
          upper = 1 + old upper
       end
 
-   add (element: like item; index: INTEGER) is
+   add (element: like item; index: INTEGER)
          -- Add a new `element' at rank `index' : `count' is increased
          -- by one and range [`index' .. `upper'] is shifted right by one position.
          --
@@ -162,7 +162,7 @@ feature {ANY} -- Adding:
          upper = 1 + old upper
       end
 
-   append_collection (other: COLLECTION[E_]) is
+   append_collection (other: COLLECTION[E_])
          -- Append `other' to Current.
          --
          -- See also `add_last', `add_first', `add'.
@@ -175,7 +175,7 @@ feature {ANY} -- Adding:
          count = other.count + old count
       end
 
-   append_traversable (other: TRAVERSABLE[E_]) is
+   append_traversable (other: TRAVERSABLE[E_])
          -- Append `other' to Current.
          --
          -- See also `add_last', `add_first', `add'.
@@ -200,7 +200,7 @@ feature {ANY} -- Adding:
       end
 
 feature {ANY} -- Modification:
-   force (element: E_; index: INTEGER) is
+   force (element: E_; index: INTEGER)
          -- Make `element' the item at `index', enlarging the collection if
          -- necessary (new bounds except `index' are initialized with
          -- default values).
@@ -214,12 +214,12 @@ feature {ANY} -- Modification:
          item(index) = element
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Reinitialize by copying all the items of `other'.
       deferred
       end
 
-   from_collection (model: TRAVERSABLE[like item]) is
+   from_collection (model: TRAVERSABLE[like item])
          -- Initialize the current object with the contents of `model'.
       require
          model /= Void
@@ -230,7 +230,7 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Removing:
-   remove_first is
+   remove_first
          -- Remove the `first' element of the collection.
          --
          -- See also `remove_last', `remove', `remove_head'.
@@ -242,7 +242,7 @@ feature {ANY} -- Removing:
          lower = old lower + 1 xor upper = old upper - 1
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
          -- Remove the `n' elements of the collection.
          --
          -- See also `remove_tail', `remove', `remove_first'.
@@ -254,7 +254,7 @@ feature {ANY} -- Removing:
          lower = old lower + n xor upper = old upper - n
       end
 
-   remove (index: INTEGER) is
+   remove (index: INTEGER)
          -- Remove the item at position `index'. Followings items are shifted left by one position.
          --
          -- See also `remove_first', `remove_head', `remove_tail', `remove_last'.
@@ -266,7 +266,7 @@ feature {ANY} -- Removing:
          upper = old upper - 1
       end
 
-   remove_last is
+   remove_last
          -- Remove the `last' item.
          --
          -- See also `remove_first', `remove', `remove_tail'.
@@ -278,7 +278,7 @@ feature {ANY} -- Removing:
          upper = old upper - 1
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
          -- Remove the last `n' item(s).
          --
          -- See also `remove_head', `remove', `remove_last'.
@@ -290,8 +290,8 @@ feature {ANY} -- Removing:
          upper = old upper - n
       end
 
-   clear_count is
-         -- Discard all items (`is_empty' is True after that call). If possible, the actual implementation is
+   clear_count
+         -- Discard all items (`is_empty' is True after that call). If possible, the actual implementation
          -- supposed to keep its internal storage area in order to refill `Current' in an efficient way.
          --
          -- See also `clear_count_and_capacity'.
@@ -300,8 +300,8 @@ feature {ANY} -- Removing:
          is_empty: count = 0
       end
 
-   clear_count_and_capacity is
-         -- Discard all items (`is_empty' is True after that call). If possible, the actual implementation is
+   clear_count_and_capacity
+         -- Discard all items (`is_empty' is True after that call). If possible, the actual implementation
          -- supposed to release its internal storage area for this memory to be used by other objects.
          --
          -- See also `clear_count'.
@@ -311,7 +311,7 @@ feature {ANY} -- Removing:
       end
 
 feature {ANY} -- Looking and Searching:
-   has (x: like item): BOOLEAN is
+   has (x: like item): BOOLEAN
          -- Look for `x' using `is_equal' for comparison.
          --
          -- See also `fast_has', `index_of', `fast_index_of'.
@@ -319,7 +319,7 @@ feature {ANY} -- Looking and Searching:
          Result := valid_index(first_index_of(x))
       end
 
-   fast_has (x: like item): BOOLEAN is
+   fast_has (x: like item): BOOLEAN
          -- Look for `x' using basic `=' for comparison.
          --
          -- See also `has', `fast_index_of', `index_of'.
@@ -327,7 +327,7 @@ feature {ANY} -- Looking and Searching:
          Result := valid_index(fast_first_index_of(x))
       end
 
-   last_index_of (element: like item): INTEGER is
+   last_index_of (element: like item): INTEGER
          -- Using `is_equal' for comparison, gives the index of the last occurrence of `element' at or before
          -- `upper'. Search is done in reverse direction, which means from the `upper' down to the
          -- `lower' index . Answer `lower -1' when the search fail.
@@ -337,7 +337,7 @@ feature {ANY} -- Looking and Searching:
          Result := reverse_index_of(element, upper)
       end
 
-   fast_last_index_of (element: like item): INTEGER is
+   fast_last_index_of (element: like item): INTEGER
          -- Using basic `=' for comparison, gives the index of the last occurrence of `element' at or before
          -- `upper'. Search is done in reverse direction, which means from the `upper' down to the
          -- `lower' index . Answer `lower -1' when the search fail.
@@ -348,7 +348,7 @@ feature {ANY} -- Looking and Searching:
       end
 
 feature {ANY} -- Looking and comparison:
-   fast_is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN
          -- Do both collections have the same `lower', `upper', and items?
          -- The basic `=' is used for comparison of items.
          --
@@ -358,7 +358,7 @@ feature {ANY} -- Looking and comparison:
          Result implies lower = other.lower and upper = other.upper
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
@@ -369,7 +369,7 @@ feature {ANY} -- Looking and comparison:
          Result implies lower = other.lower and upper = other.upper
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal_map (other: like Current): BOOLEAN
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
@@ -378,7 +378,7 @@ feature {ANY} -- Looking and comparison:
          Result := is_equal(other)
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
          -- Do all items have their type's default value?
          -- Note: for non Void items, the test is performed with the `is_default' predicate.
          --
@@ -386,7 +386,7 @@ feature {ANY} -- Looking and comparison:
       deferred
       end
 
-   same_items (other: COLLECTION[E_]): BOOLEAN is
+   same_items (other: COLLECTION[E_]): BOOLEAN
          -- Do both collections have the same items? The basic `=' is used
          -- for comparison of items and indices are not considered (for
          -- example this routine may yeld True with `Current' indexed in
@@ -415,7 +415,7 @@ feature {ANY} -- Looking and comparison:
          Result implies count = other.count
       end
 
-   occurrences (element: like item): INTEGER is
+   occurrences (element: like item): INTEGER
          -- Number of occurrences of `element' using `is_equal' for comparison.
          --
          -- See also `fast_occurrences', `index_of'.
@@ -424,7 +424,7 @@ feature {ANY} -- Looking and comparison:
          Result >= 0
       end
 
-   fast_occurrences (element: like item): INTEGER is
+   fast_occurrences (element: like item): INTEGER
          -- Number of occurrences of `element' using basic `=' for comparison.
          --
          -- See also `occurrences', `index_of'.
@@ -434,7 +434,7 @@ feature {ANY} -- Looking and comparison:
       end
 
 feature {ANY} -- Other features:
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
          --
          -- See also `fast_replace_all', `move'.
@@ -444,7 +444,7 @@ feature {ANY} -- Other features:
          not (create {SAFE_EQUAL[E_]}).test(old_value, new_value) implies occurrences(old_value) = 0
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
          --
          -- See also `replace_all', `move'.
@@ -454,7 +454,7 @@ feature {ANY} -- Other features:
          old_value /= new_value implies fast_occurrences(old_value) = 0
       end
 
-   move (lower_index, upper_index, distance: INTEGER) is
+   move (lower_index, upper_index, distance: INTEGER)
          -- Move range `lower_index' .. `upper_index' by `distance' positions.
          --   Negative distance moves towards lower indices.
          -- Free places get default values.
@@ -495,7 +495,7 @@ feature {ANY} -- Other features:
          count = old count
       end
 
-   slice (min, max: INTEGER): like Current is
+   slice (min, max: INTEGER): like Current
          -- New collection consisting of items at indexes in [`min'..`max'].
          -- Result has the same dynamic type as `Current'.
          -- The `lower' index of the `Result' is the same as `lower'.
@@ -512,7 +512,7 @@ feature {ANY} -- Other features:
          Result.lower = lower
       end
 
-   reverse is
+   reverse
          -- Reverse the order of the elements.
       deferred
       ensure
@@ -520,9 +520,9 @@ feature {ANY} -- Other features:
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_semicolon_check: BOOLEAN is False
+   manifest_semicolon_check: BOOLEAN False
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       require
          index >= 0
       deferred
@@ -539,7 +539,7 @@ end -- class COLLECTION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

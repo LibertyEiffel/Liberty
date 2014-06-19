@@ -23,31 +23,31 @@ create {LIBERTY_ACTUAL_TYPE}
    make
 
 feature {ANY}
-   name: FIXED_STRING is
+   name: FIXED_STRING
       once
          Result := "Current".intern
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(name)
       end
 
    result_type: LIBERTY_ACTUAL_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := a_type.current_entity
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {}
-   make (type: like result_type; a_position: like position) is
+   make (type: like result_type; a_position: like position)
       require
          type /= Void
          a_position /= Void
@@ -60,7 +60,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CURRENT_VISITOR
       do

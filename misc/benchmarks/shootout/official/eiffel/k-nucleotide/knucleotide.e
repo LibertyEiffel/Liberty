@@ -14,7 +14,7 @@ create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		do
 			create array.make(100000)
 			create sequence.make(100000)
@@ -29,7 +29,7 @@ feature {ANY}
 			write_count(once "GGTATTTTAATTTATAGT")
 		end
 
-	write_frequencies (length: INTEGER) is
+	write_frequencies (length: INTEGER)
 		local
 			i: INTEGER; coef: REAL_64
 		do
@@ -52,7 +52,7 @@ feature {ANY}
 			io.put_character('%N')
 		end
 
-	write_count (match: STRING) is
+	write_count (match: STRING)
 		local
 			n: INTEGER
 		do
@@ -77,7 +77,7 @@ feature {ANY}
 
 	array: FAST_ARRAY[like tuple]
 
-	read is
+	read
 		do
 			from
 				io.read_line
@@ -101,7 +101,7 @@ feature {ANY}
 			end
 		end
 
-	count (length: INTEGER) is
+	count (length: INTEGER)
 		local
 			pos, i, j: INTEGER
 		do
@@ -135,7 +135,7 @@ feature {ANY}
 			end
 		end
 
-	lt (a, b: like tuple): BOOLEAN is
+	lt (a, b: like tuple): BOOLEAN
 		do
 			Result := b.first < a.first or else a.first = b.first and then a.second < b.second
 		end

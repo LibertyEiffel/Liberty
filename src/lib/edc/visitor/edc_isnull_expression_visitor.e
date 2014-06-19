@@ -25,7 +25,7 @@ inherit
    ESE_TYPED_VISITOR[T_]
 
 feature {EDC_ISNULL_EXPRESSION}
-   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[T_]) is
+   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[T_])
       deferred
       end
 

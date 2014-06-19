@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          d1: HASHED_BIJECTIVE_DICTIONARY[INTEGER, INTEGER]
       do

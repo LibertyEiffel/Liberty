@@ -12,7 +12,7 @@ create {ANY}
    default_create
 
 feature {ANY}
-   default_create is
+   default_create
       do
       end
 

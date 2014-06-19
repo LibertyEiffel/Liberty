@@ -14,7 +14,7 @@ feature {ANY}
     path: STRING;
 
 feature {}
-    make is
+    make
       do
          if path /= Void then
             path := "Xavier Cregut";

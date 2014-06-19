@@ -17,7 +17,7 @@ feature {ANY}
 feature {}
    window: NCURSES_WINDOW
 
-   make (ui: UI_WINDOW; desc: JSON_OBJECT) is
+   make (ui: UI_WINDOW; desc: JSON_OBJECT)
       require
          desc /= Void
       do
@@ -29,7 +29,7 @@ feature {}
          log.trace.put_line(once "window #(1) is ready" # ui.id)
       end
 
-   build (ui: UI_WINDOW) is
+   build (ui: UI_WINDOW)
       local
          root: NCURSES_WINDOW
       do
@@ -53,7 +53,7 @@ end -- class CURSES_DESC_WINDOW
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

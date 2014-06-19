@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   f (yo: STRING) is
+   f (yo: STRING)
       local
          gobo: STRING
       do

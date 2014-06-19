@@ -8,7 +8,7 @@ insert
    CST_ATT_STRING_VISITOR
 
 feature {ANY}
-   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE) is
+   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE)
       deferred
       end
 
@@ -16,7 +16,7 @@ feature {ANY}
          -- The type where this declaration was written
 
 feature {}
-   track_manifest_string (message: EXPRESSION; current_type: TYPE): STRING is
+   track_manifest_string (message: EXPRESSION; current_type: TYPE): STRING
       local
          manifest_string: MANIFEST_STRING; call_0: CALL_0; target: EXPRESSION; fs: FEATURE_STAMP
          af: ANONYMOUS_FEATURE; constant_string: CST_ATT_STRING
@@ -39,7 +39,7 @@ feature {}
       end
 
 feature {CST_ATT_STRING}
-   visit_cst_att_string (visited: CST_ATT_STRING) is
+   visit_cst_att_string (visited: CST_ATT_STRING)
       do
       end
 

@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          taille := 6
          if read_nb_element /= taille then
@@ -23,7 +23,7 @@ feature {ANY}
          end
       end
 
-   plein: BOOLEAN is
+   plein: BOOLEAN
       do
          Result := taille = 10
       end

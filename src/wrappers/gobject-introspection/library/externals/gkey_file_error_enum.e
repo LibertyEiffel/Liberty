@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = group_not_found_low_level)  or else
 				(a_value = invalid_value_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_group_not_found is
+	set_group_not_found
 		do
 			value := group_not_found_low_level
 		end
 
-	set_invalid_value is
+	set_invalid_value
 		do
 			value := invalid_value_low_level
 		end
 
-	set_key_not_found is
+	set_key_not_found
 		do
 			value := key_not_found_low_level
 		end
 
-	set_not_found is
+	set_not_found
 		do
 			value := not_found_low_level
 		end
 
-	set_parse is
+	set_parse
 		do
 			value := parse_low_level
 		end
 
-	set_unknown_encoding is
+	set_unknown_encoding
 		do
 			value := unknown_encoding_low_level
 		end
 
 feature {ANY} -- Queries
-	is_group_not_found: BOOLEAN is
+	is_group_not_found: BOOLEAN
 		do
 			Result := (value=group_not_found_low_level)
 		end
 
-	is_invalid_value: BOOLEAN is
+	is_invalid_value: BOOLEAN
 		do
 			Result := (value=invalid_value_low_level)
 		end
 
-	is_key_not_found: BOOLEAN is
+	is_key_not_found: BOOLEAN
 		do
 			Result := (value=key_not_found_low_level)
 		end
 
-	is_not_found: BOOLEAN is
+	is_not_found: BOOLEAN
 		do
 			Result := (value=not_found_low_level)
 		end
 
-	is_parse: BOOLEAN is
+	is_parse: BOOLEAN
 		do
 			Result := (value=parse_low_level)
 		end
 
-	is_unknown_encoding: BOOLEAN is
+	is_unknown_encoding: BOOLEAN
 		do
 			Result := (value=unknown_encoding_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	group_not_found_low_level: INTEGER is
+	group_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_value_low_level: INTEGER is
+	invalid_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	key_not_found_low_level: INTEGER is
+	key_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	not_found_low_level: INTEGER is
+	not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	parse_low_level: INTEGER is
+	parse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_encoding_low_level: INTEGER is
+	unknown_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,27 +11,27 @@ create {ANY}
 
 feature {}
    method_handler_factory: FUNCTION[TUPLE[STRING, STRING, STRING, OUTPUT_STREAM], HTTP_METHOD_HANDLER]
-      -- The first argument is the method, the second is the URI, the third is the version; the fourth is
+      -- The first argument is the method, the second is the URI, the third is the version; the fourth
       -- the output stream to the client socket
 
-   make (a_method_handler_factory: like method_handler_factory) is
+   make (a_method_handler_factory: like method_handler_factory)
       do
          method_handler_factory := a_method_handler_factory
          create request_line.make_empty
       end
 
 feature {} -- method handlers reuse
-   method_handlers: DICTIONARY[FAST_ARRAY[HTTP_METHOD_HANDLER], STRING] is
+   method_handlers: DICTIONARY[FAST_ARRAY[HTTP_METHOD_HANDLER], STRING]
       once
          create {HASHED_DICTIONARY[FAST_ARRAY[HTTP_METHOD_HANDLER], STRING]} Result.make
       end
 
-   no_method_handlers: FAST_ARRAY[HTTP_NO_METHOD_HANDLER] is
+   no_method_handlers: FAST_ARRAY[HTTP_NO_METHOD_HANDLER]
       once
          create Result.make(0)
       end
 
-   get_method_handler (method, uri, version: STRING): HTTP_METHOD_HANDLER is
+   get_method_handler (method, uri, version: STRING): HTTP_METHOD_HANDLER
       local
          mh: FAST_ARRAY[HTTP_METHOD_HANDLER]; get: HTTP_GET_HANDLER; nop: HTTP_NO_METHOD_HANDLER
       do

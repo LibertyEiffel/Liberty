@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {DEFERRED_PROCEDURE}
-   visit_deferred_procedure (visited: DEFERRED_PROCEDURE) is
+   visit_deferred_procedure (visited: DEFERRED_PROCEDURE)
       require
          visited /= Void
       deferred

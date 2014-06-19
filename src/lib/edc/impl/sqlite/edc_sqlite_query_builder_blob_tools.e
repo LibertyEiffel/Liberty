@@ -38,20 +38,20 @@ create {EDC_SQLITE_QUERY_BUILDER_TOOLS}
    make
 
 feature {EDC_MANIFEST_VALUE}
-   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[EDC_BLOB]) is
+   visit_manifest_value (a_manifest_value: EDC_MANIFEST_VALUE[EDC_BLOB])
       do
          not_yet_implemented
       end
 
 feature {EDC_PARAMETER}
-   visit_parameter (a_parameter: EDC_PARAMETER[EDC_BLOB]) is
+   visit_parameter (a_parameter: EDC_PARAMETER[EDC_BLOB])
       do
          current_query.extend('?')
          prepared_arguments.add_last(a_parameter.item.to_string)
       end
 
 feature {EDC_EQUALS_EXPRESSION}
-   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[EDC_BLOB]) is
+   visit_equals_expression (a_equals_expression: EDC_EQUALS_EXPRESSION[EDC_BLOB])
       do
          a_equals_expression.left.accept(Current)
          current_query.append(once " = ")
@@ -59,7 +59,7 @@ feature {EDC_EQUALS_EXPRESSION}
       end
 
 feature {EDC_IN_EXPRESSION}
-   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[EDC_BLOB]) is
+   visit_in_expression (a_in_expression: EDC_IN_EXPRESSION[EDC_BLOB])
       do
          a_in_expression.left.accept(Current)
          current_query.append(once " in ")
@@ -67,7 +67,7 @@ feature {EDC_IN_EXPRESSION}
       end
 
 feature {EDC_ISNULL_EXPRESSION}
-   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[EDC_BLOB]) is
+   visit_isnull_expression (a_isnull_expression: EDC_ISNULL_EXPRESSION[EDC_BLOB])
       do
          a_isnull_expression.exp.accept(Current)
          current_query.append(once " is null")

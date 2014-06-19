@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {ARGUMENT_NAME}
-   visit_argument_name (visited: ARGUMENT_NAME) is
+   visit_argument_name (visited: ARGUMENT_NAME)
       require
          visited /= Void
       do

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: AUX_LIKE8A; b: AUX_LIKE8B
       do
@@ -16,7 +16,7 @@ feature {}
          b := same_as(a)
       end
 
-   same_as(some: AUX_LIKE8B): like some is
+   same_as(some: AUX_LIKE8B): like some
       do
       end
 

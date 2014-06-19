@@ -28,7 +28,7 @@ create {EDC_VALUE}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: EDC_LIKE_EXPRESSION_VISITOR
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_left: like left; a_right: like right) is
+   make (a_left: like left; a_right: like right)
       require
          a_left /= Void
          a_right /= Void
@@ -55,18 +55,18 @@ feature {ANY}
    right: EDC_TYPED_VALUE[STRING]
 
 feature {ANY}
-   can_call: BOOLEAN is
+   can_call: BOOLEAN
       do
          Result := right.can_call
       end
 
-   open_count: INTEGER is
+   open_count: INTEGER
       do
          Result := right.open_count
       end
 
 feature {ANY}
-   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN is
+   matches (a_columns: TRAVERSABLE[EDC_COLUMN]; a_data: TRAVERSABLE[EDC_DATUM]): BOOLEAN
       local
          l: EDC_TYPED_DATUM[STRING]; r: EDC_TYPED_DATUM[STRING]; pattern: REGULAR_EXPRESSION
          regexp: REGULAR_EXPRESSION_BUILDER
@@ -81,23 +81,23 @@ feature {ANY}
          end
       end
 
-   can_match (a_column: EDC_COLUMN): BOOLEAN is
+   can_match (a_column: EDC_COLUMN): BOOLEAN
       do
          Result := left.is_column(a_column) or else right.is_column(a_column)
       end
 
 feature {EDC_SELECTABLE, EDC_EXPRESSION}
-   clear_prepare is
+   clear_prepare
       do
          right.clear_prepare
       end
 
-   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER is
+   do_prepare_call (arguments: TRAVERSABLE[EDC_VALUE]; cursor: INTEGER): INTEGER
       do
          Result := right.do_prepare_call(arguments, cursor)
       end
 
-   do_set_parameter_positions (position: INTEGER): INTEGER is
+   do_set_parameter_positions (position: INTEGER): INTEGER
       do
          Result := right.do_set_parameter_positions(left.do_set_parameter_positions(position))
       end

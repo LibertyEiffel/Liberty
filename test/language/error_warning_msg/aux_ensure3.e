@@ -7,14 +7,14 @@ feature {ANY}
    attr: INTEGER
 
 feature {}
-   make is
+   make
       do
          attr := attr + 1
       ensure
          attr = 2
       end
 
-   make2 is
+   make2
       do
          attr := attr + 1
       end

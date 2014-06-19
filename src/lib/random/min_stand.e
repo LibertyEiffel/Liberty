@@ -4,7 +4,7 @@
 class MIN_STAND
 obsolete "In release 2.3, the new name for this class is MINIMAL_RANDOM_NUMBER_GENERATOR.%N%
          %Update your code. (January 10th 2006.)%N"
-         
+
    --
    -- Implements the Minimal Standard generator from Press et. al.
    -- Numerical Recipies.
@@ -17,19 +17,19 @@ create {ANY}
    make, with_seed
 
 feature {ANY}
-   im: INTEGER is 2147483647
+   im: INTEGER 2147483647
 
 feature {}
-   ia: INTEGER is 16807
+   ia: INTEGER 16807
 
-   iq: INTEGER is 127773
+   iq: INTEGER 127773
 
-   ir: INTEGER is 2836
+   ir: INTEGER 2836
 
    seed: INTEGER
 
 feature {ANY}
-   make is
+   make
       local
          seed_init: INTEGER
       do
@@ -43,7 +43,7 @@ feature {ANY}
          with_seed(seed_init)
       end
 
-   with_seed (seed_value: INTEGER) is
+   with_seed (seed_value: INTEGER)
       require
          valid_seed: seed_value > 0 and seed_value < im
       do
@@ -51,7 +51,7 @@ feature {ANY}
          next
       end
 
-   next is
+   next
       local
          k: INTEGER
       do
@@ -62,12 +62,12 @@ feature {ANY}
          end
       end
 
-   last_real: REAL is
+   last_real: REAL
       do
          Result := seed / im
       end
 
-   last_integer (n: INTEGER): INTEGER is
+   last_integer (n: INTEGER): INTEGER
       do
          Result := seed #\\ n + 1
       end
@@ -83,7 +83,7 @@ end -- class MIN_STAND
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

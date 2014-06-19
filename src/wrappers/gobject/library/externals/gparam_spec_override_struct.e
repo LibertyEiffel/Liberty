@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_override_struct_set_overridden (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_override_struct_set_overridden (a_structure: POINTER; a_value: POINTER)
 			-- Setter for overridden field of GPARAM_SPEC_OVERRIDE_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_override_struct_get_overridden (a_structure: POINTER): POINTER is
+	gparam_spec_override_struct_get_overridden (a_structure: POINTER): POINTER
 			-- Query for overridden field of GPARAM_SPEC_OVERRIDE_STRUCT structure.
 			-- TODO: getter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

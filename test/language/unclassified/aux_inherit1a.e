@@ -6,7 +6,7 @@ class AUX_INHERIT1A
 feature {ANY}
    a_count, b_count, c_count: INTEGER
 
-   fonc is
+   fonc
       do
          a_count := a_count + 1
       end

@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   make is
+   make
       do
          Precursor
          check

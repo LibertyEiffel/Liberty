@@ -22,40 +22,40 @@ feature {ANY}
    written_link: CALL_1
          -- To the syntactical written one which is at the origin of the creation of `Current'.
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := agent_type.agent_result
       ensure then
          Result /= Void
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := written_link.start_position
       end
 
-   is_current, is_implicit_current: BOOLEAN is False
+   is_current, is_implicit_current: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check
             False -- (`Current' is created after that phase.)
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          t: like target; ft: like fake_tuple
       do
@@ -64,7 +64,7 @@ feature {ANY}
          Result := current_or_twin_init(t, ft)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          t: like target; ft: like fake_tuple
       do
@@ -75,16 +75,16 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := agent_type.agent_result
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          t: like target; args: like fake_tuple
       do
@@ -93,11 +93,11 @@ feature {ANY}
          Result := current_or_twin_init(t, args)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          t: like target; args: like fake_tuple; fs: FEATURE_STAMP; target_type: TYPE
       do
@@ -113,46 +113,46 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          agent_launcher_collect(type)
          Result := agent_type.agent_result
       end
 
-   accept (visitor: AGENT_EXPRESSION_VISITOR) is
+   accept (visitor: AGENT_EXPRESSION_VISITOR)
       do
          visitor.visit_agent_expression(Current)
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          written_link.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          written_link.pretty(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -161,7 +161,7 @@ feature {ANY}
       end
 
 feature {AGENT_EXPRESSION}
-   init (t: like target; args: like fake_tuple) is
+   init (t: like target; args: like fake_tuple)
       require
          t /= Void
          args /= Void
@@ -174,7 +174,7 @@ feature {AGENT_EXPRESSION}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          t: like target; args: like fake_tuple
       do
@@ -188,7 +188,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST) is
+   make (type: TYPE; wl: like written_link; at: like agent_type; t: like target; args: EFFECTIVE_ARG_LIST)
       require
          wl /= Void
          at.canonical_type_mark.is_agent
@@ -209,7 +209,7 @@ feature {}
          fake_tuple /= Void
       end
 
-   current_or_twin_init (t: like target; args: like fake_tuple): like Current is
+   current_or_twin_init (t: like target; args: like fake_tuple): like Current
       require
          t /= Void
          args /= Void
@@ -222,7 +222,7 @@ feature {}
          end
       end
 
-   feature_name: FEATURE_NAME is
+   feature_name: FEATURE_NAME
       do
          Result := feature_name_memory
          if Result = Void then

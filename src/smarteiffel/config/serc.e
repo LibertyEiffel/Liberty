@@ -25,32 +25,32 @@ feature {ANY}
 
    jobs: INTEGER
 
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
       do
          Result := my_environment.reference_at(var)
       end
 
-   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING])
       do
          add_all(loadpaths, my_loadpaths, once "Loadpath")
       end
 
-   tools_in (tools: DICTIONARY[STRING, STRING]) is
+   tools_in (tools: DICTIONARY[STRING, STRING])
       do
          add_all(tools, my_tools, once "Tools")
       end
 
-   environment_in (env: DICTIONARY[STRING, STRING]) is
+   environment_in (env: DICTIONARY[STRING, STRING])
       do
          add_all(env, my_environment, once "Environment")
       end
 
-   c_mode (a_c_mode: STRING): SE_C_MODE is
+   c_mode (a_c_mode: STRING): SE_C_MODE
       do
          Result := my_c_modes.reference_at(a_c_mode)
       end
 
-   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING])
       local
          i: INTEGER; k: STRING
       do
@@ -74,7 +74,7 @@ feature {ANY}
       end
 
 feature {}
-   add_all (target, source: DICTIONARY[STRING, STRING]; section_name: STRING) is
+   add_all (target, source: DICTIONARY[STRING, STRING]; section_name: STRING)
       local
          i: INTEGER; k, v: STRING
       do
@@ -107,7 +107,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       local
          i: ITERATOR[STRING]; cmode: SE_C_MODE; m, cc, ccp, clp, csp, cco, clo, pc, pcp, plp, psp, pco, plo, so, tmp: STRING
       do

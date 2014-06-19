@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tab: LINKED_LIST[STRING]; s: REVERSE_COLLECTION_SORTER[STRING]
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(tab.is_equal({LINKED_LIST[STRING] << "try", "test3", "test1", "hello world", "abc", "+fr" >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

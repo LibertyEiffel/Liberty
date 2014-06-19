@@ -21,7 +21,7 @@ create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "resolver in type ")
          current_type.out_in_tagged_out_memory
@@ -29,7 +29,7 @@ feature {ANY}
 
    current_type: LIBERTY_ACTUAL_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := a_type.type_resolver
       ensure then
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_TYPE_BUILDER}
-   set_effective_parameters (effective: like effective_parameters) is
+   set_effective_parameters (effective: like effective_parameters)
       require
          useful: not effective.is_empty
       do
@@ -50,7 +50,7 @@ feature {}
    universe: LIBERTY_UNIVERSE
    effective_parameters: DICTIONARY[LIBERTY_ACTUAL_TYPE, FIXED_STRING]
 
-   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       local
          fn: LIBERTY_FEATURE_NAME
       do
@@ -70,7 +70,7 @@ feature {}
          end
       end
 
-   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       do
          if type_definition.type_parameters.list_count = 0 then
             Result := type_from_legacy_class_name_or_full_liberty_type(type_definition)
@@ -79,12 +79,12 @@ feature {}
          end
       end
 
-   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION
       do
          Result := errors.semantics_position(type_definition.type_name.image.index, current_type.ast, current_type.file)
       end
 
-   make (a_universe: like universe; a_current_type: like current_type; a_effective_parameters: like effective_parameters) is
+   make (a_universe: like universe; a_current_type: like current_type; a_effective_parameters: like effective_parameters)
       require
          a_universe /= Void
          a_current_type /= Void
@@ -99,7 +99,7 @@ feature {}
       end
 
 feature {}
-   type_from_legacy_class_name_or_full_liberty_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ACTUAL_TYPE is
+   type_from_legacy_class_name_or_full_liberty_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_ACTUAL_TYPE
          -- Special code to handle legacy Eiffel class marks (in exports and precursors) or full-fledged type
          -- marks Liberty recommends
       require
@@ -122,7 +122,7 @@ feature {}
          end
       end
 
-   get_parameter_constraints (a_class: LIBERTY_AST_ONE_CLASS): COLLECTION[LIBERTY_TYPE] is
+   get_parameter_constraints (a_class: LIBERTY_AST_ONE_CLASS): COLLECTION[LIBERTY_TYPE]
       local
          type_parameters: LIBERTY_AST_TYPE_PARAMETERS
          type_parameter: LIBERTY_AST_TYPE_PARAMETER
@@ -158,7 +158,7 @@ feature {}
          end
       end
 
-   no_parameters: COLLECTION[LIBERTY_TYPE] is
+   no_parameters: COLLECTION[LIBERTY_TYPE]
       once
          create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
       end

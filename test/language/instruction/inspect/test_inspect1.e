@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   u1, u2: INTEGER is unique
+   u1, u2: INTEGER unique
 
    aux_inspect1: AUX_INSPECT1
 
    aux_inspect2: AUX_INSPECT2
 
-   make is
+   make
       do
          do_it
          create aux_inspect1
@@ -22,7 +22,7 @@ feature {ANY}
          aux_inspect2.do_it
       end
 
-   do_it is
+   do_it
       local
          i: INTEGER
       do

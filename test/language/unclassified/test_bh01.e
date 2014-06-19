@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: BOOLEAN
       do
@@ -21,7 +21,7 @@ feature {ANY}
          end
       end
 
-   m1 (a: REAL): BOOLEAN is
+   m1 (a: REAL): BOOLEAN
       do
          Result := a < 2.0
       end

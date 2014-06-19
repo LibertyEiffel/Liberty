@@ -11,7 +11,7 @@ expanded class PROTOCOLS
 --
 
 feature {ANY}
-   register_protocol_factory (a_protocol_name: STRING; a_factory: FUNCTION[TUPLE, PROTOCOL]) is
+   register_protocol_factory (a_protocol_name: STRING; a_factory: FUNCTION[TUPLE, PROTOCOL])
       require
          a_protocol_name.count > 0
          not known_protocol(a_protocol_name)
@@ -21,7 +21,7 @@ feature {ANY}
          known_protocol(a_protocol_name)
       end
 
-   known_protocol (a_protocol_name: STRING): BOOLEAN is
+   known_protocol (a_protocol_name: STRING): BOOLEAN
       require
          a_protocol_name.count > 0
       do
@@ -30,7 +30,7 @@ feature {ANY}
       end
 
 feature {URL_VALIDITY}
-   protocol (a_protocol_name: STRING): PROTOCOL is
+   protocol (a_protocol_name: STRING): PROTOCOL
       require
          a_protocol_name.count > 0
          known_protocol(a_protocol_name)
@@ -49,35 +49,35 @@ feature {URL_VALIDITY}
       end
 
 feature {}
-   factories: DICTIONARY[FUNCTION[TUPLE, PROTOCOL], STRING] is
+   factories: DICTIONARY[FUNCTION[TUPLE, PROTOCOL], STRING]
       once
          create {HASHED_DICTIONARY[FUNCTION[TUPLE, PROTOCOL], STRING]} Result.make
       end
 
-   init is
+   init
       once
          register_protocol_factory(once "http", agent new_http(once "http", 80))
          register_protocol_factory(once "https", agent new_http(once "https", 443)) -- that's wrong of course (where is the SSL layer?)
          register_protocol_factory(once "file", agent new_file)
       end
 
-   new_http (name: STRING; port: INTEGER): HTTP_PROTOCOL is
+   new_http (name: STRING; port: INTEGER): HTTP_PROTOCOL
       do
          create Result.make(name, port)
       end
 
-   new_file: FILE_PROTOCOL is
+   new_file: FILE_PROTOCOL
       do
          create Result.make
       end
 
 feature {} -- Protocol reuse
-   unused: HASHED_DICTIONARY[RECYCLING_POOL[PROTOCOL], STRING] is
+   unused: HASHED_DICTIONARY[RECYCLING_POOL[PROTOCOL], STRING]
       once
          create Result.make
       end
 
-   unused_protocols (a_protocol_name: STRING): RECYCLING_POOL[PROTOCOL] is
+   unused_protocols (a_protocol_name: STRING): RECYCLING_POOL[PROTOCOL]
       do
          Result := unused.reference_at(a_protocol_name)
          if Result = Void then
@@ -89,7 +89,7 @@ feature {} -- Protocol reuse
       end
 
 feature {URL_VALIDITY}
-   recycle (a_protocol: PROTOCOL) is
+   recycle (a_protocol: PROTOCOL)
       require
          not a_protocol.is_connected
       do
@@ -104,7 +104,7 @@ end -- class PROTOCOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_DEFAULT}
-   visit_liberty_default (v: LIBERTY_DEFAULT) is
+   visit_liberty_default (v: LIBERTY_DEFAULT)
       deferred
       end
 

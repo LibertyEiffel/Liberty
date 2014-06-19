@@ -11,31 +11,31 @@ create {ANY}
    default_create
 
 feature {}
-   d_only is
+   d_only
       require
          counting_require
       do
       end
 
-   d_or_a_and_c is
+   d_or_a_and_c
       require else
          bad_counting_require
       do
       end
 
-   d_or_a_and_b is
+   d_or_a_and_b
       require else
          bad_counting_require
       do
       end
 
-   everywhere is
+   everywhere
       require else
          bad_counting_require
       do
       end
 
-   partial is
+   partial
       require else
          counting_require
          bad_counting_require
@@ -44,7 +44,7 @@ feature {}
       end
 
 feature {ANY}
-   foo is
+   foo
       do
          counter.reset
          a_only

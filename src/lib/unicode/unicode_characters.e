@@ -6,7 +6,7 @@ expanded class UNICODE_CHARACTERS
 --
 
 feature {ANY}
-   is_separator (unicode: INTEGER): BOOLEAN is
+   is_separator (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -22,7 +22,7 @@ feature {ANY}
          end
       end
 
-   is_base_char (unicode: INTEGER): BOOLEAN is
+   is_base_char (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -33,7 +33,7 @@ feature {ANY}
          end
       end
 
-   is_ideographic (unicode: INTEGER): BOOLEAN is
+   is_ideographic (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -44,7 +44,7 @@ feature {ANY}
          end
       end
 
-   is_combining_char (unicode: INTEGER): BOOLEAN is
+   is_combining_char (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   is_extender (unicode: INTEGER): BOOLEAN is
+   is_extender (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -66,12 +66,12 @@ feature {ANY}
          end
       end
 
-   is_letter (unicode: INTEGER): BOOLEAN is
+   is_letter (unicode: INTEGER): BOOLEAN
       do
          Result := is_base_char(unicode) or else is_ideographic(unicode)
       end
 
-   is_digit (unicode: INTEGER): BOOLEAN is
+   is_digit (unicode: INTEGER): BOOLEAN
       do
          inspect
             unicode
@@ -90,7 +90,7 @@ end -- class UNICODE_CHARACTERS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

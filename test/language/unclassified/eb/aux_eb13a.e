@@ -4,11 +4,11 @@
 class AUX_EB13A
 
 feature {ANY}
-   g is
+   g
       do
       end
 
-   f is
+   f
       do
       end
 

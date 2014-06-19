@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i1, i2, sum: INTEGER
       do
@@ -28,7 +28,7 @@ feature {ANY}
       end
 
 feature {}
-   call_c_prog (i1, i2: INTEGER): INTEGER is
+   call_c_prog (i1, i2: INTEGER): INTEGER
       external "C"
       alias "c_prog"
       end

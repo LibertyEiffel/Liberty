@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          big_list: LINKED_LIST[INTEGER]; i, j: INTEGER; iteration: INTEGER
       do

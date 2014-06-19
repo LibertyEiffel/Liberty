@@ -18,7 +18,7 @@ feature {ERROR_HANDLER}
    positions: FAST_ARRAY[POSITION]
    is_emitted: BOOLEAN
 
-   set_emitted is
+   set_emitted
       require
          not is_emitted
       do
@@ -27,7 +27,7 @@ feature {ERROR_HANDLER}
          is_emitted
       end
 
-   make (exp: like explanation; pos: like positions) is
+   make (exp: like explanation; pos: like positions)
       require
          exp /= Void
          pos /= Void
@@ -49,7 +49,7 @@ feature {ERROR_HANDLER}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          explanation.clear_count
          positions.clear_count

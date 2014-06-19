@@ -2,29 +2,29 @@ expanded class INTERFACES_ITER
 	-- An expanded iterator over interfaces of a GI_OBJECT_INFO
 insert ITERATOR[GI_INTERFACE_INFO]
 feature {GI_OBJECT_INFO} 
-	set_object (an_object: GI_OBJECT_INFO) is
+	set_object (an_object: GI_OBJECT_INFO)
 		require an_object/=Void
 		do
 			object:=an_object
 		end
 
 feature {ANY}
-	start is
+	start
 		require set: object/=Void
 		do
 			i:=object.interfaces_lower
 		end
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result := i > object.interfaces_upper
 		end
 
-	item: GI_INTERFACE_INFO is 
+	item: GI_INTERFACE_INFO 
 	do 
 		Result:=object.interface(i)
 	end
 
-	next is
+	next
 		do
 			i:=i+1
 		end
@@ -34,11 +34,11 @@ feature {GI_OBJECT_INFO} -- Implementation
 	i: INTEGER
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

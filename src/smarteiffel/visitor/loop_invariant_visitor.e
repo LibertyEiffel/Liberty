@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LOOP_INVARIANT}
-   visit_loop_invariant (visited: LOOP_INVARIANT) is
+   visit_loop_invariant (visited: LOOP_INVARIANT)
       require
          visited /= Void
       deferred

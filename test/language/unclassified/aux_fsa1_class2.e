@@ -7,7 +7,7 @@ inherit
    AUX_FSA1_CLASS1
 
 feature {ANY} --  {ALL}
-   level: INTEGER is 2
+   level: INTEGER 2
 
 end -- class AUX_FSA1_CLASS2
 --

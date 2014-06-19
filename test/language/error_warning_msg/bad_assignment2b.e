@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    exp: AUX_ASSIGNMENT2EXP
 
-   make is
+   make
       local
          ref: AUX_ASSIGNMENT2_REF
       do

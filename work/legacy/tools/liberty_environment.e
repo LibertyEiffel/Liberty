@@ -23,7 +23,7 @@ insert
       end
 
 feature {ANY}
-   item (a_name: ABSTRACT_STRING): STRING is
+   item (a_name: ABSTRACT_STRING): STRING
       require
          a_name /= Void
       local
@@ -46,7 +46,7 @@ feature {ANY}
          end
       end
 
-   set (a_name, a_value: ABSTRACT_STRING) is
+   set (a_name, a_value: ABSTRACT_STRING)
       require
          a_name /= Void
          a_value /= Void
@@ -71,7 +71,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   substitute (line: STRING) is
+   substitute (line: STRING)
          -- The only one accepted notation is:  ${...}. The substitution is performed in `line'.
          --| Taken from SmartEiffel: SYSTEM_TOOLS.environment_variable_substitution - but de-recursivated
       require
@@ -139,7 +139,7 @@ feature {ANY}
       end
 
 feature {}
-   environment: DICTIONARY[STRING, FIXED_STRING] is
+   environment: DICTIONARY[STRING, FIXED_STRING]
       once
          create {HASHED_DICTIONARY[STRING, FIXED_STRING]} Result.make
       end

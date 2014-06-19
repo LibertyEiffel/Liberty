@@ -14,59 +14,59 @@ create {ANY}
    make
 
 feature {ANY}
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := specialized_anonymous_feature.result_type.declaration_type.type
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := specialized_anonymous_feature.result_type.resolve_in(type)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          --|*** To be done. *** (Dom. june 18th 2004) ***
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := dot_precedence
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          if parent /= Void then
             short_printer.hook_or(once "open_curly_bracket", once "{")
@@ -79,13 +79,13 @@ feature {ANY}
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          --|*** Attention ici on fait simple : si le Precursor s'appelle
          --| lui-même, la liaison dynamique est suivie (-> rappel de la
@@ -100,7 +100,7 @@ feature {ANY}
          end
       end
 
-   accept (visitor: PRECURSOR_EXPRESSION_VISITOR) is
+   accept (visitor: PRECURSOR_EXPRESSION_VISITOR)
       do
          visitor.visit_precursor_expression(Current)
       end

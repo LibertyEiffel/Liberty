@@ -15,7 +15,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          aux: AUX_ASSERTION_ALL5_A
       do

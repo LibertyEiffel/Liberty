@@ -4,7 +4,7 @@
 class AUX_SELECT2A
 
 feature {ANY}
-   foo: STRING is
+   foo: STRING
       do
          Result := ("fooA").twin
       end

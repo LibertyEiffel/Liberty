@@ -18,16 +18,16 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 8
+   precedence: INTEGER 8
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   frozen operator: STRING is
+   frozen operator: STRING
       do
          Result := as_muls
       end
 
-   static_simplify: EXPRESSION is
+   static_simplify: EXPRESSION
       local
          ic1, ic2: INTEGER_CONSTANT; number: NUMBER
       do
@@ -58,13 +58,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_TIMES_VISITOR) is
+   accept (visitor: CALL_INFIX_TIMES_VISITOR)
       do
          visitor.visit_call_infix_times(Current)
       end
 
 feature {}
-   make (lp: like target; operator_position: POSITION; rp: like arg1) is
+   make (lp: like target; operator_position: POSITION; rp: like arg1)
       require
          lp /= Void
          not operator_position.is_unknown

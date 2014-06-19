@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       require
          visited /= Void
       deferred

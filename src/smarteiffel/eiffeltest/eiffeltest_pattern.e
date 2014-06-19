@@ -10,7 +10,7 @@ create {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
    make
 
 feature {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
-   match (string: ABSTRACT_STRING): BOOLEAN is
+   match (string: ABSTRACT_STRING): BOOLEAN
       require
          string /= Void
       do
@@ -28,7 +28,7 @@ feature {EIFFELTEST, EIFFELTEST_SERVER_RUN_TESTS}
 feature {}
    regex: REGULAR_EXPRESSION
 
-   make (a_text: ABSTRACT_STRING) is
+   make (a_text: ABSTRACT_STRING)
       require
          a_text /= Void
       local

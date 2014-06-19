@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    value: CHARACTER
 
-   make_b is
+   make_b
       do
          value := 'b'
          -- ***         assert(once_a.value = 'a'); -- *** No more recursive once.

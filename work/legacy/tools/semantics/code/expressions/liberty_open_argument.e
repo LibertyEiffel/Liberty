@@ -29,10 +29,10 @@ create {LIBERTY_OPEN_ARGUMENT}
 feature {ANY}
    result_type: LIBERTY_TYPE
 
-   result_type_may_be_void: BOOLEAN is True
-   is_open_argument: BOOLEAN is True
+   result_type_may_be_void: BOOLEAN True
+   is_open_argument: BOOLEAN True
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like result_type
       do
@@ -47,7 +47,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_AGENT}
-   set_result_type (a_result_type: like result_type) is
+   set_result_type (a_result_type: like result_type)
       require
          a_result_type /= Void
       do
@@ -57,13 +57,13 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_AGENT}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {}
-   make (a_position: like position) is
+   make (a_position: like position)
       require
          a_position /= Void
       do
@@ -72,7 +72,7 @@ feature {}
          position = a_position
       end
 
-   make_specialized (a_result_type: like result_type; a_position: like position) is
+   make_specialized (a_result_type: like result_type; a_position: like position)
       require
          a_result_type /= Void
          a_position /= Void
@@ -85,7 +85,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_OPEN_ARGUMENT_VISITOR
       do

@@ -1,24 +1,24 @@
 deferred class EDC_SESSION
 
 feature {ANY}
-   open is
+   open
       require
          not is_open
       deferred
       end
 
-   close is
+   close
       deferred
       ensure
          not is_open
       end
 
-   is_open: BOOLEAN is
+   is_open: BOOLEAN
       deferred
       end
 
 feature {ANY}
-   begin is
+   begin
       require
          is_open
       deferred
@@ -26,7 +26,7 @@ feature {ANY}
          in_transaction
       end
 
-   commit is
+   commit
       require
          in_transaction
       deferred
@@ -34,7 +34,7 @@ feature {ANY}
          not in_transaction
       end
 
-   rollback is
+   rollback
       require
          in_transaction
       deferred
@@ -42,11 +42,11 @@ feature {ANY}
          not in_transaction
       end
 
-   in_transaction: BOOLEAN is
+   in_transaction: BOOLEAN
       deferred
       end
 
-   add (record: EDC_RECORD) is
+   add (record: EDC_RECORD)
       require
          in_transaction
          record.session = Void
@@ -65,7 +65,7 @@ feature {EDC_INTEGER_64_FIELD}
    int64_field: EDC_SESSION_FETCH[INTEGER_64]
 
 feature {EDC_QUERY}
-   select_data (table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING): FAST_ARRAY[EDC_SESSION_DATA] is
+   select_data (table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING): FAST_ARRAY[EDC_SESSION_DATA]
       do
          if data_pool.is_empty then
             create Result.with_capacity(16)
@@ -81,7 +81,7 @@ feature {EDC_QUERY}
          Result /= Void
       end
 
-   recycle_data (data: like select_data) is
+   recycle_data (data: like select_data)
       require
          data /= Void
       do
@@ -90,12 +90,12 @@ feature {EDC_QUERY}
       end
 
 feature {}
-   data_pool: FAST_ARRAY[FAST_ARRAY[EDC_SESSION_DATA]] is
+   data_pool: FAST_ARRAY[FAST_ARRAY[EDC_SESSION_DATA]]
       once
          create Result.with_capacity(16)
       end
 
-   select_data_in (data: FAST_ARRAY[EDC_SESSION_DATA]; table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING) is
+   select_data_in (data: FAST_ARRAY[EDC_SESSION_DATA]; table_name: FIXED_STRING; where, having: EDC_CRITERION; order_by: EDC_ORDERING)
       require
          data /= Void
          table_name /= Void

@@ -13,13 +13,13 @@ create {}
    make
 
 feature {ANY}
-   p (l: ARRAY[ANY]) is
+   p (l: ARRAY[ANY])
       do
          assert(l.item(1) /= Void)
          assert(l.item(2) = Void)
       end
 
-   make is
+   make
       local
          c: AUX_XC5_A[INTEGER]
       do
@@ -27,7 +27,7 @@ feature {ANY}
          p({ARRAY[AUX_XC5_A[INTEGER]] 1, << c, g >> })
       end
 
-   g: AUX_XC5_A[INTEGER] is
+   g: AUX_XC5_A[INTEGER]
       local
          c: AUX_XC5_A[INTEGER]
       do

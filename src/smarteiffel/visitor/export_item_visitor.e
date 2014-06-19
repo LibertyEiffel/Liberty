@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EXPORT_ITEM}
-   visit_export_item (visited: EXPORT_ITEM) is
+   visit_export_item (visited: EXPORT_ITEM)
       require
          visited /= Void
       deferred

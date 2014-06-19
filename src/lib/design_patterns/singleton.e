@@ -25,13 +25,13 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {}
-   is_real_singleton: BOOLEAN is
+   is_real_singleton: BOOLEAN
       do
          if singleton_memory_pool.fast_has(generating_type) then
             Result := singleton_memory_pool.fast_at(generating_type) = Current.to_pointer
@@ -43,14 +43,14 @@ feature {}
          assertion_check_only: Result
       end
 
-   singleton_memory_pool: HASHED_DICTIONARY[POINTER, STRING] is
+   singleton_memory_pool: HASHED_DICTIONARY[POINTER, STRING]
          -- This pool is unique in the whole system. A memory is kept 
          -- for each singleton type (type, not class) in the system.
       once
          create Result.make
       end
 
-   current_is_not_an_expanded_type: BOOLEAN is
+   current_is_not_an_expanded_type: BOOLEAN
          -- Check that the dynamic type of the SINGLETON is not an expanded type.
       local
          like_current: like Current
@@ -70,7 +70,7 @@ end -- class SINGLETON
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

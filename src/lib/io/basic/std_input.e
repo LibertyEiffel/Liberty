@@ -29,30 +29,30 @@ create {ANY}
    make
 
 feature {ANY}
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
    end_of_input: BOOLEAN
 
-   disconnect is
+   disconnect
       do
          filter := Void
       end
 
 feature {}
-   make is
+   make
       do
          buffer := buffer.calloc(4096)
          capacity := 4096
       end
 
 feature {ANY}
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := not unread_character_flag
       end
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
          std_output.flush
          unread_character_flag := False
@@ -64,7 +64,7 @@ feature {FILTER_INPUT_STREAM}
          end_of_input := end_reached
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          unread_character_flag := True
          end_of_input := False
@@ -73,7 +73,7 @@ feature {FILTER_INPUT_STREAM}
 
    filtered_last_character: CHARACTER
 
-   filtered_read_line_in (str: STRING) is
+   filtered_read_line_in (str: STRING)
       local
          i: INTEGER; stop: BOOLEAN; old_count, new_count: INTEGER; initial_count: INTEGER
       do
@@ -134,7 +134,7 @@ feature {}
 
    unread_character_flag: BOOLEAN
 
-   fill_buffer is
+   fill_buffer
       local
          last: CHARACTER
       do
@@ -154,22 +154,22 @@ feature {}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := sequencer_descriptor(stdin)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := stdin
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {STREAM_HANDLER}
-   redirect_from (file_name: STRING) is
+   redirect_from (file_name: STRING)
          -- Redirect standard input to come from `file_name' instead of the default standard input.
          --
          -- See also `redirection_succeeded'
@@ -177,20 +177,20 @@ feature {STREAM_HANDLER}
          redirect(open_descriptor_for_read(file_name.to_external))
       end
 
-   restore_default_input is
+   restore_default_input
          -- Restore standard input to come from the default standard input.
       do
          Precursor
       end
 
 feature {}
-   flush is
+   flush
          -- Discard any characters remaining in the input buffer.
       do
          buffer_position := buffer_size
       end
 
-   read_stdin (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER): INTEGER is
+   read_stdin (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER): INTEGER
          -- return size read or 0 if end of input (-1 on error => exception ?)
       external "plug_in"
       alias "{
@@ -200,7 +200,7 @@ feature {}
          }"
       end
 
-   stdin: POINTER is
+   stdin: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -209,14 +209,14 @@ feature {}
          }"
       end
 
-   dispose is
+   dispose
       do
          check
             std_input = Current
          end
          -- Nothing to dispode for `std_input'.
       end
-      
+
 end -- class STD_INPUT
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
@@ -225,7 +225,7 @@ end -- class STD_INPUT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -11,7 +11,7 @@ create {ANY}
 feature {}
    a: A
 
-   make is
+   make
       do
          create a.make
          a.value_changed.connect(agent foo(?))
@@ -20,7 +20,7 @@ feature {}
          a.set_val(5)
       end
 
-   foo (i: INTEGER) is
+   foo (i: INTEGER)
       do
          io.put_string(once "New value is ")
          io.put_integer(i)

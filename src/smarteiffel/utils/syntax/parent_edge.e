@@ -19,7 +19,7 @@ feature {ANY}
    type_mark: TYPE_MARK
          -- Declaration `type_mark' of the parent.
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := type_mark.start_position
       end
@@ -37,18 +37,18 @@ feature {ANY}
          -- This parent is inserted (then current type does not
          -- conform to this parent via this inherit text item)
 
-   is_inherit_member: BOOLEAN is
+   is_inherit_member: BOOLEAN
       do
          Result := not is_insert_member
       end
 
-   accept (visitor: PARENT_EDGE_VISITOR) is
+   accept (visitor: PARENT_EDGE_VISITOR)
       do
          visitor.visit_parent_edge(Current)
       end
 
 feature {PARENT_LISTS, EXPORT_LIST}
-   is_target_of_rename (fn: FEATURE_NAME): BOOLEAN is
+   is_target_of_rename (fn: FEATURE_NAME): BOOLEAN
       do
          if rename_list /= Void then
             Result := rename_list.is_target_of_rename(fn)
@@ -56,14 +56,14 @@ feature {PARENT_LISTS, EXPORT_LIST}
       end
 
 feature {PARENT_LISTS}
-   is_source_of_rename (fn: FEATURE_NAME): BOOLEAN is
+   is_source_of_rename (fn: FEATURE_NAME): BOOLEAN
       do
          if rename_list /= Void then
             Result := rename_list.is_source_of_rename(fn)
          end
       end
 
-   set_insert_member is
+   set_insert_member
       require
          is_inherit_member
       do
@@ -73,7 +73,7 @@ feature {PARENT_LISTS}
       end
 
 feature {FEATURE_ACCUMULATOR, ANONYMOUS_FEATURE_MIXER, PARENT_LISTS}
-   get_undefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
+   get_undefine (a_final_fn: FEATURE_NAME): FEATURE_NAME
          -- If the undefine list exists and if `a_final_fn' is member of the undefine list, this
          -- function returns the actual feature name which is in the list. (This can be useful to print
          -- error messages with accurate POSITIONs and to know if `a_final_fn' is undefined.)
@@ -85,7 +85,7 @@ feature {FEATURE_ACCUMULATOR, ANONYMOUS_FEATURE_MIXER, PARENT_LISTS}
          end
       end
 
-   get_redefine (a_final_fn: FEATURE_NAME): FEATURE_NAME is
+   get_redefine (a_final_fn: FEATURE_NAME): FEATURE_NAME
       require
          a_final_fn /= Void
       do
@@ -95,7 +95,7 @@ feature {FEATURE_ACCUMULATOR, ANONYMOUS_FEATURE_MIXER, PARENT_LISTS}
       end
 
 feature {TYPE, CLASS_TEXT}
-   rename_count: INTEGER is
+   rename_count: INTEGER
       do
          if rename_list /= Void then
             Result := rename_list.count
@@ -103,7 +103,7 @@ feature {TYPE, CLASS_TEXT}
       end
 
 feature {TYPE}
-   rename_item (i: INTEGER): RENAME_PAIR is
+   rename_item (i: INTEGER): RENAME_PAIR
       require
          i.in_range(1, rename_count)
       do
@@ -120,7 +120,7 @@ feature {PARENT_EDGE, VISITOR} -- Optionnal list in syntaxical order:
    redefine_list: FEATURE_NAME_LIST
 
 feature {PARENT_LISTS, TYPE, FEATURE_STAMP, FEATURE_ACCUMULATOR}
-   do_rename (fn: FEATURE_NAME): like fn is
+   do_rename (fn: FEATURE_NAME): like fn
          -- If some rename exists for `fn', return the new name, otherwise, give back `fn'.
          -- Use FEATURE_STAMP.resolve_dynamic_binding_for or FEATURE_STAMP.fs_for_building_type.
       require
@@ -139,7 +139,7 @@ feature {PARENT_LISTS, TYPE, FEATURE_STAMP, FEATURE_ACCUMULATOR}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
-   runnable_type (ct: TYPE_MARK): TYPE_MARK is
+   runnable_type (ct: TYPE_MARK): TYPE_MARK
       require
          ct.is_static
       do
@@ -152,7 +152,7 @@ feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
          Result.is_static
       end
 
-   exports_for (fn: FEATURE_NAME): CLIENT_LIST is
+   exports_for (fn: FEATURE_NAME): CLIENT_LIST
          -- Only looks for a possible explicit export clause for a given feature name. Contrarily to
          -- `clients_for', does not compute the export list. Hence, the result may be Void.
       require
@@ -163,7 +163,7 @@ feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
          end
       end
 
-   exports_for_all: CLIENT_LIST is
+   exports_for_all: CLIENT_LIST
       do
          if export_list /= Void then
             Result := export_list.for_all
@@ -171,12 +171,12 @@ feature {ANONYMOUS_FEATURE_MIXER, PARENT_LISTS, TYPE}
       end
 
 feature {PARENT_LISTS}
-   id_extra_information (tfw: TEXT_FILE_WRITE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE)
       do
          tfw.put_integer(class_text.id)
       end
 
-   pretty is
+   pretty
       local
          end_needed: BOOLEAN
       do
@@ -215,7 +215,7 @@ feature {PARENT_LISTS}
          pretty_printer.set_indent_level(0)
       end
 
-   initialize_and_check_level_1 (pl: like parent_lists) is
+   initialize_and_check_level_1 (pl: like parent_lists)
          -- First step of initialization (see also `check_level_2').
       require
          pl /= Void
@@ -296,7 +296,7 @@ feature {PARENT_LISTS}
          class_text_name /= Void
       end
 
-   check_level_2 (type: TYPE) is
+   check_level_2 (type: TYPE)
          -- Second and last step (see also `initialize_and_check_level_1').
       require
          type.class_text = parent_lists.class_text
@@ -364,12 +364,12 @@ feature {PARENT_LISTS}
       end
 
 feature {EIFFEL_PARSER}
-   set_comment (c: like comment) is
+   set_comment (c: like comment)
       do
          comment := c
       end
 
-   add_rename (rp: RENAME_PAIR) is
+   add_rename (rp: RENAME_PAIR)
       require
          rp /= Void
       do
@@ -380,7 +380,7 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   set_export (el: EXPORT_LIST) is
+   set_export (el: EXPORT_LIST)
       require
          el /= Void
       do
@@ -389,14 +389,14 @@ feature {EIFFEL_PARSER}
          export_list = el
       end
 
-   set_undefine (ul: FEATURE_NAME_LIST) is
+   set_undefine (ul: FEATURE_NAME_LIST)
       do
          undefine_list := ul
       ensure
          undefine_list = ul
       end
 
-   set_redefine (rl: FEATURE_NAME_LIST) is
+   set_redefine (rl: FEATURE_NAME_LIST)
       do
          redefine_list := rl
       ensure
@@ -407,7 +407,7 @@ feature {}
    comment: COMMENT
          -- Associated heading comment.
 
-   make (insert_flag: BOOLEAN; tm: like type_mark) is
+   make (insert_flag: BOOLEAN; tm: like type_mark)
       require
          not tm.is_anchored
       do
@@ -418,7 +418,7 @@ feature {}
          type_mark = tm
       end
 
-   forbidden_parent_list: HASHED_SET[STRING] is
+   forbidden_parent_list: HASHED_SET[STRING]
          -- It is not allowed to inherit a class of this list (except exceptions !).
       once
          Result := {HASHED_SET[STRING] <<   as_boolean,
@@ -438,7 +438,7 @@ feature {}
                                           >> }
       end
 
-   get_name_in_child (fn: FEATURE_NAME): like fn is
+   get_name_in_child (fn: FEATURE_NAME): like fn
       do
          if rename_list /= Void then
             Result := rename_list.name_in_child(fn)

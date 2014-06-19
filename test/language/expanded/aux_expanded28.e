@@ -6,12 +6,12 @@ expanded class AUX_EXPANDED28
 feature {ANY}
    val: INTEGER
 
-   set_val (this: INTEGER) is
+   set_val (this: INTEGER)
       do
          val := this
       end
 
-   get_val: INTEGER is
+   get_val: INTEGER
       do
          Result := val
       end

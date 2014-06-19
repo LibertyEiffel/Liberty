@@ -6,7 +6,7 @@ inherit
 feature {ANY}
    item: INTEGER
 
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item := i
       end

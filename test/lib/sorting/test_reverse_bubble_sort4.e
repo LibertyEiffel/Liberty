@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: ARRAY[REAL]; s: REVERSE_COLLECTION_SORTER[REAL]
       do
@@ -19,7 +19,7 @@ feature {}
          assert(tab.is_equal({ARRAY[REAL] 1, << 3.4, 1.0, 0.1, 0.0, -0.3, -1.5, -3.0 >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: INTEGER; p: PROCEDURE[TUPLE]
       do
-         p := agent is
+         p := agent
                  local
                     i: INTEGER
                  do

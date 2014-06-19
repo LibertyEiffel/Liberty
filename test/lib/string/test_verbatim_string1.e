@@ -10,7 +10,7 @@ create {}
    run
 
 feature {}
-   run is
+   run
       local
          s1: STRING
       do

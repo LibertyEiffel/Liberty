@@ -11,13 +11,13 @@ feature {ANY}
 
    next: LINK[E]
 
-   make (v: like value; n: like next) is
+   make (v: like value; n: like next)
       do
          value := v
          next := n
       end
 
-   set_next (n: like next) is
+   set_next (n: like next)
       do
          next := n
       end

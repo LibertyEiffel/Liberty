@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n: MUTABLE_BIG_INTEGER
       do

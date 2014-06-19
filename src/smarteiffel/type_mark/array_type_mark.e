@@ -18,33 +18,33 @@ create {ANY}
    make
 
 feature {ANY}
-   is_reference: BOOLEAN is True
+   is_reference: BOOLEAN True
 
-   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN is False
+   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN False
 
-   array_of: TYPE_MARK is
+   array_of: TYPE_MARK
       do
          Result := generic_list.first
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
-   accept (visitor: ARRAY_TYPE_MARK_VISITOR) is
+   accept (visitor: ARRAY_TYPE_MARK_VISITOR)
       do
          visitor.visit_array_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_generic(shorted_type, class_text_name)
       end
 
 feature {}
-   make (sp: like start_position; of_what: TYPE_MARK) is
+   make (sp: like start_position; of_what: TYPE_MARK)
       require
          not sp.is_unknown
          of_what /= Void
@@ -57,18 +57,18 @@ feature {}
          array_of = of_what
       end
 
-   set_generic_list_with (t: TYPE_MARK) is
+   set_generic_list_with (t: TYPE_MARK)
       do
          create generic_list.make(1, 1)
          generic_list.put(t, 1)
       end
 
-   array_name: HASHED_STRING is
+   array_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_array)
       end
 
-   canonical_long_name: HASHED_STRING is
+   canonical_long_name: HASHED_STRING
       do
          Result := array_name
       end

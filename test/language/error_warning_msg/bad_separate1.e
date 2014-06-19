@@ -7,7 +7,7 @@ create {}
    make, no_make
 
 feature {}
-   make is
+   make
       local
          s: separate BAD_SEPARATE1
       do
@@ -21,17 +21,17 @@ feature {}
          is_true(once_string /= once_string_of(s))
       end
 
-   once_string_of(s: separate BAD_SEPARATE1): STRING is
+   once_string_of(s: separate BAD_SEPARATE1): STRING
       do
          Result := s.once_string
       end
 
-   once_string: STRING is
+   once_string: STRING
       do
          Result := once "test"
       end
 
-   is_true(b: BOOLEAN) is
+   is_true(b: BOOLEAN)
       do
          cpt := cpt + 1;
          if not b then

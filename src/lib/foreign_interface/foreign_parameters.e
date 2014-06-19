@@ -4,16 +4,16 @@
 expanded class FOREIGN_PARAMETERS
 
 feature {ANY}
-   set (a_parameters: like parameters) is
+   set (a_parameters: like parameters)
       require
-         no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end (?))
+         no_voids: a_parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN do Result := p /= Void end (?))
       do
          parameters := a_parameters
       ensure
          parameters = a_parameters
       end
 
-   match_types (a_types: TRAVERSABLE[FOREIGN_TYPE]): BOOLEAN is
+   match_types (a_types: TRAVERSABLE[FOREIGN_TYPE]): BOOLEAN
       local
          i, offset: INTEGER
       do
@@ -34,7 +34,7 @@ feature {ANY}
       end
 
 feature {FOREIGN_AGENT}
-   as_arrayed_collection: ARRAYED_COLLECTION[POINTER] is
+   as_arrayed_collection: ARRAYED_COLLECTION[POINTER]
       local
          i: INTEGER
       do
@@ -55,7 +55,7 @@ feature {}
    parameters: TRAVERSABLE[FOREIGN_OBJECT]
 
 invariant
-   no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN is do Result := p /= Void end (?))
+   no_voids: parameters /= Void implies parameters.for_all(agent (p: FOREIGN_OBJECT): BOOLEAN do Result := p /= Void end (?))
 
 end -- class FOREIGN_PARAMETERS
 --
@@ -65,7 +65,7 @@ end -- class FOREIGN_PARAMETERS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -15,7 +15,7 @@ create {ANY}
    make, connect_to
 
 feature {ANY} -- CGI extensions: written before the HTML itself is open
-   put_cgi_header (key, value: STRING) is
+   put_cgi_header (key, value: STRING)
       require
          not started
          key /= Void
@@ -31,7 +31,7 @@ feature {ANY} -- CGI extensions: written before the HTML itself is open
       end
 
 feature {ANY} -- Main HTML structure
-   header is
+   header
       require
          not started
       do
@@ -45,7 +45,7 @@ feature {ANY} -- Main HTML structure
          in_header
       end
 
-   body is
+   body
       require
          in_header
       do
@@ -60,7 +60,7 @@ feature {ANY} -- Main HTML structure
          in_body
       end
 
-   frames is
+   frames
       require
          in_header
       do
@@ -70,7 +70,7 @@ feature {ANY} -- Main HTML structure
          in_frames
       end
 
-   close is
+   close
       require
          in_body or else in_frames
       do
@@ -87,7 +87,7 @@ feature {ANY} -- Main HTML structure
       end
 
 feature {ANY}
-   last_tag: STRING is
+   last_tag: STRING
       require
          has_open_tag
       do
@@ -96,7 +96,7 @@ feature {ANY}
          Result /= Void
       end
 
-   has_open_tag: BOOLEAN is
+   has_open_tag: BOOLEAN
       do
          Result := tags.count > 0
       end
@@ -114,7 +114,7 @@ feature {ANY} -- Attributes management
          -- html_out.with_attribute(once "valign", once "top")
          -- html_out.open_table_cell
 
-   with_attribute (name, value: STRING) is
+   with_attribute (name, value: STRING)
          -- Call this feature before adding an opening tag; all the attributes will be added to the tag.
       do
          attributes.extend(' ')
@@ -128,7 +128,7 @@ feature {ANY} -- Attributes management
       end
 
 feature {HTML_HANDLER}
-   open_tag (tag: STRING) is
+   open_tag (tag: STRING)
       do
          pipe_character('<')
          pipe_string(tag)
@@ -141,7 +141,7 @@ feature {HTML_HANDLER}
          last_tag.same_as(tag)
       end
 
-   open_close_tag (tag: STRING) is
+   open_close_tag (tag: STRING)
       do
          pipe_character('<')
          pipe_string(tag)
@@ -153,7 +153,7 @@ feature {HTML_HANDLER}
          tags.count = old tags.count
       end
 
-   close_tag (tag: STRING) is
+   close_tag (tag: STRING)
       require
          tags.count > 0
          last_tag.same_as(tag)
@@ -167,13 +167,13 @@ feature {HTML_HANDLER}
          tags.count = old tags.count - 1
       end
 
-   put_filtered_string (string: STRING) is
+   put_filtered_string (string: STRING)
       do
          pipe_string(string)
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          if in_script then
             pipe_character(c)
@@ -192,18 +192,18 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
 
 feature {ANY} -- Putting characters
-   can_put_character (c: CHARACTER): BOOLEAN is
+   can_put_character (c: CHARACTER): BOOLEAN
       do
          Result := in_header or else in_script or else in_a_body or else in_a_form or else in_preformatted
       end
 
-   put_entity (entity: STRING) is
+   put_entity (entity: STRING)
       require
          started
          not finished
@@ -217,7 +217,7 @@ feature {ANY} -- Putting characters
          pipe_character(';')
       end
 
-   put_comment (comment: STRING) is
+   put_comment (comment: STRING)
       do
          pipe_string(os_start_comment)
          pipe_quoted_string(comment)
@@ -225,7 +225,7 @@ feature {ANY} -- Putting characters
       end
 
 feature {ANY}
-   indent is
+   indent
       require
          started
          not finished
@@ -249,7 +249,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Header tags
-   put_base (base: STRING) is
+   put_base (base: STRING)
       require
          in_header
       do
@@ -260,7 +260,7 @@ feature {ANY} -- Header tags
          pipe_character('%N')
       end
 
-   put_meta (equiv, content: STRING) is
+   put_meta (equiv, content: STRING)
       require
          in_header
       do
@@ -275,7 +275,7 @@ feature {ANY} -- Header tags
          pipe_character('%N')
       end
 
-   put_stylesheet (ref: STRING) is
+   put_stylesheet (ref: STRING)
       require
          in_header
       do
@@ -286,7 +286,7 @@ feature {ANY} -- Header tags
          pipe_character('%N')
       end
 
-   put_javascript (ref: STRING) is
+   put_javascript (ref: STRING)
       require
          in_header
          ref /= Void
@@ -302,7 +302,7 @@ feature {ANY} -- Header tags
          pipe_character('%N')
       end
 
-   open_title is
+   open_title
       require
          in_header
       do
@@ -310,7 +310,7 @@ feature {ANY} -- Header tags
          open_tag(os_title)
       end
 
-   close_title is
+   close_title
       require
          in_header
          last_tag.same_as(os_title)
@@ -318,7 +318,7 @@ feature {ANY} -- Header tags
          close_tag(os_title)
       end
 
-   put_script (language, source: STRING) is
+   put_script (language, source: STRING)
       require
          in_header
          language /= Void
@@ -333,7 +333,7 @@ feature {ANY} -- Header tags
          pipe_character('%N')
       end
 
-   open_script (language: STRING) is
+   open_script (language: STRING)
       require
          in_header
          language /= Void
@@ -344,7 +344,7 @@ feature {ANY} -- Header tags
          set_state(state_in_script)
       end
 
-   close_script is
+   close_script
       require
          in_script
          last_tag.same_as(os_script)
@@ -354,7 +354,7 @@ feature {ANY} -- Header tags
       end
 
 feature {ANY} -- Frames
-   open_frameset is
+   open_frameset
       require
          in_frames or else in_frameset
       do
@@ -365,7 +365,7 @@ feature {ANY} -- Frames
          in_frameset
       end
 
-   close_frameset is
+   close_frameset
       require
          in_frameset
       do
@@ -375,7 +375,7 @@ feature {ANY} -- Frames
          in_frames or else in_frameset
       end
 
-   put_frame (src, name: STRING) is
+   put_frame (src, name: STRING)
       require
          in_frameset
          src /= Void
@@ -390,7 +390,7 @@ feature {ANY} -- Frames
          in_frameset
       end
 
-   open_noframes is
+   open_noframes
       require
          in_frames
       do
@@ -401,7 +401,7 @@ feature {ANY} -- Frames
          in_noframes
       end
 
-   close_noframes is
+   close_noframes
       require
          in_noframes
       do
@@ -412,7 +412,7 @@ feature {ANY} -- Frames
       end
 
 feature {ANY} -- Body tags
-   open_section is
+   open_section
       require
          in_a_body
       do
@@ -420,7 +420,7 @@ feature {ANY} -- Body tags
          open_tag(os_h1)
       end
 
-   close_section is
+   close_section
       require
          in_a_body
          last_tag.same_as(os_h1)
@@ -428,7 +428,7 @@ feature {ANY} -- Body tags
          close_tag(os_h1)
       end
 
-   open_subsection is
+   open_subsection
       require
          in_a_body
       do
@@ -436,7 +436,7 @@ feature {ANY} -- Body tags
          open_tag(os_h2)
       end
 
-   close_subsection is
+   close_subsection
       require
          in_a_body
          last_tag.same_as(os_h2)
@@ -444,7 +444,7 @@ feature {ANY} -- Body tags
          close_tag(os_h2)
       end
 
-   open_subsubsection is
+   open_subsubsection
       require
          in_a_body
       do
@@ -452,7 +452,7 @@ feature {ANY} -- Body tags
          open_tag(os_h3)
       end
 
-   close_subsubsection is
+   close_subsubsection
       require
          in_a_body
          last_tag.same_as(os_h3)
@@ -460,21 +460,21 @@ feature {ANY} -- Body tags
          close_tag(os_h3)
       end
 
-   put_break is
+   put_break
       require
          in_a_body
       do
          open_close_tag(os_br)
       end
 
-   put_horizontal_rule is
+   put_horizontal_rule
       require
          in_a_body
       do
          open_close_tag(os_hr)
       end
 
-   put_image (source: STRING) is
+   put_image (source: STRING)
       require
          in_a_body
          source /= Void
@@ -483,14 +483,14 @@ feature {ANY} -- Body tags
          open_close_tag(os_img)
       end
 
-   open_bold is
+   open_bold
       require
          in_a_body or in_preformatted
       do
          open_tag(os_b)
       end
 
-   close_bold is
+   close_bold
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_b)
@@ -498,7 +498,7 @@ feature {ANY} -- Body tags
          close_tag(os_b)
       end
 
-   open_font (size: STRING) is
+   open_font (size: STRING)
       require
          in_a_body or in_preformatted
       do
@@ -508,7 +508,7 @@ feature {ANY} -- Body tags
          open_tag(os_font)
       end
 
-   close_font is
+   close_font
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_font)
@@ -516,14 +516,14 @@ feature {ANY} -- Body tags
          close_tag(os_font)
       end
 
-   open_italics is
+   open_italics
       require
          in_a_body or in_preformatted
       do
          open_tag(os_i)
       end
 
-   close_italics is
+   close_italics
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_i)
@@ -531,14 +531,14 @@ feature {ANY} -- Body tags
          close_tag(os_i)
       end
 
-   open_underlined is
+   open_underlined
       require
          in_a_body or in_preformatted
       do
          open_tag(os_u)
       end
 
-   close_underlined is
+   close_underlined
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_u)
@@ -546,14 +546,14 @@ feature {ANY} -- Body tags
          close_tag(os_u)
       end
 
-   open_typeset is
+   open_typeset
       require
          in_a_body or in_preformatted
       do
          open_tag(os_tt)
       end
 
-   close_typeset is
+   close_typeset
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_tt)
@@ -561,7 +561,7 @@ feature {ANY} -- Body tags
          close_tag(os_tt)
       end
 
-   open_anchor_address (ref, target: STRING) is
+   open_anchor_address (ref, target: STRING)
       require
          in_a_body or in_preformatted
          ref /= Void
@@ -573,7 +573,7 @@ feature {ANY} -- Body tags
          open_tag(os_a)
       end
 
-   open_anchor_name (ref: STRING) is
+   open_anchor_name (ref: STRING)
       require
          in_a_body or in_preformatted
          ref /= Void
@@ -582,14 +582,14 @@ feature {ANY} -- Body tags
          open_tag(os_a)
       end
 
-   open_anchor is
+   open_anchor
       require
          in_a_body or in_preformatted
       do
          open_tag(os_a)
       end
 
-   close_anchor is
+   close_anchor
       require
          in_a_body or in_preformatted
          last_tag.same_as(os_a)
@@ -597,7 +597,7 @@ feature {ANY} -- Body tags
          close_tag(os_a)
       end
 
-   open_list is
+   open_list
       require
          in_a_body
       do
@@ -608,7 +608,7 @@ feature {ANY} -- Body tags
          in_list
       end
 
-   open_numbered_list is
+   open_numbered_list
       require
          in_a_body
       do
@@ -619,7 +619,7 @@ feature {ANY} -- Body tags
          in_list
       end
 
-   close_list is
+   close_list
       require
          in_list
          last_tag.same_as(os_ul) or else last_tag.same_as(os_ol)
@@ -630,7 +630,7 @@ feature {ANY} -- Body tags
          in_a_body
       end
 
-   open_definition_list is
+   open_definition_list
       require
          in_a_body
       do
@@ -641,7 +641,7 @@ feature {ANY} -- Body tags
          in_definition_list
       end
 
-   close_definition_list is
+   close_definition_list
       require
          in_definition_list
       do
@@ -652,7 +652,7 @@ feature {ANY} -- Body tags
          in_a_body
       end
 
-   open_definition_term is
+   open_definition_term
       require
          in_definition_list
       do
@@ -663,7 +663,7 @@ feature {ANY} -- Body tags
          in_definition_term
       end
 
-   close_definition_term is
+   close_definition_term
       require
          in_definition_term
       do
@@ -674,7 +674,7 @@ feature {ANY} -- Body tags
          in_definition_list
       end
 
-   open_definition_description is
+   open_definition_description
       require
          in_definition_list
       do
@@ -685,7 +685,7 @@ feature {ANY} -- Body tags
          in_definition_description
       end
 
-   close_definition_description is
+   close_definition_description
       require
          in_definition_description
       do
@@ -696,7 +696,7 @@ feature {ANY} -- Body tags
          in_definition_list
       end
 
-   open_list_item is
+   open_list_item
       require
          in_list
       do
@@ -707,7 +707,7 @@ feature {ANY} -- Body tags
          in_list_item
       end
 
-   close_list_item is
+   close_list_item
       require
          in_list_item
          last_tag.same_as(os_li)
@@ -718,7 +718,7 @@ feature {ANY} -- Body tags
          in_list
       end
 
-   open_table is
+   open_table
       require
          in_a_body
       do
@@ -729,7 +729,7 @@ feature {ANY} -- Body tags
          in_table
       end
 
-   close_table is
+   close_table
       require
          in_table
          last_tag.same_as(os_table)
@@ -740,7 +740,7 @@ feature {ANY} -- Body tags
          in_a_body
       end
 
-   open_table_row is
+   open_table_row
       require
          in_table
       do
@@ -751,7 +751,7 @@ feature {ANY} -- Body tags
          in_table_row
       end
 
-   close_table_row is
+   close_table_row
       require
          in_table_row
          last_tag.same_as(os_tr)
@@ -762,7 +762,7 @@ feature {ANY} -- Body tags
          in_table
       end
 
-   open_table_cell is
+   open_table_cell
       require
          in_table_row
       do
@@ -773,7 +773,7 @@ feature {ANY} -- Body tags
          in_table_cell
       end
 
-   close_table_cell is
+   close_table_cell
       require
          in_table_cell
          last_tag.same_as(os_td)
@@ -785,7 +785,7 @@ feature {ANY} -- Body tags
       end
 
 feature {ANY} -- Forms
-   open_form (name, method, action: STRING) is
+   open_form (name, method, action: STRING)
       require
          in_a_body
          name /= Void
@@ -801,7 +801,7 @@ feature {ANY} -- Forms
          in_form
       end
 
-   close_form is
+   close_form
       require
          in_form
          last_tag.same_as(os_form)
@@ -810,7 +810,7 @@ feature {ANY} -- Forms
          reset_state(state_in_form)
       end
 
-   open_text_area (name: STRING; rows, cols: INTEGER) is
+   open_text_area (name: STRING; rows, cols: INTEGER)
       require
          in_a_form
          name /= Void
@@ -831,7 +831,7 @@ feature {ANY} -- Forms
          in_text_area
       end
 
-   close_text_area is
+   close_text_area
       require
          in_text_area
       do
@@ -842,7 +842,7 @@ feature {ANY} -- Forms
          reset_state(state_in_text_area)
       end
 
-   put_button (name, title: STRING) is
+   put_button (name, title: STRING)
       require
          in_a_form
          name /= Void
@@ -850,7 +850,7 @@ feature {ANY} -- Forms
          put_input(os_button, name, title, False)
       end
 
-   put_validate_button (name, title: STRING) is
+   put_validate_button (name, title: STRING)
       require
          in_a_form
          name /= Void
@@ -858,7 +858,7 @@ feature {ANY} -- Forms
          put_input(os_submit, name, title, False)
       end
 
-   put_reset_button (name, title: STRING) is
+   put_reset_button (name, title: STRING)
       require
          in_a_form
          name /= Void
@@ -866,7 +866,7 @@ feature {ANY} -- Forms
          put_input(os_reset, name, title, False)
       end
 
-   put_hidden_field (name, value: STRING) is
+   put_hidden_field (name, value: STRING)
       require
          in_a_form
          name /= Void
@@ -874,7 +874,7 @@ feature {ANY} -- Forms
          put_input(os_hidden, name, value, False)
       end
 
-   put_text_field (name, value: STRING) is
+   put_text_field (name, value: STRING)
       require
          in_a_form
          name /= Void
@@ -882,7 +882,7 @@ feature {ANY} -- Forms
          put_input(os_text, name, value, False)
       end
 
-   put_password_field (name, value: STRING) is
+   put_password_field (name, value: STRING)
       require
          in_a_form
          name /= Void
@@ -890,7 +890,7 @@ feature {ANY} -- Forms
          put_input(os_password, name, value, False)
       end
 
-   put_radio_button (name, value: STRING; checked: BOOLEAN) is
+   put_radio_button (name, value: STRING; checked: BOOLEAN)
       require
          in_a_form
          name /= Void
@@ -899,7 +899,7 @@ feature {ANY} -- Forms
          put_input(os_radio, name, value, checked)
       end
 
-   put_check_box (name, value: STRING; checked: BOOLEAN) is
+   put_check_box (name, value: STRING; checked: BOOLEAN)
       require
          in_a_form
          name /= Void
@@ -908,7 +908,7 @@ feature {ANY} -- Forms
          put_input(os_checkbox, name, value, checked)
       end
 
-   open_combo_select (name: STRING) is
+   open_combo_select (name: STRING)
       require
          in_a_form
          name /= Void
@@ -921,7 +921,7 @@ feature {ANY} -- Forms
          in_select
       end
 
-   open_multiple_select (name: STRING; size: INTEGER) is
+   open_multiple_select (name: STRING; size: INTEGER)
       require
          in_a_form
          name /= Void
@@ -941,7 +941,7 @@ feature {ANY} -- Forms
          in_select
       end
 
-   close_select is
+   close_select
       require
          in_select
          last_tag.same_as(os_select)
@@ -952,7 +952,7 @@ feature {ANY} -- Forms
          in_a_form
       end
 
-   open_option (value: STRING) is
+   open_option (value: STRING)
       require
          in_select
       local
@@ -966,7 +966,7 @@ feature {ANY} -- Forms
          in_option
       end
 
-   close_option is
+   close_option
       require
          in_option
          last_tag.same_as(os_option)
@@ -977,7 +977,7 @@ feature {ANY} -- Forms
          in_select
       end
 
-   open_paragraph is
+   open_paragraph
       require
          in_a_body
       do
@@ -988,7 +988,7 @@ feature {ANY} -- Forms
          in_paragraph
       end
 
-   close_paragraph is
+   close_paragraph
       require
          in_paragraph
       do
@@ -998,7 +998,7 @@ feature {ANY} -- Forms
          in_a_body
       end
 
-   open_preformatted is
+   open_preformatted
       require
          in_a_body
       do
@@ -1009,7 +1009,7 @@ feature {ANY} -- Forms
          in_preformatted
       end
 
-   close_preformatted is
+   close_preformatted
       require
          in_preformatted
          last_tag.same_as(os_pre)
@@ -1018,7 +1018,7 @@ feature {ANY} -- Forms
          reset_state(state_in_pre)
       end
 
-   open_blockquote is
+   open_blockquote
       require
          in_a_body
       do
@@ -1029,7 +1029,7 @@ feature {ANY} -- Forms
          in_blockquote
       end
 
-   close_blockquote is
+   close_blockquote
       require
          in_blockquote
       do
@@ -1039,7 +1039,7 @@ feature {ANY} -- Forms
          in_a_body
       end
 
-   open_div is
+   open_div
       require
          in_a_body
       do
@@ -1050,7 +1050,7 @@ feature {ANY} -- Forms
          in_div
       end
 
-   close_div is
+   close_div
       require
          in_div
       do
@@ -1060,7 +1060,7 @@ feature {ANY} -- Forms
          in_a_body
       end
 
-   open_span is
+   open_span
       require
          in_a_body
       do
@@ -1071,7 +1071,7 @@ feature {ANY} -- Forms
          in_span
       end
 
-   close_span is
+   close_span
       require
          in_span
       do
@@ -1082,7 +1082,7 @@ feature {ANY} -- Forms
       end
 
 feature {}
-   put_input (type, name, value: STRING; checked: BOOLEAN) is
+   put_input (type, name, value: STRING; checked: BOOLEAN)
       do
          indent
          with_attribute(os_type, type)
@@ -1097,155 +1097,155 @@ feature {}
       end
 
 feature {ANY} -- State queries
-   started: BOOLEAN is
+   started: BOOLEAN
       do
          Result := state /= state_closed
       end
 
-   finished: BOOLEAN is
+   finished: BOOLEAN
       do
          Result := state = state_over
       end
 
-   in_header: BOOLEAN is
+   in_header: BOOLEAN
       do
          Result := state = state_in_header
       end
 
-   in_script: BOOLEAN is
+   in_script: BOOLEAN
       do
          Result := state = state_in_script
       end
 
-   in_body: BOOLEAN is
+   in_body: BOOLEAN
       do
          Result := state = state_in_body
       end
 
-   in_list: BOOLEAN is
+   in_list: BOOLEAN
       do
          Result := state = state_in_list
       end
 
-   in_list_item: BOOLEAN is
+   in_list_item: BOOLEAN
       do
          Result := state = state_in_list_item
       end
 
-   in_table: BOOLEAN is
+   in_table: BOOLEAN
       do
          Result := state = state_in_table
       end
 
-   in_table_row: BOOLEAN is
+   in_table_row: BOOLEAN
       do
          Result := state = state_in_table_row
       end
 
-   in_table_cell: BOOLEAN is
+   in_table_cell: BOOLEAN
       do
          Result := state = state_in_table_cell
       end
 
-   in_form: BOOLEAN is
+   in_form: BOOLEAN
       do
          Result := state = state_in_form
       end
 
-   in_select: BOOLEAN is
+   in_select: BOOLEAN
       do
          Result := state = state_in_select
       end
 
-   in_option: BOOLEAN is
+   in_option: BOOLEAN
       do
          Result := state = state_in_option
       end
 
-   in_frames: BOOLEAN is
+   in_frames: BOOLEAN
       do
          Result := state = state_in_frames
       end
 
-   in_frameset: BOOLEAN is
+   in_frameset: BOOLEAN
       do
          Result := state = state_in_frameset
       end
 
-   in_noframes: BOOLEAN is
+   in_noframes: BOOLEAN
       do
          Result := state = state_in_noframes
       end
 
-   in_a_body: BOOLEAN is
+   in_a_body: BOOLEAN
       do
          Result := in_body or else in_list_item or else in_table_cell or else in_form or else in_noframes or else in_paragraph or else in_blockquote or else in_div or else in_span or else in_definition_term or else in_definition_description
       end
 
-   in_a_form: BOOLEAN is
+   in_a_form: BOOLEAN
       do
          Result := in_form or else in_option or else (in_a_body and then states.fast_has(state_in_form))
       end
 
-   in_text_area: BOOLEAN is
+   in_text_area: BOOLEAN
       do
          Result := state = state_in_text_area
       end
 
-   in_paragraph: BOOLEAN is
+   in_paragraph: BOOLEAN
       do
          Result := state = state_in_paragraph
       end
 
-   in_blockquote: BOOLEAN is
+   in_blockquote: BOOLEAN
       do
          Result := state = state_in_blockquote
       end
 
-   in_div: BOOLEAN is
+   in_div: BOOLEAN
       do
          Result := state = state_in_div
       end
 
-   in_preformatted: BOOLEAN is
+   in_preformatted: BOOLEAN
       do
          Result := state = state_in_pre
       end
 
-   in_span: BOOLEAN is
+   in_span: BOOLEAN
       do
          Result := state = state_in_span
       end
 
-   in_definition_list: BOOLEAN is
+   in_definition_list: BOOLEAN
       do
          Result := state = state_in_definition_list
       end
 
-   in_definition_description: BOOLEAN is
+   in_definition_description: BOOLEAN
       do
          Result := state = state_in_definition_description
       end
 
-   in_definition_term: BOOLEAN is
+   in_definition_term: BOOLEAN
       do
          Result := state = state_in_definition_term
       end
 
 feature {} -- States
-   state: INTEGER is
+   state: INTEGER
       do
          Result := states.last
       end
 
-   set_state (a_state: like state) is
+   set_state (a_state: like state)
       do
          states.add_last(a_state)
       ensure
          states.count = old states.count + 1
       end
 
-   reset_state (a_state: like state) is
+   reset_state (a_state: like state)
       require
          state = a_state
       do
@@ -1254,65 +1254,65 @@ feature {} -- States
          states.count = old states.count - 1
       end
 
-   state_closed: INTEGER is 0
+   state_closed: INTEGER 0
 
-   state_in_header: INTEGER is 10
+   state_in_header: INTEGER 10
 
-   state_in_script: INTEGER is 11
+   state_in_script: INTEGER 11
 
-   state_in_body: INTEGER is 20
+   state_in_body: INTEGER 20
 
-   state_in_list: INTEGER is 21
+   state_in_list: INTEGER 21
 
-   state_in_list_item: INTEGER is 22
+   state_in_list_item: INTEGER 22
 
-   state_in_table: INTEGER is 23
+   state_in_table: INTEGER 23
 
-   state_in_table_row: INTEGER is 24
+   state_in_table_row: INTEGER 24
 
-   state_in_table_cell: INTEGER is 25
+   state_in_table_cell: INTEGER 25
 
-   state_in_text_area: INTEGER is 26
+   state_in_text_area: INTEGER 26
 
-   state_in_paragraph: INTEGER is 27
+   state_in_paragraph: INTEGER 27
 
-   state_in_blockquote: INTEGER is 28
+   state_in_blockquote: INTEGER 28
 
-   state_in_div: INTEGER is 29
+   state_in_div: INTEGER 29
 
-   state_in_pre: INTEGER is 30
+   state_in_pre: INTEGER 30
 
-   state_in_form: INTEGER is 40
+   state_in_form: INTEGER 40
 
-   state_in_select: INTEGER is 41
+   state_in_select: INTEGER 41
 
-   state_in_option: INTEGER is 42
+   state_in_option: INTEGER 42
 
-   state_in_frames: INTEGER is 50
+   state_in_frames: INTEGER 50
 
-   state_in_frameset: INTEGER is 51
+   state_in_frameset: INTEGER 51
 
-   state_in_noframes: INTEGER is 52
+   state_in_noframes: INTEGER 52
 
-   state_in_span: INTEGER is 53
+   state_in_span: INTEGER 53
 
-   state_in_definition_list: INTEGER is 60
+   state_in_definition_list: INTEGER 60
 
-   state_in_definition_description: INTEGER is 61
+   state_in_definition_description: INTEGER 61
 
-   state_in_definition_term: INTEGER is 62
+   state_in_definition_term: INTEGER 62
 
-   state_over: INTEGER is 99
+   state_over: INTEGER 99
 
 feature {} -- Send to the underlying stream
-   pipe_character (c: CHARACTER) is
+   pipe_character (c: CHARACTER)
          -- Put the character down the pipe.
       do
          stream.filtered_put_character(c)
          last_character_is_new_line := c = '%N'
       end
 
-   pipe_string (s: STRING) is
+   pipe_string (s: STRING)
          -- Put the whole string down the pipe.
       local
          i: INTEGER
@@ -1327,7 +1327,7 @@ feature {} -- Send to the underlying stream
          end
       end
 
-   pipe_quoted_string (quoted: STRING) is
+   pipe_quoted_string (quoted: STRING)
       do
          os.clear_count
          quote_quotes(quoted, os)
@@ -1335,7 +1335,7 @@ feature {} -- Send to the underlying stream
       end
 
 feature {}
-   quote_quotes (quoted, in: STRING) is
+   quote_quotes (quoted, in: STRING)
          -- Internal transformation in tag attributes
       local
          i: INTEGER; c: CHARACTER
@@ -1364,11 +1364,11 @@ feature {}
       end
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   connect_to (a_stream: like stream) is
+   connect_to (a_stream: like stream)
       do
          Precursor(a_stream)
          if attributes = Void then
@@ -1389,7 +1389,7 @@ feature {ANY}
       end
 
 feature {}
-   local_can_disconnect: BOOLEAN is
+   local_can_disconnect: BOOLEAN
       do
          Result := finished
       end
@@ -1403,171 +1403,171 @@ feature {}
    last_character_is_new_line: BOOLEAN -- True if the last put character was a '%N'
 
 feature {} -- Once strings
-   os_key_colon: STRING is ": "
+   os_key_colon: STRING ": "
 
-   os_html_header: STRING is "<!doctype html public %"-//w3c//dtd xhtml 1.0 transitional//en%" %"dtd/xhtml1-transitional.dtd%">%N<html>%N<head>%N"
+   os_html_header: STRING "<!doctype html public %"-//w3c//dtd xhtml 1.0 transitional//en%" %"dtd/xhtml1-transitional.dtd%">%N<html>%N<head>%N"
 
-   os_html_body_start: STRING is "</head>%N<body"
+   os_html_body_start: STRING "</head>%N<body"
 
-   os_html_body_footer: STRING is "</body>%N</html>%N"
+   os_html_body_footer: STRING "</body>%N</html>%N"
 
-   os_html_frames_footer: STRING is "</html>%N"
+   os_html_frames_footer: STRING "</html>%N"
 
-   os_start_comment: STRING is "<!-- "
+   os_start_comment: STRING "<!-- "
 
-   os_end_comment: STRING is " -->"
+   os_end_comment: STRING " -->"
 
-   os_entity_quot: STRING is "&quot;"
+   os_entity_quot: STRING "&quot;"
 
-   os_entity_lt: STRING is "&lt;"
+   os_entity_lt: STRING "&lt;"
 
-   os_entity_gt: STRING is "&gt;"
+   os_entity_gt: STRING "&gt;"
 
-   os_entity_amp: STRING is "&amp;"
+   os_entity_amp: STRING "&amp;"
 
-   os_base: STRING is "<base href='"
+   os_base: STRING "<base href='"
 
-   os_end_open_close_tag_attrib: STRING is "'/>"
+   os_end_open_close_tag_attrib: STRING "'/>"
 
-   os_meta_equiv: STRING is "<meta http-equiv='"
+   os_meta_equiv: STRING "<meta http-equiv='"
 
-   os_attrib_content: STRING is "' content='"
+   os_attrib_content: STRING "' content='"
 
-   os_attrib_type: STRING is "' type='"
+   os_attrib_type: STRING "' type='"
 
-   os_stylesheet: STRING is "<link rel='StyleSheet' type='text/css' href='"
+   os_stylesheet: STRING "<link rel='StyleSheet' type='text/css' href='"
 
-   os_text_javascript: STRING is "text/javascript"
+   os_text_javascript: STRING "text/javascript"
 
-   os_title: STRING is "title"
+   os_title: STRING "title"
 
-   os_script_begin: STRING is "<script language='"
+   os_script_begin: STRING "<script language='"
 
-   os_attrib_src: STRING is "' src='"
+   os_attrib_src: STRING "' src='"
 
-   os_script_end: STRING is "'></script>"
+   os_script_end: STRING "'></script>"
 
-   os_language: STRING is "language"
+   os_language: STRING "language"
 
-   os_javascript: STRING is "javascript"
+   os_javascript: STRING "javascript"
 
-   os_script: STRING is "script"
+   os_script: STRING "script"
 
-   os_h1: STRING is "h1"
+   os_h1: STRING "h1"
 
-   os_h2: STRING is "h2"
+   os_h2: STRING "h2"
 
-   os_h3: STRING is "h3"
+   os_h3: STRING "h3"
 
-   os_br: STRING is "br"
+   os_br: STRING "br"
 
-   os_hr: STRING is "hr"
+   os_hr: STRING "hr"
 
-   os_img: STRING is "img"
+   os_img: STRING "img"
 
-   os_src: STRING is "src"
+   os_src: STRING "src"
 
-   os_b: STRING is "b"
+   os_b: STRING "b"
 
-   os_i: STRING is "i"
+   os_i: STRING "i"
 
-   os_u: STRING is "u"
+   os_u: STRING "u"
 
-   os_tt: STRING is "tt"
+   os_tt: STRING "tt"
 
-   os_size: STRING is "size"
+   os_size: STRING "size"
 
-   os_font: STRING is "font"
+   os_font: STRING "font"
 
-   os_pre: STRING is "pre"
+   os_pre: STRING "pre"
 
-   os_href: STRING is "href"
+   os_href: STRING "href"
 
-   os_target: STRING is "target"
+   os_target: STRING "target"
 
-   os_name: STRING is "name"
+   os_name: STRING "name"
 
-   os_a: STRING is "a"
+   os_a: STRING "a"
 
-   os_ul: STRING is "ul"
+   os_ul: STRING "ul"
 
-   os_dt: STRING is "dt"
+   os_dt: STRING "dt"
 
-   os_dd: STRING is "dd"
+   os_dd: STRING "dd"
 
-   os_dl: STRING is "dl"
+   os_dl: STRING "dl"
 
-   os_ol: STRING is "ol"
+   os_ol: STRING "ol"
 
-   os_li: STRING is "li"
+   os_li: STRING "li"
 
-   os_table: STRING is "table"
+   os_table: STRING "table"
 
-   os_tr: STRING is "tr"
+   os_tr: STRING "tr"
 
-   os_td: STRING is "td"
+   os_td: STRING "td"
 
-   os_method_get: STRING is "GET"
+   os_method_get: STRING "GET"
 
-   os_method_post: STRING is "POST"
+   os_method_post: STRING "POST"
 
-   os_method: STRING is "method"
+   os_method: STRING "method"
 
-   os_action: STRING is "action"
+   os_action: STRING "action"
 
-   os_form: STRING is "form"
+   os_form: STRING "form"
 
-   os_rows: STRING is "rows"
+   os_rows: STRING "rows"
 
-   os_cols: STRING is "cols"
+   os_cols: STRING "cols"
 
-   os_textarea: STRING is "textarea"
+   os_textarea: STRING "textarea"
 
-   os_submit: STRING is "submit"
+   os_submit: STRING "submit"
 
-   os_button: STRING is "button"
+   os_button: STRING "button"
 
-   os_reset: STRING is "reset"
+   os_reset: STRING "reset"
 
-   os_hidden: STRING is "hidden"
+   os_hidden: STRING "hidden"
 
-   os_password: STRING is "password"
+   os_password: STRING "password"
 
-   os_text: STRING is "text"
+   os_text: STRING "text"
 
-   os_radio: STRING is "radio"
+   os_radio: STRING "radio"
 
-   os_checkbox: STRING is "checkbox"
+   os_checkbox: STRING "checkbox"
 
-   os_select: STRING is "select"
+   os_select: STRING "select"
 
-   os_multiple: STRING is "multiple"
+   os_multiple: STRING "multiple"
 
-   os_value: STRING is "value"
+   os_value: STRING "value"
 
-   os_option: STRING is "option"
+   os_option: STRING "option"
 
-   os_type: STRING is "type"
+   os_type: STRING "type"
 
-   os_checked: STRING is "checked"
+   os_checked: STRING "checked"
 
-   os_input: STRING is "input"
+   os_input: STRING "input"
 
-   os_frameset: STRING is "frameset"
+   os_frameset: STRING "frameset"
 
-   os_frame: STRING is "frame"
+   os_frame: STRING "frame"
 
-   os_noframes: STRING is "noframes"
+   os_noframes: STRING "noframes"
 
-   os_paragraph: STRING is "p"
+   os_paragraph: STRING "p"
 
-   os_blockquote: STRING is "blockquote"
+   os_blockquote: STRING "blockquote"
 
-   os_div: STRING is "div"
+   os_div: STRING "div"
 
-   os_span: STRING is "span"
+   os_span: STRING "span"
 
-   os: STRING is ""
+   os: STRING ""
          -- used as a buffer
 
 end -- class HTML_OUTPUT_STREAM
@@ -1578,7 +1578,7 @@ end -- class HTML_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

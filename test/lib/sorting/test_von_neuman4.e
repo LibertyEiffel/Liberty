@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: TWO_WAY_LINKED_LIST[REAL]; s: COLLECTION_SORTER[REAL]
       do
@@ -19,7 +19,7 @@ feature {}
          assert(tab.is_equal({TWO_WAY_LINKED_LIST[REAL] << -3.0, -1.5, -0.3, 0.0, 0.1, 1.0, 3.4 >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
       do
          Result := left.to_integer > right.to_integer
       end

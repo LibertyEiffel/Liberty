@@ -12,33 +12,33 @@ create {ANY}
    connect_to
 
 feature {ANY} -- Updating and committing
-   commit is
+   commit
       do
          write_to_stream(out_stream)
       end
 
-   is_commitable: BOOLEAN is
+   is_commitable: BOOLEAN
       do
          Result := commit_stream /= Void and then commit_stream.is_connected
       end
 
-   update is
+   update
       do
          read_from_stream(update_stream)
       end
 
-   is_updateable: BOOLEAN is
+   is_updateable: BOOLEAN
       do
          Result := update_stream /= Void and then update_stream.is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := commit_stream /= Void and then commit_stream.is_connected
       end
 
 feature {ANY} -- Creation
-   connect_to (a_in_stream: like update_stream; a_out_stream: like commit_stream) is
+   connect_to (a_in_stream: like update_stream; a_out_stream: like commit_stream)
          -- Connect to a repository with streams as physical store.
       do
          make
@@ -63,7 +63,7 @@ end -- class XML_STREAM_REPOSITORY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

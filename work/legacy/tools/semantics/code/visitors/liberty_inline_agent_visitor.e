@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INLINE_AGENT}
-   visit_liberty_inline_agent (v: LIBERTY_INLINE_AGENT) is
+   visit_liberty_inline_agent (v: LIBERTY_INLINE_AGENT)
       deferred
       end
 

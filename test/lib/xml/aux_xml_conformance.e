@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {XML_PARSER}
-   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER)
       do
          inspect
             attribute_name.as_utf8
@@ -43,7 +43,7 @@ feature {XML_PARSER}
          end
       end
 
-   open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_name: UNICODE_STRING; line, column: INTEGER)
       local
          tester: AUX_XML_TESTER
          n: like node_name
@@ -73,19 +73,19 @@ feature {XML_PARSER}
          end
       end
 
-   close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          string_pool.recycle(stack.last)
          stack.remove_last
       end
 
-   set_data (a_data: like data; line, column: INTEGER) is
+   set_data (a_data: like data; line, column: INTEGER)
       do
          data := a_data
       end
 
 feature {}
-   make (a_filename: STRING) is
+   make (a_filename: STRING)
       require
          a_filename /= Void
       do
@@ -100,7 +100,7 @@ feature {}
    data: UNICODE_STRING
    namespace: BOOLEAN
 
-   uri_as_filename: STRING is
+   uri_as_filename: STRING
       local
          i: INTEGER
          url: URL

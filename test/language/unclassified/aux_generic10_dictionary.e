@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   get_new_iterator_on_items: AUX_GENERIC10_ITERATOR[V] is
+   get_new_iterator_on_items: AUX_GENERIC10_ITERATOR[V]
       do
          create Result.make(Current)
       end
 
-   make is
+   make
       do
       end
 

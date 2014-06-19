@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: CST_ATT_REAL_VISITOR) is
+   accept (visitor: CST_ATT_REAL_VISITOR)
       do
          visitor.visit_cst_att_real(Current)
       end
@@ -18,12 +18,12 @@ feature {ANY}
 feature {}
    value_memory: REAL_CONSTANT
 
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       do
          add_into_shared(ft, fd)
       end
 
-   make (rt: like result_type; rc: REAL_CONSTANT) is
+   make (rt: like result_type; rc: REAL_CONSTANT)
       require
          rt.is_real
          rc /= Void
@@ -35,7 +35,7 @@ feature {}
          value = rc
       end
 
-   pretty_constant_value (indent_level: INTEGER) is
+   pretty_constant_value (indent_level: INTEGER)
       do
          value_memory.pretty(indent_level)
       end

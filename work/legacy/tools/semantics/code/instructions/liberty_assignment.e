@@ -22,14 +22,14 @@ feature {ANY}
    expression: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          writable.mark_reachable_code(mark)
          expression.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_writable: like writable; a_expression: like expression; a_position: like position) is
+   make (a_writable: like writable; a_expression: like expression; a_position: like position)
       require
          a_writable /= Void
          a_expression /= Void

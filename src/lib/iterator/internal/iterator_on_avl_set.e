@@ -10,7 +10,7 @@ create {ABSTRACT_AVL_SET}
    make
 
 feature {ANY}
-   start is
+   start
       do
          if set.root /= Void then
             generation := iterable_generation
@@ -18,12 +18,12 @@ feature {ANY}
          end
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := cur = Void
       end
 
-   item: E_ is
+   item: E_
       local
          node: ABSTRACT_AVL_SET_NODE[E_]
       do
@@ -31,13 +31,13 @@ feature {ANY}
          Result := node.item
       end
 
-   next is
+   next
       do
          go_next
       end
 
 feature {}
-   make (a_set: like set) is
+   make (a_set: like set)
       require
          a_set /= Void
       do
@@ -51,7 +51,7 @@ feature {}
    set: ABSTRACT_AVL_SET[E_]
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := set.generation
       end

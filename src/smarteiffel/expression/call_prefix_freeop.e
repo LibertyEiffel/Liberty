@@ -16,21 +16,21 @@ create {CALL_PREFIX}
    with
 
 feature {ANY}
-   precedence: INTEGER is 11
+   precedence: INTEGER 11
 
-   operator: STRING is
+   operator: STRING
       do
          Result := feature_name.to_string
       end
 
 feature {ANY}
-   accept (visitor: CALL_PREFIX_FREEOP_VISITOR) is
+   accept (visitor: CALL_PREFIX_FREEOP_VISITOR)
       do
          visitor.visit_call_prefix_freeop(Current)
       end
 
 feature {}
-   make (t: like target; pn: like feature_name) is
+   make (t: like target; pn: like feature_name)
       require
          t /= Void
          pn.is_free_operator

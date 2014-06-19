@@ -14,7 +14,7 @@ create {ANY}
    from_external_sized, from_external_sized_copy, make_from_string
 
 feature {ANY} -- Creation / Modification:
-   make, with_capacity (needed_capacity: INTEGER) is
+   make, with_capacity (needed_capacity: INTEGER)
          -- Initialize the string to have at least `needed_capacity' characters of storage.
       require
          non_negative_size: needed_capacity >= 0
@@ -30,13 +30,13 @@ feature {ANY} -- Creation / Modification:
          empty_string: count = 0
       end
 
-   make_empty is
+   make_empty
          -- Create an empty string.
       do
          make(0)
       end
 
-   make_filled (c: CHARACTER; n: INTEGER) is
+   make_filled (c: CHARACTER; n: INTEGER)
          -- Initialize string with `n' copies of `c'.
       require
          valid_count: n >= 0
@@ -50,7 +50,7 @@ feature {ANY} -- Creation / Modification:
          filled: occurrences(c) = count
       end
 
-   make_from_string (model: ABSTRACT_STRING) is
+   make_from_string (model: ABSTRACT_STRING)
          -- Initialize from the characters of `model'.
       require
          model /= Void
@@ -70,13 +70,13 @@ feature {ANY} -- Creation / Modification:
       end
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := computed_hash_code
       end
 
 feature {ANY} -- Modification:
-   resize (new_count: INTEGER) is
+   resize (new_count: INTEGER)
          -- Resize Current. When `new_count' is greater than
          -- `count', new positions are initialized with the
          -- default value of type CHARACTER ('%U').
@@ -95,9 +95,9 @@ feature {ANY} -- Modification:
          capacity >= old capacity
       end
 
-   clear_count, wipe_out is
+   clear_count, wipe_out
          -- Discard all characters so that `is_empty' is True after that call.
-         --     The internal `capacity' is not changed by this call (i.e. the internal `storage' memory is
+         --     The internal `capacity' is not changed by this call (i.e. the internal `storage' memory
          --     neither released nor shrunk).
          --
          -- See also `clear_count_and_capacity'.
@@ -110,7 +110,7 @@ feature {ANY} -- Modification:
                    storage_lower = 0
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Discard all characters (`is_empty' is True after that call). The internal `capacity' may also be
          -- reduced after this call.
          --
@@ -129,7 +129,7 @@ feature {ANY} -- Modification:
                    storage.is_null
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Copy `other' onto Current.
          --
          -- See also `copy_substring'.
@@ -149,7 +149,7 @@ feature {ANY} -- Modification:
          count = other.count
       end
 
-   copy_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
+   copy_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER)
          -- Copy the substring from `s' from `start_index' to `end_index'
          -- to Current.
          --
@@ -170,7 +170,7 @@ feature {ANY} -- Modification:
          count := c
       end
 
-   fill_with (c: CHARACTER) is
+   fill_with (c: CHARACTER)
          -- Replace every character with `c'.
       do
          storage_lower := 0
@@ -179,7 +179,7 @@ feature {ANY} -- Modification:
          occurrences(c) = count
       end
 
-   replace_all (old_character, new_character: like item) is
+   replace_all (old_character, new_character: like item)
          -- Replace all occurrences of the element `old_character' by `new_character'.
       do
          storage.fast_replace_all(old_character, new_character, count + storage_lower - 1)
@@ -188,7 +188,7 @@ feature {ANY} -- Modification:
          old_character /= new_character implies occurrences(old_character) = 0
       end
 
-   append, append_string (s: ABSTRACT_STRING) is
+   append, append_string (s: ABSTRACT_STRING)
          -- Append a copy of 's' to `Current'.
          --
          -- See also `add_last', `add_first', `prepend', '+'.
@@ -204,7 +204,7 @@ feature {ANY} -- Modification:
          count := needed_capacity - storage_lower
       end
 
-   append_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
+   append_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER)
          -- Append the substring from `s' from `start_index' to `end_index'
          -- to Current.
       require
@@ -221,7 +221,7 @@ feature {ANY} -- Modification:
          count := needed_capacity
       end
 
-   prepend (other: ABSTRACT_STRING) is
+   prepend (other: ABSTRACT_STRING)
          -- Prepend `other' to `Current'.
          --
          -- See also `append'.
@@ -257,7 +257,7 @@ feature {ANY} -- Modification:
          (old other.twin + old twin).is_equal(Current)
       end
 
-   insert_string (s: ABSTRACT_STRING; i: INTEGER) is
+   insert_string (s: ABSTRACT_STRING; i: INTEGER)
          -- Insert `s' at index `i', shifting characters from index `i'
          -- to `count' rightwards.
       require
@@ -287,7 +287,7 @@ feature {ANY} -- Modification:
          end
       end
 
-   replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER) is
+   replace_substring (s: ABSTRACT_STRING; start_index, end_index: INTEGER)
          -- Replace the substring from `start_index' to `end_index',
          -- inclusive, with `s'.
       require
@@ -323,7 +323,7 @@ feature {ANY} -- Modification:
          slice_copy(start_index - lower, s, s.lower, s.upper)
       end
 
-   put (c: CHARACTER; i: INTEGER) is
+   put (c: CHARACTER; i: INTEGER)
          -- Put `c' at index `i'.
          --
          -- See also `item', `lower', `upper', `swap'.
@@ -335,7 +335,7 @@ feature {ANY} -- Modification:
          item(i) = c
       end
 
-   swap (i1, i2: INTEGER) is
+   swap (i1, i2: INTEGER)
          -- Swap two characters.
          --
          -- See also `item', `put'.
@@ -353,7 +353,7 @@ feature {ANY} -- Modification:
          item(i2) = old item(i1)
       end
 
-   insert_character (c: CHARACTER; i: INTEGER) is
+   insert_character (c: CHARACTER; i: INTEGER)
          -- Inserts `c' at index `i', shifting characters from
          -- position 'i' to `count' rightwards.
       require
@@ -377,7 +377,7 @@ feature {ANY} -- Modification:
          count = old count + 1
       end
 
-   shrink (min_index, max_index: INTEGER) is
+   shrink (min_index, max_index: INTEGER)
          -- Keep only the slice [`min_index' .. `max_index'] or nothing
          -- when the slice is empty.
       require
@@ -397,7 +397,7 @@ feature {ANY} -- Modification:
          count = max_index - min_index + 1
       end
 
-   remove (i: INTEGER) is
+   remove (i: INTEGER)
          -- Remove character at position `i'.
          --
          -- See also `remove_head', `remove_between', `remove_suffix', `remove_prefix'.
@@ -409,7 +409,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   add_first, precede (c: CHARACTER) is
+   add_first, precede (c: CHARACTER)
          -- Add `c' at first position.
          --
          -- See also `add_last'.
@@ -420,7 +420,7 @@ feature {ANY} -- Modification:
          item(lower) = c
       end
 
-   add_last, append_character, extend (c: CHARACTER) is
+   add_last, append_character, extend (c: CHARACTER)
          -- Append `c' to string.
          --
          -- See also `add_first'.
@@ -431,7 +431,7 @@ feature {ANY} -- Modification:
          item(upper) = c
       end
 
-   to_lower is
+   to_lower
          -- Convert all characters to lower case.
          --
          -- See also `to_upper', `as_lower', `as_upper'.
@@ -448,7 +448,7 @@ feature {ANY} -- Modification:
          end
       end
 
-   to_upper is
+   to_upper
          -- Convert all characters to upper case.
          --
          -- See also `to_lower', `as_upper', `as_lower'.
@@ -465,7 +465,7 @@ feature {ANY} -- Modification:
          end
       end
 
-   keep_head (n: INTEGER) is
+   keep_head (n: INTEGER)
          -- Remove all characters except for the first `n'.
          -- Do nothing if `n' >= `count'.
          --
@@ -480,7 +480,7 @@ feature {ANY} -- Modification:
          count = n.min(old count)
       end
 
-   keep_tail (n: INTEGER) is
+   keep_tail (n: INTEGER)
          -- Remove all characters except for the last `n'.
          -- Do nothing if `n' >= `count'.
          --
@@ -495,7 +495,7 @@ feature {ANY} -- Modification:
          count = n.min(old count)
       end
 
-   remove_first is
+   remove_first
          -- Remove the `first' item.
          --
          -- See also `remove_head', `remove_last', `remove'.
@@ -508,7 +508,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
          -- Remove `n' first characters. If `n' >= `count', remove all.
          --
          -- See also `remove_tail', `remove', `remove_the_first'.
@@ -526,7 +526,7 @@ feature {ANY} -- Modification:
          count = (old count - n).max(0)
       end
 
-   remove_last is
+   remove_last
          -- Remove the `last' item.
          --
          -- See also `remove_tail', `remove_first', `remove'.
@@ -538,7 +538,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
          -- Remove `n' last characters. If `n' >= `count', remove all.
          --
          -- See also `remove_head', `remove', `remove_the_last'.
@@ -555,7 +555,7 @@ feature {ANY} -- Modification:
          count = (old count - n).max(0)
       end
 
-   remove_substring, remove_between (start_index, end_index: INTEGER) is
+   remove_substring, remove_between (start_index, end_index: INTEGER)
          -- Remove all characters from `strt_index' to `end_index' inclusive.
       require
          valid_start_index: 1 <= start_index
@@ -580,7 +580,7 @@ feature {ANY} -- Modification:
          count = old count - (end_index - start_index + 1)
       end
 
-   remove_suffix (s: ABSTRACT_STRING) is
+   remove_suffix (s: ABSTRACT_STRING)
          -- Remove the suffix `s' of current string.
          --
          -- See also `remove_prefix', `remove_tail', `remove'.
@@ -592,7 +592,7 @@ feature {ANY} -- Modification:
          (old Current.twin).is_equal(Current + old s.twin)
       end
 
-   remove_prefix (s: ABSTRACT_STRING) is
+   remove_prefix (s: ABSTRACT_STRING)
          -- Remove the prefix `s' of current string.
          --
          -- See also `remove_suffix', `remove_head', `remove'.
@@ -604,7 +604,7 @@ feature {ANY} -- Modification:
          (old s.twin + Current).is_equal(old Current.twin)
       end
 
-   left_adjust is
+   left_adjust
          -- Remove leading blanks.
          --
          -- See also `remove_head', `first'.
@@ -623,7 +623,7 @@ feature {ANY} -- Modification:
          stripped: is_empty or else not first.is_separator
       end
 
-   right_adjust is
+   right_adjust
          -- Remove trailing blanks.
          --
          -- See also `remove_tail', `last'.
@@ -639,7 +639,7 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Other features:
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
       local
          c: INTEGER
       do
@@ -651,7 +651,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   extend_multiple (c: CHARACTER; n: INTEGER) is
+   extend_multiple (c: CHARACTER; n: INTEGER)
          -- Extend Current with `n' times character `c'.
       require
          n >= 0
@@ -670,7 +670,7 @@ feature {ANY} -- Other features:
          count = n + old count
       end
 
-  precede_multiple (c: CHARACTER; n: INTEGER) is
+  precede_multiple (c: CHARACTER; n: INTEGER)
           -- Prepend `n' times character `c' to Current.
 
       local
@@ -708,7 +708,7 @@ feature {ANY} -- Other features:
                  not_changed_when_n_is_not_positive: n<1 implies Current ~ old twin
       end
 
-   extend_to_count (c: CHARACTER; needed_count: INTEGER) is
+   extend_to_count (c: CHARACTER; needed_count: INTEGER)
          -- Extend Current with `c' until `needed_count' is reached.
          -- Do nothing if `needed_count' is already greater or equal
          -- to `count'.
@@ -729,7 +729,7 @@ feature {ANY} -- Other features:
          count >= needed_count
       end
 
-   precede_to_count (c: CHARACTER; needed_count: INTEGER) is
+   precede_to_count (c: CHARACTER; needed_count: INTEGER)
          -- Prepend `c' to Current until `needed_count' is reached.
          -- Do nothing if `needed_count' is already greater or equal
          -- to `count'.
@@ -750,7 +750,7 @@ feature {ANY} -- Other features:
          count >= needed_count
       end
 
-   reverse is
+   reverse
          -- Reverse the string.
       local
          i1, i2: INTEGER
@@ -767,7 +767,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   remove_all_occurrences (ch: CHARACTER) is
+   remove_all_occurrences (ch: CHARACTER)
          -- Remove all occurrences of `ch'.
          --
          -- See also `occurrences', `remove'.
@@ -792,7 +792,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Testing and Conversion:
-   to_hexadecimal is
+   to_hexadecimal
          -- Convert Current bit sequence into the corresponding
          -- hexadecimal notation.
       require
@@ -838,8 +838,8 @@ feature {ANY} -- Testing and Conversion:
       end
 
 feature {ANY} -- Other features:
-   extend_unless (ch: CHARACTER) is
-         -- Extend `Current' (using `extend') with `ch' unless `ch' is
+   extend_unless (ch: CHARACTER)
+         -- Extend `Current' (using `extend') with `ch' unless `ch'
          -- already the `last' character.
       do
          if count = 0 or else item(count) /= ch then
@@ -850,7 +850,7 @@ feature {ANY} -- Other features:
          count >= old count
       end
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
          -- A shared version of this string.
       local
          strings: FAST_ARRAY[FIXED_STRING]
@@ -878,7 +878,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Interfacing with C string:
-   to_external: POINTER is
+   to_external: POINTER
          -- Gives C access to the internal `storage' (may be dangerous).
          -- To be compatible with C, a null character is added at the end
          -- of the internal `storage'. This extra null character is not
@@ -893,7 +893,7 @@ feature {ANY} -- Interfacing with C string:
          Result := storage.to_pointer + storage_lower
       end
 
-   from_external (p: POINTER) is
+   from_external (p: POINTER)
          -- Internal `storage' is set using `p' (may be dangerous because
          -- the external C string `p' is not duplicated). Assume `p' has a
          -- null character at the end in order to compute the Eiffel
@@ -922,7 +922,7 @@ feature {ANY} -- Interfacing with C string:
          p = to_external
       end
 
-   from_external_copy (p: POINTER) is
+   from_external_copy (p: POINTER)
          -- Internal `storage' is set using a copy of `p'. Assume `p' has a
          -- null character at the end in order to compute the Eiffel
          -- `count'. This extra null character is not part of the Eiffel
@@ -946,7 +946,7 @@ feature {ANY} -- Interfacing with C string:
          next_generation
       end
 
-   from_external_sized (p: POINTER; size: INTEGER) is
+   from_external_sized (p: POINTER; size: INTEGER)
          -- Internal `storage' is set using `p' (may be dangerous because
          -- the external C string `p' is not duplicated). The 'count' of
          -- characters of the string is set to 'size'.
@@ -970,7 +970,7 @@ feature {ANY} -- Interfacing with C string:
          p = storage.to_pointer -- caution: to_external will add a trailing null
       end
 
-   from_external_sized_copy (p: POINTER; size: INTEGER) is
+   from_external_sized_copy (p: POINTER; size: INTEGER)
          -- Internal `storage' is set using a copy of `p'.
          -- 'size' characters are copied, setting then 'count' to 'size'.
          -- Also consider `from_external' to choose the most appropriate.
@@ -997,13 +997,13 @@ feature {ANY} -- Interfacing with C string:
       end
 
 feature {RECYCLING_POOL, STRING_RECYCLING_POOL}
-   recycle is
+   recycle
       do
          clear_count
       end
 
 feature {}
-   slice_copy (at: INTEGER; source: ABSTRACT_STRING; start_index, end_index: INTEGER) is
+   slice_copy (at: INTEGER; source: ABSTRACT_STRING; start_index, end_index: INTEGER)
       do
          if end_index >= start_index then
             source.copy_slice_to_native(start_index, end_index, storage, at + storage_lower)
@@ -1024,7 +1024,7 @@ end -- class STRING
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

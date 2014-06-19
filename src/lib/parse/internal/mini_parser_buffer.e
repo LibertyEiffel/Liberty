@@ -19,7 +19,7 @@ create {ANY}
    default_create, initialize_with
 
 feature {ANY}
-   initialize_with (string: ABSTRACT_STRING) is
+   initialize_with (string: ABSTRACT_STRING)
          -- Initialize the `Current' buffer interning `string'.
       require
          string /= Void
@@ -35,7 +35,7 @@ feature {ANY}
          last_error = Void
       end
 
-   next is
+   next
          -- Move the `current_index' forward by one.
       require
          not end_reached
@@ -45,7 +45,7 @@ feature {ANY}
          current_index = 1 + old current_index
       end
 
-   skip_separators is
+   skip_separators
          -- Skip all separators by using `is_separator' of class CHARACTER.
       local
          stop: BOOLEAN
@@ -67,21 +67,21 @@ feature {ANY}
    last_error: PARSE_ERROR
          -- Can be used to memorize an error message.
 
-   set_last_error (error: like last_error) is
+   set_last_error (error: like last_error)
       do
          last_error := error
       ensure
          last_error = error
       end
 
-   set_last_error_message (error_message: STRING) is
+   set_last_error_message (error_message: STRING)
       do
          create last_error.make(current_index, error_message, last_error)
       ensure
          last_error.message = error_message
       end
 
-   set_current_index (new_index: like current_index) is
+   set_current_index (new_index: like current_index)
          -- To be able to move (usually back) in the buffer
       require
          new_index.in_range(lower, upper + 1)
@@ -91,7 +91,7 @@ feature {ANY}
          current_index = new_index
       end
 
-   print_position_on (stream: OUTPUT_STREAM) is
+   print_position_on (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       local
@@ -133,7 +133,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Memo
-   set_memory (a_memory: like memory) is
+   set_memory (a_memory: like memory)
       require
          a_memory /= Void
       do
@@ -142,12 +142,12 @@ feature {ANY} -- Memo
          memory = a_memory
       end
 
-   memo: INTEGER is
+   memo: INTEGER
       do
          Result := memory.memo(Current)
       end
 
-   restore (a_memo: like memo) is
+   restore (a_memo: like memo)
       do
          memory.restore(a_memo, Current)
       end
@@ -155,24 +155,24 @@ feature {ANY} -- Memo
    memory: MINI_PARSER_MEMORY
 
 feature {ANY} -- Queries
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := storage.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
          -- Maximum valid index in storage.
       do
          Result := storage.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
          -- The length of the `Current' buffer which is also the maximum valid index.
       do
          Result := storage.count
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
          -- Of `storage'.
       do
          Result := storage.capacity
@@ -181,7 +181,7 @@ feature {ANY} -- Queries
    current_index: INTEGER
          -- Index of the current character.
 
-   current_character: CHARACTER is
+   current_character: CHARACTER
          -- The current character (the one at `current_index').
       require
          current_index.in_range(lower, upper + 1)
@@ -189,7 +189,7 @@ feature {ANY} -- Queries
          Result := storage.item(current_index)
       end
 
-   end_reached: BOOLEAN is
+   end_reached: BOOLEAN
          -- Is the end of the buffer reached?
       do
          Result := current_index > upper
@@ -203,7 +203,7 @@ feature {ANY} -- Queries
 
    marked: BOOLEAN
 
-   clear_mark is
+   clear_mark
       do
          marked := False
       ensure
@@ -214,12 +214,12 @@ feature {}
    storage: FIXED_STRING
          -- The `storage' area to be parsed.
 
-   default_create is
+   default_create
       do
          memory := default_memory
       end
 
-   default_memory: DEFAULT_MINI_PARSER_MEMORY is
+   default_memory: DEFAULT_MINI_PARSER_MEMORY
       once
          create Result
       end
@@ -235,7 +235,7 @@ end -- class MINI_PARSER_BUFFER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

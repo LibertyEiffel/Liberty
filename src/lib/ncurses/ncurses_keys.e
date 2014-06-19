@@ -7,13 +7,13 @@ deferred class NCURSES_KEYS
    --
 
 feature {}
-   key_escape: INTEGER is 27
+   key_escape: INTEGER 27
 
-   key_return: INTEGER is 10
+   key_return: INTEGER 10
 
    -- Below are integer equivalent for special "function" keys.
    -- Is it necessary to keep all of them ?
-   key_min: INTEGER is
+   key_min: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -22,7 +22,7 @@ feature {}
       }"
       end
 
-   key_break: INTEGER is
+   key_break: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -31,7 +31,7 @@ feature {}
       }"
       end
 
-   key_sreset: INTEGER is
+   key_sreset: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -40,7 +40,7 @@ feature {}
       }"
       end
 
-   key_reset: INTEGER is
+   key_reset: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -49,7 +49,7 @@ feature {}
       }"
       end
 
-   key_down: INTEGER is
+   key_down: INTEGER
          -- The Down arrow of the keyboard.
       external "plug_in"
       alias "{
@@ -59,7 +59,7 @@ feature {}
       }"
       end
 
-   key_up: INTEGER is
+   key_up: INTEGER
          -- The Up arrow of the keyboard.
       external "plug_in"
       alias "{
@@ -69,7 +69,7 @@ feature {}
       }"
       end
 
-   key_left: INTEGER is
+   key_left: INTEGER
          -- The Left arrow of the keyboard.
       external "plug_in"
       alias "{
@@ -79,7 +79,7 @@ feature {}
       }"
       end
 
-   key_right: INTEGER is
+   key_right: INTEGER
          -- The Right arrow of the keyboard.
       external "plug_in"
       alias "{
@@ -89,7 +89,7 @@ feature {}
       }"
       end
 
-   key_home: INTEGER is
+   key_home: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -98,7 +98,7 @@ feature {}
       }"
       end
 
-   key_backspace: INTEGER is
+   key_backspace: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -107,7 +107,7 @@ feature {}
       }"
       end
 
-   key_dl: INTEGER is
+   key_dl: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -116,7 +116,7 @@ feature {}
       }"
       end
 
-   key_il: INTEGER is
+   key_il: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -125,7 +125,7 @@ feature {}
       }"
       end
 
-   key_dc: INTEGER is
+   key_dc: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -134,7 +134,7 @@ feature {}
       }"
       end
 
-   key_ic: INTEGER is
+   key_ic: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -143,7 +143,7 @@ feature {}
       }"
       end
 
-   key_eic: INTEGER is
+   key_eic: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -152,7 +152,7 @@ feature {}
       }"
       end
 
-   key_clear: INTEGER is
+   key_clear: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -161,7 +161,7 @@ feature {}
       }"
       end
 
-   key_eos: INTEGER is
+   key_eos: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -170,7 +170,7 @@ feature {}
       }"
       end
 
-   key_eol: INTEGER is
+   key_eol: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -179,7 +179,7 @@ feature {}
       }"
       end
 
-   key_sf: INTEGER is
+   key_sf: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -188,7 +188,7 @@ feature {}
       }"
       end
 
-   key_sr: INTEGER is
+   key_sr: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -197,7 +197,7 @@ feature {}
       }"
       end
 
-   key_next_page: INTEGER is
+   key_next_page: INTEGER
          -- Also labeled "Page Down" on some keyboards.
       external "plug_in"
       alias "{
@@ -207,7 +207,7 @@ feature {}
       }"
       end
 
-   key_previous_page: INTEGER is
+   key_previous_page: INTEGER
          -- Also labeled "Page Up" on some keyboards.
       external "plug_in"
       alias "{
@@ -217,7 +217,7 @@ feature {}
       }"
       end
 
-   key_stab: INTEGER is
+   key_stab: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -226,7 +226,7 @@ feature {}
       }"
       end
 
-   key_ctab: INTEGER is
+   key_ctab: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -235,7 +235,7 @@ feature {}
       }"
       end
 
-   key_catab: INTEGER is
+   key_catab: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -244,7 +244,7 @@ feature {}
       }"
       end
 
-   key_enter: INTEGER is
+   key_enter: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -253,7 +253,7 @@ feature {}
       }"
       end
 
-   key_print: INTEGER is
+   key_print: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -262,7 +262,7 @@ feature {}
       }"
       end
 
-   key_ll: INTEGER is
+   key_ll: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -271,7 +271,7 @@ feature {}
       }"
       end
 
-   key_a1: INTEGER is
+   key_a1: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -280,7 +280,7 @@ feature {}
       }"
       end
 
-   key_a3: INTEGER is
+   key_a3: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -289,7 +289,7 @@ feature {}
       }"
       end
 
-   key_b2: INTEGER is
+   key_b2: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -298,7 +298,7 @@ feature {}
       }"
       end
 
-   key_c1: INTEGER is
+   key_c1: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -307,7 +307,7 @@ feature {}
       }"
       end
 
-   key_c3: INTEGER is
+   key_c3: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -316,7 +316,7 @@ feature {}
       }"
       end
 
-   key_btab: INTEGER is
+   key_btab: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -325,7 +325,7 @@ feature {}
       }"
       end
 
-   key_beg: INTEGER is
+   key_beg: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -334,7 +334,7 @@ feature {}
       }"
       end
 
-   key_cancel: INTEGER is
+   key_cancel: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -343,7 +343,7 @@ feature {}
       }"
       end
 
-   key_close: INTEGER is
+   key_close: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -352,7 +352,7 @@ feature {}
       }"
       end
 
-   key_command: INTEGER is
+   key_command: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -361,7 +361,7 @@ feature {}
       }"
       end
 
-   key_copy: INTEGER is
+   key_copy: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -370,7 +370,7 @@ feature {}
       }"
       end
 
-   key_create: INTEGER is
+   key_create: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -379,7 +379,7 @@ feature {}
       }"
       end
 
-   key_end: INTEGER is
+   key_end: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -388,7 +388,7 @@ feature {}
       }"
       end
 
-   key_exit: INTEGER is
+   key_exit: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -397,7 +397,7 @@ feature {}
       }"
       end
 
-   key_find: INTEGER is
+   key_find: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -406,7 +406,7 @@ feature {}
       }"
       end
 
-   key_help: INTEGER is
+   key_help: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -415,7 +415,7 @@ feature {}
       }"
       end
 
-   key_mark: INTEGER is
+   key_mark: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -424,7 +424,7 @@ feature {}
       }"
       end
 
-   key_message: INTEGER is
+   key_message: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -433,7 +433,7 @@ feature {}
       }"
       end
 
-   key_move: INTEGER is
+   key_move: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -442,7 +442,7 @@ feature {}
       }"
       end
 
-   key_next: INTEGER is
+   key_next: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -451,7 +451,7 @@ feature {}
       }"
       end
 
-   key_open: INTEGER is
+   key_open: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -460,7 +460,7 @@ feature {}
       }"
       end
 
-   key_options: INTEGER is
+   key_options: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -469,7 +469,7 @@ feature {}
       }"
       end
 
-   key_previous: INTEGER is
+   key_previous: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -478,7 +478,7 @@ feature {}
       }"
       end
 
-   key_redo: INTEGER is
+   key_redo: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -487,7 +487,7 @@ feature {}
       }"
       end
 
-   key_reference: INTEGER is
+   key_reference: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -496,7 +496,7 @@ feature {}
       }"
       end
 
-   key_refresh: INTEGER is
+   key_refresh: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -505,7 +505,7 @@ feature {}
       }"
       end
 
-   key_replace: INTEGER is
+   key_replace: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -514,7 +514,7 @@ feature {}
       }"
       end
 
-   key_restart: INTEGER is
+   key_restart: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -523,7 +523,7 @@ feature {}
       }"
       end
 
-   key_resume: INTEGER is
+   key_resume: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -532,7 +532,7 @@ feature {}
       }"
       end
 
-   key_save: INTEGER is
+   key_save: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -541,7 +541,7 @@ feature {}
       }"
       end
 
-   key_sbeg: INTEGER is
+   key_sbeg: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -550,7 +550,7 @@ feature {}
       }"
       end
 
-   key_scancel: INTEGER is
+   key_scancel: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -559,7 +559,7 @@ feature {}
       }"
       end
 
-   key_scommand: INTEGER is
+   key_scommand: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -568,7 +568,7 @@ feature {}
       }"
       end
 
-   key_scopy: INTEGER is
+   key_scopy: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -577,7 +577,7 @@ feature {}
       }"
       end
 
-   key_screate: INTEGER is
+   key_screate: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -586,7 +586,7 @@ feature {}
       }"
       end
 
-   key_sdc: INTEGER is
+   key_sdc: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -595,7 +595,7 @@ feature {}
       }"
       end
 
-   key_sdl: INTEGER is
+   key_sdl: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -604,7 +604,7 @@ feature {}
       }"
       end
 
-   key_select: INTEGER is
+   key_select: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -613,7 +613,7 @@ feature {}
       }"
       end
 
-   key_send: INTEGER is
+   key_send: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -622,7 +622,7 @@ feature {}
       }"
       end
 
-   key_seol: INTEGER is
+   key_seol: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -631,7 +631,7 @@ feature {}
       }"
       end
 
-   key_sexit: INTEGER is
+   key_sexit: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -640,7 +640,7 @@ feature {}
       }"
       end
 
-   key_sfind: INTEGER is
+   key_sfind: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -649,7 +649,7 @@ feature {}
       }"
       end
 
-   key_shelp: INTEGER is
+   key_shelp: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -658,7 +658,7 @@ feature {}
       }"
       end
 
-   key_shome: INTEGER is
+   key_shome: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -667,7 +667,7 @@ feature {}
       }"
       end
 
-   key_sic: INTEGER is
+   key_sic: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -676,7 +676,7 @@ feature {}
       }"
       end
 
-   key_sleft: INTEGER is
+   key_sleft: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -685,7 +685,7 @@ feature {}
       }"
       end
 
-   key_smessage: INTEGER is
+   key_smessage: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -694,7 +694,7 @@ feature {}
       }"
       end
 
-   key_smove: INTEGER is
+   key_smove: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -703,7 +703,7 @@ feature {}
       }"
       end
 
-   key_snext: INTEGER is
+   key_snext: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -712,7 +712,7 @@ feature {}
       }"
       end
 
-   key_soptions: INTEGER is
+   key_soptions: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -721,7 +721,7 @@ feature {}
       }"
       end
 
-   key_sprevious: INTEGER is
+   key_sprevious: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -730,7 +730,7 @@ feature {}
       }"
       end
 
-   key_sprint: INTEGER is
+   key_sprint: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -739,7 +739,7 @@ feature {}
       }"
       end
 
-   key_sredo: INTEGER is
+   key_sredo: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -748,7 +748,7 @@ feature {}
       }"
       end
 
-   key_sreplace: INTEGER is
+   key_sreplace: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -757,7 +757,7 @@ feature {}
       }"
       end
 
-   key_sright: INTEGER is
+   key_sright: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -766,7 +766,7 @@ feature {}
       }"
       end
 
-   key_srsume: INTEGER is
+   key_srsume: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -775,7 +775,7 @@ feature {}
       }"
       end
 
-   key_ssave: INTEGER is
+   key_ssave: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -784,7 +784,7 @@ feature {}
       }"
       end
 
-   key_ssuspend: INTEGER is
+   key_ssuspend: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -793,7 +793,7 @@ feature {}
       }"
       end
 
-   key_sundo: INTEGER is
+   key_sundo: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -802,7 +802,7 @@ feature {}
       }"
       end
 
-   key_suspend: INTEGER is
+   key_suspend: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -811,7 +811,7 @@ feature {}
       }"
       end
 
-   key_undo: INTEGER is
+   key_undo: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -820,7 +820,7 @@ feature {}
       }"
       end
 
-   key_mouse: INTEGER is
+   key_mouse: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -829,7 +829,7 @@ feature {}
       }"
       end
 
-   key_resize: INTEGER is
+   key_resize: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -838,7 +838,7 @@ feature {}
       }"
       end
 
-   key_event: INTEGER is
+   key_event: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -847,7 +847,7 @@ feature {}
       }"
       end
 
-   key_max: INTEGER is
+   key_max: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -856,7 +856,7 @@ feature {}
       }"
       end
 
-   key_f0: INTEGER is
+   key_f0: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -865,7 +865,7 @@ feature {}
       }"
       end
 
-   key_f1: INTEGER is
+   key_f1: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -874,7 +874,7 @@ feature {}
       }"
       end
 
-   key_f2: INTEGER is
+   key_f2: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -883,7 +883,7 @@ feature {}
       }"
       end
 
-   key_f3: INTEGER is
+   key_f3: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -892,7 +892,7 @@ feature {}
       }"
       end
 
-   key_f4: INTEGER is
+   key_f4: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -901,7 +901,7 @@ feature {}
       }"
       end
 
-   key_f5: INTEGER is
+   key_f5: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -910,7 +910,7 @@ feature {}
       }"
       end
 
-   key_f6: INTEGER is
+   key_f6: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -919,7 +919,7 @@ feature {}
       }"
       end
 
-   key_f7: INTEGER is
+   key_f7: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -928,7 +928,7 @@ feature {}
       }"
       end
 
-   key_f8: INTEGER is
+   key_f8: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -937,7 +937,7 @@ feature {}
       }"
       end
 
-   key_f9: INTEGER is
+   key_f9: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -946,7 +946,7 @@ feature {}
       }"
       end
 
-   key_f10: INTEGER is
+   key_f10: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -955,7 +955,7 @@ feature {}
       }"
       end
 
-   key_f11: INTEGER is
+   key_f11: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -964,7 +964,7 @@ feature {}
       }"
       end
 
-   key_f12: INTEGER is
+   key_f12: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -973,7 +973,7 @@ feature {}
       }"
       end
 
-   key_function (num: INTEGER): INTEGER is
+   key_function (num: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -991,7 +991,7 @@ end -- class NCURSES_KEYS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

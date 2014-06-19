@@ -11,7 +11,7 @@ create {ANY}
    foo
 
 feature {ANY}
-   bar2 is
+   bar2
       do
 --         io.put_integer(2)
       end

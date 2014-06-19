@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	empty_exp: POINTER is
+	empty_exp: POINTER
  		-- empty_exp
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_empty_exp: POINTER is
+	address_of_empty_exp: POINTER
  		-- Address of empty_exp
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_empty_exp (a_value: POINTER) is
+	set_empty_exp (a_value: POINTER)
 		-- Set variable empty_exp value
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	forbidden_exp: POINTER is
+	forbidden_exp: POINTER
  		-- forbidden_exp
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_forbidden_exp: POINTER is
+	address_of_forbidden_exp: POINTER
  		-- Address of forbidden_exp
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_forbidden_exp (a_value: POINTER) is
+	set_forbidden_exp (a_value: POINTER)
 		-- Set variable forbidden_exp value
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_ctxt_nb_cons (a_ctxt: POINTER): INTEGER is
+	xml_exp_ctxt_nb_cons (a_ctxt: POINTER): INTEGER
  		-- xmlExpCtxtNbCons
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_ctxt_nb_nodes (a_ctxt: POINTER): INTEGER is
+	xml_exp_ctxt_nb_nodes (a_ctxt: POINTER): INTEGER
  		-- xmlExpCtxtNbNodes
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_dump (a_buf: POINTER; an_expr: POINTER) is
+	xml_exp_dump (a_buf: POINTER; an_expr: POINTER)
  		-- xmlExpDump
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_exp_derive (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): POINTER is
+	xml_exp_exp_derive (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): POINTER
  		-- xmlExpExpDerive
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_free (a_ctxt: POINTER; an_expr: POINTER) is
+	xml_exp_free (a_ctxt: POINTER; an_expr: POINTER)
  		-- xmlExpFree
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_free_ctxt (a_ctxt: POINTER) is
+	xml_exp_free_ctxt (a_ctxt: POINTER)
  		-- xmlExpFreeCtxt
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_get_language (a_ctxt: POINTER; an_expr: POINTER; a_lang_list: POINTER; a_len: INTEGER): INTEGER is
+	xml_exp_get_language (a_ctxt: POINTER; an_expr: POINTER; a_lang_list: POINTER; a_len: INTEGER): INTEGER
  		-- xmlExpGetLanguage
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_get_start (a_ctxt: POINTER; an_expr: POINTER; a_tok_list: POINTER; a_len: INTEGER): INTEGER is
+	xml_exp_get_start (a_ctxt: POINTER; an_expr: POINTER; a_tok_list: POINTER; a_len: INTEGER): INTEGER
  		-- xmlExpGetStart
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_is_nillable (an_expr: POINTER): INTEGER is
+	xml_exp_is_nillable (an_expr: POINTER): INTEGER
  		-- xmlExpIsNillable
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_max_token (an_expr: POINTER): INTEGER is
+	xml_exp_max_token (an_expr: POINTER): INTEGER
  		-- xmlExpMaxToken
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_new_atom (a_ctxt: POINTER; a_name: POINTER; a_len: INTEGER): POINTER is
+	xml_exp_new_atom (a_ctxt: POINTER; a_name: POINTER; a_len: INTEGER): POINTER
  		-- xmlExpNewAtom
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_new_ctxt (a_max_nodes: INTEGER; a_dict: POINTER): POINTER is
+	xml_exp_new_ctxt (a_max_nodes: INTEGER; a_dict: POINTER): POINTER
  		-- xmlExpNewCtxt
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_new_or (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER is
+	xml_exp_new_or (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER
  		-- xmlExpNewOr
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_new_range (a_ctxt: POINTER; a_subset: POINTER; a_min: INTEGER; a_max: INTEGER): POINTER is
+	xml_exp_new_range (a_ctxt: POINTER; a_subset: POINTER; a_min: INTEGER; a_max: INTEGER): POINTER
  		-- xmlExpNewRange
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_new_seq (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER is
+	xml_exp_new_seq (a_ctxt: POINTER; a_left: POINTER; a_right: POINTER): POINTER
  		-- xmlExpNewSeq
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_parse (a_ctxt: POINTER; an_expr: POINTER): POINTER is
+	xml_exp_parse (a_ctxt: POINTER; an_expr: POINTER): POINTER
  		-- xmlExpParse
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_ref (an_expr: POINTER) is
+	xml_exp_ref (an_expr: POINTER)
  		-- xmlExpRef
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_string_derive (a_ctxt: POINTER; an_expr: POINTER; a_str: POINTER; a_len: INTEGER): POINTER is
+	xml_exp_string_derive (a_ctxt: POINTER; an_expr: POINTER; a_str: POINTER; a_len: INTEGER): POINTER
  		-- xmlExpStringDerive
 		external "plug_in"
 		alias "{
@@ -249,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_exp_subsume (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): INTEGER is
+	xml_exp_subsume (a_ctxt: POINTER; an_expr: POINTER; a_sub: POINTER): INTEGER
  		-- xmlExpSubsume
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_exec_err_info (an_exec: POINTER; a_string: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER is
+	xml_reg_exec_err_info (an_exec: POINTER; a_string: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER
  		-- xmlRegExecErrInfo
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_exec_next_values (an_exec: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER is
+	xml_reg_exec_next_values (an_exec: POINTER; a_nbval: POINTER; a_nbneg: POINTER; a_values: POINTER; a_terminal: POINTER): INTEGER
  		-- xmlRegExecNextValues
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_exec_push_string (an_exec: POINTER; a_value: POINTER; a_data: POINTER): INTEGER is
+	xml_reg_exec_push_string (an_exec: POINTER; a_value: POINTER; a_data: POINTER): INTEGER
  		-- xmlRegExecPushString
 		external "plug_in"
 		alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_exec_push_string2 (an_exec: POINTER; a_value: POINTER; a_value2: POINTER; a_data: POINTER): INTEGER is
+	xml_reg_exec_push_string2 (an_exec: POINTER; a_value: POINTER; a_value2: POINTER; a_data: POINTER): INTEGER
  		-- xmlRegExecPushString2
 		external "plug_in"
 		alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_free_exec_ctxt (an_exec: POINTER) is
+	xml_reg_free_exec_ctxt (an_exec: POINTER)
  		-- xmlRegFreeExecCtxt
 		external "plug_in"
 		alias "{
@@ -309,7 +309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_free_regexp (a_regexp: POINTER) is
+	xml_reg_free_regexp (a_regexp: POINTER)
  		-- xmlRegFreeRegexp
 		external "plug_in"
 		alias "{
@@ -319,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_reg_new_exec_ctxt (a_comp: POINTER; a_callback: POINTER; a_data: POINTER): POINTER is
+	xml_reg_new_exec_ctxt (a_comp: POINTER; a_callback: POINTER; a_data: POINTER): POINTER
  		-- xmlRegNewExecCtxt
 		external "plug_in"
 		alias "{
@@ -329,7 +329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_regexp_compile (a_regexp: POINTER): POINTER is
+	xml_regexp_compile (a_regexp: POINTER): POINTER
  		-- xmlRegexpCompile
 		external "plug_in"
 		alias "{
@@ -339,7 +339,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_regexp_exec (a_comp: POINTER; a_value: POINTER): INTEGER is
+	xml_regexp_exec (a_comp: POINTER; a_value: POINTER): INTEGER
  		-- xmlRegexpExec
 		external "plug_in"
 		alias "{
@@ -349,7 +349,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_regexp_is_determinist (a_comp: POINTER): INTEGER is
+	xml_regexp_is_determinist (a_comp: POINTER): INTEGER
  		-- xmlRegexpIsDeterminist
 		external "plug_in"
 		alias "{
@@ -359,7 +359,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xml_regexp_print (an_output: POINTER; a_regexp: POINTER) is
+	xml_regexp_print (an_output: POINTER; a_regexp: POINTER)
  		-- xmlRegexpPrint
 		external "plug_in"
 		alias "{

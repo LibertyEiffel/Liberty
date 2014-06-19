@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          stream: BINARY_FILE_READ
          device: STRING

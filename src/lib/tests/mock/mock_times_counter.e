@@ -17,28 +17,28 @@ create {MOCK_EXPECTATION}
    set_item
 
 feature {MOCK_EXPECTATION}
-   can_call: BOOLEAN is
+   can_call: BOOLEAN
       do
          Result := item > 0
       end
 
-   call is
+   call
       do
          decrement
       end
 
-   all_called is
+   all_called
       do
          assert(all_done)
       end
 
-   all_done: BOOLEAN is
+   all_done: BOOLEAN
       do
          Result := item = 0
       end
 
 feature {MOCK_EXPECTATION}
-   set_item (i: INTEGER) is
+   set_item (i: INTEGER)
       require --| **** TODO require then
          i >= 0
       do
@@ -56,7 +56,7 @@ end -- class MOCK_TIMES_COUNTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

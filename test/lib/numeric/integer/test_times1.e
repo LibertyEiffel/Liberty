@@ -10,13 +10,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(i = 0)
          4.times(agent is do i := i + 1 end)
          assert(i = 4)
          assert(j = 0)
-         6.times(agent (new_j: like j) is
+         6.times(agent (new_j: like j)
             do
                j := j + 1
                assert(new_j = j)

@@ -6,14 +6,14 @@ expanded class TYPE_ALIASING
 -- Try to prepare for type aliasing variation (when we want to shift to 64-bit integers, or if we want to
 -- give this possibility to the programmer via some command-line or ACE option)
 --
--- By "type aliasing", we mean INTEGER and REAL implicit sizes being made explicit. Currently INTEGER is
+-- By "type aliasing", we mean INTEGER and REAL implicit sizes being made explicit. Currently INTEGER
 -- INTEGER_32, REAL is REAL_64, and NATURAL is NATURAL_32.
 --
 insert
    GLOBALS
 
 feature {ANY}
-   alias_of (string: STRING): STRING is
+   alias_of (string: STRING): STRING
       do
          inspect string
          when "INTEGER" then
@@ -28,28 +28,28 @@ feature {ANY}
       end
 
 feature {ANY} -- INTEGER aliasing
-   integer_alias: HASHED_STRING is
+   integer_alias: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_32)
       end
 
-   integer_bit_count: INTEGER is 32
+   integer_bit_count: INTEGER 32
 
 feature {ANY} -- NATURAL aliasing
-   natural_alias: HASHED_STRING is
+   natural_alias: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_natural_32)
       end
 
-   natural_bit_count: INTEGER is 32
+   natural_bit_count: INTEGER 32
 
 feature {ANY} -- REAL aliasing
-   real_alias: HASHED_STRING is
+   real_alias: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_real_64)
       end
 
-   real_bit_count: INTEGER is 64
+   real_bit_count: INTEGER 64
 
 end -- class TYPE_ALIASING
 --

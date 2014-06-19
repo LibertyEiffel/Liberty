@@ -13,23 +13,23 @@ create {ANY}
    default_create
 
 feature {ANY}
-   is_locked: BOOLEAN is
+   is_locked: BOOLEAN
       external "built_in"
       end
 
-   lock is
+   lock
       external "built_in"
       ensure
          is_locked
       end
 
-   unlock is
+   unlock
       require
          is_locked
       external "built_in"
       end
 
-   timed_wait (timeout_ms: INTEGER): BOOLEAN is
+   timed_wait (timeout_ms: INTEGER): BOOLEAN
          -- True if the wait succeeded, False if timed out
       require
          is_locked
@@ -37,33 +37,33 @@ feature {ANY}
       external "built_in"
       end
 
-   wait is
+   wait
       require
          is_locked
       external "built_in"
       end
 
-   notify is
+   notify
       require
          is_locked
       external "built_in"
       end
 
-   notify_all is
+   notify_all
       require
          is_locked
       external "built_in"
       end
 
 feature {}
-   default_create is
+   default_create
       do
          alloc_native_data
       end
 
    native_data: POINTER
 
-   dispose is
+   dispose
       do
          check
             not is_locked
@@ -71,11 +71,11 @@ feature {}
          free_native_data
       end
 
-   alloc_native_data is
+   alloc_native_data
       external "built_in"
       end
 
-   free_native_data is
+   free_native_data
       external "built_in"
       end
 
@@ -90,7 +90,7 @@ end -- class THREAD_LOCK
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

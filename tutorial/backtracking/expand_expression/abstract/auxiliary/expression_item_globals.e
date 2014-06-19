@@ -3,16 +3,16 @@
 class EXPRESSION_ITEM_GLOBALS
 
 feature {}
-   Failure_item, Value_item, Or_item, And_item, Empty_item, Success_item: INTEGER is unique
+   Failure_item, Value_item, Or_item, And_item, Empty_item, Success_item: INTEGER unique
 
-   Iterate: BOOLEAN is True
+   Iterate: BOOLEAN True
 
-   alternative_pool: POOL_ALTERNATIVE is
+   alternative_pool: POOL_ALTERNATIVE
       once
          create Result.make
       end
 
-   sequence_pool: POOL_SEQUENCE is
+   sequence_pool: POOL_SEQUENCE
       once
          create Result.make
       end

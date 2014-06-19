@@ -20,7 +20,7 @@ feature {SOCKET_HANDLER}
    is_connected, is_remote_connected: BOOLEAN
    error: STRING
 
-   read is
+   read
       do
          if delay_read then
             delayed_read
@@ -31,7 +31,7 @@ feature {SOCKET_HANDLER}
          end
       end
 
-   last_read: STRING is
+   last_read: STRING
       do
          if delay_read then
             delayed_read
@@ -42,7 +42,7 @@ feature {SOCKET_HANDLER}
          end
       end
 
-   write (data: STRING) is
+   write (data: STRING)
       local
          dummy: INTEGER
       do
@@ -53,7 +53,7 @@ feature {SOCKET_HANDLER}
          end
       end
 
-   disconnect is
+   disconnect
       do
          is_remote_connected := False
          net_shutdown(fd)
@@ -62,7 +62,7 @@ feature {SOCKET_HANDLER}
          fire_disconnected
       end
 
-   clear is
+   clear
       do
          if disconnected_listeners /= Void then
             disconnected_listeners.clear_count
@@ -71,7 +71,7 @@ feature {SOCKET_HANDLER}
 
    fd: INTEGER
 
-   set_sync (a_sync: like sync) is
+   set_sync (a_sync: like sync)
       do
          sync := a_sync
          if a_sync then
@@ -84,7 +84,7 @@ feature {SOCKET_HANDLER}
    sync: BOOLEAN
 
 feature {}
-   connect (a_fd: like fd) is
+   connect (a_fd: like fd)
       do
          if a_fd >= 0 then
             is_connected := True
@@ -99,7 +99,7 @@ feature {}
    buffer_size: like default_buffer_size
    delay_read: BOOLEAN
 
-   delayed_read is
+   delayed_read
       require
          is_connected
          delay_read
@@ -162,7 +162,7 @@ end -- class SOCKET_IMPL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -19,25 +19,25 @@ insert
       end
 
 feature {ANY}
-   is_null: BOOLEAN is
+   is_null: BOOLEAN
          -- Is the external POINTER a NULL pointer ?
       do
          Result := not is_not_null
       end
 
-   is_not_null: BOOLEAN is
+   is_not_null: BOOLEAN
          -- Is the external POINTER a non-NULL pointer ?
       external "built_in"
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          string_buffer.clear_count
          Current.append_in(string_buffer)
          Result := string_buffer.twin
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append on `str' a viewable version of `Current'.
       local
          storage: NATIVE_ARRAY[CHARACTER]; i: INTEGER
@@ -54,23 +54,23 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          Current.append_in(tagged_out_memory)
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := pointer_hash_code(Current)
       end
 
-   infix "+" (offset: INTEGER): POINTER is
+   infix "+" (offset: INTEGER): POINTER
          -- `Current' moved by an offset of `offset' bytes.
       do
          Result := pointer_plus(Current, offset)
       end
 
-   to_any: ANY is
+   to_any: ANY
          -- Dangerous forced conversion. This function assume that `Current'
          -- is really a reference to some Eiffel allocated object.
       obsolete "Use STORABLE instead"
@@ -79,7 +79,7 @@ feature {ANY}
       end
 
 feature {}
-   sprintf_pointer (native_array: NATIVE_ARRAY[CHARACTER]; p: POINTER) is
+   sprintf_pointer (native_array: NATIVE_ARRAY[CHARACTER]; p: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -88,7 +88,7 @@ feature {}
          }"
       end
 
-   pointer_hash_code (p: POINTER): INTEGER is
+   pointer_hash_code (p: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -97,7 +97,7 @@ feature {}
          }"
       end
 
-  pointer_to_natural_32 (p: POINTER): NATURAL_32 is
+  pointer_to_natural_32 (p: POINTER): NATURAL_32
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -107,8 +107,8 @@ feature {}
       end
 
 
-   pointer_to_any (p: POINTER): ANY is
-         -- Dangerous forced conversion. This function assume that `p' is
+   pointer_to_any (p: POINTER): ANY
+         -- Dangerous forced conversion. This function assume that `p'
          -- really a reference to some Eiffel allocated object.
       external "plug_in"
       alias "{
@@ -118,7 +118,7 @@ feature {}
          }"
       end
 
-   pointer_plus (p: POINTER; offset: INTEGER): POINTER is
+   pointer_plus (p: POINTER; offset: INTEGER): POINTER
          -- Pointer `p' moved by an offset of `offset' bytes.
       external "plug_in"
       alias "{
@@ -128,7 +128,7 @@ feature {}
          }"
       end
 
-   string_buffer: STRING is
+   string_buffer: STRING
       once
          create Result.make(64)
       end
@@ -141,7 +141,7 @@ end -- class POINTER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

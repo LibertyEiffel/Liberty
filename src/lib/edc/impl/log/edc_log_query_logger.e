@@ -35,12 +35,12 @@ create {EDC_LOG_CONNECTION}
    make
 
 feature {EDC_LOG_CONNECTION}
-   log_selectable (a_select: EDC_SELECTABLE) is
+   log_selectable (a_select: EDC_SELECTABLE)
       do
          a_select.accept(Current)
       end
 
-   log_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE]) is
+   log_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE])
       require
          a_columns.count = a_values.count
       local
@@ -83,13 +83,13 @@ feature {}
          -- used when visiting a column to print the good value type
 
 feature {EDC_BLOB_COLUMN}
-   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN) is
+   visit_blob_column (a_blob_column: EDC_BLOB_COLUMN)
       do
          log.put_string(once "<blob>")
       end
 
 feature {EDC_CHARACTER_COLUMN}
-   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN) is
+   visit_character_column (a_character_column: EDC_CHARACTER_COLUMN)
       local
          l: EDC_LOG_QUERY_TYPED_VALUE_LOGGER[CHARACTER]
       do
@@ -102,7 +102,7 @@ feature {EDC_CHARACTER_COLUMN}
       end
 
 feature {}
-   put_char (a_char: CHARACTER) is
+   put_char (a_char: CHARACTER)
       do
          log.put_character('%'')
          if a_char = '%'' then
@@ -114,13 +114,13 @@ feature {}
          log.put_character('%'')
       end
 
-   agent_put_char: PROCEDURE[TUPLE[CHARACTER]] is
+   agent_put_char: PROCEDURE[TUPLE[CHARACTER]]
       once
          Result := agent put_char
       end
 
 feature {EDC_INTEGER_COLUMN}
-   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN) is
+   visit_integer_column (a_integer_column: EDC_INTEGER_COLUMN)
       local
          l: EDC_LOG_QUERY_TYPED_VALUE_LOGGER[INTEGER_32]
       do
@@ -133,18 +133,18 @@ feature {EDC_INTEGER_COLUMN}
       end
 
 feature {}
-   put_integer (a_integer: INTEGER_32) is
+   put_integer (a_integer: INTEGER_32)
       do
          log.put_integer(a_integer)
       end
 
-   agent_put_integer: PROCEDURE[TUPLE[INTEGER_32]] is
+   agent_put_integer: PROCEDURE[TUPLE[INTEGER_32]]
       once
          Result := agent put_integer
       end
 
 feature {EDC_STRING_COLUMN}
-   visit_string_column (a_string_column: EDC_STRING_COLUMN) is
+   visit_string_column (a_string_column: EDC_STRING_COLUMN)
       local
          l: EDC_LOG_QUERY_TYPED_VALUE_LOGGER[STRING]
       do
@@ -157,7 +157,7 @@ feature {EDC_STRING_COLUMN}
       end
 
 feature {}
-   put_string (a_string: STRING) is
+   put_string (a_string: STRING)
       local
          i: INTEGER; c: CHARACTER
       do
@@ -179,19 +179,19 @@ feature {}
          log.put_character('%'')
       end
 
-   agent_put_string: PROCEDURE[TUPLE[STRING]] is
+   agent_put_string: PROCEDURE[TUPLE[STRING]]
       once
          Result := agent put_string
       end
 
 feature {EDC_TIME_COLUMN}
-   visit_time_column (a_time_column: EDC_TIME_COLUMN) is
+   visit_time_column (a_time_column: EDC_TIME_COLUMN)
       do
          --|*** TODO
       end
 
 feature {EDC_SELECT}
-   visit_select (a_select: EDC_SELECT) is
+   visit_select (a_select: EDC_SELECT)
       local
          i: INTEGER; t: EDC_TABLE; c: EDC_COLUMN
       do
@@ -236,17 +236,17 @@ feature {EDC_SELECT}
       end
 
 feature {EDC_UPDATE}
-   visit_update (a_update: EDC_UPDATE) is
+   visit_update (a_update: EDC_UPDATE)
       do
       end
 
 feature {EDC_DELETE}
-   visit_delete (a_detete: EDC_DELETE) is
+   visit_delete (a_detete: EDC_DELETE)
       do
       end
 
 feature {}
-   make (a_log: like log) is
+   make (a_log: like log)
       do
          log := a_log
          create value_loggers.make
@@ -256,7 +256,7 @@ feature {}
 
    value_loggers: HASHED_DICTIONARY[EDC_LOG_QUERY_VALUE_LOGGER, STRING]
 
-   tables: SET[STRING] is
+   tables: SET[STRING]
       once
          create {HASHED_SET[STRING]} Result.make
       end

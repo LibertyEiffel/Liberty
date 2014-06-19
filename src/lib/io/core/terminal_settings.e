@@ -15,7 +15,7 @@ create {FILE_STREAM}
    make
 
 feature {FILE_STREAM}
-   make(a_fd: POINTER; a_fs: FILE_STREAM) is
+   make(a_fd: POINTER; a_fs: FILE_STREAM)
 		require
 			valid_stream: a_fs /= Void
 			valid_file_descriptor: (not a_fd.is_null) = (a_fs /= Void and then a_fs.is_connected)
@@ -28,13 +28,13 @@ feature {FILE_STREAM}
          fd = a_fd
       end
 
-   dispose is
+   dispose
       do
          termios_free(termios)
       end
    
 feature {ANY}
-   set_speed(a_speed: INTEGER) is
+   set_speed(a_speed: INTEGER)
          -- set input and output communication speed to `a_speed'
       require
          valid_speed: is_valid_speed(a_speed)
@@ -43,7 +43,7 @@ feature {ANY}
          set_output_speed(a_speed)
       end
    
-   set_input_speed(a_speed: INTEGER) is
+   set_input_speed(a_speed: INTEGER)
          -- set input communication speed to `a_speed' baud
       require
          valid_speed: is_valid_speed(a_speed)
@@ -57,7 +57,7 @@ feature {ANY}
          end
       end
 
-   set_output_speed(a_speed: INTEGER) is
+   set_output_speed(a_speed: INTEGER)
          -- set output communication speed to `a_speed' baud
       require
          valid_speed: is_valid_speed(a_speed)
@@ -71,7 +71,7 @@ feature {ANY}
          end
       end
 
-   output_speed: INTEGER is
+   output_speed: INTEGER
          -- return the currently configured output speed
       do
          last_error := termios_tcgetattr(fd, termios)
@@ -82,7 +82,7 @@ feature {ANY}
          valid_speed: is_valid_speed(Result)
       end
 
-   input_speed: INTEGER is
+   input_speed: INTEGER
          -- return the currently configured input speed
       do
          last_error := termios_tcgetattr(fd, termios)
@@ -93,7 +93,7 @@ feature {ANY}
          valid_speed: is_valid_speed(Result)
       end
    
-	drain is
+	drain
 			-- wait until all data in tx buffer is transmitted
       require
          connected: associated_stream.is_connected
@@ -111,7 +111,7 @@ feature {ANY}
    last_error: INTEGER
          -- last error code
 
-   last_error_description: STRING is
+   last_error_description: STRING
       do
          if error_string_storage = Void then
             create error_string_storage.make(30)
@@ -122,7 +122,7 @@ feature {ANY}
 
    error_string_storage: STRING
    
-   is_valid_speed(a_speed: INTEGER): BOOLEAN is
+   is_valid_speed(a_speed: INTEGER): BOOLEAN
          -- check if a given terminal speed is valid
          -- some day we might want to consider non-standard baudrates 
          -- with termios2
@@ -140,7 +140,7 @@ feature {ANY}
 feature {}
    termios: POINTER
 
-   decode_speed(a_speed: INTEGER): INTEGER is
+   decode_speed(a_speed: INTEGER): INTEGER
          -- internal helper to convert POSIX speed constants to 
          -- numeric values
       do
@@ -187,7 +187,7 @@ feature {}
          valid_speed: is_valid_speed(Result)
       end
    
-   encode_speed(a_speed: INTEGER): INTEGER is
+   encode_speed(a_speed: INTEGER): INTEGER
          -- internal helper to convert baud rates to POSIX speed 
          -- constants
       require
@@ -234,7 +234,7 @@ feature {}
          end
       end
 
-   termios_tcgetattr(a_fd: POINTER; a_termios: POINTER): INTEGER is
+   termios_tcgetattr(a_fd: POINTER; a_termios: POINTER): INTEGER
          -- low level tcgetattr in termios.h
       external "plug_in"
       alias "{
@@ -244,7 +244,7 @@ feature {}
          }"
       end
    
-   termios_tcsetattr(a_fd: POINTER; a_termios: POINTER): INTEGER is
+   termios_tcsetattr(a_fd: POINTER; a_termios: POINTER): INTEGER
          -- low level tcsetattr in termios.h
       external "plug_in"
       alias "{
@@ -254,7 +254,7 @@ feature {}
          }"
       end
    
-   termios_cfgetispeed (a_termios: POINTER): INTEGER is
+   termios_cfgetispeed (a_termios: POINTER): INTEGER
          -- low level cfgetispeed in termios.h
       external "plug_in"
       alias "{
@@ -264,7 +264,7 @@ feature {}
          }"
       end
 
-   termios_cfgetospeed (a_termios: POINTER): INTEGER is
+   termios_cfgetospeed (a_termios: POINTER): INTEGER
          -- low level cfgetospeed in termios.h
       external "plug_in"
       alias "{
@@ -274,7 +274,7 @@ feature {}
          }"
       end
 
-   termios_cfsetispeed (a_termios: POINTER; s_speed: INTEGER): INTEGER is
+   termios_cfsetispeed (a_termios: POINTER; s_speed: INTEGER): INTEGER
          -- low level cfsetispeed in termios.h
       external "plug_in"
       alias "{
@@ -284,7 +284,7 @@ feature {}
          }"
       end
 
-   termios_cfsetospeed (a_termios: POINTER; s_speed: INTEGER): INTEGER is
+   termios_cfsetospeed (a_termios: POINTER; s_speed: INTEGER): INTEGER
          -- low level cfsetospeed in termios.h
       external "plug_in"
       alias "{
@@ -294,7 +294,7 @@ feature {}
          }"
       end
 
-   termios_tctrain (a_fp: POINTER): INTEGER is
+   termios_tctrain (a_fp: POINTER): INTEGER
          -- low level tctrain in termios.h
       external "plug_in"
       alias "{
@@ -304,7 +304,7 @@ feature {}
          }"
       end
 
-   termios_allocate: POINTER is
+   termios_allocate: POINTER
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
@@ -314,7 +314,7 @@ feature {}
          }"
       end
 
-   termios_free(a_termios: POINTER) is
+   termios_free(a_termios: POINTER)
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
@@ -324,7 +324,7 @@ feature {}
          }"
       end
 
-   termios_strerror(a_errno: INTEGER): POINTER is
+   termios_strerror(a_errno: INTEGER): POINTER
          -- allocate a internal termios struct
       external "plug_in"
       alias "{
@@ -334,7 +334,7 @@ feature {}
          }"
       end
 
-   termios_b50: INTEGER is
+   termios_b50: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -343,7 +343,7 @@ feature {}
          }"
       end
 
-   termios_b75: INTEGER is
+   termios_b75: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -352,7 +352,7 @@ feature {}
          }"
       end
 
-   termios_b110: INTEGER is
+   termios_b110: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -361,7 +361,7 @@ feature {}
          }"
       end
 
-   termios_b134: INTEGER is
+   termios_b134: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -370,7 +370,7 @@ feature {}
          }"
       end
 
-   termios_b150: INTEGER is
+   termios_b150: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -379,7 +379,7 @@ feature {}
          }"
       end
 
-   termios_b200: INTEGER is
+   termios_b200: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -388,7 +388,7 @@ feature {}
          }"
       end
 
-   termios_b300: INTEGER is
+   termios_b300: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -397,7 +397,7 @@ feature {}
          }"
       end
 
-   termios_b600: INTEGER is
+   termios_b600: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -406,7 +406,7 @@ feature {}
          }"
       end
 
-   termios_b1200: INTEGER is
+   termios_b1200: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -415,7 +415,7 @@ feature {}
          }"
       end
 
-   termios_b1800: INTEGER is
+   termios_b1800: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -424,7 +424,7 @@ feature {}
          }"
       end
 
-   termios_b2400: INTEGER is
+   termios_b2400: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -433,7 +433,7 @@ feature {}
          }"
       end
 
-   termios_b4800: INTEGER is
+   termios_b4800: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -442,7 +442,7 @@ feature {}
          }"
       end
 
-   termios_b9600: INTEGER is
+   termios_b9600: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -451,7 +451,7 @@ feature {}
          }"
       end
 
-   termios_b19200: INTEGER is
+   termios_b19200: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -460,7 +460,7 @@ feature {}
          }"
       end
 
-   termios_b38400: INTEGER is
+   termios_b38400: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -469,7 +469,7 @@ feature {}
          }"
       end
 
-   termios_b57600: INTEGER is
+   termios_b57600: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -478,7 +478,7 @@ feature {}
          }"
       end
 
-   termios_b115200: INTEGER is
+   termios_b115200: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -487,7 +487,7 @@ feature {}
          }"
       end
 
-   termios_b230400: INTEGER is
+   termios_b230400: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/io"
@@ -506,7 +506,7 @@ end -- class TERMINAL_SETTINGS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

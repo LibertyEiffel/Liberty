@@ -19,12 +19,12 @@ create {TEST_JB03}
 feature {ANY}
    x: TEST_JB03
 
-   p: STRING is
+   p: STRING
       do
          Result := "TEST.p"
       end
 
-   make is
+   make
       do
          create y
          assert(y.generating_type = generating_type)
@@ -35,7 +35,7 @@ feature {ANY}
          assert(y.a_p.is_equal("AUX.p"))
       end
 
-   assert (boolean: BOOLEAN) is
+   assert (boolean: BOOLEAN)
       do
          cpt := cpt + 1
          if not boolean then

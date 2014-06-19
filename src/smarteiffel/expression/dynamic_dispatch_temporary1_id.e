@@ -23,40 +23,40 @@ feature {ANY}
          -- Most often, it is a DYNAMIC_DISPATCH_TEMPORARY1 object or, in some other situation a
          -- `side_effect_free' EXPRESSION.
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := dynamic_dispatch_temporary1.start_position
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := smart_eiffel.type_integer_32
       ensure then
          type_id_is_integer: Result.is_integer
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -64,43 +64,43 @@ feature {ANY}
          Result := resolve_in(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check
             False
-            -- Because `Current' is created after `status.collecting_done', this information is
+            -- Because `Current' is created after `status.collecting_done', this information
             -- not available.
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          dynamic_dispatch_temporary1.safety_check(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := dynamic_dispatch_temporary1.use_current(type)
       end
 
-   accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_ID_VISITOR) is
+   accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_ID_VISITOR)
       do
          visitor.visit_dynamic_dispatch_temporary1_id(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (side_effect_free_expression: EXPRESSION) is
+   make (side_effect_free_expression: EXPRESSION)
       require
          side_effect_free_expression /= Void
       do

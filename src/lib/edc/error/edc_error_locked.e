@@ -33,13 +33,13 @@ feature {ANY}
    query: STRING
 
 feature {ANY}
-   handle (handler: EDC_ERROR_HANDLER): BOOLEAN is
+   handle (handler: EDC_ERROR_HANDLER): BOOLEAN
       do
          Result := handler.locked(Current)
       end
 
 feature {}
-   make (a_reason: like reason; a_query: STRING) is
+   make (a_reason: like reason; a_query: STRING)
       require
          a_reason /= Void
          a_query /= Void

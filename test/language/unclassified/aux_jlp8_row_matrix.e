@@ -10,7 +10,7 @@ create {ANY}
    make, make_unit
 
 feature {ANY}
-   translate_indexes (l, c: INTEGER): INTEGER is
+   translate_indexes (l, c: INTEGER): INTEGER
       do
          Result := l * nb_column + c
       end

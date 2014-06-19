@@ -12,7 +12,7 @@ create {ONCE_PROCEDURE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_5_VISITOR) is
+   accept (visitor: RUN_FEATURE_5_VISITOR)
       do
          visitor.visit_run_feature_5(Current)
       end
@@ -32,25 +32,25 @@ feature {ANY}
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is True
+   is_once_procedure: BOOLEAN True
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   has_closures: BOOLEAN is
+   has_closures: BOOLEAN
       do
          Result := base_feature.has_closures
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -88,12 +88,12 @@ feature {}
          once_routine_pool.register_procedure(Current)
       end
 
-   set_result_type is
+   set_result_type
       do
       end
 
 feature {}
-   compute_use_current is
+   compute_use_current
       do
          if type_of_current.is_reference then
             if ace.no_check then

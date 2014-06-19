@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {STATIC_CALL_0_C}
-   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
+   visit_static_call_0_c (visited: STATIC_CALL_0_C)
       require
          visited /= Void
       deferred

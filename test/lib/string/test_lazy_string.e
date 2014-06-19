@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          model: STRING
       do
@@ -16,6 +16,6 @@ feature {}
          assert(model.is_equal("My PID is #(1)." # &pid))
       end
 
-   pid: INTEGER_32 is 42
+   pid: INTEGER_32 42
 
 end

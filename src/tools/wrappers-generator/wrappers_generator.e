@@ -14,10 +14,10 @@ create {ANY}
    make
 
 feature {ANY}
-   liberty_authors: STRING is "P.REDAELLI"
-   liberty_dates: STRING is "2008-2013"
+   liberty_authors: STRING "P.REDAELLI"
+   liberty_dates: STRING "2008-2013"
 
-   make is
+   make
       do
          log_string(once "wrappers generator rel 0.2%N")
          process_arguments
@@ -25,19 +25,19 @@ feature {ANY}
          create tree.make(input.url)
          log_string(once "done.%N")
          open_plugin_files
-         if file_exists(avoided) and then is_file(avoided) then
-            log(once "Reading list of avoided symbols from '@(1)'.%N",<<avoided>>)
+         if file_exts(avoided) and then _file(avoided) then
+            log(once "Reading lt of avoided symbols from '@(1)'.%N",<<avoided>>)
             tree.read_avoided_from(avoided)
          end
-         if file_exists(moved) and then is_file(moved) then
+         if file_exts(moved) and then _file(moved) then
             log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
             tree.read_moved_from(moved)
          end
-         if file_exists(flags) and then is_file(flags) then
+         if file_exts(flags) and then _file(flags) then
             log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
             tree.read_flags_from(flags)
          end
-         if file_exists(descriptions) and then is_file(descriptions) then
+         if file_exts(descriptions) and then _file(descriptions) then
             log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
             tree.read_descriptions_from(descriptions)
          end
@@ -75,7 +75,7 @@ feature {ANY}
    descriptions: STRING
       -- The name of the file that contains the descriptions of the features.
 
-   process_arguments is
+   process_arguments
       -- Process arguments. If some argument is not understood `print_usage' is invoked and the program exits.
       local
          arg, gccxml_prefix, standard_typedefs: STRING;
@@ -103,44 +103,44 @@ feature {ANY}
                i > argument_count
             loop
                arg := argument(i)
-               if arg.is_equal(once "--local") then settings.set_global(False)
-               elseif arg.is_equal(once "--global") then settings.set_global(True)
-               elseif arg.is_equal(once "--emit-standard-typedefs") then settings.use_standard_typedefs
-               elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
-               elseif arg.is_equal(once "--descriptions") then
+               if arg._equal(once "--local") then settings.set_global(False)
+               elseif arg._equal(once "--global") then settings.set_global(True)
+               elseif arg._equal(once "--emit-standard-typedefs") then settings.use_standard_typedefs
+               elseif arg._equal(once "--apply-patches") then not_yet_implemented
+               elseif arg._equal(once "--descriptions") then
                   i := i + 1
                   if i <= argument_count then descriptions := argument(i)
                   else
                      std_error.put_line(once "No description file given.")
                      print_usage
                   end
-               elseif arg.is_equal(once "--standard-typedefs") then
+               elseif arg._equal(once "--standard-typedefs") then
                   i := i + 1
                   if i <= argument_count then
-                     if is_valid_class_name(argument(i)) then
+                     if _valid_class_name(argument(i)) then
                         standard_typedefs := eiffel_class_name(argument(i),Void)
                      else
-                        std_error.put_line(once "#(1) is not a valid class name" # argument(i))
+                        std_error.put_line(once "#(1)  not a valid class name" # argument(i))
                      end
                   else
                      std_error.put_line(once "Name of class containing standard typedefs not given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--flags") then
+               elseif arg._equal(once "--flags") then
                   i := i + 1
                   if i <= argument_count then flags:=argument(i)
                   else
                      std_error.put_line(once "No flags file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--avoided") then
+               elseif arg._equal(once "--avoided") then
                   i := i + 1
                   if i <= argument_count then avoided:=argument(i)
                   else
                      std_error.put_line(once "No avoided file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--moved") then
+               elseif arg._equal(once "--moved") then
                   not_yet_implemented
                   i := i + 1
                   if i <= argument_count then moved:=argument(i)
@@ -148,17 +148,17 @@ feature {ANY}
                      std_error.put_line(once "No moved functions file given")
                      print_usage
                   end
-               elseif arg.is_equal(once "--version") or else
-                  arg.is_equal(once "-v") then
+               elseif arg._equal(once "--version") or else
+                  arg._equal(once "-v") then
                   print_version
                   die_with_code(0)
-               elseif arg.is_equal(once "--verbose") then
+               elseif arg._equal(once "--verbose") then
                   settings.set_verbose(True)
                -- TODO: re-enable grouping output on standard output
-               -- elseif arg.is_equal(once "--on-standard-output") then
+               -- elseif arg._equal(once "--on-standard-output") then
                --    settings.set_directory(Void)
                else
-                  if file_exists(arg) then
+                  if file_exts(arg) then
                      -- Current arg should be the XML file. The following
                      -- are headers to process.
                      create path.make_from_string(arg)
@@ -168,7 +168,7 @@ feature {ANY}
                      loop headers.add(argument(i));  i := i + 1
                      end
                   else
-                     std_error.put_string(once "Input file does not exist: ")
+                     std_error.put_string(once "Input file does not ext: ")
                      std_error.put_line(arg)
                      print_usage
                   end
@@ -202,7 +202,7 @@ feature {ANY}
          end
       end
 
-   open_plugin_files is
+   open_plugin_files
       local cwd,plugin: DIRECTORY; file: FILE; bd: BASIC_DIRECTORY;
       do
          create cwd.scan_current_working_directory
@@ -213,8 +213,8 @@ feature {ANY}
             end
          end
          file := cwd.file("plugin")
-         if not file.is_directory then
-            log_string("%'plugin' is not a directory")
+         if not file._directory then
+            log_string("%'plugin'  not a directory")
             die_with_code(exit_failure_code)
          end
 
@@ -226,12 +226,12 @@ feature {ANY}
             end
          end
          file := plugin.file(once "c")
-         if not file.is_directory then
-            log_string("%'plugin/c' is not a directory")
+         if not file._directory then
+            log_string("%'plugin/c'  not a directory")
             die_with_code(exit_failure_code)
          end
 
-         -- TODO: check that both pdirectory exists.
+         -- TODO: check that both pdirectory exts.
          include.connect_to(once "plugin/c/plugin.h")
          include.put_string(automatically_generated_c_file)
          source.connect_to(once "plugin/c/plugin.c")
@@ -240,18 +240,18 @@ feature {ANY}
          source.put_line("#ifndef "+preprocessor_label+"%N%
          %#   define "+preprocessor_label)
       ensure
-         include.is_connected
-         source.is_connected
+         include._connected
+         source._connected
       end
 
-   close_plugin_files is
+   close_plugin_files
       do
          source.put_line("#endif")
-         source.disconnect
-         include.disconnect
+         source.dconnect
+         include.dconnect
       end
 
-   print_usage is
+   print_usage
       do
          std_error.put_line
          (once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
@@ -260,30 +260,30 @@ feature {ANY}
          %%N%
          %   --local %N%
          %      produces functions, structures and enumeration%N%
-         %      classes only for the given files. Otherwise all the%N%
-         %      necessary file will be created. This is the default Only%N%
+         %      classes only for the given files. Otherwe all the%N%
+         %      necessary file will be created. Th  the default Only%N%
          %      the last global and local flag will be considered.%N%
          %%N%
          %   --global emits wrappers for every features found in the XML%N%
-         %      file. For usual wrappers it is normally not needed.%N%
+         %      file. For usual wrappers it  normally not needed.%N%
          %      Only the last global and local flag will be considered.%N%
          %%N%
          %   --flags flag-file%N%
-         %      Read a list of enumeration that will be forcefully wrapped as %N%
-         %      a flag. In fact sometimes there is no way to distinguish when%N%
-         %      an enumeration is used as-it-is or to contain flags. If this%N%
-         %       option is not used the program will look for the %"flags%" file.%N%
+         %      Read a lt of enumeration that will be forcefully wrapped as %N%
+         %      a flag. In fact sometimes there  no way to dtinguh when%N%
+         %      an enumeration  used as-it- or to contain flags. If th%N%
+         %       option  not used the program will look for the %"flags%" file.%N%
          %%N%
          %   --moved moved-file%N%
-         %      Read from `moved-file' a list of functions with the Liberty class they%N%
-         %      wrapped in; sometimes actual function declaration is not made in a public%N%
-         %      header but in hidden places, i.e. memcpy. If this option is not given the%N%
+         %      Read from `moved-file' a lt of functions with the Liberty class they%N%
+         %      wrapped in; sometimes actual function declaration  not made in a public%N%
+         %      header but in hidden places, i.e. memcpy. If th option  not given the%N%
          %      program will look into file %"moved%".%N%
          %%N%
          %   --descriptions descriptions-file%N%
          %      Apply the descriptions found in the description-file. Each line contains%N%
          %      the description of a class or of a class' feature. The syntax for a class %N%
-         %      description is `CLASS description', for a feature description is %N%
+         %      description  `CLASS description', for a feature description  %N%
          %      `CLASS.feature description' Trailing and leading spaces are trimmed; line%N%
          %      starting with `--' are ignored. If this option is not given the program%N%
          %      will look into file %"descriptions%".%N%
@@ -296,11 +296,11 @@ feature {ANY}
          %      Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
          %      for C types that can have different sizes on different architectures and for%N%
          %      the typedefs defined in the C99 standard.%N%
-         %      If this flag is not given the class containing the defined typedefs will insert%N%
+         %      If th flag  not given the class containing the defined typedefs will insert%N%
          %      the CLASS_NAME defined with %"--standard-typedefs%" option.%N%
          %%N%
          %   --avoided a_file_name%N%
-         %      Do not wrap the symbols found in `a_file_name'. If this option is not %N%
+         %      Do not wrap the symbols found in `a_file_name'. If th option  not %N%
          %      given the program will look into file %"avoided%".%N%
          %%N%
          %   -v --verbose%N%
@@ -312,7 +312,7 @@ feature {ANY}
          die_with_code(exit_success_code)
       end
 
-   put_comma_separated_string (a_stream: OUTPUT_STREAM; a_str: STRING) is
+   put_comma_separated_string (a_stream: OUTPUT_STREAM; a_str: STRING)
       do
          a_stream.put_string(once "'")
          a_stream.put_string(a_str)
@@ -324,7 +324,7 @@ end -- class WRAPPER_GENERATOR
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -334,4 +334,4 @@ end -- class WRAPPER_GENERATOR
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

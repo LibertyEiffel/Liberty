@@ -19,27 +19,27 @@ feature {ANY}
    then_expression: EXPRESSION
          -- Not Void if any.
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          --|*** Could be better ***
       end
 
-   end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN True
 
 feature {ANY} -- EXPRESSION common properties
-   is_void: BOOLEAN is False
-   is_static: BOOLEAN is False
-   is_result: BOOLEAN is False
-   is_current: BOOLEAN is False
-   is_writable: BOOLEAN is False
-   extra_bracket_flag: BOOLEAN is False
-   is_manifest_string: BOOLEAN is False
-   is_implicit_current: BOOLEAN is False
+   is_void: BOOLEAN False
+   is_static: BOOLEAN False
+   is_result: BOOLEAN False
+   is_current: BOOLEAN False
+   is_writable: BOOLEAN False
+   extra_bracket_flag: BOOLEAN False
+   is_manifest_string: BOOLEAN False
+   is_implicit_current: BOOLEAN False
 
-   precedence: INTEGER is 2
+   precedence: INTEGER 2
 
 feature {IF_SUPPORT_EXP}
-   frozen specialize_check_ (type: TYPE) is
+   frozen specialize_check_ (type: TYPE)
       local
          dt: TYPE
       do
@@ -56,7 +56,7 @@ feature {IF_SUPPORT_EXP}
          end
       end
 
-   frozen pretty_ (indent_level: INTEGER; first_keyword: STRING) is
+   frozen pretty_ (indent_level: INTEGER; first_keyword: STRING)
       require
          first_keyword.is_equal(once "if") or first_keyword.is_equal(once "elseif")
       do
@@ -69,7 +69,7 @@ feature {IF_SUPPORT_EXP}
          then_expression.pretty(indent_level + 1)
       end
 
-   frozen pretty_end_if (indent_level: INTEGER) is
+   frozen pretty_end_if (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "end")

@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a, b, c: INTEGER_8; d, e, f: INTEGER_16
       do
@@ -40,7 +40,7 @@ feature {ANY}
          test_dates
       end
 
-   test_dates is
+   test_dates
       local
          a, b, c, d: TIME
       do

@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          fonction(1, 2 3);
       end; -- creer
 
-   fonction(a,b,c: INTEGER) is
+   fonction(a,b,c: INTEGER)
       do
          Result := true;
       end;

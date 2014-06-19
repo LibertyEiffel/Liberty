@@ -7,7 +7,7 @@ insert
    GLOBALS
 
 feature {}
-   for_all_arguments__ (fal: FORMAL_ARG_LIST; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]; closure_rank: INTEGER) is
+   for_all_arguments__ (fal: FORMAL_ARG_LIST; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]; closure_rank: INTEGER)
       require
          type /= Void
          action /= Void
@@ -29,7 +29,7 @@ feature {}
          end
       end
 
-   for_all_argument_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]]) is
+   for_all_argument_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[ARGUMENT_NAME_DEF, INTEGER]])
       require
          agent_creation /= Void
          type /= Void
@@ -58,7 +58,7 @@ feature {}
          end
       end
 
-   for_all_locals__ (lvl: LOCAL_VAR_LIST; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]]) is
+   for_all_locals__ (lvl: LOCAL_VAR_LIST; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]])
       require
          type /= Void
          action /= Void
@@ -80,7 +80,7 @@ feature {}
          end
       end
 
-   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]]) is
+   for_all_local_names (agent_creation: AGENT_CREATION; type: TYPE; action: PROCEDURE[TUPLE[LOCAL_NAME_DEF]])
       require
          agent_creation /= Void
          type /= Void

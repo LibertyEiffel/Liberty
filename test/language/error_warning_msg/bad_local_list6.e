@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          clock1 clock2 CLOCK integer INTEGER
       do

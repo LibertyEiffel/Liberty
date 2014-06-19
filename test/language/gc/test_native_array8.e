@@ -7,11 +7,11 @@ create {}
    make
 
 feature {ANY}
-   limit: INTEGER is 33000
+   limit: INTEGER 33000
 
    na1, na2: NATIVE_ARRAY[CHARACTER]
 
-   make is
+   make
       local
          i: INTEGER; x: like Current
       do

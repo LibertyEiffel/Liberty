@@ -16,7 +16,7 @@ feature {ANY}
 
    i: INTEGER
 
-   make is
+   make
       do
          create tab.make(1, 1)
          create tab2.make(1, 1)

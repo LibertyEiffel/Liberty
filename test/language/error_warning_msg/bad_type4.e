@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          cltn_cr: COLLECTION[CHARACTER];
          ai: ARRAY[INTEGER];

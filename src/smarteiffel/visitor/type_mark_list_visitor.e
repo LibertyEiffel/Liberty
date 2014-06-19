@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {TYPE_MARK_LIST}
-   visit_type_mark_list (visited: TYPE_MARK_LIST) is
+   visit_type_mark_list (visited: TYPE_MARK_LIST)
       require
          visited /= Void
       deferred

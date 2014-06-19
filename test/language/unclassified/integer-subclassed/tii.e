@@ -14,7 +14,7 @@ class TII
    -- but zero is defined like Current so this error should not occour.
 
 create make
-feature make is
+feature make
       local i: II
       do
          i.print_on(std_output)

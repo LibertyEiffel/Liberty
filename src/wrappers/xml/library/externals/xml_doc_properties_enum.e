@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (xml_doc_dtdvalid_low_level | 
 				xml_doc_internal_low_level | 
@@ -20,114 +20,114 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_doc_dtdvalid is
+	set_xml_doc_dtdvalid
 		do
 			value := value.bit_or(xml_doc_dtdvalid_low_level)
 		end
 
-	unset_xml_doc_dtdvalid is
+	unset_xml_doc_dtdvalid
 		do
 			value := value.bit_xor(xml_doc_dtdvalid_low_level)
 		end
 
-	set_xml_doc_internal is
+	set_xml_doc_internal
 		do
 			value := value.bit_or(xml_doc_internal_low_level)
 		end
 
-	unset_xml_doc_internal is
+	unset_xml_doc_internal
 		do
 			value := value.bit_xor(xml_doc_internal_low_level)
 		end
 
-	set_xml_doc_nsvalid is
+	set_xml_doc_nsvalid
 		do
 			value := value.bit_or(xml_doc_nsvalid_low_level)
 		end
 
-	unset_xml_doc_nsvalid is
+	unset_xml_doc_nsvalid
 		do
 			value := value.bit_xor(xml_doc_nsvalid_low_level)
 		end
 
-	set_xml_doc_old10 is
+	set_xml_doc_old10
 		do
 			value := value.bit_or(xml_doc_old10_low_level)
 		end
 
-	unset_xml_doc_old10 is
+	unset_xml_doc_old10
 		do
 			value := value.bit_xor(xml_doc_old10_low_level)
 		end
 
-	set_xml_doc_userbuilt is
+	set_xml_doc_userbuilt
 		do
 			value := value.bit_or(xml_doc_userbuilt_low_level)
 		end
 
-	unset_xml_doc_userbuilt is
+	unset_xml_doc_userbuilt
 		do
 			value := value.bit_xor(xml_doc_userbuilt_low_level)
 		end
 
-	set_xml_doc_wellformed is
+	set_xml_doc_wellformed
 		do
 			value := value.bit_or(xml_doc_wellformed_low_level)
 		end
 
-	unset_xml_doc_wellformed is
+	unset_xml_doc_wellformed
 		do
 			value := value.bit_xor(xml_doc_wellformed_low_level)
 		end
 
-	set_xml_doc_xinclude is
+	set_xml_doc_xinclude
 		do
 			value := value.bit_or(xml_doc_xinclude_low_level)
 		end
 
-	unset_xml_doc_xinclude is
+	unset_xml_doc_xinclude
 		do
 			value := value.bit_xor(xml_doc_xinclude_low_level)
 		end
 
 feature -- Queries
-	is_xml_doc_dtdvalid: BOOLEAN is
+	is_xml_doc_dtdvalid: BOOLEAN
 		do
 			Result := (value=xml_doc_dtdvalid_low_level)
 		end
 
-	is_xml_doc_internal: BOOLEAN is
+	is_xml_doc_internal: BOOLEAN
 		do
 			Result := (value=xml_doc_internal_low_level)
 		end
 
-	is_xml_doc_nsvalid: BOOLEAN is
+	is_xml_doc_nsvalid: BOOLEAN
 		do
 			Result := (value=xml_doc_nsvalid_low_level)
 		end
 
-	is_xml_doc_old10: BOOLEAN is
+	is_xml_doc_old10: BOOLEAN
 		do
 			Result := (value=xml_doc_old10_low_level)
 		end
 
-	is_xml_doc_userbuilt: BOOLEAN is
+	is_xml_doc_userbuilt: BOOLEAN
 		do
 			Result := (value=xml_doc_userbuilt_low_level)
 		end
 
-	is_xml_doc_wellformed: BOOLEAN is
+	is_xml_doc_wellformed: BOOLEAN
 		do
 			Result := (value=xml_doc_wellformed_low_level)
 		end
 
-	is_xml_doc_xinclude: BOOLEAN is
+	is_xml_doc_xinclude: BOOLEAN
 		do
 			Result := (value=xml_doc_xinclude_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_doc_dtdvalid_low_level: INTEGER is
+	xml_doc_dtdvalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -136,7 +136,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_internal_low_level: INTEGER is
+	xml_doc_internal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -145,7 +145,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_nsvalid_low_level: INTEGER is
+	xml_doc_nsvalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -154,7 +154,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_old10_low_level: INTEGER is
+	xml_doc_old10_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -163,7 +163,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_userbuilt_low_level: INTEGER is
+	xml_doc_userbuilt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -172,7 +172,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_wellformed_low_level: INTEGER is
+	xml_doc_wellformed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -181,7 +181,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_doc_xinclude_low_level: INTEGER is
+	xml_doc_xinclude_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -14,27 +14,27 @@ create {EFFECTIVE_ARG_LIST}
    make
 
 feature {ANY}
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_current, is_implicit_current: BOOLEAN is False
+   is_current, is_implicit_current: BOOLEAN False
 
-   precedence: INTEGER is 2
+   precedence: INTEGER 2
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
    start_position: POSITION
 
    debug_info: STRING
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -67,7 +67,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -100,7 +100,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -133,7 +133,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -150,7 +150,7 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          sedb_breakpoint
          check
@@ -163,7 +163,7 @@ feature {ANY}
          error_handler.print_as_internal_error
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          sedb_breakpoint
          check
@@ -176,11 +176,11 @@ feature {ANY}
          error_handler.print_as_internal_error
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -213,11 +213,11 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): FAKE_TUPLE is
+   simplify (type: TYPE): FAKE_TUPLE
       local
          i: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -250,7 +250,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -266,7 +266,7 @@ feature {ANY}
          end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       local
          i: INTEGER; rt: TYPE_MARK; gl: ARRAY[TYPE_MARK]
       do
@@ -289,7 +289,7 @@ feature {ANY}
          Result := rt.type
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -305,28 +305,28 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          check -- No FAKE_TUPLE created during `pretty'.
             False
          end
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -347,24 +347,24 @@ feature {ANY}
          short_printer.hook_or(once "close_sb",once "]")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short_target(type)
       end
 
-   accept (visitor: FAKE_TUPLE_VISITOR) is
+   accept (visitor: FAKE_TUPLE_VISITOR)
       do
          visitor.visit_fake_tuple(Current)
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          if list /= Void then
             Result := list.count
          end
       end
 
-   expression (i: INTEGER): EXPRESSION is
+   expression (i: INTEGER): EXPRESSION
       require
          i.in_range(1, count)
       do
@@ -372,7 +372,7 @@ feature {ANY}
       end
 
 feature {AGENT_LAUNCHER}
-   implicit_cast (type: TYPE; open: ARRAY[TYPE]): like Current is
+   implicit_cast (type: TYPE; open: ARRAY[TYPE]): like Current
       local
          i, j: INTEGER; e1, e2: EXPRESSION; l: like list
       do
@@ -416,7 +416,7 @@ feature {AGENT_LAUNCHER}
       end
 
 feature {FAKE_TUPLE}
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l /= Void
       do
@@ -429,7 +429,7 @@ feature {FAKE_TUPLE_VISITOR}
    list: FAST_ARRAY[EXPRESSION]
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          l: like list; ft: like Current
       do
@@ -446,7 +446,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (mt: MANIFEST_TUPLE) is
+   make (mt: MANIFEST_TUPLE)
       require
          mt /= Void
       local

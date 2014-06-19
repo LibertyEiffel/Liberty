@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          printf(1, "%%s", "test")
          printf(2, "empty")
       end
 
-   printf (id: INTEGER; s: STRING; arg: TUPLE) is
+   printf (id: INTEGER; s: STRING; arg: TUPLE)
       local
          a: TUPLE[STRING]
       do

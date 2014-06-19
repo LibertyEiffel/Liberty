@@ -25,7 +25,7 @@ inherit
    EDC_TYPED_COLUMN[H_]
 
 feature {ANY}
-   hash_code (a_value: EDC_DATUM): INTEGER is
+   hash_code (a_value: EDC_DATUM): INTEGER
       do
          Result := value(a_value).hash_code
       end

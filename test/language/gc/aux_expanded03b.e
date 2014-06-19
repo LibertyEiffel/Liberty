@@ -11,12 +11,12 @@ feature {ANY}
 
    name: STRING
 
-   make is
+   make
       do
          name := ("foo").twin
       end
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       end

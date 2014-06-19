@@ -22,7 +22,7 @@
 expanded class EDC_STORABLE_SELECTOR
 
 feature {EDC_STORABLE_CONNECTION}
-   call (a_connection: EDC_STORABLE_CONNECTION; a_selectable: EDC_SELECTABLE): EDC_STORABLE_RESULT_SET is
+   call (a_connection: EDC_STORABLE_CONNECTION; a_selectable: EDC_SELECTABLE): EDC_STORABLE_RESULT_SET
       local
          i: INTEGER
       do
@@ -39,7 +39,7 @@ feature {EDC_STORABLE_CONNECTION}
       end
 
 feature {}
-   expression_selector: EDC_STORABLE_EXPRESSION_SELECTOR is
+   expression_selector: EDC_STORABLE_EXPRESSION_SELECTOR
       once
          create Result.make
       end

@@ -4,7 +4,7 @@
 class AUX_EB5A
 
 feature {ANY}
-   f is
+   f
       do
       end
 

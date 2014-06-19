@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          capacity := 1
          honeypot := honeypot.calloc(capacity)
@@ -20,7 +20,7 @@ feature {ANY}
          assert(not reentering)
       end
 
-   mark_native_arrays is
+   mark_native_arrays
       do
          reentering := reentering or else in_mark
          if not in_mark then
@@ -38,7 +38,7 @@ feature {ANY}
 
    honeypot: NATIVE_ARRAY[STRING]
 
-   full_collect is
+   full_collect
       local
          m: MEMORY
       do

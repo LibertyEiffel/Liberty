@@ -33,17 +33,17 @@ feature {ANY}
    file: FIXED_STRING
    parameters: TRAVERSABLE[LIBERTY_TYPE]
 
-   cluster: LIBERTY_CLUSTER is
+   cluster: LIBERTY_CLUSTER
       do
          Result := class_descriptor.cluster
       end
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
       do
          Result := class_descriptor.name
       end
 
-   position: LIBERTY_POSITION is
+   position: LIBERTY_POSITION
       do
          Result := class_descriptor.position
       end
@@ -51,14 +51,14 @@ feature {ANY}
 feature {ANY}
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if hash_code = other.hash_code then
             Result := same_as(other)
          end
       end
 
-   same_as (other: like Current): BOOLEAN is
+   same_as (other: like Current): BOOLEAN
       local
          i, o: INTEGER
       do
@@ -74,14 +74,14 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          class_descriptor := other.class_descriptor.twin
          parameters := other.parameters
       end
 
 feature {LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER}
-   add_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER) is
+   add_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER)
       require
          a_listener /= Void
          not has_change_listener(a_listener)
@@ -91,7 +91,7 @@ feature {LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER}
          has_change_listener(a_listener)
       end
 
-   remove_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER) is
+   remove_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER)
       require
          a_listener /= Void
          has_change_listener(a_listener)
@@ -101,7 +101,7 @@ feature {LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER}
          not has_change_listener(a_listener)
       end
 
-   has_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER): BOOLEAN is
+   has_change_listener (a_listener: LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER): BOOLEAN
       require
          a_listener /= Void
       do
@@ -109,7 +109,7 @@ feature {LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER}
       end
 
 feature {}
-   make (a_class_descriptor: like class_descriptor; a_parameters: like parameters) is
+   make (a_class_descriptor: like class_descriptor; a_parameters: like parameters)
       require
          a_class_descriptor /= Void
          a_parameters /= Void
@@ -128,7 +128,7 @@ feature {}
    change_listeners: COLLECTION[LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER]
 
 feature {}
-   compute_hash_code is
+   compute_hash_code
       local
          i, h: INTEGER
       do
@@ -148,7 +148,7 @@ feature {}
          end
       end
 
-   listen_to_parameters is
+   listen_to_parameters
       local
          i: INTEGER
       do
@@ -164,7 +164,7 @@ feature {}
          end
       end
 
-   fire_type_descriptor_changed is
+   fire_type_descriptor_changed
       local
          i: INTEGER
       do
@@ -179,12 +179,12 @@ feature {}
       end
 
 feature {LIBERTY_TYPE}
-   on_type_known (t: LIBERTY_TYPE) is
+   on_type_known (t: LIBERTY_TYPE)
       do
          fire_type_descriptor_changed
       end
 
-   on_type_built (t: LIBERTY_ACTUAL_TYPE) is
+   on_type_built (t: LIBERTY_ACTUAL_TYPE)
       do
          -- ignored
       end

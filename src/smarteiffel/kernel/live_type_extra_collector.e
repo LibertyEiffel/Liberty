@@ -7,7 +7,7 @@ insert
    TAGGER
 
 feature {LIVE_TYPE}
-   collect (live_type: LIVE_TYPE) is
+   collect (live_type: LIVE_TYPE)
       require
          live_type /= Void
       deferred

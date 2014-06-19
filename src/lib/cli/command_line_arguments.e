@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   set_helper (a_helper: like helper) is
+   set_helper (a_helper: like helper)
       do
          if a_helper /= Void then
             helper := a_helper
@@ -24,7 +24,7 @@ feature {ANY}
          a_helper /= Void implies helper = a_helper
       end
 
-   parse_command_line: BOOLEAN is
+   parse_command_line: BOOLEAN
       do
          Result := parse_argument(cli_argument)
          if not Result and then parse_argument(help_argument) then
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   usage (stream: OUTPUT_STREAM) is
+   usage (stream: OUTPUT_STREAM)
       do
          stream.put_line(once "Usage: ")
          stream.put_string(command_name)
@@ -49,7 +49,7 @@ feature {ANY}
       end
 
 feature {}
-   parse_argument (a_argument: COMMAND_LINE_ARGUMENT): BOOLEAN is
+   parse_argument (a_argument: COMMAND_LINE_ARGUMENT): BOOLEAN
       local
          context: COMMAND_LINE_CONTEXT
       do
@@ -61,7 +61,7 @@ feature {}
             and then (context.index = argument_count + 1 or else (context.is_short and then context.short_index = argument_count + 1))
       end
 
-   make (a_argument: like cli_argument) is
+   make (a_argument: like cli_argument)
       require
          a_argument /= Void
       do
@@ -73,7 +73,7 @@ feature {}
 
    cli_argument: COMMAND_LINE_ARGUMENT
 
-   help_argument: COMMAND_LINE_ARGUMENT is
+   help_argument: COMMAND_LINE_ARGUMENT
       local
          factory: COMMAND_LINE_ARGUMENT_FACTORY
       once
@@ -82,7 +82,7 @@ feature {}
 
    helper: PROCEDURE[TUPLE[COMMAND_LINE_ARGUMENTS]]
 
-   default_helper (a_arguments: COMMAND_LINE_ARGUMENTS) is
+   default_helper (a_arguments: COMMAND_LINE_ARGUMENTS)
       do
          check a_arguments = Current end
          a_arguments.usage(std_output)
@@ -100,7 +100,7 @@ end -- COMMAND_LINE_ARGUMENTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

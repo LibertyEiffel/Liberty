@@ -10,15 +10,15 @@ insert
    COMMAND_LINE_TOOLS
 
 feature {ANY}
-   command_line_name: STRING is "string_command_line"
+   command_line_name: STRING "string_command_line"
          -- Must be modified by the tools which use the STRING_COMMAND_LINE facility.
 
-   set_command_line_name (c: STRING) is
+   set_command_line_name (c: STRING)
       do
          command_line_name.copy(c)
       end
 
-   parse (command_line: STRING) is
+   parse (command_line: STRING)
          -- Only a very small subset of Liberty Eiffel options are supported
          -- here:
          --    -no_gc
@@ -55,21 +55,21 @@ feature {ANY}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          check
             False
          end
       end
 
-   valid_argument_for_ace_mode: STRING is
+   valid_argument_for_ace_mode: STRING
       do
          check
             False
          end
       end
 
-   command_line_help_summary: STRING is
+   command_line_help_summary: STRING
       do
          check
             False
@@ -77,7 +77,7 @@ feature {ANY}
       end
 
 feature {}
-   next_option is
+   next_option
          -- Finds the next option after having skipped the separators
       local
          low, up, i: INTEGER
@@ -120,12 +120,12 @@ feature {}
          end
       end
 
-   command_line_buffer: STRING is
+   command_line_buffer: STRING
       once
          create Result.make(16)
       end
 
-   option_buffer: STRING is
+   option_buffer: STRING
       once
          create Result.make(16)
       end

@@ -20,7 +20,7 @@ create {ANY}
    make
 
 feature {ANY}
-   registered_one (model: STRING): BOOLEAN is
+   registered_one (model: STRING): BOOLEAN
          -- Is the `model' _the_ already registered one? (i.e. True only if
          -- `model' has been returned by some previous `item' call).
       require
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   hashed_string (model: STRING): HASHED_STRING is
+   hashed_string (model: STRING): HASHED_STRING
       require
          model /= Void
       local
@@ -61,7 +61,7 @@ feature {ANY}
          Result.to_string.is_equal(model)
       end
 
-   string (model: STRING): STRING is
+   string (model: STRING): STRING
          -- Assuming that `model' is not the registered string,
          -- retrieve or create the aliased string.
          -- Note: the constraining require assertion is here to try to avoid
@@ -77,13 +77,13 @@ feature {ANY}
       end
 
 feature {ANY} -- Some common HASHED_STRING to be shared:
-   tuple_name: HASHED_STRING is
+   tuple_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end
 
 feature {COMPILE_TO_C}
-   echo_information is
+   echo_information
       do
          echo.put_string(once "Aliased STRINGs: ")
          echo.put_integer(memory.count)
@@ -91,21 +91,21 @@ feature {COMPILE_TO_C}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   hashed_string_buffer: HASHED_STRING is
+   hashed_string_buffer: HASHED_STRING
       once
          create Result.make(as_any, as_any.hash_code)
       end
 
-   create_hashed_string (aliased_string: STRING): HASHED_STRING is
+   create_hashed_string (aliased_string: STRING): HASHED_STRING
       do
          create Result.make(aliased_string, aliased_string.hash_code)
       end
 
-   memory: HASHED_SET[HASHED_STRING] is
+   memory: HASHED_SET[HASHED_STRING]
       once
          Result := {HASHED_SET[HASHED_STRING]
                       <<

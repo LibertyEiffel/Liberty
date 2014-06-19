@@ -7,19 +7,19 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          x := 1
       end
 
-   set_x (v: like x) is
+   set_x (v: like x)
       do
          x := v
       end
 
    x: INTEGER
 
-   sum (other: like Current): like Current is
+   sum (other: like Current): like Current
       do
          Result.set_x(x + other.x)
       end

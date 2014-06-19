@@ -7,21 +7,21 @@ create {ANY}
    make_1, make_2, make_3
 
 feature {ANY} -- Should be rejected
-   make_1 is
+   make_1
       do
          n := 1
       ensure
          n = 1
       end
 
-   make_2 (n_: like n) is
+   make_2 (n_: like n)
       do
          n := n_
       ensure
          n = n_
       end
 
-   make_3 is
+   make_3
       do
          n := 3
       ensure

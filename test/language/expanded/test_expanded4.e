@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    e1, e2: EXPANDED1
 
-   make is
+   make
       do
          assert(e1.x = 0)
          assert(e1 = e2)

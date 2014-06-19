@@ -35,7 +35,7 @@ insert
    INTERNALS_HANDLER
 
 feature {ANY} -- Error handling on repository update
-   register_update_error_handler (a_error_handler: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]) is
+   register_update_error_handler (a_error_handler: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]])
       do
          update_error_handlers.add_last(a_error_handler)
       end
@@ -43,7 +43,7 @@ feature {ANY} -- Error handling on repository update
 feature {}
    update_error_handlers: FAST_ARRAY[PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]]
 
-   fire_update_error (message: ABSTRACT_STRING; line, column: INTEGER) is
+   fire_update_error (message: ABSTRACT_STRING; line, column: INTEGER)
       local
          i: INTEGER
       do
@@ -61,32 +61,32 @@ feature {}
 feature {} -- Implementation of update
    solve_again: BOOLEAN
 
-   update_layouts: STACK[REPOSITORY_LAYOUT] is
+   update_layouts: STACK[REPOSITORY_LAYOUT]
       once
          create Result.make
       end
 
-   updated_internals: AVL_DICTIONARY[INTERNALS, INTEGER] is
+   updated_internals: AVL_DICTIONARY[INTERNALS, INTEGER]
       once
          create Result.make
       end
 
-   internals_references: HASHED_DICTIONARY[INTEGER, POINTER] is
+   internals_references: HASHED_DICTIONARY[INTEGER, POINTER]
       once
          create Result.make
       end
 
-   layouts: FAST_ARRAY[REPOSITORY_LAYOUT] is
+   layouts: FAST_ARRAY[REPOSITORY_LAYOUT]
       once
          create Result.make(0)
       end
 
-   objects: AVL_DICTIONARY[INTEGER, STRING] is
+   objects: AVL_DICTIONARY[INTEGER, STRING]
       once
          create Result.make
       end
 
-   solve (ref: INTEGER): INTERNALS is
+   solve (ref: INTEGER): INTERNALS
       require
          ref > 0
       do
@@ -96,7 +96,7 @@ feature {} -- Implementation of update
          end
       end
 
-   internals_reference (internals: INTERNALS): INTEGER is
+   internals_reference (internals: INTERNALS): INTEGER
       require
          not internals.type_is_expanded
       local
@@ -111,12 +111,12 @@ feature {} -- Implementation of update
          end
       end
 
-   solver: FUNCTION[TUPLE[INTEGER], INTERNALS] is
+   solver: FUNCTION[TUPLE[INTEGER], INTERNALS]
       once
          Result := agent solve
       end
 
-   read_from_stream (in_stream: INPUT_STREAM) is
+   read_from_stream (in_stream: INPUT_STREAM)
       local
          ref: INTEGER
       do
@@ -134,7 +134,7 @@ feature {} -- Implementation of update
          update_from_stream(in_stream)
       end
 
-   update_from_stream (in_stream: INPUT_STREAM) is
+   update_from_stream (in_stream: INPUT_STREAM)
       do
          register_transient_objects
          do_update(in_stream)
@@ -144,19 +144,19 @@ feature {} -- Implementation of update
          end
       end
 
-   last_line: INTEGER is
+   last_line: INTEGER
       deferred
       end
 
-   last_column: INTEGER is
+   last_column: INTEGER
       deferred
       end
 
-   do_update (in_stream: INPUT_STREAM) is
+   do_update (in_stream: INPUT_STREAM)
       deferred
       end
 
-   record_object (ref: INTEGER; name: STRING; line, column: INTEGER) is
+   record_object (ref: INTEGER; name: STRING; line, column: INTEGER)
          -- Register the object as a high-level one, i.e. put it in the repository.
       local
          typed: TYPED_INTERNALS[O_]; error: STRING
@@ -172,7 +172,7 @@ feature {} -- Implementation of update
          end
       end
 
-   check_non_empty_data (a_data, data_type: STRING; line, column: INTEGER) is
+   check_non_empty_data (a_data, data_type: STRING; line, column: INTEGER)
       local
          error: STRING
       do
@@ -186,7 +186,7 @@ feature {} -- Implementation of update
          end
       end
 
-   open_repository (a_repository: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_repository (a_repository: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_repository.kind.is_equal(once "repository")
       do
@@ -194,7 +194,7 @@ feature {} -- Implementation of update
          layouts.clear_count
       end
 
-   open_layout (a_type: STRING; a_ref: INTEGER; a_layout: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_layout (a_type: STRING; a_ref: INTEGER; a_layout: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_layout.kind.is_equal(once "layout")
          a_ref > 0
@@ -205,7 +205,7 @@ feature {} -- Implementation of update
          a_layout.set_ref(a_ref)
       end
 
-   open_reference (a_name: STRING; a_ref: INTEGER; a_reference: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_reference (a_name: STRING; a_ref: INTEGER; a_reference: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_reference.kind.is_equal(once "reference")
          a_ref >= 0 -- 0 is Void
@@ -216,7 +216,7 @@ feature {} -- Implementation of update
          a_reference.set_ref(a_ref)
       end
 
-   open_embedded (a_name, a_type: STRING; a_embedded: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_embedded (a_name, a_type: STRING; a_embedded: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_embedded.kind.is_equal(once "embedded")
       do
@@ -226,7 +226,7 @@ feature {} -- Implementation of update
          a_embedded.set_type(a_type)
       end
 
-   open_basic (a_name, a_type, a_value: STRING; a_basic: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_basic (a_name, a_type, a_value: STRING; a_basic: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_basic.kind.is_equal(once "basic")
       do
@@ -238,7 +238,7 @@ feature {} -- Implementation of update
          a_basic.set_value(a_value)
       end
 
-   open_array (a_name, a_type: STRING; a_capacity: INTEGER; a_array: REPOSITORY_LAYOUT; line, column: INTEGER) is
+   open_array (a_name, a_type: STRING; a_capacity: INTEGER; a_array: REPOSITORY_LAYOUT; line, column: INTEGER)
       require
          a_array.kind.is_equal(once "array")
       local
@@ -257,7 +257,7 @@ feature {} -- Implementation of update
          a_array.set_capacity(a_capacity)
       end
 
-   close_repository (line, column: INTEGER) is
+   close_repository (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "repository")
       local
@@ -310,7 +310,7 @@ feature {} -- Implementation of update
          end
       end
 
-   close_layout (line, column: INTEGER) is
+   close_layout (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "layout")
       local
@@ -321,7 +321,7 @@ feature {} -- Implementation of update
          layouts.add_last(layout)
       end
 
-   close_reference (line, column: INTEGER) is
+   close_reference (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "reference")
       local
@@ -337,7 +337,7 @@ feature {} -- Implementation of update
          end
       end
 
-   close_embedded (line, column: INTEGER) is
+   close_embedded (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "embedded")
       local
@@ -348,7 +348,7 @@ feature {} -- Implementation of update
          update_layouts.top.add_layout(layout)
       end
 
-   close_basic (line, column: INTEGER) is
+   close_basic (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "basic")
       local
@@ -359,7 +359,7 @@ feature {} -- Implementation of update
          update_layouts.top.add_layout(layout)
       end
 
-   close_array (line, column: INTEGER) is
+   close_array (line, column: INTEGER)
       require
          update_layouts.top.kind.is_equal(once "array")
       local
@@ -371,13 +371,13 @@ feature {} -- Implementation of update
       end
 
 feature {} -- Implementation of commit
-   commit_map: SET[POINTER] is
+   commit_map: SET[POINTER]
          -- Used when committing object not to commit them twice
       once
          create {HASHED_SET[POINTER]} Result.make
       end
 
-   write_to_stream (out_stream: REPOSITORY_OUTPUT) is
+   write_to_stream (out_stream: REPOSITORY_OUTPUT)
       require
          out_stream.is_connected
       local
@@ -411,7 +411,7 @@ feature {} -- Implementation of commit
          unregister_transient_objects
       end
 
-   write_object (name: like key; object: like item; out_stream: REPOSITORY_OUTPUT) is
+   write_object (name: like key; object: like item; out_stream: REPOSITORY_OUTPUT)
       local
          int: INTERNALS
       do
@@ -421,7 +421,7 @@ feature {} -- Implementation of commit
          write_internals(int, name, out_stream)
       end
 
-   write_internals (int: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+   write_internals (int: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT)
       do
          if int /= Void and then int.type_is_expanded then
             write_expanded(int, name, out_stream)
@@ -430,7 +430,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_reference_layout (reference: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+   write_reference_layout (reference: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT)
       require
          reference /= Void implies not reference.type_is_expanded
       local
@@ -449,7 +449,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_layout (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
+   write_layout (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT)
       require
          not commit_map.has(layout.object_as_pointer)
          not layout.type_is_expanded
@@ -487,7 +487,7 @@ feature {} -- Implementation of commit
          commit_map.has(layout.object_as_pointer)
       end
 
-   write_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
+   write_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT)
       require
          layout.type_is_expanded or else transient.reference(layout) = Void
          not layout.type_is_native_array
@@ -504,7 +504,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_array_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
+   write_array_contents (layout: INTERNALS; out_stream: REPOSITORY_OUTPUT)
       require
          layout.type_is_native_array
       local
@@ -520,7 +520,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_array_fields_layouts (array: INTERNALS; out_stream: REPOSITORY_OUTPUT) is
+   write_array_fields_layouts (array: INTERNALS; out_stream: REPOSITORY_OUTPUT)
       require
          array.type_is_expanded and then array.type_is_native_array
       local
@@ -539,7 +539,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_expanded (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+   write_expanded (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT)
       require
          internals.type_is_expanded
       local
@@ -583,7 +583,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_array_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+   write_array_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT)
       require
          internals.type_is_native_array
       do
@@ -594,7 +594,7 @@ feature {} -- Implementation of commit
          end
       end
 
-   write_embedded_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT) is
+   write_embedded_layout_object (internals: INTERNALS; name: STRING; out_stream: REPOSITORY_OUTPUT)
       do
          out_stream.start_embedded_layout(internals, name)
          write_contents(internals, out_stream)
@@ -602,12 +602,12 @@ feature {} -- Implementation of commit
       end
 
 feature {} -- Internals
-   layouts_pool: RECYCLING_POOL[REPOSITORY_LAYOUT] is
+   layouts_pool: RECYCLING_POOL[REPOSITORY_LAYOUT]
       once
          create Result.make
       end
 
-   new_layout (a_kind: STRING): REPOSITORY_LAYOUT is
+   new_layout (a_kind: STRING): REPOSITORY_LAYOUT
       do
          if layouts_pool.is_empty then
             create Result.make
@@ -622,7 +622,7 @@ feature {} -- Internals
          Result.kind.is_equal(a_kind)
       end
 
-   release_layout (a_layout: REPOSITORY_LAYOUT) is
+   release_layout (a_layout: REPOSITORY_LAYOUT)
       do
          layouts_pool.recycle(a_layout)
       end
@@ -630,7 +630,7 @@ feature {} -- Internals
    transient: REPOSITORY_TRANSIENT
 
 feature {} -- Creation
-   make is
+   make
          -- Create a not-connected empty repository.
       do
          if repository = Void then
@@ -643,11 +643,11 @@ feature {} -- Creation
       end
 
 feature {} -- Transient objects
-   register_transient_objects is
+   register_transient_objects
       deferred
       end
 
-   unregister_transient_objects is
+   unregister_transient_objects
       deferred
       end
 
@@ -659,7 +659,7 @@ end -- class REPOSITORY_IMPL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

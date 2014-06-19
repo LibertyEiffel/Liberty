@@ -28,12 +28,12 @@ create {EDC_SQLITE_CONNECTION}
    make
 
 feature {ANY} -- Connection:
-   disconnect is
+   disconnect
       do
          connection := Void
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := connection /= Void and then connection.is_connected
       end
@@ -41,54 +41,54 @@ feature {ANY} -- Connection:
    connection: EDC_CONNECTION
 
 feature {ANY} -- Data query:
-   is_after_last: BOOLEAN is
+   is_after_last: BOOLEAN
       do
          Result := cursor > result_set.upper
       end
 
-   is_before_first: BOOLEAN is
+   is_before_first: BOOLEAN
       do
          Result := cursor < result_set.lower
       end
 
-   next is
+   next
       do
          cursor := cursor + 1
       end
 
-   previous is
+   previous
       do
          cursor := cursor - 1
       end
 
 feature {EDC_CONNECTION}
-   update (values: TRAVERSABLE[EDC_VALUE]) is
+   update (values: TRAVERSABLE[EDC_VALUE])
       do
          not_yet_implemented
       end
 
-   delete is
+   delete
       do
          not_yet_implemented
       end
 
 feature {ANY}
-   fetch_direction: INTEGER_8 is
+   fetch_direction: INTEGER_8
       do
          Result := fetch_forward
       end
 
-   column_count: INTEGER is
+   column_count: INTEGER
       do
          Result := columns.count
       end
 
-   column (index: INTEGER): EDC_COLUMN is
+   column (index: INTEGER): EDC_COLUMN
       do
          Result := columns.item(index)
       end
 
-   column_named (column_name: STRING): EDC_COLUMN is
+   column_named (column_name: STRING): EDC_COLUMN
       local
          i: INTEGER; col: EDC_COLUMN
       do
@@ -106,7 +106,7 @@ feature {ANY}
       end
 
 feature {EDC_COLUMN}
-   item (a_column: EDC_COLUMN): EDC_DATUM is
+   item (a_column: EDC_COLUMN): EDC_DATUM
       local
          i: INTEGER
       do
@@ -115,7 +115,7 @@ feature {EDC_COLUMN}
       end
 
 feature {}
-   data_converter: EDC_SQLITE_DATA_CONVERTER is
+   data_converter: EDC_SQLITE_DATA_CONVERTER
       once
          create Result.make
       end
@@ -124,7 +124,7 @@ feature {}
 
    columns: FAST_ARRAY[EDC_COLUMN]
 
-   make (a_result_set: like result_set; a_columns: like columns; a_connection: like connection) is
+   make (a_result_set: like result_set; a_columns: like columns; a_connection: like connection)
       require
          a_result_set /= Void
          a_columns.count > 0

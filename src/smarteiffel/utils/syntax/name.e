@@ -23,14 +23,14 @@ insert
    GLOBALS
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   start_position: POSITION is
+   start_position: POSITION
          -- The position of the first character of `to_string' in the text source.
       deferred
       end
 
-   to_string: STRING is
+   to_string: STRING
          -- The corresponding name (alone in a STRING).
       deferred
       ensure
@@ -38,25 +38,25 @@ feature {ANY}
          string_aliaser.registered_one(Result)
       end
 
-   frozen line: INTEGER is
+   frozen line: INTEGER
       require
          not start_position.is_unknown
       do
          Result := start_position.line
       end
 
-   frozen column: INTEGER is
+   frozen column: INTEGER
       require
          not start_position.is_unknown
       do
          Result := start_position.column
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       deferred
       end
 
-   frozen bracketed_pretty (indent_level: INTEGER) is
+   frozen bracketed_pretty (indent_level: INTEGER)
       do
          pretty(indent_level)
       end

@@ -4,7 +4,7 @@
 class AUX_EB19_A
 
 feature {ANY}
-   f (other: like Current) is
+   f (other: like Current)
       require
          other_not_void: other /= Void
       do
@@ -12,7 +12,7 @@ feature {ANY}
          g: other.g
       end
 
-   g: BOOLEAN is
+   g: BOOLEAN
       do
          Result := True
       end

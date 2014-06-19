@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    att: INTEGER
 
-   make is
+   make
       do
          set_attribute1(1 + 1)
          set_attribute2
@@ -24,42 +24,42 @@ feature {ANY}
       end
 
 feature {} -- All those feature are inlined in -boost mode :
-   set_attribute1 (a: like att) is
+   set_attribute1 (a: like att)
       do
          att := a
       end
 
-   set_attribute2 is
+   set_attribute2
       do
          att := 4
       end
 
-   set_attribute3 is
+   set_attribute3
       local
          i: INTEGER
       do
          att := i
       end
 
-   set_attribute4 is
+   set_attribute4
       local
          i: INTEGER
       do
          att := i
       end
 
-   set_attribute5 is
+   set_attribute5
       local
          i: INTEGER; j: INTEGER
       do
          att := i + j
       end
 
-   inline1 is
+   inline1
       do
       end
 
-   inline2 is
+   inline2
       local
          i: INTEGER; j: INTEGER
       do
@@ -67,14 +67,14 @@ feature {} -- All those feature are inlined in -boost mode :
          j := i + 1
       end
 
-   inline3 is
+   inline3
       do
          inline1
          inline2
       end
 
 feature {} -- Recursive call is not inlined :-)
-   inline4 is
+   inline4
       local
          i: INTEGER
       do
@@ -85,7 +85,7 @@ feature {} -- Recursive call is not inlined :-)
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

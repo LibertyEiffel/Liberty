@@ -10,7 +10,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          dt: TIME; v: INTEGER
       do

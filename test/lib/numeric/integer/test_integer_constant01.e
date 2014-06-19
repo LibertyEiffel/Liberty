@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(0 = 0x00)
          assert({INTEGER_32 0} = 0x00)

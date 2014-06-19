@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   n: INTEGER_8 is 10
+   n: INTEGER_8 10
 
-   make is
+   make
       do
          if 2 ^ n /= 1024 then
             c_inline_c("*** WrongCcode #1 in TEST_SIMPLIFY18 ***")

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xlink_get_default_detect: POINTER is
+	xlink_get_default_detect: POINTER
  		-- xlinkGetDefaultDetect
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xlink_get_default_handler: POINTER is
+	xlink_get_default_handler: POINTER
  		-- xlinkGetDefaultHandler
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xlink_is_link (a_doc: POINTER; a_node: POINTER): INTEGER is
+	xlink_is_link (a_doc: POINTER; a_node: POINTER): INTEGER
  		-- xlinkIsLink
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xlink_set_default_detect (a_func: POINTER) is
+	xlink_set_default_detect (a_func: POINTER)
  		-- xlinkSetDefaultDetect
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	xlink_set_default_handler (a_handler: POINTER) is
+	xlink_set_default_handler (a_handler: POINTER)
  		-- xlinkSetDefaultHandler
 		external "plug_in"
 		alias "{

@@ -30,7 +30,7 @@ feature {ANY}
 
    nrsol: INTEGER
 
-   make (the_desc: like description) is
+   make (the_desc: like description)
       require
          the_desc.is_valid
       do
@@ -65,7 +65,7 @@ feature {ANY}
          end
       end
 
-   solve is
+   solve
       local
          builder: MASK_BUILDER
       do
@@ -92,7 +92,7 @@ feature {ANY}
          print("%N%N")
       end
 
-   index (g1, g2: GROUP): INTEGER is
+   index (g1, g2: GROUP): INTEGER
          -- The index of the group pair
       require
          g1 /= g2
@@ -104,7 +104,7 @@ feature {ANY}
          end
       end
 
-   index_integer (g1, g2: INTEGER): INTEGER is
+   index_integer (g1, g2: INTEGER): INTEGER
          -- the index of the pair
       require
          g1 < g2
@@ -112,13 +112,13 @@ feature {ANY}
          Result := g1 + g2 * (g2 - 1) // 2
       end
 
-   context_clear is
+   context_clear
       do
          undo_index.clear_count
          undo_top := undo_index.upper
       end
 
-   context_push is
+   context_push
       do
          undo_index.add_last(undo_top)
          undo_top := undo_index.upper
@@ -130,7 +130,7 @@ feature {ANY}
          end
       end
 
-   context_restore is
+   context_restore
       do
          from
          until
@@ -141,14 +141,14 @@ feature {ANY}
          end
       end
 
-   context_restore_and_pop is
+   context_restore_and_pop
       do
          context_restore
          undo_top := undo_index.last
          undo_index.remove_last
       end
 
-   context_cut is
+   context_cut
          -- no cut allowed
       do
          check
@@ -156,7 +156,7 @@ feature {ANY}
          end
       end
 
-   change (idx: INTEGER; mask: BIT_STRING): BOOLEAN is
+   change (idx: INTEGER; mask: BIT_STRING): BOOLEAN
       local
          value: BIT_STRING
       do
@@ -174,7 +174,7 @@ feature {ANY}
          Result := not value.all_cleared
       end
 
-   success is
+   success
       local
          i: INTEGER; x: PERMUT
       do
@@ -190,7 +190,7 @@ feature {ANY}
          try_solution(1)
       end
 
-   try_solution (idx: INTEGER) is
+   try_solution (idx: INTEGER)
          -- if idx is a valid group index then test if that group 'idx'
       require
          idx > 0
@@ -226,7 +226,7 @@ feature {ANY}
          end
       end
 
-   is_ok (mid, last: INTEGER): BOOLEAN is
+   is_ok (mid, last: INTEGER): BOOLEAN
       require
          mid > 0
          last > mid
@@ -248,7 +248,7 @@ feature {ANY}
          Result := situation.item(index_integer(mid, last)).item(k)
       end
 
-   index_of_permut (x: PERMUT): INTEGER is
+   index_of_permut (x: PERMUT): INTEGER
          -- the index of the permutation 'x'
          -- side effect: alter q
       local
@@ -289,7 +289,7 @@ feature {ANY}
          end
       end
 
-   print_solution is
+   print_solution
       do
          print("%N")
          print_dash_line
@@ -299,7 +299,7 @@ feature {ANY}
          print_dash_line
       end
 
-   print_dash_line is
+   print_dash_line
       local
          lgr, g, i: INTEGER
       do
@@ -325,7 +325,7 @@ feature {ANY}
          print("%N")
       end
 
-   print_head_line is
+   print_head_line
       local
          lgr, g, i: INTEGER
       do
@@ -356,7 +356,7 @@ feature {ANY}
          print("%N")
       end
 
-   print_content_lines is
+   print_content_lines
       local
          lig, g, lgr, i: INTEGER; x: PERMUT
       do
@@ -394,7 +394,7 @@ feature {ANY}
          end
       end
 
-   print_group_pair (g1, g2: GROUP) is
+   print_group_pair (g1, g2: GROUP)
       local
          j, k: INTEGER; b: BIT_STRING; x: PERMUT
       do
@@ -434,7 +434,7 @@ feature {ANY}
       end
 
 feature {}
-   fact (n: INTEGER): INTEGER is
+   fact (n: INTEGER): INTEGER
       do
          if n > 1 then
             Result := n * fact(n - 1)
@@ -443,7 +443,7 @@ feature {}
          end
       end
 
-   make_permut (pos: INTEGER) is
+   make_permut (pos: INTEGER)
       local
          i, j: INTEGER
       do

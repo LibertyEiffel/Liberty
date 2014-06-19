@@ -22,7 +22,7 @@ create {ANY}
    make
 
 feature {ANY}
-   configure_for (a_program_cluster: ABSTRACT_STRING; a_visitor: like visitor) is
+   configure_for (a_program_cluster: ABSTRACT_STRING; a_visitor: like visitor)
       require
          not is_configured
          a_visitor /= Void
@@ -55,17 +55,17 @@ feature {ANY}
          visitor = a_visitor
       end
 
-   log_clusters is
+   log_clusters
       do
          clusters.do_all(agent show_cluster)
       end
 
-   is_configured: BOOLEAN is
+   is_configured: BOOLEAN
       do
          Result := visitor /= Void
       end
 
-   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING] is
+   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]
       require
          is_configured
       do
@@ -75,7 +75,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_ETC_VISITOR}
-   configure_cluster_rc (a_cluster_rc: ABSTRACT_STRING) is
+   configure_cluster_rc (a_cluster_rc: ABSTRACT_STRING)
       local
          conf: STRING; evaled: BOOLEAN
       do
@@ -115,25 +115,25 @@ feature {LIBERTY_ETC_VISITOR}
          end
       end
 
-   visitor: LIBERTY_ETC_VISITOR is
+   visitor: LIBERTY_ETC_VISITOR
       do
          Result := visitor_memory.item
       end
 
 feature {}
-   visitor_memory: REFERENCE[LIBERTY_ETC_VISITOR] is
+   visitor_memory: REFERENCE[LIBERTY_ETC_VISITOR]
       once
          create Result
       end
 
-   show_cluster (a_cluster: LIBERTY_ETC_CLUSTER) is
+   show_cluster (a_cluster: LIBERTY_ETC_CLUSTER)
       do
          if log.is_trace then
             log.trace.put_line(a_cluster.out)
          end
       end
 
-   set_configuration_from (file: STRING): BOOLEAN is
+   set_configuration_from (file: STRING): BOOLEAN
          -- True if the configuration file was successfully read
       local
          conf: STRING; evaled: BOOLEAN
@@ -175,7 +175,7 @@ feature {}
          end
       end
 
-   configure_program_cluster (a_program_cluster: ABSTRACT_STRING) is
+   configure_program_cluster (a_program_cluster: ABSTRACT_STRING)
       do
          dir.compute_short_name_of(a_program_cluster)
          inspect
@@ -191,7 +191,7 @@ feature {}
          end
       end
 
-   configure_program_loadpath (a_program_loadpath: ABSTRACT_STRING) is
+   configure_program_loadpath (a_program_loadpath: ABSTRACT_STRING)
       local
          conf: STRING; evaled: BOOLEAN
       do
@@ -219,7 +219,7 @@ feature {}
          end
       end
 
-   master_name: STRING is
+   master_name: STRING
       do
          Result := once ""
          Result.make_from_string(visitor.tool_name)
@@ -227,29 +227,29 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
          roots := {FAST_ARRAY[STRING] << "${HOME}/.liberty", "/etc/liberty" >> }
       end
 
-   grammar: LIBERTY_ETC_GRAMMAR is
+   grammar: LIBERTY_ETC_GRAMMAR
       once
          create Result.make(create {LIBERTY_ETC_FACTORY}.make)
       end
 
    roots: TRAVERSABLE[STRING]
 
-   parser_file: TEXT_FILE_READ is
+   parser_file: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   parser_buffer: MINI_PARSER_BUFFER is
+   parser_buffer: MINI_PARSER_BUFFER
       once
          create Result
       end
 
-   parser: DESCENDING_PARSER is
+   parser: DESCENDING_PARSER
       once
          create Result.make
       end

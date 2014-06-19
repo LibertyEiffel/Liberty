@@ -16,38 +16,38 @@ inherit
    HASHABLE
 
 feature {ANY}
-   id: INTEGER is
+   id: INTEGER
       require
          is_connected
          not is_child
       deferred
       end
 
-   is_child: BOOLEAN is
+   is_child: BOOLEAN
       deferred
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       require
          not is_child
       deferred
       end
 
-   is_finished: BOOLEAN is
+   is_finished: BOOLEAN
       require
          is_connected
          not is_child
       deferred
       end
 
-   status: INTEGER is
+   status: INTEGER
       require
          is_finished
          not is_child
       deferred
       end
 
-   wait is
+   wait
       require
          is_connected
          not is_child
@@ -59,7 +59,7 @@ feature {ANY}
          error /= Void implies not error.is_connected
       end
 
-   duplicate is
+   duplicate
          -- Duplicate the running process so that two processes are running simultaneously with the same code
          -- and starting from the same data (inspired from the fork(2) Posix call)
       require
@@ -67,21 +67,21 @@ feature {ANY}
       deferred
       end
 
-   input: OUTPUT_STREAM is
+   input: OUTPUT_STREAM
          -- You can feed data to the process by this channel
       require
          not is_child
       deferred
       end
 
-   output: INPUT_STREAM is
+   output: INPUT_STREAM
          -- You can read data from the process by this channel
       require
          not is_child
       deferred
       end
 
-   error: INPUT_STREAM is
+   error: INPUT_STREAM
          -- You can read error data from the process by this channel
       require
          not is_child
@@ -90,7 +90,7 @@ feature {ANY}
 
    group: PROCESS_GROUP
 
-   set_group (group_: like group) is
+   set_group (group_: like group)
       require
          group_ /= Void
       do
@@ -99,7 +99,7 @@ feature {ANY}
          group = group_
       end
 
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
       do
          Result := (is_connected implies is_finished)
             and then (input /= Void implies not input.is_connected)
@@ -116,7 +116,7 @@ feature {ANY}
          -- Is the program's input stream read directly from the
          -- standard input stream rather than from `input'?
 
-   set_direct_input (direct_input_: like direct_input) is
+   set_direct_input (direct_input_: like direct_input)
       do
          direct_input := direct_input_
       ensure
@@ -127,7 +127,7 @@ feature {ANY}
          -- Is the program's output stream sent directly to the
          -- standard output stream rather than to `output'?
 
-   set_direct_output (direct_output_: like direct_output) is
+   set_direct_output (direct_output_: like direct_output)
       do
          direct_output := direct_output_
       ensure
@@ -138,20 +138,20 @@ feature {ANY}
          -- Is the program's error stream sent directly to the
          -- standard error stream rather than to `error'?
 
-   set_direct_error (direct_error_: like direct_error) is
+   set_direct_error (direct_error_: like direct_error)
       do
          direct_error := direct_error_
       ensure
          direct_error = direct_error_
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
 
 feature {}
-   cleanup_streams is
+   cleanup_streams
       do
          if input /= Void and then input.is_connected then
             input.disconnect
@@ -172,7 +172,7 @@ end -- class PROCESS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

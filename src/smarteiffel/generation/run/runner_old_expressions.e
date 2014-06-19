@@ -41,7 +41,7 @@ create {RUNNER_PROCESSOR}
    make
 
 feature {RUNNER_FACET}
-   execute (a_expression: EXPRESSION; a_rf: RUN_FEATURE) is
+   execute (a_expression: EXPRESSION; a_rf: RUN_FEATURE)
       require
          a_expression /= Void
          a_rf /= Void
@@ -69,7 +69,7 @@ feature {RUNNER_FACET}
       end
 
 feature {E_OLD}
-   visit_e_old (visited: E_OLD) is
+   visit_e_old (visited: E_OLD)
       local
          value: like return
          id: TAGGED_INTEGER
@@ -94,13 +94,13 @@ feature {}
    old_mode: BOOLEAN
    id_counter: COUNTER
 
-   tag_id_counter: FIXED_STRING is
+   tag_id_counter: FIXED_STRING
       once
          Result := "run.id_counter".intern
       end
 
 feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
+   visit_address_of (visited: ADDRESS_OF)
       do
          if old_mode then
             Precursor(visited)
@@ -115,7 +115,7 @@ feature {ADDRESS_OF}
       end
 
 feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
+   visit_agent_creation (visited: AGENT_CREATION)
       do
          if old_mode then
             Precursor(visited)
@@ -131,7 +131,7 @@ feature {AGENT_CREATION}
       end
 
 feature {AGENT_EXPRESSION}
-   visit_agent_expression (visited: AGENT_EXPRESSION) is
+   visit_agent_expression (visited: AGENT_EXPRESSION)
       do
          if old_mode then
             Precursor(visited)
@@ -144,7 +144,7 @@ feature {AGENT_EXPRESSION}
       end
 
 feature {ASSIGNMENT_TEST}
-   visit_assignment_test (visited: ASSIGNMENT_TEST) is
+   visit_assignment_test (visited: ASSIGNMENT_TEST)
       do
          if old_mode then
             Precursor(visited)
@@ -157,7 +157,7 @@ feature {ASSIGNMENT_TEST}
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       do
          if old_mode then
             Precursor(visited)
@@ -168,12 +168,12 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {EFFECTIVE_ARG_LIST_0}
-   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0) is
+   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0)
       do
       end
 
 feature {EFFECTIVE_ARG_LIST_N}
-   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N) is
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N)
       do
          visited.first_one.accept(Current)
          if visited.remainder /= Void then
@@ -182,7 +182,7 @@ feature {EFFECTIVE_ARG_LIST_N}
       end
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       do
          if old_mode then
             Precursor(visited)
@@ -194,7 +194,7 @@ feature {CREATE_EXPRESSION}
       end
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       do
          if old_mode then
             Precursor(visited)
@@ -204,7 +204,7 @@ feature {CREATE_WRITABLE}
       end
 
 feature {}
-   visit_function_call (visited: FUNCTION_CALL) is
+   visit_function_call (visited: FUNCTION_CALL)
       do
          if old_mode then
             Precursor(visited)
@@ -217,7 +217,7 @@ feature {}
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          if old_mode then
             Precursor(visited)
@@ -227,7 +227,7 @@ feature {LOOP_VARIANT}
       end
 
 feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
       do
          if old_mode then
             Precursor(visited)
@@ -240,7 +240,7 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {MANIFEST_TUPLE}
-   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   visit_manifest_tuple (visited: MANIFEST_TUPLE)
       do
          if old_mode then
             Precursor(visited)
@@ -250,7 +250,7 @@ feature {MANIFEST_TUPLE}
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       do
          if old_mode then
             Precursor(visited)
@@ -260,7 +260,7 @@ feature {OLD_MANIFEST_ARRAY}
       end
 
 feature {OPEN_OPERAND}
-   visit_open_operand (visited: OPEN_OPERAND) is
+   visit_open_operand (visited: OPEN_OPERAND)
       do
          if old_mode then
             Precursor(visited)
@@ -268,7 +268,7 @@ feature {OPEN_OPERAND}
       end
 
 feature {PRECURSOR_EXPRESSION}
-   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
          if old_mode then
             Precursor(visited)
@@ -278,7 +278,7 @@ feature {PRECURSOR_EXPRESSION}
       end
 
 feature {NO_DISPATCH}
-   visit_no_dispatch (visited: NO_DISPATCH) is
+   visit_no_dispatch (visited: NO_DISPATCH)
       do
          if old_mode then
             Precursor(visited)
@@ -288,7 +288,7 @@ feature {NO_DISPATCH}
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
          if old_mode then
             Precursor(visited)
@@ -296,7 +296,7 @@ feature {INTERNAL_LOCAL2}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
          if old_mode then
             Precursor(visited)
@@ -306,7 +306,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       do
          if old_mode then
             Precursor(visited)
@@ -316,7 +316,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
       end
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
          if old_mode then
             Precursor(visited)
@@ -324,7 +324,7 @@ feature {NATIVE_ARRAY_ITEM}
       end
 
 feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
+   visit_void_call (visited: VOID_CALL)
       do
          if old_mode then
             Precursor(visited)
@@ -332,7 +332,7 @@ feature {VOID_CALL}
       end
 
 feature {NON_VOID_NO_DISPATCH}
-   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       do
          if old_mode then
             Precursor(visited)
@@ -340,7 +340,7 @@ feature {NON_VOID_NO_DISPATCH}
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       do
          if old_mode then
             Precursor(visited)
@@ -350,7 +350,7 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {}
-   visit_compound_expression_code (code: CODE) is
+   visit_compound_expression_code (code: CODE)
       do
          if {INSTRUCTION} ?:= code then -- OK, dirty, but the alternative is a bunch of trivial visitors
             if old_mode then

@@ -25,51 +25,51 @@ inherit
    EDC_CONNECTION
 
 feature {ANY}
-   is_equal (other: EDC_CONNECTION): BOOLEAN is
+   is_equal (other: EDC_CONNECTION): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {ANY} -- Connection management:
-   disconnect is
+   disconnect
       do
          connnection.close
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := connection.is_opened
       end
 
 feature {ANY} -- Session management:
-   commit is
+   commit
       do
          current_transaction := current_transaction.commit_to(null_transaction)
       ensure
          not has_current_transaction
       end
 
-   new_savepoint (name: STRING): EDC_SAVEPOINT is
+   new_savepoint (name: STRING): EDC_SAVEPOINT
       do
          create current_transaction.make(name.twin, current_transaction)
          Result := current_transaction
       end
 
-   rollback is
+   rollback
       do
          current_transaction := current_transaction.rollback_to(null_transaction)
       ensure
          not has_current_transaction
       end
 
-   rollback_to (a_savepoint: EDC_SAVEPOINT) is
+   rollback_to (a_savepoint: EDC_SAVEPOINT)
       do
          current_transaction := current_transaction.rollback_to(a_savepoint.transaction)
       end
 
    auto_commit: BOOLEAN
 
-   set_auto_commit (a_auto_commit: like auto_commit) is
+   set_auto_commit (a_auto_commit: like auto_commit)
       do
          if has_current_transaction then
             if a_auto_commit then
@@ -82,24 +82,24 @@ feature {ANY} -- Session management:
       end
 
 feature {ANY}
-   create_table (a_table: EDC_TABLE) is
+   create_table (a_table: EDC_TABLE)
       do
          not_yet_implemented
          database.update_dbms_data(0, Void)
       end
 
-   drop_table (a_table: EDC_TABLE) is
+   drop_table (a_table: EDC_TABLE)
       do
          not_yet_implemented
          database.update_dbms_data(0, Void)
       end
 
-   has_table_name (a_table_name: STRING): BOOLEAN is
+   has_table_name (a_table_name: STRING): BOOLEAN
       do
          Result := database.table_by_name(a_table_name) /= Void
       end
 
-   table (a_table_name: STRING): EDC_TABLE is
+   table (a_table_name: STRING): EDC_TABLE
       local
          gda_table: GDA_DICT_TABLE; table: EDC_GDA_TABLE
       do
@@ -113,7 +113,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Fetch direction:
-   set_fetch_direction (a_fetch_direction: INTEGER) is
+   set_fetch_direction (a_fetch_direction: INTEGER)
       do
          fetch_direction := a_fetch_direction
       end
@@ -121,13 +121,13 @@ feature {ANY} -- Fetch direction:
    fetch_direction: INTEGER
 
 feature {} -- Transaction handling
-   current_transaction: EDC_GDA_TRANSACTION is
+   current_transaction: EDC_GDA_TRANSACTION
       require
          not auto_commit
       attribute
       end
 
-   open_transaction (name: STRING) is
+   open_transaction (name: STRING)
       require
          not auto_commit
       do
@@ -137,7 +137,7 @@ feature {} -- Transaction handling
          current_transaction.name.is_equal(name)
       end
 
-   commit_current_transaction is
+   commit_current_transaction
       require
          not auto_commit
          has_current_transaction
@@ -145,7 +145,7 @@ feature {} -- Transaction handling
          current_transaction := current_transaction.commit
       end
 
-   rollback_current_transaction is
+   rollback_current_transaction
       require
          not auto_commit
          has_current_transaction
@@ -153,7 +153,7 @@ feature {} -- Transaction handling
          current_transaction := current_transaction.rollback
       end
 
-   has_current_transaction: BOOLEAN is
+   has_current_transaction: BOOLEAN
       require
          not auto_commit
       do
@@ -161,7 +161,7 @@ feature {} -- Transaction handling
       end
 
 feature {EDC_GDA_TRANSACTION}
-   set_current_transaction (t: like current_transaction) is
+   set_current_transaction (t: like current_transaction)
       require
          t.previous = Void
       do
@@ -171,18 +171,18 @@ feature {EDC_GDA_TRANSACTION}
       end
 
 feature {EDC_CALL_HANDLER}
-   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET is
+   call_select (a_selectable: EDC_SELECTABLE): EDC_RESULT_SET
       do
          not_yet_implemented
       end
 
-   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE]) is
+   call_insert (a_columns: FAST_ARRAY[EDC_COLUMN]; a_values: FAST_ARRAY[EDC_VALUE])
       do
          not_yet_implemented
       end
 
 feature {}
-   make (a_connection: like connection; a_gda: like gda) is
+   make (a_connection: like connection; a_gda: like gda)
       require
          a_connection /= Void
          a_gda /= Void

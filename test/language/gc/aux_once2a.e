@@ -7,12 +7,12 @@ insert
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   buf: STRING is
+   buf: STRING
       once
          Result := "0123456789"
       end
 
-   do_test is
+   do_test
       local
          i: INTEGER; a: ARRAY[STRING]
       do

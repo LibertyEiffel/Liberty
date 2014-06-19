@@ -36,23 +36,23 @@ feature {ANY}
          -- is set to -1 to indicate that it is an open target. Initial 0 value indicate that
          -- `Current' is out of scope of its corresponding "agent" keyword.
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          Result := Current
          if rank = 0 then
@@ -73,7 +73,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          ct: like curly_type
       do
@@ -84,7 +84,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          check
             rank /= 0 -- Already checked in `specialize_in'.
@@ -93,23 +93,23 @@ feature {ANY}
          Result := Current
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := curly_type.declaration_type.type
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          -- As it is always inside some wrapper, the answer is:
          Result := True
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          if resolved_memory = Void then
             create resolved_memory.make
@@ -122,7 +122,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if curly_type = Void then
             Result := True
@@ -131,12 +131,12 @@ feature {ANY}
          end
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          if curly_type = Void then
             pretty_printer.put_character('?')
@@ -147,13 +147,13 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          bracketed_pretty(indent_level)
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          if curly_type /= Void then
             short_printer.hook_or("open_curly_bracket", once "{")
@@ -164,7 +164,7 @@ feature {ANY}
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check
             False
@@ -172,38 +172,38 @@ feature {ANY}
          -- An OPEN_OPERAND is never a target !
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): OPEN_OPERAND is
+   simplify (type: TYPE): OPEN_OPERAND
       do
          Result := Current
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          check
             not Result
          end
       end
 
-   accept (visitor: OPEN_OPERAND_VISITOR) is
+   accept (visitor: OPEN_OPERAND_VISITOR)
       do
          visitor.visit_open_operand(Current)
       end
 
 feature {OPEN_OPERAND}
-   init (ct: like curly_type) is
+   init (ct: like curly_type)
       do
          curly_type := ct
       ensure
@@ -211,7 +211,7 @@ feature {OPEN_OPERAND}
       end
 
 feature {AGENT_CREATION, FORMAL_ARG_LIST}
-   set_rank (r: like rank) is
+   set_rank (r: like rank)
       require
          (r = -1) or else (r > 0)
       do
@@ -221,7 +221,7 @@ feature {AGENT_CREATION, FORMAL_ARG_LIST}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
@@ -230,7 +230,7 @@ feature {}
    resolved_memory: HASHED_DICTIONARY[TYPE, TYPE]
 
 feature {EFFECTIVE_ARG_LIST, FORMAL_ARG_LIST}
-   update_resolved_memory (type, resolved: TYPE) is
+   update_resolved_memory (type, resolved: TYPE)
       require
          type /= Void
          resolved /= Void
@@ -242,7 +242,7 @@ feature {EFFECTIVE_ARG_LIST, FORMAL_ARG_LIST}
       end
 
 feature {}
-   current_or_twin_init (ct: like curly_type): like Current is
+   current_or_twin_init (ct: like curly_type): like Current
       do
          if ct = curly_type then
             Result := Current
@@ -254,7 +254,7 @@ feature {}
          Result.curly_type = ct
       end
 
-   question_mark (sp: like start_position) is
+   question_mark (sp: like start_position)
          -- To create the classic ? open operand.
       require
          not sp.is_unknown
@@ -265,7 +265,7 @@ feature {}
          curly_type = Void
       end
 
-   type_holder (sp: like start_position; ct: like curly_type) is
+   type_holder (sp: like start_position; ct: like curly_type)
          -- To create the curly bracketed type-holder form.
       require
          not sp.is_unknown

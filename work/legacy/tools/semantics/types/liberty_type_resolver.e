@@ -25,7 +25,7 @@ insert
 feature {ANY}
    parent: LIBERTY_TYPE_RESOLVER
 
-   type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
          -- Try to find a class using the resolver context. Depending on the resolver, anchors may be resolved
          -- or not.
       do
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
          -- More lenient version, reserved for exports. If the class is not found and is not used anywhere but
          -- in export clauses then there will not be any error (a dummy object will be returned).
       require
@@ -52,7 +52,7 @@ feature {ANY}
          Result /= Void
       end
 
-   position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+   position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION
          -- Try to find the position of the type definition. Useful for error reporting.
       do
          Result := lookup_position(type_definition)
@@ -66,7 +66,7 @@ feature {ANY}
          Result /= Void
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       deferred
@@ -75,7 +75,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
-   undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   undelayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       do
          Result := lookup_type(type_definition)
          if Result = Void and then parent /= Void then
@@ -84,19 +84,19 @@ feature {LIBERTY_DELAYED_TYPE_DEFINITION, LIBERTY_TYPE_RESOLVER}
       end
 
 feature {LIBERTY_UNIVERSE, LIBERTY_DELAYED_TYPE}
-   delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE] is
+   delayed_types: COLLECTION[LIBERTY_DELAYED_TYPE]
       once
          create {RING_ARRAY[LIBERTY_DELAYED_TYPE]} Result.with_capacity(1024, 0)
       end
 
 feature {}
-   delayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_DELAYED_TYPE is
+   delayed_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_DELAYED_TYPE
       do
          create Result.make(create {LIBERTY_DELAYED_TYPE_DEFINITION}.make(type_definition, Current))
       end
 
 feature {LIBERTY_TYPE_LOOKUP}
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       require
          dont_change_parent: parent = Void or else parent = a_parent
       do
@@ -106,21 +106,21 @@ feature {LIBERTY_TYPE_LOOKUP}
       end
 
 feature {}
-   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
          -- May be Void if the type is not resolved.
       require
          type_definition /= Void
       deferred
       end
 
-   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
          -- May be Void if the type is not resolved.
       require
          not type_definition.is_anchor
       deferred
       end
 
-   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION
          -- May be Void if the position cannot be calculated.
       deferred
       end

@@ -7,17 +7,17 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       do
          f(agent g, 5)
       end
 
-   f (p: ROUTINE[TUPLE[INTEGER]]; value: INTEGER) is
+   f (p: ROUTINE[TUPLE[INTEGER]]; value: INTEGER)
       do
          p.call([value])
       end
 
-   g (i: INTEGER) is
+   g (i: INTEGER)
       do
          if i.out = Void then
          end

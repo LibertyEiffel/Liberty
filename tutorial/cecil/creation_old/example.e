@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c_factory: C_FACTORY; string: STRING
       do
@@ -23,7 +23,7 @@ feature {ANY}
          io.put_new_line
       end
 
-   call_c_prog (c_factory: C_FACTORY): STRING is
+   call_c_prog (c_factory: C_FACTORY): STRING
       external "C"
       alias "c_prog"
       end

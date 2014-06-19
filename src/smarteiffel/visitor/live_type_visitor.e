@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LIVE_TYPE}
-   visit_live_type (visited: LIVE_TYPE) is
+   visit_live_type (visited: LIVE_TYPE)
       require
          visited /= Void
       deferred

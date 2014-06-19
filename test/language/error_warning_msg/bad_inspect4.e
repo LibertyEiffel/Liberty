@@ -7,8 +7,8 @@ create {}
    make
 
 feature {}
-   foo: INTEGER is unique
-   make is
+   foo: INTEGER unique
+   make
       local
          i: INTEGER
       do

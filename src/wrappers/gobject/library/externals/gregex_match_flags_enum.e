@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_regex_match_anchored_low_level)  or else
 				(a_value = g_regex_match_bsr_any_low_level)  or else
@@ -28,159 +28,159 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_regex_match_anchored is
+	set_g_regex_match_anchored
 		do
 			value := g_regex_match_anchored_low_level
 		end
 
-	set_g_regex_match_bsr_any is
+	set_g_regex_match_bsr_any
 		do
 			value := g_regex_match_bsr_any_low_level
 		end
 
-	set_g_regex_match_bsr_anycrlf is
+	set_g_regex_match_bsr_anycrlf
 		do
 			value := g_regex_match_bsr_anycrlf_low_level
 		end
 
-	set_g_regex_match_newline_any is
+	set_g_regex_match_newline_any
 		do
 			value := g_regex_match_newline_any_low_level
 		end
 
-	set_g_regex_match_newline_anycrlf is
+	set_g_regex_match_newline_anycrlf
 		do
 			value := g_regex_match_newline_anycrlf_low_level
 		end
 
-	set_g_regex_match_newline_cr is
+	set_g_regex_match_newline_cr
 		do
 			value := g_regex_match_newline_cr_low_level
 		end
 
-	set_g_regex_match_newline_crlf is
+	set_g_regex_match_newline_crlf
 		do
 			value := g_regex_match_newline_crlf_low_level
 		end
 
-	set_g_regex_match_newline_lf is
+	set_g_regex_match_newline_lf
 		do
 			value := g_regex_match_newline_lf_low_level
 		end
 
-	set_g_regex_match_notbol is
+	set_g_regex_match_notbol
 		do
 			value := g_regex_match_notbol_low_level
 		end
 
-	set_g_regex_match_notempty is
+	set_g_regex_match_notempty
 		do
 			value := g_regex_match_notempty_low_level
 		end
 
-	set_g_regex_match_notempty_atstart is
+	set_g_regex_match_notempty_atstart
 		do
 			value := g_regex_match_notempty_atstart_low_level
 		end
 
-	set_g_regex_match_noteol is
+	set_g_regex_match_noteol
 		do
 			value := g_regex_match_noteol_low_level
 		end
 
-	set_g_regex_match_partial is
+	set_g_regex_match_partial
 		do
 			value := g_regex_match_partial_low_level
 		end
 
-	set_g_regex_match_partial_hard is
+	set_g_regex_match_partial_hard
 		do
 			value := g_regex_match_partial_hard_low_level
 		end
 
-	set_g_regex_match_partial_soft is
+	set_g_regex_match_partial_soft
 		do
 			value := g_regex_match_partial_soft_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_regex_match_anchored: BOOLEAN is
+	is_g_regex_match_anchored: BOOLEAN
 		do
 			Result := (value=g_regex_match_anchored_low_level)
 		end
 
-	is_g_regex_match_bsr_any: BOOLEAN is
+	is_g_regex_match_bsr_any: BOOLEAN
 		do
 			Result := (value=g_regex_match_bsr_any_low_level)
 		end
 
-	is_g_regex_match_bsr_anycrlf: BOOLEAN is
+	is_g_regex_match_bsr_anycrlf: BOOLEAN
 		do
 			Result := (value=g_regex_match_bsr_anycrlf_low_level)
 		end
 
-	is_g_regex_match_newline_any: BOOLEAN is
+	is_g_regex_match_newline_any: BOOLEAN
 		do
 			Result := (value=g_regex_match_newline_any_low_level)
 		end
 
-	is_g_regex_match_newline_anycrlf: BOOLEAN is
+	is_g_regex_match_newline_anycrlf: BOOLEAN
 		do
 			Result := (value=g_regex_match_newline_anycrlf_low_level)
 		end
 
-	is_g_regex_match_newline_cr: BOOLEAN is
+	is_g_regex_match_newline_cr: BOOLEAN
 		do
 			Result := (value=g_regex_match_newline_cr_low_level)
 		end
 
-	is_g_regex_match_newline_crlf: BOOLEAN is
+	is_g_regex_match_newline_crlf: BOOLEAN
 		do
 			Result := (value=g_regex_match_newline_crlf_low_level)
 		end
 
-	is_g_regex_match_newline_lf: BOOLEAN is
+	is_g_regex_match_newline_lf: BOOLEAN
 		do
 			Result := (value=g_regex_match_newline_lf_low_level)
 		end
 
-	is_g_regex_match_notbol: BOOLEAN is
+	is_g_regex_match_notbol: BOOLEAN
 		do
 			Result := (value=g_regex_match_notbol_low_level)
 		end
 
-	is_g_regex_match_notempty: BOOLEAN is
+	is_g_regex_match_notempty: BOOLEAN
 		do
 			Result := (value=g_regex_match_notempty_low_level)
 		end
 
-	is_g_regex_match_notempty_atstart: BOOLEAN is
+	is_g_regex_match_notempty_atstart: BOOLEAN
 		do
 			Result := (value=g_regex_match_notempty_atstart_low_level)
 		end
 
-	is_g_regex_match_noteol: BOOLEAN is
+	is_g_regex_match_noteol: BOOLEAN
 		do
 			Result := (value=g_regex_match_noteol_low_level)
 		end
 
-	is_g_regex_match_partial: BOOLEAN is
+	is_g_regex_match_partial: BOOLEAN
 		do
 			Result := (value=g_regex_match_partial_low_level)
 		end
 
-	is_g_regex_match_partial_hard: BOOLEAN is
+	is_g_regex_match_partial_hard: BOOLEAN
 		do
 			Result := (value=g_regex_match_partial_hard_low_level)
 		end
 
-	is_g_regex_match_partial_soft: BOOLEAN is
+	is_g_regex_match_partial_soft: BOOLEAN
 		do
 			Result := (value=g_regex_match_partial_soft_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_regex_match_anchored_low_level: INTEGER is
+	g_regex_match_anchored_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -189,7 +189,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_bsr_any_low_level: INTEGER is
+	g_regex_match_bsr_any_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -198,7 +198,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_bsr_anycrlf_low_level: INTEGER is
+	g_regex_match_bsr_anycrlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -207,7 +207,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_newline_any_low_level: INTEGER is
+	g_regex_match_newline_any_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -216,7 +216,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_newline_anycrlf_low_level: INTEGER is
+	g_regex_match_newline_anycrlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -225,7 +225,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_newline_cr_low_level: INTEGER is
+	g_regex_match_newline_cr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -234,7 +234,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_newline_crlf_low_level: INTEGER is
+	g_regex_match_newline_crlf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -243,7 +243,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_newline_lf_low_level: INTEGER is
+	g_regex_match_newline_lf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -252,7 +252,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_notbol_low_level: INTEGER is
+	g_regex_match_notbol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -261,7 +261,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_notempty_low_level: INTEGER is
+	g_regex_match_notempty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -270,7 +270,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_notempty_atstart_low_level: INTEGER is
+	g_regex_match_notempty_atstart_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -279,7 +279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_noteol_low_level: INTEGER is
+	g_regex_match_noteol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_partial_low_level: INTEGER is
+	g_regex_match_partial_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -297,7 +297,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_partial_hard_low_level: INTEGER is
+	g_regex_match_partial_hard_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -306,7 +306,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_regex_match_partial_soft_low_level: INTEGER is
+	g_regex_match_partial_soft_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

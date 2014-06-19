@@ -4,7 +4,7 @@
 class AUX_EXPORT1B
 inherit AUX_EXPORT1A
 feature {ANY}
-   foo is
+   foo
       local
          other: like Current
       do

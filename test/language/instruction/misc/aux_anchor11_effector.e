@@ -4,7 +4,7 @@
 class AUX_ANCHOR11_EFFECTOR[G]
 
 feature {ANY}
-   anchor: G is
+   anchor: G
       do
       end
 

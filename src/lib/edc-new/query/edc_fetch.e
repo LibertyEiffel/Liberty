@@ -7,7 +7,7 @@ create {EDC_DESCRIPTOR}
    make
 
 feature {ANY}
-   list (session: EDC_SESSION): TRAVERSABLE[R_] is
+   list (session: EDC_SESSION): TRAVERSABLE[R_]
       local
          data: FAST_ARRAY[EDC_SESSION_DATA]
       do
@@ -17,7 +17,7 @@ feature {ANY}
       end
 
 feature {}
-   data_to_record (data: FAST_ARRAY[EDC_SESSION_DATA]): FAST_ARRAY[R_] is
+   data_to_record (data: FAST_ARRAY[EDC_SESSION_DATA]): FAST_ARRAY[R_]
       require
          data /= Void
       local
@@ -35,11 +35,11 @@ feature {}
             i := i + 1
          end
       ensure
-         (create {ZIP[EDC_SESSION_DATA, R_]}.make(data, Result)).for_all(agent (d: EDC_SESSION_DATA; r: R_): BOOLEAN is do Result := r.session_data = d end (?, ?))
+         (create {ZIP[EDC_SESSION_DATA, R_]}.make(data, Result)).for_all(agent (d: EDC_SESSION_DATA; r: R_): BOOLEAN do Result := r.session_data = d end (?, ?))
       end
 
 feature {}
-   make (a_options: like options) is
+   make (a_options: like options)
       require
          a_options /= Void
       do
@@ -48,7 +48,7 @@ feature {}
          options = a_options
       end
 
-   actual_descriptor: BOOLEAN is
+   actual_descriptor: BOOLEAN
       do
          Result := descriptor /= Void
       end

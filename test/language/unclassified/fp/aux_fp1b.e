@@ -13,7 +13,7 @@ feature {ANY}
    b_count: INTEGER
 
 feature {}
-   init is
+   init
       do
          b_count := b_count + 1
       end

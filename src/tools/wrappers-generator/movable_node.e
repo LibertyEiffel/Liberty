@@ -4,7 +4,7 @@ deferred class MOVABLE_NODE
 
 	-- For example function "memcpy" that the standard require to be defined
 	-- into <string.h> may be actually defined into another
-	-- implementation-dependent file. Gccxml cannot distinguish those cases.
+	-- implementation-dependent file. Gccxml cannot dtinguh those cases.
 inherit
 	NAMED_NODE
 	FILED_NODE

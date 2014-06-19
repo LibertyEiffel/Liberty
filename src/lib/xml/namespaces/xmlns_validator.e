@@ -6,7 +6,7 @@ deferred class XMLNS_VALIDATOR
    --
 
 feature {XMLNS_PARSER}
-   with_attribute (attribute_namespace, attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_namespace, attribute_name, attribute_value: UNICODE_STRING; line, column: INTEGER)
          -- Called by the parser to add an attribute of a node BEFORE calling `open_node'
       require
          not attribute_name.is_empty
@@ -14,14 +14,14 @@ feature {XMLNS_PARSER}
       deferred
       end
 
-   is_valid_open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
          -- When the parser reads an opening node
       require
          not node_name.is_empty
       deferred
       end
 
-   is_valid_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
          -- When the parser reads a closing node
       require
          not node_name.is_empty
@@ -29,14 +29,14 @@ feature {XMLNS_PARSER}
       deferred
       end
 
-   is_valid_open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER): BOOLEAN
          -- When the parser reads a node that opens and closes immediately (syntax "<node/>")
       require
          not node_name.is_empty
       deferred
       end
 
-   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads an opening node
       require
          is_valid_open_node(node_namespace, node_name, line, column)
@@ -45,50 +45,50 @@ feature {XMLNS_PARSER}
          current_node.is_equal(node_name)
       end
 
-   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads a closing node
       require
          is_valid_close_node(node_namespace, node_name, line, column)
       deferred
       end
 
-   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_namespace, node_name: UNICODE_STRING; line, column: INTEGER)
          -- When the parser reads a node that opens and closes immediately (syntax "<node/>")
       require
          is_valid_open_close_node(node_namespace, node_name, line, column)
       deferred
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
          -- The current node
       deferred
       end
 
-   current_namespace: UNICODE_STRING is
+   current_namespace: UNICODE_STRING
          -- The current namespace
       deferred
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
          -- When the parser reads an '''&entity;'''.
       deferred
       end
 
-   is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN is
+   is_valid_data (a_data: UNICODE_STRING; line, column: INTEGER): BOOLEAN
          -- Called by the parser when the node contains raw data
       require
          not a_data.is_empty
       deferred
       end
 
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
          -- Called by the parser when the node contains raw data
       require
          not a_data.is_empty
       deferred
       end
 
-   the_end is
+   the_end
          -- Called when the xml is totally parsed; usually it is used to recycle memory resources
       deferred
       end
@@ -101,7 +101,7 @@ end -- class XMLNS_VALIDATOR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

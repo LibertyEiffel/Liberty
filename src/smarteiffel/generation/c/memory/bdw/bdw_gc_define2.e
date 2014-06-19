@@ -15,7 +15,7 @@ create {BDW_GC}
    make
 
 feature {BDW_GC}
-   for (lt: like live_type) is
+   for (lt: like live_type)
       require
          lt.at_run_time
       do
@@ -24,7 +24,7 @@ feature {BDW_GC}
          live_type := Void
       end
 
-   extra_functions is
+   extra_functions
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_run_finalizers(void)")
@@ -40,13 +40,13 @@ feature {BDW_GC}
       end
 
 feature {ANY_TYPE_MARK}
-   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+   visit_any_type_mark (visited: ANY_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {CLASS_TYPE_MARK}
-   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   visit_class_type_mark (visited: CLASS_TYPE_MARK)
       do
          if visited.is_reference then
             alloc_reference(visited)
@@ -57,37 +57,37 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
       end
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       do
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
       end
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -96,7 +96,7 @@ feature {STRING_TYPE_MARK}
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -105,7 +105,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -114,25 +114,25 @@ feature {ARRAY_TYPE_MARK}
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          alloc_native_array(visited)
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {USER_GENERIC_TYPE_MARK}
-   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       do
          if visited.is_reference then
             alloc_reference(visited)
@@ -143,7 +143,7 @@ feature {USER_GENERIC_TYPE_MARK}
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          alloc_weak_reference(visited)
       end
@@ -155,7 +155,7 @@ feature {}
    live_type: LIVE_TYPE
    bdw: BDW_GC
 
-   is_na_collector: BOOLEAN is
+   is_na_collector: BOOLEAN
       local
          na: TAGGED_FLAG
       do
@@ -163,7 +163,7 @@ feature {}
          Result := na /= Void and then na.item
       end
 
-   make (a_bdw: like bdw; a_native_array_collector: like native_array_collector) is
+   make (a_bdw: like bdw; a_native_array_collector: like native_array_collector)
       require
          a_bdw /= Void
          a_native_array_collector /= Void
@@ -175,7 +175,7 @@ feature {}
          native_array_collector = a_native_array_collector
       end
 
-   put_alloc_function (tm: TYPE_MARK) is
+   put_alloc_function (tm: TYPE_MARK)
       require
          tm = live_type.canonical_type_mark
       do
@@ -198,7 +198,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   prepare_alloc_inner_function (tm: TYPE_MARK) is
+   prepare_alloc_inner_function (tm: TYPE_MARK)
       require
          tm = live_type.canonical_type_mark
       do
@@ -209,7 +209,7 @@ feature {}
          cpp.pending_c_function_signature.append(once "(int*n)")
       end
 
-   alloc_reference (tm: TYPE_MARK) is
+   alloc_reference (tm: TYPE_MARK)
       require
          live_type.is_reference
          tm = live_type.canonical_type_mark
@@ -243,7 +243,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   alloc_weak_reference (tm: WEAK_REFERENCE_TYPE_MARK) is
+   alloc_weak_reference (tm: WEAK_REFERENCE_TYPE_MARK)
       require
          live_type.is_reference
          tm = live_type.canonical_type_mark
@@ -264,7 +264,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   alloc_native_array (tm: NATIVE_ARRAY_TYPE_MARK) is
+   alloc_native_array (tm: NATIVE_ARRAY_TYPE_MARK)
       require
          live_type.is_native_array
          tm = live_type.canonical_type_mark
@@ -291,7 +291,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   finalize_reference (tm: TYPE_MARK): BOOLEAN is
+   finalize_reference (tm: TYPE_MARK): BOOLEAN
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          not live_type.is_expanded
@@ -316,7 +316,7 @@ feature {}
          end
       end
 
-   prepare_weakref_accessors is
+   prepare_weakref_accessors
       once
          cpp.out_h_buffer.copy(once "typedef struct bdw_Swr{Tid id;T0*o;}bdw_Twr;%N")
          cpp.write_out_h_buffer
@@ -342,7 +342,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   mark_native_arrays (type_mark: TYPE_MARK) is
+   mark_native_arrays (type_mark: TYPE_MARK)
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; a: RUN_FEATURE_2; t: TYPE
          has_capacity, has_generation: BOOLEAN

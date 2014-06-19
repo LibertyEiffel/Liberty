@@ -25,14 +25,14 @@ feature {ABSTRACT_BACKTRACKING}
          -- is to restore when cut is called.
          -- Managed by ABSTRACT_BACKTRACKING.
 
-   set_top_alternative (value: like top_alternative) is
+   set_top_alternative (value: like top_alternative)
       do
          top_alternative := value
       ensure
          definition: top_alternative = value
       end
 
-   next_sequence (explorer: ABSTRACT_BACKTRACKING) is
+   next_sequence (explorer: ABSTRACT_BACKTRACKING)
          -- Do nothing: remove itself (as if it were the end
          -- of a sequence) and evaluate the continuation by
          -- issuing a 'continue'.
@@ -49,7 +49,7 @@ end -- class ABSTRACT_BACKTRACKING_CUT_POINT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

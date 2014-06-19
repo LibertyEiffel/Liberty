@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CREATION_CLAUSE}
-   visit_creation_clause (visited: CREATION_CLAUSE) is
+   visit_creation_clause (visited: CREATION_CLAUSE)
       require
          visited /= Void
       deferred

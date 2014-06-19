@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = arg_low_level)  or else
 				(a_value = boxed_low_level)  or else
@@ -33,209 +33,209 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_arg is
+	set_arg
 		do
 			value := arg_low_level
 		end
 
-	set_boxed is
+	set_boxed
 		do
 			value := boxed_low_level
 		end
 
-	set_callback is
+	set_callback
 		do
 			value := callback_low_level
 		end
 
-	set_constant is
+	set_constant
 		do
 			value := constant_low_level
 		end
 
-	set_enum is
+	set_enum
 		do
 			value := enum_low_level
 		end
 
-	set_field is
+	set_field
 		do
 			value := field_low_level
 		end
 
-	set_flags is
+	set_flags
 		do
 			value := flags_low_level
 		end
 
-	set_function is
+	set_function
 		do
 			value := function_low_level
 		end
 
-	set_interface is
+	set_interface
 		do
 			value := interface_low_level
 		end
 
-	set_invalid is
+	set_invalid
 		do
 			value := invalid_low_level
 		end
 
-	set_invalid_0 is
+	set_invalid_0
 		do
 			value := invalid_0_low_level
 		end
 
-	set_object is
+	set_object
 		do
 			value := object_low_level
 		end
 
-	set_property is
+	set_property
 		do
 			value := property_low_level
 		end
 
-	set_signal is
+	set_signal
 		do
 			value := signal_low_level
 		end
 
-	set_struct is
+	set_struct
 		do
 			value := struct_low_level
 		end
 
-	set_type is
+	set_type
 		do
 			value := type_low_level
 		end
 
-	set_union is
+	set_union
 		do
 			value := union_low_level
 		end
 
-	set_unresolved is
+	set_unresolved
 		do
 			value := unresolved_low_level
 		end
 
-	set_value is
+	set_value
 		do
 			value := value_low_level
 		end
 
-	set_vfunc is
+	set_vfunc
 		do
 			value := vfunc_low_level
 		end
 
 feature {ANY} -- Queries
-	is_arg: BOOLEAN is
+	is_arg: BOOLEAN
 		do
 			Result := (value=arg_low_level)
 		end
 
-	is_boxed: BOOLEAN is
+	is_boxed: BOOLEAN
 		do
 			Result := (value=boxed_low_level)
 		end
 
-	is_callback: BOOLEAN is
+	is_callback: BOOLEAN
 		do
 			Result := (value=callback_low_level)
 		end
 
-	is_constant: BOOLEAN is
+	is_constant: BOOLEAN
 		do
 			Result := (value=constant_low_level)
 		end
 
-	is_enum: BOOLEAN is
+	is_enum: BOOLEAN
 		do
 			Result := (value=enum_low_level)
 		end
 
-	is_field: BOOLEAN is
+	is_field: BOOLEAN
 		do
 			Result := (value=field_low_level)
 		end
 
-	is_flags: BOOLEAN is
+	is_flags: BOOLEAN
 		do
 			Result := (value=flags_low_level)
 		end
 
-	is_function: BOOLEAN is
+	is_function: BOOLEAN
 		do
 			Result := (value=function_low_level)
 		end
 
-	is_interface: BOOLEAN is
+	is_interface: BOOLEAN
 		do
 			Result := (value=interface_low_level)
 		end
 
-	is_invalid: BOOLEAN is
+	is_invalid: BOOLEAN
 		do
 			Result := (value=invalid_low_level)
 		end
 
-	is_invalid_0: BOOLEAN is
+	is_invalid_0: BOOLEAN
 		do
 			Result := (value=invalid_0_low_level)
 		end
 
-	is_object: BOOLEAN is
+	is_object: BOOLEAN
 		do
 			Result := (value=object_low_level)
 		end
 
-	is_property: BOOLEAN is
+	is_property: BOOLEAN
 		do
 			Result := (value=property_low_level)
 		end
 
-	is_signal: BOOLEAN is
+	is_signal: BOOLEAN
 		do
 			Result := (value=signal_low_level)
 		end
 
-	is_struct: BOOLEAN is
+	is_struct: BOOLEAN
 		do
 			Result := (value=struct_low_level)
 		end
 
-	is_type: BOOLEAN is
+	is_type: BOOLEAN
 		do
 			Result := (value=type_low_level)
 		end
 
-	is_union: BOOLEAN is
+	is_union: BOOLEAN
 		do
 			Result := (value=union_low_level)
 		end
 
-	is_unresolved: BOOLEAN is
+	is_unresolved: BOOLEAN
 		do
 			Result := (value=unresolved_low_level)
 		end
 
-	is_value: BOOLEAN is
+	is_value: BOOLEAN
 		do
 			Result := (value=value_low_level)
 		end
 
-	is_vfunc: BOOLEAN is
+	is_vfunc: BOOLEAN
 		do
 			Result := (value=vfunc_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	arg_low_level: INTEGER is
+	arg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -244,7 +244,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	boxed_low_level: INTEGER is
+	boxed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -253,7 +253,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	callback_low_level: INTEGER is
+	callback_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -262,7 +262,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	constant_low_level: INTEGER is
+	constant_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -271,7 +271,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	enum_low_level: INTEGER is
+	enum_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -280,7 +280,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	field_low_level: INTEGER is
+	field_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -289,7 +289,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	flags_low_level: INTEGER is
+	flags_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -298,7 +298,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	function_low_level: INTEGER is
+	function_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -307,7 +307,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	interface_low_level: INTEGER is
+	interface_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -316,7 +316,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_low_level: INTEGER is
+	invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -325,7 +325,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_0_low_level: INTEGER is
+	invalid_0_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -334,7 +334,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	object_low_level: INTEGER is
+	object_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -343,7 +343,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	property_low_level: INTEGER is
+	property_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -352,7 +352,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	signal_low_level: INTEGER is
+	signal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -361,7 +361,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	struct_low_level: INTEGER is
+	struct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -370,7 +370,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	type_low_level: INTEGER is
+	type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -379,7 +379,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	union_low_level: INTEGER is
+	union_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -388,7 +388,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unresolved_low_level: INTEGER is
+	unresolved_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -397,7 +397,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	value_low_level: INTEGER is
+	value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -406,7 +406,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	vfunc_low_level: INTEGER is
+	vfunc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

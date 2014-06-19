@@ -25,25 +25,25 @@ insert
    ARRAYED_COLLECTION_HANDLER
 
 feature {ANY}
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN is
+   is_equal (other: LIBERTY_INTERPRETER_OBJECT): BOOLEAN
       deferred
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := type
       end
 
-   type: LIBERTY_KNOWN_TYPE is
+   type: LIBERTY_KNOWN_TYPE
          -- the actual dynamic type of the object
       deferred
       end
 
-   is_open: BOOLEAN is False
+   is_open: BOOLEAN False
 
-   is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   is_between (lower, upper: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       local
          fd: LIBERTY_FEATURE_DEFINITION
          cmp: LIBERTY_INTERPRETER_OBJECT_NATIVE[BOOLEAN]
@@ -56,7 +56,7 @@ feature {ANY}
          end
       end
 
-   as_target (a_position: LIBERTY_POSITION): like Current is
+   as_target (a_position: LIBERTY_POSITION): like Current
          -- Current when used as a target
       do
          Result := Current
@@ -64,7 +64,7 @@ feature {ANY}
          Result = Current
       end
 
-   as_right_value: like Current is
+   as_right_value: like Current
          -- either Current or a twin depending on the storage class (expanded, reference, separate)
       do
          if type.is_expanded then
@@ -78,7 +78,7 @@ feature {ANY}
          is_equal(Result)
       end
 
-   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       require
          type.converts_to(target_type)
       deferred
@@ -86,26 +86,26 @@ feature {ANY}
          Result.type = target_type
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          check False end
          crash
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
-   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       require
          not other.is_void
       deferred
       end
 
-   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_standard_is_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       require
          not other.is_void
       deferred
       end
 
-   builtin_is_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN is
+   builtin_is_deep_equal (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION): BOOLEAN
       require
          not other.is_void
       local
@@ -115,27 +115,27 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
          Result := do_deep_equal(other, deep_equal_memory, a_position)
       end
 
-   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       require
          not other.is_void
       deferred
       end
 
-   builtin_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_twin (a_position: LIBERTY_POSITION): like Current
       deferred
       end
 
-   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION) is
+   builtin_standard_copy (other: LIBERTY_INTERPRETER_OBJECT; a_position: LIBERTY_POSITION)
       require
          not other.is_void
       deferred
       end
 
-   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current is
+   builtin_standard_twin (a_position: LIBERTY_POSITION): like Current
       deferred
       end
 
-   builtin_deep_twin (a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   builtin_deep_twin (a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]
       do
@@ -144,13 +144,13 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_ANY_BUILTINS} -- Standard builtings
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   do_deep_twin (deep_twin_memory: DICTIONARY[LIBERTY_INTERPRETER_OBJECT, LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       require
          deep_twin_memory /= Void
       deferred
       end
 
-   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN is
+   do_deep_equal (object: LIBERTY_INTERPRETER_OBJECT; deep_equal_memory: SET[LIBERTY_INTERPRETER_OBJECT]; a_position: LIBERTY_POSITION): BOOLEAN
       require
          object /= Void
          deep_equal_memory /= Void
@@ -158,12 +158,12 @@ feature {LIBERTY_INTERPRETER_OBJECT}
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
-   show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
+   show_stack (o: OUTPUT_STREAM; indent: INTEGER)
       deferred
       end
 
 feature {}
-   expanded_twin: like Current is
+   expanded_twin: like Current
       require
          type.is_expanded
       deferred
@@ -173,13 +173,13 @@ feature {}
 
    interpreter: LIBERTY_INTERPRETER
 
-   le_feature_name: LIBERTY_FEATURE_NAME is
+   le_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.infixed("<=".intern)
       end
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: LIBERTY_INTERPRETER_OBJECT_VISITOR
       do
@@ -188,7 +188,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          check False end
       end

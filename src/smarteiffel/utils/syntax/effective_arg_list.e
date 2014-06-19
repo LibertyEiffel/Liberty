@@ -18,7 +18,7 @@ insert
       end
 
 feature {ANY}
-   expression (i: INTEGER): EXPRESSION is
+   expression (i: INTEGER): EXPRESSION
       require
          i.in_range(1, count)
       deferred
@@ -26,11 +26,11 @@ feature {ANY}
          Result /= Void
       end
 
-   start_position, end_position: POSITION is
+   start_position, end_position: POSITION
       deferred
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       require
          type /= Void
       deferred
@@ -38,7 +38,7 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
          parent_type /= Void
          new_type /= Void
@@ -50,7 +50,7 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST is
+   specialize_and_check (t: TYPE; af: ANONYMOUS_FEATURE; target_type: TYPE; allow_tuple: BOOLEAN): EFFECTIVE_ARG_LIST
          -- Checks the validity of argument passing (i.e. assignments) from the effective arguments list into
          -- the formal arguments list from `af'.
       require
@@ -61,65 +61,65 @@ feature {ANY}
          Result.count = count
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       deferred
       ensure
          Result
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       deferred
       ensure
          (Result /= Current or Result = Void) implies (smart_eiffel.magic_count > old smart_eiffel.magic_count);
          (Result = Current) implies (smart_eiffel.magic_count = old smart_eiffel.magic_count)
       end
 
-   static_simplify is
+   static_simplify
       deferred
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       deferred
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       deferred
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       deferred
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       deferred
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       deferred
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
          -- Is True when only `is_static' expression are used.
       deferred
       end
 
 feature {EIFFEL_PARSER, EFFECTIVE_ARG_LIST}
-   set_end_position (p: POSITION) assign end_position is
+   set_end_position (p: POSITION) assign end_position
       deferred
       ensure
          end_position = p
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   lower: INTEGER is 1
+   lower: INTEGER 1
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       end
 
 feature {ANY}
-   new_iterator: ITERATOR[EXPRESSION] is
+   new_iterator: ITERATOR[EXPRESSION]
       do
          check
             False -- Just use the usual pattern instead please.
@@ -127,7 +127,7 @@ feature {ANY}
       end
 
 feature {FUNCTION_CALL, PROCEDURE_CALL}
-   unused_expression_inline (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   unused_expression_inline (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER; exp: EXPRESSION
       do
@@ -145,7 +145,7 @@ feature {FUNCTION_CALL, PROCEDURE_CALL}
       end
 
 feature {E_PROCEDURE}
-   unused_expression_in (inline_memo: INLINE_MEMO; type: TYPE) is
+   unused_expression_in (inline_memo: INLINE_MEMO; type: TYPE)
       local
          i: INTEGER; exp: EXPRESSION; memo: INSTRUCTION; compound: COMPOUND
       do
@@ -171,14 +171,14 @@ feature {E_PROCEDURE}
       end
 
 feature {CODE}
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE): like Current
       deferred
       ensure
          Result.count = Current.count
       end
 
 feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
-   specialize_and_check_on_expressions (type: TYPE): like Current is
+   specialize_and_check_on_expressions (type: TYPE): like Current
       require
          type /= Void
          has_been_specialized
@@ -190,7 +190,7 @@ feature {CREATE_EXPRESSION, MANIFEST_TUPLE}
       end
 
 feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       deferred
       ensure
          Result.count = count
@@ -200,7 +200,7 @@ feature {FEATURE_CALL}
    --|*** Pourquoi le collect n'est il pas appele' depuis PRECURSOR_CALL ????
    --| Dom feb 7th 2004
    --|***
-   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE) is
+   collect (t: TYPE; fs: FEATURE_STAMP; feature_type: TYPE)
          -- arguments are written in `t' and the feature stamp `fs' is used with a target of type `feature_type'.
       require
          count = fs.anonymous_feature(feature_type).arguments.count
@@ -208,7 +208,7 @@ feature {FEATURE_CALL}
       end
 
 feature {PRECURSOR_CALL}
-   simple_collect (t: TYPE; fal: FORMAL_ARG_LIST) is
+   simple_collect (t: TYPE; fal: FORMAL_ARG_LIST)
          -- arguments are written in `t' and the formal arguments list is `fal'.
       require
          count = fal.count
@@ -228,28 +228,28 @@ feature {PRECURSOR_CALL}
       end
 
 feature {AGENT_INSTRUCTION, AGENT_EXPRESSION}
-   to_fake_tuple (type: TYPE): FAKE_TUPLE is
+   to_fake_tuple (type: TYPE): FAKE_TUPLE
       require
          count = 1
       deferred
       end
 
 feature {EFFECTIVE_ARG_LIST, FAKE_TUPLE, CALL_1}
-   put (e: EXPRESSION; index: INTEGER) is
+   put (e: EXPRESSION; index: INTEGER)
       require
          valid_index(index)
       deferred
       end
 
 feature {PROCEDURE_CALL_N}
-   create_inline: like Current is
+   create_inline: like Current
       deferred
       ensure
          Result.count = count
       end
 
 feature {AGENT_CREATION}
-   replace_item (index: INTEGER; closed_operand: CLOSED_OPERAND) is
+   replace_item (index: INTEGER; closed_operand: CLOSED_OPERAND)
       require
          valid_index(index)
          closed_operand /= Void
@@ -262,7 +262,7 @@ feature {AGENT_CREATION}
 feature {}
    synthetic_tuple: BOOLEAN
 
-   synthetic_tuple_arg (index: INTEGER; type: TYPE; fal: FORMAL_ARG_LIST; formal_tuple_type: NON_EMPTY_TUPLE_TYPE_MARK): EXPRESSION is
+   synthetic_tuple_arg (index: INTEGER; type: TYPE; fal: FORMAL_ARG_LIST; formal_tuple_type: NON_EMPTY_TUPLE_TYPE_MARK): EXPRESSION
       require
          fal.count <= count
          index >= 0
@@ -300,7 +300,7 @@ feature {}
          end
       end
 
-   synthetize_tuple (target_type, t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION is
+   synthetize_tuple (target_type, t: TYPE; fal: FORMAL_ARG_LIST): EXPRESSION
       require
          fal /= Void and then fal.count > 0
          count >= fal.count - 1

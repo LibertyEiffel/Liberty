@@ -7,6 +7,6 @@ Line 14 column 24 in BAD_CALL4 (/home/cadrian/Workspace/Dev/Liberty/test/languag
          foo := foo.max(foo, foo)
                        ^         
 Line 116 column 8 in COMPARABLE (/home/cadrian/Workspace/Dev/Liberty/src/lib/abilities/comparable.e):
-   max (other: like Current): like Current is
-       ^                                     
+   max (other: like Current): like Current
+       ^                                  
 ------

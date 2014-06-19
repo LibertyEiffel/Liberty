@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {ESE_TYPED_VISITABLE, VISITOR}
-   as_typed (item_type_generator: STRING): VISITOR is
+   as_typed (item_type_generator: STRING): VISITOR
       do
          Result := typed_visitors.reference_at(item_type_generator)
          if Result = Void then
@@ -47,28 +47,28 @@ feature {ESE_TYPED_VISITABLE, VISITOR}
       end
 
 feature {}
-   typed_visitors: HASHED_DICTIONARY[VISITOR, STRING] is
+   typed_visitors: HASHED_DICTIONARY[VISITOR, STRING]
       once
          create Result.make
       end
 
-   new_blob_visitor: ESE_TYPED_VISITOR[EDC_BLOB] is
+   new_blob_visitor: ESE_TYPED_VISITOR[EDC_BLOB]
       deferred
       end
 
-   new_character_visitor: ESE_TYPED_VISITOR[CHARACTER] is
+   new_character_visitor: ESE_TYPED_VISITOR[CHARACTER]
       deferred
       end
 
-   new_integer_visitor: ESE_TYPED_VISITOR[INTEGER] is
+   new_integer_visitor: ESE_TYPED_VISITOR[INTEGER]
       deferred
       end
 
-   new_string_visitor: ESE_TYPED_VISITOR[STRING] is
+   new_string_visitor: ESE_TYPED_VISITOR[STRING]
       deferred
       end
 
-   new_time_visitor: ESE_TYPED_VISITOR[TIME] is
+   new_time_visitor: ESE_TYPED_VISITOR[TIME]
       deferred
       end
 

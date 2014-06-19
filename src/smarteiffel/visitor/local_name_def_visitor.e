@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LOCAL_NAME_DEF}
-   visit_local_name_def (visited: LOCAL_NAME_DEF) is
+   visit_local_name_def (visited: LOCAL_NAME_DEF)
       require
          visited /= Void
       deferred

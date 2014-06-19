@@ -29,32 +29,32 @@ insert
    EDC_CONSTANTS
 
 feature {EDC}
-   register_driver (a_driver: EDC_DRIVER) is
+   register_driver (a_driver: EDC_DRIVER)
       require
          a_driver /= Void
       do
          drivers.add_last(a_driver)
       end
 
-   connect_to (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION is
+   connect_to (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_CONNECTION
       require
          not url.is_empty
       do
          Result := driver(url).new_connection(url, info)
       end
 
-   can_connect_to (url: STRING): BOOLEAN is
+   can_connect_to (url: STRING): BOOLEAN
       do
          Result := driver(url) /= Void
       end
 
 feature {}
-   drivers: FAST_ARRAY[EDC_DRIVER] is
+   drivers: FAST_ARRAY[EDC_DRIVER]
       once
          create Result.make(0)
       end
 
-   driver (url: STRING): EDC_DRIVER is
+   driver (url: STRING): EDC_DRIVER
          -- Latest added drivers are considered first
       require
          not url.is_empty

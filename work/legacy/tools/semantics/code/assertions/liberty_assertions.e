@@ -19,7 +19,7 @@ insert
    VISITABLE
 
 feature {LIBERTY_BUILDER_TOOLS}
-   infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
+   infix "and then" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS
          -- Considering that `Current' is the parent, adds an "and then" assertions block. Used by "require
          -- then", "ensure then", and "invariant".
       do
@@ -28,7 +28,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          Result /= Void
       end
 
-   infix "or else" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS is
+   infix "or else" (other: LIBERTY_ASSERTIONS): LIBERTY_ASSERTIONS
          -- Considering that `Current' is the parent, adds an "or else" assertions block. Used by "require
          -- else".
       do
@@ -38,7 +38,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       deferred

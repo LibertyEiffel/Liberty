@@ -31,7 +31,7 @@ insert
 	INTERNALS_HANDLER
 
 feature {ANY}
-	frozen accept (visitor: ESE_VISITOR) is
+	frozen accept (visitor: ESE_VISITOR)
 		local
 			t: ESE_STATIC_TYPE[T_]; v: ESE_TYPED_VISITOR[T_]
 		do
@@ -41,7 +41,7 @@ feature {ANY}
 		end
 
 feature {}
-	typed_accept (visitor: ESE_TYPED_VISITOR[T_]) is
+	typed_accept (visitor: ESE_TYPED_VISITOR[T_])
 			-- Accept to be visited by the `visitor'.
 		deferred
 		end

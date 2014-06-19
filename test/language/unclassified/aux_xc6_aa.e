@@ -4,7 +4,7 @@
 class AUX_XC6_AA
 
 feature {ANY}
-   f is
+   f
       do
       end
 

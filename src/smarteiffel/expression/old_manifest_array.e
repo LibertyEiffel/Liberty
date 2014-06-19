@@ -22,25 +22,25 @@ feature {ANY}
 
    list: FAST_ARRAY[EXPRESSION]
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   precedence: INTEGER is 2
+   precedence: INTEGER 2
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
       do
@@ -70,7 +70,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -85,7 +85,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
       do
@@ -115,7 +115,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): MANIFEST_GENERIC is
+   specialize_and_check (type: TYPE): MANIFEST_GENERIC
          -- Transformation into the canonical form.
       local
          i: INTEGER; exp1, exp2: EXPRESSION; l: like list
@@ -210,80 +210,80 @@ feature {ANY}
          Result.specialize_and_check_from_old_manifest_array(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := False
       end
 
-   accept (visitor: OLD_MANIFEST_ARRAY_VISITOR) is
+   accept (visitor: OLD_MANIFEST_ARRAY_VISITOR)
       do
          visitor.visit_old_manifest_array(Current)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -306,7 +306,7 @@ feature {ANY}
          pretty_printer.put_string(once ">>")
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -314,21 +314,21 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          check
             False -- (Because we have already switched to the canonical form.)
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check
             False -- (Because we have already switched to the canonical form.)
@@ -336,13 +336,13 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   set_list (l: like list) is
+   set_list (l: like list)
       do
          list := l
       end
 
 feature {}
-   make (sp: like start_position; l: like list) is
+   make (sp: like start_position; l: like list)
       require
          not sp.is_unknown
          l /= Void implies not l.is_empty
@@ -360,12 +360,12 @@ feature {}
          list = l
       end
 
-   type_set_buffer: HASHED_SET[TYPE] is
+   type_set_buffer: HASHED_SET[TYPE]
       once
          create Result.make
       end
 
-   smallest_ancestor_from_type_set_buffer: TYPE_MARK is
+   smallest_ancestor_from_type_set_buffer: TYPE_MARK
       require
          type_set_buffer.count >= 2
       local

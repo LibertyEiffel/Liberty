@@ -25,7 +25,7 @@ create {ANY}
    make, connect_to
 
 feature {ANY}
-   connect_to (new_path: ABSTRACT_STRING) is
+   connect_to (new_path: ABSTRACT_STRING)
          --  Open text file for reading. The stream is positioned at the
          --  beginning of the file.
       local
@@ -49,14 +49,14 @@ feature {ANY}
          is_connected implies not end_of_input
       end
 
-   disconnect is
+   disconnect
       do
          io_fclose(input_stream)
          path := Void
          filter := Void
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := buffer_position > 0
       end
@@ -64,7 +64,7 @@ feature {ANY}
    end_of_input: BOOLEAN
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
          if buffer_position >= buffer_size then
             fill_buffer
@@ -77,7 +77,7 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          end_of_input := False
          buffer_position := buffer_position - 1
@@ -88,7 +88,7 @@ feature {FILTER_INPUT_STREAM}
 
    filtered_last_character: CHARACTER
 
-   filtered_read_line_in (str: STRING) is
+   filtered_read_line_in (str: STRING)
       local
          i: INTEGER; stop: BOOLEAN; old_count, new_count: INTEGER; initial_count: INTEGER
       do
@@ -136,7 +136,7 @@ feature {FILTER_INPUT_STREAM}
          end_of_input := end_reached
       end
 
-   filtered_read_available_in (str: STRING; limit: INTEGER) is
+   filtered_read_available_in (str: STRING; limit: INTEGER)
          -- Limit reading to what the buffer contains. If the buffer is already exhausted, just fill it once.
       local
          old_count, new_count, i: INTEGER
@@ -156,22 +156,22 @@ feature {FILTER_INPUT_STREAM}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := sequencer_descriptor(input_stream)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := input_stream
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {FILE_TOOLS}
-   same_as (other: like Current): BOOLEAN is
+   same_as (other: like Current): BOOLEAN
       require
          is_connected
          other.is_connected
@@ -242,7 +242,7 @@ feature {TEXT_FILE_READ}
 
    capacity: INTEGER
 
-   fill_buffer is
+   fill_buffer
       local
          last: CHARACTER; more: BOOLEAN
       do
@@ -268,14 +268,14 @@ feature {TEXT_FILE_READ}
       end
 
 feature {}
-   make is
+   make
          -- The new created object is not connected. (See also `connect_to'.)
       do
       ensure
          not is_connected
       end
 
-   text_file_read_open (path_pointer: POINTER): POINTER is
+   text_file_read_open (path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -284,7 +284,7 @@ feature {}
          }"
       end
 
-   io_fclose (stream: POINTER) is
+   io_fclose (stream: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -301,7 +301,7 @@ end -- class TEXT_FILE_READ
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

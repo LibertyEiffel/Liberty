@@ -7,7 +7,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          agent1, agent2: PROCEDURE[STRING]
       do
@@ -15,7 +15,7 @@ feature {ANY}
          agent2 := agent foo(?)
       end
 
-   foo (arg: STRING) is
+   foo (arg: STRING)
       do
       end
 

@@ -44,7 +44,7 @@ insert G_ENUM_EXTERNALS
 -- creation from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <gtk/gtk.h>"
 		alias "sizeof(GEnum)"
 		end
@@ -65,7 +65,7 @@ feature -- TODO: typedef struct {
 -- guint n_values; 	the number of possible values.
 -- GEnumValue *values; 	an array of GEnumValue structs describing the individual values.
 feature {ANY}
-	value (an_index: INTEGER): G_ENUM_VALUE is
+	value (an_index: INTEGER): G_ENUM_VALUE
 			-- the GEnumValue for `an_index' value. Void if `an_index' 
 			-- is not a member of the enumeration
 		local ptr: POINTER
@@ -74,7 +74,7 @@ feature {ANY}
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end
 
-	value_by_name (a_name: STRING): G_ENUM_VALUE is
+	value_by_name (a_name: STRING): G_ENUM_VALUE
 			-- the GEnumValue with `a_name', or Void if the enumeration
 			-- doesn' t have a member with that name
 		local ptr: POINTER
@@ -83,7 +83,7 @@ feature {ANY}
 			if ptr.is_not_null then create Result.from_external_pointer (ptr) end
 		end
 
-	value_by_nick (a_name: STRING): G_ENUM_VALUE is
+	value_by_nick (a_name: STRING): G_ENUM_VALUE
 			-- the GEnumValue with nickname `a_nick', or Void if the
 			-- enumeration doesn' t have a member with that nickname.
 		local ptr: POINTER

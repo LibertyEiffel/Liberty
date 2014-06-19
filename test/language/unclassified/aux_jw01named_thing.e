@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (n: STRING) is
+   make (n: STRING)
       do
          name := n
       end

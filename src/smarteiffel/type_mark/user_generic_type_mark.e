@@ -13,46 +13,46 @@ create {ANY}
    make
 
 feature {ANY}
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := class_text.is_expanded
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := not class_text.is_expanded
       end
 
-   is_user_expanded: BOOLEAN is
+   is_user_expanded: BOOLEAN
       do
          Result := class_text.is_expanded
       end
 
-   is_empty_expanded: BOOLEAN is
+   is_empty_expanded: BOOLEAN
       do
          if is_user_expanded then
             Result := type.live_type.writable_attributes = Void
          end
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
-   accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR) is
+   accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR)
       do
          visitor.visit_user_generic_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_generic(shorted_type, class_text_name)
       end
 
 feature {}
-   make (bcn: like class_text_name; gl: like generic_list) is
+   make (bcn: like class_text_name; gl: like generic_list)
       require
          bcn /= Void
          gl.lower = 1

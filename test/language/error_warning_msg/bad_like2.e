@@ -12,7 +12,7 @@ create {}
 feature {}
    an_attribute: INTEGER
 
-   make is
+   make
       do
          an_attribute := a;
       end;

@@ -10,7 +10,7 @@ create {LLVM_PLUGIN_FACTORY}
    make
 
 feature {RUNNER_FACET}
---    call (processor: RUNNER_PROCESSOR) is
+--    call (processor: RUNNER_PROCESSOR)
 --       local
 --          function: FOREIGN_AGENT
 --          parameters: FOREIGN_PARAMETERS
@@ -30,7 +30,7 @@ feature {RUNNER_FACET}
 --          end
 --       end
 -- 
---    foreign_agent (processor: RUNNER_PROCESSOR): FOREIGN_AGENT is
+--    foreign_agent (processor: RUNNER_PROCESSOR): FOREIGN_AGENT
 --       local
 --          dll_name_, agent_name_: STRING
 --          dll_name, agent_name: FIXED_STRING
@@ -87,7 +87,7 @@ feature {RUNNER_FACET}
 --          Result = Void implies processor.exception /= Void
 --       end
 -- 
---    foreign_type (processor: RUNNER_PROCESSOR; a_type: TYPE): FOREIGN_TYPE is
+--    foreign_type (processor: RUNNER_PROCESSOR; a_type: TYPE): FOREIGN_TYPE
 --       local
 --          types: FOREIGN_TYPES
 --       do
@@ -102,7 +102,7 @@ feature {RUNNER_FACET}
 --          end
 --       end
 -- 
---    foreign_arguments_types (processor: RUNNER_PROCESSOR): COLLECTION[FOREIGN_TYPE] is
+--    foreign_arguments_types (processor: RUNNER_PROCESSOR): COLLECTION[FOREIGN_TYPE]
 --       local
 --          i: INTEGER; types: FORMAL_ARG_LIST
 --       do
@@ -122,7 +122,7 @@ feature {RUNNER_FACET}
 --          end
 --       end
 -- 
---    eval_parameters (processor: RUNNER_PROCESSOR): FAST_ARRAY[FOREIGN_OBJECT] is
+--    eval_parameters (processor: RUNNER_PROCESSOR): FAST_ARRAY[FOREIGN_OBJECT]
 --       local
 --          args: TRAVERSABLE[RUNNER_OBJECT]; i: INTEGER
 --       do
@@ -143,7 +143,7 @@ feature {RUNNER_FACET}
 --       end
 -- 
 feature {SYSTEM_TOOLS}
-   try_auto_init is
+   try_auto_init
       do
       end
 
@@ -151,12 +151,12 @@ feature {ANY}
    auto_init_done: BOOLEAN
 
 feature {NATIVE_PLUG_IN}
-   include (position: POSITION) is
+   include (position: POSITION)
       do
       end
 
 feature {}
-   make (position: POSITION; a_name, a_path: STRING) is
+   make (position: POSITION; a_name, a_path: STRING)
       require
          a_name /= Void
          a_path /= Void
@@ -165,7 +165,7 @@ feature {}
 
 --    foreign_types_map: HASHED_DICTIONARY[TUPLE[FOREIGN_TYPE,
 --                                               FUNCTION[TUPLE[RUNNER_PROCESSOR, FOREIGN_OBJECT], RUNNER_OBJECT]
---                                               ], TYPE] is
+--                                               ], TYPE]
 --       local
 --          types: FOREIGN_TYPES
 --       once
@@ -191,7 +191,7 @@ feature {}
 --          >>}
 --       end
 -- 
---    from_foreign_boolean (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_boolean (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_boolean: FOREIGN_TYPED_OBJECT[BOOLEAN]
 --       do
@@ -199,7 +199,7 @@ feature {}
 --          Result := processor.new_boolean(foreign_boolean.item)
 --       end
 -- 
---    from_foreign_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_character: FOREIGN_TYPED_OBJECT[CHARACTER]
 --       do
@@ -207,7 +207,7 @@ feature {}
 --          Result := processor.new_character(foreign_character.item)
 --       end
 -- 
---    from_foreign_pointer (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_pointer (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_pointer: FOREIGN_TYPED_OBJECT[POINTER]
 --       do
@@ -215,7 +215,7 @@ feature {}
 --          Result := processor.new_pointer(foreign_pointer.item)
 --       end
 -- 
---    from_foreign_native_array_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_native_array_character (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_native_array_character: FOREIGN_TYPED_OBJECT[NATIVE_ARRAY[CHARACTER]]
 --          count: INTEGER
@@ -230,7 +230,7 @@ feature {}
 --          Result := processor.new_native_array_character(count + 1, foreign_native_array_character.item)
 --       end
 -- 
---    from_foreign_integer_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_integer_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_integer_8: FOREIGN_TYPED_OBJECT[INTEGER_8]
 --       do
@@ -238,7 +238,7 @@ feature {}
 --          Result := processor.new_integer_8(foreign_integer_8.item)
 --       end
 -- 
---    from_foreign_integer_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_integer_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_integer_16: FOREIGN_TYPED_OBJECT[INTEGER_16]
 --       do
@@ -246,7 +246,7 @@ feature {}
 --          Result := processor.new_integer_16(foreign_integer_16.item)
 --       end
 -- 
---    from_foreign_integer_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_integer_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_integer_32: FOREIGN_TYPED_OBJECT[INTEGER_32]
 --       do
@@ -254,7 +254,7 @@ feature {}
 --          Result := processor.new_integer_32(foreign_integer_32.item)
 --       end
 -- 
---    from_foreign_integer_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_integer_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_integer_64: FOREIGN_TYPED_OBJECT[INTEGER_64]
 --       do
@@ -262,7 +262,7 @@ feature {}
 --          Result := processor.new_integer_64(foreign_integer_64.item)
 --       end
 -- 
---    from_foreign_natural_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_natural_8 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_natural_8: FOREIGN_TYPED_OBJECT[NATURAL_8]
 --       do
@@ -270,7 +270,7 @@ feature {}
 --          Result := processor.new_natural_8(foreign_natural_8.item.to_natural_64)
 --       end
 -- 
---    from_foreign_natural_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_natural_16 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_natural_16: FOREIGN_TYPED_OBJECT[NATURAL_16]
 --       do
@@ -278,7 +278,7 @@ feature {}
 --          Result := processor.new_natural_16(foreign_natural_16.item.to_natural_64)
 --       end
 -- 
---    from_foreign_natural_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_natural_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_natural_32: FOREIGN_TYPED_OBJECT[NATURAL_32]
 --       do
@@ -286,7 +286,7 @@ feature {}
 --          Result := processor.new_natural_32(foreign_natural_32.item.to_natural_64)
 --       end
 -- 
---    from_foreign_natural_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_natural_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_natural_64: FOREIGN_TYPED_OBJECT[NATURAL_64]
 --       do
@@ -294,7 +294,7 @@ feature {}
 --          Result := processor.new_natural_64(foreign_natural_64.item)
 --       end
 -- 
---    from_foreign_real_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_real_32 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_real_32: FOREIGN_TYPED_OBJECT[REAL_32]
 --       do
@@ -302,7 +302,7 @@ feature {}
 --          Result := processor.new_real_32(foreign_real_32.item.to_real_64)
 --       end
 -- 
---    from_foreign_real_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT is
+--    from_foreign_real_64 (processor: RUNNER_PROCESSOR; foreign: FOREIGN_OBJECT): RUNNER_OBJECT
 --       local
 --          foreign_real_64: FOREIGN_TYPED_OBJECT[REAL_64]
 --       do

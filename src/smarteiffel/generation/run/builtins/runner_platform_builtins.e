@@ -16,13 +16,13 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT
       do
          create Result.make(processor, type, Current)
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -64,58 +64,58 @@ feature {}
       end
 
 feature {}
-   builtin_maximum_character_code (processor: RUNNER_PROCESSOR) is
+   builtin_maximum_character_code (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer_16(Maximum_character_code))
       end
 
-   builtin_maximum_real (processor: RUNNER_PROCESSOR) is
+   builtin_maximum_real (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_real_64(Maximum_real))
       end
 
-   builtin_maximum_real_80 (processor: RUNNER_PROCESSOR) is
+   builtin_maximum_real_80 (processor: RUNNER_PROCESSOR)
       do
          not_yet_implemented
       end
 
-   builtin_minimum_character_code (processor: RUNNER_PROCESSOR) is
+   builtin_minimum_character_code (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer_16(Minimum_character_code))
       end
 
-   builtin_minimum_real (processor: RUNNER_PROCESSOR) is
+   builtin_minimum_real (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_real_64(Minimum_real))
       end
 
-   builtin_minimum_real_80 (processor: RUNNER_PROCESSOR) is
+   builtin_minimum_real_80 (processor: RUNNER_PROCESSOR)
       do
          not_yet_implemented
       end
 
-   builtin_boolean_bits (processor: RUNNER_PROCESSOR) is
+   builtin_boolean_bits (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer(Boolean_bits))
       end
 
-   builtin_character_bits (processor: RUNNER_PROCESSOR) is
+   builtin_character_bits (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer(Character_bits))
       end
 
-   builtin_integer_bits (processor: RUNNER_PROCESSOR) is
+   builtin_integer_bits (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer(Integer_bits))
       end
 
-   builtin_pointer_bits (processor: RUNNER_PROCESSOR) is
+   builtin_pointer_bits (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_integer_16(Pointer_bits))
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

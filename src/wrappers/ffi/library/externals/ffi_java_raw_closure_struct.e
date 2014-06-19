@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	FFI_TYPES
 feature {} -- Low-level setters
 
-	ffi_java_raw_closure_struct_set_tramp (a_structure: POINTER; a_value: POINTER) is
+	ffi_java_raw_closure_struct_set_tramp (a_structure: POINTER; a_value: POINTER)
 			-- Setter for tramp field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_java_raw_closure_struct_set_cif (a_structure: POINTER; a_value: POINTER) is
+	ffi_java_raw_closure_struct_set_cif (a_structure: POINTER; a_value: POINTER)
 			-- Setter for cif field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_java_raw_closure_struct_set_fun (a_structure: POINTER; a_value: POINTER) is
+	ffi_java_raw_closure_struct_set_fun (a_structure: POINTER; a_value: POINTER)
 			-- Setter for fun field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_java_raw_closure_struct_set_user_data (a_structure: POINTER; a_value: POINTER) is
+	ffi_java_raw_closure_struct_set_user_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for user_data field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ffi_java_raw_closure_struct_get_tramp (a_structure: POINTER): POINTER is
+	ffi_java_raw_closure_struct_get_tramp (a_structure: POINTER): POINTER
 			-- Query for tramp field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_java_raw_closure_struct_get_cif (a_structure: POINTER): POINTER is
+	ffi_java_raw_closure_struct_get_cif (a_structure: POINTER): POINTER
 			-- Query for cif field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_java_raw_closure_struct_get_fun (a_structure: POINTER): POINTER is
+	ffi_java_raw_closure_struct_get_fun (a_structure: POINTER): POINTER
 			-- Query for fun field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_java_raw_closure_struct_get_user_data (a_structure: POINTER): POINTER is
+	ffi_java_raw_closure_struct_get_user_data (a_structure: POINTER): POINTER
 			-- Query for user_data field of FFI_JAVA_RAW_CLOSURE_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

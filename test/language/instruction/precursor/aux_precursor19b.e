@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   foo (i: INTEGER) is
+   foo (i: INTEGER)
       do
          Precursor(i * 2)
       end

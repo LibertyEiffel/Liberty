@@ -18,70 +18,70 @@ create {FEATURE_CALL}
    make
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := target.start_position
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := target.is_static
       end
 
-   is_writable: BOOLEAN is
+   is_writable: BOOLEAN
       do
          Result := target.is_writable
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := target.is_result
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check
             False
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := target_type
       ensure then
          Result.can_be_assigned_to(target.resolve_in(type))
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := target.collect(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check
             False
-            -- Because `Current' is created after `status.collecting_done', this information is
+            -- Because `Current' is created after `status.collecting_done', this information
             -- not available.
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          target.safety_check(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          t: like target
       do
@@ -94,24 +94,24 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := target.use_current(type)
       end
 
-   accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_VISITOR) is
+   accept (visitor: DYNAMIC_DISPATCH_TEMPORARY1_VISITOR)
       do
          visitor.visit_dynamic_dispatch_temporary1(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
-   set_target (t: like target) is
+   set_target (t: like target)
       require
          t /= Void
       do
@@ -126,7 +126,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_VISITOR}
    target_type: TYPE
 
 feature {}
-   make (t: like target; tt: like target_type) is
+   make (t: like target; tt: like target_type)
       require
          t /= Void
          tt /= Void

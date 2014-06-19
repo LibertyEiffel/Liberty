@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gflags_class_struct_set_mask (a_structure: POINTER; a_value: NATURAL) is
+	gflags_class_struct_set_mask (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for mask field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gflags_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL) is
+	gflags_class_struct_set_n_values (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for n_values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gflags_class_struct_set_values (a_structure: POINTER; a_value: POINTER) is
+	gflags_class_struct_set_values (a_structure: POINTER; a_value: POINTER)
 			-- Setter for values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field g_type_class.
-	gflags_class_struct_get_mask (a_structure: POINTER): NATURAL is
+	gflags_class_struct_get_mask (a_structure: POINTER): NATURAL
 			-- Query for mask field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gflags_class_struct_get_n_values (a_structure: POINTER): NATURAL is
+	gflags_class_struct_get_n_values (a_structure: POINTER): NATURAL
 			-- Query for n_values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gflags_class_struct_get_values (a_structure: POINTER): POINTER is
+	gflags_class_struct_get_values (a_structure: POINTER): POINTER
 			-- Query for values field of GFLAGS_CLASS_STRUCT structure.
 			-- TODO: getter description
 
@@ -84,7 +84,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

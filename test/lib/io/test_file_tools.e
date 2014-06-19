@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    file_tools: FILE_TOOLS
 
-   make is
+   make
       local
          tfw: TEXT_FILE_WRITE; path: STRING; ft: FILE_TOOLS; s: INTEGER; bt1, bt2: TIME; tif: TIME_IN_FRENCH
       do
@@ -38,7 +38,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

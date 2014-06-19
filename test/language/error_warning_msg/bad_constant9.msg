@@ -5,6 +5,6 @@ of the feature `f'. Actually, feature `f' has an argument list.
 Bad constant-attribute definition.
 
 Line 15 column 4 in BAD_CONSTANT9 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constant9.e):
-   f (i:INTEGER): INTEGER is 3
-   ^                          
+   f (i:INTEGER): INTEGER 3
+   ^                       
 ------

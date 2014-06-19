@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_element_content_struct_set_type (a_structure: POINTER; a_value: INTEGER) is
+	xml_element_content_struct_set_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for type field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_ocur (a_structure: POINTER; a_value: INTEGER) is
+	xml_element_content_struct_set_ocur (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for ocur field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	xml_element_content_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_c1 (a_structure: POINTER; a_value: POINTER) is
+	xml_element_content_struct_set_c1 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for c1 field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_c2 (a_structure: POINTER; a_value: POINTER) is
+	xml_element_content_struct_set_c2 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for c2 field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_parent (a_structure: POINTER; a_value: POINTER) is
+	xml_element_content_struct_set_parent (a_structure: POINTER; a_value: POINTER)
 			-- Setter for parent field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_element_content_struct_set_prefix (a_structure: POINTER; a_value: POINTER) is
+	xml_element_content_struct_set_prefix (a_structure: POINTER; a_value: POINTER)
 			-- Setter for prefix field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_element_content_struct_get_type (a_structure: POINTER): INTEGER is
+	xml_element_content_struct_get_type (a_structure: POINTER): INTEGER
 			-- Query for type field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_ocur (a_structure: POINTER): INTEGER is
+	xml_element_content_struct_get_ocur (a_structure: POINTER): INTEGER
 			-- Query for ocur field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_name (a_structure: POINTER): POINTER is
+	xml_element_content_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_c1 (a_structure: POINTER): POINTER is
+	xml_element_content_struct_get_c1 (a_structure: POINTER): POINTER
 			-- Query for c1 field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_c2 (a_structure: POINTER): POINTER is
+	xml_element_content_struct_get_c2 (a_structure: POINTER): POINTER
 			-- Query for c2 field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_parent (a_structure: POINTER): POINTER is
+	xml_element_content_struct_get_parent (a_structure: POINTER): POINTER
 			-- Query for parent field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_element_content_struct_get_prefix (a_structure: POINTER): POINTER is
+	xml_element_content_struct_get_prefix (a_structure: POINTER): POINTER
 			-- Query for prefix field of XML_ELEMENT_CONTENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -179,7 +179,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

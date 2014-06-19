@@ -10,13 +10,13 @@ create {LOG_FILE_OPTIONS}
    make
 
 feature {LOG_FILE_OPTIONS, LOG_FILE_OPTION}
-   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM is
+   retrieve (stream: OUTPUT_STREAM): OUTPUT_STREAM
       do
          Result := stream
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -28,7 +28,7 @@ end -- class LOG_FILE_PASS_THROUGH
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

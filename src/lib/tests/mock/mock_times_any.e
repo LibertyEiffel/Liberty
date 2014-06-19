@@ -7,17 +7,17 @@ inherit
    MOCK_TIMES
 
 feature {MOCK_EXPECTATION}
-   can_call: BOOLEAN is True
+   can_call: BOOLEAN True
 
-   call is
+   call
       do
       end
 
-   all_called is
+   all_called
       do
       end
 
-   all_done: BOOLEAN is True
+   all_done: BOOLEAN True
 
 end -- class MOCK_TIMES_ANY
 --
@@ -27,7 +27,7 @@ end -- class MOCK_TIMES_ANY
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

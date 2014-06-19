@@ -8,7 +8,7 @@ insert
 create {ANY} make
 
 feature {ANY} 
-	make is
+	make
 		-- entry point
 	do
 		if argument_count<1 then 
@@ -24,7 +24,7 @@ feature {ANY}
 
 	doc: XML2_DOC
 
-	parse (a_node: XML2_NODE) is
+	parse (a_node: XML2_NODE)
 		-- Recursively parse `a_node'.
 	local child: XML2_NODE
 	do

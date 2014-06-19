@@ -14,7 +14,7 @@ feature {ANY}
    roots: FAST_ARRAY[HTML_ELEMENT]
 
 feature {}
-   parse (in: INPUT_STREAM) is
+   parse (in: INPUT_STREAM)
       local
          elt: HTML_ELEMENT
       do
@@ -33,7 +33,7 @@ feature {}
 
    current_node: HTML_NODE
 
-   a_element (in: INPUT_STREAM): HTML_ELEMENT is
+   a_element (in: INPUT_STREAM): HTML_ELEMENT
       local
          c: CHARACTER
       do
@@ -47,7 +47,7 @@ feature {}
          end
       end
 
-   a_node (in: INPUT_STREAM): HTML_NODE is
+   a_node (in: INPUT_STREAM): HTML_NODE
       local
          c: CHARACTER; stop, no_children, closing_element, comment: BOOLEAN; name: STRING; s: INTEGER
          child: HTML_ELEMENT; cnode: like current_node
@@ -196,7 +196,7 @@ feature {}
          end
       end
 
-   a_attribute (in: INPUT_STREAM; node: HTML_NODE) is
+   a_attribute (in: INPUT_STREAM; node: HTML_NODE)
       local
          c, stop_char: CHARACTER; nat, val: STRING; stop: BOOLEAN
       do
@@ -279,7 +279,7 @@ feature {}
          end
       end
 
-   skip_blanks (in: INPUT_STREAM) is
+   skip_blanks (in: INPUT_STREAM)
       local
          stop: BOOLEAN
       do
@@ -299,7 +299,7 @@ feature {}
          end
       end
 
-   a_text (in: INPUT_STREAM): HTML_TEXT is
+   a_text (in: INPUT_STREAM): HTML_TEXT
       local
          c: CHARACTER; text: STRING; stop: BOOLEAN
       do
@@ -331,12 +331,12 @@ feature {}
          end
       end
 
-   a_character (in: INPUT_STREAM): CHARACTER is
+   a_character (in: INPUT_STREAM): CHARACTER
       do
          Result := in.last_character
       end
 
-   next_character (in: INPUT_STREAM) is
+   next_character (in: INPUT_STREAM)
       do
          in.read_character
       end
@@ -349,7 +349,7 @@ end -- class HTML_PARSER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

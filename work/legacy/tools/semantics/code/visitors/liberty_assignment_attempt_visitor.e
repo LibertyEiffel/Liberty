@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ASSIGNMENT_ATTEMPT}
-   visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT) is
+   visit_liberty_assignment_attempt (v: LIBERTY_ASSIGNMENT_ATTEMPT)
       deferred
       end
 

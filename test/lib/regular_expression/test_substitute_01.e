@@ -15,7 +15,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aa_matcher: REGULAR_EXPRESSION
       do
@@ -54,31 +54,31 @@ feature {}
          assert(aa_matcher.last_substitution.is_equal(subfrom6))
       end
 
-   text1: STRING is "Little message without the pattern."
+   text1: STRING "Little message without the pattern."
 
-   text2: STRING is "aa apears one time in the begining."
+   text2: STRING "aa apears one time in the begining."
 
-   text3: STRING is "The pattern aa in the middle."
+   text3: STRING "The pattern aa in the middle."
 
-   text4: STRING is "Here in the end aa"
+   text4: STRING "Here in the end aa"
 
-   text5: STRING is "aa"
+   text5: STRING "aa"
 
-   text6: STRING is "aa pattern appears many times aa in the string."
+   text6: STRING "aa pattern appears many times aa in the string."
 
-   sub2: STRING is "abc apears one time in the begining."
+   sub2: STRING "abc apears one time in the begining."
 
-   sub3: STRING is "The pattern abc in the middle."
+   sub3: STRING "The pattern abc in the middle."
 
-   sub4: STRING is "Here in the end abc"
+   sub4: STRING "Here in the end abc"
 
-   sub5: STRING is "abc"
+   sub5: STRING "abc"
 
-   sub6: STRING is "abc pattern appears many times aa in the string."
+   sub6: STRING "abc pattern appears many times aa in the string."
 
-   suball6: STRING is "abc pattern appears many times abc in the string."
+   suball6: STRING "abc pattern appears many times abc in the string."
 
-   subfrom6: STRING is "aa pattern appears many times abc in the string."
+   subfrom6: STRING "aa pattern appears many times abc in the string."
 
 end -- class TEST_SUBSTITUTE_01
 --

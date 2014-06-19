@@ -7,6 +7,6 @@ Line 14 column 48 in BAD_CREATION7 (/home/cadrian/Workspace/Dev/Liberty/test/lan
          fast_array := {FAST_ARRAY[INTEGER] << Void, 2 >> }
                                                ^           
 Line 408 column 43 in FAST_ARRAY (/home/cadrian/Workspace/Dev/Liberty/src/lib/storage/collection/fast_array.e):
-   manifest_put (index: INTEGER; element: like item) is
-                                          ^            
+   manifest_put (index: INTEGER; element: like item)
+                                          ^         
 ------

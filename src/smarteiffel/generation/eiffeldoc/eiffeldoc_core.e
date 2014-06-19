@@ -18,7 +18,7 @@ create {EIFFELDOC}
    make
 
 feature {EIFFELDOC}
-   add (ct: CLASS_TEXT) is
+   add (ct: CLASS_TEXT)
       local
          c: CLUSTER; ac: FAST_ARRAY[CLASS_TEXT]; pl: PARENT_LISTS
       do
@@ -42,7 +42,7 @@ feature {EIFFELDOC}
          end
       end
 
-   do_doc is
+   do_doc
       local
          i: INTEGER; c: CLUSTER; ct: CLASS_TEXT; class_name_todo: CLASS_NAME
       do
@@ -88,7 +88,7 @@ feature {EIFFELDOC}
       end
 
 feature {PARENT_LISTS}
-   visit_parent_lists (visited: PARENT_LISTS) is
+   visit_parent_lists (visited: PARENT_LISTS)
       do
          check
             visited.class_text = class_text
@@ -99,7 +99,7 @@ feature {PARENT_LISTS}
 
 feature {}
    add_children (parents: FAST_ARRAY[PARENT_EDGE]
-      children: HASHED_DICTIONARY[FAST_ARRAY[CLASS_TEXT], CLASS_NAME]) is
+      children: HASHED_DICTIONARY[FAST_ARRAY[CLASS_TEXT], CLASS_NAME])
       local
          i: INTEGER; ac: FAST_ARRAY[CLASS_TEXT]; ct: CLASS_TEXT
       do
@@ -124,7 +124,7 @@ feature {}
       end
 
 feature {CLUSTER}
-   visit_cluster (visited: CLUSTER) is
+   visit_cluster (visited: CLUSTER)
       local
          i: INTEGER; ac: FAST_ARRAY[CLASS_TEXT]; ct: CLASS_TEXT
       do
@@ -148,7 +148,7 @@ feature {CLUSTER}
       end
 
 feature {}
-   make (a_context: EIFFELDOC_CONTEXT) is
+   make (a_context: EIFFELDOC_CONTEXT)
       require
          a_context /= Void
       do

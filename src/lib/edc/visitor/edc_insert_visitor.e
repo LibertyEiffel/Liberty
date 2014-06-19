@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_INSERT}
-   visit_insert (a_insert: EDC_INSERT) is
+   visit_insert (a_insert: EDC_INSERT)
       deferred
       end
 

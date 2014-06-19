@@ -7,227 +7,227 @@ insert
    PACKRAT
 
 feature {PACKRAT_GRAMMAR}
-   reduce_nonterminal_def is
+   reduce_nonterminal_def
       deferred
       end
 
-   reduce_grammar is
+   reduce_grammar
       deferred
       end
 
-   reduce_pattern_first_alternative is
+   reduce_pattern_first_alternative
       deferred
       end
 
-   reduce_pattern_alternative is
+   reduce_pattern_alternative
       deferred
       end
 
-   reduce_pattern is
+   reduce_pattern
       deferred
       end
 
-   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE)
       deferred
       end
 
-   reduce_alternative_lookahead is
+   reduce_alternative_lookahead
       deferred
       end
 
-   reduce_alternative_suffix_tag is
+   reduce_alternative_suffix_tag
       deferred
       end
 
-   reduce_alternative_tag is
+   reduce_alternative_tag
       deferred
       end
 
-   reduce_alternative is
+   reduce_alternative
       deferred
       end
 
-   reduce_quantifier is
+   reduce_quantifier
       deferred
       end
 
-   reduce_suffix is
+   reduce_suffix
       deferred
       end
 
-   reduce_primary_as_nested_pattern is
+   reduce_primary_as_nested_pattern
       deferred
       end
 
-   reduce_primary_as_any is
+   reduce_primary_as_any
       deferred
       end
 
-   reduce_primary_as_literal is
+   reduce_primary_as_literal
       deferred
       end
 
-   reduce_primay_as_charclass is
+   reduce_primay_as_charclass
       deferred
       end
 
-   reduce_primary_as_nonterminal is
+   reduce_primary_as_nonterminal
       deferred
       end
 
-   reduce_literal_start is
+   reduce_literal_start
       deferred
       end
 
-   reduce_literal_string is
+   reduce_literal_string
       deferred
       end
 
-   reduce_literal is
+   reduce_literal
       deferred
       end
 
-   reduce_tag_start is
+   reduce_tag_start
       deferred
       end
 
-   reduce_tag_string is
+   reduce_tag_string
       deferred
       end
 
-   reduce_tag is
+   reduce_tag
       deferred
       end
 
-   reduce_charclass_start is
+   reduce_charclass_start
       deferred
       end
 
-   reduce_charclass_range is
+   reduce_charclass_range
       deferred
       end
 
-   reduce_charclass_char is
+   reduce_charclass_char
       deferred
       end
 
-   reduce_charclass_class is
+   reduce_charclass_class
       deferred
       end
 
-   reduce_charclass is
+   reduce_charclass
       deferred
       end
 
-   reduce_nonterminal_name is
+   reduce_nonterminal_name
       deferred
       end
 
-   reduce_nonterminal is
+   reduce_nonterminal
       deferred
       end
 
-   reduce_space is
+   reduce_space
       deferred
       end
 
-   reduce_image_left_arrow (image: PARSER_IMAGE) is
+   reduce_image_left_arrow (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_slash (image: PARSER_IMAGE) is
+   reduce_image_slash (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_not_and (image: PARSER_IMAGE) is
+   reduce_image_not_and (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_star_plus_why (image: PARSER_IMAGE) is
+   reduce_image_star_plus_why (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_open_paren (image: PARSER_IMAGE) is
+   reduce_image_open_paren (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_close_paren (image: PARSER_IMAGE) is
+   reduce_image_close_paren (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_anychar (image: PARSER_IMAGE) is
+   reduce_image_anychar (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_letter (image: PARSER_IMAGE) is
+   reduce_image_letter (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_string (image: PARSER_IMAGE) is
+   reduce_image_string (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_quote (image: PARSER_IMAGE) is
+   reduce_image_quote (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_hyphen (image: PARSER_IMAGE) is
+   reduce_image_hyphen (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_dot (image: PARSER_IMAGE) is
+   reduce_image_dot (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_open_bracket (image: PARSER_IMAGE) is
+   reduce_image_open_bracket (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_close_bracket (image: PARSER_IMAGE) is
+   reduce_image_close_bracket (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_open_curly (image: PARSER_IMAGE) is
+   reduce_image_open_curly (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_close_curly (image: PARSER_IMAGE) is
+   reduce_image_close_curly (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
       end
 
-   reduce_image_space (image: PARSER_IMAGE) is
+   reduce_image_space (image: PARSER_IMAGE)
       require
          image /= Void
       deferred
@@ -241,7 +241,7 @@ end -- class PACKRAT_REDUCER
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

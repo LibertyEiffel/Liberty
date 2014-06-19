@@ -10,12 +10,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(like_is_equal(Void))
       end
 
-   like_is_equal (other: like Current): BOOLEAN is
+   like_is_equal (other: like Current): BOOLEAN
       do
          Result := True
       end

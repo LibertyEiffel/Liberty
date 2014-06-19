@@ -20,7 +20,7 @@ feature {ANY}
          -- The one actually written in the source code (`as_integer_8', `as_integer_16', `as_integer'
          -- or `as_integer_64').
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
       local
          ta: TYPE_ALIASING
       do
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   bit_count: INTEGER is
+   bit_count: INTEGER
          -- Result is 8, 16, 32 or 64.
       do
          Result := bit_count_memory
@@ -44,7 +44,7 @@ feature {ANY}
          (Result = 8) or (Result = 16) or (Result = 32) or (Result = 64)
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          inspect
             bit_count
@@ -59,7 +59,7 @@ feature {ANY}
          end
       end
 
-   type: TYPE is
+   type: TYPE
       do
          inspect
             bit_count
@@ -74,39 +74,39 @@ feature {ANY}
          end
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   default_expression (sp: POSITION): EXPRESSION is
+   default_expression (sp: POSITION): EXPRESSION
       do
          create {INTEGER_CONSTANT} Result.with(0, sp, Current)
       end
 
-   accept (visitor: INTEGER_TYPE_MARK_VISITOR) is
+   accept (visitor: INTEGER_TYPE_MARK_VISITOR)
       do
          visitor.visit_integer_type_mark(Current)
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       do
          buffer.append(pretty_name.to_string)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := class_text_name.hashed_name
       end
 
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is
+   structure_mark: CHARACTER
       do
          inspect
             bit_count
@@ -122,7 +122,7 @@ feature {LIVE_TYPE}
       end
 
 feature {TYPE}
-   can_be_assigned_to (other: TYPE_MARK): BOOLEAN is
+   can_be_assigned_to (other: TYPE_MARK): BOOLEAN
       local
          integer_type_mark: INTEGER_TYPE_MARK; real_type_mark: REAL_TYPE_MARK
       do
@@ -142,28 +142,28 @@ feature {}
    bit_count_memory: INTEGER
          -- (See `bit_count'.)
 
-   integer_8 (sp: like start_position) is
+   integer_8 (sp: like start_position)
       do
          bit_count_memory := 8
          pretty_name := integer_8_name
          create class_text_name.make(integer_8_name, sp, False)
       end
 
-   integer_16 (sp: like start_position) is
+   integer_16 (sp: like start_position)
       do
          bit_count_memory := 16
          pretty_name := integer_16_name
          create class_text_name.make(integer_16_name, sp, False)
       end
 
-   integer_32 (sp: like start_position) is
+   integer_32 (sp: like start_position)
       do
          bit_count_memory := 32
          pretty_name := integer_32_name
          create class_text_name.make(integer_32_name, sp, False)
       end
 
-   integer (sp: like start_position) is
+   integer (sp: like start_position)
       local
          ta: TYPE_ALIASING
       do
@@ -172,39 +172,39 @@ feature {}
          create class_text_name.make(ta.integer_alias, sp, False)
       end
 
-   integer_64 (sp: like start_position) is
+   integer_64 (sp: like start_position)
       do
          bit_count_memory := 64
          pretty_name := integer_64_name
          create class_text_name.make(integer_64_name, sp, False)
       end
 
-   integer_8_name: HASHED_STRING is
+   integer_8_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_8)
       end
 
-   integer_16_name: HASHED_STRING is
+   integer_16_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_16)
       end
 
-   integer_32_name: HASHED_STRING is
+   integer_32_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_32)
       end
 
-   integer_name: HASHED_STRING is
+   integer_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer)
       end
 
-   integer_64_name: HASHED_STRING is
+   integer_64_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_64)
       end
 
-   integer_general_name: HASHED_STRING is
+   integer_general_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_integer_general)
       end

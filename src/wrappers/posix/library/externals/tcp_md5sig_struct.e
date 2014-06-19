@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	tcp_md5sig_struct_set_tcpm_keylen (a_structure: POINTER; a_value: NATURAL_16) is
+	tcp_md5sig_struct_set_tcpm_keylen (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for tcpm_keylen field of TCP_MD5SIG_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcp_md5sig_struct_set_tcpm_key (a_structure: POINTER; a_value: POINTER) is
+	tcp_md5sig_struct_set_tcpm_key (a_structure: POINTER; a_value: POINTER)
 			-- Setter for tcpm_key field of TCP_MD5SIG_STRUCT structure.
 			-- TODO: setter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field tcpm_addr.
 	-- Unwrappable field __tcpm_pad1.
-	tcp_md5sig_struct_get_tcpm_keylen (a_structure: POINTER): NATURAL_16 is
+	tcp_md5sig_struct_get_tcpm_keylen (a_structure: POINTER): NATURAL_16
 			-- Query for tcpm_keylen field of TCP_MD5SIG_STRUCT structure.
 			-- TODO: getter description
 
@@ -49,7 +49,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field __tcpm_pad2.
-	tcp_md5sig_struct_get_tcpm_key (a_structure: POINTER): POINTER is
+	tcp_md5sig_struct_get_tcpm_key (a_structure: POINTER): POINTER
 			-- Query for tcpm_key field of TCP_MD5SIG_STRUCT structure.
 			-- TODO: getter description
 
@@ -62,7 +62,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

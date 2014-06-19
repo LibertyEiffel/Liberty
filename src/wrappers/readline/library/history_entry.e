@@ -10,13 +10,13 @@ insert
 
 create {READ_LINE_HISTORY} from_external_pointer
 feature {ANY} 
-	line: FIXED_STRING is
+	line: FIXED_STRING
 		do
 			create Result.from_external(hist_entry_struct_get_line(handle))
 		ensure not_void: Result/=Void
 		end
 
-	timestamp: STRING is
+	timestamp: STRING
 		local p: POINTER
 		do
 			p := hist_entry_struct_get_timestamp(handle)

@@ -15,18 +15,18 @@ feature {ANY}
 
    msg: STRING
 
-   no_arg is
+   no_arg
       do
          last_call := 1
       end
 
-   str_arg (s: STRING) is
+   str_arg (s: STRING)
       do
          last_call := 2
          msg := s
       end
 
-   make is
+   make
       local
          a: PROCEDURE[TUPLE]
       do

@@ -22,23 +22,23 @@ inherit
       end
 
 feature {ANY}
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "/" (other: like Current): REAL is
+   infix "/" (other: like Current): REAL
       external "built_in"
       end
 
-   infix "//" (other: like Current): like Current is
+   infix "//" (other: like Current): like Current
       do
          if Current >= 0 then
             Result := Current #// other
@@ -49,7 +49,7 @@ feature {ANY}
          end
       end
 
-   infix "\\" (other: like Current): like Current is
+   infix "\\" (other: like Current): like Current
       do
          Result := Current #\\ other
          if Result < 0 then
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   infix "^" (exp: like Current): INTEGER_64 is
+   infix "^" (exp: like Current): INTEGER_64
       local
          i: like Current; k: INTEGER_64
       do
@@ -88,7 +88,7 @@ feature {ANY}
          end
       end
 
-   abs: like Current is
+   abs: like Current
       do
          if Current < 0 then
             Result := -Current
@@ -97,54 +97,54 @@ feature {ANY}
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix "<=" (other: like Current): BOOLEAN is
+   infix "<=" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix ">" (other: like Current): BOOLEAN is
+   infix ">" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   infix ">=" (other: like Current): BOOLEAN is
+   infix ">=" (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   prefix "+": like Current is
+   prefix "+": like Current
       do
          Result := Current
       end
 
-   prefix "-": like Current is
+   prefix "-": like Current
       external "built_in"
       end
 
-   is_odd: BOOLEAN is
+   is_odd: BOOLEAN
       do
          Result := Current & 1 /= 0
       end
 
-   is_even: BOOLEAN is
+   is_even: BOOLEAN
       do
          Result := Current & 1 = 0
       end
 
-   sqrt: REAL is
+   sqrt: REAL
       deferred
       end
 
-   log: REAL is
+   log: REAL
       deferred
       end
 
-   log10: REAL is
+   log10: REAL
       deferred
       end
 
-   gcd (other: like Current): like Current is
+   gcd (other: like Current): like Current
       do
          if other = 0 then
             Result := Current.abs
@@ -154,30 +154,30 @@ feature {ANY}
       end
 
 feature {ANY} -- Conversions:
-   to_string: STRING is
+   to_string: STRING
       do
          string_buffer.clear_count
          append_in(string_buffer)
          Result := string_buffer.twin
       end
 
-   to_unicode_string: UNICODE_STRING is
+   to_unicode_string: UNICODE_STRING
       do
          unicode_string_buffer.clear_count
          append_in_unicode(unicode_string_buffer)
          Result := unicode_string_buffer.twin
       end
 
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
       do
          Result := Current /= 0
       end
 
-   to_number: NUMBER is
+   to_number: NUMBER
       deferred
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       local
          val: like Current; i, idx: INTEGER
       do
@@ -225,7 +225,7 @@ feature {ANY} -- Conversions:
          end
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
       local
          val: like Current; i, idx: INTEGER
       do
@@ -273,7 +273,7 @@ feature {ANY} -- Conversions:
          end
       end
 
-   to_string_format (s: INTEGER): STRING is
+   to_string_format (s: INTEGER): STRING
       local
          i: INTEGER
       do
@@ -291,7 +291,7 @@ feature {ANY} -- Conversions:
          Result.append(string_buffer)
       end
 
-   to_unicode_string_format (s: INTEGER): UNICODE_STRING is
+   to_unicode_string_format (s: INTEGER): UNICODE_STRING
       local
          i: INTEGER
       do
@@ -309,7 +309,7 @@ feature {ANY} -- Conversions:
          Result.append(unicode_string_buffer)
       end
 
-   append_in_format (buffer: STRING; s: INTEGER) is
+   append_in_format (buffer: STRING; s: INTEGER)
       local
          i: INTEGER
       do
@@ -326,7 +326,7 @@ feature {ANY} -- Conversions:
          buffer.append(string_buffer)
       end
 
-   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
+   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER)
       local
          i: INTEGER
       do
@@ -343,34 +343,34 @@ feature {ANY} -- Conversions:
          buffer.append(unicode_string_buffer)
       end
 
-   digit: CHARACTER is
+   digit: CHARACTER
       do
          Result := decimal_digit
       end
 
-   is_decimal_digit: BOOLEAN is
+   is_decimal_digit: BOOLEAN
       do
          Result := in_range(0, 9)
       end
 
-   decimal_digit: CHARACTER is
+   decimal_digit: CHARACTER
       deferred
       end
 
-   is_hexadecimal_digit: BOOLEAN is
+   is_hexadecimal_digit: BOOLEAN
       do
          Result := in_range(0, 15)
       end
 
-   hexadecimal_digit: CHARACTER is
+   hexadecimal_digit: CHARACTER
       deferred
       end
 
-   to_character: CHARACTER is
+   to_character: CHARACTER
       external "built_in"
       end
 
-   to_octal_in (buffer: STRING) is
+   to_octal_in (buffer: STRING)
       local
          index, timez: INTEGER; value: like Current
       do
@@ -389,21 +389,21 @@ feature {ANY} -- Conversions:
          end
       end
 
-   to_octal: STRING is
+   to_octal: STRING
       do
          string_buffer.clear_count
          to_octal_in(string_buffer)
          Result := string_buffer.twin
       end
 
-   to_hexadecimal: STRING is
+   to_hexadecimal: STRING
       do
          string_buffer.clear_count
          to_hexadecimal_in(string_buffer)
          Result := string_buffer.twin
       end
 
-   to_hexadecimal_in (buffer: STRING) is
+   to_hexadecimal_in (buffer: STRING)
       local
          index, timez: INTEGER; value: like Current
       do
@@ -423,12 +423,12 @@ feature {ANY} -- Conversions:
       end
 
 feature {ANY} -- Bitwise Logical Operators:
-   bit_test (idx: INTEGER_8): BOOLEAN is
+   bit_test (idx: INTEGER_8): BOOLEAN
       do
          Result := Current.bit_shift_right(idx) & 1 /= 0
       end
 
-   bit_set (idx: INTEGER_8): like Current is
+   bit_set (idx: INTEGER_8): like Current
       local
          mask: like Current
       do
@@ -436,7 +436,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result := Current.bit_or(mask.bit_shift_left(idx))
       end
 
-   bit_reset (idx: INTEGER_8): like Current is
+   bit_reset (idx: INTEGER_8): like Current
       local
          mask: like Current
       do
@@ -444,50 +444,50 @@ feature {ANY} -- Bitwise Logical Operators:
          Result := Current.bit_and(mask.bit_shift_left(idx).bit_not)
       end
 
-   infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
+   infix "|>>", bit_shift_right (s: INTEGER_8): like Current
          -- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
       external "built_in"
       end
 
-   infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current is
+   infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current
          -- Shift by `s' positions right (sign bit not copied) bits falling off the end are lost.
       external "built_in"
       end
 
-   infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
+   infix "|<<", bit_shift_left (s: INTEGER_8): like Current
          -- Shift by `s' positions left bits falling off the end are lost.
       external "built_in"
       end
 
-   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
+   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current
       external "built_in"
       end
 
-   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
+   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current
       external "built_in"
       end
 
-   bit_rotate (s: INTEGER_8): like Current is
+   bit_rotate (s: INTEGER_8): like Current
       external "built_in"
       end
 
-   prefix "~", bit_not: like Current is
+   prefix "~", bit_not: like Current
       external "built_in"
       end
 
-   infix "&", bit_and (other: like Current): like Current is
+   infix "&", bit_and (other: like Current): like Current
       external "built_in"
       end
 
-   infix "|", bit_or (other: like Current): like Current is
+   infix "|", bit_or (other: like Current): like Current
       external "built_in"
       end
 
-   bit_xor (other: like Current): like Current is
+   bit_xor (other: like Current): like Current
       external "built_in"
       end
 
-   bit_shift (s: INTEGER_8): like Current is
+   bit_shift (s: INTEGER_8): like Current
       do
          if s > 0 then
             Result := Current |>> s
@@ -496,7 +496,7 @@ feature {ANY} -- Bitwise Logical Operators:
          end
       end
 
-   bit_shift_unsigned (s: INTEGER_8): like Current is
+   bit_shift_unsigned (s: INTEGER_8): like Current
       do
          if s > 0 then
             Result := Current |>>> s
@@ -506,13 +506,13 @@ feature {ANY} -- Bitwise Logical Operators:
       end
 
 feature {ANY} -- Object Printing:
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          Current.append_in(tagged_out_memory)
       end
 
 feature {ANY} -- Miscellaneous:
-   sign: INTEGER_8 is
+   sign: INTEGER_8
       do
          if Current < 0 then
             Result := -1
@@ -521,24 +521,24 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   divisible (other: like Current): BOOLEAN is
+   divisible (other: like Current): BOOLEAN
       do
          Result := other /= 0
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
-   is_a_power_of_2: BOOLEAN is
+   is_a_power_of_2: BOOLEAN
          -- Is `Current' a power of 2?
       do
          Result := (Current - 1) & Current = 0
       end
 
 feature {ANY} -- Looping:
-   times (repeat: PROCEDURE[TUPLE[like Current]]) is
+   times (repeat: PROCEDURE[TUPLE[like Current]])
          -- Repeats the procedure from 1 to Current. As for any SmartEiffel agent the open argument may be
          -- safely ignored. You may also build your agent with closed arguments.
          --
@@ -560,7 +560,7 @@ feature {ANY} -- Looping:
          end
       end
 
-   loop_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]]) is
+   loop_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
          -- Repeats the procedure from Current to `bound'. As for any SmartEiffel agent the open argument may
          -- be safely ignored. You may also build your agent with closed arguments.
          --
@@ -579,7 +579,7 @@ feature {ANY} -- Looping:
          end
       end
 
-   loop_from (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]]) is
+   loop_from (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
          -- Repeats the procedure from `bound' to Current. As for any SmartEiffel agent the open argument may
          -- be safely ignored. You may also build your agent with closed arguments.
          --
@@ -590,7 +590,7 @@ feature {ANY} -- Looping:
          bound.loop_to(Current, repeat)
       end
 
-   loop_up_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]]) is
+   loop_up_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
          -- Repeats the procedure from Current to a greater `bound'. As for any SmartEiffel agent the open
          -- argument may be safely ignored. You may also build your agent with closed arguments.
          --
@@ -608,7 +608,7 @@ feature {ANY} -- Looping:
          end
       end
 
-   loop_down_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]]) is
+   loop_down_to (bound: like Current; repeat: PROCEDURE[TUPLE[like Current]])
          -- Repeats the procedure from Current to a lower `bound'. As for any SmartEiffel agent the open
          -- argument may be safely ignored. You may also build your agent with closed arguments.
          --
@@ -627,43 +627,43 @@ feature {ANY} -- Looping:
       end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
-   infix "#+" (other: like Current): like Current is
+   infix "#+" (other: like Current): like Current
       external "built_in"
       end
 
-   prefix "#-": like Current is
+   prefix "#-": like Current
       external "built_in"
       end
 
-   infix "#-" (other: like Current): like Current is
+   infix "#-" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#*" (other: like Current): like Current is
+   infix "#*" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#//" (other: like Current): like Current is
+   infix "#//" (other: like Current): like Current
       external "built_in"
       end
 
-   infix "#\\" (other: like Current): like Current is
+   infix "#\\" (other: like Current): like Current
       external "built_in"
       end
 
 feature {ANY} -- Size query
-   bit_count: INTEGER_8 is
+   bit_count: INTEGER_8
 	   -- The number of bits used to store the value of Current
       deferred
       end
 
 feature {}
-	string_buffer: STRING is
+	string_buffer: STRING
       once
          create Result.make(128)
       end
 
-   unicode_string_buffer: UNICODE_STRING is
+   unicode_string_buffer: UNICODE_STRING
       once
          create Result.make(128)
       end
@@ -676,7 +676,7 @@ end -- class INTEGER_GENERAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

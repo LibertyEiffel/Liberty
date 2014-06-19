@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    l: ARRAY[ANY]
 
-   make is
+   make
       do
       end
 

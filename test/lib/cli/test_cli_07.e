@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          custom_option: COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[AUX_CLI_07_CUSTOM_OPTION]]
       do
@@ -62,19 +62,19 @@ feature {}
          assert(custom_option.item.first.items.fast_reference_at("bar".intern).is_equal("anything else"))
       end
 
-   setup is
+   setup
       do
          command_arguments.make(1)
       end
 
    args: COMMAND_LINE_ARGUMENTS
 
-   validate (arg: STRING): BOOLEAN is
+   validate (arg: STRING): BOOLEAN
       do
          Result := not arg.is_empty
       end
 
-   decode (arg: STRING): AUX_CLI_07_CUSTOM_OPTION is
+   decode (arg: STRING): AUX_CLI_07_CUSTOM_OPTION
       do
          create Result.make(arg)
       end

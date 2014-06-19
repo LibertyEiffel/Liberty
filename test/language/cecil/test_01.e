@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          x: AUX_01; b: BOOLEAN
       do

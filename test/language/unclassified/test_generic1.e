@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          rb: AUX_GENERIC1[REAL]; sb: AUX_GENERIC1[STRING]
       do

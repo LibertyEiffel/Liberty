@@ -7,12 +7,12 @@ create {}
    main
 
 feature {ANY}
-   make is
+   make
       do
          (agent proc(?)).call([Void])
       end
 
-   proc (c: CHARACTER) is
+   proc (c: CHARACTER)
       do
       end
 

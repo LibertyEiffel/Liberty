@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_info_type_to_string (a_type: INTEGER): POINTER is
+	g_info_type_to_string (a_type: INTEGER): POINTER
  		-- g_info_type_to_string
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_array_fixed_size (an_info: POINTER): INTEGER is
+	g_type_info_get_array_fixed_size (an_info: POINTER): INTEGER
  		-- g_type_info_get_array_fixed_size
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_array_length (an_info: POINTER): INTEGER is
+	g_type_info_get_array_length (an_info: POINTER): INTEGER
  		-- g_type_info_get_array_length
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_array_type (an_info: POINTER): INTEGER is
+	g_type_info_get_array_type (an_info: POINTER): INTEGER
  		-- g_type_info_get_array_type
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_interface (an_info: POINTER): POINTER is
+	g_type_info_get_interface (an_info: POINTER): POINTER
  		-- g_type_info_get_interface
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_param_type (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_type_info_get_param_type (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_type_info_get_param_type
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_get_tag (an_info: POINTER): INTEGER is
+	g_type_info_get_tag (an_info: POINTER): INTEGER
  		-- g_type_info_get_tag
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_is_pointer (an_info: POINTER): INTEGER is
+	g_type_info_is_pointer (an_info: POINTER): INTEGER
  		-- g_type_info_is_pointer
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_info_is_zero_terminated (an_info: POINTER): INTEGER is
+	g_type_info_is_zero_terminated (an_info: POINTER): INTEGER
  		-- g_type_info_is_zero_terminated
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_tag_to_string (a_type: INTEGER): POINTER is
+	g_type_tag_to_string (a_type: INTEGER): POINTER
  		-- g_type_tag_to_string
 		external "plug_in"
 		alias "{

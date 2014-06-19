@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = tcp_ca_cwr_low_level)  or else
 				(a_value = tcp_ca_disorder_low_level)  or else
@@ -18,59 +18,59 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_tcp_ca_cwr is
+	set_tcp_ca_cwr
 		do
 			value := tcp_ca_cwr_low_level
 		end
 
-	set_tcp_ca_disorder is
+	set_tcp_ca_disorder
 		do
 			value := tcp_ca_disorder_low_level
 		end
 
-	set_tcp_ca_loss is
+	set_tcp_ca_loss
 		do
 			value := tcp_ca_loss_low_level
 		end
 
-	set_tcp_ca_open is
+	set_tcp_ca_open
 		do
 			value := tcp_ca_open_low_level
 		end
 
-	set_tcp_ca_recovery is
+	set_tcp_ca_recovery
 		do
 			value := tcp_ca_recovery_low_level
 		end
 
 feature -- Queries
-	is_tcp_ca_cwr: BOOLEAN is
+	is_tcp_ca_cwr: BOOLEAN
 		do
 			Result := (value=tcp_ca_cwr_low_level)
 		end
 
-	is_tcp_ca_disorder: BOOLEAN is
+	is_tcp_ca_disorder: BOOLEAN
 		do
 			Result := (value=tcp_ca_disorder_low_level)
 		end
 
-	is_tcp_ca_loss: BOOLEAN is
+	is_tcp_ca_loss: BOOLEAN
 		do
 			Result := (value=tcp_ca_loss_low_level)
 		end
 
-	is_tcp_ca_open: BOOLEAN is
+	is_tcp_ca_open: BOOLEAN
 		do
 			Result := (value=tcp_ca_open_low_level)
 		end
 
-	is_tcp_ca_recovery: BOOLEAN is
+	is_tcp_ca_recovery: BOOLEAN
 		do
 			Result := (value=tcp_ca_recovery_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	tcp_ca_cwr_low_level: INTEGER is
+	tcp_ca_cwr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -79,7 +79,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tcp_ca_disorder_low_level: INTEGER is
+	tcp_ca_disorder_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tcp_ca_loss_low_level: INTEGER is
+	tcp_ca_loss_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tcp_ca_open_low_level: INTEGER is
+	tcp_ca_open_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tcp_ca_recovery_low_level: INTEGER is
+	tcp_ca_recovery_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

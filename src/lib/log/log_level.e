@@ -11,7 +11,7 @@ feature {ANY}
    tag: FIXED_STRING
 
 feature {LOGGER}
-   stream (a_logger: LOGGER): OUTPUT_STREAM is
+   stream (a_logger: LOGGER): OUTPUT_STREAM
       require
          a_logger /= Void
       local
@@ -34,7 +34,7 @@ feature {LOGGER}
          Result /= Void
       end
 
-   does_log (a_level: like Current): BOOLEAN is
+   does_log (a_level: like Current): BOOLEAN
       require
          a_level /= Void
       do
@@ -42,7 +42,7 @@ feature {LOGGER}
       end
 
 feature {}
-   make (a_level: like level; a_tag: like tag) is
+   make (a_level: like level; a_tag: like tag)
       require
          a_tag /= Void
       do
@@ -53,7 +53,7 @@ feature {}
          tag = a_tag
       end
 
-   bottomless_pit: OUTPUT_STREAM is
+   bottomless_pit: OUTPUT_STREAM
       once
          create {NULL_OUTPUT_STREAM} Result
       end
@@ -69,7 +69,7 @@ end -- class LOG_LEVEL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

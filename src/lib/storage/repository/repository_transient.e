@@ -18,7 +18,7 @@ insert
    INTERNALS_HANDLER
 
 feature {ANY}
-   register (transient_object: INTERNALS; transient_reference: STRING) is
+   register (transient_object: INTERNALS; transient_reference: STRING)
          -- Register a `transient_object' with the given `transient_reference'.
       require
          not transient_object.type_is_expanded
@@ -40,7 +40,7 @@ feature {ANY}
          has_object(transient_reference)
       end
 
-   unregister (transient_reference: STRING) is
+   unregister (transient_reference: STRING)
          -- Unregister the `transient_reference'.
       require
          has_object(transient_reference)
@@ -58,14 +58,14 @@ feature {ANY}
          not has_object(transient_reference)
       end
 
-   has_object (a_transient_reference: STRING): BOOLEAN is
+   has_object (a_transient_reference: STRING): BOOLEAN
          -- True if the `transient_reference'" is registered.
       do
          Result := transient.has_value(a_transient_reference)
       end
 
 feature {REPOSITORY_IMPL}
-   reference (a_object: INTERNALS): STRING is
+   reference (a_object: INTERNALS): STRING
       require
          not a_object.type_is_expanded
          a_object.object_as_pointer /= default_pointer
@@ -82,7 +82,7 @@ feature {REPOSITORY_IMPL}
       end
 
 feature {REPOSITORY_LAYOUT}
-   object (a_reference: STRING): INTERNALS is
+   object (a_reference: STRING): INTERNALS
       require
          not a_reference.is_empty
          has_object(a_reference)
@@ -91,24 +91,24 @@ feature {REPOSITORY_LAYOUT}
       end
 
 feature {}
-   transient: HASHED_BIJECTIVE_DICTIONARY[STRING, REPOSITORY_TRANSIENT_OBJECT] is
+   transient: HASHED_BIJECTIVE_DICTIONARY[STRING, REPOSITORY_TRANSIENT_OBJECT]
          -- The key is the transient object, to speed up the most frequent operations which are `reference'
          -- and `object'.
       once
          create Result.with_capacity(2)
       end
 
-   transient_objects_pool: RECYCLING_POOL[REPOSITORY_TRANSIENT_OBJECT] is
+   transient_objects_pool: RECYCLING_POOL[REPOSITORY_TRANSIENT_OBJECT]
       once
          create Result.make
       end
 
-   dummy_transient_object: REPOSITORY_TRANSIENT_OBJECT is
+   dummy_transient_object: REPOSITORY_TRANSIENT_OBJECT
       once
          create Result.make
       end
 
-   strings: STRING_RECYCLING_POOL is
+   strings: STRING_RECYCLING_POOL
       once
          create Result.make
       end
@@ -121,7 +121,7 @@ end -- class REPOSITORY_TRANSIENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -15,18 +15,18 @@ feature {ANY}
          -- Of first letter of `like'.
 
 feature {TYPE_MARK}
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          start_position := sp
       end
 
 feature {}
-   written_mark_buffer: STRING is
+   written_mark_buffer: STRING
       once
          create Result.make(128)
       end
 
-   anchor_cycle_start is
+   anchor_cycle_start
       local
          i: INTEGER
       do
@@ -57,14 +57,14 @@ feature {}
          not visited.is_empty
       end
 
-   anchor_cycle_end is
+   anchor_cycle_end
       do
          if start_position = visited.first then
             visited.clear_count
          end
       end
 
-   visited: FAST_ARRAY[POSITION] is
+   visited: FAST_ARRAY[POSITION]
          -- Cycle detection.
       once
          create Result.with_capacity(4)

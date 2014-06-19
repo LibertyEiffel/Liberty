@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gtype_module_struct_set_use_count (a_structure: POINTER; a_value: NATURAL) is
+	gtype_module_struct_set_use_count (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for use_count field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_module_struct_set_type_infos (a_structure: POINTER; a_value: POINTER) is
+	gtype_module_struct_set_type_infos (a_structure: POINTER; a_value: POINTER)
 			-- Setter for type_infos field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_module_struct_set_interface_infos (a_structure: POINTER; a_value: POINTER) is
+	gtype_module_struct_set_interface_infos (a_structure: POINTER; a_value: POINTER)
 			-- Setter for interface_infos field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gtype_module_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	gtype_module_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: setter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gtype_module_struct_get_use_count (a_structure: POINTER): NATURAL is
+	gtype_module_struct_get_use_count (a_structure: POINTER): NATURAL
 			-- Query for use_count field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_module_struct_get_type_infos (a_structure: POINTER): POINTER is
+	gtype_module_struct_get_type_infos (a_structure: POINTER): POINTER
 			-- Query for type_infos field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_module_struct_get_interface_infos (a_structure: POINTER): POINTER is
+	gtype_module_struct_get_interface_infos (a_structure: POINTER): POINTER
 			-- Query for interface_infos field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gtype_module_struct_get_name (a_structure: POINTER): POINTER is
+	gtype_module_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of GTYPE_MODULE_STRUCT structure.
 			-- TODO: getter description
 
@@ -108,7 +108,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

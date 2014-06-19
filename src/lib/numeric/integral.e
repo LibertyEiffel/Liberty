@@ -16,7 +16,7 @@ insert
    PLATFORM
 
 feature {ANY}
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       require
          no_overflow: Current > zero = (other > zero) implies Current #+ other > zero = (Current > zero) -- this means: if operand are of same sign, it will be sign of the Result.
       deferred
@@ -24,7 +24,7 @@ feature {ANY}
          Result #- other = Current
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
       require
          no_overflow: Current > zero /= (other > zero) implies Current #- other > zero = (Current > zero) -- this means: if operand are of different sign, sign of the Result will be the same sign as Current.
       deferred
@@ -32,7 +32,7 @@ feature {ANY}
          Result #+ other = Current
       end
 
-   infix "*" (other: like Current): like Current is
+   infix "*" (other: like Current): like Current
       require
          no_overflow: (other /= zero) implies Current #* other #// other = Current
       deferred
@@ -42,11 +42,11 @@ feature {ANY}
          Result /= zero implies Result #\\ other = zero
       end
 
-   infix "/" (other: like Current): REAL is
+   infix "/" (other: like Current): REAL
       deferred
       end
 
-   infix "//" (other: like Current): like Current is
+   infix "//" (other: like Current): like Current
          -- Quotient of the euclidian division of `Current' by `other'.
          -- The corresponding remainder is given by infix "\\".
          --
@@ -60,7 +60,7 @@ feature {ANY}
          euclidian_divide_case2: Current < zero implies Result #* other #+ (Current \\ other) = Current
       end
 
-   infix "\\" (other: like Current): like Current is
+   infix "\\" (other: like Current): like Current
          -- Remainder of the euclidian division of `Current' by `other'.
          -- By definition, `zero <= Result < other.abs'.
          --
@@ -74,14 +74,14 @@ feature {ANY}
          good_remainder: Result #- (Current #\\ other) #\\ other = zero
       end
 
-   infix "^" (exp: like Current): INTEGER_64 is
+   infix "^" (exp: like Current): INTEGER_64
          -- Integer power of `Current' by `other'
       require
          exp >= zero
       deferred
       end
 
-   abs: like Current is
+   abs: like Current
          -- Absolute value of `Current'.
       require
          not_minimum_value: Current < zero implies zero < #-Current
@@ -90,64 +90,64 @@ feature {ANY}
          Result >= zero
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       deferred
       end
 
-   infix "<=" (other: like Current): BOOLEAN is
+   infix "<=" (other: like Current): BOOLEAN
       deferred
       end
 
-   infix ">" (other: like Current): BOOLEAN is
+   infix ">" (other: like Current): BOOLEAN
       deferred
       end
 
-   infix ">=" (other: like Current): BOOLEAN is
+   infix ">=" (other: like Current): BOOLEAN
       deferred
       end
 
-   prefix "+": like Current is
+   prefix "+": like Current
       deferred
       end
 
-   prefix "-": like Current is
+   prefix "-": like Current
       require
          not_minimum_value: Current < zero implies zero < #-Current
       deferred
       end
 
-   is_odd: BOOLEAN is
+   is_odd: BOOLEAN
          -- Is odd?
       deferred
       end
 
-   is_even: BOOLEAN is
+   is_even: BOOLEAN
          -- Is even?
       deferred
       end
 
-   sqrt: REAL is
+   sqrt: REAL
          -- Square root of `Current'.
       require
          Current >= zero
       deferred
       end
 
-   log: REAL is
+   log: REAL
          -- Natural Logarithm of `Current'.
       require
          Current > zero
       deferred
       end
 
-   log10: REAL is
+   log10: REAL
          -- Base-10 Logarithm of Current.
       require
          Current > zero
       deferred
       end
 
-   gcd (other: like Current): like Current is
+   gcd (other: like Current): like Current
          -- Greatest Common Divisor of `Current' and `other'.
       deferred
       ensure
@@ -156,7 +156,7 @@ feature {ANY}
          Result >= (one+one) implies Current \\ Result = zero and other \\ Result = zero and (Current // Result).gcd(other // Result) = one
       end
 
-   lcm (other: like Current): like Current is
+   lcm (other: like Current): like Current
          -- Least Common Multiple of `Current' and `other'.
       do
          Result := abs // gcd(other) * other.abs
@@ -167,7 +167,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Conversions:
-   to_string: STRING is
+   to_string: STRING
          -- The decimal view of `Current' into a new allocated STRING.
          -- For example, if `Current' is -1 the `Result' is "-1".
          --
@@ -175,7 +175,7 @@ feature {ANY} -- Conversions:
       deferred
       end
 
-   to_unicode_string: UNICODE_STRING is
+   to_unicode_string: UNICODE_STRING
          -- The decimal view of `Current' into a new allocated UNICODE_STRING.
          -- For example, if `Current' is -1 the `Result' is U"-1".
          --
@@ -183,7 +183,7 @@ feature {ANY} -- Conversions:
       deferred
       end
 
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
          -- Return False for 0, otherwise True.
          --
          -- See also `to_string', `to_character', `to_hexadecimal', `to_number'.
@@ -192,7 +192,7 @@ feature {ANY} -- Conversions:
          Result = (Current /= zero)
       end
 
-   to_number: NUMBER is
+   to_number: NUMBER
          -- Convert `Current' into a new allocated NUMBER.
          --
          -- See also `to_boolean', `to_string', `to_character', `to_hexadecimal'.
@@ -201,7 +201,7 @@ feature {ANY} -- Conversions:
          Result.to_string.is_equal(to_string)
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append in the `buffer' the equivalent of `to_string'.
          -- If you look for performances, you should always prefer `append_in' which allow you to recycle
          -- a unique common `buffer' (each call of `to_string' allocate a new object!).
@@ -212,7 +212,7 @@ feature {ANY} -- Conversions:
       deferred
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
          -- Append in the `buffer' the equivalent of `to_unicode_string'.
          -- If you look for performances, you should always prefer `append_in_unicode' which allow you to recycle
          -- a unique common `buffer' (each call of `to_unicode_string' allocate a new object!).
@@ -223,7 +223,7 @@ feature {ANY} -- Conversions:
       deferred
       end
 
-   to_string_format (s: INTEGER): STRING is
+   to_string_format (s: INTEGER): STRING
          -- Same as `to_string' but the result is on `s' character and the number is right aligned.
          --
          -- See also `append_in_format', `to_character', `to_number', `to_hexadecimal'.
@@ -234,7 +234,7 @@ feature {ANY} -- Conversions:
          Result.count = s
       end
 
-   to_unicode_string_format (s: INTEGER): UNICODE_STRING is
+   to_unicode_string_format (s: INTEGER): UNICODE_STRING
          -- Same as `to_unicode_string' but the result is on `s' character and the number is right aligned.
          --
          -- See also `append_in_unicode_format', `to_string', `to_hexadecimal', `to_octal'.
@@ -245,7 +245,7 @@ feature {ANY} -- Conversions:
          Result.count = s
       end
 
-   append_in_format (buffer: STRING; s: INTEGER) is
+   append_in_format (buffer: STRING; s: INTEGER)
          -- Append in the `buffer' the equivalent of `to_string_format'.
          -- If you look for performances, you should always prefer `append_in_format' which allow you to recycle
          -- a unique common `buffer' (each call of `to_string_format' allocate a new object!).
@@ -258,7 +258,7 @@ feature {ANY} -- Conversions:
          buffer.count >= old buffer.count + s
       end
 
-   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER) is
+   append_in_unicode_format (buffer: UNICODE_STRING; s: INTEGER)
          -- Append in the `buffer' the equivalent of `to_unicode_string_format'.
          -- If you look for performances, you should always prefer `append_in_unicode_format' which allow you to recycle
          -- a unique common `buffer' (each call of `to_unicode_string_format' allocate a new object!).
@@ -271,7 +271,7 @@ feature {ANY} -- Conversions:
          buffer.count >= old buffer.count + s
       end
 
-   digit: CHARACTER is
+   digit: CHARACTER
          -- Legacy synonym for `decimal_digit'.
          -- Note: already prefer `decimal_digit' because digit may become obsolete (feb 4th 2006).
       deferred
@@ -279,11 +279,11 @@ feature {ANY} -- Conversions:
          Result = decimal_digit
       end
 
-   is_decimal_digit: BOOLEAN is
+   is_decimal_digit: BOOLEAN
       deferred
       end
 
-   decimal_digit: CHARACTER is
+   decimal_digit: CHARACTER
          -- Gives the corresponding CHARACTER for range 0..9.
       require
          is_decimal_digit
@@ -293,11 +293,11 @@ feature {ANY} -- Conversions:
          --Current.is_equal(Result.value)
       end
 
-   is_hexadecimal_digit: BOOLEAN is
+   is_hexadecimal_digit: BOOLEAN
       deferred
       end
 
-   hexadecimal_digit: CHARACTER is
+   hexadecimal_digit: CHARACTER
          -- Gives the corresponding CHARACTER for range 0..15.
       require
          is_hexadecimal_digit
@@ -306,7 +306,7 @@ feature {ANY} -- Conversions:
          (once "0123456789ABCDEF").has(Result)
       end
 
-   to_character: CHARACTER is
+   to_character: CHARACTER
          -- Return the coresponding ASCII character.
          --
          -- See also `to_boolean', `to_number', `to_string', `to_hexadecimal'.
@@ -316,7 +316,7 @@ feature {ANY} -- Conversions:
       deferred
       end
 
-   to_octal_in (buffer: STRING) is
+   to_octal_in (buffer: STRING)
          -- Append in the `buffer' the equivalent of `to_octal'.
          -- If you look for performances, you should always prefer `to_octal_in' which allow you to recycle
          -- a unique common `buffer' (each call of `to_octal' allocate a new object!).
@@ -327,7 +327,7 @@ feature {ANY} -- Conversions:
          buffer.count = old buffer.count + bit_count #// 3 + 1
       end
 
-   to_octal: STRING is
+   to_octal: STRING
          -- The octal view of `Current' into a new allocated STRING.
          -- For example, if `Current' is -1 and if `Current' is a 16 bits integer the `Result' is "177777".
          --
@@ -337,7 +337,7 @@ feature {ANY} -- Conversions:
          Result.count = bit_count #// 3 + 1
       end
 
-   to_hexadecimal: STRING is
+   to_hexadecimal: STRING
          -- The hexadecimal view of `Current' into a new allocated STRING.
          -- For example, if `Current' is -1 and if `Current' is a 32 bits integer the `Result' is "FFFFFFFF".
          --
@@ -347,7 +347,7 @@ feature {ANY} -- Conversions:
          Result.count = object_size * 2
       end
 
-   to_hexadecimal_in (buffer: STRING) is
+   to_hexadecimal_in (buffer: STRING)
          -- Append in the `buffer' the equivalent of `to_hexadecimal'.
          -- If you look for performances, you should always prefer `to_hexadecimal_in' which allow you to recycle
          -- a unique common `buffer' (each call of `to_hexadecimal' allocate a new object!).
@@ -359,14 +359,14 @@ feature {ANY} -- Conversions:
       end
 
 feature {ANY} -- Bitwise Logical Operators:
-   bit_test (idx: INTEGER_8): BOOLEAN is
+   bit_test (idx: INTEGER_8): BOOLEAN
          -- The value of the `idx'-ith bit (the right-most bit is at index 0).
       require
          idx.in_range(0, bit_count - 1)
       deferred
       end
 
-   bit_set (idx: INTEGER_8): like Current is
+   bit_set (idx: INTEGER_8): like Current
          -- The value of the `idx'-ith bit (the right-most bit is at index 0).
       require
          idx.in_range(0, bit_count - 1)
@@ -376,7 +376,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result = Current or Result.bit_reset(idx) = Current
       end
 
-   bit_reset (idx: INTEGER_8): like Current is
+   bit_reset (idx: INTEGER_8): like Current
          -- The value of the `idx'-ith bit (the right-most bit is at index 0).
       require
          idx.in_range(0, bit_count - 1)
@@ -386,28 +386,28 @@ feature {ANY} -- Bitwise Logical Operators:
          Result = Current or Result.bit_set(idx) = Current
       end
 
-   infix "|>>", bit_shift_right (s: INTEGER_8): like Current is
+   infix "|>>", bit_shift_right (s: INTEGER_8): like Current
          -- Shift by `s' positions right (sign bit copied) bits falling off the end are lost.
       require
          s.in_range(0, bit_count - 1)
       deferred
       end
 
-   infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current is
+   infix "|>>>", bit_shift_right_unsigned (s: INTEGER_8): like Current
          -- Shift by `s' positions right (sign bit not copied) bits falling off the end are lost.
       require
          s.in_range(0, bit_count - 1)
       deferred
       end
 
-   infix "|<<", bit_shift_left (s: INTEGER_8): like Current is
+   infix "|<<", bit_shift_left (s: INTEGER_8): like Current
          -- Shift by `s' positions left bits falling off the end are lost.
       require
          s.in_range(0, bit_count - 1)
       deferred
       end
 
-   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current is
+   infix "#>>", bit_rotate_right (s: INTEGER_8): like Current
          -- Rotate by `s' positions right.
          --
          -- See also `bit_rotate_left' and `bit_rotate'.
@@ -416,7 +416,7 @@ feature {ANY} -- Bitwise Logical Operators:
       deferred
       end
 
-   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current is
+   infix "#<<", bit_rotate_left (s: INTEGER_8): like Current
          -- Rotate by `s' positions left.
          --
          -- See also `bit_rotate_right' and `bit_rotate'.
@@ -425,7 +425,7 @@ feature {ANY} -- Bitwise Logical Operators:
       deferred
       end
 
-   bit_rotate (s: INTEGER_8): like Current is
+   bit_rotate (s: INTEGER_8): like Current
          -- Rotate by `s' positions (positive `s' shifts right, negative left
          --
          -- See also `bit_rotate_right' and `bit_rotate_left'.
@@ -434,27 +434,27 @@ feature {ANY} -- Bitwise Logical Operators:
       deferred
       end
 
-   prefix "~", bit_not: like Current is
+   prefix "~", bit_not: like Current
          -- One's complement of `Current'.
       deferred
       end
 
-   infix "&", bit_and (other: like Current): like Current is
+   infix "&", bit_and (other: like Current): like Current
          -- Bitwise logical and of `Current' with `other'.
       deferred
       end
 
-   infix "|", bit_or (other: like Current): like Current is
+   infix "|", bit_or (other: like Current): like Current
          -- Bitwise logical inclusive or of `Current' with `other'.
       deferred
       end
 
-   bit_xor (other: like Current): like Current is
+   bit_xor (other: like Current): like Current
          -- Bitwise logical exclusive or of `Current' with `other'.
       deferred
       end
 
-   bit_shift (s: INTEGER_8): like Current is
+   bit_shift (s: INTEGER_8): like Current
          -- Shift by `s' positions (positive `s' shifts right (sign bit
          -- copied), negative shifts left bits falling off the end are lost).
          --
@@ -464,7 +464,7 @@ feature {ANY} -- Bitwise Logical Operators:
       deferred
       end
 
-   bit_shift_unsigned (s: INTEGER_8): like Current is
+   bit_shift_unsigned (s: INTEGER_8): like Current
          -- Shift by `s' positions (positive `s' shifts right (sign bit not
          -- copied), negative left bits falling off the end are lost).
          --
@@ -475,18 +475,18 @@ feature {ANY} -- Bitwise Logical Operators:
       end
 
 feature {ANY} -- Miscellaneous:
-   sign: INTEGER_8 is
+   sign: INTEGER_8
          -- Sign of `Current' (0 or -1 or 1).
       deferred
       end
 
-   divisible (other: like Current): BOOLEAN is
+   divisible (other: like Current): BOOLEAN
       deferred
       ensure
          definition: Result = (other /= zero)
       end
 
-   is_a_power_of_2: BOOLEAN is
+   is_a_power_of_2: BOOLEAN
          -- Is `Current' a power of 2?
       require
          Current > zero
@@ -494,23 +494,23 @@ feature {ANY} -- Miscellaneous:
       end
 
 feature {ANY} -- Modular arithmetic (these wrap around on overflow)
-   infix "#+" (other: like Current): like Current is
+   infix "#+" (other: like Current): like Current
       deferred
       end
 
-   prefix "#-": like Current is
+   prefix "#-": like Current
       deferred
       end
 
-   infix "#-" (other: like Current): like Current is
+   infix "#-" (other: like Current): like Current
       deferred
       end
 
-   infix "#*" (other: like Current): like Current is
+   infix "#*" (other: like Current): like Current
       deferred
       end
 
-   infix "#//" (other: like Current): like Current is
+   infix "#//" (other: like Current): like Current
          -- Integer division of `Current' by `other'.
          --
          -- According to the ANSI C99: if `Current' and `other' are both non-negative, the `Result' is the
@@ -529,7 +529,7 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
          ansi_c_good_case: Current >= zero and other > zero implies Current - Result * other >= zero
       end
 
-   infix "#\\" (other: like Current): like Current is
+   infix "#\\" (other: like Current): like Current
          -- Remainder of the integer division of `Current' by `other'.
          -- According to the ANSI C99:
          --   * if `Current' and `other' are both non-negative,
@@ -549,7 +549,7 @@ feature {ANY} -- Modular arithmetic (these wrap around on overflow)
       end
 
 feature {}
-   bit_count: INTEGER_8 is
+   bit_count: INTEGER_8
          -- Well, it is 8 for INTEGER_8, 16 for INTEGER_16 and so on.
          -- Note that this feature is not exported because this information is part of the type.
          -- This is actually used only for assertion here, in INTEGER_GENERAL.
@@ -566,7 +566,7 @@ end -- class INTEGRAL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

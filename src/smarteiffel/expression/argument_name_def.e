@@ -16,12 +16,12 @@ create {ANY}
    make
 
 feature {ANY}
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := result_type.resolve_in(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
          --|*** (PH 25/08/04) should be identical with
          --|*** LOCAL_NAME_DEF.adapt_for, so put it in LOCAL_ARGUMENT_DEF.
       local
@@ -36,24 +36,24 @@ feature {ANY}
          end
       end
 
-   accept (visitor: ARGUMENT_NAME_DEF_VISITOR) is
+   accept (visitor: ARGUMENT_NAME_DEF_VISITOR)
       do
          visitor.visit_argument_name_def(Current)
       end
 
-   is_used (type: TYPE): BOOLEAN is
+   is_used (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
 feature {DECLARATION_LIST}
-   name_clash_check (type: TYPE) is
+   name_clash_check (type: TYPE)
       do
          name_clash_check_(type, once "Conflict between argument/feature name (VRFA).")
       end
 
 feature {}
-   make (sp: POSITION; n: STRING) is
+   make (sp: POSITION; n: STRING)
       require
          not sp.is_unknown
          not n.is_empty

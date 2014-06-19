@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, n: INTEGER; region: AUX_AGENT_GC1; t: AUX_AGENT_GC5
       do
@@ -37,7 +37,7 @@ feature {ANY}
          assert(True)
       end
 
-   end_print (p: AUX_AGENT_GC3) is
+   end_print (p: AUX_AGENT_GC3)
       do
          --         print(p.remaining_time.out + "%Tanonymous patient%N")
       end

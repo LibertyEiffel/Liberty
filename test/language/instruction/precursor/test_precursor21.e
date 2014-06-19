@@ -18,7 +18,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          pointer: POINTER
       do
@@ -28,7 +28,7 @@ feature {}
          assert(not pointer.is_null)         
       end
    
-   foo (size: INTEGER): POINTER is
+   foo (size: INTEGER): POINTER
       do
          Result := Precursor(size)
       end

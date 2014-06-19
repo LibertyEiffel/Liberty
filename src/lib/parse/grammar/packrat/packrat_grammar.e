@@ -31,12 +31,12 @@ create {ANY}
    make, with_reducer
 
 feature {}
-   init is
+   init
       do
          reset
       end
 
-   with_reducer (a_reducer: like reducer) is
+   with_reducer (a_reducer: like reducer)
       require
          a_reducer /= Void
       do
@@ -46,17 +46,17 @@ feature {}
          reducer = a_reducer
       end
 
-   make is
+   make
       do
          with_reducer(default_reducer)
       end
 
-   default_reducer: PACKRAT_DEFAULT_REDUCER is
+   default_reducer: PACKRAT_DEFAULT_REDUCER
       once
          create Result.make
       end
 
-   default_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+   default_table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
       once
          Result := {PARSE_TABLE[PACKRAT_PARSE_CONTEXT] <<
             -- ----------------------------------------------------------------------
@@ -164,7 +164,7 @@ feature {}
    table_memory: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
 
 feature {ANY}
-   table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT] is
+   table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
       do
          if table_memory = Void then
             reset_table
@@ -172,13 +172,13 @@ feature {ANY}
          Result := table_memory
       end
 
-   reset is
+   reset
       do
          create position
       end
 
 feature {EIFFELTEST_TOOLS} -- test only
-   set_table (a_table: like table; a_root: like root) is
+   set_table (a_table: like table; a_root: like root)
       do
          table_memory := a_table
          root := a_root
@@ -188,13 +188,13 @@ feature {EIFFELTEST_TOOLS} -- test only
 
    root: STRING
 
-   reset_table is
+   reset_table
       do
          set_table(default_table, once "grammar")
       end
 
 feature {} -- low-level parsers
-   parse_lookahead (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE is
+   parse_lookahead (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE
       do
          if not buffer.end_reached then
             inspect
@@ -208,7 +208,7 @@ feature {} -- low-level parsers
          end
       end
 
-   parse_quantifier (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE is
+   parse_quantifier (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE
       do
          if not buffer.end_reached then
             inspect
@@ -222,7 +222,7 @@ feature {} -- low-level parsers
          end
       end
 
-   parse_character (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE is
+   parse_character (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE
       do
          if not buffer.end_reached then
             inspect
@@ -236,7 +236,7 @@ feature {} -- low-level parsers
          end
       end
 
-   parse_space (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE is
+   parse_space (buffer: MINI_PARSER_BUFFER): PACKRAT_IMAGE
       do
          if not buffer.end_reached then
             inspect
@@ -251,7 +251,7 @@ feature {} -- low-level parsers
       end
 
 feature {ANY}
-   parse_table (a_source: ABSTRACT_STRING): like default_table is
+   parse_table (a_source: ABSTRACT_STRING): like default_table
       require
          a_source /= Void
          reducer = default_reducer
@@ -278,242 +278,242 @@ feature {ANY}
 feature {} -- reducer proxy (because SmartEiffel crashes if the agents are built in the once method)
    reducer: PACKRAT_REDUCER
 
-   reduce_nonterminal_def is
+   reduce_nonterminal_def
       do
          reducer.reduce_nonterminal_def
       end
 
-   reduce_grammar is
+   reduce_grammar
       do
          reducer.reduce_grammar
       end
 
-   reduce_pattern_first_alternative is
+   reduce_pattern_first_alternative
       do
          reducer.reduce_pattern_first_alternative
       end
 
-   reduce_pattern_alternative is
+   reduce_pattern_alternative
       do
          reducer.reduce_pattern_alternative
       end
 
-   reduce_pattern is
+   reduce_pattern
       do
          reducer.reduce_pattern
       end
 
-   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE) is
+   reduce_pattern_map (alt: PACKRAT_ALTERNATIVE)
       do
          reducer.reduce_pattern_map(alt)
       end
 
-   reduce_alternative_lookahead is
+   reduce_alternative_lookahead
       do
          reducer.reduce_alternative_lookahead
       end
 
-   reduce_alternative_suffix_tag is
+   reduce_alternative_suffix_tag
       do
          reducer.reduce_alternative_suffix_tag
       end
 
-   reduce_alternative_tag is
+   reduce_alternative_tag
       do
          reducer.reduce_alternative_tag
       end
 
-   reduce_alternative is
+   reduce_alternative
       do
          reducer.reduce_alternative
       end
 
-   reduce_quantifier is
+   reduce_quantifier
       do
          reducer.reduce_quantifier
       end
 
-   reduce_suffix is
+   reduce_suffix
       do
          reducer.reduce_suffix
       end
 
-   reduce_primary_as_nested_pattern is
+   reduce_primary_as_nested_pattern
       do
          reducer.reduce_primary_as_nested_pattern
       end
 
-   reduce_primary_as_any is
+   reduce_primary_as_any
       do
          reducer.reduce_primary_as_any
       end
 
-   reduce_primary_as_literal is
+   reduce_primary_as_literal
       do
          reducer.reduce_primary_as_literal
       end
 
-   reduce_primay_as_charclass is
+   reduce_primay_as_charclass
       do
          reducer.reduce_primay_as_charclass
       end
 
-   reduce_primary_as_nonterminal is
+   reduce_primary_as_nonterminal
       do
          reducer.reduce_primary_as_nonterminal
       end
 
-   reduce_literal_start is
+   reduce_literal_start
       do
          reducer.reduce_literal_start
       end
 
-   reduce_literal_string is
+   reduce_literal_string
       do
          reducer.reduce_literal_string
       end
 
-   reduce_literal is
+   reduce_literal
       do
          reducer.reduce_literal
       end
 
-   reduce_tag_start is
+   reduce_tag_start
       do
          reducer.reduce_tag_start
       end
 
-   reduce_tag_string is
+   reduce_tag_string
       do
          reducer.reduce_tag_string
       end
 
-   reduce_tag is
+   reduce_tag
       do
          reducer.reduce_tag
       end
 
-   reduce_charclass_start is
+   reduce_charclass_start
       do
          reducer.reduce_charclass_start
       end
 
-   reduce_charclass_range is
+   reduce_charclass_range
       do
          reducer.reduce_charclass_range
       end
 
-   reduce_charclass_char is
+   reduce_charclass_char
       do
          reducer.reduce_charclass_char
       end
 
-   reduce_charclass_class is
+   reduce_charclass_class
       do
          reducer.reduce_charclass_class
       end
 
-   reduce_charclass is
+   reduce_charclass
       do
          reducer.reduce_charclass
       end
 
-   reduce_nonterminal_name is
+   reduce_nonterminal_name
       do
          reducer.reduce_nonterminal_name
       end
 
-   reduce_nonterminal is
+   reduce_nonterminal
       do
          reducer.reduce_nonterminal
       end
 
-   reduce_space is
+   reduce_space
       do
          reducer.reduce_space
       end
 
-   reduce_image_left_arrow (image: PARSER_IMAGE) is
+   reduce_image_left_arrow (image: PARSER_IMAGE)
       do
          reducer.reduce_image_left_arrow(image)
       end
 
-   reduce_image_slash (image: PARSER_IMAGE) is
+   reduce_image_slash (image: PARSER_IMAGE)
       do
          reducer.reduce_image_slash(image)
       end
 
-   reduce_image_not_and (image: PARSER_IMAGE) is
+   reduce_image_not_and (image: PARSER_IMAGE)
       do
          reducer.reduce_image_not_and(image)
       end
 
-   reduce_image_star_plus_why (image: PARSER_IMAGE) is
+   reduce_image_star_plus_why (image: PARSER_IMAGE)
       do
          reducer.reduce_image_star_plus_why(image)
       end
 
-   reduce_image_open_paren (image: PARSER_IMAGE) is
+   reduce_image_open_paren (image: PARSER_IMAGE)
       do
          reducer.reduce_image_open_paren(image)
       end
 
-   reduce_image_close_paren (image: PARSER_IMAGE) is
+   reduce_image_close_paren (image: PARSER_IMAGE)
       do
          reducer.reduce_image_close_paren(image)
       end
 
-   reduce_image_anychar (image: PARSER_IMAGE) is
+   reduce_image_anychar (image: PARSER_IMAGE)
       do
          reducer.reduce_image_anychar(image)
       end
 
-   reduce_image_letter (image: PARSER_IMAGE) is
+   reduce_image_letter (image: PARSER_IMAGE)
       do
          reducer.reduce_image_letter(image)
       end
 
-   reduce_image_string (image: PARSER_IMAGE) is
+   reduce_image_string (image: PARSER_IMAGE)
       do
          reducer.reduce_image_string(image)
       end
 
-   reduce_image_quote (image: PARSER_IMAGE) is
+   reduce_image_quote (image: PARSER_IMAGE)
       do
          reducer.reduce_image_quote(image)
       end
 
-   reduce_image_hyphen (image: PARSER_IMAGE) is
+   reduce_image_hyphen (image: PARSER_IMAGE)
       do
          reducer.reduce_image_hyphen(image)
       end
 
-   reduce_image_dot (image: PARSER_IMAGE) is
+   reduce_image_dot (image: PARSER_IMAGE)
       do
          reducer.reduce_image_dot(image)
       end
 
-   reduce_image_open_bracket (image: PARSER_IMAGE) is
+   reduce_image_open_bracket (image: PARSER_IMAGE)
       do
          reducer.reduce_image_open_bracket(image)
       end
 
-   reduce_image_close_bracket (image: PARSER_IMAGE) is
+   reduce_image_close_bracket (image: PARSER_IMAGE)
       do
          reducer.reduce_image_close_bracket(image)
       end
 
-   reduce_image_open_curly (image: PARSER_IMAGE) is
+   reduce_image_open_curly (image: PARSER_IMAGE)
       do
          reducer.reduce_image_open_curly(image)
       end
 
-   reduce_image_close_curly (image: PARSER_IMAGE) is
+   reduce_image_close_curly (image: PARSER_IMAGE)
       do
          reducer.reduce_image_close_curly(image)
       end
 
-   reduce_image_space (image: PARSER_IMAGE) is
+   reduce_image_space (image: PARSER_IMAGE)
       do
          reducer.reduce_image_space(image)
       end
@@ -529,7 +529,7 @@ end -- class PACKRAT_GRAMMAR
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

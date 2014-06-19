@@ -15,7 +15,7 @@ feature {}
    keys: ITERATOR[K_]
 
 feature {ANY}
-   make (v: like values; k: like keys) is
+   make (v: like values; k: like keys)
       require
          v /= Void
          k /= Void
@@ -28,35 +28,35 @@ feature {ANY}
          keys = k
       end
 
-   start is
+   start
       do
          values.start
          keys.start
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := values.is_off or else keys.is_off
       end
 
-   item: TUPLE[V_, K_] is
+   item: TUPLE[V_, K_]
       do
          Result := [values.item, keys.item]
       end
 
-   next is
+   next
       do
          values.next
          keys.next
       end
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := values.iterable_generation + keys.iterable_generation
       end
 
-   generation: INTEGER is
+   generation: INTEGER
       do
          Result := values.generation + keys.generation
       end
@@ -69,7 +69,7 @@ end -- class ITERATOR_ON_ZIP
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

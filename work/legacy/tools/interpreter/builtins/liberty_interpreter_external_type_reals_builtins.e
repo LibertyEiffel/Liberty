@@ -26,11 +26,11 @@ inherit
       end
 
 feature {}
-   new_real (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+   new_real (value: E_): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       deferred
       end
 
-   right_as_integer: INTEGER is
+   right_as_integer: INTEGER
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -39,62 +39,62 @@ feature {}
          Result := obj.item.to_integer_32
       end
 
-   call_specific (f: LIBERTY_FEATURE) is
+   call_specific (f: LIBERTY_FEATURE)
       deferred
       end
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-   call_add (f: LIBERTY_FEATURE) is
+   call_add (f: LIBERTY_FEATURE)
       do
          returned := new_real(left + right)
       end
 
-   call_subtract (f: LIBERTY_FEATURE) is
+   call_subtract (f: LIBERTY_FEATURE)
       do
          returned := new_real(left - right)
       end
 
-   call_times (f: LIBERTY_FEATURE) is
+   call_times (f: LIBERTY_FEATURE)
       do
          returned := new_real(left * right)
       end
 
-   call_divide (f: LIBERTY_FEATURE) is
+   call_divide (f: LIBERTY_FEATURE)
       do
          returned := new_real(left / right)
       end
 
-   call_less_or_equal (f: LIBERTY_FEATURE) is
+   call_less_or_equal (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left <= right, builtin_call.position)
       end
 
-   call_less_than (f: LIBERTY_FEATURE) is
+   call_less_than (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left < right, builtin_call.position)
       end
 
-   call_greater_or_equal (f: LIBERTY_FEATURE) is
+   call_greater_or_equal (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left >= right, builtin_call.position)
       end
 
-   call_greater_than (f: LIBERTY_FEATURE) is
+   call_greater_than (f: LIBERTY_FEATURE)
       do
          returned := interpreter.new_boolean(left > right, builtin_call.position)
       end
 
-   call_negative (f: LIBERTY_FEATURE) is
+   call_negative (f: LIBERTY_FEATURE)
       do
          returned := new_real(-target)
       end
 
-   call_power (f: LIBERTY_FEATURE) is
+   call_power (f: LIBERTY_FEATURE)
       do
          returned := new_real(left ^ right_as_integer)
       end
 
-   call_other (f: LIBERTY_FEATURE) is
+   call_other (f: LIBERTY_FEATURE)
       do
          inspect
             builtin_call.name

@@ -13,18 +13,18 @@ create {ANY}
    make, dimension
 
 feature {ANY}
-   dimension (first_dim, second_dim, tile_width: INTEGER) is
+   dimension (first_dim, second_dim, tile_width: INTEGER)
       do
          make(0, tile_width, 0, second_dim)
       end
 
 feature {ANY}
-   dim1: INTEGER is
+   dim1: INTEGER
       do
          Result := upper1 - lower1 + 1
       end
 
-   dim2: INTEGER is
+   dim2: INTEGER
       do
          Result := upper2 - lower2 + 1
       end

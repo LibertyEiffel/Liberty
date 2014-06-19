@@ -37,41 +37,41 @@ feature {ANY}
 
    name: STRING
 
-   is_equal (other: EDC_COLUMN): BOOLEAN is
+   is_equal (other: EDC_COLUMN): BOOLEAN
       do
          Result := name.is_equal(other.name) and then table /= Void and then other.table /= Void and then (table = other.table or else table.is_equal(other.table))
       end
 
-   valid_value (a_value: EDC_DATUM): BOOLEAN is
+   valid_value (a_value: EDC_DATUM): BOOLEAN
       deferred
       end
 
-   same_values (v1, v2: EDC_DATUM): BOOLEAN is
+   same_values (v1, v2: EDC_DATUM): BOOLEAN
       deferred
       end
 
-   hash_code (a_value: EDC_DATUM): INTEGER is
+   hash_code (a_value: EDC_DATUM): INTEGER
       require
          valid_value(a_value)
       deferred
       end
 
 feature {ANY}
-   count_constraint: INTEGER is
+   count_constraint: INTEGER
       do
          if constraints /= Void then
             Result := constraints.count
          end
       end
 
-   lower_constraint: INTEGER is
+   lower_constraint: INTEGER
       do
          if constraints /= Void then
             Result := constraints.lower
          end
       end
 
-   upper_constraint: INTEGER is
+   upper_constraint: INTEGER
       do
          if constraints /= Void then
             Result := constraints.upper
@@ -80,14 +80,14 @@ feature {ANY}
          end
       end
 
-   item_constraint (i: INTEGER): EDC_CONSTRAINT is
+   item_constraint (i: INTEGER): EDC_CONSTRAINT
       require
          i.in_range(lower_constraint, upper_constraint)
       do
          Result := constraints.item(i)
       end
 
-   set_constraint (a_constraint: EDC_CONSTRAINT) is
+   set_constraint (a_constraint: EDC_CONSTRAINT)
       do
          if constraints = Void then
             create constraints.make
@@ -95,7 +95,7 @@ feature {ANY}
          constraints.add(a_constraint)
       end
 
-   clear_constraint (a_constraint: EDC_CONSTRAINT) is
+   clear_constraint (a_constraint: EDC_CONSTRAINT)
       do
          if constraints /= Void then
             constraints.remove(a_constraint)
@@ -103,14 +103,14 @@ feature {ANY}
       end
 
 feature {ANY}
-   item (set: EDC_RESULT_SET): EDC_DATUM is
+   item (set: EDC_RESULT_SET): EDC_DATUM
       require
          not set.is_off
       deferred
       end
 
 feature {EDC_TABLE}
-   set_table (a_table: like table) is
+   set_table (a_table: like table)
       require
          a_table /= Void
          table = Void
@@ -120,7 +120,7 @@ feature {EDC_TABLE}
          table = a_table
       end
 
-   unset_table is
+   unset_table
       require
          table /= Void
       do

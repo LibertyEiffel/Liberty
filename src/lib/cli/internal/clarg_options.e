@@ -8,21 +8,21 @@ feature {ANY}
    long: FIXED_STRING
 
 feature {} -- patterns
-   short_pattern: REGULAR_EXPRESSION is
+   short_pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once
          Result := re.convert_python_pattern("^(?:-|/)(?P<options>[A-Za-z0-9]+)$")
       end
 
-   long_pattern: REGULAR_EXPRESSION is
+   long_pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once
          Result := re.convert_python_pattern("^(?:--)(?P<name>[A-Za-z0-9]([A-Za-z0-9_-]*[A-Za-z0-9])?)$")
       end
 
-   long_equal_pattern: REGULAR_EXPRESSION is
+   long_equal_pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once
@@ -30,7 +30,7 @@ feature {} -- patterns
       end
 
 feature {} -- queries
-   is_short (arg: STRING; a_index: INTEGER): BOOLEAN is
+   is_short (arg: STRING; a_index: INTEGER): BOOLEAN
       require
          short /= Void
       local
@@ -44,7 +44,7 @@ feature {} -- queries
          end
       end
 
-   is_long (arg: STRING): BOOLEAN is
+   is_long (arg: STRING): BOOLEAN
       require
          long /= Void
       local
@@ -56,7 +56,7 @@ feature {} -- queries
          end
       end
 
-   is_long_equal (arg: STRING): BOOLEAN is
+   is_long_equal (arg: STRING): BOOLEAN
       require
          long /= Void
       local
@@ -71,7 +71,7 @@ feature {} -- queries
       end
 
 feature {} -- usage output helpers
-   put_short (stream: OUTPUT_STREAM) is
+   put_short (stream: OUTPUT_STREAM)
       require
          short /= Void
       do
@@ -79,7 +79,7 @@ feature {} -- usage output helpers
          stream.put_character(short.first)
       end
 
-   put_long (stream: OUTPUT_STREAM) is
+   put_long (stream: OUTPUT_STREAM)
       require
          long /= Void
       do
@@ -96,7 +96,7 @@ end -- class CLARG_OPTIONS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

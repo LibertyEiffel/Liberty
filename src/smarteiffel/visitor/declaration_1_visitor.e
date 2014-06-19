@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {DECLARATION_1}
-   visit_declaration_1 (visited: DECLARATION_1) is
+   visit_declaration_1 (visited: DECLARATION_1)
       require
          visited /= Void
       deferred

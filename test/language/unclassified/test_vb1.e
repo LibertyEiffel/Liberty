@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          array_a: ARRAY[AUX_VB1A]; array_b: ARRAY[AUX_VB1B]; fixed_array_a: FAST_ARRAY[AUX_VB1A]
          fixed_array_b: FAST_ARRAY[AUX_VB1B]; item_a: AUX_VB1A; item_b: AUX_VB1B; x: INTEGER

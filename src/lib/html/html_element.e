@@ -5,20 +5,20 @@ deferred class HTML_ELEMENT
 feature {ANY}
    parent: HTML_NODE
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := ""
          append_in(Result, False)
       end
 
-   append_in (buffer: STRING; stop_at_dot: BOOLEAN) is
+   append_in (buffer: STRING; stop_at_dot: BOOLEAN)
       local
          stopped: BOOLEAN
       do
          stopped := really_append_in(buffer, stop_at_dot, stopped)
       end
 
-   to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot: BOOLEAN) is
+   to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot: BOOLEAN)
       local
          stopped: BOOLEAN
       do
@@ -26,7 +26,7 @@ feature {ANY}
       end
 
 feature {HTML_ELEMENT}
-   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_append_in (buffer: STRING; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       require
          stopped implies stop_at_dot
       deferred
@@ -34,7 +34,7 @@ feature {HTML_ELEMENT}
          Result implies stop_at_dot
       end
 
-   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN is
+   really_to_html_stream (html: HTML_OUTPUT_STREAM; stop_at_dot, stopped: BOOLEAN): BOOLEAN
       require
          stopped implies stop_at_dot
       deferred
@@ -50,7 +50,7 @@ end -- class HTML_ELEMENT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

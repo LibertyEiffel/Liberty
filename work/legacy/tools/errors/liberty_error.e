@@ -27,7 +27,7 @@ feature {LIBERTY_ERROR, LIBERTY_ERRORS}
    previous: LIBERTY_ERROR
    level: INTEGER_8
 
-   is_fatal: BOOLEAN is
+   is_fatal: BOOLEAN
       do
          if level < level_error then
             Result := True
@@ -36,7 +36,7 @@ feature {LIBERTY_ERROR, LIBERTY_ERRORS}
          end
       end
 
-   is_error: BOOLEAN is
+   is_error: BOOLEAN
       do
          if level <= level_error then
             Result := True
@@ -46,7 +46,7 @@ feature {LIBERTY_ERROR, LIBERTY_ERRORS}
       end
 
 feature {LIBERTY_ERRORS}
-   emit (stream: OUTPUT_STREAM; threshold: like level) is
+   emit (stream: OUTPUT_STREAM; threshold: like level)
          -- May not return.
       require
          stream.is_connected
@@ -63,7 +63,7 @@ feature {LIBERTY_ERRORS}
       end
 
 feature {LIBERTY_ERROR}
-   do_emit (stream: OUTPUT_STREAM; threshold: like level) is
+   do_emit (stream: OUTPUT_STREAM; threshold: like level)
          -- May not return.
       require
          stream.is_connected
@@ -92,7 +92,7 @@ feature {LIBERTY_ERROR}
       end
 
 feature {}
-   make (a_level: like level; a_positions: like positions; a_message: like message; a_previous: like Current) is
+   make (a_level: like level; a_positions: like positions; a_message: like message; a_previous: like Current)
       require
          a_positions /= Void
          a_message /= Void

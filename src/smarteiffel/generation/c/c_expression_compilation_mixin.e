@@ -22,7 +22,7 @@ insert
    SINGLETON
 
 feature {ANY}
-   compile (code: C_; a_type: like type) is
+   compile (code: C_; a_type: like type)
       require
          smart_eiffel.is_ready
          code /= Void
@@ -42,27 +42,27 @@ feature {ANY}
 feature {}
    type: TYPE
 
-   make is
+   make
       do
       end
 
-   compile_arg (arg: EXPRESSION) is
+   compile_arg (arg: EXPRESSION)
       do
          cpp.arg_mapper.compile(arg, type)
       end
 
-   compile_expression (expression: EXPRESSION) is
+   compile_expression (expression: EXPRESSION)
       do
          cpp.code_compiler.compile(expression, type)
       end
 
-   compile_code (code: CODE) is
+   compile_code (code: CODE)
       do
          cpp.code_compiler.compile(code, type)
       end
 
 feature {}
-   visit_abstract_current (visited: ABSTRACT_CURRENT) is
+   visit_abstract_current (visited: ABSTRACT_CURRENT)
       do
          if type.is_user_expanded and then not type.is_empty_expanded then
             function_body.extend('*')
@@ -71,19 +71,19 @@ feature {}
       end
 
 feature {IMPLICIT_CURRENT}
-   visit_implicit_current (visited: IMPLICIT_CURRENT) is
+   visit_implicit_current (visited: IMPLICIT_CURRENT)
       do
          visit_abstract_current(visited)
       end
 
 feature {WRITTEN_CURRENT}
-   visit_written_current (visited: WRITTEN_CURRENT) is
+   visit_written_current (visited: WRITTEN_CURRENT)
       do
          visit_abstract_current(visited)
       end
 
 feature {ADDRESS_OF}
-   visit_address_of (visited: ADDRESS_OF) is
+   visit_address_of (visited: ADDRESS_OF)
       local
          exp: EXPRESSION
       do
@@ -102,7 +102,7 @@ feature {ADDRESS_OF}
       end
 
 feature {AGENT_CREATION}
-   visit_agent_creation (visited: AGENT_CREATION) is
+   visit_agent_creation (visited: AGENT_CREATION)
       local
          i: INTEGER; boost: BOOLEAN; closed_operand: CLOSED_OPERAND
       do
@@ -129,7 +129,7 @@ feature {AGENT_CREATION}
             end
          end
          for_all_argument_names(visited, type,
-                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER) is
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER)
                                    local
                                       argument_tm: TYPE_MARK
                                    do
@@ -149,7 +149,7 @@ feature {AGENT_CREATION}
                                       end
                                    end(?,type,?)) --| **** TODO: closure on type
          for_all_local_names(visited, type,
-                             agent (local_name: LOCAL_NAME_DEF) is
+                             agent (local_name: LOCAL_NAME_DEF)
                                 do
                                    if function_body.last /= '(' then
                                       function_body.extend(',')
@@ -160,7 +160,7 @@ feature {AGENT_CREATION}
       end
 
 feature {AGENT_EXPRESSION}
-   visit_agent_expression (visited: AGENT_EXPRESSION) is
+   visit_agent_expression (visited: AGENT_EXPRESSION)
       do
          if agent_pool.agent_creation_collected_flag then
             compile_agent_definition_call(visited)
@@ -175,13 +175,13 @@ feature {AGENT_EXPRESSION}
       end
 
 feature {ASSERTION}
-   visit_assertion (visited: ASSERTION) is
+   visit_assertion (visited: ASSERTION)
       do
          crash -- This one must never be called.
       end
 
 feature {ASSIGNMENT_TEST}
-   visit_assignment_test (visited: ASSIGNMENT_TEST) is
+   visit_assignment_test (visited: ASSIGNMENT_TEST)
       local
          left_type, right_type: TYPE
       do
@@ -198,7 +198,7 @@ feature {ASSIGNMENT_TEST}
       end
 
 feature {IFTHEN_EXP}
-   visit_ifthen_exp (visited: IFTHEN_EXP) is
+   visit_ifthen_exp (visited: IFTHEN_EXP)
       do
          function_body.append(once "(")
          visited.expression.accept(Current)
@@ -208,7 +208,7 @@ feature {IFTHEN_EXP}
       end
 
 feature {IFTHENELSE_EXP}
-   visit_ifthenelse_exp (visited: IFTHENELSE_EXP) is
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP)
       local
          i: INTEGER
       do
@@ -234,7 +234,7 @@ feature {IFTHENELSE_EXP}
       end
 
 feature {BUILT_IN_EQ_NEQ}
-   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ) is
+   visit_built_in_eq_neq (visited: BUILT_IN_EQ_NEQ)
       local
          left_type, right_type: TYPE
       do
@@ -289,7 +289,7 @@ feature {BUILT_IN_EQ_NEQ}
       end
 
 feature {}
-   cmp_expanded_with_void (visited: BUILT_IN_EQ_NEQ) is
+   cmp_expanded_with_void (visited: BUILT_IN_EQ_NEQ)
       require
          visited.left_side.resolve_in(type).is_expanded
       do
@@ -304,7 +304,7 @@ feature {}
          function_body.extend(')')
       end
 
-   cmp_reference (visited: BUILT_IN_EQ_NEQ; left_type, right_type: TYPE) is
+   cmp_reference (visited: BUILT_IN_EQ_NEQ; left_type, right_type: TYPE)
       do
          function_body.extend('(')
          compile_expression(visited.left_side)
@@ -319,7 +319,7 @@ feature {}
          function_body.append(once "))")
       end
 
-   cmp_user_expanded (visited: BUILT_IN_EQ_NEQ; user_expanded_type: TYPE) is
+   cmp_user_expanded (visited: BUILT_IN_EQ_NEQ; user_expanded_type: TYPE)
       require
          user_expanded_type.is_user_expanded
       local
@@ -364,7 +364,7 @@ feature {}
          end
       end
 
-   cmp_basic_eiffel_expanded (visited: BUILT_IN_EQ_NEQ; t1, t2: TYPE) is
+   cmp_basic_eiffel_expanded (visited: BUILT_IN_EQ_NEQ; t1, t2: TYPE)
       require
          t1.is_kernel_expanded
          t2.is_kernel_expanded
@@ -417,7 +417,7 @@ feature {}
       end
 
 feature {CLOSED_OPERAND}
-   visit_closed_operand (visited: CLOSED_OPERAND) is
+   visit_closed_operand (visited: CLOSED_OPERAND)
       do
          if visited.is_static then
             -- No field to store such a static value:
@@ -431,7 +431,7 @@ feature {CLOSED_OPERAND}
       end
 
 feature {CREATE_EXPRESSION}
-   visit_create_expression (visited: CREATE_EXPRESSION) is
+   visit_create_expression (visited: CREATE_EXPRESSION)
       local
          created_type_memory: TYPE
       do
@@ -445,7 +445,7 @@ feature {CREATE_EXPRESSION}
          end
       end
 
-   create_expression_support (visited: CREATE_EXPRESSION; created_type_memory: TYPE) is
+   create_expression_support (visited: CREATE_EXPRESSION; created_type_memory: TYPE)
       require
          created_type_memory = visited.created_type(type)
       local
@@ -480,39 +480,39 @@ feature {CREATE_EXPRESSION}
       end
 
 feature {CREATE_WRITABLE}
-   visit_create_writable (visited: CREATE_WRITABLE) is
+   visit_create_writable (visited: CREATE_WRITABLE)
       do
          visited.writable.accept(Current)
       end
 
 feature {E_OLD}
-   visit_e_old (visited: E_OLD) is
+   visit_e_old (visited: E_OLD)
       do
          -- Now read the memorized value:
          internal_c_local_tag(visited).append_in(function_body)
       end
 
 feature {EXPRESSION_WITH_COMMENT}
-   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT) is
+   visit_expression_with_comment (visited: EXPRESSION_WITH_COMMENT)
       do
          visited.expression.accept(Current)
       end
 
 feature {FAKE_ARGUMENT}
-   visit_fake_argument (visited: FAKE_ARGUMENT) is
+   visit_fake_argument (visited: FAKE_ARGUMENT)
       do
          function_body.extend('a')
          visited.rank.append_in(function_body)
       end
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       do
          cpp.print_current
       end
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       local
          i: INTEGER
       do
@@ -532,19 +532,19 @@ feature {FAKE_TUPLE}
       end
 
 feature {CALL_PREFIX_MINUS}
-   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS) is
+   visit_call_prefix_minus (visited: CALL_PREFIX_MINUS)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_PREFIX_FREEOP}
-   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP) is
+   visit_call_prefix_freeop (visited: CALL_PREFIX_FREEOP)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_PREFIX_NOT}
-   visit_call_prefix_not (visited: CALL_PREFIX_NOT) is
+   visit_call_prefix_not (visited: CALL_PREFIX_NOT)
       do
          if ace.boost and then visited.target.resolve_in(type).is_boolean then
             function_body.append(once "!(")
@@ -556,13 +556,13 @@ feature {CALL_PREFIX_NOT}
       end
 
 feature {CALL_PREFIX_PLUS}
-   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS) is
+   visit_call_prefix_plus (visited: CALL_PREFIX_PLUS)
       do
          compile_feature_call(visited)
       end
 
 feature {STATIC_CALL_0_C}
-   visit_static_call_0_c (visited: STATIC_CALL_0_C) is
+   visit_static_call_0_c (visited: STATIC_CALL_0_C)
       local
          target_type: TYPE; dynamic_feature: RUN_FEATURE
       do
@@ -572,37 +572,37 @@ feature {STATIC_CALL_0_C}
       end
 
 feature {FUNCTION_CALL_0}
-   visit_function_call_0 (visited: FUNCTION_CALL_0) is
+   visit_function_call_0 (visited: FUNCTION_CALL_0)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_AND_THEN}
-   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN) is
+   visit_call_infix_and_then (visited: CALL_INFIX_AND_THEN)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_AND}
-   visit_call_infix_and (visited: CALL_INFIX_AND) is
+   visit_call_infix_and (visited: CALL_INFIX_AND)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_INT_DIV}
-   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV) is
+   visit_call_infix_int_div (visited: CALL_INFIX_INT_DIV)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_FREEOP}
-   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP) is
+   visit_call_infix_freeop (visited: CALL_INFIX_FREEOP)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_GE}
-   visit_call_infix_ge (visited: CALL_INFIX_GE) is
+   visit_call_infix_ge (visited: CALL_INFIX_GE)
       do
          if ace.boost and then visited.target.resolve_in(type).is_character then
             c2c_cast_op(visited, once "unsigned", as_ge)
@@ -612,7 +612,7 @@ feature {CALL_INFIX_GE}
       end
 
 feature {CALL_INFIX_GT}
-   visit_call_infix_gt (visited: CALL_INFIX_GT) is
+   visit_call_infix_gt (visited: CALL_INFIX_GT)
       do
          if ace.boost and then visited.target.resolve_in(type).is_character then
             c2c_cast_op(visited, once "unsigned", as_gt)
@@ -622,25 +622,25 @@ feature {CALL_INFIX_GT}
       end
 
 feature {CALL_INFIX_IMPLIES}
-   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES) is
+   visit_call_infix_implies (visited: CALL_INFIX_IMPLIES)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_DIV}
-   visit_call_infix_div (visited: CALL_INFIX_DIV) is
+   visit_call_infix_div (visited: CALL_INFIX_DIV)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_INT_REM}
-   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM) is
+   visit_call_infix_int_rem (visited: CALL_INFIX_INT_REM)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_LE}
-   visit_call_infix_le (visited: CALL_INFIX_LE) is
+   visit_call_infix_le (visited: CALL_INFIX_LE)
       do
          if ace.boost and then visited.target.resolve_in(type).is_character then
             c2c_cast_op(visited, once "unsigned", as_le)
@@ -650,7 +650,7 @@ feature {CALL_INFIX_LE}
       end
 
 feature {CALL_INFIX_LT}
-   visit_call_infix_lt (visited: CALL_INFIX_LT) is
+   visit_call_infix_lt (visited: CALL_INFIX_LT)
       do
          if ace.boost and then visited.target.resolve_in(type).is_character then
             c2c_cast_op(visited, once "unsigned", as_lt)
@@ -660,61 +660,61 @@ feature {CALL_INFIX_LT}
       end
 
 feature {CALL_INFIX_MINUS}
-   visit_call_infix_minus (visited: CALL_INFIX_MINUS) is
+   visit_call_infix_minus (visited: CALL_INFIX_MINUS)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_OR_ELSE}
-   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE) is
+   visit_call_infix_or_else (visited: CALL_INFIX_OR_ELSE)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_OR}
-   visit_call_infix_or (visited: CALL_INFIX_OR) is
+   visit_call_infix_or (visited: CALL_INFIX_OR)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_PLUS}
-   visit_call_infix_plus (visited: CALL_INFIX_PLUS) is
+   visit_call_infix_plus (visited: CALL_INFIX_PLUS)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_POWER}
-   visit_call_infix_power (visited: CALL_INFIX_POWER) is
+   visit_call_infix_power (visited: CALL_INFIX_POWER)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_TIMES}
-   visit_call_infix_times (visited: CALL_INFIX_TIMES) is
+   visit_call_infix_times (visited: CALL_INFIX_TIMES)
       do
          compile_feature_call(visited)
       end
 
 feature {CALL_INFIX_XOR}
-   visit_call_infix_xor (visited: CALL_INFIX_XOR) is
+   visit_call_infix_xor (visited: CALL_INFIX_XOR)
       do
          compile_feature_call(visited)
       end
 
 feature {FUNCTION_CALL_1}
-   visit_function_call_1 (visited: FUNCTION_CALL_1) is
+   visit_function_call_1 (visited: FUNCTION_CALL_1)
       do
          compile_feature_call(visited)
       end
 
 feature {FUNCTION_CALL_N}
-   visit_function_call_n (visited: FUNCTION_CALL_N) is
+   visit_function_call_n (visited: FUNCTION_CALL_N)
       do
          compile_feature_call(visited)
       end
 
 feature {GENERATOR_GENERATING_TYPE}
-   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE) is
+   visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE)
       do
          function_body.append(once "(T0*)(")
          function_body.extend(visited.array_name)
@@ -724,7 +724,7 @@ feature {GENERATOR_GENERATING_TYPE}
       end
 
 feature {IMPLICIT_CAST}
-   visit_implicit_cast (visited: IMPLICIT_CAST) is
+   visit_implicit_cast (visited: IMPLICIT_CAST)
       do
          function_body.append(once "/*IC*/(")
          function_body.append(cpp.target_type.for(visited.resolved_memory.canonical_type_mark))
@@ -734,7 +734,7 @@ feature {IMPLICIT_CAST}
       end
 
 feature {ARGUMENT_NAME_REF}
-   visit_argument_name_ref (visited: ARGUMENT_NAME_REF) is
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
          if visited.closure_rank = 0 then
             function_body.append(once "/*`")
@@ -753,7 +753,7 @@ feature {ARGUMENT_NAME_REF}
       end
 
 feature {LOCAL_NAME_REF}
-   visit_local_name_ref (visited: LOCAL_NAME_REF) is
+   visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
          if visited.is_outside then
             if visited.closure_rank = 0 then
@@ -771,31 +771,31 @@ feature {LOCAL_NAME_REF}
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {E_FALSE}
-   visit_e_false (visited: E_FALSE) is
+   visit_e_false (visited: E_FALSE)
       do
          function_body.extend('0')
       end
 
 feature {E_TRUE}
-   visit_e_true (visited: E_TRUE) is
+   visit_e_true (visited: E_TRUE)
       do
          function_body.extend('1')
       end
 
 feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
+   visit_character_constant (visited: CHARACTER_CONSTANT)
       do
          compile_character(visited.value)
       end
 
 feature {INTEGER_CONSTANT}
-   visit_integer_constant (visited: INTEGER_CONSTANT) is
+   visit_integer_constant (visited: INTEGER_CONSTANT)
       local
          actual_size: INTEGER
       do
@@ -847,7 +847,7 @@ feature {INTEGER_CONSTANT}
       end
 
 feature {NATURAL_CONSTANT}
-   visit_natural_constant (visited: NATURAL_CONSTANT) is
+   visit_natural_constant (visited: NATURAL_CONSTANT)
       local
          actual_size: INTEGER
       do
@@ -883,7 +883,7 @@ feature {NATURAL_CONSTANT}
       end
 
 feature {REAL_CONSTANT}
-   visit_real_constant (visited: REAL_CONSTANT) is
+   visit_real_constant (visited: REAL_CONSTANT)
       local
          real_type_mark: REAL_TYPE_MARK
       do
@@ -904,13 +904,13 @@ feature {REAL_CONSTANT}
       end
 
 feature {E_VOID}
-   visit_e_void (visited: E_VOID) is
+   visit_e_void (visited: E_VOID)
       do
          function_body.append(once "(void*)0")
       end
 
 feature {MANIFEST_STRING}
-   visit_manifest_string (visited: MANIFEST_STRING) is
+   visit_manifest_string (visited: MANIFEST_STRING)
       do
          if visited.once_flag then
             function_body.append(visited.once_variable)
@@ -922,7 +922,7 @@ feature {MANIFEST_STRING}
       end
 
 feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC) is
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
       local
          i: INTEGER
       do
@@ -960,13 +960,13 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {MANIFEST_TUPLE}
-   visit_manifest_tuple (visited: MANIFEST_TUPLE) is
+   visit_manifest_tuple (visited: MANIFEST_TUPLE)
       do
          compile_expression(visited.create_expression)
       end
 
 feature {}
-   compile_code_as_expression (code: CODE) is
+   compile_code_as_expression (code: CODE)
       local
          stop: BOOLEAN
       do
@@ -989,7 +989,7 @@ feature {}
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
       local
          i: INTEGER
       do
@@ -1011,7 +1011,7 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
          check
             visited.dynamic_dispatch_temporary1.side_effect_free(type)
@@ -1022,7 +1022,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
-   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1) is
+   visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1)
       do
          if visited.target.is_stored_in_some_local_variable or else visited.target.side_effect_free(type) then
             -- No need to use an extra INTERNAL_C_LOCAL:
@@ -1043,13 +1043,13 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1}
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
-   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2) is
+   visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       do
          visited.dynamic_dispatch_temporary1.accept(Current)
       end
 
 feature {INTERNAL_LOCAL2}
-   visit_internal_local2 (visited: INTERNAL_LOCAL2) is
+   visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
          if internal_c_local_tag(visited) = Void or else pending_c_function_counter_tag(visited) /= cpp.pending_c_function_counter then
             set_pending_c_function_counter_tag(visited)
@@ -1059,7 +1059,7 @@ feature {INTERNAL_LOCAL2}
       end
 
 feature {NATIVE_ARRAY_ITEM}
-   visit_native_array_item (visited: NATIVE_ARRAY_ITEM) is
+   visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
          function_body.append(once "/*NAI*/(")
          if visited.array = Void then
@@ -1075,7 +1075,7 @@ feature {NATIVE_ARRAY_ITEM}
       end
 
 feature {NO_DISPATCH}
-   visit_no_dispatch (visited: NO_DISPATCH) is
+   visit_no_dispatch (visited: NO_DISPATCH)
       do
          function_body.append(once "/*ND*/(T0*)(")
          compile_expression(visited.side_effect_free_expression)
@@ -1083,7 +1083,7 @@ feature {NO_DISPATCH}
       end
 
 feature {NON_VOID_NO_DISPATCH}
-   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH) is
+   visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       do
          if visited.external_function /= Void then
             function_body.append(once "/*NVND*/(")
@@ -1095,13 +1095,13 @@ feature {NON_VOID_NO_DISPATCH}
       end
 
 feature {NULL_POINTER}
-   visit_null_pointer (visited: NULL_POINTER) is
+   visit_null_pointer (visited: NULL_POINTER)
       do
          function_body.append(once "NULL/*_POINTER*/")
       end
 
 feature {VOID_CALL}
-   visit_void_call (visited: VOID_CALL) is
+   visit_void_call (visited: VOID_CALL)
       local
          rt: TYPE
       do
@@ -1110,25 +1110,25 @@ feature {VOID_CALL}
       end
 
 feature {OLD_MANIFEST_ARRAY}
-   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY) is
+   visit_old_manifest_array (visited: OLD_MANIFEST_ARRAY)
       do
          crash -- Because we have already switched to the canonical form
       end
 
 feature {OPEN_OPERAND}
-   visit_open_operand (visited: OPEN_OPERAND) is
+   visit_open_operand (visited: OPEN_OPERAND)
       do
          open_operand_name_in(visited, function_body)
       end
 
 feature {PRECURSOR_EXPRESSION}
-   visit_precursor_expression (visited: PRECURSOR_EXPRESSION) is
+   visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
          compile_precursor(visited)
       end
 
 feature {RESULT}
-   visit_result (visited: RESULT) is
+   visit_result (visited: RESULT)
       do
          if visited.is_once_result then
             once_routine_pool.unique_result_in(function_body, visited.enclosing_function)
@@ -1138,7 +1138,7 @@ feature {RESULT}
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       local
          rf2: RUN_FEATURE_2
       do
@@ -1149,12 +1149,12 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       end
 
 feature {}
-   compile_feature_call (visited: FEATURE_CALL) is
+   compile_feature_call (visited: FEATURE_CALL)
       do
          cpp.put_monomorphic_or_void_call(type, visited.feature_stamp, visited.target, visited.arguments)
       end
 
-   compile_precursor (visited: PRECURSOR_CALL) is
+   compile_precursor (visited: PRECURSOR_CALL)
       local
          run_feature: RUN_FEATURE
       do
@@ -1164,7 +1164,7 @@ feature {}
          cpp.pop
       end
 
-   frozen c2c_cast_op (visited: CALL_INFIX; cast, op: STRING) is
+   frozen c2c_cast_op (visited: CALL_INFIX; cast, op: STRING)
       do
          function_body.append(once "(((")
          function_body.append(cast)
@@ -1179,7 +1179,7 @@ feature {}
          function_body.append(once ")))")
       end
 
-   compile_agent_void_call (visited: AGENT_LAUNCHER; start_position: POSITION; item_or_call: STRING) is
+   compile_agent_void_call (visited: AGENT_LAUNCHER; start_position: POSITION; item_or_call: STRING)
       require
          not agent_pool.agent_creation_collected_flag
          ;(item_or_call = as_item) or (item_or_call = as_call)
@@ -1199,7 +1199,7 @@ feature {}
          end
       end
 
-   compile_agent_definition_call (visited: AGENT_LAUNCHER) is
+   compile_agent_definition_call (visited: AGENT_LAUNCHER)
          -- Generate the C code to launch the execution of the `agent_target'.
       require
          cpp.pending_c_function
@@ -1232,7 +1232,7 @@ feature {}
          function_body.extend(')')
       end
 
-   compile_character (char: CHARACTER) is
+   compile_character (char: CHARACTER)
       do
          function_body.append(once "((T3)%'")
          if char.is_letter or else char.is_digit then
@@ -1246,7 +1246,7 @@ feature {}
          function_body.append(once "%')")
       end
 
-   args_compile_to_c (args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST) is
+   args_compile_to_c (args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST)
          -- Produce C code for all expressions of the list.
       require
          args.count = fal.count

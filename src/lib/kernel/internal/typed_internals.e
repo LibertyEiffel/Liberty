@@ -27,28 +27,28 @@ create {INTERNALS_HANDLER} -- Actual creation is performed by ANY.to_internals
    make_blank
 
 feature {INTERNALS_HANDLER, INTERNALS} -- Getting information about the described object's type
-   type_generator: STRING is
+   type_generator: STRING
       external "built_in"
       end
 
-   type_generating_type: STRING is
+   type_generating_type: STRING
       external "built_in"
       end
 
-   type_is_expanded: BOOLEAN is
+   type_is_expanded: BOOLEAN
       external "built_in"
       end
 
-   type_attribute_is_expanded (i: INTEGER): BOOLEAN is
+   type_attribute_is_expanded (i: INTEGER): BOOLEAN
       external "built_in"
       end
 
-   type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN is
+   type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN
       external "built_in"
       end
 
 feature {INTERNALS_HANDLER}
-   for_object (object_: like object_memory) is
+   for_object (object_: like object_memory)
          -- Attach `Current' to `object_'
       require
          object_ /= Void
@@ -62,7 +62,7 @@ feature {INTERNALS_HANDLER}
          object = object_
       end
 
-   make_blank is
+   make_blank
          -- Attach `Current' to a blank object: all attributes of the object have their default value
          -- (references are Void, INTEGERS are 0, BOOLEANs are False...)
       require
@@ -73,29 +73,29 @@ feature {INTERNALS_HANDLER}
       end
 
 feature {INTERNALS_HANDLER} -- Getting information about the type's attributes
-   type_attribute_count: INTEGER is
+   type_attribute_count: INTEGER
       external "built_in"
       end
 
-   type_attribute_name (i: INTEGER): STRING is
+   type_attribute_name (i: INTEGER): STRING
       external "built_in"
       end
 
-   type_attribute_generator (i: INTEGER): STRING is
+   type_attribute_generator (i: INTEGER): STRING
       external "built_in"
       end
 
-   type_attribute_generating_type (i: INTEGER): STRING is
-      external "built_in"
-      end
-
-feature {INTERNALS_HANDLER}
-   object_as_pointer: POINTER is
+   type_attribute_generating_type (i: INTEGER): STRING
       external "built_in"
       end
 
 feature {INTERNALS_HANDLER}
-   object: like object_memory is
+   object_as_pointer: POINTER
+      external "built_in"
+      end
+
+feature {INTERNALS_HANDLER}
+   object: like object_memory
          -- The object `Current' is attached to
       require
          object_can_be_retrieved
@@ -106,11 +106,11 @@ feature {INTERNALS_HANDLER}
       end
 
 feature {INTERNALS_HANDLER} -- Accessing the object's attributes
-   object_attribute (i: INTEGER): INTERNALS is
+   object_attribute (i: INTEGER): INTERNALS
       external "built_in"
       end
 
-   set_object_attribute (element: INTERNALS; i: INTEGER) is
+   set_object_attribute (element: INTERNALS; i: INTEGER)
       external "built_in"
       end
 
@@ -118,18 +118,18 @@ feature {TYPED_INTERNALS}
    object_memory: E_
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       external "built_in"
       end
 
-   set_object_can_be_retrieved is
+   set_object_can_be_retrieved
       do
          object_can_be_retrieved := True
          object.internals_can_be_retrieved
       end
 
 feature {}
-   correct_generating_type (object_: like object_memory): BOOLEAN is
+   correct_generating_type (object_: like object_memory): BOOLEAN
       local
          ogt, tgt: STRING
       do
@@ -151,7 +151,7 @@ end -- class TYPED_INTERNALS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -16,7 +16,7 @@ feature {ANY}
 
    static_d: AUX_AS1_D
 
-   make (init: G) is
+   make (init: G)
       require
          non_void_init: init /= Void
       do

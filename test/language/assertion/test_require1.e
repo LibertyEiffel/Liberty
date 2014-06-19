@@ -15,7 +15,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          d: AUX_REQUIRE1_D
       do

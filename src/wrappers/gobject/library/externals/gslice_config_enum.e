@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = g_slice_config_always_malloc_low_level)  or else
 				(a_value = g_slice_config_bypass_magazines_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_slice_config_always_malloc is
+	set_g_slice_config_always_malloc
 		do
 			value := g_slice_config_always_malloc_low_level
 		end
 
-	set_g_slice_config_bypass_magazines is
+	set_g_slice_config_bypass_magazines
 		do
 			value := g_slice_config_bypass_magazines_low_level
 		end
 
-	set_g_slice_config_chunk_sizes is
+	set_g_slice_config_chunk_sizes
 		do
 			value := g_slice_config_chunk_sizes_low_level
 		end
 
-	set_g_slice_config_color_increment is
+	set_g_slice_config_color_increment
 		do
 			value := g_slice_config_color_increment_low_level
 		end
 
-	set_g_slice_config_contention_counter is
+	set_g_slice_config_contention_counter
 		do
 			value := g_slice_config_contention_counter_low_level
 		end
 
-	set_g_slice_config_working_set_msecs is
+	set_g_slice_config_working_set_msecs
 		do
 			value := g_slice_config_working_set_msecs_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_slice_config_always_malloc: BOOLEAN is
+	is_g_slice_config_always_malloc: BOOLEAN
 		do
 			Result := (value=g_slice_config_always_malloc_low_level)
 		end
 
-	is_g_slice_config_bypass_magazines: BOOLEAN is
+	is_g_slice_config_bypass_magazines: BOOLEAN
 		do
 			Result := (value=g_slice_config_bypass_magazines_low_level)
 		end
 
-	is_g_slice_config_chunk_sizes: BOOLEAN is
+	is_g_slice_config_chunk_sizes: BOOLEAN
 		do
 			Result := (value=g_slice_config_chunk_sizes_low_level)
 		end
 
-	is_g_slice_config_color_increment: BOOLEAN is
+	is_g_slice_config_color_increment: BOOLEAN
 		do
 			Result := (value=g_slice_config_color_increment_low_level)
 		end
 
-	is_g_slice_config_contention_counter: BOOLEAN is
+	is_g_slice_config_contention_counter: BOOLEAN
 		do
 			Result := (value=g_slice_config_contention_counter_low_level)
 		end
 
-	is_g_slice_config_working_set_msecs: BOOLEAN is
+	is_g_slice_config_working_set_msecs: BOOLEAN
 		do
 			Result := (value=g_slice_config_working_set_msecs_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_slice_config_always_malloc_low_level: INTEGER is
+	g_slice_config_always_malloc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_slice_config_bypass_magazines_low_level: INTEGER is
+	g_slice_config_bypass_magazines_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_slice_config_chunk_sizes_low_level: INTEGER is
+	g_slice_config_chunk_sizes_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_slice_config_color_increment_low_level: INTEGER is
+	g_slice_config_color_increment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_slice_config_contention_counter_low_level: INTEGER is
+	g_slice_config_contention_counter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_slice_config_working_set_msecs_low_level: INTEGER is
+	g_slice_config_working_set_msecs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

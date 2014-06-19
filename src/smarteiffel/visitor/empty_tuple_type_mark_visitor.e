@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       require
          visited /= Void
       deferred

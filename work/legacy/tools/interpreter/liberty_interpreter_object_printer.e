@@ -21,7 +21,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {ANY}
-   print_object (o: like stream; obj: like object; i: like indent) is
+   print_object (o: like stream; obj: like object; i: like indent)
       do
          if obj = Void then
             o.put_line(once "<Void>")
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   put_indent (o: OUTPUT_STREAM; tabs: like indent) is
+   put_indent (o: OUTPUT_STREAM; tabs: like indent)
          -- `show_stack' helper.
       local
          i: INTEGER
@@ -53,68 +53,68 @@ feature {ANY}
       end
 
 feature {LIBERTY_UNIVERSE}
-   visit_type_any (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_any (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_arguments (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_arguments (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_platform (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_platform (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_pointer (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_pointer (type: LIBERTY_ACTUAL_TYPE)
       do
          stream.put_character('@')
          object.show_stack(stream, indent)
       end
 
-   visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_64 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_32 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_16 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_integer_8 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_64 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_32 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_80 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_real_128 (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_character (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_character (type: LIBERTY_ACTUAL_TYPE)
       local
          code: INTEGER; char: LIBERTY_INTERPRETER_OBJECT_NATIVE[CHARACTER]
       do
@@ -146,7 +146,7 @@ feature {LIBERTY_UNIVERSE}
          end
       end
 
-   visit_type_string (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_string (type: LIBERTY_ACTUAL_TYPE)
       local
          string: LIBERTY_INTERPRETER_OBJECT_STRUCTURE
          i, n: INTEGER; storage: LIBERTY_INTERPRETER_NATIVE_ARRAY_TYPED[CHARACTER]
@@ -209,55 +209,55 @@ feature {LIBERTY_UNIVERSE}
          string.show_stack(stream, indent)
       end
 
-   visit_type_boolean (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_boolean (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_native_array (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_native_array (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_tuple (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_tuple (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_routine (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_routine (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_procedure (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_procedure (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_function (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_function (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_type_predicate (type: LIBERTY_ACTUAL_TYPE) is
+   visit_type_predicate (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
-   visit_user_type (type: LIBERTY_ACTUAL_TYPE) is
+   visit_user_type (type: LIBERTY_ACTUAL_TYPE)
       do
          object.show_stack(stream, indent)
       end
 
 feature {LIBERTY_VOID_TYPE}
-   visit_void (type: LIBERTY_VOID_TYPE) is
+   visit_void (type: LIBERTY_VOID_TYPE)
       do
          check object.is_void end
          object.show_stack(stream, indent)
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -272,12 +272,12 @@ feature {}
    indent: INTEGER
    stream: OUTPUT_STREAM
 
-   storage_attribute: FIXED_STRING is
+   storage_attribute: FIXED_STRING
       once
          Result := "storage".intern
       end
 
-   count_attribute: FIXED_STRING is
+   count_attribute: FIXED_STRING
       once
          Result := "count".intern
       end

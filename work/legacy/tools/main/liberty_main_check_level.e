@@ -15,32 +15,32 @@
 expanded class LIBERTY_MAIN_CHECK_LEVEL
 
 feature {ANY}
-   is_all_checked: BOOLEAN is
+   is_all_checked: BOOLEAN
          -- must check "check" sections and loop variants
       do
          Result := value <= check_all
       end
 
-   is_invariant_checked: BOOLEAN is
+   is_invariant_checked: BOOLEAN
          -- must check (class and loop) invariants
       do
          Result := value <= check_invariant
       end
 
-   is_ensure_checked: BOOLEAN is
+   is_ensure_checked: BOOLEAN
          -- must check feature postconditions
       do
          Result := value <= check_ensure
       end
 
-   is_require_checked: BOOLEAN is
+   is_require_checked: BOOLEAN
          -- must check feature preconditions
       do
          Result := value <= check_require
       end
 
 feature {LIBERTY_MAIN}
-   valid_arg (arg: STRING): BOOLEAN is
+   valid_arg (arg: STRING): BOOLEAN
       do
          inspect
             arg
@@ -50,7 +50,7 @@ feature {LIBERTY_MAIN}
          end
       end
 
-   set (arg: STRING): LIBERTY_MAIN_CHECK_LEVEL is
+   set (arg: STRING): LIBERTY_MAIN_CHECK_LEVEL
       do
          inspect
             arg
@@ -73,11 +73,11 @@ feature {LIBERTY_MAIN}
 feature {}
    value: INTEGER_8
 
-   check_all: INTEGER_8 is 0
-   check_invariant: INTEGER_8 is 1
-   check_ensure: INTEGER_8 is 2
-   check_require: INTEGER_8 is 3
-   check_none: INTEGER_8 is 4
+   check_all: INTEGER_8 0
+   check_invariant: INTEGER_8 1
+   check_ensure: INTEGER_8 2
+   check_require: INTEGER_8 3
+   check_none: INTEGER_8 4
 
 invariant
    value.in_range(check_all, check_none)

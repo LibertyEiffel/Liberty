@@ -12,12 +12,12 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: NATIVE_BUILT_IN_VISITOR) is
+   accept (visitor: NATIVE_BUILT_IN_VISITOR)
       do
          visitor.visit_native_built_in(Current)
       end
 
-   use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
+   use_current (er: EXTERNAL_ROUTINE): BOOLEAN
       local
          name: STRING
       do
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {EXTERNAL_FUNCTION}
-   side_effect_free (target_type: TYPE; feature_text: FEATURE_TEXT): BOOLEAN is
+   side_effect_free (target_type: TYPE; feature_text: FEATURE_TEXT): BOOLEAN
       do
          if target_type.is_native_array then
             if feature_text.names.first.to_string = as_item then
@@ -44,7 +44,7 @@ feature {EXTERNAL_FUNCTION}
       end
 
 feature {EXTERNAL_ROUTINE}
-   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE)
       local
          name, bcn: STRING
       do
@@ -71,13 +71,13 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {EXTERNAL_TYPE}
-   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE) is
+   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE)
       do
          not_yet_implemented
       end
 
 feature {}
-   collect_fs (type: TYPE; fs_name: HASHED_STRING) is
+   collect_fs (type: TYPE; fs_name: HASHED_STRING)
       local
          t: TYPE; fs: FEATURE_STAMP
       do
@@ -85,42 +85,42 @@ feature {}
          t := smart_eiffel.collect(type, fs, True)
       end
 
-   thread: HASHED_STRING is
+   thread: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(once "thread")
       end
 
-   run: HASHED_STRING is
+   run: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_run)
       end
 
-   wait: HASHED_STRING is
+   wait: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_wait)
       end
 
-   native_data: HASHED_STRING is
+   native_data: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_native_data)
       end
 
-   is_started: HASHED_STRING is
+   is_started: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_is_started)
       end
 
-   is_finished: HASHED_STRING is
+   is_finished: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_is_finished)
       end
 
-   status: HASHED_STRING is
+   status: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_status)
       end
 
-   fe_nyi (rf: RUN_FEATURE) is
+   fe_nyi (rf: RUN_FEATURE)
       do
          error_handler.add_position(rf.start_position)
          error_handler.append(once "Sorry, but this feature is not yet implemented for Current type ")

@@ -9,12 +9,12 @@ create {}
    make
 
 feature {ANY} -- Initialization
-   make is
+   make
       do
       end
 
 feature {ANY} -- Constant
-   dummy_constant: REAL is 0.0
+   dummy_constant: REAL 0.0
 
 end -- class TEST_REAL_CONSTANT02
 --

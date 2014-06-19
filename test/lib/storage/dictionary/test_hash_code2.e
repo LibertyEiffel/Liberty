@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d: DICTIONARY[INTEGER, CHARACTER]
       do
@@ -22,7 +22,7 @@ feature {ANY}
          for_time
       end
 
-   for_time is
+   for_time
       local
          d: DICTIONARY[INTEGER, TIME]; t1, t2: TIME
       do

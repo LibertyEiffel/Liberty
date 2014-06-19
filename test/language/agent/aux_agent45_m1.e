@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create slave.make
       end

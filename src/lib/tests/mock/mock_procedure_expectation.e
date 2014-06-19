@@ -10,7 +10,7 @@ create {MOCK_EXPECT}
    make
 
 feature {}
-   do_call is
+   do_call
       do
          if side_effect /= Void then
             side_effect.call([])
@@ -18,7 +18,7 @@ feature {}
       end
 
 feature {ANY}
-   with_side_effect, infix "~>" (a_side_effect: PROCEDURE[TUPLE]): like Current is
+   with_side_effect, infix "~>" (a_side_effect: PROCEDURE[TUPLE]): like Current
       require
          not ready
          not result_ready
@@ -44,7 +44,7 @@ end -- class MOCK_PROCEDURE_EXPECTATION
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

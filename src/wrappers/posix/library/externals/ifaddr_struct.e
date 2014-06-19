@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	ifaddr_struct_set_ifa_ifp (a_structure: POINTER; a_value: POINTER) is
+	ifaddr_struct_set_ifa_ifp (a_structure: POINTER; a_value: POINTER)
 			-- Setter for ifa_ifp field of IFADDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ifaddr_struct_set_ifa_next (a_structure: POINTER; a_value: POINTER) is
+	ifaddr_struct_set_ifa_next (a_structure: POINTER; a_value: POINTER)
 			-- Setter for ifa_next field of IFADDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 
 	-- Unwrappable field ifa_addr.
 	-- Unwrappable field ifa_ifu.
-	ifaddr_struct_get_ifa_ifp (a_structure: POINTER): POINTER is
+	ifaddr_struct_get_ifa_ifp (a_structure: POINTER): POINTER
 			-- Query for ifa_ifp field of IFADDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -48,7 +48,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ifaddr_struct_get_ifa_next (a_structure: POINTER): POINTER is
+	ifaddr_struct_get_ifa_next (a_structure: POINTER): POINTER
 			-- Query for ifa_next field of IFADDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -61,7 +61,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

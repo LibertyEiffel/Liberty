@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          directory: DIRECTORY; some_path: STRING
       do
@@ -40,7 +40,7 @@ feature {}
          end
       end
 
-   list_directory (directory: DIRECTORY) is
+   list_directory (directory: DIRECTORY)
       local
          i: INTEGER
       do

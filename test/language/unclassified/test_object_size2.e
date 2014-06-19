@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; aux_a: AUX_OS2A; aux_b: AUX_OS2B
       do

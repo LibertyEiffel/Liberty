@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "compile"
+   command_line_name: STRING "compile"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: compile [options] <RootClass> <RootProcedure> ...
          or: compile [options] <ACEfileName>.ace
       For information about and examples of ACE files, have a look
@@ -86,7 +86,7 @@ feature {ANY}
    ]"
 
 feature {}
-   make is
+   make
       local
          argi, last_system_call_status: INTEGER; arg, make_script_name: STRING
       do
@@ -177,7 +177,7 @@ feature {}
    process_count: INTEGER
          -- Number of c-compiler processes that are currently running
 
-   run_make_file is
+   run_make_file
       do
          if max_process_count > 1 then
             run_make_file_parallel
@@ -186,7 +186,7 @@ feature {}
          end
       end
 
-   run_make_file_serial is
+   run_make_file_serial
       local
          last_system_call_status: INTEGER
       do
@@ -206,7 +206,7 @@ feature {}
          end
       end
 
-   run_make_file_parallel is
+   run_make_file_parallel
       local
          ps: PROCESS_SCHEDULER
       do
@@ -233,21 +233,21 @@ feature {}
          ps.wait
       end
 
-   print_launched (command_line: STRING) is
+   print_launched (command_line: STRING)
       do
          echo.put_string(once "System call %"")
          echo.put_string(command_line)
          echo.put_string(once "%".%N")
       end
 
-   check_status (status: INTEGER) is
+   check_status (status: INTEGER)
       do
          if status /= 0 then
             die_with_code(status)
          end
       end
 
-   parse_command_line (pass: INTEGER) is
+   parse_command_line (pass: INTEGER)
       local
          arg, next_arg: STRING; argi: INTEGER
       do
@@ -325,23 +325,23 @@ feature {}
          end
       end
 
-   compile_to_c_pass_argument (arg: STRING) is
+   compile_to_c_pass_argument (arg: STRING)
       do
          command.extend(' ')
          command.append(arg)
       end
 
-   make_file: TEXT_FILE_READ is
+   make_file: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   command: STRING is
+   command: STRING
       once
          create Result.make(256)
       end
 
-   one_arg_flag (flag: STRING): BOOLEAN is
+   one_arg_flag (flag: STRING): BOOLEAN
       do
          Result := fz_o.is_equal(flag)
             or else flag_match(fz_cc, flag)
@@ -350,7 +350,7 @@ feature {}
             or else flag_match(fz_c_mode, flag)
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          Result := is_version_flag(arg)
             or else is_flymake_mode_flag(arg)
@@ -361,7 +361,7 @@ feature {}
             or else is_clean_flag(arg)
       end
 
-   is_jobs_flag (arg: STRING; argi: INTEGER): BOOLEAN is
+   is_jobs_flag (arg: STRING; argi: INTEGER): BOOLEAN
       local
          num: STRING; ok: BOOLEAN
       do
@@ -384,7 +384,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version, -help, -clean, and -relax are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, -clean, and -relax are allowed%Nin ACE file mode.%N"
 
 end -- class COMPILE
 --

@@ -10,7 +10,7 @@ create {}
 feature {}
    r: AUX_AGENT57[PROCEDURE[TUPLE]]
 
-   make is
+   make
       do
          die_with_code(exit_success_code)
          r.item.call([])

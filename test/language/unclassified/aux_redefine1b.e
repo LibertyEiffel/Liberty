@@ -9,11 +9,11 @@ inherit
       end
 
 feature {ANY}
-   foo (array: ARRAY[STRING]) is
+   foo (array: ARRAY[STRING])
       do
       end
 
-   bar (array: ARRAY[STRING]) is
+   bar (array: ARRAY[STRING])
       do
          array.put("toto", 1)
       end

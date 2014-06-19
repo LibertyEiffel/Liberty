@@ -6,7 +6,7 @@ insert READ_LINE
 create {ANY} make
 
 feature {ANY}
-        make is
+        make
                 do
                         prompt := "Liberty> "
                         from read_line until last_line.is_empty loop
@@ -25,7 +25,7 @@ feature {ANY}
                 end
 
 
-        print_entry (x: HISTORY_ENTRY) is
+        print_entry (x: HISTORY_ENTRY)
         do
                 if x/=Void then
                         print("'"+x.line+"'%N")

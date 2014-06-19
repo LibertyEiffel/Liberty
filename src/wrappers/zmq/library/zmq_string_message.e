@@ -32,7 +32,7 @@ create {ZMQ_SOCKET}
    from_external_pointer
 
 feature {} -- Creation
-   from_message (a_message: ZMQ_MESSAGE) is
+   from_message (a_message: ZMQ_MESSAGE)
          -- Initialize a text message with the same memory area of `a_message'
       do
          not_yet_implemented
@@ -41,7 +41,7 @@ feature {} -- Creation
          -- end
       end
 
-   from_string (a_string: ABSTRACT_STRING) is
+   from_string (a_string: ABSTRACT_STRING)
          -- Initialize a ØMQ message with the content of `a_string'.
 
          -- Actually the message will be built using the intern of `a_string'.
@@ -64,7 +64,7 @@ feature {} -- Creation
       end
 
 feature {ANY}
-   update is
+   update
       do
          count := size.to_integer_32
          capacity := count
@@ -72,7 +72,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Specializing natively stored string
-   ensure_capacity (needed_capacity: like capacity) is
+   ensure_capacity (needed_capacity: like capacity)
 	 local new: like handle; rc: INTEGER_32
       do
          if needed_capacity > count then
@@ -81,26 +81,26 @@ feature {ANY} -- Specializing natively stored string
          end
       end
 
-   hash_code: INTEGER_32 is
+   hash_code: INTEGER_32
       do
       end
 
-   recycle is
+   recycle
       do
          -- nothing
       end
 
-   to_external: POINTER is
+   to_external: POINTER
       do
          Result := zmq_msg_data(handle)
       end
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
       do
          create Result.from_external_sized_copy(zmq_msg_data(handle), zmq_msg_size(handle).to_integer_32)
       end
 
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
       do
          not_yet_implemented
       end

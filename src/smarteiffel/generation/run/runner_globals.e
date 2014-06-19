@@ -7,23 +7,23 @@ insert
    GLOBALS
 
 feature {}
-   frozen runner: RUNNER is
+   frozen runner: RUNNER
       once
          create Result.make
       end
 
-   frozen displayer: RUNNER_DISPLAYER is
+   frozen displayer: RUNNER_DISPLAYER
       once
          create Result.make(std_output)
       end
 
-   frozen user_args: FAST_ARRAY[STRING] is
+   frozen user_args: FAST_ARRAY[STRING]
       once
          create Result.make(0)
       end
 
 feature {}
-   frozen break is
+   frozen break
       do
          debug ("run.callstack", "run.data")
             std_output.put_line(once "**************** BREAK ****************")
@@ -32,7 +32,7 @@ feature {}
          sedb_breakpoint
       end
 
-   frozen repr (arg: RUNNER_OBJECT): STRING is
+   frozen repr (arg: RUNNER_OBJECT): STRING
       do
          if arg = Void then
             Result := once "Void"
@@ -43,7 +43,7 @@ feature {}
          Result /= Void
       end
 
-   frozen listrepr (list: TRAVERSABLE[RUNNER_OBJECT]): STRING is
+   frozen listrepr (list: TRAVERSABLE[RUNNER_OBJECT]): STRING
       local
          i: INTEGER
       do

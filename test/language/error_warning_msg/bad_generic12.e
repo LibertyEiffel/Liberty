@@ -21,7 +21,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: AUX_GENERIC12[BAD_GENERIC12]
       do
@@ -29,12 +29,12 @@ feature {}
          aux.do_print(Current)
       end
 
-   foo (file: OUTPUT_STREAM) is
+   foo (file: OUTPUT_STREAM)
       do
          -- file.put_string("foo")
       end
 
-   bar (file: OUTPUT_STREAM) is
+   bar (file: OUTPUT_STREAM)
       do
          -- file.put_string("bar")
       end

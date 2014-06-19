@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_AGENT}
-   visit_liberty_agent (v: LIBERTY_AGENT) is
+   visit_liberty_agent (v: LIBERTY_AGENT)
       deferred
       end
 

@@ -7,6 +7,6 @@ Line 15 column 17 in BAD_AGENT06 (/home/cadrian/Workspace/Dev/Liberty/test/langu
          p.call([6]);
                 ^    
 Line 19 column 13 in FUNCTION (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/function.e):
-   call (o: O_) is
-            ^     
+   call (o: O_)
+            ^  
 ------

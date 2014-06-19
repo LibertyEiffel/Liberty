@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       require
          visited /= Void
       deferred

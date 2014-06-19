@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          s: STRING
       do
@@ -16,7 +16,7 @@ feature {}
          print(s);  print("%N")
       end
 
-   adapt_to(pattern: like adapt_to): STRING is
+   adapt_to(pattern: like adapt_to): STRING
       do
          Result := out + pattern
       end

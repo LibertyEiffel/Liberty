@@ -31,7 +31,7 @@ create {ANY}
    from_string
 
 feature {ANY}
-   from_string (a_string: STRING) is
+   from_string (a_string: STRING)
       require
          a_string /= Void
       do
@@ -43,7 +43,7 @@ feature {ANY}
          update
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := string.to_string
       end
@@ -51,21 +51,21 @@ feature {ANY}
 feature {}
    string: EDC_STRING_STREAM
 
-   commit is
+   commit
       do
          string.clear
          write_to_stream(string)
       end
 
-   update is
+   update
       do
          read_from_stream(string)
       end
 
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   is_updateable: BOOLEAN is True
+   is_updateable: BOOLEAN True
 
-   is_commitable: BOOLEAN is True
+   is_commitable: BOOLEAN True
 
 end -- class EDC_BLOB

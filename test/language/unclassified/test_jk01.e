@@ -11,7 +11,7 @@ feature {ANY}
    i: INTEGER
 
 feature {ANY}
-   make is
+   make
       local
          mem: STRING
       do

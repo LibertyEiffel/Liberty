@@ -14,7 +14,7 @@ create {ANY}
 feature {ANY}
    spec: STRING
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -40,7 +40,7 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: INDEX_CLAUSE_VISITOR) is
+   accept (visitor: INDEX_CLAUSE_VISITOR)
       do
          visitor.visit_index_clause(Current)
       end
@@ -51,7 +51,7 @@ feature {INDEX_CLAUSE, INDEX_CLAUSE_VISITOR}
    list: FAST_ARRAY[MANIFEST_STRING]
 
 feature {}
-   with_tag (i: like tag; s: like spec) is
+   with_tag (i: like tag; s: like spec)
       require
          i /= Void
       do
@@ -61,14 +61,14 @@ feature {}
          tag = i
       end
 
-   without_tag (index_value: MANIFEST_STRING; s: like spec) is
+   without_tag (index_value: MANIFEST_STRING; s: like spec)
       do
          spec := s
          add_last(index_value)
       end
 
 feature {EIFFEL_PARSER, INDEX_CLAUSE_VISITOR}
-   add_last (index_value: MANIFEST_STRING) is
+   add_last (index_value: MANIFEST_STRING)
       require
          index_value /= Void
       do

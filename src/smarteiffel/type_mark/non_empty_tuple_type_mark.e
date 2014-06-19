@@ -19,12 +19,12 @@ create {ANY}
    make
 
 feature {ANY}
-   as_type_mark: TYPE_MARK is
+   as_type_mark: TYPE_MARK
       do
          Result := Current
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -44,24 +44,24 @@ feature {ANY}
          buffer.extend(']')
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := generic_list.count
       end
 
-   accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR) is
+   accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR)
       do
          visitor.visit_non_empty_tuple_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position, False))
       end
 
 feature {}
-   make (sp: like start_position; gl: like generic_list) is
+   make (sp: like start_position; gl: like generic_list)
       require
          gl.lower = 1 and gl.count > 0
       local

@@ -22,7 +22,7 @@ create {EIFFELDOC_SHORTER}
    make
 
 feature {EIFFELDOC_SHORTER}
-   generate (ct: CLASS_TEXT; source_filename: STRING) is
+   generate (ct: CLASS_TEXT; source_filename: STRING)
       do
          class_text := ct
          html := html_output_stream_for_file(source_filename)
@@ -34,7 +34,7 @@ feature {EIFFELDOC_SHORTER}
       end
 
 feature {}
-   enter_class_text (visited: CLASS_TEXT): BOOLEAN is
+   enter_class_text (visited: CLASS_TEXT): BOOLEAN
       local
          i: INTEGER; fga: FORMAL_GENERIC_ARG
       do
@@ -80,7 +80,7 @@ feature {}
          end
       end
 
-   exit_class_text (visited: CLASS_TEXT) is
+   exit_class_text (visited: CLASS_TEXT)
       do
          indent_line
          put_keyword(once "end")
@@ -91,7 +91,7 @@ feature {}
       end
 
 feature {CREATION_CLAUSE}
-   visit_creation_clause (visited: CREATION_CLAUSE) is
+   visit_creation_clause (visited: CREATION_CLAUSE)
       local
          b: STRING
       do
@@ -113,7 +113,7 @@ feature {CREATION_CLAUSE}
       end
 
 feature {FEATURE_CLAUSE}
-   visit_feature_clause (visited: FEATURE_CLAUSE) is
+   visit_feature_clause (visited: FEATURE_CLAUSE)
       local
          i: INTEGER; b: STRING
       do
@@ -142,7 +142,7 @@ feature {FEATURE_CLAUSE}
       end
 
 feature {FEATURE_TEXT}
-   visit_feature_text (visited: FEATURE_TEXT) is
+   visit_feature_text (visited: FEATURE_TEXT)
       do
          html.open_anchor_name(visited.names.first.hash_code.out)
          indent_line
@@ -153,7 +153,7 @@ feature {FEATURE_TEXT}
       end
 
 feature {FEATURE_NAME_LIST}
-   visit_feature_name_list (visited: FEATURE_NAME_LIST) is
+   visit_feature_name_list (visited: FEATURE_NAME_LIST)
       local
          i: INTEGER; name: STRING
       do
@@ -172,7 +172,7 @@ feature {FEATURE_NAME_LIST}
       end
 
 feature {}
-   do_visit_anonymous_feature (visited: ANONYMOUS_FEATURE) is
+   do_visit_anonymous_feature (visited: ANONYMOUS_FEATURE)
       local
          args: FORMAL_ARG_LIST; decls: ARRAY[DECLARATION]; decl: DECLARATION
          i: INTEGER; b: STRING
@@ -298,7 +298,7 @@ feature {}
       end
 
 feature {}
-   enter_require_assertion (visited: REQUIRE_ASSERTION): BOOLEAN is
+   enter_require_assertion (visited: REQUIRE_ASSERTION): BOOLEAN
       do
          Result := True
          indent_line
@@ -310,13 +310,13 @@ feature {}
          indent_more
       end
 
-   exit_require_assertion (visited: REQUIRE_ASSERTION) is
+   exit_require_assertion (visited: REQUIRE_ASSERTION)
       do
          indent_less
       end
 
 feature {}
-   enter_ensure_assertion (visited: ENSURE_ASSERTION): BOOLEAN is
+   enter_ensure_assertion (visited: ENSURE_ASSERTION): BOOLEAN
       do
          Result := True
          indent_line
@@ -328,7 +328,7 @@ feature {}
          indent_more
       end
 
-   exit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   exit_ensure_assertion (visited: ENSURE_ASSERTION)
       do
          indent_less
       end
@@ -336,7 +336,7 @@ feature {}
 feature {}
    indent_amount: INTEGER
 
-   indent_comment (line: STRING) is
+   indent_comment (line: STRING)
       local
          i: INTEGER
       do
@@ -352,7 +352,7 @@ feature {}
          html.put_string(line)
       end
 
-   indent_line is
+   indent_line
       local
          i: INTEGER
       do
@@ -371,18 +371,18 @@ feature {}
          html.close_typeset
       end
 
-   indent_more is
+   indent_more
       do
          indent_amount := indent_amount + 1
       end
 
-   indent_less is
+   indent_less
       do
          indent_amount := indent_amount - 1
       end
 
 feature {}
-   put_keyword (keyword: STRING) is
+   put_keyword (keyword: STRING)
       do
          html.with_attribute(once "class", once "source_keyword")
          html.open_bold
@@ -390,7 +390,7 @@ feature {}
          html.close_bold
       end
 
-   put_comment (comment: COMMENT) is
+   put_comment (comment: COMMENT)
       local
          i: INTEGER
          list: ARRAY[STRING]
@@ -415,7 +415,7 @@ feature {}
    html: EIFFELDOC_OUTPUT_STREAM
    class_text: CLASS_TEXT
 
-   make (a_options: like options) is
+   make (a_options: like options)
       require
          a_options /= Void
       do

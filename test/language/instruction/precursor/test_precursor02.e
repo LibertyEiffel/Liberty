@@ -15,12 +15,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo
       end
 
-   foo is
+   foo
       do
          assert(value = 0)
          Precursor

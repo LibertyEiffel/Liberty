@@ -16,7 +16,7 @@ feature {ANY}
    next: like Current
          -- remaining of the list
 
-   make (nod: BACKTRACKING_NODE; nxt: like next) is
+   make (nod: BACKTRACKING_NODE; nxt: like next)
       require
          value_not_void: nod /= Void
       do
@@ -27,7 +27,7 @@ feature {ANY}
          node_not_void: node /= Void
       end
 
-   set_node (value: BACKTRACKING_NODE) is
+   set_node (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -37,7 +37,7 @@ feature {ANY}
          node_not_void: node /= Void
       end
 
-   set_next (value: like next) is
+   set_next (value: like next)
       do
          next := value
       ensure
@@ -55,7 +55,7 @@ end -- class BACKTRACKING_NODE_LIST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

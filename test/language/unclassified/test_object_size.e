@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; b: BOOLEAN; c: CHARACTER; r: REAL; d: REAL
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(r.object_size <= d.object_size)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

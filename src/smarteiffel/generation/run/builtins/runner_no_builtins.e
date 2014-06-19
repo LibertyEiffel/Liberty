@@ -13,18 +13,18 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_STRUCTURED_OBJECT
       do
          create Result.make(processor, type, Current)
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

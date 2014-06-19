@@ -15,18 +15,18 @@ create {ANY}
 feature {ANY}
    item: BOOLEAN
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := item = other.item
       end
 
 feature {}
-   as_true is
+   as_true
       do
          item := True
       end
 
-   as_false is
+   as_false
       do
          check
             item = False

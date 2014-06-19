@@ -27,7 +27,7 @@ create {ANY}
    make
 
 feature {ANY}
-   indent_level: INTEGER is
+   indent_level: INTEGER
          -- The current `indent_level'. As an example, this is 0 before the "class" keyword or 0 before
          -- the "feature" keyword, this is 1 before a feature name declaration and 2 for the "do" keyword.
       local
@@ -53,7 +53,7 @@ feature {ANY}
          Result >= -1
       end
 
-   set_indent_level (il: INTEGER) is
+   set_indent_level (il: INTEGER)
          -- To be called each time we need a blank left margin of `il' characters '%T'.
          -- Actually, this method can be called more than once to increase or to
          -- decrease the actual left margin without starting a new line each time.
@@ -97,31 +97,31 @@ feature {ANY}
          indent_level = il
       end
 
-   zen_mode: BOOLEAN is
+   zen_mode: BOOLEAN
          -- Are we in the "-zen" mode?
       do
          Result := mode = C_zen
       end
 
-   default_mode: BOOLEAN is
+   default_mode: BOOLEAN
          -- Are we in the "-default" mode?
       do
          Result := mode = C_default
       end
 
-   end_mode: BOOLEAN is
+   end_mode: BOOLEAN
          -- Are we in the "-end" mode?
       do
          Result := mode = C_end
       end
 
-   parano_mode: BOOLEAN is
+   parano_mode: BOOLEAN
          -- Are we in the "-parano" mode?
       do
          Result := mode = C_parano
       end
 
-   print_end_of_statement: BOOLEAN is
+   print_end_of_statement: BOOLEAN
          -- Do we have to print the end of a statement according to the current `mode'?
       do
          inspect
@@ -132,7 +132,7 @@ feature {ANY}
          end
       end
 
-   print_end_of_feature: BOOLEAN is
+   print_end_of_feature: BOOLEAN
          -- Do we have to print the end of a feature according to the current `mode'?
       do
          inspect
@@ -143,7 +143,7 @@ feature {ANY}
          end
       end
 
-   put_end_of (what: STRING) is
+   put_end_of (what: STRING)
          -- Short-hand to tag the end of `what'.
       do
          put_string(once "-- ")
@@ -151,7 +151,7 @@ feature {ANY}
          put_character('%N')
       end
 
-   keyword (k: STRING) is
+   keyword (k: STRING)
          -- Add keyword `k'. If needed, a space is added before `k' and always add a ' ' after `k'.
       require
          not k.has('%N')
@@ -182,7 +182,7 @@ feature {ANY}
          -- When the current instruction may add a following semi_colon (i.e. when this is not the last
          -- one of some compound).
 
-   set_semi_colon_flag (v: like semi_colon_flag) is
+   set_semi_colon_flag (v: like semi_colon_flag)
       do
          if v then
             if parano_mode then
@@ -193,7 +193,7 @@ feature {ANY}
          end
       end
 
-   put_character (c: CHARACTER) is
+   put_character (c: CHARACTER)
       local
          stop: BOOLEAN
       do
@@ -219,7 +219,7 @@ feature {ANY}
          buffer.extend(c)
       end
 
-   put_string (s: STRING) is
+   put_string (s: STRING)
       require
          s /= Void
       local
@@ -235,7 +235,7 @@ feature {ANY}
          end
       end
 
-   skip_one_line is
+   skip_one_line
          -- Add an empty line in the output only if it is necessary (i.e. if there is no empty line
          -- already skipped). Hence, calling the `skip_one_line' feature is not equivalent to call
          -- `put_character' using '%N' as an argument. In other words, two immediately successive calls
@@ -254,7 +254,7 @@ feature {ANY}
          end
       end
 
-   skip_two_lines is
+   skip_two_lines
          -- Add two empty lines in the ouput only if it is necessary. (See also `skip_one_line'.)
       do
          if buffer.is_empty then
@@ -270,7 +270,7 @@ feature {ANY}
          end
       end
 
-   put_type_mark (type_mark: TYPE_MARK) is
+   put_type_mark (type_mark: TYPE_MARK)
       require
          type_mark /= Void
       do
@@ -278,7 +278,7 @@ feature {ANY}
       end
 
 feature {COMMENT}
-   put_one_line_comment (il: like indent_level; comment: STRING) is
+   put_one_line_comment (il: like indent_level; comment: STRING)
          -- Add the `comment' only if it is not already added. (The goal is to avoid duplication of end
          -- comments of statements.)
       require
@@ -338,21 +338,21 @@ feature {COMMENT}
       end
 
 feature {ANONYMOUS_FEATURE}
-   indent_level_for_header_comment_of_feature: INTEGER is 2
+   indent_level_for_header_comment_of_feature: INTEGER 2
 
 feature {CLASS_TEXT}
    replacement_header, replacement_footer: STRING
          -- (See also `pretty'.)
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
-   set_replacement_header (rh: like replacement_header) is
+   set_replacement_header (rh: like replacement_header)
       do
          replacement_header := rh
       ensure
          replacement_header = rh
       end
 
-   set_replacement_footer (rh: like replacement_footer) is
+   set_replacement_footer (rh: like replacement_footer)
       do
          replacement_footer := rh
       ensure
@@ -360,7 +360,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       end
 
 feature {COMMENT}
-   last_character: CHARACTER is
+   last_character: CHARACTER
       require
          indent_level < 1
       do
@@ -368,7 +368,7 @@ feature {COMMENT}
       end
 
 feature {COMPOUND}
-   last_non_blank_character: CHARACTER is
+   last_non_blank_character: CHARACTER
          -- The last non blank character at the end of the internal `buffer'.
       local
          i: INTEGER; c: CHARACTER
@@ -390,7 +390,7 @@ feature {COMPOUND}
          end
       end
 
-   prepare_for_same_line_comment is
+   prepare_for_same_line_comment
          -- Remove some trailing '%N' if any.
       local
          i: INTEGER; c: CHARACTER
@@ -413,12 +413,12 @@ feature {COMPOUND}
       end
 
 feature {COMPOUND, ASSERTION_LIST}
-   index_of_last_character: INTEGER is
+   index_of_last_character: INTEGER
       do
          Result := buffer.count
       end
 
-   is_opening_bracket_after (idx: INTEGER): BOOLEAN is
+   is_opening_bracket_after (idx: INTEGER): BOOLEAN
       local
          i: INTEGER; stop: BOOLEAN
       do
@@ -440,12 +440,12 @@ feature {COMPOUND, ASSERTION_LIST}
          end
       end
 
-   erase_everything_after (idx: INTEGER) is
+   erase_everything_after (idx: INTEGER)
       do
          buffer.set_count(idx)
       end
 
-   erase_separators_after (idx: INTEGER) is
+   erase_separators_after (idx: INTEGER)
       local
          i: INTEGER; stop: BOOLEAN
       do
@@ -465,9 +465,9 @@ feature {COMPOUND, ASSERTION_LIST}
       end
 
 feature {ANY}
-   wrap_limit: INTEGER is 120
+   wrap_limit: INTEGER 120
 
-   column: INTEGER is
+   column: INTEGER
          -- The current column (the left-most column number is 1).
       local
          stop: BOOLEAN; i: INTEGER
@@ -498,32 +498,32 @@ feature {ANY}
       end
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
-   set_zen is
+   set_zen
          -- (See pretty.html for more info.)
       do
          mode := C_zen
       end
 
-   set_default is
+   set_default
          -- (See pretty.html for more info.)
       do
          mode := C_default
       end
 
-   set_end is
+   set_end
          -- (See pretty.html for more info.)
       do
          mode := C_end
       end
 
-   set_parano is
+   set_parano
          -- (See pretty.html for more info.)
       do
          mode := C_parano
       end
 
 feature {ANY} -- To run `pretty' in a STRING buffer:
-   code_in (client_buffer: STRING; code: CODE) is
+   code_in (client_buffer: STRING; code: CODE)
          -- After this call, the prettyfied version of `code' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
@@ -540,7 +540,7 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          client_buffer.append(pretty_buffer)
       end
 
-   expression_in (client_buffer: STRING; expression: EXPRESSION) is
+   expression_in (client_buffer: STRING; expression: EXPRESSION)
          -- After this call, the prettyfied version of `expression' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
@@ -557,7 +557,7 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
          client_buffer.append(pretty_buffer)
       end
 
-   instruction_in (client_buffer: STRING; instruction: INSTRUCTION) is
+   instruction_in (client_buffer: STRING; instruction: INSTRUCTION)
          -- After this call, the prettyfied version of `instruction' has been appended in the `client_buffer'.
       require
          client_buffer /= Void
@@ -575,7 +575,7 @@ feature {ANY} -- To run `pretty' in a STRING buffer:
       end
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
-   connect_to (path: STRING) is
+   connect_to (path: STRING)
          -- Note: because the output is buffered, the caller must not forget to call `disconnect' at the end.
       require
          not path.is_empty
@@ -590,7 +590,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
          out_stream.is_connected
       end
 
-   disconnect is
+   disconnect
          -- Flush the `buffer' on the `out_stream' and close the corresponding file.
       require
          out_stream_flag
@@ -633,7 +633,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       end
 
 feature {MANIFEST_GENERIC}
-   left_margin_in (left_margin_buffer: STRING) is
+   left_margin_in (left_margin_buffer: STRING)
          -- Copy in `left_margin_buffer' a blank line model of the current left-margin.
       require
          left_margin_buffer.is_empty
@@ -666,37 +666,37 @@ feature {}
    mode: INTEGER
          -- Internal code to memorize the selected mode : "-zen", "-default", "-end" or "-parano".
 
-   C_zen, C_default, C_end, C_parano: INTEGER is unique
+   C_zen, C_default, C_end, C_parano: INTEGER unique
 
-   buffer: STRING is
+   buffer: STRING
          -- The whole text is placed in this `buffer' before to be actually printed on the `out_stream'.
       once
          create Result.make(initial_buffer_capacity)
       end
 
-   pretty_buffer: STRING is
+   pretty_buffer: STRING
       once
          create Result.make(initial_buffer_capacity)
       end
 
-   initial_buffer_capacity: INTEGER is 100000
+   initial_buffer_capacity: INTEGER 100000
 
    out_stream_flag: BOOLEAN
          -- True indicates that the output have to be done on `out_stream'. False indicates that we just
          -- want to get the output in the `buffer'.
 
-   out_stream: TEXT_FILE_WRITE is
+   out_stream: TEXT_FILE_WRITE
          -- The unique TEXT_FILE_WRITE once object.
       once
          create Result.make
       end
 
-   make is
+   make
       do
          mode := C_default
       end
 
-   valid_mode (m: like mode): BOOLEAN is
+   valid_mode (m: like mode): BOOLEAN
          -- Is the mode previously obtained using `mode'?
       do
          inspect

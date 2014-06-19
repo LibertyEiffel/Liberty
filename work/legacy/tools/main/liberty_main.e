@@ -22,7 +22,7 @@ insert
    LOGGING
 
 feature {}
-   make is
+   make
       local
          root: LIBERTY_ACTUAL_TYPE
          root_feature_name: LIBERTY_FEATURE_NAME
@@ -54,7 +54,7 @@ feature {}
    opt_check_level: COMMAND_LINE_TYPED_ARGUMENT[LIBERTY_MAIN_CHECK_LEVEL]
    opt_debug: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
 
-   arguments: COMMAND_LINE_ARGUMENTS is
+   arguments: COMMAND_LINE_ARGUMENTS
       local
          factory: COMMAND_LINE_ARGUMENT_FACTORY
          log_level_factory: COMMAND_LINE_ARGUMENT_CUSTOM_FACTORY[LIBERTY_MAIN_LOG_LEVEL]
@@ -83,20 +83,20 @@ feature {}
                             and factory.remaining_parameters)
       end
 
-   usage is
+   usage
       do
          arguments.usage(std_error)
          die_with_code(1)
       end
 
-   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME) is
+   run (root: LIBERTY_ACTUAL_TYPE; root_feature_name: LIBERTY_FEATURE_NAME)
       require
          root /= Void
          root_feature_name /= Void
       deferred
       end
 
-   set_log (logpath: STRING) is
+   set_log (logpath: STRING)
       local
          log_conf: LOG_CONFIGURATION
          tfr: TEXT_FILE_READ
@@ -111,7 +111,7 @@ feature {}
          tfr.disconnect
       end
 
-   on_error (message: STRING) is
+   on_error (message: STRING)
       do
          std_error.put_line(message)
          die_with_code(1)
@@ -120,7 +120,7 @@ feature {}
    levels: LOG_LEVELS
    env: LIBERTY_ENVIRONMENT
 
-   default_log_location: STRING is
+   default_log_location: STRING
       deferred
       ensure
          Result /= Void
@@ -129,7 +129,7 @@ feature {}
    errors: LIBERTY_ERRORS
    universe: LIBERTY_UNIVERSE
 
-   resolve_path (a_path: STRING): STRING is
+   resolve_path (a_path: STRING): STRING
       do
          Result := once ""
          Result.copy(a_path)

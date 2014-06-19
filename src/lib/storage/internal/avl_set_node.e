@@ -16,7 +16,7 @@ create {AVL_SET}
    default_create
 
 feature {}
-   ordered (e1, e2: E_): BOOLEAN is
+   ordered (e1, e2: E_): BOOLEAN
       do
          Result := e1 < e2
       end
@@ -29,7 +29,7 @@ end -- class AVL_SET_NODE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

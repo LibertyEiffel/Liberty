@@ -13,7 +13,7 @@ create {RUNNER_MEMORY}
    make
 
 feature {RUNNER_MEMORY}
-   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT is
+   new (processor: RUNNER_PROCESSOR): RUNNER_OBJECT
       do
          check
             False
@@ -21,7 +21,7 @@ feature {RUNNER_MEMORY}
       end
 
 feature {}
-   call_ (processor: RUNNER_PROCESSOR): BOOLEAN is
+   call_ (processor: RUNNER_PROCESSOR): BOOLEAN
       do
          inspect
             processor.current_frame.name.to_string
@@ -45,33 +45,33 @@ feature {}
       end
 
 feature {}
-   builtin_infix_divide (processor: RUNNER_PROCESSOR) is
+   builtin_infix_divide (processor: RUNNER_PROCESSOR)
       do
          set_return(processor, left(processor).item / right(processor).item)
       end
 
-   builtin_infix_lt (processor: RUNNER_PROCESSOR) is
+   builtin_infix_lt (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item < right(processor).item))
       end
 
-   builtin_infix_le (processor: RUNNER_PROCESSOR) is
+   builtin_infix_le (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item <= right(processor).item))
       end
 
-   builtin_infix_gt (processor: RUNNER_PROCESSOR) is
+   builtin_infix_gt (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item > right(processor).item))
       end
 
-   builtin_infix_ge (processor: RUNNER_PROCESSOR) is
+   builtin_infix_ge (processor: RUNNER_PROCESSOR)
       do
          processor.current_frame.set_return(processor.new_boolean(left(processor).item >= right(processor).item))
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

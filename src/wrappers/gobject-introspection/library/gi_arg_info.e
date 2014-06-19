@@ -14,13 +14,13 @@ create {ANY}
    from_external_pointer
 
 feature {ANY}
-   direction: GIDIRECTION_ENUM is
+   direction: GIDIRECTION_ENUM
          --  the direction of the argument. Can be in, out and inout
       do
          Result.set(g_arg_info_get_direction(handle))
       end
 
-   is_allocated_by_caller: BOOLEAN is
+   is_allocated_by_caller: BOOLEAN
          --  Is the caller required to have allocated the argument?
          -- Obtain if the argument is a pointer to a struct or object that will
          -- receive an output of a function. The default   assumption for
@@ -30,29 +30,29 @@ feature {ANY}
          Result := g_arg_info_is_caller_allocates(handle).to_boolean
       end
 
-   is_return_value: BOOLEAN is
+   is_return_value: BOOLEAN
          -- Is the argument a return value? It can either be a parameter or a return value.
       do
          Result := g_arg_info_is_return_value(handle).to_boolean
       end
 
-   is_optional: BOOLEAN is
+   is_optional: BOOLEAN
          -- Is the argument optional?
       do
          Result := g_arg_info_is_optional(handle).to_boolean
       end
 
-   may_be_null: BOOLEAN is
+   may_be_null: BOOLEAN
          -- Can the argument be NULL?
       do
          Result := g_arg_info_may_be_null(handle).to_boolean
       end
 
-   ownership_transfer: GITRANSFER_ENUM is
+   ownership_transfer: GITRANSFER_ENUM
          -- the ownership transfer for this argument.
          -- The transfer is the exchange of data between two parts, from the
          -- callee to the caller. The callee is either a function/method/signal
-         -- or an object/interface where a property is defined. The caller is
+         -- or an object/interface where a property is defined. The caller
          -- the side accessing a property or calling a function. GITransfer
          -- specifies who's responsible for freeing the resources after the
          -- ownership transfer is complete. In case of a containing type such as
@@ -66,14 +66,14 @@ feature {ANY}
          -- gi_transfer_container  transfer the container (list, array, hash table) from the callee to the caller. The callee
          --                        retains the ownership of the individual items in the container and the caller has to free up the
          --                        container resources (g_list_free()/g_hash_table_destroy() etc) of this transfer.
-         -- gi_transfer_everything transfer everything, eg the container and its contents from the callee to the caller. This is
+         -- gi_transfer_everything transfer everything, eg the container and its contents from the callee to the caller. This
          --                        the case when the callee creates a copy of all the data it returns. The caller is responsible
          --                        for cleaning up the container and item resources of this transfer.
       do
          Result.set(g_arg_info_get_ownership_transfer(handle))
       end
 
-   scope: GISCOPE_TYPE_ENUM is
+   scope: GISCOPE_TYPE_ENUM
          -- The scope type for this argument. The scope type explains how a
          -- callback is going to be invoked, most importantly when the resources
          -- required to invoke it can be freed. GIScopeType contains a list of
@@ -91,7 +91,7 @@ feature {ANY}
          Result.set(g_arg_info_get_scope(handle))
       end
 
-   closure: INTEGER is
+   closure: INTEGER
          -- the index of the user data argument of a callback. This is only
          -- valid for arguments which are callbacks. It's -1 if there is no dat
          -- argument

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {AGENT_INSTRUCTION}
-   visit_agent_instruction (visited: AGENT_INSTRUCTION) is
+   visit_agent_instruction (visited: AGENT_INSTRUCTION)
       require
          visited /= Void
       deferred

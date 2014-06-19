@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {LOCAL_VAR_LIST}
-   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+   visit_local_var_list (visited: LOCAL_VAR_LIST)
       require
          visited /= Void
       deferred

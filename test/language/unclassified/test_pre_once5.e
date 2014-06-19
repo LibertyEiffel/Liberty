@@ -21,7 +21,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_PRE_ONCE5
       do
@@ -29,7 +29,7 @@ feature {ANY}
          create aux.make
       end
 
-   default_rescue is
+   default_rescue
       do
          assert(is_developer_exception)
          assert(developer_exception_name /= Void)

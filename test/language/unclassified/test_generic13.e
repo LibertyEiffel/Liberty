@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          foo: AUX_GENERIC13_GENERIC[AUX_GENERIC13_ACTUAL]
          a: AUX_GENERIC13_ACTUAL

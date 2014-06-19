@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    exp: AUX_ALG08EXP
 
-   make is
+   make
       local
          ref: AUX_ALG08REF; bool: BOOLEAN
       do

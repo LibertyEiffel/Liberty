@@ -10,29 +10,29 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: NATIVE_C_PLUS_PLUS_VISITOR) is
+   accept (visitor: NATIVE_C_PLUS_PLUS_VISITOR)
       do
          visitor.visit_native_c_plus_plus(Current)
       end
 
-   use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
+   use_current (er: EXTERNAL_ROUTINE): BOOLEAN
       do
       end
 
 feature {EXTERNAL_ROUTINE}
-   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   collect (type: TYPE; external_routine: EXTERNAL_ROUTINE)
       do
          notify_external_assignments(type, external_routine)
       end
 
 feature {EXTERNAL_TYPE}
-   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE) is
+   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE)
       do
          not_yet_implemented
       end
 
 feature {ANY}
-   parse_external_in (body: STRING; args_count: INTEGER; tag: STRING; er: EXTERNAL_ROUTINE) is
+   parse_external_in (body: STRING; args_count: INTEGER; tag: STRING; er: EXTERNAL_ROUTINE)
          -- Lazy parsing (hope the tag is correct) of this syntax :
          --
          -- External -> "%"C++" [ "[" C++_feature "]" ]
@@ -257,7 +257,7 @@ feature {}
 
    rf8_memory: RUN_FEATURE_8
 
-   parse_args_in (body: STRING; s: INTEGER; tag: STRING; args, args_count: INTEGER): INTEGER is
+   parse_args_in (body: STRING; s: INTEGER; tag: STRING; args, args_count: INTEGER): INTEGER
       require
          tag.item(s) = '('
       local
@@ -328,7 +328,7 @@ feature {}
          end
       end
 
-   parse_include (s: INTEGER; tag: STRING): INTEGER is
+   parse_include (s: INTEGER; tag: STRING): INTEGER
       require
          (once "%"<").has(tag.item(s))
       local
@@ -363,7 +363,7 @@ feature {}
          end
       end
 
-   parse_cpp_class_in (body: STRING; s: INTEGER; tag: STRING): INTEGER is
+   parse_cpp_class_in (body: STRING; s: INTEGER; tag: STRING): INTEGER
       local
          i, state: INTEGER; c: CHARACTER
       do
@@ -417,7 +417,7 @@ feature {}
          Result := i
       end
 
-   error_at (error_index: INTEGER; tag: STRING; state: INTEGER): INTEGER is
+   error_at (error_index: INTEGER; tag: STRING; state: INTEGER): INTEGER
       do
          if rf7_memory /= Void then
             error_handler.add_position(rf7_memory.base_feature.start_position)
@@ -444,7 +444,7 @@ feature {}
          Result := tag.count + 1
       end
 
-   include_memory: FAST_ARRAY[STRING] is
+   include_memory: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(4)
       end

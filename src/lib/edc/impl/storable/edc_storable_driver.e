@@ -36,14 +36,14 @@ insert
       end
 
 feature {EDC_CONNECTION_FACTORY}
-   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION is
+   new_connection (url: STRING; info: DICTIONARY[STRING, STRING]): EDC_STORABLE_CONNECTION
       do
          create Result.prepare_connect
          Result.connect_to(new_repository(url, info))
       end
 
 feature {}
-   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): R_ is
+   new_repository (url: STRING; info: DICTIONARY[STRING, STRING]): R_
       deferred
       ensure
          Result /= Void

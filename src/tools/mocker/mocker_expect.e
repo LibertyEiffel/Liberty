@@ -1,13 +1,13 @@
 -- This file is part of Liberty The GNU Eiffel Compiler Tools and Libraries.
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 class MOCKER_EXPECT
 
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         visit_eiffel_list_node_impl,
-         visit_eiffel_non_terminal_node_impl
+         vit_eiffel_lt_node_impl,
+         vit_eiffel_non_terminal_node_impl
       end
 
 insert
@@ -18,14 +18,14 @@ create {ANY}
    make
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL) is
+   vit_eiffel_lt_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       do
          Precursor(node)
          node.generate_forgotten(output)
       end
 
 feature {}
-   generate_class (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   generate_class (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       local
          source_name: ABSTRACT_STRING
          class_header_node: EIFFEL_NON_TERMINAL_NODE_IMPL
@@ -52,12 +52,12 @@ feature {ANY}
    mock: #(2)
 
 feature {}
-   default_create is
+   default_create
       do
          create {#(3)} mock.make(Current)
       end
 
-   target: MOCK_TYPED_OBJECT[like Current] is
+   target: MOCK_TYPED_OBJECT[like Current]
       local
          t: #(3)
       do
@@ -79,7 +79,7 @@ end -- class #(1)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   vit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       local
          expectation_type: ABSTRACT_STRING
       do
@@ -98,7 +98,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             check
                deferred_lookup.has_deferred_features
             end
-            if deferred_lookup.is_deferred(node) then
+            if deferred_lookup._deferred(node) then
                node.node_at(node.lower + 1).accept(Current)
             end
          when "Signature" then
@@ -112,19 +112,19 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
 
             output.put_line(once "[
 feature {ANY}
-   #(2)#(3): #(6) is
+   #(2)#(3): #(6)
       do
          create Result.make(target, feature_name_#(2), #(4))
       end
 
 feature {#(1)}
-   assert_#(2)#(3): #(6) is
+   assert_#(2)#(3): #(6)
       do
          Result ::= scenario.check_call(target, feature_name_#(2), #(4))
          label_assert(feature_name_#(2), Result /= Void)
       end
 
-   feature_name_#(2): FIXED_STRING is
+   feature_name_#(2): FIXED_STRING
       once
          Result := "#(2)".intern
       end
@@ -132,7 +132,7 @@ feature {#(1)}
                                 ]"
                                 # mock_name
                                 # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple # signature.arguments_list
+                                # signature.arguments_tuple # signature.arguments_lt
                                 # expectation_type)
          else
             Precursor(node)
@@ -140,7 +140,7 @@ feature {#(1)}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL) is
+   vit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name
@@ -153,9 +153,9 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
       end
 
 feature {}
-   make (a_output: like output; a_mock_name, a_expect_name: ABSTRACT_STRING) is
+   make (a_output: like output; a_mock_name, a_expect_name: ABSTRACT_STRING)
       require
-         a_output.is_connected
+         a_output._connected
          a_mock_name /= Void
          a_expect_name /= Void
       do
@@ -174,7 +174,7 @@ feature {}
    signature: MOCKER_SIGNATURE
 
 invariant
-   output.is_connected
+   output._connected
    mock_name /= Void
    expect_name /= Void
 
@@ -184,7 +184,7 @@ end -- class MOCKER_EXPECT
 -- Copyright notice below. Please read.
 --
 -- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
--- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- as publhed by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free

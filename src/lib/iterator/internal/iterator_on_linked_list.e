@@ -18,7 +18,7 @@ feature {}
          --  Memorize the current position.
 
 feature {ANY}
-   make (ll: LINKED_LIST[E_]) is
+   make (ll: LINKED_LIST[E_])
       require
          ll /= Void
       do
@@ -28,29 +28,29 @@ feature {ANY}
          linked_list = ll
       end
 
-   start is
+   start
       do
          current_link := linked_list.first_link
          generation := iterable_generation
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := current_link = Void
       end
 
-   item: E_ is
+   item: E_
       do
          Result := current_link.item
       end
 
-   next is
+   next
       do
          current_link := current_link.next
       end
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := linked_list.generation
       end
@@ -65,7 +65,7 @@ end -- class ITERATOR_ON_LINKED_LIST
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

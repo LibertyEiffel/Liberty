@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {C_INLINE}
-   visit_c_inline (visited: C_INLINE) is
+   visit_c_inline (visited: C_INLINE)
       require
          visited /= Void
       deferred

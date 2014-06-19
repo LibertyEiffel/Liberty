@@ -7,14 +7,14 @@ create {ANY}
    set_x
 
 feature {ANY}
-   set_x (other_x: REAL) is
+   set_x (other_x: REAL)
       do
          x := other_x
       end
 
    x: REAL
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       do
          Result.set_x(x + other.x)
       end

@@ -18,24 +18,24 @@ feature {ANY}
    panel: CURSES_PANEL
    menu: CURSES_MENU
 
-   title: UNICODE_STRING is
+   title: UNICODE_STRING
       do
          Result := ui.title
       end
 
 feature {UI_WINDOW}
-   set_panel (a_panel: CURSES_PANEL) is
+   set_panel (a_panel: CURSES_PANEL)
       do
          panel := a_panel
       end
 
-   set_menu (a_menu: CURSES_MENU) is
+   set_menu (a_menu: CURSES_MENU)
       do
          menu := a_menu
       end
 
 feature {CURSES_APPLICATION}
-   start: BOOLEAN is
+   start: BOOLEAN
       do
          if window = Void then
             attach_window
@@ -43,18 +43,18 @@ feature {CURSES_APPLICATION}
          Result := menu.start or else panel.start
       end
 
-   key_pressed (code: INTEGER): BOOLEAN is
+   key_pressed (code: INTEGER): BOOLEAN
       do
       end
 
-   resized: BOOLEAN is
+   resized: BOOLEAN
       do
       end
 
 feature {}
    window: CURSES_DESC_WINDOW
 
-   attach_window is
+   attach_window
       local
          path: STRING
          tfr: TEXT_FILE_READ
@@ -92,7 +92,7 @@ end -- class CURSES_WINDOW
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -1,6 +1,6 @@
 deferred class C_FUNCTION_ARGUMENT
 	-- An XML node of a file made by gccxml representing a piece of the
-	-- argument list of a C function, either an actual argument or an ellipsis
+	-- argument lt of a C function, either an actual argument or an ellips
 	-- ("...")
 inherit 
 	GCCXML_NODE
@@ -8,16 +8,16 @@ insert
 	SHARED_COLLECTIONS
 	EXCEPTIONS
 feature {ANY} 
-	is_ellipsis: BOOLEAN is
+	_ellips: BOOLEAN
 		-- Does Current argument make its function a variadic one?
 		deferred
 		end
 
-	has_wrapper: BOOLEAN is
+	has_wrapper: BOOLEAN
 		deferred
 		end
 
-	put_on (a_buffer: FORMATTER) is
+	put_on (a_buffer: FORMATTER)
 		-- Put an Eiffel representation on Current argument on `a_buffer'.
 	require a_buffer/=Void
 	deferred
@@ -27,7 +27,7 @@ end -- class C_FUNCTION_ARGUMENT
 -- Copyright 2008,2009,2010 Paolo Redaelli
 
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
--- under the terms of the GNU General Public License as published by the Free
+-- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
 -- any later version.
 
@@ -37,4 +37,4 @@ end -- class C_FUNCTION_ARGUMENT
 -- more details.
 
 -- You should have received a copy of the GNU General Public License along with
--- this program.  If not, see <http://www.gnu.org/licenses/>.
+-- th program.  If not, see <http://www.gnu.org/licenses/>.

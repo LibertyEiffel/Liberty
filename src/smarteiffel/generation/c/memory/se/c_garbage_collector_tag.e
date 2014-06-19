@@ -20,12 +20,12 @@ create {GC_HANDLER}
    make, special
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := tag.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if id = 0 or else other.id = 0 then
             Result := other.tag = tag
@@ -37,7 +37,7 @@ feature {ANY}
          Result implies (tag = other.tag and (id = 0 or other.id = 0 or id = other.id))
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          if id = 0 then
             Result := True
@@ -54,13 +54,13 @@ feature {ANY}
    id: INTEGER
    count: INTEGER
 
-   item: INTEGER is
+   item: INTEGER
       do
          Result := id
       end
 
 feature {GC_HANDLER}
-   set (a_tag: like tag) is
+   set (a_tag: like tag)
       require
          is_special: id = 0
       do
@@ -69,7 +69,7 @@ feature {GC_HANDLER}
          tag = a_tag
       end
 
-   increment is
+   increment
       require
          is_not_special: id > 0
       do
@@ -79,7 +79,7 @@ feature {GC_HANDLER}
       end
 
 feature {}
-   make (a_tag: like tag) is
+   make (a_tag: like tag)
       require
          a_tag /= Void
       do
@@ -92,11 +92,11 @@ feature {}
          count = 0
       end
 
-   special is
+   special
       do
       end
 
-   id_provider: COUNTER is
+   id_provider: COUNTER
       once
          create Result
       end

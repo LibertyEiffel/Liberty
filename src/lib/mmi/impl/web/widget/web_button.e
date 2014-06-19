@@ -14,17 +14,17 @@ create {WEB_JOB}
    make
 
 feature {ANY}
-   label: UNICODE_STRING is
+   label: UNICODE_STRING
       do
          Result := ui.label
       end
 
 feature {WEB_ITEM}
-   save (context: WEB_CONTEXT) is
+   save (context: WEB_CONTEXT)
       do
       end
 
-   run (context: WEB_CONTEXT) is
+   run (context: WEB_CONTEXT)
       local
          value: STRING
       do
@@ -34,7 +34,7 @@ feature {WEB_ITEM}
          end
       end
 
-   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING
       do
          inspect
             a_name
@@ -53,7 +53,7 @@ end -- class WEB_BUTTON
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

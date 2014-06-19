@@ -29,14 +29,14 @@ feature {ANY}
    is_once: BOOLEAN
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          Precursor(mark)
          storage_type.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_type: like result_type; a_storage_type: like storage_type; a_manifest: like manifest; a_once: like is_once; a_position: like position) is
+   make (a_type: like result_type; a_storage_type: like storage_type; a_manifest: like manifest; a_once: like is_once; a_position: like position)
       require
          a_type /= Void
          -- a_type is STRING
@@ -58,7 +58,7 @@ feature {}
    storage_type: LIBERTY_ACTUAL_TYPE
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_STRING_MANIFEST_VISITOR
       do

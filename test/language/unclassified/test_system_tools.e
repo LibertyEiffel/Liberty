@@ -10,7 +10,7 @@ create {}
    runit
 
 feature {ANY}
-   runit is
+   runit
       do
          c_compiler := gcc
          system_name := unix_system
@@ -97,7 +97,7 @@ feature {ANY}
          Current = old Current
       end
 
-   check_it (n: INTEGER; match: STRING) is
+   check_it (n: INTEGER; match: STRING)
       local
          cmd: STRING
       do
@@ -106,7 +106,7 @@ feature {ANY}
          assert(match.is_equal(cmd))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

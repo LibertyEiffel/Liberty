@@ -24,7 +24,7 @@ feature {ANY}
    hash_code: INTEGER
          -- A memory cache for `source_type.run_time_mark.hash_code'.
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
@@ -34,7 +34,7 @@ feature{GRAPH_NODE}
          -- The set of possible destination starting from `source_type'.
 
 feature {ASSIGNMENT_HANDLER}
-   id_extra_information (tfw: TEXT_FILE_WRITE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE)
       local
          i: INTEGER; gn: like Current
       do
@@ -57,13 +57,13 @@ feature {ASSIGNMENT_HANDLER}
          end
       end
    
-   reset is
+   reset
          -- To `reset' before each collect cycle.
       do
          destination_graph_nodes.clear_count
       end
    
-   collect_way_to (destination_gn: GRAPH_NODE) is
+   collect_way_to (destination_gn: GRAPH_NODE)
       require
          smart_eiffel.status.is_analyzing
          destination_gn /= Current
@@ -71,13 +71,13 @@ feature {ASSIGNMENT_HANDLER}
          destination_graph_nodes.fast_add(destination_gn)
       end
 
-   destination_count: INTEGER is
+   destination_count: INTEGER
       do
          Result := destination_graph_nodes.count
       end
    
 feature {ASSIGNMENT_HANDLER}
-   recompute_run_time_set (magic: INTEGER): INTEGER is
+   recompute_run_time_set (magic: INTEGER): INTEGER
       local
          source_lt: LIVE_TYPE; source_rts: RUN_TIME_SET;   destination_gn: like Current; i: INTEGER
       do
@@ -108,7 +108,7 @@ feature {ASSIGNMENT_HANDLER}
       end
 
 feature {GRAPH_NODE}
-   run_time_set_add (rts: RUN_TIME_SET): INTEGER is
+   run_time_set_add (rts: RUN_TIME_SET): INTEGER
          -- The `Result' indicate the number of added items.
       require
          source_type /= Void
@@ -159,7 +159,7 @@ feature {GRAPH_NODE}
       end
 
 feature {}
-   make (st: like source_type) is
+   make (st: like source_type)
       require
          not st.is_expanded
       do

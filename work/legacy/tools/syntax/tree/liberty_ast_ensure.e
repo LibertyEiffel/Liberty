@@ -24,16 +24,16 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   ensure_then: LIBERTY_AST_ENSURE_THEN is
+   ensure_then: LIBERTY_AST_ENSURE_THEN
       do
          Result ::= nodes.first
       end
 
 feature {ANY}
-   name: STRING is "Ensure"
+   name: STRING "Ensure"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 3 >> }
       end

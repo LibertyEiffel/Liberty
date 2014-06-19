@@ -13,7 +13,7 @@ create {}
    default_create
 
 feature {}
-   foo (bidule: REAL) is
+   foo (bidule: REAL)
       do
          Precursor(bidule)
       end

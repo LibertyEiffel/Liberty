@@ -6,12 +6,12 @@ expanded class AUX_EXPANDED24A
 feature {ANY}
    value: CHARACTER
 
-   set_value (v: CHARACTER) is
+   set_value (v: CHARACTER)
       do
          value := v
       end
 
-   fb: AUX_EXPANDED24B is
+   fb: AUX_EXPANDED24B
       do
          value := 'b'
          Result.set_value(True)

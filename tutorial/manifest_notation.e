@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {}
-   boolean_examples is
+   boolean_examples
          -- Examples of notations for the BOOLEAN type.
       local
          boolean: BOOLEAN
@@ -25,7 +25,7 @@ feature {}
          end
       end
 
-   character_examples is
+   character_examples
          -- Examples of notations for the CHARACTER type.
       local
          character: CHARACTER
@@ -129,7 +129,7 @@ feature {}
          character := '%/0x00/' -- is equivalent to '%U'
       end
 
-   string_examples is
+   string_examples
          -- Examples of notations for the STRING type.
       local
          string: STRING
@@ -174,7 +174,7 @@ feature {}
          string := once "I am allocated once even when used inside a loop !"
       end
 
-   unicode_string_examples is
+   unicode_string_examples
          -- Examples of notations for the UNICODE_STRING type.
       local
          unicode_string: UNICODE_STRING
@@ -196,7 +196,7 @@ feature {}
          unicode_string := U"The EURO sign is %/Ux20AC/!%N"
       end
 
-   integer_examples is
+   integer_examples
       local
          integer_8: INTEGER_8; integer_16: INTEGER_16; integer_32: INTEGER_32; integer_64: INTEGER_64
          integer: INTEGER
@@ -283,7 +283,7 @@ feature {}
          end
       end
 
-   real_examples is
+   real_examples
       local
          real_32: REAL_32; real_64: REAL_64; real: REAL; real_extended: REAL_EXTENDED
       do
@@ -313,7 +313,7 @@ feature {}
          real_extended := {REAL_EXTENDED 156.5E-287}
       end
 
-   array_examples is
+   array_examples
       local
          array_of_character: ARRAY[CHARACTER]; array_of_integer: ARRAY[INTEGER]
       do
@@ -324,7 +324,7 @@ feature {}
          array_of_integer := {ARRAY[INTEGER] -1, << 1, 2, 3 >> }
       end
 
-   fast_array_examples is
+   fast_array_examples
       local
          fast_array_of_character: FAST_ARRAY[CHARACTER]; fast_array_of_integer: FAST_ARRAY[INTEGER]
       do
@@ -335,7 +335,7 @@ feature {}
          fast_array_of_integer := {FAST_ARRAY[INTEGER] << 1, 2, 3 >> }
       end
 
-   linked_list_examples is
+   linked_list_examples
       local
          linked_list_of_character: LINKED_LIST[CHARACTER]; linked_list_of_integer: LINKED_LIST[INTEGER]
       do
@@ -346,7 +346,7 @@ feature {}
          linked_list_of_integer := {LINKED_LIST[INTEGER] << 1, 2, 3 >> }
       end
 
-   two_way_linked_list_examples is
+   two_way_linked_list_examples
       local
          two_way_linked_list_of_character: TWO_WAY_LINKED_LIST[CHARACTER]
          two_way_linked_list_of_integer: TWO_WAY_LINKED_LIST[INTEGER]
@@ -358,7 +358,7 @@ feature {}
          two_way_linked_list_of_integer := {TWO_WAY_LINKED_LIST[INTEGER] << 1, 2, 3 >> }
       end
 
-   ring_array_examples is
+   ring_array_examples
       local
          ring_array_of_character: RING_ARRAY[CHARACTER]; ring_array_of_integer: RING_ARRAY[INTEGER]
       do
@@ -369,7 +369,7 @@ feature {}
          ring_array_of_integer := {RING_ARRAY[INTEGER] 1, << 1, 2, 3 >> }
       end
 
-   set_examples is
+   set_examples
       local
          set_of_character: SET[CHARACTER]; set_of_integer: SET[INTEGER]
       do
@@ -380,7 +380,7 @@ feature {}
          set_of_integer := {AVL_SET[INTEGER] << 1, 2, 3 >> }
       end
 
-   dictionary_examples is
+   dictionary_examples
       local
          dictionary: DICTIONARY[CHARACTER, STRING]
       do
@@ -392,7 +392,7 @@ feature {}
          -- Note that the ; (semicolon) is here to separate pairs.
       end
 
-   bijective_dictionary_examples is
+   bijective_dictionary_examples
       local
          bijective_dictionary: BIJECTIVE_DICTIONARY[STRING, STRING]
       do
@@ -403,7 +403,7 @@ feature {}
          -- Note that the ; (semicolon) is here to separate pairs.
       end
 
-   array2_examples is
+   array2_examples
       local
          collection2: COLLECTION2[CHARACTER]
       do
@@ -413,7 +413,7 @@ feature {}
                                                           'a', 'b', 'c', 'd', 'e', 'f' >> }
       end
 
-   fast_array2_examples is
+   fast_array2_examples
       local
          collection2: COLLECTION2[CHARACTER]
       do
@@ -423,7 +423,7 @@ feature {}
                                                          'a', 'b', 'c', 'd', 'e', 'f' >> }
       end
 
-   native_array_examples is
+   native_array_examples
       local
          native_array_character: NATIVE_ARRAY[CHARACTER]; native_array_integer_8: NATIVE_ARRAY[INTEGER_8]
       do
@@ -435,7 +435,7 @@ feature {}
          native_array_integer_8 := {NATIVE_ARRAY[INTEGER_8] << 0, 1, 2, 3, 4, 5, 6, 7, 8 >> }
       end
 
-   make is
+   make
       do
          boolean_examples
          character_examples

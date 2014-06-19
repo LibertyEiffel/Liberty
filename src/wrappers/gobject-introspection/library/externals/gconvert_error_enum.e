@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bad_uri_low_level)  or else
 				(a_value = failed_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bad_uri is
+	set_bad_uri
 		do
 			value := bad_uri_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_illegal_sequence is
+	set_illegal_sequence
 		do
 			value := illegal_sequence_low_level
 		end
 
-	set_no_conversion is
+	set_no_conversion
 		do
 			value := no_conversion_low_level
 		end
 
-	set_not_absolute_path is
+	set_not_absolute_path
 		do
 			value := not_absolute_path_low_level
 		end
 
-	set_partial_input is
+	set_partial_input
 		do
 			value := partial_input_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bad_uri: BOOLEAN is
+	is_bad_uri: BOOLEAN
 		do
 			Result := (value=bad_uri_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_illegal_sequence: BOOLEAN is
+	is_illegal_sequence: BOOLEAN
 		do
 			Result := (value=illegal_sequence_low_level)
 		end
 
-	is_no_conversion: BOOLEAN is
+	is_no_conversion: BOOLEAN
 		do
 			Result := (value=no_conversion_low_level)
 		end
 
-	is_not_absolute_path: BOOLEAN is
+	is_not_absolute_path: BOOLEAN
 		do
 			Result := (value=not_absolute_path_low_level)
 		end
 
-	is_partial_input: BOOLEAN is
+	is_partial_input: BOOLEAN
 		do
 			Result := (value=partial_input_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_uri_low_level: INTEGER is
+	bad_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	illegal_sequence_low_level: INTEGER is
+	illegal_sequence_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_conversion_low_level: INTEGER is
+	no_conversion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	not_absolute_path_low_level: INTEGER is
+	not_absolute_path_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	partial_input_low_level: INTEGER is
+	partial_input_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

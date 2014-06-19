@@ -12,7 +12,7 @@ inherit
          inline_expression_0,
          set_end_comment
       end
-   
+
 create {FEATURE_TEXT}
    make
 
@@ -24,7 +24,7 @@ feature {ANY}
          -- The good feature_stamp for the feature in some type
          -- (unrelated to `like_what' due to renamings).
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := specialized_feature_stamp /= Void
          if not ace.boost then
@@ -37,22 +37,22 @@ feature {ANY}
          end
       end
 
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
          Result := True -- (Read is not a side effect.)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   accept (visitor: WRITABLE_ATTRIBUTE_VISITOR) is
+   accept (visitor: WRITABLE_ATTRIBUTE_VISITOR)
       do
          visitor.visit_writable_attribute(Current)
       end
 
-   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
+   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
       local
          il: INTEGER
          is_long_form: BOOLEAN
@@ -66,9 +66,6 @@ feature {ANY}
          pretty_printer.put_string(once ": ")
          pretty_printer.put_type_mark(result_type)
          is_long_form := obsolete_mark /= Void or else require_assertion /= Void or else ensure_assertion /= Void
-         if is_long_form then
-            pretty_printer.keyword(once "is")
-         end
          if header_comment /= Void then
             if header_comment.start_position.line = first_name.start_position.line then
                -- Let the comment at its original place.
@@ -116,7 +113,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          good_position_for_current: POSITION; lt: LIVE_TYPE
       do
@@ -146,7 +143,7 @@ feature {CALL_0}
       end
 
 feature {EIFFEL_PARSER}
-   set_end_comment (ec: like end_comment) is
+   set_end_comment (ec: like end_comment)
       require else
          end_comment = Void
          ec /= Void
@@ -157,13 +154,13 @@ feature {EIFFEL_PARSER}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       do
          result_type.specialize_in(new_type)
          Result := Current
       end
 
-   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          sfs: like specialized_feature_stamp
       do
@@ -188,7 +185,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          rt: like result_type
       do
@@ -201,7 +198,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
          end
       end
 
-   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          sfs: like specialized_feature_stamp
       do
@@ -219,7 +216,7 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {WRITABLE_ATTRIBUTE}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -228,13 +225,13 @@ feature {WRITABLE_ATTRIBUTE}
          result_type = rt
       end
 
-   set_specialized_feature_stamp (sfs: like specialized_feature_stamp) is
+   set_specialized_feature_stamp (sfs: like specialized_feature_stamp)
       do
          specialized_feature_stamp := sfs
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_2 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_2
       do
          create Result.for(t.live_type, Current, fn)
       end
@@ -244,7 +241,7 @@ feature {}
          -- in most cases, this is simply one, because people are not
          -- used to have a lot of synonyms).
 
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       local
          n: like names; fn: FEATURE_NAME; i: INTEGER; writable_attribute: like Current
       do
@@ -266,7 +263,7 @@ feature {}
          end
       end
 
-   with (ft: like feature_text; model: like Current; r: like rank) is
+   with (ft: like feature_text; model: like Current; r: like rank)
       require
          ft /= Void
          model /= Void
@@ -278,7 +275,7 @@ feature {}
          rank := r
       end
 
-   make (rt: like result_type; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
+   make (rt: like result_type; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion)
       require
          rt /= Void
       do
@@ -293,15 +290,15 @@ feature {}
          require_assertion = ra
       end
 
-   collect_body (t: TYPE) is
+   collect_body (t: TYPE)
       do
       end
 
 feature {}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
       end
-   
+
 end -- class WRITABLE_ATTRIBUTE
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

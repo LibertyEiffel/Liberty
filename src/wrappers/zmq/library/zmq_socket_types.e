@@ -3,7 +3,7 @@ deferred class ZMQ_SOCKET_TYPES
 
 insert ANY undefine copy, is_equal end
 feature {} -- Socket types
-	zmq_p2p: INTEGER_32 is
+	zmq_p2p: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -12,7 +12,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_pub: INTEGER_32 is
+	zmq_pub: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -21,7 +21,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_sub: INTEGER_32 is
+	zmq_sub: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -30,7 +30,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_req: INTEGER_32 is
+	zmq_req: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -39,7 +39,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_rep: INTEGER_32 is
+	zmq_rep: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -48,7 +48,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_dealer: INTEGER_32 is
+	zmq_dealer: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -57,7 +57,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_router: INTEGER_32 is 
+	zmq_router: INTEGER_32 
 		external "plug_in"
 		alias "{
 			location: "."
@@ -66,7 +66,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_pull: INTEGER_32 is
+	zmq_pull: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -75,7 +75,7 @@ feature {} -- Socket types
 		}"
 		end
 
-	zmq_push: INTEGER_32 is
+	zmq_push: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."
@@ -84,7 +84,7 @@ feature {} -- Socket types
 		}"
 		end
 	
-	zmq_pair: INTEGER_32 is
+	zmq_pair: INTEGER_32
 		external "plug_in"
 		alias "{
 			location: "."

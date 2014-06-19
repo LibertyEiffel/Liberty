@@ -28,44 +28,44 @@ create {LIBERTY_INTERPRETER}
 feature {ANY}
    eval_memory: LIBERTY_INTERPRETER_OBJECT
 
-   eval_as_right_value: LIBERTY_INTERPRETER_OBJECT is
+   eval_as_right_value: LIBERTY_INTERPRETER_OBJECT
          -- When `eval_memory' is to be assigned to an entity
       do
          Result := eval_memory.as_right_value
       end
 
-   eval_as_target: LIBERTY_INTERPRETER_OBJECT is
+   eval_as_target: LIBERTY_INTERPRETER_OBJECT
          -- When `eval_memory' is to be used as a target of a call
       do
          Result := eval_memory.as_target(eval_memory.position)
       end
 
 feature {LIBERTY_ADD}
-   visit_liberty_add (v: LIBERTY_ADD) is
+   visit_liberty_add (v: LIBERTY_ADD)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_AGENT}
-   visit_liberty_agent (v: LIBERTY_AGENT) is
+   visit_liberty_agent (v: LIBERTY_AGENT)
       do
          eval_memory := interpreter.new_agent(v)
       end
 
 feature {LIBERTY_AND}
-   visit_liberty_and (v: LIBERTY_AND) is
+   visit_liberty_and (v: LIBERTY_AND)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_AND_THEN}
-   visit_liberty_and_then (v: LIBERTY_AND_THEN) is
+   visit_liberty_and_then (v: LIBERTY_AND_THEN)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_ARRAY_MANIFEST}
-   visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST) is
+   visit_liberty_array_manifest (v: LIBERTY_ARRAY_MANIFEST)
          -- manifest_make
          -- manifest_put
          -- manifest_semicolon_check: BOOLEAN or INTEGER
@@ -81,7 +81,7 @@ feature {LIBERTY_ARRAY_MANIFEST}
       end
 
 feature {}
-   new_array_manifest (semicolons: INTEGER; v: LIBERTY_ARRAY_MANIFEST) is
+   new_array_manifest (semicolons: INTEGER; v: LIBERTY_ARRAY_MANIFEST)
       require
          semicolons = semicolon_pattern(v.separators)
       local
@@ -162,7 +162,7 @@ feature {}
          eval_memory := new_array
       end
 
-   semicolon_pattern (separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR]): INTEGER is
+   semicolon_pattern (separators: TRAVERSABLE[LIBERTY_ARRAY_MANIFEST_SEPARATOR]): INTEGER
       local
          n, i: INTEGER
       do
@@ -206,7 +206,7 @@ feature {}
       end
 
 feature {LIBERTY_ASSIGNMENT_TEST}
-   visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST) is
+   visit_liberty_assignment_test (v: LIBERTY_ASSIGNMENT_TEST)
       do
          v.expression.accept(Current)
          eval_memory := interpreter.new_boolean(eval_memory.type.is_conform_to(v.tested_type.known_type), v.position)
@@ -215,7 +215,7 @@ feature {LIBERTY_ASSIGNMENT_TEST}
       end
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
-   visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
+   visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST)
       do
          eval_memory := interpreter.new_boolean(v.manifest, v.position)
       ensure
@@ -223,7 +223,7 @@ feature {LIBERTY_BOOLEAN_MANIFEST}
       end
 
 feature {LIBERTY_CALL_EXPRESSION}
-   visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION) is
+   visit_liberty_call_expression (v: LIBERTY_CALL_EXPRESSION)
       do
          if v.is_implicit_current then
             eval_memory := item_feature(interpreter.target, v.entity, v.actuals, v.position)
@@ -236,7 +236,7 @@ feature {LIBERTY_CALL_EXPRESSION}
       end
 
 feature {LIBERTY_CAST_EXPRESSION}
-   visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION) is
+   visit_liberty_cast_expression (v: LIBERTY_CAST_EXPRESSION)
       local
          actual_type: LIBERTY_ACTUAL_TYPE
       do
@@ -254,7 +254,7 @@ feature {LIBERTY_CAST_EXPRESSION}
       end
 
 feature {LIBERTY_CHARACTER_MANIFEST}
-   visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST) is
+   visit_liberty_character_manifest (v: LIBERTY_CHARACTER_MANIFEST)
       do
          eval_memory := interpreter.new_character(v.manifest, v.position)
       ensure
@@ -262,7 +262,7 @@ feature {LIBERTY_CHARACTER_MANIFEST}
       end
 
 feature {LIBERTY_CREATION_EXPRESSION}
-   visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION) is
+   visit_liberty_creation_expression (v: LIBERTY_CREATION_EXPRESSION)
       local
          actual_type: LIBERTY_ACTUAL_TYPE
       do
@@ -274,25 +274,25 @@ feature {LIBERTY_CREATION_EXPRESSION}
       end
 
 feature {LIBERTY_DIVIDE}
-   visit_liberty_divide (v: LIBERTY_DIVIDE) is
+   visit_liberty_divide (v: LIBERTY_DIVIDE)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_ENTITY_EXPRESSION}
-   visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION) is
+   visit_liberty_entity_expression (v: LIBERTY_ENTITY_EXPRESSION)
       do
          v.entity.accept(Current)
       end
 
 feature {LIBERTY_ENTITY_REFERENCE}
-   visit_liberty_entity_reference (v: LIBERTY_ENTITY_REFERENCE) is
+   visit_liberty_entity_reference (v: LIBERTY_ENTITY_REFERENCE)
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_EQUALS}
-   visit_liberty_equals (v: LIBERTY_EQUALS) is
+   visit_liberty_equals (v: LIBERTY_EQUALS)
       do
          eval_memory := interpreter.new_boolean(visit_comparison(v), v.position)
       ensure
@@ -300,37 +300,37 @@ feature {LIBERTY_EQUALS}
       end
 
 feature {LIBERTY_GREATER_OR_EQUAL}
-   visit_liberty_greater_or_equal (v: LIBERTY_GREATER_OR_EQUAL) is
+   visit_liberty_greater_or_equal (v: LIBERTY_GREATER_OR_EQUAL)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_GREATER_THAN}
-   visit_liberty_greater_than (v: LIBERTY_GREATER_THAN) is
+   visit_liberty_greater_than (v: LIBERTY_GREATER_THAN)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_IMPLIES}
-   visit_liberty_implies (v: LIBERTY_IMPLIES) is
+   visit_liberty_implies (v: LIBERTY_IMPLIES)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_INFIX_OPERATOR}
-   visit_liberty_infix_operator (v: LIBERTY_INFIX_OPERATOR) is
+   visit_liberty_infix_operator (v: LIBERTY_INFIX_OPERATOR)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_INT_DIVIDE}
-   visit_liberty_int_divide (v: LIBERTY_INT_DIVIDE) is
+   visit_liberty_int_divide (v: LIBERTY_INT_DIVIDE)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_INTEGER_16_MANIFEST}
-   visit_liberty_integer_16_manifest (v: LIBERTY_INTEGER_16_MANIFEST) is
+   visit_liberty_integer_16_manifest (v: LIBERTY_INTEGER_16_MANIFEST)
       do
          eval_memory := interpreter.new_integer_16(v.manifest, v.position)
       ensure
@@ -338,7 +338,7 @@ feature {LIBERTY_INTEGER_16_MANIFEST}
       end
 
 feature {LIBERTY_INTEGER_32_MANIFEST}
-   visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST) is
+   visit_liberty_integer_32_manifest (v: LIBERTY_INTEGER_32_MANIFEST)
       do
          eval_memory := interpreter.new_integer_32(v.manifest, v.position)
       ensure
@@ -346,7 +346,7 @@ feature {LIBERTY_INTEGER_32_MANIFEST}
       end
 
 feature {LIBERTY_INTEGER_64_MANIFEST}
-   visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
+   visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST)
       do
          eval_memory := interpreter.new_integer_64(v.manifest, v.position)
       ensure
@@ -354,7 +354,7 @@ feature {LIBERTY_INTEGER_64_MANIFEST}
       end
 
 feature {LIBERTY_INTEGER_8_MANIFEST}
-   visit_liberty_integer_8_manifest (v: LIBERTY_INTEGER_8_MANIFEST) is
+   visit_liberty_integer_8_manifest (v: LIBERTY_INTEGER_8_MANIFEST)
       do
          eval_memory := interpreter.new_integer_8(v.manifest, v.position)
       ensure
@@ -362,7 +362,7 @@ feature {LIBERTY_INTEGER_8_MANIFEST}
       end
 
 feature {LIBERTY_INTEGER_TYPED_MANIFEST}
-   visit_liberty_integer_typed_manifest (v: LIBERTY_INTEGER_TYPED_MANIFEST) is
+   visit_liberty_integer_typed_manifest (v: LIBERTY_INTEGER_TYPED_MANIFEST)
       local
          actual_type: LIBERTY_ACTUAL_TYPE
       do
@@ -373,37 +373,37 @@ feature {LIBERTY_INTEGER_TYPED_MANIFEST}
       end
 
 feature {LIBERTY_INT_REMAINDER}
-   visit_liberty_int_remainder (v: LIBERTY_INT_REMAINDER) is
+   visit_liberty_int_remainder (v: LIBERTY_INT_REMAINDER)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_LESS_OR_EQUAL}
-   visit_liberty_less_or_equal (v: LIBERTY_LESS_OR_EQUAL) is
+   visit_liberty_less_or_equal (v: LIBERTY_LESS_OR_EQUAL)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_LESS_THAN}
-   visit_liberty_less_than (v: LIBERTY_LESS_THAN) is
+   visit_liberty_less_than (v: LIBERTY_LESS_THAN)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_NEGATIVE}
-   visit_liberty_negative (v: LIBERTY_NEGATIVE) is
+   visit_liberty_negative (v: LIBERTY_NEGATIVE)
       do
          visit_prefix(v)
       end
 
 feature {LIBERTY_NOT}
-   visit_liberty_not (v: LIBERTY_NOT) is
+   visit_liberty_not (v: LIBERTY_NOT)
       do
          visit_prefix(v)
       end
 
 feature {LIBERTY_NOT_EQUALS}
-   visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS) is
+   visit_liberty_not_equals (v: LIBERTY_NOT_EQUALS)
       do
          eval_memory := interpreter.new_boolean(not visit_comparison(v), v.position)
       ensure
@@ -411,7 +411,7 @@ feature {LIBERTY_NOT_EQUALS}
       end
 
 feature {LIBERTY_OLD}
-   visit_liberty_old (v: LIBERTY_OLD) is
+   visit_liberty_old (v: LIBERTY_OLD)
       do
          eval_memory := interpreter.old_value(v.expression)
       ensure
@@ -419,7 +419,7 @@ feature {LIBERTY_OLD}
       end
 
 feature {LIBERTY_OPEN_ARGUMENT}
-   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT) is
+   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT)
       local
          actual_type: LIBERTY_ACTUAL_TYPE
       do
@@ -430,31 +430,31 @@ feature {LIBERTY_OPEN_ARGUMENT}
       end
 
 feature {LIBERTY_OR}
-   visit_liberty_or (v: LIBERTY_OR) is
+   visit_liberty_or (v: LIBERTY_OR)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_OR_ELSE}
-   visit_liberty_or_else (v: LIBERTY_OR_ELSE) is
+   visit_liberty_or_else (v: LIBERTY_OR_ELSE)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_POSITIVE}
-   visit_liberty_positive (v: LIBERTY_POSITIVE) is
+   visit_liberty_positive (v: LIBERTY_POSITIVE)
       do
          visit_prefix(v)
       end
 
 feature {LIBERTY_POWER}
-   visit_liberty_power (v: LIBERTY_POWER) is
+   visit_liberty_power (v: LIBERTY_POWER)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_PRECURSOR_EXPRESSION}
-   visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
+   visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION)
       do
          eval_memory := interpreter.item_precursor(v.the_feature, v.actuals, v.position)
       ensure
@@ -462,13 +462,13 @@ feature {LIBERTY_PRECURSOR_EXPRESSION}
       end
 
 feature {LIBERTY_PREFIX_OPERATOR}
-   visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR) is
+   visit_liberty_prefix_operator (v: LIBERTY_PREFIX_OPERATOR)
       do
          visit_prefix(v)
       end
 
 feature {LIBERTY_REAL_MANIFEST}
-   visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST) is
+   visit_liberty_real_manifest (v: LIBERTY_REAL_MANIFEST)
       do
          eval_memory := interpreter.new_real(v.manifest, v.position)
       ensure
@@ -476,13 +476,13 @@ feature {LIBERTY_REAL_MANIFEST}
       end
 
 feature {LIBERTY_REAL_TYPED_MANIFEST}
-   visit_liberty_real_typed_manifest (v: LIBERTY_REAL_TYPED_MANIFEST) is
+   visit_liberty_real_typed_manifest (v: LIBERTY_REAL_TYPED_MANIFEST)
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_STRING_MANIFEST}
-   visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST) is
+   visit_liberty_string_manifest (v: LIBERTY_STRING_MANIFEST)
       do
          eval_memory := interpreter.new_string(v.manifest, v.position)
       ensure
@@ -490,25 +490,25 @@ feature {LIBERTY_STRING_MANIFEST}
       end
 
 feature {LIBERTY_STRING_TYPED_MANIFEST}
-   visit_liberty_string_typed_manifest (v: LIBERTY_STRING_TYPED_MANIFEST) is
+   visit_liberty_string_typed_manifest (v: LIBERTY_STRING_TYPED_MANIFEST)
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_SUBTRACT}
-   visit_liberty_subtract (v: LIBERTY_SUBTRACT) is
+   visit_liberty_subtract (v: LIBERTY_SUBTRACT)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_TIMES}
-   visit_liberty_times (v: LIBERTY_TIMES) is
+   visit_liberty_times (v: LIBERTY_TIMES)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_TUPLE}
-   visit_liberty_tuple (v: LIBERTY_TUPLE) is
+   visit_liberty_tuple (v: LIBERTY_TUPLE)
       local
          tuple: LIBERTY_INTERPRETER_TUPLE
          i: INTEGER
@@ -528,7 +528,7 @@ feature {LIBERTY_TUPLE}
       end
 
 feature {LIBERTY_VOID}
-   visit_liberty_void (v: LIBERTY_VOID) is
+   visit_liberty_void (v: LIBERTY_VOID)
       do
          eval_memory := interpreter.void_object(v.result_type.known_type, v.position)
       ensure
@@ -536,13 +536,13 @@ feature {LIBERTY_VOID}
       end
 
 feature {LIBERTY_XOR}
-   visit_liberty_xor (v: LIBERTY_XOR) is
+   visit_liberty_xor (v: LIBERTY_XOR)
       do
          visit_infix(v)
       end
 
 feature {LIBERTY_CURRENT}
-   visit_liberty_current (v: LIBERTY_CURRENT) is
+   visit_liberty_current (v: LIBERTY_CURRENT)
       do
          eval_memory := interpreter.target
          debug
@@ -554,13 +554,13 @@ feature {LIBERTY_CURRENT}
       end
 
 feature {LIBERTY_FEATURE_DEFINITION}
-   visit_liberty_feature_definition (v: LIBERTY_FEATURE_DEFINITION) is
+   visit_liberty_feature_definition (v: LIBERTY_FEATURE_DEFINITION)
       do
          check False end
       end
 
 feature {LIBERTY_FEATURE_ENTITY}
-   visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY) is
+   visit_liberty_feature_entity (v: LIBERTY_FEATURE_ENTITY)
       do
          eval_memory := interpreter.item_feature(interpreter.target, v.feature_definition, no_actuals, v.position)
          debug
@@ -574,7 +574,7 @@ feature {LIBERTY_FEATURE_ENTITY}
       end
 
 feature {LIBERTY_LOCAL}
-   visit_liberty_local (v: LIBERTY_LOCAL) is
+   visit_liberty_local (v: LIBERTY_LOCAL)
       do
          eval_memory := interpreter.local_value(v.name)
          debug
@@ -588,7 +588,7 @@ feature {LIBERTY_LOCAL}
       end
 
 feature {LIBERTY_PARAMETER}
-   visit_liberty_parameter (v: LIBERTY_PARAMETER) is
+   visit_liberty_parameter (v: LIBERTY_PARAMETER)
       do
          eval_memory := interpreter.parameter(v.name)
          debug
@@ -602,7 +602,7 @@ feature {LIBERTY_PARAMETER}
       end
 
 feature {LIBERTY_RESULT}
-   visit_liberty_result (v: LIBERTY_RESULT) is
+   visit_liberty_result (v: LIBERTY_RESULT)
       do
          eval_memory := interpreter.returned_object
          debug
@@ -614,19 +614,19 @@ feature {LIBERTY_RESULT}
       end
 
 feature {LIBERTY_WRITABLE_FEATURE}
-   visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE) is
+   visit_liberty_writable_feature (v: LIBERTY_WRITABLE_FEATURE)
       do
          check False end
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT}
-   visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT) is
+   visit_liberty_object (a_object: LIBERTY_INTERPRETER_OBJECT)
       do
          eval_memory := a_object
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -638,7 +638,7 @@ feature {}
    interpreter: LIBERTY_INTERPRETER
 
 feature {}
-   item_feature (target: LIBERTY_INTERPRETER_OBJECT; entity: LIBERTY_FEATURE_ENTITY; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   item_feature (target: LIBERTY_INTERPRETER_OBJECT; entity: LIBERTY_FEATURE_ENTITY; actuals: TRAVERSABLE[LIBERTY_EXPRESSION]; position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       local
          target_type: LIBERTY_ACTUAL_TYPE
       do
@@ -651,7 +651,7 @@ feature {}
          end
       end
 
-   visit_infix (v: LIBERTY_INFIX_CALL) is
+   visit_infix (v: LIBERTY_INFIX_CALL)
       do
          v.target.accept(Current)
          eval_memory := item_feature(eval_as_target, v.entity, v.actuals, v.position)
@@ -659,7 +659,7 @@ feature {}
          eval_memory /= Void
       end
 
-   visit_prefix (v: LIBERTY_PREFIX_CALL) is
+   visit_prefix (v: LIBERTY_PREFIX_CALL)
       do
          v.target.accept(Current)
          eval_memory := item_feature(eval_as_target, v.entity, no_actuals, v.position)
@@ -667,7 +667,7 @@ feature {}
          eval_memory /= Void
       end
 
-   visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN is
+   visit_comparison (v: LIBERTY_COMPARISON): BOOLEAN
       local
          left, right: LIBERTY_INTERPRETER_OBJECT
          left_type, right_type: LIBERTY_ACTUAL_TYPE
@@ -697,7 +697,7 @@ feature {}
          end
       end
 
-   no_actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   no_actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
       once
          create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.with_capacity(0)
       end

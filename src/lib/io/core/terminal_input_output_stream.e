@@ -27,9 +27,9 @@ inherit
       end
 
 feature {ANY}
-   can_disconnect: BOOLEAN is True
+   can_disconnect: BOOLEAN True
 
-   detach is
+   detach
          -- Detach the input and the ouput
          --
          -- See also `detach_input', `detach_output'.
@@ -38,7 +38,7 @@ feature {ANY}
          detach_input
       end
 
-   is_filtered: BOOLEAN is
+   is_filtered: BOOLEAN
          -- Is one of the input or output streams filtered?
          --
          -- See also `is_input_filtered', `is_output_filtered'
@@ -46,7 +46,7 @@ feature {ANY}
          Result := input_is_filtered or else output_is_filtered
       end
 
-   set_filter (a_filter: like filter) is
+   set_filter (a_filter: like filter)
          -- Don't use (use `set_input_filter' or `set_output_filter')
       do
          check
@@ -55,7 +55,7 @@ feature {ANY}
       end
 
 feature {}
-   new_url: URL is
+   new_url: URL
       do
          create Result.from_stream(Current, True, True)
       end
@@ -71,7 +71,7 @@ end -- class TERMINAL_INPUT_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

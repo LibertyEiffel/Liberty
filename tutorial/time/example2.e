@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          time1, time2: TIME; clock: CLOCK; clock_value1, clock_value2, periods: INTEGER; seconds: REAL
       do

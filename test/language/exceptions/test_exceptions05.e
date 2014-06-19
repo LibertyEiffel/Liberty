@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    loop_invariant: BOOLEAN
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -32,7 +32,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

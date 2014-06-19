@@ -18,7 +18,7 @@ insert
    LIBERTY_ERROR_LEVELS
 
 feature {ANY} -- Threshold
-   set_error_threshold (a_threshold: like threshold) is
+   set_error_threshold (a_threshold: like threshold)
       require
          valid_level(a_threshold)
       do
@@ -27,13 +27,13 @@ feature {ANY} -- Threshold
          threshold = a_threshold
       end
 
-   threshold: INTEGER_8 is
+   threshold: INTEGER_8
       do
          Result := threshold_memory.item
       end
 
 feature {ANY} -- Emit stream
-   set_stream (a_stream: like stream) is
+   set_stream (a_stream: like stream)
       require
          a_stream.is_connected
       do
@@ -42,30 +42,30 @@ feature {ANY} -- Emit stream
          stream = a_stream
       end
 
-   stream: OUTPUT_STREAM is
+   stream: OUTPUT_STREAM
       do
          Result := stream_memory.item
       end
 
 feature {ANY} -- Errors
-   last_error: LIBERTY_ERROR is
+   last_error: LIBERTY_ERROR
       do
          Result := last_error_memory.item
       end
 
-   has_error: BOOLEAN is
+   has_error: BOOLEAN
       do
          if last_error /= Void then
             Result := last_error.is_error
          end
       end
 
-   has_warning_or_error: BOOLEAN is
+   has_warning_or_error: BOOLEAN
       do
          Result := last_error /= Void
       end
 
-   set (level: INTEGER_8; message: STRING) is
+   set (level: INTEGER_8; message: STRING)
       require
          valid_level(level)
       local
@@ -84,7 +84,7 @@ feature {ANY} -- Errors
          dead_if_fatal: level >= level_error
       end
 
-   emit is
+   emit
       require
          has_warning_or_error
          stream.is_connected
@@ -96,7 +96,7 @@ feature {ANY} -- Errors
          dead_if_fatal: not old (last_error.is_fatal)
       end
 
-   emit_syntax_error (error: PARSE_ERROR; code: STRING; file: FIXED_STRING) is
+   emit_syntax_error (error: PARSE_ERROR; code: STRING; file: FIXED_STRING)
          -- utility method that adds all the syntax errors and emit as a fatal error
       require
          stream.is_connected
@@ -116,12 +116,12 @@ feature {ANY} -- Errors
       end
 
 feature {ANY} -- Positions
-   has_positions: BOOLEAN is
+   has_positions: BOOLEAN
       do
          Result := not positions.is_empty
       end
 
-   syntax_position (a_index: INTEGER; a_source: STRING; a_file: FIXED_STRING): LIBERTY_SYNTAX_POSITION is
+   syntax_position (a_index: INTEGER; a_source: STRING; a_file: FIXED_STRING): LIBERTY_SYNTAX_POSITION
       require
          a_index.in_range(a_source.lower, a_source.upper)
       do
@@ -130,7 +130,7 @@ feature {ANY} -- Positions
          Result /= Void
       end
 
-   semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_NON_TERMINAL_NODE; a_file: FIXED_STRING): LIBERTY_SEMANTICS_POSITION is
+   semantics_position (a_index: INTEGER; a_ast: LIBERTY_AST_NON_TERMINAL_NODE; a_file: FIXED_STRING): LIBERTY_SEMANTICS_POSITION
       require
          a_index > 0
          a_ast /= Void
@@ -141,12 +141,12 @@ feature {ANY} -- Positions
          Result /= Void
       end
 
-   unknown_position: LIBERTY_UNKNOWN_POSITION is
+   unknown_position: LIBERTY_UNKNOWN_POSITION
       once
          create Result.make
       end
 
-   add_position (a_position: LIBERTY_POSITION) is
+   add_position (a_position: LIBERTY_POSITION)
       require
          a_position /= Void
       do
@@ -155,7 +155,7 @@ feature {ANY} -- Positions
          has_positions
       end
 
-   cancel_positions is
+   cancel_positions
       do
          positions.clear_count
       ensure
@@ -163,22 +163,22 @@ feature {ANY} -- Positions
       end
 
 feature {}
-   last_error_memory: REFERENCE[LIBERTY_ERROR] is
+   last_error_memory: REFERENCE[LIBERTY_ERROR]
       once
          create Result
       end
 
-   positions: COLLECTION[LIBERTY_POSITION] is
+   positions: COLLECTION[LIBERTY_POSITION]
       once
          create {FAST_ARRAY[LIBERTY_POSITION]} Result.with_capacity(4)
       end
 
-   threshold_memory: REFERENCE[INTEGER_8] is
+   threshold_memory: REFERENCE[INTEGER_8]
       once
          create Result.set_item(level_error)
       end
 
-   stream_memory: REFERENCE[OUTPUT_STREAM] is
+   stream_memory: REFERENCE[OUTPUT_STREAM]
       once
          create Result.set_item(std_output)
       end

@@ -25,7 +25,7 @@ inherit
    VISITOR
 
 feature {EDC_NOT_EXPRESSION}
-   visit_not_expression (a_not_expression: EDC_NOT_EXPRESSION) is
+   visit_not_expression (a_not_expression: EDC_NOT_EXPRESSION)
       deferred
       end
 

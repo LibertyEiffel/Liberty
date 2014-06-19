@@ -12,13 +12,13 @@ create {ANY}
 feature {ANY}
    x, y: REAL
 
-   make (cx: REAL; cy: REAL) is
+   make (cx: REAL; cy: REAL)
       do
          x := cx
          y := cy
       end
 
-   translater (dx, dy: REAL) is
+   translater (dx, dy: REAL)
       do
          x := x + dx
          y := y + dy

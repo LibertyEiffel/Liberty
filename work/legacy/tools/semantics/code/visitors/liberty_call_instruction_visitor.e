@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CALL_INSTRUCTION}
-   visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION) is
+   visit_liberty_call_instruction (v: LIBERTY_CALL_INSTRUCTION)
       deferred
       end
 

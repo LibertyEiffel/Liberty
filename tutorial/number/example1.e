@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          max, n1, n2: NUMBER
       do

@@ -15,7 +15,7 @@ create {ANY}
 feature {}
    proxy: HTTP_PROXY
 
-   make is
+   make
       local
          url: URL
       do
@@ -24,7 +24,7 @@ feature {}
          test_socket(url)
       end
 
-   test_socket (url: URL) is
+   test_socket (url: URL)
       local
          input: INPUT_STREAM; tree: XML_TREE; version: UNICODE_STRING
       do
@@ -50,7 +50,7 @@ feature {}
          end
       end
 
-   error (line, column: INTEGER) is
+   error (line, column: INTEGER)
       do
          std_error.put_string("Error at ")
          std_error.put_integer(line)
@@ -61,7 +61,7 @@ feature {}
       end
 
 feature {XML_COMPOSITE_NODE}
-   visit_composite_node (node: XML_COMPOSITE_NODE) is
+   visit_composite_node (node: XML_COMPOSITE_NODE)
       local
          i: INTEGER
       do
@@ -108,7 +108,7 @@ feature {XML_COMPOSITE_NODE}
       end
 
 feature {XML_DATA_NODE}
-   visit_data_node (node: XML_DATA_NODE) is
+   visit_data_node (node: XML_DATA_NODE)
       do
       end
 

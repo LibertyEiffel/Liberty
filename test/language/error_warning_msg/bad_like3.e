@@ -9,14 +9,14 @@ create {}
 feature {}
    an_attribute: INTEGER
 
-   make is
+   make
       do
          an_attribute := a;
       end;
 
    a: like b;
 
-   b(arg: like b): like arg is
+   b(arg: like b): like arg
       do
       end;
 

@@ -52,7 +52,7 @@ feature {ANY}
    name: FIXED_STRING
    full_name: FIXED_STRING
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if is_prefix then
             tagged_out_memory.append(once "prefix ")
@@ -62,7 +62,7 @@ feature {ANY}
          name.out_in_tagged_out_memory
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := type = other.type and then name = other.name
          check
@@ -70,27 +70,27 @@ feature {ANY}
          end
       end
 
-   is_regular: BOOLEAN is
+   is_regular: BOOLEAN
       do
          Result := type = type_regular
       end
 
-   is_prefix: BOOLEAN is
+   is_prefix: BOOLEAN
       do
          Result := type = type_prefix
       end
 
-   is_infix: BOOLEAN is
+   is_infix: BOOLEAN
       do
          Result := type = type_infix
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := full_name.hash_code
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := full_name < other.full_name
       end
@@ -99,7 +99,7 @@ feature {LIBERTY_FEATURE_NAME}
    type: INTEGER_8
 
 feature {}
-   make_from_ast_entity_name (ast: LIBERTY_AST_ENTITY_NAME; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING) is
+   make_from_ast_entity_name (ast: LIBERTY_AST_ENTITY_NAME; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING)
       require
          ast /= Void
          class_ast /= Void
@@ -108,7 +108,7 @@ feature {}
          position := errors.semantics_position(ast.image.index, class_ast, file)
       end
 
-   make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING) is
+   make_from_ast (ast: LIBERTY_AST_FEATURE_NAME_OR_ALIAS; class_ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING)
       require
          ast /= Void
          class_ast /= Void
@@ -125,7 +125,7 @@ feature {}
          end
       end
 
-   make_regular (a_name: like name; a_position: like position) is
+   make_regular (a_name: like name; a_position: like position)
       require
          a_name = a_name.intern
       do
@@ -139,7 +139,7 @@ feature {}
          position = a_position
       end
 
-   make_prefix (a_name: like name; a_position: like position) is
+   make_prefix (a_name: like name; a_position: like position)
       require
          a_name = a_name.intern
       do
@@ -153,7 +153,7 @@ feature {}
          position = a_position
       end
 
-   make_infix (a_name: like name; a_position: like position) is
+   make_infix (a_name: like name; a_position: like position)
       require
          a_name = a_name.intern
       do
@@ -167,7 +167,7 @@ feature {}
          position = a_position
       end
 
-   make (a_name: like name) is
+   make (a_name: like name)
       require
          a_name = a_name.intern
       do
@@ -176,7 +176,7 @@ feature {}
          name = a_name
       end
 
-   infixed (a_name: like name) is
+   infixed (a_name: like name)
       require
          a_name = a_name.intern
       do
@@ -185,7 +185,7 @@ feature {}
          name = a_name
       end
 
-   prefixed (a_name: like name) is
+   prefixed (a_name: like name)
       require
          a_name = a_name.intern
       do
@@ -194,7 +194,7 @@ feature {}
          name = a_name
       end
 
-   sane_name (a_name: FIXED_STRING): FIXED_STRING is
+   sane_name (a_name: FIXED_STRING): FIXED_STRING
       do
          if a_name.first = '"' then
             check a_name.last = '"' end
@@ -208,9 +208,9 @@ feature {}
          a_name.first /= '"' implies Result = a_name
       end
 
-   type_regular: INTEGER_8 is 1
-   type_prefix: INTEGER_8 is 2
-   type_infix: INTEGER_8 is 3
+   type_regular: INTEGER_8 1
+   type_prefix: INTEGER_8 2
+   type_infix: INTEGER_8 3
 
    errors: LIBERTY_ERRORS
 

@@ -21,40 +21,40 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_call: BOOLEAN is
+   is_call: BOOLEAN
       do
          Result := count = 2
       end
 
-   is_assignment_test: BOOLEAN is
+   is_assignment_test: BOOLEAN
       do
          Result := count = 3
       ensure
          Result = nodes.item(1).name.is_equal(once "KW ?:=")
       end
 
-   call_target: LIBERTY_AST_TARGET is
+   call_target: LIBERTY_AST_TARGET
       require
          is_call
       do
          Result ::= nodes.item(0)
       end
 
-   call_r10: LIBERTY_AST_R10 is
+   call_r10: LIBERTY_AST_R10
       require
          is_call
       do
          Result ::= nodes.item(1)
       end
 
-   assignment_test_entity_name: LIBERTY_AST_ENTITY_NAME is
+   assignment_test_entity_name: LIBERTY_AST_ENTITY_NAME
       require
          is_assignment_test
       do
          Result ::= nodes.item(0)
       end
 
-   assignment_test_expression: LIBERTY_AST_EXPRESSION is
+   assignment_test_expression: LIBERTY_AST_EXPRESSION
       require
          is_assignment_test
       do
@@ -62,15 +62,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Call"
+   name: STRING "Call"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 2, 3 >> }
       end

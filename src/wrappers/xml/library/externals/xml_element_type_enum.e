@@ -7,7 +7,7 @@ insert ENUM
 
 create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_attribute_decl_low_level)  or else
 				(a_value = xml_attribute_node_low_level)  or else
@@ -34,219 +34,219 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_attribute_decl is
+	set_xml_attribute_decl
 		do
 			value := xml_attribute_decl_low_level
 		end
 
-	set_xml_attribute_node is
+	set_xml_attribute_node
 		do
 			value := xml_attribute_node_low_level
 		end
 
-	set_xml_cdata_section_node is
+	set_xml_cdata_section_node
 		do
 			value := xml_cdata_section_node_low_level
 		end
 
-	set_xml_comment_node is
+	set_xml_comment_node
 		do
 			value := xml_comment_node_low_level
 		end
 
-	set_xml_docb_document_node is
+	set_xml_docb_document_node
 		do
 			value := xml_docb_document_node_low_level
 		end
 
-	set_xml_document_frag_node is
+	set_xml_document_frag_node
 		do
 			value := xml_document_frag_node_low_level
 		end
 
-	set_xml_document_node is
+	set_xml_document_node
 		do
 			value := xml_document_node_low_level
 		end
 
-	set_xml_document_type_node is
+	set_xml_document_type_node
 		do
 			value := xml_document_type_node_low_level
 		end
 
-	set_xml_dtd_node is
+	set_xml_dtd_node
 		do
 			value := xml_dtd_node_low_level
 		end
 
-	set_xml_element_decl is
+	set_xml_element_decl
 		do
 			value := xml_element_decl_low_level
 		end
 
-	set_xml_element_node is
+	set_xml_element_node
 		do
 			value := xml_element_node_low_level
 		end
 
-	set_xml_entity_decl is
+	set_xml_entity_decl
 		do
 			value := xml_entity_decl_low_level
 		end
 
-	set_xml_entity_node is
+	set_xml_entity_node
 		do
 			value := xml_entity_node_low_level
 		end
 
-	set_xml_entity_ref_node is
+	set_xml_entity_ref_node
 		do
 			value := xml_entity_ref_node_low_level
 		end
 
-	set_xml_html_document_node is
+	set_xml_html_document_node
 		do
 			value := xml_html_document_node_low_level
 		end
 
-	set_xml_namespace_decl is
+	set_xml_namespace_decl
 		do
 			value := xml_namespace_decl_low_level
 		end
 
-	set_xml_notation_node is
+	set_xml_notation_node
 		do
 			value := xml_notation_node_low_level
 		end
 
-	set_xml_pi_node is
+	set_xml_pi_node
 		do
 			value := xml_pi_node_low_level
 		end
 
-	set_xml_text_node is
+	set_xml_text_node
 		do
 			value := xml_text_node_low_level
 		end
 
-	set_xml_xinclude_end is
+	set_xml_xinclude_end
 		do
 			value := xml_xinclude_end_low_level
 		end
 
-	set_xml_xinclude_start is
+	set_xml_xinclude_start
 		do
 			value := xml_xinclude_start_low_level
 		end
 
 feature -- Queries
-	is_xml_attribute_decl: BOOLEAN is
+	is_xml_attribute_decl: BOOLEAN
 		do
 			Result := (value=xml_attribute_decl_low_level)
 		end
 
-	is_xml_attribute_node: BOOLEAN is
+	is_xml_attribute_node: BOOLEAN
 		do
 			Result := (value=xml_attribute_node_low_level)
 		end
 
-	is_xml_cdata_section_node: BOOLEAN is
+	is_xml_cdata_section_node: BOOLEAN
 		do
 			Result := (value=xml_cdata_section_node_low_level)
 		end
 
-	is_xml_comment_node: BOOLEAN is
+	is_xml_comment_node: BOOLEAN
 		do
 			Result := (value=xml_comment_node_low_level)
 		end
 
-	is_xml_docb_document_node: BOOLEAN is
+	is_xml_docb_document_node: BOOLEAN
 		do
 			Result := (value=xml_docb_document_node_low_level)
 		end
 
-	is_xml_document_frag_node: BOOLEAN is
+	is_xml_document_frag_node: BOOLEAN
 		do
 			Result := (value=xml_document_frag_node_low_level)
 		end
 
-	is_xml_document_node: BOOLEAN is
+	is_xml_document_node: BOOLEAN
 		do
 			Result := (value=xml_document_node_low_level)
 		end
 
-	is_xml_document_type_node: BOOLEAN is
+	is_xml_document_type_node: BOOLEAN
 		do
 			Result := (value=xml_document_type_node_low_level)
 		end
 
-	is_xml_dtd_node: BOOLEAN is
+	is_xml_dtd_node: BOOLEAN
 		do
 			Result := (value=xml_dtd_node_low_level)
 		end
 
-	is_xml_element_decl: BOOLEAN is
+	is_xml_element_decl: BOOLEAN
 		do
 			Result := (value=xml_element_decl_low_level)
 		end
 
-	is_xml_element_node: BOOLEAN is
+	is_xml_element_node: BOOLEAN
 		do
 			Result := (value=xml_element_node_low_level)
 		end
 
-	is_xml_entity_decl: BOOLEAN is
+	is_xml_entity_decl: BOOLEAN
 		do
 			Result := (value=xml_entity_decl_low_level)
 		end
 
-	is_xml_entity_node: BOOLEAN is
+	is_xml_entity_node: BOOLEAN
 		do
 			Result := (value=xml_entity_node_low_level)
 		end
 
-	is_xml_entity_ref_node: BOOLEAN is
+	is_xml_entity_ref_node: BOOLEAN
 		do
 			Result := (value=xml_entity_ref_node_low_level)
 		end
 
-	is_xml_html_document_node: BOOLEAN is
+	is_xml_html_document_node: BOOLEAN
 		do
 			Result := (value=xml_html_document_node_low_level)
 		end
 
-	is_xml_namespace_decl: BOOLEAN is
+	is_xml_namespace_decl: BOOLEAN
 		do
 			Result := (value=xml_namespace_decl_low_level)
 		end
 
-	is_xml_notation_node: BOOLEAN is
+	is_xml_notation_node: BOOLEAN
 		do
 			Result := (value=xml_notation_node_low_level)
 		end
 
-	is_xml_pi_node: BOOLEAN is
+	is_xml_pi_node: BOOLEAN
 		do
 			Result := (value=xml_pi_node_low_level)
 		end
 
-	is_xml_text_node: BOOLEAN is
+	is_xml_text_node: BOOLEAN
 		do
 			Result := (value=xml_text_node_low_level)
 		end
 
-	is_xml_xinclude_end: BOOLEAN is
+	is_xml_xinclude_end: BOOLEAN
 		do
 			Result := (value=xml_xinclude_end_low_level)
 		end
 
-	is_xml_xinclude_start: BOOLEAN is
+	is_xml_xinclude_start: BOOLEAN
 		do
 			Result := (value=xml_xinclude_start_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_attribute_decl_low_level: INTEGER is
+	xml_attribute_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -255,7 +255,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_node_low_level: INTEGER is
+	xml_attribute_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -264,7 +264,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_cdata_section_node_low_level: INTEGER is
+	xml_cdata_section_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -273,7 +273,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_comment_node_low_level: INTEGER is
+	xml_comment_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -282,7 +282,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_docb_document_node_low_level: INTEGER is
+	xml_docb_document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -291,7 +291,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_document_frag_node_low_level: INTEGER is
+	xml_document_frag_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -300,7 +300,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_document_node_low_level: INTEGER is
+	xml_document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -309,7 +309,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_document_type_node_low_level: INTEGER is
+	xml_document_type_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -318,7 +318,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_node_low_level: INTEGER is
+	xml_dtd_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -327,7 +327,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_element_decl_low_level: INTEGER is
+	xml_element_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -336,7 +336,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_element_node_low_level: INTEGER is
+	xml_element_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -345,7 +345,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_entity_decl_low_level: INTEGER is
+	xml_entity_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -354,7 +354,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_entity_node_low_level: INTEGER is
+	xml_entity_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -363,7 +363,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_entity_ref_node_low_level: INTEGER is
+	xml_entity_ref_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -372,7 +372,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_html_document_node_low_level: INTEGER is
+	xml_html_document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -381,7 +381,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_namespace_decl_low_level: INTEGER is
+	xml_namespace_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -390,7 +390,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_notation_node_low_level: INTEGER is
+	xml_notation_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -399,7 +399,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_pi_node_low_level: INTEGER is
+	xml_pi_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -408,7 +408,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_text_node_low_level: INTEGER is
+	xml_text_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -417,7 +417,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_end_low_level: INTEGER is
+	xml_xinclude_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -426,7 +426,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_start_low_level: INTEGER is
+	xml_xinclude_start_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_TYPES
 feature {} -- Low-level setters
 
-	gparam_spec_value_array_struct_set_element_spec (a_structure: POINTER; a_value: POINTER) is
+	gparam_spec_value_array_struct_set_element_spec (a_structure: POINTER; a_value: POINTER)
 			-- Setter for element_spec field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gparam_spec_value_array_struct_set_fixed_n_elements (a_structure: POINTER; a_value: NATURAL) is
+	gparam_spec_value_array_struct_set_fixed_n_elements (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for fixed_n_elements field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: setter description
 
@@ -35,7 +35,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent_instance.
-	gparam_spec_value_array_struct_get_element_spec (a_structure: POINTER): POINTER is
+	gparam_spec_value_array_struct_get_element_spec (a_structure: POINTER): POINTER
 			-- Query for element_spec field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: getter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gparam_spec_value_array_struct_get_fixed_n_elements (a_structure: POINTER): NATURAL is
+	gparam_spec_value_array_struct_get_fixed_n_elements (a_structure: POINTER): NATURAL
 			-- Query for fixed_n_elements field of GPARAM_SPEC_VALUE_ARRAY_STRUCT structure.
 			-- TODO: getter description
 
@@ -60,7 +60,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

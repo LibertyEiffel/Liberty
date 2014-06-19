@@ -15,7 +15,7 @@ create {ANY} make
 feature {ANY} -- Creation
 
 	make (a_name,a_nick,a_blurb: STRING;
-			a_min,a_max,a_default: CHARACTER; some_flags: INTEGER) is
+			a_min,a_max,a_default: CHARACTER; some_flags: INTEGER)
 			-- Creates a new G_PARAM_SPEC_BOOLEAN.
 			-- `a_name' is the canonical name of the property specified,
 			-- `a_nick' is the nick name for the property specified,

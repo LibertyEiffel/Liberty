@@ -4,7 +4,7 @@
 deferred class AUX_SELECT1A
 
 feature {ANY}
-   f is
+   f
       deferred
       end
 

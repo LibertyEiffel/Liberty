@@ -10,13 +10,13 @@ create {RUN}
    make
 
 feature {SYSTEM_TOOLS}
-   new (position: POSITION; a_name, a_path: STRING): PLUGIN is
+   new (position: POSITION; a_name, a_path: STRING): PLUGIN
       do
          create {RUNNER_PLUGIN} Result.make(position, a_name, a_path)
       end
 
 feature {}
-   make is
+   make
       do
       end
 

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_NOT}
-   visit_liberty_not (v: LIBERTY_NOT) is
+   visit_liberty_not (v: LIBERTY_NOT)
       deferred
       end
 

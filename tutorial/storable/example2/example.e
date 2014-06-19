@@ -11,7 +11,7 @@ feature {}
    xml_repository: XML_FILE_REPOSITORY[ARRAY[STRING]]
       -- One can store several ARRAY[STRING] in that `xml_repository'.
 
-   make is
+   make
       local
          array_1, array_2: ARRAY[STRING]
       do
@@ -37,9 +37,9 @@ feature {}
          end
       end
 
-   repository_name: STRING is "my_repository.xml"
+   repository_name: STRING "my_repository.xml"
 
-   display (name: STRING; array: ARRAY[STRING]) is
+   display (name: STRING; array: ARRAY[STRING])
       local
          i: INTEGER
       do

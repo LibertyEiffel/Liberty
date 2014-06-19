@@ -4,7 +4,7 @@
 class AUX_U01F2
 
 feature {ANY}
-   f: AUX_U01R2 is
+   f: AUX_U01R2
       do
       end
 

@@ -7,7 +7,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = append_low_level)  or else
 				(a_value = get_mask_low_level)  or else
@@ -21,89 +21,89 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_append is
+	set_append
 		do
 			value := append_low_level
 		end
 
-	set_get_mask is
+	set_get_mask
 		do
 			value := get_mask_low_level
 		end
 
-	set_is_readable is
+	set_is_readable
 		do
 			value := is_readable_low_level
 		end
 
-	set_is_seekable is
+	set_is_seekable
 		do
 			value := is_seekable_low_level
 		end
 
-	set_is_writable is
+	set_is_writable
 		do
 			value := is_writable_low_level
 		end
 
-	set_mask is
+	set_mask
 		do
 			value := mask_low_level
 		end
 
-	set_nonblock is
+	set_nonblock
 		do
 			value := nonblock_low_level
 		end
 
-	set_set_mask is
+	set_set_mask
 		do
 			value := set_mask_low_level
 		end
 
 feature {ANY} -- Queries
-	is_append: BOOLEAN is
+	is_append: BOOLEAN
 		do
 			Result := (value=append_low_level)
 		end
 
-	is_get_mask: BOOLEAN is
+	is_get_mask: BOOLEAN
 		do
 			Result := (value=get_mask_low_level)
 		end
 
-	is_is_readable: BOOLEAN is
+	is_is_readable: BOOLEAN
 		do
 			Result := (value=is_readable_low_level)
 		end
 
-	is_is_seekable: BOOLEAN is
+	is_is_seekable: BOOLEAN
 		do
 			Result := (value=is_seekable_low_level)
 		end
 
-	is_is_writable: BOOLEAN is
+	is_is_writable: BOOLEAN
 		do
 			Result := (value=is_writable_low_level)
 		end
 
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=mask_low_level)
 		end
 
-	is_nonblock: BOOLEAN is
+	is_nonblock: BOOLEAN
 		do
 			Result := (value=nonblock_low_level)
 		end
 
-	is_set_mask: BOOLEAN is
+	is_set_mask: BOOLEAN
 		do
 			Result := (value=set_mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	append_low_level: INTEGER is
+	append_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	get_mask_low_level: INTEGER is
+	get_mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_readable_low_level: INTEGER is
+	is_readable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -130,7 +130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_seekable_low_level: INTEGER is
+	is_seekable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	is_writable_low_level: INTEGER is
+	is_writable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mask_low_level: INTEGER is
+	mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -157,7 +157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	nonblock_low_level: INTEGER is
+	nonblock_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -166,7 +166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	set_mask_low_level: INTEGER is
+	set_mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

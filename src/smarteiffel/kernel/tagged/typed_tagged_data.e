@@ -7,7 +7,7 @@ inherit
    TAGGED_DATA
 
 feature {ANY}
-   item: T_ is
+   item: T_
       deferred
       end
 

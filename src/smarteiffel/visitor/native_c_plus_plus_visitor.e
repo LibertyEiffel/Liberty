@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       require
          visited /= Void
       deferred

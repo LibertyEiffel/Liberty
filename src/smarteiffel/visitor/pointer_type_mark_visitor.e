@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       require
          visited /= Void
       deferred

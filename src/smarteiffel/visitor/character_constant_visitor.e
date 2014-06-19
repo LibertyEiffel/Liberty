@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CHARACTER_CONSTANT}
-   visit_character_constant (visited: CHARACTER_CONSTANT) is
+   visit_character_constant (visited: CHARACTER_CONSTANT)
       require
          visited /= Void
       deferred

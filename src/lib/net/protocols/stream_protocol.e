@@ -15,29 +15,29 @@ create {URL}
    make
 
 feature {ANY}
-   name: STRING is
+   name: STRING
       do
          Result := out -- make it as ugly as possible. Not a possible URL protocol name.
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := stream.is_connected
       end
 
-   error: STRING is
+   error: STRING
       do
          -- not used; always Void (no error)
       end
 
 feature {URL_VALIDITY}
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       do
          check False end
       end
 
 feature {URL}
-   connect_to (url: URL; read, write: BOOLEAN) is
+   connect_to (url: URL; read, write: BOOLEAN)
       require else
          True
       do
@@ -49,33 +49,33 @@ feature {URL}
          end
       end
 
-   disconnect is
+   disconnect
       do
          stream.disconnect
       end
 
-   input: INPUT_STREAM is
+   input: INPUT_STREAM
       do
          Result := instream
       end
 
-   output: OUTPUT_STREAM is
+   output: OUTPUT_STREAM
       do
          Result := outstream
       end
 
-   locator (a_uri: STRING): RESOURCE_LOCATOR is
+   locator (a_uri: STRING): RESOURCE_LOCATOR
       do
          check False end
       end
 
-   recycle_locator (a_locator: RESOURCE_LOCATOR) is
+   recycle_locator (a_locator: RESOURCE_LOCATOR)
       do
          check False end
       end
 
 feature {}
-   make (a_stream: like stream) is
+   make (a_stream: like stream)
       require
          a_stream /= Void
       do
@@ -99,7 +99,7 @@ end -- STREAM_PROTOCOL
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

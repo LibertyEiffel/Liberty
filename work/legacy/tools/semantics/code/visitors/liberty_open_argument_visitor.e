@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_OPEN_ARGUMENT}
-   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT) is
+   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT)
       deferred
       end
 

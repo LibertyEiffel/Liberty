@@ -18,7 +18,7 @@ create {EIFFEL_PARSER, FORMAL_GENERIC_ARG}
 feature {ANY}
    written_name: HASHED_STRING
 
-   declaration_type: TYPE_MARK is
+   declaration_type: TYPE_MARK
       do
          if already_checking then
             Result := smart_eiffel.type_any.canonical_type_mark
@@ -44,41 +44,41 @@ feature {ANY}
          already_checking := False
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := formal_name.start_position
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       do
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK
       do
          Result := parent_edge.type_mark.generic_list.item(rank)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := True
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := new_type.generic_list.item(rank)
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       do
          Result := new_type.generic_list.item(rank).canonical_type_mark
       end
 
-   signature_resolve_in (new_type: TYPE): TYPE is
+   signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := new_type.generic_list.item(rank)
       end
 
-   accept (visitor: FORMAL_GENERIC_TYPE_MARK_VISITOR) is
+   accept (visitor: FORMAL_GENERIC_TYPE_MARK_VISITOR)
       do
          visitor.visit_formal_generic_type_mark(Current)
       end
@@ -88,12 +88,12 @@ feature {}
          -- Crude fix to handle cases like FOO[E1->E2, E2->E1]
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_printer.put_class_name_without_link(formal_name)
       end
 
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          if start_position /= sp then
             formal_name := formal_name.twin
@@ -102,7 +102,7 @@ feature {TYPE_MARK}
       end
 
 feature {CREATE_SUPPORT}
-   formal_generic_creation: CREATION_CLAUSE is
+   formal_generic_creation: CREATION_CLAUSE
       local
          constraint: TYPE_MARK
       do
@@ -124,7 +124,7 @@ feature {PARENT_EDGE}
          -- Rank in the corresponding formal generic list.
 
 feature {}
-   make (fn: like formal_name; fga: like formal_generic_arg; r: INTEGER) is
+   make (fn: like formal_name; fga: like formal_generic_arg; r: INTEGER)
       require
          fn.to_string = fga.name.to_string
          fga.rank = r

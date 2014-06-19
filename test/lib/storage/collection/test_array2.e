@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a, b: ARRAY2[INTEGER_8]
 
-   make is
+   make
       local
          i1, i2: INTEGER; v: INTEGER_8
       do
@@ -87,7 +87,7 @@ feature {ANY}
          assert(a.fast_occurrences(4) = 1)
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

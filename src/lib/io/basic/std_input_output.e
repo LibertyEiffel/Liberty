@@ -15,12 +15,12 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
 feature {ANY}
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          -- Yes, it is an "and" and not an "or": it must be strong enough,
          -- otherwise the system won't work
@@ -28,69 +28,69 @@ feature {ANY}
             and then (std_output /= Void and then std_output.is_connected)
       end
 
-   disconnect is
+   disconnect
       do
          std_input.disconnect
          std_output.disconnect
       end
 
 feature {ANY}
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := std_input.end_of_input
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := std_input.can_unread_character
       end
 
 feature {FILTER_INPUT_STREAM} -- input features:
-   filtered_read_character is
+   filtered_read_character
       do
          std_input.read_character
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          std_input.unread_character
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := std_input.last_character
       end
 
 feature {FILTER_OUTPUT_STREAM} -- output features:
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          std_output.put_character(c)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          std_output.flush
       end
 
 feature {FILTER} -- meaningless features:
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          std_error.put_string("STD_INPUT_OUTPUT.filtered_descriptor has been called!%N")
          crash
       end
 
-   filtered_has_descriptor: BOOLEAN is False
+   filtered_has_descriptor: BOOLEAN False
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("STD_INPUT_OUTPUT.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
-   dispose is
+   dispose
       do
          check
             io = Current
@@ -109,7 +109,7 @@ end -- class STD_INPUT_OUTPUT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

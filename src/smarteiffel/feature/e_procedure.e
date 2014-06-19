@@ -14,17 +14,17 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
-   debug_list: HASHED_SET[STRING] is
+   debug_list: HASHED_SET[STRING]
       once
          create Result.make
       end
 
 feature {PROCEDURE_CALL_0}
-   inline_instruction_0 (type: TYPE; target_type: TYPE; target: EXPRESSION): INLINE_MEMO is
+   inline_instruction_0 (type: TYPE; target_type: TYPE; target: EXPRESSION): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT
@@ -74,7 +74,7 @@ feature {PROCEDURE_CALL_0}
       end
 
 feature {PROCEDURE_CALL_1}
-   inline_instruction_1 (type: TYPE; target_type: TYPE; target, arg: EXPRESSION): INLINE_MEMO is
+   inline_instruction_1 (type: TYPE; target_type: TYPE; target, arg: EXPRESSION): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT; writable_attribute_name: WRITABLE_ATTRIBUTE_NAME
@@ -158,7 +158,7 @@ feature {PROCEDURE_CALL_1}
 
 feature {PROCEDURE_CALL_N}
    inline_instruction_n (type: TYPE; target_type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL
@@ -190,35 +190,35 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_3 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_3
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: E_PROCEDURE_VISITOR) is
+   accept (visitor: E_PROCEDURE_VISITOR)
       do
          visitor.visit_e_procedure(Current)
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
 feature {}
-   try_to_undefine_aux (fn: FEATURE_NAME; ct: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; ct: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, ct, permissions)
       end
 
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "do")
       end
 
    inline_proc_call_0 (proc_call: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target: EXPRESSION)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       require
          proc_call /= Void
       local
@@ -270,7 +270,7 @@ feature {}
       end
 
    inline_proc_call_1 (body: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target, arg: EXPRESSION)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       require
          body /= Void
       local
@@ -319,7 +319,7 @@ feature {}
       end
 
    inline_proc_call_n (proc_call: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target: EXPRESSION
-      args: EFFECTIVE_ARG_LIST): INLINE_MEMO is
+      args: EFFECTIVE_ARG_LIST): INLINE_MEMO
       require
          proc_call /= Void
       local

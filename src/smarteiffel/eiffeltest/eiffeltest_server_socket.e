@@ -14,19 +14,19 @@ create {ANY}
    make
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          log.trace.put_line(once "Server #(1): prepare server socket" # port.out)
          events.expect(server.event_connection)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := events.event_occurred(server.event_connection)
          log.trace.put_line(once "Server #(1): is_ready server socket: #(2)" # port.out # Result.out)
       end
 
-   continue is
+   continue
       local
          stream: SOCKET_INPUT_OUTPUT_STREAM
       do
@@ -35,13 +35,13 @@ feature {LOOP_ITEM}
          on_connect.call([create {EIFFELTEST_SERVER_CONNECTION}.make(port, stream, Current, on_connect)])
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := server = Void or else not server.can_connect
          log.trace.put_line(once "Server #(1): server socket done: #(2)" # port.out # Result.out)
       end
 
-   restart is
+   restart
       do
          server := access.server
          if server = Void then
@@ -51,7 +51,7 @@ feature {LOOP_ITEM}
       end
 
 feature {ANY}
-   disconnect is
+   disconnect
       do
          log.info.put_line(once "Server #(1): disconnected, shutting down" # port.out)
          server.shutdown
@@ -59,7 +59,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_port: INTEGER; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect) is
+   make (a_port: INTEGER; a_on_connect: like on_connect; a_on_disconnect: like on_disconnect)
       require
          a_on_disconnect /= Void
       do

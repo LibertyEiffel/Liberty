@@ -19,7 +19,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; c: CHARACTER
       do
@@ -56,61 +56,61 @@ feature {ANY}
       end
 
 feature {}
-   integer_to_c (i: INTEGER) is
+   integer_to_c (i: INTEGER)
          -- Call the C `integer_to_c' function with `i' as argument (see c_glue1.c).
       external "C"
       end
 
-   character_to_c (c: CHARACTER) is
+   character_to_c (c: CHARACTER)
          -- Call the C `character_to_c' function with `c' as argument (see c_glue1.c).
       external "C"
       end
 
-   boolean_to_c (b: BOOLEAN) is
+   boolean_to_c (b: BOOLEAN)
          -- Call the C `boolean_to_c' function with `b' as argument (see c_glue1.c).
       external "C"
       end
 
-   real_32_to_c (r: REAL_32) is
+   real_32_to_c (r: REAL_32)
          -- Call the C `real_32_to_c' function with `r' as argument (see c_glue1.c).
       external "C"
       end
 
-   real_64_to_c (d: REAL_64) is
+   real_64_to_c (d: REAL_64)
          -- Call the C `real_64_to_c' function with `d' as argument (see c_glue1.c).
       external "C"
       end
 
-   string_storage_to_c (s: POINTER) is
+   string_storage_to_c (s: POINTER)
          -- Call the C `string_storage_to_c' function with `s' as argument (see
          -- c_glue1.c).
       external "C"
       end
 
-   any_to_c (a: ANY) is
+   any_to_c (a: ANY)
          -- Call the C `any_to_c' function with `a' as argument (see c_glue1.c).
       external "C"
       end
 
-   c_int2eiffel: INTEGER is
+   c_int2eiffel: INTEGER
          -- Call the C `c_int2eiffel' function (see c_glue1.c).
       external "C"
       end
 
-   c_char2eiffel: CHARACTER is
+   c_char2eiffel: CHARACTER
          -- Call the C `c_char2eiffel' function (see c_glue1.c).
       external "C"
       end
 
    integer_attribute: INTEGER
 
-   set_integer_attribute (integer_pointer: POINTER) is
+   set_integer_attribute (integer_pointer: POINTER)
          -- Call the C `set_integer_attribute' function with the address of an
          -- INTEGER attribute (see c_glue1.c).
       external "C"
       end
 
-   hello: BOOLEAN is
+   hello: BOOLEAN
       external "C"
       end
 

@@ -1,5 +1,5 @@
 -- This file is part of Liberty The GNU Eiffel Compiler Tools and Libraries.
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 class MOCKER
    --
@@ -14,17 +14,17 @@ create {}
    make
 
 feature {ANY}
-   liberty_authors: STRING is "C.ADRIAN"
-   liberty_dates: STRING is "2013"
+   liberty_authors: STRING "C.ADRIAN"
+   liberty_dates: STRING "2013"
 
 feature {}
    input, out_mock, out_expect: REGULAR_FILE
 
-   generate_mocks is
+   generate_mocks
       require
-         input.exists
-         not out_mock.exists
-         not out_expect.exists
+         input.exts
+         not out_mock.exts
+         not out_expect.exts
       local
          grammar: EIFFEL_GRAMMAR
          parser: DESCENDING_PARSER
@@ -60,26 +60,26 @@ feature {}
 
          std_output.put_line(once "Writing mock class: #(1)" # out_mock.path)
          grammar.root_node.accept(create {MOCKER_MOCK}.make(out_mock.write, classname(out_mock), classname(out_expect)))
-         out_mock.write.disconnect
+         out_mock.write.dconnect
 
          std_output.put_line(once "Writing expect class: #(1)" # out_expect.path)
          grammar.root_node.accept(create {MOCKER_EXPECT}.make(out_expect.write, classname(out_mock), classname(out_expect)))
-         out_expect.write.disconnect
+         out_expect.write.dconnect
 
          std_output.put_line(once "Done.")
       ensure
-         out_mock.exists
-         out_expect.exists
+         out_mock.exts
+         out_expect.exts
       end
 
-   classname (file: REGULAR_FILE): STRING is
+   classname (file: REGULAR_FILE): STRING
       require
          file.name.has_suffix(once ".e")
       do
          Result := file.name.substring(file.name.lower, file.name.upper - 2).as_upper
       end
 
-   check_output (type: STRING; option: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]): REGULAR_FILE is
+   check_output (type: STRING; option: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]): REGULAR_FILE
       require
          input /= Void
          type /= Void
@@ -87,7 +87,7 @@ feature {}
          bd: BASIC_DIRECTORY
          name: ABSTRACT_STRING
       do
-         if option.is_set then
+         if option._set then
             Result := option.item
 
             if not Result.name.has_suffix(".e") then
@@ -95,8 +95,8 @@ feature {}
                die_with_code(1)
             end
 
-            if Result.exists then
-               std_error.put_line("#(1) file does exist: #(2)" # type # Result.path)
+            if Result.exts then
+               std_error.put_line("#(1) file does ext: #(2)" # type # Result.path)
                die_with_code(1)
             end
          else
@@ -112,18 +112,18 @@ feature {}
          Result /= Void
       end
 
-   make is
+   make
       do
          if not arguments.parse_command_line then
             arguments.usage(std_error)
             die_with_code(1)
-         elseif option_help.is_set then
+         elseif option_help._set then
             arguments.usage(std_output)
             die_with_code(0)
-         elseif option_version.is_set then
+         elseif option_version._set then
             print_version
             die_with_code(0)
-         elseif not argument_file.is_set then
+         elseif not argument_file._set then
             arguments.usage(std_error)
             die_with_code(1)
          end
@@ -135,8 +135,8 @@ feature {}
             die_with_code(1)
          end
 
-         if not input.exists then
-            std_error.put_line("File does not exist: #(1)" # input.path)
+         if not input.exts then
+            std_error.put_line("File does not ext: #(1)" # input.path)
             die_with_code(1)
          end
 
@@ -146,32 +146,32 @@ feature {}
          generate_mocks
       end
 
-   arguments: COMMAND_LINE_ARGUMENTS is
+   arguments: COMMAND_LINE_ARGUMENTS
       once
          create Result.make(option_help or option_version or (option_out_mock and option_out_expect and argument_file))
       end
 
-   option_help: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
+   option_help: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
       once
          Result := cli_factory.option_boolean("h", "help", "Command usage")
       end
 
-   option_version: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
+   option_version: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
       once
          Result := cli_factory.option_boolean("v", "version", "Command version")
       end
 
-   option_out_mock: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   option_out_mock: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       once
          Result := cli_factory.option_file("m", "mock", "out_mock", "Mock file to generate (also implies the mock class name)")
       end
 
-   option_out_expect: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   option_out_expect: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       once
          Result := cli_factory.option_file("e", "expect", "out_expect", "Expect file to generate (also implies the expect class name)")
       end
 
-   argument_file: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   argument_file: COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       once
          Result := cli_factory.positional_file("classfile.e", "The file containing the class to mock")
       end
@@ -184,7 +184,7 @@ end -- class MOCKER
 -- Copyright notice below. Please read.
 --
 -- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
--- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- as publhed by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free

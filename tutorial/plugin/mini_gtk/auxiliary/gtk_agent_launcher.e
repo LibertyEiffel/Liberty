@@ -4,16 +4,16 @@ create {} -- for Cecil
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   launch_routine (routine: ROUTINE[TUPLE]) is
+   launch_routine (routine: ROUTINE[TUPLE])
       do
          routine.call([])
       end
 
-   callback_agent: POINTER is
+   callback_agent: POINTER
       external "plug_in"
       alias "{
          location: "."

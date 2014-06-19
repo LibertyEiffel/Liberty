@@ -13,21 +13,21 @@ create {ANY}
    connect_to
 
 feature{ANY}
-   set_foreground (color: INTEGER) is
+   set_foreground (color: INTEGER)
       require
          color.in_range(0, 7) or else color = 9
       do
          put_color_sequence(30 + color)
       end
 
-   set_background (color: INTEGER) is
+   set_background (color: INTEGER)
       require
          color.in_range(0, 7) or else color = 9
       do
          put_color_sequence(40 + color)
       end
 
-   reset is
+   reset
       do
          put_sequence(0)
          is_bold := False
@@ -43,7 +43,7 @@ feature{ANY}
          not is_strikethrough
       end
 
-   set_bold (bold: BOOLEAN) is
+   set_bold (bold: BOOLEAN)
       require
          bold = not is_bold
       do
@@ -54,7 +54,7 @@ feature{ANY}
 
    is_bold: BOOLEAN
 
-   set_italic (italic: BOOLEAN) is
+   set_italic (italic: BOOLEAN)
       require
          italic = not is_italic
       do
@@ -65,7 +65,7 @@ feature{ANY}
 
    is_italic: BOOLEAN
 
-   set_underline (underline: BOOLEAN) is
+   set_underline (underline: BOOLEAN)
       require
          underline = not is_underline
       do
@@ -76,7 +76,7 @@ feature{ANY}
 
    is_underline: BOOLEAN
 
-   set_inverse (inverse: BOOLEAN) is
+   set_inverse (inverse: BOOLEAN)
       require
          inverse = not is_inverse
       do
@@ -87,7 +87,7 @@ feature{ANY}
 
    is_inverse: BOOLEAN
 
-   set_strikethrough (strike: BOOLEAN) is
+   set_strikethrough (strike: BOOLEAN)
       require
          strike = not is_strikethrough
       do
@@ -98,20 +98,20 @@ feature{ANY}
 
    is_strikethrough: BOOLEAN
 
-   black: INTEGER is 0
-   red: INTEGER is 1
-   green: INTEGER is 2
-   yellow: INTEGER is 3
-   blue: INTEGER is 4
-   magenta: INTEGER is 5
-   cyan: INTEGER is 6
-   white: INTEGER is 7
-   default_color: INTEGER is 9
+   black: INTEGER 0
+   red: INTEGER 1
+   green: INTEGER 2
+   yellow: INTEGER 3
+   blue: INTEGER 4
+   magenta: INTEGER 5
+   cyan: INTEGER 6
+   white: INTEGER 7
+   default_color: INTEGER 9
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
-   put_color_sequence (seq: INTEGER) is
+   put_color_sequence (seq: INTEGER)
       do
          put_string("%/27/[0;")
          put_integer(seq)
@@ -143,7 +143,7 @@ feature {}
          end
       end
 
-   put_sequence (seq: INTEGER) is
+   put_sequence (seq: INTEGER)
       do
          put_string("%/27/[")
          put_integer(seq)
@@ -151,12 +151,12 @@ feature {}
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          stream.filtered_put_character(c)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
@@ -169,7 +169,7 @@ end -- class ANSI_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

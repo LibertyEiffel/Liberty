@@ -34,7 +34,7 @@ feature {ANY}
    comment: COMMENT
 
 feature {}
-   make (sp: like start_position; c: like clients; cm: like comment; pl: like procedure_list) is
+   make (sp: like start_position; c: like clients; cm: like comment; pl: like procedure_list)
       require
          not sp.is_unknown
          c /= Void
@@ -51,7 +51,7 @@ feature {}
       end
 
 feature {ANY}
-   pretty is
+   pretty
       do
          if not pretty_printer.zen_mode then
             pretty_printer.skip_one_line
@@ -68,7 +68,7 @@ feature {ANY}
          procedure_list.pretty(1)
       end
 
-   short (heading_done: BOOLEAN; client: TYPE_MARK; target_type: TYPE): BOOLEAN is
+   short (heading_done: BOOLEAN; client: TYPE_MARK; target_type: TYPE): BOOLEAN
          -- True when at least one creation list is printed.
       require
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
@@ -100,7 +100,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   has (fn: FEATURE_NAME): BOOLEAN is
+   has (fn: FEATURE_NAME): BOOLEAN
       require
          fn /= Void
       do
@@ -111,13 +111,13 @@ feature {CREATION_CLAUSE_LIST, CREATION_CLAUSE_VISITOR}
    procedure_list: FEATURE_NAME_LIST
 
 feature {ANY}
-   accept (visitor: CREATION_CLAUSE_VISITOR) is
+   accept (visitor: CREATION_CLAUSE_VISITOR)
       do
          visitor.visit_creation_clause(Current)
       end
 
 feature {CREATION_CLAUSE_LIST}
-   default_root: STRING is
+   default_root: STRING
          -- Return the default creation procedure name to be used as the root procedure (the execution
          -- entry point of the system).
       do
@@ -128,12 +128,12 @@ feature {CREATION_CLAUSE_LIST}
          end
       end
 
-   root_creation_search (a_name: STRING): FEATURE_NAME is
+   root_creation_search (a_name: STRING): FEATURE_NAME
       do
          Result := procedure_list.root_creation_search(a_name)
       end
 
-   check_for (type: TYPE) is
+   check_for (type: TYPE)
       require
          start_position.class_text = type.class_text
       local
@@ -183,7 +183,7 @@ feature {CREATION_CLAUSE_LIST}
          end
       end
 
-   extra_expanded_check (type: TYPE; default_creation_procedure: FEATURE_NAME): FEATURE_NAME is
+   extra_expanded_check (type: TYPE; default_creation_procedure: FEATURE_NAME): FEATURE_NAME
          -- If not Void, the `default_creation_procedure' comes from another CREATION_CLAUSE.
       require
          type.is_user_expanded
@@ -228,7 +228,7 @@ feature {CREATION_CLAUSE_LIST}
          end
       end
 
-   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP is
+   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP
          -- Must be called after `extra_expanded_check'.
       require
          type.is_user_expanded
@@ -254,7 +254,7 @@ feature {CREATION_CLAUSE_LIST}
       end
 
 feature {}
-   check_manifest_make(t: TYPE; fn: FEATURE_NAME) is
+   check_manifest_make(t: TYPE; fn: FEATURE_NAME)
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
       do
@@ -291,7 +291,7 @@ feature {}
          end
       end
 
-   check_manifest_put(t: TYPE; fn: FEATURE_NAME) is
+   check_manifest_put(t: TYPE; fn: FEATURE_NAME)
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; formal_arg_list: FORMAL_ARG_LIST
       do
@@ -329,7 +329,7 @@ feature {}
          end
       end
 
-   check_manifest_semicolon_check(t: TYPE; fn: FEATURE_NAME) is
+   check_manifest_semicolon_check(t: TYPE; fn: FEATURE_NAME)
       local
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
          cst_att_integer: CST_ATT_INTEGER; integer_constant: INTEGER_CONSTANT

@@ -8,7 +8,7 @@ deferred class ABSTRACT_BACKTRACKING_POOLABLE
    --
 
 feature {ANY}
-   release is
+   release
          -- Called by ABSTRACT_BACKTRACKING to release
          -- current instance to the pool.
       require
@@ -17,7 +17,7 @@ feature {ANY}
          pool.release_instance(Current)
       end
 
-   get_twin: like Current is
+   get_twin: like Current
          -- Return a twin of current from the pool
       require
          pool /= Void
@@ -28,7 +28,7 @@ feature {ANY}
          Result.is_equal(Current)
       end
 
-   pool: ABSTRACT_BACKTRACKING_POOL[like Current] is
+   pool: ABSTRACT_BACKTRACKING_POOL[like Current]
          -- The pool that will record Current
       deferred
       end
@@ -41,7 +41,7 @@ feature {ABSTRACT_BACKTRACKING_POOL}
          -- further usages of 'pool_link' it is not
          -- defined with type anchorage.
 
-   set_pool_link (other: like pool_link) is
+   set_pool_link (other: like pool_link)
          -- Set 'pool_link' to 'other'
       do
          pool_link := other
@@ -57,7 +57,7 @@ end -- class ABSTRACT_BACKTRACKING_POOLABLE
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          fb.fc.set_value(2)
       end
 
-   fb: AUX_EXPANDED22B is
+   fb: AUX_EXPANDED22B
       do
          Result.set_value(True)
       end

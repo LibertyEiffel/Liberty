@@ -19,7 +19,7 @@ feature {ANY}
 
    a_animal: AUX_INHERIT_ARRAY1[ANIMAL]
 
-   make is
+   make
       local
          cat: CAT; dog: DOG
       do

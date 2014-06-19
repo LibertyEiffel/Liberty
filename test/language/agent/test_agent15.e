@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          h: AUX_AGENT15
       do
@@ -21,7 +21,7 @@ feature {ANY}
          h.fire(True)
       end
 
-   cb (h: AUX_AGENT15) is
+   cb (h: AUX_AGENT15)
       do
          assert(h.is_good)
       end

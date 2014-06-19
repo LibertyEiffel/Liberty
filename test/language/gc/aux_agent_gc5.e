@@ -6,19 +6,19 @@ expanded class AUX_AGENT_GC5
 feature {ANY}
    patients, time, visits: INTEGER
 
-   make (p, t, v: INTEGER) is
+   make (p, t, v: INTEGER)
       do
          patients := p
          time := t
          visits := v
       end
 
-   infix "+" (o: AUX_AGENT_GC5): AUX_AGENT_GC5 is
+   infix "+" (o: AUX_AGENT_GC5): AUX_AGENT_GC5
       do
          Result.make(patients + o.patients, time + o.time, visits + o.visits)
       end
 
-   add (p: AUX_AGENT_GC3) is
+   add (p: AUX_AGENT_GC3)
       do
          patients := patients + 1
          time := time + p.hospital_time

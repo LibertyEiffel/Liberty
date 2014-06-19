@@ -10,14 +10,14 @@ insert
    STRING_HANDLER
 
 feature {ANY}
-   put_character (c: CHARACTER) is
+   put_character (c: CHARACTER)
       require
          is_connected
          not is_filtered and then can_put_character(c)
       deferred
       end
 
-   flush is
+   flush
          -- Flushes the pipe. If `is_filtered', calls the filter's
          -- `flush' instead.
       require
@@ -25,27 +25,27 @@ feature {ANY}
       deferred
       end
 
-   can_put_character (c: CHARACTER): BOOLEAN is
+   can_put_character (c: CHARACTER): BOOLEAN
       deferred
       end
 
-   is_filtered: BOOLEAN is
+   is_filtered: BOOLEAN
       deferred
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       deferred
       end
 
 feature {ABSTRACT_STRING}
-   put_natively_stored_string (s: NATIVELY_STORED_STRING) is
+   put_natively_stored_string (s: NATIVELY_STORED_STRING)
       require
          s /= Void
       do
          put_abstract_string(s)
       end
 
-   put_abstract_string (s: ABSTRACT_STRING) is
+   put_abstract_string (s: ABSTRACT_STRING)
       require
          s /= Void
       local
@@ -63,7 +63,7 @@ feature {ABSTRACT_STRING}
       end
 
 feature {ANY}
-   put_string (s: ABSTRACT_STRING) is
+   put_string (s: ABSTRACT_STRING)
          -- Output `s' to current output device.
       require
          is_connected
@@ -73,7 +73,7 @@ feature {ANY}
          s.print_on(as_output_stream)
       end
 
-   put_unicode_string (unicode_string: UNICODE_STRING) is
+   put_unicode_string (unicode_string: UNICODE_STRING)
          -- Output the UTF-8 encoding of the `unicode_string'.
       require
          is_connected
@@ -85,7 +85,7 @@ feature {ANY}
          put_string(tmp_string)
       end
 
-   put_line (s: ABSTRACT_STRING) is
+   put_line (s: ABSTRACT_STRING)
          -- Output the string followed by a '%N'.
       do
          put_string(s)
@@ -93,7 +93,7 @@ feature {ANY}
       end
 
 feature {ANY} -- To write a number:
-   frozen put_integer (i: INTEGER_64) is
+   frozen put_integer (i: INTEGER_64)
          -- Output `i' to current output device.
       require
          is_connected
@@ -104,7 +104,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_integer_format (i: INTEGER_64; s: INTEGER) is
+   frozen put_integer_format (i: INTEGER_64; s: INTEGER)
          -- Output `i' to current output device using at most `s' character.
       require
          is_connected
@@ -115,7 +115,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_8 (n: NATURAL_8) is
+   frozen put_natural_8 (n: NATURAL_8)
          -- Output `n' to current output device.
       require
          is_connected
@@ -126,7 +126,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_8_format (n: NATURAL_8; s: INTEGER) is
+   frozen put_natural_8_format (n: NATURAL_8; s: INTEGER)
          -- Output `n' to current output device using at most `s' character.
       require
          is_connected
@@ -137,7 +137,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_16 (n: NATURAL_16) is
+   frozen put_natural_16 (n: NATURAL_16)
          -- Output `n' to current output device.
       require
          is_connected
@@ -148,7 +148,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_16_format (n: NATURAL_16; s: INTEGER) is
+   frozen put_natural_16_format (n: NATURAL_16; s: INTEGER)
          -- Output `n' to current output device using at most `s' character.
       require
          is_connected
@@ -159,7 +159,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_32 (n: NATURAL_32) is
+   frozen put_natural_32 (n: NATURAL_32)
          -- Output `n' to current output device.
       require
          is_connected
@@ -170,7 +170,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_32_format (n: NATURAL_32; s: INTEGER) is
+   frozen put_natural_32_format (n: NATURAL_32; s: INTEGER)
          -- Output `n' to current output device using at most `s' character.
       require
          is_connected
@@ -181,7 +181,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_64 (n: NATURAL_64) is
+   frozen put_natural_64 (n: NATURAL_64)
          -- Output `n' to current output device.
       require
          is_connected
@@ -192,7 +192,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   frozen put_natural_64_format (n: NATURAL_64; s: INTEGER) is
+   frozen put_natural_64_format (n: NATURAL_64; s: INTEGER)
          -- Output `n' to current output device using at most `s' character.
       require
          is_connected
@@ -203,7 +203,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   put_real (r: REAL) is
+   put_real (r: REAL)
          -- Output `r' to current output device.
       require
          is_connected
@@ -214,7 +214,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   put_real_format (r: REAL; f: INTEGER) is
+   put_real_format (r: REAL; f: INTEGER)
          -- Output `r' with only `f' digit for the fractionnal part.
          -- Examples:
          --    put_real(3.519,2) print "3.51".
@@ -228,7 +228,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   put_real_scientific (r: REAL; f: INTEGER) is
+   put_real_scientific (r: REAL; f: INTEGER)
          -- Output `r' using the scientific notation with only `f' digit for the fractionnal part.
          -- Examples:
          --    put_real_scientific(3.519,2) print "3.16e+00".
@@ -242,7 +242,7 @@ feature {ANY} -- To write a number:
          put_string(tmp_string)
       end
 
-   put_number (number: NUMBER) is
+   put_number (number: NUMBER)
          -- Output the `number'.
       require
          is_connected
@@ -255,7 +255,7 @@ feature {ANY} -- To write a number:
       end
 
 feature {ANY} -- Other features:
-   put_boolean (b: BOOLEAN) is
+   put_boolean (b: BOOLEAN)
          -- Output `b' to current output device according
          -- to the Eiffel format.
       require
@@ -267,7 +267,7 @@ feature {ANY} -- Other features:
          put_string(tmp_string)
       end
 
-   put_pointer (p: POINTER) is
+   put_pointer (p: POINTER)
          -- Output a viewable version of `p'.
       require
          is_connected
@@ -278,7 +278,7 @@ feature {ANY} -- Other features:
          put_string(tmp_string)
       end
 
-   put_new_line is
+   put_new_line
          -- Output a newline character.
       require
          is_connected
@@ -287,7 +287,7 @@ feature {ANY} -- Other features:
          put_character('%N')
       end
 
-   put_spaces (nb: INTEGER) is
+   put_spaces (nb: INTEGER)
          -- Output `nb' spaces character.
       require
          is_connected
@@ -305,7 +305,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   append_file (file_name: STRING) is
+   append_file (file_name: STRING)
       require
          is_connected
          not is_filtered
@@ -327,25 +327,25 @@ feature {ANY} -- Other features:
       end
 
 feature {}
-   as_output_stream: OUTPUT_STREAM is
+   as_output_stream: OUTPUT_STREAM
       deferred
       ensure
          yes_indeed_it_is_the_same_object: Result.to_pointer = to_pointer
       end
 
 feature {}
-   tmp_file_read: TEXT_FILE_READ is
+   tmp_file_read: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(512)
       end
 
 feature {}
-   io_putc (byte: CHARACTER; stream: POINTER) is
+   io_putc (byte: CHARACTER; stream: POINTER)
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -354,7 +354,7 @@ feature {}
     }"
       end
 
-   io_fwrite (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER is
+   io_fwrite (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -363,7 +363,7 @@ feature {}
     }"
       end
 
-   io_flush (stream: POINTER) is
+   io_flush (stream: POINTER)
       external "plug_in"
       alias "{
     location: "${sys}/plugins"
@@ -380,7 +380,7 @@ end -- class OUTPUT_STREAM_TOOLS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

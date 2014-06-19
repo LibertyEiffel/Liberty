@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          l1: LINKED_LIST[INTEGER]; l2: TWO_WAY_LINKED_LIST[INTEGER]
       do
@@ -21,7 +21,7 @@ feature {ANY}
          assert(l2.fast_occurrences(1) = 1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -4,7 +4,7 @@
 class AUX_ASSIGNMENT_TEST03 [X_ -> AUX_ASSIGNMENT_TEST03_A]
 
 feature {ANY}
-   get_x: X_ is
+   get_x: X_
       local
          x: X_
       do
