@@ -12,14 +12,14 @@ insert
 create {ANY} make
 
 feature {ANY}
-        _ellips: BOOLEAN False
+        is_ellipsis: BOOLEAN False
 
-        _fundamental: BOOLEAN
+        is_fundamental: BOOLEAN
                 do
                         Result:=types.at(dequalify(type)).is_fundamental
                 end
 
-        _void: BOOLEAN
+        is_void: BOOLEAN
                 do
                         Result:=types.at(dequalify(type)).is_void
                 end

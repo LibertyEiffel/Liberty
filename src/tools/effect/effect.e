@@ -179,10 +179,10 @@ feature {}
 
          -- ----------------------------------------------------------------------
 
-         output_effect.dconnect
-         output_reduce.dconnect
-         output_position.dconnect
-         output_image.dconnect
+         output_effect.disconnect
+         output_reduce.disconnect
+         output_position.disconnect
+         output_image.disconnect
       end
 
 feature {}

@@ -1,27 +1,27 @@
 deferred class C_FUNCTION_ARGUMENT
-	-- An XML node of a file made by gccxml representing a piece of the
-	-- argument lt of a C function, either an actual argument or an ellips
-	-- ("...")
-inherit 
-	GCCXML_NODE
+        -- An XML node of a file made by gccxml representing a piece of the
+        -- argument lt of a C function, either an actual argument or an ellips
+        -- ("...")
+inherit
+        GCCXML_NODE
 insert
-	SHARED_COLLECTIONS
-	EXCEPTIONS
-feature {ANY} 
-	_ellips: BOOLEAN
-		-- Does Current argument make its function a variadic one?
-		deferred
-		end
+        SHARED_COLLECTIONS
+        EXCEPTIONS
+feature {ANY}
+        is_ellipsis: BOOLEAN
+                -- Does Current argument make its function a variadic one?
+                deferred
+                end
 
-	has_wrapper: BOOLEAN
-		deferred
-		end
+        has_wrapper: BOOLEAN
+                deferred
+                end
 
-	put_on (a_buffer: FORMATTER)
-		-- Put an Eiffel representation on Current argument on `a_buffer'.
-	require a_buffer/=Void
-	deferred
-	end
+        put_on (a_buffer: FORMATTER)
+                -- Put an Eiffel representation on Current argument on `a_buffer'.
+        require a_buffer/=Void
+        deferred
+        end
 end -- class C_FUNCTION_ARGUMENT
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

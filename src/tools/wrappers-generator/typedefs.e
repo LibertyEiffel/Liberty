@@ -56,7 +56,7 @@ feature {ANY}
                         file.put_string(typedefs_features_header)
                         for_each(agent {C_TYPEDEF}.wrap_on(file))
                         file.put_string(footer)
-                        file.dconnect
+                        file.disconnect
                         file:=Void
                         log_string(once " done.%N")
                 end
@@ -67,7 +67,7 @@ feature {ANY}
                 -- architectures.
         do
                 file.put_string("feature {ANY} -- variable-size types%N%
-                %       long: INTEGER_#(1) %N%
+                %       long: INTEGER_#(1)%N%
                 %               -- a query with the same type of c 'long int'. useful when dealing with%N%
                 %               -- code that uses long int variable: just insert th class and mark%N%
                 %               -- the type as 'like long'%N%
@@ -75,7 +75,7 @@ feature {ANY}
                 %               -- empty by design%N%
                 %       end%N%
                 %%N%
-                %   long_unsigned: NATURAL_#(2) %N%
+                %   long_unsigned: NATURAL_#(2)%N%
                 %               -- a query with the same type of c 'long unsigned int'. useful when dealing with%N%
                 %               -- code that uses long int variable: just insert th class and mark%N%
                 %               -- the type as 'like long_unsigned'%N%

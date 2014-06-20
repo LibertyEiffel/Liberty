@@ -20,7 +20,7 @@ feature {ANY} -- Type-system translations
       end
    end
 
-   _void (an_argument: XML_COMPOSITE_NODE): BOOLEAN
+   is_void (an_argument: XML_COMPOSITE_NODE): BOOLEAN
       require
          argument_not_void: an_argument /= Void
       local
@@ -37,7 +37,7 @@ feature {ANY} -- Type-system translations
             if type = Void then
                Result := False
             else
-               Result := _void(types.at(type))
+               Result := is_void(types.at(type))
             end
          end
       end
@@ -210,7 +210,7 @@ feature {ANY} -- Type-system translations
             last_error := unhandled_reference_type
          else last_error := unhandled_type
          end
-      ensure when_void_last_error__set: Result = Void implies last_error /= Void
+      ensure when_void_last_error_is_set: Result = Void implies last_error /= Void
       end
 
    has_type_error: BOOLEAN

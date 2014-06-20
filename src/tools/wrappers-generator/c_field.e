@@ -20,12 +20,12 @@ feature {ANY}
          composed_types.at(context).fields.add_last(Current)
       end
 
-   _fundamental: BOOLEAN
+   is_fundamental: BOOLEAN
       do
          Result:=types.at(dequalify(type)).is_fundamental
       end
 
-   _void: BOOLEAN False
+   is_void: BOOLEAN False
 
    has_wrapper: BOOLEAN
       do
@@ -47,7 +47,7 @@ feature {ANY}
    ensure Result/=Void
    end
 
-   _to_be_emitted: BOOLEAN True -- all fields of a composed node will be emitted (if possible)
+   is_to_be_emitted: BOOLEAN True -- all fields of a composed node will be emitted (if possible)
 
    wrap_on (a_stream: OUTPUT_STREAM)
       do
@@ -58,7 +58,7 @@ feature {ANY}
       require a_structure_name/=Void
       local setter, getter, eiffel_field, getter_description, setter_description: STRING
       do
-         if _public and then has_wrapper then
+         if is_public and then has_wrapper then
             eiffel_field := adapt(c_string_name,once "_field")
             setter := a_structure_name + once "_set_" + eiffel_field
             getter := a_structure_name + once "_get_" + eiffel_field

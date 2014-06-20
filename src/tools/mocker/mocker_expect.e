@@ -6,7 +6,7 @@ class MOCKER_EXPECT
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         visit_eiffel_lt_node_impl,
+         visit_eiffel_list_node_impl,
          visit_eiffel_non_terminal_node_impl
       end
 
@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   visit_eiffel_lt_node_impl (node: EIFFEL_LIST_NODE_IMPL)
+   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       do
          Precursor(node)
          node.generate_forgotten(output)
@@ -132,7 +132,7 @@ feature {#(1)}
                                 ]"
                                 # mock_name
                                 # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple # signature.arguments_lt
+                                # signature.arguments_tuple # signature.arguments_list
                                 # expectation_type)
          else
             Precursor(node)

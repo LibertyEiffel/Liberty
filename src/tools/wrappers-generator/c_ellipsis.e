@@ -6,7 +6,7 @@ inherit C_FUNCTION_ARGUMENT
 create {ANY} make
 
 feature {ANY}
-   _ellips: BOOLEAN True
+   is_ellipsis: BOOLEAN True
 
    has_wrapper: BOOLEAN False
 

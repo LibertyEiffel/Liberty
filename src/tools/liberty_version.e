@@ -17,7 +17,7 @@ feature {ANY}
          else
             bd.ensure_system_notation
             bd.compute_short_name_of(command_name)
-            std_output.put_line("Version of command %"#(1)%" :" # bd.last_entry)
+            std_output.put_line("Version of command %"#(1)%" is:" # bd.last_entry)
             std_output.put_line(copyright)
          end
       end

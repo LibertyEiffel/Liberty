@@ -3,7 +3,7 @@ deferred class SHARED_COLLECTIONS
 insert ANY
         undefine
                 copy,
-                _equal,
+                is_equal,
                 out_in_tagged_out_memory
         end
 

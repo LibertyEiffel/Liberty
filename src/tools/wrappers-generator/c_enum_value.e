@@ -73,7 +73,7 @@ feature {ANY} -- Plain enumeration
 
                 -- Append enum query
                 queries.put_message     (once
-                "       _@(1): BOOLEAN%N%
+                "       is_@(1): BOOLEAN%N%
                 %               do%N%
                 %                       Result := (value=@(1)_low_level)%N%
                 %               end%N%N", <<eiffel_name>>)
@@ -122,7 +122,7 @@ feature {ANY} -- "Flag" enumeration
 
                 -- Append enum query
                 queries.put_message     (once
-                "       _@(1): BOOLEAN%N%
+                "       is_@(1): BOOLEAN%N%
                 %               do%N%
                 %                       Result := (value=@(1)_low_level)%N%
                 %               end%N%N", <<eiffel_name>>)

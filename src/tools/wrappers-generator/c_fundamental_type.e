@@ -24,18 +24,18 @@ feature {ANY}
                         types.fast_put(Current,id)
                 end
 
-        _void: BOOLEAN do Result := c_name.is_equal(once U"void") end
+        is_void: BOOLEAN do Result := c_name.is_equal(once U"void") end
 
-        _fundamental: BOOLEAN True
+        is_fundamental: BOOLEAN True
 
         has_wrapper: BOOLEAN
                 do
-                        if not _wrapper_computed then compute_wrapper end
+                        if not is_wrapper_computed then compute_wrapper end
                         Result:=stored_wrapper_type/=Void
                 end
 
         size: INTEGER
-                require not _void
+                require not is_void
                 do
                         Result := attribute_at(once U"size").to_utf8.to_integer
                 ensure Result>0
@@ -46,12 +46,12 @@ feature {ANY}
         wrapper_type: STRING
                 -- The name of the class of Liberty that wraps Current fundamental type
         do
-                if not _wrapper_computed then compute_wrapper end
+                if not is_wrapper_computed then compute_wrapper end
                 Result:=stored_wrapper_type
         ensure
         end
 feature {} -- Implementation
-        _wrapper_computed: BOOLEAN
+        is_wrapper_computed: BOOLEAN
         stored_wrapper_type: STRING
 
         compute_wrapper
@@ -140,8 +140,8 @@ feature {} -- Implementation
 
                 -- I shall test it a little before deciding which approach is best. Paolo 2013-04-04
 
-                _wrapper_computed:=True
-        ensure _wrapper_computed=True
+                is_wrapper_computed:=True
+        ensure is_wrapper_computed=True
         end
         -- invariant name.is_equal(once U"FundamentalType")
 end -- class C_FUNDAMENTAL_TYPE

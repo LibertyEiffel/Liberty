@@ -116,8 +116,8 @@ feature {ANY}
                 -- file named `a_file_name'.
         require
                 a_file_name/=Void
-                file_exts(a_file_name)
-                _file(a_file_name)
+                file_exists(a_file_name)
+                is_file(a_file_name)
         do
                 flags.add_from_file(a_file_name)
         end
@@ -127,8 +127,8 @@ feature {ANY}
                 -- be avoided, i.e. not wrapped.
         require
                 a_file_name/=Void
-                file_exts(a_file_name)
-                _file(a_file_name)
+                file_exists(a_file_name)
+                is_file(a_file_name)
         do
                 avoided.add_from_file(a_file_name)
         end
@@ -147,8 +147,8 @@ feature {ANY}
                 -- Used to read the lt of renamed symbols and moved functions.
         require
                 a_name/=Void
-                file_exts(a_name)
-                _file(a_name)
+                file_exists(a_name)
+                is_file(a_name)
         local file: TEXT_FILE_READ; symbol, value: STRING; words: STRING_INPUT_STREAM
         do
                 create file.connect_to(a_name)

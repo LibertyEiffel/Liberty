@@ -18,21 +18,21 @@ feature {ANY}
                 do
                         create {LINKED_LIST[C_FIELD]} fields.make
                         types.put(Current,id)
-                        if _named then
+                        if is_named then
                                 symbols.put(Current,c_string_name)
                         end
                         composed_types.put(Current,id)
                 end
 
-        _fundamental: BOOLEAN False
+        is_fundamental: BOOLEAN False
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN False
 
         c_type: STRING
                 do
-                        if _artificial then
+                        if is_artificial then
                                 Result := once "struct"
                         else
                                 Result := once ""
@@ -51,7 +51,7 @@ feature {ANY}
 
         _to_be_emitted: BOOLEAN
                 do
-                        Result:= _named and then (_public or has_assigned_name) and then
+                        Result:= is_named and then (is_public or has_assigned_name) and then
                         (global or else headers.has(c_file.c_string_name))
                 end
         emit_wrapper
@@ -61,7 +61,7 @@ feature {ANY}
                 -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
         local path: POSIX_PATH_NAME; filename: STRING
         do
-                if _to_be_emitted then
+                if is_to_be_emitted then
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
                         filename := path.to_string
@@ -75,7 +75,7 @@ feature {ANY}
                         output.flush
                         output.dconnect
                 else
-                        if _anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
+                        if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
                         else log(once "Struct @(1) skipped%N", <<c_string_name>>)
                         end
 

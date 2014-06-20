@@ -17,9 +17,10 @@ feature {ANY}
 
    is_connected: BOOLEAN
 
-        disconnect
-                deferred
-                end
+   disconnect
+      deferred
+      end
+
 feature {}
    has_unread_character: BOOLEAN
 

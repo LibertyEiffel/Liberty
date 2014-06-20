@@ -26,7 +26,7 @@ feature {ANY}
                         create features
                 end
 
-        _to_be_emitted: BOOLEAN
+        is_to_be_emitted: BOOLEAN
                 do
                         Result := file_exts(c_string_name) and (global or else headers.has(c_string_name))
                 end
@@ -36,7 +36,7 @@ feature {ANY}
                 -- for all the function and the variable contained into Current file.
         local path: POSIX_PATH_NAME
         do
-                if _to_be_emitted then
+                if is_to_be_emitted then
 
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
@@ -55,7 +55,7 @@ feature {ANY}
             end
                         features.for_each(agent {WRAPPER_FEATURE}.wrap_on(output))
                         emit_footer_on(output)
-                        output.dconnect
+                        output.disconnect
                 else log(once "Skipping file '@(1)'.%N",<<c_string_name>>)
                 end
         end

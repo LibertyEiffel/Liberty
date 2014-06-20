@@ -25,7 +25,7 @@ create {ANY} make
 feature {ANY}
     store
         do
-            if _named then
+            if is_named then
                 symbols.put(Current,c_string_name)
             end
             types.put(Current,id)
@@ -33,10 +33,10 @@ feature {ANY}
 
     has_wrapper: BOOLEAN True
     wrapper_type: STRING "INTEGER"
-    _fundamental: BOOLEAN False
-    _void: BOOLEAN False
+    is_fundamental: BOOLEAN False
+    is_void: BOOLEAN False
 
-    _to_be_emitted: BOOLEAN
+    is_to_be_emitted: BOOLEAN
         local fn: STRING
         do
             fn := c_file.c_string_name
@@ -59,7 +59,7 @@ feature {ANY}
                 emit_items
                 emit_footer
                 output.flush
-                output.dconnect
+                output.disconnect
             else log(once "Skipping enum `@(1)'.%N",<<c_name.as_utf8>>)
             end
         end
@@ -156,7 +156,7 @@ feature {ANY} -- Emitting "normal" enumeration
     initialize_validity_query
         do
             validity_query.reset_with
-            (once "    _valid_value (a_value: INTEGER): BOOLEAN%N%
+            (once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
             %            Result := (")
         ensure

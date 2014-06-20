@@ -11,7 +11,7 @@ feature {EIFFEL_GRAMMAR}
    set (a_expression_name: like expression_name; a_operator_names: like operator_names;
         a_right_node: like right_node; a_operator_nodes: like operator_nodes)
       require
-         a_operator_names.for_all(agent (o: ABSTRACT_STRING): BOOLEAN do Result := o /= Void end)
+         a_operator_names.for_all(agent (o: ABSTRACT_STRING): BOOLEAN do Result := o /= Void end (?))
       do
          expression_name := a_expression_name
          operator_names := a_operator_names

@@ -9,8 +9,8 @@ inherit
 create {ANY} make
 
 feature {ANY}
-        _fundamental: BOOLEAN False
-        _void: BOOLEAN False
+        is_fundamental: BOOLEAN False
+        is_void: BOOLEAN False
         has_wrapper: BOOLEAN False
         wrapper_type: STRING do not_yet_implemented end
 -- invariant name.is_equal(once U"Constructor")

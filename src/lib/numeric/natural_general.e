@@ -334,7 +334,7 @@ feature {ANY} -- Bitwise Logical Operators:
       external "built_in"
       end
 
-        infix "|<<", bit_shift_left (s: INTEGER_8): like Current
+   infix "|<<", bit_shift_left (s: INTEGER_8): like Current
          -- Shift by `s' positions left bits falling off the end are lost.
       external "built_in"
       end

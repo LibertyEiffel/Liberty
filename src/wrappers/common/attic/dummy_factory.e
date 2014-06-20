@@ -41,6 +41,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
       end
 
 feature {} --
-   do_not_use_me: STRING --|is| "DUMMY_FACTORY.wrapper invoked. This is clearly a bug; please inform the developers of the application, since another implementation of WRAPPER_FACTORY should be used."
+   do_not_use_me: STRING "DUMMY_FACTORY.wrapper invoked. This is clearly a bug; please inform the developers of the application, since another implementation of WRAPPER_FACTORY should be used."
 
 end -- class DUMMY_FACTORY

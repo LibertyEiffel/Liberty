@@ -4,7 +4,7 @@ deferred class SHARED_SETTINGS
 insert ANY
         undefine
                 copy,
-                _equal,
+                is_equal,
                 out_in_tagged_out_memory
         end
 feature {ANY}
@@ -97,7 +97,7 @@ feature {} -- Constants
 
         deferred_class: STRING "deferred class "
 
-        inherits_string: STRING "%N%Ninsert ANY undefine _equal, copy end%N%N"
+        inherits_string: STRING "%N%Ninsert ANY undefine is_equal, copy end%N%N"
 
         queries_header: STRING "feature {} -- Low-level queries%N%N"
 

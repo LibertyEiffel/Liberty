@@ -16,8 +16,8 @@ feature {ANY} -- Descriptions reading
                 -- Description text".
         require
                 a_file_name/=Void
-                file_exts(a_file_name)
-                _file(a_file_name)
+                file_exists(a_file_name)
+                is_file(a_file_name)
         local
                 line, described: STRING;
                 words: LINKED_LIST[STRING]
@@ -47,7 +47,7 @@ feature {ANY} -- Descriptions reading
                                 descriptions.read_line
                         end
                         check descriptions.end_of_input end
-                        descriptions.dconnect
+                        descriptions.disconnect
                 else
                         debug
                                 log(once "Couldn't connect to `@(1)' to read descriptions.%N",<<a_file_name>>)
@@ -72,7 +72,7 @@ feature {ANY} -- Descriptions reading
                         -- Look for class name and feature name
                         inspect a_described.occurrences('.')
                         when 0 then -- could be a class
-                                if _valid_class_name(a_described) then
+                                if is_valid_class_name(a_described) then
                                         debug
                                                 log(once "Description for class @(1)  %"",<<a_described>>)
                                                 a_description.for_each(agent log_word)

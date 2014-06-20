@@ -19,7 +19,7 @@ create {ANY}
 feature {ANY}
    result_type: STRING
    feature_name: STRING
-   arguments_lt: LAZY_STRING
+   arguments_list: LAZY_STRING
    arguments_tuple: LAZY_STRING
    arguments: LAZY_STRING
 
@@ -85,18 +85,18 @@ feature {}
          a_node.name.same_as(once "Signature")
       do
          a_node.accept(Current)
-         create arguments_lt.make(agent build_arguments(once "(#(1))", once ""))
+         create arguments_list.make(agent build_arguments(once "(#(1))", once ""))
          create arguments_tuple.make(agent build_arguments(once "[#(1)]", once "[]"))
          create arguments.make(agent build_arguments_signature)
       end
 
-   build_arguments (format, empty_lt: STRING): ABSTRACT_STRING
+   build_arguments (format, empty_list: STRING): ABSTRACT_STRING
       local
          i: INTEGER
          args: STRING
       do
          if argument_names = Void then
-            Result := empty_lt
+            Result := empty_list
          else
             args := ""
             from

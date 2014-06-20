@@ -15,10 +15,10 @@ feature {ANY}
                         types.fast_put(Current,id)
                 end
 
-        _fundamental: BOOLEAN False
+        is_fundamental: BOOLEAN False
         -- Note: Accounting a C++ reference as fundamental type is a rough approximation.
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN False
 

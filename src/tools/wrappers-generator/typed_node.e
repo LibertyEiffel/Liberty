@@ -15,12 +15,12 @@ feature {ANY}
       Result:=types.at(type)
    end
 
-   _fundamental: BOOLEAN
+   is_fundamental: BOOLEAN
       -- Does current node refers to a fundamental C type?
       deferred
       end
 
-   _void: BOOLEAN
+   is_void: BOOLEAN
       -- Is Current node of type void?
       deferred
       end
@@ -33,7 +33,7 @@ feature {ANY}
    wrapper_type: STRING
       -- The name of the class of Liberty that wraps Current fundamental type.
    require
-      not _void
+      not is_void
       has_wrapper
    deferred
    end

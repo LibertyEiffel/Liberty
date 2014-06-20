@@ -22,64 +22,64 @@ feature {ANY}
       end
 
 feature {PACKRAT_NON_TERMINAL}
-   vit_non_terminal (vited: PACKRAT_NON_TERMINAL)
+   visit_non_terminal (visited: PACKRAT_NON_TERMINAL)
       do
-         vited.pattern.accept(Current)
+         visited.pattern.accept(Current)
       end
 
 feature {PACKRAT_TERMINAL}
-   vit_terminal (vited: PACKRAT_TERMINAL)
+   visit_terminal (visited: PACKRAT_TERMINAL)
       do
          -- not used
       end
 
 feature {PACKRAT_AND}
-   vit_and (vited: PACKRAT_AND)
+   visit_and (visited: PACKRAT_AND)
       do
-         vited.primary.accept(Current)
+         visited.primary.accept(Current)
       end
 
 feature {PACKRAT_CHOICE}
-   vit_choice (vited: PACKRAT_CHOICE)
+   visit_choice (visited: PACKRAT_CHOICE)
       local
          i: INTEGER
       do
          from
-            i := vited.alternatives.lower
+            i := visited.alternatives.lower
          until
-            i > vited.alternatives.upper
+            i > visited.alternatives.upper
          loop
-            vited.alternatives.item(i).accept(Current)
+            visited.alternatives.item(i).accept(Current)
             i := i + 1
          end
       end
 
 feature {PACKRAT_NOT}
-   vit_not (vited: PACKRAT_NOT)
+   visit_not (visited: PACKRAT_NOT)
       do
-         vited.primary.accept(Current)
+         visited.primary.accept(Current)
       end
 
 feature {PACKRAT_REFERENCE}
-   vit_reference (vited: PACKRAT_REFERENCE)
+   visit_reference (visited: PACKRAT_REFERENCE)
       do
       end
 
 feature {PACKRAT_SEQUENCE}
-   vit_sequence (vited: PACKRAT_SEQUENCE)
+   visit_sequence (visited: PACKRAT_SEQUENCE)
       local
          i: INTEGER
       do
          from
-            i := vited.primaries.lower
+            i := visited.primaries.lower
          until
-            i > vited.primaries.upper
+            i > visited.primaries.upper
          loop
-            vited.primaries.item(i).accept(Current)
+            visited.primaries.item(i).accept(Current)
             i := i + 1
          end
-         if vited.tag /= Void then
-            buffer.append(once "   #(1) %N      deferred%N      end%N%N" # vited.tag)
+         if visited.tag /= Void then
+            buffer.append(once "   #(1) %N      deferred%N      end%N%N" # visited.tag)
          end
       end
 

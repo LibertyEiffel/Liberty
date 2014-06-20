@@ -18,7 +18,7 @@ feature {ANY}
                         typedefs.add_first(Current)
                         -- end
                         types.fast_put(Current,id)
-                        check _named end
+                        check is_named end
                         symbols.put(Current,c_string_name)
                 end
 
@@ -50,34 +50,34 @@ feature {ANY}
                         end
                 end
 
-        _fundamental: BOOLEAN
+        is_fundamental: BOOLEAN
                 do
                         Result := types.at(type).is_fundamental
                 end
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN
                 do
                         Result := types.at(type).has_wrapper
                 end
 
-        _to_be_emitted: BOOLEAN
+        is_to_be_emitted: BOOLEAN
                 do
-                        Result := _public and then (global or else headers.has(c_file.c_string_name))
+                        Result := is_public and then (global or else headers.has(c_file.c_string_name))
                 end
 
         wrap_on (a_stream: OUTPUT_STREAM)
                 -- If Current ultimately refers to a fundamental type then put an empty query on `a_stream', otherwise nothing is done.
         local query_name: STRING
         do
-                if _to_be_emitted then
-                        if _fundamental then
+                if is_to_be_emitted then
+                        if is_fundamental then
                                 if has_wrapper then
                                         query_name := eiffel_feature(c_string_name)
                                         log(once "Anchored query @(2) for typedef @(1)%N",<<c_string_name,query_name>>)
                                         buffer.put_message (once
-                                        "       @(1): @(2) %N%
+                                        "       @(1): @(2)%N%
                                         %               -- typedef @(3)%N%
                                         %               -- Empty by design, used for anchored declarations.%N%
                                         %       do%N%

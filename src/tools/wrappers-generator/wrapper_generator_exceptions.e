@@ -24,9 +24,9 @@ feature {ANY}
 
         unhandled_structure_type: STRING "C structure passed by value and not by reference (using a pointer) should be wrapped with an expanded external type. Eiffel-gcc-xml currently don't support it."
 
-        unhandled_union_type: STRING "Unhnalded union type"
+        unhandled_union_type: STRING "Unhandled union type"
 
-        unhandled_reference_type: STRING "Unhnalded reference type: C++ reference does not have a valid Eiffel wrapper type."
+        unhandled_reference_type: STRING "Unhandled reference type: C++ reference does not have a valid Eiffel wrapper type."
 end -- class WRAPPER_GENERATOR_EXCEPTIONS
 
 -- Copyright 2008,2009 Paolo Redaelli

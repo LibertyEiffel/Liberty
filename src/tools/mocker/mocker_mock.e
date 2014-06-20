@@ -110,7 +110,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
                                       %      end%N"
                                  # signature.feature_name
                                  # signature.arguments
-                                 # signature.arguments_lt)
+                                 # signature.arguments_list)
             else
                output.put_string(once "   #(1)#(2): #(3)%N%
                                       %      local%N%
@@ -125,7 +125,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.result_type
-                                 # signature.arguments_lt)
+                                 # signature.arguments_list)
             end
          else
             Precursor(node)

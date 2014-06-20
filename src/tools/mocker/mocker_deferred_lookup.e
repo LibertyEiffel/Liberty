@@ -22,12 +22,12 @@ feature {ANY}
          has_deferred_features
          node /= Void
       do
-         Result := deferred_features_lt.fast_has(node)
+         Result := deferred_features_list.fast_has(node)
       end
 
    has_deferred_features: BOOLEAN
       do
-         Result := deferred_features_lt /= Void
+         Result := deferred_features_list /= Void
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
@@ -36,10 +36,10 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
          inspect
             node.name
          when "KW deferred" then
-            if deferred_features_lt = Void then
-               create deferred_features_lt.make(0)
+            if deferred_features_list = Void then
+               create deferred_features_list.make(0)
             end
-            deferred_features_lt.add_last(last_feature)
+            deferred_features_list.add_last(last_feature)
          else
          end
       end
@@ -66,7 +66,7 @@ feature {}
       end
 
    last_feature: EIFFEL_NON_TERMINAL_NODE_IMPL
-   deferred_features_lt: FAST_ARRAY[EIFFEL_NON_TERMINAL_NODE_IMPL]
+   deferred_features_list: FAST_ARRAY[EIFFEL_NON_TERMINAL_NODE_IMPL]
 
 end -- class MOCKER_DEFERRED_LOOKUP
 --

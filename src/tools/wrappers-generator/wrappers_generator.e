@@ -25,19 +25,19 @@ feature {ANY}
          create tree.make(input.url)
          log_string(once "done.%N")
          open_plugin_files
-         if file_exts(avoided) and then _file(avoided) then
+         if file_exists(avoided) and then is_file(avoided) then
             log(once "Reading lt of avoided symbols from '@(1)'.%N",<<avoided>>)
             tree.read_avoided_from(avoided)
          end
-         if file_exts(moved) and then _file(moved) then
+         if file_exists(moved) and then is_file(moved) then
             log(once "Reading symbols to be moved/renamed from '@(1)'.%N",<<moved>>)
             tree.read_moved_from(moved)
          end
-         if file_exts(flags) and then _file(flags) then
+         if file_exists(flags) and then is_file(flags) then
             log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",<<flags>>)
             tree.read_flags_from(flags)
          end
-         if file_exts(descriptions) and then _file(descriptions) then
+         if file_exists(descriptions) and then is_file(descriptions) then
             log(once "Reading descriptions flags from '@(1)'.%N",<<descriptions>>)
             tree.read_descriptions_from(descriptions)
          end
@@ -117,7 +117,7 @@ feature {ANY}
                elseif arg.is_equal(once "--standard-typedefs") then
                   i := i + 1
                   if i <= argument_count then
-                     if _valid_class_name(argument(i)) then
+                     if is_valid_class_name(argument(i)) then
                         standard_typedefs := eiffel_class_name(argument(i),Void)
                      else
                         std_error.put_line(once "#(1)  not a valid class name" # argument(i))
@@ -158,7 +158,7 @@ feature {ANY}
                -- elseif arg.is_equal(once "--on-standard-output") then
                --    settings.set_directory(Void)
                else
-                  if file_exts(arg) then
+                  if file_exists(arg) then
                      -- Current arg should be the XML file. The following
                      -- are headers to process.
                      create path.make_from_string(arg)
@@ -247,8 +247,8 @@ feature {ANY}
    close_plugin_files
       do
          source.put_line("#endif")
-         source.dconnect
-         include.dconnect
+         source.disconnect
+         include.disconnect
       end
 
    print_usage
@@ -260,8 +260,8 @@ feature {ANY}
          %%N%
          %   --local %N%
          %      produces functions, structures and enumeration%N%
-         %      classes only for the given files. Otherwe all the%N%
-         %      necessary file will be created. Th  the default Only%N%
+         %      classes only for the given files. Otherwise all the%N%
+         %      necessary file will be created. This is the default Only%N%
          %      the last global and local flag will be considered.%N%
          %%N%
          %   --global emits wrappers for every features found in the XML%N%
@@ -269,15 +269,15 @@ feature {ANY}
          %      Only the last global and local flag will be considered.%N%
          %%N%
          %   --flags flag-file%N%
-         %      Read a lt of enumeration that will be forcefully wrapped as %N%
-         %      a flag. In fact sometimes there  no way to dtinguh when%N%
-         %      an enumeration  used as-it- or to contain flags. If th%N%
+         %      Read a list of enumeration that will be forcefully wrapped as %N%
+         %      a flag. In fact sometimes there is no way to dtinguh when%N%
+         %      an enumeration is used as-it-is or to contain flags. If this%N%
          %       option  not used the program will look for the %"flags%" file.%N%
          %%N%
          %   --moved moved-file%N%
-         %      Read from `moved-file' a lt of functions with the Liberty class they%N%
+         %      Read from `moved-file' a list of functions with the Liberty class they%N%
          %      wrapped in; sometimes actual function declaration  not made in a public%N%
-         %      header but in hidden places, i.e. memcpy. If th option  not given the%N%
+         %      header but in hidden places, i.e. memcpy. If this option is not given the%N%
          %      program will look into file %"moved%".%N%
          %%N%
          %   --descriptions descriptions-file%N%
@@ -296,11 +296,11 @@ feature {ANY}
          %      Emit dummy queries useful for anchored declarations (i.e. %"like long%")%N%
          %      for C types that can have different sizes on different architectures and for%N%
          %      the typedefs defined in the C99 standard.%N%
-         %      If th flag  not given the class containing the defined typedefs will insert%N%
+         %      If this flag is not given the class containing the defined typedefs will insert%N%
          %      the CLASS_NAME defined with %"--standard-typedefs%" option.%N%
          %%N%
          %   --avoided a_file_name%N%
-         %      Do not wrap the symbols found in `a_file_name'. If th option  not %N%
+         %      Do not wrap the symbols found in `a_file_name'. If this option is not %N%
          %      given the program will look into file %"avoided%".%N%
          %%N%
          %   -v --verbose%N%

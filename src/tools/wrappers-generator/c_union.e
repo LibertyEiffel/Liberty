@@ -16,15 +16,15 @@ feature {ANY}
                 do
                         create {LINKED_LIST[C_FIELD]} fields.make
                         types.fast_put(Current,id)
-                        if _named then
+                        if is_named then
                                 symbols.put(Current,c_string_name)
                         end
                         composed_types.fast_put(Current,id)
                 end
 
-        _fundamental: BOOLEAN False
+        is_fundamental: BOOLEAN False
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN False
 
@@ -35,7 +35,7 @@ feature {ANY}
                         not_yet_implemented
                 end
 
-        _to_be_emitted: BOOLEAN
+        is_to_be_emitted: BOOLEAN
                 do
                         not_yet_implemented
                 end

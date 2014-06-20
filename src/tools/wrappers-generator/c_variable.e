@@ -15,9 +15,9 @@ feature {ANY}
                         variables.add_first(Current)
                 end
 
-        _to_be_emitted: BOOLEAN
+        is_to_be_emitted: BOOLEAN
                 do
-                        Result:= (_public or has_assigned_name) and then
+                        Result:= (is_public or has_assigned_name) and then
                         (global or else headers.has(c_file.c_string_name))
                 end
 
@@ -56,7 +56,7 @@ feature {ANY}
 
                                 -- th feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
 
-                        elseif not _public then
+                        elseif not is_public then
                                 log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
                                 buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)
                         elseif not namespace.is_main then
@@ -103,7 +103,7 @@ feature {ANY}
                         buffer.print_on(a_stream)
                 end
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         wrapper_type: STRING
                 do
@@ -116,7 +116,7 @@ feature {ANY}
                         Result:=types.at(dequalify(type)).has_wrapper
                 end
 
-        _fundamental: BOOLEAN
+        is_fundamental: BOOLEAN
                 do
                         Result:=types.at(dequalify(type)).is_fundamental
                 end

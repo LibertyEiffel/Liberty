@@ -9,9 +9,9 @@ inherit
 
 create {ANY} make
 feature {ANY}
-        _fundamental: BOOLEAN True
+        is_fundamental: BOOLEAN True
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN True
 
