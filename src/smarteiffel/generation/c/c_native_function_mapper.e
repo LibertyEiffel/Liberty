@@ -438,7 +438,7 @@ feature {NATIVE_BUILT_IN}
 feature {NATIVE_C_PLUS_PLUS}
    visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
-         if cpp.c_plus_plus_registered(visited) then
+         if not cpp.c_plus_plus_registered(visited) then
             extra_c_prototype(visited.external_tag.start_position, type_of_current, rf8.base_feature)
             cpp.c_plus_plus_register(visited, rf8)
          end

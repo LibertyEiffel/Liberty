@@ -1236,7 +1236,7 @@ feature {C_PRETTY_PRINTER, C_SPLITTER}
                append_token(Result, external_c_files)
             end
             if not external_c_plus_plus_files.is_empty then
-               append_token(Result, once "-x %"c++%"")
+               append_token(Result, once "-x %"c++%" -lstdc++")
                append_token(Result, external_c_plus_plus_files)
             end
             append_token(Result, once "-x none")
