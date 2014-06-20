@@ -6,8 +6,8 @@ class MOCKER_MOCK
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         vit_eiffel_lt_node_impl,
-         vit_eiffel_non_terminal_node_impl
+         visit_eiffel_list_node_impl,
+         visit_eiffel_non_terminal_node_impl
       end
 
 insert
@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   vit_eiffel_lt_node_impl (node: EIFFEL_LIST_NODE_IMPL)
+   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       do
          Precursor(node)
          node.generate_forgotten(output)
@@ -75,7 +75,7 @@ end -- class #(1)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   vit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       do
          inspect node.name
          when "Class" then
@@ -133,7 +133,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   vit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name

@@ -6,8 +6,8 @@ class MOCKER_EXPECT
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         vit_eiffel_lt_node_impl,
-         vit_eiffel_non_terminal_node_impl
+         visit_eiffel_lt_node_impl,
+         visit_eiffel_non_terminal_node_impl
       end
 
 insert
@@ -18,7 +18,7 @@ create {ANY}
    make
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   vit_eiffel_lt_node_impl (node: EIFFEL_LIST_NODE_IMPL)
+   visit_eiffel_lt_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       do
          Precursor(node)
          node.generate_forgotten(output)
@@ -79,7 +79,7 @@ end -- class #(1)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   vit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       local
          expectation_type: ABSTRACT_STRING
       do
@@ -140,7 +140,7 @@ feature {#(1)}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   vit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name

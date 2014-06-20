@@ -22,9 +22,9 @@ feature {}
 
    generate_mocks
       require
-         input.exts
-         not out_mock.exts
-         not out_expect.exts
+         input.exists
+         not out_mock.exists
+         not out_expect.exists
       local
          grammar: EIFFEL_GRAMMAR
          parser: DESCENDING_PARSER
@@ -60,16 +60,16 @@ feature {}
 
          std_output.put_line(once "Writing mock class: #(1)" # out_mock.path)
          grammar.root_node.accept(create {MOCKER_MOCK}.make(out_mock.write, classname(out_mock), classname(out_expect)))
-         out_mock.write.dconnect
+         out_mock.write.disconnect
 
          std_output.put_line(once "Writing expect class: #(1)" # out_expect.path)
          grammar.root_node.accept(create {MOCKER_EXPECT}.make(out_expect.write, classname(out_mock), classname(out_expect)))
-         out_expect.write.dconnect
+         out_expect.write.disconnect
 
          std_output.put_line(once "Done.")
       ensure
-         out_mock.exts
-         out_expect.exts
+         out_mock.exists
+         out_expect.exists
       end
 
    classname (file: REGULAR_FILE): STRING
@@ -95,7 +95,7 @@ feature {}
                die_with_code(1)
             end
 
-            if Result.exts then
+            if Result.exists then
                std_error.put_line("#(1) file does ext: #(2)" # type # Result.path)
                die_with_code(1)
             end
@@ -135,7 +135,7 @@ feature {}
             die_with_code(1)
          end
 
-         if not input.exts then
+         if not input.exists then
             std_error.put_line("File does not ext: #(1)" # input.path)
             die_with_code(1)
          end

@@ -6,7 +6,7 @@ class MOCKER_SIGNATURE
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         vit_eiffel_non_terminal_node_impl
+         visit_eiffel_non_terminal_node_impl
       end
 
 insert
@@ -24,7 +24,7 @@ feature {ANY}
    arguments: LAZY_STRING
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   vit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       local
          buf: STRING_OUTPUT_STREAM
       do
@@ -74,7 +74,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   vit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          last_image := node.image.image
       end

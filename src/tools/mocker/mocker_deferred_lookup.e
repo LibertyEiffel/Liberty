@@ -6,7 +6,7 @@ class MOCKER_DEFERRED_LOOKUP
 inherit
    EIFFEL_NODE_VISITOR
       redefine
-         vit_eiffel_non_terminal_node_impl
+         visit_eiffel_non_terminal_node_impl
       end
 
 insert
@@ -17,7 +17,7 @@ create {ANY}
    make
 
 feature {ANY}
-   _deferred (node: EIFFEL_NON_TERMINAL_NODE_IMPL): BOOLEAN
+   is_deferred (node: EIFFEL_NON_TERMINAL_NODE_IMPL): BOOLEAN
       require
          has_deferred_features
          node /= Void
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   vit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name
@@ -45,7 +45,7 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   vit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name
