@@ -18,9 +18,9 @@ feature {ANY}
 
         wrapper_type: STRING "POINTER"
 
-        _fundamental: BOOLEAN False
+        is_fundamental: BOOLEAN False
 
-        _void: BOOLEAN False
+        is_void: BOOLEAN False
 
         has_wrapper: BOOLEAN True
 

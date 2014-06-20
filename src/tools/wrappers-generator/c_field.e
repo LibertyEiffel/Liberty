@@ -14,7 +14,7 @@ feature {ANY}
    store
       do
          check
-            container_exts: composed_types.has(context)
+            container_exists: composed_types.has(context)
          end
          -- Add Current to its container
          composed_types.at(context).fields.add_last(Current)

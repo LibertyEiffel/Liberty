@@ -40,14 +40,14 @@ feature {ANY}
         local fn: STRING
         do
             fn := c_file.c_string_name
-            Result := file_exts(fn) and (global or else headers.has(fn))
+            Result := file_exists(fn) and (global or else headers.has(fn))
         end
 
     emit_wrapper
         local
             filename: STRING; path: POSIX_PATH_NAME
         do
-            if _public then
+            if is_public then
                 create path.make_from_string(directory)
                 path.add_last(eiffel_name.as_lower+once ".e")
                 filename := path.to_string
@@ -155,8 +155,7 @@ feature {ANY} -- Emitting "normal" enumeration
         end
     initialize_validity_query
         do
-            validity_query.reset_with
-            (once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
+            validity_query.reset_with(once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
             %            Result := (")
         ensure
@@ -202,8 +201,7 @@ feature {ANY} -- Emitting "flag" enumeration
 
     initialize_flag_validity_query
         do
-            validity_query.reset_with
-            (once "    _valid_value (a_value: INTEGER): BOOLEAN%N%
+            validity_query.reset_with(once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
             %            Result := (a_value & (")
         ensure

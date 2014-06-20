@@ -231,7 +231,7 @@ feature {ANY}
             die_with_code(exit_failure_code)
          end
 
-         -- TODO: check that both pdirectory exts.
+         -- TODO: check that both pdirectory exists.
          include.connect_to(once "plugin/c/plugin.h")
          include.put_string(automatically_generated_c_file)
          source.connect_to(once "plugin/c/plugin.c")
@@ -253,8 +253,7 @@ feature {ANY}
 
    print_usage
       do
-         std_error.put_line
-         (once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
+         std_error.put_line(once "wrappers-generator [--verbose|-v] [--local] [--global] [--directory dir] output.gcc-xml filenames....%N%
          %%N%
          %   Version 2013-05-07%N%
          %%N%

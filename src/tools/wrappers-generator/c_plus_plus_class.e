@@ -75,7 +75,7 @@ feature {ANY}
                         -- emit_size
                         -- emit_footer
                         output.flush
-                        output.dconnect
+                        output.disconnect
                 else
                         if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
                         else log(once "Struct @(1) skipped%N", <<c_string_name>>)

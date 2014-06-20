@@ -142,7 +142,7 @@ feature {ANY}
                 do
                         buffer.append(once " (")
                         -- Omit the eventual ellips
-                        if _variadic then -- Skip the last argument
+                        if is_variadic then -- Skip the last argument
                                 last:=children_count-1
                         else last:= children_count
                         end
@@ -180,7 +180,7 @@ feature {ANY}
                         actual_c_symbol,description: STRING
                 do
                         description := c_string_name
-                        if _variadic then
+                        if is_variadic then
                                 description := description+variadic_function_note
                         end
                         -- Deal with argument-less functions like "fork". An

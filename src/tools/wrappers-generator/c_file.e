@@ -19,7 +19,7 @@ feature {ANY}
                 do
                         files.put(Current,id)
                         check
-                                _named
+                                is_named
                         end
                         symbols.put(Current,c_string_name)
                         files_by_name.put(Current,c_string_name)
@@ -28,7 +28,7 @@ feature {ANY}
 
         is_to_be_emitted: BOOLEAN
                 do
-                        Result := file_exts(c_string_name) and (global or else headers.has(c_string_name))
+                        Result := file_exists(c_string_name) and (global or else headers.has(c_string_name))
                 end
 
         emit_wrapper
@@ -41,7 +41,7 @@ feature {ANY}
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
                         -- if path.is_file then
-                        --      log(once "Copying exting file @(1) onto @(1).orig.%N",<<path.to_string>>)
+                        --      log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
                         --      copy_to(path.to_string, path.to_string+once ".orig")
                         -- end
                         log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",

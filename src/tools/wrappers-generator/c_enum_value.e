@@ -64,8 +64,7 @@ feature {ANY} -- Plain enumeration
                 validity_query.put_message(once "(a_value = @(1)_low_level) ",<<eiffel_name>>)
 
                 -- append_enum setter
-                setters.put_message
-                (once "%Tset_@(1)%N%
+                setters.put_message(once "%Tset_@(1)%N%
                 %               do%N%
                 %                       value := @(1)_low_level%N%
                 %               end%N%N", <<eiffel_name>>)
@@ -106,8 +105,7 @@ feature {ANY} -- "Flag" enumeration
                 validity_query.put_message(once "@(1)_low_level",<<eiffel_name>>)
 
                 -- append_enum setter
-                setters.put_message
-                (once "%Tset_@(1)%N%
+                setters.put_message(once "%Tset_@(1)%N%
                 %               do%N%
                 %                       value := value.bit_or(@(1)_low_level)%N%
                 %               end%N%

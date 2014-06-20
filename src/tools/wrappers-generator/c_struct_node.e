@@ -49,7 +49,7 @@ feature {ANY}
                         not_yet_implemented -- Result := eiffel_name
                 end
 
-        _to_be_emitted: BOOLEAN
+        is_to_be_emitted: BOOLEAN
                 do
                         Result:= is_named and then (is_public or has_assigned_name) and then
                         (global or else headers.has(c_file.c_string_name))
@@ -73,7 +73,7 @@ feature {ANY}
                         emit_size
                         emit_footer
                         output.flush
-                        output.dconnect
+                        output.disconnect
                 else
                         if is_anonymous then log_string(once "Skipping anonymous structure at line "+line.out+".%N")
                         else log(once "Struct @(1) skipped%N", <<c_string_name>>)
@@ -140,7 +140,7 @@ feature {ANY}
                         buffer.print_on(output)
                 end
 
-        _artificial: BOOLEAN
+        is_artificial: BOOLEAN
                 do
                         Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
                 end

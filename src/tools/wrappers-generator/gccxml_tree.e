@@ -54,7 +54,7 @@ feature {ANY}
                         when "Unimplemented" then create {UNIMPLEMENTED_NODE} Result.make(node_name,line,column)
                         when "Variable" then create {C_VARIABLE} Result.make(node_name, line, column)
                         else
-                                rae(node_name.as_utf8+" does not have an GCCXML_NODE")
+                                raise(node_name.as_utf8+" does not have an GCCXML_NODE")
                                 -- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
                         end
                         -- TODO: turn th into an inspect when UNICODE_STRING will be comparable
