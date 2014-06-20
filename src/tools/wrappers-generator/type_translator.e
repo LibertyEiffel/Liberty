@@ -15,7 +15,7 @@ feature {ANY} -- Type-system translations
    local type: UNICODE_STRING
    do
       type := an_argument.attribute_at(once U"type")
-      if an_argument.name._equal(once U"Typedef") then Result:=referred_type(types.at(type))
+      if an_argument.name.is_equal(once U"Typedef") then Result:=referred_type(types.at(type))
       else Result:=an_argument
       end
    end
@@ -26,8 +26,8 @@ feature {ANY} -- Type-system translations
       local
          type: UNICODE_STRING
       do
-         if an_argument.name._equal(once U"FundamentalType") then
-            if an_argument.attribute_at(once U"name")._equal(U"void") then
+         if an_argument.name.is_equal(once U"FundamentalType") then
+            if an_argument.attribute_at(once U"name").is_equal(U"void") then
                Result := True
             else
                Result := False
@@ -100,7 +100,7 @@ feature {ANY} -- Type-system translations
          inspect an_argument.name.to_utf8
          when "FundamentalType" then
             name := an_argument.attribute_at(once U"name").to_utf8
-            if name._equal(once "void") then Result := once ""
+            if name.is_equal(once "void") then Result := once ""
             else
                size := an_argument.attribute_at(once U"size").to_utf8.to_integer
                if name.has_substring(once "char") then

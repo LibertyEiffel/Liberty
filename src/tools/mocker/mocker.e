@@ -87,7 +87,7 @@ feature {}
          bd: BASIC_DIRECTORY
          name: ABSTRACT_STRING
       do
-         if option._set then
+         if option.is_set then
             Result := option.item
 
             if not Result.name.has_suffix(".e") then
@@ -117,13 +117,13 @@ feature {}
          if not arguments.parse_command_line then
             arguments.usage(std_error)
             die_with_code(1)
-         elseif option_help._set then
+         elseif option_help.is_set then
             arguments.usage(std_output)
             die_with_code(0)
-         elseif option_version._set then
+         elseif option_version.is_set then
             print_version
             die_with_code(0)
-         elseif not argument_file._set then
+         elseif not argument_file.is_set then
             arguments.usage(std_error)
             die_with_code(1)
          end

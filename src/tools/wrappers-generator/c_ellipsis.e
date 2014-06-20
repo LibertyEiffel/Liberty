@@ -15,7 +15,7 @@ feature {ANY}
          a_buffer.append("%N%T%T%T -- Ellips%N")
       end
 
---invariant name._equal(once U"Ellips")
+--invariant name.is_equal(once U"Ellips")
 end -- C_ELLIPSIS
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

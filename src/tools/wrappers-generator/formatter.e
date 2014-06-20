@@ -17,7 +17,7 @@ feature {ANY}
 	clear, reset
 			-- Clears the content of Current's buffer.
 		do
-			if buffer._empty then
+			if buffer.is_empty then
 				debug
 					std_error.put_line(once "Unnecessary invocation of FORMATTER.reset")
 					-- That's way too verbose print_run_time_stack
@@ -70,7 +70,7 @@ feature {ANY}
 	_empty: BOOLEAN
 			-- Is current empty?
 		do
-			Result := buffer._empty
+			Result := buffer.is_empty
 		end
 
 	count: INTEGER

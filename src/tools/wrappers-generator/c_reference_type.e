@@ -25,7 +25,7 @@ feature {ANY}
         wrapper_type: STRING "POINTER"
         -- Note: this is a rought approximation.
 
--- invariant name._equal(once U"ReferenceType")
+-- invariant name.is_equal(once U"ReferenceType")
 end -- class C_REFERENCE_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

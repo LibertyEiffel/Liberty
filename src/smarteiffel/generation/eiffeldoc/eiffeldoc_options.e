@@ -99,7 +99,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.with_attribute(once "class", once "points_of_view_head_layout")
          html.open_div
          html.with_attribute(once "class", once "points_of_view_expand_mark")
-         html.with_attribute(once "id", once "points_of_view._hl")
+         html.with_attribute(once "id", once "points_of_view.is_hl")
          html.open_div
          html.put_character('+')
          html.close_div
@@ -120,7 +120,7 @@ feature {EIFFELDOC, EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_SOURCEDOC, EIFFELDOC_SH
          html.close_div
          html.close_div
          html.with_attribute(once "class", once "points_of_view_expanded")
-         html.with_attribute(once "id", once "points_of_view._expanded")
+         html.with_attribute(once "id", once "points_of_view.is_expanded")
          html.with_attribute(once "style", once "display: none")
          html.open_div
          html.with_attribute(once "class", once "class_link")

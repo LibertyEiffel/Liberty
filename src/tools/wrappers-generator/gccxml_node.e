@@ -14,7 +14,7 @@ feature {ANY} -- Assigned name
         require a_name/=Void
         do
                 assigned_name:=a_name.twin
-        ensure definition: assigned_name._equal(a_name)
+        ensure definition: assigned_name.is_equal(a_name)
         end
 
         has_assigned_name: BOOLEAN

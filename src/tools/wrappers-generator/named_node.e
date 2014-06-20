@@ -61,7 +61,7 @@ feature {ANY}
 		-- starting with underscores or other strange characters are
 		-- usually considered private in C/C++ languages.
 	do
-		Result := c_name/=Void and then c_name.first.to_character._letter
+		Result := c_name/=Void and then c_name.first.to_character.is_letter
 	end
 
 feature {} -- Implementation

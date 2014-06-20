@@ -42,7 +42,7 @@ feature {ANY}
 		-- Does current function accept a variable number of arguments?
 	do
 		if has_arguments 
-			then Result := argument(children_count)._ellips
+			then Result := argument(children_count).is_ellips
 		else Result:=False
 		end
 	end
@@ -53,11 +53,11 @@ feature {ANY}
 		-- is ignored. 
 	local i: INTEGER_32
 	do
-		Result := (return_type._void or return_type.has_wrapper)
+		Result := (return_type.is_void or return_type.has_wrapper)
 	    if Result then
 			-- Check for 
 			from i:=children_count until not Result or i<1 loop
-				Result := argument(i).has_wrapper or else argument(i)._ellips
+				Result := argument(i).has_wrapper or else argument(i).is_ellips
 				i := i-1
 			end
 		end
@@ -80,7 +80,7 @@ feature {ANY}
 			elseif not _public then
 				log(once "Skipping 'hidden' function `@(1)'%N", <<c_string_name>>)
 				buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",<<c_string_name>>)
-			elseif not namespace._main then
+			elseif not namespace.is_main then
 				log(once "Skipping function `@(1)' belonging to namespace @(2) which  not wrapped%N",
 				<<c_string_name, namespace.c_string_name>>)
 				buffer.put_message(once "%T-- function @(1) in unwrapped namespace @(2) skipped.%N",
@@ -114,7 +114,7 @@ feature {ANY}
 			-- 	from 
 			-- 		iter:=a_description.get_new_iterator; iter.start; 
 			-- 		buffer.append(once "%N%T%T-- "); length:=0
-			-- 	until iter._off loop
+			-- 	until iter.is_off loop
 			-- 		word := iter.item
 			-- 		new_length := length + word.count
 			-- 		if new_length>description_lenght then
@@ -162,7 +162,7 @@ feature {ANY}
 			-- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
 			-- POINTER is". When result of `a_node' is "void" only " is" is appended.
 		do
-			if return_type._void then 
+			if return_type.is_void then 
 				-- don't print anything; the correct "return type" of a C
 				-- function returning void (i.e. a command) is an empty string.
 			else
@@ -224,7 +224,7 @@ feature {} -- Implementation
 	ensure no_child_with_wrong_type: Result/=Void
 	end
 
--- invariant name._equal(once U"Function")
+-- invariant name.is_equal(once U"Function")
 end -- class C_FUNCTION
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

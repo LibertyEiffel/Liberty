@@ -82,7 +82,7 @@ feature {XML_PARSER}
 		do
 			node := open_nodes.top
 			open_nodes.pop
-			if open_nodes._empty then
+			if open_nodes.is_empty then
 				root := node
 			else
 				open_nodes.top.add_child(node)
@@ -98,7 +98,7 @@ feature {XML_PARSER}
 	xml_header (line, column: INTEGER)
 		do
 			check
-				tree_attributes._empty
+				tree_attributes.is_empty
 			end
 			tree_attributes.copy(attributes)
 			attributes.clear_count
@@ -123,7 +123,7 @@ feature {XML_PARSER}
 
 	current_node: STRING
 		do
-			if not open_nodes._empty then
+			if not open_nodes.is_empty then
 				Result := open_nodes.top.name
 			end
 		end
@@ -162,7 +162,7 @@ feature {}
 	make (in: INPUT_STREAM)
 			-- read the xml tree in the given input stream
 		require
-			in._connected
+			in.is_connected
 		do
 			create attributes.make
 			create tree_attributes.make

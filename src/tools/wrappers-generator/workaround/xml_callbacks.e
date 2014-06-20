@@ -28,32 +28,32 @@ feature {XML_PARSER}
 	with_attribute (attribute_name: STRING; attribute_value: STRING; line, column: INTEGER)
 			-- Called by the parser to add an attribute of a node BEFORE calling `open_node'
 		require
-			not attribute_name._empty
-			-- not attribute_value._empty
+			not attribute_name.is_empty
+			-- not attribute_value.is_empty
 		deferred
 		end
 
 	open_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads an opening node
 		require
-			not node_name._empty
+			not node_name.is_empty
 		deferred
 		ensure
-			current_node._equal(node_name)
+			current_node.is_equal(node_name)
 		end
 
 	close_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads a closing node
 		require
-			not node_name._empty
-			current_node._equal(node_name)
+			not node_name.is_empty
+			current_node.is_equal(node_name)
 		deferred
 		end
 
 	open_close_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads a node that opens and closes immediately (syntax "<node/>")
 		require
-			not node_name._empty
+			not node_name.is_empty
 		deferred
 		end
 
@@ -85,7 +85,7 @@ feature {XML_PARSER}
 	data (a_data: STRING; line, column: INTEGER)
 			-- Called by the parser when the node contains raw data
 		require
-			not a_data._empty
+			not a_data.is_empty
 		deferred
 		end
 

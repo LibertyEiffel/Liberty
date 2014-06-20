@@ -14,7 +14,7 @@ feature {ANY}
                 words: ARRAY[STRING]; line: STRING; file: TEXT_FILE_READ
         do
                 create file.connect_to(a_file_name)
-                if file._connected then
+                if file.is_connected then
                         from file.read_line
                         until file.end_of_input
                         loop

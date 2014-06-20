@@ -9,7 +9,7 @@ feature {ANY}
 	require 
 		a_stream /= Void
 	deferred 
-	ensure buffer._empty
+	ensure buffer.is_empty
 	end
 
 end -- class WRAPPER_FEATURE

@@ -52,7 +52,7 @@ feature {ANY}
 
         _fundamental: BOOLEAN
                 do
-                        Result := types.at(type)._fundamental
+                        Result := types.at(type).is_fundamental
                 end
 
         _void: BOOLEAN False
@@ -81,7 +81,7 @@ feature {ANY}
                                         %               -- typedef @(3)%N%
                                         %               -- Empty by design, used for anchored declarations.%N%
                                         %       do%N%
-                                        %       ensure Result._default%N%
+                                        %       ensure Result.is_default%N%
                                         %       end%N%
                                         %%N", <<query_name, wrapper_type, c_string_name>>)
                                 else
@@ -96,7 +96,7 @@ feature {ANY}
                 end
         end
 
--- invariant name._equal(once U"Typedef")
+-- invariant name.is_equal(once U"Typedef")
 end -- class C_TYPEDEF
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

@@ -16,12 +16,12 @@ feature {ANY}
 
         _fundamental: BOOLEAN
                 do
-                        Result:=types.at(dequalify(type))._fundamental
+                        Result:=types.at(dequalify(type)).is_fundamental
                 end
 
         _void: BOOLEAN
                 do
-                        Result:=types.at(dequalify(type))._void
+                        Result:=types.at(dequalify(type)).is_void
                 end
 
         has_wrapper: BOOLEAN
@@ -46,7 +46,7 @@ feature {ANY}
                         column.append_in(Result)
                 else Result := eiffel_argument(c_name.to_utf8)
                 end
-        ensure Result/=Void; not Result._empty
+        ensure Result/=Void; not Result.is_empty
         end
 
         put_on (a_buffer: FORMATTER)

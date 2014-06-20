@@ -92,7 +92,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             check
                deferred_lookup.has_deferred_features
             end
-            if deferred_lookup._deferred(node) then
+            if deferred_lookup.is_deferred(node) then
                node.node_at(node.lower + 1).accept(Current)
             end
          when "Signature" then
@@ -148,7 +148,7 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
 feature {}
    make (a_output: like output; a_mock_name, a_expect_name: ABSTRACT_STRING)
       require
-         a_output._connected
+         a_output.is_connected
          a_mock_name /= Void
          a_expect_name /= Void
       do
@@ -167,7 +167,7 @@ feature {}
    signature: MOCKER_SIGNATURE
 
 invariant
-   output._connected
+   output.is_connected
    mock_name /= Void
    expect_name /= Void
 

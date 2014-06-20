@@ -103,18 +103,18 @@ feature {ANY}
                i > argument_count
             loop
                arg := argument(i)
-               if arg._equal(once "--local") then settings.set_global(False)
-               elseif arg._equal(once "--global") then settings.set_global(True)
-               elseif arg._equal(once "--emit-standard-typedefs") then settings.use_standard_typedefs
-               elseif arg._equal(once "--apply-patches") then not_yet_implemented
-               elseif arg._equal(once "--descriptions") then
+               if arg.is_equal(once "--local") then settings.set_global(False)
+               elseif arg.is_equal(once "--global") then settings.set_global(True)
+               elseif arg.is_equal(once "--emit-standard-typedefs") then settings.use_standard_typedefs
+               elseif arg.is_equal(once "--apply-patches") then not_yet_implemented
+               elseif arg.is_equal(once "--descriptions") then
                   i := i + 1
                   if i <= argument_count then descriptions := argument(i)
                   else
                      std_error.put_line(once "No description file given.")
                      print_usage
                   end
-               elseif arg._equal(once "--standard-typedefs") then
+               elseif arg.is_equal(once "--standard-typedefs") then
                   i := i + 1
                   if i <= argument_count then
                      if _valid_class_name(argument(i)) then
@@ -126,21 +126,21 @@ feature {ANY}
                      std_error.put_line(once "Name of class containing standard typedefs not given")
                      print_usage
                   end
-               elseif arg._equal(once "--flags") then
+               elseif arg.is_equal(once "--flags") then
                   i := i + 1
                   if i <= argument_count then flags:=argument(i)
                   else
                      std_error.put_line(once "No flags file given")
                      print_usage
                   end
-               elseif arg._equal(once "--avoided") then
+               elseif arg.is_equal(once "--avoided") then
                   i := i + 1
                   if i <= argument_count then avoided:=argument(i)
                   else
                      std_error.put_line(once "No avoided file given")
                      print_usage
                   end
-               elseif arg._equal(once "--moved") then
+               elseif arg.is_equal(once "--moved") then
                   not_yet_implemented
                   i := i + 1
                   if i <= argument_count then moved:=argument(i)
@@ -148,14 +148,14 @@ feature {ANY}
                      std_error.put_line(once "No moved functions file given")
                      print_usage
                   end
-               elseif arg._equal(once "--version") or else
-                  arg._equal(once "-v") then
+               elseif arg.is_equal(once "--version") or else
+                  arg.is_equal(once "-v") then
                   print_version
                   die_with_code(0)
-               elseif arg._equal(once "--verbose") then
+               elseif arg.is_equal(once "--verbose") then
                   settings.set_verbose(True)
                -- TODO: re-enable grouping output on standard output
-               -- elseif arg._equal(once "--on-standard-output") then
+               -- elseif arg.is_equal(once "--on-standard-output") then
                --    settings.set_directory(Void)
                else
                   if file_exts(arg) then
@@ -213,7 +213,7 @@ feature {ANY}
             end
          end
          file := cwd.file("plugin")
-         if not file._directory then
+         if not file.is_directory then
             log_string("%'plugin'  not a directory")
             die_with_code(exit_failure_code)
          end
@@ -226,7 +226,7 @@ feature {ANY}
             end
          end
          file := plugin.file(once "c")
-         if not file._directory then
+         if not file.is_directory then
             log_string("%'plugin/c'  not a directory")
             die_with_code(exit_failure_code)
          end
@@ -240,8 +240,8 @@ feature {ANY}
          source.put_line("#ifndef "+preprocessor_label+"%N%
          %#   define "+preprocessor_label)
       ensure
-         include._connected
-         source._connected
+         include.is_connected
+         source.is_connected
       end
 
    close_plugin_files

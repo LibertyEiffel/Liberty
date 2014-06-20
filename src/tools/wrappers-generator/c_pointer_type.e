@@ -22,7 +22,7 @@ feature {ANY}
                         types.put(Current,id)
                 end
 
--- invariant name._equal(once U"PointerType")
+-- invariant name.is_equal(once U"PointerType")
 end -- class C_POINTER_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

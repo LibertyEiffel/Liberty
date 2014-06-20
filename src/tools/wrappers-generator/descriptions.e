@@ -24,7 +24,7 @@ feature {ANY} -- Descriptions reading
                 descriptions: TEXT_FILE_READ
         do
                 create descriptions.connect_to(a_file_name)
-                if descriptions._connected then
+                if descriptions.is_connected then
                         from descriptions.read_line
                         until descriptions.end_of_input
                         loop
@@ -37,7 +37,7 @@ feature {ANY} -- Descriptions reading
                                 else
                                         create words.make
                                         line.split_in (words)
-                                        if not words._empty then
+                                        if not words.is_empty then
                                                 described := words.first
                                                 words.remove_first
                                                 read_description(described,words)
@@ -118,7 +118,7 @@ feature {ANY} -- Outputting descriptions
                                 from
                                         iter:=a_description.new_iterator; iter.start;
                                         a_formatter.append(comment); length:=0
-                                until iter._off loop
+                                until iter.is_off loop
                                         word := iter.item
                                         new_length := length + word.count
                                         if new_length>description_lenght then

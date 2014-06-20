@@ -59,7 +59,7 @@ feature {ANY}
                         elseif not _public then
                                 log(once "Skipping 'hidden' variable `@(1)'%N", <<c_string_name>>)
                                 buffer.put_message(once "%T-- `hidden' variable @(1) skipped.%N",<<c_string_name>>)
-                        elseif not namespace._main then
+                        elseif not namespace.is_main then
                                 log(once "Skipping variable `@(1)' belonging to namespace @(2)%N",
                                 <<c_string_name, namespace.c_string_name>>)
                                 buffer.put_message(once "%T-- variable @(1) in namespace @(2) skipped.%N",
@@ -118,7 +118,7 @@ feature {ANY}
 
         _fundamental: BOOLEAN
                 do
-                        Result:=types.at(dequalify(type))._fundamental
+                        Result:=types.at(dequalify(type)).is_fundamental
                 end
 end -- class C_VARIABLE
 

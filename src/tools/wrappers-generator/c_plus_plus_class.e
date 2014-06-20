@@ -86,7 +86,7 @@ feature {ANY}
 
         _artificial: BOOLEAN
                 do
-                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial")._equal(once U"1")
+                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
                 end
 
         suffix: STRING "_CLASS"

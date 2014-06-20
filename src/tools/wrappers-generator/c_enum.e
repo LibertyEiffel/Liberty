@@ -122,7 +122,7 @@ feature {ANY}
             enum_value ?= child(i)
             if enum_value/= Void then
                 value := enum_value.value.to_integer
-                if value > 0 and then value._a_power_of_2 and flags_so_far & value = 0 then
+                if value > 0 and then value.is_a_power_of_2 and flags_so_far & value = 0 then
                     -- value is valid and indipendent from other values so far.
                     flags_so_far := flags_so_far | value
                 else Result := False
@@ -245,7 +245,7 @@ feature {C_ENUM_VALUE} -- Implementation
     local i,upper: INTEGER
     do
                 if values.count > 1 then
-                        if prefix_length._default then
+                        if prefix_length.is_default then
                                 from prefix_length:=values.first.c_name.lower; upper:=shortest_length
                                 until prefix_length>=upper or else not same_character_at_index(prefix_length)
                                 loop prefix_length:=prefix_length+1
@@ -321,7 +321,7 @@ feature {} -- Implementation
         end
         --print(")="+Result.out+" ")
     end
-    --invariant name._equal(once U"Enumeration")
+    --invariant name.is_equal(once U"Enumeration")
 
 end -- class C_ENUM
 

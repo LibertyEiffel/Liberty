@@ -104,7 +104,7 @@ feature {}
             until
                i > argument_names.upper
             loop
-               if not args._empty then
+               if not args.is_empty then
                   args.append(once ", ")
                end
                args.append(argument_names.item(i))

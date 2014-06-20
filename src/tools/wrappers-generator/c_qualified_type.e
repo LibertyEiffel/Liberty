@@ -20,12 +20,12 @@ feature {ANY}
 
 	_fundamental: BOOLEAN
 		do
-			Result:=types.at(type)._fundamental
+			Result:=types.at(type).is_fundamental
 		end
 
 	_void: BOOLEAN
 		do
-			Result:=types.at(type)._void
+			Result:=types.at(type).is_void
 		end
 
 	has_wrapper: BOOLEAN
@@ -37,7 +37,7 @@ feature {ANY}
 		do
 			Result:= types.at(type).wrapper_type
 		end
-	-- invariant name._equal(once U"CvQualifiedType")
+	-- invariant name.is_equal(once U"CvQualifiedType")
 end -- class C_QUALIFIED_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

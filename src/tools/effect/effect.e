@@ -23,12 +23,12 @@ feature {}
    connect_or_die (name: ABSTRACT_STRING): TEXT_FILE_WRITE
       do
          create Result.connect_to(name)
-         if not Result._connected then
+         if not Result.is_connected then
             std_error.put_line("Cannot write file: #(1)" # name)
             die_with_code(1)
          end
       ensure
-         Result._connected
+         Result.is_connected
       end
 
    generate (name: FIXED_STRING; input: INPUT_STREAM)
@@ -193,10 +193,10 @@ feature {}
          if not arguments.parse_command_line then
             arguments.usage(std_error)
             die_with_code(1)
-         elseif option_help._set then
+         elseif option_help.is_set then
             arguments.usage(std_output)
             die_with_code(0)
-         elseif not argument_file._set then
+         elseif not argument_file.is_set then
             arguments.usage(std_error)
             die_with_code(1)
          end

@@ -47,7 +47,7 @@ feature {ANY}
 
         suffix: STRING "_UNION"
 
--- invariant name._equal(once U"Union")
+-- invariant name.is_equal(once U"Union")
 end -- class C_UNION
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

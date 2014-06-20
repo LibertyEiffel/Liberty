@@ -40,7 +40,7 @@ feature {ANY}
 
                         create path.make_from_string(directory)
                         path.add_last(eiffel_name.as_lower+once ".e")
-                        -- if path._file then
+                        -- if path.is_file then
                         --      log(once "Copying exting file @(1) onto @(1).orig.%N",<<path.to_string>>)
                         --      copy_to(path.to_string, path.to_string+once ".orig")
                         -- end
@@ -90,7 +90,7 @@ feature {ANY}
                         -- The Eiffel class name for `c_name'; extension is removed,
                         -- CamelCase is converted into CAMEL_CASE, dashes are converted to
                         -- underscores, `suffix' is added at the endi, eventual; i.e.:
-                        -- class_name_from_header("/usr/include/foo/bar/maman.h")._equal("MAMAN_EXTERNALS")
+                        -- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
                         create path.make_from_string(c_string_name)
                         create cached_eiffel_name.copy(path.last)
                         cached_eiffel_name.remove_tail(path.extension.count)
@@ -120,7 +120,7 @@ feature {ANY} -- Content
         -- designed for efficient random access by index which is required by quick
         -- sort.
 
--- invariant name._equal(once U"File")
+-- invariant name.is_equal(once U"File")
 end -- class C_FILE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

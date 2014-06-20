@@ -1345,7 +1345,7 @@ feature {} -- built-ins
             check
                live_type.is_user_expanded
             end
-            function_body.append(once "._")
+            function_body.append(once ".is_")
          end
          function_body.append(field_name)
       end

@@ -15,7 +15,7 @@ create {EFFECT}
 feature {ANY}
    out_in_tagged_out_memory
       do
-         if buffer._empty then
+         if buffer.is_empty then
             table.for_all_atoms(agent accept_atom)
          end
          buffer.out_in_tagged_out_memory

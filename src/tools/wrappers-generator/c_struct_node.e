@@ -98,7 +98,7 @@ feature {ANY}
                 -- local
                 --      members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
                 do
-                        if fields/=Void and then not fields._empty then
+                        if fields/=Void and then not fields.is_empty then
                                 setters.reset; queries.reset
                                 setters.append(setters_header)
                                 queries.append(queries_header)
@@ -142,7 +142,7 @@ feature {ANY}
 
         _artificial: BOOLEAN
                 do
-                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial")._equal(once U"1")
+                        Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
                 end
 
         suffix: STRING "_STRUCT"

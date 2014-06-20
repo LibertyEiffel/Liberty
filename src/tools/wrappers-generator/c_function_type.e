@@ -24,7 +24,7 @@ feature {ANY}
 
         has_wrapper: BOOLEAN True
 
--- invariant name._equal(once U"FunctionType")
+-- invariant name.is_equal(once U"FunctionType")
 end -- class C_FUNCTION_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

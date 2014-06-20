@@ -24,7 +24,7 @@ feature {ANY}
                         types.fast_put(Current,id)
                 end
 
-        _void: BOOLEAN do Result := c_name._equal(once U"void") end
+        _void: BOOLEAN do Result := c_name.is_equal(once U"void") end
 
         _fundamental: BOOLEAN True
 
@@ -143,7 +143,7 @@ feature {} -- Implementation
                 _wrapper_computed:=True
         ensure _wrapper_computed=True
         end
-        -- invariant name._equal(once U"FundamentalType")
+        -- invariant name.is_equal(once U"FundamentalType")
 end -- class C_FUNDAMENTAL_TYPE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

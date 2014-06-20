@@ -152,7 +152,7 @@ feature {ANY}
         local file: TEXT_FILE_READ; symbol, value: STRING; words: STRING_INPUT_STREAM
         do
                 create file.connect_to(a_name)
-                check file._connected end
+                check file.is_connected end
                 from file.read_line
                 until file.end_of_input loop
                         if file.last_string.has_prefix(once "--") then
@@ -160,10 +160,10 @@ feature {ANY}
                         else
                                 create words.from_string(file.last_string)
                                 words.read_word
-                                if not words.last_string._empty then
+                                if not words.last_string.is_empty then
                                         symbol := words.last_string.twin
                                         words.read_word
-                                        if not words.last_string._empty then
+                                        if not words.last_string.is_empty then
                                                 value := words.last_string.twin
                                                 log(once "Symbol @(1) moved to @(2)%N",<<symbol,value>>)
                                                 moved.put(value,symbol)

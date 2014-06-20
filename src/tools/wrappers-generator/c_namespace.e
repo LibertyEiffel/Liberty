@@ -24,7 +24,7 @@ feature {ANY}
 	_main: BOOLEAN
 		-- Is Current name space the "main" default namespace? The default namespace is named "::"
 	do
-		Result:=c_string_name._equal(once "::")
+		Result:=c_string_name.is_equal(once "::")
 	end
 
 	path: PATH_NAME
@@ -59,7 +59,7 @@ feature {ANY}
 		-- Try to create the directory and forget about the result
 		log_string("Faking creation of «"+path.to_string+"»directory%N")
 		-- 	outcome :=  bd.create_new_directory(path.to_string);
-		-- 	if path._directory then
+		-- 	if path.is_directory then
 		-- 		are_members_wrapped:=True 
 		-- 		-- Each gccxml node will query its containing namespace to see if it shall be wrapped.
 		-- 	else -- directory still doesn't exts, we cannot wrap its content. 
@@ -72,7 +72,7 @@ feature {STORABLE_NODE} -- Contained nodes
 	
 feature {} -- Implementation
 	cached_path: PATH_NAME
--- invariant name._equal(once "Namespace")
+-- invariant name.is_equal(once "Namespace")
 end -- class C_NAMESPACE
 
 -- Copyright 2008,2009,2010 Paolo Redaelli

@@ -22,7 +22,7 @@ feature {ANY}
 
    _fundamental: BOOLEAN
       do
-         Result:=types.at(dequalify(type))._fundamental
+         Result:=types.at(dequalify(type)).is_fundamental
       end
 
    _void: BOOLEAN False

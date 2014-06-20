@@ -19,13 +19,13 @@ feature  {ANY}-- Auxiliary features
 		-- TODO: handle in a fairly 
 	require 
 		name_not_void: a_name /= Void
-		name_not_empty: not a_name._empty
+		name_not_empty: not a_name.is_empty
 	do
 		create Result.copy(a_name)
 		-- Remove header underscores.
 		from until Result.first /= '_' loop Result.remove_first end
 		-- If first character is a number prepend an `a_'
-		if Result.first._digit then Result.prepend(once "a_") end
+		if Result.first.is_digit then Result.prepend(once "a_") end
 		insert_underscores(Result)
 		-- Remove spurious underscores and the end
 		from until Result.last/='_' loop Result.remove_last end
@@ -60,12 +60,12 @@ feature  {ANY}-- Auxiliary features
 
 	require
 		a_string/=Void
-		not a_string._empty
+		not a_string.is_empty
 	local i: INTEGER
 	do
 		from i:=a_string.lower+1
 		until i>a_string.upper loop
-			if 	a_string.item(i-1)._lower and a_string.item(i)._upper then
+			if 	a_string.item(i-1).is_lower and a_string.item(i).is_upper then
 				a_string.insert_character('_',i)
 				i:=i+2
 			else i:=i+1
@@ -123,7 +123,7 @@ feature  {ANY}-- Auxiliary features
 			not_void: a_name /= Void
 			meaningful_length: a_name.count > 1
 		do
-			Result := a_name.first._letter
+			Result := a_name.first.is_letter
 		end
 		
 	eiffel_class_name (a_string, a_suffix: ABSTRACT_STRING): STRING
@@ -163,11 +163,11 @@ feature  {ANY}-- Auxiliary features
 		local iter: ITERATOR[CHARACTER] ; c: CHARACTER
 		do
 			iter := a_name.new_iterator
-			from iter.start; Result := iter.item._upper; iter.next
-			until Result = False or else not iter._off
+			from iter.start; Result := iter.item.is_upper; iter.next
+			until Result = False or else not iter.is_off
 			loop
 				c := iter.item
-				Result := c._upper or else (c._digit and c/='.') or else c = '_' 
+				Result := c.is_upper or else (c.is_digit and c/='.') or else c = '_' 
 				iter.next
 			end
 		end
@@ -181,7 +181,7 @@ feature  {ANY}-- Auxiliary features
 			name_not_void: a_name /= Void
 			valid_name: a_name.first /= '_'
 			suffix_not_void: a_suffix /= Void
-			suffix_not_empty: not a_suffix._empty
+			suffix_not_empty: not a_suffix.is_empty
 		do
 			if keywords.has(a_name) or else any_features.has(a_name) then
 				Result := a_name + a_suffix

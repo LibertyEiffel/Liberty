@@ -13,7 +13,7 @@ feature {ANY}
         _void: BOOLEAN False
         has_wrapper: BOOLEAN False
         wrapper_type: STRING do not_yet_implemented end
--- invariant name._equal(once U"Constructor")
+-- invariant name.is_equal(once U"Constructor")
 end -- class C_CONSTRUCTOR
 
 -- Copyright 2008,2009,2010 Paolo Redaelli
