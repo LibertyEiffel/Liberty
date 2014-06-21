@@ -2456,6 +2456,64 @@ feature {}
       do
       end
 
+feature {IFTHENELSE_EXP}
+   visit_ifthenelse_exp (visited: IFTHENELSE_EXP)
+      local
+         i: INTEGER
+      do
+         if enter_ifthenelse_exp(visited) then
+            if visited.then_expression /= Void then
+               visited.then_expression.accept(Current)
+            end
+            if visited.elseif_list /= Void then
+               from
+                  i := visited.elseif_list.lower
+               until
+                  i > visited.elseif_list.upper
+               loop
+                  visited.elseif_list.item(i).accept(Current)
+                  i := i + 1
+               end
+            end
+            if visited.else_part /= Void then
+               visited.else_part.accept(Current)
+            end
+            exit_ifthenelse_exp(visited)
+         end
+      end
+
+feature {}
+   enter_ifthenelse_exp (visited: IFTHENELSE_EXP): BOOLEAN
+      do
+         Result := True
+      end
+
+   exit_ifthenelse_exp (visited: IFTHENELSE_EXP)
+      do
+      end
+
+feature {IFTHEN_EXP}
+   visit_ifthen_exp (visited: IFTHEN_EXP)
+      do
+         if enter_ifthen_exp(visited) then
+            visited.expression.accept(Current)
+            if visited.then_expression /= Void then
+               visited.then_expression.accept(Current)
+            end
+            exit_ifthen_exp(visited)
+         end
+      end
+
+feature {}
+   enter_ifthen_exp (visited: IFTHEN_EXP): BOOLEAN
+      do
+         Result := True
+      end
+
+   exit_ifthen_exp (visited: IFTHEN_EXP)
+      do
+      end
+
 feature {ASSIGNMENT}
    visit_assignment (visited: ASSIGNMENT)
       do
