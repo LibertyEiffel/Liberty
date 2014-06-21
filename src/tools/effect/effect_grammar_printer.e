@@ -30,8 +30,8 @@ feature {ANY}
 feature {PACKRAT_NON_TERMINAL}
    visit_non_terminal (visited: PACKRAT_NON_TERMINAL)
       do
-         buffer.append(once "%N%"#(1)%", create {PACKRAT_NON_TERMINAL}.make(" # vited.name)
-         vited.pattern.accept(Current)
+         buffer.append(once "%N%"#(1)%", create {PACKRAT_NON_TERMINAL}.make(" # visited.name)
+         visited.pattern.accept(Current)
          buffer.append(once ");%N")
       end
 
@@ -45,7 +45,7 @@ feature {PACKRAT_AND}
    visit_and (visited: PACKRAT_AND)
       do
          buffer.append(once "(")
-         vited.primary.accept(Current)
+         visited.primary.accept(Current)
          buffer.append(once ").positive_lookahead")
       end
 
@@ -55,15 +55,15 @@ feature {PACKRAT_CHOICE}
          i: INTEGER
       do
          from
-            i := vited.alternatives.lower
+            i := visited.alternatives.lower
          until
-            i > vited.alternatives.upper
+            i > visited.alternatives.upper
          loop
-            if i > vited.alternatives.lower then
+            if i > visited.alternatives.lower then
                buffer.append(once "%N/%N")
             end
             buffer.extend('(')
-            vited.alternatives.item(i).accept(Current)
+            visited.alternatives.item(i).accept(Current)
             buffer.extend(')')
             i := i + 1
          end
@@ -73,14 +73,14 @@ feature {PACKRAT_NOT}
    visit_not (visited: PACKRAT_NOT)
       do
          buffer.append(once "(")
-         vited.primary.accept(Current)
+         visited.primary.accept(Current)
          buffer.append(once ").negative_lookahead")
       end
 
 feature {PACKRAT_REFERENCE}
    visit_reference (visited: PACKRAT_REFERENCE)
       do
-         buffer.append(once "ref(%"#(1)%")" # vited.name)
+         buffer.append(once "ref(%"#(1)%")" # visited.name)
       end
 
 feature {PACKRAT_SEQUENCE}
@@ -90,19 +90,19 @@ feature {PACKRAT_SEQUENCE}
       do
          buffer.append(once "seq({FAST_ARRAY[PACKRAT_PRIMARY]<<")
          from
-            i := vited.primaries.lower
+            i := visited.primaries.lower
          until
-            i > vited.primaries.upper
+            i > visited.primaries.upper
          loop
-            if i > vited.primaries.lower then
+            if i > visited.primaries.lower then
                buffer.append(once ", ")
             end
-            vited.primaries.item(i).accept(Current)
+            visited.primaries.item(i).accept(Current)
             i := i + 1
          end
          buffer.append(once ">>}, ")
          inspect
-            vited.how_many
+            visited.how_many
          when one then
             buffer.append(once "one")
          when zero_or_more then
@@ -113,10 +113,10 @@ feature {PACKRAT_SEQUENCE}
             buffer.append(once "zero_or_one")
          end
          buffer.append(once ", ")
-         if vited.tag = Void then
+         if visited.tag = Void then
             buffer.append(once "Void, Void")
          else
-            buffer.append(once "%"#(1)%", agent reducer.#(1)" # vited.tag)
+            buffer.append(once "%"#(1)%", agent reducer.#(1)" # visited.tag)
          end
          buffer.append(once ")")
       end
