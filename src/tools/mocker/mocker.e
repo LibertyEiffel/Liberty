@@ -15,7 +15,7 @@ create {}
 
 feature {ANY}
    liberty_authors: STRING "C.ADRIAN"
-   liberty_dates: STRING "2013"
+   liberty_dates: STRING "2013-2014"
 
 feature {}
    input, out_mock, out_expect: REGULAR_FILE

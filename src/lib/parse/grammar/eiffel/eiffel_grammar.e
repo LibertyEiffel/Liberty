@@ -180,6 +180,7 @@ feature {}
                                                                                                 {FAST_ARRAY[STRING] << "KW [", "Actual+", "KW ]" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW ?" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
+                                                                                                {FAST_ARRAY[STRING] << "Agent_Signature", "Routine_Definition", "Actuals" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW Void" >> }, Void >> };
@@ -249,8 +250,11 @@ feature {}
                                                              "Feature_Definition*", {DESCENDING_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
                                                                                                                 {FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
                                                              "Feature_Definition", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Routine_Definition" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Manifest_Or_Type_Test" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW unique" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void >> };
                                                              "Signature", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
                                                                                                       {FAST_ARRAY[STRING] << "Feature_Name+", "KW :", "Type_Definition" >> }, Void;
