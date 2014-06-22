@@ -15,7 +15,7 @@ feature {}
          i: INTEGER
       do
          i := 42
-         (agent is do i := 3; assert(i = 3); end).call([])
+         (agent do i := 3; assert(i = 3); end).call([])
          assert(i = 42)
       end
 
