@@ -192,7 +192,15 @@ if (substage("debian packaging")) {
 
 //- 32bit debian packaging
 if (substage("32 bit debian packaging")) {
-   execute("ssh et32@et32 \"cd Liberty && git fetch origin && git checkout master && git merge --ff-only FETCH_HEAD && ./work/packaging/build_debian.sh\"", $ulimit_time = 3600);
+   $result = execute("ssh et32@et32 \"cd $LibertyBase && git fetch origin && git checkout master && git merge --ff-only FETCH_HEAD && $LibertyBase/work/packaging/build_debian.sh\"", $ulimit_time = 3600);
+   $result += execute("mkdir -p $LibertyBase/work/packaging/debs_i386");
+   $result += execute("scp et32@et32:$LibertyBase/work/packaging/debs/*i386* $LibertyBase/work/packaging/debs_i386/");
+   foreach (glob("$LibertyBase/work/packaging/debs_i386/*.deb") as $debfilename) {
+      $result += execute("reprepro --basedir $LibertyBase/website/apt includedeb snapshot " . $debfilename);
+   }
+
+   file_put_contents($stagedir ."/result.txt", $result);
+
    endsubstage();
 }
 
