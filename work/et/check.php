@@ -186,24 +186,37 @@ if (substage("eiffeldoc")) {
 
 //- debian packaging
 if (substage("debian packaging")) {
-   execute("$LibertyBase/work/packaging/build_debian.sh", $ulimit_time = 3600);
-   endsubstage();
-}
-
-//- 32bit debian packaging
-if (substage("32 bit debian packaging")) {
-   $result = execute("ssh et32@et32 \"cd $LibertyBase && git fetch origin && git checkout master && git merge --ff-only FETCH_HEAD && $LibertyBase/work/packaging/build_debian.sh\"", $ulimit_time = 3600);
-   $result += execute("mkdir -p $LibertyBase/work/packaging/debs_i386");
-   $result += execute("scp et32@et32:$LibertyBase/work/packaging/debs/*i386* $LibertyBase/work/packaging/debs_i386/");
-   foreach (glob("$LibertyBase/work/packaging/debs_i386/*.deb") as $debfilename) {
-      $result += execute("reprepro --basedir $LibertyBase/website/apt includedeb snapshot " . $debfilename);
+   $pkg_result = 0;
+   if (substage("source")) {
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh --debuild=-S", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
    }
-
-   file_put_contents($stagedir ."/result.txt", $result);
-
+   if (substage("amd64")) {
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh --debuild=-b", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   if (substage("i386")) {
+      $result = execute("ssh et32@et32 \"export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; cd $LibertyBase && git fetch origin && git checkout $gitBranch && git merge --ff-only FETCH_HEAD && $LibertyBase/work/packaging/build_debian.sh -debuild=-b\"", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_i386 && scp -p et32@et32:$LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_i386/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   if (substage("deploy")) {
+      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_*");
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -deploy", $ulimit_time = 3600);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   file_put_contents($stagedir ."/result.txt", $pkg_result);
    endsubstage();
 }
-
 
 function tutorialDir($dir) {
    global $stagedir;

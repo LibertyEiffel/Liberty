@@ -19,6 +19,7 @@ $timesHistory = "$out/times_history";
 $templates = "$out/html_templates";
 
 $dateFormat = "Y-m-d G:i:s O (T)";
+$debuildDateFormat = "Ymd.His";
 
 $publicBase = "";
 $img = "$publicBase/images";

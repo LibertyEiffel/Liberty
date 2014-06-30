@@ -1,5 +1,6 @@
 Package: liberty-eiffel-extra-libs
 Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: liberty-eiffel-tools (= #VERSION#), liberty-eiffel-core-libs (= #VERSION#)
 Description: liberty-eiffel extra libraries
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly

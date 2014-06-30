@@ -1,6 +1,6 @@
 Package: liberty-eiffel-all
 Architecture: all
-Depends: liberty-eiffel-core-libs (= #VERSION#), liberty-eiffel-extra-libs (= #VERSION#), liberty-eiffel-tools (= #VERSION#)
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberty-eiffel-core-libs (= #VERSION#), liberty-eiffel-extra-libs (= #VERSION#), liberty-eiffel-tools (= #VERSION#)
 Recommends: liberty-eiffel-core-doc (= #VERSION#), liberty-eiffel-extra-doc (= #VERSION#), liberty-eiffel-tools-doc (= #VERSION#)
 Suggests: liberty-eiffel-tools-src (= #VERSION#)
 Description: The Liberty Eiffel development suite
