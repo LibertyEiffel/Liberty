@@ -188,14 +188,14 @@ if (substage("eiffeldoc")) {
 if (substage("debian packaging")) {
    $pkg_result = 0;
    if (substage("source")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh --debuild=-S", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S", $ulimit_time = 3600);
       $result += execute("mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/");
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
       endsubstage();
    }
    if (substage("amd64")) {
-      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh --debuild=-b", $ulimit_time = 3600);
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b", $ulimit_time = 3600);
       $result += execute("mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/");
       file_put_contents($stagedir ."/result.txt", $result);
       $pkg_result += $result;
