@@ -6,8 +6,6 @@ status=0
 
 packages=$(dirname $(readlink -f $0))
 export LIBERTY_HOME=$(cd $packages/../..; pwd)
-test -d $packages/debs && rm -rf $packages/debs
-mkdir $packages/debs
 
 export clean=FALSE
 export codename=snapshot
@@ -50,6 +48,8 @@ while [ x$1 != x ]; do
 done
 
 if [ $deploy == FALSE ]; then
+    test -d $packages/debs && rm -rf $packages/debs
+    mkdir $packages/debs
 
     if [ -d $LIBERTY_HOME/target ] && [ $clean != TRUE ]; then
         export TARGET=$LIBERTY_HOME/target
@@ -177,6 +177,10 @@ cat Makefile~
     rm -rf $HOME
 
 else # deploy == TRUE
+    test -d $packages/debs || {
+        echo "Nothing to deploy!" >&2
+        exit 1
+    }
 
     echo
     echo "Generated packages:"
@@ -187,8 +191,11 @@ else # deploy == TRUE
     echo
     echo "Adding packages to repository"
     mkdir -p $LIBERTY_HOME/website/apt
-    for deb in $packages/debs/*.{deb,dsc}; do
-        reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb || status=$(($status + 1))
+    for deb in $packages/debs/*.deb; do
+        test -e $deb && reprepro --basedir $LIBERTY_HOME/website/apt includedeb $codename $deb || status=$(($status + 1))
+    done
+    for dsc in $packages/debs/*.dsc; do
+        test -e $dsc && reprepro --basedir $LIBERTY_HOME/website/apt includedsc $codename $dsc || status=$(($status + 1))
     done
 
 fi
