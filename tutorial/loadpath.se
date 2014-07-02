@@ -7,7 +7,7 @@
 ./external/loadpath.se
 ./external_tool
 ./gcd
-./hanoi
+./hanoi/loadpath.se
 ./io
 ./iterator/loadpath.se
 ./language
