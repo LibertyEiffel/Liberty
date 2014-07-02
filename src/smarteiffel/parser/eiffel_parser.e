@@ -4710,6 +4710,7 @@ feature {}
                expect_routine := True
             end
 
+            tmp_feature.add_synonym(inline_agent_no_name) -- just to keep the tmp_feature contract happy
             last_feature_declaration := a_routine(expect_routine)
             if last_feature_declaration /= Void then
                -- OK, really an inline agent; let's allocate resources (viz feature name)
@@ -4719,6 +4720,7 @@ feature {}
                inline_agent_counter.append_in(n)
                create fn.simple_feature_name(n, token_buffer.start_position)
                fn.set_is_frozen
+               tmp_feature.clear_synonyms
                tmp_feature.add_synonym(fn)
 
                rpos := current_position
@@ -4769,6 +4771,12 @@ feature {}
             closure_local_vars.remove_first
             closure_arguments.remove_first
          end
+      end
+
+   inline_agent_no_name: FEATURE_NAME is
+      once
+         create Result.unknown_position("__inline_agent__")
+         Result.set_is_frozen
       end
 
    a_external: FEATURE_TEXT

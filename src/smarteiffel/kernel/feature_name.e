@@ -335,7 +335,7 @@ feature {ANY}
          visitor.visit_feature_name(Current)
       end
 
-feature {CLASS_TEXT, LIVE_TYPE, FEATURE_NAME_VISITOR}
+feature {EIFFEL_PARSER, CLASS_TEXT, LIVE_TYPE, FEATURE_NAME_VISITOR}
    unknown_position (n: STRING)
       require
          n /= Void

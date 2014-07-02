@@ -193,8 +193,10 @@ feature {}
       end
 
    call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]])
+      local
+         t: TRAVERSABLE[FIXED_STRING]
       do
-         non_terminal_builder.call([nt.name, Void])
+         non_terminal_builder.call([nt.name, t])
       end
 
 feature {}

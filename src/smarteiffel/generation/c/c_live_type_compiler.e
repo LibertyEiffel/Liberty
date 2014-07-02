@@ -1101,7 +1101,7 @@ feature {}
          end
          -- (9) -------------------------- Exception handling :
          if run_feature.rescue_compound /= Void then
-            function_body.append(once "handle(SE_HANDLE_EXCEPTION_SET,NULL);if(SETJMP(rc.jb)!=0){/*rescue*/%N")
+            function_body.append(once "handle(SE_HANDLE_EXCEPTION_SET,NULL);%Nif(SETJMP(rc.jb)!=0){/*rescue*/%N")
             cpp.code_compiler.compile(run_feature.rescue_compound, run_feature.type_of_current)
             function_body.append(once "internal_exception_handler(Routine_failure);%N}%N")
          end
@@ -1328,7 +1328,7 @@ feature {}
          end
          -- (3) ---------------------------------- For rescue:
          if run_feature.rescue_compound /= Void then
-            function_body.append(once "rescue_context_top = rc.next;handle(SE_HANDLE_EXCEPTION_CLEAR,NULL);%N")
+            function_body.append(once "rescue_context_top = rc.next;%Nhandle(SE_HANDLE_EXCEPTION_CLEAR,NULL);%N")
          end
          -- (4) ------------------------------- Run Stack Pop:
          if ace.no_check then

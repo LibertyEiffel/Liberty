@@ -269,7 +269,7 @@ feature {}
    make_n (list: FAST_ARRAY[FEATURE_NAME])
          -- Note: also check for multiple occurrences.
       require
-         not list.is_empty
+         list.count > 1
       local
          i, j: INTEGER
       do

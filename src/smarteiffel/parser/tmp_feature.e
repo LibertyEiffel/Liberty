@@ -100,6 +100,13 @@ feature {EIFFEL_PARSER}
          names.add_last(a_name)
       end
 
+   clear_synonyms is
+      require
+         not names.is_empty
+      do
+         names.clear_count
+      end
+
    set_assigned (a: like assigned)
       require
          a /= Void

@@ -208,13 +208,13 @@ feature {}
             die_with_code(1)
          end
 
-         if not input.exts then
+         if not input.exists then
             std_error.put_line("File does not ext: #(1)" # input.path)
             die_with_code(1)
          end
 
          generate(input.name.substring(input.name.lower, input.name.upper - 3), input.read)
-         input.read.dconnect
+         input.read.disconnect
       end
 
    arguments: COMMAND_LINE_ARGUMENTS
