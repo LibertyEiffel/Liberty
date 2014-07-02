@@ -991,7 +991,7 @@ feature {}
       local
          list: ARRAY[TYPE_MARK]; i: INTEGER
       do
-         put_class(visited.resolve_in(context.type).class_text, False)
+         put_class_name(visited.class_text_name, False)
          html.put_character('[')
          from
             list := visited.generic_list
@@ -1355,8 +1355,8 @@ feature {}
                   html.put_entity(once "nbsp")
                   html.put_string(once "->")
                   html.put_entity(once "nbsp")
-                  arg.constraint.specialize_in(context.type)
-                  put_class(arg.constraint.to_static(context.type, False).class_text, True)
+                  --arg.constraint.specialize_in(context.type)
+                  put_type_mark(arg.constraint)
                end
                i := i + 1
             end

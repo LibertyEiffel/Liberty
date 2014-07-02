@@ -381,40 +381,83 @@ feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
          end
          if static = Void then
             t1 := new_static_type_in(new_type, False)
-            t2 := new_static_type_in(new_type, True)
-            static := [t1, t2]
-            static_memory.fast_put(static, new_type)
+            if t1 /= Void then
+               t2 := new_static_type_in(new_type, True)
+               if t2 /= Void then
+                  static := [t1, t2]
+                  static_memory.fast_put(static, new_type)
+               end
+            end
          end
       end
 
 feature {}
    new_static_type_in (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE
       local
-         i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
+         old_generic_count, generic_count, i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
          static_generic_type_mark: like Current
       do
          from
-            i := generic_list.lower
+            gl := generic_list
+            old_generic_count := -1
+         invariant
+            gl.count = generic_list.count
+         variant
+            gl.count - generic_count
          until
-            tm1 /= tm2 or else i > generic_list.upper
+            generic_count = gl.count or else generic_count = old_generic_count
          loop
-            tm1 := generic_list.item(i)
-            tm2 := tm1.to_static(new_type, allow_raw_class_name)
-            i := i + 1
+            old_generic_count := generic_count
+            generic_count := 0
+
+            from
+               i := gl.lower
+            until
+               tm1 /= tm2 or else i > gl.upper
+            loop
+               tm1 := gl.item(i)
+               tm2 := tm1.to_static(new_type, allow_raw_class_name)
+               if tm2 = Void then
+                  sedb_breakpoint
+                  tm2 := tm1
+               else
+                  generic_count := generic_count + 1
+               end
+               i := i + 1
+            end
+
+            if tm1 /= tm2 then
+               from
+                  if gl = generic_list then
+                     gl := gl.twin
+                  end
+                  gl.put(tm2, i - 1)
+               until
+                  i > gl.upper
+               loop
+                  tm1 := gl.item(i)
+                  tm2 := tm1.to_static(new_type, allow_raw_class_name)
+                  if tm2 = Void then
+                     sedb_breakpoint
+                  else
+                     gl.put(tm2, i)
+                     generic_count := generic_count + 1
+                  end
+                  i := i + 1
+               end
+            end
+
+            if generic_count <= old_generic_count then
+               sedb_breakpoint
+            end
          end
-         if tm1 = tm2 then
+
+         if generic_count < gl.count then
+            Result := Void
+         elseif gl = generic_list then
             -- Was a True static `generic_list':
             Result := smart_eiffel.get_type(Current, allow_raw_class_name)
          else
-            from
-               gl := generic_list.twin
-               gl.put(tm2, i - 1)
-            until
-               i > gl.upper
-            loop
-               gl.put(gl.item(i).to_static(new_type, allow_raw_class_name), i)
-               i := i + 1
-            end
             static_generic_type_mark := twin
             static_generic_type_mark.set_static_generic_list(gl)
             Result := smart_eiffel.get_type(static_generic_type_mark, allow_raw_class_name)

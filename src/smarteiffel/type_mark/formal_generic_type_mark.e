@@ -70,7 +70,9 @@ feature {ANY}
 
    to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       do
-         Result := new_type.generic_list.item(rank).canonical_type_mark
+         if new_type.generic_list /= Void then
+            Result := new_type.generic_list.item(rank).canonical_type_mark
+         end
       end
 
    signature_resolve_in (new_type: TYPE): TYPE

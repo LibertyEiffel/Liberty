@@ -178,6 +178,10 @@ feature {ANY}
       do
          if is_simple_feature_name then
             buffer.append(to_string)
+         elseif is_alias_name then
+            buffer.append(once "alias %"")
+            buffer.append(to_string)
+            buffer.extend('%"')
          elseif is_infix_name then
             buffer.append(once "infix %"")
             buffer.append(to_string)
@@ -189,6 +193,10 @@ feature {ANY}
             buffer.append(once "prefix %"")
             buffer.append(to_string)
             buffer.extend('%"')
+         end
+         if name_alias /= Void then
+            buffer.extend(' ')
+            name_alias.complete_name_in(buffer)
          end
       end
 
