@@ -49,8 +49,7 @@ static void set_error_(const char *file, int line) {
   default:
     net_last_error = net_error;
     net_last_error_number = err;
-    snprintf((char*)net_last_error, ERROR_BUFFER_SIZE, "%s:%s -- %s", file, line, strerror(err));
-    fprintf(stderr, "**** NET ERROR: %s\n", net_last_error);
+    snprintf((char*)net_last_error, ERROR_BUFFER_SIZE, "%s:%d -- %s", file, line, strerror(err));
   }
 }
 
@@ -109,7 +108,7 @@ EIF_BOOLEAN net_last_error_try_again(void) {
 #ifdef EINTR
      case EINTR:
 #endif
-	  return (EIF_BOOLEAN)1;
+          return (EIF_BOOLEAN)1;
      }
      return 0;
 }
@@ -145,8 +144,8 @@ static int init(void) {
       net_last_error = net_error;
       net_last_error_number = -1;
       sprintf((char*)net_last_error, "%s", "Could not find a suitable version (found %d.%d)",
-	      HIBYTE(winsock_data->wVersion),
-	      LOBYTE(winsock_data->wVersion));
+              HIBYTE(winsock_data->wVersion),
+              LOBYTE(winsock_data->wVersion));
       WSACleanup();
     }
     else {
@@ -447,7 +446,7 @@ void net_select(int count, SOCKET* afd, float timeout) {
       fd = afd[i];
       FD_SET(fd, &tmp_set);
       if (fd > maxfd) {
-	maxfd = fd;
+        maxfd = fd;
       }
     }
 
@@ -461,10 +460,10 @@ void net_select(int count, SOCKET* afd, float timeout) {
 
     if (r > 0) {
       for (i = 0; i < count; i++) {
-	fd = afd[i];
-	if (!FD_ISSET(fd, &tmp_set)) {
-	  afd[i] = INVALID_SOCKET;
-	}
+        fd = afd[i];
+        if (!FD_ISSET(fd, &tmp_set)) {
+          afd[i] = INVALID_SOCKET;
+        }
       }
     }
     else {
@@ -497,14 +496,14 @@ int net_read(SOCKET fd, int count, unsigned char* buffer, EIF_BOOLEAN sync) {
 #else
       result = init_recv(fd);
       if (result != SOCKET_ERROR) {
-	int r;
-	r = recv(result, (char*)buffer, count, 0);
-	result = clear_recv(result);
-	if (r == SOCKET_ERROR) {
-	  result = r;
-	} else if (result != SOCKET_ERROR) {
-	  result = r;
-	}
+        int r;
+        r = recv(result, (char*)buffer, count, 0);
+        result = clear_recv(result);
+        if (r == SOCKET_ERROR) {
+          result = r;
+        } else if (result != SOCKET_ERROR) {
+          result = r;
+        }
       }
 #endif
     }
@@ -531,12 +530,12 @@ int net_write(SOCKET fd, int count, unsigned char* buffer) {
       charcount = send(fd, (char*)buffer + result, count, 0);
 #endif
       if (charcount == SOCKET_ERROR) {
-	result = SOCKET_ERROR;
-	set_error();
+        result = SOCKET_ERROR;
+        set_error();
       }
       else {
-	count -= charcount;
-	result += charcount;
+        count -= charcount;
+        result += charcount;
       }
     }
   }
@@ -544,15 +543,15 @@ int net_write(SOCKET fd, int count, unsigned char* buffer) {
 }
 
 int net_set_int_option(SOCKET fd, int level, int optname, int opt_val){
-	int result = SOCKET_ERROR;
+        int result = SOCKET_ERROR;
 
-	if (init()) {
-		clear_error();
-		result = setsockopt(fd, level, optname, &opt_val, sizeof(opt_val)) ;
-		if ( result == SOCKET_ERROR )
-			set_error();
-	}
-	return result ;
+        if (init()) {
+                clear_error();
+                result = setsockopt(fd, level, optname, &opt_val, sizeof(opt_val)) ;
+                if ( result == SOCKET_ERROR )
+                        set_error();
+        }
+        return result ;
 }
 
 void net_accept(SOCKET server_fd, int* out_values, EIF_BOOLEAN sync) {
@@ -568,14 +567,14 @@ void net_accept(SOCKET server_fd, int* out_values, EIF_BOOLEAN sync) {
     }
     else {
       if (sync) {
-	 fd = control_socket_async(fd);
+         fd = control_socket_async(fd);
       }
       port = ntohs(tmp_addr.sin_port) ;
       ip = ntohl(tmp_addr.sin_addr.s_addr);
       a = (ip >> 24) & 0xff;
       b = (ip >> 16) & 0xff;
       c = (ip >>  8) & 0xff;
-      d =  ip	     & 0xff;
+      d =  ip        & 0xff;
     }
     out_values[0]=a;
     out_values[1]=b;
