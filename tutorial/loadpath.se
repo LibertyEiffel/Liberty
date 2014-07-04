@@ -13,7 +13,7 @@
 ./language
 ./memory
 ./ncurses
-./net
+./net/loadpath.se
 ./number
 ./parking
 
