@@ -2017,10 +2017,7 @@ tmp1/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T1058/*2pniiiii*/))));
 }
 else{
 _pov=/*RF6:no_pov_classes*/r283no_pov_classes()/*:RF6*/;
-/*RF3:put_string*/r126put_string((T126*)(/*RF6:echo*/r283echo()/*:RF6*/),ms283_208962844Abc283A);
-/*:RF3*//*RF3:put_string*/r126put_string((T126*)(/*RF6:echo*/r283echo()/*:RF6*/),(/*RF2:to_string*/(((T95*)/*`class_name'*/a1))->_to_string/*3pipip*//*:RF2*/));
-/*:RF3*//*RF3:put_string*/r126put_string((T126*)(/*RF6:echo*/r283echo()/*:RF6*/),ms283_817932306Abc283A);
-/*:RF3*/R=/*RF4:reference_at*/r1058reference_at(((T1058*)_pov),(/*RF2:hashed_name*/(((T95*)/*`class_name'*/a1))->_hashed_name/*3pipip*//*:RF2*/))/*:RF4*/;
+R=/*RF4:reference_at*/r1058reference_at(((T1058*)_pov),(/*RF2:hashed_name*/(((T95*)/*`class_name'*/a1))->_hashed_name/*3pipip*//*:RF2*/))/*:RF4*/;
 }
 if((R)==((void*)((void*)0))){
 _cluster=/*RF4:cluster_of*/r283cluster_of(/*`class_name'*/a1,_cluster)/*:RF4*/;
