@@ -743,9 +743,11 @@ feature {}
             end
          else
             pov := no_pov_classes
-            --|**** echo.put_string(once "*** Looking for ")
-            --|**** echo.put_string(class_name.to_string)
-            --|**** echo.put_string(once " without point of view!%N")
+            debug
+               echo.put_string(once "*** Looking for ")
+               echo.put_string(class_name.to_string)
+               echo.put_string(once " without point of view!%N")
+            end
             Result := pov.reference_at(class_name.hashed_name)
          end
          if Result = Void then
