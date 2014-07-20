@@ -1270,9 +1270,14 @@ don't start with a relevant keyword, the calculation is handed off to
                    (setq indent eif-matching-indent)))
                 ((looking-at eif-solitary-then-keyword)
                  ;; Handles case where "then" appears on a line by itself
-                 ;;   (Indented to level of the matching if, elseif or when)
-                 (eif-matching-kw eif-then-matching-keywords)
-                 (setq indent (+ eif-matching-indent (eif-then-indent-m))))
+                 (if (eif-matching-kw eif-then-matching-keywords t)
+                     ;; (Indented to level of the matching if, elseif or when)
+                     (setq indent (+ eif-matching-indent (eif-then-indent-m)))
+                   (if (save-excursion (eif-find-beginning-of-feature))
+                       ;; (Feature-level "then")
+                       (setq indent (eif-feature-level-kw-indent-m))
+                     (message "Non-matching 'then'")
+                     (setq indent (eif-calc-indent-non-keyword)))))
                 ((looking-at eif-invariant-keyword)
                  ;; Invariant keyword
                  ;;   (Indented to level of the matching from or feature)
@@ -1285,12 +1290,12 @@ don't start with a relevant keyword, the calculation is handed off to
                 ((looking-at eif-obsolete-keyword)
                  ;; Obsolete keyword
                  ;;   (Indented to the level of the matching from or feature)
-                 (if (string-match "is"
+                 (if (string-match "class"
                                    (eif-matching-kw eif-obsolete-matching-keywords))
-                     ;; Then - feature obsolete
-                     (setq indent (eif-feature-level-kw-indent-m))
-                   ;; Else - class obsolete
-                   (setq indent (eif-class-level-kw-indent-m))))
+                     ;; Then - class obsolete
+                     (setq indent (eif-class-level-kw-indent-m))
+                   ;; Else - feature obsolete
+                   (setq indent (eif-feature-level-kw-indent-m))))
                 ((looking-at eif-preprocessor-keywords-regexp)
                  (setq indent (eif-preprocessor-indent-m))))
         ;; No keyword.  Hand off...
@@ -1518,7 +1523,7 @@ multi-line assertion, and we return the required indentation."
       ;; This option should not occur
       (error "Could not find assertion tag"))))
 
-(defun eif-matching-kw (matching-keyword-regexp)
+(defun eif-matching-kw (matching-keyword-regexp &optional noerror)
   "Search backwards and return a keyword in MATCHING-KEYWORD-REGEXP.
 Also set the value of variable `eif-matching-indent' to the
 indentation of the keyword found.  If an `end' keyword occurs prior to
@@ -1531,7 +1536,7 @@ of `eif-check-keyword-indent'."
                                "[^a-z0-9A-Z_.]\\|[^a-z0-9A-Z_.]"
                                matching-keyword-regexp
                                "\\|" eif-once-non-indent-regexp))
-        (keyword ""))
+        (keyword nil))
     (save-excursion
       ;; Search backward for a matching keyword.
       ;; Note that eif-once-non-indent-regexp indicates we haven't
@@ -1554,7 +1559,9 @@ of `eif-check-keyword-indent'."
               (setq eif-matching-indent (eif-current-line-indent))))
         ;; Else no keyword was found.  I think this is an error
         (setq eif-matching-indent 0)
-        (message "No matching indent keyword was found"))
+        (if noerror
+            nil
+          (message "No matching indent keyword was found")))
       keyword)))
 
 (defun eif-line-contains-close-paren ()
