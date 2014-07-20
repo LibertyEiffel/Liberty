@@ -1828,6 +1828,20 @@ The region may be specified using optional arguments START and END."
   ad-do-it
   (modify-syntax-entry ?_  "w  "))
 
+(defadvice backward-kill-word (around eif-backward-kill-word activate)
+  "backward-kill-word, with the underscore not being a letter"
+  (interactive "p")
+  (modify-syntax-entry ?_  "_  ")
+  ad-do-it
+  (modify-syntax-entry ?_  "w  "))
+
+(defadvice kill-word (around eif-kill-word activate)
+  "kill-word, with the underscore not being a letter"
+  (interactive "p")
+  (modify-syntax-entry ?_  "_  ")
+  ad-do-it
+  (modify-syntax-entry ?_  "w  "))
+
 (defun eif-local-indent (amount)
   "Set the value of `eif-indent-increment' to AMOUNT buffer-locally."
   (interactive "NNumber of spaces for eif-indent-increment: ")
