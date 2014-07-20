@@ -1416,6 +1416,11 @@ feature {RUN_FEATURE_4}
          if visited.routine_body /= Void then
             cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
          end
+         if visited.routine_then /= Void then
+            function_body.append(once "/*then:RF4*/R=")
+            cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)
+            function_body.append(once ";%N")
+         end
          c_define_closing(visited)
          function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)
@@ -1446,9 +1451,18 @@ feature {RUN_FEATURE_6}
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
-            if visited.routine_body /= Void then
+            if visited.routine_body /= Void or else visited.routine_then /= Void then
                cpp.c_test_o_flag(visited)
-               cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
+               if visited.routine_body /= Void then
+                  cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
+               end
+               if visited.routine_then /= Void then
+                  function_body.append(once "/*then:RF6*/")
+                  once_routine_pool.unique_result_in(function_body, visited.base_feature)
+                  function_body.extend('=')
+                  cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)
+                  function_body.append(once ";%N")
+               end
                cpp.c_test_o_flag_recursion(visited)
             end
             c_define_closing(visited)

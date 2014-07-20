@@ -255,6 +255,11 @@ feature {}
                routine.routine_body.accept(Current)
                html.put_break
             end
+            if routine.routine_then /= Void then
+               put_keyword(once "then")
+               routine.routine_then.accept(Current)
+               html.put_break
+            end
          elseif extern ?:= visited then
             --|*** berk -- lost information type :-(
             extern ::= visited

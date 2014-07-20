@@ -28,6 +28,10 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+      do
+      end
+
    rescue_compound: INSTRUCTION
 
    ensure_assertion: ENSURE_ASSERTION

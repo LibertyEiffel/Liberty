@@ -4113,6 +4113,13 @@ feature {} -- ONCE_ROUTINE_POOL
          if rf.routine_body /= Void then
             code_compiler.compile(rf.routine_body, type)
          end
+         if rf.routine_then /= Void then
+            pending_c_function_body.append(once "/*then*/")
+            once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
+            pending_c_function_body.extend('=')
+            code_compiler.compile(rf.routine_then, type)
+            pending_c_function_body.append(once ";%N")
+         end
          --
          if rf.ensure_assertion /= Void then
             code_compiler.compile(rf.ensure_assertion, type)

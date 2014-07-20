@@ -30,6 +30,8 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+
    rescue_compound: INSTRUCTION
 
    ensure_assertion: ENSURE_ASSERTION
@@ -51,7 +53,12 @@ feature {ANY}
             Result := False
          else
             side_effect_free_flag := True
-            Result := (routine_body = Void or else routine_body.side_effect_free(type_of_current)) and then (local_vars = Void or else local_vars.side_effect_free(type_of_current)) and then (rescue_compound = Void or else rescue_compound.side_effect_free(type_of_current)) and then (require_assertion = Void or else require_assertion.side_effect_free(type_of_current)) and then (ensure_assertion = Void or else ensure_assertion.side_effect_free(type_of_current))
+            Result := (routine_body = Void or else routine_body.side_effect_free(type_of_current))
+               and then (routine_then = Void or else routine_then.side_effect_free(type_of_current))
+               and then (local_vars = Void or else local_vars.side_effect_free(type_of_current))
+               and then (rescue_compound = Void or else rescue_compound.side_effect_free(type_of_current))
+               and then (require_assertion = Void or else require_assertion.side_effect_free(type_of_current))
+               and then (ensure_assertion = Void or else ensure_assertion.side_effect_free(type_of_current))
             side_effect_free_flag := False
          end
       end
@@ -76,6 +83,10 @@ feature {}
          routine_body := base_feature.routine_body
          if routine_body /= Void then
             routine_body := routine_body.adapt_for(type_of_current)
+         end
+         routine_then := base_feature.routine_then
+         if routine_then /= Void then
+            routine_then := routine_then.adapt_for(type_of_current)
          end
          -- Adapt the assertions:
          if class_text.require_check and then base_feature.require_assertion /= Void then
@@ -108,12 +119,14 @@ feature {}
       local
          rb: like routine_body; rt: TYPE_MARK
       do
-         rb := routine_body
-         if rb = Void or else rb.side_effect_free(type_of_current) then
-            if local_vars = Void then
-               rt := result_type
-               if rt.is_reference then
-                  Result := True
+         if routine_then = Void then
+            rb := routine_body
+            if rb = Void or else rb.side_effect_free(type_of_current) then
+               if local_vars = Void then
+                  rt := result_type
+                  if rt.is_reference then
+                     Result := True
+                  end
                end
             end
          end
