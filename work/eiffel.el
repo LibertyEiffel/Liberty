@@ -476,7 +476,7 @@ of this list but it is handled separately in the function
 \[eif-matching-kw\].  See also `eif-control-flow-matching-keywords-regexp'.")
 
 ;; FIXME: This could be fixed or removed.
-(defconst eif-end-keyword-regexp "\\(^\\|[^a-z0-9_]\\)end\\($\\|[^a-z0-9_]\\)"
+(defconst eif-end-keyword-regexp "\\<end\\>"
   "The `end' keyword with context.")
 
 (defconst eif-end-matching-keywords
@@ -591,7 +591,7 @@ See `eif-indentation-keywords'.")
   "Regexp of Eiffel once keyword in context not affecting indentation.")
 
 (defconst eif-feature-indentation-keywords-regexp
-  (eif-word-anchor "convert\\|create\\|creation\\|feature")
+  (eif-word-anchor "convert\\|creation\\|feature")
   "Keywords which denote the presence of features following them.")
 
 (defconst eif-is-keyword-regexp "\\(.*[ \t)]\\)?is[ \t]*\\(--.*\\)?$"
@@ -682,9 +682,32 @@ Does not include `is'.  See `eif-all-keywords'.")
 ;; Factor out some important important regexps for use in
 ;; eif-{beginning,end}-of-feature.
 
+(defun eiffel-feature-re ()
+  "Liberty Eiffel feature declarations"
+  (let* ((argument-name "\\(?:[A-Za-z]*[a-z0-9_]+[A-Za-z0-9_]*\\)")
+         (feature-name (concat "\\(?:\\(infix\\|prefix\\)\\s-+\".+?\"\\|" argument-name "\\(?:\\s-+alias\\s-+\".+?\"\\)?\\)"))
+         (type-name "\\(?:like\\s-+\\sw+\\|[A-Z]\\sw*\\(?:\\[.+?\\]\\)?\\)"))
+    (concat
+     "\\(?:"
+     "\\(?:\\<frozen\\s-\\)?"
+     "\\s-*" feature-name "\\s-*,?"
+     "\\)+"
+     "\\(?:(" ; no \\s-* because it is matched above, if there is no trailing coma
+     "\\(?:"
+     "\\(?:\\s-*" argument-name "\\s-*,?\\)+?"
+     ":" type-name "\\s-*;?"
+     "\\)*?"
+     ")\\)?" ; no \\s-* because it is matched above, if there is no trailing semi-colon
+     "\\(?:\\s-*:\\s-*" type-name "\\)?"
+     "\\(?:\\s-*assign\\s-*\\sw+\\)?"
+     "\\(?:\\s-*is\\>\\)?")))
+
 (defconst eif-routine-begin-regexp
-  "\\([a-z][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\(assign\\s-*[a-zA-Z0-9_]+\\)?\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
+  ;"\\([a-z][a-zA-Z_0-9]*\\)\\s-*\\(([^)]*)\\)?\\s-*\\(:\\s-*[A-Z][A-Z0-9_]*\\(\\s-*\\[[^\\]]*\\]\\)?\\)?\\s-*\\(assign\\s-*[a-zA-Z0-9_]+\\)?\\s-*\\<is\\>\\s-*\\(--.*\\)?$"
+ (eiffel-feature-re)
   "Regexp matching the beginning of an Eiffel routine declaration.")
+
+(message (concat "Liberty Eiffel features: " eif-routine-begin-regexp))
 
 (defconst eif-attribute-regexp
   (concat "[a-z_][^-:\n]*:\\s-*"
@@ -722,6 +745,15 @@ This will also match local variable and parameter declarations.")
 ;; Specific to Liberty Eiffel
 ;;
 
+(defconst eiffel-keywords-feature
+  '("agent" "all" "and" "as" "assign" "attribute" "check" "class"
+    "convert" "create" "debug" "deferred" "do" "else" "elseif" "end" "ensure"
+    "expanded" "export" "external" "feature" "from" "if" "implies"
+    "indexing" "inherit" "insert" "inspect" "invariant" "is" "like"
+    "local" "loop" "not" "note" "obsolete" "old" "once" "only" "or"
+    "redefine" "rename" "require" "rescue" "retry" "select" "separate" "then"
+    "undefine" "until" "variant" "when" "xor"))
+
 (defconst eiffel-keywords
   '("agent" "alias" "all" "and" "as" "assign" "attribute" "check" "class"
     "convert" "create" "debug" "deferred" "do" "else" "elseif" "end" "ensure"
@@ -743,27 +775,6 @@ This will also match local variable and parameter declarations.")
           "\\|"
           "\\(?:[[{][ \t]*\n\\(?:.*?\n\\)*?[ \t]*[]}]\"\\)" ; newer multiline strings
           "\\)\""))
-
-(defun eiffel-feature-re ()
-  "Liberty Eiffel feature declarations"
-  (let ((feature-name "\\(?:\\(infix\\|prefix\\)\\s-+\".+?\"\\|\\sw+\\(?:\\s-+alias\\s-+\".+?\"\\)?\\)")
-        (type-name "\\(?:like\\s-+\\sw+\\|[A-Z]\\sw*\\(?:\\[.+?\\]\\)?\\)")
-        (argument-name "\\(?:\\sw+\\)"))
-    (concat
-     "^"
-     "\\(?:"
-     "\\(?:\\s-*frozen\\s-\\)?"
-     "\\s-*" feature-name "\\s-*,?"
-     "\\)+"
-     "\\(?:(" ; no \\s-* because it is matched above, if there is no trailing coma
-     "\\(?:"
-     "\\(?:\\s-*" argument-name "\\s-*,?\\)+?"
-     ":" type-name "\\s-*;?"
-     "\\)*?"
-     ")\\)?" ; no \\s-* because it is matched above, if there is no trailing semi-colon
-     "\\(?:\\s-*:\\s-*" type-name "\\)?")))
-
-(message (concat "Liberty Eiffel features: " (eiffel-feature-re)))
 
 (defun eiffel-wordstart-re ()
   "start of words"
@@ -1357,6 +1368,8 @@ line on that preceding line."
                         (not (save-excursion
                                (eif-find-beginning-of-feature)))))
                (setq indent (eif-feature-level-indent-m)))
+              ((looking-at eif-create-keyword-regexp)
+                   (setq indent (eif-current-line-indent)))
               ((and (looking-at eif-indentation-keywords-regexp)
                     (not (looking-at eif-once-non-indent-regexp)))
                (if (looking-at eif-end-on-current-line)
@@ -1765,27 +1778,27 @@ The region may be specified using optional arguments START and END."
                (beginning-of-line)))
             (t (error "Buffer must be in eiffel mode"))))))
 
-(defadvice forward-sexp (around eif-forward-sexp activate)
-  "Put cursor on line that closes the current opening syntactic construct.
-For example, if the point is on `from' then the point is placed on the
-matching `end'.  This also does matching of parens ala
-\\[forward-sexp]."
-  (interactive)
-  (cond ((looking-at "[[(\"'{]")
-         ad-do-it)
-        (t
-         (goto-char (eif-matching-line nil 'forward)))))
-
-(defadvice backward-sexp (around eif-backward-sexp activate)
-  "Put cursor on line that opens the current closing syntactic construct.
-For example, if the point is on the terminating `end' of an `if'
-statement, then the point is place on the opening `if'.  This also
-does matching of parens ala \\[backward-sexp]'."
-  (interactive)
-  (cond ((eif-peeking-backwards-at "[])\"'}]")
-         ad-do-it)
-        (t
-         (goto-char (eif-matching-line nil 'backward)))))
+;;(defadvice forward-sexp (around eif-forward-sexp activate)
+;;  "Put cursor on line that closes the current opening syntactic construct.
+;;For example, if the point is on `from' then the point is placed on the
+;;matching `end'.  This also does matching of parens ala
+;;\\[forward-sexp]."
+;;  (interactive)
+;;  (cond ((looking-at "[[(\"'{]")
+;;         ad-do-it)
+;;        (t
+;;         (goto-char (eif-matching-line nil 'forward)))))
+;;
+;;(defadvice backward-sexp (around eif-backward-sexp activate)
+;;  "Put cursor on line that opens the current closing syntactic construct.
+;;For example, if the point is on the terminating `end' of an `if'
+;;statement, then the point is place on the opening `if'.  This also
+;;does matching of parens ala \\[backward-sexp]'."
+;;  (interactive)
+;;  (cond ((eif-peeking-backwards-at "[])\"'}]")
+;;         ad-do-it)
+;;        (t
+;;         (goto-char (eif-matching-line nil 'backward)))))
 
 (defadvice forward-word (around eif-forward-word activate)
   "forward-word, with the underscore not being a letter"
@@ -2063,6 +2076,8 @@ This will always move backward, if possible."
                                 nil t)
         (progn
           (forward-char) ;; Skip the whitespace character matched above.
+          (if (looking-at (regexp-opt eiffel-keywords-feature))
+              (eif-find-beginning-of-feature)
           (if (not (or (looking-at (concat
                                     "\\(" eif-attribute-regexp
                                     "\\|" eif-constant-regexp "\\)"))))
@@ -2088,7 +2103,7 @@ This will always move backward, if possible."
                            (< candidate (point)))
                       (goto-char routine-begin)
                     (goto-char candidate)))
-              (goto-char candidate)))))))
+              (goto-char candidate))))))))
 
 (defun eif-beginning-of-feature (&optional arg)
   "Move backward to next feature beginning.
