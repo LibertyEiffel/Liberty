@@ -310,15 +310,17 @@ feature {}
       end
 
    make_effective_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; rt: like routine_then; c: like has_closures)
       do
          make_routine(fa, om, hc, ra, c)
          local_vars := lv
          routine_body := rb
+         routine_then := rt
          use_current_state := not_computed
       ensure
          local_vars = lv
          routine_body = rb
+         routine_then = rt
          has_closures = c
       end
 

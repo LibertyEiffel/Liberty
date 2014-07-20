@@ -255,7 +255,8 @@ feature {}
       end
 
    once_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                   ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
+                   ra: like require_assertion; local_vars: LOCAL_VAR_LIST
+                   routine_body: INSTRUCTION
                    aa: like assigned; idx: like index_list; c: like has_closures)
       require
          n /= Void
@@ -267,7 +268,7 @@ feature {}
          assigned := aa
          index_list := idx
          has_closures := c
-         create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, c)
+         create {ONCE_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, Void, c)
       ensure
          names = n
          arguments = a
@@ -279,7 +280,8 @@ feature {}
 
    once_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                   hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-                  routine_body: INSTRUCTION; idx: like index_list; c: like has_closures)
+                  routine_body: INSTRUCTION; routine_then: EXPRESSION
+                  idx: like index_list; c: like has_closures)
       require
          n /= Void
          rt /= Void
@@ -291,7 +293,7 @@ feature {}
          header_comment := hc
          index_list := idx
          has_closures := c
-         create {ONCE_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, c)
+         create {ONCE_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, routine_then, c)
       ensure
          names = n
          arguments = a
@@ -302,7 +304,8 @@ feature {}
       end
 
    e_procedure (n: like names; a: like arguments; om: like obsolete_mark; hc: like header_comment
-                ra: like require_assertion; local_vars: LOCAL_VAR_LIST; routine_body: INSTRUCTION
+                ra: like require_assertion; local_vars: LOCAL_VAR_LIST
+                routine_body: INSTRUCTION
                 aa: like assigned; idx: like index_list; c: like has_closures)
       require
          n /= Void
@@ -314,7 +317,7 @@ feature {}
          assigned := aa
          index_list := idx
          has_closures := c
-         create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, c)
+         create {E_PROCEDURE} anonymous_feature.make(a, om, hc, ra, local_vars, routine_body, Void, c)
       ensure
          names = n
          arguments = a
@@ -326,7 +329,8 @@ feature {}
 
    e_function (n: like names; a: like arguments; rt: like result_type; om: like obsolete_mark
                hc: like header_comment; ra: like require_assertion; local_vars: LOCAL_VAR_LIST
-               routine_body: INSTRUCTION; idx: like index_list; c: like has_closures)
+               routine_body: INSTRUCTION; routine_then: EXPRESSION
+               idx: like index_list; c: like has_closures)
       require
          n /= Void
          rt /= Void
@@ -338,7 +342,7 @@ feature {}
          header_comment := hc
          index_list := idx
          has_closures := c
-         create {E_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, c)
+         create {E_FUNCTION} anonymous_feature.make(a, rt, om, hc, ra, local_vars, routine_body, routine_then, c)
       ensure
          names = n
          arguments = a

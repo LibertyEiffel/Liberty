@@ -36,6 +36,8 @@ feature {EIFFEL_PARSER}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+
    names: FAST_ARRAY[FEATURE_NAME]
 
    assigned: FEATURE_NAME
@@ -61,6 +63,7 @@ feature {EIFFEL_PARSER}
          require_assertion := Void
          local_vars := Void
          routine_body := Void
+         routine_then := Void
          has_closures := False
          busy := True
       ensure
@@ -71,6 +74,7 @@ feature {EIFFEL_PARSER}
          require_assertion = Void
          local_vars = Void
          routine_body = Void
+         routine_then = Void
          names.is_empty
          assigned = Void
          not has_closures
@@ -155,6 +159,11 @@ feature {EIFFEL_PARSER}
    set_routine_body (rb: like routine_body)
       do
          routine_body := rb
+      end
+
+   set_routine_then (rt: like routine_then)
+      do
+         routine_then := rt
       end
 
    as_writable_attribute: FEATURE_TEXT
@@ -344,26 +353,36 @@ feature {EIFFEL_PARSER}
    as_once_routine: FEATURE_TEXT
       do
          if type = Void then
+            if routine_then /= Void then
+               error_handler.add_position(routine_then.start_position)
+               error_handler.append(once "A procedure cannot have an 'else'.")
+               error_handler.print_as_fatal_error
+            end
             create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list, has_closures)
+            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, routine_then, index_list, has_closures)
          end
       end
 
    as_procedure_or_function: FEATURE_TEXT
       do
          if type = Void then
+            if routine_then /= Void then
+               error_handler.add_position(routine_then.start_position)
+               error_handler.append(once "A procedure cannot have an 'else'.")
+               error_handler.print_as_fatal_error
+            end
             create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, index_list, has_closures)
+            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, routine_then, index_list, has_closures)
          end
       end
 

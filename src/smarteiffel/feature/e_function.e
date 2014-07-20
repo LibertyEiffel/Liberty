@@ -351,13 +351,13 @@ feature {E_FUNCTION}
       end
 
 feature {}
-   make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
+   make (fa: like arguments; rty: like result_type; om: like obsolete_mark; hc: like header_comment
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; rt: like routine_then; c: like has_closures)
       require
-         rt /= Void
+         rty /= Void
       do
-         make_effective_routine(fa, om, hc, ra, lv, rb, c)
-         result_type := rt
+         make_effective_routine(fa, om, hc, ra, lv, rb, rt, c)
+         result_type := rty
       end
 
    try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE

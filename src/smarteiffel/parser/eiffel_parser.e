@@ -6171,8 +6171,8 @@ feature {}
    a_routine_body (expected: BOOLEAN): FEATURE_TEXT
          --  ++ routine_body -> "deferred" |
          --  ++                 "external" external |
-         --  ++                 "do" compound |
-         --  ++                 "once" compound
+         --  ++                 "do" compound ( "then" expression )? |
+         --  ++                 "once" compound ( "then" expression )? |
          --  ++                 "attribute"
          --  ++
       local
@@ -6188,15 +6188,42 @@ feature {}
             Result := a_external
          elseif a_keyword(fz_do) then
             tmp_feature.set_routine_body(a_compound1)
+            if a_keyword(fz_then) then
+               if a_expression then
+                  tmp_feature.set_routine_then(last_expression)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append("Expression expected.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             Result := tmp_feature.as_procedure_or_function
          elseif a_keyword(fz_once) then
             tmp_feature.set_routine_body(a_compound1)
+            if a_keyword(fz_then) then
+               if a_expression then
+                  tmp_feature.set_routine_then(last_expression)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append("Expression expected.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             Result := tmp_feature.as_once_routine
+         elseif a_keyword(fz_then) then
+            if a_expression then
+               tmp_feature.set_routine_then(last_expression)
+            else
+               error_handler.add_position(current_position)
+               error_handler.append("Expression expected.")
+               error_handler.print_as_fatal_error
+            end
+            Result := tmp_feature.as_procedure_or_function
          elseif a_keyword(once "attribute") then
             Result := tmp_feature.as_writable_attribute
          elseif expected then
             error_handler.add_position(current_position)
-            error_handler.append(once "Routine body expected.")
+            error_handler.append("Routine body expected.")
             error_handler.print_as_fatal_error
          else
             go_back_at(l, c)

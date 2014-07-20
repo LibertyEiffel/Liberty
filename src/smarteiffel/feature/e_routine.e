@@ -28,6 +28,8 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+
    has_closures: BOOLEAN
 
    pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
@@ -162,6 +164,9 @@ feature {}
    pretty_print_rescue (indent_level: INTEGER)
       deferred
       end
+
+invariant
+   routine_then /= Void implies result_type /= Void
 
 end -- class E_ROUTINE
 --

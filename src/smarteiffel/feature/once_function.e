@@ -5,7 +5,7 @@ class ONCE_FUNCTION
 
 inherit
    ONCE_ROUTINE
-      redefine specialize_signature_in, specialize_signature_thru, hook_collect, hook_for,
+      redefine specialize_signature_in, specialize_signature_thru, hook_collect,
          inline_expression_0
       end
 
@@ -112,32 +112,17 @@ feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
          end
       end
 
-   hook_for (lt: LIVE_TYPE)
-      do
-         --|*** rf: RUN_FEATURE; t: TYPE
-         --| Make live STD_OUTPUT.flush
-         --|*** *** Since the modification of Cyril about io, std_output is no
-         --|    longer a once function !
-         --|*** (Dom. June 13th 2004) ***
-         --|*** if class_text.name.to_string = as_general and then first_name.to_string = as_std_output then
-         --|*** t := result_type.resolve_in(lt.type)
-         --|*** rf := t.live_type.at(t.name_from_string(as_flush))
-         --|*** check rf /= Void end
-         --|*** once_routine_pool.set_std_output_flush_atexit(rf)
-         --|*** end
-      end
-
 feature {}
-   make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body; c: like has_closures)
+   make (fa: like arguments; rty: like result_type; om: like obsolete_mark; hc: like header_comment
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; rt: like routine_then; c: like has_closures)
       require
-         rt /= Void
+         rty /= Void
       do
-         if not rt.is_static then
-            smart_eiffel.vffd7_fatal_error(rt.start_position)
+         if not rty.is_static then
+            smart_eiffel.vffd7_fatal_error(rty.start_position)
          end
-         make_effective_routine(fa, om, hc, ra, lv, rb, c)
-         result_type := rt
+         make_effective_routine(fa, om, hc, ra, lv, rb, rt, c)
+         result_type := rty
       end
 
    try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
