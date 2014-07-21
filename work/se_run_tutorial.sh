@@ -5,7 +5,7 @@ status=0
 travis_fold() {
     local dir="$1"
     d=${dir##*/tutorial}
-    echo tutorial${d//\//.}
+    echo tutorial${d//[^[:alnum:]]/.}
 }
 
 file=$(mktemp)
