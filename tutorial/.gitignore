@@ -3,4 +3,5 @@
 *.out
 *.cpp
 *.exe
+*.make
 log
