@@ -1,30 +1,47 @@
 #!/usr/bin/env bash
 
-status=0
-
 travis_fold() {
-    local dir="$1"
-    d=${dir##*/tutorial}
-    echo tutorial${d//[^[:alnum:]]/.}
+    local op=$1
+    local title="$2"
+    echo travis_fold:$op:${title//[^[:alnum:]]/.}
 }
 
-file=$(mktemp)
 workdir=$(dirname $(readlink -f $0))
-find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u >$file
-dir=""
-while read d; do
-    if [[ "$d" != "$dir" ]]; then
-        if [[ -n "$dir" ]]; then
-            echo travis_fold:end:$(travis_fold "$dir")
-        fi
-        dir="$d"
-        echo travis_fold:start:$(travis_fold "$dir")
-    fi
-    echo tutorial${dir##*/tutorial}
-    for e in "$d"/*.e; do
-        $workdir/se_run.sh "$e" || status=1
-    done
-done <$file
-echo travis_fold:end:$(travis_fold "$dir")
 
-exit $status
+declare -a fail=()
+find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u | while read dir; do
+    title=${dir##$(dirname $workdir)/}
+    travis_fold start $title
+
+    s=0
+    echo " >> $title"
+    for e in "$dir"/*.e; do
+        $workdir/se_run.sh "$e" || s=$(($s + 1))
+    done
+
+    case $s in
+        0)
+            true
+            ;;
+        1)
+            fail+=("$title: 1 failure")
+            ;;
+        *)
+            fail+=("$title: $s failures")
+            ;;
+    esac
+
+    travis_fold end $title
+done
+
+if [ ${#fail[@]} -gt 0 ]; then
+    echo
+    echo '**** FAILURES:'
+    for f in "${fail[@]}"; do
+        echo "  - $f"
+    done
+    echo
+    exit 1
+fi
+
+exit 0

@@ -8,23 +8,30 @@ sh=${e%.e}.sh
 cmd=${e%.e}.cmd
 out=${e%.e}.out
 
-echo $1
+status=0
 if [ -x $cmd ]; then
-    ./$cmd || exit 1
+    ./$cmd >$out 2>&1 || status=$?
     test -x ${e%.e} && mv ${e%.e} $exe
 else
-    se c -boost -no_split -o $exe $e || exit 1
+    se c -boost -no_split -O1 -clean -o $exe $e >$out 2>&1 || status=$?
 fi
+
+test $status -ne 0 && {
+    echo -n "**** FAILED: compile $exe"
+    test -x $cmd && echo -n " cmd"
+    echo " status=$status"
+    cat $out
+    exit 1
+}
 
 export PIDFILE=$(mktemp)
 
 (
     ulimit -t 60 2>/dev/null
-    test -r $in&& {
-        echo '**** Using input:' $in
+    test -r $in && {
         exec <$in
     }
-    ./$exe >$out
+    ./$exe >$out 2>&1
     ret=$?
     rm -f $PIDFILE
     exit $ret
@@ -35,7 +42,6 @@ echo $exe_pid > $PIDFILE
 
 ssh_pid=""
 test -x $sh && {
-    echo '**** Calling shell script:' $sh
     ./$sh $exe_pid &
     sh_pid=$!
 }
@@ -63,6 +69,11 @@ status=$?
 
 rm -f $PIDFILE
 
-test $status -ne 0 && echo 'status='$status
-
-exit $status
+test $status -ne 0 && {
+    echo -n "**** FAILED: run $exe"
+    test -r $in && echo -n " in"
+    test -x $sh && echo -n " sh"
+    echo " status=$status"
+    cat $out
+    exit 1
+}
