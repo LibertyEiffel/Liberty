@@ -1,6 +1,6 @@
 class COMPILER_LIKE
-   -- This example illustrats how to make a tool that works like compile_to_c or compile_to_jvm.
-   -- It loads the root class and root feature, and all dependencies they have.
+   -- This example illustrates how to make a tool that works like compile_to_c or compile_to_jvm.
+   -- It loads the root class and root feature, and all the dependencies they have.
    -- It then lists the types that the system uses.
 
 inherit

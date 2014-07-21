@@ -1,2 +1,6 @@
 *.[ch]
 *.id
+*.out
+*.cpp
+*.exe
+log

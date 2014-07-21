@@ -32,7 +32,7 @@ feature {ANY}
          -- ("foo%N"), the former should overwrite the latter.
 
          from
-            i := 100_000
+            i := 10_000
          until
             i = 0
          loop
