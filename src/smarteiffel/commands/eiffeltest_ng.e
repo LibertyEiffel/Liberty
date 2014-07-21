@@ -37,17 +37,16 @@ feature {}
 
    force_flag: BOOLEAN
 
+   jobs: INTEGER
+
    main
       local
          conductor: EIFFELTEST_CLIENT_CONDUCTOR
-         jobs: INTEGER
       do
          log.info.put_line(once "Starting eiffeltest for directory %"#(1)%"." # directory_path)
-
          if version_flag or else help_flag then
             -- We just finish here.
          else
-            jobs := (system_tools.config.jobs + 1).to_real_32.sqrt.floor.force_to_integer_32
             create conductor.make(jobs, force_flag, directory_path)
             conductor.run
             if not conductor.success then
@@ -61,25 +60,32 @@ feature {}
          log_conf: LOG_CONFIGURATION
          conf: STRING_INPUT_STREAM
          bd: BASIC_DIRECTORY; conf_file_name: STRING
+         conf_string: ABSTRACT_STRING
       do
+         jobs := (system_tools.config.jobs + 1).to_real_32.sqrt.floor.force_to_integer_32
          parse_arguments
          bd.compute_file_path_with(bd.current_working_directory, "eiffeltest_ng.log")
          conf_file_name := bd.last_entry.twin
-         create conf.from_string("[
+         conf_string := "[
          log configuration
          root #(1)
          output
-            default
+            default is
                file "#(3)"
                rotated each day keeping 5
             end
          logger
-            #(1)
+            #(1) is
                output default
                level #(2)
             end
          end
-         ]" # generating_type # level # conf_file_name)
+         ]" # generating_type # level # conf_file_name
+         debug
+            io.put_line(conf_string)
+         end
+         io.put_line(once "Master log: #(1)" # conf_file_name)
+         create conf.from_string(conf_string)
          log_conf.load(conf, Void, Void, agent main)
       end
 
@@ -110,6 +116,14 @@ feature {}
                end
             elseif flag_match(once "force", arg) then
                force_flag := True
+            elseif flag_match(once "servers", arg) then
+               i := i + 1
+               if i > argument_count or else not argument(i).is_integer then
+                  echo.w_put_string(once "-servers must be followed by the number of servers to start.%N")
+                  die_with_code(exit_failure_code)
+               else
+                  jobs := argument(i).to_integer
+               end
             elseif file_tools.is_directory(arg) then
                if directory_path /= Void then
                   echo.w_put_string(once "se test (eiffeltest): must give only one directory as argument.%N")

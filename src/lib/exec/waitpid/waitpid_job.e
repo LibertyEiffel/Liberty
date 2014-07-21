@@ -112,7 +112,7 @@ feature {LOOP_ITEM}
          debug ("waitpid")
             log.trace.put_line(once "waitpid prepare: triggered=#(1) armed=#(2) running=#(3) -- timeout=#(4)" # triggered.out # armed.out # running.out # timeout.out)
          end
-         if triggered or armed or running then
+         if triggered or else armed or else running then
             running := True
             triggered := False
             if timeout >= 0 then

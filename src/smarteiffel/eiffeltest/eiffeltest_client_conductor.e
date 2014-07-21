@@ -57,7 +57,11 @@ feature {}
             i > servers_count
          loop
             port := 17380 + i
-            log.info.put_line(once "Starting server ##(1) on port #(2)" # i.out # port.out)
+            log.info.put_string(once "Starting server #")
+            log.info.put_integer(i)
+            log.info.put_string(once " on port ")
+            log.info.put_integer(port)
+            log.info.put_new_line
             create server.make(port, commands, agent on_reply(port, ?, ?, ?), agent on_done(port, ?, ?))
             waitpid_job.set_action(port.out, agent on_killed(server, ?, ?), Void)
             test_results.add(create {EIFFELTEST_CLIENT_RESULT}.make, port)
@@ -87,6 +91,8 @@ feature {}
             test_results.at(actual_port).set_done(status)
             if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
                waitpid_job.disarm
+               waitpid_job.stop
+               stack.break
             end
          else
             log.error.put_line(once "Unexpected port mismatch #(1) /= #(2)" # expected_port.out # actual_port.out)
@@ -105,6 +111,8 @@ feature {}
             end
             if test_results.for_all_items(agent {EIFFELTEST_CLIENT_RESULT}.done) then
                waitpid_job.disarm
+               waitpid_job.stop
+               stack.break
             end
          end
       end
@@ -124,6 +132,7 @@ feature {}
          subdirectories: FAST_ARRAY[FIXED_STRING]
          i: INTEGER
       do
+         log.trace.put_line(once "Scanning directory: #(1)" # root)
          bd.connect_to(root)
          if not bd.is_connected then
             logger.put_line(once "**** Error: could not connect to #(1)" # root)
@@ -134,7 +143,7 @@ feature {}
                bd.compute_file_path_with(eiffeltest_path, "log.new")
                if ft.file_exists(bd.last_entry) then
                   if force then
-                     log.warning.put_line(once "#(1) exists, removing it" # bd.last_entry)
+                     log.info.put_line(once "#(1) exists, removing it" # bd.last_entry)
                      ft.delete(bd.last_entry)
                   else
                      log.error.put_line(once "#(1) already exists, please remove or rename it (e.g. to log.ref); or use -force" # bd.last_entry)
@@ -223,6 +232,8 @@ feature {}
 
 feature {}
    make (a_servers_count: like servers_count; force: BOOLEAN; root: STRING)
+      require
+         a_servers_count > 0
       do
          servers_count := a_servers_count
          create commands.make
