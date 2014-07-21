@@ -8,14 +8,20 @@ create {ANY}
 
 feature {ANY}
    make
+      local
+         arg: STRING
       do
-         if argument_count /= 1 or else not argument(1).is_integer then
-            io.put_string("Usage: ")
-            io.put_string(argument(0))
-            io.put_string(" <Integer_value>%N")
+         if argument_count = 0 then
+            std_input.read_line
+            arg := std_input.last_string
+         elseif argument_count = 1 then
+            arg := argument(1)
+         end
+         if not arg.is_integer then
+            std_error.put_line("Expecting an integer")
             die_with_code(exit_failure_code)
          end
-         io.put_integer(fibonacci(argument(1).to_integer))
+         io.put_integer(fibonacci(arg.to_integer))
          io.put_new_line
       end
 
