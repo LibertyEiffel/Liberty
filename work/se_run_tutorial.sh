@@ -20,6 +20,7 @@ while read d; do
         dir="$d"
         echo travis_fold:start:$(travis_fold "$dir")
     fi
+    echo tutorial${dir##*/tutorial}
     for e in "$d"/*.e; do
         $workdir/se_run.sh "$e" || status=1
     done

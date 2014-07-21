@@ -6,10 +6,12 @@ exe=${e%.e}.exe
 in=${e%.e}.in
 sh=${e%.e}.sh
 cmd=${e%.e}.cmd
+out=${e%.e}.out
 
 echo $1
 if [ -x $cmd ]; then
     ./$cmd || exit 1
+    test -x ${e%.e} && mv ${e%.e} $exe
 else
     se c -boost -no_split -o $exe $e || exit 1
 fi
@@ -22,7 +24,7 @@ export PIDFILE=$(mktemp)
         echo '**** Using input:' $in
         exec <$in
     }
-    ./$exe
+    ./$exe >$out
     ret=$?
     rm -f $PIDFILE
     exit $ret
