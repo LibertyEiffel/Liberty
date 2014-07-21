@@ -83,3 +83,5 @@ test $status -ne 0 && {
     cat $out
     exit 1
 }
+
+exit 0

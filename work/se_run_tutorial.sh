@@ -8,18 +8,21 @@ travis_fold() {
 
 workdir=$(dirname $(readlink -f $0))
 
+file=$(mktemp)
+find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u | head -n 2 >$file
+
 declare -a fail=()
-find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u | while read dir; do
+while read dir; do
     title=${dir##$(dirname $workdir)/}
     travis_fold start $title
 
-    s=0
+    st=0
     echo " >> $title"
     for e in "$dir"/*.e; do
-        $workdir/se_run.sh "$e" || s=$(($s + 1))
+        $workdir/se_run.sh "$e" || st=$(($st + 1))
     done
 
-    case $s in
+    case $st in
         0)
             true
             ;;
@@ -32,7 +35,7 @@ find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirn
     esac
 
     travis_fold end $title
-done
+done <$file
 
 if [ ${#fail[@]} -gt 0 ]; then
     echo
