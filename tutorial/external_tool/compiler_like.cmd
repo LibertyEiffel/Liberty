@@ -1,1 +1,1 @@
-se c -boost -clean -no_gc compiler_like
+se c compiler_like -boost -no_gc
