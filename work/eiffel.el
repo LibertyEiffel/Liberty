@@ -1785,27 +1785,19 @@ The region may be specified using optional arguments START and END."
                (beginning-of-line)))
             (t (error "Buffer must be in eiffel mode"))))))
 
-;;(defadvice forward-sexp (around eif-forward-sexp activate)
-;;  "Put cursor on line that closes the current opening syntactic construct.
-;;For example, if the point is on `from' then the point is placed on the
-;;matching `end'.  This also does matching of parens ala
-;;\\[forward-sexp]."
-;;  (interactive)
-;;  (cond ((looking-at "[[(\"'{]")
-;;         ad-do-it)
-;;        (t
-;;         (goto-char (eif-matching-line nil 'forward)))))
-;;
-;;(defadvice backward-sexp (around eif-backward-sexp activate)
-;;  "Put cursor on line that opens the current closing syntactic construct.
-;;For example, if the point is on the terminating `end' of an `if'
-;;statement, then the point is place on the opening `if'.  This also
-;;does matching of parens ala \\[backward-sexp]'."
-;;  (interactive)
-;;  (cond ((eif-peeking-backwards-at "[])\"'}]")
-;;         ad-do-it)
-;;        (t
-;;         (goto-char (eif-matching-line nil 'backward)))))
+(defadvice isearch-yank-word (around eif-isearch-yank-word activate)
+  "isearch-yank-word, with the underscore not being a letter"
+  (interactive)
+  (modify-syntax-entry ?_  "_  ")
+  ad-do-it
+  (modify-syntax-entry ?_  "w  "))
+
+(defadvice isearch-yank-word-or-char (around eif-isearch-yank-word-or-char activate)
+  "isearch-yank-word-or-char, with the underscore not being a letter"
+  (interactive)
+  (modify-syntax-entry ?_  "_  ")
+  ad-do-it
+  (modify-syntax-entry ?_  "w  "))
 
 (defadvice forward-word (around eif-forward-word activate)
   "forward-word, with the underscore not being a letter"
