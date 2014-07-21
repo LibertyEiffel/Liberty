@@ -7,11 +7,13 @@ in=${e%.e}.in
 sh=${e%.e}.sh
 cmd=${e%.e}.cmd
 out=${e%.e}.out
+arg=${e%.e}.arg
 
 status=0
 if [ -x $cmd ]; then
     ./$cmd >$out 2>&1 || status=$?
     test -x ${e%.e} && mv ${e%.e} $exe
+    test -x a.out && mv a.out $exe
 else
     se c -boost -no_split -O1 -clean -o $exe $e >$out 2>&1 || status=$?
 fi
@@ -31,7 +33,11 @@ export PIDFILE=$(mktemp)
     test -r $in && {
         exec <$in
     }
-    ./$exe >$out 2>&1
+    if [ -r $arg ]; then
+        ./$exe $(< $arg) >$out 2>&1
+    else
+        ./$exe >$out 2>&1
+    fi
     ret=$?
     rm -f $PIDFILE
     exit $ret
