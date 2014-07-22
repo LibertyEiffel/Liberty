@@ -30,7 +30,7 @@ while read dir; do
             fail+=("$title: 1 failure")
             ;;
         *)
-            fail+=("$title: $s failures")
+            fail+=("$title: $st failures")
             ;;
     esac
 
