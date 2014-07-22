@@ -12,8 +12,16 @@ arg=${e%.e}.arg
 status=0
 if [ -x $cmd ]; then
     ./$cmd >$out 2>&1 || status=$?
-    test -x ${e%.e} && mv ${e%.e} $exe
-    test -x a.out && mv a.out $exe
+    if [ -x $exe ]; then
+        true
+    elif [ -x ${e%.e} ]; then
+        mv ${e%.e} $exe
+    elif [ -x a.out ]; then
+        mv a.out $exe
+    else
+        echo "**** $exe not found!" >> $out
+        status=1
+    fi
 else
     se c -boost -no_split -O1 -clean -o $exe $e >$out 2>&1 || status=$?
 fi

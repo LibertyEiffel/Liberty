@@ -1,1 +1,1 @@
-se c -sedb example3
+se c -sedb -no_check example3
