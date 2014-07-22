@@ -9,7 +9,7 @@ travis_fold() {
 workdir=$(dirname $(readlink -f $0))
 
 file=$(mktemp)
-find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u | head -n 2 >$file
+find $(dirname $workdir)/tutorial/ -name 'aux*' -prune -o -name '*.e' -exec dirname {} \; | sort -u >$file
 
 declare -a fail=()
 while read dir; do
