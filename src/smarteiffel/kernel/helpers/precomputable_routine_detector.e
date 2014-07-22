@@ -60,6 +60,9 @@ feature {E_PROCEDURE}
             visited.local_vars.accept(Current)
          end
          if precomputable and then visited.routine_body /= Void then
+            check
+               visited.routine_then = Void
+            end
             visited.routine_body.accept(Current)
          end
          if precomputable and then visited.rescue_compound /= Void then
@@ -73,8 +76,16 @@ feature {E_FUNCTION}
          if visited.local_vars /= Void then
             visited.local_vars.accept(Current)
          end
-         if precomputable and then visited.routine_body /= Void then
-            visited.routine_body.accept(Current)
+         if precomputable then
+            if visited.routine_body /= Void then
+               if visited.routine_then /= Void then
+                  precomputable := False
+               else
+                  visited.routine_body.accept(Current)
+               end
+            elseif visited.routine_then /= Void then
+               visited.routine_then.accept(Current)
+            end
          end
          if precomputable and then visited.rescue_compound /= Void then
             precomputable := False
@@ -1174,7 +1185,7 @@ feature {UNUSED_EXPRESSION}
       end
 
 feature {ONCE_ROUTINE_POOL}
-   visit (cdt: like current_dynamic_type; once_body: INSTRUCTION): BOOLEAN
+   visit_once_body (cdt: like current_dynamic_type; once_body: INSTRUCTION): BOOLEAN
       require
          cdt /= Void
          once_body /= Void
@@ -1184,6 +1195,19 @@ feature {ONCE_ROUTINE_POOL}
          type_stack.add_last(cdt)
          anonymous_feature_stack.clear_count
          once_body.accept(Current)
+         Result := precomputable
+      end
+
+   visit_once_then (cdt: like current_dynamic_type; once_then: EXPRESSION): BOOLEAN
+      require
+         cdt /= Void
+         once_then /= Void
+      do
+         precomputable := True
+         type_stack.clear_count
+         type_stack.add_last(cdt)
+         anonymous_feature_stack.clear_count
+         once_then.accept(Current)
          Result := precomputable
       end
 

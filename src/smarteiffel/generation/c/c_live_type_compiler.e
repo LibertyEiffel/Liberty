@@ -1417,7 +1417,7 @@ feature {RUN_FEATURE_4}
             cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
          end
          if visited.routine_then /= Void then
-            function_body.append(once "/*then:RF4*/R=")
+            function_body.append(once "/*then*/R=")
             cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)
             function_body.append(once ";%N")
          end
@@ -1457,7 +1457,7 @@ feature {RUN_FEATURE_6}
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
                end
                if visited.routine_then /= Void then
-                  function_body.append(once "/*then:RF6*/")
+                  function_body.append(once "/*then*/")
                   once_routine_pool.unique_result_in(function_body, visited.base_feature)
                   function_body.extend('=')
                   cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)

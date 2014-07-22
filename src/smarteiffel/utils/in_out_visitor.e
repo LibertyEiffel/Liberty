@@ -1023,6 +1023,9 @@ feature {}
          if visited.routine_body /= Void then
             visited.routine_body.accept(Current)
          end
+         if visited.routine_then /= Void then
+            visited.routine_then.accept(Current)
+         end
          if visited.rescue_compound /= Void then
             visited.rescue_compound.accept(Current)
          end

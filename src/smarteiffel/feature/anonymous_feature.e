@@ -158,7 +158,7 @@ feature {ANY}
       do
          if {EFFECTIVE_ROUTINE} ?:= Current then
             effective_routine ::= Current
-            if effective_routine.routine_body = Void then
+            if effective_routine.routine_body = Void and then effective_routine.routine_then = Void then
                Result := effective_routine.no_rescue_no_local_expanded_in(type)
                if Result and then type.class_text.require_check and then effective_routine.require_assertion /= Void then
                   Result := require_assertion.is_always_true(type) and then require_assertion.side_effect_free(type)

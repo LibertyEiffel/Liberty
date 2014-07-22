@@ -821,6 +821,7 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME_DEF}
          e_procedure ?= af
          check
             e_procedure.arguments = Void
+            e_procedure.routine_then = Void
          end
          if e_procedure.routine_body = Void then
             Result := e_procedure.local_vars = Void
@@ -865,7 +866,7 @@ feature {SMART_EIFFEL}
       require
          for_boost_mode_only_or_asked_for: ace.boost or else ace.safety_check
       local
-         rf: RUN_FEATURE; i: INTEGER; c: INSTRUCTION
+         rf: RUN_FEATURE; i: INTEGER; rb: INSTRUCTION; rt: EXPRESSION
       do
          from
             i := live_features.lower
@@ -873,9 +874,13 @@ feature {SMART_EIFFEL}
             i > live_features.upper
          loop
             rf := live_features.key(i).run_feature_for(type)
-            c := rf.routine_body
-            if c /= Void then
-               c.safety_check(type)
+            rb := rf.routine_body
+            if rb /= Void then
+               rb.safety_check(type)
+            end
+            rt := rf.routine_then
+            if rt /= Void then
+               rt.safety_check(type)
             end
             i := i + 1
          end

@@ -370,7 +370,7 @@ feature {EFFECTIVE_ROUTINE}
                   effective_routine ?= af_current
                   -- Because the `default_rescue' itself can be deferred:
                   if effective_routine /= Void then
-                     default_rescue_compound := effective_routine.routine_body
+                     default_rescue_compound := effective_routine.routine_body --| **** TODO: what about effective_routine.routine_then ???
                      af_current.collect(Current)
                   end
                end
@@ -1275,7 +1275,7 @@ feature {}
    temporary_simple_feature_name: FEATURE_NAME
          -- Used only as a temporary in `feature_stamp_of' and `has_simple_feature_name'.
 
-   inheritance_cycle_check 
+   inheritance_cycle_check
       local
          i: INTEGER
       do
