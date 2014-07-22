@@ -104,8 +104,8 @@ if [ $deploy == FALSE ]; then
     }
 
     echo
-    echo "Generating packages: version is $tag"
     version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' | awk -F'[()]' '{print $2}')
+    echo "Generating packages: version is $version"
     for debian in $packages/*.pkg/debian; do
         package_dir=${debian%/debian}
         package=$(basename ${debian%.pkg/debian})

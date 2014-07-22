@@ -583,17 +583,36 @@ EOF
 
 function _do_pkg_src()
 {
-    section=$1
-    src=$2
+    local section=$1
+    shift
+    local src=("$@")
 
-    SRC=$USRDIR/share/liberty-eiffel/src
+    SRC=$USRDIR/share/liberty-eiffel/src/$section
     ETC=$ETCDIR/xdg/liberty-eiffel
 
     install -d -m 0755 -o root -g root $SRC $ETC
 
-    cp -a $src $SRC/${section}
+    for s in "${src[@]}"; do
+        if [ -r $SRC/loadpath.se ]; then
+            mv $SRC/loadpath.se $SRC/loadpath.se.old
+        else
+            touch $SRC/loadpath.se.old
+        fi
+
+        cp -l $s/* $SRC/ || cp -a $s/* $SRC/
+
+        if [ -r $SRC/loadpath.se ]; then
+            mv $SRC/loadpath.se $SRC/loadpath.se.new
+        else
+            touch $SRC/loadpath.se.new
+        fi
+
+        cat $SRC/loadpath.se.{old,new} | sort -u > $SRC/loadpath.se
+        rm $SRC/loadpath.se.{old,new}
+    done
+
     find $SRC -type f -exec chmod a-x {} +
-    chown -R root:root $SRC/${section}
+    chown -R root:root $SRC
 
     cat > $ETC/liberty_${section}.se <<EOF
 [Environment]
@@ -608,7 +627,7 @@ EOF
 
 function do_pkg_tools_src()
 {
-    _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel
+    _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel $LIBERTY_HOME/src/tools
 }
 
 function do_pkg_core_libs()
@@ -619,6 +638,11 @@ function do_pkg_core_libs()
 function do_pkg_extra_libs()
 {
     _do_pkg_src extra $LIBERTY_HOME/src/wrappers
+}
+
+function do_pkg_tutorial()
+{
+    _do_pkg_src tutorial $LIBERTY_HOME/tutorial
 }
 
 function do_pkg_tools_doc()
@@ -660,6 +684,7 @@ function do_local_install()
     do_pkg_core_doc
     do_pkg_extra_libs
     do_pkg_extra_doc
+    do_pkg_tutorial
 }
 
 function do_pkg()
@@ -680,6 +705,7 @@ function do_pkg()
         core_doc)   do_pkg_core_doc;;
         extra_libs) do_pkg_extra_libs;;
         extra_doc)  do_pkg_extra_doc;;
+        tutorial)   do_pkg_tutorial;;
         *)
             echo "Unknown pkg name: $1" >&2
             exit 1
