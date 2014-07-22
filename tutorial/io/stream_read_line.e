@@ -12,7 +12,7 @@ feature {}
          tfr: TEXT_FILE_READ
       do
          from
-            create tfr.connect_to("read_line.e")
+            create tfr.connect_to("stream_read_line.e")
          until
             tfr.end_of_input
          loop
