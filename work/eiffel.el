@@ -739,7 +739,7 @@ This will also match local variable and parameter declarations.")
 
 (defun eiffel-string-re ()
   "Liberty Eiffel strings"
-  (concat "\"\\(?:"
+  (concat "U?\"\\(?:"
           "\\(?:\\(?:[^%\"]\\|%.\\)*?\\)" ; single-line strings
           "\\|"
           "\\(?:\\(?:[^%\"]\\|%.\\)*?%[ \t]*\n\\(?:[ \t]*%\\(?:[^%\"]\\|%.\\)*?%[ \t]*\n\\)*[ \t]*%\\(?:[^%\"]\\|%.\\)*?\\)" ; older multiline strings
@@ -779,14 +779,14 @@ This will also match local variable and parameter declarations.")
 (defvar eiffel-font-lock-defaults
   (append
    `(
-     ("--|\\(.*\\)$"                .    font-lock-comment-face)
-     ("--\\(.*\\)$"                 .    font-lock-doc-face)
-     (,(eiffel-string-re)           . (0 font-lock-string-face t nil))
+     (,(eiffel-string-re)           .    font-lock-string-face)
+     ("--|\\(.*\\)\n"               .    font-lock-comment-face)
+     ("--\\(.*\\)\n"                .    font-lock-doc-face)
+     ("'\\(?:[^'%]\\|%.\\)'"        .    font-lock-string-face)
      ("\\<\\([A-Z][A-Z0-9_]*\\)\\>" .    font-lock-type-face)
      (,(eiffel-keywords-re)            1 font-lock-keyword-face)
      (,(eiffel-constants-re)           1 font-lock-builtin-face)
-     (,(eiffel-preprocessor-re)        1 font-lock-preprocessor-face)
-     ("'\\(?:[^'%]\\|%.\\)'"        . (0 font-lock-string-face t nil))))
+     (,(eiffel-preprocessor-re)        1 font-lock-preprocessor-face)))
   "Default highlighting expressions for Liberty Eiffel mode")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
