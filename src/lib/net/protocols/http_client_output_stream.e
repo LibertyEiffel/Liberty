@@ -72,7 +72,7 @@ feature {}
    add_header (value, key: STRING)
       do
          filtered_put_string(key)
-         filtered_put_string(": ")
+         filtered_put_string(once ": ")
          filtered_put_string(value)
          filtered_put_string(new_line)
       end
@@ -86,7 +86,7 @@ feature {}
          until
             i > s.upper
          loop
-            stream.filtered_put_character(s @ i)
+            stream.filtered_put_character(s.item(i))
             i := i + 1
          end
       end

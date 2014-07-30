@@ -18,7 +18,11 @@ feature {ANY}
 
 feature {ACCESS, ADDRESS}
    new_socket (access: ACCESS): SOCKET
+      require
+         access /= Void
       deferred
+      ensure
+         error = Void implies Result /= Void
       end
 
 end -- class ADDRESS

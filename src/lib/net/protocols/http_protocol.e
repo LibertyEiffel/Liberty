@@ -89,9 +89,11 @@ feature {}
             -- direct connection to Internet: just issue the simple request
             nrl ::= url.uri
             hout.put_request(nrl)
+            sedb_breakpoint
          end
          hin.start
-         inspect hin.return_code
+         inspect
+            hin.return_code
          when "200" then
             -- hurray!
          when "305" then
@@ -102,6 +104,8 @@ feature {}
                create proxy_url.absolute(hin.header.at(once "location"))
                connect_to(url, read, write)
             end
+         else
+            not_yet_implemented
          end
       end
 

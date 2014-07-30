@@ -38,10 +38,7 @@ feature {XML_PARSER}
             Result := root_element.name.is_equal(node_name)
          else
             Result := point.is_valid_child(Current, node_name)
-         end
-         if not Result then
-            sedb_breakpoint
-            Result := point.is_valid_child(Current, node_name)
+               or else point.is_valid_child(Current, node_name)
          end
          if Result then
             Result := get_element(node_name).is_valid_attributes(attributes)
@@ -100,6 +97,7 @@ feature {XML_PARSER}
    open_close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          open_node(node_name, line, column)
+         sedb_breakpoint
          close_node(node_name, line, column)
       end
 

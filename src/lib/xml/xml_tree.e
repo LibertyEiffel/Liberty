@@ -133,6 +133,16 @@ feature {XML_PARSER}
          -- The default tree does not recognize any other entity than XML defaults.
       end
 
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL)
+      do
+         -- nothing to do?
+      end
+
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL)
+      do
+         -- nothing to do?
+      end
+
    data (a_data: UNICODE_STRING; line, column: INTEGER)
       local
          d: XML_DATA_NODE

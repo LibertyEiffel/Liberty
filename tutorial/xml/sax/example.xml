@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE tree [
-  <!ELEMENT tree node*>
+  <!ELEMENT tree (node)*>
   <!ELEMENT node (node|leaf)*>
   <!ELEMENT leaf #PCDATA>
   <!ATTLIST leaf id ID #REQUIRED>

@@ -64,6 +64,7 @@ feature {}
    new_http (name: STRING; port: INTEGER): HTTP_PROTOCOL
       do
          create Result.make(name, port)
+         Result.sync := True
       end
 
    new_file: FILE_PROTOCOL

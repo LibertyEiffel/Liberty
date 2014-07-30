@@ -66,10 +66,19 @@ feature {}
 
 feature {ACCESS, ADDRESS}
    new_socket (access: ACCESS): SOCKET
+      local
+         addr: like ip
       do
-         Result := ip.new_socket(access)
-         if not Result.is_connected then
-            error := Result.error
+         addr := ip
+         if addr = Void then
+            check
+               error /= Void
+            end
+         else
+            Result := addr.new_socket(access)
+            if not Result.is_connected then
+               error := Result.error
+            end
          end
       end
 

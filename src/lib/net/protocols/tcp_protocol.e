@@ -24,7 +24,7 @@ feature {ANY}
 
    sync: BOOLEAN
 
-   set_sync (a_sync: BOOLEAN)
+   set_sync (a_sync: BOOLEAN) assign sync
       do
          sync := a_sync
       ensure

@@ -16,19 +16,16 @@ feature {}
    proxy: HTTP_PROXY
 
    make
-      local
-         url: URL
       do
-         --proxy.set_url(create {URL}.set_url("http://my-proxy.net/"))
-         create url.absolute("http://noc.nensi.net/se/test.xml")
-         test_socket(url)
+         test_socket(create {URL}.absolute("http://noc.nensi.net/se/test.xml"))
+         test_socket(create {URL}.absolute("http://et.liberty-eiffel.org/Liberty/tutorial/xml/sax/example.xml"))
       end
 
    test_socket (url: URL)
       local
          input: INPUT_STREAM; tree: XML_TREE; version: UNICODE_STRING
       do
-         url.set_error_handler(agent std_error.put_line(?))
+         url.set_error_handler(agent (err: STRING) do std_error.put_line("**** Error: #(1)" # err) end (?))
          url.connect
          if url.is_connected then
             input := url.input

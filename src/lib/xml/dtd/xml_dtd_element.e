@@ -68,6 +68,9 @@ feature {XML_DTD_NODE} -- Tree validation
          is_built
       do
          Result := explorer.backtrack_is_valid(children, structure, node_name)
+         if not Result then
+            sedb_breakpoint
+         end
       end
 
    is_valid_data (explorer: XML_DTD_VALIDATOR; data: UNICODE_STRING; children: FAST_ARRAY[XML_DTD_NODE]): BOOLEAN
