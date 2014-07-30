@@ -1328,6 +1328,22 @@ feature {}
       end
 
 feature {}
+   specialize_and_check_body (body: INSTRUCTION): INSTRUCTION
+      local
+         old_lvl: LOCAL_VAR_LIST; old_clvl: FAST_ARRAY[LOCAL_VAR_LIST]
+         old_fal: FORMAL_ARG_LIST; old_cfal: FAST_ARRAY[FORMAL_ARG_LIST]
+      do
+         old_lvl := smart_eiffel.specializing_feature_local_var_list
+         old_clvl := smart_eiffel.specializing_closure_local_var_lists
+         old_fal := smart_eiffel.specializing_feature_arguments_list
+         old_cfal := smart_eiffel.specializing_closure_arguments_lists
+         smart_eiffel.set_specializing_feature_variables(Void, Void)
+         smart_eiffel.set_specializing_feature_arguments(arguments, Void)
+         Result := body.specialize_and_check(new_type)
+         smart_eiffel.set_specializing_feature_variables(old_lvl, old_clvl)
+         smart_eiffel.set_specializing_feature_arguments(old_fal, old_cfal)
+      end
+
    finalized_body_for_internals_from_generating_type: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
@@ -1382,10 +1398,10 @@ feature {}
                   end
                   i := i + 1
                end
-               if not when_list.is_empty then
-                  Result := Result.specialize_and_check(new_type)
-               else
+               if when_list.is_empty then
                   Result := Void
+               else
+                  Result ::= specialize_and_check_body(Result)
                end
             end
          end
@@ -1464,11 +1480,8 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: specializing -- count=#(1)" # when_list.count.out)
-                  Result := Result.specialize_and_check(new_type)
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: done")
+                  Result ::= specialize_and_check_body(Result)
                else
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: failed")
                   Result := Void
                end
             end
@@ -1530,7 +1543,7 @@ feature {}
                   i := i + 1
                end
                if not when_list.is_empty then
-                  Result := Result.specialize_and_check(new_type)
+                  Result ::= specialize_and_check_body(Result)
                else
                   Result := Void
                end
@@ -1601,7 +1614,7 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
-                  Result := Result.specialize_and_check(new_type)
+                  Result ::= specialize_and_check_body(Result)
                else
                   Result := Void
                end
@@ -1659,7 +1672,7 @@ feature {}
             create integer_type_mark.integer(start_position)
             integer_constant.set_result_type(integer_type_mark)
             create assignment.make(assignment.left_side, integer_constant)
-            Result := assignment.specialize_and_check(new_type)
+            Result := specialize_and_check_body(assignment)
          end
       end
 
