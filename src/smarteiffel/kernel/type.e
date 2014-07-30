@@ -336,7 +336,7 @@ feature {SMART_EIFFEL, TYPE}
          Result.inserts(constraint)
       end
 
-feature {OLD_MANIFEST_ARRAY}
+feature {OLD_MANIFEST_ARRAY, IFTHENELSE_EXP}
    has_only_one_conformant_parent: like Current
          -- The `Result' is non Void if and only if `Current' has only one conforming parent.
          -- When `Result' is not Void `Result' is the unique parent of `Current'.

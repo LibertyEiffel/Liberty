@@ -322,20 +322,27 @@ feature {ANY}
          if resolve_map /= Void then
             Result := resolve_map.fast_reference_at(type)
          end
-         resolve_set.clear_count
-         filter_resolve_set(Result = Void, then_expression.resolve_in(type))
-         if elseif_list /= Void then
-            from
-               i := elseif_list.lower
-            until
-               i > elseif_list.upper
-            loop
-               filter_resolve_set(Result = Void, elseif_list.item(i).resolve_in(type))
-               i := i + 1
-            end
-         end
-         filter_resolve_set(Result = Void, else_part.resolve_in(type))
          if Result = Void then
+            resolve_set.clear_count
+            if not then_expression.is_void then
+               resolve_set.add(then_expression.resolve_in(type))
+            end
+            if elseif_list /= Void then
+               from
+                  i := elseif_list.lower
+               until
+                  i > elseif_list.upper
+               loop
+                  if not elseif_list.item(i).is_void then
+                     resolve_set.add(elseif_list.item(i).resolve_in(type))
+                  end
+                  i := i + 1
+               end
+            end
+            if not else_part.is_void then
+               resolve_set.add(else_part.resolve_in(type))
+            end
+
             Result := resolve_resolve_set
             create resolve_map.make
             resolve_map.add(Result, type)
@@ -344,25 +351,34 @@ feature {ANY}
 
    collect (type: TYPE): TYPE
       local
-         dummy: TYPE; i: INTEGER
+         t: TYPE; i: INTEGER
       do
          if resolve_map /= Void then
             Result := resolve_map.fast_reference_at(type)
          end
          resolve_set.clear_count
-         dummy := expression.collect(type)
-         filter_resolve_set(Result = Void, then_expression.collect(type))
+         t := expression.collect(type)
+         t := then_expression.collect(type)
+         if Result = Void and then not then_expression.is_void then
+            resolve_set.add(t)
+         end
          if elseif_list /= Void then
             from
                i := elseif_list.lower
             until
                i > elseif_list.upper
             loop
-               filter_resolve_set(Result = Void, elseif_list.item(i).collect(type))
+               t := elseif_list.item(i).collect(type)
+               if Result = Void and then not elseif_list.item(i).is_void then
+                  resolve_set.add(t)
+               end
                i := i + 1
             end
          end
-         filter_resolve_set(Result = Void, else_part.collect(type))
+         t := else_part.collect(type)
+         if Result = Void and then not else_part.is_void then
+            resolve_set.add(t)
+         end
          if Result = Void then
             Result := resolve_resolve_set
             create resolve_map.make
@@ -725,55 +741,81 @@ feature {}
 feature {}
    resolve_map: HASHED_DICTIONARY[TYPE, TYPE]
 
-   resolve_set: FAST_ARRAY[TYPE]
+   resolve_set: HASHED_SET[TYPE]
       once
-         create Result.make(0)
-      end
-
-   filter_resolve_set (perform: BOOLEAN; t: TYPE)
-      do
-         if perform and then not resolve_set.fast_has(t) then
-            resolve_set.add_last(t)
-            t.up_to_any_in(resolve_set)
-         end
-      ensure
-         perform implies (
-            old (resolve_set.fast_has(t)) implies resolve_set.count = old resolve_set.count
-            and then
-            old (not resolve_set.fast_has(t)) implies resolve_set.count > old resolve_set.count
-            and then
-            resolve_set.fast_has(t)
-         )
-         (not perform) implies resolve_set.count = old resolve_set.count
+         create Result.make
       end
 
    resolve_resolve_set: TYPE
-      require
-         not resolve_set.is_empty
+      local
+         i: INTEGER
       do
-         Result := resolve_resolve_set_(resolve_set.first, resolve_set.lower + 1)
-         if Result = Void then
-            --| **** TODO: check for INTEGER and co. for balancing rule, or wait for true conversion
+         if resolve_set.is_empty then
             error_handler.add_position(start_position)
-            error_handler.append("Could not find any conformant common type to those expressions.")
+            error_handler.append("Could not find any conformant common type to those expressions because they are all Void.")
             error_handler.print_as_fatal_error
+         elseif resolve_set.count = 1 then
+            Result := resolve_set.first
+         else
+            Result := resolve_resolve_set_
+            if Result = Void then
+               --| **** TODO: check for INTEGER and co. for balancing rule, or wait for true conversion
+               error_handler.add_position(start_position)
+               error_handler.append("Could not find any conformant common type to those expressions.")
+               error_handler.print_as_fatal_error
+            end
          end
       end
 
-   resolve_resolve_set_ (type: TYPE; i: INTEGER): TYPE
+   resolve_resolve_set_: TYPE
+         -- see OLD_MANIFEST_ARRAY.smallest_ancestor_from_type_set_buffer
+      require
+         resolve_set.count >= 2
       local
-         t: TYPE
+         i: INTEGER; other_type: TYPE; expanded_flag: BOOLEAN
       do
-         if i > resolve_set.upper then
-            Result := type
-         else
-            t := resolve_set.item(i)
-            if t.inherits_from(type) then
-               Result := resolve_resolve_set_(type, i + 1)
-            elseif type.inherits_from(t) then
-               Result := resolve_resolve_set_(t, i + 1)
+         -- First loop to handle the simple situation where one TYPE of `resolve_set'
+         -- can hold all other types:
+         from
+            i := resolve_set.lower + 1
+            Result := resolve_set.first
+         until
+            Result = Void or else i > resolve_set.upper
+         loop
+            other_type := resolve_set.item(i)
+            if Result.can_be_assigned_to(other_type) then
+               Result := other_type
+            elseif other_type.can_be_assigned_to(Result) then
+               -- We stick to `Result'.
+            else
+               -- Not a simple situation.
+               Result := Void
+            end
+            expanded_flag := expanded_flag or else other_type.is_expanded
+            i := i + 1
+         end
+         if Result = Void and then not expanded_flag then
+            -- Now trying to search for some TYPE with only one parent TYPE:
+            -- Note: obviously if some type is expanded this search is not necessary because all the
+            -- expressions must be of the same type.
+            from
+               i := resolve_set.lower
+            until
+               Result /= Void or else i > resolve_set.upper
+            loop
+               Result := resolve_set.item(i).has_only_one_conformant_parent
                if Result = Void then
-                  Result := resolve_resolve_set_(type, i + 1)
+                  i := i + 1
+               end
+            end
+            if Result /= Void then
+               resolve_set.remove(resolve_set.item(i))
+               resolve_set.add(Result)
+               Result := Void
+               if resolve_set.count = 1 then
+                  Result := resolve_set.item(1)
+               else
+                  Result := resolve_resolve_set_
                end
             end
          end
