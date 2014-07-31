@@ -7,4 +7,3 @@ Line 15 columns 9, 22 in BAD_FEATURE_THEN_01 (/home/cadrian/Workspace/Dev/Libert
    foo: INTEGER then "foo" end
         ^            ^        
 ------
-Error occurs while compiling. Compilation process aborted.

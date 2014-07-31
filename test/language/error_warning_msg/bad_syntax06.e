@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main -- Yes, the "is" keyword is missing.
+   main is -- The "is" keyword is deprecated.
       do
       end
 

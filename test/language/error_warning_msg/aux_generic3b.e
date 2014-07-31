@@ -1,7 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_GENERIC3B[G->ANY] inherit AUX_GENERIC3A[G] end -- class AUX_GENERIC3B
+class AUX_GENERIC3B[G_->ANY] inherit AUX_GENERIC3A[G_] end -- class AUX_GENERIC3B
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

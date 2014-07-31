@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert(foo = 42)
       end

@@ -1,5 +1,5 @@
-****** Error: A formal generic argument must not use the name
-of some existing class.
+****** Warning: A formal generic argument should not use the name
+of some existing class (VCFG).
 
 The source lines involved by the message are the following:
 
@@ -10,11 +10,12 @@ Line 4 column 20 in AUX_GENERIC5 (/home/cadrian/Workspace/Dev/Liberty/test/langu
 class AUX_GENERIC5[COMPARABLE]
                    ^          
 ------
-****** Fatal Error: You have to use another name for this formal
-generic argument. The common usage is to add an extra trailing
+****** Warning: You should consider using another name for this
+formal generic argument. The common usage is to add an extra trailing
 underscore character (see for example COLLECTION, ARRAY or DICTIONARY).
 
 Line 4 column 20 in AUX_GENERIC5 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_generic5.e):
 class AUX_GENERIC5[COMPARABLE]
                    ^          
 ------
+****** 2 warnings.

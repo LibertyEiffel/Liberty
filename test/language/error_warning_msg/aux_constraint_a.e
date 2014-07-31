@@ -1,25 +1,25 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_CONSTRAINT_A[X -> NUMERIC]
+class AUX_CONSTRAINT_A[X_ -> NUMERIC]
 
 create {ANY}
    make
 
 feature {ANY}
-   x: X;
+   x: X_;
 
-   make(vx: X)
+   make(vx: X_)
       do
-    x := vx;
-      end;
+         x := vx
+      end
 
    foo
       local
-    y: like x;
+         y: like x
       do
-    y := - x;
-      end;
+         y := - x
+      end
 
 end -- class AUX_CONSTRAINT_A
 --
