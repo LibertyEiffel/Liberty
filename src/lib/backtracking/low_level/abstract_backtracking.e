@@ -322,7 +322,7 @@ feature {} -- Internal deferred
 
    context_restore
          -- Restore the context to the last saved one.
-         -- The saved context MUST remain available for futur use.
+         -- The saved context MUST remain available for future use.
          -- Called each time that a new alternative (of the
          -- previous alternative point) is starting.
       deferred

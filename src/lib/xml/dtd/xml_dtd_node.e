@@ -7,32 +7,58 @@ class XML_DTD_NODE
 
 insert
    RECYCLABLE
+      redefine
+         fill_tagged_out_memory
+      end
 
 create {XML_DTD_VALIDATOR}
    make
 
+feature {ANY}
+   fill_tagged_out_memory
+      local
+         i: INTEGER
+      do
+         name.utf8_encode_in(tagged_out_memory)
+         if not children.is_empty then
+            tagged_out_memory.extend('(')
+            from
+               i := children.lower
+            until
+               i > children.upper
+            loop
+               if i /= children.lower then
+                  tagged_out_memory.append(once ", ")
+               end
+               children.item(i).fill_tagged_out_memory
+               i := i + 1
+            end
+            tagged_out_memory.extend(')')
+         end
+      end
+
 feature {XML_DTD_VALIDATOR, XML_DTD_ELEMENT}
    name: UNICODE_STRING
       require
-         node /= Void
+         element /= Void
       do
-         Result := node.name
+         Result := element.name
       end
 
-   node: XML_DTD_ELEMENT
+   element: XML_DTD_ELEMENT
 
    parent: XML_DTD_NODE
 
    children: FAST_ARRAY[XML_DTD_NODE]
 
-   set_node (a_node: like node)
+   set_element (a_element: like element) assign element
       do
-         node := a_node
+         element := a_element
       ensure
-         node = a_node
+         element = a_element
       end
 
-   set_parent (a_parent: like parent)
+   set_parent (a_parent: like parent) assign parent
       require
          not a_parent.fast_has(Current)
       do
@@ -105,17 +131,17 @@ feature {XML_DTD_VALIDATOR} -- Tree validation
    is_valid_child (explorer: XML_DTD_VALIDATOR; node_name: UNICODE_STRING): BOOLEAN
       require
          explorer /= Void
-         node.is_built
+         element.is_built
       do
-         Result := node.is_valid_child(explorer, node_name, children)
+         Result := element.is_valid_child(explorer, node_name, children)
       end
 
    is_valid_data (explorer: XML_DTD_VALIDATOR; data: UNICODE_STRING): BOOLEAN
       require
          explorer /= Void
-         node.is_built
+         element.is_built
       do
-         Result := node.is_valid_data(explorer, data, children)
+         Result := element.is_valid_data(explorer, data, children)
       end
 
 feature {RECYCLING_POOL}

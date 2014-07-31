@@ -9,6 +9,9 @@ class BACKTRACKING_NODE_UNDER_CUT_POINT
 inherit
    BACKTRACKING_NODE_UNARY
 
+insert
+   BACKTRACKING_NODE_FILL
+
 create {ANY}
    make
 
@@ -19,6 +22,14 @@ feature {ANY}
          explorer.push_cut_point
          -- now evaluate 'node' under the cut point
          explorer.set_current_node(node)
+      end
+
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "<under cut point>(")
+         node.fill_tagged_out_memory
+         tagged_out_memory.append(once ")")
       end
 
 end -- class BACKTRACKING_NODE_UNDER_CUT_POINT

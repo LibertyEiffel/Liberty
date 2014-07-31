@@ -1,17 +1,21 @@
 -- See the Copyright notice at the end of this file.
 --
 class XML_DTD_ELEMENT
+   --
+   -- Static description of a DTD element: structure (nested elements), attributes, data
+   --
 
 inherit
    BACKTRACKING_NODE
-      redefine
-         out_in_tagged_out_memory
+      undefine
+         fill_tagged_out_memory
       end
 
 insert
+   BACKTRACKING_NODE_FILL
    RECYCLABLE
-      redefine
-         out_in_tagged_out_memory
+      undefine
+         fill_tagged_out_memory
       end
 
 create {XML_DTD_VALIDATOR}
@@ -19,19 +23,6 @@ create {XML_DTD_VALIDATOR}
 
 feature {ANY}
    name: UNICODE_STRING
-
-   out_in_tagged_out_memory
-      do
-         tagged_out_memory.extend('<')
-         name.utf8_encode_in(tagged_out_memory)
-         tagged_out_memory.append(once ": ")
-         if structure = Void then
-            tagged_out_memory.append(once "unknown")
-         else
-            structure.fill_tagged_out_memory
-         end
-         tagged_out_memory.extend('>')
-      end
 
 feature {XML_DTD_VALIDATOR}
    build
@@ -103,14 +94,16 @@ feature {} -- The element's structure
          building_stack.remove_last
       end
 
-   build_add (n: BACKTRACKING_NODE)
+   build_add (a_node: BACKTRACKING_NODE)
       do
-         building_stack.add_last(n)
+         building_stack.add_last(a_node)
       end
 
-   build_push (n: BACKTRACKING_NODE)
+   build_set_top (a_node: BACKTRACKING_NODE)
       do
-         building_stack.put(n, building_stack.upper)
+         building_stack.put(a_node, building_stack.upper)
+      ensure
+         build_top = a_node
       end
 
    build_top: BACKTRACKING_NODE
@@ -132,22 +125,22 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
 
    close_exactly_one
       do
-         build_push(node_and_end(build_top))
+         build_set_top(node_and_end(build_top))
       end
 
    close_zero_or_one
       do
-         build_push(zero_or_one_node(build_top))
+         build_set_top(zero_or_one_node(build_top))
       end
 
    close_zero_or_more
       do
-         build_push(zero_or_more_node(build_top))
+         build_set_top(zero_or_more_node(build_top))
       end
 
    close_one_or_more
       do
-         build_push(one_or_more_node(build_top))
+         build_set_top(one_or_more_node(build_top))
       end
 
    add_list
@@ -160,7 +153,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          build_pop
          l := build_top
          create n.make(l, r)
-         build_push(n)
+         build_set_top(n)
       ensure
          building_stack.count = old building_stack.count - 1
       end
@@ -175,7 +168,7 @@ feature {XML_DTD_VALIDATOR} -- Building element's structure
          build_pop
          l := build_top
          create n.make(l, r)
-         build_push(n)
+         build_set_top(n)
       ensure
          building_stack.count = old building_stack.count - 1
       end
@@ -492,6 +485,20 @@ feature {} -- Memory management
          attributes.clear_count
       ensure
          attributes.is_empty
+      end
+
+feature {} -- fill_tagged_out_memory
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.extend('<')
+         name.utf8_encode_in(tagged_out_memory)
+         tagged_out_memory.append(once ": ")
+         if structure = Void then
+            tagged_out_memory.append(once "unknown")
+         else
+            structure.fill_tagged_out_memory
+         end
+         tagged_out_memory.extend('>')
       end
 
 invariant

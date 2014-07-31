@@ -4,18 +4,15 @@ class XML_DTD_END_NODE
 
 inherit
    BACKTRACKING_NODE
-      redefine
-         out_in_tagged_out_memory
+      undefine
+         fill_tagged_out_memory
       end
+
+insert
+   BACKTRACKING_NODE_FILL
 
 create {XML_DTD_ELEMENT}
    make
-
-feature {ANY}
-   out_in_tagged_out_memory
-      do
-         tagged_out_memory.append(once "END")
-      end
 
 feature {ANY} -- Tree structure validation
    explore (explorer: XML_DTD_VALIDATOR)
@@ -26,6 +23,11 @@ feature {ANY} -- Tree structure validation
 feature {}
    make
       do
+      end
+
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "<end>")
       end
 
 end -- class XML_DTD_END_NODE

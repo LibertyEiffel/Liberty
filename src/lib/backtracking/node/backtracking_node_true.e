@@ -8,12 +8,24 @@ class BACKTRACKING_NODE_TRUE
 
 inherit
    BACKTRACKING_NODE
+      undefine
+         fill_tagged_out_memory
+      end
+
+insert
+   BACKTRACKING_NODE_FILL
 
 feature {ANY}
    explore (explorer: BACKTRACKING)
       do
          -- Continues the exploration
          explorer.continue
+      end
+
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "<true>")
       end
 
 end -- class BACKTRACKING_NODE_TRUE

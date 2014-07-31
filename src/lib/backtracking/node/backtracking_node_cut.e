@@ -8,6 +8,12 @@ class BACKTRACKING_NODE_CUT
 
 inherit
    BACKTRACKING_NODE
+      undefine
+         fill_tagged_out_memory
+      end
+
+insert
+   BACKTRACKING_NODE_FILL
 
 feature {ANY}
    explore (explorer: BACKTRACKING)
@@ -16,6 +22,12 @@ feature {ANY}
          explorer.cut
          -- continue
          explorer.continue
+      end
+
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "<cut>")
       end
 
 end -- class BACKTRACKING_NODE_CUT

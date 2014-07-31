@@ -12,7 +12,7 @@ insert
          add_last as push,
          remove_last as pop,
          make as collection_make
-      export {ANY} is_empty, top, pop, push, count, item;
+      export {ANY} is_empty, top, pop, push, count, item, clear_count;
          {STACK} all
       redefine new_iterator
       end

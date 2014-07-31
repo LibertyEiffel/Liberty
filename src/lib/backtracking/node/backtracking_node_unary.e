@@ -8,6 +8,12 @@ deferred class BACKTRACKING_NODE_UNARY
 
 inherit
    BACKTRACKING_NODE
+      undefine
+         fill_tagged_out_memory
+      end
+
+insert
+   BACKTRACKING_NODE_FILL
 
 feature {ANY}
    node: BACKTRACKING_NODE

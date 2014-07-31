@@ -474,14 +474,9 @@ feature {}
 
    parse_element_children (validator: XML_DTD_VALIDATOR)
       do
-         parse_element_child_list(validator)
+         parse_element_child(validator)
          if not has_error then
-            skip_blanks
-            if current_character = '>'.code then
-               validator.close_fix
-            else
-               -- error will be set by the caller
-            end
+            validator.close_fix
          end
       end
 
@@ -710,7 +705,7 @@ feature {}
                   skip_blanks
                   inspect
                      current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      val := read_string
                      if validator.attlist_valid_fixed(val) then
                         validator.attlist_fixed(val.twin)
@@ -724,7 +719,7 @@ feature {}
                   set_error(once "Unknown attribute specification")
                end
             end
-         when 39, 34 then -- '%'', '"'
+         when 39, 34 then
             val := read_string
             validator.attlist_default_value(val.twin)
          when 62 then -- '>'
@@ -749,7 +744,7 @@ feature {}
             elseif skip_word(once "SYSTEM") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   sval := read_string_as_string
                   add_pe_entity(peid, entity_system_file(sval))
                else
@@ -758,12 +753,12 @@ feature {}
             elseif skip_word(once "PUBLIC") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   pubid := once U""
                   pubid.copy(read_string)
                   skip_blanks
                   inspect current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      sval := read_string_as_string
                      add_pe_entity(peid, entity_public_file(pubid, sval))
                   else
@@ -776,7 +771,7 @@ feature {}
                skip_blanks
                inspect
                   current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   val := read_string
                   add_pe_entity(peid, val.twin)
                else
@@ -794,7 +789,7 @@ feature {}
             elseif skip_word(once "SYSTEM") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   sval := read_string_as_string
                   uval := new_empty_string
                   if uval.utf8_decode_from(sval) then
@@ -808,12 +803,12 @@ feature {}
             elseif skip_word(once "PUBLIC") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   pubid := once U""
                   pubid.copy(read_string)
                   skip_blanks
                   inspect current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      sval := read_string_as_string
                      validator.add_entity(id, entity_public_file(pubid, sval), entity_public_url(pubid, sval))
                   else
@@ -825,7 +820,7 @@ feature {}
             else
                inspect
                   current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   val := read_string.twin
                   validator.add_entity(id, val, Void)
                else

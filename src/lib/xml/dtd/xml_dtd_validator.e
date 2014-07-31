@@ -38,7 +38,6 @@ feature {XML_PARSER}
             Result := root_element.name.is_equal(node_name)
          else
             Result := point.is_valid_child(Current, node_name)
-               or else point.is_valid_child(Current, node_name)
          end
          if Result then
             Result := get_element(node_name).is_valid_attributes(attributes)
@@ -97,7 +96,6 @@ feature {XML_PARSER}
    open_close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          open_node(node_name, line, column)
-         sedb_breakpoint
          close_node(node_name, line, column)
       end
 
@@ -135,7 +133,7 @@ feature {} -- Nodes management, for validation
          create Result.make
       end
 
-   new_node (node: XML_DTD_ELEMENT; parent: XML_DTD_NODE): XML_DTD_NODE
+   new_node (element: XML_DTD_ELEMENT; parent: XML_DTD_NODE): XML_DTD_NODE
       do
          if nodes_pool.is_empty then
             create Result.make
@@ -145,13 +143,13 @@ feature {} -- Nodes management, for validation
          check
             Result.parent = Void
          end
-         Result.set_node(node)
+         Result.element := element
          if parent /= Void then
-            Result.set_parent(parent)
+            Result.parent := parent
          end
       ensure
          Result.is_empty
-         Result.node = node
+         Result.element = element
          Result.parent = parent
       end
 
@@ -558,14 +556,18 @@ feature {XML_DTD_ELEMENT}
       require
          a_node /= Void
       do
+         --| std_output.put_line("backtrack_valid_data: #(1) -> #(2) / #(3)" # a_node.out # a_children.out # (if a_data = Void then "" else a_data.out end))
          set_backtrack_node(a_node)
          backtrack_pcdata := a_data
          backtrack_children := a_children
          backtrack_index := a_children.lower
-         backtrack_next := once U"__#PCDATA__"
+         backtrack_next := backtrack_next_pcdata_marker
          backtrack_ok := False
          search_first
          Result := backtrack_ok
+         if not Result then
+            sedb_breakpoint
+         end
       end
 
    backtrack_is_valid (a_children: like backtrack_children; a_node: like backtrack_node; a_next: like backtrack_next): BOOLEAN
@@ -573,6 +575,7 @@ feature {XML_DTD_ELEMENT}
          a_node /= Void
          --| `a_next' can be Void, it means we are trying to close the node
       do
+         --| std_output.put_line("backtrack_is_valid: #(1) -> #(2) / #(3)" # a_node.out # a_children.out # (if a_next = Void then "<none>" else a_next.out end))
          set_backtrack_node(a_node)
          backtrack_pcdata := Void
          backtrack_children := a_children
@@ -581,25 +584,39 @@ feature {XML_DTD_ELEMENT}
          backtrack_ok := False
          search_first
          Result := backtrack_ok
+         if not Result then
+            sedb_breakpoint
+         end
       end
 
 feature {XML_DTD_ELEMENT}
-   backtrack_valid_child (n: XML_DTD_ELEMENT)
+   backtrack_valid_child (elt: XML_DTD_ELEMENT)
       require
-         n /= Void
+         elt /= Void
       do
-         if backtrack_children.valid_index(backtrack_index) then
-            if n = backtrack_children.item(backtrack_index).node then
+         --| std_output.put_line("    backtrack_valid_child: #(1)" # elt.out)
+         if backtrack_next = backtrack_next_pcdata_marker then
+            --| std_output.put_line("        backtrack, expected PCDATA")
+            backtrack
+         elseif backtrack_children.valid_index(backtrack_index) then
+            if elt = backtrack_children.item(backtrack_index).element then
                backtrack_index := backtrack_index + 1
+               --| std_output.put_line("        continue")
                continue
             else
+               --| std_output.put_line("        backtrack, actual #(1) but expected #(2)" # elt.out # backtrack_children.item(backtrack_index).element.out)
                backtrack
             end
          else
-            if backtrack_next /= Void and then n.name.is_equal(backtrack_next) then
+            if backtrack_next = Void then
+               --| std_output.put_line("        backtrack, unexpected next child" # backtrack_next.out)
+               backtrack
+            elseif elt.name.is_equal(backtrack_next) then
+               --| std_output.put_line("        FOUND")
                backtrack_ok := True
                stop_search_loop := True
             else
+               --| std_output.put_line("        backtrack, next child is #(1) not #(2)" # backtrack_next.out # elt.name.out)
                backtrack
             end
          end
@@ -608,22 +625,27 @@ feature {XML_DTD_ELEMENT}
 feature {XML_DTD_PCDATA_NODE}
    backtrack_valid_pcdata
       do
+         --| std_output.put_line("    backtrack_valid_pcdata")
          if backtrack_children.valid_index(backtrack_index) then
             backtrack_index := backtrack_index + 1
+            --| std_output.put_line("        continue")
             continue
+         elseif backtrack_next = backtrack_next_pcdata_marker or else backtrack_next = Void then
+            --| std_output.put_line("        FOUND")
+            backtrack_ok := True
+            stop_search_loop := True
          else
-            if backtrack_next = Void or else backtrack_pcdata /= Void then
-               backtrack_ok := True
-               stop_search_loop := True
-            else
-               backtrack
-            end
+            sedb_breakpoint
+            --| std_output.put_line("        backtrack")
+            backtrack
          end
       end
 
 feature {XML_DTD_ANY_NODE}
    backtrack_valid_any
       do
+         --| std_output.put_line("    backtrack_valid_any")
+         --| std_output.put_line("        FOUND")
          backtrack_ok := True
          stop_search_loop := True
       end
@@ -631,10 +653,13 @@ feature {XML_DTD_ANY_NODE}
 feature {XML_DTD_EMPTY_NODE}
    backtrack_valid_empty
       do
-         if backtrack_children.is_empty then
+         --| std_output.put_line("    backtrack_valid_empty")
+         if backtrack_children.is_empty and then (context.is_empty implies backtrack_next = Void) then
+            --| std_output.put_line("        FOUND")
             backtrack_ok := True
             stop_search_loop := True
          else
+            --| std_output.put_line("        backtrack")
             backtrack
          end
       end
@@ -642,11 +667,14 @@ feature {XML_DTD_EMPTY_NODE}
 feature {XML_DTD_END_NODE}
    backtrack_valid_end
       do
-         if backtrack_children.valid_index(backtrack_index) or else backtrack_next /= Void then
-            backtrack
-         else
+         --| std_output.put_line("    backtrack_valid_end")
+         if not backtrack_children.valid_index(backtrack_index) and then (context.is_empty implies backtrack_next = Void) then
+            --| std_output.put_line("        FOUND")
             backtrack_ok := True
             stop_search_loop := True
+         else
+            --| std_output.put_line("        backtrack")
+            backtrack
          end
       end
 
@@ -665,12 +693,14 @@ feature {} -- Backtracking internals
 
    context_push
       do
+         --| std_output.put_line("                context push " + backtrack_index.out)
          context.add_last(backtrack_index)
       end
 
    context_restore
       do
          backtrack_index := context.last
+         --| std_output.put_line("                context restore " + backtrack_index.out)
       end
 
    context_restore_and_pop
@@ -681,6 +711,7 @@ feature {} -- Backtracking internals
 
    context_cut
       do
+         --| std_output.put_line("                context cut ")
          context.remove_last
       end
 
@@ -747,6 +778,8 @@ feature {}
       ensure
          entity_urls.is_empty
       end
+
+   backtrack_next_pcdata_marker: UNICODE_STRING once then U"__#PCDATA__" end
 
 invariant
    not root_name.is_empty

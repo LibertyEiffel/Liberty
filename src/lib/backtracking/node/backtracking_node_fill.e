@@ -1,37 +1,34 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class BACKTRACKING_NODE_AND_PAIR
-   --
-   -- Node for a sequence of 2 nodes
-   --
+deferred class BACKTRACKING_NODE_FILL
 
-inherit
-   BACKTRACKING_NODE_BINARY
-
-create {ANY}
-   make
+insert
+   ANY
+      redefine
+         fill_tagged_out_memory
+      end
 
 feature {ANY}
-   explore (explorer: BACKTRACKING)
+   fill_tagged_out_memory
       do
-         -- Tell to evaluate 'first' now.
-         explorer.set_current_node(first)
-         -- Push 'second' in front of the continuation path.
-         explorer.push_and(second)
+         if fill_tagged_out_memory_flag then
+            tagged_out_memory.append(once "...")
+         else
+            fill_tagged_out_memory_flag := True
+            do_fill_tagged_out_memory
+            fill_tagged_out_memory_flag := False
+         end
       end
 
 feature {}
-   do_fill_tagged_out_memory
-      do
-         tagged_out_memory.append(once "(")
-         first.fill_tagged_out_memory
-         tagged_out_memory.append(once ") and (")
-         second.fill_tagged_out_memory
-         tagged_out_memory.append(once ")")
+   fill_tagged_out_memory_flag: BOOLEAN
+
+   do_fill_tagged_out_memory is
+      deferred
       end
 
-end -- class BACKTRACKING_NODE_AND_PAIR
+end -- class BACKTRACKING_NODE_FILL
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
 --

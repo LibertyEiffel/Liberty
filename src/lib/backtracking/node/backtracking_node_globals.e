@@ -1,10 +1,16 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class BACKTRACKING_NODE_GLOBALS
+deferred class BACKTRACKING_NODE_GLOBALS
    --
    -- common invariant nodes
    --
+
+insert
+   ANY
+      undefine
+         fill_tagged_out_memory
+      end
 
 feature {ANY} -- and/or basics
    the_cut_node: BACKTRACKING_NODE_CUT

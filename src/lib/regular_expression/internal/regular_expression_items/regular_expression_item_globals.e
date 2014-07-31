@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class REGULAR_EXPRESSION_ITEM_GLOBALS
+deferred class REGULAR_EXPRESSION_ITEM_GLOBALS
    --
    -- common invariant nodes and POSIX classes naming
    --

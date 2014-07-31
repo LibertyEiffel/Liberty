@@ -24,6 +24,19 @@ feature {ANY}
          end
       end
 
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "(")
+         node.fill_tagged_out_memory
+         tagged_out_memory.append(once ")")
+         if next /= Void then
+            tagged_out_memory.append(once " or (")
+            next.fill_tagged_out_memory
+            tagged_out_memory.append(once ")")
+         end
+      end
+
 end -- class BACKTRACKING_NODE_OR_LIST
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.

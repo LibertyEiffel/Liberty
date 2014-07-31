@@ -31,6 +31,14 @@ feature {ANY}
          explorer.push_and(the_cut_and_false_node)
       end
 
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "not (")
+         node.fill_tagged_out_memory
+         tagged_out_memory.append(once ")")
+      end
+
 end -- class BACKTRACKING_NODE_NOT
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.

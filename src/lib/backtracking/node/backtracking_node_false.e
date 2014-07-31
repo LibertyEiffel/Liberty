@@ -8,12 +8,24 @@ class BACKTRACKING_NODE_FALSE
 
 inherit
    BACKTRACKING_NODE
+      undefine
+         fill_tagged_out_memory
+      end
+
+insert
+   BACKTRACKING_NODE_FILL
 
 feature {ANY}
    explore (explorer: BACKTRACKING)
       do
          -- Stops the exploration
          explorer.backtrack
+      end
+
+feature {}
+   do_fill_tagged_out_memory is
+      do
+         tagged_out_memory.append(once "<false>")
       end
 
 end -- class BACKTRACKING_NODE_FALSE
