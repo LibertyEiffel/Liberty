@@ -779,9 +779,9 @@ This will also match local variable and parameter declarations.")
 (defvar eiffel-font-lock-defaults
   (append
    `(
-     (,(eiffel-string-re)           .    font-lock-string-face)
      ("--|\\(.*\\)\n"               .    font-lock-comment-face)
      ("--\\(.*\\)\n"                .    font-lock-doc-face)
+     (,(eiffel-string-re)           .    font-lock-string-face)
      ("'\\(?:[^'%]\\|%.\\)'"        .    font-lock-string-face)
      ("\\<\\([A-Z][A-Z0-9_]*\\)\\>" .    font-lock-type-face)
      (,(eiffel-keywords-re)            1 font-lock-keyword-face)
