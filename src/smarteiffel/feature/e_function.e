@@ -37,13 +37,17 @@ feature {CALL_0}
                else
                   -- The result is the default value of the corresponding result type:
                   Result := smart_eiffel.get_inline_memo
-                  Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  if routine_then = Void then
+                     Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  else
+                     Result.set_expression(routine_then)
+                  end
                end
             end
          end
 
          -- To handle non Void `routine_body' which is a single ASSIGNMENT:
-         if Result = Void and then routine_body /= Void then
+         if Result = Void and then routine_body /= Void and then routine_then = Void then
             if direct_non_void_call_flag and then no_rescue_no_local_expanded then
                assignment ?= routine_body
                if assignment /= Void then
@@ -106,7 +110,7 @@ feature {CALL_0}
          -- Looking for: f: X is do Result := Current.f(<static>) end
          if Result = Void and then
             direct_non_void_call_flag and then
-            routine_body /= Void
+            routine_body /= Void and then routine_then = Void
           then
             assignment ?= routine_body
             if assignment /= Void and then assignment.left_side.is_result then
@@ -143,12 +147,16 @@ feature {CALL_1}
                else
                   -- The result is the default value of the corresponding result type:
                   Result := smart_eiffel.get_inline_memo
-                  Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  if routine_then = Void then
+                     Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  else
+                     Result.set_expression(routine_then)
+                  end
                end
             end
          end
 
-         if Result = Void and then routine_body /= Void and then
+         if Result = Void and then routine_body /= Void and then routine_then = Void and then
             direct_non_void_call_flag and then no_rescue_no_local_expanded
           then
             assignment ?= routine_body
@@ -240,12 +248,16 @@ feature {FUNCTION_CALL_N}
                else
                   -- The result is the default value of the corresponding result type:
                   Result := smart_eiffel.get_inline_memo
-                  Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  if routine_then = Void then
+                     Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  else
+                     Result.set_expression(routine_then)
+                  end
                end
             end
          end
 
-         if Result = Void and then routine_body /= Void and then
+         if Result = Void and then routine_body /= Void and then routine_then = Void and then
             direct_non_void_call_flag and then no_rescue_no_local_expanded
           then
             assignment ?= routine_body
@@ -271,6 +283,7 @@ feature {FUNCTION_CALL_N}
          if Result = Void and then
             direct_non_void_call_flag and then
             routine_body /= Void and then
+            routine_then = Void and then
             args.count = 2 and then
             target.side_effect_free(type)
           then

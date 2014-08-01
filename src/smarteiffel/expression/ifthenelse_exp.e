@@ -747,8 +747,6 @@ feature {}
       end
 
    resolve_resolve_set: TYPE
-      local
-         i: INTEGER
       do
          if resolve_set.is_empty then
             error_handler.add_position(start_position)
