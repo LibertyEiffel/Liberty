@@ -55,8 +55,8 @@ feature {SERVER}
          Precursor(a_io)
          --a_io.unset_timeout
          a_io.when_disconnect(agent handle_disconnect(?))
-         a_io.put_string(once "Hello! There are three commands available:%
-                              % bye, shutdown and halt.%N")
+         --|a_io.put_string(once "Hello! There are three commands available:%
+         --|                     % bye, shutdown and halt.%N")
       end
 
 feature {}

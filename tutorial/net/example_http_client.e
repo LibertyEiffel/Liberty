@@ -18,7 +18,9 @@ feature {}
    make
       do
          test_socket(create {URL}.absolute("http://noc.nensi.net/se/test.xml"))
-         test_socket(create {URL}.absolute("http://et.liberty-eiffel.org/Liberty/tutorial/xml/sax/example.xml"))
+         --| --8<--| TODO |--8<--
+         --| test_socket(create {URL}.absolute("http://et.liberty-eiffel.org/Liberty/tutorial/xml/sax/example.xml"))
+         --| -->8------------>8--
       end
 
    test_socket (url: URL)

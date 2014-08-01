@@ -35,7 +35,7 @@ feature {ANY}
          logger := a_logger
       end
 
-   log (a_message: STRING)
+   log (a_message: ABSTRACT_STRING)
       do
          if logger /= Void then
             logger.call([a_message])
@@ -43,7 +43,7 @@ feature {ANY}
       end
 
 feature {}
-   logger: PROCEDURE[TUPLE[STRING]]
+   logger: PROCEDURE[TUPLE[ABSTRACT_STRING]]
 
 feature {}
    standalone_handler_agent: like shutdown_handler

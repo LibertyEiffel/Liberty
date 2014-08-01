@@ -11,6 +11,8 @@ create {HTTP_CONNECTION}
 feature {HTTP_CONNECTION}
    method: STRING
 
+   expect_body: BOOLEAN True
+
    prepare_ok: BOOLEAN
 
    prepare_answer

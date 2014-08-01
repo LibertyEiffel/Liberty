@@ -55,7 +55,7 @@ feature {LOOP_ITEM}
             when answer_state_read then
                check not Result end
             when answer_state_prepare, answer_state_write then
-               Result := method_handler /= Void and then method_handler.done
+               Result := method_handler = Void or else method_handler.done
             end
          else
             Result := True
@@ -66,6 +66,7 @@ feature {LOOP_ITEM}
       local
          c: CHARACTER
          log: STRING
+         read: BOOLEAN
       do
          inspect
             answer_state
@@ -73,11 +74,17 @@ feature {LOOP_ITEM}
             if read_buffer = Void then
                create read_buffer.make_empty
             end
-            from
+            if ios.can_read_character then
                ios.read_character
-            until
-               ios.end_of_input or else not ios.can_read_character
-            loop
+               read := True
+            end
+            if not read or else ios.end_of_input or else (content_length > 0 and then content_count >= content_length) then
+               if not read_buffer.is_empty then
+                  call_state
+               end
+               --| server.log(" -> answer_state_prepare")
+               answer_state := answer_state_prepare
+            else
                c := ios.last_character
                if state = state_body then
                   content_count := content_count + 1
@@ -91,25 +98,21 @@ feature {LOOP_ITEM}
                else
                   read_buffer.extend(c)
                end
-               ios.read_character
-            end
-            if ios.end_of_input or else content_count >= content_length then
-               if not read_buffer.is_empty then
-                  call_state
-               end
-               answer_state := answer_state_prepare
             end
          when answer_state_prepare then
             if method_handler = Void then
+               --| server.log(" -> answer_state_write")
                answer_state := answer_state_write
             else
                method_handler.prepare_answer
                if method_handler.prepare_ok then
+                  --| server.log(" -> answer_state_write")
                   answer_state := answer_state_write
                end
             end
          when answer_state_write then
             if method_handler = Void then
+               --| server.log(" -> answer_state_read")
                answer_state := answer_state_read
             else
                method_handler.answer(ios)
@@ -120,6 +123,7 @@ feature {LOOP_ITEM}
                   method_handler.code.append_in(log)
                   server.log(log)
                   ios.disconnect
+                  --| server.log(" -> answer_state_read")
                   answer_state := answer_state_read
                end
             end
@@ -140,7 +144,9 @@ feature {HTTP_SERVER}
    set_server (a_server: like server)
       do
          server := a_server
+         --| server.log(" -> state_request_line")
          state := state_request_line
+         --| server.log(" -> answer_state_read")
          answer_state := answer_state_read
          if method_handler /= Void then
             method_handler.begin_answer
@@ -217,6 +223,7 @@ feature {} -- The HTTP protocol (see RFC 2616)
          request_line.copy(method)
          request_line.extend(' ')
          request_line.append(uri)
+         --| server.log(" -> state_header")
          state := state_header
          method_handler := get_method_handler(method, uri, version)
          if method_handler /= Void then
@@ -227,7 +234,13 @@ feature {} -- The HTTP protocol (see RFC 2616)
    a_header (line: STRING)
       do
          if line.is_empty then
-            state := state_body
+            if method_handler /= Void and then method_handler.expect_body then
+               --| server.log(" -> state_body")
+               state := state_body
+            else
+               --| server.log(" -> answer_state_prepare")
+               answer_state := answer_state_prepare
+            end
          else
             parse_header(line)
             inspect
@@ -239,7 +252,11 @@ feature {} -- The HTTP protocol (see RFC 2616)
             else
                -- ignored
             end
-            method_handler.add_header(line.twin)
+            if method_handler /= Void then
+               method_handler.add_header(line.twin)
+            else
+               -- ignored
+            end
          end
       end
 
@@ -275,7 +292,8 @@ feature {} -- The HTTP protocol (see RFC 2616)
 
    a_body (line: STRING)
       do
-         if line.is_empty then
+         if line.is_empty and then content_length = 0 then
+            --| server.log(" -> answer_state_prepare")
             answer_state := answer_state_prepare
          else
             method_handler.add_body(line.twin)

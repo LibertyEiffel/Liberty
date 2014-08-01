@@ -18,6 +18,8 @@ create {HTTP_CONNECTION}
 feature {HTTP_CONNECTION}
    prepare_ok: BOOLEAN True
 
+   expect_body: BOOLEAN False
+
    method: STRING "UNKNOWN"
 
    add_header (header: STRING)

@@ -59,7 +59,13 @@ feature {HTTP_CONNECTION}
       deferred
       end
 
+   expect_body: BOOLEAN
+      deferred
+      end
+
    add_body (body: STRING)
+      require
+         expect_body
       deferred
       end
 

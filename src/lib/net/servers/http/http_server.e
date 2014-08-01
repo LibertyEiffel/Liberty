@@ -20,7 +20,7 @@ feature {ANY}
          Result := not server.done
       end
 
-   log (a_message: STRING)
+   log (a_message: ABSTRACT_STRING)
       local
          msg: STRING
       do

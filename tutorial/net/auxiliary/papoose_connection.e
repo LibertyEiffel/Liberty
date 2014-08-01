@@ -51,7 +51,13 @@ feature {} -- method handlers reuse
                when "GET", "POST" then
                   create {HTTP_GET_HANDLER} Result.make(method, uri, version)
                when "~SHUTDOWN" then
-                  server.shutdown
+                  server.log("Will SHUTDOWN!!")
+                  create {PAPOOSE_ACTION_HANDLER} Result.make(method, agent
+                     do
+                        server.log("#### SHUTDOWN!!")
+                        server.shutdown
+                     end,
+                     agent server.log(?))
                else
                   if no_method_handlers.is_empty then
                      create nop.make(uri, version)

@@ -27,7 +27,7 @@ feature {ANY}
          server.start(tcp)
       end
 
-   log (msg: STRING)
+   log (msg: ABSTRACT_STRING)
       do
          access.put_line(msg)
          access.flush
