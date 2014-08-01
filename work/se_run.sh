@@ -44,13 +44,11 @@ export PIDFILE=$(mktemp)
 
 (
     ulimit -t 60 2>/dev/null
-    test -r $in && {
-        exec <$in
-    }
+    test -e $in || touch $in
     if [ -r $arg ]; then
-        eval "./$exe $(< $arg)" >>$out 2>&1 &
+        ./$exe $(< $arg) <$in >>$out 2>&1 &
     else
-        ./$exe >>$out 2>&1 &
+        ./$exe <$in >>$out 2>&1 &
     fi
     pid=$!
     trap "kill -9 $pid" TERM

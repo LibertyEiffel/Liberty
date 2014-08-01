@@ -25,12 +25,7 @@ feature {}
          tcp: TCP_ACCESS; host: LOCALHOST; count: INTEGER_16
       do
          if argument_count < 1 then
-            std_error.put_line("**** Error: Missing argument")
-            die_with_code(1)
-         end
-
-         if argument(1).is_empty then
-            std_error.put_line("Empty argument, aborting execution")
+            std_error.put_line("No argument provided, aborting execution")
             die_with_code(0)
          end
 
