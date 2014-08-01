@@ -9,6 +9,8 @@ cmd=${e%.e}.cmd
 out=${e%.e}.out
 arg=${e%.e}.arg
 
+shift
+
 status=0
 if [ -x $cmd ]; then
     ./$cmd >$out 2>&1 || status=$?
@@ -22,6 +24,8 @@ if [ -x $cmd ]; then
         echo "**** $exe not found!" >> $out
         status=1
     fi
+elif [[ $# > 0 ]]; then
+    se c -no_split -O1 -clean -o $exe -g -no_strip "$@" $e >$out 2>&1 || status=$?
 else
     se c -boost -no_split -O1 -clean -o $exe $e >$out 2>&1 || status=$?
 fi
@@ -34,6 +38,8 @@ test $status -ne 0 && {
     exit 1
 }
 
+echo >>$out
+
 export PIDFILE=$(mktemp)
 
 (
@@ -42,10 +48,13 @@ export PIDFILE=$(mktemp)
         exec <$in
     }
     if [ -r $arg ]; then
-        ./$exe $(< $arg) >$out 2>&1
+        eval "./$exe $(< $arg)" >>$out 2>&1 &
     else
-        ./$exe >$out 2>&1
+        ./$exe >>$out 2>&1 &
     fi
+    pid=$!
+    trap "kill -9 $pid" TERM
+    wait
     ret=$?
     rm -f $PIDFILE
     exit $ret
