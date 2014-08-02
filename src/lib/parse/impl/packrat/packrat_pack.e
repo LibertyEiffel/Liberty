@@ -12,13 +12,13 @@ insert
 feature {ANY}
    is_equal (other: like Current): BOOLEAN
       do
-         Result := is_set = other.is_set
-            and then parsed = other.parsed
-            and then memo = other.memo
-            and then (actions = other.actions
-                      or else (actions /= Void
-                               and then other.actions /= Void
-                               and then actions.is_equal(other.actions)))
+         Result := Precursor(other) -- because this class is expanded, therefore `twin` must succeed
+            or else (is_set and then other.is_set
+               and then (parsed = other.parsed
+                  and then memo = other.memo
+                  and then (actions = other.actions
+                     or else (actions /= Void and then other.actions /= Void
+                        and then actions.is_equal(other.actions)))))
       end
 
    parsed: TRISTATE
