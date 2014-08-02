@@ -38,21 +38,24 @@ feature {}
    valid (a_filename: STRING)
          -- Test a valid XML file
       do
-         make(a_filename)
+         make
+         run(a_filename)
          as_expected := not at_error
       end
 
    not_well_formed (a_filename: STRING)
          -- Test a not-well-formed XML file
       do
-         make(a_filename)
+         make
+         run(a_filename)
          as_expected := at_error
       end
 
    invalid (a_filename: STRING)
          -- Test an invalid XML file
       do
-         make(a_filename)
+         make
+         run(a_filename)
          as_expected := at_error
       end
 
@@ -60,7 +63,8 @@ feature {}
          -- Test an XML file with an OPTIONAL error (either there is no error or the reported error must be
          -- conform to the expected one)
       do
-         make(a_filename)
+         make
+         run(a_filename)
          as_expected := True
       end
 

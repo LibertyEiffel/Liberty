@@ -9,6 +9,7 @@ deferred class XML_CALLBACKS
    --
    -- See also XML_PARSER
    --
+
 feature {XML_PARSER}
    set_validator (a_validator: like validator)
          -- Sets a validator for this XML file. The parser uses it when setting a DTD, but you may use it too

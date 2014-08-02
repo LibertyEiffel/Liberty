@@ -93,7 +93,8 @@ feature {}
          type := ""
          uri := ""
          output := ""
-         aux_make(a_filename)
+         aux_make
+         run(a_filename)
       end
 
    base, type, uri, output: STRING
@@ -105,7 +106,7 @@ feature {}
          i: INTEGER
          url: URL
       do
-         create url.relative(urls.top.first, uri)
+         create url.relative(urls.last, uri)
          Result := url.out
          from
             from
