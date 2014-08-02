@@ -34,7 +34,7 @@ feature {}
          text_file_read.disconnect
       end
 
-   size: INTEGER 2224
+   size: INTEGER 2218
          -- `size' of this file.
 
 end -- class TEST_READ_CHARACTER

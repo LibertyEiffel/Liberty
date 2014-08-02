@@ -30,7 +30,7 @@ feature {}
          bfr.disconnect
       end
 
-   size: INTEGER 2118
+   size: INTEGER 2112
 
 end -- class TEST_BINARY_FILE_READ
 --
