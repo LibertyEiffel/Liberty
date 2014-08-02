@@ -105,6 +105,7 @@ feature {C_PRETTY_PRINTER}
 
    pre_cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %int valid_stack_bottom = stack_bottom != NULL;%N%
                                                  %#endif%N")
@@ -112,6 +113,7 @@ feature {C_PRETTY_PRINTER}
 
    cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
                                                  %#endif%N")
@@ -119,6 +121,7 @@ feature {C_PRETTY_PRINTER}
 
    post_cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %if(!valid_stack_bottom) stack_bottom = NULL;%N%
                                                  %#endif%N")
