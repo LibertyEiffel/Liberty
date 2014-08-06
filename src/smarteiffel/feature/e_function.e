@@ -201,9 +201,9 @@ feature {}
       local
          built_in_eq_neq: BUILT_IN_EQ_NEQ; call_1: CALL_1; name: STRING; expression: EXPRESSION
       do
-         if direct_non_void_call_flag and then no_rescue_no_local_expanded and then (call_1 ?:= expr) then
-            call_1 ::= expr
-            if call_1 /= Void then
+         if direct_non_void_call_flag and then no_rescue_no_local_expanded then
+            if call_1 ?:= expr then
+               call_1 ::= expr
                if call_1.resolve_in(target_type) = return_type then
                   call_1 := inline_call_1(type, call_1, target_type, target, arg)
                   if call_1 /= Void then
