@@ -216,6 +216,9 @@ feature {ANY}
                   check
                      impossible: False -- managed by EFFECTIVE_ARG_LIST_0
                   end
+                  error_handler.add_position(start_position)
+                  error_handler.append(once "BUG: trying to synthetize empty tuple for a function without arguments but with arguments... WTF")
+                  error_handler.print_as_internal_error
                when 2 then
                   check remainder = Void end
                   create rem.with_capacity(1)
@@ -567,29 +570,27 @@ feature {FEATURE_CALL, PRECURSOR_CALL, AGENT_INSTRUCTION}
                   i := i + 1
                end
             end
-         else
-            if remainder /= Void then
+         elseif remainder /= Void then
+            from
+               i := remainder.lower
+            until
+               exp1 /= exp2 or else i > remainder.upper
+            loop
+               exp1 := remainder.item(i)
+               exp2 := exp1.adapt_for(t)
+               i := i + 1
+            end
+            if exp1 /= exp2 then
+               Result := twin
+               rem := remainder.twin
+               Result.set_remainder(rem)
                from
-                  i := remainder.lower
+                  rem.put(exp2, i - 1)
                until
-                  exp1 /= exp2 or else i > remainder.upper
+                  i > rem.upper
                loop
-                  exp1 := remainder.item(i)
-                  exp2 := exp1.adapt_for(t)
+                  rem.put(remainder.item(i).adapt_for(t), i)
                   i := i + 1
-               end
-               if exp1 /= exp2 then
-                  Result := twin
-                  rem := remainder.twin
-                  Result.set_remainder(rem)
-                  from
-                     rem.put(exp2, i - 1)
-                  until
-                     i > rem.upper
-                  loop
-                     rem.put(remainder.item(i).adapt_for(t), i)
-                     i := i + 1
-                  end
                end
             end
          end

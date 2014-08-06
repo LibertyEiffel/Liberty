@@ -1258,12 +1258,17 @@ feature {CREATE_EXPRESSION}
          -- Register that there is a live create expression which creates `Current' type objects at
          -- run-time using `fs' as the creation procedure. Also not that `fs' can be Void in the case of
          -- a create expression with no call.
+      require
+         smart_eiffel.status.is_adapting
       do
          if fs = Void then
             create_function_list := empty_create_function_list
          else
             if create_function_list = Void then
                create create_function_list.with_capacity(2)
+            end
+            check
+               create_function_list /= empty_create_function_list
             end
             if not create_function_list.fast_has(fs) then
                create_function_list.add_last(fs)

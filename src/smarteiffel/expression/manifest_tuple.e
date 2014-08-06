@@ -107,8 +107,11 @@ feature {ANY}
             cx := create_expression.specialize_in(type)
             Result := current_or_twin_init(Void, cx)
          else
+            check
+               create_expression = Void
+            end
             eal := effective_arg_list.specialize_in(type)
-            Result := current_or_twin_init(eal, create_expression)
+            Result := current_or_twin_init(eal, Void)
          end
       end
 
@@ -120,8 +123,11 @@ feature {ANY}
             cx := create_expression.specialize_thru(parent_type, parent_edge, new_type)
             Result := current_or_twin_init(Void, cx)
          else
+            check
+               create_expression = Void
+            end
             eal := effective_arg_list.specialize_thru(parent_type, parent_edge, new_type)
-            Result := current_or_twin_init(eal, create_expression)
+            Result := current_or_twin_init(eal, Void)
          end
       end
 

@@ -356,11 +356,12 @@ feature {}
 
          error_handler.append(once "Synthetizing ")
          error_handler.add_type(tup.resolve_in(t))
-         error_handler.append(once " for extra arguments.")
          error_handler.add_position(fal.name(fal_count).start_position)
          if fal_count > count then
+            error_handler.append(once " for missing arguments.")
             error_handler.add_position(end_position)
          else
+            error_handler.append(once " for extra arguments.")
             error_handler.add_position(expression(fal_count).start_position)
          end
          if mhf.is_no_gc then

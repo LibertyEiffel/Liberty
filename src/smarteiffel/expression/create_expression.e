@@ -145,6 +145,10 @@ feature {ANY}
          if call /= Void then
             c := call.simplify_arguments(type)
             creation_proc ::= c.feature_stamp.anonymous_feature(created_type(type))
+            check
+               creation_proc.result_type = Void -- obviously, because it is a procedure
+               creation_proc.routine_then = Void -- ditto
+            end
             if creation_proc.routine_body = Void then
                args := c.arguments
                if args = Void or else args.side_effect_free(type) then
