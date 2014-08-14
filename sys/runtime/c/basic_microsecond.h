@@ -25,7 +25,9 @@
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#ifndef WIN32
+#ifdef WIN32
+#  include <time.h>
+#else
 #  include <sys/time.h>
 #endif
 
