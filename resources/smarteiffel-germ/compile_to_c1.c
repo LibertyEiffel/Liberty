@@ -177,119 +177,6 @@ void _handle(se_handler_action_t action, void*data) {
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
-/* macro read is used of read_stdin */
-
-void io_copy (char*source, char*target) {
-  /* We use the low-level descriptor functions rather than stream-oriented functions.
-   * This allows us to copy the file's permissions. */
-
-  int src;
-  int tgt;
-  struct stat info;
-  static char *buffer = NULL;
-  static int bufsize = 0;
-  int read_count, write_count, written;
-
-  src=open (source, O_RDONLY);
-  if (fstat (src, &info))
-    return; /* Ooops */
-  if (bufsize < info.st_blksize)
-    buffer=se_realloc (buffer, info.st_blksize);
-  tgt=creat (target, info.st_mode);
-  do {
-    read_count = read (src, buffer, info.st_blksize);
-    write_count = 0; written = 0;
-    while  ((write_count < read_count) && (written >= 0))
-      {
-	written = write (tgt, buffer + write_count, read_count - write_count);
-	write_count += written;
-      }
-  } while ((read_count > 0) && (written >= 0));
-  close (src);
-  close (tgt);
-}
-
-int io_same_physical_file(char*path1,char*path2) {
-  struct stat info1, info2;
-  if (stat(path1, &info1))
-    return 0; /* oops */
-  if (stat(path2, &info2))
-    return 0; /* oops */
-  return (info1.st_dev == info2.st_dev) && (info1.st_ino == info2.st_ino);
-}
-
-#else
-#define IO_COPY_BUFSIZE 4096
-
-int read_stdin(EIF_CHARACTER *buffer, int size) {
-  int c;
-  c = getc(stdin);
-  if (c==EOF)
-    return 0;
-  *buffer = (EIF_CHARACTER)c;
-  return 1;
-}
-
-void io_copy(char*source, char*target) {
-  static char *buffer = NULL;
-  int read_count;
-  FILE*src=fopen(source, "rb");
-  FILE*tgt=fopen(target, "wb");
-
-  if(!buffer)
-    buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
-
-  while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
-    size_t dummy = fwrite(buffer, 1, read_count, tgt);
-  }
-  fclose(src);
-  fclose(tgt);
-}
-
-int io_same_physical_file(char*path1,char*path2) {
-  /* default implementation returns true only if the paths are the same */
-  return !strcmp(path1, path2);
-}
-#endif
-
-int io_file_exists(char*source) {
-  FILE*src=fopen(source, "rb");
-  if (src!=NULL) {
-    fclose(src);
-    return 1;
-  }
-  else {
-    return (errno != ENOENT);
-  }
-}
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
 EIF_BOOLEAN mbi_inc (int32_t *p) {
     if ((++(*p)) == 0) {
       return 1;
@@ -375,541 +262,6 @@ EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r) {
   (*r) = (uint32_t)(x % ((uint32_t)(d)));
   return ((uint32_t)(x / ((uint32_t)(d))));
 }
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if basic_exec_system == basic_exec_system_posix
-static char** envp(void) {
-  static char* result[] = {"PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL};
-  return result;
-}
-
-static int arr_size(char** arr){
-  int size = 0;
-  while(arr[size] != NULL) {
-    size++;
-  }
-  return size;
-}
-
-static int find_variable(char** env, char* var){
-  int location;
-  int src_size;
-  if(var == NULL || env == NULL)
-    return -1;
-  src_size = strchr(var, '=') - var + 1;
-  for(location = 0; env[location] != NULL; location++){
-    if(strncasecmp(env[location], var, src_size) == 0){
-      return location;
-    }
-  }
-  return -1;
-}
-
-static void check_write(int expected, int actual) {
-   if (actual != expected) {
-    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
-#ifdef SE_EXCEPTIONS
-    internal_exception_handler(Routine_failure);
-#elif !defined(SE_BOOST)
-    error0("Routine failure: could not write.", NULL);
-#else
-    fprintf(SE_ERR,"Routine failure (write returned %d but expected %d).\n", actual, expected);
-    exit(EXIT_FAILURE);
-#endif
-  }
-}
-
-EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  int id = fork();
-  if (id == 0) {
-    /* child */
-
-    if(in_fd) {
-      dup2(in_fd[0], 0);
-      close(in_fd[1]);
-    }
-
-    if(out_fd) {
-      dup2(out_fd[1], 1);
-      close(out_fd[0]);
-    }
-
-    if(err_fd) {
-      dup2(err_fd[1], 2);
-      close(err_fd[0]);
-    }
-
-    if (prog == NULL && args == NULL) {
-      data->running = 1;
-      data->child = 1;
-#ifdef SE_SEDB
-      sedb_duplicate();
-#endif
-      return 1;
-    } else {
-      if (add_env == NULL && keep_env) {
-        execvp(prog, args); /* NO RETURN in child */
-        se_print_run_time_stack();
-        exit(1);
-      }else{
-        char** new_env;
-        char** old_env;
-        int old_size, add_size;
-        int src, dest = 0;
-        if(keep_env){
-          old_env = environ;
-        }else{
-          old_env = envp();
-        }
-        old_size = arr_size(old_env);
-        add_size = arr_size(add_env);
-        new_env = malloc(sizeof(void*) * (old_size + add_size));
-
-        /* we first copy the pointers from the old env */
-        for(src = 0; src < old_size; src++){
-          new_env[dest++] = old_env[src];
-        }
-
-        /* now the ones from add_env */
-        for(src = 0; src < add_size; src++){
-          int override = find_variable(old_env, add_env[src]);
-          if (override >= 0){
-            new_env[override] = add_env[src];
-          }else{
-            new_env[dest++] = add_env[src];
-          }
-        }
-
-        execve(prog, args, new_env); /* NO RETURN in child */
-        se_print_run_time_stack();
-        exit(1);
-      }
-    }
-  }
-  else if (id > 0) {
-    /* father */
-    data->id = id;
-    data->running = 1;
-    data->child = 0;
-    if(in_fd) close(in_fd[0]);
-    if(out_fd) close(out_fd[1]);
-    if(err_fd) close(err_fd[1]);
-    return 1;
-  } else {
-    return 0; /* ... in father only */
-  }
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
-  int status;
-  if (data->running) {
-    int id = waitpid(data->id, &status, WNOHANG);
-    if (id == data->id) {
-      /* child is finished */
-      result = (EIF_BOOLEAN)(id == data->id);
-      basic_exec_cleanup(data, status);
-    }
-  }
-  else{
-    result = (EIF_BOOLEAN)1;
-  }
-  return result;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-  int status;
-  if (data->running) {
-    int id = waitpid(data->id, &status, 0);
-    if (id == data->id) {
-      basic_exec_cleanup(data, status);
-    }
-  }
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-  data->status = WEXITSTATUS(status);
-  data->running = 0;
-}
-
-EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
-  EIF_INTEGER result = -1;
-  char buf[1];
-  ssize_t r = read(fd, buf, 1);
-  if (r > 0) {
-    result = 0xff & ((EIF_INTEGER)(buf[0]));
-  }
-  return result;
-}
-
-void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-  char buf[1];
-  buf[0] = c;
-  check_write(1, write(fd, buf, 1));
-}
-
-void basic_exec_posix_wait_any(se_exec_data_t*data) {
-  data->id = wait(&data->status);
-}
-
-void basic_exec_posix_any_finished(se_exec_data_t*data) {
-  data->id = waitpid(-1, &data->status, WNOHANG);
-}
-
-/*
- * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
- *
- * (with specific adaptation to Liberty Eiffel)
- */
-static int waitpid_selfpipe[2];
-static EIF_OBJECT waitpid_input;
-
-static void waitpid_sigh(int n) {
-   check_write(1, write(waitpid_selfpipe[1], "", 1));
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-   waitpid_input = obj;
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   static init = 0;
-   static struct sigaction act;
-   if (!init) {
-      init = 1;
-      if (pipe(waitpid_selfpipe) == -1) {
-         waitpid_selfpipe[0] = -1;
-      }
-      else {
-         fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
-         fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
-         memset(&act, 0, sizeof(act));
-         act.sa_handler = waitpid_sigh;
-         sigaction(SIGCHLD, &act, NULL);
-      }
-   }
-   return waitpid_selfpipe[0];
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   static char dummy[4096];
-   char *buffer = (char*)data;
-   int pid, status;
-
-   while (read(waitpid_selfpipe[0], dummy, sizeof(dummy)) > 0);
-
-   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
-      oob_info(waitpid_input, pid, status);
-   }
-
-   buffer[0] = 0;
-   return 1;
-}
-#else
-EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
-  return 0;
-}
-
-void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-}
-
-void basic_exec_posix_wait_any(se_exec_data_t*data) {
-}
-
-void basic_exec_posix_any_finished(se_exec_data_t*data) {
-}
-
-EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  return 0;
-}
-#endif
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if basic_exec_system == basic_exec_system_none
-/* Dummy implementation that always reports an error back to the Eiffel side */
-
-EIF_BOOLEAN basic_exec_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  return (EIF_BOOLEAN)0;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-}
-
-EIF_INTEGER basic_exec_get_character (EIF_INTEGER fd) {
-  return (EIF_INTEGER)0;
-}
-
-void basic_exec_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   return -1;
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   return -1;
-}
-#else
-#endif
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#if basic_exec_system == basic_exec_system_win32
-static char* envp(void) {
-  static char* result = "\0";/* *** Maybe call GetFullPathName to set =C: and friends */
-  return result;
-}
-
-EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, HANDLE*in_h, HANDLE*out_h, HANDLE*err_h) {
-  STARTUPINFO start_info;
-  EIF_BOOLEAN result = 0;
-
-  ZeroMemory( &start_info, sizeof(STARTUPINFO) );
-
-  start_info.cb = sizeof(STARTUPINFO);
-  if(in_h) {
-    start_info.hStdInput = in_h[0];
-    SetHandleInformation(in_h[1], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdInput) goto leave;
-  if(out_h) {
-    start_info.hStdOutput = out_h[1];
-    SetHandleInformation(out_h[0], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdOutput) goto leave;
-  if(err_h) {
-    start_info.hStdError = err_h[1];
-    SetHandleInformation(err_h[0], HANDLE_FLAG_INHERIT, 0);
-  } else {
-    start_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-  }
-  if(INVALID_HANDLE_VALUE == start_info.hStdError) goto leave;
-  start_info.dwFlags |= STARTF_USESTDHANDLES;
-
-  if(CreateProcess(NULL, args,
-                   NULL,                                /* process security attributes          */
-                   NULL,                                /* primary thread security attributes   */
-                   TRUE,                                /* handles are inherited                */
-                   0,                                   /* creation flags                       */
-                   keep_env?NULL:envp(),
-                   NULL,                                /* use parent's current directory       */
-                   &start_info,                         /* STARTUPINFO pointer                  */
-                   &data->process_information)) {       /* receives PROCESS_INFORMATION         */
-    CloseHandle(data->process_information.hThread);
-    data->running = 1;
-    result = 1;
-  }
- leave:
-  if(in_h) CloseHandle(in_h[0]);
-  if(out_h) CloseHandle(out_h[1]);
-  if(err_h) CloseHandle(err_h[1]);
-  return result;
-}
-
-EIF_BOOLEAN basic_exec_init_pipe(HANDLE*pipe) {
-  SECURITY_ATTRIBUTES security_attributes;
-
-  // Set the bInheritHandle flag so pipe handles are inherited.
-
-  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
-  security_attributes.bInheritHandle = TRUE;
-  security_attributes.lpSecurityDescriptor = NULL;
-
-  return CreatePipe(pipe, pipe+1, &security_attributes, 0);
-}
-
-EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
-  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
-  if (data->running) {
-    result = (WaitForSingleObject(data->process_information.hProcess, 0) == WAIT_OBJECT_0);
-    if (result) {
-      /* child is finished */
-      DWORD status;
-      GetExitCodeProcess(data->process_information.hProcess, &status);
-      /* *** Could have failed */
-      basic_exec_cleanup(data, status);
-    }
-  }
-  else{
-    result = (EIF_BOOLEAN)1;
-  }
-  return result;
-}
-
-void basic_exec_wait(se_exec_data_t*data) {
-  if (data->running) {
-    DWORD status;
-    WaitForSingleObject(data->process_information.hProcess, INFINITE);
-    GetExitCodeProcess(data->process_information.hProcess, &status);
-    /* *** Any of these calls could have failed, right? */
-    basic_exec_cleanup(data, status);
-  }
-}
-
-EIF_INTEGER basic_exec_win32_get_character (HANDLE h) {
-  char result;
-  DWORD num_read;
-
-  ReadFile(h, &result, 1, &num_read, NULL);
-  if(!num_read) return -1;
-  return result;
-}
-
-void basic_exec_win32_put_character(HANDLE h, EIF_CHARACTER c) {
-  DWORD num_written;
-
-  WriteFile(h, &c, 1, &num_written, NULL);
-  /* *** Do something if num_written!=1 or WriteFile returned 0. */
-}
-
-void basic_exec_cleanup(se_exec_data_t*data, int status) {
-  data->status = status;
-  data->running = 0;
-  CloseHandle(data->process_information.hProcess);
-}
-
-EIF_BOOLEAN basic_exec_win32_wait_any(HANDLE*handles, DWORD count, se_exec_data_t*data) {
-  DWORD result = WaitForMultipleObjects(count, handles, FALSE, INFINITE);
-  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
-  if(success) {
-    int index = result - WAIT_OBJECT_0;
-    HANDLE handle = handles[index];
-    GetExitCodeProcess(handle, &data->status);
-    data->process_information.hProcess = handle;
-  }
-  return success;
-}
-
-EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_data_t*data ) {
-  DWORD result = WaitForMultipleObjects(count, handles, FALSE, 0);
-  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
-  if(success) {
-    int index = result - WAIT_OBJECT_0;
-    HANDLE handle = handles[index];
-    GetExitCodeProcess(handle, &data->status);
-    data->process_information.hProcess = handle;
-  }
-  return success;
-}
-
-void basic_exec_waitpid_init(EIF_OBJECT obj) {
-}
-
-EIF_INTEGER basic_exec_waitpid_fd(void) {
-   return -1;
-}
-
-EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
-   return -1;
-}
-#else
-EIF_INTEGER basic_exec_win32_get_character (void *h) {
-  return 0;
-}
-
-void basic_exec_win32_put_character(void *h, EIF_CHARACTER c) {
-}
-
-EIF_BOOLEAN basic_exec_win32_wait_any(void*handles, int count, se_exec_data_t*data) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_win32_any_finished(void*handles, int count, se_exec_data_t*data) {
-  return 0;
-}
-
-EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, void*in_h, void*out_h, void*err_h) {
-  return 0;
-}
-#endif
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -1335,65 +687,627 @@ EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path){
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
+#if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
+/* macro read is used of read_stdin */
 
-EIF_INTEGER fstat_st_size(EIF_POINTER path) {
+void io_copy (char*source, char*target) {
+  /* We use the low-level descriptor functions rather than stream-oriented functions.
+   * This allows us to copy the file's permissions. */
 
-	struct stat buf;
-	int test;
+  int src;
+  int tgt;
+  struct stat info;
+  static char *buffer = NULL;
+  static int bufsize = 0;
+  int read_count, write_count, written;
 
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_size : -1);
-
+  src=open (source, O_RDONLY);
+  if (fstat (src, &info))
+    return; /* Ooops */
+  if (bufsize < info.st_blksize)
+    buffer=se_realloc (buffer, info.st_blksize);
+  tgt=creat (target, info.st_mode);
+  do {
+    read_count = read (src, buffer, info.st_blksize);
+    write_count = 0; written = 0;
+    while  ((write_count < read_count) && (written >= 0))
+      {
+	written = write (tgt, buffer + write_count, read_count - write_count);
+	write_count += written;
+      }
+  } while ((read_count > 0) && (written >= 0));
+  close (src);
+  close (tgt);
 }
 
-EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path) {
-
-	struct stat buf;
-	int test;
-
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_mtime : -1);
-
+int io_same_physical_file(char*path1,char*path2) {
+  struct stat info1, info2;
+  if (stat(path1, &info1))
+    return 0; /* oops */
+  if (stat(path2, &info2))
+    return 0; /* oops */
+  return (info1.st_dev == info2.st_dev) && (info1.st_ino == info2.st_ino);
 }
 
-EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path) {
-#if defined S_ISREG
-  struct stat buf;
+#else
+#define IO_COPY_BUFSIZE 4096
 
-  return stat((const char *)path, &buf)?0:!!S_ISREG(buf.st_mode);
-#elif defined WIN32
-  EIF_BOOLEAN result;
-  HANDLE h=CreateFile((LPCTSTR)path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
-		      NULL, OPEN_EXISTING, 0, NULL);
-
-  if(INVALID_HANDLE_VALUE == h) {
+int read_stdin(EIF_CHARACTER *buffer, int size) {
+  int c;
+  c = getc(stdin);
+  if (c==EOF)
     return 0;
+  *buffer = (EIF_CHARACTER)c;
+  return 1;
+}
+
+void io_copy(char*source, char*target) {
+  static char *buffer = NULL;
+  int read_count;
+  FILE*src=fopen(source, "rb");
+  FILE*tgt=fopen(target, "wb");
+
+  if(!buffer)
+    buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
+
+  while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
+    size_t dummy = fwrite(buffer, 1, read_count, tgt);
   }
-  result = (GetFileType(h) == FILE_TYPE_DISK)
-    && !(GetFileAttributes((LPCTSTR) path) & FILE_ATTRIBUTE_DIRECTORY);
-  CloseHandle(h);
+  fclose(src);
+  fclose(tgt);
+}
+
+int io_same_physical_file(char*path1,char*path2) {
+  /* default implementation returns true only if the paths are the same */
+  return !strcmp(path1, path2);
+}
+#endif
+
+int io_file_exists(char*source) {
+  FILE*src=fopen(source, "rb");
+  if (src!=NULL) {
+    fclose(src);
+    return 1;
+  }
+  else {
+    return (errno != ENOENT);
+  }
+}
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_none
+/* Dummy implementation that always reports an error back to the Eiffel side */
+
+EIF_BOOLEAN basic_exec_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  return (EIF_BOOLEAN)0;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+}
+
+EIF_INTEGER basic_exec_get_character (EIF_INTEGER fd) {
+  return (EIF_INTEGER)0;
+}
+
+void basic_exec_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   return -1;
+}
+#else
+#endif
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_posix
+static char** envp(void) {
+  static char* result[] = {"PATH=/sbin:/usr/sbin:/bin:/usr/bin", NULL};
   return result;
-#else
-  printf("fstat_st_is_file (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
-  se_print_run_time_stack();
-  exit(EXIT_FAILURE);
-#endif
 }
 
-EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path) {
-#if defined S_ISDIR
-  struct stat buf;
-
-  return stat((const char *)path, &buf)?0:!!S_ISDIR(buf.st_mode);
-#elif defined WIN32
-  DWORD attr =GetFileAttributes((LPCTSTR) path);
-  return (attr != INVALID_FILE_ATTRIBUTES)  && (attr & FILE_ATTRIBUTE_DIRECTORY);
-#else
-  printf("fstat_st_is_dir (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
-  se_print_run_time_stack();
-  exit(EXIT_FAILURE);
-#endif
+static int arr_size(char** arr){
+  int size = 0;
+  while(arr[size] != NULL) {
+    size++;
+  }
+  return size;
 }
+
+static int find_variable(char** env, char* var){
+  int location;
+  int src_size;
+  if(var == NULL || env == NULL)
+    return -1;
+  src_size = strchr(var, '=') - var + 1;
+  for(location = 0; env[location] != NULL; location++){
+    if(strncasecmp(env[location], var, src_size) == 0){
+      return location;
+    }
+  }
+  return -1;
+}
+
+static void check_write(int expected, int actual) {
+   if (actual != expected) {
+    handle(SE_HANDLE_RUNTIME_ERROR, NULL);
+#ifdef SE_EXCEPTIONS
+    internal_exception_handler(Routine_failure);
+#elif !defined(SE_BOOST)
+    error0("Routine failure: could not write.", NULL);
+#else
+    fprintf(SE_ERR,"Routine failure (write returned %d but expected %d).\n", actual, expected);
+    exit(EXIT_FAILURE);
+#endif
+  }
+}
+
+EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  int id = fork();
+  if (id == 0) {
+    /* child */
+
+    if(in_fd) {
+      dup2(in_fd[0], 0);
+      close(in_fd[1]);
+    }
+
+    if(out_fd) {
+      dup2(out_fd[1], 1);
+      close(out_fd[0]);
+    }
+
+    if(err_fd) {
+      dup2(err_fd[1], 2);
+      close(err_fd[0]);
+    }
+
+    if (prog == NULL && args == NULL) {
+      data->running = 1;
+      data->child = 1;
+#ifdef SE_SEDB
+      sedb_duplicate();
+#endif
+      return 1;
+    } else {
+      if (add_env == NULL && keep_env) {
+        execvp(prog, args); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
+      }else{
+        char** new_env;
+        char** old_env;
+        int old_size, add_size;
+        int src, dest = 0;
+        if(keep_env){
+          old_env = environ;
+        }else{
+          old_env = envp();
+        }
+        old_size = arr_size(old_env);
+        add_size = arr_size(add_env);
+        new_env = malloc(sizeof(void*) * (old_size + add_size));
+
+        /* we first copy the pointers from the old env */
+        for(src = 0; src < old_size; src++){
+          new_env[dest++] = old_env[src];
+        }
+
+        /* now the ones from add_env */
+        for(src = 0; src < add_size; src++){
+          int override = find_variable(old_env, add_env[src]);
+          if (override >= 0){
+            new_env[override] = add_env[src];
+          }else{
+            new_env[dest++] = add_env[src];
+          }
+        }
+
+        execve(prog, args, new_env); /* NO RETURN in child */
+        se_print_run_time_stack();
+        exit(1);
+      }
+    }
+  }
+  else if (id > 0) {
+    /* father */
+    data->id = id;
+    data->running = 1;
+    data->child = 0;
+    if(in_fd) close(in_fd[0]);
+    if(out_fd) close(out_fd[1]);
+    if(err_fd) close(err_fd[1]);
+    return 1;
+  } else {
+    return 0; /* ... in father only */
+  }
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
+  int status;
+  if (data->running) {
+    int id = waitpid(data->id, &status, WNOHANG);
+    if (id == data->id) {
+      /* child is finished */
+      result = (EIF_BOOLEAN)(id == data->id);
+      basic_exec_cleanup(data, status);
+    }
+  }
+  else{
+    result = (EIF_BOOLEAN)1;
+  }
+  return result;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+  int status;
+  if (data->running) {
+    int id = waitpid(data->id, &status, 0);
+    if (id == data->id) {
+      basic_exec_cleanup(data, status);
+    }
+  }
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+  data->status = WEXITSTATUS(status);
+  data->running = 0;
+}
+
+EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
+  EIF_INTEGER result = -1;
+  char buf[1];
+  ssize_t r = read(fd, buf, 1);
+  if (r > 0) {
+    result = 0xff & ((EIF_INTEGER)(buf[0]));
+  }
+  return result;
+}
+
+void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+  char buf[1];
+  buf[0] = c;
+  check_write(1, write(fd, buf, 1));
+}
+
+void basic_exec_posix_wait_any(se_exec_data_t*data) {
+  data->id = wait(&data->status);
+}
+
+void basic_exec_posix_any_finished(se_exec_data_t*data) {
+  data->id = waitpid(-1, &data->status, WNOHANG);
+}
+
+/*
+ * See http://stackoverflow.com/questions/282176/waitpid-equivalent-with-timeout
+ *
+ * (with specific adaptation to Liberty Eiffel)
+ */
+static int waitpid_selfpipe[2];
+static EIF_OBJECT waitpid_input;
+
+static void waitpid_sigh(int n) {
+   check_write(1, write(waitpid_selfpipe[1], "", 1));
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+   waitpid_input = obj;
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   static init = 0;
+   static struct sigaction act;
+   if (!init) {
+      init = 1;
+      if (pipe(waitpid_selfpipe) == -1) {
+         waitpid_selfpipe[0] = -1;
+      }
+      else {
+         fcntl(waitpid_selfpipe[0], F_SETFL, fcntl(waitpid_selfpipe[0], F_GETFL) | O_NONBLOCK);
+         fcntl(waitpid_selfpipe[1], F_SETFL, fcntl(waitpid_selfpipe[1], F_GETFL) | O_NONBLOCK);
+         memset(&act, 0, sizeof(act));
+         act.sa_handler = waitpid_sigh;
+         sigaction(SIGCHLD, &act, NULL);
+      }
+   }
+   return waitpid_selfpipe[0];
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   static char dummy[4096];
+   char *buffer = (char*)data;
+   int pid, status;
+
+   while (read(waitpid_selfpipe[0], dummy, sizeof(dummy)) > 0);
+
+   while ((pid = waitpid(-1, &status, WNOHANG)) > 0) {
+      oob_info(waitpid_input, pid, status);
+   }
+
+   buffer[0] = 0;
+   return 1;
+}
+#else
+EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
+  return 0;
+}
+
+void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
+}
+
+void basic_exec_posix_wait_any(se_exec_data_t*data) {
+}
+
+void basic_exec_posix_any_finished(se_exec_data_t*data) {
+}
+
+EIF_BOOLEAN basic_exec_posix_execute(se_exec_data_t*data, char*prog, char**args, EIF_BOOLEAN keep_env, char**add_env, int* in_fd, int* out_fd, int* err_fd) {
+  return 0;
+}
+#endif
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#if basic_exec_system == basic_exec_system_win32
+static char* envp(void) {
+  static char* result = "\0";/* *** Maybe call GetFullPathName to set =C: and friends */
+  return result;
+}
+
+EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, HANDLE*in_h, HANDLE*out_h, HANDLE*err_h) {
+  STARTUPINFO start_info;
+  EIF_BOOLEAN result = 0;
+
+  ZeroMemory( &start_info, sizeof(STARTUPINFO) );
+
+  start_info.cb = sizeof(STARTUPINFO);
+  if(in_h) {
+    start_info.hStdInput = in_h[0];
+    SetHandleInformation(in_h[1], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdInput) goto leave;
+  if(out_h) {
+    start_info.hStdOutput = out_h[1];
+    SetHandleInformation(out_h[0], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdOutput) goto leave;
+  if(err_h) {
+    start_info.hStdError = err_h[1];
+    SetHandleInformation(err_h[0], HANDLE_FLAG_INHERIT, 0);
+  } else {
+    start_info.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+  }
+  if(INVALID_HANDLE_VALUE == start_info.hStdError) goto leave;
+  start_info.dwFlags |= STARTF_USESTDHANDLES;
+
+  if(CreateProcess(NULL, args,
+                   NULL,                                /* process security attributes          */
+                   NULL,                                /* primary thread security attributes   */
+                   TRUE,                                /* handles are inherited                */
+                   0,                                   /* creation flags                       */
+                   keep_env?NULL:envp(),
+                   NULL,                                /* use parent's current directory       */
+                   &start_info,                         /* STARTUPINFO pointer                  */
+                   &data->process_information)) {       /* receives PROCESS_INFORMATION         */
+    CloseHandle(data->process_information.hThread);
+    data->running = 1;
+    result = 1;
+  }
+ leave:
+  if(in_h) CloseHandle(in_h[0]);
+  if(out_h) CloseHandle(out_h[1]);
+  if(err_h) CloseHandle(err_h[1]);
+  return result;
+}
+
+EIF_BOOLEAN basic_exec_init_pipe(HANDLE*pipe) {
+  SECURITY_ATTRIBUTES security_attributes;
+
+  // Set the bInheritHandle flag so pipe handles are inherited.
+
+  security_attributes.nLength = sizeof(SECURITY_ATTRIBUTES);
+  security_attributes.bInheritHandle = TRUE;
+  security_attributes.lpSecurityDescriptor = NULL;
+
+  return CreatePipe(pipe, pipe+1, &security_attributes, 0);
+}
+
+EIF_BOOLEAN basic_exec_is_finished(se_exec_data_t*data) {
+  EIF_BOOLEAN result = (EIF_BOOLEAN)0;
+  if (data->running) {
+    result = (WaitForSingleObject(data->process_information.hProcess, 0) == WAIT_OBJECT_0);
+    if (result) {
+      /* child is finished */
+      DWORD status;
+      GetExitCodeProcess(data->process_information.hProcess, &status);
+      /* *** Could have failed */
+      basic_exec_cleanup(data, status);
+    }
+  }
+  else{
+    result = (EIF_BOOLEAN)1;
+  }
+  return result;
+}
+
+void basic_exec_wait(se_exec_data_t*data) {
+  if (data->running) {
+    DWORD status;
+    WaitForSingleObject(data->process_information.hProcess, INFINITE);
+    GetExitCodeProcess(data->process_information.hProcess, &status);
+    /* *** Any of these calls could have failed, right? */
+    basic_exec_cleanup(data, status);
+  }
+}
+
+EIF_INTEGER basic_exec_win32_get_character (HANDLE h) {
+  char result;
+  DWORD num_read;
+
+  ReadFile(h, &result, 1, &num_read, NULL);
+  if(!num_read) return -1;
+  return result;
+}
+
+void basic_exec_win32_put_character(HANDLE h, EIF_CHARACTER c) {
+  DWORD num_written;
+
+  WriteFile(h, &c, 1, &num_written, NULL);
+  /* *** Do something if num_written!=1 or WriteFile returned 0. */
+}
+
+void basic_exec_cleanup(se_exec_data_t*data, int status) {
+  data->status = status;
+  data->running = 0;
+  CloseHandle(data->process_information.hProcess);
+}
+
+EIF_BOOLEAN basic_exec_win32_wait_any(HANDLE*handles, DWORD count, se_exec_data_t*data) {
+  DWORD result = WaitForMultipleObjects(count, handles, FALSE, INFINITE);
+  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
+  if(success) {
+    int index = result - WAIT_OBJECT_0;
+    HANDLE handle = handles[index];
+    GetExitCodeProcess(handle, &data->status);
+    data->process_information.hProcess = handle;
+  }
+  return success;
+}
+
+EIF_BOOLEAN basic_exec_win32_any_finished(HANDLE*handles, DWORD count, se_exec_data_t*data ) {
+  DWORD result = WaitForMultipleObjects(count, handles, FALSE, 0);
+  EIF_BOOLEAN success = (result < (WAIT_OBJECT_0 + count));
+  if(success) {
+    int index = result - WAIT_OBJECT_0;
+    HANDLE handle = handles[index];
+    GetExitCodeProcess(handle, &data->status);
+    data->process_information.hProcess = handle;
+  }
+  return success;
+}
+
+void basic_exec_waitpid_init(EIF_OBJECT obj) {
+}
+
+EIF_INTEGER basic_exec_waitpid_fd(void) {
+   return -1;
+}
+
+EIF_INTEGER basic_exec_waitpid_read_buffer(void*data) {
+   return -1;
+}
+#else
+EIF_INTEGER basic_exec_win32_get_character (void *h) {
+  return 0;
+}
+
+void basic_exec_win32_put_character(void *h, EIF_CHARACTER c) {
+}
+
+EIF_BOOLEAN basic_exec_win32_wait_any(void*handles, int count, se_exec_data_t*data) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_win32_any_finished(void*handles, int count, se_exec_data_t*data) {
+  return 0;
+}
+
+EIF_BOOLEAN basic_exec_win32_execute(se_exec_data_t*data, char*args, EIF_BOOLEAN keep_env, char*add_env, void*in_h, void*out_h, void*err_h) {
+  return 0;
+}
+#endif
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -1492,6 +1406,92 @@ void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_ex
   sprintf((char*)b, fmt, r);
 }
 
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+
+EIF_INTEGER fstat_st_size(EIF_POINTER path) {
+
+	struct stat buf;
+	int test;
+
+	test = stat(path, &buf);
+	return (test == 0 ? buf.st_size : -1);
+
+}
+
+EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path) {
+
+	struct stat buf;
+	int test;
+
+	test = stat(path, &buf);
+	return (test == 0 ? buf.st_mtime : -1);
+
+}
+
+EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path) {
+#if defined S_ISREG
+  struct stat buf;
+
+  return stat((const char *)path, &buf)?0:!!S_ISREG(buf.st_mode);
+#elif defined WIN32
+  EIF_BOOLEAN result;
+  HANDLE h=CreateFile((LPCTSTR)path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
+		      NULL, OPEN_EXISTING, 0, NULL);
+
+  if(INVALID_HANDLE_VALUE == h) {
+    return 0;
+  }
+  result = (GetFileType(h) == FILE_TYPE_DISK)
+    && !(GetFileAttributes((LPCTSTR) path) & FILE_ATTRIBUTE_DIRECTORY);
+  CloseHandle(h);
+  return result;
+#else
+  printf("fstat_st_is_file (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
+  se_print_run_time_stack();
+  exit(EXIT_FAILURE);
+#endif
+}
+
+EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path) {
+#if defined S_ISDIR
+  struct stat buf;
+
+  return stat((const char *)path, &buf)?0:!!S_ISDIR(buf.st_mode);
+#elif defined WIN32
+  DWORD attr =GetFileAttributes((LPCTSTR) path);
+  return (attr != INVALID_FILE_ATTRIBUTES)  && (attr & FILE_ATTRIBUTE_DIRECTORY);
+#else
+  printf("fstat_st_is_dir (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
+  se_print_run_time_stack();
+  exit(EXIT_FAILURE);
+#endif
+}
 
 int se_cmpT546(T546* o1,T546* o2){
 int R=0;
@@ -1506,11 +1506,6 @@ R = R || ((o1->_mangling) != (o2->_mangling));
 return R;
 }/*--*/
 
-int se_cmpT706(T706* o1,T706* o2){
-int R=0;
-return R;
-}/*--*/
-
 int se_cmpT789(T789* o1,T789* o2){
 int R=0;
 R = R || ((o1->_hashed_string_memory) != (o2->_hashed_string_memory));
@@ -1518,11 +1513,11 @@ R = R || ((o1->_column) != (o2->_column));
 R = R || ((o1->_line) != (o2->_line));
 return R;
 }/*--*/
-T1074 M1074=0;
-T1078 M1078=0;
-T1085 M1085={1085,NULL};
+T1075 M1075=0;
+T1079 M1079=0;
 T1086 M1086={1086,NULL};
-T1091 M1091=0;
+T1087 M1087={1087,NULL};
+T1092 M1092=0;
 
 int se_cmpT726(T726* o1,T726* o2){
 int R=0;
@@ -1537,16 +1532,16 @@ R = R || ((o1->_microsecond) != (o2->_microsecond));
 return R;
 }/*--*/
 
-int se_cmpT1124(T1124* o1,T1124* o2){
+int se_cmpT1125(T1125* o1,T1125* o2){
 int R=0;
 R = R || ((o1->_comparator) != (o2->_comparator));
 return R;
 }/*--*/
-T1124 M1124={(void*)0};
-T1128 M1128={1128,NULL};
-T1179 M1179={1179,NULL};
-T1182 M1182={1182,NULL};
-T1185 M1185={1185,NULL};
+T1125 M1125={(void*)0};
+T1129 M1129={1129,NULL};
+T1180 M1180={1180,NULL};
+T1183 M1183={1183,NULL};
+T1186 M1186={1186,NULL};
 
 int se_cmpT348(T348* o1,T348* o2){
 int R=0;
@@ -1555,11 +1550,11 @@ R = R || ((o1->_feature_name) != (o2->_feature_name));
 R = R || ((o1->_hash_code) != (o2->_hash_code));
 return R;
 }/*--*/
-T1202 M1202={1202,NULL};
-T1205 M1205={1205,NULL};
-T1210 M1210={1210,NULL};
-T1220 M1220={1220,NULL};
-T1224 M1224={1224,NULL};
+T1203 M1203={1203,NULL};
+T1206 M1206={1206,NULL};
+T1211 M1211={1211,NULL};
+T1221 M1221={1221,NULL};
+T1225 M1225={1225,NULL};
 
 int se_cmpT324(T324* o1,T324* o2){
 int R=0;
@@ -1577,52 +1572,50 @@ R = R || ((o1->_direct_input) != (o2->_direct_input));
 R = R || ((o1->_direct_output) != (o2->_direct_output));
 return R;
 }/*--*/
-T1246 M1246={1246,NULL};
-T1249 M1249={1249,NULL};
-T1254 M1254={1254,NULL};
+T1247 M1247={1247,NULL};
+T1250 M1250={1250,NULL};
 T1255 M1255={1255,NULL};
-T1292 M1292={1292,NULL};
-T1294 M1294={1294,NULL};
-T1304 M1304={1304,NULL};
-T1307 M1307={1307,NULL};
-T1310 M1310={1310,NULL};
-T1315 M1315={1315,NULL};
-T1321 M1321={1321,NULL};
-T1324 M1324={1324,NULL};
-T1333 M1333={1333,NULL};
-T1337 M1337={1337,NULL};
-T1340 M1340={1340,NULL};
+T1256 M1256={1256,NULL};
+T1293 M1293={1293,NULL};
+T1295 M1295={1295,NULL};
+T1305 M1305={1305,NULL};
+T1308 M1308={1308,NULL};
+T1311 M1311={1311,NULL};
+T1316 M1316={1316,NULL};
+T1322 M1322={1322,NULL};
+T1325 M1325={1325,NULL};
+T1334 M1334={1334,NULL};
+T1338 M1338={1338,NULL};
 T1341 M1341={1341,NULL};
-T1344 M1344={1344,NULL};
-T1349 M1349={1349,NULL};
-T1353 M1353={1353,NULL};
-T1356 M1356={1356,NULL};
-T1359 M1359={1359,NULL};
-T1364 M1364={1364,NULL};
-T1367 M1367={1367,NULL};
-T1372 M1372={1372,NULL};
+T1342 M1342={1342,NULL};
+T1345 M1345={1345,NULL};
+T1350 M1350={1350,NULL};
+T1354 M1354={1354,NULL};
+T1357 M1357={1357,NULL};
+T1360 M1360={1360,NULL};
+T1365 M1365={1365,NULL};
+T1368 M1368={1368,NULL};
 T1373 M1373={1373,NULL};
-T1376 M1376={1376,NULL};
-T1381 M1381={1381,NULL};
-T1396 M1396={1396,NULL};
-T1399 M1399={1399,NULL};
-T1405 M1405={1405,NULL};
-T1409 M1409={1409,NULL};
-T1411 M1411={1411,NULL};
-T1416 M1416={1416,NULL};
-T1419 M1419={1419,NULL};
-T1422 M1422={1422,NULL};
-T1433 M1433={1433,NULL};
-T1438 M1438={1438,NULL};
-T1443 M1443={1443,NULL};
-T1446 M1446=0;
-T1450 M1450={1450,NULL};
-T1453 M1453={1453,NULL};
-T1466 M1466={1466,NULL};
-T1469 M1469={1469,NULL};
-T1474 M1474={1474,NULL};
-T1479 M1479={1479,NULL};
-T1482 M1482=0;
+T1374 M1374={1374,NULL};
+T1377 M1377={1377,NULL};
+T1382 M1382={1382,NULL};
+T1397 M1397={1397,NULL};
+T1400 M1400={1400,NULL};
+T1406 M1406={1406,NULL};
+T1410 M1410={1410,NULL};
+T1412 M1412={1412,NULL};
+T1417 M1417={1417,NULL};
+T1420 M1420={1420,NULL};
+T1423 M1423={1423,NULL};
+T1434 M1434={1434,NULL};
+T1439 M1439={1439,NULL};
+T1444 M1444={1444,NULL};
+T1447 M1447=0;
+T1451 M1451={1451,NULL};
+T1454 M1454={1454,NULL};
+T1462 M1462={1462,NULL};
+T1465 M1465={1465,NULL};
+T1466 M1466=0;
 
 int se_cmpT766(T766* o1,T766* o2){
 int R=0;
@@ -1631,25 +1624,27 @@ R = R || ((o1->_first_error_character) != (o2->_first_error_character));
 R = R || ((o1->_first_error_index) != (o2->_first_error_index));
 return R;
 }/*--*/
-T1510 M1510=0;
-T1515 M1515={1515,NULL};
-T1518 M1518={1518,NULL};
-T1521 M1521={1521,NULL};
-T1522 M1522={1522,NULL};
-T1525 M1525={1525,NULL};
-T1536 M1536={1536,NULL};
-T1540 M1540=0;
-T1554 M1554=0;
-T1561 M1561=0;
-T1566 M1566=0;
-T1578 M1578={1578,NULL};
-T1597 M1597=0;
-T1601 M1601={1601,NULL};
+T1495 M1495=0;
+T1499 M1499={1499,NULL};
+T1502 M1502={1502,NULL};
+T1505 M1505={1505,NULL};
+T1506 M1506={1506,NULL};
+T1509 M1509={1509,NULL};
+T1520 M1520={1520,NULL};
+T1524 M1524=0;
+T1534 M1534={1534,NULL};
+T1539 M1539={1539,NULL};
+T1555 M1555=0;
+T1562 M1562=0;
+T1567 M1567=0;
+T1579 M1579={1579,NULL};
+T1598 M1598=0;
+T1602 M1602={1602,NULL};
 T29 M29={(void*)0,0,0};
 T296 M296=0;
 T113 M113={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,{(void*)0,(void*)0},0,0,0};
 T126 M126={(void*)0,(void*)0,(void*)0,0,0};
-T1015 M1015=(void*)0;
+T1016 M1016=(void*)0;
 T104 M104={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,0,0,0,0,{(void*)0,0,0},'\0',0,0,0,0,0,0,0,0};
 T283 M283={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,0,0,0,0,0,0,'\0',0,0,0,0,{(void*)0,0,0},0,0,0};
 T117 M117={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -1658,23 +1653,23 @@ T291 M291={0,0};
 T281 M281=(void*)0;
 T297 M297=0;
 T7 M7={7,(void*)0,0,0,0,0,0};
-T1043 M1043={1043,(void*)0,0,0,0};
+T1044 M1044={1044,(void*)0,0,0,0};
 T293 M293={(void*)0,0,0,0,0,0};
 T86 M86={(void*)0,0};
-T1044 M1044={(void*)0};
+T1045 M1045={(void*)0};
 T295 M295=0;
 T554 M554=0;
 T546 M546={(void*)0,(void*)0};
 T78 M78={78};
-T1045 M1045={1045,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1046 M1046={1046,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T557 M557={557,(void*)0,(void*)0};
 T561 M561={561,(void*)0,(void*)0};
 T562 M562={562};
 T563 M563={563};
 T564 M564={564};
 T565 M565={565};
-T1046 M1046={(void*)0};
-T1047 M1047={0};
+T1047 M1047={(void*)0};
+T1048 M1048={0};
 T102 M102={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,'\0'};
 T556 M556={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T545 M545=0;
@@ -1683,7 +1678,7 @@ T665 M665={665,(void*)0};
 T81 M81={81,(void*)0};
 T69 M69={69,(void*)0,(void*)0,0,0};
 T467 M467={467,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
-T1048 M1048={(void*)0,0,0,0};
+T1049 M1049={(void*)0,0,0,0};
 T106 M106={(void*)0,0};
 T123 M123={(void*)0,(void*)0,(void*)0,0};
 T707 M707={707,(void*)0,(void*)0,0};
@@ -1693,10 +1688,10 @@ T566 M566={(void*)0,(void*)0,0,{(void*)0,(void*)0},(void*)0,0};
 T703 M703={703,(void*)0,(void*)0,0,{(void*)0,(void*)0}};
 T351 M351={0};
 T437 M437={437,(void*)0,{0},0};
-T1049 M1049={1049,(void*)0,0,0,0,0};
+T1050 M1050={1050,(void*)0,0,0,0,0};
 T333 M333={(void*)0,(void*)0,(void*)0,0,0,0};
 T706 M706={0};
-T1050 M1050={(void*)0,0,0,0};
+T1051 M1051={(void*)0,0,0,0};
 T447 M447={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,'\0'};
 T789 M789={(void*)0,0,0};
 T588 M588={588,0,{(void*)0},(void*)0};
@@ -1723,15 +1718,15 @@ T653 M653={653};
 T656 M656={656};
 T657 M657={657,0};
 T658 M658={658,(void*)0,(void*)0,0};
-T1051 M1051={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1052 M1052={(void*)0,0,0,0};
+T1052 M1052={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1053 M1053={(void*)0,0,0,0};
 T383 M383={383,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,0,0,0,0};
 T97 M97={97,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,0};
 T95 M95={(void*)0,(void*)0,(void*)0,0,0,{0},0};
 T286 M286={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T89 M89={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T553 M553={(void*)0,(void*)0,0,{{0},0},0,0,0};
-T1054 M1054={(void*)0,0,0,0,0};
+T1055 M1055={(void*)0,0,0,0,0};
 T341 M341={(void*)0,(void*)0,0,0};
 T110 M110=(void*)0;
 T108 M108={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
@@ -1741,62 +1736,62 @@ T124 M124={0};
 T127 M127=(void*)0;
 T91 M91={(void*)0,(void*)0,{0},(void*)0,(void*)0,(void*)0,(void*)0,0,{0},0};
 T452 M452={452,(void*)0,(void*)0,(void*)0,0};
-T1056 M1056={(void*)0,0,0,0,0};
-T1057 M1057={(void*)0,(void*)0,0,0,0,0};
-T1058 M1058={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1059 M1059={(void*)0,0,0,0};
+T1057 M1057={(void*)0,0,0,0,0};
+T1058 M1058={(void*)0,(void*)0,0,0,0,0};
+T1059 M1059={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1060 M1060={(void*)0,0,0,0};
 T306 M306={306,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0};
-T1060 M1060={(void*)0,(void*)0,0,0,0,0};
+T1061 M1061={(void*)0,(void*)0,0,0,0,0};
 T120 M120={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
 T290 M290={(void*)0,(void*)0,{0},0};
 T441 M441={441,(void*)0,(void*)0,(void*)0,0};
-T1063 M1063={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T587 M587=0;
 T1064 M1064={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1065 M1065={(void*)0,(void*)0,0,0,0,0};
-T1066 M1066={0};
+T587 M587=0;
+T1065 M1065={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1066 M1066={(void*)0,(void*)0,0,0,0,0};
+T1067 M1067={0};
 T727 M727={727,0};
 T728 M728={728,(void*)0,(void*)0,(void*)0,0};
 T729 M729={729,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T318 M318={318,(void*)0,(void*)0,(void*)0,(void*)0};
 T551 M551={(void*)0,(void*)0};
-T1069 M1069={(void*)0,0,0,0};
-T1070 M1070={(void*)0,(void*)0,0,0,0,0};
-T1071 M1071={(void*)0,0,0,0};
+T1070 M1070={(void*)0,0,0,0};
+T1071 M1071={(void*)0,(void*)0,0,0,0,0};
+T1072 M1072={(void*)0,0,0,0};
 T720 M720={720,(void*)0};
-T1072 M1072={(void*)0,0,0,0,0,0};
+T1073 M1073={(void*)0,0,0,0,0,0};
 T719 M719={(void*)0,(void*)0,0};
-T1073 M1073={(void*)0,0,0,0};
+T1074 M1074={(void*)0,0,0,0};
 T340 M340={(void*)0,(void*)0,(void*)0};
-T1077 M1077={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1078 M1078={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T806 M806=0;
 T803 M803={803,(void*)0};
 T805 M805={805,(void*)0,(void*)0,0};
-T1079 M1079={(void*)0,0,0,0};
-T1080 M1080={(void*)0};
+T1080 M1080={(void*)0,0,0,0};
+T1081 M1081={(void*)0};
 T59 M59={0,(void*)0,{(void*)0,0}};
 T804 M804={804,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
-T1081 M1081={(void*)0,(void*)0,(void*)0};
-T1087 M1087={(void*)0,(void*)0,(void*)0};
-T1088 M1088={(void*)0,(void*)0,0,0,0,0};
+T1082 M1082={(void*)0,(void*)0,(void*)0};
+T1088 M1088={(void*)0,(void*)0,(void*)0};
+T1089 M1089={(void*)0,(void*)0,0,0,0,0};
 T80 M80=0;
-T1089 M1089={(void*)0,0,0,0};
-T1093 M1093={(void*)0,0,0,0};
+T1090 M1090={(void*)0,0,0,0};
+T1094 M1094={(void*)0,0,0,0};
 T107 M107={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,0,{(void*)0,0,0},0,0,0,0,'\0'};
-T1096 M1096={(void*)0,0,0,0};
+T1097 M1097={(void*)0,0,0,0};
 T782 M782={782,{(void*)0,(void*)0},(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T822 M822={822,{(void*)0,(void*)0},(void*)0,(void*)0,(void*)0,(void*)0,0};
-T1098 M1098={(void*)0,(void*)0,0,0,0,0};
-T1100 M1100={(void*)0,(void*)0,0,0,0,0};
-T1102 M1102={(void*)0,(void*)0,0,0,0,0};
-T1104 M1104={(void*)0,(void*)0,0,0,0,0};
+T1099 M1099={(void*)0,(void*)0,0,0,0,0};
+T1101 M1101={(void*)0,(void*)0,0,0,0,0};
+T1103 M1103={(void*)0,(void*)0,0,0,0,0};
+T1105 M1105={(void*)0,(void*)0,0,0,0,0};
 T784 M784={(void*)0,(void*)0};
 T491 M491={{0},0};
-T1107 M1107={1107,(void*)0,0,0,0,0,0};
-T367 M367={367,{0},(void*)0,(void*)0};
 T1108 M1108={1108,(void*)0,0,0,0,0,0};
+T367 M367={367,{0},(void*)0,(void*)0};
+T1109 M1109={1109,(void*)0,0,0,0,0,0};
 T407 M407={407,{0},(void*)0,(void*)0};
-T1109 M1109={(void*)0,0,0,0};
+T1110 M1110={(void*)0,0,0,0};
 T462 M462={(void*)0,(void*)0,0,0,{0},(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T433 M433={(void*)0,(void*)0,(void*)0};
 T395 M395={395,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,{0},0};
@@ -1814,7 +1809,7 @@ T396 M396={396,(void*)0,(void*)0,(void*)0,0};
 T450 M450={450,(void*)0,(void*)0,(void*)0,0};
 T422 M422={422,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T448 M448={448,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
-T418 M418={418,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T418 M418={418,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T451 M451={451,(void*)0,(void*)0,(void*)0,0};
 T449 M449={449,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T455 M455={455,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
@@ -1832,10 +1827,10 @@ T488 M488={488,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T489 M489={489,(void*)0,(void*)0,(void*)0};
 T490 M490={490,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T438 M438={(void*)0,(void*)0,{0},(void*)0,(void*)0};
-T1110 M1110={(void*)0,0,0,0};
+T1111 M1111={(void*)0,0,0,0};
 T289 M289={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T497 M497={(void*)0,(void*)0};
-T1111 M1111={(void*)0,0,0,0};
+T1112 M1112={(void*)0,0,0,0};
 T538 M538={538,(void*)0,{0}};
 T507 M507={507,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T416 M416={416,(void*)0,(void*)0,(void*)0};
@@ -1860,24 +1855,24 @@ T481 M481={481,{0},(void*)0,'\0'};
 T500 M500={500,(void*)0,(void*)0,(void*)0,(void*)0,{0}};
 T535 M535={535,(void*)0,(void*)0,{0}};
 T536 M536={536,(void*)0,(void*)0,(void*)0,0,{0}};
-T1112 M1112={(void*)0,0,0,0};
-T1113 M1113={1113,(void*)0,0,0,0,0};
+T1113 M1113={(void*)0,0,0,0};
+T1114 M1114={1114,(void*)0,0,0,0,0};
 T468 M468={468,(void*)0,(void*)0,(void*)0,(void*)0,0,{0}};
 T469 M469={469,(void*)0};
-T1114 M1114={1114,(void*)0,0,0,0,0};
+T1115 M1115={1115,(void*)0,0,0,0,0};
 T406 M406={406,(void*)0};
-T1115 M1115={(void*)0,0,0,0,0};
+T1116 M1116={(void*)0,0,0,0,0};
 T684 M684={684,(void*)0,(void*)0,0,0};
-T1116 M1116={(void*)0,0,0,0};
+T1117 M1117={(void*)0,0,0,0};
 T435 M435={435,(void*)0,(void*)0,(void*)0,(void*)0};
-T1117 M1117={1117,(void*)0,0,0,0,0};
+T1118 M1118={1118,(void*)0,0,0,0,0};
 T403 M403={403,(void*)0,(void*)0,(void*)0,(void*)0,0,{0},0,0};
 T537 M537={537,(void*)0,(void*)0,0};
-T1118 M1118={(void*)0,0,0,0};
+T1119 M1119={(void*)0,0,0,0};
 T496 M496={496,(void*)0,(void*)0,{0},0};
 T427 M427={427,(void*)0,(void*)0,{0},0};
 T413 M413={413,(void*)0,(void*)0,(void*)0,(void*)0,{0},0};
-T1119 M1119={(void*)0,0,0,0};
+T1120 M1120={(void*)0,0,0,0};
 T371 M371={371,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,{0},0};
 T384 M384={384,(void*)0,{0}};
 T376 M376={376,(void*)0,(void*)0,(void*)0,(void*)0,{0},(void*)0,(void*)0,{0},0};
@@ -1924,76 +1919,76 @@ T519 M519={519,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T476 M476={476,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T479 M479={(void*)0,(void*)0,(void*)0,{0}};
 T478 M478={(void*)0,(void*)0};
-T1122 M1122={(void*)0,0,0,0,0};
+T1123 M1123={(void*)0,0,0,0,0};
 T446 M446={(void*)0,(void*)0,(void*)0,(void*)0};
 T783 M783={(void*)0,(void*)0,(void*)0};
 T470 M470={{0},(void*)0};
 T372 M372={372,(void*)0,(void*)0,0,{0},0,0};
 T425 M425={425,(void*)0,(void*)0,(void*)0,(void*)0};
 T408 M408={408,(void*)0,(void*)0,(void*)0,0,{0},0,0};
-T1123 M1123={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1124 M1124={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T421 M421={421,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
-T1127 M1127={(void*)0,0,0,0};
-T1129 M1129={(void*)0,(void*)0,(void*)0};
-T1132 M1132={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1133 M1133={(void*)0,0,0,0,0};
+T1128 M1128={(void*)0,0,0,0};
+T1130 M1130={(void*)0,(void*)0,(void*)0};
+T1133 M1133={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1134 M1134={(void*)0,0,0,0,0};
 T101 M101={(void*)0};
-T1135 M1135={(void*)0,0,0,0};
+T1136 M1136={(void*)0,0,0,0};
 T701 M701={701,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T442 M442={442,(void*)0,(void*)0,{0},0};
-T1136 M1136={(void*)0,0,0,0};
-T1141 M1141={(void*)0,0,0,0};
-T1142 M1142={(void*)0,(void*)0,0,0,0,0};
-T463 M463={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T1137 M1137={(void*)0,0,0,0};
+T1142 M1142={(void*)0,0,0,0};
 T1143 M1143={(void*)0,(void*)0,0,0,0,0};
+T463 M463={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T1144 M1144={(void*)0,(void*)0,0,0,0,0};
 T445 M445={(void*)0};
 T460 M460={(void*)0};
-T1144 M1144={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1145 M1145={(void*)0,(void*)0,0,0,0,0};
-T1148 M1148={(void*)0,0,0,0};
-T1149 M1149={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1152 M1152={(void*)0,(void*)0,0,0,0,0};
-T1153 M1153={(void*)0,0,0,0};
+T1145 M1145={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1146 M1146={(void*)0,(void*)0,0,0,0,0};
+T1149 M1149={(void*)0,0,0,0};
+T1150 M1150={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1153 M1153={(void*)0,(void*)0,0,0,0,0};
 T1154 M1154={(void*)0,0,0,0};
 T1155 M1155={(void*)0,0,0,0};
-T1157 M1157={(void*)0,0,0,0};
+T1156 M1156={(void*)0,0,0,0};
 T1158 M1158={(void*)0,0,0,0};
-T1159 M1159={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1159 M1159={(void*)0,0,0,0};
+T1160 M1160={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T543 M543={(void*)0,(void*)0,0};
-T1161 M1161={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1165 M1165={(void*)0,(void*)0,0,0,0,0};
-T1166 M1166={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1162 M1162={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1166 M1166={(void*)0,(void*)0,0,0,0,0};
 T1167 M1167={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T1168 M1168={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1169 M1169={(void*)0,0,0,0};
+T1169 M1169={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1170 M1170={(void*)0,0,0,0};
 T547 M547={547,(void*)0,(void*)0,(void*)0};
-T1170 M1170={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1171 M1171={(void*)0,0,0,0};
+T1171 M1171={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1172 M1172={(void*)0,0,0,0};
 T581 M581={(void*)0,(void*)0};
-T1173 M1173={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T1174 M1174={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1175 M1175={(void*)0,0,0,0};
+T1175 M1175={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1176 M1176={(void*)0,0,0,0};
 T415 M415={415,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
-T1177 M1177={(void*)0,(void*)0,(void*)0};
-T1180 M1180={(void*)0,(void*)0,(void*)0};
-T1183 M1183={(void*)0,0,0,0};
-T1186 M1186={(void*)0,(void*)0,(void*)0};
-T1188 M1188={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1189 M1189={(void*)0,0,0,0};
+T1178 M1178={(void*)0,(void*)0,(void*)0};
+T1181 M1181={(void*)0,(void*)0,(void*)0};
+T1184 M1184={(void*)0,0,0,0};
+T1187 M1187={(void*)0,(void*)0,(void*)0};
+T1189 M1189={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1190 M1190={(void*)0,0,0,0};
 T660 M660={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
-T1190 M1190={(void*)0,(void*)0,0,0,0,0};
-T1191 M1191={(void*)0,0,0,0,0,0};
-T1192 M1192={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T348 M348={(void*)0,(void*)0,0};
+T1191 M1191={(void*)0,(void*)0,0,0,0,0};
+T1192 M1192={(void*)0,0,0,0,0,0};
 T1193 M1193={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1198 M1198={(void*)0,(void*)0,0,0,0,0};
-T1199 M1199={(void*)0,0,0,0,0};
+T348 M348={(void*)0,(void*)0,0};
+T1194 M1194={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1199 M1199={(void*)0,(void*)0,0,0,0,0};
 T1200 M1200={(void*)0,0,0,0,0};
-T1201 M1201={(void*)0,0,0,0};
-T1203 M1203={(void*)0,(void*)0,(void*)0};
-T1206 M1206={(void*)0,(void*)0,0};
-T1209 M1209={(void*)0,(void*)0};
-T1213 M1213={(void*)0,(void*)0,0,0,0,0};
+T1201 M1201={(void*)0,0,0,0,0};
+T1202 M1202={(void*)0,0,0,0};
+T1204 M1204={(void*)0,(void*)0,(void*)0};
+T1207 M1207={(void*)0,(void*)0,0};
+T1210 M1210={(void*)0,(void*)0};
+T1214 M1214={(void*)0,(void*)0,0,0,0,0};
 T841 M841={841,(void*)0,(void*)0,(void*)0};
 T842 M842=(void*)0;
 T843 M843={843,(void*)0,(void*)0,(void*)0};
@@ -2002,41 +1997,41 @@ T847 M847={847,(void*)0,(void*)0,(void*)0};
 T848 M848={848};
 T849 M849={849};
 T850 M850={850,0};
-T1214 M1214={(void*)0,0,0,0};
+T1215 M1215={(void*)0,0,0,0};
 T844 M844={844,(void*)0,0,0};
 T851 M851={851,(void*)0,(void*)0};
-T1215 M1215={(void*)0,0,0,0};
-T1216 M1216={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
-T1219 M1219={(void*)0,(void*)0,0};
-T1223 M1223={(void*)0,0,0,0};
+T1216 M1216={(void*)0,0,0,0};
+T1217 M1217={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
+T1220 M1220={(void*)0,(void*)0,0};
+T1224 M1224={(void*)0,0,0,0};
 T583 M583={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
-T1225 M1225={(void*)0,(void*)0,(void*)0};
-T1227 M1227={(void*)0};
-T1229 M1229={(void*)0,0,0,0,0,0};
-T1230 M1230={(void*)0,0,0,0};
+T1226 M1226={(void*)0,(void*)0,(void*)0};
+T1228 M1228={(void*)0};
+T1230 M1230={(void*)0,0,0,0,0,0};
+T1231 M1231={(void*)0,0,0,0};
 T324 M324={(void*)0,0};
 T746 M746=0;
-T1232 M1232={(void*)0,(void*)0,0,0,0,0};
-T1235 M1235={(void*)0,0,0,0,0,0};
-T1239 M1239={(void*)0,(void*)0,(void*)0,0,0,0,0};
-T1240 M1240={1240,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1233 M1233={(void*)0,(void*)0,0,0,0,0};
+T1236 M1236={(void*)0,0,0,0,0,0};
+T1240 M1240={(void*)0,(void*)0,(void*)0,0,0,0,0};
+T1241 M1241={1241,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T542 M542={(void*)0,0,0,0,0};
-T1242 M1242={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1243 M1243={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T808 M808={808,(void*)0};
-T1244 M1244={(void*)0,0,0,0};
-T1245 M1245={(void*)0,(void*)0,0,0,0,0};
-T1247 M1247={(void*)0,(void*)0,(void*)0};
-T1250 M1250={(void*)0,(void*)0,(void*)0};
-T1253 M1253={(void*)0,(void*)0};
-T1256 M1256={(void*)0,(void*)0,0};
-T1258 M1258={(void*)0,(void*)0,0,0,0,0};
+T1245 M1245={(void*)0,0,0,0};
+T1246 M1246={(void*)0,(void*)0,0,0,0,0};
+T1248 M1248={(void*)0,(void*)0,(void*)0};
+T1251 M1251={(void*)0,(void*)0,(void*)0};
+T1254 M1254={(void*)0,(void*)0};
+T1257 M1257={(void*)0,(void*)0,0};
+T1259 M1259={(void*)0,(void*)0,0,0,0,0};
 T726 M726={0};
 T699 M699={699,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T696 M696={696,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T584 M584={584,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T700 M700={700,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
-T1262 M1262={1262,(void*)0,0,0,0};
-T1264 M1264={1264,(void*)0,0,0,0};
+T1263 M1263={1263,(void*)0,0,0,0};
+T1265 M1265={1265,(void*)0,0,0,0};
 T693 M693={693,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T686 M686={686,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T689 M689={689,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
@@ -2047,113 +2042,101 @@ T688 M688={688,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(v
 T690 M690={690,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T697 M697={697,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T432 M432={(void*)0};
-T1266 M1266={(void*)0,0,0,0,0};
-T1267 M1267={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1268 M1268={(void*)0,(void*)0,0,0,0,0};
-T1269 M1269={(void*)0,0,0,0};
+T1267 M1267={(void*)0,0,0,0,0};
+T1268 M1268={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1269 M1269={(void*)0,(void*)0,0,0,0,0};
+T1270 M1270={(void*)0,0,0,0};
 T713 M713={(void*)0};
-T1276 M1276={(void*)0,0,0,0};
-T1280 M1280={(void*)0,0,0,0};
+T1277 M1277={(void*)0,0,0,0};
+T1281 M1281={(void*)0,0,0,0};
 T762 M762={762,(void*)0,(void*)0,(void*)0,(void*)0};
-T1282 M1282={(void*)0,0,0,0};
+T1283 M1283={(void*)0,0,0,0};
 T394 M394={394,(void*)0,(void*)0};
 T465 M465={465,(void*)0};
 T675 M675={675,(void*)0,(void*)0,(void*)0};
-T1283 M1283={(void*)0,0,0,0};
 T1284 M1284={(void*)0,0,0,0};
-T676 M676={676,(void*)0,(void*)0,0,0,{0}};
 T1285 M1285={(void*)0,0,0,0};
+T676 M676={676,(void*)0,(void*)0,0,0,{0}};
 T1286 M1286={(void*)0,0,0,0};
-T1287 M1287={(void*)0,(void*)0,0,0,0,0};
-T1291 M1291={(void*)0,(void*)0};
-T1295 M1295={(void*)0,(void*)0,(void*)0};
-T1298 M1298={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1303 M1303={(void*)0,(void*)0,0};
-T1306 M1306={(void*)0,(void*)0,(void*)0};
-T1308 M1308={(void*)0,0,0,0};
+T1287 M1287={(void*)0,0,0,0};
+T1288 M1288={(void*)0,(void*)0,0,0,0,0};
+T1292 M1292={(void*)0,(void*)0};
+T1296 M1296={(void*)0,(void*)0,(void*)0};
+T1299 M1299={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1304 M1304={(void*)0,(void*)0,0};
+T1307 M1307={(void*)0,(void*)0,(void*)0};
 T1309 M1309={(void*)0,0,0,0};
-T1311 M1311={(void*)0,(void*)0,(void*)0};
-T1314 M1314={(void*)0,(void*)0,0};
-T1319 M1319={(void*)0,(void*)0,(void*)0,(void*)0};
-T1322 M1322={(void*)0,(void*)0,0,0,0,0};
-T1325 M1325={(void*)0,(void*)0,(void*)0};
-T1331 M1331={(void*)0,(void*)0,(void*)0};
-T1336 M1336={(void*)0,(void*)0};
-T1339 M1339={(void*)0,(void*)0};
-T1342 M1342={(void*)0,(void*)0,(void*)0};
-T1345 M1345={(void*)0,(void*)0,(void*)0};
-T1348 M1348={(void*)0,(void*)0};
-T1351 M1351={(void*)0,(void*)0,(void*)0};
-T1355 M1355={(void*)0,(void*)0};
-T1357 M1357={(void*)0,(void*)0,(void*)0};
+T1310 M1310={(void*)0,0,0,0};
+T1312 M1312={(void*)0,(void*)0,(void*)0};
+T1315 M1315={(void*)0,(void*)0,0};
+T1320 M1320={(void*)0,(void*)0,(void*)0,(void*)0};
+T1323 M1323={(void*)0,(void*)0,0,0,0,0};
+T1326 M1326={(void*)0,(void*)0,(void*)0};
+T1332 M1332={(void*)0,(void*)0,(void*)0};
+T1337 M1337={(void*)0,(void*)0};
+T1340 M1340={(void*)0,(void*)0};
+T1343 M1343={(void*)0,(void*)0,(void*)0};
+T1346 M1346={(void*)0,(void*)0,(void*)0};
+T1349 M1349={(void*)0,(void*)0};
+T1352 M1352={(void*)0,(void*)0,(void*)0};
+T1356 M1356={(void*)0,(void*)0};
+T1358 M1358={(void*)0,(void*)0,(void*)0};
 T428 M428={428,(void*)0,0};
-T763 M763={(void*)0,{0},(void*)0,0,{0}};
-T1363 M1363={(void*)0,(void*)0,(void*)0};
-T1368 M1368={(void*)0,(void*)0,(void*)0};
-T1371 M1371={(void*)0,{(void*)0,(void*)0,0}};
-T1374 M1374={(void*)0,{(void*)0,(void*)0,0},(void*)0};
-T1377 M1377={(void*)0,(void*)0,(void*)0};
-T1382 M1382={(void*)0,(void*)0,(void*)0};
+T1364 M1364={(void*)0,(void*)0,(void*)0};
+T1369 M1369={(void*)0,(void*)0,(void*)0};
+T1372 M1372={(void*)0,{(void*)0,(void*)0,0}};
+T1375 M1375={(void*)0,{(void*)0,(void*)0,0},(void*)0};
+T1378 M1378={(void*)0,(void*)0,(void*)0};
+T1383 M1383={(void*)0,(void*)0,(void*)0};
 T877 M877={(void*)0};
-T1384 M1384={(void*)0,0,0,0};
-T1387 M1387={(void*)0,0,0,0};
-T1388 M1388={(void*)0,(void*)0,(void*)0,0,0};
-T1389 M1389={1389,(void*)0,0,0,0};
-T1390 M1390={(void*)0,(void*)0,0,0,0,0};
+T1385 M1385={(void*)0,0,0,0};
+T1388 M1388={(void*)0,0,0,0};
+T1389 M1389={(void*)0,(void*)0,(void*)0,0,0};
+T1390 M1390={1390,(void*)0,0,0,0};
+T1391 M1391={(void*)0,(void*)0,0,0,0,0};
 T369 M369={369,0,{0},(void*)0,(void*)0};
-T1393 M1393={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1397 M1397={(void*)0,(void*)0,(void*)0};
-T1402 M1402={(void*)0,(void*)0,(void*)0};
-T1403 M1403={1403,(void*)0,0,0};
+T1394 M1394={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1398 M1398={(void*)0,(void*)0,(void*)0};
+T1403 M1403={(void*)0,(void*)0,(void*)0};
+T1404 M1404={1404,(void*)0,0,0};
 T800 M800={800,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
 T801 M801={801,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
 T802 M802={802,(void*)0,0,0,0};
 T797 M797={797,(void*)0,(void*)0};
 T798 M798={798,(void*)0,(void*)0,0};
 T799 M799={799};
-T1407 M1407={(void*)0,(void*)0,(void*)0};
-T1412 M1412={(void*)0,(void*)0,(void*)0};
-T1415 M1415={(void*)0,(void*)0,(void*)0};
-T1417 M1417={(void*)0,0,0,0};
-T1420 M1420={(void*)0,(void*)0,(void*)0};
-T1423 M1423={(void*)0,(void*)0,(void*)0};
-T1425 M1425={(void*)0,0,0,0};
-T1434 M1434={(void*)0,(void*)0,(void*)0};
-T1436 M1436={(void*)0,(void*)0,(void*)0};
-T1442 M1442={(void*)0,(void*)0,(void*)0};
-T867 M867={(void*)0,(void*)0,(void*)0,0,0,0,0};
-T1449 M1449={(void*)0,(void*)0,(void*)0};
-T1452 M1452={(void*)0,(void*)0};
-T1454 M1454={(void*)0,0,0,0,0,0};
-T1455 M1455={(void*)0,(void*)0,0,0,0,0};
+T1408 M1408={(void*)0,(void*)0,(void*)0};
+T1413 M1413={(void*)0,(void*)0,(void*)0};
+T1416 M1416={(void*)0,(void*)0,(void*)0};
+T1418 M1418={(void*)0,0,0,0};
+T1421 M1421={(void*)0,(void*)0,(void*)0};
+T1424 M1424={(void*)0,(void*)0,(void*)0};
+T1426 M1426={(void*)0,0,0,0};
+T1435 M1435={(void*)0,(void*)0,(void*)0};
+T1437 M1437={(void*)0,(void*)0,(void*)0};
+T1443 M1443={(void*)0,(void*)0,(void*)0};
+T1450 M1450={(void*)0,(void*)0,(void*)0};
+T1453 M1453={(void*)0,(void*)0};
+T1455 M1455={(void*)0,0,0,0,0,0};
 T1456 M1456={(void*)0,(void*)0,0,0,0,0};
-T350 M350={0};
-T1459 M1459={(void*)0,(void*)0,(void*)0,0,0,0,0,0,0};
-T1461 M1461={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
-T1462 M1462={0,'\0'};
-T1463 M1463={(void*)0,0,0,0};
-T1464 M1464={(void*)0,(void*)0,0};
-T1467 M1467={(void*)0,(void*)0,0};
-T1470 M1470={(void*)0,0,0,0};
-T1471 M1471={(void*)0,(void*)0,0,0,0,0};
-T1475 M1475={(void*)0,(void*)0};
-T1476 M1476={(void*)0,(void*)0,0,0,0,0};
-T1480 M1480={(void*)0,(void*)0,(void*)0};
+T1457 M1457={(void*)0,(void*)0,0,0,0,0};
+T1460 M1460={(void*)0,(void*)0,0};
+T1463 M1463={(void*)0,(void*)0,0};
 T61 M61={(void*)0,(void*)0,0};
 T810 M810={810,(void*)0,(void*)0,'\0',0};
 T766 M766={(void*)0,0,0};
 T682 M682={682,0,{0},'\0'};
-T1486 M1486={(void*)0,(void*)0,0,0,0,0};
-T1487 M1487={(void*)0,(void*)0};
-T1488 M1488={(void*)0,(void*)0,0,0,0,0};
-T1489 M1489={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1491 M1491={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
-T1494 M1494={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1470 M1470={(void*)0,(void*)0,0,0,0,0};
+T1471 M1471={(void*)0,(void*)0};
+T1472 M1472={(void*)0,(void*)0,0,0,0,0};
+T1473 M1473={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1475 M1475={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
+T1478 M1478={(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T702 M702={702,{0},{0},0};
 T667 M667={667,(void*)0,{0}};
 T580 M580={580,(void*)0,(void*)0,{0}};
 T548 M548={(void*)0};
-T1495 M1495={(void*)0,0,0,0};
+T1479 M1479={(void*)0,0,0,0};
 T668 M668={668,(void*)0,(void*)0};
 T672 M672={672,(void*)0,(void*)0,(void*)0};
 T671 M671={671,(void*)0,(void*)0};
@@ -2163,23 +2146,24 @@ T681 M681={681,(void*)0,0};
 T666 M666={666,(void*)0,(void*)0,0,{0},0};
 T683 M683={683,(void*)0,0,0,{0},0};
 T342 M342=0;
-T1496 M1496={(void*)0,0,0,0};
-T1497 M1497={(void*)0,(void*)0,(void*)0,0,0,0,{0},0};
+T1480 M1480={(void*)0,0,0,0};
+T1481 M1481={(void*)0,(void*)0,(void*)0,0,0,0,{0},0};
 T544 M544={544,(void*)0,(void*)0,(void*)0};
 T677 M677={677,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T578 M578={578,(void*)0,(void*)0,{0},0};
 T685 M685={685,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T763 M763={(void*)0,{0},(void*)0,0,{0}};
 T764 M764={764,(void*)0,(void*)0,0};
-T1499 M1499={(void*)0};
-T1500 M1500={(void*)0,0,0,0};
-T1501 M1501={(void*)0,0,0,0};
+T1483 M1483={(void*)0};
+T1484 M1484={(void*)0,0,0,0};
+T1485 M1485={(void*)0,0,0,0};
 T320 M320=0;
 T128 M128={128,0,0};
-T1502 M1502={(void*)0,(void*)0,0,0,0,0};
-T1503 M1503={(void*)0,0,0,0};
+T1486 M1486={(void*)0,(void*)0,0,0,0,0};
+T1487 M1487={(void*)0,0,0,0};
 T769 M769={769,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T122 M122={0};
-T1509 M1509={(void*)0,0,0,0,0};
+T1493 M1493={(void*)0,0,0,0,0};
 T429 M429={429,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T426 M426={426,(void*)0,{0},(void*)0,(void*)0,0,0};
 T380 M380={380,{0},(void*)0,'\0'};
@@ -2189,53 +2173,64 @@ T817 M817={817,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(v
 T770 M770={770,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T669 M669={669,{0},(void*)0,(void*)0,(void*)0};
 T552 M552={552,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
+T1494 M1494={(void*)0,0,0,0,0};
 T818 M818={818,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T662 M662={662,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
-T1511 M1511={(void*)0,0,0,0};
+T350 M350={0};
+T1496 M1496={(void*)0,0,0,0};
 T869 M869={869,(void*)0,(void*)0,0,0};
 T871 M871={871,(void*)0,(void*)0,0,0,0,0,'\0',0,'\0'};
 T872 M872={872,(void*)0,(void*)0,(void*)0,0};
 T873 M873={873,(void*)0,(void*)0,(void*)0,0,0,0,'\0',0,'\0'};
-T1512 M1512={1512,(void*)0,0,0,0};
-T1514 M1514={(void*)0,(void*)0,(void*)0};
-T1516 M1516={(void*)0,(void*)0,(void*)0};
-T1520 M1520={(void*)0,(void*)0};
-T1523 M1523={(void*)0,(void*)0,(void*)0};
-T1526 M1526={(void*)0,(void*)0,(void*)0};
-T1529 M1529={(void*)0,0,0,0};
-T1530 M1530={0,{0},(void*)0,(void*)0,0};
-T1531 M1531={1531,(void*)0,0,0,0};
+T1498 M1498={(void*)0,(void*)0,(void*)0};
+T1500 M1500={(void*)0,(void*)0,(void*)0};
+T1504 M1504={(void*)0,(void*)0};
+T1507 M1507={(void*)0,(void*)0,(void*)0};
+T1510 M1510={(void*)0,(void*)0,(void*)0};
+T1513 M1513={(void*)0,0,0,0};
+T1514 M1514={0,{0},(void*)0,(void*)0,0};
+T1515 M1515={1515,(void*)0,0,0,0};
 T674 M674={674,(void*)0,{0}};
+T867 M867={(void*)0,(void*)0,(void*)0,0,0,0,0};
 T737 M737={737,0};
+T1519 M1519={(void*)0,(void*)0};
+T1525 M1525={(void*)0,(void*)0,(void*)0,0,0,0,0,0,0};
+T1527 M1527={(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
+T1528 M1528={0,'\0'};
+T1529 M1529={(void*)0,0,0,0};
+T1530 M1530={(void*)0,0,0,0};
+T1531 M1531={(void*)0,(void*)0,0,0,0,0};
 T1535 M1535={(void*)0,(void*)0};
-T1016 M1016={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,{0},0,0,{(void*)0,(void*)0},(void*)0,(void*)0,0};
+T1536 M1536={(void*)0,(void*)0,0,0,0,0};
+T1540 M1540={(void*)0,(void*)0,(void*)0};
+T1017 M1017={(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,{0},0,0,{(void*)0,(void*)0},(void*)0,(void*)0,0};
 T577 M577={(void*)0,(void*)0,0,0};
 T659 M659={0};
-T1543 M1543={(void*)0,0,0,0};
-T1546 M1546={(void*)0,0,0,0,0};
+T1544 M1544={(void*)0,0,0,0};
+T1547 M1547={(void*)0,0,0,0,0};
 T571 M571={571,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T572 M572={572,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T573 M573={573,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T574 M574={574,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T575 M575={575,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T576 M576={576,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
-T1560 M1560={1560,(void*)0,0,0};
+T1561 M1561={1561,(void*)0,0,0};
 T824 M824={824,0,0};
-T1562 M1562={(void*)0,0,0,0,0};
-T1568 M1568={(void*)0,0,0,0};
+T1569 M1569={(void*)0,0,0,0};
 T840 M840={840,0};
 T1570 M1570={(void*)0,(void*)0,0,0,0,0};
 T1571 M1571={(void*)0,0,0,0};
 T742 M742={(void*)0,0,0,0,0};
-T1572 M1572={(void*)0,0,0,0};
-T1576 M1576={(void*)0,(void*)0,(void*)0};
+T1572 M1572={1572,(void*)0,0,0,0};
+T1573 M1573={(void*)0,0,0,0};
+T1577 M1577={(void*)0,(void*)0,(void*)0};
 T739 M739={739,(void*)0,0,0};
-T1595 M1595={(void*)0,0,0,0};
+T1596 M1596={(void*)0,0,0,0};
 T815 M815={815,(void*)0};
-T1596 M1596={(void*)0,(void*)0,0,0,0,0};
+T1597 M1597={(void*)0,(void*)0,0,0,0,0};
 T813 M813={813,0};
-T1598 M1598={(void*)0,0,0,0};
-T1600 M1600={(void*)0,(void*)0,0};
+T1599 M1599={(void*)0,0,0,0};
+T1601 M1601={(void*)0,(void*)0,0};
 /*Aliased storage area or unicode storage.*/
 char*s358_1195446850A=". (See the next error report for details.)";
 char*s113_0A="";
@@ -2492,7 +2487,7 @@ char*s113_298A="-I";
 char*s447_299A=".E";
 char*s293_300A=":\n";
 char*s113_301A="-L";
-char*s1016_302A=".H";
+char*s1017_302A=".H";
 char*s117_6455A="));\n";
 char*s495_305A=";\n";
 char*s117_1754886761A="se_agent*);\n";
@@ -2611,7 +2606,7 @@ char*s117_339308075A="/*The generic se_agent0 definition:*/\nstruct _se_agent0\1
 char*s415_1297676933A=" would give ";
 char*s847_6614A="((gc";
 char*s342_1489034545A="Routine_failure";
-char*s1016_1935504882A="Strange dependency: location <";
+char*s1017_1935504882A="Strange dependency: location <";
 char*s117_471A="R=";
 char*s653_471A="T3";
 char*s678_1084920002A="Bad number of actual arguments for agent call. (The agent you are trying to call has ";
@@ -2641,7 +2636,7 @@ char*s582_215791A="(void)";
 char*s642_1181502A="==0 \174""\174"" ";
 char*s843_1544707291A="void*bdw_na_assignT";
 char*s104_1524784203A="Exponent part of a real value expected.";
-char*s1016_1942892277A="Including header ";
+char*s1017_1942892277A="Including header ";
 char*s117_365905049A="init_profile(&root_profile, \"<root>\");\n";
 char*s728_1970645590A="#define BDW_GC 1\n#define GC_I_HIDE_POINTERS 1\n#include <gc/gc.h>\n#define malloc(s) GC_MALLOC(s)\n#define calloc(n,s) GC_MALLOC_IGNORE_OFF_PAGE((s)*(n))\n#define realloc(p,s) GC_REALLOC((p),(s))\n#define free(p) p=NULL\n";
 char*s484_334725631A="Error in variant part of loop definition.";
@@ -2880,7 +2875,7 @@ char*s505_672729595A="Invalid generic constraint cycle.";
 char*s849_730579755A="=(void*)0;\n";
 char*s283_1130154866A="Bad Environment variable.\n(Closing \"\175""\" not found.)";
 char*s415_923532A=" minus ";
-char*s1016_7037A=" at ";
+char*s1017_7037A=" at ";
 char*s111_1814748872A="\" from ACE file. (Parsing \"";
 char*s349_345225764A="Different arguments types.";
 char*s642_1291760099A=";\nbreak;\n\175""\nbreak;\n";
@@ -3061,7 +3056,6 @@ char*s843_1858599648A="void*bdw_weakref_new(int n)";
 char*s283_305465997A="Quoted identifiers are deprecated. Please remove quotes here.";
 char*s33_1944903A="ceiling";
 char*s695_235492225A="Attributes cannot have a rescue compound.";
-char*s625_1538501614A="/*then:RF4*/R=";
 char*s33_55040341A="put_16_be";
 char*s554_28418819A="/etc/serc";
 char*s34_10648581A="obsolete";
@@ -3186,7 +3180,7 @@ char*s843_1043020315A=";\nreturn R;\n";
 char*s117_1618833880A="fd.assertion_flag=1;\n\175""\n";
 char*s660_1846931416A=" is not a valid ancestor for this method.";
 char*s283_86060043A="Just finished parsing of \"";
-char*s1016_1807195960A=" does not provide any .h or .c file, nor a cecil.se file!";
+char*s1017_1807195960A=" does not provide any .h or .c file, nor a cecil.se file!";
 char*s577_7557A=" tmp";
 char*s416_1127350535A="Void must not be the right-hand side of an assignment test (always True).";
 char*s292_87520A="\173""ANY\175""";
@@ -3203,11 +3197,12 @@ char*s660_39109479A=" is different from the one explicitly listed here.";
 char*s104_342864313A="An anchored type cannot be used to indicate exportation status in a client list.";
 char*s420_1732344459A=" and the default creation procedure (see `default_create\' in class ANY) is not allowed. You must use one of the available creation procedure here.";
 char*s104_2110077371A="Must use exactly 8 hexadecimal digits for INTEGER_32.";
+char*s370_462870327A="BUG: trying to synthetize empty tuple for a function without arguments but with arguments... WTF";
 char*s33_87541A="print";
 char*s33_1427A="#\\\\";
 char*s126_210310269A="Removing \"";
 char*s124_489233515A="agent_launcher";
-char*s377_1459510708A=" is of type ";
+char*s111_1459510708A=" is of type ";
 char*s843_1114679499A=" bdw_malloc_innerT";
 char*s729_1028650A="(u->CL_";
 char*s420_1382321814A="Cannot assign newly created object of type ";
@@ -3254,6 +3249,7 @@ char*s409_35382059A="\?=  assignment (an assignment attempt).";
 char*s104_49203356A="attribute";
 char*s117_2142659303A="se_profile_t inv_profile";
 char*s415_2480364A="Overflow for opposite of Minimum_integer_16.";
+char*s352_1514297749A=" for missing arguments.";
 char*s409_354065377A=" (\"::=\" is not necessary).";
 char*s120_582925635A="Can\'t join these two attribute definitions. Because an attribute cannot be undefined (using an undefine clause), you may consider to modify parents themselves. May be.";
 char*s104_2047201942A="Substitute with \",\".";
@@ -3357,6 +3353,7 @@ char*s104_1289042164A="Void cannot be the left-hand side of the binary \"//\" op
 char*s647_32456A=")+.5)";
 char*s117_1946737844A="Order of evaluation for pre-computed once functions:\n";
 char*s117_14005A="[];\n";
+char*s625_119281896A="/*then*/R=";
 char*s117_192841706A="NULL, NULL";
 char*s383_1348774A="AT_EXIT";
 char*s415_1337425939A=" which is out of range 0 ..63 because target type is INTEGER_64.";
@@ -3405,7 +3402,7 @@ char*s104_970900228A="\" while waiting for some local variable name. Cannot use 
 char*s622_565063403A="/* C Header Pass 2: */\n";
 char*s467_2108232434A="The type of this constant feature should be STRING.";
 char*s117_4049151A="((T0*)C)";
-char*s1016_2108496933A="No linker options";
+char*s1017_2108496933A="No linker options";
 char*s847_1523807481A="*o1,*o2;\no1=((gc";
 char*s510_920757291A="The value of ";
 char*s409_1801A="::=";
@@ -3506,7 +3503,7 @@ char*s126_124992A="      ";
 char*s625_2072064738A="struct rescue_context rc;\n";
 char*s33_1680885744A="default_rescue";
 char*s728_1933391A="bdw_ms[";
-char*s1016_1574596468A="No compiler options";
+char*s1017_1574596468A="No compiler options";
 char*s728_1949186219A="/*mark_item*/";
 char*s117_11086084A="sizeof(T";
 char*s625_4996600A="*a1=(se_";
@@ -3611,7 +3608,7 @@ char*s843_1744880961A=")se_calloc(*n, sizeof(T";
 char*s33_2035472654A="type_attribute_count";
 char*s843_42739336A="(&n);\nif(GC_should_invoke_finalizers())bdw_run_finalizers();\nreturn R;\n";
 char*s105_2131871127A="Same identifier appears twice (local/closure).";
-char*s1016_482960256A=">. The plugin seems to depend on itself! Ignored.";
+char*s1017_482960256A=">. The plugin seems to depend on itself! Ignored.";
 char*s113_69851A="a.out";
 char*s553_1243691337A="getting started";
 char*s117_1826935309A="memcpy(sorted_inv_profile, inv_profile, ";
@@ -3696,7 +3693,7 @@ char*s659_1025503229A=" using range tmp0 .. tmp";
 char*s117_273715710A="#ifdef SIGINT\n                                                    signal(SIGINT,se_signal_handler);\n#endif\n#ifdef SIGTERM\n                                                    signal(SIGTERM,se_signal_handler);\n#endif\n";
 char*s461_914877497A="Same feature name appears twice.";
 char*s847_1653483427A="typedef struct Sgc \173""Tid id;T0*o;\175"" Tgc;\n";
-char*s1016_1384629373A="No library paths";
+char*s1017_1384629373A="No library paths";
 char*s647_244793715A="deep_twin(";
 char*s379_1360462097A="reference: ";
 char*s800_1121854A="/bin/sh";
@@ -3963,7 +3960,7 @@ char*s843_1871081731A=";\nif(na)for(i=0;i<c;i++)\173""\ne=na[i];if(e)na[i]=(T0*)
 char*s485_1057882626A="Expression of until must be of BOOLEAN type. (The actual ";
 char*s290_15195A="_ix_";
 char*s647_9045A=".is_";
-char*s1016_712467074A="No libraries";
+char*s1017_712467074A="No libraries";
 char*s33_869539012A="sedb_breakpoint";
 char*s625_1728089446A="se_frame_descriptor se_ifd";
 char*s647_1671063525A="((uint64_t)(";
@@ -3995,7 +3992,7 @@ char*s729_1230018439A="gc_mark(u->CA_";
 char*s113_9121A=".obj";
 char*s383_181352A=" from ";
 char*s729_497096041A="gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));\n#ifdef FIXED_STACK_BOTTOM\nif (!stack_bottom) stack_bottom=((void**)(void*)(&argc));\n#endif\n";
-char*s1016_387651299A=">, module_name <";
+char*s1017_387651299A=">, module_name <";
 char*s647_2118444283A="R=(C->id==a1->id);\nif(R)\173""\n";
 char*s117_9130A="=0;\n";
 char*s809_1182938696A="a_file_name";
@@ -4024,7 +4021,7 @@ char*s117_1982839385A=");\n\175""\nva_end(pa);\nreturn ((T0*)C);\n";
 char*s33_11001014A="set_item";
 char*s33_180965447A="INTEGER_64";
 char*s104_167445550A="Inside a procedure, a Precursor call must be a procedure call (not a function call).";
-char*s1016_698701270A="No source files";
+char*s1017_698701270A="No source files";
 char*s33_10945665A="print_on";
 char*s117_3040A="ci(";
 char*s582_1757386798A="se_frame_descriptor gcd=\173""\"Garbage Collector at work.\\n\"\n\"dispose called (during sweep phase)\",0,0,\"\",1\175"";\nse_dump_stack ds = \173""NULL,NULL,0,NULL,NULL\175"";\nds.fd=&gcd;\nds.caller=se_dst;\nds.exception_origin=NULL;\nds.locals=NULL;\n";
@@ -4271,7 +4268,7 @@ char*s113_270309168A="Currently handled compiler names:\n";
 char*s33_3474A="pow";
 char*s117_3475A="se_";
 char*s117_2038260346A="else fprintf(SE_ERR, \"Cannot open profile.se for writing.\\n\");\n\175""\n";
-char*s1016_10220290A="function";
+char*s1017_10220290A="function";
 char*s113_423056960A="                      ";
 char*s640_3485A="vc(";
 char*s113_592781506A="Local Cluster";
@@ -4353,7 +4350,7 @@ char*s33_279523519A="to_pointer";
 char*s283_551231644A="Multiple ACE files in the command line: \"";
 char*s97_620670284A="\nparent-count: ";
 char*s553_965507650A="inlining dynamic dispatch";
-char*s1016_1676707A="Plugin ";
+char*s1017_1676707A="Plugin ";
 char*s117_1065652086A="\173""\nFILE *profile_file = fopen(\"profile.se\", \"w\");\nif (profile_file!=NULL) \173""\nint i;\nse_profile_t sorted_profile[";
 char*s845_882069342A=";\nstruct GC_B";
 char*s729_1549077634A="handle(SE_HANDLE_ENTER_GC,NULL);\n";
@@ -4375,7 +4372,7 @@ char*s659_1750246116A="Declared INTERNAL_C_LOCAL: ";
 char*s624_1199620901A="fprintf(file,\"\\n\\t  \");\n";
 char*s33_911175911A="internals_from_generating_type";
 char*s642_1631421108A="/*storage*/=((";
-char*s1016_28287A="\" at ";
+char*s1017_28287A="\" at ";
 char*s647_755813960A="]), se_argv[";
 char*s283_261396584A="The value of the environment variable \"SmartEiffel\" is:\n\"";
 char*s33_169371474A="DISPOSABLE";
@@ -4432,7 +4429,7 @@ char*s847_40705A=")n);\n";
 char*s34_2593373A="cpp_linker_options";
 char*s479_907165587A=" appears at least twice. The client lists will be merged, but please fix the export clauses.";
 char*s651_2187411A="se_atT[";
-char*s1016_1760616840A="Could not load the plugin; one dependancy is not satisfied: location <";
+char*s1017_1760616840A="Could not load the plugin; one dependancy is not satisfied: location <";
 char*s283_1799491166A="\" in any known cluster.";
 char*s447_892969089A="   default assertion (";
 char*s111_1194472660A="Reference Target Monomorphic Function Call";
@@ -4623,7 +4620,7 @@ char*s117_47278A="==0)\173""";
 char*s104_1093012317A="Second identifier of a \"rename\" pair expected.";
 char*s650_41131A=";\n_r=";
 char*s104_1437345301A="Syntax error while trying to parse the beginning of a new feature definition. Feature name expected. Class name ";
-char*s1016_2072196164A="The default key \"function\" was not found. Invalid auto_init file.";
+char*s1017_2072196164A="The default key \"function\" was not found. Invalid auto_init file.";
 char*s33_1744612358A="is_basic_expanded_type";
 char*s104_1759774576A="You are probably trying to use the new inherit/insert mechanism. With Liberty Eiffel, this can be achieved thanks to the new \"insert\" clause. The new \"insert\" clause comes just after the traditional \"inherit\" clause with a similar syntax.";
 char*s456_1118729658A="When the context of the validation is ";
@@ -4806,7 +4803,6 @@ char*s412_401707956A=" is obviously expanded (i.e. the written type mark is \"";
 char*s489_16902A="new ";
 char*s436_1878889060A="Feature `manifest_make\' must have at least one INTEGER argument.";
 char*s117_18131599A="se_dump_stack*,";
-char*s625_1312849438A="/*then:RF6*/";
 char*s554_1185594A="/sys/rc";
 char*s847_784300160A=";\no2=o1+c->count_minus_one;\nfor(;o1<=o2;o1++)\173""\nif((o1->header.flag)==FSOH_MARKED)\173""\no1->header.flag=FSOH_UNMARKED;\n";
 char*s33_243411981A="bit_rotate";
@@ -4837,7 +4833,7 @@ char*s847_931143030A="=n->header.next;\n\175""\nelse\173""\nif(c==NULL)c=gc_fsoc
 char*s637_810433A="(/*RF2:";
 char*s286_1973946666A="TUPLE type expected for open arguments of agent type.";
 char*s104_1062177790A="Extra \",\" ignored.";
-char*s1016_1994165009A="No support found for this external \"plug_in\" (plugin: \"";
+char*s1017_1994165009A="No support found for this external \"plug_in\" (plugin: \"";
 char*s625_46733806A="static se_frame_descriptor fd=\173""";
 char*s286_1838870713A=" has two conflicting external types";
 char*s642_1008067448A="internal_exception_handler(";
@@ -4846,7 +4842,7 @@ char*s485_2101296982A=" type is not allowed.)";
 char*s113_1097945864A="-x \"c++\" -lstdc++";
 char*s101_2219026A="routine";
 char*s847_90782A="void ";
-char*s1016_1508488213A=" defined in ";
+char*s1017_1508488213A=" defined in ";
 char*s642_20481355A=") break;\n";
 char*s655_90792A="void*";
 char*s34_78490A="class";
@@ -4854,7 +4850,7 @@ char*s35_78495A="clean";
 char*s113_146157A=" /link";
 char*s729_1428771266A="void  gc_info(void)";
 char*s370_931579788A="Cannot pass Void as argument (the formal type is expanded).";
-char*s1016_1942675017A="Including source ";
+char*s1017_1942675017A="Including source ";
 char*s647_252669317A="((void*)a1);\n";
 char*s33_41849945A="Real_bits";
 char*s126_27561173A="Trying to read file \"";
@@ -4889,7 +4885,7 @@ char*s117_2109816196A="int argc,...)";
 char*s33_591417242A="standard_twin";
 char*s647_10895A="EIF_";
 char*s104_2096474678A="**** Found potentially assignable expression";
-char*s1016_1439959996A=">. Strange dependency!";
+char*s1017_1439959996A=">. Strange dependency!";
 char*s656_11205716A="uint32_t";
 char*s728_1061058398A="(GC_get_heap_size())";
 char*s647_10430693A="isnormal";
@@ -5023,7 +5019,7 @@ char*s642_380218A="ac_liv";
 char*s843_101355036A="if(bdw_in_assign)bdw_delayed_finalize=1;\nelse\173""\nhandle(SE_HANDLE_ENTER_GC,NULL);\n";
 char*s415_1057872442A=" which is out of range -63 ..63 because target type is INTEGER_64.";
 char*s647_204519611A="if(R)\173""\nT0*o1=C->_";
-char*s1016_838816886A="). No description file found.";
+char*s1017_838816886A="). No description file found.";
 char*s120_1998329594A="\" come from the same original feature via multiple \"insert\" paths, but none comes via an \"inherit\" path.\nBelow, you get the feature evolution step by step. Note that in the end (type ";
 char*s843_800004081A="T0*bdw_weakref_getlink(bdw_Twr*wr)";
 char*s104_75828399A="\" as a local variable name.";
@@ -5100,6 +5096,7 @@ char*s97_1056980719A="Procedure \"";
 char*s117_1680956616A="se_profile_t root_profile";
 char*s104_2060540980A="Empty formal generic list (deleted).";
 char*s650_5313505A="*exp=0;\n";
+char*s475_1199044228A="Could not find any conformant common type to those expressions because they are all Void.";
 char*s35_17498A="sedb";
 char*s126_1293738877A=" is not set.\n";
 char*s104_1046025807A="The old \"select\" option of the \"inherit\" clause is now obsolete. You have to update your code with the new \"insert\" mechanism. With Liberty Eiffel, this can be achieved thanks to the new \"insert\" clause. The new \"insert\" clause comes just after the traditional \"inherit\" clause with a similar syntax.";
@@ -5204,7 +5201,7 @@ char*s117_1435285930A="Define initialize stuff.\n";
 char*s104_79251A="false";
 char*s104_756929053A="Must use exactly 2 hexadecimal digits for INTEGER_8.";
 char*s104_142936234A=" cannot be used as a feature name to start a new feature definition. Parser lost. Sorry. Check before and after that point.";
-char*s1016_1377638770A="No header files";
+char*s1017_1377638770A="No header files";
 char*s660_21306364A="This Precursor call is ambiguous because the type ";
 char*s117_738771309A="void initialize_eiffel_runtime(int argc,char*argv[])";
 char*s111_295542551A="Polymorphic Function Call";
@@ -5408,7 +5405,7 @@ char*s117_163413385A="se_profile_t agent_profile";
 char*s847_1800342110A="++;\n\175""\nelse if(";
 char*s625_1992825354A="\173""\"invariant ";
 char*s647_854330615A="\175""\nse_deep_equal_trats()\n";
-char*s1016_1067567332A="The plugin ";
+char*s1017_1067567332A="The plugin ";
 char*s33_1673348567A="open_argument_index";
 char*s111_5873980A="Unknown infix operator \"";
 char*s656_399591A="double";
@@ -5519,7 +5516,7 @@ char*s625_5794220A="=(u->CA_";
 char*s283_1598804806A="At this point in the ACE file, you are supposed to say \"yes\", \"no\", or \"all\".";
 char*s640_860088160A="(/*OUTCL:OUT*/*CL_";
 char*s107_356743A="Bad program.\n(No program name found.)";
-char*s1016_1377633305A="No header paths";
+char*s1017_1377633305A="No header paths";
 char*s729_1958195441A="collector_counter++;\n";
 char*s117_209121A="(live)";
 char*s104_1615234134A="Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is obsolete. Keep in mind that an empty class name list like \173""\175"" do indicate no exportation at all, hence making NONE unuseful and probably misleading for newcomers. So, just remove this NONE class name right now. Please update your code now.";

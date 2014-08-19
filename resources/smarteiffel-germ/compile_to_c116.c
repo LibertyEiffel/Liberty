@@ -1522,7 +1522,7 @@ return R;
 }/*--*/
 
 /*CREATE_WRITABLE*/void r675inline_dynamic_dispatch_(T675*C,T0*a1,T0*a2){
-/*RF3:add_last*/r1158add_last((T1158*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
+/*RF3:add_last*/r1159add_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
 /*:RF3*/}/*--*/
 
 /*CREATE_WRITABLE*/void r675safety_check(T675*C,T0*a1){

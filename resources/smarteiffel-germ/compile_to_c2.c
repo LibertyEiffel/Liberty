@@ -1153,14 +1153,14 @@ _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T1068 r1068realloc(T1068 C,T2 a1,T2 a2){
-T1068 R=(void*)0;
+/*NATIVE_ARRAY[STRING]*/T1069 r1069realloc(T1069 C,T2 a1,T2 a2){
+T1069 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1068copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1069copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T2 r1068fast_index_of(T1068 C,T0*a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/T2 r1069fast_index_of(T1069 C,T0*a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1179,11 +1179,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068copy_from(T1068 C,T1068 a1,T2 a2){
-/*RF3:copy_slice_from*/r1068copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[STRING]*/void r1069copy_from(T1069 C,T1069 a1,T2 a2){
+/*RF3:copy_slice_from*/r1069copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T6 r1068safe_equal(T0*a1,T0*a2){
+/*NATIVE_ARRAY[STRING]*/T6 r1069safe_equal(T0*a1,T0*a2){
 T6 R=0;
 T0*_e_type=(void*)0;
 if((/*`e1'*/a1)==((void*)(/*`e2'*/a2))){
@@ -1205,7 +1205,7 @@ R=((T6)(/*RF4:is_equal*/r7is_equal(((T7*)/*`e1'*/a1),/*`e2'*/a2)/*:RF4*/));
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068clear(T1068 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/void r1069clear(T1069 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1216,7 +1216,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068set_slice_with(T1068 C,T0*a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/void r1069set_slice_with(T1069 C,T0*a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=/*`lower'*/a2;
 while(1){
@@ -1226,7 +1226,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068clear_all(T1068 C,T2 a1){
+/*NATIVE_ARRAY[STRING]*/void r1069clear_all(T1069 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1237,7 +1237,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068remove(T1068 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/void r1069remove(T1069 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=/*`index'*/a1;
 while(1){
@@ -1247,11 +1247,11 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068set_all_with(T1068 C,T0*a1,T2 a2){
-/*RF3:set_slice_with*/r1068set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[STRING]*/void r1069set_all_with(T1069 C,T0*a1,T2 a2){
+/*RF3:set_slice_with*/r1069set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[STRING]*/T2 r1068first_index_of(T1068 C,T0*a1,T2 a2){
+/*NATIVE_ARRAY[STRING]*/T2 r1069first_index_of(T1069 C,T0*a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1261,7 +1261,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(R))>(/*`upper'*/a2)/*:RF8*/));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r1068safe_equal(/*`element'*/a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
+tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r1069safe_equal(/*`element'*/a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
@@ -1269,13 +1269,13 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[STRING]*/void r1068copy_slice_from(T1068 C,T1068 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[STRING]*/void r1069copy_slice_from(T1069 C,T1069 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r1082clear_all(T1082 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[STRING,STRING]]*/void r1083clear_all(T1083 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1286,18 +1286,18 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/T1090 r1090realloc(T1090 C,T2 a1,T2 a2){
-T1090 R=(void*)0;
+/*NATIVE_ARRAY[HASHED_STRING]*/T1091 r1091realloc(T1091 C,T2 a1,T2 a2){
+T1091 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1090copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1091copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r1090copy_from(T1090 C,T1090 a1,T2 a2){
-/*RF3:copy_slice_from*/r1090copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1091copy_from(T1091 C,T1091 a1,T2 a2){
+/*RF3:copy_slice_from*/r1091copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r1090clear(T1090 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1091clear(T1091 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1308,7 +1308,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r1090clear_all(T1090 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1091clear_all(T1091 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1319,63 +1319,63 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_STRING]*/void r1090copy_slice_from(T1090 C,T1090 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[HASHED_STRING]*/void r1091copy_slice_from(T1091 C,T1091 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[CLASS_TEXT]*/T1094 r1094realloc(T1094 C,T2 a1,T2 a2){
-T1094 R=(void*)0;
-R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1094copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
-/*:RF3*/return R;
-}/*--*/
-
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r1094copy_from(T1094 C,T1094 a1,T2 a2){
-/*RF3:copy_slice_from*/r1094copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
-/*:RF3*/}/*--*/
-
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r1094clear(T1094 C,T2 a1,T2 a2){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`lower'*/a1;
-while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>(/*`upper'*/a2)/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r1094clear_all(T1094 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[CLASS_TEXT]*/void r1094copy_slice_from(T1094 C,T1094 a1,T2 a2,T2 a3){
-/*RF7:slice_copy*/{/*slice_copy*/
-int a3tmp=/*`lower'*/a2;
-memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
-/*:RF7*/}/*--*/
-
-/*NATIVE_ARRAY[INTEGER_16]*/T1095 r1095realloc(T1095 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[CLASS_TEXT]*/T1095 r1095realloc(T1095 C,T2 a1,T2 a2){
 T1095 R=(void*)0;
-R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T10/*s*/))/*:RF8*/;
+R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
 /*RF3:copy_from*/r1095copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r1095copy_from(T1095 C,T1095 a1,T2 a2){
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1095copy_from(T1095 C,T1095 a1,T2 a2){
 /*RF3:copy_slice_from*/r1095copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r1095clear_all(T1095 C,T2 a1){
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1095clear(T1095 C,T2 a1,T2 a2){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`lower'*/a1;
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>(/*`upper'*/a2)/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1095clear_all(T1095 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[CLASS_TEXT]*/void r1095copy_slice_from(T1095 C,T1095 a1,T2 a2,T2 a3){
+/*RF7:slice_copy*/{/*slice_copy*/
+int a3tmp=/*`lower'*/a2;
+memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
+/*:RF7*/}/*--*/
+
+/*NATIVE_ARRAY[INTEGER_16]*/T1096 r1096realloc(T1096 C,T2 a1,T2 a2){
+T1096 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T10/*s*/))/*:RF8*/;
+/*RF3:copy_from*/r1096copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*:RF3*/return R;
+}/*--*/
+
+/*NATIVE_ARRAY[INTEGER_16]*/void r1096copy_from(T1096 C,T1096 a1,T2 a2){
+/*RF3:copy_slice_from*/r1096copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*:RF3*/}/*--*/
+
+/*NATIVE_ARRAY[INTEGER_16]*/void r1096clear_all(T1096 C,T2 a1){
 T10 _v=0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1386,24 +1386,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_16]*/void r1095copy_slice_from(T1095 C,T1095 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_16]*/void r1096copy_slice_from(T1096 C,T1096 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T10/*s*/));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/T1099 r1099realloc(T1099 C,T2 a1,T2 a2){
-T1099 R=(void*)0;
+/*NATIVE_ARRAY[CLUSTER]*/T1100 r1100realloc(T1100 C,T2 a1,T2 a2){
+T1100 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1099copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1100copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r1099copy_from(T1099 C,T1099 a1,T2 a2){
-/*RF3:copy_slice_from*/r1099copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[CLUSTER]*/void r1100copy_from(T1100 C,T1100 a1,T2 a2){
+/*RF3:copy_slice_from*/r1100copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r1099clear_all(T1099 C,T2 a1){
+/*NATIVE_ARRAY[CLUSTER]*/void r1100clear_all(T1100 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1414,13 +1414,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLUSTER]*/void r1099copy_slice_from(T1099 C,T1099 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[CLUSTER]*/void r1100copy_slice_from(T1100 C,T1100 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]*/void r1130clear_all(T1130 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[RUN_FEATURE,NATIVE]]*/void r1131clear_all(T1131 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1431,14 +1431,14 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/T1131 r1131realloc(T1131 C,T2 a1,T2 a2){
-T1131 R=(void*)0;
+/*NATIVE_ARRAY[LIVE_TYPE]*/T1132 r1132realloc(T1132 C,T2 a1,T2 a2){
+T1132 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1131copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1132copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/T2 r1131fast_index_of(T1131 C,T0*a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[LIVE_TYPE]*/T2 r1132fast_index_of(T1132 C,T0*a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1457,11 +1457,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r1131copy_from(T1131 C,T1131 a1,T2 a2){
-/*RF3:copy_slice_from*/r1131copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1132copy_from(T1132 C,T1132 a1,T2 a2){
+/*RF3:copy_slice_from*/r1132copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r1131clear(T1131 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1132clear(T1132 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1472,7 +1472,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r1131clear_all(T1131 C,T2 a1){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1132clear_all(T1132 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1483,20 +1483,20 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LIVE_TYPE]*/void r1131copy_slice_from(T1131 C,T1131 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[LIVE_TYPE]*/void r1132copy_slice_from(T1132 C,T1132 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/T1156 r1156realloc(T1156 C,T2 a1,T2 a2){
-T1156 R=(void*)0;
+/*NATIVE_ARRAY[INTEGER_32]*/T1157 r1157realloc(T1157 C,T2 a1,T2 a2){
+T1157 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T2/*i*/))/*:RF8*/;
-/*RF3:copy_from*/r1156copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1157copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/T2 r1156fast_index_of(T1156 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/T2 r1157fast_index_of(T1157 C,T2 a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1515,11 +1515,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156copy_from(T1156 C,T1156 a1,T2 a2){
-/*RF3:copy_slice_from*/r1156copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157copy_from(T1157 C,T1157 a1,T2 a2){
+/*RF3:copy_slice_from*/r1157copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156move(T1156 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157move(T1157 C,T2 a1,T2 a2,T2 a3){
 T2 _i=0;
 if((/*`offset'*/a3)==(INT8_C(0))){
 }
@@ -1543,7 +1543,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156clear(T1156 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157clear(T1157 C,T2 a1,T2 a2){
 T2 _v=0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1554,7 +1554,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156set_slice_with(T1156 C,T2 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157set_slice_with(T1157 C,T2 a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=/*`lower'*/a2;
 while(1){
@@ -1564,7 +1564,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156clear_all(T1156 C,T2 a1){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157clear_all(T1157 C,T2 a1){
 T2 _v=0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1575,7 +1575,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156remove(T1156 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157remove(T1157 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=/*`index'*/a1;
 while(1){
@@ -1585,28 +1585,28 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156set_all_with(T1156 C,T2 a1,T2 a2){
-/*RF3:set_slice_with*/r1156set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157set_all_with(T1157 C,T2 a1,T2 a2){
+/*RF3:set_slice_with*/r1157set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[INTEGER_32]*/void r1156copy_slice_from(T1156 C,T1156 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[INTEGER_32]*/void r1157copy_slice_from(T1157 C,T1157 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T2/*i*/));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/T1176 r1176realloc(T1176 C,T2 a1,T2 a2){
-T1176 R=(void*)0;
+/*NATIVE_ARRAY[TYPE_MARK]*/T1177 r1177realloc(T1177 C,T2 a1,T2 a2){
+T1177 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1176copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1177copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176copy_from(T1176 C,T1176 a1,T2 a2){
-/*RF3:copy_slice_from*/r1176copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177copy_from(T1177 C,T1177 a1,T2 a2){
+/*RF3:copy_slice_from*/r1177copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176clear(T1176 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177clear(T1177 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1617,7 +1617,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176set_slice_with(T1176 C,T0*a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177set_slice_with(T1177 C,T0*a1,T2 a2,T2 a3){
 T2 _i=0;
 _i=/*`lower'*/a2;
 while(1){
@@ -1627,7 +1627,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176clear_all(T1176 C,T2 a1){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177clear_all(T1177 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1638,17 +1638,17 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176set_all_with(T1176 C,T0*a1,T2 a2){
-/*RF3:set_slice_with*/r1176set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177set_all_with(T1177 C,T0*a1,T2 a2){
+/*RF3:set_slice_with*/r1177set_slice_with(C,/*`v'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TYPE_MARK]*/void r1176copy_slice_from(T1176 C,T1176 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TYPE_MARK]*/void r1177copy_slice_from(T1177 C,T1177 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]*/void r1178clear_all(T1178 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[HASHED_DICTIONARY[CLASS_TEXT,HASHED_STRING],STRING]]*/void r1179clear_all(T1179 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1659,7 +1659,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]*/void r1181clear_all(T1181 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASS_TEXT,HASHED_STRING]]*/void r1182clear_all(T1182 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1670,7 +1670,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]*/void r1187clear_all(T1187 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[TYPE,HASHED_STRING]]*/void r1188clear_all(T1188 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1681,7 +1681,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]*/void r1204clear_all(T1204 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[DICTIONARY[INTEGER_16,HASHED_STRING],STRING]]*/void r1205clear_all(T1205 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1692,7 +1692,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]*/void r1207clear_all(T1207 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_16,HASHED_STRING]]*/void r1208clear_all(T1208 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1703,7 +1703,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]*/void r1208clear_all(T1208 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_SET_NODE[HASHED_STRING]]*/void r1209clear_all(T1209 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1714,26 +1714,26 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/T1217 r1217realloc(T1217 C,T2 a1,T2 a2){
-T1217 R=(void*)0;
-R=/*RF8:calloc*/r1217calloc(C,/*`new_nb_elts'*/a2)/*:RF8*/;
-/*RF3:copy_from*/r1217copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*NATIVE_ARRAY[POSITION]*/T1218 r1218realloc(T1218 C,T2 a1,T2 a2){
+T1218 R=(void*)0;
+R=/*RF8:calloc*/r1218calloc(C,/*`new_nb_elts'*/a2)/*:RF8*/;
+/*RF3:copy_from*/r1218copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r1217copy_from(T1217 C,T1217 a1,T2 a2){
-/*RF3:copy_slice_from*/r1217copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[POSITION]*/void r1218copy_from(T1218 C,T1218 a1,T2 a2){
+/*RF3:copy_slice_from*/r1218copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/T1217 r1217calloc(T1217 C,T2 a1){
-T1217 R=(void*)0;
+/*NATIVE_ARRAY[POSITION]*/T1218 r1218calloc(T1218 C,T2 a1){
+T1218 R=(void*)0;
 R=se_calloc(a1,sizeof(T351/*i*/));
-r1217clear_all(R,a1-1);
+r1218clear_all(R,a1-1);
 ;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r1217clear(T1217 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[POSITION]*/void r1218clear(T1218 C,T2 a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
 T351 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1753,7 +1753,7 @@ memcpy(&((C)[_i]),&a1tmp,sizeof(T351/*i*/));}
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r1217clear_all(T1217 C,T2 a1){
+/*NATIVE_ARRAY[POSITION]*/void r1218clear_all(T1218 C,T2 a1){
 /*[INTERNAL_C_LOCAL list*/
 T351 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1773,7 +1773,7 @@ memcpy(&((C)[_i]),&a1tmp,sizeof(T351/*i*/));}
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r1217slice_copy(T1217 C,T2 a1,T1217 a2,T2 a3,T2 a4){
+/*NATIVE_ARRAY[POSITION]*/void r1218slice_copy(T1218 C,T2 a1,T1218 a2,T2 a3,T2 a4){
 /*[INTERNAL_C_LOCAL list*/
 T2 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1785,11 +1785,11 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[POSITION]*/void r1217copy_slice_from(T1217 C,T1217 a1,T2 a2,T2 a3){
-/*RF7:slice_copy*/r1217slice_copy(C,INT32_C(0),/*`model'*/a1,/*`lower'*/a2,/*`upper'*/a3);
+/*NATIVE_ARRAY[POSITION]*/void r1218copy_slice_from(T1218 C,T1218 a1,T2 a2,T2 a3){
+/*RF7:slice_copy*/r1218slice_copy(C,INT32_C(0),/*`model'*/a1,/*`lower'*/a2,/*`upper'*/a3);
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]*/void r1218clear_all(T1218 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]]*/void r1219clear_all(T1219 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1800,14 +1800,14 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T1221 r1221realloc(T1221 C,T2 a1,T2 a2){
-T1221 R=(void*)0;
+/*NATIVE_ARRAY[FIXED_STRING]*/T1222 r1222realloc(T1222 C,T2 a1,T2 a2){
+T1222 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1221copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1222copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T2 r1221fast_index_of(T1221 C,T0*a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FIXED_STRING]*/T2 r1222fast_index_of(T1222 C,T0*a1,T2 a2,T2 a3){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1826,11 +1826,11 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r1221copy_from(T1221 C,T1221 a1,T2 a2){
-/*RF3:copy_slice_from*/r1221copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1222copy_from(T1222 C,T1222 a1,T2 a2){
+/*RF3:copy_slice_from*/r1222copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T6 r1221safe_equal(T0*a1,T0*a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/T6 r1222safe_equal(T0*a1,T0*a2){
 T6 R=0;
 T0*_e_type=(void*)0;
 if((/*`e1'*/a1)==((void*)(/*`e2'*/a2))){
@@ -1852,7 +1852,7 @@ R=((T6)(/*RF4:is_equal*/r306is_equal(((T306*)/*`e1'*/a1),/*`e2'*/a2)/*:RF4*/));
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r1221clear(T1221 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1222clear(T1222 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1863,7 +1863,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r1221clear_all(T1221 C,T2 a1){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1222clear_all(T1222 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1874,7 +1874,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r1221remove(T1221 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1222remove(T1222 C,T2 a1,T2 a2){
 T2 _i=0;
 _i=/*`index'*/a1;
 while(1){
@@ -1884,7 +1884,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/T2 r1221first_index_of(T1221 C,T0*a1,T2 a2){
+/*NATIVE_ARRAY[FIXED_STRING]*/T2 r1222first_index_of(T1222 C,T0*a1,T2 a2){
 /*[INTERNAL_C_LOCAL list*/
 T6 tmp0;
 /*INTERNAL_C_LOCAL list]*/
@@ -1894,7 +1894,7 @@ tmp0/*or else*/=((T6)(/*RF8:>*/((int32_t)(R))>(/*`upper'*/a2)/*:RF8*/));
 if(tmp0/*or else*/){
 }
 else{
-tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r1221safe_equal(/*`element'*/a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
+tmp0/*or else*/=((T6)(/*RF4:safe_equal*/r1222safe_equal(/*`element'*/a1,/*RF8:item*/(C)[R]/*:RF8*/)/*:RF4*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
@@ -1902,24 +1902,24 @@ R=/*RF8:+*/((int32_t)(R))+(INT32_C(1))/*:RF8*/;
 return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FIXED_STRING]*/void r1221copy_slice_from(T1221 C,T1221 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FIXED_STRING]*/void r1222copy_slice_from(T1222 C,T1222 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/T1222 r1222realloc(T1222 C,T2 a1,T2 a2){
-T1222 R=(void*)0;
+/*NATIVE_ARRAY[TAGGED_ERROR]*/T1223 r1223realloc(T1223 C,T2 a1,T2 a2){
+T1223 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1222copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1223copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1222copy_from(T1222 C,T1222 a1,T2 a2){
-/*RF3:copy_slice_from*/r1222copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1223copy_from(T1223 C,T1223 a1,T2 a2){
+/*RF3:copy_slice_from*/r1223copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1222clear(T1222 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1223clear(T1223 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -1930,7 +1930,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1222clear_all(T1222 C,T2 a1){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1223clear_all(T1223 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1941,13 +1941,13 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1222copy_slice_from(T1222 C,T1222 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[TAGGED_ERROR]*/void r1223copy_slice_from(T1223 C,T1223 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]*/void r1226clear_all(T1226 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]]*/void r1227clear_all(T1227 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1958,7 +1958,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]*/void r1234clear_all(T1234 C,T2 a1){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[WEAK_REFERENCE[ANY_HASHED_DICTIONARY_NODE],STRING]]*/void r1235clear_all(T1235 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -1969,57 +1969,18 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_NAME]*/T1237 r1237realloc(T1237 C,T2 a1,T2 a2){
-T1237 R=(void*)0;
-R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1237copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
-/*:RF3*/return R;
-}/*--*/
-
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r1237copy_from(T1237 C,T1237 a1,T2 a2){
-/*RF3:copy_slice_from*/r1237copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
-/*:RF3*/}/*--*/
-
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r1237clear(T1237 C,T2 a1,T2 a2){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`lower'*/a1;
-while(1){
-/*until*/if(/*RF8:>*/((int32_t)(_i))>(/*`upper'*/a2)/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r1237clear_all(T1237 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[FEATURE_NAME]*/void r1237copy_slice_from(T1237 C,T1237 a1,T2 a2,T2 a3){
-/*RF7:slice_copy*/{/*slice_copy*/
-int a3tmp=/*`lower'*/a2;
-memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
-/*:RF7*/}/*--*/
-
-/*NATIVE_ARRAY[CLASSES]*/T1238 r1238realloc(T1238 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FEATURE_NAME]*/T1238 r1238realloc(T1238 C,T2 a1,T2 a2){
 T1238 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
 /*RF3:copy_from*/r1238copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r1238copy_from(T1238 C,T1238 a1,T2 a2){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1238copy_from(T1238 C,T1238 a1,T2 a2){
 /*RF3:copy_slice_from*/r1238copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r1238clear(T1238 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1238clear(T1238 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -2030,7 +1991,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r1238clear_all(T1238 C,T2 a1){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1238clear_all(T1238 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -2041,68 +2002,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[CLASSES]*/void r1238copy_slice_from(T1238 C,T1238 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FEATURE_NAME]*/void r1238copy_slice_from(T1238 C,T1238 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]*/void r1248clear_all(T1248 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]*/void r1251clear_all(T1251 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]*/void r1252clear_all(T1252 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]*/void r1257clear_all(T1257 C,T2 a1){
-T0*_v=(void*)0;
-T2 _i=0;
-_i=/*`upper'*/a1;
-while(1){
-/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
-/*RF7:put*/(C)[_i]=(_v);
-/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
-}
-}/*--*/
-
-/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/T1259 r1259realloc(T1259 C,T2 a1,T2 a2){
-T1259 R=(void*)0;
+/*NATIVE_ARRAY[CLASSES]*/T1239 r1239realloc(T1239 C,T2 a1,T2 a2){
+T1239 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
-/*RF3:copy_from*/r1259copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*RF3:copy_from*/r1239copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1259copy_from(T1259 C,T1259 a1,T2 a2){
-/*RF3:copy_slice_from*/r1259copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*NATIVE_ARRAY[CLASSES]*/void r1239copy_from(T1239 C,T1239 a1,T2 a2){
+/*RF3:copy_slice_from*/r1239copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1259clear(T1259 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[CLASSES]*/void r1239clear(T1239 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -2113,7 +2030,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1259clear_all(T1259 C,T2 a1){
+/*NATIVE_ARRAY[CLASSES]*/void r1239clear_all(T1239 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -2124,24 +2041,68 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1259copy_slice_from(T1259 C,T1259 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[CLASSES]*/void r1239copy_slice_from(T1239 C,T1239 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/T1260 r1260realloc(T1260 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[CLASSES,STRING]]*/void r1249clear_all(T1249 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[FAST_ARRAY[STRING],CLASS_NAME]]*/void r1252clear_all(T1252 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[HASHED_SET_NODE[CLASS_NAME]]*/void r1253clear_all(T1253 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[HASHED_DICTIONARY_NODE[INTEGER_32,CLASS_NAME]]*/void r1258clear_all(T1258 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/T1260 r1260realloc(T1260 C,T2 a1,T2 a2){
 T1260 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
 /*RF3:copy_from*/r1260copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1260copy_from(T1260 C,T1260 a1,T2 a2){
+/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1260copy_from(T1260 C,T1260 a1,T2 a2){
 /*RF3:copy_slice_from*/r1260copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1260clear(T1260 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1260clear(T1260 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -2152,7 +2113,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1260clear_all(T1260 C,T2 a1){
+/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1260clear_all(T1260 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -2163,24 +2124,24 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1260copy_slice_from(T1260 C,T1260 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[FORMAL_ARG_LIST]*/void r1260copy_slice_from(T1260 C,T1260 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
 /*:RF7*/}/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/T1261 r1261realloc(T1261 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/T1261 r1261realloc(T1261 C,T2 a1,T2 a2){
 T1261 R=(void*)0;
 R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
 /*RF3:copy_from*/r1261copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
 /*:RF3*/return R;
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1261copy_from(T1261 C,T1261 a1,T2 a2){
+/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1261copy_from(T1261 C,T1261 a1,T2 a2){
 /*RF3:copy_slice_from*/r1261copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
 /*:RF3*/}/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1261clear(T1261 C,T2 a1,T2 a2){
+/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1261clear(T1261 C,T2 a1,T2 a2){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`lower'*/a1;
@@ -2191,7 +2152,7 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1261clear_all(T1261 C,T2 a1){
+/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1261clear_all(T1261 C,T2 a1){
 T0*_v=(void*)0;
 T2 _i=0;
 _i=/*`upper'*/a1;
@@ -2202,7 +2163,46 @@ while(1){
 }
 }/*--*/
 
-/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1261copy_slice_from(T1261 C,T1261 a1,T2 a2,T2 a3){
+/*NATIVE_ARRAY[LOCAL_VAR_LIST]*/void r1261copy_slice_from(T1261 C,T1261 a1,T2 a2,T2 a3){
+/*RF7:slice_copy*/{/*slice_copy*/
+int a3tmp=/*`lower'*/a2;
+memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
+/*:RF7*/}/*--*/
+
+/*NATIVE_ARRAY[FEATURE_TEXT]*/T1262 r1262realloc(T1262 C,T2 a1,T2 a2){
+T1262 R=(void*)0;
+R=/*RF8:calloc*/se_calloc(/*`new_nb_elts'*/a2,sizeof(T0*))/*:RF8*/;
+/*RF3:copy_from*/r1262copy_from(R,C,/*RF8:-*/((int32_t)(/*`old_nb_elts'*/a1))-(INT32_C(1))/*:RF8*/);
+/*:RF3*/return R;
+}/*--*/
+
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1262copy_from(T1262 C,T1262 a1,T2 a2){
+/*RF3:copy_slice_from*/r1262copy_slice_from(C,/*`model'*/a1,INT32_C(0),/*`upper'*/a2);
+/*:RF3*/}/*--*/
+
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1262clear(T1262 C,T2 a1,T2 a2){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`lower'*/a1;
+while(1){
+/*until*/if(/*RF8:>*/((int32_t)(_i))>(/*`upper'*/a2)/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1262clear_all(T1262 C,T2 a1){
+T0*_v=(void*)0;
+T2 _i=0;
+_i=/*`upper'*/a1;
+while(1){
+/*until*/if(/*RF8:<*/((int32_t)(_i))<(INT32_C(0))/*:RF8*/) break;
+/*RF7:put*/(C)[_i]=(_v);
+/*:RF7*/_i=/*RF8:-*/((int32_t)(_i))-(INT32_C(1))/*:RF8*/;
+}
+}/*--*/
+
+/*NATIVE_ARRAY[FEATURE_TEXT]*/void r1262copy_slice_from(T1262 C,T1262 a1,T2 a2,T2 a3){
 /*RF7:slice_copy*/{/*slice_copy*/
 int a3tmp=/*`lower'*/a2;
 memcpy((C)+(INT32_C(0)),(/*`model'*/a1)+a3tmp,((/*`upper'*/a3)-a3tmp+1)*sizeof(T0*));}
