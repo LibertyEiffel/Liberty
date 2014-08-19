@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #--
 #-- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 #-- See the Copyright notice at the end of this file.
