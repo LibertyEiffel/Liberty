@@ -20,7 +20,7 @@ feature {CLASSES}
          not path.is_empty
          string_aliaser.registered_one(path)
          universe.classes_notation.is_absolute_path(path)
-         system_path /= Void implies (create {FILE_TOOLS}).file_exists(system_path)
+         system_path /= Void implies file_tools.file_exists(system_path)
       do
          Result := classes_memory.reference_at(path)
          if Result = Void then
