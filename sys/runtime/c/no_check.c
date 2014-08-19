@@ -150,7 +150,7 @@ void se_print_run_time_stack(void) {
   se_print_run_time_stack_in(SE_ERR, se_dst, NULL, 0);
 }
 
-static se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact, int exception_depth) {
+static void se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact, int exception_depth) {
   se_dump_stack* ds;
   se_dump_stack* ds2;
   int frame_count = 1;
