@@ -714,7 +714,7 @@ feature {ANY}
          is_user_expanded
          smart_eiffel.status.collecting_done
       local
-         i: INTEGER
+         i: INTEGER; wa: WRITABLE_ATTRIBUTE
       do
          if writable_attributes_mem /= Void then
             Result := False
@@ -730,7 +730,10 @@ feature {ANY}
                check
                   live_features.item(i) /= Void
                end
-               Result := not ({WRITABLE_ATTRIBUTE} ?:= live_features.item(i))
+               if wa ?:= live_features.item(i) then
+                  wa ::= live_features.item(i)
+                  Result := wa.result_type.is_empty_expanded
+               end
                i := i + 1
             end
          end
