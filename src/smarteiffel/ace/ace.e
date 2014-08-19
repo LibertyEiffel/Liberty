@@ -597,6 +597,16 @@ feature {}
          create Result.make(0)
       end
 
+   clusters_all_: FAST_ARRAY[CLUSTER]
+      once
+         create Result.make(0)
+      end
+
+   distances_all_: FAST_ARRAY[INTEGER]
+      once
+         create Result.make(0)
+      end
+
 feature {SMART_EIFFEL} -- Class loading
    cluster_named (cluster_name: STRING): CLUSTER
       require
@@ -662,10 +672,10 @@ feature {SMART_EIFFEL} -- Class loading
 
    all_class_texts (class_name: CLASS_NAME): FAST_ARRAY[CLASS_TEXT]
       local
-         i: INTEGER; cluster: CLUSTER; c: like clusters_; d: like distances_
+         i: INTEGER; cluster: CLUSTER; c: like clusters_all_; d: like distances_all_
       do
-         c := clusters_
-         d := distances_
+         c := clusters_all_
+         d := distances_all_
          c.clear_count
          d.clear_count
          universe.clusters_of(class_name, Void, c, d, 0)
