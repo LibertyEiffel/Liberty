@@ -54,9 +54,10 @@ feature {ANY}
          i: INTEGER
       do
          if is_expanded and then not type.has_external_type then
-            if type.live_type.writable_attributes = Void then
+            if type.live_type.writable_attributes = Void or else is_empty_expanded_flag then
                Result := True
             else
+               is_empty_expanded_flag := True
                from
                   Result := True
                   i := type.live_type.writable_attributes.lower
@@ -66,6 +67,7 @@ feature {ANY}
                   Result := type.live_type.writable_attributes.item(i).result_type.is_empty_expanded
                   i := i + 1
                end
+               is_empty_expanded_flag := False
             end
          end
       end
@@ -114,6 +116,9 @@ feature {TYPE_MARK}
 
 feature {}
    type_memory: like type
+
+   is_empty_expanded_flag: BOOLEAN
+         -- Anti-recursion flag for `is_empty_expanded`
 
    make (ctn: like class_text_name)
       require
