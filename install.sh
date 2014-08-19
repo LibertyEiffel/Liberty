@@ -108,7 +108,12 @@ bin: $TARGET/bin
 sys: $LIBERTY_HOME/sys
 short: $LIBERTY_HOME/resources/short
 os: UNIX
-flavor: Linux
+flavor: $(if grep -qi '^cygwin' /proc/version; then
+   echo Cygwin
+else
+   echo Linux
+fi
+)
 tag: 3
 jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 
