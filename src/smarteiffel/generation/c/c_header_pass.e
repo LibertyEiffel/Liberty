@@ -43,9 +43,11 @@ feature {}
          cpp.need_struct.for(type_mark)
       local
          wa: ARRAY[RUN_FEATURE_2]; i, mem_id: INTEGER; a: RUN_FEATURE_2; t: TYPE_MARK
+         type: TYPE
       do
+         type := type_mark.type
          mem_id := type_mark.id
-         wa := type_mark.type.live_type.writable_attributes
+         wa := type.live_type.writable_attributes
          out_h.copy(once "struct S")
          mem_id.append_in(out_h)
          out_h.extend('{')
@@ -70,7 +72,7 @@ feature {}
          end
          out_h.append(once "};%N")
          flush_out_h
-         if type_mark.is_expanded and then not type_mark.is_empty_expanded then
+         if type.is_expanded and then not type.is_empty_expanded then
             -- For expanded comparison:
             cpp.prepare_c_function
             function_signature.append(once "int se_cmpT")
@@ -81,33 +83,37 @@ feature {}
             mem_id.append_in(function_signature)
             function_signature.append(once "* o2)")
             function_body.append(once "int R=0;%N")
-            if wa /= Void then
-               from
-                  i := wa.lower
-               until
-                  i > wa.upper
-               loop
-                  a := wa.item(i)
-                  if not a.result_type.is_empty_expanded then
-                     if a.result_type.is_expanded and then not a.result_type.is_kernel_expanded then
-                        function_body.append(once "R = R || se_cmpT")
-                        a.result_type.id.append_in(function_body)
-                        function_body.append(once "(&(o1->_")
-                        function_body.append(a.name.to_string)
-                        function_body.append(once "), &(o2->_")
-                        function_body.append(a.name.to_string)
-                        function_body.append(once "));%N")
-                     else
-                        function_body.append(once "R = R || ((o1->_")
-                        function_body.append(a.name.to_string)
-                        function_body.append(once ") != (o2->_")
-                        function_body.append(a.name.to_string)
-                        function_body.append(once "));%N")
-                     end
-                  end
-                  i := i + 1
-               end
+
+            check
+               wa /= Void
             end
+
+            from
+               i := wa.lower
+            until
+               i > wa.upper
+            loop
+               a := wa.item(i)
+               if not a.result_type.is_empty_expanded then
+                  if a.result_type.is_expanded and then not a.result_type.is_kernel_expanded then
+                     function_body.append(once "R = R || se_cmpT")
+                     a.result_type.id.append_in(function_body)
+                     function_body.append(once "(&(o1->_")
+                     function_body.append(a.name.to_string)
+                     function_body.append(once "), &(o2->_")
+                     function_body.append(a.name.to_string)
+                     function_body.append(once "));%N")
+                  else
+                     function_body.append(once "R = R || ((o1->_")
+                     function_body.append(a.name.to_string)
+                     function_body.append(once ") != (o2->_")
+                     function_body.append(a.name.to_string)
+                     function_body.append(once "));%N")
+                  end
+               end
+               i := i + 1
+            end
+
             function_body.append(once "return R;%N")
             cpp.dump_pending_c_function(True)
          end
