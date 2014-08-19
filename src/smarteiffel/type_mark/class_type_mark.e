@@ -50,9 +50,23 @@ feature {ANY}
       end
 
    is_empty_expanded: BOOLEAN
+      local
+         i: INTEGER
       do
          if is_expanded and then not type.has_external_type then
-            Result := type.live_type.writable_attributes = Void
+            if type.live_type.writable_attributes = Void then
+               Result := True
+            else
+               from
+                  Result := True
+                  i := type.live_type.writable_attributes.lower
+               until
+                  not Result or else i > type.live_type.writable_attributes.upper
+               loop
+                  Result := type.live_type.writable_attributes.item(i).result_type.is_empty_expanded
+                  i := i + 1
+               end
+            end
          end
       end
 

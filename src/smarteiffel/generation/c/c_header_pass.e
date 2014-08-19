@@ -70,7 +70,7 @@ feature {}
          end
          out_h.append(once "};%N")
          flush_out_h
-         if type_mark.is_expanded then
+         if type_mark.is_expanded and then not type_mark.is_empty_expanded then
             -- For expanded comparison:
             cpp.prepare_c_function
             function_signature.append(once "int se_cmpT")
