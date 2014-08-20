@@ -7,7 +7,10 @@ inherit
    AUX_RENAME9C
 
 create {}
-   make, default_create
+   make
+
+create {TEST_RENAME9}
+   default_create
 
 end -- class TEST_RENAME9
 --
