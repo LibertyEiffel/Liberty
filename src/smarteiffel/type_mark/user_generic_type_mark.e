@@ -28,13 +28,6 @@ feature {ANY}
          Result := class_text.is_expanded
       end
 
-   is_empty_expanded: BOOLEAN
-      do
-         if is_user_expanded then
-            Result := type.live_type.writable_attributes = Void
-         end
-      end
-
    id: INTEGER
       do
          Result := type.live_type.id
@@ -43,6 +36,12 @@ feature {ANY}
    accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR)
       do
          visitor.visit_user_generic_type_mark(Current)
+      end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN
+      do
+         Result := is_user_empty_expanded
       end
 
 feature {TYPE_MARK}

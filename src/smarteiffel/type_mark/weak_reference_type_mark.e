@@ -18,7 +18,7 @@ create {ANY}
 feature {ANY}
    is_reference: BOOLEAN True
 
-   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN False
+   is_expanded, is_user_expanded: BOOLEAN False
 
    elements_type: TYPE_MARK
       do
@@ -39,6 +39,9 @@ feature {ANY}
       do
          visitor.visit_weak_reference_type_mark(Current)
       end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
 
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE)

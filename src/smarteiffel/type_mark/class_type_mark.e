@@ -49,29 +49,6 @@ feature {ANY}
          Result := is_expanded
       end
 
-   is_empty_expanded: BOOLEAN
-      local
-         i: INTEGER
-      do
-         if is_expanded and then not type.has_external_type then
-            if type.live_type.writable_attributes = Void or else is_empty_expanded_flag then
-               Result := True
-            else
-               is_empty_expanded_flag := True
-               from
-                  Result := True
-                  i := type.live_type.writable_attributes.lower
-               until
-                  not Result or else i > type.live_type.writable_attributes.upper
-               loop
-                  Result := type.live_type.writable_attributes.item(i).result_type.is_empty_expanded
-                  i := i + 1
-               end
-               is_empty_expanded_flag := False
-            end
-         end
-      end
-
    generic_list: ARRAY[TYPE_MARK]
       do
          check
@@ -92,6 +69,12 @@ feature {ANY}
    start_position: POSITION
       do
          Result := class_text_name.start_position
+      end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN
+      do
+          Result := is_user_empty_expanded
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
@@ -116,9 +99,6 @@ feature {TYPE_MARK}
 
 feature {}
    type_memory: like type
-
-   is_empty_expanded_flag: BOOLEAN
-         -- Anti-recursion flag for `is_empty_expanded`
 
    make (ctn: like class_text_name)
       require

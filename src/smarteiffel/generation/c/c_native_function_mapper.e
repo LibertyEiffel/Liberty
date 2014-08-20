@@ -262,7 +262,7 @@ feature {NATIVE_BUILT_IN}
                if ace.no_check then
                   function_body.append(once ";%Nerror0(%"Invalid deep_twin.%",NULL)")
                end
-            elseif type_of_current.is_user_expanded and then type_of_current.is_empty_expanded then
+            elseif type_of_current.is_empty_expanded then
                cpp.put_target_as_target(type_of_current)
             else
                check
@@ -1297,7 +1297,7 @@ feature {} -- built-ins
                   function_body.extend(',')
                   c_field_access(live_type, internal_c_local, as_capacity)
                   function_body.append(once ");%N")
-               elseif tm.is_empty_expanded then
+               elseif tm.type.is_empty_expanded then
                elseif tm.is_user_expanded then
                   c_field_access(live_type, internal_c_local, field_name)
                   function_body.append(once "=r")
@@ -1460,7 +1460,7 @@ feature {} -- built-ins
                   function_body.append(once ",a1ptr->_")
                   function_body.append(field_name)
                   function_body.append(once ",C->_capacity);%N")
-               elseif tm.is_empty_expanded then
+               elseif tm.type.is_empty_expanded then
                elseif tm.is_user_expanded then
                   function_body.append(once "if(R)R=r")
                   tm.id.append_in(function_body)

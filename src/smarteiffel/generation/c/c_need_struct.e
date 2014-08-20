@@ -155,7 +155,7 @@ feature {}
          check
             not flag
          end
-         if visited.is_empty_expanded then
+         if visited.type.is_empty_expanded then
          elseif visited.is_expanded then
             flag := True
          elseif visited.type.live_type.is_tagged then

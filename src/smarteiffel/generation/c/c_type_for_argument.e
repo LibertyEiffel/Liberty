@@ -60,7 +60,7 @@ feature {USER_GENERIC_TYPE_MARK}
       do
          if visited.is_reference then
             buffer.append(once "T0*")
-         elseif visited.is_empty_expanded then
+         elseif visited.type.is_empty_expanded then
             buffer.append(once "int")
          else
             buffer.extend('T')
@@ -109,7 +109,7 @@ feature {CLASS_TYPE_MARK}
       do
          if visited.is_reference then
             buffer.append(once "T0*")
-         elseif visited.is_empty_expanded then
+         elseif visited.type.is_empty_expanded then
             buffer.append(once "int")
          else
             buffer.extend('T')

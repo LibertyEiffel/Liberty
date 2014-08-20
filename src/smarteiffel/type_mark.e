@@ -585,6 +585,7 @@ feature {ANY}
          Result = (is_expanded and not (is_kernel_expanded xor is_native_array))
       end
 
+feature {LIVE_TYPE, TYPE_MARK}
    is_empty_expanded: BOOLEAN
          -- True when is it a user's expanded type with no attribute.
       require
@@ -592,6 +593,33 @@ feature {ANY}
          smart_eiffel.status.collecting_done
       deferred
       end
+
+feature {}
+   is_user_empty_expanded: BOOLEAN
+      local
+         i: INTEGER
+      do
+         if is_user_expanded and then not type.has_external_type then
+            if type.live_type.writable_attributes = Void or else is_user_empty_expanded_flag then
+               Result := True
+            else
+               is_user_empty_expanded_flag := True
+               from
+                  Result := True
+                  i := type.live_type.writable_attributes.lower
+               until
+                  not Result or else i > type.live_type.writable_attributes.upper
+               loop
+                  Result := type.live_type.writable_attributes.item(i).result_type.is_empty_expanded
+                  i := i + 1
+               end
+               is_user_empty_expanded_flag := False
+            end
+         end
+      end
+
+   is_user_empty_expanded_flag: BOOLEAN
+         -- Anti-recursion flag for `is_user_empty_expanded`
 
 feature {LIVE_TYPE}
    frozen id_extra_information (tfw: TEXT_FILE_WRITE)

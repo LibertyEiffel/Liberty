@@ -14,81 +14,71 @@ feature {ANY}
 
    frozen type: TYPE
       do
-         check
-            False
-         end
+         err_nonstatic("type")
       end
 
    frozen is_reference: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_reference")
       end
 
    frozen is_expanded: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_expanded")
       end
 
    frozen is_generic: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_generic")
       end
 
    frozen generic_list: ARRAY[TYPE_MARK]
       do
-         check
-            False
-         end
+         err_nonstatic("generic_list")
       end
 
    frozen id: INTEGER
       do
-         check
-            False
-         end
+         err_nonstatic("id")
       end
 
    frozen class_text_name: CLASS_NAME
       do
-         check
-            False
-         end
+         err_nonstatic("class_text_name")
       end
 
    frozen is_user_expanded: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_user_expanded")
       end
 
+feature {LIVE_TYPE, TYPE_MARK}
    frozen is_empty_expanded: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_empty_expanded")
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    frozen long_name: HASHED_STRING
       do
-         check
-            False
-         end
+         err_nonstatic("long_name")
       end
 
 feature {LIVE_TYPE, TYPE_MARK}
    frozen just_before_gc_mark_in (str: STRING)
       do
-         check
-            False
-         end
+         err_nonstatic("just_before_gc_mark_in")
+      end
+
+feature {}
+   err_nonstatic (tag: STRING)
+      require
+         never_called: False
+      do
+         error_handler.append(tag)
+         error_handler.append(" called on non-static type mark")
+         error_handler.add_position(start_position)
+         error_handler.print_as_internal_error
       end
 
 end -- class NON_STATIC_TYPE_MARK

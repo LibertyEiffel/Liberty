@@ -894,6 +894,8 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          if is_user_expanded then
             Result := live_type.is_empty_expanded
          end
+      ensure
+         Result implies is_user_expanded
       end
 
    is_user_expanded: BOOLEAN

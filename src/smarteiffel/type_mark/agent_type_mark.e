@@ -88,12 +88,13 @@ feature {ANY}
 
    is_user_expanded: BOOLEAN False
 
-   is_empty_expanded: BOOLEAN False
-
    id: INTEGER
       do
          Result := type.live_type.id
       end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
 
 feature {TYPE_MARK}
    short_ (shorted_type: TYPE)

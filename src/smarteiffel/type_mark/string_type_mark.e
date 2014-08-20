@@ -26,7 +26,7 @@ feature {ANY}
 
    is_reference: BOOLEAN True
 
-   is_expanded, is_empty_expanded, is_user_expanded: BOOLEAN False
+   is_expanded, is_user_expanded: BOOLEAN False
 
    written_name: HASHED_STRING
          -- (Is always the same one.)
@@ -61,6 +61,9 @@ feature {ANY}
       do
          Result := class_text_name.start_position
       end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
    long_name: HASHED_STRING

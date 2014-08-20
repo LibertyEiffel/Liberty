@@ -52,7 +52,7 @@ feature {USER_GENERIC_TYPE_MARK}
       do
          buffer.extend('T')
          visited.id.append_in(buffer)
-         if not visited.is_empty_expanded then
+         if not visited.type.is_empty_expanded then
             buffer.extend('*')
          end
       end
@@ -86,7 +86,7 @@ feature {CLASS_TYPE_MARK}
       do
          buffer.extend('T')
          visited.id.append_in(buffer)
-         if not visited.is_empty_expanded then
+         if not visited.type.is_empty_expanded then
             buffer.extend('*')
          end
       end

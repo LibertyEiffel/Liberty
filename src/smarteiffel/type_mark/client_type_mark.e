@@ -90,11 +90,6 @@ feature {ANY}
          Result := is_expanded
       end
 
-   is_empty_expanded: BOOLEAN
-      do
-         Result := class_type_mark.is_empty_expanded
-      end
-
    generic_list: ARRAY[TYPE_MARK]
       do
          if is_generic then
@@ -167,6 +162,12 @@ feature {ANY}
    try_class_text: CLASS_TEXT
       do
          Result := class_type_mark.try_class_text
+      end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN
+      do
+         Result := class_type_mark.is_empty_expanded
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}

@@ -176,20 +176,26 @@ feature {RUN_FEATURE_1}
 feature {RUN_FEATURE_2}
    visit_run_feature_2 (visited: RUN_FEATURE_2)
       do
-         check
-            -- No more attribute in kernel expanded classes.
-            not visited.type_of_current.is_kernel_expanded
-         end
          function_body.append(once "(/*RF2:")
          function_body.append(visited.name.to_string)
          function_body.append(once "*/")
-         if visited.need_c_function and then cpp.use_c_function_call_for_attribute_read then
+         if visited.type_of_current.is_kernel_expanded then
+            error_handler.append("Kernel classes don't have attributes!!! This class has been tampered with.")
+            error_handler.add_position(visited.start_position)
+            error_handler.print_as_internal_error
+         elseif visited.need_c_function and then cpp.use_c_function_call_for_attribute_read then
             default_mapping_function(visited)
          elseif visited.type_of_current.is_reference then
             function_body.extend('(')
             cpp.put_target_as_target(visited.type_of_current)
             function_body.append(once ")->")
             put_c_field_name(visited)
+         elseif visited.type_of_current.is_empty_expanded then
+            function_body.append(once "((T")
+            visited.result_type.id.append_in(function_body)
+            function_body.append(once ")/*")
+            function_body.append(visited.name.to_string)
+            function_body.append(once "*/0)")
          else
             check
                visited.type_of_current.is_user_expanded

@@ -16,7 +16,7 @@ feature {ANY}
 
    is_reference: BOOLEAN True
 
-   is_expanded, is_user_expanded, is_empty_expanded: BOOLEAN False
+   is_expanded, is_user_expanded: BOOLEAN False
 
    is_static: BOOLEAN
       deferred
@@ -44,6 +44,9 @@ feature {ANY}
       do
          Result := type.live_type.id
       end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
 
 feature {}
    canonical_long_name: HASHED_STRING

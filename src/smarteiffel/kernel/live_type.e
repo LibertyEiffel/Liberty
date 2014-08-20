@@ -717,7 +717,15 @@ feature {ANY}
          i: INTEGER; wa: WRITABLE_ATTRIBUTE
       do
          if writable_attributes_mem /= Void then
-            Result := False
+            Result := True
+            from
+               i := writable_attributes_mem.lower
+            until
+               i > writable_attributes_mem.upper or else not Result
+            loop
+               Result := writable_attributes_mem.item(i).result_type.is_empty_expanded
+               i := i + 1
+            end
          elseif type.has_external_type then
             Result := False
          else

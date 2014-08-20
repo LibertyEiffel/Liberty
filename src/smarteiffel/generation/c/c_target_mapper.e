@@ -342,15 +342,11 @@ feature {INTERNAL_LOCAL2}
 feature {NATIVE_ARRAY_ITEM}
    visit_native_array_item (visited: NATIVE_ARRAY_ITEM)
       do
-         if target_formal_type.is_user_expanded then
-            if not target_formal_type.is_empty_expanded then
-               function_body.extend('&')
-               function_body.extend('(')
-               Precursor(visited)
-               function_body.extend(')')
-            else
-               Precursor(visited)
-            end
+         if target_formal_type.is_user_expanded and then not target_formal_type.is_empty_expanded then
+            function_body.extend('&')
+            function_body.extend('(')
+            Precursor(visited)
+            function_body.extend(')')
          else
             Precursor(visited)
          end

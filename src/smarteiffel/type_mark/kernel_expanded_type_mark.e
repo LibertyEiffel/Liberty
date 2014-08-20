@@ -16,7 +16,7 @@ insert
 feature {ANY}
    is_expanded: BOOLEAN True
 
-   is_reference, is_empty_expanded, is_user_expanded: BOOLEAN False
+   is_reference, is_user_expanded: BOOLEAN False
 
    class_text_name: CLASS_NAME
 
@@ -29,6 +29,9 @@ feature {ANY}
       do
          Result := Current
       end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
 
 feature {LIVE_TYPE}
    structure_mark: CHARACTER

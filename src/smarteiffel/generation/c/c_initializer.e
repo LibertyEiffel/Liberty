@@ -181,7 +181,7 @@ feature {}
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf: RUN_FEATURE_2
       do
-         if type_mark.is_empty_expanded then
+         if type_mark.type.is_empty_expanded then
             buffer.extend('0')
          else
             buffer.extend('{')

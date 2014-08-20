@@ -85,11 +85,13 @@ feature {NATIVE_BUILT_IN}
                flag := True
             elseif type_of_current.live_type.writable_attributes = Void then
                flag := not ace.boost
-            elseif type_of_current.is_user_expanded then
+            elseif type_of_current.is_user_expanded and then not type_of_current.is_empty_expanded then
                flag := True
             end
          elseif as_twin = name or else as_standard_twin = name then
-            flag := True
+            if not type_of_current.is_empty_expanded then
+               flag := True
+            end
          elseif as_deep_twin = name then
             flag := True
          elseif as_is_deep_equal = name then

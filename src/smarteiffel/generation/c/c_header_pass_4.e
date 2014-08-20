@@ -48,12 +48,7 @@ feature {}
          end
          function_signature.append(once "*o)")
          if ct.is_reference then
-            function_body.append(once "[
-               if(*o==NULL){
-                  fprintf(file, "void");
-                  return;}
-
-                              ]")
+            function_body.append(once "if(*o==NULL){fprintf(file, %"void%");return;}%N")
          end
          function_body.append(once "fprintf(file,%"")
          function_body.append(live_type.name.to_string)
@@ -61,42 +56,44 @@ feature {}
          if ct.is_reference or else ct.is_native_array then
             function_body.append(once "fprintf(file,%"#%%p%",(void*)*o);%N")
          end
-         wa := live_type.writable_attributes
-         if wa /= Void then
-            function_body.append(once "fprintf(file,%"\n\t[ %");%N")
-            from
-               i := wa.lower
-            until
-               i > wa.upper
-            loop
-               if i > wa.lower then
-                  function_body.append(once "fprintf(file,%"\n\t  %");%N")
+         if not ct.type.is_empty_expanded then
+            wa := live_type.writable_attributes
+            if wa /= Void then
+               function_body.append(once "fprintf(file,%"\n\t[ %");%N")
+               from
+                  i := wa.lower
+               until
+                  i > wa.upper
+               loop
+                  if i > wa.lower then
+                     function_body.append(once "fprintf(file,%"\n\t  %");%N")
+                  end
+                  rf2 := wa.item(i)
+                  t := rf2.result_type
+                  function_body.append(once "fprintf(file,%"")
+                  function_body.append(rf2.name.to_string)
+                  function_body.append(once " = %");%Nse_prinT")
+                  if t.is_expanded then
+                     t.id.append_in(function_body)
+                     function_body.append(once "(file,")
+                  elseif t.is_string then
+                     function_body.append(once "7(file,(EIF_STRING*)")
+                  else
+                     function_body.append(once "0(file,(T0**)")
+                  end
+                  function_body.append(once "(&((*o)")
+                  if ct.is_reference then
+                     function_body.append(once "->")
+                  else
+                     function_body.extend('.')
+                  end
+                  function_body.extend('_')
+                  function_body.append(rf2.name.to_string)
+                  function_body.append(once ")));%N")
+                  i := i + 1
                end
-               rf2 := wa.item(i)
-               t := rf2.result_type
-               function_body.append(once "fprintf(file,%"")
-               function_body.append(rf2.name.to_string)
-               function_body.append(once " = %");%Nse_prinT")
-               if t.is_expanded then
-                  t.id.append_in(function_body)
-                  function_body.append(once "(file,")
-               elseif t.is_string then
-                  function_body.append(once "7(file,(EIF_STRING*)")
-               else
-                  function_body.append(once "0(file,(T0**)")
-               end
-               function_body.append(once "(&((*o)")
-               if ct.is_reference then
-                  function_body.append(once "->")
-               else
-                  function_body.extend('.')
-               end
-               function_body.extend('_')
-               function_body.append(rf2.name.to_string)
-               function_body.append(once ")));%N")
-               i := i + 1
+               function_body.append(once "fprintf(file,%"\n\t]%");%N")
             end
-            function_body.append(once "fprintf(file,%"\n\t]%");%N")
          end
          cpp.dump_pending_c_function(True)
       end

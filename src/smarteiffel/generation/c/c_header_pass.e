@@ -94,7 +94,7 @@ feature {}
                i > wa.upper
             loop
                a := wa.item(i)
-               if not a.result_type.is_empty_expanded then
+               if not a.result_type.type.is_empty_expanded then
                   if a.result_type.is_expanded and then not a.result_type.is_kernel_expanded then
                      function_body.append(once "R = R || se_cmpT")
                      a.result_type.id.append_in(function_body)
@@ -152,7 +152,7 @@ feature {}
             out_h.append(once " T")
             mem_id.append_in(out_h)
             out_h.append(once ";%N")
-         elseif type_mark.is_empty_expanded then
+         elseif type_mark.type.is_empty_expanded then
             out_h.append(once "typedef int T")
             mem_id.append_in(out_h)
             out_h.append(once ";%N")
