@@ -23,7 +23,7 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             xdg.set_package("liberty-eiffel")
-            if file_tools.is_readable("/sys/rc") then
+            if file_tools.is_readable("/sys/rc") and file_tools.is_readable("/lang") then
                st.set_system_name(elate_system)
                def.set_os(elate_system)
                add_to_chain(chain, "/lang/eiffel/.serc", "    ")
@@ -50,12 +50,20 @@ feature {ANY}
          elseif basic_directory.windows_notation then
             add_to_chain(chain, "C:\SE.CFG", "    ")
             add_to_chain(chain, "C:\LIBERTY.CFG", "    ")
+            s := allusersprofile_env
+            if s /= Void then
+               s.append("\Liberty-Eiffel")
+               add_to_chain(chain, s, "    ")
+            end
             s := userprofile_env
             if s /= Void then
                s.append("\SE.CFG")
                add_to_chain(chain, s, "    ")
                s.remove_suffix("\SE.CFG")
                s.append("\LIBERTY.CFG")
+               add_to_chain(chain, s, "    ")
+               s.remove_suffix("\LIBERTY.CFG")
+               s.append("\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             def.set_os(windows_system)
@@ -97,9 +105,15 @@ feature {SYSTEM_TOOLS}
       end
 
    userprofile_env: STRING
-         -- This variable is always set on Windows NT, 2000 and XP
+         -- Windows variable for the users profile directory. This variable is always set on Windows NT, 2000 and XP
       once
          Result := env("USERPROFILE")
+      end
+
+   allusersprofile_env: STRING
+         -- Windows variable for the profile directory of All Users.
+      once
+         Result := env("ALLUSERSPROFILE")
       end
 
 feature {}
