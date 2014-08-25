@@ -179,14 +179,10 @@ feature {} -- Some other names:
 
    fz_none: STRING "none"
 
-   fz_smarteiffel: STRING "SmartEiffel"
+   fz_libertyeiffel: STRING "LibertyEiffel"
 
-   fz_seconf: STRING "SmartEiffel"
+   fz_seconf: STRING "Liberty"
          -- the environment name pointing on the config file
-
-   fz_se_runtime: STRING "SmartEiffelRuntime"
-
-   fz_system_se: STRING "system.se"
 
 feature {} -- The known keys of the INI file:
    fz_conf_general: STRING "General"

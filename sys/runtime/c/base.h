@@ -217,6 +217,19 @@ typedef int_least8_t int8_t;
 #  define INT8_MIN (-INT8_C(127)-1)
 #endif
 
+/*
+ C compiler specific declaration for non-returning functions. Use
+ NO_RETURN void foo(int bar);
+ to declare a function prototype for function that doesn't return.
+ */
+#if defined __GNUC__
+#  define NO_RETURN __attribute__ ((noreturn))
+#elif defined __POCC__ || defined __BORLANDC__ || defined _MSC_VER
+#  define NO_RETURN __declspec(noreturn)
+#else
+#  define NO_RETURN
+/* maybe some warning occur unless NO_RETURN is defined for your compiler */
+#endif
 
 /*
   Endian stuff

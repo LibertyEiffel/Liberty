@@ -942,8 +942,8 @@ feature {SYSTEM_TOOLS, CLUSTER}
          msg.append(" items):%N")
          universe.view_in(msg)
          system_tools.system_name_in(msg)
-         msg.append("The value of the environment variable %"SmartEiffel%" is:%N%"")
-         sed := echo.getenv(fz_smarteiffel, Void)
+         msg.append("The value of the environment variable %"LibertyEiffel%" is:%N%"")
+         sed := echo.getenv(fz_libertyeiffel, Void)
          if sed /= Void then
             msg.append(sed)
          end

@@ -329,87 +329,45 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       end
 
    getenv (variable, file: STRING): STRING
-         -- To echo every `{SYSTEM}.get_environment_variable' for all tools of
-         -- Liberty Eiffel (because of magic variables and for SmallEiffel
-         -- backward compatibility). When the `file' is not Void, it means
-         -- that the `variable' has been found in this `file'. So, this function
-         -- compute automatically the `SmartEiffelDirectory' magic variable using
-         -- the `SmartEiffel' variable. For compatibility with SmallEiffel,
-         -- when the `SmartEiffel' variable is not bound, the value of the
-         -- obsolete `SmallEiffel' variable is used (and hence an obsolete
-         -- warning is printed).
+         -- To echo every `{SYSTEM}.get_environment_variable' for all tools of Liberty Eiffel (because of
+         -- magic variables and for SmallEiffel backward compatibility). When the `file' is not Void, it means
+         -- that the `variable' has been found in this `file'. The old "SmartEiffel" and "SmallEiffel"
+         -- variables are now ignored.
       require
          variable /= Void
       local
          s: SYSTEM
       do
-         if fz_smalleiffel.same_as(variable) or else fz_smalleiffeldirectory.same_as(variable) then
-            w_put_string(once "Obsolete %"")
+         if (once "SmartEiffel").same_as(variable) or else (once "SmallEiffel").same_as(variable) then
+            w_put_string(once "Obsolete ${")
             w_put_string(variable)
-            w_put_string(once "%" variable used")
+            w_put_string(once "} variable used")
             if file /= Void then
-               w_put_string(once " in file %"")
+               w_put_string(once " in file '")
                w_put_string(file)
-               w_put_character('%"')
+               w_put_character('%'')
             else
                w_put_character('.')
             end
             w_put_character('%N')
-         end
-         Result := s.get_environment_variable(variable)
-         if Result = Void and then fz_smarteiffeldirectory.same_as(variable) then
-            Result := getenv(fz_smarteiffel, file)
-            if Result /= Void and then Result.count > 9 then
-               system_tools.parent_directory(Result)
-               -- for "system.se".
-               if Result.count > 3 then
-                  -- for the "sys" directory.
-                  system_tools.parent_directory(Result)
-               end
-            end
-            debug
-               io.put_string(once "SmartEiffelDirectory=")
-               io.put_string(Result)
-               io.put_new_line
-            end
-         end
-         if Result = Void then
-            if fz_smalleiffel.same_as(variable) then
-               Result := s.get_environment_variable(fz_smalleiffel)
-               if Result /= Void then
-                  w_put_string("The old %"SmallEiffel%" variable %
-                %is not valid anymore. Please use Liberty Eiffel.%N")
-               end
-            elseif fz_smalleiffeldirectory.same_as(variable) then
-               Result := getenv(fz_smalleiffel, file)
-               if Result /= Void then
-                  w_put_string("The old %"SmallEiffelDirectory%" variable %
-                %is not valid anymore. Please use SmartEiffelDirectory or,%N%
-                               %better still, don't use it at all.%N")
-                  if Result.count > 9 then
-                     system_tools.parent_directory(Result)
-                     -- for "system.se".
-                     if Result.count > 3 then
-                        -- for the "sys" directory.
-                        system_tools.parent_directory(Result)
-                     end
-                  end
-               end
-            end
+            w_put_string(once "It is now ignored and replaced by a lookup of the LibertyEiffel variable. Please update your file.%N")
+            Result := s.get_environment_variable(fz_libertyeiffel)
+         else
+            Result := s.get_environment_variable(variable)
          end
          if Result = Void then
             Result := system_tools.environment(variable)
-         end
-         if Result = Void then
-            w_put_string(once "Environment variable ${")
-            w_put_string(variable)
-            w_put_character('}')
-            if file /= Void then
-               w_put_string(once " used in file %"")
-               w_put_string(file)
-               w_put_character('%"')
+            if Result = Void then
+               w_put_string(once "Environment variable ${")
+               w_put_string(variable)
+               w_put_character('}')
+               if file /= Void then
+                  w_put_string(once " used in file '")
+                  w_put_string(file)
+                  w_put_character('%'')
+               end
+               w_put_string(once " is not set.%N")
             end
-            w_put_string(once " is not set.%N")
          end
       end
 
@@ -592,13 +550,6 @@ feature {ACE_CHECK, COMMAND_LINE_TOOLS}
       ensure
          not is_verbose
       end
-
-feature {}
-   fz_smalleiffel: STRING "SmallEiffel"
-
-   fz_smalleiffeldirectory: STRING "SmallEiffelDirectory"
-
-   fz_smarteiffeldirectory: STRING "SmartEiffelDirectory"
 
 feature {}
    state_on_output: INTEGER 0
