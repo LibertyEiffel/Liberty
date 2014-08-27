@@ -58,6 +58,10 @@ typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while
     echo
     index=$((index + 1))
 done | while read i section args; do
+    LOG=""
+    export LOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S')_$section.log}
+    echo "Log for $section is $LOG"
+
     progress 30 $i $n $section
     s=$DOC_ROOT/api/$section
     test -d $s || mkdir -p $s
