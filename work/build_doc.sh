@@ -25,6 +25,7 @@ export DOC_ROOT
 export LOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log}
 
 echo "Log is $LOG"
+SUMLOG=$LOG
 
 . $root/work/tools.sh
 
@@ -44,7 +45,6 @@ tutorial    tutorial
 wrappers    liberty_extra
 EOF
 )
-
 n=$(typeset | grep ^sedoc_url_ | wc -l)
 
 index=0
@@ -58,9 +58,9 @@ typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while
     echo
     index=$((index + 1))
 done | while read i section args; do
-    LOG=""
-    export LOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S')_$section.log}
+    export LOG=$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S')_$section.log
     echo "Log for $section is $LOG"
+    echo "Log for $section is $LOG" >> $SUMLOG
 
     progress 30 $i $n $section
     s=$DOC_ROOT/api/$section
@@ -85,10 +85,11 @@ done | while read i section args; do
             rm -rf $section
         fi
     fi
+
+    grep '^se failed with status' $LOG >> $SUMLOG
 done
-
+LOG=$SUMLOG
 status=$(grep '^se failed with status' $LOG | awk 'BEGIN {i = 0} {if (NF > 0) {i += $NF} else {i++}} END {printf("%d\n", i)}')
-
 progress 30 $n $n "Finished with status $status."
 echo
 exit $status
