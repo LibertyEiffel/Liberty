@@ -2,6 +2,16 @@
 
 export plain=${plain:-FALSE}
 export zip=${zip:-FALSE}
+export gdb=${gdb:-FALSE}
+
+declare -a sections=()
+
+declare -A known_sections
+known_sections[liberty]=[tools]
+known_sections[libraries]=[liberty_core]
+known_sections[smarteiffel]=[smarteiffel]
+known_sections[tutorial]=[tutorial]
+known_sections[wrappers]=[liberty_extra]
 
 while [ -n "$1" ]; do
     case $1 in
@@ -11,13 +21,38 @@ while [ -n "$1" ]; do
         -zip)
             zip=TRUE
             ;;
-        *)
-            echo "Unknown argument: $1" >&2
+        -gdb)
+            gdb=TRUE
+            ;;
+        -*)
+            {
+                echo "Unknown option: $1"
+                echo
+            } >&2
             exit 1
+            ;;
+        *)
+            if [[ -n "${known_sections[$1]}" ]]; then
+                sections=("${sections[@]}" "$1")
+            else
+                {
+                    echo "Unknown section: $1"
+                    echo
+                    echo "Known sections are: ${!known_sections[@]}"
+                    echo
+                } >&2
+                exit 1
+            fi
             ;;
     esac
     shift
 done
+
+if [[ ${#sections[@]} == 0 ]]; then
+    sections=(liberty libraries smarteiffel tutorial wrappers)
+fi
+
+echo "Sections: ${sections[@]}"
 
 root=$(cd $(dirname $(readlink -f $0))/..; pwd)
 DOC_ROOT=${DOC_ROOT:-$root/website/doc}
@@ -33,19 +68,19 @@ title Cleanup
 rm -rf $DOC_ROOT/build_doc-*.log $DOC_ROOT/api
 
 title Building
-eval $(
-    while read section remote; do
+
+set_sedoc_vars() {
+    for section in "${sections[@]}"; do
         echo sedoc_url_$section=http://doc.liberty-eiffel.org/api/$section
+        remote=${known_sections[$section]}
         echo sedoc_rem_$section=$remote
-    done <<EOF
-liberty     tools
-libraries   liberty_core
-smarteiffel smarteiffel
-tutorial    tutorial
-wrappers    liberty_extra
-EOF
-)
+    done
+}
+
+eval $(set_sedoc_vars)
 n=$(typeset | grep ^sedoc_url_ | wc -l)
+
+tty=$(tty)
 
 index=0
 typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while read section; do
@@ -65,7 +100,7 @@ done | while read i section args; do
     s=$DOC_ROOT/api/$section
     test -d $s || mkdir -p $s
     cd $s
-    if run se doc -verbose -title "Section:\\\\ $section" -short_title "$section" \
+    declare -a all_args=(-verbose -title "Section:\\\\ $section" -short_title "$section" \
         -wiki_prefix "http://wiki.liberty-eiffel.org/" \
         -menu_separator '"\\|\\ "' -ariadne_separator '"\\>\\ "' \
         -menu "http://www.gnu.org/software/liberty-eiffel/" '"GNU"' \
@@ -76,9 +111,12 @@ done | while read i section args; do
         -menu "http://apt.liberty-eiffel.org" '"Debian\\ packages"' \
         -menu "http://doc.liberty-eiffel.org" '"Documentation"' \
         -js "$root/resources/eiffeldoc/eiffeldoc.js" -css "$root/resources/eiffeldoc/eiffeldoc.css" \
-        -prune test -prune Local $args; then
-
-        if [ $zip == TRUE ]; then
+        -prune test -prune Local $args)
+    if [[ $gdb == TRUE ]]; then
+        cmd=$(se -environment|grep SE_BIN=|awk -F= '{print $2}')/eiffeldoc
+        gdb $cmd --args $cmd "${all_args[@]}" <>$tty
+    elif run se doc "${all_args[@]}"; then
+        if [[ $zip == TRUE ]]; then
             cd $DOC_ROOT/api
             tar cfz ${section}.tgz $section
             rm -rf $section
