@@ -43,7 +43,7 @@ feature {}
          agent_object ::= processor.expressions.eval(agent_launcher.target)
          create arguments.make(agent_object.upper)
          target := agent_operand(-1)
-         (1 |..| agent_object.upper).for_each(agent put_agent_argument)
+         ({INTEGER_32 1} |..| agent_object.upper).for_each(agent put_agent_argument)
       ensure
          agent_launcher = a_agent_launcher
       end
