@@ -1529,11 +1529,20 @@ break;
 case 480:
 tmp0/*type*/=/*RF4:type*/r480type(((T480*)_result_type))/*:RF4*/;
 break;
-case 518:
-tmp0/*type*/=/*RF4:type*/r518type(((T518*)_result_type))/*:RF4*/;
+case 505:
+tmp0/*type*/=/*RF4:type*/r505type(((T505*)_result_type))/*:RF4*/;
+break;
+case 514:
+tmp0/*type*/=/*RF4:type*/r514type(((T514*)_result_type))/*:RF4*/;
+break;
+case 516:
+tmp0/*type*/=/*RF4:type*/r516type(((T516*)_result_type))/*:RF4*/;
+break;
+case 517:
+tmp0/*type*/=/*RF4:type*/r517type(((T517*)_result_type))/*:RF4*/;
 break;
 default:;
-tmp0/*type*/=(void*)0;
+tmp0/*type*/=/*RF4:type*/r518type(((T518*)_result_type))/*:RF4*/;
 }
 /*inspect]*/
 R=tmp0/*type*/;

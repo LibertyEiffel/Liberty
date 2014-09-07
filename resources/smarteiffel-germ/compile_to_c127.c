@@ -361,9 +361,9 @@ r351default_create(&(((T95*)tmp0/*new*/)->_start_position));
 /*RF3:make*/r95make(((T95*)tmp0/*new*/),_hs,/*`sp'*/a1,(T6)(0));
 /*:RF3*/_cn=tmp0/*new*/;
 /*tmp0.unlock*/
-_gl=se_manifest1057(INT32_C(1),1,
+_gl=se_manifest_args1057(se_manifest1057(INT32_C(1),1),0,1,
 ((T0*)create514make(/*`sp'*/a1)));
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp0/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp0/*new*/),_cn,_gl);
 /*:RF3*/_ugtm=tmp0/*new*/;

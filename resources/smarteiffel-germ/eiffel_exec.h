@@ -72,6 +72,7 @@
                 defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
+#ifdef SE_THREAD
 #ifdef WIN32
 #  include <windows.h>
 #  define TLS(type) __declspec(thread) type
@@ -83,6 +84,9 @@
 #    define O_RDONLY 0000
 #  endif
 #  define TLS(type) __thread type
+#endif
+#else
+#define TLS(type) type
 #endif
 
 #if defined(_MSC_VER) && (_MSC_VER < 1600) /* MSVC older than v10 */
@@ -220,6 +224,19 @@ typedef int_least8_t int8_t;
 #  define INT8_MIN (-INT8_C(127)-1)
 #endif
 
+/*
+ C compiler specific declaration for non-returning functions. Use
+ NO_RETURN void foo(int bar);
+ to declare a function prototype for function that doesn't return.
+ */
+#if defined __GNUC__
+#  define NO_RETURN __attribute__ ((noreturn))
+#elif defined __POCC__ || defined __BORLANDC__ || defined _MSC_VER
+#  define NO_RETURN __declspec(noreturn)
+#else
+#  define NO_RETURN
+/* maybe some warning occur unless NO_RETURN is defined for your compiler */
+#endif
 
 /*
   Endian stuff

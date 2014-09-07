@@ -786,13 +786,13 @@ while(1){
 static 
 /*agent launcher*/T0* afp_agenT806f806l126c52(se_agenT806f806l126c52*u){
 int closed_C=(u->closed_C);
-u->R=/*RF4:_inline_agent33*/r806_inline_agent33(closed_C)/*:RF4*/;
+u->R=/*RF4:_inline_agent34*/r806_inline_agent34(closed_C)/*:RF4*/;
 return u->R;
 }/*--*/
 
 /*agent creation*/T0*agenT806f806l126c52(int closed_C){
 se_agenT806f806l126c52*u=(void*)new_agent(1229);
-u->creation_mold_id=52;
+u->creation_mold_id=53;
 u->afp=afp_agenT806f806l126c52;
 u->closed_C=closed_C;
 return((T0*)u);
@@ -906,7 +906,7 @@ oBC806config_home=tmp0/*intern*/;
 return oBC806config_home;
 }/*--*/
 
-/*XDG*/T0*r806_inline_agent33(T806 C){
+/*XDG*/T0*r806_inline_agent34(T806 C){
 T0* R=(void*)0;
 R=/*RF4:#*/r7_ix_35(((T7*)se_string(12,s806_2078852867A)),/*RF6:home*/r806home(C)/*:RF6*/)/*:RF4*/;
 return R;

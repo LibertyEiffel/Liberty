@@ -163,9 +163,9 @@ r351default_create(&(((T95*)tmp0/*new*/)->_start_position));
 /*RF3:make*/r95make(((T95*)tmp0/*new*/),_hs,/*`position'*/a1,(T6)(0));
 /*:RF3*/_cn=tmp0/*new*/;
 /*tmp0.unlock*/
-_gl=se_manifest1057(INT32_C(1),1,
+_gl=se_manifest_args1057(se_manifest1057(INT32_C(1),1),0,1,
 _tm);
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp0/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp0/*new*/),_cn,_gl);
 /*:RF3*/R=tmp0/*new*/;
@@ -2346,18 +2346,18 @@ int fBC120transitions=0;
 
 /*FEATURE_ACCUMULATOR*/T0*r120transitions(void){
 if(fBC120transitions==0){fBC120transitions=1;{
-oBC120transitions=se_manifest1200(INT32_C(1),3,
-se_manifest1201(INT32_C(1),4,
+oBC120transitions=se_manifest_args1200(se_manifest1200(INT32_C(1),3),0,3,
+se_manifest_args1201(se_manifest1201(INT32_C(1),4),0,4,
 INT8_C(1),
 INT8_C(2),
 INT8_C(3),
 INT8_C(4)),
-se_manifest1201(INT32_C(1),4,
+se_manifest_args1201(se_manifest1201(INT32_C(1),4),0,4,
 INT8_C(3),
 INT8_C(4),
 INT8_C(3),
 INT8_C(4)),
-se_manifest1201(INT32_C(1),4,
+se_manifest_args1201(se_manifest1201(INT32_C(1),4),0,4,
 INT8_C(2),
 INT8_C(5),
 INT8_C(4),
@@ -3332,9 +3332,9 @@ r351default_create(&(((T95*)tmp0/*new*/)->_start_position));
 /*RF3:make*/r95make(((T95*)tmp0/*new*/),_hs,/*`position'*/a1,(T6)(0));
 /*:RF3*/_cn=tmp0/*new*/;
 /*tmp0.unlock*/
-_gl=se_manifest1057(INT32_C(1),1,
+_gl=se_manifest_args1057(se_manifest1057(INT32_C(1),1),0,1,
 _tm);
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp0/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp0/*new*/),_cn,_gl);
 /*:RF3*/R=tmp0/*new*/;

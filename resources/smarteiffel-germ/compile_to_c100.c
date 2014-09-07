@@ -347,11 +347,20 @@ break;
 case 480:
 tmp0/*type*/=/*RF4:type*/r480type(((T480*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
-case 518:
-tmp0/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
+case 505:
+tmp0/*type*/=/*RF4:type*/r505type(((T505*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 514:
+tmp0/*type*/=/*RF4:type*/r514type(((T514*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 516:
+tmp0/*type*/=/*RF4:type*/r516type(((T516*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 517:
+tmp0/*type*/=/*RF4:type*/r517type(((T517*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
 default:;
-tmp0/*type*/=(void*)0;
+tmp0/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
 }
 /*inspect]*/
 /*SFN*/(C->_declaration_type/*T2piiip*/)=tmp0/*type*/;
@@ -1419,11 +1428,20 @@ break;
 case 480:
 tmp0/*type*/=/*RF4:type*/r480type(((T480*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
-case 518:
-tmp0/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
+case 505:
+tmp0/*type*/=/*RF4:type*/r505type(((T505*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 514:
+tmp0/*type*/=/*RF4:type*/r514type(((T514*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 516:
+tmp0/*type*/=/*RF4:type*/r516type(((T516*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 517:
+tmp0/*type*/=/*RF4:type*/r517type(((T517*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
 default:;
-tmp0/*type*/=(void*)0;
+tmp0/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
 }
 /*inspect]*/
 /*SFN*/(C->_declaration_type/*T3piiip*/)=tmp0/*type*/;
@@ -2361,7 +2379,7 @@ _tm_args=(/*RF2:canonical_type_mark*/(((T286*)tmp0/*resolve_in*/))->_canonical_t
 /*auto-unlock tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T407/*Ti2p*/))));
 *((T407*)tmp0/*new*/)=M407;
 r351default_create(&(((T407*)tmp0/*new*/)->_start_position));
-/*RF3:make*/r407make(((T407*)tmp0/*new*/),/*`sp'*/a2,se_manifest1116(INT32_C(1),1,
+/*RF3:make*/r407make(((T407*)tmp0/*new*/),/*`sp'*/a2,se_manifest_args1116(se_manifest1116(INT32_C(1),1),0,1,
 ((T0*)create406make(_tuple_args_def,_tm_args))));
 /*:RF3*/_lv=tmp0/*new*/;
 /*tmp0.unlock*/
@@ -2384,7 +2402,7 @@ r351default_create(&(((T408*)tmp0/*new*/)->_start_position));
 /*RF3:set_specializing_feature_variables*/r111set_specializing_feature_variables(((T111*)oBC32smart_eiffel),_lv,(void*)0);
 /*:RF3*//*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T465/*Tp*/))));
 *((T465*)tmp0/*new*/)=M465;
-/*RF3:from_list*/r465from_list(((T465*)tmp0/*new*/),se_manifest1159(2,
+/*RF3:from_list*/r465from_list(((T465*)tmp0/*new*/),se_manifest_args1159(se_manifest1159(2),0,2,
 /*RF4:specialize_and_check*/r409specialize_and_check((T409*)(/*RF4:specialize_in*/r409specialize_in(((T409*)_aa),/*`t'*/a1)/*:RF4*/),/*`t'*/a1)/*:RF4*/,
 /*RF4:specialize_and_check*/r364specialize_and_check((T364*)(/*RF4:specialize_in*/r364specialize_in(((T364*)_c),/*`t'*/a1)/*:RF4*/),/*`t'*/a1)/*:RF4*/));
 /*:RF3*/R=tmp0/*new*/;

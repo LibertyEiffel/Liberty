@@ -2538,7 +2538,7 @@ return u->R;
 
 /*agent creation*/T0*agenT108f108l185c20(void){
 se_agenT108f108l185c20*u=(void*)new_agent(1468);
-u->creation_mold_id=48;
+u->creation_mold_id=49;
 u->afp=afp_agenT108f108l185c20;
 return((T0*)u);
 }/*--*/
@@ -2551,7 +2551,7 @@ return u->R;
 
 /*agent creation*/T0*agenT108f108l175c20(void){
 se_agenT108f108l175c20*u=(void*)new_agent(1468);
-u->creation_mold_id=49;
+u->creation_mold_id=50;
 u->afp=afp_agenT108f108l175c20;
 return((T0*)u);
 }/*--*/

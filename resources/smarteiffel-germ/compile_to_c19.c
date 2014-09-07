@@ -11433,7 +11433,7 @@ if((_generic_list)==((void*)((void*)0))){
 /*tmp2.unlock*/
 }
 else{
-/*reusing tmp2*/tmp2/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp2*/tmp2/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp2/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp2/*new*/),_class_text_name,_generic_list);
 /*:RF3*//*SFN*/(C->_last_type_mark/*21pIiiiiiispppiicpppppppp*/)=tmp2/*new*/;
@@ -13226,7 +13226,7 @@ if((_generic_list)==((void*)((void*)0))){
 /*tmp2.unlock*/
 }
 else{
-/*reusing tmp2*/tmp2/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp2*/tmp2/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp2/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp2/*new*/),_class_text_name,_generic_list);
 /*:RF3*//*SFN*/(C->_last_type_mark/*21pIiiiiiispppiicpppppppp*/)=tmp2/*new*/;
@@ -20002,7 +20002,7 @@ case 458:
 (/*RF2:generic_creation*/(((T458*)_constraint))->_generic_creation/*T10pp*//*:RF2*/)=_creation_clause;
 break;
 case 459:
-(/*RF2:generic_creation*/(((T459*)_constraint))->_generic_creation/*T10pp*//*:RF2*/)=_creation_clause;
+(/*RF2:generic_creation*/(((T459*)_constraint))->_generic_creation/*T10ppp*//*:RF2*/)=_creation_clause;
 break;
 case 480:
 (/*RF2:generic_creation*/(((T480*)_constraint))->_generic_creation/*T10pp*//*:RF2*/)=_creation_clause;
@@ -21384,6 +21384,18 @@ case 459:
 case 480:
 tmp3/*is_generic*/=((T6)(1));
 break;
+case 505:
+tmp3/*is_generic*/=((T6)(/*RF4:is_generic*/r505is_generic(((T505*)/*`type_mark'*/a1))/*:RF4*/));
+break;
+case 514:
+tmp3/*is_generic*/=((T6)(/*RF4:is_generic*/r514is_generic(((T514*)/*`type_mark'*/a1))/*:RF4*/));
+break;
+case 516:
+tmp3/*is_generic*/=((T6)(/*RF4:is_generic*/r516is_generic(((T516*)/*`type_mark'*/a1))/*:RF4*/));
+break;
+case 517:
+tmp3/*is_generic*/=((T6)(/*RF4:is_generic*/r517is_generic(((T517*)/*`type_mark'*/a1))/*:RF4*/));
+break;
 case 518:
 tmp3/*is_generic*/=((T6)(((/*RF2:formal_generic_list*/((T97*)(/*RF4:class_text*/r418class_text((T418*)((/*RF2:class_type_mark*/(((T518*)/*`type_mark'*/a1))->_class_type_mark/*T7pp*//*:RF2*/)))/*:RF4*/))->_formal_generic_list/*T19piispppp*//*:RF2*/))!=((void*)((void*)0))));
 break;
@@ -21407,10 +21419,22 @@ case 458:
 tmp4/*generic_list*/=(/*RF2:generic_list*/(((T458*)/*`type_mark'*/a1))->_generic_list/*T10pp*//*:RF2*/);
 break;
 case 459:
-tmp4/*generic_list*/=(/*RF2:generic_list*/(((T459*)/*`type_mark'*/a1))->_generic_list/*T10pp*//*:RF2*/);
+tmp4/*generic_list*/=(/*RF2:generic_list*/(((T459*)/*`type_mark'*/a1))->_generic_list/*T10ppp*//*:RF2*/);
 break;
 case 480:
 tmp4/*generic_list*/=(/*RF2:generic_list*/(((T480*)/*`type_mark'*/a1))->_generic_list/*T10pp*//*:RF2*/);
+break;
+case 505:
+tmp4/*generic_list*/=/*RF4:generic_list*/r505generic_list(((T505*)/*`type_mark'*/a1))/*:RF4*/;
+break;
+case 514:
+tmp4/*generic_list*/=/*RF4:generic_list*/r514generic_list(((T514*)/*`type_mark'*/a1))/*:RF4*/;
+break;
+case 516:
+tmp4/*generic_list*/=/*RF4:generic_list*/r516generic_list(((T516*)/*`type_mark'*/a1))/*:RF4*/;
+break;
+case 517:
+tmp4/*generic_list*/=/*RF4:generic_list*/r517generic_list(((T517*)/*`type_mark'*/a1))/*:RF4*/;
 break;
 case 518:
 tmp4/*generic_list*/=/*RF4:generic_list*/r518generic_list(((T518*)/*`type_mark'*/a1))/*:RF4*/;

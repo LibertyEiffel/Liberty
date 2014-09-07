@@ -1997,7 +1997,7 @@ _o_name=se_string(0,s113_0A);
 /*RF3:copy*/r7copy(((T7*)_o_name),(/*RF2:c_path*/(C)->_c_path/*T2pp*//*:RF2*/));
 /*:RF3*//*RF3:remove_tail*/r7remove_tail(((T7*)_o_name),INT32_C(2));
 /*:RF3*//*RF3:append*/r7append(((T7*)_o_name),/*RF6:object_suffix*/r113object_suffix((T113*)(/*RF6:system_tools*/r707system_tools()/*:RF6*/))/*:RF6*/);
-/*:RF3*/R=/*RF4:linker_command*/r113linker_command((T113*)(/*RF6:system_tools*/r707system_tools()/*:RF6*/),/*`c_file_prefix'*/a1,se_manifest1044(1,
+/*:RF3*/R=/*RF4:linker_command*/r113linker_command((T113*)(/*RF6:system_tools*/r707system_tools()/*:RF6*/),/*`c_file_prefix'*/a1,se_manifest_args1044(se_manifest1044(1),0,1,
 _o_name))/*:RF4*/;
 return R;
 }/*--*/

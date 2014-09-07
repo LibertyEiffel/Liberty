@@ -632,7 +632,7 @@ T8 _program=(void*)0;
 T8 _prog_args=(void*)0;
 /*RF3:make*/r800make(C);
 /*:RF3*/_program=/*RF4:to_external*/r7to_external(((T7*)ms800_1121854Abc800A))/*:RF4*/;
-_fa_prog_args=se_manifest1496(4,
+_fa_prog_args=se_manifest_args1496(se_manifest1496(4),0,4,
 _program,
 /*RF4:to_external*/r7to_external(((T7*)ms800_324Abc800A))/*:RF4*/,
 /*RF4:to_external*/r7to_external(((T7*)/*`command_line'*/a1))/*:RF4*/,
@@ -4066,11 +4066,20 @@ break;
 case 480:
 tmp2/*type*/=/*RF4:type*/r480type(((T480*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
-case 518:
-tmp2/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
+case 505:
+tmp2/*type*/=/*RF4:type*/r505type(((T505*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 514:
+tmp2/*type*/=/*RF4:type*/r514type(((T514*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 516:
+tmp2/*type*/=/*RF4:type*/r516type(((T516*)tmp1/*declaration_type*/))/*:RF4*/;
+break;
+case 517:
+tmp2/*type*/=/*RF4:type*/r517type(((T517*)tmp1/*declaration_type*/))/*:RF4*/;
 break;
 default:;
-tmp2/*type*/=(void*)0;
+tmp2/*type*/=/*RF4:type*/r518type(((T518*)tmp1/*declaration_type*/))/*:RF4*/;
 }
 /*inspect]*/
 R=tmp2/*type*/;

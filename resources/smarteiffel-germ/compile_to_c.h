@@ -88,6 +88,7 @@ C Compiler options used: -pipe -O2 -fno-gcse
                 defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
+#ifdef SE_THREAD
 #ifdef WIN32
 #  include <windows.h>
 #  define TLS(type) __declspec(thread) type
@@ -99,6 +100,9 @@ C Compiler options used: -pipe -O2 -fno-gcse
 #    define O_RDONLY 0000
 #  endif
 #  define TLS(type) __thread type
+#endif
+#else
+#define TLS(type) type
 #endif
 
 #if defined(_MSC_VER) && (_MSC_VER < 1600) /* MSVC older than v10 */
@@ -236,6 +240,19 @@ typedef int_least8_t int8_t;
 #  define INT8_MIN (-INT8_C(127)-1)
 #endif
 
+/*
+ C compiler specific declaration for non-returning functions. Use
+ NO_RETURN void foo(int bar);
+ to declare a function prototype for function that doesn't return.
+ */
+#if defined __GNUC__
+#  define NO_RETURN __attribute__ ((noreturn))
+#elif defined __POCC__ || defined __BORLANDC__ || defined _MSC_VER
+#  define NO_RETURN __declspec(noreturn)
+#else
+#  define NO_RETURN
+/* maybe some warning occur unless NO_RETURN is defined for your compiler */
+#endif
 
 /*
   Endian stuff
@@ -644,94 +661,6 @@ void _handle(se_handler_action_t action, void*data);
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#define mbi_unsigned_32_to_integer_64(x) (((int64_t)((uint32_t)(x))))
-#define mbi_unsigned_less_than(a,b) ((((uint32_t)(a)) < ((uint32_t)(b))))
-#define mbi_unsigned_greater_than(a,b) ((((uint32_t)(a)) > ((uint32_t)(b))))
-#define mbi_unsigned_greater_or_equal(a,b) ((((uint32_t)(a)) >= ((uint32_t)(b))))
-#define mbi_storage_at(s, n) (((s)+(n)))
-EIF_BOOLEAN mbi_inc (int32_t *p);
-EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_dec (int32_t *p);
-EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p);
-EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p);
-EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p);
-EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p);
-EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p);
-EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r);
-
-
-
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-#ifndef WIN32
-#  include <dirent.h>
-#endif
-#ifndef WIN32
-#  include <unistd.h>
-#endif
-
-EIF_POINTER directory_open(EIF_POINTER path);
-EIF_POINTER directory_read_entry(EIF_POINTER dirstream);
-EIF_POINTER directory_get_entry_name(EIF_POINTER entry);
-EIF_BOOLEAN directory_close(EIF_POINTER dirstream);
-#define directory_current_working_directory (directory_cwd())
-EIF_POINTER directory_cwd(void);
-EIF_BOOLEAN directory_chdir(EIF_POINTER destination);
-EIF_BOOLEAN directory_mkdir(EIF_POINTER directory_path);
-EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path);
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
 #include <errno.h>
 
 #define text_file_read_open(p) (fopen(((char*)(p)),"r"))
@@ -764,6 +693,82 @@ EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path);
 extern void io_copy(char*source, char*target);
 extern int io_file_exists(char*source);
 extern int io_same_physical_file(char*path1,char*path2);
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#define pointer_hash_code(p) (((unsigned int)(unsigned long)(p))>>1)
+#define pointer_to_natural_32(p) ((unsigned int) (p))
+#define pointer_to_any(p) ((T0*)(p))
+#define pointer_plus(p, o) (((char*)(p))+o)
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+#define mbi_unsigned_32_to_integer_64(x) (((int64_t)((uint32_t)(x))))
+#define mbi_unsigned_less_than(a,b) ((((uint32_t)(a)) < ((uint32_t)(b))))
+#define mbi_unsigned_greater_than(a,b) ((((uint32_t)(a)) > ((uint32_t)(b))))
+#define mbi_unsigned_greater_or_equal(a,b) ((((uint32_t)(a)) >= ((uint32_t)(b))))
+#define mbi_storage_at(s, n) (((s)+(n)))
+EIF_BOOLEAN mbi_inc (int32_t *p);
+EIF_BOOLEAN mbi_add (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_add_with_inc (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_dec (int32_t *p);
+EIF_BOOLEAN mbi_subtract (int32_t a, int32_t b, int32_t *p);
+EIF_BOOLEAN mbi_subtract_with_dec (int32_t a, int32_t b, int32_t *p);
+EIF_INTEGER mbi_multiply (int32_t a, int32_t b, int32_t *p);
+EIF_INTEGER mbi_multiply_with_add (int32_t a, int32_t b, int32_t c, int32_t *p);
+EIF_INTEGER mbi_multiply_with_2_add (int32_t a, int32_t b, int32_t c, int32_t d, int32_t *p);
+EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r);
+
+
+
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -962,10 +967,54 @@ extern EIF_INTEGER basic_exec_waitpid_read_buffer(void*);
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-#define pointer_hash_code(p) (((unsigned int)(unsigned long)(p))>>1)
-#define pointer_to_natural_32(p) ((unsigned int) (p))
-#define pointer_to_any(p) ((T0*)(p))
-#define pointer_plus(p, o) (((char*)(p))+o)
+#ifndef WIN32
+#  include <dirent.h>
+#endif
+#ifndef WIN32
+#  include <unistd.h>
+#endif
+
+EIF_POINTER directory_open(EIF_POINTER path);
+EIF_POINTER directory_read_entry(EIF_POINTER dirstream);
+EIF_POINTER directory_get_entry_name(EIF_POINTER entry);
+EIF_BOOLEAN directory_close(EIF_POINTER dirstream);
+#define directory_current_working_directory (directory_cwd())
+EIF_POINTER directory_cwd(void);
+EIF_BOOLEAN directory_chdir(EIF_POINTER destination);
+EIF_BOOLEAN directory_mkdir(EIF_POINTER directory_path);
+EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path);
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+
+EIF_INTEGER fstat_st_size(EIF_POINTER path);
+EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path);
+EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path);
+EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path);
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -1033,38 +1082,6 @@ void _basic_microsecond_update(void);
 #define sprintf_pointer(buffer, pointer) sprintf((char*)(buffer),"%p",pointer)
 void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r);
 void sprintf_real_extended(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real_extended_t r);
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-
-EIF_INTEGER fstat_st_size(EIF_POINTER path);
-EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path);
-EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path);
-EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path);
 /*
 -- ------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.
@@ -2557,7 +2574,7 @@ struct S422{Tid id;T0* _class_text_name;T0* _generic_creation;T0* _pretty_name;T
 extern T422 M422;
 struct S448{Tid id;T0* _class_text_name;T0* _generic_creation;T0* _pretty_name;T0* _class_text_memory;T2 _bit_count;T6 _has_tried_to_load;};
 extern T448 M448;
-struct S418{Tid id;T0* _long_name_memory;T0* _generic_creation;T0* _class_text_memory;T0* _class_text_name;T0* _type_memory;T6 _has_tried_to_load;T6 _is_empty_expanded_flag;};
+struct S418{Tid id;T0* _type_memory;T0* _generic_creation;T0* _class_text_memory;T0* _long_name_memory;T0* _class_text_name;T6 _has_tried_to_load;T6 _is_user_empty_expanded_flag;};
 extern T418 M418;
 struct S451{Tid id;T0* _class_text_memory;T0* _generic_creation;T0* _class_text_name;T6 _has_tried_to_load;};
 extern T451 M451;
@@ -2569,7 +2586,7 @@ struct S453{Tid id;T0* _class_text_memory;T0* _type_memory;T0* _generic_creation
 extern T453 M453;
 struct S456{Tid id;T0* _generic_list;T0* _class_text_name;T0* _signature_resolved_memory;T0* _long_name_memory;T0* _type_memory;T0* _declaration_type_memory;T0* _written_name_memory;T0* _static_memory;T0* _class_text_memory;T0* _generic_creation;T2 _pretty_code;T6 _has_tried_to_load;};
 extern T456 M456;
-struct S459{Tid id;T0* _class_text_name;T0* _signature_resolved_memory;T0* _long_name_memory;T0* _type_memory;T0* _declaration_type_memory;T0* _written_name_memory;T0* _generic_list;T0* _class_text_memory;T0* _generic_creation;T0* _static_memory;T6 _has_tried_to_load;};
+struct S459{Tid id;T0* _class_text_name;T0* _signature_resolved_memory;T0* _generic_creation;T0* _static_memory;T0* _declaration_type_memory;T0* _long_name_memory;T0* _generic_list;T0* _class_text_memory;T0* _written_name_memory;T0* _type_memory;T6 _is_user_empty_expanded_flag;T6 _has_tried_to_load;};
 extern T459 M459;
 struct S518{Tid id;T0* _long_name_memory;T0* _specialized_type_mark;T0* _generic_list_memory;T0* _static_memory;T0* _class_text_memory;T0* _generic_creation;T0* _class_type_mark;T6 _has_tried_to_load;};
 extern T518 M518;
@@ -3463,7 +3480,6 @@ extern char*s117_1206795525A;
 extern char*s117_441192857A;
 extern char*s625_82A;
 extern char*s553_251231528A;
-extern char*s117_1645835456A;
 extern char*s625_84A;
 extern char*s117_2189840A;
 extern char*s115_301485A;
@@ -3708,6 +3724,7 @@ extern char*s409_376A;
 extern char*s847_377A;
 extern char*s847_166455A;
 extern char*s117_379A;
+extern char*s506_2054176037A;
 extern char*s33_548214405A;
 extern char*s481_898426A;
 extern char*s113_1561265653A;
@@ -3784,6 +3801,7 @@ extern char*s489_1577658176A;
 extern char*s625_283801480A;
 extern char*s660_1655357614A;
 extern char*s104_1363289683A;
+extern char*s117_548663546A;
 extern char*s810_498A;
 extern char*s352_1155816456A;
 extern char*s34_2073386A;
@@ -3817,9 +3835,11 @@ extern char*s104_955638361A;
 extern char*s33_548A;
 extern char*s104_9897510A;
 extern char*s34_10315778A;
+extern char*s126_605800239A;
 extern char*s33_552A;
 extern char*s117_12855A;
 extern char*s488_1490203324A;
+extern char*s637_6706A;
 extern char*s104_2030568676A;
 extern char*s117_1901889757A;
 extern char*s124_557A;
@@ -3881,6 +3901,7 @@ extern char*s625_68284A;
 extern char*s642_6775A;
 extern char*s625_5395051A;
 extern char*s117_625A;
+extern char*s506_625A;
 extern char*s117_5395053A;
 extern char*s34_627A;
 extern char*s642_693716559A;
@@ -3971,6 +3992,7 @@ extern char*s729_40031469A;
 extern char*s847_10937240A;
 extern char*s113_1255020047A;
 extern char*s637_4570957A;
+extern char*s506_1091323489A;
 extern char*s648_68406039A;
 extern char*s553_1280946519A;
 extern char*s847_5161461A;
@@ -3994,7 +4016,6 @@ extern char*s647_1738839292A;
 extern char*s436_282823780A;
 extern char*s647_1824713404A;
 extern char*s33_9676326A;
-extern char*s624_926003101A;
 extern char*s625_80771A;
 extern char*s283_1091711046A;
 extern char*s647_6965A;
@@ -4047,7 +4068,6 @@ extern char*s637_185428A;
 extern char*s640_686612424A;
 extern char*s34_10193105A;
 extern char*s32_831708366A;
-extern char*s126_1972884945A;
 extern char*s33_10377643A;
 extern char*s637_185438A;
 extern char*s113_703496930A;
@@ -4109,6 +4129,7 @@ extern char*s456_540477054A;
 extern char*s86_1761241425A;
 extern char*s121_992A;
 extern char*s117_1500500537A;
+extern char*s506_259431724A;
 extern char*s104_1587734026A;
 extern char*s843_903312259A;
 extern char*s843_167080A;
@@ -4217,6 +4238,7 @@ extern char*s283_305465997A;
 extern char*s33_1944903A;
 extern char*s695_235492225A;
 extern char*s33_55040341A;
+extern char*s117_1196A;
 extern char*s554_28418819A;
 extern char*s34_10648581A;
 extern char*s394_1552710436A;
@@ -4231,7 +4253,8 @@ extern char*s117_1319581398A;
 extern char*s33_9529116A;
 extern char*s640_11300605A;
 extern char*s647_52075585A;
-extern char*s126_1430004157A;
+extern char*s126_1430004152A;
+extern char*s506_1297302480A;
 extern char*s647_1671074150A;
 extern char*s415_1324951230A;
 extern char*s32_1897129554A;
@@ -4290,7 +4313,7 @@ extern char*s640_1298A;
 extern char*s447_1642232185A;
 extern char*s467_1952642401A;
 extern char*s729_666720494A;
-extern char*s647_1302A;
+extern char*s637_1302A;
 extern char*s642_685204250A;
 extern char*s638_7454A;
 extern char*s637_1312A;
@@ -4456,6 +4479,7 @@ extern char*s642_283285900A;
 extern char*s33_1319421852A;
 extern char*s117_1661632742A;
 extern char*s729_2006740748A;
+extern char*s113_485672260A;
 extern char*s33_761722990A;
 extern char*s495_1319735562A;
 extern char*s104_1208507031A;
@@ -4508,6 +4532,7 @@ extern char*s728_112977096A;
 extern char*s647_32435A;
 extern char*s847_44739A;
 extern char*s648_81730033A;
+extern char*s637_845936425A;
 extern char*s35_1994621A;
 extern char*s104_1289042164A;
 extern char*s647_32456A;
@@ -4542,7 +4567,6 @@ extern char*s104_941240074A;
 extern char*s283_608446371A;
 extern char*s494_1753A;
 extern char*s495_112048371A;
-extern char*s117_1852104762A;
 extern char*s120_22612837A;
 extern char*s117_1765A;
 extern char*s420_176104896A;
@@ -4551,6 +4575,7 @@ extern char*s105_256559978A;
 extern char*s117_1700132018A;
 extern char*s420_1458557644A;
 extern char*s97_1052333303A;
+extern char*s117_1043020690A;
 extern char*s104_1296817101A;
 extern char*s113_1775A;
 extern char*s29_1128710280A;
@@ -4746,8 +4771,10 @@ extern char*s624_205124A;
 extern char*s494_2009909053A;
 extern char*s647_162070A;
 extern char*s34_69805A;
+extern char*s506_412149904A;
 extern char*s637_2150A;
 extern char*s650_1113554587A;
+extern char*s117_654499311A;
 extern char*s117_10944785A;
 extern char*s117_389672A;
 extern char*s117_389675A;
@@ -4759,7 +4786,6 @@ extern char*s104_2051403723A;
 extern char*s642_162095A;
 extern char*s727_2138778683A;
 extern char*s286_32926A;
-extern char*s126_461074983A;
 extern char*s647_734603803A;
 extern char*s415_900982204A;
 extern char*s115_2178A;
@@ -4830,10 +4856,12 @@ extern char*s33_728963476A;
 extern char*s637_156095A;
 extern char*s33_9647090A;
 extern char*s729_8475A;
+extern char*s117_295453308A;
 extern char*s847_945011211A;
 extern char*s104_28789007A;
 extern char*s104_1874765620A;
 extern char*s115_395994A;
+extern char*s117_1220003975A;
 extern char*s647_8485A;
 extern char*s112_546635553A;
 extern char*s647_1553763390A;
@@ -4864,7 +4892,6 @@ extern char*s113_45436A;
 extern char*s847_737599544A;
 extern char*s117_419316052A;
 extern char*s117_2382A;
-extern char*s117_732574181A;
 extern char*s97_1452647150A;
 extern char*s379_41841490A;
 extern char*s113_217674A;
@@ -4881,6 +4908,7 @@ extern char*s104_1223700793A;
 extern char*s104_529554293A;
 extern char*s293_63912A;
 extern char*s104_2117988535A;
+extern char*s554_2091317800A;
 extern char*s111_2114217978A;
 extern char*s729_1327517381A;
 extern char*s642_2065182209A;
@@ -4903,7 +4931,6 @@ extern char*s113_6159594A;
 extern char*s843_82948679A;
 extern char*s623_199280A;
 extern char*s728_645592960A;
-extern char*s126_1974940930A;
 extern char*s647_8779932A;
 extern char*s647_168532A;
 extern char*s554_1646495986A;
@@ -4969,6 +4996,7 @@ extern char*s117_1361175839A;
 extern char*s283_22915075A;
 extern char*s117_218061703A;
 extern char*s113_98806116A;
+extern char*s117_830104658A;
 extern char*s34_82570A;
 extern char*s729_411283072A;
 extern char*s104_1731250773A;
@@ -4983,7 +5011,6 @@ extern char*s117_2630A;
 extern char*s29_569105454A;
 extern char*s674_2113799934A;
 extern char*s34_114085235A;
-extern char*s113_1247935972A;
 extern char*s117_1308400309A;
 extern char*s648_1773508175A;
 extern char*s113_8801A;
@@ -5049,6 +5076,7 @@ extern char*s117_900404594A;
 extern char*s29_1525604536A;
 extern char*s33_1673345408A;
 extern char*s33_954385774A;
+extern char*s117_181146A;
 extern char*s293_10926944A;
 extern char*s439_1666936074A;
 extern char*s843_1004947005A;
@@ -5117,6 +5145,7 @@ extern char*s485_1057882626A;
 extern char*s290_15195A;
 extern char*s647_9045A;
 extern char*s1017_712467074A;
+extern char*s554_45953A;
 extern char*s33_869539012A;
 extern char*s625_1728089446A;
 extern char*s647_1671063525A;
@@ -5173,7 +5202,6 @@ extern char*s117_1540564023A;
 extern char*s117_1281004126A;
 extern char*s117_1450568746A;
 extern char*s104_188494264A;
-extern char*s117_1982839385A;
 extern char*s33_11001014A;
 extern char*s33_180965447A;
 extern char*s104_167445550A;
@@ -5218,6 +5246,7 @@ extern char*s847_15405A;
 extern char*s486_384465A;
 extern char*s105_1923039443A;
 extern char*s729_1197879602A;
+extern char*s554_1213220196A;
 extern char*s33_1856946950A;
 extern char*s33_39154229A;
 extern char*s126_3115A;
@@ -5327,7 +5356,7 @@ extern char*s847_40205A;
 extern char*s111_1928938448A;
 extern char*s349_70962A;
 extern char*s117_960414291A;
-extern char*s34_1072344038A;
+extern char*s126_1072344038A;
 extern char*s101_15605A;
 extern char*s475_1990220866A;
 extern char*s467_1442455865A;
@@ -5364,6 +5393,7 @@ extern char*s291_360205908A;
 extern char*s104_1710947057A;
 extern char*s386_1731781A;
 extern char*s104_760340765A;
+extern char*s117_562506158A;
 extern char*s766_1398420907A;
 extern char*s648_129654140A;
 extern char*s763_89481A;
@@ -5391,6 +5421,7 @@ extern char*s648_1062582514A;
 extern char*s283_1977886A;
 extern char*s34_3415A;
 extern char*s678_22122412A;
+extern char*s624_480740974A;
 extern char*s115_15721A;
 extern char*s33_3421A;
 extern char*s117_5164112A;
@@ -5464,6 +5495,7 @@ extern char*s104_1522646678A;
 extern char*s33_1947251A;
 extern char*s729_1713875121A;
 extern char*s34_77350A;
+extern char*s117_1571473322A;
 extern char*s439_1379248421A;
 extern char*s104_201048978A;
 extern char*s804_789213750A;
@@ -5498,6 +5530,7 @@ extern char*s117_726227573A;
 extern char*s117_434116584A;
 extern char*s729_15915A;
 extern char*s104_1061217192A;
+extern char*s126_1342164121A;
 extern char*s727_1193180751A;
 extern char*s95_1554312113A;
 extern char*s847_239388241A;
@@ -5526,11 +5559,11 @@ extern char*s104_375534514A;
 extern char*s33_3669A;
 extern char*s659_1750246116A;
 extern char*s624_1199620901A;
+extern char*s506_79148593A;
 extern char*s33_911175911A;
 extern char*s642_1631421108A;
 extern char*s1017_28287A;
 extern char*s647_755813960A;
-extern char*s283_261396584A;
 extern char*s33_169371474A;
 extern char*s104_57337161A;
 extern char*s291_1539722017A;
@@ -5561,6 +5594,7 @@ extern char*s414_1140411454A;
 extern char*s33_203589551A;
 extern char*s647_9905A;
 extern char*s647_34510A;
+extern char*s117_449414272A;
 extern char*s642_3760A;
 extern char*s97_510352234A;
 extern char*s409_1128496981A;
@@ -5571,6 +5605,7 @@ extern char*s117_1316373138A;
 extern char*s415_944882A;
 extern char*s625_403595A;
 extern char*s647_2030510390A;
+extern char*s506_52976196A;
 extern char*s111_956422775A;
 extern char*s425_1931700734A;
 extern char*s580_638047023A;
@@ -5579,10 +5614,10 @@ extern char*s33_275488632A;
 extern char*s283_2044479327A;
 extern char*s35_77608A;
 extern char*s647_9980719A;
-extern char*s126_113009969A;
 extern char*s117_122027336A;
 extern char*s847_40705A;
 extern char*s34_2593373A;
+extern char*s126_113009974A;
 extern char*s479_907165587A;
 extern char*s651_2187411A;
 extern char*s1017_1760616840A;
@@ -5694,6 +5729,7 @@ extern char*s104_1476889913A;
 extern char*s729_2039472678A;
 extern char*s583_26108906A;
 extern char*s33_65574A;
+extern char*s117_1417828020A;
 extern char*s33_197002151A;
 extern char*s642_440120430A;
 extern char*s729_533301931A;
@@ -5765,7 +5801,6 @@ extern char*s642_16510A;
 extern char*s33_1202672333A;
 extern char*s104_897447412A;
 extern char*s113_19761224A;
-extern char*s117_1201497496A;
 extern char*s822_1959331451A;
 extern char*s847_1990989A;
 extern char*s104_521861207A;
@@ -5914,6 +5949,7 @@ extern char*s104_611217054A;
 extern char*s409_138555764A;
 extern char*s113_1615398571A;
 extern char*s789_1400894751A;
+extern char*s117_2086571326A;
 extern char*s108_1880881887A;
 extern char*s766_263008962A;
 extern char*s33_839855894A;
@@ -5954,7 +5990,6 @@ extern char*s107_1043946153A;
 extern char*s113_1515266530A;
 extern char*s117_1065942137A;
 extern char*s104_104977558A;
-extern char*s126_1662662954A;
 extern char*s412_401707956A;
 extern char*s489_16902A;
 extern char*s436_1878889060A;
@@ -6037,7 +6072,6 @@ extern char*s463_22861847A;
 extern char*s117_530940601A;
 extern char*s117_724500276A;
 extern char*s493_1723490337A;
-extern char*s117_2109816196A;
 extern char*s33_591417242A;
 extern char*s647_10895A;
 extern char*s104_2096474678A;
@@ -6109,6 +6143,7 @@ extern char*s363_793028699A;
 extern char*s420_2007408328A;
 extern char*s34_17176A;
 extern char*s412_1090404950A;
+extern char*s34_878084737A;
 extern char*s342_1492212881A;
 extern char*s706_78239462A;
 extern char*s104_2141291014A;
@@ -6184,6 +6219,7 @@ extern char*s447_1628100917A;
 extern char*s105_1578831409A;
 extern char*s104_1307652273A;
 extern char*s104_1690004585A;
+extern char*s126_1018573728A;
 extern char*s104_1741759101A;
 extern char*s843_486352305A;
 extern char*s436_1627141371A;
@@ -6201,6 +6237,7 @@ extern char*s416_29662A;
 extern char*s762_1309017823A;
 extern char*s33_1487451A;
 extern char*s283_1453633985A;
+extern char*s283_1736752216A;
 extern char*s117_495363549A;
 extern char*s728_1240206596A;
 extern char*s104_1545228536A;
@@ -6217,6 +6254,7 @@ extern char*s554_165909873A;
 extern char*s117_2022630A;
 extern char*s115_11253A;
 extern char*s113_2194860A;
+extern char*s640_1127821710A;
 extern char*s33_240810604A;
 extern char*s642_2022635A;
 extern char*s121_128358027A;
@@ -6287,6 +6325,7 @@ extern char*s283_929353692A;
 extern char*s621_1316811340A;
 extern char*s538_637371887A;
 extern char*s729_558682149A;
+extern char*s117_51599861A;
 extern char*s554_1707891936A;
 extern char*s117_1416365293A;
 extern char*s554_11429A;
@@ -6405,6 +6444,7 @@ extern char*s33_48672249A;
 extern char*s117_23988287A;
 extern char*s117_1682814572A;
 extern char*s33_572288431A;
+extern char*s506_2099969245A;
 extern char*s111_1019367716A;
 extern char*s553_1381550903A;
 extern char*s806_2078852867A;
@@ -6467,7 +6507,7 @@ extern char*s502_1773984820A;
 extern char*s111_866669263A;
 extern char*s489_1961687A;
 extern char*s122_51895507A;
-extern char*s126_1635864124A;
+extern char*s117_36434A;
 extern char*s847_1815688614A;
 extern char*s104_210812758A;
 extern char*s409_1250079569A;
@@ -6545,18 +6585,18 @@ extern char*s283_1325140408A;
 extern char*s104_2116282032A;
 extern char*s35_267875778A;
 extern char*s845_201266601A;
-extern char*s490_18186A;
+extern char*s506_18186A;
 extern char*s847_1985327250A;
 extern char*s847_1196941282A;
 extern char*s33_1176378494A;
 extern char*s647_559906822A;
 extern char*s554_1096544670A;
-extern char*s126_203714719A;
 extern char*s33_55924644A;
 extern char*s845_2097247A;
 extern char*s124_2120987577A;
 extern char*s409_5912A;
 extern char*s289_1153312264A;
+extern char*s506_1985887020A;
 extern char*s117_163413385A;
 extern char*s847_1800342110A;
 extern char*s625_1992825354A;
@@ -6650,6 +6690,7 @@ extern char*s104_1962710217A;
 extern char*s847_1901427808A;
 extern char*s847_365929075A;
 extern char*s849_958639438A;
+extern char*s34_1593051A;
 extern char*s113_5578901A;
 extern char*s342_176865800A;
 extern char*s640_7227375A;
@@ -10012,77 +10053,84 @@ extern int fBC283new_clusters;
 /*ACE*/T2 r283assertion_level_of(T283*C,T0*a1);
 /*ACE*/T6 r283sedb(T283*C);
 /*ACE*/T6 r283a_cluster_clause(T283*C);
-typedef struct _se_agenT117f117l4274c33 se_agenT117f117l4274c33;
-struct _se_agenT117f117l4274c33{Tid id;
+typedef struct _se_agenT117f117l4321c33 se_agenT117f117l4321c33;
+struct _se_agenT117f117l4321c33{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l4274c33*,T0*);
+void(*afp)(se_agenT117f117l4321c33*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 T0* closed_a1;
 };
-/*agent creation*/T0*agenT117f117l4274c33(T0*closed_C,T0*closed_a1);
-typedef struct _se_agenT117f117l4263c30 se_agenT117f117l4263c30;
-struct _se_agenT117f117l4263c30{Tid id;
+/*agent creation*/T0*agenT117f117l4321c33(T0*closed_C,T0*closed_a1);
+typedef struct _se_agenT117f117l4310c30 se_agenT117f117l4310c30;
+struct _se_agenT117f117l4310c30{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l4263c30*,T0*);
+void(*afp)(se_agenT117f117l4310c30*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 };
-/*agent creation*/T0*agenT117f117l4263c30(T0*closed_C);
-typedef struct _se_agenT117f117l4012c47 se_agenT117f117l4012c47;
-struct _se_agenT117f117l4012c47{Tid id;
+/*agent creation*/T0*agenT117f117l4310c30(T0*closed_C);
+typedef struct _se_agenT117f117l4059c47 se_agenT117f117l4059c47;
+struct _se_agenT117f117l4059c47{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l4012c47*,T0*);
+void(*afp)(se_agenT117f117l4059c47*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 };
-/*agent creation*/T0*agenT117f117l4012c47(T0*closed_C);
-typedef struct _se_agenT117f117l601c22 se_agenT117f117l601c22;
-struct _se_agenT117f117l601c22{Tid id;
+/*agent creation*/T0*agenT117f117l4059c47(T0*closed_C);
+typedef struct _se_agenT117f117l604c22 se_agenT117f117l604c22;
+struct _se_agenT117f117l604c22{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l601c22*,T0*);
+void(*afp)(se_agenT117f117l604c22*,T0*);
 int (*eq)(se_agent*,se_agent*);
 };
-/*agent creation*/T0*agenT117f117l601c22(void);
-typedef struct _se_agenT117f117l658c22 se_agenT117f117l658c22;
-struct _se_agenT117f117l658c22{Tid id;
+/*agent creation*/T0*agenT117f117l604c22(void);
+typedef struct _se_agenT117f117l661c22 se_agenT117f117l661c22;
+struct _se_agenT117f117l661c22{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l658c22*,T0*);
+void(*afp)(se_agenT117f117l661c22*,T0*);
 int (*eq)(se_agent*,se_agent*);
 };
-/*agent creation*/T0*agenT117f117l658c22(void);
-typedef struct _se_agenT117f117l4031c55 se_agenT117f117l4031c55;
-struct _se_agenT117f117l4031c55{Tid id;
+/*agent creation*/T0*agenT117f117l661c22(void);
+typedef struct _se_agenT117f117l4078c55 se_agenT117f117l4078c55;
+struct _se_agenT117f117l4078c55{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l4031c55*,T0*);
+void(*afp)(se_agenT117f117l4078c55*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 T0* closed_a2;
 };
-/*agent creation*/T0*agenT117f117l4031c55(T0*closed_C,T0*closed_a2);
-typedef struct _se_agenT117f117l3992c48 se_agenT117f117l3992c48;
-struct _se_agenT117f117l3992c48{Tid id;
+/*agent creation*/T0*agenT117f117l4078c55(T0*closed_C,T0*closed_a2);
+typedef struct _se_agenT117f117l4018c48 se_agenT117f117l4018c48;
+struct _se_agenT117f117l4018c48{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l3992c48*);
+void(*afp)(se_agenT117f117l4018c48*);
 int (*eq)(se_agent*,se_agent*);
 };
-/*agent creation*/T0*agenT117f117l3992c48(void);
-typedef struct _se_agenT117f117l3834c41 se_agenT117f117l3834c41;
-struct _se_agenT117f117l3834c41{Tid id;
+/*agent creation*/T0*agenT117f117l4018c48(void);
+typedef struct _se_agenT117f117l4039c48 se_agenT117f117l4039c48;
+struct _se_agenT117f117l4039c48{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l3834c41*,T0*);
+void(*afp)(se_agenT117f117l4039c48*);
+int (*eq)(se_agent*,se_agent*);
+};
+/*agent creation*/T0*agenT117f117l4039c48(void);
+typedef struct _se_agenT117f117l3837c41 se_agenT117f117l3837c41;
+struct _se_agenT117f117l3837c41{Tid id;
+int creation_mold_id;
+void(*afp)(se_agenT117f117l3837c41*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 };
-/*agent creation*/T0*agenT117f117l3834c41(T0*closed_C);
-typedef struct _se_agenT117f117l3751c40 se_agenT117f117l3751c40;
-struct _se_agenT117f117l3751c40{Tid id;
+/*agent creation*/T0*agenT117f117l3837c41(T0*closed_C);
+typedef struct _se_agenT117f117l3754c40 se_agenT117f117l3754c40;
+struct _se_agenT117f117l3754c40{Tid id;
 int creation_mold_id;
-void(*afp)(se_agenT117f117l3751c40*,T0*,T0*);
+void(*afp)(se_agenT117f117l3754c40*,T0*,T0*);
 int (*eq)(se_agent*,se_agent*);
 T0* closed_C;
 };
-/*agent creation*/T0*agenT117f117l3751c40(T0*closed_C);
+/*agent creation*/T0*agenT117f117l3754c40(T0*closed_C);
 /*C_PRETTY_PRINTER*/T0*r117cecil_pool(void);
 extern T0*oBC117c_code;
 extern int fBC117c_code;
@@ -10607,10 +10655,13 @@ extern int fBC554home_env;
 /*SERC_FACTORY*/T0*r554home_env(void);
 /*SERC_FACTORY*/T0*r554parser_buffer(void);
 /*SERC_FACTORY*/T0*r554env(T0*a1);
+extern T0*oBC554allusersprofile_env;
+extern int fBC554allusersprofile_env;
+/*SERC_FACTORY*/T0*r554allusersprofile_env(void);
 /*BASIC_DIRECTORY*/void r546compute_file_path_with(T0*a1,T0*a2);
 /*BASIC_DIRECTORY*/T6 r546macintosh_notation(void);
-/*BASIC_DIRECTORY*/T6 r546openvms_notation(void);
 /*BASIC_DIRECTORY*/void r546compute_parent_directory_of(T0*a1);
+/*BASIC_DIRECTORY*/T6 r546openvms_notation(void);
 /*BASIC_DIRECTORY*/T6 r546unix_notation(void);
 /*BASIC_DIRECTORY*/void r546compute_absolute_file_path_with(T0*a1);
 /*BASIC_DIRECTORY*/void r546connect_to_current_working_directory(T546*C);
@@ -11300,17 +11351,17 @@ extern int fBC619pending_c_function_counter_tag_key;
 extern T0*oBC619pending_c_function_counter_tag_values;
 extern int fBC619pending_c_function_counter_tag_values;
 /*C_LIVE_TYPE_COMPILER*/T0*r625pending_c_function_counter_tag_values(void);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent19(T0*a1,T2 a2);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent18(T0*a1,T0*a2);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent19(T0*a1,T0*a2);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent18(T0*a1,T0*a2,T2 a3);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent23(T0*a1,T0*a2);
 extern T0*oBC619internal_c_local_tag_key;
 extern int fBC619internal_c_local_tag_key;
 /*C_LIVE_TYPE_COMPILER*/T0*r625internal_c_local_tag_key(void);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent17(T0*a1,T0*a2,T2 a3);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent22(T0*a1,T0*a2);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent16(T0*a1,T0*a2);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent21(T0*a1,T0*a2,T2 a3);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent20(T0*a1);
-/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent15(T0*a1,T0*a2,T2 a3);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent17(T0*a1,T0*a2);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent22(T0*a1,T0*a2,T2 a3);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent21(T0*a1);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent16(T0*a1,T0*a2,T2 a3);
+/*C_LIVE_TYPE_COMPILER*/void r625_inline_agent20(T0*a1,T2 a2);
 extern T0*oBC625c_frame_descriptor_locals;
 extern int fBC625c_frame_descriptor_locals;
 /*C_LIVE_TYPE_COMPILER*/T0*r625c_frame_descriptor_locals(void);
@@ -11440,12 +11491,13 @@ int (*eq)(se_agent*,se_agent*);
 /*C_TARGET_MAPPER*/void r639visit_old_manifest_array(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639visit_call_infix_gt(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/T0*r639pending_c_function_counter_tag_values(void);
-/*C_TARGET_MAPPER*/void r639_inline_agent24(T0*a1);
+/*C_TARGET_MAPPER*/void r639_inline_agent25(T0*a1);
+/*C_TARGET_MAPPER*/void r639_inline_agent24(T0*a1,T0*a2,T2 a3);
 /*C_TARGET_MAPPER*/void r639compile_expression(T639*C,T0*a1);
-/*C_TARGET_MAPPER*/void r639_inline_agent23(T0*a1,T0*a2,T2 a3);
 /*C_TARGET_MAPPER*/T0*r639internal_c_local_tag_key(void);
 /*C_TARGET_MAPPER*/void r639visit_call_infix_le(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639visit_call_prefix_not(T639*C,T0*a1);
+/*C_TARGET_MAPPER*/void r639manifest_generic(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639visit_call_infix_lt(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639visit_implicit_current(T0*a1);
 /*C_TARGET_MAPPER*/T0*r639cpp(void);
@@ -11478,6 +11530,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_TARGET_MAPPER*/void r639visit_closed_operand(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639cmp_user_expanded(T639*C,T0*a1,T0*a2);
 /*C_TARGET_MAPPER*/T2 r639pending_c_function_counter_tag(T0*a1);
+/*C_TARGET_MAPPER*/void r639manifest_generic_args(T639*C,T0*a1,T2 a2,T2 a3);
 /*C_TARGET_MAPPER*/void r639for_all_local_names(T0*a1,T0*a2,T0*a3);
 /*C_TARGET_MAPPER*/void r639visit_create_writable(T639*C,T0*a1);
 /*C_TARGET_MAPPER*/void r639standard_mapping_c_target(T639*C,T0*a1);
@@ -11521,9 +11574,9 @@ int (*eq)(se_agent*,se_agent*);
 /*agent creation*/T0*agenT641f640l152c30(void);
 /*C_ARG_MAPPER*/void r641not_yet_implemented(T641*C);
 /*C_ARG_MAPPER*/void r641visit_e_void(T0*a1);
+/*C_ARG_MAPPER*/void r641_inline_agent25(T0*a1);
 /*C_ARG_MAPPER*/void r641compile_code(T641*C,T0*a1);
-/*C_ARG_MAPPER*/void r641_inline_agent24(T0*a1);
-/*C_ARG_MAPPER*/void r641_inline_agent23(T0*a1,T0*a2,T2 a3);
+/*C_ARG_MAPPER*/void r641_inline_agent24(T0*a1,T0*a2,T2 a3);
 /*C_ARG_MAPPER*/void r641visit_old_manifest_array(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641compile_feature_call(T641*C,T0*a1);
 /*C_ARG_MAPPER*/T0*r641cpp(void);
@@ -11553,6 +11606,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_ARG_MAPPER*/void r641visit_e_true(T0*a1);
 /*C_ARG_MAPPER*/void r641compile_precursor(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641set_internal_c_local_tag(T0*a1,T0*a2);
+/*C_ARG_MAPPER*/void r641manifest_generic(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641cmp_expanded_with_void(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641visit_built_in_eq_neq(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641rank_name_in(T2 a1,T0*a2,T0*a3);
@@ -11603,6 +11657,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_ARG_MAPPER*/void r641visit_fake_argument(T0*a1);
 /*C_ARG_MAPPER*/void r641cmp_reference(T641*C,T0*a1,T0*a2,T0*a3);
 /*C_ARG_MAPPER*/void r641visit_call_infix_lt(T641*C,T0*a1);
+/*C_ARG_MAPPER*/void r641manifest_generic_args(T641*C,T0*a1,T2 a2,T2 a3);
 /*C_ARG_MAPPER*/void r641visit_expression_with_comment(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641visit_ifthen_exp(T641*C,T0*a1);
 /*C_ARG_MAPPER*/void r641cmp_basic_eiffel_expanded(T641*C,T0*a1,T0*a2,T0*a3);
@@ -11676,9 +11731,9 @@ int (*eq)(se_agent*,se_agent*);
 /*C_CODE_COMPILER*/void r642visit_check_compound(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642compile_inspect_as_switch(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642visit_e_void(T0*a1);
+/*C_CODE_COMPILER*/void r642_inline_agent25(T0*a1);
 /*C_CODE_COMPILER*/void r642compile_code(T642*C,T0*a1);
-/*C_CODE_COMPILER*/void r642_inline_agent24(T0*a1);
-/*C_CODE_COMPILER*/void r642_inline_agent23(T0*a1,T0*a2,T2 a3);
+/*C_CODE_COMPILER*/void r642_inline_agent24(T0*a1,T0*a2,T2 a3);
 /*C_CODE_COMPILER*/void r642visit_old_manifest_array(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642visit_class_invariant(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642compile_inspect_statement(T642*C,T0*a1);
@@ -11720,6 +11775,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_CODE_COMPILER*/void r642visit_e_true(T0*a1);
 /*C_CODE_COMPILER*/void r642compile_precursor(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642set_internal_c_local_tag(T0*a1,T0*a2);
+/*C_CODE_COMPILER*/void r642manifest_generic(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642unlock_internal_c_local_tag(T0*a1);
 /*C_CODE_COMPILER*/void r642visit_when_clause(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642cmp_expanded_with_void(T642*C,T0*a1);
@@ -11791,6 +11847,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_CODE_COMPILER*/void r642visit_fake_argument(T0*a1);
 /*C_CODE_COMPILER*/void r642cmp_reference(T642*C,T0*a1,T0*a2,T0*a3);
 /*C_CODE_COMPILER*/void r642visit_call_infix_lt(T642*C,T0*a1);
+/*C_CODE_COMPILER*/void r642manifest_generic_args(T642*C,T0*a1,T2 a2,T2 a3);
 /*C_CODE_COMPILER*/void r642visit_expression_with_comment(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642visit_ifthen_exp(T642*C,T0*a1);
 /*C_CODE_COMPILER*/void r642visit_assignment(T642*C,T0*a1);
@@ -11814,9 +11871,9 @@ int (*eq)(se_agent*,se_agent*);
 /*agent creation*/T0*agenT646f640l152c30(void);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_call_infix_or(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_e_void(T646*C,T0*a1);
+/*C_COMPOUND_EXPRESSION_COMPILER*/void r646_inline_agent25(T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646compile_code(T646*C,T0*a1);
-/*C_COMPOUND_EXPRESSION_COMPILER*/void r646_inline_agent24(T0*a1);
-/*C_COMPOUND_EXPRESSION_COMPILER*/void r646_inline_agent23(T0*a1,T0*a2,T2 a3);
+/*C_COMPOUND_EXPRESSION_COMPILER*/void r646_inline_agent24(T0*a1,T0*a2,T2 a3);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_old_manifest_array(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_function_call_0(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_function_call_1(T646*C,T0*a1);
@@ -11853,6 +11910,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_e_true(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646compile_precursor(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646set_internal_c_local_tag(T0*a1,T0*a2);
+/*C_COMPOUND_EXPRESSION_COMPILER*/void r646manifest_generic(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646cmp_expanded_with_void(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_built_in_eq_neq(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_call_infix_plus(T646*C,T0*a1);
@@ -11921,6 +11979,7 @@ int (*eq)(se_agent*,se_agent*);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646cmp_reference(T646*C,T0*a1,T0*a2,T0*a3);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_call_infix_lt(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_precursor_expression(T646*C,T0*a1);
+/*C_COMPOUND_EXPRESSION_COMPILER*/void r646manifest_generic_args(T646*C,T0*a1,T2 a2,T2 a3);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_expression_with_comment(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646visit_ifthen_exp(T646*C,T0*a1);
 /*C_COMPOUND_EXPRESSION_COMPILER*/void r646cmp_basic_eiffel_expanded(T646*C,T0*a1,T0*a2,T0*a3);
@@ -12921,8 +12980,8 @@ T0* closed_a2;
 /*GC_HANDLER*/void r729weak_item(T0*a1);
 /*GC_HANDLER*/void r729manifest_string_in(T0*a1,T6 a2);
 /*GC_HANDLER*/void r729mark_in(T0*a1,T0*a2,T6 a3);
-/*GC_HANDLER*/void r729_inline_agent27(T729*C,T0*a1,T0*a2);
-/*GC_HANDLER*/void r729_inline_agent26(T729*C,T0*a1,T0*a2,T2 a3);
+/*GC_HANDLER*/void r729_inline_agent28(T729*C,T0*a1,T0*a2);
+/*GC_HANDLER*/void r729_inline_agent27(T729*C,T0*a1,T0*a2,T2 a3);
 /*GC_HANDLER*/void r729align_mark_in(T0*a1,T0*a2,T6 a3);
 /*GC_HANDLER*/void r729memory_dispose(T729*C,T0*a1,T0*a2);
 /*GC_HANDLER*/void r729generate_dispose(T0*a1,T0*a2,T0*a3);
@@ -13028,7 +13087,7 @@ extern T0*oBC806package_name;
 extern T0*oBC806config_home;
 extern int fBC806config_home;
 /*XDG*/T0*r806config_home(T806 C);
-/*XDG*/T0*r806_inline_agent33(T806 C);
+/*XDG*/T0*r806_inline_agent34(T806 C);
 extern int fBC806set_package;
 /*XDG*/void r806set_package(T0*a1);
 extern T0*oBC806config_home_;
@@ -13275,37 +13334,40 @@ extern int fBC440class_name_cache;
 /*FORMAL_GENERIC_ARG*/void r440constraint_substitution(T440*C,T0*a1,T2 a2);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505declaration_type(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_agent(void);
-/*FORMAL_GENERIC_TYPE_MARK*/T0*r505generic_list(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T0*r505generic_list(T505*C);
+/*FORMAL_GENERIC_TYPE_MARK*/T0*r505long_name(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505written_mark(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505resolve_in(T505*C,T0*a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505at(T505*C,T351 a1);
-/*FORMAL_GENERIC_TYPE_MARK*/T0*r505class_text_name(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T0*r505class_text_name(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_equal(T505*C,T0*a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_native_array(void);
-/*FORMAL_GENERIC_TYPE_MARK*/T0*r505type(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T0*r505type(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_pointer(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T2 r505id(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505specialize_thru(T505*C,T0*a1,T0*a2,T0*a3);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_real(void);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_fixed_string(T505*C);
-/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_empty_expanded(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_empty_expanded(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505try_class_text(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505same_signature_type(T505*C,T0*a1,T0*a2);
+/*FORMAL_GENERIC_TYPE_MARK*/void r505err_nonstatic(T505*C,T0*a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_anchored(void);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_natural(void);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_integer(void);
 /*FORMAL_GENERIC_TYPE_MARK*/void r505make(T505*C,T0*a1,T0*a2,T2 a3);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_character(void);
-/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_expanded(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_expanded(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_kernel_expanded(void);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505default_expression(T505*C,T351 a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505to_static(T505*C,T0*a1,T6 a2);
-/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_reference(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_reference(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505signature_resolve_in(T505*C,T0*a1);
-/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_generic(void);
+/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_generic(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505twin(T505*C);
-/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_user_expanded(void);
-/*FORMAL_GENERIC_TYPE_MARK*/void r505id_extra_information(T0*a1);
+/*FORMAL_GENERIC_TYPE_MARK*/void r505id_extra_information(T505*C,T0*a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505weak_reference_argument(T505*C,T0*a1);
+/*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_user_expanded(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/void r505set_start_position(T505*C,T351 a1);
 /*FORMAL_GENERIC_TYPE_MARK*/T0*r505class_text(T505*C);
 /*FORMAL_GENERIC_TYPE_MARK*/T6 r505is_boolean(void);
@@ -13319,7 +13381,7 @@ extern int fBC440class_name_cache;
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_equal(T514*C,T0*a1);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_tuple(void);
 /*LIKE_CURRENT_TYPE_MARK*/void r514make(T514*C,T351 a1);
-/*LIKE_CURRENT_TYPE_MARK*/T0*r514generic_list(void);
+/*LIKE_CURRENT_TYPE_MARK*/T0*r514generic_list(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_anchored(void);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_character(void);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514written_mark(void);
@@ -13329,22 +13391,25 @@ extern int fBC514written_name;
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_native_array(void);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514at(T514*C,T351 a1);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514try_class_text(T514*C);
-/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_expanded(void);
+/*LIKE_CURRENT_TYPE_MARK*/T0*r514long_name(T514*C);
+/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_expanded(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_boolean(void);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514typed_internals_type_mark(T514*C,T351 a1);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514to_static(T0*a1,T6 a2);
+/*LIKE_CURRENT_TYPE_MARK*/T2 r514id(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/void r514accept(T514*C,T0*a1);
-/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_reference(void);
+/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_reference(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514same_signature_type(T514*C,T0*a1,T0*a2);
-/*LIKE_CURRENT_TYPE_MARK*/T0*r514type(void);
+/*LIKE_CURRENT_TYPE_MARK*/T0*r514type(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514signature_resolve_in(T0*a1);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_natural(void);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514default_expression(T514*C,T351 a1);
-/*LIKE_CURRENT_TYPE_MARK*/void r514id_extra_information(T0*a1);
+/*LIKE_CURRENT_TYPE_MARK*/void r514err_nonstatic(T514*C,T0*a1);
+/*LIKE_CURRENT_TYPE_MARK*/void r514id_extra_information(T514*C,T0*a1);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514declaration_type(T514*C);
-/*LIKE_CURRENT_TYPE_MARK*/T0*r514class_text_name(void);
+/*LIKE_CURRENT_TYPE_MARK*/T0*r514class_text_name(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_pointer(void);
-/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_user_expanded(void);
+/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_user_expanded(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_kernel_expanded(void);
 /*LIKE_CURRENT_TYPE_MARK*/void r514set_start_position(T514*C,T351 a1);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_fixed_string(void);
@@ -13354,12 +13419,13 @@ extern int fBC514written_name;
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_integer(void);
 /*LIKE_CURRENT_TYPE_MARK*/void r514pretty_in(T0*a1);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514weak_reference_argument(T514*C,T0*a1);
-/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_generic(void);
-/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_empty_expanded(void);
+/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_generic(T514*C);
+/*LIKE_CURRENT_TYPE_MARK*/T6 r514is_empty_expanded(T514*C);
 /*LIKE_CURRENT_TYPE_MARK*/T0*r514resolve_in(T0*a1);
 /*LIKE_CURRENT_TYPE_MARK*/T6 r514is_agent(void);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_agent(void);
-/*LIKE_FEATURE_TYPE_MARK*/T0*r516generic_list(void);
+/*LIKE_FEATURE_TYPE_MARK*/T0*r516generic_list(T516*C);
+/*LIKE_FEATURE_TYPE_MARK*/T0*r516long_name(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516written_mark(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516resolve_in(T516*C,T0*a1);
 /*LIKE_FEATURE_TYPE_MARK*/void r516twin_feature_stamp_memory(T516*C,T0*a1,T0*a2);
@@ -13367,35 +13433,37 @@ extern T0*oBC515written_mark_buffer;
 extern int fBC515written_mark_buffer;
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516written_mark_buffer(void);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516at(T516*C,T351 a1);
-/*LIKE_FEATURE_TYPE_MARK*/T0*r516class_text_name(void);
+/*LIKE_FEATURE_TYPE_MARK*/T0*r516class_text_name(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_equal(T516*C,T0*a1);
 /*LIKE_FEATURE_TYPE_MARK*/void r516specialize_in(T516*C,T0*a1);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_native_array(void);
-/*LIKE_FEATURE_TYPE_MARK*/T0*r516type(void);
+/*LIKE_FEATURE_TYPE_MARK*/T0*r516type(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_pointer(void);
+/*LIKE_FEATURE_TYPE_MARK*/T2 r516id(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516specialize_thru(T516*C,T0*a1,T0*a2,T0*a3);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_real(void);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_fixed_string(T516*C);
-/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_empty_expanded(void);
+/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_empty_expanded(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516try_class_text(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516feature_accumulator(void);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516same_signature_type(T516*C,T0*a1,T0*a2);
+/*LIKE_FEATURE_TYPE_MARK*/void r516err_nonstatic(T516*C,T0*a1);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_anchored(void);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_natural(void);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_integer(void);
 /*LIKE_FEATURE_TYPE_MARK*/void r516make(T516*C,T351 a1,T0*a2);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_character(void);
-/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_expanded(void);
+/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_expanded(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_kernel_expanded(void);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516default_expression(T516*C,T351 a1);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516to_static(T516*C,T0*a1,T6 a2);
-/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_reference(void);
+/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_reference(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516signature_resolve_in(T516*C,T0*a1);
-/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_generic(void);
+/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_generic(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516twin(T516*C);
-/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_user_expanded(void);
-/*LIKE_FEATURE_TYPE_MARK*/void r516id_extra_information(T0*a1);
+/*LIKE_FEATURE_TYPE_MARK*/void r516id_extra_information(T516*C,T0*a1);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516weak_reference_argument(T516*C,T0*a1);
+/*LIKE_FEATURE_TYPE_MARK*/T6 r516is_user_expanded(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/void r516set_start_position(T516*C,T351 a1);
 /*LIKE_FEATURE_TYPE_MARK*/T0*r516class_text(T516*C);
 /*LIKE_FEATURE_TYPE_MARK*/T6 r516is_boolean(void);
@@ -13431,48 +13499,51 @@ extern int fBC121pretty_buffer;
 /*PRETTY_PRINTER*/void r121put_character(T3 a1);
 /*PRETTY_PRINTER*/void r121skip_one_line(void);
 /*PRETTY_PRINTER*/T6 r121print_end_of_feature(T121*C);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_equal(T517*C,T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_tuple(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/void r517make(T517*C,T351 a1,T0*a2);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517generic_list(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_anchored(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_character(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517declaration_type(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_agent(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517generic_list(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517long_name(T517*C);
 /*LIKE_ARGUMENT_TYPE_MARK*/T0*r517written_mark(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517resolve_in(T517*C,T0*a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517written_mark_buffer(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517at(T517*C,T351 a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517class_text_name(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_equal(T517*C,T0*a1);
 /*LIKE_ARGUMENT_TYPE_MARK*/void r517specialize_in(T517*C,T0*a1);
 /*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_native_array(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517at(T517*C,T351 a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517try_class_text(T517*C);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_expanded(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517specialize_thru(T517*C,T0*a1,T0*a2,T0*a3);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_boolean(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517typed_internals_type_mark(T517*C,T351 a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517to_static(T517*C,T0*a1,T6 a2);
-/*LIKE_ARGUMENT_TYPE_MARK*/void r517accept(T517*C,T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_reference(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517same_signature_type(T517*C,T0*a1,T0*a2);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517type(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517signature_resolve_in(T517*C,T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_natural(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517default_expression(T517*C,T351 a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/void r517id_extra_information(T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517declaration_type(T517*C);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517class_text_name(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517type(T517*C);
 /*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_pointer(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_user_expanded(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_kernel_expanded(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/void r517set_start_position(T517*C,T351 a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_fixed_string(T517*C);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517class_text(T517*C);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517written_mark_buffer(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517twin(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T2 r517id(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517specialize_thru(T517*C,T0*a1,T0*a2,T0*a3);
 /*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_real(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_fixed_string(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_empty_expanded(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517try_class_text(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517same_signature_type(T517*C,T0*a1,T0*a2);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517err_nonstatic(T517*C,T0*a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_anchored(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_natural(void);
 /*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_integer(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/void r517pretty_in(T517*C,T0*a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517make(T517*C,T351 a1,T0*a2);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_character(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_expanded(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_kernel_expanded(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517default_expression(T517*C,T351 a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517to_static(T517*C,T0*a1,T6 a2);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_reference(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517signature_resolve_in(T517*C,T0*a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_generic(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517twin(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517id_extra_information(T517*C,T0*a1);
 /*LIKE_ARGUMENT_TYPE_MARK*/T0*r517weak_reference_argument(T517*C,T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_generic(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_empty_expanded(void);
-/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517resolve_in(T517*C,T0*a1);
-/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_agent(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_user_expanded(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517set_start_position(T517*C,T351 a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517class_text(T517*C);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_boolean(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517accept(T517*C,T0*a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T0*r517typed_internals_type_mark(T517*C,T351 a1);
+/*LIKE_ARGUMENT_TYPE_MARK*/T6 r517is_tuple(void);
+/*LIKE_ARGUMENT_TYPE_MARK*/void r517pretty_in(T517*C,T0*a1);
 /*ARRAY_TYPE_MARK*/void r458set_generic_list(T458*C,T0*a1);
 /*ARRAY_TYPE_MARK*/T0*r458new_static_type_in(T458*C,T0*a1,T6 a2);
 /*ARRAY_TYPE_MARK*/T0*r458declaration_type(T458*C);
@@ -13847,8 +13918,8 @@ extern int fBC448natural_16_name;
 /*CLASS_TYPE_MARK*/T0*r418specialize_thru(T418*C,T0*a1,T0*a2,T0*a3);
 /*CLASS_TYPE_MARK*/T6 r418is_real(void);
 /*CLASS_TYPE_MARK*/T6 r418is_fixed_string(T418*C);
-/*CLASS_TYPE_MARK*/T6 r418is_empty_expanded(T418*C);
 /*CLASS_TYPE_MARK*/T0*r418try_class_text(T418*C);
+/*CLASS_TYPE_MARK*/T6 r418is_user_empty_expanded(T418*C);
 /*CLASS_TYPE_MARK*/T6 r418same_signature_type(T418*C,T0*a1,T0*a2);
 /*CLASS_TYPE_MARK*/T6 r418is_anchored(void);
 /*CLASS_TYPE_MARK*/T6 r418is_natural(void);
@@ -14151,8 +14222,8 @@ extern int fBC456procedure_name;
 /*USER_GENERIC_TYPE_MARK*/T0*r459specialize_thru(T459*C,T0*a1,T0*a2,T0*a3);
 /*USER_GENERIC_TYPE_MARK*/T6 r459is_real(void);
 /*USER_GENERIC_TYPE_MARK*/T6 r459is_fixed_string(T459*C);
-/*USER_GENERIC_TYPE_MARK*/T6 r459is_empty_expanded(T459*C);
 /*USER_GENERIC_TYPE_MARK*/T0*r459try_class_text(T459*C);
+/*USER_GENERIC_TYPE_MARK*/T6 r459is_user_empty_expanded(T459*C);
 /*USER_GENERIC_TYPE_MARK*/T6 r459same_signature_type(T459*C,T0*a1,T0*a2);
 /*USER_GENERIC_TYPE_MARK*/T6 r459is_anchored(void);
 /*USER_GENERIC_TYPE_MARK*/T6 r459is_natural(void);
@@ -14196,7 +14267,6 @@ extern int fBC456procedure_name;
 /*CLIENT_TYPE_MARK*/T0*r518specialize_thru(T518*C,T0*a1,T0*a2,T0*a3);
 /*CLIENT_TYPE_MARK*/T6 r518is_real(void);
 /*CLIENT_TYPE_MARK*/T6 r518is_fixed_string(T518*C);
-/*CLIENT_TYPE_MARK*/T6 r518is_empty_expanded(T518*C);
 /*CLIENT_TYPE_MARK*/T0*r518try_class_text(T518*C);
 /*CLIENT_TYPE_MARK*/T6 r518same_signature_type(T518*C,T0*a1,T0*a2);
 /*CLIENT_TYPE_MARK*/T6 r518is_anchored(void);
@@ -19239,15 +19309,16 @@ void agent_launcher_o468o2(/*agent*/T0*a,T0* a1,T2 a2);
 void agent_launcher_o676(/*agent*/T0*a,T0* a1);
 union _se_agent{T0 s0;se_agent0 u0;
 se_agenT1125f816l57c25 uagenT1125f816l57c25;
-se_agenT117f117l4274c33 uagenT117f117l4274c33;
-se_agenT117f117l4263c30 uagenT117f117l4263c30;
-se_agenT117f117l4012c47 uagenT117f117l4012c47;
-se_agenT117f117l601c22 uagenT117f117l601c22;
-se_agenT117f117l658c22 uagenT117f117l658c22;
-se_agenT117f117l4031c55 uagenT117f117l4031c55;
-se_agenT117f117l3992c48 uagenT117f117l3992c48;
-se_agenT117f117l3834c41 uagenT117f117l3834c41;
-se_agenT117f117l3751c40 uagenT117f117l3751c40;
+se_agenT117f117l4321c33 uagenT117f117l4321c33;
+se_agenT117f117l4310c30 uagenT117f117l4310c30;
+se_agenT117f117l4059c47 uagenT117f117l4059c47;
+se_agenT117f117l604c22 uagenT117f117l604c22;
+se_agenT117f117l661c22 uagenT117f117l661c22;
+se_agenT117f117l4078c55 uagenT117f117l4078c55;
+se_agenT117f117l4018c48 uagenT117f117l4018c48;
+se_agenT117f117l4039c48 uagenT117f117l4039c48;
+se_agenT117f117l3837c41 uagenT117f117l3837c41;
+se_agenT117f117l3754c40 uagenT117f117l3754c40;
 se_agenT111f111l349c40 uagenT111f111l349c40;
 se_agenT588f588l40c32 uagenT588f588l40c32;
 se_agenT588f589l25c46 uagenT588f589l25c46;
@@ -19378,6 +19449,7 @@ extern T0*ms589_1747685533Abc589A;
 extern T0*ms104_1617443474Abc104A;
 extern T0*ms117_77Abc117A;
 extern T0*ms117_1284Abc640A;
+extern T0*ms117_1284Abc637A;
 extern T0*ms122_51895507Abc122A;
 extern T0*ms33_3501Abc33A;
 extern T0*ms117_522691310Abc117A;
@@ -19426,6 +19498,7 @@ extern T0*ms117_1284Abc727A;
 extern T0*ms293_188916891Abc293A;
 extern T0*ms117_1284Abc729A;
 extern T0*ms117_17480Abc625A;
+extern T0*ms34_878084737Abc34A;
 extern T0*ms126_1293738877Abc126A;
 extern T0*ms33_259659630Abc33A;
 extern T0*ms1017_1384629373Abc1017A;
@@ -19493,6 +19566,7 @@ extern T0*ms847_1990989Abc847A;
 extern T0*ms104_1452100558Abc104A;
 extern T0*ms647_104084395Abc647A;
 extern T0*ms647_104084395Abc647B;
+extern T0*ms637_6706Abc637A;
 extern T0*ms117_2630Abc625A;
 extern T0*ms647_42916Abc647A;
 extern T0*ms642_236Abc640A;
@@ -19624,6 +19698,7 @@ extern T0*ms104_246527867Abc104A;
 extern T0*ms117_1656195746Abc117A;
 extern T0*ms113_689Abc113A;
 extern T0*ms621_565060278Abc621A;
+extern T0*ms117_295453308Abc117A;
 extern T0*ms640_3934795Abc640A;
 extern T0*ms104_916596Abc104A;
 extern T0*ms283_216Abc283A;
@@ -19685,6 +19760,7 @@ extern T0*ms447_1642232185Abc447A;
 extern T0*ms728_112977096Abc728A;
 extern T0*ms843_1020256883Abc843A;
 extern T0*ms642_86950Abc642A;
+extern T0*ms117_7869Abc640C;
 extern T0*ms117_7869Abc640B;
 extern T0*ms117_7869Abc640A;
 extern T0*ms104_1710947057Abc104A;
@@ -19723,6 +19799,7 @@ extern T0*ms553_1280946519Abc553A;
 extern T0*ms640_184795Abc640A;
 extern T0*ms34_396356Abc34A;
 extern T0*ms391_3147Abc391A;
+extern T0*ms506_18186Abc490A;
 extern T0*ms647_77773Abc647A;
 extern T0*ms358_767649523Abc358A;
 extern T0*ms117_245Abc640A;
@@ -19842,7 +19919,6 @@ extern T0*ms637_185463Abc637A;
 extern T0*ms111_195Abc111A;
 extern T0*ms847_40205Abc847A;
 extern T0*ms349_1060258809Abc349A;
-extern T0*ms624_926003101Abc624A;
 extern T0*ms118_1753572602Abc118A;
 extern T0*ms640_2187585Abc640A;
 extern T0*ms642_4425Abc642A;
@@ -19911,7 +19987,7 @@ extern T0*ms352_1753601396Abc352A;
 extern T0*ms104_2102385657Abc104A;
 extern T0*ms282_988261007Abc282A;
 extern T0*ms729_10322525Abc847A;
-extern T0*ms126_113009969Abc126A;
+extern T0*ms126_113009974Abc126A;
 extern T0*ms642_180037Abc642A;
 extern T0*ms729_419443Abc729A;
 extern T0*ms642_180037Abc642B;
@@ -19931,6 +20007,7 @@ extern T0*ms32_334Abc32A;
 extern T0*ms113_9121Abc113A;
 extern T0*ms117_40Abc117A;
 extern T0*ms289_413151726Abc479A;
+extern T0*ms117_40Abc117B;
 extern T0*ms804_65332Abc804A;
 extern T0*ms292_87520Abc292B;
 extern T0*ms117_5395053Abc625A;
@@ -19988,7 +20065,6 @@ extern T0*ms647_167916Abc647A;
 extern T0*ms34_306165094Abc34A;
 extern T0*ms33_1487451Abc33A;
 extern T0*ms647_167916Abc647B;
-extern T0*ms117_1982839385Abc117A;
 extern T0*ms623_565066528Abc623A;
 extern T0*ms115_11253Abc115A;
 extern T0*ms33_65574Abc33A;
@@ -20149,8 +20225,6 @@ extern T0*ms847_1288623074Abc847A;
 extern T0*ms289_1145998825Abc289A;
 extern T0*ms101_313227818Abc101A;
 extern T0*ms104_1174611449Abc104A;
-extern T0*ms34_1072344038Abc34B;
-extern T0*ms34_1072344038Abc34A;
 extern T0*ms436_1134247532Abc436A;
 extern T0*ms642_1175100011Abc642A;
 extern T0*ms34_16001Abc34A;
@@ -20414,7 +20488,6 @@ extern T0*ms91_1462938943Abc91A;
 extern T0*ms34_1980461Abc34A;
 extern T0*ms113_2009849Abc805A;
 extern T0*ms117_1493Abc117A;
-extern T0*ms113_1247935972Abc113A;
 extern T0*ms349_1524252299Abc349A;
 extern T0*ms120_784841421Abc517A;
 extern T0*ms32_1897129554Abc32A;
@@ -20435,6 +20508,7 @@ extern T0*ms619_1152812249Abc619A;
 extern T0*ms847_1111960899Abc847A;
 extern T0*ms104_1725672511Abc104A;
 extern T0*ms108_1880881887Abc108A;
+extern T0*ms126_1072344038Abc126A;
 extern T0*ms624_205124Abc624A;
 extern T0*ms113_1588150185Abc113A;
 extern T0*ms117_400297641Abc117A;
@@ -20445,6 +20519,8 @@ extern T0*ms117_400297641Abc117C;
 extern T0*ms117_400297641Abc117D;
 extern T0*ms104_928941315Abc104A;
 extern T0*ms117_400297641Abc117E;
+extern T0*ms117_400297641Abc117F;
+extern T0*ms117_400297641Abc117G;
 extern T0*ms286_1897894366Abc286A;
 extern T0*ms370_1546692995Abc370A;
 extern T0*ms582_6330Abc1017A;
@@ -20547,16 +20623,18 @@ extern T0*ms495_94643563Abc420A;
 extern T0*ms415_2480479Abc415A;
 extern T0*ms642_809795Abc640A;
 extern T0*ms108_660Abc108A;
+extern T0*ms126_1430004152Abc126A;
+extern T0*ms113_485672260Abc113A;
 extern T0*ms111_1242126608Abc111A;
 extern T0*ms642_809795Abc642A;
 extern T0*ms33_207673214Abc33A;
-extern T0*ms126_203714719Abc126A;
 extern T0*ms113_1626Abc113A;
 extern T0*ms113_1626Abc113B;
 extern T0*ms1017_1935504882Abc1017A;
 extern T0*ms642_809795Abc647A;
 extern T0*ms642_809795Abc647B;
 extern T0*ms703_8777401Abc703A;
+extern T0*ms117_1220003975Abc117A;
 extern T0*ms104_860582570Abc104A;
 extern T0*ms409_332834879Abc409A;
 extern T0*ms97_142319Abc97A;
@@ -20806,7 +20884,6 @@ extern T0*ms647_1174230416Abc647E;
 extern T0*ms647_1174230416Abc647D;
 extern T0*ms34_78263Abc104A;
 extern T0*ms647_1174230416Abc647C;
-extern T0*ms117_1201497496Abc117A;
 extern T0*ms647_1174230416Abc647B;
 extern T0*ms435_145102259Abc435A;
 extern T0*ms647_1174230416Abc647A;
@@ -20976,6 +21053,7 @@ extern T0*ms624_1151663379Abc624A;
 extern T0*ms104_18150Abc619A;
 extern T0*ms104_18150Abc619B;
 extern T0*ms33_1682815431Abc33A;
+extern T0*ms117_181146Abc117A;
 extern T0*ms117_10739979Abc117A;
 extern T0*ms822_1644Abc822A;
 extern T0*ms104_18150Abc625A;
@@ -20993,6 +21071,7 @@ extern T0*ms358_1186844731Abc358A;
 extern T0*ms845_1387277146Abc845A;
 extern T0*ms117_1601653158Abc117B;
 extern T0*ms117_1601653158Abc117A;
+extern T0*ms117_830104658Abc117A;
 extern T0*ms34_18090Abc34A;
 extern T0*ms104_955638361Abc104A;
 extern T0*ms33_1740332382Abc33A;
@@ -21039,10 +21118,12 @@ extern T0*ms117_277Bbc117C;
 extern T0*ms117_277Bbc117D;
 extern T0*ms117_277Bbc117E;
 extern T0*ms117_277Bbc117F;
+extern T0*ms117_6559Abc117C;
 extern T0*ms117_6559Abc117B;
 extern T0*ms117_277Bbc117G;
 extern T0*ms117_6559Abc117A;
 extern T0*ms117_277Bbc117H;
+extern T0*ms117_277Bbc117I;
 extern T0*ms34_48390502Abc34A;
 extern T0*ms34_78263Abc496A;
 extern T0*ms104_1491933617Abc104A;
@@ -21057,6 +21138,7 @@ extern T0*ms104_50040236Abc104A;
 extern T0*ms117_10666295Abc117A;
 extern T0*ms647_234933541Abc647A;
 extern T0*ms33_218Abc33A;
+extern T0*ms117_449414272Abc117A;
 extern T0*ms650_754574290Abc650A;
 extern T0*ms33_2038667775Abc33A;
 extern T0*ms117_1125599439Abc117A;
@@ -21118,7 +21200,6 @@ extern T0*ms104_883016350Abc104D;
 extern T0*ms104_883016350Abc104C;
 extern T0*ms104_883016350Abc104B;
 extern T0*ms104_883016350Abc104A;
-extern T0*ms490_18186Abc490A;
 extern T0*ms33_2187483Abc33A;
 extern T0*ms33_39002989Abc33A;
 extern T0*ms117_660780608Abc117A;
@@ -21249,10 +21330,12 @@ extern T0*ms414_435568604Abc414A;
 extern T0*ms111_1786429697Abc111A;
 extern T0*ms648_1395477828Abc648A;
 extern T0*ms847_6830Abc847A;
+extern T0*ms126_1018573728Abc126A;
 extern T0*ms117_616198177Abc117A;
 extern T0*ms625_20240284Abc625A;
 extern T0*ms113_9222Abc113A;
 extern T0*ms660_378711602Abc660A;
+extern T0*ms117_36434Abc117A;
 extern T0*ms704_1043Abc704A;
 extern T0*ms729_1770234694Abc729A;
 extern T0*ms1017_1508488213Abc1017A;
@@ -21417,7 +21500,6 @@ extern T0*ms117_114Abc847A;
 extern T0*ms647_111269879Abc647A;
 extern T0*ms625_2111741Abc625A;
 extern T0*ms529_890319497Abc389A;
-extern T0*ms117_1852104762Abc117A;
 extern T0*ms642_1952787551Abc642A;
 extern T0*ms104_34Abc104A;
 extern T0*ms104_502181838Abc104A;
@@ -21467,9 +21549,9 @@ extern T0*ms113_326Abc113A;
 extern T0*ms113_25704393Abc113A;
 extern T0*ms498_7232Abc529A;
 extern T0*ms356_1742784741Abc356A;
+extern T0*ms117_2086571326Abc117A;
 extern T0*ms356_1742784741Abc420A;
 extern T0*ms291_411001267Abc291A;
-extern T0*ms33_47Abc117A;
 extern T0*ms843_7682Abc843A;
 extern T0*ms498_7232Abc498A;
 extern T0*ms117_419316052Abc117A;
@@ -21505,7 +21587,6 @@ extern T0*ms822_1101Abc822A;
 extern T0*ms642_380343Abc642A;
 extern T0*ms33_62Abc33A;
 extern T0*ms117_4771257Abc117A;
-extern T0*ms126_1430004157Abc126A;
 extern T0*ms849_958639438Abc849A;
 extern T0*ms34_16264Abc485A;
 extern T0*ms104_2099054905Abc104A;
@@ -21589,6 +21670,7 @@ extern T0*ms577_3557Abc577A;
 extern T0*ms847_737599544Abc847A;
 extern T0*ms642_119389596Abc642A;
 extern T0*ms486_384465Abc486A;
+extern T0*ms117_1196Abc117A;
 extern T0*ms111_542094038Abc111A;
 extern T0*ms412_1182157125Abc412A;
 extern T0*ms33_1947246Abc33A;
@@ -21626,10 +21708,10 @@ extern T0*ms352_97896378Abc352A;
 extern T0*ms433_230Abc640A;
 extern T0*ms35_385751Abc283A;
 extern T0*ms640_1406782500Abc640A;
+extern T0*ms126_605800239Abc126A;
 extern T0*ms678_1084920002Abc678A;
 extern T0*ms123_300594Abc104A;
 extern T0*ms282_51017327Abc282A;
-extern T0*ms126_1662662954Abc126A;
 extern T0*ms847_931143030Abc847A;
 extern T0*ms495_594795843Abc495A;
 extern T0*ms104_1522646803Abc104A;
@@ -21672,6 +21754,7 @@ extern T0*ms642_1124563501Abc642A;
 extern T0*ms117_1565Abc117A;
 extern T0*ms117_1565Abc117B;
 extern T0*ms34_1532344910Abc34A;
+extern T0*ms117_562506158Abc117A;
 extern T0*ms117_1565Abc117C;
 extern T0*ms117_1565Abc117D;
 extern T0*ms117_1565Abc117E;
@@ -21727,10 +21810,8 @@ extern T0*ms117_4771257Abc625A;
 extern T0*ms33_1673345408Abc33A;
 extern T0*ms416_1933023161Abc416A;
 extern T0*ms804_789213750Abc804A;
+extern T0*ms117_1571473322Abc117A;
 extern T0*ms640_580292587Abc640A;
-extern T0*ms647_1302Abc647A;
-extern T0*ms647_1302Abc647B;
-extern T0*ms647_1302Abc647C;
 extern T0*ms495_115013643Abc495A;
 extern T0*ms117_389675Abc117A;
 extern T0*ms637_185443Abc637A;
@@ -21758,11 +21839,15 @@ extern T0*ms763_989731302Abc763A;
 extern T0*ms117_41Abc640A;
 extern T0*ms117_41Abc640B;
 extern T0*ms104_2047201942Abc104A;
+extern T0*ms637_1302Abc637A;
 extern T0*ms126_44975894Abc126A;
 extern T0*ms117_41Abc642A;
 extern T0*ms117_41Abc642B;
 extern T0*ms117_41Abc642C;
 extern T0*ms33_76691Abc502A;
+extern T0*ms637_1302Abc647A;
+extern T0*ms637_1302Abc647B;
+extern T0*ms637_1302Abc647C;
 extern T0*ms447_620Abc447A;
 extern T0*ms113_415107Abc113A;
 extern T0*ms117_41Abc647A;
@@ -21808,6 +21893,7 @@ extern T0*ms283_376816512Abc283A;
 extern T0*ms642_3760Abc117A;
 extern T0*ms642_2024156039Abc642A;
 extern T0*ms729_1637595774Abc729A;
+extern T0*ms34_1593051Abc34A;
 extern T0*ms34_427898753Abc34A;
 extern T0*ms113_2109537640Abc113A;
 extern T0*ms113_2109537640Abc113B;
@@ -21965,6 +22051,7 @@ extern T0*ms111_1378502623Abc111A;
 extern T0*ms111_1378502623Abc111B;
 extern T0*ms117_441192857Abc117A;
 extern T0*ms117_1639Abc647A;
+extern T0*ms117_654499311Abc117A;
 extern T0*ms111_1194472660Abc111A;
 extern T0*ms104_1046025807Abc104A;
 extern T0*ms843_61699Abc847A;
@@ -22259,6 +22346,7 @@ extern T0*ms117_36951Abc641A;
 extern T0*ms488_1917908900Abc488A;
 extern T0*ms648_1034063848Abc648A;
 extern T0*ms117_1790869799Abc117A;
+extern T0*ms640_1127821710Abc640A;
 extern T0*ms847_526175446Abc847A;
 extern T0*ms33_698215697Abc33A;
 extern T0*ms104_142936234Abc104A;
@@ -22634,6 +22722,7 @@ extern T0*ms713_511703191Abc713A;
 extern T0*ms34_89771Abc34A;
 extern T0*ms420_1061310076Abc420A;
 extern T0*ms640_162019Abc640A;
+extern T0*ms624_480740974Abc624A;
 extern T0*ms105_74239Abc105A;
 extern T0*ms436_1857191624Abc436A;
 extern T0*ms104_2117988535Abc104A;
@@ -22812,8 +22901,10 @@ extern T0*ms495_305Abc648C;
 extern T0*ms495_305Abc648B;
 extern T0*ms495_305Abc648A;
 extern T0*ms495_305Abc647D;
+extern T0*ms117_51599861Abc117B;
 extern T0*ms495_305Abc647C;
 extern T0*ms729_9980517Abc729A;
+extern T0*ms117_51599861Abc117A;
 extern T0*ms495_305Abc647B;
 extern T0*ms495_305Abc647A;
 extern T0*ms104_1204389280Abc104A;
@@ -22904,7 +22995,6 @@ extern T0*ms847_176986Abc847A;
 extern T0*ms624_340114884Abc624A;
 extern T0*ms642_550508910Abc642A;
 extern T0*ms113_7878Abc113A;
-extern T0*ms126_1974940930Abc126A;
 extern T0*ms377_7238542Abc377A;
 extern T0*ms33_349117293Abc33A;
 extern T0*ms589_100561530Abc589A;
@@ -22923,6 +23013,7 @@ extern T0*ms33_10377643Abc33A;
 extern T0*ms117_15589Abc117A;
 extern T0*ms104_2060176323Abc104A;
 extern T0*ms117_15589Abc117B;
+extern T0*ms117_15589Abc117C;
 extern T0*ms476_99702656Abc476A;
 extern T0*ms386_30745830Abc386A;
 extern T0*ms30_8771Abc30A;
@@ -23033,6 +23124,8 @@ extern T0*ms117_162838175Abc117A;
 extern T0*ms640_1285Abc728A;
 extern T0*ms117_162838175Abc117B;
 extern T0*ms117_162838175Abc117C;
+extern T0*ms117_162838175Abc117D;
+extern T0*ms117_162838175Abc117E;
 extern T0*ms640_91Abc728A;
 extern T0*ms111_10Abc120A;
 extern T0*ms117_16487Abc117A;
@@ -23106,6 +23199,7 @@ extern T0*ms117_16782Abc117B;
 extern T0*ms117_16782Abc117C;
 extern T0*ms366_556780396Abc366A;
 extern T0*ms449_1478Abc449A;
+extern T0*ms117_1417828020Abc117A;
 extern T0*ms647_252669317Abc647A;
 extern T0*ms467_2108232434Abc467A;
 extern T0*ms647_245384155Abc647A;
@@ -23151,6 +23245,7 @@ extern T0*ms117_273431355Abc843A;
 extern T0*ms117_273431355Abc843B;
 extern T0*ms420_1119905623Abc420A;
 extern T0*ms33_548Abc33A;
+extern T0*ms117_1043020690Abc117A;
 extern T0*ms763_2027238465Abc763A;
 extern T0*ms495_305Abc117Y;
 extern T0*ms709_2565Abc709A;
@@ -23313,6 +23408,7 @@ extern T0*ms117_374291339Abc117A;
 extern T0*ms113_0Abc588A;
 extern T0*ms33_47Abc33A;
 extern T0*ms117_162838175Abc625A;
+extern T0*ms117_548663546Abc117A;
 extern T0*ms1017_10220290Abc1017B;
 extern T0*ms33_16686Abc33A;
 extern T0*ms1017_10220290Abc1017A;
@@ -23396,6 +23492,7 @@ extern T0*ms104_2097430832Abc104A;
 extern T0*ms282_956361723Abc282A;
 extern T0*ms416_176211197Abc675A;
 extern T0*ms293_4479182Abc117A;
+extern T0*ms126_1342164121Abc126A;
 extern T0*ms647_537910373Abc647A;
 extern T0*ms625_585895143Abc625A;
 extern T0*ms637_4570857Abc637A;
@@ -23421,7 +23518,6 @@ extern T0*ms115_18144Abc115A;
 extern T0*ms625_1023028228Abc625A;
 extern T0*ms111_1459510708Abc111A;
 extern T0*ms847_998144220Abc847A;
-extern T0*ms117_1645835456Abc117A;
 extern T0*ms113_0Abc766A;
 extern T0*ms113_0Abc766B;
 extern T0*ms97_445214625Abc97A;
@@ -23553,10 +23649,8 @@ extern T0*ms416_176211197Abc381C;
 extern T0*ms650_1216329562Abc650B;
 extern T0*ms416_176211197Abc381B;
 extern T0*ms33_1753751730Abc33A;
-extern T0*ms117_2109816196Abc117B;
 extern T0*ms416_176211197Abc381A;
 extern T0*ms660_21306364Abc660A;
-extern T0*ms117_2109816196Abc117A;
 extern T0*ms538_922867504Abc538A;
 extern T0*ms493_1723490337Abc493A;
 extern T0*ms436_1700082283Abc436A;
@@ -23726,6 +23820,7 @@ extern T0*ms104_973007162Abc104A;
 extern T0*ms283_1709309070Abc111A;
 extern T0*ms117_1994596535Abc117A;
 extern T0*ms117_1629400044Abc117A;
+extern T0*ms117_1772404517Abc640C;
 extern T0*ms117_1772404517Abc640B;
 extern T0*ms113_10937305Abc113A;
 extern T0*ms117_1772404517Abc640A;
@@ -23917,7 +24012,6 @@ extern T0*ms283_2070822678Abc283A;
 extern T0*ms484_946986142Abc484A;
 extern T0*ms642_380065Abc642A;
 extern T0*ms502_76659Abc502A;
-extern T0*ms126_1635864124Abc126A;
 extern T0*ms104_1268871407Abc104A;
 extern T0*ms640_3485Abc640A;
 extern T0*ms33_1944903Abc33A;
@@ -23973,7 +24067,6 @@ extern T0*ms415_889865702Abc415C;
 extern T0*ms553_1806821466Abc553A;
 extern T0*ms283_641030424Abc283A;
 extern T0*ms340_1262756502Abc340A;
-extern T0*ms117_732574181Abc117A;
 extern T0*ms105_1242149539Abc105A;
 extern T0*ms340_855586967Abc340A;
 T0*se_string(int c,char*e);
@@ -24070,6 +24163,7 @@ void se_msi90(void);
 void se_msi91(void);
 void se_msi92(void);
 void se_msi93(void);
+void se_msi94(void);
 extern T29*eiffel_root_object;
 extern int se_argc;
 extern char**se_argv;
@@ -24079,15 +24173,24 @@ extern T7*t[];
 void se_atexit(void);
 void initialize_eiffel_runtime(int argc,char*argv[]);
 int main(int argc,char*argv[]);
-T0* se_manifest1200(T2 initial_lower,int argc,...);
-T0* se_manifest1057(T2 initial_lower,int argc,...);
-T0* se_manifest1116(T2 initial_lower,int argc,...);
-T0* se_manifest1159(int argc,...);
-T0* se_manifest1044(int argc,...);
-T0* se_manifest1496(int argc,...);
-T0* se_manifest1201(T2 initial_lower,int argc,...);
-T0* se_manifest1066(int argc,...);
-T0* se_manifest1166(int argc,...);
+T0* se_manifest1200(T2 initial_lower,int argc);
+T0* se_manifest_args1200(T0*c,int i,int argc,...);
+T0* se_manifest1057(T2 initial_lower,int argc);
+T0* se_manifest_args1057(T0*c,int i,int argc,...);
+T0* se_manifest1116(T2 initial_lower,int argc);
+T0* se_manifest_args1116(T0*c,int i,int argc,...);
+T0* se_manifest1159(int argc);
+T0* se_manifest_args1159(T0*c,int i,int argc,...);
+T0* se_manifest1044(int argc);
+T0* se_manifest_args1044(T0*c,int i,int argc,...);
+T0* se_manifest1496(int argc);
+T0* se_manifest_args1496(T0*c,int i,int argc,...);
+T0* se_manifest1201(T2 initial_lower,int argc);
+T0* se_manifest_args1201(T0*c,int i,int argc,...);
+T0* se_manifest1066(int argc);
+T0* se_manifest_args1066(T0*c,int i,int argc,...);
+T0* se_manifest1166(int argc);
+T0* se_manifest_args1166(T0*c,int i,int argc,...);
 int can_assign_to394_from393(T0* expression);
 int can_assign_to822_from705(T0* expression);
 int can_assign_to694_from349(T0* expression);

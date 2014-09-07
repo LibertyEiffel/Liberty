@@ -292,11 +292,20 @@ break;
 case 480:
 tmp1/*type*/=/*RF4:type*/r480type(((T480*)tmp0/*declaration_type*/))/*:RF4*/;
 break;
-case 518:
-tmp1/*type*/=/*RF4:type*/r518type(((T518*)tmp0/*declaration_type*/))/*:RF4*/;
+case 505:
+tmp1/*type*/=/*RF4:type*/r505type(((T505*)tmp0/*declaration_type*/))/*:RF4*/;
+break;
+case 514:
+tmp1/*type*/=/*RF4:type*/r514type(((T514*)tmp0/*declaration_type*/))/*:RF4*/;
+break;
+case 516:
+tmp1/*type*/=/*RF4:type*/r516type(((T516*)tmp0/*declaration_type*/))/*:RF4*/;
+break;
+case 517:
+tmp1/*type*/=/*RF4:type*/r517type(((T517*)tmp0/*declaration_type*/))/*:RF4*/;
 break;
 default:;
-tmp1/*type*/=(void*)0;
+tmp1/*type*/=/*RF4:type*/r518type(((T518*)tmp0/*declaration_type*/))/*:RF4*/;
 }
 /*inspect]*/
 /*SFN*/(C->_declaration_type/*T5pi*/)=tmp1/*type*/;
@@ -1020,9 +1029,9 @@ r351default_create(&(((T95*)tmp0/*new*/)->_start_position));
 /*RF3:make*/r95make(((T95*)tmp0/*new*/),_hs,/*`sp'*/a1,(T6)(0));
 /*:RF3*/_cn=tmp0/*new*/;
 /*tmp0.unlock*/
-_gl=se_manifest1057(INT32_C(1),1,
+_gl=se_manifest_args1057(se_manifest1057(INT32_C(1),1),0,1,
 ((T0*)create514make(/*`sp'*/a1)));
-/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10pp*/))));
+/*reusing tmp0*/tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T459/*T10ppp*/))));
 *((T459*)tmp0/*new*/)=M459;
 /*RF3:make*/r459make(((T459*)tmp0/*new*/),_cn,_gl);
 /*:RF3*/_ugtm=tmp0/*new*/;
