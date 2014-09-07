@@ -103,6 +103,9 @@ feature {SMART_EIFFEL}
             if ace.sedb then
                out_h.put_string(once "#define SE_SEDB 1%N")
             end
+            if smart_eiffel.thread_used then
+               out_h.put_string(once "#define SE_THREAD 1%N")
+            end
             memory.pre_customize_c_runtime
             if exceptions_handler.used then
                out_h.put_string(once "#define SE_EXCEPTIONS 1%N")
@@ -3853,6 +3856,8 @@ feature {} -- MANIFEST_GENERIC_POOL
       do
          created_type := manifest_generic.created_type
          created_type_id := created_type.id
+         af := manifest_generic.manifest_make_feature_stamp.anonymous_feature(created_type)
+
          prepare_c_function
          pending_c_function_signature.append(once "T0* se_manifest")
          created_type_id.append_in(pending_c_function_signature)
@@ -3863,7 +3868,6 @@ feature {} -- MANIFEST_GENERIC_POOL
          if ace.profile then
             pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         af := manifest_generic.manifest_make_feature_stamp.anonymous_feature(created_type)
          from
             i := 2
             fal := af.arguments
@@ -3876,13 +3880,13 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_signature.extend(',')
             i := i + 1
          end
-         pending_c_function_signature.append(once "int argc,...)")
+         pending_c_function_signature.append(once "int argc)")
          -- Prepare body:
          pending_c_function_body.append(once "/*")
          pending_c_function_body.append(created_type.name.to_string)
          pending_c_function_body.append(once "*/%NT")
          created_type_id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
+         pending_c_function_body.append(once "*C;%NC=")
          memory.malloc(created_type.live_type)
          pending_c_function_body.append(once ";%N*C=M")
          created_type_id.append_in(pending_c_function_body)
@@ -3909,11 +3913,32 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_body.append(fal.name(i).to_string)
             i := i + 1
          end
-         pending_c_function_body.append(once ");%Nimax=argc")
+         pending_c_function_body.append(once ");%Nreturn ((T0*)C);%N")
+         dump_pending_c_function(True)
+
+         prepare_c_function
+         pending_c_function_signature.append(once "T0* se_manifest_args")
+         created_type_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once "(")
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.append(once "T0*c,int i,int argc,...)")
+         -- Prepare body:
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(created_type.name.to_string)
+         pending_c_function_body.append(once "*/%NT")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*C=(T")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*)c;%Nva_list pa;%Nint imax;%Nva_start(pa,argc);%Nimax=i+argc")
          af := manifest_generic.manifest_put_feature_stamp.anonymous_feature(created_type)
          fal := af.arguments
          if fal.count > 2 then
-            pending_c_function_body.append(once "/")
+            pending_c_function_body.extend('/')
             (fal.count - 1).append_in(pending_c_function_body)
          end
          pending_c_function_body.append(once ";%Nwhile (i < imax) {%N")
@@ -3957,7 +3982,7 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_body.append(fal.name(i).to_string)
             i := i + 1
          end
-         pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn ((T0*)C);%N")
+         pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn c;%N")
          dump_pending_c_function(True)
       end
 
@@ -3970,6 +3995,7 @@ feature {} -- MANIFEST_GENERIC_POOL
       do
          native_array_id := native_array.live_type.id
          va_type := native_array.generic_list.first.canonical_type_mark
+
          prepare_c_function
          pending_c_function_signature.extend('T')
          native_array_id.append_in(pending_c_function_signature)
@@ -3982,15 +4008,36 @@ feature {} -- MANIFEST_GENERIC_POOL
          if ace.profile then
             pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         pending_c_function_signature.append(once "int argc,...)")
+         pending_c_function_signature.append(once "int argc)")
          -- Prepare body:
          pending_c_function_body.append(once "/*")
          pending_c_function_body.append(native_array.name.to_string)
          pending_c_function_body.append(once "*/%NT")
          native_array_id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
+         pending_c_function_body.append(once " C=")
          memory.calloc(native_array.live_type, agent is do pending_c_function_body.append(once "argc") end)
-         pending_c_function_body.append(once ";%Nwhile (i < argc ) {%N")
+         pending_c_function_body.append(once ";%Nreturn C;%N")
+         dump_pending_c_function(True)
+
+         prepare_c_function
+         pending_c_function_signature.extend('T')
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once " se_manifest_args")
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.extend('(')
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.extend('T')
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once " C,int i,int argc,...)")
+         -- Prepare body:
+         pending_c_function_body.append(once "va_list pa;%Nva_start(pa,argc);%NC=")
+         memory.calloc(native_array.live_type, agent is do pending_c_function_body.append(once "argc") end)
+         pending_c_function_body.append(once ";%Nwhile (i < argc) {%N")
          pending_c_function_body.append(argument_type.for(va_type))
          pending_c_function_body.append(once " element=((")
          pending_c_function_body.append(argument_type.for(va_type))

@@ -921,8 +921,8 @@ feature {MANIFEST_STRING}
          end
       end
 
-feature {MANIFEST_GENERIC}
-   visit_manifest_generic (visited: MANIFEST_GENERIC)
+feature {}
+   manifest_generic (visited: MANIFEST_GENERIC)
       local
          i: INTEGER
       do
@@ -947,16 +947,66 @@ feature {MANIFEST_GENERIC}
             end
          end
          visited.item_list.count.append_in(function_body)
+         function_body.extend(')')
+      end
+
+   manifest_generic_args (visited: MANIFEST_GENERIC; count, max: INTEGER)
+      require
+         count > 0
+         max > 0
+      local
+         i, slice, low, up: INTEGER
+      do
+         function_body.append(once "se_manifest_args")
+         visited.created_type.id.append_in(function_body)
+         function_body.extend('(')
+         if not ace.boost then
+            function_body.append(once "&ds,")
+         end
+         if ace.profile then
+            function_body.append(once "&local_profile,")
+         end
+         if count < max then
+            slice := count
+         else
+            slice := max
+         end
+         check
+            slice <= max
+         end
+         up := count
+         low := count - slice
+         if low > 0 then
+            manifest_generic_args(visited, low, max)
+         else
+            manifest_generic(visited)
+         end
+         function_body.extend(',')
+         low.append_in(function_body)
+         function_body.extend(',')
+         slice.append_in(function_body)
          from
-            i := visited.item_list.lower
+            i := low
+         variant
+            count - i
          until
-            i > visited.item_list.upper
+            i >= up
          loop
             function_body.append(once ",%N")
             compile_expression(visited.item_list.item(i))
             i := i + 1
          end
          function_body.extend(')')
+      end
+
+feature {MANIFEST_GENERIC}
+   visit_manifest_generic (visited: MANIFEST_GENERIC)
+      local
+         af: ANONYMOUS_FEATURE; fal: FORMAL_ARG_LIST
+      do
+         af := visited.manifest_put_feature_stamp.anonymous_feature(visited.created_type)
+         fal := af.arguments
+         manifest_generic_args(visited, visited.item_list.count, ({INTEGER_32 128} // fal.count) * fal.count)
       end
 
 feature {MANIFEST_TUPLE}
