@@ -19,6 +19,7 @@ OPTIONS=''
 TOOL=compile_to_c
 BUILD=true
 GDB=false
+CC=
 
 SE_BIN=$(grep ^bin: $HOME/.config/liberty-eiffel/liberty.se | cut -c6-)
 
@@ -82,6 +83,11 @@ while [ $# -gt 0 ]; do
             OPTIONS="$OPTIONS -c_mode $2"
             shift
             ;;
+        x-cc)
+            OPTIONS="$OPTIONS -cc $2"
+            CC=$2
+            shift
+            ;;
         x-*|x/*)
             OPTIONS="$OPTIONS $1"
             ;;
@@ -104,6 +110,9 @@ if $NOGC; then
 fi
 if $BDWGC; then
     outdir=${outdir}.bdw_gc
+fi
+if [[ -n "$CC" ]]; then
+    outdir=${outdir}.cc\=$CC
 fi
 
 test -d $outdir || mkdir -p $outdir
