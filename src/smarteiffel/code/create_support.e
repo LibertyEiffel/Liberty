@@ -91,10 +91,15 @@ feature {CREATE_SUPPORT}
                   echo.w_put_string(once ": [")
                   echo.w_put_string(writable.written_declaration_type_mark.written_mark)
                   echo.w_put_string(once "] => ")
-                  echo.w_put_line(created_type_memory.canonical_type_mark.written_mark)
+                  -- created_type_memory is only written below...
                end
             end
             created_type_memory := writable.resolve_in(type)
+            debug
+               if writable.written_declaration_type_mark.is_formal_generic then
+                  echo.w_put_line(created_type_memory.canonical_type_mark.written_mark)
+               end
+            end
          else
             if explicit_type.is_formal_generic then
                fgtm ::= writable.written_declaration_type_mark
