@@ -104,6 +104,7 @@ feature {RUN_FEATURE_2}
          lt: LIVE_TYPE
       do
          lt := visited.result_type.type.live_type
+         
          if lt /= Void then
             if put_else then
                function_body.append(once "else ")
@@ -200,21 +201,39 @@ feature {}
             t.append_in(function_body)
             function_body.append(once ";%N{%Nstatic ")
             function_body.append(s)
-            function_body.append(once " _r=")
-            function_body.append(cpp.initializer.for(tm))
-            function_body.append(once ";%N_r=")
-            if tm.is_reference then
-               function_body.extend('(')
-               function_body.append(s)
-               function_body.extend(')')
-            end
-            function_body.extend('(')
-            if rf2 /= Void then
-               mapping_c_inside_introspect(rf2)
+
+            if (         rf2 /= Void
+                and then rf2.result_type /= Void
+                and then rf2.result_type.type /= Void
+                and then rf2.result_type.type.is_empty_expanded)
+               or else (         rf6 /= Void
+                        and then rf6.result_type /= Void
+                        and then rf6.result_type.type /= Void
+                        and then rf6.result_type.type.is_empty_expanded
+                                 )
+             then
+               function_body.append(once " _r=")
+               function_body.append(cpp.initializer.for(tm))
+               function_body.append(once ";")
             else
-               once_routine_pool.unique_result_in(function_body, rf6.base_feature)
+               function_body.append(once " _r")
+               function_body.append(once ";%N_r=")
+               if tm.is_reference then
+                  function_body.extend('(')
+                  function_body.append(s)
+                  function_body.extend(')')
+               end
+               function_body.extend('(')
+               if rf2 /= Void then
+                  mapping_c_inside_introspect(rf2)
+               else
+                  once_routine_pool.unique_result_in(function_body, rf6.base_feature)
+               end
+               function_body.append(once ");")
             end
-            function_body.append(once ");%NR=&_r;%N}%N")
+
+            --
+            function_body.append(once "%NR=&_r;%N}%N")
          else
             function_body.append(once "{%Nstatic T0*_r=NULL;%N_r=")
             if rf2 /= Void then
