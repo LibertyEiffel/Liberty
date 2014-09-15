@@ -199,7 +199,13 @@ feature {}
             function_body.append(once "*id=")
             t.append_in(function_body)
             function_body.append(once ";%N{%Nstatic ")
-            function_body.append(s)
+            if thread_pool.count = 0 then
+               function_body.append(s)
+            else
+               function_body.append(once "TLS(")
+               function_body.append(s)
+               function_body.extend(')')
+            end
             function_body.append(once " _r=")
             function_body.append(cpp.initializer.for(tm))
             function_body.append(once ";%N_r=")
@@ -216,13 +222,19 @@ feature {}
             end
             function_body.append(once ");%NR=&_r;%N}%N")
          else
-            function_body.append(once "{%Nstatic T0*_r=NULL;%N_r=")
+            function_body.append(once "{%Nstatic ")
+            if thread_pool.count = 0 then
+               function_body.append(once "T0*")
+            else
+               function_body.append(once "TLS(T0*)")
+            end
+            function_body.append(once "_r=NULL;%N_r=")
             if rf2 /= Void then
                mapping_c_inside_introspect(rf2)
             else
                once_routine_pool.unique_result_in(function_body, rf6.base_feature)
             end
-            function_body.append(once ";%Nif (_r==NULL) {R=&_r; *id=0;} else {%Nswitch(_r->id) {%N")
+            function_body.append(once ";%Nif(_r==NULL){R=&_r;*id=0;}else{%Nswitch(_r->id){%N")
             from
                i := 1
             until
@@ -234,13 +246,13 @@ feature {}
                function_body.append(once ":%N")
                i := i + 1
             end
-            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:break;%N}%N}%N}%N")
+            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:*id=0;break;%N}%N}%N}%N")
          end
       end
 
    c_pointer_to_type (t: TYPE_MARK): STRING
       do
-         Result := once "                "
+         Result := once "T32767*"
          Result.copy(once "T")
          t.id.append_in(Result)
          if t.is_reference then
@@ -258,7 +270,7 @@ feature {}
             check
                rf2.type_of_current.is_user_expanded
             end
-            function_body.append(once "(*C).")
+            function_body.append(once "C->")
             put_c_field_name(rf2)
          end
          function_body.extend(')')

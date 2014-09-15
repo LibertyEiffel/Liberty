@@ -75,17 +75,11 @@ feature {}
                   function_body.append(once " = %");%Nse_prinT")
                   if t.is_expanded then
                      t.id.append_in(function_body)
-                     function_body.append(once "(file,")
+                     function_body.append(once "(file,(&(o->")
                   elseif t.is_string then
-                     function_body.append(once "7(file,(EIF_STRING*)")
+                     function_body.append(once "7(file,(T7**)(&((*o)->")
                   else
-                     function_body.append(once "0(file,(T0**)")
-                  end
-                  function_body.append(once "(&((*o)")
-                  if ct.is_reference then
-                     function_body.append(once "->")
-                  else
-                     function_body.extend('.')
+                     function_body.append(once "0(file,(T0**)(&((*o)->")
                   end
                   function_body.extend('_')
                   function_body.append(rf2.name.to_string)
