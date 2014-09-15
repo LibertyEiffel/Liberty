@@ -123,16 +123,7 @@ void se_gc_check_id(void*o,int id);
 se_dump_stack* se_new_dump_stack(se_dump_stack* copy);
 void se_delete_dump_stack(se_dump_stack* ds);
 
-#ifndef SE_TRACE
-#    define set_dump_stack_top(ds) do {                   \
-          se_dump_stack *ds0 = (ds);                      \
-          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
-     } while(0)
-#else
-#    define set_dump_stack_top(ds)                        \
-     do {                                                 \
-          se_dump_stack *ds0 = (ds);                      \
-          se_print_call_trace(ds0);                       \
-          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
-     } while(0)
-#endif
+#define set_dump_stack_top(ds) do {                 \
+    se_dump_stack *ds0 = (ds);                      \
+    if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
+  } while(0)
