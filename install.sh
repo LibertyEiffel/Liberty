@@ -350,7 +350,7 @@ EOF
 5  no se
 6  bdw clean
 7  bdw ace_check
-8  bdw eiffeltest
+8  no  eiffeltest
 9  bdw eiffeltest_ng
 10 bdw eiffeltest_server
 EOF

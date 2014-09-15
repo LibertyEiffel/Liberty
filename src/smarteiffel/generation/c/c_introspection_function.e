@@ -104,7 +104,7 @@ feature {RUN_FEATURE_2}
          lt: LIVE_TYPE
       do
          lt := visited.result_type.type.live_type
-         
+
          if lt /= Void then
             if put_else then
                function_body.append(once "else ")
@@ -200,28 +200,26 @@ feature {}
             function_body.append(once "*id=")
             t.append_in(function_body)
             function_body.append(once ";%N{%Nstatic ")
-            function_body.append(s)
-
-            if (         rf2 /= Void
-                and then rf2.result_type /= Void
-                and then rf2.result_type.type /= Void
-                and then rf2.result_type.type.is_empty_expanded)
-               or else (         rf6 /= Void
-                        and then rf6.result_type /= Void
-                        and then rf6.result_type.type /= Void
-                        and then rf6.result_type.type.is_empty_expanded
-                                 )
-             then
-               function_body.append(once " _r=")
-               function_body.append(cpp.initializer.for(tm))
-               function_body.append(once ";")
+            if thread_pool.count = 0 then
+               function_body.append(s)
+               if not tm.is_reference then
+                  function_body.extend(' ')
+               end
+               function_body.append(once "_r=")
             else
-               function_body.append(once " _r")
-               function_body.append(once ";%N_r=")
+               function_body.append(once "TLS(")
+               function_body.append(s)
+               function_body.append(once ")_r=")
+            end
+            function_body.append(cpp.initializer.for(tm))
+            function_body.extend(';')
+            if (rf2 /= Void and then rf2.result_type.type.is_empty_expanded) or else (rf6 /= Void and then rf6.result_type.type.is_empty_expanded) then
+            else
+               function_body.append(once "%N_r=")
                if tm.is_reference then
                   function_body.extend('(')
                   function_body.append(s)
-                  function_body.extend(')')
+                  function_body.append(once ")(")
                end
                function_body.extend('(')
                if rf2 /= Void then
@@ -229,19 +227,27 @@ feature {}
                else
                   once_routine_pool.unique_result_in(function_body, rf6.base_feature)
                end
-               function_body.append(once ");")
+               if tm.is_reference then
+                  function_body.append(once ");")
+               else
+                  function_body.extend(';')
+               end
             end
-
-            --
             function_body.append(once "%NR=&_r;%N}%N")
          else
-            function_body.append(once "{%Nstatic T0*_r=NULL;%N_r=")
+            function_body.append(once "{%Nstatic ")
+            if thread_pool.count = 0 then
+               function_body.append(once "T0*")
+            else
+               function_body.append(once "TLS(T0*)")
+            end
+            function_body.append(once "_r=NULL;%N_r=")
             if rf2 /= Void then
                mapping_c_inside_introspect(rf2)
             else
                once_routine_pool.unique_result_in(function_body, rf6.base_feature)
             end
-            function_body.append(once ";%Nif (_r==NULL) {R=&_r; *id=0;} else {%Nswitch(_r->id) {%N")
+            function_body.append(once ";%Nif(_r==NULL){R=&_r;*id=0;}else{%Nswitch(_r->id){%N")
             from
                i := 1
             until
@@ -253,13 +259,13 @@ feature {}
                function_body.append(once ":%N")
                i := i + 1
             end
-            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:break;%N}%N}%N}%N")
+            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:*id=0;break;%N}%N}%N}%N")
          end
       end
 
    c_pointer_to_type (t: TYPE_MARK): STRING
       do
-         Result := once "                "
+         Result := once "T32767*"
          Result.copy(once "T")
          t.id.append_in(Result)
          if t.is_reference then
@@ -277,7 +283,7 @@ feature {}
             check
                rf2.type_of_current.is_user_expanded
             end
-            function_body.append(once "(*C).")
+            function_body.append(once "C->")
             put_c_field_name(rf2)
          end
          function_body.extend(')')
