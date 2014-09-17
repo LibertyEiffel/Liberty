@@ -213,7 +213,9 @@ feature {}
             end
             function_body.append(cpp.initializer.for(tm))
             function_body.extend(';')
-            if (rf2 /= Void and then rf2.result_type.type.is_empty_expanded) or else (rf6 /= Void and then rf6.result_type.type.is_empty_expanded) then
+            if         (rf2 /= Void and then rf2.result_type.type.is_empty_expanded)
+               or else (rf6 /= Void and then rf6.result_type.type.is_empty_expanded) then
+               -- do nothing
             else
                function_body.append(once "%N_r=")
                if tm.is_reference then
@@ -227,11 +229,7 @@ feature {}
                else
                   once_routine_pool.unique_result_in(function_body, rf6.base_feature)
                end
-               if tm.is_reference then
-                  function_body.append(once ");")
-               else
-                  function_body.extend(';')
-               end
+               function_body.append(once ");")
             end
             function_body.append(once "%NR=&_r;%N}%N")
          else
