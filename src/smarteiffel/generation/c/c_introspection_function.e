@@ -221,7 +221,7 @@ feature {}
                if tm.is_reference then
                   function_body.extend('(')
                   function_body.append(s)
-                  function_body.append(once ")(")
+                  function_body.append(once ")")
                end
                function_body.extend('(')
                if rf2 /= Void then
