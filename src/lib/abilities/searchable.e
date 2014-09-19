@@ -41,7 +41,7 @@ feature {ANY} -- Looking and Searching:
 
    index_of (element: like item; start_index: INTEGER): INTEGER
          -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or after
-         -- `start_index'. Answer `upper + 1' when `element' when the search fail.
+         -- `start_index'. Return `upper + 1' if the search for `element' failed.
          --
          -- See also `fast_index_of', `reverse_index_of', `first_index_of'.
       deferred
