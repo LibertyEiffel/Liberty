@@ -259,9 +259,6 @@ feature {}
          one_line: STRING; i1, i2: INTEGER
       do
          start_position.set_class_text(ct)
--- this crashes...
---obsolete "In release 2.3, the new name for this class is RANDOM_NUMBER_GENERATOR.%N%
---         %Update your code. (January 10th 2006.)%N"
 
          create list.with_capacity(1 + multi_line.occurrences('%N'), 1)
          from
