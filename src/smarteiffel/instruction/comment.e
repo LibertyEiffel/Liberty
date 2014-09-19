@@ -265,15 +265,15 @@ feature {}
 
          create list.with_capacity(1 + multi_line.occurrences('%N'), 1)
          from
-            i1 := 1
-            i2 := 1
+            i1 := multi_line.lower
+            i2 := multi_line.lower
          until
-            i2 = 0 or i1 >= multi_line.upper
+            i2 > multi_line.upper
          loop
             i2 := multi_line.index_of('%N', i1)
-            if i2 = 0 then
+            if i2 > multi_line.upper then
                -- The very last line:
-               one_line := multi_line.substring(i1, multi_line.count)
+               one_line := multi_line.substring(i1, multi_line.upper)
             else
                one_line := multi_line.substring(i1, i2 - 1)
                i1 := i2 + 1
