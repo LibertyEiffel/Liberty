@@ -3,8 +3,8 @@
 --
 deferred class GEN_RAND
 
-obsolete "In release 2.3, the new name for this class is RANDOM_NUMBER_GENERATOR.%N%
-         %Update your code. (January 10th 2006.)%N"
+obsolete "In SmartEiffel release 2.3, the new name for this class is RANDOM_NUMBER_GENERATOR.%N%
+         %Please update your code. (January 10th 2006.)%N"
          
    
 feature {ANY} -- Creation procedures:
