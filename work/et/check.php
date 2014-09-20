@@ -341,7 +341,9 @@ function testDir($dir) {
    if ($tests > 0) {
       $hasEiffelTest = is_dir("$dir/eiffeltest");
       if ($hasEiffelTest) {
-         unlink("$dir/eiffeltest/LOCK");
+         if(file_exists("$dir/eiffeltest/LOCK")){
+            unlink("$dir/eiffeltest/LOCK");
+         }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
             $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
