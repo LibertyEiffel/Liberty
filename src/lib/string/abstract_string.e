@@ -195,7 +195,7 @@ feature {ANY} -- Testing:
       end
 
    first_index_of, fast_first_index_of (c: CHARACTER): INTEGER
-         -- Index of first occurrence of `c', 0 if none.
+         -- Index of first occurrence of `c', `upper` + 1 if none.
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
       do
@@ -203,7 +203,7 @@ feature {ANY} -- Testing:
       end
 
    last_index_of, fast_last_index_of (c: CHARACTER): INTEGER
-         -- Index of last occurrence of `c', 0 if none.
+         -- Index of last occurrence of `c', `lower` - 1 if none.
          --
          -- See also `first_index_of', `reverse_index_of', `index_of'.
       do
