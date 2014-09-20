@@ -121,7 +121,8 @@ feature {RUN_FEATURE_2_VISITOR}
 
 invariant
    order >= 0
-
+   has_result_type: result_type /= Void
+   
 end -- class RUN_FEATURE_2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
