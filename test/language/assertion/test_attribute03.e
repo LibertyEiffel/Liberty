@@ -20,7 +20,7 @@ feature {ANY}
          assert(aux.deferred_require_counter = 0)
          assert(aux.attribute_ensure_counter = 0)
          assert(aux.deferred_ensure_counter = 0)
-         x := aux.value
+         x := aux.value + aux.value
          if require_flag then
             assert(aux.attribute_require_counter = 1)
             assert(aux.deferred_require_counter = 0)
