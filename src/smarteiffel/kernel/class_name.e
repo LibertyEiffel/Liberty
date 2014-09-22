@@ -37,6 +37,7 @@ feature {ANY}
             to_string
          when "ANY", "ARRAY", "BOOLEAN", "CHARACTER", "DOUBLE",
             "INTEGER_8", "INTEGER_16", "INTEGER_32", "INTEGER", "INTEGER_64", "POINTER",
+            "NATURAL_8", "NATURAL_16", "NATURAL_32", "NATURAL", "NATURAL_64",
             "REAL_32", "REAL_64", "REAL_80", "REAL_128", "REAL_EXTENDED", "STRING"
           then
             Result := True

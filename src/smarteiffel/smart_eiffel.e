@@ -259,45 +259,30 @@ feature {CLASS_CHECKER}
       require
          parent_list.is_empty
       local
-         --|*** ct, tuple_ct: CLASS_TEXT; tuple_type: TYPE; cn: CLASS_NAME; stop: BOOLEAN; i, tuple_index: INTEGER
+         i, x, n: INTEGER; stop: BOOLEAN
       do
-         not_yet_implemented
-         --|*** from
-         --|***    i := 1
-         --|*** until
-         --|***    stop
-         --|*** loop
-         --|***    if i > class_text_dictionary.count then
-         --|***       if tuple_type = Void then
-         --|***          -- No more TUPLE class text.
-         --|***          stop := True
-         --|***       else
-         --|***          tuple_type := Void
-         --|***       end
-         --|***       i := 1
-         --|***    else
-         --|***       ct := class_text_dictionary.item(i)
-         --|***       cn := ct.name
-         --|***       if cn.is_tuple_related then
-         --|***          if ct.formal_generic_list = Void then
-         --|***             if tuple_index = 0 then
-         --|***                tuple_ct := ct
-         --|***             end
-         --|***          elseif ct.formal_generic_list.count = tuple_index then
-         --|***             tuple_ct := ct
-         --|***          end
-         --|***          if tuple_ct /= Void then
-         --|***             tuple_type := tuple_ct.declaration_type_of_like_current
-         --|***             parent_list.add_last(tuple_type)
-         --|***             tuple_index := tuple_index + 1
-         --|***             i := 1
-         --|***             tuple_ct := Void
-         --|***             tuple_type := Void
-         --|***          end
-         --|***       end
-         --|***       i := i + 1
-         --|***    end
-         --|*** end
+         from
+            i := 0
+            x := parent_list.upper + 1
+         until
+            stop
+         loop
+            n := parent_list.count
+            ace.for_all(agent (ct: CLASS_TEXT; index, tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
+                        do
+                           if ct.name.is_tuple_related then
+                              if ct.formal_generic_list = Void then
+                                 if tuple_index = 0 then
+                                    pl.add(ct.declaration_type_of_like_current, index)
+                                 end
+                              elseif ct.formal_generic_list.count = tuple_index then
+                                 pl.add(ct.declaration_type_of_like_current, index)
+                              end
+                           end
+                        end (?, x, i, parent_list))
+            stop := n = parent_list.count
+            i := i + 1
+         end
       end
 
 feature {CLASS_CHECKER, EXTERNAL_TOOL}
