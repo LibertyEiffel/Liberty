@@ -601,6 +601,7 @@ feature {}
          i: INTEGER; lt: LIVE_TYPE
       do
          pending_c_function_body.append(once "p[0]=%"???%";%N")
+         pending_c_function_body.append(once "se_prinT[0]=((void(*)(FILE*,void*))se_prinT0);%N") -- should never be accessed, but in case of bugs it may
          ace.for_all(agent initialize_path_table_of(?))
          from
             i := live_type_map.lower
