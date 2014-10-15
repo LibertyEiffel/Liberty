@@ -320,7 +320,6 @@ feature {COMMAND_LINE_TOOLS}
       local
          root_class_name, root_procedure_name: STRING
       do
-         create live_type_map_.with_capacity(2048)
          initialize_any_tuple
          root_class_name := ace.root_class_name.to_string
          root_procedure_name := ace.root_procedure_name
@@ -1572,12 +1571,14 @@ feature {RUN_FEATURE, LIVE_TYPE}
 feature {COMMAND_LINE_TOOLS}
    initialize_any_tuple
          -- Some tools have to call this `initialize_any_tuple' once routine.
-         --   Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
+         -- Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
          -- Note, this is not in the creation of `smart_eiffel' itself because, not all tools are
          -- supposed to load Eiffel classes.
       local
          hashed_string: HASHED_STRING; ct: CLASS_TEXT
       once
+         create live_type_map_.with_capacity(2048)
+
          -- Forcing first creation of ANY in order to initialize the machinery:
          hashed_string := string_aliaser.hashed_string(as_any)
          ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string, False))
