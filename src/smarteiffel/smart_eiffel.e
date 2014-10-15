@@ -256,30 +256,32 @@ feature {FINDER}
 
 feature {CLASS_CHECKER}
    tuple_related_classes_in (parent_list: FAST_ARRAY[TYPE])
+         -- Hard-coded ordered list of parent tuples
       require
          parent_list.is_empty
       local
-         i, x, n: INTEGER; stop: BOOLEAN
+         i, n: INTEGER; stop: BOOLEAN
       do
          from
             i := 0
-            x := parent_list.upper + 1
          until
             stop
          loop
             n := parent_list.count
-            ace.for_all(agent (ct: CLASS_TEXT; index, tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
+            ace.for_all(agent (ct: CLASS_TEXT; tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
                         do
-                           if ct.name.is_tuple_related then
+                           if ct.name.is_tuple_related
+                              and then (pl.is_empty or else pl.last /= ct.declaration_type_of_like_current)
+                           then
                               if ct.formal_generic_list = Void then
                                  if tuple_index = 0 then
-                                    pl.add(ct.declaration_type_of_like_current, index)
+                                    pl.add_last(ct.declaration_type_of_like_current)
                                  end
                               elseif ct.formal_generic_list.count = tuple_index then
-                                 pl.add(ct.declaration_type_of_like_current, index)
+                                 pl.add_last(ct.declaration_type_of_like_current)
                               end
                            end
-                        end (?, x, i, parent_list))
+                        end (?, i, parent_list))
             stop := n = parent_list.count
             i := i + 1
          end
