@@ -268,20 +268,27 @@ feature {CLASS_CHECKER}
             stop
          loop
             n := parent_list.count
-            ace.for_all(agent (ct: CLASS_TEXT; tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
-                        do
-                           if ct.name.is_tuple_related
-                              and then (pl.is_empty or else pl.last /= ct.declaration_type_of_like_current)
-                           then
-                              if ct.formal_generic_list = Void then
-                                 if tuple_index = 0 then
-                                    pl.add_last(ct.declaration_type_of_like_current)
-                                 end
-                              elseif ct.formal_generic_list.count = tuple_index then
-                                 pl.add_last(ct.declaration_type_of_like_current)
-                              end
-                           end
-                        end (?, i, parent_list))
+            ace.for_all_filtered(
+               agent (cn: CLASS_NAME): BOOLEAN
+               do
+                  Result := cn.is_tuple_related
+               end (?),
+
+               agent (ct: CLASS_TEXT; tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
+               require
+                  ct.name.is_tuple_related
+               do
+                  if pl.is_empty or else pl.last /= ct.declaration_type_of_like_current then
+                     if ct.formal_generic_list = Void then
+                        if tuple_index = 0 then
+                           pl.add_last(ct.declaration_type_of_like_current)
+                        end
+                     elseif ct.formal_generic_list.count = tuple_index then
+                        pl.add_last(ct.declaration_type_of_like_current)
+                     end
+                  end
+               end (?, i, parent_list)
+            )
             stop := n = parent_list.count
             i := i + 1
          end
