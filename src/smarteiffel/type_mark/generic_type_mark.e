@@ -115,7 +115,9 @@ feature {ANY}
             until
                i > gl.upper
             loop
-               gl.put(gl.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+               tm1 := gl.item(i)
+               tm2 := tm1.specialize_thru(parent_type, parent_edge, new_type)
+               gl.put(tm2, i)
                i := i + 1
             end
             Result := twin

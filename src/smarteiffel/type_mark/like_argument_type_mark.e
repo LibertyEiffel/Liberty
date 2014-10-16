@@ -25,7 +25,7 @@ feature {ANY}
 
    has_been_specialized: BOOLEAN
       do
-         Result := type_marks_memory /= Void
+         Result := True
       end
 
    frozen specialize_in (new_type: TYPE)
