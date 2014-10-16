@@ -1092,6 +1092,11 @@ feature {ANY}
          universe.for_all(action)
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      do
+         universe.for_all_filtered(name_guard, action)
+      end
+
    for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       do
          universe.for_all_clusters(action)

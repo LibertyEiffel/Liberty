@@ -8,14 +8,29 @@ class PARENT_EDGE
 
 inherit
    VISITABLE
+      undefine is_equal
+      end
+   HASHABLE
 
 insert
    GLOBALS
+      undefine is_equal
+      end
 
 create {ANY}
    make
 
 feature {ANY}
+   is_equal (other: like Current): BOOLEAN is
+      do
+         Result := other = Current
+      end
+
+   hash_code: INTEGER
+      do
+         Result := to_pointer.hash_code
+      end
+
    type_mark: TYPE_MARK
          -- Declaration `type_mark' of the parent.
 

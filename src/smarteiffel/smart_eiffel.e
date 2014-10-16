@@ -256,30 +256,39 @@ feature {FINDER}
 
 feature {CLASS_CHECKER}
    tuple_related_classes_in (parent_list: FAST_ARRAY[TYPE])
+         -- Hard-coded ordered list of parent tuples
       require
          parent_list.is_empty
       local
-         i, x, n: INTEGER; stop: BOOLEAN
+         i, n: INTEGER; stop: BOOLEAN
       do
          from
             i := 0
-            x := parent_list.upper + 1
          until
             stop
          loop
             n := parent_list.count
-            ace.for_all(agent (ct: CLASS_TEXT; index, tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
-                        do
-                           if ct.name.is_tuple_related then
-                              if ct.formal_generic_list = Void then
-                                 if tuple_index = 0 then
-                                    pl.add(ct.declaration_type_of_like_current, index)
-                                 end
-                              elseif ct.formal_generic_list.count = tuple_index then
-                                 pl.add(ct.declaration_type_of_like_current, index)
-                              end
-                           end
-                        end (?, x, i, parent_list))
+            ace.for_all_filtered(
+               agent (cn: CLASS_NAME): BOOLEAN
+               do
+                  Result := cn.is_tuple_related
+               end (?),
+
+               agent (ct: CLASS_TEXT; tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
+               require
+                  ct.name.is_tuple_related
+               do
+                  if pl.is_empty or else pl.last /= ct.declaration_type_of_like_current then
+                     if ct.formal_generic_list = Void then
+                        if tuple_index = 0 then
+                           pl.add_last(ct.declaration_type_of_like_current)
+                        end
+                     elseif ct.formal_generic_list.count = tuple_index then
+                        pl.add_last(ct.declaration_type_of_like_current)
+                     end
+                  end
+               end (?, i, parent_list)
+            )
             stop := n = parent_list.count
             i := i + 1
          end
@@ -318,7 +327,6 @@ feature {COMMAND_LINE_TOOLS}
       local
          root_class_name, root_procedure_name: STRING
       do
-         create live_type_map_.with_capacity(2048)
          initialize_any_tuple
          root_class_name := ace.root_class_name.to_string
          root_procedure_name := ace.root_procedure_name
@@ -1570,12 +1578,14 @@ feature {RUN_FEATURE, LIVE_TYPE}
 feature {COMMAND_LINE_TOOLS}
    initialize_any_tuple
          -- Some tools have to call this `initialize_any_tuple' once routine.
-         --   Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
+         -- Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
          -- Note, this is not in the creation of `smart_eiffel' itself because, not all tools are
          -- supposed to load Eiffel classes.
       local
          hashed_string: HASHED_STRING; ct: CLASS_TEXT
       once
+         create live_type_map_.with_capacity(2048)
+
          -- Forcing first creation of ANY in order to initialize the machinery:
          hashed_string := string_aliaser.hashed_string(as_any)
          ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string, False))

@@ -426,11 +426,11 @@ feature {CLASS_CHECKER}
                i2 := i2 + 1
             end
             finish(False)
-            i := i + 1
-            if i <= tuple_list.upper then
+            if i < tuple_list.upper then
                hook_or(once "new_line", once "%N")
                hook_or(once "new_line", once "%N")
             end
+            i := i + 1
          end
       end
 

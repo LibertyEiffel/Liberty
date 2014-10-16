@@ -2,8 +2,8 @@
 -- See the full copyright at the end.
 --
 class DICTIONARY_KEY_TRAVERSER[V_, K_]
-   -- This class allows you to view a DICTIONARY[V_, K_] as a TRAVERSABLE[K_].  Note that there is no need for
-   -- a DICTIONARY_ITEM_TRAVERSER because DICTIONARY[V_, K_] is already a TRAVERSABLE[V_].
+   -- This class allows you to view a MAP[V_, K_] as a TRAVERSABLE[K_].  Note that there is no need for
+   -- a DICTIONARY_ITEM_TRAVERSER because MAP[V_, K_] is already a TRAVERSABLE[V_].
 
 inherit
    TRAVERSABLE[K_]
@@ -11,38 +11,48 @@ inherit
 create {ANY}
    from_dictionary
 
-feature {ANY}
-   from_dictionary (dictionary_: like dictionary)
+create {MAP}
+   from_map
+
+feature {}
+   from_map (map_: like map)
       do
-         dictionary := dictionary_
+         map := map_
+      end
+
+feature {ANY}
+   from_dictionary (map_: like map)
+      obsolete "Use map.keys instead"
+      do
+         from_map(map)
       end
 
 feature {ANY}
    lower: INTEGER
       do
-         Result := dictionary.lower
+         Result := map.lower
       end
 
    upper: INTEGER
       do
-         Result := dictionary.upper
+         Result := map.upper
       end
 
 feature {ANY}
    count: INTEGER
       do
-         Result := dictionary.count
+         Result := map.count
       end
 
    is_empty: BOOLEAN
       do
-         Result := dictionary.is_empty
+         Result := map.is_empty
       end
 
 feature {ANY}
    item (i: INTEGER): K_
       do
-         Result := dictionary.key(i)
+         Result := map.key(i)
       end
 
    first: like item
@@ -58,11 +68,11 @@ feature {ANY}
 feature {ANY}
    new_iterator: ITERATOR[K_]
       do
-         Result := dictionary.new_iterator_on_keys
+         Result := map.new_iterator_on_keys
       end
 
 feature {}
-   dictionary: DICTIONARY[V_, K_]
+   map: MAP[V_, K_]
 
 end -- class DICTIONARY_KEY_TRAVERSER
 --

@@ -176,27 +176,31 @@ feature {ANY}
       require
          buffer /= Void
       do
-         if is_simple_feature_name then
-            buffer.append(to_string)
-         elseif is_alias_name then
-            buffer.append(once "alias %"")
-            buffer.append(to_string)
-            buffer.extend('%"')
-         elseif is_infix_name then
-            buffer.append(once "infix %"")
-            buffer.append(to_string)
-            buffer.extend('%"')
-         else
-            check
-               is_prefix_name
+         if not complete_name_flag then
+            complete_name_flag := True
+            if is_simple_feature_name then
+               buffer.append(to_string)
+            elseif is_alias_name then
+               buffer.append(once "alias %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
+            elseif is_infix_name then
+               buffer.append(once "infix %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
+            else
+               check
+                  is_prefix_name
+               end
+               buffer.append(once "prefix %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
             end
-            buffer.append(once "prefix %"")
-            buffer.append(to_string)
-            buffer.extend('%"')
-         end
-         if name_alias /= Void then
-            buffer.extend(' ')
-            name_alias.complete_name_in(buffer)
+            if name_alias /= Void then
+               buffer.extend(' ')
+               name_alias.complete_name_in(buffer)
+            end
+            complete_name_flag := False
          end
       end
 
@@ -535,6 +539,8 @@ feature {}
          start_position := sp
          name := hn
       end
+
+   complete_name_flag: BOOLEAN
 
 invariant
    name /= Void

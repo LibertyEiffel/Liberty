@@ -13,9 +13,6 @@ inherit
       redefine delete
       end
 
-insert
-   LOGGING
-
 create {ANY}
    make
 
@@ -416,7 +413,7 @@ feature {ANY}
             Result := True
          end
          debug
-            log.trace.put_line(once "poll_keypress_for_and_echo_at(#(1), #(2), #(3)) >> #(4) (#(5))" # &delay # &x # &y # &last_keypress # &Result)
+            std_error.put_line(once "poll_keypress_for_and_echo_at(#(1), #(2), #(3)) >> #(4) (#(5))" # &delay # &x # &y # &last_keypress # &Result)
          end
       end
 
