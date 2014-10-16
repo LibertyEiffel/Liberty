@@ -1173,6 +1173,9 @@ case 459:
 case 480:
 /*RF3:specialize_in*/r480specialize_in(((T480*)(/*RF2:type_mark*/(C)->_type_mark/*T3p*//*:RF2*/)),/*`new_type'*/a1);
 /*:RF3*/break;
+case 505:
+/*RF3:specialize_in*/r505specialize_in(((T505*)(/*RF2:type_mark*/(C)->_type_mark/*T3p*//*:RF2*/)),/*`new_type'*/a1);
+/*:RF3*/break;
 case 516:
 /*RF3:specialize_in*/r516specialize_in(((T516*)(/*RF2:type_mark*/(C)->_type_mark/*T3p*//*:RF2*/)),/*`new_type'*/a1);
 /*:RF3*/break;
@@ -1531,7 +1534,7 @@ return R;
 }/*--*/
 
 /*CREATE_WRITABLE*/void r675inline_dynamic_dispatch_(T675*C,T0*a1,T0*a2){
-/*RF3:add_last*/r1159add_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
+/*RF3:add_last*/r1021add_last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
 /*:RF3*/}/*--*/
 
 /*CREATE_WRITABLE*/void r675safety_check(T675*C,T0*a1){
@@ -2131,7 +2134,7 @@ case 646:
 /*RF3:visit_create_writable*/r646visit_create_writable(((T646*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/break;
 default:;
-/*RF3:visit_create_writable*/r764visit_create_writable(((T764*)/*`visitor'*/a1),(T0*)C);
+/*RF3:visit_create_writable*/r765visit_create_writable(((T765*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/}
 /*inspect]*/
 }/*--*/

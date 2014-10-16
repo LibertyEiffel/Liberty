@@ -1751,7 +1751,7 @@ case 642:
 /*RF3:visit_no_invariant_wrapper*/r642visit_no_invariant_wrapper(((T642*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/break;
 default:;
-/*RF3:visit_no_invariant_wrapper*/r764visit_no_invariant_wrapper(((T764*)/*`visitor'*/a1),(T0*)C);
+/*RF3:visit_no_invariant_wrapper*/r765visit_no_invariant_wrapper(((T765*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/}
 /*inspect]*/
 }/*--*/
