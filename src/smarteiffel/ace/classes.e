@@ -96,6 +96,10 @@ feature {ACE, CLASSES} -- Searching
       deferred
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      deferred
+      end
+
    for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       deferred
       end

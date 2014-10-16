@@ -98,6 +98,17 @@ feature {ANY}
          end
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      do
+         pool.for_all_filtered(name_guard, action)
+      end
+
+feature {CLUSTER_POOL_DATA}
+   do_action (class_name: CLASS_NAME; action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+      do
+         action.call([class_text(class_name, True)])
+      end
+
 feature {CLASS_TEXT}
    register_class_text (a_class_text: CLASS_TEXT)
       require

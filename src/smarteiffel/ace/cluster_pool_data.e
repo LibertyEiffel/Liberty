@@ -54,7 +54,29 @@ feature {CLUSTER}
          end
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      local
+         i: INTEGER
+      do
+         from
+            i := classes.lower
+         until
+            i > classes.upper
+         loop
+            class_name.unknown_position(classes.key(i), False)
+            if name_guard = Void or else name_guard.item([class_name]) then
+               cluster.do_action(class_name, action)
+            end
+            i := i + 1
+         end
+      end
+
 feature {}
+   class_name: CLASS_NAME
+      once
+         create Result.unknown_position(smart_eiffel.type_any.name, True)
+      end
+
    hash_tuple: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
