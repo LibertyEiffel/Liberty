@@ -248,17 +248,8 @@ feature {ANY} -- To provide iterating facilities:
          -- See also `item_map_in'.
       require
          buffer /= Void
-      local
-         i: INTEGER
       do
-         from
-            i := lower
-         until
-            i > upper
-         loop
-            buffer.add_last(key(i))
-            i := i + 1
-         end
+         buffer.append_traversable(keys)
       ensure
          buffer.count = count + old buffer.count
       end
@@ -270,19 +261,30 @@ feature {ANY} -- To provide iterating facilities:
          -- See also `key_map_in'.
       require
          buffer /= Void
-      local
-         i: INTEGER
       do
-         from
-            i := lower
-         until
-            i > upper
-         loop
-            buffer.add_last(item(i))
-            i := i + 1
-         end
+         buffer.append_traversable(items)
       ensure
          buffer.count = count + old buffer.count
+      end
+
+   keys: TRAVERSABLE[K_]
+         -- An iterable of this map keys
+      do
+         if keys_memory = Void then
+            create keys_memory.from_map(Current)
+         end
+         Result := keys_memory
+      ensure
+         Result.count = count
+      end
+
+   items: TRAVERSABLE[V_]
+         -- An iterable of this map values
+         -- Usually returns Current because MAP is TRAVERSABLE.
+      do
+         Result := Current
+      ensure
+         Result.count = count
       end
 
 feature {ANY}
@@ -511,6 +513,9 @@ feature {ANY} -- Other features:
       ensure
          Result.is_equal(k)
       end
+
+feature {}
+   keys_memory: DICTIONARY_KEY_TRAVERSER[V_, K_]
 
 end -- class MAP
 --

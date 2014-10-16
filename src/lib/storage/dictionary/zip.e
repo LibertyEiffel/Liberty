@@ -9,7 +9,7 @@ class ZIP[V_, K_]
 inherit
    MAP[V_, K_]
       redefine
-         lower, upper
+         lower, upper, keys, items
       end
 
 insert
@@ -113,7 +113,7 @@ feature {ANY}
          keys = a_keys
       end
 
-feature {ZIP}
+feature {ANY}
    items: TRAVERSABLE[V_]
    keys: TRAVERSABLE[K_]
 
