@@ -26,14 +26,14 @@ extern "C" {
 #endif
 
 static 
-/*agent launcher*/void afp_agenT111f111l349c40(se_agenT111f111l349c40*u,T0*open_C){
+/*agent launcher*/void afp_agenT111f111l334c40(se_agenT111f111l334c40*u,T0*open_C){
 /*RF3:customize_runtime*/r488customize_runtime(((T488*)open_C));
 /*:RF3*/}/*--*/
 
-/*agent creation*/T0*agenT111f111l349c40(void){
-se_agenT111f111l349c40*u=(void*)new_agent(1557);
+/*agent creation*/T0*agenT111f111l334c40(void){
+se_agenT111f111l334c40*u=(void*)new_agent(1557);
 u->creation_mold_id=11;
-u->afp=afp_agenT111f111l349c40;
+u->afp=afp_agenT111f111l334c40;
 return((T0*)u);
 }/*--*/
 
@@ -1282,7 +1282,7 @@ while(1){
 
 /*SMART_EIFFEL*/void r111customize_runtime(void){
 if((/*RF6:collected_plug_in*/r111collected_plug_in()/*:RF6*/)!=((void*)((void*)0))){
-/*RF3:for_each*/r1473for_each(((T1473*)/*ND*/(T0*)(/*RF6:collected_plug_in*/r111collected_plug_in()/*:RF6*/)),agenT111f111l349c40());
+/*RF3:for_each*/r1473for_each(((T1473*)/*ND*/(T0*)(/*RF6:collected_plug_in*/r111collected_plug_in()/*:RF6*/)),agenT111f111l334c40());
 /*:RF3*/}
 }/*--*/
 
