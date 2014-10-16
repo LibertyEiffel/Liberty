@@ -5,7 +5,6 @@ class JSON_PARSER
 
 insert
    JSON_HANDLER
-   LOGGING
 
 create {JSON_HANDLER}
    make
@@ -572,15 +571,15 @@ feature {}
 feature {} -- debug
    debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT)
       do
-         log.trace.put_line(once "->#(1) at #(2)" # tag # context.debug_position)
+         std_error.put_line(once "->#(1) at #(2)" # tag # context.debug_position)
       end
 
    debug_parse_out (tag: STRING; context: JSON_PARSE_CONTEXT; res: JSON_VALUE)
       do
          if res = Void then
-            log.trace.put_line(once "<-#(1) at #(2) -- result: Void" # tag # context.debug_position)
+            std_error.put_line(once "<-#(1) at #(2) -- result: Void" # tag # context.debug_position)
          else
-            log.trace.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag # context.debug_position # &res)
+            std_error.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag # context.debug_position # &res)
          end
       end
 

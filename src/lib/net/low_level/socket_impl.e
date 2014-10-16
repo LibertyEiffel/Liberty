@@ -14,7 +14,6 @@ insert
    SOCKET_PLUG_IN
    RECYCLABLE
    DISPOSABLE
-   LOGGING
 
 feature {SOCKET_HANDLER}
    is_connected, is_remote_connected: BOOLEAN
@@ -113,19 +112,19 @@ feature {}
                count := 0
                last_delayed_read.clear_count
                debug ("socket")
-                  log.trace.put_line(once "error while reading from socket: #(1) (will retry)" # last_error)
+                  std_error.put_line(once "error while reading from socket: #(1) (will retry)" # last_error)
                end
             else
                error := once ""
                error.make_from_string(once "Error #(1): #(2)" # net_last_error_number.out # last_error)
                debug ("socket")
-                  log.trace.put_line(once "error while reading from socket: #(1)" # error)
+                  std_error.put_line(once "error while reading from socket: #(1)" # error)
                end
                disconnect
             end
          elseif count = 0 and then sync then
             debug ("socket")
-               log.trace.put_line(once "error while reading from socket: socket was disconnected")
+               std_error.put_line(once "error while reading from socket: socket was disconnected")
             end
             is_remote_connected := False
          end
@@ -135,11 +134,11 @@ feature {}
             if error /= Void then
                disconnect
                debug ("socket")
-                  log.trace.put_line(once "error while reading from socket: #(1)" # error)
+                  std_error.put_line(once "error while reading from socket: #(1)" # error)
                end
             else
                debug ("socket")
-                  log.trace.put_line(once "read socket: %"#(1)%"" # last_delayed_read)
+                  std_error.put_line(once "read socket: %"#(1)%"" # last_delayed_read)
                end
             end
          end

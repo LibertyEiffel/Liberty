@@ -22,10 +22,6 @@ inherit
 
 insert
    SINGLETON
-   LOGGING
-      undefine
-         is_equal
-      end
 
 create {PROCESS_WAIT}
    make
@@ -128,7 +124,7 @@ feature {}
    set_oob_info (a_pid, a_status: INTEGER)
       do
          debug ("waitpid")
-            log.trace.put_line("OOB info: pid=#(1) status=#(2)" # a_pid.out # a_status.out)
+            std_error.put_line("OOB info: pid=#(1) status=#(2)" # a_pid.out # a_status.out)
          end
          oob_info_pid.add_last(a_pid)
          oob_info_status.add_last(a_status)

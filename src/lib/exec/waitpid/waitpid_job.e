@@ -11,10 +11,6 @@ inherit
 
 insert
    SINGLETON
-   LOGGING
-      undefine
-         is_equal
-      end
    PROCESS_WAIT
       undefine
          is_equal
@@ -34,7 +30,7 @@ feature {ANY}
          timeout >= -1
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid arm: timeout=#(1)" # a_timeout.out)
+            std_error.put_line(once "waitpid arm: timeout=#(1)" # a_timeout.out)
          end
          timeout := a_timeout
          armed := True
@@ -59,7 +55,7 @@ feature {ANY}
          timeout >= -1
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
+            std_error.put_line(once "waitpid trigger: timeout=#(1)" # a_timeout.out)
          end
          timeout := a_timeout
          triggered := True
@@ -79,7 +75,7 @@ feature {ANY}
          action: WAITPID_ACTION
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid set action #(1)" # a_tag)
+            std_error.put_line(once "waitpid set action #(1)" # a_tag)
          end
          action.set(a_on_waitpid, a_on_timeout)
          actions.fast_put(action, a_tag.intern)
@@ -92,7 +88,7 @@ feature {ANY}
          a_tag /= Void
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid unset action #(1)" # a_tag)
+            std_error.put_line(once "waitpid unset action #(1)" # a_tag)
          end
          actions.fast_remove(a_tag.intern)
       ensure
@@ -110,7 +106,7 @@ feature {LOOP_ITEM}
          t: TIME_EVENTS
       do
          debug ("waitpid")
-            log.trace.put_line(once "waitpid prepare: triggered=#(1) armed=#(2) running=#(3) -- timeout=#(4)" # triggered.out # armed.out # running.out # timeout.out)
+            std_error.put_line(once "waitpid prepare: triggered=#(1) armed=#(2) running=#(3) -- timeout=#(4)" # triggered.out # armed.out # running.out # timeout.out)
          end
          if triggered or else armed or else running then
             running := True
@@ -129,14 +125,14 @@ feature {LOOP_ITEM}
             if timeout_event /= Void and then events.event_occurred(timeout_event) then
                Result := True
                debug ("waitpid")
-                  log.trace.put_line(once "waitpid is_ready (timeout)")
+                  std_error.put_line(once "waitpid is_ready (timeout)")
                end
             else
                Result := events.event_occurred(in.event_can_read)
                timeout_event := Void
                debug ("waitpid")
                   if Result then
-                     log.trace.put_line(once "waitpid is_ready (waitpid input)")
+                     std_error.put_line(once "waitpid is_ready (waitpid input)")
                   end
                end
             end
@@ -152,7 +148,7 @@ feature {LOOP_ITEM}
          end
          if timeout_event /= Void then
             debug ("waitpid")
-               log.trace.put_line(once "waitpid continue (timeout)")
+               std_error.put_line(once "waitpid continue (timeout)")
             end
             from
                i := actions.lower
@@ -168,7 +164,7 @@ feature {LOOP_ITEM}
             from
                in.read_character
                debug ("waitpid")
-                  log.trace.put_line(once "waitpid continue (waitpid input)")
+                  std_error.put_line(once "waitpid continue (waitpid input)")
                end
             until
                not in.has_oob_info
@@ -177,7 +173,7 @@ feature {LOOP_ITEM}
                pid := in.pid
                status := in.status
                debug ("waitpid")
-                  log.trace.put_line(once "waitpid continue (waitpid input: pid=#(1) status=#(2))" # pid.out # status.out)
+                  std_error.put_line(once "waitpid continue (waitpid input: pid=#(1) status=#(2))" # pid.out # status.out)
                end
                in.drop_oop_info
                from
@@ -191,7 +187,7 @@ feature {LOOP_ITEM}
             end
          end
          debug ("waitpid")
-            log.trace.put_line(once "waitpid continue (done)")
+            std_error.put_line(once "waitpid continue (done)")
          end
       end
 
