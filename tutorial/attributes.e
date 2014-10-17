@@ -4,7 +4,7 @@ class
 
 create {ANY}
    make
-   
+
 feature {ANY}
    make
       do
@@ -21,7 +21,7 @@ feature {ANY}
       require
           b_is_set: b /= 0
       attribute
-         Result := b
+         Result := b --| **** Not yet implemented in bell
       ensure
          res: Result = b
          a: a = b
