@@ -27,7 +27,7 @@
 */
 
 /*
-   This file (SmartEiffel/sys/runtime/gc_lib.c) is automatically included
+   This file (Liberty/sys/runtime/gc_lib.c) is automatically included
    when the Garbage Collector is used (default, unless option -no_gc has been
    selected).
 */
