@@ -23,6 +23,7 @@ feature {CLUSTERS}
 
 feature {} -- Tree handling
    add_classes (a_classes: CLASSES)
+      -- Object sin: knowing your heirs -- here, LOADPATH and UNIVERSE
       require
          a_classes.parent = Void
       local
@@ -176,6 +177,20 @@ feature {ACE, CLASSES} -- Searching
             i > classeses.upper
          loop
             classeses.item(i).for_all(action)
+            i := i + 1
+         end
+      end
+
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      local
+         i: INTEGER
+      do
+         from
+            i := classeses.lower
+         until
+            i > classeses.upper
+         loop
+            classeses.item(i).for_all_filtered(name_guard, action)
             i := i + 1
          end
       end

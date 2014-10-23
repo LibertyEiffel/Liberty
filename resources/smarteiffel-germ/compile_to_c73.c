@@ -4765,7 +4765,7 @@ _right_run_time_set=(/*RF2:run_time_set*/((T383*)((/*RF2:live_type*/(((T286*)_ri
 _i=INT32_C(1);
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(/*RF4:count*/r551count(((T551*)_right_run_time_set))/*:RF4*/)/*:RF8*/) break;
-if(/*RF4:can_be_assigned_to*/r286can_be_assigned_to((T286*)((/*RF2:type*/((T383*)(/*RF4:item*/r1217item((T1217*)((/*RF2:set*/(((T551*)_right_run_time_set))->_set/*2p*//*:RF2*/)),_i)/*:RF4*/))->_type/*T19piiiipcpppp*//*:RF2*/)),_left_type)/*:RF4*/){
+if(/*RF4:can_be_assigned_to*/r286can_be_assigned_to((T286*)((/*RF2:type*/((T383*)(/*RF4:item*/r1080item((T1080*)((/*RF2:set*/(((T551*)_right_run_time_set))->_set/*2p*//*:RF2*/)),_i)/*:RF4*/))->_type/*T19piiiipcpppp*//*:RF2*/)),_left_type)/*:RF4*/){
 _counter1=/*RF8:+*/((int32_t)(_counter1))+(INT32_C(1))/*:RF8*/;
 if(/*RF8:>*/((int32_t)(_counter2))>(INT32_C(0))/*:RF8*/){
 _i=/*RF4:count*/r551count(((T551*)_right_run_time_set))/*:RF4*/;
@@ -6066,7 +6066,7 @@ default:;
 /*:RF3*/}
 /*inspect]*/
 /*[inspectDynamicDispatch*/
-switch((((T0*)((tmp0/*ddt1*/=(/*RF4:last*/r1159last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)))/*:RF4*/))))->id)){
+switch((((T0*)((tmp0/*ddt1*/=(/*RF4:last*/r1021last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)))/*:RF4*/))))->id)){
 case 355:
 tmp1/*to_expression*/=/*RF4:to_expression*/r355to_expression(((T355*)tmp0/*ddt1*/))/*:RF4*/;
 break;
@@ -6385,12 +6385,12 @@ tmp1/*to_expression*/=/*RF4:to_expression*/r685to_expression(((T685*)tmp0/*ddt1*
 /*inspect]*/
 /*tmp0.unlock*/
 _rs=tmp1/*to_expression*/;
-/*RF3:remove_last*/r1159remove_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)));
+/*RF3:remove_last*/r1021remove_last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)));
 /*:RF3*/if((_rs)==((void*)((/*RF2:right_side*/(C)->_right_side/*T2pip*//*:RF2*/)))){
-/*RF3:add_last*/r1159add_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
+/*RF3:add_last*/r1021add_last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),(T0*)C);
 /*:RF3*/}
 else{
-/*RF3:add_last*/r1159add_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),((T0*)create409make((/*RF2:left_side*/(C)->_left_side/*T2pip*//*:RF2*/),_rs,(T6)((/*RF2:forced_flag*/(C)->_forced_flag/*T2pip*//*:RF2*/)))));
+/*RF3:add_last*/r1021add_last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),((T0*)create409make((/*RF2:left_side*/(C)->_left_side/*T2pip*//*:RF2*/),_rs,(T6)((/*RF2:forced_flag*/(C)->_forced_flag/*T2pip*//*:RF2*/)))));
 /*:RF3*/}
 }/*--*/
 
@@ -6976,7 +6976,7 @@ case 642:
 /*RF3:visit_assignment_attempt*/r642visit_assignment_attempt(((T642*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/break;
 default:;
-/*RF3:visit_assignment_attempt*/r764visit_assignment_attempt(((T764*)/*`visitor'*/a1),(T0*)C);
+/*RF3:visit_assignment_attempt*/r765visit_assignment_attempt(((T765*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/}
 /*inspect]*/
 }/*--*/
@@ -7815,7 +7815,7 @@ else{
 tmp1/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>(/*RF4:count*/r551count(((T551*)_right_rts))/*:RF4*/)/*:RF8*/));
 }
 /*until*/if(tmp1/*or else*/) break;
-if(/*RF4:can_be_assigned_to*/r286can_be_assigned_to((T286*)((/*RF2:type*/((T383*)(/*RF4:item*/r1217item((T1217*)((/*RF2:set*/(((T551*)_right_rts))->_set/*2p*//*:RF2*/)),_i)/*:RF4*/))->_type/*T19piiiipcpppp*//*:RF2*/)),_left_type)/*:RF4*/){
+if(/*RF4:can_be_assigned_to*/r286can_be_assigned_to((T286*)((/*RF2:type*/((T383*)(/*RF4:item*/r1080item((T1080*)((/*RF2:set*/(((T551*)_right_rts))->_set/*2p*//*:RF2*/)),_i)/*:RF4*/))->_type/*T19piiiipcpppp*//*:RF2*/)),_left_type)/*:RF4*/){
 _left_live_type=/*RF4:collect_one_type*/r111collect_one_type(((T111*)oBC32smart_eiffel),_left_type,(T6)(0))/*:RF4*/;
 }
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;

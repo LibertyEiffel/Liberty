@@ -145,13 +145,19 @@ feature {}
    set_client (a_client_or_void: HASHED_STRING)
          -- A Void argument indicates that all features are visibles.
       local
-         cn: CLASS_NAME
+         sp: POSITION
       do
          if a_client_or_void = Void then
             client := Void
          else
-            create cn.unknown_position(a_client_or_void, True)
-            create {CLASS_TYPE_MARK} client.make(cn)
+            client := eiffel_parser.predefined_type_mark(a_client_or_void.to_string, sp)
+            if client = Void then
+               if a_client_or_void.to_string.is_equal(once "TUPLE") then
+                  create {EMPTY_TUPLE_TYPE_MARK} client.make(sp)
+               else
+                  create {CLASS_TYPE_MARK} client.make(create {CLASS_NAME}.unknown_position(a_client_or_void, True))
+               end
+            end
          end
          short_printer.set_client(client)
       end

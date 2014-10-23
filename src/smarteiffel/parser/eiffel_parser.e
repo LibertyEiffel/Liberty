@@ -27,6 +27,60 @@ feature {ANY}
 
    total_time: INTEGER_64
 
+feature {ANY}
+   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK is
+      require
+         tm /= Void
+      do
+         inspect
+            tm
+         when "ANY" then
+               create {ANY_TYPE_MARK} Result.make(sp)
+         when "BOOLEAN" then
+            create {BOOLEAN_TYPE_MARK} Result.make(sp)
+         when "CHARACTER" then
+            create {CHARACTER_TYPE_MARK} Result.make(sp)
+         when "INTEGER_8" then
+            create {INTEGER_TYPE_MARK} Result.integer_8(sp)
+         when "INTEGER_16" then
+            create {INTEGER_TYPE_MARK} Result.integer_16(sp)
+         when "INTEGER_32" then
+            create {INTEGER_TYPE_MARK} Result.integer_32(sp)
+         when "INTEGER" then
+            create {INTEGER_TYPE_MARK} Result.integer(sp)
+         when "INTEGER_64" then
+            create {INTEGER_TYPE_MARK} Result.integer_64(sp)
+         when "NATURAL_8" then
+            create {NATURAL_TYPE_MARK} Result.natural_8(sp)
+         when "NATURAL_16" then
+            create {NATURAL_TYPE_MARK} Result.natural_16(sp)
+         when "NATURAL_32" then
+            create {NATURAL_TYPE_MARK} Result.natural_32(sp)
+         when "NATURAL_64" then
+            create {NATURAL_TYPE_MARK} Result.natural_64(sp)
+         when "NATURAL" then
+            create {NATURAL_TYPE_MARK} Result.natural(sp)
+         when "POINTER" then
+            create {POINTER_TYPE_MARK} Result.make(sp)
+         when "REAL_32" then
+            create {REAL_TYPE_MARK} Result.real_32(sp)
+         when "REAL_64" then
+            create {REAL_TYPE_MARK} Result.real_64(sp)
+         when "REAL" then
+            create {REAL_TYPE_MARK} Result.real(sp)
+         when "REAL_80" then
+            create {REAL_TYPE_MARK} Result.real_80(sp)
+         when "REAL_128" then
+            create {REAL_TYPE_MARK} Result.real_128(sp)
+         when "REAL_EXTENDED" then
+            create {REAL_TYPE_MARK} Result.real_extended(sp)
+         when "STRING" then
+            create {STRING_TYPE_MARK} Result.make(sp)
+         else
+            check Result = Void end
+         end
+      end
+
 feature {SMART_EIFFEL}
    analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT
       require
@@ -3043,14 +3097,12 @@ feature {}
          --  ++
       local
          state: INTEGER; class_text_name: CLASS_NAME; generic_list: ARRAY[TYPE_MARK]
-         sp: POSITION; types: ARRAY[TYPE_MARK]; base_type_mark, open_type_mark, result_type_mark: TYPE_MARK
+         sp: POSITION; types: ARRAY[TYPE_MARK]; tm, base_type_mark, open_type_mark, result_type_mark: TYPE_MARK
       do
          if a_class_name then
             Result := True
             inspect
                token_buffer.buffer
-            when "ANY" then
-               create {ANY_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "ARRAY" then
                sp := token_buffer.start_position
                if skip1('[') and then a_type_mark(False) and then skip1(']') then
@@ -3087,30 +3139,6 @@ feature {}
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
                end
-            when "BOOLEAN" then
-               create {BOOLEAN_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "CHARACTER" then
-               create {CHARACTER_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "INTEGER_8" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_8(token_buffer.start_position)
-            when "INTEGER_16" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_16(token_buffer.start_position)
-            when "INTEGER_32" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_32(token_buffer.start_position)
-            when "INTEGER" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer(token_buffer.start_position)
-            when "INTEGER_64" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_64(token_buffer.start_position)
-            when "NATURAL_8" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_8(token_buffer.start_position)
-            when "NATURAL_16" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_16(token_buffer.start_position)
-            when "NATURAL_32" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_32(token_buffer.start_position)
-            when "NATURAL_64" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_64(token_buffer.start_position)
-            when "NATURAL" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural(token_buffer.start_position)
             when "NONE" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is %
@@ -3119,20 +3147,6 @@ feature {}
                                     %newcomers. So, just remove this NONE class name right now. Please update your code now.")
                error_handler.print_as_warning
                create {CLASS_TYPE_MARK} last_type_mark.make(token_buffer.to_class_name(for_client_list))
-            when "POINTER" then
-               create {POINTER_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "REAL_32" then
-               create {REAL_TYPE_MARK} last_type_mark.real_32(token_buffer.start_position)
-            when "REAL_64" then
-               create {REAL_TYPE_MARK} last_type_mark.real_64(token_buffer.start_position)
-            when "REAL" then
-               create {REAL_TYPE_MARK} last_type_mark.real(token_buffer.start_position)
-            when "REAL_80" then
-               create {REAL_TYPE_MARK} last_type_mark.real_80(token_buffer.start_position)
-            when "REAL_128" then
-               create {REAL_TYPE_MARK} last_type_mark.real_128(token_buffer.start_position)
-            when "REAL_EXTENDED" then
-               create {REAL_TYPE_MARK} last_type_mark.real_extended(token_buffer.start_position)
             when "DOUBLE" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "No more DOUBLE type mark (update your code). This DOUBLE type %
@@ -3141,8 +3155,6 @@ feature {}
                %to replace automatically all DOUBLE with REAL.")
                error_handler.print_as_warning
                create {REAL_TYPE_MARK} last_type_mark.real(token_buffer.start_position)
-            when "STRING" then
-               create {STRING_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "BIT" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "No more class BIT since release 2.1. Just use bit operations from %
@@ -3304,71 +3316,76 @@ feature {}
                end
                create {AGENT_TYPE_MARK} last_type_mark.function(sp, open_type_mark, result_type_mark)
             else
-               from
-                  class_text_name := token_buffer.to_class_name(for_client_list)
-               until
-                  state > 2
-               loop
-                  inspect
-                     state
-                  when 0 then
-                     -- `class_text_name' read.
-                     if skip1('[') then
-                        state := 1
-                     else
-                        create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
-                        state := 3
-                     end
-                  when 1 then
-                     -- Waiting next generic argument.
-                     if a_type_mark(False) then
-                        if generic_list = Void then
-                           create generic_list.with_capacity(2, 1)
-                        end
-                        generic_list.add_last(last_type_mark)
-                        state := 2
-                     elseif cc = ',' then
-                        error_handler.add_position(current_position)
-                        error_handler.append(em12)
-                        error_handler.print_as_style_warning
-                        ok := skip1(',')
-                     elseif cc = ']' then
-                        state := 2
-                     else
-                        error_handler.add_position(current_position)
-                        error_handler.append(em16)
-                        error_handler.print_as_fatal_error
-                        state := 2
-                     end
-                  when 2 then
-                     -- Waiting ',' or ']'.
-                     if skip1(',') then
-                        state := 1
-                     elseif cc = ']' then
-                        if generic_list = Void then
-                           error_handler.add_position(current_position)
-                           error_handler.append(once "Empty generic list (deleted).")
-                           error_handler.print_as_style_warning
-                           create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+               tm := predefined_type_mark(token_buffer.buffer, token_buffer.start_position)
+               if tm /= Void then
+                  last_type_mark := tm
+               else
+                  from
+                     class_text_name := token_buffer.to_class_name(for_client_list)
+                  until
+                     state > 2
+                  loop
+                     inspect
+                        state
+                     when 0 then
+                        -- `class_text_name' read.
+                        if skip1('[') then
+                           state := 1
                         else
-                           create {USER_GENERIC_TYPE_MARK} last_type_mark.make(class_text_name, generic_list)
+                           create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+                           state := 3
                         end
-                        ok := skip1(']')
-                        state := 3
-                     elseif a_type_mark(False) then
-                        if generic_list = Void then
-                           create generic_list.with_capacity(2, 1)
+                     when 1 then
+                        -- Waiting next generic argument.
+                        if a_type_mark(False) then
+                           if generic_list = Void then
+                              create generic_list.with_capacity(2, 1)
+                           end
+                           generic_list.add_last(last_type_mark)
+                           state := 2
+                        elseif cc = ',' then
+                           error_handler.add_position(current_position)
+                           error_handler.append(em12)
+                           error_handler.print_as_style_warning
+                           ok := skip1(',')
+                        elseif cc = ']' then
+                           state := 2
+                        else
+                           error_handler.add_position(current_position)
+                           error_handler.append(em16)
+                           error_handler.print_as_fatal_error
+                           state := 2
                         end
-                        generic_list.add_last(last_type_mark)
-                        error_handler.add_position(last_type_mark.start_position)
-                        error_handler.append(em5)
-                        error_handler.print_as_warning
-                     else
-                        error_handler.add_position(current_position)
-                        error_handler.append(once "Bad generic list. Expected ',' or ']', but found '")
-                        error_handler.extend(cc)
-                        error_handler.append(once "' instead.")
-                        error_handler.print_as_fatal_error
+                     when 2 then
+                        -- Waiting ',' or ']'.
+                        if skip1(',') then
+                           state := 1
+                        elseif cc = ']' then
+                           if generic_list = Void then
+                              error_handler.add_position(current_position)
+                              error_handler.append(once "Empty generic list (deleted).")
+                              error_handler.print_as_style_warning
+                              create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+                           else
+                              create {USER_GENERIC_TYPE_MARK} last_type_mark.make(class_text_name, generic_list)
+                           end
+                           ok := skip1(']')
+                           state := 3
+                        elseif a_type_mark(False) then
+                           if generic_list = Void then
+                              create generic_list.with_capacity(2, 1)
+                           end
+                           generic_list.add_last(last_type_mark)
+                           error_handler.add_position(last_type_mark.start_position)
+                           error_handler.append(em5)
+                           error_handler.print_as_warning
+                        else
+                           error_handler.add_position(current_position)
+                           error_handler.append(once "Bad generic list. Expected ',' or ']', but found '")
+                           error_handler.extend(cc)
+                           error_handler.append(once "' instead.")
+                           error_handler.print_as_fatal_error
+                        end
                      end
                   end
                end

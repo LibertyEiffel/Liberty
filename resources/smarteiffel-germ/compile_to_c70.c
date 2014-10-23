@@ -3257,7 +3257,7 @@ r351default_create(&(((T485*)tmp1/*new*/)->_start_position));
 /*RF3:make*/r485make(((T485*)tmp1/*new*/),(/*RF2:start_position*/(C)->_start_position/*T5pii*//*:RF2*/),_it,_li,_lv,_ue,_lb);
 /*:RF3*/_loop_instruction=tmp1/*new*/;
 /*tmp1.unlock*/
-/*RF3:add_last*/r1159add_last((T1159*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),_loop_instruction);
+/*RF3:add_last*/r1021add_last((T1021*)((/*RF2:current_context*/(((T341*)/*`code_accumulator'*/a1))->_current_context/*2pii*//*:RF2*/)),_loop_instruction);
 /*:RF3*/}/*--*/
 
 /*LOOP_INSTRUCTION*/void r485safety_check(T485*C,T0*a1){
@@ -4896,7 +4896,7 @@ case 642:
 /*RF3:visit_loop_instruction*/r642visit_loop_instruction(((T642*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/break;
 default:;
-/*RF3:visit_loop_instruction*/r764visit_loop_instruction(((T764*)/*`visitor'*/a1),(T0*)C);
+/*RF3:visit_loop_instruction*/r765visit_loop_instruction(((T765*)/*`visitor'*/a1),(T0*)C);
 /*:RF3*/}
 /*inspect]*/
 }/*--*/

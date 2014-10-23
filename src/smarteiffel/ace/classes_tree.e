@@ -6,7 +6,7 @@ class CLASSES_TREE
 inherit
    CLUSTERS
       redefine find_physical_cluster, cluster_named, clusters_of, cluster_by_directory_path, class_text_count, loaded_class_count,
-         cluster_count, cluster_at, has_class, has_cluster, for_all, for_all_clusters, parse_include,
+         cluster_count, cluster_at, has_class, has_cluster, for_all, for_all_filtered, for_all_clusters, parse_include,
          pretty_in, view_in, get_started
       end
 
@@ -107,6 +107,12 @@ feature {ACE, CLASSES} -- Searching
       do
          cluster.for_all(action)
          Precursor(action)
+      end
+
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      do
+         cluster.for_all_filtered(name_guard, action)
+         Precursor(name_guard, action)
       end
 
    for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])

@@ -100,7 +100,18 @@ feature {EIFFEL_PARSER}
    add_synonym (a_name: FEATURE_NAME)
       require
          a_name /= Void
+      local
+         buf: STRING
       do
+         debug
+            if echo.is_verbose then
+               buf := once "................................"
+               buf.clear_count
+               a_name.complete_name_in(buf)
+               echo.put_string(once "            > ")
+               echo.put_line(buf)
+            end
+         end
          names.add_last(a_name)
       end
 

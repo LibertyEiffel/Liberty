@@ -813,7 +813,7 @@ class TUPLE [A_, B_, C_, D_, E_, F_, G_, H_, I_] -- Nine fields TUPLE definition
 
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_, G_, H_]
-      redefine count, out_in_tagged_out_memory
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 create {ANY}

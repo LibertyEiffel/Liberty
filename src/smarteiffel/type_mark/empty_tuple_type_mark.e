@@ -17,7 +17,7 @@ insert
       undefine is_tuple, canonical_long_name
       end
 
-create {EIFFEL_PARSER, CLASS_TEXT, AGENT_CREATION, FAKE_TUPLE, MANIFEST_TUPLE, SMART_EIFFEL}
+create {ANY}
    make
 
 feature {ANY}
