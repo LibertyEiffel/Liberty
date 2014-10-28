@@ -73,14 +73,9 @@ feature {C_PRETTY_PRINTER} -- C code phases
       end
 
 feature {C_PRETTY_PRINTER} -- specific objects
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN)
+   manifest_string_in (c_code: STRING)
       do
          c_code.append(once "s=((T7*)se_malloc(sizeof(T7)));%N")
-      end
-
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN)
-      do
-         c_code.append(once "se_malloc")
       end
 
 feature {C_PRETTY_PRINTER} -- memory-specific handling aspects

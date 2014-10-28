@@ -377,23 +377,10 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {C_PRETTY_PRINTER}
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN)
+   manifest_string_in (c_code: STRING)
          -- Code to create a new Manifest STRING in the "s" local C variable.
       do
-         if string_at_run_time then
-            c_code.append(once "s=new7();%N")
-         else
-            c_code.append(once "s=((T7*)se_malloc(sizeof(T7)));%N")
-         end
-      end
-
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN)
-      do
-         if string_at_run_time then
-            c_code.append(once "se_malloc")
-         else
-            c_code.append(once "new9")
-         end
+         c_code.append(once "s=new7();%N")
       end
 
 feature {C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER} -- memory-specific handling aspects

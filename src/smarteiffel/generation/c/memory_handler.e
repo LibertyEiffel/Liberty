@@ -98,13 +98,10 @@ feature {C_PRETTY_PRINTER} -- C code phases
       end
 
 feature {C_PRETTY_PRINTER} -- specific objects
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN)
+   manifest_string_in (c_code: STRING)
          -- Code to create a new Manifest STRING and assign it in the "s" local C variable.
-      deferred
-      end
-
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN)
-         -- Code to create a new native array as expression
+      require
+         string_type_used: smart_eiffel.is_at_run_time(as_string)
       deferred
       end
 
