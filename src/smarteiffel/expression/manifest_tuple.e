@@ -199,6 +199,11 @@ feature {ANY}
          Result := create_expression.declaration_type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := create_expression.written_declaration_type_mark
+      end
+
    adapt_for (t: TYPE): like Current
       local
          ce: like create_expression

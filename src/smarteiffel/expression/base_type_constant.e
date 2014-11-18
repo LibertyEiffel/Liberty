@@ -26,6 +26,11 @@ feature {ANY}
          Result := Current
       end
 
+   frozen written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    frozen safety_check (type: TYPE)
       do
       end

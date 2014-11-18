@@ -168,6 +168,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
    is_always_true (type: TYPE): BOOLEAN
          -- Well, if we can avoid the cost of some assertions, it is better.
       local

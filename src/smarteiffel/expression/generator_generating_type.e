@@ -110,8 +110,13 @@ feature {ANY}
       end
 
    declaration_type: TYPE
-      do
+      once
          Result := smart_eiffel.type_string
+      end
+
+   written_declaration_type_mark: TYPE_MARK
+      once
+         Result := declaration_type.canonical_type_mark
       end
 
    accept (visitor: GENERATOR_GENERATING_TYPE_VISITOR)

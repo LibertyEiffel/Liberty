@@ -27,6 +27,11 @@ feature {ANY}
          -- `formal_arg_list' ... BUT IT DOES NOT WORK BECAUSE FOR EXAMPLE
          -- like Current ARE HARD CODED INSIDE `formal_arg_list' *** DOM April 14th 2008 ***
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := formal_arg_list.type_mark(rank)
+      end
+
    to_string: STRING
       do
          Result := formal_arg_list.name(rank).to_string

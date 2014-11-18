@@ -38,6 +38,11 @@ feature {ANY}
 
    declaration_type: TYPE
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := result_type
+      end
+
    precedence: INTEGER
       do
          Result := atomic_precedence

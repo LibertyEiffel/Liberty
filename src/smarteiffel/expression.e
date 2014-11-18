@@ -143,7 +143,7 @@ feature {ANY}
          assignment_test_family_only: is_writable
          has_been_specialized
          not smart_eiffel.status.is_specializing
-      do
+      deferred
       ensure
          Result /= Void
       end

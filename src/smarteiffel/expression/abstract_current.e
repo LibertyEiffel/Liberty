@@ -28,6 +28,8 @@ feature {ANY}
 
    declaration_type: TYPE
 
+   written_declaration_type_mark: TYPE_MARK
+
    to_string, to_key: STRING
       do
          Result := as_current
@@ -46,6 +48,7 @@ feature {ANY}
       do
          if declaration_type = Void then
             declaration_type := start_position.class_text.declaration_type_of_like_current
+            create {LIKE_CURRENT_TYPE_MARK} written_declaration_type_mark.make(start_position)
          end
          check
             (not declaration_type_forced) implies declaration_type = start_position.class_text.declaration_type_of_like_current
