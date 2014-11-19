@@ -48,6 +48,11 @@ feature {ANY}
 
    declaration_type: TYPE
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := type_mark
+      end
+
    specialize_in (new_type: TYPE): like Current
       local
          w: like writable
@@ -108,7 +113,7 @@ feature {ANY}
             -- It may be the time to actually collect the `left_side' LIVE_TYPE:
             if Result.live_type /= Void then
                -- It is the time to actually collect the corresponding LIVE_TYPE:
-               -- (Done in EFFECTIVE_ARG_LIST, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
+               -- (Done in EFFECTIVE_ARG_LIST_N, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
                left_live_type := smart_eiffel.collect_one_type(writable_type, False)
             end
          end

@@ -33,11 +33,11 @@ feature {ANY}
       local
          target_type, argument_type: TYPE
       do
-         if declaration_type_memory = Void then
+         if written_declaration_type_mark_memory = Void then
             Result := Precursor
             -- Looking first for the balancing_rule:
             if is_balanced_operator(feature_name.to_string) then
-               if declaration_type_memory.is_boolean then
+               if Result.is_boolean then
                   -- Balancing won't change the `Result'.
                else
                   target_type := target.declaration_type
@@ -47,7 +47,7 @@ feature {ANY}
                         if argument_type /= target_type then
                            if target_type.can_be_assigned_to(argument_type) then
                               Result := argument_type
-                              declaration_type_memory := Void
+                              written_declaration_type_mark_memory := Void
                            end
                         end
                      end
@@ -55,7 +55,7 @@ feature {ANY}
                end
             end
          else
-            Result := declaration_type_memory
+            Result := Precursor
          end
       end
 

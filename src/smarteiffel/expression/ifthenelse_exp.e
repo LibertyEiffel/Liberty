@@ -460,6 +460,14 @@ feature {ANY}
       end
 
    declaration_type: TYPE
+      do
+         Result := then_expression.declaration_type
+      end
+
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := then_expression.written_declaration_type_mark
+      end
 
    short (type: TYPE)
       do

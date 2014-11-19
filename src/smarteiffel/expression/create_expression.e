@@ -133,6 +133,11 @@ feature {ANY}
          Result := explicit_type.declaration_type.type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := explicit_type.declaration_type
+      end
+
    non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)

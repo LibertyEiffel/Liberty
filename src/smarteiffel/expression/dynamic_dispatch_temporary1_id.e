@@ -73,6 +73,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
    safety_check (type: TYPE)
       do
          dynamic_dispatch_temporary1.safety_check(type)

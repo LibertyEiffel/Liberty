@@ -68,6 +68,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
    resolve_in (type: TYPE): TYPE
       do
          error_handler.append(

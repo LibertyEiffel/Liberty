@@ -70,6 +70,11 @@ feature {ANY}
          Result := expression.declaration_type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := expression.written_declaration_type_mark
+      end
+
    is_writable: BOOLEAN
       do
          Result := expression.is_writable

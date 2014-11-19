@@ -253,7 +253,7 @@ feature {ANY}
                loop
                   if right_rts.item(i).type.can_be_assigned_to(left_type) then
                      -- It is the time to actually collect the corresponding LIVE_TYPE:
-                     -- (Done in EFFECTIVE_ARG_LIST, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
+                     -- (Done in EFFECTIVE_ARG_LIST_N, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
                      left_live_type := smart_eiffel.collect_one_type(left_type, False)
                   end
                   i := i + 1

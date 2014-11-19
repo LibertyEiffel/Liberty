@@ -13,8 +13,6 @@ class RESULT
 
 inherit
    EXPRESSION
-      redefine written_declaration_type_mark
-      end
 
 create {ANY}
    make

@@ -32,7 +32,12 @@ feature {ANY}
 
    declaration_type: TYPE
       do
-         Result := specialized_anonymous_feature.result_type.declaration_type.type
+         Result := written_declaration_type_mark.type
+      end
+
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := specialized_anonymous_feature.result_type.declaration_type
       end
 
    resolve_in (type: TYPE): TYPE

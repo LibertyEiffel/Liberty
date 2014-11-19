@@ -267,12 +267,17 @@ feature {ANY}
       end
 
    declaration_type: TYPE
+      do
+         Result := written_declaration_type_mark.type
+      end
+
+   written_declaration_type_mark: TYPE_MARK
       local
-         i: INTEGER; rt: TYPE_MARK; gl: ARRAY[TYPE_MARK]
+         i: INTEGER; gl: ARRAY[TYPE_MARK]
       do
          -- (Yes, it is leaky, but it is not called very often at all.)
          if list = Void then
-            create {EMPTY_TUPLE_TYPE_MARK} rt.make(start_position)
+            create {EMPTY_TUPLE_TYPE_MARK} Result.make(start_position)
          else
             from
                create gl.make(1, list.count)
@@ -280,13 +285,12 @@ feature {ANY}
             until
                i > list.upper
             loop
-               rt := list.item(i).declaration_type.canonical_type_mark
-               gl.put(rt, i + 1)
+               Result := list.item(i).declaration_type.canonical_type_mark
+               gl.put(Result, i + 1)
                i := i + 1
             end
-            create {NON_EMPTY_TUPLE_TYPE_MARK} rt.make(start_position, gl)
+            create {NON_EMPTY_TUPLE_TYPE_MARK} Result.make(start_position, gl)
          end
-         Result := rt.type
       end
 
    use_current (type: TYPE): BOOLEAN

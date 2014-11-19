@@ -32,6 +32,11 @@ feature {ANY}
          Result := original_capture.declaration_type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := original_capture.written_declaration_type_mark
+      end
+
    specialize_in (type: TYPE): like Current
       do
          capture_memory.put(original_capture.specialize_in(type), type)

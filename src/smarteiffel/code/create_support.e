@@ -82,6 +82,15 @@ feature {CREATE_SUPPORT}
          anonymous_feature: ANONYMOUS_FEATURE; default_expression: EXPRESSION
       do
          if explicit_type = Void then
+            debug ("savannah#43631")
+               if {LIKE_CURRENT_TYPE_MARK} ?:= writable.written_declaration_type_mark then
+                  error_handler.add_position(writable.start_position)
+                  error_handler.add_position(writable.written_declaration_type_mark.start_position)
+                  error_handler.append(once "create like Current!!")
+                  error_handler.print_as_warning
+               end
+            end
+
             if writable.written_declaration_type_mark.is_formal_generic then
                fgtm ::= writable.written_declaration_type_mark
                creation_constraint := fgtm.formal_generic_creation
@@ -101,6 +110,14 @@ feature {CREATE_SUPPORT}
                end
             end
          else
+            debug ("savannah#43631")
+               if {LIKE_CURRENT_TYPE_MARK} ?:= explicit_type then
+                  error_handler.add_position(explicit_type.start_position)
+                  error_handler.append(once "create like Current!!")
+                  error_handler.print_as_warning
+               end
+            end
+
             if explicit_type.is_formal_generic then
                fgtm ::= writable.written_declaration_type_mark
                creation_constraint := fgtm.formal_generic_creation

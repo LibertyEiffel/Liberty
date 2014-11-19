@@ -39,20 +39,26 @@ feature {ANY}
       end
 
    declaration_type: TYPE
+      do
+         Result := written_declaration_type_mark.resolve_in(target.declaration_type)
+      end
+
+   written_declaration_type_mark: TYPE_MARK
       local
          target_declaration_type: TYPE; af: ANONYMOUS_FEATURE; fs: FEATURE_STAMP
       do
-         if declaration_type_memory = Void then
+         Result := written_declaration_type_mark_memory
+         if Result = Void then
             target_declaration_type := target.declaration_type
             fs := target_declaration_type.lookup(feature_name)
             if target_declaration_type = feature_accumulator.context_type then
-               declaration_type_memory := feature_accumulator.find_type_for(fs).resolve_in(target_declaration_type)
+               Result := feature_accumulator.find_type_for(fs)
             else
                af := fs.anonymous_feature(target_declaration_type)
-               declaration_type_memory := af.result_type.resolve_in(target_declaration_type)
+               Result := af.result_type
             end
+            written_declaration_type_mark_memory := Result
          end
-         Result := declaration_type_memory
       end
 
    frozen non_void_no_dispatch_type (type: TYPE): TYPE
@@ -297,7 +303,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {}
-   declaration_type_memory: TYPE
+   written_declaration_type_mark_memory: TYPE_MARK
 
    frozen function_check (type: TYPE; af: ANONYMOUS_FEATURE): BOOLEAN
          -- Check that the feature found is really a function.

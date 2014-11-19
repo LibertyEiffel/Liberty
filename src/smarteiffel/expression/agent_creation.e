@@ -72,6 +72,11 @@ feature {ANY}
          Result := resolve_in(start_position.class_text.declaration_type_of_like_current)
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    feature_stamp: FEATURE_STAMP
          -- useful for the interpreter
 

@@ -161,7 +161,7 @@ feature {ANY}
                -- It may be the time to actually collect the `left_side' LIVE_TYPE:
                if right_type.live_type /= Void then
                   -- It is the time to actually collect the corresponding LIVE_TYPE:
-                  -- (Done in EFFECTIVE_ARG_LIST, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
+                  -- (Done in EFFECTIVE_ARG_LIST_N, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
                   left_live_type := smart_eiffel.collect_one_type(left_type, False)
                end
             end

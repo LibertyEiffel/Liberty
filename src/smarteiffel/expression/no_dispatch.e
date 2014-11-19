@@ -49,6 +49,11 @@ feature {ANY}
          Result := dynamic_type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    collect (type: TYPE): TYPE
       local
          dummy: TYPE

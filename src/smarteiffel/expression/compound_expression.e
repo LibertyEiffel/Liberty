@@ -45,6 +45,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
    non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := list.last.to_expression.non_void_no_dispatch_type(type)

@@ -602,7 +602,7 @@ feature {FEATURE_CALL}
       local
          i, j: INTEGER; sub_type, arg_type, formal_type: TYPE; first_fal: INTEGER; rts: RUN_TIME_SET
          cf: like collecting_formal; cfst: like collecting_formal_sub_type; dynamic_fs: FEATURE_STAMP
-         expr: EXPRESSION; formal_live_type: LIVE_TYPE
+         expr: EXPRESSION; formal_live_type: LIVE_TYPE; fal: FORMAL_ARG_LIST
       do
          -- List formal_arg_list for feature_type' subtypes (run_time_set)
          from
@@ -640,15 +640,30 @@ feature {FEATURE_CALL}
                loop
                   --|*** PH: removing duplicate FAL in cf.range(first_fal, cf.last)
                   --|will reduce resolve_in here
-                  formal_type := cf.item(j).type_mark(i).resolve_in(cfst.item(j))
-                  if formal_type.live_type = Void then
-                     if arg_type.live_type /= Void then
-                        -- It is the time to actually collect the corresponding LIVE_TYPE:
-                        -- (Done in EFFECTIVE_ARG_LIST, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
-                        formal_live_type := smart_eiffel.collect_one_type(formal_type, False)
+                  sub_type := cfst.item(j)
+                  fal := cf.item(j)
+                  if fal /= Void then
+                     formal_type := fal.type_mark(i).resolve_in(sub_type)
+                     if formal_type.live_type = Void then
+                        if arg_type.live_type /= Void then
+                           -- It is the time to actually collect the corresponding LIVE_TYPE:
+                           -- (Done in EFFECTIVE_ARG_LIST_N, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
+                           formal_live_type := smart_eiffel.collect_one_type(formal_type, False)
+                        end
+                     end
+                     assignment_handler.collect_force(arg_type, formal_type)
+                  else
+                     debug ("savannah#43631")
+                        error_handler.append(once "{")
+                        error_handler.append(sub_type.canonical_type_mark.written_mark)
+                        error_handler.append(once "}.")
+                        error_handler.append(fs.resolve_static_binding_for(feature_type, sub_type).anonymous_feature(sub_type).names.first.to_string)
+                        error_handler.append(once " does not have arguments, but {")
+                        error_handler.append(t.canonical_type_mark.written_mark)
+                        error_handler.append(once "} does!")
+                        error_handler.print_as_warning
                      end
                   end
-                  assignment_handler.collect_force(arg_type, formal_type)
                   j := j + 1
                end
             end

@@ -35,6 +35,11 @@ feature {ANY}
 
    declaration_type: TYPE
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    resolve_in (type: TYPE): TYPE
       do
          if array = Void then

@@ -9,9 +9,6 @@ class INTERNAL_LOCAL2
 
 inherit
    NON_WRITTEN_EXPRESSION
-      redefine
-         written_declaration_type_mark
-      end
    TAGGED
       rename
          tag as tagged_tag
