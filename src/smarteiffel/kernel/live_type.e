@@ -757,6 +757,7 @@ feature {ANY}
          smart_eiffel.status.collecting_done
          at_run_time
       local
+         fs: FEATURE_STAMP
          rf: RUN_FEATURE; rf2: RUN_FEATURE_2; i: INTEGER
       do
          Result := writable_attributes_mem
@@ -766,14 +767,17 @@ feature {ANY}
             until
                i > live_features.upper
             loop
-               rf := live_features.key(i).run_feature_for(type)
-               if rf2 ?:= rf then
-                  rf2 ::= rf
-                  if Result = Void then
-                     create Result.with_capacity(4, 1)
-                     writable_attributes_mem := Result
+               fs := live_features.key(i)
+               if fs.has_run_feature_for(type) then
+                  rf := fs.run_feature_for(type)
+                  if rf2 ?:= rf then
+                     rf2 ::= rf
+                     if Result = Void then
+                        create Result.with_capacity(4, 1)
+                        writable_attributes_mem := Result
+                     end
+                     Result.add_last(rf2)
                   end
-                  Result.add_last(rf2)
                end
                i := i + 1
             end
