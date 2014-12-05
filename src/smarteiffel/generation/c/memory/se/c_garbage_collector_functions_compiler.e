@@ -726,7 +726,10 @@ feature {}
                                       %{%N")
             native_array_type_in(visited, function_body)
             function_body.remove_last
-            function_body.append(once " e;%N")
+            if function_body.last /= '*' then
+               function_body.extend(' ')
+            end
+            function_body.append(once "e;%N")
             native_array_type_in(visited, function_body)
             function_body.append(once "p=((void*)(o+((((h->header.size)-sizeof(rsoh))/sizeof(e))-1)));%N%
                                       %for(;((void*)p)>=((void*)o);p--){%N%

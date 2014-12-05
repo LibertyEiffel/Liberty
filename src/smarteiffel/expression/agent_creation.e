@@ -304,7 +304,7 @@ feature {ANY}
                original_function_call.arguments.pretty(indent_level)
             end
          else
-            original_function_call.to_expression.pretty(indent_level)
+            original_function_call.pretty(indent_level)
          end
       end
 

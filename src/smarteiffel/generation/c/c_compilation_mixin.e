@@ -145,6 +145,8 @@ feature {}
             et.type.live_type.id.append_in(str)
             str.extend('*')
          end
+      ensure
+         str.last = '*'
       end
 
    rank_name_in (rank: INTEGER; tag, buffer: STRING)
