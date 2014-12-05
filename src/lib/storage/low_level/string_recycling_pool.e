@@ -102,7 +102,7 @@ feature {ANY}
             strings.add_last(recycling_item)
             recycling_item := item -- a brand new one (because we need to reset the weak reference)
          else
-            i := items_comparator.insert_index(strings, item)
+            i := items_comparator.insert_index(strings, recycling_item)
             if strings.valid_index(i) and then strings.item(i).item = Void then
                -- remember STRING_RECYCLING_ITEM is expanded
                item := strings.item(i)

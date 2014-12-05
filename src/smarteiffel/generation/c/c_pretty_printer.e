@@ -3230,11 +3230,10 @@ feature {}
          end
          --
          if smart_eiffel.is_at_run_time(as_string) and then manifest_string_pool.is_string_collected then
-
-               lt := manifest_string_pool.se_ms.type_of_current.live_type
-               check
-                  lt.id = 7
-               end
+            lt := manifest_string_pool.se_ms.type_of_current.live_type
+            check
+               lt.id = 7
+            end
 
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
@@ -3250,7 +3249,7 @@ feature {}
                pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
             end
             pending_c_function_body.append(once "T7*")
-            memory.manifest_string_in(pending_c_function_body, True)
+            memory.manifest_string_in(pending_c_function_body)
             if ace.profile then
                pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
                pending_c_function_body.append(once "local_profile.profile=&prof;%N")

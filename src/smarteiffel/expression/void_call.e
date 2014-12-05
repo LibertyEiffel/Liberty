@@ -48,6 +48,11 @@ feature {ANY}
          Result := anonymous_feature.result_type.declaration_type.type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)

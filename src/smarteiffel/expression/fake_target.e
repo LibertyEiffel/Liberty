@@ -106,6 +106,11 @@ feature {ANY}
          Result := declaration_type_memory
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := explicit_type_mark
+      end
+
    non_void_no_dispatch_type (type: TYPE): TYPE
       do
          --|*** To be done. *** (Dom. june 18th 2004) ***

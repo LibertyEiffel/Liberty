@@ -238,6 +238,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
    collect (type: TYPE): TYPE
       do
          check

@@ -357,8 +357,6 @@ feature {} -- Garbage collector tuning (very low-level):
          -- actually unreachable objects. The following `mark_native_arrays' actually replace 
          -- the default behavior (the call is automatic) in order to mark only reachable 
          -- objects.
-         --
-         -- See also class GARBAGE_COLLECTOR_TUNING.
       local
          i: INTEGER
       do

@@ -71,6 +71,11 @@ feature {ANY}
          Result.is_integer
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := expression.written_declaration_type_mark
+      end
+
    non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check

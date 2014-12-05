@@ -10,8 +10,6 @@ class WRITABLE_ATTRIBUTE_NAME
 
 inherit
    EXPRESSION
-      redefine written_declaration_type_mark
-      end
 
 insert
    NAME

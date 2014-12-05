@@ -83,6 +83,11 @@ feature {ANY}
          end
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := type_mark
+      end
+
    use_current (type: TYPE): BOOLEAN
       do
          if optional_arguments /= Void then

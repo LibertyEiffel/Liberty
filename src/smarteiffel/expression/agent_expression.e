@@ -29,6 +29,11 @@ feature {ANY}
          Result /= Void
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    start_position: POSITION
       do
          Result := written_link.start_position

@@ -69,6 +69,11 @@ feature {ANY}
          Result := resolved_memory
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
    is_writable: BOOLEAN
       do
          Result := expression.is_writable

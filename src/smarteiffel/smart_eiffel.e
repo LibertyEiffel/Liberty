@@ -1689,9 +1689,9 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
          end
       end
 
-feature {CODE_PRINTER}
+feature {CODE_PRINTER, MEMORY_HANDLER}
    is_at_run_time (a_class_name: STRING): BOOLEAN
-         -- Pure query to know if the STRING type is used and is `at_run_time'?
+         -- query to know if the type `a_class_name' is used at runtime
          -- The class name must be the one of a basic type because the cluster information is not appended
       require
          is_ready

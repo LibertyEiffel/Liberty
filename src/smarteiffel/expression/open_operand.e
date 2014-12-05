@@ -98,6 +98,11 @@ feature {ANY}
          Result := curly_type.declaration_type.type
       end
 
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := curly_type.declaration_type
+      end
+
    collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)

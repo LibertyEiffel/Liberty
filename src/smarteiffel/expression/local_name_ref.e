@@ -8,9 +8,6 @@ class LOCAL_NAME_REF
 
 inherit
    LOCAL_ARGUMENT_REF
-      redefine
-         written_declaration_type_mark
-      end
 
 insert
    LOCAL_NAME
