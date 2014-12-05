@@ -1,5 +1,5 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
--- See the Copyright notice at the end of th file.
+-- See the Copyright notice at the end of the file.
 --
 deferred class LIBERTY_VERSION
 
@@ -7,30 +7,7 @@ insert
    ARGUMENTS
 
 feature {ANY}
-   print_version
-      local
-         sys: SYSTEM; bd: BASIC_DIRECTORY
-      do
-         -- SmartEiffel tools compatibility -- mostly used by the "se" command multiplexer
-         if sys.get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
-            std_output.put_line(short_copyright)
-         else
-            bd.ensure_system_notation
-            bd.compute_short_name_of(command_name)
-            std_output.put_line("Version of command %"#(1)%" is:" # bd.last_entry)
-            std_output.put_line(copyright)
-         end
-      end
-
    liberty_release: STRING "2014.dev (Alexander Graham Bell)"
-
-   liberty_dates: ABSTRACT_STRING
-      deferred
-      end
-
-   liberty_authors: ABSTRACT_STRING
-      deferred
-      end
 
    copyright: ABSTRACT_STRING
       once
@@ -48,6 +25,29 @@ feature {ANY}
    short_copyright: ABSTRACT_STRING
       once
          Result := "(C) #(1) - #(2)" # liberty_dates # liberty_authors
+      end
+
+   print_version
+      local
+         sys: SYSTEM; bd: BASIC_DIRECTORY
+      do
+         -- SmartEiffel tools compatibility -- mostly used by the "se" command multiplexer
+         if sys.get_environment_variable("SMART_EIFFEL_SHORT_VERSION") /= Void then
+            std_output.put_line(short_copyright)
+         else
+            bd.ensure_system_notation
+            bd.compute_short_name_of(command_name)
+            std_output.put_line("Version of command %"#(1)%" is:" # bd.last_entry)
+            std_output.put_line(copyright)
+         end
+      end
+
+   liberty_dates: ABSTRACT_STRING
+      deferred
+      end
+
+   liberty_authors: ABSTRACT_STRING
+      deferred
       end
 
 end -- class LIBERTY_VERSION
