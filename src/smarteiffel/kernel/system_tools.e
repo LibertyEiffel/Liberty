@@ -399,12 +399,13 @@ feature {COMPILE}
       local
          name: STRING
       do
-         name := new_make_script
+         name := path_make
+         echo.file_removing(name)
          name.remove_suffix(make_suffix)
          remove_other_extra_files(name)
       end
 
-   cygnus_bug (make_file: TEXT_FILE_READ; make_script_name: STRING)
+   connect_make_file (make_file: TEXT_FILE_READ; make_script_name: STRING)
          -- Because of a bug in cygnus on windows 95/NT.
       local
          time_out: INTEGER
@@ -418,16 +419,6 @@ feature {COMPILE}
             make_file.connect_to(make_script_name)
             time_out := time_out - 1
          end
-      end
-
-feature {COMPILE, CLEAN}
-   new_make_script: STRING
-         -- Compute the corresponding make file script name and remove
-         -- the old existing one if any.
-      do
-         Result := path_make
-         Result.append(make_suffix)
-         echo.file_removing(Result)
       end
 
 feature {SHORT_PRINTER}
@@ -563,11 +554,7 @@ feature {C_PRETTY_PRINTER, C_COMPILATION_MIXIN}
       end
 
 feature {}
-   root_class_state: INTEGER
-
-   root_class_wait_for_class: INTEGER 0
-   root_class_wait_for_procedure: INTEGER 1
-   root_class_done: INTEGER -1
+   root_class_wait_for_procedure: BOOLEAN
 
 feature {COMPILE, COMPILE_TO_C}
    extra_arg (arg: STRING; argi: INTEGER; next_arg: STRING): INTEGER
@@ -598,21 +585,22 @@ feature {COMPILE, COMPILE_TO_C}
                -- For lcc-win32 resource files:
                add_external_lib(arg)
                Result := argi + 1
-            elseif root_class_state = root_class_wait_for_class then
-               ace.set_root_class_name_using(arg)
-               root_class_state := root_class_wait_for_procedure
-               Result := argi + 1
-            elseif root_class_state = root_class_wait_for_procedure then
+            elseif root_class_wait_for_procedure then
+               if ace.root_procedure_name /= Void then
+                  ace.set_root_class_name(ace.root_class_name)
+                  check
+                     ace.root_procedure_name = Void
+                  end
+               end
                ace.set_root_procedure_name(next_arg)
-               root_class_state := root_class_done
                Result := argi + 1
-            else
-               -- very rare case, does it ever happen?
-               append_token(c_compiler_options, arg)
+            else -- root class name
+               ace.set_root_class_name_using(arg)
+               root_class_wait_for_procedure := True
                Result := argi + 1
             end
          elseif arg.is_equal(once "--") or else arg.is_equal(once "-") or else arg.is_equal(once "/") then
-            root_class_state := root_class_wait_for_class
+            root_class_wait_for_procedure := False
          elseif arg.has_prefix(once "-l") then
             append_if_not_already(external_lib, arg)
             Result := argi + 1
@@ -937,39 +925,6 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   path_h: STRING
-         -- Create a new STRING which is the name of the main *.h file.
-      do
-         Result := path_h_memory
-         if Result.is_empty then
-            fill_path(Result, h_suffix)
-         end
-      ensure
-         Result.has_suffix(h_suffix)
-      end
-
-   path_c: STRING
-         -- Create a new STRING which is the name of the main *.h file.
-      do
-         Result := path_c_memory
-         if Result.is_empty then
-            fill_path(Result, c_suffix)
-         end
-      ensure
-         Result.has_suffix(c_suffix)
-      end
-
-   path_make: STRING
-         -- Create a new STRING which is the name of the main *.h file.
-      do
-         Result := path_make_memory
-         if Result.is_empty then
-            fill_path(Result, make_suffix)
-         end
-      ensure
-         Result.has_suffix(make_suffix)
-      end
-
    strip_executable: STRING
       local
          executable_name: STRING
@@ -1024,6 +979,40 @@ feature {C_PRETTY_PRINTER}
          if system_name = unix_system then
             add_external_lib("rt")
          end
+      end
+
+feature {C_PRETTY_PRINTER, COMPILE}
+   path_h: STRING
+         -- The name of the main *.h file.
+      do
+         Result := path_h_memory
+         if Result.is_empty then
+            fill_path(Result, h_suffix)
+         end
+      ensure
+         Result.has_suffix(h_suffix)
+      end
+
+   path_c: STRING
+         -- The name of the main *.h file.
+      do
+         Result := path_c_memory
+         if Result.is_empty then
+            fill_path(Result, c_suffix)
+         end
+      ensure
+         Result.has_suffix(c_suffix)
+      end
+
+   path_make: STRING
+         -- The name of the main *.h file.
+      do
+         Result := path_make_memory
+         if Result.is_empty then
+            fill_path(Result, make_suffix)
+         end
+      ensure
+         Result.has_suffix(make_suffix)
       end
 
 feature {NATIVE_PLUG_IN}

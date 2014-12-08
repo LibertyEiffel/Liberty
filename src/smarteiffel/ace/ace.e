@@ -28,17 +28,19 @@ insert
    SINGLETON
 
 feature {}
-   root_class_names: RING_ARRAY[HASHED_STRING]
+   root_class_names: FAST_ARRAY[HASHED_STRING]
          -- All the class names given on the command line
       once
-         create Result.with_capacity(1, 1)
+         create Result.with_capacity(1)
       end
 
-   root_procedure_names: RING_ARRAY[STRING]
+   root_procedure_names: FAST_ARRAY[STRING]
          -- All the procedure names given on the command line
       once
-         create Result.with_capacity(1, 1)
+         create Result.with_capacity(1)
       end
+
+   root_index: INTEGER
 
 feature {ANY}
    file_path: STRING
@@ -61,7 +63,7 @@ feature {ANY}
       require
          has_root
       do
-         Result := root_class_names.first
+         Result := root_class_names.item(root_index)
       end
 
    root_procedure_name: STRING
@@ -73,7 +75,7 @@ feature {ANY}
       local
          bc: CLASS_TEXT
       do
-         Result := root_procedure_names.first
+         Result := root_procedure_names.item(root_index)
          if Result = Void then
             bc := smart_eiffel.root_class_text(root_class_name.to_string)
             Result := bc.default_root_procedure_name
@@ -84,17 +86,19 @@ feature {ANY}
    has_root: BOOLEAN
          -- True if `root_class_name` and `root_procedure_name` are valid
       do
-         Result := not root_class_names.is_empty
-      ensure
-         definition: Result = (root_count = 0)
+         Result := root_class_names.valid_index(root_index)
       end
 
    next_root
       require
          has_root
       do
-         root_class_names.remove_first
-         root_procedure_names.remove_first
+         root_index := root_index + 1
+      end
+
+   reset_roots is
+      do
+         root_index := 0
       end
 
    root_count: INTEGER
@@ -364,11 +368,23 @@ feature {ACE_HANDLER}
          rcn: HASHED_STRING
       do
          rcn := string_aliaser.hashed_string(class_name_using(command_line_name))
-         root_class_names.add_last(rcn)
-         root_procedure_names.add_last(Void)
+         set_root_class_name(rcn)
       ensure
          root_class_names.count = old root_class_names.count + 1
          not root_class_names.last.to_string.has_suffix(eiffel_suffix)
+         root_procedure_names.last = Void
+         root_index = root_class_names.upper
+      end
+
+   set_root_class_name (rcn: HASHED_STRING)
+      do
+         root_class_names.add_last(rcn)
+         root_procedure_names.add_last(Void)
+         root_index := root_class_names.upper
+      ensure
+         root_class_name = rcn
+         root_procedure_names.last = Void
+         root_index = root_class_names.upper
       end
 
    set_root_procedure_name (rp: STRING)
@@ -376,7 +392,7 @@ feature {ACE_HANDLER}
          not root_class_names.is_empty
          root_procedure_names.last = Void
       do
-         root_procedure_names.put(rp, root_procedure_names.upper)
+         root_procedure_names.put(rp, root_index)
       ensure
          root_procedure_name = rp
       end
@@ -851,9 +867,9 @@ feature {ACE_CHECK}
          txt.append(executable_name)
          txt.append("%Nroot ")
          txt.append(root_class_name.to_string)
-         if root_procedure_names.last /= Void then
+         if root_procedure_name /= Void then
             txt.append(": %"")
-            txt.append(root_procedure_names.last)
+            txt.append(root_procedure_name)
             txt.extend('%"')
          end
          txt.append("%Ndefault%N     assertion (")
@@ -1043,14 +1059,6 @@ feature {CLUSTER}
             default_debug_keys /= Void
          end
          Result := match_debug_keys(e_debug, default_debug_keys)
-      end
-
-feature {}
-   set_root_class_name (rcn: HASHED_STRING)
-      do
-         root_class_names.add_last(rcn)
-      ensure
-         root_class_name = rcn
       end
 
 feature {SYSTEM_TOOLS}
@@ -1981,6 +1989,8 @@ feature {}
 invariant
    file_path /= Void implies string_aliaser.registered_one(file_path)
    root_class_names.count = root_procedure_names.count
+   root_class_names.lower = 0
+   root_procedure_names.lower = 0
 
 end -- class ACE
 --

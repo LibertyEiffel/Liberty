@@ -88,7 +88,7 @@ feature {ANY}
 feature {}
    make
       local
-         argi, last_system_call_status: INTEGER; arg, make_script_name: STRING
+         argi: INTEGER; arg: STRING
       do
          if argument_count < 1 then
             system_tools.bad_use_exit(command_line_name, command_line_help_summary)
@@ -128,13 +128,43 @@ feature {}
             parse_command_line(2)
             ace.command_line_parsed(command_line_name)
          end
-         make_script_name := system_tools.new_make_script
+
+         from
+            ace.reset_roots
+         until
+            not ace.has_root
+         loop
+            do_compile
+            ace.next_root
+         end
+         if ace.clean then
+            from
+               ace.reset_roots
+            until
+               not ace.has_root
+            loop
+               do_clean
+               ace.next_root
+            end
+         else
+            echo.put_string(once "C code not removed.%N")
+         end
+         echo.put_string(once "Done.%N")
+      end
+
+   do_compile
+      local
+         make_script_name: STRING; last_system_call_status: INTEGER
+      do
+         make_script_name := system_tools.path_make
+         echo.file_removing(make_script_name)
+
          last_system_call_status := echo.system_call(command)
          if last_system_call_status /= exit_success_code then
             echo.w_put_string(once "Error occurs while compiling. Compilation process aborted.%N")
             die_with_code(last_system_call_status)
          end
-         system_tools.cygnus_bug(make_file, make_script_name)
+         system_tools.connect_make_file(make_file, make_script_name)
          if not make_file.is_connected then
             echo.w_put_string(once "Internal error (file %"")
             echo.w_put_string(make_script_name)
@@ -153,22 +183,24 @@ feature {}
          run_make_file
          make_file.disconnect
          system_tools.remove_make_script_and_other_extra_files
-         if ace.clean then
-            command.clear_count
-            system_tools.append_command_path_to(command, once "clean")
-            if echo.is_verbose then
-               command.append(once " -verbose")
-            end
-            command.extend(' ')
-            command.append(make_script_name)
-            last_system_call_status := echo.system_call(command)
-            if last_system_call_status /= 0 then
-               die_with_code(last_system_call_status)
-            end
-         else
-            echo.put_string(once "C code not removed.%N")
+      end
+
+   do_clean
+      local
+         make_script_name: STRING; last_system_call_status: INTEGER
+      do
+         make_script_name := system_tools.path_make
+         command.clear_count
+         system_tools.append_command_path_to(command, once "clean")
+         if echo.is_verbose then
+            command.append(once " -verbose")
          end
-         echo.put_string(once "Done.%N")
+         command.extend(' ')
+         command.append(make_script_name)
+         last_system_call_status := echo.system_call(command)
+         if last_system_call_status /= 0 then
+            die_with_code(last_system_call_status)
+         end
       end
 
    max_process_count: INTEGER

@@ -323,21 +323,35 @@ feature {ANY}
 
 feature {COMMAND_LINE_TOOLS}
    compile (back_end: CODE_PRINTER)
-         -- Produce some code for all know paris of `root_class_name', `root_procedure_name'.
-      local
-         root_class_name, root_procedure_name: STRING
+         -- Produce some code for all know pairs of `root_class_name', `root_procedure_name'.
       do
          initialize_any_tuple
+         if ace.no_check then
+            set_generator_used
+            set_generating_type_used
+         end
+         ace.parse_include
+
+         -- front end: (code parsing and specialization)
          from
+            ace.reset_roots
          until
             not ace.has_root or else nb_errors /= 0
          loop
-            root_class_name := ace.root_class_name.to_string
-            root_procedure_name := ace.root_procedure_name
-            front_end(root_class_name, root_procedure_name)
+            front_end(ace.root_class_name.to_string, ace.root_procedure_name)
+            ace.next_root
+         end
+
+         -- back end: (code generation)
+         from
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
             back_end.compile
             ace.next_root
          end
+
          very_last_information
       end
 
@@ -1808,11 +1822,6 @@ feature {}
          i: INTEGER; lt: LIVE_TYPE
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
-         if ace.no_check then
-            set_generator_used
-            set_generating_type_used
-         end
-         ace.parse_include
          root := root_class_text(root_class_name)
          if root = Void then
             error_handler.append(once "Cannot load root class ")
