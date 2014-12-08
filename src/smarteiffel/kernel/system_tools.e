@@ -425,8 +425,7 @@ feature {COMPILE, CLEAN}
          -- Compute the corresponding make file script name and remove
          -- the old existing one if any.
       do
-         Result := path_h
-         Result.remove_tail(2)
+         Result := path_make
          Result.append(make_suffix)
          echo.file_removing(Result)
       end
@@ -563,6 +562,13 @@ feature {C_PRETTY_PRINTER, C_COMPILATION_MIXIN}
          add_lib_math_do_it_again
       end
 
+feature {}
+   root_class_state: INTEGER
+
+   root_class_wait_for_class: INTEGER 0
+   root_class_wait_for_procedure: INTEGER 1
+   root_class_done: INTEGER -1
+
 feature {COMPILE, COMPILE_TO_C}
    extra_arg (arg: STRING; argi: INTEGER; next_arg: STRING): INTEGER
       require
@@ -592,24 +598,21 @@ feature {COMPILE, COMPILE_TO_C}
                -- For lcc-win32 resource files:
                add_external_lib(arg)
                Result := argi + 1
-            elseif ace.root_class_name = Void then
+            elseif root_class_state = root_class_wait_for_class then
                ace.set_root_class_name_using(arg)
+               root_class_state := root_class_wait_for_procedure
                Result := argi + 1
-               if next_arg /= Void then
-                  if next_arg.item(1) /= '-' then
-                     if next_arg.has_suffix(object_suffix) then
-                     elseif next_arg.has_suffix(c_suffix) then
-                     elseif is_c_plus_plus_file_path(next_arg) then
-                     else
-                        ace.set_root_procedure_name(next_arg)
-                        Result := argi + 2
-                     end
-                  end
-               end
+            elseif root_class_state = root_class_wait_for_procedure then
+               ace.set_root_procedure_name(next_arg)
+               root_class_state := root_class_done
+               Result := argi + 1
             else
+               -- very rare case, does it ever happen?
                append_token(c_compiler_options, arg)
                Result := argi + 1
             end
+         elseif arg.is_equal(once "--") or else arg.is_equal(once "-") or else arg.is_equal(once "/") then
+            root_class_state := root_class_wait_for_class
          elseif arg.has_prefix(once "-l") then
             append_if_not_already(external_lib, arg)
             Result := argi + 1
@@ -920,20 +923,51 @@ feature {C_PRETTY_PRINTER}
          tmp_file_read.is_connected
       end
 
+   next_path is
+      do
+         path_h_memory.clear_count
+         path_c_memory.clear_count
+         path_make_memory.clear_count
+         if dos_system = system_name then
+            path_id := path_id + 1
+            if path_id > 99 then
+               error_handler.append("Too many root classes, unsupported on vintage DOS")
+               error_handler.print_as_fatal_error
+            end
+         end
+      end
+
    path_h: STRING
          -- Create a new STRING which is the name of the main *.h file.
       do
-         Result := ace.root_class_name.to_string.twin
-         Result.to_lower
-         if dos_system = system_name then
-            from
-            until
-               Result.count <= 4
-            loop
-               Result.remove_last
-            end
+         Result := path_h_memory
+         if Result.is_empty then
+            fill_path(Result, h_suffix)
          end
-         Result.append(h_suffix)
+      ensure
+         Result.has_suffix(h_suffix)
+      end
+
+   path_c: STRING
+         -- Create a new STRING which is the name of the main *.h file.
+      do
+         Result := path_c_memory
+         if Result.is_empty then
+            fill_path(Result, c_suffix)
+         end
+      ensure
+         Result.has_suffix(c_suffix)
+      end
+
+   path_make: STRING
+         -- Create a new STRING which is the name of the main *.h file.
+      do
+         Result := path_make_memory
+         if Result.is_empty then
+            fill_path(Result, make_suffix)
+         end
+      ensure
+         Result.has_suffix(make_suffix)
       end
 
    strip_executable: STRING
@@ -1784,7 +1818,8 @@ feature {}
 feature {ID_PROVIDER}
    id_file_path: STRING
       once
-         Result := path_h
+         Result := path_id_memory
+         Result.copy(path_h)
          Result.remove_suffix(h_suffix)
          Result.append(once ".id")
       end
@@ -2524,6 +2559,39 @@ feature {}
    plugins: DICTIONARY[DICTIONARY[PLUGIN, STRING], STRING]
 
    plugin_factory: PLUGIN_FACTORY
+
+   path_id_memory: STRING ""
+   path_h_memory: STRING ""
+   path_c_memory: STRING ""
+   path_make_memory: STRING ""
+
+   path_id: INTEGER
+
+   fill_path (path, suffix: STRING)
+      require
+         path.is_empty
+         suffix /= Void
+      do
+         if dos_system = system_name then
+            path.copy(once "se")
+            if path_id < 10 then
+               path.extend('0')
+            end
+            path_id.append_in(path)
+         else
+            path.copy(ace.root_class_name.to_string)
+            if ace.root_count > 1 then
+               path.extend('-')
+               path.append(ace.root_procedure_name)
+            else
+               -- compatibility mode for usual case
+            end
+            path.to_lower
+         end
+         path.append(suffix)
+      ensure
+         path.has_suffix(suffix)
+      end
 
 feature {} -- Buffers:
    token_buffer: STRING

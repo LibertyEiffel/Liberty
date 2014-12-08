@@ -323,15 +323,21 @@ feature {ANY}
 
 feature {COMMAND_LINE_TOOLS}
    compile (back_end: CODE_PRINTER)
-         -- Produce some code for `root_class'/`procedure'.
+         -- Produce some code for all know paris of `root_class_name', `root_procedure_name'.
       local
          root_class_name, root_procedure_name: STRING
       do
          initialize_any_tuple
-         root_class_name := ace.root_class_name.to_string
-         root_procedure_name := ace.root_procedure_name
-         front_end(root_class_name, root_procedure_name)
-         back_end.compile
+         from
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            root_class_name := ace.root_class_name.to_string
+            root_procedure_name := ace.root_procedure_name
+            front_end(root_class_name, root_procedure_name)
+            back_end.compile
+            ace.next_root
+         end
          very_last_information
       end
 

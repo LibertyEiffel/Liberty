@@ -1156,6 +1156,7 @@ feature {}
       require
          smart_eiffel.status.is_safety_checking
       do
+         system_tools.next_path
          smart_eiffel.status.set_generating
          internal_c_local_stamps_stack.add_last(1)
          echo.file_removing(path_make)
@@ -2816,25 +2817,22 @@ feature {}
       end
 
    path_h: STRING
-      once
+      do
          Result := system_tools.path_h
       ensure
          Result.has_suffix(h_suffix)
       end
 
    path_c: STRING
-      once
-         Result := path_h.twin
-         Result.put('c', Result.upper)
+      do
+         Result := system_tools.path_c
       ensure
-         Result.has_suffix(c_suffix) or else Result.has_suffix(once ".d")
+         Result.has_suffix(c_suffix)
       end
 
    path_make: STRING
-      once
-         Result := path_h.twin
-         Result.remove_tail(2)
-         Result.append(system_tools.make_suffix)
+      do
+         Result := system_tools.path_make
       ensure
          Result.has_suffix(system_tools.make_suffix)
       end

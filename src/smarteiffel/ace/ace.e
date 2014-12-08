@@ -27,6 +27,19 @@ insert
       end
    SINGLETON
 
+feature {}
+   root_class_names: RING_ARRAY[HASHED_STRING]
+         -- All the class names given on the command line
+      once
+         create Result.with_capacity(1, 1)
+      end
+
+   root_procedure_names: RING_ARRAY[STRING]
+         -- All the procedure names given on the command line
+      once
+         create Result.with_capacity(1, 1)
+      end
+
 feature {ANY}
    file_path: STRING
          -- Non Void when a ACE file is in use (keep in mind that one can
@@ -45,10 +58,10 @@ feature {ANY}
          -- is actually the generating type of the very first live object at
          -- runtime. This `root_class_name' is after the "root" keyword in
          -- the ACE file or is given as a command line argument.
+      require
+         has_root
       do
-         if root_class_names.count > 0 then
-            Result := root_class_names.last
-         end
+         Result := root_class_names.first
       end
 
    root_procedure_name: STRING
@@ -56,24 +69,41 @@ feature {ANY}
          -- This procedure is supposed to be member of the creation clause
          -- of `root_class_name'.
       require
-         root_class_names.count = 1
+         has_root
       local
          bc: CLASS_TEXT
       do
-         if root_procedure_name_memory = Void then
+         Result := root_procedure_names.first
+         if Result = Void then
             bc := smart_eiffel.root_class_text(root_class_name.to_string)
-            root_procedure_name_memory := bc.default_root_procedure_name
+            Result := bc.default_root_procedure_name
+            set_root_procedure_name(Result)
          end
-         Result := root_procedure_name_memory
       end
 
-   root_class_names: FAST_ARRAY[HASHED_STRING]
-         -- All the class names given on the command line
-      once
-         create Result.with_capacity(1)
+   has_root: BOOLEAN
+         -- True if `root_class_name` and `root_procedure_name` are valid
+      do
+         Result := not root_class_names.is_empty
+      ensure
+         definition: Result = (root_count = 0)
       end
-      --|*** Boost level for debuging purpose. Should decode boost option
-      --|if we decide to keep it.
+
+   next_root
+      require
+         has_root
+      do
+         root_class_names.remove_first
+         root_procedure_names.remove_first
+      end
+
+   root_count: INTEGER
+      do
+         Result := root_class_names.count
+      end
+
+   --|*** Boost level for debuging purpose. Should decode boost option
+   --|if we decide to keep it.
 
    boost1: BOOLEAN True
 
@@ -268,7 +298,7 @@ feature {ACE_HANDLER}
          set_root_class_name(string_aliaser.hashed_string(a_identifier))
          a_cluster_mark
          if skip1(':') then
-            root_procedure_name_memory := a_identifier
+            set_root_procedure_name(a_identifier)
          end
          if a_keyword(fz_default) then
             echo_set_verbose_delayed := a_system_level_defaults
@@ -335,14 +365,18 @@ feature {ACE_HANDLER}
       do
          rcn := string_aliaser.hashed_string(class_name_using(command_line_name))
          root_class_names.add_last(rcn)
+         root_procedure_names.add_last(Void)
       ensure
          root_class_names.count = old root_class_names.count + 1
          not root_class_names.last.to_string.has_suffix(eiffel_suffix)
       end
 
    set_root_procedure_name (rp: STRING)
+      require
+         not root_class_names.is_empty
+         root_procedure_names.last = Void
       do
-         root_procedure_name_memory := rp
+         root_procedure_names.put(rp, root_procedure_names.upper)
       ensure
          root_procedure_name = rp
       end
@@ -817,9 +851,9 @@ feature {ACE_CHECK}
          txt.append(executable_name)
          txt.append("%Nroot ")
          txt.append(root_class_name.to_string)
-         if root_procedure_name_memory /= Void then
+         if root_procedure_names.last /= Void then
             txt.append(": %"")
-            txt.append(root_procedure_name_memory)
+            txt.append(root_procedure_names.last)
             txt.extend('%"')
          end
          txt.append("%Ndefault%N     assertion (")
@@ -1917,8 +1951,6 @@ feature {}
          Result := factory.universe
       end
 
-   root_procedure_name_memory: STRING
-
    has_cluster (c: CLUSTER): BOOLEAN
       require
          c /= Void
@@ -1948,6 +1980,7 @@ feature {}
 
 invariant
    file_path /= Void implies string_aliaser.registered_one(file_path)
+   root_class_names.count = root_procedure_names.count
 
 end -- class ACE
 --
