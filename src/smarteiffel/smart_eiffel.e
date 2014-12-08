@@ -325,6 +325,25 @@ feature {COMMAND_LINE_TOOLS}
    compile (back_end: CODE_PRINTER)
          -- Produce some code for all know pairs of `root_class_name', `root_procedure_name'.
       do
+         run_front_end
+         if nb_errors = 0 then
+            run_collect
+            if nb_errors = 0 then
+               run_adapt
+               if nb_errors = 0 then
+                  run_back_end(back_end)
+               end
+            end
+         end
+         very_last_information
+      end
+
+feature {}
+   run_front_end
+         -- Code parsing
+      require
+         nb_errors = 0
+      do
          initialize_any_tuple
          if ace.no_check then
             set_generator_used
@@ -332,27 +351,133 @@ feature {COMMAND_LINE_TOOLS}
          end
          ace.parse_include
 
-         -- front end: (code parsing and specialization)
          from
             ace.reset_roots
          until
             not ace.has_root or else nb_errors /= 0
          loop
-            front_end(ace.root_class_name.to_string, ace.root_procedure_name)
+            do_front_end(ace.root_class_name.to_string, ace.root_procedure_name)
             ace.next_root
          end
 
-         -- back end: (code generation)
+         if cecil_pool /= Void then
+            cecil_pool.parse_cecil_files
+         end
+      end
+
+   run_collect
+         -- Code collect
+      require
+         nb_errors = 0
+      local
+         magic: like magic_count
+      do
+         status.set_collecting
+
          from
             ace.reset_roots
          until
             not ace.has_root or else nb_errors /= 0
          loop
-            back_end.compile
+            do_collect(ace.root_class_name.to_string, ace.root_procedure_name)
             ace.next_root
          end
 
-         very_last_information
+         if ace.no_check then
+            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive
+            -- so we want to do this as late as possible in boost mode.
+            from
+               introspection_handler.collect_internals_handler
+            until
+               magic = magic_count
+            loop
+               magic := magic_count
+               echo_magic_count(once "Before collect cycle")
+               do_one_collect_cycle
+            end
+         end
+
+         if deep_twin_used then
+            collect_deep_features
+         end
+
+         status.set_collecting_done
+         echo_magic_count(once "Collecting done")
+         echo.put_string(once "Live_type_map size=")
+         echo.put_integer(live_type_map.count)
+         echo.put_new_line
+      ensure
+         status.collecting_done
+      end
+
+   run_adapt
+         -- Code simplification and adaptation
+      require
+         nb_errors = 0
+      local
+         i: INTEGER; lt: LIVE_TYPE
+      do
+         if not pretty_flag and then not short_or_class_check_flag then
+            from
+               ace.reset_roots
+            until
+               not ace.has_root or else nb_errors /= 0
+            loop
+               do_adapt(ace.root_class_name.to_string, ace.root_procedure_name)
+               ace.next_root
+            end
+         end
+
+         if nb_errors = 0 then
+            status.set_adapting
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               --if lt.at_run_time then
+                  lt.make_run_features
+               --end
+               i := i + 1
+            end
+            if nb_errors = 0 then
+               from
+                  i := live_type_map.lower
+               until
+                  i > live_type_map.upper
+               loop
+                  lt := live_type_map.item(i)
+                  if lt.at_run_time then
+                     lt.adapt_run_features_and_class_invariant
+                  end
+                  i := i + 1
+               end
+               if nb_errors = 0 and then cecil_pool /= Void then
+                  cecil_pool.adapt
+               end
+            end
+         end
+
+         if nb_errors = 0 then
+            safety_check
+            echo.print_count(once "Loaded Classe", ace.class_text_count)
+         end
+      end
+
+   run_back_end (back_end: CODE_PRINTER)
+         -- Code simplification and generation
+      require
+         nb_errors = 0
+      do
+         from
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            do_back_end(back_end, ace.root_class_name.to_string, ace.root_procedure_name)
+            ace.next_root
+         end
       end
 
 feature {CODE_PRINTER}
@@ -1811,7 +1936,7 @@ feature {}
          echo.put_string(once ").%N")
       end
 
-   front_end (root_class_name, root_procedure_name: STRING)
+   do_front_end (root_class_name, root_procedure_name: STRING)
          -- Get started to compile using creation procedure `root_procedure_name' of class text
          -- `root_class_name'.
       require
@@ -1819,7 +1944,6 @@ feature {}
          not root_procedure_name.is_empty
       local
          root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
-         i: INTEGER; lt: LIVE_TYPE
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
          root := root_class_text(root_class_name)
@@ -1853,74 +1977,59 @@ feature {}
                error_handler.print_as_fatal_error
             end
          end
-         if nb_errors = 0 then
-            if cecil_pool /= Void then
-               cecil_pool.parse_cecil_files
-            end
-            collect_from_root(root_type, root_type.lookup(root_fn))
-         end
-         check
-            status.collecting_done
-         end
-         if nb_errors = 0 and then not pretty_flag and then not short_or_class_check_flag then
-            -- Well, we are now producing executable code. One pass first of `simplify' to compute what
-            -- is obviously static (e.g. 1 + 1 = 2):
-            simplify_and_optimize(root_type, root_type.lookup(root_fn))
-            -- Now inlining of dynamic dispatch:
-            inline_dynamic_dispatch(root_type, root_fn)
-            -- Second pass of `simplify' to compute what has been inlined:
-            simplify_and_optimize(root_type, root_type.lookup(root_fn))
-         end
-         if nb_errors = 0 then
-            status.set_adapting
-            from
-               i := live_type_map.lower
-            until
-               i > live_type_map.upper
-            loop
-               lt := live_type_map.item(i)
-               --if lt.at_run_time then
-                  lt.make_run_features
-               --end
-               i := i + 1
-            end
-            if nb_errors = 0 then
-               from
-                  i := live_type_map.lower
-               until
-                  i > live_type_map.upper
-               loop
-                  lt := live_type_map.item(i)
-                  if lt.at_run_time then
-                     lt.adapt_run_features_and_class_invariant
-                  end
-                  i := i + 1
-               end
-               if nb_errors = 0 then
-                  --|*** PH(03/03/04) Next lines may be removed I think.
-                  root_procedure ?= root_type.live_type.at(root_fn)
-                  check
-                     root_is_run_feature_3: root_procedure /= Void
-                  end
-                  if nb_errors = 0 and then cecil_pool /= Void then
-                     cecil_pool.adapt
-                  end
-               end
-            end
-         end
-         if nb_errors = 0 then
-            safety_check
-            echo.print_count(once "Loaded Classe", ace.class_text_count)
-         end
       ensure
          nb_errors = 0 implies root_procedure /= Void
       end
 
+   do_collect (root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
+      local
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+      do
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+         collect_from_root(root_type, root_type.lookup(root_fn))
+      end
+
+   do_adapt (root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
+         not pretty_flag and then not short_or_class_check_flag
+      local
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+      do
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+
+         -- Well, we are now producing executable code. One pass first of `simplify' to compute what
+         -- is obviously static (e.g. 1 + 1 = 2):
+         simplify_and_optimize(root_type, root_type.lookup(root_fn))
+         -- Now inlining of dynamic dispatch:
+         inline_dynamic_dispatch(root_type, root_fn)
+         -- Second pass of `simplify' to compute what has been inlined:
+         simplify_and_optimize(root_type, root_type.lookup(root_fn))
+      end
+
+   do_back_end (back_end: CODE_PRINTER; root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
+      local
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+      do
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+         root_procedure ::= root_type.live_type.at(root_fn)
+         back_end.compile
+      end
+
    collect_from_root (root_type: TYPE; root_feature: FEATURE_STAMP)
       local
-         tmp: TYPE; i, magic: INTEGER
+         tmp: TYPE; i: INTEGER; magic: like magic_count
       do
-         status.set_collecting
          assignment_handler.reset
          manifest_string_pool.reset
          manifest_generic_pool.reset
@@ -1962,29 +2071,6 @@ feature {}
             echo_magic_count(once "Before collect cycle")
             do_one_collect_cycle
          end
-         if ace.no_check then
-            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive
-            -- so we want to do this as late as possible in boost mode.
-            from
-               introspection_handler.collect_internals_handler
-            until
-               magic = magic_count
-            loop
-               magic := magic_count
-               echo_magic_count(once "Before collect cycle")
-               do_one_collect_cycle
-            end
-         end
-         if deep_twin_used then
-            collect_deep_features
-         end
-         status.set_collecting_done
-         echo_magic_count(once "Collecting done")
-         echo.put_string(once "Live_type_map size=")
-         echo.put_integer(live_type_map.count)
-         echo.put_new_line
-      ensure
-         status.collecting_done
       end
 
    do_one_collect_cycle
