@@ -10,22 +10,44 @@ insert
    ANY
 
 feature {ANY}
-   get_environment_variable (variable: STRING): STRING
+   get_environment_variable_in (variable, value: STRING): BOOLEAN
          -- Try to get the value of the system environment `variable' or some
-         -- `variable' in the system registry. Gives Void when no information
-         -- about the `variable' is available. Under UNIX like system, this
-         -- is in fact the good way to know about some system environment
-         -- variable.
+         -- `variable' in the system registry. Gives False when no information
+         -- about the `variable' is available; otherwise gives True,
+         -- and the variable value is copied into `value'.
+         -- Under UNIX-like system, this is in fact the good way to know
+         -- about some system environment variable.
          -- Under Windows, this function also look in the system registery.
       require
          variable /= Void
+         value /= Void
       local
          p, null: POINTER
       do
          p := variable.to_external
          p := basic_getenv(p)
          if p /= null then
-            create Result.from_external_copy(p)
+            value.from_external_copy(p)
+            Result := True
+         end
+      end
+
+   get_environment_variable (variable: STRING): STRING
+         -- Try to get the value of the system environment `variable' or some
+         -- `variable' in the system registry. Gives Void when no information
+         -- about the `variable' is available. Under-UNIX like system, this
+         -- is in fact the good way to know about some system environment
+         -- variable.
+         -- Under Windows, this function also look in the system registery.
+         --
+         -- NOTE! since Liberty Eiffel "bell" (2014) the result is
+         -- always the same (once) STRING, or Void.
+      require
+         variable /= Void
+      do
+         Result := once ""
+         if not get_environment_variable_in(var, Result) then
+            Result := Void
          end
       end
 
