@@ -16,6 +16,7 @@ insert
 
 feature {CGI_HANDLER}
    name: FIXED_STRING
+   is_set: BOOLEAN
 
 feature {CGI}
    error: STRING
@@ -27,9 +28,12 @@ feature {CGI}
          if t.first = '/' then
             t.remove_first
             name := t.intern
+            is_set := True
          else
             set_error(t)
          end
+      ensure
+         is_set
       end
 
 feature {}

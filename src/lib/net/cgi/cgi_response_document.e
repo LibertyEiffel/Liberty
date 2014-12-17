@@ -19,7 +19,7 @@ insert
       end
 
 create {ANY}
-   set_error, set_content_type, set_status
+   set_status_and_error, set_error, set_content_type, set_status
 
 feature {CGI_HANDLER}
    status: INTEGER
@@ -54,8 +54,6 @@ feature {CGI, CGI_HANDLER}
       end
 
    set_content_type (a_content_type: ABSTRACT_STRING)
-      require
-         a_content_type /= Void
       do
          Precursor(a_content_type)
          if status = 0 then
