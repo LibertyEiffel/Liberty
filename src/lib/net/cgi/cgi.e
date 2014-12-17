@@ -17,20 +17,25 @@ create {CGI_HANDLER}
    make
 
 feature {ANY}
-   run is
+   run
       local
          crm: CGI_REQUEST_METHOD
+         response: CGI_RESPONSE
       do
-         http_status := 200
          crm := request_method
          if error = Void then
-            crm.invoke(Current, handler)
+            response := crm.invoke(Current, handler)
+            if error /= Void then
+               response.set_error(error)
+            end
          else
-            --| **** TODO error
+            create {CGI_RESPONSE_DOCUMENT} response.set_error(error)
          end
+         response.flush
+
          if http_content_type = Void then
             prepare_error
-            error.copy("Missing Content_Type")
+            error.append(once "Missing Content_Type")
             http_content_type := Http_content_type_text_plain
          end
          std_output.put_string(http_content_type_text_plain)
@@ -40,36 +45,7 @@ feature {ANY}
          --| **** TODO headers and body
       end
 
-feature {}
-   http_status: INTEGER
-   http_content_type: FIXED_STRING
-
 feature {CGI_HANDLER}
-   Http_content_type_text_plain: FIXED_STRING
-      once
-         Result := "text/plain".intern
-      end
-
-   Http_content_type_text_html: FIXED_STRING
-      once
-         Result := "text/html".intern
-      end
-
-   Http_content_type_text_xml: FIXED_STRING
-      once
-         Result := "text/xml".intern
-      end
-
-   Http_content_type_application_xml: FIXED_STRING
-      once
-         Result := "application/xml".intern
-      end
-
-   Http_content_type_application_json: FIXED_STRING
-      once
-         Result := "application/json".intern
-      end
-
    error: STRING
 
    auth_type: CGI_AUTH_TYPE
@@ -88,7 +64,7 @@ feature {CGI_HANDLER}
                create {CGI_AUTH_TYPE_DIGEST} Result
             else
                prepare_error
-               error.copy(once "Unknown AUTH_TYPE: ")
+               error.append(once "Unknown AUTH_TYPE: ")
                error.append(t)
             end
          end
@@ -109,13 +85,13 @@ feature {CGI_HANDLER}
             else
                Result.set_error
                prepare_error
-               error.copy(once "Invalid negative CONTENT_LENGTH: ")
+               error.append(once "Invalid negative CONTENT_LENGTH: ")
                len.append_in(error)
             end
          else
             Result.set_error
             prepare_error
-            error.copy(once "Invalid CONTENT_LENGTH: ")
+            error.append(once "Invalid CONTENT_LENGTH: ")
             error.append(l)
          end
       ensure
@@ -131,7 +107,7 @@ feature {CGI_HANDLER}
             create Result.make(t)
             if Result.error /= Void then
                prepare_error
-               error.copy(Result.error)
+               error.append(Result.error)
             end
          end
       ensure
@@ -147,7 +123,7 @@ feature {CGI_HANDLER}
             create Result.make(t)
             if Result.error /= Void then
                prepare_error
-               error.copy(Result.error)
+               error.append(Result.error)
             end
          end
       ensure
@@ -183,7 +159,7 @@ feature {CGI_HANDLER}
             Result.set(t)
             if Result.error /= Void then
                prepare_error
-               error.copy(Result.error)
+               error.append(Result.error)
             end
          end
       ensure
@@ -201,7 +177,7 @@ feature {CGI_HANDLER}
          create Result.make(addr, info, ident, user)
          if Result.error /= Void then
             prepare_error
-            error.copy(Result.error)
+            error.append(Result.error)
          end
       ensure
          Result.error /= Void implies error.is_equal(Result.error)
@@ -230,7 +206,7 @@ feature {CGI_HANDLER}
             end
          else
             prepare_error
-            error.copy(once "Invalid REQUEST_METHOD: ")
+            error.append(once "Invalid REQUEST_METHOD: ")
             error.append(t)
          end
       ensure
@@ -246,7 +222,7 @@ feature {CGI_HANDLER}
             Result.set(t)
             if Result.error /= Void then
                prepare_error
-               error.copy(Result.error)
+               error.append(Result.error)
             end
          end
       ensure
@@ -264,7 +240,7 @@ feature {CGI_HANDLER}
          create Result.make(name, port, protocol, software)
          if Result.error /= Void then
             prepare_error
-            error.copy(Result.error)
+            error.append(Result.error)
          end
       end
 
@@ -304,7 +280,7 @@ feature {CGI_HANDLER}
       end
 
 feature {}
-   make (a_handler: like handler) is
+   make (a_handler: like handler)
       require
          a_handler /= Void
       do
@@ -325,8 +301,12 @@ feature {}
 
    prepare_error
       do
-         http_status := 500
-         error := error_memory
+         if error = Void then
+            error := error_memory
+            error.clear_count
+         else
+            error.extend('%N')
+         end
       end
 
 invariant
