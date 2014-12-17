@@ -8,7 +8,7 @@ class CGI_SERVER_INFO
    -- SERVER_NAME, SERVER_PORT, SERVER_PROTOCOL, SERVER_SOFTWARE
    --
 
-create {CGI_HANDLER}
+create {CGI}
    make
 
 feature {CGI_HANDLER}
@@ -16,6 +16,9 @@ feature {CGI_HANDLER}
    --| port: ???
    --| protocol: ???
    --| software: ???
+
+feature {CGI}
+   error: STRING
 
 feature {}
    make (n, p, q, s: STRING)

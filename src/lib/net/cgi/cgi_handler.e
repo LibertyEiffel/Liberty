@@ -8,47 +8,48 @@ deferred class CGI_HANDLER
    -- Inherit from this class to implement a CGI script.
    --
 
-feature {CGI_REMOTE_METHOD}
-   get (a_cgi: CGI)
-      require
-         a_cgi /= Void
+feature {CGI_REQUEST_METHOD}
+   get: CGI_RESPONSE
       deferred
+      ensure
+         Result /= Void
       end
 
-   post (a_cgi: CGI)
-      require
-         a_cgi /= Void
+   post: CGI_RESPONSE
       deferred
+      ensure
+         Result /= Void
       end
 
-   head (a_cgi: CGI)
-      require
-         a_cgi /= Void
+   head: CGI_RESPONSE
       deferred
+      ensure
+         Result /= Void
       end
 
-   delete (a_cgi: CGI)
-      require
-         a_cgi /= Void
+   delete: CGI_RESPONSE
       deferred
+      ensure
+         Result /= Void
       end
 
-   put (a_cgi: CGI)
-      require
-         a_cgi /= Void
+   put: CGI_RESPONSE
       deferred
+      ensure
+         Result /= Void
       end
 
-   invoke_method (a_cgi: CGI; a_method: FIXED_STRING)
+   invoke_method (a_method: FIXED_STRING): CGI_RESPONSE
       require
-         a_cgi /= Void
          a_method /= Void
-         not a_method.is_equal("GET")
-         not a_method.is_equal("POST")
-         not a_method.is_equal("HEAD")
-         not a_method.is_equal("DELETE")
-         not a_method.is_equal("PUT")
+         not a_method.is_equal(once "GET")
+         not a_method.is_equal(once "POST")
+         not a_method.is_equal(once "HEAD")
+         not a_method.is_equal(once "DELETE")
+         not a_method.is_equal(once "PUT")
       deferred
+      ensure
+         Result /= Void
       end
 
 end -- class CGI_HANDLER

@@ -8,13 +8,16 @@ class CGI_REMOTE_INFO
    -- REMOTE_ADDR, REMOTE_HOST, REMOTE_IDENT, REMOTE_USER
    --
 
-create {CGI_HANDLER}
+create {CGI}
    make
 
 feature {CGI_HANDLER}
    --| addr: ???
    --| host: ???
    ident, user: FIXED_STRING
+
+feature {CGI}
+   error: STRING
 
 feature {}
    make (a, h, i, u: STRING)

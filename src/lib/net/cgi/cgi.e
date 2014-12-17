@@ -24,25 +24,14 @@ feature {ANY}
       do
          crm := request_method
          if error = Void then
-            response := crm.invoke(Current, handler)
+            response := crm.invoke(handler)
             if error /= Void then
-               response.set_error(error)
+               create {CGI_RESPONSE_DOCUMENT} response.set_error(error)
             end
          else
             create {CGI_RESPONSE_DOCUMENT} response.set_error(error)
          end
          response.flush
-
-         if http_content_type = Void then
-            prepare_error
-            error.append(once "Missing Content_Type")
-            http_content_type := Http_content_type_text_plain
-         end
-         std_output.put_string(http_content_type_text_plain)
-         std_output.put_character(' ')
-         std_output.put_integer(http_status)
-         std_output.put_new_line
-         --| **** TODO headers and body
       end
 
 feature {CGI_HANDLER}
@@ -120,14 +109,14 @@ feature {CGI_HANDLER}
       do
          t := meta_variable(once "GATEWAY_INTERFACE")
          if t /= Void and then not t.is_empty then
-            create Result.make(t)
+            Result.set(t)
             if Result.error /= Void then
                prepare_error
                error.append(Result.error)
             end
          end
       ensure
-         (Result /= Void and then Result.error /= Void) implies error.is_equal(Result.error)
+         Result.error /= Void implies error.is_equal(Result.error)
       end
 
    path_info: CGI_PATH_INFO
@@ -136,7 +125,13 @@ feature {CGI_HANDLER}
       do
          t := meta_variable(once "PATH_INFO")
          if t /= Void and then not t.is_empty then
-            create Result.make(t)
+            if t.first = '/' then
+               create Result.make(t)
+            else
+               prepare_error
+               error.append(once "Invalid PATH_INFO: ")
+               error.append(t)
+            end
          end
       end
 
@@ -174,7 +169,7 @@ feature {CGI_HANDLER}
          host := meta_variable(once "REMOTE_HOST")
          ident := meta_variable("REMOTE_IDENT")
          user := meta_variable("REMOTE_USER")
-         create Result.make(addr, info, ident, user)
+         create Result.make(addr, host, ident, user)
          if Result.error /= Void then
             prepare_error
             error.append(Result.error)

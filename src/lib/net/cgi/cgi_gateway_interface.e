@@ -9,21 +9,11 @@ expanded class CGI_GATEWAY_INTERFACE
    --
 
 feature {CGI_HANDLER}
-   major: INTEGER
-      require
-         not error
-      attribute
-      end
-
-   minor: INTEGER
-      require
-         not error
-      attribute
-      end
-
-   error: STRING
+   major, minor: INTEGER
 
 feature {CGI}
+   error: STRING
+
    set (t: STRING)
       require
          not t.is_empty

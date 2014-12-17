@@ -9,11 +9,12 @@ deferred class CGI_REQUEST_METHOD
    --
 
 feature {CGI}
-   invoke (a_cgi: CGI; a_handler: CGI_HANDLER)
+   invoke (a_handler: CGI_HANDLER): CGI_RESPONSE
       require
-         a_cgi /= Void
          a_handler /= Void
       deferred
+      ensure
+         Result /= Void
       end
 
 end -- class CGI_REQUEST_METHOD

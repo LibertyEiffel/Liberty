@@ -16,14 +16,14 @@ feature {CGI_HANDLER}
          Result := not unknown
       end
 
+feature {CGI}
    error: BOOLEAN
 
-feature {CGI}
    set_length (a_length: like length)
       require
          a_length >= 0
       do
-         kength := a_length
+         length := a_length
          unknown := False
       ensure
          is_known

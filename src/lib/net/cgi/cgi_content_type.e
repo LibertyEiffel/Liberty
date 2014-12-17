@@ -13,24 +13,19 @@ create {CGI}
 
 feature {CGI_HANDLER}
    type: FIXED_STRING
-      require
-         not error
       attribute
       end
 
    subtype: FIXED_STRING
-      require
-         not error
       attribute
       end
 
    attributes: MAP[FIXED_STRING, FIXED_STRING]
-      require
-         not error
       do
          Result := attributes_memory
       end
 
+feature {CGI}
    error: STRING
 
 feature {}
@@ -108,7 +103,7 @@ feature {}
          until
             not t.valid_index(Result) or else t.item(Result) = '='
          loop
-            a.append(t.item(Result))
+            a.extend(t.item(Result))
             Result := Result + 1
          end
          if not not t.valid_index(Result) then
@@ -123,14 +118,14 @@ feature {}
                until
                   not t.valid_index(Result) or else t.item(Result) = '"'
                loop
-                  v.append(t.item(Result))
+                  v.extend(t.item(Result))
                   Result := Result + 1
                end
                if not t.valid_index(Result) or else (t.valid_index(Result + 1) and then t.item(Result + 1) /= ';') then
                   set_error(t)
                else
                   Result := Result + 1
-                  attributes.put(v.intern, a.intern)
+                  attributes_memory.put(v.intern, a.intern)
                end
             else
                from
@@ -138,10 +133,10 @@ feature {}
                until
                   not t.valid_index(Result) or else t.item(Result) = ';'
                loop
-                  v.append(t.item(Result))
+                  v.extend(t.item(Result))
                   Result := Result + 1
                end
-               attributes.put(v.intern, a.intern)
+               attributes_memory.put(v.intern, a.intern)
             end
          end
       ensure

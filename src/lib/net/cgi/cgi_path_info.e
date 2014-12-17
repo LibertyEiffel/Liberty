@@ -14,23 +14,25 @@ create {CGI}
 feature {CGI_HANDLER}
    segments: TRAVERSABLE[FIXED_STRING]
       require
-         not error
+         error = Void
       do
          Result := segments_memory
       end
 
+   error: STRING
+
 feature {}
    make (t: STRING)
       require
-         not t.is_empty
+         t.first = '/'
       local
          pos: INTEGER; p: STRING
       do
-         create segments_memory.make
+         create segments_memory.with_capacity(t.occurrences('/') - 1)
          from
             p := once ""
             p.clear_count
-            pos := t.lower
+            pos := t.lower + 1
          until
             error /= Void or else not t.valid_index(pos)
          loop

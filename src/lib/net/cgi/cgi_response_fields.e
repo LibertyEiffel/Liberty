@@ -17,8 +17,8 @@ feature {CGI_HANDLER}
 feature {CGI, CGI_HANDLER}
    is_valid_field (a_field: ABSTRACT_STRING): BOOLEAN
       do
-         Result := field /= Void
-            and then field_pattern.matches(a_field)
+         Result := a_field /= Void
+            and then field_pattern.match(a_field)
             and then not a_field.is_equal(once "Content-Type")
             and then not a_field.is_equal(once "Status")
             and then not a_field.is_equal(once "Location")
@@ -55,7 +55,7 @@ feature {CGI, CGI_HANDLER}
          values ::= fields_memory.reference_at(field)
          if values = Void then
             create values.with_capacity(1)
-            fields_memory.add(field, values)
+            fields_memory.add(values, field)
          end
          values.add_last(a_value.intern)
       ensure

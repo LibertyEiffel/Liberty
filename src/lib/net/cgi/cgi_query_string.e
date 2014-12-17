@@ -11,7 +11,10 @@ expanded class CGI_QUERY_STRING
 feature {CGI_HANDLER}
    string: FIXED_STRING
 
-feature {CGI_HANDLER}
+
+feature {CGI}
+   error: STRING
+
    set (t: STRING)
       require
          not t.is_empty
@@ -33,7 +36,7 @@ feature {CGI_HANDLER}
                when ';', '/', '?', ':', '@', '&', '=', '+', '$', ',' then
                   -- reserved
                   s.extend(c) --| **** TODO depends on context, see RFC 3875
-               when 'A'..'Z', 'a'..'z', '0'..'9', '-' | '_' | '.' | '!' | '~' | '*' | '%'' | '(' | ')' then
+               when 'A'..'Z', 'a'..'z', '0'..'9', '-', '_', '.', '!', '~', '*', '%'', '(', ')' then
                   -- unreserved
                   s.extend(c)
                when '%%' then

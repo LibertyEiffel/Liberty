@@ -12,9 +12,9 @@ inherit
    CGI_REQUEST_METHOD
 
 feature {CGI}
-   invoke (a_cgi: CGI; a_handler: CGI_HANDLER)
+   invoke (a_handler: CGI_HANDLER): CGI_RESPONSE
       do
-         a_handler.post(a_cgi)
+         Result := a_handler.post
       end
 
 end -- class CGI_REQUEST_METHOD_POST

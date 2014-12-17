@@ -46,7 +46,7 @@ feature {ANY}
          variable /= Void
       do
          Result := once ""
-         if not get_environment_variable_in(var, Result) then
+         if not get_environment_variable_in(variable, Result) then
             Result := Void
          end
       end

@@ -17,7 +17,9 @@ insert
 feature {CGI_HANDLER}
    name: FIXED_STRING
 
-feature {CGI_HANDLER}
+feature {CGI}
+   error: STRING
+
    set (t: STRING)
       require
          not t.is_empty

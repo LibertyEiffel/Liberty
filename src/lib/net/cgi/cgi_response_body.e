@@ -12,8 +12,6 @@ feature {CGI_HANDLER}
    content_type: FIXED_STRING
 
    body: OUTPUT_STREAM
-      require
-         status.in_range(200, 299)
       do
          if body_stream = Void then
             body_string := ""
@@ -27,9 +25,6 @@ feature {CGI, CGI_HANDLER}
       require
          a_content_type /= Void
       do
-         if status = 0 then
-            status := 200
-         end
          content_type := a_content_type.intern
       end
 

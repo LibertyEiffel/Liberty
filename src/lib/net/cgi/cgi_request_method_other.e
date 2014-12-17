@@ -15,9 +15,9 @@ create {CGI}
    make
 
 feature {CGI}
-   invoke (a_cgi: CGI; a_handler: CGI_HANDLER)
+   invoke (a_handler: CGI_HANDLER): CGI_RESPONSE
       do
-         a_handler.invoke_method(a_cgi, method)
+         Result := a_handler.invoke_method(method)
       end
 
 feature {CGI_HANDLER}
