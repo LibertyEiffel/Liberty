@@ -2056,20 +2056,23 @@ return oBC17tagged_out_memories;
 }/*--*/
 
 /*SYSTEM*/T0*r545get_environment_variable(T0*a1){
-/*[INTERNAL_C_LOCAL list*/
-T0* tmp0;
-/*INTERNAL_C_LOCAL list]*/
 T0* R=(void*)0;
+R=ms113_0Abc545A;
+if((/*RF4:get_environment_variable_in*/r545get_environment_variable_in(/*`variable'*/a1,R)/*:RF4*/)==(0)){
+R=(void*)0;
+}
+return R;
+}/*--*/
+
+/*SYSTEM*/T6 r545get_environment_variable_in(T0*a1,T0*a2){
+T6 R=0;
 T8 _p=(void*)0;
 T8 _null=(void*)0;
 _p=/*RF4:to_external*/r7to_external(((T7*)/*`variable'*/a1))/*:RF4*/;
 _p=/*RF8:basic_getenv*/basic_getenv(_p)/*:RF8*/;
 if((_p)!=(_null)){
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T7/*Tniiiii*/))));
-*((T7*)tmp0/*new*/)=M7;
-/*RF3:from_external_copy*/r7from_external_copy(((T7*)tmp0/*new*/),_p);
-/*:RF3*/R=tmp0/*new*/;
-/*tmp0.unlock*/
+/*RF3:from_external_copy*/r7from_external_copy(((T7*)/*`value'*/a2),_p);
+/*:RF3*/R=((T6)(1));
 }
 return R;
 }/*--*/
