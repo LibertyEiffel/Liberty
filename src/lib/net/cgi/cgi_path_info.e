@@ -8,8 +8,32 @@ class CGI_PATH_INFO
    -- PATH_INFO
    --
 
+insert
+   ANY
+      redefine
+         out_in_tagged_out_memory
+      end
+
 create {CGI}
    make
+
+feature {ANY}
+   out_in_tagged_out_memory
+      local
+         i: INTEGER
+      do
+         from
+            i := segments_memory.lower
+         until
+            i > segments_memory.upper
+         loop
+            if i > segments_memory.lower then
+               tagged_out_memory.extend('/')
+            end
+            tagged_out_memory.append(segments_memory.item(i))
+            i := i + 1
+         end
+      end
 
 feature {CGI_HANDLER}
    segments: TRAVERSABLE[FIXED_STRING]

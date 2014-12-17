@@ -34,7 +34,16 @@ feature {CGI, CGI_HANDLER}
       require
          a_error /= Void
       do
-         status := 500
+         set_status_and_error(500, a_error)
+      end
+
+   set_status_and_error (a_status: INTEGER; a_error: ABSTRACT_STRING)
+      require
+         is_valid_status(a_status)
+         a_status >= 500
+         a_error /= Void
+      do
+         status := a_status
          if error_memory = Void then
             create error_memory.make_from_string(a_error)
          else
