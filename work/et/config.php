@@ -24,7 +24,7 @@ $debuildDateFormat = "Ymd.His";
 $publicBase = "";
 $img = "$publicBase/images";
 
-$breakFlag = "$out/break.flag"
+$breakFlag = "$out/break.flag";
 
 $gitBranch = "master";
 if (file_exists("$BaseDir/branch")) {
