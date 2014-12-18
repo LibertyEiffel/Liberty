@@ -12,6 +12,7 @@ class CGI
 
 insert
    SINGLETON
+   DISPOSABLE
 
 create {CGI_HANDLER}
    make
@@ -198,8 +199,8 @@ feature {CGI_HANDLER}
       do
          addr := meta_variable(once "REMOTE_ADDR")
          host := meta_variable(once "REMOTE_HOST")
-         ident := meta_variable("REMOTE_IDENT")
-         user := meta_variable("REMOTE_USER")
+         ident := meta_variable(once "REMOTE_IDENT")
+         user := meta_variable(once "REMOTE_USER")
          create Result.make(addr, host, ident, user)
          if Result.error /= Void then
             prepare_error
@@ -213,7 +214,7 @@ feature {CGI_HANDLER}
       local
          t: STRING
       do
-         t := meta_variable("REQUEST_METHOD")
+         t := meta_variable(once "REQUEST_METHOD")
          if t = Void or else t.is_empty then
             inspect
                t
@@ -243,7 +244,7 @@ feature {CGI_HANDLER}
       local
          t: STRING
       do
-         t := meta_variable("SCRIPT_NAME")
+         t := meta_variable(once "SCRIPT_NAME")
          if t /= Void and then not t.is_empty then
             Result.set(t)
             if Result.error /= Void then
@@ -259,10 +260,10 @@ feature {CGI_HANDLER}
       local
          name, port, protocol, software: STRING
       do
-         name := meta_variable("SERVER_NAME")
-         port := meta_variable("SERVER_PORT")
-         protocol := meta_variable("SERVER_PROTOCOL")
-         software := meta_variable("SERVER_SOFTWARE")
+         name := meta_variable(once "SERVER_NAME")
+         port := meta_variable(once "SERVER_PORT")
+         protocol := meta_variable(once "SERVER_PROTOCOL")
+         software := meta_variable(once "SERVER_SOFTWARE")
          create Result.make(name, port, protocol, software)
          if Result.error /= Void then
             prepare_error
@@ -275,7 +276,7 @@ feature {CGI_HANDLER}
       local
          builder: REGULAR_EXPRESSION_BUILDER
       once
-         Result := builder.convert_posix_pattern(once "^[0-9A-Za-z-]+$")
+         Result := builder.convert_posix_pattern("^[0-9A-Za-z-]+$")
       end
 
    header (field: ABSTRACT_STRING): FIXED_STRING
@@ -323,7 +324,7 @@ feature {}
       end
 
    handler: CGI_HANDLER
-   error_memory: STRING is ""
+   error_memory: STRING ""
 
    prepare_error
       do
@@ -336,6 +337,12 @@ feature {}
       end
 
    state: INTEGER_8
+
+feature {}
+   dispose
+      do
+         check done end
+      end
 
 invariant
    handler /= Void
