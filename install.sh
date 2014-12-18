@@ -278,6 +278,7 @@ EOF
         mv a.out $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
     fi
     cd $TARGET/bin/compile_to_c.d
+    cp -a $LIBERTY_HOME/resources/smarteiffel-germ/* .
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
