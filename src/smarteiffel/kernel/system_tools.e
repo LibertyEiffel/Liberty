@@ -601,6 +601,7 @@ feature {COMPILE, COMPILE_TO_C}
             end
          elseif arg.is_equal(once "--") or else arg.is_equal(once "-") or else arg.is_equal(once "/") then
             root_class_wait_for_procedure := False
+            Result := argi + 1
          elseif arg.has_prefix(once "-l") then
             append_if_not_already(external_lib, arg)
             Result := argi + 1
@@ -911,17 +912,20 @@ feature {C_PRETTY_PRINTER}
          tmp_file_read.is_connected
       end
 
-   next_path is
+   reset_paths
+      do
+         path_id := 0
+      end
+
+   next_path
       do
          path_h_memory.clear_count
          path_c_memory.clear_count
          path_make_memory.clear_count
-         if dos_system = system_name then
-            path_id := path_id + 1
-            if path_id > 99 then
-               error_handler.append("Too many root classes, unsupported on vintage DOS")
-               error_handler.print_as_fatal_error
-            end
+         path_id := path_id + 1
+         if path_id > 99 then
+            error_handler.append("Too many root classes")
+            error_handler.print_as_fatal_error
          end
       end
 
@@ -2561,22 +2565,21 @@ feature {}
          path.is_empty
          suffix /= Void
       do
-         if dos_system = system_name then
-            path.copy(once "se")
+         if ace.root_count > 1 and then (dos_system = system_name or else ace.need_path_id) then
             if path_id < 10 then
                path.extend('0')
             end
             path_id.append_in(path)
+            path.extend('-')
+         else
+            -- compatibility mode for usual case
+         end
+         if dos_system = system_name then
+            path.copy(once "se")
          else
             path.copy(ace.root_class_name.to_string)
-            if ace.root_count > 1 then
-               path.extend('-')
-               path.append(ace.root_procedure_name)
-            else
-               -- compatibility mode for usual case
-            end
-            path.to_lower
          end
+         path.to_lower
          path.append(suffix)
       ensure
          path.has_suffix(suffix)

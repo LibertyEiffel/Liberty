@@ -156,33 +156,55 @@ feature {}
       local
          make_script_name: STRING; last_system_call_status: INTEGER
       do
-         make_script_name := system_tools.path_make
-         echo.file_removing(make_script_name)
+         from
+            system_tools.reset_paths
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            system_tools.next_path
+            make_script_name := system_tools.path_make
+            echo.file_removing(make_script_name)
+            ace.next_root
+         end
 
          last_system_call_status := echo.system_call(command)
          if last_system_call_status /= exit_success_code then
             echo.w_put_string(once "Error occurs while compiling. Compilation process aborted.%N")
             die_with_code(last_system_call_status)
          end
-         system_tools.connect_make_file(make_file, make_script_name)
-         if not make_file.is_connected then
-            echo.w_put_string(once "Internal error (file %"")
-            echo.w_put_string(make_script_name)
-            echo.w_put_string("%" not found; error(s) during `compile_to_c').%N")
-            die_with_code(exit_failure_code)
+
+         from
+            system_tools.reset_paths
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            system_tools.next_path
+            make_script_name := system_tools.path_make
+
+            system_tools.connect_make_file(make_file, make_script_name)
+            if not make_file.is_connected then
+               echo.w_put_string(once "Internal error (file %"")
+               echo.w_put_string(make_script_name)
+               echo.w_put_string("%" not found; error(s) during `compile_to_c').%N")
+               die_with_code(exit_failure_code)
+            end
+            echo.put_string(once "C compiling using %"")
+            echo.put_string(make_script_name)
+            echo.put_string(once "%" command file")
+            if max_process_count > 1 then
+               echo.put_string(once " (")
+               echo.put_integer(max_process_count)
+               echo.put_string(once " jobs at a time)")
+            end
+            echo.put_new_line
+            run_make_file
+            make_file.disconnect
+            system_tools.remove_make_script_and_other_extra_files
+
+            ace.next_root
          end
-         echo.put_string(once "C compiling using %"")
-         echo.put_string(make_script_name)
-         echo.put_string(once "%" command file")
-         if max_process_count > 1 then
-            echo.put_string(once " (")
-            echo.put_integer(max_process_count)
-            echo.put_string(once " jobs at a time)")
-         end
-         echo.put_new_line
-         run_make_file
-         make_file.disconnect
-         system_tools.remove_make_script_and_other_extra_files
       end
 
    do_clean

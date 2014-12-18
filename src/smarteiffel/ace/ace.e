@@ -40,7 +40,15 @@ feature {}
          create Result.with_capacity(1)
       end
 
+   executable_names: FAST_ARRAY[STRING]
+         -- All the executable names given on the command line
+      once
+         create Result.with_capacity(1)
+      end
+
    root_index: INTEGER
+
+   executable_name_memory: STRING
 
 feature {ANY}
    file_path: STRING
@@ -54,6 +62,13 @@ feature {ANY}
          -- in the ACE file or after the -o flag in the command line).
          -- In command line mode, a Void value means that "a.out" is to be
          -- used for C mode while using gcc for example.
+      do
+         if has_root then
+            Result := executable_names.item(root_index)
+         else
+            Result := executable_name_memory
+         end
+      end
 
    root_class_name: HASHED_STRING
          -- The name of the root class using only upper case letters. This
@@ -82,6 +97,9 @@ feature {ANY}
             set_root_procedure_name(Result)
          end
       end
+
+   need_path_id: BOOLEAN
+         -- True if a path_id is mandatory because the same root class is used more than once
 
    has_root: BOOLEAN
          -- True if `root_class_name` and `root_procedure_name` are valid
@@ -293,7 +311,7 @@ feature {ACE_HANDLER}
             error_handler.append(once "Keyword %"system%" expected. Invalid ACE file.")
             error_handler.print_as_fatal_error
          end
-         executable_name := string_aliaser.string(a_string)
+         executable_name_memory := string_aliaser.string(a_string)
          if not a_keyword(once "root") then
             error_handler.add_position(current_position)
             error_handler.append(once "Keyword %"root%" expected. Invalid ACE file.")
@@ -373,17 +391,27 @@ feature {ACE_HANDLER}
          root_class_names.count = old root_class_names.count + 1
          not root_class_names.last.to_string.has_suffix(eiffel_suffix)
          root_procedure_names.last = Void
+         executable_names.last = executable_name_memory
          root_index = root_class_names.upper
       end
 
    set_root_class_name (rcn: HASHED_STRING)
       do
+         if root_class_names.fast_has(rcn) then
+            need_path_id := True
+         end
+
          root_class_names.add_last(rcn)
          root_procedure_names.add_last(Void)
+         executable_names.add_last(executable_name_memory)
          root_index := root_class_names.upper
+
+         echo.put_string(once "Root class: ")
+         echo.put_line(rcn.to_string)
       ensure
          root_class_name = rcn
          root_procedure_names.last = Void
+         executable_names.last = executable_name_memory
          root_index = root_class_names.upper
       end
 
@@ -393,6 +421,11 @@ feature {ACE_HANDLER}
          root_procedure_names.last = Void
       do
          root_procedure_names.put(rp, root_index)
+
+         echo.put_string(once "Root procedure for ")
+         echo.put_line(root_class_names.upper.to_string)
+         echo.put_string(once ": ")
+         echo.put_line(rp)
       ensure
          root_procedure_name = rp
       end
@@ -524,7 +557,7 @@ feature {ACE_HANDLER}
       require
          file_path = Void
       do
-         if root_class_name = Void then
+         if root_class_names.is_empty then
             echo.w_put_string(command_name)
             echo.w_put_string(": error: No <Root-Class> in command line.%N")
             die_with_code(exit_failure_code)
@@ -552,7 +585,10 @@ feature {ACE_HANDLER}
 
    set_executable_name (name: STRING)
       do
-         executable_name := name
+         if not executable_names.is_empty then
+            executable_names.put(name, executable_names.upper)
+         end
+         executable_name_memory := name
       ensure
          executable_name = name
       end
@@ -864,7 +900,7 @@ feature {ACE_CHECK}
          file_path /= Void
       do
          txt.append("system ")
-         txt.append(executable_name)
+         txt.append(executable_name_memory)
          txt.append("%Nroot ")
          txt.append(root_class_name.to_string)
          if root_procedure_name /= Void then
@@ -1030,10 +1066,6 @@ feature {}
             echo.put_string(once "Cluster tree:%N")
             universe.show(0)
          end
-         if splitter = Void then
-            -- Defaults to the legacy splitter
-            create {C_SPLITTER_LEGACY} splitter.make
-         end
       end
 
    highest_encountered_level: INTEGER
@@ -1088,31 +1120,43 @@ feature {SYSTEM_TOOLS}
 feature {C_PRETTY_PRINTER}
    splitter: C_SPLITTER
          -- The splitter to use
+      do
+         Result := splitter_memory
+         if Result = Void then
+            -- Defaults to the legacy splitter
+            create {C_SPLITTER_LEGACY} Result.make
+            splitter_memory := Result
+         end
+      ensure
+         Result /= Void
+      end
+
+feature {}
+   splitter_memory: C_SPLITTER
 
 feature {C_PRETTY_PRINTER, COMPILE_TO_C, STRING_COMMAND_LINE, LIVE_TYPE, SYSTEM_TOOLS}
    set_no_split (flag: BOOLEAN)
       do
          if flag then
-            create {C_SPLITTER_NO_SPLIT} splitter.make
-         elseif splitter = Void then
-            create {C_SPLITTER_LEGACY} splitter.make
+            create {C_SPLITTER_NO_SPLIT} splitter_memory.make
+         elseif splitter_memory = Void then
+            create {C_SPLITTER_LEGACY} splitter_memory.make
          end
       ensure
-         splitter /= Void
          flag implies ({C_SPLITTER_NO_SPLIT} ?:= splitter)
       end
 
    set_split (value: STRING)
       do
          if value = Void then
-            create {C_SPLITTER_NO_SPLIT} splitter.make
-         elseif splitter = Void then
+            create {C_SPLITTER_NO_SPLIT} splitter_memory.make
+         elseif splitter_memory = Void then
             inspect
                value
             when "by_type" then
-               create {C_SPLITTER_BY_LIVE_TYPE} splitter.make
+               create {C_SPLITTER_BY_LIVE_TYPE} splitter_memory.make
             when "legacy" then
-               create {C_SPLITTER_LEGACY} splitter.make
+               create {C_SPLITTER_LEGACY} splitter_memory.make
             else
                error_handler.add_position(current_position)
                error_handler.append(once "The valid values for split are either %"legacy%" or %"by_type%".")
@@ -1809,8 +1853,6 @@ feature {}
                stop := True
             end
          end
-      ensure
-         splitter /= Void
       end
 
    a_yes_no_all: BOOLEAN
