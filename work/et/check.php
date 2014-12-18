@@ -42,14 +42,18 @@ function failed(){
    exit(1);
 }
 
-function substage($name, $link = ""){
-   global $stagedir, $stageout, $verbose, $stageStackName, $stageStackTime, $dateFormat;
-
+function checkBreak(){
    if (file_exists($breakFlag)) {
       echo "Interrupted build."
       unlink($breakFlag);
       failed();
    }
+}
+
+function substage($name, $link = ""){
+   global $stagedir, $stageout, $verbose, $stageStackName, $stageStackTime, $dateFormat;
+
+   checkBreak();
 
    $substageDepth = count($stageStackName);
    array_push($stageStackName, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
@@ -86,6 +90,8 @@ function substage($name, $link = ""){
 function endsubstage(){
    global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
 
+   checkBreak();
+
    $fullStageName = implode("/", $stageStackName);
    $startTime = array_pop($stageStackTime);
    $endTime = time();
@@ -115,6 +121,9 @@ function execute($cmd, $simple = true, $ulimit_time = 600, $ulimit_virt = 419430
    global $stagedir;
    global $out;
    global $verbose;
+
+   checkBreak();
+
    if ($verbose) echo "executing '$cmd'\n";
    file_put_contents($stagedir . "/cmd.txt", $cmd);
    system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; ulimit -m " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
