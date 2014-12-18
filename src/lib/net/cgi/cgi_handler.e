@@ -9,37 +9,27 @@ deferred class CGI_HANDLER
    --
 
 feature {CGI_REQUEST_METHOD}
-   get: CGI_RESPONSE
+   get
       deferred
-      ensure
-         Result /= Void
       end
 
-   post: CGI_RESPONSE
+   post
       deferred
-      ensure
-         Result /= Void
       end
 
-   head: CGI_RESPONSE
+   head
       deferred
-      ensure
-         Result /= Void
       end
 
-   delete: CGI_RESPONSE
+   delete
       deferred
-      ensure
-         Result /= Void
       end
 
-   put: CGI_RESPONSE
+   put
       deferred
-      ensure
-         Result /= Void
       end
 
-   invoke_method (a_method: FIXED_STRING): CGI_RESPONSE
+   invoke_method (a_method: FIXED_STRING)
       require
          a_method /= Void
          not a_method.is_equal(once "GET")
@@ -48,8 +38,6 @@ feature {CGI_REQUEST_METHOD}
          not a_method.is_equal(once "DELETE")
          not a_method.is_equal(once "PUT")
       deferred
-      ensure
-         Result /= Void
       end
 
 end -- class CGI_HANDLER

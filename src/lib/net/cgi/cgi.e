@@ -18,23 +18,54 @@ create {CGI_HANDLER}
 
 feature {ANY}
    run
+      require
+         need_run
       local
          crm: CGI_REQUEST_METHOD
-         response: CGI_RESPONSE
       do
          crm := request_method
          if error = Void then
-            response := crm.invoke(handler)
-            if error /= Void then
-               create {CGI_RESPONSE_DOCUMENT} response.set_error(error)
-            end
+            state := 1
+            crm.invoke(handler)
          else
-            create {CGI_RESPONSE_DOCUMENT} response.set_error(error)
+            state := -1
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush
          end
-         response.flush
+      ensure
+         need_reply or else done
+      end
+
+   need_run: BOOLEAN
+      do
+         Result := state = 0
+      end
+
+   need_reply: BOOLEAN
+      do
+         Result := state = 1
+      end
+
+   done: BOOLEAN
+      do
+         Result := state = -1
       end
 
 feature {CGI_HANDLER}
+   reply (response: CGI_RESPONSE)
+      require
+         need_reply
+         response /= Void
+      do
+         state := -1
+         if error = Void then
+            response.flush
+         else
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush
+         end
+      ensure
+         done
+      end
+
    error: STRING
 
    auth_type: CGI_AUTH_TYPE
@@ -303,6 +334,8 @@ feature {}
             error.extend('%N')
          end
       end
+
+   state: INTEGER_8
 
 invariant
    handler /= Void
