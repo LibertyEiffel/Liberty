@@ -13,6 +13,9 @@ class CGI
 insert
    SINGLETON
    DISPOSABLE
+      undefine
+         is_equal
+      end
 
 create {CGI_HANDLER}
    make
