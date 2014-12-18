@@ -2023,6 +2023,14 @@ feature {}
          root_fn := root.root_creation_search(root_procedure_name)
          root_type := root.declaration_type_of_like_current
          root_procedure ::= root_type.live_type.at(root_fn)
+         if root_procedure = Void then
+            error_handler.append(once "Root procedure {")
+            error_handler.append(root_class_name)
+            error_handler.append(once "}.")
+            error_handler.append(root_procedure_name)
+            error_handler.append(once " not found!")
+            error_handler.print_as_internal_error
+         end
          back_end.compile
       end
 
