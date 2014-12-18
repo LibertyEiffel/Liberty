@@ -20,6 +20,8 @@ if [ -x $cmd ]; then
         mv ${e%.e} $exe
     elif [ -x a.out ]; then
         mv a.out $exe
+    elif [ -x a.exe ]; then
+        mv a.exe $exe
     else
         echo "**** $exe not found!" >> $out
         status=1
