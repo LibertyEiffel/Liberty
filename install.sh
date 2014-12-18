@@ -275,10 +275,10 @@ EOF
             run $cmd || exit 1
             test -e a.exe && mv a.exe a.out
         done
-        mv a.out $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
+        cp -a * $TARGET/bin/compile_to_c.d/
     fi
     cd $TARGET/bin/compile_to_c.d
-    cp -a $LIBERTY_HOME/resources/smarteiffel-germ/* .
+    mv a.out compile_to_c || exit 1
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
@@ -336,37 +336,41 @@ EOF
     done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    while read i gc tool; do
-        progress 30 $i $MAXTOOLCOUNT "$tool"
-        test -d ${tool}.d || mkdir ${tool}.d
-        cd ${tool}.d
-        case $gc in
-            no) GC="-no_gc";;
-            bdw) GC="$BDW_GC";;
-            *) GC="";;
-        esac
-        run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
-        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done <<EOF
+    {
+        grep -v '^#' | while read i gc tool; do
+                           progress 30 $i $MAXTOOLCOUNT "$tool"
+                           test -d ${tool}.d || mkdir ${tool}.d
+                           cd ${tool}.d
+                           case $gc in
+                               no) GC="-no_gc";;
+                               bdw) GC="$BDW_GC";;
+                               *) GC="";;
+                           esac
+                           run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
+                           cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+                       done
+    } <<EOF
 5  no se
 6  bdw clean
 7  bdw ace_check
 8  no  eiffeltest
-9  bdw eiffeltest_ng
-10 bdw eiffeltest_server
+#9  bdw eiffeltest_ng
+#10 bdw eiffeltest_server
 EOF
-        while read i gc tool; do
-            progress 30 $i $MAXTOOLCOUNT "$tool"
-            test -d ${tool}.d || mkdir ${tool}.d
-            cd ${tool}.d
-            case $gc in
-                no) GC="-no_gc";;
-                bdw) GC="$BDW_GC";;
-                *) GC="";;
-            esac
-            run ../compile -verbose -boost $GC $tool -o $tool || exit 1
-            cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-        done <<EOF
+    {
+        grep -v '^#' | while read i gc tool; do
+                           progress 30 $i $MAXTOOLCOUNT "$tool"
+                           test -d ${tool}.d || mkdir ${tool}.d
+                           cd ${tool}.d
+                           case $gc in
+                               no) GC="-no_gc";;
+                               bdw) GC="$BDW_GC";;
+                               *) GC="";;
+                           esac
+                           run ../compile -verbose -boost $GC $tool -o $tool || exit 1
+                           cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+                       done
+    } <<EOF
 11 no  pretty
 12 no  short
 13 no  class_check
