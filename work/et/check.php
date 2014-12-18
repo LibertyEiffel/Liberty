@@ -44,9 +44,9 @@ function failed(){
 
 function checkBreak(){
    if (file_exists($breakFlag)) {
-      echo "Interrupted build."
-      unlink($breakFlag);
-      failed();
+       echo "Interrupted build.";
+       unlink($breakFlag);
+       failed();
    }
 }
 
