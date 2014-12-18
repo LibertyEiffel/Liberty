@@ -18,7 +18,11 @@ include "functions.php";
 include "$templates/head.html";
 
 if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
-   file_put_contents ($request, "new MANUAL request on " . date($dateFormat));
+   file_put_contents($request, "new MANUAL request on " . date($dateFormat));
+}
+
+if(array_key_exists("request_break", $_GET) && $_GET["request_break"] == 1){
+   file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
 }
 
 if(array_key_exists('history', $_GET)){
@@ -84,13 +88,13 @@ function legible_time($time) {
 }
 
 if ($history == 0){
-   if(file_exists($lock)){
+   if (file_exists($lock)) {
       $currentStage = file_get_contents("$stageout/current_stage.txt");
       $state = "Working on " . file_get_contents($currentStage . "/stagename.txt");
-   }else{
+   } else {
       $state = "Idle";
    }
-   if(file_exists($request)){
+   if (file_exists($request)) {
       $content = file_get_contents($request);
       $state = $state . " &mdash; " . $content;
    }
@@ -224,11 +228,12 @@ echo "\n</div>\n";
 /* yes, include config again, to reset $stageout */
 include "config.php";
 
-echo "<div name='pager'>";
+echo "<div id='container'>";
+echo "<div class='pager header'>";
 if($history > 0){
    $i = $history - 1;
-   echo "<a href=\"?history=$i\">&lt;&mdash;</a>";
-   echo " <a href=\"?history=0\">latest</a>";
+   echo "<a href=\"?history=$i\" class='btnlink'>&lt;&mdash;</a>";
+   echo " <a href=\"?history=0\" class='btnlink'>latest</a>";
 } else {
    echo "<b>latest</b>";
 }
@@ -236,15 +241,24 @@ for($i = 1; $i <= $historysize; $i++){
    if($history == $i){
       echo " <b>$i</b> ";
    } elseif(is_dir($stageout . "_" . $i)){
-      echo " <a href=\"?history=$i\">$i</a> ";
+      echo " <a href=\"?history=$i\" class='btnlink'>$i</a> ";
    }
 }
 if($history < $historysize){
    $i = $history + 1;
    if(is_dir($stageout . "_" . $i)){
-      echo " <a href=\"?history=$i\">&mdash;&gt;</a>";
+      echo " <a href=\"?history=$i\" class='btnlink'>&mdash;&gt;</a>";
    }
 }
 echo "</div>";
+
+echo "<div class='actions header'>";
+if (file_exists($request)) {
+   echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
+}
+echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>";
+echo "</div>";
+echo "</div>";
+
 include "$templates/foot.html";
 ?>

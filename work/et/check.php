@@ -45,6 +45,12 @@ function failed(){
 function substage($name, $link = ""){
    global $stagedir, $stageout, $verbose, $stageStackName, $stageStackTime, $dateFormat;
 
+   if (file_exists($breakFlag)) {
+      echo "Interrupted build."
+      unlink($breakFlag);
+      failed();
+   }
+
    $substageDepth = count($stageStackName);
    array_push($stageStackName, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
    $startTime = time();
