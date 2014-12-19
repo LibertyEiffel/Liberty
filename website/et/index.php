@@ -224,6 +224,9 @@ echo "<div style=\"width:760px;\">\n";
 printSubStages($stageout);
 echo "\n</div>\n";
 
+echo "</div>";
+echo "</div>";
+
 
 /* yes, include config again, to reset $stageout */
 include "config.php";
@@ -257,8 +260,6 @@ if (file_exists($request)) {
    echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
 }
 echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>";
-echo "</div>";
-echo "</div>";
 
 include "$templates/foot.html";
 ?>
