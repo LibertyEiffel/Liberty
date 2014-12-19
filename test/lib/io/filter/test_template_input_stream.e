@@ -32,6 +32,9 @@ feature {}
          end
 
          assert(o.is_equal("FOO BAR # "))
+
+         outs.disconnect
+         ins.disconnect
       end
 
    resolve (s: STRING): STRING
