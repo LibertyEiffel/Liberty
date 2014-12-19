@@ -224,15 +224,15 @@ echo "<div style=\"width:760px;\">\n";
 printSubStages($stageout);
 echo "\n</div>\n";
 
-echo "</div>";
-echo "</div>";
+echo "</div>\n";
+echo "</div>\n";
 
 
 /* yes, include config again, to reset $stageout */
 include "config.php";
 
-echo "<div id='container'>";
-echo "<div class='pager header'>";
+echo "<div id='container'>\n";
+echo "<div class='pager header'>\n";
 if($history > 0){
    $i = $history - 1;
    echo "<a href=\"?history=$i\" class='btnlink'>&lt;&mdash;</a>";
@@ -253,13 +253,13 @@ if($history < $historysize){
       echo " <a href=\"?history=$i\" class='btnlink'>&mdash;&gt;</a>";
    }
 }
-echo "</div>";
+echo "\n</div>\n";
 
-echo "<div class='actions header'>";
+echo "<div class='actions header'>\n";
 if (file_exists($request)) {
    echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
 }
-echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>";
+echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>\n";
 
 include "$templates/foot.html";
 ?>
