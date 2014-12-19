@@ -139,7 +139,7 @@ feature {}
                      end
                      state := 2
                   else
-                     state := 0
+                     state := -4
                   end
                else
                   state := 0
@@ -171,7 +171,9 @@ feature {}
             end
          end
       ensure
-         stream.valid_last_character implies (state < 0 and then stream.filtered_last_character = ')')
+         state = 0 or else state = -1 or else state = -4
+         stream.valid_last_character implies state < 0
+         state = -1 implies stream.filtered_last_character = ')'
       end
 
    local_can_disconnect: BOOLEAN True
@@ -182,6 +184,7 @@ feature {ANY}
          a_stream /= Void
          a_resolver /= Void
       do
+         a_stream.set_filter(Current)
          stream := a_stream
          resolver := a_resolver
          state := 0
@@ -191,7 +194,7 @@ feature {ANY}
       end
 
 feature {}
-   state: INTEGER
+   state: INTEGER_8
          -- Reading status
          --    0: normal
          --    1: just read "#"
@@ -202,7 +205,7 @@ feature {}
          --       of unreading in the stream)
          --   -3: reading a resolved template string (from `resolved_string'); but coming back from -2 i.e.
          --       don't re-read a character from string at the end of the resolved template string
-         --   -4: just resolved to an empty template string, cannot unread
+         --   -4: just resolved to an empty or invalid template string, cannot unread
 
    resolver: FUNCTION[TUPLE[STRING], ABSTRACT_STRING]
          -- Called for each template resolution

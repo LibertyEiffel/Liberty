@@ -52,6 +52,7 @@ feature {}
          a_stream /= Void
          a_monitor /= Void
       do
+         a_stream.set_filter(Current)
          stream := a_stream
          monitor := a_monitor
       ensure

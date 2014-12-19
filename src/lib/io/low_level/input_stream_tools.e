@@ -12,7 +12,6 @@ feature {ANY}
          not is_filtered and then can_read_character
       deferred
       ensure
-         not end_of_input implies can_unread_character
          not end_of_input implies valid_last_character
       end
 
