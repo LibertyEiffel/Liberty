@@ -10,6 +10,10 @@ expanded class CGI_CONTENT_LENGTH
 
 feature {CGI_HANDLER}
    length: INTEGER
+      require
+         is_known
+      attribute
+      end
 
    is_known: BOOLEAN
       do
@@ -23,8 +27,8 @@ feature {CGI}
       require
          a_length >= 0
       do
-         length := a_length
          unknown := False
+         length := a_length
       ensure
          is_known
          length = a_length

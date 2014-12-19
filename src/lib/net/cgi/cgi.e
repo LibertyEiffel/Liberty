@@ -102,6 +102,7 @@ feature {CGI_HANDLER}
       do
          l := meta_variable(once "CONTENT_LENGTH")
          if l = Void or else l.is_empty then
+            check not Result.is_known end
          elseif l.is_integer then
             len := l.to_integer
             if len >= 0 then
@@ -219,6 +220,9 @@ feature {CGI_HANDLER}
       do
          t := meta_variable(once "REQUEST_METHOD")
          if t = Void or else t.is_empty then
+            prepare_error
+            error.append(once "Invalid empty or null REQUEST_METHOD")
+         else
             inspect
                t
             when "GET" then
@@ -234,10 +238,6 @@ feature {CGI_HANDLER}
             else
                create {CGI_REQUEST_METHOD_OTHER} Result.make(t.intern)
             end
-         else
-            prepare_error
-            error.append(once "Invalid REQUEST_METHOD: ")
-            error.append(t)
          end
       ensure
          Result = Void implies error /= Void
