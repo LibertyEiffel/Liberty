@@ -8,7 +8,7 @@ expanded class CGI_CONTENT_LENGTH
    -- CONTENT_LENGTH
    --
 
-feature {CGI_HANDLER}
+feature {CGI, CGI_HANDLER}
    length: INTEGER
       require
          is_known
