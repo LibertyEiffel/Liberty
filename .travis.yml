@@ -2,8 +2,9 @@ language: c
 compiler:
 - gcc
 env:
-- LANG=C
-- "PKG_DATE=$(date -u +'%Y%m%d.%H%M%S')"
+  global:
+  - LANG=C
+  - PKG_DATE=$(date -u +'%Y%m%d.%H%M%S')
 before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libperl-dev libgc1c2 coreutils netcat-openbsd curl reprepro
