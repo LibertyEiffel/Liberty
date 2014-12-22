@@ -5,6 +5,13 @@ class TEMPLATE_INPUT_STREAM
    --
    -- An input stream that understands templates
    --
+   -- Tag syntax:
+   --
+   -- `#(some_key)' will replace the tag by the resolver the `item(some_key)'.
+   --
+   -- `#(*loop_key)'...`#(loop_key*)' will loop on the template portion enclosed between those tags, while
+   -- the resolver `while(loop_key)' returns True.
+   --
 
 inherit
    FILTER_INPUT_STREAM
@@ -20,163 +27,216 @@ create {ANY}
 feature {ANY}
    can_read_character: BOOLEAN
       do
-         inspect
-            state
-         when 0, -2, -4 then
-            Result := stream.can_read_character
-         when -1, -3 then
-            Result := resolved_string.valid_index(resolved_index)
-         end
+         Result := not raw_eof and then buffer.valid_index(buffer_index)
       end
 
    end_of_input: BOOLEAN
       do
-         inspect
-            state
-         when 0, -2, -4 then
-            Result := stream.end_of_input
-         when -1, -3 then
-            Result := not resolved_string.valid_index(resolved_index) and then stream.end_of_input
-         end
+         Result := buffer_index > buffer.upper and then raw_eof
       end
 
    can_unread_character: BOOLEAN
       do
-         inspect
-            state
-         when 0 then
-            Result := stream_read_count > 0 and then Precursor
-         when -1, -2, -3 then
-            Result := resolved_index > resolved_string.lower
-         when -4 then
-            check not Result end
-         end
+         Result := buffer_index >= buffer.lower
       end
 
 feature {FILTER_INPUT_STREAM}
    filtered_read_character
       do
-         inspect
-            state
-         when 0, -2, -4 then
-            state := 0
-            stream.filtered_read_character
-            stream_read_count := stream_read_count + 1
-            if stream.valid_last_character then
-               if stream.filtered_last_character = '#' then
-                  resolve_hash
-               end
-            end
-         when -1 then
-            resolved_index := resolved_index + 1
-            if not resolved_string.valid_index(resolved_index) then
-               state := -2
-               stream_read_count := 0
-               filtered_read_character
-            end
-         when -3 then
-            resolved_index := resolved_index + 1
-            if not resolved_string.valid_index(resolved_index) then
-               state := -2
+         buffer_index := buffer_index + 1
+         if buffer_index > buffer.upper then
+            from
+               read_more
+            until
+               end_of_input or else buffer.valid_index(buffer_index)
+            loop
+               read_more
             end
          end
       end
 
    filtered_unread_character
       do
-         inspect
-            state
-         when 0 then
-            stream.filtered_unread_character
-            stream_read_count := stream_read_count - 1
-            if stream_read_count = 0 then
-               state := -4 -- we are just beyond a template string
-            end
-         when -1, -3 then
-            resolved_index := resolved_index - 1
-         when -2 then
-            resolved_index := resolved_string.upper
-            state := -3
-         when -4 then
-            check False end
-         end
+         buffer_index := buffer_index - 1
       end
 
    filtered_last_character: CHARACTER
       do
-         inspect
-            state
-         when 0, -2, -4 then
-            Result := stream.filtered_last_character
-         when -1, -3 then
-            Result := resolved_string.item(resolved_index)
+         Result := buffer.item(buffer_index)
+      end
+
+feature {}
+   local_can_disconnect: BOOLEAN True
+
+   read_more
+      local
+         state: INTEGER; c: CHARACTER; key: STRING; value: ABSTRACT_STRING
+      do
+         from
+            if raw_eof then
+               state := -1
+            else
+               raw_next
+            end
+         until
+            state < 0 or else stream.end_of_input
+         loop
+            c := raw_character
+            inspect
+               state
+            when 0 then
+               if c = '#' then
+                  state := 1
+               else
+                  extend(c)
+                  state := -1
+               end
+            when 1 then
+               inspect
+                  c
+               when '(' then
+                  key := once ""
+                  state := 2
+               when '#' then
+                  extend('#')
+                  state := -1
+               else
+                  extend('#')
+                  extend(c)
+                  state := -1
+               end
+            when 2 then
+               inspect
+                  c
+               when '*' then
+                  state := 3
+               when ')' then
+                  append(once "#()")
+               else
+                  key.make_filled(c, 1)
+                  state := 4
+               end
+            when 3 then
+               inspect
+                  c
+               when '*' then
+                  append(once "#(*")
+                  append(key)
+                  extend('*')
+                  state := -1
+               when ')' then
+                  start_loop(key)
+                  state := -1
+               else
+                  key.extend(c)
+               end
+            when 4 then
+               inspect
+                  c
+               when '*' then
+                  state := 5
+               when ')' then
+                  value := resolver.item(key)
+                  if value /= Void then
+                     append(value)
+                  end
+                  state := -1
+               else
+                  key.extend(c)
+               end
+            when 5 then
+               inspect
+                  c
+               when ')' then
+                  end_loop(key)
+                  state := -1
+               else
+                  state := -1
+               end
+            end
+            if state >= 0 then
+               if raw_eof then
+                  state := -1
+               else
+                  raw_next
+               end
+            end
          end
       end
 
 feature {}
-   resolve_hash
-      require
-         state = 0
-         stream.filtered_last_character = '#'
-      local
-         string: ABSTRACT_STRING
+   extend (c: CHARACTER)
       do
-         from
-            state := 1
-         until
-            state <= 0
-         loop
-            inspect
-               state
-            when 1 then
-               stream.filtered_read_character
-               if stream.valid_last_character then
-                  if stream.filtered_last_character = '(' then
-                     if resolve_key = Void then
-                        resolve_key := ""
-                     else
-                        resolve_key.clear_count
-                     end
-                     state := 2
-                  else
-                     state := -4
-                  end
-               else
-                  state := 0
-               end
-            when 2 then
-               stream.filtered_read_character
-               if stream.valid_last_character then
-                  if stream.filtered_last_character = ')' then
-                     string := resolver.item([resolve_key])
-                     if string = Void or else string.is_empty then
-                        state := -4
-                        filtered_read_character
-                     else
-                        if resolved_string = Void then
-                           resolved_string := ""
-                        else
-                           resolved_string.clear_count
-                        end
-                        resolved_string.make_from_string(string)
-                        resolved_index := resolved_string.lower
-                        state := -1
-                     end
-                  else
-                     resolve_key.extend(stream.filtered_last_character)
-                  end
-               else
-                  state := 0
-               end
-            end
+         if not discard then
+            buffer.extend(c)
          end
-      ensure
-         state = 0 or else state = -1 or else state = -4
-         stream.valid_last_character implies state < 0
-         state = -1 implies stream.filtered_last_character = ')'
       end
 
-   local_can_disconnect: BOOLEAN True
+   append (s: ABSTRACT_STRING)
+      do
+         if not discard then
+            buffer.append(s)
+         end
+      end
+
+   start_loop (loop_name: STRING)
+      do
+         loop_names.push(loop_name.intern)
+         loop_index.push(raw_index)
+         loop_discard.push(discard or else not resolver.while(loop_name))
+      end
+
+   end_loop (loop_name: STRING)
+      do
+         if loop_names.is_empty or else loop_names.top /= loop_name.intern then
+            append(once "#(")
+            append(loop_name)
+            append(once "*)")
+         elseif discard or else not resolver.while(loop_name) then
+            loop_names.pop
+            loop_index.pop
+            loop_discard.pop
+         else
+            raw_goto(loop_index.top)
+         end
+      end
+
+   discard: BOOLEAN
+      do
+         if not loop_discard.is_empty then
+            Result := loop_discard.top
+         end
+      end
+
+   raw_next
+      do
+         raw_index := raw_index + 1
+         if raw_index > raw.upper then
+            stream.filtered_read_character
+            if not stream.end_of_input then
+               raw.extend(stream.filtered_last_character)
+            end
+         end
+      end
+
+   raw_goto (index: INTEGER)
+      require
+         raw.valid_index(index)
+      do
+         raw_index := index
+      end
+
+   raw_character: CHARACTER
+      require
+         raw.valid_index(raw_index)
+      do
+         Result := raw.item(raw_index)
+      end
+
+   raw_eof: BOOLEAN
+      do
+         Result := raw_index > raw.upper and then stream.end_of_input
+      end
 
 feature {ANY}
    connect_to (a_stream: like stream; a_resolver: like resolver)
@@ -187,46 +247,44 @@ feature {ANY}
          a_stream.set_filter(Current)
          stream := a_stream
          resolver := a_resolver
-         state := 0
+
+         buffer := ""
+         raw := ""
+
+         create loop_names.make
+         create loop_index.make
+         create loop_discard.make
       ensure
          stream = a_stream
          resolver = a_resolver
       end
 
 feature {}
-   state: INTEGER_8
-         -- Reading status
-         --    0: normal
-         --    1: just read "#"
-         --    2: just read "#(", reading a template identifier, waiting for ")"
-         --   -1: reading a resolved template string (from `resolved_string')
-         --   -2: just finished reading a resolved template string, read next character in stream (because of
-         --       unread, we need to come back to the last character of the resolved template string instead
-         --       of unreading in the stream)
-         --   -3: reading a resolved template string (from `resolved_string'); but coming back from -2 i.e.
-         --       don't re-read a character from string at the end of the resolved template string
-         --   -4: just resolved to an empty or invalid template string, cannot unread
+   resolver: TEMPLATE_RESOLVER
 
-   resolver: FUNCTION[TUPLE[STRING], ABSTRACT_STRING]
-         -- Called for each template resolution
+   raw: STRING
+         -- The characters read from the underlying stream, before template resolving
+   raw_index: INTEGER
+         -- Index into the `raw' buffer
 
-   resolve_key: STRING
-         -- A per-instance memory zone to keep the latest resolve key
+   buffer: STRING
+         -- The characters after template resolving
+   buffer_index: INTEGER
+         -- Index into the `buffer'
 
-   resolved_string: STRING
-         -- A per-instance memory zone to keep the latest template resolved string
-
-   resolved_index: INTEGER
-         -- An index into `resolved_string' (see also the invariant)
-
-   stream_read_count: INTEGER
-         -- The maximum number of times we may unread characters from the stream; reset at each template
-         -- reading because of coherency (alleviating this barrier would make the object quite memory-hungry)
+   loop_names: STACK[FIXED_STRING]
+         -- Names of the running loops
+   loop_index: STACK[INTEGER]
+         -- Indexes of the running loops into the `raw' buffer
+   loop_discard: STACK[BOOLEAN]
+         -- Discard values of the currently running loops
 
 invariant
    stream /= Void
    resolver /= Void
-   (state = -1 or state = -3) implies resolved_string.valid_index(resolved_index)
+
+   loop_names.count = loop_index.count
+   loop_names.count = loop_discard.count
 
 end -- class TEMPLATE_INPUT_STREAM
 --

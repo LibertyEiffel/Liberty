@@ -3,6 +3,9 @@
 --
 class TEST_TEMPLATE_INPUT_STREAM
 
+inherit
+   TEMPLATE_RESOLVER
+
 insert
    EIFFELTEST_TOOLS
 
@@ -19,8 +22,8 @@ feature {}
       do
          o := ""
          create outs.connect_to(o)
-         create ins.from_string("#(foo) #(bar) ## #(")
-         create in.connect_to(ins, agent resolve(?))
+         create ins.from_string("#(*more) #(foo) #(bar) ## #(more*)")
+         create in.connect_to(ins, Current)
 
          from
             in.read_character
@@ -31,13 +34,14 @@ feature {}
             in.read_character
          end
 
-         assert(o.is_equal("FOO BAR # "))
+         assert(o.is_equal(" FOO BAR #  FOO BAR #  FOO BAR # "))
 
          outs.disconnect
          ins.disconnect
       end
 
-   resolve (s: STRING): STRING
+feature {TEMPLATE_INPUT_STREAM}
+   item (s: STRING): STRING
       do
          inspect
             s
@@ -49,6 +53,21 @@ feature {}
             assert(False)
          end
       end
+
+   while (s: STRING): BOOLEAN
+      do
+         inspect
+            s
+         when "more" then
+            more_count := more_count + 1
+            Result := more_count <= 3
+         else
+            assert(False)
+         end
+      end
+
+feature {}
+   more_count: INTEGER
 
 end -- class TEST_TEMPLATE_INPUT_STREAM
 --
