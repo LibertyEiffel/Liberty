@@ -270,20 +270,33 @@ feature {}
       local
          formal_type_mark: TYPE_MARK
          actual_type, formal_type: TYPE; e: EXPRESSION
+         oo: OPEN_OPERAND
       do
          check
             formal_tuple_type.generic_list.lower = 1
          end
 
          e := expression(fal.count + index).specialize_and_check(type)
-         actual_type := e.resolve_in(type)
+         if oo ?:= e then
+            oo ::= e
+            if oo.curly_type = Void then
+               check actual_type = Void end
+            else
+               actual_type := oo.resolve_in(type)
+            end
+         else
+            actual_type := e.resolve_in(type)
+         end
 
          if not formal_tuple_type.generic_list.valid_index(index + 1) then
             Result := e
          else
             formal_type_mark := formal_tuple_type.generic_list.item(index + 1)
             formal_type := formal_type_mark.resolve_in(type)
-            if actual_type.can_be_assigned_to(formal_type) then
+            if actual_type = Void then
+               -- open operand "?" (see above)
+               create {OPEN_OPERAND} Result.type_holder(oo.start_position, formal_type_mark)
+            elseif actual_type.can_be_assigned_to(formal_type) then
                Result := assignment_handler.implicit_cast(e, actual_type, formal_type)
             else
                error_handler.add_position(e.start_position)

@@ -20,7 +20,7 @@ inherit
 create {EIFFEL_PARSER, FORMAL_ARG_LIST}
    question_mark
 
-create {EIFFEL_PARSER}
+create {EIFFEL_PARSER, EFFECTIVE_ARG_LIST}
    type_holder
 
 feature {ANY}
