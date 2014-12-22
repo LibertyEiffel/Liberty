@@ -10,7 +10,7 @@ Description: Liberty-Eiffel releases
 
 Origin: Releases
 Label: Releases
-Suite: stable
+Suite: testing
 Codename: rc
 Version: 3.0
 Architectures: i386 amd64 source
@@ -20,8 +20,18 @@ Description: Liberty-Eiffel releases
 
 Origin: Snapshots
 Label: Snapshots
-Suite: stable
+Suite: unstable
 Codename: snapshot
+Version: 3.0
+Architectures: i386 amd64 source
+Components: main
+Description: Liberty-Eiffel snapshots
+#SignWith: yes
+
+Origin: Commits
+Label: Commits
+Suite: experimental
+Codename: commits
 Version: 3.0
 Architectures: i386 amd64 source
 Components: main

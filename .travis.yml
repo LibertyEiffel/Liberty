@@ -3,19 +3,16 @@ compiler:
 - gcc
 env:
 - LANG=C
+- "PKG_DATE=$(date -u +'%Y%m%d.%H%M%S')"
 before_install:
 - sudo apt-get update -qq
-- sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libperl-dev
-  libgc1c2 coreutils netcat-openbsd curl
+- sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libperl-dev libgc1c2 coreutils netcat-openbsd curl reprepro
 install:
-- ./install.sh -plain -bootstrap
-- work/packaging/build_debian.sh
+- work/packaging/build_debian.sh -commit."$PKG_DATE"
 - sudo dpkg -i work/packaging/debs/*.deb
-- rm -rf $HOME/.config/liberty-eiffel
 script:
+- work/packaging/build_debian.sh -deploy
 - work/se_run_tutorial.sh
-cache:
-- apt
 notifications:
   slack:
     secure: NLCxaRIda57mSi5Bv8tYJp+sB110tXtmOPRbcdqdAdWjv5csatyqUB3U/QCsNPR0KrUE4Z8Abp+LS75TZXthKUs6It8Emns4RZtdjsJBZBOc1jD89YNRt2ogDZTXJh47XymvruMuBXRKOrAthBRFFI4Zsk45ivgfw0egcN7+Ua8=
