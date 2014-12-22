@@ -298,7 +298,7 @@ feature {}
    make (a_name: ABSTRACT_STRING)
       require
          a_name /= Void
-         is_token(name)
+         is_token(a_name)
       do
          name := a_name.intern
       ensure
