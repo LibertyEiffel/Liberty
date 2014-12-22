@@ -8,6 +8,9 @@ deferred class CGI_RESPONSE_FIELDS
    -- CGI response partial implementation: extra fields
    --
 
+insert
+   CGI_UTILS
+
 feature {CGI_HANDLER}
    fields: MAP[TRAVERSABLE[FIXED_STRING], FIXED_STRING]
       do
@@ -22,6 +25,7 @@ feature {CGI, CGI_HANDLER}
             and then not a_field.is_equal(once "Content-Type")
             and then not a_field.is_equal(once "Status")
             and then not a_field.is_equal(once "Location")
+            and then not jar.is_field_reserved(a_field)
       end
 
    reset_field (a_field: ABSTRACT_STRING)
@@ -64,7 +68,7 @@ feature {CGI, CGI_HANDLER}
       end
 
 feature {}
-   flush_fields
+   flush_fields (a_output: OUTPUT_STREAM)
       local
          i: INTEGER; values: TRAVERSABLE[FIXED_STRING]
       do
@@ -76,14 +80,15 @@ feature {}
             loop
                values := fields_memory.item(i)
                if not values.is_empty then
-                  std_output.put_string(fields_memory.key(i))
-                  std_output.put_string(once ": ")
-                  put_value(values)
-                  std_output.put_new_line
+                  a_output.put_string(fields_memory.key(i))
+                  a_output.put_string(once ": ")
+                  put_value(values, a_output)
+                  a_output.put_new_line
                end
                i := i + 1
             end
          end
+         jar.flush(a_output)
       end
 
 feature {}
@@ -109,7 +114,7 @@ feature {}
          end
       end
 
-   put_value (a_values: TRAVERSABLE[FIXED_STRING])
+   put_value (a_values: TRAVERSABLE[FIXED_STRING]; a_output: OUTPUT_STREAM)
       local
          i: INTEGER; value: FIXED_STRING; values: FAST_ARRAY[FIXED_STRING]
       do
@@ -121,56 +126,17 @@ feature {}
          loop
             value := values.item(i)
             if is_token(value) or else is_separators(value) then
-               std_output.put_string(value)
+               a_output.put_string(value)
             else
-               std_output.put_character('"')
-               std_output.put_string(value)
-               std_output.put_character('"')
+               a_output.put_character('"')
+               a_output.put_string(value)
+               a_output.put_character('"')
             end
             i := i + 1
          end
       end
 
-   is_token (value: FIXED_STRING): BOOLEAN
-      local
-         i: INTEGER
-      do
-         from
-            Result := True
-            i := value.lower
-         until
-            not Result or else i > value.upper
-         loop
-            Result := not is_separator(value.item(i))
-            i := i + 1
-         end
-      end
-
-   is_separators (value: FIXED_STRING): BOOLEAN
-      local
-         i: INTEGER
-      do
-         from
-            Result := True
-            i := value.lower
-         until
-            not Result or else i > value.upper
-         loop
-            Result := is_separator(value.item(i))
-            i := i + 1
-         end
-      end
-
-   is_separator (char: CHARACTER): BOOLEAN
-      do
-         inspect
-            char
-         when '(', ')', '<', '>', '@', ',', ';', ':', '\', '"', '/', '[', ']', '?', '=', '{', '}', ' ', '%T' then
-            Result := True
-         else
-            check not Result end
-         end
-      end
+   jar: CGI_COOKIE_JAR
 
 feature {}
    fields_memory: LINKED_HASHED_DICTIONARY[TRAVERSABLE[FIXED_STRING], FIXED_STRING]

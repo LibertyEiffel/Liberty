@@ -35,16 +35,16 @@ feature {CGI_HANDLER}
       end
 
 feature {CGI}
-   flush
+   flush (a_output: OUTPUT_STREAM)
       do
-         std_output.put_string(once "Location: ")
-         std_output.put_string(path)
+         a_output.put_string(once "Location: ")
+         a_output.put_string(path)
          if query /= Void then
-            std_output.put_character('?')
-            std_output.put_string(query)
+            a_output.put_character('?')
+            a_output.put_string(query)
          end
-         std_output.put_new_line
-         flush_fields
+         a_output.put_new_line
+         flush_fields(a_output)
       end
 
 end -- class CGI_RESPONSE_CLIENT_REDIRECT

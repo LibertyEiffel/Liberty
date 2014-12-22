@@ -9,7 +9,7 @@ deferred class CGI_RESPONSE
    --
 
 feature {CGI}
-   flush
+   flush (a_output: OUTPUT_STREAM)
       deferred
       end
 

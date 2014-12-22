@@ -84,21 +84,21 @@ feature {CGI, CGI_HANDLER}
       end
 
 feature {CGI}
-   flush
+   flush (a_output: OUTPUT_STREAM)
       do
          flush_content_type
          if status /= 200 then
-            std_output.put_string(once "Status: ")
-            std_output.put_integer(status)
-            std_output.put_new_line
+            a_output.put_string(once "Status: ")
+            a_output.put_integer(status)
+            a_output.put_new_line
          end
-         flush_fields
+         flush_fields(a_output)
          if error = Void then
-            flush_body
+            flush_body(a_output)
          else
-            std_output.put_new_line
-            std_output.put_string(error)
-            std_output.put_new_line
+            a_output.put_new_line
+            a_output.put_string(error)
+            a_output.put_new_line
          end
       end
 

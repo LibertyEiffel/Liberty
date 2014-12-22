@@ -36,11 +36,11 @@ feature {CGI}
          std_output.put_new_line
       end
 
-   flush_body
+   flush_body (a_output: OUTPUT_STREAM)
       do
-         std_output.put_new_line
+         a_output.put_new_line
          if body_string /= Void then
-            std_output.put_string(body_string)
+            a_output.put_string(body_string)
          end
       end
 

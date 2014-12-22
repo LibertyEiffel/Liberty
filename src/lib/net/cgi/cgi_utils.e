@@ -3,32 +3,56 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT
-   --
-   -- CGI response implementation: client redirect with document
-   --
+expanded class CGI_UTILS
 
-inherit
-   CGI_RESPONSE_CLIENT_REDIRECT
-      redefine
-         flush
-      end
-
-insert
-   CGI_RESPONSE_BODY
-
-create {ANY}
-   set_redirect
-
-feature {CGI}
-   flush (a_output: OUTPUT_STREAM)
+feature {ANY}
+   is_token (value: ABSTRACT_STRING): BOOLEAN
+      require
+         value /= Void
+      local
+         i: INTEGER
       do
-         Precursor(a_output)
-         a_output.put_line(once "Status: 302")
-         flush_body(a_output)
+         from
+            Result := True
+            i := value.lower
+         until
+            not Result or else i > value.upper
+         loop
+            Result := not is_separator(value.item(i))
+            i := i + 1
+         end
       end
 
-end -- class CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT
+   is_separators (value: ABSTRACT_STRING): BOOLEAN
+      require
+         value /= Void
+      local
+         i: INTEGER
+      do
+         from
+            Result := True
+            i := value.lower
+         until
+            not Result or else i > value.upper
+         loop
+            Result := is_separator(value.item(i))
+            i := i + 1
+         end
+      end
+
+feature {}
+   is_separator (char: CHARACTER): BOOLEAN
+      do
+         inspect
+            char
+         when '(', ')', '<', '>', '@', ',', ';', ':', '\', '"', '/', '[', ']', '?', '=', '{', '}', ' ', '%T' then
+            Result := True
+         else
+            check not Result end
+         end
+      end
+
+end -- class CGI_UTILS
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
 --

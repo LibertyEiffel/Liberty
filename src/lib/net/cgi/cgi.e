@@ -33,7 +33,7 @@ feature {ANY}
             crm.invoke(handler)
          else
             state := -1
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(output)
          end
       ensure
          need_reply or else done
@@ -54,6 +54,17 @@ feature {ANY}
          Result := state = -1
       end
 
+   output: OUTPUT_STREAM
+
+   set_output (a_output: like output) assign output
+      require
+         a_output.is_connected
+      do
+         output := a_output
+      ensure
+         output = a_output
+      end
+
 feature {CGI_HANDLER}
    reply (response: CGI_RESPONSE)
       require
@@ -62,9 +73,9 @@ feature {CGI_HANDLER}
       do
          state := -1
          if error = Void then
-            response.flush
+            response.flush(output)
          else
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(output)
          end
       ensure
          done
@@ -315,6 +326,7 @@ feature {}
          a_handler /= Void
       do
          handler := a_handler
+         output := std_output
       ensure
          handler = a_handler
       end
@@ -349,6 +361,7 @@ feature {}
 
 invariant
    handler /= Void
+   output.is_connected
 
 end -- class CGI
 --

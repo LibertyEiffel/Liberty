@@ -81,7 +81,7 @@ feature {CGI_HANDLER}
       end
 
 feature {CGI}
-   flush
+   flush (a_output: OUTPUT_STREAM)
       do
          std_output.put_string(once "Location: ")
          std_output.put_string(path)
