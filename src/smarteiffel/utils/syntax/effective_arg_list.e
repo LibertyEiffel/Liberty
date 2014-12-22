@@ -354,7 +354,7 @@ feature {}
 
          tup := tup.specialize_and_check(t)
 
-         if not tup.resolve_in(t).can_be_assigned_to(ftt.resolve_in(t)) then
+         if ftt /= Void and then not tup.resolve_in(t).can_be_assigned_to(ftt.resolve_in(t)) then
             error_handler.add_position(tup.start_position)
             error_handler.add_position(ftt.start_position)
             error_handler.append(once "Cannot pass ")
