@@ -68,6 +68,7 @@ feature {}
          http_cookie: STRING
          i: INTEGER
       do
+         create jar.make
          http_cookie := system.get_environment_variable(once "HTTP_COOKIE")
          if http_cookie /= Void and then not http_cookie.is_empty then
             from
