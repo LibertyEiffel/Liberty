@@ -11,7 +11,6 @@ expanded class CGI_QUERY_STRING
 feature {CGI_HANDLER}
    string: FIXED_STRING
 
-
 feature {CGI}
    error: STRING
 

@@ -59,9 +59,10 @@ feature {ANY}
          is_changed
       end
 
-   set_max_age (a_max_age: NATURAL) assign max_age
+   set_max_age (a_max_age: INTEGER) assign max_age
       require
          expires = Void
+         a_max_age >= 0
       do
          if max_age_memory = Void then
             create max_age_memory.set_item(a_max_age)
@@ -305,7 +306,7 @@ feature {}
       end
 
    expires_memory: REFERENCE[TIME]
-   max_age_memory: REFERENCE[NATURAL]
+   max_age_memory: REFERENCE[INTEGER]
 
 invariant
    is_token(name)
@@ -314,6 +315,7 @@ invariant
    domain /= Void implies is_valid_domain(domain)
    expires /= Void implies expires.item.is_universal_time
    expires /= Void implies max_age = Void
+   max_age /= Void implies max_age.item >= 0
    max_age /= Void implies expires = Void
 
 end -- class CGI_COOKIE
