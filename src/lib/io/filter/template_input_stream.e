@@ -27,12 +27,12 @@ create {ANY}
 feature {ANY}
    can_read_character: BOOLEAN
       do
-         Result := not raw_eof and then buffer.valid_index(buffer_index)
+         Result := not end_of_input
       end
 
    end_of_input: BOOLEAN
       do
-         Result := buffer_index > buffer.upper and then raw_eof
+         Result := buffer_index > buffer.upper and then raw_eof and then loop_names.is_empty
       end
 
    can_unread_character: BOOLEAN
