@@ -25,6 +25,7 @@ while [ x$1 != x ]; do
         -commit*)
             codename=commit
             tag="~commit"${1#-commit}
+            ;;
         -release*)
             codename=release
             tag="~release"${1#-release}
