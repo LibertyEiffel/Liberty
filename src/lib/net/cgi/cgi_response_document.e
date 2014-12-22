@@ -26,7 +26,9 @@ feature {CGI_HANDLER}
 
    error: FIXED_STRING
       do
-         Result := error_memory.intern
+         if error_memory /= Void then
+            Result := error_memory.intern
+         end
       end
 
 feature {CGI, CGI_HANDLER}
