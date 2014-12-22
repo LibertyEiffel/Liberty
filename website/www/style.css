@@ -141,12 +141,12 @@ a:active {
 
 #container {
     width: 100%;
-    height: 2em;
+    height: 3em;
     margin: 0 auto;
     text-align: center;
     font-size: 80%;
     position: absolute;
-    bottom: 20;
+    bottom: 3em;
     left: 0;
     background-color: #5ab0a1;
 }

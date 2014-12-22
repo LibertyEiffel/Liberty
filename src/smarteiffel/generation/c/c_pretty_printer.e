@@ -3924,22 +3924,27 @@ feature {} -- MANIFEST_GENERIC_POOL
          if ace.profile then
             pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         pending_c_function_signature.append(once "T0*c,int i,int argc,...)")
+         pending_c_function_signature.append(once "T0*c,int i0,int argc,...)")
          -- Prepare body:
+         af := manifest_generic.manifest_put_feature_stamp.anonymous_feature(created_type)
+         fal := af.arguments
          pending_c_function_body.append(once "/*")
          pending_c_function_body.append(created_type.name.to_string)
          pending_c_function_body.append(once "*/%NT")
          created_type_id.append_in(pending_c_function_body)
          pending_c_function_body.append(once "*C=(T")
          created_type_id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once "*)c;%Nva_list pa;%Nint imax;%Nva_start(pa,argc);%Nimax=i+argc")
-         af := manifest_generic.manifest_put_feature_stamp.anonymous_feature(created_type)
-         fal := af.arguments
+         pending_c_function_body.append(once "*)c;%Nva_list pa;%Nint i=i0")
          if fal.count > 2 then
             pending_c_function_body.extend('/')
             (fal.count - 1).append_in(pending_c_function_body)
          end
-         pending_c_function_body.append(once ";%Nwhile (i < imax) {%N")
+         pending_c_function_body.append(once ";%Nint imax=i+argc")
+         if fal.count > 2 then
+            pending_c_function_body.extend('/')
+            (fal.count - 1).append_in(pending_c_function_body)
+         end
+         pending_c_function_body.append(once ";%Nva_start(pa,argc);%Nwhile (i < imax) {%N")
          from
             i := 2
             fal := af.arguments
