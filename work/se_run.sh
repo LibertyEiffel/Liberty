@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+root=$(dirname $(dirname $(readlink -f $0)))
+
 cd $(dirname $1)
 e=$(basename $1)
 exe=${e%.e}.exe
@@ -10,6 +12,17 @@ out=${e%.e}.out
 arg=${e%.e}.arg
 
 shift
+
+se() {
+    if [[ -x $root/target/bin/se ]]; then
+        $root/target/bin/se "$@"
+    elif [[ -x /usr/bin/se ]]; then
+        /usr/bin/se "$@"
+    else
+        echo "se not found" >&2
+        return 1
+    fi
+}
 
 status=0
 if [ -x $cmd ]; then
