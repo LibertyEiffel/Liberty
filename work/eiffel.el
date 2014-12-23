@@ -740,9 +740,9 @@ This will also match local variable and parameter declarations.")
 (defun eiffel-string-re ()
   "Liberty Eiffel strings"
   (concat "U?\"\\(?:"
-          "\\(?:\\(?:[^%\"]\\|%.\\)*?\\)" ; single-line strings
+          "\\(?:\\(?:[^%\"\n]\\|%[^\n]\\)*?\\)" ; single-line strings
           "\\|"
-          "\\(?:\\(?:[^%\"]\\|%.\\)*?%[ \t]*\n\\(?:[ \t]*%\\(?:[^%\"]\\|%.\\)*?%[ \t]*\n\\)*[ \t]*%\\(?:[^%\"]\\|%.\\)*?\\)" ; older multiline strings
+          "\\(?:\\(?:[^%\"\n]\\|%[^\n]\\)*?%[ \t]*\n\\(?:[ \t]*%\\(?:[^%\"\n]\\|%[^\n]\\)*?%[ \t]*\n\\)*[ \t]*%\\(?:[^%\"\n]\\|%[^\n]\\)*?\\)" ; older multiline strings
           "\\|"
           "\\(?:[[{][ \t]*\n\\(?:.*?\n\\)*?[ \t]*[]}]\"\\)" ; newer multiline strings
           "\\)\""))
