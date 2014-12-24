@@ -258,7 +258,7 @@ echo "\n</div>\n";
 echo "<div class='actions header'>\n";
 if (file_exists($request)) {
     if (file_exists($breakFlag)) {
-        echo "(Break requested)"
+        echo "(Break requested)";
     } else {
         echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
     }
