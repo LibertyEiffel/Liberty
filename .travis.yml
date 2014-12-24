@@ -13,8 +13,9 @@ before_install:
 - sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libperl-dev libgc1c2 coreutils netcat-openbsd curl reprepro
 install:
 - ./install.sh -plain -bootstrap
-- work/packaging/build_debian.sh -commit."$PKG_DATE"
+- work/packaging/build_debian.sh -commit."$PKG_DATE" -nodoc
 - sudo dpkg -i work/packaging/debs/*.deb
+- rm -rf $HOME/.config/liberty-eiffel
 script:
 - work/packaging/build_debian.sh -deploy
 - work/se_run_tutorial.sh

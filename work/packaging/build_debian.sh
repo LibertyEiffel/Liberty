@@ -11,13 +11,14 @@ export clean=FALSE
 export codename=snapshot
 export keep_failed=FALSE
 export deploy=FALSE
+export doc=TRUE
 
 pkgdate=${PKG_DATE:-$(date -u +'%Y%m%d.%H%M%S')}
 export tag="~snapshot.$pkgdate"
 
 debuild_opt=()
 
-while [ x$1 != x ]; do
+while [[ x$1 != x ]]; do
     case $1 in
         -clean)
             clean=TRUE
@@ -43,6 +44,9 @@ while [ x$1 != x ]; do
         -deploy)
             deploy=TRUE
             ;;
+        -nodoc)
+            doc=FALSE
+            ;;
         *)
             echo "Unknown option: $1" >&2
             exit 1
@@ -51,11 +55,11 @@ while [ x$1 != x ]; do
     shift
 done
 
-if [ $deploy == FALSE ]; then
+if [[ $deploy == FALSE ]]; then
     test -d $packages/debs && rm -rf $packages/debs
     mkdir $packages/debs
 
-    if [ -d $LIBERTY_HOME/target ] && [ $clean != TRUE ]; then
+    if [[ -d $LIBERTY_HOME/target && $clean != TRUE ]]; then
         export TARGET=$LIBERTY_HOME/target
         export TMPDIR=${TMPDIR:-$TARGET/tmp}
         test -d $TMPDIR || mkdir -m 700 -p $TMPDIR
@@ -68,24 +72,34 @@ if [ $deploy == FALSE ]; then
     export HOME=$(mktemp -d -t liberty-eiffel-home.XXXXXX)
     export TARGET=${TARGET:-$HOME/target}
 
-    test -d $HOME/.config/liberty-eiffel || {
-        if [ -d $orig_home/.config/liberty-eiffel ]; then
-            mkdir -p $HOME/.config/liberty-eiffel
-            cp -p $orig_home/.config/liberty-eiffel/* $HOME/.config/liberty-eiffel
-        fi
-    }
+    echo "HOME=$HOME"
+    echo "TARGET=$TARGET"
 
-    test -d $TARGET/bin || {
+    if [ -d $orig_home/.config/liberty-eiffel ]; then
+        mkdir -p $HOME/.config/liberty-eiffel
+        cp -p $orig_home/.config/liberty-eiffel/* $HOME/.config/liberty-eiffel
+    fi
+
+    if [[ -d $TARGET/bin ]]; then
         echo
-        echo "Generating executables"
+        echo "Existing executables will be used from $TARGET/bin"
+    else
+        echo
+        echo "Generating executables into $TARGET/bin"
         $LIBERTY_HOME/install.sh -plain -bootstrap
-    }
+    fi
 
-    test -d $TARGET/doc || {
+    if [[ doc != TRUE ]]; then
+        echo
+        echo "Skipping doc"
+    elif [[ -d $TARGET/doc ]]; then
+        echo
+        echo "Existing doc will be used from $TARGET/doc"
+    else
         echo
         echo "Generating doc"
         $LIBERTY_HOME/install.sh -plain -doc
-    }
+    fi
 
     do_debuild() {
         tmp=$1
@@ -111,26 +125,27 @@ if [ $deploy == FALSE ]; then
     version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' | awk -F'[()]' '{print $2}')
     echo "Generating packages: version is $version"
     for debian in $packages/*.pkg/debian; do
-        package_dir=${debian%/debian}
-        package=$(basename ${debian%.pkg/debian})
-        tmp=$(mktemp -d -t $package-deb.XXXXXX)
-        echo "    $package $version (working in $tmp)"
-        cd $tmp
-        mkdir build
-        cd build
-        mkdir debian
+        if [[ $nodoc != TRUE || ! -e $debian/isdoc ]]; then
+            package_dir=${debian%/debian}
+            package=$(basename ${debian%.pkg/debian})
+            tmp=$(mktemp -d -t $package-deb.XXXXXX)
+            echo "    $package $version (working in $tmp)"
+            cd $tmp
+            mkdir build
+            cd build
+            mkdir debian
 
-        # copy layers
-        cp -a $packages/debian.skel/* .
-        cp -a $package_dir/* .
+            # copy layers
+            cp -a $packages/debian.skel/* .
+            cp -a $package_dir/* .
 
-        # customize debian/changelog
-        sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' -i debian/changelog
+            # customize debian/changelog
+            sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' -i debian/changelog
 
-        # customize debian/control
-        mv debian/control debian/control~
-        {
-            cat <<EOF
+            # customize debian/control
+            mv debian/control debian/control~
+            {
+                cat <<EOF
 Source: liberty-eiffel
 Section: devel
 Priority: extra
@@ -141,40 +156,41 @@ Homepage: http://www.gnu.org/software/liberty-eiffel/
 Vcs-Git: http://git.savannah.gnu.org/cgit/liberty-eiffel.git
 
 EOF
-            cat debian/control~
-        } | sed 's/#VERSION#/'"$version"'/g' > debian/control
-        rm debian/control~
+                cat debian/control~
+            } | sed 's/#VERSION#/'"$version"'/g' > debian/control
+            rm debian/control~
 
-        # customize Makefile
-        mv Makefile Makefile~
-        {
-            cat <<EOF
+            # customize Makefile
+            mv Makefile Makefile~
+            {
+                cat <<EOF
 LIBERTY_HOME := ${LIBERTY_HOME}
 PACKAGE := $(echo ${package} | sed 's/^liberty-eiffel-//;s/-/_/g')
 plain := ${plain}
 
 EOF
 
-cat Makefile~
-        } > Makefile
-        rm Makefile~
+                cat Makefile~
+            } > Makefile
+            rm Makefile~
 
-        # now let debian helpers run
-        if do_debuild $tmp; then
-            cp -p $tmp/*.* $packages/debs/
-            cd $packages
-            rm -rf $tmp
-        else
-            cp -p $tmp/*.* $packages/debs/
-            if [ $keep_failed == TRUE ]; then
-                echo
-                echo "**** Keeping $tmp for forensics"
-                echo
-            else
+            # now let debian helpers run
+            if do_debuild $tmp; then
+                cp -p $tmp/*.* $packages/debs/
                 cd $packages
                 rm -rf $tmp
+            else
+                cp -p $tmp/*.* $packages/debs/
+                if [ $keep_failed == TRUE ]; then
+                    echo
+                    echo "**** Keeping $tmp for forensics"
+                    echo
+                else
+                    cd $packages
+                    rm -rf $tmp
+                fi
+                status=$(($status + 1))
             fi
-            status=$(($status + 1))
         fi
     done
 
