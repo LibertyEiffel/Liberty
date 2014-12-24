@@ -43,12 +43,13 @@ function failed(){
 }
 
 function checkBreak(){
-    global $breakFlag;
-   if (file_exists($breakFlag)) {
-       echo "Interrupted build.";
-       unlink($breakFlag);
-       failed();
-   }
+    global $breakFlag, $lock;
+    if (file_exists($breakFlag)) {
+        echo "Interrupted build.";
+        unlink($breakFlag);
+        unlink($lock);
+        exit(1);
+    }
 }
 
 function substage($name, $link = ""){
