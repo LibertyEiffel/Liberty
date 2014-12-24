@@ -5,7 +5,7 @@ env:
   global:
   - LANG=C
   - PKG_DATE=$(date -u +'%Y%m%d.%H%M%S')
-  - secure: "VV6tDw9ieWEl2LCvR52dWcyXfSTijWIxIIgK3jtv20rGzKd3vaqBDtmTB+tfPTIrD793GSaEaFRbKPlV0T89UcH59wq61Jgb6g4jsQYvX/JOxF4XcEffPnd4/3r6gMGkjFx6Wk4kHI4kGQ16bReqAKua4VbB3jg6ufd22tq0xlI="
+  - secure: "bRS2LX4L9aVmo4euWKlKH/mysQZyZfzATKQSav3+7z4mr7KuRP1i3GlJA7S0tfqiMVfkj0Iuy4OOLiprmdje3vKr/idelCC7a45ZmjpHioJ20oilE0sQrIuXpm8ejP2b4ymFr4dROusMylVWGxEFqYMmHM/+Q8Mt24q9xkSFB0o="
 before_install:
 - if openssl aes-256-cbc -K $encrypted_44cc7cd09b43_key -iv $encrypted_44cc7cd09b43_iv -in work/libertyeiffel_ssh.tar.gz.enc -d | tar xfz - -C $HOME ; then
      chmod 600 $HOME/.ssh/* ;
