@@ -1,5 +1,6 @@
 #!/bin/bash
-cd /home/et/Liberty_savannah
+
+cd $HOME/Liberty_savannah
 
 {
     git fetch origin
