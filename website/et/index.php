@@ -21,7 +21,7 @@ if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
    file_put_contents($request, "new MANUAL request on " . date($dateFormat));
 }
 
-if(array_key_exists("request_break", $_GET) && $_GET["request_break"] == 1){
+if(array_key_exists("request_break", $_GET) && $_GET["request_break"] == 1 && file_exists($request)){
    file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
 }
 
@@ -257,7 +257,11 @@ echo "\n</div>\n";
 
 echo "<div class='actions header'>\n";
 if (file_exists($request)) {
-   echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
+    if (file_exists($breakFlag)) {
+        echo "(Break requested)"
+    } else {
+        echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
+    }
 }
 echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>\n";
 
