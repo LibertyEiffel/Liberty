@@ -49,6 +49,19 @@
     </p>
     <code>deb http://apt.liberty-eiffel.org/ snapshot main</code>
 
+    <h2><span class="dropcap">C</span>ommit snapshots</h2>
+    <p>
+      Commit snapshots come right out of the <a href="https://travis-ci.org/LibertyEiffel/Liberty">&quot;fast&quot; continuous integration</a>.
+    </p>
+    <p>
+      This integration is "fast" because it runs in less than an hour, with the following caveats:
+    </p>
+    <ul>
+      <li>The packages contain no docs and no tutorial.</li>
+      <li>The packages are not tested: travis-ci only checks the tutorial, <i>after</i> having uploaded the packages. If you must, go and check <a href="https://travis-ci.org/LibertyEiffel/Liberty">travis-ci</a>. More thorough testing is provided by <a href="http://et.liberty-eiffel.org/">ET</a> (see above).</li>
+    </ul>
+    <code>deb http://apt.liberty-eiffel.org/ commits main</code>
+
     </div>
     </div>
     <div id="footer" class="header">
