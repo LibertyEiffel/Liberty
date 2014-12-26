@@ -8,6 +8,9 @@ deferred class CGI_RESPONSE_BODY
    -- CGI response partial implementation: document body
    --
 
+insert
+   CGI_UTILS
+
 feature {CGI_HANDLER}
    content_type: FIXED_STRING
 
@@ -33,13 +36,13 @@ feature {CGI}
       do
          std_output.put_string(once "Content-Type: ")
          std_output.put_string(content_type)
-         std_output.put_new_line
+         std_output.put_string(crlf)
       end
 
    flush_body (a_output: OUTPUT_STREAM)
       do
-         a_output.put_new_line
          if body_string /= Void then
+            a_output.put_string(crlf)
             a_output.put_string(body_string)
          end
       end

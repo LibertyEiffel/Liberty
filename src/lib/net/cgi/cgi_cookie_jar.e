@@ -54,7 +54,7 @@ feature {CGI_RESPONSE_FIELDS}
                if c.is_changed then
                   a_output.put_string(once "Set-Cookie: ")
                   c.flush(a_output)
-                  a_output.put_new_line
+                  a_output.put_string(crlf)
                end
                i := i + 1
             end

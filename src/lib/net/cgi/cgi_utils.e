@@ -40,6 +40,11 @@ feature {ANY}
          end
       end
 
+   crlf: FIXED_STRING
+      do
+         Result := "%R%N".intern
+      end
+
 feature {}
    is_separator (char: CHARACTER): BOOLEAN
       do
