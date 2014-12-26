@@ -202,7 +202,7 @@ static void se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_sta
         fprintf(file,"==== Rescue:\n");
       }
       else {
-        fprintf(file,"====  Rescue stack  ====\n", tag);
+        fprintf(file,"====  Rescue stack  ====\n");
       }
     }
 
