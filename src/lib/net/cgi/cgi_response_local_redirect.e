@@ -11,6 +11,9 @@ class CGI_RESPONSE_LOCAL_REDIRECT
 inherit
    CGI_RESPONSE
 
+insert
+   CGI_UTILS
+
 create {ANY}
    set_redirect
 
@@ -89,7 +92,7 @@ feature {CGI}
             std_output.put_character('?')
             std_output.put_string(query)
          end
-         std_output.put_new_line
+         std_output.put_string(crlf)
       end
 
 invariant

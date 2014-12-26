@@ -92,15 +92,15 @@ feature {CGI}
          if status /= 200 then
             a_output.put_string(once "Status: ")
             a_output.put_integer(status)
-            a_output.put_new_line
+            a_output.put_string(crlf)
          end
          flush_fields(a_output)
          if error = Void then
             flush_body(a_output)
          else
-            a_output.put_new_line
+            a_output.put_string(crlf)
             a_output.put_string(error)
-            a_output.put_new_line
+            a_output.put_string(crlf)
          end
       end
 

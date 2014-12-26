@@ -24,7 +24,8 @@ feature {CGI}
    flush (a_output: OUTPUT_STREAM)
       do
          Precursor(a_output)
-         a_output.put_line(once "Status: 302")
+         a_output.put_string(once "Status: 302")
+         a_output.put_string(crlf)
          flush_body(a_output)
       end
 

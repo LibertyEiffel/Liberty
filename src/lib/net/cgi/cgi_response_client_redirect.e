@@ -13,6 +13,7 @@ inherit
 
 insert
    CGI_RESPONSE_FIELDS
+   CGI_UTILS
 
 create {ANY}
    set_redirect
@@ -43,7 +44,7 @@ feature {CGI}
             a_output.put_character('?')
             a_output.put_string(query)
          end
-         a_output.put_new_line
+         a_output.put_string(crlf)
          flush_fields(a_output)
       end
 
