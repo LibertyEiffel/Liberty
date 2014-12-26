@@ -26,13 +26,8 @@ feature {CGI_HANDLER}
          a_path /= Void
       do
          path := a_path.intern
-         if a_query /= Void then
-            query := a_query.intern
-         end
       ensure
          path = a_path.intern
-         a_query = Void implies query = Void
-         a_query /= Void implies query = a_query.intern
       end
 
 feature {CGI}
@@ -40,10 +35,6 @@ feature {CGI}
       do
          a_output.put_string(once "Location: ")
          a_output.put_string(path)
-         if query /= Void then
-            a_output.put_character('?')
-            a_output.put_string(query)
-         end
          a_output.put_string(crlf)
          flush_fields(a_output)
       end
