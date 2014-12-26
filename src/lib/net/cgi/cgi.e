@@ -196,7 +196,7 @@ feature {CGI_HANDLER}
       local
          t: STRING
       do
-         t := meta_variable(once "PATH_TRANSLATED")
+         t := meta_variable(once "QUERY_STRING")
          if t /= Void and then not t.is_empty then
             Result.set(t)
             if Result.error /= Void then
