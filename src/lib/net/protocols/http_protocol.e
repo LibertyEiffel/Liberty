@@ -25,9 +25,9 @@ feature {ANY}
          Result := sockinout /= Void and then sockinout.is_connected
       end
 
-feature {URL}
    standard_port: INTEGER
 
+feature {URL}
    input: INPUT_STREAM
 
    output: OUTPUT_STREAM
