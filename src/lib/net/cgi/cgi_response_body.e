@@ -34,7 +34,7 @@ feature {CGI, CGI_HANDLER}
 feature {}
    flush_content_type (a_output: OUTPUT_STREAM)
       do
-         a_output.put_string(once "Content-Type: ")
+         a_output.put_string(once "Content-Type:")
          a_output.put_string(content_type)
          a_output.put_string(crlf)
       end
