@@ -10,6 +10,12 @@ expanded class PROTOCOLS
 -- See `register_protocol_factory'
 --
 
+insert
+   ANY
+      redefine
+         default_create
+      end
+
 feature {ANY}
    register_protocol_factory (a_protocol_name: ABSTRACT_STRING; a_factory: FUNCTION[TUPLE, PROTOCOL])
       require
@@ -26,7 +32,6 @@ feature {ANY}
       require
          a_protocol_name.count > 0
       do
-         init
          Result := factories.fast_has(a_protocol_name.intern)
       end
 
@@ -38,7 +43,6 @@ feature {ANY}
          u: RECYCLING_POOL[PROTOCOL]
          name: FIXED_STRING
       do
-         init
          name := a_protocol_name.intern
          u := unused_protocols(name)
          if u.is_empty then
@@ -102,6 +106,12 @@ feature {} -- Protocol reuse
          end
       ensure
          Result /= Void
+      end
+
+feature {} -- Creation
+   default_create
+      do
+         init
       end
 
 end -- class PROTOCOLS
