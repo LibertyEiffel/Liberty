@@ -32,11 +32,11 @@ feature {CGI, CGI_HANDLER}
       end
 
 feature {}
-   flush_content_type
+   flush_content_type (a_output: OUTPUT_STREAM)
       do
-         std_output.put_string(once "Content-Type: ")
-         std_output.put_string(content_type)
-         std_output.put_string(crlf)
+         a_output.put_string(once "Content-Type: ")
+         a_output.put_string(content_type)
+         a_output.put_string(crlf)
       end
 
    flush_body (a_output: OUTPUT_STREAM)

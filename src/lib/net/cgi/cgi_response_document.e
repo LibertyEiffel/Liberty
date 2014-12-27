@@ -88,9 +88,9 @@ feature {CGI, CGI_HANDLER}
 feature {CGI}
    flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
       do
-         flush_content_type
+         flush_content_type(a_output)
          if status /= 200 then
-            a_output.put_string(once "Status: ")
+            a_output.put_string(once "Status:")
             a_output.put_integer(status)
             a_output.put_string(crlf)
          end

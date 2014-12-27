@@ -81,7 +81,7 @@ feature {}
                values := fields_memory.item(i)
                if not values.is_empty then
                   a_output.put_string(fields_memory.key(i))
-                  a_output.put_string(once ": ")
+                  a_output.put_character(':')
                   put_value(values, a_output)
                   a_output.put_string(crlf)
                end
