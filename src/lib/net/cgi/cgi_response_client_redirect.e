@@ -14,30 +14,63 @@ inherit
 insert
    CGI_RESPONSE_FIELDS
    CGI_UTILS
+   URL_VALIDITY
 
 create {ANY}
    set_redirect
 
 feature {CGI_HANDLER}
-   path: FIXED_STRING
+   path, fragment: FIXED_STRING
 
-   set_redirect (a_path: ABSTRACT_STRING)
+   set_redirect (a_path, a_fragment: ABSTRACT_STRING)
       require
+         valid_url(a_path)
          a_path /= Void
       do
          path := a_path.intern
+         if a_fragment /= Void then
+            fragment := a_fragment.intern
+         end
       ensure
          path = a_path.intern
+         a_fragment = Void implies fragment = Void
+         a_fragment /= Void implies fragment = a_fragment.intern
       end
 
 feature {CGI}
-   flush (a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+      local
+         uri: ABSTRACT_STRING
+         info: CGI_SERVER_INFO
+         tcp: TCP_PROTOCOL
       do
-         a_output.put_string(once "Location: ")
-         a_output.put_string(path)
+         info := a_cgi.server_info
+         if tcp ?:= info.protocol then
+            tcp ::= info.protocol
+            if tcp.standard_port = info.port then
+               uri := "#(1)://#(2)" # tcp.name # info.name
+            else
+               uri := "#(1)://#(2):#(3)" # tcp.name # info.name # info.port.out
+            end
+         else
+            uri := "#(1)://#(2)" # info.protocol.name # info.name
+         end
+         if a_cgi.script_name.is_set then
+            uri := "#(1)/#(2)" # uri # a_cgi.script_name.name
+         end
+
+         a_output.put_string(once "Location:")
+         a_output.put_string(uri)
+         if fragment /= Void then
+            a_output.put_character('#')
+            a_output.put_string(fragment)
+         end
          a_output.put_string(crlf)
          flush_fields(a_output)
       end
+
+invariant
+   valid_url(path)
 
 end -- class CGI_RESPONSE_CLIENT_REDIRECT
 --

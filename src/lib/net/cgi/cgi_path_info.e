@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-feature {CGI_HANDLER}
+feature {ANY}
    segments: TRAVERSABLE[FIXED_STRING]
       require
          error = Void

@@ -31,7 +31,7 @@ feature {CGI, CGI_HANDLER}
          content_type := a_content_type.intern
       end
 
-feature {CGI}
+feature {}
    flush_content_type
       do
          std_output.put_string(once "Content-Type: ")

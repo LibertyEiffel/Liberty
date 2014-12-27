@@ -11,10 +11,8 @@ class CGI_REMOTE_INFO
 create {CGI}
    make
 
-feature {CGI_HANDLER}
-   --| addr: ???
-   --| host: ???
-   ident, user: FIXED_STRING
+feature {ANY}
+   addr, host, ident, user: FIXED_STRING
 
 feature {CGI}
    error: STRING
@@ -22,6 +20,12 @@ feature {CGI}
 feature {}
    make (a, h, i, u: STRING)
       do
+         if a /= Void then
+            addr := a.intern
+         end
+         if h /= Void then
+            host := h.intern
+         end
          if i /= Void then
             ident := i.intern
          end

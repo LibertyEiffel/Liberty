@@ -14,7 +14,7 @@ insert
          default_create
       end
 
-feature {CGI_HANDLER}
+feature {ANY}
    name: FIXED_STRING
    is_set: BOOLEAN
 

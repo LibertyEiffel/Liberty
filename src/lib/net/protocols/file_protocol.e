@@ -15,7 +15,10 @@ create {PROTOCOLS}
    make
 
 feature {ANY}
-   name: STRING "file"
+   name: FIXED_STRING
+      once
+         Result := "file".intern
+      end
 
    is_connected: BOOLEAN
       do

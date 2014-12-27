@@ -86,7 +86,7 @@ feature {CGI, CGI_HANDLER}
       end
 
 feature {CGI}
-   flush (a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
       do
          flush_content_type
          if status /= 200 then

@@ -10,7 +10,7 @@ insert
    DISPOSABLE
 
 feature {ANY}
-   name: STRING
+   name: FIXED_STRING
       deferred
       end
 

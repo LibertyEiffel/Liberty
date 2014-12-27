@@ -21,9 +21,9 @@ create {ANY}
    set_redirect
 
 feature {CGI}
-   flush (a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
       do
-         Precursor(a_output)
+         Precursor(a_cgi, a_output)
          a_output.put_string(once "Status: 302")
          a_output.put_string(crlf)
          flush_body(a_output)

@@ -84,9 +84,9 @@ feature {CGI_HANDLER}
       end
 
 feature {CGI}
-   flush (a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
       do
-         std_output.put_string(once "Location: ")
+         std_output.put_string(once "Location:")
          std_output.put_string(path)
          if query /= Void then
             std_output.put_character('?')

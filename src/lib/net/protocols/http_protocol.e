@@ -18,7 +18,7 @@ create {PROTOCOLS}
    make
 
 feature {ANY}
-   name: STRING
+   name: FIXED_STRING
 
    is_connected: BOOLEAN
       do

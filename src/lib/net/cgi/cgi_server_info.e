@@ -8,21 +8,38 @@ class CGI_SERVER_INFO
    -- SERVER_NAME, SERVER_PORT, SERVER_PROTOCOL, SERVER_SOFTWARE
    --
 
+insert
+   DISPOSABLE
+
 create {CGI}
    make
 
-feature {CGI_HANDLER}
-   --| name: ???
-   --| port: ???
-   --| protocol: ???
-   --| software: ???
+feature {ANY}
+   name: FIXED_STRING
+   port: INTEGER
+   protocol: PROTOCOL
+   software: FIXED_STRING
 
 feature {CGI}
    error: STRING
 
 feature {}
    make (n, p, q, s: STRING)
+      local
+         protocols: PROTOCOLS
       do
+         if n /= Void then
+            name := n.intern
+         end
+         if p /= Void and then p.is_integer then
+            port := p.to_integer
+         end
+         if q /= Void and then protocols.known_protocol(q) then
+            protocol := protocols.protocol(q)
+         end
+         if s /= Void then
+            software := s.intern
+         end
       end
 
    set_error (t: STRING)
@@ -31,6 +48,14 @@ feature {}
       do
          error := "Invalid SERVER_INFO: "
          error.append(t)
+      end
+
+feature {}
+   dispose
+      local
+         protocols: PROTOCOLS
+      do
+         protocols.recycle(protocol)
       end
 
 end -- class CGI_SERVER_INFO

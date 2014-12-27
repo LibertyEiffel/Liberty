@@ -33,7 +33,7 @@ feature {ANY}
             crm.invoke(handler)
          else
             state := -1
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(output)
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
          end
       ensure
          need_reply or else done
@@ -73,9 +73,9 @@ feature {CGI_HANDLER}
       do
          state := -1
          if error = Void then
-            response.flush(output)
+            response.flush(Current, output)
          else
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(output)
+            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
          end
       ensure
          done
@@ -83,6 +83,7 @@ feature {CGI_HANDLER}
 
    error: STRING
 
+feature {CGI_HANDLER, CGI_RESPONSE}
    auth_type: CGI_AUTH_TYPE
       local
          t: STRING

@@ -11,7 +11,7 @@ class CGI_PATH_TRANSLATED
 create {CGI}
    make
 
-feature {CGI_HANDLER}
+feature {ANY}
    path: FIXED_STRING
 
 feature {}

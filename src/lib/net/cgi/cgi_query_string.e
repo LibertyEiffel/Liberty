@@ -8,7 +8,7 @@ expanded class CGI_QUERY_STRING
    -- QUERY_STRING
    --
 
-feature {CGI_HANDLER}
+feature {ANY}
    string: FIXED_STRING
 
 feature {CGI}

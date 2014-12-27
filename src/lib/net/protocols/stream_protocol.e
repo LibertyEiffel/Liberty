@@ -15,9 +15,9 @@ create {URL}
    make
 
 feature {ANY}
-   name: STRING
+   name: FIXED_STRING
       do
-         Result := out -- make it as ugly as possible. Not a possible URL protocol name.
+         Result := out.intern -- make it as ugly as possible. Not a possible URL protocol name.
       end
 
    is_connected: BOOLEAN

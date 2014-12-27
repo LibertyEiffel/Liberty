@@ -194,7 +194,7 @@ feature {ANY} -- URL connection:
    is_stream: BOOLEAN
 
 feature {ANY} -- URL data:
-   absolute (a_url: STRING)
+   absolute (a_url: ABSTRACT_STRING)
       require
          valid_url(a_url)
          not is_stream
@@ -205,7 +205,7 @@ feature {ANY} -- URL data:
          i := a_url.first_index_of(':')
          pn := once ""
          pn.copy_substring(a_url, 1, i - 1)
-         set_protocol(pn)
+         set_protocol(pn.intern)
          pu := once ""
          pu.copy_substring(a_url, i + 1, a_url.upper)
          set_uri(pu)
@@ -255,17 +255,17 @@ feature {STREAM}
       end
 
 feature {}
-   set_protocol (protocol_name: STRING)
+   set_protocol (protocol_name: FIXED_STRING)
          -- Sets the protocol.
       require
-         protocol_name /= Void
+         protocol_name = protocol_name.intern
       local
          protocols: PROTOCOLS
       do
          unset_protocol
          protocol := protocols.protocol(protocol_name)
       ensure
-         protocol.name.is_equal(protocol_name)
+         protocol.name = protocol_name
       end
 
    set_uri (a_uri: STRING)

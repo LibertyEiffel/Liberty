@@ -31,6 +31,10 @@ feature {ANY}
          sync = a_sync
       end
 
+   standard_port: INTEGER
+      deferred
+      end
+
 feature {URL}
    connect_to (url: URL; read, write: BOOLEAN)
       local
@@ -52,10 +56,6 @@ feature {URL}
          else
             tcp_connect_to(ios, url, read, write)
          end
-      end
-
-   standard_port: INTEGER
-      deferred
       end
 
    locator (a_uri: STRING): NETWORK_RESOURCE_LOCATOR

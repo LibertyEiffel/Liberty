@@ -6,9 +6,11 @@
 expanded class URL_VALIDITY
 
 feature {ANY}
-   valid_url (a_url: STRING): BOOLEAN
-      -- True if the STRING represents a real URL (i.e. with a known protocol and a valid URI for that
-      -- protocol)
+   valid_url (a_url: ABSTRACT_STRING): BOOLEAN
+         -- True if the STRING represents a real URL (i.e. with a known protocol and a valid URI for that
+         -- protocol)
+      require
+         a_url /= Void
       local
          i: INTEGER; protocol_name, protocol_uri: STRING
          p: PROTOCOL; protocols: PROTOCOLS
