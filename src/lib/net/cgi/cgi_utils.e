@@ -5,7 +5,7 @@
 --
 expanded class CGI_UTILS
 
-feature {ANY}
+feature {ANY} -- checks
    is_token (value: ABSTRACT_STRING): BOOLEAN
       require
          value /= Void
@@ -40,7 +40,58 @@ feature {ANY}
          end
       end
 
+   is_valid_path (a_path: ABSTRACT_STRING): BOOLEAN
+      local
+         i, state: INTEGER; c: CHARACTER
+      do
+         if a_path /= Void and then a_path.count > 1 and then a_path.first = '/' then
+            from
+               Result := True
+               i := a_path.lower + 1
+            until
+               not Result or else i > a_path.upper
+            loop
+               c := a_path.item(i)
+               inspect
+                  state
+               when 0, 1 then
+                  inspect
+                     c
+                  when '/' then
+                     if state = 1 then
+                        Result := False
+                     else
+                        state := 1
+                     end
+                  when 'a'..'z', 'A'..'Z', '0'..'9', ':', '@', '&', '=', '+', '$', ',' then
+                     state := 0
+                  when '%%' then
+                     state := 2
+                  else
+                     Result := False
+                  end
+               when 2 then
+                  if c.is_hexadecimal_digit then
+                     state := 3
+                  else
+                     Result := False
+                  end
+               when 3 then
+                  if c.is_hexadecimal_digit then
+                     state := 0
+                  else
+                     Result := False
+                  end
+               end
+               i := i + 1
+            end
+            Result := Result and then state = 0
+         end
+      end
+
+feature {ANY} -- constants
    crlf: FIXED_STRING
+         -- CRLF, the standard Web end-of-line
       do
          Result := "%R%N".intern
       end

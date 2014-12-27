@@ -98,7 +98,7 @@ feature {ANY}
 
    set_path (a_path: like path) assign path
       require
-         a_path /= Void implies is_valid_path(a_path)
+         a_path /= Void implies is_valid_cookie_path(a_path)
       do
          path := a_path
          is_changed := True
@@ -149,7 +149,7 @@ feature {ANY}
          end
       end
 
-   is_valid_path (a_path: ABSTRACT_STRING): BOOLEAN
+   is_valid_cookie_path (a_path: ABSTRACT_STRING): BOOLEAN
       require
          a_path /= Void
       local
@@ -311,7 +311,7 @@ feature {}
 invariant
    is_token(name)
    value /= Void implies is_valid_value(value)
-   path /= Void implies is_valid_path(path)
+   path /= Void implies is_valid_cookie_path(path)
    domain /= Void implies is_valid_domain(domain)
    expires /= Void implies expires.item.is_universal_time
    expires /= Void implies max_age = Void

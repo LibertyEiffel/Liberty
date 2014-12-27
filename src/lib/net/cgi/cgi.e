@@ -16,6 +16,10 @@ insert
       undefine
          is_equal
       end
+   CGI_IO
+      undefine
+         is_equal
+      end
 
 create {CGI_HANDLER}
    make
@@ -52,17 +56,6 @@ feature {ANY}
    done: BOOLEAN
       do
          Result := state = -1
-      end
-
-   output: OUTPUT_STREAM
-
-   set_output (a_output: like output) assign output
-      require
-         a_output.is_connected
-      do
-         output := a_output
-      ensure
-         output = a_output
       end
 
 feature {CGI_HANDLER}
@@ -139,12 +132,20 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          t: STRING
       do
-         t := meta_variable(once "CONTENT_TYPE")
-         if t /= Void and then not t.is_empty then
-            create Result.make(t)
-            if Result.error /= Void then
-               prepare_error
-               error.append(Result.error)
+         Result := content_type_memory
+         if Result = Void then
+            t := meta_variable(once "CONTENT_TYPE")
+            if t /= Void then
+               if not t.is_empty then
+                  create Result.make(t)
+                  if Result.error = Void then
+                     content_type_memory := Result
+                  else
+                     prepare_error
+                     error.append(Result.error)
+                  end
+               end
+               pool.recycle(t)
             end
          end
       ensure
@@ -156,12 +157,15 @@ feature {CGI_HANDLER, CGI_RESPONSE}
          t: STRING
       do
          t := meta_variable(once "GATEWAY_INTERFACE")
-         if t /= Void and then not t.is_empty then
-            Result.set(t)
-            if Result.error /= Void then
-               prepare_error
-               error.append(Result.error)
+         if t /= Void then
+            if not t.is_empty then
+               Result.set(t)
+               if Result.error /= Void then
+                  prepare_error
+                  error.append(Result.error)
+               end
             end
+            pool.recycle(t)
          end
       ensure
          Result.error /= Void implies error.is_equal(Result.error)
@@ -171,14 +175,21 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          t: STRING
       do
-         t := meta_variable(once "PATH_INFO")
-         if t /= Void and then not t.is_empty then
-            if t.first = '/' then
-               create Result.make(t)
-            else
-               prepare_error
-               error.append(once "Invalid PATH_INFO: ")
-               error.append(t)
+         Result := path_info_memory
+         if Result = Void then
+            t := meta_variable(once "PATH_INFO")
+            if t /= Void then
+               if not t.is_empty then
+                  if t.first = '/' then
+                     create Result.make(t)
+                     path_info_memory := Result
+                  else
+                     prepare_error
+                     error.append(once "Invalid PATH_INFO: ")
+                     error.append(t)
+                  end
+               end
+               pool.recycle(t)
             end
          end
       end
@@ -187,9 +198,16 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          t: STRING
       do
-         t := meta_variable(once "PATH_TRANSLATED")
-         if t /= Void and then not t.is_empty then
-            create Result.make(t)
+         Result := path_translated_memory
+         if Result = Void then
+            t := meta_variable(once "PATH_TRANSLATED")
+            if t /= Void then
+               if not t.is_empty then
+                  create Result.make(t)
+                  path_translated_memory := Result
+               end
+               pool.recycle(t)
+            end
          end
       end
 
@@ -198,12 +216,15 @@ feature {CGI_HANDLER, CGI_RESPONSE}
          t: STRING
       do
          t := meta_variable(once "QUERY_STRING")
-         if t /= Void and then not t.is_empty then
-            Result.set(t)
-            if Result.error /= Void then
-               prepare_error
-               error.append(Result.error)
+         if t /= Void then
+            if not t.is_empty then
+               Result.set(t)
+               if Result.error /= Void then
+                  prepare_error
+                  error.append(Result.error)
+               end
             end
+            pool.recycle(t)
          end
       ensure
          Result.error /= Void implies error.is_equal(Result.error)
@@ -213,14 +234,31 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          addr, host, ident, user: STRING
       do
-         addr := meta_variable(once "REMOTE_ADDR")
-         host := meta_variable(once "REMOTE_HOST")
-         ident := meta_variable(once "REMOTE_IDENT")
-         user := meta_variable(once "REMOTE_USER")
-         create Result.make(addr, host, ident, user)
-         if Result.error /= Void then
-            prepare_error
-            error.append(Result.error)
+         Result := remote_info_memory
+         if Result = Void then
+            addr := meta_variable(once "REMOTE_ADDR")
+            host := meta_variable(once "REMOTE_HOST")
+            ident := meta_variable(once "REMOTE_IDENT")
+            user := meta_variable(once "REMOTE_USER")
+            create Result.make(addr, host, ident, user)
+            if Result.error = Void then
+               remote_info_memory := Result
+            else
+               prepare_error
+               error.append(Result.error)
+            end
+            if addr /= Void then
+               pool.recycle(addr)
+            end
+            if host /= Void then
+               pool.recycle(host)
+            end
+            if ident /= Void then
+               pool.recycle(ident)
+            end
+            if user /= Void then
+               pool.recycle(user)
+            end
          end
       ensure
          Result.error /= Void implies error.is_equal(Result.error)
@@ -230,25 +268,34 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          t: STRING
       do
-         t := meta_variable(once "REQUEST_METHOD")
-         if t = Void or else t.is_empty then
-            prepare_error
-            error.append(once "Invalid empty or null REQUEST_METHOD")
-         else
-            inspect
-               t
-            when "GET" then
-               create {CGI_REQUEST_METHOD_GET} Result
-            when "POST" then
-               create {CGI_REQUEST_METHOD_POST} Result
-            when "HEAD" then
-               create {CGI_REQUEST_METHOD_HEAD} Result
-            when "PUT" then
-               create {CGI_REQUEST_METHOD_PUT} Result
-            when "DELETE" then
-               create {CGI_REQUEST_METHOD_DELETE} Result
+         Result := request_method_memory
+         if Result = Void then
+            t := meta_variable(once "REQUEST_METHOD")
+            if t = Void then
+               prepare_error
+               error.append(once "Invalid empty or null REQUEST_METHOD")
+            elseif t.is_empty then
+               prepare_error
+               error.append(once "Invalid empty or null REQUEST_METHOD")
+               pool.recycle(t)
             else
-               create {CGI_REQUEST_METHOD_OTHER} Result.make(t.intern)
+               inspect
+                  t
+               when "GET" then
+                  create {CGI_REQUEST_METHOD_GET} Result
+               when "POST" then
+                  create {CGI_REQUEST_METHOD_POST} Result
+               when "HEAD" then
+                  create {CGI_REQUEST_METHOD_HEAD} Result
+               when "PUT" then
+                  create {CGI_REQUEST_METHOD_PUT} Result
+               when "DELETE" then
+                  create {CGI_REQUEST_METHOD_DELETE} Result
+               else
+                  create {CGI_REQUEST_METHOD_OTHER} Result.make(t.intern)
+               end
+               request_method_memory := Result
+               pool.recycle(t)
             end
          end
       ensure
@@ -260,12 +307,15 @@ feature {CGI_HANDLER, CGI_RESPONSE}
          t: STRING
       do
          t := meta_variable(once "SCRIPT_NAME")
-         if t /= Void and then not t.is_empty then
-            Result.set(t)
-            if Result.error /= Void then
-               prepare_error
-               error.append(Result.error)
+         if t /= Void then
+            if not t.is_empty then
+               Result.set(t)
+               if Result.error /= Void then
+                  prepare_error
+                  error.append(Result.error)
+               end
             end
+            pool.recycle(t)
          end
       ensure
          Result.error /= Void implies error.is_equal(Result.error)
@@ -275,14 +325,31 @@ feature {CGI_HANDLER, CGI_RESPONSE}
       local
          name, port, protocol, software: STRING
       do
-         name := meta_variable(once "SERVER_NAME")
-         port := meta_variable(once "SERVER_PORT")
-         protocol := meta_variable(once "SERVER_PROTOCOL")
-         software := meta_variable(once "SERVER_SOFTWARE")
-         create Result.make(name, port, protocol, software)
-         if Result.error /= Void then
-            prepare_error
-            error.append(Result.error)
+         Result := server_info_memory
+         if Result = Void then
+            name := meta_variable(once "SERVER_NAME")
+            port := meta_variable(once "SERVER_PORT")
+            protocol := meta_variable(once "SERVER_PROTOCOL")
+            software := meta_variable(once "SERVER_SOFTWARE")
+            create Result.make(name, port, protocol, software)
+            if Result.error = Void then
+               server_info_memory := Result
+            else
+               prepare_error
+               error.append(Result.error)
+            end
+            if name /= Void then
+               pool.recycle(name)
+            end
+            if port /= Void then
+               pool.recycle(port)
+            end
+            if protocol /= Void then
+               pool.recycle(protocol)
+            end
+            if software /= Void then
+               pool.recycle(software)
+            end
          end
       end
 
@@ -318,6 +385,7 @@ feature {CGI_HANDLER, CGI_RESPONSE}
          value := meta_variable(var)
          if value /= Void then
             Result := value.intern
+            pool.recycle(value)
          end
       end
 
@@ -327,7 +395,6 @@ feature {}
          a_handler /= Void
       do
          handler := a_handler
-         output := std_output
       ensure
          handler = a_handler
       end
@@ -337,6 +404,9 @@ feature {}
          sys: SYSTEM
       do
          Result := sys.get_environment_variable(var)
+         if Result /= Void then
+            Result := pool.new_twin(Result)
+         end
       end
 
    handler: CGI_HANDLER
@@ -354,6 +424,18 @@ feature {}
 
    state: INTEGER_8
 
+   pool: STRING_RECYCLING_POOL
+      once
+         create Result.make
+      end
+
+   content_type_memory: CGI_CONTENT_TYPE
+   path_info_memory: CGI_PATH_INFO
+   path_translated_memory: CGI_PATH_TRANSLATED
+   remote_info_memory: CGI_REMOTE_INFO
+   request_method_memory: CGI_REQUEST_METHOD
+   server_info_memory: CGI_SERVER_INFO
+
 feature {}
    dispose
       do
@@ -362,7 +444,6 @@ feature {}
 
 invariant
    handler /= Void
-   output.is_connected
 
 end -- class CGI
 --

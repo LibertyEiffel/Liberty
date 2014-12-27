@@ -3,53 +3,37 @@
 --
 -- See the Copyright notice at the end of this file.
 --
-class CGI_RESPONSE_LOCAL_REDIRECT
+expanded class CGI_IO
    --
-   -- CGI response implementation: local redirect
+   -- CGI input/output
+   -- (in fact, currently only output)
    --
 
-inherit
-   CGI_RESPONSE
-
-insert
-   CGI_UTILS
-
-create {ANY}
-   set_redirect
-
-feature {CGI_HANDLER}
-   path, query: FIXED_STRING
-
-   set_redirect (a_path, a_query: ABSTRACT_STRING)
-      require
-         is_valid_path(a_path)
+feature {ANY}
+   output: OUTPUT_STREAM
       do
-         path := a_path.intern
-         if a_query /= Void then
-            query := a_query.intern
-         end
-      ensure
-         path = a_path.intern
-         a_query = Void implies query = Void
-         a_query /= Void implies query = a_query.intern
+         Result := output_memory.item
       end
 
-feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   set_output (a_output: like output) assign output
+      require
+         a_output.is_connected
       do
-         std_output.put_string(once "Location:")
-         std_output.put_string(path)
-         if query /= Void then
-            std_output.put_character('?')
-            std_output.put_string(query)
-         end
-         std_output.put_string(crlf)
+         output_memory.set_item(a_output)
+      ensure
+         output = a_output
+      end
+
+feature {}
+   output_memory: REFERENCE[OUTPUT_STREAM]
+      once
+         create Result.set_item(std_output)
       end
 
 invariant
-   is_valid_path(path)
+   output.is_connected
 
-end -- class CGI_RESPONSE_LOCAL_REDIRECT
+end -- class CGI_IO
 --
 -- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
 --

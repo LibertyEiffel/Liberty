@@ -14,7 +14,6 @@ inherit
 insert
    CGI_RESPONSE_FIELDS
    CGI_UTILS
-   URL_VALIDITY
 
 create {ANY}
    set_redirect
@@ -24,8 +23,8 @@ feature {CGI_HANDLER}
 
    set_redirect (a_path, a_fragment: ABSTRACT_STRING)
       require
-         valid_url(a_path)
          a_path /= Void
+         is_valid_path(a_path)
       do
          path := a_path.intern
          if a_fragment /= Void then
@@ -61,6 +60,7 @@ feature {CGI}
 
          a_output.put_string(once "Location:")
          a_output.put_string(uri)
+         a_output.put_string(path)
          if fragment /= Void then
             a_output.put_character('#')
             a_output.put_string(fragment)
@@ -70,7 +70,7 @@ feature {CGI}
       end
 
 invariant
-   valid_url(path)
+   is_valid_path(path)
 
 end -- class CGI_RESPONSE_CLIENT_REDIRECT
 --

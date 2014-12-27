@@ -22,6 +22,7 @@ feature {CGI}
       do
          from
             s := once ""
+            s.clear_count
             pos := t.lower
          until
             error /= Void or else not t.valid_index(pos)
@@ -62,7 +63,9 @@ feature {CGI}
             end
             pos := pos + 1
          end
-         if state /= 0 then
+         if state = 0 then
+            string := s.intern
+         else
             set_error(t)
          end
       end
