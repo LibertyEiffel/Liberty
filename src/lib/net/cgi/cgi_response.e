@@ -9,7 +9,7 @@ deferred class CGI_RESPONSE
    --
 
 feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       deferred
       end
 

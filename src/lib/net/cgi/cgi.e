@@ -30,6 +30,7 @@ feature {ANY}
          need_run
       local
          crm: CGI_REQUEST_METHOD
+         ok: BOOLEAN
       do
          crm := request_method
          if error = Void then
@@ -37,7 +38,8 @@ feature {ANY}
             crm.invoke(handler)
          else
             state := -1
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
+            ok := (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
+            check ok end
          end
       ensure
          need_reply or else done
@@ -63,12 +65,16 @@ feature {CGI_HANDLER}
       require
          need_reply
          response /= Void
+      local
+         ok: BOOLEAN
       do
          state := -1
          if error = Void then
-            response.flush(Current, output)
-         else
-            (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
+            ok := response.flush(Current, output)
+         end
+         if not ok then
+            ok := (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
+            check ok end
          end
       ensure
          done

@@ -35,7 +35,7 @@ feature {CGI_HANDLER}
       end
 
 feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       do
          a_output.put_string(once "Location:")
          a_output.put_string(path)
@@ -44,6 +44,7 @@ feature {CGI}
             a_output.put_string(query)
          end
          a_output.put_string(crlf)
+         Result := True
       end
 
 invariant

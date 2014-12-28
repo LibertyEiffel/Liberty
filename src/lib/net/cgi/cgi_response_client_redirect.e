@@ -37,14 +37,16 @@ feature {CGI_HANDLER}
       end
 
 feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       local
          uri: ABSTRACT_STRING
          info: CGI_SERVER_INFO
          tcp: TCP_PROTOCOL
       do
          info := a_cgi.server_info
-         if tcp ?:= info.protocol then
+         if info.protocol = Void then
+            check not Result end
+         elseif tcp ?:= info.protocol then
             tcp ::= info.protocol
             if tcp.standard_port = info.port then
                uri := "#(1)://#(2)" # tcp.name # info.name
@@ -58,15 +60,17 @@ feature {CGI}
             uri := "#(1)/#(2)" # uri # a_cgi.script_name.name
          end
 
-         a_output.put_string(once "Location:")
-         a_output.put_string(uri)
-         a_output.put_string(path)
-         if fragment /= Void then
-            a_output.put_character('#')
-            a_output.put_string(fragment)
+         if Result then
+            a_output.put_string(once "Location:")
+            a_output.put_string(uri)
+            a_output.put_string(path)
+            if fragment /= Void then
+               a_output.put_character('#')
+               a_output.put_string(fragment)
+            end
+            a_output.put_string(crlf)
+            flush_fields(a_output)
          end
-         a_output.put_string(crlf)
-         flush_fields(a_output)
       end
 
 invariant

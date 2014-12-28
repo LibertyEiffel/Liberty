@@ -86,7 +86,7 @@ feature {CGI, CGI_HANDLER}
       end
 
 feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       do
          flush_content_type(a_output)
          if status /= 200 then
@@ -102,6 +102,7 @@ feature {CGI}
             a_output.put_string(error)
             a_output.put_string(crlf)
          end
+         Result := True
       end
 
 feature {}

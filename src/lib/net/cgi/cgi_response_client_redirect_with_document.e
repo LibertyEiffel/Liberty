@@ -21,12 +21,14 @@ create {ANY}
    set_redirect
 
 feature {CGI}
-   flush (a_cgi: CGI; a_output: OUTPUT_STREAM)
+   flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       do
-         Precursor(a_cgi, a_output)
-         a_output.put_string(once "Status:302")
-         a_output.put_string(crlf)
-         flush_body(a_output)
+         if Precursor(a_cgi, a_output) then
+            a_output.put_string(once "Status:302")
+            a_output.put_string(crlf)
+            flush_body(a_output)
+            Result := True
+         end
       end
 
 end -- class CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT
