@@ -71,8 +71,13 @@ feature {CGI_HANDLER}
          state := -1
          if error = Void then
             ok := response.flush(Current, output)
+            if not ok then
+               prepare_error
+               error.append(once "Failed response flush: ")
+               error.append(response.out)
+            end
          end
-         if not ok then
+         if error /= Void then
             ok := (create {CGI_RESPONSE_DOCUMENT}.set_error(error)).flush(Current, output)
             check ok end
          end
