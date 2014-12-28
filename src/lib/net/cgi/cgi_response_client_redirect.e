@@ -44,23 +44,21 @@ feature {CGI}
          tcp: TCP_PROTOCOL
       do
          info := a_cgi.server_info
-         if info.protocol = Void then
-            check not Result end
-         elseif tcp ?:= info.protocol then
-            tcp ::= info.protocol
-            if tcp.standard_port = info.port then
-               uri := "#(1)://#(2)" # tcp.name # info.name
+         if info.protocol /= Void then
+            if tcp ?:= info.protocol then
+               tcp ::= info.protocol
+               if tcp.standard_port = info.port then
+                  uri := "#(1)://#(2)" # tcp.name # info.name
+               else
+                  uri := "#(1)://#(2):#(3)" # tcp.name # info.name # info.port.out
+               end
             else
-               uri := "#(1)://#(2):#(3)" # tcp.name # info.name # info.port.out
+               uri := "#(1)://#(2)" # info.protocol.name # info.name
             end
-         else
-            uri := "#(1)://#(2)" # info.protocol.name # info.name
-         end
-         if a_cgi.script_name.is_set then
-            uri := "#(1)/#(2)" # uri # a_cgi.script_name.name
-         end
+            if a_cgi.script_name.is_set then
+               uri := "#(1)/#(2)" # uri # a_cgi.script_name.name
+            end
 
-         if Result then
             a_output.put_string(once "Location:")
             a_output.put_string(uri)
             a_output.put_string(path)
@@ -70,6 +68,7 @@ feature {CGI}
             end
             a_output.put_string(crlf)
             flush_fields(a_output)
+            Result := True
          end
       end
 
