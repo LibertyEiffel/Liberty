@@ -8,6 +8,12 @@ class CGI_REMOTE_INFO
    -- REMOTE_ADDR, REMOTE_HOST, REMOTE_IDENT, REMOTE_USER
    --
 
+insert
+   ANY
+      redefine
+         out_in_tagged_out_memory
+      end
+
 create {CGI}
    make
 
@@ -40,6 +46,28 @@ feature {}
       do
          error := "Invalid REMOTE_INFO: "
          error.append(t)
+      end
+
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_REMOTE_INFO")
+         if addr /= Void then
+            tagged_out_memory.append(once " addr=")
+            tagged_out_memory.append(addr)
+         end
+         if host /= Void then
+            tagged_out_memory.append(once " host=")
+            tagged_out_memory.append(host)
+         end
+         if ident /= Void then
+            tagged_out_memory.append(once " ident=")
+            tagged_out_memory.append(ident)
+         end
+         if user /= Void then
+            tagged_out_memory.append(once " user=")
+            tagged_out_memory.append(user)
+         end
+         tagged_out_memory.extend('}')
       end
 
 end -- class CGI_REMOTE_INFO

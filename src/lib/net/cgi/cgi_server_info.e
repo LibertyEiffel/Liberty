@@ -10,6 +10,9 @@ class CGI_SERVER_INFO
 
 insert
    DISPOSABLE
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {CGI}
    make
@@ -48,6 +51,28 @@ feature {}
       do
          error := "Invalid SERVER_INFO: "
          error.append(t)
+      end
+
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_SERVER_INFO")
+         if name /= Void then
+            tagged_out_memory.append(once " name=")
+            tagged_out_memory.append(name)
+         end
+         if port /= 0 then
+            tagged_out_memory.append(once " port=")
+            port.append_in(tagged_out_memory)
+         end
+         if protocol /= Void then
+            tagged_out_memory.append(once " protocol=")
+            tagged_out_memory.append(protocol.name)
+         end
+         if software /= Void then
+            tagged_out_memory.append(once " software=")
+            tagged_out_memory.append(software)
+         end
+         tagged_out_memory.extend('}')
       end
 
 feature {}
