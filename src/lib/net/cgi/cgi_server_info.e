@@ -49,9 +49,9 @@ feature {}
                   inspect
                      q
                   when "on" then
-                     protocol := protocols.protocol(once "http")
-                  when "off" then
                      protocol := protocols.protocol(once "https")
+                  when "off" then
+                     protocol := protocols.protocol(once "http")
                   else
                   end
                end
