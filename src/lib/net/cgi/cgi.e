@@ -373,7 +373,7 @@ feature {CGI_HANDLER, CGI_RESPONSE}
 
    url: URL
       local
-         string: STRING; sn: script_name; qs: like query_string
+         string: STRING; sn: like script_name; qs: like query_string
       do
          Result := url_memory
          if Result = Void then
@@ -391,7 +391,7 @@ feature {CGI_HANDLER, CGI_RESPONSE}
                string.append(sn.name)
             end
             qs := query_string
-            if qs.is_set then
+            if qs.string /= Void then
                string.append(qs.string)
             end
             create Result.absolute(string)

@@ -53,7 +53,7 @@ feature {CGI}
          Result := True
       end
 
-feature {}
+feature {ANY}
    out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "{CGI_RESPONSE_LOCAL_REDIRECT path=")

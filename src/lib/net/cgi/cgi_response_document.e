@@ -111,16 +111,16 @@ feature {CGI}
          Result := True
       end
 
-feature {}
-   error_memory: STRING
-
-feature {}
+feature {ANY}
    out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "{CGI_RESPONSE_DOCUMENT status=")
          status.append_in(tagged_out_memory)
          tagged_out_memory.extend('}')
       end
+
+feature {}
+   error_memory: STRING
 
    reasons: MAP[FIXED_STRING, INTEGER]
       once
