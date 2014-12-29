@@ -42,7 +42,6 @@ feature {}
    flush_body (a_output: OUTPUT_STREAM)
       do
          if body_string /= Void then
-            a_output.put_string(crlf)
             a_output.put_string(body_string)
          end
       end

@@ -29,6 +29,7 @@ feature {CGI}
          if Precursor(a_cgi, a_output) then
             a_output.put_string(once "Status:302")
             a_output.put_string(crlf)
+            a_output.put_string(crlf)
             flush_body(a_output)
             Result := True
          end

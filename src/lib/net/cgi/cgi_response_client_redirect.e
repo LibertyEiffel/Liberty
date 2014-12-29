@@ -103,6 +103,7 @@ feature {CGI}
             end
             a_output.put_string(crlf)
             flush_fields(a_output)
+            a_output.put_string(crlf)
             Result := True
          end
       end

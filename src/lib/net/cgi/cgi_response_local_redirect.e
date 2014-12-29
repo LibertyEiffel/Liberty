@@ -50,6 +50,7 @@ feature {CGI}
             a_output.put_string(query)
          end
          a_output.put_string(crlf)
+         a_output.put_string(crlf)
          Result := True
       end
 

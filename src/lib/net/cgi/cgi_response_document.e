@@ -101,10 +101,10 @@ feature {CGI}
             a_output.put_string(crlf)
          end
          flush_fields(a_output)
+         a_output.put_string(crlf)
          if error = Void then
             flush_body(a_output)
          else
-            a_output.put_string(crlf)
             a_output.put_string(error)
             a_output.put_string(crlf)
          end
