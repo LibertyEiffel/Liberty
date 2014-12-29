@@ -10,9 +10,15 @@ class CGI_RESPONSE_LOCAL_REDIRECT
 
 inherit
    CGI_RESPONSE
+      redefine
+         out_in_tagged_out_memory
+      end
 
 insert
    CGI_UTILS
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
    set_redirect
@@ -45,6 +51,18 @@ feature {CGI}
          end
          a_output.put_string(crlf)
          Result := True
+      end
+
+feature {}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_RESPONSE_LOCAL_REDIRECT path=")
+         tagged_out_memory.append(path)
+         if query /= Void then
+            tagged_out_memory.append(once " query=")
+            tagged_out_memory.append(query)
+         end
+         tagged_out_memory.extend('}')
       end
 
 invariant

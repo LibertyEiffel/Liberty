@@ -10,10 +10,19 @@ class CGI_RESPONSE_CLIENT_REDIRECT
 
 inherit
    CGI_RESPONSE
+      redefine
+         out_in_tagged_out_memory
+      end
 
 insert
    CGI_RESPONSE_FIELDS
+      redefine
+         out_in_tagged_out_memory
+      end
    CGI_UTILS
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
    set_redirect
@@ -70,6 +79,18 @@ feature {CGI}
             flush_fields(a_output)
             Result := True
          end
+      end
+
+feature {}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_RESPONSE_CLIENT_REDIRECT path=")
+         tagged_out_memory.append(path)
+         if fragment /= Void then
+            tagged_out_memory.append(once " fragment=")
+            tagged_out_memory.append(fragment)
+         end
+         tagged_out_memory.extend('}')
       end
 
 invariant

@@ -10,12 +10,18 @@ class CGI_RESPONSE_DOCUMENT
 
 inherit
    CGI_RESPONSE
+      redefine
+         out_in_tagged_out_memory
+      end
 
 insert
    CGI_RESPONSE_FIELDS
+      redefine
+         out_in_tagged_out_memory
+      end
    CGI_RESPONSE_BODY
       redefine
-         set_content_type
+         set_content_type, out_in_tagged_out_memory
       end
 
 create {ANY}
@@ -107,6 +113,14 @@ feature {CGI}
 
 feature {}
    error_memory: STRING
+
+feature {}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_RESPONSE_DOCUMENT status=")
+         status.append_in(tagged_out_memory)
+         tagged_out_memory.extend('}')
+      end
 
    reasons: MAP[FIXED_STRING, INTEGER]
       once

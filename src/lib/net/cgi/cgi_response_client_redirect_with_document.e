@@ -11,11 +11,14 @@ class CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT
 inherit
    CGI_RESPONSE_CLIENT_REDIRECT
       redefine
-         flush
+         flush, out_in_tagged_out_memory
       end
 
 insert
    CGI_RESPONSE_BODY
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
    set_redirect
@@ -29,6 +32,18 @@ feature {CGI}
             flush_body(a_output)
             Result := True
          end
+      end
+
+feature {}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT path=")
+         tagged_out_memory.append(path)
+         if fragment /= Void then
+            tagged_out_memory.append(once " fragment=")
+            tagged_out_memory.append(fragment)
+         end
+         tagged_out_memory.extend('}')
       end
 
 end -- class CGI_RESPONSE_CLIENT_REDIRECT_WITH_DOCUMENT
