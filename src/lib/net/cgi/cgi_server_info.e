@@ -20,6 +20,7 @@ create {CGI}
 feature {ANY}
    name: FIXED_STRING
    port: INTEGER
+   http_protocol: FIXED_STRING
    protocol: PROTOCOL
    software: FIXED_STRING
 
@@ -27,7 +28,7 @@ feature {CGI}
    error: STRING
 
 feature {}
-   make (n, p, q, s: STRING)
+   make (n, p, h, s, q: STRING)
       local
          protocols: PROTOCOLS
       do
@@ -37,8 +38,25 @@ feature {}
          if p /= Void and then p.is_integer then
             port := p.to_integer
          end
-         if q /= Void and then protocols.known_protocol(q) then
-            protocol := protocols.protocol(q)
+         if h /= Void then
+            http_protocol := h.intern
+            inspect
+               h
+            when "HTTP/1.0", "HTTP/1.1" then
+               if q = Void then
+                  protocol := protocols.protocol(once "http")
+               else
+                  inspect
+                     q
+                  when "on" then
+                     protocol := protocols.protocol(once "http")
+                  when "off" then
+                     protocol := protocols.protocol(once "https")
+                  else
+                  end
+               end
+            else
+            end
          end
          if s /= Void then
             software := s.intern
@@ -80,7 +98,9 @@ feature {}
       local
          protocols: PROTOCOLS
       do
-         protocols.recycle(protocol)
+         if protocol /= Void then
+            protocols.recycle(protocol)
+         end
       end
 
 end -- class CGI_SERVER_INFO

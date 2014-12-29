@@ -7,6 +7,9 @@ class CGI
    --
    -- This class provides a simple executable framework for CGI implementation.
    --
+   -- It is meant to be instanciated once, used in a one-shot process that dies quickly.
+   -- Hence the light memory management.
+   --
    -- See RFC 3875
    --
 
@@ -334,7 +337,7 @@ feature {CGI_HANDLER, CGI_RESPONSE}
 
    server_info: CGI_SERVER_INFO
       local
-         name, port, protocol, software: STRING
+         name, port, protocol, software, https: STRING
       do
          Result := server_info_memory
          if Result = Void then
@@ -342,7 +345,8 @@ feature {CGI_HANDLER, CGI_RESPONSE}
             port := meta_variable(once "SERVER_PORT")
             protocol := meta_variable(once "SERVER_PROTOCOL")
             software := meta_variable(once "SERVER_SOFTWARE")
-            create Result.make(name, port, protocol, software)
+            https := meta_variable(once "HTTPS")
+            create Result.make(name, port, protocol, software, https)
             if Result.error = Void then
                server_info_memory := Result
             else
@@ -361,6 +365,37 @@ feature {CGI_HANDLER, CGI_RESPONSE}
             if software /= Void then
                pool.recycle(software)
             end
+            if https /= Void then
+               pool.recycle(https)
+            end
+         end
+      end
+
+   url: URL
+      local
+         string: STRING; sn: script_name; qs: like query_string
+      do
+         Result := url_memory
+         if Result = Void then
+            string := once ""
+            string.clear_count
+            if server_info.protocol /= Void then
+               string.append(server_info.protocol.name)
+            else
+               string.append(once "unknown")
+            end
+            string.append(once "://")
+            string.append(header(once "HOST"))
+            sn := script_name
+            if sn.is_set then
+               string.append(sn.name)
+            end
+            qs := query_string
+            if qs.is_set then
+               string.append(qs.string)
+            end
+            create Result.absolute(string)
+            url_memory := Result
          end
       end
 
@@ -446,6 +481,7 @@ feature {}
    remote_info_memory: CGI_REMOTE_INFO
    request_method_memory: CGI_REQUEST_METHOD
    server_info_memory: CGI_SERVER_INFO
+   url_memory: URL
 
 feature {}
    dispose
