@@ -48,24 +48,50 @@ feature {CGI_HANDLER}
 feature {CGI}
    flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       local
-         uri: ABSTRACT_STRING
+         uri: STRING
          info: CGI_SERVER_INFO
          tcp: TCP_PROTOCOL
+         host: FIXED_STRING
       do
          info := a_cgi.server_info
          if info.protocol /= Void then
+            host := a_cgi.header(once "HOST")
+            uri := once ""
+            uri.clear_count
+
             if tcp ?:= info.protocol then
                tcp ::= info.protocol
                if tcp.standard_port = info.port then
-                  uri := "#(1)://#(2)" # tcp.name # info.name
+                  uri.append(tcp.name)
+                  uri.append(once "://")
+                  if host = Void then
+                     uri.append(info.name)
+                  else
+                     uri.append(host)
+                  end
                else
-                  uri := "#(1)://#(2):#(3)" # tcp.name # info.name # info.port.out
+                  uri.append(tcp.name)
+                  uri.append(once "://")
+                  if host = Void then
+                     uri.append(info.name)
+                     uri.extend(':')
+                     info.port.append_in(uri)
+                  else
+                     uri.append(host)
+                  end
                end
             else
-               uri := "#(1)://#(2)" # info.protocol.name # info.name
+               uri.append(info.protocol.name)
+               uri.append(once "://")
+               if host = Void then
+                  uri.append(info.name)
+               else
+                  uri.append(host)
+               end
             end
             if a_cgi.script_name.is_set then
-               uri := "#(1)/#(2)" # uri # a_cgi.script_name.name
+               uri.extend('/')
+               uri.append(a_cgi.script_name.name)
             end
 
             a_output.put_string(once "Location:")
