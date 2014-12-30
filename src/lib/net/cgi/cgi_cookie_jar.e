@@ -4,6 +4,9 @@
 -- See the Copyright notice at the end of this file.
 --
 expanded class CGI_COOKIE_JAR
+   --
+   -- Access to the CGI cookies. This class is expanded; cookies are application-wide.
+   --
 
 insert
    CGI_UTILS
@@ -68,7 +71,6 @@ feature {}
          http_cookie: STRING
          i: INTEGER
       do
-         create jar.make
          http_cookie := system.get_environment_variable(once "HTTP_COOKIE")
          if http_cookie /= Void and then not http_cookie.is_empty then
             from
@@ -116,6 +118,9 @@ feature {}
       end
 
    jar: LINKED_HASHED_DICTIONARY[CGI_COOKIE, FIXED_STRING]
+      once
+         create Result.make
+      end
 
 end -- class CGI_COOKIE_JAR
 --
