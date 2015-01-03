@@ -44,6 +44,10 @@ feature {CGI}
    flush (a_cgi: CGI; a_output: OUTPUT_STREAM): BOOLEAN
       do
          a_output.put_string(once "Location:")
+         if a_cgi.script_name.is_set then
+            a_output.put_character('/')
+            a_output.put_string(a_cgi.script_name.name)
+         end
          a_output.put_string(path)
          if query /= Void then
             a_output.put_character('?')
