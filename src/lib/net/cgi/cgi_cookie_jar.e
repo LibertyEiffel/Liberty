@@ -34,6 +34,11 @@ feature {ANY}
          Result /= Void
       end
 
+   for_each (action: PROCEDURE[CGI_COOKIE])
+      do
+         jar.for_each_item(action)
+      end
+
 feature {CGI_RESPONSE_FIELDS}
    is_field_reserved (a_field: ABSTRACT_STRING): BOOLEAN
       require
@@ -108,9 +113,16 @@ feature {}
             when 1 then -- reading cookie value
                if c = ';' then
                   cookie(name).set_initial_value(value.intern)
-                  state := -1
+                  state := 2
                else
                   value.extend(c)
+               end
+            when 2 then -- skipping trainling spaces (after semi-colon)
+               if c = ' ' then
+                  -- skip
+               else
+                  Result := Result - 1
+                  state := -1
                end
             end
             Result := Result + 1
