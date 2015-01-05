@@ -34,7 +34,7 @@ feature {ANY}
          Result /= Void
       end
 
-   for_each (action: PROCEDURE[CGI_COOKIE])
+   for_each (action: PROCEDURE[TUPLE[CGI_COOKIE]])
       do
          jar.for_each_item(action)
       end
