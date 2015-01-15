@@ -1,8 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MAXTOOLCOUNT=20
 
-cd $(dirname $(readlink -f $0))
+################################################################################
+#
+# I need to work in the canonical location, because I want to access
+# resources that are typically bundled with this script.
+#
+# I try GNU readlink first, if I don't find it I will rely on POSIX
+# readlink. I think.
+#
+
+CANONICAL_SOURCE=$(readlink -f "$BASH_SOURCE" 2>/dev/null) || {
+    unsymlink() {
+        if [ -L "$1" ]; then
+            unsymlink $(readlink "$1")
+        elif [ "${1%/*}" == "$1" ]; then
+            echo "$1"
+        else
+            echo $(unsymlink "${1%/*}")/"${1##*/}"
+        fi
+    }
+
+    CANONICAL_SOURCE=$(unsymlink "$BASH_SOURCE")
+}
+cd ${CANONICAL_SOURCE%/*}
+
+################################################################################
+#
+# Environment variables
+#
 
 export CC_TYPE=${CC_TYPE:-gcc}
 export CC=${CC:-$CC_TYPE}
@@ -16,13 +43,22 @@ export LOG=$TARGET/log/install$(date +'-%Y%m%d-%H%M%S').log
 export PREREQUISITES="$CC $CXX" # gccxml"
 unset CDPATH
 
+################################################################################
+#
+# Source the Liberty tools (they provide the progress bar)
+#
+
 . $LIBERTY_HOME/work/tools.sh
 mkdir -p $TMPDIR
 
+################################################################################
+#
+# Checking prerequisites
+#
+
 title "Checking BDW GC"
 
-function check_libgc()
-{
+check_libgc() {
     cat > $TMPDIR/check_libgc.c <<EOF
 #include <stdlib.h>
 #include <stdio.h>
@@ -57,8 +93,7 @@ else
 fi
 export BDW_GC
 
-function check_prerequisites()
-{
+check_prerequisites() {
     title "Checking required programs."
     i=0
     for PROGRAM in $PREREQUISITES; do
@@ -75,8 +110,14 @@ function check_prerequisites()
     echo
 }
 
-function bootstrap()
-{
+################################################################################
+#
+# The bootstrap function:
+#
+# Locally install Liberty Eiffel starting from the C germ
+#
+
+bootstrap() {
     test -d $TARGET && rm -rf $TARGET
     mkdir $TARGET
     cd $TARGET
@@ -405,16 +446,28 @@ EOF
         echo
 }
 
-function compile_plugins()
-{
+################################################################################
+#
+# The compile_plugins function:
+#
+# Generate "plugins" for the runner
+#
+
+compile_plugins() {
     title "Compiling plugins"
     check_prerequisites
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
 }
 
-function generate_wrappers()
-{
+################################################################################
+#
+# The generate_wrappers function:
+#
+# Generate C library wrappers
+#
+
+generate_wrappers() {
     title "Generating wrappers"
     cd $TARGET/bin
     cd wrappers-generator.d
@@ -437,8 +490,14 @@ function generate_wrappers()
     echo
 }
 
-function compile_all()
-{
+################################################################################
+#
+# The compile_all function:
+#
+# Compile the Liberty Eiffel tools (i.e. not SmartEiffel)
+#
+
+compile_all() {
     n=$(ls $LIBERTY_HOME/src/tools/main/*.ace 2>/dev/null | wc -l || echo 0)
     if [ $n -gt 0 ]; then
         i=0
@@ -455,8 +514,14 @@ function compile_all()
     fi
 }
 
-function make_doc()
-{
+################################################################################
+#
+# The make_doc function:
+#
+# Invoke eiffeldoc to build the documentation
+#
+
+make_doc() {
     export DOC_ROOT=$TARGET/doc/
     export LOG=$TARGET/log/build_doc$(date +'-%Y%m%d-%H%M%S').log
     test -d $DOC_ROOT && rm -rf $DOC_ROOT
@@ -465,8 +530,12 @@ function make_doc()
     $LIBERTY_HOME/work/build_doc.sh
 }
 
-function do_pkg_tools()
-{
+################################################################################
+#
+# The packaging functions
+#
+
+do_pkg_tools() {
     PUBLIC=$USRDIR/bin
     PRIVATE=$USRDIR/lib/liberty-eiffel/bin
     ETC=$ETCDIR/xdg/liberty-eiffel
@@ -593,8 +662,7 @@ EOF
     chown root:root $ETC/liberty.se
 }
 
-function _do_pkg_src()
-{
+_do_pkg_src() {
     local section=$1
     shift
     local src=("$@")
@@ -637,28 +705,23 @@ EOF
     chown root:root $ETC/liberty_${section}.se
 }
 
-function do_pkg_tools_src()
-{
+do_pkg_tools_src() {
     _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel $LIBERTY_HOME/src/tools
 }
 
-function do_pkg_core_libs()
-{
+do_pkg_core_libs() {
     _do_pkg_src core $LIBERTY_HOME/src/lib
 }
 
-function do_pkg_extra_libs()
-{
+do_pkg_extra_libs() {
     _do_pkg_src extra $LIBERTY_HOME/src/wrappers
 }
 
-function do_pkg_tutorial()
-{
+do_pkg_tutorial() {
     _do_pkg_src tutorial $LIBERTY_HOME/tutorial
 }
 
-function do_pkg_tools_doc()
-{
+do_pkg_tools_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC/tools
     cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
@@ -667,8 +730,7 @@ function do_pkg_tools_doc()
     chown -R root:root $DOC
 }
 
-function do_pkg_core_doc()
-{
+do_pkg_core_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC
     cp -a $TARGET/doc/api/libraries/* $DOC/core/
@@ -676,8 +738,7 @@ function do_pkg_core_doc()
     chown -R root:root $DOC
 }
 
-function do_pkg_extra_doc()
-{
+do_pkg_extra_doc() {
     DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC
     cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
@@ -685,8 +746,7 @@ function do_pkg_extra_doc()
     chown -R root:root $DOC
 }
 
-function do_local_install()
-{
+do_local_install() {
     export USRDIR=${USRDIR:-/usr/local}
     export ETCDIR=${ETCDIR:-/usr/local/etc}
     do_pkg_tools
@@ -699,8 +759,7 @@ function do_local_install()
     do_pkg_tutorial
 }
 
-function do_pkg()
-{
+do_pkg() {
     if [ x$DESTDIR == x ]; then
         echo "No DESTDIR, please call from debian helper tools" >&2
         exit 1
@@ -724,6 +783,11 @@ function do_pkg()
             ;;
     esac
 }
+
+################################################################################
+#
+# Main
+#
 
 if [ $# = 0 ]; then
     bootstrap
