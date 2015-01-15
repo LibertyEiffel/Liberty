@@ -2,20 +2,24 @@
 -- See the full copyright at the end.
 --
 class TEXT_FILE_READ_WRITE
-   -- This class allow to read and write a named file on the disk.
-   -- Note that opening a file in READ and WRITE mode is not very
-   -- common case and lead to performance decrease compared to
+   -- This class allows to read and write a named file on the disk.
+   -- Note that opening a file in READ and WRITE mode is not a very
+   -- common case and may lead to performance decrease compared to
    -- TEXT_FILE_READ and TEXT_FILE_WRITE performance. Such a file
-   -- both an INPUT_STREAM and an OUTPUT_STREAM.
+   -- is both an INPUT_STREAM and an OUTPUT_STREAM.
 
 inherit
    FILE_STREAM
+      redefine out_in_tagged_out_memory
+      end
    TERMINAL_INPUT_OUTPUT_STREAM
-      redefine filtered_read_line_in
+      redefine filtered_read_line_in, out_in_tagged_out_memory
       end
 
 insert
    STRING_HANDLER
+      redefine out_in_tagged_out_memory
+      end
 
 create {ANY}
    make, connect_to, connect_for_appending_to
@@ -90,6 +94,13 @@ feature {ANY}
       do
          io_flush(stream)
          Result := io_feof(stream)
+      end
+
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{TEXT_FILE_READ_WRITE ")
+         tagged_out_memory.append(path)
+         tagged_out_memory.extend('}')
       end
 
 feature {FILTER_INPUT_STREAM}

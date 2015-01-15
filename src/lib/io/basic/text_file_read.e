@@ -14,12 +14,16 @@ class TEXT_FILE_READ
 
 inherit
    FILE_STREAM
+      redefine out_in_tagged_out_memory
+      end
    TERMINAL_INPUT_STREAM
-      redefine filtered_read_line_in, filtered_read_available_in
+      redefine filtered_read_line_in, filtered_read_available_in, out_in_tagged_out_memory
       end
 
 insert
    STRING_HANDLER
+      redefine out_in_tagged_out_memory
+      end
 
 create {ANY}
    make, connect_to
@@ -62,6 +66,13 @@ feature {ANY}
       end
 
    end_of_input: BOOLEAN
+
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{TEXT_FILE_READ ")
+         tagged_out_memory.append(path)
+         tagged_out_memory.extend('}')
+      end
 
 feature {FILTER_INPUT_STREAM}
    filtered_read_character

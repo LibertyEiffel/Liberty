@@ -12,7 +12,11 @@ class TEXT_FILE_WRITE
 
 inherit
    FILE_STREAM
+      redefine out_in_tagged_out_memory
+      end
    TERMINAL_OUTPUT_STREAM
+      redefine out_in_tagged_out_memory
+      end
 
 create {ANY}
    make, connect_to, connect_for_appending_to
@@ -82,6 +86,13 @@ feature {ANY}
          path := Void
          filter := Void
          flushed_character_count := 0
+      end
+
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{TEXT_FILE_WRITE ")
+         tagged_out_memory.append(path)
+         tagged_out_memory.extend('}')
       end
 
 feature {FILTER_OUTPUT_STREAM}
