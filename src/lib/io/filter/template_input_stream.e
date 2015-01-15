@@ -96,6 +96,7 @@ feature {}
                   c
                when '(' then
                   key := once ""
+                  key.clear_count
                   state := 2
                when '#' then
                   extend('#')
@@ -113,7 +114,7 @@ feature {}
                when ')' then
                   append(once "#()")
                else
-                  key.make_filled(c, 1)
+                  key.extend(c)
                   state := 4
                end
             when 3 then
