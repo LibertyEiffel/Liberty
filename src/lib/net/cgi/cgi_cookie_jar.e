@@ -71,11 +71,16 @@ feature {CGI_RESPONSE_FIELDS}
 
 feature {}
    default_create
+      do
+         init
+      end
+
+   init
       local
          system: SYSTEM
          http_cookie: STRING
          i: INTEGER
-      do
+      once
          http_cookie := system.get_environment_variable(once "HTTP_COOKIE")
          if http_cookie /= Void and then not http_cookie.is_empty then
             from
@@ -117,7 +122,7 @@ feature {}
                else
                   value.extend(c)
                end
-            when 2 then -- skipping trainling spaces (after semi-colon)
+            when 2 then -- skipping trailing spaces (after semi-colon)
                if c = ' ' then
                   -- skip
                else
@@ -126,6 +131,10 @@ feature {}
                end
             end
             Result := Result + 1
+         end
+         if state = 1 then
+            -- the last cookie!
+            cookie(name).set_initial_value(value.intern)
          end
       end
 
