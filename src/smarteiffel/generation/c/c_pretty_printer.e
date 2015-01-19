@@ -2513,7 +2513,8 @@ feature {}
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}
-   se_evobt (return_type: TYPE_MARK; type: TYPE; target: EXPRESSION)
+   se_evobt (return_type: TYPE_MARK; type: TYPE; target: EXPRESSION; is_target: BOOLEAN)
+         -- `is_target' is False when compiling an argument, True otherwise (i.e. when compiling a target)
       require
          target /= Void
       local
@@ -2554,6 +2555,15 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
                internal_c_local.append_in(pending_c_function_body)
                pending_c_function_body.extend('=')
                pending_c_function_body.append(initializer.for(return_type))
+            elseif is_target and then not return_type.is_kernel_expanded and then not return_type.type.is_empty_expanded then
+               internal_c_local := pending_c_function_lock_local(return_type.type, once "evobt");
+               pending_c_function_body.extend('(')
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "=M")
+               return_type.type.id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ",&")
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.extend(')')
             else
                pending_c_function_body.extend('M')
                return_type.type.id.append_in(pending_c_function_body)

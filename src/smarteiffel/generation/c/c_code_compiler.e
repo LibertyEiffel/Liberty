@@ -629,7 +629,7 @@ feature {UNUSED_EXPRESSION}
 feature {VOID_PROC_CALL}
    visit_void_proc_call (visited: VOID_PROC_CALL)
       do
-         cpp.se_evobt(Void, type, create {E_VOID}.make(visited.start_position))
+         cpp.se_evobt(Void, type, create {E_VOID}.make(visited.start_position), True)
       end
 
 feature {PRECURSOR_INSTRUCTION}

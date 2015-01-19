@@ -22,6 +22,7 @@ insert
          visit_loop_variant,
          visit_compound_expression,
          visit_dynamic_dispatch_temporary1_id,
+         visit_void_call,
          visit_writable_attribute_name
       end
 
@@ -114,6 +115,15 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
    visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
          not_yet_implemented
+      end
+
+feature {VOID_CALL}
+   visit_void_call (visited: VOID_CALL)
+      local
+         rt: TYPE
+      do
+         rt := visited.resolve_in(type)
+         cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(visited.start_position), False)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}

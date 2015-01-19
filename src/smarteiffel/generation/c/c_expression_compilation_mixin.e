@@ -1156,7 +1156,7 @@ feature {VOID_CALL}
          rt: TYPE
       do
          rt := visited.resolve_in(type)
-         cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(visited.start_position))
+         cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(visited.start_position), True)
       end
 
 feature {OLD_MANIFEST_ARRAY}
