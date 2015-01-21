@@ -23,6 +23,7 @@ feature {ANY}
    http_protocol: FIXED_STRING
    protocol: PROTOCOL
    software: FIXED_STRING
+   is_secure: BOOLEAN
 
 feature {CGI}
    error: STRING
@@ -49,6 +50,7 @@ feature {}
                   inspect
                      q
                   when "on" then
+                     is_secure := True
                      protocol := protocols.protocol(once "https")
                   when "off" then
                      protocol := protocols.protocol(once "http")
