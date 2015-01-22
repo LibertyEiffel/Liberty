@@ -12,6 +12,7 @@ export codename=snapshot
 export keep_failed=FALSE
 export deploy=FALSE
 export doc=TRUE
+export staging=TRUE
 
 pkgdate=${PKG_DATE:-$(date -u +'%Y%m%d.%H%M%S')}
 export tag="~snapshot.$pkgdate"
@@ -30,6 +31,7 @@ while [[ x$1 != x ]]; do
         -release*)
             codename=release
             tag="~release"${1#-release}
+            staging=FALSE
             ;;
         -rc*)
             codename=rc
@@ -125,7 +127,7 @@ if [[ $deploy == FALSE ]]; then
     version=$(head -n 1 $packages/debian.skel/debian/changelog | sed 's/#SNAPSHOT#/'"$tag"'/g;s/#DATE#/'"$(date -R)"'/g' | awk -F'[()]' '{print $2}')
     echo "Generating packages: version is $version"
     for debian in $packages/*.pkg/debian; do
-        if [[ $doc == TRUE || ! -e $debian/isdoc ]]; then
+        if [[ ( $doc == TRUE || ! -e $debian/isdoc ) && ( $staging == TRUE || ! -e $debian/isstaging ) ]]; then
             package_dir=${debian%/debian}
             package=$(basename ${debian%.pkg/debian})
             tmp=$(mktemp -d -t $package-deb.XXXXXX)

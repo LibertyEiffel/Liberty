@@ -717,6 +717,10 @@ do_pkg_extra_libs() {
     _do_pkg_src extra $LIBERTY_HOME/src/wrappers
 }
 
+do_pkg_extra_libs() {
+    _do_pkg_src staging $LIBERTY_HOME/src/staging
+}
+
 do_pkg_tutorial() {
     _do_pkg_src tutorial $LIBERTY_HOME/tutorial
 }
@@ -746,6 +750,14 @@ do_pkg_extra_doc() {
     chown -R root:root $DOC
 }
 
+do_pkg_staging_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
+    install -d -m 0755 -o root -g root $DOC
+    cp -a $TARGET/doc/api/staging/* $DOC/staging/
+    find $DOC -type f -exec chmod a-x {} +
+    chown -R root:root $DOC
+}
+
 do_local_install() {
     export USRDIR=${USRDIR:-/usr/local}
     export ETCDIR=${ETCDIR:-/usr/local/etc}
@@ -756,6 +768,8 @@ do_local_install() {
     do_pkg_core_doc
     do_pkg_extra_libs
     do_pkg_extra_doc
+    do_pkg_staging_libs
+    do_pkg_staging_doc
     do_pkg_tutorial
 }
 
@@ -769,14 +783,16 @@ do_pkg() {
     export USRDIR=$DESTDIR/usr
     export ETCDIR=$DESTDIR/etc
     case "$1" in
-        tools)      do_pkg_tools;;
-        tools_src)  do_pkg_tools_src;;
-        tools_doc)  do_pkg_tools_doc;;
-        core_libs)  do_pkg_core_libs;;
-        core_doc)   do_pkg_core_doc;;
-        extra_libs) do_pkg_extra_libs;;
-        extra_doc)  do_pkg_extra_doc;;
-        tutorial)   do_pkg_tutorial;;
+        tools)        do_pkg_tools;;
+        tools_src)    do_pkg_tools_src;;
+        tools_doc)    do_pkg_tools_doc;;
+        core_libs)    do_pkg_core_libs;;
+        core_doc)     do_pkg_core_doc;;
+        extra_libs)   do_pkg_extra_libs;;
+        extra_doc)    do_pkg_extra_doc;;
+        tutorial)     do_pkg_tutorial;;
+        staging_libs) do_pkg_staging_libs;;
+        staging_doc)  do_pkg_staging_doc;;
         *)
             echo "Unknown pkg name: $1" >&2
             exit 1
