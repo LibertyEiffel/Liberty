@@ -29,8 +29,21 @@ feature {ANY}
       do
          target.short_target(type)
          target_type := target.resolve_in(type)
-         fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
-         target_type.get_feature_name(fs).short(type)
+         if feature_stamp = Void then
+            fs := type.search(feature_name)
+         else
+            fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
+         end
+         if fs = Void then
+            error_handler.add_position(start_position)
+            error_handler.append(once "Feature ")
+            error_handler.append(feature_name.to_string)
+            error_handler.append(once " not found in type ")
+            error_handler.append(target_type.canonical_type_mark.written_mark)
+            error_handler.print_as_warning
+         else
+            target_type.get_feature_name(fs).short(type)
+         end
       end
 
    short_target (type: TYPE)
