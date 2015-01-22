@@ -5,6 +5,9 @@ class EXAMPLE_HTTP_CLIENT
 
 inherit
    XML_NODE_VISITOR
+      undefine
+         default_create
+      end
 
 insert
    PROTOCOLS

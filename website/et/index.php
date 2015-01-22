@@ -17,15 +17,19 @@ include "functions.php";
 
 include "$templates/head.html";
 
-if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
-   file_put_contents($request, "new MANUAL request on " . date($dateFormat));
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists("token", $_POST) && array_key_exists("token", $_SESSION) && $_POST["token"] == $_SESSION['token']) {
+    if($_SESSION['token_time'] >= time() - (15*60)) {
+        if (array_key_exists("manual_request", $_POST) && $_POST["manual_request"] == 1) {
+           file_put_contents($request, "new MANUAL request on " . date($dateFormat));
+        } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
+           file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
+        }
+    } else {
+        echo "<p><i>Token expired</i></p>\n"
+    }
 }
 
-if(array_key_exists("request_break", $_GET) && $_GET["request_break"] == 1 && file_exists($request)){
-   file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
-}
-
-if(array_key_exists('history', $_GET)){
+if (array_key_exists('history', $_GET)){
    $history = $_GET["history"];
    if ($history > 0) {
       $stageout = $stageout . "_" . $history;
@@ -256,14 +260,26 @@ if($history < $historysize){
 echo "\n</div>\n";
 
 echo "<div class='actions header'>\n";
+
+$token = uniqid("", TRUE);
+$_SESSION['token'] = $token;
+$_SESSION['token_time'] = time();
+echo "<div class='hidden'>\n";
+echo "<form id='manual' method='POST' action='/'>\n";
+echo "<input type='hidden' name='token' value='" . $token . "'/>\n";
+echo "<input type='hidden' name='request_break' value='0'/>\n";
+echo "<input type='hidden' name='manual_request' value='0'/>\n";
+echo "</form>\n";
+echo "</div>\n";
+
 if (file_exists($request)) {
     if (file_exists($breakFlag)) {
         echo "(Break requested)";
     } else {
-        echo "<a href=\"?request_break=1\" class='btnlink'>Break</a>";
+        echo "<a href='#' class='btnlink' onclick='do_request_break(); return false;'>Break</a>";
     }
 }
-echo "<a href=\"?manual_request=1\" class='btnlink'>Restart</a>\n";
+echo "<a href='#' class='btnlink' onclick='do_manual_request(); return false;'>Restart</a>\n";
 
 include "$templates/foot.html";
 ?>

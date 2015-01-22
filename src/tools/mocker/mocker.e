@@ -15,7 +15,7 @@ create {}
 
 feature {ANY}
    liberty_authors: STRING "C.ADRIAN"
-   liberty_dates: STRING "2013-2014"
+   liberty_dates: STRING "2013-2015"
 
 feature {}
    input, out_mock, out_expect: REGULAR_FILE
@@ -190,7 +190,7 @@ end -- class MOCKER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2013-2014: Cyril ADRIAN
+-- Copyright(C) 2013-2015: Cyril ADRIAN
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

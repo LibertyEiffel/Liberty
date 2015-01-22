@@ -40,7 +40,7 @@ feature {ANY}
          -- variable.
          -- Under Windows, this function also look in the system registery.
          --
-         -- NOTE! since Liberty Eiffel "bell" (2014) the result is
+         -- NOTE! since Liberty Eiffel "bell" (2015) the result is
          -- always the same (once) STRING, or Void.
       require
          variable /= Void
@@ -121,7 +121,7 @@ feature {}
 
 end -- class SYSTEM
 --
--- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

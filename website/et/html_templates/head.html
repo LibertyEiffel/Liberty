@@ -8,9 +8,7 @@
    <meta http-equiv="content-language" content="en" />
    <meta name="robots" content="INDEX,FOLLOW" />
 
-<?php if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){?>
-   <meta http-equiv="refresh" content="1; URL=/">
-<?php }elseif(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
+<?php if(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
    <meta http-equiv="refresh" content="60; URL=/?auto_refresh=1">
 <?php }?>
    <title>ET: Liberty Eiffel automated tests (master)</title>
@@ -67,6 +65,19 @@
          margin-top: 0;
       }
    </style>
+
+   <script type="text/javascript">
+     function do_request_break() {
+       var form = document.getElementById("manual");
+       form.request_break='1';
+       form.submit();
+     }
+     function do_manual_request() {
+       var form = document.getElementById("manual");
+       form.manual_request='1';
+       form.submit();
+     }
+   </script>
 
 </head>
 <body>

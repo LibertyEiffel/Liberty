@@ -194,7 +194,7 @@ feature {ANY} -- Adding:
          end
          -- Note: AFAIK it could also be implemented with other.for_each(agent add_last). Paolo 2011-08-12
          -- Yes, but it MUST NOT. We are in the standard library and it must work without the GC so don't build useless
-         -- objects. Cad 2014-06-03
+         -- objects. Cad 2015-06-03
       ensure
          count = other.count + old count
       end
@@ -533,7 +533,7 @@ invariant
 
 end -- class COLLECTION
 --
--- Copyright (c) 2009-2014 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

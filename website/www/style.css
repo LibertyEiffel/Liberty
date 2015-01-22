@@ -186,3 +186,8 @@ a:active {
     bottom: 0;
     right: 0;
 }
+
+.hidden {
+    display: none;
+    visibility:hidden;
+}

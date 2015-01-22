@@ -162,6 +162,7 @@ jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 path_liberty: $LIBERTY_HOME/
 path_liberty_core: $LIBERTY_HOME/src/lib/
 path_liberty_extra: $LIBERTY_HOME/src/wrappers/
+path_liberty_staging: $LIBERTY_HOME/src/staging/
 path_smarteiffel: $LIBERTY_HOME/src/smarteiffel/
 path_tools: $LIBERTY_HOME/src/tools/
 path_tutorial: $LIBERTY_HOME/tutorial/
@@ -170,6 +171,7 @@ hyphen: -
 [Loadpath]
 liberty_core: \${path_liberty_core}loadpath.se
 liberty_extra: \${path_liberty_extra}loadpath.se
+liberty_staging: \${path_liberty_staging}loadpath.se
 test: \${path_liberty}test/loadpath.se
 smarteiffel: \${path_smarteiffel}loadpath.se
 tools: \${path_tools}loadpath.se
@@ -306,16 +308,26 @@ EOF
     fi
     ln -s $TARGET/liberty-eiffel $CONFIG_DIR/
 
+    find $LIBERTY_HOME -name c -type d -print |
+        while read c; do
+            for run in $c/*.run; do
+                if [[ -x "$run" ]]; then
+                    "$run" > ${run%.run}
+                fi
+            done
+        done
+
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        grep -v '^#' compile_to_c.make | while read cmd; do
-            progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
-            run $cmd || exit 1
-            test -e a.exe && mv a.exe a.out
-        done
+        grep -v '^#' compile_to_c.make |
+            while read cmd; do
+                progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
+                run $cmd || exit 1
+                test -e a.exe && mv a.exe a.out
+            done
         cp -a * $TARGET/bin/compile_to_c.d/
     fi
     cd $TARGET/bin/compile_to_c.d
@@ -323,10 +335,11 @@ EOF
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
-    grep -v '^#' compile_to_c.make | while read cmd; do
-        progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
-        run $cmd || exit 1
-    done
+    grep -v '^#' compile_to_c.make |
+        while read cmd; do
+            progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
+            run $cmd || exit 1
+        done
     progress 30 1 $MAXTOOLCOUNT "T1: save"
     mkdir T1
     cp -a compile_to_c* T1/
@@ -336,10 +349,11 @@ EOF
         cp -a compile_to_c.new compile_to_c
         progress 30 2 $MAXTOOLCOUNT "T2: compile_to_c"
         run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
-        grep -v '^#' compile_to_c.make | while read cmd; do
-            progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
-            run $cmd || exit 1
-        done
+        grep -v '^#' compile_to_c.make |
+            while read cmd; do
+                progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
+                run $cmd || exit 1
+            done
         progress 30 2 $MAXTOOLCOUNT "T2: save"
         mkdir T2
         cp -a compile_to_c* T2/
@@ -372,24 +386,26 @@ EOF
     test -d compile.d || mkdir compile.d
     cd compile.d
     run ../compile_to_c -verbose -boost -no_gc -no_split compile -o compile || exit 1
-    grep ^$CC compile.make | while read cmd; do
-        run $cmd || exit 1
-    done
+    grep ^$CC compile.make |
+        while read cmd; do
+            run $cmd || exit 1
+        done
     cd .. && test -e compile || ln -s compile.d/compile .
 
     {
-        grep -v '^#' | while read i gc tool; do
-                           progress 30 $i $MAXTOOLCOUNT "$tool"
-                           test -d ${tool}.d || mkdir ${tool}.d
-                           cd ${tool}.d
-                           case $gc in
-                               no) GC="-no_gc";;
-                               bdw) GC="$BDW_GC";;
-                               *) GC="";;
-                           esac
-                           run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
-                           cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-                       done
+        grep -v '^#' |
+            while read i gc tool; do
+                progress 30 $i $MAXTOOLCOUNT "$tool"
+                test -d ${tool}.d || mkdir ${tool}.d
+                cd ${tool}.d
+                case $gc in
+                    no) GC="-no_gc";;
+                    bdw) GC="$BDW_GC";;
+                    *) GC="";;
+                esac
+                run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
+                cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+            done
     } <<EOF
 5  no se
 6  bdw clean
@@ -399,18 +415,19 @@ EOF
 #10 bdw eiffeltest_server
 EOF
     {
-        grep -v '^#' | while read i gc tool; do
-                           progress 30 $i $MAXTOOLCOUNT "$tool"
-                           test -d ${tool}.d || mkdir ${tool}.d
-                           cd ${tool}.d
-                           case $gc in
-                               no) GC="-no_gc";;
-                               bdw) GC="$BDW_GC";;
-                               *) GC="";;
-                           esac
-                           run ../compile -verbose -boost $GC $tool -o $tool || exit 1
-                           cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-                       done
+        grep -v '^#' |
+            while read i gc tool; do
+                progress 30 $i $MAXTOOLCOUNT "$tool"
+                test -d ${tool}.d || mkdir ${tool}.d
+                cd ${tool}.d
+                case $gc in
+                    no) GC="-no_gc";;
+                    bdw) GC="$BDW_GC";;
+                    *) GC="";;
+                esac
+                run ../compile -verbose -boost $GC $tool -o $tool || exit 1
+                cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+            done
     } <<EOF
 11 no  pretty
 12 no  short
@@ -714,7 +731,11 @@ do_pkg_core_libs() {
 }
 
 do_pkg_extra_libs() {
-    _do_pkg_src extra $LIBERTY_HOME/src/wrappers
+    _do_pkg_src liberty_extra $LIBERTY_HOME/src/wrappers
+}
+
+do_pkg_extra_libs() {
+    _do_pkg_src liberty_staging $LIBERTY_HOME/src/staging
 }
 
 do_pkg_tutorial() {
@@ -746,6 +767,14 @@ do_pkg_extra_doc() {
     chown -R root:root $DOC
 }
 
+do_pkg_staging_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
+    install -d -m 0755 -o root -g root $DOC
+    cp -a $TARGET/doc/api/staging/* $DOC/staging/
+    find $DOC -type f -exec chmod a-x {} +
+    chown -R root:root $DOC
+}
+
 do_local_install() {
     export USRDIR=${USRDIR:-/usr/local}
     export ETCDIR=${ETCDIR:-/usr/local/etc}
@@ -756,6 +785,8 @@ do_local_install() {
     do_pkg_core_doc
     do_pkg_extra_libs
     do_pkg_extra_doc
+    do_pkg_staging_libs
+    do_pkg_staging_doc
     do_pkg_tutorial
 }
 
@@ -769,14 +800,16 @@ do_pkg() {
     export USRDIR=$DESTDIR/usr
     export ETCDIR=$DESTDIR/etc
     case "$1" in
-        tools)      do_pkg_tools;;
-        tools_src)  do_pkg_tools_src;;
-        tools_doc)  do_pkg_tools_doc;;
-        core_libs)  do_pkg_core_libs;;
-        core_doc)   do_pkg_core_doc;;
-        extra_libs) do_pkg_extra_libs;;
-        extra_doc)  do_pkg_extra_doc;;
-        tutorial)   do_pkg_tutorial;;
+        tools)        do_pkg_tools;;
+        tools_src)    do_pkg_tools_src;;
+        tools_doc)    do_pkg_tools_doc;;
+        core_libs)    do_pkg_core_libs;;
+        core_doc)     do_pkg_core_doc;;
+        extra_libs)   do_pkg_extra_libs;;
+        extra_doc)    do_pkg_extra_doc;;
+        tutorial)     do_pkg_tutorial;;
+        staging_libs) do_pkg_staging_libs;;
+        staging_doc)  do_pkg_staging_doc;;
         *)
             echo "Unknown pkg name: $1" >&2
             exit 1
