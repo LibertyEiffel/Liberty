@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists("token", $_POST) &
            file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
         }
     } else {
-        echo "<p><i>Token expired</i></p>\n"
+        echo "<p><i>Token expired</i></p>\n";
     }
 }
 
