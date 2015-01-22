@@ -12,7 +12,7 @@ known_sections[libraries]=[liberty_core]
 known_sections[smarteiffel]=[smarteiffel]
 known_sections[tutorial]=[tutorial]
 known_sections[wrappers]=[liberty_extra]
-known_sections[staging]=[staging]
+known_sections[staging]=[liberty_staging]
 
 while [ -n "$1" ]; do
     case $1 in
