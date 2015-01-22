@@ -404,14 +404,14 @@ feature {}
                t := a.result_type.resolve_in(live_type.type)
                if t.is_native_array and then t.generic_list.first.is_reference then
                   if live_type.type.has_simple_feature_name(generation_name) then
-                     cpp.pending_c_function_body.append(once "g=o->_generation;%N")
+--                     cpp.pending_c_function_body.append(once "g=o->_generation;%N")
                      has_generation := True
                   end
                end
                i := i + 1
             end
             if has_generation then
-               cpp.pending_c_function_body.append(once "if(g!=o->bdw_generation){%N")
+--               cpp.pending_c_function_body.append(once "if(g!=o->bdw_generation){%N")
             end
             from
                i := wa.lower
@@ -423,8 +423,11 @@ feature {}
                if t.is_native_array and then t.generic_list.first.is_reference then
                   if not has_capacity then
                      if live_type.type.has_simple_feature_name(capacity_name) then
-                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
-                        has_capacity := True
+-- Rmk, 2015-01-22: I don't understand this, so let's temporarily 
+-- disable it. At least it seems to make eiffeldoc a bit more stable 
+-- with BDW GC...
+--                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
+--                        has_capacity := True
                      else
                         i := wa.upper
                      end
@@ -453,7 +456,7 @@ feature {}
                cpp.pending_c_function_body.append(once "o);%N")
             end
             if has_generation then
-               cpp.pending_c_function_body.append(once "o->bdw_generation=g;}%N")
+--               cpp.pending_c_function_body.append(once "o->bdw_generation=g;}%N")
             end
          end
          cpp.pending_c_function_body.append(once "bdw_na_assignT")
