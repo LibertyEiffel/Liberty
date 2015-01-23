@@ -361,11 +361,6 @@ feature {ANY}
          Result := string_aliaser.hashed_string(as_capacity)
       end
 
-   generation_name: HASHED_STRING
-      once
-         Result := string_aliaser.hashed_string(as_generation)
-      end
-
    storage_lower_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_storage_lower)

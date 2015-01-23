@@ -184,8 +184,6 @@ feature {} -- Hard coded feature names:
 
    as_for_object: STRING "for_object"
 
-   as_generation: STRING "generation"
-
    as_type_can_be_assigned_to_attribute: STRING "type_can_be_assigned_to_attribute"
 
    as_type_can_be_assigned_to_item: STRING "type_can_be_assigned_to_item"
