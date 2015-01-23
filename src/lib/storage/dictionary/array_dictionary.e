@@ -19,41 +19,41 @@ create {ANY}
 feature {ANY} -- Basic access:
    has (k: K_): BOOLEAN
       do
-         Result := keys.has(k)
+         Result := keys_storage.has(k)
       end
 
    at (k: K_): V_
       do
-         Result := items.item(keys.first_index_of(k))
+         Result := items_storage.item(keys_storage.first_index_of(k))
       end
 
    reference_at (k: K_): V_
       local
          i: INTEGER
       do
-         i := keys.first_index_of(k)
-         if keys.valid_index(i) then
-            Result := items.item(i)
+         i := keys_storage.first_index_of(k)
+         if keys_storage.valid_index(i) then
+            Result := items_storage.item(i)
          end
       end
 
    fast_has (k: K_): BOOLEAN
       do
-         Result := keys.fast_has(k)
+         Result := keys_storage.fast_has(k)
       end
 
    fast_at (k: K_): V_
       do
-         Result := items.item(keys.fast_first_index_of(k))
+         Result := items_storage.item(keys_storage.fast_first_index_of(k))
       end
 
    fast_reference_at (k: K_): V_
       local
          i: INTEGER
       do
-         i := keys.fast_first_index_of(k)
-         if keys.valid_index(i) then
-            Result := items.item(i)
+         i := keys_storage.fast_first_index_of(k)
+         if keys_storage.valid_index(i) then
+            Result := items_storage.item(i)
          end
       end
 
@@ -62,9 +62,9 @@ feature {ANY}
       local
          i: INTEGER
       do
-         i := keys.first_index_of(k)
-         if keys.valid_index(i) then
-            items.put(v, i)
+         i := keys_storage.first_index_of(k)
+         if keys_storage.valid_index(i) then
+            items_storage.put(v, i)
          else
             add(v, k)
          end
@@ -74,9 +74,9 @@ feature {ANY}
       local
          i: INTEGER
       do
-         i := keys.fast_first_index_of(k)
-         if keys.valid_index(i) then
-            items.put(v, i)
+         i := keys_storage.fast_first_index_of(k)
+         if keys_storage.valid_index(i) then
+            items_storage.put(v, i)
          else
             add(v, k)
          end
@@ -84,8 +84,8 @@ feature {ANY}
 
    add (v: V_; k: K_)
       do
-         keys.add_last(k)
-         items.add_last(v)
+         keys_storage.add_last(k)
+         items_storage.add_last(v)
       end
 
 feature {ANY} -- Removing:
@@ -93,10 +93,10 @@ feature {ANY} -- Removing:
       local
          i: INTEGER
       do
-         i := keys.first_index_of(k)
-         if keys.valid_index(i) then
-            keys.remove(i)
-            items.remove(i)
+         i := keys_storage.first_index_of(k)
+         if keys_storage.valid_index(i) then
+            keys_storage.remove(i)
+            items_storage.remove(i)
          end
       end
 
@@ -104,59 +104,59 @@ feature {ANY} -- Removing:
       local
          i: INTEGER
       do
-         i := keys.fast_first_index_of(k)
-         if keys.valid_index(i) then
-            keys.remove(i)
-            items.remove(i)
+         i := keys_storage.fast_first_index_of(k)
+         if keys_storage.valid_index(i) then
+            keys_storage.remove(i)
+            items_storage.remove(i)
          end
       end
 
    clear_count
       do
-         keys.clear_count
-         items.clear_count
+         keys_storage.clear_count
+         items_storage.clear_count
       end
 
    clear_count_and_capacity
       do
-         keys.clear_count_and_capacity
-         items.clear_count_and_capacity
+         keys_storage.clear_count_and_capacity
+         items_storage.clear_count_and_capacity
       end
 
    capacity: INTEGER
       do
-         Result := keys.capacity -- see also invariant
+         Result := keys_storage.capacity -- see also invariant
       end
 
    count: INTEGER
       do
-         Result := keys.count -- see also invariant
+         Result := keys_storage.count -- see also invariant
       end
 
 feature {ANY} -- To provide iterating facilities:
    set_item (v: V_; index: INTEGER)
       do
-         items.put(v, index - 1)
+         items_storage.put(v, index - 1)
       end
 
    item (index: INTEGER): V_
       do
-         Result := items.item(index - 1)
+         Result := items_storage.item(index - 1)
       end
 
    key (index: INTEGER): K_
       do
-         Result := keys.item(index - 1)
+         Result := keys_storage.item(index - 1)
       end
 
    new_iterator_on_items: ITERATOR[V_]
       do
-         Result := items.new_iterator
+         Result := items_storage.new_iterator
       end
 
    new_iterator_on_keys: ITERATOR[K_]
       do
-         Result := keys.new_iterator
+         Result := keys_storage.new_iterator
       end
 
    new_iterator: ITERATOR[TUPLE[V_, K_]]
@@ -167,33 +167,33 @@ feature {ANY} -- To provide iterating facilities:
 feature {ANY} -- Other features:
    internal_key (k: K_): K_
       do
-         Result := keys.item(keys.first_index_of(k))
+         Result := keys_storage.item(keys_storage.first_index_of(k))
       end
 
 feature {}
    make
       do
-         create keys.make(0)
-         create items.make(0)
+         create keys_storage.make(0)
+         create items_storage.make(0)
       end
 
    with_capacity (needed_capacity: like capacity)
       require
          needed_capacity >= 0
       do
-         create keys.with_capacity(needed_capacity)
-         create items.with_capacity(needed_capacity)
+         create keys_storage.with_capacity(needed_capacity)
+         create items_storage.with_capacity(needed_capacity)
       ensure
          capacity >= needed_capacity
          is_empty
       end
 
-   keys: FAST_ARRAY[K_]
-   items: FAST_ARRAY[V_]
+   keys_storage: FAST_ARRAY[K_]
+   items_storage: FAST_ARRAY[V_]
 
 invariant
-   keys.count = items.count
-   keys.capacity = items.capacity
+   keys_storage.count = items_storage.count
+   keys_storage.capacity = items_storage.capacity
 
 end -- class ARRAY_DICTIONARY
 --
