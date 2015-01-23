@@ -408,6 +408,13 @@ feature {}
 -- Rmk, 2015-01-22: I don't understand this, so let's temporarily 
 -- disable it. At least it seems to make eiffeldoc a bit more stable 
 -- with BDW GC...
+
+-- the "freed" elements in the native array which are not used 
+-- currently, but still contain a pointer will not be cleaned up by 
+-- the GC currently. (native arrays are ordinary memory, and the 
+-- pointers are not hidden...
+-- maybe it is better to alloc native arrays with 
+-- and call GC_MARK_AND_PUSH for mark_item
 --                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
 --                        has_capacity := True
                      else
