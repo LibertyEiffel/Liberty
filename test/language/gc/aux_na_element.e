@@ -24,7 +24,9 @@ feature {ANY}
 
    dispose
       do
-         io.put_line("disposing AUX_NA_ELEMENT #" + no.out)
+         io.put_string(once "disposing AUX_NA_ELEMENT #")
+         io.put_integer(no)
+         io.put_new_line
          dispose_count.next
          assert(not dispose_done_for_current)
          dispose_done_for_current := True
