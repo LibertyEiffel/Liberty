@@ -389,7 +389,7 @@ feature {}
          cpp.pending_c_function_signature.append(once "(T")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "**markna,void*_)")
-         cpp.pending_c_function_body.append(once "int i,c,g;T0*e;T0**na;T")
+         cpp.pending_c_function_body.append(once "int i,c;T0*e;T0**na;T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*o=*markna;%N%
                                                  %GC_disable();%N")
