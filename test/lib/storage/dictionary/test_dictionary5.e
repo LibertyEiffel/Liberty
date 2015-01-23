@@ -70,6 +70,14 @@ feature {ANY}
          timed(
             agent
                do
+                  test1(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+                  test2(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+               end
+         )
+
+         timed(
+            agent
+               do
                   test1(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
                   test2(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
                end

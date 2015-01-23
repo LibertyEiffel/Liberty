@@ -51,6 +51,7 @@ feature {ANY}
 
    make
       do
+         test(create {ARRAY_DICTIONARY[STRING, STRING]}.make)
          test(create {HASHED_DICTIONARY[STRING, STRING]}.make)
          test(create {PYTHON_DICTIONARY[STRING, STRING]}.make)
       end

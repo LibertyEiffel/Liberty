@@ -68,6 +68,7 @@ feature {ANY}
 
    make
       do
+         test(create {ARRAY_DICTIONARY[INTEGER, INTEGER]}.make)
          test(create {HASHED_DICTIONARY[INTEGER, INTEGER]}.make)
          test(create {PYTHON_DICTIONARY[INTEGER, INTEGER]}.make)
       end
