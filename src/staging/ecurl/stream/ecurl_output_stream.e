@@ -44,6 +44,7 @@ feature {}
          end
          ecurl_buffer.clear_count
          state := State_init
+         index := ecurl_buffer.lower
       end
 
    ecurl_callback (buffer: POINTER; size: INTEGER): INTEGER

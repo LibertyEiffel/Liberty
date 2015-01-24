@@ -89,6 +89,52 @@ feature {} -- "easy" API
          }"
       end
 
+feature {} -- "multi" API
+   curl_multi_init: POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_init"
+         }"
+      end
+
+   curl_multi_cleanup (handle: POINTER)
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_cleanup"
+         }"
+      end
+
+   curl_multi_perform (handle, running_handles: POINTER): INTEGER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_perform"
+         }"
+      end
+
+   curl_multi_fdset (handle, rset, wset, eset, fdmax: POINTER)
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_fdset"
+         }"
+      end
+
+   curl_multi_info_read (handle, nbmsg: POINTER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_info_read"
+         }"
+      end
+
 feature {} -- EcUrl specific functions
    ecurl_init_write_function (handle, object: POINTER)
       external "plug_in"
@@ -105,6 +151,33 @@ feature {} -- EcUrl specific functions
          location: "."
          module_name: "plugin"
          feature_name: "ecurl_init_read_function"
+         }"
+      end
+
+   ecurl_multi_info_easy_handle (info: POINTER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_handle"
+         }"
+      end
+
+   ecurl_multi_info_easy_code (info: POINTER): INTEGER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_code"
+         }"
+      end
+
+   ecurl_multi_info_easy_done (info: POINTER): BOOLEAN
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_done"
          }"
       end
 

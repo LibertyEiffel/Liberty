@@ -15,6 +15,11 @@ create {ANY}
    make
 
 feature {ANY}
+   in_use: BOOLEAN
+      do
+         Result := in_input_use or else in_output_use
+      end
+
    in_input_use: BOOLEAN
       do
          Result := input_stream /= Void
@@ -26,6 +31,9 @@ feature {ANY}
       end
 
    input: ECURL_INPUT_STREAM
+      require
+         is_useable
+         not in_output_use
       do
          Result := input_stream
          if Result = Void then
@@ -41,9 +49,15 @@ feature {ANY}
                Result.is_connected_to(Current)
             end
          end
+      ensure
+         Result /= Void
+         in_input_use
       end
 
    output: ECURL_OUTPUT_STREAM
+      require
+         is_useable
+         not in_input_use
       do
          Result := output_stream
          if Result = Void then
@@ -59,6 +73,9 @@ feature {ANY}
                Result.is_connected_to(Current)
             end
          end
+      ensure
+         Result /= Void
+         in_output_use
       end
 
    is_useable: BOOLEAN
@@ -76,6 +93,11 @@ feature {ECURL_STREAM}
          else
             check False end
          end
+      end
+
+   can_perform: BOOLEAN
+      do
+         Result := not multi_attached
       end
 
 feature {ECURL_HANDLER}
@@ -108,6 +130,42 @@ feature {ECURL_HANDLER}
 
    handle: POINTER
 
+feature {ECURL_MULTI_HANDLE}
+   multi_attached: BOOLEAN
+      do
+         Result := multi_handle /= Void
+      end
+
+   multi_attach (a_handle: like multi_handle)
+      require
+         a_handle /= Void
+         not multi_attached
+      do
+         multi_handle := a_handle
+      ensure
+         multi_attached
+      end
+
+   multi_detach
+      require
+         multi_attached
+      do
+         multi_handle := Void
+      ensure
+         not multi_attached
+      end
+
+   multi_perform_done (error_code: INTEGER)
+      require
+         multi_attached
+      do
+         if input_stream /= Void then
+            input_memory.multi_perform_done(error_code)
+         elseif output_stream /= Void then
+            output_memory.multi_perform_done(error_code)
+         end
+      end
+
 feature {RECYCLING_POOL}
    recycle
       do
@@ -130,6 +188,8 @@ feature {}
 
    input_memory: ECURL_EASY_INPUT_STREAM
    output_memory: ECURL_EASY_OUTPUT_STREAM
+
+   multi_handle: ECURL_MULTI_HANDLE
 
 end -- class ECURL_EASY_HANDLE
 --

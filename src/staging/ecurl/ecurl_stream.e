@@ -12,7 +12,7 @@ insert
    URL_VALIDITY
 
 feature {ANY}
-   perform (on_error: PROCEDURE[TUPLE[INTEGER]])
+   perform
          -- Perform the action; after that, options cannot be changed and the object can be used as a stream
          -- `on_error' is called with the cUrl error code (defined in ECURL_ERRORS) if the action failed to perform.
       require
@@ -24,18 +24,22 @@ feature {ANY}
       deferred
       end
 
-   disconnect
-      do
-         handle.disconnect(Current)
-         handle := Void
-      end
-
    is_connected: BOOLEAN
       do
          Result := handle /= Void and then handle.in_use
       end
 
    can_disconnect: BOOLEAN True
+
+feature {ANY}
+   on_error: PROCEDURE[TUPLE[INTEGER, ECURL_HANDLE]]
+
+   set_on_error (a_on_error: like on_error) assign on_error
+      do
+         on_error := a_on_error
+      ensure
+         on_error = a_on_error
+      end
 
 feature {ANY} -- Common options
    set_url (a_url: URL)

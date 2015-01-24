@@ -40,3 +40,15 @@ void ecurl_init_read_function(void *handle, void *userp) {
      curl_easy_setopt(handle, CURLOPT_READDATA, userp);
      curl_easy_setopt(handle, CURLOPT_UPLOAD, 1L);
 }
+
+void* ecurl_multi_info_easy_handle(CURLMsg *msg) {
+   return msg->easu_handle;
+}
+
+int ecurl_multi_info_easy_code(CURLMsg *msg) {
+   return msg->data.result;
+}
+
+int ecurl_multi_info_easy_done(CURLMsg *msg) {
+   return CURLMSG_DONE == msg->msg;
+}
