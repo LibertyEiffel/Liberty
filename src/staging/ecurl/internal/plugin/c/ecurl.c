@@ -11,8 +11,13 @@ static void ecurl_se_handler(se_handler_action_t action, void*data) {
 }
 
 void ecurl_auto_init(void) {
-     curl_global_init(CURL_GLOBAL_ALL);
-     register_handler(ecurl_se_handler);
+     CURLcode code;
+     code = curl_global_init(CURL_GLOBAL_ALL);
+     if (code) {
+          fprintf(stderr, "**** ecurl_auto_init: global init returned %d (%s)\n", code, curl_easy_strerror(code));
+     } else {
+          register_handler(ecurl_se_handler);
+     }
 }
 
 static size_t ecurl_write_function(void *buffer, size_t size, size_t nmemb, void *userp) {

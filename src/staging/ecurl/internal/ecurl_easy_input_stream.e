@@ -26,6 +26,7 @@ feature {ANY}
          err := curl_easy_perform(handle.handle)
          if err = Curle_ok then
             state := State_ready
+            index := ecurl_buffer.lower
          else
             state := State_init
             if on_error /= Void then

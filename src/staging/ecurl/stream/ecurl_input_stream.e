@@ -8,15 +8,7 @@ inherit
    INPUT_STREAM
 
 feature {ANY}
-   can_read_character: BOOLEAN
-      do
-         Result := is_ready and then ecurl_buffer.valid_index(index + 1)
-      end
-
-   can_read_line: BOOLEAN
-      do
-         Result := can_read_character
-      end
+   can_read_character, can_read_line: BOOLEAN True
 
    can_unread_character: BOOLEAN
       do

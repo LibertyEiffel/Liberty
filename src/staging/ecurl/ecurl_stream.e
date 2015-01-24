@@ -77,14 +77,6 @@ feature {ANY} -- Common options
          curl_easy_setopt_boolean(handle.handle, Curlopt_verbose, a_verbose)
       end
 
-   set_debug_function (a_verbose: BOOLEAN)
-         -- set ECURLOPT_DEBUGFUNCTION
-      require
-         is_connected
-      do
-         curl_easy_setopt_boolean(handle.handle, Curlopt_debugfunction, a_verbose)
-      end
-
    set_header (a_header: BOOLEAN)
          -- set ECURLOPT_HEADER
       require
@@ -129,7 +121,7 @@ feature {}
 
    init_connect
       require
-         is_connected
+         handle /= Void
       deferred
       end
 

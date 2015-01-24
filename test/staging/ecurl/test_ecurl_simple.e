@@ -9,6 +9,8 @@ create {}
 
 feature {}
    make
+      local
+         expected: TEXT_FILE_READ
       do
          create handle.make
          assert(handle /= Void)
@@ -16,20 +18,26 @@ feature {}
          assert(not handle.in_use)
          assert(handle.input /= Void)
          assert(handle.in_use) -- because of the previous test, `input' is now used
-         handle.input.set_url_string(once "http://www.gnu.org/software/liberty-eiffel/")
+         handle.input.set_url_string(once "file://test_ecurl_simple.e")
          handle.input.set_follow_location(True)
          handle.input.perform(agent on_error(?))
-         if not handle.input.end_of_input then
-            from
-               handle.input.read_line
-            until
-               handle.input.end_of_input
-            loop
-               std_output.put_line(handle.input.last_string)
-               handle.input.read_line
-            end
+         assert(not handle.input.end_of_input)
+         create expected.connect_to("test_ecurl_simple.e")
+         assert(expected.is_connected)
+         from
+            handle.input.read_line
+            expected.read_line
+         until
+            handle.input.end_of_input
+         loop
+            assert(not expected.end_of_input)
+            assert(handle.input.last_string.is_equal(expected.last_string))
+            handle.input.read_line
+            expected.read_line
          end
+         assert(expected.end_of_input)
          handle.cleanup
+         expected.disconnect
       end
 
    on_error (error_code: INTEGER)
