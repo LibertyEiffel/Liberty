@@ -29,6 +29,15 @@ feature {ANY}
       end
 
    end_of_input: BOOLEAN
+      do
+         Result := not is_ready or else index > ecurl_buffer.upper
+      end
+
+feature {ANY} -- Options
+   set_follow_location (enable: BOOLEAN)
+      do
+         curl_easy_setopt_boolean(handle.handle, Curlopt_followlocation, enable)
+      end
 
 feature {FILTER_INPUT_STREAM}
    filtered_read_character
@@ -54,7 +63,6 @@ feature {}
          end
          ecurl_buffer.clear_count
          state := State_init
-         ecurl_init_write_function(handle.handle, to_pointer)
       end
 
    ecurl_callback (buffer: POINTER; size: INTEGER)

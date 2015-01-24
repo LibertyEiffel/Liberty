@@ -11,19 +11,21 @@ insert
    DISPOSABLE
    RECYCLABLE
 
-create {ECURL_HANDLER}
+create {ANY}
    make
 
 feature {ANY}
-   in_use: BOOLEAN
+   in_input_use: BOOLEAN
       do
-         Result := input_stream /= Void or else output_stream /= Void
+         Result := input_stream /= Void
+      end
+
+   in_output_use: BOOLEAN
+      do
+         Result := output_stream /= Void
       end
 
    input: ECURL_INPUT_STREAM
-      require
-         is_useable
-         not in_use
       do
          Result := input_stream
          if Result = Void then
@@ -33,20 +35,15 @@ feature {ANY}
                input_memory.connect_to(Current)
             end
             Result := input_memory
+            input_stream := Result
          else
             check
                Result.is_connected_to(Current)
             end
          end
-      ensure
-         Result /= Void
-         in_use
       end
 
    output: ECURL_OUTPUT_STREAM
-      require
-         is_useable
-         not in_use
       do
          Result := output_stream
          if Result = Void then
@@ -56,22 +53,32 @@ feature {ANY}
                output_memory.connect_to(Current)
             end
             Result := output_memory
+            output_stream := Result
          else
             check
                Result.is_connected_to(Current)
             end
          end
-      ensure
-         Result /= Void
-         in_use
       end
 
-feature {ECURL_HANDLER}
    is_useable: BOOLEAN
       do
          Result := handle.is_not_null
       end
 
+feature {ECURL_STREAM}
+   disconnect (a_stream: ECURL_STREAM)
+      do
+         if a_stream = input_stream then
+            input_stream := Void
+         elseif a_stream = output_stream then
+            output_stream := Void
+         else
+            check False end
+         end
+      end
+
+feature {ECURL_HANDLER}
    make
          -- Initialize the cUrl handle.
       require
@@ -85,7 +92,18 @@ feature {ECURL_HANDLER}
       require
          is_useable
       do
+         if input_memory /= Void and then input_memory.is_connected then
+            check input_memory.is_connected_to(Current) end
+            input_memory.disconnect
+         end
+         if output_memory /= Void and then output_memory.is_connected then
+            check output_memory.is_connected_to(Current) end
+            output_memory.disconnect
+         end
          curl_easy_cleanup(handle)
+         handle := handle.default
+         input_stream := Void
+         output_stream := Void
       end
 
    handle: POINTER
@@ -107,8 +125,11 @@ feature {}
          recycle
       end
 
-   input_stream, input_memory: ECURL_EASY_INPUT_STREAM
-   output_stream, output_memory: ECURL_EASY_OUTPUT_STREAM
+   input_stream: ECURL_INPUT_STREAM
+   output_stream: ECURL_OUTPUT_STREAM
+
+   input_memory: ECURL_EASY_INPUT_STREAM
+   output_memory: ECURL_EASY_OUTPUT_STREAM
 
 end -- class ECURL_EASY_HANDLE
 --

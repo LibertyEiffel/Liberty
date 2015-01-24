@@ -20,6 +20,7 @@ feature{ANY}
       local
          err: INTEGER
       do
+         ecurl_init_read_function(handle.handle, to_pointer)
          curl_easy_setopt_integer(handle.handle, Curlopt_infilesize_large, ecurl_buffer.count.to_integer_64)
          err := curl_easy_perform(handle.handle)
       end

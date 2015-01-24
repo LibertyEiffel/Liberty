@@ -22,6 +22,7 @@ feature {ANY}
          err: INTEGER
       do
          state := State_performing
+         ecurl_init_write_function(handle.handle, to_pointer)
          err := curl_easy_perform(handle.handle)
          if err = Curle_ok then
             state := State_ready

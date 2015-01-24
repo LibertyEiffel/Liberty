@@ -9,6 +9,7 @@ inherit
 insert
    ECURL_PLUGIN
    ECURL_HANDLER
+   URL_VALIDITY
 
 feature {ANY}
    perform (on_error: PROCEDURE[TUPLE[INTEGER]])
@@ -25,12 +26,13 @@ feature {ANY}
 
    disconnect
       do
+         handle.disconnect(Current)
          handle := Void
       end
 
    is_connected: BOOLEAN
       do
-         Result := handle /= Void
+         Result := handle /= Void and then handle.in_use
       end
 
    can_disconnect: BOOLEAN True
@@ -38,6 +40,7 @@ feature {ANY}
 feature {ANY} -- Common options
    set_url (a_url: URL)
       require
+         is_connected
          a_url /= Void
          not a_url.is_stream
       local
@@ -49,20 +52,43 @@ feature {ANY} -- Common options
          curl_easy_setopt_string(handle.handle, Curlopt_url, s)
       end
 
+   set_url_string (a_url: ABSTRACT_STRING)
+      require
+         is_connected
+         a_url /= Void
+         valid_url(a_url)
+      local
+         s: STRING
+      do
+         if s ?:= a_url then
+            s ::= a_url
+         else
+            s := once ""
+            s.make_from_string(a_url)
+         end
+         curl_easy_setopt_string(handle.handle, Curlopt_url, s)
+      end
+
    set_verbose (a_verbose: BOOLEAN)
          -- set ECURLOPT_VERBOSE
+      require
+         is_connected
       do
          curl_easy_setopt_boolean(handle.handle, Curlopt_verbose, a_verbose)
       end
 
    set_debug_function (a_verbose: BOOLEAN)
          -- set ECURLOPT_DEBUGFUNCTION
+      require
+         is_connected
       do
          curl_easy_setopt_boolean(handle.handle, Curlopt_debugfunction, a_verbose)
       end
 
    set_header (a_header: BOOLEAN)
          -- set ECURLOPT_HEADER
+      require
+         is_connected
       do
          curl_easy_setopt_boolean(handle.handle, Curlopt_header, a_header)
       end
@@ -103,7 +129,7 @@ feature {}
 
    init_connect
       require
-         not is_connected
+         is_connected
       deferred
       end
 

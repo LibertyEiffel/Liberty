@@ -1,3 +1,5 @@
+#include "eiffel_curl.h"
+
 static void ecurl_se_handler(se_handler_action_t action, void*data) {
      switch(action) {
      case SE_HANDLE_NO_MORE_MEMORY:
@@ -24,7 +26,7 @@ void ecurl_init_write_function(void *handle, void *userp) {
      curl_easy_setopt(handle, CURLOPT_WRITEDATA, userp);
 }
 
-static size_t ecurl_read_function(char *bufptr, size_t size, size_t nitems, void *userp) {
+static size_t ecurl_read_function(char *buffer, size_t size, size_t nitems, void *userp) {
      return (size_t)ecurl_read_callback(userp, buffer, (int)(size * nitems));
 }
 

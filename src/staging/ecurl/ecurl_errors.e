@@ -104,6 +104,14 @@ feature {ANY} -- Redefined values because it helps write select clauses (see als
          Result := code.in_range(0, 90)
       end
 
+   error_string (code: INTEGER): STRING
+      require
+         valid_error(code)
+      do
+         Result := once ""
+         Result.from_external_copy(curl_easy_strerror(code))
+      end
+
 invariant
    Curle_ok                                      = Ok
    Curle_unsupported_protocol                    = Unsupported_protocol

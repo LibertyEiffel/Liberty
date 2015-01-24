@@ -18,12 +18,12 @@ feature {} -- "easy" API
 
    curl_easy_setopt_string (handle: POINTER; option: INTEGER; parameter: STRING)
       do
-         curl_easy_setopt_pointer(handle, Curlopt_url, parameter.to_external)
+         curl_easy_setopt_pointer(handle, option, parameter.to_external)
       end
 
    curl_easy_setopt_boolean (handle: POINTER; option: INTEGER; parameter: BOOLEAN)
       do
-         curl_easy_setopt_integer(handle, Curlopt_url, if parameter then {INTEGER_64 1} else {INTEGER_64 0} end)
+         curl_easy_setopt_integer(handle, option, if parameter then {INTEGER_64 1} else {INTEGER_64 0} end)
       end
 
    curl_easy_setopt_pointer (handle: POINTER; option: INTEGER; parameter: POINTER)
@@ -80,6 +80,16 @@ feature {} -- "easy" API
          }"
       end
 
+   curl_easy_strerror (errornum: INTEGER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_easy_strerror"
+         }"
+      end
+
+feature {} -- EcUrl specific functions
    ecurl_init_write_function (handle, object: POINTER)
       external "plug_in"
       alias "{

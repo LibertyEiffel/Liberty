@@ -3,6 +3,53 @@
 --
 deferred class ECURL_HANDLE
 
+feature {ANY}
+   is_useable: BOOLEAN
+      deferred
+      end
+
+   in_use: BOOLEAN
+      do
+         Result := in_input_use or else in_output_use
+      end
+
+   in_input_use: BOOLEAN
+      deferred
+      end
+
+   in_output_use: BOOLEAN
+      deferred
+      end
+
+   input: ECURL_INPUT_STREAM
+      require
+         is_useable
+         not in_output_use
+      deferred
+      ensure
+         Result /= Void
+         in_input_use
+      end
+
+   output: ECURL_OUTPUT_STREAM
+      require
+         is_useable
+         not in_input_use
+      deferred
+      ensure
+         Result /= Void
+         in_output_use
+      end
+
+feature {ECURL_STREAM}
+   disconnect (a_stream: ECURL_STREAM)
+      require
+         in_use
+      deferred
+      ensure
+         not in_use
+      end
+
 feature {ECURL_HANDLER}
    handle: POINTER
       deferred
