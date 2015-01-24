@@ -1,33 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_EASY_OUTPUT_STREAM
+deferred class ECURL_HANDLE
 
-inherit
-   CURL_OUTPUT_STREAM
-      redefine handle
+feature {ECURL_HANDLER}
+   handle: POINTER
+      deferred
       end
 
-create {CURL_EASY_HANDLE}
-   connect_to
-
-feature{ANY}
-   can_perform: BOOLEAN
-      do
-      end
-
-   perform (on_error: PROCEDURE[TUPLE[INTEGER]])
-      local
-         err: INTEGER
-      do
-         curl_easy_setopt_integer(handle.handle, Curlopt_infilesize_large, ecurl_buffer.count.to_integer_64)
-         err := curl_easy_perform(handle.handle)
-      end
-
-feature {}
-   handle: CURL_EASY_HANDLE
-
-end -- class CURL_EASY_OUTPUT_STREAM
+end -- class ECURL_HANDLE
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

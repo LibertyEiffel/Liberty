@@ -1,9 +1,9 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class CURL_PLUGIN
+expanded class ECURL_PLUGIN
    --
-   -- Low-level cUrl plugin functions -- meant to be inserted by ECURL classes.
+   -- Low-level cUrl plugin functions -- meant to be inserted by EECURL classes.
    --
 
 feature {} -- "easy" API
@@ -105,7 +105,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_WRITEDATA"
+         feature_name: "ECURLOPT_WRITEDATA"
          }"
       end
 
@@ -115,7 +115,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_URL"
+         feature_name: "ECURLOPT_URL"
          }"
       end
 
@@ -125,7 +125,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PORT"
+         feature_name: "ECURLOPT_PORT"
          }"
       end
 
@@ -135,7 +135,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXY"
+         feature_name: "ECURLOPT_PROXY"
          }"
       end
 
@@ -145,7 +145,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_USERPWD"
+         feature_name: "ECURLOPT_USERPWD"
          }"
       end
 
@@ -155,7 +155,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYUSERPWD"
+         feature_name: "ECURLOPT_PROXYUSERPWD"
          }"
       end
 
@@ -165,7 +165,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RANGE"
+         feature_name: "ECURLOPT_RANGE"
          }"
       end
 
@@ -175,18 +175,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_READDATA"
+         feature_name: "ECURLOPT_READDATA"
          }"
       end
 
    Curlopt_errorbuffer: INTEGER
-         --  /* Buffer to receive error messages in, must be at least CURL_ERROR_SIZE
+         --  /* Buffer to receive error messages in, must be at least ECURL_ERROR_SIZE
          --   * bytes big. If this is not used, error messages go to stderr instead: */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_ERRORBUFFER"
+         feature_name: "ECURLOPT_ERRORBUFFER"
          }"
       end
 
@@ -197,7 +197,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_WRITEFUNCTION"
+         feature_name: "ECURLOPT_WRITEFUNCTION"
          }"
       end
 
@@ -208,7 +208,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_READFUNCTION"
+         feature_name: "ECURLOPT_READFUNCTION"
          }"
       end
 
@@ -218,7 +218,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TIMEOUT"
+         feature_name: "ECURLOPT_TIMEOUT"
          }"
       end
 
@@ -236,7 +236,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_INFILESIZE"
+         feature_name: "ECURLOPT_INFILESIZE"
          }"
       end
 
@@ -246,7 +246,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POSTFIELDS"
+         feature_name: "ECURLOPT_POSTFIELDS"
          }"
       end
 
@@ -256,7 +256,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_REFERER"
+         feature_name: "ECURLOPT_REFERER"
          }"
       end
 
@@ -267,7 +267,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTPPORT"
+         feature_name: "ECURLOPT_FTPPORT"
          }"
       end
 
@@ -277,7 +277,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_USERAGENT"
+         feature_name: "ECURLOPT_USERAGENT"
          }"
       end
 
@@ -292,7 +292,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_LOW_SPEED_LIMIT"
+         feature_name: "ECURLOPT_LOW_SPEED_LIMIT"
          }"
       end
 
@@ -302,7 +302,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_LOW_SPEED_TIME"
+         feature_name: "ECURLOPT_LOW_SPEED_TIME"
          }"
       end
 
@@ -317,7 +317,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RESUME_FROM"
+         feature_name: "ECURLOPT_RESUME_FROM"
          }"
       end
 
@@ -327,7 +327,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COOKIE"
+         feature_name: "ECURLOPT_COOKIE"
          }"
       end
 
@@ -338,7 +338,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTPHEADER"
+         feature_name: "ECURLOPT_HTTPHEADER"
          }"
       end
 
@@ -348,7 +348,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTPPOST"
+         feature_name: "ECURLOPT_HTTPPOST"
          }"
       end
 
@@ -358,7 +358,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLCERT"
+         feature_name: "ECURLOPT_SSLCERT"
          }"
       end
 
@@ -368,7 +368,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_KEYPASSWD"
+         feature_name: "ECURLOPT_KEYPASSWD"
          }"
       end
 
@@ -378,7 +378,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CRLF"
+         feature_name: "ECURLOPT_CRLF"
          }"
       end
 
@@ -388,7 +388,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_QUOTE"
+         feature_name: "ECURLOPT_QUOTE"
          }"
       end
 
@@ -399,7 +399,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HEADERDATA"
+         feature_name: "ECURLOPT_HEADERDATA"
          }"
       end
 
@@ -410,18 +410,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COOKIEFILE"
+         feature_name: "ECURLOPT_COOKIEFILE"
          }"
       end
 
    Curlopt_sslversion: INTEGER
          --  /* What version to specifically try to use.
-         --     See CURL_SSLVERSION defines below. */
+         --     See ECURL_SSLVERSION defines below. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLVERSION"
+         feature_name: "ECURLOPT_SSLVERSION"
          }"
       end
 
@@ -431,7 +431,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TIMECONDITION"
+         feature_name: "ECURLOPT_TIMECONDITION"
          }"
       end
 
@@ -442,7 +442,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TIMEVALUE"
+         feature_name: "ECURLOPT_TIMEVALUE"
          }"
       end
 
@@ -455,7 +455,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CUSTOMREQUEST"
+         feature_name: "ECURLOPT_CUSTOMREQUEST"
          }"
       end
 
@@ -465,7 +465,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_STDERR"
+         feature_name: "ECURLOPT_STDERR"
          }"
       end
 
@@ -475,7 +475,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POSTQUOTE"
+         feature_name: "ECURLOPT_POSTQUOTE"
          }"
       end
 
@@ -484,7 +484,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_OBSOLETE40"
+         feature_name: "ECURLOPT_OBSOLETE40"
          }"
       end
 
@@ -493,7 +493,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_VERBOSE"
+         feature_name: "ECURLOPT_VERBOSE"
          }"
       end
 
@@ -502,7 +502,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HEADER"
+         feature_name: "ECURLOPT_HEADER"
          }"
       end
 
@@ -511,7 +511,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NOPROGRESS"
+         feature_name: "ECURLOPT_NOPROGRESS"
          }"
       end
 
@@ -520,7 +520,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NOBODY"
+         feature_name: "ECURLOPT_NOBODY"
          }"
       end
 
@@ -529,7 +529,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FAILONERROR"
+         feature_name: "ECURLOPT_FAILONERROR"
          }"
       end
 
@@ -538,7 +538,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_UPLOAD"
+         feature_name: "ECURLOPT_UPLOAD"
          }"
       end
 
@@ -547,7 +547,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POST"
+         feature_name: "ECURLOPT_POST"
          }"
       end
 
@@ -556,7 +556,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DIRLISTONLY"
+         feature_name: "ECURLOPT_DIRLISTONLY"
          }"
       end
 
@@ -565,18 +565,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_APPEND"
+         feature_name: "ECURLOPT_APPEND"
          }"
       end
 
    Curlopt_netrc: INTEGER
          --  /* Specify whether to read the user+password from the .netrc or the URL.
-         --   * This must be one of the CURL_NETRC_* enums below. */
+         --   * This must be one of the ECURL_NETRC_* enums below. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NETRC"
+         feature_name: "ECURLOPT_NETRC"
          }"
       end
 
@@ -585,7 +585,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FOLLOWLOCATION"
+         feature_name: "ECURLOPT_FOLLOWLOCATION"
          }"
       end
 
@@ -594,7 +594,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TRANSFERTEXT"
+         feature_name: "ECURLOPT_TRANSFERTEXT"
          }"
       end
 
@@ -603,7 +603,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PUT"
+         feature_name: "ECURLOPT_PUT"
          }"
       end
 
@@ -616,7 +616,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROGRESSFUNCTION"
+         feature_name: "ECURLOPT_PROGRESSFUNCTION"
          }"
       end
 
@@ -627,7 +627,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROGRESSDATA"
+         feature_name: "ECURLOPT_PROGRESSDATA"
          }"
       end
 
@@ -637,7 +637,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_AUTOREFERER"
+         feature_name: "ECURLOPT_AUTOREFERER"
          }"
       end
 
@@ -648,7 +648,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYPORT"
+         feature_name: "ECURLOPT_PROXYPORT"
          }"
       end
 
@@ -658,7 +658,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POSTFIELDSIZE"
+         feature_name: "ECURLOPT_POSTFIELDSIZE"
          }"
       end
 
@@ -668,7 +668,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTPPROXYTUNNEL"
+         feature_name: "ECURLOPT_HTTPPROXYTUNNEL"
          }"
       end
 
@@ -678,7 +678,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_INTERFACE"
+         feature_name: "ECURLOPT_INTERFACE"
          }"
       end
 
@@ -690,7 +690,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_KRBLEVEL"
+         feature_name: "ECURLOPT_KRBLEVEL"
          }"
       end
 
@@ -700,7 +700,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_VERIFYPEER"
+         feature_name: "ECURLOPT_SSL_VERIFYPEER"
          }"
       end
 
@@ -711,7 +711,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CAINFO"
+         feature_name: "ECURLOPT_CAINFO"
          }"
       end
 
@@ -721,7 +721,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAXREDIRS"
+         feature_name: "ECURLOPT_MAXREDIRS"
          }"
       end
 
@@ -732,7 +732,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FILETIME"
+         feature_name: "ECURLOPT_FILETIME"
          }"
       end
 
@@ -742,7 +742,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TELNETOPTIONS"
+         feature_name: "ECURLOPT_TELNETOPTIONS"
          }"
       end
 
@@ -752,7 +752,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAXCONNECTS"
+         feature_name: "ECURLOPT_MAXCONNECTS"
          }"
       end
 
@@ -764,7 +764,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FRESH_CONNECT"
+         feature_name: "ECURLOPT_FRESH_CONNECT"
          }"
       end
 
@@ -776,7 +776,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FORBID_REUSE"
+         feature_name: "ECURLOPT_FORBID_REUSE"
          }"
       end
 
@@ -787,7 +787,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RANDOM_FILE"
+         feature_name: "ECURLOPT_RANDOM_FILE"
          }"
       end
 
@@ -797,7 +797,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_EGDSOCKET"
+         feature_name: "ECURLOPT_EGDSOCKET"
          }"
       end
 
@@ -808,7 +808,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONNECTTIMEOUT"
+         feature_name: "ECURLOPT_CONNECTTIMEOUT"
          }"
       end
 
@@ -819,7 +819,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HEADERFUNCTION"
+         feature_name: "ECURLOPT_HEADERFUNCTION"
          }"
       end
 
@@ -831,7 +831,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTPGET"
+         feature_name: "ECURLOPT_HTTPGET"
          }"
       end
 
@@ -843,7 +843,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_VERIFYHOST"
+         feature_name: "ECURLOPT_SSL_VERIFYHOST"
          }"
       end
 
@@ -854,7 +854,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COOKIEJAR"
+         feature_name: "ECURLOPT_COOKIEJAR"
          }"
       end
 
@@ -864,18 +864,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_CIPHER_LIST"
+         feature_name: "ECURLOPT_SSL_CIPHER_LIST"
          }"
       end
 
    Curlopt_http_version: INTEGER
          --  /* Specify which HTTP version to use! This must be set to one of the
-         --     CURL_HTTP_VERSION* enums set below. */
+         --     ECURL_HTTP_VERSION* enums set below. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTP_VERSION"
+         feature_name: "ECURLOPT_HTTP_VERSION"
          }"
       end
 
@@ -887,7 +887,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_USE_EPSV"
+         feature_name: "ECURLOPT_FTP_USE_EPSV"
          }"
       end
 
@@ -897,7 +897,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLCERTTYPE"
+         feature_name: "ECURLOPT_SSLCERTTYPE"
          }"
       end
 
@@ -907,7 +907,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLKEY"
+         feature_name: "ECURLOPT_SSLKEY"
          }"
       end
 
@@ -917,7 +917,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLKEYTYPE"
+         feature_name: "ECURLOPT_SSLKEYTYPE"
          }"
       end
 
@@ -927,7 +927,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLENGINE"
+         feature_name: "ECURLOPT_SSLENGINE"
          }"
       end
 
@@ -939,7 +939,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSLENGINE_DEFAULT"
+         feature_name: "ECURLOPT_SSLENGINE_DEFAULT"
          }"
       end
 
@@ -949,7 +949,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_USE_GLOBAL_CACHE"
+         feature_name: "ECURLOPT_DNS_USE_GLOBAL_CACHE"
          }"
       end
 
@@ -959,7 +959,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_CACHE_TIMEOUT"
+         feature_name: "ECURLOPT_DNS_CACHE_TIMEOUT"
          }"
       end
 
@@ -969,7 +969,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PREQUOTE"
+         feature_name: "ECURLOPT_PREQUOTE"
          }"
       end
 
@@ -979,7 +979,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DEBUGFUNCTION"
+         feature_name: "ECURLOPT_DEBUGFUNCTION"
          }"
       end
 
@@ -989,7 +989,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DEBUGDATA"
+         feature_name: "ECURLOPT_DEBUGDATA"
          }"
       end
 
@@ -999,7 +999,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COOKIESESSION"
+         feature_name: "ECURLOPT_COOKIESESSION"
          }"
       end
 
@@ -1010,7 +1010,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CAPATH"
+         feature_name: "ECURLOPT_CAPATH"
          }"
       end
 
@@ -1020,7 +1020,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_BUFFERSIZE"
+         feature_name: "ECURLOPT_BUFFERSIZE"
          }"
       end
 
@@ -1032,28 +1032,28 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NOSIGNAL"
+         feature_name: "ECURLOPT_NOSIGNAL"
          }"
       end
 
    Curlopt_share: INTEGER
-         --  /* Provide a CURLShare for mutexing non-ts data */
+         --  /* Provide a ECURLShare for mutexing non-ts data */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SHARE"
+         feature_name: "ECURLOPT_SHARE"
          }"
       end
 
    Curlopt_proxytype: INTEGER
-         --  /* indicates type of proxy. accepted values are CURLPROXY_HTTP (default),
-         --     CURLPROXY_SOCKS4, CURLPROXY_SOCKS4A and CURLPROXY_SOCKS5. */
+         --  /* indicates type of proxy. accepted values are ECURLPROXY_HTTP (default),
+         --     ECURLPROXY_SOCKS4, ECURLPROXY_SOCKS4A and ECURLPROXY_SOCKS5. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYTYPE"
+         feature_name: "ECURLOPT_PROXYTYPE"
          }"
       end
 
@@ -1065,7 +1065,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_ACCEPT_ENCODING"
+         feature_name: "ECURLOPT_ACCEPT_ENCODING"
          }"
       end
 
@@ -1075,7 +1075,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PRIVATE"
+         feature_name: "ECURLOPT_PRIVATE"
          }"
       end
 
@@ -1085,7 +1085,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTP200ALIASES"
+         feature_name: "ECURLOPT_HTTP200ALIASES"
          }"
       end
 
@@ -1097,7 +1097,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_UNRESTRICTED_AUTH"
+         feature_name: "ECURLOPT_UNRESTRICTED_AUTH"
          }"
       end
 
@@ -1109,7 +1109,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_USE_EPRT"
+         feature_name: "ECURLOPT_FTP_USE_EPRT"
          }"
       end
 
@@ -1121,7 +1121,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTPAUTH"
+         feature_name: "ECURLOPT_HTTPAUTH"
          }"
       end
 
@@ -1133,7 +1133,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_CTX_FUNCTION"
+         feature_name: "ECURLOPT_SSL_CTX_FUNCTION"
          }"
       end
 
@@ -1144,20 +1144,20 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_CTX_DATA"
+         feature_name: "ECURLOPT_SSL_CTX_DATA"
          }"
       end
 
    Curlopt_ftp_create_missing_dirs: INTEGER
          --  /* FTP Option that causes missing dirs to be created on the remote server.
          --     In 7.19.4 we introduced the convenience enums for this option using the
-         --     CURLFTP_CREATE_DIR prefix.
+         --     ECURLFTP_CREATE_DIR prefix.
          --  */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_CREATE_MISSING_DIRS"
+         feature_name: "ECURLOPT_FTP_CREATE_MISSING_DIRS"
          }"
       end
 
@@ -1169,7 +1169,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYAUTH"
+         feature_name: "ECURLOPT_PROXYAUTH"
          }"
       end
 
@@ -1182,19 +1182,19 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_RESPONSE_TIMEOUT"
+         feature_name: "ECURLOPT_FTP_RESPONSE_TIMEOUT"
          }"
       end
 
    Curlopt_ipresolve: INTEGER
-         --  /* Set this option to one of the CURL_IPRESOLVE_* defines (see below) to
+         --  /* Set this option to one of the ECURL_IPRESOLVE_* defines (see below) to
          --     tell libcurl to resolve names to those IP versions only. This only has
          --     affect on systems with support for more than one, i.e IPv4 _and_ IPv6. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_IPRESOLVE"
+         feature_name: "ECURLOPT_IPRESOLVE"
          }"
       end
 
@@ -1208,7 +1208,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAXFILESIZE"
+         feature_name: "ECURLOPT_MAXFILESIZE"
          }"
       end
 
@@ -1220,7 +1220,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_INFILESIZE_LARGE"
+         feature_name: "ECURLOPT_INFILESIZE_LARGE"
          }"
       end
 
@@ -1232,7 +1232,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RESUME_FROM_LARGE"
+         feature_name: "ECURLOPT_RESUME_FROM_LARGE"
          }"
       end
 
@@ -1244,7 +1244,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAXFILESIZE_LARGE"
+         feature_name: "ECURLOPT_MAXFILESIZE_LARGE"
          }"
       end
 
@@ -1257,21 +1257,21 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NETRC_FILE"
+         feature_name: "ECURLOPT_NETRC_FILE"
          }"
       end
 
    Curlopt_use_ssl: INTEGER
          --  /* Enable SSL/TLS for FTP, pick one of:
-         --     CURLUSESSL_TRY     - try using SSL, proceed anyway otherwise
-         --     CURLUSESSL_CONTROL - SSL for the control connection or fail
-         --     CURLUSESSL_ALL     - SSL for all communication or fail
+         --     ECURLUSESSL_TRY     - try using SSL, proceed anyway otherwise
+         --     ECURLUSESSL_CONTROL - SSL for the control connection or fail
+         --     ECURLUSESSL_ALL     - SSL for all communication or fail
          --  */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_USE_SSL"
+         feature_name: "ECURLOPT_USE_SSL"
          }"
       end
 
@@ -1281,7 +1281,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POSTFIELDSIZE_LARGE"
+         feature_name: "ECURLOPT_POSTFIELDSIZE_LARGE"
          }"
       end
 
@@ -1291,7 +1291,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TCP_NODELAY"
+         feature_name: "ECURLOPT_TCP_NODELAY"
          }"
       end
 
@@ -1302,15 +1302,15 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
          --     response has been received.
          --
          --     available parameters are:
-         --     CURLFTPAUTH_DEFAULT - let libcurl decide
-         --     CURLFTPAUTH_SSL     - try "AUTH SSL" first, then TLS
-         --     CURLFTPAUTH_TLS     - try "AUTH TLS" first, then SSL
+         --     ECURLFTPAUTH_DEFAULT - let libcurl decide
+         --     ECURLFTPAUTH_SSL     - try "AUTH SSL" first, then TLS
+         --     ECURLFTPAUTH_TLS     - try "AUTH TLS" first, then SSL
          --  */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTPSSLAUTH"
+         feature_name: "ECURLOPT_FTPSSLAUTH"
          }"
       end
 
@@ -1319,7 +1319,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_IOCTLFUNCTION"
+         feature_name: "ECURLOPT_IOCTLFUNCTION"
          }"
       end
 
@@ -1328,7 +1328,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_IOCTLDATA"
+         feature_name: "ECURLOPT_IOCTLDATA"
          }"
       end
 
@@ -1339,7 +1339,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_ACCOUNT"
+         feature_name: "ECURLOPT_FTP_ACCOUNT"
          }"
       end
 
@@ -1349,7 +1349,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COOKIELIST"
+         feature_name: "ECURLOPT_COOKIELIST"
          }"
       end
 
@@ -1359,7 +1359,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_IGNORE_CONTENT_LENGTH"
+         feature_name: "ECURLOPT_IGNORE_CONTENT_LENGTH"
          }"
       end
 
@@ -1372,7 +1372,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_SKIP_PASV_IP"
+         feature_name: "ECURLOPT_FTP_SKIP_PASV_IP"
          }"
       end
 
@@ -1383,7 +1383,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_FILEMETHOD"
+         feature_name: "ECURLOPT_FTP_FILEMETHOD"
          }"
       end
 
@@ -1393,7 +1393,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_LOCALPORT"
+         feature_name: "ECURLOPT_LOCALPORT"
          }"
       end
 
@@ -1405,18 +1405,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_LOCALPORTRANGE"
+         feature_name: "ECURLOPT_LOCALPORTRANGE"
          }"
       end
 
    Curlopt_connect_only: INTEGER
          --  /* no transfer, set up connection and let application use the socket by
-         --     extracting it with CURLINFO_LASTSOCKET */
+         --     extracting it with ECURLINFO_LASTSOCKET */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONNECT_ONLY"
+         feature_name: "ECURLOPT_CONNECT_ONLY"
          }"
       end
 
@@ -1427,7 +1427,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONV_FROM_NETWORK_FUNCTION"
+         feature_name: "ECURLOPT_CONV_FROM_NETWORK_FUNCTION"
          }"
       end
 
@@ -1438,7 +1438,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONV_TO_NETWORK_FUNCTION"
+         feature_name: "ECURLOPT_CONV_TO_NETWORK_FUNCTION"
          }"
       end
 
@@ -1450,7 +1450,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONV_FROM_UTF8_FUNCTION"
+         feature_name: "ECURLOPT_CONV_FROM_UTF8_FUNCTION"
          }"
       end
 
@@ -1461,7 +1461,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAX_SEND_SPEED_LARGE"
+         feature_name: "ECURLOPT_MAX_SEND_SPEED_LARGE"
          }"
       end
 
@@ -1470,7 +1470,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAX_RECV_SPEED_LARGE"
+         feature_name: "ECURLOPT_MAX_RECV_SPEED_LARGE"
          }"
       end
 
@@ -1480,7 +1480,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_ALTERNATIVE_TO_USER"
+         feature_name: "ECURLOPT_FTP_ALTERNATIVE_TO_USER"
          }"
       end
 
@@ -1490,7 +1490,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SOCKOPTFUNCTION"
+         feature_name: "ECURLOPT_SOCKOPTFUNCTION"
          }"
       end
 
@@ -1499,7 +1499,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SOCKOPTDATA"
+         feature_name: "ECURLOPT_SOCKOPTDATA"
          }"
       end
 
@@ -1510,7 +1510,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_SESSIONID_CACHE"
+         feature_name: "ECURLOPT_SSL_SESSIONID_CACHE"
          }"
       end
 
@@ -1520,7 +1520,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_AUTH_TYPES"
+         feature_name: "ECURLOPT_SSH_AUTH_TYPES"
          }"
       end
 
@@ -1530,7 +1530,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_PUBLIC_KEYFILE"
+         feature_name: "ECURLOPT_SSH_PUBLIC_KEYFILE"
          }"
       end
 
@@ -1539,7 +1539,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_PRIVATE_KEYFILE"
+         feature_name: "ECURLOPT_SSH_PRIVATE_KEYFILE"
          }"
       end
 
@@ -1549,7 +1549,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_SSL_CCC"
+         feature_name: "ECURLOPT_FTP_SSL_CCC"
          }"
       end
 
@@ -1559,7 +1559,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TIMEOUT_MS"
+         feature_name: "ECURLOPT_TIMEOUT_MS"
          }"
       end
 
@@ -1568,7 +1568,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CONNECTTIMEOUT_MS"
+         feature_name: "ECURLOPT_CONNECTTIMEOUT_MS"
          }"
       end
 
@@ -1579,7 +1579,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTP_TRANSFER_DECODING"
+         feature_name: "ECURLOPT_HTTP_TRANSFER_DECODING"
          }"
       end
 
@@ -1588,7 +1588,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HTTP_CONTENT_DECODING"
+         feature_name: "ECURLOPT_HTTP_CONTENT_DECODING"
          }"
       end
 
@@ -1599,7 +1599,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NEW_FILE_PERMS"
+         feature_name: "ECURLOPT_NEW_FILE_PERMS"
          }"
       end
 
@@ -1608,18 +1608,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NEW_DIRECTORY_PERMS"
+         feature_name: "ECURLOPT_NEW_DIRECTORY_PERMS"
          }"
       end
 
    Curlopt_postredir: INTEGER
          --  /* Set the behaviour of POST when redirecting. Values must be set to one
-         --     of CURL_REDIR* defines below. This used to be called curlopt_post301 */
+         --     of ECURL_REDIR* defines below. This used to be called curlopt_post301 */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_POSTREDIR"
+         feature_name: "ECURLOPT_POSTREDIR"
          }"
       end
 
@@ -1629,20 +1629,20 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_HOST_PUBLIC_KEY_MD5"
+         feature_name: "ECURLOPT_SSH_HOST_PUBLIC_KEY_MD5"
          }"
       end
 
    Curlopt_opensocketfunction: INTEGER
          --  /* Callback function for opening socket (instead of socket(2)). Optionally,
          --     callback is able change the address or refuse to connect returning
-         --     CURL_SOCKET_BAD.  The callback should have type
+         --     ECURL_SOCKET_BAD.  The callback should have type
          --     curl_opensocket_callback */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_OPENSOCKETFUNCTION"
+         feature_name: "ECURLOPT_OPENSOCKETFUNCTION"
          }"
       end
 
@@ -1651,7 +1651,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_OPENSOCKETDATA"
+         feature_name: "ECURLOPT_OPENSOCKETDATA"
          }"
       end
 
@@ -1661,7 +1661,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_COPYPOSTFIELDS"
+         feature_name: "ECURLOPT_COPYPOSTFIELDS"
          }"
       end
 
@@ -1671,7 +1671,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXY_TRANSFER_MODE"
+         feature_name: "ECURLOPT_PROXY_TRANSFER_MODE"
          }"
       end
 
@@ -1681,7 +1681,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SEEKFUNCTION"
+         feature_name: "ECURLOPT_SEEKFUNCTION"
          }"
       end
 
@@ -1690,7 +1690,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SEEKDATA"
+         feature_name: "ECURLOPT_SEEKDATA"
          }"
       end
 
@@ -1700,7 +1700,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CRLFILE"
+         feature_name: "ECURLOPT_CRLFILE"
          }"
       end
 
@@ -1710,7 +1710,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_ISSUERCERT"
+         feature_name: "ECURLOPT_ISSUERCERT"
          }"
       end
 
@@ -1720,18 +1720,18 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_ADDRESS_SCOPE"
+         feature_name: "ECURLOPT_ADDRESS_SCOPE"
          }"
       end
 
    Curlopt_certinfo: INTEGER
          --  /* Collect certificate chain info and allow it to get retrievable with
-         --     CURLINFO_CERTINFO after the transfer is complete. */
+         --     ECURLINFO_CERTINFO after the transfer is complete. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CERTINFO"
+         feature_name: "ECURLOPT_CERTINFO"
          }"
       end
 
@@ -1741,7 +1741,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_USERNAME"
+         feature_name: "ECURLOPT_USERNAME"
          }"
       end
 
@@ -1750,7 +1750,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PASSWORD"
+         feature_name: "ECURLOPT_PASSWORD"
          }"
       end
 
@@ -1760,7 +1760,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYUSERNAME"
+         feature_name: "ECURLOPT_PROXYUSERNAME"
          }"
       end
 
@@ -1769,7 +1769,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYPASSWORD"
+         feature_name: "ECURLOPT_PROXYPASSWORD"
          }"
       end
 
@@ -1785,7 +1785,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_NOPROXY"
+         feature_name: "ECURLOPT_NOPROXY"
          }"
       end
 
@@ -1795,7 +1795,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TFTP_BLKSIZE"
+         feature_name: "ECURLOPT_TFTP_BLKSIZE"
          }"
       end
 
@@ -1805,7 +1805,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SOCKS5_GSSAPI_SERVICE"
+         feature_name: "ECURLOPT_SOCKS5_GSSAPI_SERVICE"
          }"
       end
 
@@ -1815,7 +1815,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SOCKS5_GSSAPI_NEC"
+         feature_name: "ECURLOPT_SOCKS5_GSSAPI_NEC"
          }"
       end
 
@@ -1823,12 +1823,12 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
          --  /* set the bitmask for the protocols that are allowed to be used for the
          --     transfer, which thus helps the app which takes URLs from users or other
          --     external inputs and want to restrict what protocol(s) to deal
-         --     with. Defaults to CURLPROTO_ALL. */
+         --     with. Defaults to ECURLPROTO_ALL. */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROTOCOLS"
+         feature_name: "ECURLOPT_PROTOCOLS"
          }"
       end
 
@@ -1841,7 +1841,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_REDIR_PROTOCOLS"
+         feature_name: "ECURLOPT_REDIR_PROTOCOLS"
          }"
       end
 
@@ -1851,7 +1851,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_KNOWNHOSTS"
+         feature_name: "ECURLOPT_SSH_KNOWNHOSTS"
          }"
       end
 
@@ -1862,7 +1862,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_KEYFUNCTION"
+         feature_name: "ECURLOPT_SSH_KEYFUNCTION"
          }"
       end
 
@@ -1872,7 +1872,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSH_KEYDATA"
+         feature_name: "ECURLOPT_SSH_KEYDATA"
          }"
       end
 
@@ -1882,7 +1882,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAIL_FROM"
+         feature_name: "ECURLOPT_MAIL_FROM"
          }"
       end
 
@@ -1892,7 +1892,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAIL_RCPT"
+         feature_name: "ECURLOPT_MAIL_RCPT"
          }"
       end
 
@@ -1902,7 +1902,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FTP_USE_PRET"
+         feature_name: "ECURLOPT_FTP_USE_PRET"
          }"
       end
 
@@ -1912,7 +1912,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_REQUEST"
+         feature_name: "ECURLOPT_RTSP_REQUEST"
          }"
       end
 
@@ -1922,7 +1922,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_SESSION_ID"
+         feature_name: "ECURLOPT_RTSP_SESSION_ID"
          }"
       end
 
@@ -1932,7 +1932,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_STREAM_URI"
+         feature_name: "ECURLOPT_RTSP_STREAM_URI"
          }"
       end
 
@@ -1942,7 +1942,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_TRANSPORT"
+         feature_name: "ECURLOPT_RTSP_TRANSPORT"
          }"
       end
 
@@ -1952,7 +1952,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_CLIENT_CSEQ"
+         feature_name: "ECURLOPT_RTSP_CLIENT_CSEQ"
          }"
       end
 
@@ -1962,7 +1962,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RTSP_SERVER_CSEQ"
+         feature_name: "ECURLOPT_RTSP_SERVER_CSEQ"
          }"
       end
 
@@ -1972,7 +1972,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_INTERLEAVEDATA"
+         feature_name: "ECURLOPT_INTERLEAVEDATA"
          }"
       end
 
@@ -1982,7 +1982,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_INTERLEAVEFUNCTION"
+         feature_name: "ECURLOPT_INTERLEAVEFUNCTION"
          }"
       end
 
@@ -1992,7 +1992,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_WILDCARDMATCH"
+         feature_name: "ECURLOPT_WILDCARDMATCH"
          }"
       end
 
@@ -2003,7 +2003,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CHUNK_BGN_FUNCTION"
+         feature_name: "ECURLOPT_CHUNK_BGN_FUNCTION"
          }"
       end
 
@@ -2014,7 +2014,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CHUNK_END_FUNCTION"
+         feature_name: "ECURLOPT_CHUNK_END_FUNCTION"
          }"
       end
 
@@ -2024,7 +2024,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FNMATCH_FUNCTION"
+         feature_name: "ECURLOPT_FNMATCH_FUNCTION"
          }"
       end
 
@@ -2034,7 +2034,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CHUNK_DATA"
+         feature_name: "ECURLOPT_CHUNK_DATA"
          }"
       end
 
@@ -2044,7 +2044,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_FNMATCH_DATA"
+         feature_name: "ECURLOPT_FNMATCH_DATA"
          }"
       end
 
@@ -2054,7 +2054,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_RESOLVE"
+         feature_name: "ECURLOPT_RESOLVE"
          }"
       end
 
@@ -2064,7 +2064,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TLSAUTH_USERNAME"
+         feature_name: "ECURLOPT_TLSAUTH_USERNAME"
          }"
       end
 
@@ -2074,7 +2074,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TLSAUTH_PASSWORD"
+         feature_name: "ECURLOPT_TLSAUTH_PASSWORD"
          }"
       end
 
@@ -2084,7 +2084,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TLSAUTH_TYPE"
+         feature_name: "ECURLOPT_TLSAUTH_TYPE"
          }"
       end
 
@@ -2103,7 +2103,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TRANSFER_ENCODING"
+         feature_name: "ECURLOPT_TRANSFER_ENCODING"
          }"
       end
 
@@ -2114,7 +2114,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CLOSESOCKETFUNCTION"
+         feature_name: "ECURLOPT_CLOSESOCKETFUNCTION"
          }"
       end
 
@@ -2123,7 +2123,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_CLOSESOCKETDATA"
+         feature_name: "ECURLOPT_CLOSESOCKETDATA"
          }"
       end
 
@@ -2133,7 +2133,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_GSSAPI_DELEGATION"
+         feature_name: "ECURLOPT_GSSAPI_DELEGATION"
          }"
       end
 
@@ -2143,7 +2143,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_SERVERS"
+         feature_name: "ECURLOPT_DNS_SERVERS"
          }"
       end
 
@@ -2154,7 +2154,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_ACCEPTTIMEOUT_MS"
+         feature_name: "ECURLOPT_ACCEPTTIMEOUT_MS"
          }"
       end
 
@@ -2164,7 +2164,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TCP_KEEPALIVE"
+         feature_name: "ECURLOPT_TCP_KEEPALIVE"
          }"
       end
 
@@ -2174,7 +2174,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TCP_KEEPIDLE"
+         feature_name: "ECURLOPT_TCP_KEEPIDLE"
          }"
       end
 
@@ -2183,17 +2183,17 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_TCP_KEEPINTVL"
+         feature_name: "ECURLOPT_TCP_KEEPINTVL"
          }"
       end
 
    Curlopt_ssl_options: INTEGER
-         --  /* Enable/disable specific SSL features with a bitmask, see CURLSSLOPT_* */
+         --  /* Enable/disable specific SSL features with a bitmask, see ECURLSSLOPT_* */
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_OPTIONS"
+         feature_name: "ECURLOPT_SSL_OPTIONS"
          }"
       end
 
@@ -2203,7 +2203,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_MAIL_AUTH"
+         feature_name: "ECURLOPT_MAIL_AUTH"
          }"
       end
 
@@ -2213,7 +2213,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SASL_IR"
+         feature_name: "ECURLOPT_SASL_IR"
          }"
       end
 
@@ -2225,7 +2225,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_XFERINFOFUNCTION"
+         feature_name: "ECURLOPT_XFERINFOFUNCTION"
          }"
       end
 
@@ -2235,7 +2235,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_XOAUTH2_BEARER"
+         feature_name: "ECURLOPT_XOAUTH2_BEARER"
          }"
       end
 
@@ -2247,7 +2247,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_INTERFACE"
+         feature_name: "ECURLOPT_DNS_INTERFACE"
          }"
       end
 
@@ -2258,7 +2258,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_LOCAL_IP4"
+         feature_name: "ECURLOPT_DNS_LOCAL_IP4"
          }"
       end
 
@@ -2269,7 +2269,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_DNS_LOCAL_IP6"
+         feature_name: "ECURLOPT_DNS_LOCAL_IP6"
          }"
       end
 
@@ -2279,7 +2279,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_LOGIN_OPTIONS"
+         feature_name: "ECURLOPT_LOGIN_OPTIONS"
          }"
       end
 
@@ -2289,7 +2289,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_ENABLE_NPN"
+         feature_name: "ECURLOPT_SSL_ENABLE_NPN"
          }"
       end
 
@@ -2299,7 +2299,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_SSL_ENABLE_ALPN"
+         feature_name: "ECURLOPT_SSL_ENABLE_ALPN"
          }"
       end
 
@@ -2310,7 +2310,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_EXPECT_100_TIMEOUT_MS"
+         feature_name: "ECURLOPT_EXPECT_100_TIMEOUT_MS"
          }"
       end
 
@@ -2321,7 +2321,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PROXYHEADER"
+         feature_name: "ECURLOPT_PROXYHEADER"
          }"
       end
 
@@ -2331,7 +2331,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_HEADEROPT"
+         feature_name: "ECURLOPT_HEADEROPT"
          }"
       end
 
@@ -2342,7 +2342,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLOPT_PINNEDPUBLICKEY"
+         feature_name: "ECURLOPT_PINNEDPUBLICKEY"
          }"
       end
 
@@ -2352,7 +2352,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OK"
+         feature_name: "ECURLE_OK"
          }"
       end
 
@@ -2361,7 +2361,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_UNSUPPORTED_PROTOCOL"
+         feature_name: "ECURLE_UNSUPPORTED_PROTOCOL"
          }"
       end
 
@@ -2370,7 +2370,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FAILED_INIT"
+         feature_name: "ECURLE_FAILED_INIT"
          }"
       end
 
@@ -2379,7 +2379,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_URL_MALFORMAT"
+         feature_name: "ECURLE_URL_MALFORMAT"
          }"
       end
 
@@ -2388,7 +2388,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_NOT_BUILT_IN"
+         feature_name: "ECURLE_NOT_BUILT_IN"
          }"
       end
 
@@ -2397,7 +2397,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_COULDNT_RESOLVE_PROXY"
+         feature_name: "ECURLE_COULDNT_RESOLVE_PROXY"
          }"
       end
 
@@ -2406,7 +2406,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_COULDNT_RESOLVE_HOST"
+         feature_name: "ECURLE_COULDNT_RESOLVE_HOST"
          }"
       end
 
@@ -2415,7 +2415,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_COULDNT_CONNECT"
+         feature_name: "ECURLE_COULDNT_CONNECT"
          }"
       end
 
@@ -2424,7 +2424,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_WEIRD_SERVER_REPLY"
+         feature_name: "ECURLE_FTP_WEIRD_SERVER_REPLY"
          }"
       end
 
@@ -2433,7 +2433,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_REMOTE_ACCESS_DENIED"
+         feature_name: "ECURLE_REMOTE_ACCESS_DENIED"
          }"
       end
 
@@ -2442,7 +2442,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_ACCEPT_FAILED"
+         feature_name: "ECURLE_FTP_ACCEPT_FAILED"
          }"
       end
 
@@ -2451,7 +2451,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_WEIRD_PASS_REPLY"
+         feature_name: "ECURLE_FTP_WEIRD_PASS_REPLY"
          }"
       end
 
@@ -2460,7 +2460,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_ACCEPT_TIMEOUT"
+         feature_name: "ECURLE_FTP_ACCEPT_TIMEOUT"
          }"
       end
 
@@ -2469,7 +2469,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_WEIRD_PASV_REPLY"
+         feature_name: "ECURLE_FTP_WEIRD_PASV_REPLY"
          }"
       end
 
@@ -2478,7 +2478,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_WEIRD_227_FORMAT"
+         feature_name: "ECURLE_FTP_WEIRD_227_FORMAT"
          }"
       end
 
@@ -2487,7 +2487,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_CANT_GET_HOST"
+         feature_name: "ECURLE_FTP_CANT_GET_HOST"
          }"
       end
 
@@ -2496,7 +2496,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_HTTP2"
+         feature_name: "ECURLE_HTTP2"
          }"
       end
 
@@ -2505,7 +2505,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_COULDNT_SET_TYPE"
+         feature_name: "ECURLE_FTP_COULDNT_SET_TYPE"
          }"
       end
 
@@ -2514,7 +2514,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_PARTIAL_FILE"
+         feature_name: "ECURLE_PARTIAL_FILE"
          }"
       end
 
@@ -2523,7 +2523,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_COULDNT_RETR_FILE"
+         feature_name: "ECURLE_FTP_COULDNT_RETR_FILE"
          }"
       end
 
@@ -2532,7 +2532,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE20"
+         feature_name: "ECURLE_OBSOLETE20"
          }"
       end
 
@@ -2541,7 +2541,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_QUOTE_ERROR"
+         feature_name: "ECURLE_QUOTE_ERROR"
          }"
       end
 
@@ -2550,7 +2550,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_HTTP_RETURNED_ERROR"
+         feature_name: "ECURLE_HTTP_RETURNED_ERROR"
          }"
       end
 
@@ -2559,7 +2559,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_WRITE_ERROR"
+         feature_name: "ECURLE_WRITE_ERROR"
          }"
       end
 
@@ -2568,7 +2568,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE24"
+         feature_name: "ECURLE_OBSOLETE24"
          }"
       end
 
@@ -2577,7 +2577,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_UPLOAD_FAILED"
+         feature_name: "ECURLE_UPLOAD_FAILED"
          }"
       end
 
@@ -2586,7 +2586,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_READ_ERROR"
+         feature_name: "ECURLE_READ_ERROR"
          }"
       end
 
@@ -2595,7 +2595,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OUT_OF_MEMORY"
+         feature_name: "ECURLE_OUT_OF_MEMORY"
          }"
       end
 
@@ -2604,7 +2604,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OPERATION_TIMEDOUT"
+         feature_name: "ECURLE_OPERATION_TIMEDOUT"
          }"
       end
 
@@ -2613,7 +2613,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE29"
+         feature_name: "ECURLE_OBSOLETE29"
          }"
       end
 
@@ -2622,7 +2622,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_PORT_FAILED"
+         feature_name: "ECURLE_FTP_PORT_FAILED"
          }"
       end
 
@@ -2631,7 +2631,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_COULDNT_USE_REST"
+         feature_name: "ECURLE_FTP_COULDNT_USE_REST"
          }"
       end
 
@@ -2640,7 +2640,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE32"
+         feature_name: "ECURLE_OBSOLETE32"
          }"
       end
 
@@ -2649,7 +2649,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_RANGE_ERROR"
+         feature_name: "ECURLE_RANGE_ERROR"
          }"
       end
 
@@ -2658,7 +2658,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_HTTP_POST_ERROR"
+         feature_name: "ECURLE_HTTP_POST_ERROR"
          }"
       end
 
@@ -2667,7 +2667,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CONNECT_ERROR"
+         feature_name: "ECURLE_SSL_CONNECT_ERROR"
          }"
       end
 
@@ -2676,7 +2676,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_BAD_DOWNLOAD_RESUME"
+         feature_name: "ECURLE_BAD_DOWNLOAD_RESUME"
          }"
       end
 
@@ -2685,7 +2685,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FILE_COULDNT_READ_FILE"
+         feature_name: "ECURLE_FILE_COULDNT_READ_FILE"
          }"
       end
 
@@ -2694,7 +2694,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_LDAP_CANNOT_BIND"
+         feature_name: "ECURLE_LDAP_CANNOT_BIND"
          }"
       end
 
@@ -2703,7 +2703,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_LDAP_SEARCH_FAILED"
+         feature_name: "ECURLE_LDAP_SEARCH_FAILED"
          }"
       end
 
@@ -2712,7 +2712,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE40"
+         feature_name: "ECURLE_OBSOLETE40"
          }"
       end
 
@@ -2721,7 +2721,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FUNCTION_NOT_FOUND"
+         feature_name: "ECURLE_FUNCTION_NOT_FOUND"
          }"
       end
 
@@ -2730,7 +2730,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_ABORTED_BY_CALLBACK"
+         feature_name: "ECURLE_ABORTED_BY_CALLBACK"
          }"
       end
 
@@ -2739,7 +2739,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_BAD_FUNCTION_ARGUMENT"
+         feature_name: "ECURLE_BAD_FUNCTION_ARGUMENT"
          }"
       end
 
@@ -2748,7 +2748,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE44"
+         feature_name: "ECURLE_OBSOLETE44"
          }"
       end
 
@@ -2757,7 +2757,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_INTERFACE_FAILED"
+         feature_name: "ECURLE_INTERFACE_FAILED"
          }"
       end
 
@@ -2766,7 +2766,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE46"
+         feature_name: "ECURLE_OBSOLETE46"
          }"
       end
 
@@ -2775,7 +2775,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TOO_MANY_REDIRECTS,"
+         feature_name: "ECURLE_TOO_MANY_REDIRECTS,"
          }"
       end
 
@@ -2784,7 +2784,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_UNKNOWN_OPTION"
+         feature_name: "ECURLE_UNKNOWN_OPTION"
          }"
       end
 
@@ -2793,7 +2793,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TELNET_OPTION_SYNTAX,"
+         feature_name: "ECURLE_TELNET_OPTION_SYNTAX,"
          }"
       end
 
@@ -2802,7 +2802,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE50"
+         feature_name: "ECURLE_OBSOLETE50"
          }"
       end
 
@@ -2811,7 +2811,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_PEER_FAILED_VERIFICATION"
+         feature_name: "ECURLE_PEER_FAILED_VERIFICATION"
          }"
       end
 
@@ -2820,7 +2820,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_GOT_NOTHING"
+         feature_name: "ECURLE_GOT_NOTHING"
          }"
       end
 
@@ -2829,7 +2829,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_ENGINE_NOTFOUND"
+         feature_name: "ECURLE_SSL_ENGINE_NOTFOUND"
          }"
       end
 
@@ -2838,7 +2838,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_ENGINE_SETFAILED"
+         feature_name: "ECURLE_SSL_ENGINE_SETFAILED"
          }"
       end
 
@@ -2847,7 +2847,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SEND_ERROR"
+         feature_name: "ECURLE_SEND_ERROR"
          }"
       end
 
@@ -2856,7 +2856,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_RECV_ERROR"
+         feature_name: "ECURLE_RECV_ERROR"
          }"
       end
 
@@ -2865,7 +2865,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_OBSOLETE57"
+         feature_name: "ECURLE_OBSOLETE57"
          }"
       end
 
@@ -2874,7 +2874,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CERTPROBLEM"
+         feature_name: "ECURLE_SSL_CERTPROBLEM"
          }"
       end
 
@@ -2883,7 +2883,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CIPHER"
+         feature_name: "ECURLE_SSL_CIPHER"
          }"
       end
 
@@ -2892,7 +2892,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CACERT"
+         feature_name: "ECURLE_SSL_CACERT"
          }"
       end
 
@@ -2901,7 +2901,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_BAD_CONTENT_ENCODING"
+         feature_name: "ECURLE_BAD_CONTENT_ENCODING"
          }"
       end
 
@@ -2910,7 +2910,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_LDAP_INVALID_URL"
+         feature_name: "ECURLE_LDAP_INVALID_URL"
          }"
       end
 
@@ -2919,7 +2919,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FILESIZE_EXCEEDED"
+         feature_name: "ECURLE_FILESIZE_EXCEEDED"
          }"
       end
 
@@ -2928,7 +2928,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_USE_SSL_FAILED"
+         feature_name: "ECURLE_USE_SSL_FAILED"
          }"
       end
 
@@ -2937,7 +2937,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SEND_FAIL_REWIND"
+         feature_name: "ECURLE_SEND_FAIL_REWIND"
          }"
       end
 
@@ -2946,7 +2946,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_ENGINE_INITFAILED"
+         feature_name: "ECURLE_SSL_ENGINE_INITFAILED"
          }"
       end
 
@@ -2955,7 +2955,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_LOGIN_DENIED"
+         feature_name: "ECURLE_LOGIN_DENIED"
          }"
       end
 
@@ -2964,7 +2964,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TFTP_NOTFOUND"
+         feature_name: "ECURLE_TFTP_NOTFOUND"
          }"
       end
 
@@ -2973,7 +2973,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TFTP_PERM"
+         feature_name: "ECURLE_TFTP_PERM"
          }"
       end
 
@@ -2982,7 +2982,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_REMOTE_DISK_FULL"
+         feature_name: "ECURLE_REMOTE_DISK_FULL"
          }"
       end
 
@@ -2991,7 +2991,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TFTP_ILLEGAL"
+         feature_name: "ECURLE_TFTP_ILLEGAL"
          }"
       end
 
@@ -3000,7 +3000,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TFTP_UNKNOWNID"
+         feature_name: "ECURLE_TFTP_UNKNOWNID"
          }"
       end
 
@@ -3009,7 +3009,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_REMOTE_FILE_EXISTS"
+         feature_name: "ECURLE_REMOTE_FILE_EXISTS"
          }"
       end
 
@@ -3018,7 +3018,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_TFTP_NOSUCHUSER"
+         feature_name: "ECURLE_TFTP_NOSUCHUSER"
          }"
       end
 
@@ -3027,7 +3027,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_CONV_FAILED"
+         feature_name: "ECURLE_CONV_FAILED"
          }"
       end
 
@@ -3036,7 +3036,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_CONV_REQD"
+         feature_name: "ECURLE_CONV_REQD"
          }"
       end
 
@@ -3045,7 +3045,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CACERT_BADFILE"
+         feature_name: "ECURLE_SSL_CACERT_BADFILE"
          }"
       end
 
@@ -3054,7 +3054,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_REMOTE_FILE_NOT_FOUND"
+         feature_name: "ECURLE_REMOTE_FILE_NOT_FOUND"
          }"
       end
 
@@ -3063,7 +3063,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSH"
+         feature_name: "ECURLE_SSH"
          }"
       end
 
@@ -3072,7 +3072,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_SHUTDOWN_FAILED"
+         feature_name: "ECURLE_SSL_SHUTDOWN_FAILED"
          }"
       end
 
@@ -3081,7 +3081,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_AGAIN"
+         feature_name: "ECURLE_AGAIN"
          }"
       end
 
@@ -3090,7 +3090,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_CRL_BADFILE"
+         feature_name: "ECURLE_SSL_CRL_BADFILE"
          }"
       end
 
@@ -3099,7 +3099,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_ISSUER_ERROR"
+         feature_name: "ECURLE_SSL_ISSUER_ERROR"
          }"
       end
 
@@ -3108,7 +3108,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_PRET_FAILED"
+         feature_name: "ECURLE_FTP_PRET_FAILED"
          }"
       end
 
@@ -3117,7 +3117,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_RTSP_CSEQ_ERROR"
+         feature_name: "ECURLE_RTSP_CSEQ_ERROR"
          }"
       end
 
@@ -3126,7 +3126,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_RTSP_SESSION_ERROR"
+         feature_name: "ECURLE_RTSP_SESSION_ERROR"
          }"
       end
 
@@ -3135,7 +3135,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_FTP_BAD_FILE_LIST"
+         feature_name: "ECURLE_FTP_BAD_FILE_LIST"
          }"
       end
 
@@ -3144,7 +3144,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_CHUNK_FAILED"
+         feature_name: "ECURLE_CHUNK_FAILED"
          }"
       end
 
@@ -3153,7 +3153,7 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_NO_CONNECTION_AVAILABLE"
+         feature_name: "ECURLE_NO_CONNECTION_AVAILABLE"
          }"
       end
 
@@ -3162,11 +3162,11 @@ feature {}
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "CURLE_SSL_PINNEDPUBKEYNOTMATCH"
+         feature_name: "ECURLE_SSL_PINNEDPUBKEYNOTMATCH"
          }"
       end
 
-end -- class CURL_PLUGIN
+end -- class ECURL_PLUGIN
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

@@ -1,17 +1,17 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_EASY_HANDLE
+class ECURL_EASY_HANDLE
 
 inherit
-   CURL_HANDLE
+   ECURL_HANDLE
 
 insert
-   CURL_PLUGIN
+   ECURL_PLUGIN
    DISPOSABLE
    RECYCLABLE
 
-create {CURL_HANDLER}
+create {ECURL_HANDLER}
    make
 
 feature {ANY}
@@ -20,7 +20,7 @@ feature {ANY}
          Result := input_stream /= Void or else output_stream /= Void
       end
 
-   input: CURL_INPUT_STREAM
+   input: ECURL_INPUT_STREAM
       require
          is_useable
          not in_use
@@ -43,7 +43,7 @@ feature {ANY}
          in_use
       end
 
-   output: CURL_OUTPUT_STREAM
+   output: ECURL_OUTPUT_STREAM
       require
          is_useable
          not in_use
@@ -66,7 +66,7 @@ feature {ANY}
          in_use
       end
 
-feature {CURL_HANDLER}
+feature {ECURL_HANDLER}
    is_useable: BOOLEAN
       do
          Result := handle.is_not_null
@@ -107,10 +107,10 @@ feature {}
          recycle
       end
 
-   input_stream, input_memory: CURL_EASY_INPUT_STREAM
-   output_stream, output_memory: CURL_EASY_OUTPUT_STREAM
+   input_stream, input_memory: ECURL_EASY_INPUT_STREAM
+   output_stream, output_memory: ECURL_EASY_OUTPUT_STREAM
 
-end -- class CURL_EASY_HANDLE
+end -- class ECURL_EASY_HANDLE
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

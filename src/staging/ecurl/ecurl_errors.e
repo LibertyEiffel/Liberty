@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_ERRORS
+deferred class ECURL_ERRORS
 
 insert
-   CURL_PLUGIN
+   ECURL_PLUGIN
 
 feature {ANY} -- Redefined values because it helps write select clauses (see also invariant)
    Ok: INTEGER                                 0
@@ -197,7 +197,7 @@ invariant
    Curle_no_connection_available                 = No_connection_available
    Curle_ssl_pinnedpubkeynotmatch                = Ssl_pinnedpubkeynotmatch
 
-end -- class CURL_ERRORS
+end -- class ECURL_ERRORS
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

@@ -1,14 +1,9 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_HANDLE
-
-feature {CURL_HANDLER}
-   handle: POINTER
-      deferred
-      end
-
-end -- class CURL_HANDLE
+expanded class ECURL_HANDLER
+   -- Tag class for specific cUrl actions
+end -- class ECURL_HANDLER
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

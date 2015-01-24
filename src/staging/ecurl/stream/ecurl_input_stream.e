@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_INPUT_STREAM
+deferred class ECURL_INPUT_STREAM
 
 inherit
-   CURL_STREAM
+   ECURL_STREAM
    INPUT_STREAM
 
 feature {ANY}
@@ -89,7 +89,7 @@ feature {}
 invariant
    ecurl_buffer /= Void
 
-end -- class CURL_INPUT_STREAM
+end -- class ECURL_INPUT_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
