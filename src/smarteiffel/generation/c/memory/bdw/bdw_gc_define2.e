@@ -412,8 +412,10 @@ feature {}
 -- the "freed" elements in the native array which are not used 
 -- currently, but still contain a pointer will not be cleaned up by 
 -- the GC currently. (native arrays are ordinary memory, and the 
--- pointers are not hidden...
--- maybe it is better to alloc native arrays with 
+-- pointers are visible, during mark they are hidden and the relevant 
+-- once are revealed. But in the next cycle we hid the hidden ones 
+-- again which reveals them again?)
+-- maybe it is better to alloc native arrays with GC_MALOC_ATOMIC
 -- and call GC_MARK_AND_PUSH for mark_item
 --                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
 --                        has_capacity := True
