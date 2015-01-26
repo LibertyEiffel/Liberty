@@ -18,7 +18,7 @@ feature {}
                   assert(a = 3)
                   assert(i = 5)
                end (?)
-         ).call([5])
+         ).call([{INTEGER 5}])
       end
 
 end -- class TEST_CLOSURE01
