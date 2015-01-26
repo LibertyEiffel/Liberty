@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists("token", $_POST)) {
             } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
                 file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
             } else {
-                echo "<p><i>Ignored POST data</i></p>\n";
+                echo "<!-- Ignored POST data -->\n";
             }
         } else {
-            echo "<p><i>Token expired</i></p>\n";
+            echo "<!-- Token expired -->\n";
         }
     } else {
-        echo "<p><i>Ignored POST</i></p>\n";
+        echo "<!-- Ignored POST -->\n";
     }
 }
 
