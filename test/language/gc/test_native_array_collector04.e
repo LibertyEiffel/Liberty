@@ -30,7 +30,6 @@ feature {ANY}
          call
 
          label_assert("no elements disposed", ele.dispose_count.item = 0)
-         io.put_line("done")
       end
 
    call

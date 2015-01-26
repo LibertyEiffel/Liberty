@@ -53,6 +53,7 @@ feature {ANY}
 
    make
       do
+         test(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
          test(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
          test(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
       end

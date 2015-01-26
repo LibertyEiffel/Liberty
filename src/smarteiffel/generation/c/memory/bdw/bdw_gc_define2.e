@@ -345,7 +345,7 @@ feature {}
    mark_native_arrays (type_mark: TYPE_MARK)
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; a: RUN_FEATURE_2; t: TYPE
-         has_capacity, has_generation: BOOLEAN
+         has_capacity: BOOLEAN
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void*bdw_na_assignT")
@@ -389,30 +389,12 @@ feature {}
          cpp.pending_c_function_signature.append(once "(T")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "**markna,void*_)")
-         cpp.pending_c_function_body.append(once "int i,c,g;T0*e;T0**na;T")
+         cpp.pending_c_function_body.append(once "int i,c;T0*e;T0**na;T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*o=*markna;%N%
                                                  %GC_disable();%N")
          wa := live_type.writable_attributes
          if wa /= Void then
-            from
-               i := wa.lower
-            until
-               has_generation or else i > wa.upper
-            loop
-               a := wa.item(i)
-               t := a.result_type.resolve_in(live_type.type)
-               if t.is_native_array and then t.generic_list.first.is_reference then
-                  if live_type.type.has_simple_feature_name(generation_name) then
---                     cpp.pending_c_function_body.append(once "g=o->_generation;%N")
-                     has_generation := True
-                  end
-               end
-               i := i + 1
-            end
-            if has_generation then
---               cpp.pending_c_function_body.append(once "if(g!=o->bdw_generation){%N")
-            end
             from
                i := wa.lower
             until
@@ -426,6 +408,15 @@ feature {}
 -- Rmk, 2015-01-22: I don't understand this, so let's temporarily 
 -- disable it. At least it seems to make eiffeldoc a bit more stable 
 -- with BDW GC...
+
+-- the "freed" elements in the native array which are not used 
+-- currently, but still contain a pointer will not be cleaned up by 
+-- the GC currently. (native arrays are ordinary memory, and the 
+-- pointers are visible, during mark they are hidden and the relevant 
+-- once are revealed. But in the next cycle we hid the hidden ones 
+-- again which reveals them again?)
+-- maybe it is better to alloc native arrays with GC_MALOC_ATOMIC
+-- and call GC_MARK_AND_PUSH for mark_item
 --                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
 --                        has_capacity := True
                      else
@@ -454,9 +445,6 @@ feature {}
                   cpp.pending_c_function_body.append(once "NULL,")
                end
                cpp.pending_c_function_body.append(once "o);%N")
-            end
-            if has_generation then
---               cpp.pending_c_function_body.append(once "o->bdw_generation=g;}%N")
             end
          end
          cpp.pending_c_function_body.append(once "bdw_na_assignT")

@@ -25,6 +25,7 @@ feature {ANY}
 
    make
       do
+         test(create {ARRAY_DICTIONARY[STRING, INTEGER]}.make)
          test(create {HASHED_DICTIONARY[STRING, INTEGER]}.make)
          test(create {PYTHON_DICTIONARY[STRING, INTEGER]}.make)
       end
