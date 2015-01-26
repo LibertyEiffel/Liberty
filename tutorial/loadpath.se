@@ -15,4 +15,4 @@ memory/
 ncurses/
 net/loadpath.se
 number/
-parking/
+parking/loadpath.se
