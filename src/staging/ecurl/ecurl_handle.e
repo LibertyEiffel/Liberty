@@ -1,42 +1,23 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_EASY_INPUT_STREAM
-
-inherit
-   CURL_INPUT_STREAM
-      redefine handle
-      end
-
-create {CURL_EASY_HANDLE}
-   connect_to
+deferred class ECURL_HANDLE
 
 feature {ANY}
-   can_perform: BOOLEAN
-      do
-         Result := state = State_init
+   is_useable: BOOLEAN
+      deferred
       end
 
-   perform (on_error: PROCEDURE[TUPLE[INTEGER]])
-      local
-         err: INTEGER
-      do
-         state := State_performing
-         err := curl_easy_perform(handle.handle)
-         if err = Curle_ok then
-            state := State_ready
-         else
-            state := State_init
-            if on_error /= Void then
-               on_error.call([err])
-            end
-         end
+   in_use: BOOLEAN
+      deferred
       end
 
-feature {}
-   handle: CURL_EASY_HANDLE
+feature {ECURL_HANDLER}
+   handle: POINTER
+      deferred
+      end
 
-end -- class CURL_EASY_INPUT_STREAM
+end -- class ECURL_HANDLE
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

@@ -1,9 +1,58 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class CURL_HANDLER
-   -- Tag class for specific cUrl actions
-end -- class CURL_HANDLER
+class ECURL_EASY_INPUT_STREAM
+
+inherit
+   ECURL_INPUT_STREAM
+      redefine handle
+      end
+
+create {ECURL_EASY_HANDLE}
+   connect_to
+
+feature {ANY}
+   can_perform: BOOLEAN
+      do
+         Result := state = State_init and then handle.can_perform
+      end
+
+   perform
+      do
+         state := State_performing
+         ecurl_init_write_function(handle.handle, to_pointer)
+         done(curl_easy_perform(handle.handle))
+      end
+
+   disconnect
+      do
+         handle.disconnect(Current)
+         handle := Void
+      end
+
+feature {ECURL_EASY_HANDLE}
+   multi_perform_done (error_code: INTEGER)
+      do
+         done(error_code)
+      end
+
+feature {}
+   handle: ECURL_EASY_HANDLE
+
+   done (err: INTEGER)
+      do
+         if err = Curle_ok then
+            state := State_ready
+            index := ecurl_buffer.lower
+         else
+            state := State_init
+            if on_error /= Void then
+               on_error.call([err, handle])
+            end
+         end
+      end
+
+end -- class ECURL_EASY_INPUT_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

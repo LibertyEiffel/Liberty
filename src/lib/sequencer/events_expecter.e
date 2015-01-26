@@ -1,14 +1,48 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_HANDLE
+deferred class EVENTS_EXPECTER
 
-feature {CURL_HANDLER}
-   handle: POINTER
+feature {EVENTS_SET}
+   expect (read_set, write_set, exception_set: POINTER)
+         -- Fill the sets
+      require
+         read_set.is_not_null
+         write_set.is_not_null
+         exception_set.is_not_null
       deferred
       end
 
-end -- class CURL_HANDLE
+   expected_read: BOOLEAN
+         -- True if some input file descriptors are set
+      deferred
+      end
+
+   expected_write: BOOLEAN
+         -- True if some output file descriptors are set
+      deferred
+      end
+
+   expected_exception: BOOLEAN
+         -- True if some exception file descriptors are set
+      deferred
+      end
+
+   expected_highest: INTEGER
+         -- The highest set file descriptor
+      deferred
+      end
+
+   happened (read_set, write_set, exception_set: POINTER): BOOLEAN
+         -- Check the sets
+      require
+         read_set.is_not_null
+         write_set.is_not_null
+         exception_set.is_not_null
+      deferred
+      end
+
+end -- class EVENTS_EXPECTER
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

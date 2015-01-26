@@ -1,10 +1,10 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_OUTPUT_STREAM
+deferred class ECURL_OUTPUT_STREAM
 
 inherit
-   CURL_STREAM
+   ECURL_STREAM
    OUTPUT_STREAM
       redefine
          put_abstract_string
@@ -44,7 +44,7 @@ feature {}
          end
          ecurl_buffer.clear_count
          state := State_init
-         ecurl_init_read_function(handle.handle, to_pointer)
+         index := ecurl_buffer.lower
       end
 
    ecurl_callback (buffer: POINTER; size: INTEGER): INTEGER
@@ -76,7 +76,7 @@ feature {}
          Result := state = State_performing
       end
 
-end -- class CURL_INPUT_STREAM
+end -- class ECURL_INPUT_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

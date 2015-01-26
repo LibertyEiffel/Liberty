@@ -1,19 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_STREAM
+class ECURL_STREAM
 
 inherit
    STREAM
 
 insert
-   CURL_PLUGIN
-   CURL_HANDLER
+   ECURL_PLUGIN
+   ECURL_HANDLER
+   URL_VALIDITY
 
 feature {ANY}
-   perform (on_error: PROCEDURE[TUPLE[INTEGER]])
+   perform
          -- Perform the action; after that, options cannot be changed and the object can be used as a stream
-         -- `on_error' is called with the cUrl error code (defined in CURL_ERRORS) if the action failed to perform.
+         -- `on_error' is called with the cUrl error code (defined in ECURL_ERRORS) if the action failed to perform.
       require
          can_perform
       deferred
@@ -23,21 +24,27 @@ feature {ANY}
       deferred
       end
 
-   disconnect
-      do
-         handle := Void
-      end
-
    is_connected: BOOLEAN
       do
-         Result := handle /= Void
+         Result := handle /= Void and then handle.in_use
       end
 
    can_disconnect: BOOLEAN True
 
+feature {ANY}
+   on_error: PROCEDURE[TUPLE[INTEGER, ECURL_HANDLE]]
+
+   set_on_error (a_on_error: like on_error) assign on_error
+      do
+         on_error := a_on_error
+      ensure
+         on_error = a_on_error
+      end
+
 feature {ANY} -- Common options
    set_url (a_url: URL)
       require
+         is_connected
          a_url /= Void
          not a_url.is_stream
       local
@@ -49,20 +56,35 @@ feature {ANY} -- Common options
          curl_easy_setopt_string(handle.handle, Curlopt_url, s)
       end
 
+   set_url_string (a_url: ABSTRACT_STRING)
+      require
+         is_connected
+         a_url /= Void
+         valid_url(a_url)
+      local
+         s: STRING
+      do
+         if s ?:= a_url then
+            s ::= a_url
+         else
+            s := once ""
+            s.make_from_string(a_url)
+         end
+         curl_easy_setopt_string(handle.handle, Curlopt_url, s)
+      end
+
    set_verbose (a_verbose: BOOLEAN)
-         -- set CURLOPT_VERBOSE
+         -- set ECURLOPT_VERBOSE
+      require
+         is_connected
       do
          curl_easy_setopt_boolean(handle.handle, Curlopt_verbose, a_verbose)
       end
 
-   set_debug_function (a_verbose: BOOLEAN)
-         -- set CURLOPT_DEBUGFUNCTION
-      do
-         curl_easy_setopt_boolean(handle.handle, Curlopt_debugfunction, a_verbose)
-      end
-
    set_header (a_header: BOOLEAN)
-         -- set CURLOPT_HEADER
+         -- set ECURLOPT_HEADER
+      require
+         is_connected
       do
          curl_easy_setopt_boolean(handle.handle, Curlopt_header, a_header)
       end
@@ -82,7 +104,7 @@ feature {FILTER}
 
    filtered_has_stream_pointer: BOOLEAN False
 
-feature {CURL_HANDLE}
+feature {ECURL_HANDLE}
    is_connected_to (a_handle: like handle): BOOLEAN
       do
          Result := handle = a_handle
@@ -99,15 +121,15 @@ feature {CURL_HANDLE}
       end
 
 feature {}
-   handle: CURL_HANDLE
+   handle: ECURL_HANDLE
 
    init_connect
       require
-         not is_connected
+         handle /= Void
       deferred
       end
 
-end -- class CURL_STREAM
+end -- class ECURL_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

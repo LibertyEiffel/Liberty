@@ -1,33 +1,58 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_EASY_OUTPUT_STREAM
+class ECURL_EASY_OUTPUT_STREAM
 
 inherit
-   CURL_OUTPUT_STREAM
+   ECURL_OUTPUT_STREAM
       redefine handle
       end
 
-create {CURL_EASY_HANDLE}
+create {ECURL_EASY_HANDLE}
    connect_to
 
 feature{ANY}
    can_perform: BOOLEAN
       do
+         Result := state = State_init and then handle.can_perform
       end
 
-   perform (on_error: PROCEDURE[TUPLE[INTEGER]])
-      local
-         err: INTEGER
+   perform
       do
+         ecurl_init_read_function(handle.handle, to_pointer)
          curl_easy_setopt_integer(handle.handle, Curlopt_infilesize_large, ecurl_buffer.count.to_integer_64)
-         err := curl_easy_perform(handle.handle)
+         done(curl_easy_perform(handle.handle))
+      end
+
+   disconnect
+      do
+         handle.disconnect(Current)
+         handle := Void
+      end
+
+feature {ECURL_EASY_HANDLE}
+   multi_perform_done (error_code: INTEGER)
+      do
+         done(error_code)
       end
 
 feature {}
-   handle: CURL_EASY_HANDLE
+   handle: ECURL_EASY_HANDLE
 
-end -- class CURL_EASY_OUTPUT_STREAM
+   done (err: INTEGER)
+      do
+         if err = Curle_ok then
+            ecurl_buffer.clear_count
+            index := ecurl_buffer.lower
+         else
+            if on_error /= Void then
+               on_error.call([err, handle])
+            end
+         end
+         state := State_init
+      end
+
+end -- class ECURL_EASY_OUTPUT_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

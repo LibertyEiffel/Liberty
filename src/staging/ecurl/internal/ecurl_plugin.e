@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class CURL_PLUGIN
+expanded class ECURL_PLUGIN
    --
    -- Low-level cUrl plugin functions -- meant to be inserted by ECURL classes.
    --
@@ -18,12 +18,12 @@ feature {} -- "easy" API
 
    curl_easy_setopt_string (handle: POINTER; option: INTEGER; parameter: STRING)
       do
-         curl_easy_setopt_pointer(handle, Curlopt_url, parameter.to_external)
+         curl_easy_setopt_pointer(handle, option, parameter.to_external)
       end
 
    curl_easy_setopt_boolean (handle: POINTER; option: INTEGER; parameter: BOOLEAN)
       do
-         curl_easy_setopt_integer(handle, Curlopt_url, if parameter then {INTEGER_64 1} else {INTEGER_64 0} end)
+         curl_easy_setopt_integer(handle, option, if parameter then {INTEGER_64 1} else {INTEGER_64 0} end)
       end
 
    curl_easy_setopt_pointer (handle: POINTER; option: INTEGER; parameter: POINTER)
@@ -80,6 +80,62 @@ feature {} -- "easy" API
          }"
       end
 
+   curl_easy_strerror (errornum: INTEGER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_easy_strerror"
+         }"
+      end
+
+feature {} -- "multi" API
+   curl_multi_init: POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_init"
+         }"
+      end
+
+   curl_multi_cleanup (handle: POINTER)
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_cleanup"
+         }"
+      end
+
+   curl_multi_perform (handle, running_handles: POINTER): INTEGER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_perform"
+         }"
+      end
+
+   curl_multi_fdset (handle, rset, wset, eset, fdmax: POINTER)
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_fdset"
+         }"
+      end
+
+   curl_multi_info_read (handle, nbmsg: POINTER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "curl_multi_info_read"
+         }"
+      end
+
+feature {} -- EcUrl specific functions
    ecurl_init_write_function (handle, object: POINTER)
       external "plug_in"
       alias "{
@@ -95,6 +151,33 @@ feature {} -- "easy" API
          location: "."
          module_name: "plugin"
          feature_name: "ecurl_init_read_function"
+         }"
+      end
+
+   ecurl_multi_info_easy_handle (info: POINTER): POINTER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_handle"
+         }"
+      end
+
+   ecurl_multi_info_easy_code (info: POINTER): INTEGER
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_code"
+         }"
+      end
+
+   ecurl_multi_info_easy_done (info: POINTER): BOOLEAN
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "ecurl_multi_info_easy_done"
          }"
       end
 
@@ -180,7 +263,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       end
 
    Curlopt_errorbuffer: INTEGER
-         --  /* Buffer to receive error messages in, must be at least CURL_ERROR_SIZE
+         --  /* Buffer to receive error messages in, must be at least ECURL_ERROR_SIZE
          --   * bytes big. If this is not used, error messages go to stderr instead: */
       external "plug_in"
       alias "{
@@ -416,7 +499,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_sslversion: INTEGER
          --  /* What version to specifically try to use.
-         --     See CURL_SSLVERSION defines below. */
+         --     See ECURL_SSLVERSION defines below. */
       external "plug_in"
       alias "{
          location: "."
@@ -571,7 +654,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_netrc: INTEGER
          --  /* Specify whether to read the user+password from the .netrc or the URL.
-         --   * This must be one of the CURL_NETRC_* enums below. */
+         --   * This must be one of the ECURL_NETRC_* enums below. */
       external "plug_in"
       alias "{
          location: "."
@@ -870,7 +953,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_http_version: INTEGER
          --  /* Specify which HTTP version to use! This must be set to one of the
-         --     CURL_HTTP_VERSION* enums set below. */
+         --     ECURL_HTTP_VERSION* enums set below. */
       external "plug_in"
       alias "{
          location: "."
@@ -1037,7 +1120,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       end
 
    Curlopt_share: INTEGER
-         --  /* Provide a CURLShare for mutexing non-ts data */
+         --  /* Provide a ECURLShare for mutexing non-ts data */
       external "plug_in"
       alias "{
          location: "."
@@ -1047,8 +1130,8 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       end
 
    Curlopt_proxytype: INTEGER
-         --  /* indicates type of proxy. accepted values are CURLPROXY_HTTP (default),
-         --     CURLPROXY_SOCKS4, CURLPROXY_SOCKS4A and CURLPROXY_SOCKS5. */
+         --  /* indicates type of proxy. accepted values are ECURLPROXY_HTTP (default),
+         --     ECURLPROXY_SOCKS4, ECURLPROXY_SOCKS4A and ECURLPROXY_SOCKS5. */
       external "plug_in"
       alias "{
          location: "."
@@ -1151,7 +1234,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
    Curlopt_ftp_create_missing_dirs: INTEGER
          --  /* FTP Option that causes missing dirs to be created on the remote server.
          --     In 7.19.4 we introduced the convenience enums for this option using the
-         --     CURLFTP_CREATE_DIR prefix.
+         --     ECURLFTP_CREATE_DIR prefix.
          --  */
       external "plug_in"
       alias "{
@@ -1187,7 +1270,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       end
 
    Curlopt_ipresolve: INTEGER
-         --  /* Set this option to one of the CURL_IPRESOLVE_* defines (see below) to
+         --  /* Set this option to one of the ECURL_IPRESOLVE_* defines (see below) to
          --     tell libcurl to resolve names to those IP versions only. This only has
          --     affect on systems with support for more than one, i.e IPv4 _and_ IPv6. */
       external "plug_in"
@@ -1263,9 +1346,9 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_use_ssl: INTEGER
          --  /* Enable SSL/TLS for FTP, pick one of:
-         --     CURLUSESSL_TRY     - try using SSL, proceed anyway otherwise
-         --     CURLUSESSL_CONTROL - SSL for the control connection or fail
-         --     CURLUSESSL_ALL     - SSL for all communication or fail
+         --     ECURLUSESSL_TRY     - try using SSL, proceed anyway otherwise
+         --     ECURLUSESSL_CONTROL - SSL for the control connection or fail
+         --     ECURLUSESSL_ALL     - SSL for all communication or fail
          --  */
       external "plug_in"
       alias "{
@@ -1302,9 +1385,9 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
          --     response has been received.
          --
          --     available parameters are:
-         --     CURLFTPAUTH_DEFAULT - let libcurl decide
-         --     CURLFTPAUTH_SSL     - try "AUTH SSL" first, then TLS
-         --     CURLFTPAUTH_TLS     - try "AUTH TLS" first, then SSL
+         --     ECURLFTPAUTH_DEFAULT - let libcurl decide
+         --     ECURLFTPAUTH_SSL     - try "AUTH SSL" first, then TLS
+         --     ECURLFTPAUTH_TLS     - try "AUTH TLS" first, then SSL
          --  */
       external "plug_in"
       alias "{
@@ -1411,7 +1494,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_connect_only: INTEGER
          --  /* no transfer, set up connection and let application use the socket by
-         --     extracting it with CURLINFO_LASTSOCKET */
+         --     extracting it with ECURLINFO_LASTSOCKET */
       external "plug_in"
       alias "{
          location: "."
@@ -1614,7 +1697,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_postredir: INTEGER
          --  /* Set the behaviour of POST when redirecting. Values must be set to one
-         --     of CURL_REDIR* defines below. This used to be called curlopt_post301 */
+         --     of ECURL_REDIR* defines below. This used to be called curlopt_post301 */
       external "plug_in"
       alias "{
          location: "."
@@ -1636,7 +1719,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
    Curlopt_opensocketfunction: INTEGER
          --  /* Callback function for opening socket (instead of socket(2)). Optionally,
          --     callback is able change the address or refuse to connect returning
-         --     CURL_SOCKET_BAD.  The callback should have type
+         --     ECURL_SOCKET_BAD.  The callback should have type
          --     curl_opensocket_callback */
       external "plug_in"
       alias "{
@@ -1726,7 +1809,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
 
    Curlopt_certinfo: INTEGER
          --  /* Collect certificate chain info and allow it to get retrievable with
-         --     CURLINFO_CERTINFO after the transfer is complete. */
+         --     ECURLINFO_CERTINFO after the transfer is complete. */
       external "plug_in"
       alias "{
          location: "."
@@ -1823,7 +1906,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
          --  /* set the bitmask for the protocols that are allowed to be used for the
          --     transfer, which thus helps the app which takes URLs from users or other
          --     external inputs and want to restrict what protocol(s) to deal
-         --     with. Defaults to CURLPROTO_ALL. */
+         --     with. Defaults to ECURLPROTO_ALL. */
       external "plug_in"
       alias "{
          location: "."
@@ -2188,7 +2271,7 @@ feature {} -- Constants (extracted from curl.h, version 7.39.0; removed deprecat
       end
 
    Curlopt_ssl_options: INTEGER
-         --  /* Enable/disable specific SSL features with a bitmask, see CURLSSLOPT_* */
+         --  /* Enable/disable specific SSL features with a bitmask, see ECURLSSLOPT_* */
       external "plug_in"
       alias "{
          location: "."
@@ -3166,7 +3249,7 @@ feature {}
          }"
       end
 
-end -- class CURL_PLUGIN
+end -- class ECURL_PLUGIN
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

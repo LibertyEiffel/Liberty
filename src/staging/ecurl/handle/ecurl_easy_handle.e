@@ -1,29 +1,39 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class CURL_EASY_HANDLE
+class ECURL_EASY_HANDLE
 
 inherit
-   CURL_HANDLE
+   ECURL_HANDLE
 
 insert
-   CURL_PLUGIN
+   ECURL_PLUGIN
    DISPOSABLE
    RECYCLABLE
 
-create {CURL_HANDLER}
+create {ANY}
    make
 
 feature {ANY}
    in_use: BOOLEAN
       do
-         Result := input_stream /= Void or else output_stream /= Void
+         Result := in_input_use or else in_output_use
       end
 
-   input: CURL_INPUT_STREAM
+   in_input_use: BOOLEAN
+      do
+         Result := input_stream /= Void
+      end
+
+   in_output_use: BOOLEAN
+      do
+         Result := output_stream /= Void
+      end
+
+   input: ECURL_INPUT_STREAM
       require
          is_useable
-         not in_use
+         not in_output_use
       do
          Result := input_stream
          if Result = Void then
@@ -33,6 +43,7 @@ feature {ANY}
                input_memory.connect_to(Current)
             end
             Result := input_memory
+            input_stream := Result
          else
             check
                Result.is_connected_to(Current)
@@ -40,13 +51,13 @@ feature {ANY}
          end
       ensure
          Result /= Void
-         in_use
+         in_input_use
       end
 
-   output: CURL_OUTPUT_STREAM
+   output: ECURL_OUTPUT_STREAM
       require
          is_useable
-         not in_use
+         not in_input_use
       do
          Result := output_stream
          if Result = Void then
@@ -56,6 +67,7 @@ feature {ANY}
                output_memory.connect_to(Current)
             end
             Result := output_memory
+            output_stream := Result
          else
             check
                Result.is_connected_to(Current)
@@ -63,15 +75,32 @@ feature {ANY}
          end
       ensure
          Result /= Void
-         in_use
+         in_output_use
       end
 
-feature {CURL_HANDLER}
    is_useable: BOOLEAN
       do
          Result := handle.is_not_null
       end
 
+feature {ECURL_STREAM}
+   disconnect (a_stream: ECURL_STREAM)
+      do
+         if a_stream = input_stream then
+            input_stream := Void
+         elseif a_stream = output_stream then
+            output_stream := Void
+         else
+            check False end
+         end
+      end
+
+   can_perform: BOOLEAN
+      do
+         Result := not multi_attached
+      end
+
+feature {ECURL_HANDLER}
    make
          -- Initialize the cUrl handle.
       require
@@ -85,10 +114,57 @@ feature {CURL_HANDLER}
       require
          is_useable
       do
+         if input_memory /= Void and then input_memory.is_connected then
+            check input_memory.is_connected_to(Current) end
+            input_memory.disconnect
+         end
+         if output_memory /= Void and then output_memory.is_connected then
+            check output_memory.is_connected_to(Current) end
+            output_memory.disconnect
+         end
          curl_easy_cleanup(handle)
+         handle := handle.default
+         input_stream := Void
+         output_stream := Void
       end
 
    handle: POINTER
+
+feature {ECURL_MULTI_HANDLE}
+   multi_attached: BOOLEAN
+      do
+         Result := multi_handle /= Void
+      end
+
+   multi_attach (a_handle: like multi_handle)
+      require
+         a_handle /= Void
+         not multi_attached
+      do
+         multi_handle := a_handle
+      ensure
+         multi_attached
+      end
+
+   multi_detach
+      require
+         multi_attached
+      do
+         multi_handle := Void
+      ensure
+         not multi_attached
+      end
+
+   multi_perform_done (error_code: INTEGER)
+      require
+         multi_attached
+      do
+         if input_stream /= Void then
+            input_memory.multi_perform_done(error_code)
+         elseif output_stream /= Void then
+            output_memory.multi_perform_done(error_code)
+         end
+      end
 
 feature {RECYCLING_POOL}
    recycle
@@ -107,10 +183,15 @@ feature {}
          recycle
       end
 
-   input_stream, input_memory: CURL_EASY_INPUT_STREAM
-   output_stream, output_memory: CURL_EASY_OUTPUT_STREAM
+   input_stream: ECURL_INPUT_STREAM
+   output_stream: ECURL_OUTPUT_STREAM
 
-end -- class CURL_EASY_HANDLE
+   input_memory: ECURL_EASY_INPUT_STREAM
+   output_memory: ECURL_EASY_OUTPUT_STREAM
+
+   multi_handle: ECURL_MULTI_HANDLE
+
+end -- class ECURL_EASY_HANDLE
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --

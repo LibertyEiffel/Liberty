@@ -1,22 +1,14 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class CURL_INPUT_STREAM
+deferred class ECURL_INPUT_STREAM
 
 inherit
-   CURL_STREAM
+   ECURL_STREAM
    INPUT_STREAM
 
 feature {ANY}
-   can_read_character: BOOLEAN
-      do
-         Result := is_ready and then ecurl_buffer.valid_index(index + 1)
-      end
-
-   can_read_line: BOOLEAN
-      do
-         Result := can_read_character
-      end
+   can_read_character, can_read_line: BOOLEAN True
 
    can_unread_character: BOOLEAN
       do
@@ -29,6 +21,15 @@ feature {ANY}
       end
 
    end_of_input: BOOLEAN
+      do
+         Result := not is_ready or else index > ecurl_buffer.upper
+      end
+
+feature {ANY} -- Options
+   set_follow_location (enable: BOOLEAN)
+      do
+         curl_easy_setopt_boolean(handle.handle, Curlopt_followlocation, enable)
+      end
 
 feature {FILTER_INPUT_STREAM}
    filtered_read_character
@@ -54,7 +55,6 @@ feature {}
          end
          ecurl_buffer.clear_count
          state := State_init
-         ecurl_init_write_function(handle.handle, to_pointer)
       end
 
    ecurl_callback (buffer: POINTER; size: INTEGER)
@@ -89,7 +89,7 @@ feature {}
 invariant
    ecurl_buffer /= Void
 
-end -- class CURL_INPUT_STREAM
+end -- class ECURL_INPUT_STREAM
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
