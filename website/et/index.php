@@ -19,15 +19,21 @@ include "functions.php";
 
 include "$templates/head.html";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && array_key_exists("token", $_POST) && array_key_exists("token", $_SESSION) && $_POST["token"] == $_SESSION['token']) {
-    if($_SESSION['token_time'] >= time() - (15*60)) {
-        if (array_key_exists("manual_request", $_POST) && $_POST["manual_request"] == 1) {
-           file_put_contents($request, "new MANUAL request on " . date($dateFormat));
-        } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
-           file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists("token", $_POST)) {
+    if (array_key_exists("token", $_SESSION) && $_POST["token"] == $_SESSION['token']) {
+        if($_SESSION['token_time'] >= time() - (15*60)) {
+            if (array_key_exists("manual_request", $_POST) && $_POST["manual_request"] == 1) {
+                file_put_contents($request, "new MANUAL request on " . date($dateFormat));
+            } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
+                file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
+            } else {
+                echo "<!-- Ignored POST data -->\n";
+            }
+        } else {
+            echo "<!-- Token expired -->\n";
         }
     } else {
-        echo "<p><i>Token expired</i></p>\n";
+        echo "<!-- Ignored POST -->\n";
     }
 }
 
