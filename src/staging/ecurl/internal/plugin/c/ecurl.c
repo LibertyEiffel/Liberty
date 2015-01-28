@@ -42,7 +42,7 @@ void ecurl_init_read_function(void *handle, void *userp) {
 }
 
 void* ecurl_multi_info_easy_handle(CURLMsg *msg) {
-   return msg->easu_handle;
+   return msg->easy_handle;
 }
 
 int ecurl_multi_info_easy_code(CURLMsg *msg) {

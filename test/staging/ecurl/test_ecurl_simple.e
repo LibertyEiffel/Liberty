@@ -20,7 +20,8 @@ feature {}
          assert(handle.in_use) -- because of the previous test, `input' is now used
          handle.input.set_url_string(once "file://test_ecurl_simple.e")
          handle.input.set_follow_location(True)
-         handle.input.perform(agent on_error(?))
+         handle.input.on_error := agent on_error(?)
+         handle.input.perform
          assert(not handle.input.end_of_input)
          create expected.connect_to("test_ecurl_simple.e")
          assert(expected.is_connected)
