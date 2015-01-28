@@ -433,7 +433,7 @@ EOF
 12 no  short
 13 no  class_check
 14 no  finder
-15 bdw eiffeldoc
+15 no  eiffeldoc
 16 no  extract_internals
 EOF
 
