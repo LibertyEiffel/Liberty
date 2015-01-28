@@ -136,17 +136,17 @@ a:active {
 }
 
 #content {
-    padding: 1em 1em 2.5em 1em;
+    padding: 1em 1em 4em 1em;
 }
 
 #container {
     width: 100%;
-    height: 3em;
+    height: 2em;
     margin: 0 auto;
     text-align: center;
     font-size: 80%;
     position: absolute;
-    bottom: 3em;
+    bottom: 1.5em;
     left: 0;
     background-color: #5ab0a1;
 }
