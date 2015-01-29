@@ -77,7 +77,7 @@ feature {ANY}
 
    is_empty (path: ABSTRACT_STRING): BOOLEAN
          -- True if `path' file exists, is readable and is an empty file.
-      require 
+      require
          path/=Void
          not path.is_empty
       do
@@ -102,8 +102,11 @@ feature {ANY}
          end
          p1 := old_path.to_external
          p2 := new_path.to_external
-         io_rename(p1, p2)
+         last_rename_succeeded := io_rename(p1, p2)
       end
+
+   last_rename_succeeded: BOOLEAN
+         -- True if the last call to `rename_to` was successful.
 
    copy_to (source_path, target_path: ABSTRACT_STRING)
          -- Try to copy the source into the target.
@@ -115,8 +118,11 @@ feature {ANY}
       do
          src := source_path.to_external
          tgt := target_path.to_external
-         io_copy(src, tgt)
+         last_copy_succeeded := io_copy(src, tgt)
       end
+
+   last_copy_succeeded: BOOLEAN
+         -- True if the last call to `copy_to` was successful.
 
    delete (path: ABSTRACT_STRING)
          -- Try to delete the given `path' file.
@@ -126,8 +132,11 @@ feature {ANY}
          p: POINTER
       do
          p := path.to_external
-         io_remove(p)
+         last_delete_succeeded := io_remove(p)
       end
+
+   last_delete_succeeded: BOOLEAN
+         -- True if the last call to `delete` was successful.
 
    size_of (path: ABSTRACT_STRING): INTEGER
          -- Total size of file `path' in number of bytes.
@@ -174,7 +183,7 @@ feature {ANY}
       end
 
 feature {}
-   io_remove (path: POINTER)
+   io_remove (path: POINTER): BOOLEAN
          -- To implement `delete'.
       external "plug_in"
       alias "{
@@ -184,7 +193,7 @@ feature {}
          }"
       end
 
-   io_rename (old_path, new_path: POINTER)
+   io_rename (old_path, new_path: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -193,7 +202,7 @@ feature {}
          }"
       end
 
-   io_copy (source, target: POINTER)
+   io_copy (source, target: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

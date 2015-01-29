@@ -130,7 +130,7 @@ feature {}
                   argi := argi + 2
                   if file_tools.file_exists(Result) then
                      file_tools.delete(Result)
-                     if file_tools.file_exists(Result) then
+                     if not file_tools.last_delete_succeeded or else file_tools.file_exists(Result) then
                         echo.w_put_string("Unable to remove existing the file %"")
                         echo.w_put_string(Result)
                         echo.w_put_string("%" specified for the -is_output_error_warning_on flag.%N")
