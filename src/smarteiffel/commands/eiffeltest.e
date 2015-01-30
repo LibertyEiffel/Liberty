@@ -506,7 +506,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             not basic_directory.last_entry.is_empty
          end
          path.copy(basic_directory.last_entry)
-         remote_file(path)
+         remove_file(path)
       end
 
    remove_file (path: STRING)
