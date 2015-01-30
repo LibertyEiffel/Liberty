@@ -1,6 +1,6 @@
 Package: liberty-eiffel-staging-libs
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcurl-dev
 Recommends: liberty-eiffel-tools (= #VERSION#), liberty-eiffel-core-libs (= #VERSION#)
 Description: liberty-eiffel extra libraries
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly

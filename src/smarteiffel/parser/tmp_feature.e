@@ -366,7 +366,7 @@ feature {EIFFEL_PARSER}
          if type = Void then
             if routine_then /= Void then
                error_handler.add_position(routine_then.start_position)
-               error_handler.append(once "A procedure cannot have an 'else'.")
+               error_handler.append(once "A procedure cannot have a 'then'.")
                error_handler.print_as_fatal_error
             end
             create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
@@ -384,7 +384,7 @@ feature {EIFFEL_PARSER}
          if type = Void then
             if routine_then /= Void then
                error_handler.add_position(routine_then.start_position)
-               error_handler.append(once "A procedure cannot have an 'else'.")
+               error_handler.append(once "A procedure cannot have a 'then'.")
                error_handler.print_as_fatal_error
             end
             create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)

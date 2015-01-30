@@ -17,7 +17,7 @@ feature {}
                     assert(i = 5)
                  end (?)
          a := 3
-         p.call([5])
+         p.call([{INTEGER 5}])
       end
 
 end -- class TEST_CLOSURE02

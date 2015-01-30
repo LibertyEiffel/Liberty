@@ -506,11 +506,18 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             not basic_directory.last_entry.is_empty
          end
          path.copy(basic_directory.last_entry)
-         file_tools.delete(path)
+         remote_file(path)
+      end
+
+   remove_file (path: STRING)
+      do
          if file_tools.file_exists(path) then
-            echo.w_put_string(once "se test (eiffeltest): Unable to delete LOCK file %"#(1)%".%N%
-                                   %Check for read/write permissions. Weird!%N" # path)
-            die_with_code(exit_failure_code)
+            file_tools.delete(path)
+            if not file_tools.last_delete_succeeded or else file_tools.file_exists(path) then
+               echo.w_put_string(once "se test (eiffeltest): Unable to delete file %"#(1)%".%N%
+                                      %Check for read/write permissions. Weird!%N" # path)
+               die_with_code(exit_failure_code)
+            end
          end
       end
 
@@ -738,7 +745,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             running_of(test_file, exe_name, options)
             if cecil_flag then
                log_line := (once "Removing (#(1)) %"cecil.h%" file." # options).out
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(once "cecil.h"))
+               dummy := excluded_execution_of(log_line, agent remove_file(once "cecil.h"))
             end
          end
       end
@@ -802,7 +809,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                log(once "Abnormal: differing error/warning message for %"#(1)%".%N" # bad_file)
             else
                log_line := (once "Removing %"#(1)%"." # new).out
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(new))
+               dummy := excluded_execution_of(log_line, agent remove_file(new))
             end
          end
 
@@ -1245,7 +1252,7 @@ feature {}
                end
                log_line.append(exe_name)
                log_line.append(once "%".")
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(once "profile.se"))
+               dummy := excluded_execution_of(log_line, agent remove_file(once "profile.se"))
             end
          end
 
@@ -1264,7 +1271,7 @@ feature {}
          log_line.append(once "%"")
          log_line.append(exe_name)
          log_line.append(once "%".")
-         dummy := excluded_execution_of(log_line, agent file_tools.delete(exe_name))
+         dummy := excluded_execution_of(log_line, agent remove_file(exe_name))
 
       end
 

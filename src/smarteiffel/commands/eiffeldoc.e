@@ -97,6 +97,7 @@ feature {}
 
    get_started
       do
+         smart_eiffel.initialize_any_tuple
          create core.make(context)
          ace.for_all_clusters(agent load_cluster(?))
          core.do_doc

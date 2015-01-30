@@ -102,7 +102,11 @@ feature {ANY}
             s := remaining.floor.force_to_integer_32
             us := ((remaining - s) * 1000000).floor.force_to_integer_32
          until
-            sequencer_wait(highest + 1, read_set, read_size, write_set, write_size, exception_set, exception_size, s, us) /= -1
+            sequencer_wait(highest + 1,
+                           read_set, read_size, read_more,
+                           write_set, write_size, write_more,
+                           exception_set, exception_size, exception_more,
+                           s, us) /= -1
          loop
          end
          queryable := True
@@ -297,6 +301,26 @@ feature {EVENT_DESCRIPTOR}
           Result := has_exception(file.descriptor)
        end
 
+   when_expecter (expecter: EVENTS_EXPECTER)
+      require
+         expecter /= Void
+         not queryable
+      do
+         expecter.expect(read_set, write_set, exception_set)
+         read_more := expecter.expected_read
+         write_more := expecter.expected_write
+         exception_more := expecter.expected_exception
+         highest := highest.max(expecter.expected_highest)
+      end
+
+   has_expecter (expecter: EVENTS_EXPECTER): BOOLEAN
+      require
+         expecter /= Void
+         queryable
+      do
+         Result := expecter.happened(read_set, write_set, exception_set)
+      end
+
 feature {JOB, TIME_EVENT}
    current_time: MICROSECOND_TIME
       do
@@ -382,13 +406,19 @@ feature {}
 
    read_size: INTEGER
 
+   read_more: BOOLEAN
+
    write_set: POINTER
 
    write_size: INTEGER
 
+   write_more: BOOLEAN
+
    exception_set: POINTER
 
    exception_size: INTEGER
+
+   exception_more: BOOLEAN
 
    highest: INTEGER
 
@@ -428,7 +458,11 @@ feature {}
          }"
       end
 
-   sequencer_wait (n: INTEGER; rset: POINTER; rsize: INTEGER; wset: POINTER; wsize: INTEGER; eset:POINTER; esize: INTEGER; s, us: INTEGER): INTEGER
+   sequencer_wait (n: INTEGER;
+                   rset: POINTER; rsize: INTEGER; rmote: BOOLEAN;
+                   wset: POINTER; wsize: INTEGER; wmore: BOOLEAN;
+                   eset:POINTER; esize: INTEGER; emore: BOOLEAN;
+                   s, us: INTEGER): INTEGER
          --return -1 if signal interupt occured
       external "plug_in"
       alias "{

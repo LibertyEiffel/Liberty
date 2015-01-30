@@ -36,6 +36,9 @@ feature {ANY}
             output_stream := std_output
             if file_tools.is_empty(output_path) then
                file_tools.delete(output_path)
+               if not file_tools.last_delete_succeeded then
+                  w_put_string(once "**** delete failed!%N")
+               end
             end
             output_state := state_on_output
             output_stream := std_output
@@ -181,12 +184,17 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
          -- while removing the file. Otherwise, do nothing.
       require
          path /= Void
+      local
+         ft: FILE_TOOLS
       do
-         if (create {FILE_TOOLS}).is_readable(path) then
+         if ft.is_readable(path) then
             put_string(once "Removing %"")
             put_string(path)
             put_string(once "%".%N")
-            (create {FILE_TOOLS}).delete(path)
+            ft.delete(path)
+            if not ft.last_delete_succeeded then
+               w_put_string(once "**** delete failed!%N")
+            end
          end
       ensure
          may_fail: True or not (create {FILE_TOOLS}).is_readable(path)
@@ -196,13 +204,18 @@ feature {ANY} -- To echo some additional information (echo is only done when `is
       require
          old_path /= Void
          new_path /= Void
+      local
+         ft: FILE_TOOLS
       do
          put_string(once "Renaming %"")
          put_string(old_path)
          put_string(once "%" as %"")
          put_string(new_path)
          put_string(once "%".%N")
-         (create {FILE_TOOLS}).rename_to(old_path, new_path)
+         ft.rename_to(old_path, new_path)
+         if not ft.last_rename_succeeded then
+            w_put_string(once "**** Renaming failed!%N")
+         end
       end
 
    tfw_connect (tfw: TEXT_FILE_WRITE; path: STRING)

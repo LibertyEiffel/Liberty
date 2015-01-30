@@ -50,7 +50,7 @@ while [ -n "$1" ]; do
 done
 
 if [[ ${#sections[@]} == 0 ]]; then
-    sections=(liberty libraries smarteiffel tutorial wrappers staging)
+    sections=(${!known_sections[@]})
 fi
 
 echo "Sections: ${sections[@]}"
@@ -58,10 +58,9 @@ echo "Sections: ${sections[@]}"
 root=$(cd $(dirname $(readlink -f $0))/..; pwd)
 DOC_ROOT=${DOC_ROOT:-$root/website/doc}
 export DOC_ROOT
-export LOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log}
+export SUMLOG=${LOG:-$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S').log}
 
-echo "Log is $LOG"
-SUMLOG=$LOG
+echo "Log is $SUMLOG"
 
 . $root/work/tools.sh
 
@@ -71,7 +70,7 @@ rm -rf $DOC_ROOT/build_doc-*.log $DOC_ROOT/api
 title Building
 
 set_sedoc_vars() {
-    for section in "${sections[@]}"; do
+    for section in "${!known_sections[@]}"; do
         echo sedoc_url_$section=http://doc.liberty-eiffel.org/api/$section
         remote=${known_sections[$section]}
         echo sedoc_rem_$section=$remote
@@ -84,10 +83,10 @@ n=$(typeset | grep ^sedoc_url_ | wc -l)
 tty=$(tty)
 
 index=0
-typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while read section; do
+for section in "${sections[@]}"; do
     echo -n $index $section
-    typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while read other; do
-        if [ $section != $other ]; then
+    set_sedoc_vars | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while read other; do
+        if [[ $section != $other ]]; then
             echo -n " -remote $(eval echo \$sedoc_rem_${other}) $(eval echo \$sedoc_url_${other})"
         fi
     done
@@ -96,6 +95,7 @@ typeset | grep ^sedoc_url_ | awk -F= '{print $1}' | awk -F_ '{print $3}' | while
 done | while read i section args; do
     export LOG=$DOC_ROOT/build_doc$(date +'-%Y%m%d-%H%M%S')_$section.log
     echo "Log for $section is $LOG" >> $SUMLOG
+    echo "Arguments for $section: $args" >> $LOG
 
     progress 30 $i $n $section
     s=$DOC_ROOT/api/$section
@@ -126,8 +126,9 @@ done | while read i section args; do
 
     grep '^se failed with status' $LOG >> $SUMLOG
 done
-LOG=$SUMLOG
-status=$(grep '^se failed with status' $LOG | awk 'BEGIN {i = 0} {if (NF > 0) {i += $NF} else {i++}} END {printf("%d\n", i)}')
+
+export LOG=$SUMLOG
+status=$(grep '^se failed with status' $SUMLOG | awk 'BEGIN {i = 0} {if (NF > 0) {i += $NF} else {i++}} END {printf("%d\n", i)}')
 progress 30 $n $n "Finished with status $status."
 echo
 exit $status

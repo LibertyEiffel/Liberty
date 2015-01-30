@@ -203,7 +203,7 @@ feature {}
             error_handler.print_as_fatal_error
          end
          ft.rename_to(file_path, backup_path)
-         if not ft.is_readable(backup_path) then
+         if not ft.last_rename_succeeded or else not ft.is_readable(backup_path) then
             error_handler.append(command_line_name)
             error_handler.append(once ": cannot rename %"")
             error_handler.append(file_path)

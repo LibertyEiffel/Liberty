@@ -86,17 +86,26 @@ feature {ANY}
       do
          if is_stream then
             tagged_out_memory.append(once "URL(stream)")
-         elseif protocol = Void then
+         else
+            append_in(tagged_out_memory)
+         end
+      end
+
+   append_in (s: STRING)
+      require
+         s /= Void
+      do
+         if protocol = Void then
             if uri = Void then
-               tagged_out_memory.append(once "URL(?)")
+               s.append(once "URL(?)")
             else
-               tagged_out_memory.append(uri.uri)
+               s.append(uri.uri)
             end
          else
-            tagged_out_memory.append(protocol.name)
-            tagged_out_memory.extend(':')
+            s.append(protocol.name)
+            s.extend(':')
             if uri /= Void then
-               tagged_out_memory.append(uri.uri)
+               s.append(uri.uri)
             end
          end
       end
