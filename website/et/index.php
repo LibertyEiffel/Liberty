@@ -269,8 +269,8 @@ $_SESSION['token_time'] = time();
 echo "<div class='hidden'>\n";
 echo "<form id='manual' method='POST' action='/'>\n";
 echo "<input type='hidden' name='token' value='" . $token . "'/>\n";
-echo "<input type='hidden' name='request_break' value='0'/>\n";
-echo "<input type='hidden' name='manual_request' value='0'/>\n";
+echo "<input type='hidden' name='request_break' value='1'/>\n";
+echo "<input type='hidden' name='manual_request' value='1'/>\n";
 echo "</form>\n";
 echo "</div>\n";
 
