@@ -21,7 +21,7 @@ include "$templates/head.html";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists("token", $_POST)) {
     if (array_key_exists("token", $_SESSION) && $_POST["token"] == $_SESSION['token']) {
-        if($_SESSION['token_time'] >= time() - (15*60)) {
+        if (time() <= $_SESSION['token_timeout']) {
             if (array_key_exists("manual_request", $_POST) && $_POST["manual_request"] == 1) {
                 file_put_contents($request, "new MANUAL request on " . date($dateFormat));
             } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
@@ -271,7 +271,7 @@ echo "<div class='actions header'>\n";
 
 $token = uniqid("", TRUE);
 $_SESSION['token'] = $token;
-$_SESSION['token_time'] = time();
+$_SESSION['token_timeout'] = time() + (15*60); // 15 minutes before time-out
 echo "<div class='hidden'>\n";
 echo "<form id='_manualRequestForm' method='POST' action='/'>\n";
 echo "<input type='hidden' name='token' value='" . $token . "'/>\n";
