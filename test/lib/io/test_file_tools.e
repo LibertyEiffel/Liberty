@@ -3,6 +3,9 @@
 --
 class TEST_FILE_TOOLS
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
@@ -15,7 +18,8 @@ feature {ANY}
       do
          path := "tmp657"
          if (create {FILE_TOOLS}).is_readable(path) then
-            (create {FILE_TOOLS}).delete(path)
+            ft.delete(path)
+            assert(ft.last_delete_succeeded)
          end
          assert(not (create {FILE_TOOLS}).is_readable(path))
          create tfw.connect_to(path)
@@ -23,7 +27,8 @@ feature {ANY}
          bt1 := file_tools.last_change_of(path)
          assert((create {FILE_TOOLS}).is_readable(path))
          assert(ft.is_empty(path))
-         (create {FILE_TOOLS}).delete(path)
+         ft.delete(path)
+         assert(ft.last_delete_succeeded)
          assert(not (create {FILE_TOOLS}).is_readable(path))
          create tfw.connect_to(path)
          tfw.put_string("Hello")
@@ -32,25 +37,11 @@ feature {ANY}
          assert(s = 5)
          bt2 := file_tools.last_change_of(path)
          assert(bt1.is_equal(bt2))
-         (create {FILE_TOOLS}).delete(path)
+         ft.delete(path)
+         assert(ft.last_delete_succeeded)
          create tif
          tif.set_time(bt1)
       end
-
-feature {}
-   assert (b: BOOLEAN)
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_FILE_TOOLS: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         else
-            -- std_output.put_string("Yes%N")
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_FILE_TOOLS
 --
