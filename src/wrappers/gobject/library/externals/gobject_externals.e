@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_compat_control (a_what: NATURAL; a_data: POINTER): NATURAL is
+	g_object_compat_control (a_what: like long_unsigned; a_data: POINTER): like long_unsigned is
  		-- g_object_compat_control
 		external "plug_in"
 		alias "{

@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_date_day_low_level)  or else
-				(a_value = g_date_month_low_level)  or else
-				(a_value = g_date_year_low_level) )
+            Result := ((a_value = day_low_level)  or else
+				(a_value = month_low_level)  or else
+				(a_value = year_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_date_day is
+	set_day is
 		do
-			value := g_date_day_low_level
+			value := day_low_level
 		end
 
-	set_g_date_month is
+	set_month is
 		do
-			value := g_date_month_low_level
+			value := month_low_level
 		end
 
-	set_g_date_year is
+	set_year is
 		do
-			value := g_date_year_low_level
+			value := year_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_date_day: BOOLEAN is
+	is_day: BOOLEAN is
 		do
-			Result := (value=g_date_day_low_level)
+			Result := (value=day_low_level)
 		end
 
-	is_g_date_month: BOOLEAN is
+	is_month: BOOLEAN is
 		do
-			Result := (value=g_date_month_low_level)
+			Result := (value=month_low_level)
 		end
 
-	is_g_date_year: BOOLEAN is
+	is_year: BOOLEAN is
 		do
-			Result := (value=g_date_year_low_level)
+			Result := (value=year_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_date_day_low_level: INTEGER is
+	day_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_date_month_low_level: INTEGER is
+	month_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_date_year_low_level: INTEGER is
+	year_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

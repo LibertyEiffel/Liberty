@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_int64 (a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_minimum: INTEGER_64; a_maximum: INTEGER_64; a_default_value: INTEGER_64; a_flags: INTEGER): POINTER is
+	g_param_spec_int64 (a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_minimum: like long; a_maximum: like long; a_default_value: like long; a_flags: INTEGER): POINTER is
  		-- g_param_spec_int64
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_param_spec_uint64 (a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_minimum: NATURAL_64; a_maximum: NATURAL_64; a_default_value: NATURAL_64; a_flags: INTEGER): POINTER is
+	g_param_spec_uint64 (a_name: POINTER; a_nick: POINTER; a_blurb: POINTER; a_minimum: like long_unsigned; a_maximum: like long_unsigned; a_default_value: like long_unsigned; a_flags: INTEGER): POINTER is
  		-- g_param_spec_uint64
 		external "plug_in"
 		alias "{

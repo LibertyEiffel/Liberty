@@ -9,79 +9,79 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_convert_error_bad_uri_low_level)  or else
-				(a_value = g_convert_error_failed_low_level)  or else
-				(a_value = g_convert_error_illegal_sequence_low_level)  or else
-				(a_value = g_convert_error_no_conversion_low_level)  or else
-				(a_value = g_convert_error_not_absolute_path_low_level)  or else
-				(a_value = g_convert_error_partial_input_low_level) )
+            Result := ((a_value = bad_uri_low_level)  or else
+				(a_value = failed_low_level)  or else
+				(a_value = illegal_sequence_low_level)  or else
+				(a_value = no_conversion_low_level)  or else
+				(a_value = not_absolute_path_low_level)  or else
+				(a_value = partial_input_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_convert_error_bad_uri is
+	set_bad_uri is
 		do
-			value := g_convert_error_bad_uri_low_level
+			value := bad_uri_low_level
 		end
 
-	set_g_convert_error_failed is
+	set_failed is
 		do
-			value := g_convert_error_failed_low_level
+			value := failed_low_level
 		end
 
-	set_g_convert_error_illegal_sequence is
+	set_illegal_sequence is
 		do
-			value := g_convert_error_illegal_sequence_low_level
+			value := illegal_sequence_low_level
 		end
 
-	set_g_convert_error_no_conversion is
+	set_no_conversion is
 		do
-			value := g_convert_error_no_conversion_low_level
+			value := no_conversion_low_level
 		end
 
-	set_g_convert_error_not_absolute_path is
+	set_not_absolute_path is
 		do
-			value := g_convert_error_not_absolute_path_low_level
+			value := not_absolute_path_low_level
 		end
 
-	set_g_convert_error_partial_input is
+	set_partial_input is
 		do
-			value := g_convert_error_partial_input_low_level
+			value := partial_input_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_convert_error_bad_uri: BOOLEAN is
+	is_bad_uri: BOOLEAN is
 		do
-			Result := (value=g_convert_error_bad_uri_low_level)
+			Result := (value=bad_uri_low_level)
 		end
 
-	is_g_convert_error_failed: BOOLEAN is
+	is_failed: BOOLEAN is
 		do
-			Result := (value=g_convert_error_failed_low_level)
+			Result := (value=failed_low_level)
 		end
 
-	is_g_convert_error_illegal_sequence: BOOLEAN is
+	is_illegal_sequence: BOOLEAN is
 		do
-			Result := (value=g_convert_error_illegal_sequence_low_level)
+			Result := (value=illegal_sequence_low_level)
 		end
 
-	is_g_convert_error_no_conversion: BOOLEAN is
+	is_no_conversion: BOOLEAN is
 		do
-			Result := (value=g_convert_error_no_conversion_low_level)
+			Result := (value=no_conversion_low_level)
 		end
 
-	is_g_convert_error_not_absolute_path: BOOLEAN is
+	is_not_absolute_path: BOOLEAN is
 		do
-			Result := (value=g_convert_error_not_absolute_path_low_level)
+			Result := (value=not_absolute_path_low_level)
 		end
 
-	is_g_convert_error_partial_input: BOOLEAN is
+	is_partial_input: BOOLEAN is
 		do
-			Result := (value=g_convert_error_partial_input_low_level)
+			Result := (value=partial_input_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_convert_error_bad_uri_low_level: INTEGER is
+	bad_uri_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_failed_low_level: INTEGER is
+	failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_illegal_sequence_low_level: INTEGER is
+	illegal_sequence_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_no_conversion_low_level: INTEGER is
+	no_conversion_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_not_absolute_path_low_level: INTEGER is
+	not_absolute_path_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_convert_error_partial_input_low_level: INTEGER is
+	partial_input_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

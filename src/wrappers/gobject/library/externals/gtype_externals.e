@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_add_class_private (a_class_type: like long_unsigned; a_private_size: NATURAL) is
+	g_type_add_class_private (a_class_type: like long_unsigned; a_private_size: like long_unsigned) is
  		-- g_type_add_class_private
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_type_class_add_private (a_g_class: POINTER; a_private_size: NATURAL) is
+	g_type_class_add_private (a_g_class: POINTER; a_private_size: like long_unsigned) is
  		-- g_type_class_add_private
 		external "plug_in"
 		alias "{
@@ -347,6 +347,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_type_get_qdata"
+		}"
+		end
+
+	g_type_get_type_registration_serial: NATURAL is
+ 		-- g_type_get_type_registration_serial
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_type_get_type_registration_serial()"
 		}"
 		end
 

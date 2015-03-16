@@ -9,112 +9,112 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_io_channel_error_failed_low_level)  or else
-				(a_value = g_io_channel_error_fbig_low_level)  or else
-				(a_value = g_io_channel_error_inval_low_level)  or else
-				(a_value = g_io_channel_error_io_low_level)  or else
-				(a_value = g_io_channel_error_isdir_low_level)  or else
-				(a_value = g_io_channel_error_nospc_low_level)  or else
-				(a_value = g_io_channel_error_nxio_low_level)  or else
-				(a_value = g_io_channel_error_overflow_low_level)  or else
-				(a_value = g_io_channel_error_pipe_low_level) )
+            Result := ((a_value = failed_low_level)  or else
+				(a_value = fbig_low_level)  or else
+				(a_value = inval_low_level)  or else
+				(a_value = io_low_level)  or else
+				(a_value = isdir_low_level)  or else
+				(a_value = nospc_low_level)  or else
+				(a_value = nxio_low_level)  or else
+				(a_value = overflow_low_level)  or else
+				(a_value = pipe_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_io_channel_error_failed is
+	set_failed is
 		do
-			value := g_io_channel_error_failed_low_level
+			value := failed_low_level
 		end
 
-	set_g_io_channel_error_fbig is
+	set_fbig is
 		do
-			value := g_io_channel_error_fbig_low_level
+			value := fbig_low_level
 		end
 
-	set_g_io_channel_error_inval is
+	set_inval is
 		do
-			value := g_io_channel_error_inval_low_level
+			value := inval_low_level
 		end
 
-	set_g_io_channel_error_io is
+	set_io is
 		do
-			value := g_io_channel_error_io_low_level
+			value := io_low_level
 		end
 
-	set_g_io_channel_error_isdir is
+	set_isdir is
 		do
-			value := g_io_channel_error_isdir_low_level
+			value := isdir_low_level
 		end
 
-	set_g_io_channel_error_nospc is
+	set_nospc is
 		do
-			value := g_io_channel_error_nospc_low_level
+			value := nospc_low_level
 		end
 
-	set_g_io_channel_error_nxio is
+	set_nxio is
 		do
-			value := g_io_channel_error_nxio_low_level
+			value := nxio_low_level
 		end
 
-	set_g_io_channel_error_overflow is
+	set_overflow is
 		do
-			value := g_io_channel_error_overflow_low_level
+			value := overflow_low_level
 		end
 
-	set_g_io_channel_error_pipe is
+	set_pipe is
 		do
-			value := g_io_channel_error_pipe_low_level
+			value := pipe_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_io_channel_error_failed: BOOLEAN is
+	is_failed: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_failed_low_level)
+			Result := (value=failed_low_level)
 		end
 
-	is_g_io_channel_error_fbig: BOOLEAN is
+	is_fbig: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_fbig_low_level)
+			Result := (value=fbig_low_level)
 		end
 
-	is_g_io_channel_error_inval: BOOLEAN is
+	is_inval: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_inval_low_level)
+			Result := (value=inval_low_level)
 		end
 
-	is_g_io_channel_error_io: BOOLEAN is
+	is_io: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_io_low_level)
+			Result := (value=io_low_level)
 		end
 
-	is_g_io_channel_error_isdir: BOOLEAN is
+	is_isdir: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_isdir_low_level)
+			Result := (value=isdir_low_level)
 		end
 
-	is_g_io_channel_error_nospc: BOOLEAN is
+	is_nospc: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_nospc_low_level)
+			Result := (value=nospc_low_level)
 		end
 
-	is_g_io_channel_error_nxio: BOOLEAN is
+	is_nxio: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_nxio_low_level)
+			Result := (value=nxio_low_level)
 		end
 
-	is_g_io_channel_error_overflow: BOOLEAN is
+	is_overflow: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_overflow_low_level)
+			Result := (value=overflow_low_level)
 		end
 
-	is_g_io_channel_error_pipe: BOOLEAN is
+	is_pipe: BOOLEAN is
 		do
-			Result := (value=g_io_channel_error_pipe_low_level)
+			Result := (value=pipe_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_io_channel_error_failed_low_level: INTEGER is
+	failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_fbig_low_level: INTEGER is
+	fbig_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_inval_low_level: INTEGER is
+	inval_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_io_low_level: INTEGER is
+	io_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_isdir_low_level: INTEGER is
+	isdir_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_nospc_low_level: INTEGER is
+	nospc_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_nxio_low_level: INTEGER is
+	nxio_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_overflow_low_level: INTEGER is
+	overflow_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_io_channel_error_pipe_low_level: INTEGER is
+	pipe_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

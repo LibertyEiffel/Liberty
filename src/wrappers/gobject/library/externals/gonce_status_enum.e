@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_once_status_notcalled_low_level)  or else
-				(a_value = g_once_status_progress_low_level)  or else
-				(a_value = g_once_status_ready_low_level) )
+            Result := ((a_value = notcalled_low_level)  or else
+				(a_value = progress_low_level)  or else
+				(a_value = ready_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_once_status_notcalled is
+	set_notcalled is
 		do
-			value := g_once_status_notcalled_low_level
+			value := notcalled_low_level
 		end
 
-	set_g_once_status_progress is
+	set_progress is
 		do
-			value := g_once_status_progress_low_level
+			value := progress_low_level
 		end
 
-	set_g_once_status_ready is
+	set_ready is
 		do
-			value := g_once_status_ready_low_level
+			value := ready_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_once_status_notcalled: BOOLEAN is
+	is_notcalled: BOOLEAN is
 		do
-			Result := (value=g_once_status_notcalled_low_level)
+			Result := (value=notcalled_low_level)
 		end
 
-	is_g_once_status_progress: BOOLEAN is
+	is_progress: BOOLEAN is
 		do
-			Result := (value=g_once_status_progress_low_level)
+			Result := (value=progress_low_level)
 		end
 
-	is_g_once_status_ready: BOOLEAN is
+	is_ready: BOOLEAN is
 		do
-			Result := (value=g_once_status_ready_low_level)
+			Result := (value=ready_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_once_status_notcalled_low_level: INTEGER is
+	notcalled_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_once_status_progress_low_level: INTEGER is
+	progress_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_once_status_ready_low_level: INTEGER is
+	ready_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

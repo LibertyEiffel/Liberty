@@ -9,141 +9,157 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (g_signal_action_low_level | 
-				g_signal_detailed_low_level | 
-				g_signal_must_collect_low_level | 
-				g_signal_no_hooks_low_level | 
-				g_signal_no_recurse_low_level | 
-				g_signal_run_cleanup_low_level | 
-				g_signal_run_first_low_level | 
-				g_signal_run_last_low_level)).to_boolean
+            Result := (a_value & (action_low_level | 
+				deprecated_low_level | 
+				detailed_low_level | 
+				must_collect_low_level | 
+				no_hooks_low_level | 
+				no_recurse_low_level | 
+				run_cleanup_low_level | 
+				run_first_low_level | 
+				run_last_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_signal_action is
+	set_action is
 		do
-			value := value.bit_or(g_signal_action_low_level)
+			value := value.bit_or(action_low_level)
 		end
 
-	unset_g_signal_action is
+	unset_action is
 		do
-			value := value.bit_xor(g_signal_action_low_level)
+			value := value.bit_xor(action_low_level)
 		end
 
-	set_g_signal_detailed is
+	set_deprecated is
 		do
-			value := value.bit_or(g_signal_detailed_low_level)
+			value := value.bit_or(deprecated_low_level)
 		end
 
-	unset_g_signal_detailed is
+	unset_deprecated is
 		do
-			value := value.bit_xor(g_signal_detailed_low_level)
+			value := value.bit_xor(deprecated_low_level)
 		end
 
-	set_g_signal_must_collect is
+	set_detailed is
 		do
-			value := value.bit_or(g_signal_must_collect_low_level)
+			value := value.bit_or(detailed_low_level)
 		end
 
-	unset_g_signal_must_collect is
+	unset_detailed is
 		do
-			value := value.bit_xor(g_signal_must_collect_low_level)
+			value := value.bit_xor(detailed_low_level)
 		end
 
-	set_g_signal_no_hooks is
+	set_must_collect is
 		do
-			value := value.bit_or(g_signal_no_hooks_low_level)
+			value := value.bit_or(must_collect_low_level)
 		end
 
-	unset_g_signal_no_hooks is
+	unset_must_collect is
 		do
-			value := value.bit_xor(g_signal_no_hooks_low_level)
+			value := value.bit_xor(must_collect_low_level)
 		end
 
-	set_g_signal_no_recurse is
+	set_no_hooks is
 		do
-			value := value.bit_or(g_signal_no_recurse_low_level)
+			value := value.bit_or(no_hooks_low_level)
 		end
 
-	unset_g_signal_no_recurse is
+	unset_no_hooks is
 		do
-			value := value.bit_xor(g_signal_no_recurse_low_level)
+			value := value.bit_xor(no_hooks_low_level)
 		end
 
-	set_g_signal_run_cleanup is
+	set_no_recurse is
 		do
-			value := value.bit_or(g_signal_run_cleanup_low_level)
+			value := value.bit_or(no_recurse_low_level)
 		end
 
-	unset_g_signal_run_cleanup is
+	unset_no_recurse is
 		do
-			value := value.bit_xor(g_signal_run_cleanup_low_level)
+			value := value.bit_xor(no_recurse_low_level)
 		end
 
-	set_g_signal_run_first is
+	set_run_cleanup is
 		do
-			value := value.bit_or(g_signal_run_first_low_level)
+			value := value.bit_or(run_cleanup_low_level)
 		end
 
-	unset_g_signal_run_first is
+	unset_run_cleanup is
 		do
-			value := value.bit_xor(g_signal_run_first_low_level)
+			value := value.bit_xor(run_cleanup_low_level)
 		end
 
-	set_g_signal_run_last is
+	set_run_first is
 		do
-			value := value.bit_or(g_signal_run_last_low_level)
+			value := value.bit_or(run_first_low_level)
 		end
 
-	unset_g_signal_run_last is
+	unset_run_first is
 		do
-			value := value.bit_xor(g_signal_run_last_low_level)
+			value := value.bit_xor(run_first_low_level)
+		end
+
+	set_run_last is
+		do
+			value := value.bit_or(run_last_low_level)
+		end
+
+	unset_run_last is
+		do
+			value := value.bit_xor(run_last_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_signal_action: BOOLEAN is
+	is_action: BOOLEAN is
 		do
-			Result := (value=g_signal_action_low_level)
+			Result := (value=action_low_level)
 		end
 
-	is_g_signal_detailed: BOOLEAN is
+	is_deprecated: BOOLEAN is
 		do
-			Result := (value=g_signal_detailed_low_level)
+			Result := (value=deprecated_low_level)
 		end
 
-	is_g_signal_must_collect: BOOLEAN is
+	is_detailed: BOOLEAN is
 		do
-			Result := (value=g_signal_must_collect_low_level)
+			Result := (value=detailed_low_level)
 		end
 
-	is_g_signal_no_hooks: BOOLEAN is
+	is_must_collect: BOOLEAN is
 		do
-			Result := (value=g_signal_no_hooks_low_level)
+			Result := (value=must_collect_low_level)
 		end
 
-	is_g_signal_no_recurse: BOOLEAN is
+	is_no_hooks: BOOLEAN is
 		do
-			Result := (value=g_signal_no_recurse_low_level)
+			Result := (value=no_hooks_low_level)
 		end
 
-	is_g_signal_run_cleanup: BOOLEAN is
+	is_no_recurse: BOOLEAN is
 		do
-			Result := (value=g_signal_run_cleanup_low_level)
+			Result := (value=no_recurse_low_level)
 		end
 
-	is_g_signal_run_first: BOOLEAN is
+	is_run_cleanup: BOOLEAN is
 		do
-			Result := (value=g_signal_run_first_low_level)
+			Result := (value=run_cleanup_low_level)
 		end
 
-	is_g_signal_run_last: BOOLEAN is
+	is_run_first: BOOLEAN is
 		do
-			Result := (value=g_signal_run_last_low_level)
+			Result := (value=run_first_low_level)
+		end
+
+	is_run_last: BOOLEAN is
+		do
+			Result := (value=run_last_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_signal_action_low_level: INTEGER is
+	action_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +168,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_detailed_low_level: INTEGER is
+	deprecated_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_SIGNAL_DEPRECATED"
+ 			}"
+ 		end
+
+	detailed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_must_collect_low_level: INTEGER is
+	must_collect_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +195,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_no_hooks_low_level: INTEGER is
+	no_hooks_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +204,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_no_recurse_low_level: INTEGER is
+	no_recurse_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,7 +213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_run_cleanup_low_level: INTEGER is
+	run_cleanup_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -197,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_run_first_low_level: INTEGER is
+	run_first_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -206,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_signal_run_last_low_level: INTEGER is
+	run_last_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

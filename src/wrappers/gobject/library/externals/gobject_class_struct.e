@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gobject_class_struct_set_flags (a_structure: POINTER; a_value: NATURAL) is
+	gobject_class_struct_set_flags (a_structure: POINTER; a_value: like long_unsigned) is
 			-- Setter for flags field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: setter description
 
@@ -251,7 +251,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gobject_class_struct_get_flags (a_structure: POINTER): NATURAL is
+	gobject_class_struct_get_flags (a_structure: POINTER): like long_unsigned is
 			-- Query for flags field of GOBJECT_CLASS_STRUCT structure.
 			-- TODO: getter description
 

@@ -9,45 +9,61 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := (a_value & (g_markup_do_not_use_this_unsupported_flag_low_level | 
-				g_markup_treat_cdata_as_text_low_level)).to_boolean
+            Result := (a_value & (do_not_use_this_unsupported_flag_low_level | 
+				prefix_error_position_low_level | 
+				treat_cdata_as_text_low_level)).to_boolean
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_markup_do_not_use_this_unsupported_flag is
+	set_do_not_use_this_unsupported_flag is
 		do
-			value := value.bit_or(g_markup_do_not_use_this_unsupported_flag_low_level)
+			value := value.bit_or(do_not_use_this_unsupported_flag_low_level)
 		end
 
-	unset_g_markup_do_not_use_this_unsupported_flag is
+	unset_do_not_use_this_unsupported_flag is
 		do
-			value := value.bit_xor(g_markup_do_not_use_this_unsupported_flag_low_level)
+			value := value.bit_xor(do_not_use_this_unsupported_flag_low_level)
 		end
 
-	set_g_markup_treat_cdata_as_text is
+	set_prefix_error_position is
 		do
-			value := value.bit_or(g_markup_treat_cdata_as_text_low_level)
+			value := value.bit_or(prefix_error_position_low_level)
 		end
 
-	unset_g_markup_treat_cdata_as_text is
+	unset_prefix_error_position is
 		do
-			value := value.bit_xor(g_markup_treat_cdata_as_text_low_level)
+			value := value.bit_xor(prefix_error_position_low_level)
+		end
+
+	set_treat_cdata_as_text is
+		do
+			value := value.bit_or(treat_cdata_as_text_low_level)
+		end
+
+	unset_treat_cdata_as_text is
+		do
+			value := value.bit_xor(treat_cdata_as_text_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_g_markup_do_not_use_this_unsupported_flag: BOOLEAN is
+	is_do_not_use_this_unsupported_flag: BOOLEAN is
 		do
-			Result := (value=g_markup_do_not_use_this_unsupported_flag_low_level)
+			Result := (value=do_not_use_this_unsupported_flag_low_level)
 		end
 
-	is_g_markup_treat_cdata_as_text: BOOLEAN is
+	is_prefix_error_position: BOOLEAN is
 		do
-			Result := (value=g_markup_treat_cdata_as_text_low_level)
+			Result := (value=prefix_error_position_low_level)
+		end
+
+	is_treat_cdata_as_text: BOOLEAN is
+		do
+			Result := (value=treat_cdata_as_text_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_markup_do_not_use_this_unsupported_flag_low_level: INTEGER is
+	do_not_use_this_unsupported_flag_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -56,7 +72,16 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_markup_treat_cdata_as_text_low_level: INTEGER is
+	prefix_error_position_low_level: INTEGER is
+		external "plug_in"
+ 		alias "{
+ 			location: "."
+ 			module: "plugin"
+ 			feature_name: "G_MARKUP_PREFIX_ERROR_POSITION"
+ 			}"
+ 		end
+
+	treat_cdata_as_text_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

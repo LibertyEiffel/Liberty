@@ -9,79 +9,79 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_traverse_all_low_level)  or else
-				(a_value = g_traverse_leafs_low_level)  or else
-				(a_value = g_traverse_leaves_low_level)  or else
-				(a_value = g_traverse_mask_low_level)  or else
-				(a_value = g_traverse_non_leafs_low_level)  or else
-				(a_value = g_traverse_non_leaves_low_level) )
+            Result := ((a_value = all_low_level)  or else
+				(a_value = leafs_low_level)  or else
+				(a_value = leaves_low_level)  or else
+				(a_value = mask_low_level)  or else
+				(a_value = non_leafs_low_level)  or else
+				(a_value = non_leaves_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_traverse_all is
+	set_all is
 		do
-			value := g_traverse_all_low_level
+			value := all_low_level
 		end
 
-	set_g_traverse_leafs is
+	set_leafs is
 		do
-			value := g_traverse_leafs_low_level
+			value := leafs_low_level
 		end
 
-	set_g_traverse_leaves is
+	set_leaves is
 		do
-			value := g_traverse_leaves_low_level
+			value := leaves_low_level
 		end
 
-	set_g_traverse_mask is
+	set_mask is
 		do
-			value := g_traverse_mask_low_level
+			value := mask_low_level
 		end
 
-	set_g_traverse_non_leafs is
+	set_non_leafs is
 		do
-			value := g_traverse_non_leafs_low_level
+			value := non_leafs_low_level
 		end
 
-	set_g_traverse_non_leaves is
+	set_non_leaves is
 		do
-			value := g_traverse_non_leaves_low_level
+			value := non_leaves_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_traverse_all: BOOLEAN is
+	is_all: BOOLEAN is
 		do
-			Result := (value=g_traverse_all_low_level)
+			Result := (value=all_low_level)
 		end
 
-	is_g_traverse_leafs: BOOLEAN is
+	is_leafs: BOOLEAN is
 		do
-			Result := (value=g_traverse_leafs_low_level)
+			Result := (value=leafs_low_level)
 		end
 
-	is_g_traverse_leaves: BOOLEAN is
+	is_leaves: BOOLEAN is
 		do
-			Result := (value=g_traverse_leaves_low_level)
+			Result := (value=leaves_low_level)
 		end
 
-	is_g_traverse_mask: BOOLEAN is
+	is_mask: BOOLEAN is
 		do
-			Result := (value=g_traverse_mask_low_level)
+			Result := (value=mask_low_level)
 		end
 
-	is_g_traverse_non_leafs: BOOLEAN is
+	is_non_leafs: BOOLEAN is
 		do
-			Result := (value=g_traverse_non_leafs_low_level)
+			Result := (value=non_leafs_low_level)
 		end
 
-	is_g_traverse_non_leaves: BOOLEAN is
+	is_non_leaves: BOOLEAN is
 		do
-			Result := (value=g_traverse_non_leaves_low_level)
+			Result := (value=non_leaves_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_traverse_all_low_level: INTEGER is
+	all_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_leafs_low_level: INTEGER is
+	leafs_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_leaves_low_level: INTEGER is
+	leaves_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_mask_low_level: INTEGER is
+	mask_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_non_leafs_low_level: INTEGER is
+	non_leafs_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_traverse_non_leaves_low_level: INTEGER is
+	non_leaves_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

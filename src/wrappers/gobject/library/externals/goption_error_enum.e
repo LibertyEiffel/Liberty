@@ -9,46 +9,46 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_option_error_bad_value_low_level)  or else
-				(a_value = g_option_error_failed_low_level)  or else
-				(a_value = g_option_error_unknown_option_low_level) )
+            Result := ((a_value = bad_value_low_level)  or else
+				(a_value = failed_low_level)  or else
+				(a_value = unknown_option_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_option_error_bad_value is
+	set_bad_value is
 		do
-			value := g_option_error_bad_value_low_level
+			value := bad_value_low_level
 		end
 
-	set_g_option_error_failed is
+	set_failed is
 		do
-			value := g_option_error_failed_low_level
+			value := failed_low_level
 		end
 
-	set_g_option_error_unknown_option is
+	set_unknown_option is
 		do
-			value := g_option_error_unknown_option_low_level
+			value := unknown_option_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_option_error_bad_value: BOOLEAN is
+	is_bad_value: BOOLEAN is
 		do
-			Result := (value=g_option_error_bad_value_low_level)
+			Result := (value=bad_value_low_level)
 		end
 
-	is_g_option_error_failed: BOOLEAN is
+	is_failed: BOOLEAN is
 		do
-			Result := (value=g_option_error_failed_low_level)
+			Result := (value=failed_low_level)
 		end
 
-	is_g_option_error_unknown_option: BOOLEAN is
+	is_unknown_option: BOOLEAN is
 		do
-			Result := (value=g_option_error_unknown_option_low_level)
+			Result := (value=unknown_option_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_option_error_bad_value_low_level: INTEGER is
+	bad_value_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_error_failed_low_level: INTEGER is
+	failed_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_option_error_unknown_option_low_level: INTEGER is
+	unknown_option_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

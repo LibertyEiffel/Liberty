@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_binding_bidirectional_low_level)  or else
-				(a_value = g_binding_default_low_level)  or else
-				(a_value = g_binding_invert_boolean_low_level)  or else
-				(a_value = g_binding_sync_create_low_level) )
+            Result := ((a_value = bidirectional_low_level)  or else
+				(a_value = default_external_low_level)  or else
+				(a_value = invert_boolean_low_level)  or else
+				(a_value = sync_create_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_binding_bidirectional is
+	set_bidirectional is
 		do
-			value := g_binding_bidirectional_low_level
+			value := bidirectional_low_level
 		end
 
-	set_g_binding_default is
+	set_default_external is
 		do
-			value := g_binding_default_low_level
+			value := default_external_low_level
 		end
 
-	set_g_binding_invert_boolean is
+	set_invert_boolean is
 		do
-			value := g_binding_invert_boolean_low_level
+			value := invert_boolean_low_level
 		end
 
-	set_g_binding_sync_create is
+	set_sync_create is
 		do
-			value := g_binding_sync_create_low_level
+			value := sync_create_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_binding_bidirectional: BOOLEAN is
+	is_bidirectional: BOOLEAN is
 		do
-			Result := (value=g_binding_bidirectional_low_level)
+			Result := (value=bidirectional_low_level)
 		end
 
-	is_g_binding_default: BOOLEAN is
+	is_default_external: BOOLEAN is
 		do
-			Result := (value=g_binding_default_low_level)
+			Result := (value=default_external_low_level)
 		end
 
-	is_g_binding_invert_boolean: BOOLEAN is
+	is_invert_boolean: BOOLEAN is
 		do
-			Result := (value=g_binding_invert_boolean_low_level)
+			Result := (value=invert_boolean_low_level)
 		end
 
-	is_g_binding_sync_create: BOOLEAN is
+	is_sync_create: BOOLEAN is
 		do
-			Result := (value=g_binding_sync_create_low_level)
+			Result := (value=sync_create_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_binding_bidirectional_low_level: INTEGER is
+	bidirectional_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_default_low_level: INTEGER is
+	default_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_invert_boolean_low_level: INTEGER is
+	invert_boolean_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_binding_sync_create_low_level: INTEGER is
+	sync_create_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

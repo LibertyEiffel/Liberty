@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_int64 (a_value: POINTER): INTEGER_64 is
+	g_value_get_int64 (a_value: POINTER): like long is
  		-- g_value_get_int64
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_get_uint64 (a_value: POINTER): NATURAL_64 is
+	g_value_get_uint64 (a_value: POINTER): like long_unsigned is
  		-- g_value_get_uint64
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_int64 (a_value: POINTER; a_v_int64: INTEGER_64) is
+	g_value_set_int64 (a_value: POINTER; a_v_int64: like long) is
  		-- g_value_set_int64
 		external "plug_in"
 		alias "{
@@ -369,7 +369,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_set_uint64 (a_value: POINTER; a_v_uint64: NATURAL_64) is
+	g_value_set_uint64 (a_value: POINTER; a_v_uint64: like long_unsigned) is
  		-- g_value_set_uint64
 		external "plug_in"
 		alias "{

@@ -39,6 +39,16 @@ feature {} -- External calls
 		}"
 		end
 
+	g_checksum_get_type: like long_unsigned is
+ 		-- g_checksum_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_checksum_get_type()"
+		}"
+		end
+
 	g_date_get_type: like long_unsigned is
  		-- g_date_get_type
 		external "plug_in"
@@ -139,6 +149,16 @@ feature {} -- External calls
 		}"
 		end
 
+	g_markup_parse_context_get_type: like long_unsigned is
+ 		-- g_markup_parse_context_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_markup_parse_context_get_type()"
+		}"
+		end
+
 	g_match_info_get_type: like long_unsigned is
  		-- g_match_info_get_type
 		external "plug_in"
@@ -146,6 +166,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_match_info_get_type()"
+		}"
+		end
+
+	g_pollfd_get_type: like long_unsigned is
+ 		-- g_pollfd_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_pollfd_get_type()"
 		}"
 		end
 
@@ -186,6 +216,16 @@ feature {} -- External calls
 			location: "."
 			module_name: "plugin"
 			feature_name: "g_strv_get_type()"
+		}"
+		end
+
+	g_thread_get_type: like long_unsigned is
+ 		-- g_thread_get_type
+		external "plug_in"
+		alias "{
+			location: "."
+			module_name: "plugin"
+			feature_name: "g_thread_get_type()"
 		}"
 		end
 

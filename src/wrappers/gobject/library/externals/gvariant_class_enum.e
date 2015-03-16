@@ -9,211 +9,211 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_variant_class_array_low_level)  or else
-				(a_value = g_variant_class_boolean_low_level)  or else
-				(a_value = g_variant_class_byte_low_level)  or else
-				(a_value = g_variant_class_dict_entry_low_level)  or else
-				(a_value = g_variant_class_double_low_level)  or else
-				(a_value = g_variant_class_handle_low_level)  or else
-				(a_value = g_variant_class_int16_low_level)  or else
-				(a_value = g_variant_class_int32_low_level)  or else
-				(a_value = g_variant_class_int64_low_level)  or else
-				(a_value = g_variant_class_maybe_low_level)  or else
-				(a_value = g_variant_class_object_path_low_level)  or else
-				(a_value = g_variant_class_signature_low_level)  or else
-				(a_value = g_variant_class_string_low_level)  or else
-				(a_value = g_variant_class_tuple_low_level)  or else
-				(a_value = g_variant_class_uint16_low_level)  or else
-				(a_value = g_variant_class_uint32_low_level)  or else
-				(a_value = g_variant_class_uint64_low_level)  or else
-				(a_value = g_variant_class_variant_low_level) )
+            Result := ((a_value = array_low_level)  or else
+				(a_value = boolean_low_level)  or else
+				(a_value = byte_low_level)  or else
+				(a_value = dict_entry_low_level)  or else
+				(a_value = double_low_level)  or else
+				(a_value = handle_low_level)  or else
+				(a_value = int16_low_level)  or else
+				(a_value = int32_low_level)  or else
+				(a_value = int64_low_level)  or else
+				(a_value = maybe_low_level)  or else
+				(a_value = object_path_low_level)  or else
+				(a_value = signature_low_level)  or else
+				(a_value = string_low_level)  or else
+				(a_value = tuple_low_level)  or else
+				(a_value = uint16_low_level)  or else
+				(a_value = uint32_low_level)  or else
+				(a_value = uint64_low_level)  or else
+				(a_value = variant_external_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_variant_class_array is
+	set_array is
 		do
-			value := g_variant_class_array_low_level
+			value := array_low_level
 		end
 
-	set_g_variant_class_boolean is
+	set_boolean is
 		do
-			value := g_variant_class_boolean_low_level
+			value := boolean_low_level
 		end
 
-	set_g_variant_class_byte is
+	set_byte is
 		do
-			value := g_variant_class_byte_low_level
+			value := byte_low_level
 		end
 
-	set_g_variant_class_dict_entry is
+	set_dict_entry is
 		do
-			value := g_variant_class_dict_entry_low_level
+			value := dict_entry_low_level
 		end
 
-	set_g_variant_class_double is
+	set_double is
 		do
-			value := g_variant_class_double_low_level
+			value := double_low_level
 		end
 
-	set_g_variant_class_handle is
+	set_handle is
 		do
-			value := g_variant_class_handle_low_level
+			value := handle_low_level
 		end
 
-	set_g_variant_class_int16 is
+	set_int16 is
 		do
-			value := g_variant_class_int16_low_level
+			value := int16_low_level
 		end
 
-	set_g_variant_class_int32 is
+	set_int32 is
 		do
-			value := g_variant_class_int32_low_level
+			value := int32_low_level
 		end
 
-	set_g_variant_class_int64 is
+	set_int64 is
 		do
-			value := g_variant_class_int64_low_level
+			value := int64_low_level
 		end
 
-	set_g_variant_class_maybe is
+	set_maybe is
 		do
-			value := g_variant_class_maybe_low_level
+			value := maybe_low_level
 		end
 
-	set_g_variant_class_object_path is
+	set_object_path is
 		do
-			value := g_variant_class_object_path_low_level
+			value := object_path_low_level
 		end
 
-	set_g_variant_class_signature is
+	set_signature is
 		do
-			value := g_variant_class_signature_low_level
+			value := signature_low_level
 		end
 
-	set_g_variant_class_string is
+	set_string is
 		do
-			value := g_variant_class_string_low_level
+			value := string_low_level
 		end
 
-	set_g_variant_class_tuple is
+	set_tuple is
 		do
-			value := g_variant_class_tuple_low_level
+			value := tuple_low_level
 		end
 
-	set_g_variant_class_uint16 is
+	set_uint16 is
 		do
-			value := g_variant_class_uint16_low_level
+			value := uint16_low_level
 		end
 
-	set_g_variant_class_uint32 is
+	set_uint32 is
 		do
-			value := g_variant_class_uint32_low_level
+			value := uint32_low_level
 		end
 
-	set_g_variant_class_uint64 is
+	set_uint64 is
 		do
-			value := g_variant_class_uint64_low_level
+			value := uint64_low_level
 		end
 
-	set_g_variant_class_variant is
+	set_variant_external is
 		do
-			value := g_variant_class_variant_low_level
+			value := variant_external_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_variant_class_array: BOOLEAN is
+	is_array: BOOLEAN is
 		do
-			Result := (value=g_variant_class_array_low_level)
+			Result := (value=array_low_level)
 		end
 
-	is_g_variant_class_boolean: BOOLEAN is
+	is_boolean: BOOLEAN is
 		do
-			Result := (value=g_variant_class_boolean_low_level)
+			Result := (value=boolean_low_level)
 		end
 
-	is_g_variant_class_byte: BOOLEAN is
+	is_byte: BOOLEAN is
 		do
-			Result := (value=g_variant_class_byte_low_level)
+			Result := (value=byte_low_level)
 		end
 
-	is_g_variant_class_dict_entry: BOOLEAN is
+	is_dict_entry: BOOLEAN is
 		do
-			Result := (value=g_variant_class_dict_entry_low_level)
+			Result := (value=dict_entry_low_level)
 		end
 
-	is_g_variant_class_double: BOOLEAN is
+	is_double: BOOLEAN is
 		do
-			Result := (value=g_variant_class_double_low_level)
+			Result := (value=double_low_level)
 		end
 
-	is_g_variant_class_handle: BOOLEAN is
+	is_handle: BOOLEAN is
 		do
-			Result := (value=g_variant_class_handle_low_level)
+			Result := (value=handle_low_level)
 		end
 
-	is_g_variant_class_int16: BOOLEAN is
+	is_int16: BOOLEAN is
 		do
-			Result := (value=g_variant_class_int16_low_level)
+			Result := (value=int16_low_level)
 		end
 
-	is_g_variant_class_int32: BOOLEAN is
+	is_int32: BOOLEAN is
 		do
-			Result := (value=g_variant_class_int32_low_level)
+			Result := (value=int32_low_level)
 		end
 
-	is_g_variant_class_int64: BOOLEAN is
+	is_int64: BOOLEAN is
 		do
-			Result := (value=g_variant_class_int64_low_level)
+			Result := (value=int64_low_level)
 		end
 
-	is_g_variant_class_maybe: BOOLEAN is
+	is_maybe: BOOLEAN is
 		do
-			Result := (value=g_variant_class_maybe_low_level)
+			Result := (value=maybe_low_level)
 		end
 
-	is_g_variant_class_object_path: BOOLEAN is
+	is_object_path: BOOLEAN is
 		do
-			Result := (value=g_variant_class_object_path_low_level)
+			Result := (value=object_path_low_level)
 		end
 
-	is_g_variant_class_signature: BOOLEAN is
+	is_signature: BOOLEAN is
 		do
-			Result := (value=g_variant_class_signature_low_level)
+			Result := (value=signature_low_level)
 		end
 
-	is_g_variant_class_string: BOOLEAN is
+	is_string: BOOLEAN is
 		do
-			Result := (value=g_variant_class_string_low_level)
+			Result := (value=string_low_level)
 		end
 
-	is_g_variant_class_tuple: BOOLEAN is
+	is_tuple: BOOLEAN is
 		do
-			Result := (value=g_variant_class_tuple_low_level)
+			Result := (value=tuple_low_level)
 		end
 
-	is_g_variant_class_uint16: BOOLEAN is
+	is_uint16: BOOLEAN is
 		do
-			Result := (value=g_variant_class_uint16_low_level)
+			Result := (value=uint16_low_level)
 		end
 
-	is_g_variant_class_uint32: BOOLEAN is
+	is_uint32: BOOLEAN is
 		do
-			Result := (value=g_variant_class_uint32_low_level)
+			Result := (value=uint32_low_level)
 		end
 
-	is_g_variant_class_uint64: BOOLEAN is
+	is_uint64: BOOLEAN is
 		do
-			Result := (value=g_variant_class_uint64_low_level)
+			Result := (value=uint64_low_level)
 		end
 
-	is_g_variant_class_variant: BOOLEAN is
+	is_variant_external: BOOLEAN is
 		do
-			Result := (value=g_variant_class_variant_low_level)
+			Result := (value=variant_external_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_variant_class_array_low_level: INTEGER is
+	array_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_boolean_low_level: INTEGER is
+	boolean_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_byte_low_level: INTEGER is
+	byte_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_dict_entry_low_level: INTEGER is
+	dict_entry_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_double_low_level: INTEGER is
+	double_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_handle_low_level: INTEGER is
+	handle_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -267,7 +267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_int16_low_level: INTEGER is
+	int16_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -276,7 +276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_int32_low_level: INTEGER is
+	int32_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -285,7 +285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_int64_low_level: INTEGER is
+	int64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_maybe_low_level: INTEGER is
+	maybe_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -303,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_object_path_low_level: INTEGER is
+	object_path_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -312,7 +312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_signature_low_level: INTEGER is
+	signature_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -321,7 +321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_string_low_level: INTEGER is
+	string_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_tuple_low_level: INTEGER is
+	tuple_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_uint16_low_level: INTEGER is
+	uint16_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_uint32_low_level: INTEGER is
+	uint32_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -357,7 +357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_uint64_low_level: INTEGER is
+	uint64_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -366,7 +366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_variant_class_variant_low_level: INTEGER is
+	variant_external_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

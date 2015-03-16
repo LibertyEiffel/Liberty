@@ -9,57 +9,57 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_in_order_low_level)  or else
-				(a_value = g_level_order_low_level)  or else
-				(a_value = g_post_order_low_level)  or else
-				(a_value = g_pre_order_low_level) )
+            Result := ((a_value = in_order_low_level)  or else
+				(a_value = level_order_low_level)  or else
+				(a_value = post_order_low_level)  or else
+				(a_value = pre_order_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_in_order is
+	set_in_order is
 		do
-			value := g_in_order_low_level
+			value := in_order_low_level
 		end
 
-	set_g_level_order is
+	set_level_order is
 		do
-			value := g_level_order_low_level
+			value := level_order_low_level
 		end
 
-	set_g_post_order is
+	set_post_order is
 		do
-			value := g_post_order_low_level
+			value := post_order_low_level
 		end
 
-	set_g_pre_order is
+	set_pre_order is
 		do
-			value := g_pre_order_low_level
+			value := pre_order_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_in_order: BOOLEAN is
+	is_in_order: BOOLEAN is
 		do
-			Result := (value=g_in_order_low_level)
+			Result := (value=in_order_low_level)
 		end
 
-	is_g_level_order: BOOLEAN is
+	is_level_order: BOOLEAN is
 		do
-			Result := (value=g_level_order_low_level)
+			Result := (value=level_order_low_level)
 		end
 
-	is_g_post_order: BOOLEAN is
+	is_post_order: BOOLEAN is
 		do
-			Result := (value=g_post_order_low_level)
+			Result := (value=post_order_low_level)
 		end
 
-	is_g_pre_order: BOOLEAN is
+	is_pre_order: BOOLEAN is
 		do
-			Result := (value=g_pre_order_low_level)
+			Result := (value=pre_order_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_in_order_low_level: INTEGER is
+	in_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_level_order_low_level: INTEGER is
+	level_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_post_order_low_level: INTEGER is
+	post_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_pre_order_low_level: INTEGER is
+	pre_order_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."

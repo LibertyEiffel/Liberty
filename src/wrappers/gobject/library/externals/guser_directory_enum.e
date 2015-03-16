@@ -9,112 +9,112 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN is
         do
-            Result := ((a_value = g_user_directory_desktop_low_level)  or else
-				(a_value = g_user_directory_documents_low_level)  or else
-				(a_value = g_user_directory_download_low_level)  or else
-				(a_value = g_user_directory_music_low_level)  or else
-				(a_value = g_user_directory_pictures_low_level)  or else
-				(a_value = g_user_directory_public_share_low_level)  or else
-				(a_value = g_user_directory_templates_low_level)  or else
-				(a_value = g_user_directory_videos_low_level)  or else
-				(a_value = g_user_n_directories_low_level) )
+            Result := ((a_value = directory_desktop_low_level)  or else
+				(a_value = directory_documents_low_level)  or else
+				(a_value = directory_download_low_level)  or else
+				(a_value = directory_music_low_level)  or else
+				(a_value = directory_pictures_low_level)  or else
+				(a_value = directory_public_share_low_level)  or else
+				(a_value = directory_templates_low_level)  or else
+				(a_value = directory_videos_low_level)  or else
+				(a_value = n_directories_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_g_user_directory_desktop is
+	set_directory_desktop is
 		do
-			value := g_user_directory_desktop_low_level
+			value := directory_desktop_low_level
 		end
 
-	set_g_user_directory_documents is
+	set_directory_documents is
 		do
-			value := g_user_directory_documents_low_level
+			value := directory_documents_low_level
 		end
 
-	set_g_user_directory_download is
+	set_directory_download is
 		do
-			value := g_user_directory_download_low_level
+			value := directory_download_low_level
 		end
 
-	set_g_user_directory_music is
+	set_directory_music is
 		do
-			value := g_user_directory_music_low_level
+			value := directory_music_low_level
 		end
 
-	set_g_user_directory_pictures is
+	set_directory_pictures is
 		do
-			value := g_user_directory_pictures_low_level
+			value := directory_pictures_low_level
 		end
 
-	set_g_user_directory_public_share is
+	set_directory_public_share is
 		do
-			value := g_user_directory_public_share_low_level
+			value := directory_public_share_low_level
 		end
 
-	set_g_user_directory_templates is
+	set_directory_templates is
 		do
-			value := g_user_directory_templates_low_level
+			value := directory_templates_low_level
 		end
 
-	set_g_user_directory_videos is
+	set_directory_videos is
 		do
-			value := g_user_directory_videos_low_level
+			value := directory_videos_low_level
 		end
 
-	set_g_user_n_directories is
+	set_n_directories is
 		do
-			value := g_user_n_directories_low_level
+			value := n_directories_low_level
 		end
 
 feature {ANY} -- Queries
-	is_g_user_directory_desktop: BOOLEAN is
+	is_directory_desktop: BOOLEAN is
 		do
-			Result := (value=g_user_directory_desktop_low_level)
+			Result := (value=directory_desktop_low_level)
 		end
 
-	is_g_user_directory_documents: BOOLEAN is
+	is_directory_documents: BOOLEAN is
 		do
-			Result := (value=g_user_directory_documents_low_level)
+			Result := (value=directory_documents_low_level)
 		end
 
-	is_g_user_directory_download: BOOLEAN is
+	is_directory_download: BOOLEAN is
 		do
-			Result := (value=g_user_directory_download_low_level)
+			Result := (value=directory_download_low_level)
 		end
 
-	is_g_user_directory_music: BOOLEAN is
+	is_directory_music: BOOLEAN is
 		do
-			Result := (value=g_user_directory_music_low_level)
+			Result := (value=directory_music_low_level)
 		end
 
-	is_g_user_directory_pictures: BOOLEAN is
+	is_directory_pictures: BOOLEAN is
 		do
-			Result := (value=g_user_directory_pictures_low_level)
+			Result := (value=directory_pictures_low_level)
 		end
 
-	is_g_user_directory_public_share: BOOLEAN is
+	is_directory_public_share: BOOLEAN is
 		do
-			Result := (value=g_user_directory_public_share_low_level)
+			Result := (value=directory_public_share_low_level)
 		end
 
-	is_g_user_directory_templates: BOOLEAN is
+	is_directory_templates: BOOLEAN is
 		do
-			Result := (value=g_user_directory_templates_low_level)
+			Result := (value=directory_templates_low_level)
 		end
 
-	is_g_user_directory_videos: BOOLEAN is
+	is_directory_videos: BOOLEAN is
 		do
-			Result := (value=g_user_directory_videos_low_level)
+			Result := (value=directory_videos_low_level)
 		end
 
-	is_g_user_n_directories: BOOLEAN is
+	is_n_directories: BOOLEAN is
 		do
-			Result := (value=g_user_n_directories_low_level)
+			Result := (value=n_directories_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	g_user_directory_desktop_low_level: INTEGER is
+	directory_desktop_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_documents_low_level: INTEGER is
+	directory_documents_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_download_low_level: INTEGER is
+	directory_download_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_music_low_level: INTEGER is
+	directory_music_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_pictures_low_level: INTEGER is
+	directory_pictures_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_public_share_low_level: INTEGER is
+	directory_public_share_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_templates_low_level: INTEGER is
+	directory_templates_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_directory_videos_low_level: INTEGER is
+	directory_videos_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	g_user_n_directories_low_level: INTEGER is
+	n_directories_low_level: INTEGER is
 		external "plug_in"
  		alias "{
  			location: "."
