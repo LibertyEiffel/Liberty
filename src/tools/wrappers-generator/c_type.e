@@ -1,34 +1,35 @@
-deferred class C_FUNCTION_ARGUMENT
-   -- An XML node of a file made by gccxml representing a piece of the
-   -- argument lt of a C function, either an actual argument or an ellips
-   -- ("...")
+deferred class C_TYPE
+   -- An XML node representing a type in the C language in the output of GccXml
 
 inherit
    GCCXML_NODE
 
-insert
-   SHARED_COLLECTIONS
-   EXCEPTIONS
-
 feature {ANY}
-   is_ellipsis: BOOLEAN
-         -- Does Current argument make its function a variadic one?
+   is_fundamental: BOOLEAN
+         -- Does current node refers to a fundamental C type?
+      deferred
+      end
+
+   is_void: BOOLEAN
+         -- Is Current node of type void?
       deferred
       end
 
    has_wrapper: BOOLEAN
+         -- Does Current actually have a wrapper type in Liberty?
       deferred
       end
 
-   put_on (a_buffer: FORMATTER)
-         -- Put an Eiffel representation on Current argument on `a_buffer'.
+   wrapper_type: STRING
+         -- The name of the class of Liberty that wraps Current fundamental type.
       require
-         a_buffer /= Void
+         not is_void
+         has_wrapper
       deferred
       end
 
-end -- class C_FUNCTION_ARGUMENT
--- Copyright 2008,2009,2010 Paolo Redaelli
+end -- class C_TYPE
+-- Copyright 2014 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
