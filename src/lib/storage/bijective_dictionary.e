@@ -25,7 +25,7 @@ inherit
       end
 
 feature {ANY} -- Basic access:
-   has_value (v: V_): BOOLEAN is
+   has_value (v: V_): BOOLEAN
          -- Is there a value `v'?
       require
          v /= Void
@@ -35,7 +35,7 @@ feature {ANY} -- Basic access:
          Result = (occurrences(v) = 1)
       end
 
-   fast_has_value (v: V_): BOOLEAN is
+   fast_has_value (v: V_): BOOLEAN
          -- Is there a value `v'?
       require
          v /= Void
@@ -46,14 +46,14 @@ feature {ANY} -- Basic access:
       end
 
 feature {ANY} -- Looking and searching some value:
-   occurrences (v: V_): INTEGER is
+   occurrences (v: V_): INTEGER
       do
          Result := Precursor(v)
       ensure then
          Result.in_range(0, 1)
       end
 
-   fast_occurrences (v: V_): INTEGER is
+   fast_occurrences (v: V_): INTEGER
       do
          Result := Precursor(v)
       ensure then
@@ -61,8 +61,8 @@ feature {ANY} -- Looking and searching some value:
       end
 
 feature {ANY}
-   put (v: V_; k: K_) assign at is
-         -- Change some existing entry or `add' the new one. If there is
+   put (v: V_; k: K_) assign at
+         -- Change some existing entry or `add' the new one. If there
          -- as yet no key `k' in the dictionary, enter it with item `v'.
          -- Otherwise overwrite the item associated with key `k'.
       require
@@ -74,7 +74,7 @@ feature {ANY}
          key_updated: k = fast_key_at(v)
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
          -- To add a new entry `k' with its associated value `v'. Actually, this is equivalent to call
          -- `put', but may run a little bit faster.
       require
@@ -88,7 +88,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Removing:
-   remove (k: K_) is
+   remove (k: K_)
          -- Remove entry `k' (which may exist or not before this call).
       require
          k /= Void
@@ -97,7 +97,7 @@ feature {ANY} -- Removing:
          not has(k)
       end
 
-   clear_count is
+   clear_count
          -- Discard all items (`is_empty' is True after that call). The internal `capacity' is not changed
          -- by this call. See also `clear_count_and_capacity' to select the most appropriate.
       deferred
@@ -106,7 +106,7 @@ feature {ANY} -- Removing:
          capacity = old capacity
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Discard all items (`is_empty' is True after that call). The internal `capacity' may also be
          -- reduced after this call. See also `clear_count' to select the most appropriate.
       deferred
@@ -115,7 +115,7 @@ feature {ANY} -- Removing:
          capacity <= old capacity
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
          -- Approximation of the actual internal storage `capacity'. The `capacity' will grow automatically
          -- when needed (i.e. `capacity' is not a limit for the number of values stored). Also note that
          -- the `capacity' value may not be always accurate depending of the implementation (anyway, this
@@ -124,23 +124,23 @@ feature {ANY} -- Removing:
       end
 
 feature {ANY} -- To provide iterating facilities:
-   new_iterator_on_items: ITERATOR[V_] is
+   new_iterator_on_items: ITERATOR[V_]
       do
          create {ITERATOR_ON_BIJECTIVE_DICTIONARY_ITEMS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator_on_keys: ITERATOR[K_] is
+   new_iterator_on_keys: ITERATOR[K_]
       do
          create {ITERATOR_ON_BIJECTIVE_DICTIONARY_KEYS[V_, K_]} Result.make(Current)
       end
 
-   new_iterator: ITERATOR[TUPLE[V_, K_]] is
+   new_iterator: ITERATOR[TUPLE[V_, K_]]
       do
          create {ITERATOR_ON_BIJECTIVE_DICTIONARY[V_, K_]} Result.make(Current)
       end
 
 feature {ANY} -- Other features:
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
          -- Retrieve the internal key object which correspond to the existing
          -- entry `k' (the one memorized into the `Current' dictionary).
       deferred
@@ -150,7 +150,7 @@ feature {ANY} -- Other features:
       end
 
 feature {}
-   frozen key_safe_equal (k1, k2: K_): BOOLEAN is
+   frozen key_safe_equal (k1, k2: K_): BOOLEAN
          -- Because keys are never Void, we do not rely on the SAFE_EQUAL class.
       require
          k1 /= Void
@@ -163,7 +163,7 @@ feature {}
          end
       end
 
-   frozen val_safe_equal (v1, v2: V_): BOOLEAN is
+   frozen val_safe_equal (v1, v2: V_): BOOLEAN
          -- Because values are never Void, we do not rely on the SAFE_EQUAL class.
       require
          v1 /= Void
@@ -177,7 +177,7 @@ feature {}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_put (index: INTEGER; v: V_; k: K_) is
+   manifest_put (index: INTEGER; v: V_; k: K_)
       require
          v /= Void
          k /= Void
@@ -186,18 +186,18 @@ feature {} -- Implement manifest generic creation:
          add(v, k)
       end
 
-   manifest_semicolon_check: INTEGER is 2
+   manifest_semicolon_check: INTEGER 2
          -- Put semicolons between successive value-key pairs.
 
 end -- class BIJECTIVE_DICTIONARY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

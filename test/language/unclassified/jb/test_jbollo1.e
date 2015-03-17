@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   n: INTEGER_8 is 9
+   n: INTEGER_8 9
 
-   make is
+   make
       local
          integer: INTEGER_32
       do

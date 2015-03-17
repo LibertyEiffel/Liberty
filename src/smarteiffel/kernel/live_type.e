@@ -61,7 +61,7 @@ feature {ANY}
          -- `run_time_set' depends on live assignments (as well as argument passing and creation
          -- statements) that are found in the live code.
 
-   class_invariant: CLASS_INVARIANT is
+   class_invariant: CLASS_INVARIANT
          -- Collected Runnable invariant if any and only is necessary.
       do
          Result := type.class_invariant
@@ -71,7 +71,7 @@ feature {ANY}
          -- Actually, in order to speed up the compiler, this is a cache
          -- for value `name.to_string'.
 
-   generating_type_used: BOOLEAN is
+   generating_type_used: BOOLEAN
          -- Must the "generating_type" string be generated for this type?
       require
          smart_eiffel.generating_type_used
@@ -79,7 +79,7 @@ feature {ANY}
          Result := at_run_time or else generating_type_level=2
       end
 
-   generator_used: BOOLEAN is
+   generator_used: BOOLEAN
          -- Must the "generator" string be generated for this type?
       require
          smart_eiffel.generator_used
@@ -87,7 +87,7 @@ feature {ANY}
          Result := at_run_time or else generating_type_level>0
       end
 
-   can_be_assigned_to (other: like Current): BOOLEAN is
+   can_be_assigned_to (other: like Current): BOOLEAN
       do
          if Current = other then
             Result := True
@@ -96,51 +96,51 @@ feature {ANY}
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := id < other.id
       ensure then
          Result = (id < other.id)
       end
 
-   is_generic: BOOLEAN is
+   is_generic: BOOLEAN
       do
          Result := type.is_generic
       ensure
          is_generic and then is_array implies Result
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := canonical_type_mark.is_reference
       ensure
          Result = not is_expanded
       end
 
-   is_array: BOOLEAN is
+   is_array: BOOLEAN
       require
          is_generic
       do
          Result := canonical_type_mark.is_array
       end
 
-   is_native_array: BOOLEAN is
+   is_native_array: BOOLEAN
       do
          Result := canonical_type_mark.is_native_array
       end
 
-   accept (visitor: LIVE_TYPE_VISITOR) is
+   accept (visitor: LIVE_TYPE_VISITOR)
       do
          visitor.visit_live_type(Current)
       end
 
 feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
-   collect (fs: FEATURE_STAMP) is
+   collect (fs: FEATURE_STAMP)
       require
          valid_stamp: fs /= Void
       do
@@ -152,7 +152,7 @@ feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
                -- No need to collect what's in "when" clauses of "inspect" which are now implementing
                -- dynamic dispatch.
             else
-               run_time_set.do_all(agent collect_sub_type(fs, ?))
+               run_time_set.for_each(agent collect_sub_type(fs, ?))
             end
          end
       ensure
@@ -160,7 +160,7 @@ feature {SMART_EIFFEL, EXTERNAL_ROUTINE, LIVE_TYPE_EXTRA_COLLECTOR}
       end
 
 feature {}
-   collect_sub_type (fs: FEATURE_STAMP; sub_type: LIVE_TYPE) is
+   collect_sub_type (fs: FEATURE_STAMP; sub_type: LIVE_TYPE)
       require
          valid_stamp: fs /= Void
          valid_sub_type: sub_type /= Void
@@ -174,14 +174,14 @@ feature {}
       end
 
 feature {WHEN_CLAUSE}
-   forbid_collecting (fs: FEATURE_STAMP) is
+   forbid_collecting (fs: FEATURE_STAMP)
       do
          if not live_features.fast_has(fs) then
             live_features.fast_put(Void, fs)
          end
       end
 
-   allow_collecting (fs: FEATURE_STAMP) is
+   allow_collecting (fs: FEATURE_STAMP)
       do
          if live_features.fast_at(fs) = Void then
             live_features.remove(fs)
@@ -189,13 +189,13 @@ feature {WHEN_CLAUSE}
       end
 
 feature {ANY}
-   collected (fs: FEATURE_STAMP): BOOLEAN is
+   collected (fs: FEATURE_STAMP): BOOLEAN
       do
          Result := live_features.fast_has(fs) or else (is_collecting and then new_features.fast_has(fs))
       end
 
 feature {LIVE_TYPE}
-   no_dispatch_collect (fs: FEATURE_STAMP): BOOLEAN is
+   no_dispatch_collect (fs: FEATURE_STAMP): BOOLEAN
          -- Collect `fs' for Current LIVE_TYPE only.
          -- Return `True' if it's a new feature for this LIVE_TYPE.
       require
@@ -228,7 +228,7 @@ feature {LIVE_TYPE}
       end
 
 feature {ANY}
-   precursor_run_feature (ct: CLASS_TEXT; af: ANONYMOUS_FEATURE): RUN_FEATURE is
+   precursor_run_feature (ct: CLASS_TEXT; af: ANONYMOUS_FEATURE): RUN_FEATURE
       require
          ct /= Void
          af /= Void
@@ -269,7 +269,7 @@ feature {ANY}
       end
 
 feature {TYPE}
-   feature_count: INTEGER is
+   feature_count: INTEGER
       do
          Result := live_features.count
       end
@@ -290,7 +290,7 @@ feature {}
 
    has_been_collected: BOOLEAN
 
-   new_features: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_STAMP] is
+   new_features: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_STAMP]
       require
          is_collecting
       once
@@ -300,7 +300,7 @@ feature {}
    generating_type_level: INTEGER
 
 feature {GENERATOR_GENERATING_TYPE}
-   set_generating_type_used is
+   set_generating_type_used
       require
          smart_eiffel.generating_type_used
       do
@@ -309,7 +309,7 @@ feature {GENERATOR_GENERATING_TYPE}
          generating_type_used
       end
 
-   set_generator_used is
+   set_generator_used
       require
          smart_eiffel.generator_used
       do
@@ -319,7 +319,7 @@ feature {GENERATOR_GENERATING_TYPE}
       end
 
 feature {RUN_FEATURE, LIVE_TYPE}
-   registered (rf: RUN_FEATURE): BOOLEAN is
+   registered (rf: RUN_FEATURE): BOOLEAN
          -- Assertion pupose only.
       local
          i: INTEGER
@@ -338,7 +338,7 @@ feature {RUN_FEATURE, LIVE_TYPE}
       end
 
 feature {}
-   smart_eiffel_has_all_run_features: BOOLEAN is
+   smart_eiffel_has_all_run_features: BOOLEAN
          -- Assertion purpose only.
       local
          i: INTEGER
@@ -377,7 +377,7 @@ feature {}
       end
 
 feature {SMART_EIFFEL} -- Collect:
-   forget_previous_collect is
+   forget_previous_collect
          -- This feature allow to forget all previously collected
          -- features, then a new full collect can be done. It's
          -- useful after optimisation has removed some code.
@@ -395,7 +395,7 @@ feature {SMART_EIFFEL} -- Collect:
          not at_run_time
       end
 
-   propagate_features is
+   propagate_features
          -- This propagates in subtypes alive features detected while previous collect cycle, using
          -- dynaminc binding. This means that a newly alive feature will become pending in all sub-types
          -- and then will be collected in the next collect cycle.
@@ -418,7 +418,7 @@ feature {SMART_EIFFEL} -- Collect:
          not has_been_collected
       end
 
-   do_collect is
+   do_collect
          -- Call collect on all alive features.
       require
          not is_collecting
@@ -470,7 +470,7 @@ feature {SMART_EIFFEL} -- Collect:
             collect(default_create_stamp)
          end
 
-         live_type_extra_collectors.do_all(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
+         live_type_extra_collectors.for_each(agent {LIVE_TYPE_EXTRA_COLLECTOR}.collect(Current))
 
          from
          until
@@ -490,7 +490,7 @@ feature {SMART_EIFFEL} -- Collect:
       end
 
 feature {SMART_EIFFEL}
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR) is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR)
          -- Note: precursor anonymous features are inlined directly by PRECURSOR_CALLs.
       require
          smart_eiffel.status.collecting_done
@@ -514,7 +514,7 @@ feature {SMART_EIFFEL}
          type.inline_dynamic_dispatch_for_class_invariant(code_accumulator)
       end
 
-   make_run_features is
+   make_run_features
          -- Actually adapting.
       require
          smart_eiffel.status.is_adapting
@@ -545,7 +545,7 @@ feature {SMART_EIFFEL}
          smart_eiffel_has_all_run_features
       end
 
-   adapt_run_features_and_class_invariant is
+   adapt_run_features_and_class_invariant
       require
          smart_eiffel.status.is_adapting
       local
@@ -608,7 +608,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {LIVE_TYPE}
-   merge_features_from (lt: LIVE_TYPE) is
+   merge_features_from (lt: LIVE_TYPE)
       local
          i: INTEGER; list: like live_features; other_fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
          parent_type: TYPE
@@ -631,7 +631,7 @@ feature {}
    tagged_memory: INTEGER
          -- 0 when not computed, 1 when tagged or -1 when not tagged.
 
-   make (t: like type) is
+   make (t: like type)
          -- Where `t' is the associated `type'.
       require
          smart_eiffel.status.is_analyzing
@@ -670,7 +670,7 @@ feature {}
       end
 
 feature {ANY}
-   is_tagged: BOOLEAN is
+   is_tagged: BOOLEAN
          -- Is it a tagged one? In other words, is the `id' field part of the object at run time?
       require
          smart_eiffel.is_ready
@@ -699,25 +699,33 @@ feature {ANY}
          Result implies not canonical_type_mark.is_expanded
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := type.is_expanded
       end
 
-   is_user_expanded: BOOLEAN is
+   is_user_expanded: BOOLEAN
       do
          Result := type.is_user_expanded
       end
 
-   is_empty_expanded: BOOLEAN is
+   is_empty_expanded: BOOLEAN
       require
          is_user_expanded
          smart_eiffel.status.collecting_done
       local
-         i: INTEGER
+         i: INTEGER; wa: WRITABLE_ATTRIBUTE
       do
          if writable_attributes_mem /= Void then
-            Result := False
+            Result := True
+            from
+               i := writable_attributes_mem.lower
+            until
+               i > writable_attributes_mem.upper or else not Result
+            loop
+               Result := writable_attributes_mem.item(i).result_type.is_empty_expanded
+               i := i + 1
+            end
          elseif type.has_external_type then
             Result := False
          else
@@ -730,14 +738,17 @@ feature {ANY}
                check
                   live_features.item(i) /= Void
                end
-               Result := not ({WRITABLE_ATTRIBUTE} ?:= live_features.item(i))
+               if wa ?:= live_features.item(i) then
+                  wa ::= live_features.item(i)
+                  Result := wa.result_type.is_empty_expanded
+               end
                i := i + 1
             end
          end
       end
 
 feature {ANY}
-   writable_attributes: ARRAY[RUN_FEATURE_2] is
+   writable_attributes: ARRAY[RUN_FEATURE_2]
          -- Computed and ordered array of writable attributes. Storage in C
          -- struct is to be done in reverse order (from `upper' to `lower').
          -- Order is done according to the level of attribute definition in
@@ -746,6 +757,7 @@ feature {ANY}
          smart_eiffel.status.collecting_done
          at_run_time
       local
+         fs: FEATURE_STAMP
          rf: RUN_FEATURE; rf2: RUN_FEATURE_2; i: INTEGER
       do
          Result := writable_attributes_mem
@@ -755,14 +767,17 @@ feature {ANY}
             until
                i > live_features.upper
             loop
-               rf := live_features.key(i).run_feature_for(type)
-               if rf2 ?:= rf then
-                  rf2 ::= rf
-                  if Result = Void then
-                     create Result.with_capacity(4, 1)
-                     writable_attributes_mem := Result
+               fs := live_features.key(i)
+               if fs.has_run_feature_for(type) then
+                  rf := fs.run_feature_for(type)
+                  if rf2 ?:= rf then
+                     rf2 ::= rf
+                     if Result = Void then
+                        create Result.with_capacity(4, 1)
+                        writable_attributes_mem := Result
+                     end
+                     Result.add_last(rf2)
                   end
-                  Result.add_last(rf2)
                end
                i := i + 1
             end
@@ -775,7 +790,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   dynamic_feature (up_rf: RUN_FEATURE): RUN_FEATURE is
+   dynamic_feature (up_rf: RUN_FEATURE): RUN_FEATURE
          -- Look for the specialized version of `up_rf' in `Current' type. Assume the `Current' type is a kind of
          -- `up_rf'. The result is the specialized one according to dynamic dispatch rules.
       require
@@ -795,7 +810,7 @@ feature {ANY}
          -- to memorize the default creation procedure to initialize user's expanded types.
          -- (See also `default_create_run_feature'.)
 
-   default_create_run_feature: RUN_FEATURE_3 is
+   default_create_run_feature: RUN_FEATURE_3
          -- If any, the corresponding one for `default_create_stamp'.
       do
          if default_create_stamp /= Void then
@@ -809,8 +824,8 @@ feature {ANY}
          end
       end
 
-feature {LOCAL_VAR_LIST, LOCAL_NAME1}
-   side_effect_free_default_create: BOOLEAN is
+feature {LOCAL_VAR_LIST, LOCAL_NAME_DEF}
+   side_effect_free_default_create: BOOLEAN
       require
          smart_eiffel.status.collecting_done
          is_user_expanded
@@ -821,6 +836,7 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME1}
          e_procedure ?= af
          check
             e_procedure.arguments = Void
+            e_procedure.routine_then = Void
          end
          if e_procedure.routine_body = Void then
             Result := e_procedure.local_vars = Void
@@ -830,7 +846,7 @@ feature {LOCAL_VAR_LIST, LOCAL_NAME1}
       end
 
 feature {SMART_EIFFEL}
-   set_at_run_time is
+   set_at_run_time
          -- Set Current `at_run_time' and do needed update of other instances of LIVE_TYPE.
       require
          smart_eiffel.status.is_collecting
@@ -861,11 +877,11 @@ feature {SMART_EIFFEL}
          run_time_set.has(Current)
       end
 
-   safety_check is
+   safety_check
       require
          for_boost_mode_only_or_asked_for: ace.boost or else ace.safety_check
       local
-         rf: RUN_FEATURE; i: INTEGER; c: INSTRUCTION
+         rf: RUN_FEATURE; i: INTEGER; rb: INSTRUCTION; rt: EXPRESSION
       do
          from
             i := live_features.lower
@@ -873,16 +889,20 @@ feature {SMART_EIFFEL}
             i > live_features.upper
          loop
             rf := live_features.key(i).run_feature_for(type)
-            c := rf.routine_body
-            if c /= Void then
-               c.safety_check(type)
+            rb := rf.routine_body
+            if rb /= Void then
+               rb.safety_check(type)
+            end
+            rt := rf.routine_then
+            if rt /= Void then
+               rt.safety_check(type)
             end
             i := i + 1
          end
          --|*** PH: loop on precursors?
       end
 
-   simplify is
+   simplify
          -- Note: precursor anonymous features are simplified directly by PRECURSOR_CALLs.
       require
          not smart_eiffel.pretty_flag
@@ -914,9 +934,12 @@ feature {SMART_EIFFEL}
             end
             i := i + 1
          end
+         if type.class_text.name.to_string = as_thread_context then
+            thread_pool.simplify(type)
+         end
       end
 
-   contextual_simplify is
+   contextual_simplify
       require
          not smart_eiffel.pretty_flag
          not smart_eiffel.short_or_class_check_flag
@@ -952,7 +975,7 @@ feature {}
          -- Non Void when feature `dispose' has been collected.
 
 feature {MEMORY_HANDLER}
-   get_memory_dispose: RUN_FEATURE_3 is
+   get_memory_dispose: RUN_FEATURE_3
       do
          if memory_dispose_stamp /= Void then
             if memory_dispose_stamp.has_run_feature_for(type) then
@@ -963,7 +986,7 @@ feature {MEMORY_HANDLER}
       end
 
 feature {TYPE_MARK}
-   weak_ref_attributes: FAST_ARRAY[RUN_FEATURE_2] is
+   weak_ref_attributes: FAST_ARRAY[RUN_FEATURE_2]
          -- Attributes of type WEAK_REFERENCE[...].
          -- Void if none found.
          -- XXX OZ+FM: useful if expanded WEAK_REFERENCEs are possible
@@ -1008,7 +1031,7 @@ feature {TYPE_MARK}
       end
 
 feature {SMART_EIFFEL}
-   at (fn: FEATURE_NAME): RUN_FEATURE is
+   at (fn: FEATURE_NAME): RUN_FEATURE
       require
          type.valid_feature_name(fn)
       do
@@ -1016,7 +1039,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {ANY}
-   copy_stamp: FEATURE_STAMP is
+   copy_stamp: FEATURE_STAMP
          -- The one of the `copy' feature (which is magically called inside `twin').
       do
          Result := type.copy_stamp
@@ -1024,7 +1047,7 @@ feature {ANY}
          Result /= Void
       end
 
-   copy_run_feature: RUN_FEATURE is
+   copy_run_feature: RUN_FEATURE
          -- The corresponding one for `copy_stamp'.
       do
          Result := copy_stamp.run_feature_for(type)
@@ -1033,7 +1056,7 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL}
-   id_extra_information (tfw: TEXT_FILE_WRITE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE)
       local
          ct: TYPE_MARK
       do
@@ -1061,7 +1084,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {C_LIVE_TYPE_COMPILER}
-   actual_clients: TRAVERSABLE[LIVE_TYPE] is
+   actual_clients: TRAVERSABLE[LIVE_TYPE]
       do
          Result := actual_clients_
       end
@@ -1070,15 +1093,15 @@ feature {}
    actual_clients_: HASHED_SET[LIVE_TYPE]
 
 feature {RUN_FEATURE}
-   add_client (lt: LIVE_TYPE) is
+   add_client (lt: LIVE_TYPE)
       require
          lt /= Void
       do
          actual_clients_.fast_add(lt)
       end
 
-feature {C_PRETTY_PRINTER, LIVE_TYPE}
-   structure_signature: STRING is
+feature {ANY}
+   structure_signature: STRING --| **** TODO remove and use the generation/c cluster's tag "c_struct_signature" instead
          -- Terse description of the C struct. Used for recompilation comments.
       require
          at_run_time
@@ -1158,7 +1181,7 @@ feature {}
    structure_signature_memory: STRING
 
 feature {LIVE_TYPE, EXTERNAL_FUNCTION}
-   collect_deep_twin is
+   collect_deep_twin
       local
          i: INTEGER; af: ANONYMOUS_FEATURE; wa: WRITABLE_ATTRIBUTE; lt: LIVE_TYPE
       do
@@ -1194,7 +1217,7 @@ feature {}
    collecting_deep_twin: BOOLEAN
 
 feature {EXTERNAL_FUNCTION, LIVE_TYPE}
-   collect_is_deep_equal is
+   collect_is_deep_equal
       do
          if collect_is_deep_equal_status = need_not_collect_status then
             collect_is_deep_equal_status := must_collect_status
@@ -1203,7 +1226,7 @@ feature {EXTERNAL_FUNCTION, LIVE_TYPE}
       end
 
 feature {SMART_EIFFEL, LIVE_TYPE}
-   do_collect_is_deep_equal is
+   do_collect_is_deep_equal
       local
          i: INTEGER; af: ANONYMOUS_FEATURE; wa: WRITABLE_ATTRIBUTE; lt: LIVE_TYPE
       do
@@ -1239,26 +1262,39 @@ feature {SMART_EIFFEL, LIVE_TYPE}
 feature {}
    collect_is_deep_equal_status: INTEGER_8
 
-   need_not_collect_status: INTEGER_8 is 0
+   need_not_collect_status: INTEGER_8 0
 
-   must_collect_status: INTEGER_8 is 1
+   must_collect_status: INTEGER_8 1
 
-   already_collected_status: INTEGER_8 is 2
+   already_collected_status: INTEGER_8 2
 
 feature {CREATE_EXPRESSION}
-   create_function_register (fs: FEATURE_STAMP) is
+   create_function_register (fs: FEATURE_STAMP)
          -- Register that there is a live create expression which creates `Current' type objects at
          -- run-time using `fs' as the creation procedure. Also not that `fs' can be Void in the case of
          -- a create expression with no call.
+      require
+         smart_eiffel.status.is_adapting
       do
-         if create_function_list = Void then
-            create create_function_list.with_capacity(4)
-         end
-         if fs /= Void then
+         if fs = Void then
+            create_function_list := empty_create_function_list
+         else
+            if create_function_list = Void then
+               create create_function_list.with_capacity(2)
+            end
+            check
+               create_function_list /= empty_create_function_list
+            end
             if not create_function_list.fast_has(fs) then
                create_function_list.add_last(fs)
             end
          end
+      end
+
+feature {}
+   empty_create_function_list: FAST_ARRAY[FEATURE_STAMP]
+      once
+         create Result.make(0)
       end
 
 feature {INTROSPECTION_HANDLER}
@@ -1272,17 +1308,17 @@ feature {}
    default_create_run_feature_memory: like default_create_run_feature
          -- To cache `default_create_run_feature' computation.
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(32)
       end
 
-   c_code_buffer: STRING is
+   c_code_buffer: STRING
       once
          create Result.make(256)
       end
 
-   sort_wam (wam: like writable_attributes) is
+   sort_wam (wam: like writable_attributes)
          -- Sort `wam' to common attribute at the end.
       require
          wam.lower = 1
@@ -1329,7 +1365,7 @@ feature {}
          end
       end
 
-   gt (rf1, rf2: RUN_FEATURE_2): BOOLEAN is
+   gt (rf1, rf2: RUN_FEATURE_2): BOOLEAN
          -- True if it is better to set attribute `rf1' before attribute `rf2'.
       local
          bc1, bc2: CLASS_TEXT; bf1, bf2: ANONYMOUS_FEATURE; bcn1, bcn2: CLASS_NAME
@@ -1366,14 +1402,14 @@ feature {}
 
    writable_attributes_mem: like writable_attributes
 
-   unqualified_name_memory: STRING is
+   unqualified_name_memory: STRING
       once
          create Result.make(32)
       end
 
    fully_qualified_name_memory: STRING
 
-   fully_qualified_name_memory2: STRING is
+   fully_qualified_name_memory2: STRING
       once
          create Result.make(256)
       end
@@ -1404,9 +1440,9 @@ end -- class LIVE_TYPE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -5,9 +5,9 @@ expanded class GHOOK_FLAG_MASK_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = active_low_level)  or else
 				(a_value = in_call_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_active is
+	set_active
 		do
 			value := active_low_level
 		end
 
-	set_in_call is
+	set_in_call
 		do
 			value := in_call_low_level
 		end
 
-	set_mask is
+	set_mask
 		do
 			value := mask_low_level
 		end
 
 feature {ANY} -- Queries
-	is_active: BOOLEAN is
+	is_active: BOOLEAN
 		do
 			Result := (value=active_low_level)
 		end
 
-	is_in_call: BOOLEAN is
+	is_in_call: BOOLEAN
 		do
 			Result := (value=in_call_low_level)
 		end
 
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	active_low_level: INTEGER is
+	active_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	in_call_low_level: INTEGER is
+	in_call_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mask_low_level: INTEGER is
+	mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

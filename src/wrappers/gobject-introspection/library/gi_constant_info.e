@@ -12,7 +12,7 @@ create {GI_INFO_FACTORY, WRAPPER}
    from_external_pointer
 
 feature {ANY}
-   constant_type: GI_TYPE_INFO is
+   constant_type: GI_TYPE_INFO
          -- The type of the constant
       do
          create Result.from_external_pointer(g_constant_info_get_type(handle))

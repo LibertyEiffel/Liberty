@@ -10,7 +10,7 @@ insert
    COMMAND_LINE_ARGUMENT_FACTORY
 
 feature {ANY} -- Options
-   option_custom (short, long, name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[D_] is
+   option_custom (short, long, name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[D_]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -21,7 +21,7 @@ feature {ANY} -- Options
          create {CLARG_CUSTOM[D_]} Result.optional(short, long, name, usage, validate, decode)
       end
 
-   option_customs (short, long, name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[D_]] is
+   option_customs (short, long, name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[D_]]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -33,7 +33,7 @@ feature {ANY} -- Options
       end
 
 feature {ANY} -- Positional
-   positional_custom (name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[D_] is
+   positional_custom (name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[D_]
       require
          name /= Void
          decode /= Void
@@ -41,7 +41,7 @@ feature {ANY} -- Positional
          create {CLARG_CUSTOM[D_]} Result.positional(name, usage, validate, decode)
       end
 
-   positional_customs (name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[D_]] is
+   positional_customs (name, usage: ABSTRACT_STRING; validate: PREDICATE[TUPLE[STRING]]; decode: FUNCTION[TUPLE[STRING], D_]): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[D_]]
       require
          name /= Void
          decode /= Void
@@ -51,13 +51,13 @@ feature {ANY} -- Positional
 
 end -- class COMMAND_LINE_ARGUMENT_CUSTOM_FACTORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

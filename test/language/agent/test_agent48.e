@@ -8,14 +8,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: PROCEDURE[TUPLE]
       do
          exec(p)
       end
 
-   exec (p: PROCEDURE[TUPLE]) is
+   exec (p: PROCEDURE[TUPLE])
       do
          if p /= Void then
             p.call([])

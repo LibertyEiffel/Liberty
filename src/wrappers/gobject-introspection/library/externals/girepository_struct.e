@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_INTROSPECTION_TYPES
 feature {} -- Low-level setters
 
-	girepository_struct_set_priv (a_structure: POINTER; a_value: POINTER) is
+	girepository_struct_set_priv (a_structure: POINTER; a_value: POINTER)
 			-- Setter for priv field of GIREPOSITORY_STRUCT structure.
 			-- TODO: setter description
 
@@ -23,7 +23,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field parent.
-	girepository_struct_get_priv (a_structure: POINTER): POINTER is
+	girepository_struct_get_priv (a_structure: POINTER): POINTER
 			-- Query for priv field of GIREPOSITORY_STRUCT structure.
 			-- TODO: getter description
 
@@ -36,7 +36,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

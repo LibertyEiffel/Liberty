@@ -2,26 +2,30 @@
 -- See the full copyright at the end.
 --
 class TEXT_FILE_READ_WRITE
-   -- This class allow to read and write a named file on the disk.
-   -- Note that opening a file in READ and WRITE mode is not very
-   -- common case and lead to performance decrease compared to
-   -- TEXT_FILE_READ and TEXT_FILE_WRITE performance. Such a file is
-   -- both an INPUT_STREAM and an OUTPUT_STREAM.
+   -- This class allows to read and write a named file on the disk.
+   -- Note that opening a file in READ and WRITE mode is not a very
+   -- common case and may lead to performance decrease compared to
+   -- TEXT_FILE_READ and TEXT_FILE_WRITE performance. Such a file
+   -- is both an INPUT_STREAM and an OUTPUT_STREAM.
 
 inherit
    FILE_STREAM
+      redefine out_in_tagged_out_memory
+      end
    TERMINAL_INPUT_OUTPUT_STREAM
-      redefine filtered_read_line_in
+      redefine filtered_read_line_in, out_in_tagged_out_memory
       end
 
 insert
    STRING_HANDLER
+      redefine out_in_tagged_out_memory
+      end
 
 create {ANY}
    make, connect_to, connect_for_appending_to
 
 feature {ANY}
-   connect_to (new_path: ABSTRACT_STRING) is
+   connect_to (new_path: ABSTRACT_STRING)
          -- Open for reading and writing. The stream is positioned at the
          -- beginning of the file.
       local
@@ -48,7 +52,7 @@ feature {ANY}
          end
       end
 
-   connect_for_appending_to (new_path: ABSTRACT_STRING) is
+   connect_for_appending_to (new_path: ABSTRACT_STRING)
          -- Open for reading and writing. The file is created if it does not
          -- exist. The stream is positioned at the end of the file.
       local
@@ -75,27 +79,34 @@ feature {ANY}
          end
       end
 
-   disconnect is
+   disconnect
       do
          io_fclose(stream)
          path := Void
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          Result := not unread_character_flag
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          io_flush(stream)
          Result := io_feof(stream)
       end
 
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{TEXT_FILE_READ_WRITE ")
+         tagged_out_memory.append(path)
+         tagged_out_memory.extend('}')
+      end
+
 feature {FILTER_INPUT_STREAM}
    filtered_last_character: CHARACTER
 
-   filtered_read_character is
+   filtered_read_character
       local
          c: INTEGER
       do
@@ -107,7 +118,7 @@ feature {FILTER_INPUT_STREAM}
          unread_character_flag := False
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       local
          p: POINTER; c: CHARACTER
       do
@@ -117,7 +128,7 @@ feature {FILTER_INPUT_STREAM}
          unread_character_flag := True
       end
 
-   filtered_read_line_in (str: STRING) is
+   filtered_read_line_in (str: STRING)
       do
          from
             read_character
@@ -130,38 +141,38 @@ feature {FILTER_INPUT_STREAM}
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          io_flush(stream)
          io_putc(c, stream)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          io_flush(stream)
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := sequencer_descriptor(stream)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := stream
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {}
    unread_character_flag: BOOLEAN
 
    stream: POINTER
 
-   make is
+   make
          -- The new created object is not connected. (See also `connect_to' and
          -- `connect_for_appending_to'.)
       do
@@ -169,7 +180,7 @@ feature {}
          not is_connected
       end
 
-   text_file_read_write_open (a_path_pointer: POINTER): POINTER is
+   text_file_read_write_open (a_path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -178,7 +189,7 @@ feature {}
          }"
       end
 
-   text_file_read_write_append (a_path_pointer: POINTER): POINTER is
+   text_file_read_write_append (a_path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -187,7 +198,7 @@ feature {}
          }"
       end
 
-   io_fclose (a_stream_pointer: POINTER) is
+   io_fclose (a_stream_pointer: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -196,7 +207,7 @@ feature {}
          }"
       end
 
-   io_feof (a_stream_pointer: POINTER): BOOLEAN is
+   io_feof (a_stream_pointer: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -207,13 +218,13 @@ feature {}
 
 end -- class TEXT_FILE_READ_WRITE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

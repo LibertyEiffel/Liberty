@@ -19,7 +19,7 @@ insert
 create {ANY} from_external_pointer
 	
 feature {ANY} 
-	name: STRING is
+	name: STRING
 			-- the parameter name
 		do
 			create {CONST_STRING} Result.from_external(get_name(handle))
@@ -35,7 +35,7 @@ feature {ANY}
 	-- GValue value; 	the parameter value
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GParameter)"
 		end	

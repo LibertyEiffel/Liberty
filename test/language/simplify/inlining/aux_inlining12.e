@@ -8,13 +8,13 @@ feature {ANY}
 
    b: INTEGER
 
-   ecrire (va: like a; vb: like b) is
+   ecrire (va: like a; vb: like b)
       do
          a := va
          b := vb
       end
 
-   b_is_gt (x: INTEGER): BOOLEAN is
+   b_is_gt (x: INTEGER): BOOLEAN
       do
          Result := b > x
       end

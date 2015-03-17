@@ -7,18 +7,18 @@ inherit
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   f: AUX_DP1 is
+   f: AUX_DP1
       do
          assert(False)
          Result := Current
       end
 
-   g is
+   g
       do
          assert(True)
       end
 
-   run is
+   run
       do
          f.g
       end

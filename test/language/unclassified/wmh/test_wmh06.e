@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          i: INTEGER; memory: ARRAY[AUX_WMH06]; item: AUX_WMH06
       do
@@ -28,8 +28,8 @@ feature {}
       end
 
 feature {}
-   max: INTEGER is 40
+   max: INTEGER 40
 
-   max_loop: INTEGER is 4000
+   max_loop: INTEGER 4000
 
 end -- class TEST_WMH06

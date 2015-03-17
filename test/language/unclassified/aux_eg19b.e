@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   infix "#" (other: like Current): AUX_EG19A is
+   infix "#" (other: like Current): AUX_EG19A
       do
          Result := Precursor(other)
       end

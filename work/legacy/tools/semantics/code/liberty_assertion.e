@@ -25,13 +25,13 @@ feature {ANY}
    assertion: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          assertion.mark_reachable_code(mark)
       end
 
 feature {LIBERTY_ASSERTIONS}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       local
@@ -46,7 +46,7 @@ feature {LIBERTY_ASSERTIONS}
       end
 
 feature {}
-   make (a_tag: like tag; a_assertion: like assertion) is
+   make (a_tag: like tag; a_assertion: like assertion)
       do
          tag := a_tag
          assertion := a_assertion

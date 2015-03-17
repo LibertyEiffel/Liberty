@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          x: AUX_PH1R; y: INTEGER
       do

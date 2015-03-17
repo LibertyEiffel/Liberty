@@ -8,14 +8,14 @@ inherit
       redefine x_
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    x_: AUX_EVOBT5
 
 feature {}
-   make is
+   make
       do
          create x_.make
       end

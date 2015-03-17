@@ -12,7 +12,7 @@ insert
       end
 
 feature {ANY}
-   message is
+   message
       do
          stream.extend('E')
       end

@@ -10,7 +10,7 @@ create {PROCESS_FACTORY}
    make
 
 feature {ANY}
-   wait: PROCESS_WIN32 is
+   wait: PROCESS_WIN32
       local
          handle, status: INTEGER
       do
@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   finished: PROCESS_WIN32 is
+   finished: PROCESS_WIN32
       local
          handle, status: INTEGER
       do
@@ -52,12 +52,12 @@ feature {ANY}
          end
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := handle_map.count
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -67,7 +67,7 @@ feature {ANY}
       end
 
 feature {PROCESS_WIN32}
-   register (process: PROCESS_WIN32) is
+   register (process: PROCESS_WIN32)
       local
          handle: INTEGER
       do
@@ -76,7 +76,7 @@ feature {PROCESS_WIN32}
          handle_list_dirty := True
       end
 
-   unregister (process: PROCESS_WIN32) is
+   unregister (process: PROCESS_WIN32)
       local
          handle: INTEGER
       do
@@ -86,7 +86,7 @@ feature {PROCESS_WIN32}
       end
 
 feature {}
-   make is
+   make
       do
          create handle_map.make
          data := basic_exec_alloc_data
@@ -94,7 +94,7 @@ feature {}
 
    handle_map: HASHED_DICTIONARY[PROCESS_WIN32, INTEGER]
 
-   populate_handle_list is
+   populate_handle_list
       local
          i: INTEGER
       do
@@ -121,7 +121,7 @@ feature {}
 
    data: POINTER
 
-   basic_exec_win32_wait_any (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
+   basic_exec_win32_wait_any (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN
       require
          not handle_map.is_empty
       external "plug_in"
@@ -132,7 +132,7 @@ feature {}
          }"
       end
 
-   basic_exec_win32_any_finished (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN is
+   basic_exec_win32_any_finished (handles: POINTER; count_: INTEGER; data_: POINTER): BOOLEAN
       require
          not handle_map.is_empty
       external "plug_in"
@@ -143,7 +143,7 @@ feature {}
          }"
       end
 
-   basic_exec_alloc_data: like data is
+   basic_exec_alloc_data: like data
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -152,7 +152,7 @@ feature {}
          }"
       end
 
-   basic_exec_win32_handle (dat: like data): INTEGER is
+   basic_exec_win32_handle (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -161,7 +161,7 @@ feature {}
          }"
       end
 
-   basic_exec_status (dat: like data): INTEGER is
+   basic_exec_status (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -172,13 +172,13 @@ feature {}
 
 end -- class PROCESS_GROUP_WIN32
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

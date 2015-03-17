@@ -4,7 +4,7 @@
 class AUX_PRECURSOR04
 
 feature {ANY}
-   routine(i: INTEGER) is
+   routine(i: INTEGER)
       do
       end;
 

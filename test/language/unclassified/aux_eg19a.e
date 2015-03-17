@@ -4,7 +4,7 @@
 class AUX_EG19A
 
 feature {ANY}
-   infix "#" (other: like Current): AUX_EG19A is
+   infix "#" (other: like Current): AUX_EG19A
       do
          create Result
          Result.set_x(x + other.x)
@@ -12,7 +12,7 @@ feature {ANY}
 
    x: REAL
 
-   set_x (other: REAL) is
+   set_x (other: REAL)
       do
          x := other
       end

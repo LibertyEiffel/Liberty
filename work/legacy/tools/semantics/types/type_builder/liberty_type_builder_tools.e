@@ -4,7 +4,7 @@ insert
    LIBERTY_BUILDER_TOOLS
 
 feature {} -- Client list
-   list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE] is
+   list_clients (clients: LIBERTY_AST_CLIENTS): COLLECTION[LIBERTY_TYPE]
       local
          i: INTEGER
       do
@@ -26,12 +26,12 @@ feature {} -- Client list
          end
       end
 
-   empty_client_list: COLLECTION[LIBERTY_TYPE] is
+   empty_client_list: COLLECTION[LIBERTY_TYPE]
       once
          create {FAST_ARRAY[LIBERTY_TYPE]} Result.with_capacity(0)
       end
 
-   any_client_list: COLLECTION[LIBERTY_TYPE] is
+   any_client_list: COLLECTION[LIBERTY_TYPE]
       once
          Result := {FAST_ARRAY[LIBERTY_TYPE] << universe.type_any >> }
       end
@@ -40,22 +40,22 @@ feature {}
    builder: LIBERTY_TYPE_BUILDER
    type: LIBERTY_ACTUAL_TYPE
 
-   ast: LIBERTY_AST_NON_TERMINAL_NODE is
+   ast: LIBERTY_AST_NON_TERMINAL_NODE
       do
          Result := type.ast
       end
 
-   file: FIXED_STRING is
+   file: FIXED_STRING
       do
          Result := type.file
       end
 
-   is_any: BOOLEAN is
+   is_any: BOOLEAN
       do
          Result := type.name = any_type_name
       end
 
-   any_type_name: FIXED_STRING is
+   any_type_name: FIXED_STRING
       once
          Result := "ANY".intern
       end

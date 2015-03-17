@@ -4,26 +4,29 @@
 deferred class CODE_CONTEXT_CONSTANTS
 
 feature {}
-   C_direct_call: INTEGER is unique
-         -- Target is sure not to be Void and there is only one possible type (target is 
+   C_direct_call: INTEGER unique
+         -- Target is sure not to be Void and there is only one possible type (target
          -- often Current, a manifest string or some expanded).
 
-   C_create_instruction: INTEGER is unique
-         -- Target has been just created with a create instruction and need to be initialized 
+   C_create_instruction: INTEGER unique
+         -- Target has been just created with a create instruction and need to be initialized
          -- with some create procedure call.
 
-   C_create_expression: INTEGER is unique
-         -- Target has been just created with a create expression and need to be initialized 
+   C_create_expression: INTEGER unique
+         -- Target has been just created with a create expression and need to be initialized
          -- inside the create function.
 
-   C_inside_twin: INTEGER is unique
+   C_inside_twin: INTEGER unique
          -- In order to call the user's `copy'.
 
-   C_precursor: INTEGER is unique
+   C_precursor: INTEGER unique
          -- For Precursor calls.
 
-   C_inside_some_wrapper: INTEGER is unique
+   C_inside_some_wrapper: INTEGER unique
          -- The feature to be called is inside some wrapper using the most general convention.
+
+   C_cecil_create: INTEGER unique
+         -- The target has just been created, the create instruction is called via CECIL
 
 end -- class CODE_CONTEXT_CONSTANTS
 --
@@ -37,9 +40,9 @@ end -- class CODE_CONTEXT_CONSTANTS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

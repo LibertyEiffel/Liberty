@@ -12,7 +12,7 @@ expanded class REGULAR_EXPRESSION_BUILDER
    --
 
 feature {ANY} -- Building REGULAR_EXPRESSION
-   convert_posix_pattern (p: STRING): REGULAR_EXPRESSION is
+   convert_posix_pattern (p: STRING): REGULAR_EXPRESSION
          -- Create some REGULAR_EXPRESSION from the pattern `p' according to Posix syntax.
          -- If `p' is not a valid regular expression according to Posix syntax, then `Result' is Void
          -- and `last_error_message' and `last_error_position' are set.
@@ -26,7 +26,7 @@ feature {ANY} -- Building REGULAR_EXPRESSION
          substitution_cleared: Result /= Void implies not Result.substitution_pattern_ready
       end
 
-   convert_perl_pattern (p: STRING): REGULAR_EXPRESSION is
+   convert_perl_pattern (p: STRING): REGULAR_EXPRESSION
          -- Create some REGULAR_EXPRESSION from the pattern `p' according to Perl syntax.
          -- If `p' is not a valid regular expression according to Perl syntax, then `Result' is Void
          -- and `last_error_message' and `last_error_position' are set.
@@ -45,7 +45,7 @@ feature {ANY} -- Building REGULAR_EXPRESSION
          substitution_cleared: Result /= Void implies not Result.substitution_pattern_ready
       end
 
-   convert_python_pattern (p: STRING): REGULAR_EXPRESSION is
+   convert_python_pattern (p: STRING): REGULAR_EXPRESSION
          -- Create some REGULAR_EXPRESSION from the pattern `p' according to Python syntax.
          -- If `p' is not a valid regular expression according to Python syntax, then `Result' is Void
          -- and `last_error_message' and `last_error_position' are set.
@@ -69,14 +69,14 @@ feature {ANY} -- options
          -- Is the match case insensitive?
          -- Default is False
 
-   is_case_sensitive: BOOLEAN is
+   is_case_sensitive: BOOLEAN
          -- Is the match case sensitive?
          -- Default is True
       do
          Result := not is_case_insensitive
       end
 
-   set_case_sensitive is
+   set_case_sensitive
          -- Set the match as case sensitive.
       do
          is_case_insensitive := False
@@ -84,7 +84,7 @@ feature {ANY} -- options
          definition: is_case_insensitive = False and is_case_sensitive = True
       end
 
-   set_case_insensitive is
+   set_case_insensitive
          -- Set the match as case insensitive.
       do
          is_case_insensitive := True
@@ -96,7 +96,7 @@ feature {ANY} -- options
          -- Does the "any character" mark match a newline?
          -- Default is False
 
-   set_any_match_newline is
+   set_any_match_newline
          -- The "any character" mark will match a newline.
       do
          does_any_match_newline := True
@@ -104,7 +104,7 @@ feature {ANY} -- options
          definition: does_any_match_newline = True
       end
 
-   set_any_dont_match_newline is
+   set_any_dont_match_newline
          -- The "any character" mark will not match a newline.
       do
          does_any_match_newline := False
@@ -116,7 +116,7 @@ feature {ANY} -- options
          -- Does the begin/end marks match line boundary?
          -- Default is False
 
-   does_match_text_boundary: BOOLEAN is
+   does_match_text_boundary: BOOLEAN
          -- Does the begin/end marks match text boundary?
          -- Default is True
       do
@@ -125,7 +125,7 @@ feature {ANY} -- options
          definition: Result = not does_match_line_boundary
       end
 
-   set_match_line_boundary is
+   set_match_line_boundary
          -- The begin/end marks will match line boundary.
       do
          does_match_line_boundary := True
@@ -133,7 +133,7 @@ feature {ANY} -- options
          definition: does_match_line_boundary = True and does_match_text_boundary = False
       end
 
-   set_match_text_boundary is
+   set_match_text_boundary
          -- The begin/end marks will match text boundary.
       do
          does_match_line_boundary := False
@@ -144,7 +144,7 @@ feature {ANY} -- options
    has_extended_ligibility: BOOLEAN
          -- Is the extended ligibility active?
 
-   set_extended_ligibility is
+   set_extended_ligibility
          -- Activate extended ligibility.
       do
          has_extended_ligibility := True
@@ -152,7 +152,7 @@ feature {ANY} -- options
          definition: has_extended_ligibility = True
       end
 
-   set_no_extended_ligibility is
+   set_no_extended_ligibility
          -- Desactivate extended ligibility.
       do
          has_extended_ligibility := False
@@ -160,7 +160,7 @@ feature {ANY} -- options
          definition: has_extended_ligibility = False
       end
 
-   set_default_options is
+   set_default_options
          -- Set the default options
       do
          set_case_sensitive
@@ -186,25 +186,25 @@ feature {ANY} -- Error informations
          -- See also `convert_perl_pattern', `convert_posix_pattern'.
 
 feature {} -- Internal
-   posix_builder: POSIX_REGULAR_EXPRESSION_BUILDER is
+   posix_builder: POSIX_REGULAR_EXPRESSION_BUILDER
          -- The builder for the POSIX syntax
       once
          create Result.make
       end
 
-   perl5_builder: PERL5_REGULAR_EXPRESSION_BUILDER is
+   perl5_builder: PERL5_REGULAR_EXPRESSION_BUILDER
          -- The builder for the PERL5 syntax
       once
          create Result.make
       end
 
-   python_builder: PYTHON_REGULAR_EXPRESSION_BUILDER is
+   python_builder: PYTHON_REGULAR_EXPRESSION_BUILDER
          -- The builder for the Python syntax
       once
          create Result.make
       end
 
-   convert_backtracking_pattern (p: STRING; builder: BACKTRACKING_REGULAR_EXPRESSION_BUILDER): BACKTRACKING_REGULAR_EXPRESSION is
+   convert_backtracking_pattern (p: STRING; builder: BACKTRACKING_REGULAR_EXPRESSION_BUILDER): BACKTRACKING_REGULAR_EXPRESSION
          -- Create some BACKTRACKING_REGULAR_EXPRESSION from the pattern `p' according to the syntax
          -- pased by the given 'builder'.
          -- If `p' is not a valid regular expression according the said syntax, then `Result' is Void
@@ -245,13 +245,13 @@ feature {} -- Internal
 
 end -- class REGULAR_EXPRESSION_BUILDER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

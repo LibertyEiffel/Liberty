@@ -15,7 +15,7 @@
 deferred class LIBERTY_TYPE_DESCRIPTOR_CHANGE_LISTENER
 
 feature {LIBERTY_TYPE_DESCRIPTOR}
-   on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR) is
+   on_type_descriptor_changed (td: LIBERTY_TYPE_DESCRIPTOR)
       require
          td /= Void
       deferred

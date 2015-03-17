@@ -20,7 +20,7 @@ feature {ANY}
    c_count: INTEGER
 
 feature {}
-   init is
+   init
       do
          b_init
          c_count := c_count + 1

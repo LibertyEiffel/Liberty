@@ -9,22 +9,22 @@ inherit
 insert
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   dispose_count: COUNTER is
+   dispose_count: COUNTER
       once
          create Result
       end
 
    dispose_done_for_current: BOOLEAN
 
-   make is
+   make
       do
       end
 
-   dispose is
+   dispose
       do
          dispose_count.next
          assert(not dispose_done_for_current)

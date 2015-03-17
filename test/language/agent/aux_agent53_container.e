@@ -3,18 +3,18 @@
 --
 class AUX_AGENT53_CONTAINER[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    list: FAST_ARRAY[G]
 
-   make is
+   make
       do
          create list.make(0)
       end
 
-   stats_for (fct: FUNCTION[TUPLE[G], TUPLE[INTEGER, INTEGER]]): REAL is
+   stats_for (fct: FUNCTION[TUPLE[G], TUPLE[INTEGER, INTEGER]]): REAL
       local
          ti: TUPLE[INTEGER, INTEGER]; i, n1, n2: INTEGER
       do
@@ -33,7 +33,7 @@ feature {ANY}
          end
       end
 
-   exists (test: FUNCTION[TUPLE[G], BOOLEAN]): BOOLEAN is
+   exists (test: FUNCTION[TUPLE[G], BOOLEAN]): BOOLEAN
       local
          i: INTEGER
       do

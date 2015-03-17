@@ -16,21 +16,23 @@ create {HTTP_CONNECTION}
    make
 
 feature {HTTP_CONNECTION}
-   prepare_ok: BOOLEAN is True
+   prepare_ok: BOOLEAN True
 
-   method: STRING is "UNKNOWN"
+   expect_body: BOOLEAN False
 
-   add_header (header: STRING) is
+   method: STRING "UNKNOWN"
+
+   add_header (header: STRING)
       do
          -- forget it
       end
 
-   add_body (body: STRING) is
+   add_body (body: STRING)
       do
          -- forget it
       end
 
-   make (a_uri, a_version: STRING) is
+   make (a_uri, a_version: STRING)
       do
          uri := a_uri
          version := a_version
@@ -40,32 +42,32 @@ feature {HTTP_CONNECTION}
          end
       end
 
-   prepare_answer is
+   prepare_answer
       do
          code := 501
       end
 
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
          events.expect(t.timeout(0))
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := True
       end
 
 end -- class HTTP_NO_METHOD_HANDLER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

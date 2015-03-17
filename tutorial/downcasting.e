@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          a: ABSTRACT_STRING; s: STRING; col: COLLECTION[INTEGER]; array: ARRAY[INTEGER]
       do
@@ -40,7 +40,7 @@ feature {}
 
          col := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
          -- see tutorial/manifest_expression.e
-         -- Sometimes, thanks to the way the system is built, the type is
+         -- Sometimes, thanks to the way the system is built, the type
          -- known so we are sure the assignment is always valid.
          -- In this case, we don't need to do an assignment attempt
          -- with `?=', the test is a waste of time. `::=' is the solution.

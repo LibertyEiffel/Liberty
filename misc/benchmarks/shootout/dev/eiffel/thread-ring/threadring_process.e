@@ -1,10 +1,10 @@
 class THREADRING_PROCESS
 
-creation {THREADRING}
+create {THREADRING}
 	make
 
 feature {}
-	make (id: INTEGER; read_token: PIPE_OUTPUT; write_token, signal: PIPE_INPUT) is
+	make (id: INTEGER; read_token: PIPE_OUTPUT; write_token, signal: PIPE_INPUT)
 		local
 			pf: PROCESS_FACTORY
 		do
@@ -19,7 +19,7 @@ feature {}
 			end
 		end
 
-	run (id: INTEGER; read_token: PIPE_OUTPUT; write_token, signal: PIPE_INPUT) is
+	run (id: INTEGER; read_token: PIPE_OUTPUT; write_token, signal: PIPE_INPUT)
 		local
 			done: BOOLEAN
 			token: INTEGER

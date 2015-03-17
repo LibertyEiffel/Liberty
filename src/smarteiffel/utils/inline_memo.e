@@ -12,7 +12,7 @@ create {SMART_EIFFEL}
    make
 
 feature {ANY}
-   expression: EXPRESSION is
+   expression: EXPRESSION
       require
          is_expression_holder
       do
@@ -22,30 +22,30 @@ feature {ANY}
          Result /= Void
       end
 
-   instruction: INSTRUCTION is
+   instruction: INSTRUCTION
       require
          is_instruction_holder
       do
          Result ::= code
       end
 
-   cleared: BOOLEAN is
+   cleared: BOOLEAN
       do
          Result := code = Void
       end
 
-   is_instruction_holder: BOOLEAN is
+   is_instruction_holder: BOOLEAN
       do
          Result := {INSTRUCTION} ?:= code
       end
 
-   is_expression_holder: BOOLEAN is
+   is_expression_holder: BOOLEAN
       do
          Result := {EXPRESSION} ?:= code
       end
 
 feature {ANONYMOUS_FEATURE, EFFECTIVE_ARG_LIST}
-   set_expression (e: like expression) is
+   set_expression (e: like expression)
       require
          e /= Void
          code = Void
@@ -55,7 +55,7 @@ feature {ANONYMOUS_FEATURE, EFFECTIVE_ARG_LIST}
          code = e
       end
 
-   set_instruction (i: like instruction) is
+   set_instruction (i: like instruction)
       require
          code = Void
       do
@@ -65,7 +65,7 @@ feature {ANONYMOUS_FEATURE, EFFECTIVE_ARG_LIST}
       end
 
 feature {SMART_EIFFEL}
-   clear is
+   clear
       do
          code := Void
       end
@@ -73,7 +73,7 @@ feature {SMART_EIFFEL}
 feature {}
    code: CODE
    
-   make is
+   make
       do
       end
 
@@ -89,9 +89,9 @@ end -- class INLINE_MEMO
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

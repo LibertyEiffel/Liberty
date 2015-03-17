@@ -4,7 +4,7 @@
 deferred class AUX_PRECURSOR13B
 
 feature {ANY}
-   init (i: INTEGER): INTEGER is
+   init (i: INTEGER): INTEGER
       do
          Result := i * i
       end

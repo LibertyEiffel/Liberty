@@ -21,7 +21,7 @@ feature {ANY}
 
    array_character: ARRAY[CHARACTER]
 
-   make is
+   make
       local
          cat: CAT; dog: DOG
       do
@@ -63,13 +63,13 @@ feature {ANY}
          assert(array_real_64.is_equal({ARRAY[REAL_64] 1, << d1, d2, d3 >> }))
       end
 
-   d1: REAL_64 is 1.5
+   d1: REAL_64 1.5
 
-   d2: REAL_64 is 1.7
+   d2: REAL_64 1.7
 
-   d3: REAL_64 is 1.8
+   d3: REAL_64 1.8
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

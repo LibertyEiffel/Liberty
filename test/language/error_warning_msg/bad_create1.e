@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   t: STRING is
+   t: STRING
       once
          create t.make(100)
       end
 
-   make is
+   make
       do
          io.put_string(t)
       end

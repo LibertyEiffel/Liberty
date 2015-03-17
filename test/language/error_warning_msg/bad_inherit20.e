@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          foo: AUX_INHERIT20
          bar: like Current

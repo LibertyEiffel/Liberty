@@ -10,18 +10,18 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]
       do
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
-         my_collection.do_all(agent print_item1('#', ?))
+         my_collection.for_each(agent print_item1('#', ?))
          number := 0
-         my_collection.do_all(agent print_item2(?))
+         my_collection.for_each(agent print_item2(?))
       end
 
 feature {}
-   print_item1 (c: CHARACTER; item: STRING) is
+   print_item1 (c: CHARACTER; item: STRING)
       require
          c /= '%U'
          item /= Void
@@ -39,7 +39,7 @@ feature {}
          end
       end
 
-   print_item2 (item: STRING) is
+   print_item2 (item: STRING)
       do
          print_item1('#', item)
       end

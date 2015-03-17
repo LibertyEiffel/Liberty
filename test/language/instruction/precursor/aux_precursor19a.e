@@ -8,7 +8,7 @@ inherit
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   foo (i: INTEGER) is
+   foo (i: INTEGER)
       do
          assert(i = 10)
       end

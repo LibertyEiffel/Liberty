@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          mem: MEMORY; aux: AUX_AGENT40
       do
@@ -29,13 +29,13 @@ feature {}
 
    doit: PROCEDURE[TUPLE]
 
-   foo (x: AUX_AGENT40) is
+   foo (x: AUX_AGENT40)
       do
          assert(not x.is_disposed)
          assert(not x.field.is_disposed)
       end
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do

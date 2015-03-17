@@ -13,7 +13,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field ifr_ifrn.
 	-- Unwrappable field ifr_ifru.
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

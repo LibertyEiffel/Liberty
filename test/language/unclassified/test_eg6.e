@@ -8,14 +8,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_EG6_A[REAL]
       do
          assert(a.x = 1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

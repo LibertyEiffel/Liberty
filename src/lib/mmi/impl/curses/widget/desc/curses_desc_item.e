@@ -7,7 +7,7 @@ insert
    CURSES_DESCRIPTOR
 
 feature {CURSES_DESCRIPTOR}
-   build (parent: NCURSES_WINDOW) is
+   build (parent: NCURSES_WINDOW)
       require
          parent /= Void
          ncurses_widget = Void
@@ -16,7 +16,7 @@ feature {CURSES_DESCRIPTOR}
          ncurses_widget /= Void
       end
 
-   layout (a_x, a_y, a_width, a_height: INTEGER) is
+   layout (a_x, a_y, a_width, a_height: INTEGER)
       require
          ncurses_widget /= Void
          a_width > 0
@@ -31,35 +31,35 @@ feature {CURSES_DESCRIPTOR}
          height = a_height
       end
 
-   x: INTEGER is
+   x: INTEGER
       deferred
       end
 
-   y: INTEGER is
+   y: INTEGER
       deferred
       end
 
-   width: INTEGER is
+   width: INTEGER
       deferred
       end
 
-   height: INTEGER is
+   height: INTEGER
       deferred
       end
 
-   min_width: INTEGER is
+   min_width: INTEGER
       deferred
       end
 
-   min_height: INTEGER is
+   min_height: INTEGER
       deferred
       end
 
-   max_width: INTEGER is
+   max_width: INTEGER
       deferred
       end
 
-   max_height: INTEGER is
+   max_height: INTEGER
       deferred
       end
 
@@ -68,13 +68,13 @@ feature {}
 
 end -- class CURSES_DESC_ITEM
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

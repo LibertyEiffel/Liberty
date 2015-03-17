@@ -13,7 +13,7 @@ create {EIFFEL_GRAMMAR}
    default_create
 
 feature {EIFFEL_GRAMMAR}
-   next (buffer: MINI_PARSER_BUFFER): like Current is
+   next (buffer: MINI_PARSER_BUFFER): like Current
       do
          buffer.next
          index := buffer.current_index
@@ -38,13 +38,13 @@ feature {EIFFEL_GRAMMAR, EIFFEL_IMAGE, EIFFEL_POSITION}
    index: INTEGER
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := index = other.index
       end
 
 feature {}
-   default_create is
+   default_create
       do
          index := 1
          line := 1
@@ -53,13 +53,13 @@ feature {}
 
 end -- class EIFFEL_POSITION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

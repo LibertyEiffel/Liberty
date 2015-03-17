@@ -4,7 +4,7 @@
 class AUX_INSPECT19
 
 feature {}
-   tmp : STRING is
+   tmp : STRING
       once
          create Result.make(0)
       end

@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   fornicate_with (other: ANIMAL): ANIMAL is
+   fornicate_with (other: ANIMAL): ANIMAL
       do
       end
 

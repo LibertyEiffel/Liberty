@@ -8,17 +8,17 @@ create {}
    make
 
 feature {ANY}
-   once1: AUX_EB2 is
+   once1: AUX_EB2
       once
          create Result
       end
 
-   once2: AUX_EB2 is
+   once2: AUX_EB2
       once
          Result := once1
       end
 
-   make is
+   make
       do
          if once1 /= once2 then
             std_output.put_string("TEST_EB2: ERROR Test #1%N")

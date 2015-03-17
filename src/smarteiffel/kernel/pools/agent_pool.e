@@ -17,7 +17,7 @@ feature {ANY}
    agent_creation_collected_flag: BOOLEAN
 
 feature {AGENT_CREATION}
-   agent_creation_collect (type: TYPE; agent_creation: AGENT_CREATION; agent_type: TYPE) is
+   agent_creation_collect (type: TYPE; agent_creation: AGENT_CREATION; agent_type: TYPE)
       require
          agent_creation.resolve_in(type) = agent_type
       local
@@ -68,7 +68,7 @@ feature {AGENT_CREATION}
       end
 
 feature {AGENT_LAUNCHER}
-   agent_launcher_collect (launcher_type: TYPE): AGENT_ARGS is
+   agent_launcher_collect (launcher_type: TYPE): AGENT_ARGS
       require
          launcher_type.canonical_type_mark.is_agent
       local
@@ -112,7 +112,7 @@ feature {AGENT_LAUNCHER}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
       local
          i: INTEGER
       do
@@ -129,25 +129,25 @@ feature {SMART_EIFFEL}
       end
 
 feature {CODE_PRINTER, C_LIVE_TYPE_COMPILER}
-   creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE] is
+   creation_collected_memory: HASHED_DICTIONARY[FAST_ARRAY[AGENT_CREATION], TYPE]
          -- For each context TYPE, those which are collected.
       once
          create Result.make
       end
 
-   launcher_collected_memory: SET[AGENT_ARGS] is
+   launcher_collected_memory: SET[AGENT_ARGS]
          -- A subset of `launcher_memory' (collected ones).
       once
          create {HASHED_SET[AGENT_ARGS]} Result.make
       end
 
-   agent_definition_set: SET[STRING] is
+   agent_definition_set: SET[STRING]
       once
          create {HASHED_SET[STRING]} Result.make
       end
 
 feature {}
-   notify_assignment_handler_with (agent_type, launcher_type: TYPE) is
+   notify_assignment_handler_with (agent_type, launcher_type: TYPE)
       require
          agent_type.is_agent
          launcher_type.is_agent
@@ -185,7 +185,7 @@ feature {}
          end
       end
 
-   launcher_memory: HASHED_DICTIONARY[AGENT_ARGS, STRING] is
+   launcher_memory: HASHED_DICTIONARY[AGENT_ARGS, STRING]
          -- All ever created signatures for all encountered agent launcher.
       once
          create Result.make
@@ -203,9 +203,9 @@ end -- class AGENT_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          screen_memo.set_item (SDL_SCREEN_set_videomode
                                0);

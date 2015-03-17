@@ -4,7 +4,7 @@
 class AUX_EB12A
 
 feature {ANY}
-   f is
+   f
       do
          if a1 = Void then
          else

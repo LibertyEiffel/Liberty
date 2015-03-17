@@ -31,7 +31,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          cursor_visibility := default_visible_cursor_mode
          poll_timeout := 2500
@@ -44,7 +44,7 @@ feature {}
    depth: INTEGER
 
 feature {ANY} -- Events related routines
-   when_key_pressed (p: PROCEDURE[TUPLE[INTEGER]]) is
+   when_key_pressed (p: PROCEDURE[TUPLE[INTEGER]])
       do
          if key_pressed_signal = Void then
             create key_pressed_signal.make
@@ -52,7 +52,7 @@ feature {ANY} -- Events related routines
          key_pressed_signal.connect(p)
       end
 
-   when_resized (p: PROCEDURE[TUPLE]) is
+   when_resized (p: PROCEDURE[TUPLE])
       do
          if resized_signal = Void then
             create resized_signal.make
@@ -60,7 +60,7 @@ feature {ANY} -- Events related routines
          resized_signal.connect(p)
       end
 
-   when_idle (p: PROCEDURE[TUPLE]) is
+   when_idle (p: PROCEDURE[TUPLE])
       do
          if idle_signal = Void then
             create idle_signal.make
@@ -69,7 +69,7 @@ feature {ANY} -- Events related routines
       end
 
 feature {ANY} -- To switch the `is_enabled' flag:
-   is_enabled: BOOLEAN is
+   is_enabled: BOOLEAN
          -- Is `ncurses' ready to be used?
          -- This also means that we not in the normal terminal mode.
          --
@@ -78,7 +78,7 @@ feature {ANY} -- To switch the `is_enabled' flag:
          Result := depth > 0
       end
 
-   enable is
+   enable
          -- To switch from normal terminal mode to `ncurses' mode.
          --
          -- See also `disable', `is_enabled'.
@@ -109,7 +109,7 @@ feature {ANY} -- To switch the `is_enabled' flag:
          loop_stack /= Void
       end
 
-   start is
+   start
       require
          is_enabled
       do
@@ -117,7 +117,7 @@ feature {ANY} -- To switch the `is_enabled' flag:
          loop_stack.run
       end
 
-   disable is
+   disable
          -- This procedure must be called when returning to normal terminal mode.
          --
          -- See also `enable', `is_enabled'.
@@ -129,7 +129,7 @@ feature {ANY} -- To switch the `is_enabled' flag:
       end
 
 feature {}
-   do_disable is
+   do_disable
       require
          is_enabled
       do
@@ -141,7 +141,7 @@ feature {}
       end
 
 feature {ANY} -- Adding jobs to the loop stack:
-   add_job (a_job: JOB) is
+   add_job (a_job: JOB)
       require
          is_enabled
       do
@@ -149,7 +149,7 @@ feature {ANY} -- Adding jobs to the loop stack:
       end
 
 feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated in another framework such as `ui`
-   set_loop_stack (a_stack: like loop_stack) is
+   set_loop_stack (a_stack: like loop_stack)
       require
          not is_enabled
          a_stack /= Void
@@ -161,7 +161,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    loop_stack: LOOP_STACK
 
-   set_event_catcher (a_catcher: like event_catcher) is
+   set_event_catcher (a_catcher: like event_catcher)
       require
          not is_enabled
          a_catcher /= Void
@@ -173,7 +173,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    event_catcher: JOB
 
-   set_poll_timeout (a_timeout: like poll_timeout) is
+   set_poll_timeout (a_timeout: like poll_timeout)
       require
          a_timeout >= 0
       do
@@ -184,7 +184,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
 
    poll_timeout: INTEGER
 
-   handle_events: BOOLEAN is
+   handle_events: BOOLEAN
          -- The core method that handles ncurses events
       require
          is_enabled
@@ -215,7 +215,7 @@ feature {NCURSES_HANDLER} -- Useful if the ncurses framework must be integrated 
       end
 
 feature {ANY}
-   get_root_window: NCURSES_WINDOW is
+   get_root_window: NCURSES_WINDOW
          -- Returns the root NCURSES_WINDOW.
       require
          is_enabled
@@ -223,12 +223,12 @@ feature {ANY}
          create Result.make_root_window(stdscr)
       end
 
-   register_recovery_agent (register: PROCEDURE[TUPLE]) is
+   register_recovery_agent (register: PROCEDURE[TUPLE])
       do
          recovery_agents.add_last(register)
       end
 
-   unregister_recovery_agent (unregister: PROCEDURE[TUPLE]) is
+   unregister_recovery_agent (unregister: PROCEDURE[TUPLE])
       local
          i: INTEGER
       do
@@ -236,7 +236,7 @@ feature {ANY}
          recovery_agents.remove(i)
       end
 
-   get_color_pair (foreground, background: INTEGER): INTEGER is
+   get_color_pair (foreground, background: INTEGER): INTEGER
          -- Defines new color-pair.
       require
          is_enabled
@@ -264,7 +264,7 @@ feature {ANY}
          --
          -- See also `set_buffering_policy'.
 
-   set_buffering_policy (enable_buffering: BOOLEAN) is
+   set_buffering_policy (enable_buffering: BOOLEAN)
          -- Enables/disables line `buffering_policy'.
       require
          is_enabled
@@ -284,7 +284,7 @@ feature {ANY}
          --
          -- See also `set_echoing_policy'.
 
-   set_echoing_policy (enable_echoing: BOOLEAN) is
+   set_echoing_policy (enable_echoing: BOOLEAN)
          -- Enables/disables `echoing_policy'.
       require
          is_enabled
@@ -304,7 +304,7 @@ feature {ANY}
          --
          -- See also `set_automatic_kill_policy'.
 
-   set_automatic_kill_policy (enable_kill_policy: like automatic_kill_policy) is
+   set_automatic_kill_policy (enable_kill_policy: like automatic_kill_policy)
          -- Enables/disables `automatic_kill_policy'.
       require
          is_enabled
@@ -321,7 +321,7 @@ feature {ANY}
          automatic_kill_policy = enable_kill_policy
       end
 
-   push_back_keypress (ch: INTEGER) is
+   push_back_keypress (ch: INTEGER)
          -- Pushes back the next (fake) keypress.
       require
          is_enabled
@@ -329,7 +329,7 @@ feature {ANY}
          check_for_error(ungetch(ch) = ok)
       end
 
-   refresh_pending is
+   refresh_pending
          -- Refreshes all windows which have called `refresh_later'.
       require
          is_enabled
@@ -337,7 +337,7 @@ feature {ANY}
          check_for_error(doupdate = ok)
       end
 
-   ok: INTEGER is
+   ok: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -346,7 +346,7 @@ feature {ANY}
          }"
       end
 
-   err: INTEGER is
+   err: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -355,7 +355,7 @@ feature {ANY}
          }"
       end
 
-   a_attributes: INTEGER is
+   a_attributes: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -364,7 +364,7 @@ feature {ANY}
          }"
       end
 
-   a_chartext: INTEGER is
+   a_chartext: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -373,7 +373,7 @@ feature {ANY}
          }"
       end
 
-   a_color: INTEGER is
+   a_color: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -382,7 +382,7 @@ feature {ANY}
          }"
       end
 
-   a_normal: INTEGER is
+   a_normal: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -391,7 +391,7 @@ feature {ANY}
          }"
       end
 
-   a_standout: INTEGER is
+   a_standout: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -400,7 +400,7 @@ feature {ANY}
          }"
       end
 
-   a_underline: INTEGER is
+   a_underline: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -409,7 +409,7 @@ feature {ANY}
          }"
       end
 
-   a_reverse: INTEGER is
+   a_reverse: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -418,7 +418,7 @@ feature {ANY}
          }"
       end
 
-   a_blink: INTEGER is
+   a_blink: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -427,7 +427,7 @@ feature {ANY}
          }"
       end
 
-   a_dim: INTEGER is
+   a_dim: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -436,7 +436,7 @@ feature {ANY}
          }"
       end
 
-   a_bold: INTEGER is
+   a_bold: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -445,7 +445,7 @@ feature {ANY}
          }"
       end
 
-   a_altcharset: INTEGER is
+   a_altcharset: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -454,7 +454,7 @@ feature {ANY}
          }"
       end
 
-   a_invis: INTEGER is
+   a_invis: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -463,7 +463,7 @@ feature {ANY}
          }"
       end
 
-   a_protect: INTEGER is
+   a_protect: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -472,7 +472,7 @@ feature {ANY}
          }"
       end
 
-   a_horizontal: INTEGER is
+   a_horizontal: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -481,7 +481,7 @@ feature {ANY}
          }"
       end
 
-   a_left: INTEGER is
+   a_left: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -490,7 +490,7 @@ feature {ANY}
          }"
       end
 
-   a_low: INTEGER is
+   a_low: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -499,7 +499,7 @@ feature {ANY}
          }"
       end
 
-   a_right: INTEGER is
+   a_right: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -508,7 +508,7 @@ feature {ANY}
          }"
       end
 
-   a_top: INTEGER is
+   a_top: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -517,7 +517,7 @@ feature {ANY}
          }"
       end
 
-   a_vertical: INTEGER is
+   a_vertical: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -530,7 +530,7 @@ feature {ANY}
    cursor_visibility: INTEGER
          -- See available cursor mode constants in NUMBER_TOOLS.
 
-   set_cursor_visibility (visibility: like cursor_visibility) is
+   set_cursor_visibility (visibility: like cursor_visibility)
          -- See available cursor mode constants in NUMBER_TOOLS.
       require
          is_enabled
@@ -543,7 +543,7 @@ feature {ANY}
       end
 
 feature {NCURSES_WIDGET}
-   check_for_error (noerror: BOOLEAN) is
+   check_for_error (noerror: BOOLEAN)
          -- Used to check correct ncurses return codes.
       local
          i: INTEGER
@@ -563,7 +563,7 @@ feature {NCURSES_WIDGET}
       end
 
 feature {ANY}
-   disable_and_exit is
+   disable_and_exit
       do
          from
          until
@@ -579,13 +579,13 @@ feature {}
 
    color_pair_counter: INTEGER
 
-   recovery_agents: FAST_ARRAY[PROCEDURE[TUPLE]] is
+   recovery_agents: FAST_ARRAY[PROCEDURE[TUPLE]]
          -- We can safely use `once' here because `NCURSES_WRAPPER' is a singleton
       once
          create Result.with_capacity(1)
       end
 
-   dispose is
+   dispose
       do
          if is_enabled then
             disable
@@ -595,7 +595,7 @@ feature {}
       end
 
    -- Below are plug_in connections to the curses library
-   initscr is
+   initscr
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -604,7 +604,7 @@ feature {}
          }"
       end
 
-   stdscr: POINTER is
+   stdscr: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -613,7 +613,7 @@ feature {}
          }"
       end
 
-   endwin is
+   endwin
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -622,7 +622,7 @@ feature {}
          }"
       end
 
-   start_color is
+   start_color
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -631,7 +631,7 @@ feature {}
          }"
       end
 
-   init_pair (pair, f, b: INTEGER): INTEGER is
+   init_pair (pair, f, b: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -640,7 +640,7 @@ feature {}
          }"
       end
 
-   color_pair (index: INTEGER): INTEGER is
+   color_pair (index: INTEGER): INTEGER
          -- Returns defined color-pair.
       require
          is_enabled
@@ -652,7 +652,7 @@ feature {}
          }"
       end
 
-   cbreak: INTEGER is
+   cbreak: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -661,7 +661,7 @@ feature {}
          }"
       end
 
-   nocbreak: INTEGER is
+   nocbreak: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -670,7 +670,7 @@ feature {}
          }"
       end
 
-   echo: INTEGER is
+   echo: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -679,7 +679,7 @@ feature {}
          }"
       end
 
-   noecho: INTEGER is
+   noecho: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -688,7 +688,7 @@ feature {}
          }"
       end
 
-   ungetch (ch: INTEGER): INTEGER is
+   ungetch (ch: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -697,7 +697,7 @@ feature {}
          }"
       end
 
-   doupdate: INTEGER is
+   doupdate: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -706,7 +706,7 @@ feature {}
          }"
       end
 
-   refresh: INTEGER is
+   refresh: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -715,7 +715,7 @@ feature {}
          }"
       end
 
-   curs_set (v: INTEGER): INTEGER is
+   curs_set (v: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -724,7 +724,7 @@ feature {}
          }"
       end
 
-   terminal_width: INTEGER is
+   terminal_width: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -733,7 +733,7 @@ feature {}
          }"
       end
 
-   terminal_height: INTEGER is
+   terminal_height: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -742,7 +742,7 @@ feature {}
          }"
       end
 
-   trace_actions is
+   trace_actions
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -756,13 +756,13 @@ invariant
 
 end -- class NCURSES
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

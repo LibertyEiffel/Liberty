@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          str: STRING
       do
@@ -25,7 +25,7 @@ feature {}
          end
       end
 
-   fill (s: STRING; size: INTEGER) is
+   fill (s: STRING; size: INTEGER)
       require
          size > 0
       local
@@ -44,7 +44,7 @@ feature {}
          s.count = old s.count + size
       end
 
-   rand: MINIMAL_RANDOM_NUMBER_GENERATOR is
+   rand: MINIMAL_RANDOM_NUMBER_GENERATOR
       once
          create Result.with_seed(57)
       end

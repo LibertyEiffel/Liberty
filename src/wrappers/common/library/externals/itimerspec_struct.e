@@ -13,7 +13,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field it_interval.
 	-- Unwrappable field it_value.
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

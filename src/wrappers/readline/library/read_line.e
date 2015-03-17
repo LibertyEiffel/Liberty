@@ -17,7 +17,7 @@ feature {ANY} -- Read line
 
    last_line: STRING -- The last line read by `read_line'
 
-   read_line is
+   read_line
          -- Print `prompt' and read a line, put into `last_line'
       local
          p: POINTER
@@ -31,24 +31,27 @@ feature {ANY} -- Read line
          end
       end
 
-   buffer: FIXED_STRING is
+   buffer: FIXED_STRING
       do
          Result := buffer_
          Result.from_external(rl_line_buffer)
       end
 
-   completion: READ_LINE_COMPLETION is
+   completion: READ_LINE_COMPLETION
+      local
+         c: READLINE_CECIL -- we need that indirection to force LibertyEiffel to "see" the assignment READLINE_CECIL -> READ_LINE_COMPLETION
       once
-         create Result.make
+         create {READ_LINE_COMPLETION} c.make
+         Result ::= c
       end
 
-   history: READ_LINE_HISTORY is
+   history: READ_LINE_HISTORY
       once
          create Result.using_history
       end
 
 feature {}
-   buffer_: FIXED_STRING is
+   buffer_: FIXED_STRING
       once
          create Result.make_from_string("deadstring")
       end

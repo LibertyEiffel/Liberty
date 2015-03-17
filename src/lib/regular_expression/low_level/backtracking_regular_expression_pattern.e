@@ -10,7 +10,7 @@ feature {ANY}
    group_count: INTEGER
          -- The count of groups of the regular expression.
 
-   is_valid: BOOLEAN is
+   is_valid: BOOLEAN
          -- Is the current pattern valid?
       do
          Result := root /= Void
@@ -23,12 +23,12 @@ feature {BACKTRACKING_REGULAR_EXPRESSION}
    substrings_names: BIJECTIVE_DICTIONARY[INTEGER, FIXED_STRING]
 
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER}
-   make (top: like root; grpcnt: INTEGER; subnames: like substrings_names) is
+   make (top: like root; grpcnt: INTEGER; subnames: like substrings_names)
          -- Initializing
       require
          top_not_void: top /= Void
          valid_group_count: grpcnt >= 0
-         valid_subnames: subnames.for_all(agent (c, i: INTEGER; s: FIXED_STRING): BOOLEAN is do Result := i.in_range(0, c) and then s /= Void end (grpcnt, ?, ?))
+         valid_subnames: subnames.for_all(agent (c, i: INTEGER; s: FIXED_STRING): BOOLEAN do Result := i.in_range(0, c) and then s /= Void end (grpcnt, ?, ?))
       do
          root := top
          group_count := grpcnt
@@ -40,13 +40,13 @@ feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER}
 
 end -- class BACKTRACKING_REGULAR_EXPRESSION_PATTERN
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

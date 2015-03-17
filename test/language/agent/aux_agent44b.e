@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   f is
+   f
       do
          execution := "B"
       end

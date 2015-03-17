@@ -4,7 +4,7 @@
 class AUX_ANCHOR1A
 
 feature {ANY}
-   new_like_current: like Current is
+   new_like_current: like Current
       do
          create Result
       end

@@ -8,11 +8,11 @@ inherit
       redefine f
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bool: BOOLEAN
       do

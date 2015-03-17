@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          prepare_storage_pickle
          test_commit
          test_update
       end
 
-   test_commit is
+   test_commit
       local
          str: STRING
          strout: STRING_OUTPUT_STREAM
@@ -32,7 +32,7 @@ feature {}
          assert(str.is_equal(pickle))
       end
 
-   test_update is
+   test_update
       local
          strin: STRING_INPUT_STREAM
          repo: JSON_STREAM_REPOSITORY[STRING]
@@ -67,7 +67,7 @@ feature {}
 feature {} -- Expected pickle data (depends on compilation mode)
    storage_pickle: STRING
 
-   check_storage_pickle: BOOLEAN is
+   check_storage_pickle: BOOLEAN
       do
          debug
             storage_pickle := "%N%
@@ -99,7 +99,7 @@ feature {} -- Expected pickle data (depends on compilation mode)
          Result := True
       end
 
-   prepare_storage_pickle is
+   prepare_storage_pickle
       require
          storage_pickle = Void
       do
@@ -118,7 +118,7 @@ feature {} -- Expected pickle data (depends on compilation mode)
          storage_pickle /= Void
       end
 
-   pickle: STRING is
+   pickle: STRING
       once
          Result := ("[
                     {

@@ -5,9 +5,9 @@ expanded class GBOOKMARK_FILE_ERROR_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = app_not_registered_low_level)  or else
 				(a_value = file_not_found_low_level)  or else
@@ -21,89 +21,89 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_app_not_registered is
+	set_app_not_registered
 		do
 			value := app_not_registered_low_level
 		end
 
-	set_file_not_found is
+	set_file_not_found
 		do
 			value := file_not_found_low_level
 		end
 
-	set_invalid_uri is
+	set_invalid_uri
 		do
 			value := invalid_uri_low_level
 		end
 
-	set_invalid_value is
+	set_invalid_value
 		do
 			value := invalid_value_low_level
 		end
 
-	set_read is
+	set_read
 		do
 			value := read_low_level
 		end
 
-	set_unknown_encoding is
+	set_unknown_encoding
 		do
 			value := unknown_encoding_low_level
 		end
 
-	set_uri_not_found is
+	set_uri_not_found
 		do
 			value := uri_not_found_low_level
 		end
 
-	set_write is
+	set_write
 		do
 			value := write_low_level
 		end
 
 feature {ANY} -- Queries
-	is_app_not_registered: BOOLEAN is
+	is_app_not_registered: BOOLEAN
 		do
 			Result := (value=app_not_registered_low_level)
 		end
 
-	is_file_not_found: BOOLEAN is
+	is_file_not_found: BOOLEAN
 		do
 			Result := (value=file_not_found_low_level)
 		end
 
-	is_invalid_uri: BOOLEAN is
+	is_invalid_uri: BOOLEAN
 		do
 			Result := (value=invalid_uri_low_level)
 		end
 
-	is_invalid_value: BOOLEAN is
+	is_invalid_value: BOOLEAN
 		do
 			Result := (value=invalid_value_low_level)
 		end
 
-	is_read: BOOLEAN is
+	is_read: BOOLEAN
 		do
 			Result := (value=read_low_level)
 		end
 
-	is_unknown_encoding: BOOLEAN is
+	is_unknown_encoding: BOOLEAN
 		do
 			Result := (value=unknown_encoding_low_level)
 		end
 
-	is_uri_not_found: BOOLEAN is
+	is_uri_not_found: BOOLEAN
 		do
 			Result := (value=uri_not_found_low_level)
 		end
 
-	is_write: BOOLEAN is
+	is_write: BOOLEAN
 		do
 			Result := (value=write_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	app_not_registered_low_level: INTEGER is
+	app_not_registered_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -112,7 +112,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	file_not_found_low_level: INTEGER is
+	file_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -121,7 +121,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_uri_low_level: INTEGER is
+	invalid_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -130,7 +130,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_value_low_level: INTEGER is
+	invalid_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -139,7 +139,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	read_low_level: INTEGER is
+	read_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -148,7 +148,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_encoding_low_level: INTEGER is
+	unknown_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -157,7 +157,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uri_not_found_low_level: INTEGER is
+	uri_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -166,7 +166,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	write_low_level: INTEGER is
+	write_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

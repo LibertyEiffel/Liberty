@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          cs: CONST_STRING; s: STRING
       do
@@ -26,17 +26,17 @@ feature {ANY}
       end
 
 feature {} -- externals
-   const_s_ptr: POINTER is
+   const_s_ptr: POINTER
       external "C macro"
       alias "%"teststring%""
       end
 
-   short_const_s_ptr: POINTER is
+   short_const_s_ptr: POINTER
       external "C macro"
       alias "%"test%""
       end
 
-   long_const_s_ptr: POINTER is
+   long_const_s_ptr: POINTER
       external "C macro"
       alias "%"teststring-long%""
       end

@@ -9,11 +9,11 @@ inherit
       end
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   do_something is
+   do_something
       do
          dummy := dummy + 47
       end
@@ -21,12 +21,12 @@ feature {ANY}
 feature {}
    twr: TEST_WEAK_REF02
 
-   dispose is
+   dispose
       do
          twr.set_aux_wr_disposed
       end
 
-   make (tst: TEST_WEAK_REF02) is
+   make (tst: TEST_WEAK_REF02)
       do
          twr := tst
       end

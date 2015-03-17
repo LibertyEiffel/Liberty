@@ -21,7 +21,7 @@ create {TYPE_MARK_LIST}
    make
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          if remainder = Void then
             Result := 1
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   item (i: INTEGER): TYPE_MARK is
+   item (i: INTEGER): TYPE_MARK
       require
          i.in_range(1, count)
       do
@@ -43,7 +43,7 @@ feature {ANY}
          Result /= Void
       end
 
-   locate_in_error_handler is
+   locate_in_error_handler
          -- Add one or more related positions in the `error_handler'.
       local
          i: INTEGER; tm: TYPE_MARK
@@ -59,7 +59,7 @@ feature {ANY}
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          i: INTEGER
       do
@@ -76,13 +76,13 @@ feature {ANY}
          Result = (wider_than(other) and other.wider_than(Current))
       end
 
-   accept (visitor: TYPE_MARK_LIST_VISITOR) is
+   accept (visitor: TYPE_MARK_LIST_VISITOR)
       do
          visitor.visit_type_mark_list(Current)
       end
 
 feature {EIFFEL_PARSER, TYPE_MARK_LIST_VISITOR}
-   add_last (tm: TYPE_MARK) is
+   add_last (tm: TYPE_MARK)
       require
          tm /= Void
       local
@@ -105,7 +105,7 @@ feature {EIFFEL_PARSER, TYPE_MARK_LIST_VISITOR}
       end
 
 feature {TYPE_MARK_LIST_VISITOR}
-   index_of (tm: TYPE_MARK): INTEGER is
+   index_of (tm: TYPE_MARK): INTEGER
          -- Is `tm' a member of `Current' class name list?
          -- Gives 0 when `tm' is not in the `list'.
       require
@@ -127,7 +127,7 @@ feature {TYPE_MARK_LIST_VISITOR}
       end
 
 feature {CLIENT_LIST}
-   append_in (b: STRING) is
+   append_in (b: STRING)
       local
          i: INTEGER
       do
@@ -144,7 +144,7 @@ feature {CLIENT_LIST}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER; tm: TYPE_MARK
       do
@@ -164,7 +164,7 @@ feature {CLIENT_LIST}
          end
       end
 
-   gives_permission_to (tm: TYPE_MARK; target_type: TYPE): BOOLEAN is
+   gives_permission_to (tm: TYPE_MARK; target_type: TYPE): BOOLEAN
       require
          not_done_to_report_errors: error_handler.is_empty -- required by try_class_text
          tm /= Void
@@ -189,7 +189,7 @@ feature {CLIENT_LIST}
                   Result := True
                else
                   item_type_mark := item_type_mark.to_static(target_type, True)
-                  if item_type_mark.try_class_text = Void then
+                  if item_type_mark = Void or else item_type_mark.try_class_text = Void then
                      -- just an unknown class, no big deal in a client clause
                   else
                      Result := tm_type = item_type_mark.type or else tm_type.insert_inherit_test(item_type_mark.type) /= unrelated_code
@@ -207,7 +207,7 @@ feature {CLIENT_LIST}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   gives_permission_to_any: BOOLEAN is
+   gives_permission_to_any: BOOLEAN
       local
          i: INTEGER
       do
@@ -221,24 +221,32 @@ feature {CLIENT_LIST}
          end
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       require
          new_type /= Void
       local
-         i: INTEGER
+         i: INTEGER; tm: TYPE_MARK
       do
          from
             i := 1
          until
             i > count
          loop
-            item(i).specialize_in(new_type)
+            tm := item(i)
+            if tm.start_position.class_text = new_type.class_text then
+               tm.specialize_in(new_type)
+            else
+               --sedb_breakpoint
+            end
             i := i + 1
          end
+      ensure
+         has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
+         has_been_specialized
          parent_type /= Void
          parent_edge /= Void
          new_type /= Void
@@ -279,10 +287,30 @@ feature {CLIENT_LIST}
             end
             create Result.make(f, r)
          end
+      ensure
+         Result.has_been_specialized
       end
 
 feature {CLIENT_LIST, TYPE_MARK_LIST}
-   wider_than (other: like Current): BOOLEAN is
+   has_been_specialized: BOOLEAN
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+            Result := True
+         until
+            i > count or else not Result
+         loop
+            Result := item(i).has_been_specialized
+            i := i + 1
+         end
+      ensure
+         assertion_only: Result
+      end
+
+feature {CLIENT_LIST, TYPE_MARK_LIST}
+   wider_than (other: like Current): BOOLEAN
       require
          not_done_to_report_errors: error_handler.is_empty -- required by try_class_text
       local
@@ -319,7 +347,7 @@ feature {}
    first: TYPE_MARK
    remainder: FAST_ARRAY[TYPE_MARK]
 
-   make_1 (tm: TYPE_MARK) is
+   make_1 (tm: TYPE_MARK)
       require
          tm /= Void
       do
@@ -329,7 +357,7 @@ feature {}
          item(1) = tm
       end
 
-   make (tm: TYPE_MARK; rem: like remainder) is
+   make (tm: TYPE_MARK; rem: like remainder)
       require
          tm /= Void
       do
@@ -340,7 +368,7 @@ feature {}
          remainder = rem
       end
 
-   merge (l1, l2: like Current) is
+   merge (l1, l2: like Current)
       require
          l1 /= Void
          l2 /= Void
@@ -390,9 +418,9 @@ end -- class TYPE_MARK_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -14,7 +14,7 @@ create {}
 feature {}
    loop_stack: LOOP_STACK
 
-   make is
+   make
       do
          create loop_stack.make
          init(3)
@@ -22,7 +22,7 @@ feature {}
          assert(counter = 2)
       end
 
-   init (repeat: INTEGER) is
+   init (repeat: INTEGER)
       local
          update: SIMPLE_PERIODIC_JOB
       do
@@ -31,7 +31,7 @@ feature {}
          assert(counter = 0)
       end
 
-   foo (repeat: STRING): BOOLEAN is
+   foo (repeat: STRING): BOOLEAN
       do
          assert(repeat.count.in_range(0, 1))
          assert(repeat.capacity = 2)

@@ -6,7 +6,7 @@ inherit
    CONSTRAINT
 
 feature {ANY}
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
       deferred
       end
 

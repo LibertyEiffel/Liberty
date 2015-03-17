@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INFIX_OPERATOR}
-   visit_liberty_infix_operator (v: LIBERTY_INFIX_OPERATOR) is
+   visit_liberty_infix_operator (v: LIBERTY_INFIX_OPERATOR)
       deferred
       end
 

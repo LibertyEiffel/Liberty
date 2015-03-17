@@ -17,7 +17,7 @@ create {ANY}
    make, connect_to, connect_for_appending_to
 
 feature {ANY}
-   connect_to (new_path: ABSTRACT_STRING) is
+   connect_to (new_path: ABSTRACT_STRING)
          -- Truncate file to zero length or create binary file for writing.
          -- The stream is positioned at the beginning of the file.
       local
@@ -31,10 +31,13 @@ feature {ANY}
                buffer := buffer.calloc(4096)
                capacity := 4096
             end
+            if the_terminal_settings /= Void then
+               the_terminal_settings.make(output_stream, Current)
+            end
          end
       end
 
-   connect_for_appending_to (new_path: STRING) is
+   connect_for_appending_to (new_path: STRING)
          -- Truncate file to zero length or create binary file for writing.
          -- The stream is positioned at the beginning of the file.
       require
@@ -51,10 +54,13 @@ feature {ANY}
                buffer := buffer.calloc(4096)
                capacity := 4096
             end
+            if the_terminal_settings /= Void then
+               the_terminal_settings.make(output_stream, Current)
+            end
          end
       end
 
-   flush is
+   flush
          -- forces a write of unwritten character (write my have been
          -- delayed, flush writes buffered characters)
       do
@@ -64,7 +70,7 @@ feature {ANY}
          io_flush(output_stream)
       end
 
-   disconnect is
+   disconnect
       do
          if buffer_position > 0 then
             write_buffer
@@ -73,9 +79,9 @@ feature {ANY}
          path := Void
       end
 
-   can_disconnect: BOOLEAN is True
+   can_disconnect: BOOLEAN True
 
-   put_byte (byte: INTEGER) is
+   put_byte (byte: INTEGER)
       require
          is_connected
       do
@@ -86,7 +92,7 @@ feature {ANY}
          buffer_position := buffer_position + 1
       end
 
-   put_integer_16_native_endian (i: INTEGER_16) is
+   put_integer_16_native_endian (i: INTEGER_16)
          -- Write in the same order as the machine running this code.
          -- The result is machine dependant.
       require
@@ -99,7 +105,7 @@ feature {ANY}
          buffer_position := buffer_position + 2
       end
 
-   put_integer_16_big_endian (i: INTEGER_16) is
+   put_integer_16_big_endian (i: INTEGER_16)
          -- Write `i' in big endian mode.
          -- The result is machine independant.
       require
@@ -112,7 +118,7 @@ feature {ANY}
          buffer_position := buffer_position + 2
       end
 
-   put_integer_16_little_endian (i: INTEGER_16) is
+   put_integer_16_little_endian (i: INTEGER_16)
          -- Write `i' in little endian mode.
          -- The result is machine independant.
       require
@@ -125,7 +131,7 @@ feature {ANY}
          buffer_position := buffer_position + 2
       end
 
-   put_integer_32_native_endian (i: INTEGER_32) is
+   put_integer_32_native_endian (i: INTEGER_32)
          -- Write in the same order as the machine running this code.
          -- The result is machine dependant.
       require
@@ -138,7 +144,7 @@ feature {ANY}
          buffer_position := buffer_position + 4
       end
 
-   put_integer_32_big_endian (i: INTEGER_32) is
+   put_integer_32_big_endian (i: INTEGER_32)
          -- Write `i' in big endian mode.
          -- The result is machine independant.
       require
@@ -151,7 +157,7 @@ feature {ANY}
          buffer_position := buffer_position + 4
       end
 
-   put_integer_32_little_endian (i: INTEGER_32) is
+   put_integer_32_little_endian (i: INTEGER_32)
          -- Write `i' in little endian mode.
          -- The result is machine independant.
       require
@@ -164,24 +170,36 @@ feature {ANY}
          buffer_position := buffer_position + 4
       end
 
-feature {FILTER}
-   filtered_descriptor: INTEGER is 0
-   filtered_has_descriptor: BOOLEAN is False
+   terminal_settings: TERMINAL_SETTINGS
+      do
+         if the_terminal_settings = Void then
+            create the_terminal_settings.make(filtered_stream_pointer, Current)
+         end
+         Result := the_terminal_settings
+      ensure
+         valid: Result /= Void
+         associated: Result.associated_stream = Current
+      end
 
-   filtered_stream_pointer: POINTER is
+feature {FILTER}
+   filtered_descriptor: INTEGER 0
+   filtered_has_descriptor: BOOLEAN False
+
+   filtered_stream_pointer: POINTER
       do
          Result := output_stream
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {}
    buffer: NATIVE_ARRAY[CHARACTER]
    buffer_position: INTEGER
    capacity: INTEGER
    output_stream: POINTER
+   the_terminal_settings: TERMINAL_SETTINGS
 
-   make is
+   make
          -- The new created object is not connected. (See also `connect_to' and
          -- `connect_for_appending_to'.)
       do
@@ -191,13 +209,13 @@ feature {}
          not is_connected
       end
 
-   dispose is
+   dispose
       require
          disconnect_file_after_use: not is_connected
       do
       end
 
-   write_buffer is
+   write_buffer
       local
          unused_result: INTEGER
       do
@@ -207,37 +225,37 @@ feature {}
          end
       end
 
-   new_url: URL is
+   new_url: URL
       do
          create Result.from_stream(Current, False, True)
       end
 
 feature {} -- built-ins
-   put_16_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+   put_16_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER)
       external "built_in"
       end
 
-   put_16_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+   put_16_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER)
       external "built_in"
       end
 
-   put_16_be (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER) is
+   put_16_be (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER)
       external "built_in"
       end
 
-   put_32_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
+   put_32_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER)
       external "built_in"
       end
 
-   put_32_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER) is
+   put_32_le (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_32; ch_pos: INTEGER)
       external "built_in"
       end
 
-   put_32_be (a_buf: NATIVE_ARRAY[CHARACTER]; an_i: INTEGER_32; ch_pos: INTEGER) is
+   put_32_be (a_buf: NATIVE_ARRAY[CHARACTER]; an_i: INTEGER_32; ch_pos: INTEGER)
       external "built_in"
       end
 
-   binary_file_write_open (a_path_pointer: POINTER): POINTER is
+   binary_file_write_open (a_path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -246,7 +264,7 @@ feature {} -- built-ins
          }"
       end
 
-   binary_file_write_append (a_path_pointer: POINTER): POINTER is
+   binary_file_write_append (a_path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -255,7 +273,7 @@ feature {} -- built-ins
          }"
       end
 
-   putc (a_byte: CHARACTER; a_stream: POINTER) is
+   putc (a_byte: CHARACTER; a_stream: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -264,7 +282,7 @@ feature {} -- built-ins
          }"
       end
 
-   io_fwrite (a_buf: NATIVE_ARRAY[CHARACTER]; a_size: INTEGER; a_stream: POINTER): INTEGER is
+   io_fwrite (a_buf: NATIVE_ARRAY[CHARACTER]; a_size: INTEGER; a_stream: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -273,7 +291,7 @@ feature {} -- built-ins
          }"
       end
 
-   io_flush (a_stream_pointer: POINTER) is
+   io_flush (a_stream_pointer: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -282,7 +300,7 @@ feature {} -- built-ins
          }"
       end
 
-   fclose (a_stream_pointer: POINTER) is
+   fclose (a_stream_pointer: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -293,13 +311,13 @@ feature {} -- built-ins
 
 end -- class BINARY_FILE_WRITE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

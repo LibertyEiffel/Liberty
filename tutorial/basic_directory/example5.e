@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          directory_path, file_path: STRING; basic_directory: BASIC_DIRECTORY; text_file_write: TEXT_FILE_WRITE
       do
@@ -62,7 +62,7 @@ feature {}
          end
       end
 
-   list_directory (path: STRING) is
+   list_directory (path: STRING)
       local
          basic_directory: BASIC_DIRECTORY
       do
@@ -80,7 +80,7 @@ feature {}
          end
       end
 
-   display_content_of (basic_directory: BASIC_DIRECTORY) is
+   display_content_of (basic_directory: BASIC_DIRECTORY)
       require
          basic_directory.is_connected
       do

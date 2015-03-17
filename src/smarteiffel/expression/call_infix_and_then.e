@@ -18,22 +18,22 @@ create {AGENT_CREATION}
    with
 
 feature {ANY}
-   precedence: INTEGER is 5
+   precedence: INTEGER 5
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_and_then
       end
 
-   accept (visitor: CALL_INFIX_AND_THEN_VISITOR) is
+   accept (visitor: CALL_INFIX_AND_THEN_VISITOR)
       do
          visitor.visit_call_infix_and_then(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          left: like target; right: like arg1; compound: INSTRUCTION; ifthen: IFTHEN
          sp: POSITION; internal_local2: INTERNAL_LOCAL2
@@ -66,7 +66,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (left: like target; operator_position: POSITION; right: like arg1) is
+   make (left: like target; operator_position: POSITION; right: like arg1)
       require
          left /= Void
          not operator_position.is_unknown
@@ -74,7 +74,7 @@ feature {}
       do
          target := left
          create feature_name.infix_name(and_then_name, operator_position)
-         create arguments.make_1(right)
+         create {EFFECTIVE_ARG_LIST_N} arguments.make_1(start_position, right)
       ensure
          target = left
          start_position = operator_position
@@ -93,9 +93,9 @@ end -- class CALL_INFIX_AND_THEN
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

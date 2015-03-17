@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	group_source_req_struct_set_gsr_interface (a_structure: POINTER; a_value: like uint32_t) is
+	group_source_req_struct_set_gsr_interface (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for gsr_interface field of GROUP_SOURCE_REQ_STRUCT structure.
 			-- TODO: setter description
 
@@ -22,7 +22,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	group_source_req_struct_get_gsr_interface (a_structure: POINTER): like uint32_t is
+	group_source_req_struct_get_gsr_interface (a_structure: POINTER): like uint32_t
 			-- Query for gsr_interface field of GROUP_SOURCE_REQ_STRUCT structure.
 			-- TODO: getter description
 
@@ -37,7 +37,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field gsr_group.
 	-- Unwrappable field gsr_source.
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

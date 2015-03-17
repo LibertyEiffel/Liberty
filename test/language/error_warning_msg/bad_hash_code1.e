@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: AUX_HASH_CODE1
          d: HASHED_DICTIONARY[INTEGER,AUX_HASH_CODE1]

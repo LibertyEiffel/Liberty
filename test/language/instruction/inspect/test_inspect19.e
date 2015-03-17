@@ -27,7 +27,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          inspect argument( 0 )
          when once "-foo" then

@@ -10,20 +10,20 @@ inherit
    FUNCTION_CALL
 
 feature {ANY}
-   arg_count: INTEGER is 0
+   arg_count: INTEGER 0
 
-   frozen arguments: EFFECTIVE_ARG_LIST is
+   frozen arguments: EFFECTIVE_ARG_LIST
       do
       end
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a = Void
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          fs: like feature_stamp; t: like target
@@ -46,7 +46,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_0/proc_call_0  -----------
       local
          t: like target; fs: like feature_stamp
@@ -76,16 +76,17 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): EXPRESSION
          --|*** PH/Dom(22/01/04) Improvement: save the result of
          --|"target.declaration_type.search(feature_name)" because it
          --|will not change. Hope the memory penalty is not too big
          --|for the computing time saved.
          ----------- Duplicate code call_0/proc_call_0  -----------
-         --|*** Except for the `function_and_argument_count_check' calls (Dom. march 28th 2004) ***
+         --|*** Except for the `function_check' calls (Dom. march 28th 2004) ***
       local
          fs: like feature_stamp; t: like target; target_type, target_declaration_type: TYPE
-         af: ANONYMOUS_FEATURE
+         af: ANONYMOUS_FEATURE; args: EFFECTIVE_ARG_LIST
+         res: like Current; call_1: FUNCTION_CALL_1
       do
          if target.is_current then
             check
@@ -94,8 +95,21 @@ feature {ANY}
             end
             target_type := type
             af := feature_stamp.anonymous_feature(type)
-            function_and_argument_count_check(af, Void)
-            Result := Current
+            if function_check(type, af) then
+               if arguments_0 = Void then
+                  create arguments_0.make(start_position)
+               end
+               args := arguments_0.specialize_and_check(type, af, type, True)
+               if args = arguments_0 then
+                  Result := Current
+               else
+                  create call_1.make(target, feature_name, args)
+                  call_1.set_feature_stamp(feature_stamp)
+                  Result := call_1.specialize_and_check(type)
+               end
+            else
+               Result := Current
+            end
          else
             t := target.specialize_and_check(type)
             target_declaration_type := t.declaration_type
@@ -106,21 +120,43 @@ feature {ANY}
             target_type := t.resolve_in(type)
             fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
             af := fs.anonymous_feature(target_type)
-            function_and_argument_count_check(af, Void)
-            if feature_stamp = Void then
-               feature_stamp := fs
+            if af = Void then
+               if not target.is_implicit_current then
+                  error_handler.add_position(target.start_position)
+               end
+               error_handler.add_position(feature_name.start_position)
+               error_handler.append(once "Missing anonymous feature for this call")
+               error_handler.print_as_internal_error
             end
-            Result := current_or_twin_init(t, fs)
-         end
-         Result.standard_check_export_and_obsolete_calls(type, target_type, af)
-         check
-            feature_stamp /= Void
-            Result.feature_stamp /= Void
-            Result.feature_stamp.has_type(Result.target.resolve_in(type))
+            if function_check(type, af) then
+               if arguments_0 = Void then
+                  create arguments_0.make(start_position)
+               end
+               args := arguments_0.specialize_and_check(type, af, target_type, True)
+               if args /= arguments_0 then
+                  create call_1.make(t, feature_name, args)
+                  call_1.set_feature_stamp(fs)
+                  call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
+                  Result := call_1.specialize_and_check(type)
+               end
+            end
+            if Result = Void then
+               if feature_stamp = Void then
+                  feature_stamp := fs
+               end
+               res := current_or_twin_init(t, fs)
+               res.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  res.feature_stamp /= Void
+                  res.feature_stamp.has_type(res.target.resolve_in(type))
+               end
+               Result := res
+            end
          end
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       local
          t: like target; target_type: TYPE; af: ANONYMOUS_FEATURE; inline_memo: INLINE_MEMO
          external_function: EXTERNAL_FUNCTION
@@ -145,7 +181,7 @@ feature {ANY}
             else
                target_type := t.resolve_in(type)
                af := feature_stamp.anonymous_feature(target_type)
-               -- Attemp to inline first:
+               -- Attempt to inline first:
                inline_memo := af.inline_expression_0(type, feature_stamp, feature_name.start_position,
                                                      target_type, t, resolve_in(type))
                if inline_memo /= Void then
@@ -160,7 +196,7 @@ feature {ANY}
       end
 
 feature {}
-   simplify_limit_reached: BOOLEAN is
+   simplify_limit_reached: BOOLEAN
          -- To avoid possible infinite inlinings during simplify.
       local
          c: FUNCTION_CALL; stop: BOOLEAN; nested_calls_counter: INTEGER
@@ -194,7 +230,7 @@ feature {}
          end
       end
 
-   current_or_twin_init (t: like target; fs: like feature_stamp): like Current is
+   current_or_twin_init (t: like target; fs: like feature_stamp): like Current
       do
          if t = target and then feature_stamp = fs then
             Result := Current
@@ -205,8 +241,10 @@ feature {}
          end
       end
 
+   arguments_0: EFFECTIVE_ARG_LIST_0
+
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_with (new_target: EXPRESSION): like Current is
+   frozen inline_with (new_target: EXPRESSION): like Current
       require
          new_target /= Void
       do
@@ -215,7 +253,7 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {WHEN_ITEM}
-   frozen manifest_expression (type: TYPE): MANIFEST_EXPRESSION is
+   frozen manifest_expression (type: TYPE): MANIFEST_EXPRESSION
       do
          check
             target.is_current
@@ -235,9 +273,9 @@ end -- class CALL_0
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

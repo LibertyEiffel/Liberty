@@ -7,11 +7,11 @@ class AUX_PRECURSOR16
 inherit
    EIFFELTEST_TOOLS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(True)
       end

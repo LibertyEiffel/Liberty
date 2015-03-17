@@ -18,7 +18,7 @@ create {LIBERTY_INTERPRETER_DEBUGGER}
    make
 
 feature {LIBERTY_INTERPRETER}
-   after (a_count: like count) is
+   after (a_count: like count)
       require
          a_count > 0
       do
@@ -27,21 +27,21 @@ feature {LIBERTY_INTERPRETER}
          count = a_count
       end
 
-   at_call_entry is
+   at_call_entry
       do
          count := entry_count
       ensure
          count = entry_count
       end
 
-   at_call_exit is
+   at_call_exit
       do
          count := exit_count
       ensure
          count = exit_count
       end
 
-   step is
+   step
       do
          if count > 0 then
             count := count - 1
@@ -52,14 +52,14 @@ feature {LIBERTY_INTERPRETER}
       end
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-   enter_call is
+   enter_call
       do
          if count = entry_count then
             interpreter.break
          end
       end
 
-   exit_call is
+   exit_call
       do
          if count = exit_count then
             interpreter.break
@@ -67,7 +67,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -79,8 +79,8 @@ feature {}
    interpreter: LIBERTY_INTERPRETER
    count: INTEGER
 
-   entry_count: INTEGER is -13
-   exit_count: INTEGER is -31
+   entry_count: INTEGER -13
+   exit_count: INTEGER -31
 
 invariant
    interpreter /= Void

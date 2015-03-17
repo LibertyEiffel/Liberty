@@ -8,12 +8,16 @@
    <meta http-equiv="content-language" content="en" />
    <meta name="robots" content="INDEX,FOLLOW" />
 
-<?php if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){?>
-   <meta http-equiv="refresh" content="1; URL=/">
-<?php }elseif(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
+<?php if(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
    <meta http-equiv="refresh" content="60; URL=/?auto_refresh=1">
+<?php } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {?>
+   <meta http-equiv="refresh" content="1; URL=/">
 <?php }?>
+<<<<<<< HEAD
    <title>ET: Liberty Eiffel automated tests (adler branch)</title>
+=======
+   <title>ET: Liberty Eiffel automated tests (master)</title>
+>>>>>>> a516d54a134b128c2b548efe45a61952927e3f6d
    <link rel="stylesheet" href="style.css" type="text/css" />
 
    <style type="text/css">
@@ -68,19 +72,42 @@
       }
    </style>
 
+   <script type="text/javascript">
+     function do_request_break() {
+       var form = document.getElementById("_manualRequestForm");
+       form.request_break.value='1';
+       form.submit();
+     }
+     function do_manual_request() {
+       var form = document.getElementById("_manualRequestForm");
+       form.manual_request.value='1';
+       form.submit();
+     }
+   </script>
+
 </head>
 <body>
   <div id="all">
     <div class="header"><a href="http://www.gnu.org/software/liberty-eiffel/">GNU</a> | <a href="http://www.liberty-eiffel.org">Liberty Eiffel</a> | <b class="current">Automated tests</b> | <a href="http://wiki.liberty-eiffel.org/index.php/Main_Page">Wiki</a> | <a href="https://savannah.gnu.org/projects/liberty-eiffel/">Savannah project</a> | <a href="http://apt.liberty-eiffel.org">Debian packages</a> | <a href="http://doc.liberty-eiffel.org">Documentation</a></div>
     <div id="content">
     <div id="text" style="width:920px;">
-<?php if((!array_key_exists("history", $_GET)) || $_GET["history"] == 0){?>
-<p style="float:right;font-size:0.875em;">
-<?php if(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
-    <a href="/">Disable auto refresh</a>
+      <p style="float:right;font-size:0.875em;">
+<?php if ($_SERVER['REQUEST_METHOD'] == 'POST') {?>
+        <i>Manual request detected, reloading...</i>
+<?php }elseif((!array_key_exists("history", $_GET)) || $_GET["history"] == 0){
+ if(array_key_exists("auto_refresh", $_GET) && $_GET["auto_refresh"] == 1){?>
+        <a href="/">Disable auto refresh</a>
 <?php }else{?>
+<<<<<<< HEAD
     <a href="/?auto_refresh=1">Enable auto refresh</a>
 <?php }?>
 </p>
 <?php }?>
 <h1><span class="dropcap">L</span>iberty Eiffel automated tests (<span class="dropcap">A</span>dler branch)</h1>
+=======
+        <a href="/?auto_refresh=1">Enable auto refresh</a>
+<?php } }?>
+      </p>
+
+<h1><span class="dropcap">L</span>iberty Eiffel automated tests (<span class="dropcap">M</span>aster branch)</h1>
+>>>>>>> a516d54a134b128c2b548efe45a61952927e3f6d

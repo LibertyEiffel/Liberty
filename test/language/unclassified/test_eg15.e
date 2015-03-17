@@ -8,12 +8,12 @@ create {}
    make
 
 feature {ANY}
-   f (i: INTEGER): AUX_EG15B[INTEGER] is
+   f (i: INTEGER): AUX_EG15B[INTEGER]
       do
          Result.put(0, i)
       end
 
-   make is
+   make
       local
          b: BOOLEAN
       do

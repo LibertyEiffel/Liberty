@@ -10,7 +10,7 @@ feature {}
 
    situation: SITUATION
 
-   make is
+   make
       do
          create situation
          create description.make
@@ -19,7 +19,7 @@ feature {}
          situation.solve
       end
 
-   make_description is
+   make_description
       do
          describe_problem_classic
          --describe_problem_small
@@ -28,7 +28,7 @@ feature {}
       end
 
 feature {}
-   describe_problem_classic is
+   describe_problem_classic
          -- A classic problem.
          --  Knowing that:
          --    - the house of the english is red,
@@ -101,7 +101,7 @@ feature {}
          rule(yes(b, item("color", "blue")))
       end
 
-   describe_problem_small is
+   describe_problem_small
          -- A small problem for beginning and debugging
          -- * The one that have no child is born in 1804 and is not Marie.
          -- * Julie dont have exactly one child and have less children than Marie.
@@ -125,7 +125,7 @@ feature {}
          rule(inf(ref(b), ref(a)))
       end
 
-   describe_problem_jojo is
+   describe_problem_jojo
          -- A problem from jojo.
          --
          -- After coming back to China from France, Wang Fox, a student
@@ -219,7 +219,7 @@ feature {}
          rule(inf(ref(a), ref(b)))
       end
 
-   describe_problem_big is
+   describe_problem_big
          -- a big problem not translated
       local
          a, b: ITEM
@@ -282,101 +282,101 @@ feature {}
       end
 
 feature {}
-   group_atomic (nam: STRING; values: ARRAY[STRING]) is
+   group_atomic (nam: STRING; values: ARRAY[STRING])
       do
          description.add_group_atomic(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
-   group_numeric (nam: STRING; values: ARRAY[STRING]) is
+   group_numeric (nam: STRING; values: ARRAY[STRING])
       do
          description.add_group_numeric(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
-   group_ordered (nam: STRING; values: ARRAY[STRING]) is
+   group_ordered (nam: STRING; values: ARRAY[STRING])
       do
          description.add_group_ordered(nam)
-         values.do_all(agent description.group.add_item(?))
+         values.for_each(agent description.group.add_item(?))
       end
 
 feature {}
-   rule (cstr: CONSTRAINT) is
+   rule (cstr: CONSTRAINT)
       do
          description.constraints.add(cstr)
       end
 
-   no (i, j: ITEM): CONSTRAINT_NO is
+   no (i, j: ITEM): CONSTRAINT_NO
       do
          create Result.make(i, j)
       end
 
-   yes (i, j: ITEM): CONSTRAINT_YES is
+   yes (i, j: ITEM): CONSTRAINT_YES
       do
          create Result.make(i, j)
       end
 
-   eq (i, j: EXPR): CONSTRAINT_EQUAL is
+   eq (i, j: EXPR): CONSTRAINT_EQUAL
       do
          create Result.make(i, j)
       end
 
-   neq (i, j: EXPR): CONSTRAINT_NOT_EQUAL is
+   neq (i, j: EXPR): CONSTRAINT_NOT_EQUAL
       do
          create Result.make(i, j)
       end
 
-   inf (i, j: EXPR): CONSTRAINT_LESSER is
+   inf (i, j: EXPR): CONSTRAINT_LESSER
       do
          create Result.make(i, j)
       end
 
-   sup (i, j: EXPR): CONSTRAINT_GREATER is
+   sup (i, j: EXPR): CONSTRAINT_GREATER
       do
          create Result.make(i, j)
       end
 
-   add (i, j: EXPR): EXPR_ADD is
+   add (i, j: EXPR): EXPR_ADD
       do
          create Result.make(i, j)
       end
 
-   sub (i, j: EXPR): EXPR_SUB is
+   sub (i, j: EXPR): EXPR_SUB
       do
          create Result.make(i, j)
       end
 
-   mul (i, j: EXPR): EXPR_MUL is
+   mul (i, j: EXPR): EXPR_MUL
       do
          create Result.make(i, j)
       end
 
-   abs (i: EXPR): EXPR_ABS is
+   abs (i: EXPR): EXPR_ABS
       do
          create Result.make(i)
       end
 
-   num (i: INTEGER): EXPR_VALUE is
+   num (i: INTEGER): EXPR_VALUE
       do
          create Result.make(i)
       end
 
-   ref (i: ITEM): EXPR_ITEM is
+   ref (i: ITEM): EXPR_ITEM
       do
          create Result.make(i)
       end
 
-   item (group, name: STRING): ITEM_ITEM is
+   item (group, name: STRING): ITEM_ITEM
       do
          Result := description.get_item(group, name)
       end
 
-   var (group, name: STRING): ITEM_VAR is
+   var (group, name: STRING): ITEM_VAR
       do
          Result := description.get_var(group, name)
       end
 
-   some (group: STRING): ITEM_VAR is
+   some (group: STRING): ITEM_VAR
       do
          Result := description.get_anonymous_var(group)
       end

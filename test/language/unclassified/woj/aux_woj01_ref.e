@@ -9,12 +9,12 @@ create {ANY}
 feature {ANY}
    s: STRING
 
-   make is
+   make
       do
          create s.make(0)
       end
 
-   set (i: INTEGER) is
+   set (i: INTEGER)
       do
          s := i.out
       end

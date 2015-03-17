@@ -20,7 +20,7 @@ feature {ANY}
    end_reached: BOOLEAN
 
 feature {}
-   the_table: PARSE_TABLE[DESCENDING_PARSE_CONTEXT] is
+   the_table: PARSE_TABLE[DESCENDING_PARSE_CONTEXT]
       local
          e1, e2, e3, e4, e5, e6: FIXED_STRING
       once
@@ -180,6 +180,7 @@ feature {}
                                                                                                 {FAST_ARRAY[STRING] << "KW [", "Actual+", "KW ]" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW ?" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "Agent_Signature", "KW is", "Routine_Definition", "Actuals" >> }, Void;
+                                                                                                {FAST_ARRAY[STRING] << "Agent_Signature", "Routine_Definition", "Actuals" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW agent", "Expression" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "Creation_Expression" >> }, Void;
                                                                                                 {FAST_ARRAY[STRING] << "KW Void" >> }, Void >> };
@@ -249,8 +250,11 @@ feature {}
                                                              "Feature_Definition*", {DESCENDING_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
                                                                                                                 {FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
                                                              "Feature_Definition", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Routine_Definition" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Manifest_Or_Type_Test" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW unique" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature" >> }, Void >> };
                                                              "Signature", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name+" >> }, Void;
                                                                                                       {FAST_ARRAY[STRING] << "Feature_Name+", "KW :", "Type_Definition" >> }, Void;
@@ -424,7 +428,7 @@ feature {}
    table_memory: PARSE_TABLE[DESCENDING_PARSE_CONTEXT]
 
 feature {ANY}
-   table: PARSE_TABLE[DESCENDING_PARSE_CONTEXT] is
+   table: PARSE_TABLE[DESCENDING_PARSE_CONTEXT]
       do
          Result := table_memory
          if Result = Void then
@@ -434,28 +438,28 @@ feature {ANY}
          end
       end
 
-   display (output: OUTPUT_STREAM) is
+   display (output: OUTPUT_STREAM)
       do
          if not stack.is_empty then
             stack.first.display(output, 0, Void)
          end
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       do
          if not stack.is_empty then
             stack.first.generate(o)
          end
       end
 
-   root_node: EIFFEL_NODE is
+   root_node: EIFFEL_NODE
       do
          if not stack.is_empty then
             Result := stack.first
          end
       end
 
-   reset is
+   reset
       do
          stack.clear_count
          create position
@@ -466,14 +470,14 @@ feature {ANY}
       end
 
 feature {}
-   epsilon: FAST_ARRAY[STRING] is
+   epsilon: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(0)
       ensure
          Result.is_empty
       end
 
-   is_a_keyword (id: STRING): BOOLEAN is
+   is_a_keyword (id: STRING): BOOLEAN
       do
          inspect
             id
@@ -486,7 +490,7 @@ feature {}
          end
       end
 
-   is_a_free_operator (op: STRING): BOOLEAN is
+   is_a_free_operator (op: STRING): BOOLEAN
       require
          op.count > 0
       local
@@ -527,11 +531,11 @@ feature {}
          end
       end
 
-   last_blanks: STRING is ""
+   last_blanks: STRING ""
    comment_position: like position
    has_comment: BOOLEAN
 
-   skip_blank (buffer: MINI_PARSER_BUFFER; skip_semi_colons: BOOLEAN): BOOLEAN is
+   skip_blank (buffer: MINI_PARSER_BUFFER; skip_semi_colons: BOOLEAN): BOOLEAN
       local
          old_position: like position
       do
@@ -579,7 +583,7 @@ feature {}
          not Result implies buffer.current_index = old buffer.current_index
       end
 
-   skip_blanks (buffer: MINI_PARSER_BUFFER) is
+   skip_blanks (buffer: MINI_PARSER_BUFFER)
       do
          from
             has_comment := False
@@ -594,7 +598,7 @@ feature {}
          not buffer.marked
       end
 
-   skip_blanks_and_semi_colons (buffer: MINI_PARSER_BUFFER) is
+   skip_blanks_and_semi_colons (buffer: MINI_PARSER_BUFFER)
       do
          from
             has_comment := False
@@ -609,7 +613,7 @@ feature {}
          not buffer.marked
       end
 
-   parse_assertion_comment (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_assertion_comment (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position: like position; image: STRING; i: INTEGER
       do
@@ -634,7 +638,7 @@ feature {}
          end
       end
 
-   parse_string (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[STRING] is
+   parse_string (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[STRING]
          -- the algorithm is a bit less strict than SmartEiffel's
       local
          old_position, start_position: like position; i, t, state, code, scale: INTEGER; c: CHARACTER; image, parsed, end_tag: STRING; unicode: BOOLEAN
@@ -979,7 +983,7 @@ feature {}
             ) and then Result.image.last = '"'
       end
 
-   is_entity_name_start (c: CHARACTER): BOOLEAN is
+   is_entity_name_start (c: CHARACTER): BOOLEAN
       do
          inspect
             c
@@ -992,7 +996,7 @@ feature {}
          end
       end
 
-   is_entity_name_part (c: CHARACTER): BOOLEAN is
+   is_entity_name_part (c: CHARACTER): BOOLEAN
       do
          inspect
             c
@@ -1005,7 +1009,7 @@ feature {}
          end
       end
 
-   parse_entity_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_entity_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position: like position; image: STRING
       do
@@ -1037,7 +1041,7 @@ feature {}
          end
       end
 
-   is_class_name_start (c: CHARACTER): BOOLEAN is
+   is_class_name_start (c: CHARACTER): BOOLEAN
       do
          inspect
             c
@@ -1050,7 +1054,7 @@ feature {}
          end
       end
 
-   is_class_name_part (c: CHARACTER): BOOLEAN is
+   is_class_name_part (c: CHARACTER): BOOLEAN
       do
          inspect
             c
@@ -1063,7 +1067,7 @@ feature {}
          end
       end
 
-   parse_class_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_class_name (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position: like position; image: STRING
       do
@@ -1090,7 +1094,7 @@ feature {}
          end
       end
 
-   keyword_image (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): STRING is
+   keyword_image (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): STRING
       local
          old_position, start_position: like position; i: INTEGER; c: CHARACTER
       do
@@ -1128,7 +1132,7 @@ feature {}
          end
       end
 
-   parse_keyword (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE is
+   parse_keyword (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position: like position; image: STRING
       do
@@ -1144,7 +1148,7 @@ feature {}
          end
       end
 
-   parse_symbol (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): UNTYPED_EIFFEL_IMAGE is
+   parse_symbol (buffer: MINI_PARSER_BUFFER; keyword, not_successors: STRING): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position: like position; image: STRING
       do
@@ -1160,7 +1164,7 @@ feature {}
          end
       end
 
-   parse_semi_colons (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_semi_colons (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position: like position
       do
@@ -1177,7 +1181,7 @@ feature {}
 
    in_parent_clause: BOOLEAN
 
-   parse_parent_clause (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE is
+   parse_parent_clause (buffer: MINI_PARSER_BUFFER; keyword: STRING): UNTYPED_EIFFEL_IMAGE
       do
          Result := parse_keyword(buffer, keyword)
          if Result /= Void then
@@ -1187,7 +1191,7 @@ feature {}
          Result /= Void implies in_parent_clause
       end
 
-   parse_end_of_parent_clause (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_end_of_parent_clause (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       do
          if in_parent_clause then
             Result := parse_keyword(buffer, once "end")
@@ -1197,7 +1201,7 @@ feature {}
          not in_parent_clause
       end
 
-   parse_freeop (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_freeop (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position, start_position: like position; image: STRING
       do
@@ -1224,7 +1228,7 @@ feature {}
          end
       end
 
-   parse_boolean (buffer: MINI_PARSER_BUFFER; expected: STRING): TYPED_EIFFEL_IMAGE[BOOLEAN] is
+   parse_boolean (buffer: MINI_PARSER_BUFFER; expected: STRING): TYPED_EIFFEL_IMAGE[BOOLEAN]
       require
          expected.is_boolean
       local
@@ -1244,7 +1248,7 @@ feature {}
          Result /= Void implies Result.decoded = expected.to_boolean
       end
 
-   parse_number (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE is
+   parse_number (buffer: MINI_PARSER_BUFFER): EIFFEL_IMAGE
       local
          old_position, start_position: like position; state: INTEGER; c: CHARACTER; image: STRING
          valid, valid_before_dot, valid_before_exp: BOOLEAN
@@ -1421,7 +1425,7 @@ feature {}
          end
       end
 
-   is_hex (image: STRING): BOOLEAN is
+   is_hex (image: STRING): BOOLEAN
       local
          i: INTEGER
       do
@@ -1442,7 +1446,7 @@ feature {}
          end
       end
 
-   hex_to_integer_64 (image: STRING): INTEGER_64 is
+   hex_to_integer_64 (image: STRING): INTEGER_64
       require
          is_hex(image)
       local
@@ -1471,7 +1475,7 @@ feature {}
          end
       end
 
-   parse_character (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[CHARACTER] is
+   parse_character (buffer: MINI_PARSER_BUFFER): TYPED_EIFFEL_IMAGE[CHARACTER]
       local
          old_position, start_position: like position; c, character: CHARACTER; image: STRING
          invalid_character, ok_image: BOOLEAN; code: INTEGER
@@ -1625,7 +1629,7 @@ feature {}
          end
       end
 
-   parse_end (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE is
+   parse_end (buffer: MINI_PARSER_BUFFER): UNTYPED_EIFFEL_IMAGE
       local
          old_position: like position
       do
@@ -1642,7 +1646,7 @@ feature {}
    stack: FAST_ARRAY[EIFFEL_NODE]
    left_assoc_stack: FAST_ARRAY[EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION]
 
-   show_stack is
+   show_stack
       local
          i: INTEGER
       do
@@ -1660,7 +1664,7 @@ feature {}
          log.trace.put_line(once "-------->8-- <end stack>")
       end
 
-   stack_matches (node_content: TRAVERSABLE[FIXED_STRING]): BOOLEAN is
+   stack_matches (node_content: TRAVERSABLE[FIXED_STRING]): BOOLEAN
       local
          i: INTEGER
       do
@@ -1680,7 +1684,7 @@ feature {}
          used_only_in_assertions: Result
       end
 
-   build_root (root_name: FIXED_STRING; root_content: TRAVERSABLE[FIXED_STRING]) is
+   build_root (root_name: FIXED_STRING; root_content: TRAVERSABLE[FIXED_STRING])
       do
          build_non_terminal(root_name, root_content)
          debug ("parse/eiffel/ast")
@@ -1689,7 +1693,7 @@ feature {}
          end
       end
 
-   build_non_terminal (node_name: FIXED_STRING; node_content: TRAVERSABLE[FIXED_STRING]) is
+   build_non_terminal (node_name: FIXED_STRING; node_content: TRAVERSABLE[FIXED_STRING])
       require
          stack_matches(node_content)
       local
@@ -1727,7 +1731,7 @@ feature {}
          stack.last.name.is_equal(node_name)
       end
 
-   build_terminal (node_name: FIXED_STRING; node_image: PARSER_IMAGE) is
+   build_terminal (node_name: FIXED_STRING; node_image: PARSER_IMAGE)
       local
          eiffel_image: EIFFEL_IMAGE
       do
@@ -1748,7 +1752,7 @@ feature {}
          stack.last.name.is_equal(node_name)
       end
 
-   ensure_expression (expression: EIFFEL_NODE; expression_name: FIXED_STRING): EIFFEL_NON_TERMINAL_NODE is
+   ensure_expression (expression: EIFFEL_NODE; expression_name: FIXED_STRING): EIFFEL_NON_TERMINAL_NODE
       local
          expname: STRING
       do
@@ -1769,7 +1773,7 @@ feature {}
          end
       end
 
-   build_expression_remainder (operator_names: FAST_ARRAY[ABSTRACT_STRING]; expression_name: FIXED_STRING) is
+   build_expression_remainder (operator_names: FAST_ARRAY[ABSTRACT_STRING]; expression_name: FIXED_STRING)
       local
          tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
          exp: EIFFEL_NODE; operator_nodes: COLLECTION[EIFFEL_NODE]
@@ -1806,7 +1810,7 @@ feature {}
          end
       end
 
-   build_expression (expression_name: FIXED_STRING) is
+   build_expression (expression_name: FIXED_STRING)
       local
          tail: EIFFEL_LEFT_ASSOCIATIVE_EXPRESSION
          left, right: EIFFEL_NODE; nt: EIFFEL_NON_TERMINAL_NODE
@@ -1878,7 +1882,7 @@ feature {}
          end
       end
 
-   build_expression_epsilon (expression_name: FIXED_STRING) is
+   build_expression_epsilon (expression_name: FIXED_STRING)
       do
          debug ("parse/eiffel/build")
             log.trace.put_string(once "Building epsilon expression ")
@@ -1892,7 +1896,7 @@ feature {}
          end
       end
 
-   build_expression_e6 is
+   build_expression_e6
       do
          debug ("parse/eiffel/build")
             log.trace.put_line(once "Building epsilon expression e6")
@@ -1905,7 +1909,7 @@ feature {}
          end
       end
 
-   build_expression_no_array (expression_name, node_name: FIXED_STRING) is
+   build_expression_no_array (expression_name, node_name: FIXED_STRING)
       local
          exp, nt: EIFFEL_NON_TERMINAL_NODE
       do
@@ -1930,12 +1934,12 @@ feature {}
          end
       end
 
-   left_assoc_names: FAST_ARRAY[FIXED_STRING] is
+   left_assoc_names: FAST_ARRAY[FIXED_STRING]
       once
          create Result.with_capacity(4)
       end
 
-   build_empty_list (list_name: ABSTRACT_STRING) is
+   build_empty_list (list_name: ABSTRACT_STRING)
       local
          list: EIFFEL_LIST_NODE
       do
@@ -1955,7 +1959,7 @@ feature {}
          stack.last.name = list_name.intern
       end
 
-   build_new_list (atom_name, list_name: ABSTRACT_STRING) is
+   build_new_list (atom_name, list_name: ABSTRACT_STRING)
       require
          not stack.is_empty
          stack.last.name.is_equal(atom_name)
@@ -1985,7 +1989,7 @@ feature {}
          stack.last.name = list_name.intern
       end
 
-   build_continue_list (atom_name: ABSTRACT_STRING; forget: INTEGER; list_name: ABSTRACT_STRING) is
+   build_continue_list (atom_name: ABSTRACT_STRING; forget: INTEGER; list_name: ABSTRACT_STRING)
       require
          stack.count >= forget + 2
          stack.item(stack.upper).name.is_equal(list_name)
@@ -2040,12 +2044,12 @@ feature {}
       end
 
 feature {} -- buffer moves
-   next_character (buffer: MINI_PARSER_BUFFER) is
+   next_character (buffer: MINI_PARSER_BUFFER)
       do
          position := position.next(buffer)
       end
 
-   restore (buffer: MINI_PARSER_BUFFER; a_position: like position) is
+   restore (buffer: MINI_PARSER_BUFFER; a_position: like position)
       do
          position := a_position
          buffer.set_current_index(position.index)
@@ -2054,7 +2058,7 @@ feature {} -- buffer moves
    position: EIFFEL_POSITION
 
 feature {}
-   make (a_factory: like factory) is
+   make (a_factory: like factory)
       do
          factory := a_factory
          create stack.make(0)
@@ -2065,7 +2069,7 @@ feature {}
          left_assoc_stack.is_empty
       end
 
-   make_default is
+   make_default
       do
          make(create {EIFFEL_DEFAULT_NODE_FACTORY}.make)
       end
@@ -2078,13 +2082,13 @@ invariant
 
 end -- class EIFFEL_GRAMMAR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

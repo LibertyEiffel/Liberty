@@ -10,11 +10,11 @@ create {}
 feature {ANY}
    exp: AUX_ASSIGNMENT2EXP
 
-   make is
+   make
       local
          ref: AUX_ASSIGNMENT2_REF
       do
-         !!ref
+         create ref
          exp := ref -- This one is not allowed !
          print(exp.i.to_string)
       end

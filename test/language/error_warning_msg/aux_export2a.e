@@ -4,7 +4,7 @@
 class AUX_EXPORT2A
 
 feature {}
-   foo is do end;
+   foo do end;
 
 end -- class AUX_EXPORT2A
 --

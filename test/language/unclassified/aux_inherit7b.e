@@ -4,16 +4,16 @@
 deferred class AUX_INHERIT7B
 
 feature {ANY} -- Access
-   flags: INTEGER is
+   flags: INTEGER
       deferred
       end
 
-   is_foo: BOOLEAN is
+   is_foo: BOOLEAN
       do
          Result := flags & 2 /= 0
       end
 
-   is_bar: BOOLEAN is
+   is_bar: BOOLEAN
       do
          Result := flags & 4 /= 0
       end

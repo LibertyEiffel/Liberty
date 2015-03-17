@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_CURRENT}
-   visit_liberty_current (v: LIBERTY_CURRENT) is
+   visit_liberty_current (v: LIBERTY_CURRENT)
       deferred
       end
 

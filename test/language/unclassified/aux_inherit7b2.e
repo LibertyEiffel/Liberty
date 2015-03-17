@@ -6,11 +6,11 @@ class AUX_INHERIT7B2
 inherit
    AUX_INHERIT7B
 
-creation {ANY}
+create {ANY}
    make
 
 feature {} -- Initialization
-   make (fl: INTEGER; a: AUX_INHERIT7A2) is
+   make (fl: INTEGER; a: AUX_INHERIT7A2)
       do
          flags := fl
          as_expanded := a.as_expanded.x

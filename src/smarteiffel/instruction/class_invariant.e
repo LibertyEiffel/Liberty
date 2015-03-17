@@ -16,13 +16,13 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: ASSERTION_LIST_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR)
       do
          visitor.visit_class_invariant(Current)
       end
 
 feature {SHORT_PRINTER}
-   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: TYPE_MARK) is
+   class_invariant_short (type: TYPE; class_text: CLASS_TEXT; client: TYPE_MARK)
       local
          i: INTEGER
       do
@@ -111,9 +111,9 @@ end -- class CLASS_INVARIANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

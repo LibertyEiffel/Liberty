@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          g: AUX_GENERIC11[INTEGER]
       do

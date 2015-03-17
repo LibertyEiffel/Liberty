@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_PRECURSOR_EXPRESSION}
-   visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION) is
+   visit_liberty_precursor_expression (v: LIBERTY_PRECURSOR_EXPRESSION)
       deferred
       end
 

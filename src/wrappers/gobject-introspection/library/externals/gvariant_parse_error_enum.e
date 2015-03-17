@@ -5,9 +5,9 @@ expanded class GVARIANT_PARSE_ERROR_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = basic_type_expected_low_level)  or else
 				(a_value = cannot_infer_type_low_level)  or else
@@ -31,189 +31,189 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_basic_type_expected is
+	set_basic_type_expected
 		do
 			value := basic_type_expected_low_level
 		end
 
-	set_cannot_infer_type is
+	set_cannot_infer_type
 		do
 			value := cannot_infer_type_low_level
 		end
 
-	set_definite_type_expected is
+	set_definite_type_expected
 		do
 			value := definite_type_expected_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_input_not_at_end is
+	set_input_not_at_end
 		do
 			value := input_not_at_end_low_level
 		end
 
-	set_invalid_character is
+	set_invalid_character
 		do
 			value := invalid_character_low_level
 		end
 
-	set_invalid_format_string is
+	set_invalid_format_string
 		do
 			value := invalid_format_string_low_level
 		end
 
-	set_invalid_object_path is
+	set_invalid_object_path
 		do
 			value := invalid_object_path_low_level
 		end
 
-	set_invalid_signature is
+	set_invalid_signature
 		do
 			value := invalid_signature_low_level
 		end
 
-	set_invalid_type_string is
+	set_invalid_type_string
 		do
 			value := invalid_type_string_low_level
 		end
 
-	set_no_common_type is
+	set_no_common_type
 		do
 			value := no_common_type_low_level
 		end
 
-	set_number_out_of_range is
+	set_number_out_of_range
 		do
 			value := number_out_of_range_low_level
 		end
 
-	set_number_too_big is
+	set_number_too_big
 		do
 			value := number_too_big_low_level
 		end
 
-	set_type_error is
+	set_type_error
 		do
 			value := type_error_low_level
 		end
 
-	set_unexpected_token is
+	set_unexpected_token
 		do
 			value := unexpected_token_low_level
 		end
 
-	set_unknown_keyword is
+	set_unknown_keyword
 		do
 			value := unknown_keyword_low_level
 		end
 
-	set_unterminated_string_constant is
+	set_unterminated_string_constant
 		do
 			value := unterminated_string_constant_low_level
 		end
 
-	set_value_expected is
+	set_value_expected
 		do
 			value := value_expected_low_level
 		end
 
 feature {ANY} -- Queries
-	is_basic_type_expected: BOOLEAN is
+	is_basic_type_expected: BOOLEAN
 		do
 			Result := (value=basic_type_expected_low_level)
 		end
 
-	is_cannot_infer_type: BOOLEAN is
+	is_cannot_infer_type: BOOLEAN
 		do
 			Result := (value=cannot_infer_type_low_level)
 		end
 
-	is_definite_type_expected: BOOLEAN is
+	is_definite_type_expected: BOOLEAN
 		do
 			Result := (value=definite_type_expected_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_input_not_at_end: BOOLEAN is
+	is_input_not_at_end: BOOLEAN
 		do
 			Result := (value=input_not_at_end_low_level)
 		end
 
-	is_invalid_character: BOOLEAN is
+	is_invalid_character: BOOLEAN
 		do
 			Result := (value=invalid_character_low_level)
 		end
 
-	is_invalid_format_string: BOOLEAN is
+	is_invalid_format_string: BOOLEAN
 		do
 			Result := (value=invalid_format_string_low_level)
 		end
 
-	is_invalid_object_path: BOOLEAN is
+	is_invalid_object_path: BOOLEAN
 		do
 			Result := (value=invalid_object_path_low_level)
 		end
 
-	is_invalid_signature: BOOLEAN is
+	is_invalid_signature: BOOLEAN
 		do
 			Result := (value=invalid_signature_low_level)
 		end
 
-	is_invalid_type_string: BOOLEAN is
+	is_invalid_type_string: BOOLEAN
 		do
 			Result := (value=invalid_type_string_low_level)
 		end
 
-	is_no_common_type: BOOLEAN is
+	is_no_common_type: BOOLEAN
 		do
 			Result := (value=no_common_type_low_level)
 		end
 
-	is_number_out_of_range: BOOLEAN is
+	is_number_out_of_range: BOOLEAN
 		do
 			Result := (value=number_out_of_range_low_level)
 		end
 
-	is_number_too_big: BOOLEAN is
+	is_number_too_big: BOOLEAN
 		do
 			Result := (value=number_too_big_low_level)
 		end
 
-	is_type_error: BOOLEAN is
+	is_type_error: BOOLEAN
 		do
 			Result := (value=type_error_low_level)
 		end
 
-	is_unexpected_token: BOOLEAN is
+	is_unexpected_token: BOOLEAN
 		do
 			Result := (value=unexpected_token_low_level)
 		end
 
-	is_unknown_keyword: BOOLEAN is
+	is_unknown_keyword: BOOLEAN
 		do
 			Result := (value=unknown_keyword_low_level)
 		end
 
-	is_unterminated_string_constant: BOOLEAN is
+	is_unterminated_string_constant: BOOLEAN
 		do
 			Result := (value=unterminated_string_constant_low_level)
 		end
 
-	is_value_expected: BOOLEAN is
+	is_value_expected: BOOLEAN
 		do
 			Result := (value=value_expected_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	basic_type_expected_low_level: INTEGER is
+	basic_type_expected_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	cannot_infer_type_low_level: INTEGER is
+	cannot_infer_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	definite_type_expected_low_level: INTEGER is
+	definite_type_expected_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	input_not_at_end_low_level: INTEGER is
+	input_not_at_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_character_low_level: INTEGER is
+	invalid_character_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -267,7 +267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_format_string_low_level: INTEGER is
+	invalid_format_string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -276,7 +276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_object_path_low_level: INTEGER is
+	invalid_object_path_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -285,7 +285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_signature_low_level: INTEGER is
+	invalid_signature_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_type_string_low_level: INTEGER is
+	invalid_type_string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -303,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_common_type_low_level: INTEGER is
+	no_common_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -312,7 +312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	number_out_of_range_low_level: INTEGER is
+	number_out_of_range_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -321,7 +321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	number_too_big_low_level: INTEGER is
+	number_too_big_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	type_error_low_level: INTEGER is
+	type_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unexpected_token_low_level: INTEGER is
+	unexpected_token_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_keyword_low_level: INTEGER is
+	unknown_keyword_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -357,7 +357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unterminated_string_constant_low_level: INTEGER is
+	unterminated_string_constant_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -366,7 +366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	value_expected_low_level: INTEGER is
+	value_expected_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

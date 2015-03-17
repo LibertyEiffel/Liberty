@@ -7,7 +7,7 @@ create {}
    thisIsWrong
 
 feature {}
-   thisIsWrong is
+   thisIsWrong
       do
       end
 

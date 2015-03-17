@@ -14,15 +14,15 @@ create {}
    make
 
 feature {}
-   print_extra_info: BOOLEAN is False
+   print_extra_info: BOOLEAN False
 
-   comments_allowed: BOOLEAN is True
+   comments_allowed: BOOLEAN True
 
-   print_ok: BOOLEAN is False
+   print_ok: BOOLEAN False
 
-   print_error: BOOLEAN is True
+   print_error: BOOLEAN True
 
-   make is
+   make
       local
          re_tests: TEXT_FILE_READ
       do
@@ -59,7 +59,7 @@ feature {}
          re_tests.disconnect
       end
 
-   substitute_new_lines (line: STRING) is
+   substitute_new_lines (line: STRING)
       local
          pos: INTEGER
       do
@@ -74,7 +74,7 @@ feature {}
          end
       end
 
-   build_one_test (line: STRING) is
+   build_one_test (line: STRING)
       local
          first, last, i: INTEGER
       do
@@ -99,7 +99,7 @@ feature {}
          end
       end
 
-   run_test is
+   run_test
       local
          factory: REGULAR_EXPRESSION_BUILDER; reg_exp: REGULAR_EXPRESSION
       do
@@ -187,7 +187,7 @@ feature {}
          end
       end
 
-   eval_perl_function (perl_function, expected_result: STRING; reg_exp: REGULAR_EXPRESSION; text: STRING) is
+   eval_perl_function (perl_function, expected_result: STRING; reg_exp: REGULAR_EXPRESSION; text: STRING)
       local
          build_result, buffer: STRING; i: INTEGER
       do
@@ -263,7 +263,7 @@ feature {}
          end
       end
 
-   substitute (text, search, replacement: STRING) is
+   substitute (text, search, replacement: STRING)
       local
          pos: INTEGER
       do
@@ -277,7 +277,7 @@ feature {}
 
    pattern, input_text, matching_result, function, function_result, comment: STRING
 
-   line_elements: FAST_ARRAY[STRING] is
+   line_elements: FAST_ARRAY[STRING]
       require
          pattern /= Void
       once

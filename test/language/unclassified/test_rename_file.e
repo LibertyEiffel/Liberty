@@ -7,11 +7,11 @@ create {}
    make
 
 feature {ANY}
-   core1: STRING is "core1.tmp"
+   core1: STRING "core1.tmp"
 
-   core2: STRING is "core2.tmp"
+   core2: STRING "core2.tmp"
 
-   make is
+   make
       local
          tfw: TEXT_FILE_WRITE
       do
@@ -29,7 +29,7 @@ feature {ANY}
          assert(not (create {FILE_TOOLS}).is_readable(core2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

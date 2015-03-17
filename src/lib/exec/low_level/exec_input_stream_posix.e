@@ -19,7 +19,7 @@ feature {ANY}
 
    is_connected: BOOLEAN
 
-   disconnect is
+   disconnect
       do
          is_connected := False
          basic_exec_close(filtered_descriptor)
@@ -30,7 +30,7 @@ feature {}
 
    unread_buffer: CHARACTER
 
-   swap_unread_buffer is
+   swap_unread_buffer
       local
          tmp_buffer: CHARACTER
       do
@@ -43,7 +43,7 @@ feature {}
       end
 
 feature {FILTER}
-   filtered_read_character is
+   filtered_read_character
       local
          i: INTEGER
       do
@@ -64,7 +64,7 @@ feature {FILTER}
          can_unread_character := not end_of_input
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          has_unread_character := True
          can_unread_character := False
@@ -75,18 +75,18 @@ feature {FILTER}
 
    filtered_descriptor: INTEGER
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_string("EXEC_INPUT_STREAM_POSIX.filtered_stream_pointer has been called!%N")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {PROCESS}
-   make (a_process: like process) is
+   make (a_process: like process)
       require
          a_process /= Void
          process /= Void implies process = a_process
@@ -105,7 +105,7 @@ feature {PROCESS}
    process: PROCESS
 
 feature {}
-   basic_exec_get_in_descriptor (a_pipe: POINTER): INTEGER is
+   basic_exec_get_in_descriptor (a_pipe: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -114,7 +114,7 @@ feature {}
          }"
       end
 
-   basic_exec_get_character (a_fd: INTEGER): INTEGER is
+   basic_exec_get_character (a_fd: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -123,7 +123,7 @@ feature {}
          }"
       end
 
-   basic_exec_close (a_fd: INTEGER) is
+   basic_exec_close (a_fd: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -134,13 +134,13 @@ feature {}
 
 end -- class EXEC_INPUT_STREAM_POSIX
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

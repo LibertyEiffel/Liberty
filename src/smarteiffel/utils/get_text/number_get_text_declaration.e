@@ -8,7 +8,7 @@ create {ANY}
 
 feature {ANY}
    make (singular_position_: like singular_position; plural_position_: like plural_position;
-         declaration_type_: like declaration_type) is
+         declaration_type_: like declaration_type)
       do
          singular_position := singular_position_
          plural_position := plural_position_
@@ -19,7 +19,7 @@ feature {ANY}
          declaration_type = declaration_type_
       end
 
-   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE) is
+   called (position: POSITION; arguments: EFFECTIVE_ARG_LIST; current_type: TYPE)
       local
          string, value: STRING; hashed_string: HASHED_STRING
          singular, plural: EXPRESSION

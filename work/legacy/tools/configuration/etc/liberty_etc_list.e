@@ -31,7 +31,7 @@ create {LIBERTY_ETC_FACTORY}
    make
 
 feature {ANY}
-   accept (a_visitor: VISITOR) is
+   accept (a_visitor: VISITOR)
       local
          v: LIBERTY_ETC_VISITOR
       do
@@ -40,7 +40,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_name: FIXED_STRING; a_visitor: like visitor) is
+   make (a_name: FIXED_STRING; a_visitor: like visitor)
       require
          a_name /= Void
          a_visitor /= Void

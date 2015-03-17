@@ -4,7 +4,7 @@
 class AUX_EB10A
 
 feature {ANY}
-   gobo: STRING is
+   gobo: STRING
       do
       end
 

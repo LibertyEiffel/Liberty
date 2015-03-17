@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          check_add(0, 0)
          check_add(1, 0)
@@ -46,7 +46,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then
@@ -57,7 +57,7 @@ feature {ANY}
          end
       end
 
-   check_add (a, b: INTEGER_64) is
+   check_add (a, b: INTEGER_64)
       do
          check_add2(a, b)
          check_add2(b, a)
@@ -71,7 +71,7 @@ feature {ANY}
          check_add2(-b, -a)
       end
 
-   check_add_over64 (a, b: INTEGER_64) is
+   check_add_over64 (a, b: INTEGER_64)
       do
          check_add2(a, b)
          check_add2(b, a)
@@ -85,7 +85,7 @@ feature {ANY}
          check_add2(-b, -a)
       end
 
-   check_add2 (a, b: INTEGER_64) is
+   check_add2 (a, b: INTEGER_64)
       local
          c, v: INTEGER_64; mbia, mbib, mbic: MUTABLE_BIG_INTEGER
       do

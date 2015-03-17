@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          any: TUPLE[STRING, STRING, ANY]
       do

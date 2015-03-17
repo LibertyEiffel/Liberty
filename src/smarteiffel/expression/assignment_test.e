@@ -26,14 +26,14 @@ feature {ANY}
    right_side: EXPRESSION
          -- The righ-hand side.
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := right_side.side_effect_free(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if left_type_mark /= Void then
             Result := right_side.use_current(type)
@@ -44,7 +44,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          rs: like right_side; left_type, right_type: TYPE; right_run_time_set: RUN_TIME_SET
          counter1, counter2, i: INTEGER
@@ -121,7 +121,7 @@ feature {ANY}
          end
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if left_type_mark /= Void then
             Result := left_type_mark.start_position
@@ -130,7 +130,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          lw: like left_writable; rs: like right_side
       do
@@ -147,7 +147,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          ltm: like left_type_mark; lw: like left_writable; rs: like right_side
       do
@@ -164,7 +164,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          lw: like left_writable; rs: like right_side; l_dt, r_dt: TYPE
       do
@@ -222,7 +222,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if left_type_mark /= Void then
             Result := left_type_mark.has_been_specialized
@@ -232,12 +232,12 @@ feature {ANY}
          Result := Result and right_side.has_been_specialized
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          right_side.safety_check(type)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          buffer: STRING
       do
@@ -255,14 +255,14 @@ feature {ANY}
          right_side.pretty(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -270,7 +270,7 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          left_type, right_type: TYPE
       do
@@ -284,7 +284,7 @@ feature {ANY}
          Result := resolve_in(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          lw: like left_writable; rs: like right_side
       do
@@ -299,27 +299,32 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   declaration_type: TYPE is
-      once -- <-- Yes it is once
+   declaration_type: TYPE
+      once
          Result := smart_eiffel.type_boolean
       end
 
-   resolve_in (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      once
+         Result := declaration_type.canonical_type_mark
+      end
+
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   accept (visitor: ASSIGNMENT_TEST_VISITOR) is
+   accept (visitor: ASSIGNMENT_TEST_VISITOR)
       do
          visitor.visit_assignment_test(Current)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          if left_type_mark /= Void then
             left_type_mark.short(type)
@@ -330,25 +335,25 @@ feature {ANY}
          right_side.short(type)
          end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   precedence: INTEGER is 2
+   precedence: INTEGER 2
 
-   is_manifest_string: BOOLEAN is False
-   is_result: BOOLEAN is False
-   is_implicit_current: BOOLEAN is False
-   extra_bracket_flag: BOOLEAN is True
-   is_static: BOOLEAN is False
-   is_writable: BOOLEAN is False
-   is_void: BOOLEAN is False
-   is_current: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
+   is_result: BOOLEAN False
+   is_implicit_current: BOOLEAN False
+   extra_bracket_flag: BOOLEAN True
+   is_static: BOOLEAN False
+   is_writable: BOOLEAN False
+   is_void: BOOLEAN False
+   is_current: BOOLEAN False
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          rs: like right_side
       do
@@ -363,7 +368,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   with_writable (lw: like left_writable; rs: like right_side) is
+   with_writable (lw: like left_writable; rs: like right_side)
       require
          lw /= Void
          rs /= Void
@@ -375,7 +380,7 @@ feature {}
          right_side = rs
       end
 
-   with_type_mark (ltm: like left_type_mark; rs: like right_side) is
+   with_type_mark (ltm: like left_type_mark; rs: like right_side)
       require
          ltm /= Void
          rs /= Void
@@ -387,7 +392,7 @@ feature {}
          right_side = rs
       end
 
-   make (ltm: like left_type_mark; lw: like left_writable; rs: like right_side) is
+   make (ltm: like left_type_mark; lw: like left_writable; rs: like right_side)
       require
          ltm /= Void xor lw /= Void
          rs /= Void
@@ -401,7 +406,7 @@ feature {}
          right_side = rs
       end
 
-   static_left_type_mark (lw: like left_writable): BOOLEAN is
+   static_left_type_mark (lw: like left_writable): BOOLEAN
       do
          if lw /= Void then
             Result := lw.written_declaration_type_mark.is_static
@@ -429,9 +434,9 @@ end -- class ASSIGNMENT_TEST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

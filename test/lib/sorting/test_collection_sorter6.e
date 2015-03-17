@@ -16,7 +16,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[INTEGER]
       do
@@ -49,13 +49,13 @@ feature {ANY}
 
    by_first_char: BOOLEAN
 
-   lt (x, y: INTEGER): BOOLEAN is
+   lt (x, y: INTEGER): BOOLEAN
       do
          Result := x #// 2 < y #// 2
       end
 
 feature {}
-   print_collection (c: COLLECTION[INTEGER]) is
+   print_collection (c: COLLECTION[INTEGER])
       local
          i: INTEGER
       do
@@ -70,7 +70,7 @@ feature {}
          end
       end
 
-   test (c: COLLECTION[INTEGER]) is
+   test (c: COLLECTION[INTEGER])
       local
          i: INTEGER
       do

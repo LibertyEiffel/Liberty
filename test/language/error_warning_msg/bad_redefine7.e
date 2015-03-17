@@ -13,14 +13,14 @@ create {}
 feature {ANY}
    path: STRING;
 
-   foo is
+   foo
          -- To really crashes because only the warning is to be kept.
       do
          i_want_to_crash_here_to_keep_track_of_the_previous_warning
       end
 
 feature {}
-   make is
+   make
       do
          if path /= Void then
             path := "Xavier Cregut";

@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[AUX_OZ01]; aux: AUX_OZ01
       do
@@ -16,7 +16,7 @@ feature {ANY}
          a := a
       end
 
-   do_invariant: BOOLEAN is
+   do_invariant: BOOLEAN
       local
          a: ARRAY[AUX_OZ01]
       do

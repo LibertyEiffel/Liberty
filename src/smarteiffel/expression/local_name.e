@@ -10,15 +10,15 @@ insert
    LOCAL_ARGUMENT
 
 feature {ANY}
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
 feature {}
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(256)
       end
@@ -35,9 +35,9 @@ end -- class LOCAL_NAME
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

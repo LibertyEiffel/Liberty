@@ -8,11 +8,11 @@ inherit
       rename initiate as make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY} --  {ALL}
-   apply is
+   apply
       do
          dummy := 3
       end

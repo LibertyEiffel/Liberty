@@ -7,27 +7,27 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(max = 255)
          assert(foo.is_equal("hip hop"))
       end
 
-   max: INTEGER is
+   max: INTEGER
       once
          Result := 255
       ensure
          meaningful: Result >= 127
       end
 
-   foo: STRING is
+   foo: STRING
       once
          Result := "hip hop"
       ensure
          Result.is_equal("hip hop")
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

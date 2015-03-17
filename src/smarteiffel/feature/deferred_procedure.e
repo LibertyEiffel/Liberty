@@ -13,15 +13,15 @@ create {ANY}
    make, from_effective
 
 feature {ANY}
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
    from_effective (fn: FEATURE_NAME; fa: like arguments; ra: like require_assertion; ea: like ensure_assertion
-      bc: like class_text; pe: like permissions) is
+      bc: like class_text; pe: like permissions)
       do
          feature_text := bc.non_written(fn, Current)
-         make_routine(fa, Void, Void, ra)
+         make_routine(fa, Void, Void, ra, False)
          permissions := pe
          if ea /= Void then
             set_ensure_assertion(ea)
@@ -29,15 +29,15 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: DEFERRED_PROCEDURE_VISITOR) is
+   accept (visitor: DEFERRED_PROCEDURE_VISITOR)
       do
          visitor.visit_deferred_procedure(Current)
       end
 
 feature {}
-   make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
+   make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion)
       do
-         make_routine(fa, om, hc, ra)
+         make_routine(fa, om, hc, ra, False)
       end
 
 end -- class DEFERRED_PROCEDURE
@@ -52,9 +52,9 @@ end -- class DEFERRED_PROCEDURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

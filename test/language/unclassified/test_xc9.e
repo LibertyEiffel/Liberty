@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          bb: AUX_XC9BB; bbprime: AUX_XC9BB
       do

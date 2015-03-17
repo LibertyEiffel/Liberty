@@ -22,14 +22,14 @@ insert
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation {LIBERTY_TYPE_RESOLVER_IN_TYPE}
+create {LIBERTY_TYPE_RESOLVER_IN_TYPE}
    like_current, like_feature
 
-creation {LIBERTY_DELAYED_RESOLVER_IN_TYPE}
+create {LIBERTY_DELAYED_RESOLVER_IN_TYPE}
    specialized
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          current_type.out_in_tagged_out_memory
          if feature_name /= Void then
@@ -38,18 +38,18 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := current_type.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {LIBERTY_DELAYED_TYPE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       local
          fd: LIBERTY_FEATURE_DEFINITION
          bound_feature: LIBERTY_FEATURE
@@ -69,7 +69,7 @@ feature {LIBERTY_DELAYED_TYPE}
          end
       end
 
-   resolved: LIBERTY_KNOWN_TYPE is
+   resolved: LIBERTY_KNOWN_TYPE
       do
          if feature_name = Void then
             Result := current_type
@@ -78,12 +78,12 @@ feature {LIBERTY_DELAYED_TYPE}
          end
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       do
          Result := current_type.full_name
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          if a_type.is_child_of(definition_type) then
             create Result.specialized(a_type, definition_type, feature_name)
@@ -93,7 +93,7 @@ feature {LIBERTY_DELAYED_TYPE}
       end
 
 feature {}
-   like_current (a_type: like current_type) is
+   like_current (a_type: like current_type)
       require
          a_type /= Void
       do
@@ -105,7 +105,7 @@ feature {}
          feature_name = Void
       end
 
-    like_feature (a_type: like current_type; a_feature_name: like feature_name) is
+    like_feature (a_type: like current_type; a_feature_name: like feature_name)
       require
          a_type /= Void
          a_feature_name /= Void
@@ -119,7 +119,7 @@ feature {}
          feature_name = a_feature_name
       end
 
-    specialized (a_type: like current_type; a_definition_type: like definition_type; a_feature_name: like feature_name) is
+    specialized (a_type: like current_type; a_definition_type: like definition_type; a_feature_name: like feature_name)
       require
          a_type /= Void
          a_definition_type /= Void

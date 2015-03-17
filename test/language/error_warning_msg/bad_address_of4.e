@@ -4,13 +4,13 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          pointer: POINTER
       do
          pointer := $constant_attribute
       end
 
-   constant_attribute: INTEGER is 4
+   constant_attribute: INTEGER 4
 
 end

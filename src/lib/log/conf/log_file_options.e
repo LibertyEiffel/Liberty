@@ -7,12 +7,12 @@ create {LOG_INTERNAL_CONF}
    file, console
 
 feature {LOG_INTERNAL_CONF}
-   retriever: FUNCTION[TUPLE, OUTPUT_STREAM] is
+   retriever: FUNCTION[TUPLE, OUTPUT_STREAM]
       do
          Result := agent retrieve
       end
 
-   rotated (condition: PREDICATE[TUPLE[FILE_STREAM]]; retention: INTEGER_64; on_error: PROCEDURE[TUPLE[STRING]]) is
+   rotated (condition: PREDICATE[TUPLE[FILE_STREAM]]; retention: INTEGER_64; on_error: PROCEDURE[TUPLE[STRING]])
       require
          condition /= Void
       do
@@ -26,7 +26,7 @@ feature {LOG_INTERNAL_CONF}
          end
       end
 
-   zipped (command: FIXED_STRING; on_error: PROCEDURE[TUPLE[STRING]]) is
+   zipped (command: FIXED_STRING; on_error: PROCEDURE[TUPLE[STRING]])
       require
          command /= Void
       do
@@ -42,13 +42,13 @@ feature {LOG_INTERNAL_CONF}
          end
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := stream.is_connected
       end
 
 feature {}
-   file (a_output_name: like output_name; a_file_path: like file_path) is
+   file (a_output_name: like output_name; a_file_path: like file_path)
       require
          a_output_name /= Void
          a_file_path /= Void
@@ -64,7 +64,7 @@ feature {}
          --stream.is_connected implies stream.path = a_file_path
       end
 
-   console (a_output_name:  like output_name) is
+   console (a_output_name:  like output_name)
       require
          a_output_name /= Void
       do
@@ -77,7 +77,7 @@ feature {}
          stream = std_output
       end
 
-   retrieve: OUTPUT_STREAM is
+   retrieve: OUTPUT_STREAM
       local
          s: STREAM
       do
@@ -109,13 +109,13 @@ invariant
 
 end -- class LOG_FILE_OPTIONS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

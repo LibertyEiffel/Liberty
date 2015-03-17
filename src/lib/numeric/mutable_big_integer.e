@@ -29,7 +29,7 @@ create {ANY}
    from_integer, from_integer_64, from_string, copy
 
 feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
-   from_integer (value: INTEGER) is
+   from_integer (value: INTEGER)
          -- Create or initialize `Current' using `value' as an initializer.
       do
          if capacity = 0 then
@@ -55,7 +55,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
          to_integer_32 = value
       end
 
-   is_integer_32: BOOLEAN is
+   is_integer_32: BOOLEAN
          -- Does `Current' fit on an INTEGER_32?
       do
          if integer_length = 0 then
@@ -72,7 +72,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
          Result implies integer_length <= 1
       end
 
-   to_integer_32: INTEGER is
+   to_integer_32: INTEGER
          -- Convert `Current' as a 32 bit INTEGER.
       require
          is_integer_32
@@ -85,7 +85,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
          end
       end
 
-   from_integer_64 (value: INTEGER_64) is
+   from_integer_64 (value: INTEGER_64)
          -- Create or set `Current' using `value' as an initializer.
       local
          v32: INTEGER
@@ -126,7 +126,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
          to_integer_64 = value
       end
 
-   is_integer_64: BOOLEAN is
+   is_integer_64: BOOLEAN
          -- Does `Current' fit on an INTEGER_64?
       do
          if integer_length <= 1 then
@@ -147,7 +147,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
          Result implies integer_length <= 2
       end
 
-   to_integer_64: INTEGER_64 is
+   to_integer_64: INTEGER_64
          -- Convert `Current' as a INTEGER_64.
       require
          is_integer_64
@@ -174,7 +174,7 @@ feature {ANY} -- Creation / initialization from INTEGER_32 or INTEGER_64:
       end
 
 feature {ANY} -- Creation / initialization from STRING:
-   from_string (str: STRING) is
+   from_string (str: STRING)
          -- Create or initialize `Current' using `value' as an
          -- initializer. (value = [-][0-9]^+)
       local
@@ -229,7 +229,7 @@ feature {ANY} -- Creation / initialization from STRING:
       end
 
 feature {ANY} -- Conversion tool
-   force_to_real_64: REAL_64 is
+   force_to_real_64: REAL_64
          -- only a tool
          -- unsigned conversion *** require ou changer export ? *** (Dom Oct 4th 2004) ***
       local
@@ -252,7 +252,7 @@ feature {ANY} -- Conversion tool
       end
 
 feature {NUMBER}
-   from_native_array (na: NATIVE_ARRAY[INTEGER]; cap: INTEGER; neg: BOOLEAN) is
+   from_native_array (na: NATIVE_ARRAY[INTEGER]; cap: INTEGER; neg: BOOLEAN)
       require
          na.item(cap - 1) /= 0
       do
@@ -266,7 +266,7 @@ feature {NUMBER}
          storage.slice_copy(0, na, 0, cap - 1)
       end
 
-   to_integer_general_number: INTEGER_GENERAL_NUMBER is
+   to_integer_general_number: INTEGER_GENERAL_NUMBER
       local
          na: like storage
       do
@@ -280,7 +280,7 @@ feature {NUMBER}
       end
 
 feature {ANY} -- Addition:
-   add (other: like Current) is
+   add (other: like Current)
          -- Add `other' into `Current'.
          --
          -- See also `add_integer', `add_integer_64', `add_natural'.
@@ -302,7 +302,7 @@ feature {ANY} -- Addition:
          end
       end
 
-   add_to (other, res: like Current) is
+   add_to (other, res: like Current)
          -- Add `other' and `Current', and put the result in `res'.
       require
          other /= Void
@@ -315,7 +315,7 @@ feature {ANY} -- Addition:
          res.add(other)
       end
 
-   add_integer (other: INTEGER) is
+   add_integer (other: INTEGER)
          -- Add `other' into `Current'.
       local
          inc: BOOLEAN; v, i, n: INTEGER
@@ -405,14 +405,14 @@ feature {ANY} -- Addition:
          end
       end
 
-   add_integer_64 (other: INTEGER_64) is
+   add_integer_64 (other: INTEGER_64)
          -- Add `other' into `Current'.
       do
          register1.from_integer_64(other)
          add(register1)
       end
 
-   add_natural (other: like Current) is
+   add_natural (other: like Current)
          -- Same behavior as `add', but this one works only when `Current'
          -- and `other' are both positive numbers and are both greater than
          -- zero. The only one advantage of using `add_natural' instead of the
@@ -425,7 +425,7 @@ feature {ANY} -- Addition:
       end
 
 feature {ANY} -- Subtract:
-   subtract (other: like Current) is
+   subtract (other: like Current)
          -- Subtract `other' from `Current'.
       require
          other /= Void
@@ -447,7 +447,7 @@ feature {ANY} -- Subtract:
          end
       end
 
-   subtract_to (other, res: like Current) is
+   subtract_to (other, res: like Current)
          -- Subtract `other' from `Current' and put it in `res'.
       require
          other /= Void
@@ -460,7 +460,7 @@ feature {ANY} -- Subtract:
          res.subtract(other)
       end
 
-   subtract_integer (other: INTEGER) is
+   subtract_integer (other: INTEGER)
       do
          if other = Minimum_integer then
             add_integer(1)
@@ -471,7 +471,7 @@ feature {ANY} -- Subtract:
       end
 
 feature {ANY} -- To divide:
-   divide (other: like Current) is
+   divide (other: like Current)
          -- Put the the quotient of the Euclidian division of
          -- `Current' by `other' in `Current'.
          -- (The contents of `other' is not changed.)
@@ -483,7 +483,7 @@ feature {ANY} -- To divide:
          divide_with_remainder_to(other, register2)
       end
 
-   mod (other: like Current) is
+   mod (other: like Current)
          -- Put the the remainder of the Euclidian division of
          -- `Current' by `other' in `Current'.
          -- (The contents of `other' is not changed.)
@@ -500,7 +500,7 @@ feature {ANY} -- To divide:
          not negative and abs_compare(other) = -1
       end
 
-   divide_with_remainder_to (other, remainder: like Current) is
+   divide_with_remainder_to (other, remainder: like Current)
          -- Euclidian division.
          -- Calculates the `quotient' and `remainder' of `Current'
          -- divided by `other'.
@@ -518,7 +518,7 @@ feature {ANY} -- To divide:
          not remainder.negative and remainder.abs_compare(other) = -1
       end
 
-   remainder_with_quotient_to (other, quotient: like Current) is
+   remainder_with_quotient_to (other, quotient: like Current)
          -- Euclidian division.
          -- Calculates the `quotient' and `remainder' of `Current'
          -- divided by `other'.
@@ -705,7 +705,7 @@ feature {ANY} -- To divide:
          not negative and abs_compare(other) = -1
       end
 
-   divide_to (other, quotient, remainder: like Current) is
+   divide_to (other, quotient, remainder: like Current)
          -- Euclidian division.
          -- Calculates the `quotient' and `remainder' of `Current'
          -- divided by `other'. (The contents of `Current' and `other' are
@@ -905,7 +905,7 @@ feature {ANY} -- To divide:
          not remainder.negative and remainder.abs_compare(other) = -1
       end
 
-   shift_left (n: INTEGER) is
+   shift_left (n: INTEGER)
          -- Shift bits of magnitude by `n' position left. (Note that no bit can
          -- be lost because the `storage' area is automatically extended when
          -- it is necessary.)
@@ -1156,7 +1156,7 @@ feature {ANY} -- To divide:
          end
       end
 
-   shift_right (n: INTEGER) is
+   shift_right (n: INTEGER)
          -- Right shift `Current' n bits. (`Current' is left in normal form.)
       require
          n > 0
@@ -1176,7 +1176,7 @@ feature {ANY} -- To divide:
       end
 
 feature {ANY} -- GCD
-   gcd (other: like Current) is
+   gcd (other: like Current)
          -- Compute GCD of `Current' and `other'.
          -- GCD is put in `Current' (`other' is not modified).
       require
@@ -1215,7 +1215,7 @@ feature {ANY} -- GCD
       end
 
 feature {ANY} -- To multiply:
-   multiply (other: like Current) is
+   multiply (other: like Current)
          -- Multiply `Current' by `other'.
       require
          other /= Void
@@ -1239,7 +1239,7 @@ feature {ANY} -- To multiply:
          end
       end
 
-   multiply_to (other, res: like Current) is
+   multiply_to (other, res: like Current)
          -- Multiply the contents of `Current' and `other' and place the
          -- result  in `res'. (`Current' and `other' are not modified.)
       require
@@ -1265,7 +1265,7 @@ feature {ANY} -- To multiply:
          end
       end
 
-   multiply_integer (other: INTEGER; res: like Current) is
+   multiply_integer (other: INTEGER; res: like Current)
          -- Multiply the contents of `Current' and `other' and place the
          -- result  in `res'. (`Current' is not modified.)
       require
@@ -1327,7 +1327,7 @@ feature {ANY} -- To multiply:
       end
 
 feature {MUTABLE_BIG_INTEGER} -- to multiply
-   multiply_like_human (other: like Current) is
+   multiply_like_human (other: like Current)
          -- Simple multiply.
          -- Complexity = O(`integer_length'*`other.integer_length').
       require
@@ -1354,7 +1354,7 @@ feature {MUTABLE_BIG_INTEGER} -- to multiply
          end
       end
 
-   multiply_like_human_aux (other: like Current) is
+   multiply_like_human_aux (other: like Current)
          -- Only used by `multiply_to_like_human'.
       require
          not is_zero
@@ -1422,7 +1422,7 @@ feature {MUTABLE_BIG_INTEGER} -- to multiply
          offset := 0
       end
 
-   multiply_like_human_aux_reverse (other: like Current) is
+   multiply_like_human_aux_reverse (other: like Current)
          -- Only used by `multiply_to_like_human'.
       require
          not is_zero
@@ -1499,7 +1499,7 @@ feature {MUTABLE_BIG_INTEGER} -- to multiply
          negative := negative /= other.negative
       end
 
-   multiply_to_like_human (other, res: like Current) is
+   multiply_to_like_human (other, res: like Current)
          -- Simple multiply.
          -- Complexity = O(`integer_length'*`other.integer_length').
       require
@@ -1571,7 +1571,7 @@ feature {MUTABLE_BIG_INTEGER} -- to multiply
       end
 
 feature {ANY} -- Comparison:
-   is_zero: BOOLEAN is
+   is_zero: BOOLEAN
          -- Is it 0?
       do
          Result := integer_length = 0
@@ -1579,7 +1579,7 @@ feature {ANY} -- Comparison:
          Result implies not is_negative
       end
 
-   is_one: BOOLEAN is
+   is_one: BOOLEAN
          -- Is it 1?
       do
          if integer_length = 1 then
@@ -1591,7 +1591,7 @@ feature {ANY} -- Comparison:
          Result implies not is_negative
       end
 
-   is_one_negative: BOOLEAN is
+   is_one_negative: BOOLEAN
          -- Is it -1 ?
       do
          if integer_length = 1 then
@@ -1603,7 +1603,7 @@ feature {ANY} -- Comparison:
          Result implies is_negative
       end
 
-   is_negative: BOOLEAN is
+   is_negative: BOOLEAN
          -- Is `Current' negative integer?
       do
          Result := negative
@@ -1611,7 +1611,7 @@ feature {ANY} -- Comparison:
          Result implies not is_positive
       end
 
-   is_positive: BOOLEAN is
+   is_positive: BOOLEAN
          -- Is `Current' positive integer?
       do
          Result := not negative and then integer_length /= 0
@@ -1619,7 +1619,7 @@ feature {ANY} -- Comparison:
          Result implies not is_negative
       end
 
-   is_even: BOOLEAN is
+   is_even: BOOLEAN
          -- Is `Current' even?
       do
          if integer_length = 0 then
@@ -1631,7 +1631,7 @@ feature {ANY} -- Comparison:
          Result = not Current.is_odd
       end
 
-   is_odd: BOOLEAN is
+   is_odd: BOOLEAN
          -- Is `Current' odd?
       do
          if integer_length > 0 then
@@ -1641,7 +1641,7 @@ feature {ANY} -- Comparison:
          Result = not Current.is_even
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          a, b, c: INTEGER
       do
@@ -1672,7 +1672,7 @@ feature {ANY} -- Comparison:
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       local
          a, b: INTEGER; va, vb: INTEGER
       do
@@ -1710,7 +1710,7 @@ feature {ANY} -- Comparison:
          end
       end
 
-   abs_compare (other: like Current): INTEGER is
+   abs_compare (other: like Current): INTEGER
          -- Compare the magnitude of `Current' and `other'. Returns -1, 0 or 1
          -- as this MutableBigInteger is numerically less than, equal to, or
          -- greater than other.
@@ -1752,7 +1752,7 @@ feature {ANY} -- Comparison:
       end
 
 feature {ANY} -- Printing:
-   to_string: STRING is
+   to_string: STRING
          -- The decimal view of `Current' into a new allocated STRING.
          -- For example, if `Current' is -1 the `Result' is "-1".
          --
@@ -1763,7 +1763,7 @@ feature {ANY} -- Printing:
          Result := string_buffer.twin
       end
 
-   to_unicode_string: UNICODE_STRING is
+   to_unicode_string: UNICODE_STRING
          -- The decimal view of `Current' into a new allocated UNICODE_STRING.
          -- For example, if `Current' represents -1 the `Result' is U"-1".
          --
@@ -1774,7 +1774,7 @@ feature {ANY} -- Printing:
          Result := unicode_string_buffer.twin
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append in the `buffer' the equivalent of `to_string'. No new
          -- STRING creation during the process.
       require
@@ -1801,7 +1801,7 @@ feature {ANY} -- Printing:
          end
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
          -- Append in the `buffer' the equivalent of `to_string'. No new
          -- STRING creation during the process.
       require
@@ -1828,7 +1828,7 @@ feature {ANY} -- Printing:
          end
       end
 
-   to_string_format (s: INTEGER): STRING is
+   to_string_format (s: INTEGER): STRING
          -- Same as `to_string' but the result is on `s' character and the
          -- number is right aligned.
          -- Note: see `append_in_format' to save memory.
@@ -1841,7 +1841,7 @@ feature {ANY} -- Printing:
          Result.count = s
       end
 
-   to_unicode_string_format (s: INTEGER): UNICODE_STRING is
+   to_unicode_string_format (s: INTEGER): UNICODE_STRING
          -- Same as `to_unicode_string' but the result is on `s' character and
          -- the number is right aligned.
          -- Note: see `append_in_unicode_format' to save memory.
@@ -1854,7 +1854,7 @@ feature {ANY} -- Printing:
          Result.count = s
       end
 
-   append_in_format (str: STRING; s: INTEGER) is
+   append_in_format (str: STRING; s: INTEGER)
          -- Append the equivalent of `to_string_format' at the end of `str'. Thus you can save
          -- memory because no other STRING is allocated for the job.
       require
@@ -1912,7 +1912,7 @@ feature {ANY} -- Printing:
          str.count >= old str.count + s
       end
 
-   append_in_unicode_format (str: UNICODE_STRING; s: INTEGER) is
+   append_in_unicode_format (str: UNICODE_STRING; s: INTEGER)
          -- Append the equivalent of `to_unicode_string_format' at the end of
          -- `str'. Thus you can save memory because no other
          -- UNICODE_STRING is allocated for the job.
@@ -1971,7 +1971,7 @@ feature {ANY} -- Printing:
          str.count >= old str.count + s
       end
 
-   is_printable: BOOLEAN is
+   is_printable: BOOLEAN
          -- True if decimal view of `Current' is short enougth
          -- to be put in a STRING.
       do
@@ -1979,13 +1979,13 @@ feature {ANY} -- Printing:
          Result := integer_length <= 2 ^ 27
       end
 
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          append_in(tagged_out_memory)
       end
 
 feature {ANY} -- Miscellaneous:
-   negate is
+   negate
          -- Negate the sign of `Current'.
       do
          if integer_length /= 0 then
@@ -1993,13 +1993,13 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   abs is
+   abs
          -- Absolute value of `Current'.
       do
          negative := False
       end
 
-   sign: INTEGER_8 is
+   sign: INTEGER_8
          -- Sign of `Current' (0 -1 or 1).
       do
          if negative then
@@ -2013,7 +2013,7 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   set_with_zero is
+   set_with_zero
       do
          integer_length := 0
          negative := False
@@ -2021,7 +2021,7 @@ feature {ANY} -- Miscellaneous:
          is_zero
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       local
          i, c, v: INTEGER
       do
@@ -2047,7 +2047,7 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          negative := other.negative
          offset := 0
@@ -2064,7 +2064,7 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   swap_with (other: like Current) is
+   swap_with (other: like Current)
          -- Swap the value of `Current' with the value of `other'.
       local
          s: like storage; c: like capacity; il: like integer_length; o: like offset; n: like negative
@@ -2102,7 +2102,7 @@ feature {MUTABLE_BIG_INTEGER}
    negative: BOOLEAN
          -- True when `Current' is negative.
 
-   item (index: INTEGER): INTEGER_32 is
+   item (index: INTEGER): INTEGER_32
       require
       -- index.in_range(0, capacity - 1)
          index.in_range(offset, offset + integer_length - 1)
@@ -2110,14 +2110,14 @@ feature {MUTABLE_BIG_INTEGER}
          Result := storage.item(index)
       end
 
-   put (value: INTEGER; index: INTEGER) is
+   put (value: INTEGER; index: INTEGER)
       require
          index.in_range(0, capacity - 1)
       do
          storage.put(value, index)
       end
 
-   set_negative (n: like negative) is
+   set_negative (n: like negative)
       require
          n implies not is_zero
       do
@@ -2126,7 +2126,7 @@ feature {MUTABLE_BIG_INTEGER}
          negative = n or is_zero
       end
 
-   set_integer_length (il: like integer_length) is
+   set_integer_length (il: like integer_length)
       require
          il.in_range(0, capacity - offset)
       do
@@ -2135,7 +2135,7 @@ feature {MUTABLE_BIG_INTEGER}
          integer_length = il
       end
 
-   set_offset (o: like offset) is
+   set_offset (o: like offset)
       require
          o.in_range(0, capacity - integer_length)
       do
@@ -2144,7 +2144,7 @@ feature {MUTABLE_BIG_INTEGER}
          offset = o
       end
 
-   set_ilo (il: like integer_length; o: like offset) is
+   set_ilo (il: like integer_length; o: like offset)
       require
          il.in_range(0, capacity)
          o.in_range(0, capacity - il)
@@ -2156,17 +2156,17 @@ feature {MUTABLE_BIG_INTEGER}
          offset = o
       end
 
-   set_storage (new_storage: like storage) is
+   set_storage (new_storage: like storage)
       do
          storage := new_storage
       end
 
-   set_capacity (new_capacity: like capacity) is
+   set_capacity (new_capacity: like capacity)
       do
          capacity := new_capacity
       end
 
-   set_all (new_storage: like storage; new_capacity, new_integer_length, new_offset: INTEGER; new_negative: BOOLEAN) is
+   set_all (new_storage: like storage; new_capacity, new_integer_length, new_offset: INTEGER; new_negative: BOOLEAN)
       require
          new_capacity > 0
          new_storage.is_not_null
@@ -2188,7 +2188,7 @@ feature {MUTABLE_BIG_INTEGER}
          negative = new_negative
       end
 
-   primitive_shift_left (n: INTEGER_8) is
+   primitive_shift_left (n: INTEGER_8)
          -- Left shift `Current' with no need to extend the `storage'.
          --|*** Can be a little faster (Vincent Croizier, 26/04/04) ***
       require
@@ -2215,7 +2215,7 @@ feature {MUTABLE_BIG_INTEGER}
          end
       end
 
-   primitive_shift_right (n: INTEGER_8) is
+   primitive_shift_right (n: INTEGER_8)
          -- Right shift `Current' of `n' bits.
       require
          integer_length > 0
@@ -2251,8 +2251,8 @@ feature {MUTABLE_BIG_INTEGER}
          offset = 0
       end
 
-   divide_one_word (divisor: INTEGER): INTEGER is
-         -- This method is used by `divide'. The one word divisor is
+   divide_one_word (divisor: INTEGER): INTEGER
+         -- This method is used by `divide'. The one word divisor
          -- specified by `divisor' is saw as unsigned.
          -- `Current' is the dividend (saw positive) at invocation but is replaced by
          -- the quotient. The remainder is returned as unsigned INTEGER.
@@ -2291,7 +2291,7 @@ feature {MUTABLE_BIG_INTEGER}
          end
       end
 
-   divide_sign_correction (other, quotient, remainder: like Current) is
+   divide_sign_correction (other, quotient, remainder: like Current)
          -- Correct the value of `quotient' and `remainder' after an
          -- "unsigned" division.
          -- Only used by `divide'.
@@ -2328,7 +2328,7 @@ feature {MUTABLE_BIG_INTEGER}
          not remainder.is_negative
       end
 
-   divide_sign_correction_bis (other, quotient: like Current; current_negative: BOOLEAN) is
+   divide_sign_correction_bis (other, quotient: like Current; current_negative: BOOLEAN)
          -- Correct the value of `quotient' and `remainder' after an
          -- "unsigned" division.
          -- Only used by `divide'.
@@ -2366,7 +2366,7 @@ feature {MUTABLE_BIG_INTEGER}
       end
 
    multiply_and_subtract (u1, qhat: INTEGER; d_storage: like storage; d_offset: INTEGER; r_storage: like storage
-      r_offset, length: INTEGER): BOOLEAN is
+      r_offset, length: INTEGER): BOOLEAN
          -- Only used by `divide'.
       require
          qhat /= 0
@@ -2433,7 +2433,7 @@ feature {MUTABLE_BIG_INTEGER}
       end
 
    add_back (old_u1: INTEGER; d_storage: like storage; d_offset: INTEGER; r_storage: like storage
-      r_offset, length: INTEGER): BOOLEAN is
+      r_offset, length: INTEGER): BOOLEAN
          -- Only used by `divide'.
          -- `old_u1' is the value of `u1' before `multiply_and_subtract'.
       local
@@ -2463,7 +2463,7 @@ feature {MUTABLE_BIG_INTEGER}
          end
       end
 
-   is_a_good_divide (other, quotient, remainder: like Current): BOOLEAN is
+   is_a_good_divide (other, quotient, remainder: like Current): BOOLEAN
       require
          other /= Void
          quotient /= Void
@@ -2477,7 +2477,7 @@ feature {MUTABLE_BIG_INTEGER}
          Result := Current.is_equal(v)
       end
 
-   normalize: INTEGER_8 is
+   normalize: INTEGER_8
          -- Shift left until the most significant bit is on.
          -- Result give the number of left shift.
       require
@@ -2501,22 +2501,22 @@ feature {MUTABLE_BIG_INTEGER}
       end
 
 feature {MUTABLE_BIG_INTEGER} -- Implementation:
-   register1: MUTABLE_BIG_INTEGER is
+   register1: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer(0)
       end
 
-   register2: MUTABLE_BIG_INTEGER is
+   register2: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer(0)
       end
 
-   Real_base: REAL_64 is
+   Real_base: REAL_64
       once
          Result := (0x0000000100000000).force_to_real_64
       end
 
-   add_magnitude (other: like Current) is
+   add_magnitude (other: like Current)
          -- Add the magnitude of `Current' and `other' regardless of signs.
       require
          not is_zero
@@ -2654,7 +2654,7 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
       end
 
 feature {MUTABLE_BIG_INTEGER} -- Implementation:
-   subtract_magnitude (other: like Current) is
+   subtract_magnitude (other: like Current)
          -- Subtract `other' from `Current' (The result is placed  in `Current')
          -- and change `negative' (the sign) if necessary.
       require
@@ -2727,7 +2727,7 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
          end
       end
 
-   subtract_magnitude_raw (other: like Current) is
+   subtract_magnitude_raw (other: like Current)
          -- Subtract (raw) the storage of `other' from `Current'.
          -- Used by `subtract_magnitude'.
       require
@@ -2780,7 +2780,7 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
          offset = 0
       end
 
-   subtract_magnitude_raw_reverse (other: like Current) is
+   subtract_magnitude_raw_reverse (other: like Current)
          -- Subtract (raw) the storage of `Current' from `other' and
          -- put it in `Current'.
          -- Used by `subtract_magnitude'.
@@ -2851,7 +2851,7 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
          offset = 0
       end
 
-   subtract_magnitude_raw_truncated (other: like Current) is
+   subtract_magnitude_raw_truncated (other: like Current)
          -- Subtract (raw) the storage of `other' from `Current'
          -- where `other' is truncated to the size of `Current'.
          -- Used by `subtract_magnitude'.
@@ -2887,7 +2887,7 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
          offset = 0
       end
 
-   subtract_magnitude_raw_reverse_truncated (other: like Current) is
+   subtract_magnitude_raw_reverse_truncated (other: like Current)
          -- Subtract (raw) the storage of `Current' from `other' and
          -- put it in `Current',
          -- where `other' is truncated to the size of `Current'.
@@ -2925,12 +2925,12 @@ feature {MUTABLE_BIG_INTEGER} -- Implementation:
       end
 
 feature {} -- For printing
-   char_buffer: FAST_ARRAY[CHARACTER] is
+   char_buffer: FAST_ARRAY[CHARACTER]
       once
          create Result.make(4096)
       end
 
-   append_in_char_buffer: INTEGER is
+   append_in_char_buffer: INTEGER
          -- Tool for `append_in' and `append_in_unicode'.
          -- Put absolute value of Current in `char_buffer' and return
          -- the number of characteres really used.
@@ -2991,7 +2991,7 @@ feature {} -- For printing
       end
 
 feature {} -- Tools for capacity:
-   capacity_from_lower_bound (actual_capacity, needed_capacity: INTEGER): INTEGER is
+   capacity_from_lower_bound (actual_capacity, needed_capacity: INTEGER): INTEGER
          -- Give the smallest power of 2 greater than
          -- `needed_capacity' and `actual_capacity'.
          -- Based on `actual_capacity' (the actual capacity).
@@ -3014,7 +3014,7 @@ feature {} -- Tools for capacity:
          Result = actual_capacity or Result #// 2 < needed_capacity
       end
 
-   capacity_from_upper_bound (actual_capacity, needed_capacity: INTEGER): INTEGER is
+   capacity_from_upper_bound (actual_capacity, needed_capacity: INTEGER): INTEGER
          -- Give the smallest power of 2 greater than `needed_capacity'.
          -- Based on `actual_capacity' (the actual capacity).
       require
@@ -3041,7 +3041,7 @@ feature {} -- Tools for capacity:
       end
 
 feature {}
-   unsigned_less_than (a, b: INTEGER): BOOLEAN is
+   unsigned_less_than (a, b: INTEGER): BOOLEAN
          -- Unsigned "<".
       external "plug_in"
       alias "{
@@ -3051,7 +3051,7 @@ feature {}
          }"
       end
 
-   unsigned_greater_than (a, b: INTEGER): BOOLEAN is
+   unsigned_greater_than (a, b: INTEGER): BOOLEAN
          -- Unsigned ">".
       external "plug_in"
       alias "{
@@ -3061,7 +3061,7 @@ feature {}
          }"
       end
 
-   unsigned_greater_or_equal (a, b: INTEGER): BOOLEAN is
+   unsigned_greater_or_equal (a, b: INTEGER): BOOLEAN
          -- Unsigned ">=".
       external "plug_in"
       alias "{
@@ -3071,7 +3071,7 @@ feature {}
          }"
       end
 
-   unsigned_32_to_integer_64 (integer_32: INTEGER): INTEGER_64 is
+   unsigned_32_to_integer_64 (integer_32: INTEGER): INTEGER_64
          -- Return the unsigned value of the `integer_32'.
          --
          --|*** Ajouter ou pas cette fonction dans INTEGER_32 ? plug_in ou built_in ?(Dom. 27/02/2004) ***
@@ -3085,7 +3085,7 @@ feature {}
          }"
       end
 
-   storage_at (s: like storage; n: INTEGER): POINTER is
+   storage_at (s: like storage; n: INTEGER): POINTER
          -- Give the address of the corresponding word of `s'.
       external "plug_in"
       alias "{
@@ -3095,7 +3095,7 @@ feature {}
          }"
       end
 
-   mbi_inc (integer_32_adr: POINTER): BOOLEAN is
+   mbi_inc (integer_32_adr: POINTER): BOOLEAN
          -- Increment the value at `integer_32_adr'. The `Result' is True only in case of overflow.
       external "plug_in"
       alias "{
@@ -3105,7 +3105,7 @@ feature {}
          }"
       end
 
-   mbi_add (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN is
+   mbi_add (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN
          -- t.item(n) := a + b
          -- Overflow if "Result = True".
       external "plug_in"
@@ -3116,7 +3116,7 @@ feature {}
          }"
       end
 
-   mbi_add_with_inc (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN is
+   mbi_add_with_inc (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN
          -- t.item(n) := a + b + 1
          -- Overflow if "Result = True".
       external "plug_in"
@@ -3127,7 +3127,7 @@ feature {}
          }"
       end
 
-   mbi_dec (integer_32_adr: POINTER): BOOLEAN is
+   mbi_dec (integer_32_adr: POINTER): BOOLEAN
          -- Put a - 1 in the item n in the NATIVE_ARRAY t.
          -- t.item(n) := a - 1
          -- Underflow if "Result = True".
@@ -3139,7 +3139,7 @@ feature {}
          }"
       end
 
-   mbi_subtract (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN is
+   mbi_subtract (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN
          -- t.item(n) := a - b
          -- Underflow if "Result = True".
       external "plug_in"
@@ -3150,7 +3150,7 @@ feature {}
          }"
       end
 
-   mbi_subtract_with_dec (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN is
+   mbi_subtract_with_dec (a, b: INTEGER; integer_32_adr: POINTER): BOOLEAN
          -- t.item(n) := a - b - 1
          -- Underflow if "Result = True".
       external "plug_in"
@@ -3161,7 +3161,7 @@ feature {}
          }"
       end
 
-   mbi_multiply (a, b: INTEGER; integer_32_adr: POINTER): INTEGER_32 is
+   mbi_multiply (a, b: INTEGER; integer_32_adr: POINTER): INTEGER_32
          -- put a * b in t@n and return the overflow.
       external "plug_in"
       alias "{
@@ -3171,7 +3171,7 @@ feature {}
          }"
       end
 
-   mbi_multiply_with_add (a, b, c: INTEGER; integer_32_adr: POINTER): INTEGER_32 is
+   mbi_multiply_with_add (a, b, c: INTEGER; integer_32_adr: POINTER): INTEGER_32
          -- put a * b + c in t@n and return the overflow.
       external "plug_in"
       alias "{
@@ -3181,7 +3181,7 @@ feature {}
          }"
       end
 
-   mbi_multiply_with_2_add (a, b, c, d: INTEGER; integer_32_adr: POINTER): INTEGER_32 is
+   mbi_multiply_with_2_add (a, b, c, d: INTEGER; integer_32_adr: POINTER): INTEGER_32
          -- put a * b + c + d in t@n and return the overflow.
       external "plug_in"
       alias "{
@@ -3191,7 +3191,7 @@ feature {}
          }"
       end
 
-   mbi_divide (u1, u0, d: INTEGER; r_int32adr: POINTER): INTEGER_32 is
+   mbi_divide (u1, u0, d: INTEGER; r_int32adr: POINTER): INTEGER_32
          -- Divide `u1u0' by `d', put the remainder in `r' and return the quotient.
       external "plug_in"
       alias "{
@@ -3201,12 +3201,12 @@ feature {}
          }"
       end
 
-   string_buffer: STRING is
+   string_buffer: STRING
       once
          create Result.make(128)
       end
 
-   unicode_string_buffer: UNICODE_STRING is
+   unicode_string_buffer: UNICODE_STRING
       once
          create Result.make(128)
       end
@@ -3221,13 +3221,13 @@ invariant
 
 end -- class MUTABLE_BIG_INTEGER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

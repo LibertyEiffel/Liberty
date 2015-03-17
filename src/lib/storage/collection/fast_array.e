@@ -36,17 +36,17 @@ create {ANY}
    default_create, make, with_capacity, from_collection, from_external, manifest_creation
 
 feature {ANY}
-   lower: INTEGER is 0
+   lower: INTEGER 0
          -- Frozen lower bound.
 
 feature {ANY} -- Creation and modification:
-   default_create is
+   default_create
          -- Create a new with empty FAST_ARRAY with capacity 32.
       do
          with_capacity(32)
       end
 
-   make (new_count: INTEGER) is
+   make (new_count: INTEGER)
          -- Make array with range [0 .. `new_count' - 1].
          -- When `new_count' = 0 the array is empty.
       require
@@ -71,7 +71,7 @@ feature {ANY} -- Creation and modification:
          all_default
       end
 
-   with_capacity (needed_capacity: INTEGER) is
+   with_capacity (needed_capacity: INTEGER)
          -- Create an empty array with at least `needed_capacity'.
       require
          needed_capacity >= 0
@@ -90,7 +90,7 @@ feature {ANY} -- Creation and modification:
       end
 
 feature {ANY} -- Modification:
-   resize (new_count: INTEGER) is
+   resize (new_count: INTEGER)
          -- Resize the array. When `new_count' is greater than `count', new positions are initialized
          -- with appropriate default values.
       require
@@ -126,23 +126,23 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Implementation of deferred:
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := upper < 0
       end
 
-   item (i: INTEGER): E_ is
+   item (i: INTEGER): E_
       do
          Result := storage.item(i)
       end
 
-   put (element: E_; i: INTEGER) is
+   put (element: E_; i: INTEGER)
       do
          storage.put(element, i)
          next_generation
       end
 
-   add_first (element: like item) is
+   add_first (element: like item)
       do
          add_last(element)
          if upper = 0 then
@@ -155,7 +155,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   add_last (element: like item) is
+   add_last (element: like item)
       local
          new_capacity: INTEGER
       do
@@ -175,12 +175,12 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := upper + 1
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       do
          upper := -1
          next_generation
@@ -188,7 +188,7 @@ feature {ANY} -- Implementation of deferred:
          capacity = old capacity
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Copy `other' onto Current.
       local
          other_upper, new_capacity: INTEGER
@@ -206,12 +206,12 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
       do
          storage.set_all_with(v, upper)
       end
 
-   from_collection (model: TRAVERSABLE[like item]) is
+   from_collection (model: TRAVERSABLE[like item])
       local
          i1, i2, up: INTEGER
       do
@@ -231,7 +231,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   fast_is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN
       do
          if Current = other then
             Result := True
@@ -240,7 +240,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if Current = other then
             Result := True
@@ -249,22 +249,22 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
       do
          Result := storage.all_default(upper)
       end
 
-   occurrences (element: like item): INTEGER is
+   occurrences (element: like item): INTEGER
       do
          Result := storage.occurrences(element, upper)
       end
 
-   fast_occurrences (element: E_): INTEGER is
+   fast_occurrences (element: E_): INTEGER
       do
          Result := storage.fast_occurrences(element, upper)
       end
 
-   first_index_of (element: like item): INTEGER is
+   first_index_of (element: like item): INTEGER
       do
          if upper >= 0 then
             Result := storage.first_index_of(element, upper)
@@ -275,7 +275,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   index_of (element: like item; start_index: INTEGER): INTEGER is
+   index_of (element: like item; start_index: INTEGER): INTEGER
       do
          if upper >= 0 then
             Result := storage.index_of(element, start_index, upper)
@@ -286,12 +286,12 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := storage.reverse_index_of(element, start_index)
       end
 
-   fast_first_index_of (element: like item): INTEGER is
+   fast_first_index_of (element: like item): INTEGER
       do
          if upper >= 0 then
             Result := storage.fast_index_of(element, lower, upper)
@@ -302,7 +302,7 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          if upper >= 0 then
             Result := storage.fast_index_of(element, start_index, upper)
@@ -313,18 +313,18 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          Result := storage.fast_reverse_index_of(element, start_index)
       end
 
-   subarray, slice (min, max: INTEGER): like Current is
+   subarray, slice (min, max: INTEGER): like Current
       do
          create Result.make(max - min + 1)
          Result.storage.slice_copy(0, storage, min, max)
       end
 
-   force (element: E_; index: INTEGER) is
+   force (element: E_; index: INTEGER)
       do
          if index <= upper then
             storage.put(element, index)
@@ -337,7 +337,7 @@ feature {ANY} -- Implementation of deferred:
          next_generation
       end
 
-   remove_first is
+   remove_first
       local
          void_storage: like storage
       do
@@ -354,27 +354,27 @@ feature {ANY} -- Implementation of deferred:
          lower = old lower
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
       do
          storage.move(n, upper, -n)
          upper := upper - n
          next_generation
       end
 
-   remove (index: INTEGER) is
+   remove (index: INTEGER)
       do
          storage.remove(index, upper)
          upper := upper - 1
          next_generation
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          create {ITERATOR_ON_TRAVERSABLE[E_]} Result.make(Current)
       end
 
 feature {} -- Garbage collector tuning (very low-level):
-   mark_native_arrays is
+   mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
          -- some elements are removed. No time is lost to clean the released area with a Void
          -- or a 0 value. (Look for example the `remove_last' implementation.)
@@ -382,7 +382,6 @@ feature {} -- Garbage collector tuning (very low-level):
          -- objects. The following `mark_native_arrays' actually replace the
          -- default behavior (the call is automatic) in order to mark only reachable objects.
          --
-         -- See also class GARBAGE_COLLECTOR_TUNING.
       local
          i: INTEGER
       do
@@ -397,7 +396,7 @@ feature {} -- Garbage collector tuning (very low-level):
       end
 
 feature {} -- Implement manifest generic creation (very low-level):
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a FAST_ARRAY[E_].
       require
          needed_capacity > 0
@@ -405,7 +404,7 @@ feature {} -- Implement manifest generic creation (very low-level):
          make(needed_capacity)
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       do
          check
             index < capacity
@@ -415,13 +414,13 @@ feature {} -- Implement manifest generic creation (very low-level):
 
 end -- class FAST_ARRAY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

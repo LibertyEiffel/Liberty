@@ -10,7 +10,7 @@ insert ANY undefine is_equal, copy end
 feature {} -- External calls
 
 	-- `hidden' variable _LIB_VERSION skipped.
-	matherr (an_exc: POINTER): INTEGER is
+	matherr (an_exc: POINTER): INTEGER
  		-- matherr
 		external "plug_in"
 		alias "{
@@ -20,7 +20,7 @@ feature {} -- External calls
 		}"
 		end
 
-	signgam: INTEGER is
+	signgam: INTEGER
  		-- signgam
 		external "plug_in"
 		alias "{
@@ -30,7 +30,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_signgam: POINTER is
+	address_of_signgam: POINTER
  		-- Address of signgam
 		external "plug_in"
 		alias "{
@@ -40,7 +40,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_signgam (a_value: INTEGER) is
+	set_signgam (a_value: INTEGER)
 		-- Set variable signgam value
 		external "plug_in"
 		alias "{

@@ -11,7 +11,7 @@ insert
    COMPARABLE
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          if is_short then
             Result := short_index #+ (short_option_index #* 4096)
@@ -23,7 +23,7 @@ feature {ANY}
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          if index = other.index then
             Result := short_option_index < other.short_option_index
@@ -42,20 +42,20 @@ feature {ANY}
    short_option_index: INTEGER
          -- position of the short option in the short option sequence
 
-   is_parsed: BOOLEAN is
+   is_parsed: BOOLEAN
          -- True if the parsing may continue. False if a grave parsing error occurs (such as an option present
          -- but with invalid data)
       do
          Result := index > 0
       end
 
-   is_short: BOOLEAN is
+   is_short: BOOLEAN
       do
          Result := short_option_index > 1
       end
 
 feature {COMMAND_LINE_ARGUMENTS}
-   init is
+   init
       do
          index := 1
          short_index := 2
@@ -66,7 +66,7 @@ feature {COMMAND_LINE_ARGUMENTS}
       end
 
 feature {COMMAND_LINE_ARGUMENT, CLARG_PARSER}
-   set_short (a_short_index: like short_index; a_short_option_index: like short_option_index) is
+   set_short (a_short_index: like short_index; a_short_option_index: like short_option_index)
       require
          a_short_index > index
       do
@@ -78,7 +78,7 @@ feature {COMMAND_LINE_ARGUMENT, CLARG_PARSER}
          is_short
       end
 
-   set_index (a_index: like index) is
+   set_index (a_index: like index)
       require
          a_index > 0
       do
@@ -96,13 +96,13 @@ invariant
 
 end -- class COMMAND_LINE_CONTEXT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

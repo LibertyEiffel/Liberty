@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          strings: AUX_FA2DICO[STRING, INTEGER]; streams: AUX_FA2DICO[INPUT_STREAM, INTEGER]
          bidon1: AUX_FA2MY_SET[AUX_FA2DICO_NODE[STRING, INTEGER]]; bidon2: AUX_FA2DICO[STRING, INTEGER]

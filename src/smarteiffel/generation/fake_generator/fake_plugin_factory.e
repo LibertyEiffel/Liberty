@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
 feature {SYSTEM_TOOLS}
-   new (position: POSITION; a_name, a_path: STRING): FAKE_PLUGIN is
+   new (position: POSITION; a_name, a_path: STRING): FAKE_PLUGIN
       do
          create Result.make(position, a_name, a_path)
       end

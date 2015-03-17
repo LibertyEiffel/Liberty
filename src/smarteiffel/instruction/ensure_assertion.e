@@ -19,12 +19,12 @@ create {ANY}
 feature {ANY}
    is_ensure_then: BOOLEAN
 
-   accept (visitor: ASSERTION_LIST_VISITOR) is
+   accept (visitor: ASSERTION_LIST_VISITOR)
       do
          visitor.visit_ensure_assertion(Current)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             indent_level = 2
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {SHORT_PRINTER}
-   ensure_assertion_short (type: TYPE; client: TYPE_MARK) is
+   ensure_assertion_short (type: TYPE; client: TYPE_MARK)
       local
          i: INTEGER
       do
@@ -114,7 +114,7 @@ feature {SHORT_PRINTER}
       end
 
 feature {}
-   make (sp: like start_position; then_flag: BOOLEAN; hc: like header_comment; l: like list) is
+   make (sp: like start_position; then_flag: BOOLEAN; hc: like header_comment; l: like list)
       do
          assertion_list_make(sp, hc, l)
          is_ensure_then := then_flag
@@ -122,7 +122,7 @@ feature {}
          is_ensure_then = then_flag
       end
 
-   check_assertion_mode: STRING is "ens"
+   check_assertion_mode: STRING "ens"
 
 end -- class ENSURE_ASSERTION
 --
@@ -136,9 +136,9 @@ end -- class ENSURE_ASSERTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

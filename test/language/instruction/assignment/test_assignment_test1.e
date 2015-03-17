@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert({like Current} ?:= Current)
       end

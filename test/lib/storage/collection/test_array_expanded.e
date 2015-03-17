@@ -13,7 +13,7 @@ feature {ANY}
 
    i: INTEGER
 
-   make is
+   make
       local
          zero: INTEGER
       do
@@ -70,7 +70,7 @@ feature {ANY}
          assert(a.first_index_of(3) = 3)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

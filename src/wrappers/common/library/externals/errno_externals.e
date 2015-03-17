@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	program_invocation_name: POINTER is
+	program_invocation_name: POINTER
  		-- program_invocation_name
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_program_invocation_name: POINTER is
+	address_of_program_invocation_name: POINTER
  		-- Address of program_invocation_name
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_program_invocation_name (a_value: POINTER) is
+	set_program_invocation_name (a_value: POINTER)
 		-- Set variable program_invocation_name value
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	program_invocation_short_name: POINTER is
+	program_invocation_short_name: POINTER
  		-- program_invocation_short_name
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_program_invocation_short_name: POINTER is
+	address_of_program_invocation_short_name: POINTER
  		-- Address of program_invocation_short_name
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_program_invocation_short_name (a_value: POINTER) is
+	set_program_invocation_short_name (a_value: POINTER)
 		-- Set variable program_invocation_short_name value
 		external "plug_in"
 		alias "{

@@ -18,7 +18,7 @@ inherit
    LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-   left_expression: E_ is
+   left_expression: E_
       require
          not is_empty
          not is_binary
@@ -26,7 +26,7 @@ feature {LIBERTY_AST_HANDLER}
          Result ::= nodes.first
       end
 
-   left_binary: like Current is
+   left_binary: like Current
       require
          not is_empty
          is_binary
@@ -34,26 +34,26 @@ feature {LIBERTY_AST_HANDLER}
          Result ::= nodes.first
       end
 
-   right_expression: E_ is
+   right_expression: E_
       require
          not is_empty
       do
          Result ::= nodes.last
       end
 
-   is_binary: BOOLEAN is
+   is_binary: BOOLEAN
       require
          not is_empty
       do
          Result := nodes.first.name = eiffel_name
       end
 
-   is_double_operator: BOOLEAN is
+   is_double_operator: BOOLEAN
       do
          Result := count = 4
       end
 
-   operator1: EIFFEL_IMAGE is
+   operator1: EIFFEL_IMAGE
       local
          op1: LIBERTY_AST_TERMINAL_NODE
       do
@@ -61,7 +61,7 @@ feature {LIBERTY_AST_HANDLER}
          Result := op1.image
       end
 
-   operator2: EIFFEL_IMAGE is
+   operator2: EIFFEL_IMAGE
       require
          is_double_operator
       local
@@ -72,13 +72,13 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 3, 4 >> } -- depends on the operator
       end

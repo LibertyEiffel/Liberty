@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    a2: AUX_EXPANDED16A
 
-   make is
+   make
       local
          a1: AUX_EXPANDED16A; elt: AUX_EXPANDED16B; i: INTEGER
       do
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   error is
+   error
       do
          std_output.put_string("TEST_EXPANDED17: ERROR%N")
       end

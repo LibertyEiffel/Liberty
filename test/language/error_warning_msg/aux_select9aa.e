@@ -5,7 +5,7 @@ class AUX_SELECT9AA
 inherit
    AUX_SELECT9RR
 feature {ANY}
-   f is
+   f
       do
          io.put_string ("AA.f%N");
       end;

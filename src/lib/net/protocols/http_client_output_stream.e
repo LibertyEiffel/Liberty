@@ -15,7 +15,7 @@ create {HTTP_PROTOCOL}
    connect_to
 
 feature {HTTP_PROTOCOL}
-   put_request (nrl: NETWORK_RESOURCE_LOCATOR) is
+   put_request (nrl: NETWORK_RESOURCE_LOCATOR)
       do
          if request_headers = Void then
             create request_headers.make
@@ -38,46 +38,46 @@ feature {HTTP_PROTOCOL}
          filtered_put_character(' ')
          filtered_put_string(http_version)
          filtered_put_string(new_line)
-         request_headers.do_all(agent add_header(?, ?))
+         request_headers.for_each(agent add_header(?, ?))
          filtered_put_string(new_line)
          flush
       end
 
 feature {}
-   set_header (name, value: STRING) is
+   set_header (name, value: STRING)
       do
          request_headers.add(value, name)
       end
 
-   set_method_get is
+   set_method_get
       do
          method := once "GET"
       end
 
-   set_method_post is
+   set_method_post
       do
          method := once "POST"
       end
 
-   set_http_verion_1_1 is
+   set_http_verion_1_1
       do
          http_version := once "HTTP/1.1"
       end
 
-   set_http_verion_1_0 is
+   set_http_verion_1_0
       do
          http_version := once "HTTP/1.0"
       end
 
-   add_header (value, key: STRING) is
+   add_header (value, key: STRING)
       do
          filtered_put_string(key)
-         filtered_put_string(": ")
+         filtered_put_string(once ": ")
          filtered_put_string(value)
          filtered_put_string(new_line)
       end
 
-   filtered_put_string (s: STRING) is
+   filtered_put_string (s: STRING)
       local
          i: INTEGER
       do
@@ -86,28 +86,28 @@ feature {}
          until
             i > s.upper
          loop
-            stream.filtered_put_character(s @ i)
+            stream.filtered_put_character(s.item(i))
             i := i + 1
          end
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          stream.filtered_put_character(c)
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
    request_headers: HASHED_DICTIONARY[STRING, STRING]
 
-   new_line: STRING is "%R%N"
+   new_line: STRING "%R%N"
 
    method: STRING
 
@@ -115,13 +115,13 @@ feature {}
 
 end -- class HTTP_CLIENT_OUTPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

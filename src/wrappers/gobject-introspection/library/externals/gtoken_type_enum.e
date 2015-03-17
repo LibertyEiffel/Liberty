@@ -5,9 +5,9 @@ expanded class GTOKEN_TYPE_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = binary_low_level)  or else
 				(a_value = char_low_level)  or else
@@ -37,249 +37,249 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_binary is
+	set_binary
 		do
 			value := binary_low_level
 		end
 
-	set_char is
+	set_char
 		do
 			value := char_low_level
 		end
 
-	set_comma is
+	set_comma
 		do
 			value := comma_low_level
 		end
 
-	set_comment_multi is
+	set_comment_multi
 		do
 			value := comment_multi_low_level
 		end
 
-	set_comment_single is
+	set_comment_single
 		do
 			value := comment_single_low_level
 		end
 
-	set_eof is
+	set_eof
 		do
 			value := eof_low_level
 		end
 
-	set_equal_sign is
+	set_equal_sign
 		do
 			value := equal_sign_low_level
 		end
 
-	set_error is
+	set_error
 		do
 			value := error_low_level
 		end
 
-	set_float is
+	set_float
 		do
 			value := float_low_level
 		end
 
-	set_hex is
+	set_hex
 		do
 			value := hex_low_level
 		end
 
-	set_identifier is
+	set_identifier
 		do
 			value := identifier_low_level
 		end
 
-	set_identifier_null is
+	set_identifier_null
 		do
 			value := identifier_null_low_level
 		end
 
-	set_int is
+	set_int
 		do
 			value := int_low_level
 		end
 
-	set_last is
+	set_last
 		do
 			value := last_low_level
 		end
 
-	set_left_brace is
+	set_left_brace
 		do
 			value := left_brace_low_level
 		end
 
-	set_left_curly is
+	set_left_curly
 		do
 			value := left_curly_low_level
 		end
 
-	set_left_paren is
+	set_left_paren
 		do
 			value := left_paren_low_level
 		end
 
-	set_none is
+	set_none
 		do
 			value := none_low_level
 		end
 
-	set_octal is
+	set_octal
 		do
 			value := octal_low_level
 		end
 
-	set_right_brace is
+	set_right_brace
 		do
 			value := right_brace_low_level
 		end
 
-	set_right_curly is
+	set_right_curly
 		do
 			value := right_curly_low_level
 		end
 
-	set_right_paren is
+	set_right_paren
 		do
 			value := right_paren_low_level
 		end
 
-	set_string is
+	set_string
 		do
 			value := string_low_level
 		end
 
-	set_symbol is
+	set_symbol
 		do
 			value := symbol_low_level
 		end
 
 feature {ANY} -- Queries
-	is_binary: BOOLEAN is
+	is_binary: BOOLEAN
 		do
 			Result := (value=binary_low_level)
 		end
 
-	is_char: BOOLEAN is
+	is_char: BOOLEAN
 		do
 			Result := (value=char_low_level)
 		end
 
-	is_comma: BOOLEAN is
+	is_comma: BOOLEAN
 		do
 			Result := (value=comma_low_level)
 		end
 
-	is_comment_multi: BOOLEAN is
+	is_comment_multi: BOOLEAN
 		do
 			Result := (value=comment_multi_low_level)
 		end
 
-	is_comment_single: BOOLEAN is
+	is_comment_single: BOOLEAN
 		do
 			Result := (value=comment_single_low_level)
 		end
 
-	is_eof: BOOLEAN is
+	is_eof: BOOLEAN
 		do
 			Result := (value=eof_low_level)
 		end
 
-	is_equal_sign: BOOLEAN is
+	is_equal_sign: BOOLEAN
 		do
 			Result := (value=equal_sign_low_level)
 		end
 
-	is_error: BOOLEAN is
+	is_error: BOOLEAN
 		do
 			Result := (value=error_low_level)
 		end
 
-	is_float: BOOLEAN is
+	is_float: BOOLEAN
 		do
 			Result := (value=float_low_level)
 		end
 
-	is_hex: BOOLEAN is
+	is_hex: BOOLEAN
 		do
 			Result := (value=hex_low_level)
 		end
 
-	is_identifier: BOOLEAN is
+	is_identifier: BOOLEAN
 		do
 			Result := (value=identifier_low_level)
 		end
 
-	is_identifier_null: BOOLEAN is
+	is_identifier_null: BOOLEAN
 		do
 			Result := (value=identifier_null_low_level)
 		end
 
-	is_int: BOOLEAN is
+	is_int: BOOLEAN
 		do
 			Result := (value=int_low_level)
 		end
 
-	is_last: BOOLEAN is
+	is_last: BOOLEAN
 		do
 			Result := (value=last_low_level)
 		end
 
-	is_left_brace: BOOLEAN is
+	is_left_brace: BOOLEAN
 		do
 			Result := (value=left_brace_low_level)
 		end
 
-	is_left_curly: BOOLEAN is
+	is_left_curly: BOOLEAN
 		do
 			Result := (value=left_curly_low_level)
 		end
 
-	is_left_paren: BOOLEAN is
+	is_left_paren: BOOLEAN
 		do
 			Result := (value=left_paren_low_level)
 		end
 
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=none_low_level)
 		end
 
-	is_octal: BOOLEAN is
+	is_octal: BOOLEAN
 		do
 			Result := (value=octal_low_level)
 		end
 
-	is_right_brace: BOOLEAN is
+	is_right_brace: BOOLEAN
 		do
 			Result := (value=right_brace_low_level)
 		end
 
-	is_right_curly: BOOLEAN is
+	is_right_curly: BOOLEAN
 		do
 			Result := (value=right_curly_low_level)
 		end
 
-	is_right_paren: BOOLEAN is
+	is_right_paren: BOOLEAN
 		do
 			Result := (value=right_paren_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 		do
 			Result := (value=string_low_level)
 		end
 
-	is_symbol: BOOLEAN is
+	is_symbol: BOOLEAN
 		do
 			Result := (value=symbol_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	binary_low_level: INTEGER is
+	binary_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -288,7 +288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	char_low_level: INTEGER is
+	char_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -297,7 +297,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comma_low_level: INTEGER is
+	comma_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -306,7 +306,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comment_multi_low_level: INTEGER is
+	comment_multi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -315,7 +315,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comment_single_low_level: INTEGER is
+	comment_single_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -324,7 +324,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	eof_low_level: INTEGER is
+	eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -333,7 +333,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	equal_sign_low_level: INTEGER is
+	equal_sign_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -342,7 +342,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	error_low_level: INTEGER is
+	error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -351,7 +351,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	float_low_level: INTEGER is
+	float_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -360,7 +360,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hex_low_level: INTEGER is
+	hex_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -369,7 +369,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	identifier_low_level: INTEGER is
+	identifier_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -378,7 +378,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	identifier_null_low_level: INTEGER is
+	identifier_null_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -387,7 +387,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int_low_level: INTEGER is
+	int_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -396,7 +396,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	last_low_level: INTEGER is
+	last_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -405,7 +405,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	left_brace_low_level: INTEGER is
+	left_brace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -414,7 +414,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	left_curly_low_level: INTEGER is
+	left_curly_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -423,7 +423,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	left_paren_low_level: INTEGER is
+	left_paren_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -432,7 +432,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	none_low_level: INTEGER is
+	none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -441,7 +441,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	octal_low_level: INTEGER is
+	octal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -450,7 +450,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right_brace_low_level: INTEGER is
+	right_brace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -459,7 +459,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right_curly_low_level: INTEGER is
+	right_curly_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -468,7 +468,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	right_paren_low_level: INTEGER is
+	right_paren_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -477,7 +477,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string_low_level: INTEGER is
+	string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -486,7 +486,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	symbol_low_level: INTEGER is
+	symbol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

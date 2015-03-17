@@ -15,14 +15,14 @@ create {EIFFEL_PARSER}
 feature {ANY}
    start_position: POSITION
 
-   end_mark_comment: BOOLEAN is True
+   end_mark_comment: BOOLEAN True
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := ace.boost and then (must_be_generated(type) implies compound.side_effect_free(type))
       end
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       local
          c: like compound
       do
@@ -34,7 +34,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          c: like compound
       do
@@ -46,7 +46,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if compound = Void then
             Result := True
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          c: like compound
       do
@@ -67,7 +67,7 @@ feature {ANY}
          end
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -76,7 +76,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          c: like compound
       do
@@ -92,14 +92,14 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if compound /= Void then
             compound.safety_check(type)
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          smart_eiffel.magic_count_increment
          if must_be_generated(type) then
@@ -109,7 +109,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if compound /= Void then
             if ace.boost implies must_be_generated(type) then
@@ -118,7 +118,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -153,13 +153,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: DEBUG_COMPOUND_VISITOR) is
+   accept (visitor: DEBUG_COMPOUND_VISITOR)
       do
          visitor.visit_debug_compound(Current)
       end
 
 feature {DEBUG_COMPOUND}
-   init (c: like compound) is
+   init (c: like compound)
       require
          c /= Void
       do
@@ -169,7 +169,7 @@ feature {DEBUG_COMPOUND}
       end
 
 feature {DEBUG_KEY_SUPPORT}
-   match_debug_key (key: STRING): BOOLEAN is
+   match_debug_key (key: STRING): BOOLEAN
       require
          not key.is_equal("yes") and not key.is_equal("no")
       local
@@ -188,7 +188,7 @@ feature {DEBUG_KEY_SUPPORT}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if must_be_generated(type) then
             if compound /= Void then
@@ -202,7 +202,7 @@ feature {DEBUG_COMPOUND, DEBUG_COMPOUND_VISITOR}
 
    compound: INSTRUCTION
 
-   must_be_generated (type: TYPE): BOOLEAN is
+   must_be_generated (type: TYPE): BOOLEAN
          -- Note: during the execution of this routine, the
          -- `default_assertion_level' may be switched from `level_boost' to
          -- `level_no'.
@@ -214,7 +214,7 @@ feature {DEBUG_COMPOUND, DEBUG_COMPOUND_VISITOR}
       end
 
 feature {}
-   make (sp: like start_position; kl: like key_list; c: like compound) is
+   make (sp: like start_position; kl: like key_list; c: like compound)
       require
          not sp.is_unknown
       do
@@ -227,7 +227,7 @@ feature {}
          compound = c
       end
 
-   current_or_twin_init (c: like compound): like Current is
+   current_or_twin_init (c: like compound): like Current
       require
          c /= Void
       do
@@ -256,9 +256,9 @@ end -- class DEBUG_COMPOUND
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_property_info_get_flags (an_info: POINTER): INTEGER is
+	g_property_info_get_flags (an_info: POINTER): INTEGER
  		-- g_property_info_get_flags
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_property_info_get_ownership_transfer (an_info: POINTER): INTEGER is
+	g_property_info_get_ownership_transfer (an_info: POINTER): INTEGER
  		-- g_property_info_get_ownership_transfer
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_property_info_get_type (an_info: POINTER): POINTER is
+	g_property_info_get_type (an_info: POINTER): POINTER
  		-- g_property_info_get_type
 		external "plug_in"
 		alias "{

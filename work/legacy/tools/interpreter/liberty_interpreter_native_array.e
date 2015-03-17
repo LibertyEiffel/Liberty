@@ -26,72 +26,72 @@ feature {ANY}
    type: LIBERTY_ACTUAL_TYPE
    item_type: LIBERTY_ACTUAL_TYPE
 
-   put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER) is
+   put (o: LIBERTY_INTERPRETER_OBJECT; index: INTEGER)
       require
          valid_index(index)
       deferred
       end
 
-   valid_index (index: INTEGER): BOOLEAN is
+   valid_index (index: INTEGER): BOOLEAN
       do
          Result := index.in_range(lower, upper)
       end
 
-   item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT is
+   item (index: INTEGER): LIBERTY_INTERPRETER_OBJECT
       require
          valid_index(index)
       deferred
       end
 
-   first: LIBERTY_INTERPRETER_OBJECT is
+   first: LIBERTY_INTERPRETER_OBJECT
       deferred
       end
 
-   last: LIBERTY_INTERPRETER_OBJECT is
+   last: LIBERTY_INTERPRETER_OBJECT
       deferred
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       deferred
       end
 
-   count: INTEGER is
+   count: INTEGER
       deferred
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       deferred
       end
 
-   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT is
+   converted_to (target_type: LIBERTY_ACTUAL_TYPE): LIBERTY_INTERPRETER_OBJECT
       do
          not_yet_implemented
       end
 
 feature {LIBERTY_INTERPRETER_TO_EXTERNAL}
-   to_external: POINTER is
+   to_external: POINTER
       deferred
       end
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY_CREATOR}
-   from_external (a_external: POINTER; a_capacity: INTEGER) is
+   from_external (a_external: POINTER; a_capacity: INTEGER)
       deferred
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
-   builtin_element_sizeof: INTEGER is
+   builtin_element_sizeof: INTEGER
       deferred
       end
 
-   builtin_calloc (capacity: INTEGER; a_position: LIBERTY_POSITION): like Current is
+   builtin_calloc (capacity: INTEGER; a_position: LIBERTY_POSITION): like Current
       deferred
       end
 
-   builtin_item (index: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT is
+   builtin_item (index: INTEGER; a_position: LIBERTY_POSITION): LIBERTY_INTERPRETER_OBJECT
       do
          if not valid_index(index) then
             interpreter.fatal_error("Invalid index: " + index.out, a_position)
@@ -100,7 +100,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
          end
       end
 
-   builtin_put (element: LIBERTY_INTERPRETER_OBJECT; index: INTEGER; a_position: LIBERTY_POSITION) is
+   builtin_put (element: LIBERTY_INTERPRETER_OBJECT; index: INTEGER; a_position: LIBERTY_POSITION)
       do
          if not valid_index(index) then
             interpreter.fatal_error("Invalid index: " + index.out, a_position)
@@ -109,12 +109,12 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_TYPE_NATIVE_ARRAY_BUILTINS}
          end
       end
 
-   builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER) is
+   builtin_slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER)
       deferred
       end
 
 feature {LIBERTY_INTERPRETER_OBJECT_PRINTER, LIBERTY_INTERPRETER_FEATURE_CALL}
-   show_stack (o: OUTPUT_STREAM; indent: INTEGER) is
+   show_stack (o: OUTPUT_STREAM; indent: INTEGER)
       deferred
       end
 

@@ -12,7 +12,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create data
          assert(data /= Void)

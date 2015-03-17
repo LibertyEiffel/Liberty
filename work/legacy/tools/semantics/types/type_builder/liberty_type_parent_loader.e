@@ -21,11 +21,11 @@ insert
    LIBERTY_TYPE_BUILDER_TOOLS
    LOGGING
 
-creation {LIBERTY_TYPE_BUILDER}
+create {LIBERTY_TYPE_BUILDER}
    make
 
 feature {}
-   make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters) is
+   make (a_builder: like builder; a_type: like type; a_universe: like universe; default_effective_generic_parameters: like effective_generic_parameters)
       require
          a_builder /= Void
          a_type /= Void
@@ -45,7 +45,7 @@ feature {}
    universe: LIBERTY_UNIVERSE
 
 feature {LIBERTY_TYPE_BUILDER}
-   load is
+   load
       local
          ast_class: LIBERTY_AST_ONE_CLASS
          has_parents: BOOLEAN
@@ -67,7 +67,7 @@ feature {LIBERTY_TYPE_BUILDER}
       end
 
 feature {}
-   add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant, had_parents: BOOLEAN): BOOLEAN is
+   add_parents (parents: LIBERTY_AST_LIST[LIBERTY_AST_PARENT]; conformant, had_parents: BOOLEAN): BOOLEAN
          -- Returns True if at least a parent was added
       local
          i: INTEGER; parent_clause: LIBERTY_AST_PARENT

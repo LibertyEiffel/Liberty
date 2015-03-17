@@ -6,14 +6,14 @@ class AUX_ONCE3A
 inherit
    TEST_ONCE3
 
-creation {ANY}
+create {ANY}
    make_a
 
 feature {ANY}
    value: CHARACTER
 
 feature {}
-   make_a is
+   make_a
       local
          c: CHARACTER
       do

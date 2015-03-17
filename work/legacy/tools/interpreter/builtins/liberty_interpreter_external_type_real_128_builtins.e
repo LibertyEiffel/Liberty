@@ -17,16 +17,16 @@ class LIBERTY_INTERPRETER_EXTERNAL_TYPE_REAL_128_BUILTINS
 inherit
    LIBERTY_INTERPRETER_EXTERNAL_TYPE_REALS_BUILTINS[REAL_128]
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {}
-   new_real (value: REAL_128): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128] is
+   new_real (value: REAL_128): LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
          Result := interpreter.new_real_128(value, builtin_call.position)
       end
 
-   left, target: REAL_128 is
+   left, target: REAL_128
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -34,7 +34,7 @@ feature {}
          Result := obj.item
       end
 
-   right: REAL_128 is
+   right: REAL_128
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[REAL_128]
       do
@@ -43,7 +43,7 @@ feature {}
          Result := obj.item
       end
 
-   call_specific (f: LIBERTY_FEATURE) is
+   call_specific (f: LIBERTY_FEATURE)
       do
          last_call_failed := True
       end

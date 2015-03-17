@@ -13,9 +13,9 @@ inherit
       end
 
 feature {ANY}
-   frozen is_generic: BOOLEAN is True
+   frozen is_generic: BOOLEAN True
 
-   class_text_name: CLASS_NAME is
+   class_text_name: CLASS_NAME
          -- It can be "ARRAY", "NATIVE_ARRAY", "TUPLE", "DICTIONARY", "PROCEDURE", etc. with the correct
          -- `start_position'.
       require else
@@ -26,7 +26,7 @@ feature {ANY}
    generic_list: ARRAY[TYPE_MARK]
          --|*** (Should be turned one day into a FAST_ARRAY in order to save a little bit memory.) ***
 
-   frozen type: TYPE is
+   frozen type: TYPE
       do
          if type_memory = Void then
             type_memory := smart_eiffel.get_type(Current, False)
@@ -34,7 +34,7 @@ feature {ANY}
          Result := type_memory
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -54,12 +54,12 @@ feature {ANY}
          buffer.extend(']')
       end
 
-   frozen start_position: POSITION is
+   frozen start_position: POSITION
       do
          Result := class_text_name.start_position
       end
 
-   frozen is_static: BOOLEAN is
+   frozen is_static: BOOLEAN
       local
          i: INTEGER
       do
@@ -78,7 +78,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       local
          i: INTEGER
       do
@@ -93,7 +93,7 @@ feature {ANY}
          Current.update_static_memory(new_type)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK
       local
          tm1, tm2: TYPE_MARK; i: INTEGER; gl: like generic_list
       do
@@ -115,7 +115,9 @@ feature {ANY}
             until
                i > gl.upper
             loop
-               gl.put(gl.item(i).specialize_thru(parent_type, parent_edge, new_type), i)
+               tm1 := gl.item(i)
+               tm2 := tm1.specialize_thru(parent_type, parent_edge, new_type)
+               gl.put(tm2, i)
                i := i + 1
             end
             Result := twin
@@ -124,12 +126,12 @@ feature {ANY}
          Result.update_static_memory(new_type)
       end
 
-   frozen has_been_specialized: BOOLEAN is
+   frozen has_been_specialized: BOOLEAN
       do
          Result := is_static or else not static_memory.is_empty
       end
 
-   frozen declaration_type: TYPE_MARK is
+   frozen declaration_type: TYPE_MARK
        local
           tm1, tm2: TYPE_MARK; i: INTEGER; gl: like generic_list
          static_generic_type_mark: like Current
@@ -166,7 +168,7 @@ feature {ANY}
          Result.generic_list.count = generic_list.count
       end
 
-   frozen written_name: HASHED_STRING is
+   frozen written_name: HASHED_STRING
       local
          i: INTEGER; gl: like generic_list; buffer: STRING
       do
@@ -214,7 +216,7 @@ feature {ANY}
          end
       end
 
-   frozen to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   frozen to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       local
          static_tuple: TUPLE[TYPE, TYPE]
       do
@@ -235,7 +237,7 @@ feature {ANY}
          end
       end
 
-   frozen signature_resolve_in (new_type: TYPE): TYPE is
+   frozen signature_resolve_in (new_type: TYPE): TYPE
       local
          i: INTEGER; gl: like generic_list; static_generic_type_mark: like Current
       do
@@ -262,7 +264,7 @@ feature {ANY}
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       local
          ln: STRING; i: INTEGER
       do
@@ -296,7 +298,7 @@ feature {}
          -- To cache `declaration_type'.
 
 feature {GENERIC_TYPE_MARK}
-   frozen set_generic_list(gl: like generic_list) is
+   frozen set_generic_list(gl: like generic_list)
       do
          written_name_memory := Void
          signature_resolved_memory := Void
@@ -306,7 +308,7 @@ feature {GENERIC_TYPE_MARK}
          generic_list = gl
       end
 
-   frozen set_static_generic_list (gl: like generic_list) is
+   frozen set_static_generic_list (gl: like generic_list)
          -- Where `gl' is completely static.
       require
          generic_list.count = gl.count
@@ -321,7 +323,7 @@ feature {GENERIC_TYPE_MARK}
          generic_list = gl
       end
 
-   frozen recompute_declaration_type is
+   frozen recompute_declaration_type
        local
           tm1, tm2, tm3 : TYPE_MARK; i, current_ok, memory_ok: INTEGER; gl: like generic_list
          static_generic_type_mark: like Current
@@ -370,7 +372,7 @@ feature {GENERIC_TYPE_MARK}
       end
 
 feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
-   update_static_memory (new_type: TYPE) is
+   update_static_memory (new_type: TYPE)
       local
          static: TUPLE[TYPE, TYPE]; t1, t2: TYPE
       do
@@ -381,40 +383,83 @@ feature {GENERIC_TYPE_MARK, TYPE_MARK_LIST}
          end
          if static = Void then
             t1 := new_static_type_in(new_type, False)
-            t2 := new_static_type_in(new_type, True)
-            static := [t1, t2]
-            static_memory.fast_put(static, new_type)
+            if t1 /= Void then
+               t2 := new_static_type_in(new_type, True)
+               if t2 /= Void then
+                  static := [t1, t2]
+                  static_memory.fast_put(static, new_type)
+               end
+            end
          end
       end
 
 feature {}
-   new_static_type_in (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE is
+   new_static_type_in (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE
       local
-         i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
+         old_generic_count, generic_count, i: INTEGER; gl: like generic_list; tm1, tm2: TYPE_MARK
          static_generic_type_mark: like Current
       do
          from
-            i := generic_list.lower
+            gl := generic_list
+            old_generic_count := -1
+         invariant
+            gl.count = generic_list.count
+         variant
+            gl.count - generic_count
          until
-            tm1 /= tm2 or else i > generic_list.upper
+            generic_count = gl.count or else generic_count = old_generic_count
          loop
-            tm1 := generic_list.item(i)
-            tm2 := tm1.to_static(new_type, allow_raw_class_name)
-            i := i + 1
+            old_generic_count := generic_count
+            generic_count := 0
+
+            from
+               i := gl.lower
+            until
+               tm1 /= tm2 or else i > gl.upper
+            loop
+               tm1 := gl.item(i)
+               tm2 := tm1.to_static(new_type, allow_raw_class_name)
+               if tm2 = Void then
+                  sedb_breakpoint
+                  tm2 := tm1
+               else
+                  generic_count := generic_count + 1
+               end
+               i := i + 1
+            end
+
+            if tm1 /= tm2 then
+               from
+                  if gl = generic_list then
+                     gl := gl.twin
+                  end
+                  gl.put(tm2, i - 1)
+               until
+                  i > gl.upper
+               loop
+                  tm1 := gl.item(i)
+                  tm2 := tm1.to_static(new_type, allow_raw_class_name)
+                  if tm2 = Void then
+                     sedb_breakpoint
+                  else
+                     gl.put(tm2, i)
+                     generic_count := generic_count + 1
+                  end
+                  i := i + 1
+               end
+            end
+
+            if generic_count <= old_generic_count then
+               sedb_breakpoint
+            end
          end
-         if tm1 = tm2 then
+
+         if generic_count < gl.count then
+            Result := Void
+         elseif gl = generic_list then
             -- Was a True static `generic_list':
             Result := smart_eiffel.get_type(Current, allow_raw_class_name)
          else
-            from
-               gl := generic_list.twin
-               gl.put(tm2, i - 1)
-            until
-               i > gl.upper
-            loop
-               gl.put(gl.item(i).to_static(new_type, allow_raw_class_name), i)
-               i := i + 1
-            end
             static_generic_type_mark := twin
             static_generic_type_mark.set_static_generic_list(gl)
             Result := smart_eiffel.get_type(static_generic_type_mark, allow_raw_class_name)
@@ -422,7 +467,7 @@ feature {}
       end
 
 feature {TYPE_MARK}
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       local
          i: INTEGER
          tm1, tm2: TYPE_MARK
@@ -459,7 +504,7 @@ feature {TYPE_MARK}
 feature {}
    type_memory: like type
 
-   frozen short_generic (shorted_type: TYPE; ctn: like class_text_name) is
+   frozen short_generic (shorted_type: TYPE; ctn: like class_text_name)
          -- To implement all `short_' in subclasses.
       local
          i: INTEGER
@@ -503,9 +548,9 @@ end -- class GENERIC_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

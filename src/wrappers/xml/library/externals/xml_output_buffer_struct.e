@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_output_buffer_struct_set_context (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_context (a_structure: POINTER; a_value: POINTER)
 			-- Setter for context field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_writecallback (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_writecallback (a_structure: POINTER; a_value: POINTER)
 			-- Setter for writecallback field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_closecallback (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_closecallback (a_structure: POINTER; a_value: POINTER)
 			-- Setter for closecallback field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_encoder (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_encoder (a_structure: POINTER; a_value: POINTER)
 			-- Setter for encoder field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_buffer (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_buffer (a_structure: POINTER; a_value: POINTER)
 			-- Setter for buffer field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_conv (a_structure: POINTER; a_value: POINTER) is
+	xml_output_buffer_struct_set_conv (a_structure: POINTER; a_value: POINTER)
 			-- Setter for conv field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_written (a_structure: POINTER; a_value: INTEGER) is
+	xml_output_buffer_struct_set_written (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for written field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_output_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER) is
+	xml_output_buffer_struct_set_error (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for error field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: setter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_output_buffer_struct_get_context (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_context (a_structure: POINTER): POINTER
 			-- Query for context field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_writecallback (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_writecallback (a_structure: POINTER): POINTER
 			-- Query for writecallback field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_closecallback (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_closecallback (a_structure: POINTER): POINTER
 			-- Query for closecallback field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_encoder (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_encoder (a_structure: POINTER): POINTER
 			-- Query for encoder field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_buffer (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_buffer (a_structure: POINTER): POINTER
 			-- Query for buffer field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_conv (a_structure: POINTER): POINTER is
+	xml_output_buffer_struct_get_conv (a_structure: POINTER): POINTER
 			-- Query for conv field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_written (a_structure: POINTER): INTEGER is
+	xml_output_buffer_struct_get_written (a_structure: POINTER): INTEGER
 			-- Query for written field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_output_buffer_struct_get_error (a_structure: POINTER): INTEGER is
+	xml_output_buffer_struct_get_error (a_structure: POINTER): INTEGER
 			-- Query for error field of XML_OUTPUT_BUFFER_STRUCT structure.
 			-- TODO: getter description
 
@@ -203,7 +203,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

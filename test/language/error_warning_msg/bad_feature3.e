@@ -8,17 +8,17 @@ create {}
    make
 
 feature {} -- Initialization
-   make is
+   make
          -- Make
       do
          test_1
       end
 
 feature {} -- Test
-   test_1 is
+   test_1
       local
       do
-         !! s.make (20)
+         create s.make (20)
          -- s is not an attribute of this class,
          -- this causes
          -- SmartEiffel compile_to_c to crash.

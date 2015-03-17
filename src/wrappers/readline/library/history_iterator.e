@@ -10,28 +10,28 @@ create {READ_LINE_HISTORY}
    make
 
 feature {ANY}
-   start is
+   start
       do
          index := history.lower
       end
 
-   item: HISTORY_ENTRY is
+   item: HISTORY_ENTRY
       do
          Result := history.item(index)
       end
 
-   next is
+   next
       do
          index := index + 1
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := index > history.upper
       end
 
 feature {ANY}
-   generation: INTEGER is
+   generation: INTEGER
       do
          Result := history.generation
       end
@@ -42,7 +42,7 @@ feature {}
    history: READ_LINE_HISTORY
    index: INTEGER
 
-   make (hist: READ_LINE_HISTORY) is
+   make (hist: READ_LINE_HISTORY)
       do
          history := hist
          iterable_generation := hist.generation

@@ -17,7 +17,7 @@ insert
       end
 
 feature {SYSTEM_TOOLS}
-   try_auto_init is
+   try_auto_init
          -- try to write init code for this plugin, provided all dependancies are satisfied.
       require
          not auto_init_done
@@ -25,13 +25,13 @@ feature {SYSTEM_TOOLS}
       end
 
 feature {ANY}
-   auto_init_done: BOOLEAN is
+   auto_init_done: BOOLEAN
          -- True when the auto_init code was written.
       deferred
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := name.same_as(other.name) and then path.same_as(other.path)
       end
@@ -44,16 +44,16 @@ feature {PLUGIN, NATIVE}
    path: STRING
 
 feature {NATIVE_PLUG_IN}
-   include (position: POSITION) is
+   include (position: POSITION)
       deferred
       end
 
 feature {} -- directory handling
    bd: BASIC_DIRECTORY
 
-   cwd: STRING is ""
+   cwd: STRING ""
 
-   absolute_path (some_path: STRING): STRING is
+   absolute_path (some_path: STRING): STRING
       do
          Result := once ""
          Result.copy(cwd)
@@ -61,7 +61,7 @@ feature {} -- directory handling
          bd.system_notation.to_absolute_path_in(Result, some_path)
       end
 
-   tfr: TEXT_FILE_READ is
+   tfr: TEXT_FILE_READ
       once
          create Result.make
       end

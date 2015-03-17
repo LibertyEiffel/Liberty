@@ -24,7 +24,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {C_PRETTY_PRINTER}
-   compile (live_type: LIVE_TYPE) is
+   compile (live_type: LIVE_TYPE)
          -- was prepare_introspection
       require
          ace.no_check
@@ -33,7 +33,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {LIVE_TYPE}
-   visit_live_type (visited: LIVE_TYPE) is
+   visit_live_type (visited: LIVE_TYPE)
       local
          i: INTEGER; rf: RUN_FEATURE; ct, t: TYPE_MARK
       do
@@ -94,16 +94,17 @@ feature {LIVE_TYPE}
       end
 
 feature {RUN_FEATURE_1}
-   visit_run_feature_1 (visited: RUN_FEATURE_1) is
+   visit_run_feature_1 (visited: RUN_FEATURE_1)
       do
       end
 
 feature {RUN_FEATURE_2}
-   visit_run_feature_2 (visited: RUN_FEATURE_2) is
+   visit_run_feature_2 (visited: RUN_FEATURE_2)
       local
          lt: LIVE_TYPE
       do
          lt := visited.result_type.type.live_type
+
          if lt /= Void then
             if put_else then
                function_body.append(once "else ")
@@ -118,22 +119,22 @@ feature {RUN_FEATURE_2}
       end
 
 feature {RUN_FEATURE_3}
-   visit_run_feature_3 (visited: RUN_FEATURE_3) is
+   visit_run_feature_3 (visited: RUN_FEATURE_3)
       do
       end
 
 feature {RUN_FEATURE_4}
-   visit_run_feature_4 (visited: RUN_FEATURE_4) is
+   visit_run_feature_4 (visited: RUN_FEATURE_4)
       do
       end
 
 feature {RUN_FEATURE_5}
-   visit_run_feature_5 (visited: RUN_FEATURE_5) is
+   visit_run_feature_5 (visited: RUN_FEATURE_5)
       do
       end
 
 feature {RUN_FEATURE_6}
-   visit_run_feature_6 (visited: RUN_FEATURE_6) is
+   visit_run_feature_6 (visited: RUN_FEATURE_6)
       local
          lt: LIVE_TYPE
       do
@@ -158,22 +159,22 @@ feature {RUN_FEATURE_6}
       end
 
 feature {RUN_FEATURE_7}
-   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+   visit_run_feature_7 (visited: RUN_FEATURE_7)
       do
       end
 
 feature {RUN_FEATURE_8}
-   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+   visit_run_feature_8 (visited: RUN_FEATURE_8)
       do
       end
 
 feature {RUN_FEATURE_9}
-   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+   visit_run_feature_9 (visited: RUN_FEATURE_9)
       do
       end
 
 feature {}
-   c_return_introspect (lt: LIVE_TYPE; rf2: RUN_FEATURE_2; rf6: RUN_FEATURE_6) is
+   c_return_introspect (lt: LIVE_TYPE; rf2: RUN_FEATURE_2; rf6: RUN_FEATURE_6)
       require
          (rf2 /= Void) xor (rf6 /= Void)
          lt /= Void
@@ -199,30 +200,52 @@ feature {}
             function_body.append(once "*id=")
             t.append_in(function_body)
             function_body.append(once ";%N{%Nstatic ")
-            function_body.append(s)
-            function_body.append(once " _r=")
-            function_body.append(cpp.initializer.for(tm))
-            function_body.append(once ";%N_r=")
-            if tm.is_reference then
-               function_body.extend('(')
+            if thread_pool.count = 0 then
                function_body.append(s)
-               function_body.extend(')')
-            end
-            function_body.extend('(')
-            if rf2 /= Void then
-               mapping_c_inside_introspect(rf2)
+               if not tm.is_reference then
+                  function_body.extend(' ')
+               end
+               function_body.append(once "_r=")
             else
-               once_routine_pool.unique_result_in(function_body, rf6.base_feature)
+               function_body.append(once "TLS(")
+               function_body.append(s)
+               function_body.append(once ")_r=")
             end
-            function_body.append(once ");%NR=&_r;%N}%N")
+            function_body.append(cpp.initializer.for(tm))
+            function_body.extend(';')
+            if         (rf2 /= Void and then rf2.result_type.type.is_empty_expanded)
+               or else (rf6 /= Void and then rf6.result_type.type.is_empty_expanded) then
+               -- do nothing
+            else
+               function_body.append(once "%N_r=")
+               if tm.is_reference then
+                  function_body.extend('(')
+                  function_body.append(s)
+                  function_body.append(once ")")
+               end
+               function_body.extend('(')
+               if rf2 /= Void then
+                  mapping_c_inside_introspect(rf2)
+               else
+                  once_routine_pool.unique_result_in(function_body, rf6.base_feature)
+               end
+               function_body.append(once ");")
+            end
+            function_body.append(once "%NR=&_r;%N}%N")
          else
-            function_body.append(once "{%Nstatic T0*_r=NULL;%N_r=")
+            function_body.append(once "{%Nstatic ")
+            if thread_pool.count = 0 then
+               function_body.append(once "T0*")
+            else
+               function_body.append(once "TLS(T0*)")
+            end
+            function_body.append(once "_r=NULL;%N_r=")
             if rf2 /= Void then
                mapping_c_inside_introspect(rf2)
             else
                once_routine_pool.unique_result_in(function_body, rf6.base_feature)
             end
-            function_body.append(once ";%Nif (_r==NULL) {R=&_r; *id=0;} else {%Nswitch(_r->id) {%N")
+            function_body.append(once ";%Nif(_r==NULL){R=&_r;*id=0;}else{%Nswitch(_r->id){%N")
             from
                i := 1
             until
@@ -234,13 +257,13 @@ feature {}
                function_body.append(once ":%N")
                i := i + 1
             end
-            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:break;%N}%N}%N}%N")
+            function_body.append(once "*id=_r->id;R=&_r;break;%Ndefault:*id=0;break;%N}%N}%N}%N")
          end
       end
 
-   c_pointer_to_type (t: TYPE_MARK): STRING is
+   c_pointer_to_type (t: TYPE_MARK): STRING
       do
-         Result := once "                "
+         Result := once "T32767*"
          Result.copy(once "T")
          t.id.append_in(Result)
          if t.is_reference then
@@ -248,7 +271,7 @@ feature {}
          end
       end
 
-   mapping_c_inside_introspect (rf2: RUN_FEATURE_2) is
+   mapping_c_inside_introspect (rf2: RUN_FEATURE_2)
       do
          function_body.extend('(')
          if rf2.type_of_current.is_reference then
@@ -258,14 +281,14 @@ feature {}
             check
                rf2.type_of_current.is_user_expanded
             end
-            function_body.append(once "(*C).")
+            function_body.append(once "C->")
             put_c_field_name(rf2)
          end
          function_body.extend(')')
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -283,9 +306,9 @@ end -- class C_INTROSPECTION_FUNCTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

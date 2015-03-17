@@ -50,7 +50,7 @@ feature {ANY}
 	-- Note: in libglib 2.9.1 "typedef gulong GType;" (Paolo
 	-- 2006-01-07)
 
-	is_g_type (a_type_number: INTEGER): BOOLEAN is
+	is_g_type (a_type_number: INTEGER): BOOLEAN
 			-- Is `a_type_number' a valid value for a g_type? (i.e. a
 			-- type number that can be used for g_value_init()?
 		do

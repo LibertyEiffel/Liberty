@@ -20,11 +20,11 @@ inherit
          call_implies, call_or_else, call_and_then
       end
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
-   call_implies (f: LIBERTY_FEATURE) is
+   call_implies (f: LIBERTY_FEATURE)
       do
          if not left then
             returned := interpreter.new_boolean(True, builtin_call.position)
@@ -35,7 +35,7 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
          end
       end
 
-   call_or_else (f: LIBERTY_FEATURE) is
+   call_or_else (f: LIBERTY_FEATURE)
       do
          if left then
             returned := interpreter.new_boolean(True, builtin_call.position)
@@ -46,7 +46,7 @@ feature {LIBERTY_FEATURE_LOCAL_CONTEXT}
          end
       end
 
-   call_and_then (f: LIBERTY_FEATURE) is
+   call_and_then (f: LIBERTY_FEATURE)
       do
          if not left then
             returned := interpreter.new_boolean(False, builtin_call.position)

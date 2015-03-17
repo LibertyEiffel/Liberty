@@ -26,7 +26,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          create feature_stamps_memory.with_capacity(6000)
          create features.with_capacity(1024)
@@ -47,7 +47,7 @@ feature {}
    feature_count: INTEGER
 
 feature {ANY}
-   feature_stamp_of (feature_name: FEATURE_NAME): FEATURE_STAMP is
+   feature_stamp_of (feature_name: FEATURE_NAME): FEATURE_STAMP
       require
          feature_name /= Void
       do
@@ -61,7 +61,7 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       local
          i, rename_count: INTEGER
       do
@@ -88,7 +88,7 @@ feature {TYPE, LIKE_FEATURE_TYPE_MARK, FUNCTION_CALL, SMART_EIFFEL}
 feature {TYPE}
    current_fn: FEATURE_NAME -- Final name of the current feature being merged in context_type
 
-   start (a_context_type: TYPE) is
+   start (a_context_type: TYPE)
       require
          context_type = Void -- no other type is being accumulating at this time
          a_context_type /= Void
@@ -111,7 +111,7 @@ feature {TYPE}
          smart_eiffel.status.specializing_type = a_context_type
       end
 
-   new_feature (a_final_fn: FEATURE_NAME) is
+   new_feature (a_final_fn: FEATURE_NAME)
       require
          context_type /= Void
          a_final_fn /= Void
@@ -138,7 +138,7 @@ feature {TYPE}
       end
 
    add_parent_definition (parent_type: TYPE; parent_edge: PARENT_EDGE
-                          parent_feature_stamp: FEATURE_STAMP; parent_feature_name: FEATURE_NAME) is
+                          parent_feature_stamp: FEATURE_STAMP; parent_feature_name: FEATURE_NAME)
       require
          current_fn /= Void
          parent_edge /= Void implies context_type.direct_thru_step(parent_type, parent_edge)
@@ -185,7 +185,7 @@ feature {TYPE}
          context_type = old context_type
       end
 
-   add_local_definition (an_af: ANONYMOUS_FEATURE) is
+   add_local_definition (an_af: ANONYMOUS_FEATURE)
       require
          context_type /= Void
          current_fn /= Void
@@ -230,7 +230,7 @@ feature {TYPE}
          context_type = old context_type
       end
 
-   finalize is
+   finalize
       require
          context_type /= Void
       local
@@ -244,6 +244,11 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            debug
+               echo.put_string(once "    Specializing signature of feature: ")
+               echo.put_line(m.feature_name.to_string)
+            end
+            current_mixer := m
             m.specialize_signature(context_type)
             i := i + 1
          end
@@ -253,6 +258,10 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            debug
+               echo.put_string(once "    Specializing feature: ")
+               echo.put_line(m.feature_name.to_string)
+            end
             current_mixer := m
             m.specialize_feature(context_type)
             fs := context_type.lookup(m.feature_name)
@@ -269,6 +278,7 @@ feature {TYPE}
             i > features.upper
          loop
             m := features.item(i)
+            current_mixer := m
             collect_assigner(m)
             free.add_last(m)
             i := i + 1
@@ -287,6 +297,7 @@ feature {TYPE}
          end
          smart_eiffel.status.end_specializing(context_type)
          specialize_and_check_list.add(context_type)
+         current_mixer := Void
          context_type := Void
          waiting_type := waiting_type - 1
       ensure
@@ -294,15 +305,13 @@ feature {TYPE}
          context_type = Void
       end
 
-   collect_assigner (m: ANONYMOUS_FEATURE_MIXER) is
+   collect_assigner (mix_assigner: ANONYMOUS_FEATURE_MIXER)
          -- If the feature declares an assigner, find the corresponding assigned feature and links to it
       local
-         assigned: FEATURE_NAME
-         fs_assigned, fs_assigner: FEATURE_STAMP
-         af_assigned, af_assigner: ANONYMOUS_FEATURE
-         arg_assigned, arg_assigner: FORMAL_ARG_LIST
+         assigned: FEATURE_NAME; fs_assigned: FEATURE_STAMP; af_assigned: ANONYMOUS_FEATURE; i: INTEGER
+         fn: FEATURE_NAME; fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
-         assigned := m.build_definition.feature_text.assigned
+         assigned := mix_assigner.build_definition.feature_text.assigned
          if assigned /= Void then
             fs_assigned := context_type.lookup(assigned)
             if fs_assigned = Void or else not fs_assigned.has_anonymous_feature_for(context_type) then
@@ -312,66 +321,104 @@ feature {TYPE}
                error_handler.append(once ".")
                error_handler.print_as_fatal_error
             end
-
-            fs_assigner := context_type.lookup(m.feature_name)
-            check
-               by_design: fs_assigner.has_anonymous_feature_for(context_type)
-            end
             af_assigned := fs_assigned.anonymous_feature(context_type)
-            arg_assigned := af_assigned.arguments
-            af_assigner := fs_assigner.anonymous_feature(context_type)
-            arg_assigner := af_assigner.arguments
-            if af_assigned.result_type = Void then
-               error_handler.add_position(assigned.start_position)
-               error_handler.append(once "Assigned feature is not a query in type")
-               error_handler.append(context_type.name.to_string)
-               error_handler.append(once ".")
-               error_handler.print_as_fatal_error
-            elseif af_assigner.result_type /= Void then
-               error_handler.add_position(assigned.start_position)
-               error_handler.append(once "Assigner feature is not a command in type ")
-               error_handler.append(context_type.name.to_string)
-               error_handler.append(once ".")
-               error_handler.print_as_fatal_error
-            elseif (arg_assigner = Void)
-               or else (arg_assigned = Void and then arg_assigner.count /= 1)
-               or else (arg_assigned /= Void and then arg_assigned.count + 1 /= arg_assigner.count)
-            then
-               error_handler.add_position(assigned.start_position)
-               error_handler.append(once "The feature ")
-               error_handler.append(fs_assigner.name.to_string)
-               error_handler.append(once " cannot be an assigner of the feature ")
-               error_handler.append(fs_assigned.name.to_string)
-               error_handler.append(once " in type ")
-               error_handler.append(context_type.name.to_string)
-               error_handler.append(once ". The assigner feature is expected to have exactly one more argument than the assigned feature.")
-               error_handler.print_as_fatal_error
-            --elseif af_assigned.result_type /= arg_assigner.name(1).result_type then
-            --   error_handler.add_position(assigned.start_position)
-            --   error_handler.append(once "The feature ")
-            --   error_handler.append(fs_assigner.name.to_string)
-            --   error_handler.append(once " cannot be an assigner of the feature ")
-            --   error_handler.append(fs_assigned.name.to_string)
-            --   error_handler.append(once " in type ")
-            --   error_handler.append(context_type.name.to_string)
-            --   error_handler.append(once ". The type of the first argument of the assigner feature is expected to be the same as the type of the assigned feature.")
-            --   error_handler.print_as_fatal_error
+            from
+               i := 1
+            until
+               i > af_assigned.names.count
+            loop
+               fn := af_assigned.names.item(i)
+               fs := context_type.lookup(fn)
+               af := fs.anonymous_feature(context_type)
+               collect_assigner_(mix_assigner, fn, fs, af)
+               if fn.name_alias /= Void then
+                  fn := fn.name_alias
+                  fs := context_type.lookup(fn)
+                  af := fs.anonymous_feature(context_type)
+                  collect_assigner_(mix_assigner, fn, fs, af)
+               end
+               i := i + 1
             end
-            af_assigned.set_assigner(af_assigner)
          end
       end
 
-   is_known (fn: FEATURE_NAME): BOOLEAN is
+   collect_assigner_ (mix_assigner: ANONYMOUS_FEATURE_MIXER; assigned: FEATURE_NAME; fs_assigned: FEATURE_STAMP; af_assigned: ANONYMOUS_FEATURE)
+      require
+         af_assigned = fs_assigned.anonymous_feature(context_type)
+      local
+         fs_assigner: FEATURE_STAMP
+         af_assigner: ANONYMOUS_FEATURE
+         arg_assigned, arg_assigner: FORMAL_ARG_LIST
+      do
+         fs_assigner := context_type.lookup(mix_assigner.feature_name)
+         check
+            by_design: fs_assigner.has_anonymous_feature_for(context_type)
+         end
+         arg_assigned := af_assigned.arguments
+         af_assigner := fs_assigner.anonymous_feature(context_type)
+         arg_assigner := af_assigner.arguments
+         if af_assigned.result_type = Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "Assigned feature is not a query in type")
+            error_handler.append(context_type.name.to_string)
+            error_handler.append(once ".")
+            error_handler.print_as_fatal_error
+         elseif af_assigner.result_type /= Void then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "Assigner feature is not a command in type ")
+            error_handler.append(context_type.name.to_string)
+            error_handler.append(once ".")
+            error_handler.print_as_fatal_error
+         elseif (arg_assigner = Void)
+            or else (arg_assigned = Void and then arg_assigner.count /= 1)
+            or else (arg_assigned /= Void and then arg_assigned.count + 1 /= arg_assigner.count)
+         then
+            error_handler.add_position(assigned.start_position)
+            error_handler.append(once "The feature ")
+            error_handler.append(fs_assigner.name.to_string)
+            error_handler.append(once " cannot be an assigner of the feature ")
+            error_handler.append(fs_assigned.name.to_string)
+            error_handler.append(once " in type ")
+            error_handler.append(context_type.name.to_string)
+            error_handler.append(once ". The assigner feature is expected to have exactly one more argument than the assigned feature.")
+            error_handler.print_as_fatal_error
+         --elseif af_assigned.result_type /= arg_assigner.name(1).result_type then
+         --   error_handler.add_position(assigned.start_position)
+         --   error_handler.append(once "The feature ")
+         --   error_handler.append(fs_assigner.name.to_string)
+         --   error_handler.append(once " cannot be an assigner of the feature ")
+         --   error_handler.append(fs_assigned.name.to_string)
+         --   error_handler.append(once " in type ")
+         --   error_handler.append(context_type.name.to_string)
+         --   error_handler.append(once ". The type of the first argument of the assigner feature is expected to be the same as the type of the assigned feature.")
+         --   error_handler.print_as_fatal_error
+         end
+
+         debug
+            echo.put_string(once "Linking assigner {")
+            echo.put_string(context_type.name.to_string)
+            echo.put_string(once "}.")
+            echo.put_string(mix_assigner.feature_name.to_string)
+            echo.put_string(once " to assigned {")
+            echo.put_string(context_type.name.to_string)
+            echo.put_string(once "}.")
+            echo.put_line(assigned.to_string)
+         end
+
+         af_assigned.set_assigner(mix_assigner.feature_name)
+      end
+
+   is_known (fn: FEATURE_NAME): BOOLEAN
       do
          Result := features_dictionary.has(fn)
       end
 
-   new_incomplete_type is
+   new_incomplete_type
       do
          waiting_type := waiting_type + 1
       end
 
-   register (t: TYPE) is
+   register (t: TYPE)
       do
          pending_list.add(t)
          if context_type = Void and then waiting_type = pending_list.count then
@@ -380,7 +427,7 @@ feature {TYPE}
       end
 
 feature {}
-   to_feature (a_final_fn: FEATURE_NAME) is
+   to_feature (a_final_fn: FEATURE_NAME)
       require
          a_final_fn /= Void implies not is_known(a_final_fn)
       local
@@ -394,7 +441,7 @@ feature {}
             if context_type.class_text.proper_has(current_fn) and current_fn.start_position.class_text /= context_type.class_text then
                ct1 := current_fn.start_position.class_text
                ct2 := context_type.class_text
-               sedb_breakpoint
+               --| **** TODO why this sedb_breakpoint ??
             end
             context_type.add_feature(current_fn, feature_stamp)
          end
@@ -411,7 +458,7 @@ feature {}
          error_handler.is_empty -- If it wasn't on entry, then the function dies with a fatal error
       end
 
-   do_pending_types is
+   do_pending_types
       local
          type: TYPE
       do
@@ -440,25 +487,26 @@ feature {}
       end
 
 feature {LIKE_FEATURE_TYPE_MARK, WRITABLE_ATTRIBUTE_NAME, FUNCTION_CALL}
-   find_type_for (fs: FEATURE_STAMP): TYPE_MARK is
+   find_type_for (fs: FEATURE_STAMP): TYPE_MARK
       local
-         fn: FEATURE_NAME
+         fn: FEATURE_NAME; afm: ANONYMOUS_FEATURE_MIXER
       do
          fn := context_type.get_feature_name(fs)
-         if features_dictionary.reference_at(fn).computing_result_type = 1 then
+         afm := features_dictionary.reference_at(fn)
+         if afm.computing_result_type = 1 then
             if error_handler.is_empty then
                error_handler.append(once "Unable to solve cyclic anchored types.")
             end
             error_handler.add_position(fn.start_position)
          end
-         Result := features_dictionary.reference_at(fn).result_type(context_type)
+         Result := afm.result_type(context_type)
          check
             Result /= Void
          end
       end
 
 feature {TYPE}
-   anonymous_feature_for (fn: FEATURE_NAME): ANONYMOUS_FEATURE is
+   anonymous_feature_for (fn: FEATURE_NAME): ANONYMOUS_FEATURE
       local
          afm: ANONYMOUS_FEATURE_MIXER
       do
@@ -473,19 +521,19 @@ feature {}
 
    specialize_and_check_in_progress: BOOLEAN
 
-   initial_state: INTEGER_8 is 0
+   initial_state: INTEGER_8 0
 
-   deferred_state: INTEGER_8 is 1
+   deferred_state: INTEGER_8 1
 
-   concrete_state: INTEGER_8 is 2
+   concrete_state: INTEGER_8 2
 
-   redefine_state: INTEGER_8 is 3
+   redefine_state: INTEGER_8 3
 
-   mismatch_state: INTEGER_8 is 4
+   mismatch_state: INTEGER_8 4
 
-   join_state: INTEGER_8 is 5
+   join_state: INTEGER_8 5
 
-   transitions: ARRAY[ARRAY[INTEGER_8]] is
+   transitions: ARRAY[ARRAY[INTEGER_8]]
       once
          Result := {ARRAY[ARRAY[INTEGER_8]] 1,
          <<   --  deferred,      concrete,       redefine,       mismatch
@@ -500,7 +548,7 @@ feature {}
       end
 
    next_state (current_state, transition: INTEGER_8; a_type: TYPE; parent_edge: PARENT_EDGE
-      an_af: ANONYMOUS_FEATURE): INTEGER_8 is
+      an_af: ANONYMOUS_FEATURE): INTEGER_8
          -- Try to merge fn and the already collected feature.
          -- Collected feature is updated.
       require
@@ -557,7 +605,7 @@ feature {}
       end
 
    transition_index (parent_fn: FEATURE_NAME; parent_edge: PARENT_EDGE
-      an_anonymous_feature: ANONYMOUS_FEATURE): INTEGER_8 is
+      an_anonymous_feature: ANONYMOUS_FEATURE): INTEGER_8
          -- Result value: 1 = deferred
          --               2 = redefine
          --               3 = concrete
@@ -622,7 +670,7 @@ feature {}
          Result.to_integer_32.in_range(transitions.lower, transitions.upper)
       end
 
-   valid_features_dictionary: BOOLEAN is
+   valid_features_dictionary: BOOLEAN
       local
          i: INTEGER
       do
@@ -637,7 +685,7 @@ feature {}
          end
       end
 
-   check_and_merge_seeds is
+   check_and_merge_seeds
       local
          i: INTEGER
          afn: ABSOLUTE_FEATURE_NAME
@@ -702,7 +750,7 @@ feature {}
          seeds.count = old seeds.count + old seeds_of_current_feature.count
       end
 
-   finish_insert_seeds is
+   finish_insert_seeds
       local
          i: INTEGER
          afn: ABSOLUTE_FEATURE_NAME
@@ -741,7 +789,7 @@ feature {}
          end
       end
 
-feature {PRECURSOR_CALL, RESULT, ARGUMENT_NAME2}
+feature {PRECURSOR_CALL, RESULT, ARGUMENT_NAME_REF}
    current_mixer: ANONYMOUS_FEATURE_MIXER
 
 feature {}
@@ -781,9 +829,9 @@ end -- class FEATURE_ACCUMULATOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -14,7 +14,7 @@ class AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I -> COMPARABLE]
    --     4. The node's left child, of like type
    --     5. The node's right child, of like type
 
-creation {AUX_PH01_SPLAY_DICTIONARY}
+create {AUX_PH01_SPLAY_DICTIONARY}
    make, make_null
 
 feature {AUX_PH01_SPLAY_DICTIONARY_ITEM, AUX_PH01_SPLAY_DICTIONARY, AUX_PH01_SPLAY_DICTIONARY_ITERATOR}
@@ -36,7 +36,7 @@ feature {AUX_PH01_SPLAY_DICTIONARY_ITEM, AUX_PH01_SPLAY_DICTIONARY}
          -- The right child of the node.
 
 feature {AUX_PH01_SPLAY_DICTIONARY}
-   make (i: like item; ind: like index; p: like parent; l: like left; r: like right) is
+   make (i: like item; ind: like index; p: like parent; l: like left; r: like right)
          -- Create a node with the parameters passed.
       do
          index := ind
@@ -46,7 +46,7 @@ feature {AUX_PH01_SPLAY_DICTIONARY}
          right := r
       end
 
-   make_null is
+   make_null
          -- Create a node with all data items set to their default values.
       do
          -- Don't do anything here - everything is set to its default value.
@@ -56,32 +56,32 @@ feature {AUX_PH01_SPLAY_DICTIONARY}
    -- Procedures to change the internal data items.  Note that we will not
    -- allow the index to be changed, as once this is set nothing can be done
    -- to alter it.
-   set_item (i: like item) is
+   set_item (i: like item)
          -- Set the item.
       do
          item := i
       end
 
-   set_parent (p: like parent) is
+   set_parent (p: like parent)
          -- Set the parent.
       do
          parent := p
       end
 
-   set_left (l: like left) is
+   set_left (l: like left)
          -- Set the left child.
       do
          left := l
       end
 
-   set_right (r: like right) is
+   set_right (r: like right)
          -- Set the right child.
       do
          right := r
       end
 
 feature {AUX_PH01_SPLAY_DICTIONARY}
-   print_state is
+   print_state
          -- Prints the state of the link.
       do
          print("Index  = ")

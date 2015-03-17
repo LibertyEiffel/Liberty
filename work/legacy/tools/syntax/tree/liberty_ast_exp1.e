@@ -21,9 +21,9 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_implies: BOOLEAN is True
+   is_implies: BOOLEAN True
 
 feature {ANY}
-   name: STRING is "e1-exp"
+   name: STRING "e1-exp"
 
 end

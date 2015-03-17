@@ -18,7 +18,7 @@ feature {}
    msg1, msg2: TEXT_FILE_READ
 
 feature {ANY}
-   make is
+   make
       local
          path1, path2: STRING
       do
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {}
-   same_executables (path1, path2: STRING): BOOLEAN is
+   same_executables (path1, path2: STRING): BOOLEAN
       local
          f1, f2: TEXT_FILE_READ; diff_count: INTEGER; stop: BOOLEAN
       do
@@ -87,7 +87,7 @@ feature {}
          f2.disconnect
       end
 
-   exists_and_is_readable_check (path: STRING) is
+   exists_and_is_readable_check (path: STRING)
       do
          if not (create {FILE_TOOLS}).is_readable(path) then
             io.put_string("File : %"")
@@ -109,9 +109,9 @@ end -- class SAME_EXECUTABLES
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

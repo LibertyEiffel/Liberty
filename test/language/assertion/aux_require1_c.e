@@ -11,31 +11,31 @@ insert
    EIFFELTEST_TOOLS
 
 feature {}
-   c_only is
+   c_only
       require
          counting_require
       do
       end
 
-   a_and_c is
+   a_and_c
       require
          counting_require
       deferred
       end
 
-   d_or_a_and_c is
+   d_or_a_and_c
       require
          counting_require
       deferred
       end
    
-   everywhere is
+   everywhere
       require else
          bad_counting_require
       deferred
       end
 
-   partial is
+   partial
       require else
          counting_require
          bad_counting_require

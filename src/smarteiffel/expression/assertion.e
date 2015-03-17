@@ -20,7 +20,7 @@ feature {ANY}
 
    comment: COMMENT
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if tag /= Void then
             Result := tag.start_position
@@ -31,19 +31,19 @@ feature {ANY}
          end
       end
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          check
             False -- This one must never be called.
@@ -51,12 +51,12 @@ feature {ANY}
          end
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := expression.is_static
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          if tag /= Void then
@@ -75,7 +75,7 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          check
             False -- This one must never be called.
@@ -83,7 +83,7 @@ feature {ANY}
          not_yet_implemented -- To be warned as well in -boost mode.
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check
             False -- This one must never be called.
@@ -92,7 +92,7 @@ feature {ANY}
       end
 
    short_hooks (type: TYPE; h01, r01, h02, r02, h03, r03, h04, r04, h05, r05, h06, r06, h07, r07, h08, r08, h09,
-                r09, h10, r10, h11, r11, h12, r12, h13, r13: STRING) is
+                r09, h10, r10, h11, r11, h12, r12, h13, r13: STRING)
       do
          short_printer.hook_or(h01, r01)
          if tag = Void then
@@ -119,56 +119,61 @@ feature {ANY}
          short_printer.hook_or(h13, r13)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if expression /= Void then
             Result := expression.use_current(type)
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          check
             False
          end
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          check
             False
          end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check
             False
          end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check
             False
          end
       end
 
-   is_always_true (type: TYPE): BOOLEAN is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
+   is_always_true (type: TYPE): BOOLEAN
          -- Well, if we can avoid the cost of some assertions, it is better.
       local
 -- ***         exp1, exp2: like expression
@@ -197,19 +202,19 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if expression /= Void then
             expression.safety_check(type)
          end
       end
 
-   accept (visitor: ASSERTION_VISITOR) is
+   accept (visitor: ASSERTION_VISITOR)
       do
          visitor.visit_assertion(Current)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -218,11 +223,11 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          exp: like expression
       do
@@ -232,7 +237,7 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
          if expression /= Void then
@@ -240,12 +245,12 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression /= Void implies expression.has_been_specialized
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          exp: EXPRESSION
       do
@@ -255,7 +260,7 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          exp: EXPRESSION
       do
@@ -265,7 +270,7 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          exp: EXPRESSION
       do
@@ -277,7 +282,7 @@ feature {ANY}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          exp: like expression
       do
@@ -302,7 +307,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ASSERTION}
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          rt: TYPE
       do
@@ -320,7 +325,7 @@ feature {ASSERTION}
       end
 
 feature {ASSERTION}
-   init (exp: like expression) is
+   init (exp: like expression)
       require
          exp /= Void
       do
@@ -333,7 +338,7 @@ feature {ANY}
    source_view: STRING
 
 feature {}
-   current_or_twin_init (exp: like expression): like Current is
+   current_or_twin_init (exp: like expression): like Current
       do
          if exp = expression then
             Result := Current
@@ -343,7 +348,7 @@ feature {}
          end
       end
 
-   make (t: like tag; exp: like expression; c: like comment) is
+   make (t: like tag; exp: like expression; c: like comment)
       require
          t /= Void or exp /= Void or c /= Void
       do
@@ -371,9 +376,9 @@ end -- class ASSERTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

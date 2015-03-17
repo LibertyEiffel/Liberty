@@ -10,9 +10,9 @@ create {}
    make
 
 feature {ANY}
-   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   test (d1, d2_: DICTIONARY[INTEGER, CHARACTER]) is
+   test (d1, d2_: DICTIONARY[INTEGER, CHARACTER])
       local
          i: INTEGER; c: CHARACTER; d2: like d2_
       do
@@ -51,8 +51,9 @@ feature {ANY}
          assert(d1.is_equal(d2))
       end
 
-   make is
+   make
       do
+         test(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
          test(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
          test(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2), create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(2))
       end

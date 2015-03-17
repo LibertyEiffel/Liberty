@@ -6,7 +6,7 @@ class AUX_OZ03A
 feature {ANY}
    store: REAL
 
-   set_store (s: like store) is
+   set_store (s: like store)
       do
          store := s
       end

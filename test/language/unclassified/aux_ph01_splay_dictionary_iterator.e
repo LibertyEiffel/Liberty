@@ -8,11 +8,11 @@ class AUX_PH01_SPLAY_DICTIONARY_ITERATOR[I -> COMPARABLE]
    -- Copyright (C) Philip Malin 2000.
    --
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (sd: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I]) is
+   make (sd: AUX_PH01_SPLAY_DICTIONARY[INTEGER, I])
       do
          cont := sd
          start
@@ -21,20 +21,20 @@ feature {ANY}
       end
 
 feature {ANY}
-   start is
+   start
          -- Positions the iterator to the first object in the
          -- aggregate to be traversed.
       do
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
          -- Returns true when there are no more objects in the
          -- sequence.
       do
          Result := node = Void
       end
 
-   index: I is
+   index: I
          -- Returns the index of the object at the current position in the
          -- sequence.
       require
@@ -43,7 +43,7 @@ feature {ANY}
          Result := node.index
       end
 
-   next is
+   next
          -- Positions the iterator to the next object in the
          -- sequence.
       require

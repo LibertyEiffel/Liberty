@@ -64,6 +64,6 @@
 
 #define sequencer_create_set (_sequencer_create_set())
 EIF_POINTER _sequencer_create_set(void);
-int sequencer_wait(int n, fd_set *read_set, int read_size, fd_set *write_set, int write_size, fd_set *exception_set, int exception_size, int s, int us);
+int sequencer_wait(int n, fd_set *read_set, int read_size, int read_more, fd_set *write_set, int write_size, int write_more, fd_set *exception_set, int exception_size, int exception_more, int s, int us);
 
 #define sequencer_descriptor(file) (fileno((FILE *)(file)))

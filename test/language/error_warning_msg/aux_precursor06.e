@@ -4,7 +4,7 @@
 class AUX_PRECURSOR06
 
 feature {ANY}
-   routine is
+   routine
       do
       end;
 

@@ -5,9 +5,9 @@ expanded class GTYPE_FUNDAMENTAL_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (classed_low_level | 
 				deep_derivable_low_level | 
@@ -17,69 +17,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_classed is
+	set_classed
 		do
 			value := value.bit_or(classed_low_level)
 		end
 
-	unset_classed is
+	unset_classed
 		do
 			value := value.bit_xor(classed_low_level)
 		end
 
-	set_deep_derivable is
+	set_deep_derivable
 		do
 			value := value.bit_or(deep_derivable_low_level)
 		end
 
-	unset_deep_derivable is
+	unset_deep_derivable
 		do
 			value := value.bit_xor(deep_derivable_low_level)
 		end
 
-	set_derivable is
+	set_derivable
 		do
 			value := value.bit_or(derivable_low_level)
 		end
 
-	unset_derivable is
+	unset_derivable
 		do
 			value := value.bit_xor(derivable_low_level)
 		end
 
-	set_instantiatable is
+	set_instantiatable
 		do
 			value := value.bit_or(instantiatable_low_level)
 		end
 
-	unset_instantiatable is
+	unset_instantiatable
 		do
 			value := value.bit_xor(instantiatable_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_classed: BOOLEAN is
+	is_classed: BOOLEAN
 		do
 			Result := (value=classed_low_level)
 		end
 
-	is_deep_derivable: BOOLEAN is
+	is_deep_derivable: BOOLEAN
 		do
 			Result := (value=deep_derivable_low_level)
 		end
 
-	is_derivable: BOOLEAN is
+	is_derivable: BOOLEAN
 		do
 			Result := (value=derivable_low_level)
 		end
 
-	is_instantiatable: BOOLEAN is
+	is_instantiatable: BOOLEAN
 		do
 			Result := (value=instantiatable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	classed_low_level: INTEGER is
+	classed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	deep_derivable_low_level: INTEGER is
+	deep_derivable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	derivable_low_level: INTEGER is
+	derivable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	instantiatable_low_level: INTEGER is
+	instantiatable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

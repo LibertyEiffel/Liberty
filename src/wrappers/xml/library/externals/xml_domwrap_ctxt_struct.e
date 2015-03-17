@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_domwrap_ctxt_struct_set_type (a_structure: POINTER; a_value: INTEGER) is
+	xml_domwrap_ctxt_struct_set_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for type field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_domwrap_ctxt_struct_set_namespacemap (a_structure: POINTER; a_value: POINTER) is
+	xml_domwrap_ctxt_struct_set_namespacemap (a_structure: POINTER; a_value: POINTER)
 			-- Setter for namespaceMap field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_domwrap_ctxt_struct_set_getnsfornodefunc (a_structure: POINTER; a_value: POINTER) is
+	xml_domwrap_ctxt_struct_set_getnsfornodefunc (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getNsForNodeFunc field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: setter description
 
@@ -47,7 +47,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field _private.
-	xml_domwrap_ctxt_struct_get_type (a_structure: POINTER): INTEGER is
+	xml_domwrap_ctxt_struct_get_type (a_structure: POINTER): INTEGER
 			-- Query for type field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_domwrap_ctxt_struct_get_namespacemap (a_structure: POINTER): POINTER is
+	xml_domwrap_ctxt_struct_get_namespacemap (a_structure: POINTER): POINTER
 			-- Query for namespaceMap field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_domwrap_ctxt_struct_get_getnsfornodefunc (a_structure: POINTER): POINTER is
+	xml_domwrap_ctxt_struct_get_getnsfornodefunc (a_structure: POINTER): POINTER
 			-- Query for getNsForNodeFunc field of XML_DOMWRAP_CTXT_STRUCT structure.
 			-- TODO: getter description
 
@@ -84,7 +84,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

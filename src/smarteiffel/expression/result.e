@@ -13,8 +13,6 @@ class RESULT
 
 inherit
    EXPRESSION
-      redefine written_declaration_type_mark
-      end
 
 create {ANY}
    make
@@ -22,28 +20,28 @@ create {ANY}
 feature {ANY}
    start_position: POSITION
 
-   is_result: BOOLEAN is True
+   is_result: BOOLEAN True
 
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          check
             not Result
          end
       end
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
    declaration_type: TYPE
 
@@ -51,22 +49,22 @@ feature {ANY}
 
    written_declaration_type_mark: TYPE_MARK
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := type_mark_memory.resolve_in(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          tmm: like type_mark_memory
       do
@@ -85,7 +83,7 @@ feature {ANY}
          Result := current_or_twin_init(tmm)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          tmm: like type_mark_memory
       do
@@ -98,42 +96,42 @@ feature {ANY}
          Result := current_or_twin_init(tmm)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := type_mark_memory /= Void
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(once "Result")
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_string(once "Result.")
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.hook_or(as_result, as_result)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       local
          rt: TYPE
       do
@@ -143,17 +141,17 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := smart_eiffel.context_feature.result_type.resolve_in(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          af: ANONYMOUS_FEATURE
       do
@@ -170,13 +168,13 @@ feature {ANY}
          Result.validity_check(type)
       end
 
-   accept (visitor: RESULT_VISITOR) is
+   accept (visitor: RESULT_VISITOR)
       do
          visitor.visit_result(Current)
       end
 
 feature {RESULT_VISITOR}
-   is_once_result: BOOLEAN is
+   is_once_result: BOOLEAN
       require
          enclosing_function /= Void
       do
@@ -190,7 +188,7 @@ feature {RESULT_VISITOR}
          -- When not Void, an alias of `enclosing_function' (to avoid multiple assignment attempts).
 
 feature {CREATE_SUPPORT}
-   c_variable_name: STRING is
+   c_variable_name: STRING
       require
          is_once_result
       do
@@ -201,7 +199,7 @@ feature {CREATE_SUPPORT}
       end
 
 feature {RESULT, IFTHEN, INTROSPECTION_HANDLER}
-   set_type_mark_memory (tmm: like type_mark_memory) is
+   set_type_mark_memory (tmm: like type_mark_memory)
       require
          tmm /= Void
       do
@@ -214,7 +212,7 @@ feature {RESULT, IFTHEN, INTROSPECTION_HANDLER}
       end
 
 feature {RESULT}
-   validity_check (type: TYPE) is
+   validity_check (type: TYPE)
       do
          if is_once_result and then not once_function.result_type.is_static then
             error_handler.add_position(start_position)
@@ -222,7 +220,7 @@ feature {RESULT}
          end
       end
 
-   set_enclosing_function (ef: like enclosing_function) is
+   set_enclosing_function (ef: like enclosing_function)
       require
          ef /= Void
       do
@@ -235,14 +233,14 @@ feature {RESULT}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do
@@ -251,7 +249,7 @@ feature {}
          start_position = sp
       end
 
-   current_or_twin_init (tmm: like type_mark_memory): like Current is
+   current_or_twin_init (tmm: like type_mark_memory): like Current
       require
          tmm /= Void
       do
@@ -280,9 +278,9 @@ end -- class RESULT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          r := 0.5
          d := 0.5
@@ -27,7 +27,7 @@ feature {ANY}
 
    d: REAL
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -9,12 +9,12 @@ insert
 feature {ANY}
    value: INTEGER
 
-   set (a_value: INTEGER) is
+   set (a_value: INTEGER)
       do
          value := a_value
       end
 
-   copy (another: like Current) is
+   copy (another: like Current)
       do
          value := another.value + 1
       ensure then

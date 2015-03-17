@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include "config.php";
 include "functions.php";
 
@@ -17,11 +19,25 @@ include "functions.php";
 
 include "$templates/head.html";
 
-if(array_key_exists("manual_request", $_GET) && $_GET["manual_request"] == 1){
-   file_put_contents ($request, "new MANUAL request on " . date($dateFormat));
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && array_key_exists("token", $_POST)) {
+    if (array_key_exists("token", $_SESSION) && $_POST["token"] == $_SESSION['token']) {
+        if (time() <= $_SESSION['token_timeout']) {
+            if (array_key_exists("manual_request", $_POST) && $_POST["manual_request"] == 1) {
+                file_put_contents($request, "new MANUAL request on " . date($dateFormat));
+            } elseif (array_key_exists("request_break", $_POST) && $_POST["request_break"] == 1 && file_exists($request)) {
+                file_put_contents($breakFlag, "request BREAK on " . date($dateFormat));
+            } else {
+                echo "<!-- Ignored POST data -->\n";
+            }
+        } else {
+            echo "<!-- Token expired -->\n";
+        }
+    } else {
+        echo "<!-- Ignored POST -->\n";
+    }
 }
 
-if(array_key_exists('history', $_GET)){
+if (array_key_exists('history', $_GET)){
    $history = $_GET["history"];
    if ($history > 0) {
       $stageout = $stageout . "_" . $history;
@@ -84,13 +100,13 @@ function legible_time($time) {
 }
 
 if ($history == 0){
-   if(file_exists($lock)){
+   if (file_exists($lock)) {
       $currentStage = file_get_contents("$stageout/current_stage.txt");
       $state = "Working on " . file_get_contents($currentStage . "/stagename.txt");
-   }else{
+   } else {
       $state = "Idle";
    }
-   if(file_exists($request)){
+   if (file_exists($request)) {
       $content = file_get_contents($request);
       $state = $state . " &mdash; " . $content;
    }
@@ -220,15 +236,19 @@ echo "<div style=\"width:760px;\">\n";
 printSubStages($stageout);
 echo "\n</div>\n";
 
+echo "</div>\n";
+echo "</div>\n";
+
 
 /* yes, include config again, to reset $stageout */
 include "config.php";
 
-echo "<div name='pager'>";
+echo "<div id='container'>\n";
+echo "<div class='pager header'>\n";
 if($history > 0){
    $i = $history - 1;
-   echo "<a href=\"?history=$i\">&lt;&mdash;</a>";
-   echo " <a href=\"?history=0\">latest</a>";
+   echo "<a href=\"?history=$i\" class='btnlink'>&lt;&mdash;</a>";
+   echo " <a href=\"?history=0\" class='btnlink'>latest</a>";
 } else {
    echo "<b>latest</b>";
 }
@@ -236,15 +256,38 @@ for($i = 1; $i <= $historysize; $i++){
    if($history == $i){
       echo " <b>$i</b> ";
    } elseif(is_dir($stageout . "_" . $i)){
-      echo " <a href=\"?history=$i\">$i</a> ";
+      echo " <a href=\"?history=$i\" class='btnlink'>$i</a> ";
    }
 }
 if($history < $historysize){
    $i = $history + 1;
    if(is_dir($stageout . "_" . $i)){
-      echo " <a href=\"?history=$i\">&mdash;&gt;</a>";
+      echo " <a href=\"?history=$i\" class='btnlink'>&mdash;&gt;</a>";
    }
 }
-echo "</div>";
+echo "\n</div>\n";
+
+echo "<div class='actions header'>\n";
+
+$token = uniqid("", TRUE);
+$_SESSION['token'] = $token;
+$_SESSION['token_timeout'] = time() + (15*60); // 15 minutes before time-out
+echo "<div class='hidden'>\n";
+echo "<form id='_manualRequestForm' method='POST' action='/'>\n";
+echo "<input type='hidden' name='token' value='" . $token . "'/>\n";
+echo "<input type='hidden' name='request_break' value='1'/>\n";
+echo "<input type='hidden' name='manual_request' value='1'/>\n";
+echo "</form>\n";
+echo "</div>\n";
+
+if (file_exists($request)) {
+    if (file_exists($breakFlag)) {
+        echo "(Break requested)";
+    } else {
+        echo "<a href='#' class='btnlink' onclick='do_request_break(); return false;'>Break</a>";
+    }
+}
+echo "<a href='#' class='btnlink' onclick='do_manual_request(); return false;'>Restart</a>\n";
+
 include "$templates/foot.html";
 ?>

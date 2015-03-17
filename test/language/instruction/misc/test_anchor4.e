@@ -7,17 +7,17 @@ create {}
    make
 
 feature {ANY}
-   a: like Current is
+   a: like Current
       do
       end
 
-   b: like a is
+   b: like a
       do
       end
 
    c: like b
 
-   make is
+   make
       do
          c := Current
       end

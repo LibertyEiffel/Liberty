@@ -12,7 +12,7 @@ create {ANY}
 feature {}
    loop_stack: FAST_ARRAY[LOOP_ITEM]
 
-   make is
+   make
       do
          create loop_stack.make(0)
          loop_stack.add_last(create {LOOP_ITEM}.make)
@@ -23,7 +23,7 @@ feature {}
 feature {ANY}
    stop: BOOLEAN
 
-   new_loop is
+   new_loop
          -- create new empty loop (ie without job) and push it on the stack
       local
          loop_item: LOOP_ITEM
@@ -35,7 +35,7 @@ feature {ANY}
          loop_stack.add_last(loop_item)
       end
 
-   push_loop (l: like current_loop) is
+   push_loop (l: like current_loop)
          -- `l' is restarted and pushed on the stack
       require
          l /= Void
@@ -49,7 +49,7 @@ feature {ANY}
          current_loop = l
       end
 
-   run is
+   run
          -- run `current_loop' (ie execute it's jobs)
       require
          current_loop /= Void
@@ -71,7 +71,7 @@ feature {ANY}
          loop_stack.is_empty or stop
       end
 
-   add_job (j: JOB) is
+   add_job (j: JOB)
          -- Add some job to the current loop
       require
          j /= Void
@@ -79,7 +79,7 @@ feature {ANY}
          current_loop.add_job(j)
       end
 
-   break is
+   break
          -- Exit current loop
       require
          current_loop /= Void
@@ -90,7 +90,7 @@ feature {ANY}
          current_loop /= old current_loop
       end
 
-   exit_all is
+   exit_all
          --TODO: Really needed feature ?
       require
          stop = False
@@ -101,7 +101,7 @@ feature {ANY}
          stop = True
       end
 
-   current_loop: LOOP_ITEM is
+   current_loop: LOOP_ITEM
          --TODO: change this function into an attribute to be more efficient
       do
          if not loop_stack.is_empty then
@@ -111,13 +111,13 @@ feature {ANY}
 
 end -- class LOOP_STACK
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

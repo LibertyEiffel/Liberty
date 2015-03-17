@@ -31,7 +31,7 @@ feature {ANY}
    else_compound: INSTRUCTION
          -- Not Void if any.
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -54,7 +54,7 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -77,7 +77,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
          ec: like else_compound
@@ -116,7 +116,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
          ec: like else_compound
@@ -155,7 +155,7 @@ feature {ANY}
          Result := current_or_twin_init(e, tc, eil, ec)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
          ec: like else_compound
@@ -195,12 +195,12 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
          Result := expression.has_been_specialized
-         if then_compound /= Void then
+         if Result and then then_compound /= Void then
             Result := then_compound.has_been_specialized
          end
          if elseif_list /= Void then
@@ -213,12 +213,12 @@ feature {ANY}
                i := i + 1
             end
          end
-         if else_compound /= Void then
+         if Result and then else_compound /= Void then
             Result := else_compound.has_been_specialized
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; ifthen: IFTHEN
          ec: like else_compound; bc: BOOLEAN_CONSTANT
@@ -315,7 +315,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
@@ -339,12 +339,12 @@ feature {ANY}
          pretty_end_if(indent_level)
       end
 
-   accept (visitor: IFTHENELSE_VISITOR) is
+   accept (visitor: IFTHENELSE_VISITOR)
       do
          visitor.visit_ifthenelse(Current)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE; i: INTEGER
       do
@@ -367,7 +367,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression; tc: like then_compound; eil: like elseif_list; it1, it2: IFTHEN; i: INTEGER
          ec: like else_compound; bc: BOOLEAN_CONSTANT
@@ -423,7 +423,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_PARSER}
-   set_else (ec: like else_compound) is
+   set_else (ec: like else_compound)
       require
          ec /= Void
       do
@@ -432,7 +432,7 @@ feature {EIFFEL_PARSER}
          else_compound = ec
       end
 
-   add_elseif (ifthen: IFTHEN) is
+   add_elseif (ifthen: IFTHEN)
       require
          ifthen /= Void
       do
@@ -440,7 +440,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {IFTHENELSE}
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -457,7 +457,7 @@ feature {IFTHENELSE}
          end
       end
 
-   init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound) is
+   init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound)
       do
          expression := e
          then_compound := tc
@@ -471,7 +471,7 @@ feature {IFTHENELSE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
          -- Because complex BOOLEAN expression may needs to let escape dynamic dispatch instructions,
          -- "elseif" constructions are removed and replaced by imbricated "else if then...". Thus,
          -- extra statements needed by dynamic dispatch have a place to go (between "else" and "if").
@@ -500,7 +500,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN]; eil_idx: INTEGER) is
+   inline_dd (code_accumulator: CODE_ACCUMULATOR; type: TYPE; eil: FAST_ARRAY[IFTHEN]; eil_idx: INTEGER)
          -- Recursive continuation of `inline_dynamic_dispatch_'.
       local
          e: like expression; tc: like then_compound; eil_item: IFTHEN; ec: like else_compound; i: INSTRUCTION
@@ -557,7 +557,7 @@ feature {}
       end
 
 feature {}
-   current_or_twin_init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound): like Current is
+   current_or_twin_init (e: like expression; tc: like then_compound; eil: like elseif_list; ec: like else_compound): like Current
       require
          e /= Void
       do
@@ -574,7 +574,7 @@ feature {}
          Result.else_compound = ec
       end
 
-   with_else (sp: like start_position; e: like expression; tc: like then_compound; ec: like else_compound) is
+   with_else (sp: like start_position; e: like expression; tc: like then_compound; ec: like else_compound)
       require
          not sp.is_unknown
          e /= Void
@@ -591,7 +591,7 @@ feature {}
          else_compound = ec
       end
 
-   with_elseif (sp: like start_position; e: like expression; tc: like then_compound; ifthen: IFTHEN) is
+   with_elseif (sp: like start_position; e: like expression; tc: like then_compound; ifthen: IFTHEN)
       require
          not sp.is_unknown
          e /= Void
@@ -609,7 +609,7 @@ feature {}
       end
 
    with_elseif_and_else (sp: like start_position; e: like expression; tc: like then_compound; eil: like elseif_list
-                         ec: like else_compound) is
+                         ec: like else_compound)
       require
          not sp.is_unknown
          e /= Void
@@ -628,7 +628,7 @@ feature {}
          else_compound = ec
       end
 
-   simplify_elseif_list (type: TYPE; twin_already_done: BOOLEAN; eil: like elseif_list): like elseif_list is
+   simplify_elseif_list (type: TYPE; twin_already_done: BOOLEAN; eil: like elseif_list): like elseif_list
       require
          type /= Void
          eil.count >= 1
@@ -701,7 +701,7 @@ feature {}
          (Result = elseif_list) = (smart_eiffel.magic_count = old smart_eiffel.magic_count)
       end
 
-   canonical_form: BOOLEAN is
+   canonical_form: BOOLEAN
       do
          if elseif_list = Void then
             Result := else_compound /= Void
@@ -727,9 +727,9 @@ end -- class IFTHENELSE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

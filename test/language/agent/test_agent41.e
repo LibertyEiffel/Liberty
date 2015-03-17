@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          mem: MEMORY; aux: AUX_AGENT41
       do
@@ -26,7 +26,7 @@ feature {}
 
    doit: PROCEDURE[TUPLE]
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do

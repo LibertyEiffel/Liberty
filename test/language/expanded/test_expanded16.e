@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    a2: AUX_EXPANDED16A
 
-   make is
+   make
       local
          a1: AUX_EXPANDED16A
       do

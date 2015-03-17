@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes representing an action"
    status:
@@ -12,13 +12,13 @@ indexing
 deferred class AUX_UW01ACTION_NODE
 
 feature {ANY}
-   extra_io: AUX_UW01EXTRA_IO is
+   extra_io: AUX_UW01EXTRA_IO
          -- shared EXTRA_IO object
       once
          create Result.make
       end
 
-   execute is
+   execute
          -- perform action
       deferred
       end

@@ -23,7 +23,7 @@ insert
    LOGGING
 
 feature {ANY}
-   push (r: like resolver) is
+   push (r: like resolver)
       require
          r /= Void
       do
@@ -37,7 +37,7 @@ feature {ANY}
          resolver = r
       end
 
-   pop is
+   pop
       require
          resolver /= Void
       local
@@ -59,18 +59,18 @@ feature {ANY}
          end
       end
 
-   resolver: LIBERTY_TYPE_RESOLVER is
+   resolver: LIBERTY_TYPE_RESOLVER
       do
          Result := resolver_memory.item
       end
 
-   universe: LIBERTY_UNIVERSE is
+   universe: LIBERTY_UNIVERSE
       do
          Result := universe_memory.item
       end
 
 feature {LIBERTY_UNIVERSE}
-   set_universe (a_universe: LIBERTY_UNIVERSE) is
+   set_universe (a_universe: LIBERTY_UNIVERSE)
       require
          a_universe /= Void
          universe = Void
@@ -81,12 +81,12 @@ feature {LIBERTY_UNIVERSE}
       end
 
 feature {}
-   resolver_memory: REFERENCE[LIBERTY_TYPE_RESOLVER] is
+   resolver_memory: REFERENCE[LIBERTY_TYPE_RESOLVER]
       once
          create Result
       end
 
-   universe_memory: REFERENCE[LIBERTY_UNIVERSE] is
+   universe_memory: REFERENCE[LIBERTY_UNIVERSE]
       once
          create Result
       end

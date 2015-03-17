@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          counter: INTEGER
       do
@@ -23,7 +23,7 @@ feature {ANY}
          retry
       end
 
-   make2 is
+   make2
       local
          aux: AUX_EXCEPTIONS07
       do
@@ -38,7 +38,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

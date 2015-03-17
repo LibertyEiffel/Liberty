@@ -15,7 +15,7 @@ create {ANY}
    make_all, make
 
 feature {ANY}
-   accept (visitor: EXPORT_ITEM_VISITOR) is
+   accept (visitor: EXPORT_ITEM_VISITOR)
       do
          visitor.visit_export_item(Current)
       end
@@ -25,7 +25,7 @@ feature {ANY}
    list: FEATURE_NAME_LIST
 
 feature {}
-   make_all (c: like clients) is
+   make_all (c: like clients)
       require
          c /= Void
       do
@@ -33,7 +33,7 @@ feature {}
          list := Void
       end
 
-   make (c: like clients; l: like list) is
+   make (c: like clients; l: like list)
       require
          c /= Void
       do
@@ -45,13 +45,13 @@ feature {}
       end
 
 feature {ANY}
-   for_all: BOOLEAN is
+   for_all: BOOLEAN
          -- True when "all" primitives affected
       do
          Result := list = Void
       end
 
-   affect (fn: FEATURE_NAME): BOOLEAN is
+   affect (fn: FEATURE_NAME): BOOLEAN
       do
          if for_all then
             Result := True
@@ -60,7 +60,7 @@ feature {ANY}
          end
       end
 
-   pretty (rank: INTEGER) is
+   pretty (rank: INTEGER)
       do
          if rank > 1 then
             pretty_printer.set_indent_level(3)
@@ -89,9 +89,9 @@ end -- class EXPORT_ITEM
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

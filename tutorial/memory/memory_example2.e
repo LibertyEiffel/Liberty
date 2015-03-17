@@ -20,7 +20,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          long_loop: INTEGER; foo: STRING
       do

@@ -17,17 +17,17 @@ create {ANY}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          pattern.out_in_tagged_out_memory
       end
 
-   accept (visitor: PACKRAT_VISITOR) is
+   accept (visitor: PACKRAT_VISITOR)
       do
          visitor.visit_non_terminal(Current)
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   pretty_print_on (stream: OUTPUT_STREAM)
       local
          pp: PACKRAT_PRETTY_PRINTER
       do
@@ -35,13 +35,13 @@ feature {ANY}
          accept(pp)
       end
 
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       do
          Result := pattern.is_coherent
       end
 
 feature {PARSER_FACET}
-   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       do
          debug ("parse")
             log.trace.put_line(once "----> %"#(1)%" at #(2)" # name # context.buffer.current_index.out)
@@ -55,13 +55,13 @@ feature {PARSER_FACET}
       end
 
 feature {PARSE_TABLE}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       do
          pattern.set_default_tree_builders(non_terminal_builder, terminal_builder)
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          name := other.name
          pattern := other.pattern.twin
@@ -69,13 +69,13 @@ feature {ANY}
          is_initialized := True
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := name.is_equal(other.name) and then pattern.is_equal(other.pattern)
       end
 
 feature {}
-   make (a_pattern: like pattern) is
+   make (a_pattern: like pattern)
       require
          a_pattern /= Void
          a_pattern.nt = Void
@@ -94,7 +94,7 @@ feature {PACKRAT_NON_TERMINAL, PACKRAT_VISITOR}
    pattern: PACKRAT_PATTERN
 
 feature {PACKRAT_SEQUENCE}
-   new_sequence_number: INTEGER is
+   new_sequence_number: INTEGER
       do
          Result := sequence_count + 1
          sequence_count := Result
@@ -106,13 +106,13 @@ invariant
 
 end -- class PACKRAT_NON_TERMINAL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

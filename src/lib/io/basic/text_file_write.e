@@ -12,7 +12,11 @@ class TEXT_FILE_WRITE
 
 inherit
    FILE_STREAM
+      redefine out_in_tagged_out_memory
+      end
    TERMINAL_OUTPUT_STREAM
+      redefine out_in_tagged_out_memory
+      end
 
 create {ANY}
    make, connect_to, connect_for_appending_to
@@ -22,7 +26,7 @@ feature {ANY}
          -- Note that '%N' is counted as one character even if two
          -- bytes are written in the file.
 
-   character_count: INTEGER_64 is
+   character_count: INTEGER_64
          -- See also `flushed_character_count'
          -- Note that '%N' is counted as one character even if two
          -- bytes are written in the file.
@@ -32,7 +36,7 @@ feature {ANY}
          Result := flushed_character_count + buffer_position
       end
 
-   connect_to (new_path: ABSTRACT_STRING) is
+   connect_to (new_path: ABSTRACT_STRING)
          -- Truncate file to zero length or create text file for writing.
          -- The stream is positioned at the beginning of the file.
       local
@@ -51,7 +55,7 @@ feature {ANY}
          is_connected implies character_count = 0
       end
 
-   connect_for_appending_to (new_path: ABSTRACT_STRING) is
+   connect_for_appending_to (new_path: ABSTRACT_STRING)
          -- Open for writing. The file is created if it does not exist.
          -- The stream is positioned at the end of the file.
       require
@@ -73,7 +77,7 @@ feature {ANY}
          is_connected implies character_count = 0
       end
 
-   disconnect is
+   disconnect
       do
          if buffer_position > 0 then
             write_buffer
@@ -84,8 +88,15 @@ feature {ANY}
          flushed_character_count := 0
       end
 
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{TEXT_FILE_WRITE ")
+         tagged_out_memory.append(path)
+         tagged_out_memory.extend('}')
+      end
+
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          if buffer_position >= 4096 then
             write_buffer
@@ -94,7 +105,7 @@ feature {FILTER_OUTPUT_STREAM}
          buffer_position := buffer_position + 1
       end
 
-   filtered_flush is
+   filtered_flush
       do
          if buffer_position > 0 then
             write_buffer
@@ -105,19 +116,19 @@ feature {FILTER_OUTPUT_STREAM}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := sequencer_descriptor(output_stream)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := output_stream
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {}
    buffer: NATIVE_ARRAY[CHARACTER]
@@ -128,7 +139,7 @@ feature {}
 
    output_stream: POINTER
 
-   make is
+   make
          -- The new created object is not connected. (See also `connect_to' and
          -- `connect_for_appending_to'.)
       do
@@ -138,7 +149,7 @@ feature {}
          not is_connected
       end
 
-   write_buffer is
+   write_buffer
       local
          unused_result: INTEGER
       do
@@ -149,7 +160,7 @@ feature {}
          end
       end
 
-   text_file_write_open (path_pointer: POINTER): POINTER is
+   text_file_write_open (path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -158,7 +169,7 @@ feature {}
          }"
       end
 
-   text_file_write_append (path_pointer: POINTER): POINTER is
+   text_file_write_append (path_pointer: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -167,7 +178,7 @@ feature {}
          }"
       end
 
-   io_fclose (stream: POINTER) is
+   io_fclose (stream: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -178,13 +189,13 @@ feature {}
 
 end -- class TEXT_FILE_WRITE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

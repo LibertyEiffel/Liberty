@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          o3, o4: AUX_PRE_ONCE3
       do
@@ -17,17 +17,17 @@ feature {ANY}
          assert(o3 /= o4)
       end
 
-   o1: AUX_PRE_ONCE3 is
+   o1: AUX_PRE_ONCE3
       once
          create Result.make
       end
 
-   o2: AUX_PRE_ONCE3 is
+   o2: AUX_PRE_ONCE3
       once
          create Result.make
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

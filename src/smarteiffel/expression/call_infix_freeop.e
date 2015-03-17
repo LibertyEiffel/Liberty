@@ -16,15 +16,15 @@ create {AGENT_CREATION, CALL_INFIX}
    with
 
 feature {ANY}
-   precedence: INTEGER is 10
+   precedence: INTEGER 10
 
-   left_brackets: BOOLEAN is False
+   left_brackets: BOOLEAN False
 
-   operator: STRING is
+   operator: STRING
       do
          Result := feature_name.to_string
       end
-      --|*** simplify_1_: EXPRESSION is
+      --|*** simplify_1_: EXPRESSION
       --|*** do
       --|*** target := target.simplify_1
       --|*** arguments.simplify_1
@@ -33,13 +33,13 @@ feature {ANY}
       --|*** end
 
 feature {ANY}
-   accept (visitor: CALL_INFIX_FREEOP_VISITOR) is
+   accept (visitor: CALL_INFIX_FREEOP_VISITOR)
       do
          visitor.visit_call_infix_freeop(Current)
       end
 
 feature {}
-   make (lp: like target; in: like feature_name; rp: like arg1) is
+   make (lp: like target; in: like feature_name; rp: like arg1)
       require
          lp /= Void
          in.is_free_operator
@@ -47,7 +47,7 @@ feature {}
       do
          target := lp
          feature_name := in
-         create arguments.make_1(rp)
+         create {EFFECTIVE_ARG_LIST_N} arguments.make_1(start_position, rp)
       ensure
          target = lp
          feature_name = in
@@ -69,9 +69,9 @@ end -- class CALL_INFIX_FREEOP
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

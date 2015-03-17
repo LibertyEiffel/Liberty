@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED16B
 feature {ANY}
    x, y, z: REAL
 
-   set_all_with (v: REAL) is
+   set_all_with (v: REAL)
       do
          x := v
          y := v

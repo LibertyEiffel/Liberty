@@ -11,7 +11,7 @@ feature {ANY}
 
    c: ARRAY[ARRAY[INTEGER]]
 
-   make is
+   make
       do
          if a /= Void and then b /= Void and then a.is_equal(b) then
          end

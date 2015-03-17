@@ -10,7 +10,7 @@ create {C_PLUGIN_FACTORY, FAKE_PLUGIN}
    make
 
 feature {SYSTEM_TOOLS}
-   try_auto_init is
+   try_auto_init
       local
          i: INTEGER; ok: BOOLEAN; p: PLUGIN
       do
@@ -62,8 +62,17 @@ feature {SYSTEM_TOOLS}
 feature {ANY}
    auto_init_done: BOOLEAN
 
+feature {}
+   plugin_echo (log: STRING)
+      do
+         echo.put_string(once "Plugin ")
+         echo.put_string(name)
+         echo.put_string(once ": ")
+         echo.put_line(log)
+      end
+
 feature {NATIVE_PLUG_IN}
-   include (position: POSITION) is
+   include (position: POSITION)
       local
          ok: BOOLEAN; i: INTEGER; string_array: FAST_ARRAY[STRING]; string: STRING
       do
@@ -71,7 +80,9 @@ feature {NATIVE_PLUG_IN}
             bd.compute_parent_directory_of(position.path)
             cwd.copy(bd.last_entry)
             string_array := c_linker_options
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No linker options")
+            else
                from
                   i := string_array.lower
                until
@@ -82,7 +93,9 @@ feature {NATIVE_PLUG_IN}
                end
             end
             string_array := c_compiler_options
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No compiler options")
+            else
                from
                   i := string_array.lower
                until
@@ -93,7 +106,9 @@ feature {NATIVE_PLUG_IN}
                end
             end
             string_array := c_header_paths
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No header paths")
+            else
                from
                   i := string_array.lower
                until
@@ -104,7 +119,9 @@ feature {NATIVE_PLUG_IN}
                end
             end
             string_array := c_libraries
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No libraries")
+            else
                from
                   i := string_array.lower
                until
@@ -118,7 +135,9 @@ feature {NATIVE_PLUG_IN}
                end
             end
             string_array := c_library_paths
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No library paths")
+            else
                from
                   i := string_array.lower
                until
@@ -129,7 +148,9 @@ feature {NATIVE_PLUG_IN}
                end
             end
             string_array := c_headers
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No header files")
+            else
                from
                   i := string_array.lower
                until
@@ -142,7 +163,9 @@ feature {NATIVE_PLUG_IN}
                ok := True
             end
             string_array := c_sources
-            if string_array /= Void then
+            if string_array = Void then
+               plugin_echo(once "No source files")
+            else
                from
                   i := string_array.lower
                until
@@ -172,7 +195,7 @@ feature {}
    is_included: BOOLEAN
    start_position: POSITION
 
-   make (position: POSITION; a_name, a_path: STRING) is
+   make (position: POSITION; a_name, a_path: STRING)
       local
          plugin_path, b, c, entry, filepath: STRING
       do
@@ -260,7 +283,7 @@ feature {}
          end
       end
 
-   add_c_source (a_c_source: STRING) is
+   add_c_source (a_c_source: STRING)
       do
          if c_sources = Void then
             create c_sources.with_capacity(2)
@@ -271,7 +294,7 @@ feature {}
          c_sources.add_last(a_c_source)
       end
 
-   add_c_header (a_c_header: STRING) is
+   add_c_header (a_c_header: STRING)
       do
          if c_headers = Void then
             create c_headers.with_capacity(2)
@@ -301,7 +324,7 @@ feature {}
    c_auto_init_plugin_deps_name: FAST_ARRAY[STRING]
 
 feature {}
-   read_auto_init (filename: STRING) is
+   read_auto_init (filename: STRING)
       local
          sections: ITERATOR[STRING]
       do
@@ -336,7 +359,7 @@ feature {}
          end
       end
 
-   read (filename: STRING): FAST_ARRAY[STRING] is
+   read (filename: STRING): FAST_ARRAY[STRING]
       local
          b: STRING; string_array: ITERATOR[STRING]
       do
@@ -402,9 +425,7 @@ feature {}
 
 invariant
    c_headers /= Void implies not c_headers.is_empty
-
    c_sources /= Void implies not c_sources.is_empty
-
    c_auto_init_plugin_deps_location /= Void implies c_auto_init_plugin_deps_location.count = c_auto_init_plugin_deps_name.count
 
 end -- class C_PLUGIN

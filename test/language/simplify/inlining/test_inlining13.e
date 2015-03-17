@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: BOOLEAN
       do
@@ -19,7 +19,7 @@ feature {}
 feature {TEST_INLINING13}
    a_crash: like Current
 
-   f_crash: like Current is
+   f_crash: like Current
       do
          Result := a_crash.f_crash
       end

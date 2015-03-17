@@ -21,19 +21,19 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_array: BOOLEAN is
+   is_array: BOOLEAN
       do
          Result := nodes.first.name.is_equal(once "Array")
       end
 
-   array: LIBERTY_AST_ARRAY is
+   array: LIBERTY_AST_ARRAY
       require
          is_array
       do
          Result ::= nodes.first
       end
 
-   no_array: LIBERTY_AST_EXPRESSION_NO_ARRAY is
+   no_array: LIBERTY_AST_EXPRESSION_NO_ARRAY
       require
          not is_array
       do
@@ -41,12 +41,12 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is 1
+   count: INTEGER 1
 
-   name: STRING is "Expression"
+   name: STRING "Expression"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1 >> }
       end

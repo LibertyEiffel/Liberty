@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes with two actions, yes and no, and link to parent node"
    status:
@@ -28,7 +28,7 @@ feature {ANY}
    last_answer: BOOLEAN -- last answer
 
 feature {ANY} -- operations
-   make_simple (desc: STRING) is
+   make_simple (desc: STRING)
          -- set minimum features of node
       require
          valid_desc: desc /= Void and then desc.count > 0
@@ -37,7 +37,7 @@ feature {ANY} -- operations
          create {AUX_UW01PREFERRED_LANGUAGE} language
       end
 
-   make_full (y, n, p: AUX_UW01YES_NO_NODE; desc: STRING) is
+   make_full (y, n, p: AUX_UW01YES_NO_NODE; desc: STRING)
          -- initialize node with name `nam', yes link `y',
          -- no link `n', and parent `p'
       require
@@ -50,25 +50,25 @@ feature {ANY} -- operations
          create {AUX_UW01PREFERRED_LANGUAGE} language
       end
 
-   set_yes_node (new_node: AUX_UW01YES_NO_NODE) is
+   set_yes_node (new_node: AUX_UW01YES_NO_NODE)
          -- change `yes' to `new_node'
       do
          yes := new_node
       end
 
-   set_no_node (new_node: AUX_UW01YES_NO_NODE) is
+   set_no_node (new_node: AUX_UW01YES_NO_NODE)
          -- change `no' to `new_node'
       do
          no := new_node
       end
 
-   set_parent_node (new_node: AUX_UW01YES_NO_NODE) is
+   set_parent_node (new_node: AUX_UW01YES_NO_NODE)
          -- change `parent' to `new_node'
       do
          parent := new_node
       end
 
-   yes_action is
+   yes_action
          -- perform "yes" action
       require
          valid_choice: yes /= Void
@@ -76,7 +76,7 @@ feature {ANY} -- operations
          yes.execute
       end
 
-   no_action is
+   no_action
          -- perform "no" action
       require
          valid_choice: no /= Void
@@ -84,12 +84,12 @@ feature {ANY} -- operations
          no.execute
       end
 
-   read_answer is
+   read_answer
          -- Ask yes/no question and set `last_answer'
       deferred
       end
 
-   decision: AUX_UW01YES_NO_NODE is
+   decision: AUX_UW01YES_NO_NODE
          -- decide which action to take
       do
          if last_answer then
@@ -106,7 +106,7 @@ feature {ANY} -- operations
       end
 
 feature {ANY} -- I/O
-   out: STRING is
+   out: STRING
          -- printable representation
       do
          Result := description.out

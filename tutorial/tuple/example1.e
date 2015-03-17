@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_tuple: TUPLE[INTEGER_8, STRING, REAL]
       do

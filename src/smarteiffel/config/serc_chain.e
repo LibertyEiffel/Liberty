@@ -13,7 +13,7 @@ create {SERC_FACTORY}
    make
 
 feature {ANY}
-   bin: STRING is
+   bin: STRING
       local
          i: INTEGER
       do
@@ -27,7 +27,7 @@ feature {ANY}
          end
       end
 
-   sys: STRING is
+   sys: STRING
       local
          i: INTEGER
       do
@@ -41,7 +41,7 @@ feature {ANY}
          end
       end
 
-   short: STRING is
+   short: STRING
       local
          i: INTEGER
       do
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   os: STRING is
+   os: STRING
       local
          i: INTEGER
       do
@@ -69,7 +69,7 @@ feature {ANY}
          end
       end
 
-   flavor: STRING is
+   flavor: STRING
       local
          i: INTEGER
       do
@@ -83,7 +83,7 @@ feature {ANY}
          end
       end
 
-   jobs: INTEGER is
+   jobs: INTEGER
       local
          i: INTEGER
       do
@@ -97,7 +97,7 @@ feature {ANY}
          end
       end
 
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
       local
          i: INTEGER
       do
@@ -111,7 +111,7 @@ feature {ANY}
          end
       end
 
-   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING])
       local
          i: INTEGER
       do
@@ -125,7 +125,7 @@ feature {ANY}
          end
       end
 
-   tools_in (tools: DICTIONARY[STRING, STRING]) is
+   tools_in (tools: DICTIONARY[STRING, STRING])
       local
          i: INTEGER
       do
@@ -139,7 +139,7 @@ feature {ANY}
          end
       end
 
-   environment_in (env: DICTIONARY[STRING, STRING]) is
+   environment_in (env: DICTIONARY[STRING, STRING])
       local
          i: INTEGER
       do
@@ -153,7 +153,7 @@ feature {ANY}
          end
       end
 
-   c_mode (a_c_mode: STRING): SE_C_MODE is
+   c_mode (a_c_mode: STRING): SE_C_MODE
       local
          i: INTEGER
       do
@@ -167,7 +167,7 @@ feature {ANY}
          end
       end
 
-   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING])
       local
          i: INTEGER
       do
@@ -182,7 +182,7 @@ feature {ANY}
       end
 
 feature {SERC_FACTORY}
-   add (a_config: SE_CONFIG) is
+   add (a_config: SE_CONFIG)
       do
          config.add_first(a_config)
       ensure
@@ -190,7 +190,7 @@ feature {SERC_FACTORY}
          config.first = a_config
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := config.is_empty
       end
@@ -198,7 +198,7 @@ feature {SERC_FACTORY}
 feature {}
    config: RING_ARRAY[SE_CONFIG]
 
-   make is
+   make
       do
          create config.make(1, 0)
       end
@@ -218,9 +218,9 @@ end -- class SERC_CHAIN
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

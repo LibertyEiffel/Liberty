@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          na: NATIVE_ARRAY[AUX_MANIFEST_ARRAY8]; a: ARRAY[AUX_MANIFEST_ARRAY8]; e1, e2: AUX_MANIFEST_ARRAY8
       do

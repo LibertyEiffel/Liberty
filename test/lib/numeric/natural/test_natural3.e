@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          a8: NATURAL_8; a16: NATURAL_16; a64: NATURAL_64
       do

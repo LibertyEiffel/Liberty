@@ -10,14 +10,14 @@ create {ANY}
    make
 
 feature {ANY}
-   fct (s: STRING): FAST_ARRAY[STRING] is
+   fct (s: STRING): FAST_ARRAY[STRING]
       do
          create Result.make(0)
       ensure
          Result.for_all(agent {STRING}.occurrences('%N').is_odd)
       end
 
-   make is
+   make
       local
          s: like fct
       do

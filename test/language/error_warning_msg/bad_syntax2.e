@@ -7,18 +7,18 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          i: INTEGER
       do
-         foo ()
+         foo
          inspect
             i
          when then
          end
       end
 
-   foo is
+   foo
       do
       end
 

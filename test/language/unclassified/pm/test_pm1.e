@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          apple: AUX_PM1APPLE; fr: AUX_PM1FRUIT
       do

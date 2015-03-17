@@ -8,13 +8,13 @@ feature {ANY}
 
    s: STRING
 
-   setup is
+   setup
       do
          s := "Never printed (in AUX_AGENT13B).%N"
          create c.make(agent proc)
       end
 
-   proc is
+   proc
       local
          b: BOOLEAN
       do

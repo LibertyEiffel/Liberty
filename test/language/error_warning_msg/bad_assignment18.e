@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          non_expanded: AUX_ASSIGNMENT18A
          actual_expanded: AUX_ASSIGNMENT18B

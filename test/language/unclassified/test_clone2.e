@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d1, d2, d: REAL
       do
@@ -21,7 +21,7 @@ feature {ANY}
          assert(("").is_equal(("").twin))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

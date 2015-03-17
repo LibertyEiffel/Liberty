@@ -10,7 +10,7 @@ insert
    GLOBALS
 
 feature {}
-   frozen collect (type: TYPE): TYPE is
+   frozen collect (type: TYPE): TYPE
       require
          type.feature_collection_done
          specialize_and_check_done: feature_stamp /= Void
@@ -72,12 +72,12 @@ feature {}
       end
 
 feature {FEATURE_CALL}
-   creation_type: TYPE_MARK is
+   creation_type: TYPE_MARK
          -- Must be set to avoid the standard check. (Only used by CREATE_SUPPORT.)
       deferred
       end
 
-   frozen standard_check_export_and_obsolete_calls (type, target_type: TYPE; af: ANONYMOUS_FEATURE) is
+   frozen standard_check_export_and_obsolete_calls (type, target_type: TYPE; af: ANONYMOUS_FEATURE)
          -- Called by `specialize_and_check' when `feature_stamp' has been defined
       require
          type /= Void
@@ -124,7 +124,7 @@ feature {FEATURE_CALL}
 feature {}
    collect_memory: FAST_ARRAY[TYPE]
 
-   set_collected_for (t: TYPE): BOOLEAN is
+   set_collected_for (t: TYPE): BOOLEAN
          -- Debugging purpose only (used in check only)
       do
          if collect_memory = Void then
@@ -139,14 +139,14 @@ feature {}
          Result := True
       end
 
-   collected_for (t: TYPE): BOOLEAN is
+   collected_for (t: TYPE): BOOLEAN
          -- Use only in check clause.
       do
          Result := collect_memory /= Void and then collect_memory.fast_has(t)
       end
 
 feature {ANY}
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          target_type: TYPE; af: ANONYMOUS_FEATURE
       do
@@ -167,7 +167,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          tgt: like target; a: like arguments
       do
@@ -188,7 +188,7 @@ feature {ANY}
       end
 
 feature {FEATURE_CALL, CREATE_SUPPORT, AGENT_CREATION}
-   frozen set_target (t: like target) is
+   frozen set_target (t: like target)
       require
          t /= Void
       do
@@ -197,14 +197,14 @@ feature {FEATURE_CALL, CREATE_SUPPORT, AGENT_CREATION}
          target = t
       end
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       deferred
       ensure
          arguments = a
       end
 
 feature {ANY}
-   frozen run_feature_for (type: TYPE): RUN_FEATURE is
+   frozen run_feature_for (type: TYPE): RUN_FEATURE
       local
          target_type: TYPE
       do
@@ -215,7 +215,7 @@ feature {ANY}
       end
 
 feature {FEATURE_CALL, CREATE_SUPPORT, FEATURE_STAMP, E_PROCEDURE, AGENT_CREATION, EXTERNAL_PROCEDURE, ASSIGNMENT}
-   frozen set_feature_stamp (fs: like feature_stamp) is
+   frozen set_feature_stamp (fs: like feature_stamp)
       do
          feature_stamp := fs
       ensure
@@ -232,26 +232,26 @@ feature {ANY}
    feature_name: FEATURE_NAME
          -- Written selector name of the call.
 
-   arguments: EFFECTIVE_ARG_LIST is
+   arguments: EFFECTIVE_ARG_LIST
          -- Arguments of the call if any.
       deferred
       ensure
          Result = Void or else Result.count > 0
       end
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
          -- The `arguments' count or 0.
       deferred
       ensure
          Result >= 0
       end
 
-   frozen start_position: POSITION is
+   frozen start_position: POSITION
       do
          Result := feature_name.start_position
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       local
          af: ANONYMOUS_FEATURE
       do
@@ -283,7 +283,7 @@ feature {ANY}
          end
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen safety_check (type: TYPE)
       local
          run_time_set: RUN_TIME_SET; type_of_target: TYPE; rf: RUN_FEATURE
       do
@@ -308,13 +308,13 @@ feature {ANY}
       end
 
 feature {}
-   use_current_stack: FAST_ARRAY[ANONYMOUS_FEATURE] is
+   use_current_stack: FAST_ARRAY[ANONYMOUS_FEATURE]
       once
          create Result.with_capacity(32)
       end
 
 feature {}
-   non_void_check (code_accumulator: CODE_ACCUMULATOR; type: TYPE; t: like target; target_type: TYPE) is
+   non_void_check (code_accumulator: CODE_ACCUMULATOR; type: TYPE; t: like target; target_type: TYPE)
          -- In non -boost mode, add code to check that `t' holds a non-Void value.
       require
          smart_eiffel.status.is_inlining_dynamic_dispatch
@@ -336,7 +336,7 @@ feature {}
          end
       end
 
-   type_id_check (code_accumulator: CODE_ACCUMULATOR; type: TYPE; t: like target; target_live_type: LIVE_TYPE) is
+   type_id_check (code_accumulator: CODE_ACCUMULATOR; type: TYPE; t: like target; target_live_type: LIVE_TYPE)
          -- In non -boost mode, assuming that `t' is non Void, add code to check that `t' really hold holds a
          -- `target_live_type' value.
       require
@@ -369,9 +369,23 @@ feature {}
          end
       end
 
+   parentheses_feature_name: like parentheses_feature_name_memory
+      require
+         arguments /= Void
+      do
+         Result := parentheses_feature_name_memory
+         if Result = Void then
+            create Result.alias_name(eiffel_parser.parentheses_name, arguments.start_position)
+            parentheses_feature_name_memory := Result
+         end
+      ensure
+         Result.start_position = arguments.start_position
+      end
+
+   parentheses_feature_name_memory: FEATURE_NAME
+
 invariant
    target /= Void
-
    feature_name /= Void
 
 end -- class FEATURE_CALL
@@ -386,9 +400,9 @@ end -- class FEATURE_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

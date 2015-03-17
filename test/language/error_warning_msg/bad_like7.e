@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: INTEGER;
       do
          a := b(a);
       end;
 
-   b(arg: like b): like arg is
+   b(arg: like b): like arg
       do
       end;
 

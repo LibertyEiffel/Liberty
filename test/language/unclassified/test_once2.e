@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   test_dico: DICTIONARY[STRING, STRING] is
+   test_dico: DICTIONARY[STRING, STRING]
       once
          create {HASHED_DICTIONARY[STRING, STRING]} Result.make
          Result.put("Hello", "World")
       end
 
-   make is
+   make
       local
          s: STRING
       do
@@ -22,7 +22,7 @@ feature {ANY}
          assert(test_dico.at("World") = s)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

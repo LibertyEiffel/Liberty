@@ -3,11 +3,11 @@
 --
 expanded class AUX_EG6_A[T -> REAL]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          x := 1.0
       end

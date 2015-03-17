@@ -9,7 +9,7 @@ feature {}
    top: INTEGER
 
 feature {}
-   full (n: INTEGER) is
+   full (n: INTEGER)
       require
          n >= 1
       local
@@ -32,7 +32,7 @@ feature {}
          t.item(top) = 1
       end
 
-   empty (n: INTEGER) is
+   empty (n: INTEGER)
       require
          n >= 1
       do
@@ -44,12 +44,12 @@ feature {}
       end
 
 feature {HANOI}
-   nb: INTEGER is
+   nb: INTEGER
       do
          Result := t.upper
       end
 
-   show_a_discus (d: INTEGER; picture: STRING) is
+   show_a_discus (d: INTEGER; picture: STRING)
       require
          1 <= d
          d <= nb
@@ -97,7 +97,7 @@ feature {HANOI}
          end
       end
 
-   remove_discus: INTEGER is
+   remove_discus: INTEGER
       do
          debug
             if t.item(top) = 0 then
@@ -114,7 +114,7 @@ feature {HANOI}
          top >= 1
       end
 
-   add_discus (d: INTEGER) is
+   add_discus (d: INTEGER)
       do
          debug
             if top = nb then

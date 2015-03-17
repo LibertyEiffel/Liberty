@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    file_tools: FILE_TOOLS
 
-   make is
+   make
       local
          bfw: BINARY_FILE_WRITE; bfr: BINARY_FILE_READ
       do

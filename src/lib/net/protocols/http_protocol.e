@@ -18,27 +18,27 @@ create {PROTOCOLS}
    make
 
 feature {ANY}
-   name: STRING
+   name: FIXED_STRING
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := sockinout /= Void and then sockinout.is_connected
       end
 
-feature {URL}
    standard_port: INTEGER
 
+feature {URL}
    input: INPUT_STREAM
 
    output: OUTPUT_STREAM
 
-   disconnect is
+   disconnect
       do
          sockinout.detach
          sockinout.disconnect
       end
 
-   connect_to (url: URL; read, write: BOOLEAN) is
+   connect_to (url: URL; read, write: BOOLEAN)
       local
          proxy: HTTP_PROXY
       do
@@ -53,7 +53,7 @@ feature {URL}
       end
 
 feature {}
-   make (a_name: like name; a_standard_port: like standard_port) is
+   make (a_name: like name; a_standard_port: like standard_port)
       do
          name := a_name
          standard_port := a_standard_port
@@ -63,7 +63,7 @@ feature {}
 
    proxy_url: URL
 
-   tcp_connect_to (ios: SOCKET_INPUT_OUTPUT_STREAM; url: URL; read, write: BOOLEAN) is
+   tcp_connect_to (ios: SOCKET_INPUT_OUTPUT_STREAM; url: URL; read, write: BOOLEAN)
       local
          nrl: NETWORK_RESOURCE_LOCATOR
          hin: HTTP_CLIENT_INPUT_STREAM; hout: HTTP_CLIENT_OUTPUT_STREAM
@@ -89,9 +89,11 @@ feature {}
             -- direct connection to Internet: just issue the simple request
             nrl ::= url.uri
             hout.put_request(nrl)
+            sedb_breakpoint
          end
          hin.start
-         inspect hin.return_code
+         inspect
+            hin.return_code
          when "200" then
             -- hurray!
          when "305" then
@@ -102,18 +104,20 @@ feature {}
                create proxy_url.absolute(hin.header.at(once "location"))
                connect_to(url, read, write)
             end
+         else
+            not_yet_implemented
          end
       end
 
 end -- class HTTP_PROTOCOL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

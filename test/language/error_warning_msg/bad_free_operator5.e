@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   infix "|=" (other: like Current): BOOLEAN is
+   infix "|=" (other: like Current): BOOLEAN
       do
       end
 
-   make is
+   make
       local
          x: like Current
       do

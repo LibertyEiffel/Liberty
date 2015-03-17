@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   g is
+   g
       do
       end
 

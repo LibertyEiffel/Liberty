@@ -1,41 +1,47 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class BACKTRACKING_NODE_GLOBALS
+deferred class BACKTRACKING_NODE_GLOBALS
    --
    -- common invariant nodes
    --
 
+insert
+   ANY
+      undefine
+         fill_tagged_out_memory
+      end
+
 feature {ANY} -- and/or basics
-   the_cut_node: BACKTRACKING_NODE_CUT is
+   the_cut_node: BACKTRACKING_NODE_CUT
       once
          create Result
       end
 
-   the_true_node: BACKTRACKING_NODE_TRUE is
+   the_true_node: BACKTRACKING_NODE_TRUE
       once
          create Result
       end
 
-   the_false_node: BACKTRACKING_NODE_FALSE is
+   the_false_node: BACKTRACKING_NODE_FALSE
       once
          create Result
       end
 
-   the_cut_and_false_node: BACKTRACKING_NODE_CUT_AND_FALSE is
+   the_cut_and_false_node: BACKTRACKING_NODE_CUT_AND_FALSE
       once
          create Result
       end
 
 end -- class BACKTRACKING_NODE_GLOBALS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -3,18 +3,18 @@
 --
 class AUX_AGENT15
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    is_good: BOOLEAN
 
-   make (cb: PROCEDURE[TUPLE[AUX_AGENT15]]) is
+   make (cb: PROCEDURE[TUPLE[AUX_AGENT15]])
       do
          callback := cb
       end
 
-   handler (quality: BOOLEAN) is
+   handler (quality: BOOLEAN)
       do
          is_good := quality
          callback.call([Current])
@@ -22,7 +22,7 @@ feature {ANY}
 
    callback: PROCEDURE[TUPLE[AUX_AGENT15]]
 
-   fire (q: BOOLEAN) is
+   fire (q: BOOLEAN)
       do
          handler(q)
       end

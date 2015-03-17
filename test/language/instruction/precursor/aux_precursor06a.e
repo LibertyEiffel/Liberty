@@ -3,13 +3,13 @@
 --
 class AUX_PRECURSOR06A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    make_a_done, make_b_done, make_c_done: BOOLEAN
 
-   make is
+   make
       do
          make_a_done := True
       end

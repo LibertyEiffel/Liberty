@@ -10,7 +10,7 @@ inherit
    TUPLE_TYPE_MARK
       redefine pretty_in
       end
-  GENERIC_TYPE_MARK
+   GENERIC_TYPE_MARK
       undefine is_tuple, canonical_long_name
       redefine pretty_in
       end
@@ -19,12 +19,12 @@ create {ANY}
    make
 
 feature {ANY}
-   as_type_mark: TYPE_MARK is
+   as_type_mark: TYPE_MARK
       do
          Result := Current
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       local
          i: INTEGER
       do
@@ -44,24 +44,24 @@ feature {ANY}
          buffer.extend(']')
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := generic_list.count
       end
 
-   accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR) is
+   accept (visitor: NON_EMPTY_TUPLE_TYPE_MARK_VISITOR)
       do
          visitor.visit_non_empty_tuple_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
-         short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position))
+         short_generic(shorted_type, create {CLASS_NAME}.make(string_aliaser.tuple_name, start_position, False))
       end
 
 feature {}
-   make (sp: like start_position; gl: like generic_list) is
+   make (sp: like start_position; gl: like generic_list)
       require
          gl.lower = 1 and gl.count > 0
       local
@@ -74,7 +74,7 @@ feature {}
             buffer.extend(' ')
             gl.count.append_in(buffer)
          end
-         create class_text_name.make(string_aliaser.hashed_string(buffer), sp)
+         create class_text_name.make(string_aliaser.hashed_string(buffer), sp, False)
       ensure
          start_position = sp
          generic_list = gl
@@ -92,9 +92,9 @@ end -- class NON_EMPTY_TUPLE_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

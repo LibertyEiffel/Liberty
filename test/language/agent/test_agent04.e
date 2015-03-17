@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          agent_list: LINKED_LIST[ROUTINE[TUPLE]]; my_collection: COLLECTION[STRING]
       do
@@ -17,7 +17,7 @@ feature {ANY}
       end
 
 feature {}
-   function1: INTEGER is
+   function1: INTEGER
       do
       end
 

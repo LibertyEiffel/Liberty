@@ -16,7 +16,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          clash;
       end;

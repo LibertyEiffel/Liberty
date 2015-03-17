@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   f (gobo: STRING) is
+   f (gobo: STRING)
       do
       end
 

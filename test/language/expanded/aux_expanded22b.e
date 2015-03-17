@@ -6,12 +6,12 @@ expanded class AUX_EXPANDED22B
 feature {ANY}
    value: BOOLEAN
 
-   set_value (v: BOOLEAN) is
+   set_value (v: BOOLEAN)
       do
          value := v
       end
 
-   fc: AUX_EXPANDED22C is
+   fc: AUX_EXPANDED22C
       do
          Result.set_value(3)
       end

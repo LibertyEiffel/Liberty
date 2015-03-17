@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {}
-   name_for_error_message: STRING is
+   name_for_error_message: STRING
       do
          Result := once ""
          Result.make_from_string(name)

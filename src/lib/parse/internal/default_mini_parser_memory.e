@@ -10,30 +10,30 @@ inherit
    MINI_PARSER_MEMORY
 
 feature {ANY}
-   memo (buffer: MINI_PARSER_BUFFER): INTEGER is
+   memo (buffer: MINI_PARSER_BUFFER): INTEGER
       do
          Result := buffer.current_index
       end
 
-   restore (a_memo: like memo; buffer: MINI_PARSER_BUFFER) is
+   restore (a_memo: like memo; buffer: MINI_PARSER_BUFFER)
       do
          buffer.set_current_index(a_memo)
       end
 
-   valid_memo (a_memo: like memo; buffer: MINI_PARSER_BUFFER): BOOLEAN is
+   valid_memo (a_memo: like memo; buffer: MINI_PARSER_BUFFER): BOOLEAN
       do
          Result := a_memo.in_range(buffer.lower, buffer.upper + 1)
       end
 
 end -- class DEFAULT_MINI_PARSER_MEMORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

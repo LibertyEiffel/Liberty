@@ -31,67 +31,70 @@ feature {ANY}
    target_type: TYPE
          -- Alias of `target_type_mark.type'. Static `target_type' of the target of the feature to be called.
 
-   feature_stamp: FEATURE_STAMP -- *** VIRER??? ***
+   feature_stamp: FEATURE_STAMP
          -- The corresponding one of `target_type' and `feature_name'.
+      do
+         Result := target_type.lookup(feature_name)
+      end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := feature_name.start_position
       end
 
-   accept (visitor: CECIL_ENTRY_VISITOR) is
+   accept (visitor: CECIL_ENTRY_VISITOR)
       do
          visitor.visit_cecil_entry(Current)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          check
             False
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check
             False
          end
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       do
          check
             False
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          if code /= Void then
             code := code.adapt_for(type)
          end
          Result := Current
-      ensure
+      ensure then
          Result = Current
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          if code /= Void then
             Result := code.use_current(type)
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if code /= Void then
             code.safety_check(type)
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
-         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
+         fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE; lt: LIVE_TYPE
       do
          if code /= Void then
             Result := code.collect(type)
@@ -110,23 +113,24 @@ feature {ANY}
                error_handler.append(once "The type for a creation procedure cannot be deferred.%N")
                error_handler.print_as_fatal_error
             end
+            lt := smart_eiffel.collect_one_type(target_type, True)
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          -- cannot return False since it is used in some assertions (see `collect')
          Result := True
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          check
             False
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             False
@@ -134,23 +138,19 @@ feature {ANY}
       end
 
 feature {ANY}
-   anonymous_feature: ANONYMOUS_FEATURE is
-      local
-         fs: FEATURE_STAMP
+   anonymous_feature: ANONYMOUS_FEATURE
       do
-         fs := target_type.lookup(feature_name)
-         Result := fs.anonymous_feature(target_type)
+         Result := feature_stamp.anonymous_feature(target_type)
       ensure
          Result /= Void
       end
 
 feature {CECIL_FILE}
-   get_started (cecil_file: CECIL_FILE) is
+   get_started (cecil_file: CECIL_FILE)
          -- Called only once to initialize `target_type', `code' and `feature_stamp'.
       require
          cecil_file /= Void
          target_type = Void
-         feature_stamp = Void
          may_report_an_error: error_handler.is_empty
       local
          dummy: BOOLEAN; fs: FEATURE_STAMP; fake_target: FAKE_TARGET
@@ -189,19 +189,17 @@ feature {CECIL_FILE}
                end
             end
          end
-         fs := target_type.lookup(feature_name)
          create fake_target.make(target_type_mark.start_position, target_type_mark)
-         code := fs.fake_feature_call(target_type_mark.start_position, fake_target, target_type)
+         code := feature_stamp.fake_feature_call(target_type_mark.start_position, fake_target, target_type)
          on_echo(cecil_file)
       ensure
          target_type /= Void
-         feature_stamp /= Void
          code /= Void
          may_report_an_error: error_handler.is_empty
       end
 
 feature {ANONYMOUS_FEATURE, CODE}
-   simplify (type: TYPE): CODE is
+   simplify (type: TYPE): CODE
       do
          check
             False
@@ -209,7 +207,7 @@ feature {ANONYMOUS_FEATURE, CODE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check
             False
@@ -217,7 +215,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ANY}
-   on_echo (cecil_file: CECIL_FILE) is
+   on_echo (cecil_file: CECIL_FILE)
       do
          if is_creation then
             echo.put_string(once "%Tcreate {")
@@ -232,7 +230,7 @@ feature {ANY}
          echo.put_string(once "%").%N")
       end
 
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          check
             type.is_any
@@ -243,14 +241,14 @@ feature {ANY}
          code_accumulator.close_current_context
       end
 
-feature {CECIL_POOL}
-   run_feature: RUN_FEATURE is
+feature {ANY}
+   run_feature: RUN_FEATURE
       do
          Result := feature_stamp.run_feature_for(target_type)
       end
 
 feature {}
-   make (cn: like c_name; ttm: like target_type_mark; fn: like feature_name; c: like is_creation) is
+   make (cn: like c_name; ttm: like target_type_mark; fn: like feature_name; c: like is_creation)
       require
          cn /= Void
          ttm /= Void
@@ -286,9 +284,9 @@ end -- class CECIL_ENTRY
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(?)
       end
 
-   foo(i: INTEGER) is
+   foo(i: INTEGER)
       do
       end
 

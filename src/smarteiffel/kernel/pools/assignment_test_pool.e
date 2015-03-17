@@ -13,7 +13,7 @@ create {GLOBALS}
    make
 
 feature {ASSIGNMENT_TEST}
-   collect (left_type, right_type: TYPE) is
+   collect (left_type, right_type: TYPE)
          -- Where `left_type' is the left-hand side TYPE and `right_type' the right-hand side TYPE.
       require
          right_type /= Void
@@ -30,7 +30,7 @@ feature {ASSIGNMENT_TEST}
       end
 
 feature {ANY}
-   function_name_in (buffer: STRING; left_type, right_type: TYPE) is
+   function_name_in (buffer: STRING; left_type, right_type: TYPE)
       require
          buffer /= Void
          left_type /= Void
@@ -44,7 +44,7 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
       local
          i: INTEGER
       do
@@ -60,7 +60,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {ANY}
-   do_all (action: PROCEDURE[TUPLE[TYPE, TYPE]]) is
+   for_each (action: PROCEDURE[TUPLE[TYPE, TYPE]])
       require
          action /= Void
       local
@@ -85,25 +85,25 @@ feature {ANY}
          end
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := map.count
       end
 
 feature {}
-   map: HASHED_DICTIONARY[HASHED_SET[TYPE], TYPE] is
+   map: HASHED_DICTIONARY[HASHED_SET[TYPE], TYPE]
          -- The key is the right-hand side TYPE.
       once
          create Result.make
       end
 
-   free_set_list: FAST_ARRAY[HASHED_SET[TYPE]] is
+   free_set_list: FAST_ARRAY[HASHED_SET[TYPE]]
          -- To be able to recycle SETs from one collect to another collect.
       once
          create Result.with_capacity(8)
       end
 
-   new_empty_set: HASHED_SET[TYPE] is
+   new_empty_set: HASHED_SET[TYPE]
       do
          if free_set_list.is_empty then
             create Result.make
@@ -114,11 +114,11 @@ feature {}
          end
       end
 
-   make is
+   make
       do
       end
 
-   signature_add_last (signature: STRING; type: TYPE) is
+   signature_add_last (signature: STRING; type: TYPE)
       require
          type /= Void
       local
@@ -159,9 +159,9 @@ end -- ASSIGNMENT_TEST_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

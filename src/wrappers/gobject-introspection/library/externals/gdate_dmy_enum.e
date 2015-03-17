@@ -5,9 +5,9 @@ expanded class GDATE_DMY_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = day_low_level)  or else
 				(a_value = month_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_day is
+	set_day
 		do
 			value := day_low_level
 		end
 
-	set_month is
+	set_month
 		do
 			value := month_low_level
 		end
 
-	set_year is
+	set_year
 		do
 			value := year_low_level
 		end
 
 feature {ANY} -- Queries
-	is_day: BOOLEAN is
+	is_day: BOOLEAN
 		do
 			Result := (value=day_low_level)
 		end
 
-	is_month: BOOLEAN is
+	is_month: BOOLEAN
 		do
 			Result := (value=month_low_level)
 		end
 
-	is_year: BOOLEAN is
+	is_year: BOOLEAN
 		do
 			Result := (value=year_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	day_low_level: INTEGER is
+	day_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	month_low_level: INTEGER is
+	month_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	year_low_level: INTEGER is
+	year_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

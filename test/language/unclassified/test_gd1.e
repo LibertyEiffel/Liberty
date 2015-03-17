@@ -13,7 +13,7 @@ feature {ANY}
    bit_array: ARRAY[INTEGER_32]
 
 feature {ANY} -- Creation
-   make is
+   make
       local
          thingy: STRING
       do

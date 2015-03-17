@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          model2: FAST_ARRAY[INTEGER_8]; model3: ARRAY[INTEGER_8]
       do
@@ -22,7 +22,7 @@ feature {ANY}
          test(model3)
       end
 
-   test (model: COLLECTION[INTEGER_8]) is
+   test (model: COLLECTION[INTEGER_8])
       local
          a: ARRAY[INTEGER_8]; fa: FAST_ARRAY[INTEGER_8]
       do
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   test1_array (model: ARRAY[INTEGER_8]) is
+   test1_array (model: ARRAY[INTEGER_8])
       local
          subarray: like model
       do
@@ -59,7 +59,7 @@ feature {}
          assert(subarray.is_empty)
       end
 
-   test1_fast_array (model: FAST_ARRAY[INTEGER_8]) is
+   test1_fast_array (model: FAST_ARRAY[INTEGER_8])
       local
          subarray: like model
       do
@@ -86,7 +86,7 @@ feature {}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

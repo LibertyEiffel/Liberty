@@ -7,7 +7,7 @@ inherit
    AUX_JLP_B[E, E]
 
 feature {ANY}
-   bar: E is
+   bar: E
       do
          if a /= Void then
             Result := a.foo + foo

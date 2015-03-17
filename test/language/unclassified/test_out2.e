@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(("3").is_equal(3.out))
          assert(("X").is_equal('X'.out))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: like procedure;
       do
          a := 1;
       end;
 
-   procedure is
+   procedure
       do
       end;
 

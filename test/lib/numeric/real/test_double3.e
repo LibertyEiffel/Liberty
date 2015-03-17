@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d: REAL_64; i: INTEGER
       do
@@ -17,7 +17,7 @@ feature {ANY}
          assert(i.to_real_64 <= d)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

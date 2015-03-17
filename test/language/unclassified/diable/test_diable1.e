@@ -15,7 +15,7 @@ feature {ANY}
 
    a2: ANY
 
-   make is
+   make
       do
          if a1 /= Void then
             -- ?????
@@ -26,7 +26,7 @@ feature {ANY}
          assert(a2 = Void)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -8,20 +8,20 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          p: POINTER
       do
          p := get_pointer
       end
 
-   get_pointer: POINTER is
+   get_pointer: POINTER
       require
          no_handle: not has_valid_handle
       external "C"
       end
 
-   has_valid_handle: BOOLEAN is
+   has_valid_handle: BOOLEAN
       do
          Result := False
       end

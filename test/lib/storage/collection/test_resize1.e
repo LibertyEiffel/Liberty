@@ -10,7 +10,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          a: ARRAY[INTEGER]
       do

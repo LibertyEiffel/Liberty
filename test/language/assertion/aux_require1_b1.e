@@ -6,31 +6,31 @@ deferred class AUX_REQUIRE1_B1
 insert AUX_REQUIRE1_TOOL
    
 feature {}
-   b_only is
+   b_only
       require
          counting_require
       do
       end
 
-   a_and_b is
+   a_and_b
       require
          counting_require
       deferred
       end
 
-   d_or_a_and_b is
+   d_or_a_and_b
       require
          counting_require
       deferred
       end
    
-   everywhere is
+   everywhere
       require
          counting_require
       deferred
       end
 
-   partial is
+   partial
       require
          counting_require
       deferred

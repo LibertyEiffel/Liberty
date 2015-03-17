@@ -7,7 +7,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          p1, p2: POINT
       do

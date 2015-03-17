@@ -20,14 +20,14 @@ insert
       end
 
 feature {ANY} -- Counting:
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Is the set empty?
       do
          Result := count = 0
       end
 
 feature {ANY} -- Adding and removing:
-   add (e: like item) is
+   add (e: like item)
          -- Add new item `e' to the set. The mathematical definition of adding in a set is followed, i.e. the
          -- element `e' is added only and only if it is not yet present in the set.
          -- As this `add' feature is actually using `is_equal', you may consider to use `fast_add' for expanded
@@ -41,7 +41,7 @@ feature {ANY} -- Adding and removing:
          in_then_not_added: old has(e) implies count = old count
       end
 
-   fast_add (e: like item) is
+   fast_add (e: like item)
          -- Same job as `add', but uses basic `=' for comparison.
       require
          e /= Void
@@ -52,7 +52,7 @@ feature {ANY} -- Adding and removing:
          in_then_not_added: old has(e) implies count = old count
       end
 
-   remove (e: like item) is
+   remove (e: like item)
          -- Remove item `e' from the set: the mathematical definition of
          -- removing from a set is followed.
       require
@@ -64,7 +64,7 @@ feature {ANY} -- Adding and removing:
          in_then_removed: old has(e) implies count = old count - 1
       end
 
-   fast_remove (e: like item) is
+   fast_remove (e: like item)
          -- Same job as `remove', but uses basic `=' for comparison.
       require
          e /= Void
@@ -75,7 +75,7 @@ feature {ANY} -- Adding and removing:
          in_then_removed: old has(e) implies count = old count - 1
       end
 
-   clear_count is
+   clear_count
          -- Empty the current set (`is_empty' is True after that call). If possible, the actual implementation
          -- is supposed to keep its internal storage area in order to refill `Current' in an efficient way.
          -- See also `clear_count_and_capacity' to select the most appropriate.
@@ -84,7 +84,7 @@ feature {ANY} -- Adding and removing:
          is_empty: count = 0
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Empty the current set (`is_empty' is True after that call). If possible, the actual implementation
          -- is supposed to release its internal storage area for this memory to be used by other objects.
          -- See also `clear_count' to select the most appropriate.
@@ -94,7 +94,7 @@ feature {ANY} -- Adding and removing:
       end
 
 feature {ANY} -- Looking and searching:
-   has (e: like item): BOOLEAN is
+   has (e: like item): BOOLEAN
          -- Is element `e' in the set?
          -- As this query is actually using `is_equal', you may consider to use `fast_has' for expanded
          -- objects as well while trying to get the very best performances.
@@ -105,7 +105,7 @@ feature {ANY} -- Looking and searching:
          Result implies not is_empty
       end
 
-   fast_has (e: like item): BOOLEAN is
+   fast_has (e: like item): BOOLEAN
          -- Is element `e' actually stored in the set?
          -- Warning: this query is using basic `=' for comparison. See also `has' when dealing with reference
          -- types.
@@ -116,7 +116,7 @@ feature {ANY} -- Looking and searching:
          Result implies e = reference_at(e)
       end
 
-   reference_at (e: like item): like item is
+   reference_at (e: like item): like item
          -- Non Void when `e' is in the set. In such a situation, `Result' is the object which is actually
          -- stored in the `Current' set (see ensure assertion).
       require
@@ -128,16 +128,16 @@ feature {ANY} -- Looking and searching:
       end
 
 feature {ANY} -- To provide iterating facilities:
-   lower: INTEGER is 1
+   lower: INTEGER 1
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       ensure
          Result = count
       end
 
-   item (index: INTEGER): E_ is
+   item (index: INTEGER): E_
          -- Item at the corresponding index `i'.
          --
          -- See also `lower', `upper', `valid_index'.
@@ -149,23 +149,23 @@ feature {ANY} -- To provide iterating facilities:
          has(Result)
       end
 
-   first: E_ is
+   first: E_
       do
          Result := item(lower)
       end
 
-   last: E_ is
+   last: E_
       do
          Result := item(upper)
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          create {ITERATOR_ON_SET[E_]} Result.make(Current)
       end
 
 feature {ANY} -- Mathematical operations:
-   union (other: like Current) is
+   union (other: like Current)
          -- Make the union of the `Current' set with `other'.
       require
          other /= Void
@@ -187,7 +187,7 @@ feature {ANY} -- Mathematical operations:
          count <= old count + other.count
       end
 
-   fast_union (other: like Current) is
+   fast_union (other: like Current)
          -- Make the union of the `Current' set with `other'.
       require
          other /= Void
@@ -209,7 +209,7 @@ feature {ANY} -- Mathematical operations:
          count <= old count + other.count
       end
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
          -- Return the union of the `Current' set with `other'.
       require
          other /= Void
@@ -221,7 +221,7 @@ feature {ANY} -- Mathematical operations:
          Current.is_subset_of(Result) and then other.is_subset_of(Result)
       end
 
-   intersection (other: like Current) is
+   intersection (other: like Current)
          -- Make the intersection of the `Current' set with `other'.
       require
          other /= Void
@@ -243,7 +243,7 @@ feature {ANY} -- Mathematical operations:
          count <= other.count.min(old count)
       end
 
-   fast_intersection (other: like Current) is
+   fast_intersection (other: like Current)
          -- Make the intersection of the `Current' set with `other'.
       require
          other /= Void
@@ -265,7 +265,7 @@ feature {ANY} -- Mathematical operations:
          count <= other.count.min(old count)
       end
 
-   infix "^" (other: like Current): like Current is
+   infix "^" (other: like Current): like Current
          -- Return the intersection of the `Current' set with `other'.
       require
          other /= Void
@@ -277,7 +277,7 @@ feature {ANY} -- Mathematical operations:
          Result.is_subset_of(Current) and then Result.is_subset_of(other)
       end
 
-   minus (other: like Current) is
+   minus (other: like Current)
          -- Make the set `Current' - `other'.
       require
          other /= Void
@@ -300,7 +300,7 @@ feature {ANY} -- Mathematical operations:
          count <= old count
       end
 
-   fast_minus (other: like Current) is
+   fast_minus (other: like Current)
          -- Make the set `Current' - `other'.
       require
          other /= Void
@@ -323,7 +323,7 @@ feature {ANY} -- Mathematical operations:
          count <= old count
       end
 
-   infix "-" (other: like Current): like Current is
+   infix "-" (other: like Current): like Current
          -- Return  the set `Current' - `other'.
       require
          other /= Void
@@ -336,7 +336,7 @@ feature {ANY} -- Mathematical operations:
       end
 
 feature {ANY} -- Comparison:
-   is_subset_of (other: like Current): BOOLEAN is
+   is_subset_of (other: like Current): BOOLEAN
          -- Is the `Current' set a subset of `other'?
       require
          other /= Void
@@ -360,7 +360,7 @@ feature {ANY} -- Comparison:
          Result implies count <= other.count
       end
 
-   is_disjoint_from (other: like Current): BOOLEAN is
+   is_disjoint_from (other: like Current): BOOLEAN
          -- Is the `Current' set disjoint from `other' ?
       require
          other /= Void
@@ -392,7 +392,7 @@ feature {ANY} -- Comparison:
          Result = (Current ^ other).is_empty
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Is the `Current' set equal to `other'?
       local
          i: INTEGER
@@ -415,7 +415,7 @@ feature {ANY} -- Comparison:
       end
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Copy 'other' into the current set
       local
          i: INTEGER
@@ -433,7 +433,7 @@ feature {ANY}
          end
       end
 
-   from_collection (model: TRAVERSABLE[like item]) is
+   from_collection (model: TRAVERSABLE[like item])
          -- Add all items of `model'.
       require
          model /= Void
@@ -453,7 +453,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
          -- Creation of an empty SET.
       deferred
       ensure
@@ -461,28 +461,28 @@ feature {}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a SET.
       do
          make
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       do
          add(element)
       end
 
-   manifest_semicolon_check: BOOLEAN is False
+   manifest_semicolon_check: BOOLEAN False
 
 end -- class SET
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

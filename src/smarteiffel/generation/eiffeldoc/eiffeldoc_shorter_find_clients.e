@@ -18,7 +18,7 @@ create {EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_CLASSDOC}
    make
 
 feature {EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_CLASSDOC}
-   clients_of (ct: CLASS_TEXT): TYPE_MARK_LIST is
+   clients_of (ct: CLASS_TEXT): TYPE_MARK_LIST
       do
          clients := Void
          enter_class_latch := True
@@ -32,7 +32,7 @@ feature {EIFFELDOC_SHORTER, EIFFELDOC_SHORTER_CLASSDOC}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -41,25 +41,25 @@ feature {}
 
    clients: TYPE_MARK_LIST
 
-   any_client_list: TYPE_MARK_LIST is
+   any_client_list: TYPE_MARK_LIST
       once
          create Result.make_1(smart_eiffel.type_any.canonical_type_mark)
       end
 
 feature {}
-   enter_class_text (visited: CLASS_TEXT): BOOLEAN is
+   enter_class_text (visited: CLASS_TEXT): BOOLEAN
       do
          Result := enter_class_latch
          enter_class_latch := False
       end
 
-   enter_parent_edge (visited: PARENT_EDGE): BOOLEAN is
+   enter_parent_edge (visited: PARENT_EDGE): BOOLEAN
       do
          enter_class_latch := True
          Result := True
       end
 
-   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN is
+   enter_feature_clause (visited: FEATURE_CLAUSE): BOOLEAN
       local
          client_list: CLIENT_LIST; type_mark_list: TYPE_MARK_LIST; i: INTEGER
          client_type_mark: TYPE_MARK; client_class_text: CLASS_TEXT

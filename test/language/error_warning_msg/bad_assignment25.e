@@ -7,7 +7,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          aux25: AUX_ASSIGNMENT25
       do

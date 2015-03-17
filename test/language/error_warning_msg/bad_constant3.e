@@ -7,9 +7,9 @@ class BAD_CONSTANT3
 create {} make
 
 feature {}
-   Long_mask: INTEGER is 0x00000000FFFFFFFF
+   Long_mask: INTEGER 0x00000000FFFFFFFF
 
-   make is
+   make
       do
          if Long_mask = 0 then end
       end

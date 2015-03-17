@@ -28,19 +28,19 @@ insert
       end
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := mangling
       end
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
          -- The corresponding one which may be Void for example when `is_unknown' or when parsing
          -- a -cecil file or the ACE file.
       do
          Result := class_text_storage.item(id)
       end
 
-   line: INTEGER is
+   line: INTEGER
          -- The corresponding `line' number in the source file or 0
          -- when `is_unknown'.
       do
@@ -58,7 +58,7 @@ feature {ANY}
          not is_unknown implies Result >= 0
       end
 
-   column: INTEGER is
+   column: INTEGER
          -- The `column' number in the source file or 0 when `is_unknown' or
          -- when there is not enough space in `mangling' for the `column'.
       do
@@ -72,7 +72,7 @@ feature {ANY}
          Result >= 0
       end
 
-   class_text_name: CLASS_NAME is
+   class_text_name: CLASS_NAME
          -- The corresponding one when already loaded by the `eiffel_parser'.
       local
          ct: CLASS_TEXT
@@ -83,7 +83,7 @@ feature {ANY}
          end
       end
 
-   path: STRING is
+   path: STRING
          -- The corresponding file `path' or Void when `is_unknown'.
       local
          ct: CLASS_TEXT; id_value: INTEGER_16
@@ -114,13 +114,13 @@ feature {ANY}
          Result /= Void implies string_aliaser.registered_one(Result)
       end
 
-   is_unknown: BOOLEAN is
+   is_unknown: BOOLEAN
          -- True when the `Current' as the default value (not `set').
       do
          Result := mangling = 0
       end
 
-   before (other: POSITION): BOOLEAN is
+   before (other: POSITION): BOOLEAN
          -- Is `Current' position strictly before `other' (which is in the
          -- same source text file).
       require
@@ -137,7 +137,7 @@ feature {ANY}
          end
       end
 
-   sedb_trace: BOOLEAN is
+   sedb_trace: BOOLEAN
          -- Is the run-time trace mechanism activated for this position?
       local
          ct: CLASS_TEXT
@@ -148,7 +148,7 @@ feature {ANY}
          end
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       require
          buffer /= Void
       local
@@ -179,7 +179,7 @@ feature {ANY}
          end
       end
 
-   set_class_text (ct: like class_text) is
+   set_class_text (ct: like class_text)
          -- Note: this routine may be used to create implicit Eiffel code (code which does not exists).
       require
          ct /= Void
@@ -198,7 +198,7 @@ feature {ANY}
          not is_unknown
       end
 
-   infix "<" (other: POSITION): BOOLEAN is
+   infix "<" (other: POSITION): BOOLEAN
       local
          m_type, o_m_type: INTEGER_32
       do
@@ -217,14 +217,14 @@ feature {ANY}
          --|               and then column < other.column)))
       end
 
-   is_equal (other: POSITION): BOOLEAN is
+   is_equal (other: POSITION): BOOLEAN
       do
          Result := mangling = other.mangling
       ensure then
          Result = standard_is_equal(other)
       end
 
-   same_line_as (other: POSITION): BOOLEAN is
+   same_line_as (other: POSITION): BOOLEAN
       do
          if mangling.bit_test(0) then
             Result := other.mangling.bit_test(0) and then mangling |>>> 17 = other.mangling |>>> 17
@@ -235,13 +235,13 @@ feature {ANY}
          Result = (path = other.path and line = other.line)
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          append_in(tagged_out_memory)
       end
 
 feature {EIFFEL_PARSER, CLASS_TEXT}
-   set (li, co: INTEGER; class_id: INTEGER_16; ct: like class_text) is
+   set (li, co: INTEGER; class_id: INTEGER_16; ct: like class_text)
          -- The position is in some Eiffel file.
          -- (Note: this is function because POSITION is expanded.)
       require
@@ -293,7 +293,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT}
       end
 
 feature {ACE}
-   set_in_ace_file (li, co: INTEGER) is
+   set_in_ace_file (li, co: INTEGER)
          -- The position is in the ACE file.
       require
          li >= 1
@@ -307,7 +307,7 @@ feature {ACE}
       end
 
 feature {INI_PARSER}
-   set_in_ini_file (li, co: INTEGER; id_: INTEGER_16) is
+   set_in_ini_file (li, co: INTEGER; id_: INTEGER_16)
          -- The position is in the configuration file.
       require
          li >= 1
@@ -333,7 +333,7 @@ feature {C_PRETTY_PRINTER, SEDB, AGENT_CREATION, POSITION, C_CODE_COMPILER}
          --  ---------------------------------------------------------------
 
 feature {PRINT_POSITION}
-   id: INTEGER_16 is
+   id: INTEGER_16
       do
          if mangling.bit_test(0) then
             Result := (mangling |>>> 17).low_16
@@ -345,14 +345,14 @@ feature {PRINT_POSITION}
       end
 
 feature {}
-   class_text_storage: NATIVE_ARRAY[CLASS_TEXT] is
+   class_text_storage: NATIVE_ARRAY[CLASS_TEXT]
          -- Store which use the `id' of the corresponding CLASS_TEXT.
       once
          Result := Result.calloc(32768) -- Because the id is on 15 bits.
       end
 
 feature {PRINT_POSITION}
-   set_from_integer_32 (integer_32: INTEGER_32) is
+   set_from_integer_32 (integer_32: INTEGER_32)
       do
          mangling := integer_32
       end
@@ -361,18 +361,18 @@ feature {}
    debug_string: STRING
 
 feature {}
-   id_ace_file: INTEGER_16 is 32767
+   id_ace_file: INTEGER_16 32767
 
 feature {INI_PARSER}
-   id_ini_file: INTEGER_16 is 32766
+   id_ini_file: INTEGER_16 32766
 
-   id_plugin_file: INTEGER_16 is 32765
+   id_plugin_file: INTEGER_16 32765
 
 feature {ID_PROVIDER}
-   maximum_free_id: INTEGER_16 is 32764
+   maximum_free_id: INTEGER_16 32764
 
 feature {}
-   default_create is
+   default_create
       do
          mangling := 0
       end
@@ -389,9 +389,9 @@ end -- class POSITION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

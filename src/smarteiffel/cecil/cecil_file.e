@@ -22,27 +22,27 @@ feature {ANY}
    path_h: STRING
          -- The name of the include file to be generated (ie. the first information inside file `path)'.
 
-   accept (visitor: CECIL_FILE_VISITOR) is
+   accept (visitor: CECIL_FILE_VISITOR)
       do
          visitor.visit_cecil_file(Current)
       end
 
 feature {ANY}
-   has_entries: BOOLEAN is
+   has_entries: BOOLEAN
       do
          Result := entries /= Void
       end
 
-   do_all (action: PROCEDURE[TUPLE[CECIL_ENTRY]]) is
+   for_each (action: PROCEDURE[TUPLE[CECIL_ENTRY]])
       require
          has_entries
          action /= Void
       do
-         entries.do_all(action)
+         entries.for_each(action)
       end
 
 feature {CECIL_POOL}
-   parse is
+   parse
          -- Parse the corresponding `path' file.
       require
          may_report_an_error: error_handler.is_empty
@@ -93,7 +93,7 @@ feature {CECIL_POOL}
          may_report_an_error: error_handler.is_empty
       end
 
-   collect (type: TYPE) is
+   collect (type: TYPE)
       local
          i: INTEGER; dummy: TYPE
       do
@@ -109,7 +109,7 @@ feature {CECIL_POOL}
          end
       end
 
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER
       do
@@ -125,7 +125,7 @@ feature {CECIL_POOL}
          end
       end
 
-   adapt_for (type: TYPE) is
+   adapt_for (type: TYPE)
       local
          i: INTEGER; entry: CECIL_ENTRY
       do
@@ -148,7 +148,7 @@ feature {}
    entries: FAST_ARRAY[CECIL_ENTRY]
          -- List of `entries' parsed from the `path' file.
 
-   make (p: like path) is
+   make (p: like path)
       require
          p /= Void
          not string_aliaser.registered_one(p)
@@ -170,9 +170,9 @@ end -- class CECIL_FILE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

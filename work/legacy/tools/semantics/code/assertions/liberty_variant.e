@@ -24,13 +24,13 @@ feature {ANY}
    expression: LIBERTY_EXPRESSION
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          expression.mark_reachable_code(mark)
       end
 
 feature {LIBERTY_LOOP}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       local
@@ -47,7 +47,7 @@ feature {LIBERTY_LOOP}
       end
 
 feature {}
-   make (a_expression: like expression) is
+   make (a_expression: like expression)
       require
          a_expression /= Void
       do
@@ -57,7 +57,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_VARIANT_VISITOR
       do

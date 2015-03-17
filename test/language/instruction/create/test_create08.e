@@ -11,7 +11,7 @@ create {}
 feature {ANY}
    test: AUX_CREATE08[INTEGER]
 
-   make is
+   make
       do
          create test.make
       end

@@ -9,14 +9,14 @@ create {ANY}
    make
 
 feature {ANY}
-   make (value: INTEGER) is
+   make (value: INTEGER)
       do
          to_integer := value
       end
 
    to_integer: INTEGER
 
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
       do
       end
 

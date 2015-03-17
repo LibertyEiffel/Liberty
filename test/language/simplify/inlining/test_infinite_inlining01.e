@@ -7,7 +7,7 @@ create {TEST_INFINITE_INLINING01}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; t: TEST_INFINITE_INLINING01
       do

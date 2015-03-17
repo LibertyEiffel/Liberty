@@ -15,7 +15,7 @@ create {BDW_GC}
    make
 
 feature {BDW_GC}
-   for (lt: like live_type) is
+   for (lt: like live_type)
       require
          lt.at_run_time
       do
@@ -24,7 +24,7 @@ feature {BDW_GC}
          live_type := Void
       end
 
-   extra_functions is
+   extra_functions
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void bdw_run_finalizers(void)")
@@ -40,13 +40,13 @@ feature {BDW_GC}
       end
 
 feature {ANY_TYPE_MARK}
-   visit_any_type_mark (visited: ANY_TYPE_MARK) is
+   visit_any_type_mark (visited: ANY_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {CLASS_TYPE_MARK}
-   visit_class_type_mark (visited: CLASS_TYPE_MARK) is
+   visit_class_type_mark (visited: CLASS_TYPE_MARK)
       do
          if visited.is_reference then
             alloc_reference(visited)
@@ -57,37 +57,37 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
       end
 
 feature {POINTER_TYPE_MARK}
-   visit_pointer_type_mark (visited: POINTER_TYPE_MARK) is
+   visit_pointer_type_mark (visited: POINTER_TYPE_MARK)
       do
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
       end
 
 feature {STRING_TYPE_MARK}
-   visit_string_type_mark (visited: STRING_TYPE_MARK) is
+   visit_string_type_mark (visited: STRING_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -96,7 +96,7 @@ feature {STRING_TYPE_MARK}
       end
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -105,7 +105,7 @@ feature {AGENT_TYPE_MARK}
       end
 
 feature {ARRAY_TYPE_MARK}
-   visit_array_type_mark (visited: ARRAY_TYPE_MARK) is
+   visit_array_type_mark (visited: ARRAY_TYPE_MARK)
       do
          alloc_reference(visited)
          if is_na_collector then
@@ -114,25 +114,25 @@ feature {ARRAY_TYPE_MARK}
       end
 
 feature {EMPTY_TUPLE_TYPE_MARK}
-   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK) is
+   visit_empty_tuple_type_mark (visited: EMPTY_TUPLE_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          alloc_native_array(visited)
       end
 
 feature {NON_EMPTY_TUPLE_TYPE_MARK}
-   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK) is
+   visit_non_empty_tuple_type_mark (visited: NON_EMPTY_TUPLE_TYPE_MARK)
       do
          alloc_reference(visited)
       end
 
 feature {USER_GENERIC_TYPE_MARK}
-   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK) is
+   visit_user_generic_type_mark (visited: USER_GENERIC_TYPE_MARK)
       do
          if visited.is_reference then
             alloc_reference(visited)
@@ -143,7 +143,7 @@ feature {USER_GENERIC_TYPE_MARK}
       end
 
 feature {WEAK_REFERENCE_TYPE_MARK}
-   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK) is
+   visit_weak_reference_type_mark (visited: WEAK_REFERENCE_TYPE_MARK)
       do
          alloc_weak_reference(visited)
       end
@@ -155,7 +155,7 @@ feature {}
    live_type: LIVE_TYPE
    bdw: BDW_GC
 
-   is_na_collector: BOOLEAN is
+   is_na_collector: BOOLEAN
       local
          na: TAGGED_FLAG
       do
@@ -163,7 +163,7 @@ feature {}
          Result := na /= Void and then na.item
       end
 
-   make (a_bdw: like bdw; a_native_array_collector: like native_array_collector) is
+   make (a_bdw: like bdw; a_native_array_collector: like native_array_collector)
       require
          a_bdw /= Void
          a_native_array_collector /= Void
@@ -175,7 +175,7 @@ feature {}
          native_array_collector = a_native_array_collector
       end
 
-   put_alloc_function (tm: TYPE_MARK) is
+   put_alloc_function (tm: TYPE_MARK)
       require
          tm = live_type.canonical_type_mark
       do
@@ -198,7 +198,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   prepare_alloc_inner_function (tm: TYPE_MARK) is
+   prepare_alloc_inner_function (tm: TYPE_MARK)
       require
          tm = live_type.canonical_type_mark
       do
@@ -209,7 +209,7 @@ feature {}
          cpp.pending_c_function_signature.append(once "(int*n)")
       end
 
-   alloc_reference (tm: TYPE_MARK) is
+   alloc_reference (tm: TYPE_MARK)
       require
          live_type.is_reference
          tm = live_type.canonical_type_mark
@@ -224,7 +224,9 @@ feature {}
          cpp.pending_c_function_body.append(cpp.target_type.for(tm))
          cpp.pending_c_function_body.append(once ")se_malloc((*n)*sizeof(T")
          live_type.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "));%N")
+         cpp.pending_c_function_body.append(once "/*")
+         cpp.pending_c_function_body.append(live_type.structure_signature)
+         cpp.pending_c_function_body.append(once "*/));%N")
          if has_finalizer then
             cpp.pending_c_function_body.append(once "GC_REGISTER_FINALIZER_NO_ORDER(R, bdw_finalizeT")
             live_type.id.append_in(cpp.pending_c_function_body)
@@ -241,7 +243,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   alloc_weak_reference (tm: WEAK_REFERENCE_TYPE_MARK) is
+   alloc_weak_reference (tm: WEAK_REFERENCE_TYPE_MARK)
       require
          live_type.is_reference
          tm = live_type.canonical_type_mark
@@ -262,7 +264,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   alloc_native_array (tm: NATIVE_ARRAY_TYPE_MARK) is
+   alloc_native_array (tm: NATIVE_ARRAY_TYPE_MARK)
       require
          live_type.is_native_array
          tm = live_type.canonical_type_mark
@@ -279,7 +281,9 @@ feature {}
             cpp.pending_c_function_body.append(once "0*));%N")
          else
             et.id.append_in(cpp.pending_c_function_body)
-            cpp.pending_c_function_body.append(once "));%N")
+            cpp.pending_c_function_body.append(once "/*")
+            cpp.pending_c_function_body.append(et.live_type.structure_signature)
+            cpp.pending_c_function_body.append(once "*/));%N")
          end
          cpp.pending_c_function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)
@@ -287,7 +291,7 @@ feature {}
          put_alloc_function(tm)
       end
 
-   finalize_reference (tm: TYPE_MARK): BOOLEAN is
+   finalize_reference (tm: TYPE_MARK): BOOLEAN
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          not live_type.is_expanded
@@ -312,7 +316,7 @@ feature {}
          end
       end
 
-   prepare_weakref_accessors is
+   prepare_weakref_accessors
       once
          cpp.out_h_buffer.copy(once "typedef struct bdw_Swr{Tid id;T0*o;}bdw_Twr;%N")
          cpp.write_out_h_buffer
@@ -333,15 +337,15 @@ feature {}
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void*bdw_weakref_new(int n)")
          cpp.pending_c_function_body.append(once "void*result=GC_MALLOC_ATOMIC(n*sizeof(bdw_Twr));%N%
-                                                 %se_check_malloc(result);%N%
+                                                 %se_check_malloc(result, %"No more memory (GC_MALLOC_ATOMIC failed).\n%");%N%
                                                  %return result;%N")
          cpp.dump_pending_c_function(True)
       end
 
-   mark_native_arrays (type_mark: TYPE_MARK) is
+   mark_native_arrays (type_mark: TYPE_MARK)
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; a: RUN_FEATURE_2; t: TYPE
-         has_capacity, has_generation: BOOLEAN
+         has_capacity: BOOLEAN
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void*bdw_na_assignT")
@@ -385,30 +389,12 @@ feature {}
          cpp.pending_c_function_signature.append(once "(T")
          live_type.id.append_in(cpp.pending_c_function_signature)
          cpp.pending_c_function_signature.append(once "**markna,void*_)")
-         cpp.pending_c_function_body.append(once "int i,c,g;T0*e;T0**na;T")
+         cpp.pending_c_function_body.append(once "int i,c;T0*e;T0**na;T")
          live_type.id.append_in(cpp.pending_c_function_body)
          cpp.pending_c_function_body.append(once "*o=*markna;%N%
                                                  %GC_disable();%N")
          wa := live_type.writable_attributes
          if wa /= Void then
-            from
-               i := wa.lower
-            until
-               has_generation or else i > wa.upper
-            loop
-               a := wa.item(i)
-               t := a.result_type.resolve_in(live_type.type)
-               if t.is_native_array and then t.generic_list.first.is_reference then
-                  if live_type.type.has_simple_feature_name(generation_name) then
-                     cpp.pending_c_function_body.append(once "g=o->_generation;%N")
-                     has_generation := True
-                  end
-               end
-               i := i + 1
-            end
-            if has_generation then
-               cpp.pending_c_function_body.append(once "if(g!=o->bdw_generation){%N")
-            end
             from
                i := wa.lower
             until
@@ -419,8 +405,20 @@ feature {}
                if t.is_native_array and then t.generic_list.first.is_reference then
                   if not has_capacity then
                      if live_type.type.has_simple_feature_name(capacity_name) then
-                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
-                        has_capacity := True
+-- Rmk, 2015-01-22: I don't understand this, so let's temporarily 
+-- disable it. At least it seems to make eiffeldoc a bit more stable 
+-- with BDW GC...
+
+-- the "freed" elements in the native array which are not used 
+-- currently, but still contain a pointer will not be cleaned up by 
+-- the GC currently. (native arrays are ordinary memory, and the 
+-- pointers are visible, during mark they are hidden and the relevant 
+-- once are revealed. But in the next cycle we hid the hidden ones 
+-- again which reveals them again?)
+-- maybe it is better to alloc native arrays with GC_MALOC_ATOMIC
+-- and call GC_MARK_AND_PUSH for mark_item
+--                        cpp.pending_c_function_body.append(once "c=o->_capacity;%N")
+--                        has_capacity := True
                      else
                         i := wa.upper
                      end
@@ -448,9 +446,6 @@ feature {}
                end
                cpp.pending_c_function_body.append(once "o);%N")
             end
-            if has_generation then
-               cpp.pending_c_function_body.append(once "o->bdw_generation=g;}%N")
-            end
          end
          cpp.pending_c_function_body.append(once "bdw_na_assignT")
          live_type.id.append_in(cpp.pending_c_function_body)
@@ -474,9 +469,9 @@ end -- class BDW_GC_DEFINE2
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

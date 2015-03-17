@@ -19,7 +19,7 @@ feature {ANY}
    p3: POINT
       -- Third point.
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate `Current' using `dx' and `dy'.
       do
          p1.translate(dx, dy)
@@ -27,7 +27,7 @@ feature {ANY}
          p3.translate(dx, dy)
       end
 
-   display_on (stream: OUTPUT_STREAM) is
+   display_on (stream: OUTPUT_STREAM)
          -- To display `Current' on the `stream'.
       require
          stream.is_connected
@@ -43,7 +43,7 @@ feature {ANY}
          stream.is_connected
       end
 
-   is_equal (other: TRIANGLE): BOOLEAN is
+   is_equal (other: TRIANGLE): BOOLEAN
       do
          if p1.is_equal(other.p1) then
             if p2.is_equal(other.p2) then
@@ -52,7 +52,7 @@ feature {ANY}
          end
       end
 
-   copy (other: TRIANGLE) is
+   copy (other: TRIANGLE)
          -- Modify `Current' in order to become like `other'.
       do
          p1 := other.p1.twin
@@ -61,7 +61,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a, b, c: POINT) is
+   make (a, b, c: POINT)
          -- To create a new TRIANGLE.
       require
          a /= Void

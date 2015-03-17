@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          splay: AUX_PH4_SPLAY_DICTIONARY[INTEGER, INTEGER]; iterator: AUX_PH4_SPLAY_DICTIONARY_ITERATOR[INTEGER]
          i: INTEGER

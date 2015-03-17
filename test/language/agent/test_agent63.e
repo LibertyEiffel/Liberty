@@ -16,14 +16,14 @@ feature {}
 
    counter: INTEGER
 
-   make is
+   make
       do
          create loop_stack.make
          init(3)
          loop_stack.run
       end
 
-   init (repeat: INTEGER) is
+   init (repeat: INTEGER)
       local
          update: SIMPLE_PERIODIC_JOB
       do
@@ -32,7 +32,7 @@ feature {}
          loop_stack.add_job(update)
       end
 
-   foo (repeat: TUPLE[INTEGER]): BOOLEAN is
+   foo (repeat: TUPLE[INTEGER]): BOOLEAN
       do
          assert(repeat.first = counter)
          counter := counter - 1

@@ -8,9 +8,9 @@ Line 7 column 4 in BAD_INHERIT4 (/home/cadrian/Workspace/Dev/Liberty/test/langua
    AUX_SELECT
    ^         
 Line 9 column 4 in AUX_SELECT (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_select.e):
-   foo is
-   ^     
+   foo
+   ^  
 Line 14 column 4 in AUX_SELECT (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_select.e):
-   bar is
-   ^     
+   bar
+   ^  
 ------

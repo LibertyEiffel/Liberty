@@ -15,14 +15,14 @@ feature {}
 
    counter: INTEGER
 
-   make is
+   make
       do
          create ls.make
          ls.add_job(create {SIMPLE_BACKGROUND_JOB}.set_work(agent work1, Void, 1))
          ls.run
       end
 
-   work1: BOOLEAN is
+   work1: BOOLEAN
       do
          io.put_integer(counter)
          io.put_new_line
@@ -38,14 +38,12 @@ feature {}
             io.put_string("The new loop is ready.%N")
          end
 
-         if counter < 10 then
-            Result := True
-         end
+         Result := counter < 10
       end
 
    close: BOOLEAN
 
-   work2: BOOLEAN is
+   work2: BOOLEAN
       do
          io.put_string("Modal work%N")
          if close then

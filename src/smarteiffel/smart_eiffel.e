@@ -19,10 +19,10 @@ insert
       end
 
 feature {ANY}
-   liberty_authors: STRING is "C.ADRIAN, P.REDAELLI, R.MACK"
-   liberty_dates: STRING is "2011-2013"
+   liberty_authors: STRING "C.ADRIAN, P.REDAELLI, R.MACK"
+   liberty_dates: STRING "2011-2015"
 
-   copyright: ABSTRACT_STRING is
+   copyright: ABSTRACT_STRING
       once
          Result := "[
                     #(1)
@@ -35,12 +35,12 @@ feature {ANY}
                     ]" # Precursor
       end
 
-   status: STATUS is
+   status: STATUS
       once
          create Result.make
       end
 
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
          -- Is all the live code already gathered
       do
          Result := status.is_safety_checking or else status.is_generating
@@ -55,18 +55,18 @@ feature {ANY}
    no_id: BOOLEAN
          -- True when the ids file has not to be read.
 
-   cluster_of (class_name: CLASS_NAME; report_error: BOOLEAN): CLUSTER is
+   cluster_of (class_name: CLASS_NAME): CLUSTER
          -- Retrieve the cluster of the class name. If more than one class exists with the same name, the
          -- closest to where the class name is written is returned.
       require
          class_name /= Void
       do
-         Result := ace.cluster_of(class_name, Void, report_error)
+         Result := ace.cluster_of(class_name, Void)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
          -- Retrieve the cluster by its name
       require
          not cluster_name.is_empty
@@ -77,41 +77,41 @@ feature {ANY}
          Result /= Void implies Result.name.is_equal(cluster_name)
       end
 
-   class_text (class_name: CLASS_NAME; report_error: BOOLEAN): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME): CLASS_TEXT
          -- Retrieve the corresponding memorized one or launch the `eiffel_parser' if the `class_name'
-         -- class is not yet loaded. When the `report_error' flag is False, no
+         -- class is not yet loaded. When the `class_name.allow_missing' flag is True, no
          -- error occurs even when the class is not found.
          -- (See also `loaded_class_text'.)
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, report_error, True, Void)
+         Result := ace.class_text(class_name, True, Void)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
-   loaded_class_text (class_name: CLASS_NAME): CLASS_TEXT is
+   loaded_class_text (class_name: CLASS_NAME): CLASS_TEXT
          -- Retrieve the corresponding memorized one if already loaded. Do not launch the `eiffel_parser'
          -- if the `class_name' class is not yet loaded.
          -- (See also `class_text'.)
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, False, False, Void)
+         Result := ace.class_text(class_name, False, Void)
       end
 
-   class_text_in_cluster (class_name: CLASS_NAME; report_error: BOOLEAN; cluster: CLUSTER): CLASS_TEXT is
+   class_text_in_cluster (class_name: CLASS_NAME; cluster: CLUSTER): CLASS_TEXT
          -- Retrieve the corresponding memorized one or launch the `eiffel_parser' if the `class_name'
-         -- class is not yet loaded. When the `report_error' flag is False, no
+         -- class is not yet loaded. When the `class_name.allow_missing` flag is True, no
          -- error occurs even when the class is not found. `cluster' is the client cluster to start the
          -- search from.
          -- (See also `class_text', `loaded_class_text'.)
       require
          class_name /= Void
       do
-         Result := ace.class_text(class_name, report_error, True, cluster)
+         Result := ace.class_text(class_name, True, cluster)
       ensure
-         report_error implies Result /= Void
+         Result = Void implies class_name.allow_missing
       end
 
    generating_type_used: BOOLEAN
@@ -123,7 +123,10 @@ feature {ANY}
    deep_twin_used: BOOLEAN
          -- When `deep_twin' support is necessary.
 
-   accumulating_type: TYPE is
+   thread_used: BOOLEAN
+         -- When threading support is necessary (i.e. threads are actually started using THREAD_CONTEXT.run).
+
+   accumulating_type: TYPE
          -- Service provided for debugging purpose only
       do
          debug
@@ -133,7 +136,7 @@ feature {ANY}
          debugging_only: Result /= Void
       end
 
-   unknown_feature_fatal_error (target_expression: EXPRESSION; target_type: TYPE; fn: FEATURE_NAME) is
+   unknown_feature_fatal_error (target_expression: EXPRESSION; target_type: TYPE; fn: FEATURE_NAME)
          -- (This feature is placed here to standardize all error messages of this kind.)
       require
          target_expression /= Void
@@ -173,19 +176,19 @@ feature {ANY}
       end
 
 feature {CLUSTER}
-   analyze_class (cn: CLASS_NAME; c: CLUSTER): CLASS_TEXT is
+   analyze_class (cn: CLASS_NAME; c: CLUSTER): CLASS_TEXT
       do
          Result := eiffel_parser.analyse_class(cn, c)
       end
 
 feature {}
-   free_inline_memo: FAST_ARRAY[INLINE_MEMO] is
+   free_inline_memo: FAST_ARRAY[INLINE_MEMO]
       once
          create Result.with_capacity(128)
       end
 
 feature {ANY}
-   get_inline_memo: INLINE_MEMO is
+   get_inline_memo: INLINE_MEMO
       do
          if free_inline_memo.is_empty then
             create Result.make
@@ -198,7 +201,7 @@ feature {ANY}
          Result.cleared
       end
 
-   dispose_inline_memo (im: INLINE_MEMO) is
+   dispose_inline_memo (im: INLINE_MEMO)
       require
          im /= Void
       do
@@ -206,7 +209,7 @@ feature {ANY}
       end
 
 feature {RESULT, ONCE_FUNCTION}
-   vffd7_fatal_error (sp: POSITION) is
+   vffd7_fatal_error (sp: POSITION)
       do
          error_handler.add_position(sp)
          error_handler.append(once "Result type of a once function must not involve formal generic names nor anchored types (VFFD.8).")
@@ -218,7 +221,7 @@ feature {MEMORY_HANDLER, CODE_PRINTER}
          -- The root procedure of the system to compile.
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
-   class_text_for_pretty (file_path: STRING; class_name: CLASS_NAME): CLASS_TEXT is
+   class_text_for_pretty (file_path: STRING; class_name: CLASS_NAME): CLASS_TEXT
       require
          (create {FILE_TOOLS}).is_readable(file_path)
          class_name /= Void
@@ -231,7 +234,7 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
          Result := eiffel_parser.analyse_class(class_name, c)
       end
 
-   remove_loaded_class (ct: CLASS_TEXT) is
+   remove_loaded_class (ct: CLASS_TEXT)
          -- Removed the already loaded `ct' in order to allow `pretty' to parse again the generated file to check that the newly
          -- created file is syntactically correct.
       require
@@ -241,109 +244,247 @@ feature {PRETTY, PRETTY_PRINTER_HANDLER}
       end
 
 feature {FINDER}
-   find_paths_for (class_name: HASHED_STRING): FAST_ARRAY[CLASS_TEXT] is
+   find_paths_for (class_name: HASHED_STRING): FAST_ARRAY[CLASS_TEXT]
          -- Finds the path to any class having the given `class_name'
       require
          class_name /= Void
       do
-         Result := ace.all_class_texts(create {CLASS_NAME}.unknown_position(class_name))
+         Result := ace.all_class_texts(create {CLASS_NAME}.unknown_position(class_name, False))
       ensure
          Result /= Void
       end
 
 feature {CLASS_CHECKER}
-   tuple_related_classes_in (parent_list: FAST_ARRAY[TYPE]) is
+   tuple_related_classes_in (parent_list: FAST_ARRAY[TYPE])
+         -- Hard-coded ordered list of parent tuples
       require
          parent_list.is_empty
       local
-         --|*** ct, tuple_ct: CLASS_TEXT; tuple_type: TYPE; cn: CLASS_NAME; stop: BOOLEAN; i, tuple_index: INTEGER
+         i, n: INTEGER; stop: BOOLEAN
       do
-         not_yet_implemented
-         --|*** from
-         --|***    i := 1
-         --|*** until
-         --|***    stop
-         --|*** loop
-         --|***    if i > class_text_dictionary.count then
-         --|***       if tuple_type = Void then
-         --|***          -- No more TUPLE class text.
-         --|***          stop := True
-         --|***       else
-         --|***          tuple_type := Void
-         --|***       end
-         --|***       i := 1
-         --|***    else
-         --|***       ct := class_text_dictionary.item(i)
-         --|***       cn := ct.name
-         --|***       if cn.is_tuple_related then
-         --|***          if ct.formal_generic_list = Void then
-         --|***             if tuple_index = 0 then
-         --|***                tuple_ct := ct
-         --|***             end
-         --|***          elseif ct.formal_generic_list.count = tuple_index then
-         --|***             tuple_ct := ct
-         --|***          end
-         --|***          if tuple_ct /= Void then
-         --|***             tuple_type := tuple_ct.declaration_type_of_like_current
-         --|***             parent_list.add_last(tuple_type)
-         --|***             tuple_index := tuple_index + 1
-         --|***             i := 1
-         --|***             tuple_ct := Void
-         --|***             tuple_type := Void
-         --|***          end
-         --|***       end
-         --|***       i := i + 1
-         --|***    end
-         --|*** end
+         from
+            i := 0
+         until
+            stop
+         loop
+            n := parent_list.count
+            ace.for_all_filtered(
+               agent (cn: CLASS_NAME): BOOLEAN
+               do
+                  Result := cn.is_tuple_related
+               end (?),
+
+               agent (ct: CLASS_TEXT; tuple_index: INTEGER; pl: FAST_ARRAY[TYPE])
+               require
+                  ct.name.is_tuple_related
+               do
+                  if pl.is_empty or else pl.last /= ct.declaration_type_of_like_current then
+                     if ct.formal_generic_list = Void then
+                        if tuple_index = 0 then
+                           pl.add_last(ct.declaration_type_of_like_current)
+                        end
+                     elseif ct.formal_generic_list.count = tuple_index then
+                        pl.add_last(ct.declaration_type_of_like_current)
+                     end
+                  end
+               end (?, i, parent_list)
+            )
+            stop := n = parent_list.count
+            i := i + 1
+         end
       end
 
 feature {CLASS_CHECKER, EXTERNAL_TOOL}
-   set_short_or_class_check_flag is
+   set_short_or_class_check_flag
       do
          short_or_class_check_flag := True
          set_no_id
       end
 
 feature {PRETTY, PRETTY_PRINTER_HANDLER}
-   set_pretty_flag is
+   set_pretty_flag
       do
          pretty_flag := True
          set_no_id
       end
 
 feature {}
-   set_no_id is
+   set_no_id
       do
          no_id := True
       end
 
 feature {ANY}
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
          -- Total number of class text actually loaded.
       do
          Result := ace.class_text_count
       end
 
 feature {COMMAND_LINE_TOOLS}
-   compile (back_end: CODE_PRINTER) is
-         -- Produce some code for `root_class'/`procedure'.
-      local
-         root_class_name, root_procedure_name: STRING
+   compile (back_end: CODE_PRINTER)
+         -- Produce some code for all know pairs of `root_class_name', `root_procedure_name'.
       do
-         create live_type_map_.with_capacity(2048)
-         initialize_any_tuple
-         root_class_name := ace.root_class_name.to_string
-         root_procedure_name := ace.root_procedure_name
-         front_end(root_class_name, root_procedure_name)
-         back_end.compile
+         run_front_end
+         if nb_errors = 0 then
+            run_collect
+            if nb_errors = 0 then
+               run_adapt
+               if nb_errors = 0 then
+                  run_back_end(back_end)
+               end
+            end
+         end
          very_last_information
       end
 
+feature {}
+   run_front_end
+         -- Code parsing
+      require
+         nb_errors = 0
+      do
+         initialize_any_tuple
+         if ace.no_check then
+            set_generator_used
+            set_generating_type_used
+         end
+         ace.parse_include
+
+         from
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            do_front_end(ace.root_class_name.to_string, ace.root_procedure_name)
+            ace.next_root
+         end
+
+         if cecil_pool /= Void then
+            cecil_pool.parse_cecil_files
+         end
+      end
+
+   run_collect
+         -- Code collect
+      require
+         nb_errors = 0
+      local
+         magic: like magic_count
+      do
+         status.set_collecting
+
+         from
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            do_collect(ace.root_class_name.to_string, ace.root_procedure_name)
+            ace.next_root
+         end
+
+         if ace.no_check then
+            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive
+            -- so we want to do this as late as possible in boost mode.
+            from
+               introspection_handler.collect_internals_handler
+            until
+               magic = magic_count
+            loop
+               magic := magic_count
+               echo_magic_count(once "Before collect cycle")
+               do_one_collect_cycle
+            end
+         end
+
+         if deep_twin_used then
+            collect_deep_features
+         end
+
+         status.set_collecting_done
+         echo_magic_count(once "Collecting done")
+         echo.put_string(once "Live_type_map size=")
+         echo.put_integer(live_type_map.count)
+         echo.put_new_line
+      ensure
+         status.collecting_done
+      end
+
+   run_adapt
+         -- Code simplification and adaptation
+      require
+         nb_errors = 0
+      local
+         i: INTEGER; lt: LIVE_TYPE
+      do
+         if not pretty_flag and then not short_or_class_check_flag then
+            from
+               ace.reset_roots
+            until
+               not ace.has_root or else nb_errors /= 0
+            loop
+               do_adapt(ace.root_class_name.to_string, ace.root_procedure_name)
+               ace.next_root
+            end
+         end
+
+         if nb_errors = 0 then
+            status.set_adapting
+            from
+               i := live_type_map.lower
+            until
+               i > live_type_map.upper
+            loop
+               lt := live_type_map.item(i)
+               --if lt.at_run_time then
+                  lt.make_run_features
+               --end
+               i := i + 1
+            end
+            if nb_errors = 0 then
+               from
+                  i := live_type_map.lower
+               until
+                  i > live_type_map.upper
+               loop
+                  lt := live_type_map.item(i)
+                  if lt.at_run_time then
+                     lt.adapt_run_features_and_class_invariant
+                  end
+                  i := i + 1
+               end
+               if nb_errors = 0 and then cecil_pool /= Void then
+                  cecil_pool.adapt
+               end
+            end
+         end
+
+         if nb_errors = 0 then
+            safety_check
+            echo.print_count(once "Loaded Classe", ace.class_text_count)
+         end
+      end
+
+   run_back_end (back_end: CODE_PRINTER)
+         -- Code simplification and generation
+      require
+         nb_errors = 0
+      do
+         from
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            do_back_end(back_end, ace.root_class_name.to_string, ace.root_procedure_name)
+            ace.next_root
+         end
+      end
+
 feature {CODE_PRINTER}
-   customize_runtime is
+   customize_runtime
       do
          if collected_plug_in /= Void then
-            collected_plug_in.do_all(agent {NATIVE_PLUG_IN}.customize_runtime)
+            collected_plug_in.for_each(agent {NATIVE_PLUG_IN}.customize_runtime)
          end
       end
 
@@ -359,13 +500,13 @@ feature {CODE_PRINTER}
    agent_switches: FAST_ARRAY[TYPE]
          -- All the known agent switches during the generation
 
-   type_dictionary: DICTIONARY[TYPE, HASHED_STRING] is
+   type_dictionary: DICTIONARY[TYPE, HASHED_STRING]
          -- When looking for a TYPE using it's name (ie. FOO[BAR] is stored at key whith name "FOO[BAR]").
       once
          create {HASHED_DICTIONARY[TYPE, HASHED_STRING]} Result.with_capacity(1024)
       end
 
-   generic_type_dictionary: DICTIONARY[HASHED_STRING, HASHED_STRING] is
+   generic_type_dictionary: DICTIONARY[HASHED_STRING, HASHED_STRING]
          -- Helper dictionary for generic types shrinking
       once
          create {HASHED_DICTIONARY[HASHED_STRING, HASHED_STRING]} Result.with_capacity(1024)
@@ -373,12 +514,12 @@ feature {CODE_PRINTER}
 
 feature {ANY}
    magic_count: INTEGER
-         -- Grow each time a new run class is added, each time a new class is
+         -- Grow each time a new run class is added, each time a new class
          -- loaded, each time a new feature is checked, each time another
          -- expression is optimized, etc. ...
          -- Thus when `magic_count' stops growing, we are really ready :-).
 
-   magic_count_increment is
+   magic_count_increment
       do
          magic_count := magic_count + 1
       end
@@ -389,13 +530,14 @@ feature {ASSIGNMENT_HANDLER}
          -- Has to be very uncommon.
 
 feature {ANY}
-   live_type_map: TRAVERSABLE[LIVE_TYPE] is
+   live_type_map: TRAVERSABLE[LIVE_TYPE]
       do
          Result := live_type_map_
       end
 
-feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ}
-   collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE is
+feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_CLAUSE, ADDRESS_OF, ONCE_FUNCTION, MANIFEST_GENERIC, BUILT_IN_EQ_NEQ, CECIL_ENTRY, NATIVE_BUILT_IN}
+   --| **** TODO this client list is ridiculous
+   collect (type: TYPE; fs: FEATURE_STAMP; at_run_time: BOOLEAN): TYPE
          -- The `Result' is not Void when `fs' is actually a function (see ensure).
       require
          fs.has_anonymous_feature_for(type)
@@ -433,7 +575,7 @@ feature {FEATURE_CALL, WRITABLE_ATTRIBUTE_NAME, MANIFEST_STRING_POOL, CREATION_C
       end
 
 feature {LOCAL_VAR_LIST, ANONYMOUS_FEATURE}
-   collect_local_expanded (type: TYPE) is
+   collect_local_expanded (type: TYPE)
          -- Make live the given `type'.
       require
          type.is_expanded
@@ -449,7 +591,7 @@ feature {LOCAL_VAR_LIST, ANONYMOUS_FEATURE}
       end
 
 feature {BASE_TYPE_CONSTANT}
-   collect_constant (type: TYPE) is
+   collect_constant (type: TYPE)
          -- Make live the given `type' (of a constant)
       require
          type /= Void
@@ -462,7 +604,7 @@ feature {BASE_TYPE_CONSTANT}
       end
 
 feature {EXTERNAL_FUNCTION}
-   collect_external (type: TYPE) is
+   collect_external (type: TYPE)
          -- Make live the given type (of an external function)
       require
          type /= Void
@@ -475,7 +617,7 @@ feature {EXTERNAL_FUNCTION}
       end
 
 feature {ASSERTION}
-   collect_assertion (type: TYPE) is
+   collect_assertion (type: TYPE)
          -- Make live the given type (of an assertion)
       require
          type.is_boolean
@@ -488,7 +630,7 @@ feature {ASSERTION}
       end
 
 feature {AGENT_CREATION, ADDRESS_OF}
-   collect_create (type: TYPE) is
+   collect_create (type: TYPE)
       require
          type /= Void
       local
@@ -500,7 +642,7 @@ feature {AGENT_CREATION, ADDRESS_OF}
       end
 
 feature {LIVE_TYPE}
-   collect_generic (type: TYPE) is
+   collect_generic (type: TYPE)
       require
          type /= Void
       local
@@ -512,7 +654,7 @@ feature {LIVE_TYPE}
       end
 
 feature {LIVE_TYPE, PROCEDURE_CALL_0}
-   collect_se_atexit (type: TYPE) is
+   collect_se_atexit (type: TYPE)
       require
          type /= Void
          no_extra_computation: se_atexit_stamp = Void
@@ -532,13 +674,13 @@ feature {LIVE_TYPE, PROCEDURE_CALL_0, C_PRETTY_PRINTER}
    se_atexit_id: INTEGER
 
 feature {}
-   collected_external_functions: FAST_ARRAY[NON_VOID_NO_DISPATCH] is
+   collected_external_functions: FAST_ARRAY[NON_VOID_NO_DISPATCH]
       once
          create Result.with_capacity(3)
       end
 
 feature {NON_VOID_NO_DISPATCH}
-   collect_external_function (non_void_no_dispatch: NON_VOID_NO_DISPATCH; fs: FEATURE_STAMP; type: TYPE) is
+   collect_external_function (non_void_no_dispatch: NON_VOID_NO_DISPATCH; fs: FEATURE_STAMP; type: TYPE)
       require
          non_void_no_dispatch /= Void
          type /= Void
@@ -553,7 +695,7 @@ feature {NON_VOID_NO_DISPATCH}
       end
 
 feature {ONCE_ROUTINE_POOL}
-   collect_precomputable (type: TYPE; fs: FEATURE_STAMP) is
+   collect_precomputable (type: TYPE; fs: FEATURE_STAMP)
       require
          type /= Void
          fs /= Void
@@ -563,72 +705,8 @@ feature {ONCE_ROUTINE_POOL}
          dummy := collect(type, fs, False)
       end
 
-feature {FUNCTION_CALL, PROCEDURE_CALL, PRECURSOR_CALL, AGENT_CREATION}
-   argument_count_check (error_trap: FUNCTION_CALL
-                         call_site: POSITION; af: ANONYMOUS_FEATURE; actual_args: EFFECTIVE_ARG_LIST) is
-         -- Check that the number of arguments of `af' is compatible with `actual_args'. Only the number of
-         -- arguments is checked here. (The complete conformance test is performed in EFFECTIVE_ARG_LIST.)
-      require
-         not call_site.is_unknown
-         af /= Void
-      local
-         formal_args: FORMAL_ARG_LIST; actual, formal: INTEGER
-      do
-         formal_args := af.arguments
-         if formal_args /= Void then
-            if actual_args /= Void then
-               formal := formal_args.count
-               actual := actual_args.count
-               if actual /= formal then
-                  error_handler.append(once "The feature called has ")
-                  error_handler.append_integer(formal)
-                  error_handler.append(once " formal argument")
-                  if formal > 1 then
-                     error_handler.extend('s')
-                  end
-                  error_handler.append(once " while the actual argument list has ")
-                  error_handler.append_integer(actual)
-                  error_handler.append(once " argument")
-                  if actual > 1 then
-                     error_handler.extend('s')
-                  end
-                  error_handler.append(once ".")
-                  error_handler.add_position(formal_args.start_position)
-                  error_handler.add_position(actual_args.start_position)
-                  error_handler.print_as_fatal_error
-               end
-            elseif try_agent_creation_error_trap(error_trap) then
-               -- Well, false alarm, its just an AGENT_CREATION with an ommitted actual arguments list.
-            else
-               formal := formal_args.count
-               error_handler.append(once "The feature called has ")
-               error_handler.append_integer(formal)
-               error_handler.append(once " formal argument")
-               if formal > 1 then
-                  error_handler.extend('s')
-               end
-               error_handler.append(once " while there is no actual argument list in the call.")
-               error_handler.add_position(formal_args.start_position)
-               error_handler.add_position(call_site)
-               error_handler.print_as_fatal_error
-            end
-         elseif actual_args /= Void then
-            actual := actual_args.count
-            error_handler.append(once "The feature called has no formal argument while the actual argument list has ")
-            error_handler.append_integer(actual)
-            error_handler.append(once " argument")
-            if actual > 1 then
-               error_handler.extend('s')
-            end
-            error_handler.append(once ".")
-            error_handler.add_position(af.start_position)
-            error_handler.add_position(actual_args.start_position)
-            error_handler.print_as_fatal_error
-         end
-      end
-
 feature {TYPE_MARK}
-   long_type_name (type_name: HASHED_STRING; type_cluster: CLUSTER): HASHED_STRING is
+   long_type_name (type_name: HASHED_STRING; type_cluster: CLUSTER): HASHED_STRING
       require
          type_name /= Void
          type_cluster /= Void
@@ -644,8 +722,8 @@ feature {TYPE_MARK}
          Result /= Void
       end
 
-feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST}
-   collect_one_type (type: TYPE; at_run_time: BOOLEAN): LIVE_TYPE is
+feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRITABLE, EFFECTIVE_ARG_LIST, CECIL_ENTRY}
+   collect_one_type (type: TYPE; at_run_time: BOOLEAN): LIVE_TYPE
          -- Make live the given `type'.
       require
          type /= Void
@@ -683,19 +761,21 @@ feature {AGENT_POOL, CREATE_SUPPORT, ASSIGNMENT, ASSIGNMENT_ATTEMPT, CREATE_WRIT
          -- hence: Result /= Void
       end
 
-feature {ANONYMOUS_FEATURE, RUN_FEATURE, ARGUMENT_NAME2, LOCAL_NAME2, RESULT, E_OLD, INSPECT_STATEMENT}
-   context_feature: ANONYMOUS_FEATURE is
+feature {ANONYMOUS_FEATURE, RUN_FEATURE, ARGUMENT_NAME_REF, LOCAL_NAME_REF, RESULT, E_OLD, INSPECT_STATEMENT, AGENT_CREATION}
+   context_feature: ANONYMOUS_FEATURE
       do
-         Result := context_feature_stack.top
+         if not context_feature_stack.is_empty then
+            Result := context_feature_stack.top
+         end
       end
 
 feature {ANONYMOUS_FEATURE, FEATURE_STAMP, RUN_FEATURE, C_LIVE_TYPE_COMPILER}
-   push_context (af: ANONYMOUS_FEATURE) is
+   push_context (af: ANONYMOUS_FEATURE)
       do
          context_feature_stack.push(af)
       end
 
-   pop_context (af: ANONYMOUS_FEATURE) is
+   pop_context (af: ANONYMOUS_FEATURE)
       require
          context_feature = af
       do
@@ -703,7 +783,7 @@ feature {ANONYMOUS_FEATURE, FEATURE_STAMP, RUN_FEATURE, C_LIVE_TYPE_COMPILER}
       end
 
 feature {}
-   context_feature_stack: STACK[ANONYMOUS_FEATURE] is
+   context_feature_stack: STACK[ANONYMOUS_FEATURE]
          -- We really need a stack. As an example, it is necessary to follow the calling graph during
          -- collect.
       once
@@ -711,7 +791,7 @@ feature {}
       end
 
 feature {LIVE_TYPE}
-   is_tagged (lt: LIVE_TYPE): BOOLEAN is
+   is_tagged (lt: LIVE_TYPE): BOOLEAN
       require
          is_ready
          lt.at_run_time
@@ -735,7 +815,7 @@ feature {LIVE_TYPE}
       end
 
 feature {CODE_PRINTER}
-   weak_reference_used: BOOLEAN is
+   weak_reference_used: BOOLEAN
          -- Is the WEAK_REFERENCE class used?
          --
          -- This function is conservative: when it returns False, you are guaranteed that no WEAK_REFERENCE
@@ -752,19 +832,30 @@ feature {CODE_PRINTER}
          Result := True
       end
 
-feature {LOCAL_NAME2, EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
+feature {LOCAL_ARGUMENT_REF, ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
    specializing_feature_local_var_list: LOCAL_VAR_LIST
+   specializing_closure_local_var_lists: FAST_ARRAY[LOCAL_VAR_LIST]
 
-feature {EFFECTIVE_ROUTINE, EXTERNAL_ROUTINE, INTROSPECTION_HANDLER}
-   set_specializing_feature_variables (lvl: LOCAL_VAR_LIST) is
+   specializing_feature_arguments_list: FORMAL_ARG_LIST
+   specializing_closure_arguments_lists: FAST_ARRAY[FORMAL_ARG_LIST]
+
+feature {ANONYMOUS_FEATURE, INTROSPECTION_HANDLER, THREAD_POOL}
+   set_specializing_feature_variables (lvl: like specializing_feature_local_var_list; clvl: like specializing_closure_local_var_lists)
       do
          specializing_feature_local_var_list := lvl
+         specializing_closure_local_var_lists := clvl
+      end
+
+   set_specializing_feature_arguments (fal: like specializing_feature_arguments_list; cfal: like specializing_closure_arguments_lists)
+      do
+         specializing_feature_arguments_list := fal
+         specializing_closure_arguments_lists := cfal
       end
 
 feature {}
    type_to_be_created: HASHED_STRING
 
-   create_type (static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE is
+   create_type (static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE
          -- Create a type. Type creation is locked until `register_type' has been called.
       require
          static_type.is_static
@@ -781,7 +872,7 @@ feature {}
          has_type(static_type)
       end
 
-   lock_type_creation (t: like type_to_be_created): BOOLEAN is
+   lock_type_creation (t: like type_to_be_created): BOOLEAN
       do
          Result := type_to_be_created = Void
          type_to_be_created := t
@@ -831,7 +922,7 @@ feature {ANY} -- To get a TYPE:
 
    --|*** Those types are basic types; there is no cluster information in their long name hence no call to `long_type_name'
 
-   type_any: TYPE is
+   type_any: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -848,7 +939,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_boolean: TYPE is
+   type_boolean: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -865,7 +956,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_character: TYPE is
+   type_character: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -882,7 +973,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_string: TYPE is
+   type_string: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -899,7 +990,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_native_array_character: TYPE is
+   type_native_array_character: TYPE
       local
          hs: HASHED_STRING
       do
@@ -916,7 +1007,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_unicode_string: TYPE is
+   type_unicode_string: TYPE
       require
          not eiffel_parser.is_running
       local
@@ -927,12 +1018,12 @@ feature {ANY} -- To get a TYPE:
             hs := string_aliaser.hashed_string(as_unicode_string)
             type_unicode_string_memory := type_dictionary.fast_reference_at(hs)
             if type_unicode_string_memory = Void then
-               create cn.make(hs, unknown_position)
-               unicode_class_text := class_text(cn, True)
+               create cn.make(hs, unknown_position, False)
+               unicode_class_text := class_text(cn)
                check
                   unicode_class_text /= Void
                end
-               create cn.make(hs, unicode_class_text.name.start_position)
+               create cn.make(hs, unicode_class_text.name.start_position, False)
                type_unicode_string_memory := get_type(create {CLASS_TYPE_MARK}.make(cn), False)
             end
          end
@@ -942,7 +1033,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_pointer: TYPE is
+   type_pointer: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -959,7 +1050,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_integer_8: TYPE is
+   type_integer_8: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -976,7 +1067,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_integer_16: TYPE is
+   type_integer_16: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -993,7 +1084,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_integer_32: TYPE is
+   type_integer_32: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1010,7 +1101,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_integer_64: TYPE is
+   type_integer_64: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1027,7 +1118,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_natural_8: TYPE is
+   type_natural_8: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1044,7 +1135,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_natural_16: TYPE is
+   type_natural_16: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1061,7 +1152,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_natural_32: TYPE is
+   type_natural_32: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1078,7 +1169,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_natural_64: TYPE is
+   type_natural_64: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1095,18 +1186,18 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_internals_handler_if_exists: TYPE is
+   type_internals_handler_if_exists: TYPE
       local
          hs: HASHED_STRING; cn: CLASS_NAME; c: CLUSTER
       do
          hs := string_aliaser.hashed_string(as_internals_handler)
-         create cn.unknown_position(hs)
-         c := cluster_of(cn, True)
+         create cn.unknown_position(hs, False)
+         c := cluster_of(cn)
          hs := long_type_name(hs, c)
          Result := type_dictionary.fast_reference_at(hs)
       end
 
-   type_real_32: TYPE is
+   type_real_32: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1123,7 +1214,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_real_64: TYPE is
+   type_real_64: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1140,7 +1231,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   type_real_extended: TYPE is
+   type_real_extended: TYPE
       local
          hs: HASHED_STRING; unknown_position: POSITION
       do
@@ -1157,7 +1248,7 @@ feature {ANY} -- To get a TYPE:
          Result /= Void
       end
 
-   unlock_type_creation (t: like type_to_be_created): BOOLEAN is
+   unlock_type_creation (t: like type_to_be_created): BOOLEAN
       do
          Result := type_to_be_created = t
          type_to_be_created := Void
@@ -1165,14 +1256,14 @@ feature {ANY} -- To get a TYPE:
          Result
       end
 
-   has_type (static_type: TYPE_MARK): BOOLEAN is
+   has_type (static_type: TYPE_MARK): BOOLEAN
       require
          static_type.is_static
       do
          Result := type_dictionary.fast_has(static_type.long_name)
       end
 
-   get_type (static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE is
+   get_type (static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE
       require
          static_type.is_static
       local
@@ -1207,7 +1298,7 @@ feature {ANY} -- To get a TYPE:
          has_type(static_type)
       end
 
-   tuple_class_not_found_fatal_error (class_name: CLASS_NAME) is
+   tuple_class_not_found_fatal_error (class_name: CLASS_NAME)
          -- Because there is a special trick for TUPLE related classes.
       require
          class_name.is_tuple_related
@@ -1221,8 +1312,8 @@ feature {ANY} -- To get a TYPE:
          until
             stop
          loop
-            create cn.unknown_position(string_aliaser.hashed_string("TUPLE " + (max_tuple + 1).to_string))
-            ct := ace.class_text(cn, False, False, Void)
+            create cn.unknown_position(string_aliaser.hashed_string("TUPLE " + (max_tuple + 1).to_string), False)
+            ct := ace.class_text(cn, False, Void)
             if ct = Void then
                stop := True
             else
@@ -1250,7 +1341,7 @@ feature {ANY} -- To get a TYPE:
       end
 
 feature {CLASS_TYPE_MARK}
-   get_type_for_non_generic (non_generic_static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE is
+   get_type_for_non_generic (non_generic_static_type: TYPE_MARK; allow_raw_class_name: BOOLEAN): TYPE
          -- Just an optimized version of `get_type'.
       require
          non_generic_static_type.is_static
@@ -1265,7 +1356,7 @@ feature {CLASS_TYPE_MARK}
       end
 
 feature {}
-   feature_stamp_of (class_name, feature_name: STRING): FEATURE_STAMP is
+   feature_stamp_of (class_name, feature_name: STRING): FEATURE_STAMP
       require
          string_aliaser.registered_one(class_name)
          string_aliaser.registered_one(feature_name)
@@ -1281,7 +1372,7 @@ feature {}
       end
 
 feature {INTROSPECTION_HANDLER}
-   feature_stamp (type: TYPE; feature_name: STRING): FEATURE_STAMP is
+   feature_stamp (type: TYPE; feature_name: STRING): FEATURE_STAMP
       require
          string_aliaser.registered_one(feature_name)
          string_aliaser.hashed_string(feature_name).is_simple_feature_name
@@ -1305,7 +1396,7 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {LIVE_TYPE}
-   memory_dispose_stamp: FEATURE_STAMP is
+   memory_dispose_stamp: FEATURE_STAMP
          -- Feature stamp of {DISPOSABLE}.dispose
       require
          status.is_collecting -- Because the call can make DISPOSABLE live
@@ -1313,8 +1404,8 @@ feature {LIVE_TYPE}
          hs: HASHED_STRING; cn: CLASS_NAME; t: TYPE; c: CLUSTER
       once
          hs := string_aliaser.hashed_string(as_disposable)
-         create cn.unknown_position(hs)
-         c := cluster_of(cn, True)
+         create cn.unknown_position(hs, False)
+         c := cluster_of(cn)
          hs := long_type_name(hs, c)
          t := type_dictionary.fast_reference_at(hs)
          if t = Void then
@@ -1329,7 +1420,7 @@ feature {LIVE_TYPE}
       end
 
 feature {MANIFEST_GENERIC}
-   manifest_creation_name: FEATURE_NAME is
+   manifest_creation_name: FEATURE_NAME
          -- Feature name of {ANY}.manifest_creation
       once
          Result := feature_stamp(type_any, as_manifest_creation).anonymous_feature(type_any).first_name
@@ -1338,7 +1429,7 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {TYPE}
-   register_type (t: TYPE) is
+   register_type (t: TYPE)
       require
          t /= Void
          unlock_type_creation(t.long_name)
@@ -1390,7 +1481,7 @@ feature {TYPE}
       end
 
 feature {}
-   get_constraint_ancestor (generic_type: TYPE; rank: INTEGER): TYPE is
+   get_constraint_ancestor (generic_type: TYPE; rank: INTEGER): TYPE
       require
          shrink_generic_types
          generic_type.is_generic
@@ -1426,7 +1517,7 @@ feature {}
       end
 
 feature {CLASS_CHECK}
-   very_last_information is
+   very_last_information
       do
          error_handler.print_live_warnings
          assignment_handler.echo_information
@@ -1437,7 +1528,7 @@ feature {CLASS_CHECK}
       end
 
 feature {ID_PROVIDER}
-   id_extra_information (tfw: TEXT_FILE_WRITE; name: HASHED_STRING; cluster: CLUSTER) is
+   id_extra_information (tfw: TEXT_FILE_WRITE; name: HASHED_STRING; cluster: CLUSTER)
       require
          cluster /= Void
       local
@@ -1450,7 +1541,7 @@ feature {ID_PROVIDER}
          if lt /= Void then
             ct := lt.class_text
          else
-            ct := ace.class_text(create {CLASS_NAME}.unknown_position(name), False, False, cluster)
+            ct := ace.class_text(create {CLASS_NAME}.unknown_position(name, True), False, cluster)
          end
          tfw.put_character('%N')
          if ct /= Void then
@@ -1467,7 +1558,7 @@ feature {ID_PROVIDER}
       end
 
 feature {FEATURE_CALL}
-   covariance_check (call_site: POSITION; up_rf: RUN_FEATURE; run_time_set: RUN_TIME_SET) is
+   covariance_check (call_site: POSITION; up_rf: RUN_FEATURE; run_time_set: RUN_TIME_SET)
       require
          not call_site.is_unknown
          up_rf.arguments.count >= 1
@@ -1519,7 +1610,7 @@ feature {FEATURE_CALL}
       end
 
 feature {E_OLD}
-   register_old (e_old: E_OLD) is
+   register_old (e_old: E_OLD)
       require
          e_old /= Void
       local
@@ -1534,32 +1625,32 @@ feature {E_OLD}
       end
 
 feature {}
-   old_list_stack: FAST_ARRAY[FAST_ARRAY[E_OLD]] is
+   old_list_stack: FAST_ARRAY[FAST_ARRAY[E_OLD]]
          -- Non Void when some E_OLD have been gathered.
       once
          create Result.with_capacity(2)
       end
 
 feature {RUN_FEATURE}
-   old_list_stack_push is
+   old_list_stack_push
       do
          old_list_stack.add_last(Void)
       end
 
-   old_list_stack_pop: FAST_ARRAY[E_OLD] is
+   old_list_stack_pop: FAST_ARRAY[E_OLD]
       do
          Result := old_list_stack.last
          old_list_stack.remove_last
       end
 
 feature {}
-   collected_plug_in: SET[NATIVE_PLUG_IN] is
+   collected_plug_in: SET[NATIVE_PLUG_IN]
       once
          create {HASHED_SET[NATIVE_PLUG_IN]} Result.make
       end
 
 feature {NATIVE_PLUG_IN}
-   register_plug_in (native_plug_in: NATIVE_PLUG_IN) is
+   register_plug_in (native_plug_in: NATIVE_PLUG_IN)
       require
          native_plug_in /= Void
       do
@@ -1567,24 +1658,30 @@ feature {NATIVE_PLUG_IN}
       end
 
 feature {LIVE_TYPE}
-   set_deep_twin_used is
+   set_deep_twin_used
       do
          deep_twin_used := True
       end
 
+feature {NATIVE_BUILT_IN}
+   set_thread_used
+      do
+         thread_used := True
+      end
+
 feature {RUN_FEATURE_8, EXTERNAL_FUNCTION, GENERATOR_GENERATING_TYPE} --|*** remove RUN_FEATURE_8
-   set_generating_type_used is
+   set_generating_type_used
       do
          generating_type_used := True
       end
 
-   set_generator_used is
+   set_generator_used
       do
          generator_used := True
       end
 
 feature {CLUSTER}
-   parse_include (include_name: STRING) is
+   parse_include (include_name: STRING)
       require
          include_name /= Void
       local
@@ -1605,7 +1702,7 @@ feature {CLUSTER}
       end
 
 feature {RUN_FEATURE}
-   register_run_feature (rf: RUN_FEATURE) is
+   register_run_feature (rf: RUN_FEATURE)
       require
          not_registered: not registered(rf)
       do
@@ -1618,33 +1715,35 @@ feature {RUN_FEATURE}
       end
 
 feature {RUN_FEATURE, LIVE_TYPE}
-   registered (rf: RUN_FEATURE): BOOLEAN is
+   registered (rf: RUN_FEATURE): BOOLEAN
       do
          Result := run_features /= Void and then run_features.fast_has(rf)
       end
 
 feature {COMMAND_LINE_TOOLS}
-   initialize_any_tuple is
+   initialize_any_tuple
          -- Some tools have to call this `initialize_any_tuple' once routine.
-         --   Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
+         -- Actually, `initialize_any_tuple' forces the creation of ANY and TUPLE first.
          -- Note, this is not in the creation of `smart_eiffel' itself because, not all tools are
          -- supposed to load Eiffel classes.
       local
          hashed_string: HASHED_STRING; ct: CLASS_TEXT
       once
+         create live_type_map_.with_capacity(2048)
+
          -- Forcing first creation of ANY in order to initialize the machinery:
          hashed_string := string_aliaser.hashed_string(as_any)
-         ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string), True)
+         ct := class_text(create {CLASS_NAME}.unknown_position(hashed_string, False))
 
          -- Finally, forcing creation of TUPLE:
          hashed_string := string_aliaser.hashed_string(as_tuple)
-         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position), True)
+         ct := class_text(create {CLASS_NAME}.make(hashed_string, ct.name.start_position, False))
 
          -- Note: even the simple HELLO_WORLD, normally has to load TUPLE.
       end
 
 feature {CODE_PRINTER}
-   register_class_invariant (t: LIVE_TYPE) is
+   register_class_invariant (t: LIVE_TYPE)
       do
          if class_invariants = Void then
             create class_invariants.with_capacity(16)
@@ -1654,7 +1753,7 @@ feature {CODE_PRINTER}
          end
       end
 
-   register_agent_creation (ac: AGENT_CREATION) is
+   register_agent_creation (ac: AGENT_CREATION)
       do
          if agent_creations = Void then
             create agent_creations.with_capacity(16)
@@ -1664,7 +1763,7 @@ feature {CODE_PRINTER}
          end
       end
 
-   register_agent_switch (t: TYPE) is
+   register_agent_switch (t: TYPE)
       do
          if agent_switches = Void then
             create agent_switches.with_capacity(16)
@@ -1675,7 +1774,7 @@ feature {CODE_PRINTER}
       end
 
 feature {E_FUNCTION, CALL_INFIX_POWER}
-   simplify_integer_infix_power (call_site: POSITION; target, exponent: EXPRESSION): INTEGER_CONSTANT is
+   simplify_integer_infix_power (call_site: POSITION; target, exponent: EXPRESSION): INTEGER_CONSTANT
          -- Static simplification of {INTEGER_GENERAL}.infix "^" is here to be shared for `static_simplify' and
          -- `simplify'.
       local
@@ -1735,9 +1834,9 @@ feature {E_FUNCTION, CALL_INFIX_POWER}
          end
       end
 
-feature {CODE_PRINTER}
-   is_at_run_time (a_class_name: STRING): BOOLEAN is
-         -- Pure query to know if the STRING type is used and is `at_run_time'?
+feature {CODE_PRINTER, MEMORY_HANDLER}
+   is_at_run_time (a_class_name: STRING): BOOLEAN
+         -- query to know if the type `a_class_name' is used at runtime
          -- The class name must be the one of a basic type because the cluster information is not appended
       require
          is_ready
@@ -1758,20 +1857,20 @@ feature {CODE_PRINTER}
       end
 
 feature {}
-   agent_creation_error_trap: STACK[AGENT_CREATION] is
+   agent_creation_error_trap: STACK[AGENT_CREATION]
       once
          create Result.make
       end
 
 feature {AGENT_CREATION}
-   set_agent_creation_error_trap (agent_creation: AGENT_CREATION) is
+   set_agent_creation_error_trap (agent_creation: AGENT_CREATION)
       require
          agent_creation /= Void
       do
          agent_creation_error_trap.push(agent_creation)
       end
 
-   clear_agent_creation_error_trap (agent_creation: AGENT_CREATION) is
+   clear_agent_creation_error_trap (agent_creation: AGENT_CREATION)
       require
          agent_creation /= Void
       do
@@ -1782,8 +1881,8 @@ feature {AGENT_CREATION}
          agent_creation_error_trap.pop
       end
 
-feature {FUNCTION_CALL}
-   try_agent_creation_error_trap (function_call: FUNCTION_CALL): BOOLEAN is
+feature {FUNCTION_CALL, PROCEDURE_CALL}
+   try_agent_creation_error_trap (function_call: FUNCTION_CALL): BOOLEAN
       do
          if not agent_creation_error_trap.is_empty then
             Result := function_call = agent_creation_error_trap.top.code
@@ -1791,29 +1890,29 @@ feature {FUNCTION_CALL}
       end
 
 feature {}
-   frozen code_accumulator: CODE_ACCUMULATOR is
+   frozen code_accumulator: CODE_ACCUMULATOR
       once
          create Result.make
       end
 
 feature {ACE}
-   root_class_text (root_class_name: STRING): CLASS_TEXT is
+   root_class_text (root_class_name: STRING): CLASS_TEXT
       local
          hashed_root_class_name: HASHED_STRING; root_name: CLASS_NAME
       do
          hashed_root_class_name := string_aliaser.hashed_string(root_class_name)
-         create root_name.unknown_position(hashed_root_class_name)
+         create root_name.unknown_position(hashed_root_class_name, False)
          if cwd_cluster /= Void then
             echo.put_string(once "Looking for ")
             echo.put_string(root_class_name)
             echo.put_string(once " starting from cluster ")
             echo.put_line(cwd_cluster.name)
          end
-         Result := ace.class_text(root_name, True, True, cwd_cluster)
+         Result := ace.class_text(root_name, True, cwd_cluster)
       end
 
 feature {}
-   cwd_cluster: CLUSTER is
+   cwd_cluster: CLUSTER
       local
          bd: BASIC_DIRECTORY; cwd_path: STRING
       once
@@ -1827,7 +1926,7 @@ feature {}
       end
 
 feature {}
-   echo_magic_count (msg: STRING) is
+   echo_magic_count (msg: STRING)
       require
          msg /= Void
       do
@@ -1837,7 +1936,7 @@ feature {}
          echo.put_string(once ").%N")
       end
 
-   front_end (root_class_name, root_procedure_name: STRING) is
+   do_front_end (root_class_name, root_procedure_name: STRING)
          -- Get started to compile using creation procedure `root_procedure_name' of class text
          -- `root_class_name'.
       require
@@ -1845,14 +1944,8 @@ feature {}
          not root_procedure_name.is_empty
       local
          root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
-         i: INTEGER; lt: LIVE_TYPE
          fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
-         if ace.no_check then
-            set_generator_used
-            set_generating_type_used
-         end
-         ace.parse_include
          root := root_class_text(root_class_name)
          if root = Void then
             error_handler.append(once "Cannot load root class ")
@@ -1884,74 +1977,67 @@ feature {}
                error_handler.print_as_fatal_error
             end
          end
-         if nb_errors = 0 then
-            if cecil_pool /= Void then
-               cecil_pool.parse_cecil_files
-            end
-            collect_from_root(root_type, root_type.lookup(root_fn))
-         end
-         check
-            status.collecting_done
-         end
-         if nb_errors = 0 and then not pretty_flag and then not short_or_class_check_flag then
-            -- Well, we are now producing executable code. One pass first of `simplify' to compute what
-            -- is obviously static (e.g. 1 + 1 = 2):
-            simplify_and_optimize(root_type, root_type.lookup(root_fn))
-            -- Now inlining of dynamic dispatch:
-            inline_dynamic_dispatch(root_type, root_fn)
-            -- Second pass of `simplify' to compute what has been inlined:
-            simplify_and_optimize(root_type, root_type.lookup(root_fn))
-         end
-         if nb_errors = 0 then
-            status.set_adapting
-            from
-               i := live_type_map.lower
-            until
-               i > live_type_map.upper
-            loop
-               lt := live_type_map.item(i)
-               --if lt.at_run_time then
-                  lt.make_run_features
-               --end
-               i := i + 1
-            end
-            if nb_errors = 0 then
-               from
-                  i := live_type_map.lower
-               until
-                  i > live_type_map.upper
-               loop
-                  lt := live_type_map.item(i)
-                  if lt.at_run_time then
-                     lt.adapt_run_features_and_class_invariant
-                  end
-                  i := i + 1
-               end
-               if nb_errors = 0 then
-                  --|*** PH(03/03/04) Next lines may be removed I think.
-                  root_procedure ?= root_type.live_type.at(root_fn)
-                  check
-                     root_is_run_feature_3: root_procedure /= Void
-                  end
-                  if nb_errors = 0 and then cecil_pool /= Void then
-                     cecil_pool.adapt
-                  end
-               end
-            end
-         end
-         if nb_errors = 0 then
-            safety_check
-            echo.print_count(once "Loaded Classe", ace.class_text_count)
-         end
       ensure
          nb_errors = 0 implies root_procedure /= Void
       end
 
-   collect_from_root (root_type: TYPE; root_feature: FEATURE_STAMP) is
+   do_collect (root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
       local
-         tmp: TYPE; i, magic: INTEGER
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
       do
-         status.set_collecting
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+         collect_from_root(root_type, root_type.lookup(root_fn))
+      end
+
+   do_adapt (root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
+         not pretty_flag and then not short_or_class_check_flag
+      local
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+      do
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+
+         -- Well, we are now producing executable code. One pass first of `simplify' to compute what
+         -- is obviously static (e.g. 1 + 1 = 2):
+         simplify_and_optimize(root_type, root_type.lookup(root_fn))
+         -- Now inlining of dynamic dispatch:
+         inline_dynamic_dispatch(root_type, root_fn)
+         -- Second pass of `simplify' to compute what has been inlined:
+         simplify_and_optimize(root_type, root_type.lookup(root_fn))
+      end
+
+   do_back_end (back_end: CODE_PRINTER; root_class_name, root_procedure_name: STRING)
+      require
+         nb_errors = 0
+      local
+         root_fn: FEATURE_NAME; root: CLASS_TEXT; root_type: TYPE
+      do
+         root := root_class_text(root_class_name)
+         root_fn := root.root_creation_search(root_procedure_name)
+         root_type := root.declaration_type_of_like_current
+         root_procedure ::= root_type.live_type.at(root_fn)
+         if root_procedure = Void then
+            error_handler.append(once "Root procedure {")
+            error_handler.append(root_class_name)
+            error_handler.append(once "}.")
+            error_handler.append(root_procedure_name)
+            error_handler.append(once " not found!")
+            error_handler.print_as_internal_error
+         end
+         back_end.compile
+      end
+
+   collect_from_root (root_type: TYPE; root_feature: FEATURE_STAMP)
+      local
+         tmp: TYPE; i: INTEGER; magic: like magic_count
+      do
          assignment_handler.reset
          manifest_string_pool.reset
          manifest_generic_pool.reset
@@ -1993,32 +2079,9 @@ feature {}
             echo_magic_count(once "Before collect cycle")
             do_one_collect_cycle
          end
-         if ace.no_check then
-            -- Once a TYPED_INTERNALS[xxx] is detected as alive by collect_internals_handler, it stays alive
-            -- so we want to do this as late as possible in boost mode.
-            from
-               introspection_handler.collect_internals_handler
-            until
-               magic = magic_count
-            loop
-               magic := magic_count
-               echo_magic_count(once "Before collect cycle")
-               do_one_collect_cycle
-            end
-         end
-         if deep_twin_used then
-            collect_deep_features
-         end
-         status.set_collecting_done
-         echo_magic_count(once "Collecting done")
-         echo.put_string(once "Live_type_map size=")
-         echo.put_integer(live_type_map.count)
-         echo.put_new_line
-      ensure
-         status.collecting_done
       end
 
-   do_one_collect_cycle is
+   do_one_collect_cycle
       local
          i: INTEGER
       do
@@ -2041,7 +2104,7 @@ feature {}
          assignment_handler.recompute_all_run_time_sets
       end
 
-   collect_deep_features is
+   collect_deep_features
       require
          deep_twin_used
       local
@@ -2057,7 +2120,7 @@ feature {}
          end
       end
 
-   safety_check is
+   safety_check
          -- Start final whole system analysis to decide whether this
          -- system is safe or not.
       require
@@ -2129,7 +2192,7 @@ feature {}
    inspect_when_merge_counter: INTEGER
          -- Total number of merged when clauses in "inspect" statements.
 
-   inline_dynamic_dispatch (root_type: TYPE; root_fn: FEATURE_NAME) is
+   inline_dynamic_dispatch (root_type: TYPE; root_fn: FEATURE_NAME)
       require
          not pretty_flag
          not short_or_class_check_flag
@@ -2188,7 +2251,7 @@ feature {}
          status.inlining_dynamic_dispatch_done
       end
 
-   simplify_and_optimize (root_type: TYPE; root_feature: FEATURE_STAMP) is
+   simplify_and_optimize (root_type: TYPE; root_feature: FEATURE_STAMP)
       require
          not pretty_flag
          not short_or_class_check_flag
@@ -2228,14 +2291,14 @@ feature {}
          end
       end
 
-   set_simplify_done is
+   set_simplify_done
       do
          simplify_done := True
       ensure
          simplify_done
       end
 
-   simplify is
+   simplify
       require
          not pretty_flag
          not short_or_class_check_flag
@@ -2289,7 +2352,7 @@ feature {}
          set_simplify_done
       end
 
-   contextual_simplify is
+   contextual_simplify
       require
          not pretty_flag
          not short_or_class_check_flag
@@ -2341,14 +2404,14 @@ feature {}
       end
 
 feature {INSPECT_STATEMENT}
-   inspect_when_merge_counter_increment is
+   inspect_when_merge_counter_increment
       do
          magic_count_increment
          inspect_when_merge_counter := inspect_when_merge_counter + 1
       end
 
 feature {C_PRETTY_PRINTER}
-   echo_polymorphic_inspect_distribution (step_tag: STRING) is
+   echo_polymorphic_inspect_distribution (step_tag: STRING)
       local
          when_count, inspect_count, cumulated_inspect_count: INTEGER; polymorphic_view: STRING
       do
@@ -2391,7 +2454,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {LIVE_TYPE}
-   register_live_type (live_type: LIVE_TYPE) is
+   register_live_type (live_type: LIVE_TYPE)
       require
          live_type /= Void
       do
@@ -2399,17 +2462,17 @@ feature {LIVE_TYPE}
       end
 
 feature {PROCEDURE_CALL}
-   monomorphic_procedure_call_count_increment is
+   monomorphic_procedure_call_count_increment
       do
          monomorphic_procedure_call_count := monomorphic_procedure_call_count + 1
       end
 
-   expanded_target_procedure_call_count_increment is
+   expanded_target_procedure_call_count_increment
       do
          expanded_target_procedure_call_count := expanded_target_procedure_call_count + 1
       end
 
-   polymorphic_procedure_call_count_increment (nb_branches: INTEGER) is
+   polymorphic_procedure_call_count_increment (nb_branches: INTEGER)
       require
          nb_branches >= 2
       do
@@ -2417,23 +2480,23 @@ feature {PROCEDURE_CALL}
          polymorphic_procedure_call_count := polymorphic_procedure_call_count + 1
       end
 
-   void_target_procedure_call_count_increment is
+   void_target_procedure_call_count_increment
       do
          void_target_procedure_call_count := void_target_procedure_call_count + 1
       end
 
 feature {FUNCTION_CALL}
-   monomorphic_function_call_count_increment is
+   monomorphic_function_call_count_increment
       do
          monomorphic_function_call_count := monomorphic_function_call_count + 1
       end
 
-   expanded_target_function_call_count_increment is
+   expanded_target_function_call_count_increment
       do
          expanded_target_function_call_count := expanded_target_function_call_count + 1
       end
 
-   polymorphic_function_call_count_increment (nb_branches: INTEGER) is
+   polymorphic_function_call_count_increment (nb_branches: INTEGER)
       require
          nb_branches >= 2
       do
@@ -2441,13 +2504,13 @@ feature {FUNCTION_CALL}
          polymorphic_function_call_count := polymorphic_function_call_count + 1
       end
 
-   void_target_function_call_count_increment is
+   void_target_function_call_count_increment
       do
          void_target_function_call_count := void_target_function_call_count + 1
       end
 
 feature {C_CODE_COMPILER}
-   update_polymorphic_distribution (nb_branches: INTEGER) is
+   update_polymorphic_distribution (nb_branches: INTEGER)
       require
          nb_branches >= 2
       local
@@ -2462,14 +2525,14 @@ feature {C_CODE_COMPILER}
       end
 
 feature {C_PRETTY_PRINTER}
-   sort_live_type_map is
+   sort_live_type_map
       do
          live_type_sorter.sort(live_type_map_)
       ensure
          is_sorted: live_type_sorter.is_sorted(live_type_map_)
       end
 
-   show_live_types is
+   show_live_types
       local
          i: INTEGER
       do
@@ -2504,9 +2567,9 @@ end -- class SMART_EIFFEL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

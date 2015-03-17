@@ -3,7 +3,7 @@
 --
 class AUX_EXPORT6A1
 feature {AUX_EXPORT6A}
-   g is
+   g
       do
       end
 end -- class AUX_EXPORT6A1

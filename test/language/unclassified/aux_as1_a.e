@@ -6,7 +6,7 @@ class AUX_AS1_A[G -> AUX_AS1_E]
 inherit
    AUX_AS1_ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -16,7 +16,7 @@ feature {ANY}
 
    static_d: AUX_AS1_D
 
-   make (init: G) is
+   make (init: G)
       require
          non_void_init: init /= Void
       do

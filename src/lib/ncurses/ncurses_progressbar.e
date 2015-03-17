@@ -25,14 +25,14 @@ feature {ANY}
 
    current_value: INTEGER
 
-   set_value (v: like current_value) is
+   set_value (v: like current_value)
       require
          v.in_range(min_value, max_value)
       do
          current_value := v
       end
 
-   refresh_later is
+   refresh_later
       local
          filled, start, todo: INTEGER
          b: BOOLEAN
@@ -61,18 +61,18 @@ feature {ANY}
 
    is_value_displayed: BOOLEAN
 
-   display_value (b: like is_value_displayed) is
+   display_value (b: like is_value_displayed)
       do
          is_value_displayed := b
       end
 
 feature {NCURSES_WIDGET}
-   get_window: NCURSES_WINDOW is
+   get_window: NCURSES_WINDOW
       do
          Result := window
       end
 
-   parent_resized is
+   parent_resized
       do
          if left + width > parent.width then
             width := parent.width - left - 1
@@ -80,7 +80,7 @@ feature {NCURSES_WIDGET}
       end
 
 feature {}
-   make (p: like parent; x, y, w, min, max: INTEGER) is
+   make (p: like parent; x, y, w, min, max: INTEGER)
       require
          ncurses.is_enabled
          p /= Void
@@ -114,13 +114,13 @@ invariant
 
 end -- class NCURSES_PROGRESSBAR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

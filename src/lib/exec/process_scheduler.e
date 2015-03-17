@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN) is
+   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN)
       local
          p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
       do
@@ -27,7 +27,7 @@ feature {ANY}
          post_launch(p, launch_info)
       end
 
-   execute_command_line (command_line: STRING; keep_environment: BOOLEAN) is
+   execute_command_line (command_line: STRING; keep_environment: BOOLEAN)
       local
          p: PROCESS; launch_info: PROCESS_LAUNCH_INFO
       do
@@ -44,14 +44,14 @@ feature {ANY}
          post_launch(p, launch_info)
       end
 
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
       do
          Result := maximum_process_count >= 1
       ensure
          Result = (maximum_process_count >= 1)
       end
 
-   set_parallel_process_count (parallel_process_count_: like parallel_process_count) is
+   set_parallel_process_count (parallel_process_count_: like parallel_process_count)
       require
          parallel_process_count_ >= 1
       do
@@ -61,14 +61,14 @@ feature {ANY}
          parallel_process_count.in_range(0, parallel_process_count_)
       end
 
-   wait is
+   wait
       do
          wait_until(0)
       ensure
          process_count = 0
       end
 
-   maximum_process_count: INTEGER is
+   maximum_process_count: INTEGER
       do
          Result := parallel_process_count
          if is_serial then
@@ -88,7 +88,7 @@ feature {ANY}
    is_serial: BOOLEAN
          -- Are processes currently launched sequentially rather than concurrently.
 
-   set_parallel is
+   set_parallel
       do
          if is_serial then
             wait
@@ -96,28 +96,28 @@ feature {ANY}
          is_serial := False
       end
 
-   set_serial is
+   set_serial
       do
          wait_until(1)
          is_serial := True
       end
 
 feature {ANY}
-   register_on_launched (on_launched_: like on_launched) is
+   register_on_launched (on_launched_: like on_launched)
       do
          on_launched := on_launched_
       ensure
          on_launched = on_launched_
       end
 
-   register_on_failed (on_failed_: like on_failed) is
+   register_on_failed (on_failed_: like on_failed)
       do
          on_failed := on_failed_
       ensure
          on_failed = on_failed_
       end
 
-   register_on_finished (on_finished_: like on_finished) is
+   register_on_finished (on_finished_: like on_finished)
       do
          on_finished := on_finished_
       ensure
@@ -125,13 +125,13 @@ feature {ANY}
       end
 
 feature {}
-   on_launched: ROUTINE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_launched: PROCEDURE[TUPLE[STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
    on_failed: like on_launched
 
-   on_finished: ROUTINE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
+   on_finished: PROCEDURE[TUPLE[INTEGER, STRING, STRING, TRAVERSABLE[STRING], BOOLEAN]]
 
-   post_launch (process: PROCESS; launch_info: PROCESS_LAUNCH_INFO) is
+   post_launch (process: PROCESS; launch_info: PROCESS_LAUNCH_INFO)
       local
          callback: like on_launched
       do
@@ -148,7 +148,7 @@ feature {}
          end
       end
 
-   wait_until (process_count_: like process_count) is
+   wait_until (process_count_: like process_count)
       require
          process_count_ >= 0
       local
@@ -171,12 +171,12 @@ feature{}
 
    factory: PROCESS_FACTORY
 
-   group: PROCESS_GROUP is
+   group: PROCESS_GROUP
       do
          Result := factory.group
       end
 
-   new_process: PROCESS is
+   new_process: PROCESS
       do
          if process_count < maximum_process_count then
             Result := factory.create_process
@@ -185,7 +185,7 @@ feature{}
          end
       end
 
-   wait_process: PROCESS is
+   wait_process: PROCESS
       local
          launch_info: PROCESS_LAUNCH_INFO
       do
@@ -203,7 +203,7 @@ feature{}
          Result /= Void
       end
 
-   make is
+   make
       do
          create processes.make
          factory.set_direct_input(True)
@@ -217,13 +217,13 @@ invariant
 
 end -- class PROCESS_SCHEDULER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a_string: AUX_INHERIT_STRING1
 
-   make is
+   make
       do
          create a_string.make("foo")
       end

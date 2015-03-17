@@ -14,7 +14,7 @@ feature {} -- Low-level queries
 	-- Unwrappable field imr_interface.
 	-- Unwrappable field imr_sourceaddr.
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

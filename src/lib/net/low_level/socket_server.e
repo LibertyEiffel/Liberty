@@ -19,7 +19,9 @@ feature {ANY}
    can_connect: BOOLEAN
          -- True if some client can connect to the server.
 
-   shutdown is
+   error: STRING
+
+   shutdown
          -- Wait for the connections to finish, then stop the server.
          -- No more connections will be accepted.
       require
@@ -32,7 +34,7 @@ feature {ANY}
          not can_connect
       end
 
-   halt is
+   halt
          -- Force all the connected sockets to disconnect, then shutdown
       require
          can_connect
@@ -43,7 +45,7 @@ feature {ANY}
          not can_connect
       end
 
-   new_stream (read_sync: BOOLEAN): SOCKET_INPUT_OUTPUT_STREAM is
+   new_stream (read_sync: BOOLEAN): SOCKET_INPUT_OUTPUT_STREAM
       do
          create {SERVER_SOCKET_INPUT_OUTPUT_STREAM} Result.connect_to(Current, read_sync)
       end
@@ -53,14 +55,14 @@ feature {EVENTS_SET, SOCKET}
          -- The file descriptor of the socket; it is used to wait for some connection.
 
 feature {SOCKET_INPUT_OUTPUT_STREAM}
-   bind (a_sync: BOOLEAN): SOCKET is
+   bind (a_sync: BOOLEAN): SOCKET
          -- Create a socket for the stream to connect upon (used by the stream at creation)
       deferred
       ensure
          has_socket(Result)
       end
 
-   unbind (socket: SOCKET) is
+   unbind (socket: SOCKET)
          -- Close the socket and unbind it
       require
          socket.is_connected
@@ -73,11 +75,11 @@ feature {SOCKET_INPUT_OUTPUT_STREAM}
          not socket.is_connected
       end
 
-   has_socket (socket: SOCKET): BOOLEAN is
+   has_socket (socket: SOCKET): BOOLEAN
       deferred
       end
 
-   socket_disconnected (socket: SOCKET) is
+   socket_disconnected (socket: SOCKET)
       require
          not socket.is_connected
          has_socket(socket)
@@ -87,12 +89,12 @@ feature {SOCKET_INPUT_OUTPUT_STREAM}
       end
 
 feature {}
-   kill_connections is
+   kill_connections
       deferred
       end
 
 feature {ANY}
-   event_connection: EVENT_DESCRIPTOR is
+   event_connection: EVENT_DESCRIPTOR
       do
          Result := connection_occurred
          if Result = Void then
@@ -106,13 +108,13 @@ feature {}
 
 end -- class SOCKET_SERVER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

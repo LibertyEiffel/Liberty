@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          if argument_count /= 1 then
             io.put_string("usage : example2 <directory_name>%N")
@@ -20,7 +20,7 @@ feature {}
          end
       end
 
-   list_directory (path: STRING) is
+   list_directory (path: STRING)
       local
          basic_directory: BASIC_DIRECTORY
       do
@@ -45,7 +45,7 @@ feature {}
          end
       end
 
-   display_content_of (basic_directory: BASIC_DIRECTORY) is
+   display_content_of (basic_directory: BASIC_DIRECTORY)
       require
          basic_directory.is_connected
       do

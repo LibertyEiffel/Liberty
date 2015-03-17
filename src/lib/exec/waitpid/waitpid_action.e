@@ -4,21 +4,21 @@
 expanded class WAITPID_ACTION
 
 feature {WAITPID_JOB}
-   fire_waitpid (pid, status: INTEGER) is
+   fire_waitpid (pid, status: INTEGER)
       do
          if on_waitpid /= Void then
             on_waitpid.call([pid, status])
          end
       end
 
-   fire_timeout is
+   fire_timeout
       do
          if on_timeout /= Void then
             on_timeout.call([])
          end
       end
 
-   set (a_on_waitpid: like on_waitpid; a_on_timeout: like on_timeout) is
+   set (a_on_waitpid: like on_waitpid; a_on_timeout: like on_timeout)
       do
          on_waitpid := a_on_waitpid
          on_timeout := a_on_timeout
@@ -33,13 +33,13 @@ feature {}
 
 end -- class WAITPID_ACTION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

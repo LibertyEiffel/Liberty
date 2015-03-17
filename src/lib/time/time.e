@@ -21,7 +21,7 @@ insert
       end
 
 feature {ANY}
-   out: STRING is
+   out: STRING
       do
          create Result.with_capacity(21)
          year.append_in(Result); Result.extend('/')
@@ -38,7 +38,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_local_time: BOOLEAN is
+   is_local_time: BOOLEAN
          -- Is the local time in use? This information applies to all objects
          -- of class TIME and MICROSECOND_TIME.
       do
@@ -47,7 +47,7 @@ feature {ANY}
          Result implies not is_universal_time
       end
 
-   is_universal_time: BOOLEAN is
+   is_universal_time: BOOLEAN
          -- Is Universal Time in use?  This information applies to all objects
          -- of class TIME and MICROSECOND_TIME.
       do
@@ -56,13 +56,13 @@ feature {ANY}
          Result implies not is_local_time
       end
 
-   year: INTEGER is
+   year: INTEGER
          -- Number of the year.
       do
          Result := time_getyear(time_memory, time_mode)
       end
 
-   month: INTEGER is
+   month: INTEGER
          -- Number of the month (1 for January, 2 for February, ...
          -- 12 for December).
       do
@@ -71,7 +71,7 @@ feature {ANY}
          Result.in_range(1, 12)
       end
 
-   day: INTEGER is
+   day: INTEGER
          -- Day of the `month' in range 1 .. 31.
       do
          Result := time_getday(time_memory, time_mode)
@@ -79,7 +79,7 @@ feature {ANY}
          Result.in_range(1, 31)
       end
 
-   hour: INTEGER is
+   hour: INTEGER
          -- Hour in range 0..23.
       do
          Result := time_gethour(time_memory, time_mode)
@@ -87,7 +87,7 @@ feature {ANY}
          Result.in_range(0, 23)
       end
 
-   minute: INTEGER is
+   minute: INTEGER
          -- Minute in range 0 .. 59.
       do
          Result := time_getminute(time_memory, time_mode)
@@ -95,7 +95,7 @@ feature {ANY}
          Result.in_range(0, 59)
       end
 
-   second: INTEGER is
+   second: INTEGER
          -- Second in range 0 .. 59.
       do
          Result := time_getsecond(time_memory, time_mode)
@@ -103,7 +103,7 @@ feature {ANY}
          Result.in_range(0, 59)
       end
 
-   week_day: INTEGER is
+   week_day: INTEGER
          -- Number of the day in the week (Sunday is 0, Monday is 1, etc.).
       do
          Result := time_getwday(time_memory, time_mode)
@@ -111,19 +111,19 @@ feature {ANY}
          Result.in_range(0, 6)
       end
 
-   year_day: INTEGER is
+   year_day: INTEGER
          -- Number of the day in the year in range 0 .. 365.
       do
          Result := time_getyday(time_memory, time_mode)
       end
 
-   is_summer_time_used: BOOLEAN is
+   is_summer_time_used: BOOLEAN
          -- Is summer time in effect?
       do
          Result := time_is_summer_time_used(time_memory)
       end
 
-   to_microsecond_time: MICROSECOND_TIME is
+   to_microsecond_time: MICROSECOND_TIME
       do
          Result.set_time(Current)
       ensure
@@ -132,13 +132,13 @@ feature {ANY}
       end
 
 feature {ANY} -- Setting:
-   update is
+   update
          -- Update `Current' with the current system clock.
       do
          time_memory := basic_time
       end
 
-   set (a_year, a_month, a_day, a_hour, a_min, sec: INTEGER): BOOLEAN is
+   set (a_year, a_month, a_day, a_hour, a_min, sec: INTEGER): BOOLEAN
          -- Try to set `Current' using the given information. If this input
          -- is not a valid date, the `Result' is False and `Current' is not updated.
       require
@@ -157,7 +157,7 @@ feature {ANY} -- Setting:
          end
       end
 
-   add_second (s: INTEGER) is
+   add_second (s: INTEGER)
          -- Add `s' seconds to `Current'.
       require
          s >= 0
@@ -167,7 +167,7 @@ feature {ANY} -- Setting:
          Current >= old Current
       end
 
-   add_minute (m: INTEGER) is
+   add_minute (m: INTEGER)
          -- Add `m' minutes to `Current'.
       require
          m >= 0
@@ -177,7 +177,7 @@ feature {ANY} -- Setting:
          Current >= old Current
       end
 
-   add_hour (h: INTEGER) is
+   add_hour (h: INTEGER)
          -- Add `h' hours to `Current'.
       require
          h >= 0
@@ -187,7 +187,7 @@ feature {ANY} -- Setting:
          Current >= old Current
       end
 
-   add_day (d: INTEGER) is
+   add_day (d: INTEGER)
          -- Add `d' days to `Current'.
       require
          d >= 0
@@ -198,7 +198,7 @@ feature {ANY} -- Setting:
       end
 
 feature {ANY}
-   elapsed_seconds (other: like Current): REAL is
+   elapsed_seconds (other: like Current): REAL
          -- Elapsed time in seconds from `Current' to `other'.
       require
          Current <= other
@@ -208,25 +208,25 @@ feature {ANY}
          Result >= 0
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.time_memory = time_memory
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := time_difftime(other.time_memory, time_memory) > 0
       end
 
 feature {ANY} -- Setting common time mode (local or universal):
-      set_universal_time is
+   set_universal_time
       do
          time_mode_memo.set_item(1)
       ensure
          is_universal_time
       end
 
-   set_local_time is
+   set_local_time
       do
          time_mode_memo.set_item(0)
       ensure
@@ -234,13 +234,13 @@ feature {ANY} -- Setting common time mode (local or universal):
       end
 
 feature {ANY} -- Hashing:
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := time_memory.hash_code
       end
 
 feature {TIME, FILE_TOOLS, TIME_FORMATTER, MICROSECOND_TIME}
-   set_time_memory (tm: like time_memory) is
+   set_time_memory (tm: like time_memory)
       do
          time_memory := tm
       ensure
@@ -253,20 +253,20 @@ feature {TIME_HANDLER}
          -- kind of information should always fit into an INTEGER_64.
 
 feature {}
-   time_mode_memo: REFERENCE[INTEGER] is
+   time_mode_memo: REFERENCE[INTEGER]
          -- The global default `time_mode' memory.
       once
          create Result
       end
 
-   time_mode: INTEGER is
+   time_mode: INTEGER
       do
          Result := time_mode_memo.item
       ensure
          Result = 0 or Result = 1
       end
 
-   basic_time: INTEGER_64 is
+   basic_time: INTEGER_64
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -275,7 +275,7 @@ feature {}
          }"
       end
 
-   time_difftime (time2, time1: INTEGER_64): REAL is
+   time_difftime (time2, time1: INTEGER_64): REAL
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -284,7 +284,7 @@ feature {}
          }"
       end
 
-   time_getyear (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getyear (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -293,7 +293,7 @@ feature {}
          }"
       end
 
-   time_getmonth (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getmonth (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -302,7 +302,7 @@ feature {}
          }"
       end
 
-   time_getday (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getday (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -311,7 +311,7 @@ feature {}
          }"
       end
 
-   time_gethour (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_gethour (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -320,7 +320,7 @@ feature {}
          }"
       end
 
-   time_getminute (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getminute (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -329,7 +329,7 @@ feature {}
          }"
       end
 
-   time_getsecond (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getsecond (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -338,7 +338,7 @@ feature {}
          }"
       end
 
-   time_is_summer_time_used (tm: INTEGER_64): BOOLEAN is
+   time_is_summer_time_used (tm: INTEGER_64): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -347,7 +347,7 @@ feature {}
          }"
       end
 
-   time_getyday (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getyday (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -356,7 +356,7 @@ feature {}
          }"
       end
 
-   time_getwday (tm: INTEGER_64; mode: INTEGER): INTEGER is
+   time_getwday (tm: INTEGER_64; mode: INTEGER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -365,7 +365,7 @@ feature {}
          }"
       end
 
-   time_mktime (a_year, a_mon, a_day, a_hour, a_min, a_sec: INTEGER): INTEGER_64 is
+   time_mktime (a_year, a_mon, a_day, a_hour, a_min, a_sec: INTEGER): INTEGER_64
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -374,7 +374,7 @@ feature {}
          }"
       end
 
-   time_add_second (time: POINTER; s: INTEGER) is
+   time_add_second (time: POINTER; s: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -385,13 +385,13 @@ feature {}
 
 end -- class TIME
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

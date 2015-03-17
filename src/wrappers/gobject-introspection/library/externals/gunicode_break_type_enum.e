@@ -5,9 +5,9 @@ expanded class GUNICODE_BREAK_TYPE_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = after_low_level)  or else
 				(a_value = alphabetic_low_level)  or else
@@ -52,399 +52,399 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_after is
+	set_after
 		do
 			value := after_low_level
 		end
 
-	set_alphabetic is
+	set_alphabetic
 		do
 			value := alphabetic_low_level
 		end
 
-	set_ambiguous is
+	set_ambiguous
 		do
 			value := ambiguous_low_level
 		end
 
-	set_before is
+	set_before
 		do
 			value := before_low_level
 		end
 
-	set_before_and_after is
+	set_before_and_after
 		do
 			value := before_and_after_low_level
 		end
 
-	set_carriage_return is
+	set_carriage_return
 		do
 			value := carriage_return_low_level
 		end
 
-	set_close_paranthesis is
+	set_close_paranthesis
 		do
 			value := close_paranthesis_low_level
 		end
 
-	set_close_punctuation is
+	set_close_punctuation
 		do
 			value := close_punctuation_low_level
 		end
 
-	set_combining_mark is
+	set_combining_mark
 		do
 			value := combining_mark_low_level
 		end
 
-	set_complex_context is
+	set_complex_context
 		do
 			value := complex_context_low_level
 		end
 
-	set_conditional_japanese_starter is
+	set_conditional_japanese_starter
 		do
 			value := conditional_japanese_starter_low_level
 		end
 
-	set_contingent is
+	set_contingent
 		do
 			value := contingent_low_level
 		end
 
-	set_exclamation is
+	set_exclamation
 		do
 			value := exclamation_low_level
 		end
 
-	set_hangul_l_jamo is
+	set_hangul_l_jamo
 		do
 			value := hangul_l_jamo_low_level
 		end
 
-	set_hangul_lv_syllable is
+	set_hangul_lv_syllable
 		do
 			value := hangul_lv_syllable_low_level
 		end
 
-	set_hangul_lvt_syllable is
+	set_hangul_lvt_syllable
 		do
 			value := hangul_lvt_syllable_low_level
 		end
 
-	set_hangul_t_jamo is
+	set_hangul_t_jamo
 		do
 			value := hangul_t_jamo_low_level
 		end
 
-	set_hangul_v_jamo is
+	set_hangul_v_jamo
 		do
 			value := hangul_v_jamo_low_level
 		end
 
-	set_hebrew_letter is
+	set_hebrew_letter
 		do
 			value := hebrew_letter_low_level
 		end
 
-	set_hyphen is
+	set_hyphen
 		do
 			value := hyphen_low_level
 		end
 
-	set_ideographic is
+	set_ideographic
 		do
 			value := ideographic_low_level
 		end
 
-	set_infix_separator is
+	set_infix_separator
 		do
 			value := infix_separator_low_level
 		end
 
-	set_inseparable is
+	set_inseparable
 		do
 			value := inseparable_low_level
 		end
 
-	set_line_feed is
+	set_line_feed
 		do
 			value := line_feed_low_level
 		end
 
-	set_mandatory is
+	set_mandatory
 		do
 			value := mandatory_low_level
 		end
 
-	set_next_line is
+	set_next_line
 		do
 			value := next_line_low_level
 		end
 
-	set_non_breaking_glue is
+	set_non_breaking_glue
 		do
 			value := non_breaking_glue_low_level
 		end
 
-	set_non_starter is
+	set_non_starter
 		do
 			value := non_starter_low_level
 		end
 
-	set_numeric is
+	set_numeric
 		do
 			value := numeric_low_level
 		end
 
-	set_open_punctuation is
+	set_open_punctuation
 		do
 			value := open_punctuation_low_level
 		end
 
-	set_postfix is
+	set_postfix
 		do
 			value := postfix_low_level
 		end
 
-	set_prefix is
+	set_prefix
 		do
 			value := prefix_low_level
 		end
 
-	set_quotation is
+	set_quotation
 		do
 			value := quotation_low_level
 		end
 
-	set_space is
+	set_space
 		do
 			value := space_low_level
 		end
 
-	set_surrogate is
+	set_surrogate
 		do
 			value := surrogate_low_level
 		end
 
-	set_symbol is
+	set_symbol
 		do
 			value := symbol_low_level
 		end
 
-	set_unknown is
+	set_unknown
 		do
 			value := unknown_low_level
 		end
 
-	set_word_joiner is
+	set_word_joiner
 		do
 			value := word_joiner_low_level
 		end
 
-	set_zero_width_space is
+	set_zero_width_space
 		do
 			value := zero_width_space_low_level
 		end
 
 feature {ANY} -- Queries
-	is_after: BOOLEAN is
+	is_after: BOOLEAN
 		do
 			Result := (value=after_low_level)
 		end
 
-	is_alphabetic: BOOLEAN is
+	is_alphabetic: BOOLEAN
 		do
 			Result := (value=alphabetic_low_level)
 		end
 
-	is_ambiguous: BOOLEAN is
+	is_ambiguous: BOOLEAN
 		do
 			Result := (value=ambiguous_low_level)
 		end
 
-	is_before: BOOLEAN is
+	is_before: BOOLEAN
 		do
 			Result := (value=before_low_level)
 		end
 
-	is_before_and_after: BOOLEAN is
+	is_before_and_after: BOOLEAN
 		do
 			Result := (value=before_and_after_low_level)
 		end
 
-	is_carriage_return: BOOLEAN is
+	is_carriage_return: BOOLEAN
 		do
 			Result := (value=carriage_return_low_level)
 		end
 
-	is_close_paranthesis: BOOLEAN is
+	is_close_paranthesis: BOOLEAN
 		do
 			Result := (value=close_paranthesis_low_level)
 		end
 
-	is_close_punctuation: BOOLEAN is
+	is_close_punctuation: BOOLEAN
 		do
 			Result := (value=close_punctuation_low_level)
 		end
 
-	is_combining_mark: BOOLEAN is
+	is_combining_mark: BOOLEAN
 		do
 			Result := (value=combining_mark_low_level)
 		end
 
-	is_complex_context: BOOLEAN is
+	is_complex_context: BOOLEAN
 		do
 			Result := (value=complex_context_low_level)
 		end
 
-	is_conditional_japanese_starter: BOOLEAN is
+	is_conditional_japanese_starter: BOOLEAN
 		do
 			Result := (value=conditional_japanese_starter_low_level)
 		end
 
-	is_contingent: BOOLEAN is
+	is_contingent: BOOLEAN
 		do
 			Result := (value=contingent_low_level)
 		end
 
-	is_exclamation: BOOLEAN is
+	is_exclamation: BOOLEAN
 		do
 			Result := (value=exclamation_low_level)
 		end
 
-	is_hangul_l_jamo: BOOLEAN is
+	is_hangul_l_jamo: BOOLEAN
 		do
 			Result := (value=hangul_l_jamo_low_level)
 		end
 
-	is_hangul_lv_syllable: BOOLEAN is
+	is_hangul_lv_syllable: BOOLEAN
 		do
 			Result := (value=hangul_lv_syllable_low_level)
 		end
 
-	is_hangul_lvt_syllable: BOOLEAN is
+	is_hangul_lvt_syllable: BOOLEAN
 		do
 			Result := (value=hangul_lvt_syllable_low_level)
 		end
 
-	is_hangul_t_jamo: BOOLEAN is
+	is_hangul_t_jamo: BOOLEAN
 		do
 			Result := (value=hangul_t_jamo_low_level)
 		end
 
-	is_hangul_v_jamo: BOOLEAN is
+	is_hangul_v_jamo: BOOLEAN
 		do
 			Result := (value=hangul_v_jamo_low_level)
 		end
 
-	is_hebrew_letter: BOOLEAN is
+	is_hebrew_letter: BOOLEAN
 		do
 			Result := (value=hebrew_letter_low_level)
 		end
 
-	is_hyphen: BOOLEAN is
+	is_hyphen: BOOLEAN
 		do
 			Result := (value=hyphen_low_level)
 		end
 
-	is_ideographic: BOOLEAN is
+	is_ideographic: BOOLEAN
 		do
 			Result := (value=ideographic_low_level)
 		end
 
-	is_infix_separator: BOOLEAN is
+	is_infix_separator: BOOLEAN
 		do
 			Result := (value=infix_separator_low_level)
 		end
 
-	is_inseparable: BOOLEAN is
+	is_inseparable: BOOLEAN
 		do
 			Result := (value=inseparable_low_level)
 		end
 
-	is_line_feed: BOOLEAN is
+	is_line_feed: BOOLEAN
 		do
 			Result := (value=line_feed_low_level)
 		end
 
-	is_mandatory: BOOLEAN is
+	is_mandatory: BOOLEAN
 		do
 			Result := (value=mandatory_low_level)
 		end
 
-	is_next_line: BOOLEAN is
+	is_next_line: BOOLEAN
 		do
 			Result := (value=next_line_low_level)
 		end
 
-	is_non_breaking_glue: BOOLEAN is
+	is_non_breaking_glue: BOOLEAN
 		do
 			Result := (value=non_breaking_glue_low_level)
 		end
 
-	is_non_starter: BOOLEAN is
+	is_non_starter: BOOLEAN
 		do
 			Result := (value=non_starter_low_level)
 		end
 
-	is_numeric: BOOLEAN is
+	is_numeric: BOOLEAN
 		do
 			Result := (value=numeric_low_level)
 		end
 
-	is_open_punctuation: BOOLEAN is
+	is_open_punctuation: BOOLEAN
 		do
 			Result := (value=open_punctuation_low_level)
 		end
 
-	is_postfix: BOOLEAN is
+	is_postfix: BOOLEAN
 		do
 			Result := (value=postfix_low_level)
 		end
 
-	is_prefix: BOOLEAN is
+	is_prefix: BOOLEAN
 		do
 			Result := (value=prefix_low_level)
 		end
 
-	is_quotation: BOOLEAN is
+	is_quotation: BOOLEAN
 		do
 			Result := (value=quotation_low_level)
 		end
 
-	is_space: BOOLEAN is
+	is_space: BOOLEAN
 		do
 			Result := (value=space_low_level)
 		end
 
-	is_surrogate: BOOLEAN is
+	is_surrogate: BOOLEAN
 		do
 			Result := (value=surrogate_low_level)
 		end
 
-	is_symbol: BOOLEAN is
+	is_symbol: BOOLEAN
 		do
 			Result := (value=symbol_low_level)
 		end
 
-	is_unknown: BOOLEAN is
+	is_unknown: BOOLEAN
 		do
 			Result := (value=unknown_low_level)
 		end
 
-	is_word_joiner: BOOLEAN is
+	is_word_joiner: BOOLEAN
 		do
 			Result := (value=word_joiner_low_level)
 		end
 
-	is_zero_width_space: BOOLEAN is
+	is_zero_width_space: BOOLEAN
 		do
 			Result := (value=zero_width_space_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	after_low_level: INTEGER is
+	after_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -453,7 +453,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	alphabetic_low_level: INTEGER is
+	alphabetic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -462,7 +462,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ambiguous_low_level: INTEGER is
+	ambiguous_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -471,7 +471,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	before_low_level: INTEGER is
+	before_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -480,7 +480,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	before_and_after_low_level: INTEGER is
+	before_and_after_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -489,7 +489,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	carriage_return_low_level: INTEGER is
+	carriage_return_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -498,7 +498,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	close_paranthesis_low_level: INTEGER is
+	close_paranthesis_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -507,7 +507,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	close_punctuation_low_level: INTEGER is
+	close_punctuation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -516,7 +516,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	combining_mark_low_level: INTEGER is
+	combining_mark_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -525,7 +525,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	complex_context_low_level: INTEGER is
+	complex_context_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -534,7 +534,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	conditional_japanese_starter_low_level: INTEGER is
+	conditional_japanese_starter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -543,7 +543,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	contingent_low_level: INTEGER is
+	contingent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -552,7 +552,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	exclamation_low_level: INTEGER is
+	exclamation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -561,7 +561,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hangul_l_jamo_low_level: INTEGER is
+	hangul_l_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -570,7 +570,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hangul_lv_syllable_low_level: INTEGER is
+	hangul_lv_syllable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -579,7 +579,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hangul_lvt_syllable_low_level: INTEGER is
+	hangul_lvt_syllable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -588,7 +588,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hangul_t_jamo_low_level: INTEGER is
+	hangul_t_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -597,7 +597,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hangul_v_jamo_low_level: INTEGER is
+	hangul_v_jamo_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -606,7 +606,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hebrew_letter_low_level: INTEGER is
+	hebrew_letter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -615,7 +615,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	hyphen_low_level: INTEGER is
+	hyphen_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -624,7 +624,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ideographic_low_level: INTEGER is
+	ideographic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -633,7 +633,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	infix_separator_low_level: INTEGER is
+	infix_separator_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -642,7 +642,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inseparable_low_level: INTEGER is
+	inseparable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -651,7 +651,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	line_feed_low_level: INTEGER is
+	line_feed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -660,7 +660,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mandatory_low_level: INTEGER is
+	mandatory_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -669,7 +669,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	next_line_low_level: INTEGER is
+	next_line_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -678,7 +678,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non_breaking_glue_low_level: INTEGER is
+	non_breaking_glue_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -687,7 +687,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non_starter_low_level: INTEGER is
+	non_starter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -696,7 +696,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	numeric_low_level: INTEGER is
+	numeric_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -705,7 +705,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	open_punctuation_low_level: INTEGER is
+	open_punctuation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -714,7 +714,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	postfix_low_level: INTEGER is
+	postfix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -723,7 +723,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	prefix_low_level: INTEGER is
+	prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -732,7 +732,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	quotation_low_level: INTEGER is
+	quotation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -741,7 +741,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	space_low_level: INTEGER is
+	space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -750,7 +750,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	surrogate_low_level: INTEGER is
+	surrogate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -759,7 +759,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	symbol_low_level: INTEGER is
+	symbol_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -768,7 +768,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_low_level: INTEGER is
+	unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -777,7 +777,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	word_joiner_low_level: INTEGER is
+	word_joiner_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -786,7 +786,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	zero_width_space_low_level: INTEGER is
+	zero_width_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

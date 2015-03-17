@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   message: CHARACTER is 'B'
+   message: CHARACTER 'B'
 
 end -- class AUX_REDEFINE3B
 --

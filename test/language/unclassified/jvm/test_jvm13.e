@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          dog: DOG
       do
@@ -45,7 +45,7 @@ feature {ANY}
          --    end;
       end
 
-   foo: STRING is "foo"
+   foo: STRING "foo"
 
 end -- class TEST_JVM13
 --

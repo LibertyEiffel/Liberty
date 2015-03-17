@@ -6,7 +6,7 @@ expanded class AUX_AGENT40
 insert
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -15,12 +15,12 @@ feature {ANY}
    field: AUX_AGENT40B
 
 feature {}
-   dispose is
+   dispose
       do
          is_disposed := True
       end
 
-   make is
+   make
       do
          create field
       end

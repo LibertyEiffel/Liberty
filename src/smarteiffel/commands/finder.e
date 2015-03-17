@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "finder"
+   command_line_name: STRING "finder"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: finder [options] <ClassName>
          or: finder [options] <ACEfileName>.ace <ClassName>
 
@@ -42,7 +42,7 @@ feature {ANY}
       ]"
 
 feature {}
-   make is
+   make
       local
          argi, argc, i: INTEGER; arg, search_key: STRING; ace_mode, raw: BOOLEAN
          ct: CLASS_TEXT; class_texts: FAST_ARRAY[CLASS_TEXT]
@@ -115,7 +115,7 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          if is_some_flag(arg) then
             if is_version_flag(arg) or else is_verbose_flag(arg) or else is_help_flag(arg) then
@@ -126,7 +126,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -verbose, -version, and -help flags are allowed in ACE %
+   valid_argument_for_ace_mode: STRING "Only the -verbose, -version, and -help flags are allowed in ACE %
       %file mode.%N"
 
 end -- class FINDER
@@ -141,9 +141,9 @@ end -- class FINDER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

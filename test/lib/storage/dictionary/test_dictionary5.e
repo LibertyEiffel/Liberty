@@ -10,9 +10,9 @@ create {}
    make
 
 feature {ANY}
-   str: STRING is "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
+   str: STRING "qwertyuiop[]asdfghjkl;'zxcvbnm,./1234567890-="
 
-   test1 (d: DICTIONARY[INTEGER, CHARACTER]) is
+   test1 (d: DICTIONARY[INTEGER, CHARACTER])
       local
          i: INTEGER; c: CHARACTER
       do
@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   test2 (d: DICTIONARY[INTEGER, CHARACTER]) is
+   test2 (d: DICTIONARY[INTEGER, CHARACTER])
       local
          i: INTEGER; c: CHARACTER
       do
@@ -65,10 +65,18 @@ feature {ANY}
          assert(d.is_empty)
       end
 
-   make is
+   make
       do
          timed(
-            agent is
+            agent
+               do
+                  test1(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+                  test2(create {ARRAY_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
+               end
+         )
+
+         timed(
+            agent
                do
                   test1(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
                   test2(create {HASHED_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
@@ -76,7 +84,7 @@ feature {ANY}
          )
 
          timed(
-            agent is
+            agent
                do
                   test1(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))
                   test2(create {PYTHON_DICTIONARY[INTEGER, CHARACTER]}.with_capacity(1))

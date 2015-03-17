@@ -3,18 +3,18 @@
 --
 expanded class HAND2
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          create rank.make(1, 5)
          create suit.make(1, 5)
       end
 
 feature {ANY} -- Queries
-   is_3_aces: BOOLEAN is
+   is_3_aces: BOOLEAN
       local
          i: INTEGER; k: INTEGER
       do
@@ -34,7 +34,7 @@ feature {ANY} -- Queries
          Result := k = 3
       end
 
-   is_straight: BOOLEAN is
+   is_straight: BOOLEAN
          -- true if no pairs and all cards are
          -- within 5 ranks of each other
       local
@@ -78,7 +78,7 @@ feature {ANY} -- Queries
          Result := not flag
       end
 
-   is_flush: BOOLEAN is
+   is_flush: BOOLEAN
       local
          i: INTEGER; flag: BOOLEAN
       do
@@ -98,7 +98,7 @@ feature {ANY} -- Queries
          Result := not flag
       end
 
-   is_full_house_or_4: BOOLEAN is
+   is_full_house_or_4: BOOLEAN
          -- true if no more than two ranks
       local
          i: INTEGER; a, b, c: INTEGER; flag: BOOLEAN
@@ -130,19 +130,19 @@ feature {ANY} -- Queries
          Result := not flag
       end
 
-   is_straight_flush: BOOLEAN is
+   is_straight_flush: BOOLEAN
       do
          Result := is_straight or else is_flush
       end
 
-   wins: BOOLEAN is
+   wins: BOOLEAN
          -- wins means beats 3 kings
       do
          Result := is_3_aces or else is_straight or else is_flush or else is_full_house_or_4 or else is_straight_flush
       end
 
 feature {ANY} -- Operations
-   deal (card1, card2, card3, card4, card5: INTEGER) is
+   deal (card1, card2, card3, card4, card5: INTEGER)
       local
          i: INTEGER; card: ARRAY[INTEGER]
       do

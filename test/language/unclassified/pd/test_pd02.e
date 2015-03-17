@@ -8,17 +8,17 @@ create {}
    make
 
 feature {ANY}
-   a: AUX_PD01 is
+   a: AUX_PD01
       do
          create Result
       end
 
-   a_ref: AUX_PD01 is
+   a_ref: AUX_PD01
       do
          Result := a
       end
 
-   make is
+   make
       local
          s: STRING
       do

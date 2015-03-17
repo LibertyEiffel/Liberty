@@ -7,12 +7,12 @@ expanded class AUX_SZ513
 feature {ANY}
    value: INTEGER
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       end
 
-   append_in (s: STRING) is
+   append_in (s: STRING)
       do
          s.extend(' ')
          value.append_in(s)

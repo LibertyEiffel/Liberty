@@ -7,7 +7,7 @@ insert
    GLOBALS
 
 feature {}
-   operator_filter: HASHED_DICTIONARY[STRING, CHARACTER] is
+   operator_filter: HASHED_DICTIONARY[STRING, CHARACTER]
       once
          create Result.make
          Result.add(".add.", '+')
@@ -28,12 +28,12 @@ feature {}
          Result.add(".at.", '@')
       end
 
-   remote_clusters: HASHED_DICTIONARY[STRING, STRING] is
+   remote_clusters: HASHED_DICTIONARY[STRING, STRING]
       once
          create Result.make
       end
 
-   remote_cluster (cluster: CLUSTER): STRING is
+   remote_cluster (cluster: CLUSTER): STRING
          -- Void if the cluster is not remote (should be generated)
       local
          s: STRING; i: INTEGER
@@ -51,95 +51,95 @@ feature {}
          end
       end
 
-   css_root: STRING is "root"
-   css_all_clusters: STRING is "all_clusters"
-   css_letter_cluster: STRING is "letter_cluster"
-   css_cluster: STRING is "cluster"
-   css_sub_cluster: STRING is "sub_cluster"
-   css_cluster_comments: STRING is "cluster_comments"
-   css_cluster_classes: STRING is "cluster_classes"
-   css_points_of_view: STRING is "points_of_view"
-   css_summary: STRING is "summary"
-   css_overview: STRING is "overview"
-   css_feature: STRING is "feature"
-   css_invariant: STRING is "invariant"
-   css_assertion: STRING is "assertion"
-   css_obsolete: STRING is "obsolete"
+   css_root: STRING "root"
+   css_all_clusters: STRING "all_clusters"
+   css_letter_cluster: STRING "letter_cluster"
+   css_cluster: STRING "cluster"
+   css_sub_cluster: STRING "sub_cluster"
+   css_cluster_comments: STRING "cluster_comments"
+   css_cluster_classes: STRING "cluster_classes"
+   css_points_of_view: STRING "points_of_view"
+   css_summary: STRING "summary"
+   css_overview: STRING "overview"
+   css_feature: STRING "feature"
+   css_invariant: STRING "invariant"
+   css_assertion: STRING "assertion"
+   css_obsolete: STRING "obsolete"
 
-   css_block_suffix: STRING is "_block"
-   css_head_suffix: STRING is "_head"
-   css_head_layout_suffix: STRING is "_head_layout"
-   css_expand_mark_suffix: STRING is "_expand_mark"
-   css_expand_mark_hover_suffix: STRING is "_expand_mark_hover"
-   css_title_suffix: STRING is "_title"
-   css_nav_link_suffix: STRING is "_nav_link"
-   css_name_suffix: STRING is "_name"
-   css_comment_suffix: STRING is "_comment"
-   css_clause_comment_suffix: STRING is "_clause_comment"
-   css_feature_item_suffix: STRING is "_feature_item"
-   css_expanded_suffix: STRING is "_expanded"
-   css_current_suffix: STRING is "_current"
-   css_keyword_suffix: STRING is "_keyword"
-   css_msg_suffix: STRING is "_msg"
-   css_mark_suffix: STRING is "mark"
-   css_deferred_suffix: STRING is "_deferred"
-   css_frozen_suffix: STRING is "_frozen"
-   css_attribute_suffix: STRING is "_attribute"
-   css_once_suffix: STRING is "_once"
-   css_blank_suffix: STRING is "_blank"
+   css_block_suffix: STRING "_block"
+   css_head_suffix: STRING "_head"
+   css_head_layout_suffix: STRING "_head_layout"
+   css_expand_mark_suffix: STRING "_expand_mark"
+   css_expand_mark_hover_suffix: STRING "_expand_mark_hover"
+   css_title_suffix: STRING "_title"
+   css_nav_link_suffix: STRING "_nav_link"
+   css_name_suffix: STRING "_name"
+   css_comment_suffix: STRING "_comment"
+   css_clause_comment_suffix: STRING "_clause_comment"
+   css_feature_item_suffix: STRING "_feature_item"
+   css_expanded_suffix: STRING "_expanded"
+   css_current_suffix: STRING "_current"
+   css_keyword_suffix: STRING "_keyword"
+   css_msg_suffix: STRING "_msg"
+   css_mark_suffix: STRING "mark"
+   css_deferred_suffix: STRING "_deferred"
+   css_frozen_suffix: STRING "_frozen"
+   css_attribute_suffix: STRING "_attribute"
+   css_once_suffix: STRING "_once"
+   css_blank_suffix: STRING "_blank"
 
-   css_nav_link: STRING is "nav_link"
-   css_class_link: STRING is "class_link"
-   css_feature_link: STRING is "feature_link"
+   css_nav_link: STRING "nav_link"
+   css_class_link: STRING "class_link"
+   css_feature_link: STRING "feature_link"
 
-   index_filename: STRING is "index.html"
+   index_filename: STRING "index.html"
 
-   top_anchor_name: STRING is "top"
-   top_anchor_address: STRING is "#top"
-   top_link_name: STRING is "top"
-   home_link_name: STRING is "home"
-   wiki_link_name: STRING is "wiki"
-   points_of_view_menu_name: STRING is "Point of view"
-   all_feature_entry_name: STRING is "All features"
-   class_str: STRING is "class "
-   deferred_str: STRING is "deferred"
-   expanded_str: STRING is "expanded"
-   frozen_str: STRING is "frozen"
-   once_str: STRING is "once"
-   obsolete_class_str: STRING is "This class is obsolete: "
-   obsolete_feature_str: STRING is "This feature is obsolete: "
+   top_anchor_name: STRING "top"
+   top_anchor_address: STRING "#top"
+   top_link_name: STRING "top"
+   home_link_name: STRING "home"
+   wiki_link_name: STRING "wiki"
+   points_of_view_menu_name: STRING "Point of view"
+   all_feature_entry_name: STRING "All features"
+   class_str: STRING "class "
+   deferred_str: STRING "deferred"
+   expanded_str: STRING "expanded"
+   frozen_str: STRING "frozen"
+   once_str: STRING "once"
+   obsolete_class_str: STRING "This class is obsolete: "
+   obsolete_feature_str: STRING "This feature is obsolete: "
 
-   summary_title_str: STRING is "Summary"
-   direct_parents_str: STRING is "Direct parents"
-   known_children_str: STRING is "Known children"
-   inherit_list_str: STRING is "Inherit list"
-   insert_list_str: STRING is "Insert list"
+   summary_title_str: STRING "Summary"
+   direct_parents_str: STRING "Direct parents"
+   known_children_str: STRING "Known children"
+   inherit_list_str: STRING "Inherit list"
+   insert_list_str: STRING "Insert list"
 
-   all_classes_str: STRING is "All classes"
-   cluster_comments_str: STRING is "Description"
-   cluster_classes_str: STRING is "Classes"
-   overview_title_str: STRING is "Overview"
-   creation_features_str: STRING is "Creation features"
-   exported_features_str: STRING is "Exported features"
-   features_str: STRING is "Features"
-   class_invariant_str: STRING is "Class invariant"
-   require_str: STRING is "require"
-   ensure_str: STRING is "ensure"
-   old_str: STRING is "old"
+   all_classes_str: STRING "All classes"
+   cluster_comments_str: STRING "Description"
+   cluster_classes_str: STRING "Classes"
+   overview_title_str: STRING "Overview"
+   creation_features_str: STRING "Creation features"
+   exported_features_str: STRING "Exported features"
+   features_str: STRING "Features"
+   class_invariant_str: STRING "Class invariant"
+   require_str: STRING "require"
+   ensure_str: STRING "ensure"
+   old_str: STRING "old"
 
-   all_classes_id: STRING is "All classes:"
-   cluster_comments_id: STRING is "Cluster description:"
-   cluster_classes_id: STRING is "Cluster classes:"
-   summary_id: STRING is "Summary:"
-   points_of_view_id: STRING is "Points of view:"
-   overview_id: STRING is "Overview:"
-   class_invariant_id: STRING is "Class invariant:"
+   all_classes_id: STRING "All classes:"
+   cluster_comments_id: STRING "Cluster description:"
+   cluster_classes_id: STRING "Cluster classes:"
+   summary_id: STRING "Summary:"
+   points_of_view_id: STRING "Points of view:"
+   overview_id: STRING "Overview:"
+   class_invariant_id: STRING "Class invariant:"
 
-   title_bar: STRING is "Eiffeldoc : "
-   real_css: STRING is "eiffeldoc.css"
-   real_js : STRING is "eiffeldoc.js"
+   title_bar: STRING "Eiffeldoc : "
+   real_css: STRING "eiffeldoc.css"
+   real_js : STRING "eiffeldoc.js"
 
-   filtered_attribute(value: STRING): STRING is
+   filtered_attribute(value: STRING): STRING
       require
          value /= Void
       local
@@ -167,7 +167,7 @@ feature {}
          end
       end
 
-   set_suffixed_attribute (name, base_value, suffix: STRING; html_os: EIFFELDOC_OUTPUT_STREAM) is
+   set_suffixed_attribute (name, base_value, suffix: STRING; html_os: EIFFELDOC_OUTPUT_STREAM)
       require
          name /= Void
          base_value /= Void
@@ -182,7 +182,7 @@ feature {}
          html_os.with_attribute(name, s)
       end
 
-   html_output_stream_for_file (filename: STRING): EIFFELDOC_OUTPUT_STREAM is
+   html_output_stream_for_file (filename: STRING): EIFFELDOC_OUTPUT_STREAM
       require
          filename /= Void
       local
@@ -216,7 +216,7 @@ feature {}
          Result.set_depth(depth)
       end
 
-   write_header (html_os: EIFFELDOC_OUTPUT_STREAM; title, js, css: STRING) is
+   write_header (html_os: EIFFELDOC_OUTPUT_STREAM; title, js, css: STRING)
       require
          html_os /= Void
          title /= Void
@@ -233,7 +233,7 @@ feature {}
          html_os.in_header
       end
 
-   open_block_head (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class, base_id: STRING) is
+   open_block_head (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class, base_id: STRING)
       require
          html_os /= Void
          css_base_class /= Void
@@ -264,7 +264,7 @@ feature {}
          html_os.open_div
       end
 
-   close_block_head (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING) is
+   close_block_head (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING)
       require
          html_os /= Void
          css_base_class /= Void
@@ -281,7 +281,7 @@ feature {}
          html_os.close_div
       end
 
-   open_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class, name, base_id: STRING) is
+   open_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class, name, base_id: STRING)
       require
          html_os /= Void
          css_base_class /= Void
@@ -298,7 +298,7 @@ feature {}
          close_block_head(html_os, css_base_class)
       end
 
-   close_block (html_os: EIFFELDOC_OUTPUT_STREAM) is
+   close_block (html_os: EIFFELDOC_OUTPUT_STREAM)
       require
          html_os /= Void
       do
@@ -306,7 +306,7 @@ feature {}
          html_os.close_div
       end
 
-   open_comment_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING) is
+   open_comment_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING)
       require
          html_os /= Void
          css_base_class /= Void
@@ -315,7 +315,7 @@ feature {}
          html_os.open_div
       end
 
-   close_comment_block (html_os: EIFFELDOC_OUTPUT_STREAM) is
+   close_comment_block (html_os: EIFFELDOC_OUTPUT_STREAM)
       require
          html_os /= Void
       do
@@ -323,7 +323,7 @@ feature {}
          html_os.close_div
       end
 
-   open_expand_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING; base_id: STRING; expand: BOOLEAN) is
+   open_expand_block (html_os: EIFFELDOC_OUTPUT_STREAM; css_base_class: STRING; base_id: STRING; expand: BOOLEAN)
       require
          html_os /= Void
          css_base_class /= Void
@@ -346,7 +346,7 @@ feature {}
          html_os.open_div
       end
 
-   close_expand_block (html_os: EIFFELDOC_OUTPUT_STREAM) is
+   close_expand_block (html_os: EIFFELDOC_OUTPUT_STREAM)
       require
          html_os /= Void
       do
@@ -354,7 +354,7 @@ feature {}
          html_os.close_div
       end
 
-   create_dirs (a_filename: STRING): INTEGER is
+   create_dirs (a_filename: STRING): INTEGER
          -- And returns the depth of the tree
       local
          i, j: INTEGER; bd: BASIC_DIRECTORY; buffer, dirname: STRING
@@ -401,7 +401,7 @@ feature {}
 
    last_dirname: STRING
 
-   basename_of (a_filename: STRING): STRING is
+   basename_of (a_filename: STRING): STRING
       local
          i: INTEGER
       do
@@ -415,7 +415,7 @@ feature {}
          end
       end
 
-   filename_of (a_class: CLASS_TEXT; a_client: TYPE_MARK): STRING is
+   filename_of (a_class: CLASS_TEXT; a_client: TYPE_MARK): STRING
       require
          a_class /= Void
       local
@@ -472,23 +472,23 @@ feature {}
          Result.append(once ".html")
       end
 
-   class_name_any: CLASS_NAME is
+   class_name_any: CLASS_NAME
       local
          hs: HASHED_STRING
       once
          hs := string_aliaser.hashed_string(as_any)
-         create Result.unknown_position(hs)
+         create Result.unknown_position(hs, False)
       end
 
-   class_name_tuple: CLASS_NAME is
+   class_name_tuple: CLASS_NAME
       local
          hs: HASHED_STRING
       once
          hs := string_aliaser.hashed_string(as_tuple)
-         create Result.unknown_position(hs)
+         create Result.unknown_position(hs, False)
       end
 
-   client_file_name_part_ (buffer: STRING; a_client: TYPE_MARK) is
+   client_file_name_part_ (buffer: STRING; a_client: TYPE_MARK)
       require
          buffer /= Void
       local

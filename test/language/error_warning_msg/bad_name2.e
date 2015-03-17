@@ -7,11 +7,11 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          p2: POINTER;
       do
-         !!p2.make;
+         create p2.make;
       end;
 
 end -- class POINTER

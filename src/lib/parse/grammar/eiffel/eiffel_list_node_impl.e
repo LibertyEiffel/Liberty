@@ -15,7 +15,7 @@ create {EIFFEL_NODE_FACTORY}
 feature {ANY}
    name: FIXED_STRING
 
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: EIFFEL_LIST_NODE_IMPL_VISITOR
       do
@@ -23,50 +23,50 @@ feature {ANY}
          v.visit_eiffel_list_node_impl(Current)
       end
 
-   item (i: INTEGER): EIFFEL_NODE is
+   item (i: INTEGER): EIFFEL_NODE
       do
          Result := children.item(children.upper - i)
       end
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := children.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := children.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := children.count
       end
 
-   first: EIFFEL_NODE is
+   first: EIFFEL_NODE
       do
          Result := children.last
       end
 
-   last: EIFFEL_NODE is
+   last: EIFFEL_NODE
       do
          Result := children.first
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := children.is_empty
       end
 
 feature {EIFFEL_GRAMMAR}
-   add (a_child: like item) is
+   add (a_child: like item)
       do
          children.add_last(a_child)
          a_child.set_parent(Current)
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       local
          i: INTEGER; n: STRING
       do
@@ -94,7 +94,7 @@ feature {EIFFEL_NODE_HANDLER}
          end
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -110,7 +110,7 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {}
-   make (a_name: like name) is
+   make (a_name: like name)
       do
          name := a_name
          create children.make(0)
@@ -122,13 +122,13 @@ feature {}
 
 end -- class EIFFEL_LIST_NODE_IMPL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

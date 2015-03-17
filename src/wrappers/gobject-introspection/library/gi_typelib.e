@@ -4,7 +4,7 @@ class GI_TYPELIB
 inherit 
 	OPAQUE_TYPE
 	C_OWNED
-creation {GI_REPOSITORY} from_external_pointer
+create {GI_REPOSITORY} from_external_pointer
 end
 
 -- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>

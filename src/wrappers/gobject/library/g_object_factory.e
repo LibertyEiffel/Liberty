@@ -43,10 +43,10 @@ insert
 	EXCEPTIONS undefine copy,is_equal end 
 
 feature {WRAPPER,WRAPPER_HANDLER}
-	existant_wrapper (a_pointer: POINTER): ITEM_ is
+	existant_wrapper (a_pointer: POINTER): ITEM_
 			-- Retrieve the eiffel wrapper object from gobject's
 			-- `a_pointer' or Void when it does not have a wrapper conforming
-			-- to ITEM_ (i.e. if you ask for GTK_RADIO_BUTTON when it is
+			-- to ITEM_ (i.e. if you ask for GTK_RADIO_BUTTON when it
 			-- actually a GTK_BUTTON Result is still Void).
 
 			-- Useful when you precisely know the type of a wrapper but
@@ -60,14 +60,14 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result ?= g_object_get_eiffel_wrapper (a_pointer, eiffel_key.quark)
 		end
 
-	existant_wrapper_or_void (a_pointer: POINTER): ITEM_ is
+	existant_wrapper_or_void (a_pointer: POINTER): ITEM_
 		do
 			if a_pointer.is_not_null then
 				Result := existant_wrapper(a_pointer)
 			end
 		end
 
-	wrapper (a_pointer: POINTER): ITEM_ is
+	wrapper (a_pointer: POINTER): ITEM_
 			-- The eiffel wrapper object for gobject's `a_pointer'. It the
 			-- GObject does not have a wrapper, Result is created using an
 			-- agent function from creation_agents dictionary using
@@ -81,7 +81,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result.ref
 		end
 	
-	unreffed_wrapper (a_pointer: POINTER): ITEM_ is
+	unreffed_wrapper (a_pointer: POINTER): ITEM_
 			-- A non-referred wrapper. See `wrapper' for further
 			-- informations
 		require pointer_is_gobject: g_is_object(a_pointer)/=0
@@ -135,8 +135,8 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			end
 		end
 
-	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM_ is
-			-- A (unreffed) wrapper for `a_pointer' or Void if `a_pointer' is
+	unreffed_wrapper_or_void (a_pointer: POINTER): ITEM_
+			-- A (unreffed) wrapper for `a_pointer' or Void if `a_pointer'
 			-- default_pointer (NULL in C). See `wrapper_or_void' for 
 			-- further informations
 		do
@@ -146,7 +146,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 		ensure void_case: a_pointer.is_null implies Result = Void
 		end
 
-	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN is
+	has_eiffel_wrapper_stored (a_pointer: POINTER): BOOLEAN
 			-- Have `a_pointer' already been wrapped?
 
 			-- Note: if True, the cost of this query is the same of a
@@ -166,7 +166,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 			Result := (g_object_get_qdata (a_pointer, eiffel_key.quark).is_not_null)
 		end
 
-	type_name_from_gobject_pointer (a_pointer: POINTER): STRING is
+	type_name_from_gobject_pointer (a_pointer: POINTER): STRING
 			-- Retrieve the type name from gobject's `a_pointer'.
 		require
 			pointer_not_null: a_pointer.is_not_null
@@ -178,7 +178,7 @@ feature {WRAPPER,WRAPPER_HANDLER}
 		end
 
 feature {} -- External call
-	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): G_OBJECT is
+	g_object_get_eiffel_wrapper (a_object: POINTER; a_quark: INTEGER_32): G_OBJECT
 			-- This function gets back the Eiffel wrapper stored using `g_object_set_qdata'
 		external "C use <glib-object.h>"
 		alias "g_object_get_qdata"

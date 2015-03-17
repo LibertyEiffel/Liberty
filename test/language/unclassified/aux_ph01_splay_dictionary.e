@@ -14,11 +14,11 @@ class AUX_PH01_SPLAY_DICTIONARY[E, I -> COMPARABLE]
    --    copy
    --      end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
          -- Initialises the tree
       do
          count := 0
@@ -29,13 +29,13 @@ feature {ANY} -- Some queries.
    count: INTEGER
          -- The number of elements in the tree.
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Is the dictionary empty?
       do
          Result := root = Void
       end
 
-   has (index: I): BOOLEAN is
+   has (index: I): BOOLEAN
          -- Returns true if the passed index is contained within the tree.
       local
          tmp_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
@@ -76,7 +76,7 @@ feature {ANY} -- Some queries.
          end
       end
 
-   lowest: I is
+   lowest: I
          -- Returns the lowest index in the tree.
       require
          dictionary_not_empty: not is_empty
@@ -94,7 +94,7 @@ feature {ANY} -- Some queries.
          Result := tmp_node.index
       end
 
-   highest: I is
+   highest: I
          -- Returns the highest index in the tree.
       require
          dictionary_not_empty: not is_empty
@@ -115,7 +115,7 @@ feature {ANY} -- Some queries.
 feature {ANY}
    -- The following functions/procedures retrieve function point values or
    -- information concerning them.
-   item, infix "@" (index: I): E is
+   item, infix "@" (index: I): E
          -- Returns the value at the passed index.
       require
          has_index: has(index)
@@ -130,7 +130,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   new_iterator: AUX_PH01_SPLAY_DICTIONARY_ITERATOR[I] is
+   new_iterator: AUX_PH01_SPLAY_DICTIONARY_ITERATOR[I]
          -- Returns a new iterator for the dictionary.
       require
          not_empty: not is_empty
@@ -141,7 +141,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   put (value: E; index: I) is
+   put (value: E; index: I)
       require
          item_not_there: not has(index)
       local
@@ -187,7 +187,7 @@ feature {ANY}
          count_has_incremented: count = old count + 1
       end
 
-   replace (value: E; index: I) is
+   replace (value: E; index: I)
       require
          has_index: has(index)
       do
@@ -198,7 +198,7 @@ feature {ANY}
          end
       end
 
-   remove (index: I) is
+   remove (index: I)
       require
          has_index: has(index)
       local
@@ -231,7 +231,7 @@ feature {ANY}
          count_updated: count = old count - 1
       end
 
-   remove_maximum is
+   remove_maximum
       require
          not_empty: not is_empty
       local
@@ -250,7 +250,7 @@ feature {ANY}
          count_updated: count = old count - 1
       end
 
-   remove_minimum is
+   remove_minimum
       require
          not_empty: not is_empty
       local
@@ -269,7 +269,7 @@ feature {ANY}
          count_updated: count = old count - 1
       end
 
-   clear is
+   clear
       do
          from
          until
@@ -280,7 +280,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   print_tree is
+   print_tree
       do
          if root /= Void then
             print_subtree(root.left)
@@ -293,7 +293,7 @@ feature {ANY}
       end
 
 feature {AUX_PH01_SPLAY_DICTIONARY_ITERATOR}
-   lowest_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I] is
+   lowest_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       require
          not_empty: not is_empty
       do
@@ -303,7 +303,7 @@ feature {AUX_PH01_SPLAY_DICTIONARY_ITERATOR}
          result_not_void: Result /= Void
       end
 
-   highest_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I] is
+   highest_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       require
          not_empty: not is_empty
       do
@@ -313,7 +313,7 @@ feature {AUX_PH01_SPLAY_DICTIONARY_ITERATOR}
          result_not_void: Result /= Void
       end
 
-   next_highest (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I] is
+   next_highest (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       require
          not_empty: not is_empty
       do
@@ -325,7 +325,7 @@ feature {AUX_PH01_SPLAY_DICTIONARY_ITERATOR}
       end
 
 feature {INDEXED_LIST}
-   lowest_node_in_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I] is
+   lowest_node_in_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       require
          node_not_void: node /= Void
       local
@@ -347,7 +347,7 @@ feature {INDEXED_LIST}
          result_not_void: Result /= Void
       end
 
-   highest_node_in_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I] is
+   highest_node_in_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]): AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       require
          node_not_void: node /= Void
       local
@@ -369,7 +369,7 @@ feature {INDEXED_LIST}
          result_not_void: Result /= Void
       end
 
-   print_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]) is
+   print_subtree (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I])
       do
          if node /= Void then
             if node.left /= Void then
@@ -386,7 +386,7 @@ feature {INDEXED_LIST}
       end
 
 feature {}
-   has_tree_integrity: BOOLEAN is
+   has_tree_integrity: BOOLEAN
       local
          tmp_node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]
       do
@@ -436,7 +436,7 @@ feature {}
       end
 
 feature {INDEXED_LIST}
-   splay (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]) is
+   splay (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I])
       require
          node_not_void: node /= Void
       local
@@ -485,7 +485,7 @@ feature {INDEXED_LIST}
          end
       end
 
-   rotate_right (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]) is
+   rotate_right (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I])
       require
          node_not_null: node /= Void
       local
@@ -510,7 +510,7 @@ feature {INDEXED_LIST}
          parent.set_parent(node)
       end
 
-   rotate_left (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I]) is
+   rotate_left (node: AUX_PH01_SPLAY_DICTIONARY_ITEM[E, I])
       require
          node_not_null: node /= Void
       local

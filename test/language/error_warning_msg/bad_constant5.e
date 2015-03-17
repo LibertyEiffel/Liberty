@@ -7,7 +7,7 @@ create {ANY}
    run
 
 feature {ANY}
-   run is
+   run
       local
          integer_64: INTEGER_64
       do

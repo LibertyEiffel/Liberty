@@ -7,14 +7,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          p: POINTER
       do
          p := foo(p)
       end
 
-   foo (p: POINTER): POINTER is
+   foo (p: POINTER): POINTER
       do
          Result := foo($p)
       end

@@ -36,7 +36,7 @@ insert
       end
 
 feature {} -- Creation
-   from_external_array (an_array: POINTER; a_length: INTEGER) is
+   from_external_array (an_array: POINTER; a_length: INTEGER)
       require
          array_not_null: an_array.is_not_null
          positive_length: a_length > 0
@@ -46,7 +46,7 @@ feature {} -- Creation
          storage := storage.from_pointer(an_array)
       end
 
-   with_capacity (a_capacity: INTEGER) is
+   with_capacity (a_capacity: INTEGER)
       require
          positive_capacity: a_capacity > 0
       do
@@ -56,7 +56,7 @@ feature {} -- Creation
       end
 
 feature {ANY}
-   item (i: INTEGER_32): ITEM_ is
+   item (i: INTEGER_32): ITEM_
       local
          ptr: POINTER
       do
@@ -66,18 +66,18 @@ feature {ANY}
          end
       end
 
-   first: ITEM_ is
+   first: ITEM_
       do
          Result := item(lower)
       end
 
-   last: ITEM_ is
+   last: ITEM_
       do
          Result := item(upper)
       end
 
 feature {ANY} -- Writing:
-   put (element: like item; i: INTEGER) is
+   put (element: like item; i: INTEGER)
       do
          if element /= Void then
             storage.put(element.handle, i)
@@ -86,7 +86,7 @@ feature {ANY} -- Writing:
          end
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
       local
          i: INTEGER
       do
@@ -101,7 +101,7 @@ feature {ANY} -- Writing:
       end
 
 feature {ANY} -- Adding:
-   add_first (element: like item) is
+   add_first (element: like item)
          -- Performance: O(count), not counting the eventual reallocation.
       local
          i, j: INTEGER
@@ -125,7 +125,7 @@ feature {ANY} -- Adding:
          upper := upper + 1
       end
 
-   add_last (element: like item) is
+   add_last (element: like item)
          -- Performance: O(1), not counting the eventual reallocation.
       do
          if count = capacity then
@@ -140,7 +140,7 @@ feature {ANY} -- Adding:
          upper := upper + 1
       end
 
-   add (element: like item; index: INTEGER) is
+   add (element: like item; index: INTEGER)
          -- Performance: O(count-index), not counting the eventual reallocation
       local
          i, j: INTEGER
@@ -168,7 +168,7 @@ feature {ANY} -- Adding:
       end
 
 feature {ANY} -- Modification:
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -187,7 +187,7 @@ feature {ANY} -- Modification:
          end
       end
 
-   force (element: ITEM_; index: INTEGER) is
+   force (element: ITEM_; index: INTEGER)
       do
          -- Make `element' the item at `index', enlarging the collection if
          -- necessary (new bounds except `index' are initialized with default
@@ -205,7 +205,7 @@ feature {ANY} -- Modification:
          put(element, index)
       end
 
-   from_collection (model: COLLECTION[like item]) is
+   from_collection (model: COLLECTION[like item])
       local
          i: ITERATOR[like item]
       do
@@ -223,7 +223,7 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Removing:
-   remove_first is
+   remove_first
          -- Performance: O(count)
       local
          i, j: INTEGER
@@ -243,7 +243,7 @@ feature {ANY} -- Removing:
          upper := upper - 1
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
          -- Performance: O(upper-n)
       local
          i, j: INTEGER
@@ -263,7 +263,7 @@ feature {ANY} -- Removing:
          upper := upper - n
       end
 
-   remove (index: INTEGER) is
+   remove (index: INTEGER)
          -- Performance: O(count)
       local
          i, j: INTEGER
@@ -284,7 +284,7 @@ feature {ANY} -- Removing:
          upper := upper - 1
       end
 
-   remove_last is
+   remove_last
          -- Performance: O(1)
       do
          -- Remove the `last' item.
@@ -292,7 +292,7 @@ feature {ANY} -- Removing:
          upper := upper - 1
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
          -- Performance: O(n)
       local
          i, j: INTEGER
@@ -312,7 +312,7 @@ feature {ANY} -- Removing:
          upper := upper - n
       end
 
-   clear_count is
+   clear_count
       local
          i: INTEGER
       do
@@ -332,7 +332,7 @@ feature {ANY} -- Removing:
          upper := lower
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Instead of releasing the memory, it is reallocated with
          -- with 2 elements.
       do
@@ -344,12 +344,12 @@ feature {ANY} -- Removing:
       end
 
 feature {ANY} -- Looking and Searching:
-   first_index_of (element: like item): INTEGER is
+   first_index_of (element: like item): INTEGER
       do
          Result := index_of(element, lower)
       end
 
-   index_of (element: like item; start_index: INTEGER): INTEGER is
+   index_of (element: like item; start_index: INTEGER): INTEGER
       do
          -- Using `is_equal' for comparison, gives the index of the
          -- first occurrence of `element' at or after
@@ -374,7 +374,7 @@ feature {ANY} -- Looking and Searching:
          end
       end
 
-   reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   reverse_index_of (element: like item; start_index: INTEGER): INTEGER
       do
          -- Using `is_equal' for comparison, gives the index of the
          -- first occurrence of `element' at or before
@@ -400,14 +400,14 @@ feature {ANY} -- Looking and Searching:
          end
       end
 
-   fast_first_index_of (element: like item): INTEGER is
+   fast_first_index_of (element: like item): INTEGER
          -- Note: comparison is done using the address of the wrapped
          -- structure.
       do
          Result := fast_index_of(element, lower)
       end
 
-   fast_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_index_of (element: like item; start_index: INTEGER): INTEGER
          -- Note: comparison is done using the address of the wrapped
          -- structure.
       local
@@ -427,7 +427,7 @@ feature {ANY} -- Looking and Searching:
          end
       end
 
-   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; start_index: INTEGER): INTEGER
          -- Note: comparison is done using the address of the wrapped
          -- structure
       local
@@ -451,7 +451,7 @@ feature {ANY} -- Looking and Searching:
       end
 
 feature {ANY} -- Looking and comparison:
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Do both collections have the same `lower', `upper', and items?
          -- The basic `=' is used for comparison of items.
          -- Complexity: O(count)
@@ -474,7 +474,7 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
          -- Do all items have their type's default value?  Note: for
          -- non Void items, the test is performed with the
          -- `is_default' predicate.
@@ -492,7 +492,7 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   occurrences (element: like item): INTEGER is
+   occurrences (element: like item): INTEGER
       local
          i: ITERATOR[ITEM_]
       do
@@ -524,7 +524,7 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   fast_occurrences (element: like item): INTEGER is
+   fast_occurrences (element: like item): INTEGER
          -- Number of occurrences of `element' using basic its handle
          -- (or default_pointer) for comparison.
       local
@@ -545,181 +545,181 @@ feature {ANY} -- Looking and comparison:
 
 feature {ANY}
    -- Agents based features:
-   -- do_all (action: ROUTINE[TUPLE[ITEM_]]) is
+   -- for_each (action: ROUTINE[TUPLE[ITEM_]])
    -- do
-   -- 			-- Apply `action' to every item of `Current'.
-   -- 			--
-   -- 			-- See also `for_all', `exists'.
-   -- 		require
-   -- 			action /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				i := lower
-   -- 			until
-   -- 				i > upper
-   -- 			loop
-   -- 				action.call([item(i)])
-   -- 				i := i + 1
+   --                   -- Apply `action' to every item of `Current'.
+   --                   --
+   --                   -- See also `for_all', `exists'.
+   --           require
+   --                   action /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           i := lower
+   --                   until
+   --                           i > upper
+   --                   loop
+   --                           action.call([item(i)])
+   --                           i := i + 1
    -- end
    -- end
-   -- for_all (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
-   --		do
-   -- 			-- Do all items satisfy `test'?
-   -- 			--
-   -- 			-- See also `do_all', `exists'.
-   -- 		require
-   -- 			test /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				Result := True
-   -- 				i := lower
-   -- 			until
-   -- 				not Result or else i > upper
-   -- 			loop
-   -- 				Result := test.item([item(i)])
-   -- 				i := i + 1
+   -- for_all (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN
+   --           do
+   --                   -- Do all items satisfy `test'?
+   --                   --
+   --                   -- See also `for_each', `exists'.
+   --           require
+   --                   test /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           Result := True
+   --                           i := lower
+   --                   until
+   --                           not Result or else i > upper
+   --                   loop
+   --                           Result := test.item([item(i)])
+   --                           i := i + 1
    -- end
-   --		end
-   -- exists (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN is
-   --		do
-   -- 			-- Does at least one item satisfy `test'?
-   -- 			--
-   -- 			-- See also `do_all', `for_all'.
-   -- 		require
-   -- 			test /= Void
-   -- 		local
-   -- 			i: INTEGER
-   -- 		do
-   -- 			from
-   -- 				i := lower
-   -- 			until
-   -- 				Result or else i > upper
-   -- 			loop
-   -- 				Result := test.item([item(i)])
-   -- 				i := i + 1
+   --           end
+   -- exists (test: PREDICATE[TUPLE[ITEM_]]): BOOLEAN
+   --           do
+   --                   -- Does at least one item satisfy `test'?
+   --                   --
+   --                   -- See also `for_each', `for_all'.
+   --           require
+   --                   test /= Void
+   --           local
+   --                   i: INTEGER
+   --           do
+   --                   from
+   --                           i := lower
+   --                   until
+   --                           Result or else i > upper
+   --                   loop
+   --                           Result := test.item([item(i)])
+   --                           i := i + 1
    -- end
    -- end
-   
+
 
 feature {ANY} -- Other features:
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
       obsolete "Unimplemented!"
       do
-         -- 			-- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
-         -- 			--
-         -- 			-- See also `fast_replace_all', `move'.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
-         -- 			not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
+         --                     -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
+         --                     --
+         --                     -- See also `fast_replace_all', `move'.
+         --             deferred
+         --             ensure
+         --                     count = old count
+         --                     not (create {SAFE_EQUAL[ITEM_]}).test(old_value, new_value) implies occurrences(old_value) = 0
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
       obsolete "Unimplemented!"
       do
-         -- 			-- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
-         -- 			--
-         -- 			-- See also `replace_all', `move'.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
-         -- 			old_value /= new_value implies fast_occurrences(old_value) = 0
+         --                     -- Replace all occurrences of the element `old_value' by `new_value' using basic `=' for comparison.
+         --                     --
+         --                     -- See also `replace_all', `move'.
+         --             deferred
+         --             ensure
+         --                     count = old count
+         --                     old_value /= new_value implies fast_occurrences(old_value) = 0
       end
-      --	move (lower_index, upper_index, distance: INTEGER) is
-      --		do
-      -- 			-- Move range `lower_index' .. `upper_index' by `distance' positions.
-      -- 			--	Negative distance moves towards lower indices.
-      -- 			-- Free places get default values.
-      -- 			--
-      -- 			-- See also `slice', `replace_all'.
-      -- 		require
-      -- 			lower_index <= upper_index
-      -- 			valid_index(lower_index)
-      -- 			valid_index(lower_index + distance)
-      -- 			valid_index(upper_index)
-      -- 			valid_index(upper_index + distance)
-      -- 		local
-      -- 			default_value: like item; i: INTEGER
-      -- 		do
-      -- 			if distance = 0 then
-      -- 			elseif distance < 0 then
-      -- 				from
-      -- 					i := lower_index
-      -- 				until
-      -- 					i > upper_index
-      -- 				loop
-      -- 					put(item(i), i + distance)
-      -- 					put(default_value, i)
-      -- 					i := i + 1
+      --        move (lower_index, upper_index, distance: INTEGER)
+      --                do
+      --                        -- Move range `lower_index' .. `upper_index' by `distance' positions.
+      --                        --      Negative distance moves towards lower indices.
+      --                        -- Free places get default values.
+      --                        --
+      --                        -- See also `slice', `replace_all'.
+      --                require
+      --                        lower_index <= upper_index
+      --                        valid_index(lower_index)
+      --                        valid_index(lower_index + distance)
+      --                        valid_index(upper_index)
+      --                        valid_index(upper_index + distance)
+      --                local
+      --                        default_value: like item; i: INTEGER
+      --                do
+      --                        if distance = 0 then
+      --                        elseif distance < 0 then
+      --                                from
+      --                                        i := lower_index
+      --                                until
+      --                                        i > upper_index
+      --                                loop
+      --                                        put(item(i), i + distance)
+      --                                        put(default_value, i)
+      --                                        i := i + 1
       -- end
-      -- 			else
-      -- 				from
-      -- 					i := upper_index
-      -- 				until
-      -- 					i < lower_index
-      -- 				loop
-      -- 					put(item(i), i + distance)
-      -- 					put(default_value, i)
-      -- 					i := i - 1
-      --	end
-      --	end
-      -- 		ensure
-      -- 			count = old count
-      --	end
+      --                        else
+      --                                from
+      --                                        i := upper_index
+      --                                until
+      --                                        i < lower_index
+      --                                loop
+      --                                        put(item(i), i + distance)
+      --                                        put(default_value, i)
+      --                                        i := i - 1
+      --        end
+      --        end
+      --                ensure
+      --                        count = old count
+      --        end
 
-   slice (min, max: INTEGER): like Current is
+   slice (min, max: INTEGER): like Current
       obsolete "Unimplemented!"
       do
-         -- 			-- New collection consisting of items at indexes in [`min'..`max'].
-         -- 			-- Result has the same dynamic type as `Current'.
-         -- 			-- The `lower' index of the `Result' is the same as `lower'.
-         -- 			--
-         -- 			-- See also `from_collection', `move', `replace_all'.
-         -- 		require
-         -- 			lower <= min
-         -- 			max <= upper
-         -- 			min <= max + 1
-         -- 		deferred
-         -- 		ensure
-         -- 			same_dynamic_type(Result)
-         -- 			Result.count = max - min + 1
-         -- 			Result.lower = lower
+         --                     -- New collection consisting of items at indexes in [`min'..`max'].
+         --                     -- Result has the same dynamic type as `Current'.
+         --                     -- The `lower' index of the `Result' is the same as `lower'.
+         --                     --
+         --                     -- See also `from_collection', `move', `replace_all'.
+         --             require
+         --                     lower <= min
+         --                     max <= upper
+         --                     min <= max + 1
+         --             deferred
+         --             ensure
+         --                     same_dynamic_type(Result)
+         --                     Result.count = max - min + 1
+         --                     Result.lower = lower
       end
 
-   reverse is
+   reverse
       obsolete "Unimplemented!"
       do
-         -- 			-- Reverse the order of the elements.
-         -- 		deferred
-         -- 		ensure
-         -- 			count = old count
+         --                     -- Reverse the order of the elements.
+         --             deferred
+         --             ensure
+         --                     count = old count
       end
 
 feature {ANY} -- struct_size: INTEGER
-   count: INTEGER is
+   count: INTEGER
       do
          Result := upper - lower + 1
       end
 
    upper: INTEGER
 
-   lower: INTEGER is 0
+   lower: INTEGER 0
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := upper = -1 or else storage.is_null
       end
 
-   new_iterator: ITERATOR[ITEM_] is
+   new_iterator: ITERATOR[ITEM_]
       do
          create {ITERATOR_ON_C_ARRAY[ITEM_]} Result.from_array(Current)
       end
 
-   as_c_array: NATIVE_ARRAY[POINTER] is
+   as_c_array: NATIVE_ARRAY[POINTER]
       do
          Result := storage
       end
@@ -730,7 +730,7 @@ feature {C_ARRAY, WRAPPER_HANDLER} -- Implementation
    capacity: INTEGER
 
 feature {} -- Implement manifest generic creation (very low-level):
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a LLVM_TYPE_ARRAY
       require
          needed_capacity > 0
@@ -739,33 +739,33 @@ feature {} -- Implement manifest generic creation (very low-level):
          upper := needed_capacity - 1
       end
 
-   manifest_put (index: INTEGER_32; element: ITEM_) is
+   manifest_put (index: INTEGER_32; element: ITEM_)
       do
          put(element, index)
       end
 
 feature {ANY} -- TODO: unimplemented
-   clear_all is
+   clear_all
       do
          not_yet_implemented
       end
 
-   fast_has (an_item: ITEM_): BOOLEAN is
+   fast_has (an_item: ITEM_): BOOLEAN
       do
          not_yet_implemented
       end
 
-   has (an_item: ITEM_): BOOLEAN is
+   has (an_item: ITEM_): BOOLEAN
       do
          not_yet_implemented
       end
 
-   swap (i1, i2: INTEGER) is
+   swap (i1, i2: INTEGER)
       do
          not_yet_implemented
       end
 
-   append_collection (another: COLLECTION[ITEM_]) is
+   append_collection (another: COLLECTION[ITEM_])
       do
          not_yet_implemented
       end

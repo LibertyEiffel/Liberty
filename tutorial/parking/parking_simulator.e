@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          parking: PARKING; command: STRING; price: REAL; i, value: INTEGER; stop: BOOLEAN; split: ARRAY[STRING]
       do
@@ -104,7 +104,7 @@ feature {}
 
    error_flag: BOOLEAN -- Used to signal an input error.
 
-   integer_from (string: STRING): INTEGER is
+   integer_from (string: STRING): INTEGER
       require
          string /= Void
       do
@@ -116,7 +116,7 @@ feature {}
          end
       end
 
-   real_from (string: STRING): REAL is
+   real_from (string: STRING): REAL
       require
          string /= Void
       do
@@ -128,7 +128,7 @@ feature {}
          end
       end
 
-   help_text: STRING is "{
+   help_text: STRING "{
             Commands:
             ------------------------------------
             ?        display this help

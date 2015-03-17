@@ -21,7 +21,7 @@ feature {ANY}
    left, right: LIBERTY_EXPRESSION
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          l, r: LIBERTY_EXPRESSION
       do
@@ -36,14 +36,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          left.mark_reachable_code(mark)
          right.mark_reachable_code(mark)
       end
 
 feature {}
-   make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current is
+   make_new (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position): like Current
       require
          a_left /= Void
          a_right /= Void
@@ -58,7 +58,7 @@ feature {}
          Result.position = a_position
       end
 
-   make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position) is
+   make (a_left: like left; a_right: like right; a_result_type: like result_type; a_position: like position)
       require
          a_left /= Void
          a_right /= Void

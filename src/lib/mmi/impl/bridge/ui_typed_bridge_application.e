@@ -15,7 +15,7 @@ insert
    LOGGING
 
 feature {}
-   conf: JSON_OBJECT is
+   conf: JSON_OBJECT
       do
          Result := conf_
          if Result = Void then
@@ -26,7 +26,7 @@ feature {}
 
    conf_: JSON_OBJECT
 
-   read_conf: JSON_OBJECT is
+   read_conf: JSON_OBJECT
       local
          filename: STRING
          tfr: TEXT_FILE_READ
@@ -57,30 +57,30 @@ feature {}
          end
       end
 
-   conf_section: STRING is
+   conf_section: STRING
       deferred
       end
 
-   id: FIXED_STRING is
+   id: FIXED_STRING
       deferred
       ensure
          interned: Result.intern = Result
       end
 
 feature {UI_APPLICATION}
-   add (a_window: W_) is
+   add (a_window: W_)
       deferred
       end
 
 end -- class UI_TYPED_BRIDGE_APPLICATION
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

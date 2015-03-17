@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          stop: BOOLEAN; formula: STRING
       do
@@ -41,7 +41,7 @@ feature {}
          io.put_string("Bye.%N")
       end
 
-   parsing_of (formula: STRING) is
+   parsing_of (formula: STRING)
       local
          number_tools: NUMBER_TOOLS; number: NUMBER; i: INTEGER
       do
@@ -77,7 +77,7 @@ feature {}
          end
       end
 
-   print_error (error: PARSE_ERROR) is
+   print_error (error: PARSE_ERROR)
       require
          error /= Void
       local

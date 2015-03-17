@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; s: STRING
       do
@@ -22,7 +22,7 @@ feature {ANY}
          end
       end
 
-   touch (s: STRING) is
+   touch (s: STRING)
       do
          if s.count >= 3 then
          else

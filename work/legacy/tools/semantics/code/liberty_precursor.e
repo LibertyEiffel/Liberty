@@ -20,12 +20,12 @@ insert
 
 feature {ANY}
    the_feature: LIBERTY_FEATURE
-   actuals: TRAVERSABLE[LIBERTY_EXPRESSION] is
+   actuals: TRAVERSABLE[LIBERTY_EXPRESSION]
       do
          Result := actuals_list
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          f: like the_feature
          a: like actuals_list
@@ -56,14 +56,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          the_feature.mark_reachable_code(mark)
          expressions_marker.mark_reachable_code(mark, actuals)
       end
 
 feature {}
-   make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position): like Current
       deferred
       ensure
          Result.the_feature = a_feature
@@ -71,7 +71,7 @@ feature {}
          Result.position = a_position
       end
 
-   make (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position) is
+   make (a_feature: like the_feature; a_actuals: like actuals_list; a_position: like position)
       require
          a_feature /= Void
          a_actuals /= Void

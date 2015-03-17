@@ -27,12 +27,12 @@ create {ANY}
    make
 
 feature {ANY}
-   is_internals_from_generating_type_used: BOOLEAN is
+   is_internals_from_generating_type_used: BOOLEAN
       do
          Result := not internals_from_generating_type_position.is_unknown
       end
 
-   is_native_array_internals_from_generating_type_used: BOOLEAN is
+   is_native_array_internals_from_generating_type_used: BOOLEAN
       do
          Result := native_array_internals_from_generating_type_args /= Void
          check
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   is_introspected (tm: TYPE_MARK): BOOLEAN is
+   is_introspected (tm: TYPE_MARK): BOOLEAN
       local
          typed_internals: TYPE_MARK; lt: LIVE_TYPE;   unknown_position: POSITION
       do
@@ -51,7 +51,7 @@ feature {ANY}
 
 feature {EXTERNAL_FUNCTION}
    collect_internals_from_generating_type (insp: OTHER_INSPECT_STATEMENT;
-                                           sp: like internals_from_generating_type_position; nt: TYPE) is
+                                           sp: like internals_from_generating_type_position; nt: TYPE)
       local
          live_types: TRAVERSABLE[LIVE_TYPE]; dummy: TYPE
          i: INTEGER
@@ -81,17 +81,17 @@ feature {EXTERNAL_FUNCTION}
 
    collect_native_array_internals_from_generating_type (insp: OTHER_INSPECT_STATEMENT;
                                                         sp: like native_array_internals_from_generating_type_position;
-                                                        args: FORMAL_ARG_LIST; nt: TYPE) is
+                                                        args: FORMAL_ARG_LIST; nt: TYPE)
       local
-         arg: ARGUMENT_NAME2; arg_type, dummy: TYPE
+         arg: ARGUMENT_NAME_REF; arg_type, dummy: TYPE
          live_types: TRAVERSABLE[LIVE_TYPE]; i: INTEGER; live_type: LIVE_TYPE
       do
          if not is_native_array_internals_from_generating_type_used then
             native_array_internals_from_generating_type_position := sp
-            create arg.refer_to(sp, args, 2)
+            create arg.refer_to(sp, args, 2, 0)
             arg_type :=  args.type_mark(2).declaration_type.type
             arg.set_declaration_type(arg_type)
-            create native_array_internals_from_generating_type_args.make_1(arg)
+            create native_array_internals_from_generating_type_args.make_1(start_position, arg)
             smart_eiffel.magic_count_increment
          else
             live_types := smart_eiffel.live_type_map
@@ -112,7 +112,7 @@ feature {EXTERNAL_FUNCTION}
          is_native_array_internals_from_generating_type_used
       end
 
-   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type; fn: STRING): INSTRUCTION is
+   finalized_body_for_internals_handler (er: EXTERNAL_FUNCTION; nt: like new_type; fn: STRING): INSTRUCTION
       do
          start_new_body_for(er, nt, True)
          if fn = as_internals_from_generating_type then
@@ -134,7 +134,7 @@ feature {EXTERNAL_FUNCTION}
       end
 
 feature {LIVE_TYPE}
-   create_blank_internals_instruction_for (live_type: LIVE_TYPE): CREATE_INSTRUCTION is
+   create_blank_internals_instruction_for (live_type: LIVE_TYPE): CREATE_INSTRUCTION
       require
          live_type.at_run_time
          create_blank_internals_used_by(live_type)
@@ -157,7 +157,7 @@ feature {LIVE_TYPE}
          smart_eiffel.magic_count_increment
          create make_blank_fn.simple_feature_name(as_make_blank, pos)
          create result_variable.make(pos)
-         create cn.unknown_position(string_aliaser.hashed_string(as_internals))
+         create cn.unknown_position(string_aliaser.hashed_string(as_internals), False)
          create internals.make(cn)
          result_variable.set_type_mark_memory(internals)
          if tm.is_native_array then
@@ -175,7 +175,7 @@ feature {LIVE_TYPE}
          create Result.make_specialized(pos, typed_internals, result_variable, make_blank)
       end
 
-   create_blank_internals_used_by (live_type: LIVE_TYPE): BOOLEAN is
+   create_blank_internals_used_by (live_type: LIVE_TYPE): BOOLEAN
       require
          live_type.at_run_time
       local
@@ -199,7 +199,7 @@ feature {LIVE_TYPE}
       end
 
 feature {EXTERNAL_ROUTINE}
-   specialize_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_typed_internals
@@ -251,7 +251,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_native_array_internals
@@ -296,12 +296,12 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_internals_handler (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_internals_handler (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er /= Void
          nt.class_text.name.to_string = as_internals_handler
       local
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          manifest_string: MANIFEST_STRING
          when_clause: WHEN_CLAUSE
@@ -313,7 +313,7 @@ feature {EXTERNAL_ROUTINE}
                or er.first_name.to_string = as_native_array_internals_from_generating_type
                or er.first_name.to_string = as_valid_generating_type_for_native_array_internals
          end
-         create arg.refer_to(start_position, arguments, 1)
+         create arg.refer_to(start_position, arguments, 1, 0)
          create inspect_statement.make(start_position, arg)
          create when_clause.make(inspect_statement, start_position, Void)
          create manifest_string.from_identifier(start_position, string_aliaser.hashed_string(as_string))
@@ -325,7 +325,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   specialize_body_for_any_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE is
+   specialize_body_for_any_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type; ct: BOOLEAN): EXTERNAL_ROUTINE
       require
          er.first_name.to_string = as_to_internals
          nt.class_text.name.to_string = as_any
@@ -340,7 +340,7 @@ feature {EXTERNAL_ROUTINE}
          Result.same_dynamic_type(er)
       end
 
-   finalized_body_for_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_to_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       do
          if is_introspectable_dynamic_type(nt.canonical_type_mark) then
             start_new_body_for(er, nt, True)
@@ -348,7 +348,7 @@ feature {EXTERNAL_ROUTINE}
          end
       end
 
-   finalized_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_typed_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       local
          fn: STRING
       do
@@ -362,7 +362,7 @@ feature {EXTERNAL_ROUTINE}
          end
       end
 
-   finalized_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION is
+   finalized_body_for_native_array_internals (er: EXTERNAL_ROUTINE; nt: like new_type): INSTRUCTION
       local
          fn: STRING
       do
@@ -375,7 +375,7 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {SMART_EIFFEL}
-   collect_internals_handler is
+   collect_internals_handler
       local
          i: INTEGER; t: TYPE
       do
@@ -404,7 +404,7 @@ feature {SMART_EIFFEL}
 feature {}
    type_internals_handler: TYPE
 
-   collect_internals_handler_for (type: TYPE; feature_name: STRING) is
+   collect_internals_handler_for (type: TYPE; feature_name: STRING)
       require
          smart_eiffel.status.is_collecting
          type.insert_inherit_test(type_internals_handler) /= unrelated_code
@@ -417,7 +417,7 @@ feature {}
          ef.collect_internals_handler(type, feature_name)
       end
 
-   wrap (wrapped: CODE): NO_INVARIANT_WRAPPER is
+   wrap (wrapped: CODE): NO_INVARIANT_WRAPPER
       do
          if wrapped /= Void then
             create Result.make(wrapped)
@@ -426,7 +426,7 @@ feature {}
          (wrapped = Void) = (Result = Void)
       end
 
-   simplify_and_wrap (wrapped: OTHER_INSPECT_STATEMENT): NO_INVARIANT_WRAPPER is
+   simplify_and_wrap (wrapped: OTHER_INSPECT_STATEMENT): NO_INVARIANT_WRAPPER
       do
          if wrapped /= Void then
             create Result.make(wrapped)
@@ -435,7 +435,7 @@ feature {}
          end
       end
 
-   internals_of (target: EXPRESSION; target_tm: TYPE_MARK; container: EXPRESSION; result_variable: RESULT): INSTRUCTION is
+   internals_of (target: EXPRESSION; target_tm: TYPE_MARK; container: EXPRESSION; result_variable: RESULT): INSTRUCTION
       require
          target /= Void
          -- target_tm is "the" type_mark of target
@@ -444,7 +444,7 @@ feature {}
          for_object_fn, capacity_fn: FEATURE_NAME
          native_array_internals_type_mark: TYPE_MARK
          capacity: FUNCTION_CALL_0
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          internals_creation_call: PROCEDURE_CALL_N
          internals_creation: CREATE_INSTRUCTION
          to_internals_fn: FEATURE_NAME
@@ -459,7 +459,7 @@ feature {}
             create capacity_fn.simple_feature_name(as_capacity, start_position)
             create capacity.make(container, capacity_fn)
             native_array_internals_type_mark := target_tm.typed_internals_type_mark(start_position)
-            create args.make_2(target, capacity)
+            create args.make_2(start_position, target, capacity)
             create internals_creation_call.make(result_variable, for_object_fn, args)
             create internals_creation.make(start_position, native_array_internals_type_mark,
                                            result_variable, internals_creation_call)
@@ -479,34 +479,32 @@ feature {}
          end
       end
 
-   set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION) is
+   set_and_specialize_body (lv: LOCAL_VAR_LIST; rb: INSTRUCTION)
       local
-         local_vars: LOCAL_VAR_LIST
+         local_vars, lv_memory: LOCAL_VAR_LIST; clv_memory: FAST_ARRAY[LOCAL_VAR_LIST]
          routine_body: INSTRUCTION
       do
          if lv /= Void then
             local_vars := lv.specialize_in(new_type)
-            check
-               smart_eiffel.specializing_feature_local_var_list = Void
-            end
-            smart_eiffel.set_specializing_feature_variables(local_vars)
          end
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(local_vars, Void)
          if rb /= Void then
             routine_body := rb.specialize_in(new_type)
          end
-         if local_vars /= Void then
-            check
-               smart_eiffel.specializing_feature_local_var_list = local_vars
-            end
-            smart_eiffel.set_specializing_feature_variables(Void)
-         end
-         external_routine := external_routine.current_or_twin_init(local_vars, routine_body, True,
+         external_routine := external_routine.current_or_twin_init(local_vars, Void, Void, routine_body, True,
                                                                    external_routine.ensure_assertion,
                                                                    external_routine.require_assertion,
                                                                    can_twin)
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
+            smart_eiffel.specializing_closure_local_var_lists = Void
+         end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   start_new_body_for (er: EXTERNAL_ROUTINE; nt: like new_type; ct: like can_twin) is
+   start_new_body_for (er: EXTERNAL_ROUTINE; nt: like new_type; ct: like can_twin)
       local
          capacity_hs: HASHED_STRING
          capacity_fs: FEATURE_STAMP
@@ -545,7 +543,7 @@ feature {}
          can_twin = ct
       end
 
-   is_introspectable_attribute_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_attribute_type (tm: TYPE_MARK): BOOLEAN
       require
          target_type /= Void
          tm.is_static
@@ -554,7 +552,7 @@ feature {}
             and then (tm.is_native_array implies has_capacity)
       end
 
-   is_introspectable_static_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_static_type (tm: TYPE_MARK): BOOLEAN
       require
          tm.is_static
       do
@@ -562,7 +560,7 @@ feature {}
                         or else tm.written_mark = as_native_array_internals)
       end
 
-   is_introspectable_dynamic_type (tm: TYPE_MARK): BOOLEAN is
+   is_introspectable_dynamic_type (tm: TYPE_MARK): BOOLEAN
       require
          tm.is_static
       do
@@ -581,14 +579,14 @@ feature {}
 
    has_capacity: BOOLEAN
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := external_routine.start_position
       ensure
          Result = external_routine.start_position
       end
 
-   arguments: FORMAL_ARG_LIST is
+   arguments: FORMAL_ARG_LIST
       do
          Result := external_routine.arguments
       ensure
@@ -599,14 +597,14 @@ feature {}
 
    native_array_internals_from_generating_type_position: POSITION
 
-   native_array_internals_from_generating_type_args: EFFECTIVE_ARG_LIST
+   native_array_internals_from_generating_type_args: EFFECTIVE_ARG_LIST_N
 
 feature {}
    -- Generate code for all writable attributes. Dead attributes will be sorted out during the adapt phase.
-   specialize_body_for_type_attribute_name is
+   specialize_body_for_type_attribute_name
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -618,7 +616,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -644,14 +642,14 @@ feature {}
          end
       end
 
-   specialize_body_for_object_attribute is
+   specialize_body_for_object_attribute
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
          target_type = new_type.generic_list.first
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          implicit_current: IMPLICIT_CURRENT
@@ -667,7 +665,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             create implicit_current.make(start_position)
@@ -699,14 +697,14 @@ feature {}
          end
       end
 
-   specialize_body_for_set_object_attribute is
+   specialize_body_for_set_object_attribute
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
          target_type = new_type.generic_list.first
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          implicit_current: IMPLICIT_CURRENT
          e_void: E_VOID
@@ -718,12 +716,12 @@ feature {}
          af: ANONYMOUS_FEATURE
          attribute_type_mark: TYPE_MARK
          var_name: STRING
-         local_var1: LOCAL_NAME1
+         local_var1: LOCAL_NAME_DEF
          tm: TYPE_MARK
          declaration: DECLARATION_1
          lv: LOCAL_VAR_LIST
          when_clause: WHEN_CLAUSE
-         local_var2: LOCAL_NAME2
+         local_var2: LOCAL_NAME_REF
          assignment_attempt: ASSIGNMENT_ATTEMPT
          arg_object_memory, arg_capacity: FUNCTION_CALL_0
          fn: FEATURE_NAME
@@ -735,14 +733,14 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 2)
+            create arg.refer_to(start_position, arguments, 2, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create implicit_current.make(start_position)
             implicit_current.force_declaration_type(new_type)
             create e_void.make(start_position)
             create object_memory_fn.simple_feature_name(as_object_memory, start_position)
             create object_memory.make(implicit_current, object_memory_fn)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create declarations.with_capacity(feature_stamps.count, 1)
             from
                i := feature_stamps.lower
@@ -768,7 +766,7 @@ feature {}
                   feature_stamps.lower = declarations.lower
                   feature_stamps.upper >= declarations.upper
                end
-               create lv.make(declarations)
+               create lv.make(start_position, declarations)
                from
                   i := feature_stamps.lower
                   j := i
@@ -780,7 +778,7 @@ feature {}
                   attribute_type_mark := af.result_type.to_static(target_type, False)
                   if is_introspectable_attribute_type(attribute_type_mark) then
                      create when_clause.make_strippable(inspect_statement, fs)
-                     create local_var2.refer_to(start_position, lv, j)
+                     create local_var2.refer_to(start_position, lv, j, 0)
                      create assignment_attempt.make(local_var2, arg, True)
                      create arg_object_memory.make(local_var2, object_memory_fn)
                      create fn.ordinary_name(target_type.get_feature_name(fs).name, start_position)
@@ -816,7 +814,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_is_expanded is
+   specialize_body_for_type_is_expanded
       local
          result_variable: RESULT
          bool: E_TRUE
@@ -830,10 +828,10 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_attribute_is_expanded is
+   specialize_body_for_type_attribute_is_expanded
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          i: INTEGER
          fs: FEATURE_STAMP
@@ -846,7 +844,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             from
                i := feature_stamps.lower
@@ -877,10 +875,10 @@ feature {}
          end
       end
 
-   specialize_body_for_type_can_be_assigned_to_attribute is
+   specialize_body_for_type_can_be_assigned_to_attribute
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          i: INTEGER
          fs: FEATURE_STAMP
@@ -897,9 +895,9 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 2)
+            create arg.refer_to(start_position, arguments, 2, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create result_variable.make(start_position)
             from
                i := feature_stamps.lower
@@ -935,7 +933,7 @@ feature {}
          end
       end
 
-   specialize_body_for_make_blank is
+   specialize_body_for_make_blank
       local
          object_memory: WRITABLE_ATTRIBUTE_NAME
          create_instruction: RAW_CREATE_INSTRUCTION
@@ -945,7 +943,7 @@ feature {}
          set_and_specialize_body(Void, create_instruction)
       end
 
-   specialize_body_for_type_generating_type is
+   specialize_body_for_type_generating_type
       local
          static_generating_type: GENERATOR_GENERATING_TYPE
          result_variable: RESULT
@@ -957,7 +955,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_generator is
+   specialize_body_for_type_generator
       local
          static_generator: GENERATOR_GENERATING_TYPE
          result_variable: RESULT
@@ -969,12 +967,12 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_is_equal is
+   specialize_body_for_is_equal
       local
          implicit_current: IMPLICIT_CURRENT
          object_memory_fn: FEATURE_NAME
          object_memory: FUNCTION_CALL_0
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          arg_object_memory: FUNCTION_CALL_0
          eq: BUILT_IN_EQ_NEQ
          result_variable: RESULT
@@ -983,7 +981,7 @@ feature {}
          create implicit_current.make(start_position)
          create object_memory_fn.simple_feature_name(as_object_memory, start_position)
          create object_memory.make(implicit_current, object_memory_fn)
-         create arg.refer_to(start_position, arguments, 1)
+         create arg.refer_to(start_position, arguments, 1, 0)
          create arg_object_memory.make(arg, object_memory_fn)
          create eq.make_eq(object_memory, start_position, arg_object_memory)
          create result_variable.make(start_position)
@@ -991,7 +989,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_object_as_pointer is
+   specialize_body_for_object_as_pointer
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -1017,10 +1015,10 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_type_attribute_generating_type is
+   specialize_body_for_type_attribute_generating_type
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -1033,7 +1031,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -1060,10 +1058,10 @@ feature {}
          end
       end
 
-   specialize_body_for_type_attribute_generator is
+   specialize_body_for_type_attribute_generator
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          inspect_statement: OTHER_INSPECT_STATEMENT
          result_variable: RESULT
          i: INTEGER
@@ -1076,7 +1074,7 @@ feature {}
       do
          feature_stamps := target_type.writable_attributes
          if not feature_stamps.is_empty then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create inspect_statement.make_strippable(start_position, arg, target_type)
             create result_variable.make(start_position)
             from
@@ -1103,7 +1101,7 @@ feature {}
          end
       end
 
-   specialize_body_for_type_attribute_count is
+   specialize_body_for_type_attribute_count
       local
          feature_stamps: ARRAY[FEATURE_STAMP]
          result_variable: RESULT
@@ -1119,7 +1117,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_attribute_count is
+   specialize_body_for_na_attribute_count
       local
          result_variable: RESULT
          implicit_current: IMPLICIT_CURRENT
@@ -1137,17 +1135,17 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_object_attribute is
+   specialize_body_for_na_object_attribute
       local
          element_type_mark: TYPE_MARK
          result_variable: RESULT
          implicit_current: IMPLICIT_CURRENT
          fn: FEATURE_NAME
          object: FUNCTION_CALL_0
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          one: INTEGER_CONSTANT
          i: CALL_INFIX_MINUS
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          item: FUNCTION_CALL_1
          assignment: INSTRUCTION
       do
@@ -1158,33 +1156,33 @@ feature {}
             create fn.simple_feature_name(as_object_memory, start_position)
             create object.make(implicit_current, fn)
             create fn.simple_feature_name(as_item, start_position)
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             create one.make(1, start_position)
             create i.make(arg, start_position, one)
-            create args.make_1(i)
+            create args.make_1(start_position, i)
             create item.make(object, fn, args)
             assignment := internals_of(item, element_type_mark, object, result_variable)
          end
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_set_object_attribute is
+   specialize_body_for_na_set_object_attribute
       local
          item_type_mark: TYPE_MARK
          var_name: STRING
-         local_var1: LOCAL_NAME1
+         local_var1: LOCAL_NAME_DEF
          tm: TYPE_MARK
          declaration: DECLARATION_1
          declarations: ARRAY[DECLARATION]
          lv: LOCAL_VAR_LIST
-         local_var2: LOCAL_NAME2
-         arg1, arg2: ARGUMENT_NAME2
+         local_var2: LOCAL_NAME_REF
+         arg1, arg2: ARGUMENT_NAME_REF
          assignment_attempt: ASSIGNMENT_ATTEMPT
          fn: FEATURE_NAME
          one: INTEGER_CONSTANT
          object: FUNCTION_CALL_0
          i: CALL_INFIX_MINUS
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          implicit_current: IMPLICIT_CURRENT
          set_item: PROCEDURE_CALL_N
          compound: COMPOUND
@@ -1200,16 +1198,16 @@ feature {}
             tm := item_type_mark.typed_internals_type_mark(start_position)
             create declaration.make(local_var1, tm)
             declarations := {ARRAY[DECLARATION]1, <<declaration>>}
-            create lv.make(declarations)
-            create local_var2.refer_to(start_position, lv, 1)
-            create arg1.refer_to(start_position, arguments, 1)
-            create arg2.refer_to(start_position, arguments, 2)
+            create lv.make(start_position, declarations)
+            create local_var2.refer_to(start_position, lv, 1, 0)
+            create arg1.refer_to(start_position, arguments, 1, 0)
+            create arg2.refer_to(start_position, arguments, 2, 0)
             create assignment_attempt.make(local_var2, arg1, True)
             create fn.simple_feature_name(as_object_memory, start_position)
             create object.make(local_var2, fn)
             create one.make(1, start_position)
             create i.make(arg2, start_position, one)
-            create args.make_2(object, i)
+            create args.make_2(start_position, object, i)
             create implicit_current.make(start_position)
             create object.make(implicit_current, fn)
             create fn.simple_feature_name(as_put, start_position)
@@ -1223,7 +1221,7 @@ feature {}
             else
                create e_void.make(start_position)
                create neq.make_neq(arg1, start_position, e_void)
-               create args.make_2(e_void, i)
+               create args.make_2(start_position, e_void, i)
                create set_item.make(object, fn, args)
                create if_then_else.with_else(start_position, neq, compound, set_item)
                new_body := if_then_else
@@ -1232,7 +1230,7 @@ feature {}
          set_and_specialize_body(lv, new_body)
       end
 
-   specialize_body_for_na_type_item_is_expanded is
+   specialize_body_for_na_type_item_is_expanded
       local
          result_variable: RESULT
          bool: E_TRUE
@@ -1246,10 +1244,10 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_type_can_be_assigned_to_item is
+   specialize_body_for_na_type_can_be_assigned_to_item
       local
          item_type_mark: TYPE_MARK
-         arg: ARGUMENT_NAME2
+         arg: ARGUMENT_NAME_REF
          tm: TYPE_MARK
          assignment_test: ASSIGNMENT_TEST
          e_void: E_VOID
@@ -1260,7 +1258,7 @@ feature {}
       do
          item_type_mark := native_array_element_type.canonical_type_mark
          if is_introspectable_attribute_type(item_type_mark) then
-            create arg.refer_to(start_position, arguments, 1)
+            create arg.refer_to(start_position, arguments, 1, 0)
             tm := item_type_mark.typed_internals_type_mark(start_position)
             create assignment_test.with_type_mark(tm, arg)
             create result_variable.make(start_position)
@@ -1276,14 +1274,14 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_make_blank is
+   specialize_body_for_na_make_blank
       local
          object_memory: WRITABLE_ATTRIBUTE_NAME
          implicit_current: IMPLICIT_CURRENT
          object_memory_target: FUNCTION_CALL_0
          fn: FEATURE_NAME
-         arg: ARGUMENT_NAME2
-         args: EFFECTIVE_ARG_LIST
+         arg: ARGUMENT_NAME_REF
+         args: EFFECTIVE_ARG_LIST_N
          call: FUNCTION_CALL_1
          assignemnt_1: ASSIGNMENT
          capacity: WRITABLE_ATTRIBUTE_NAME
@@ -1295,8 +1293,8 @@ feature {}
          create fn.simple_feature_name(as_object_memory, start_position)
          create object_memory_target.make(implicit_current, fn)
          create fn.simple_feature_name(as_calloc, start_position)
-         create arg.refer_to(start_position, arguments, 1)
-         create args.make_1(arg)
+         create arg.refer_to(start_position, arguments, 1, 0)
+         create args.make_1(start_position, arg)
          create call.make(object_memory_target, fn, args)
          create assignemnt_1.make(object_memory, call)
          create capacity.make(string_aliaser.hashed_string(as_capacity), start_position)
@@ -1305,7 +1303,7 @@ feature {}
          set_and_specialize_body(Void, compound)
       end
 
-   specialize_body_for_na_type_item_generator is
+   specialize_body_for_na_type_item_generator
       local
          result_variable: RESULT
          static_generator: GENERATOR_GENERATING_TYPE
@@ -1317,7 +1315,7 @@ feature {}
          set_and_specialize_body(Void, assignment)
       end
 
-   specialize_body_for_na_type_item_generating_type is
+   specialize_body_for_na_type_item_generating_type
       local
          result_variable: RESULT
          static_generating_type: GENERATOR_GENERATING_TYPE
@@ -1330,7 +1328,23 @@ feature {}
       end
 
 feature {}
-   finalized_body_for_internals_from_generating_type: OTHER_INSPECT_STATEMENT is
+   specialize_and_check_body (body: INSTRUCTION): INSTRUCTION
+      local
+         old_lvl: LOCAL_VAR_LIST; old_clvl: FAST_ARRAY[LOCAL_VAR_LIST]
+         old_fal: FORMAL_ARG_LIST; old_cfal: FAST_ARRAY[FORMAL_ARG_LIST]
+      do
+         old_lvl := smart_eiffel.specializing_feature_local_var_list
+         old_clvl := smart_eiffel.specializing_closure_local_var_lists
+         old_fal := smart_eiffel.specializing_feature_arguments_list
+         old_cfal := smart_eiffel.specializing_closure_arguments_lists
+         smart_eiffel.set_specializing_feature_variables(Void, Void)
+         smart_eiffel.set_specializing_feature_arguments(arguments, Void)
+         Result := body.specialize_and_check(new_type)
+         smart_eiffel.set_specializing_feature_variables(old_lvl, old_clvl)
+         smart_eiffel.set_specializing_feature_arguments(old_fal, old_cfal)
+      end
+
+   finalized_body_for_internals_from_generating_type: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1384,16 +1398,16 @@ feature {}
                   end
                   i := i + 1
                end
-               if not when_list.is_empty then
-                  Result := Result.specialize_and_check(new_type)
-               else
+               if when_list.is_empty then
                   Result := Void
+               else
+                  Result ::= specialize_and_check_body(Result)
                end
             end
          end
       end
 
-   finalized_body_for_valid_generating_type_for_internals: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_valid_generating_type_for_internals: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1466,18 +1480,15 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: specializing -- count=#(1)" # when_list.count.out)
-                  Result := Result.specialize_and_check(new_type)
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: done")
+                  Result ::= specialize_and_check_body(Result)
                else
-                  --echo.put_line(once ">>>> valid_generating_type_for_internals: failed")
                   Result := Void
                end
             end
          end
       end
 
-   finalized_body_for_na_internals_from_generating_type: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_na_internals_from_generating_type: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1532,7 +1543,7 @@ feature {}
                   i := i + 1
                end
                if not when_list.is_empty then
-                  Result := Result.specialize_and_check(new_type)
+                  Result ::= specialize_and_check_body(Result)
                else
                   Result := Void
                end
@@ -1540,7 +1551,7 @@ feature {}
          end
       end
 
-   finalized_body_for_valid_generating_type_for_na_internals: OTHER_INSPECT_STATEMENT is
+   finalized_body_for_valid_generating_type_for_na_internals: OTHER_INSPECT_STATEMENT
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]
          original_when_clause, when_clause: WHEN_CLAUSE
@@ -1603,7 +1614,7 @@ feature {}
                end
                if not when_list.is_empty then
                   Result.set_else_compound(start_position, Void)
-                  Result := Result.specialize_and_check(new_type)
+                  Result ::= specialize_and_check_body(Result)
                else
                   Result := Void
                end
@@ -1611,7 +1622,7 @@ feature {}
          end
       end
 
-   finalized_body_for_type_attribute_count: INSTRUCTION is
+   finalized_body_for_type_attribute_count: INSTRUCTION
       require
          new_type.class_text.name.to_string = as_typed_internals
          new_type.generic_list.count = 1
@@ -1661,12 +1672,12 @@ feature {}
             create integer_type_mark.integer(start_position)
             integer_constant.set_result_type(integer_type_mark)
             create assignment.make(assignment.left_side, integer_constant)
-            Result := assignment.specialize_and_check(new_type)
+            Result := specialize_and_check_body(assignment)
          end
       end
 
 feature {LOCAL_VAR_LIST}
-   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+   visit_local_var_list (visited: LOCAL_VAR_LIST)
       do
          check
             False
@@ -1674,7 +1685,7 @@ feature {LOCAL_VAR_LIST}
       end
 
 feature {FORMAL_ARG_LIST}
-   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST)
       do
          check
             False
@@ -1682,7 +1693,7 @@ feature {FORMAL_ARG_LIST}
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       do
          check
             False
@@ -1690,7 +1701,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -1706,9 +1717,9 @@ end -- class INTROSPECTION_HANDLER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

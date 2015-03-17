@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INSPECT_SLICE}
-   visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE) is
+   visit_liberty_inspect_slice (v: LIBERTY_INSPECT_SLICE)
       deferred
       end
 

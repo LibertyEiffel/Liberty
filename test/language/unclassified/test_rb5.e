@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    list: ARRAY[AUX_RB5A]
 
-   make is
+   make
       local
          b: AUX_RB5B
       do

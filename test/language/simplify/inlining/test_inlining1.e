@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i1, i2: INTEGER; c1: CHARACTER; target: like Current
       do
@@ -24,7 +24,7 @@ feature {ANY}
          target.foo(i1 + i2, ("foo").item(i2))
       end
 
-   foo (x: INTEGER; c: CHARACTER) is
+   foo (x: INTEGER; c: CHARACTER)
       do
       end
 

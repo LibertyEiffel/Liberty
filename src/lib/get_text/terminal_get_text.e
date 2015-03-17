@@ -4,7 +4,7 @@ inherit
    GET_TEXT[E_]
 
 feature {}
-   init is
+   init
          -- Initialise with default values.
       do
          set_default_message_locale
@@ -12,7 +12,7 @@ feature {}
       end
 
 feature {ANY}
-   set_environment_variable (variable, value: STRING) is
+   set_environment_variable (variable, value: STRING)
          -- Try to assign the `value' to the system environment `variable' (like
          -- SYSTEM.set_environment_variable). Changes to language variables (such as LANGUAGE, LC_xxx, LANG)
          -- immediately affect the language of xxx_translation functions (unlike SYSTEM.set_environment_variable).
@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   set_message_locale (locale_name: like message_locale) is
+   set_message_locale (locale_name: like message_locale)
          -- Set the locale (roughly, the language) in which the
          -- program should output messages.
          --
@@ -39,7 +39,7 @@ feature {ANY}
          message_locale.is_equal(locale_name)
       end
 
-   set_default_message_locale is
+   set_default_message_locale
          -- Try to read the default locale in the environment
          -- (environment variable, register, ...)
       deferred

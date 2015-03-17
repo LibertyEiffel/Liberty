@@ -5,12 +5,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
-         (1|..|100).do_all(agent show(?))
+         (1|..|100).for_each(agent show(?))
       end
 
-   show (i: INTEGER_8) is
+   show (i: INTEGER_8)
       do
          if i \\ 3 = 0 then
             if i \\ 5 = 0 then

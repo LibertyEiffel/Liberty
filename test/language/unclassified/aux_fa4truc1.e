@@ -3,13 +3,13 @@
 --
 class AUX_FA4TRUC1
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    value1: STRING
 
-   make (s: STRING) is
+   make (s: STRING)
       do
          value1 := s
       end

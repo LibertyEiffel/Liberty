@@ -18,7 +18,7 @@ feature {ANY}
 
    any_string: ABSTRACT_STRING
 
-   make is
+   make
       do
          -- Because `any' is Void:
          assert({STRING} ?:= any_string)

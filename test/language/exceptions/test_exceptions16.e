@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    i: INTEGER
 
-   make is
+   make
       do
          foo
          foo
@@ -21,7 +21,7 @@ feature {ANY}
          retry
       end
 
-   foo is
+   foo
       require
          i /= 0
       do

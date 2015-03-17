@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	STANDARD_C_LIBRARY_TYPES
 feature {} -- Low-level setters
 
-	lldiv_t_struct_set_quot (a_structure: POINTER; a_value: INTEGER_64) is
+	lldiv_t_struct_set_quot (a_structure: POINTER; a_value: INTEGER_64)
 			-- Setter for quot field of LLDIV_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	lldiv_t_struct_set_rem (a_structure: POINTER; a_value: INTEGER_64) is
+	lldiv_t_struct_set_rem (a_structure: POINTER; a_value: INTEGER_64)
 			-- Setter for rem field of LLDIV_T_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	lldiv_t_struct_get_quot (a_structure: POINTER): INTEGER_64 is
+	lldiv_t_struct_get_quot (a_structure: POINTER): INTEGER_64
 			-- Query for quot field of LLDIV_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	lldiv_t_struct_get_rem (a_structure: POINTER): INTEGER_64 is
+	lldiv_t_struct_get_rem (a_structure: POINTER): INTEGER_64
 			-- Query for rem field of LLDIV_T_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

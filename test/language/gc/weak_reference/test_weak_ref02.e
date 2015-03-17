@@ -12,9 +12,9 @@ create {}
    make
 
 feature {}
-   wr_count: INTEGER is 1000
+   wr_count: INTEGER 1000
 
-   make is
+   make
       local
          mem: MEMORY; aux_wr: AUX_WEAK_REF02; aux_wrb: AUX_WEAK_REF02B; wr: WEAK_REFERENCE[AUX_WEAK_REF02B]
          i, void_count: INTEGER
@@ -80,7 +80,7 @@ feature {}
          assert(void_count = aux_wr_disposed) -- Test # 4+wr_count
       end
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do
@@ -102,7 +102,7 @@ feature {}
 
    aux_wr_disposed: INTEGER
 
-   polymorph (awr: AUX_WEAK_REF02; awrb: AUX_WEAK_REF02B): AUX_WEAK_REF02B is
+   polymorph (awr: AUX_WEAK_REF02; awrb: AUX_WEAK_REF02B): AUX_WEAK_REF02B
       local
          rnd: MINIMAL_RANDOM_NUMBER_GENERATOR
       do
@@ -115,7 +115,7 @@ feature {}
       end
 
 feature {AUX_WEAK_REF02}
-   set_aux_wr_disposed is
+   set_aux_wr_disposed
       do
          aux_wr_disposed := aux_wr_disposed + 1
       end

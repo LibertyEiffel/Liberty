@@ -18,14 +18,14 @@ create {ANY}
    make, with
 
 feature {ANY}
-   precedence: INTEGER is 11
+   precedence: INTEGER 11
 
-   operator: STRING is
+   operator: STRING
       do
          Result := as_minus
       end
 
-   static_simplify: EXPRESSION is
+   static_simplify: EXPRESSION
       local
          ic: INTEGER_CONSTANT; v: INTEGER_64
       do
@@ -48,13 +48,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (visitor: CALL_PREFIX_MINUS_VISITOR) is
+   accept (visitor: CALL_PREFIX_MINUS_VISITOR)
       do
          visitor.visit_call_prefix_minus(Current)
       end
 
 feature {}
-   make (operator_position: POSITION; rp: like target) is
+   make (operator_position: POSITION; rp: like target)
       require
          not operator_position.is_unknown
          rp /= Void
@@ -78,9 +78,9 @@ end -- class CALL_PREFIX_MINUS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -4,7 +4,7 @@
 deferred class AUX_PRECURSOR20
 
 feature {}
-   find_string (string: STRING): BOOLEAN is
+   find_string (string: STRING): BOOLEAN
       do
          inspect string
          when "foo", "bar" then

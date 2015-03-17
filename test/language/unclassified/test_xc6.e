@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    cell: AUX_XC6_DD[AUX_XC6_SA]
 
-   make is
+   make
       local
          sa: AUX_XC6_SA
       do

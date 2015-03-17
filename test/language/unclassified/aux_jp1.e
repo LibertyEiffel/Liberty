@@ -4,7 +4,7 @@
 class AUX_JP1[E]
 
 feature {ANY}
-   foo: AUX_JP1[E] is
+   foo: AUX_JP1[E]
       do
          create Result
       end

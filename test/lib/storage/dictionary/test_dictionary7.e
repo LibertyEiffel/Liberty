@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   test (d: DICTIONARY[INTEGER, INTEGER]) is
+   test (d: DICTIONARY[INTEGER, INTEGER])
       do
          buffer.clear_count
          d.key_map_in(buffer)
@@ -66,20 +66,21 @@ feature {ANY}
          assert(buffer.is_equal({ARRAY[INTEGER] 1, << 1, 1.to_integer_32, 1 >> }))
       end
 
-   make is
+   make
       do
+         test(create {ARRAY_DICTIONARY[INTEGER, INTEGER]}.make)
          test(create {HASHED_DICTIONARY[INTEGER, INTEGER]}.make)
          test(create {PYTHON_DICTIONARY[INTEGER, INTEGER]}.make)
       end
 
-   buffer: ARRAY[INTEGER] is
+   buffer: ARRAY[INTEGER]
       once
          create Result.with_capacity(12, 1)
       end
 
    view: STRING
 
-   buffer_view is
+   buffer_view
       local
          i: INTEGER
       do
@@ -96,7 +97,7 @@ feature {ANY}
          view.append(">>")
       end
 
-   sorter: COLLECTION_SORTER[INTEGER] is
+   sorter: COLLECTION_SORTER[INTEGER]
       once
       end
 

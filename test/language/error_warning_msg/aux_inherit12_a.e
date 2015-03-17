@@ -5,7 +5,7 @@ class AUX_INHERIT12_A
 insert
    ANY
 feature {ANY}
-   foo is
+   foo
       do
       end
 end -- class AUX_INHERIT12_A

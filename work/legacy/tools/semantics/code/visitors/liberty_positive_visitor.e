@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_POSITIVE}
-   visit_liberty_positive (v: LIBERTY_POSITIVE) is
+   visit_liberty_positive (v: LIBERTY_POSITIVE)
       deferred
       end
 

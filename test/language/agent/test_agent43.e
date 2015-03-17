@@ -9,12 +9,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          --***         coll: ARRAY[reference INTEGER]
          --***         create coll.make(1, 0)
          --***         coll.add_last(1)
-         --***         coll.do_all(agent print)
+         --***         coll.for_each(agent print)
          --*** The signature of print has changed and reference INTEGER will be removed.
          --*** (Dom. aug 31th 2004)
       end

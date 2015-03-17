@@ -29,13 +29,13 @@ create {ANY}
 feature {ANY}
    type: LIBERTY_ASM_TYPE
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := type.is_equal(other.type)
             and then Precursor(other)
       end
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_INSTRUCTION_VISITOR
       do
@@ -44,7 +44,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_type: like type) is
+   make (a_type: like type)
       require
          a_type /= Void
       do

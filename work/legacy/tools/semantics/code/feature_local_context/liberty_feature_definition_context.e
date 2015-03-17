@@ -24,48 +24,48 @@ create {LIBERTY_BUILDER_TOOLS}
    make
 
 feature {ANY}
-   current_type: LIBERTY_ACTUAL_TYPE is
+   current_type: LIBERTY_ACTUAL_TYPE
       do
          Result := current_entity.result_type
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          if result_entity /= Void then
             Result := result_entity.result_type
          end
       end
 
-   parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+   parameters: TRAVERSABLE[LIBERTY_PARAMETER]
       do
          Result := parameters_list
       ensure then
          definition: Result = parameters_list
       end
 
-   locals: TRAVERSABLE[LIBERTY_LOCAL] is
+   locals: TRAVERSABLE[LIBERTY_LOCAL]
       do
          Result := locals_list
       ensure then
          definition: Result = locals_list
       end
 
-   is_parameter (name: ABSTRACT_STRING): BOOLEAN is
+   is_parameter (name: ABSTRACT_STRING): BOOLEAN
       do
          Result := parameters_map.has(name.intern)
       end
 
-   parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER is
+   parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER
       do
          Result := parameters_map.reference_at(name.intern)
       end
 
-   is_local (name: ABSTRACT_STRING): BOOLEAN is
+   is_local (name: ABSTRACT_STRING): BOOLEAN
       do
          Result := locals_map.has(name.intern)
       end
 
-   local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL is
+   local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL
       do
          Result := locals_map.reference_at(name.intern)
       end
@@ -73,38 +73,38 @@ feature {ANY}
    current_entity: LIBERTY_CURRENT
    result_entity: LIBERTY_RESULT
 
-   can_retry: BOOLEAN is True
+   can_retry: BOOLEAN True
 
-   retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
+   retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY
       do
          create Result.make(a_position)
          retries.add_last(Result)
       end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
-   add_parameter (a_parameter: LIBERTY_PARAMETER) is
+   add_parameter (a_parameter: LIBERTY_PARAMETER)
       do
          parameters_list.add_last(a_parameter)
          parameters_map.add(a_parameter, a_parameter.name)
       end
 
-   add_local (a_local: LIBERTY_LOCAL) is
+   add_local (a_local: LIBERTY_LOCAL)
       do
          locals_list.add_last(a_local)
          locals_map.add(a_local, a_local.name)
       end
 
-   reconcile_retry_instructions (a_feature: LIBERTY_FEATURE) is
+   reconcile_retry_instructions (a_feature: LIBERTY_FEATURE)
       do
          retries.do_all(agent {LIBERTY_RETRY}.set_feature(a_feature))
       end
 
-   set_result_type (a_result_type: like result_type) is
+   set_result_type (a_result_type: like result_type)
       do
          result_entity := a_result_type.result_entity
       end
 
-   set_feature_names (a_feature_names: like feature_names) is
+   set_feature_names (a_feature_names: like feature_names)
       require
          a_feature_names /= Void
       do
@@ -122,7 +122,7 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
    written_feature_names: FIXED_STRING
 
    find_precursor (parent: LIBERTY_ACTUAL_TYPE; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME];
-                   ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING): LIBERTY_FEATURE is
+                   ast: LIBERTY_AST_ONE_CLASS; file: FIXED_STRING): LIBERTY_FEATURE
       local
          i: INTEGER; fn: LIBERTY_AST_FEATURE_NAME
       do
@@ -144,13 +144,13 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
       end
 
 feature {LIBERTY_FEATURE, LIBERTY_SEMANTICS_BUILDER}
-   specialized_in (a_type: like current_type): like Current is
+   specialized_in (a_type: like current_type): like Current
       do
          Result := twin
          Result.set_specialized_in(a_type)
       end
 
-   debug_display_signature (o: OUTPUT_STREAM) is
+   debug_display_signature (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -178,7 +178,7 @@ feature {LIBERTY_FEATURE, LIBERTY_SEMANTICS_BUILDER}
       end
 
 feature {LIBERTY_FEATURE_DEFINITION_CONTEXT}
-   set_specialized_in (a_type: like current_type) is
+   set_specialized_in (a_type: like current_type)
       local
          i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
          pl: like parameters_list; pm: like parameters_map
@@ -247,7 +247,7 @@ feature {}
    retries: COLLECTION[LIBERTY_RETRY]
    feature_names: EIFFEL_LIST_NODE
 
-   make (a_current_type: like current_type) is
+   make (a_current_type: like current_type)
       require
          a_current_type /= Void
       do
@@ -261,7 +261,7 @@ feature {}
          current_type = a_current_type
       end
 
-   compute_written_feature_names is
+   compute_written_feature_names
       require
          written_feature_names = Void
       local
@@ -299,7 +299,7 @@ feature {}
          written_feature_names /= Void
       end
 
-   compute_best_accelerator is
+   compute_best_accelerator
       local
          i: INTEGER
          fn: LIBERTY_AST_FEATURE_NAME
@@ -394,117 +394,117 @@ feature {}
    errors: LIBERTY_ERRORS
 
 feature {} -- Accelerators
-   accelerator_implies: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_implies: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_implies
       end
 
-   accelerator_or_else: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_or_else: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_or_else
       end
 
-   accelerator_or: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_or: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_or
       end
 
-   accelerator_xor: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_xor: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_xor
       end
 
-   accelerator_and_then: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_and_then: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_and_then
       end
 
-   accelerator_and: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_and: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_and
       end
 
-   accelerator_less_or_equal: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_less_or_equal: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_less_or_equal
       end
 
-   accelerator_less_than: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_less_than: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_less_than
       end
 
-   accelerator_greater_or_equal: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_greater_or_equal: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_greater_or_equal
       end
 
-   accelerator_greater_than: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_greater_than: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_greater_than
       end
 
-   accelerator_add: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_add: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_add
       end
 
-   accelerator_subtract: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_subtract: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_subtract
       end
 
-   accelerator_times: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_times: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_times
       end
 
-   accelerator_divide: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_divide: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_divide
       end
 
-   accelerator_int_divide: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_int_divide: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_int_divide
       end
 
-   accelerator_int_remainder: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_int_remainder: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_int_remainder
       end
 
-   accelerator_power: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_power: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_power
       end
 
-   accelerator_positive: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_positive: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_positive
       end
 
-   accelerator_negative: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_negative: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_negative
       end
 
-   accelerator_not: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_not: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_not
       end
 
-   accelerator_free_prefix: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_free_prefix: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_free_prefix
       end
 
-   accelerator_free_infix: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_free_infix: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_free_infix
       end
 
-   accelerator_other: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]] is
+   accelerator_other: PROCEDURE[TUPLE[LIBERTY_FEATURE_ACCELERATOR, LIBERTY_FEATURE]]
       once
          Result := agent {LIBERTY_FEATURE_ACCELERATOR}.call_other
       end

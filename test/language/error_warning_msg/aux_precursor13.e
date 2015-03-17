@@ -4,7 +4,7 @@
 class AUX_PRECURSOR13
 
 feature {ANY}
-   foo (bidule: NUMERIC) is
+   foo (bidule: NUMERIC)
       do
       end
 

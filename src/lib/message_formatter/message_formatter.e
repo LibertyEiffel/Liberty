@@ -4,7 +4,7 @@
 deferred class MESSAGE_FORMATTER[E_, F_->TRAVERSABLE[E_]]
 
 feature {ANY}
-   put_message (message: TRAVERSABLE[E_]; arguments: TRAVERSABLE[F_]) is
+   put_message (message: TRAVERSABLE[E_]; arguments: TRAVERSABLE[F_])
       local
          i, backtrack_i: INTEGER
          index: INTEGER
@@ -68,32 +68,32 @@ feature {ANY}
       end
 
 feature {}
-   put (e: E_) is
+   put (e: E_)
       deferred
       end
 
-   put_item (item: F_) is
+   put_item (item: F_)
       deferred
       end
 
 feature {}
-   delimiter: E_ is
+   delimiter: E_
       deferred
       end
 
-   opening_brace: E_ is
+   opening_brace: E_
       deferred
       end
 
-   closing_brace: E_ is
+   closing_brace: E_
       deferred
       end
 
-   is_digit (e: E_): BOOLEAN is
+   is_digit (e: E_): BOOLEAN
       deferred
       end
 
-   value (e: E_): INTEGER is
+   value (e: E_): INTEGER
       require
          is_digit(e)
       deferred
@@ -101,13 +101,13 @@ feature {}
 
 end -- class MESSAGE_FORMATTER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

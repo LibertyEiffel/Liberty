@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux_rename5a: AUX_RENAME5A; aux_rename5b: AUX_RENAME5B; aux_rename5c: AUX_RENAME5C
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

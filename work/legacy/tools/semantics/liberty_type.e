@@ -31,7 +31,7 @@ insert
       end
 
 feature {ANY}
-   known_type: LIBERTY_KNOWN_TYPE is
+   known_type: LIBERTY_KNOWN_TYPE
       require
          is_known
       deferred
@@ -39,24 +39,24 @@ feature {ANY}
 
    result_entity: LIBERTY_RESULT
 
-   is_known: BOOLEAN is
+   is_known: BOOLEAN
       deferred
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       deferred
       ensure
          Result /= Void
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       deferred
       ensure
          Result /= Void
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: like reachable_mark) is
+   mark_reachable_code (mark: like reachable_mark)
       do
          if not is_reachable then
             torch.burn
@@ -67,14 +67,14 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {LIBERTY_KNOWN_TYPE}
-   full_name_in (buffer: STRING) is
+   full_name_in (buffer: STRING)
       require
          buffer /= Void
       deferred
       end
 
 feature {LIBERTY_TYPE_LISTENER}
-   add_listener (a_listener: LIBERTY_TYPE_LISTENER) is
+   add_listener (a_listener: LIBERTY_TYPE_LISTENER)
       require
          a_listener /= Void
          not has_listener(a_listener)
@@ -88,7 +88,7 @@ feature {LIBERTY_TYPE_LISTENER}
          not is_known implies has_listener(a_listener)
       end
 
-   remove_listener (a_listener: LIBERTY_TYPE_LISTENER) is
+   remove_listener (a_listener: LIBERTY_TYPE_LISTENER)
       require
          a_listener /= Void
          has_listener(a_listener)
@@ -98,7 +98,7 @@ feature {LIBERTY_TYPE_LISTENER}
          not has_listener(a_listener)
       end
 
-   has_listener (a_listener: LIBERTY_TYPE_LISTENER): BOOLEAN is
+   has_listener (a_listener: LIBERTY_TYPE_LISTENER): BOOLEAN
       require
          a_listener /= Void
       do
@@ -106,7 +106,7 @@ feature {LIBERTY_TYPE_LISTENER}
       end
 
 feature {}
-   fire_type_known is
+   fire_type_known
       local
          i: INTEGER
          listener: LIBERTY_TYPE_LISTENER

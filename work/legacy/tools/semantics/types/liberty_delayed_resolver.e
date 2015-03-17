@@ -26,11 +26,11 @@ insert
       end
 
 feature {LIBERTY_DELAYED_TYPE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       deferred
       end
 
-   resolved: LIBERTY_KNOWN_TYPE is
+   resolved: LIBERTY_KNOWN_TYPE
       require
          can_resolve
       deferred
@@ -38,11 +38,11 @@ feature {LIBERTY_DELAYED_TYPE}
          Result /= Void
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       deferred
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       deferred

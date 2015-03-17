@@ -8,11 +8,11 @@ class MANDELBROT
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			size, i, iter, x, y: INTEGER; zr, zi, cr, ci, pr, pi, limit: REAL_64; stop, gone: BOOLEAN
 			bit, bit_accu: INTEGER_8

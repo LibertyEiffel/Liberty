@@ -7,7 +7,7 @@ inherit
    COLLECTION2[T]
 
 feature {ANY}
-   dimension (first_dim, second_dim, tile_width: INTEGER) is
+   dimension (first_dim, second_dim, tile_width: INTEGER)
       require
          positive_dim1: first_dim > 0
          positive_dim2: second_dim > 0
@@ -18,7 +18,7 @@ feature {ANY}
          dim2 = second_dim + 2 * tile_width
       end
 
-   dim1, dim2: INTEGER is
+   dim1, dim2: INTEGER
       deferred
       end
 

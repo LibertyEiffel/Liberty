@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: POINTER; mem: MEMORY
       do
@@ -25,11 +25,11 @@ feature {}
 feature {}
    nac: NATIVE_ARRAY[CHARACTER]
 
-   get_c_array: POINTER is
+   get_c_array: POINTER
       external "C"
       end
 
-   untouched_c_array (ca: POINTER): BOOLEAN is
+   untouched_c_array (ca: POINTER): BOOLEAN
       external "C"
       end
 

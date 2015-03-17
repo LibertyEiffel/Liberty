@@ -9,7 +9,7 @@ insert ENUM
 
 create {ANY} default_create
 feature {ANY} -- Validity
-	is_valid_value (a_value: INTEGER): BOOLEAN is
+	is_valid_value (a_value: INTEGER): BOOLEAN
 		do
 			Result := ((a_value = element_node_low_level)  or else
 				(a_value = attribute_node_low_level)  or else
@@ -36,219 +36,219 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_element_node is
+	set_element_node
 		do
 			value := element_node_low_level
 		end
 
-	set_attribute_node is
+	set_attribute_node
 		do
 			value := attribute_node_low_level
 		end
 
-	set_text_node is
+	set_text_node
 		do
 			value := text_node_low_level
 		end
 
-	set_cdata_section_node is
+	set_cdata_section_node
 		do
 			value := cdata_section_node_low_level
 		end
 
-	set_entity_ref_node is
+	set_entity_ref_node
 		do
 			value := entity_ref_node_low_level
 		end
 
-	set_entity_node is
+	set_entity_node
 		do
 			value := entity_node_low_level
 		end
 
-	set_pi_node is
+	set_pi_node
 		do
 			value := pi_node_low_level
 		end
 
-	set_comment_node is
+	set_comment_node
 		do
 			value := comment_node_low_level
 		end
 
-	set_document_node is
+	set_document_node
 		do
 			value := document_node_low_level
 		end
 
-	set_document_type_node is
+	set_document_type_node
 		do
 			value := document_type_node_low_level
 		end
 
-	set_document_frag_node is
+	set_document_frag_node
 		do
 			value := document_frag_node_low_level
 		end
 
-	set_notation_node is
+	set_notation_node
 		do
 			value := notation_node_low_level
 		end
 
-	set_html_document_node is
+	set_html_document_node
 		do
 			value := html_document_node_low_level
 		end
 
-	set_dtd_node is
+	set_dtd_node
 		do
 			value := dtd_node_low_level
 		end
 
-	set_element_decl is
+	set_element_decl
 		do
 			value := element_decl_low_level
 		end
 
-	set_attribute_decl is
+	set_attribute_decl
 		do
 			value := attribute_decl_low_level
 		end
 
-	set_entity_decl is
+	set_entity_decl
 		do
 			value := entity_decl_low_level
 		end
 
-	set_namespace_decl is
+	set_namespace_decl
 		do
 			value := namespace_decl_low_level
 		end
 
-	set_xinclude_start is
+	set_xinclude_start
 		do
 			value := xinclude_start_low_level
 		end
 
-	set_xinclude_end is
+	set_xinclude_end
 		do
 			value := xinclude_end_low_level
 		end
 
-	set_docb_document_node is
+	set_docb_document_node
 		do
 			value := docb_document_node_low_level
 		end
 
 feature {ANY} -- Queries
-	element_node: BOOLEAN is
+	element_node: BOOLEAN
 		do
 			Result := (value=element_node_low_level)
 		end
 
-	attribute_node: BOOLEAN is
+	attribute_node: BOOLEAN
 		do
 			Result := (value=attribute_node_low_level)
 		end
 
-	text_node: BOOLEAN is
+	text_node: BOOLEAN
 		do
 			Result := (value=text_node_low_level)
 		end
 
-	cdata_section_node: BOOLEAN is
+	cdata_section_node: BOOLEAN
 		do
 			Result := (value=cdata_section_node_low_level)
 		end
 
-	entity_ref_node: BOOLEAN is
+	entity_ref_node: BOOLEAN
 		do
 			Result := (value=entity_ref_node_low_level)
 		end
 
-	entity_node: BOOLEAN is
+	entity_node: BOOLEAN
 		do
 			Result := (value=entity_node_low_level)
 		end
 
-	pi_node: BOOLEAN is
+	pi_node: BOOLEAN
 		do
 			Result := (value=pi_node_low_level)
 		end
 
-	comment_node: BOOLEAN is
+	comment_node: BOOLEAN
 		do
 			Result := (value=comment_node_low_level)
 		end
 
-	document_node: BOOLEAN is
+	document_node: BOOLEAN
 		do
 			Result := (value=document_node_low_level)
 		end
 
-	document_type_node: BOOLEAN is
+	document_type_node: BOOLEAN
 		do
 			Result := (value=document_type_node_low_level)
 		end
 
-	document_frag_node: BOOLEAN is
+	document_frag_node: BOOLEAN
 		do
 			Result := (value=document_frag_node_low_level)
 		end
 
-	notation_node: BOOLEAN is
+	notation_node: BOOLEAN
 		do
 			Result := (value=notation_node_low_level)
 		end
 
-	html_document_node: BOOLEAN is
+	html_document_node: BOOLEAN
 		do
 			Result := (value=html_document_node_low_level)
 		end
 
-	dtd_node: BOOLEAN is
+	dtd_node: BOOLEAN
 		do
 			Result := (value=dtd_node_low_level)
 		end
 
-	element_decl: BOOLEAN is
+	element_decl: BOOLEAN
 		do
 			Result := (value=element_decl_low_level)
 		end
 
-	attribute_decl: BOOLEAN is
+	attribute_decl: BOOLEAN
 		do
 			Result := (value=attribute_decl_low_level)
 		end
 
-	entity_decl: BOOLEAN is
+	entity_decl: BOOLEAN
 		do
 			Result := (value=entity_decl_low_level)
 		end
 
-	namespace_decl: BOOLEAN is
+	namespace_decl: BOOLEAN
 		do
 			Result := (value=namespace_decl_low_level)
 		end
 
-	xinclude_start: BOOLEAN is
+	xinclude_start: BOOLEAN
 		do
 			Result := (value=xinclude_start_low_level)
 		end
 
-	xinclude_end: BOOLEAN is
+	xinclude_end: BOOLEAN
 		do
 			Result := (value=xinclude_end_low_level)
 		end
 
-	docb_document_node: BOOLEAN is
+	docb_document_node: BOOLEAN
 		do
 			Result := (value=docb_document_node_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	element_node_low_level: INTEGER is
+	element_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -257,7 +257,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	attribute_node_low_level: INTEGER is
+	attribute_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -266,7 +266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	text_node_low_level: INTEGER is
+	text_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -275,7 +275,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	cdata_section_node_low_level: INTEGER is
+	cdata_section_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -284,7 +284,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	entity_ref_node_low_level: INTEGER is
+	entity_ref_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -293,7 +293,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	entity_node_low_level: INTEGER is
+	entity_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -302,7 +302,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	pi_node_low_level: INTEGER is
+	pi_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -311,7 +311,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	comment_node_low_level: INTEGER is
+	comment_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -320,7 +320,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	document_node_low_level: INTEGER is
+	document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -329,7 +329,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	document_type_node_low_level: INTEGER is
+	document_type_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -338,7 +338,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	document_frag_node_low_level: INTEGER is
+	document_frag_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -347,7 +347,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	notation_node_low_level: INTEGER is
+	notation_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -356,7 +356,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	html_document_node_low_level: INTEGER is
+	html_document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -365,7 +365,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dtd_node_low_level: INTEGER is
+	dtd_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -374,7 +374,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	element_decl_low_level: INTEGER is
+	element_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -383,7 +383,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	attribute_decl_low_level: INTEGER is
+	attribute_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -392,7 +392,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	entity_decl_low_level: INTEGER is
+	entity_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -401,7 +401,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	namespace_decl_low_level: INTEGER is
+	namespace_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -410,7 +410,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xinclude_start_low_level: INTEGER is
+	xinclude_start_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -419,7 +419,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xinclude_end_low_level: INTEGER is
+	xinclude_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -428,7 +428,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	docb_document_node_low_level: INTEGER is
+	docb_document_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

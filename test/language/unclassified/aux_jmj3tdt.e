@@ -7,20 +7,20 @@ inherit
    AUX_JMJ3EP[E]
 
 feature {ANY}
-   make (target: like container) is
+   make (target: like container)
       require
          non_void_target: target /= Void
       do
          container := target
       end
 
-   start is
+   start
       do
          start_i
          start_j
       end
 
-   next is
+   next
       do
          next_j
          if off_j then
@@ -29,17 +29,17 @@ feature {ANY}
          end
       end
 
-   item: E is
+   item: E
       do
          Result := container.item(i, j)
       end
 
-   put (new: E) is
+   put (new: E)
       do
          container.put(new, i, j)
       end
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       do
          Result := off_i
       end
@@ -49,32 +49,32 @@ feature {}
 
    i, j: INTEGER
 
-   start_i is
+   start_i
       do
          i := container.lower1
       end
 
-   start_j is
+   start_j
       do
          j := container.lower2
       end
 
-   next_i is
+   next_i
       do
          i := i + 1
       end
 
-   next_j is
+   next_j
       do
          j := j + 1
       end
 
-   off_i: BOOLEAN is
+   off_i: BOOLEAN
       do
          Result := i > container.upper1
       end
 
-   off_j: BOOLEAN is
+   off_j: BOOLEAN
       do
          Result := j > container.upper2
       end

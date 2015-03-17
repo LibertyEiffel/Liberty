@@ -6,7 +6,6 @@ setlocale(LC_ALL, 'en_US.utf8');
 
 // store active commits for stage history
 // grep warnings (eiffel and C compiler) from eiffeltest output
-// add a cleaning phase: e. g. remove all LOCK files from eiffeltest
 // add email notification
 // todo: add IRC handling: http://oreilly.com/pub/h/1963
 // todo: add -Wall compiler option
@@ -43,8 +42,20 @@ function failed(){
    exit(1);
 }
 
+function checkBreak(){
+    global $breakFlag, $lock;
+    if (file_exists($breakFlag)) {
+        echo "Interrupted build.";
+        unlink($breakFlag);
+        unlink($lock);
+        exit(1);
+    }
+}
+
 function substage($name, $link = ""){
    global $stagedir, $stageout, $verbose, $stageStackName, $stageStackTime, $dateFormat;
+
+   checkBreak();
 
    $substageDepth = count($stageStackName);
    array_push($stageStackName, iconv('utf-8', 'us-ascii//TRANSLIT', $name));
@@ -81,6 +92,8 @@ function substage($name, $link = ""){
 function endsubstage(){
    global $stageStackName, $stageStackTime, $verbose, $stage, $stagedir, $stageout, $times, $historysize;
 
+   checkBreak();
+
    $fullStageName = implode("/", $stageStackName);
    $startTime = array_pop($stageStackTime);
    $endTime = time();
@@ -110,6 +123,9 @@ function execute($cmd, $simple = true, $ulimit_time = 600, $ulimit_virt = 419430
    global $stagedir;
    global $out;
    global $verbose;
+
+   checkBreak();
+
    if ($verbose) echo "executing '$cmd'\n";
    file_put_contents($stagedir . "/cmd.txt", $cmd);
    system("( ulimit -t " . $ulimit_time . " ; ulimit -v " . $ulimit_virt . " ; ulimit -m " . $ulimit_virt . " ; " . $cmd . " ) > '" . $stagedir . "/out.txt' 2>'" .$stagedir . "/err.txt'", $retval);
@@ -186,7 +202,35 @@ if (substage("eiffeldoc")) {
 
 //- debian packaging
 if (substage("debian packaging")) {
-   execute("$LibertyBase/work/packaging/build_debian.sh", $ulimit_time = 3600);
+   $pkg_result = 0;
+   if (substage("source")) {
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-S", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_src && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_src/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   if (substage("amd64")) {
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -debuild=-b", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_amd64 && ln $LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_amd64/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   if (substage("i386")) {
+      $result = execute("ssh et32@et32 \"export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; cd $LibertyBase && git fetch origin && git checkout $gitBranch && git merge --ff-only FETCH_HEAD && $LibertyBase/work/packaging/build_debian.sh -debuild=-b\"", $ulimit_time = 3600);
+      $result += execute("mkdir -p $LibertyBase/work/packaging/debs_i386 && scp -p et32@et32:$LibertyBase/work/packaging/debs/* $LibertyBase/work/packaging/debs_i386/");
+      file_put_contents($stagedir ."/result.txt", $result);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   if (substage("deploy")) {
+      $result = execute("mkdir -p $LibertyBase/work/packaging/debs && ln $LibertyBase/work/packaging/debs_*/* $LibertyBase/work/packaging/debs/ && rm -rf $LibertyBase/work/packaging/debs_*");
+      $result = execute("export PKG_DATE='" . date($debuildDateFormat, $startTime) . "' ; $LibertyBase/work/packaging/build_debian.sh -deploy", $ulimit_time = 3600);
+      $pkg_result += $result;
+      endsubstage();
+   }
+   file_put_contents($stagedir ."/result.txt", $pkg_result);
    endsubstage();
 }
 
@@ -314,6 +358,9 @@ function testDir($dir) {
    if ($tests > 0) {
       $hasEiffelTest = is_dir("$dir/eiffeltest");
       if ($hasEiffelTest) {
+         if(file_exists("$dir/eiffeltest/LOCK")){
+            unlink("$dir/eiffeltest/LOCK");
+         }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
             $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");

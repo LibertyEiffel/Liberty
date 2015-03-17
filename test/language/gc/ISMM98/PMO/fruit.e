@@ -6,7 +6,7 @@ deferred class FRUIT
 feature {ANY}
    seed: INTEGER
 
-   make (new_seed: INTEGER) is
+   make (new_seed: INTEGER)
       do
          seed := new_seed
       end

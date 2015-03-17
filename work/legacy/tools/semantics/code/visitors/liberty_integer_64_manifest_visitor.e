@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INTEGER_64_MANIFEST}
-   visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST) is
+   visit_liberty_integer_64_manifest (v: LIBERTY_INTEGER_64_MANIFEST)
       deferred
       end
 

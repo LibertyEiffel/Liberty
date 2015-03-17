@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          real_64: REAL_64
          integer_64: INTEGER_64

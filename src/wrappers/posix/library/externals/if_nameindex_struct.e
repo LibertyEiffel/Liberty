@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	if_nameindex_struct_set_if_index (a_structure: POINTER; a_value: NATURAL) is
+	if_nameindex_struct_set_if_index (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for if_index field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	if_nameindex_struct_set_if_name (a_structure: POINTER; a_value: POINTER) is
+	if_nameindex_struct_set_if_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for if_name field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: setter description
 
@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	if_nameindex_struct_get_if_index (a_structure: POINTER): NATURAL is
+	if_nameindex_struct_get_if_index (a_structure: POINTER): NATURAL
 			-- Query for if_index field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: getter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	if_nameindex_struct_get_if_name (a_structure: POINTER): POINTER is
+	if_nameindex_struct_get_if_name (a_structure: POINTER): POINTER
 			-- Query for if_name field of IF_NAMEINDEX_STRUCT structure.
 			-- TODO: getter description
 
@@ -59,7 +59,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

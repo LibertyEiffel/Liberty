@@ -23,9 +23,9 @@ create {TOKEN_BUFFER, INTROSPECTION_HANDLER}
    from_identifier
 
 feature {ANY}
-   is_manifest_string, extra_bracket_flag: BOOLEAN is True
+   is_manifest_string, extra_bracket_flag: BOOLEAN True
 
-   is_manifest_array, is_void: BOOLEAN is False
+   is_manifest_array, is_void: BOOLEAN False
 
    start_position: POSITION
          -- Of the first opening '%"' character or of the "once"  keyword
@@ -45,12 +45,12 @@ feature {ANY}
    unicode_string: UNICODE_STRING
          -- Computed using the `to_string' parsed information in the case of an U"foo" notation.
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := once_flag
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if other = Current then
             Result := True
@@ -64,7 +64,7 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          if hash_code_memory = 0 then
             hash_code_memory := to_string.hash_code
@@ -72,12 +72,12 @@ feature {ANY}
          Result := hash_code_memory
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          if unicode_flag then
             Result := smart_eiffel.type_unicode_string
@@ -86,26 +86,31 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
+   safety_check (type: TYPE)
       do
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := to_string.count
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          utf8_parser: UTF8_PARSER
       do
@@ -124,9 +129,9 @@ feature {ANY}
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          if unicode_flag then
             Result := smart_eiffel.type_unicode_string
@@ -136,32 +141,32 @@ feature {ANY}
          once_variable := manifest_string_pool.collect(Current, once_flag, unicode_flag, Result)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := once_flag -- (No memory allocation.)
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): MANIFEST_STRING is
+   simplify (type: TYPE): MANIFEST_STRING
       do
          Result := Current
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          if once_flag then
             pretty_printer.keyword(once "once")
@@ -183,7 +188,7 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -191,7 +196,7 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER
       do
@@ -210,26 +215,26 @@ feature {ANY}
          short_printer.hook_or("close_ms", "%"")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   accept (visitor: MANIFEST_STRING_VISITOR) is
+   accept (visitor: MANIFEST_STRING_VISITOR)
       do
          visitor.visit_manifest_string(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {CST_ATT_STRING, E_ROUTINE, WRITABLE_ATTRIBUTE}
-   pretty_without_once (indent_level: INTEGER) is
+   pretty_without_once (indent_level: INTEGER)
       local
          once_flag_memory: BOOLEAN
       do
@@ -240,7 +245,7 @@ feature {CST_ATT_STRING, E_ROUTINE, WRITABLE_ATTRIBUTE}
       end
 
 feature {EIFFEL_PARSER, WHEN_ITEM_1, CLASS_CHECKER}
-   set_once_flag (flag: BOOLEAN) is
+   set_once_flag (flag: BOOLEAN)
       do
          once_flag := flag
       ensure
@@ -248,7 +253,7 @@ feature {EIFFEL_PARSER, WHEN_ITEM_1, CLASS_CHECKER}
       end
 
 feature {MANIFEST_STRING}
-   set_alias_link (al: like alias_link) is
+   set_alias_link (al: like alias_link)
       require
          al /= Void
       do
@@ -258,7 +263,7 @@ feature {MANIFEST_STRING}
       end
 
 feature {PARSER}
-   set_source_view (sv: like source_view) is
+   set_source_view (sv: like source_view)
       do
          check
             sv /= Void = (smart_eiffel.short_or_class_check_flag or smart_eiffel.pretty_flag)
@@ -281,7 +286,7 @@ feature {MANIFEST_STRING, MANIFEST_STRING_POOL, CODE_PRINTER}
          -- there is really an actual alias collected.)
 
 feature {ANY}
-   once_variable: STRING is
+   once_variable: STRING
          -- Used when `once_flag' is True. This is the name used for the corresponding global variable in the generated code (C
          -- or in the bytecode as well).
       require
@@ -290,7 +295,7 @@ feature {ANY}
       end
 
 feature {MANIFEST_STRING_POOL}
-   set_initial_storage_id (ag: like initial_storage_id) is
+   set_initial_storage_id (ag: like initial_storage_id)
       require
          ag /= Void
       do
@@ -299,7 +304,7 @@ feature {MANIFEST_STRING_POOL}
          initial_storage_id = ag
       end
 
-   storage_alias_of (other: like Current) is
+   storage_alias_of (other: like Current)
       require
          other.initial_storage_id /= Void
       do
@@ -322,7 +327,7 @@ feature {}
    hash_code_memory: INTEGER
          -- To cache `hash_code' value.
 
-   make (sp: like start_position; of: like once_flag; uf: like unicode_flag; ts: like to_string) is
+   make (sp: like start_position; of: like once_flag; uf: like unicode_flag; ts: like to_string)
       require
          not sp.is_unknown
          ts /= Void
@@ -338,7 +343,7 @@ feature {}
          to_string /= ts and then to_string.is_equal(ts)
       end
 
-   from_identifier (sp: like start_position; hs: HASHED_STRING) is
+   from_identifier (sp: like start_position; hs: HASHED_STRING)
       require
          not sp.is_unknown
          hs /= Void
@@ -366,9 +371,9 @@ end -- class MANIFEST_STRING
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

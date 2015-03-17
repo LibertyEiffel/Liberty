@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: AUX_ANCHOR8B; bool: BOOLEAN
       do

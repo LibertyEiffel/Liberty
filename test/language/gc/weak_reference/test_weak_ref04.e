@@ -11,9 +11,9 @@ create {}
    make
 
 feature {}
-   wr_count: INTEGER is 1000
+   wr_count: INTEGER 1000
 
-   make is
+   make
       local
          mem: MEMORY; aux_wr: AUX_WEAK_REF04; a_aux_wr1, a_aux_wr2, a_aux_wr3: FAST_ARRAY[AUX_WEAK_REF04]
          i, void_count_1, void_count_2, void_count_3: INTEGER
@@ -89,7 +89,7 @@ feature {}
          assert(aux_wr /= Void) -- To prevent gcc's optimizer from recycling aux_wr
       end
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do
@@ -115,7 +115,7 @@ feature {}
 
    aux_wr_nb_disposed: INTEGER
 
-   polymorph (awr: AUX_WEAK_REF04; awrb: AUX_WEAK_REF02B): AUX_WEAK_REF02B is
+   polymorph (awr: AUX_WEAK_REF04; awrb: AUX_WEAK_REF02B): AUX_WEAK_REF02B
       local
          rnd: MINIMAL_RANDOM_NUMBER_GENERATOR
       do
@@ -128,7 +128,7 @@ feature {}
       end
 
 feature {AUX_WEAK_REF04}
-   increment_aux_wr_nb_disposed is
+   increment_aux_wr_nb_disposed
       do
          aux_wr_nb_disposed := aux_wr_nb_disposed + 1
       end

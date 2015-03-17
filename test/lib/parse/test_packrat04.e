@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          grammar: PACKRAT_GRAMMAR
          table: PARSE_TABLE[PACKRAT_PARSE_CONTEXT]
@@ -49,11 +49,11 @@ tag <- '{' (!'}' .)+ '}' sp
       end
 
 feature {}
-   reduce_non_terminal is
+   reduce_non_terminal
       do
       end
 
-   reduce_terminal is
+   reduce_terminal
       do
       end
 

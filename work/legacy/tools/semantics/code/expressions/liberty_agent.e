@@ -35,7 +35,7 @@ feature {ANY}
          -- if the agent calls a procedure or a function.
          -- Only, when set, will the `result_type' give us that information.
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like result_type
          c: like call
@@ -50,14 +50,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          result_type.mark_reachable_code(mark)
          call.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_call: like call; a_position: like position) is
+   make (a_call: like call; a_position: like position)
       require
          a_call /= Void
          a_position /= Void
@@ -73,7 +73,7 @@ feature {}
          position = a_position
       end
 
-   specialized (a_call: like call; a_result_type: like result_type; a_position: like position) is
+   specialized (a_call: like call; a_result_type: like result_type; a_position: like position)
       require
          a_call.is_agent_call
          a_result_type /= Void
@@ -90,7 +90,7 @@ feature {}
       end
 
 feature {}
-   fix_open_arguments is
+   fix_open_arguments
       do
          if call.target /= Void then
             open_argument_index := target_index
@@ -110,7 +110,7 @@ feature {}
       end
 
 feature {LIBERTY_OPEN_ARGUMENT}
-   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT) is
+   visit_liberty_open_argument (v: LIBERTY_OPEN_ARGUMENT)
       local
          openarg: LIBERTY_OPEN_ARGUMENT
       do
@@ -133,13 +133,13 @@ feature {LIBERTY_OPEN_ARGUMENT}
          end
       end
 
-   target_index: INTEGER is -1
+   target_index: INTEGER -1
 
    open_argument_index: INTEGER
          -- Used when visitting the open arguments for type fixing (see `fix_open_arguments')
 
 feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
-   can_compute_open_argument_type (delayed: LIBERTY_DELAYED_OPEN_ARGUMENT; index: like open_argument_index): BOOLEAN is
+   can_compute_open_argument_type (delayed: LIBERTY_DELAYED_OPEN_ARGUMENT; index: like open_argument_index): BOOLEAN
       do
          if index = target_index then
             Result := call.target.result_type.is_known
@@ -157,7 +157,7 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
          end
       end
 
-   open_argument_type (delayed: LIBERTY_DELAYED_OPEN_ARGUMENT; index: like open_argument_index): LIBERTY_KNOWN_TYPE is
+   open_argument_type (delayed: LIBERTY_DELAYED_OPEN_ARGUMENT; index: like open_argument_index): LIBERTY_KNOWN_TYPE
       require
          can_compute_open_argument_type(delayed, index)
       do
@@ -175,7 +175,7 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_AGENT_VISITOR
       do

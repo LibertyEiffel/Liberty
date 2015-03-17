@@ -6,8 +6,8 @@ Line 14 column 14 in BAD_CALL3 (/home/cadrian/Workspace/Dev/Liberty/test/languag
          foo.max(foo)
              ^       
 Line 116 column 4 in COMPARABLE (/home/cadrian/Workspace/Dev/Liberty/src/lib/abilities/comparable.e):
-   max (other: like Current): like Current is
-   ^                                         
+   max (other: like Current): like Current
+   ^                                      
 ------
 ****** Fatal Error: This call has a result value (and you must
 use it).

@@ -14,27 +14,27 @@ create{NCURSES_PANEL}
    make, no_label
 
 feature {ANY}
-   left: INTEGER is
+   left: INTEGER
       do
          Result := panel.left
       end
 
-   top: INTEGER is
+   top: INTEGER
       do
          Result := panel.top
       end
 
-   width: INTEGER is
+   width: INTEGER
       do
          Result := panel.width
       end
 
-   height: INTEGER is
+   height: INTEGER
       do
          Result := panel.height
       end
 
-   refresh_later is
+   refresh_later
       local
          i: INTEGER
       do
@@ -81,20 +81,20 @@ feature {ANY}
 
    is_raised: BOOLEAN
 
-   raise is
+   raise
       do
          panel.raise(Current)
       end
 
 feature {NCURSES_PANEL}
-   set_raise (raised: like is_raised) is
+   set_raise (raised: like is_raised)
       do
          is_raised := raised
          clear
       end
 
 feature {}
-   no_label (p: like panel) is
+   no_label (p: like panel)
       require
          p /= Void
       do
@@ -107,7 +107,7 @@ feature {}
          panel = p
       end
 
-   make (p: like panel; text: STRING; label_position: INTEGER) is
+   make (p: like panel; text: STRING; label_position: INTEGER)
       require
          p /= Void
          text /= Void
@@ -127,13 +127,13 @@ invariant
 
 end -- class NCURSES_PANELTAB
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

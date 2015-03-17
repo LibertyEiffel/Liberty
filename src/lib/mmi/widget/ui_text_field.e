@@ -12,7 +12,7 @@ create {ANY}
 feature {ANY}
    value: STRING
 
-   set_value (a_value: like value) is
+   set_value (a_value: like value)
       require
          a_value /= Void
       do
@@ -20,7 +20,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_id: ABSTRACT_STRING) is
+   make (a_id: ABSTRACT_STRING)
       require
          a_id /= Void
       do
@@ -31,7 +31,7 @@ feature {}
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM
       do
          Result := a_job.connect_bridge_text_field(Current)
       end
@@ -41,13 +41,13 @@ invariant
 
 end -- class UI_TEXT_FIELD
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -9,18 +9,18 @@ insert
       redefine make
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          value := 3
       end
 
    value: INTEGER
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       end

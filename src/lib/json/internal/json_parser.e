@@ -5,13 +5,12 @@ class JSON_PARSER
 
 insert
    JSON_HANDLER
-   LOGGING
 
 create {JSON_HANDLER}
    make
 
 feature {JSON_HANDLER}
-   parse_json_text (text: INPUT_STREAM): JSON_TEXT is
+   parse_json_text (text: INPUT_STREAM): JSON_TEXT
       require
          text.is_connected
       local
@@ -37,7 +36,7 @@ feature {JSON_HANDLER}
      end
 
 feature {}
-   parse_value (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_VALUE is
+   parse_value (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_VALUE
       require
          context.is_valid
       do
@@ -94,7 +93,7 @@ feature {}
          end
       end
 
-   parse_object (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_OBJECT is
+   parse_object (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_OBJECT
       require
          context.is_valid
          context.item = '{'
@@ -178,7 +177,7 @@ feature {}
          end
       end
 
-   parse_array (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_ARRAY is
+   parse_array (context: JSON_PARSE_CONTEXT; nested: BOOLEAN): JSON_ARRAY
       require
          context.is_valid
          context.item = '['
@@ -242,7 +241,7 @@ feature {}
          end
       end
 
-   parse_string (context: JSON_PARSE_CONTEXT): JSON_STRING is
+   parse_string (context: JSON_PARSE_CONTEXT): JSON_STRING
       require
          context.is_valid
          context.item = '"'
@@ -340,7 +339,7 @@ feature {}
          end
       end
 
-   parse_number (context: JSON_PARSE_CONTEXT): JSON_NUMBER is
+   parse_number (context: JSON_PARSE_CONTEXT): JSON_NUMBER
       require
          context.is_valid
          ;(once "0123456789-").has(context.item)
@@ -500,7 +499,7 @@ feature {}
          end
       end
 
-   parse_true (context: JSON_PARSE_CONTEXT): JSON_TRUE is
+   parse_true (context: JSON_PARSE_CONTEXT): JSON_TRUE
       require
          context.is_valid
          context.item = 't'
@@ -519,7 +518,7 @@ feature {}
          end
       end
 
-   parse_false (context: JSON_PARSE_CONTEXT): JSON_FALSE is
+   parse_false (context: JSON_PARSE_CONTEXT): JSON_FALSE
       require
          context.is_valid
          context.item = 'f'
@@ -538,7 +537,7 @@ feature {}
          end
       end
 
-   parse_null (context: JSON_PARSE_CONTEXT): JSON_NULL is
+   parse_null (context: JSON_PARSE_CONTEXT): JSON_NULL
       require
          context.is_valid
          context.item = 'n'
@@ -558,7 +557,7 @@ feature {}
       end
 
 feature {}
-   make (a_on_error: like on_error) is
+   make (a_on_error: like on_error)
       require
          a_on_error /= Void
       do
@@ -570,17 +569,17 @@ feature {}
    on_error: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]
 
 feature {} -- debug
-   debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT) is
+   debug_parse_in (tag: STRING; context: JSON_PARSE_CONTEXT)
       do
-         log.trace.put_line(once "->#(1) at #(2)" # tag # context.debug_position)
+         std_error.put_line(once "->#(1) at #(2)" # tag # context.debug_position)
       end
 
-   debug_parse_out (tag: STRING; context: JSON_PARSE_CONTEXT; res: JSON_VALUE) is
+   debug_parse_out (tag: STRING; context: JSON_PARSE_CONTEXT; res: JSON_VALUE)
       do
          if res = Void then
-            log.trace.put_line(once "<-#(1) at #(2) -- result: Void" # tag # context.debug_position)
+            std_error.put_line(once "<-#(1) at #(2) -- result: Void" # tag # context.debug_position)
          else
-            log.trace.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag # context.debug_position # &res)
+            std_error.put_line(once "<-#(1) at #(2) -- result: #(3)" # tag # context.debug_position # &res)
          end
       end
 
@@ -589,13 +588,13 @@ invariant
 
 end -- class JSON_PARSER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

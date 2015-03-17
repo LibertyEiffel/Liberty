@@ -7,21 +7,21 @@ create {FAKE_PLUGIN_FACTORY}
    make
 
 feature {NATIVE_PLUG_IN}
-   include (position: POSITION) is
+   include (position: POSITION)
       do
       end
 
 feature {SYSTEM_TOOLS}
-   try_auto_init is
+   try_auto_init
       do
          -- nothing
       end
 
 feature {ANY}
-   auto_init_done: BOOLEAN is True
+   auto_init_done: BOOLEAN True
 
 feature {}
-   make (position: POSITION; a_name, a_path: STRING) is
+   make (position: POSITION; a_name, a_path: STRING)
       local
          b, p: STRING
       do

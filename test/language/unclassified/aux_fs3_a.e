@@ -3,13 +3,13 @@
 --
 class AUX_FS3_A[X -> AUX_FS3_B]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    f: X
 
-   make (vf: like f) is
+   make (vf: like f)
       do
          f := vf
          f.q

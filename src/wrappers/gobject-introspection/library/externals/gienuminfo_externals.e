@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_enum_info_get_error_domain (an_info: POINTER): POINTER is
+	g_enum_info_get_error_domain (an_info: POINTER): POINTER
  		-- g_enum_info_get_error_domain
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_enum_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_enum_info_get_method
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_info_get_n_methods (an_info: POINTER): INTEGER is
+	g_enum_info_get_n_methods (an_info: POINTER): INTEGER
  		-- g_enum_info_get_n_methods
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_info_get_n_values (an_info: POINTER): INTEGER is
+	g_enum_info_get_n_values (an_info: POINTER): INTEGER
  		-- g_enum_info_get_n_values
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_info_get_storage_type (an_info: POINTER): INTEGER is
+	g_enum_info_get_storage_type (an_info: POINTER): INTEGER
  		-- g_enum_info_get_storage_type
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_enum_info_get_value (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_enum_info_get_value (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_enum_info_get_value
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_value_info_get_value (an_info: POINTER): INTEGER_64 is
+	g_value_info_get_value (an_info: POINTER): INTEGER_64
  		-- g_value_info_get_value
 		external "plug_in"
 		alias "{

@@ -7,17 +7,17 @@ inherit
    HASHABLE
    COMPARABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          -- Make sure to cause many collisions
          Result := value & 255
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := value < other.value
       end
@@ -26,13 +26,13 @@ feature {DICTIONARY_ITEM}
    value: INTEGER
 
 feature {}
-   make (value_: like value) is
+   make (value_: like value)
       do
          value := value_
          trail.add_last(Current)
       end
 
-   trail: FAST_ARRAY[DICTIONARY_ITEM] is
+   trail: FAST_ARRAY[DICTIONARY_ITEM]
          -- A trail of the DICTIONARY_ITEMS, in the order they were created.
       once
          create Result.with_capacity(1024)

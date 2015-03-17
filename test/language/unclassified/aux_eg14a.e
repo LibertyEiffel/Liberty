@@ -8,7 +8,7 @@ feature {ANY}
 
    a2: INTEGER
 
-   put (x: INTEGER; i: INTEGER) is
+   put (x: INTEGER; i: INTEGER)
       do
          inspect
             i

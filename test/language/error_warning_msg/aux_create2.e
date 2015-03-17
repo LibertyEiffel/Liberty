@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make: INTEGER is 1;
+   make: INTEGER 1;
 
 end -- class AUX_CREATE2
 --

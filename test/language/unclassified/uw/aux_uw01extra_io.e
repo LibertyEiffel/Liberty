@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "extended I/O"
    status:
@@ -15,14 +15,14 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
          -- make new object
       do
          create {AUX_UW01PREFERRED_LANGUAGE} language
       end
 
 feature {ANY} -- Input
-   read_string (prompt: STRING) is
+   read_string (prompt: STRING)
          -- print `prompt' and get a string
       require
          valid_prompt: prompt /= Void
@@ -36,7 +36,7 @@ feature {ANY} -- Input
          last_string /= Void
       end
 
-   read_yes_no (prompt: STRING) is
+   read_yes_no (prompt: STRING)
          -- print `prompt' and get a string to
          -- `last_string' and also set `last_boolean'
       require
@@ -63,7 +63,7 @@ feature {ANY} -- Input
    last_boolean: BOOLEAN
 
 feature {ANY} -- Output
-   print_multi (objects: ARRAY[STRING]) is
+   print_multi (objects: ARRAY[STRING])
          -- print all elements in `objects' as string
       local
          i: INTEGER

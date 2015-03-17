@@ -1,3 +1,5 @@
+-- See the Copyright notice at the end of this file.
+--
 class XML_DTD_PARSER
    --
    -- Parses a validation instruction in an XML file:
@@ -20,12 +22,12 @@ create {XML_PARSER}
    make
 
 feature {XML_PARSER} -- Error reporting
-   has_error: BOOLEAN is
+   has_error: BOOLEAN
       do
          Result := error /= Void
       end
 
-   error_message: STRING is
+   error_message: STRING
       require
          has_error
       do
@@ -34,7 +36,7 @@ feature {XML_PARSER} -- Error reporting
       end
 
 feature {XML_PARSER}
-   parse (a_buffer: like buffer): XML_DTD_VALIDATOR is
+   parse (a_buffer: like buffer): XML_DTD_VALIDATOR
       require
          a_buffer /= Void
       local
@@ -95,17 +97,7 @@ feature {}
    urls: FAST_ARRAY[URL]
    buffers: FAST_ARRAY[UNICODE_PARSER_BUFFER]
 
-   url_pool: RECYCLING_POOL[URL] is
-      once
-         create Result.make
-      end
-
-   buffer_pool: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
-      once
-         create Result.make
-      end
-
-   set_buffer (a_buffer: UNICODE_PARSER_BUFFER) is
+   set_buffer (a_buffer: UNICODE_PARSER_BUFFER)
       do
          if urls = Void then
             create urls.make(0)
@@ -115,7 +107,7 @@ feature {}
          buffers.add_last(a_buffer)
       end
 
-   set_url (a_url: URL) is
+   set_url (a_url: URL)
       local
          u: URL; b: UNICODE_PARSER_BUFFER
       do
@@ -148,21 +140,21 @@ feature {}
          end
       end
 
-   url: URL is
+   url: URL
       do
          if urls /= Void then
             Result := urls.last
          end
       end
 
-   buffer: UNICODE_PARSER_BUFFER is
+   buffer: UNICODE_PARSER_BUFFER
       do
          if buffers /= Void then
             Result := buffers.last
          end
       end
 
-   relative_url (a_url: STRING): URL is
+   relative_url (a_url: STRING): URL
       require
          not a_url.is_empty
       local
@@ -187,7 +179,7 @@ feature {}
          Result.read_only
       end
 
-   parse_system_dtd (validator: XML_DTD_VALIDATOR): URL is
+   parse_system_dtd (validator: XML_DTD_VALIDATOR): URL
       local
          path, err: STRING
       do
@@ -215,7 +207,7 @@ feature {}
          has_error implies Result = Void
       end
 
-   parse_public_dtd (validator: XML_DTD_VALIDATOR): URL is
+   parse_public_dtd (validator: XML_DTD_VALIDATOR): URL
       local
          p, pubid: UNICODE_STRING; dtd_url, err: STRING; u: URL; repo: XML_DTD_PUBLIC_REPOSITORY
       do
@@ -255,7 +247,7 @@ feature {}
          has_error implies Result = Void
       end
 
-   parse_external_dtd (validator: XML_DTD_VALIDATOR; a_url: URL) is
+   parse_external_dtd (validator: XML_DTD_VALIDATOR; a_url: URL)
       require
          a_url.is_connected
          not has_error
@@ -282,7 +274,7 @@ feature {}
          buffer.index = old buffer.index
       end
 
-   parse_inline_dtd (validator: XML_DTD_VALIDATOR) is
+   parse_inline_dtd (validator: XML_DTD_VALIDATOR)
       do
          skip_blanks
          if skip('[') then
@@ -294,7 +286,7 @@ feature {}
          end
       end
 
-   parse_dtd (validator: XML_DTD_VALIDATOR; standalone: BOOLEAN) is
+   parse_dtd (validator: XML_DTD_VALIDATOR; standalone: BOOLEAN)
       local
          done: BOOLEAN; id: STRING
       do
@@ -359,7 +351,7 @@ feature {}
          end
       end
 
-   parse_xml_header is
+   parse_xml_header
       local
          done: BOOLEAN
       do
@@ -388,7 +380,7 @@ feature {}
          end
       end
 
-   parse_attribute: BOOLEAN is
+   parse_attribute: BOOLEAN
          -- an attribute in the XML header
       local
          a, an_attribute, value: STRING
@@ -423,7 +415,7 @@ feature {}
          end
       end
 
-   skip_comment is
+   skip_comment
       local
          state: INTEGER
       do
@@ -461,7 +453,7 @@ feature {}
          end
       end
 
-   parse_element (validator: XML_DTD_VALIDATOR) is
+   parse_element (validator: XML_DTD_VALIDATOR)
       local
          node: UNICODE_STRING
       do
@@ -480,20 +472,15 @@ feature {}
          end
       end
 
-   parse_element_children (validator: XML_DTD_VALIDATOR) is
+   parse_element_children (validator: XML_DTD_VALIDATOR)
       do
-         parse_element_child_list(validator)
+         parse_element_child(validator)
          if not has_error then
-            skip_blanks
-            if current_character = '>'.code then
-               validator.close_fix
-            else
-               -- error will be set by the caller
-            end
+            validator.close_fix
          end
       end
 
-   parse_element_child_list (validator: XML_DTD_VALIDATOR) is
+   parse_element_child_list (validator: XML_DTD_VALIDATOR)
       local
          done: BOOLEAN
       do
@@ -512,7 +499,7 @@ feature {}
          end
       end
 
-   parse_element_child_alt (validator: XML_DTD_VALIDATOR) is
+   parse_element_child_alt (validator: XML_DTD_VALIDATOR)
       local
          done: BOOLEAN
       do
@@ -531,7 +518,7 @@ feature {}
          end
       end
 
-   parse_element_child (validator: XML_DTD_VALIDATOR) is
+   parse_element_child (validator: XML_DTD_VALIDATOR)
       local
          node: UNICODE_STRING
       do
@@ -595,7 +582,7 @@ feature {}
          end
       end
 
-   parse_attlist (validator: XML_DTD_VALIDATOR) is
+   parse_attlist (validator: XML_DTD_VALIDATOR)
       local
          n, node, att, id: UNICODE_STRING; sid: STRING; done: BOOLEAN
       do
@@ -695,7 +682,7 @@ feature {}
          end
       end
 
-   parse_attlist_option (validator: XML_DTD_VALIDATOR) is
+   parse_attlist_option (validator: XML_DTD_VALIDATOR)
       local
          id: STRING; val: UNICODE_STRING
       do
@@ -718,7 +705,7 @@ feature {}
                   skip_blanks
                   inspect
                      current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      val := read_string
                      if validator.attlist_valid_fixed(val) then
                         validator.attlist_fixed(val.twin)
@@ -732,7 +719,7 @@ feature {}
                   set_error(once "Unknown attribute specification")
                end
             end
-         when 39, 34 then -- '%'', '"'
+         when 39, 34 then
             val := read_string
             validator.attlist_default_value(val.twin)
          when 62 then -- '>'
@@ -742,9 +729,9 @@ feature {}
          end
       end
 
-   parse_entity (validator: XML_DTD_VALIDATOR) is
+   parse_entity (validator: XML_DTD_VALIDATOR)
       local
-         peid, id, val, pubid: UNICODE_STRING; sval: STRING
+         peid, id, val, pubid: UNICODE_STRING; sval: STRING; uval: UNICODE_STRING
       do
          skip_blanks
          if skip('%%') then
@@ -757,7 +744,7 @@ feature {}
             elseif skip_word(once "SYSTEM") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   sval := read_string_as_string
                   add_pe_entity(peid, entity_system_file(sval))
                else
@@ -766,12 +753,12 @@ feature {}
             elseif skip_word(once "PUBLIC") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   pubid := once U""
                   pubid.copy(read_string)
                   skip_blanks
                   inspect current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      sval := read_string_as_string
                      add_pe_entity(peid, entity_public_file(pubid, sval))
                   else
@@ -784,7 +771,7 @@ feature {}
                skip_blanks
                inspect
                   current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   val := read_string
                   add_pe_entity(peid, val.twin)
                else
@@ -802,23 +789,28 @@ feature {}
             elseif skip_word(once "SYSTEM") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   sval := read_string_as_string
-                  validator.add_entity(id, entity_system_file(sval))
+                  uval := new_empty_string
+                  if uval.utf8_decode_from(sval) then
+                     validator.add_entity(id, entity_system_file(sval), uval)
+                  else
+                     set_error(once "Invalid unicode string: " + sval)
+                  end
                else
                   set_error(once "String expected as system")
                end
             elseif skip_word(once "PUBLIC") then
                skip_blanks
                inspect current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   pubid := once U""
                   pubid.copy(read_string)
                   skip_blanks
                   inspect current_character
-                  when 39, 34 then -- '%'', '"'
+                  when 39, 34 then
                      sval := read_string_as_string
-                     validator.add_entity(id, entity_public_file(pubid, sval))
+                     validator.add_entity(id, entity_public_file(pubid, sval), entity_public_url(pubid, sval))
                   else
                      set_error(once "String expected as public name")
                   end
@@ -828,9 +820,9 @@ feature {}
             else
                inspect
                   current_character
-               when 39, 34 then -- '%'', '"'
+               when 39, 34 then
                   val := read_string.twin
-                  validator.add_entity(id, val)
+                  validator.add_entity(id, val, Void)
                else
                   set_error(once "String expected as parameter entity value")
                end
@@ -842,7 +834,7 @@ feature {}
       end
 
 feature {}
-   entity_system_file (path: STRING): UNICODE_STRING is
+   entity_system_file (path: STRING): UNICODE_STRING
       local
          u: URL
       do
@@ -851,12 +843,7 @@ feature {}
             u.connect
          end
          if u.is_connected then
-            if string_pool.is_empty then
-               create Result.make_empty
-            else
-               Result := string_pool.item
-               Result.clear_count
-            end
+            Result := new_empty_string
             read_stream_in(Result, u)
             url_pool.recycle(u)
          else
@@ -864,7 +851,25 @@ feature {}
          end
       end
 
-   entity_public_file (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING is
+   entity_public_url (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING
+      local
+         repo: XML_DTD_PUBLIC_REPOSITORY; u, file_url: URL
+      do
+         file_url := relative_url(a_url)
+         u := repo.public_dtd(pubid, file_url)
+         Result := new_empty_string
+         if u = Void then
+            if not Result.utf8_decode_from(a_url) then
+               set_error(once "Invalid URL: " + a_url)
+            end
+         else
+            if not Result.utf8_decode_from(u.out) then
+               set_error(once "Invalid URL: " + u.out)
+            end
+         end
+      end
+
+   entity_public_file (pubid: UNICODE_STRING; a_url: STRING): UNICODE_STRING
       local
          repo: XML_DTD_PUBLIC_REPOSITORY; u, file_url: URL; err: STRING
       do
@@ -877,26 +882,21 @@ feature {}
             err.append(once "%": ")
             err.append(repo.last_error)
             set_error(err)
-            string_pool.recycle(Result)
+            free_string(Result)
             Result := Void
          else
             if not u.is_connected and then u.can_connect then
                u.connect
             end
             if u.is_connected then
-               if string_pool.is_empty then
-                  create Result.make_empty
-               else
-                  Result := string_pool.item
-                  Result.clear_count
-               end
+               Result := new_empty_string
                read_stream_in(Result, u)
                url_pool.recycle(u)
             end
          end
       end
 
-   read_stream_in (a_buffer: UNICODE_STRING; u: URL) is
+   read_stream_in (a_buffer: UNICODE_STRING; u: URL)
       require
          u.is_connected
       local
@@ -924,7 +924,7 @@ feature {}
 feature {}
    in_comment: BOOLEAN
 
-   next is
+   next
       local
          pe_entity_name, string: UNICODE_STRING; err: STRING
       do
@@ -934,7 +934,7 @@ feature {}
             pe_index := pe_index + 1
             if not pe_entity_strings.last.valid_index(pe_index) then
                -- we finished reading the parameter entity content: remove it
-               string_pool.recycle(pe_entity_names.last)
+               free_string(pe_entity_names.last)
                pe_index := pe_entity_old_indexes.last
                pe_entity_names.remove_last
                pe_entity_strings.remove_last
@@ -954,12 +954,7 @@ feature {}
                end
             else
                from
-                  if string_pool.is_empty then
-                     create pe_entity_name.make_empty
-                  else
-                     pe_entity_name := string_pool.item
-                     pe_entity_name.clear_count
-                  end
+                  pe_entity_name := new_empty_string
                until
                   end_of_input or else current_character = ';'.code
                loop
@@ -971,7 +966,7 @@ feature {}
                else
                   if pe_entity_name.is_empty then
                      set_error(once "Unexpected empty parameter entity name")
-                     string_pool.recycle(pe_entity_name)
+                     free_string(pe_entity_name)
                   else
                      if pe_entities /= Void then
                         string := pe_entities.reference_at(pe_entity_name)
@@ -982,14 +977,14 @@ feature {}
                         pe_entity_name.utf8_encode_in(err)
                         err.extend('"')
                         set_error(err)
-                        string_pool.recycle(pe_entity_name)
+                        free_string(pe_entity_name)
                      elseif string.is_empty then
                         -- OK, nothing to parse, let's continue
                         check
                            current_character = ';'.code
                         end
                         next -- to skip the ';'
-                        string_pool.recycle(pe_entity_name)
+                        free_string(pe_entity_name)
                      else
                         check
                            current_character = ';'.code
@@ -1014,7 +1009,7 @@ feature {}
          end
       end
 
-   current_character: INTEGER is
+   current_character: INTEGER
       do
          if pe_entity_names = Void or else pe_entity_names.is_empty then
             Result := Precursor
@@ -1023,7 +1018,7 @@ feature {}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          if pe_entity_names = Void or else pe_entity_names.is_empty then
             Result := Precursor
@@ -1036,14 +1031,14 @@ feature {}
    pe_entities: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
    pe_index: INTEGER
 
-   has_pe_entity (pe_entity_name: UNICODE_STRING): BOOLEAN is
+   has_pe_entity (pe_entity_name: UNICODE_STRING): BOOLEAN
       do
          if pe_entities /= Void then
             Result := pe_entities.has(pe_entity_name)
          end
       end
 
-   add_pe_entity (pe_entity_name, string: UNICODE_STRING) is
+   add_pe_entity (pe_entity_name, string: UNICODE_STRING)
       require
          not has_pe_entity(pe_entity_name)
       do
@@ -1054,15 +1049,15 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   Error_end_of_file: STRING is "Unexpected end of file"
+   Error_end_of_file: STRING "Unexpected end of file"
 
    error: STRING
 
-   set_error (a_error: STRING) is
+   set_error (a_error: STRING)
       local
          i: INTEGER
       do
@@ -1084,12 +1079,27 @@ feature {}
          breakpoint
       end
 
-   string_pool: RECYCLING_POOL[UNICODE_STRING] is
-      once
-         create Result.make
-      end
-
 invariant
    urls /= Void implies (buffers /= Void and then (urls.count = buffers.count))
 
 end -- class XML_DTD_PARSER
+--
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

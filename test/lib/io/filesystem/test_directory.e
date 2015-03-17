@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          bd: BASIC_DIRECTORY
          path: STRING

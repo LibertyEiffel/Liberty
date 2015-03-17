@@ -6,22 +6,22 @@ class AUX_JLP8_ROW_PROVIDER[E -> NUMERIC]
 inherit
    AUX_JLP8_PROVIDER[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   abort is
+   abort
       do
       end
 
-   make (m: AUX_JLP8_MATRIX[E]; r: INTEGER) is
+   make (m: AUX_JLP8_MATRIX[E]; r: INTEGER)
       do
          matrix := m
          row := r
          incr := m.incr_row
       end
 
-   start is
+   start
       do
          index := 0
          if not exhausted then
@@ -29,7 +29,7 @@ feature {ANY}
          end
       end
 
-   next is
+   next
       do
          index := index + incr
          if not exhausted then
@@ -39,7 +39,7 @@ feature {ANY}
 
    item: E
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       do
          Result := index >= matrix.nb_column
       end

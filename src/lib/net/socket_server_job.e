@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {ANY}
-   when_connect (handler: PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]]) is
+   when_connect (handler: PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]])
          -- What to do when connection happens (i.e. some client tries to connect to the server). The
          -- procedure is given the stream connected to the client.
       require
@@ -24,7 +24,7 @@ feature {ANY}
          connect_handlers.add_last(handler)
       end
 
-   when_shutdown (handler: PROCEDURE[TUPLE[SOCKET_SERVER_JOB]]) is
+   when_shutdown (handler: PROCEDURE[TUPLE[SOCKET_SERVER_JOB]])
          -- Should be more accurately be called `when_shutdown_or_halt'. The agent is called when a shutdown
          -- or a halt of the server occurs.
       require
@@ -33,7 +33,7 @@ feature {ANY}
          shutdown_handlers.add_last(handler)
       end
 
-   shutdown is
+   shutdown
          -- Wait for the connections to finish, then stop the server.
          -- No more connections will be accepted.
       require
@@ -45,7 +45,7 @@ feature {ANY}
          will_shutdown
       end
 
-   halt is
+   halt
       require
          not done
       do
@@ -58,13 +58,13 @@ feature {ANY}
    done: BOOLEAN
 
 feature {SERVER}
-   will_shutdown: BOOLEAN is
+   will_shutdown: BOOLEAN
       do
          Result := not server.can_connect
       end
 
 feature {}
-   handle_shutdown is
+   handle_shutdown
       require
          will_shutdown
       local
@@ -83,14 +83,14 @@ feature {}
       end
 
 feature {LOOP_ITEM} -- The following features are inherited from JOB:
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          if not will_shutdown then
             events.expect(server.event_connection)
          end
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          if will_shutdown then
             done := True
@@ -99,7 +99,7 @@ feature {LOOP_ITEM} -- The following features are inherited from JOB:
          end
       end
 
-   continue is
+   continue
       local
          stream: SOCKET_INPUT_OUTPUT_STREAM; i, n: INTEGER
       do
@@ -119,13 +119,13 @@ feature {LOOP_ITEM} -- The following features are inherited from JOB:
          end
       end
 
-   restart is
+   restart
       do
          -- nothing (yet?)
       end
 
 feature {}
-   make (a_server: like server; a_read_sync: like read_sync) is
+   make (a_server: like server; a_read_sync: like read_sync)
       do
          server := a_server
          read_sync := a_read_sync
@@ -143,13 +143,13 @@ feature {}
 
 end -- class SOCKET_SERVER_JOB
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

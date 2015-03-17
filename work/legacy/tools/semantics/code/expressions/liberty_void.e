@@ -23,19 +23,19 @@ create {LIBERTY_BUILDER_TOOLS}
 feature {ANY}
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   set_result_type (a_result_type: like result_type) is
+   set_result_type (a_result_type: like result_type)
       require
          a_result_type /= Void
          result_type = void_type
@@ -45,13 +45,13 @@ feature {LIBERTY_BUILDER_TOOLS}
          result_type = a_result_type
       end
 
-   void_type: LIBERTY_VOID_TYPE is
+   void_type: LIBERTY_VOID_TYPE
       once
          create Result.make
       end
 
 feature {}
-   make (a_position: like position) is
+   make (a_position: like position)
       require
          a_position /= Void
       do
@@ -63,7 +63,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_VOID_VISITOR
       do

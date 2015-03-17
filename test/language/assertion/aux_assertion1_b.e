@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   set_attribute (attr: STRING) is
+   set_attribute (attr: STRING)
       require else
          attr.is_equal("ID")
       do

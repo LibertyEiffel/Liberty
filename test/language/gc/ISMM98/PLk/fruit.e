@@ -6,7 +6,7 @@ deferred class FRUIT
 feature {ANY}
    blob: INTEGER
 
-   make (new_blob: INTEGER) is
+   make (new_blob: INTEGER)
       do
          blob := new_blob
       end

@@ -27,7 +27,7 @@ feature {ANY}
    expression: EXPRESSION
          -- The variant INTEGER expression itself.
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if tag /= Void then
             Result := tag.start_position
@@ -36,66 +36,71 @@ feature {ANY}
          end
       end
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          check
             False -- Not really an expression.
          end
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          check
             False -- Not in target position.
          end
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := expression.declaration_type
       ensure then
          Result.is_integer
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := expression.written_declaration_type_mark
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check
             False -- Not in target position.
          end
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          Result := expression.collect(t)
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          check
             False -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          if comment1 /= Void then
             comment1.pretty(indent_level)
@@ -111,35 +116,35 @@ feature {ANY}
          expression.pretty(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          check
             False -- Not in target position.
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check
             False -- Not in target position.
          end
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          check
             False -- Not visible in contracts.
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check
             False -- Not visible in contracts.
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          exp: like expression
       do
@@ -152,7 +157,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          exp: like expression
       do
@@ -165,7 +170,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          exp: like expression
       do
@@ -179,41 +184,41 @@ feature {ANY}
          Result.specialize_check(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := expression.resolve_in(type)
       ensure then
          Result.is_integer
       end
 
-   accept (visitor: LOOP_VARIANT_VISITOR) is
+   accept (visitor: LOOP_VARIANT_VISITOR)
       do
          visitor.visit_loop_variant(Current)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := expression.side_effect_free(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          smart_eiffel.magic_count_increment
          Result := expression.simplify(type)
       end
 
 feature {LOOP_VARIANT}
-   init (exp: like expression) is
+   init (exp: like expression)
       require
          exp /= Void
       do
@@ -223,12 +228,12 @@ feature {LOOP_VARIANT}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
-   specialize_check (type: TYPE) is
+   specialize_check (type: TYPE)
       local
          dt: TYPE
       do
@@ -247,7 +252,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (c1: COMMENT; t: like tag; c2: COMMENT; exp: like expression) is
+   make (c1: COMMENT; t: like tag; c2: COMMENT; exp: like expression)
       require
          exp /= Void
       do
@@ -277,9 +282,9 @@ end -- class LOOP_VARIANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -15,7 +15,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          mbi1: MUTABLE_BIG_INTEGER; v: INTEGER
       do
@@ -73,7 +73,7 @@ feature {ANY}
          assert(not mbi1.is_integer_32)
       end
 
-   check_range (min, max: INTEGER) is
+   check_range (min, max: INTEGER)
       require
          min < max
       local

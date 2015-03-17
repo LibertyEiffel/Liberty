@@ -43,7 +43,7 @@ deferred class WRAPPER
    -- MIXED_MEMORY_HANDLING: whose memory can either by handled by the Eiffel
    -- library or by the underlying C code. Who handles memory is decided on a
    -- per-object based on the value of the flag `is_shared': handle will not
-   -- be freed on dispose of the Eiffel wrapper object, when `is_shared' is
+   -- be freed on dispose of the Eiffel wrapper object, when `is_shared'
    -- true.
    --
    -- REFERENCE_COUNTED: memory is handled throught reference counting, i.e.
@@ -78,26 +78,26 @@ insert
    STANDARD_C_LIBRARY_TYPES
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   from_external_pointer (a_ptr: POINTER) is
+   from_external_pointer (a_ptr: POINTER)
       do
          handle := a_ptr
       ensure
          handle = a_ptr
       end
-      -- is_null: BOOLEAN is
+      -- is_null: BOOLEAN
       -- 	do
       -- 		Result := handle.is_null
       -- 	ensure
       -- 		definition: Result = handle.is_null
       -- 	end
-      -- is_not_null: BOOLEAN is
+      -- is_not_null: BOOLEAN
       -- 	do
       -- 		Result := handle.is_not_null
       -- 	ensure
       -- 		definition: Result = handle.is_not_null
       -- 	end
 
-   set_handle (a_ptr: POINTER) is
+   set_handle (a_ptr: POINTER)
          -- Set a non-null handle. Raises an No_more_memory exception
          -- if a_ptr.is_null. Use this, if you want to check the
          -- result of some external allocation function.
@@ -114,7 +114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
    handle: POINTER
       -- Pointer to the underlying C "thing" (i.e. a struct)
 
-   reference: POINTER is
+   reference: POINTER
          -- The address of `handle'. Usuful to be passed to C
          -- functions that asks for pointer to pointer to struct
          -- (i.e. "GError **error")
@@ -125,7 +125,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
 feature {WRAPPER} -- Integer and natural convertions
 
 	-- This section is currently necessary as Liberty does not have automatic type convertions.
-   integer_to_size_t (an_integer: INTEGER): like size_t is
+   integer_to_size_t (an_integer: INTEGER): like size_t
          -- Comodity feature to cast an integer into an actual size_t
       external "C inline"
       alias "((size_t) ($an_integer))"

@@ -3,7 +3,7 @@
 --
 class AUX_AGENT_GC2
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -17,25 +17,25 @@ feature {ANY}
 
    triage, examination, treatment, transfers: AUX_AGENT_GC6
 
-   make (staf, seed: INTEGER; main: BOOLEAN) is
+   make (staf, seed: INTEGER; main: BOOLEAN)
       do
          alea.set_seed(seed)
          staff := staf
          is_main := main
       end
 
-   triage_examination is
+   triage_examination
       do
          transfers.clear
-         treatment.do_all(agent discharge_one_patient(?))
-         examination.do_all(agent treat_or_transfert_one_patient(?))
-         triage.do_all(agent triage_one_patient(?))
+         treatment.for_each(agent discharge_one_patient(?))
+         examination.for_each(agent treat_or_transfert_one_patient(?))
+         triage.for_each(agent triage_one_patient(?))
          if alea.test(0.7) then
             new_arrival(create {AUX_AGENT_GC3})
          end
       end
 
-   new_arrival (p: AUX_AGENT_GC3) is
+   new_arrival (p: AUX_AGENT_GC3)
       do
          p.enter_hospital
          if staff <= 0 then
@@ -47,7 +47,7 @@ feature {ANY}
          end
       end
 
-   discharge_one_patient (p: AUX_AGENT_GC3) is
+   discharge_one_patient (p: AUX_AGENT_GC3)
       do
          p.next_time
          if p.finished then
@@ -57,7 +57,7 @@ feature {ANY}
          end
       end
 
-   treat_or_transfert_one_patient (p: AUX_AGENT_GC3) is
+   treat_or_transfert_one_patient (p: AUX_AGENT_GC3)
       do
          p.next_time
          if p.finished then
@@ -72,7 +72,7 @@ feature {ANY}
          end
       end
 
-   triage_one_patient (p: AUX_AGENT_GC3) is
+   triage_one_patient (p: AUX_AGENT_GC3)
       do
          if staff <= 0 then
             p.incr_hospital_time
@@ -84,7 +84,7 @@ feature {ANY}
          end
       end
 
-   accumulate_totals: AUX_AGENT_GC5 is
+   accumulate_totals: AUX_AGENT_GC5
       do
          Result := discharged + triage.accumulate_totals + examination.accumulate_totals + treatment.accumulate_totals
       end

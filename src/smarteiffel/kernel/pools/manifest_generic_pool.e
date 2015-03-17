@@ -10,13 +10,13 @@ insert
    GLOBALS
 
 feature {}
-   collected_manifest_generic: HASHED_SET[MANIFEST_GENERIC] is
+   collected_manifest_generic: HASHED_SET[MANIFEST_GENERIC]
       once
          create Result.make
       end
 
 feature {MANIFEST_GENERIC}
-   collect (manifest_generic: MANIFEST_GENERIC) is
+   collect (manifest_generic: MANIFEST_GENERIC)
       require
          manifest_generic /= Void
       do
@@ -24,18 +24,18 @@ feature {MANIFEST_GENERIC}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
          -- Called before a re-collect cycle.
       do
          collected_manifest_generic.clear_count
       end
 
 feature {ANY}
-   do_all (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]]) is
+   for_each (action: PROCEDURE[TUPLE[MANIFEST_GENERIC]])
       require
          action /= Void
       do
-         collected_manifest_generic.do_all(action)
+         collected_manifest_generic.for_each(action)
       end
 
 end -- class MANIFEST_GENERIC_POOL
@@ -50,9 +50,9 @@ end -- class MANIFEST_GENERIC_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

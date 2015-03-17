@@ -21,7 +21,7 @@ feature {ANY}
 
    tabs_hidden: BOOLEAN
 
-   add_tab (text: STRING): NCURSES_PANELTAB is
+   add_tab (text: STRING): NCURSES_PANELTAB
       require
          ncurses.is_enabled
          text /= Void
@@ -39,7 +39,7 @@ feature {ANY}
          Result.raise
       end
 
-   refresh_later is
+   refresh_later
       do
          if not tabs_hidden and then last_left + 1 < width then
             window.draw_horizontal_line(last_left, top + 2, horizontal_line, width - last_left + 1)
@@ -47,17 +47,17 @@ feature {ANY}
       end
 
 feature {NCURSES_WIDGET}
-   get_window: NCURSES_WINDOW is
+   get_window: NCURSES_WINDOW
       do
          Result := window
       end
 
-   parent_resized is
+   parent_resized
       do
       end
 
 feature {NCURSES_PANELTAB}
-   raise (pt: NCURSES_PANELTAB) is
+   raise (pt: NCURSES_PANELTAB)
       local
          i: INTEGER
          tab: NCURSES_PANELTAB
@@ -79,7 +79,7 @@ feature {NCURSES_PANELTAB}
       end
 
 feature {}
-   make (nw: like window; x, y, w, h: INTEGER) is
+   make (nw: like window; x, y, w, h: INTEGER)
       require
          ncurses.is_enabled
          nw /= Void
@@ -102,7 +102,7 @@ feature {}
          not tabs_hidden
       end
 
-   no_tabs (nw: like window; x, y, w, h: INTEGER) is
+   no_tabs (nw: like window; x, y, w, h: INTEGER)
       require
          ncurses.is_enabled
          nw /= Void
@@ -132,13 +132,13 @@ invariant
 
 end -- class NCURSES_PANEL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -10,7 +10,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       do
          if offset = comment.lower then
             Result := offset <= comment.upper and then comment.first = '|'
@@ -19,7 +19,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       do
          if offset = comment.lower then
             Result := comment.first_index_of('%N')
@@ -31,18 +31,18 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          check
             False
          end
       end
 
-   handle_first: BOOLEAN is False
+   handle_first: BOOLEAN False
          -- anyway, not used because the states stack never has Current
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(foo_count = 0)
          assert(bar_count = 0)
@@ -24,18 +24,18 @@ feature {ANY}
 feature {}
    foo_count, bar_count: INTEGER
 
-   foo: BOOLEAN is
+   foo: BOOLEAN
       do
          foo_count := foo_count + 1
          Result := True
       end
 
-   bar: BOOLEAN is
+   bar: BOOLEAN
       do
          bar_count := bar_count + 1
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -17,12 +17,13 @@ insert
       redefine
          next, end_of_input
       end
+   URL_VALIDITY
 
 create {ANY}
    connect_to, make
 
 feature {ANY}
-   parse (a_callbacks: like callbacks) is
+   parse (a_callbacks: like callbacks)
          -- Parse an XML documents by sending parsing events to the given `callbacks'
       require
          is_connected
@@ -36,7 +37,7 @@ feature {ANY}
          end
       end
 
-   connect_to (a_url: URL) is
+   connect_to (a_url: URL)
       require
          not is_connected
          a_url.is_connected implies a_url.read
@@ -50,13 +51,13 @@ feature {ANY}
             check
                a_url.read
             end
-            connect_buffer(a_url)
+            connect_buffer(a_url, Void, Void)
          end
       ensure
          a_url.is_connected implies (a_url = buffer.url and then is_connected)
       end
 
-   disconnect is
+   disconnect
       require
          is_connected
       do
@@ -70,7 +71,7 @@ feature {ANY}
          not is_connected
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := open_buffers /= Void and then not open_buffers.is_empty and then buffer.is_connected
       end
@@ -79,17 +80,17 @@ feature {}
    callbacks: XML_CALLBACKS
    url: URL
 
-   set_url (a_url: like url) is
+   set_url (a_url: like url)
       do
          url := a_url
       end
 
-   parse_node (at_root: BOOLEAN): INTEGER is
+   parse_node (at_root: BOOLEAN): INTEGER
          -- True if a node was successfully parsed
       require
          is_connected
       local
-         name, entity, entity_value, data, data_blanks, pi_target, pi_data: UNICODE_STRING
+         name, entity, entity_value, entity_url, data, data_blanks, pi_target, pi_data: UNICODE_STRING
          again, done, open, open_close: BOOLEAN; l, c: INTEGER
       do
          from
@@ -148,16 +149,20 @@ feature {}
                               entity_value := validator.entity(entity, l, c)
                               if entity_value = Void then
                                  entity_value := callbacks.entity(entity, l, c)
+                                 entity_url := Void
+                              else
+                                 entity_url := validator.entity_url(entity, l, c)
                               end
                            else
                               entity_value := callbacks.entity(entity, l, c)
+                              entity_url := Void
                            end
                            if entity_value = Void then
                               callbacks.parse_error(l, c, once "Unknown entity")
                               Result := Parse_error
                            else
                               next
-                              connect_buffer_entity_value(entity_value)
+                              connect_buffer_entity_value(entity, entity_value, entity_url)
                            end
                         end
                      else
@@ -397,7 +402,7 @@ feature {}
          <<Parse_again, Parse_done, Parse_error>>).has(Result)
       end
 
-   read_name: UNICODE_STRING is
+   read_name: UNICODE_STRING
       local
          name: UNICODE_STRING
       do
@@ -408,7 +413,7 @@ feature {}
          end
       end
 
-   parse_attribute (a_buffer: UNICODE_PARSER_BUFFER): INTEGER is
+   parse_attribute (a_buffer: UNICODE_PARSER_BUFFER): INTEGER
          -- if `a_buffer' if not Void and the attribute is "encoding", set the buffer's encoding.
       local
          a, an_attribute, value: UNICODE_STRING; l, c: INTEGER; sa, sv: STRING
@@ -459,7 +464,7 @@ feature {}
          end
       end
 
-   parse_children: INTEGER is
+   parse_children: INTEGER
       do
          from
             Result := parse_node(False)
@@ -477,7 +482,7 @@ feature {}
          (<<Parse_again, Parse_done, Parse_error>>).has(Result)
       end
 
-   read_cdata is
+   read_cdata
       local
          l, c, s: INTEGER; b: UNICODE_STRING
       do
@@ -528,7 +533,7 @@ feature {}
          end
       end
 
-   read_dtd is
+   read_dtd
       require
          is_connected
       do
@@ -540,14 +545,14 @@ feature {}
       end
 
 feature {}
-   Parse_again: INTEGER is 0
+   Parse_again: INTEGER 0
 
-   Parse_done: INTEGER is 1
+   Parse_done: INTEGER 1
 
-   Parse_error: INTEGER is -1
+   Parse_error: INTEGER -1
 
 feature {}
-   next is
+   next
       do
          if buffer.end_of_input then
             disconnect_buffer
@@ -555,48 +560,71 @@ feature {}
          buffer.next
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := buffer.end_of_input and then open_buffers.count = 1
       end
 
 feature {}
-   buffer: UNICODE_PARSER_BUFFER is
+   buffer: UNICODE_PARSER_BUFFER
       do
          if not open_buffers.is_empty then
-            Result := open_buffers.top
+            Result := open_buffers.top.buffer
          end
       ensure
-         definition: open_buffers.is_empty or else Result = open_buffers.top
+         definition: open_buffers.is_empty or else Result = open_buffers.top.buffer
       end
 
-   make is
+   make
          -- Create a not connected parser
       do
          create open_buffers.make
+         create urls.make
       end
 
-   dtd_parser: XML_DTD_PARSER is
+   dtd_parser: XML_DTD_PARSER
       once
          create Result.make
       end
 
-   validator: XML_VALIDATOR is
+   validator: XML_VALIDATOR
       do
          Result := callbacks.validator
       end
 
-   open_buffers: STACK[UNICODE_PARSER_BUFFER]
+   open_buffers: STACK[XML_PARSER_BUFFER]
+   urls: STACK[URL]
 
-   closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER] is
+   closed_buffers: RECYCLING_POOL[UNICODE_PARSER_BUFFER]
       once
          create Result.make
       end
 
-   connect_buffer (a_url: URL) is
+   connect_buffer (a_url, a_face_url: URL; a_entity_name: UNICODE_STRING)
+      require
+         a_face_url /= Void implies a_entity_name /= Void
       local
          buf: like buffer
       do
+         io.put_string(once "connect_buffer(%"")
+         io.put_string(a_url.out)
+         io.put_string(once "%", ")
+         if a_face_url = Void then
+            io.put_string(once "Void")
+         else
+            io.put_character('"')
+            io.put_string(a_face_url.out)
+            io.put_character('"')
+         end
+         io.put_string(once ", ")
+         if a_entity_name = Void then
+            io.put_line(once "Void)")
+         else
+            io.put_character('"')
+            io.put_string(a_entity_name.as_utf8)
+            io.put_line(once "%")")
+         end
+
          if not closed_buffers.is_empty then
             buf := closed_buffers.item
          end
@@ -609,7 +637,13 @@ feature {}
             check
                a_url = buf.url
             end
-            open_buffers.push(buf)
+            urls.push(a_url)
+            if a_face_url = Void then
+               open_buffers.push(create {XML_PARSER_BUFFER}.set(buf, a_url, Void))
+            else
+               open_buffers.push(create {XML_PARSER_BUFFER}.set(buf, a_face_url, a_entity_name))
+               callbacks.open_entity_url(a_entity_name, a_face_url)
+            end
          end
       ensure
          a_url.is_connected implies (
@@ -618,53 +652,77 @@ feature {}
          )
       end
 
-   connect_buffer_entity_value (entity_value: UNICODE_STRING) is
+   connect_buffer_entity_value (entity_name, entity_value, entity_url: UNICODE_STRING)
          --| **** TODO: hunt memory leaks
       require
          entity_value /= Void
       local
-         sis: STRING_INPUT_STREAM
+         sis: STRING_INPUT_STREAM; a_url: URL
       do
+         if valid_url(entity_url.as_utf8) then
+            if url_pool.is_empty then
+               create a_url.absolute(entity_url.as_utf8)
+            else
+               a_url := url_pool.item
+               a_url.absolute(entity_url.as_utf8)
+            end
+         else
+            if url_pool.is_empty then
+               create a_url.relative(urls.top, entity_url.as_utf8)
+            else
+               a_url := url_pool.item
+               a_url.relative(urls.top, entity_url.as_utf8)
+            end
+         end
          create sis.from_string(entity_value.as_utf8)
-         connect_buffer(sis.url)
+         connect_buffer(sis.url, a_url, entity_name)
       end
 
-   disconnect_buffer is
+   disconnect_buffer
       require
          not open_buffers.is_empty
       do
+         io.put_line(once "disconnect_buffer")
+
          buffer.disconnect
+         if open_buffers.top.entity /= Void then
+            callbacks.close_entity_url(open_buffers.top.entity, open_buffers.top.url)
+         end
          open_buffers.pop
+         urls.pop
       ensure
          open_buffers.count = old open_buffers.count - 1
          not (old buffer).is_connected
       end
 
+   url_pool: RECYCLING_POOL[URL]
+      once
+         create Result.make
+      end
+
+invariant
+   open_buffers /= Void
+   urls /= Void
+   open_buffers.count = urls.count
+
 end -- class XML_PARSER
 --
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software
+-- furnished to do so, subject to the following conditions:
 --
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
 --
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

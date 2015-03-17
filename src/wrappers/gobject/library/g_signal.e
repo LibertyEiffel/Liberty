@@ -137,12 +137,12 @@ feature {ANY} -- Unwrapped C
 	-- A mask for all GSignalFlags bits.
 
 
-	-- NOTE: g_signal_new is unwrappeble since variadic. g_signal_newv is
+	-- NOTE: g_signal_new is unwrappeble since variadic. g_signal_newv
 	-- wrapped and provides the same functionality
 feature {} -- Creation
 	
 	make (a_gobject: G_OBJECT; some_flags: GSIGNAL_FLAGS;
-			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER]) is
+			a_return_type: INTEGER; parameters_types: ARRAY[INTEGER])
 			-- Creates a new signal. This is usually done in the
 			-- GObject's class initializer at C level.
 
@@ -328,7 +328,7 @@ feature {} -- Creation
 	--                                              GClosureNotify destroy_data,
 	--                                              GConnectFlags connect_flags);
 
-	-- Connects a GCallback function to a signal for a particular object. Similar to g_signal_connect(), but allows to provide a GDestroyNotify for the data which will be called when the signal handler is disconnected and no longer used. Specify connect_flags if you need ..._after() pr ..._swapped() variants of this function.
+	-- Connects a GCallback function to a signal for a particular object. Similar to g_signal_connect(), but allows to provide a GDestroyNotify for the data which will be called when the signal handler is disconnected and no longer used. Specify connect_flags if you need ...is_after() pr ...is_swapped() variants of this function.
 	-- instance : 	the instance to connect to.
 	-- detailed_signal : 	a string of the form "signal-name::detail".
 	-- c_handler : 	the GCallback to connect.

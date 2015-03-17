@@ -12,19 +12,19 @@ create {}
    doit
 
 feature {ANY}
-   callback_a (i: AUX_AGENT22A) is
+   callback_a (i: AUX_AGENT22A)
       do
          i.set_c(2)
       end
 
-   callback_b (i: AUX_AGENT22B) is
+   callback_b (i: AUX_AGENT22B)
       do
          i.set_c(5)
       end
 
    c_value: REAL
 
-   callback_c (v: REAL) is
+   callback_c (v: REAL)
       do
          c_value := v
       end
@@ -35,7 +35,7 @@ feature {ANY}
 
    cc_agent: PROCEDURE[TUPLE[REAL]]
 
-   doit is
+   doit
       local
          aux_a: AUX_AGENT22A; aux_b: AUX_AGENT22B
       do

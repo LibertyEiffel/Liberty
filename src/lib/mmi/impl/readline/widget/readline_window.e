@@ -17,37 +17,37 @@ feature {ANY}
    panel: READLINE_PANEL
    menu: READLINE_MENU
 
-   title: UNICODE_STRING is
+   title: UNICODE_STRING
       do
          Result := ui.title
       end
 
 feature {UI_WINDOW}
-   set_panel (a_panel: READLINE_PANEL) is
+   set_panel (a_panel: READLINE_PANEL)
       do
          panel := a_panel
       end
 
-   set_menu (a_menu: READLINE_MENU) is
+   set_menu (a_menu: READLINE_MENU)
       do
          menu := a_menu
       end
 
 feature {READLINE_APPLICATION}
-   run (context: READLINE_CONTEXT): BOOLEAN is
+   run (context: READLINE_CONTEXT): BOOLEAN
       do
          Result := menu.run(context) or else panel.run(context)
       end
 
 end -- class READLINE_WINDOW
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

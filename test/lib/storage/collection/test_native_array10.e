@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: NATIVE_ARRAY[INTEGER]
       do

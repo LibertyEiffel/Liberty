@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          host: HOST; tcp: TCP_ACCESS
       do
@@ -23,12 +23,12 @@ feature {}
          start(tcp)
       end
 
-   new_connection: MULTIPLEX_CONNECTION is
+   new_connection: MULTIPLEX_CONNECTION
       do
          create Result.make(Current)
       end
 
-   handle_error (error_message: STRING) is
+   handle_error (error_message: STRING)
       do
          if error_message /= Void then
             std_error.put_string(error_message)
@@ -40,19 +40,19 @@ feature {}
       end
 
 feature {MULTIPLEX_CONNECTION}
-   shutdown is
+   shutdown
          -- A connection asked the server to shut down
       do
          server.shutdown
       end
 
-   halt is
+   halt
          -- A connection asked the server to halt
       do
          server.halt
       end
 
-   connection_done (a_connection: MULTIPLEX_CONNECTION) is
+   connection_done (a_connection: MULTIPLEX_CONNECTION)
          -- A connection is just finished.
       do
          connections := connections - 1

@@ -22,29 +22,25 @@ feature {SOCKET_HANDLER}
    port: INTEGER
 
 feature {SOCKET_SERVER, SOCKET_HANDLER}
-   bind (server: SOCKET_SERVER; a_sync: BOOLEAN) is
+   bind (server: SOCKET_SERVER; a_sync: BOOLEAN)
          -- Binds the socket to the server.
       do
          if bind_values.is_null then
             bind_values := bind_values.calloc(6)
          end
          net_accept(server.fd, bind_values, a_sync)
+         error := last_error
          fd := bind_values.item(5)
-         if fd >= 0 then
-            check
-               last_error = Void
-            end
+         if error = Void and then fd >= 0 then
             common_make(bind_values.item(0), bind_values.item(1), bind_values.item(2), bind_values.item(3), bind_values.item(4), a_sync)
             is_connected := True
             is_remote_connected := True
             delay_read := False
-         else
-            error := last_error
          end
       end
 
 feature {}
-   common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
+   common_make (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN)
       do
          set_sync(a_sync)
          a := ip_a
@@ -58,13 +54,13 @@ feature {}
          sync := a_sync
       end
 
-   make_tcp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
+   make_tcp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN)
       do
          common_make(ip_a, ip_b, ip_c, ip_d, a_port, a_sync)
          connect(net_tcp(a, b, c, d, a_port, a_sync))
       end
 
-   make_udp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN) is
+   make_udp (ip_a, ip_b, ip_c, ip_d, a_port: INTEGER; a_sync: BOOLEAN)
       do
          common_make(ip_a, ip_b, ip_c, ip_d, a_port, a_sync)
          connect(net_udp(a, b, c, d, a_port, a_sync))
@@ -74,13 +70,13 @@ feature {}
 
 end -- class IPV4_SOCKET
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

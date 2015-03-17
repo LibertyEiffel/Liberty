@@ -30,7 +30,7 @@ insert
       end
 
 feature {ANY} -- Binary operators for two NUMBERs:
-   infix "+" (other: NUMBER): NUMBER is
+   infix "+" (other: NUMBER): NUMBER
          -- Sum of `Current' and `other'.
       require
          other /= Void
@@ -39,7 +39,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          (Result - other).is_equal(Current)
       end
 
-   infix "-" (other: NUMBER): NUMBER is
+   infix "-" (other: NUMBER): NUMBER
          -- Difference of `Current' and `other'.
       require
          other /= Void
@@ -49,7 +49,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          (Result + other).is_equal(Current)
       end
 
-   infix "*" (other: NUMBER): NUMBER is
+   infix "*" (other: NUMBER): NUMBER
          -- Product of `Current' and `other'.
       require
          other /= Void
@@ -58,7 +58,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          Result /= Void
       end
 
-   infix "/" (other: NUMBER): NUMBER is
+   infix "/" (other: NUMBER): NUMBER
          -- Quotient of `Current' and `other'.
       do
          Result := Current * other.inverse
@@ -66,7 +66,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          Result /= Void
       end
 
-   infix "//" (other: NUMBER): NUMBER is
+   infix "//" (other: NUMBER): NUMBER
          -- Divide `Current' by `other' (Integer division).
       require
          is_integer_general_number
@@ -78,7 +78,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          Current.is_equal(Result * other + Current \\ other)
       end
 
-   infix "\\" (other: NUMBER): NUMBER is
+   infix "\\" (other: NUMBER): NUMBER
          -- Remainder of division of `Current' by `other'.
       require
          is_integer_general_number
@@ -90,7 +90,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
          not Result.is_negative and Result < other.abs
       end
 
-   infix "^" (exp: NUMBER): NUMBER is
+   infix "^" (exp: NUMBER): NUMBER
          -- `Current' raised to `exp'-th power.
       require
          exp.is_integer_general_number
@@ -119,30 +119,30 @@ feature {ANY} -- Binary operators for two NUMBERs:
          exp.is_zero implies Result.is_one
       end
 
-   infix "<" (other: NUMBER): BOOLEAN is
+   infix "<" (other: NUMBER): BOOLEAN
          -- Is `Current' strictly less than `other'?
       deferred
       end
 
-   infix "<=" (other: NUMBER): BOOLEAN is
+   infix "<=" (other: NUMBER): BOOLEAN
          -- Is `Current' less or equal than `other'?
       do
          Result := not (other < Current)
       end
 
-   infix ">" (other: NUMBER): BOOLEAN is
+   infix ">" (other: NUMBER): BOOLEAN
          -- Is `Current' strictly greater than `other'?
       do
          Result := other < Current
       end
 
-   infix ">=" (other: NUMBER): BOOLEAN is
+   infix ">=" (other: NUMBER): BOOLEAN
          -- Is `Current' greater or equal than `other'?
       do
          Result := not (Current < other)
       end
 
-   gcd (other: NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd (other: NUMBER): INTEGER_GENERAL_NUMBER
          -- Great Common Divisor of `Current' and `other'.
       require
          other.is_integer_general_number
@@ -155,7 +155,7 @@ feature {ANY} -- Binary operators for two NUMBERs:
       end
 
 feature {ANY} -- Unary operators for two NUMBERs:
-   frozen prefix "+": NUMBER is
+   frozen prefix "+": NUMBER
          -- Unary plus of `Current'.
       do
          Result := Current
@@ -163,7 +163,7 @@ feature {ANY} -- Unary operators for two NUMBERs:
          Result = Current
       end
 
-   prefix "-": NUMBER is
+   prefix "-": NUMBER
          -- Opposite of `Current'.
       deferred
       ensure
@@ -171,7 +171,7 @@ feature {ANY} -- Unary operators for two NUMBERs:
       end
 
 feature {ANY} -- To know more about a NUMBER:
-   frozen is_integer_8: BOOLEAN is
+   frozen is_integer_8: BOOLEAN
          -- Does `Current' value fit on an INTEGER_8?
       local
          integer_64_number: INTEGER_64_NUMBER
@@ -184,7 +184,7 @@ feature {ANY} -- To know more about a NUMBER:
          Result implies is_integer_general_number
       end
 
-   frozen is_integer_16: BOOLEAN is
+   frozen is_integer_16: BOOLEAN
          -- Does `Current' value fit on an INTEGER_16?
       local
          integer_64_number: INTEGER_64_NUMBER
@@ -197,7 +197,7 @@ feature {ANY} -- To know more about a NUMBER:
          Result implies is_integer_general_number
       end
 
-   frozen is_integer_32: BOOLEAN is
+   frozen is_integer_32: BOOLEAN
          -- Does `Current' value fit on an INTEGER?
       local
          integer_64_number: INTEGER_64_NUMBER
@@ -210,7 +210,7 @@ feature {ANY} -- To know more about a NUMBER:
          Result implies is_integer_general_number
       end
 
-   frozen is_integer_64: BOOLEAN is
+   frozen is_integer_64: BOOLEAN
          -- Does `Current' value fit on an INTEGER_64?
       local
          integer_64_number: INTEGER_64_NUMBER
@@ -220,7 +220,7 @@ feature {ANY} -- To know more about a NUMBER:
          Result implies is_integer_general_number
       end
 
-   frozen is_natural_64: BOOLEAN is
+   frozen is_natural_64: BOOLEAN
          -- Does `Current' value fit on a NATURAL_64?
       local
          big_integer_number: BIG_INTEGER_NUMBER
@@ -239,14 +239,13 @@ feature {ANY} -- To know more about a NUMBER:
          Result implies is_integer_general_number
       end
 
-   
-   in_range (lower, upper: NUMBER): BOOLEAN is
+   in_range (lower, upper: NUMBER): BOOLEAN
          -- Return True if `Current' is in range [`lower'..`upper']
       do
          Result := Current >= lower and then Current <= upper
       end
 
-   compare, three_way_comparison (other: NUMBER): INTEGER is
+   compare, three_way_comparison (other: NUMBER): INTEGER
          -- Compare `Current' with `other'.
          -- `<'  <==> `Result < 0'
          -- `>'  <==> `Result > 0'
@@ -259,7 +258,7 @@ feature {ANY} -- To know more about a NUMBER:
          end
       end
 
-   min (other: NUMBER): NUMBER is
+   min (other: NUMBER): NUMBER
          -- Minimum of `Current' and `other'.
       do
          if Current < other then
@@ -269,7 +268,7 @@ feature {ANY} -- To know more about a NUMBER:
          end
       end
 
-   max (other: NUMBER): NUMBER is
+   max (other: NUMBER): NUMBER
          -- Maximum of `Current' and `other'.
       do
          if other < Current then
@@ -279,35 +278,35 @@ feature {ANY} -- To know more about a NUMBER:
          end
       end
 
-   is_zero: BOOLEAN is
+   is_zero: BOOLEAN
          -- Is it 0 ?
       deferred
       ensure
          Result = Current @= 0
       end
 
-   is_one: BOOLEAN is
+   is_one: BOOLEAN
          -- Is it 1 ?
       deferred
       ensure
          Result = Current @= 1
       end
 
-   is_positive: BOOLEAN is
+   is_positive: BOOLEAN
          -- Is `Current' > 0 ?
       deferred
       ensure
          Result = Current @> 0
       end
 
-   is_negative: BOOLEAN is
+   is_negative: BOOLEAN
          -- Is `Current' < 0 ?
       deferred
       ensure
          Result = Current @< 0
       end
 
-   is_odd: BOOLEAN is
+   is_odd: BOOLEAN
          -- Is `odd' ?
       require
          is_integer_general_number
@@ -315,7 +314,7 @@ feature {ANY} -- To know more about a NUMBER:
          Result := (Current @\\ 2).is_one
       end
 
-   is_even: BOOLEAN is
+   is_even: BOOLEAN
          -- Is `even' ?
       require
          is_integer_general_number
@@ -323,25 +322,25 @@ feature {ANY} -- To know more about a NUMBER:
          Result := (Current @\\ 2).is_zero
       end
 
-   is_equal (other: NUMBER): BOOLEAN is
+   is_equal (other: NUMBER): BOOLEAN
       deferred
       end
 
-   frozen is_integer_general_number: BOOLEAN is
+   frozen is_integer_general_number: BOOLEAN
       local
          integer_general_number: INTEGER_GENERAL_NUMBER
       do
          Result := integer_general_number ?:= Current
       end
 
-   frozen is_fraction_general_number: BOOLEAN is
+   frozen is_fraction_general_number: BOOLEAN
       local
          fraction_general_number: FRACTION_GENERAL_NUMBER
       do
          Result := fraction_general_number ?:= Current
       end
 
-   frozen fit_real: BOOLEAN is
+   frozen fit_real: BOOLEAN
       do
          if Current #>= Minimum_real then
             Result := Current #<= Maximum_real
@@ -349,7 +348,7 @@ feature {ANY} -- To know more about a NUMBER:
       end
 
 feature {ANY} -- Conversions and printing:
-   frozen to_integer_8: INTEGER_8 is
+   frozen to_integer_8: INTEGER_8
          -- Conversion of `Current' in an INTEGER_8.
       require
          is_integer_8
@@ -360,7 +359,7 @@ feature {ANY} -- Conversions and printing:
          Result := integer_64_number.value.to_integer_8
       end
 
-   frozen to_integer_16: INTEGER_16 is
+   frozen to_integer_16: INTEGER_16
          -- Conversion of `Current' in an INTEGER_16.
       require
          is_integer_16
@@ -371,7 +370,7 @@ feature {ANY} -- Conversions and printing:
          Result := integer_64_number.value.to_integer_16
       end
 
-   frozen to_integer_32: INTEGER is
+   frozen to_integer_32: INTEGER
          -- Conversion of `Current' in an INTEGER_32.
       require
          is_integer_32
@@ -382,7 +381,7 @@ feature {ANY} -- Conversions and printing:
          Result := integer_64_number.value.to_integer_32
       end
 
-   frozen to_integer_64: INTEGER_64 is
+   frozen to_integer_64: INTEGER_64
          -- Conversion of `Current' in an INTEGER.
       require
          is_integer_64
@@ -393,7 +392,7 @@ feature {ANY} -- Conversions and printing:
          Result := integer_64_number.value
       end
 
-   frozen to_natural_64: NATURAL_64 is
+   frozen to_natural_64: NATURAL_64
          -- Conversion of `Current' in a NATURAL_64.
       require
          is_natural_64
@@ -409,14 +408,14 @@ feature {ANY} -- Conversions and printing:
          end
       end
 
-   force_to_real_64: REAL_64 is
+   force_to_real_64: REAL_64
          -- Conversion of `Current' in a REAL_64.
       require
          fit_real
       deferred
       end
 
-   frozen to_string: STRING is
+   frozen to_string: STRING
          -- Convert the NUMBER into a new allocated STRING.
          -- Note: see also `append_in' to save memory.
       do
@@ -425,7 +424,7 @@ feature {ANY} -- Conversions and printing:
          Result := string_buffer.twin
       end
 
-   frozen to_unicode_string: UNICODE_STRING is
+   frozen to_unicode_string: UNICODE_STRING
          -- Convert the NUMBER into a new allocated UNICODE_STRING.
          -- Note: see also `append_in_unicode' to save memory.
       do
@@ -434,7 +433,7 @@ feature {ANY} -- Conversions and printing:
          Result := unicode_string_buffer.twin
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append the equivalent of `to_string' at the end of `buffer'.
          -- Thus you can save memory because no other STRING is allocated
          -- for the job.
@@ -443,7 +442,7 @@ feature {ANY} -- Conversions and printing:
       deferred
       end
 
-   append_in_unicode (buffer: UNICODE_STRING) is
+   append_in_unicode (buffer: UNICODE_STRING)
          -- Append the equivalent of `to_unicode_string' at the end of `buffer'.
          -- Thus you can save memory because no other UNICODE_STRING is allocated
          -- for the job.
@@ -452,7 +451,7 @@ feature {ANY} -- Conversions and printing:
       deferred
       end
 
-   frozen to_string_format (s: INTEGER): STRING is
+   frozen to_string_format (s: INTEGER): STRING
          -- Same as `to_string' but the result is on `s' character and the
          -- number is right aligned.
          -- Note: see `append_in_format' to save memory.
@@ -477,7 +476,7 @@ feature {ANY} -- Conversions and printing:
          Result.count = s
       end
 
-   frozen to_unicode_string_format (s: INTEGER): UNICODE_STRING is
+   frozen to_unicode_string_format (s: INTEGER): UNICODE_STRING
          -- Same as `to_unicode_string' but the result is on `s' character and
          -- the number is right aligned.
          -- Note: see `append_in_unicode_format' to save memory.
@@ -502,7 +501,7 @@ feature {ANY} -- Conversions and printing:
          Result.count = s
       end
 
-   frozen append_in_format (str: STRING; s: INTEGER) is
+   frozen append_in_format (str: STRING; s: INTEGER)
          -- Append the equivalent of `to_string_format' at the end of
          -- `str'. Thus you can save memory because no other
          -- STRING is allocated for the job.
@@ -526,7 +525,7 @@ feature {ANY} -- Conversions and printing:
          str.count >= old str.count + s
       end
 
-   frozen append_in_unicode_format (str: UNICODE_STRING; s: INTEGER) is
+   frozen append_in_unicode_format (str: UNICODE_STRING; s: INTEGER)
          -- Append the equivalent of `to_unicode_string_format' at the end of
          -- `str'. Thus you can save memory because no other
          -- UNICODE_STRING is allocated for the job.
@@ -550,7 +549,7 @@ feature {ANY} -- Conversions and printing:
          str.count >= old str.count + s
       end
 
-   frozen to_decimal (digits: INTEGER; all_digits: BOOLEAN): STRING is
+   frozen to_decimal (digits: INTEGER; all_digits: BOOLEAN): STRING
          -- Convert `Current' into its decimal view. A maximum of decimal
          -- `digits' places will be used for the decimal part. If the
          -- `all_digits' flag is True insignificant digits will be included
@@ -566,7 +565,7 @@ feature {ANY} -- Conversions and printing:
          not Result.is_empty
       end
 
-   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN) is
+   append_decimal_in (buffer: STRING; digits: INTEGER; all_digits: BOOLEAN)
          -- Append the equivalent of `to_decimal' at the end of `buffer'. Thus
          -- you can save memory because no other STRING is allocated.
       require
@@ -574,7 +573,7 @@ feature {ANY} -- Conversions and printing:
       deferred
       end
 
-   frozen decimal_digit, digit: CHARACTER is
+   frozen decimal_digit, digit: CHARACTER
          -- Gives the corresponding CHARACTER for range 0..9.
       require
          to_integer_32.in_range(0, 9)
@@ -586,13 +585,13 @@ feature {ANY} -- Conversions and printing:
       end
 
 feature {ANY} -- To mimic NUMERIC:
-   divisible (other: NUMBER): BOOLEAN is
+   divisible (other: NUMBER): BOOLEAN
          -- Is `other' a valid divisor for `Current' ?
       do
          Result := not other.is_zero
       end
 
-   one: NUMBER is
+   one: NUMBER
          -- The neutral element of multiplication.
       once
          create {INTEGER_64_NUMBER} Result.make(1)
@@ -602,7 +601,7 @@ feature {ANY} -- To mimic NUMERIC:
             -- multiplication.
       end
 
-   zero: NUMBER is
+   zero: NUMBER
          -- The neutral element of addition.
       once
          create {INTEGER_64_NUMBER} Result.make(0)
@@ -612,7 +611,7 @@ feature {ANY} -- To mimic NUMERIC:
             -- addition.
       end
 
-   frozen sign: INTEGER_8 is
+   frozen sign: INTEGER_8
          -- Sign of `Current' (0 or -1 or 1).
       do
          if is_positive then
@@ -626,7 +625,7 @@ feature {ANY} -- To mimic NUMERIC:
          Result = -1 implies is_negative
       end
 
-   sqrt: REAL_64 is
+   sqrt: REAL_64
          -- Compute the square routine.
       require
          fit_real
@@ -634,14 +633,14 @@ feature {ANY} -- To mimic NUMERIC:
          Result := force_to_real_64.sqrt
       end
 
-   frozen log: REAL_64 is
+   frozen log: REAL_64
       require
          fit_real
       do
          Result := force_to_real_64.log
       end
 
-   abs: NUMBER is
+   abs: NUMBER
       do
          if is_negative then
             Result := -Current
@@ -653,14 +652,14 @@ feature {ANY} -- To mimic NUMERIC:
       end
 
 feature {ANY} -- To mix NUMBER and INTEGER_64:
-   infix "@+" (other: INTEGER_64): NUMBER is
+   infix "@+" (other: INTEGER_64): NUMBER
          -- Sum of `Current' and `other'.
       deferred
       ensure
          Result /= Void
       end
 
-   infix "@-" (other: INTEGER_64): NUMBER is
+   infix "@-" (other: INTEGER_64): NUMBER
          -- Difference of `Current' and `other'.
       do
          if other = Minimum_integer_64 then
@@ -673,13 +672,13 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
          Result /= Void
       end
 
-   infix "@*" (other: INTEGER_64): NUMBER is
+   infix "@*" (other: INTEGER_64): NUMBER
       deferred
       ensure
          Result /= Void
       end
 
-   infix "@/" (other: INTEGER_64): NUMBER is
+   infix "@/" (other: INTEGER_64): NUMBER
          -- Quotient of `Current' and `other'.
       require
          other /= 0
@@ -688,7 +687,7 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
          Result /= Void
       end
 
-   infix "@//" (other: INTEGER_64): NUMBER is
+   infix "@//" (other: INTEGER_64): NUMBER
          -- Divide `Current' by `other' (Integer division).
       require
          is_integer_general_number
@@ -698,7 +697,7 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
          Result.is_integer_general_number
       end
 
-   infix "@\\" (other: INTEGER_64): NUMBER is
+   infix "@\\" (other: INTEGER_64): NUMBER
          -- Remainder of division of `Current' by `other'.
       require
          is_integer_general_number
@@ -708,7 +707,7 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
          Result.is_integer_general_number
       end
 
-   infix "@^" (exp: INTEGER_64): NUMBER is
+   infix "@^" (exp: INTEGER_64): NUMBER
       require
          is_zero implies exp > 0
       local
@@ -746,33 +745,33 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
          --| Result /= Current implies (exp /= 1 or else not is_zero)
       end
 
-   infix "@=" (other: INTEGER_64): BOOLEAN is
+   infix "@=" (other: INTEGER_64): BOOLEAN
          -- Is `Current' equal `other' ?
       deferred
       end
 
-   infix "@<" (other: INTEGER_64): BOOLEAN is
+   infix "@<" (other: INTEGER_64): BOOLEAN
          -- Is `Current' strictly less than `other'?
       deferred
       ensure
          Result = not (Current @>= other)
       end
 
-   infix "@<=" (other: INTEGER_64): BOOLEAN is
+   infix "@<=" (other: INTEGER_64): BOOLEAN
          -- Is `Current' less or equal `other'?
       deferred
       ensure
          Result = not (Current @> other)
       end
 
-   infix "@>" (other: INTEGER_64): BOOLEAN is
+   infix "@>" (other: INTEGER_64): BOOLEAN
          -- Is `Current' strictly greater than `other'?
       deferred
       ensure
          Result = not (Current @<= other)
       end
 
-   infix "@>=" (other: INTEGER_64): BOOLEAN is
+   infix "@>=" (other: INTEGER_64): BOOLEAN
          -- Is `Current' greater or equal than `other'?
       deferred
       ensure
@@ -780,33 +779,33 @@ feature {ANY} -- To mix NUMBER and INTEGER_64:
       end
 
 feature {ANY} -- To mix NUMBER and REAL_64:
-   infix "#=" (other: REAL_64): BOOLEAN is
+   infix "#=" (other: REAL_64): BOOLEAN
          -- Is `Current' equal `other'?
       deferred
       end
 
-   infix "#<" (other: REAL_64): BOOLEAN is
+   infix "#<" (other: REAL_64): BOOLEAN
          -- Is `Current' strictly less than `other'?
       deferred
       ensure
          Result implies not (Current #>= other)
       end
 
-   infix "#<=" (other: REAL_64): BOOLEAN is
+   infix "#<=" (other: REAL_64): BOOLEAN
          -- Is `Current' less or equal `other'?
       deferred
       ensure
          Result = not (Current #> other)
       end
 
-   infix "#>" (other: REAL_64): BOOLEAN is
+   infix "#>" (other: REAL_64): BOOLEAN
          -- Is `Current' strictly greater than `other'?
       deferred
       ensure
          Result = not (Current #<= other)
       end
 
-   infix "#>=" (other: REAL_64): BOOLEAN is
+   infix "#>=" (other: REAL_64): BOOLEAN
          -- Is `Current' greater or equal than `other'?
       deferred
       ensure
@@ -814,16 +813,16 @@ feature {ANY} -- To mix NUMBER and REAL_64:
       end
 
 feature {ANY} -- Misc:
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          append_in(tagged_out_memory)
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       deferred
       end
 
-   inverse: NUMBER is
+   inverse: NUMBER
       require
          divisible(Current)
       deferred
@@ -831,7 +830,7 @@ feature {ANY} -- Misc:
          Result /= Void
       end
 
-   factorial: NUMBER is
+   factorial: NUMBER
       require
          is_integer_general_number
          not is_negative
@@ -841,16 +840,16 @@ feature {ANY} -- Misc:
          Result.is_positive
       end
 
-   numerator: INTEGER_GENERAL_NUMBER is
+   numerator: INTEGER_GENERAL_NUMBER
       deferred
       end
 
-   denominator: INTEGER_GENERAL_NUMBER is
+   denominator: INTEGER_GENERAL_NUMBER
       deferred
       end
 
 feature {NUMBER} -- Implementation:
-   frozen add_with_integer_64_number (other: INTEGER_64_NUMBER): NUMBER is
+   frozen add_with_integer_64_number (other: INTEGER_64_NUMBER): NUMBER
       require
          other /= Void
       do
@@ -859,7 +858,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   add_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       require
          other /= Void
       deferred
@@ -867,7 +866,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   add_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       require
          other /= Void
       deferred
@@ -875,7 +874,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   multiply_with_integer_64_number (other: INTEGER_64_NUMBER): NUMBER is
+   multiply_with_integer_64_number (other: INTEGER_64_NUMBER): NUMBER
       require
          other /= Void
       do
@@ -884,7 +883,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_big_integer_number (other: BIG_INTEGER_NUMBER): NUMBER
       require
          other /= Void
       deferred
@@ -892,7 +891,7 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER is
+   multiply_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): NUMBER
       require
          other /= Void
       deferred
@@ -900,39 +899,39 @@ feature {NUMBER} -- Implementation:
          Result /= Void
       end
 
-   greater_with_integer_64_number (other: INTEGER_64_NUMBER): BOOLEAN is
+   greater_with_integer_64_number (other: INTEGER_64_NUMBER): BOOLEAN
       require
          other /= Void
       do
          Result := Current @> other.to_integer_32
       end
 
-   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_big_integer_number (other: BIG_INTEGER_NUMBER): BOOLEAN
       require
          other /= Void
       deferred
       end
 
-   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN is
+   greater_with_fraction_with_big_integer_number (other: FRACTION_WITH_BIG_INTEGER_NUMBER): BOOLEAN
       require
          other /= Void
       deferred
       end
 
-   gcd_with_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd_with_integer_64_number (other: INTEGER_64_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
       end
 
-   gcd_with_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER is
+   gcd_with_big_integer_number (other: BIG_INTEGER_NUMBER): INTEGER_GENERAL_NUMBER
       require
          other /= Void
       deferred
       end
 
 feature {NUMBER, NUMBER_TOOLS}
-   max_double: NUMBER is
+   max_double: NUMBER
       local
          nt: NUMBER_TOOLS; tmp: STRING
       once
@@ -942,7 +941,7 @@ feature {NUMBER, NUMBER_TOOLS}
          Result := nt.from_string(tmp)
       end
 
-   min_double: NUMBER is
+   min_double: NUMBER
       local
          nt: NUMBER_TOOLS; tmp: STRING
       once
@@ -953,39 +952,39 @@ feature {NUMBER, NUMBER_TOOLS}
       end
 
 feature {NUMBER} -- To implement efficient calculus
-   mutable_register1: MUTABLE_BIG_INTEGER is
+   mutable_register1: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer_64(0)
       end
 
-   mutable_register2: MUTABLE_BIG_INTEGER is
+   mutable_register2: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer_64(0)
       end
 
-   mutable_register3: MUTABLE_BIG_INTEGER is
+   mutable_register3: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer_64(0)
       end
 
-   mutable_register4: MUTABLE_BIG_INTEGER is
+   mutable_register4: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer_64(0)
       end
 
 feature {}
-   string_buffer: STRING is
+   string_buffer: STRING
       once
          create Result.make(128)
       end
 
-   unicode_string_buffer: UNICODE_STRING is
+   unicode_string_buffer: UNICODE_STRING
       once
          create Result.make(128)
       end
 
 feature {} -- To create fractions
-   from_two_integer (n, d: INTEGER_64): NUMBER is
+   from_two_integer (n, d: INTEGER_64): NUMBER
       require
          d /= 0
       local
@@ -998,7 +997,7 @@ feature {} -- To create fractions
          Result @* d @= n
       end
 
-   from_two_integer_general_number (n, d: INTEGER_GENERAL_NUMBER): NUMBER is
+   from_two_integer_general_number (n, d: INTEGER_GENERAL_NUMBER): NUMBER
       require
          n /= Void
          d /= Void
@@ -1013,7 +1012,7 @@ feature {} -- To create fractions
          n.is_equal(Result * d)
       end
 
-   from_integer_and_integer_general_number (n: INTEGER_64; d: INTEGER_GENERAL_NUMBER): NUMBER is
+   from_integer_and_integer_general_number (n: INTEGER_64; d: INTEGER_GENERAL_NUMBER): NUMBER
       require
          d /= Void
          not d.is_zero
@@ -1024,7 +1023,7 @@ feature {} -- To create fractions
          Result := from_two_integer_general_number(n_number, d)
       end
 
-   from_integer_general_number_and_integer (n: INTEGER_GENERAL_NUMBER; d: INTEGER_64): NUMBER is
+   from_integer_general_number_and_integer (n: INTEGER_GENERAL_NUMBER; d: INTEGER_64): NUMBER
       require
          n /= Void
          d /= 0
@@ -1042,13 +1041,13 @@ invariant
 
 end -- class NUMBER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

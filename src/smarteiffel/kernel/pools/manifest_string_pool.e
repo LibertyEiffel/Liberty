@@ -17,7 +17,7 @@ insert
       end
 
 feature {MANIFEST_STRING}
-   collect (ms: MANIFEST_STRING; once_flag, unicode_flag: BOOLEAN; type: TYPE): STRING is
+   collect (ms: MANIFEST_STRING; once_flag, unicode_flag: BOOLEAN; type: TYPE): STRING
          -- The `Result' is the name of the corresponding "ms_XXX" global variable (only when `once_flag' is True).
       require
          once_flag = ms.once_flag
@@ -83,7 +83,7 @@ feature {MANIFEST_STRING}
       end
 
 feature {}
-   make_unique (buffer: STRING; exists: PREDICATE[TUPLE[STRING]]) is
+   make_unique (buffer: STRING; exists: PREDICATE[TUPLE[STRING]])
       local
          index, up: INTEGER
       do
@@ -103,7 +103,7 @@ feature {}
          buffer.count > old buffer.count
       end
 
-   append_once_variable_index (buffer: STRING; index: INTEGER) is
+   append_once_variable_index (buffer: STRING; index: INTEGER)
       require
          index >= 0
       local
@@ -125,7 +125,7 @@ feature {}
       end
 
 feature {EXTERNAL_FUNCTION, SMART_EIFFEL, NATIVE_BUILT_IN}
-   collect_string (string_type: TYPE) is
+   collect_string (string_type: TYPE)
       require
          string_type.is_string
       local
@@ -159,7 +159,7 @@ feature {ANY}
    is_string_collected: BOOLEAN
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
          -- Called before a re-collect cycle.
       do
          first_manifest_string_collected_flag := False
@@ -170,22 +170,22 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]] is
+   agent_exists_in_collected_once_variables: PREDICATE[TUPLE[STRING]]
       once
          Result := agent exists_in_collected_once_variables(?)
       end
 
-   exists_in_collected_once_variables (a_string: STRING): BOOLEAN is
+   exists_in_collected_once_variables (a_string: STRING): BOOLEAN
       do
          Result := collected_once_variables.has(a_string)
       end
 
-   agent_exists_in_collected_storage_id_set: PREDICATE[TUPLE[STRING]] is
+   agent_exists_in_collected_storage_id_set: PREDICATE[TUPLE[STRING]]
       once
          Result := agent exists_in_collected_storage_id_set(?)
       end
 
-   exists_in_collected_storage_id_set (a_string: STRING): BOOLEAN is
+   exists_in_collected_storage_id_set (a_string: STRING): BOOLEAN
       do
          Result := collected_storage_id_set.has(a_string)
       end
@@ -199,31 +199,31 @@ feature {ANY}
          -- Switch to detect that at least one MANIFEST_STRING has been collected.
          -- (To avoid feature stamp recomputation.)
 
-   collected_once_count: INTEGER is
+   collected_once_count: INTEGER
       do
          Result := collected_once_variables.count
       end
 
-   collected_once_item (i: INTEGER): MANIFEST_STRING is
+   collected_once_item (i: INTEGER): MANIFEST_STRING
       require
          i.in_range(1, collected_once_count)
       do
          Result := collected_once_variables.item(i)
       end
 
-   storage_alias_count: INTEGER is
+   storage_alias_count: INTEGER
       do
          Result := storage_alias.count
       end
 
-   storage_alias_item (i: INTEGER): MANIFEST_STRING is
+   storage_alias_item (i: INTEGER): MANIFEST_STRING
       require
          i.in_range(1, storage_alias_count)
       do
          Result := storage_alias.item(i)
       end
 
-   se_ms: RUN_FEATURE is
+   se_ms: RUN_FEATURE
          -- The one of `string_from_external_sized_copy_stamp'.
       require
          first_manifest_string_collected_flag
@@ -236,7 +236,7 @@ feature {ANY}
          end
       end
 
-   se_ums: RUN_FEATURE is
+   se_ums: RUN_FEATURE
          -- The one of `unicode_string_manifest_initialize_stamp'.
       require
          first_unicode_manifest_string_collected_flag
@@ -250,19 +250,19 @@ feature {ANY}
       end
 
 feature {}
-   collected_once_variables: DICTIONARY[MANIFEST_STRING, STRING] is
+   collected_once_variables: DICTIONARY[MANIFEST_STRING, STRING]
          -- To allocate different global variables names for each collected "once" manifest string.
       once
          create {HASHED_DICTIONARY[MANIFEST_STRING, STRING]} Result.with_capacity(4096)
       end
 
-   storage_alias: DICTIONARY[MANIFEST_STRING, MANIFEST_STRING] is
+   storage_alias: DICTIONARY[MANIFEST_STRING, MANIFEST_STRING]
          -- For storage aliasing.
       once
          create {HASHED_DICTIONARY[MANIFEST_STRING, MANIFEST_STRING]} Result.with_capacity(4096)
       end
 
-   collected_storage_id_set: SET[STRING] is
+   collected_storage_id_set: SET[STRING]
          -- Because we share common initial storage amongs collected MANIFEST_STRINGs, we have to maintain this set up to
          -- date while collecting.
       once
@@ -294,9 +294,9 @@ end -- class MANIFEST_STRING_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

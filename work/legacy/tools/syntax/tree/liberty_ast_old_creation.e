@@ -26,17 +26,17 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_type_definition: BOOLEAN is
+   has_type_definition: BOOLEAN
       do
          Result := count = 4 or else count = 7
       end
 
-   has_creation_feature_call: BOOLEAN is
+   has_creation_feature_call: BOOLEAN
       do
          Result := count = 6 or else count = 7
       end
 
-   writable: LIBERTY_AST_WRITABLE is
+   writable: LIBERTY_AST_WRITABLE
       do
          if has_type_definition then
             Result ::= nodes.item(3)
@@ -45,12 +45,12 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   type_definition: LIBERTY_AST_TYPE_DEFINITION is
+   type_definition: LIBERTY_AST_TYPE_DEFINITION
       do
          Result ::= nodes.item(1)
       end
 
-   creation_feature_name: LIBERTY_AST_ENTITY_NAME is
+   creation_feature_name: LIBERTY_AST_ENTITY_NAME
       do
          if has_type_definition then
             Result ::= nodes.item(5)
@@ -59,7 +59,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   creation_feature_actuals: LIBERTY_AST_ACTUALS is
+   creation_feature_actuals: LIBERTY_AST_ACTUALS
       do
          if has_type_definition then
             Result ::= nodes.item(6)
@@ -69,10 +69,10 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   name: STRING is "Old_Creation"
+   name: STRING "Old_Creation"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 3, 4, 6, 7 >> }
       end

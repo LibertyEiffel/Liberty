@@ -39,24 +39,24 @@ feature {ANY}
    depth: INTEGER
    cluster: LIBERTY_CLUSTER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
-   needs: TRAVERSABLE[LIBERTY_ETC_NEEDS] is
+   needs: TRAVERSABLE[LIBERTY_ETC_NEEDS]
       do
          Result := needs_memory
       ensure
          Result /= Void
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := name.hash_code
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -86,7 +86,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_ETC_VISITOR_IMPL}
-   set_version (a_version: like version) is
+   set_version (a_version: like version)
       require
          version = Void
          a_version /= Void
@@ -96,7 +96,7 @@ feature {LIBERTY_ETC_VISITOR_IMPL}
          version = a_version
       end
 
-   add_needs (a_needs: LIBERTY_ETC_NEEDS) is
+   add_needs (a_needs: LIBERTY_ETC_NEEDS)
       require
          a_needs /= Void
       do
@@ -105,20 +105,20 @@ feature {LIBERTY_ETC_VISITOR_IMPL}
          needs_memory.fast_has(a_needs)
       end
 
-   check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]) is
+   check_validity (all_clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING])
       require
          all_clusters /= Void
       do
          needs_memory.do_all(agent {LIBERTY_ETC_NEEDS}.check_validity(all_clusters))
       end
 
-   check_cycles is
+   check_cycles
       do
          needs_memory.do_all(agent (n: LIBERTY_ETC_NEEDS) is do n.cluster.check_cycle(Current, n) end)
       end
 
 feature {LIBERTY_ETC_CLUSTER}
-   check_cycle (a_origin: LIBERTY_ETC_CLUSTER; a_needs: LIBERTY_ETC_NEEDS) is
+   check_cycle (a_origin: LIBERTY_ETC_CLUSTER; a_needs: LIBERTY_ETC_NEEDS)
       require
          a_needs.cluster = Current
       do
@@ -128,7 +128,7 @@ feature {LIBERTY_ETC_CLUSTER}
          clear_cycle_mark
       end
 
-   find_cycle (origin, start: LIBERTY_ETC_CLUSTER): BOOLEAN is
+   find_cycle (origin, start: LIBERTY_ETC_CLUSTER): BOOLEAN
       do
          if mark = 1 then
             Result := start = Current
@@ -153,7 +153,7 @@ feature {LIBERTY_ETC_CLUSTER}
          mark := 0
       end
 
-   clear_cycle_mark is
+   clear_cycle_mark
       do
          if mark /= 0 then
             mark := 0
@@ -162,7 +162,7 @@ feature {LIBERTY_ETC_CLUSTER}
       end
 
 feature {}
-   find_needs_cycle (a_needs: LIBERTY_ETC_NEEDS; origin, start: LIBERTY_ETC_CLUSTER): BOOLEAN is
+   find_needs_cycle (a_needs: LIBERTY_ETC_NEEDS; origin, start: LIBERTY_ETC_CLUSTER): BOOLEAN
       do
          Result := a_needs.cluster.find_cycle(origin, start)
          if Result then
@@ -170,13 +170,13 @@ feature {}
          end
       end
 
-   clear_needs_cycle (a_needs: LIBERTY_ETC_NEEDS) is
+   clear_needs_cycle (a_needs: LIBERTY_ETC_NEEDS)
       do
          a_needs.cluster.clear_cycle_mark
       end
 
 feature {LIBERTY_ETC_VISITOR_IMPL, LIBERTY_ETC_CLUSTER}
-   fix_depth (a_mark: like mark): BOOLEAN is
+   fix_depth (a_mark: like mark): BOOLEAN
       require
          a_mark >= mark
       do
@@ -193,7 +193,7 @@ feature {LIBERTY_ETC_VISITOR_IMPL, LIBERTY_ETC_CLUSTER}
    mark: INTEGER
 
 feature {}
-   deepen_needs: BOOLEAN is
+   deepen_needs: BOOLEAN
       local
          i: INTEGER; need: LIBERTY_ETC_NEEDS
       do
@@ -216,7 +216,7 @@ feature {}
          end
       end
 
-   fix_needs_depth: BOOLEAN is
+   fix_needs_depth: BOOLEAN
       local
          i: INTEGER
       do
@@ -233,7 +233,7 @@ feature {}
       end
 
 feature {LIBERTY_ETC_CLUSTER}
-   set_depth (a_depth: like depth) is
+   set_depth (a_depth: like depth)
       require
          a_depth > depth
       do
@@ -253,7 +253,7 @@ feature {LIBERTY_ETC_CLUSTER}
       end
 
 feature {LIBERTY_CLUSTER}
-   set_cluster (a_cluster: like cluster) is
+   set_cluster (a_cluster: like cluster)
       require
          cluster = Void
          a_cluster /= Void
@@ -264,7 +264,7 @@ feature {LIBERTY_CLUSTER}
       end
 
 feature {}
-   make (a_name: like name; a_locations: like locations) is
+   make (a_name: like name; a_locations: like locations)
       require
          not a_name.is_empty
          not a_locations.is_empty

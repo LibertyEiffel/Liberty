@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          actions: FAST_ARRAY[TUPLE[STRING, PROCEDURE[TUPLE[STRING]]]]
          t: TUPLE[STRING]
@@ -27,7 +27,7 @@ feature {}
          end
       end
 
-   verify (expected, actual: STRING) is
+   verify (expected, actual: STRING)
       do
          assert(expected.is_equal(actual))
       end

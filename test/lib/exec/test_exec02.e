@@ -15,7 +15,7 @@ feature {}
 
    process: PROCESS
 
-   make is
+   make
       local
          pf: PROCESS_FACTORY
       do
@@ -31,7 +31,7 @@ feature {}
          end
       end
 
-   test_process is
+   test_process
       local
          stream: INPUT_STREAM; string: STRING
       do

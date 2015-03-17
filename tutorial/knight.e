@@ -22,7 +22,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          size, line, column: INTEGER
       do
@@ -52,25 +52,25 @@ feature {}
          knight(size, line, column)
       end
 
-   chess_minimum: INTEGER is 3
+   chess_minimum: INTEGER 3
 
-   chess_maximum: INTEGER is 24
+   chess_maximum: INTEGER 24
 
    chessboard: ARRAY2[INTEGER]
 
    nb_tries: INTEGER
 
-   line_move: FAST_ARRAY[INTEGER] is
+   line_move: FAST_ARRAY[INTEGER]
       once
          Result := {FAST_ARRAY[INTEGER] << -2, -1, 1, 2, 2, 1, -1, -2 >> }
       end
 
-   column_move: FAST_ARRAY[INTEGER] is
+   column_move: FAST_ARRAY[INTEGER]
       once
          Result := {FAST_ARRAY[INTEGER] << 1, 2, 2, 1, -1, -2, -2, -1 >> }
       end
 
-   knight (size, line, column: INTEGER) is
+   knight (size, line, column: INTEGER)
       require
          size >= 3
          1 <= line
@@ -91,7 +91,7 @@ feature {}
          io.put_new_line
       end
 
-   solution (line, column: INTEGER): BOOLEAN is
+   solution (line, column: INTEGER): BOOLEAN
       local
          value, i: INTEGER
       do
@@ -110,7 +110,7 @@ feature {}
          end
       end
 
-   try (line, column, value: INTEGER): BOOLEAN is
+   try (line, column, value: INTEGER): BOOLEAN
          -- Try to place the knight by used cross back-tracking method.
       do
          nb_tries := nb_tries + 1
@@ -125,7 +125,7 @@ feature {}
          end
       end
 
-   ask (s: STRING; min, max: INTEGER): INTEGER is
+   ask (s: STRING; min, max: INTEGER): INTEGER
          -- Ask for question `s' until the answer is in range `min' `max'.
       local
          stop: BOOLEAN
@@ -149,7 +149,7 @@ feature {}
       end
 
 feature {ANY}
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
          -- Display the cheesboard.
       local
          line, column: INTEGER; separator: STRING

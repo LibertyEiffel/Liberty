@@ -8,23 +8,23 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          create aa
-         aa.do_all(agent fa(?))
+         aa.for_each(agent fa(?))
          create bb
-         bb.do_all(agent fb(?))
+         bb.for_each(agent fb(?))
       end
 
    aa: AUX_AGENT10[INTEGER]
 
    bb: AUX_AGENT10[CHARACTER]
 
-   fa (a: INTEGER) is
+   fa (a: INTEGER)
       do
       end
 
-   fb (b: CHARACTER) is
+   fb (b: CHARACTER)
       do
       end
 

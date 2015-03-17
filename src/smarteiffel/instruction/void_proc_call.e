@@ -23,25 +23,25 @@ feature {ANY}
    target_type: TYPE
          --  Of the Void call (the one to be used with `feature_stamp').
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          -- No because it produces a crash.
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          error_handler.append(once "Call on a Void target in the live code (when the type of Current is ")
          error_handler.append(type.name.to_string)
@@ -50,24 +50,24 @@ feature {ANY}
          error_handler.print_as_warning
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
-   accept (visitor: VOID_PROC_CALL_VISITOR) is
+   accept (visitor: VOID_PROC_CALL_VISITOR)
       do
          visitor.visit_void_proc_call(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
+   make (sp: like start_position; fs: like feature_stamp; tt: like target_type)
       require
          not sp.is_unknown
          fs /= Void
@@ -99,9 +99,9 @@ end -- class VOID_PROC_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

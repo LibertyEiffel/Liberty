@@ -5,7 +5,7 @@ class AUX_DEFERRED3A
 
 feature {ANY}
 
-   deferred_foo is deferred end
+   deferred_foo deferred end
 
 end -- class AUX_DEFERRED3A
 --

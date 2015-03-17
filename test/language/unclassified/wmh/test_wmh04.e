@@ -5,7 +5,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          call_once_only
          check
@@ -15,7 +15,7 @@ feature {}
 
    count: INTEGER
 
-   call_once_only is
+   call_once_only
       require
          count = 0
       do

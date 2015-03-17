@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          o: AUX_05B; bool: BOOLEAN
       do
@@ -17,7 +17,7 @@ feature {ANY}
          end
       end
 
-   c_prog (o: AUX_05B) is
+   c_prog (o: AUX_05B)
       external "C"
       end
 

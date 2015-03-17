@@ -16,14 +16,14 @@ feature {ANY}
    raw: BOOLEAN
          -- True if utf-8 characters can be emitted, False if '\u' sequences are emitted instead
 
-   set_pretty (enable: BOOLEAN) is
+   set_pretty (enable: BOOLEAN)
       do
          pretty := enable
       ensure
          pretty = enable
       end
 
-   set_raw (enable: BOOLEAN) is
+   set_raw (enable: BOOLEAN)
       do
          raw := enable
       ensure
@@ -31,7 +31,7 @@ feature {ANY}
       end
 
 feature {JSON_HANDLER}
-   encode_in (value: JSON_VALUE; a_stream: like out_stream) is
+   encode_in (value: JSON_VALUE; a_stream: like out_stream)
       require
          value /= Void
          a_stream.is_connected
@@ -49,7 +49,7 @@ feature {JSON_HANDLER}
       end
 
 feature {JSON_ARRAY}
-   visit_array (json: JSON_ARRAY) is
+   visit_array (json: JSON_ARRAY)
       local
          i: INTEGER
       do
@@ -73,25 +73,25 @@ feature {JSON_ARRAY}
       end
 
 feature {JSON_FALSE}
-   visit_false (json: JSON_FALSE) is
+   visit_false (json: JSON_FALSE)
       do
          out_stream.put_string(once "false")
       end
 
 feature {JSON_NULL}
-   visit_null (json: JSON_NULL) is
+   visit_null (json: JSON_NULL)
       do
          out_stream.put_string(once "null")
       end
 
 feature {JSON_NUMBER}
-   visit_number (json: JSON_NUMBER) is
+   visit_number (json: JSON_NUMBER)
       do
          json.write_to(out_stream)
       end
 
 feature {JSON_OBJECT}
-   visit_object (json: JSON_OBJECT) is
+   visit_object (json: JSON_OBJECT)
       local
          i, sep: INTEGER
       do
@@ -134,13 +134,13 @@ feature {JSON_OBJECT}
       end
 
 feature {JSON_STRING}
-   visit_string (json: JSON_STRING) is
+   visit_string (json: JSON_STRING)
       do
          json.write_to(out_stream, raw)
       end
 
 feature {JSON_TRUE}
-   visit_true (json: JSON_TRUE) is
+   visit_true (json: JSON_TRUE)
       do
          out_stream.put_string(once "true")
       end
@@ -149,11 +149,11 @@ feature {}
    out_stream: OUTPUT_STREAM
    depth: INTEGER
 
-   make is
+   make
       do
       end
 
-   pretty_indent is
+   pretty_indent
       do
          if pretty then
             out_stream.put_new_line
@@ -161,7 +161,7 @@ feature {}
          end
       end
 
-   pretty_extend (count: INTEGER) is
+   pretty_extend (count: INTEGER)
       require
          pretty
       local
@@ -179,13 +179,13 @@ feature {}
 
 end -- class JSON_ENCODER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

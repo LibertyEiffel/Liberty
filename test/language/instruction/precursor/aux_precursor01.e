@@ -4,33 +4,33 @@
 class AUX_PRECURSOR01
    -- Written by Vincent CROIZIER.
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    trace: INTEGER
 
-   make is
+   make
       do
          trace := -1
       end
 
-   class_number_in_trace is
+   class_number_in_trace
       do
          trace := 0
       end
 
-   class_number: INTEGER is
+   class_number: INTEGER
       do
          Result := 0
       end
 
-   times_class_number (x: INTEGER): INTEGER is
+   times_class_number (x: INTEGER): INTEGER
       do
          Result := 0
       end
 
-   affine_class_number_in_trace (x, y: INTEGER) is
+   affine_class_number_in_trace (x, y: INTEGER)
       do
          trace := y
          -- 0 * x + y

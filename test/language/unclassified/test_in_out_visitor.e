@@ -21,20 +21,20 @@ feature {}
 
    done: SET[STRING]
 
-   make is
+   make
       local
          cn: CLASS_NAME
       do
          bootstrap
          create {HASHED_SET[STRING]} done.make
-         create cn.unknown_position(ace.root_class_name)
-         class_text := smart_eiffel.class_text(cn, True)
+         create cn.unknown_position(ace.root_class_name, False)
+         class_text := smart_eiffel.class_text(cn)
          assert(class_text /= Void)
          class_text.accept(Current)
          assert(done.fast_has(class_text.name.to_string))
       end
 
-   enter_class_text (visited: CLASS_TEXT): BOOLEAN is
+   enter_class_text (visited: CLASS_TEXT): BOOLEAN
       local
          cn: STRING
       do
@@ -45,27 +45,27 @@ feature {}
          end
       end
 
-   exit_class_text (visited: CLASS_TEXT) is
+   exit_class_text (visited: CLASS_TEXT)
       do
          -- std_output.put_string(visited.name.to_string)
          -- std_output.put_new_line
       end
 
-   parse_arguments is
+   parse_arguments
       do
          root_class_name := "STRING"
          root_procedure_name := "make_empty"
       end
 
-   use_short_mode: BOOLEAN is False
+   use_short_mode: BOOLEAN False
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
       end
 
-   usage: STRING is ""
+   usage: STRING ""
 
-   valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING ""
 
 end -- class TEST_IN_OUT_VISITOR
 --

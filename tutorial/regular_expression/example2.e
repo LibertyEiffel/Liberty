@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          factory: REGULAR_EXPRESSION_BUILDER; se: REGULAR_EXPRESSION
       do

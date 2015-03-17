@@ -24,7 +24,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_REQUIRE_ELSE}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_REQUIRE_ELSE_VISITOR
       do
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   specialized (a_assertions: like assertions_list): like Current is
+   specialized (a_assertions: like assertions_list): like Current
       do
          create Result.make(a_assertions)
       end

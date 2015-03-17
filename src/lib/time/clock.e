@@ -4,13 +4,13 @@
 expanded class CLOCK
 
 feature {ANY}
-   value: INTEGER is
+   value: INTEGER
          -- Get the CPU clock periods if available (-1 if not).
       do
          Result := basic_clock
       end
    
-   periods_per_second: INTEGER is
+   periods_per_second: INTEGER
          --  The number of clock periods per seconds.
       require
          value >= 0
@@ -19,7 +19,7 @@ feature {ANY}
       end
    
 feature {}
-   basic_clock: INTEGER is
+   basic_clock: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -28,7 +28,7 @@ feature {}
          }"
       end
    
-   basic_clock_per_sec: INTEGER is
+   basic_clock_per_sec: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -39,13 +39,13 @@ feature {}
    
 end -- class CLOCK
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

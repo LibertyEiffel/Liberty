@@ -6,11 +6,11 @@ class AUX_CREATE04A
 inherit
    AUX_CREATE04
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (med_par: TEST_CREATE04) is
+   make (med_par: TEST_CREATE04)
       do
       end
 

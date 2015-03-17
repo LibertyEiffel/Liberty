@@ -21,7 +21,7 @@ feature {ANY}
 
    dog: DOG
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -92,7 +92,7 @@ feature {ANY}
          --assert(any.same_dynamic_type(ar))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

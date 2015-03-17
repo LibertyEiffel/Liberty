@@ -28,26 +28,26 @@ inherit
 create {ANY} from_external_pointer
 
 feature {ANY} -- size
-	struct_size: INTEGER is
+	struct_size: INTEGER
 		external "C inline use <glib-object.h>"
 		alias "sizeof(GEnumValue)"
 		end
 
 feature {ANY} 
 
-	value: INTEGER is
+	value: INTEGER
 		-- the enum value
 		do
 			Result:=get_value (handle)
 		end
 
-	name: STRING is
+	name: STRING
 			-- the name of the value
 		do
 			create Result.from_external_copy (get_name(handle))
 		end
 
-	nick: STRING is
+	nick: STRING
 			-- the nickname of the value
 		do
 			create Result.from_external_copy (get_nick(handle))
@@ -62,15 +62,15 @@ feature {} -- External call
 	--   gchar *value_nick;
 	--} ;
 
-	get_value (a_genum_value: POINTER): INTEGER is
+	get_value (a_genum_value: POINTER): INTEGER
 		external "C struct GEnumValue get value use <glib-object.h>"
 		end
 
-	get_name (a_genum_value: POINTER): POINTER is
+	get_name (a_genum_value: POINTER): POINTER
 		external "C struct GEnumValue get value_name use <glib-object.h>"
 		end
 
-	get_nick (a_genum_value: POINTER): POINTER is
+	get_nick (a_genum_value: POINTER): POINTER
 		external "C struct GEnumValue get value_nick use <glib-object.h>"
 		end
 end

@@ -11,7 +11,7 @@ inherit
    INPUT_STREAM
 
 feature {ANY}
-   read_byte is
+   read_byte
          -- Read a byte and assign it to `last_byte'.
       require
          is_connected
@@ -20,7 +20,7 @@ feature {ANY}
       deferred
       end
 
-   last_byte: INTEGER is
+   last_byte: INTEGER
          -- Last byte read with `read_byte'.
       require
          is_connected
@@ -29,7 +29,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_16_native_endian is
+   read_integer_16_native_endian
          -- Read in the same order as the machine running this code. If a
          -- 16-bits value is available, it's assigned to `last_integer_16'.
          -- The result is machine dependant.
@@ -40,7 +40,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_16_big_endian is
+   read_integer_16_big_endian
          -- Read a big endian value is the file. If a 16-bits value
          -- is available, it's assigned to `last_integer_16'.
       require
@@ -50,7 +50,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_16_little_endian is
+   read_integer_16_little_endian
          -- Read a little endian value is the file. If a 16-bits value
          -- is available, it's assigned to `last_integer_16'.
       require
@@ -60,7 +60,7 @@ feature {ANY}
       deferred
       end
 
-   last_integer_16: INTEGER is
+   last_integer_16: INTEGER
          -- Last byte read with `read_integer_16_*'.
       require
          is_connected
@@ -69,7 +69,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_32_native_endian is
+   read_integer_32_native_endian
          -- Read in the same order as the machine running this code. If a
          -- 32-bits value is available, it's assigned to `last_integer_32'.
          -- The result is machine dependant.
@@ -78,7 +78,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_32_big_endian is
+   read_integer_32_big_endian
          -- Read a big endian value is the file. If 32-bits value
          -- is available, it's assigned to `last_integer_32'.
       require
@@ -88,7 +88,7 @@ feature {ANY}
       deferred
       end
 
-   read_integer_32_little_endian is
+   read_integer_32_little_endian
          -- Read a little endian value is the file. If a 32-bits value
          -- is available, it's assigned to `last_integer_32'.
       require
@@ -98,7 +98,7 @@ feature {ANY}
       deferred
       end
 
-   last_integer_32: INTEGER is
+   last_integer_32: INTEGER
       require
          is_connected
          not end_of_input
@@ -108,13 +108,13 @@ feature {ANY}
 
 end -- class BINARY_INPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

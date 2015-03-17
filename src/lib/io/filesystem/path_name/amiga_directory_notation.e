@@ -9,17 +9,17 @@ inherit
    DIRECTORY_NOTATION
 
 feature {ANY}
-   is_current_directory (path: STRING): BOOLEAN is
+   is_current_directory (path: STRING): BOOLEAN
       do
          not_yet_implemented
       end
 
-   is_parent_directory (path: STRING): BOOLEAN is
+   is_parent_directory (path: STRING): BOOLEAN
       do
          not_yet_implemented
       end
 
-   to_parent_directory (some_path: STRING) is
+   to_parent_directory (some_path: STRING)
       do
          if some_path.last = ':' then
             some_path.clear_count
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   to_subdirectory_with (parent_path, entry_name: STRING) is
+   to_subdirectory_with (parent_path, entry_name: STRING)
       do
          inspect
             parent_path.last
@@ -55,7 +55,7 @@ feature {ANY}
          parent_path.extend_unless('/')
       end
 
-   to_file_path_with (parent_path, file_name: STRING) is
+   to_file_path_with (parent_path, file_name: STRING)
       do
          inspect
             parent_path.last
@@ -72,7 +72,7 @@ feature {ANY}
          parent_path.append(file_name)
       end
 
-   to_subpath_with (parent_path, subpath: STRING) is
+   to_subpath_with (parent_path, subpath: STRING)
       do
          if parent_path.last /= ':' then
             parent_path.extend_unless('/')
@@ -80,12 +80,12 @@ feature {ANY}
          parent_path.append(subpath)
       end
 
-   to_directory_path (path: STRING) is
+   to_directory_path (path: STRING)
       do
          path.extend_unless('/')
       end
 
-   to_short_name_in (buffer, path: STRING) is
+   to_short_name_in (buffer, path: STRING)
       local
          i: INTEGER
       do
@@ -100,63 +100,63 @@ feature {ANY}
       end
 
 feature {ANY}
-   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN is
+   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN
       do
          --|*** We (c/sh)ould do better than nothing... <24/03/2005>
       end
 
-   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING) is
+   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING)
       do
          check
             False
          end
       end
 
-   to_default_root (directory: STRING) is
+   to_default_root (directory: STRING)
       do
          not_yet_implemented
       end
 
-   to_current_directory (directory: STRING) is
+   to_current_directory (directory: STRING)
       do
          not_yet_implemented
       end
 
 feature {ANY}
-   is_case_sensitive: BOOLEAN is True
+   is_case_sensitive: BOOLEAN True
 
-   is_valid_path, is_valid_directory_path (path: STRING): BOOLEAN is
+   is_valid_path, is_valid_directory_path (path: STRING): BOOLEAN
       do
          --|*** Not nearly strict enough <FM-24/03/2003>
          Result := not path.is_empty
       end
 
-   is_valid_file_name (name: STRING): BOOLEAN is
+   is_valid_file_name (name: STRING): BOOLEAN
       do
          --|*** Not nearly strict enough <FM-24/03/2003>
          Result := not name.is_empty
       end
 
-   is_absolute_path (path: STRING): BOOLEAN is
+   is_absolute_path (path: STRING): BOOLEAN
       do
          not_yet_implemented
       end
 
 feature {DIRECTORY_NOTATION}
-   to_notation (path: STRING; destination_notation: DIRECTORY_NOTATION): STRING is
+   to_notation (path: STRING; destination_notation: DIRECTORY_NOTATION): STRING
       do
          not_yet_implemented
       end
 
 end -- class AMIGA_DIRECTORY_NOTATION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -10,10 +10,10 @@ create {}
    make
 
 feature {ANY}
-   v1: STRING is "FOO"
-   v2: STRING is "BAR"
+   v1: STRING "FOO"
+   v2: STRING "BAR"
 
-   test (d: DICTIONARY[STRING, INTEGER]) is
+   test (d: DICTIONARY[STRING, INTEGER])
       do
          assert(d.count = 0)
          assert(d.is_empty)
@@ -23,8 +23,9 @@ feature {ANY}
          assert(v2 = d.at(567))
       end
 
-   make is
+   make
       do
+         test(create {ARRAY_DICTIONARY[STRING, INTEGER]}.make)
          test(create {HASHED_DICTIONARY[STRING, INTEGER]}.make)
          test(create {PYTHON_DICTIONARY[STRING, INTEGER]}.make)
       end

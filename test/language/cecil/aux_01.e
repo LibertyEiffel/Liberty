@@ -3,15 +3,15 @@
 --
 class AUX_01
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   se_call is
+   se_call
       do
          flag := True
       ensure

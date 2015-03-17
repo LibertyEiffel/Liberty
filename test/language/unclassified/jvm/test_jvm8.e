@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -18,7 +18,7 @@ feature {ANY}
          end
       end
 
-   foo: INTEGER is
+   foo: INTEGER
       local
          a: STRING
       do
@@ -26,7 +26,7 @@ feature {ANY}
          Result := bar
       end
 
-   bar: INTEGER is
+   bar: INTEGER
       local
          s: STRING
       do

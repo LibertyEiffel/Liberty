@@ -27,9 +27,9 @@ create {LIBERTY_ERRORS}
    make
 
 feature {ANY}
-   is_unknown: BOOLEAN is False
+   is_unknown: BOOLEAN False
 
-   show (stream: OUTPUT_STREAM) is
+   show (stream: OUTPUT_STREAM)
       do
          generate_source
          if index <= source.upper then
@@ -47,7 +47,7 @@ feature {}
    ast: LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {}
-   make (a_index: like index; a_ast: like ast; a_file: like file) is
+   make (a_index: like index; a_ast: like ast; a_file: like file)
       require
          a_ast /= Void
          a_index > 0
@@ -62,7 +62,7 @@ feature {}
          file = a_file
       end
 
-   generate_source is
+   generate_source
       do
          if last_ast_in_code_buffer.item /= ast then
             code_buffer.clear
@@ -71,17 +71,17 @@ feature {}
          end
       end
 
-   last_ast_in_code_buffer: REFERENCE[EIFFEL_NODE] is
+   last_ast_in_code_buffer: REFERENCE[EIFFEL_NODE]
       once
          create Result
       end
 
-   code_buffer: STRING_OUTPUT_STREAM is
+   code_buffer: STRING_OUTPUT_STREAM
       once
          create Result.connect_to(source)
       end
 
-   source: STRING is ""
+   source: STRING ""
 
 invariant
    ast /= Void

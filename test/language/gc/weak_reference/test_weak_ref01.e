@@ -12,9 +12,9 @@ create {}
    make
 
 feature {}
-   wr_count: INTEGER is 1_000
+   wr_count: INTEGER 1_000
 
-   make is
+   make
       local
          mem: MEMORY; aux_wr: AUX_WEAK_REF01; wr: WEAK_REFERENCE[AUX_WEAK_REF01]; i, void_count: INTEGER
       do
@@ -77,7 +77,7 @@ feature {}
          label_assert("check disposed weak refs are set to Void (#(1) = #(2))" # void_count.out # aux_wr_disposed.out, void_count >= aux_wr_disposed)
       end
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do
@@ -100,7 +100,7 @@ feature {}
    aux_wr_disposed: INTEGER
 
 feature {AUX_WEAK_REF01}
-   set_aux_wr_disposed is
+   set_aux_wr_disposed
       do
          aux_wr_disposed := aux_wr_disposed + 1
       end

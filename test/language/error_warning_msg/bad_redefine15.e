@@ -11,11 +11,11 @@ create {}
    make
 
 feature {}
-   foo (bar: ARRAY[INTEGER_16]) is
+   foo (bar: ARRAY[INTEGER_16])
       do
       end
 
-   make is
+   make
       do
       end
 

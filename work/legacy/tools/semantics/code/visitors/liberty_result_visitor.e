@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_RESULT}
-   visit_liberty_result (v: LIBERTY_RESULT) is
+   visit_liberty_result (v: LIBERTY_RESULT)
       deferred
       end
 

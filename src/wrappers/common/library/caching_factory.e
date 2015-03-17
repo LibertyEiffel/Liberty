@@ -27,7 +27,7 @@ inherit
    WRAPPER_FACTORY[ITEM_]
 
 feature {WRAPPER, WRAPPER_HANDLER}
-   wrappers: HASHED_DICTIONARY[ITEM_, POINTER] is
+   wrappers: HASHED_DICTIONARY[ITEM_, POINTER]
          -- Dictionary cache storing wrappers; usually used in
          -- WRAPPER_COLLECTIONs or WRAPPER_DICTIONARY
          -- Key is the address (pointer) to the wrapped C structure,
@@ -38,7 +38,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
       deferred
       end
 
-   wrapper (a_pointer: POINTER): ITEM_ is
+   wrapper (a_pointer: POINTER): ITEM_
       deferred
       ensure then
          wrappers.has(a_pointer)

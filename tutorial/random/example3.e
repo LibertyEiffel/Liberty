@@ -7,7 +7,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          random_number_generator: RANDOM_NUMBER_GENERATOR; seed, count: INTEGER
       do

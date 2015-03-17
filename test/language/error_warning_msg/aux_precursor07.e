@@ -4,7 +4,7 @@
 class AUX_PRECURSOR07
 
 feature {ANY}
-   routine is
+   routine
       deferred
       end;
 

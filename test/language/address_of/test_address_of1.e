@@ -7,16 +7,16 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          proc($function)
       end
 
-   function: INTEGER is
+   function: INTEGER
       do
       end
 
-   proc (pointer: POINTER) is
+   proc (pointer: POINTER)
       do
          assert(pointer.is_not_null)
       end

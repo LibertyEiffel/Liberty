@@ -13,14 +13,14 @@ insert
    GLOBALS
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
          -- Of the left-most character of `Current'.
       deferred
       ensure
          not Result.is_unknown
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          -- Specialize `Current' knowing that the corresponding source code was written in `type'. The `Result'
          -- still contains all the original source code information in order to be able to `specialize_in' again
          -- the `Result' in another `type'. (See also `specialize_thru' and `has_been_specialized' as well.)
@@ -32,7 +32,7 @@ feature {ANY}
          Result.generating_type = generating_type
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
          -- Used both for `specialize_in' and `specialize_thru' to indicate that we have all FEATURE_STAMPs
          -- ready for use and that FEATURE_NAMEs are no longer used (except for calls on non-current target
          -- who are available after `specialize_and_check' -- step). Finally, also note that the purpose of this
@@ -42,7 +42,7 @@ feature {ANY}
          assertion_check_only: Result
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          -- Assuming that `Current' is already specialized in `parent_type', now specialize `Current' for the
          -- `new_type' knowing that this source code is inherited thru `parent_edge'. (See also
          -- `specialize_in' and `has_been_specialized' as well.)
@@ -57,7 +57,7 @@ feature {ANY}
          Result.generating_type = generating_type
       end
 
-   specialize_and_check (type: TYPE): CODE is
+   specialize_and_check (type: TYPE): CODE
          -- This `specialize_and_check' step is applyed after `specialize_in' / `specialize_thru'. The `specialize_and_check'
          -- step has been added to continue specialization which can't be made at `specialize_in' / `specialize_thru'
          -- time (because the expression TYPE computation may involve TYPEs who don't yet exist).
@@ -79,7 +79,7 @@ feature {ANY}
          may_report_an_error: error_handler.is_empty
       end
 
-   specialize_without_checks (type: TYPE): like specialize_and_check is
+   specialize_without_checks (type: TYPE): like specialize_and_check
          -- Perform specialize_and_check without checking the validity (export violations, ...)
          -- Useful for generated code
          --|*** At the moment, checks are only inhibited for CREATE_INSTRUCTIONs.
@@ -93,8 +93,8 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   collect (type: TYPE): TYPE is
-         -- Collect `Current' to become actually true live code in `type' knowing that `Current' is
+   collect (type: TYPE): TYPE
+         -- Collect `Current' to become actually true live code in `type' knowing that `Current'
          -- already specialized in `type'. The `Result' is used for EXPRESSION only to indicates its
          -- TYPE in the `type' context. Feature `collect' may be call more than once on the same
          -- target until for example the `magic_count' to be stabilized. Also note that, when not
@@ -111,7 +111,7 @@ feature {ANY}
       deferred
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
          -- True when the evaluation of `Current' has no side effect at all (i.e. no memory allocated, no
          -- modification in the _heap_ memory, no external code with possible side effect). Actually, when
          -- `side_effect_free' is True, `Current' can be evaluated more than once or not evaluated at all.
@@ -121,7 +121,7 @@ feature {ANY}
       deferred
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
          -- Is Current used?
       require
          smart_eiffel.status.collecting_done
@@ -129,7 +129,7 @@ feature {ANY}
       deferred
       end
 
-   to_expression: EXPRESSION is
+   to_expression: EXPRESSION
          -- Safe down-casting.
       require
          {EXPRESSION} ?:= Current
@@ -137,7 +137,7 @@ feature {ANY}
          Result ::= Current
       end
 
-   to_instruction: INSTRUCTION is
+   to_instruction: INSTRUCTION
          -- Safe down-casting.
       require
          {INSTRUCTION} ?:= Current
@@ -145,7 +145,7 @@ feature {ANY}
          Result ::= Current
       end
 
-   frozen is_not_a_compound: BOOLEAN is
+   frozen is_not_a_compound: BOOLEAN
          -- Mostly for assertion checks.
       do
          Result := not {COMPOUND} ?:= Current
@@ -154,7 +154,7 @@ feature {ANY}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST, NO_INVARIANT_WRAPPER}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       require
          code_accumulator /= Void
          type /= Void
@@ -164,7 +164,7 @@ feature {CODE, EFFECTIVE_ARG_LIST, NO_INVARIANT_WRAPPER}
       end
 
 feature {ANY}
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
          -- This function is called only once at the end of the compilation process (i.e. after `collect'
          -- `inline_dynamic_dispatch' and `simplify'). During this last step RUN_FEATUREs are prepared too.
       require
@@ -175,21 +175,21 @@ feature {ANY}
          Result /= Void
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       require
          smart_eiffel.status.is_safety_checking
          type.live_type /= Void
       deferred
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       require
          smart_eiffel.pretty_flag implies indent_level >= 1
       deferred
       end
 
 feature {ANONYMOUS_FEATURE, CODE}
-   simplify (type: TYPE): CODE is
+   simplify (type: TYPE): CODE
          -- May return `Current', Void or a simplified version of `Current'.
       require
          type /= Void
@@ -203,7 +203,7 @@ feature {ANONYMOUS_FEATURE, CODE}
       end
 
 feature {}
-   inline_dynamic_dispatch_of (code_accumulator: CODE_ACCUMULATOR; type: TYPE; l: FAST_ARRAY[EXPRESSION]): like l is
+   inline_dynamic_dispatch_of (code_accumulator: CODE_ACCUMULATOR; type: TYPE; l: FAST_ARRAY[EXPRESSION]): like l
       require
          not l.is_empty
       local
@@ -251,9 +251,9 @@ end -- class CODE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

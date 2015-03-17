@@ -2,7 +2,7 @@ deferred class MULTIPROCESSING
 	-- Facilities for multiprocessing
 insert UNISTD_EXTERNALS
 feature {ANY} 
-	processors_count: INTEGER is
+	processors_count: INTEGER
 		-- Number of processors available in the machine
 		external "plug_in"
 		alias "{
@@ -12,7 +12,7 @@ feature {ANY}
 			}"
 		end
 
-	process_id: INTEGER_32 is
+	process_id: INTEGER_32
 		do
 			Result:=getpid
 		end

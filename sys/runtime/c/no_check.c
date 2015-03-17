@@ -30,7 +30,7 @@
   when `ace.no_check' is true (ie. all modes except -boost).
 */
 
-int assertion_depth=1;
+TLS(int) assertion_depth=1;
 
 /*
    To print object into the trace-stack :
@@ -139,7 +139,7 @@ void se_prinT8(FILE* file, EIF_POINTER* o) {
 /*
   The upper most context (SmartEiffel Dump stack Top) :
 */
-se_dump_stack* se_dst=NULL;
+TLS(se_dump_stack*) se_dst=NULL;
 
 int se_stack_size(se_dump_stack* ds) {
   return ds->depth;
@@ -150,7 +150,7 @@ void se_print_run_time_stack(void) {
   se_print_run_time_stack_in(SE_ERR, se_dst, NULL, 0);
 }
 
-static se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact, int exception_depth) {
+static void se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* cur, int is_compact, int exception_depth) {
   se_dump_stack* ds;
   se_dump_stack* ds2;
   int frame_count = 1;
@@ -202,7 +202,7 @@ static se_print_run_time_stack_(FILE* file, se_dump_stack* top, se_dump_stack* c
         fprintf(file,"==== Rescue:\n");
       }
       else {
-        fprintf(file,"====  Rescue stack  ====\n", tag);
+        fprintf(file,"====  Rescue stack  ====\n");
       }
     }
 
@@ -907,43 +907,3 @@ void se_print_locals_in(FILE* file, se_dump_stack* ds, int enter) {
     fprintf(file,"\n");
 
 }
-
-#ifdef SE_TRACE
-static int se_call_depth=0;
-
-void se_print_call_trace(se_dump_stack *ds) {
-  int i;
-  if (ds) {
-    int enter = ds->caller == se_dst;
-
-    if (enter)
-      se_call_depth++;
-
-    if (se_call_depth < 0)
-      se_call_depth=0;
-
-    for(i=se_call_depth<<1; i; i--)
-      putchar(' ');
-
-    if (enter) {
-      printf("enter ");
-      printf("%s", ds->fd->name);
-      se_print_locals_in(stdout, ds, 1);
-    } else {
-      if (se_dst) {
-        printf("leave ");
-        printf("%s", se_dst->fd->name);
-        se_print_locals_in(stdout, se_dst, 0);
-        se_call_depth--;
-      }
-    }
-  } else {
-    for(i=se_call_depth<<1; i; i--)
-      putchar(' ');
-    printf("leave ");
-    printf("%s", se_dst->fd->name);
-    se_print_locals_in(stdout, se_dst, 0);
-    se_call_depth--;
-  }
-}
-#endif

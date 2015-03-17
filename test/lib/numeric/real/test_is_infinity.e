@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
       do
@@ -41,17 +41,17 @@ feature {ANY}
       end
 
 feature {}
-   unchecked_c_divide_64(x, y: REAL_64): REAL_64 is
+   unchecked_c_divide_64(x, y: REAL_64): REAL_64
       external "C inline"
       alias "(($x) / ($y))"
       end
    
-   unchecked_c_divide_32(x, y: REAL_32): REAL_32 is
+   unchecked_c_divide_32(x, y: REAL_32): REAL_32
       external "C inline"
       alias "(($x) / ($y))"
       end
 
-   unchecked_c_divide_ext(x, y: REAL_EXTENDED): REAL_EXTENDED is
+   unchecked_c_divide_ext(x, y: REAL_EXTENDED): REAL_EXTENDED
       external "C inline"
       alias "(($x) / ($y))"
       end

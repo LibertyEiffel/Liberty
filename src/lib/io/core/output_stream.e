@@ -17,12 +17,12 @@ insert
       end
 
 feature {ANY}
-   put_character (c: CHARACTER) is
+   put_character (c: CHARACTER)
       do
          filtered_put_character(c)
       end
 
-   flush is
+   flush
          -- Flushes the pipe. If `is_filtered', calls the filter's
          -- `flush' instead.
       do
@@ -33,11 +33,11 @@ feature {ANY}
          end
       end
 
-   can_put_character (c: CHARACTER): BOOLEAN is
+   can_put_character (c: CHARACTER): BOOLEAN
       deferred
       end
 
-   detach is
+   detach
       do
          if filter /= Void then
             filter.do_detach
@@ -47,14 +47,14 @@ feature {ANY}
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       require
          is_connected
          can_put_character(c)
       deferred
       end
 
-   filtered_flush is
+   filtered_flush
       require
          is_connected
       deferred
@@ -64,7 +64,7 @@ feature {FILTER}
    filter: FILTER_OUTPUT_STREAM
 
 feature {ANY}
-   event_can_write: EVENT_DESCRIPTOR is
+   event_can_write: EVENT_DESCRIPTOR
       do
          Result := can_write
          if Result = Void then
@@ -76,25 +76,25 @@ feature {ANY}
 feature {}
    can_write: CAN_WRITE_DATA_TO_STREAM
 
-   new_url: URL is
+   new_url: URL
       do
          create Result.from_stream(Current, False, True)
       end
 
-   as_output_stream: OUTPUT_STREAM is
+   as_output_stream: OUTPUT_STREAM
       do
          Result := Current
       end
 
 end -- class OUTPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

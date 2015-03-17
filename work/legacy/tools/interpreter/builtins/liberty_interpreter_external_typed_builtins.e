@@ -21,7 +21,7 @@ insert
    LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-   call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT is
+   call (a_builtin_call: like builtin_call): LIBERTY_INTERPRETER_OBJECT
       do
          last_call_failed := False
          builtin_call := a_builtin_call
@@ -33,7 +33,7 @@ feature {}
    builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL
    returned: LIBERTY_INTERPRETER_OBJECT
 
-   left, target: E_ is
+   left, target: E_
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
       do
@@ -41,7 +41,7 @@ feature {}
          Result := obj.item
       end
 
-   right: E_ is
+   right: E_
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[E_]
       do

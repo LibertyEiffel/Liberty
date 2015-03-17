@@ -15,23 +15,23 @@ create {CLASS_TEXT}
    non_written
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
          -- As it is a procedure, there are side effects!
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_7 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_7
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {RUN_FEATURE}
-   hook_collect (t: TYPE) is
+   hook_collect (t: TYPE)
       local
          n: STRING
          dummy: TYPE
@@ -54,10 +54,10 @@ feature {RUN_FEATURE}
       end
 
 feature {}
-   collect_slice_copy (type: TYPE): INSTRUCTION is
+   collect_slice_copy (type: TYPE): INSTRUCTION
       local
          local_index: INTERNAL_LOCAL2
-         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME2
+         arg_at, arg_src, arg_src_min, arg_src_max: ARGUMENT_NAME_REF
          call_copy: PROCEDURE_CALL_1
          until_expression: CALL_INFIX_GT
          array_item, src_item: NATIVE_ARRAY_ITEM
@@ -66,12 +66,12 @@ feature {}
          t_int: TYPE
          compound: COMPOUND
          initialize, increment: ASSIGNMENT
-         copy_args: EFFECTIVE_ARG_LIST
+         copy_args: EFFECTIVE_ARG_LIST_N
       do
-         create arg_at.refer_to(start_position, arguments, 1)
-         create arg_src.refer_to(start_position, arguments, 2)
-         create arg_src_min.refer_to(start_position, arguments, 3)
-         create arg_src_max.refer_to(start_position, arguments, 4)
+         create arg_at.refer_to(start_position, arguments, 1, 0)
+         create arg_src.refer_to(start_position, arguments, 2, 0)
+         create arg_src_min.refer_to(start_position, arguments, 3, 0)
+         create arg_src_max.refer_to(start_position, arguments, 4, 0)
          t_int := smart_eiffel.type_integer_32
          -- from index := src_min
          create local_index.make(start_position, arg_src_min, once "copy index", True)
@@ -86,7 +86,7 @@ feature {}
          offset.set_feature_stamp(t_int.lookup(create {FEATURE_NAME}.infix_name(eiffel_parser.minus_name, start_position)))
          create array_item.make(start_position, offset, type.generic_list.first)
          create src_item.make_array(start_position, arg_src, local_index)
-         create copy_args.make_1(src_item)
+         create copy_args.make_1(start_position, src_item)
          create call_copy.make(array_item, smart_eiffel.type_any.class_text.any_copy_feature.names.first, copy_args)
          call_copy.set_feature_stamp(type.generic_list.first.copy_stamp)
          create one.make(1, start_position)
@@ -99,7 +99,7 @@ feature {}
       end
 
 feature {}
-   collect_body (type: TYPE) is
+   collect_body (type: TYPE)
       local
          dummy: TYPE
       do
@@ -113,22 +113,22 @@ feature {}
       end
 
 feature {ANY}
-   accept (visitor: EXTERNAL_PROCEDURE_VISITOR) is
+   accept (visitor: EXTERNAL_PROCEDURE_VISITOR)
       do
          visitor.visit_external_procedure(Current)
       end
 
 feature {}
    make (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion
-      l: like native; en: like alias_string) is
+      l: like native; en: like alias_string)
       require
          l /= Void
       do
-         make_routine(fa, om, hc, ra)
+         make_routine(fa, om, hc, ra, False)
          make_external_routine(l, en)
       end
 
-   non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; l: like native) is
+   non_written (ct: CLASS_TEXT; fn: FEATURE_NAME; fa: like arguments; l: like native)
       require
          ct /= Void
          fn /= Void
@@ -139,7 +139,7 @@ feature {}
          make(fa, Void, Void, Void, l, Void)
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, bc, permissions)
       end
@@ -156,9 +156,9 @@ end -- class EXTERNAL_PROCEDURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

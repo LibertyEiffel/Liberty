@@ -29,22 +29,22 @@ feature {ANY}
    path: FIXED_STRING
          -- The directory path in use (see `scan').
 
-   is_directory: BOOLEAN is True
-   is_regular: BOOLEAN is False
+   is_directory: BOOLEAN True
+   is_regular: BOOLEAN False
 
-   as_directory: DIRECTORY is
+   as_directory: DIRECTORY
       do
          Result := Current
       end
 
-   as_regular: REGULAR_FILE is
+   as_regular: REGULAR_FILE
       do
          check False end
       end
 
    exists: BOOLEAN
 
-   has_file (a_file_name: ABSTRACT_STRING): BOOLEAN is
+   has_file (a_file_name: ABSTRACT_STRING): BOOLEAN
       local
          fn: FIXED_STRING
       do
@@ -57,7 +57,7 @@ feature {ANY}
          end
       end
 
-   file (a_file_name: ABSTRACT_STRING): FILE is
+   file (a_file_name: ABSTRACT_STRING): FILE
       require
          has_file(a_file_name)
       local
@@ -72,7 +72,7 @@ feature {ANY}
          end
       end
 
-   file_at (index: INTEGER): FILE is
+   file_at (index: INTEGER): FILE
       require
          valid_index(index)
       do
@@ -80,7 +80,7 @@ feature {ANY}
       end
 
 feature {} -- Disk access:
-   connect_directory (directory_path: ABSTRACT_STRING): FIXED_STRING is
+   connect_directory (directory_path: ABSTRACT_STRING): FIXED_STRING
       do
          basic_directory.ensure_system_notation
          basic_directory.compute_absolute_file_path_with(directory_path)
@@ -88,7 +88,7 @@ feature {} -- Disk access:
          basic_directory.connect_to(Result)
       end
 
-   connect_current_directory: FIXED_STRING is
+   connect_current_directory: FIXED_STRING
       do
          basic_directory.connect_to_current_working_directory
          if basic_directory.is_connected then
@@ -96,7 +96,7 @@ feature {} -- Disk access:
          end
       end
 
-   scan (directory_path: ABSTRACT_STRING) is
+   scan (directory_path: ABSTRACT_STRING)
          -- Scans some existing `directory_path' which is supposed to be a correctly spelled
          -- directory path.
          --
@@ -123,7 +123,7 @@ feature {} -- Disk access:
          end
       end
 
-   scan_current_working_directory is
+   scan_current_working_directory
          -- Scans the current working directory.
          --
          -- See also `scan'.
@@ -148,16 +148,16 @@ feature {} -- Disk access:
       end
 
 feature {ANY} -- Access:
-   lower: INTEGER is 1
+   lower: INTEGER 1
          -- Index of the first item.
 
-   upper: INTEGER is
+   upper: INTEGER
          -- Index of the last item.
       do
          Result := name_list.upper + 1
       end
 
-   count: INTEGER is
+   count: INTEGER
          -- Number of items (files or directories) in Current.
       do
          if name_list /= Void then
@@ -165,22 +165,22 @@ feature {ANY} -- Access:
          end
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := name_list = Void or else count = 0
       end
 
-   first: FIXED_STRING is
+   first: FIXED_STRING
       do
          Result := name_list.first
       end
 
-   last: FIXED_STRING is
+   last: FIXED_STRING
       do
          Result := name_list.last
       end
 
-   item (index: INTEGER): FIXED_STRING is
+   item (index: INTEGER): FIXED_STRING
          -- Return the name of entry (file or subdirectory) at `index'.
       do
          Result := name_list.item(index - 1)
@@ -188,7 +188,7 @@ feature {ANY} -- Access:
          has(Result)
       end
 
-   has (entry_name: ABSTRACT_STRING): BOOLEAN is
+   has (entry_name: ABSTRACT_STRING): BOOLEAN
          -- Does Current contain the `entry_name' (file or subdirectory) ?
       require
          not entry_name.is_empty
@@ -196,13 +196,13 @@ feature {ANY} -- Access:
          Result := collection_sorter.has(name_list, case_canonical_filename(entry_name))
       end
 
-   new_iterator: ITERATOR[FIXED_STRING] is
+   new_iterator: ITERATOR[FIXED_STRING]
       do
          Result := name_list.new_iterator
       end
 
 feature {ANY} -- File access:
-   connect_to_file_stream (file_stream: FILE_STREAM; filename: STRING) is
+   connect_to_file_stream (file_stream: FILE_STREAM; filename: STRING)
          -- Connect the `file' to the operating system file given by its `filename'.
       require
          not file_stream.is_connected
@@ -213,7 +213,7 @@ feature {ANY} -- File access:
       end
 
 feature {FILE}
-   set_file (a_file_name: ABSTRACT_STRING; a_file: FILE) is
+   set_file (a_file_name: ABSTRACT_STRING; a_file: FILE)
       require
          not file_set(a_file_name)
       do
@@ -225,7 +225,7 @@ feature {FILE}
          file(a_file_name) = a_file
       end
 
-   file_set (a_file_name: ABSTRACT_STRING): BOOLEAN is
+   file_set (a_file_name: ABSTRACT_STRING): BOOLEAN
       do
          if files /= Void then
             Result := files.fast_has(case_canonical_filename(a_file_name))
@@ -233,7 +233,7 @@ feature {FILE}
       end
 
 feature {}
-   case_canonical_filename (a_file_name: ABSTRACT_STRING): FIXED_STRING is
+   case_canonical_filename (a_file_name: ABSTRACT_STRING): FIXED_STRING
       do
          if basic_directory.is_case_sensitive then
             Result := a_file_name.intern
@@ -242,7 +242,7 @@ feature {}
          end
       end
 
-   path_buffer: STRING is
+   path_buffer: STRING
       once
          create Result.make(16)
       end
@@ -254,7 +254,7 @@ feature {}
    name_list: FAST_ARRAY[FIXED_STRING]
          -- Actual list of entries (files or subdirectories).
 
-   create_file (a_file_name: FIXED_STRING): FILE is
+   create_file (a_file_name: FIXED_STRING): FILE
       require
          not file_set(a_file_name)
       local
@@ -286,13 +286,13 @@ invariant
 
 end -- class DIRECTORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

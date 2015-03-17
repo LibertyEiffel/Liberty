@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          aux1: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_A]
          aux2: AUX_ASSIGNMENT_TEST03[AUX_ASSIGNMENT_TEST03_B]

@@ -21,7 +21,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_ASSIGNMENT_REGULAR}
    make
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_ASSIGNMENT_REGULAR_VISITOR
       do
@@ -29,7 +29,7 @@ feature {ANY}
          v0.visit_liberty_assignment_regular(Current)
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          w: like writable
          e: like expression

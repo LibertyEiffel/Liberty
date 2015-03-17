@@ -24,7 +24,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {C_PRETTY_PRINTER}
-   compile (live_type: LIVE_TYPE) is
+   compile (live_type: LIVE_TYPE)
          -- was prepare_introspection2
       require
          ace.no_check
@@ -34,7 +34,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {LIVE_TYPE}
-   visit_live_type (visited: LIVE_TYPE) is
+   visit_live_type (visited: LIVE_TYPE)
       local
          i: INTEGER; ct: TYPE_MARK
       do
@@ -63,12 +63,12 @@ feature {LIVE_TYPE}
       end
 
 feature {RUN_FEATURE_1}
-   visit_run_feature_1 (visited: RUN_FEATURE_1) is
+   visit_run_feature_1 (visited: RUN_FEATURE_1)
       do
       end
 
 feature {RUN_FEATURE_2}
-   visit_run_feature_2 (visited: RUN_FEATURE_2) is
+   visit_run_feature_2 (visited: RUN_FEATURE_2)
       local
          lt: LIVE_TYPE
       do
@@ -85,22 +85,22 @@ feature {RUN_FEATURE_2}
       end
 
 feature {RUN_FEATURE_3}
-   visit_run_feature_3 (visited: RUN_FEATURE_3) is
+   visit_run_feature_3 (visited: RUN_FEATURE_3)
       do
       end
 
 feature {RUN_FEATURE_4}
-   visit_run_feature_4 (visited: RUN_FEATURE_4) is
+   visit_run_feature_4 (visited: RUN_FEATURE_4)
       do
       end
 
 feature {RUN_FEATURE_5}
-   visit_run_feature_5 (visited: RUN_FEATURE_5) is
+   visit_run_feature_5 (visited: RUN_FEATURE_5)
       do
       end
 
 feature {RUN_FEATURE_6}
-   visit_run_feature_6 (visited: RUN_FEATURE_6) is
+   visit_run_feature_6 (visited: RUN_FEATURE_6)
       local
          lt: LIVE_TYPE
       do
@@ -117,22 +117,22 @@ feature {RUN_FEATURE_6}
       end
 
 feature {RUN_FEATURE_7}
-   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+   visit_run_feature_7 (visited: RUN_FEATURE_7)
       do
       end
 
 feature {RUN_FEATURE_8}
-   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+   visit_run_feature_8 (visited: RUN_FEATURE_8)
       do
       end
 
 feature {RUN_FEATURE_9}
-   visit_run_feature_9 (visited: RUN_FEATURE_9) is
+   visit_run_feature_9 (visited: RUN_FEATURE_9)
       do
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -150,9 +150,9 @@ end -- class C_INTROSPECTION_DISPLAY
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

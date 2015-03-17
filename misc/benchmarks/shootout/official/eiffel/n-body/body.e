@@ -1,17 +1,17 @@
 class BODY
 
-creation {ANY}
+create {ANY}
 	jupiter, saturn, uranus, neptune, sun
 
 feature {ANY}
-	pi: REAL is 3.141592653589793
+	pi: REAL 3.141592653589793
 
-	solar_mass: REAL is
+	solar_mass: REAL
 		once
 			Result := 4 * pi * pi
 		end
 
-	days_per_year: REAL is 365.24
+	days_per_year: REAL 365.24
 
 	x: REAL
 
@@ -27,37 +27,37 @@ feature {ANY}
 
 	mass: REAL
 
-	set_x (a: REAL) is
+	set_x (a: REAL)
 		do
 			x := a
 		end
 
-	set_y (a: REAL) is
+	set_y (a: REAL)
 		do
 			y := a
 		end
 
-	set_z (a: REAL) is
+	set_z (a: REAL)
 		do
 			z := a
 		end
 
-	set_vx (a: REAL) is
+	set_vx (a: REAL)
 		do
 			vx := a
 		end
 
-	set_vy (a: REAL) is
+	set_vy (a: REAL)
 		do
 			vy := a
 		end
 
-	set_vz (a: REAL) is
+	set_vz (a: REAL)
 		do
 			vz := a
 		end
 
-	jupiter is
+	jupiter
 		do
 			x := 4.84143144246472090e+00
 			y := -1.16032004402742839e+00
@@ -68,7 +68,7 @@ feature {ANY}
 			mass := 9.54791938424326609e-04 * solar_mass
 		end
 
-	saturn is
+	saturn
 		do
 			x := 8.34336671824457987e+00
 			y := 4.12479856412430479e+00
@@ -79,7 +79,7 @@ feature {ANY}
 			mass := 2.85885980666130812e-04 * solar_mass
 		end
 
-	uranus is
+	uranus
 		do
 			x := 1.28943695621391310e+01
 			y := -1.51111514016986312e+01
@@ -90,7 +90,7 @@ feature {ANY}
 			mass := 4.36624404335156298e-05 * solar_mass
 		end
 
-	neptune is
+	neptune
 		do
 			x := 1.53796971148509165e+01
 			y := -2.59193146099879641e+01
@@ -101,12 +101,12 @@ feature {ANY}
 			mass := 5.15138902046611451e-05 * solar_mass
 		end
 
-	sun is
+	sun
 		do
 			mass := solar_mass
 		end
 
-	offset_momentum (px: REAL; py: REAL; pz: REAL) is
+	offset_momentum (px: REAL; py: REAL; pz: REAL)
 		do
 			vx := -px / solar_mass
 			vy := -py / solar_mass

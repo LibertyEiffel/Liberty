@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if U"c" = "c" then
          end

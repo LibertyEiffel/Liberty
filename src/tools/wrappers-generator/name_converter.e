@@ -273,11 +273,6 @@ feature {} -- Constants
          -- and every time would enlarge the memory usage of the program
          -- quite a lot, not counting the runtime requirements. We will do
          -- it when we will cache compilation results.
-         -- The following "static" definition of the features of ANY
-         -- somehow unacceptable in a perfect world. Yet computing it each
-         -- and every time would enlarge the memory usage of the program
-         -- quite a lot, not counting the runtime requirements. We will do
-         -- it when we will cache compilation results.
       once
          -- The following "static" definition of the features of ANY
          -- somehow unacceptable in a perfect world. Yet computing it each
@@ -288,7 +283,7 @@ feature {} -- Constants
       end
 
 end -- class NAME_CONVERTER
--- Copyright 2008,2009 Paolo Redaelli
+-- Copyright 2008,2009,2014 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

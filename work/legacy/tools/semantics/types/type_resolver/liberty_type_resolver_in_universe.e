@@ -22,16 +22,16 @@ insert
       undefine out_in_tagged_out_memory
       end
 
-creation {LIBERTY_UNIVERSE}
+create {LIBERTY_UNIVERSE}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "resolver in universe")
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
@@ -39,24 +39,24 @@ feature {ANY}
 feature {}
    universe: LIBERTY_UNIVERSE
 
-   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       do
          if not type_definition.is_anchor then
             Result := universe.get_type_from_type_definition(type_definition, Void)
          end
       end
 
-   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE is
+   lookup_export_type (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_TYPE
       do
          check Result = Void end
       end
 
-   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION is
+   lookup_position (type_definition: LIBERTY_AST_TYPE_DEFINITION): LIBERTY_POSITION
       do
          check Result = Void end
       end
 
-   make (a_universe: like universe) is
+   make (a_universe: like universe)
       require
          a_universe /= Void
       do

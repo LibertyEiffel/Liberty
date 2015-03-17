@@ -9,11 +9,15 @@ class GC_HANDLER
 inherit
    MEMORY_HANDLER
 
+insert
+   C_AGENT_CREATION_MIXIN
+   TAGGER
+
 create {MEMORY_HANDLER_FACTORY}
    make
 
 feature {ACE}
-   ace_option (txt: STRING) is
+   ace_option (txt: STRING)
       do
          txt.append("   collect(yes)%N")
       end
@@ -26,7 +30,7 @@ feature {C_COMPILATION_MIXIN}
    need_mark: C_GARBAGE_COLLECTOR_NEED_MARK
 
 feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
-   memory_dispose (o: STRING; live_type: LIVE_TYPE) is
+   memory_dispose (o: STRING; live_type: LIVE_TYPE)
          -- Append the extra C code for the MEMORY.dispose call if any.
       require
          cpp.pending_c_function
@@ -47,38 +51,48 @@ feature {C_GARBAGE_COLLECTOR_FUNCTIONS_COMPILER}
       end
 
 feature {C_PRETTY_PRINTER}
-   pre_customize_c_runtime is
+   pre_customize_c_runtime
       do
          cpp.out_h_buffer.copy(once "#define SE_GC_LIB 1%N")
          cpp.write_out_h_buffer
       end
 
-   customize_c_runtime is
+   customize_c_runtime
       do
          cpp.macro_def(once "FSOC_SIZE", fsoc_size)
          cpp.macro_def(once "RSOC_SIZE", rsoc_size)
          cpp.sys_runtime_h_and_c(once "gc_lib")
       end
 
-   pre_initialize_runtime is
+   pre_initialize_runtime
       do
          cpp.pending_c_function_body.append(once "stack_bottom=((void**)(void*)(&argc));%N")
       end
 
-   initialize_runtime is
+   initialize_runtime
       do
          cpp.pending_c_function_body.append(once "gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));%N%
                                                  %#ifdef FIXED_STACK_BOTTOM%N%
                                                  %if (!stack_bottom) stack_bottom=((void**)(void*)(&argc));%N%
                                                  %#endif%N")
+         if smart_eiffel.thread_used then
+            cpp.write_extern_0(once "void*gc_lock");
+            cpp.pending_c_function_body.append(once "gc_lock=se_thread_lock_alloc();%N")
+         end
       end
 
-   post_initialize_runtime is
+   initialize_thread
+      do
+         cpp.pending_c_function_body.append(once "gcmt=((mch**)se_malloc((gcmt_max+1)*sizeof(void*)));%N%
+                                                 %stack_bottom=((void**)(void*)(&C));%N")
+      end
+
+   post_initialize_runtime
       do
          cpp.out_h_buffer.append(once "manifest_string_mark1();%N")
       end
 
-   gc_info_before_exit is
+   gc_info_before_exit
       do
          if info_flag then
             cpp.pending_c_function_body.append(once "fprintf(SE_GCINFO,%"==== Last GC before exit ====\n%");%N%
@@ -89,35 +103,62 @@ feature {C_PRETTY_PRINTER}
          end
       end
 
-   pre_cecil_define is
+   pre_cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %int valid_stack_bottom = stack_bottom != NULL;%N%
                                                  %#endif%N")
       end
 
-   cecil_define is
+   cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %if(!valid_stack_bottom) stack_bottom = (void**)(void*)&valid_stack_bottom;%N%
                                                  %#endif%N")
       end
 
-   post_cecil_define is
+   post_cecil_define
       do
+         cpp.pending_c_function_body.extend_unless('%N')
          cpp.pending_c_function_body.append(once "#ifndef FIXED_STACK_BOTTOM%N%
                                                  %if(!valid_stack_bottom) stack_bottom = NULL;%N%
                                                  %#endif%N")
       end
 
+   echo_information
+      local
+         i: INTEGER; tag: C_GARBAGE_COLLECTOR_TAG
+         sorter: COLLECTION_SORTER[C_GARBAGE_COLLECTOR_TAG]
+      do
+         sorter.sort(c_struct_signature_map)
+         from
+            echo.print_count(once "equivalent memory structure", c_struct_signature_map.count)
+            i := c_struct_signature_map.lower
+         until
+            i > c_struct_signature_map.upper
+         loop
+            tag := c_struct_signature_map.item(i)
+            echo.put_character('%T')
+            echo.put_integer(tag.count)
+            echo.put_string(once "%Tid:")
+            echo.put_integer(tag.id)
+            echo.put_string(once "%Tstruct:{")
+            echo.put_string(tag.tag.to_string)
+            echo.put_line(once "}")
+            i := i + 1
+         end
+      end
+
 feature {C_PRETTY_PRINTER}
-   define1 is
+   define1
       do
          echo.put_string(once "Adding SmartEiffel Garbage Collector.%N")
          compute_ceils
       end
 
-   define2 is
+   define2
       local
          i: INTEGER; lt: LIVE_TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]; root_type: TYPE
       do
@@ -176,7 +217,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   mark_once_routines is
+   mark_once_routines
          -- Produce the C code to mark results of all once functions (because they are part of the root).
       require
          smart_eiffel.is_ready
@@ -234,156 +275,188 @@ feature {}
          end
       end
 
-   manifest_string_mark (i, id: INTEGER) is
+   manifest_string_mark (i, id: INTEGER)
       do
          cpp.pending_c_function_body.append(once "gc_mark")
          id.append_in(cpp.pending_c_function_body)
       end
 
 feature {C_COMPILATION_MIXIN}
-   frozen store_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "store")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen store_left_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_left_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "store_left")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen store_chunk_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen store_chunk_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "store_chunk")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen free_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen free_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "gc_free")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen align_mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen align_mark_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "gc_align_mark")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen info_nb_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen info_nb_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "gc_info_nb")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen mark_in (type_mark: TYPE_MARK; buffer: STRING) is
+   frozen mark_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
       require
          type_mark.is_static
       do
          buffer.append(once "gc_mark")
+         if for_closure then
+            buffer.append(once "CL")
+         end
          type_mark.id.append_in(buffer)
       end
 
-   frozen na_env_in (type_mark: TYPE_MARK; str: STRING) is
+   frozen sweep_in (type_mark: TYPE_MARK; buffer: STRING; for_closure: BOOLEAN)
+      require
+         type_mark.is_static
+      do
+         buffer.append(once "gc_sweep")
+         if for_closure then
+            buffer.append(once "CL")
+         end
+         type_mark.id.append_in(buffer)
+      end
+
+   frozen na_env_in (type_mark: TYPE_MARK; str: STRING)
       do
          str.append(once "na_env")
          type_mark.id.append_in(str)
       end
 
 feature {C_PRETTY_PRINTER}
-   manifest_string_in (c_code: STRING; string_at_run_time: BOOLEAN) is
+   manifest_string_in (c_code: STRING)
          -- Code to create a new Manifest STRING in the "s" local C variable.
       do
-         if string_at_run_time then
-            c_code.append(once "s=new7();%N")
-         else
-            c_code.append(once "s=((T7*)se_malloc(sizeof(T7)));%N")
-         end
-      end
-
-   native9_in (c_code: STRING; string_at_run_time: BOOLEAN) is
-      do
-         if string_at_run_time then
-            c_code.append(once "se_malloc")
-         else
-            c_code.append(once "new9")
-         end
+         c_code.append(once "s=new7();%N")
       end
 
 feature {C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER} -- memory-specific handling aspects
    native_array_collector: LIVE_TYPE_NATIVE_ARRAY_COLLECTOR
 
 feature {C_PRETTY_PRINTER}
-   add_extra_collectors is
+   add_extra_collectors
       do
          live_type_extra_collectors.add_last(native_array_collector)
       end
 
-   may_need_size_table: BOOLEAN is True
+   may_need_size_table: BOOLEAN True
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- allocators
-   malloc (lt: LIVE_TYPE) is
+   malloc (lt: LIVE_TYPE)
       do
-         cpp.pending_c_function_body.append(once "new")
+         cpp.pending_c_function_body.append(once "(/*malloc*/(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.append(once "()")
+         cpp.pending_c_function_body.append(once "*)new")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "())")
       end
 
-   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE]) is
+   malloc_closure (lt: LIVE_TYPE)
       do
-         cpp.pending_c_function_body.append(once "new")
+         cpp.pending_c_function_body.append(once "(/*malloc_closure*/(T")
          lt.id.append_in(cpp.pending_c_function_body)
-         cpp.pending_c_function_body.extend('(')
+         cpp.pending_c_function_body.append(once "*)newCL")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "())")
+      end
+
+   calloc (lt: LIVE_TYPE; n: PROCEDURE[TUPLE])
+      do
+         cpp.pending_c_function_body.append(once "(/*calloc*/(T")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once ")new")
+         lt.id.append_in(cpp.pending_c_function_body)
+         cpp.pending_c_function_body.append(once "(")
          n.call([])
-         cpp.pending_c_function_body.extend(')')
+         cpp.pending_c_function_body.append(once "))")
       end
 
 feature {C_COMPILATION_MIXIN} -- GC switches (see MEMORY)
-   gc_disable is
+   gc_disable
       do
          cpp.pending_c_function_body.append(once "gc_is_off=1;%N")
       end
 
-   gc_enable is
+   gc_enable
       do
          cpp.pending_c_function_body.append(once "gc_is_off=0;%N")
       end
 
-   gc_collect is
+   gc_collect
       do
          cpp.pending_c_function_body.append(once "gc_start();%N")
       end
 
-   gc_is_collecting is
+   gc_is_collecting
       do
          cpp.pending_c_function_body.append(once "(!gc_is_off)")
       end
 
-   gc_counter is
+   gc_counter
       do
          cpp.pending_c_function_body.append(as_collector_counter)
       end
 
-   gc_allocated_bytes is
+   gc_allocated_bytes
       do
          cpp.pending_c_function_body.append(once "(gc_memory_used())")
       end
 
 feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
-   weak_item (lt: LIVE_TYPE) is
+   weak_item (lt: LIVE_TYPE)
       do
          cpp.pending_c_function_body.append(once "(((T")
          lt.id.append_in(cpp.pending_c_function_body)
@@ -392,7 +465,7 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
          cpp.pending_c_function_body.append(once "))->o)")
       end
 
-   weak_set_item (lt: LIVE_TYPE) is
+   weak_set_item (lt: LIVE_TYPE)
       do
          cpp.pending_c_function_body.append(once "(((T")
          lt.id.append_in(cpp.pending_c_function_body)
@@ -404,14 +477,14 @@ feature {C_COMPILATION_MIXIN} -- see WEAK_REFERENCE
       end
 
 feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
-   assign_agent_data (mold_id: STRING) is
+   assign_agent_data (mold_id: STRING)
       do
          cpp.pending_c_function_body.append(once "u->gc_mark_agent_mold=gc_mark_")
          cpp.pending_c_function_body.append(mold_id)
          cpp.pending_c_function_body.append(once ";%N")
       end
 
-   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]]) is
+   generate_agent_data (agent_creation: AGENT_CREATION; type: TYPE; mold_id: STRING; generate_closed_operand: PROCEDURE[TUPLE[CLOSED_OPERAND]])
       local
          i: INTEGER; t: TYPE; closed_operand: CLOSED_OPERAND
       do
@@ -440,7 +513,7 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                      generate_closed_operand.call([closed_operand])
                      cpp.pending_c_function_body.append(once ");%N")
                   elseif need_mark.for(t) then
-                     mark_in(t.canonical_type_mark, cpp.pending_c_function_body)
+                     mark_in(t.canonical_type_mark, cpp.pending_c_function_body, False)
                      cpp.pending_c_function_body.append(once "(&(u->")
                      generate_closed_operand.call([closed_operand])
                      cpp.pending_c_function_body.append(once "));%N")
@@ -449,29 +522,79 @@ feature {C_COMPILATION_MIXIN, C_PRETTY_PRINTER} -- agents
                i := i + 1
             end
          end
+
+         for_all_argument_names(agent_creation, type,
+                                agent (argument_name: ARGUMENT_NAME_DEF; type_: TYPE; closure_rank: INTEGER)
+                                   local
+                                      t_: TYPE
+                                   do
+                                      t_ := argument_name.resolve_in(type_)
+                                      if t_.is_reference then
+                                         cpp.pending_c_function_body.append(once "gc_mark(u->CA_")
+                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.extend('_')
+                                         argument_name.rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.append(once ");%N")
+                                      elseif need_mark.for(t_) then
+                                         mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
+                                         cpp.pending_c_function_body.append(once "(&(u->CA_")
+                                         (closure_rank+1).append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.extend('_')
+                                         argument_name.rank.append_in(cpp.pending_c_function_body)
+                                         cpp.pending_c_function_body.append(once "));%N")
+                                      end
+                                   end(?, type, ?)) --| **** TODO: closure on type
+
+         for_all_local_names(agent_creation, type,
+                             agent (local_name: LOCAL_NAME_DEF; type_: TYPE)
+                                local
+                                   t_: TYPE
+                                do
+                                   t_ := local_name.resolve_in(type_)
+                                   if t_.is_reference then
+                                      cpp.pending_c_function_body.append(once "gc_mark(*(u->CL_")
+                                      cpp.pending_c_function_body.append(local_name.to_string)
+                                      cpp.pending_c_function_body.append(once "));%N")
+                                   elseif need_mark.for(t_) then
+                                      mark_in(t_.canonical_type_mark, cpp.pending_c_function_body, False)
+                                      cpp.pending_c_function_body.append(once "(u->CL_")
+                                      cpp.pending_c_function_body.append(local_name.to_string)
+                                      cpp.pending_c_function_body.append(once ");%N")
+                                   end
+                                end(?, type)) --| **** TODO: closure on type
+
          cpp.pending_c_function_body.append(once "}%N")
          cpp.dump_pending_c_function(True)
       end
 
-   define_agent_data (mold_id: STRING) is
+   define_agent_data (mold_id: STRING)
       do
          cpp.out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_")
          cpp.out_h_buffer.append(mold_id)
          cpp.out_h_buffer.append(once "*);%N")
       end
 
-   define_agent_data_is_equal is
+   define_agent_data_is_equal
       do
          cpp.out_h_buffer.append(once "void*gc_mark_agent_mold;%N")
       end
 
-   define_agent_data_0 is
+   define_agent_data_0
       do
          cpp.out_h_buffer.append(once "void(*gc_mark_agent_mold)(se_agent*);%N")
       end
 
+feature {C_COMPILATION_MIXIN}
+   checkpoint
+      do
+         if smart_eiffel.thread_used then
+            -- check to see if we must mark & sweep
+            cpp.pending_c_function_body.append(once "se_thread_checkpoint();%N")
+         end
+      end
+
 feature {C_NATIVE_PROCEDURE_MAPPER}
-   mark_item (rf7: RUN_FEATURE_7) is
+   mark_item (rf7: RUN_FEATURE_7)
       local
          elt_type: TYPE
       do
@@ -488,34 +611,52 @@ feature {C_NATIVE_PROCEDURE_MAPPER}
       end
 
 feature {C_PRETTY_PRINTER}
-   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       do
       end
 
-   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       do
+      end
+
+feature {C_HEADER_PASS_0}
+   register_wa_list (live_type: LIVE_TYPE)
+      local
+         index: INTEGER
+         tag: C_GARBAGE_COLLECTOR_TAG
+      do
+         special_tag.set(c_struct_signature_tagger.for(live_type))
+         index := c_struct_signature_map.first_index_of(special_tag)
+         if c_struct_signature_map.valid_index(index) then
+            tag := c_struct_signature_map.item(index)
+         else
+            create tag.make(special_tag.tag)
+            c_struct_signature_map.add_last(tag)
+         end
+         tag.increment
+         live_type.set_tag(c_struct_signature_tag, tag)
       end
 
 feature {C_COMPILATION_MIXIN}
-   need_struct_for (type_mark: TYPE_MARK): BOOLEAN is
+   need_struct_for (type_mark: TYPE_MARK): BOOLEAN
       do
          check not Result end
       end
 
-   extra_c_struct (type_mark: TYPE_MARK) is
+   extra_c_struct (type_mark: TYPE_MARK)
       do
       end
 
-   extra_c_model (type_mark: TYPE_MARK) is
+   extra_c_model (type_mark: TYPE_MARK)
       do
       end
 
-   assigned_native_array (assignment: ASSIGNMENT; type: TYPE) is
+   assigned_native_array (assignment: ASSIGNMENT; type: TYPE)
       do
       end
 
 feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATION_MIXIN}
-   mark_for (entity: STRING; lt: LIVE_TYPE; non_void_no_dispatch_flag: BOOLEAN) is
+   mark_for (entity: STRING; lt: LIVE_TYPE; non_void_no_dispatch_flag: BOOLEAN)
          -- Add C code to mark the `entity' of `lt'. The `non_void_no_dispatch_flag' indicates that we
          -- are sure that the entity to mark is never NULL or Void)
       require
@@ -546,10 +687,10 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATI
                cpp.pending_c_function_body.extend('X')
                --|*** Could be better when `non_void_no_dispatch_flag' !
                --|*** (Dom. june 14th 2004) ***
-               mark_in(ct, cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body, False)
             else
                ct := run_time_set.first.canonical_type_mark
-               mark_in(ct, cpp.pending_c_function_body)
+               mark_in(ct, cpp.pending_c_function_body, False)
             end
             cpp.pending_c_function_body.extend('(')
             if ct.is_reference then
@@ -570,7 +711,7 @@ feature {ONCE_ROUTINE_POOL, NATIVE_ARRAY_TYPE_MARK, NATIVE_BUILT_IN, C_COMPILATI
       end
 
 feature {}
-   make is
+   make
       do
          create header_compiler.make
          create functions_compiler.make
@@ -578,9 +719,11 @@ feature {}
          create before_mark_compiler.make
          create need_mark.make
          create native_array_collector.make
+         create c_struct_signature_map.make(0)
+         create c_struct_signature_tagger.make
       end
 
-   compute_ceils is
+   compute_ceils
       local
          fsoc_count_ceil, rsoc_count_ceil, i: INTEGER; live_type_map: TRAVERSABLE[LIVE_TYPE]; lt: LIVE_TYPE
          kb_count: INTEGER
@@ -619,20 +762,20 @@ feature {}
          cpp.write_extern_2(once "unsigned int rsoc_count_ceil", cpp.out_c_buffer)
       end
 
-   switch_list: FAST_ARRAY[LIVE_TYPE] is
+   switch_list: FAST_ARRAY[LIVE_TYPE]
          -- For which there is a switching function.
       once
          create Result.with_capacity(128)
       end
 
-   switch_for (lt: LIVE_TYPE) is
+   switch_for (lt: LIVE_TYPE)
       local
          ct: TYPE_MARK; run_time_set: RUN_TIME_SET
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void X")
          ct := lt.canonical_type_mark
-         mark_in(ct, cpp.pending_c_function_signature)
+         mark_in(ct, cpp.pending_c_function_signature, False)
          cpp.pending_c_function_signature.append(once "(T0*o)")
          run_time_set := lt.run_time_set
          cpp.pending_c_function_body.append(once "{int i=o->id;%N")
@@ -641,7 +784,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   c_dicho (run_time_set: RUN_TIME_SET; bi, bs: INTEGER) is
+   c_dicho (run_time_set: RUN_TIME_SET; bi, bs: INTEGER)
          -- Produce dichotomic inspection code for Current id.
       require
          bi <= bs
@@ -651,7 +794,7 @@ feature {}
       do
          if bi = bs then
             lt := run_time_set.item(bi)
-            mark_in(lt.canonical_type_mark, cpp.pending_c_function_body)
+            mark_in(lt.canonical_type_mark, cpp.pending_c_function_body, False)
             cpp.pending_c_function_body.append(once "((T")
             lt.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once "*)o);%N")
@@ -668,7 +811,7 @@ feature {}
          end
       end
 
-   just_before_mark (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
+   just_before_mark (live_type_map: TRAVERSABLE[LIVE_TYPE])
       require
          cpp.pending_c_function
       local
@@ -687,7 +830,7 @@ feature {}
          end
       end
 
-   define_gc_info (live_type_map: TRAVERSABLE[LIVE_TYPE]) is
+   define_gc_info (live_type_map: TRAVERSABLE[LIVE_TYPE])
       require
          info_flag
       local
@@ -723,7 +866,7 @@ feature {}
          cpp.dump_pending_c_function(True)
       end
 
-   agent_pool_gc_info is
+   agent_pool_gc_info
          -- Produce C code to print GC information.
       require
          cpp.pending_c_function
@@ -739,10 +882,13 @@ feature {}
          end
       end
 
-   define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE]) is
+   define_gc_start (root_type: TYPE; live_type_map: TRAVERSABLE[LIVE_TYPE])
       do
          cpp.prepare_c_function
          cpp.pending_c_function_signature.append(once "void gc_start(void)")
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_lock_lock(gc_lock);%N")
+         end
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_ENTER_GC,NULL);%N");
          cpp.pending_c_function_body.append(once "if(!gc_is_off && !garbage_delayed()){%N")
          cpp.pending_c_function_body.append(once "gcmt_tail_addr=(((char*)(gcmt[gcmt_used-1]))+%
@@ -768,24 +914,47 @@ feature {}
                         %if(t[i]!=NULL)gc_mark7(t[i]);%N%
                         %i--;}%N}%N")
          end
-         cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
-                     %gc_sweep();%N%
-                     %collector_counter++;%N")
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_barrier(mark_stack_and_registers);%N%
+                                                    %se_thread_barrier(gc_sweep);%N")
+         else
+            cpp.pending_c_function_body.append(once "mark_stack_and_registers();%N%
+                                                    %gc_sweep();%N")
+         end
+         cpp.pending_c_function_body.append(once "collector_counter++;%N")
          if info_flag then
             cpp.pending_c_function_body.append(once "gc_info();%N")
          end
          cpp.pending_c_function_body.append(once "}%N")
          cpp.pending_c_function_body.append(once "handle(SE_HANDLE_EXIT_GC,NULL);%N");
+         if smart_eiffel.thread_used then
+            cpp.pending_c_function_body.append(once "se_thread_lock_unlock(gc_lock);%N")
+         end
          cpp.dump_pending_c_function(True)
       end
 
-   fsoc_size: INTEGER is 8192
+   fsoc_size: INTEGER 8192
          -- Fixed Size Objects Chunks Size.
 
-   rsoc_size: INTEGER is 32768
+   rsoc_size: INTEGER 32768
          -- ReSizable Objects Chunks Size.
 
    dispose_flag: BOOLEAN
+
+   c_struct_signature_tagger: C_GARBAGE_COLLECTOR_TAGGER
+
+   c_struct_signature_map: FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]
+
+   special_tag: C_GARBAGE_COLLECTOR_TAG
+      once
+         create Result.special
+      end
+
+feature {C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER}
+   c_struct_signature_tag: FIXED_STRING
+      once
+         Result := "c_struct_signature".intern
+      end
 
 end -- class GC_HANDLER
 --
@@ -799,9 +968,9 @@ end -- class GC_HANDLER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

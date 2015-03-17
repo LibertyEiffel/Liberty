@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
 feature {}
-   singleton_memory: TEST_SINGLETON1 is
+   singleton_memory: TEST_SINGLETON1
       once
          Result := Current
       end

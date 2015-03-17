@@ -2,17 +2,17 @@ expanded class SIGNALS_ITER
 	-- An expanded iterator over properties of a GI_CLASS
 insert GI_ITERATOR[GI_SIGNAL_INFO]
 feature {ANY}
-	start is
+	start
 		do
 			i:=gi_class.signals_lower
 		end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=i>gi_class.signals_upper
 		end
 
-	item: GI_SIGNAL_INFO is
+	item: GI_SIGNAL_INFO
 	do 
 		Result:=gi_class.signal(i)
 	end

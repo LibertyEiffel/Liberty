@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	rpcent_struct_set_r_name (a_structure: POINTER; a_value: POINTER) is
+	rpcent_struct_set_r_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for r_name field of RPCENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	rpcent_struct_set_r_aliases (a_structure: POINTER; a_value: POINTER) is
+	rpcent_struct_set_r_aliases (a_structure: POINTER; a_value: POINTER)
 			-- Setter for r_aliases field of RPCENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	rpcent_struct_set_r_number (a_structure: POINTER; a_value: INTEGER) is
+	rpcent_struct_set_r_number (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for r_number field of RPCENT_STRUCT structure.
 			-- TODO: setter description
 
@@ -46,7 +46,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	rpcent_struct_get_r_name (a_structure: POINTER): POINTER is
+	rpcent_struct_get_r_name (a_structure: POINTER): POINTER
 			-- Query for r_name field of RPCENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	rpcent_struct_get_r_aliases (a_structure: POINTER): POINTER is
+	rpcent_struct_get_r_aliases (a_structure: POINTER): POINTER
 			-- Query for r_aliases field of RPCENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	rpcent_struct_get_r_number (a_structure: POINTER): INTEGER is
+	rpcent_struct_get_r_number (a_structure: POINTER): INTEGER
 			-- Query for r_number field of RPCENT_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

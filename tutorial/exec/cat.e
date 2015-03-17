@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          pf: PROCESS_FACTORY; p: PROCESS
       do

@@ -4,7 +4,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       local
          x, y, z: POINT; t: TRIANGLE
       do

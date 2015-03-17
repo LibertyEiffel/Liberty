@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_vfunc_info_get_address (an_info: POINTER; an_implementor_gtype: like long_unsigned; an_error: POINTER): POINTER is
+	g_vfunc_info_get_address (an_info: POINTER; an_implementor_gtype: like long_unsigned; an_error: POINTER): POINTER
  		-- g_vfunc_info_get_address
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_get_flags (an_info: POINTER): INTEGER is
+	g_vfunc_info_get_flags (an_info: POINTER): INTEGER
  		-- g_vfunc_info_get_flags
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_get_invoker (an_info: POINTER): POINTER is
+	g_vfunc_info_get_invoker (an_info: POINTER): POINTER
  		-- g_vfunc_info_get_invoker
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_get_offset (an_info: POINTER): INTEGER is
+	g_vfunc_info_get_offset (an_info: POINTER): INTEGER
  		-- g_vfunc_info_get_offset
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_get_signal (an_info: POINTER): POINTER is
+	g_vfunc_info_get_signal (an_info: POINTER): POINTER
  		-- g_vfunc_info_get_signal
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_vfunc_info_invoke (an_info: POINTER; an_implementor: like long_unsigned; an_in_args: POINTER; a_n_in_args: INTEGER; an_out_args: POINTER; a_n_out_args: INTEGER; a_return_value: POINTER; an_error: POINTER): INTEGER is
+	g_vfunc_info_invoke (an_info: POINTER; an_implementor: like long_unsigned; an_in_args: POINTER; a_n_in_args: INTEGER; an_out_args: POINTER; a_n_out_args: INTEGER; a_return_value: POINTER; an_error: POINTER): INTEGER
  		-- g_vfunc_info_invoke
 		external "plug_in"
 		alias "{

@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {RENAME_PAIR}
-   visit_rename_pair (visited: RENAME_PAIR) is
+   visit_rename_pair (visited: RENAME_PAIR)
       require
          visited /= Void
       deferred
@@ -25,9 +25,9 @@ end -- class RENAME_PAIR_VISITOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

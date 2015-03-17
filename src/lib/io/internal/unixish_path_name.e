@@ -7,13 +7,13 @@ deferred class UNIXISH_PATH_NAME
 inherit PATH_NAME
 
 feature {ANY} -- Access
-   last: STRING is
+   last: STRING
       deferred
       ensure then
          not Result.has(directory_separator)
       end
 
-   extension: STRING is
+   extension: STRING
       deferred
       ensure then
          is_extension: not Result.is_empty implies Result.first = extension_separator
@@ -21,16 +21,16 @@ feature {ANY} -- Access
          not Result.has(directory_separator)
       end
 
-   is_valid_file_name (elem: STRING): BOOLEAN is
+   is_valid_file_name (elem: STRING): BOOLEAN
       do
          Result := not elem.has(directory_separator)
       ensure then
          Result implies not elem.has(directory_separator)
       end
 
-   is_valid_directory: BOOLEAN is True
+   is_valid_directory: BOOLEAN True
 
-   is_valid_file: BOOLEAN is
+   is_valid_file: BOOLEAN
       local
          lst: like last
       do
@@ -38,7 +38,7 @@ feature {ANY} -- Access
          Result := not (last.is_empty or else last.is_equal(this_directory) or else last.is_equal(up_directory))
       end
 
-   is_separator (ch: CHARACTER): BOOLEAN is
+   is_separator (ch: CHARACTER): BOOLEAN
          -- Is `ch' a possible path separator?
       do
          Result := ch = directory_separator
@@ -47,7 +47,7 @@ feature {ANY} -- Access
       end
 
 feature {ANY} -- Operations
-   go_up is
+   go_up
       local
          lst: like last
       do
@@ -74,7 +74,7 @@ feature {ANY} -- Operations
          end
       end
 
-   join_to (other: PATH_JOINER) is
+   join_to (other: PATH_JOINER)
       local
          p: INTEGER; element: STRING
       do
@@ -100,7 +100,7 @@ feature {ANY} -- Operations
          end
       end
 
-   short_name: STRING is
+   short_name: STRING
       local
          i: INTEGER
       do
@@ -118,27 +118,27 @@ feature {ANY} -- Operations
       end
 
 feature {ANY} -- Constants
-   extension_separator: CHARACTER is
+   extension_separator: CHARACTER
          -- Character used to separate filenames from extensions
       deferred
       end
 
-   directory_separator: CHARACTER is
+   directory_separator: CHARACTER
          -- Character used to separate directories
          -- This character is forbidden in filenames
       deferred
       end
 
-   up_directory: STRING is
+   up_directory: STRING
       deferred
       end
 
-   this_directory: STRING is
+   this_directory: STRING
       deferred
       end
 
 feature {PATH_JOINER}
-   join_element (element: STRING) is
+   join_element (element: STRING)
       do
          if not is_empty and then last.is_equal(this_directory) then
             remove_last
@@ -149,18 +149,18 @@ feature {PATH_JOINER}
          path.append(element)
       end
 
-   join_extension (an_extension: STRING) is
+   join_extension (an_extension: STRING)
       do
          path.extend(extension_separator)
          path.append(an_extension)
       end
 
-   join_error: BOOLEAN is False
+   join_error: BOOLEAN False
 
 feature {}
    path: STRING
 
-   start_join_to (other: PATH_JOINER): INTEGER is
+   start_join_to (other: PATH_JOINER): INTEGER
       require
          other /= Void
       deferred
@@ -168,7 +168,7 @@ feature {}
          Result.in_range(path.lower, path.upper + 1)
       end
 
-   scan_element (p: INTEGER; element: STRING): INTEGER is
+   scan_element (p: INTEGER; element: STRING): INTEGER
       require
          path.valid_index(p)
          element /= Void
@@ -193,7 +193,7 @@ feature {}
          path.substring(p, Result - 1).has_suffix(element)
       end
 
-   join_directory_to (other: PATH_JOINER; element: STRING) is
+   join_directory_to (other: PATH_JOINER; element: STRING)
       require
          other /= Void
          not element.is_empty
@@ -207,7 +207,7 @@ feature {}
          end
       end
 
-   join_element_to (other: PATH_JOINER; element: STRING) is
+   join_element_to (other: PATH_JOINER; element: STRING)
       require
          other /= Void
          not element.is_empty
@@ -226,13 +226,13 @@ invariant
 
 end -- class UNIXISH_PATH_NAME
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

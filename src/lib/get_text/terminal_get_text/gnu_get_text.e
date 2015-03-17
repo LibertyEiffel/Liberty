@@ -14,7 +14,7 @@ insert
    SINGLETON
 
 feature {}
-   init_in_default_directory is
+   init_in_default_directory
          -- Initialise with default values. Message catalogs will be
          -- looked for in
          -- /usr/local/share/locale/`locale'/LC_MESSAGES/`domain_name'.mo
@@ -23,7 +23,7 @@ feature {}
          Precursor
       end
 
-   init_in_current_working_directory is
+   init_in_current_working_directory
          -- Initialise with default values. Message catalogs will be
          -- looked for in
          -- ./`locale'/LC_MESSAGES/`domain_name'.mo
@@ -35,7 +35,7 @@ feature {}
       end
 
 feature {ANY}
-   translation (message: STRING): like message is
+   translation (message: STRING): like message
       local
          p: POINTER
       do
@@ -45,7 +45,7 @@ feature {ANY}
          Result.from_external(p)
       end
 
-   number_translation (message_1, message_other: like translation; n: INTEGER): like translation is
+   number_translation (message_1, message_other: like translation; n: INTEGER): like translation
       local
          p1, p2: POINTER
       do
@@ -57,7 +57,7 @@ feature {ANY}
       end
 
 feature {FILTER_GET_TEXT}
-   domain_translation (domain_name, message: STRING): like translation is
+   domain_translation (domain_name, message: STRING): like translation
       local
          p: POINTER
       do
@@ -67,7 +67,7 @@ feature {FILTER_GET_TEXT}
          Result.from_external(p)
       end
 
-   domain_number_translation (domain_name: STRING; message_1, message_other: like translation; n: INTEGER): like translation is
+   domain_number_translation (domain_name: STRING; message_1, message_other: like translation; n: INTEGER): like translation
       local
          p1, p2: POINTER
       do
@@ -78,7 +78,7 @@ feature {FILTER_GET_TEXT}
          Result.from_external(p1)
       end
 
-   register_domain (domain_name: STRING) is
+   register_domain (domain_name: STRING)
       do
          if default_message_catalog_directory /= Void then
             bind_text_domain(domain_name, default_message_catalog_directory)
@@ -86,7 +86,7 @@ feature {FILTER_GET_TEXT}
       end
 
 feature {ANY}
-   set_environment_variable (variable, value: STRING) is
+   set_environment_variable (variable, value: STRING)
       local
          sys: SYSTEM
       do
@@ -95,7 +95,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   set_message_locale (locale_name: like message_locale) is
+   set_message_locale (locale_name: like message_locale)
       local
          p: POINTER
       do
@@ -103,7 +103,7 @@ feature {ANY}
          p := basic_setlocale(lc_messages, p)
       end
 
-   set_default_message_locale is
+   set_default_message_locale
       local
          s: STRING; p: POINTER
       do
@@ -112,7 +112,7 @@ feature {ANY}
          p := basic_setlocale(lc_all, p)
       end
 
-   message_locale: STRING is
+   message_locale: STRING
       local
          p: POINTER
       do
@@ -123,7 +123,7 @@ feature {ANY}
          end
       end
 
-   is_message_locale_set: BOOLEAN is
+   is_message_locale_set: BOOLEAN
       local
          p: POINTER
       do
@@ -132,7 +132,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   set_text_domain is
+   set_text_domain
       local
          p: POINTER
       do
@@ -142,7 +142,7 @@ feature {ANY}
          is_text_domain_set
       end
 
-   is_text_domain_set: BOOLEAN is
+   is_text_domain_set: BOOLEAN
       local
          p: POINTER
       do
@@ -151,7 +151,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   bind_text_domain (domain_name: like text_domain; dir_name: like text_domain_binding) is
+   bind_text_domain (domain_name: like text_domain; dir_name: like text_domain_binding)
          -- The message catalog for domain `domain_name' will be
          -- looked for in directory `dir_name'.
       require
@@ -167,7 +167,7 @@ feature {ANY}
          text_domain_binding(domain_name).is_equal(dir_name)
       end
 
-   text_domain_binding (domain_name: like text_domain): STRING is
+   text_domain_binding (domain_name: like text_domain): STRING
          -- In which directory will the message catalog for domain
          -- `domain_name' be looked for?
       require
@@ -183,7 +183,7 @@ feature {ANY}
          end
       end
 
-   is_text_domain_bound (domain_name: like text_domain): BOOLEAN is
+   is_text_domain_bound (domain_name: like text_domain): BOOLEAN
       require
          domain_name /= Void
       local
@@ -197,7 +197,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   bind_text_domain_code_set (domain_name: like text_domain; code_set: like text_domain_code_set) is
+   bind_text_domain_code_set (domain_name: like text_domain; code_set: like text_domain_code_set)
       require
          domain_name /= Void
          code_set /= Void
@@ -211,7 +211,7 @@ feature {ANY}
          text_domain_code_set(domain_name).is_equal(code_set)
       end
 
-   text_domain_code_set (domain_name: like text_domain): STRING is
+   text_domain_code_set (domain_name: like text_domain): STRING
       local
          p: POINTER
       do
@@ -223,7 +223,7 @@ feature {ANY}
          end
       end
 
-   is_text_domain_set_up (domain_name: STRING): BOOLEAN is
+   is_text_domain_set_up (domain_name: STRING): BOOLEAN
       do
          Result := True
       ensure
@@ -231,12 +231,12 @@ feature {ANY}
       end
 
 feature {}
-   notify_change is
+   notify_change
       do
          not_yet_implemented
       end
 
-   lc_messages: INTEGER is
+   lc_messages: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -245,7 +245,7 @@ feature {}
          }"
       end
 
-   lc_all: INTEGER is
+   lc_all: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -254,7 +254,7 @@ feature {}
          }"
       end
 
-   basic_textdomain (domain_name: POINTER): POINTER is
+   basic_textdomain (domain_name: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -263,7 +263,7 @@ feature {}
          }"
       end
 
-   basic_gettext (msgid: POINTER): POINTER is
+   basic_gettext (msgid: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -272,7 +272,7 @@ feature {}
          }"
       end
 
-   basic_dgettext (domain_name, msgid: POINTER): POINTER is
+   basic_dgettext (domain_name, msgid: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -281,7 +281,7 @@ feature {}
          }"
       end
 
-   basic_bind_textdomain_codeset (domainname, codeset: POINTER): POINTER is
+   basic_bind_textdomain_codeset (domainname, codeset: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -290,7 +290,7 @@ feature {}
          }"
       end
 
-   basic_ngettext (msgid1, msgid2: POINTER; n: INTEGER): POINTER is
+   basic_ngettext (msgid1, msgid2: POINTER; n: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -299,7 +299,7 @@ feature {}
          }"
       end
 
-   basic_dngettext (domain, msgid1, msgid2: POINTER; n: INTEGER): POINTER is
+   basic_dngettext (domain, msgid1, msgid2: POINTER; n: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -308,7 +308,7 @@ feature {}
          }"
       end
 
-   basic_bindtextdomain (domain_name, dir_name: POINTER): POINTER is
+   basic_bindtextdomain (domain_name, dir_name: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -317,7 +317,7 @@ feature {}
          }"
       end
 
-   basic_setlocale (category: INTEGER; locale: POINTER): POINTER is
+   basic_setlocale (category: INTEGER; locale: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

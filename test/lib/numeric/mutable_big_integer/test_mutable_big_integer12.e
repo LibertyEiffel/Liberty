@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          mbi: MUTABLE_BIG_INTEGER
       do
@@ -52,7 +52,7 @@ feature {ANY}
          check_with(Minimum_integer_64, 1, 1024)
       end
 
-   check_with (value: INTEGER_64; mini, maxi: INTEGER) is
+   check_with (value: INTEGER_64; mini, maxi: INTEGER)
       require
          mini >= 1
          maxi > mini
@@ -84,12 +84,12 @@ feature {ANY}
          end
       end
 
-   base: MUTABLE_BIG_INTEGER is
+   base: MUTABLE_BIG_INTEGER
       once
          create Result.from_integer_64(Maximum_integer.to_integer_64 + 1)
       end
 
-   mbi_nb_bit_set (mbi: MUTABLE_BIG_INTEGER): INTEGER is
+   mbi_nb_bit_set (mbi: MUTABLE_BIG_INTEGER): INTEGER
       local
          i: INTEGER; mbi_bis, mbi_rem: MUTABLE_BIG_INTEGER
       do
@@ -108,7 +108,7 @@ feature {ANY}
          end
       end
 
-   int64_nb_bit_set (v: INTEGER_64): INTEGER is
+   int64_nb_bit_set (v: INTEGER_64): INTEGER
       local
          i: INTEGER_8
       do
@@ -124,7 +124,7 @@ feature {ANY}
          end
       end
 
-   int32_nb_bit_set (v: INTEGER_32): INTEGER is
+   int32_nb_bit_set (v: INTEGER_32): INTEGER
       local
          i: INTEGER_8
       do
@@ -142,7 +142,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then

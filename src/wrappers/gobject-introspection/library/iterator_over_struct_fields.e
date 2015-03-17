@@ -1,24 +1,24 @@
 class ITERATOR_OVER_STRUCT_FIELDS
 inherit ITERATOR[GI_FIELD_INFO]
-creation {GI_STRUCT_INFO} from_struct
+create {GI_STRUCT_INFO} from_struct
 feature {} -- Creation
-    from_struct (a_struct: GI_STRUCT_INFO) is
+    from_struct (a_struct: GI_STRUCT_INFO)
 		do
 			struct := a_struct
 			iterable_generation := generation
 		end
 feature {ANY}
-	start is
+	start
 	do
 		i:=struct.fields_lower
 	end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 	do
 		Result := i>struct.fields_upper
 	end
 
-	item: GI_FIELD_INFO is
+	item: GI_FIELD_INFO
 	do
 		Result := struct.field(i)
 	end
@@ -30,11 +30,11 @@ feature {} -- Implementation
 	i: INTEGER	
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 	

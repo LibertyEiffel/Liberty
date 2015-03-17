@@ -32,7 +32,7 @@ feature {LIBERTY_ASM_MARSHALLER}
 feature {}
    types_map: DICTIONARY[LIBERTY_ASM_TYPE, INTEGER]
 
-   read (a_stream: INPUT_STREAM) is
+   read (a_stream: INPUT_STREAM)
       require
          a_stream /= Void
       local
@@ -66,7 +66,7 @@ feature {}
          end
       end
 
-   read_type (a_stream: INPUT_STREAM) is
+   read_type (a_stream: INPUT_STREAM)
       require
          error = Void
          a_stream /= Void
@@ -107,7 +107,7 @@ feature {}
          end
       end
 
-   read_method (a_stream: INPUT_STREAM; a_type: LIBERTY_ASM_TYPE) is
+   read_method (a_stream: INPUT_STREAM; a_type: LIBERTY_ASM_TYPE)
       require
          a_stream /= Void
          a_type /= Void
@@ -138,7 +138,7 @@ feature {}
          end
       end
 
-   create_method (a_stream: INPUT_STREAM; a_type: LIBERTY_ASM_TYPE; parameters_count: INTEGER; flags: INTEGER_8) is
+   create_method (a_stream: INPUT_STREAM; a_type: LIBERTY_ASM_TYPE; parameters_count: INTEGER; flags: INTEGER_8)
       require
          error = Void
          a_stream /= Void
@@ -172,7 +172,7 @@ feature {}
          end
       end
 
-   create_parameters (count: INTEGER): COLLECTION[LIBERTY_ASM_PARAMETER] is
+   create_parameters (count: INTEGER): COLLECTION[LIBERTY_ASM_PARAMETER]
       require
          error = Void
          count >= 0
@@ -190,7 +190,7 @@ feature {}
          end
       end
 
-   read_instructions (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION is
+   read_instructions (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION
       require
          error = Void
          a_stream /= Void
@@ -207,7 +207,7 @@ feature {}
          end
       end
 
-   read_instructions_until (a_stream: INPUT_STREAM; size: INTEGER): LIBERTY_ASM_INSTRUCTION is
+   read_instructions_until (a_stream: INPUT_STREAM; size: INTEGER): LIBERTY_ASM_INSTRUCTION
       require
          error = Void
          a_stream /= Void
@@ -229,7 +229,7 @@ feature {}
          end
       end
 
-   create_instruction (a_stream: INPUT_STREAM; code: INTEGER_8): LIBERTY_ASM_INSTRUCTION is
+   create_instruction (a_stream: INPUT_STREAM; code: INTEGER_8): LIBERTY_ASM_INSTRUCTION
       require
          error = Void
          a_stream /= Void
@@ -272,7 +272,7 @@ feature {}
          Result /= Void implies Result.next = Void
       end
 
-   create_new (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY is
+   create_new (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY
       require
          a_stream /= Void
       local
@@ -286,7 +286,7 @@ feature {}
          (Result = Void) /= (error = Void)
       end
 
-   create_invoke (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY is
+   create_invoke (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY
       require
          a_stream /= Void
       local
@@ -303,7 +303,7 @@ feature {}
          (Result = Void) /= (error = Void)
       end
 
-   create_call_native (a_stream: INPUT_STREAM): LIBERTY_ASM_CALL_NATIVE is
+   create_call_native (a_stream: INPUT_STREAM): LIBERTY_ASM_CALL_NATIVE
       require
          a_stream /= Void
       local
@@ -334,7 +334,7 @@ feature {}
          (Result = Void) /= (error = Void)
       end
 
-   create_load_int (a_stream: INPUT_STREAM): LIBERTY_ASM_LOAD_INT is
+   create_load_int (a_stream: INPUT_STREAM): LIBERTY_ASM_LOAD_INT
       require
          a_stream /= Void
       local
@@ -346,7 +346,7 @@ feature {}
          end
       end
 
-   put_native (a_stream: INPUT_STREAM; arguments: FAST_ARRAY[LIBERTY_ASM_NATIVE_VALUE]) is
+   put_native (a_stream: INPUT_STREAM; arguments: FAST_ARRAY[LIBERTY_ASM_NATIVE_VALUE])
       require
          a_stream /= Void
          arguments /= Void
@@ -365,7 +365,7 @@ feature {}
          end
       end
 
-   read_string (a_stream: INPUT_STREAM): FIXED_STRING is
+   read_string (a_stream: INPUT_STREAM): FIXED_STRING
       require
          a_stream /= Void
       local
@@ -399,7 +399,7 @@ feature {}
          (error = Void) /= (Result = Void)
       end
 
-   read_native (a_stream: INPUT_STREAM): LIBERTY_ASM_NATIVE_VALUE is
+   read_native (a_stream: INPUT_STREAM): LIBERTY_ASM_NATIVE_VALUE
       require
          a_stream /= Void
       local
@@ -425,7 +425,7 @@ feature {}
          error /= Void implies Result = Void
       end
 
-   create_jump (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY is
+   create_jump (a_stream: INPUT_STREAM): LIBERTY_ASM_INSTRUCTION_PROXY
       require
          a_stream /= Void
       local
@@ -439,7 +439,7 @@ feature {}
          (Result = Void) /= (error = Void)
       end
 
-   read_code (a_stream: INPUT_STREAM): INTEGER_8 is
+   read_code (a_stream: INPUT_STREAM): INTEGER_8
       require
          a_stream /= Void
          error = Void
@@ -447,7 +447,7 @@ feature {}
          Result := do_read_code(a_stream, False)
       end
 
-   do_read_code (a_stream: INPUT_STREAM; allow_eof: BOOLEAN): INTEGER_8 is
+   do_read_code (a_stream: INPUT_STREAM; allow_eof: BOOLEAN): INTEGER_8
       require
          a_stream /= Void
          error = Void
@@ -462,7 +462,7 @@ feature {}
          end
       end
 
-   read_data (a_stream: INPUT_STREAM): INTEGER is
+   read_data (a_stream: INPUT_STREAM): INTEGER
       require
          a_stream /= Void
          error = Void
@@ -470,7 +470,7 @@ feature {}
          Result := do_read_data(a_stream, False)
       end
 
-   read_data_eof (a_stream: INPUT_STREAM): INTEGER is
+   read_data_eof (a_stream: INPUT_STREAM): INTEGER
       require
          a_stream /= Void
          error = Void
@@ -478,7 +478,7 @@ feature {}
          Result := do_read_data(a_stream, True)
       end
 
-   do_read_data (a_stream: INPUT_STREAM; allow_eof: BOOLEAN): INTEGER is
+   do_read_data (a_stream: INPUT_STREAM; allow_eof: BOOLEAN): INTEGER
       require
          a_stream /= Void
          error = Void
@@ -501,7 +501,7 @@ feature {}
       end
 
 feature {}
-   resolve_all (a_stream: INPUT_STREAM; method_id, type_id: INTEGER) is
+   resolve_all (a_stream: INPUT_STREAM; method_id, type_id: INTEGER)
       local
          types_list: FAST_ARRAY[LIBERTY_ASM_TYPE]
          main_type: LIBERTY_ASM_TYPE
@@ -524,14 +524,14 @@ feature {}
          end
       end
 
-   do_resolve_type (a_type: LIBERTY_ASM_TYPE) is
+   do_resolve_type (a_type: LIBERTY_ASM_TYPE)
       require
          a_type /= Void
       do
          a_type.do_all_methods(agent do_resolve_method)
       end
 
-   do_resolve_method (a_method: LIBERTY_ASM_METHOD) is
+   do_resolve_method (a_method: LIBERTY_ASM_METHOD)
       require
          a_method /= Void
       do
@@ -541,7 +541,7 @@ feature {}
          a_method.set_postcondition(resolve_code(a_method.postcondition))
       end
 
-   resolve_code (a_instruction: LIBERTY_ASM_INSTRUCTION): LIBERTY_ASM_INSTRUCTION is
+   resolve_code (a_instruction: LIBERTY_ASM_INSTRUCTION): LIBERTY_ASM_INSTRUCTION
       do
          if a_instruction /= Void then
             current_code := a_instruction
@@ -549,7 +549,7 @@ feature {}
          end
       end
 
-   do_resolve_code (a_instruction: LIBERTY_ASM_INSTRUCTION): LIBERTY_ASM_INSTRUCTION is
+   do_resolve_code (a_instruction: LIBERTY_ASM_INSTRUCTION): LIBERTY_ASM_INSTRUCTION
       require
          a_instruction /= Void
       do
@@ -565,7 +565,7 @@ feature {}
    current_instruction: LIBERTY_ASM_INSTRUCTION
    resolved_instruction: LIBERTY_ASM_INSTRUCTION
 
-   resolve_target (position: INTEGER): LIBERTY_ASM_INSTRUCTION is
+   resolve_target (position: INTEGER): LIBERTY_ASM_INSTRUCTION
       do
          from
             if position >= current_instruction.position then
@@ -590,78 +590,78 @@ feature {}
       end
 
 feature {LIBERTY_ASM_INSTRUCTION}
-   visit_and (a_instruction: LIBERTY_ASM_AND) is
+   visit_and (a_instruction: LIBERTY_ASM_AND)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE) is
+   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_jump (a_instruction: LIBERTY_ASM_JUMP) is
+   visit_jump (a_instruction: LIBERTY_ASM_JUMP)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_new (a_instruction: LIBERTY_ASM_NEW) is
+   visit_new (a_instruction: LIBERTY_ASM_NEW)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_not (a_instruction: LIBERTY_ASM_NOT) is
+   visit_not (a_instruction: LIBERTY_ASM_NOT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_or (a_instruction: LIBERTY_ASM_OR) is
+   visit_or (a_instruction: LIBERTY_ASM_OR)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_return (a_instruction: LIBERTY_ASM_RETURN) is
+   visit_return (a_instruction: LIBERTY_ASM_RETURN)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT) is
+   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT) is
+   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT) is
+   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT) is
+   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT) is
+   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT) is
+   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT)
       do
          resolved_instruction := a_instruction
       end
 
-   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE) is
+   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE)
       do
          resolved_instruction := a_instruction
       end
 
 feature {LIBERTY_ASM_INSTRUCTION_PROXY}
-   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER) is
+   visit_proxy_new (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; type_id: INTEGER)
       local
          type: LIBERTY_ASM_TYPE
       do
@@ -674,7 +674,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
          end
       end
 
-   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER) is
+   visit_proxy_invoke (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; method_id, type_id: INTEGER)
       local
          type: LIBERTY_ASM_TYPE
          method: LIBERTY_ASM_METHOD
@@ -692,7 +692,7 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
          end
       end
 
-   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER) is
+   visit_proxy_jump (a_instruction: LIBERTY_ASM_INSTRUCTION_PROXY; position: INTEGER)
       local
          target: LIBERTY_ASM_INSTRUCTION
       do
@@ -704,9 +704,9 @@ feature {LIBERTY_ASM_INSTRUCTION_PROXY}
       end
 
 feature {}
-   error_bad_format: STRING is "Bad data format in "
+   error_bad_format: STRING "Bad data format in "
 
-   set_bad_format (where: STRING) is
+   set_bad_format (where: STRING)
       do
          error := error_bad_format + where
          sedb_breakpoint

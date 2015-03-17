@@ -48,24 +48,24 @@ feature {ANY}
    is_redefined: BOOLEAN
          -- True if this feature is proxied by a LIBERTY_REDEFINED_FEATURE and should not be used by itself.
 
-   current_type: LIBERTY_ACTUAL_TYPE is
+   current_type: LIBERTY_ACTUAL_TYPE
       do
          Result := context.current_type
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       require
          has_context
       do
          Result := context.result_type
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := id
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := id = other.id
       end
@@ -78,12 +78,12 @@ feature {ANY}
 
    obsolete_message: STRING
 
-   is_obsolete: BOOLEAN is
+   is_obsolete: BOOLEAN
       do
          Result := obsolete_message /= Void
       end
 
-   parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+   parameters: TRAVERSABLE[LIBERTY_PARAMETER]
       require
          has_context
       do
@@ -92,17 +92,17 @@ feature {ANY}
          exists: Result /= Void
       end
 
-   has_context: BOOLEAN is
+   has_context: BOOLEAN
       do
          Result := context /= Void
       end
 
-   has_accelerator: BOOLEAN is
+   has_accelerator: BOOLEAN
       do
          Result := accelerator /= Void
       end
 
-   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR)
       require
          has_accelerator
       do
@@ -110,7 +110,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: like reachable_mark) is
+   mark_reachable_code (mark: like reachable_mark)
       do
          if current_type.is_reachable then
             if not is_reachable then
@@ -127,7 +127,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   do_mark_reachable_code (mark: like reachable_mark) is
+   do_mark_reachable_code (mark: like reachable_mark)
       require
          current_type.is_reachable
          reachable_mark < mark
@@ -155,7 +155,7 @@ feature {}
       end
 
 feature {LIBERTY_FEATURE_ENTITY}
-   can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+   can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN
       require
          a_agent_call /= Void
       local
@@ -176,7 +176,7 @@ feature {LIBERTY_FEATURE_ENTITY}
          can_also_check_result_type: Result implies (result_type = Void or else result_type.is_known)
       end
 
-   agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
+   agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE]
       require
          can_check_agent_signature(a_agent_call)
          a_agent_call.is_agent_call
@@ -199,7 +199,7 @@ feature {LIBERTY_FEATURE_ENTITY}
          end
       end
 
-   check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+   check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION)
       require
          can_check_agent_signature(a_agent_call)
          a_agent_call.is_agent_call
@@ -239,7 +239,7 @@ feature {LIBERTY_FEATURE_ENTITY}
       end
 
 feature {ANY}
-   frozen debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+   frozen debug_display (o: OUTPUT_STREAM; tab: INTEGER)
       do
          tabulate(o, tab)
          do_debug_display(o, tab)
@@ -247,7 +247,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_FEATURE}
-   do_debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+   do_debug_display (o: OUTPUT_STREAM; tab: INTEGER)
       local
          t: STRING
       do
@@ -267,13 +267,13 @@ feature {LIBERTY_FEATURE}
          o.put_line(to_pointer.out)
       end
 
-   debug_display_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+   debug_display_bindings (o: OUTPUT_STREAM; tab: INTEGER)
       do
          debug_display_parent_bindings(o, tab)
          debug_display_child_bindings(o, tab)
       end
 
-   debug_display_parent_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+   debug_display_parent_bindings (o: OUTPUT_STREAM; tab: INTEGER)
       local
          i: INTEGER
       do
@@ -297,7 +297,7 @@ feature {LIBERTY_FEATURE}
          end
       end
 
-   debug_display_child_bindings (o: OUTPUT_STREAM; tab: INTEGER) is
+   debug_display_child_bindings (o: OUTPUT_STREAM; tab: INTEGER)
       local
          i: INTEGER
       do
@@ -324,7 +324,7 @@ feature {LIBERTY_FEATURE}
          end
       end
 
-   tabulate (o: OUTPUT_STREAM; tab: INTEGER) is
+   tabulate (o: OUTPUT_STREAM; tab: INTEGER)
       local
          i: INTEGER
       do
@@ -339,7 +339,7 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {LIBERTY_FEATURE_DEFINITION}
-   join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -355,7 +355,7 @@ feature {LIBERTY_FEATURE_DEFINITION}
       end
 
 feature {}
-   do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -367,7 +367,7 @@ feature {}
       end
 
 feature {LIBERTY_FEATURE}
-   joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -378,7 +378,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -389,7 +389,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -400,7 +400,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -411,7 +411,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -422,7 +422,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -433,7 +433,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -444,7 +444,7 @@ feature {LIBERTY_FEATURE}
          not errors.has_error implies Result /= Void
       end
 
-   joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       require
          a_type /= Void
          a_feature /= Void
@@ -456,7 +456,7 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {ANY}
-   is_bound (type: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   is_bound (type: LIBERTY_KNOWN_TYPE): BOOLEAN
       local
          known: LIBERTY_ACTUAL_TYPE
       do
@@ -466,7 +466,7 @@ feature {ANY}
          end
       end
 
-   bound (type: LIBERTY_KNOWN_TYPE): LIBERTY_FEATURE is
+   bound (type: LIBERTY_KNOWN_TYPE): LIBERTY_FEATURE
       local
          known: LIBERTY_ACTUAL_TYPE
       do
@@ -482,7 +482,7 @@ feature {ANY}
          not is_bound(type) implies Result = Current
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          if a_type = current_type or else not a_type.is_child_of(current_type) then
             Result := Current
@@ -512,13 +512,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_TYPE_PARENT_FEATURES_LOADER}
-   add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
+   add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME])
       do
          -- nothing
       end
 
 feature {LIBERTY_FEATURE}
-   set_specialized_in (a_original: like Current; a_context: like context) is
+   set_specialized_in (a_original: like Current; a_context: like context)
       require
          is_specializing
          a_original.id = id
@@ -545,12 +545,12 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {LIBERTY_FEATURE}
-   has_parent_binding (a_parent: LIBERTY_FEATURE): BOOLEAN is
+   has_parent_binding (a_parent: LIBERTY_FEATURE): BOOLEAN
       do
          Result := Current = a_parent or else parent_bindings_memory.fast_has(a_parent)
       end
 
-   add_parent_binding (a_parent: LIBERTY_FEATURE) is
+   add_parent_binding (a_parent: LIBERTY_FEATURE)
       require
          a_parent /= Void
          a_parent /= Current
@@ -568,7 +568,7 @@ feature {LIBERTY_FEATURE}
          end
       end
 
-   remove_parent_binding (a_parent: LIBERTY_FEATURE) is
+   remove_parent_binding (a_parent: LIBERTY_FEATURE)
       require
          a_parent /= Current
          has_parent_binding(a_parent)
@@ -579,7 +579,7 @@ feature {LIBERTY_FEATURE}
          parent_bindings_memory.remove(i)
       end
 
-   bind_or_replace (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE; bind_current: BOOLEAN) is
+   bind_or_replace (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE; bind_current: BOOLEAN)
       require
          not is_redefined
          bind_current implies type = child.current_type
@@ -668,7 +668,7 @@ feature {LIBERTY_FEATURE}
             end
          end
       ensure
-         parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE): BOOLEAN is
+         parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE): BOOLEAN
             do
                debug ("feature.binding")
                   log.trace.put_string(once "   Checking ")
@@ -680,7 +680,7 @@ feature {LIBERTY_FEATURE}
                end
             end (child, ?)
          )
-         parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE; t: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+         parent_bindings_memory.for_all(agent (c, p: LIBERTY_FEATURE; t: LIBERTY_ACTUAL_TYPE): BOOLEAN
             do
                Result := p.is_bound(t) and then bound(t) = c
                if not Result then
@@ -690,7 +690,7 @@ feature {LIBERTY_FEATURE}
          )
       end
 
-   do_bind (child, target: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+   do_bind (child, target: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE
          -- Returns the replaced child if it exists
       require
          child /= Current implies not has_parent_binding(child)
@@ -728,20 +728,20 @@ feature {LIBERTY_FEATURE}
          end
       end
 
-   parent_bindings: TRAVERSABLE[LIBERTY_FEATURE] is
+   parent_bindings: TRAVERSABLE[LIBERTY_FEATURE]
          -- Flat structure: all parents of the feature are here.
       do
          Result := parent_bindings_memory
       end
 
-   child_bindings: MAP[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE] is
+   child_bindings: MAP[LIBERTY_FEATURE, LIBERTY_ACTUAL_TYPE]
          -- Flat structure: all heirs of the feature are here.
       do
          Result := child_bindings_memory
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+   bind (child: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE)
       require
          not is_redefined
          truly_bind: child /= Current implies child.current_type /= current_type
@@ -755,7 +755,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          is_bound(type) and then bound(type) = child
       end
 
-   replace (new: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE) is
+   replace (new: LIBERTY_FEATURE; type: LIBERTY_ACTUAL_TYPE)
       require
          not new.is_redefined
          truly_replace: new /= Current and then new.current_type = current_type
@@ -766,7 +766,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_FEATURE_DEFINITION_CONTEXT}
-   find_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+   find_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE
       do
          if a_parent = Void then
             Result := find_closest_precursor
@@ -777,7 +777,7 @@ feature {LIBERTY_FEATURE_DEFINITION_CONTEXT}
       end
 
 feature {}
-   find_closest_precursor: LIBERTY_FEATURE is
+   find_closest_precursor: LIBERTY_FEATURE
       local
          i: INTEGER; candidate: LIBERTY_FEATURE
       do
@@ -797,7 +797,7 @@ feature {}
          Result /= Current
       end
 
-   find_parent_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+   find_parent_precursor (a_parent: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE
       require
          a_parent /= Void
       local
@@ -822,7 +822,7 @@ feature {}
       end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
-   set_type_resolver (a_type_resolver: like type_resolver; a_replace: BOOLEAN) is
+   set_type_resolver (a_type_resolver: like type_resolver; a_replace: BOOLEAN)
       require
          a_type_resolver.local_context = context
          a_type_resolver.the_feature /= Void implies a_replace
@@ -837,7 +837,7 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
          a_replace implies type_resolver.the_feature = Current
       end
 
-   set_context (a_context: like context) is
+   set_context (a_context: like context)
       require
          a_context /= Void
       do
@@ -846,21 +846,21 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
          context = a_context
       end
 
-   set_precondition (assertions: like precondition) is
+   set_precondition (assertions: like precondition)
       do
          precondition := assertions
       ensure
          precondition = assertions
       end
 
-   set_postcondition (assertions: like postcondition) is
+   set_postcondition (assertions: like postcondition)
       do
          postcondition := assertions
       ensure
          postcondition = assertions
       end
 
-   set_obsolete (a_obsolete: like obsolete_message) is
+   set_obsolete (a_obsolete: like obsolete_message)
       do
          obsolete_message := a_obsolete
       ensure
@@ -869,13 +869,13 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
       end
 
 feature {LIBERTY_FEATURE_REDEFINED}
-   set_is_redefined is
+   set_is_redefined
       do
          is_redefined := True
       end
 
 feature {}
-   make (a_definition_type: like definition_type; a_accelerator: like accelerator) is
+   make (a_definition_type: like definition_type; a_accelerator: like accelerator)
       require
          a_definition_type /= Void
       do
@@ -905,7 +905,7 @@ feature {}
 
    is_specializing: BOOLEAN
 
-   ids_provider: COUNTER is
+   ids_provider: COUNTER
       once
          create Result
       end
@@ -920,7 +920,7 @@ invariant
    context = Void implies parent_bindings_memory.is_empty
    is_redefined implies (parent_bindings_memory.is_empty and child_bindings_memory.is_empty)
 
-   not is_specializing implies child_bindings_memory.for_all(agent (c: LIBERTY_FEATURE): BOOLEAN is
+   not is_specializing implies child_bindings_memory.for_all(agent (c: LIBERTY_FEATURE): BOOLEAN
       do
          Result := c.has_parent_binding(Current)
          if not Result then
@@ -930,7 +930,7 @@ invariant
    )
 
    not parent_bindings_memory.fast_has(Current)
-   not is_specializing implies parent_bindings_memory.for_all(agent (p: LIBERTY_FEATURE): BOOLEAN is
+   not is_specializing implies parent_bindings_memory.for_all(agent (p: LIBERTY_FEATURE): BOOLEAN
       local
          c: LIBERTY_FEATURE
       do

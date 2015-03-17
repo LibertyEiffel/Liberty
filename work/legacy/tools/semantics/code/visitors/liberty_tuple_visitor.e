@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_TUPLE}
-   visit_liberty_tuple (v: LIBERTY_TUPLE) is
+   visit_liberty_tuple (v: LIBERTY_TUPLE)
       deferred
       end
 

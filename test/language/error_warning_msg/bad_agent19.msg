@@ -13,8 +13,8 @@ type.
 The source lines involved by the message are the following:
 
 Line 345 column 44 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
-   frozen tagged_out_memory_ref: REFERENCE[STRING] is
-                                           ^         
+   frozen tagged_out_memory_ref: REFERENCE[STRING]
+                                           ^      
 Line 10 column 4 in PROCEDURE (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/procedure.e):
    ROUTINE[O_]
    ^          

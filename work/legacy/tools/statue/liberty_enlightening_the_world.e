@@ -21,7 +21,7 @@ insert
    LOGGING
 
 feature {ANY}
-   burn is
+   burn
       do
          torch.increment
          debug
@@ -31,18 +31,18 @@ feature {ANY}
          end
       end
 
-   flame: LIBERTY_FLAME is
+   flame: LIBERTY_FLAME
       do
          Result.set(torch.value)
       end
 
-   still_burns (a_flame: like flame): BOOLEAN is
+   still_burns (a_flame: like flame): BOOLEAN
       do
          Result := torch.value > a_flame.light
       end
 
 feature {}
-   torch: COUNTER is
+   torch: COUNTER
       once
          create Result
       end

@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          basic_directory.connect_to_current_working_directory
       end
 
-   basic_directory: BASIC_DIRECTORY is
+   basic_directory: BASIC_DIRECTORY
       once
       end
 

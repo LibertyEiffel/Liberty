@@ -4,19 +4,19 @@
 class AUX_AGENT33A[G]
 
 feature {ANY}
-   make is
+   make
       do
          create subscribers.make(0, -1)
       end
 
    subscribers: ARRAY[ROUTINE[TUPLE[G]]]
 
-   subscribe (a_routine: ROUTINE[TUPLE[G]]) is
+   subscribe (a_routine: ROUTINE[TUPLE[G]])
       do
          subscribers.add_last(a_routine)
       end
 
-   publish (a_event: G) is
+   publish (a_event: G)
       local
          i: INTEGER; a: ROUTINE[TUPLE[G]]
       do

@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	tcphdr_struct_set_source (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_source (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for source field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_dest (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_dest (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for dest field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_seq (a_structure: POINTER; a_value: NATURAL) is
+	tcphdr_struct_set_seq (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for seq field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_ack_seq (a_structure: POINTER; a_value: NATURAL) is
+	tcphdr_struct_set_ack_seq (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for ack_seq field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_res1 (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_res1 (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for res1 field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_doff (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_doff (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for doff field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_fin (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_fin (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for fin field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_syn (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_syn (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for syn field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -104,7 +104,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_rst (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_rst (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for rst field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -116,7 +116,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_psh (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_psh (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for psh field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -128,7 +128,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_ack (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_ack (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for ack field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -140,7 +140,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_urg (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_urg (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for urg field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -152,7 +152,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_res2 (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_res2 (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for res2 field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -164,7 +164,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_window (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_window (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for window field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -176,7 +176,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_check_field (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_check_field (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for check field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -188,7 +188,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	tcphdr_struct_set_urg_ptr (a_structure: POINTER; a_value: NATURAL_16) is
+	tcphdr_struct_set_urg_ptr (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for urg_ptr field of TCPHDR_STRUCT structure.
 			-- TODO: setter description
 
@@ -202,7 +202,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	tcphdr_struct_get_source (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_source (a_structure: POINTER): NATURAL_16
 			-- Query for source field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -214,7 +214,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_dest (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_dest (a_structure: POINTER): NATURAL_16
 			-- Query for dest field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -226,7 +226,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_seq (a_structure: POINTER): NATURAL is
+	tcphdr_struct_get_seq (a_structure: POINTER): NATURAL
 			-- Query for seq field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -238,7 +238,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_ack_seq (a_structure: POINTER): NATURAL is
+	tcphdr_struct_get_ack_seq (a_structure: POINTER): NATURAL
 			-- Query for ack_seq field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -250,7 +250,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_res1 (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_res1 (a_structure: POINTER): NATURAL_16
 			-- Query for res1 field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -262,7 +262,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_doff (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_doff (a_structure: POINTER): NATURAL_16
 			-- Query for doff field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -274,7 +274,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_fin (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_fin (a_structure: POINTER): NATURAL_16
 			-- Query for fin field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -286,7 +286,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_syn (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_syn (a_structure: POINTER): NATURAL_16
 			-- Query for syn field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -298,7 +298,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_rst (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_rst (a_structure: POINTER): NATURAL_16
 			-- Query for rst field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -310,7 +310,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_psh (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_psh (a_structure: POINTER): NATURAL_16
 			-- Query for psh field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -322,7 +322,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_ack (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_ack (a_structure: POINTER): NATURAL_16
 			-- Query for ack field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -334,7 +334,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_urg (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_urg (a_structure: POINTER): NATURAL_16
 			-- Query for urg field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -346,7 +346,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_res2 (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_res2 (a_structure: POINTER): NATURAL_16
 			-- Query for res2 field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -358,7 +358,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_window (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_window (a_structure: POINTER): NATURAL_16
 			-- Query for window field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -370,7 +370,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_check_field (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_check_field (a_structure: POINTER): NATURAL_16
 			-- Query for check field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -382,7 +382,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	tcphdr_struct_get_urg_ptr (a_structure: POINTER): NATURAL_16 is
+	tcphdr_struct_get_urg_ptr (a_structure: POINTER): NATURAL_16
 			-- Query for urg_ptr field of TCPHDR_STRUCT structure.
 			-- TODO: getter description
 
@@ -395,7 +395,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

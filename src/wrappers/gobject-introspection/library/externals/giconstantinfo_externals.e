@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_constant_info_free_value (an_info: POINTER; a_value: POINTER) is
+	g_constant_info_free_value (an_info: POINTER; a_value: POINTER)
  		-- g_constant_info_free_value
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_constant_info_get_type (an_info: POINTER): POINTER is
+	g_constant_info_get_type (an_info: POINTER): POINTER
  		-- g_constant_info_get_type
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_constant_info_get_value (an_info: POINTER; a_value: POINTER): INTEGER is
+	g_constant_info_get_value (an_info: POINTER; a_value: POINTER): INTEGER
  		-- g_constant_info_get_value
 		external "plug_in"
 		alias "{

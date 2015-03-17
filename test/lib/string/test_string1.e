@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s, s2: STRING; i: INTEGER; words: ARRAY[STRING]
       do
@@ -154,7 +154,7 @@ feature {ANY}
          assert((" -67  ").to_real = -67)
       end
 
-   str1,str2: STRING is "Ouupps ..."
+   str1,str2: STRING "Ouupps ..."
 
 end -- class TEST_STRING1
 --

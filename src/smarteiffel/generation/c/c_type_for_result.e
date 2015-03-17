@@ -4,22 +4,13 @@
 class C_TYPE_FOR_RESULT
 
 inherit
+   TYPE_MARK_VISITOR
+
+insert
    C_TYPE_FOR_ARGUMENT
 
 create {C_PRETTY_PRINTER}
    make
-
-feature {ANY}
-   for_external (type_mark: TYPE_MARK): STRING is
-      do
-         if type_mark = Void then
-            Result := once "void"
-         elseif type_mark.is_reference then
-            Result := once "void*"
-         else
-            Result := for(type_mark)
-         end
-      end
 
 end -- class C_TYPE_FOR_RESULT
 --
@@ -33,9 +24,9 @@ end -- class C_TYPE_FOR_RESULT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

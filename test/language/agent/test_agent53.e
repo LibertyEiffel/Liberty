@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          k1: AUX_AGENT53_CONTAINER[AUX_AGENT53_FOO1]; b: BOOLEAN; d: REAL
       do

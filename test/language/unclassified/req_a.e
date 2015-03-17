@@ -4,24 +4,24 @@
 class REQ_A
 
 feature {ANY}
-   est_dans (x: CHARACTER): BOOLEAN is
+   est_dans (x: CHARACTER): BOOLEAN
       do
          Result := bc = x
       end
 
-   bc: CHARACTER is
+   bc: CHARACTER
       do
          Result := 'a'
       end
 
-   ra is
+   ra
       require
          bc = 'a'
          est_dans('a')
       do
       end
 
-   rb is
+   rb
       require
          bc = 'a'
       local
@@ -30,7 +30,7 @@ feature {ANY}
          b := est_dans('a')
       end
 
-   rc is
+   rc
       require
          4 = 2 + 1
       local

@@ -3,23 +3,23 @@
 --
 expanded class AUX_EG16A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          x := 1
       end
 
-   set_x (v: like x) is
+   set_x (v: like x)
       do
          x := v
       end
 
    x: INTEGER
 
-   sum (other: like Current): like Current is
+   sum (other: like Current): like Current
       do
          create Result.make
          Result.set_x(x + other.x)

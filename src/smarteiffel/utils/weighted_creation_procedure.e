@@ -7,7 +7,7 @@ create {ANY}
    default_create, make
 
 feature {ANY}
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          if dead_expanded_count = other.dead_expanded_count then
             if live_expanded_count = other.live_expanded_count then
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   make (creation_procedure_stamp: FEATURE_STAMP; creation_name_: like creation_name; type: TYPE) is
+   make (creation_procedure_stamp: FEATURE_STAMP; creation_name_: like creation_name; type: TYPE)
       local
          args: FORMAL_ARG_LIST
          j: INTEGER

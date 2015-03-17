@@ -6,59 +6,59 @@ deferred class FLAG_NAME_LIST
    -- Shared Frozen String list for command flags.
    --
 feature {} -- Most of them are command flag names:
-   fz_case_insensitive: STRING is "case_insensitive"
+   fz_case_insensitive: STRING "case_insensitive"
 
-   fz_cc: STRING is "cc"
+   fz_cc: STRING "cc"
 
-   fz_cecil: STRING is "cecil"
+   fz_cecil: STRING "cecil"
 
-   fz_clean: STRING is "clean"
+   fz_clean: STRING "clean"
 
-   fz_c_mode: STRING is "c_mode"
+   fz_c_mode: STRING "c_mode"
 
-   fz_flymake_mode: STRING is "flymake_mode"
+   fz_flymake_mode: STRING "flymake_mode"
 
-   fz_gc_info: STRING is "gc_info"
+   fz_gc_info: STRING "gc_info"
 
-   fz_help: STRING is "help"
+   fz_help: STRING "help"
 
-   fz_high_memory_compiler: STRING is "high_memory_compiler"
+   fz_high_memory_compiler: STRING "high_memory_compiler"
 
-   fz_loadpath: STRING is "loadpath"
+   fz_loadpath: STRING "loadpath"
 
-   fz_manifest_string_trace: STRING is "manifest_string_trace"
+   fz_manifest_string_trace: STRING "manifest_string_trace"
 
-   fz_no_main: STRING is "no_main"
+   fz_no_main: STRING "no_main"
 
-   fz_no_split: STRING is "no_split"
+   fz_no_split: STRING "no_split"
 
-   fz_no_strip: STRING is "no_strip"
+   fz_no_strip: STRING "no_strip"
 
-   fz_style_warning: STRING is "style_warning"
+   fz_style_warning: STRING "style_warning"
 
-   fz_no_warning: STRING is "no_warning"
+   fz_no_warning: STRING "no_warning"
 
-   fz_o: STRING is "-o"
+   fz_o: STRING "-o"
 
-   fz_profile: STRING is "profile"
+   fz_profile: STRING "profile"
 
-   fz_relax: STRING is "relax"
+   fz_relax: STRING "relax"
 
-   fz_safety_check: STRING is "safety_check"
+   fz_safety_check: STRING "safety_check"
 
-   fz_sedb: STRING is "sedb"
+   fz_sedb: STRING "sedb"
 
-   fz_split: STRING is "split"
+   fz_split: STRING "split"
 
-   fz_verbose: STRING is "verbose"
+   fz_verbose: STRING "verbose"
 
-   fz_version: STRING is "version"
+   fz_version: STRING "version"
 
-   fz_flag_run: STRING is "run"
+   fz_flag_run: STRING "run"
 
-   fz_flag_clean_classes: STRING is "clean_classes"
+   fz_flag_clean_classes: STRING "clean_classes"
 
-   fz_flag_hard_clean: STRING is "hard_clean"
+   fz_flag_hard_clean: STRING "hard_clean"
 
 end -- class FLAG_NAME_LIST
 --
@@ -72,9 +72,9 @@ end -- class FLAG_NAME_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

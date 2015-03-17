@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER; r: REFERENCE[INTEGER]
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(v.is_equal(5))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

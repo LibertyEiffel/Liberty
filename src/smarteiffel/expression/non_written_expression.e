@@ -11,17 +11,17 @@ inherit
    EXPRESSION
 
 feature {ANY}
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   frozen specialize_in (type: TYPE): like Current is
+   frozen specialize_in (type: TYPE): like Current
       do
          check
             non_written_code: False
@@ -29,7 +29,7 @@ feature {ANY}
          sedb_breakpoint
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          check
             non_written_code: False
@@ -37,7 +37,7 @@ feature {ANY}
          sedb_breakpoint
       end
 
-   frozen specialize_and_check (type: TYPE): EXPRESSION is
+   frozen specialize_and_check (type: TYPE): EXPRESSION
       do
          check
             non_written_code: False
@@ -45,28 +45,28 @@ feature {ANY}
          sedb_breakpoint
       end
 
-   frozen precedence: INTEGER is
+   frozen precedence: INTEGER
       do
          check
             non_written_code: False
          end
       end
 
-   frozen short, frozen short_target (type: TYPE) is
+   frozen short, frozen short_target (type: TYPE)
       do
          check
             non_written_code: False
          end
       end
 
-   frozen pretty_target, frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
+   frozen pretty_target, frozen bracketed_pretty, frozen pretty (indent_level: INTEGER)
       do
          check
             non_written_code: False
          end
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          check
             non_written_code: False
@@ -85,9 +85,9 @@ end -- class NON_WRITTEN_EXPRESSION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

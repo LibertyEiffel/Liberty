@@ -20,29 +20,29 @@ feature {ANY}
 
    right_side: EXPRESSION
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          check False end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          check False end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := left_side.use_current(type) or else right_side.use_current(type)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := left_side.start_position
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          l: FUNCTION_CALL; r: EXPRESSION
       do
@@ -55,7 +55,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          l: FUNCTION_CALL; r: EXPRESSION
       do
@@ -68,12 +68,12 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       local
          l: FUNCTION_CALL; r: EXPRESSION
          target_type: TYPE; fn: FEATURE_NAME
          fs_assigned: FEATURE_STAMP; af_assigned, af_assigner: ANONYMOUS_FEATURE
-         pc_arguments, arguments: EFFECTIVE_ARG_LIST
+         pc_arguments: EFFECTIVE_ARG_LIST; arguments: EFFECTIVE_ARG_LIST_N
          args: FAST_ARRAY[EXPRESSION]; i: INTEGER
          collected_actual_call: PROCEDURE_CALL
       do
@@ -85,8 +85,7 @@ feature {ANY}
             fs_assigned.has_anonymous_feature_for(target_type)
          end
          af_assigned := fs_assigned.anonymous_feature(target_type)
-         af_assigner := af_assigned.assigner
-         if af_assigner = Void then
+         if af_assigned.assigner = Void or else target_type.lookup(af_assigned.assigner) = Void then
             error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment operator. There is no assigner to `")
             error_handler.append(l.feature_name.to_string)
             error_handler.append(once "` in class ")
@@ -95,6 +94,7 @@ feature {ANY}
             error_handler.add_position(start_position)
             error_handler.print_as_fatal_error
          end
+         af_assigner := target_type.lookup(af_assigned.assigner).anonymous_feature(target_type)
          fn := af_assigner.names.first
 
          echo.put_string(once "Replacing assign to {")
@@ -108,7 +108,7 @@ feature {ANY}
 
          pc_arguments := l.arguments
          if pc_arguments = Void then
-            create arguments.make_1(r)
+            create arguments.make_1(start_position, r)
             create {PROCEDURE_CALL_1} collected_actual_call.make(l.target, fn, arguments)
          else
             create args.with_capacity(pc_arguments.count)
@@ -120,7 +120,7 @@ feature {ANY}
                args.add_last(pc_arguments.expression(i))
                i := i + 1
             end
-            create arguments.make_n(r, args)
+            create arguments.make_n(start_position, r, args)
             create {PROCEDURE_CALL_N} collected_actual_call.make(l.target, fn, arguments)
          end
 
@@ -128,17 +128,17 @@ feature {ANY}
          smart_eiffel.magic_count_increment
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          check not Result end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          check False end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          semi_colon_flag: BOOLEAN; expression_with_comment: EXPRESSION_WITH_COMMENT
       do
@@ -165,23 +165,23 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: ASSIGNMENT_CALL_ASSIGNER_VISITOR) is
+   accept (visitor: ASSIGNMENT_CALL_ASSIGNER_VISITOR)
       do
          visitor.visit_assignment_call_assigner(Current)
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          check False end
       end
 
-   adapt_for (t: TYPE): INSTRUCTION is
+   adapt_for (t: TYPE): INSTRUCTION
       do
          check False end
       end
 
 feature {}
-   make (ls: like left_side; rs: like right_side) is
+   make (ls: like left_side; rs: like right_side)
          -- Note: this creation procedure is for example called by the `eiffel_parser' which is in charge
          -- of checking that `ls' is actually a writable entity.
       require
@@ -196,7 +196,7 @@ feature {}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
       end
 
@@ -216,9 +216,9 @@ end -- class ASSIGNMENT_CALL_ASSIGNER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

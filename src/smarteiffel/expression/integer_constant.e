@@ -24,7 +24,7 @@ create {EIFFEL_PARSER, INTEGER_TYPE_MARK, CST_ATT_UNIQUE, EXTERNAL_FUNCTION}
    with
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          if pretty_view = Void then
             -- Because of the usual low priority of prefix minus:
@@ -34,7 +34,7 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          if pretty_view = Void then
             Precursor(indent_level)
@@ -50,7 +50,7 @@ feature {ANY}
          end
       end
 
-   result_type: INTEGER_TYPE_MARK is
+   result_type: INTEGER_TYPE_MARK
       do
          Result := result_type_memory
          if Result = Void then
@@ -78,7 +78,7 @@ feature {ANY}
          -- Note this is the actual `size' of the `value_memory' which may be smaller or equal to the
          -- corresponding size of the `result_type_memory'.
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          inspect
             result_type.bit_count
@@ -93,17 +93,17 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   simplify_1_, simplify_2: like Current is
+   simplify_1_, simplify_2: like Current
       do
          Result := Current
       end
 
-   to_string: STRING is
+   to_string: STRING
       local
          buffer: STRING
       do
@@ -113,7 +113,7 @@ feature {ANY}
          Result := buffer.twin
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append in `buffer' Eiffel prettifyed view of `Current'.
       do
          if pretty_view /= Void then
@@ -123,13 +123,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: INTEGER_CONSTANT_VISITOR) is
+   accept (visitor: INTEGER_CONSTANT_VISITOR)
       do
          visitor.visit_integer_constant(Current)
       end
 
 feature {TMP_FEATURE}
-   to_real_constant: REAL_CONSTANT is
+   to_real_constant: REAL_CONSTANT
       local
          real_view: STRING
       do
@@ -141,7 +141,7 @@ feature {TMP_FEATURE}
       end
 
 feature {FEATURE_TEXT, ASSIGNMENT_HANDLER, IMPLICIT_CAST, INTROSPECTION_HANDLER}
-   set_result_type (type_mark: TYPE_MARK) is
+   set_result_type (type_mark: TYPE_MARK)
       require
          type_mark.is_integer
       do
@@ -154,7 +154,7 @@ feature {FEATURE_TEXT, ASSIGNMENT_HANDLER, IMPLICIT_CAST, INTROSPECTION_HANDLER}
       end
 
 feature {INTROSPECTION_HANDLER}
-   set_value (v: like value_memory) is
+   set_value (v: like value_memory)
       do
          make(v, start_position)
       ensure
@@ -170,7 +170,7 @@ feature {INTEGER_CONSTANT_VISITOR}
          -- or the {INTEGER_* ...} notation.
 
 feature {}
-   special (sp: like start_position; pv: like pretty_view; rt: like result_type; vm: like value_memory) is
+   special (sp: like start_position; pv: like pretty_view; rt: like result_type; vm: like value_memory)
       require
          not sp.is_unknown
          not pv.is_empty
@@ -210,7 +210,7 @@ feature {}
          end
       end
 
-   make (vm: like value_memory; sp: like start_position) is
+   make (vm: like value_memory; sp: like start_position)
       do
          start_position := sp
          value_memory := vm
@@ -227,7 +227,7 @@ feature {}
 
 feature {}
    hexadecimal (sp: like start_position; pv:like pretty_view; digit_count: INTEGER_8;
-                negative: BOOLEAN;  a_value: INTEGER_64; ) is
+                negative: BOOLEAN;  a_value: INTEGER_64; )
       do
          start_position := sp
          pretty_view := pv
@@ -257,7 +257,7 @@ feature {}
          end
       end
 
-   with (v: like value_memory; sp: like start_position; rt: like result_type) is
+   with (v: like value_memory; sp: like start_position; rt: like result_type)
       require
          rt /= Void
       do
@@ -282,9 +282,9 @@ end -- class INTEGER_CONSTANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

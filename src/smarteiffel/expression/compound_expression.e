@@ -15,47 +15,52 @@ inherit
 insert
    TRAVERSABLE[CODE]
 
-create {CODE_ACCUMULATOR}
+create {ANY}
    from_list
 
 create {COMPOUND_EXPRESSION}
    set_list
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := list.last.start_position
       end
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := list.last.to_expression.resolve_in(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          check
             False -- Because they are created late.
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         check False end
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := list.last.to_expression.non_void_no_dispatch_type(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          not_yet_implemented
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          l: like list; code1, code2: CODE; i, i2: INTEGER
       do
@@ -99,7 +104,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -113,7 +118,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -128,7 +133,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          i: INTEGER
       do
@@ -142,7 +147,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          l: like list; code1, code2: CODE; i: INTEGER
       do
@@ -172,51 +177,51 @@ feature {ANY}
          end
       end
 
-   accept (visitor: COMPOUND_EXPRESSION_VISITOR) is
+   accept (visitor: COMPOUND_EXPRESSION_VISITOR)
       do
          visitor.visit_compound_expression(Current)
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := list.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := list.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := list.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          check
             False
          end
       end
 
-   item (i: INTEGER): CODE is
+   item (i: INTEGER): CODE
       do
          Result := list.item(i)
       end
 
-   first: like item is
+   first: like item
       do
          Result := list.first
       end
 
-   last: like item is
+   last: like item
       do
          Result := list.last
       end
 
 feature {}
-   new_iterator: ITERATOR[INSTRUCTION] is
+   new_iterator: ITERATOR[INSTRUCTION]
       do
          check
             False -- Just use the usual pattern instead please.
@@ -228,7 +233,7 @@ feature {COMPOUND, COMPOUND_EXPRESSION_VISITOR}
          -- Contains at least 2 items (just because this is the canonical form to be enforced).
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER
       do
@@ -243,7 +248,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {COMPOUND_EXPRESSION}
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l.count >= 2
       do
@@ -253,7 +258,7 @@ feature {COMPOUND_EXPRESSION}
       end
 
 feature {}
-   from_list (l: FAST_ARRAY[CODE]) is
+   from_list (l: FAST_ARRAY[CODE])
       require
          l.count >= 2
       local
@@ -274,7 +279,7 @@ feature {}
          list.count = l.count
       end
 
-   canonical_form (l: like list): BOOLEAN is
+   canonical_form (l: like list): BOOLEAN
       require
          canonical_form(l)
       local
@@ -294,7 +299,7 @@ feature {}
          assertion_check_only: Result
       end
 
-   simplify_add (l: like list; new_item: CODE) is
+   simplify_add (l: like list; new_item: CODE)
       require
          l /= Void
          new_item /= Void
@@ -345,9 +350,9 @@ end -- class COMPOUND_EXPRESSION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

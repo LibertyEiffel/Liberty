@@ -10,8 +10,6 @@ class WRITABLE_ATTRIBUTE_NAME
 
 inherit
    EXPRESSION
-      redefine written_declaration_type_mark
-      end
 
 insert
    NAME
@@ -26,44 +24,44 @@ feature {ANY}
    feature_stamp: FEATURE_STAMP
          -- The good feature_stamp for the feature in some type.
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := feature_name.start_position
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := feature_name.to_string
       end
 
-   is_writable: BOOLEAN is True
+   is_writable: BOOLEAN True
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          fs: like feature_stamp; type_mark: TYPE_MARK; dt: like declaration_type
       do
@@ -98,7 +96,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          fs: like feature_stamp
       do
@@ -114,7 +112,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          anonymous_feature: ANONYMOUS_FEATURE; writable_attribute: WRITABLE_ATTRIBUTE
       do
@@ -136,23 +134,23 @@ feature {ANY}
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := feature_stamp /= Void and then declaration_type /= Void
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          -- There is probably better to do here, but actually, such
          -- object are not so common.
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
@@ -161,30 +159,30 @@ feature {ANY}
 
    declaration_type: TYPE
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := feature_stamp.anonymous_feature(type).result_type.resolve_in(type)
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER; c: CHARACTER
       do
@@ -205,31 +203,31 @@ feature {ANY}
          short_printer.hook(once "Asfn")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check
             False
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          -- Register the feature as being alive:
          Result := smart_eiffel.collect(type, feature_stamp, False)
       end
 
-   accept (visitor: WRITABLE_ATTRIBUTE_NAME_VISITOR) is
+   accept (visitor: WRITABLE_ATTRIBUTE_NAME_VISITOR)
       do
          visitor.visit_writable_attribute_name(Current)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}
-   set_feature_stamp (fs: like feature_stamp) is
+   set_feature_stamp (fs: like feature_stamp)
       do
          feature_stamp := fs
       end
 
-   set_feature_stamp_and_type (fs: like feature_stamp; dt: like declaration_type) is
+   set_feature_stamp_and_type (fs: like feature_stamp; dt: like declaration_type)
       do
          feature_stamp := fs
          declaration_type := dt
@@ -239,13 +237,13 @@ feature {WRITABLE_ATTRIBUTE_NAME}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {TYPE}
-   make (hs: HASHED_STRING; sp: like start_position) is
+   make (hs: HASHED_STRING; sp: like start_position)
       require
          hs /= Void
          not sp.is_unknown
@@ -271,9 +269,9 @@ end -- class WRITABLE_ATTRIBUTE_NAME
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

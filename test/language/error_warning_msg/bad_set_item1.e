@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          (1).set_item(0)
       end

@@ -11,7 +11,7 @@ feature {}
       do
       end
 
-   main is
+   main
       do
       end
 

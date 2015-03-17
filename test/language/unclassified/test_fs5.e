@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s_a: ARRAY[ANIMAL]; s_aa: ARRAY[ARRAY[ANIMAL]]; s_i: ARRAY[INTEGER]; c: CAT
       do

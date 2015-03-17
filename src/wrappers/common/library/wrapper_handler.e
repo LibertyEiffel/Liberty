@@ -33,7 +33,7 @@ insert
       end
 
 feature {} -- Utility features
-   null_or (a_wrapper: WRAPPER): POINTER is
+   null_or (a_wrapper: WRAPPER): POINTER
          -- The handle of `a_wrapper', or the default_pointer if
          -- `a_wrapper' is Void
       do
@@ -44,7 +44,7 @@ feature {} -- Utility features
          definition: Result = default_pointer or else a_wrapper /= Void and then Result = a_wrapper.handle
       end
 
-   null_or_string (a_string: ABSTRACT_STRING): POINTER is
+   null_or_string (a_string: ABSTRACT_STRING): POINTER
          -- A pointer to a memory area containing the content of `a_string' or
          -- default_pointer if `a_string' is Void. The memory area may be the
          -- internal buffer of `a_string' or a newly allocated one.
@@ -60,7 +60,7 @@ feature {} -- Utility features
          definition: Result = default_pointer or (a_string /= Void implies Result = a_string.to_external)
       end
 
-   null_or_array (a_collection: WRAPPER_COLLECTION[WRAPPER]): POINTER is
+   null_or_array (a_collection: WRAPPER_COLLECTION[WRAPPER]): POINTER
          -- A pointer to the contenct of `a_collection' or NULL (default_pointer) if `a_collection' is Void
       do
          if a_collection /= Void then
@@ -70,7 +70,7 @@ feature {} -- Utility features
          definition: a_collection = Void implies Result.is_null and a_collection /= Void implies Result.is_not_null
       end
 
-   collection_to_c_array (a_collection: COLLECTION[WRAPPER]): FAST_ARRAY[POINTER] is
+   collection_to_c_array (a_collection: COLLECTION[WRAPPER]): FAST_ARRAY[POINTER]
          -- An array containing the pointers to the objects wrapped by `a_collection' wrappers.
          -- TODO: avoid creating a new array whenever possible.
       require
@@ -92,10 +92,10 @@ feature {} -- Utility features
       end
 
 feature {} -- Wrapper related exceptions
-   pointer_to_unwrapped_deferred_object: STRING is "A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
+   pointer_to_unwrapped_deferred_object: STRING "A C function returned a pointer to an unwrapped object which is wrapped by a deferred class. It is not possible to create a correct wrapper."
 
-   retrieved_object_mismatch: STRING is "Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
+   retrieved_object_mismatch: STRING "Retrieved_object_mismatch: the Eiffel wrapper associated with a pointer is not an actual wrapper for the object referred by that pointer "
 
-   copying_an_uncopyable: STRING is "Trying to copy an uncopyable wrapper: such objects are usually shortly lived"
+   copying_an_uncopyable: STRING "Trying to copy an uncopyable wrapper: such objects are usually shortly lived"
 
 end -- class WRAPPER_HANDLER

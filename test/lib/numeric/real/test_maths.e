@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          i_8: INTEGER_8; i_16: INTEGER_16; i_32: INTEGER_32; i_64: INTEGER_64; r_32, real_32: REAL_32
          r_64, real_64: REAL_64

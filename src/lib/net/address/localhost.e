@@ -25,7 +25,7 @@ create {ANY}
    make
 
 feature {ANY}
-   fqdn: STRING is
+   fqdn: STRING
          -- Fully Qualified Domain Name
       do
          Result := once ""
@@ -34,7 +34,7 @@ feature {ANY}
          Result.append(domain_name)
       end
 
-   host_name: STRING is
+   host_name: STRING
          -- Short host name
       local
          e: POINTER
@@ -46,7 +46,7 @@ feature {ANY}
          end
       end
 
-   domain_name: STRING is
+   domain_name: STRING
          -- Full domain name (without the `host_name`)
       local
          e: POINTER
@@ -58,14 +58,14 @@ feature {ANY}
          end
       end
 
-   set_host_name (a_host_name: STRING) is
+   set_host_name (a_host_name: STRING)
       require
          a_host_name /= Void and then not a_host_name.is_empty
       do
          net_sethostname(a_host_name.to_external, a_host_name.count)
       end
 
-   set_domain_name (a_domain_name: STRING) is
+   set_domain_name (a_domain_name: STRING)
       require
          a_domain_name /= Void and then not a_domain_name.is_empty
       do
@@ -73,7 +73,7 @@ feature {ANY}
       end
 
 feature {ACCESS, ADDRESS}
-   new_socket (access: ACCESS): SOCKET is
+   new_socket (access: ACCESS): SOCKET
       local
          local_access: LOCAL_ACCESS
       do
@@ -85,20 +85,20 @@ feature {ACCESS, ADDRESS}
       end
 
 feature {}
-   make is
+   make
       do
          make_host(once "localhost")
       end
 
 end -- class LOCALHOST
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

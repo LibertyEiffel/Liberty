@@ -31,7 +31,7 @@ feature {ANY}
    hash_code: INTEGER
          -- The precomputed `hash_code' of `to_string' (memory cache).
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          other_to_string: STRING
       do
@@ -43,7 +43,7 @@ feature {ANY}
          end
       end
 
-   is_tuple_related: BOOLEAN is
+   is_tuple_related: BOOLEAN
          -- Is it some TUPLE-related name ("TUPLE", "TUPLE 1", "TUPLE 2", etc.)?
       do
          Result := to_string.has_prefix(as_tuple)
@@ -54,7 +54,7 @@ feature {ANY}
          end
       end
 
-   is_simple_feature_name: BOOLEAN is
+   is_simple_feature_name: BOOLEAN
          -- Is it an ordinary feature name (i.e. not a prefix / infix operator).
          -- Actually, the goal of this feature is just for assertion purpose in order to check 
          -- that manual lookup done in the compiler (i.e. `has_simple_feature_name' and 
@@ -88,7 +88,7 @@ feature {ANY}
       end
    
 feature {STRING_ALIASER}
-   set (ts: like to_string) is
+   set (ts: like to_string)
       require
          ts /= Void
       do
@@ -106,7 +106,7 @@ feature {}
    debug_immutable_flag: BOOLEAN
    debug_original_string: STRING
 
-   debug_check: BOOLEAN is
+   debug_check: BOOLEAN
          -- To try to check that the `to_string' is really immutable.
       local
          tsh: INTEGER
@@ -123,7 +123,7 @@ feature {}
          end
       end
 
-   make (ts: like to_string; hc: like hash_code) is
+   make (ts: like to_string; hc: like hash_code)
       require
          ts /= Void
          hc = ts.hash_code
@@ -153,9 +153,9 @@ end -- class HASHED_STRING
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -11,7 +11,7 @@ insert
    ANY
 
 feature {ANY}
-   line: INTEGER is
+   line: INTEGER
          -- The corresponding `line' number in the source file or 0
          -- when `is_unknown'.
       local
@@ -29,7 +29,7 @@ feature {ANY}
          not is_unknown implies Result >= 0
       end
 
-   column: INTEGER is
+   column: INTEGER
          -- The `column' number in the source file or 0 when `is_unknown' or
          -- when there is not enough space in `mangling' for the `column'.
       local
@@ -46,13 +46,13 @@ feature {ANY}
          Result >= 0
       end
 
-   is_unknown: BOOLEAN is
+   is_unknown: BOOLEAN
          -- True when the `eiffel_parser' as called `set'.
       do
          Result := mangling = 0
       end
 
-   set (li, co: INTEGER; class_id: INTEGER_16) is
+   set (li, co: INTEGER; class_id: INTEGER_16)
       require
          li >= 1
          co >= 1
@@ -89,7 +89,7 @@ feature {ANY}
          -- dropped (not memorized, see `set'). This implementation assume
          -- that `Integer_bits' is greater or equal to 32.
 
-   id: INTEGER_16 is
+   id: INTEGER_16
       do
          if mangling.bit_test(0) then
             Result := (mangling |>>> 17).low_16

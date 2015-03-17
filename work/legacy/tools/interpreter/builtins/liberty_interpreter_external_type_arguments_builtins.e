@@ -18,11 +18,11 @@ insert
    LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
    COMMAND_LINE_ARGUMENT_FACTORY
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT
       local
          index: INTEGER; argv: STRING
       do
@@ -46,7 +46,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
       end
 
 feature {}
-   integer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): INTEGER is
+   integer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): INTEGER
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -55,7 +55,7 @@ feature {}
          Result := obj.item.to_integer_32
       end
 
-   root_class_and_feature: STRING is
+   root_class_and_feature: STRING
       once
          Result := interpreter.root_type.full_name.out
          Result.extend('.')

@@ -3,11 +3,11 @@
 --
 class AUX_JW01HOLDER[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (x: G) is
+   make (x: G)
       do
          item := x
       end

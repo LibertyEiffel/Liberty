@@ -28,28 +28,28 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_WRITABLE_FEATURE}
    make
 
 feature {ANY}
-   name: FIXED_STRING is
+   name: FIXED_STRING
       do
          Result := entity.name
       end
 
-   feature_name: LIBERTY_FEATURE_NAME is
+   feature_name: LIBERTY_FEATURE_NAME
       do
          Result := entity.feature_name
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := entity.result_type
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "writable feature: ")
          tagged_out_memory.append(name)
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: like entity
       do
@@ -62,7 +62,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
             result_type.mark_reachable_code(mark)
@@ -72,7 +72,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
 feature {}
    entity: LIBERTY_FEATURE_ENTITY
 
-   make (a_entity: like entity; a_position: like position) is
+   make (a_entity: like entity; a_position: like position)
       require
          a_entity /= Void
          a_position /= Void
@@ -85,7 +85,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_WRITABLE_FEATURE_VISITOR
       do

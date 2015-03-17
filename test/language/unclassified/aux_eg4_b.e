@@ -6,7 +6,7 @@ expanded class AUX_EG4_B
 insert
    AUX_EG4_A
 
-creation {ANY}
+create {ANY}
    make
 
 end -- class AUX_EG4_B

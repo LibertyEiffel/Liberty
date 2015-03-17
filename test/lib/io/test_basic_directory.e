@@ -13,7 +13,7 @@ create {}
 feature {}
    bd: BASIC_DIRECTORY
 
-   make is
+   make
          -- To test BASIC_DIRECTORY.try_to_compute_notation:
       do
          bd.reset_notation_using("SOMEDISK:[SmartEiffel.sys]system.se")
@@ -36,7 +36,7 @@ feature {}
          open_vms_test
       end
 
-   unix_test is
+   unix_test
       do
          assert(bd.unix_notation)
          parent_dir("?", "U", "/SmartEiffel/sys/system.se", "/SmartEiffel/sys/")
@@ -55,7 +55,7 @@ feature {}
          add_filena("?", "U", "/", "system.se", "/system.se")
       end
 
-   windows_test is
+   windows_test
       do
          set_notation_using_old_implementation_name("W")
          assert(bd.windows_notation)
@@ -76,7 +76,7 @@ feature {}
          add_filena("?", "W", "C:\", "system.se", "C:\system.se")
       end
 
-   cygwin_test is
+   cygwin_test
       do
          bd.reset_notation_using("//D/SmartEiffel/sys/system.se")
          assert(bd.cygwin_notation)
@@ -112,7 +112,7 @@ feature {}
          add_filena("C", "C", "/", "system.se", "/system.se")
       end
 
-   open_vms_test is
+   open_vms_test
       do
          set_notation_using_old_implementation_name("V")
          assert(bd.openvms_notation)
@@ -125,7 +125,7 @@ feature {}
          add_filena("?", "V", "DISK:[SmartEiffel.sys]", "system.se", "DISK:[SmartEiffel.sys]system.se")
       end
 
-   macintosh_test is
+   macintosh_test
       do
          set_notation_using_old_implementation_name("M")
          assert(bd.macintosh_notation)
@@ -143,7 +143,7 @@ feature {}
          add_filena("?", "M", ":", "system.se", ":system.se")
       end
 
-   amiga_test is
+   amiga_test
       do
          set_notation_using_old_implementation_name("A")
          assert(bd.amiga_notation)
@@ -160,7 +160,7 @@ feature {}
          add_filena("?", "A", "DEV:", "system.se", "DEV:system.se")
       end
 
-   parent_dir (n1, n2, p1, p2: STRING) is
+   parent_dir (n1, n2, p1, p2: STRING)
       local
          view: STRING
       do
@@ -171,7 +171,7 @@ feature {}
          assert(view.is_equal(p2))
       end
 
-   sub_direct (n1, n2, p1, p2, p3: STRING) is
+   sub_direct (n1, n2, p1, p2, p3: STRING)
       local
          view: STRING
       do
@@ -182,7 +182,7 @@ feature {}
          assert(view.is_equal(p3))
       end
 
-   add_filena (n1, n2, p1, f, p2: STRING) is
+   add_filena (n1, n2, p1, f, p2: STRING)
       local
          view: STRING
       do
@@ -193,7 +193,7 @@ feature {}
          assert(view.is_equal(p2))
       end
 
-   to_old_implementation_name: STRING is
+   to_old_implementation_name: STRING
       do
          if bd.unix_notation then
             Result := once "U"
@@ -212,7 +212,7 @@ feature {}
          end
       end
 
-   set_notation_using_old_implementation_name (old_implementation_name: STRING) is
+   set_notation_using_old_implementation_name (old_implementation_name: STRING)
       do
          inspect
             old_implementation_name

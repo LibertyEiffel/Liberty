@@ -4,38 +4,41 @@
 class TEST_ONCE4
 
 create {}
-   make, a_make, b_make
+   make
+
+create {TEST_ONCE4}
+   a_make, b_make
 
 feature {ANY}
    value: INTEGER
 
-   make is
+   make
       do
          value := 1 + once_b.value
          assert(value = 3)
       end
 
-   once_a: TEST_ONCE4 is
+   once_a: TEST_ONCE4
       once
          create Result.a_make
       end
 
-   once_b: TEST_ONCE4 is
+   once_b: TEST_ONCE4
       once
          create Result.b_make
       end
 
-   a_make is
+   a_make
       do
          value := 1 -- *** + once_b.value *** No more recursive once.
       end
 
-   b_make is
+   b_make
       do
          value := 1 + once_a.value
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

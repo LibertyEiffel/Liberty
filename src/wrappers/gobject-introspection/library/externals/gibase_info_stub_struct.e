@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_INTROSPECTION_TYPES
 feature {} -- Low-level setters
 
-	gibase_info_stub_struct_set_dummy1 (a_structure: POINTER; a_value: INTEGER) is
+	gibase_info_stub_struct_set_dummy1 (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for dummy1 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy2 (a_structure: POINTER; a_value: INTEGER) is
+	gibase_info_stub_struct_set_dummy2 (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for dummy2 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy3 (a_structure: POINTER; a_value: POINTER) is
+	gibase_info_stub_struct_set_dummy3 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dummy3 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy4 (a_structure: POINTER; a_value: POINTER) is
+	gibase_info_stub_struct_set_dummy4 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dummy4 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy5 (a_structure: POINTER; a_value: POINTER) is
+	gibase_info_stub_struct_set_dummy5 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for dummy5 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy6 (a_structure: POINTER; a_value: NATURAL) is
+	gibase_info_stub_struct_set_dummy6 (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for dummy6 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_dummy7 (a_structure: POINTER; a_value: NATURAL) is
+	gibase_info_stub_struct_set_dummy7 (a_structure: POINTER; a_value: NATURAL)
 			-- Setter for dummy7 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -92,7 +92,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	gibase_info_stub_struct_set_padding (a_structure: POINTER; a_value: POINTER) is
+	gibase_info_stub_struct_set_padding (a_structure: POINTER; a_value: POINTER)
 			-- Setter for padding field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: setter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	gibase_info_stub_struct_get_dummy1 (a_structure: POINTER): INTEGER is
+	gibase_info_stub_struct_get_dummy1 (a_structure: POINTER): INTEGER
 			-- Query for dummy1 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy2 (a_structure: POINTER): INTEGER is
+	gibase_info_stub_struct_get_dummy2 (a_structure: POINTER): INTEGER
 			-- Query for dummy2 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy3 (a_structure: POINTER): POINTER is
+	gibase_info_stub_struct_get_dummy3 (a_structure: POINTER): POINTER
 			-- Query for dummy3 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy4 (a_structure: POINTER): POINTER is
+	gibase_info_stub_struct_get_dummy4 (a_structure: POINTER): POINTER
 			-- Query for dummy4 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy5 (a_structure: POINTER): POINTER is
+	gibase_info_stub_struct_get_dummy5 (a_structure: POINTER): POINTER
 			-- Query for dummy5 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy6 (a_structure: POINTER): NATURAL is
+	gibase_info_stub_struct_get_dummy6 (a_structure: POINTER): NATURAL
 			-- Query for dummy6 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -178,7 +178,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_dummy7 (a_structure: POINTER): NATURAL is
+	gibase_info_stub_struct_get_dummy7 (a_structure: POINTER): NATURAL
 			-- Query for dummy7 field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -190,7 +190,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	gibase_info_stub_struct_get_padding (a_structure: POINTER): POINTER is
+	gibase_info_stub_struct_get_padding (a_structure: POINTER): POINTER
 			-- Query for padding field of GIBASE_INFO_STUB_STRUCT structure.
 			-- TODO: getter description
 
@@ -203,7 +203,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

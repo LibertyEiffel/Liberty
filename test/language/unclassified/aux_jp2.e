@@ -3,16 +3,16 @@
 --
 class AUX_JP2[E]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (e: E) is
+   make (e: E)
       do
          item := e
       end
 
-   foo: AUX_JP2[E] is
+   foo: AUX_JP2[E]
       do
          create Result.make(item)
       end

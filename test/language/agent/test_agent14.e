@@ -16,7 +16,7 @@ feature {ANY}
 
    c: AUX_AGENT14C[AUX_AGENT14GEN] -- compiles with c: AUX_AGENT14A[AUX_AGENT14GEN]
 
-   make is
+   make
       do
          create b
          create c

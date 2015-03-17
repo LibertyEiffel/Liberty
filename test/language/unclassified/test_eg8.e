@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: AUX_EG8B[AUX_EG8A[REAL]]; boobool: BOOLEAN
       do

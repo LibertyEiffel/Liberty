@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b8: BIT 8;
          b16: BIT 16;

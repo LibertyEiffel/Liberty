@@ -13,28 +13,28 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          class_number_in_trace
       end
 
-   class_number: INTEGER is
+   class_number: INTEGER
       do
          Result := Precursor {AUX_PRECURSOR01}  + 1
       end
 
-   class_number_in_trace is
+   class_number_in_trace
       do
          Precursor
          trace := trace + 1
       end
 
-   times_class_number (x: INTEGER): INTEGER is
+   times_class_number (x: INTEGER): INTEGER
       do
          Result := Precursor(x) + x
       end
 
-   affine_class_number_in_trace (x, y: INTEGER) is
+   affine_class_number_in_trace (x, y: INTEGER)
       do
          Precursor(x, y)
          trace := trace + x

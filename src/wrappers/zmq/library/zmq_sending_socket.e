@@ -6,8 +6,8 @@ inherit
 
 feature {ANY} -- Sending
 	
-	post (a_message: ZMQ_MESSAGE) is
-		-- Enqueue `a_message' to be sent by Current socket. This command is
+	post (a_message: ZMQ_MESSAGE)
+		-- Enqueue `a_message' to be sent by Current socket. This command
 		-- non-blocking as all Eiffel commands are in a concurrent enviroment.
 		-- Processing will flow to the next commands and queris without waiting for
 		-- the command to finish. If you need a syncronous, blocking behaviour
@@ -56,7 +56,7 @@ feature {ANY} -- Sending
 		is_successful := zmq_send(handle,a_message.handle,zmq_noblock)=0
 	end
 
-	send (a_message: ZMQ_MESSAGE) is
+	send (a_message: ZMQ_MESSAGE)
 		-- Enqueue `a_message' to be sent by Current socket. This command
 		-- blocks the control flow until finished. If you need a asyncronous,
 		-- non-blocking behaviour please use the `post' command.

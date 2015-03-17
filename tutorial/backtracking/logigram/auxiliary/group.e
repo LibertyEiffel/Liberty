@@ -24,7 +24,7 @@ feature {ANY}
 
    is_ordered: BOOLEAN
 
-   is_like_integer: BOOLEAN is
+   is_like_integer: BOOLEAN
       do
          Result := not is_atomic
       end
@@ -33,7 +33,7 @@ feature {ANY}
 
    index: INTEGER
 
-   make (the_name: STRING; the_index: INTEGER) is
+   make (the_name: STRING; the_index: INTEGER)
       do
          name := the_name
          index := the_index
@@ -46,25 +46,25 @@ feature {ANY}
          width := name.count
       end
 
-   make_atomic (the_name: STRING; the_index: INTEGER) is
+   make_atomic (the_name: STRING; the_index: INTEGER)
       do
          make(the_name, the_index)
          is_atomic := True
       end
 
-   make_numeric (the_name: STRING; the_index: INTEGER) is
+   make_numeric (the_name: STRING; the_index: INTEGER)
       do
          make(the_name, the_index)
          is_numeric := True
       end
 
-   make_ordered (the_name: STRING; the_index: INTEGER) is
+   make_ordered (the_name: STRING; the_index: INTEGER)
       do
          make(the_name, the_index)
          is_ordered := True
       end
 
-   add_item (item_name: STRING) is
+   add_item (item_name: STRING)
       require
          is_numeric implies item_name.is_integer
       do
@@ -74,22 +74,22 @@ feature {ANY}
          width := width.max(item.name.count)
       end
 
-   goto_name (item_name: STRING) is
+   goto_name (item_name: STRING)
       do
          item := item_dictionary.at(item_name)
       end
 
-   goto_index (item_index: INTEGER) is
+   goto_index (item_index: INTEGER)
       do
          item := item_array.item(item_index)
       end
 
-   item_count: INTEGER is
+   item_count: INTEGER
       do
          Result := item_array.count
       end
 
-   get_var (var_name: STRING) is
+   get_var (var_name: STRING)
       do
          var := var_dictionary.reference_at(var_name)
          if var = Void then
@@ -98,7 +98,7 @@ feature {ANY}
          end
       end
 
-   get_anonymous_var is
+   get_anonymous_var
       local
          nam: STRING; n: INTEGER
       do

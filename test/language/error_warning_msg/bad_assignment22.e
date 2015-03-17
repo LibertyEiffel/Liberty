@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[COMPARABLE]; a: ARRAY[INTEGER]
          comparable: COMPARABLE

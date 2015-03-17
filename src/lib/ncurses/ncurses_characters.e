@@ -7,17 +7,17 @@ deferred class NCURSES_CHARACTERS
    --
 
 feature {}
-   space: INTEGER is
+   space: INTEGER
       once
          Result := ' '.to_integer_8
       end
 
-   return: INTEGER is
+   return: INTEGER
       once
          Result := '%N'.to_integer_8
       end
 
-   upper_left_corner: INTEGER is
+   upper_left_corner: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -26,7 +26,7 @@ feature {}
       }"
       end
 
-   lower_left_corner: INTEGER is
+   lower_left_corner: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -35,7 +35,7 @@ feature {}
       }"
       end
 
-   upper_right_corner: INTEGER is
+   upper_right_corner: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -44,7 +44,7 @@ feature {}
       }"
       end
 
-   lower_right_corner: INTEGER is
+   lower_right_corner: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -53,7 +53,7 @@ feature {}
       }"
       end
 
-   left_tee: INTEGER is
+   left_tee: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -62,7 +62,7 @@ feature {}
       }"
       end
 
-   right_tee: INTEGER is
+   right_tee: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -71,7 +71,7 @@ feature {}
       }"
       end
 
-   bottom_tee: INTEGER is
+   bottom_tee: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -80,7 +80,7 @@ feature {}
       }"
       end
 
-   top_tee: INTEGER is
+   top_tee: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -89,7 +89,7 @@ feature {}
       }"
       end
 
-   horizontal_line: INTEGER is
+   horizontal_line: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -98,7 +98,7 @@ feature {}
       }"
       end
 
-   vertical_line: INTEGER is
+   vertical_line: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -107,7 +107,7 @@ feature {}
       }"
       end
 
-   plus: INTEGER is
+   plus: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -116,7 +116,7 @@ feature {}
       }"
       end
 
-   scanline1: INTEGER is
+   scanline1: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -125,7 +125,7 @@ feature {}
       }"
       end
 
-   scanline9: INTEGER is
+   scanline9: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -134,7 +134,7 @@ feature {}
       }"
       end
 
-   diamond: INTEGER is
+   diamond: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -143,7 +143,7 @@ feature {}
       }"
       end
 
-   checker_board: INTEGER is
+   checker_board: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -152,7 +152,7 @@ feature {}
       }"
       end
 
-   degree: INTEGER is
+   degree: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -161,7 +161,7 @@ feature {}
       }"
       end
 
-   plus_minus: INTEGER is
+   plus_minus: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -170,7 +170,7 @@ feature {}
       }"
       end
 
-   bullet: INTEGER is
+   bullet: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -179,7 +179,7 @@ feature {}
       }"
       end
 
-   left_arrow: INTEGER is
+   left_arrow: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -188,7 +188,7 @@ feature {}
          }"
       end
 
-   right_arrow: INTEGER is
+   right_arrow: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -197,7 +197,7 @@ feature {}
       }"
       end
 
-   down_arrow: INTEGER is
+   down_arrow: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -206,7 +206,7 @@ feature {}
       }"
       end
 
-   up_arrow: INTEGER is
+   up_arrow: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -215,7 +215,7 @@ feature {}
       }"
       end
 
-   board: INTEGER is
+   board: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -224,7 +224,7 @@ feature {}
       }"
       end
 
-   lantern: INTEGER is
+   lantern: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -233,7 +233,7 @@ feature {}
       }"
       end
 
-   block: INTEGER is
+   block: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -242,7 +242,7 @@ feature {}
       }"
       end
 
-   scanline3: INTEGER is
+   scanline3: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -251,7 +251,7 @@ feature {}
       }"
       end
 
-   scanline7: INTEGER is
+   scanline7: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -260,7 +260,7 @@ feature {}
       }"
       end
 
-   less_or_equal: INTEGER is
+   less_or_equal: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -269,7 +269,7 @@ feature {}
       }"
       end
 
-   greater_or_equal: INTEGER is
+   greater_or_equal: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -278,7 +278,7 @@ feature {}
       }"
       end
 
-   pi: INTEGER is
+   pi: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -287,7 +287,7 @@ feature {}
       }"
       end
 
-   not_equal: INTEGER is
+   not_equal: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -296,7 +296,7 @@ feature {}
       }"
       end
 
-   sterling: INTEGER is
+   sterling: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -308,13 +308,13 @@ feature {}
 end -- class NCURSES_CHARACTERS
    
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

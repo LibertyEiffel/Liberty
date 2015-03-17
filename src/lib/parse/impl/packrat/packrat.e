@@ -4,12 +4,12 @@
 expanded class PACKRAT
 
 feature {} -- Tune exports to your liking if need be
-   one: INTEGER_8 is 0
-   zero_or_one: INTEGER_8 is 1
-   zero_or_more: INTEGER_8 is 2
-   one_or_more: INTEGER_8 is 3
+   one: INTEGER_8 0
+   zero_or_one: INTEGER_8 1
+   zero_or_more: INTEGER_8 2
+   one_or_more: INTEGER_8 3
 
-   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_tag: ABSTRACT_STRING; a_action: PROCEDURE[TUPLE]): PACKRAT_ALTERNATIVE is
+   seq (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: INTEGER_8; a_tag: ABSTRACT_STRING; a_action: PROCEDURE[TUPLE]): PACKRAT_ALTERNATIVE
       require
          a_primaries /= Void
          a_how_many.in_range(one, one_or_more)
@@ -17,7 +17,7 @@ feature {} -- Tune exports to your liking if need be
          create {PACKRAT_SEQUENCE} Result.make(a_primaries, a_how_many, a_tag, a_action)
       end
 
-   ref (a_atom_name: ABSTRACT_STRING): PACKRAT_PRIMARY is
+   ref (a_atom_name: ABSTRACT_STRING): PACKRAT_PRIMARY
       require
          a_atom_name /= Void
       do
@@ -26,13 +26,13 @@ feature {} -- Tune exports to your liking if need be
 
 end -- class PACKRAT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

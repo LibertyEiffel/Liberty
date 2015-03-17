@@ -3,11 +3,11 @@
 --
 class AUX_PM1FRUIT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 

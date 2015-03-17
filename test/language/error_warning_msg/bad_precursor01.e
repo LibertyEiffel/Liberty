@@ -12,12 +12,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
     procedure
       end
 
-   procedure is
+   procedure
       local
          v: INTEGER
       do

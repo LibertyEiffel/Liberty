@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i8: INTEGER_8; i16: INTEGER_16; i32: INTEGER_32; i64: INTEGER_64; view: STRING
       do
@@ -121,7 +121,7 @@ feature {ANY}
          assert(("0000000080000000").is_equal(view))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

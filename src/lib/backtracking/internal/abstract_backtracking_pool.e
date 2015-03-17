@@ -7,7 +7,7 @@ deferred class ABSTRACT_BACKTRACKING_POOL[X_ -> ABSTRACT_BACKTRACKING_POOLABLE]
    --
 
 feature {ANY}
-   get_instance: X_ is
+   get_instance: X_
          -- Returns an instance from the current pool.
       local
          link: X_
@@ -23,12 +23,12 @@ feature {ANY}
          result_not_void: Result /= Void
       end
 
-   get_fresh_instance: X_ is
+   get_fresh_instance: X_
          -- Returns a freshly created instance.
       deferred
       end
 
-   release_instance (inst: X_) is
+   release_instance (inst: X_)
          -- Records the instance 'inst' into the current pool.
       do
          inst.set_pool_link(pool_of_instances.item)
@@ -38,7 +38,7 @@ feature {ANY}
          previous_top_chained: inst.pool_link = old pool_of_instances.item
       end
 
-   clear is
+   clear
          -- Removes all recorded instances from the current pool.
       do
          pool_of_instances.set_item(Void)
@@ -48,7 +48,7 @@ feature {}
    pool_of_instances: WEAK_REFERENCE[X_]
          -- Head of the recorded instances
 
-   make is
+   make
          -- creation
       do
          create pool_of_instances.set_item(Void)
@@ -56,13 +56,13 @@ feature {}
 
 end -- class ABSTRACT_BACKTRACKING_POOL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

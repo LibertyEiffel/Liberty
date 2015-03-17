@@ -23,23 +23,23 @@ feature {ANY}
    manifest_expression: MANIFEST_EXPRESSION
          -- The corresponding manifest value for `expression'.
 
-   expression_value: INTEGER is
+   expression_value: INTEGER
       do
          Result := integer_value_of(manifest_expression)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := expression.start_position
       end
 
-   accept (visitor: WHEN_ITEM_1_VISITOR) is
+   accept (visitor: WHEN_ITEM_1_VISITOR)
       do
          visitor.visit_when_item_1(Current)
       end
 
 feature {WHEN_ITEM_1}
-   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1) is
+   validity_check_continued_when_item_1 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_1)
       do
          if expression_value = occurrence_2.expression_value then
             error_handler.add_position(start_position)
@@ -50,7 +50,7 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_ITEM_2}
-   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2) is
+   validity_check_continued_when_item_2 (type, expression_type: TYPE; occurrence_2: WHEN_ITEM_2)
       do
          if expression_value.in_range(occurrence_2.lower_value, occurrence_2.upper_value) then
             error_handler.add_position(start_position)
@@ -61,49 +61,49 @@ feature {WHEN_ITEM_2}
       end
 
 feature {WHEN_CLAUSE}
-   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM) is
+   validity_check_continued_ (type, expression_type: TYPE; occurrence_1: WHEN_ITEM)
       do
          occurrence_1.validity_check_continued_when_item_1(type, expression_type, Current)
       end
 
-   match_value (v: INTEGER): BOOLEAN is
+   match_value (v: INTEGER): BOOLEAN
       do
          Result := expression_value = v
       end
 
-   collect (t: TYPE) is
+   collect (t: TYPE)
       local
          dummy: TYPE
       do
          dummy := expression.collect(t)
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := current_or_twin_init(expression.adapt_for(t))
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := expression.side_effect_free(type)
       end
 
 feature {WHEN_ITEM_1}
-   set_manifest_expression (type: TYPE) is
+   set_manifest_expression (type: TYPE)
       do
          manifest_expression := manifest_expression_check(expression, type)
       ensure
          manifest_expression /= Void
       end
 
-   set_expression_value_character is
+   set_expression_value_character
       require
          manifest_expression /= Void
       do
          character_check(expression, manifest_expression)
       end
 
-   set_expression_value_integer is
+   set_expression_value_integer
       require
          manifest_expression /= Void
       do
@@ -111,7 +111,7 @@ feature {WHEN_ITEM_1}
       end
 
 feature {WHEN_CLAUSE}
-   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values is
+   compute_values (type: TYPE; values: RING_ARRAY[INTEGER]): like values
       local
          i, v: INTEGER
       do
@@ -182,55 +182,55 @@ feature {WHEN_CLAUSE}
          end
       end
 
-   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_character_values (type: TYPE; container: WHEN_CLAUSE)
       do
          set_manifest_expression(type)
          set_expression_value_character
       end
 
-   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE) is
+   force_internal_integer_values (type: TYPE; container: WHEN_CLAUSE)
       do
          set_manifest_expression(type)
          set_expression_value_integer
       end
 
 feature {WHEN_CLAUSE, WHEN_ITEM}
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       do
          Result := current_or_twin_init(expression.specialize_in(new_type))
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := current_or_twin_init(expression.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_and_check_character (type: TYPE): like Current is
+   specialize_and_check_character (type: TYPE): like Current
       do
          Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_character
       end
 
-   specialize_and_check_integer (type: TYPE): like Current is
+   specialize_and_check_integer (type: TYPE): like Current
       do
          Result := current_or_twin_init(expression.specialize_and_check(type))
          Result.set_manifest_expression(type)
          Result.set_expression_value_integer
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          expression.pretty(indent_level)
       end
 
 feature {MANIFEST_STRING_INSPECTOR}
-   set_expression_value (ev: INTEGER) is
+   set_expression_value (ev: INTEGER)
       do
          -- *** DOM April 2008 ***
          -- I am not proud of that... but what can I do here ?
@@ -239,7 +239,7 @@ feature {MANIFEST_STRING_INSPECTOR}
       end
 
 feature {WHEN_ITEM_1, INTROSPECTION_HANDLER}
-   init (exp: like expression) is
+   init (exp: like expression)
       require
          exp /= Void
       do
@@ -249,7 +249,7 @@ feature {WHEN_ITEM_1, INTROSPECTION_HANDLER}
       end
 
 feature {}
-   make (v: like expression) is
+   make (v: like expression)
       require
          v /= Void
       do
@@ -258,7 +258,7 @@ feature {}
          expression = v
       end
 
-   current_or_twin_init (exp: like expression): like Current is
+   current_or_twin_init (exp: like expression): like Current
       require
          exp /= Void
       do
@@ -290,9 +290,9 @@ end -- class WHEN_ITEM_1
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

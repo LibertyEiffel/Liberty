@@ -9,7 +9,7 @@ insert
 		redefine default_create end
 
 feature {ANY}
-	default_create is
+	default_create
 		do
 			-- Setting generation and iterable_generation to different values
 			-- so that any invocation of the queries and commands requiring
@@ -20,7 +20,7 @@ feature {ANY}
 		end
 
 feature {GI_CLASS} 
-	set_class (a_class: GI_CLASS) is
+	set_class (a_class: GI_CLASS)
 	require a_class/=Void
 	do
 		gi_class := a_class
@@ -29,7 +29,7 @@ feature {GI_CLASS}
 	end
 
 feature {ANY}
-	next is
+	next
 		do
 			i:=i+1
 		end
@@ -39,11 +39,11 @@ feature {GI_CLASS} -- Implementation
 	i: INTEGER
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

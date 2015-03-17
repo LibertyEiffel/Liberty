@@ -9,16 +9,16 @@ inherit
          display as y
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          run_make_b := run_make_b + 1
       end
 
-   display is
+   display
       do
          run_display_b := run_display_b + 1
       end

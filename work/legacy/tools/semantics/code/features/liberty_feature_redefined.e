@@ -29,7 +29,7 @@ create {LIBERTY_BUILDER_TOOLS}
 feature {ANY}
    redefined_feature: LIBERTY_FEATURE
 
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_FEATURE_REDEFINED_VISITOR
       do
@@ -37,18 +37,18 @@ feature {ANY}
          v0.visit_liberty_feature_redefined(Current)
       end
 
-   has_accelerator: BOOLEAN is
+   has_accelerator: BOOLEAN
       do
          Result := redefined_feature /= Void and then redefined_feature.has_accelerator
       end
 
-   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR) is
+   accelerate_call (a: LIBERTY_FEATURE_ACCELERATOR)
       do
          redefined_feature.accelerate_call(a)
       end
 
 feature {LIBERTY_FEATURE}
-   set_specialized_in (a_original: like Current; a_context: like context) is
+   set_specialized_in (a_original: like Current; a_context: like context)
       do
          Precursor(a_original, a_context)
          if redefined_feature /= Void then
@@ -56,7 +56,7 @@ feature {LIBERTY_FEATURE}
          end
       end
 
-   do_debug_display (o: OUTPUT_STREAM; tab: INTEGER) is
+   do_debug_display (o: OUTPUT_STREAM; tab: INTEGER)
       do
          Precursor(o, tab)
          tabulate(o, tab + 1)
@@ -68,7 +68,7 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME]) is
+   add_if_redefined (type: LIBERTY_ACTUAL_TYPE; name: LIBERTY_FEATURE_NAME; redefined_features: DICTIONARY[LIBERTY_FEATURE_REDEFINED, LIBERTY_FEATURE_NAME])
       do
          if definition_type = type then
             if not redefined_features.has(name) then
@@ -78,13 +78,13 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {}
-   do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   do_join (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          Result := a_feature.joined_redefined(a_type, Current, other_fd, current_fd)
       end
 
 feature {LIBERTY_FEATURE}
-   joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_attribute (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ATTRIBUTE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -92,7 +92,7 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_constant (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_CONSTANT; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -100,7 +100,7 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_deferred (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DEFERRED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             --| *** TODO: warning, mixed undefine and redefine, expected redefinition
@@ -108,7 +108,7 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_do (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_DO; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -116,7 +116,7 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_external (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_EXTERNAL; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -124,7 +124,7 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_once (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_ONCE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -132,12 +132,12 @@ feature {LIBERTY_FEATURE}
          Result := Current
       end
 
-   joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_redefined (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_REDEFINED; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          Result := Current
       end
 
-   joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE is
+   joined_unique (a_type: LIBERTY_ACTUAL_TYPE; a_feature: LIBERTY_FEATURE_UNIQUE; current_fd, other_fd: LIBERTY_FEATURE_DEFINITION): LIBERTY_FEATURE
       do
          if a_feature.definition_type = definition_type then
             current_fd.fatal_join_error_redefined_concrete(a_type, other_fd)
@@ -146,7 +146,7 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   set_redefined_feature (a_feature: like redefined_feature) is
+   set_redefined_feature (a_feature: like redefined_feature)
       require
          only_once: redefined_feature = Void
          useful: a_feature /= Void
@@ -168,7 +168,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       local
          old_mark: like reachable_mark
       do
@@ -180,7 +180,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_definition_type: like definition_type) is
+   make (a_definition_type: like definition_type)
       do
          make_late_binding(a_definition_type, Void)
       end

@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "short"
+   command_line_name: STRING "short"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: short [format] [options] <ClassName>
          or: short [format] [options] <ACEfileName>.ace <ClassName>
 
@@ -48,13 +48,13 @@ feature {ANY}
       ]"
 
 feature {}
-   make is
+   make
       do
          output := std_output
          start
       end
 
-   parse_arguments is
+   parse_arguments
       local
          i: INTEGER; arg: STRING; client_found: BOOLEAN; root_class_name: HASHED_STRING
       do
@@ -138,7 +138,7 @@ feature {}
          end
       end
 
-   is_sort_flag (flag: STRING): BOOLEAN is
+   is_sort_flag (flag: STRING): BOOLEAN
       do
          if flag_match(once "sort", flag) then
             short_printer.set_sort_flag(True)
@@ -146,7 +146,7 @@ feature {}
          end
       end
 
-   is_short_flag (flag: STRING): BOOLEAN is
+   is_short_flag (flag: STRING): BOOLEAN
       do
          if flag_match(once "short", flag) then
             Result := True
@@ -154,21 +154,21 @@ feature {}
          end
       end
 
-   is_client_flag (flag: STRING): BOOLEAN is
+   is_client_flag (flag: STRING): BOOLEAN
       do
          if flag_match(once "client", flag) then
             Result := True
          end
       end
 
-   is_all_clients_flag (flag: STRING): BOOLEAN is
+   is_all_clients_flag (flag: STRING): BOOLEAN
       do
          if flag_match(once "all_clients", flag) then
             Result := True
          end
       end
 
-   client_none_obsolete_check (client_argument: STRING) is
+   client_none_obsolete_check (client_argument: STRING)
       do
          if client_argument.same_as(once "NONE") then
             echo.w_put_string("short: Option %"-client NONE%" is now obsolete.%NTo view all features of the %
@@ -177,7 +177,7 @@ feature {}
          end
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
          -- Because of style options, this function always returns True.
          -- Futhermore, this function is used for non ACE mode too.
       do
@@ -204,7 +204,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -client, -version, -help, -no_warning, and -style_warning are%N%
+   valid_argument_for_ace_mode: STRING "Only the -client, -version, -help, -no_warning, and -style_warning are%N%
       %allowed in ACE file mode.%N"
 
 end -- class SHORT
@@ -219,9 +219,9 @@ end -- class SHORT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

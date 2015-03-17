@@ -4,7 +4,7 @@
 expanded class INTERVAL[T]
 
 feature {ANY}
-   put (x: like item) is
+   put (x: like item)
       do
          item := x
       end

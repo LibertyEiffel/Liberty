@@ -15,7 +15,7 @@
 deferred class LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-   call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+   call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT
       deferred
       ensure
          a_builtin_call.returned_static_type /= Void implies (Result /= Void or last_call_failed)
@@ -25,7 +25,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    last_call_failed: BOOLEAN
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

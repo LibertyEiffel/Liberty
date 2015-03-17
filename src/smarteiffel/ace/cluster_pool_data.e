@@ -14,12 +14,12 @@ create {CLUSTER}
    make
 
 feature {CLUSTER}
-   class_count: INTEGER is
+   class_count: INTEGER
       do
          Result := classes.count
       end
 
-   cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS is
+   cluster_class (a_class_name: HASHED_STRING): CLUSTER_CLASS
       do
          if a_class_name.is_tuple_related then
             Result := classes.fast_reference_at(hash_tuple)
@@ -28,7 +28,7 @@ feature {CLUSTER}
          end
       end
 
-   has (a_class_name: HASHED_STRING): BOOLEAN is
+   has (a_class_name: HASHED_STRING): BOOLEAN
       do
          if a_class_name.is_tuple_related then
             Result := classes.fast_has(hash_tuple)
@@ -37,7 +37,7 @@ feature {CLUSTER}
          end
       end
 
-   add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING) is
+   add_cluster_class (a_class_name: HASHED_STRING; a_path: STRING)
       require
          cluster_class(a_class_name) = Void
       local
@@ -54,8 +54,30 @@ feature {CLUSTER}
          end
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      local
+         i: INTEGER
+      do
+         from
+            i := classes.lower
+         until
+            i > classes.upper
+         loop
+            class_name.unknown_position(classes.key(i), False)
+            if name_guard = Void or else name_guard.item([class_name]) then
+               cluster.do_action(class_name, action)
+            end
+            i := i + 1
+         end
+      end
+
 feature {}
-   hash_tuple: HASHED_STRING is
+   class_name: CLASS_NAME
+      once
+         create Result.unknown_position(smart_eiffel.type_any.name, True)
+      end
+
+   hash_tuple: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end
@@ -64,7 +86,7 @@ feature {}
 
    cluster: CLUSTER
 
-   make (a_cluster: CLUSTER) is
+   make (a_cluster: CLUSTER)
       do
          cluster := a_cluster
          create classes.make
@@ -82,9 +104,9 @@ end -- class CLUSTER_POOL_DATA
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

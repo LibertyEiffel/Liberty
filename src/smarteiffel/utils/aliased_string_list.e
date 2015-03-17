@@ -7,533 +7,568 @@ deferred class ALIASED_STRING_LIST
    --
 
 feature {} -- Hard-coded class names:
-   as_any: STRING is "ANY"
+   as_any: STRING "ANY"
 
-   as_array: STRING is "ARRAY"
+   as_array: STRING "ARRAY"
 
-   as_boolean: STRING is "BOOLEAN"
+   as_boolean: STRING "BOOLEAN"
 
-   as_character: STRING is "CHARACTER"
+   as_character: STRING "CHARACTER"
 
-   as_disposable: STRING is "DISPOSABLE"
+   as_disposable: STRING "DISPOSABLE"
 
-   as_exceptions: STRING is "EXCEPTIONS"
+   as_exceptions: STRING "EXCEPTIONS"
 
-   as_fixed_array: STRING is "FAST_ARRAY"
+   as_fixed_array: STRING "FAST_ARRAY"
 
-   as_function: STRING is "FUNCTION"
+   as_function: STRING "FUNCTION"
 
-   as_integer_general: STRING is "INTEGER_GENERAL"
+   as_integer_general: STRING "INTEGER_GENERAL"
 
-   as_integer_8: STRING is "INTEGER_8"
+   as_integer_8: STRING "INTEGER_8"
 
-   as_integer_16: STRING is "INTEGER_16"
+   as_integer_16: STRING "INTEGER_16"
 
-   as_integer_32: STRING is "INTEGER_32"
+   as_integer_32: STRING "INTEGER_32"
 
-   as_integer: STRING is "INTEGER"
+   as_integer: STRING "INTEGER"
 
-   as_integer_64: STRING is "INTEGER_64"
+   as_integer_64: STRING "INTEGER_64"
 
-   as_internals: STRING is "INTERNALS"
+   as_internals: STRING "INTERNALS"
 
-   as_internals_handler: STRING is "INTERNALS_HANDLER"
+   as_internals_handler: STRING "INTERNALS_HANDLER"
 
-   as_native_array: STRING is "NATIVE_ARRAY"
+   as_native_array: STRING "NATIVE_ARRAY"
 
-   as_native_array_collector: STRING is "NATIVE_ARRAY_COLLECTOR"
+   as_native_array_collector: STRING "NATIVE_ARRAY_COLLECTOR"
 
-   as_native_array_internals: STRING is "NATIVE_ARRAY_INTERNALS"
+   as_native_array_internals: STRING "NATIVE_ARRAY_INTERNALS"
 
-   as_natural: STRING is "NATURAL"
+   as_natural: STRING "NATURAL"
 
-   as_natural_8: STRING is "NATURAL_8"
+   as_natural_8: STRING "NATURAL_8"
 
-   as_natural_16: STRING is "NATURAL_16"
+   as_natural_16: STRING "NATURAL_16"
 
-   as_natural_32: STRING is "NATURAL_32"
+   as_natural_32: STRING "NATURAL_32"
 
-   as_natural_64: STRING is "NATURAL_64"
+   as_natural_64: STRING "NATURAL_64"
 
-   as_natural_general: STRING is "NATURAL_GENERAL"
+   as_natural_general: STRING "NATURAL_GENERAL"
 
-   as_platform: STRING is "PLATFORM"
+   as_platform: STRING "PLATFORM"
 
-   as_pointer: STRING is "POINTER"
+   as_pointer: STRING "POINTER"
 
-   as_predicate: STRING is "PREDICATE"
+   as_predicate: STRING "PREDICATE"
 
-   as_procedure: STRING is "PROCEDURE"
+   as_procedure: STRING "PROCEDURE"
 
-   as_real_general: STRING is "REAL_GENERAL"
+   as_real_general: STRING "REAL_GENERAL"
 
-   as_real_32: STRING is "REAL_32"
+   as_real_32: STRING "REAL_32"
 
-   as_real: STRING is "REAL"
+   as_real: STRING "REAL"
 
-   as_real_64: STRING is "REAL_64"
+   as_real_64: STRING "REAL_64"
 
-   as_real_80: STRING is "REAL_80"
+   as_real_80: STRING "REAL_80"
 
-   as_real_128: STRING is "REAL_128"
+   as_real_128: STRING "REAL_128"
 
-   as_real_extended: STRING is "REAL_EXTENDED"
+   as_real_extended: STRING "REAL_EXTENDED"
 
-   as_routine: STRING is "ROUTINE"
+   as_routine: STRING "ROUTINE"
 
-   as_set: STRING is "SET"
+   as_set: STRING "SET"
 
-   as_string: STRING is "STRING"
+   as_string: STRING "STRING"
 
-   as_text_file_read: STRING is "TEXT_FILE_READ"
+   as_text_file_read: STRING "TEXT_FILE_READ"
 
-   as_text_file_write: STRING is "TEXT_FILE_WRITE"
+   as_text_file_write: STRING "TEXT_FILE_WRITE"
 
-   as_tuple: STRING is "TUPLE"
+   as_thread_context: STRING "THREAD_CONTEXT"
 
-   as_type: STRING is "TYPE"
+   as_thread_lock: STRING "THREAD_LOCK"
 
-   as_typed_internals: STRING is "TYPED_INTERNALS"
+   as_tuple: STRING "TUPLE"
 
-   as_unicode_string: STRING is "UNICODE_STRING"
+   as_type: STRING "TYPE"
 
-   as_weak_reference: STRING is "WEAK_REFERENCE"
+   as_typed_internals: STRING "TYPED_INTERNALS"
+
+   as_unicode_string: STRING "UNICODE_STRING"
+
+   as_weak_reference: STRING "WEAK_REFERENCE"
 
 feature {} -- Hard coded feature names:
-   as_a1: STRING is "a1"
+   as_a1: STRING "a1"
 
-   as_add_last: STRING is "add_last"
+   as_add_last: STRING "add_last"
 
-   as_agent: STRING is "agent"
+   as_agent: STRING "agent"
 
-   as_allocated_bytes: STRING is "allocated_bytes"
+   as_allocated_bytes: STRING "allocated_bytes"
 
-   as_as_16_ne: STRING is "as_16_ne"
+   as_alloc_native_data: STRING "alloc_native_data"
 
-   as_as_32_ne: STRING is "as_32_ne"
+   as_as_16_ne: STRING "as_16_ne"
 
-   as_atan2: STRING is "atan2"
+   as_as_32_ne: STRING "as_32_ne"
 
-   as_blank: STRING is "blank"
+   as_atan2: STRING "atan2"
 
-   as_bit_clear: STRING is "bit_clear"
+   as_blank: STRING "blank"
 
-   as_bit_put: STRING is "bit_put"
+   as_bit_clear: STRING "bit_clear"
 
-   as_bit_rotate: STRING is "bit_rotate"
+   as_bit_put: STRING "bit_put"
 
-   as_bit_set: STRING is "bit_set"
+   as_bit_rotate: STRING "bit_rotate"
 
-   as_bit_xor: STRING is "bit_xor"
+   as_bit_set: STRING "bit_set"
 
-   as_boolean_bits: STRING is "Boolean_bits"
+   as_bit_xor: STRING "bit_xor"
 
-   as_call: STRING is "call"
+   as_boolean_bits: STRING "Boolean_bits"
 
-   as_calloc: STRING is "calloc"
+   as_call: STRING "call"
 
-   as_capacity: STRING is "capacity"
+   as_calloc: STRING "calloc"
 
-   as_ceiling: STRING is "ceiling"
+   as_capacity: STRING "capacity"
 
-   as_character_bits: STRING is "Character_bits"
+   as_ceiling: STRING "ceiling"
 
-   as_clear_all: STRING is "clear_all"
+   as_character_bits: STRING "Character_bits"
 
-   as_count: STRING is "count"
+   as_clear_all: STRING "clear_all"
 
-   as_code: STRING is "code"
+   as_count: STRING "count"
 
-   as_collecting: STRING is "collecting"
+   as_code: STRING "code"
 
-   as_collection_off: STRING is "collection_off"
+   as_collecting: STRING "collecting"
 
-   as_collection_on: STRING is "collection_on"
+   as_collection_off: STRING "collection_off"
 
-   as_collector_counter: STRING is "collector_counter"
+   as_collection_on: STRING "collection_on"
 
-   as_copy: STRING is "copy"
+   as_collector_counter: STRING "collector_counter"
 
-   as_c_inline_c: STRING is "c_inline_c"
+   as_copy: STRING "copy"
 
-   as_c_inline_h: STRING is "c_inline_h"
+   as_c_inline_c: STRING "c_inline_c"
 
-   as_default_create: STRING is "default_create"
+   as_c_inline_h: STRING "c_inline_h"
 
-   as_default_rescue: STRING is "default_rescue"
+   as_default_create: STRING "default_create"
 
-   as_deep_memcmp: STRING is "deep_memcmp"
+   as_default_rescue: STRING "default_rescue"
 
-   as_deep_twin: STRING is "deep_twin"
+   as_deep_memcmp: STRING "deep_memcmp"
 
-   as_deep_twin_from: STRING is "deep_twin_from"
+   as_deep_twin: STRING "deep_twin"
 
-   as_dispose: STRING is "dispose"
+   as_deep_twin_from: STRING "deep_twin_from"
 
-   as_die_with_code: STRING is "die_with_code"
+   as_dispose: STRING "dispose"
 
-   as_element_sizeof: STRING is "element_sizeof"
+   as_die_with_code: STRING "die_with_code"
 
-   as_exception: STRING is "exception"
+   as_element_sizeof: STRING "element_sizeof"
 
-   as_for_object: STRING is "for_object"
+   as_exception: STRING "exception"
 
-   as_generation: STRING is "generation"
+   as_for_object: STRING "for_object"
 
-   as_type_can_be_assigned_to_attribute: STRING is "type_can_be_assigned_to_attribute"
+   as_type_can_be_assigned_to_attribute: STRING "type_can_be_assigned_to_attribute"
 
-   as_type_can_be_assigned_to_item: STRING is "type_can_be_assigned_to_item"
+   as_type_can_be_assigned_to_item: STRING "type_can_be_assigned_to_item"
 
-   as_type_attribute_count: STRING is "type_attribute_count"
+   as_type_attribute_count: STRING "type_attribute_count"
 
-   as_type_attribute_generator: STRING is "type_attribute_generator"
+   as_type_attribute_generator: STRING "type_attribute_generator"
 
-   as_type_attribute_generating_type: STRING is "type_attribute_generating_type"
+   as_type_attribute_generating_type: STRING "type_attribute_generating_type"
 
-   as_type_attribute_is_expanded: STRING is "type_attribute_is_expanded"
+   as_type_attribute_is_expanded: STRING "type_attribute_is_expanded"
 
-   as_type_attribute_name: STRING is "type_attribute_name"
+   as_type_attribute_name: STRING "type_attribute_name"
 
-   as_fifth: STRING is "fifth"
+   as_fifth: STRING "fifth"
 
-   as_first: STRING is "first"
+   as_first: STRING "first"
 
-   as_floor: STRING is "floor"
+   as_floor: STRING "floor"
 
-   as_flush: STRING is "flush"
+   as_flush: STRING "flush"
 
-   as_fourth: STRING is "fourth"
+   as_fourth: STRING "fourth"
 
-   as_force_to_integer_16: STRING is "force_to_integer_16"
+   as_force_to_integer_16: STRING "force_to_integer_16"
 
-   as_force_to_integer_32: STRING is "force_to_integer_32"
+   as_force_to_integer_32: STRING "force_to_integer_32"
 
-   as_force_to_integer_64: STRING is "force_to_integer_64"
+   as_force_to_integer_64: STRING "force_to_integer_64"
 
-   as_force_to_natural_16: STRING is "force_to_natural_16"
+   as_force_to_natural_16: STRING "force_to_natural_16"
 
-   as_force_to_natural_32: STRING is "force_to_natural_32"
+   as_force_to_natural_32: STRING "force_to_natural_32"
 
-   as_force_to_natural_64: STRING is "force_to_natural_64"
+   as_force_to_natural_64: STRING "force_to_natural_64"
 
-   as_force_to_real_32: STRING is "force_to_real_32"
+   as_force_to_real_32: STRING "force_to_real_32"
 
-   as_force_to_real_64: STRING is "force_to_real_64"
+   as_force_to_real_64: STRING "force_to_real_64"
 
-   as_from_external_sized_copy: STRING is "from_external_sized_copy"
+   as_free_native_data: STRING "free_native_data"
 
-   as_from_pointer: STRING is "from_pointer"
+   as_from_external_sized_copy: STRING "from_external_sized_copy"
 
-   as_full_collect: STRING is "full_collect"
+   as_from_pointer: STRING "from_pointer"
 
-   as_generating_type: STRING is "generating_type"
+   as_full_collect: STRING "full_collect"
 
-   as_generator: STRING is "generator"
+   as_generating_type: STRING "generating_type"
 
-   as_io: STRING is "io"
+   as_generator: STRING "generator"
 
-   as_integer_bits: STRING is "Integer_bits"
+   as_io: STRING "io"
 
-   as_internals_from_generating_type: STRING is "internals_from_generating_type"
+   as_integer_bits: STRING "Integer_bits"
 
-   as_is_basic_expanded_type: STRING is "is_basic_expanded_type"
+   as_internals_from_generating_type: STRING "internals_from_generating_type"
 
-   as_is_deep_equal: STRING is "is_deep_equal"
+   as_is_basic_expanded_type: STRING "is_basic_expanded_type"
 
-   as_is_equal: STRING is "is_equal"
+   as_is_deep_equal: STRING "is_deep_equal"
 
-   as_do_at_exit: STRING is "do_at_exit"
+   as_is_equal: STRING "is_equal"
 
-   as_is_empty: STRING is "is_empty"
+   as_do_at_exit: STRING "do_at_exit"
 
-   as_is_infinity: STRING is "is_infinity"
+   as_is_empty: STRING "is_empty"
 
-   as_is_normal: STRING is "is_normal"
+   as_is_finished: STRING "is_finished"
 
-   as_is_not_a_number: STRING is "is_not_a_number"
+   as_is_infinity: STRING "is_infinity"
 
-   as_is_not_null: STRING is "is_not_null"
+   as_is_locked: STRING "is_locked"
 
-   as_is_subnormal: STRING is "is_subnormal"
+   as_is_normal: STRING "is_normal"
 
-   as_item: STRING is "item"
+   as_is_not_a_number: STRING "is_not_a_number"
 
-   as_last: STRING is "last"
+   as_is_not_null: STRING "is_not_null"
 
-   as_lower: STRING is "lower"
+   as_is_started: STRING "is_started"
 
-   as_low_8: STRING is "low_8"
+   as_is_subnormal: STRING "is_subnormal"
 
-   as_low_16: STRING is "low_16"
+   as_item: STRING "item"
 
-   as_low_32: STRING is "low_32"
+   as_last: STRING "last"
 
-   as_native_array_internals_from_generating_type: STRING is "native_array_internals_from_generating_type"
+   as_lock: STRING "lock"
 
-   as_make: STRING is "make"
+   as_lower: STRING "lower"
 
-   as_make_blank: STRING is "make_blank"
+   as_low_8: STRING "low_8"
 
-   as_mark_item: STRING is "mark_item"
+   as_low_16: STRING "low_16"
 
-   as_mark_native_arrays: STRING is "mark_native_arrays"
+   as_low_32: STRING "low_32"
 
-   as_minimum_character_code: STRING is "Minimum_character_code"
+   as_native_array_internals_from_generating_type: STRING "native_array_internals_from_generating_type"
 
-   as_minimum_double: STRING is "Minimum_double"
+   as_make: STRING "make"
 
-   as_minimum_real: STRING is "Minimum_real"
+   as_make_blank: STRING "make_blank"
 
-   as_manifest_creation: STRING is "manifest_creation"
+   as_mark_item: STRING "mark_item"
 
-   as_manifest_initialize: STRING is "manifest_initialize"
+   as_mark_native_arrays: STRING "mark_native_arrays"
 
-   as_manifest_make: STRING is "manifest_make"
+   as_minimum_character_code: STRING "Minimum_character_code"
 
-   as_manifest_put: STRING is "manifest_put"
+   as_minimum_double: STRING "Minimum_double"
 
-   as_manifest_semicolon_check: STRING is "manifest_semicolon_check"
+   as_minimum_real: STRING "Minimum_real"
 
-   as_maximum_character_code: STRING is "Maximum_character_code"
+   as_manifest_creation: STRING "manifest_creation"
 
-   as_maximum_double: STRING is "Maximum_double"
+   as_manifest_initialize: STRING "manifest_initialize"
 
-   as_maximum_real: STRING is "Maximum_real"
+   as_manifest_make: STRING "manifest_make"
 
-   as_object_as_pointer: STRING is "object_as_pointer"
+   as_manifest_put: STRING "manifest_put"
 
-   as_object_attribute: STRING is "object_attribute"
+   as_manifest_semicolon_check: STRING "manifest_semicolon_check"
 
-   as_object_invariant: STRING is "object_invariant"
+   as_maximum_character_code: STRING "Maximum_character_code"
 
-   as_object_memory: STRING is "object_memory"
+   as_maximum_double: STRING "Maximum_double"
 
-   as_object_size: STRING is "object_size"
+   as_maximum_real: STRING "Maximum_real"
 
-   as_pointer_bits: STRING is "Pointer_bits"
+   as_native_data: STRING "native_data"
 
-   as_pow_postfix: STRING is "pow"
+   as_notify: STRING "notify"
 
-   as_print: STRING is "print"
+   as_notify_all: STRING "notify_all"
 
-   as_print_on: STRING is "print_on"
+   as_object_as_pointer: STRING "object_as_pointer"
 
-   as_print_run_time_stack: STRING is "print_run_time_stack"
+   as_object_attribute: STRING "object_attribute"
 
-   as_put: STRING is "put"
+   as_object_invariant: STRING "object_invariant"
 
-   as_put_0: STRING is "put_0"
+   as_object_memory: STRING "object_memory"
 
-   as_put_1: STRING is "put_1"
+   as_object_size: STRING "object_size"
 
-   as_put_16_be: STRING is "put_16_be"
+   as_pointer_bits: STRING "Pointer_bits"
 
-   as_put_16_le: STRING is "put_16_le"
+   as_pow_postfix: STRING "pow"
 
-   as_put_16_ne: STRING is "put_16_ne"
+   as_print: STRING "print"
 
-   as_put_32_be: STRING is "put_32_be"
+   as_print_on: STRING "print_on"
 
-   as_put_32_le: STRING is "put_32_le"
+   as_print_run_time_stack: STRING "print_run_time_stack"
 
-   as_put_32_ne: STRING is "put_32_ne"
+   as_put: STRING "put"
 
-   as_raise_exception: STRING is "raise_exception"
+   as_put_0: STRING "put_0"
 
-   as_real_bits: STRING is "Real_bits"
+   as_put_1: STRING "put_1"
 
-   as_realloc: STRING is "realloc"
+   as_put_16_be: STRING "put_16_be"
 
-   as_rounded: STRING is "rounded"
+   as_put_16_le: STRING "put_16_le"
 
-   as_same_dynamic_type: STRING is "same_dynamic_type"
+   as_put_16_ne: STRING "put_16_ne"
 
-   as_second: STRING is "second"
+   as_put_32_be: STRING "put_32_be"
 
-   as_se_argc: STRING is "se_argc"
+   as_put_32_le: STRING "put_32_le"
 
-   as_se_argv: STRING is "se_argv"
+   as_put_32_ne: STRING "put_32_ne"
 
-   as_se_atexit: STRING is "se_atexit"
+   as_raise_exception: STRING "raise_exception"
 
-   as_se_fault: STRING is "se_fault"
+   as_real_bits: STRING "Real_bits"
 
-   as_sedb_breakpoint: STRING is "sedb_breakpoint"
+   as_realloc: STRING "realloc"
 
-   as_set_item: STRING is "set_item"
+   as_rounded: STRING "rounded"
 
-   as_set_object_attribute: STRING is "set_object_attribute"
+   as_run: STRING "run"
 
-   as_signal_number: STRING is "signal_number"
+   as_same_dynamic_type: STRING "same_dynamic_type"
 
-   as_slice_copy: STRING is "slice_copy"
+   as_second: STRING "second"
 
-   as_standard_copy: STRING is "standard_copy"
+   as_se_argc: STRING "se_argc"
 
-   as_standard_is_equal: STRING is "standard_is_equal"
+   as_se_argv: STRING "se_argv"
 
-   as_standard_twin: STRING is "standard_twin"
+   as_se_atexit: STRING "se_atexit"
 
-   as_std_error: STRING is "std_error"
+   as_se_fault: STRING "se_fault"
 
-   as_std_input: STRING is "std_input"
+   as_sedb_breakpoint: STRING "sedb_breakpoint"
 
-   as_std_output: STRING is "std_output"
+   as_set_item: STRING "set_item"
 
-   as_stderr: STRING is "stderr"
+   as_set_object_attribute: STRING "set_object_attribute"
 
-   as_stdin: STRING is "stdin"
+   as_signal_number: STRING "signal_number"
 
-   as_stdout: STRING is "stdout"
+   as_slice_copy: STRING "slice_copy"
 
-   as_storage: STRING is "storage"
+   as_standard_copy: STRING "standard_copy"
 
-   as_storage_lower: STRING is "storage_lower"
+   as_standard_is_equal: STRING "standard_is_equal"
 
-   as_third: STRING is "third"
+   as_standard_twin: STRING "standard_twin"
 
-   as_to_character: STRING is "to_character"
+   as_status: STRING "status"
 
-   as_to_integer_8: STRING is "to_integer_8"
+   as_std_error: STRING "std_error"
 
-   as_to_integer_16: STRING is "to_integer_16"
+   as_std_input: STRING "std_input"
 
-   as_to_integer_32: STRING is "to_integer_32"
+   as_std_output: STRING "std_output"
 
-   as_to_integer_64: STRING is "to_integer_64"
+   as_stderr: STRING "stderr"
 
-   as_to_internals: STRING is "to_internals"
+   as_stdin: STRING "stdin"
 
-   as_to_natural_8: STRING is "to_natural_8"
+   as_stdout: STRING "stdout"
 
-   as_to_natural_16: STRING is "to_natural_16"
+   as_storage: STRING "storage"
 
-   as_to_natural_32: STRING is "to_natural_32"
+   as_storage_lower: STRING "storage_lower"
 
-   as_to_natural_64: STRING is "to_natural_64"
+   as_third: STRING "third"
 
-   as_to_pointer: STRING is "to_pointer"
+   as_timed_wait: STRING "timed_wait"
 
-   as_trace_switch: STRING is "trace_switch"
+   as_to_character: STRING "to_character"
 
-   as_twin: STRING is "twin"
+   as_to_integer_8: STRING "to_integer_8"
 
-   as_type_generating_type: STRING is "type_generating_type"
+   as_to_integer_16: STRING "to_integer_16"
 
-   as_type_generator: STRING is "type_generator"
+   as_to_integer_32: STRING "to_integer_32"
 
-   as_type_is_expanded: STRING is "type_is_expanded"
+   as_to_integer_64: STRING "to_integer_64"
 
-   as_type_item_generating_type: STRING is "type_item_generating_type"
+   as_to_internals: STRING "to_internals"
 
-   as_type_item_generator: STRING is "type_item_generator"
+   as_to_natural_8: STRING "to_natural_8"
 
-   as_type_item_is_expanded: STRING is "type_item_is_expanded"
+   as_to_natural_16: STRING "to_natural_16"
 
-   as_upper: STRING is "upper"
+   as_to_natural_32: STRING "to_natural_32"
 
-   as_valid_generating_type_for_internals: STRING is "valid_generating_type_for_internals"
+   as_to_natural_64: STRING "to_natural_64"
 
-   as_valid_generating_type_for_native_array_internals: STRING is "valid_generating_type_for_native_array_internals"
-   as_with_capacity: STRING is "with_capacity"
+   as_to_pointer: STRING "to_pointer"
 
-feature {} -- Operator/Infix/Prefix list:
-   as_and: STRING is "and"
+   as_trace_switch: STRING "trace_switch"
 
-   as_and_then: STRING is "and then"
+   as_twin: STRING "twin"
 
-   as_at: STRING is "@"
+   as_type_generating_type: STRING "type_generating_type"
 
-   as_backslash_backslash: STRING is "\\"
+   as_type_generator: STRING "type_generator"
 
-   as_bit_and: STRING is "&"
+   as_type_is_expanded: STRING "type_is_expanded"
 
-   as_bit_not: STRING is "~"
+   as_type_item_generating_type: STRING "type_item_generating_type"
 
-   as_bit_or: STRING is "|"
+   as_type_item_generator: STRING "type_item_generator"
 
-   as_bit_rotate_left: STRING is "#<<"
+   as_type_item_is_expanded: STRING "type_item_is_expanded"
 
-   as_bit_rotate_right: STRING is "#>>"
+   as_unlock: STRING "unlock"
 
-   as_bit_shift_right_unsigned: STRING is "|>>>"
+   as_upper: STRING "upper"
 
-   as_eq: STRING is "="
+   as_valid_generating_type_for_internals: STRING "valid_generating_type_for_internals"
 
-   as_ge: STRING is ">="
+   as_valid_generating_type_for_native_array_internals: STRING "valid_generating_type_for_native_array_internals"
 
-   as_gt: STRING is ">"
+   as_wait: STRING "wait"
 
-   as_implies: STRING is "implies"
+   as_with_capacity: STRING "with_capacity"
 
-   as_le: STRING is "<="
+feature {} -- Operator/Infix/Prefix/Alias list:
+   as_and: STRING "and"
 
-   as_lt: STRING is "<"
+   as_and_then: STRING "and then"
 
-   as_minus: STRING is "-"
+   as_at: STRING "@"
 
-   as_muls: STRING is "*"
+   as_backslash_backslash: STRING "\\"
 
-   as_neq: STRING is "/="
+   as_bit_and: STRING "&"
 
-   as_not: STRING is "not"
+   as_bit_not: STRING "~"
 
-   as_or: STRING is "or"
+   as_bit_or: STRING "|"
 
-   as_or_else: STRING is "or else"
+   as_bit_rotate_left: STRING "#<<"
 
-   as_plus: STRING is "+"
+   as_bit_rotate_right: STRING "#>>"
 
-   as_pow: STRING is "^"
+   as_bit_shift_right_unsigned: STRING "|>>>"
 
-   as_sharp_backslash_backslash: STRING is "#\\"
+   as_brackets: STRING "[]"
 
-   as_sharp_minus: STRING is "#-"
+   as_eq: STRING "="
 
-   as_sharp_muls: STRING is "#*"
+   as_ge: STRING ">="
 
-   as_sharp_plus: STRING is "#+"
+   as_gt: STRING ">"
 
-   as_sharp_slash_slash: STRING is "#//"
+   as_implies: STRING "implies"
 
-   as_bit_shift_left: STRING is "|<<"
+   as_le: STRING "<="
 
-   as_bit_shift_right: STRING is "|>>"
+   as_lt: STRING "<"
 
-   as_slash: STRING is "/"
+   as_minus: STRING "-"
 
-   as_slash_slash: STRING is "//"
+   as_muls: STRING "*"
 
-   as_xor: STRING is "xor"
+   as_neq: STRING "/="
+
+   as_not: STRING "not"
+
+   as_or: STRING "or"
+
+   as_or_else: STRING "or else"
+
+   as_parentheses: STRING "()"
+
+   as_plus: STRING "+"
+
+   as_pow: STRING "^"
+
+   as_sharp_backslash_backslash: STRING "#\\"
+
+   as_sharp_minus: STRING "#-"
+
+   as_sharp_muls: STRING "#*"
+
+   as_sharp_plus: STRING "#+"
+
+   as_sharp_slash_slash: STRING "#//"
+
+   as_bit_shift_left: STRING "|<<"
+
+   as_bit_shift_right: STRING "|>>"
+
+   as_slash: STRING "/"
+
+   as_slash_slash: STRING "//"
+
+   as_xor: STRING "xor"
 
 feature {} -- Other names:
-   as_arguments: STRING is "arguments"
+   as_arguments: STRING "arguments"
 
-   as_current: STRING is "Current"
+   as_current: STRING "Current"
 
-   as_native_array_character: STRING is "NATIVE_ARRAY[CHARACTER]"
+   as_native_array_character: STRING "NATIVE_ARRAY[CHARACTER]"
 
-   as_last_result: STRING is "last_result"
+   as_last_result: STRING "last_result"
 
-   as_like_current: STRING is "like Current"
+   as_like_current: STRING "like Current"
 
-   as_method: STRING is "method"
+   as_method: STRING "method"
 
-   as_open_arguments: STRING is "open_arguments"
+   as_open_arguments: STRING "open_arguments"
 
-   as_open_argument_indices: STRING is "open_argument_indices"
+   as_open_argument_indices: STRING "open_argument_indices"
 
-   as_open_argument_index: STRING is "open_argument_index"
+   as_open_argument_index: STRING "open_argument_index"
 
-   as_open_argument_count: STRING is "open_argument_count"
+   as_open_argument_count: STRING "open_argument_count"
 
-   as_precursor: STRING is "Precursor"
+   as_precursor: STRING "Precursor"
 
-   as_result: STRING is "Result"
+   as_result: STRING "Result"
 
-   as_target: STRING is "target"
+   as_target: STRING "target"
 
-   as_void: STRING is "Void"
+   as_void: STRING "Void"
 
 end -- class ALIASED_STRING_LIST
 --
@@ -547,9 +582,9 @@ end -- class ALIASED_STRING_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

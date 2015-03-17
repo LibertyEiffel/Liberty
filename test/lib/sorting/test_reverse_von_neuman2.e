@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: FAST_ARRAY[CHARACTER]; s: REVERSE_COLLECTION_SORTER[CHARACTER]
       do
@@ -19,7 +19,7 @@ feature {}
          assert(tab.is_equal({FAST_ARRAY[CHARACTER] << 'z', 'r', 'l', 'a', '=', ';', '7', '5', ',', '*', '$' >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

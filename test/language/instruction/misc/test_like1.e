@@ -10,14 +10,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: like Current
       do
          a := same_as(Current, "bobo")
-      end --***   same_as(some: ANY; other: STRING): like some is
+      end --***   same_as(some: ANY; other: STRING): like some
 
-   same_as (some: ANY; other: STRING): like Current is
+   same_as (some: ANY; other: STRING): like Current
          --*** Removed because like argument is obsolete *** (Dom. april 6th 2004) ***
       do
       end

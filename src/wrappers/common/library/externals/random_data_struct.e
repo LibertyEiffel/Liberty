@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	STANDARD_C_LIBRARY_TYPES
 feature {} -- Low-level setters
 
-	random_data_struct_set_fptr (a_structure: POINTER; a_value: POINTER) is
+	random_data_struct_set_fptr (a_structure: POINTER; a_value: POINTER)
 			-- Setter for fptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rptr (a_structure: POINTER; a_value: POINTER) is
+	random_data_struct_set_rptr (a_structure: POINTER; a_value: POINTER)
 			-- Setter for rptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_state (a_structure: POINTER; a_value: POINTER) is
+	random_data_struct_set_state (a_structure: POINTER; a_value: POINTER)
 			-- Setter for state field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_type (a_structure: POINTER; a_value: INTEGER) is
+	random_data_struct_set_rand_type (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for rand_type field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_deg (a_structure: POINTER; a_value: INTEGER) is
+	random_data_struct_set_rand_deg (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for rand_deg field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -68,7 +68,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_rand_sep (a_structure: POINTER; a_value: INTEGER) is
+	random_data_struct_set_rand_sep (a_structure: POINTER; a_value: INTEGER)
 			-- Setter for rand_sep field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -80,7 +80,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	random_data_struct_set_end_ptr (a_structure: POINTER; a_value: POINTER) is
+	random_data_struct_set_end_ptr (a_structure: POINTER; a_value: POINTER)
 			-- Setter for end_ptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: setter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	random_data_struct_get_fptr (a_structure: POINTER): POINTER is
+	random_data_struct_get_fptr (a_structure: POINTER): POINTER
 			-- Query for fptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rptr (a_structure: POINTER): POINTER is
+	random_data_struct_get_rptr (a_structure: POINTER): POINTER
 			-- Query for rptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_state (a_structure: POINTER): POINTER is
+	random_data_struct_get_state (a_structure: POINTER): POINTER
 			-- Query for state field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -130,7 +130,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_type (a_structure: POINTER): INTEGER is
+	random_data_struct_get_rand_type (a_structure: POINTER): INTEGER
 			-- Query for rand_type field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -142,7 +142,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_deg (a_structure: POINTER): INTEGER is
+	random_data_struct_get_rand_deg (a_structure: POINTER): INTEGER
 			-- Query for rand_deg field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -154,7 +154,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_rand_sep (a_structure: POINTER): INTEGER is
+	random_data_struct_get_rand_sep (a_structure: POINTER): INTEGER
 			-- Query for rand_sep field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -166,7 +166,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	random_data_struct_get_end_ptr (a_structure: POINTER): POINTER is
+	random_data_struct_get_end_ptr (a_structure: POINTER): POINTER
 			-- Query for end_ptr field of RANDOM_DATA_STRUCT structure.
 			-- TODO: getter description
 
@@ -179,7 +179,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

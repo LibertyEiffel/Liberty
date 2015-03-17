@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          --***    assert((create {INTEGER}) = 0)
          --*** Not useful, hence rejected.

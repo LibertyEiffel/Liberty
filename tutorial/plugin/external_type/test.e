@@ -4,7 +4,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          uint: UNSIGNED_INT_WRAPPER
       do

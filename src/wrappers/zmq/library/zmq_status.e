@@ -8,21 +8,21 @@ feature {ANY} -- Status
 	is_successful: BOOLEAN 
 	-- Was last command successful?
 
-	is_unsuccessful: BOOLEAN is
+	is_unsuccessful: BOOLEAN
 		do
 			Result:=not is_successful
 		end
 
 
 feature {ANY} 
-	handle_return_value (a_return_value: INTEGER_32) is
+	handle_return_value (a_return_value: INTEGER_32)
 		do
 			if a_return_value/=0 then
 				throw(zmq_exception)
 			end
 		end
 
-	zmq_exception: ZMQ_EXCEPTION is
+	zmq_exception: ZMQ_EXCEPTION
 		do
 			create Result.from_errno
 		end

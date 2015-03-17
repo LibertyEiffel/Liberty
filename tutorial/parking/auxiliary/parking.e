@@ -4,13 +4,13 @@ create {ANY}
    make
 
 feature {ANY}
-   lower_level: INTEGER is
+   lower_level: INTEGER
          -- The actual lowest level number.
       do
          Result := level_list.lower
       end
 
-   upper_level: INTEGER is
+   upper_level: INTEGER
          -- The actual upper most level number.
       do
          Result := level_list.upper
@@ -22,7 +22,7 @@ feature {ANY}
    clock: DATE
       -- The parking `clock'.
 
-   occupied_slot_count: INTEGER is
+   occupied_slot_count: INTEGER
          -- Total number of cars inside the parking.
       local
          i: INTEGER
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   level_occupied_slot_count (level_number: INTEGER): INTEGER is
+   level_occupied_slot_count (level_number: INTEGER): INTEGER
          -- Total number of cars in the given `level_number'.
       require
          level_number.in_range(lower_level, upper_level)
@@ -48,7 +48,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Modifications:
-   arrival: INTEGER is
+   arrival: INTEGER
          -- Arrival of a new car. The `Result' is the number of the new car or 0 when the parking is full.
       local
          i: INTEGER; car: CAR
@@ -72,7 +72,7 @@ feature {ANY} -- Modifications:
          Result >= 0
       end
 
-   departure (car: INTEGER): REAL is
+   departure (car: INTEGER): REAL
          -- Gives the price to pay or -1 when cannot be found in the parking.
       require
          car > 0
@@ -93,12 +93,12 @@ feature {ANY} -- Modifications:
          end
       end
 
-   add_time (incr: INTEGER) is
+   add_time (incr: INTEGER)
       do
          clock.add_time(incr)
       end
 
-   set_hour_price (hp: REAL) is
+   set_hour_price (hp: REAL)
       require
          hp >= 0
       do
@@ -108,9 +108,9 @@ feature {ANY} -- Modifications:
       end
 
 feature {}
-   default_hour_price: REAL is 1.50
+   default_hour_price: REAL 1.50
 
-   make (ll: like level_list) is
+   make (ll: like level_list)
       require
          ll /= Void
       do

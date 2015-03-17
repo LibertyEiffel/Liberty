@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          an_attribute := '1'
          inspect
@@ -23,7 +23,7 @@ feature {ANY}
 feature {}
    an_attribute: CHARACTER
 
-   foo: like an_attribute is
+   foo: like an_attribute
       do
          Result := an_attribute
       end

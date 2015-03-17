@@ -307,10 +307,12 @@ static int sedb_printf(FILE*f, char* format, ...) {
 
 #else
 
+#ifndef SEDB_IN
 #ifdef WIN32
-# define SEDB_IN "CONIN$"
+# define SEDB_IN fopen("CONIN$", "r")
 #else
-# define SEDB_IN "/dev/tty"
+# define SEDB_IN fopen("/dev/tty", "r")
+#endif
 #endif
 
 static FILE* sedb_input(void) {
@@ -318,7 +320,7 @@ static FILE* sedb_input(void) {
 
   if (result == NULL) {
     /* Open the console device */
-    result = fopen(SEDB_IN, "r");
+    result = SEDB_IN;
     if (result == NULL) {
       /* Not found: back to stdin */
       result = stdin;

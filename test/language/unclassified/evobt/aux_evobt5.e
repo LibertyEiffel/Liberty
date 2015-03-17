@@ -6,17 +6,17 @@ class AUX_EVOBT5
 inherit
    AUX_EVOBT4
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   show: BOOLEAN is
+   show: BOOLEAN
       do
          Result := True
       end
 
 feature {}
-   make is
+   make
       do
       end
 

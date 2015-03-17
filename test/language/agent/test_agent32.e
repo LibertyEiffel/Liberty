@@ -12,7 +12,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: BOOLEAN; i: INTEGER
       do
@@ -26,14 +26,14 @@ feature {ANY}
          assert(i = 5)
       end
 
-   is_greater_than_5 (i: INTEGER): BOOLEAN is
+   is_greater_than_5 (i: INTEGER): BOOLEAN
       do
          Result := i > 5
       end
 
    bar: PREDICATE[TUPLE[INTEGER]]
 
-   five: INTEGER is
+   five: INTEGER
       do
          Result := 5
       end

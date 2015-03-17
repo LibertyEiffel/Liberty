@@ -6,7 +6,7 @@ create {}
     make
 
 feature {}
-    make is
+    make
         local
             a,b: STRING
             r: ROPE
@@ -89,6 +89,6 @@ feature {}
             assert(r.is_equal("LibertyEiffel is a beautiful programming language."))
         end
 
-        foo: STRING is "Foo"
+        foo: STRING "Foo"
 
     end -- class TEST_ROPE

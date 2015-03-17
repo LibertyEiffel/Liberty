@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    d: HASHED_DICTIONARY[DICTIONARY[INTEGER, STRING], STRING]
 
-   make is
+   make
       local
          d3, d2: DICTIONARY[INTEGER, STRING]
       do

@@ -2,7 +2,7 @@
 -- See the full copyright at the end.
 --
 class EXEC_INPUT_STREAM
-	-- Common anchestor of EXEC_INPUT_STREAM_WIN32 and EXEC_INPUT_STREAM_POSIX
+        -- Common anchestor of EXEC_INPUT_STREAM_WIN32 and EXEC_INPUT_STREAM_POSIX
 
 inherit
    TERMINAL_INPUT_STREAM
@@ -17,15 +17,16 @@ feature {ANY}
 
    is_connected: BOOLEAN
 
-	disconnect is
-		deferred
-		end
+   disconnect
+      deferred
+      end
+
 feature {}
    has_unread_character: BOOLEAN
 
    unread_buffer: CHARACTER
 
-   swap_unread_buffer is
+   swap_unread_buffer
       local
          tmp_buffer: CHARACTER
       do
@@ -38,7 +39,7 @@ feature {}
       end
 
 feature {FILTER}
-   filtered_read_character is
+   filtered_read_character
       local
          i: INTEGER
       do
@@ -59,7 +60,7 @@ feature {FILTER}
          can_unread_character := not end_of_input
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          has_unread_character := True
          can_unread_character := False
@@ -68,18 +69,18 @@ feature {FILTER}
 
    filtered_last_character: CHARACTER
 
-   filtered_descriptor: INTEGER is
-	   deferred
-	   end
+   filtered_descriptor: INTEGER
+           deferred
+           end
 
-   filtered_has_descriptor: BOOLEAN is deferred end 
+   filtered_has_descriptor: BOOLEAN deferred end
 
-   filtered_stream_pointer: POINTER is deferred end
+   filtered_stream_pointer: POINTER deferred end
 
-   filtered_has_stream_pointer: BOOLEAN is deferred end
+   filtered_has_stream_pointer: BOOLEAN deferred end
 
 feature {PROCESS}
-   make (a_process: like process) is
+   make (a_process: like process)
       require
          a_process /= Void
          process /= Void implies process = a_process
@@ -100,7 +101,7 @@ feature {PROCESS}
 feature {}
    handle: POINTER
 
-   basic_exec_get_in_handle (a_pipe: POINTER): POINTER is
+   basic_exec_get_in_handle (a_pipe: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -109,7 +110,7 @@ feature {}
          }"
       end
 
-   basic_exec_get_character (handle_: POINTER): INTEGER is
+   basic_exec_get_character (handle_: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -118,7 +119,7 @@ feature {}
          }"
       end
 
-   basic_exec_close (handle_: POINTER) is
+   basic_exec_close (handle_: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -129,13 +130,13 @@ feature {}
 
 end -- class EXEC_INPUT_STREAM_WIN32
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

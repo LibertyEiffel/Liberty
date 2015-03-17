@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: ARRAY[INTEGER]; s: REVERSE_COLLECTION_SORTER[INTEGER]
       do
@@ -19,7 +19,7 @@ feature {}
          assert(tab.is_equal({ARRAY[INTEGER] 1, << 9, 5, 4, 3, 3, 2, 1 >> }), tab)
       end
 
-   assert (b: BOOLEAN; tab: ARRAY[INTEGER]) is
+   assert (b: BOOLEAN; tab: ARRAY[INTEGER])
       do
          cpt := cpt + 1
          if not b then

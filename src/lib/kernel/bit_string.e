@@ -25,10 +25,10 @@ create {ANY}
    make, from_string
 
 feature {}
-   word_size: INTEGER_8 is 32
+   word_size: INTEGER_8 32
          -- size of words in storage
 
-   word_limit: INTEGER_8 is 31
+   word_limit: INTEGER_8 31
          -- word_size - 1
 
 feature {BIT_STRING}
@@ -41,19 +41,19 @@ feature {ANY}
    count: INTEGER
          -- Number of bits in the sequence.
 
-   lower: INTEGER is 1
+   lower: INTEGER 1
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := count = 0
       end
 
-   make (n: INTEGER) is
+   make (n: INTEGER)
          -- Make bit sequence of `n' bits.
          -- All bits are set to False.
       require
@@ -71,7 +71,7 @@ feature {ANY}
          all_default
       end
 
-   from_string (model: STRING) is
+   from_string (model: STRING)
          -- Create or set `Current' using `model' which is supposed
          -- to be a sequence of mixed `0' or `1' characters.
       require
@@ -81,7 +81,7 @@ feature {ANY}
          set_from_string(model, 1)
       end
 
-   valid_index (idx: INTEGER): BOOLEAN is
+   valid_index (idx: INTEGER): BOOLEAN
          -- True when `index' is valid (ie. inside actual
          -- bounds of the bit sequence).
       do
@@ -90,23 +90,23 @@ feature {ANY}
          end
       end
 
-   item (idx: INTEGER): BOOLEAN is
+   item (idx: INTEGER): BOOLEAN
          -- True if `idx'-th bit is 1, False otherwise.
       do
          Result := storage.item((idx - 1) #// word_size).bit_test((word_limit - (idx - 1) #\\ word_size).to_integer_8)
       end
 
-   first: like item is
+   first: like item
       do
          Result := item(lower)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
-   put (value: BOOLEAN; idx: INTEGER) is
+   put (value: BOOLEAN; idx: INTEGER)
          -- Set bit `idx' to 1 if `value' is True, 0 otherwise.
       require
          valid_index(idx)
@@ -120,7 +120,7 @@ feature {ANY}
          value = item(idx)
       end
 
-   put_1 (idx: INTEGER) is
+   put_1 (idx: INTEGER)
          -- Set bit `idx' to 1.
       require
          valid_index(idx)
@@ -134,7 +134,7 @@ feature {ANY}
          item(idx)
       end
 
-   put_0 (idx: INTEGER) is
+   put_0 (idx: INTEGER)
          -- Set bit `idx' to 0.
       require
          valid_index(idx)
@@ -149,7 +149,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Rotating and shifting:
-   shift_by (n: INTEGER) is
+   shift_by (n: INTEGER)
          -- Shift `n'-bits.
          -- `n' > 0 : shift right,
          -- `n' < 0 : shift left,
@@ -167,7 +167,7 @@ feature {ANY} -- Rotating and shifting:
          count = old count
       end
 
-   shift_left_by (n: INTEGER) is
+   shift_left_by (n: INTEGER)
          -- Shift left by `n' bits.
          -- Falling bits are lost and entering bits are 0.
       require
@@ -220,7 +220,7 @@ feature {ANY} -- Rotating and shifting:
          next_generation
       end
 
-   shift_right_by (n: INTEGER) is
+   shift_right_by (n: INTEGER)
          -- Shift right by `n' bits.
          -- Falling bits are lost and entering bits are 0.
       require
@@ -275,7 +275,7 @@ feature {ANY} -- Rotating and shifting:
          next_generation
       end
 
-   rotate_by (n: INTEGER) is
+   rotate_by (n: INTEGER)
          -- Rotate by `n' bits.
          -- `n' > 0 : Rotate right,
          -- `n' < 0 : Rotate left,
@@ -284,7 +284,7 @@ feature {ANY} -- Rotating and shifting:
          basic_rotate_right(n \\ count)
       end
 
-   rotate_left_by (n: INTEGER) is
+   rotate_left_by (n: INTEGER)
          -- Rotate left by `n' bits.
       require
          n >= 0
@@ -292,7 +292,7 @@ feature {ANY} -- Rotating and shifting:
          basic_rotate_right(-n \\ count)
       end
 
-   rotate_right_by (n: INTEGER) is
+   rotate_right_by (n: INTEGER)
          -- Rotate right by `n' bits.
       require
          n >= 0
@@ -300,7 +300,7 @@ feature {ANY} -- Rotating and shifting:
          basic_rotate_right(n #\\ count)
       end
 
-   infix "^" (s: INTEGER): like Current is
+   infix "^" (s: INTEGER): like Current
          -- Sequence shifted by `s' positions (positive `s' shifts
          -- right, negative left; bits falling off the sequence's
          -- bounds are lost).
@@ -312,7 +312,7 @@ feature {ANY} -- Rotating and shifting:
          Result.shift_by(s)
       end
 
-   infix "|>>" (s: INTEGER): like Current is
+   infix "|>>" (s: INTEGER): like Current
          -- Sequence shifted right by `s' positions.
          -- Same as infix "^" when `s' is positive (may run a little
          -- bit faster).
@@ -323,7 +323,7 @@ feature {ANY} -- Rotating and shifting:
          Result.shift_right_by(s)
       end
 
-   infix "|<<" (s: INTEGER): like Current is
+   infix "|<<" (s: INTEGER): like Current
          -- Sequence shifted left by `s' positions.
          -- Same as infix "^" when `s' is negative (may run a little
          -- bit faster.
@@ -334,7 +334,7 @@ feature {ANY} -- Rotating and shifting:
          Result.shift_left_by(s)
       end
 
-   infix "#" (s: INTEGER): like Current is
+   infix "#" (s: INTEGER): like Current
          -- Sequence rotated by `s' positions (positive right,
          -- negative left).
       require
@@ -344,7 +344,7 @@ feature {ANY} -- Rotating and shifting:
          Result.rotate_by(s)
       end
 
-   infix "#>>" (s: INTEGER): like Current is
+   infix "#>>" (s: INTEGER): like Current
          -- Sequence rotated by `s' positions right.
       require
          s >= 0
@@ -354,7 +354,7 @@ feature {ANY} -- Rotating and shifting:
          Result.rotate_right_by(s)
       end
 
-   infix "#<<" (s: INTEGER): like Current is
+   infix "#<<" (s: INTEGER): like Current
          -- Sequence rotated by `s' positions left.
       require
          s >= 0
@@ -365,7 +365,7 @@ feature {ANY} -- Rotating and shifting:
       end
 
 feature {ANY} -- Bitwise Logical Operators:
-   infix "and" (other: like Current): like Current is
+   infix "and" (other: like Current): like Current
          -- Bitwise `and' of Current with `other'
       require
          count = other.count
@@ -376,7 +376,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result.count = Current.count
       end
 
-   infix "implies" (other: like Current): like Current is
+   infix "implies" (other: like Current): like Current
          -- Bitwise implication of Current with `other'
       require
          count = other.count
@@ -387,7 +387,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result.count = Current.count
       end
 
-   prefix "not": like Current is
+   prefix "not": like Current
          -- Bitwise `not' of Current.
       do
          Result := Current.twin
@@ -396,7 +396,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result.count = Current.count
       end
 
-   infix "or" (other: like Current): like Current is
+   infix "or" (other: like Current): like Current
          -- Bitwise `or' of Current with `other'.
       require
          other /= Void
@@ -408,7 +408,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result.count = Current.count
       end
 
-   infix "xor" (other: like Current): like Current is
+   infix "xor" (other: like Current): like Current
          -- Bitwise `xor' of Current with `other'
       require
          other /= Void
@@ -420,7 +420,7 @@ feature {ANY} -- Bitwise Logical Operators:
          Result.count = Current.count
       end
 
-   and_mask (other: like Current) is
+   and_mask (other: like Current)
          -- Apply bitwise `and' mask of `other' onto Current.
       require
          count = other.count
@@ -440,7 +440,7 @@ feature {ANY} -- Bitwise Logical Operators:
          next_generation
       end
 
-   implies_mask (other: like Current) is
+   implies_mask (other: like Current)
          -- Apply bitwise implies mask of `other'.
       require
          count = other.count
@@ -466,7 +466,7 @@ feature {ANY} -- Bitwise Logical Operators:
          next_generation
       end
 
-   or_mask (other: like Current) is
+   or_mask (other: like Current)
          -- Apply bitwise `or' mask of `other' onto Current.
       require
          count = other.count
@@ -486,7 +486,7 @@ feature {ANY} -- Bitwise Logical Operators:
          next_generation
       end
 
-   xor_mask (other: like Current) is
+   xor_mask (other: like Current)
          -- Apply bitwise `xor' mask of `other' onto Current
       require
          count = other.count
@@ -506,7 +506,7 @@ feature {ANY} -- Bitwise Logical Operators:
          next_generation
       end
 
-   invert is
+   invert
          -- Invert Current bit-per-bit.
       local
          i: INTEGER; mask: INTEGER_32
@@ -533,7 +533,7 @@ feature {ANY} -- Bitwise Logical Operators:
       end
 
 feature {ANY} -- Conversions:
-   to_string: STRING is
+   to_string: STRING
          -- String representation of bit sequence.
          -- A zero bit is mapped to '0', a one bit to '1'.
          -- Leftmost bit is at index 1 in the returned string.
@@ -546,7 +546,7 @@ feature {ANY} -- Conversions:
          Result.count = count
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
          -- The corresponding INTEGER value when `count' <= `Integer_bits'.
          -- No sign-extension when `count' < `Integer_bits'.
       require
@@ -556,13 +556,13 @@ feature {ANY} -- Conversions:
       end
 
 feature {ANY} -- Others:
-   all_cleared, all_default: BOOLEAN is
+   all_cleared, all_default: BOOLEAN
          -- Are all bits set to 0?
       do
          Result := storage.all_default
       end
 
-   clear_all is
+   clear_all
          -- Set all bits to 0
       do
          storage.clear_all
@@ -571,7 +571,7 @@ feature {ANY} -- Others:
          all_default
       end
 
-   all_set: BOOLEAN is
+   all_set: BOOLEAN
          -- Are all bits set to 1?
       local
          i: INTEGER
@@ -595,7 +595,7 @@ feature {ANY} -- Others:
          end
       end
 
-   set_all is
+   set_all
          -- Set all bits to 1
       local
          i: INTEGER
@@ -610,14 +610,14 @@ feature {ANY} -- Others:
          all_set
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if count = other.count then
             Result := storage.is_equal(other.storage)
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          count := other.count
          if storage = Void then
@@ -628,7 +628,7 @@ feature {ANY} -- Others:
          next_generation
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
          -- Append terse printable represention of current object
          -- in `tagged_out_memory'
       do
@@ -636,7 +636,7 @@ feature {ANY} -- Others:
          tagged_out_memory.extend('B')
       end
 
-   append_in (str: STRING) is
+   append_in (str: STRING)
          -- Append in `str' a viewable representation of `Current'.
       local
          i: INTEGER
@@ -655,7 +655,7 @@ feature {ANY} -- Others:
          end
       end
 
-   set_from_string (model: STRING; offset: INTEGER) is
+   set_from_string (model: STRING; offset: INTEGER)
          -- Use the whole contents of `model' to reset range
          -- `offset' .. `offset + model.count - 1' of `Current'.
          -- Assume all characters of `model' are `0' or `1'.
@@ -682,13 +682,13 @@ feature {ANY} -- Others:
       end
 
 feature {ANY} -- Other features:
-   new_iterator: ITERATOR[BOOLEAN] is
+   new_iterator: ITERATOR[BOOLEAN]
       do
          create {ITERATOR_ON_BIT_STRING} Result.make(Current)
       end
 
 feature {}
-   basic_rotate_right (n: INTEGER) is
+   basic_rotate_right (n: INTEGER)
          -- Rotate right by `n' bits.
          --|*** PR(02/11/2004) This is not yet optimized.
       require
@@ -714,13 +714,13 @@ invariant
 
 end -- class BIT_STRING
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

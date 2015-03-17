@@ -7,7 +7,7 @@ expanded class COMMAND_LINE_ARGUMENT_FACTORY
 --
 
 feature {ANY} -- Options
-   option_string (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING] is
+   option_string (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -17,7 +17,7 @@ feature {ANY} -- Options
          create {CLARG_STRING} Result.optional(short, long, name, usage)
       end
 
-   option_strings (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+   option_strings (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -27,7 +27,7 @@ feature {ANY} -- Options
          create {CLARG_STRINGS} Result.optional(short, long, name, usage)
       end
 
-   option_file (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   option_file (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -37,7 +37,7 @@ feature {ANY} -- Options
          create {CLARG_FILE} Result.optional(short, long, name, usage)
       end
 
-   option_directory (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY] is
+   option_directory (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -47,7 +47,7 @@ feature {ANY} -- Options
          create {CLARG_DIRECTORY} Result.optional(short, long, name, usage)
       end
 
-   option_integer (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER] is
+   option_integer (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -57,7 +57,7 @@ feature {ANY} -- Options
          create {CLARG_INTEGER} Result.optional(short, long, name, usage)
       end
 
-   option_integers (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]] is
+   option_integers (short, long, name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -67,7 +67,7 @@ feature {ANY} -- Options
          create {CLARG_INTEGERS} Result.optional(short, long, name, usage)
       end
 
-   option_boolean (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN] is
+   option_boolean (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -76,7 +76,7 @@ feature {ANY} -- Options
          create {CLARG_BOOLEAN} Result.make(short, long, usage)
       end
 
-   option_counter (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER] is
+   option_counter (short, long, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
       require
          short /= Void implies short_pattern.match(short.out)
          long /= Void implies long_pattern.match(long.out)
@@ -86,42 +86,42 @@ feature {ANY} -- Options
       end
 
 feature {ANY} -- Positional
-   positional_string (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING] is
+   positional_string (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
       require
          name /= Void
       do
          create {CLARG_STRING} Result.positional(name, usage)
       end
 
-   positional_strings (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+   positional_strings (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]]
       require
          name /= Void
       do
          create {CLARG_STRINGS} Result.positional(name, usage)
       end
 
-   positional_file (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE] is
+   positional_file (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[REGULAR_FILE]
       require
          name /= Void
       do
          create {CLARG_FILE} Result.positional(name, usage)
       end
 
-   positional_directory (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY] is
+   positional_directory (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY]
       require
          name /= Void
       do
          create {CLARG_DIRECTORY} Result.positional(name, usage)
       end
 
-   positional_integer (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER] is
+   positional_integer (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
       require
          name /= Void
       do
          create {CLARG_INTEGER} Result.positional(name, usage)
       end
 
-   positional_integers (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]] is
+   positional_integers (name, usage: ABSTRACT_STRING): COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[INTEGER]]
       require
          name /= Void
       do
@@ -129,27 +129,27 @@ feature {ANY} -- Positional
       end
 
 feature {ANY}
-   no_parameters: COMMAND_LINE_ARGUMENT is
+   no_parameters: COMMAND_LINE_ARGUMENT
          -- useful to allow an empty command line.
       once
          create {CLARG_NOP} Result.make
       end
 
-   remaining_parameters: COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]] is
+   remaining_parameters: COMMAND_LINE_TYPED_ARGUMENT[TRAVERSABLE[FIXED_STRING]]
          -- allows parameters to be set after a special "--" option
       once
          create {CLARG_REMAINING} Result.make
       end
 
 feature {ANY} -- Option names validity
-   short_pattern: REGULAR_EXPRESSION is
+   short_pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once
          Result := re.convert_posix_pattern("^[A-Za-z0-9]$")
       end
 
-   long_pattern: REGULAR_EXPRESSION is
+   long_pattern: REGULAR_EXPRESSION
       local
          re: REGULAR_EXPRESSION_BUILDER
       once
@@ -158,13 +158,13 @@ feature {ANY} -- Option names validity
 
 end -- class COMMAND_LINE_ARGUMENT_FACTORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

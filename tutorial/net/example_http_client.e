@@ -5,6 +5,9 @@ class EXAMPLE_HTTP_CLIENT
 
 inherit
    XML_NODE_VISITOR
+      undefine
+         default_create
+      end
 
 insert
    PROTOCOLS
@@ -15,20 +18,19 @@ create {ANY}
 feature {}
    proxy: HTTP_PROXY
 
-   make is
-      local
-         url: URL
+   make
       do
-         --proxy.set_url(create {URL}.set_url("http://my-proxy.net/"))
-         create url.absolute("http://noc.nensi.net/se/test.xml")
-         test_socket(url)
+         test_socket(create {URL}.absolute("http://noc.nensi.net/se/test.xml"))
+         --| --8<--| TODO |--8<--
+         --| test_socket(create {URL}.absolute("http://et.liberty-eiffel.org/Liberty/tutorial/xml/sax/example.xml"))
+         --| -->8------------>8--
       end
 
-   test_socket (url: URL) is
+   test_socket (url: URL)
       local
          input: INPUT_STREAM; tree: XML_TREE; version: UNICODE_STRING
       do
-         url.set_error_handler(agent std_error.put_line(?))
+         url.set_error_handler(agent (err: STRING) do std_error.put_line("**** Error: #(1)" # err) end (?))
          url.connect
          if url.is_connected then
             input := url.input
@@ -50,7 +52,7 @@ feature {}
          end
       end
 
-   error (line, column: INTEGER) is
+   error (line, column: INTEGER)
       do
          std_error.put_string("Error at ")
          std_error.put_integer(line)
@@ -61,7 +63,7 @@ feature {}
       end
 
 feature {XML_COMPOSITE_NODE}
-   visit_composite_node (node: XML_COMPOSITE_NODE) is
+   visit_composite_node (node: XML_COMPOSITE_NODE)
       local
          i: INTEGER
       do
@@ -108,7 +110,7 @@ feature {XML_COMPOSITE_NODE}
       end
 
 feature {XML_DATA_NODE}
-   visit_data_node (node: XML_DATA_NODE) is
+   visit_data_node (node: XML_DATA_NODE)
       do
       end
 

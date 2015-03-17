@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          text: JSON_TEXT
          parser: JSON_PARSER
@@ -45,7 +45,7 @@ feature {}
       end
 
    error: ABSTRACT_STRING
-   on_error (message: ABSTRACT_STRING) is
+   on_error (message: ABSTRACT_STRING)
       do
          sedb_breakpoint
          error := message

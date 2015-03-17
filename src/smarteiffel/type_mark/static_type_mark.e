@@ -10,30 +10,30 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   frozen has_been_specialized: BOOLEAN is True
+   frozen has_been_specialized: BOOLEAN True
 
-   frozen specialize_in (new_type: TYPE) is
+   frozen specialize_in (new_type: TYPE)
       do
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK is
-      do
-         Result := Current
-      end
-
-   frozen declaration_type: TYPE_MARK is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): TYPE_MARK
       do
          Result := Current
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   frozen declaration_type: TYPE_MARK
       do
          Result := Current
       end
 
-   frozen signature_resolve_in (new_type: TYPE): TYPE is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
+      do
+         Result := Current
+      end
+
+   frozen signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
@@ -50,9 +50,9 @@ end -- class STATIC_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

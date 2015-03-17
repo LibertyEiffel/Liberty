@@ -17,7 +17,7 @@ feature {ANY}
    path: STRING
 
 feature {}
-   make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path) is
+   make (a_class_name: like class_name; a_cluster: like cluster; a_path: like path)
       require
          a_class_name.is_tuple_related implies a_class_name.to_string = as_tuple
       do
@@ -41,9 +41,9 @@ end -- class CLUSTER_CLASS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

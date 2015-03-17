@@ -14,17 +14,17 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
-   debug_list: HASHED_SET[STRING] is
+   debug_list: HASHED_SET[STRING]
       once
          create Result.make
       end
 
 feature {PROCEDURE_CALL_0}
-   inline_instruction_0 (type: TYPE; target_type: TYPE; target: EXPRESSION): INLINE_MEMO is
+   inline_instruction_0 (type: TYPE; target_type: TYPE; target: EXPRESSION): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT
@@ -74,11 +74,11 @@ feature {PROCEDURE_CALL_0}
       end
 
 feature {PROCEDURE_CALL_1}
-   inline_instruction_1 (type: TYPE; target_type: TYPE; target, arg: EXPRESSION): INLINE_MEMO is
+   inline_instruction_1 (type: TYPE; target_type: TYPE; target, arg: EXPRESSION): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL; assignment: ASSIGNMENT; writable_attribute_name: WRITABLE_ATTRIBUTE_NAME
-         argument_name2: ARGUMENT_NAME2; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
+         argument_name_ref: ARGUMENT_NAME_REF; left_side: FUNCTION_CALL_0; call_0_c: FUNCTION_CALL_0; call: FUNCTION_CALL
          inline_assignment_procedure: BOOLEAN; fs: FEATURE_STAMP; writable_attribute: WRITABLE_ATTRIBUTE
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
@@ -115,8 +115,8 @@ feature {PROCEDURE_CALL_1}
                      if assignment /= Void then
                         -- Now looking for assignment procedure (e.g. {STRING}.set_count):
                         writable_attribute_name ?= assignment.left_side
-                        argument_name2 ?= assignment.right_side
-                        if writable_attribute_name /= Void and then argument_name2 /= Void then
+                        argument_name_ref ?= assignment.right_side
+                        if writable_attribute_name /= Void and then argument_name_ref /= Void then
                            inline_assignment_procedure := True
                            if target_type.is_expanded then
                               call ?= target
@@ -127,7 +127,7 @@ feature {PROCEDURE_CALL_1}
                                     -- It may be an attribute:
                                     fs := call_0_c.feature_stamp
                                     check
-                                       --|*** This seems to mean "fs has already been specialized", but can 
+                                       --|*** This seems to mean "fs has already been specialized", but can
                                        --|*** it be expressed with the new resolve_static_bindig_for? <FM-18/03/2006>
                                        -- fs = fs.resolve_dynamic_binding_for(type)
                                     end
@@ -155,10 +155,10 @@ feature {PROCEDURE_CALL_1}
             smart_eiffel.magic_count_increment
          end
       end
-   
+
 feature {PROCEDURE_CALL_N}
    inline_instruction_n (type: TYPE; target_type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; compound: COMPOUND
          proc_call: PROCEDURE_CALL
@@ -190,35 +190,35 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_3 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_3
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: E_PROCEDURE_VISITOR) is
+   accept (visitor: E_PROCEDURE_VISITOR)
       do
          visitor.visit_e_procedure(Current)
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
 feature {}
-   try_to_undefine_aux (fn: FEATURE_NAME; ct: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; ct: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_PROCEDURE} Result.from_effective(fn, arguments, require_assertion, ensure_assertion, ct, permissions)
       end
 
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "do")
       end
 
    inline_proc_call_0 (proc_call: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target: EXPRESSION)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       require
          proc_call /= Void
       local
@@ -270,32 +270,32 @@ feature {}
       end
 
    inline_proc_call_1 (body: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target, arg: EXPRESSION)
-      : INLINE_MEMO is
+      : INLINE_MEMO
       require
          body /= Void
       local
-         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME2
+         proc_call_1: PROCEDURE_CALL_1; proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name_ref: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, body.target)
          if call_0 = Void and then body.target.is_current then
             if body.arg_count = 1 then
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void then
                   proc_call_1 ?= body
                   proc_call_1 := proc_call_1.inline_with(target, arg)
                   Result := smart_eiffel.get_inline_memo
                   Result.set_instruction(proc_call_1)
                end
             elseif body.arg_count = 2 then
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void and then body.arguments.expression(2).is_static then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void and then body.arguments.expression(2).is_static then
                   proc_call_n ?= body
                   proc_call_n := proc_call_n.inline_2(target, arg, proc_call_n.arguments.expression(2))
                   Result := smart_eiffel.get_inline_memo
                   Result.set_instruction(proc_call_n)
                else
-                  argument_name2 ?= body.arguments.expression(2)
-                  if argument_name2 /= Void and then body.arguments.expression(1).is_static then
+                  argument_name_ref ?= body.arguments.expression(2)
+                  if argument_name_ref /= Void and then body.arguments.expression(1).is_static then
                      proc_call_n ?= body
                      proc_call_n := proc_call_n.inline_2(target, proc_call_n.arguments.expression(1), arg)
                      Result := smart_eiffel.get_inline_memo
@@ -306,8 +306,8 @@ feature {}
          elseif call_0 /= Void then
             if body.arg_count = 1 then
                -- (May be the {FILE_TOOLS}.delete.)
-               argument_name2 ?= body.arguments.expression(1)
-               if argument_name2 /= Void then
+               argument_name_ref ?= body.arguments.expression(1)
+               if argument_name_ref /= Void then
                   call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                   proc_call_1 ?= body
                   proc_call_1 := proc_call_1.inline_with(call_0, arg)
@@ -319,20 +319,20 @@ feature {}
       end
 
    inline_proc_call_n (proc_call: PROCEDURE_CALL; type: TYPE; target_type: TYPE; target: EXPRESSION
-      args: EFFECTIVE_ARG_LIST): INLINE_MEMO is
+      args: EFFECTIVE_ARG_LIST): INLINE_MEMO
       require
          proc_call /= Void
       local
-         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name2: ARGUMENT_NAME2
+         proc_call_n: PROCEDURE_CALL_N; call_0: CALL_0; argument_name_ref: ARGUMENT_NAME_REF
       do
          call_0 := left_most_current_direct_call_0_sequence(target_type, proc_call.target)
          if call_0 /= Void then
             if args.count = 2 and then proc_call.arg_count = 2 then
                -- (May be the {FAST_ARRAY}.put.)
-               argument_name2 ?= proc_call.arguments.expression(1)
-               if argument_name2 /= Void and then argument_name2.rank = 1 then
-                  argument_name2 ?= proc_call.arguments.expression(2)
-                  if argument_name2 /= Void and then argument_name2.rank = 2 then
+               argument_name_ref ?= proc_call.arguments.expression(1)
+               if argument_name_ref /= Void and then argument_name_ref.rank = 1 then
+                  argument_name_ref ?= proc_call.arguments.expression(2)
+                  if argument_name_ref /= Void and then argument_name_ref.rank = 2 then
                      call_0 := left_most_current_direct_call_0_sequence_inline(type, call_0, target_type, target)
                      proc_call_n ?= proc_call
                      proc_call_n := proc_call_n.inline_2(call_0, args.expression(1), args.expression(2))
@@ -356,9 +356,9 @@ end -- class E_PROCEDURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

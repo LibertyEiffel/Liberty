@@ -3,23 +3,23 @@
 --
 class AUX_EG4_A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          x := 1
       end
 
-   set_x (other_x: REAL) is
+   set_x (other_x: REAL)
       do
          x := other_x
       end
 
    x: REAL
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
       do
          create Result.make
          Result.set_x(x + other.x)

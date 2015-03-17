@@ -4,25 +4,25 @@
 deferred class ANIMAL
 
 feature {ANY}
-   cry is
+   cry
       deferred
       end
 
-   reproduction (other: ANIMAL): ANIMAL is
+   reproduction (other: ANIMAL): ANIMAL
       require
          other /= Void
       do
          Result := other
       end
 
-   fornicate_with (other: ANIMAL): ANIMAL is
+   fornicate_with (other: ANIMAL): ANIMAL
       require
          other /= Void
       do
          Result := other
       end
 
-   congratulation (other: ANIMAL) is
+   congratulation (other: ANIMAL)
       do
          Current.cry
          std_output.put_string(" + ")
@@ -32,7 +32,7 @@ feature {ANY}
          std_output.put_new_line
       end
 
-   is_cat, is_dog: BOOLEAN is
+   is_cat, is_dog: BOOLEAN
       do
       end
 

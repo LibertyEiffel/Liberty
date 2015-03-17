@@ -2,17 +2,17 @@ expanded class CONSTANTS_ITER
 	-- An expanded iterator over constants of a GI_CLASS
 insert GI_ITERATOR[GI_CONSTANT_INFO]
 feature {ANY}
-	start is
+	start
 		do
 			i:=gi_class.constants_lower
 		end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=i>gi_class.constants_upper
 		end
 
-		item: GI_CONSTANT_INFO is 
+		item: GI_CONSTANT_INFO 
 	do 
 		Result:=gi_class.constant(i)
 	end

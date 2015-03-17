@@ -21,65 +21,65 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := count = 1 and then nodes.first.name.is_equal(once "KW Result")
       end
 
-   is_current: BOOLEAN is
+   is_current: BOOLEAN
       do
          Result := count = 1 and then nodes.first.name.is_equal(once "KW Current")
       end
 
-   is_parenthesized_expression: BOOLEAN is
+   is_parenthesized_expression: BOOLEAN
       do
          Result := count = 3 and then nodes.first.name.is_equal(once "KW (")
       end
 
-   is_precursor: BOOLEAN is
+   is_precursor: BOOLEAN
       do
          Result := count = 3 and then nodes.first.name.is_equal(once "KW Precursor")
       end
 
-   is_implicit_feature_call: BOOLEAN is
+   is_implicit_feature_call: BOOLEAN
       do
          Result := count = 2 and then nodes.first.name.is_equal(once "KW entity name")
       end
 
-   is_manifest_or_type_test: BOOLEAN is
+   is_manifest_or_type_test: BOOLEAN
       do
          Result := count = 1 and then nodes.first.name.is_equal(once "Manifest_Or_Type_Test")
       end
 
-   manifest_or_type_test: LIBERTY_AST_MANIFEST_OR_TYPE_TEST is
+   manifest_or_type_test: LIBERTY_AST_MANIFEST_OR_TYPE_TEST
       require
          is_manifest_or_type_test
       do
          Result ::= nodes.item(0)
       end
 
-   parenthesized_expression: LIBERTY_AST_EXPRESSION is
+   parenthesized_expression: LIBERTY_AST_EXPRESSION
       require
          is_parenthesized_expression
       do
          Result ::= nodes.item(1)
       end
 
-   precursor_type_mark: LIBERTY_AST_PRECURSOR_TYPE_MARK is
+   precursor_type_mark: LIBERTY_AST_PRECURSOR_TYPE_MARK
       require
          is_precursor
       do
          Result ::= nodes.item(1)
       end
 
-   implicit_feature_name: LIBERTY_AST_ENTITY_NAME is
+   implicit_feature_name: LIBERTY_AST_ENTITY_NAME
       require
          is_implicit_feature_call
       do
          Result ::= nodes.item(0)
       end
 
-   actuals: LIBERTY_AST_ACTUALS is
+   actuals: LIBERTY_AST_ACTUALS
       require
          is_precursor or else is_implicit_feature_call
       do
@@ -87,15 +87,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Target"
+   name: STRING "Target"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2, 3 >> }
       end

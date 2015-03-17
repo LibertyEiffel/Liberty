@@ -7,20 +7,20 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if is_static then
          end
       end
 
 feature {}
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := True
          static_value_mem := to_integer
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          Result := value.code
       end

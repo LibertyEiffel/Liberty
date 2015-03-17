@@ -26,7 +26,7 @@ create {ANY}
 feature {ANY}
    size: INTEGER
 
-   make is
+   make
       do
          if argument_count = 0 then
             std_output.put_string("Want to compute a small pyramid ?%N%
@@ -52,12 +52,12 @@ feature {ANY}
          end
       end
 
-   max: INTEGER is
+   max: INTEGER
       do
          Result := size * (size + 1) // 2
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          lig, col, nb: INTEGER
       do
@@ -85,7 +85,7 @@ feature {ANY}
          tagged_out_memory.extend('%N')
       end
 
-   belongs_to (nb: INTEGER): BOOLEAN is
+   belongs_to (nb: INTEGER): BOOLEAN
       require
          too_small: nb >= 1
          too_large: nb <= max
@@ -103,7 +103,7 @@ feature {ANY}
          Result := found
       end
 
-   propagate (col, val_column_1: INTEGER): BOOLEAN is
+   propagate (col, val_column_1: INTEGER): BOOLEAN
       require
          val_column_1.in_range(1, max)
          col.in_range(1, size)
@@ -140,7 +140,7 @@ feature {ANY}
          end
       end
 
-   fill_up (col: INTEGER): BOOLEAN is
+   fill_up (col: INTEGER): BOOLEAN
       require
          col >= 1
       local
@@ -178,11 +178,11 @@ feature {ANY}
 feature {}
    elem: ARRAY[INTEGER]
 
-   case_vide: INTEGER is 0
+   case_vide: INTEGER 0
 
-   biggest_one: INTEGER is 10
+   biggest_one: INTEGER 10
 
-   indice (lig, col: INTEGER): INTEGER is
+   indice (lig, col: INTEGER): INTEGER
       require
          lig_trop_petit: lig >= 1
          lig_trop_grand: lig <= size
@@ -198,7 +198,7 @@ feature {}
          Result <= max
       end
 
-   clear_column (col: INTEGER) is
+   clear_column (col: INTEGER)
       require
          col >= 1
          col <= size

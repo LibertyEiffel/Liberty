@@ -7,7 +7,7 @@ inherit
    VISITOR
 
 feature {CST_ATT_REAL}
-   visit_cst_att_real (visited: CST_ATT_REAL) is
+   visit_cst_att_real (visited: CST_ATT_REAL)
       require
          visited /= Void
       deferred
@@ -25,9 +25,9 @@ end -- class CST_ATT_REAL_VISITOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

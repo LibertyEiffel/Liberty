@@ -3,17 +3,17 @@ expanded class VFUNCS_ITER
 insert GI_ITERATOR[GI_VFUNC_INFO]
 
 feature {ANY}
-	start is
+	start
 		do
 			i:=gi_class.virtual_functions_lower
 		end
 
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=i>gi_class.virtual_functions_upper
 		end
 
-	item: GI_VFUNC_INFO is 
+	item: GI_VFUNC_INFO 
 	do 
 		Result:=gi_class.virtual_function(i)
 	end

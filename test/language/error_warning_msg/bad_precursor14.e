@@ -11,7 +11,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       do
          Precursor -- ... no existing one!
       end

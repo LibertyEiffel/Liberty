@@ -3,7 +3,7 @@
 --
 deferred class AUX_SELECT9RR
 feature {ANY}
-   f is deferred end;
+   f deferred end;
 end -- class AUX_SELECT9RR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

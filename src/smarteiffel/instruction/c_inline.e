@@ -18,46 +18,46 @@ feature {ANY}
    c_code: STRING
          -- The C code to be inlined.
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
    start_position: POSITION
          -- To be shown at run-time (the one of the `sedb' call or the `ds.p' assignment).
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := True
       end
 
-   specialize_and_check (type: TYPE): INSTRUCTION is
+   specialize_and_check (type: TYPE): INSTRUCTION
       do
          Result := Current
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          Result := Current
       end
 
-   accept (visitor: C_INLINE_VISITOR) is
+   accept (visitor: C_INLINE_VISITOR)
       do
          visitor.visit_c_inline(Current)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          check
             source_view /= Void
@@ -76,7 +76,7 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          check
             is_c_inline_c
@@ -84,30 +84,30 @@ feature {ANY}
          Result := c_code.has('C')
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          check
             not Result
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {PARSER}
-   set_source_view (sv: like source_view) is
+   set_source_view (sv: like source_view)
       do
          check
             sv /= Void = (smart_eiffel.short_or_class_check_flag or smart_eiffel.pretty_flag)
@@ -118,7 +118,7 @@ feature {PARSER}
       end
 
 feature {}
-   make_c_inline_c (sp: like start_position; cc: like c_code) is
+   make_c_inline_c (sp: like start_position; cc: like c_code)
       do
          is_c_inline_c := True
          c_code := cc
@@ -128,7 +128,7 @@ feature {}
          start_position = sp
       end
 
-   make_c_inline_h (sp: like start_position; cc: like c_code) is
+   make_c_inline_h (sp: like start_position; cc: like c_code)
       do
          c_code := cc
          start_position := sp
@@ -154,9 +154,9 @@ end -- class C_INLINE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

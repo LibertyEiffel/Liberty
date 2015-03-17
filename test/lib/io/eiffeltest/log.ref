@@ -5,7 +5,7 @@ If you confirm that "log.new" is correct, just overwrite "log.ref" with "log.new
 --------------------------------------------------------------------------------
 Found 16 test_* files.
 Found 0 bad_* files.
-Found 2 subdirectories.
+Found 3 subdirectories.
 --------------------------------------------------------------------------------
 se c -boost test_base64_stream1.e -o test_base64_stream1.exe
 Running (-boost) "test_base64_stream1.exe".
@@ -2889,6 +2889,7 @@ se clean test_size_of1.e
 Removing (-no_split -boost -bdw_gc) "test_size_of1.exe".
 --------------------------------------------------------------------------------
 Launching "se test" on "filesystem" subdirectory.
+Launching "se test" on "filter" subdirectory.
 Launching "se test" on "path_name" subdirectory.
 --------------------------------------------------------------------------------
 All entries of the "excluded.lst" file are used (good).

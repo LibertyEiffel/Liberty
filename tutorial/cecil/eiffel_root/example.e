@@ -14,19 +14,19 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          do_it
          call_c_prog
       end
 
-   do_it is
+   do_it
       do
          io.put_string("Hi from Eiffel world.%N")
       end
 
 feature {}
-   call_c_prog is
+   call_c_prog
       external "C"
       alias "c_prog"
       end

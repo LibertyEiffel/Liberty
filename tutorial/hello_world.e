@@ -14,7 +14,7 @@ create {ANY}
    main
 
 feature {ANY}
-   main is
+   main
       do
          io.put_string("Hello World.%N")
       end

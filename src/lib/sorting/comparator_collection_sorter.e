@@ -34,7 +34,7 @@ create {ANY}
    default_create, with_comparator
 
 feature {ANY}
-   set_comparator (a_comparator: like comparator) is
+   set_comparator (a_comparator: like comparator)
       do
          comparator := a_comparator
       end
@@ -42,35 +42,35 @@ feature {ANY}
    comparator: PREDICATE[TUPLE[X, X]]
 
 feature {}
-   lt (x, y: X): BOOLEAN is
+   lt (x, y: X): BOOLEAN
       do
          Result := comparator.item([x, y])
       end
 
-   default_comparator (x, y: X): BOOLEAN is
+   default_comparator (x, y: X): BOOLEAN
       do
          Result := True -- does not sort by default (sort algorithms are conservative)
       end
 
-   default_create is
+   default_create
       do
          set_comparator(agent default_comparator(?, ?))
       end
 
-   with_comparator (a_comparator: like comparator) is
+   with_comparator (a_comparator: like comparator)
       do
          set_comparator(a_comparator)
       end
 
 end -- class COMPARATOR_COLLECTION_SORTER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

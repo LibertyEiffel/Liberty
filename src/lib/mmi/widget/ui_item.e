@@ -6,7 +6,7 @@ deferred class UI_ITEM
 feature {ANY}
    id: FIXED_STRING
 
-   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM
       require
          a_job /= Void
       do
@@ -14,7 +14,7 @@ feature {ANY}
          if registered = Void then
             create registered.make(0)
             registered.add_last(create {WEAK_REFERENCE[UI_CONNECT_ITEM]}.set_item(Result))
-         elseif not registered.exists(agent (item: WEAK_REFERENCE[UI_CONNECT_ITEM]; new: UI_CONNECT_ITEM): BOOLEAN is
+         elseif not registered.exists(agent (item: WEAK_REFERENCE[UI_CONNECT_ITEM]; new: UI_CONNECT_ITEM): BOOLEAN
                                       do
                                          if item.item = Void then
                                             item.set_item(new)
@@ -27,13 +27,13 @@ feature {ANY}
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM
       require
          a_job /= Void
       deferred
       end
 
-   id_memory: like id_memory_ is
+   id_memory: like id_memory_
       do
          Result := id_memory_
          if Result = Void then
@@ -52,13 +52,13 @@ invariant
 
 end -- class UI_ITEM
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

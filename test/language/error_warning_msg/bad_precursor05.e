@@ -12,12 +12,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          routine(3);
       end;
 
-   routine(i: INTEGER) is
+   routine(i: INTEGER)
       do
          Precursor;
       end;

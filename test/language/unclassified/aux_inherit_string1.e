@@ -8,11 +8,11 @@ inherit
       rename make as string_make
       end
 
-creation {ANY}
+create {ANY}
    make, copy, string_make
 
 feature {ANY}
-   make (init: STRING) is
+   make (init: STRING)
       local
          i: INTEGER
       do
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          loader: FOREIGN_DLL_LOADER
          dll: FOREIGN_DLL

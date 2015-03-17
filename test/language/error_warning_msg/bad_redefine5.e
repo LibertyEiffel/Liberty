@@ -12,12 +12,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          frozen_routine(Current)
       end
 
-   frozen_routine (other: AUX_REDEFINE5) is
+   frozen_routine (other: AUX_REDEFINE5)
       do
       end
 

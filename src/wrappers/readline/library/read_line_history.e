@@ -40,7 +40,7 @@ feature {ANY} -- TODO: State managing
    --
 
 feature {ANY} --       History List Management
-   add (a_string: ABSTRACT_STRING) is
+   add (a_string: ABSTRACT_STRING)
          -- Place `a_string' at the end of the history list.  The associated data field (if any) is set to `NULL'.
       require
          a_string /= Void
@@ -49,7 +49,7 @@ feature {ANY} --       History List Management
          generation := generation + 1
       end
 
-   add_time (a_stamp: ABSTRACT_STRING) is
+   add_time (a_stamp: ABSTRACT_STRING)
          -- Change the time stamp associated with the most recent history entry to `a_stamp'.
       require
          a_stamp /= Void
@@ -58,7 +58,7 @@ feature {ANY} --       History List Management
          generation := generation + 1
       end
 
-   remove (an_offset: INTEGER): HISTORY_ENTRY is
+   remove (an_offset: INTEGER): HISTORY_ENTRY
          -- The history entry at `an_offset' removed from the history.
          -- Note: the C library returns the removed element in order to free the
          -- line, data, and containing structure. This may be useful for an
@@ -88,14 +88,14 @@ feature {ANY} --       History List Management
    --      `NULL' pointer is returned.
    --
 
-   clear is
+   clear
          -- Clear the history list by deleting all the entries.
       do
          clear_history
          generation := generation + 1
       end
 
-   stifle (a_max: INTEGER) is
+   stifle (a_max: INTEGER)
          -- Stifle the history list, remembering only the last `a_max' entries.
       do
          stifle_history(a_max)
@@ -106,7 +106,7 @@ feature {ANY} --       History List Management
    --      Stop stifling the history.  This returns the previously-set
    --      maximum number of history entries (as set by `stifle_history()').
    --
-   is_stifled: BOOLEAN is
+   is_stifled: BOOLEAN
          -- Is history stifled?
       do
          Result := history_is_stifled.to_boolean
@@ -121,36 +121,36 @@ feature {ANY} -- 2.3.3 Information About the History List
    --      current input history.  Element 0 of this list is the beginning of
    --      time.  If there is no history, return `NULL'.
 
-   current_position: INTEGER is
+   current_position: INTEGER
          -- offset of the current history element
       do
          Result := where_history
       end
 
-   current_entry: HISTORY_ENTRY is
+   current_entry: HISTORY_ENTRY
          -- The history entry at the `current_position'. May be Void if there is no entry there.
       do
          Result := wrapper_or_void(current_history)
       end
 
-   item (an_offset: INTEGER): HISTORY_ENTRY is
+   item (an_offset: INTEGER): HISTORY_ENTRY
          -- The history entry at position `an_offset'. Voidif there is no entry
          -- Note that the C library allows `an_offset' to be greater than the history length, giving a Void Result.
       do
          Result := wrapper_or_void(history_get(an_offset))
       end
 
-   first: HISTORY_ENTRY is
+   first: HISTORY_ENTRY
       do
          Result := item(lower)
       end
 
-   last: HISTORY_ENTRY is
+   last: HISTORY_ENTRY
       do
          Result := item(upper)
       end
 
-   total_bytes: INTEGER is
+   total_bytes: INTEGER
          -- the number of bytes that the primary history entries are using
          -- computed as the sum of the lengths of all the lines in the history.
       do
@@ -158,12 +158,12 @@ feature {ANY} -- 2.3.3 Information About the History List
       end
 
 feature {ANY} -- Moving Around the History List
-   new_iterator: ITERATOR[HISTORY_ENTRY] is
+   new_iterator: ITERATOR[HISTORY_ENTRY]
       do
          create {HISTORY_ITERATOR} Result.make(Current)
       end
 
-   set_position (a_position: INTEGER) is
+   set_position (a_position: INTEGER)
          -- Set the current history offset to `a_position', an absolute index
          -- into the list.
       require
@@ -201,10 +201,10 @@ feature {ANY} -- Searching
    -- "anchored", meaning that the string must match at the beginning of the
    -- history entry.
 
-   search (a_string: ABSTRACT_STRING; forward: BOOLEAN): INTEGER is
+   search (a_string: ABSTRACT_STRING; forward: BOOLEAN): INTEGER
          -- Search the history for `a_string', starting at the current history
          -- offset.  If `forward' is true then the search is through previous
-         -- entries, otherwise through subsequent entries.  If `a_string' is
+         -- entries, otherwise through subsequent entries.  If `a_string'
          -- found, then the current history index is set to that history entry,
          -- and Result is the offset in the line of the entry where STRING was
          -- found.  Otherwise, nothing is changed, and a -1 is returned.
@@ -212,13 +212,13 @@ feature {ANY} -- Searching
          Result := history_search(a_string.to_external, forward.to_integer - 1)
       end
 
-   search_prefix (a_string: ABSTRACT_STRING; forward: BOOLEAN) is
+   search_prefix (a_string: ABSTRACT_STRING; forward: BOOLEAN)
          -- Search the history for `a_string', starting at the current history
          -- offset.  The search is anchored: matching lines must begin with
          -- `a_string'.  If `forward' ir False then the search is through
          -- previous entries, otherwise through subsequent entries.  If
          -- `a_string' is found, then the current history index is set to that
-         -- entry, and `is_successful' set to True.  Otherwise, nothing is
+         -- entry, and `is_successful' set to True.  Otherwise, nothing
          -- changed, and `is_successful' set to False.
       require
          a_string /= Void
@@ -226,7 +226,7 @@ feature {ANY} -- Searching
          is_successful := not history_search_prefix(a_string.to_external, forward.to_integer - 1).to_boolean
       end
 
-   search_from_position (a_string: ABSTRACT_STRING; forward: BOOLEAN; a_position: INTEGER): INTEGER is
+   search_from_position (a_string: ABSTRACT_STRING; forward: BOOLEAN; a_position: INTEGER): INTEGER
          -- The index of the first occurrence of `a_string' in the history list,
          -- starting at `a_position'.  If `forward' is False the search proceeds
          -- backward from `a_position', otherwise forward.  Result will be -1 if
@@ -239,7 +239,7 @@ feature {ANY} -- Searching
       end
 
 feature {ANY} -- History File Management
-   from_file (a_file_name: ABSTRACT_STRING) is
+   from_file (a_file_name: ABSTRACT_STRING)
          -- Add the contents of `a_file_name' to the history list, a line at a
          -- time.  If `a_file_name' is Void, then read from `~/.history'.
          -- Updates `is_successful' (and C errno)
@@ -247,7 +247,7 @@ feature {ANY} -- History File Management
          is_successful := not read_history(null_or_string(a_file_name)).to_boolean
       end
 
-   from_file_range (a_file_name: ABSTRACT_STRING; a_lower, an_upper: INTEGER) is
+   from_file_range (a_file_name: ABSTRACT_STRING; a_lower, an_upper: INTEGER)
          -- Read a range of lines from `a_file_name', adding them to the history
          -- list.  Start reading at line `a_lower' end at `an_upper'.  If
          -- `a_lower' is zero, start at the beginning.  If `an_upper' is less
@@ -258,7 +258,7 @@ feature {ANY} -- History File Management
          is_successful := not read_history_range(null_or_string(a_file_name),a_lower,an_upper).to_boolean
       end
 
-   write (a_file_name: ABSTRACT_STRING) is
+   write (a_file_name: ABSTRACT_STRING)
          -- Write the current history to `a_file_name', overwriting it if
          -- necessary.  If `a_file_name' is Void, then write the history list to
          -- `~/.history'. `is_successful' and `errno' are updated.
@@ -266,14 +266,14 @@ feature {ANY} -- History File Management
          is_successful := not write_history(null_or_string(a_file_name)).to_boolean
       end
 
-   append_to_file (elements: INTEGER; a_file_name: ABSTRACT_STRING) is
+   append_to_file (elements: INTEGER; a_file_name: ABSTRACT_STRING)
          -- Append the last `elements' of the history list to `a_file_name'.  If
          -- FILENAME is `NULL', then append to `~/.history'.  `is_successful' and `errno' are updater.
       do
          is_successful := not append_history(elements, null_or_string(a_file_name)).to_boolean
       end
 
-   truncate_file (a_file_name: ABSTRACT_STRING; a_number_of_lines: INTEGER) is
+   truncate_file (a_file_name: ABSTRACT_STRING; a_number_of_lines: INTEGER)
          -- Truncate the history file `a_file_name', leaving only the last `a_number_of_lines'
          -- lines.  If i`a_file_name' is Void, then `~/.history' is truncated.
          -- `is_successful' and `errno' are updated.
@@ -284,7 +284,7 @@ feature {ANY} -- History File Management
       end
 
 feature {ANY} -- History expansion
-   expand (a_string: ABSTRACT_STRING): STRING is
+   expand (a_string: ABSTRACT_STRING): STRING
          -- `a_string' expanded using the current content of the history. See
          -- `hasnt_been_expanded', `has_been_expanded', `error_in_expansion'.
 
@@ -301,7 +301,7 @@ feature {ANY} -- History expansion
          create Result.from_external(p)
       end
 
-   hasnt_been_expanded: BOOLEAN is
+   hasnt_been_expanded: BOOLEAN
          -- If no expansions took place (or, if the only change in the
          -- text was the removal of escape characters preceding the history
          -- expansion character);
@@ -309,13 +309,13 @@ feature {ANY} -- History expansion
          Result := last_expansion_result = 0
       end
 
-   has_been_expanded: BOOLEAN is
+   has_been_expanded: BOOLEAN
          -- Has last call to `expand' actually produced an expansion of the argument?
       do
          Result := last_expansion_result = 1
       end
 
-   error_in_expansion: BOOLEAN is
+   error_in_expansion: BOOLEAN
          -- Was there an error in the expansion?
       do
          Result := last_expansion_result = -1
@@ -348,27 +348,27 @@ feature {ANY} -- History expansion
    --
    --
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := history_base
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := history_length
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := (count = 0)
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := lower + count
       end
 
-   max_entries: INTEGER is
+   max_entries: INTEGER
          -- The maximum number of history entries. Change it with `stifle'
       do
          Result := history_max_entries
@@ -404,7 +404,7 @@ feature {ANY}
    --
    --  -- Variable: char * history_no_expand_chars
    --      The list of characters which inhibit history expansion if found
-   --      immediately following HISTORY_EXPANSION_CHAR.  The default is
+   --      immediately following HISTORY_EXPANSION_CHAR.  The default
    --      space, tab, newline, carriage return, and `='.
    --
    --  -- Variable: int history_quotes_inhibit_expansion
@@ -425,14 +425,14 @@ feature {ANY}
          -- Was last command successful?
 
 feature {} -- Implementation
-   wrappers: HASHED_DICTIONARY[HISTORY_ENTRY, POINTER] is
+   wrappers: HASHED_DICTIONARY[HISTORY_ENTRY, POINTER]
       once
          create Result.make
       end
 
    last_expansion_result: INTEGER
 
-   wrapper (p: POINTER): HISTORY_ENTRY is
+   wrapper (p: POINTER): HISTORY_ENTRY
       do
          if wrappers.has(p) then
             Result := wrappers.at(p)

@@ -19,7 +19,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if foo.is_connected then
          end

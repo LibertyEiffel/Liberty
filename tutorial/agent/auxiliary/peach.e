@@ -4,7 +4,7 @@ inherit
    FRUIT
 
 feature {ANY}
-   display is
+   display
       do
          std_output.put_string("PEACH%N")
       end

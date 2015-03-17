@@ -7,31 +7,31 @@ insert
    ANY
 
 feature {ANY}
-   start is
+   start
       deferred
       end
 
-   exhausted: BOOLEAN is
+   exhausted: BOOLEAN
       deferred
       end
 
-   aborted: BOOLEAN is
+   aborted: BOOLEAN
       deferred
       end
 
-   next is
+   next
       deferred
       end
 
-   item: E is
+   item: E
       deferred
       end
 
-   abort is
+   abort
       deferred
       end
 
-   is_runnable: BOOLEAN is
+   is_runnable: BOOLEAN
       do
          Result := True
       end

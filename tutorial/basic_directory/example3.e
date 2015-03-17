@@ -14,7 +14,7 @@ create {ANY}
 feature {}
    basic_directory: BASIC_DIRECTORY
 
-   make is
+   make
       local
          some_path: STRING
       do
@@ -33,7 +33,7 @@ feature {}
          end
       end
 
-   go_up_from (some_path: STRING) is
+   go_up_from (some_path: STRING)
       local
          stop: BOOLEAN
       do

@@ -9,7 +9,7 @@ create {TEST_INLINING11}
 feature {ANY}
    storage: FAST_ARRAY[INTEGER]
 
-   make is
+   make
       local
          tmp: TEST_INLINING11
       do
@@ -17,7 +17,7 @@ feature {ANY}
          tmp := do_it
       end
 
-   do_it: TEST_INLINING11 is
+   do_it: TEST_INLINING11
       local
          i, j: INTEGER
       do
@@ -28,7 +28,7 @@ feature {ANY}
          end
       end
 
-   force (val: INTEGER; pos: INTEGER) is
+   force (val: INTEGER; pos: INTEGER)
       do
          storage.force(val, pos)
       end

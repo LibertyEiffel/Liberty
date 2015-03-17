@@ -17,12 +17,12 @@ create {WEB_JOB}
    make
 
 feature {ANY}
-   new_server: SOCKET_SERVER is
+   new_server: SOCKET_SERVER
       do
          Result := access.server
       end
 
-   reply (context: WEB_CONTEXT) is
+   reply (context: WEB_CONTEXT)
       require
          context /= Void
       do
@@ -39,7 +39,7 @@ feature {ANY}
       end
 
 feature {}
-   reply_get (context: WEB_CONTEXT) is
+   reply_get (context: WEB_CONTEXT)
       require
          context /= Void
       local
@@ -54,13 +54,13 @@ feature {}
       end
 
 feature {UI_APPLICATION}
-   add (a_window: WEB_WINDOW) is
+   add (a_window: WEB_WINDOW)
       do
          windows.add(a_window, a_window.id)
       end
 
 feature {}
-   window (context: WEB_CONTEXT): WEB_WINDOW is
+   window (context: WEB_CONTEXT): WEB_WINDOW
       local
          map: JSON_OBJECT
          str: JSON_STRING
@@ -98,7 +98,7 @@ feature {}
          end
       end
 
-   address: IPV4_ADDRESS is
+   address: IPV4_ADDRESS
       local
          ip: JSON_ARRAY
          ip_a, ip_b, ip_c, ip_d: JSON_NUMBER
@@ -130,7 +130,7 @@ feature {}
          end
       end
 
-   access: TCP_ACCESS is
+   access: TCP_ACCESS
       local
          port: JSON_NUMBER
       do
@@ -141,11 +141,11 @@ feature {}
       end
 
 feature {}
-   conf_section: STRING is "web"
+   conf_section: STRING "web"
 
    windows: HASHED_DICTIONARY[WEB_WINDOW, FIXED_STRING]
 
-   make (a_ui: like ui) is
+   make (a_ui: like ui)
       do
          Precursor(a_ui)
          create windows.make
@@ -156,13 +156,13 @@ invariant
 
 end -- class WEB_APPLICATION
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

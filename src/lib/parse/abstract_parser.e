@@ -9,7 +9,7 @@ insert
    PARSER_FACET
 
 feature {ANY}
-   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN is
+   parse (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING; a_actions: COLLECTION[PARSE_ACTION]): BOOLEAN
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       require
@@ -22,7 +22,7 @@ feature {ANY}
          ;(not Result) implies a_actions.count = old a_actions.count
       end
 
-   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING): BOOLEAN is
+   eval (buffer: MINI_PARSER_BUFFER; grammar: PARSE_TABLE[C_]; start: STRING): BOOLEAN
          -- Returns True if the parsing succeeded or definitely could not succeed, False if some more text
          -- could make it succeed.
       local
@@ -68,19 +68,19 @@ feature {ANY}
    error: PARSE_ERROR
 
 feature {}
-   used_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]] is
+   used_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]]
       once
          create Result.make(0)
       end
 
-   free_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]] is
+   free_actions: FAST_ARRAY[FAST_ARRAY[PARSE_ACTION]]
       once
          create Result.make(0)
       end
 
    actions: FAST_ARRAY[PARSE_ACTION]
 
-   save_actions is
+   save_actions
       do
          if actions = Void then
             actions := new_free_actions
@@ -94,7 +94,7 @@ feature {}
          ;(old (actions /= Void and then not actions.is_empty)) implies (used_actions.count = old used_actions.count + 1)
       end
 
-   restore_actions is
+   restore_actions
       require
          actions.is_empty
       do
@@ -109,7 +109,7 @@ feature {}
          ;(not old used_actions.is_empty) implies (used_actions.count = old used_actions.count - 1)
       end
 
-   new_free_actions: like actions is
+   new_free_actions: like actions
       do
          if free_actions.is_empty then
             create Result.make(0)
@@ -123,13 +123,13 @@ feature {}
 
 end -- class ABSTRACT_PARSER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

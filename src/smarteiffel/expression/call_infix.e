@@ -12,24 +12,24 @@ inherit
       end
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   left_brackets: BOOLEAN is
+   left_brackets: BOOLEAN
       deferred
       end
 
-   right_brackets: BOOLEAN is
+   right_brackets: BOOLEAN
       do
          Result := not left_brackets
       end
 
-   operator: STRING is
+   operator: STRING
       deferred
       ensure
          Result.count >= 1
       end
 
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       do
          if target.precedence = atomic_precedence then
             target.short(type)
@@ -56,13 +56,13 @@ feature {ANY}
          end
       end
 
-   frozen short_target (type: TYPE) is
+   frozen short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   frozen pretty_target (indent_level: INTEGER) is
+   frozen pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -70,14 +70,14 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   frozen bracketed_pretty (indent_level: INTEGER) is
+   frozen bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   frozen pretty (indent_level: INTEGER) is
+   frozen pretty (indent_level: INTEGER)
       do
          -- The `target' first:
          if target.precedence = atomic_precedence then
@@ -110,7 +110,7 @@ feature {ANY}
       end
 
 feature {}
-   frozen with (t: like target; fn: like feature_name; a: like arguments) is
+   frozen with (t: like target; fn: like feature_name; a: like arguments)
       require
          t /= Void
          fn /= Void
@@ -125,7 +125,7 @@ feature {}
          arguments = a
       end
 
-   frozen short_print_feature_name is
+   frozen short_print_feature_name
       do
          short_printer.put_infix_name(once "Binfix", once " ", once "Ainfix", once " ", feature_name)
       end
@@ -145,9 +145,9 @@ end -- class CALL_INFIX
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -8,14 +8,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n: INTEGER
       do
          n := Current \ Current
       end
 
-   infix "\" (other: like Current): INTEGER is
+   infix "\" (other: like Current): INTEGER
       do
       end
 

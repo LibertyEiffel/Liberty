@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d: REAL_64; rd: REFERENCE[REAL_64]; s1, s2: STRING
       do
@@ -18,7 +18,7 @@ feature {ANY}
          assert(s1.is_equal(s2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

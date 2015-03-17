@@ -10,11 +10,11 @@ deferred class NAME
    --   WRITABLE_ATTRIBUTE_NAME: left-hand side or writable of create.
    --   LOCAL_ARGUMENT (deferred)
    --      LOCAL_NAME (deferred)
-   --         LOCAL_NAME1: in a declaration list.
-   --         LOCAL_NAME2: used in an expression.
+   --         LOCAL_NAME_DEF: in a declaration list.
+   --         LOCAL_NAME_REF: used in an expression.
    --      ARGUMENT_NAME (deferred)
-   --         ARGUMENT_NAME1: in a declaration list.
-   --         ARGUMENT_NAME2: used in an expression.
+   --         ARGUMENT_NAME_DEF: in a declaration list.
+   --         ARGUMENT_NAME_REF: used in an expression.
    --
 
 inherit
@@ -23,14 +23,14 @@ insert
    GLOBALS
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   start_position: POSITION is
+   start_position: POSITION
          -- The position of the first character of `to_string' in the text source.
       deferred
       end
 
-   to_string: STRING is
+   to_string: STRING
          -- The corresponding name (alone in a STRING).
       deferred
       ensure
@@ -38,25 +38,25 @@ feature {ANY}
          string_aliaser.registered_one(Result)
       end
 
-   frozen line: INTEGER is
+   frozen line: INTEGER
       require
          not start_position.is_unknown
       do
          Result := start_position.line
       end
 
-   frozen column: INTEGER is
+   frozen column: INTEGER
       require
          not start_position.is_unknown
       do
          Result := start_position.column
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       deferred
       end
 
-   frozen bracketed_pretty (indent_level: INTEGER) is
+   frozen bracketed_pretty (indent_level: INTEGER)
       do
          pretty(indent_level)
       end
@@ -73,9 +73,9 @@ end -- class NAME
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

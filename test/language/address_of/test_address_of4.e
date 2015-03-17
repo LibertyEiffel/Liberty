@@ -12,7 +12,7 @@ create {}
 feature {}
    field: INTEGER
    
-   main is
+   main
       do
          assert(field = 0)
          write_attribute1($field, 3)
@@ -21,12 +21,12 @@ feature {}
          assert(field = 6)
       end
 
-   write_attribute1 (pointer: POINTER; value: INTEGER) is
+   write_attribute1 (pointer: POINTER; value: INTEGER)
       external "C inline"
       alias "*((int*)$pointer)=$value"
       end
 
-   write_attribute2 (pointer: POINTER; value: INTEGER) is
+   write_attribute2 (pointer: POINTER; value: INTEGER)
       require
          pointer.is_not_null
          value = 3

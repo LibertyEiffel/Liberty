@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a8, b8: INTEGER_8; a16: INTEGER_16; a32: INTEGER_32; a64: INTEGER_64
       do
@@ -73,7 +73,7 @@ feature {ANY}
          -- -----------------------------------------------------
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

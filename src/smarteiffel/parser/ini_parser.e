@@ -26,7 +26,7 @@ feature {ANY}
    file_path: STRING
 
 feature {SERC, PLUGIN, INI_HANDLER} -- Parsing:
-   a_inifile is
+   a_inifile
       require
          parser_buffer.is_ready
       do
@@ -71,19 +71,19 @@ feature {SYSTEM_TOOLS}
    is_invalid: BOOLEAN
 
 feature {ANY} -- Values in the default section:
-   has (key: STRING): BOOLEAN is
+   has (key: STRING): BOOLEAN
       do
          Result := default_section /= Void and then default_section.has(key)
       end
 
-   item (key: STRING): STRING is
+   item (key: STRING): STRING
       require
          has(key)
       do
          Result := default_section.at(key)
       end
 
-   key_iterator: ITERATOR[STRING] is
+   key_iterator: ITERATOR[STRING]
       do
          if default_section /= Void then
             Result := default_section.new_iterator_on_keys
@@ -91,7 +91,7 @@ feature {ANY} -- Values in the default section:
       end
 
 feature {ANY} -- Values in sections:
-   section_has (section, key: STRING): BOOLEAN is
+   section_has (section, key: STRING): BOOLEAN
       local
          sec: like default_section
       do
@@ -101,21 +101,21 @@ feature {ANY} -- Values in sections:
          end
       end
 
-   section_item (section, key: STRING): STRING is
+   section_item (section, key: STRING): STRING
       require
          section_has(section, key)
       do
          Result := sections.at(section).at(key)
       end
 
-   sections_iterator: ITERATOR[STRING] is
+   sections_iterator: ITERATOR[STRING]
       do
          if sections /= Void then
             Result := sections.new_iterator_on_keys
          end
       end
 
-   section_key_iterator (section: STRING): ITERATOR[STRING] is
+   section_key_iterator (section: STRING): ITERATOR[STRING]
       local
          sec: DICTIONARY[STRING, STRING]
       do
@@ -128,7 +128,7 @@ feature {ANY} -- Values in sections:
       end
 
 feature {ANY}
-   set_expand_var (expand: BOOLEAN) is
+   set_expand_var (expand: BOOLEAN)
          -- Should ${xxx} be expanded to an environment variable?
       do
          expand_var := expand
@@ -136,7 +136,7 @@ feature {ANY}
          expand_var = expand
       end
 
-   set_expand_execute (expand: BOOLEAN) is
+   set_expand_execute (expand: BOOLEAN)
          -- Should $(xxx) be expanded to a program execution?
       do
          expand_execute := expand
@@ -145,14 +145,14 @@ feature {ANY}
       end
 
 feature {}
-   serc is
+   serc
       local
          p: POSITION
       do
          id := p.id_ini_file
       end
 
-   plugin is
+   plugin
       local
          p: POSITION
       do
@@ -164,7 +164,7 @@ feature {}
    id: INTEGER_16
 
 feature {} -- Parser:
-   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING) is
+   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING)
       do
          create last_manifest_string.make(p, once_flag, unicode_flag, string)
          last_manifest_string.set_source_view(source_view)
@@ -174,12 +174,12 @@ feature {} -- Parser:
 
    expand_execute: BOOLEAN
 
-   may_expand_var is
+   may_expand_var
       do
          may_expand_var_into (buffer)
       end
 
-   may_expand_var_into (buf: STRING) is
+   may_expand_var_into (buf: STRING)
       local
          value, cmd: STRING; c, l: INTEGER; stop: BOOLEAN; ch: CHARACTER
          process_factory: PROCESS_FACTORY; process: PROCESS; stream: INPUT_STREAM
@@ -288,7 +288,7 @@ feature {} -- Parser:
 
    last_key: STRING
 
-   a_sections is
+   a_sections
       local
          stop: BOOLEAN
       do
@@ -301,7 +301,7 @@ feature {} -- Parser:
          end
       end
 
-   a_section: BOOLEAN is
+   a_section: BOOLEAN
       do
          if skip_spaces and then skip1('[') and then skip_spaces then
             Result := a_identifier and then skip_spaces and then skip1(']') and then skip_spaces
@@ -319,7 +319,7 @@ feature {} -- Parser:
          end
       end
 
-   a_keys is
+   a_keys
       local
          stop: BOOLEAN
       do
@@ -332,7 +332,7 @@ feature {} -- Parser:
          end
       end
 
-   a_key: BOOLEAN is
+   a_key: BOOLEAN
       local
          dummy: BOOLEAN
       do
@@ -371,7 +371,7 @@ feature {} -- Parser:
          end
       end
 
-   goto_next_line is
+   goto_next_line
       do
          from
          until
@@ -381,7 +381,7 @@ feature {} -- Parser:
          end
       end
 
-   set_value (value: STRING) is
+   set_value (value: STRING)
       do
          if last_section = Void then
             if default_section = Void then
@@ -393,7 +393,7 @@ feature {} -- Parser:
          end
       end
 
-   last_value: STRING is
+   last_value: STRING
       do
          if last_section = Void then
             if default_section /= Void then
@@ -405,7 +405,7 @@ feature {} -- Parser:
       end
 
 feature {}
-   a_identifier: BOOLEAN is
+   a_identifier: BOOLEAN
          -- Case-sensitive identifiers, used for section names and key
          -- names. The dot is not eiffel-like, but useful in many cases.
       local
@@ -435,7 +435,7 @@ feature {}
          end
       end
 
-   a_string: BOOLEAN is
+   a_string: BOOLEAN
          -- Some string
       local
          state, l, c: INTEGER
@@ -507,7 +507,7 @@ feature {}
          end
       end
 
-   skip_spaces: BOOLEAN is
+   skip_spaces: BOOLEAN
          -- returns always True
       local
          stop: BOOLEAN
@@ -529,7 +529,7 @@ feature {}
          Result
       end
 
-   skip1 (char: CHARACTER): BOOLEAN is
+   skip1 (char: CHARACTER): BOOLEAN
          -- Redefined to not skip comments
       do
          if char = cc then
@@ -540,7 +540,7 @@ feature {}
          end
       end
 
-   skip2 (c1, c2: CHARACTER): BOOLEAN is
+   skip2 (c1, c2: CHARACTER): BOOLEAN
       do
          if c1 = cc then
             start_line := line
@@ -557,7 +557,7 @@ feature {}
          end
       end
 
-   fatal_error_except_for_install (msg: STRING) is
+   fatal_error_except_for_install (msg: STRING)
       do
          if is_install then
             is_invalid := True
@@ -568,7 +568,7 @@ feature {}
          end
       end
 
-   pos (l, c: INTEGER): POSITION is
+   pos (l, c: INTEGER): POSITION
       do
          Result.set_in_ini_file(l, c, id)
       end
@@ -593,9 +593,9 @@ end -- class INI_PARSER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

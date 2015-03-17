@@ -19,23 +19,23 @@ create {TYPE_MARK}
    default_user_expanded
 
 feature {ANY}
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       local
          c: like call
       do
@@ -50,7 +50,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          et: like explicit_type; c: like call
       do
@@ -61,7 +61,7 @@ feature {ANY}
          Result := current_or_twin_init(et, c)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          created_type_memory: TYPE; c: like call; fake_target: FAKE_TARGET; fs: FEATURE_STAMP; name: FEATURE_NAME
          test_default: BOOLEAN
@@ -92,12 +92,12 @@ feature {ANY}
          Result.call /= Void
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := call /= Void implies call.has_been_specialized
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          lt: LIVE_TYPE
       do
@@ -109,12 +109,12 @@ feature {ANY}
          end
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := created_type(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          created_type_memory: TYPE; c: like call
       do
@@ -128,23 +128,32 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type.to_static(type, False), c)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := explicit_type.declaration_type.type
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := explicit_type.declaration_type
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          c: like call; creation_proc: E_ROUTINE; args: EFFECTIVE_ARG_LIST
       do
          if call /= Void then
             c := call.simplify_arguments(type)
             creation_proc ::= c.feature_stamp.anonymous_feature(created_type(type))
+            check
+               creation_proc.result_type = Void -- obviously, because it is a procedure
+               creation_proc.routine_then = Void -- ditto
+            end
             if creation_proc.routine_body = Void then
                args := c.arguments
                if args = Void or else args.side_effect_free(type) then
@@ -156,12 +165,12 @@ feature {ANY}
          Result := current_or_twin_init(explicit_type, c)
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
          Result := explicit_type
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          args: like arguments
       do
@@ -173,12 +182,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: CREATE_EXPRESSION_VISITOR) is
+   accept (visitor: CREATE_EXPRESSION_VISITOR)
       do
          visitor.visit_create_expression(Current)
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          pretty_printer.keyword(once "create")
          pretty_printer.put_character('{')
@@ -193,7 +202,7 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -201,12 +210,12 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.hook_or(once "create_open", once "create {")
          explicit_type.short(type)
@@ -224,19 +233,19 @@ feature {ANY}
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   created_type (type: TYPE): TYPE is
+   created_type (type: TYPE): TYPE
       do
          Result := explicit_type.resolve_in(type)
       end
 
 feature {CREATE_EXPRESSION}
-   init (et: like explicit_type; c: like call) is
+   init (et: like explicit_type; c: like call)
       do
          explicit_type := et
          call := c
@@ -246,7 +255,7 @@ feature {CREATE_EXPRESSION}
       end
 
 feature {FEATURE_CALL, C_TARGET_MAPPER}
-   extra_local_expanded (type: TYPE): TYPE is
+   extra_local_expanded (type: TYPE): TYPE
          -- Assuming that `Current' is used as some target, if some extra local variable is required, the
          -- corresponding user's expanded type is returned.
       require
@@ -264,7 +273,7 @@ feature {FEATURE_CALL, C_TARGET_MAPPER}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          create_expression: like Current; args: EFFECTIVE_ARG_LIST; c: like call
       do
@@ -287,7 +296,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   current_or_twin_init (et: like explicit_type; c: like call): like Current is
+   current_or_twin_init (et: like explicit_type; c: like call): like Current
       require
          et /= Void
       do
@@ -302,12 +311,12 @@ feature {}
          Result.call = c
       end
 
-   se_tmp_buffer: STRING is
+   se_tmp_buffer: STRING
       once
          create Result.make(64)
       end
 
-   make (sp: like start_position; et: like explicit_type; c: like call) is
+   make (sp: like start_position; et: like explicit_type; c: like call)
       require
          not sp.is_unknown
          et /= Void
@@ -321,7 +330,7 @@ feature {}
          call = c
       end
 
-   default_user_expanded (sp: like start_position; et: like explicit_type) is
+   default_user_expanded (sp: like start_position; et: like explicit_type)
          -- (To create the corresponding default expression.)
       require
          not sp.is_unknown
@@ -362,9 +371,9 @@ end -- class CREATE_EXPRESSION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

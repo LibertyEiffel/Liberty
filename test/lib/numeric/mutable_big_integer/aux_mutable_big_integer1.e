@@ -12,7 +12,7 @@ insert
    EIFFELTEST_TOOLS
 
 feature {}
-   numbers_check: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+   numbers_check: FAST_ARRAY[MUTABLE_BIG_INTEGER]
       once
          Result := {FAST_ARRAY[MUTABLE_BIG_INTEGER] << create {MUTABLE_BIG_INTEGER}.from_integer(0), create {MUTABLE_BIG_INTEGER}.from_integer(1), create {MUTABLE_BIG_INTEGER}.from_integer(-1), create {MUTABLE_BIG_INTEGER}.from_integer(2), create {MUTABLE_BIG_INTEGER}.from_integer(-2), create {MUTABLE_BIG_INTEGER}.from_integer(3), create {MUTABLE_BIG_INTEGER}.from_integer(-3), create {MUTABLE_BIG_INTEGER}.from_integer(1000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000), create {MUTABLE_BIG_INTEGER}.from_integer(1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(-1000000000), create {MUTABLE_BIG_INTEGER}.from_integer(Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer(-Maximum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Minimum_integer.to_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer(Minimum_integer), create {MUTABLE_BIG_INTEGER}.from_integer_64(Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_integer_64(-Maximum_integer_64), create {MUTABLE_BIG_INTEGER}.from_string("9223372036854775808"), create {MUTABLE_BIG_INTEGER}.from_integer_64(Minimum_integer_64
          -- -Minimum_integer_64
@@ -31,7 +31,7 @@ feature {}
       end
 
 feature {ANY}
-   numbers1: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+   numbers1: FAST_ARRAY[MUTABLE_BIG_INTEGER]
          -- Give an independant copy of `numbers_check'.
       local
          i: INTEGER
@@ -47,7 +47,7 @@ feature {ANY}
          end
       end
 
-   numbers2: FAST_ARRAY[MUTABLE_BIG_INTEGER] is
+   numbers2: FAST_ARRAY[MUTABLE_BIG_INTEGER]
          -- Give another independant copy of `numbers_check'.
       local
          i: INTEGER
@@ -62,7 +62,7 @@ feature {ANY}
          end
       end
 
-   restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+   restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER])
          -- Restore `n' (which is `number1' or `number2'.
       require
          n = numbers1 or n = numbers2
@@ -85,7 +85,7 @@ feature {ANY}
          end
       end
 
-   verify (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+   verify (n: FAST_ARRAY[MUTABLE_BIG_INTEGER])
          -- Are the numbers original ? Restore the bad number.
       local
          i: INTEGER
@@ -100,7 +100,7 @@ feature {ANY}
          end
       end
 
-   verify_and_restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER]) is
+   verify_and_restore (n: FAST_ARRAY[MUTABLE_BIG_INTEGER])
          -- Are the numbers original ? Restore the bad number.
       local
          i: INTEGER; b: BOOLEAN

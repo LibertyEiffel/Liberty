@@ -6,13 +6,13 @@ class TRIANGLE
 inherit
    ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    p1, p2, p3: LIB_TEST_POINT
 
-   make (vp1, vp2, vp3: LIB_TEST_POINT) is
+   make (vp1, vp2, vp3: LIB_TEST_POINT)
       do
          p1 := vp1
          p2 := vp2

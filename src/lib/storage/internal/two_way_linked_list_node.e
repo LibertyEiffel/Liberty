@@ -18,7 +18,7 @@ feature {ITERATOR_ON_TWO_WAY_LINKED_LIST, TWO_WAY_LINKED_LIST, TWO_WAY_LINKED_LI
    previous, next: like Current
 
 feature {TWO_WAY_LINKED_LIST}
-   make (i: like item; p: like previous; n: like next) is
+   make (i: like item; p: like previous; n: like next)
       do
          item := i
          previous := p
@@ -30,21 +30,21 @@ feature {TWO_WAY_LINKED_LIST}
       end
 
 feature {TWO_WAY_LINKED_LIST, TWO_WAY_LINKED_LIST_NODE}
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item := i
       ensure
          item = i
       end
 
-   set_next (n: like next) is
+   set_next (n: like next)
       do
          next := n
       ensure
          next = n
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
       local
          lnk: like Current
       do
@@ -58,7 +58,7 @@ feature {TWO_WAY_LINKED_LIST, TWO_WAY_LINKED_LIST_NODE}
          end
       end
 
-   set_previous (p: like previous) is
+   set_previous (p: like previous)
       do
          previous := p
       ensure
@@ -67,13 +67,13 @@ feature {TWO_WAY_LINKED_LIST, TWO_WAY_LINKED_LIST_NODE}
 
 end -- class TWO_WAY_LINKED_LIST_NODE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

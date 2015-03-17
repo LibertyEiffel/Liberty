@@ -12,40 +12,43 @@ inherit
 feature {ANY}
    start_position: POSITION
 
-   is_current: BOOLEAN is True
+   is_current: BOOLEAN True
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
    declaration_type: TYPE
 
-   to_string, to_key: STRING is
+   written_declaration_type_mark: TYPE_MARK
+
+   to_string, to_key: STRING
       do
          Result := as_current
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen safety_check (type: TYPE)
       do
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          if declaration_type = Void then
             declaration_type := start_position.class_text.declaration_type_of_like_current
+            create {LIKE_CURRENT_TYPE_MARK} written_declaration_type_mark.make(start_position)
          end
          check
             (not declaration_type_forced) implies declaration_type = start_position.class_text.declaration_type_of_like_current
@@ -53,66 +56,66 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := declaration_type /= Void
       end
 
-   frozen side_effect_free (type: TYPE): BOOLEAN is
+   frozen side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   frozen adapt_for (type: TYPE): like Current is
+   frozen adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE
       do
          if type.live_type /= Void then
             Result := type
          end
       end
 
-   frozen simplify (type: TYPE): ABSTRACT_CURRENT is
+   frozen simplify (type: TYPE): ABSTRACT_CURRENT
       do
          Result := Current
       end
 
-   frozen precedence: INTEGER is
+   frozen precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
+   frozen bracketed_pretty, frozen pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(once "Current")
       end
 
-   frozen pretty_target (indent_level: INTEGER) is
+   frozen pretty_target (indent_level: INTEGER)
       do
          if is_written then
             pretty_printer.put_string(once "Current.")
          end
       end
 
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       do
          short_printer.hook_or(as_current, as_current)
       end
 
-   frozen short_target (type: TYPE) is
+   frozen short_target (type: TYPE)
       do
          if is_written then
             short(type)
@@ -120,23 +123,23 @@ feature {ANY}
          end
       end
 
-   frozen resolve_in (type: TYPE): TYPE is
+   frozen resolve_in (type: TYPE): TYPE
       do
          Result := type
       end
 
-   frozen collect (type: TYPE): TYPE is
+   frozen collect (type: TYPE): TYPE
       do
          Result := type
       end
 
 feature {}
-   is_written: BOOLEAN is
+   is_written: BOOLEAN
          -- True when it is a really written Current.
       deferred
       end
 
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do
@@ -147,14 +150,14 @@ feature {}
 
    declaration_type_forced: BOOLEAN
 
-   set_type_forced: BOOLEAN is
+   set_type_forced: BOOLEAN
       do
          Result := declaration_type = Void
          declaration_type_forced := True
       end
 
 feature {INTROSPECTION_HANDLER}
-   force_declaration_type (dt: like declaration_type) is
+   force_declaration_type (dt: like declaration_type)
       do
          check
             set_type_forced
@@ -163,7 +166,7 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
@@ -183,9 +186,9 @@ end -- class ABSTRACT_CURRENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -11,7 +11,7 @@ insert
 feature {ANY}
    x: T
 
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
       do
       end
 

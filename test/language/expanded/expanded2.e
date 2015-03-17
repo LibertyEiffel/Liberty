@@ -12,12 +12,12 @@ create {ANY}
 feature {ANY}
    x: INTEGER
 
-   make is
+   make
       do
          x := 2
       end
 
-   set_x (v: INTEGER) is
+   set_x (v: INTEGER)
       do
          x := v
       ensure

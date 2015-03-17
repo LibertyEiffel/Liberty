@@ -4,7 +4,7 @@
 deferred class TAGGED
 
 feature {TAGGER}
-   tag (a_tag: FIXED_STRING): TAGGED_DATA is
+   tag (a_tag: FIXED_STRING): TAGGED_DATA
       require
          sensible_tag: a_tag.intern = a_tag
       do
@@ -13,7 +13,7 @@ feature {TAGGER}
          end
       end
 
-   set_tag (a_tag: FIXED_STRING; a_data: TAGGED_DATA) is
+   set_tag (a_tag: FIXED_STRING; a_data: TAGGED_DATA)
       require
          sensible_tag: a_tag.intern = a_tag
          sensible_data: a_data /= Void
@@ -42,9 +42,9 @@ end -- class TAGGED
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

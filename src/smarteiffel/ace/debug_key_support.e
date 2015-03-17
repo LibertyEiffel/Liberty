@@ -7,7 +7,7 @@ insert
    GLOBALS
 
 feature {}
-   match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN is
+   match_debug_keys (e_debug: DEBUG_COMPOUND; list: FAST_ARRAY[STRING]): BOOLEAN
       local
          key: STRING; i: INTEGER
       do
@@ -28,7 +28,7 @@ feature {}
          end
       end
 
-   add_default_debug_key (key: STRING) is
+   add_default_debug_key (key: STRING)
       require
          key /= Void
       do
@@ -55,9 +55,9 @@ end -- class DEBUG_KEY_SUPPORT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

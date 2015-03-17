@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert('a' = 'a')
          assert('a' < 'b')

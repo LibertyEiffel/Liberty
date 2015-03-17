@@ -21,6 +21,6 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {ANY}
-   name: STRING is "Else"
+   name: STRING "Else"
 
 end

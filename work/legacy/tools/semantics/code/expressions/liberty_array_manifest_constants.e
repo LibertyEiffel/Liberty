@@ -15,23 +15,23 @@
 class LIBERTY_ARRAY_MANIFEST_CONSTANTS
 
 feature {}
-   manifest_put_feature_name: LIBERTY_FEATURE_NAME is
+   manifest_put_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("manifest_put".intern)
       end
 
-   manifest_make_feature_name: LIBERTY_FEATURE_NAME is
+   manifest_make_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("manifest_make".intern)
       end
 
-   manifest_creation_feature_name: LIBERTY_FEATURE_NAME is
+   manifest_creation_feature_name: LIBERTY_FEATURE_NAME
       once
          create Result.make("manifest_creation".intern)
       end
 
 feature {}
-   expression_separator (exp: LIBERTY_AST_EXPRESSION): LIBERTY_ARRAY_MANIFEST_SEPARATOR is
+   expression_separator (exp: LIBERTY_AST_EXPRESSION): LIBERTY_ARRAY_MANIFEST_SEPARATOR
       do
          if exp.forgotten /= Void and then not exp.forgotten.is_empty then
             inspect
@@ -49,17 +49,17 @@ feature {}
       end
 
 feature {}
-   separator_comma: LIBERTY_ARRAY_MANIFEST_SEPARATOR is
+   separator_comma: LIBERTY_ARRAY_MANIFEST_SEPARATOR
       once
          Result.set(1)
       end
 
-   separator_semi_colon: LIBERTY_ARRAY_MANIFEST_SEPARATOR is
+   separator_semi_colon: LIBERTY_ARRAY_MANIFEST_SEPARATOR
       once
          Result.set(2)
       end
 
-   separator_none: LIBERTY_ARRAY_MANIFEST_SEPARATOR is
+   separator_none: LIBERTY_ARRAY_MANIFEST_SEPARATOR
       once
          Result.set(0)
       end

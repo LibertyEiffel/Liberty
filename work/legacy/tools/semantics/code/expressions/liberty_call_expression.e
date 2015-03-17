@@ -29,13 +29,13 @@ feature {ANY}
    entity: LIBERTY_FEATURE_ENTITY
    is_agent_call: BOOLEAN
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := entity.result_type
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          if target /= Void then
             target.mark_reachable_code(mark)
@@ -45,14 +45,14 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
-   set_agent_call is
+   set_agent_call
       do
          is_agent_call := True
       ensure
          is_agent_call
       end
 
-   set_open_target (open_target: LIBERTY_OPEN_ARGUMENT) is
+   set_open_target (open_target: LIBERTY_OPEN_ARGUMENT)
       require
          is_agent_call
          {LIBERTY_OPEN_ARGUMENT} ?:= target
@@ -63,7 +63,7 @@ feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
          target = open_target
       end
 
-   set_actual (new_actual: LIBERTY_OPEN_ARGUMENT; index: INTEGER) is
+   set_actual (new_actual: LIBERTY_OPEN_ARGUMENT; index: INTEGER)
       require
          is_agent_call
          actuals.valid_index(index)
@@ -76,7 +76,7 @@ feature {LIBERTY_AGENT, LIBERTY_CALL_EXPRESSION}
       end
 
 feature {LIBERTY_DELAYED_AGENT_CALL}
-   can_compute_agent_type: BOOLEAN is
+   can_compute_agent_type: BOOLEAN
       local
          i: INTEGER
       do
@@ -96,7 +96,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
          end
       end
 
-   agent_type: LIBERTY_ACTUAL_TYPE is
+   agent_type: LIBERTY_ACTUAL_TYPE
       require
          is_agent_call
          can_compute_agent_type
@@ -133,7 +133,7 @@ feature {LIBERTY_DELAYED_AGENT_CALL}
       end
 
 feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
-   can_compute_open_argument_type (index: INTEGER): BOOLEAN is
+   can_compute_open_argument_type (index: INTEGER): BOOLEAN
       do
          if index = -1 then
             Result := entity.can_check_agent_signature(Current) and then target.result_type.is_known
@@ -145,7 +145,7 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
          end
       end
 
-   open_argument_type (index: INTEGER): LIBERTY_KNOWN_TYPE is
+   open_argument_type (index: INTEGER): LIBERTY_KNOWN_TYPE
       require
          can_compute_open_argument_type(index)
       do
@@ -157,7 +157,7 @@ feature {LIBERTY_DELAYED_OPEN_ARGUMENT}
       end
 
 feature {}
-   make (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+   make (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position)
       require
          a_target /= Void
          a_entity /= Void
@@ -176,7 +176,7 @@ feature {}
          position = a_position
       end
 
-   implicit_current (a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+   implicit_current (a_entity: like entity; a_actuals: like actuals_list; a_position: like position)
       require
          a_entity /= Void
          a_actuals /= Void
@@ -195,12 +195,12 @@ feature {}
    lookup: LIBERTY_TYPE_LOOKUP
    actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
-   no_args: COLLECTION[LIBERTY_KNOWN_TYPE] is
+   no_args: COLLECTION[LIBERTY_KNOWN_TYPE]
       once
          create {FAST_ARRAY[LIBERTY_KNOWN_TYPE]} Result.with_capacity(0)
       end
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       do
          if a_target = Void then
             create Result.implicit_current(a_entity, a_actuals, a_position)
@@ -213,18 +213,18 @@ feature {}
       end
 
 feature {LIBERTY_CALL_PROMOTION}
-   set_entity (a_entity: like entity) is
+   set_entity (a_entity: like entity)
       do
          entity := a_entity
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       do
          target := a_target
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CALL_EXPRESSION_VISITOR
       do

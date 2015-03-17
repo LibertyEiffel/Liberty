@@ -8,16 +8,16 @@ create {}
    make
 
 feature {ANY}
-   local_func (func_addr: POINTER) is
+   local_func (func_addr: POINTER)
       do
       end
 
-   external_func is
+   external_func
       external "C"
       alias "clock"
       end
 
-   make is
+   make
       do
          local_func($external_func)
       end

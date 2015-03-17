@@ -29,29 +29,29 @@ feature {ANY}
 
    agent_type: TYPE
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := signature.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := signature.is_equal(other.signature)
       end
 
-   accept (visitor: AGENT_ARGS_VISITOR) is
+   accept (visitor: AGENT_ARGS_VISITOR)
       do
          visitor.visit_agent_args(Current)
       end
 
 feature {ANY}
-   agent_result: TYPE is
+   agent_result: TYPE
       do
          Result := agent_type.agent_result
       end
 
 feature {}
-   make (s: like signature; at: like agent_type) is
+   make (s: like signature; at: like agent_type)
       require
          s /= Void
          at.canonical_type_mark.is_agent
@@ -80,9 +80,9 @@ end -- class AGENT_ARGS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

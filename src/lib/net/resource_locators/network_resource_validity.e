@@ -9,13 +9,13 @@ expanded class NETWORK_RESOURCE_VALIDITY
 --
 
 feature {}
-   is_relative_uri (a_uri: STRING): BOOLEAN is
+   is_relative_uri (a_uri: STRING): BOOLEAN
       do
          Result := not is_absolute_uri(a_uri)
             and then notation.is_valid_path(a_uri)
       end
 
-   is_absolute_uri (a_uri: STRING): BOOLEAN is
+   is_absolute_uri (a_uri: STRING): BOOLEAN
          -- True if `a_uri' contains a correctly formatted network URI (i.e.  everything except the protocol
          -- scheme)
       require
@@ -90,20 +90,20 @@ feature {}
       end
 
 feature {}
-   notation: UNIX_DIRECTORY_NOTATION is
+   notation: UNIX_DIRECTORY_NOTATION
       once
          create Result
       end
 
 end -- class NETWORK_RESOURCE_VALIDITY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

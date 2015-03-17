@@ -4,11 +4,11 @@ Signature of the redefined feature is not valid.
 The source lines involved by the message are the following:
 
 Line 7 column 13 in AUX_C (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_c.e):
-   foo(bar: AUX_B) is
-            ^        
+   foo(bar: AUX_B)
+            ^     
 Line 7 column 13 in AUX_B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_b.e):
-   foo(bar: AUX_C) is
-            ^        
+   foo(bar: AUX_C)
+            ^     
 ------
 ****** Error: 
 
@@ -22,9 +22,9 @@ Line 5 column 9 in AUX_C (/home/cadrian/Workspace/Dev/Liberty/test/language/erro
 inherit AUX_B redefine foo, foo2 end
         ^                           
 Line 7 column 4 in AUX_C (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_c.e):
-   foo(bar: AUX_B) is
-   ^                 
+   foo(bar: AUX_B)
+   ^              
 Line 7 column 4 in AUX_B (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_b.e):
-   foo(bar: AUX_C) is
-   ^                 
+   foo(bar: AUX_C)
+   ^              
 ------

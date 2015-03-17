@@ -9,7 +9,7 @@ inherit
    LOOP_INVARIANT_VISITOR
 
 feature {ASSERTION_LIST}
-   visit_assertion_list (visited: ASSERTION_LIST) is
+   visit_assertion_list (visited: ASSERTION_LIST)
       require
          visited /= Void
       deferred
@@ -27,9 +27,9 @@ end -- class ASSERTION_LIST_VISITOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

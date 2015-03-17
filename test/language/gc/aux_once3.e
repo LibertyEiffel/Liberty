@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   buf: STRING is
+   buf: STRING
       once
          Result := "0123456789"
       end

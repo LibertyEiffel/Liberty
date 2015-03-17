@@ -17,12 +17,12 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {}
-   is_list_marker (c: CHARACTER): BOOLEAN is
+   is_list_marker (c: CHARACTER): BOOLEAN
       do
          Result := c = '#'
       end
 
-   open_lists (how_many: INTEGER) is
+   open_lists (how_many: INTEGER)
       local
          i: INTEGER
       do
@@ -42,7 +42,7 @@ feature {}
          end
       end
 
-   close_lists (how_many: INTEGER) is
+   close_lists (how_many: INTEGER)
       local
          i: INTEGER
       do
@@ -60,7 +60,7 @@ feature {}
          end
       end
 
-   next_list_item is
+   next_list_item
       do
          html.close_list_item
          html.with_attribute(once "class", once "wiki_numbered_list")
@@ -68,7 +68,7 @@ feature {}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

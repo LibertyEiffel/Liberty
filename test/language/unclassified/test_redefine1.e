@@ -3,22 +3,21 @@
 --
 class TEST_REDEFINE1
 
-inherit
-   ANY
-
 create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_REDEFINE1A; b: AUX_REDEFINE1B
+         pfs: PARTIALLY_FILLED_STRING
       do
          create a
          create b
          a.foo(Void)
          b.foo(Void)
-         a.bar({ARRAY[TEST_REDEFINE1] 1, << Current >> })
+         pfs ::= "#(1)" # "foobar"
+         a.bar({ARRAY[PARTIALLY_FILLED_STRING] 1, << pfs >> })
          b.bar({ARRAY[STRING] 1, << "titi" >> })
       end
 

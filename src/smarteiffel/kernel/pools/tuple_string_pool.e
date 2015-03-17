@@ -15,7 +15,7 @@ create {ANY}
    from_collection
 
 feature {} -- State management:
-   make_transitions_array is
+   make_transitions_array
       local
          i: INTEGER
       do
@@ -34,7 +34,7 @@ feature {} -- State management:
          end
       end
 
-   set_state (new_state, previous_state: INTEGER; character: CHARACTER) is
+   set_state (new_state, previous_state: INTEGER; character: CHARACTER)
       do
          transition(previous_state).add_last([character, new_state])
          debug
@@ -49,7 +49,7 @@ feature {} -- State management:
       end
 
 feature {INSPECT_STATEMENT_VISITOR}
-   state (previous_state: INTEGER; character: CHARACTER): INTEGER is
+   state (previous_state: INTEGER; character: CHARACTER): INTEGER
       local
          i: INTEGER; l: like transition
       do
@@ -67,26 +67,26 @@ feature {INSPECT_STATEMENT_VISITOR}
          end
       end
 
-   state_empty: INTEGER is
+   state_empty: INTEGER
       require
          has_empty
       do
          Result := empty_idx
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       do
          Result := transitions.capacity
       end
 
-   transition (previous_state: INTEGER): LINKED_LIST[TUPLE[CHARACTER, INTEGER]] is
+   transition (previous_state: INTEGER): LINKED_LIST[TUPLE[CHARACTER, INTEGER]]
       require
          previous_state.in_range(unknown_state, maxstate)
       do
          Result := transitions.item(previous_state + 1)
       end
 
-   external_state (internal_state: INTEGER): INTEGER is
+   external_state (internal_state: INTEGER): INTEGER
       do
          Result := tag_state.fast_at(internal_state)
       end
@@ -108,9 +108,9 @@ end -- class TUPLE_STRING_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

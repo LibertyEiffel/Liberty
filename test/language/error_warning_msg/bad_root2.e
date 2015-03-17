@@ -6,7 +6,7 @@ class BAD_ROOT2
 create {} foo
 
 feature {}
-   make is
+   make
       do
       end;
 

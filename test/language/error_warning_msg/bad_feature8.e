@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   frozen Current is
+   frozen Current
       do
       end
 

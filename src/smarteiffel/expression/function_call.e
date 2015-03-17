@@ -14,21 +14,21 @@ inherit
    FEATURE_CALL
 
 feature {ANY}
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       local
          tm: TYPE_MARK; target_type: TYPE
       do
@@ -38,24 +38,30 @@ feature {ANY}
          Result := tm.resolve_in(target_type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
+      do
+         Result := written_declaration_type_mark.resolve_in(target.declaration_type)
+      end
+
+   written_declaration_type_mark: TYPE_MARK
       local
          target_declaration_type: TYPE; af: ANONYMOUS_FEATURE; fs: FEATURE_STAMP
       do
-         if declaration_type_memory = Void then
+         Result := written_declaration_type_mark_memory
+         if Result = Void then
             target_declaration_type := target.declaration_type
             fs := target_declaration_type.lookup(feature_name)
             if target_declaration_type = feature_accumulator.context_type then
-               declaration_type_memory := feature_accumulator.find_type_for(fs).resolve_in(target_declaration_type)
+               Result := feature_accumulator.find_type_for(fs)
             else
                af := fs.anonymous_feature(target_declaration_type)
-               declaration_type_memory := af.result_type.resolve_in(target_declaration_type)
+               Result := af.result_type
             end
+            written_declaration_type_mark_memory := Result
          end
-         Result := declaration_type_memory
       end
 
-   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE
       local
          rt: TYPE
       do
@@ -68,13 +74,13 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := target.has_been_specialized
          if Result and then arguments /= Void then
@@ -86,7 +92,7 @@ feature {ANY}
       end
 
 feature {FEATURE_CALL, IMPLICIT_CAST, C_TARGET_MAPPER}
-   extra_local_expanded (type: TYPE): TYPE is
+   extra_local_expanded (type: TYPE): TYPE
          -- Assuming that `Current' is used as some target, if some extra local variable is required, the
          -- corresponding user's expanded type is returned.
       require
@@ -109,12 +115,12 @@ feature {FEATURE_CALL, IMPLICIT_CAST, C_TARGET_MAPPER}
          Result /= Void implies Result.is_user_expanded
       end
 
-   creation_type: TYPE_MARK is
+   creation_type: TYPE_MARK
       do
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          t: like target; inspect_statement: OTHER_INSPECT_STATEMENT; fs: FEATURE_STAMP
          target_type, non_void_no_dispatch, tt: TYPE; target_live_type, live_type: LIVE_TYPE
@@ -289,7 +295,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 feature {EIFFEL_PARSER}
    is_assigned_to: BOOLEAN
 
-   set_assigned_to is
+   set_assigned_to
       do
          is_assigned_to := True
       ensure
@@ -297,33 +303,31 @@ feature {EIFFEL_PARSER}
       end
 
 feature {}
-   declaration_type_memory: TYPE
+   written_declaration_type_mark_memory: TYPE_MARK
 
-   frozen function_and_argument_count_check (af: ANONYMOUS_FEATURE; actual_args: like arguments) is
-         -- Check that the feature found is really a function then launch `argument_count_check'.
+   frozen function_check (type: TYPE; af: ANONYMOUS_FEATURE): BOOLEAN
+         -- Check that the feature found is really a function.
+         -- Returns False if the function is in fact an agent creation.
       require
          af /= Void
-      local
-         trapped: BOOLEAN
       do
-         if af.result_type = Void then
-            if smart_eiffel.try_agent_creation_error_trap(Current) then
-               -- Well, false alarm, its just an AGENT_CREATION which is actually a PROCEDURE_CALL.
-               trapped := True
-            else
-               error_handler.add_position(af.start_position)
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "Feature found is a procedure.")
-               error_handler.print_as_error
-               error_handler.add_position(feature_name.start_position)
-               error_handler.append(once "This call has no result.")
-               error_handler.print_as_fatal_error
-            end
+         if smart_eiffel.try_agent_creation_error_trap(Current) then
+            -- Well, false alarm, its just an AGENT_CREATION which is actually a PROCEDURE_CALL.
+            check not Result end
+         elseif af.result_type /= Void then
+            Result := True
+         else
+            error_handler.add_position(af.start_position)
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Feature found is a procedure.")
+            error_handler.print_as_error
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "This call has no result.")
+            error_handler.print_as_fatal_error
          end
-         smart_eiffel.argument_count_check(Current, feature_name.start_position, af, actual_args)
       end
 
-   frozen true_or_false (boolean: BOOLEAN): EXPRESSION is
+   frozen true_or_false (boolean: BOOLEAN): EXPRESSION
          -- (Often used by simplify.)
       do
          if boolean then
@@ -345,9 +349,9 @@ end -- class FUNCTION_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

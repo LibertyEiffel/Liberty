@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          cr1, cr2: REFERENCE[CHARACTER]
       do

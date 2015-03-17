@@ -1,5 +1,6 @@
 #!/bin/bash
-cd /home/et/Liberty_savannah
+
+cd $HOME/Liberty_savannah
 
 {
     git fetch origin
@@ -8,6 +9,6 @@ cd /home/et/Liberty_savannah
         git checkout $branch
         echo
         git merge --ff-only origin/$branch
-        git push github $branch:$branch
     done
-} 2> pull.err > ../pull.out
+    git push --tags github :
+} 2> ../pull.err > ../pull.out

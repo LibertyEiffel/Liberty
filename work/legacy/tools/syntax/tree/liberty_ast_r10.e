@@ -21,21 +21,21 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   feature_name: LIBERTY_AST_ENTITY_NAME is
+   feature_name: LIBERTY_AST_ENTITY_NAME
       require
          not is_empty
       do
          Result ::= nodes.item(1)
       end
 
-   actuals: LIBERTY_AST_ACTUALS is
+   actuals: LIBERTY_AST_ACTUALS
       require
          not is_empty
       do
          Result ::= nodes.item(2)
       end
 
-   remainder: LIBERTY_AST_R10 is
+   remainder: LIBERTY_AST_R10
       require
          not is_empty
       do
@@ -43,15 +43,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "r10"
+   name: STRING "r10"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 4 >> }
       end

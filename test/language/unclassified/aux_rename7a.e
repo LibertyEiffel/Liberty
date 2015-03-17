@@ -3,11 +3,11 @@
 --
 class AUX_RENAME7A[G]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (x: like item) is
+   make (x: like item)
       do
          set_item(x)
       end
@@ -18,12 +18,12 @@ feature {ANY}
    next_node: like Current
 
 feature {ANY}
-   set_item (x: like item) is
+   set_item (x: like item)
       do
          item := x
       end
 
-   set_next_node (x: like Current) is
+   set_next_node (x: like Current)
       do
          next_node := x
       ensure

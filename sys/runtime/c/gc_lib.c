@@ -27,7 +27,7 @@
 */
 
 /*
-   This file (SmartEiffel/sys/runtime/gc_lib.c) is automatically included
+   This file (Liberty/sys/runtime/gc_lib.c) is automatically included
    when the Garbage Collector is used (default, unless option -no_gc has been
    selected).
 */
@@ -95,22 +95,22 @@
 #endif
 
 
-int se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
+TLS(int) se_gc_strategy = SE_GC_DEFAULT_MEMORY_STRATEGY;
 
-int collector_counter = 0;
+volatile int collector_counter = 0;
 
 static void gcna_align_mark(rsoc*c,void*o);
-static rsoc*rsocfl=NULL; /* ReSizable Object Chunk Free List. */
+static TLS(rsoc*)rsocfl=NULL; /* ReSizable Object Chunk Free List. */
 
-void**stack_bottom=NULL;
-mch**gcmt=NULL; /* Garbage Collector Main Table. */
-int gcmt_max=2048;
-int gcmt_used=0;
-fsoc*fsocfl=NULL; /* Fixed Size Object Chunk Free List. */
-int gc_is_off=0;
-unsigned int fsoc_count=0;
-unsigned int rsoc_count=0;
-void*gcmt_tail_addr=NULL;
+TLS(void**      ) stack_bottom=NULL;
+TLS(mch**       ) gcmt=NULL; /* Garbage Collector Main Table. */
+TLS(int         ) gcmt_max=2048;
+TLS(int         ) gcmt_used=0;
+TLS(fsoc*       ) fsocfl=NULL; /* Fixed Size Object Chunk Free List. */
+TLS(int         ) gc_is_off=0;
+TLS(unsigned int) fsoc_count=0;
+TLS(unsigned int) rsoc_count=0;
+TLS(void*       ) gcmt_tail_addr=NULL;
 
 static int chunk_rounded(int size) {
   int rounded_size = size;
@@ -1041,7 +1041,7 @@ void mark_stack_and_registers(void){
 
 #  if !defined(SE_BOOST)
   if (stack_pointer < max) {
-    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
+    fprintf(stderr, "Wrong stack direction: your stack decrease as the stack grows (or complex stack management). Please drop an e-mail to liberty-eiffel@gnu.org\n");
     exit(1); }
 #  endif
 
@@ -1067,7 +1067,7 @@ void mark_stack_and_registers(void){
 
 #  if !defined(SE_BOOST)
   if (stack_pointer > max) {
-    fprintf(stderr, "Wrong stack direction: the stack addresses increase as the stack grows (or complex stack management). Please drop an e-mail to SmartEiffel@loria.fr\n");
+    fprintf(stderr, "Wrong stack direction: the stack addresses increase as the stack grows (or complex stack management). Please drop an e-mail to liberty-eiffel@gnu.org\n");
     exit(1); }
 #  endif
 

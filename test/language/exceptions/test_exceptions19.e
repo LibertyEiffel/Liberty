@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          sub1: AUX_EXCEPTION19SUB; sub2: AUX_EXCEPTION19SUB; counter: INTEGER
       do
@@ -33,7 +33,7 @@ feature {ANY}
          retry
       end
 
-   call_sub (sub: AUX_EXCEPTION19SUB) is
+   call_sub (sub: AUX_EXCEPTION19SUB)
       do
          sub.cause_exception
       end

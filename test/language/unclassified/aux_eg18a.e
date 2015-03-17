@@ -4,14 +4,14 @@
 expanded class AUX_EG18A[T]
 
 feature {ANY}
-   f: AUX_EG18A[T] is
+   f: AUX_EG18A[T]
       do
          create Result
       end
 
    x: T
 
-   set_x (other: T) is
+   set_x (other: T)
       do
          x := other
       end

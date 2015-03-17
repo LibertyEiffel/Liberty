@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    aux: AUX_INHERIT_ARRAY2
 
-   make is
+   make
       do
          create aux.test
       end

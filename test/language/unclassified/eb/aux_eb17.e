@@ -4,7 +4,7 @@
 class AUX_EB17[G]
 
 feature {ANY}
-   test (a, b: G): BOOLEAN is
+   test (a, b: G): BOOLEAN
       do
          Result := a.is_equal(b)
       end

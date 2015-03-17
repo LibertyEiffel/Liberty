@@ -1,24 +1,99 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MAXTOOLCOUNT=20
 
-cd $(dirname $(readlink -f $0))
+################################################################################
+#
+# I need to work in the canonical location, because I want to access
+# resources that are typically bundled with this script.
+#
+# I try GNU readlink first, if I don't find it I will rely on POSIX
+# readlink. I think.
+#
+
+CANONICAL_SOURCE=$(readlink -f "$BASH_SOURCE" 2>/dev/null) || {
+    unsymlink() {
+        if [ -L "$1" ]; then
+            unsymlink $(readlink "$1")
+        elif [ "${1%/*}" == "$1" ]; then
+            echo "$1"
+        else
+            echo $(unsymlink "${1%/*}")/"${1##*/}"
+        fi
+    }
+
+    CANONICAL_SOURCE=$(unsymlink "$BASH_SOURCE")
+}
+cd ${CANONICAL_SOURCE%/*}
+
+################################################################################
+#
+# Environment variables
+#
 
 export CC_TYPE=${CC_TYPE:-gcc}
 export CC=${CC:-$CC_TYPE}
 export CXX=${CXX:-g++}
 export LIBERTY_HOME=$(pwd)
 export TARGET=${TARGET:-$LIBERTY_HOME/target}
+export TMPDIR=${TMPDIR:-$TARGET/tmp}
 export PATH=$TARGET/bin:$PATH
 export plain=${plain:-FALSE}
 export LOG=$TARGET/log/install$(date +'-%Y%m%d-%H%M%S').log
-export PREREQUISITES="$CC $CXX gccxml"
+export PREREQUISITES="$CC $CXX" # gccxml"
 unset CDPATH
 
-. $LIBERTY_HOME/work/tools.sh
+################################################################################
+#
+# Source the Liberty tools (they provide the progress bar)
+#
 
-function check_prerequisites()
-{
+. $LIBERTY_HOME/work/tools.sh
+mkdir -p $TMPDIR
+
+################################################################################
+#
+# Checking prerequisites
+#
+
+title "Checking BDW GC"
+
+check_libgc() {
+    cat > $TMPDIR/check_libgc.c <<EOF
+#include <stdlib.h>
+#include <stdio.h>
+#include "gc/gc.h"
+
+int main() {
+   unsigned version = GC_get_version();
+   unsigned major = (version & 0x00ff0000) >> 16;
+   unsigned minor = (version & 0x0000ff00) >> 8;
+   unsigned alpha = (version & 0x000000ff) != GC_NOT_ALPHA;
+   printf("Version %02d.%02d %s\n", major, minor, alpha ? "alpha" : "");
+   if (major < 7 || minor < 2 || alpha) {
+          /* http://article.gmane.org/gmane.lisp.guile.bugs/5007/match=threads+test */
+          exit(1);
+   }
+   exit(0);
+}
+EOF
+    gcc -lgc $TMPDIR/check_libgc.c -o $TMPDIR/check_libgc >/dev/null 2>&1 || return 1
+    if $TMPDIR/check_libgc; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+if check_libgc; then
+    BDW_GC="-bdw_gc"
+else
+    error_message "BDW too old or missing"
+    BDW_GC="-no_gc"
+fi
+export BDW_GC
+
+check_prerequisites() {
     title "Checking required programs."
     i=0
     for PROGRAM in $PREREQUISITES; do
@@ -35,8 +110,14 @@ function check_prerequisites()
     echo
 }
 
-function bootstrap()
-{
+################################################################################
+#
+# The bootstrap function:
+#
+# Locally install Liberty Eiffel starting from the C germ
+#
+
+bootstrap() {
     test -d $TARGET && rm -rf $TARGET
     mkdir $TARGET
     cd $TARGET
@@ -68,7 +149,12 @@ bin: $TARGET/bin
 sys: $LIBERTY_HOME/sys
 short: $LIBERTY_HOME/resources/short
 os: UNIX
-flavor: Linux
+flavor: $(if grep -qi '^cygwin' /proc/version; then
+   echo Cygwin
+else
+   echo Linux
+fi
+)
 tag: 3
 jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 
@@ -76,6 +162,7 @@ jobs: $((1 + $(grep '^processor' /proc/cpuinfo|wc -l)))
 path_liberty: $LIBERTY_HOME/
 path_liberty_core: $LIBERTY_HOME/src/lib/
 path_liberty_extra: $LIBERTY_HOME/src/wrappers/
+path_liberty_staging: $LIBERTY_HOME/src/staging/
 path_smarteiffel: $LIBERTY_HOME/src/smarteiffel/
 path_tools: $LIBERTY_HOME/src/tools/
 path_tutorial: $LIBERTY_HOME/tutorial/
@@ -84,6 +171,7 @@ hyphen: -
 [Loadpath]
 liberty_core: \${path_liberty_core}loadpath.se
 liberty_extra: \${path_liberty_extra}loadpath.se
+liberty_staging: \${path_liberty_staging}loadpath.se
 test: \${path_liberty}test/loadpath.se
 smarteiffel: \${path_smarteiffel}loadpath.se
 tools: \${path_tools}loadpath.se
@@ -205,7 +293,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 smarteiffel_options: -no_strip
 
 EOF
-        cd ..
+                cd ..
     fi
 
     export CONFIG_DIR=${HOME:-/home/$USER}/.config
@@ -218,25 +306,38 @@ EOF
     fi
     ln -s $TARGET/liberty-eiffel $CONFIG_DIR/
 
+    find $LIBERTY_HOME -name c -type d -print |
+        while read c; do
+            for run in $c/*.run; do
+                if [[ -x "$run" ]]; then
+                    "$run" > ${run%.run}
+                fi
+            done
+        done
+
     title "Bootstrapping SmartEiffel tools"
     cd $LIBERTY_HOME/resources/smarteiffel-germ
 
     if [ ! -d $TARGET/bin/compile_to_c.d ]; then
         test -d $TARGET/bin/compile_to_c.d || mkdir $TARGET/bin/compile_to_c.d
-        grep -v '^#' compile_to_c.make | while read cmd; do
-            progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
-            run $cmd || exit 1
-        done
-        mv a.out $TARGET/bin/compile_to_c.d/compile_to_c || exit 1
+        grep -v '^#' compile_to_c.make |
+            while read cmd; do
+                progress 30 0 $MAXTOOLCOUNT "germ: $cmd"
+                run $cmd || exit 1
+                test -e a.exe && mv a.exe a.out
+            done
+        cp -a * $TARGET/bin/compile_to_c.d/
     fi
     cd $TARGET/bin/compile_to_c.d
+    mv a.out compile_to_c || exit 1
 
     progress 30 1 $MAXTOOLCOUNT "T1: compile_to_c"
     run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
-    grep -v '^#' compile_to_c.make | while read cmd; do
-        progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
-        run $cmd || exit 1
-    done
+    grep -v '^#' compile_to_c.make |
+        while read cmd; do
+            progress 30 1 $MAXTOOLCOUNT "T1: $cmd"
+            run $cmd || exit 1
+        done
     progress 30 1 $MAXTOOLCOUNT "T1: save"
     mkdir T1
     cp -a compile_to_c* T1/
@@ -246,10 +347,11 @@ EOF
         cp -a compile_to_c.new compile_to_c
         progress 30 2 $MAXTOOLCOUNT "T2: compile_to_c"
         run ./compile_to_c -verbose -boost -no_gc compile_to_c -o compile_to_c.new || exit 1
-        grep -v '^#' compile_to_c.make | while read cmd; do
-            progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
-            run $cmd || exit 1
-        done
+        grep -v '^#' compile_to_c.make |
+            while read cmd; do
+                progress 30 2 $MAXTOOLCOUNT "T2: $cmd"
+                run $cmd || exit 1
+            done
         progress 30 2 $MAXTOOLCOUNT "T2: save"
         mkdir T2
         cp -a compile_to_c* T2/
@@ -282,85 +384,105 @@ EOF
     test -d compile.d || mkdir compile.d
     cd compile.d
     run ../compile_to_c -verbose -boost -no_gc -no_split compile -o compile || exit 1
-    grep ^$CC compile.make | while read cmd; do
-        run $cmd || exit 1
-    done
+    grep ^$CC compile.make |
+        while read cmd; do
+            run $cmd || exit 1
+        done
     cd .. && test -e compile || ln -s compile.d/compile .
 
-    while read i gc tool; do
-        progress 30 $i $MAXTOOLCOUNT "$tool"
-        test -d ${tool}.d || mkdir ${tool}.d
-        cd ${tool}.d
-        case $gc in
-            no) GC="-no_gc";;
-            bdw) GC="-bdw_gc";;
-            *) GC="";;
-        esac
-        run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
-        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done <<EOF
+    {
+        grep -v '^#' |
+            while read i gc tool; do
+                progress 30 $i $MAXTOOLCOUNT "$tool"
+                test -d ${tool}.d || mkdir ${tool}.d
+                cd ${tool}.d
+                case $gc in
+                    no) GC="-no_gc";;
+                    bdw) GC="$BDW_GC";;
+                    *) GC="";;
+                esac
+                run ../compile -verbose -boost $GC -no_split $tool -o $tool || exit 1
+                cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+            done
+    } <<EOF
 5  no se
 6  bdw clean
 7  bdw ace_check
-8  bdw eiffeltest
+8  no  eiffeltest
+#9  bdw eiffeltest_ng
+#10 bdw eiffeltest_server
 EOF
-    while read i gc tool; do
-        progress 30 $i $MAXTOOLCOUNT "$tool"
-        test -d ${tool}.d || mkdir ${tool}.d
-        cd ${tool}.d
-        case $gc in
-            no) GC="-no_gc";;
-            bdw) GC="-bdw_gc";;
-            *) GC="";;
-        esac
-        run ../compile -verbose -boost $GC $tool -o $tool || exit 1
-        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done <<EOF
+    {
+        grep -v '^#' |
+            while read i gc tool; do
+                progress 30 $i $MAXTOOLCOUNT "$tool"
+                test -d ${tool}.d || mkdir ${tool}.d
+                cd ${tool}.d
+                case $gc in
+                    no) GC="-no_gc";;
+                    bdw) GC="$BDW_GC";;
+                    *) GC="";;
+                esac
+                run ../compile -verbose -boost $GC $tool -o $tool || exit 1
+                cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+            done
+    } <<EOF
 11 no  pretty
 12 no  short
 13 no  class_check
 14 no  finder
-15 bdw eiffeldoc
+15 no  eiffeldoc
 16 no  extract_internals
 EOF
 
-    while read i gc tool; do
-        progress 30 $i $MAXTOOLCOUNT "$tool"
-        test -d ${tool}.d || mkdir ${tool}.d
-        cd ${tool}.d
-        if [ -e $tool.ace ]; then
-            run ../se c -verbose $tool.ace
-        else
-            case $gc in
-                no) GC="-no_gc";;
-                bdw) GC="-bdw_gc";;
-                *) GC="";;
-            esac
-            run ../se c -verbose -boost $GC $tool -o $tool || exit 1
-        fi
-        cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-    done <<EOF
-17 _   wrappers-generator
+        while read i gc tool; do
+            progress 30 $i $MAXTOOLCOUNT "$tool"
+            test -d ${tool}.d || mkdir ${tool}.d
+            cd ${tool}.d
+            if [ -e $tool.ace ]; then
+                run ../se c -verbose $tool.ace
+            else
+                case $gc in
+                    no) GC="-no_gc";;
+                    bdw) GC="$BDW_GC";;
+                    *) GC="";;
+                esac
+                run ../se c -verbose -boost $GC $tool -o $tool || exit 1
+            fi
+            cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+        done <<EOF
 18 bdw mocker
 EOF
 
-    progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
-    cp $LIBERTY_HOME/work/se_make.sh .
+        progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
+        cp $LIBERTY_HOME/work/se_make.sh .
 
-    progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."
-    echo
+        progress 30 $MAXTOOLCOUNT $MAXTOOLCOUNT "done."
+        echo
 }
 
-function compile_plugins()
-{
+################################################################################
+#
+# The compile_plugins function:
+#
+# Generate "plugins" for the runner
+#
+
+compile_plugins() {
     title "Compiling plugins"
     check_prerequisites
     cd $LIBERTY_HOME/work
     ./compile_plugins.sh
 }
 
-function generate_wrappers()
-{
+################################################################################
+#
+# The generate_wrappers function:
+#
+# Generate C library wrappers
+#
+
+generate_wrappers() {
     title "Generating wrappers"
     cd $TARGET/bin
     cd wrappers-generator.d
@@ -383,8 +505,14 @@ function generate_wrappers()
     echo
 }
 
-function compile_all()
-{
+################################################################################
+#
+# The compile_all function:
+#
+# Compile the Liberty Eiffel tools (i.e. not SmartEiffel)
+#
+
+compile_all() {
     n=$(ls $LIBERTY_HOME/src/tools/main/*.ace 2>/dev/null | wc -l || echo 0)
     if [ $n -gt 0 ]; then
         i=0
@@ -401,8 +529,14 @@ function compile_all()
     fi
 }
 
-function make_doc()
-{
+################################################################################
+#
+# The make_doc function:
+#
+# Invoke eiffeldoc to build the documentation
+#
+
+make_doc() {
     export DOC_ROOT=$TARGET/doc/
     export LOG=$TARGET/log/build_doc$(date +'-%Y%m%d-%H%M%S').log
     test -d $DOC_ROOT && rm -rf $DOC_ROOT
@@ -411,14 +545,18 @@ function make_doc()
     $LIBERTY_HOME/work/build_doc.sh
 }
 
-function do_pkg_tools()
-{
-    PUBLIC=$DESTDIR/usr/bin
-    PRIVATE=$DESTDIR/usr/lib/liberty-eiffel/bin
-    ETC=$DESTDIR/etc/xdg/liberty-eiffel
-    SHORT=$DESTDIR/usr/share/liberty-eiffel/short
-    SYS=$DESTDIR/usr/share/liberty-eiffel/sys
-    SITE_LISP=$DESTDIR/usr/share/emacs/site-lisp/liberty-eiffel
+################################################################################
+#
+# The packaging functions
+#
+
+do_pkg_tools() {
+    PUBLIC=$USRDIR/bin
+    PRIVATE=$USRDIR/lib/liberty-eiffel/bin
+    ETC=$ETCDIR/xdg/liberty-eiffel
+    SHORT=$USRDIR/share/liberty-eiffel/short
+    SYS=$USRDIR/share/liberty-eiffel/sys
+    SITE_LISP=$USRDIR/share/emacs/site-lisp/liberty-eiffel
 
     install -d -m 0755 -o root -g root $PUBLIC $PRIVATE $ETC $SHORT $SYS $SITE_LISP
 
@@ -537,21 +675,39 @@ EOF
     chown root:root $ETC/liberty.se
 }
 
-function _do_pkg_src()
-{
-    section=$1
-    src=$2
+_do_pkg_src() {
+    local section=$1
+    shift
+    local src=("$@")
 
-    SRC=$DESTDIR/usr/share/liberty-eiffel/src
-    ETC=$DESTDIR/etc/xdg/liberty-eiffel
+    SRC=$USRDIR/share/liberty-eiffel/src/$section
+    ETC=$ETCDIR/xdg/liberty-eiffel
 
     install -d -m 0755 -o root -g root $SRC $ETC
 
-    cp -a $src $SRC/${section}
-    find $SRC -type f -exec chmod a-x {} +
-    chown -R root:root $SRC/${section}
+    for s in "${src[@]}"; do
+        if [ -r $SRC/loadpath.se ]; then
+            mv $SRC/loadpath.se $SRC/loadpath.se.old
+        else
+            touch $SRC/loadpath.se.old
+        fi
 
-cat > $ETC/liberty_${section}.se <<EOF
+        cp -l $s/* $SRC/ || cp -a $s/* $SRC/
+
+        if [ -r $SRC/loadpath.se ]; then
+            mv $SRC/loadpath.se $SRC/loadpath.se.new
+        else
+            touch $SRC/loadpath.se.new
+        fi
+
+        cat $SRC/loadpath.se.{old,new} | sort -u > $SRC/loadpath.se
+        rm $SRC/loadpath.se.{old,new}
+    done
+
+    find $SRC -type f -exec chmod a-x {} +
+    chown -R root:root $SRC
+
+    cat > $ETC/liberty_${section}.se <<EOF
 [Environment]
 path_${section}: /usr/share/liberty-eiffel/src/${section}/
 
@@ -562,24 +718,28 @@ EOF
     chown root:root $ETC/liberty_${section}.se
 }
 
-function do_pkg_tools_src()
-{
-    _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel
+do_pkg_tools_src() {
+    _do_pkg_src tools $LIBERTY_HOME/src/smarteiffel $LIBERTY_HOME/src/tools
 }
 
-function do_pkg_core_libs()
-{
+do_pkg_core_libs() {
     _do_pkg_src core $LIBERTY_HOME/src/lib
 }
 
-function do_pkg_extra_libs()
-{
-    _do_pkg_src extra $LIBERTY_HOME/src/wrappers
+do_pkg_extra_libs() {
+    _do_pkg_src liberty_extra $LIBERTY_HOME/src/wrappers
 }
 
-function do_pkg_tools_doc()
-{
-    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
+do_pkg_extra_libs() {
+    _do_pkg_src liberty_staging $LIBERTY_HOME/src/staging
+}
+
+do_pkg_tutorial() {
+    _do_pkg_src tutorial $LIBERTY_HOME/tutorial
+}
+
+do_pkg_tools_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC/tools
     cp -a $TARGET/doc/api/smarteiffel/* $DOC/tools/smarteiffel/
     cp -a $TARGET/doc/api/liberty/* $DOC/tools/liberty/
@@ -587,46 +747,76 @@ function do_pkg_tools_doc()
     chown -R root:root $DOC
 }
 
-function do_pkg_core_doc()
-{
-    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
+do_pkg_core_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC
     cp -a $TARGET/doc/api/libraries/* $DOC/core/
     find $DOC -type f -exec chmod a-x {} +
     chown -R root:root $DOC
 }
 
-function do_pkg_extra_doc()
-{
-    DOC=$DESTDIR/usr/share/doc/liberty-eiffel
+do_pkg_extra_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
     install -d -m 0755 -o root -g root $DOC
     cp -a $TARGET/doc/api/wrappers/* $DOC/extra/
     find $DOC -type f -exec chmod a-x {} +
     chown -R root:root $DOC
 }
 
-function do_pkg()
-{
+do_pkg_staging_doc() {
+    DOC=$USRDIR/share/doc/liberty-eiffel
+    install -d -m 0755 -o root -g root $DOC
+    cp -a $TARGET/doc/api/staging/* $DOC/staging/
+    find $DOC -type f -exec chmod a-x {} +
+    chown -R root:root $DOC
+}
+
+do_local_install() {
+    export USRDIR=${USRDIR:-/usr/local}
+    export ETCDIR=${ETCDIR:-/usr/local/etc}
+    do_pkg_tools
+    do_pkg_tools_src
+    do_pkg_tools_doc
+    do_pkg_core_libs
+    do_pkg_core_doc
+    do_pkg_extra_libs
+    do_pkg_extra_doc
+    do_pkg_staging_libs
+    do_pkg_staging_doc
+    do_pkg_tutorial
+}
+
+do_pkg() {
     if [ x$DESTDIR == x ]; then
         echo "No DESTDIR, please call from debian helper tools" >&2
         exit 1
     fi
     echo do_pkg: DESTDIR= $DESTDIR
     echo
+    export USRDIR=$DESTDIR/usr
+    export ETCDIR=$DESTDIR/etc
     case "$1" in
-        tools)      do_pkg_tools;;
-        tools_src)  do_pkg_tools_src;;
-        tools_doc)  do_pkg_tools_doc;;
-        core_libs)  do_pkg_core_libs;;
-        core_doc)   do_pkg_core_doc;;
-        extra_libs) do_pkg_extra_libs;;
-        extra_doc)  do_pkg_extra_doc;;
+        tools)        do_pkg_tools;;
+        tools_src)    do_pkg_tools_src;;
+        tools_doc)    do_pkg_tools_doc;;
+        core_libs)    do_pkg_core_libs;;
+        core_doc)     do_pkg_core_doc;;
+        extra_libs)   do_pkg_extra_libs;;
+        extra_doc)    do_pkg_extra_doc;;
+        tutorial)     do_pkg_tutorial;;
+        staging_libs) do_pkg_staging_libs;;
+        staging_doc)  do_pkg_staging_doc;;
         *)
             echo "Unknown pkg name: $1" >&2
             exit 1
             ;;
     esac
 }
+
+################################################################################
+#
+# Main
+#
 
 if [ $# = 0 ]; then
     bootstrap
@@ -640,8 +830,6 @@ else
                 generate_wrappers
                 ;;
             x-bootstrap)
-                ulimit -m $((1024 * 1024 * 4))
-                ulimit -v $((1024 * 1024 * 4))
                 bootstrap
                 ;;
             x-compile)
@@ -657,6 +845,9 @@ else
             x-doc)
                 make_doc
                 ;;
+            x-local_install)
+                do_local_install
+                ;;
             *)
                 echo "Unknown argument: $1"
                 cat >&2 <<EOF
@@ -664,16 +855,18 @@ else
 Usage: $0 {-bootstrap|-plugins|-wrappers|-doc|-package}
 
   -bootstrap   Bootstraps Liberty starting from SmartEiffel compilation,
-               up to the plugins, wrappers, and Liberty tools installation
+                           up to the plugins, wrappers, and Liberty tools installation
 
   -plugins     Compiles the plugins used by the Liberty interpreter
 
   -wrappers    Generates the library wrappers; some are used by the
-               Liberty tools themselves (ffi, readline, llvm, ...)
+                           Liberty tools themselves (ffi, readline, llvm, ...)
 
   -doc         Generates the HTML documentation for all classes.
 
   -package     Generates the Debian packages into \$DESTDIR.
+
+  -local_install Installs Liberty Eiffel in /usr/local (config in /usr/local/etc)
 
   If no argument is provided, -bootstrap is assumed.
 

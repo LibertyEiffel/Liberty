@@ -7,7 +7,7 @@ create {ANY}
    manifest_creation
 
 feature {ANY} -- Simple one-shot execution
-   run (start_state: ABSTRACT_STRING; e: E_) is
+   run (start_state: ABSTRACT_STRING; e: E_)
       require
          has(start_state)
       local
@@ -22,7 +22,7 @@ feature {ANY} -- Simple one-shot execution
          end
       end
 
-   has (state_name: ABSTRACT_STRING): BOOLEAN is
+   has (state_name: ABSTRACT_STRING): BOOLEAN
       require
          state_name /= Void
       do
@@ -30,7 +30,7 @@ feature {ANY} -- Simple one-shot execution
       end
 
 feature {ANY} -- Step-by-step execution
-   start (start_state: ABSTRACT_STRING; e: E_): AUTOMATON_CONTEXT[E_] is
+   start (start_state: ABSTRACT_STRING; e: E_): AUTOMATON_CONTEXT[E_]
       require
          has(start_state)
       local
@@ -47,7 +47,7 @@ feature {ANY} -- Step-by-step execution
          Result.current_state /= Void
       end
 
-   next (context: AUTOMATON_CONTEXT[E_]) is
+   next (context: AUTOMATON_CONTEXT[E_])
       require
          context.is_valid
       local
@@ -69,7 +69,7 @@ feature {ANY} -- Step-by-step execution
       end
 
 feature {}
-   next_transition (from_state: STATE[E_]; state_name: ABSTRACT_STRING; e: E_): STATE[E_] is
+   next_transition (from_state: STATE[E_]; state_name: ABSTRACT_STRING; e: E_): STATE[E_]
       do
          debug ("automaton/transition")
             if from_state = Void then
@@ -82,43 +82,45 @@ feature {}
          transition.call([e, from_state, Result])
       end
 
-   last_transition (from_state: STATE[E_]; e: E_) is
+   last_transition (from_state: STATE[E_]; e: E_)
       require
          from_state /= Void
+      local
+         no_state: STATE[E_]
       do
          debug ("automaton/transition")
             std_output.put_line(from_state.name.out + " => Void")
          end
-         transition.call([e, from_state, Void])
+         transition.call([e, from_state, no_state])
       end
 
 feature {STATE} --|* TODO: should be STATE[E_] (when Liberty can bootstrap)
-   call_before_guards (e: E_; state: STATE[E_]) is
+   call_before_guards (e: E_; state: STATE[E_])
       do
          before_guards.call([e, state])
       end
 
-   call_after_guards (e: E_; state: STATE[E_]) is
+   call_after_guards (e: E_; state: STATE[E_])
       do
          after_guards.call([e, state])
       end
 
 feature {ANY}
-   set_before_guards (p: like before_guards) is
+   set_before_guards (p: like before_guards)
       do
          before_guards := p
       ensure
          before_guards = p
       end
 
-   set_after_guards (p: like after_guards) is
+   set_after_guards (p: like after_guards)
       do
          after_guards := p
       ensure
          after_guards = p
       end
 
-   set_transition (p: like transition) is
+   set_transition (p: like transition)
       do
          transition := p
       ensure
@@ -133,19 +135,19 @@ feature {}
          -- That agent is called before checking guards. The given state is the current one.
 
    after_guards: PROCEDURE[TUPLE[E_, STATE[E_]]]
-         -- That agent is called after checking guards, whether a guard was raised or not. The given state is
+         -- That agent is called after checking guards, whether a guard was raised or not. The given state
          -- the current one.
 
    transition: PROCEDURE[TUPLE[E_, STATE[E_], STATE[E_]]]
          -- That agent is called when the next state was found. The given states are resp. the current one
          -- (Void if first transition) and the successor (Void is last transition).
 
-   default_before_guards, default_after_guards, default_transition is
+   default_before_guards, default_after_guards, default_transition
       do
       end
 
 feature {}
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
       do
          create {HASHED_DICTIONARY[STATE[E_], FIXED_STRING]} states.with_capacity(needed_capacity)
          before_guards := agent default_before_guards
@@ -153,7 +155,7 @@ feature {}
          transition := agent default_transition
       end
 
-   manifest_put (index: INTEGER; state_name: ABSTRACT_STRING; state: STATE[E_]) is
+   manifest_put (index: INTEGER; state_name: ABSTRACT_STRING; state: STATE[E_])
       require
          index >= 0
          not states.fast_has(state_name.intern)
@@ -167,7 +169,7 @@ feature {}
          states.fast_has(state_name.intern)
       end
 
-   manifest_semicolon_check: INTEGER is 2
+   manifest_semicolon_check: INTEGER 2
 
 invariant
    states /= Void
@@ -177,13 +179,13 @@ invariant
 
 end -- class AUTOMATON
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

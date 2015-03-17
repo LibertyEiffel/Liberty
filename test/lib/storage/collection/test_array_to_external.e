@@ -15,7 +15,7 @@ feature {ANY}
 
    t_any: ARRAY[CAT]
 
-   make is
+   make
       local
          cat: CAT
       do
@@ -31,27 +31,27 @@ feature {ANY}
       end
 
 feature {}
-   boolean (p: POINTER): BOOLEAN is
+   boolean (p: POINTER): BOOLEAN
       do
          Result := integer(p).to_boolean
       end
 
-   integer (p: POINTER): INTEGER is
+   integer (p: POINTER): INTEGER
       do
          c_inline_c("R=*((EIF_INTEGER*)a1);")
       end
 
-   double (p: POINTER): REAL_64 is
+   double (p: POINTER): REAL_64
       do
          c_inline_c("R=*((double *)a1);")
       end
 
-   any (p: POINTER): ANY is
+   any (p: POINTER): ANY
       do
          c_inline_c("R=*((void**)a1);")
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

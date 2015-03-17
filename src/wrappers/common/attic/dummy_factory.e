@@ -18,7 +18,7 @@ class DUMMY_FACTORY[ITEM_ -> SHARED_C_STRUCT]
    -- Garbage Collector. They expect to be provided a wrapper factory
    -- to use to create new wrappers from the pointers retrieved from
    -- the underlying array.
-   -- Note: when the called function take property of the array it is
+   -- Note: when the called function take property of the array it
    -- wrond to use this design. The Eiffel GC will soon free the array
    -- robbing it from function it belongs to and causing horrible
    -- crashes. Paolo 2007-09-02
@@ -30,7 +30,7 @@ create {ANY}
    default_create
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   wrapper (a_pointer: POINTER): ITEM_ is
+   wrapper (a_pointer: POINTER): ITEM_
          -- A wrapper for the structure at address `a_pointer'. The
          -- default implementation in WRAPPER_FACTORY "creates" a new
          -- wrapper every time, while their heirs are allowed to
@@ -41,6 +41,6 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
       end
 
 feature {} --
-   do_not_use_me: STRING is "DUMMY_FACTORY.wrapper invoked. This is clearly a bug; please inform the developers of the application, since another implementation of WRAPPER_FACTORY should be used."
+   do_not_use_me: STRING "DUMMY_FACTORY.wrapper invoked. This is clearly a bug; please inform the developers of the application, since another implementation of WRAPPER_FACTORY should be used."
 
 end -- class DUMMY_FACTORY

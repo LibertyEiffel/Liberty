@@ -18,17 +18,17 @@ create {ANY}
    routine, procedure, function, predicate
 
 feature {ANY}
-   is_reference: BOOLEAN is True
+   is_reference: BOOLEAN True
 
-   is_expanded: BOOLEAN is False
+   is_expanded: BOOLEAN False
 
-   written_open: TYPE_MARK is
+   written_open: TYPE_MARK
          -- The written type for open operands (this is not always a TUPLE, see also `open').
       do
          Result := generic_list.first
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
          -- The type of the `Result' (used only when `pretty_code' = `function_code' ).
       local
          index: INTEGER
@@ -39,7 +39,7 @@ feature {ANY}
          end
       end
 
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       do
          inspect
             pretty_code
@@ -61,7 +61,7 @@ feature {ANY}
          buffer.extend(']')
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       local
          gl: ARRAY[TYPE]
       do
@@ -72,7 +72,7 @@ feature {ANY}
          declaration_type /= Void
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): GENERIC_TYPE_MARK
       local
          gl: ARRAY[TYPE];
       do
@@ -81,22 +81,23 @@ feature {ANY}
          open_check(new_type, gl.first)
       end
 
-   accept (visitor: AGENT_TYPE_MARK_VISITOR) is
+   accept (visitor: AGENT_TYPE_MARK_VISITOR)
       do
          visitor.visit_agent_type_mark(Current)
       end
 
-   is_user_expanded: BOOLEAN is False
+   is_user_expanded: BOOLEAN False
 
-   is_empty_expanded: BOOLEAN is False
-
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
+
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       local
          agent_type_mark: AGENT_TYPE_MARK
       do
@@ -116,7 +117,7 @@ feature {AGENT_TYPE_MARK_VISITOR}
          -- For the use of `pretty'.
 
 feature {}
-   valid_code (c: like pretty_code): BOOLEAN is
+   valid_code (c: like pretty_code): BOOLEAN
       do
          inspect
             c
@@ -126,7 +127,7 @@ feature {}
          end
       end
 
-   basic_make (c: like pretty_code; wo: like written_open; rt: like result_type) is
+   common_make (c: like pretty_code; wo: like written_open; rt: like result_type)
       require
          class_text_name /= Void
          valid_code(c)
@@ -144,69 +145,69 @@ feature {}
          result_type = rt
       end
 
-   routine (sp: like start_position; wo: like written_open) is
+   routine (sp: like start_position; wo: like written_open)
       require
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(routine_name, sp)
-         basic_make(routine_code, wo, Void)
+         create class_text_name.make(routine_name, sp, False)
+         common_make(routine_code, wo, Void)
       ensure
          written_open = wo
       end
 
-   procedure (sp: like start_position; wo: like written_open) is
+   procedure (sp: like start_position; wo: like written_open)
       require
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(procedure_name, sp)
-         basic_make(procedure_code, wo, Void)
+         create class_text_name.make(procedure_name, sp, False)
+         common_make(procedure_code, wo, Void)
       ensure
          written_open = wo
          result_type = Void
       end
 
-   function (sp: like start_position; wo: like written_open; rt: like result_type) is
+   function (sp: like start_position; wo: like written_open; rt: like result_type)
       require
          not sp.is_unknown
          wo /= Void
          rt /= Void
       do
-         create class_text_name.make(function_name, sp)
-         basic_make(function_code, wo, rt)
+         create class_text_name.make(function_name, sp, False)
+         common_make(function_code, wo, rt)
       ensure
          written_open = wo
          result_type = rt
       end
 
-   predicate (sp: like start_position; wo: like written_open) is
+   predicate (sp: like start_position; wo: like written_open)
       require
          not sp.is_unknown
          wo /= Void
       do
-         create class_text_name.make(function_name, sp)
-         basic_make(predicate_code, wo, create {BOOLEAN_TYPE_MARK}.make(sp))
+         create class_text_name.make(function_name, sp, False)
+         common_make(predicate_code, wo, create {BOOLEAN_TYPE_MARK}.make(sp))
       ensure
          written_open = wo
       end
 
-   routine_name: HASHED_STRING is
+   routine_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_routine)
       end
 
-   procedure_name: HASHED_STRING is
+   procedure_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_procedure)
       end
 
-   function_name: HASHED_STRING is
+   function_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_function)
       end
 
-   open_check (context: TYPE; new_open: TYPE) is
+   open_check (context: TYPE; new_open: TYPE)
          -- Check that `new_open' is a valid `open' TUPLE type.
       require
          new_open /= Void
@@ -247,9 +248,9 @@ end -- class AGENT_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

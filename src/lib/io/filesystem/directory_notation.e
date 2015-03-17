@@ -4,15 +4,15 @@
 deferred class DIRECTORY_NOTATION
 
 feature {ANY}
-   is_current_directory (path: STRING): BOOLEAN is
+   is_current_directory (path: STRING): BOOLEAN
       deferred
       end
 
-   is_parent_directory (path: STRING): BOOLEAN is
+   is_parent_directory (path: STRING): BOOLEAN
       deferred
       end
 
-   to_parent_directory (some_path: STRING) is
+   to_parent_directory (some_path: STRING)
          -- Tries to compute in `some_path' (which may be either a
          -- file path or a directory path) the parent directory of
          -- `some_path'. When `some_path' is a path with no parent
@@ -23,7 +23,7 @@ feature {ANY}
       deferred
       end
 
-   to_subdirectory_with (parent_path, entry_name: STRING) is
+   to_subdirectory_with (parent_path, entry_name: STRING)
          -- Try to compute in `parent_path' the new subdirectory path
          -- obtained when trying to concatenate smartly `parent_path'
          -- whith some `entry_name'. When this fails, `parent_path'
@@ -37,7 +37,7 @@ feature {ANY}
          entry_name.is_equal(old entry_name.twin)
       end
 
-   to_file_path_with (parent_path, file_name: STRING) is
+   to_file_path_with (parent_path, file_name: STRING)
          -- Try to compute in `parent_path' the new file path obtained
          -- when trying to concatenate smartly `parent_path' whith
          -- some `file_name'. When this fails, `parent_path'
@@ -51,7 +51,7 @@ feature {ANY}
          file_name.is_equal(old file_name.twin)
       end
 
-   to_subpath_with (parent_path, subpath: STRING) is
+   to_subpath_with (parent_path, subpath: STRING)
          -- Try to compute in `parent_path' the new file path obtained
          -- when trying to concatenate smartly `parent_path' whith
          -- some `subpath'. When this fails, `parent_path'
@@ -68,7 +68,7 @@ feature {ANY}
          parent_path.is_empty or else is_absolute_path(parent_path) = old is_absolute_path(parent_path)
       end
 
-   frozen to_absolute_path_in (possible_parent, path: STRING) is
+   frozen to_absolute_path_in (possible_parent, path: STRING)
          -- If `path' is not absolute, make it so by appending it to
          -- `possible_parent'. Else, overwrite `possible_parent' with
          -- path.
@@ -86,7 +86,7 @@ feature {ANY}
          is_absolute_path(possible_parent)
       end
 
-   to_short_name_in (buffer, path: STRING) is
+   to_short_name_in (buffer, path: STRING)
       require
          is_valid_path(path)
          buffer /= Void
@@ -94,7 +94,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   frozen from_notation (source_notation: DIRECTORY_NOTATION; path: STRING) is
+   frozen from_notation (source_notation: DIRECTORY_NOTATION; path: STRING)
          -- Convert `path' from `source_notation' to `Current'
          -- notation. If this fails, then `path' `is_empty' after this
          -- call.
@@ -111,12 +111,12 @@ feature {ANY}
          path.is_empty or else is_valid_path(path)
       end
 
-   can_sanitize (name: STRING): BOOLEAN is
+   can_sanitize (name: STRING): BOOLEAN
       do
          -- Default is to have no sanitizing
       end
 
-   to_valid_file_name (name: STRING) is
+   to_valid_file_name (name: STRING)
          -- Sanitize `name' (by removing forbidden characters or
          -- encoding them)
       require
@@ -131,7 +131,7 @@ feature {ANY}
          is_valid_file_name(name)
       end
 
-   to_directory_path (path: STRING) is
+   to_directory_path (path: STRING)
          -- Make sure that the given path is a canonical directory
          -- path as would be returned by `to_subdirectory_with'
       require
@@ -142,11 +142,11 @@ feature {ANY}
          is_valid_directory_path(path)
       end
 
-   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN is
+   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN
       deferred
       end
 
-   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING) is
+   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING)
          -- Convert `drive' from a drive letter/device name in
          -- `source_notation' to an absolute path in `Current'
          -- notation.
@@ -158,14 +158,14 @@ feature {ANY}
          is_absolute_path(drive)
       end
 
-   to_default_root (directory: STRING) is
+   to_default_root (directory: STRING)
       deferred
       ensure
          is_valid_path(directory)
          is_absolute_path(directory)
       end
 
-   to_current_directory (directory: STRING) is
+   to_current_directory (directory: STRING)
          -- Put the realtive directory representing the current
          -- working directory into directory. Not to be confused with
          -- the absolute path of the current working directory at a
@@ -180,13 +180,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_case_sensitive: BOOLEAN is
+   is_case_sensitive: BOOLEAN
       deferred
       end
 
-   is_valid_path (path: STRING): BOOLEAN is
+   is_valid_path (path: STRING): BOOLEAN
          -- Does `path' represent a syntactically valid file or
-         -- directory path? The result does not imply that there is
+         -- directory path? The result does not imply that there
          -- actually a file or directory with that name. This
          -- operation does not perform any disk access.
       deferred
@@ -195,7 +195,7 @@ feature {ANY}
          Result implies not path.is_empty
       end
 
-   is_valid_directory_path (path: STRING): BOOLEAN is
+   is_valid_directory_path (path: STRING): BOOLEAN
          -- Does `path' represent a syntactically valid directory
          -- path? For many Systems, there may be no syntactical
          -- difference between file paths and directory paths, in
@@ -207,7 +207,7 @@ feature {ANY}
          Result implies is_valid_path(path)
       end
 
-   is_valid_file_name (name: STRING): BOOLEAN is
+   is_valid_file_name (name: STRING): BOOLEAN
          -- Does `path' only contain valid characters for a file? The
          -- result does not imply that there is actually a file or
          -- directory with that name. Not the same as `is_valid_path':
@@ -220,7 +220,7 @@ feature {ANY}
          Result implies not name.is_empty
       end
 
-   is_absolute_path (path: STRING): BOOLEAN is
+   is_absolute_path (path: STRING): BOOLEAN
          -- Is `path' absolute, i.e. is its meaning independent of
          -- current drive and working directory ? This operation does
          -- not perform any disk access.
@@ -232,7 +232,7 @@ feature {ANY}
       end
 
 feature {DIRECTORY_NOTATION}
-   to_notation (path: STRING; destination_notation: DIRECTORY_NOTATION): STRING is
+   to_notation (path: STRING; destination_notation: DIRECTORY_NOTATION): STRING
       require
          is_valid_path(path)
          destination_notation /= Void
@@ -244,13 +244,13 @@ feature {DIRECTORY_NOTATION}
 
 end -- class DIRECTORY_NOTATION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

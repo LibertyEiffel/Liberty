@@ -4,7 +4,7 @@
 class AUX_LJ01B
 
 feature {ANY}
-   set_max_board_members (b: INTEGER) is
+   set_max_board_members (b: INTEGER)
       do
          max := b
       ensure

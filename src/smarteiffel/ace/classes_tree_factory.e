@@ -7,20 +7,20 @@ insert
    GLOBALS
 
 feature {ACE}
-   universe: UNIVERSE is
+   universe: UNIVERSE
       once
          create Result.make
       end
 
 feature {CLASSES}
-   classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES is
+   classes (distance: INTEGER; system_path, path, name: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN): CLASSES
       require
          not name.is_empty
          string_aliaser.registered_one(name)
          not path.is_empty
          string_aliaser.registered_one(path)
          universe.classes_notation.is_absolute_path(path)
-         system_path /= Void implies (create {FILE_TOOLS}).file_exists(system_path)
+         system_path /= Void implies file_tools.file_exists(system_path)
       do
          Result := classes_memory.reference_at(path)
          if Result = Void then
@@ -56,7 +56,7 @@ feature {CLASSES}
 feature {}
    file_tools: FILE_TOOLS
 
-   classes_memory: DICTIONARY[CLASSES, STRING] is
+   classes_memory: DICTIONARY[CLASSES, STRING]
       once
          create {HASHED_DICTIONARY[CLASSES, STRING]} Result.make
       end
@@ -73,9 +73,9 @@ end -- class CLASSES_TREE_FACTORY
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          hello: HELLO_WORLD; b: BOOLEAN
       do

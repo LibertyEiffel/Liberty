@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
-indexing
+note
    title       : "C Code Bug";
    cluster     : "";
    project     : "";
@@ -10,7 +10,7 @@ indexing
 -----------------------------------------------------------------------------
 
 class TEST_PN1
--- From: "Philipp Niedermaier" <pn@cpg.de>                         
+-- From: "Philipp Niedermaier" <pn@cpg.de>
 
 create {}
    make
@@ -21,7 +21,7 @@ feature
 
 -----------------------------------------------------------------------------
 
-   make is
+   make
       local
          point_array:     ARRAY[AUX_PN1]
       do
@@ -31,16 +31,15 @@ feature
 
 -----------------------------------------------------------------------------
 
-   c_code_bug (points_p:   ARRAY[AUX_PN1]) is
+   c_code_bug (points_p:   ARRAY[AUX_PN1])
       local
          a:       REAL
       do
          if points_p.item (0).y < 0 then
-            a := points_p.item (0).x  
+            a := points_p.item (0).x
          elseif points_p.item (0).y < 0 then
-            a := points_p.item (0).x 
+            a := points_p.item (0).x
          end
-        
       end -- c_code_bug
 
 -----------------------------------------------------------------------------

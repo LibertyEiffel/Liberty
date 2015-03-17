@@ -22,46 +22,46 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_COMPOUND}
    make
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := instructions.count
       ensure then
          Result > 1
       end
 
-   is_empty: BOOLEAN is False
+   is_empty: BOOLEAN False
 
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := instructions.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := instructions.upper
       end
 
-   first: LIBERTY_INSTRUCTION is
+   first: LIBERTY_INSTRUCTION
       do
          Result := instructions.first
       end
 
-   last: LIBERTY_INSTRUCTION is
+   last: LIBERTY_INSTRUCTION
       do
          Result := instructions.last
       end
 
-   item (i: INTEGER): LIBERTY_INSTRUCTION is
+   item (i: INTEGER): LIBERTY_INSTRUCTION
       do
          Result := instructions.item(i)
       end
 
-   new_iterator: ITERATOR[LIBERTY_INSTRUCTION] is
+   new_iterator: ITERATOR[LIBERTY_INSTRUCTION]
       do
          Result := instructions.new_iterator
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          i: INTEGER
          ins: like instructions
@@ -90,13 +90,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          instructions_marker.mark_reachable_code(mark, instructions)
       end
 
 feature {}
-   make (a_instructions: like instructions; a_position: like position) is
+   make (a_instructions: like instructions; a_position: like position)
       require
          a_instructions.count > 1
          a_position /= Void
@@ -111,7 +111,7 @@ feature {}
    instructions: COLLECTION[LIBERTY_INSTRUCTION]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_COMPOUND_VISITOR
       do

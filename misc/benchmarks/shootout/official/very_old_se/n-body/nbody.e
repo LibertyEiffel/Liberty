@@ -9,11 +9,11 @@ class NBODY
 inherit
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			n: INTEGER; i: INTEGER; bodies: NBODY_SYSTEM
 		do

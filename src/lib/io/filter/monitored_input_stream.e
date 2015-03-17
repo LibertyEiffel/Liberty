@@ -21,11 +21,11 @@ feature {ANY}
    monitor: OUTPUT_STREAM
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
    unread_count: INTEGER
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
          stream.filtered_read_character
          if unread_count > 0 then
@@ -35,23 +35,24 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          stream.filtered_unread_character
          unread_count := unread_count + 1
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          Result := stream.filtered_last_character
       end
 
 feature {}
-   connect_to (a_stream: like stream; a_monitor: like monitor) is
+   connect_to (a_stream: like stream; a_monitor: like monitor)
       require
          a_stream /= Void
          a_monitor /= Void
       do
+         a_stream.set_filter(Current)
          stream := a_stream
          monitor := a_monitor
       ensure
@@ -65,13 +66,13 @@ invariant
 
 end -- class MONITORED_INPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

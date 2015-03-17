@@ -11,7 +11,7 @@ feature {}
    power: INTEGER
    counter: INTEGER
 
-   make is
+   make
       do
          if argument_count > 0 and then argument(1).is_integer then
             power := argument(1).to_integer
@@ -25,7 +25,7 @@ feature {}
          assert(counter = range.count ^ power)
       end
 
-   generate (depth: INTEGER; it: ITERATOR[CHARACTER]; buffer: STRING) is
+   generate (depth: INTEGER; it: ITERATOR[CHARACTER]; buffer: STRING)
       do
          assert(buffer.count = power - depth)
          if depth = 0 then
@@ -44,7 +44,7 @@ feature {}
          end
       end
 
-   range: ITERABLE[CHARACTER] is
+   range: ITERABLE[CHARACTER]
       once
          Result := 'a' |..| 'z'
       end

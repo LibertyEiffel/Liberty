@@ -9,7 +9,7 @@ insert
    SYSTEM_TOOLS_CONSTANTS
 
 feature {ANY}
-   config (st: like system_tools): SE_CONFIG is
+   config (st: like system_tools): SE_CONFIG
       local
          basic_directory: BASIC_DIRECTORY; chain: SERC_CHAIN; s: STRING; def: SERC_DEFAULTS
          file_tools: FILE_TOOLS; xdg: XDG
@@ -23,7 +23,7 @@ feature {ANY}
 
          if basic_directory.unix_notation or else basic_directory.cygwin_notation then
             xdg.set_package("liberty-eiffel")
-            if file_tools.is_readable("/sys/rc") then
+            if file_tools.is_readable("/sys/rc") and file_tools.is_readable("/lang") then
                st.set_system_name(elate_system)
                def.set_os(elate_system)
                add_to_chain(chain, "/lang/eiffel/.serc", "    ")
@@ -37,6 +37,7 @@ feature {ANY}
             add_to_chain(chain, "/etc/serc", "    ")
             add_to_chain(chain, "/etc/xdg/liberty-eiffel", "    ")
             add_to_chain(chain, "/etc/liberty-eiffel", "    ")
+            add_to_chain(chain, "/usr/local/etc/liberty-eiffel", "    ")
             add_to_chain(chain, xdg.config_home, "    ")
             s := home_env
             if s /= Void then
@@ -49,12 +50,20 @@ feature {ANY}
          elseif basic_directory.windows_notation then
             add_to_chain(chain, "C:\SE.CFG", "    ")
             add_to_chain(chain, "C:\LIBERTY.CFG", "    ")
+            s := allusersprofile_env
+            if s /= Void then
+               s.append("\Liberty-Eiffel")
+               add_to_chain(chain, s, "    ")
+            end
             s := userprofile_env
             if s /= Void then
                s.append("\SE.CFG")
                add_to_chain(chain, s, "    ")
                s.remove_suffix("\SE.CFG")
                s.append("\LIBERTY.CFG")
+               add_to_chain(chain, s, "    ")
+               s.remove_suffix("\LIBERTY.CFG")
+               s.append("\Liberty-Eiffel")
                add_to_chain(chain, s, "    ")
             end
             def.set_os(windows_system)
@@ -77,32 +86,38 @@ feature {ANY}
       end
 
 feature {SYSTEM_TOOLS}
-   seconf_env: STRING is
+   seconf_env: STRING
          -- The value of the SmartEiffel environment variable, if defined.
       once
          Result := env(fz_seconf)
       end
 
-   home_env: STRING is
+   home_env: STRING
          -- Unix variable: the home directory of the user
       once
          Result := env("HOME")
       end
 
-   user_env: STRING is
+   user_env: STRING
          -- Unix variable: the user name
       once
          Result := env("USER")
       end
 
-   userprofile_env: STRING is
-         -- This variable is always set on Windows NT, 2000 and XP
+   userprofile_env: STRING
+         -- Windows variable for the users profile directory. This variable is always set on Windows NT, 2000 and XP
       once
          Result := env("USERPROFILE")
       end
 
+   allusersprofile_env: STRING
+         -- Windows variable for the profile directory of All Users.
+      once
+         Result := env("ALLUSERSPROFILE")
+      end
+
 feature {}
-   env (var: STRING): STRING is
+   env (var: STRING): STRING
       local
          s: SYSTEM
       do
@@ -110,7 +125,7 @@ feature {}
       end
 
 feature {}
-   add_to_chain (chain: SERC_CHAIN; rc: ABSTRACT_STRING; indent: STRING) is
+   add_to_chain (chain: SERC_CHAIN; rc: ABSTRACT_STRING; indent: STRING)
       local
          basic_directory: BASIC_DIRECTORY; serc: SERC; subchain: SERC_CHAIN; entries: FAST_ARRAY[STRING]
          sorter: COLLECTION_SORTER[STRING]; i: INTEGER; s: STRING
@@ -179,9 +194,9 @@ end -- class SERC_FACTORY
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

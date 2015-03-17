@@ -27,7 +27,7 @@ create {LIBERTY_INFIX_OPERATOR}
    new
 
 feature {}
-   make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity; a_position: like position) is
+   make (a_left, a_right: LIBERTY_EXPRESSION; a_entity: like entity; a_position: like position)
       require
          a_left /= Void
          a_right /= Void
@@ -44,18 +44,18 @@ feature {}
          position = a_position
       end
 
-   the_infix_name: FIXED_STRING is
+   the_infix_name: FIXED_STRING
       do
          check False end
       end
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       do
          create Result.new(a_target, a_entity, a_actuals, a_position)
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INFIX_OPERATOR_VISITOR
       do

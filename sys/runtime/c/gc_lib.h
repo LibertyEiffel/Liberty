@@ -26,7 +26,7 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 /*
-   This file (SmartEiffel/sys/runtime/gc_lib.h) is automatically included
+   This file (Liberty/sys/runtime/gc_lib.h) is automatically included
    when the Garbage Collector is used (default, unless option -no_gc has
    been selected).
 */
@@ -36,7 +36,7 @@
 #define SE_GC_LOW_MEMORY_STRATEGY 0
 #define SE_GC_HIGH_MEMORY_STRATEGY 1
 #define SE_GC_DEFAULT_MEMORY_STRATEGY 2
-extern int se_gc_strategy;
+extern TLS(int) se_gc_strategy;
 
 
 #define RSOH_UNMARKED 15253
@@ -65,11 +65,11 @@ extern int se_gc_strategy;
 */
 #define SE_GCINFO SE_ERR
 
-extern int collector_counter; /* MEMORY.collector_counter */
+extern volatile int collector_counter; /* MEMORY.collector_counter */
 
 typedef struct s_mch mch; /* Memory Chunk Header. */
 typedef struct s_fsoc fsoc; /* Fixed Size Objects Chunk. */
-typedef union u_rsoh rsoh; /* ReSizable Object Header. */
+typedef union  u_rsoh rsoh; /* ReSizable Object Header. */
 typedef struct s_fll_rsoh fll_rsoh;
 typedef struct s_rsoc rsoc; /* ReSizable Objects Chunk. */
 typedef struct s_na_env na_env; /* Native Array ENVironment. */
@@ -95,8 +95,8 @@ typedef struct _rso_header rso_header;
 struct _rso_header{
     unsigned int size;
     int magic_flag;     /* RSOH_MARKED when used,
-			   RSOH_FREE when free,
-			   else RSOH_UNMARKED */
+                           RSOH_FREE when free,
+                           else RSOH_UNMARKED */
 };
 
 typedef union u_fso_header fso_header;
@@ -134,15 +134,15 @@ struct s_na_env{
   int space_used;
 };
 
-extern void**stack_bottom;
-extern mch**gcmt;
-extern int gcmt_max;
-extern int gcmt_used;
-extern int gc_is_off;
-extern fsoc* fsocfl;
-extern unsigned int fsoc_count;
-extern unsigned int rsoc_count;
-extern void*gcmt_tail_addr;
+extern TLS(void**      ) stack_bottom;
+extern TLS(mch**       ) gcmt;
+extern TLS(int         ) gcmt_max;
+extern TLS(int         ) gcmt_used;
+extern TLS(int         ) gc_is_off;
+extern TLS(fsoc*       ) fsocfl;
+extern TLS(unsigned int) fsoc_count;
+extern TLS(unsigned int) rsoc_count;
+extern TLS(void*       ) gcmt_tail_addr;
 
 void gc_sweep(void);
 void gc_mark(void* p);

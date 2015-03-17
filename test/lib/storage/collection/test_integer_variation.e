@@ -11,7 +11,7 @@ feature {ANY}
 
    b: FAST_ARRAY[INTEGER_32]
 
-   make is
+   make
       do
          create a.make(0)
          create b.make(0)

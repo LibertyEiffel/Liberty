@@ -21,7 +21,7 @@ feature {ANY}
          -- The corresponding unique one for this `name'.
 
 feature {}
-   make (n: like name) is
+   make (n: like name)
       require
          n /= Void
       do
@@ -40,14 +40,14 @@ feature {FEATURE_STAMP}
    debug_info: STRING
 
 feature {ANY}
-   has_run_feature_for (t: TYPE): BOOLEAN is
+   has_run_feature_for (t: TYPE): BOOLEAN
       do
          if run_features /= Void then
             Result := run_features.fast_has(t)
          end
       end
 
-   run_feature_for (t: TYPE): RUN_FEATURE is
+   run_feature_for (t: TYPE): RUN_FEATURE
       require
          has_run_feature_for(t) --|*** fn = t.get_feature_name(Current)
       do
@@ -72,7 +72,7 @@ feature {ANY}
       end
 
 feature {LIVE_TYPE}
-   make_run_feature (t: TYPE; fn: FEATURE_NAME) is
+   make_run_feature (t: TYPE; fn: FEATURE_NAME)
       require
          has_anonymous_feature_for(t)
          not has_run_feature_for(t)
@@ -88,7 +88,7 @@ feature {LIVE_TYPE}
          run_feature_for(t) /= Void
       end
 
-   simplify (t: TYPE): ANONYMOUS_FEATURE is
+   simplify (t: TYPE): ANONYMOUS_FEATURE
          -- MUST NOT BE CALLED BY ANYONE EXCEPT LIVE_TYPE (because
          -- LIVE_TYPE keeps memory of the link between FS and ANONYMOUS_FEATURE)
       local
@@ -103,7 +103,7 @@ feature {LIVE_TYPE}
          end
       end
 
-   contextual_simplify (t: TYPE): ANONYMOUS_FEATURE is
+   contextual_simplify (t: TYPE): ANONYMOUS_FEATURE
          -- MUST NOT BE CALLED BY ANYONE EXCEPT LIVE_TYPE (because
          -- LIVE_TYPE keeps memory of the link between FS and ANONYMOUS_FEATURE)
       local
@@ -117,7 +117,7 @@ feature {LIVE_TYPE}
       end
 
 feature {LIVE_TYPE}
-   update_anonymous_feature (type: TYPE; af: ANONYMOUS_FEATURE) is
+   update_anonymous_feature (type: TYPE; af: ANONYMOUS_FEATURE)
       require
          anonymous_features.at(type) /= af
       do
@@ -125,27 +125,27 @@ feature {LIVE_TYPE}
       end
 
 feature {ANY}
-   has_anonymous_feature_for (a_type: TYPE): BOOLEAN is
+   has_anonymous_feature_for (a_type: TYPE): BOOLEAN
       do
          Result := anonymous_features.fast_reference_at(a_type) /= Void
       ensure
          Result implies has_type(a_type)
       end
 
-   has_type (a_type: TYPE): BOOLEAN is
+   has_type (a_type: TYPE): BOOLEAN
       do
          Result := anonymous_features.fast_has(a_type)
       end
 
    hash_code: INTEGER
 
-   accept (visitor: FEATURE_STAMP_VISITOR) is
+   accept (visitor: FEATURE_STAMP_VISITOR)
       do
          visitor.visit_feature_stamp(Current)
       end
 
 feature {FEATURE_ACCUMULATOR}
-   rename_notify (context_type, parent_type: TYPE; parent_edge: PARENT_EDGE; parent_feature_stamp: FEATURE_STAMP) is
+   rename_notify (context_type, parent_type: TYPE; parent_edge: PARENT_EDGE; parent_feature_stamp: FEATURE_STAMP)
       require
          context_type /= Void
          parent_type /= Void
@@ -204,7 +204,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {FEATURE_STAMP}
-   rename_down_notify (context_class, child_class: CLASS_TEXT; edge: PARENT_EDGE; child_feature_stamp: FEATURE_STAMP) is
+   rename_down_notify (context_class, child_class: CLASS_TEXT; edge: PARENT_EDGE; child_feature_stamp: FEATURE_STAMP)
       do
          if rename_down_context_class = Void then
             create rename_down_context_class.with_capacity(4)
@@ -225,7 +225,7 @@ feature {FEATURE_STAMP}
       end
 
 feature {ANY}
-   has_root (type: TYPE): BOOLEAN is
+   has_root (type: TYPE): BOOLEAN
       require
          type /= Void
       do
@@ -233,7 +233,7 @@ feature {ANY}
       end
 
 feature {FEATURE_ACCUMULATOR}
-   add_root (type: TYPE) is
+   add_root (type: TYPE)
       require
          type /= Void
          not_so_sure: not has_root(type)
@@ -246,7 +246,7 @@ feature {FEATURE_ACCUMULATOR}
          has_root(type)
       end
 
-   add_anonymous_feature (an_af: ANONYMOUS_FEATURE; a_type: TYPE) is
+   add_anonymous_feature (an_af: ANONYMOUS_FEATURE; a_type: TYPE)
       require
          an_af /= Void
          has_type(a_type)
@@ -265,7 +265,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {ANY}
-   anonymous_feature (target_type: TYPE): ANONYMOUS_FEATURE is
+   anonymous_feature (target_type: TYPE): ANONYMOUS_FEATURE
       require
          target_type /= Void
          has_anonymous_feature_for(target_type)
@@ -275,7 +275,7 @@ feature {ANY}
          Result /= Void
       end
 
-   resolve_static_binding_for (declaration_type, new_type: TYPE): FEATURE_STAMP is
+   resolve_static_binding_for (declaration_type, new_type: TYPE): FEATURE_STAMP
          -- Assuming that `name' is the feature called in `declaration_type', looks for the
          -- corresponding one to be called in `new_type'.
       require
@@ -295,7 +295,7 @@ feature {ANY}
       end
 
 feature {FEATURE_STAMP}
-   resolve_static_binding_for_inherit (declaration_class, new_class: CLASS_TEXT): FEATURE_STAMP is
+   resolve_static_binding_for_inherit (declaration_class, new_class: CLASS_TEXT): FEATURE_STAMP
          -- Assuming that `name' is the feature called in `declaration_class', looks for the corresponding one
          -- to be called in `new_class'. Only inherit links are considered.
       require
@@ -373,7 +373,7 @@ feature {FEATURE_STAMP}
          end
       end
 
-   resolve_static_binding_for_insert (declaration_class, new_class: CLASS_TEXT): FEATURE_STAMP is
+   resolve_static_binding_for_insert (declaration_class, new_class: CLASS_TEXT): FEATURE_STAMP
          -- Assuming that `name' is the feature called in `declaration_class', looks for the corresponding one
          -- to be called in `new_class'.  Inherit and insert links are considered.
       require
@@ -468,13 +468,13 @@ feature {FEATURE_STAMP}
       end
 
 feature {ANY}
-   no_rename: BOOLEAN is
+   no_rename: BOOLEAN
       do
          Result := rename_down_edge = Void
       end
 
 feature {ANY}
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
          has_type(parent_type)
          new_type /= parent_type
@@ -499,7 +499,7 @@ feature {ANY}
       end
 
 feature {TYPE, LIVE_TYPE, CREATION_CLAUSE}
-   anonymous_feature_if_exist (target_type: TYPE): ANONYMOUS_FEATURE is
+   anonymous_feature_if_exist (target_type: TYPE): ANONYMOUS_FEATURE
       require
          target_type /= Void
       do
@@ -507,14 +507,14 @@ feature {TYPE, LIVE_TYPE, CREATION_CLAUSE}
       end
 
 feature {TYPE}
-   register_type (type: TYPE) is
+   register_type (type: TYPE)
       do
          anonymous_features.add(Void, type)
       ensure
          has_type(type)
       end
 
-   add_seeds (type: TYPE; parent_edge: PARENT_EDGE; seed_set: SET[ABSOLUTE_FEATURE_NAME]; inherit_link: BOOLEAN): BOOLEAN is
+   add_seeds (type: TYPE; parent_edge: PARENT_EDGE; seed_set: SET[ABSOLUTE_FEATURE_NAME]; inherit_link: BOOLEAN): BOOLEAN
       require
          type /= Void
          parent_edge /= Void
@@ -544,7 +544,7 @@ feature {TYPE}
          end
       end
 
-   print_feature_hierarchy(type: TYPE; parent_edge: PARENT_EDGE; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN is
+   print_feature_hierarchy(type: TYPE; parent_edge: PARENT_EDGE; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN
       require
          type /= Void
          parent_edge /= Void
@@ -569,7 +569,7 @@ feature {TYPE}
          end
       end
 
-   specialize_and_check (t: TYPE) is
+   specialize_and_check (t: TYPE)
       require
          has_type(t)
          has_anonymous_feature_for(t)
@@ -586,7 +586,7 @@ feature {TYPE}
       end
 
 feature {CECIL_ENTRY, ADDRESS_OF}
-   fake_feature_call (start_position: POSITION; target: EXPRESSION; target_type: TYPE): CODE is
+   fake_feature_call (start_position: POSITION; target: EXPRESSION; target_type: TYPE): CODE
          -- Creates the corresponding fake call.
       require
          target_type /= Void
@@ -626,7 +626,7 @@ feature {CECIL_ENTRY, ADDRESS_OF}
       end
 
 feature {}
-   fake_effective_arg_list (start_position: POSITION; target_type: TYPE; af: ANONYMOUS_FEATURE): EFFECTIVE_ARG_LIST is
+   fake_effective_arg_list (start_position: POSITION; target_type: TYPE; af: ANONYMOUS_FEATURE): EFFECTIVE_ARG_LIST_N
          -- Note: not moved in ANONYMOUS_FEATURE because we don't need to add more dispatch.
       local
          first: FAKE_ARGUMENT; remainder: FAST_ARRAY[EXPRESSION]; fake_argument: FAKE_ARGUMENT
@@ -646,9 +646,9 @@ feature {}
                   remainder.add_last(fake_argument)
                   i := i + 1
                end
-               create Result.make_n(first, remainder)
+               create Result.make_n(start_position, first, remainder)
             else
-               create Result.make_1(first)
+               create Result.make_1(start_position, first)
             end
          end
       end
@@ -680,12 +680,12 @@ feature {}
 
    run_features: DICTIONARY[RUN_FEATURE, TYPE]
 
-   hash_counter: COUNTER is
+   hash_counter: COUNTER
       once
          create Result
       end
 
-   next_hash: INTEGER is
+   next_hash: INTEGER
       do
          hash_counter.next
          Result := hash_counter.item
@@ -708,9 +708,9 @@ end -- class FEATURE_STAMP
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

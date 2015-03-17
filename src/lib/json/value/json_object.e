@@ -13,7 +13,7 @@ create {JSON_HANDLER}
    make
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: JSON_VISITOR
       do
@@ -21,12 +21,30 @@ feature {ANY}
          v.visit_object(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
+      local
+         i: INTEGER; k: JSON_STRING; v, ov: JSON_VALUE
+         eq: SAFE_EQUAL[JSON_VALUE]
       do
-         Result := members.is_equal(other.members)
+         if members.count = other.members.count then
+            from
+               Result := True
+               i := members.lower
+            until
+               not Result or else i > members.upper
+            loop
+               k := members.key(i)
+               v := members.item(i)
+               if other.members.has(k) then
+                  ov := other.members.reference_at(k)
+               end
+               Result := eq.test(v, ov)
+               i := i + 1
+            end
+         end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -47,7 +65,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   item (key: ABSTRACT_STRING): JSON_VALUE is
+   item (key: ABSTRACT_STRING): JSON_VALUE
       require
          key /= Void
       do
@@ -58,7 +76,7 @@ feature {JSON_HANDLER}
    members: MAP[JSON_VALUE, JSON_STRING]
 
 feature {}
-   make (a_members: like members) is
+   make (a_members: like members)
       require
          a_members /= Void
       do
@@ -72,13 +90,13 @@ invariant
 
 end -- class JSON_OBJECT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

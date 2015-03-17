@@ -1,5 +1,5 @@
 -- This file is part of Liberty The GNU Eiffel Compiler Tools and Libraries.
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 class MOCKER_MOCK
 
@@ -18,14 +18,14 @@ create {ANY}
    make
 
 feature {EIFFEL_LIST_NODE_IMPL}
-   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL) is
+   visit_eiffel_list_node_impl (node: EIFFEL_LIST_NODE_IMPL)
       do
          Precursor(node)
          node.generate_forgotten(output)
       end
 
 feature {}
-   generate_class (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   generate_class (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       local
          source_name: ABSTRACT_STRING
          class_header_node: EIFFEL_NON_TERMINAL_NODE_IMPL
@@ -45,23 +45,24 @@ class #(1)
 
 inherit
    #(2)
+   MOCK_TYPED_OBJECT[#(3)]
 
-insert
-   MOCK_OBJECT
-
-feature {ANY}
-   expect: like expect_memory is
-      do
-         Result := expect_memory
-         if Result = Void then
-            create Result
-            expect_memory := Result
-         end
-      end
+create {#(3)}
+   make
 
 feature {}
-   expect_memory: #(3)
-                                 ]" # mock_name # source_name # expect_name)
+   make (a_expect: like expect_)
+      require
+         a_expect /= Void
+      do
+         expect_ := a_expect
+      ensure
+         expect_ = a_expect
+      end
+
+   expect_: #(3)
+                                 ]"
+                                 # mock_name # source_name # expect_name)
 
          node.node_at(node.lower+5).accept(Current)
 
@@ -69,11 +70,12 @@ feature {}
 
 end -- class #(1)
 
-                                 ]" # mock_name)
+                                 ]"
+                                 # mock_name)
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
-   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL) is
+   visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
       do
          inspect node.name
          when "Class" then
@@ -97,24 +99,29 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
             output.put_new_line
             if signature.result_type = Void then
-               output.put_string(once "[
-   #(1)#(2) is
-      do
-         expect.assert_#(1)#(3)
-      end
-
-                                       ]"
+               output.put_string(once "   #(1)#(2)%N%
+                                      %      local%N%
+                                      %         exp: MOCK_PROCEDURE_EXPECTATION%N%
+                                      %      do%N%
+                                      %         exp := expect_.assert_#(1)#(3)%N%
+                                      %         if exp /= Void then%N%
+                                      %            exp.call%N%
+                                      %         end%N%
+                                      %      end%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.arguments_list)
             else
-               output.put_string(once "[
-   #(1)#(2): #(3) is
-      do
-         Result := expect.assert_#(1)#(4).item
-      end
-
-                                       ]"
+               output.put_string(once "   #(1)#(2): #(3)%N%
+                                      %      local%N%
+                                      %         exp: MOCK_FUNCTION_EXPECTATION[#(3)]%N%
+                                      %      do%N%
+                                      %         exp := expect_.assert_#(1)#(4)%N%
+                                      %         if exp /= Void then%N%
+                                      %            exp.call%N%
+                                      %            Result := exp.item%N%
+                                      %         end%N%
+                                      %      end%N"
                                  # signature.feature_name
                                  # signature.arguments
                                  # signature.result_type
@@ -126,7 +133,7 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
       end
 
 feature {EIFFEL_TERMINAL_NODE_IMPL}
-   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL) is
+   visit_eiffel_terminal_node_impl (node: EIFFEL_TERMINAL_NODE_IMPL)
       do
          inspect
             node.name
@@ -139,7 +146,7 @@ feature {EIFFEL_TERMINAL_NODE_IMPL}
       end
 
 feature {}
-   make (a_output: like output; a_mock_name, a_expect_name: ABSTRACT_STRING) is
+   make (a_output: like output; a_mock_name, a_expect_name: ABSTRACT_STRING)
       require
          a_output.is_connected
          a_mock_name /= Void
@@ -170,14 +177,14 @@ end -- class MOCKER_MOCK
 -- Copyright notice below. Please read.
 --
 -- Liberty Eiffel is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License,
--- as published by the Free Software Foundation; either version 2, or (at your option) any later version.
+-- as publhed by the Free Software Foundation; either version 2, or (at your option) any later version.
 -- Liberty Eiffel is distributed in the hope that it will be useful but WITHOUT ANY WARRANTY; without even the implied warranty
 -- of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2013: Cyril ADRIAN
+-- Copyright(C) 2013-2015: Cyril ADRIAN
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

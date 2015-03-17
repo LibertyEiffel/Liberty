@@ -5,9 +5,9 @@ expanded class XML_ENTITY_TYPE_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_external_general_parsed_entity_low_level)  or else
 				(a_value = xml_external_general_unparsed_entity_low_level)  or else
@@ -19,69 +19,69 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_external_general_parsed_entity is
+	set_xml_external_general_parsed_entity
 		do
 			value := xml_external_general_parsed_entity_low_level
 		end
 
-	set_xml_external_general_unparsed_entity is
+	set_xml_external_general_unparsed_entity
 		do
 			value := xml_external_general_unparsed_entity_low_level
 		end
 
-	set_xml_external_parameter_entity is
+	set_xml_external_parameter_entity
 		do
 			value := xml_external_parameter_entity_low_level
 		end
 
-	set_xml_internal_general_entity is
+	set_xml_internal_general_entity
 		do
 			value := xml_internal_general_entity_low_level
 		end
 
-	set_xml_internal_parameter_entity is
+	set_xml_internal_parameter_entity
 		do
 			value := xml_internal_parameter_entity_low_level
 		end
 
-	set_xml_internal_predefined_entity is
+	set_xml_internal_predefined_entity
 		do
 			value := xml_internal_predefined_entity_low_level
 		end
 
 feature -- Queries
-	is_xml_external_general_parsed_entity: BOOLEAN is
+	is_xml_external_general_parsed_entity: BOOLEAN
 		do
 			Result := (value=xml_external_general_parsed_entity_low_level)
 		end
 
-	is_xml_external_general_unparsed_entity: BOOLEAN is
+	is_xml_external_general_unparsed_entity: BOOLEAN
 		do
 			Result := (value=xml_external_general_unparsed_entity_low_level)
 		end
 
-	is_xml_external_parameter_entity: BOOLEAN is
+	is_xml_external_parameter_entity: BOOLEAN
 		do
 			Result := (value=xml_external_parameter_entity_low_level)
 		end
 
-	is_xml_internal_general_entity: BOOLEAN is
+	is_xml_internal_general_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_general_entity_low_level)
 		end
 
-	is_xml_internal_parameter_entity: BOOLEAN is
+	is_xml_internal_parameter_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_parameter_entity_low_level)
 		end
 
-	is_xml_internal_predefined_entity: BOOLEAN is
+	is_xml_internal_predefined_entity: BOOLEAN
 		do
 			Result := (value=xml_internal_predefined_entity_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_external_general_parsed_entity_low_level: INTEGER is
+	xml_external_general_parsed_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_external_general_unparsed_entity_low_level: INTEGER is
+	xml_external_general_unparsed_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_external_parameter_entity_low_level: INTEGER is
+	xml_external_parameter_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_internal_general_entity_low_level: INTEGER is
+	xml_internal_general_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_internal_parameter_entity_low_level: INTEGER is
+	xml_internal_parameter_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_internal_predefined_entity_low_level: INTEGER is
+	xml_internal_predefined_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

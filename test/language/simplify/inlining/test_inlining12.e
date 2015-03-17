@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    aux: AUX_INLINING12
 
-   make is
+   make
       do
          create aux
          ecrire01(create {REFERENCE[INTEGER]}.set_item(1), 2)
@@ -23,22 +23,22 @@ feature {ANY}
          assert(aux.b = 2)
       end
 
-   ecrire01 (a: REFERENCE[INTEGER]; b: INTEGER) is
+   ecrire01 (a: REFERENCE[INTEGER]; b: INTEGER)
       do
          aux.ecrire(a, b)
       end
 
-   ecrire02 (a: INTEGER; b: INTEGER) is
+   ecrire02 (a: INTEGER; b: INTEGER)
       do
          aux.ecrire(create {REFERENCE[INTEGER]}.set_item(a), b)
       end
 
-   b_is_gt (x: INTEGER): BOOLEAN is
+   b_is_gt (x: INTEGER): BOOLEAN
       do
          Result := aux.b > x
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

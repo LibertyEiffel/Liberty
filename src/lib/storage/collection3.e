@@ -17,81 +17,81 @@ insert
       end
 
 feature {ANY} -- Indexing:
-   lower1: INTEGER is
+   lower1: INTEGER
          -- Lower index bound for dimension 1.
       deferred
       end
 
-   lower2: INTEGER is
+   lower2: INTEGER
          -- Lower index bound for dimension 2.
       deferred
       end
 
-   lower3: INTEGER is
+   lower3: INTEGER
          -- Lower index bound for dimension 3.
       deferred
       end
 
-   frozen line_minimum: INTEGER is
+   frozen line_minimum: INTEGER
          -- Equivalent of `lower1'.
       do
          Result := lower1
       end
 
-   frozen column_minimum: INTEGER is
+   frozen column_minimum: INTEGER
          -- Equivalent of `lower2'.
       do
          Result := lower2
       end
 
-   frozen depth_minimum: INTEGER is
+   frozen depth_minimum: INTEGER
          -- Equivalent of `lower3'.
       do
          Result := lower3
       end
 
-   upper1: INTEGER is
+   upper1: INTEGER
          -- Upper index bound for dimension 1.
       deferred
       end
 
-   upper2: INTEGER is
+   upper2: INTEGER
          -- Upper index bound for dimension 2.
       deferred
       end
 
-   upper3: INTEGER is
+   upper3: INTEGER
          -- Upper index bound for dimension 3.
       deferred
       end
 
-   frozen line_maximum: INTEGER is
+   frozen line_maximum: INTEGER
          -- Equivalent of `upper1'.
       do
          Result := upper1
       end
 
-   frozen column_maximum: INTEGER is
+   frozen column_maximum: INTEGER
          -- Equivalent of `upper2'.
       do
          Result := upper2
       end
 
-   frozen depth_maximum: INTEGER is
+   frozen depth_maximum: INTEGER
          -- Equivalent of `upper3'.
       do
          Result := upper3
       end
 
 feature {ANY} -- Reading:
-   item (line, column, depth: INTEGER): E_ is
+   item (line, column, depth: INTEGER): E_
       require
          valid_index(line, column, depth)
       deferred
       end
 
 feature {ANY} -- Writing:
-   put (element: like item; line, column, depth: INTEGER) assign item is
+   put (element: like item; line, column, depth: INTEGER) assign item
       require
          valid_index(line, column, depth)
       deferred
@@ -99,7 +99,7 @@ feature {ANY} -- Writing:
          item(line, column, depth) = element
       end
 
-   force (element: like item; line, column, depth: INTEGER) is
+   force (element: like item; line, column, depth: INTEGER)
          -- Put `element' at position (`line',`column',`depth').
          -- Collection is resized first when (`line',`column',`depth')
          -- is not inside current bounds.
@@ -115,28 +115,28 @@ feature {ANY} -- Writing:
       end
 
 feature {ANY} -- Index validity:
-   frozen valid_line, valid_index1 (line: INTEGER): BOOLEAN is
+   frozen valid_line, valid_index1 (line: INTEGER): BOOLEAN
       do
          Result := lower1 <= line and then line <= upper1
       ensure
          Result = (lower1 <= line and line <= upper1)
       end
 
-   frozen valid_column, valid_index2 (column: INTEGER): BOOLEAN is
+   frozen valid_column, valid_index2 (column: INTEGER): BOOLEAN
       do
          Result := lower2 <= column and then column <= upper2
       ensure
          Result = (lower2 <= column and column <= upper2)
       end
 
-   frozen valid_depth, valid_index3 (depth: INTEGER): BOOLEAN is
+   frozen valid_depth, valid_index3 (depth: INTEGER): BOOLEAN
       do
          Result := lower3 <= depth and then depth <= upper3
       ensure
          Result = (lower3 <= depth and depth <= upper3)
       end
 
-   frozen valid_index (line, column, depth: INTEGER): BOOLEAN is
+   frozen valid_index (line, column, depth: INTEGER): BOOLEAN
       do
          Result := lower1 <= line and then line <= upper1 and then lower2 <= column and then column <= upper2 and then lower3 <= depth and then depth <= upper3
       ensure
@@ -144,44 +144,44 @@ feature {ANY} -- Index validity:
       end
 
 feature {ANY} -- Counting:
-   count1: INTEGER is
+   count1: INTEGER
          -- Size of the first dimension.
       deferred
       ensure
          Result = upper1 - lower1 + 1
       end
 
-   frozen line_count: INTEGER is
+   frozen line_count: INTEGER
          -- Equivalent of `count1'.
       do
          Result := count1
       end
 
-   count2: INTEGER is
+   count2: INTEGER
          -- Size of the second dimension.
       deferred
       ensure
          Result = upper2 - lower2 + 1
       end
 
-   frozen column_count: INTEGER is
+   frozen column_count: INTEGER
       do
          Result := count2
       end
 
-   count3: INTEGER is
+   count3: INTEGER
          -- Size of the third dimension.
       deferred
       ensure
          Result = upper3 - lower3 + 1
       end
 
-   frozen depth_count: INTEGER is
+   frozen depth_count: INTEGER
       do
          Result := count3
       end
 
-   count: INTEGER is
+   count: INTEGER
          -- Total number of elements.
       deferred
       ensure
@@ -189,7 +189,7 @@ feature {ANY} -- Counting:
       end
 
 feature {ANY}
-   swap (line1, column1, depth1, line2, column2, depth2: INTEGER) is
+   swap (line1, column1, depth1, line2, column2, depth2: INTEGER)
          -- Swap the element at index (`line1',`column1',`depth1')
          -- with the element at index (`line2',`column2',`depth2').
       require
@@ -202,14 +202,14 @@ feature {ANY}
          count = old count
       end
 
-   set_all_with (v: like item) is
+   set_all_with (v: like item)
          -- Set all item with value `v'.
       deferred
       ensure
          count = old count
       end
 
-   frozen clear_all is
+   frozen clear_all
          -- Set all items to default values.
       local
          value: like item
@@ -221,7 +221,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Creating or initializing:
-   from_collection3 (model: COLLECTION3[like item]) is
+   from_collection3 (model: COLLECTION3[like item])
          --  Uses `model' to initialize Current.
       require
          model /= Void
@@ -232,7 +232,7 @@ feature {ANY} -- Creating or initializing:
          count3 = model.count3
       end
 
-   from_model (model: COLLECTION[COLLECTION[COLLECTION[E_]]]) is
+   from_model (model: COLLECTION[COLLECTION[COLLECTION[E_]]])
          -- The `model' is used to fill line by line Current.
          -- Assume all sub-collections have the same
          -- dimension.
@@ -246,12 +246,12 @@ feature {ANY} -- Creating or initializing:
       end
 
 feature {ANY} -- Looking and comparison:
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
          -- Do all items have their type's default value?
       deferred
       end
 
-   fast_is_equal (other: like Current): BOOLEAN is
+   fast_is_equal (other: like Current): BOOLEAN
          -- Do both collections have the same `lower1', `lower2', `lower3', `upper1', `upper2' and
          -- `upper3', and items?
          -- The basic `=' is used for comparison of items.
@@ -292,7 +292,7 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Do both collections have the same `lower1', `lower2', `lower3', `upper1', `upper2' and `upper3',
          -- and items?
          -- Feature `is_equal' is used for comparison of items.
@@ -333,7 +333,7 @@ feature {ANY} -- Looking and comparison:
          end
       end
 
-   is_equal_map (other: like Current): BOOLEAN is
+   is_equal_map (other: like Current): BOOLEAN
          -- Do both collections have the same `lower', `upper', and
          -- items?
          -- Feature `is_equal' is used for comparison of items.
@@ -343,7 +343,7 @@ feature {ANY} -- Looking and comparison:
       end
 
 feature {ANY} -- Printing:
-   frozen fill_tagged_out_memory is
+   frozen fill_tagged_out_memory
       local
          line, column, depth: INTEGER; v: like item
       do
@@ -405,7 +405,7 @@ feature {ANY} -- Printing:
       end
 
 feature {ANY} -- Miscellaneous features:
-   occurrences (elt: E_): INTEGER is
+   occurrences (elt: E_): INTEGER
          -- Number of occurrences using `is_equal'.
          -- See also `fast_occurrences' to choose the apropriate one.
       deferred
@@ -413,7 +413,7 @@ feature {ANY} -- Miscellaneous features:
          Result >= 0
       end
 
-   fast_occurrences (elt: E_): INTEGER is
+   fast_occurrences (elt: E_): INTEGER
          -- Number of occurrences using `='.
          -- See also `occurrences' to choose the apropriate one.
       deferred
@@ -421,18 +421,18 @@ feature {ANY} -- Miscellaneous features:
          Result >= 0
       end
 
-   has (x: like item): BOOLEAN is
+   has (x: like item): BOOLEAN
          -- Search if a element x is in the array using `is_equal'.
          -- See also `fast_has' to choose the apropriate one.
       deferred
       end
 
-   fast_has (x: like item): BOOLEAN is
+   fast_has (x: like item): BOOLEAN
          --  Search if a element x is in the array using `='.
       deferred
       end
 
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using `is_equal' for comparison.
          -- See also `fast_replace_all' to choose the apropriate one.
@@ -442,7 +442,7 @@ feature {ANY} -- Miscellaneous features:
          occurrences(old_value) = 0
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using operator `=' for comparison.
          -- See also `replace_all' to choose the apropriate one.
@@ -452,7 +452,7 @@ feature {ANY} -- Miscellaneous features:
          fast_occurrences(old_value) = 0
       end
 
-   sub_collection3 (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER): like Current is
+   sub_collection3 (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER): like Current
          -- Create a new object using selected area of `Current'.
       require
          valid_index(line_min, column_min, depth_min)
@@ -462,7 +462,7 @@ feature {ANY} -- Miscellaneous features:
          Result /= Void
       end
 
-   set_area (element: like item; line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER) is
+   set_area (element: like item; line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
          -- Set all the elements of the selected area rectangle with `element'.
       require
          valid_index(line_min, column_min, depth_min)
@@ -498,13 +498,13 @@ feature {ANY} -- Miscellaneous features:
 
 end -- class COLLECTION3
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -4,7 +4,7 @@
 class AUX_EB16B
 
 feature {ANY}
-   f: AUX_EB16B is
+   f: AUX_EB16B
       do
       end
 

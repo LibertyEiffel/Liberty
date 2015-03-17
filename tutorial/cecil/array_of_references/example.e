@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          cat: CAT; dog: DOG
       do
@@ -25,7 +25,7 @@ feature {ANY}
 feature {}
    animals: ARRAY[ANIMAL]
 
-   call_c_prog (a: like animals) is
+   call_c_prog (a: like animals)
       external "C"
       alias "c_prog"
       end

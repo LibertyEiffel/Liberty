@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, mem: INTEGER; a: ARRAY[INTEGER]
       do
@@ -20,7 +20,7 @@ feature {ANY}
          until
             i = 0
          loop
-            a.do_all(agent increment(?))
+            a.for_each(agent increment(?))
             i := i - 1
          end
          mem := allocated_bytes
@@ -32,7 +32,7 @@ feature {ANY}
 
    sum: INTEGER
 
-   increment (v: INTEGER) is
+   increment (v: INTEGER)
       do
          sum := sum + v
       end

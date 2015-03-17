@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    inspect_value: INTEGER
 
-   make is
+   make
       do
          inspect
             inspect_value
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

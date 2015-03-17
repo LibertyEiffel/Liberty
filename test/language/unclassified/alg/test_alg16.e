@@ -4,47 +4,38 @@
 class TEST_ALG16
    -- From a bug report of Alain Le Guennec <Alain.Le_Guennec@irisa.fr>
 
+insert
+   EIFFELTEST_TOOLS
+
 create {}
    make
 
 feature {}
-   normal_routine1: AUX_ALG16 is
+   normal_routine1: AUX_ALG16
       do
       end
 
-   normal_routine2: AUX_ALG16 is
+   normal_routine2: AUX_ALG16
       do
          create Result.make
       end
 
-   once_routine1: AUX_ALG16 is
+   once_routine1: AUX_ALG16
       once
       end
 
-   once_routine2: AUX_ALG16 is
+   once_routine2: AUX_ALG16
       once
          create Result.make
       end
 
-   make is
+   make
       do
          assert(normal_routine1.item = 1)
          assert(normal_routine2.item = 1)
          assert(once_routine1.item = 1)
          assert(once_routine2.item = 1)
       end
-
-   assert (b: BOOLEAN) is
-      do
-         cpt := cpt + 1
-         if not b then
-            std_output.put_string("TEST_ALG16: ERROR Test # ")
-            std_output.put_integer(cpt)
-            std_output.put_string("%N")
-         end
-      end
-
-   cpt: INTEGER
 
 end -- class TEST_ALG16
 --

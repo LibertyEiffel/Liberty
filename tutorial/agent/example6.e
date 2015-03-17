@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          delayed_code: FUNCTION[TUPLE[CHARACTER], BOOLEAN]
       do

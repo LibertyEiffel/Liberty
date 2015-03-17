@@ -5,9 +5,9 @@ expanded class GVARIANT_CLASS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = array_low_level)  or else
 				(a_value = boolean_low_level)  or else
@@ -31,189 +31,189 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_array is
+	set_array
 		do
 			value := array_low_level
 		end
 
-	set_boolean is
+	set_boolean
 		do
 			value := boolean_low_level
 		end
 
-	set_byte is
+	set_byte
 		do
 			value := byte_low_level
 		end
 
-	set_dict_entry is
+	set_dict_entry
 		do
 			value := dict_entry_low_level
 		end
 
-	set_double is
+	set_double
 		do
 			value := double_low_level
 		end
 
-	set_handle is
+	set_handle
 		do
 			value := handle_low_level
 		end
 
-	set_int16 is
+	set_int16
 		do
 			value := int16_low_level
 		end
 
-	set_int32 is
+	set_int32
 		do
 			value := int32_low_level
 		end
 
-	set_int64 is
+	set_int64
 		do
 			value := int64_low_level
 		end
 
-	set_maybe is
+	set_maybe
 		do
 			value := maybe_low_level
 		end
 
-	set_object_path is
+	set_object_path
 		do
 			value := object_path_low_level
 		end
 
-	set_signature is
+	set_signature
 		do
 			value := signature_low_level
 		end
 
-	set_string is
+	set_string
 		do
 			value := string_low_level
 		end
 
-	set_tuple is
+	set_tuple
 		do
 			value := tuple_low_level
 		end
 
-	set_uint16 is
+	set_uint16
 		do
 			value := uint16_low_level
 		end
 
-	set_uint32 is
+	set_uint32
 		do
 			value := uint32_low_level
 		end
 
-	set_uint64 is
+	set_uint64
 		do
 			value := uint64_low_level
 		end
 
-	set_variant_external is
+	set_variant_external
 		do
 			value := variant_external_low_level
 		end
 
 feature {ANY} -- Queries
-	is_array: BOOLEAN is
+	is_array: BOOLEAN
 		do
 			Result := (value=array_low_level)
 		end
 
-	is_boolean: BOOLEAN is
+	is_boolean: BOOLEAN
 		do
 			Result := (value=boolean_low_level)
 		end
 
-	is_byte: BOOLEAN is
+	is_byte: BOOLEAN
 		do
 			Result := (value=byte_low_level)
 		end
 
-	is_dict_entry: BOOLEAN is
+	is_dict_entry: BOOLEAN
 		do
 			Result := (value=dict_entry_low_level)
 		end
 
-	is_double: BOOLEAN is
+	is_double: BOOLEAN
 		do
 			Result := (value=double_low_level)
 		end
 
-	is_handle: BOOLEAN is
+	is_handle: BOOLEAN
 		do
 			Result := (value=handle_low_level)
 		end
 
-	is_int16: BOOLEAN is
+	is_int16: BOOLEAN
 		do
 			Result := (value=int16_low_level)
 		end
 
-	is_int32: BOOLEAN is
+	is_int32: BOOLEAN
 		do
 			Result := (value=int32_low_level)
 		end
 
-	is_int64: BOOLEAN is
+	is_int64: BOOLEAN
 		do
 			Result := (value=int64_low_level)
 		end
 
-	is_maybe: BOOLEAN is
+	is_maybe: BOOLEAN
 		do
 			Result := (value=maybe_low_level)
 		end
 
-	is_object_path: BOOLEAN is
+	is_object_path: BOOLEAN
 		do
 			Result := (value=object_path_low_level)
 		end
 
-	is_signature: BOOLEAN is
+	is_signature: BOOLEAN
 		do
 			Result := (value=signature_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 		do
 			Result := (value=string_low_level)
 		end
 
-	is_tuple: BOOLEAN is
+	is_tuple: BOOLEAN
 		do
 			Result := (value=tuple_low_level)
 		end
 
-	is_uint16: BOOLEAN is
+	is_uint16: BOOLEAN
 		do
 			Result := (value=uint16_low_level)
 		end
 
-	is_uint32: BOOLEAN is
+	is_uint32: BOOLEAN
 		do
 			Result := (value=uint32_low_level)
 		end
 
-	is_uint64: BOOLEAN is
+	is_uint64: BOOLEAN
 		do
 			Result := (value=uint64_low_level)
 		end
 
-	is_variant_external: BOOLEAN is
+	is_variant_external: BOOLEAN
 		do
 			Result := (value=variant_external_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	array_low_level: INTEGER is
+	array_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	boolean_low_level: INTEGER is
+	boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	byte_low_level: INTEGER is
+	byte_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -240,7 +240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	dict_entry_low_level: INTEGER is
+	dict_entry_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -249,7 +249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	double_low_level: INTEGER is
+	double_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -258,7 +258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	handle_low_level: INTEGER is
+	handle_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -267,7 +267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int16_low_level: INTEGER is
+	int16_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -276,7 +276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int32_low_level: INTEGER is
+	int32_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -285,7 +285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int64_low_level: INTEGER is
+	int64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -294,7 +294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	maybe_low_level: INTEGER is
+	maybe_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -303,7 +303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	object_path_low_level: INTEGER is
+	object_path_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -312,7 +312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	signature_low_level: INTEGER is
+	signature_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -321,7 +321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string_low_level: INTEGER is
+	string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -330,7 +330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tuple_low_level: INTEGER is
+	tuple_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -339,7 +339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint16_low_level: INTEGER is
+	uint16_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -348,7 +348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint32_low_level: INTEGER is
+	uint32_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -357,7 +357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint64_low_level: INTEGER is
+	uint64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -366,7 +366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	variant_external_low_level: INTEGER is
+	variant_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

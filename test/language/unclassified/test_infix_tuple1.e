@@ -13,14 +13,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          res: BOOLEAN
       do
          res := Current @| ([100000, 200000])
       end
 
-   infix "@|" (base: TUPLE[INTEGER, INTEGER]): BOOLEAN is
+   infix "@|" (base: TUPLE[INTEGER, INTEGER]): BOOLEAN
       do
          assert(base.is_equal([100000, 200000]))
       end

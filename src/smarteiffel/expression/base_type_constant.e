@@ -10,49 +10,54 @@ inherit
    MANIFEST_EXPRESSION
 
 feature {ANY}
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   is_manifest_string, is_void: BOOLEAN is False
+   is_manifest_string, is_void: BOOLEAN False
 
    start_position: POSITION
 
-   frozen side_effect_free (type: TYPE): BOOLEAN is
+   frozen side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       do
          Result := Current
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
+   frozen safety_check (type: TYPE)
       do
       end
 
-   frozen specialize_in (type: TYPE): like Current is
-      do
-         Result := Current
-      end
-
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
-      do
-         Result := Current
-      end
-
-   frozen specialize_and_check (type: TYPE): like Current is
+   frozen specialize_in (type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is True
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
+      do
+         Result := Current
+      end
 
-   frozen bracketed_pretty, frozen pretty (indent_level: INTEGER) is
+   frozen specialize_and_check (type: TYPE): like Current
+      do
+         Result := Current
+      end
+
+   has_been_specialized: BOOLEAN True
+
+   frozen bracketed_pretty, frozen pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          if extra_bracket_flag then
             pretty_printer.put_character('(')
@@ -64,47 +69,47 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   frozen short (type: TYPE) is
+   frozen short (type: TYPE)
       do
          short_printer.put_base_type_constant(to_string)
       end
 
-   frozen short_target (type: TYPE) is
+   frozen short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   frozen precedence: INTEGER is
+   frozen precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   frozen non_void_no_dispatch_type (type: TYPE): TYPE is
+   frozen non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   frozen collect (type: TYPE): TYPE is
+   frozen collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)
          smart_eiffel.collect_constant(Result)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   to_string: STRING is
+   to_string: STRING
       deferred
       end
 
@@ -120,9 +125,9 @@ end -- class BASE_TYPE_CONSTANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

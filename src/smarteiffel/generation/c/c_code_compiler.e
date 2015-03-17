@@ -21,24 +21,24 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {}
-   compile_expression (expression: EXPRESSION) is
+   compile_expression (expression: EXPRESSION)
       do
          expression.accept(Current)
       end
 
-   compile_code (code: CODE) is
+   compile_code (code: CODE)
       do
          code.accept(Current)
       end
 
 feature {CECIL_ENTRY}
-   visit_cecil_entry (visited: CECIL_ENTRY) is
+   visit_cecil_entry (visited: CECIL_ENTRY)
       do
          crash
       end
 
 feature {AGENT_INSTRUCTION}
-   visit_agent_instruction (visited: AGENT_INSTRUCTION) is
+   visit_agent_instruction (visited: AGENT_INSTRUCTION)
       do
          if agent_pool.agent_creation_collected_flag then
             compile_agent_definition_call(visited)
@@ -54,30 +54,30 @@ feature {AGENT_INSTRUCTION}
       end
 
 feature {ENSURE_ASSERTION}
-   visit_ensure_assertion (visited: ENSURE_ASSERTION) is
+   visit_ensure_assertion (visited: ENSURE_ASSERTION)
       do
          if not visited.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            visited.list.do_all(agent compile_assertion_as_ensure(?))
+            visited.list.for_each(agent compile_assertion_as_ensure(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end
 
 feature {LOOP_INVARIANT}
-   visit_loop_invariant (visited: LOOP_INVARIANT) is
+   visit_loop_invariant (visited: LOOP_INVARIANT)
       do
          visit_assertion_list(visited)
       end
 
 feature {CLASS_INVARIANT}
-   visit_class_invariant (visited: CLASS_INVARIANT) is
+   visit_class_invariant (visited: CLASS_INVARIANT)
       do
          if not visited.is_always_true(type) then
             if ace.profile then
                cpp.start_profile_class_invariant(type.live_type)
             end
             cpp.stop_recursive_assertion_opening(False)
-            visited.list.do_all(agent compile_assertion_as_class_invariant(?))
+            visited.list.for_each(agent compile_assertion_as_class_invariant(?))
             cpp.stop_recursive_assertion_closing(False)
             if ace.profile then
                cpp.stop_profile
@@ -86,13 +86,13 @@ feature {CLASS_INVARIANT}
       end
 
 feature {ASSERTION_LIST}
-   visit_assertion_list (visited: ASSERTION_LIST) is
+   visit_assertion_list (visited: ASSERTION_LIST)
       do
          crash -- This one must never be called.
       end
 
 feature {ASSIGNMENT_ATTEMPT}
-   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT) is
+   visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT)
       local
          left_type, right_type: TYPE; left_run_time_set, right_run_time_set: RUN_TIME_SET
          counter1, counter2, i: INTEGER; left_live_type: LIVE_TYPE
@@ -271,7 +271,7 @@ feature {ASSIGNMENT_ATTEMPT}
       end
 
 feature {ASSIGNMENT}
-   visit_assignment (visited: ASSIGNMENT) is
+   visit_assignment (visited: ASSIGNMENT)
       local
          cast_t0: BOOLEAN; right_type: TYPE
       do
@@ -310,7 +310,7 @@ feature {ASSIGNMENT}
       end
 
 feature {ASSIGNMENT_CALL_ASSIGNER}
-   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER) is
+   visit_assignment_call_assigner (visited: ASSIGNMENT_CALL_ASSIGNER)
       do
          -- The assigner call will have been replaced by the actual procedure call.
          check
@@ -319,7 +319,7 @@ feature {ASSIGNMENT_CALL_ASSIGNER}
       end
 
 feature {CHECK_COMPOUND}
-   visit_check_compound (visited: CHECK_COMPOUND) is
+   visit_check_compound (visited: CHECK_COMPOUND)
       do
          if visited.must_be_generated(type) then
             compile_as_check_compound(visited.assertion_list)
@@ -327,7 +327,7 @@ feature {CHECK_COMPOUND}
       end
 
 feature {C_INLINE}
-   visit_c_inline (visited: C_INLINE) is
+   visit_c_inline (visited: C_INLINE)
       do
          if visited.is_c_inline_c then
             function_body.append(visited.c_code)
@@ -337,12 +337,12 @@ feature {C_INLINE}
       end
 
 feature {COMMENT}
-   visit_comment (visited: COMMENT) is
+   visit_comment (visited: COMMENT)
       do
       end
 
 feature {COMPOUND}
-   visit_compound (visited: COMPOUND) is
+   visit_compound (visited: COMPOUND)
       local
          i: INTEGER; instruction: INSTRUCTION; stamp: INTEGER
       do
@@ -371,7 +371,7 @@ feature {COMPOUND}
       end
 
 feature {CREATE_INSTRUCTION}
-   visit_create_instruction (visited: CREATE_INSTRUCTION) is
+   visit_create_instruction (visited: CREATE_INSTRUCTION)
       local
          created_type_memory: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST;
          id, class_invariant_flag: INTEGER; internal_c_local: INTERNAL_C_LOCAL
@@ -423,13 +423,20 @@ feature {CREATE_INSTRUCTION}
          -- For all kind of newly created objet, we may call the class invariant:
          class_invariant_flag := cpp.class_invariant_call_opening(created_type_memory, True)
          if class_invariant_flag > 0 then
-            compile_expression(visited.writable)
+            if created_type_memory.is_expanded and then cpp.need_struct.for(created_type_memory.canonical_type_mark) then
+               function_body.extend('&')
+               function_body.extend('(')
+               compile_expression(visited.writable)
+               function_body.extend(')')
+            else
+               compile_expression(visited.writable)
+            end
             cpp.class_invariant_call_closing(class_invariant_flag, True)
          end
       end
 
 feature {RAW_CREATE_INSTRUCTION}
-   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION) is
+   visit_raw_create_instruction (visited: RAW_CREATE_INSTRUCTION)
       local
          created_type_memory: TYPE; internal_c_local: INTERNAL_C_LOCAL
       do
@@ -456,7 +463,7 @@ feature {RAW_CREATE_INSTRUCTION}
       end
 
 feature {DEBUG_COMPOUND}
-   visit_debug_compound (visited: DEBUG_COMPOUND) is
+   visit_debug_compound (visited: DEBUG_COMPOUND)
       do
          if visited.must_be_generated(type) and then visited.compound /= Void then
             compile_code(visited.compound)
@@ -464,7 +471,7 @@ feature {DEBUG_COMPOUND}
       end
 
 feature {IFTHENELSE}
-   visit_ifthenelse (visited: IFTHENELSE) is
+   visit_ifthenelse (visited: IFTHENELSE)
       local
          i: INTEGER
       do
@@ -494,7 +501,7 @@ feature {IFTHENELSE}
       end
 
 feature {IFTHEN}
-   visit_ifthen (visited: IFTHEN) is
+   visit_ifthen (visited: IFTHEN)
       do
          function_body.append(once "if(")
          compile_expression(visited.expression)
@@ -506,19 +513,19 @@ feature {IFTHEN}
       end
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
-   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT) is
+   visit_manifest_string_inspect_statement (visited: MANIFEST_STRING_INSPECT_STATEMENT)
       do
          compile_inspect_statement(visited)
       end
 
 feature {OTHER_INSPECT_STATEMENT}
-   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT) is
+   visit_other_inspect_statement (visited: OTHER_INSPECT_STATEMENT)
       do
          compile_inspect_statement(visited)
       end
 
 feature {LOOP_INSTRUCTION}
-   visit_loop_instruction (visited: LOOP_INSTRUCTION) is
+   visit_loop_instruction (visited: LOOP_INSTRUCTION)
       local
          loop_check_flag, variant_flag: BOOLEAN
       do
@@ -538,6 +545,7 @@ feature {LOOP_INSTRUCTION}
          if variant_flag then
             cpp.variant_check(type, visited.loop_variant)
          end
+         cpp.memory.checkpoint
          if visited.loop_body /= Void then
             compile_code(visited.loop_body)
          end
@@ -548,7 +556,7 @@ feature {LOOP_INSTRUCTION}
       end
 
 feature {NO_INVARIANT_WRAPPER}
-   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER) is
+   visit_no_invariant_wrapper (visited: NO_INVARIANT_WRAPPER)
       local
          old_invariant_check_disabled: BOOLEAN
       do
@@ -567,7 +575,7 @@ feature {NO_INVARIANT_WRAPPER}
       end
 
 feature {RUN_TIME_ERROR_INSTRUCTION}
-   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION) is
+   visit_run_time_error_instruction (visited: RUN_TIME_ERROR_INSTRUCTION)
       do
          if ace.no_check then
             if exceptions_handler.used then
@@ -587,7 +595,7 @@ feature {RUN_TIME_ERROR_INSTRUCTION}
       end
 
 feature {SEDB}
-   visit_sedb (visited: SEDB) is
+   visit_sedb (visited: SEDB)
       do
          if visited.start_position.sedb_trace then
             function_body.append(once "sedb(&ds,")
@@ -603,7 +611,7 @@ feature {SEDB}
       end
 
 feature {}
-   put_start_position (sedb: SEDB) is
+   put_start_position (sedb: SEDB)
       do
          function_body.append(once "0x")
          sedb.start_position.mangling.to_hexadecimal_in(function_body)
@@ -611,7 +619,7 @@ feature {}
       end
 
 feature {UNUSED_EXPRESSION}
-   visit_unused_expression (visited: UNUSED_EXPRESSION) is
+   visit_unused_expression (visited: UNUSED_EXPRESSION)
       do
          function_body.append(once "/*UNUSED_EXPRESSION:*/(void)(")
          compile_expression(visited.expression)
@@ -619,37 +627,37 @@ feature {UNUSED_EXPRESSION}
       end
 
 feature {VOID_PROC_CALL}
-   visit_void_proc_call (visited: VOID_PROC_CALL) is
+   visit_void_proc_call (visited: VOID_PROC_CALL)
       do
-         cpp.se_evobt(Void, type, create {E_VOID}.make(visited.start_position))
+         cpp.se_evobt(Void, type, create {E_VOID}.make(visited.start_position), True)
       end
 
 feature {PRECURSOR_INSTRUCTION}
-   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION) is
+   visit_precursor_instruction (visited: PRECURSOR_INSTRUCTION)
       do
          compile_precursor(visited)
       end
 
 feature {PROCEDURE_CALL_0}
-   visit_procedure_call_0 (visited: PROCEDURE_CALL_0) is
+   visit_procedure_call_0 (visited: PROCEDURE_CALL_0)
       do
          compile_feature_call(visited)
       end
 
 feature {PROCEDURE_CALL_1}
-   visit_procedure_call_1 (visited: PROCEDURE_CALL_1) is
+   visit_procedure_call_1 (visited: PROCEDURE_CALL_1)
       do
          compile_feature_call(visited)
       end
 
 feature {PROCEDURE_CALL_N}
-   visit_procedure_call_n (visited: PROCEDURE_CALL_N) is
+   visit_procedure_call_n (visited: PROCEDURE_CALL_N)
       do
          compile_feature_call(visited)
       end
 
 feature {REQUIRE_ASSERTION}
-   visit_require_assertion (visited: REQUIRE_ASSERTION) is
+   visit_require_assertion (visited: REQUIRE_ASSERTION)
       do
          if not visited.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
@@ -659,7 +667,7 @@ feature {REQUIRE_ASSERTION}
       end
 
 feature {RETRY_INSTRUCTION}
-   visit_retry_instruction (visited: RETRY_INSTRUCTION) is
+   visit_retry_instruction (visited: RETRY_INSTRUCTION)
       do
          if ace.no_check then
             if ace.flat_check then
@@ -673,7 +681,7 @@ feature {RETRY_INSTRUCTION}
       end
 
 feature {WHEN_CLAUSE}
-   visit_when_clause (visited: WHEN_CLAUSE) is
+   visit_when_clause (visited: WHEN_CLAUSE)
       local
          bi: INTEGER
       do
@@ -714,7 +722,7 @@ feature {WHEN_CLAUSE}
       end
 
 feature {}
-   compile_inspect_statement (visited: INSPECT_STATEMENT) is
+   compile_inspect_statement (visited: INSPECT_STATEMENT)
       local
          no_check: BOOLEAN; i: INTEGER
       do
@@ -790,7 +798,7 @@ feature {}
          cpp.inspect_local_pop
       end
 
-   compile_inspect_as_switch (visited: INSPECT_STATEMENT) is
+   compile_inspect_as_switch (visited: INSPECT_STATEMENT)
       local
          i: INTEGER; last_compound: INSTRUCTION
       do
@@ -813,7 +821,7 @@ feature {}
          end
       end
 
-   compile_when_clause_as_switch (visited: WHEN_CLAUSE) is
+   compile_when_clause_as_switch (visited: WHEN_CLAUSE)
       local
          bi, v: INTEGER
       do
@@ -840,7 +848,7 @@ feature {}
          function_body.append(once "break;%N")
       end
 
-   compile_inspect_as_ifthenelse (visited: INSPECT_STATEMENT) is
+   compile_inspect_as_ifthenelse (visited: INSPECT_STATEMENT)
       local
          i: INTEGER; last_compound: INSTRUCTION
       do
@@ -870,7 +878,7 @@ feature {}
          end
       end
 
-   compile_manifest_string_inspector (inspect_statement: INSPECT_STATEMENT) is
+   compile_manifest_string_inspector (inspect_statement: INSPECT_STATEMENT)
       require
          cpp.pending_c_function
       local
@@ -1020,17 +1028,17 @@ feature {}
          i_internal_c_local.unlock
       end
 
-   compile_as_loop_invariant (assertion_list: ASSERTION_LIST) is
+   compile_as_loop_invariant (assertion_list: ASSERTION_LIST)
          -- A require assertion with only one item.
       do
          if not assertion_list.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            assertion_list.do_all(agent compile_assertion_as_loop_invariant(?))
+            assertion_list.for_each(agent compile_assertion_as_loop_invariant(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end
 
-   compile_as_require (assertion_list: REQUIRE_ASSERTION) is
+   compile_as_require (assertion_list: REQUIRE_ASSERTION)
       require
          not assertion_list.is_always_true(type)
       local
@@ -1065,23 +1073,23 @@ feature {}
          end
       end
 
-   compile_as_require_1 (assertion_list: ASSERTION_LIST) is
+   compile_as_require_1 (assertion_list: ASSERTION_LIST)
          -- A require assertion with only one level.
       require
          not assertion_list.is_always_true(type)
       do
-         assertion_list.list.do_all(agent compile_assertion_as_require_1(?))
+         assertion_list.list.for_each(agent compile_assertion_as_require_1(?))
       end
 
-   compile_as_require_n (assertion_list: ASSERTION_LIST) is
+   compile_as_require_n (assertion_list: ASSERTION_LIST)
          -- A require assertion with more than one level.
       require
          not assertion_list.is_always_true(type)
       do
-         assertion_list.do_all(agent compile_assertion_as_require_n(?))
+         assertion_list.for_each(agent compile_assertion_as_require_n(?))
       end
 
-   compile_assertion_as_require_n (assertion: ASSERTION) is
+   compile_assertion_as_require_n (assertion: ASSERTION)
       do
          if not assertion.is_always_true(type) then
             function_body.append(once "if(requireresult){%N")
@@ -1090,42 +1098,42 @@ feature {}
          end
       end
 
-   compile_as_check_compound (assertion_list: ASSERTION_LIST) is
+   compile_as_check_compound (assertion_list: ASSERTION_LIST)
          -- A require assertion with only one item.
       do
          if not assertion_list.is_always_true(type) then
             cpp.stop_recursive_assertion_opening(True)
-            assertion_list.do_all(agent compile_assertion_as_check_compound(?))
+            assertion_list.for_each(agent compile_assertion_as_check_compound(?))
             cpp.stop_recursive_assertion_closing(True)
          end
       end
 
-   compile_assertion_as_check_compound (assertion: ASSERTION) is
+   compile_assertion_as_check_compound (assertion: ASSERTION)
       do
          compile_assertion(assertion, once "ac_civ")
       end
 
-   compile_assertion_as_loop_invariant (assertion: ASSERTION) is
+   compile_assertion_as_loop_invariant (assertion: ASSERTION)
       do
          compile_assertion(assertion, once "ac_liv")
       end
 
-   compile_assertion_as_require_1 (assertion: ASSERTION) is
+   compile_assertion_as_require_1 (assertion: ASSERTION)
       do
          compile_assertion(assertion, once "ac_req")
       end
 
-   compile_assertion_as_ensure (assertion: ASSERTION) is
+   compile_assertion_as_ensure (assertion: ASSERTION)
       do
          compile_assertion(assertion, once "ac_ens")
       end
 
-   compile_assertion_as_class_invariant (assertion: ASSERTION) is
+   compile_assertion_as_class_invariant (assertion: ASSERTION)
       do
          compile_assertion(assertion, once "ac_inv")
       end
 
-   compile_assertion (assertion: ASSERTION; check_assertion_mode: STRING) is
+   compile_assertion (assertion: ASSERTION; check_assertion_mode: STRING)
       local
          tag_name: STRING
       do
@@ -1151,9 +1159,9 @@ end -- class C_CODE_COMPILER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

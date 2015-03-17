@@ -32,14 +32,14 @@ feature {ABSTRACT_BACKTRACKING}
          -- exploration of the current sequence.
          -- Managed by ABSTRACT_BACKTRACKING.
 
-   set_continuation (value: like continuation) is
+   set_continuation (value: like continuation)
       do
          continuation := value
       ensure
          definition: continuation = value
       end
 
-   next_sequence (explorer: ABSTRACT_BACKTRACKING) is
+   next_sequence (explorer: ABSTRACT_BACKTRACKING)
          -- Called by ABSTRACT_BACKTRACKING to let
          -- the current object switch to the next state
          -- to explore.
@@ -56,13 +56,13 @@ feature {ABSTRACT_BACKTRACKING}
 
 end -- class ABSTRACT_BACKTRACKING_SEQUENCE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

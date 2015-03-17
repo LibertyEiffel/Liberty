@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   old_name: LIBERTY_AST_FEATURE_NAME is
+   old_name: LIBERTY_AST_FEATURE_NAME
       do
          Result ::= nodes.item(0)
       end
 
-   new_name: LIBERTY_AST_FEATURE_NAME is
+   new_name: LIBERTY_AST_FEATURE_NAME
       do
          Result ::= nodes.item(2)
       end
 
 feature {ANY}
-   count: INTEGER is 3
+   count: INTEGER 3
 
-   name: STRING is "Rename"
+   name: STRING "Rename"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 3 >> }
       end

@@ -7,12 +7,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make (a_custom_data: ANY) is
+   make (a_custom_data: ANY)
       do
          custom_data := a_custom_data
       end
 
-   data: TEST_SIMPLIFY17 is
+   data: TEST_SIMPLIFY17
       do
          Result ?= custom_data
       end
@@ -20,7 +20,7 @@ feature {ANY}
    custom_data: ANY
 
 feature {ANY}
-   process is
+   process
       local
          t: INTEGER
       do

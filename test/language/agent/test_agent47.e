@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_AGENT47
       do
@@ -29,7 +29,7 @@ feature {ANY}
          aux.test(Current)
       end
 
-   f is
+   f
       do
          assert(memory.item.is_equal("In agent 47%N"))
          memory.set_item(Void)

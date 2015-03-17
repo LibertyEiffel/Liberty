@@ -10,7 +10,7 @@ create {ANY}
 feature {}
    iterator: ITERATOR_WITH_VARIANT[INTEGER]
 
-   make is
+   make
       local
          simple_iterator: ITERATOR[INTEGER]
       do
@@ -22,7 +22,7 @@ feature {}
          traverse
       end
 
-   traverse is
+   traverse
       do
          from
             iterator.start

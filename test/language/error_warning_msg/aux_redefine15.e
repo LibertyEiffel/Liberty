@@ -4,7 +4,7 @@
 class AUX_REDEFINE15
 
 feature {ANY}
-   foo (bar: ARRAY[INTEGER_32]) is
+   foo (bar: ARRAY[INTEGER_32])
       do
       end
 

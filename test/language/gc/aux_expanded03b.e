@@ -3,7 +3,7 @@
 --
 expanded class AUX_EXPANDED03B[X]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
@@ -11,12 +11,12 @@ feature {ANY}
 
    name: STRING
 
-   make is
+   make
       do
          name := ("foo").twin
       end
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       end

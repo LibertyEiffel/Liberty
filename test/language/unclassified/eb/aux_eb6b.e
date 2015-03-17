@@ -4,7 +4,7 @@
 deferred class AUX_EB6B
 
 feature {ANY}
-   foo is
+   foo
       deferred
       end
 

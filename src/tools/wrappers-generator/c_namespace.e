@@ -46,6 +46,7 @@ feature {ANY}
       end
 
    are_members_wrapped: BOOLEAN
+      -- Shall the members of th namespace be wrapped?
 
    compute_eiffel_name
          -- Compute cluster name as basename of path (its last part).

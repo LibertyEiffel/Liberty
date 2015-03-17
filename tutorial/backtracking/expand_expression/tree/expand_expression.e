@@ -51,7 +51,7 @@ create {ANY}
    make
 
 feature {ANY} -- make
-   make is
+   make
          -- read one line and treat it until end of input
       do
          from
@@ -66,7 +66,7 @@ feature {ANY} -- make
          end
       end
 
-   initialise is
+   initialise
          -- initialisation
       do
          create buffer.make(10)
@@ -83,7 +83,7 @@ feature {ANY} -- enumeration of expansions
 
    top: INTEGER
 
-   expand_all is
+   expand_all
          -- print all the expansions of the root
       local
          i, n: INTEGER
@@ -121,32 +121,32 @@ feature {ANY} -- enumeration of expansions
          io.flush
       end
 
-   context_clear is
+   context_clear
       do
          context.clear_count
          stack.clear_count
          top := 0
       end
 
-   context_push is
+   context_push
       do
          context.add_last(top)
          top := stack.count
       end
 
-   context_restore is
+   context_restore
       do
          stack.resize(top)
       end
 
-   context_restore_and_pop is
+   context_restore_and_pop
       do
          stack.resize(top)
          top := context.last
          context.remove_last
       end
 
-   context_cut is
+   context_cut
          -- no cut allowed
       do
          check
@@ -155,7 +155,7 @@ feature {ANY} -- enumeration of expansions
       end
 
 feature {ANY} -- parsing
-   parse is
+   parse
          -- initialise the mini_parser_buffer behavior
          -- then call parse and treat syntax errors with
          -- exceptions
@@ -195,7 +195,7 @@ feature {ANY} -- parsing
          retry
       end
 
-   parse_alternative: BACKTRACKING_NODE is
+   parse_alternative: BACKTRACKING_NODE
          -- parse an alternative recurssively to construct tree
          -- balanced to the right because it is more efficient
       do
@@ -207,7 +207,7 @@ feature {ANY} -- parsing
          end
       end
 
-   parse_sequence: BACKTRACKING_NODE is
+   parse_sequence: BACKTRACKING_NODE
          -- parse a sequence recurssively to construct tree
          -- balanced to the right because it is more efficient
       do
@@ -217,7 +217,7 @@ feature {ANY} -- parsing
          end
       end
 
-   parse_term: BACKTRACKING_NODE is
+   parse_term: BACKTRACKING_NODE
          -- parse a term
       do
          -- skip any '.' that are noise

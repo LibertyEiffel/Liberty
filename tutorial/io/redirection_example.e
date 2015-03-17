@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          log_name: STRING; log_file: TEXT_FILE_WRITE
       do

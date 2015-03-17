@@ -27,8 +27,62 @@ feature {ANY}
 
    total_time: INTEGER_64
 
+feature {ANY}
+   predefined_type_mark (tm: STRING; sp: POSITION): TYPE_MARK is
+      require
+         tm /= Void
+      do
+         inspect
+            tm
+         when "ANY" then
+               create {ANY_TYPE_MARK} Result.make(sp)
+         when "BOOLEAN" then
+            create {BOOLEAN_TYPE_MARK} Result.make(sp)
+         when "CHARACTER" then
+            create {CHARACTER_TYPE_MARK} Result.make(sp)
+         when "INTEGER_8" then
+            create {INTEGER_TYPE_MARK} Result.integer_8(sp)
+         when "INTEGER_16" then
+            create {INTEGER_TYPE_MARK} Result.integer_16(sp)
+         when "INTEGER_32" then
+            create {INTEGER_TYPE_MARK} Result.integer_32(sp)
+         when "INTEGER" then
+            create {INTEGER_TYPE_MARK} Result.integer(sp)
+         when "INTEGER_64" then
+            create {INTEGER_TYPE_MARK} Result.integer_64(sp)
+         when "NATURAL_8" then
+            create {NATURAL_TYPE_MARK} Result.natural_8(sp)
+         when "NATURAL_16" then
+            create {NATURAL_TYPE_MARK} Result.natural_16(sp)
+         when "NATURAL_32" then
+            create {NATURAL_TYPE_MARK} Result.natural_32(sp)
+         when "NATURAL_64" then
+            create {NATURAL_TYPE_MARK} Result.natural_64(sp)
+         when "NATURAL" then
+            create {NATURAL_TYPE_MARK} Result.natural(sp)
+         when "POINTER" then
+            create {POINTER_TYPE_MARK} Result.make(sp)
+         when "REAL_32" then
+            create {REAL_TYPE_MARK} Result.real_32(sp)
+         when "REAL_64" then
+            create {REAL_TYPE_MARK} Result.real_64(sp)
+         when "REAL" then
+            create {REAL_TYPE_MARK} Result.real(sp)
+         when "REAL_80" then
+            create {REAL_TYPE_MARK} Result.real_80(sp)
+         when "REAL_128" then
+            create {REAL_TYPE_MARK} Result.real_128(sp)
+         when "REAL_EXTENDED" then
+            create {REAL_TYPE_MARK} Result.real_extended(sp)
+         when "STRING" then
+            create {STRING_TYPE_MARK} Result.make(sp)
+         else
+            check Result = Void end
+         end
+      end
+
 feature {SMART_EIFFEL}
-   analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT is
+   analyse_class (class_name: CLASS_NAME; a_cluster: CLUSTER): CLASS_TEXT
       require
          not is_running
          not smart_eiffel.is_ready
@@ -138,7 +192,7 @@ feature {SMART_EIFFEL}
          not parser_buffer.is_ready
       end
 
-   analyse_buffer: CLASS_TEXT is
+   analyse_buffer: CLASS_TEXT
          -- Scan the header of the `parser_buffer' in order to find the name of
          -- the class in order to launch `analyse_class' with the appropriate
          -- argument. (This is used for to handle the "include" option of ACE
@@ -176,7 +230,7 @@ feature {SMART_EIFFEL}
                   n.extend(cc)
                   next_char
                end
-               create cn.unknown_position(string_aliaser.hashed_string(n))
+               create cn.unknown_position(string_aliaser.hashed_string(n), False)
             else
                from
                until
@@ -197,13 +251,13 @@ feature {SMART_EIFFEL}
       end
 
 feature {ACE, COMMAND_LINE_TOOLS}
-   set_no_rescue is
+   set_no_rescue
       do
          no_rescue := True
       end
 
 feature {CECIL_FILE}
-   connect_to_cecil (a_path: STRING): STRING is
+   connect_to_cecil (a_path: STRING): STRING
          -- Return the cecil file user's include path (first information).
       require
          not is_running
@@ -251,12 +305,12 @@ feature {CECIL_FILE}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := cc = end_of_text
       end
 
-   parse_c_name: STRING is
+   parse_c_name: STRING
       do
          from
             create Result.make(32)
@@ -269,7 +323,7 @@ feature {CECIL_FILE}
          skip_comments
       end
 
-   parse_type_mark: TYPE_MARK is
+   parse_type_mark: TYPE_MARK
       do
          if a_static_type_mark(False) then
             Result := last_type_mark
@@ -282,7 +336,7 @@ feature {CECIL_FILE}
          nb_errors = 0
       end
 
-   parse_feature_name: FEATURE_NAME is
+   parse_feature_name: FEATURE_NAME
       do
          if a_feature_name then
             Result := last_feature_name
@@ -295,19 +349,19 @@ feature {CECIL_FILE}
          nb_errors = 0
       end
 
-   parse_cecil_is_creation: BOOLEAN is
+   parse_cecil_is_creation: BOOLEAN
       do
          Result := a_creation_keyword
       end
 
-   disconnect is
+   disconnect
       do
          is_running := False
          parser_buffer.release
       end
 
 feature {}
-   a_creation_keyword: BOOLEAN is
+   a_creation_keyword: BOOLEAN
       local
          l, c: INTEGER
       do
@@ -318,13 +372,13 @@ feature {}
          elseif a_keyword(fz_creation) then
             error_handler.add_position(pos(l, c))
             error_handler.append(once "The keyword 'creation' is now replaced by 'create'. Please update your code.")
-            error_handler.print_as_style_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
+            error_handler.print_as_warning --| **** TODO: make it a warning (in Bell), then an error (in Curtiss); then remove the keyword (in Curtiss+1)
             Result := True
          end
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       do
          show_total_time
          show_nb_warnings
@@ -332,14 +386,14 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   show_total_time is
+   show_total_time
       do
          echo.put_string("Total time spent in parser: ")
          echo.put_time(total_time)
          echo.put_new_line
       end
 
-   show_nb_warnings is
+   show_nb_warnings
       local
          do_it: BOOLEAN
       do
@@ -354,26 +408,26 @@ feature {}
          end
       end
 
-   show_nb_errors is
+   show_nb_errors
       do
          show_nb(nb_errors, once " error")
       end
 
 feature {COMPILE_TO_C, RUN, LLVMEC}
-   set_drop_comments is
+   set_drop_comments
       do
          drop_comments := True
       end
 
 feature {}
    -- To add extra contextual information:
-   Expression_syntax_flag: INTEGER_8 is           0
+   Expression_syntax_flag: INTEGER_8           0
          -- Any possible complex expression.
-   Instruction_syntax_flag: INTEGER_8 is          1
+   Instruction_syntax_flag: INTEGER_8          1
          -- Any possible complex instruction.
-   Atomic_syntax_flag: INTEGER_8 is               2
+   Atomic_syntax_flag: INTEGER_8               2
          -- Simple value whith not dot.
-   When_inspect_syntax_flag: INTEGER_8 is         3
+   When_inspect_syntax_flag: INTEGER_8         3
          -- Expression in "when" part of "inspect".
 
 feature {}
@@ -395,6 +449,9 @@ feature {}
    inside_rescue_flag: BOOLEAN
          -- True during the parsing of a rescue clause.
 
+   inside_class_invariant_flag: BOOLEAN
+         -- True during the parsing of a class invariant.
+
    tuple_flag: BOOLEAN
          -- True when we are parsing the special tuple.e file.
 
@@ -406,6 +463,10 @@ feature {}
 
    local_vars: LOCAL_VAR_LIST
          -- Void or actual local variables list.
+
+   closure_arguments: RING_ARRAY[FORMAL_ARG_LIST]
+
+   closure_local_vars: RING_ARRAY[LOCAL_VAR_LIST]
 
    ok: BOOLEAN
          -- Dummy variable to call functions.
@@ -430,27 +491,27 @@ feature {}
 
    last_tag_mark: TAG_NAME
 
-   S_just_started_manifest_number_or_generic_manifest: INTEGER is 0
-   S_after_sign_of_some_number:                        INTEGER is 1
-   S_after_open_curly_brace:                           INTEGER is 2
-   S_inside_some_number:                               INTEGER is 3
-   S_inside_a_real_just_after_the_dot:                 INTEGER is 4
-   S_after_real_waiting_the_closing_curly:             INTEGER is 5
-   S_after_integer_waiting_the_closing_curly:          INTEGER is 6
-   S_first_hexadecimal_digit:                          INTEGER is 7
-   S_inside_hexadecimal:                               INTEGER is 8
-   S_after_hexadecimal_waiting_the_closing_curly:      INTEGER is 9
-   S_after_type_mark:                                  INTEGER is 10
-   S_inside_fractional_part_of_a_real:                 INTEGER is 11
-   S_just_after_the_e_of_exponent_part_of_a_real:      INTEGER is 12
-   S_inside_exponent_part_of_a_real:                   INTEGER is 13
-   S_inside_manifest_generic:                          INTEGER is 14
+   S_just_started_manifest_number_or_generic_manifest: INTEGER 0
+   S_after_sign_of_some_number:                        INTEGER 1
+   S_after_open_curly_brace:                           INTEGER 2
+   S_inside_some_number:                               INTEGER 3
+   S_inside_a_real_just_after_the_dot:                 INTEGER 4
+   S_after_real_waiting_the_closing_curly:             INTEGER 5
+   S_after_integer_waiting_the_closing_curly:          INTEGER 6
+   S_first_hexadecimal_digit:                          INTEGER 7
+   S_inside_hexadecimal:                               INTEGER 8
+   S_after_hexadecimal_waiting_the_closing_curly:      INTEGER 9
+   S_after_type_mark:                                  INTEGER 10
+   S_inside_fractional_part_of_a_real:                 INTEGER 11
+   S_just_after_the_e_of_exponent_part_of_a_real:      INTEGER 12
+   S_inside_exponent_part_of_a_real:                   INTEGER 13
+   S_inside_manifest_generic:                          INTEGER 14
 
-   S_finished_with_no_error_and_true:                  INTEGER is 20
-   S_finished_with_no_error_and_false:                 INTEGER is 21
+   S_finished_with_no_error_and_true:                  INTEGER 20
+   S_finished_with_no_error_and_false:                 INTEGER 21
 
 
-   a_manifest_or_type_test (syntax_flag: INTEGER_8): BOOLEAN is
+   a_manifest_or_type_test (syntax_flag: INTEGER_8): BOOLEAN
          --  ++ manifest_or_type_test_expression -> manifest_or_type_test [ "." after_a_dot ]
          --  ++ manifest_or_type_test -> integer |
          --  ++                      real |
@@ -1129,7 +1190,7 @@ feature {}
          (Result and (syntax_flag = Expression_syntax_flag)) implies last_expression /= Void
       end
 
-   integer_overflow_error (l, c: INTEGER; normal_integer_view: STRING) is
+   integer_overflow_error (l, c: INTEGER; normal_integer_view: STRING)
       do
          error_handler.add_position(pos(l, c))
          error_handler.append(once "Overflow while reading integer constant. Value `")
@@ -1138,14 +1199,14 @@ feature {}
          error_handler.print_as_error
       end
 
-   a_argument: BOOLEAN is
+   a_argument_ (args: like arguments; closure_rank: INTEGER): BOOLEAN
       local
          rank: INTEGER
       do
-         if arguments /= Void then
-            rank := arguments.rank_of(token_buffer.buffer)
+         if args /= Void then
+            rank := args.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_argument_name2(arguments, rank)
+               last_expression := token_buffer.to_argument_name_ref(args, rank, closure_rank)
                Result := True
                if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
                   error_handler.add_position(pos(start_line, start_column))
@@ -1160,17 +1221,78 @@ feature {}
          end
       end
 
-   a_formal_arg_list: BOOLEAN is
+   a_argument: BOOLEAN
+      local
+         i: INTEGER
+      do
+         Result := a_argument_(arguments, 0)
+         if closure_arguments /= Void then
+            from
+               i := closure_arguments.lower
+            until
+               Result or else i > closure_arguments.upper
+            loop
+               Result := a_argument_(closure_arguments.item(i), i - closure_arguments.lower + 1)
+               i := i + 1
+            end
+         end
+      end
+
+   check_name_rank (name: LOCAL_ARGUMENT_DEF; dl: DECLARATION_LIST; err: STRING): BOOLEAN
+      local
+         rank: INTEGER
+      do
+         if dl /= Void then
+            rank := dl.fast_rank_of(name.to_string)
+         end
+         if rank = 0 then
+            Result := True
+         else
+            error_handler.add_position(name.start_position)
+            error_handler.add_position(dl.name(rank).start_position)
+            error_handler.append(err)
+            error_handler.print_as_error
+         end
+      end
+
+   check_name_rank_and_closure (name: LOCAL_ARGUMENT_DEF)
+      local
+         i: INTEGER; failed: BOOLEAN
+      do
+         if closure_arguments /= Void then
+            from
+               i := closure_arguments.lower
+            until
+               failed or else i > closure_arguments.upper
+            loop
+               failed := not check_name_rank(name, closure_arguments.item(i), em26_2)
+               i := i + 1
+            end
+         end
+         if closure_local_vars /= Void then
+            from
+               i := closure_local_vars.lower
+            until
+               failed or else i > closure_local_vars.upper
+            loop
+               failed := not check_name_rank(name, closure_local_vars.item(i), em26_2)
+               i := i + 1
+            end
+         end
+      end
+
+   a_formal_arg_list: BOOLEAN
          --  ++ formal_arg_list -> ["(" {declaration_group ";" ...} ")"]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
-         name: ARGUMENT_NAME1; name_list: ARRAY[ARGUMENT_NAME1]; declaration: DECLARATION
-         list: ARRAY[DECLARATION]; state: INTEGER
+         name: ARGUMENT_NAME_DEF; name_list: ARRAY[ARGUMENT_NAME_DEF]; declaration: DECLARATION
+         list: ARRAY[DECLARATION]; state: INTEGER; sp: POSITION
       do
          Result := True
          arguments := Void
          if skip1('(') then
             from
+               sp := pos(start_line, start_column)
             until
                state > 4
             loop
@@ -1179,7 +1301,8 @@ feature {}
                when 0 then
                   -- Waiting for the first name of a group.
                   if a_ordinary_feature_name_or_local_name then
-                     name := token_buffer.to_argument_name1
+                     name := token_buffer.to_argument_name_def
+                     check_name_rank_and_closure(name)
                      state := 1
                   elseif skip1(')') then
                      state := 5
@@ -1206,7 +1329,8 @@ feature {}
                when 2 then
                   -- Waiting for a name (not the first).
                   if a_ordinary_feature_name_or_local_name then
-                     name := token_buffer.to_argument_name1
+                     name := token_buffer.to_argument_name_def
+                     check_name_rank_and_closure(name)
                      state := 1
                   elseif cc = ',' or else cc = ';' then
                      error_handler.add_position(current_position)
@@ -1260,13 +1384,13 @@ feature {}
                error_handler.append(once "Empty formal argument list (deleted).")
                error_handler.print_as_style_warning
             else
-               create arguments.make(list)
+               create arguments.make(sp, list)
                tmp_feature.set_arguments(arguments)
             end
          end
       end
 
-   error_handler_append_info_about_feature_name is
+   error_handler_append_info_about_feature_name
       do
          error_handler.append(once "Cannot use an uppercase letter inside such an identifier. %
          %Yes, this rule is strict, but it is better for all of us to be able %
@@ -1277,9 +1401,9 @@ feature {}
          %the compiler.")
       end
 
-   a_local_name1: BOOLEAN is
-         -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME1 name.
-         -- See also `a_local_name2' and use the good one.
+   a_local_name_def: BOOLEAN
+         -- Used inside `a_local_var_list' in order to detect a LOCAL_NAME_DEF name.
+         -- See also `a_local_name_ref' and use the good one.
       local
          backward_column: INTEGER; stop, lower_case_letter_encountered, may_be_a_keyword: BOOLEAN
          not_an_identifier: BOOLEAN
@@ -1353,38 +1477,38 @@ feature {}
          end
       end
 
-   S_waiting_for_the_first_name_of_a_group: INTEGER is 0
-   S_waiting_for_colon_or_semicolon:        INTEGER is 1
-   S_waiting_for_a_second_local_name:       INTEGER is 2
-   S_waiting_for_a_type_mark:               INTEGER is 3
-   S_waiting_for_optional_colon:            INTEGER is 4
+   S_waiting_for_the_first_name_of_a_group: INTEGER 0
+   S_waiting_for_colon_or_semicolon:        INTEGER 1
+   S_waiting_for_a_second_local_name:       INTEGER 2
+   S_waiting_for_a_type_mark:               INTEGER 3
+   S_waiting_for_optional_colon:            INTEGER 4
 
-   a_local_var_list is
+   check_local_var_rank_and_closure (name: LOCAL_NAME_DEF)
+      do
+         if check_name_rank(name, arguments, em26) then
+            check_name_rank_and_closure(name)
+         end
+      end
+
+   a_local_var_list
          --  ++ local_var_list -> [{declaration_group ";" ...}]
          --  ++ declaration_group -> {identifier "," ...}+ ":" type_mark
       local
-         name: LOCAL_NAME1; name_list: ARRAY[LOCAL_NAME1]; declaration: DECLARATION; list: ARRAY[DECLARATION]
-         rank, state: INTEGER; sp: POSITION
+         name: LOCAL_NAME_DEF; name_list: ARRAY[LOCAL_NAME_DEF]; declaration: DECLARATION; list: ARRAY[DECLARATION]
+         state: INTEGER; sp, p: POSITION
       do
          from
+            sp := current_position
          until
             state > S_waiting_for_optional_colon
          loop
             inspect
                state
             when S_waiting_for_the_first_name_of_a_group then
-               if a_local_name1 then
-                  name := token_buffer.to_local_name1
+               if a_local_name_def then
+                  name := token_buffer.to_local_name_def
                   state := S_waiting_for_colon_or_semicolon
-                  if arguments /= Void then
-                     rank := arguments.fast_rank_of(name.to_string)
-                     if rank > 0 then
-                        error_handler.add_position(name.start_position)
-                        error_handler.add_position(arguments.name(rank).start_position)
-                        error_handler.append(em26)
-                        error_handler.print_as_error
-                     end
-                  end
+                  check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
@@ -1417,26 +1541,18 @@ feature {}
                   state := S_waiting_for_a_second_local_name
                end
             when S_waiting_for_a_second_local_name then
-               if a_local_name1 then
-                  name := token_buffer.to_local_name1
+               if a_local_name_def then
+                  name := token_buffer.to_local_name_def
                   state := S_waiting_for_colon_or_semicolon
-                  if arguments /= Void then
-                     rank := arguments.fast_rank_of(name.to_string)
-                     if rank > 0 then
-                        error_handler.add_position(name.start_position)
-                        error_handler.add_position(arguments.name(rank).start_position)
-                        error_handler.append(em26)
-                        error_handler.print_as_error
-                     end
-                  end
+                  check_local_var_rank_and_closure(name)
                elseif cc = ',' or else cc = ';' then
                   error_handler.add_position(current_position)
                   error_handler.append(em13)
                   error_handler.print_as_style_warning
                   ok := skip1(',') or else skip1(';')
                elseif a_type_mark(False) then
-                  sp := last_type_mark.start_position
-                  go_back_at(sp.line, sp.column)
+                  p := last_type_mark.start_position
+                  go_back_at(p.line, p.column)
                   error_handler.add_position(current_position)
                   error_handler.append(once "Added missing %":%" semicolon before this type mark.")
                   error_handler.print_as_warning
@@ -1479,38 +1595,63 @@ feature {}
             end
          end
          if list /= Void then
-            create local_vars.make(list)
+            create local_vars.make(sp, list)
             tmp_feature.set_local_vars(local_vars)
          end
       end
 
-   a_local_name2: BOOLEAN is
+   a_local_name_ref_ (vars: like local_vars; closure_rank: INTEGER): BOOLEAN
          -- Used to detect the usage of some local variable.
-         -- See also `a_local_name1' and use the good one.
+         -- See also `a_local_name_def' and use the good one.
       local
          rank: INTEGER
       do
-         if local_vars /= Void then
-            rank := local_vars.rank_of(token_buffer.buffer)
+         if vars /= Void then
+            rank := vars.rank_of(token_buffer.buffer)
             if rank > 0 then
-               last_expression := token_buffer.to_local_name2(local_vars, rank)
+               last_expression := token_buffer.to_local_name_ref(vars, rank, closure_rank)
+               Result := True
                if inside_ensure_flag then
                   error_handler.add_position(last_expression.start_position)
                   error_handler.append(once "Must not use local variable in ensure assertions (VEEN).")
                   error_handler.print_as_fatal_error
+               elseif closure_rank > 0 and then (skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=')) then
+                  error_handler.add_position(pos(start_line, start_column))
+                  error_handler.append(once "Local name ")
+                  error_handler.add_expression(last_expression)
+                  error_handler.append(once " is not writable (reached through closure). Cannot use ")
+                  error_handler.add_expression(last_expression)
+                  error_handler.append(once " for the left-hand side of an assignment.")
+                  error_handler.print_as_fatal_error
                end
-               Result := True
             end
          end
       end
 
-   get_comment: COMMENT is
+   a_local_name_ref: BOOLEAN
+      local
+         i: INTEGER
+      do
+         Result := a_local_name_ref_(local_vars, 0)
+         if closure_local_vars /= Void then
+            from
+               i := closure_local_vars.lower
+            until
+               Result or else i > closure_local_vars.upper
+            loop
+               Result := a_local_name_ref_(closure_local_vars.item(i), i - closure_local_vars.lower + 1)
+               i := i + 1
+            end
+         end
+      end
+
+   get_comment: COMMENT
       do
          Result := last_comment
          last_comment := Void
       end
 
-   skip2 (c1, c2: CHARACTER): BOOLEAN is
+   skip2 (c1, c2: CHARACTER): BOOLEAN
       require
          c1 /= '%N' and c2 /= '%N'
       do
@@ -1529,7 +1670,7 @@ feature {}
          end
       end
 
-   skip3 (c1, c2, c3: CHARACTER): BOOLEAN is
+   skip3 (c1, c2, c3: CHARACTER): BOOLEAN
       require
          c1 /= '%N' and c2 /= '%N' and c3 /= '%N'
       do
@@ -1554,7 +1695,7 @@ feature {}
          end
       end
 
-   skip1unless2 (c1, c2: CHARACTER): BOOLEAN is
+   skip1unless2 (c1, c2: CHARACTER): BOOLEAN
       do
          start_line := line
          start_column := column
@@ -1570,7 +1711,7 @@ feature {}
          end
       end
 
-   a_character_constant (syntax_flag: INTEGER_8): BOOLEAN is
+   a_character_constant (syntax_flag: INTEGER_8): BOOLEAN
       require
          (syntax_flag = Atomic_syntax_flag) xor
          (syntax_flag = Expression_syntax_flag) xor
@@ -1752,6 +1893,10 @@ feature {}
                if cc = '.' then
                   next_char
                   Result := just_after_a_dot(False, last_expression)
+               elseif cc = '(' then
+                  Result := a_alias_parentheses(False, last_expression)
+               elseif cc = '[' then
+                  Result := a_alias_brackets(False, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1762,12 +1907,20 @@ feature {}
                      error_handler.print_as_style_warning
                      next_char
                      Result := just_after_a_dot(False, last_expression)
+                  elseif not skipped_new_line and then cc = '(' then
+                     Result := a_alias_parentheses(False, last_expression)
+                  elseif not skipped_new_line and then cc = '[' then
+                     Result := a_alias_brackets(False, last_expression)
                   end
                end
             when Instruction_syntax_flag then
                if cc = '.' then
                   next_char
                   Result := just_after_a_dot(True, last_expression)
+               elseif cc = '(' then
+                  Result := a_alias_parentheses(True, last_expression)
+               elseif cc = '[' then
+                  Result := a_alias_brackets(True, last_expression)
                else
                   skip_comments
                   if cc = '.' then
@@ -1778,13 +1931,17 @@ feature {}
                      error_handler.print_as_style_warning
                      next_char
                      Result := just_after_a_dot(True, last_expression)
+                  elseif not skipped_new_line and then cc = '(' then
+                     Result := a_alias_parentheses(True, last_expression)
+                  elseif not skipped_new_line and then cc = '[' then
+                     Result := a_alias_brackets(True, last_expression)
                   end
                end
             end
          end
       end
 
-   an_allowed_expression_in_when_of_inspect: BOOLEAN is
+   an_allowed_expression_in_when_of_inspect: BOOLEAN
          -- Only True for static values allowed in "when of inspect".
       local
          implicit_current: IMPLICIT_CURRENT; sfn: FEATURE_NAME
@@ -1819,7 +1976,7 @@ feature {}
          end
       end
 
-   a_class_name: BOOLEAN is
+   a_class_name: BOOLEAN
          -- The class name found is left in the `token_buffer'.
       local
          stop: BOOLEAN
@@ -1858,15 +2015,15 @@ feature {}
          no_class_name_looks_like_a_keyword: Result implies (not token_buffer.isa_keyword)
       end
 
-   a_base_class_name: BOOLEAN is
+   a_base_class_name: BOOLEAN
       do
          if a_class_name then
             Result := True
-            last_class_name := token_buffer.to_class_name
+            last_class_name := token_buffer.to_class_name(False)
          end
       end
 
-   a_base_class_name1 is
+   a_base_class_name_def
          -- Read the current class text name which is just after the "class" keyword.
       local
          cn: CLASS_NAME; bc: CLASS_TEXT
@@ -1897,7 +2054,7 @@ feature {}
             error_handler.append(token_buffer.buffer)
             error_handler.append(once "%".")
             error_handler.print_as_warning
-            last_class_name := token_buffer.to_class_name
+            last_class_name := token_buffer.to_class_name(False)
          else
             error_handler.add_position(current_position)
             error_handler.append(once "Name of the current class expected.")
@@ -1910,7 +2067,7 @@ feature {}
          end
       end
 
-   a_formal_generic_type_mark: BOOLEAN is
+   a_formal_generic_type_mark: BOOLEAN
       local
          sp: POSITION; fga: FORMAL_GENERIC_ARG; cn: CLASS_NAME; rank: INTEGER
       do
@@ -1923,7 +2080,7 @@ feature {}
                fga := formal_generic_list.item(rank)
                if a_keyword(fga.name.to_string) then
                   sp := pos(start_line, start_column)
-                  create cn.make(fga.name.hashed_name, sp)
+                  create cn.make(fga.name.hashed_name, sp, True)
                   create last_formal_generic_type_mark.make(cn, fga, rank)
                   Result := True
                end
@@ -1932,61 +2089,78 @@ feature {}
          end
       end
 
-   a_free_operator_definition (prefix_flag: BOOLEAN): BOOLEAN is
+   freeop_prefix: INTEGER_8 1
+   freeop_infix: INTEGER_8 2
+   freeop_alias: INTEGER_8 3
+
+   a_free_operator_definition (freeop: INTEGER_8; sp: POSITION): BOOLEAN
          -- A free operator name definition (the one which comes after the
          -- "infix" keyword or the "prefix" keyword at the definition
          -- place). A free operator must start and finish with one of the
          -- following character:  +-*/\=<>@#|&~
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          stop: BOOLEAN; l, c: INTEGER
       do
-         inspect
-            cc
-         when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~' then
-            l := line
-            c := column
-            buffer.clear_count
-            Result := True
-            from
-               buffer.extend(cc)
-               next_char
-            until
-               stop
-            loop
-               inspect
-                  cc
-               when '.', '?', '{', '}' then
-                  Result := False
+         if freeop = freeop_alias then
+            if skip2('[', ']') then
+               create last_feature_name.alias_name(brackets_name, sp)
+               Result := True
+            elseif skip2('(', ')') then
+               create last_feature_name.alias_name(parentheses_name, sp)
+               Result := True
+            end
+         end
+         if not Result then
+            inspect
+               cc
+            when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~' then
+               l := line
+               c := column
+               buffer.clear_count
+               Result := True
+               from
                   buffer.extend(cc)
                   next_char
-               when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~', '^' then
-                  Result := True
-                  buffer.extend(cc)
-                  next_char
-               else
-                  stop := True
+               until
+                  stop
+               loop
+                  inspect
+                     cc
+                  when '.', '?', '{', '}' then
+                     Result := False
+                     buffer.extend(cc)
+                     next_char
+                  when '+', '-', '*', '/', '\', '=', '<', '>', '@', '#', '|', '&', '~', '^' then
+                     Result := True
+                     buffer.extend(cc)
+                     next_char
+                  else
+                     stop := True
+                  end
                end
+               if not Result then
+                  error_handler.add_position(pos(line, column))
+                  error_handler.append(em43)
+                  error_handler.print_as_fatal_error
+               end
+               if buffer.count = 1 and then buffer.first = '=' then
+                  error_handler.add_position(pos(l, c))
+                  error_handler.append(once "The basic = operator cannot be redefined. (This is a hard-coded builtin that we must trust.)")
+                  error_handler.print_as_fatal_error
+               end
+               create_infix_prefix(freeop, l, c)
             end
-            if not Result then
-               error_handler.add_position(pos(line, column))
-               error_handler.append(em43)
-               error_handler.print_as_fatal_error
-            end
-            if buffer.count = 1 and then buffer.first = '=' then
-               error_handler.add_position(pos(l, c))
-               error_handler.append(once "The basic = operator cannot be redefined. (This is a %
-      %hard-coded builtin that we must trust.)")
-               error_handler.print_as_fatal_error
-            end
-            create_infix_prefix(prefix_flag, l, c)
-         else
          end
       end
 
-   a_free_operator_usage (prefix_flag: BOOLEAN): BOOLEAN is
+   a_free_operator_usage (freeop: INTEGER_8): BOOLEAN
          -- Syntactically, a free operator must start and finish with one
          -- of the following set of characters:  +-*/\=<>@#|&~
          -- Because of priority, traditional operators are not handled here.
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          stop: BOOLEAN; l, c: INTEGER
       do
@@ -2055,7 +2229,7 @@ feature {}
             end
             if Result then
                skip_comments
-               create_infix_prefix(prefix_flag, l, c)
+               create_infix_prefix(freeop, l, c)
             else
                go_back_at(l, c)
             end
@@ -2063,7 +2237,7 @@ feature {}
          end
       end
 
-   a_retry: BOOLEAN is
+   a_retry: BOOLEAN
       do
          if a_keyword(fz_retry) then
             if not inside_rescue_flag then
@@ -2076,7 +2250,7 @@ feature {}
          end
       end
 
-   a_address_of: BOOLEAN is
+   a_address_of: BOOLEAN
          --  ++ address_of -> "$" identifier
       local
          sp: POSITION; sfn: FEATURE_NAME; local_name: EXPRESSION
@@ -2088,7 +2262,7 @@ feature {}
                create {RESULT} local_name.make(sp)
                create {ADDRESS_OF} last_expression.with_local(local_name)
             elseif a_ordinary_feature_name_or_local_name then
-               if a_local_name2 then
+               if a_local_name_ref then
                   create {ADDRESS_OF} last_expression.with_local(last_expression)
                else
                   sfn := token_buffer.to_feature_name
@@ -2109,58 +2283,81 @@ feature {}
          end
       end
 
-   a_actuals: EFFECTIVE_ARG_LIST is
+   a_actuals: EFFECTIVE_ARG_LIST
          --  ++ actuals -> "(" {actual "," ...} ")"
          --  ++
-      local
-         first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]
       do
-         if skip1('(') then
-            from
-            until
-               not a_expression
-            loop
-               if not skip1(',') and then cc /= ')' then
-                  error_handler.add_position(current_position)
-                  error_handler.append(em5)
-                  error_handler.print_as_warning
-               end
-               if first_one = Void then
-                  first_one := last_expression
-               else
-                  if remainder = Void then
-                     create remainder.with_capacity(4)
-                  end
-                  remainder.add_last(last_expression)
-               end
-            end
-            if first_one = Void then
-               error_handler.add_position(current_position)
-               error_handler.append(once "Empty argument list (deleted).")
-               error_handler.print_as_style_warning
-            else
-               create Result.make_n(first_one, remainder)
-            end
-            if not skip1(')') then
-               error_handler.add_position(current_position)
-               error_handler.append(once "')' expected to end arguments list.")
-               error_handler.print_as_fatal_error
-            end
+         if not skipped_new_line and then cc = '(' then
+            start_line := line
+            start_column := column
+            next_char
+            skip_comments
+            Result := a_actuals_until(')', False)
          end
       end
 
-   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   a_actuals_until (close: CHARACTER; allow_empty: BOOLEAN): EFFECTIVE_ARG_LIST
+         --  ++ actuals -> "(" {actual "," ...} ")"
+         --  ++                ^
+         --  ++
+      local
+         sp, ep: POSITION; first_one: EXPRESSION; remainder: FAST_ARRAY[EXPRESSION]; l, c: INTEGER; snl: BOOLEAN
+      do
+         l := start_line
+         c := start_column
+         snl := skipped_new_line
+         sp := pos(l, c)
+         from
+         until
+            not a_expression
+         loop
+            if not skip1(',') and then cc /= close then
+               error_handler.add_position(current_position)
+               error_handler.append(em5)
+               error_handler.print_as_warning
+            end
+            if first_one = Void then
+               first_one := last_expression
+            else
+               if remainder = Void then
+                  create remainder.with_capacity(4)
+               end
+               remainder.add_last(last_expression)
+            end
+         end
+         if skip1(close) then
+            ep := pos(start_line, start_column)
+         else
+            ep := pos(line, column)
+            error_handler.add_position(current_position)
+            error_handler.extend('%'')
+            error_handler.extend(close)
+            error_handler.append(once "' expected to end arguments list.")
+            error_handler.print_as_fatal_error
+         end
+         if first_one = Void then
+            if not allow_empty then
+               go_back_at(l, c) -- empty actuals is not accepted, further analysis may trigger alias "()"
+               skipped_new_line := snl
+            end
+         else
+            create {EFFECTIVE_ARG_LIST_N} Result.make_n(sp, first_one, remainder)
+            Result.end_position := ep
+         end
+      end
+
+   just_after_a_dot (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
          --  ++ after_a_dot -> identifier [actuals] ["." after_a_dot]
          --  ++
       require
          target /= Void
       local
-         sfn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+         fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
       do
          if a_ordinary_feature_name_or_local_name then
-            sfn := token_buffer.to_feature_name
+            fn := token_buffer.to_feature_name
             eal := a_actuals
-            Result := a_r10(do_instruction, target, sfn, eal)
+            Result := a_r10(do_instruction, target, fn, eal)
          else
             error_handler.add_position(current_position)
             error_handler.append(once "Simple identifier expected just after a dot. %
@@ -2169,7 +2366,45 @@ feature {}
          end
       end
 
-   a_assignment_or_procedure_call: BOOLEAN is
+   a_alias_parentheses (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
+         --  ++ alias_parentheses -> "(" {actual "," ...} ")"
+         --  ++                      ^
+      require
+         target /= Void
+         cc = '('
+      local
+         sp: POSITION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+      do
+         start_line := line
+         start_column := column
+         sp := pos(start_line, start_column)
+         next_char
+         skip_comments
+         eal := a_actuals_until(')', True)
+         create fn.alias_name(parentheses_name, sp)
+         Result := a_r10(do_instruction, target, fn, eal)
+      end
+
+   a_alias_brackets (do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
+         --  ++ alias_brackets -> "[" {actual "," ...} "]"
+         --  ++                   ^
+      require
+         target /= Void
+         cc = '['
+      local
+         sp: POSITION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST
+      do
+         start_line := line
+         start_column := column
+         sp := pos(start_line, start_column)
+         next_char
+         skip_comments
+         eal := a_actuals_until(']', True)
+         create fn.alias_name(brackets_name, sp)
+         Result := a_r10(do_instruction, target, fn, eal)
+      end
+
+   a_assignment_or_procedure_call: BOOLEAN
          --  ++ assignment_or_procedure_call -> "(" expression ")" r10 |
          --  ++                       "Precursor" ["{" type_mark "}"] [actuals] r10 |
          --  ++                       "Current" r10 |
@@ -2212,6 +2447,14 @@ feature {}
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
                Result := just_after_a_dot(True, last_expression)
+            elseif not skipped_new_line and then cc = '(' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_parentheses(True, last_expression)
+            elseif not skipped_new_line and then cc = '[' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_brackets(True, last_expression)
             else
                create {PRECURSOR_INSTRUCTION} last_instruction.make(sp, type_mark, args)
                if inside_function_flag then
@@ -2269,7 +2512,7 @@ feature {}
             end
          elseif a_ordinary_feature_name_or_local_name then
             Result := True
-            if a_local_name2 then
+            if a_local_name_ref then
                writable := last_expression
                if skip2(':', '=') then
                   if a_expression then
@@ -2341,7 +2584,7 @@ feature {}
          Result implies last_instruction /= Void
       end
 
-   a_assignment_call_assigner (do_expression: BOOLEAN): BOOLEAN is
+   a_assignment_call_assigner (do_expression: BOOLEAN): BOOLEAN
       local
          pc: PROCEDURE_CALL; fc: FUNCTION_CALL
          l, c: INTEGER
@@ -2396,13 +2639,13 @@ feature {}
          end
       end
 
-   a_assertion_buffer: FAST_ARRAY[ASSERTION] is
+   a_assertion_buffer: FAST_ARRAY[ASSERTION]
          -- Used only inside `a_assertion'.
       once
          create Result.with_capacity(32)
       end
 
-   a_assertion: FAST_ARRAY[ASSERTION] is
+   a_assertion: FAST_ARRAY[ASSERTION]
          --  ++ assertion -> {assertion_clause ";" ...}
          --  ++ assertion_clause -> [identifier ":"] [expression] [comment]
          --  ++
@@ -2502,115 +2745,125 @@ feature {}
          end
       end
 
-feature {FUNCTION_CALL, EXTERNAL_PROCEDURE}
-   le_name: HASHED_STRING is
+feature {EXTERNAL_PROCEDURE, FEATURE_CALL}
+   brackets_name: HASHED_STRING
+      once
+         Result := string_aliaser.hashed_string(as_brackets)
+      end
+
+   parentheses_name: HASHED_STRING
+      once
+         Result := string_aliaser.hashed_string(as_parentheses)
+      end
+
+   le_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_le)
       end
 
-   ge_name: HASHED_STRING is
+   ge_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_ge)
       end
 
-   slash_slash_name: HASHED_STRING is
+   slash_slash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_slash_slash)
       end
 
-   backslash_backslash_name: HASHED_STRING is
+   backslash_backslash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_backslash_backslash)
       end
 
-   muls_name: HASHED_STRING is
+   muls_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_muls)
       end
 
-   slash_name: HASHED_STRING is
+   slash_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_slash)
       end
 
-   gt_name: HASHED_STRING is
+   gt_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_gt)
       end
 
-   lt_name: HASHED_STRING is
+   lt_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_lt)
       end
 
-   pow_name: HASHED_STRING is
+   pow_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_pow)
       end
 
-   xor_name: HASHED_STRING is
+   xor_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_xor)
       end
 
-   implies_name: HASHED_STRING is
+   implies_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_implies)
       end
 
-   and_name: HASHED_STRING is
+   and_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_and)
       end
 
-   or_name: HASHED_STRING is
+   or_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_or)
       end
 
-   sharp_plus_name: HASHED_STRING is
+   sharp_plus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_plus)
       end
 
-   sharp_minus_name: HASHED_STRING is
+   sharp_minus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_minus)
       end
 
-   sharp_muls_name: HASHED_STRING is
+   sharp_muls_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_sharp_muls)
       end
 
-   plus_name: HASHED_STRING is
+   plus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_plus)
       end
 
-   minus_name: HASHED_STRING is
+   minus_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_minus)
       end
 
-   not_name: HASHED_STRING is
+   not_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_not)
       end
 
 feature {}
-   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING) is
+   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string, source_view: STRING)
       do
          create last_manifest_string.make(p, once_flag, unicode_flag, string)
          last_manifest_string.set_source_view(source_view)
       end
 
-   may_expand_var is
+   may_expand_var
       do
          buffer.extend('$')
       end
 
-   a_binary (sp: POSITION): BOOLEAN is
+   a_binary (sp: POSITION): BOOLEAN
          --  ++ binary -> "<=" | ">=" | "//" | "\\" |
          --  ++           "+" | "-" | "*" | "/" | "<" | ">" | "^" |
          --  ++           xor" | "implies" | "and then" | "and" |
@@ -2668,7 +2921,7 @@ feature {}
          end
       end
 
-   a_boolean_constant: BOOLEAN is
+   a_boolean_constant: BOOLEAN
          --  ++ boolean_constant -> "True" | "False"
          --  ++
       do
@@ -2681,31 +2934,33 @@ feature {}
          end
       end
 
-   a_check: BOOLEAN is
-         --  ++ check -> "check" assertion "end"
+   a_check: BOOLEAN
+         --  ++ check -> "check" assertion [indexing] "end"
          --  ++
       local
-         sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]
+         sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]; chk: CHECK_COMPOUND
       do
          if a_keyword(fz_check) then
             sp := pos(start_line, start_column)
             hc := get_comment
             al := a_assertion
+            if hc /= Void or else al /= Void then
+               create chk.make(sp, hc, al)
+               last_instruction := chk
+               Result := True
+            end
+            a_indexing(chk, Void)
             if not a_keyword(fz_end) then
                error_handler.add_position(sp)
                error_handler.add_position(current_position)
                error_handler.append(once "Keyword %"end%" expected at the end of check clause.")
                error_handler.print_as_fatal_error
-            end
-            if hc /= Void or else al /= Void then
-               create {CHECK_COMPOUND} last_instruction.make(sp, hc, al)
-               Result := True
             elseif skip1(';') then
             end
          end
       end
 
-   a_class_declaration is
+   a_class_declaration
          --  ++ class_declaration -> [indexing]
          --  ++                      ["expanded" | "deferred" | "separate"]
          --  ++                      "class" class_text_name
@@ -2718,14 +2973,19 @@ feature {}
          --  ++                      ["convert" convert_clause]
          --  ++                      {"feature" feature_clause ...}
          --  ++                      ["invariant" assertion]
+         --  ++                      [indexing]
          --  ++                      "end"
          --  ++
       local
          sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]; prefixword: BOOLEAN
          feature_clause: FEATURE_CLAUSE
       do
+         check
+            closure_arguments /= Void implies closure_arguments.is_empty
+            closure_local_vars /= Void implies closure_local_vars.is_empty
+         end
          inline_agents.clear_count
-         a_indexing
+         a_indexing(last_class_text, once "top")
          from
             prefixword := True
          until
@@ -2750,7 +3010,7 @@ feature {}
             error_handler.append(once "Keyword %"class%" expected.")
             error_handler.print_as_fatal_error
          end
-         a_base_class_name1
+         a_base_class_name_def
          a_formal_generic_list
          last_class_text.finish_create
          if a_keyword(fz_obsolete) then
@@ -2769,7 +3029,7 @@ feature {}
          until
             not a_creation_keyword
          loop
-            a_creation_clause(pos(start_line, start_column))
+            last_class_text.add_creation_clause(a_creation_clause(pos(start_line, start_column), True))
          end
          if a_keyword(fz_convert) then
             a_convert_clause(pos(start_line, start_column))
@@ -2782,10 +3042,13 @@ feature {}
          end
          if a_keyword(fz_invariant) then
             sp := pos(start_line, start_column)
+            inside_class_invariant_flag := True
             hc := get_comment
             al := a_assertion
             last_class_text.set_invariant(sp, hc, al)
+            inside_class_invariant_flag := False
          end
+         a_indexing(last_class_text, once "bottom")
          if a_keyword(fz_end) then
             ok := skip1(';')
             last_class_text.set_end_comment(get_comment)
@@ -2813,9 +3076,17 @@ feature {}
             create feature_clause.make(last_class_text, create {CLIENT_LIST}.make(current_position, Void), Void, inline_agents.twin)
             last_class_text.add_feature_clause(feature_clause)
          end
+
+         if closure_arguments /= Void then
+            check
+               closure_local_vars /= Void
+            end
+            closure_arguments.clear_count
+            closure_local_vars.clear_count
+         end
       end
 
-   a_static_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
+   a_static_type_mark (for_client_list: BOOLEAN): BOOLEAN
          --  ++ base_type_mark -> "ANY" | ARRAY "[" type_mark "]" | "BOOLEAN" |
          --  ++         "CHARACTER" | "DOUBLE" | "INTEGER" |
          --  ++         "POINTER" | "REAL" | "STRING" | "TUPLE" |
@@ -2826,14 +3097,12 @@ feature {}
          --  ++
       local
          state: INTEGER; class_text_name: CLASS_NAME; generic_list: ARRAY[TYPE_MARK]
-         sp: POSITION; types: ARRAY[TYPE_MARK]; base_type_mark, open_type_mark, result_type_mark: TYPE_MARK
+         sp: POSITION; types: ARRAY[TYPE_MARK]; tm, base_type_mark, open_type_mark, result_type_mark: TYPE_MARK
       do
          if a_class_name then
             Result := True
             inspect
                token_buffer.buffer
-            when "ANY" then
-               create {ANY_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "ARRAY" then
                sp := token_buffer.start_position
                if skip1('[') and then a_type_mark(False) and then skip1(']') then
@@ -2841,7 +3110,7 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2853,7 +3122,7 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {NATIVE_ARRAY_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
@@ -2865,35 +3134,11 @@ feature {}
                      last_type_mark /= Void
                   end
                   create {WEAK_REFERENCE_TYPE_MARK} last_type_mark.make(sp, last_type_mark)
-               elseif not allow_missing_generics then
+               elseif not for_client_list then
                   error_handler.add_position(current_position)
                   error_handler.append(once "Bad use of predefined type NATIVE_ARRAY.")
                   error_handler.print_as_fatal_error
                end
-            when "BOOLEAN" then
-               create {BOOLEAN_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "CHARACTER" then
-               create {CHARACTER_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "INTEGER_8" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_8(token_buffer.start_position)
-            when "INTEGER_16" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_16(token_buffer.start_position)
-            when "INTEGER_32" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_32(token_buffer.start_position)
-            when "INTEGER" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer(token_buffer.start_position)
-            when "INTEGER_64" then
-               create {INTEGER_TYPE_MARK} last_type_mark.integer_64(token_buffer.start_position)
-            when "NATURAL_8" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_8(token_buffer.start_position)
-            when "NATURAL_16" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_16(token_buffer.start_position)
-            when "NATURAL_32" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_32(token_buffer.start_position)
-            when "NATURAL_64" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural_64(token_buffer.start_position)
-            when "NATURAL" then
-               create {NATURAL_TYPE_MARK} last_type_mark.natural(token_buffer.start_position)
             when "NONE" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "Since february 2006, for SmartEiffel release 2.3, the old legacy NONE type mark is %
@@ -2901,21 +3146,7 @@ feature {}
                                     %exportation at all, hence making NONE unuseful and probably misleading for %
                                     %newcomers. So, just remove this NONE class name right now. Please update your code now.")
                error_handler.print_as_warning
-               create {CLASS_TYPE_MARK} last_type_mark.make(token_buffer.to_class_name)
-            when "POINTER" then
-               create {POINTER_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
-            when "REAL_32" then
-               create {REAL_TYPE_MARK} last_type_mark.real_32(token_buffer.start_position)
-            when "REAL_64" then
-               create {REAL_TYPE_MARK} last_type_mark.real_64(token_buffer.start_position)
-            when "REAL" then
-               create {REAL_TYPE_MARK} last_type_mark.real(token_buffer.start_position)
-            when "REAL_80" then
-               create {REAL_TYPE_MARK} last_type_mark.real_80(token_buffer.start_position)
-            when "REAL_128" then
-               create {REAL_TYPE_MARK} last_type_mark.real_128(token_buffer.start_position)
-            when "REAL_EXTENDED" then
-               create {REAL_TYPE_MARK} last_type_mark.real_extended(token_buffer.start_position)
+               create {CLASS_TYPE_MARK} last_type_mark.make(token_buffer.to_class_name(for_client_list))
             when "DOUBLE" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "No more DOUBLE type mark (update your code). This DOUBLE type %
@@ -2924,8 +3155,6 @@ feature {}
                %to replace automatically all DOUBLE with REAL.")
                error_handler.print_as_warning
                create {REAL_TYPE_MARK} last_type_mark.real(token_buffer.start_position)
-            when "STRING" then
-               create {STRING_TYPE_MARK} last_type_mark.make(token_buffer.start_position)
             when "BIT" then
                error_handler.add_position(token_buffer.start_position)
                error_handler.append(once "No more class BIT since release 2.1. Just use bit operations from %
@@ -3087,71 +3316,76 @@ feature {}
                end
                create {AGENT_TYPE_MARK} last_type_mark.function(sp, open_type_mark, result_type_mark)
             else
-               from
-                  class_text_name := token_buffer.to_class_name
-               until
-                  state > 2
-               loop
-                  inspect
-                     state
-                  when 0 then
-                     -- `class_text_name' read.
-                     if skip1('[') then
-                        state := 1
-                     else
-                        create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
-                        state := 3
-                     end
-                  when 1 then
-                     -- Waiting next generic argument.
-                     if a_type_mark(False) then
-                        if generic_list = Void then
-                           create generic_list.with_capacity(2, 1)
-                        end
-                        generic_list.add_last(last_type_mark)
-                        state := 2
-                     elseif cc = ',' then
-                        error_handler.add_position(current_position)
-                        error_handler.append(em12)
-                        error_handler.print_as_style_warning
-                        ok := skip1(',')
-                     elseif cc = ']' then
-                        state := 2
-                     else
-                        error_handler.add_position(current_position)
-                        error_handler.append(em16)
-                        error_handler.print_as_fatal_error
-                        state := 2
-                     end
-                  when 2 then
-                     -- Waiting ',' or ']'.
-                     if skip1(',') then
-                        state := 1
-                     elseif cc = ']' then
-                        if generic_list = Void then
-                           error_handler.add_position(current_position)
-                           error_handler.append(once "Empty generic list (deleted).")
-                           error_handler.print_as_style_warning
-                           create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+               tm := predefined_type_mark(token_buffer.buffer, token_buffer.start_position)
+               if tm /= Void then
+                  last_type_mark := tm
+               else
+                  from
+                     class_text_name := token_buffer.to_class_name(for_client_list)
+                  until
+                     state > 2
+                  loop
+                     inspect
+                        state
+                     when 0 then
+                        -- `class_text_name' read.
+                        if skip1('[') then
+                           state := 1
                         else
-                           create {USER_GENERIC_TYPE_MARK} last_type_mark.make(class_text_name, generic_list)
+                           create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+                           state := 3
                         end
-                        ok := skip1(']')
-                        state := 3
-                     elseif a_type_mark(False) then
-                        if generic_list = Void then
-                           create generic_list.with_capacity(2, 1)
+                     when 1 then
+                        -- Waiting next generic argument.
+                        if a_type_mark(False) then
+                           if generic_list = Void then
+                              create generic_list.with_capacity(2, 1)
+                           end
+                           generic_list.add_last(last_type_mark)
+                           state := 2
+                        elseif cc = ',' then
+                           error_handler.add_position(current_position)
+                           error_handler.append(em12)
+                           error_handler.print_as_style_warning
+                           ok := skip1(',')
+                        elseif cc = ']' then
+                           state := 2
+                        else
+                           error_handler.add_position(current_position)
+                           error_handler.append(em16)
+                           error_handler.print_as_fatal_error
+                           state := 2
                         end
-                        generic_list.add_last(last_type_mark)
-                        error_handler.add_position(last_type_mark.start_position)
-                        error_handler.append(em5)
-                        error_handler.print_as_warning
-                     else
-                        error_handler.add_position(current_position)
-                        error_handler.append(once "Bad generic list. Expected ',' or ']', but found '")
-                        error_handler.extend(cc)
-                        error_handler.append(once "' instead.")
-                        error_handler.print_as_fatal_error
+                     when 2 then
+                        -- Waiting ',' or ']'.
+                        if skip1(',') then
+                           state := 1
+                        elseif cc = ']' then
+                           if generic_list = Void then
+                              error_handler.add_position(current_position)
+                              error_handler.append(once "Empty generic list (deleted).")
+                              error_handler.print_as_style_warning
+                              create {CLASS_TYPE_MARK} last_type_mark.make(class_text_name)
+                           else
+                              create {USER_GENERIC_TYPE_MARK} last_type_mark.make(class_text_name, generic_list)
+                           end
+                           ok := skip1(']')
+                           state := 3
+                        elseif a_type_mark(False) then
+                           if generic_list = Void then
+                              create generic_list.with_capacity(2, 1)
+                           end
+                           generic_list.add_last(last_type_mark)
+                           error_handler.add_position(last_type_mark.start_position)
+                           error_handler.append(em5)
+                           error_handler.print_as_warning
+                        else
+                           error_handler.add_position(current_position)
+                           error_handler.append(once "Bad generic list. Expected ',' or ']', but found '")
+                           error_handler.extend(cc)
+                           error_handler.append(once "' instead.")
+                           error_handler.print_as_fatal_error
+                        end
                      end
                   end
                end
@@ -3159,7 +3393,7 @@ feature {}
          end
       end
 
-   a_type_mark_inside_client_list: BOOLEAN is
+   a_type_mark_inside_client_list: BOOLEAN
       local
          fn: FEATURE_NAME; ctm: CLASS_TYPE_MARK
       do
@@ -3199,7 +3433,7 @@ feature {}
          end
       end
 
-   a_conversion_list is
+   a_conversion_list
          --  ++ conversion_list -> type_mark_list
          --  ++
       local
@@ -3219,7 +3453,7 @@ feature {}
          --create Result.make(sp, list)
       end
 
-   a_clients: CLIENT_LIST is
+   a_clients: CLIENT_LIST
          --  ++ clients -> type_mark_list
          --  ++
       local
@@ -3239,7 +3473,7 @@ feature {}
          Result /= Void
       end
 
-   a_type_mark_list: TYPE_MARK_LIST is
+   a_type_mark_list: TYPE_MARK_LIST
          --  ++ type_mark_list -> "{" { class_text_name "," ... } "}"
          --  ++
       local
@@ -3309,7 +3543,7 @@ feature {}
          end
       end
 
-   a_compound1: INSTRUCTION is
+   a_compound1: INSTRUCTION
          --  ++ compound -> {instruction ";" ...}
          --  ++
       local
@@ -3354,7 +3588,7 @@ feature {}
          cc /= ';'
       end
 
-   a_compound2 (compound_of, terminator: STRING): INSTRUCTION is
+   a_compound2 (compound_of, terminator: STRING): INSTRUCTION
          -- Call `a_compound1' and then enforce the `terminator' at the end.
       do
          Result := a_compound1
@@ -3369,7 +3603,108 @@ feature {}
          end
       end
 
-   a_conditional: BOOLEAN is
+   a_exp2 (compound_of, terminator: STRING): EXPRESSION
+         -- Call `a_expression' and then enforce the `terminator' at the end.
+      do
+         if a_expression then
+            Result := last_expression
+         else
+            error_handler.append(once "Expression expected (")
+            error_handler.append(compound_of)
+            error_handler.append(once ").")
+            error_handler.print_as_fatal_error
+         end
+         if not a_keyword(terminator) then
+            error_handler.append(once "After expression (")
+            error_handler.append(compound_of)
+            error_handler.append(once "). Keyword %"")
+            error_handler.append(terminator)
+            error_handler.add_position(current_position)
+            error_handler.append(once "%" expected.")
+            error_handler.print_as_fatal_error
+         end
+      ensure
+         Result /= Void
+      end
+
+   a_conditional_exp: BOOLEAN
+         --  ++ conditional_exp -> "if" expression "then" expression
+         --  ++                    [ {"elseif" expression "then" expression ...}+ ]
+         --  ++                    [ "else" expression ]
+         --  ++                    "end"
+         --  ++
+      local
+         expression1, expression2: EXPRESSION; then_part1: EXPRESSION; ifthenelse: IFTHENELSE_EXP
+         ifthen: IFTHEN_EXP; sp1, sp2: POSITION; else_part: EXPRESSION
+      do
+         if a_keyword(fz_if) then
+            Result := True
+            sp1 := pos(start_line, start_column)
+            if not a_expression then
+               error_handler.add_position(sp1)
+               error_handler.add_position(current_position)
+               error_handler.append(once "Expression expected after the %"if%" keyword.")
+               error_handler.print_as_fatal_error
+            end
+            expression1 := last_expression
+            if expression1.is_void then
+               error_handler.add_position(expression1.start_position)
+               error_handler.append(once "Void is not a valid BOOLEAN expression (just after keyword %"if%").")
+               error_handler.print_as_fatal_error
+            end
+            then_part1 := a_then_exp
+            if a_keyword(fz_elseif) then
+               from
+                  sp2 := pos(start_line, start_column)
+                  if not a_expression then
+                     error_handler.add_position(sp2)
+                     error_handler.add_position(current_position)
+                     error_handler.append(once "Expression expected after %"elseif%" keyword.")
+                     error_handler.print_as_fatal_error
+                  end
+                  expression2 := last_expression
+                  no_void_after_elseif_check(expression2)
+                  create ifthen.make(sp2, expression2, a_then_exp)
+                  create ifthenelse.with_elseif(sp1, expression1, then_part1, ifthen)
+               until
+                  not a_keyword(fz_elseif)
+               loop
+                  sp2 := pos(start_line, start_column)
+                  if not a_expression then
+                     error_handler.add_position(sp2)
+                     error_handler.add_position(current_position)
+                     error_handler.append(once "Expression expected after the %"elseif%" keyword.")
+                     error_handler.print_as_fatal_error
+                  end
+                  expression2 := last_expression
+                  no_void_after_elseif_check(expression2)
+                  ifthenelse.add_elseif(create {IFTHEN_EXP}.make(sp2, expression2, a_then_exp))
+               end
+               if a_keyword(fz_else) then
+                  else_part := a_exp2(once "else part", fz_end)
+                  if else_part /= Void then
+                     ifthenelse.set_else(else_part)
+                  end
+               else
+                  error_handler.add_position(sp1)
+                  error_handler.add_position(current_position)
+                  error_handler.append("An if-then-else expression must have an 'else' part.")
+                  error_handler.print_as_fatal_error
+               end
+               last_expression := ifthenelse
+            elseif a_keyword(fz_else) then
+               else_part := a_exp2(once "else part", fz_end)
+               create {IFTHENELSE_EXP} last_expression.with_else(sp1, expression1, then_part1, else_part)
+            else
+               error_handler.add_position(sp1)
+               error_handler.add_position(current_position)
+               error_handler.append("An if-then-else expression must have an 'else' part.")
+               error_handler.print_as_fatal_error
+            end
+         end
+      end
+
+   a_conditional: BOOLEAN
          --  ++ conditional -> "if" expression "then" compound
          --  ++                [ {"elseif" expression "then" compound ...}+ ]
          --  ++                [ "else" compound ]
@@ -3377,7 +3712,7 @@ feature {}
          --  ++
       local
          expression1, expression2: EXPRESSION; then_part1: INSTRUCTION; ifthenelse: IFTHENELSE
-         ifthen: IFTHEN; sp1, sp2: POSITION; else_compound: INSTRUCTION
+         ifthen: IFTHEN; sp1, sp2: POSITION; else_part: INSTRUCTION
       do
          if a_keyword(fz_if) then
             Result := True
@@ -3423,9 +3758,9 @@ feature {}
                   ifthenelse.add_elseif(create {IFTHEN}.make(sp2, expression2, a_then_compound))
                end
                if a_keyword(fz_else) then
-                  else_compound := a_compound2(once "else part", fz_end)
-                  if else_compound /= Void then
-                     ifthenelse.set_else(else_compound)
+                  else_part := a_compound2(once "else part", fz_end)
+                  if else_part /= Void then
+                     ifthenelse.set_else(else_part)
                   end
                elseif not a_keyword(fz_end) then
                   error_handler.add_position(sp1)
@@ -3435,11 +3770,11 @@ feature {}
                end
                last_instruction := ifthenelse
             elseif a_keyword(fz_else) then
-               else_compound := a_compound2(once "else part", fz_end)
-               if else_compound = Void then
+               else_part := a_compound2(once "else part", fz_end)
+               if else_part = Void then
                   create {IFTHEN} last_instruction.make(sp1, expression1, then_part1)
                else
-                  create {IFTHENELSE} last_instruction.with_else(sp1, expression1, then_part1, else_compound)
+                  create {IFTHENELSE} last_instruction.with_else(sp1, expression1, then_part1, else_part)
                end
             else
                if not a_keyword(fz_end) then
@@ -3453,7 +3788,7 @@ feature {}
          end
       end
 
-   no_void_after_elseif_check (expression: EXPRESSION) is
+   no_void_after_elseif_check (expression: EXPRESSION)
       do
          if expression.is_void then
             error_handler.add_position(expression.start_position)
@@ -3462,7 +3797,7 @@ feature {}
          end
       end
 
-   a_then_compound: INSTRUCTION is
+   a_then_compound: INSTRUCTION
          --  ++ then_compound -> "then" compound
       do
          if not a_keyword(fz_then) then
@@ -3473,7 +3808,24 @@ feature {}
          Result := a_compound1
       end
 
-   a_old_creation: BOOLEAN is
+   a_then_exp: EXPRESSION
+         --  ++ then_exp -> "then" expression
+      do
+         if not a_keyword(fz_then) then
+            error_handler.add_position(current_position)
+            error_handler.append(once "Added missing %"then%" keyword.")
+            error_handler.print_as_warning
+         end
+         if a_expression then
+            Result := last_expression
+         else
+            error_handler.add_position(current_position)
+            error_handler.append(once "Expected expression after the %"then%" keyword.")
+            error_handler.print_as_fatal_error
+         end
+      end
+
+   a_old_creation: BOOLEAN
          --  ++ old_creation -> "!"[type_mark]"!" writable
          --  ++                 ["." procedure_name [actuals]]
          --  ++
@@ -3512,11 +3864,14 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
+            error_handler.add_position(sp)
+            error_handler.append(once "The !! notation is really old and ugly, it should not be used anymore. Please update your code and use the `create' keyword.")
+            error_handler.print_as_warning
             create {CREATE_INSTRUCTION} last_instruction.make(sp, type, writable, call)
          end
       end
 
-   a_c_inline_c: BOOLEAN is
+   a_c_inline_c: BOOLEAN
          --  ++ c_inline_c -> "c_inline_c" "(" manifest_string ")"
          --  ++
       local
@@ -3549,7 +3904,7 @@ feature {}
          end
       end
 
-   a_c_inline_h: BOOLEAN is
+   a_c_inline_h: BOOLEAN
          --  ++ c_inline_h -> "c_inline_h" "(" manifest_string ")"
          --  ++
       local
@@ -3578,7 +3933,7 @@ feature {}
          end
       end
 
-   a_create_instruction: BOOLEAN is
+   a_create_instruction: BOOLEAN
          --  ++ create_instruction -> "create" ["{" type "}"] writable
          --  ++                       ["." procedure_name [actuals]]
          --  ++
@@ -3618,7 +3973,7 @@ feature {}
          end
       end
 
-   a_create_expression: BOOLEAN is
+   a_create_expression: BOOLEAN
          --  ++ create_expression -> "create" "{" type "}" ["." procedure_name [actuals]]
          --  ++
       local
@@ -3660,13 +4015,15 @@ feature {}
          end
       end
 
-   a_creation_clause (sp: POSITION) is
+   a_creation_clause (sp: POSITION; with_clients: BOOLEAN): CREATION_CLAUSE
          --  ++ creation_clause -> [clients] [comment] feature_list
          --  ++
       local
-         clients: CLIENT_LIST; comments: COMMENT; creation_clause: CREATION_CLAUSE
+         clients: CLIENT_LIST; comments: COMMENT
       do
-         clients := a_clients
+         if with_clients then
+            clients := a_clients
+         end
          comments := get_comment
          if not a_feature_name_list then
             error_handler.add_position(sp)
@@ -3678,11 +4035,10 @@ feature {}
             create last_feature_name.simple_feature_name(as_default_create, sp)
             create last_feature_name_list.make_1(last_feature_name)
          end
-         create creation_clause.make(sp, clients, comments, last_feature_name_list)
-         last_class_text.add_creation_clause(creation_clause)
+         create Result.make(sp, clients, comments, last_feature_name_list)
       end
 
-   a_convert_clause (sp: POSITION) is
+   a_convert_clause (sp: POSITION)
          --  ++ convert_clause -> {feature_name conversion_clause ...}
          --  ++
       local
@@ -3721,7 +4077,7 @@ feature {}
          end
       end
 
-   a_conversion_clause is
+   a_conversion_clause
          --  ++ conversion_clause -> conversion_procedure |
          --  ++                      conversion_query
          --  ++
@@ -3733,7 +4089,7 @@ feature {}
          end
       end
 
-   a_conversion_procedure: BOOLEAN is
+   a_conversion_procedure: BOOLEAN
          --  ++ conversion_procedure -> '(' conversion_list ')'
          --  ++
       local
@@ -3751,7 +4107,7 @@ feature {}
          end
       end
 
-   a_conversion_query: BOOLEAN is
+   a_conversion_query: BOOLEAN
          --  ++ conversion_query -> ':' conversion_list
          --  ++
       local
@@ -3764,7 +4120,7 @@ feature {}
          end
       end
 
-   a_debug: BOOLEAN is
+   a_debug: BOOLEAN
          --  ++ debug -> "debug" "(" {manifest_string "," ...} ")"
          --  ++                  compound "end"
          --  ++
@@ -3801,7 +4157,7 @@ feature {}
          end
       end
 
-   a_expression: BOOLEAN is
+   a_expression: BOOLEAN
          --  ++ expression -> "<<" { expression "," ... } ">>" |
          --  ++               e1 r1
          --  ++
@@ -3858,7 +4214,7 @@ feature {}
          Result implies last_expression /= Void
       end
 
-   a_e1: BOOLEAN is
+   a_e1: BOOLEAN
          --  ++ e1 -> e2 r2
          --  ++
       do
@@ -3868,7 +4224,7 @@ feature {}
          end
       end
 
-   a_e2: BOOLEAN is
+   a_e2: BOOLEAN
          --  ++ e2 -> e3 r3
          --  ++
       do
@@ -3878,7 +4234,7 @@ feature {}
          end
       end
 
-   a_e3: BOOLEAN is
+   a_e3: BOOLEAN
          --  ++ e3 -> e4 r4
          --  ++
       do
@@ -3888,7 +4244,7 @@ feature {}
          end
       end
 
-   a_e4: BOOLEAN is
+   a_e4: BOOLEAN
          --  ++ e4 -> e5 r5
          --  ++
       do
@@ -3898,7 +4254,7 @@ feature {}
          end
       end
 
-   a_e5: BOOLEAN is
+   a_e5: BOOLEAN
          --  ++ e5 -> e6 r6
          --  ++
       do
@@ -3908,7 +4264,7 @@ feature {}
          end
       end
 
-   a_e6: BOOLEAN is
+   a_e6: BOOLEAN
          --  ++ e6 -> e7 r7
          --  ++
       do
@@ -3918,7 +4274,7 @@ feature {}
          end
       end
 
-   a_e7: BOOLEAN is
+   a_e7: BOOLEAN
          --  ++ e7 -> e8 r8
          --  ++
       do
@@ -3928,7 +4284,7 @@ feature {}
          end
       end
 
-   a_e8: BOOLEAN is
+   a_e8: BOOLEAN
          --  ++ e8 -> "not" e8 |
          --  ++       "+" e8 |
          --  ++       "-" e8 |
@@ -3970,7 +4326,7 @@ feature {}
             else
                err_exp(sp, True, as_minus)
             end
-         elseif a_free_operator_usage(True) then
+         elseif a_free_operator_usage(freeop_prefix) then
             op := last_feature_name
             if a_e8 then
                if last_expression.is_void then
@@ -3992,7 +4348,7 @@ feature {}
          end
       end
 
-   a_e9: BOOLEAN is
+   a_e9: BOOLEAN
          --  ++ e9 -> e10 |
          --  ++       "old" e10
          --  ++
@@ -4019,7 +4375,7 @@ feature {}
          end
       end
 
-   a_e10: BOOLEAN is
+   a_e10: BOOLEAN
          --  ++ e10 -> "(" expression ")" r10 |
          --  ++       "[" {Expression "," ...} "]" |
          --  ++       "True" | "False" |
@@ -4036,10 +4392,12 @@ feature {}
          --  ++       argument r10 |
          --  ++       identifier ?:= expression
          --  ++       function_call r10 |
+         -- ++        a_condition_exp r10
          --  ++
       local
-         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST
+         type_mark: TYPE_MARK; args: EFFECTIVE_ARG_LIST; sp: POSITION; eal: EFFECTIVE_ARG_LIST_N
          delayed_call: FUNCTION_CALL; writable: EXPRESSION; ft: FEATURE_TEXT; ewc: EXPRESSION_WITH_COMMENT
+         e1: EXPRESSION; rem: FAST_ARRAY[EXPRESSION]
       do
          if skip1('(') then
             if a_expression then
@@ -4056,18 +4414,24 @@ feature {}
                error_handler.print_as_fatal_error
             end
          elseif skip1('[') then
-            from
-               Result := True
-               sp := pos(start_line, start_column)
-            until
-               not a_expression
-            loop
-               if eal = Void then
-                  create eal.make_1(last_expression)
-               else
-                  eal.add_last(last_expression)
-               end
+            Result := True
+            sp := pos(start_line, start_column)
+            if a_expression then
+               e1 := last_expression
                ok := skip1(',')
+               if a_expression then
+                  from
+                     create rem.with_capacity(4)
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  until
+                     not a_expression
+                  loop
+                     rem.add_last(last_expression)
+                     ok := skip1(',')
+                  end
+               end
+               create eal.make_n(sp, e1, rem)
             end
             if not skip1(']') then
                error_handler.add_position(current_position)
@@ -4118,6 +4482,20 @@ feature {}
                end
                next_char
                Result := just_after_a_dot(False, last_manifest_string)
+            elseif cc = '(' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_parentheses(False, last_manifest_string)
+            elseif cc = '[' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_brackets(False, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -4132,6 +4510,10 @@ feature {}
                   end
                   next_char
                   Result := just_after_a_dot(False, last_manifest_string)
+               elseif not skipped_new_line and then cc = '(' then
+                  Result := a_alias_parentheses(False, last_manifest_string)
+               elseif not skipped_new_line and then cc = '[' then
+                  Result := a_alias_brackets(False, last_manifest_string)
                else
                   last_expression := last_manifest_string
                end
@@ -4149,6 +4531,14 @@ feature {}
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
                Result := just_after_a_dot(False, last_expression)
+            elseif not skipped_new_line and then cc = '(' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_parentheses(False, last_manifest_string)
+            elseif not skipped_new_line and then cc = '[' then
+               create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
+               inside_function_precursor_check(last_expression)
+               Result := a_alias_brackets(False, last_manifest_string)
             else
                create {PRECURSOR_EXPRESSION} last_expression.make(sp, type_mark, args)
                inside_function_precursor_check(last_expression)
@@ -4220,7 +4610,7 @@ feature {}
          elseif a_ordinary_feature_name_or_local_name then
             if a_argument then
                Result := a_r10(False, last_expression, Void, Void)
-            elseif a_local_name2 then
+            elseif a_local_name_ref then
                writable := last_expression
                if skip3('?', ':', '=') then
                   if not a_expression then
@@ -4245,17 +4635,29 @@ feature {}
             else
                Result := a_function_call
             end
+         elseif a_conditional_exp then
+            Result := a_r10(False, last_expression, Void, Void)
          end
       end
 
    inline_agent_counter: INTEGER
 
-   inline_agents: FAST_ARRAY[FEATURE_TEXT] is
+   inline_agents: FAST_ARRAY[FEATURE_TEXT]
       once
          create Result.with_capacity(256)
       end
 
-   a_inline_agent: FEATURE_TEXT is
+   a_is: BOOLEAN
+      do
+         if a_keyword(fz_is) then
+            error_handler.append(once "Keyword %"is%" is deprecated.")
+            error_handler.add_position(pos(start_line, start_column))
+            error_handler.print_as_style_warning
+            Result := True
+         end
+      end
+
+   a_inline_agent: FEATURE_TEXT
          --  ++ inline_agent -> formal_arg_list
          --  ++                 [":" type]
          --  ++                 "is" routine
@@ -4265,13 +4667,26 @@ feature {}
          spos, rpos: POSITION
          c, l: INTEGER
          outer_feature: like tmp_feature
-         iff, ief, irf: BOOLEAN
+         iff, ief, irf, icif, expect_routine: BOOLEAN
          a: like arguments; lv: like local_vars
       do
+         if closure_arguments = Void then
+            check
+               closure_local_vars = Void
+            end
+            create closure_arguments.with_capacity(2, 0)
+            create closure_local_vars.with_capacity(2, 0)
+         end
+         if not inside_class_invariant_flag then
+            closure_arguments.add_first(arguments)
+            closure_local_vars.add_first(local_vars)
+         end
+
          outer_feature := tmp_feature
          iff := inside_function_flag
          ief := inside_ensure_flag
          irf := inside_rescue_flag
+         icif := inside_class_invariant_flag
          a := arguments
          lv := local_vars
 
@@ -4279,6 +4694,7 @@ feature {}
          inside_function_flag := False
          inside_ensure_flag := False
          inside_rescue_flag := False
+         inside_class_invariant_flag := False
          arguments := Void
          local_vars := Void
 
@@ -4307,7 +4723,13 @@ feature {}
                end
             end
 
-            if a_keyword(fz_is) then
+            if a_is then
+               expect_routine := True
+            end
+
+            tmp_feature.add_synonym(inline_agent_no_name) -- just to keep the tmp_feature contract happy
+            last_feature_declaration := a_routine(expect_routine)
+            if last_feature_declaration /= Void then
                -- OK, really an inline agent; let's allocate resources (viz feature name)
                inline_agent_counter := inline_agent_counter + 1
                n := once ""
@@ -4315,17 +4737,17 @@ feature {}
                inline_agent_counter.append_in(n)
                create fn.simple_feature_name(n, token_buffer.start_position)
                fn.set_is_frozen
+               tmp_feature.clear_synonyms
                tmp_feature.add_synonym(fn)
 
                rpos := current_position
-               last_feature_declaration := a_routine
                if (not {E_PROCEDURE} ?:= last_feature_declaration.anonymous_feature) and then (not {E_FUNCTION} ?:= last_feature_declaration.anonymous_feature) then
                   error_handler.add_position(rpos)
                   error_handler.append(once "Bad inline agent definition (%"do...end%" routine body expected).")
                   error_handler.print_as_fatal_error
                end
                Result := tmp_feature.as_procedure_or_function
-               Result.set_inline_agent
+               Result.set_inline_agent(closure_arguments, closure_local_vars)
                inline_agents.add_last(Result)
 
                -- must reset the outer feature before calling a_actuals, otherwise the actuals won't be
@@ -4336,10 +4758,13 @@ feature {}
                inside_function_flag := iff
                inside_ensure_flag := ief
                inside_rescue_flag := irf
+               inside_class_invariant_flag := icif
                arguments := a
                local_vars := lv
 
                last_expression := to_call(create {IMPLICIT_CURRENT}.make(spos), fn, a_actuals)
+
+               outer_feature.set_has_closures
             end
          end
 
@@ -4354,12 +4779,24 @@ feature {}
             inside_function_flag := iff
             inside_ensure_flag := ief
             inside_rescue_flag := irf
+            inside_class_invariant_flag := icif
             arguments := a
             local_vars := lv
          end
+
+         if not inside_class_invariant_flag then
+            closure_local_vars.remove_first
+            closure_arguments.remove_first
+         end
       end
 
-   a_external: FEATURE_TEXT is
+   inline_agent_no_name: FEATURE_NAME is
+      once
+         create Result.unknown_position("__inline_agent__")
+         Result.set_is_frozen
+      end
+
+   a_external: FEATURE_TEXT
          --  ++ external -> "<external-specification>" external_name
          --  ++ external_name -> ["alias" manifest_string]
          --  ++
@@ -4371,7 +4808,7 @@ feature {}
          Result := tmp_feature.as_external_routine(l, alias_tag)
       end
 
-   a_external_specification: NATIVE is
+   a_external_specification: NATIVE
       local
          external_tag: MANIFEST_STRING
       do
@@ -4399,7 +4836,7 @@ feature {}
          end
       end
 
-   a_external_name: MANIFEST_STRING is
+   a_external_name: MANIFEST_STRING
       do
          if a_keyword(fz_alias) then
             if not a_manifest_string(True) then
@@ -4412,7 +4849,7 @@ feature {}
          end
       end
 
-   a_feature_name_list: BOOLEAN is
+   a_feature_name_list: BOOLEAN
          --  ++ feature_name_list -> {feature_name "," ...}
          --  ++
          --
@@ -4478,23 +4915,30 @@ feature {}
          end
       end
 
-   a_feature_name: BOOLEAN is
+   a_feature_name: BOOLEAN
          --  ++ feature_name -> prefix |
          --  ++                 infix |
          --  ++                 simple_feature_name
          --  ++
+      local
+         fn: like last_feature_name
       do
          if a_prefix then
             Result := True
          elseif a_infix then
             Result := True
          elseif a_ordinary_feature_name_or_local_name then
-            last_feature_name := token_buffer.to_feature_name
-            Result := True
+            fn := token_buffer.to_feature_name
+            if a_alias(fn) then
+               Result := True
+            else
+               last_feature_name := fn
+               Result := True
+            end
          end
       end
 
-   a_feature_clause is
+   a_feature_clause
          --  ++ feature_clause -> [clients] [comment] feature_declaration_list
          --  ++
       local
@@ -4521,7 +4965,7 @@ feature {}
          end
       end
 
-   a_possibly_frozen_feature_name: BOOLEAN is
+   a_possibly_frozen_feature_name: BOOLEAN
       do
          if a_keyword(fz_frozen) then
             if a_feature_name then
@@ -4548,10 +4992,13 @@ feature {}
          elseif a_feature_name then
             Result := True
             tmp_feature.add_synonym(last_feature_name)
+            if last_feature_name.name_alias /= Void then
+               tmp_feature.add_synonym(last_feature_name.name_alias)
+            end
          end
       end
 
-   a_feature_declaration: BOOLEAN is
+   a_feature_declaration: BOOLEAN
          --  ++ feature_declaration -> {["frozen"] feature_name "," ...}+
          --  ++                        formal_arg_list
          --  ++                        [":" type]
@@ -4559,10 +5006,25 @@ feature {}
          --  ++                         "is" manifest_constant |
          --  ++                         "is" routine]
          --  ++
+      local
+         is_prefix, is_infix, is_alias, expect_routine: BOOLEAN
+         prefix_sp, infix_sp, alias_sp: POSITION
       do
          from
             tmp_feature.initialize
             if a_possibly_frozen_feature_name then
+               if last_feature_name.is_prefix_name then
+                  is_prefix := True
+                  prefix_sp := last_feature_name.start_position
+               end
+               if last_feature_name.is_infix_name then
+                  is_infix := True
+                  infix_sp := last_feature_name.start_position
+               end
+               if last_feature_name.name_alias /= Void then
+                  is_alias := True
+                  alias_sp := last_feature_name.name_alias.start_position
+               end
                Result := True
             elseif a_expression then
                error_handler.add_position(last_expression.start_position)
@@ -4584,7 +5046,20 @@ feature {}
          until
             not skip1(',')
          loop
-            if not a_possibly_frozen_feature_name then
+            if a_possibly_frozen_feature_name then
+               if not is_prefix and then last_feature_name.is_prefix_name then
+                  is_prefix := True
+                  prefix_sp := last_feature_name.start_position
+               end
+               if not is_infix and then last_feature_name.is_infix_name then
+                  is_infix := True
+                  infix_sp := last_feature_name.start_position
+               end
+               if not is_alias and then last_feature_name.name_alias /= Void then
+                  is_alias := True
+                  alias_sp := last_feature_name.name_alias.start_position
+               end
+            else
                error_handler.add_position(current_position)
                error_handler.append(once "Error inside feature name definition. Unable to find the synonymous name %
                                     %which must be just after the previous colon mark %",%".")
@@ -4596,8 +5071,25 @@ feature {}
                error_handler.print_as_fatal_error
             end
          end
+
          if Result then
-            if not a_formal_arg_list then
+            if a_formal_arg_list then
+               expect_routine := tmp_feature.arguments /= Void
+            else
+               error_handler.print_as_fatal_error
+            end
+            if is_prefix and then tmp_feature.arguments /= Void then
+               error_handler.add_position(prefix_sp)
+               error_handler.add_position(tmp_feature.arguments.start_position)
+               error_handler.append("Prefix functions cannot have arguments.")
+               error_handler.print_as_fatal_error
+            end
+            if is_infix and then (tmp_feature.arguments = Void or else tmp_feature.arguments.count /= 1) then
+               error_handler.add_position(infix_sp)
+               if tmp_feature.arguments /= Void then
+                  error_handler.add_position(tmp_feature.arguments.start_position)
+               end
+               error_handler.append("Infix functions must have exactly one argument.")
                error_handler.print_as_fatal_error
             end
             if skip1(':') then
@@ -4609,78 +5101,128 @@ feature {}
                   error_handler.append(em16)
                   error_handler.print_as_fatal_error
                end
+            elseif a_type_mark(False) then
+               error_handler.add_position(pos(start_line, start_column))
+               error_handler.append(once "Added ':' before type mark.")
+               error_handler.print_as_warning
+               inside_function_flag := True
+               tmp_feature.set_type(last_type_mark)
             end
+
             if a_keyword(fz_assign) then
                if a_feature_name then
                   tmp_feature.set_assigned(last_feature_name)
+                  expect_routine := True
                else
                   error_handler.add_position(current_position)
                   error_handler.append(once "Expected a feature name to assign.")
                   error_handler.print_as_fatal_error
                end
             end
-            if a_keyword(fz_is) then
-               if a_keyword(fz_unique) then
-                  last_feature_declaration := tmp_feature.as_unique_constant
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_boolean_constant then
-                  last_feature_declaration := tmp_feature.as_boolean_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_character_constant(Atomic_syntax_flag) then
-                  last_feature_declaration := tmp_feature.as_character_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_manifest_string(True) then
-                  unused_once_warning_check
-                  last_manifest_string.set_once_flag(True)
-                  last_feature_declaration := tmp_feature.as_string_constant(last_manifest_string)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               elseif a_manifest_or_type_test(Atomic_syntax_flag) then
-                  last_feature_declaration := tmp_feature.as_constant(last_expression)
-                  ok := skip1(';')
-                  last_feature_declaration.set_header_comment(get_comment)
-               else
-                  last_feature_declaration := a_routine
-               end
-            elseif tmp_feature.arguments /= Void then
-               error_handler.add_position(current_position)
-               error_handler.append(once "Syntax error while trying to parse the header of routine `")
-               error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append(once "'. May be, you just miss to add the %"is%" keyword?")
-               error_handler.print_as_fatal_error
-            elseif tmp_feature.type = Void then
-               error_handler.add_position(current_position)
-               if a_keyword(fz_do) or else a_keyword(fz_once) then
-                  error_handler.append(once "Missing the %"is%" keyword?")
-               elseif a_type_mark(False) then
-                  error_handler.append(once "Missing %":%" before the type mark?")
-               else
-                  error_handler.append(once "Bad procedure definition.")
-               end
-               error_handler.append(once " Unable to parse definition of `")
-               error_handler.append(tmp_feature.first_name.to_string)
-               error_handler.append(once "'.")
-               error_handler.print_as_fatal_error
-            else
-               last_feature_declaration := tmp_feature.as_writable_attribute
+            check_alias
+
+            if a_is then
+               expect_routine := True
+            end
+
+            if a_keyword(fz_unique) then
+               last_feature_declaration := tmp_feature.as_unique_constant
                ok := skip1(';')
                last_feature_declaration.set_header_comment(get_comment)
+            elseif a_boolean_constant then
+               last_feature_declaration := tmp_feature.as_boolean_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_character_constant(Atomic_syntax_flag) then
+               last_feature_declaration := tmp_feature.as_character_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_manifest_string(True) then
+               unused_once_warning_check
+               last_manifest_string.set_once_flag(True)
+               last_feature_declaration := tmp_feature.as_string_constant(last_manifest_string)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            elseif a_manifest_or_type_test(Atomic_syntax_flag) then
+               last_feature_declaration := tmp_feature.as_constant(last_expression)
+               ok := skip1(';')
+               last_feature_declaration.set_header_comment(get_comment)
+            else
+               last_feature_declaration := a_routine(expect_routine)
             end
+
+            if last_feature_declaration = Void then
+               if tmp_feature.arguments /= Void then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Syntax error while trying to parse the header of routine `")
+                  error_handler.append(tmp_feature.first_name.to_string)
+                  error_handler.append(once "'. A routine with arguments cannot be an attribute.")
+                  error_handler.print_as_fatal_error
+               elseif tmp_feature.type = Void then
+                  error_handler.add_position(current_position)
+                  error_handler.append(once "Bad procedure definition. Unable to parse definition of `")
+                  error_handler.append(tmp_feature.first_name.to_string)
+                  error_handler.append(once "'. Missing function type?")
+                  error_handler.print_as_fatal_error
+               else
+                  last_feature_declaration := tmp_feature.as_writable_attribute
+                  ok := skip1(';')
+                  last_feature_declaration.set_header_comment(get_comment)
+               end
+            end
+
             inside_function_flag := False
             arguments := Void
          end
          tmp_feature.done
       end
 
-   a_formal_generic_list is
+   check_alias
+      local
+         i: INTEGER; a: FEATURE_NAME
+      do
+         from
+            i := tmp_feature.names.lower
+         until
+            i > tmp_feature.names.upper
+         loop
+            a := tmp_feature.names.item(i).name_alias
+            if a /= Void then
+               if a.is_infix_name then
+                  if (a.name.to_string = as_plus or else a.name.to_string = as_minus) and then (tmp_feature.arguments = Void or else tmp_feature.arguments.count = 0) then
+                     a.set_plus_minus_prefix
+                  elseif tmp_feature.arguments = Void or else tmp_feature.arguments.count /= 1 then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as infix, needing exactly one argument.")
+                     error_handler.print_as_fatal_error
+                  elseif tmp_feature.type = Void then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as infix, needing a Result type.")
+                     error_handler.print_as_fatal_error
+                  end
+               elseif a.is_prefix_name then
+                  if tmp_feature.arguments /= Void and then tmp_feature.arguments.count /= 0 then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as prefix, needing exactly zero argument.")
+                     error_handler.print_as_fatal_error
+                  elseif tmp_feature.type = Void then
+                     error_handler.add_position(a.start_position)
+                     error_handler.append("This alias can be used only as prefix, needing a Result type.")
+                     error_handler.print_as_fatal_error
+                  end
+               end
+            end
+            i := i + 1
+         end
+      end
+
+   a_formal_generic_list
          --  ++ formal_generic_list -> ["[" {formal_generic "," ...} "]"]
          --  ++ formal_generic -> class_text_name ["->" static_type_mark]
          --  ++
       local
          fga: FORMAL_GENERIC_ARG; formal_generic_name: CLASS_NAME; constraint: TYPE_MARK; state: INTEGER
+         creation_clause: CREATION_CLAUSE
       do
          formal_generic_list := Void
          if skip1('[') then
@@ -4688,7 +5230,7 @@ feature {}
                create formal_generic_list.make(pos(start_line, start_column))
                last_class_text.set_formal_generic_list(formal_generic_list)
             until
-               state > 3
+               state < 0
             loop
                inspect
                   state
@@ -4698,7 +5240,7 @@ feature {}
                      formal_generic_name := last_class_name
                      state := 1
                   else
-                     state := 5
+                     state := -2
                   end
                when 1 then
                   -- Waiting for "->" or "," or "]".
@@ -4713,11 +5255,11 @@ feature {}
                      when ',' then
                         state := 0
                      when ']' then
-                        state := 4
+                        state := -1
                      end
                      ok := skip1(cc)
                   else
-                     state := 5
+                     state := -2
                   end
                when 2 then
                   -- Waiting for "," or "]".
@@ -4730,11 +5272,11 @@ feature {}
                      when ',' then
                         state := 0
                      when ']' then
-                        state := 4
+                        state := -1
                      end
                      ok := skip1(cc)
                   else
-                     state := 5
+                     state := -2
                   end
                when 3 then
                   -- Waiting for a `constraint' type.
@@ -4743,17 +5285,32 @@ feature {}
                      state := 2
                   elseif a_static_type_mark(False) then
                      constraint := last_type_mark
-                     state := 2
+                     state := 4
                   else
                      error_handler.add_position(current_position)
                      error_handler.append(once "Constraint Class name expected.")
                      error_handler.print_as_fatal_error
                   end
+               when 4 then
+                  -- Waiting got "create", ",", or "]".
+                  if cc = ',' or else cc = ']' then
+                     state := 2
+                  elseif a_keyword(fz_create) then
+                     creation_clause := a_creation_clause(pos(start_line, start_column), False)
+                     if a_keyword(fz_end) then
+                        constraint.generic_creation := creation_clause
+                        state := 2
+                     else
+                        state := -2
+                     end
+                  else
+                     state := -2
+                  end
                end
             end
             inspect
                state
-            when 4 then
+            when -1 then
                if formal_generic_list.count = 0 then
                   error_handler.add_position(formal_generic_list.start_position)
                   error_handler.append(once "Empty formal generic list (deleted).")
@@ -4761,7 +5318,7 @@ feature {}
                   formal_generic_list := Void
                   last_class_text.set_formal_generic_list(Void)
                end
-            when 5 then
+            when -2 then
                check
                   nb_errors > 0
                end
@@ -4769,7 +5326,7 @@ feature {}
          end
       end
 
-   a_function_call: BOOLEAN is
+   a_function_call: BOOLEAN
          --  ++ function_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -4781,16 +5338,18 @@ feature {}
          Result := a_r10(False, implicit_current, sfn, a_actuals)
       end
 
-   a_index_clause: BOOLEAN is
+   a_index_clause (a_indexingable: INDEXINGABLE; a_spec: STRING): BOOLEAN
          --  ++ index_clause -> [identifier ":"] {index_value "," ...}+
          --  ++
+      require
+         a_indexingable /= Void
       local
          index_clause: INDEX_CLAUSE
       do
          if a_ordinary_feature_name_or_local_name then
             Result := True
             if skip1(':') then
-               create index_clause.with_tag(token_buffer.hashed_string)
+               create index_clause.with_tag(token_buffer.hashed_string, a_spec)
                if a_index_value then
                   index_clause.add_last(last_manifest_string)
                else
@@ -4799,11 +5358,11 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             else
-               create index_clause.without_tag(token_buffer.to_manifest_string)
+               create index_clause.without_tag(token_buffer.to_manifest_string, a_spec)
             end
          elseif a_manifest_string(True) then
             Result := True
-            create index_clause.without_tag(last_manifest_string)
+            create index_clause.without_tag(last_manifest_string, a_spec)
          end
          if Result then
             from
@@ -4818,11 +5377,14 @@ feature {}
                   error_handler.print_as_fatal_error
                end
             end
-            last_class_text.add_index_clause(index_clause)
+            if a_indexingable /= Void then
+               a_indexingable.add_index_clause(index_clause)
+               -- may be Void in some check clauses that contain only comments
+            end
          end
       end
 
-   a_index_value: BOOLEAN is
+   a_index_value: BOOLEAN
          --  ++ index_value -> identifier | manifest_constant
          --  ++
       do
@@ -4834,21 +5396,31 @@ feature {}
          end
       end
 
-   a_indexing is
+   a_indexing (a_indexingable: INDEXINGABLE; a_spec: STRING)
          --  ++ indexing -> "indexing" {index_clause ";" ...}
          --  ++
+      local
+         has_note: BOOLEAN
       do
-         if a_keyword(fz_indexing) then
+         if a_keyword(fz_note) then
+            has_note := True
+         elseif a_keyword(fz_indexing) then
+            error_handler.add_position(pos(start_line, start_column))
+            error_handler.append(once "`indexing' is an obsolete keyword, please use `note' instead.")
+            error_handler.print_as_warning
+            has_note := True
+         end
+         if has_note then
             from
             until
-               not a_index_clause
+               not a_index_clause(a_indexingable, a_spec)
             loop
                ok := skip1(';')
             end
          end
       end
 
-   a_infix: BOOLEAN is
+   a_infix: BOOLEAN
          --  ++ infix -> "infix" "%"" binary "%""
          --  ++          "infix" "%"" free_operator "%""
          --  ++
@@ -4866,7 +5438,7 @@ feature {}
                error_handler.print_as_warning
             end
             if a_binary(sp) then
-            elseif a_free_operator_definition(False) then
+            elseif a_free_operator_definition(freeop_infix, sp) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Infix operator name expected.")
@@ -4880,7 +5452,7 @@ feature {}
          end
       end
 
-   a_inspect: BOOLEAN is
+   a_inspect: BOOLEAN
          --  ++ inspect -> "inspect" expression
          --  ++            {when_part ...}
          --  ++            ["else" compound]
@@ -4944,7 +5516,7 @@ feature {}
          end
       end
 
-   a_instruction: BOOLEAN is
+   a_instruction: BOOLEAN
          --  ++ instruction -> check | debug | conditionnal | retry |
          --  ++                inspect | loop | old_creation |
          --  ++                c_inline_c | c_inline_h |
@@ -4993,6 +5565,20 @@ feature {}
                end
                next_char
                Result := just_after_a_dot(True, last_manifest_string)
+            elseif cc = '(' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_parentheses(True, last_manifest_string)
+            elseif cc = '[' then
+               if last_manifest_string.once_flag then
+                  error_handler.add_position(current_position)
+                  error_handler.append(em19)
+                  error_handler.print_as_warning
+               end
+               Result := a_alias_brackets(True, last_manifest_string)
             else
                skip_comments
                if cc = '.' then
@@ -5007,6 +5593,10 @@ feature {}
                   end
                   next_char
                   Result := just_after_a_dot(True, last_manifest_string)
+               elseif not skipped_new_line and then cc = '(' then
+                  Result := a_alias_parentheses(True, last_manifest_string)
+               elseif not skipped_new_line and then cc = '[' then
+                  Result := a_alias_brackets(True, last_manifest_string)
                else
                   error_handler.add_position(last_manifest_string.start_position)
                   error_handler.add_position(current_position)
@@ -5051,7 +5641,7 @@ feature {}
 
    eiffel_parser_stamp: INTEGER
 
-   a_loop: BOOLEAN is
+   a_loop: BOOLEAN
          --  ++ loop -> "from" compound
          --  ++         ["invariant"] assertion
          --  ++         ["variant" [identifier ":"] expression]
@@ -5126,7 +5716,7 @@ feature {}
          end
       end
 
-   a_new_export_list is
+   a_new_export_list
          --  ++ new_export_list -> ["export" {new_export_item ";" ...}]
          --  ++ new_export_item -> clients "all" |
          --  ++                    clients feature_list
@@ -5207,7 +5797,7 @@ feature {}
          end
       end
 
-   a_parent_list is
+   a_parent_list
          --  ++ inherit_text -> ["external" ***]
          --  ++                 ["inherit" {parent ";" ...}]
          --  ++                 ["insert" {parent ";" ...} ]
@@ -5285,7 +5875,7 @@ feature {}
          last_class_text.create_parent_lists_using(inherit_hc, inherit_list, insert_hc, insert_list)
       end
 
-   a_parent_edge (is_insert_flag: BOOLEAN): BOOLEAN is
+   a_parent_edge (is_insert_flag: BOOLEAN): BOOLEAN
          --  ++ parent -> static_type_mark
          --  ++           ["rename" rename_list]
          --  ++           new_export_list
@@ -5377,12 +5967,56 @@ feature {}
          end
       end
 
-   a_prefix: BOOLEAN is
+   a_alias (fn: like last_feature_name): BOOLEAN
+         --  ++ alias -> "alias" "%"" unary "%""
+         --  ++          "alias" "%"" free_operator "%""
+         --  ++
+      local
+         sp: POSITION
+      do
+         if a_keyword(fz_alias) then
+            sp := pos(start_line, start_column)
+            if cc = '%"' then
+               next_char
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(once "Character '%%%"' inserted after %"alias%".")
+               error_handler.print_as_warning
+            end
+            if a_binary(sp) then
+               fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
+               last_feature_name := fn
+            elseif a_unary(sp) then
+               fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
+               last_feature_name := fn
+            elseif a_free_operator_definition(freeop_alias, sp) then
+               fn.name_alias := last_feature_name
+               last_feature_name.name_alias := fn
+               last_feature_name := fn
+            else
+               error_handler.add_position(current_position)
+               error_handler.append(once "Alias operator name expected.")
+               error_handler.print_as_fatal_error
+            end
+            if not skip1('%"') then
+               error_handler.add_position(current_position)
+               error_handler.append(once "Character '%%%"' inserted.")
+               error_handler.print_as_warning
+            end
+         end
+      end
+
+   a_prefix: BOOLEAN
          --  ++ prefix -> "prefix" "%"" unary "%""
          --  ++           "prefix" "%"" free_operator "%""
          --  ++
+      local
+         sp: POSITION
       do
          if a_keyword(fz_prefix) then
+            sp := pos(start_line, start_column)
             Result := True
             if cc = '%"' then
                next_char
@@ -5391,8 +6025,8 @@ feature {}
                error_handler.append(once "Character '%%%"' inserted after %"prefix%".")
                error_handler.print_as_warning
             end
-            if a_unary then
-            elseif a_free_operator_definition(True) then
+            if a_unary(sp) then
+            elseif a_free_operator_definition(freeop_prefix, sp) then
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Prefix operator name expected.")
@@ -5406,7 +6040,7 @@ feature {}
          end
       end
 
-   a_procedure_call: BOOLEAN is
+   a_procedure_call: BOOLEAN
          --  ++ procedure_call -> [actuals] r10 |
          --  ++                   ^
          --  ++
@@ -5418,7 +6052,7 @@ feature {}
          Result := a_r10(True, implicit_current, sfn, a_actuals)
       end
 
-   a_rename_list is
+   a_rename_list
          --  ++ rename_list -> {rename_pair "," ...}
          --  ++
       do
@@ -5430,7 +6064,7 @@ feature {}
          end
       end
 
-   a_rename_pair: BOOLEAN is
+   a_rename_pair: BOOLEAN
          --  ++ rename_pair -> identifier "as" identifier
          --  ++
       local
@@ -5462,7 +6096,7 @@ feature {}
          end
       end
 
-   a_routine: FEATURE_TEXT is
+   a_routine (expect_routine: BOOLEAN): FEATURE_TEXT
          --  ++ routine -> ["obsolete" manifest_string]
          --  ++            ["require" ["else"] assertion]
          --  ++            ["local" entity_declaration_list]
@@ -5472,12 +6106,16 @@ feature {}
          --  ++            "end"
          --  ++
       local
-         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag: BOOLEAN; resc: INSTRUCTION
+         sp: POSITION; hc, ec: COMMENT; al: FAST_ARRAY[ASSERTION]; else_flag, then_flag, expect_body: BOOLEAN; resc: INSTRUCTION; l, c: INTEGER
       do
+         l := line
+         c := column
+         expect_body := expect_routine
          if a_keyword(fz_obsolete) then
             if a_manifest_string(True) then
                last_manifest_string.set_once_flag(True)
                tmp_feature.set_obsolete_mark(last_manifest_string)
+               expect_body := True
             else
                error_handler.add_position(current_position)
                error_handler.append(once "Obsolete manifest string expected.")
@@ -5490,62 +6128,76 @@ feature {}
             else_flag := a_keyword(fz_else)
             hc := get_comment
             tmp_feature.set_require(sp, else_flag, hc, a_assertion)
+            expect_body := True
          end
          if a_keyword(fz_local) then
             a_local_var_list
+            expect_body := True
          end
-         Result := a_routine_body
-         if a_keyword(fz_ensure) then
-            sp := pos(start_line, start_column)
-            inside_ensure_flag := True
-            then_flag := a_keyword(fz_then)
-            hc := get_comment
-            al := a_assertion
-            if hc /= Void or else al /= Void then
-               Result.set_ensure_assertion(create {ENSURE_ASSERTION}.make(sp, then_flag, hc, al))
-            end
-            inside_ensure_flag := False
-         end
-         if a_keyword(fz_rescue) then
-            inside_rescue_flag := True
-            resc := a_compound2(fz_rescue, fz_end)
-            if not no_rescue then
-               Result.set_rescue_compound(resc)
-            end
-            inside_rescue_flag := False
-         elseif a_keyword(fz_end) then
-            if ace.sedb then
-               sp := pos(start_line, start_column)
-               Result.set_sedb_trace_before_exit(sp)
-            end
+         Result := a_routine_body(expect_body)
+         if Result = Void then
+            go_back_at(l, c)
          else
-            error_handler.add_position(current_position)
-            if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
-               error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
-               %operator. A dot can never be used for the left-hand side part of an assignment operator. %
-               %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
-               %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
-               error_handler.print_as_fatal_error
-            else
-               error_handler.append(once "A routine must be ended with %"end%".")
-               error_handler.print_as_warning
+            if a_keyword(fz_ensure) then
+               sp := pos(start_line, start_column)
+               inside_ensure_flag := True
+               then_flag := a_keyword(fz_then)
+               hc := get_comment
+               al := a_assertion
+               if hc /= Void or else al /= Void then
+                  Result.set_ensure_assertion(create {ENSURE_ASSERTION}.make(sp, then_flag, hc, al))
+               end
+               inside_ensure_flag := False
             end
+            if a_keyword(fz_rescue) then
+               inside_rescue_flag := True
+               resc := a_compound2(fz_rescue, fz_end)
+               if not no_rescue then
+                  Result.set_rescue_compound(resc)
+               end
+               inside_rescue_flag := False
+            elseif a_keyword(fz_end) then
+               if ace.sedb then
+                  sp := pos(start_line, start_column)
+                  Result.set_sedb_trace_before_exit(sp)
+               end
+            else
+               error_handler.add_position(current_position)
+               if skip2(':', '=') or else skip3(':', ':', '=') or else skip2('?', '=') then
+                  error_handler.append(once "Such an expression cannot be on the left-hand side of an assignment %
+                  %operator. A dot can never be used for the left-hand side part of an assignment operator. %
+                  %Valid left-hand side can be Result, some local or the name of an attribute of Current. %
+                  %See also http://SmartEiffel/wiki/en/Syntax_diagrams#Writable.php for details.")
+                  error_handler.print_as_fatal_error
+               else
+                  error_handler.append(once "A routine must be ended with %"end%".")
+                  error_handler.print_as_warning
+               end
+            end
+            ok := skip1(';')
+            ec := get_comment
+            if ec /= Void then
+               Result.anonymous_feature.set_end_comment(ec)
+            end
+            local_vars := Void
          end
-         ok := skip1(';')
-         ec := get_comment
-         if ec /= Void then
-            Result.anonymous_feature.set_end_comment(ec)
-         end
-         local_vars := Void
+      ensure
+         expect_routine implies Result /= Void
       end
 
-   a_routine_body: FEATURE_TEXT is
+   a_routine_body (expected: BOOLEAN): FEATURE_TEXT
          --  ++ routine_body -> "deferred" |
          --  ++                 "external" external |
-         --  ++                 "do" compound |
-         --  ++                 "once" compound
+         --  ++                 "do" compound ( "then" expression )? |
+         --  ++                 "once" compound ( "then" expression )? |
+         --  ++                 "attribute"
          --  ++
+      local
+         l, c: INTEGER
       do
+         l := line
+         c := column
+         a_indexing(tmp_feature, Void)
          if a_keyword(fz_deferred) then
             last_class_text.set_is_deferred
             Result := tmp_feature.as_deferred_routine
@@ -5553,20 +6205,51 @@ feature {}
             Result := a_external
          elseif a_keyword(fz_do) then
             tmp_feature.set_routine_body(a_compound1)
+            if a_keyword(fz_then) then
+               if a_expression then
+                  tmp_feature.set_routine_then(last_expression)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append("Expression expected.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             Result := tmp_feature.as_procedure_or_function
          elseif a_keyword(fz_once) then
             tmp_feature.set_routine_body(a_compound1)
+            if a_keyword(fz_then) then
+               if a_expression then
+                  tmp_feature.set_routine_then(last_expression)
+               else
+                  error_handler.add_position(current_position)
+                  error_handler.append("Expression expected.")
+                  error_handler.print_as_fatal_error
+               end
+            end
             Result := tmp_feature.as_once_routine
+         elseif a_keyword(fz_then) then
+            if a_expression then
+               tmp_feature.set_routine_then(last_expression)
+            else
+               error_handler.add_position(current_position)
+               error_handler.append("Expression expected.")
+               error_handler.print_as_fatal_error
+            end
+            Result := tmp_feature.as_procedure_or_function
          elseif a_keyword(once "attribute") then
             Result := tmp_feature.as_writable_attribute
-         else
+         elseif expected then
             error_handler.add_position(current_position)
-            error_handler.append(once "Routine body expected.")
+            error_handler.append("Routine body expected.")
             error_handler.print_as_fatal_error
+         else
+            go_back_at(l, c)
          end
+      ensure
+         expected implies Result /= Void
       end
 
-   a_r1 (left_part: like last_expression) is
+   a_r1 (left_part: like last_expression)
          --  ++ r1 -> "implies" e1 r1 |
          --  ++       ^
          --  ++
@@ -5588,7 +6271,7 @@ feature {}
          end
       end
 
-   a_r2 (left_part: like last_expression) is
+   a_r2 (left_part: like last_expression)
          --  ++ r2 -> "or else" e2 r2 |
          --  ++       "or" e2 r2 |
          --  ++       "xor" e2 r2 |
@@ -5627,7 +6310,7 @@ feature {}
          end
       end
 
-   a_r3 (left_part: like last_expression) is
+   a_r3 (left_part: like last_expression)
          --  ++ r3 -> "and then" e3 r3 |
          --  ++       "and" e3 r3 |
          --  ++       ^
@@ -5657,7 +6340,7 @@ feature {}
          end
       end
 
-   a_r4 (left_part: like last_expression) is
+   a_r4 (left_part: like last_expression)
          --  ++ r4 -> "=" e4 r4 |
          --  ++       "/=" e4 r4 |
          --  ++       "<=" e4 r4 |
@@ -5726,7 +6409,7 @@ feature {}
          end
       end
 
-   a_r5 (left_part: like last_expression) is
+   a_r5 (left_part: like last_expression)
          --  ++ r5 -> "+" e5 r5 |
          --  ++       "-" e5 r5 |
          --  ++       ^
@@ -5757,7 +6440,7 @@ feature {}
          end
       end
 
-   a_r6 (left_part: like last_expression) is
+   a_r6 (left_part: like last_expression)
          --  ++ r6 -> "*" e6 r6 |
          --  ++       "//" e6 r6 |
          --  ++       "\\" e6 r6 |
@@ -5808,7 +6491,7 @@ feature {}
          end
       end
 
-   a_r7 (left_part: like last_expression) is
+   a_r7 (left_part: like last_expression)
          --  ++ r7 -> "^" e7 r7 |
          --  ++       ^
          --  ++
@@ -5830,14 +6513,14 @@ feature {}
          end
       end
 
-   a_r8 (left_part: like last_expression) is
+   a_r8 (left_part: like last_expression)
          --  ++ r8 -> free_operator e8 r8 |
          --  ++       ^
          --  ++
       local
          infix_name: FEATURE_NAME; infix_freeop: CALL_INFIX_FREEOP
       do
-         if a_free_operator_usage(False) then
+         if a_free_operator_usage(freeop_infix) then
             if left_part.is_void then
                error_handler.add_position(left_part.start_position)
                error_handler.add_position(last_feature_name.start_position)
@@ -5858,8 +6541,10 @@ feature {}
          end
       end
 
-   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN is
+   a_r10 (do_instruction: BOOLEAN; t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): BOOLEAN
          --  ++ r10 -> "." after_a_dot |
+         --  ++        "(" alias_parentheses |
+         --  ++        "[" alias_brackets |
          --  ++        ^
          --  ++
       local
@@ -5870,10 +6555,24 @@ feature {}
          if skip1('.') then
             if t /= Void and then t.is_void then
                error_handler.add_position(t.start_position)
-               error_handler.append(once "Void is not a valid target (i.e. just after a dot).")
+               error_handler.append(once "Void is not a valid target (i.e. just before a dot).")
                error_handler.print_as_fatal_error
             end
             Result := just_after_a_dot(do_instruction, to_call(t, fn, eal))
+         elseif not skipped_new_line and then cc = '(' then
+            if t /= Void and then t.is_void then
+               error_handler.add_position(t.start_position)
+               error_handler.append(once "Void is not a valid target (i.e. just before an alias %"()%").")
+               error_handler.print_as_fatal_error
+            end
+            Result := a_alias_parentheses(do_instruction, to_call(t, fn, eal))
+         elseif not skipped_new_line and then cc = '[' then
+            if t /= Void and then t.is_void then
+               error_handler.add_position(t.start_position)
+               error_handler.append(once "Void is not a valid target (i.e. just before an alias %"[]%").")
+               error_handler.print_as_fatal_error
+            end
+            Result := a_alias_brackets(do_instruction, to_call(t, fn, eal))
          elseif do_instruction then
             last_instruction := to_proc_call(t, fn, eal)
             if last_instruction /= Void then
@@ -5889,7 +6588,7 @@ feature {}
          end
       end
 
-   a_tag_mark: BOOLEAN is
+   a_tag_mark: BOOLEAN
          --  ++ tag_mark -> identifier ":"
          --  ++
       local
@@ -5907,7 +6606,7 @@ feature {}
          end
       end
 
-   a_type_mark (allow_missing_generics: BOOLEAN): BOOLEAN is
+   a_type_mark (for_client_list: BOOLEAN): BOOLEAN
          --  ++ type_mark -> static_type_mark |
          --  ++              formal_generic_type_mark |
          --  ++              "like" "Current" |
@@ -5916,7 +6615,7 @@ feature {}
          --  ++              "separate" static_type_mark
          --  ++
       local
-         sp: POSITION; argument_name2: ARGUMENT_NAME2
+         sp: POSITION; argument_name_ref: ARGUMENT_NAME_REF
       do
          Result := True
          if a_keyword(fz_like) then
@@ -5929,8 +6628,8 @@ feature {}
                create {LIKE_FEATURE_TYPE_MARK} last_type_mark.make(sp, last_feature_name)
             elseif a_ordinary_feature_name_or_local_name then
                if a_argument then
-                  argument_name2 ::= last_expression
-                  create {LIKE_ARGUMENT_TYPE_MARK} last_type_mark.make(sp, argument_name2)
+                  argument_name_ref ::= last_expression
+                  create {LIKE_ARGUMENT_TYPE_MARK} last_type_mark.make(sp, argument_name_ref)
                else
                   create {LIKE_FEATURE_TYPE_MARK} last_type_mark.make(sp, token_buffer.to_feature_name)
                end
@@ -5959,7 +6658,7 @@ feature {}
             error_handler.print_as_fatal_error
          elseif a_formal_generic_type_mark then
             last_type_mark := last_formal_generic_type_mark
-         elseif a_static_type_mark(allow_missing_generics) then
+         elseif a_static_type_mark(for_client_list) then
             -- `last_type_mark' already set.
          else
             Result := False
@@ -5967,13 +6666,13 @@ feature {}
       end
 
 feature {TOKEN_BUFFER}
-   pos (l, c: INTEGER): POSITION is
+   pos (l, c: INTEGER): POSITION
       do
          Result.set(l, c, current_id, last_class_text)
       end
 
 feature {}
-   valid_parent_edge_type_check (type_mark: TYPE_MARK) is
+   valid_parent_edge_type_check (type_mark: TYPE_MARK)
          -- Check that no anchored type are used.
       require
          type_mark /= Void
@@ -5998,7 +6697,7 @@ feature {}
          end
       end
 
-   inside_function_precursor_check (exp: EXPRESSION) is
+   inside_function_precursor_check (exp: EXPRESSION)
       do
          if not inside_function_flag then
             error_handler.append(once "Inside a procedure, a Precursor call must be a procedure call %
@@ -6008,23 +6707,23 @@ feature {}
          end
       end
 
-   a_unary: BOOLEAN is
+   a_unary (sp: POSITION): BOOLEAN
          --  ++ unary -> "not" | "+" | "-"
          --  ++
       do
          if a_keyword(as_not) then
-            create last_feature_name.prefix_name(not_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(not_name, sp)
             Result := True
          elseif skip1('+') then
-            create last_feature_name.prefix_name(plus_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(plus_name, sp)
             Result := True
          elseif skip1('-') then
-            create last_feature_name.prefix_name(minus_name, pos(start_line, start_column))
+            create last_feature_name.prefix_name(minus_name, sp)
             Result := True
          end
       end
 
-   a_when_part (manifest_string_flag: INTEGER; when_clause: WHEN_CLAUSE): INTEGER is
+   a_when_part (manifest_string_flag: INTEGER; when_clause: WHEN_CLAUSE): INTEGER
          --  ++ when_part -> "when" {when_part_item "," ...} then compound
          --  ++
          --  ++ when_part_item -> constant ".." constant |
@@ -6133,7 +6832,7 @@ feature {}
          valid_manifest_string_flag: (Result = -1) or else (Result = 1)
       end
 
-   a_writable: BOOLEAN is
+   a_writable: BOOLEAN
          -- Which is Result, some local variable or some writable attribute name.
          -- The `Result' is made available in `last_expression'
       local
@@ -6153,7 +6852,7 @@ feature {}
             l := line
             c := column
             if a_ordinary_feature_name_or_local_name then
-               if a_local_name2 then
+               if a_local_name_ref then
                   Result := True
                elseif a_argument then
                   go_back_at(l, c)
@@ -6168,7 +6867,7 @@ feature {}
          end
       end
 
-   mandatory_writable: EXPRESSION is
+   mandatory_writable: EXPRESSION
          -- Skip and return the writable which is mandatory here.
       do
          if a_writable then
@@ -6192,7 +6891,7 @@ feature {}
          Result /= Void
       end
 
-   to_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): EXPRESSION is
+   to_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): EXPRESSION
       require
          t /= Void
       do
@@ -6210,7 +6909,7 @@ feature {}
          end
       end
 
-   to_proc_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): PROCEDURE_CALL is
+   to_proc_call (t: EXPRESSION; fn: FEATURE_NAME; eal: EFFECTIVE_ARG_LIST): PROCEDURE_CALL
       do
          if fn = Void then
             error_handler.add_position(current_position)
@@ -6225,7 +6924,7 @@ feature {}
          end
       end
 
-   a_ordinary_feature_name_or_local_name: BOOLEAN is
+   a_ordinary_feature_name_or_local_name: BOOLEAN
          -- Is there some name here which looks like an ordinary feature name or which looks like an ordinary local
          -- variable name (`Result' is not an ordinary local name). If such a name is detected, the corresponding
          -- identifier is made available in `token_buffer'.
@@ -6284,7 +6983,7 @@ feature {}
          end
       end
 
-   a_non_allowed_very_strange_identifier: BOOLEAN is
+   a_non_allowed_very_strange_identifier: BOOLEAN
          -- Is there some name here which looks like a very strange identifier (not `a_ordinary_feature_name_or_local_name'
          -- and not `a_class_name' and not a keyword). If such a weird name is detected, the corresponding identifier
          -- is made available in the `token_buffer'. The `current_position' is never changed whatever the Result. In case
@@ -6359,7 +7058,7 @@ feature {}
          end
       end
 
-   show_nb (nb: INTEGER; tail: STRING) is
+   show_nb (nb: INTEGER; tail: STRING)
       do
          if nb > 0 then
             echo.w_put_string(fz_error_stars)
@@ -6374,12 +7073,12 @@ feature {}
 
    tmp_feature: TMP_FEATURE
 
-   faof: FAST_ARRAY[FEATURE_TEXT] is
+   faof: FAST_ARRAY[FEATURE_TEXT]
       once
          create Result.with_capacity(256)
       end
 
-   err_exp (sp: POSITION; prefix_flag: BOOLEAN; operator: STRING) is
+   err_exp (sp: POSITION; prefix_flag: BOOLEAN; operator: STRING)
          -- When an error occurs in the right hand side of some `operator'.
       local
          msg: STRING
@@ -6398,7 +7097,7 @@ feature {}
          error_handler.print_as_fatal_error
       end
 
-   expression_with_comment (e: EXPRESSION): EXPRESSION is
+   expression_with_comment (e: EXPRESSION): EXPRESSION
          -- There is some following comment, `e' may be wrapped
          -- inside some EXPRESSION_WITH_COMMENT object.
       local
@@ -6412,14 +7111,14 @@ feature {}
          end
       end
 
-   unknown_external_language (external_tag: MANIFEST_STRING) is
+   unknown_external_language (external_tag: MANIFEST_STRING)
       do
          error_handler.add_position(external_tag.start_position)
          error_handler.append(once "Unknown external language specification.")
          error_handler.print_as_fatal_error
       end
 
-   unused_once_warning_check is
+   unused_once_warning_check
       do
          if last_manifest_string.once_flag then
             error_handler.add_position(last_manifest_string.start_position)
@@ -6428,19 +7127,25 @@ feature {}
          end
       end
 
-   create_infix_prefix (prefix_flag: BOOLEAN; l, c: INTEGER) is
+   create_infix_prefix (freeop: INTEGER_8; l, c: INTEGER)
+      require
+         freeop.in_range(freeop_prefix, freeop_alias)
       local
          operator: HASHED_STRING
       do
          operator := string_aliaser.hashed_string(buffer)
-         if prefix_flag then
+         inspect
+            freeop
+         when freeop_prefix then
             create last_feature_name.prefix_name(operator, pos(l, c))
-         else
+         when freeop_infix then
             create last_feature_name.infix_name(operator, pos(l, c))
+         when freeop_alias then
+            create last_feature_name.alias_name(operator, pos(l, c))
          end
       end
 
-   anchored_creation_check (type: TYPE_MARK) is
+   anchored_creation_check (type: TYPE_MARK)
       do
          if type.is_anchored then
             if type.is_like_current then
@@ -6454,7 +7159,7 @@ feature {}
          end
       end
 
-   void_current_comparison_check (e1, e2: EXPRESSION) is
+   void_current_comparison_check (e1, e2: EXPRESSION)
       require
          e1 /= Void
          e2 /= Void
@@ -6463,7 +7168,7 @@ feature {}
          void_current_comparison_check_(e2, e1)
       end
 
-   void_current_comparison_check_ (e1, e2: EXPRESSION) is
+   void_current_comparison_check_ (e1, e2: EXPRESSION)
       do
          -- Forbid comparison of `Current' with Void (may be useful for beginners):
          if e1.is_current and then e2.is_void then
@@ -6476,7 +7181,7 @@ feature {}
          end
       end
 
-   a_precursor_type_mark (sp: POSITION): TYPE_MARK is
+   a_precursor_type_mark (sp: POSITION): TYPE_MARK
          -- To continue the work after the first '{'.
       do
          if not a_type_mark(False) then
@@ -6501,18 +7206,18 @@ feature {}
          Result /= Void
       end
 
-   a_keyword_precursor: BOOLEAN is
+   a_keyword_precursor: BOOLEAN
       do
          Result := a_keyword(as_precursor) or else a_keyword(once "precursor")
          -- Stay relax Dominique ;-)
       end
 
-   no_static_simplify: BOOLEAN is
+   no_static_simplify: BOOLEAN
       once
          Result := smart_eiffel.pretty_flag or else smart_eiffel.short_or_class_check_flag
       end
 
-   static_simplify (expression: EXPRESSION): EXPRESSION is
+   static_simplify (expression: EXPRESSION): EXPRESSION
       require
          expression /= Void
       do
@@ -6525,7 +7230,7 @@ feature {}
          Result /= Void
       end
 
-   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN is
+   manifest_just_after_a_dot (sign_flag: CHARACTER; do_instruction: BOOLEAN; target: EXPRESSION): BOOLEAN
       require
          target /= Void
       do
@@ -6541,7 +7246,7 @@ feature {}
          end
       end
 
-   a_keyword_void: BOOLEAN is
+   a_keyword_void: BOOLEAN
       do
          if a_keyword(as_void) then
             Result := True
@@ -6553,7 +7258,7 @@ feature {}
          end
       end
 
-   a_keyword_result: BOOLEAN is
+   a_keyword_result: BOOLEAN
       do
          if a_keyword(as_result) then
             Result := True
@@ -6565,7 +7270,7 @@ feature {}
          end
       end
 
-   a_keyword_current: BOOLEAN is
+   a_keyword_current: BOOLEAN
       do
          if a_keyword(as_current) then
             Result := True
@@ -6577,7 +7282,7 @@ feature {}
          end
       end
 
-   a_keyword_true: BOOLEAN is
+   a_keyword_true: BOOLEAN
       do
          if a_keyword(fz_true) then
             Result := True
@@ -6589,7 +7294,7 @@ feature {}
          end
       end
 
-   a_keyword_false: BOOLEAN is
+   a_keyword_false: BOOLEAN
       do
          if a_keyword(fz_false) then
             Result := True
@@ -6601,7 +7306,7 @@ feature {}
          end
       end
 
-   no_void_check (expression: EXPRESSION; msg: STRING) is
+   no_void_check (expression: EXPRESSION; msg: STRING)
       require
          expression /= Void
          msg /= Void
@@ -6614,13 +7319,13 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
          create tmp_feature.initialize
          tmp_feature.done
       end
 
-   unused_tmp_features: STACK[TMP_FEATURE] is
+   unused_tmp_features: STACK[TMP_FEATURE]
       once
          create Result.make
       end

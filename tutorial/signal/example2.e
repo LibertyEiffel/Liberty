@@ -20,7 +20,7 @@ create {ANY}
 feature {}
    a1, a2: A
 
-   make is
+   make
       do
          create a1.make
          create a2.make
@@ -38,7 +38,7 @@ feature {}
          state("f")
       end
 
-   state (s: STRING) is
+   state (s: STRING)
       do
          io.put_string(once "View point ")
          io.put_string(s)

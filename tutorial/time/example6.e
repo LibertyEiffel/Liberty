@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          time: TIME; time_in_english: TIME_IN_ENGLISH
       do
@@ -19,7 +19,7 @@ feature {}
          io.put_string("%N")
       end
 
-   file_tools: FILE_TOOLS is
+   file_tools: FILE_TOOLS
       once
          create Result
       end

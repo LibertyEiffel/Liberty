@@ -3,13 +3,13 @@
 --
 expanded class AUX_MANIFEST_ARRAY8
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    a, b: INTEGER
 
-   make is
+   make
       do
          a := 1
          b := 2

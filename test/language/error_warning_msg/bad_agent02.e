@@ -7,17 +7,17 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]
       do
          my_collection := {ARRAY[STRING] 0, <<"Benedicte","Lucien","Marie">> }
 
-         my_collection.do_all(agent print_item(?))
+         my_collection.for_each(agent print_item(?))
       end
 
 feature {}
-   print_item(c: CHARACTER; item: STRING) is
+   print_item(c: CHARACTER; item: STRING)
       do
          number := number + 1
          std_output.put_character(c)

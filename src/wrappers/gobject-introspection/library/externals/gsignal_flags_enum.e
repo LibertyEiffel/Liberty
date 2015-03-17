@@ -5,9 +5,9 @@ expanded class GSIGNAL_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (action_low_level | 
 				deprecated_low_level | 
@@ -22,144 +22,144 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_action is
+	set_action
 		do
 			value := value.bit_or(action_low_level)
 		end
 
-	unset_action is
+	unset_action
 		do
 			value := value.bit_xor(action_low_level)
 		end
 
-	set_deprecated is
+	set_deprecated
 		do
 			value := value.bit_or(deprecated_low_level)
 		end
 
-	unset_deprecated is
+	unset_deprecated
 		do
 			value := value.bit_xor(deprecated_low_level)
 		end
 
-	set_detailed is
+	set_detailed
 		do
 			value := value.bit_or(detailed_low_level)
 		end
 
-	unset_detailed is
+	unset_detailed
 		do
 			value := value.bit_xor(detailed_low_level)
 		end
 
-	set_must_collect is
+	set_must_collect
 		do
 			value := value.bit_or(must_collect_low_level)
 		end
 
-	unset_must_collect is
+	unset_must_collect
 		do
 			value := value.bit_xor(must_collect_low_level)
 		end
 
-	set_no_hooks is
+	set_no_hooks
 		do
 			value := value.bit_or(no_hooks_low_level)
 		end
 
-	unset_no_hooks is
+	unset_no_hooks
 		do
 			value := value.bit_xor(no_hooks_low_level)
 		end
 
-	set_no_recurse is
+	set_no_recurse
 		do
 			value := value.bit_or(no_recurse_low_level)
 		end
 
-	unset_no_recurse is
+	unset_no_recurse
 		do
 			value := value.bit_xor(no_recurse_low_level)
 		end
 
-	set_run_cleanup is
+	set_run_cleanup
 		do
 			value := value.bit_or(run_cleanup_low_level)
 		end
 
-	unset_run_cleanup is
+	unset_run_cleanup
 		do
 			value := value.bit_xor(run_cleanup_low_level)
 		end
 
-	set_run_first is
+	set_run_first
 		do
 			value := value.bit_or(run_first_low_level)
 		end
 
-	unset_run_first is
+	unset_run_first
 		do
 			value := value.bit_xor(run_first_low_level)
 		end
 
-	set_run_last is
+	set_run_last
 		do
 			value := value.bit_or(run_last_low_level)
 		end
 
-	unset_run_last is
+	unset_run_last
 		do
 			value := value.bit_xor(run_last_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_action: BOOLEAN is
+	is_action: BOOLEAN
 		do
 			Result := (value=action_low_level)
 		end
 
-	is_deprecated: BOOLEAN is
+	is_deprecated: BOOLEAN
 		do
 			Result := (value=deprecated_low_level)
 		end
 
-	is_detailed: BOOLEAN is
+	is_detailed: BOOLEAN
 		do
 			Result := (value=detailed_low_level)
 		end
 
-	is_must_collect: BOOLEAN is
+	is_must_collect: BOOLEAN
 		do
 			Result := (value=must_collect_low_level)
 		end
 
-	is_no_hooks: BOOLEAN is
+	is_no_hooks: BOOLEAN
 		do
 			Result := (value=no_hooks_low_level)
 		end
 
-	is_no_recurse: BOOLEAN is
+	is_no_recurse: BOOLEAN
 		do
 			Result := (value=no_recurse_low_level)
 		end
 
-	is_run_cleanup: BOOLEAN is
+	is_run_cleanup: BOOLEAN
 		do
 			Result := (value=run_cleanup_low_level)
 		end
 
-	is_run_first: BOOLEAN is
+	is_run_first: BOOLEAN
 		do
 			Result := (value=run_first_low_level)
 		end
 
-	is_run_last: BOOLEAN is
+	is_run_last: BOOLEAN
 		do
 			Result := (value=run_last_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	action_low_level: INTEGER is
+	action_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -168,7 +168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	deprecated_low_level: INTEGER is
+	deprecated_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -177,7 +177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	detailed_low_level: INTEGER is
+	detailed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -186,7 +186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	must_collect_low_level: INTEGER is
+	must_collect_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -195,7 +195,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_hooks_low_level: INTEGER is
+	no_hooks_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -204,7 +204,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	no_recurse_low_level: INTEGER is
+	no_recurse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -213,7 +213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	run_cleanup_low_level: INTEGER is
+	run_cleanup_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -222,7 +222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	run_first_low_level: INTEGER is
+	run_first_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -231,7 +231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	run_last_low_level: INTEGER is
+	run_last_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

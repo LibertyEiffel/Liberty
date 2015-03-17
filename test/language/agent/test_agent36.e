@@ -13,7 +13,7 @@ create {TEST_AGENT36}
    empty_make
 
 feature {ANY}
-   make is
+   make
       local
          c: like Current
       do
@@ -24,16 +24,16 @@ feature {ANY}
          (agent {TEST_AGENT36}.f).call([c])
       end
 
-   empty_make is
+   empty_make
       do
       end
 
-   current_memory: REFERENCE[TEST_AGENT36] is
+   current_memory: REFERENCE[TEST_AGENT36]
       once
          create Result
       end
 
-   f is
+   f
       do
          assert(Current = current_memory.item)
       end

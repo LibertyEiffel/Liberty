@@ -23,18 +23,18 @@ feature {ANY}
          --   c = 0
          --   d = 1
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := a & 0x7f |<< 24 | (b |<< 16) | (c |<< 8) | d
       end
 
-   out: STRING is
+   out: STRING
       do
          Result := a.out + "." + b.out + "." + c.out + "." + d.out
       end
 
 feature {ACCESS, ADDRESS}
-   new_socket (access: ACCESS): SOCKET is
+   new_socket (access: ACCESS): SOCKET
       local
          ip_access: IPV4_ACCESS
       do
@@ -46,7 +46,7 @@ feature {ACCESS, ADDRESS}
       end
 
 feature {}
-   make (ip_a, ip_b, ip_c, ip_d: INTEGER) is
+   make (ip_a, ip_b, ip_c, ip_d: INTEGER)
       require
          ip_a.in_range(0, 255)
          ip_b.in_range(0, 255)
@@ -61,13 +61,13 @@ feature {}
 
 end -- class IPV4_ADDRESS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

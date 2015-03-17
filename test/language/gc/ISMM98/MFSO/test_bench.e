@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          apple: APPLE; apple_array: ARRAY[APPLE]; i, limit: INTEGER
       do

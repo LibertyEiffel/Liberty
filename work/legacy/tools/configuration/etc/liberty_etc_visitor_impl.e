@@ -23,12 +23,12 @@ create {ANY}
 feature {LIBERTY_ETC}
    tool_name: FIXED_STRING
 
-   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING] is
+   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]
       do
          Result := all_clusters
       end
 
-   check_validity is
+   check_validity
       local
          fix_point: BOOLEAN; mark: INTEGER
       do
@@ -49,39 +49,39 @@ feature {LIBERTY_ETC}
       end
 
 feature {LIBERTY_ETC_FACTORY} -- Lists
-   visit_environment_variable_list (list: LIBERTY_ETC_LIST) is
+   visit_environment_variable_list (list: LIBERTY_ETC_LIST)
       do
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
-   visit_cluster_list (list: LIBERTY_ETC_LIST) is
+   visit_cluster_list (list: LIBERTY_ETC_LIST)
       do
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
-   visit_cluster_configuration_list (list: LIBERTY_ETC_LIST) is
+   visit_cluster_configuration_list (list: LIBERTY_ETC_LIST)
       do
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
-   visit_debug_configuration_list (list: LIBERTY_ETC_LIST) is
+   visit_debug_configuration_list (list: LIBERTY_ETC_LIST)
       do
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
-   visit_debug_key_list (list: LIBERTY_ETC_LIST) is
+   visit_debug_key_list (list: LIBERTY_ETC_LIST)
       do
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
-   visit_location_list (list: LIBERTY_ETC_LIST) is
+   visit_location_list (list: LIBERTY_ETC_LIST)
       do
          create last_locations.with_capacity(2)
          list.do_all(agent {EIFFEL_NODE}.accept(Current))
       end
 
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
-   visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_master (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          t: EIFFEL_TERMINAL_NODE
       do
@@ -103,7 +103,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          nt.node_at(3).accept(Current)
       end
 
-   visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          cluster_name: EIFFEL_TERMINAL_NODE
          cluster_definition_name: FIXED_STRING
@@ -159,14 +159,14 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          end
       end
 
-   visit_environment (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_environment (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          if not nt.is_empty then
             nt.node_at(1).accept(Current)
          end
       end
 
-   visit_environment_variable (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_environment_variable (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          entity_name, entity_value: EIFFEL_TERMINAL_NODE
          entity_value_image: TYPED_EIFFEL_IMAGE[STRING]
@@ -182,7 +182,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          env.set(entity_name.image.image, entity_value_image.decoded)
       end
 
-   visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          if not nt.is_empty then
             check
@@ -193,7 +193,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          end
       end
 
-   visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          cluster_name: EIFFEL_TERMINAL_NODE
          previous_cluster: like current_cluster
@@ -236,11 +236,11 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          current_cluster_name := previous_cluster_name
       end
 
-   visit_configure (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_configure (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_locations (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_locations (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          check
             nt.lower = 0
@@ -249,7 +249,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          nt.node_at(1).accept(Current)
       end
 
-   visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_location (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          location: EIFFEL_TERMINAL_NODE
          location_image: TYPED_EIFFEL_IMAGE[STRING]
@@ -267,7 +267,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          last_locations.add_last(canonical_location(descriptor))
       end
 
-   set_current_cluster_from_last_locations is
+   set_current_cluster_from_last_locations
       require
          current_cluster = Void
          not last_locations.is_empty
@@ -312,7 +312,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          last_locations = Void
       end
 
-   set_current_cluster_from_location (location: ABSTRACT_STRING) is
+   set_current_cluster_from_location (location: ABSTRACT_STRING)
       require
          current_cluster = Void
          location /= Void
@@ -357,7 +357,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          current_cluster /= Void
       end
 
-   visit_version (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_version (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          version: EIFFEL_TERMINAL_NODE
          version_image: TYPED_EIFFEL_IMAGE[STRING]
@@ -371,7 +371,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          current_cluster.set_version(version_image.decoded.intern)
       end
 
-   visit_needs (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_needs (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          if not nt.is_empty then
             check
@@ -382,7 +382,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          end
       end
 
-   visit_cluster_configuration (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_configuration (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          needed_cluster: EIFFEL_TERMINAL_NODE
          needed_cluster_name: FIXED_STRING
@@ -400,7 +400,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          last_cluster_constraints := Void
       end
 
-   visit_cluster_constraints (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_constraints (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          if not nt.is_empty then
             check
@@ -411,7 +411,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          end
       end
 
-   visit_cluster_version_constraint (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_version_constraint (nt: LIBERTY_ETC_NON_TERMINAL)
       local
          version: EIFFEL_TERMINAL_NODE
          version_image: TYPED_EIFFEL_IMAGE[STRING]
@@ -426,7 +426,7 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          last_cluster_constraints.add_last(create {LIBERTY_ETC_VERSION_CONSTRAINT}.make(last_version_operator, version_image.decoded.intern))
       end
 
-   visit_version_operator (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_version_operator (nt: LIBERTY_ETC_NON_TERMINAL)
       do
          check
             nt.lower = 0
@@ -448,34 +448,34 @@ feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
          end
       end
 
-   visit_assertion (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_assertion (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_assertion_level (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_assertion_level (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_debug (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_debug_configuration (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug_configuration (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_debug_key (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug_key (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
-   visit_concurrency (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_concurrency (nt: LIBERTY_ETC_NON_TERMINAL)
       do
       end
 
 feature {}
    cluster_per_location: DICTIONARY[LIBERTY_ETC_CLUSTER, FIXED_STRING]
 
-   set_current_cluster_from_cluster_rc (cluster_rc: FIXED_STRING) is
+   set_current_cluster_from_cluster_rc (cluster_rc: FIXED_STRING)
       require
          dir.system_notation.is_absolute_path(cluster_rc.out)
          current_cluster = Void
@@ -502,7 +502,7 @@ feature {}
          current_cluster = cluster_per_location.fast_reference_at(cluster_rc)
       end
 
-   set_current_cluster_from_loadpath_se (loadpath_se: FIXED_STRING) is
+   set_current_cluster_from_loadpath_se (loadpath_se: FIXED_STRING)
       require
          dir.system_notation.is_absolute_path(loadpath_se.out)
          current_cluster = Void
@@ -545,7 +545,7 @@ feature {}
          current_cluster = cluster_per_location.fast_reference_at(loadpath_se)
       end
 
-   scan_loadpath (locations: FAST_ARRAY[FIXED_STRING]) is
+   scan_loadpath (locations: FAST_ARRAY[FIXED_STRING])
       require
          not locations.is_empty
       local
@@ -574,7 +574,7 @@ feature {}
          end
       end
 
-   import_loadpath (locations: FAST_ARRAY[FIXED_STRING]; loadpath: FIXED_STRING) is
+   import_loadpath (locations: FAST_ARRAY[FIXED_STRING]; loadpath: FIXED_STRING)
       require
          dir.system_notation.is_absolute_path(loadpath.out)
       local
@@ -601,7 +601,7 @@ feature {}
          tfr.disconnect
       end
 
-   import_loadpath_line (locations: FAST_ARRAY[FIXED_STRING]; directory: FIXED_STRING; loadpath_line: STRING) is
+   import_loadpath_line (locations: FAST_ARRAY[FIXED_STRING]; directory: FIXED_STRING; loadpath_line: STRING)
       require
          dir.system_notation.is_absolute_path(directory.out)
       local
@@ -625,7 +625,7 @@ feature {}
          end
       end
 
-   is_comment (loadpath_line: STRING): BOOLEAN is
+   is_comment (loadpath_line: STRING): BOOLEAN
       local
          i: INTEGER; found: BOOLEAN
       do
@@ -650,7 +650,7 @@ feature {}
          end
       end
 
-   set_current_cluster_from_directory (directory: FIXED_STRING) is
+   set_current_cluster_from_directory (directory: FIXED_STRING)
       require
          dir.system_notation.is_absolute_path(directory.out)
          current_cluster = Void
@@ -666,7 +666,7 @@ feature {}
          current_cluster = cluster_per_location.fast_reference_at(directory)
       end
 
-   canonical_location (descriptor: STRING): FIXED_STRING is
+   canonical_location (descriptor: STRING): FIXED_STRING
       local
          buffer: STRING
       do
@@ -677,57 +677,57 @@ feature {}
       end
 
 feature {}
-   agent_version_eq: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_eq: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_eq
       end
 
-   agent_version_le: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_le: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_le
       end
 
-   agent_version_ge: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_ge: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_ge
       end
 
-   agent_version_ne: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_ne: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_ne
       end
 
-   agent_version_lt: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_lt: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_lt
       end
 
-   agent_version_gt: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]] is
+   agent_version_gt: PREDICATE[TUPLE[FIXED_STRING, FIXED_STRING]]
       once
          Result := agent version_gt
       end
 
-   version_eq (v1, v2: FIXED_STRING): BOOLEAN is
+   version_eq (v1, v2: FIXED_STRING): BOOLEAN
       do
          Result := v1.is_equal(v2)
       end
 
-   version_le (v1, v2: FIXED_STRING): BOOLEAN is
+   version_le (v1, v2: FIXED_STRING): BOOLEAN
       do
          Result := not version_lt(v2, v1)
       end
 
-   version_ge (v1, v2: FIXED_STRING): BOOLEAN is
+   version_ge (v1, v2: FIXED_STRING): BOOLEAN
       do
          Result := not version_lt(v1, v2)
       end
 
-   version_ne (v1, v2: FIXED_STRING): BOOLEAN is
+   version_ne (v1, v2: FIXED_STRING): BOOLEAN
       do
          Result := not v1.is_equal(v2)
       end
 
-   version_lt (v1, v2: FIXED_STRING): BOOLEAN is
+   version_lt (v1, v2: FIXED_STRING): BOOLEAN
       local
          previous_dot1, dot1, previous_dot2, dot2: INTEGER
          finished: BOOLEAN
@@ -781,12 +781,12 @@ feature {}
          end
       end
 
-   version_gt (v1, v2: FIXED_STRING): BOOLEAN is
+   version_gt (v1, v2: FIXED_STRING): BOOLEAN
       do
          Result := version_lt(v2, v1)
       end
 
-   extract_integer (v: FIXED_STRING; low, up: INTEGER): INTEGER is
+   extract_integer (v: FIXED_STRING; low, up: INTEGER): INTEGER
       require
          v.valid_index(low)
          v.valid_index(up)
@@ -805,7 +805,7 @@ feature {}
       end
 
 feature {}
-   make (a_tool_name: ABSTRACT_STRING) is
+   make (a_tool_name: ABSTRACT_STRING)
       require
          a_tool_name /= Void
       do
@@ -831,7 +831,7 @@ feature {}
    dir: BASIC_DIRECTORY
    files: FILE_TOOLS
 
-   tfr: TEXT_FILE_READ is
+   tfr: TEXT_FILE_READ
       once
          create Result.make
       end

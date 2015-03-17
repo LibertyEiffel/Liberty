@@ -13,32 +13,37 @@ create {ANY}
    make
 
 feature {ANY}
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
    declaration_type: TYPE
 
-   precedence: INTEGER is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := result_type
+      end
+
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
@@ -47,7 +52,7 @@ feature {ANY}
 
    start_position: POSITION
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          if declaration_type = Void then
             declaration_type := result_type.resolve_in(type)
@@ -55,76 +60,76 @@ feature {ANY}
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := result_type.resolve_in(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := result_type.resolve_in(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): FAKE_ARGUMENT is
+   simplify (type: TYPE): FAKE_ARGUMENT
       do
          Result := Current
       end
 
-   pretty, pretty_target, bracketed_pretty (indent_level: INTEGER) is
+   pretty, pretty_target, bracketed_pretty (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          check
             False
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          check
             False
          end
       end
 
-   accept (visitor: FAKE_ARGUMENT_VISITOR) is
+   accept (visitor: FAKE_ARGUMENT_VISITOR)
       do
          visitor.visit_fake_argument(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
@@ -133,7 +138,7 @@ feature {FAKE_ARGUMENT_VISITOR}
    rank: INTEGER
 
 feature {}
-   make (target_type: TYPE; sp: like start_position; rt: like result_type; r: like rank) is
+   make (target_type: TYPE; sp: like start_position; rt: like result_type; r: like rank)
       require
          not sp.is_unknown
          rt /= Void
@@ -167,9 +172,9 @@ end -- class FAKE_ARGUMENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

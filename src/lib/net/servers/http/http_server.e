@@ -15,12 +15,12 @@ create {ANY}
    make
 
 feature {ANY}
-   is_alive: BOOLEAN is
+   is_alive: BOOLEAN
       do
          Result := not server.done
       end
 
-   log (a_message: STRING) is
+   log (a_message: ABSTRACT_STRING)
       local
          msg: STRING
       do
@@ -35,7 +35,7 @@ feature {ANY}
       end
 
 feature {}
-   current_time: STRING is
+   current_time: STRING
       local
          date: TIME; t: MICROSECOND_TIME; ms: INTEGER
       do
@@ -84,19 +84,19 @@ feature {}
       end
 
 feature {HTTP_CONNECTION}
-   shutdown is
+   shutdown
          -- A connection asked the server to shut down
       do
          server.shutdown
       end
 
-   halt is
+   halt
          -- A connection asked the server to halt
       do
          server.halt
       end
 
-   connection_done (a_connection: HTTP_CONNECTION) is
+   connection_done (a_connection: HTTP_CONNECTION)
          -- A connection is about to finish.
       do
          release_connection(a_connection)
@@ -113,13 +113,13 @@ feature {}
    connection_factory: FUNCTION[TUPLE, HTTP_CONNECTION]
          -- the HTTP connection factory
 
-   make (a_error_handler: like error_handler; a_connection_factory: like connection_factory) is
+   make (a_error_handler: like error_handler; a_connection_factory: like connection_factory)
       do
          error_handler := a_error_handler
          connection_factory := a_connection_factory
       end
 
-   handle_error (msg: STRING) is
+   handle_error (msg: STRING)
       do
          if error_handler /= Void then
             error_handler.call([msg])
@@ -129,12 +129,12 @@ feature {}
          end
       end
 
-   connections_pool: RECYCLING_POOL[HTTP_CONNECTION] is
+   connections_pool: RECYCLING_POOL[HTTP_CONNECTION]
       once
          create Result.make
       end
 
-   new_connection: HTTP_CONNECTION is
+   new_connection: HTTP_CONNECTION
       do
          if connections_pool.is_empty then
             Result := connection_factory.item([])
@@ -144,20 +144,20 @@ feature {}
          Result.set_server(Current)
       end
 
-   release_connection (cnx: HTTP_CONNECTION) is
+   release_connection (cnx: HTTP_CONNECTION)
       do
          connections_pool.recycle(cnx)
       end
 
 end -- class HTTP_SERVER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

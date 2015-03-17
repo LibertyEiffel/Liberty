@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    p: AUX_CREATION1A
 
-   make is
+   make
          -- make and display a child object
       do
          create {AUX_CREATION1B} p.make
@@ -24,7 +24,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

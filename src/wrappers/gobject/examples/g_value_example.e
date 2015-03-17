@@ -9,7 +9,7 @@ insert
 	G_TYPE_EXTERNALS
 	G_PARAM_FLAGS
 create {ANY} make
-feature {ANY} make is
+feature {ANY} make
 		do
 			g_type_init
 			create bool.from_boolean (True)

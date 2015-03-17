@@ -5,11 +5,11 @@ class AUX_GENERIC6LL[G]
    --insert
    --      ANY
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create rep.make(1, 20)
          count := 0
@@ -17,14 +17,14 @@ feature {ANY}
       end
 
 feature {ANY}
-   empty: BOOLEAN is
+   empty: BOOLEAN
       do
          Result := count = 0
       end
 
    count: INTEGER
 
-   i_th (i: INTEGER): G is
+   i_th (i: INTEGER): G
       require
          i >= 1
          i <= count
@@ -32,24 +32,24 @@ feature {ANY}
          Result := rep.item(i)
       end
 
-   item: G is
+   item: G
       do
          Result := rep.item(index)
       end
 
-   forth is
+   forth
       do
          index := index + 1
       end
 
-   put (x: G) is
+   put (x: G)
       require
          not_of: not off
       do
          rep.put(x, count)
       end
 
-   extend (x: G) is
+   extend (x: G)
       do
          count := count + 1
          if count > rep.upper then
@@ -59,44 +59,44 @@ feature {ANY}
          rep.put(x, count)
       end
 
-   after: BOOLEAN is
+   after: BOOLEAN
       do
          Result := index > count
       end
 
-   off: BOOLEAN is
+   off: BOOLEAN
       do
          Result := index < 1 or index > count
       end
 
-   start is
+   start
       do
          index := 1
       end
 
-   has (x: G): BOOLEAN is
+   has (x: G): BOOLEAN
       do
          Result := rep.first_index_of(x) <= count
       end
 
-   first: G is
+   first: G
       do
          Result := rep.item(1)
       end
 
-   last: G is
+   last: G
       do
          Result := rep.item(count)
       end
 
-   remove_last is
+   remove_last
       require
          not empty
       do
          count := count - 1
       end
 
-   wipe_out is
+   wipe_out
       do
          count := 0
       end
@@ -105,12 +105,12 @@ feature {ANY}
 
 feature {ANY}
    -- accès au curseur
-   --    cursor : CURSOR is
+   --    cursor : CURSOR
    --   do
    --       !!Result.make(index);
    --   end; -- cursor
    --
-   --    go_to (c: CURSOR) is
+   --    go_to (c: CURSOR)
    --   do
    --       index := c.value;
    --   end; -- go_to

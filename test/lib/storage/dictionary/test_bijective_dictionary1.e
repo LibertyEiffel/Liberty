@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   test_with (bd: BIJECTIVE_DICTIONARY[STRING, STRING]) is
+   test_with (bd: BIJECTIVE_DICTIONARY[STRING, STRING])
       local
          bd_twin: like bd
       do
@@ -42,7 +42,7 @@ feature {}
          assert(bd_twin.at("k5").is_equal("v5"))
       end
 
-   make is
+   make
       do
          test_with({HASHED_BIJECTIVE_DICTIONARY[STRING, STRING] << "v1", "k1";
                                                                    "v2", "k2";

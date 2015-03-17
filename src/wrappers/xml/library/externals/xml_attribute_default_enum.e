@@ -5,9 +5,9 @@ expanded class XML_ATTRIBUTE_DEFAULT_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_attribute_fixed_low_level)  or else
 				(a_value = xml_attribute_implied_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_attribute_fixed is
+	set_xml_attribute_fixed
 		do
 			value := xml_attribute_fixed_low_level
 		end
 
-	set_xml_attribute_implied is
+	set_xml_attribute_implied
 		do
 			value := xml_attribute_implied_low_level
 		end
 
-	set_xml_attribute_none is
+	set_xml_attribute_none
 		do
 			value := xml_attribute_none_low_level
 		end
 
-	set_xml_attribute_required is
+	set_xml_attribute_required
 		do
 			value := xml_attribute_required_low_level
 		end
 
 feature -- Queries
-	is_xml_attribute_fixed: BOOLEAN is
+	is_xml_attribute_fixed: BOOLEAN
 		do
 			Result := (value=xml_attribute_fixed_low_level)
 		end
 
-	is_xml_attribute_implied: BOOLEAN is
+	is_xml_attribute_implied: BOOLEAN
 		do
 			Result := (value=xml_attribute_implied_low_level)
 		end
 
-	is_xml_attribute_none: BOOLEAN is
+	is_xml_attribute_none: BOOLEAN
 		do
 			Result := (value=xml_attribute_none_low_level)
 		end
 
-	is_xml_attribute_required: BOOLEAN is
+	is_xml_attribute_required: BOOLEAN
 		do
 			Result := (value=xml_attribute_required_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_attribute_fixed_low_level: INTEGER is
+	xml_attribute_fixed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_implied_low_level: INTEGER is
+	xml_attribute_implied_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_none_low_level: INTEGER is
+	xml_attribute_none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_attribute_required_low_level: INTEGER is
+	xml_attribute_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -11,12 +11,12 @@ create {ANY}
 feature {ANY}
    index: INTEGER
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          Result := value
       end
 
-   make (the_group: like group; the_name: like name; the_index: like index) is
+   make (the_group: like group; the_name: like name; the_index: like index)
       require
          the_group.is_numeric implies the_name.is_integer
       do
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   is_off: BOOLEAN is False
+   is_off: BOOLEAN False
 
 feature {}
    value: INTEGER

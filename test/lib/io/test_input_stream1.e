@@ -11,7 +11,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          tfr: TEXT_FILE_READ; value: INTEGER; path: STRING
          last_character:CHARACTER

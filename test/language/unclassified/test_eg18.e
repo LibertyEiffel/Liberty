@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a1: AUX_EG18A[REAL]; bool: BOOLEAN
       do

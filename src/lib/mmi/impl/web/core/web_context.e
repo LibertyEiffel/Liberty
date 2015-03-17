@@ -20,21 +20,21 @@ feature {ANY} -- request
    head: BOOLEAN
    body: STRING
 
-   request_header (key: ABSTRACT_STRING): STRING is
+   request_header (key: ABSTRACT_STRING): STRING
       require
          key /= Void
       do
          Result := request_headers.fast_reference_at(key.intern)
       end
 
-   set_head (a_head: like head) is
+   set_head (a_head: like head)
       do
          head := a_head
       ensure
          head = a_head
       end
 
-   argument (key: ABSTRACT_STRING): STRING is
+   argument (key: ABSTRACT_STRING): STRING
       require
          key /= Void
       do
@@ -47,7 +47,7 @@ feature {ANY} -- request
 feature {ANY} -- reply
    status: INTEGER
 
-   status_reason: STRING is
+   status_reason: STRING
       do
          inspect
             status
@@ -134,7 +134,7 @@ feature {ANY} -- reply
          end
       end
 
-   is_known_status (a_status: INTEGER): BOOLEAN is
+   is_known_status (a_status: INTEGER): BOOLEAN
       do
          inspect
             a_status
@@ -145,7 +145,7 @@ feature {ANY} -- reply
          end
       end
 
-   set_reply_header (key, value: ABSTRACT_STRING) is
+   set_reply_header (key, value: ABSTRACT_STRING)
       require
          key /= Void
          value /= Void
@@ -154,7 +154,7 @@ feature {ANY} -- reply
          reply_headers.fast_put(value.out, key.intern)
       end
 
-   set_status (a_status: like status) is
+   set_status (a_status: like status)
       require
          is_known_status(a_status)
          not should_disconnect
@@ -167,7 +167,7 @@ feature {ANY} -- reply
    reply_stream: OUTPUT_STREAM
 
 feature {WEB_CONNECTION}
-   disconnect is
+   disconnect
       require
          should_disconnect
       do
@@ -177,7 +177,7 @@ feature {WEB_CONNECTION}
          end
       end
 
-   flush is
+   flush
       require
          not should_disconnect
       do
@@ -191,13 +191,13 @@ feature {WEB_CONNECTION}
             should_disconnect := check_connection
 
             set_reply_header(once "Content-Length", reply_stream_.count.out)
-            reply_headers.do_all(agent (v: STRING; k: FIXED_STRING) is
-                                 do
-                                    debug
-                                       log.info.put_string("#(1): #(2)%R%N" # k # v)
-                                    end
-                                    stream.put_string("#(1): #(2)%R%N" # k # v)
-                                 end)
+            reply_headers.for_each(agent (v: STRING; k: FIXED_STRING)
+                                   do
+                                      debug
+                                         log.info.put_string("#(1): #(2)%R%N" # k # v)
+                                      end
+                                      stream.put_string("#(1): #(2)%R%N" # k # v)
+                                   end)
 
             debug
                log.info.put_string(once "%R%N")
@@ -223,7 +223,7 @@ feature {WEB_CONNECTION}
       end
 
 feature {}
-   check_connection: BOOLEAN is
+   check_connection: BOOLEAN
       local
          connection: STRING
       do
@@ -247,7 +247,7 @@ feature {}
       end
 
 feature {}
-   decode_http_request: BOOLEAN is
+   decode_http_request: BOOLEAN
       local
          request: FAST_ARRAY[STRING]
          i: INTEGER; url: STRING
@@ -290,7 +290,7 @@ feature {}
          end
       end
 
-   decode_request_headers is
+   decode_request_headers
       local
          i: INTEGER; key: FIXED_STRING; value: STRING
       do
@@ -312,7 +312,7 @@ feature {}
          end
       end
 
-   decode_body is
+   decode_body
       local
          content_length: STRING; length: INTEGER
       do
@@ -335,7 +335,7 @@ feature {}
          end
       end
 
-   decode_arguments is
+   decode_arguments
       require
          arguments = Void
       local
@@ -367,7 +367,7 @@ feature {}
          arguments /= Void
       end
 
-   decode_arguments_for (a_string: STRING) is
+   decode_arguments_for (a_string: STRING)
       require
          a_string /= Void
          arguments /= Void
@@ -398,7 +398,7 @@ feature {}
          end
       end
 
-   decode_url_argument (a_string: STRING; a_start_index, a_end_index: INTEGER): STRING is
+   decode_url_argument (a_string: STRING; a_start_index, a_end_index: INTEGER): STRING
       require
          a_string.valid_index(a_start_index)
          a_string.valid_index(a_end_index)
@@ -428,7 +428,7 @@ feature {}
          end
       end
 
-   url_encoded_character (a_character: CHARACTER): INTEGER is
+   url_encoded_character (a_character: CHARACTER): INTEGER
       do
          inspect
             a_character
@@ -442,7 +442,7 @@ feature {}
       end
 
 feature {}
-   make (a_stream: like stream) is
+   make (a_stream: like stream)
       require
          a_stream.is_connected
       do
@@ -488,13 +488,13 @@ invariant
 
 end -- class WEB_CONTEXT
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

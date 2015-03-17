@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
       do
@@ -21,7 +21,7 @@ feature {ANY}
          test_plus_and_times(c1, c2, c3)
       end
 
-   test_plus_and_times (x, y, z: AUX_AC_COMPLEX) is
+   test_plus_and_times (x, y, z: AUX_AC_COMPLEX)
       do
          assert(((x + y) * z).is_near_equal(x * z + y * z))
       end

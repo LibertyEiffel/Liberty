@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   wrong: REAL is 3.5
+   wrong: REAL 3.5
 
-   make is
+   make
       local
          i: INTEGER
       do

@@ -6,8 +6,8 @@ Line 14 column 17 in BAD_PROCEDURE1 (/home/cadrian/Workspace/Dev/Liberty/test/la
          bar := foo
                 ^  
 Line 17 column 4 in BAD_PROCEDURE1 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_procedure1.e):
-   foo is
-   ^     
+   foo
+   ^  
 ------
 ****** Fatal Error: This call has no result.
 

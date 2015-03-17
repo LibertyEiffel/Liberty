@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: like infix "+"; j: like prefix "+"
       do
@@ -15,11 +15,11 @@ feature {ANY}
          j := i + j
       end
 
-   infix "+" (other: like Current): INTEGER is
+   infix "+" (other: like Current): INTEGER
       do
       end
 
-   prefix "+": INTEGER is
+   prefix "+": INTEGER
       do
       end
 

@@ -9,7 +9,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          n8: NATURAL_8; n16: NATURAL_16; n32: NATURAL_32; n64: NATURAL_64
          str: STRING

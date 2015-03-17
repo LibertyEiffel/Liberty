@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY} -- Should be rejected
-   make (n_: like n) is
+   make (n_: like n)
       do
          n := n_
       ensure

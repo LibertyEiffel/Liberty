@@ -3,11 +3,11 @@
 --
 class FEATURE_NAME
    --
-   -- For all kinds of feature names (simple names, infix or prefix names, frozen names as well as 
+   -- For all kinds of feature names (simple names, infix or prefix names, frozen names as well as
    -- Precursor names).
-   -- The most common usage of FEATURE_NAME class is for declaration names of features (function, 
-   -- procedure and attributes), but the very same class is also used as an EXPRESSION for attributes which 
-   -- are syntactically recognizable (i.e. the left hand side of an assignment or for example, or the target 
+   -- The most common usage of FEATURE_NAME class is for declaration names of features (function,
+   -- procedure and attributes), but the very same class is also used as an EXPRESSION for attributes which
+   -- are syntactically recognizable (i.e. the left hand side of an assignment or for example, or the target
    -- of some creation instruction).
    --
 
@@ -23,19 +23,21 @@ insert
       end
 
 create {ANY}
-   ordinary_name, simple_feature_name, infix_name, prefix_name, unknown_position
+   ordinary_name, simple_feature_name, infix_name, prefix_name, alias_name, unknown_position
 
 feature {}
    name_type: INTEGER
-         -- Dynamic binding is no longer used for feature name in order to avoid covariance problems 
+         -- Dynamic binding is no longer used for feature name in order to avoid covariance problems
          -- in hashable DICTIONARY/SET.
 
-   C_simple_feature_name:        INTEGER_8 is 1
-   C_simple_feature_name_frozen: INTEGER_8 is 2
-   C_infix_name:                 INTEGER_8 is 3
-   C_infix_name_frozen:          INTEGER_8 is 4
-   C_prefix_name:                INTEGER_8 is 5
-   C_prefix_name_frozen:         INTEGER_8 is 6
+   C_simple_feature_name:        INTEGER_8 1
+   C_simple_feature_name_frozen: INTEGER_8 2
+   C_infix_name:                 INTEGER_8 3
+   C_infix_name_frozen:          INTEGER_8 4
+   C_prefix_name:                INTEGER_8 5
+   C_prefix_name_frozen:         INTEGER_8 6
+   C_alias_name:                 INTEGER_8 7
+   C_alias_name_frozen:          INTEGER_8 8
 
 feature {ANY}
    start_position: POSITION
@@ -44,17 +46,17 @@ feature {ANY}
    name: HASHED_STRING
          -- The unique corresponding one.
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := name.hash_code
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          Result := name.to_string
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if name = other.name then
             --|*** Why is there a special case for simple feature names? <FM-19/04/2006>
@@ -66,17 +68,20 @@ feature {ANY}
                Result := other.is_infix_name or else other.is_simple_feature_name
             when C_prefix_name, C_prefix_name_frozen then
                Result := other.is_prefix_name or else other.is_simple_feature_name
+            when C_alias_name, C_alias_name_frozen then
+               Result := other.is_alias_name or else other.is_simple_feature_name
             end
             check
                Result = is_simple_feature_name
                   or other.is_simple_feature_name
                   or (is_infix_name and other.is_infix_name)
                   or (is_prefix_name and other.is_prefix_name)
+                  or (is_alias_name and other.is_alias_name)
             end
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          if name = other.name then
             --|*** There is a special case for simple feature names because of is_equal. <FM-19/04/2006>
@@ -91,24 +96,29 @@ feature {ANY}
                check
                   Result = other.is_simple_feature_name or not other.is_prefix_name
                end
+            when C_alias_name, C_alias_name_frozen then
+               Result := other.is_alias_name
+               check
+                  Result = other.is_simple_feature_name or not other.is_alias_name
+               end
             end
          else
             Result := to_string < other.to_string
          end
       end
 
-   is_frozen: BOOLEAN is
+   is_frozen: BOOLEAN
       do
          inspect
             name_type
-         when C_simple_feature_name_frozen, C_infix_name_frozen, C_prefix_name_frozen then
+         when C_simple_feature_name_frozen, C_infix_name_frozen, C_prefix_name_frozen, C_alias_name_frozen then
             Result := True
          else
             Result := False
          end
       end
 
-   is_simple_feature_name: BOOLEAN is
+   is_simple_feature_name: BOOLEAN
       do
          inspect
             name_type
@@ -119,7 +129,7 @@ feature {ANY}
          end
       end
 
-   is_infix_name: BOOLEAN is
+   is_infix_name: BOOLEAN
       do
          inspect
             name_type
@@ -130,7 +140,7 @@ feature {ANY}
          end
       end
 
-   is_prefix_name: BOOLEAN is
+   is_prefix_name: BOOLEAN
       do
          inspect
             name_type
@@ -141,7 +151,18 @@ feature {ANY}
          end
       end
 
-   infix_or_prefix: STRING is
+   is_alias_name: BOOLEAN
+      do
+         inspect
+            name_type
+         when C_alias_name, C_alias_name_frozen then
+            Result := True
+         else
+            Result := False
+         end
+      end
+
+   infix_or_prefix: STRING
          -- Return "infix" or "prefix" or Void.
       do
          if is_infix_name then
@@ -151,27 +172,39 @@ feature {ANY}
          end
       end
 
-   complete_name_in (buffer: STRING) is
+   complete_name_in (buffer: STRING)
       require
          buffer /= Void
       do
-         if is_simple_feature_name then
-            buffer.append(to_string)
-         elseif is_infix_name then
-            buffer.append(once "infix %"")
-            buffer.append(to_string)
-            buffer.extend('%"')
-         else
-            check
-               is_prefix_name
+         if not complete_name_flag then
+            complete_name_flag := True
+            if is_simple_feature_name then
+               buffer.append(to_string)
+            elseif is_alias_name then
+               buffer.append(once "alias %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
+            elseif is_infix_name then
+               buffer.append(once "infix %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
+            else
+               check
+                  is_prefix_name
+               end
+               buffer.append(once "prefix %"")
+               buffer.append(to_string)
+               buffer.extend('%"')
             end
-            buffer.append(once "prefix %"")
-            buffer.append(to_string)
-            buffer.extend('%"')
+            if name_alias /= Void then
+               buffer.extend(' ')
+               name_alias.complete_name_in(buffer)
+            end
+            complete_name_flag := False
          end
       end
 
-   mapping_c_in (buffer: STRING) is
+   mapping_c_in (buffer: STRING)
       local
          i: INTEGER; c: CHARACTER; string: STRING
       do
@@ -203,7 +236,7 @@ feature {ANY}
          end
       end
 
-   is_free_operator: BOOLEAN is
+   is_free_operator: BOOLEAN
          -- Note: this feature which checks the correctness of free
          -- operator notation is not used by the parser but is defined just
          -- to make the assertion code clear and nice.
@@ -233,7 +266,7 @@ feature {ANY}
          end
       end
 
-   declaration_in (buffer: STRING) is
+   declaration_in (buffer: STRING)
       require
          buffer /= Void
       do
@@ -257,19 +290,19 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.put_string(to_string)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          i: INTEGER; c: CHARACTER
       do
@@ -309,13 +342,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: FEATURE_NAME_VISITOR) is
+   accept (visitor: FEATURE_NAME_VISITOR)
       do
          visitor.visit_feature_name(Current)
       end
 
-feature {CLASS_TEXT, LIVE_TYPE, FEATURE_NAME_VISITOR}
-   unknown_position (n: STRING) is
+feature {EIFFEL_PARSER, CLASS_TEXT, LIVE_TYPE, FEATURE_NAME_VISITOR}
+   unknown_position (n: STRING)
       require
          n /= Void
       local
@@ -327,19 +360,19 @@ feature {CLASS_TEXT, LIVE_TYPE, FEATURE_NAME_VISITOR}
       end
 
 feature {ANONYMOUS_FEATURE, RENAME_PAIR, FEATURE_NAME_LIST}
-   declaration_pretty_print is
+   declaration_pretty_print
       do
          special_pretty_print (True)
       end
 
 feature {E_ROUTINE, WRITABLE_ATTRIBUTE}
-   inside_end_comment_pretty_print is
+   inside_end_comment_pretty_print
       do
          special_pretty_print (False)
       end
-         
+
 feature {}
-   special_pretty_print (frozen_flag: BOOLEAN) is
+   special_pretty_print (frozen_flag: BOOLEAN)
       do
          if frozen_flag and then is_frozen then
             pretty_printer.keyword(once "frozen")
@@ -363,7 +396,7 @@ feature {}
       end
 
 feature {TYPE}
-   ordinary_name (hn: like name; sp: like start_position) is
+   ordinary_name (hn: like name; sp: like start_position)
          -- To create a simple ordinary feature name.
       require
          hn /= Void
@@ -375,8 +408,22 @@ feature {TYPE}
          start_position = sp
       end
 
+feature {ANY}
+   name_alias: FEATURE_NAME
+
+   set_name_alias (a: like name_alias) assign name_alias
+      require
+         a.is_simple_feature_name /= is_simple_feature_name
+         name_alias = Void
+         a.name_alias /= Void implies a.name_alias = Current
+      do
+         name_alias := a
+      ensure
+         name_alias = a
+      end
+
 feature {EIFFEL_PARSER, FEATURE_ACCUMULATOR}
-   set_is_frozen is
+   set_is_frozen
       require
          not is_frozen
       do
@@ -388,13 +435,33 @@ feature {EIFFEL_PARSER, FEATURE_ACCUMULATOR}
             name_type := C_infix_name_frozen
          when C_prefix_name then
             name_type := C_prefix_name_frozen
+         when C_alias_name then
+            name_type := C_alias_name_frozen
          end
       ensure
          is_frozen
       end
 
+   set_plus_minus_prefix
+      require
+         is_infix_name
+         name.to_string = as_plus or else name.to_string = as_minus
+      do
+         inspect
+            name_type
+         when C_infix_name then
+            name_type := C_prefix_name
+         when
+            C_infix_name_frozen then
+            name_type := C_prefix_name_frozen
+         end
+      ensure
+         (old is_frozen) = is_frozen
+         is_prefix_name
+      end
+
 feature {FEATURE_STAMP}
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       require
          not sp.is_unknown
       do
@@ -402,9 +469,9 @@ feature {FEATURE_STAMP}
       ensure
          start_position = sp
       end
-   
+
 feature {}
-   simple_feature_name (n: STRING; sp: like start_position) is
+   simple_feature_name (n: STRING; sp: like start_position)
       require
          n /= Void
          not sp.is_unknown
@@ -413,9 +480,10 @@ feature {}
       ensure
          to_string.is_equal(n)
          start_position = sp
+         is_simple_feature_name
       end
 
-   prefix_name (hn: like name; sp: like start_position) is
+   prefix_name (hn: like name; sp: like start_position)
       require
          hn /= Void
          not sp.is_unknown
@@ -424,9 +492,10 @@ feature {}
       ensure
          name = hn
          start_position = sp
+         is_prefix_name
       end
 
-   infix_name (hn: like name; sp: like start_position) is
+   infix_name (hn: like name; sp: like start_position)
       require
          hn /= Void
          not sp.is_unknown
@@ -435,9 +504,22 @@ feature {}
       ensure
          name = hn
          start_position = sp
+         is_infix_name
       end
 
-   basic_create_1 (nt: like name_type; n: STRING; sp: like start_position) is
+   alias_name (hn: like name; sp: like start_position)
+      require
+         hn /= Void
+         not sp.is_unknown
+      do
+         basic_create_0(C_alias_name, hn, sp)
+      ensure
+         name = hn
+         start_position = sp
+         is_alias_name
+      end
+
+   basic_create_1 (nt: like name_type; n: STRING; sp: like start_position)
       require
          n /= Void
       local
@@ -447,10 +529,10 @@ feature {}
          basic_create_0(nt, hs, sp)
       end
 
-   basic_create_0 (nt: INTEGER; hn: like name; sp: like start_position) is
+   basic_create_0 (nt: INTEGER; hn: like name; sp: like start_position)
          -- The really basic final one.
       require
-         (nt = C_simple_feature_name) xor (nt = C_infix_name) xor (nt = C_prefix_name)
+         (nt = C_simple_feature_name) xor (nt = C_infix_name) xor (nt = C_prefix_name) xor (nt = C_alias_name)
          hn /= Void
       do
          name_type := nt
@@ -458,12 +540,17 @@ feature {}
          name := hn
       end
 
+   complete_name_flag: BOOLEAN
+
 invariant
    name /= Void
 
    name_type > 0
 
    string_aliaser.registered_one(to_string)
+
+   name_alias /= Void implies (name_alias.is_simple_feature_name /= is_simple_feature_name)
+   name_alias /= Void implies (name_alias.name_alias = Void or else name_alias.name_alias = Current)
 
 end -- class FEATURE_NAME
 --
@@ -477,9 +564,9 @@ end -- class FEATURE_NAME
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

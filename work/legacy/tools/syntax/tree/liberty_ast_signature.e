@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   feature_names: EIFFEL_LIST_NODE is
+   feature_names: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(0)
       end
 
-   has_result_type: BOOLEAN is
+   has_result_type: BOOLEAN
       do
          Result := count = 3 or else count = 6
          check
@@ -34,14 +34,14 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   result_type: LIBERTY_AST_TYPE_DEFINITION is
+   result_type: LIBERTY_AST_TYPE_DEFINITION
       require
          has_result_type
       do
          Result ::= nodes.last
       end
 
-   has_parameters: BOOLEAN is
+   has_parameters: BOOLEAN
       do
          Result := count >= 4
          check
@@ -49,7 +49,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   parameters: EIFFEL_LIST_NODE is
+   parameters: EIFFEL_LIST_NODE
       require
          has_parameters
       do
@@ -57,15 +57,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Signature"
+   name: STRING "Signature"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 3, 4, 6 >> }
       end

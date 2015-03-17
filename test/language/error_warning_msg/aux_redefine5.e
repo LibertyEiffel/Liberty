@@ -4,7 +4,7 @@
 class AUX_REDEFINE5
 
 feature {ANY}
-   frozen frozen_routine (other: AUX_REDEFINE5) is
+   frozen frozen_routine (other: AUX_REDEFINE5)
       do
       end
 

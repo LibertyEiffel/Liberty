@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo({ARRAY[STRING] 1, << ("foo").twin >> })
          foo({ARRAY[STRING] 1, << "foo" >> })
@@ -15,11 +15,11 @@ feature {ANY}
       end
 
 feature {}
-   foo (array_string: ARRAY[STRING]) is
+   foo (array_string: ARRAY[STRING])
       do
       end
 
-   string: STRING is
+   string: STRING
       once
          create Result.make(80)
       end

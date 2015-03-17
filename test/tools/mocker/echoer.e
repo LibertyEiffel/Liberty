@@ -1,22 +1,23 @@
 class ECHOER
 
+insert
+   EIFFELTEST_TOOLS
+
 create {ANY}
    make
 
 feature {ANY}
-   check_echo (x: STRING) is
+   check_echo (x: STRING)
       local
          y: STRING
       do
          echo.ping
          y := echo.echo(x)
-         check
-            y.is_equal(x)
-         end
+         assert(y.is_equal(x))
       end
 
 feature {}
-   make (a_echo: like echo) is
+   make (a_echo: like echo)
       require
          a_echo /= Void
       do

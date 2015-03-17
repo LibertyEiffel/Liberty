@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_REAL_TYPED_MANIFEST}
-   visit_liberty_real_typed_manifest (v: LIBERTY_REAL_TYPED_MANIFEST) is
+   visit_liberty_real_typed_manifest (v: LIBERTY_REAL_TYPED_MANIFEST)
       deferred
       end
 

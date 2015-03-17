@@ -11,7 +11,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          t1, t2: TIME
       do

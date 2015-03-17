@@ -21,26 +21,26 @@ feature {ANY}
    target_type: TYPE
          --  Of the Void call (the one to be used with `feature_stamp').
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   is_static: BOOLEAN is True
+   is_static: BOOLEAN True
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       local
          anonymous_feature: ANONYMOUS_FEATURE
       do
@@ -48,16 +48,21 @@ feature {ANY}
          Result := anonymous_feature.result_type.declaration_type.type
       end
 
-   collect (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
+   collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       local
          anonymous_feature: ANONYMOUS_FEATURE
       do
@@ -65,12 +70,12 @@ feature {ANY}
          Result := anonymous_feature.result_type.resolve_in(target_type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          error_handler.append(once "Call on a Void target in the live code (when the type of Current is ")
          error_handler.append(type.name.to_string)
@@ -79,19 +84,19 @@ feature {ANY}
          error_handler.print_as_warning
       end
 
-   accept (visitor: VOID_CALL_VISITOR) is
+   accept (visitor: VOID_CALL_VISITOR)
       do
          visitor.visit_void_call(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (sp: like start_position; fs: like feature_stamp; tt: like target_type) is
+   make (sp: like start_position; fs: like feature_stamp; tt: like target_type)
       require
          not sp.is_unknown
          fs /= Void
@@ -123,9 +128,9 @@ end -- class VOID_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

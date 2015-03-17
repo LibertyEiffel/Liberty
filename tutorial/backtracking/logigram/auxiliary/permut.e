@@ -12,7 +12,7 @@ create {ANY}
    make, from_collection
 
 feature {ANY}
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       local
          i: INTEGER; up: INTEGER
       do

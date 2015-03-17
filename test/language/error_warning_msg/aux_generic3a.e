@@ -1,8 +1,8 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class AUX_GENERIC3A[G,K]
-feature {ANY} machin(x: K) is deferred end
+deferred class AUX_GENERIC3A[G_,K_]
+feature {ANY} machin(x: K_) deferred end
 end -- class AUX_GENERIC3A
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

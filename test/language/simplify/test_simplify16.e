@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if 0.01230E4 = 123e0 then
             --          ----- internal normalized view.

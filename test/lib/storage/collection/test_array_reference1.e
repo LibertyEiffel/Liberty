@@ -20,7 +20,7 @@ feature {ANY}
 
    a_animal: ARRAY[ANIMAL]
 
-   make is
+   make
       do
          create c1
          create c2
@@ -119,7 +119,7 @@ feature {ANY}
          assert(a.is_equal({ARRAY[CAT] 1, << c1, Void, c3 >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

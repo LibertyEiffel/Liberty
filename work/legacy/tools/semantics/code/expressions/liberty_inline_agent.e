@@ -24,14 +24,14 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_INLINE_AGENT}
    make
 
 feature {ANY}
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := context.result_type
       end
 
-   is_agent_call: BOOLEAN is True
+   is_agent_call: BOOLEAN True
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          ins: like instruction
          act: like actuals
@@ -64,7 +64,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INLINE_AGENT_VISITOR
       do
@@ -73,14 +73,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          instruction.mark_reachable_code(mark)
          expressions_marker.mark_reachable_code(mark, actuals)
       end
 
 feature {}
-   make (a_instruction: like instruction; a_actuals: like actuals; a_context: like context) is
+   make (a_instruction: like instruction; a_actuals: like actuals; a_context: like context)
       require
          a_instruction /= Void
          a_actuals /= Void

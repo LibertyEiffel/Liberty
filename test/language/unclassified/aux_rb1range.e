@@ -4,17 +4,17 @@
 deferred class AUX_RB1RANGE
 
 feature {ANY}
-   lower: INTEGER is
+   lower: INTEGER
       deferred
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       deferred
       end
 
    var: INTEGER
 
-   test: BOOLEAN is
+   test: BOOLEAN
       do
          Result := lower <= var and then var <= upper
       end

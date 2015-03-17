@@ -12,7 +12,7 @@ feature {ANY}
 
    h: AUX_ALG15HEIR
 
-   make is
+   make
       do
          create a
          create h
@@ -20,7 +20,7 @@ feature {ANY}
          assert(not a.is_deep_equal(h))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

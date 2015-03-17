@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          loctoto: AUX_LD01_TOTO[INTEGER, AUX_LD01_KIKI[INTEGER]]; lockiki: AUX_LD01_KIKI[INTEGER]
       do

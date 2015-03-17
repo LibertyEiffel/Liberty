@@ -7,7 +7,7 @@ inherit
    AUX_ANCHOR10_PARENT[G]
 
 feature {ANY}
-   anchor: AUX_ANCHOR10_CONCRETE[G] is
+   anchor: AUX_ANCHOR10_CONCRETE[G]
       do
          create Result
       end

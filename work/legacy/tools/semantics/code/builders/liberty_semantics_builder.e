@@ -19,7 +19,7 @@ insert
    LIBERTY_ARRAY_MANIFEST_CONSTANTS
 
 feature {ANY}
-   instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+   instruction (inst: LIBERTY_AST_INSTRUCTION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION
       require
          inst /= Void
          local_context /= Void
@@ -54,7 +54,7 @@ feature {ANY}
          not errors.has_error implies Result /= Void
       end
 
-   expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression (exp: LIBERTY_AST_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -69,12 +69,12 @@ feature {ANY}
       end
 
 feature {} -- Instructions
-   empty_instruction: LIBERTY_EMPTY is
+   empty_instruction: LIBERTY_EMPTY
       once
          create Result.make
       end
 
-   compound (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+   compound (insts: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION
       require
          insts /= Void
          local_context /= Void
@@ -109,7 +109,7 @@ feature {} -- Instructions
          not errors.has_error implies Result /= Void
       end
 
-   instruction_assignment (a_assignment: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ASSIGNMENT is
+   instruction_assignment (a_assignment: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ASSIGNMENT
       require
          a_assignment.is_assignment
       local
@@ -129,7 +129,7 @@ feature {} -- Instructions
          end
       end
 
-   instruction_call (a_call: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+   instruction_call (a_call: LIBERTY_AST_ASSIGNMENT_OR_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION
       require
          a_call.is_call
       local
@@ -162,7 +162,7 @@ feature {} -- Instructions
          end
       end
 
-   instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITIONAL is
+   instruction_ifthenelse (a_cond: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITIONAL
       require
          a_cond /= Void
          {LIBERTY_AST_IF_THEN_ELSE} ?:= a_cond
@@ -188,13 +188,13 @@ feature {} -- Instructions
          Result := conditional
       end
 
-   condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITION is
+   condition (a_if: LIBERTY_AST_IF; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CONDITION
       do
          create Result.make(expression(a_if.expression, local_context), compound(a_if.instructions, local_context),
                             semantics_position_at(a_if.node_at(0)))
       end
 
-   else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEFAULT is
+   else_clause (a_else: LIBERTY_AST_ELSE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEFAULT
       do
          if not a_else.is_empty then
             create Result.make(compound(a_else.list, local_context),
@@ -202,7 +202,7 @@ feature {} -- Instructions
          end
       end
 
-   instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT is
+   instruction_inspect (a_inspect: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT
       require
          a_inspect /= Void
          {LIBERTY_AST_INSPECT} ?:= a_inspect
@@ -225,7 +225,7 @@ feature {} -- Instructions
          Result := insp
       end
 
-   inspect_clause (a_clause: EIFFEL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT_CLAUSE is
+   inspect_clause (a_clause: EIFFEL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSPECT_CLAUSE
       require
          {LIBERTY_AST_WHEN} ?:= a_clause
       local
@@ -253,7 +253,7 @@ feature {} -- Instructions
          end
       end
 
-   when_value (value: LIBERTY_AST_WHEN_VALUE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   when_value (value: LIBERTY_AST_WHEN_VALUE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
       do
@@ -282,7 +282,7 @@ feature {} -- Instructions
          Result /= Void
       end
 
-   instruction_loop (a_loop: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_LOOP is
+   instruction_loop (a_loop: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_LOOP
       require
          a_loop /= Void
          {LIBERTY_AST_LOOP} ?:= a_loop
@@ -305,7 +305,7 @@ feature {} -- Instructions
          create Result.make(init, invariant_clause, variant_clause, exp, body, init.position)
       end
 
-   loop_invariant (invariant_clause: LIBERTY_AST_INVARIANT; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INVARIANT is
+   loop_invariant (invariant_clause: LIBERTY_AST_INVARIANT; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INVARIANT
       require
          invariant_clause /= Void
          local_context /= Void
@@ -320,7 +320,7 @@ feature {} -- Instructions
          not errors.has_error implies Result /= Void
       end
 
-   instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK_INSTRUCTION is
+   instruction_check (a_check: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CHECK_INSTRUCTION
       require
          a_check /= Void
          {LIBERTY_AST_CHECK} ?:= a_check
@@ -332,7 +332,7 @@ feature {} -- Instructions
          create Result.make(ck, semantics_position_at(chk.node_at(0)))
       end
 
-   instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG is
+   instruction_debug (a_debug: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_DEBUG
       require
          a_debug /= Void
          {LIBERTY_AST_DEBUG} ?:= a_debug
@@ -361,12 +361,12 @@ feature {} -- Instructions
          Result /= Void
       end
 
-   empty_debug_keys: COLLECTION[FIXED_STRING] is
+   empty_debug_keys: COLLECTION[FIXED_STRING]
       once
          create {FAST_ARRAY[FIXED_STRING]} Result.with_capacity(0)
       end
 
-   instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION is
+   instruction_creation (a_creation: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CREATION_INSTRUCTION
       require
          a_creation /= Void
          {LIBERTY_AST_CREATION} ?:= a_creation
@@ -394,12 +394,12 @@ feature {} -- Instructions
          create Result.make(w, creation_type, fe, fa, semantics_position_at(creat.node_at(0)))
       end
 
-   default_create_name: LIBERTY_FEATURE_NAME is
+   default_create_name: LIBERTY_FEATURE_NAME
       once
          create Result.make_regular("default_create".intern, errors.unknown_position)
       end
 
-   instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY is
+   instruction_retry (a_retry: LIBERTY_AST_NON_TERMINAL_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_RETRY
       require
          a_retry /= Void
          {LIBERTY_AST_RETRY} ?:= a_retry
@@ -411,7 +411,7 @@ feature {} -- Instructions
       end
 
 feature {} -- Entities and writables
-   writable (a_writable: LIBERTY_AST_WRITABLE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_WRITABLE is
+   writable (a_writable: LIBERTY_AST_WRITABLE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_WRITABLE
       local
          name: FIXED_STRING
       do
@@ -432,7 +432,7 @@ feature {} -- Entities and writables
          not errors.has_error implies Result /= Void
       end
 
-   entity (target_type: LIBERTY_TYPE; a_entity_name: FIXED_STRING; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY is
+   entity (target_type: LIBERTY_TYPE; a_entity_name: FIXED_STRING; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ENTITY
       require
          a_entity_name /= Void
          (target_type = Void) /= (local_context = Void)
@@ -456,7 +456,7 @@ feature {} -- Entities and writables
          not errors.has_error implies Result /= Void
       end
 
-   implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION is
+   implicit_feature_call_instruction (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INSTRUCTION
       local
          e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
          definition_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
@@ -494,13 +494,13 @@ feature {} -- Entities and writables
          not errors.has_error implies Result /= Void
       end
 
-   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION is
+   instruction_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_INSTRUCTION
       require
          a_precursor_target.is_precursor
       deferred
       end
 
-   target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   target_or_implicit_feature_call_expression (a_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          e: LIBERTY_FEATURE_ENTITY; entity_name: LIBERTY_AST_ENTITY_NAME; name: FIXED_STRING
          definition_context: LIBERTY_FEATURE_DEFINITION_CONTEXT
@@ -537,13 +537,13 @@ feature {} -- Entities and writables
          not errors.has_error implies Result /= Void
       end
 
-   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION is
+   expression_call_on_precursor (a_precursor_target: LIBERTY_AST_TARGET; local_context: LIBERTY_FEATURE_DEFINITION_CONTEXT): LIBERTY_PRECURSOR_EXPRESSION
       require
          a_precursor_target.is_precursor
       deferred
       end
 
-   feature_writable (name: FIXED_STRING; position: LIBERTY_POSITION): LIBERTY_WRITABLE_FEATURE is
+   feature_writable (name: FIXED_STRING; position: LIBERTY_POSITION): LIBERTY_WRITABLE_FEATURE
       require
          name = name.intern
       do
@@ -557,7 +557,7 @@ feature {} -- Entities and writables
          Result.name = name
       end
 
-   feature_entity (target_type: LIBERTY_TYPE; name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_ENTITY is
+   feature_entity (target_type: LIBERTY_TYPE; name: LIBERTY_FEATURE_NAME): LIBERTY_FEATURE_ENTITY
       require
          name /= Void
       do
@@ -566,7 +566,7 @@ feature {} -- Entities and writables
          Result.feature_name.is_equal(name)
       end
 
-   current_entity: LIBERTY_CURRENT is
+   current_entity: LIBERTY_CURRENT
       deferred
       ensure
          Result /= Void
@@ -575,7 +575,7 @@ feature {} -- Entities and writables
    feature_writables: DICTIONARY[LIBERTY_WRITABLE_FEATURE, FIXED_STRING]
 
 feature {} -- Expressions
-   actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_EXPRESSION] is
+   actuals (a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_EXPRESSION]
       local
          i: INTEGER
          act: LIBERTY_AST_ACTUAL
@@ -605,12 +605,12 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   empty_actuals: COLLECTION[LIBERTY_EXPRESSION] is
+   empty_actuals: COLLECTION[LIBERTY_EXPRESSION]
       once
          create {FAST_ARRAY[LIBERTY_EXPRESSION]} Result.make(0)
       end
 
-   expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ARRAY_MANIFEST is
+   expression_array (array: LIBERTY_AST_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_ARRAY_MANIFEST
       require
          array /= Void
          local_context /= Void
@@ -646,7 +646,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   common_conformant_type (a_contents: COLLECTION[LIBERTY_EXPRESSION]): LIBERTY_TYPE is
+   common_conformant_type (a_contents: COLLECTION[LIBERTY_EXPRESSION]): LIBERTY_TYPE
       local
          i: INTEGER
       do
@@ -671,7 +671,7 @@ feature {} -- Expressions
          no_common_parent_is_fatal: Result /= Void
       end
 
-   expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_no_array (exp: LIBERTY_AST_EXPRESSION_NO_ARRAY; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -685,7 +685,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_1 (exp1: LIBERTY_AST_EXP1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_1 (exp1: LIBERTY_AST_EXP1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -701,7 +701,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_1 (exp: LIBERTY_AST_E1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_1 (exp: LIBERTY_AST_E1; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -715,7 +715,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_2 (exp2: LIBERTY_AST_EXP2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_2 (exp2: LIBERTY_AST_EXP2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -735,7 +735,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_2 (exp: LIBERTY_AST_E2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_2 (exp: LIBERTY_AST_E2; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -749,7 +749,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_3 (exp3: LIBERTY_AST_EXP3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_3 (exp3: LIBERTY_AST_EXP3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -767,7 +767,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_3 (exp: LIBERTY_AST_E3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_3 (exp: LIBERTY_AST_E3; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -781,7 +781,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_4 (exp4: LIBERTY_AST_EXP4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_4 (exp4: LIBERTY_AST_EXP4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -807,7 +807,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_4 (exp: LIBERTY_AST_E4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_4 (exp: LIBERTY_AST_E4; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -821,7 +821,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_5 (exp5: LIBERTY_AST_EXP5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_5 (exp5: LIBERTY_AST_EXP5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -839,7 +839,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_5 (exp: LIBERTY_AST_E5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_5 (exp: LIBERTY_AST_E5; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -853,7 +853,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   binary_expression_6 (exp6: LIBERTY_AST_EXP6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   binary_expression_6 (exp6: LIBERTY_AST_EXP6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          left, right: LIBERTY_EXPRESSION
       do
@@ -875,7 +875,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_6 (exp: LIBERTY_AST_E6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_6 (exp: LIBERTY_AST_E6; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          exp /= Void
          local_context /= Void
@@ -885,7 +885,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   expression_7 (e7: LIBERTY_AST_E7; r7: LIBERTY_AST_R7; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_7 (e7: LIBERTY_AST_E7; r7: LIBERTY_AST_R7; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       do
          Result := expression_8(e7.e8, e7.r8, local_context)
          if r7.is_power then
@@ -893,7 +893,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_8 (e8: LIBERTY_AST_E8; r8: LIBERTY_AST_R8; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_8 (e8: LIBERTY_AST_E8; r8: LIBERTY_AST_R8; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          fn: LIBERTY_FEATURE_NAME
       do
@@ -920,7 +920,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_9 (e9: LIBERTY_AST_E9; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_9 (e9: LIBERTY_AST_E9; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       do
          Result := expression_10(e9.e10, local_context)
          if e9.has_old then
@@ -928,7 +928,7 @@ feature {} -- Expressions
          end
       end
 
-   expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_10 (e10: LIBERTY_AST_E10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       local
          exp: LIBERTY_EXPRESSION; agent_expression: LIBERTY_CALL_EXPRESSION
       do
@@ -959,7 +959,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   expression_creation (a_creation: LIBERTY_AST_CREATION_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_creation (a_creation: LIBERTY_AST_CREATION_EXPRESSION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          a_creation /= Void
       local
@@ -990,7 +990,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_call (a_call: LIBERTY_AST_CALL; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          a_call /= Void
       do
@@ -1009,7 +1009,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   expression_remainder (a_target: LIBERTY_EXPRESSION; a_remainder: LIBERTY_AST_R10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   expression_remainder (a_target: LIBERTY_EXPRESSION; a_remainder: LIBERTY_AST_R10; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          a_target /= Void
          a_remainder /= Void
@@ -1034,7 +1034,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   expression_inline_agent (a_signature: LIBERTY_AST_AGENT_SIGNATURE; a_definition: LIBERTY_AST_ROUTINE_DEFINITION; a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INLINE_AGENT is
+   expression_inline_agent (a_signature: LIBERTY_AST_AGENT_SIGNATURE; a_definition: LIBERTY_AST_ROUTINE_DEFINITION; a_actuals: LIBERTY_AST_ACTUALS; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_INLINE_AGENT
       local
          routine_execution: LIBERTY_AST_ROUTINE_EXECUTION
          do_block: LIBERTY_AST_DO_BLOCK
@@ -1085,7 +1085,7 @@ feature {} -- Expressions
          type_lookup.pop
       end
 
-   expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; a_position: LIBERTY_POSITION): LIBERTY_TUPLE is
+   expression_tuple (a_tuple: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT; a_position: LIBERTY_POSITION): LIBERTY_TUPLE
       local
          exp: LIBERTY_AST_ACTUAL
          expr: LIBERTY_EXPRESSION
@@ -1125,7 +1125,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION is
+   typed_manifest_or_type_test (constant: LIBERTY_AST_MANIFEST_OR_TYPE_TEST; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_EXPRESSION
       require
          constant /= Void
          local_context /= Void
@@ -1199,7 +1199,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   number (number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+   number (number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION
       require
          ({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
             or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
@@ -1233,7 +1233,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   character (character_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+   character (character_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION
       require
          {TYPED_EIFFEL_IMAGE[CHARACTER]} ?:= character_image
       local
@@ -1245,7 +1245,7 @@ feature {} -- Expressions
          not errors.has_error implies Result /= Void
       end
 
-   number_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION is
+   number_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; number_image: EIFFEL_IMAGE): LIBERTY_EXPRESSION
       require
          ({TYPED_EIFFEL_IMAGE[INTEGER_64]} ?:= number_image)
             or else ({TYPED_EIFFEL_IMAGE[REAL]} ?:= number_image)
@@ -1269,7 +1269,7 @@ feature {} -- Expressions
 
    array_typed_manifest (manifest_type: LIBERTY_ACTUAL_TYPE; array_parameters: EIFFEL_LIST_NODE; array: LIBERTY_AST_ARRAY;
       local_context: LIBERTY_FEATURE_LOCAL_CONTEXT;
-      a_position: LIBERTY_POSITION): LIBERTY_ARRAY_MANIFEST is
+      a_position: LIBERTY_POSITION): LIBERTY_ARRAY_MANIFEST
       require
          local_context /= Void
       local
@@ -1300,7 +1300,7 @@ feature {} -- Expressions
       end
 
 feature {}
-   list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
+   list_parameters (parameters: EIFFEL_LIST_NODE; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT)
       local
          i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
          typedef: LIBERTY_TYPE; parameter: LIBERTY_PARAMETER
@@ -1330,7 +1330,7 @@ feature {}
          end
       end
 
-   list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
+   list_locals (locals: LIBERTY_AST_LOCAL_BLOCK; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT)
       local
          i, j: INTEGER; declaration: LIBERTY_AST_DECLARATION; variable: LIBERTY_AST_VARIABLE
          typedef: LIBERTY_TYPE; localdef: LIBERTY_LOCAL
@@ -1361,33 +1361,33 @@ feature {}
       end
 
 feature {}
-   create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_INSTRUCTION is
+   create_instruction_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_INSTRUCTION
       do
          create Result.make(a_target, a_entity, a_actuals, a_position)
       end
 
-   create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION is
+   create_implicit_instruction_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_INSTRUCTION
       do
          create Result.implicit_current(a_entity, a_actuals, a_position)
       end
 
-   create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_EXPRESSION is
+   create_expression_call (a_target: LIBERTY_EXPRESSION; a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): LIBERTY_CALL_EXPRESSION
       do
          create Result.make(a_target, a_entity, a_actuals, a_position)
       end
 
-   create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION is
+   create_implicit_expression_call (a_entity: LIBERTY_FEATURE_ENTITY; a_actuals: COLLECTION[LIBERTY_EXPRESSION]; a_position: LIBERTY_POSITION): LIBERTY_CALL_EXPRESSION
       do
          create Result.implicit_current(a_entity, a_actuals, a_position)
       end
 
 feature {} -- Assertions
-   empty_feature_assertions: COLLECTION[LIBERTY_ASSERTION] is
+   empty_feature_assertions: COLLECTION[LIBERTY_ASSERTION]
       once
          create {FAST_ARRAY[LIBERTY_ASSERTION]} Result.with_capacity(0)
       end
 
-   feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_ASSERTION] is
+   feature_assertions (assertions: LIBERTY_AST_LIST[LIBERTY_AST_ASSERTION]; local_context: LIBERTY_FEATURE_LOCAL_CONTEXT): COLLECTION[LIBERTY_ASSERTION]
       require
          assertions /= Void
          local_context /= Void
@@ -1422,13 +1422,13 @@ feature {} -- Assertions
       end
 
 feature {}
-   type: LIBERTY_ACTUAL_TYPE is
+   type: LIBERTY_ACTUAL_TYPE
       deferred
       ensure
          Result /= Void
       end
 
-   native_array_of_character: LIBERTY_ACTUAL_TYPE is
+   native_array_of_character: LIBERTY_ACTUAL_TYPE
       once
          Result := universe.type_native_array({FAST_ARRAY[LIBERTY_ACTUAL_TYPE] << universe.type_character >> }, errors.unknown_position)
       end

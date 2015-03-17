@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          model, resul: ARRAY[CHARACTER]
       do
@@ -64,7 +64,7 @@ feature {}
          test_with(model, resul)
       end
 
-   test_with (model, resul: COLLECTION[CHARACTER]) is
+   test_with (model, resul: COLLECTION[CHARACTER])
       do
          test_with_array(model, resul)
          test_with_fixed_array(model, resul)
@@ -72,7 +72,7 @@ feature {}
          test_with_link2_list(model, resul)
       end
 
-   test_with_array (model, resul: COLLECTION[CHARACTER]) is
+   test_with_array (model, resul: COLLECTION[CHARACTER])
       local
          m, r: ARRAY[CHARACTER]
       do
@@ -81,7 +81,7 @@ feature {}
          do_test(m, r)
       end
 
-   test_with_fixed_array (model, resul: COLLECTION[CHARACTER]) is
+   test_with_fixed_array (model, resul: COLLECTION[CHARACTER])
       local
          m, r: FAST_ARRAY[CHARACTER]
       do
@@ -90,7 +90,7 @@ feature {}
          do_test(m, r)
       end
 
-   test_with_link_list (model, resul: COLLECTION[CHARACTER]) is
+   test_with_link_list (model, resul: COLLECTION[CHARACTER])
       local
          m, r: LINKED_LIST[CHARACTER]
       do
@@ -99,7 +99,7 @@ feature {}
          do_test(m, r)
       end
 
-   test_with_link2_list (model, resul: COLLECTION[CHARACTER]) is
+   test_with_link2_list (model, resul: COLLECTION[CHARACTER])
       local
          m, r: TWO_WAY_LINKED_LIST[CHARACTER]
       do
@@ -108,7 +108,7 @@ feature {}
          do_test(m, r)
       end
 
-   do_test (model, resul: COLLECTION[CHARACTER]) is
+   do_test (model, resul: COLLECTION[CHARACTER])
       local
          sorter: COLLECTION_SORTER[CHARACTER]; m: COLLECTION[CHARACTER]
       do
@@ -131,7 +131,7 @@ feature {}
          assert(resul.is_equal(m))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

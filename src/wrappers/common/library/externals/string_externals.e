@@ -11,7 +11,7 @@ feature {} -- External calls
 
 	-- function basename @(2) skipped as requested.
 	-- function basename @(2) skipped as requested.
-	bcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER is
+	bcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER
  		-- bcmp
 		external "plug_in"
 		alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __bzero skipped.
-	ffs (an_i: INTEGER): INTEGER is
+	ffs (an_i: INTEGER): INTEGER
  		-- ffs
 		external "plug_in"
 		alias "{
@@ -32,7 +32,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffsl (a_l: like long): INTEGER is
+	ffsl (a_l: like long): INTEGER
  		-- ffsl
 		external "plug_in"
 		alias "{
@@ -42,7 +42,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ffsll (a_ll: INTEGER_64): INTEGER is
+	ffsll (a_ll: INTEGER_64): INTEGER
  		-- ffsll
 		external "plug_in"
 		alias "{
@@ -54,7 +54,7 @@ feature {} -- External calls
 
 	-- function index @(2) skipped as requested.
 	-- function index @(2) skipped as requested.
-	memccpy (a_dest: POINTER; a_src: POINTER; a_c: INTEGER; a_n: like long_unsigned): POINTER is
+	memccpy (a_dest: POINTER; a_src: POINTER; a_c: INTEGER; a_n: like long_unsigned): POINTER
  		-- memccpy
 		external "plug_in"
 		alias "{
@@ -66,7 +66,7 @@ feature {} -- External calls
 
 	-- function memchr @(2) skipped as requested.
 	-- function memchr @(2) skipped as requested.
-	memcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER is
+	memcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER
  		-- memcmp
 		external "plug_in"
 		alias "{
@@ -76,7 +76,7 @@ feature {} -- External calls
 		}"
 		end
 
-	memfrob (a_s: POINTER; a_n: like long_unsigned): POINTER is
+	memfrob (a_s: POINTER; a_n: like long_unsigned): POINTER
  		-- memfrob
 		external "plug_in"
 		alias "{
@@ -86,7 +86,7 @@ feature {} -- External calls
 		}"
 		end
 
-	memmem (a_haystack: POINTER; a_haystacklen: like long_unsigned; a_needle: POINTER; a_needlelen: like long_unsigned): POINTER is
+	memmem (a_haystack: POINTER; a_haystacklen: like long_unsigned; a_needle: POINTER; a_needlelen: like long_unsigned): POINTER
  		-- memmem
 		external "plug_in"
 		alias "{
@@ -105,7 +105,7 @@ feature {} -- External calls
 	-- function rindex @(2) skipped as requested.
 	-- `hidden' function __stpcpy skipped.
 	-- `hidden' function __stpncpy skipped.
-	strcasecmp (a_s1: POINTER; a_s2: POINTER): INTEGER is
+	strcasecmp (a_s1: POINTER; a_s2: POINTER): INTEGER
  		-- strcasecmp
 		external "plug_in"
 		alias "{
@@ -115,7 +115,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strcasecmp_l (a_s1: POINTER; a_s2: POINTER; a_loc: POINTER): INTEGER is
+	strcasecmp_l (a_s1: POINTER; a_s2: POINTER; a_loc: POINTER): INTEGER
  		-- strcasecmp_l
 		external "plug_in"
 		alias "{
@@ -131,7 +131,7 @@ feature {} -- External calls
 	-- function strchr @(2) skipped as requested.
 	-- function strchrnul @(2) skipped as requested.
 	-- function strchrnul @(2) skipped as requested.
-	strcmp (a_s1: POINTER; a_s2: POINTER): INTEGER is
+	strcmp (a_s1: POINTER; a_s2: POINTER): INTEGER
  		-- strcmp
 		external "plug_in"
 		alias "{
@@ -141,7 +141,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strcoll (a_s1: POINTER; a_s2: POINTER): INTEGER is
+	strcoll (a_s1: POINTER; a_s2: POINTER): INTEGER
  		-- strcoll
 		external "plug_in"
 		alias "{
@@ -151,7 +151,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strcoll_l (a_s1: POINTER; a_s2: POINTER; a_l: POINTER): INTEGER is
+	strcoll_l (a_s1: POINTER; a_s2: POINTER; a_l: POINTER): INTEGER
  		-- strcoll_l
 		external "plug_in"
 		alias "{
@@ -161,7 +161,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strcspn (a_s: POINTER; a_reject: POINTER): like long_unsigned is
+	strcspn (a_s: POINTER; a_reject: POINTER): like long_unsigned
  		-- strcspn
 		external "plug_in"
 		alias "{
@@ -171,7 +171,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strdup (a_s: POINTER): POINTER is
+	strdup (a_s: POINTER): POINTER
  		-- strdup
 		external "plug_in"
 		alias "{
@@ -181,7 +181,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strerror (an_errnum: INTEGER): POINTER is
+	strerror (an_errnum: INTEGER): POINTER
  		-- strerror
 		external "plug_in"
 		alias "{
@@ -191,7 +191,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strerror_l (an_errnum: INTEGER; a_l: POINTER): POINTER is
+	strerror_l (an_errnum: INTEGER; a_l: POINTER): POINTER
  		-- strerror_l
 		external "plug_in"
 		alias "{
@@ -201,7 +201,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strerror_r (an_errnum: INTEGER; a_buf: POINTER; a_buflen: like long_unsigned): POINTER is
+	strerror_r (an_errnum: INTEGER; a_buf: POINTER; a_buflen: like long_unsigned): POINTER
  		-- strerror_r
 		external "plug_in"
 		alias "{
@@ -211,7 +211,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strfry (a_string: POINTER): POINTER is
+	strfry (a_string: POINTER): POINTER
  		-- strfry
 		external "plug_in"
 		alias "{
@@ -221,7 +221,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strlen (a_s: POINTER): like long_unsigned is
+	strlen (a_s: POINTER): like long_unsigned
  		-- strlen
 		external "plug_in"
 		alias "{
@@ -231,7 +231,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strncasecmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER is
+	strncasecmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER
  		-- strncasecmp
 		external "plug_in"
 		alias "{
@@ -241,7 +241,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strncasecmp_l (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned; a_loc: POINTER): INTEGER is
+	strncasecmp_l (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned; a_loc: POINTER): INTEGER
  		-- strncasecmp_l
 		external "plug_in"
 		alias "{
@@ -251,7 +251,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strncmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER is
+	strncmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER
  		-- strncmp
 		external "plug_in"
 		alias "{
@@ -261,7 +261,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strndup (a_string: POINTER; a_n: like long_unsigned): POINTER is
+	strndup (a_string: POINTER; a_n: like long_unsigned): POINTER
  		-- strndup
 		external "plug_in"
 		alias "{
@@ -271,7 +271,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strnlen (a_string: POINTER; a_maxlen: like long_unsigned): like long_unsigned is
+	strnlen (a_string: POINTER; a_maxlen: like long_unsigned): like long_unsigned
  		-- strnlen
 		external "plug_in"
 		alias "{
@@ -285,7 +285,7 @@ feature {} -- External calls
 	-- function strpbrk @(2) skipped as requested.
 	-- function strrchr @(2) skipped as requested.
 	-- function strrchr @(2) skipped as requested.
-	strsep (a_stringp: POINTER; a_delim: POINTER): POINTER is
+	strsep (a_stringp: POINTER; a_delim: POINTER): POINTER
  		-- strsep
 		external "plug_in"
 		alias "{
@@ -295,7 +295,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strsignal (a_sig: INTEGER): POINTER is
+	strsignal (a_sig: INTEGER): POINTER
  		-- strsignal
 		external "plug_in"
 		alias "{
@@ -305,7 +305,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strspn (a_s: POINTER; an_accept: POINTER): like long_unsigned is
+	strspn (a_s: POINTER; an_accept: POINTER): like long_unsigned
  		-- strspn
 		external "plug_in"
 		alias "{
@@ -317,7 +317,7 @@ feature {} -- External calls
 
 	-- function strstr @(2) skipped as requested.
 	-- function strstr @(2) skipped as requested.
-	strtok (a_s: POINTER; a_delim: POINTER): POINTER is
+	strtok (a_s: POINTER; a_delim: POINTER): POINTER
  		-- strtok
 		external "plug_in"
 		alias "{
@@ -328,7 +328,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' function __strtok_r skipped.
-	strtok_r (a_s: POINTER; a_delim: POINTER; a_save_ptr: POINTER): POINTER is
+	strtok_r (a_s: POINTER; a_delim: POINTER; a_save_ptr: POINTER): POINTER
  		-- strtok_r
 		external "plug_in"
 		alias "{
@@ -338,7 +338,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strverscmp (a_s1: POINTER; a_s2: POINTER): INTEGER is
+	strverscmp (a_s1: POINTER; a_s2: POINTER): INTEGER
  		-- strverscmp
 		external "plug_in"
 		alias "{
@@ -348,7 +348,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strxfrm (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): like long_unsigned is
+	strxfrm (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): like long_unsigned
  		-- strxfrm
 		external "plug_in"
 		alias "{
@@ -358,7 +358,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strxfrm_l (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned; a_l: POINTER): like long_unsigned is
+	strxfrm_l (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned; a_l: POINTER): like long_unsigned
  		-- strxfrm_l
 		external "plug_in"
 		alias "{

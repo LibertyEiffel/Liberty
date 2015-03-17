@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if (<< "foo" , 3 >>) = Void then
          end

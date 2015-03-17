@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    require_check_mode: BOOLEAN
 
-   make is
+   make
       require
          set_require_check_mode
       local
@@ -28,14 +28,14 @@ feature {ANY}
          retry
       end
 
-   set_require_check_mode: BOOLEAN is
+   set_require_check_mode: BOOLEAN
       do
          require_check_mode := True
          Result := True
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

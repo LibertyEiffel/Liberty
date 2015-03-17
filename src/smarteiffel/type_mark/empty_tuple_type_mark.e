@@ -17,19 +17,19 @@ insert
       undefine is_tuple, canonical_long_name
       end
 
-create {EIFFEL_PARSER, CLASS_TEXT, AGENT_CREATION, FAKE_TUPLE, MANIFEST_TUPLE, SMART_EIFFEL}
+create {ANY}
    make
 
 feature {ANY}
    class_text_name: CLASS_NAME
          -- Always TUPLE, but with the correct `start_position'.
 
-   as_type_mark: TYPE_MARK is
+   as_type_mark: TYPE_MARK
       do
          Result := Current
       end
 
-   type: TYPE is
+   type: TYPE
       do
          if type_memory = Void then
             type_memory := smart_eiffel.get_type(Current, False)
@@ -37,36 +37,36 @@ feature {ANY}
          Result := type_memory
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
       do
          Result := string_aliaser.tuple_name
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := class_text_name.start_position
       end
 
-   count: INTEGER is 0
+   count: INTEGER 0
 
-   accept (visitor: EMPTY_TUPLE_TYPE_MARK_VISITOR) is
+   accept (visitor: EMPTY_TUPLE_TYPE_MARK_VISITOR)
       do
          visitor.visit_empty_tuple_type_mark(Current)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       do
          Result := canonical_long_name
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_printer.put_class_name(class_text_name)
       end
 
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          if start_position /= sp then
             class_text_name := class_text_name.twin
@@ -77,11 +77,11 @@ feature {TYPE_MARK}
 feature {}
    type_memory: like type
 
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do
-         create class_text_name.make(string_aliaser.tuple_name, sp)
+         create class_text_name.make(string_aliaser.tuple_name, sp, False)
       ensure
          start_position = sp
       end
@@ -98,9 +98,9 @@ end -- class EMPTY_TUPLE_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

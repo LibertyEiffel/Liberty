@@ -15,7 +15,7 @@
 expanded class LIBERTY_ASM_MARSHALLER
 
 feature {ANY}
-   read (a_stream: INPUT_STREAM): TUPLE[LIBERTY_ASM_SYSTEM, FIXED_STRING] is
+   read (a_stream: INPUT_STREAM): TUPLE[LIBERTY_ASM_SYSTEM, FIXED_STRING]
       require
          a_stream /= Void
       local
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   write (a_stream: OUTPUT_STREAM; a_system: LIBERTY_ASM_SYSTEM) is
+   write (a_stream: OUTPUT_STREAM; a_system: LIBERTY_ASM_SYSTEM)
       require
          a_stream /= Void
          a_system /= Void

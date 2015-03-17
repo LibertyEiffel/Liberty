@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_GREATER_THAN}
-   visit_liberty_greater_than (v: LIBERTY_GREATER_THAN) is
+   visit_liberty_greater_than (v: LIBERTY_GREATER_THAN)
       deferred
       end
 

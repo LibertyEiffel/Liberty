@@ -5,7 +5,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          boool: BOOLEAN
       do
@@ -27,7 +27,7 @@ feature {ANY}
          end
       end
 
-   guess is
+   guess
          -- guess an animal
       local
          last_node, node: AUX_UW01YES_NO_NODE
@@ -47,7 +47,7 @@ feature {ANY}
          end
       end
 
-   print_tree (node: AUX_UW01YES_NO_NODE; level: INTEGER) is
+   print_tree (node: AUX_UW01YES_NO_NODE; level: INTEGER)
          -- print tree starting at `node', using indent `level'
       require
          good_level: level >= 0
@@ -67,7 +67,7 @@ feature {ANY}
       end
 
 feature {}
-   make_new_animal: AUX_UW01ANIMAL_NODE is
+   make_new_animal: AUX_UW01ANIMAL_NODE
          -- new animal
       do
          extra_io.read_string(language.s15)
@@ -76,7 +76,7 @@ feature {}
          end
       end
 
-   make_new_question: AUX_UW01QUESTION_NODE is
+   make_new_question: AUX_UW01QUESTION_NODE
          -- new question
       do
          extra_io.read_string(language.s16)
@@ -86,7 +86,7 @@ feature {}
       end -- make_new_animal
 
    insert_animal_question_pair (before: AUX_UW01YES_NO_NODE; new_animal: AUX_UW01ANIMAL_NODE
-      new_question: AUX_UW01QUESTION_NODE) is
+      new_question: AUX_UW01QUESTION_NODE)
          -- insert QUESTION_NODE `new_question' before
          -- `new_animal', and `before', depending on the
          -- answer to the question.
@@ -126,7 +126,7 @@ feature {}
          end
       end
 
-   add_new_animal (before: AUX_UW01YES_NO_NODE) is
+   add_new_animal (before: AUX_UW01YES_NO_NODE)
          -- add a new animal before node `before', possibly with a new question
       local
          animal: AUX_UW01ANIMAL_NODE; question: AUX_UW01QUESTION_NODE
@@ -156,7 +156,7 @@ feature {}
          end
       end
 
-   indent (level: INTEGER) is
+   indent (level: INTEGER)
          -- output indentation for level `level'
       require
          good_level: level >= 0

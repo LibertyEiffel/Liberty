@@ -4,11 +4,11 @@
 class AUX_PRECURSOR
 
 feature {ANY}
-   function: INTEGER is
+   function: INTEGER
       do
       end;
 
-   procedure is
+   procedure
       do
       end;
 

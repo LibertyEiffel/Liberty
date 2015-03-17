@@ -16,13 +16,13 @@ create {}
    make
 
 feature {ANY}
-   f: TEST_DP1 is
+   f: TEST_DP1
       do
          assert(True)
          Result := Current
       end
 
-   make is
+   make
       do
          run
          assert(assert_counter.item = 2)

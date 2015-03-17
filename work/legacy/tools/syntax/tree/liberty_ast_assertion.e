@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   tag: LIBERTY_AST_ASSERTION_TAG is
+   tag: LIBERTY_AST_ASSERTION_TAG
       do
          Result ::= nodes.item(0)
       end
 
-   expression: LIBERTY_AST_ASSERTION_EXPRESSION is
+   expression: LIBERTY_AST_ASSERTION_EXPRESSION
       do
          Result ::= nodes.item(1)
       end
 
 feature {ANY}
-   count: INTEGER is 2
+   count: INTEGER 2
 
-   name: STRING is "Assertion"
+   name: STRING "Assertion"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 2 >> }
       end

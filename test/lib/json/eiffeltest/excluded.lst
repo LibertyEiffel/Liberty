@@ -5,3 +5,4 @@
 -invariant_check
 -ensure_check
 -require_check .* test_json_04.exe
+-boost -debug -bdw_gc test_json_04.e

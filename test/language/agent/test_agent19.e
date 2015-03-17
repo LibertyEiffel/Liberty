@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          f: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]; d: INTEGER
       do
@@ -23,7 +23,7 @@ feature {ANY}
          --as argument (needed for io.put_double(f.item([3, 2]))
       end
 
-   multiply (i, d: INTEGER): INTEGER is
+   multiply (i, d: INTEGER): INTEGER
       do
          Result := d * i
       end

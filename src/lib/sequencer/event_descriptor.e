@@ -7,7 +7,7 @@ deferred class EVENT_DESCRIPTOR
    --
 
 feature {ANY}
-   expected (events: EVENTS_SET): BOOLEAN is
+   expected (events: EVENTS_SET): BOOLEAN
          -- True if the event is expected by the `events' set
       do
          if expected_array /= Void then
@@ -17,14 +17,14 @@ feature {ANY}
          Result implies is_expected
       end
 
-   is_expected: BOOLEAN is
+   is_expected: BOOLEAN
          -- True if the event is expected by any EVENTS_SET
       do
          Result := expected_array /= Void and then not expected_array.is_empty
       end
 
 feature {EVENTS_SET}
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       require
          not expected(events)
          events /= Void
@@ -33,14 +33,14 @@ feature {EVENTS_SET}
          expected(events)
       end
 
-   occurred (events: EVENTS_SET): BOOLEAN is
+   occurred (events: EVENTS_SET): BOOLEAN
       require
          expected(events)
          events /= Void
       deferred
       end
 
-   reset (events: EVENTS_SET) is
+   reset (events: EVENTS_SET)
       require
          expected(events)
          action: unset_expected_(events)
@@ -51,7 +51,7 @@ feature {EVENTS_SET}
       end
 
 feature {} --| Clever use of assertions to be sure not to create arrays in boost mode
-   set_expected (events: EVENTS_SET) is
+   set_expected (events: EVENTS_SET)
       require
          not expected(events)
          action: set_expected_(events)
@@ -61,7 +61,7 @@ feature {} --| Clever use of assertions to be sure not to create arrays in boost
          expected(events)
       end
 
-   set_expected_ (events: EVENTS_SET): BOOLEAN is
+   set_expected_ (events: EVENTS_SET): BOOLEAN
       require
          not expected(events)
       do
@@ -75,7 +75,7 @@ feature {} --| Clever use of assertions to be sure not to create arrays in boost
          Result
       end
 
-   unset_expected_ (events: EVENTS_SET): BOOLEAN is
+   unset_expected_ (events: EVENTS_SET): BOOLEAN
       require
          expected(events)
       local
@@ -93,13 +93,13 @@ feature {} --| Clever use of assertions to be sure not to create arrays in boost
 
 end -- class EVENT_DESCRIPTOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

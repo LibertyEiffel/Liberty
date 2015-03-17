@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -21,7 +21,7 @@ feature {ANY}
          end
       end
 
-   recurse (i: INTEGER) is
+   recurse (i: INTEGER)
       local
          p: POINT
       do

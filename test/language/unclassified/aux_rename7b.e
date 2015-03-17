@@ -15,11 +15,11 @@ insert
          set_next_node as set_left_node
       end
 
-creation {ANY}
+create {ANY}
    make, make_node
 
 feature {ANY}
-   make_node (left: like Current; value: G; right: like Current) is
+   make_node (left: like Current; value: G; right: like Current)
       do
          left_node := left
          item := value

@@ -7,14 +7,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c1, c2: CHARACTER
       do
          assert(c1.is_equal(c2))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

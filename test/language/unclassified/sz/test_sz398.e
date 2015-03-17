@@ -10,12 +10,12 @@ create {}
 feature {ANY}
    t: INTEGER
 
-   f2 (b: FAST_ARRAY[like t]): FAST_ARRAY[like b] is
+   f2 (b: FAST_ARRAY[like t]): FAST_ARRAY[like b]
       do
          Result := {FAST_ARRAY[FAST_ARRAY[INTEGER]] << Void >> }
       end
 
-   make is
+   make
       do
       end
 

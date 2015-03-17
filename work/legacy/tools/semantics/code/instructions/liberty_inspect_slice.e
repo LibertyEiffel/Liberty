@@ -25,7 +25,7 @@ feature {ANY}
    lower, upper: LIBERTY_EXPRESSION
 
 feature {LIBERTY_INSPECT_CLAUSE}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          l, u: LIBERTY_EXPRESSION
       do
@@ -47,7 +47,7 @@ feature {LIBERTY_INSPECT_CLAUSE}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          lower.mark_reachable_code(mark)
          if upper /= lower then
@@ -56,7 +56,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_lower: like lower; a_upper: like upper; a_position: like position) is
+   make (a_lower: like lower; a_upper: like upper; a_position: like position)
       require
          a_lower /= Void
          a_position /= Void
@@ -76,7 +76,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INSPECT_SLICE_VISITOR
       do

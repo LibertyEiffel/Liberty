@@ -8,7 +8,7 @@ create {ANY}
    make
 
 feature {ANY}
-   my_loop (type: STRING; my_iterator: ITERATOR[CHARACTER]) is
+   my_loop (type: STRING; my_iterator: ITERATOR[CHARACTER])
       local
          element: CHARACTER
       do
@@ -29,7 +29,7 @@ feature {ANY}
       end
 
 feature {}
-   make is
+   make
       do
          use_iterator_on_string
          use_iterator_on_array
@@ -42,7 +42,7 @@ feature {}
          io.put_string("And this is not a bug!%N")
       end
 
-   use_iterator_on_string is
+   use_iterator_on_string
       local
          iterator: ITERATOR[CHARACTER]
       do
@@ -50,7 +50,7 @@ feature {}
          my_loop("STRING", iterator)
       end
 
-   use_iterator_on_array is
+   use_iterator_on_array
       local
          iterator: ITERATOR[CHARACTER]
       do
@@ -58,7 +58,7 @@ feature {}
          my_loop("ARRAY", iterator)
       end
 
-   use_iterator_on_fixed_array is
+   use_iterator_on_fixed_array
       local
          iterator: ITERATOR[CHARACTER]; my_fa: FAST_ARRAY[CHARACTER]
       do
@@ -70,7 +70,7 @@ feature {}
          my_loop("FAST_ARRAY", iterator)
       end
 
-   use_iterator_on_linked_list is
+   use_iterator_on_linked_list
       local
          iterator: ITERATOR[CHARACTER]; ll: LINKED_LIST[CHARACTER]
       do
@@ -82,7 +82,7 @@ feature {}
          my_loop("LINKED_LIST", iterator)
       end
 
-   use_iterator_on_two_way_linked_list is
+   use_iterator_on_two_way_linked_list
       local
          iterator: ITERATOR[CHARACTER]; twll: TWO_WAY_LINKED_LIST[CHARACTER]
       do
@@ -94,7 +94,7 @@ feature {}
          my_loop("TWO_WAY_LINKED_LIST", iterator)
       end
 
-   use_iterator_on_dictionary is
+   use_iterator_on_dictionary
       local
          iterator: ITERATOR[CHARACTER]; d: DICTIONARY[CHARACTER, CHARACTER]
       do

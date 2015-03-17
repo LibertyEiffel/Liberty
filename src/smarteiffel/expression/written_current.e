@@ -10,15 +10,15 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: WRITTEN_CURRENT_VISITOR) is
+   accept (visitor: WRITTEN_CURRENT_VISITOR)
       do
          visitor.visit_written_current(Current)
       end
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
 feature {}
-   is_written: BOOLEAN is True
+   is_written: BOOLEAN True
 
 end -- class WRITTEN_CURRENT
 --
@@ -32,9 +32,9 @@ end -- class WRITTEN_CURRENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

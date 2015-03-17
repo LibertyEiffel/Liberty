@@ -4,13 +4,13 @@
 deferred class AUX_REDEFINE17A
 
 feature {ANY}
-   foo is
+   foo
       do
          bar -- In BAD_REDEFINE17, call to `bar1' or `bar2'?
          io.put_new_line
       end
 
-   bar is
+   bar
       deferred
       end
 

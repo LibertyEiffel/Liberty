@@ -12,7 +12,7 @@ create {}
 feature {}
    an_attribute: like an_attribute;
 
-   make is
+   make
       do
          an_attribute := an_attribute;
       end;

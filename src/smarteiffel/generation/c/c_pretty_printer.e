@@ -22,6 +22,7 @@ create {ANY}
    make
 
 feature {ANY} -- Code generators
+   header_pass_0: C_HEADER_PASS_0
    header_pass_1: C_HEADER_PASS_1
    header_pass_2: C_HEADER_PASS_2
    header_pass_3: C_HEADER_PASS_3
@@ -43,14 +44,16 @@ feature {ANY} -- Code generators
 feature {ANY} -- C-related type properties
    target_type: C_TYPE_FOR_TARGET
    result_type: C_TYPE_FOR_RESULT
+   external_type: C_TYPE_FOR_EXTERNAL
    argument_type: C_TYPE_FOR_ARGUMENT
    va_arg_type: C_TYPE_FOR_VA_ARG
    need_struct: C_NEED_STRUCT
    native_need_wrapper: C_NATIVE_NEED_WRAPPER
 
 feature {}
-   make is
+   make
       do
+         create header_pass_0.make
          create header_pass_1.make
          create header_pass_2.make
          create header_pass_3.make
@@ -70,6 +73,7 @@ feature {}
 
          create target_type.make
          create result_type.make
+         create external_type.make
          create argument_type.make
          create va_arg_type.make
          create need_struct.make
@@ -79,7 +83,7 @@ feature {}
       end
 
 feature {SMART_EIFFEL}
-   compile is
+   compile
       do
          check
             ace.splitter /= Void
@@ -99,6 +103,9 @@ feature {SMART_EIFFEL}
             if ace.sedb then
                out_h.put_string(once "#define SE_SEDB 1%N")
             end
+            if smart_eiffel.thread_used then
+               out_h.put_string(once "#define SE_THREAD 1%N")
+            end
             memory.pre_customize_c_runtime
             if exceptions_handler.used then
                out_h.put_string(once "#define SE_EXCEPTIONS 1%N")
@@ -112,6 +119,7 @@ feature {SMART_EIFFEL}
             -- ---------------------------------------------------------
             smart_eiffel.show_live_types
             -- ---------------------------------------------------------
+            header_pass_0.compile
             header_pass_1.compile
             header_pass_2.compile
             header_pass_3.compile
@@ -161,32 +169,32 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   live_type_map: TRAVERSABLE[LIVE_TYPE] is
+   live_type_map: TRAVERSABLE[LIVE_TYPE]
       do
          Result := smart_eiffel.live_type_map
       end
 
-   agent_switches: FAST_ARRAY[TYPE] is
+   agent_switches: FAST_ARRAY[TYPE]
       do
          Result := smart_eiffel.agent_switches
       end
 
-   agent_creations: FAST_ARRAY[AGENT_CREATION] is
+   agent_creations: FAST_ARRAY[AGENT_CREATION]
       do
          Result := smart_eiffel.agent_creations
       end
 
-   class_invariants: FAST_ARRAY[LIVE_TYPE] is
+   class_invariants: FAST_ARRAY[LIVE_TYPE]
       do
          Result := smart_eiffel.class_invariants
       end
 
-   run_features: FAST_ARRAY[RUN_FEATURE] is
+   run_features: FAST_ARRAY[RUN_FEATURE]
       do
          Result := smart_eiffel.run_features
       end
 
-   prepare_introspection is
+   prepare_introspection
          -- Creates the introspection features
       require
          ace.no_check
@@ -203,7 +211,7 @@ feature {}
          end
       end
 
-   compile_routines is
+   compile_routines
          -- Try to give the best order to the C output.
       require
          smart_eiffel.root_procedure.set_is_root
@@ -331,7 +339,7 @@ feature {}
          end
       end
 
-   show_profile is
+   show_profile
       require
          ace.profile
       local
@@ -465,7 +473,7 @@ feature {}
          pending_c_function_body.append(once "else fprintf(SE_ERR, %"Cannot open profile.se for writing.\n%");%N}%N")
       end
 
-   define_extern_tables is
+   define_extern_tables
       local
          size: INTEGER
       do
@@ -517,7 +525,7 @@ feature {}
          end
       end
 
-   initialize_size_table is
+   initialize_size_table
          -- initialize se_strucT
       require
          not smart_eiffel.status.is_analyzing
@@ -570,7 +578,7 @@ feature {}
          id_provider.max_id = old id_provider.max_id
       end
 
-   initialize_path_table_of (ct: CLASS_TEXT) is
+   initialize_path_table_of (ct: CLASS_TEXT)
       require
          pending_c_function
       local
@@ -586,13 +594,14 @@ feature {}
          end
       end
 
-   initialize_path_table is
+   initialize_path_table
       require
          ace.no_check
       local
          i: INTEGER; lt: LIVE_TYPE
       do
          pending_c_function_body.append(once "p[0]=%"???%";%N")
+         pending_c_function_body.append(once "se_prinT[0]=((void(*)(FILE*,void*))se_prinT0);%N") -- should never be accessed, but in case of bugs it may
          ace.for_all(agent initialize_path_table_of(?))
          from
             i := live_type_map.lower
@@ -626,7 +635,7 @@ feature {}
          end
       end
 
-   initialize_generator_of (ct: CLASS_TEXT) is
+   initialize_generator_of (ct: CLASS_TEXT)
       require
          pending_c_function
       local
@@ -646,7 +655,7 @@ feature {}
          end
       end
 
-   initialize_generator is
+   initialize_generator
       local
          i: INTEGER; ct: CLASS_TEXT; lt: LIVE_TYPE
       do
@@ -670,7 +679,7 @@ feature {}
          end
       end
 
-   initialize_generating_type is
+   initialize_generating_type
       local
          i: INTEGER; lt: LIVE_TYPE; ct: CLASS_TEXT; rtm: STRING
       do
@@ -696,7 +705,7 @@ feature {}
          end
       end
 
-   initialize_profile is
+   initialize_profile
       require
          ace.profile
       local
@@ -775,22 +784,25 @@ feature {}
          end
       end
 
-   c_code: STRING is
+   c_code: STRING
       once
          create Result.make(128)
       end
 
 feature {ANY} -- Set of features to bufferize the next C function to be generated:
    pending_c_function: BOOLEAN
-         -- Indicates that a new C function is beeing prepared.
+         -- Indicates that a new C function is being prepared.
 
-   pending_c_function_signature: STRING is
+   has_closures: BOOLEAN
+         -- Indicates that the new C function creates closures (locals are not generated in the same way)
+
+   pending_c_function_signature: STRING
          -- The signature of the `pending_c_function' beeing prepared.
       once
          create Result.with_capacity(128)
       end
 
-   pending_c_function_body: STRING is
+   pending_c_function_body: STRING
          -- The body of the `pending_c_function' beeing prepared.
       once
          create Result.with_capacity(1024)
@@ -799,13 +811,14 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
    pending_c_function_counter: INTEGER
          -- Changed each time a new `pending_c_function' is generated.
 
-   prepare_c_function is
+   prepare_c_function
          -- Start the preparation of a the next C function. Information about the next function to
          -- generate is bufferized until `dump_pending_c_function' is called.
       require
          not pending_c_function
       do
          pending_c_function := True
+         has_closures := False
          pending_c_function_counter := pending_c_function_counter + 1
          function_count_in_file := function_count_in_file + 1
       ensure
@@ -813,7 +826,7 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          pending_c_function_counter = 1 + old pending_c_function_counter
       end
 
-   dump_pending_c_function (shared: BOOLEAN) is
+   dump_pending_c_function (shared: BOOLEAN)
          -- Actually dump the `pending_c_function' on `out_h' / `out_c'.
       require
          pending_c_function
@@ -840,7 +853,7 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
          not pending_c_function
       end
 
-   pending_c_function_lock_local (type: TYPE; tag: STRING): INTERNAL_C_LOCAL is
+   pending_c_function_lock_local (type: TYPE; tag: STRING): INTERNAL_C_LOCAL
          -- Reuse some un-locked variable of the `pending_c_function_locals' or add/create a new one.
          -- When possible, the caller is supposed to call feature `unlock' of INTERNAL_C_LOCAL.
       require
@@ -853,46 +866,46 @@ feature {ANY} -- Set of features to bufferize the next C function to be generate
       end
 
 feature {COMPOUND, C_CODE_COMPILER}
-   eiffel_parser_stamp_push (eiffel_parser_stamp: INTEGER) is
+   eiffel_parser_stamp_push (eiffel_parser_stamp: INTEGER)
       require
          eiffel_parser_stamp > 0
       do
          internal_c_local_stamps_stack.add_last(eiffel_parser_stamp)
       end
 
-   eiffel_parser_stamp_pop is
+   eiffel_parser_stamp_pop
       do
          internal_c_local_stamps_stack.remove_last
       end
 
 feature {ANY} -- Low-level set of feature to be used when one cannot use the `pending_c_function' mode,
    -- i.e. when one is not defining some code inside some C function:
-   out_h_buffer: STRING is
+   out_h_buffer: STRING
          -- Common buffer to write on the *.h file.
       once
          create Result.with_capacity(128)
       end
 
-   write_out_h_buffer is
+   write_out_h_buffer
          -- Actually write the `out_h_buffer'.
       do
          out_h.put_string(out_h_buffer)
       end
 
-   out_c_buffer: STRING is
+   out_c_buffer: STRING
          -- Common buffer to write on the *.c file.
       once
          create Result.with_capacity(128)
       end
 
-   write_out_c_buffer is
+   write_out_c_buffer
          -- Actually write the `out_c_buffer'.
       do
          out_c.put_string(out_c_buffer)
       end
 
 feature {ANY}
-   prepare_memory is
+   prepare_memory
       require
          memory = Void
       local
@@ -905,7 +918,7 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL, MANIFEST_STRING_POOL, MEMORY_HANDLER, MANIFEST_GENERIC_POOL}
-   split_c_file_padding_here is
+   split_c_file_padding_here
          -- Must be called only if we are sure that we will output something after that call.
       do
          split_c_file_now(0)
@@ -914,21 +927,21 @@ feature {SMART_EIFFEL, MANIFEST_STRING_POOL, MEMORY_HANDLER, MANIFEST_GENERIC_PO
 feature {C_COMPILATION_MIXIN}
    assertion_checks_disabled: BOOLEAN
 
-   set_assertion_checks_disabled (i: like assertion_checks_disabled) is
+   set_assertion_checks_disabled (i: like assertion_checks_disabled)
       do
          assertion_checks_disabled := i
       ensure
          assertion_checks_disabled = i
       end
 
-   split_c_file_now (features_count: INTEGER) is
+   split_c_file_now (features_count: INTEGER)
       do
          if ace.splitter.should_split(features_count + function_count_in_file) then
             ace.splitter.split_now
          end
       end
 
-   set_live_type (a_live_type: LIVE_TYPE) is
+   set_live_type (a_live_type: LIVE_TYPE)
       do
          ace.splitter.set_live_type(a_live_type)
       end
@@ -937,14 +950,14 @@ feature {}
    function_count_in_file: INTEGER
 
 feature {C_SPLITTER}
-   begin_c_file is
+   begin_c_file
       do
          function_count_in_file := 0
          begin_c_linkage(out_c)
          add_first_include(path_h)
       end
 
-   end_c_file is
+   end_c_file
       do
          if out_c /= Void and then out_c.is_connected then
             end_c_linkage(out_c)
@@ -953,7 +966,7 @@ feature {C_SPLITTER}
       end
 
 feature {ANY}
-   write_extern_0 (type_variable: STRING) is
+   write_extern_0 (type_variable: STRING)
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -963,7 +976,7 @@ feature {ANY}
          out_c.put_string(once "=0;%N")
       end
 
-   write_extern_1 (type_variable: STRING) is
+   write_extern_1 (type_variable: STRING)
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -973,7 +986,7 @@ feature {ANY}
          out_c.put_string(once ";%N")
       end
 
-   write_extern_2 (type_variable: STRING; init: STRING) is
+   write_extern_2 (type_variable: STRING; init: STRING)
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -985,7 +998,7 @@ feature {ANY}
          out_c.put_string(once ";%N")
       end
 
-   write_extern_array_1 (type_variable: STRING; array_size: INTEGER; array_content: STRING) is
+   write_extern_array_1 (type_variable: STRING; array_size: INTEGER; array_content: STRING)
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -999,7 +1012,7 @@ feature {ANY}
          out_c.put_string(once "};%N")
       end
 
-   write_extern_array_2 (type_variable: STRING; array_size: INTEGER) is
+   write_extern_array_2 (type_variable: STRING; array_size: INTEGER)
       do
          out_h.put_string(once "extern ")
          out_h.put_string(type_variable)
@@ -1011,7 +1024,7 @@ feature {ANY}
          out_c.put_string(once "];%N")
       end
 
-   put_position (p: POSITION) is
+   put_position (p: POSITION)
       require
          pending_c_function
       do
@@ -1020,7 +1033,7 @@ feature {ANY}
          put_position_comment_in(pending_c_function_body, p)
       end
 
-   put_position_in_ds (p: POSITION) is
+   put_position_in_ds (p: POSITION)
       require
          pending_c_function
       do
@@ -1029,7 +1042,7 @@ feature {ANY}
          pending_c_function_body.append(once ";%N")
       end
 
-   put_target_as_target (target_formal_type: TYPE) is
+   put_target_as_target (target_formal_type: TYPE)
          -- Produce C code to pass the current stacked target as a target of a new call: user expanded are
          -- passed by address and class invariant code is produced.
          -- ***
@@ -1052,7 +1065,7 @@ feature {ANY}
          end
       end
 
-   put_target_as_value is
+   put_target_as_value
          -- Produce C code for a simple access to the stacked target.
          -- User's expanded values are not given using a pointer.
          -- There is no C code to check the class invariant.
@@ -1071,7 +1084,7 @@ feature {ANY}
          end
       end
 
-   put_error0 (msg: STRING) is
+   put_error0 (msg: STRING)
          -- Print `msg' and then stop execution. Also print stack when not -boost.
       require
          pending_c_function
@@ -1087,14 +1100,14 @@ feature {ANY}
          end
       end
 
-   put_position_comment (p: POSITION) is
+   put_position_comment (p: POSITION)
       require
          pending_c_function
       do
          put_position_comment_in(pending_c_function_body, p)
       end
 
-   define_main (rf3: RUN_FEATURE_3) is
+   define_main (rf3: RUN_FEATURE_3)
       do
          -- Declare eiffel_root_object :
          out_h_buffer.clear_count
@@ -1112,7 +1125,7 @@ feature {ANY}
       end
 
 feature {}
-   se_string (c_string: STRING) is
+   se_string (c_string: STRING)
       require
          pending_c_function
       do
@@ -1129,7 +1142,7 @@ feature {}
          pending_c_function_body.extend(')')
       end
 
-   array_access (array_name: CHARACTER; value: INTEGER) is
+   array_access (array_name: CHARACTER; value: INTEGER)
       require
          pending_c_function
       do
@@ -1139,10 +1152,11 @@ feature {}
          pending_c_function_body.extend(']')
       end
 
-   get_started is
+   get_started
       require
          smart_eiffel.status.is_safety_checking
       do
+         system_tools.next_path
          smart_eiffel.status.set_generating
          internal_c_local_stamps_stack.add_last(1)
          echo.file_removing(path_make)
@@ -1155,7 +1169,7 @@ feature {}
          sys_runtime_h_and_c(once "base")
       end
 
-   echo_information is
+   echo_information
       do
          echo.print_count(once "Procedure", procedure_count)
          echo.print_count(once "Function", function_count)
@@ -1167,9 +1181,10 @@ feature {}
          echo.put_integer(context_stack.count)
          echo.put_character('%N')
          smart_eiffel.echo_polymorphic_inspect_distribution(once "during C code generation (backend)")
+         memory.echo_information
       end
 
-   customize_runtime is
+   customize_runtime
       do
          if ace.no_check then
             sys_runtime_h_and_c(fz_no_check)
@@ -1186,6 +1201,11 @@ feature {}
          if smart_eiffel.deep_twin_used then
             sys_runtime_h_and_c(as_deep_twin)
          end
+         if smart_eiffel.thread_used then
+            sys_runtime_h_and_c(once "thread")
+            system_tools.add_pthread_lib
+            customize_thread_pool_runtime
+         end
          if ace.profile then
             system_tools.add_lib_profile
             system_tools.add_lib_math
@@ -1193,13 +1213,97 @@ feature {}
       end
 
 feature {C_LIVE_TYPE_COMPILER}
-   defined_agent_creation: FAST_ARRAY[STRING] is
+   defined_agent_creation: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(32)
       end
 
+feature {} -- Threading
+   customize_thread_pool_runtime
+      require
+         not pending_c_function
+         smart_eiffel.thread_used
+      local
+         i, n: INTEGER; type, status_type: TYPE; call: EXPRESSION
+         fs_status: FEATURE_STAMP
+      do
+         n := thread_pool.count
+         if n > 0 and then ace.profile then
+            echo.w_put_line("Threads don't support profile! Feel free to contribute.")
+            crash
+         end
+
+         echo.print_count(once "Thread root function", n)
+
+         from
+            i := 1
+         until
+            i > n
+         loop
+            type := thread_pool.type(i)
+            call := thread_pool.call(i)
+            fs_status := type.feature_stamp_of(fs_status_name)
+            status_type := fs_status.anonymous_feature(type).result_type.resolve_in(type)
+
+            prepare_c_function
+            pending_c_function_signature.copy(once "void thread_run")
+            type.id.append_in(pending_c_function_signature)
+            pending_c_function_signature.append(once "(/*thread context*/T")
+            type.id.append_in(pending_c_function_signature)
+            pending_c_function_signature.append(once "*C,void(*signal)(void*),void*sigdata)")
+
+            pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
+            if pending_c_function_body.last /= '*' then
+               pending_c_function_body.extend(' ')
+            end
+            pending_c_function_body.append("R=")
+            pending_c_function_body.append(initializer.for(type.canonical_type_mark))
+            pending_c_function_body.append(once ";%N")
+
+            pending_c_function_body.append(once "T0*_tuple_args=(void*)0;%N")
+
+            if ace.no_check then
+               pending_c_function_body.append(once "[
+                                                    se_frame_descriptor fd={"<thread root>",0,0,"",1};
+                                                    se_dump_stack ds;
+                                                    ds.fd=&fd;
+                                                    ds.p=0;
+                                                    ds.caller=NULL;
+                                                    ds.exception_origin=NULL;
+                                                    ds.locals=NULL;
+                                                    ds.depth=0;
+
+                                                    se_dst=&ds;
+
+                                                    ]")
+            end
+
+            memory.initialize_thread
+            pending_c_function_body.append(once "*(volatile T6*)&(C->_is_started)=1;%N%
+                                                %signal(sigdata);%N")
+
+            if call /= Void then
+               compound_expression_compiler.compile(once "R=", call, once ";%N", type)
+            end
+
+            pending_c_function_body.append(once "*(volatile ")
+            pending_c_function_body.append(result_type.for(status_type.canonical_type_mark))
+            pending_c_function_body.append(once "*)&(C->_status)=R;%N%
+                                                %*(volatile T6*)&(C->_is_finished)=1;%N")
+
+            dump_pending_c_function(True)
+
+            i := i + 1
+         end
+      end
+
+   fs_status_name: HASHED_STRING
+      once
+         Result := string_aliaser.hashed_string(as_status)
+      end
+
 feature {}
-   customize_agent_pool_runtime_1 is
+   customize_agent_pool_runtime_1
       local
          boost: BOOLEAN
       do
@@ -1223,7 +1327,7 @@ feature {}
          end
       end
 
-   customize_agent_pool_runtime_2 is
+   customize_agent_pool_runtime_2
       require
          not pending_c_function
       local
@@ -1263,13 +1367,16 @@ feature {}
          end
       end
 
-   define_agent_launcher_args (agent_args: AGENT_ARGS) is
+   define_agent_launcher_args (agent_args: AGENT_ARGS)
       do
          prepare_c_function
          define_agent_launcher_heading(agent_args, once "(live)")
          if agent_args.agent_result /= Void then
             pending_c_function_body.append(result_type.for(agent_args.agent_result.canonical_type_mark))
-            pending_c_function_body.append(" R=")
+            if pending_c_function_body.last /= '*' then
+               pending_c_function_body.extend(' ')
+            end
+            pending_c_function_body.append("R=")
             if agent_args.agent_result.is_reference then
                pending_c_function_body.append(once "NULL;%N")
             else
@@ -1292,7 +1399,7 @@ feature {}
          dump_pending_c_function(True)
       end
 
-   define_agent_launcher_heading (agent_args: AGENT_ARGS; tag: STRING) is
+   define_agent_launcher_heading (agent_args: AGENT_ARGS; tag: STRING)
       local
          i: INTEGER; ar: TYPE; open: ARRAY[TYPE]
       do
@@ -1335,7 +1442,7 @@ feature {}
          pending_c_function_signature.extend(')')
       end
 
-   agent_pool_switch_in (buffer: STRING; agent_args: AGENT_ARGS; launcher_type, agent_result: TYPE) is
+   agent_pool_switch_in (buffer: STRING; agent_args: AGENT_ARGS; launcher_type, agent_result: TYPE)
       require
          agent_result = launcher_type.agent_result
       local
@@ -1398,7 +1505,7 @@ feature {}
          end
       end
 
-   agent_pool_has_only_one_case_for (launcher_type, agent_result: TYPE): BOOLEAN is
+   agent_pool_has_only_one_case_for (launcher_type, agent_result: TYPE): BOOLEAN
       require
          ace.boost
       local
@@ -1437,7 +1544,7 @@ feature {}
          Result := count < 2
       end
 
-   agent_pool_call_in (buffer, mold_id: STRING; launcher_type, agent_result, agent_creation_type: TYPE) is
+   agent_pool_call_in (buffer, mold_id: STRING; launcher_type, agent_result, agent_creation_type: TYPE)
       require
          agent_creation_type.can_be_assigned_to(launcher_type)
       local
@@ -1480,7 +1587,7 @@ feature {}
       end
 
 feature {C_COMPILATION_MIXIN}
-   target_cannot_be_dropped: BOOLEAN is
+   target_cannot_be_dropped: BOOLEAN
          -- True when top target cannot be dropped because we are not sure that
          -- target is non Void or that target has no side effects. When Result is True,
          -- printed C code is : "(((void)(<target>))"
@@ -1512,7 +1619,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   arguments_cannot_be_dropped: BOOLEAN is
+   arguments_cannot_be_dropped: BOOLEAN
          -- True when arguments cannot be dropped. Printed C code looks like:
          --  "(((void)<exp1>), ((void)<exp2>), ...((void)<expN>)"
       local
@@ -1549,7 +1656,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   cannot_drop_all: BOOLEAN is
+   cannot_drop_all: BOOLEAN
          -- Result is True when something (target or one argument)
          -- cannot be dropped. Thus when something cannot be dropped,
          -- Result is True and C code is printed :
@@ -1569,7 +1676,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {ANY}
-   put_arguments (arguments_count: INTEGER) is
+   put_arguments (arguments_count: INTEGER)
          -- Produce code to access to the whole effective arguments list.
       require
          smart_eiffel.is_ready
@@ -1590,7 +1697,7 @@ feature {ANY}
          end
       end
 
-   put_ith_argument (index: INTEGER) is
+   put_ith_argument (index: INTEGER)
          -- Produce code to access to the ith argument.
       require
          smart_eiffel.is_ready
@@ -1601,7 +1708,7 @@ feature {ANY}
          code := stack_top.code
          inspect
             code
-         when C_create_expression, C_inside_some_wrapper then
+         when C_create_expression, C_inside_some_wrapper, C_cecil_create then
             pending_c_function_body.extend('a')
             index.append_in(pending_c_function_body)
          when C_inside_twin then
@@ -1621,7 +1728,7 @@ feature {ANY}
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}
-   args_compile_to_c_ith (type: TYPE; args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST; index: INTEGER) is
+   args_compile_to_c_ith (type: TYPE; args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST; index: INTEGER)
          -- Produce C code for expression `index'.
       require
          args.count = fal.count
@@ -1645,7 +1752,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       end
 
 feature {C_COMPILATION_MIXIN}
-   put_c_inline_h(code: STRING) is
+   put_c_inline_h(code: STRING)
       do
          if not c_inline_h_mem.fast_has(code) then
             c_inline_h_mem.add_last(code)
@@ -1654,7 +1761,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   put_trace_switch is
+   put_trace_switch
          -- The {ANY}.trace_switch feature
       require
          pending_c_function
@@ -1666,7 +1773,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   put_sedb_breakpoint is
+   put_sedb_breakpoint
       require
          pending_c_function
       local
@@ -1682,7 +1789,7 @@ feature {C_COMPILATION_MIXIN}
                end
             when C_inside_some_wrapper then
                -- Well, we cannot put an `sedb_breakpoint' here.
-            when C_inside_twin, C_create_instruction, C_create_expression, C_precursor then
+            when C_inside_twin, C_create_instruction, C_create_expression, C_precursor, C_cecil_create then
                check
                   False
                end
@@ -1695,7 +1802,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   put_target_generating_type (type_of_current: TYPE) is
+   put_target_generating_type (type_of_current: TYPE)
       require
          pending_c_function
       local
@@ -1717,7 +1824,7 @@ feature {C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "])")
       end
 
-   put_target_generator (type_of_current: TYPE) is
+   put_target_generator (type_of_current: TYPE)
       require
          pending_c_function
       local
@@ -1739,7 +1846,7 @@ feature {C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "])")
       end
 
-   target_position_in_error_handler is
+   target_position_in_error_handler
          -- Add the target position into the `error_handler'.
       local
          target: EXPRESSION
@@ -1750,7 +1857,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   put_object_size (t: TYPE) is
+   put_object_size (t: TYPE)
       require
          pending_c_function
          t /= Void
@@ -1763,14 +1870,16 @@ feature {C_COMPILATION_MIXIN}
          end
          pending_c_function_body.append(once "sizeof(T")
          t.live_type.id.append_in(pending_c_function_body)
-         pending_c_function_body.extend(')')
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(t.live_type.structure_signature)
+         pending_c_function_body.append(once "*/)")
          if tcbd then
             pending_c_function_body.extend(')')
          end
       end
 
 feature {CECIL_FILE}
-   connect_cecil_out_h (user_path_h: STRING) is
+   connect_cecil_out_h (user_path_h: STRING)
       do
          create out_h.make
          echo.tfw_connect(out_h, user_path_h)
@@ -1786,13 +1895,13 @@ feature {CECIL_FILE}
                                %/* Available Eiffel routines via -cecil:%N*/%N")
       end
 
-   disconnect_cecil_out_h is
+   disconnect_cecil_out_h
       do
          out_h.disconnect
       end
 
 feature {C_MAPPER}
-   use_c_function_call_for_attribute_read: BOOLEAN is
+   use_c_function_call_for_attribute_read: BOOLEAN
       require
          not ace.boost
       local
@@ -1803,19 +1912,19 @@ feature {C_MAPPER}
          when C_direct_call then
             e := stack_top.target
             Result := not (e.is_current or assertion_checks_disabled)
-         when C_inside_twin, C_inside_some_wrapper, C_create_instruction, C_create_expression, C_precursor then
+         when C_inside_twin, C_inside_some_wrapper, C_create_instruction, C_create_expression, C_precursor, C_cecil_create then
             Result := False
          end
       end
 
 feature {C_COMPILATION_MIXIN}
-   push_inside_some_wrapper (af: ANONYMOUS_FEATURE) is
+   push_inside_some_wrapper (af: ANONYMOUS_FEATURE)
       do
          stack_push(C_inside_some_wrapper)
          stack_top.set_anonymous_feature(af)
       end
 
-   push_create_expression (type: TYPE; fs: FEATURE_STAMP; internal_c_local: INTERNAL_C_LOCAL) is
+   push_create_expression (type: TYPE; fs: FEATURE_STAMP; internal_c_local: INTERNAL_C_LOCAL)
       require
          type /= Void
          fs /= Void
@@ -1829,8 +1938,15 @@ feature {C_COMPILATION_MIXIN}
          stack_top.set_internal_c_local(internal_c_local)
       end
 
+   push_cecil_create (type: TYPE; rf: RUN_FEATURE)
+      do
+         stack_push(C_cecil_create)
+         stack_top.set_type(type)
+         stack_top.set_static_type(rf.type_of_current)
+      end
+
 feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_COMPILATION_MIXIN}
-   push_create_instruction (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL) is
+   push_create_instruction (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST; internal_c_local: INTERNAL_C_LOCAL)
          -- Where `internal_c_local' holds the newly allocated object.
       require
          type /= Void
@@ -1845,7 +1961,7 @@ feature {CREATE_INSTRUCTION, LOCAL_VAR_LIST, ONCE_ROUTINE_POOL, CECIL_POOL, C_CO
       end
 
 feature {C_COMPILATION_MIXIN}
-   inside_twin (type: TYPE; cpy: RUN_FEATURE) is
+   inside_twin (type: TYPE; cpy: RUN_FEATURE)
       require
          type /= Void
          cpy /= Void
@@ -1857,7 +1973,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {C_COMPILATION_MIXIN}
-   check_assertion (type: TYPE; e: EXPRESSION; check_assertion_mode, tag_name: STRING) is
+   check_assertion (type: TYPE; e: EXPRESSION; check_assertion_mode, tag_name: STRING)
          -- Produce a standard C instruction to check a mandatory ASSERTION.
       require
          pending_c_function
@@ -1880,22 +1996,22 @@ feature {C_COMPILATION_MIXIN}
          compound_expression_compiler.compile(continue, e, finish, type)
       end
 
-   inspect_local_push (expression: EXPRESSION) is
+   inspect_local_push (expression: EXPRESSION)
       do
          inspect_local_stack.push(expression)
       end
 
-   inspect_local_pop is
+   inspect_local_pop
       do
          inspect_local_stack.pop
       end
 
-   inspect_local_compile_to_c (type: TYPE) is
+   inspect_local_compile_to_c (type: TYPE)
       do
          code_compiler.compile(inspect_local_stack.top, type)
       end
 
-   inspect_local_type (type: TYPE) is
+   inspect_local_type (type: TYPE)
       do
          pending_c_function_body.extend('T')
          inspect_local_stack.top.resolve_in(type).id.append_in(pending_c_function_body)
@@ -1903,24 +2019,24 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   inspect_local_stack: STACK[EXPRESSION] is
+   inspect_local_stack: STACK[EXPRESSION]
       once
          create Result.make
       end
 
 feature {ANY} -- Printing Current, local or argument :
-   print_current is
+   print_current
       do
          pending_c_function_body.extend('C')
       end
 
-   print_argument (rank: INTEGER) is
+   print_argument (rank: INTEGER)
       do
          pending_c_function_body.extend('a')
          rank.append_in(pending_c_function_body)
       end
 
-   print_local (name: STRING) is
+   print_local (name: STRING)
       require
          pending_c_function
          not name.is_empty
@@ -1930,7 +2046,7 @@ feature {ANY} -- Printing Current, local or argument :
       end
 
 feature {C_COMPILATION_MIXIN}
-   variant_check (type: TYPE; loop_variant: EXPRESSION) is
+   variant_check (type: TYPE; loop_variant: EXPRESSION)
       require
          pending_c_function
          loop_variant /= Void
@@ -1938,7 +2054,7 @@ feature {C_COMPILATION_MIXIN}
          compound_expression_compiler.compile(once "v=ac_lvc(c++,v,", loop_variant, once ");%N", type)
       end
 
-   current_class_invariant (type_of_current: TYPE) is
+   current_class_invariant (type_of_current: TYPE)
          -- Add some C code to check class invariant with Current at the end of a routine for `Current'.
       require
          type_of_current /= Void
@@ -1949,19 +2065,19 @@ feature {C_COMPILATION_MIXIN}
          if live_type_of_current /= Void then
             if live_type_of_current.is_reference then
                pending_c_function_body.append(once "if(se_rci(caller,C))")
-               end
-               pending_c_function_body.append(once "se_i")
-               live_type_of_current.id.append_in(pending_c_function_body)
-               if ace.profile then
-                  pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
-               else
-                  pending_c_function_body.append(once "(&ds,C);%N")
-               end
+            end
+            pending_c_function_body.append(once "se_i")
+            live_type_of_current.id.append_in(pending_c_function_body)
+            if ace.profile then
+               pending_c_function_body.append(once "(&ds,&local_profile,C);%N")
+            else
+               pending_c_function_body.append(once "(&ds,C);%N")
             end
          end
+      end
 
 feature {ANY}
-   class_invariant_call_opening (type_of_target: TYPE; extra_cast_flag: BOOLEAN): INTEGER is
+   class_invariant_call_opening (type_of_target: TYPE; extra_cast_flag: BOOLEAN): INTEGER
          -- Add extra code to call the class invariant when `type_of_target' actually has an invariant.
          -- A 0 `Result' indicate that there is no invariant.
       require
@@ -1992,7 +2108,7 @@ feature {ANY}
          end
       end
 
-   class_invariant_call_closing (integer_flag: INTEGER; semicolon_flag: BOOLEAN) is
+   class_invariant_call_closing (integer_flag: INTEGER; semicolon_flag: BOOLEAN)
       do
          inspect
             integer_flag
@@ -2008,7 +2124,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   macro_def (str: STRING; id: INTEGER) is
+   macro_def (str: STRING; id: INTEGER)
       do
          out_h_buffer.copy(once "#define ")
          out_h_buffer.append(str)
@@ -2019,7 +2135,7 @@ feature {ANY}
       end
 
 feature {}
-   write_make_file is
+   write_make_file
       local
          cmd: STRING
       do
@@ -2045,7 +2161,7 @@ do_write_make_file
          end
       end
 
-   do_write_make_file is
+   do_write_make_file
       local
          no_change: BOOLEAN; executable_name: STRING; file_tools: FILE_TOOLS
       do
@@ -2077,7 +2193,7 @@ do_write_make_file
       end
 
 feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
-   put_monomorphic_or_void_call (type: TYPE; feature_stamp: FEATURE_STAMP; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
+   put_monomorphic_or_void_call (type: TYPE; feature_stamp: FEATURE_STAMP; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST)
          -- Unfortunately, because `simplify' can reduce the number of elements in RUN_TIME_SET objects,
          -- long after `inline_dynamic_dispatch_', we still  have this special case for Void in the
          -- back-end (the best way would be to create VOID_PROC_CALL and VOID_CALL objects far before).
@@ -2118,7 +2234,7 @@ feature {FEATURE_CALL, C_EXPRESSION_COMPILATION_MIXIN}
       end
 
 feature {C_CODE_COMPILER}
-   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   start_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
          -- Called just before compiling the left (written to) expression of an assignment
       require
          not in_assignment
@@ -2130,7 +2246,7 @@ feature {C_CODE_COMPILER}
          in_assignment
       end
 
-   check_assignment: BOOLEAN is
+   check_assignment: BOOLEAN
          -- Called after having compiled the left (written to) expression of an assignment to know if the
          -- assignment should be completed by compiling the right expression. If an evobt was raised then the
          -- right expression will not be compiled (see `put_monomorphic_or_void_call').
@@ -2142,7 +2258,7 @@ feature {C_CODE_COMPILER}
          in_assignment
       end
 
-   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE) is
+   end_assignment (assignment: ASSIGNMENT_INSTRUCTION; type: TYPE)
       require
          in_assignment
       do
@@ -2158,7 +2274,7 @@ feature {}
    assignment_evobt: BOOLEAN
 
 feature {ANY}
-   put_direct (type: TYPE; dynamic_feature: RUN_FEATURE; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST) is
+   put_direct (type: TYPE; dynamic_feature: RUN_FEATURE; target: EXPRESSION; arguments: EFFECTIVE_ARG_LIST)
       do
          push_direct(dynamic_feature, type, target, arguments)
          mapper.compile(dynamic_feature)
@@ -2166,7 +2282,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   sys_runtime_h_and_c (name: STRING) is
+   sys_runtime_h_and_c (name: STRING)
          -- Inline corresponding SmartEiffel/sys/runtime/`name'.[hc] file. At least, one file should be
          -- found.
       local
@@ -2194,7 +2310,7 @@ feature {ANY}
       end
 
 feature {PLUGIN}
-   put_c_file (tfr: TEXT_FILE_READ) is
+   put_c_file (tfr: TEXT_FILE_READ)
       require
          not tfr.end_of_input
       do
@@ -2203,7 +2319,7 @@ feature {PLUGIN}
          not tfr.is_connected
       end
 
-   put_h_file (tfr: TEXT_FILE_READ) is
+   put_h_file (tfr: TEXT_FILE_READ)
       require
          not tfr.end_of_input
       do
@@ -2213,7 +2329,7 @@ feature {PLUGIN}
       end
 
 feature {MEMORY, LIVE_TYPE, RUN_FEATURE, C_COMPILATION_MIXIN, MEMORY_HANDLER}
-   recompilation_comment (lt: LIVE_TYPE) is
+   recompilation_comment (lt: LIVE_TYPE)
       require
          lt /= Void
       do
@@ -2223,7 +2339,7 @@ feature {MEMORY, LIVE_TYPE, RUN_FEATURE, C_COMPILATION_MIXIN, MEMORY_HANDLER}
       end
 
 feature {NATIVE}
-   include_register (origin: POSITION; include_name: STRING) is
+   include_register (origin: POSITION; include_name: STRING)
       do
          if include_memory = Void then
             create {HASHED_SET[STRING]} include_memory.make
@@ -2237,7 +2353,7 @@ feature {NATIVE}
       end
 
 feature {ANY}
-   set_dump_stack_top_for (t: TYPE; ds, comment: STRING) is
+   set_dump_stack_top_for (t: TYPE; ds, comment: STRING)
       require
          pending_c_function
       do
@@ -2249,7 +2365,7 @@ feature {ANY}
       end
 
 feature {C_COMPILATION_MIXIN}
-   stop_recursive_assertion_opening (inside_feature_flag: BOOLEAN) is
+   stop_recursive_assertion_opening (inside_feature_flag: BOOLEAN)
       do
          if ace.no_check then --|*** should be require_check?
             if ace.flat_check then
@@ -2264,7 +2380,7 @@ feature {C_COMPILATION_MIXIN}
                   end
                end
 
-               stop_recursive_assertion_closing (inside_feature_flag: BOOLEAN) is
+               stop_recursive_assertion_closing (inside_feature_flag: BOOLEAN)
       do
          if ace.no_check then
             if ace.flat_check then
@@ -2279,7 +2395,7 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
-   c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING) is
+   c_frame_descriptor_in (type_mark: TYPE_MARK; buffer: STRING)
          -- Update `c_frame_descriptor_format' accordingly.
       require
          type_mark.is_static
@@ -2303,20 +2419,39 @@ feature {C_COMPILATION_MIXIN}
          buffer.extend('%%')
       end
 
+   c_frame_descriptor_closure_in (type_mark: TYPE_MARK; buffer: STRING)
+         -- Update `c_frame_descriptor_format' accordingly (for closure locals and arguments).
+      require
+         type_mark.is_static
+         buffer /= Void
+      local
+         lt: LIVE_TYPE
+      do
+         buffer.extend('%%')
+         lt := type_mark.type.live_type
+         buffer.extend('R')
+         if lt = Void then
+            buffer.extend('0')
+         else
+            lt.id.append_in(buffer)
+         end
+         buffer.extend('%%')
+      end
+
 feature {}
-   begin_c_linkage (output: TEXT_FILE_WRITE) is
+   begin_c_linkage (output: TEXT_FILE_WRITE)
          -- Begin wrap for C linkage
       do
          output.put_string(once "#ifdef __cplusplus%Nextern %"C%" {%N#endif%N")
       end
 
-   end_c_linkage (output: TEXT_FILE_WRITE) is
+   end_c_linkage (output: TEXT_FILE_WRITE)
          -- End wrap for C linkage
       do
          output.put_string(once "%N#ifdef __cplusplus%N}%N#endif%N")
       end
 
-   c_plus_plus_definitions is
+   c_plus_plus_definitions
       local
          cpp_path_h, cpp_path_c: STRING; i: INTEGER
       do
@@ -2354,7 +2489,7 @@ feature {}
          end
       end
 
-   out_c: TEXT_FILE_WRITE is
+   out_c: TEXT_FILE_WRITE
          -- The current *.c output file.
       do
          Result := ace.splitter.out_c
@@ -2366,24 +2501,32 @@ feature {}
    in_h: TEXT_FILE_READ
          -- The *.h, when copied in the symbols file
 
-   out_make: TEXT_FILE_WRITE is
+   out_make: TEXT_FILE_WRITE
          -- The *.make output file.
       once
          create Result.make
       end
 
-   c_inline_h_mem: FAST_ARRAY[STRING] is
+   c_inline_h_mem: FAST_ARRAY[STRING]
       once
          create Result.with_capacity(4)
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}
-   se_evobt (return_type: TYPE_MARK; type: TYPE; target: EXPRESSION) is
+   se_evobt (return_type: TYPE_MARK; type: TYPE; target: EXPRESSION; is_target: BOOLEAN)
+         -- `is_target' is False when compiling an argument, True otherwise (i.e. when compiling a target)
       require
          target /= Void
       local
          p: POSITION; internal_c_local: INTERNAL_C_LOCAL
       do
+         p := target.start_position
+         --error_handler.add_position(p)
+         --error_handler.append(once "Target is always Void here. Expect a crash at runtime.")
+         --error_handler.append(once "The context type is ")
+         --error_handler.append(type.canonical_type_mark.written_mark)
+         --error_handler.print_as_warning
+
          if return_type /= Void then
             if return_type.is_reference then
                -- Because of a Borland C compiler bug we have to add this extra cast:
@@ -2396,11 +2539,10 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
             pending_c_function_body.extend('(')
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
-            put_position(target.start_position)
+            put_position(p)
             pending_c_function_body.extend(')')
          else
             pending_c_function_body.append(once "/*se_evobt*/")
-            p := target.start_position
             put_position_comment_on(out_c, p)
             code_compiler.compile(target, type)
             pending_c_function_body.extend(',')
@@ -2413,6 +2555,15 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
                internal_c_local.append_in(pending_c_function_body)
                pending_c_function_body.extend('=')
                pending_c_function_body.append(initializer.for(return_type))
+            elseif is_target and then not return_type.is_kernel_expanded and then not return_type.type.is_empty_expanded then
+               internal_c_local := pending_c_function_lock_local(return_type.type, once "evobt");
+               pending_c_function_body.extend('(')
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.append(once "=M")
+               return_type.type.id.append_in(pending_c_function_body)
+               pending_c_function_body.append(once ",&")
+               internal_c_local.append_in(pending_c_function_body)
+               pending_c_function_body.extend(')')
             else
                pending_c_function_body.extend('M')
                return_type.type.id.append_in(pending_c_function_body)
@@ -2424,7 +2575,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       end
 
 feature {}
-   define_initialize_eiffel_runtime (rf3: RUN_FEATURE_3) is
+   define_initialize_eiffel_runtime (rf3: RUN_FEATURE_3)
       require
          rf3.is_root
       local
@@ -2590,6 +2741,9 @@ feature {}
          if ace.sedb then
             pending_c_function_body.append(once "se_general_trace_switch=1;%N")
          end
+         if smart_eiffel.thread_used then
+            pending_c_function_body.append(once "se_thread_register();%N")
+         end
          internal_c_local := pending_c_function_lock_local(lt.type, once "root")
          memory.allocation_of(internal_c_local, lt)
          pending_c_function_body.append(once "eiffel_root_object=((T")
@@ -2609,7 +2763,7 @@ feature {}
          dump_pending_c_function(True)
       end
 
-   c_call_initialize_manifest_strings is
+   c_call_initialize_manifest_strings
       require
          cpp.pending_c_function
       do
@@ -2630,7 +2784,7 @@ feature {}
          cpp.pending_c_function
       end
 
-   check_id (type: TYPE; e: EXPRESSION; id: INTEGER) is
+   check_id (type: TYPE; e: EXPRESSION; id: INTEGER)
          -- Produce a C expression checking that `e' is not Void and that `e' is really of type `id'.
          -- The result of the C expression is the pointer to the corresponding Object.
       require
@@ -2652,12 +2806,12 @@ feature {}
          end
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(256)
       end
 
-   need_invariant (type_of_target: TYPE): LIVE_TYPE is
+   need_invariant (type_of_target: TYPE): LIVE_TYPE
          -- Give the corresponding LIVE_TYPE when `type_of_target' actually needs some class invariant checking.
       require
          type_of_target /= Void
@@ -2672,37 +2826,34 @@ feature {}
          end
       end
 
-   path_h: STRING is
-      once
+   path_h: STRING
+      do
          Result := system_tools.path_h
       ensure
          Result.has_suffix(h_suffix)
       end
 
-   path_c: STRING is
-      once
-         Result := path_h.twin
-         Result.put('c', Result.upper)
+   path_c: STRING
+      do
+         Result := system_tools.path_c
       ensure
-         Result.has_suffix(c_suffix) or else Result.has_suffix(once ".d")
+         Result.has_suffix(c_suffix)
       end
 
-   path_make: STRING is
-      once
-         Result := path_h.twin
-         Result.remove_tail(2)
-         Result.append(system_tools.make_suffix)
+   path_make: STRING
+      do
+         Result := system_tools.path_make
       ensure
          Result.has_suffix(system_tools.make_suffix)
       end
 
-   add_first_include (the_first_include: STRING) is
+   add_first_include (the_first_include: STRING)
       do
          put_banner(out_c)
          add_include_on(out_c, the_first_include)
       end
 
-   put_banner (output: TEXT_FILE_WRITE) is
+   put_banner (output: TEXT_FILE_WRITE)
       require
          output.is_connected
       do
@@ -2715,7 +2866,7 @@ feature {}
 
    c_code_saved: BOOLEAN
 
-   h_connect (h_path: STRING) is
+   h_connect (h_path: STRING)
       do
          if out_h = Void then
             create {TEXT_FILE_WRITE} out_h.make
@@ -2727,7 +2878,7 @@ feature {}
          -- When the executable seems to be already correct (no C
          -- compilation and no linking is to be done).
 
-   common_put_target is
+   common_put_target
       local
          created_type: TYPE
       do
@@ -2756,12 +2907,12 @@ feature {}
                end
                stack_top.internal_c_local.append_in(pending_c_function_body)
             end
-         when C_precursor, C_inside_some_wrapper then
+         when C_precursor, C_inside_some_wrapper, C_cecil_create then
             pending_c_function_body.extend('C')
          end
       end
 
-   put_file (tfr: TEXT_FILE_READ; output: TEXT_FILE_WRITE) is
+   put_file (tfr: TEXT_FILE_READ; output: TEXT_FILE_WRITE)
       require
          not tfr.end_of_input
       do
@@ -2779,7 +2930,7 @@ feature {}
          not tfr.is_connected
       end
 
-   really_define_c_main (rf3: RUN_FEATURE_3) is
+   really_define_c_main (rf3: RUN_FEATURE_3)
       require
          not ace.no_main
       local
@@ -2829,8 +2980,14 @@ feature {}
          pop
          class_invariant_flag := class_invariant_call_opening(rf3.type_of_current, True)
          if class_invariant_flag > 0 then
+            if internal_c_local.type.has_external_type or else (internal_c_local.type.is_expanded and then cpp.need_struct.for(internal_c_local.type.canonical_type_mark)) then
+               pending_c_function_body.extend('&')
+            end
             internal_c_local.append_in(pending_c_function_body)
             class_invariant_call_closing(class_invariant_flag, True)
+         end
+         if smart_eiffel.thread_used then
+            pending_c_function_body.append(once "se_thread_stop();%N")
          end
          pending_c_function_body.append(once "handle(SE_HANDLE_NORMAL_EXIT, NULL);%N");
          if ace.no_check then
@@ -2848,7 +3005,7 @@ feature {}
    include_memory: SET[STRING]
 
 feature {}
-   put_position_comment_on (output: TEXT_FILE_WRITE; p: POSITION) is
+   put_position_comment_on (output: TEXT_FILE_WRITE; p: POSITION)
          -- See also `put_position_comment_in'.
       local
          buffer: STRING
@@ -2860,7 +3017,7 @@ feature {}
       end
 
 feature {C_CODE_COMPILER}
-   put_position_comment_in (buffer: STRING; p: POSITION) is
+   put_position_comment_in (buffer: STRING; p: POSITION)
          -- See also `put_position_comment_on'.
       local
          i: INTEGER; path: STRING; stop: BOOLEAN
@@ -2902,18 +3059,18 @@ feature {C_CODE_COMPILER}
          end
       end
 
-   internal_c_local_stamps_stack: FAST_ARRAY[INTEGER] is
+   internal_c_local_stamps_stack: FAST_ARRAY[INTEGER]
       once
          create Result.with_capacity(32)
       end
 
-   internal_c_local_list: INTERNAL_C_LOCAL_LIST is
+   internal_c_local_list: INTERNAL_C_LOCAL_LIST
       once
          create Result
       end
 
 feature {C_COMPILATION_MIXIN}
-   string_to_c_code (s: STRING; buffer: STRING) is
+   string_to_c_code (s: STRING; buffer: STRING)
          -- Add in the `buffer' the C language view of the Eiffel `s' STRING.
          -- (Replace all strange characters of `s' with the appropriate C backslash escape sequences).
       do
@@ -2921,7 +3078,7 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {}
-   native_array_to_c_code (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]; buffer: STRING) is
+   native_array_to_c_code (capacity: INTEGER; storage: NATIVE_ARRAY[CHARACTER]; buffer: STRING)
       local
          break, i: INTEGER
       do
@@ -2942,7 +3099,7 @@ feature {}
          buffer.extend('%"')
       end
 
-   character_to_c_code (c: CHARACTER; buffer: STRING) is
+   character_to_c_code (c: CHARACTER; buffer: STRING)
       do
          if c = '%N' then
             buffer.extend('\')
@@ -2969,7 +3126,7 @@ feature {}
       end
 
 feature {}
-   c_define1_manifest_string_pool is
+   c_define1_manifest_string_pool
       local
          i, j, upper: INTEGER; ms: MANIFEST_STRING; us: UNICODE_STRING; storage: NATIVE_ARRAY[INTEGER_16]
          lsv: FAST_ARRAY[INTEGER_16]; lsi: FAST_ARRAY[INTEGER]
@@ -3054,9 +3211,9 @@ feature {}
          end
       end
 
-   nb_ms_per_function: INTEGER is 50
+   nb_ms_per_function: INTEGER 50
 
-   c_define2_manifest_string_pool is
+   c_define2_manifest_string_pool
       local
          i, j, fn_count, mdc, id: INTEGER; ms: MANIFEST_STRING; no_check: BOOLEAN; lt: LIVE_TYPE
          internal_c_local: INTERNAL_C_LOCAL; se_msi_signature, se_msi_call: STRING
@@ -3081,11 +3238,10 @@ feature {}
          end
          --
          if smart_eiffel.is_at_run_time(as_string) and then manifest_string_pool.is_string_collected then
-
-               lt := manifest_string_pool.se_ms.type_of_current.live_type
-               check
-                  lt.id = 7
-               end
+            lt := manifest_string_pool.se_ms.type_of_current.live_type
+            check
+               lt.id = 7
+            end
 
             prepare_c_function
             pending_c_function_signature.copy(once "T0*se_string(")
@@ -3101,7 +3257,7 @@ feature {}
                pending_c_function_body.append(once "se_local_profile_t local_profile;%Nstatic se_profile_t prof;%Nstatic int prof_init=0;%N")
             end
             pending_c_function_body.append(once "T7*")
-            memory.manifest_string_in(pending_c_function_body, True)
+            memory.manifest_string_in(pending_c_function_body)
             if ace.profile then
                pending_c_function_body.append(once "if (!prof_init){memset(&prof,0,sizeof(prof));prof_init=1;}%N")
                pending_c_function_body.append(once "local_profile.profile=&prof;%N")
@@ -3254,7 +3410,7 @@ feature {}
       end
 
 feature {C_EXPRESSION_COMPILATION_MIXIN}
-   se_ms_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
+   se_ms_c_call_in (buffer: STRING; ms: MANIFEST_STRING)
       require
          not ms.unicode_flag
       local
@@ -3282,7 +3438,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
          end
       end
 
-   se_ums_c_call_in (buffer: STRING; ms: MANIFEST_STRING) is
+   se_ums_c_call_in (buffer: STRING; ms: MANIFEST_STRING)
       require
          ms.unicode_flag
       local
@@ -3328,7 +3484,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
          end
       end
 
-   manifest_string_trace (ms: MANIFEST_STRING; buffer: STRING): BOOLEAN is
+   manifest_string_trace (ms: MANIFEST_STRING; buffer: STRING): BOOLEAN
       local
          position: POSITION
       do
@@ -3351,7 +3507,7 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
       end
 
 feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_MIXIN}
-   local_profile is
+   local_profile
       require
          ace.profile
          pending_c_function
@@ -3359,7 +3515,7 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
          pending_c_function_body.append(once "se_local_profile_t local_profile;%N")
       end
 
-   start_profile (rf: RUN_FEATURE) is
+   start_profile (rf: RUN_FEATURE)
       require
          ace.profile
          pending_c_function
@@ -3370,7 +3526,7 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
          pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
-   start_profile_class_invariant (t: LIVE_TYPE) is
+   start_profile_class_invariant (t: LIVE_TYPE)
       require
          ace.profile
          pending_c_function
@@ -3382,7 +3538,7 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
          pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
-   start_profile_agent_creation (ac: AGENT_CREATION) is
+   start_profile_agent_creation (ac: AGENT_CREATION)
       require
          ace.profile
          pending_c_function
@@ -3394,7 +3550,7 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
          pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
-   start_profile_agent_switch (t: TYPE) is
+   start_profile_agent_switch (t: TYPE)
       require
          ace.profile
          pending_c_function
@@ -3406,7 +3562,7 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
          pending_c_function_body.append(once ";%Nstart_profile(parent_profile, &local_profile);%N")
       end
 
-   stop_profile is
+   stop_profile
       require
          ace.profile
          pending_c_function
@@ -3417,14 +3573,14 @@ feature {RUN_FEATURE, ASSERTION_LIST, AGENT_CREATION, AGENT_ARGS, C_COMPILATION_
 feature {C_NATIVE_FUNCTION_MAPPER, C_NATIVE_PROCEDURE_MAPPER}
    has_c_plus_plus: BOOLEAN
 
-   c_plus_plus_registered (native: NATIVE_C_PLUS_PLUS): BOOLEAN is
+   c_plus_plus_registered (native: NATIVE_C_PLUS_PLUS): BOOLEAN
       require
          native /= Void
       do
          Result := has_c_plus_plus and then registered_natives.fast_has(native)
       end
 
-   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS; rf: RUN_FEATURE) is
+   c_plus_plus_register (native: NATIVE_C_PLUS_PLUS; rf: RUN_FEATURE)
       require
          native /= Void
          rf /= Void
@@ -3437,14 +3593,14 @@ feature {C_NATIVE_FUNCTION_MAPPER, C_NATIVE_PROCEDURE_MAPPER}
          has_c_plus_plus
       end
 
-   c_registered (native: NATIVE_C): BOOLEAN is
+   c_registered (native: NATIVE_C): BOOLEAN
       require
          native /= Void
       do
          Result := registered_natives.fast_has(native)
       end
 
-   c_register (native: NATIVE_C; rf: RUN_FEATURE) is
+   c_register (native: NATIVE_C; rf: RUN_FEATURE)
       require
          native /= Void
          rf /= Void
@@ -3458,13 +3614,13 @@ feature {C_NATIVE_FUNCTION_MAPPER, C_NATIVE_PROCEDURE_MAPPER}
    registered_natives: HASHED_DICTIONARY[RUN_FEATURE, NATIVE]
 
 feature {NATIVE_C_PLUS_PLUS}
-   add_include (include: STRING) is
+   add_include (include: STRING)
       do
          add_include_on(out_h, include)
       end
 
 feature {}
-   add_include_on (output: TEXT_FILE_WRITE; include: STRING) is
+   add_include_on (output: TEXT_FILE_WRITE; include: STRING)
       do
          end_c_linkage(output)
          output.put_string(once "#include ")
@@ -3486,8 +3642,8 @@ feature {}
       end
 
 feature {C_COMPILATION_MIXIN}
-   c_declare_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE; volatile_flag: BOOLEAN) is
-         -- Generate the C code for the declaration part. The `volatile_flag' indicate that an extra
+   c_declare_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE; volatile_flag: BOOLEAN)
+         -- Generate the C code for the declaration part. The `volatile_flag' indicates that an extra
          -- volatile C keyword must be generated because we are in the case of a routine with a rescue
          -- clause.
       local
@@ -3503,8 +3659,26 @@ feature {C_COMPILATION_MIXIN}
          end
       end
 
+   c_init_closure_locals (local_var_list: LOCAL_VAR_LIST; type: TYPE)
+      require
+         has_closures
+      local
+         i: INTEGER
+      do
+         pending_c_function_body.append(once "/*[INIT CLOSURE LOCALS*/%N")
+         from
+            i := 1
+         until
+            i > local_var_list.count
+         loop
+            c_init_closure_local(local_var_list.name(i), type)
+            i := i + 1
+         end
+         pending_c_function_body.append(once "/*INIT CLOSURE LOCALS]*/%N")
+      end
+
 feature {}
-   c_declare_local (local_name: LOCAL_NAME1; type: TYPE; volatile_flag: BOOLEAN) is
+   c_declare_local (local_name: LOCAL_NAME_DEF; type: TYPE; volatile_flag: BOOLEAN)
          -- C declaration of the local.
       require
          pending_c_function
@@ -3519,7 +3693,38 @@ feature {}
                end
             end
             pending_c_function_body.append(result_type.for(static_tm))
-            pending_c_function_body.extend(' ')
+            if local_name.is_outside(type) then
+               pending_c_function_body.extend('*')
+               has_closures := True
+            elseif pending_c_function_body.last /= '*' then
+               pending_c_function_body.extend(' ')
+            end
+            print_local(local_name.to_string)
+            pending_c_function_body.extend('=')
+            if local_name.is_outside(type) then
+               pending_c_function_body.extend('(')
+               pending_c_function_body.append(result_type.for(static_tm))
+               pending_c_function_body.extend('*')
+               pending_c_function_body.extend(')')
+               memory.malloc_closure(static_tm.type.live_type)
+            else
+               pending_c_function_body.append(initializer.for(static_tm))
+            end
+            pending_c_function_body.append(once ";%N")
+         end
+      end
+
+   c_init_closure_local (local_name: LOCAL_NAME_DEF; type: TYPE)
+         -- C declaration of the local.
+      require
+         pending_c_function
+         has_closures
+      local
+         static_tm: TYPE_MARK
+      do
+         if local_name.is_used(type) and then local_name.is_outside(type) then
+            static_tm := local_name.result_type.to_static(type, False)
+            pending_c_function_body.extend('*')
             print_local(local_name.to_string)
             pending_c_function_body.extend('=')
             pending_c_function_body.append(initializer.for(static_tm))
@@ -3528,7 +3733,7 @@ feature {}
       end
 
 feature {C_COMPILATION_MIXIN}
-   external_prototype_in (formal_arg_list: FORMAL_ARG_LIST; str: STRING; tgt_type: TYPE) is
+   external_prototype_in (formal_arg_list: FORMAL_ARG_LIST; str: STRING; tgt_type: TYPE)
       local
          i: INTEGER; t: TYPE_MARK
       do
@@ -3541,7 +3746,7 @@ feature {C_COMPILATION_MIXIN}
                str.extend(',')
             end
             t := formal_arg_list.type_mark(i).to_static(tgt_type, False)
-            str.append(result_type.for_external(t))
+            str.append(external_type.for(t))
             str.extend(' ')
             str.extend('a')
             i.append_in(str)
@@ -3550,14 +3755,14 @@ feature {C_COMPILATION_MIXIN}
       end
 
 feature {} -- ASSIGNMENT_TEST_POOL
-   c_define_assignment_test_functions is
+   c_define_assignment_test_functions
       do
          split_c_file_padding_here
          echo.print_count(once "Assignment test (%"?:=%") function", assignment_test_pool.count)
-         assignment_test_pool.do_all(agent c_define_assignment_test_for(?, ?))
+         assignment_test_pool.for_each(agent c_define_assignment_test_for(?, ?))
       end
 
-   c_define_assignment_test_for (left_type, right_type: TYPE) is
+   c_define_assignment_test_for (left_type, right_type: TYPE)
       require
          must_be_simplified_in_boost: ace.boost implies not right_type.can_be_assigned_to(left_type)
       local
@@ -3622,7 +3827,7 @@ feature {} -- ASSIGNMENT_TEST_POOL
          dump_pending_c_function(True)
       end
 
-   right_hand_side_can_only_be_void is
+   right_hand_side_can_only_be_void
       do
          -- The right-hand side can only be Void:
          if not ace.boost then
@@ -3632,15 +3837,15 @@ feature {} -- ASSIGNMENT_TEST_POOL
       end
 
 feature {} -- MANIFEST_GENERIC_POOL
-   c_define_manifest_generic_functions is
+   c_define_manifest_generic_functions
       require
          smart_eiffel.is_ready
       do
          split_c_file_padding_here
-         manifest_generic_pool.do_all(agent c_define_manifest_generic_for(?))
+         manifest_generic_pool.for_each(agent c_define_manifest_generic_for(?))
       end
 
-   c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC) is
+   c_define_manifest_generic_for (manifest_generic: MANIFEST_GENERIC)
       do
          if manifest_generic.created_type.is_native_array then
             c_define_for_native_array(manifest_generic.created_type)
@@ -3649,7 +3854,7 @@ feature {} -- MANIFEST_GENERIC_POOL
          end
       end
 
-   c_define_for_user_generic (manifest_generic: MANIFEST_GENERIC) is
+   c_define_for_user_generic (manifest_generic: MANIFEST_GENERIC)
       require
          manifest_generic.created_type.live_type /= Void
          not manifest_generic.created_type.is_native_array
@@ -3659,6 +3864,8 @@ feature {} -- MANIFEST_GENERIC_POOL
       do
          created_type := manifest_generic.created_type
          created_type_id := created_type.id
+         af := manifest_generic.manifest_make_feature_stamp.anonymous_feature(created_type)
+
          prepare_c_function
          pending_c_function_signature.append(once "T0* se_manifest")
          created_type_id.append_in(pending_c_function_signature)
@@ -3669,7 +3876,6 @@ feature {} -- MANIFEST_GENERIC_POOL
          if ace.profile then
             pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         af := manifest_generic.manifest_make_feature_stamp.anonymous_feature(created_type)
          from
             i := 2
             fal := af.arguments
@@ -3682,13 +3888,13 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_signature.extend(',')
             i := i + 1
          end
-         pending_c_function_signature.append(once "int argc,...)")
+         pending_c_function_signature.append(once "int argc)")
          -- Prepare body:
          pending_c_function_body.append(once "/*")
          pending_c_function_body.append(created_type.name.to_string)
          pending_c_function_body.append(once "*/%NT")
          created_type_id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once "*C;%Nva_list pa;%Nint i=0;%Nint imax;%Nva_start(pa,argc);%NC=")
+         pending_c_function_body.append(once "*C;%NC=")
          memory.malloc(created_type.live_type)
          pending_c_function_body.append(once ";%N*C=M")
          created_type_id.append_in(pending_c_function_body)
@@ -3715,14 +3921,40 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_body.append(fal.name(i).to_string)
             i := i + 1
          end
-         pending_c_function_body.append(once ");%Nimax=argc")
+         pending_c_function_body.append(once ");%Nreturn ((T0*)C);%N")
+         dump_pending_c_function(True)
+
+         prepare_c_function
+         pending_c_function_signature.append(once "T0* se_manifest_args")
+         created_type_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once "(")
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.append(once "T0*c,int i0,int argc,...)")
+         -- Prepare body:
          af := manifest_generic.manifest_put_feature_stamp.anonymous_feature(created_type)
          fal := af.arguments
+         pending_c_function_body.append(once "/*")
+         pending_c_function_body.append(created_type.name.to_string)
+         pending_c_function_body.append(once "*/%NT")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*C=(T")
+         created_type_id.append_in(pending_c_function_body)
+         pending_c_function_body.append(once "*)c;%Nva_list pa;%Nint i=i0")
          if fal.count > 2 then
-            pending_c_function_body.append(once "/")
+            pending_c_function_body.extend('/')
             (fal.count - 1).append_in(pending_c_function_body)
          end
-         pending_c_function_body.append(once ";%Nwhile (i < imax) {%N")
+         pending_c_function_body.append(once ";%Nint imax=i+argc")
+         if fal.count > 2 then
+            pending_c_function_body.extend('/')
+            (fal.count - 1).append_in(pending_c_function_body)
+         end
+         pending_c_function_body.append(once ";%Nva_start(pa,argc);%Nwhile (i < imax) {%N")
          from
             i := 2
             fal := af.arguments
@@ -3763,11 +3995,11 @@ feature {} -- MANIFEST_GENERIC_POOL
             pending_c_function_body.append(fal.name(i).to_string)
             i := i + 1
          end
-         pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn ((T0*)C);%N")
+         pending_c_function_body.append(once ");%N}%Nva_end(pa);%Nreturn c;%N")
          dump_pending_c_function(True)
       end
 
-   c_define_for_native_array (native_array: TYPE) is
+   c_define_for_native_array (native_array: TYPE)
       require
          native_array.live_type /= Void
          native_array.is_native_array
@@ -3775,7 +4007,8 @@ feature {} -- MANIFEST_GENERIC_POOL
          native_array_id: INTEGER; va_type: TYPE_MARK
       do
          native_array_id := native_array.live_type.id
-         va_type := native_array.private_generic_list.first.canonical_type_mark
+         va_type := native_array.generic_list.first.canonical_type_mark
+
          prepare_c_function
          pending_c_function_signature.extend('T')
          native_array_id.append_in(pending_c_function_signature)
@@ -3788,15 +4021,36 @@ feature {} -- MANIFEST_GENERIC_POOL
          if ace.profile then
             pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
          end
-         pending_c_function_signature.append(once "int argc,...)")
+         pending_c_function_signature.append(once "int argc)")
          -- Prepare body:
          pending_c_function_body.append(once "/*")
          pending_c_function_body.append(native_array.name.to_string)
          pending_c_function_body.append(once "*/%NT")
          native_array_id.append_in(pending_c_function_body)
-         pending_c_function_body.append(once " C;%Nint i=0;%Nva_list pa;%Nva_start(pa,argc);%NC=")
+         pending_c_function_body.append(once " C=")
          memory.calloc(native_array.live_type, agent is do pending_c_function_body.append(once "argc") end)
-         pending_c_function_body.append(once ";%Nwhile (i < argc ) {%N")
+         pending_c_function_body.append(once ";%Nreturn C;%N")
+         dump_pending_c_function(True)
+
+         prepare_c_function
+         pending_c_function_signature.extend('T')
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once " se_manifest_args")
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.extend('(')
+         if not ace.boost then
+            pending_c_function_signature.append(once "se_dump_stack*caller,")
+         end
+         if ace.profile then
+            pending_c_function_signature.append(once "se_local_profile_t*parent_profile,")
+         end
+         pending_c_function_signature.extend('T')
+         native_array_id.append_in(pending_c_function_signature)
+         pending_c_function_signature.append(once " C,int i,int argc,...)")
+         -- Prepare body:
+         pending_c_function_body.append(once "va_list pa;%Nva_start(pa,argc);%NC=")
+         memory.calloc(native_array.live_type, agent is do pending_c_function_body.append(once "argc") end)
+         pending_c_function_body.append(once ";%Nwhile (i < argc) {%N")
          pending_c_function_body.append(argument_type.for(va_type))
          pending_c_function_body.append(once " element=((")
          pending_c_function_body.append(argument_type.for(va_type))
@@ -3806,24 +4060,24 @@ feature {} -- MANIFEST_GENERIC_POOL
          dump_pending_c_function(True)
       end
 
-   va_type_in (buffer: STRING; va_type: TYPE_MARK) is
+   va_type_in (buffer: STRING; va_type: TYPE_MARK)
       do
          buffer.append(va_arg_type.for(va_type))
       end
 
 feature {} -- ONCE_ROUTINE_POOL
-   c_variables_for_precomputable_routines is
+   c_variables_for_precomputable_routines
          -- Generate the C code for once routine which are precomputable.
       do
          once_routine_pool.do_all_precomputed(agent c_define_o_result_for(?))
       end
 
-   c_define_o_result_for (non_void_no_dispatch: NON_VOID_NO_DISPATCH) is
+   c_define_o_result_for (non_void_no_dispatch: NON_VOID_NO_DISPATCH)
       do
          c_define_o_result(non_void_no_dispatch.run_feature)
       end
 
-   c_code_for_precomputable_routines is
+   c_code_for_precomputable_routines
          -- Generate the C code for once routine which are precomputable.
       require
          smart_eiffel.is_ready
@@ -3840,7 +4094,7 @@ feature {} -- ONCE_ROUTINE_POOL
          end
       end
 
-   c_code_for_precomputable_routine (non_void_no_dispatch: NON_VOID_NO_DISPATCH; unique_id_set: HASHED_SET[STRING]) is
+   c_code_for_precomputable_routine (non_void_no_dispatch: NON_VOID_NO_DISPATCH; unique_id_set: HASHED_SET[STRING])
          -- Generate the C code for once routine which are precomputable.
       require
          smart_eiffel.is_ready
@@ -3866,7 +4120,7 @@ feature {} -- ONCE_ROUTINE_POOL
          end
       end
 
-   c_pre_compute_once_function (rf: RUN_FEATURE; bf: ANONYMOUS_FEATURE) is
+   c_pre_compute_once_function (rf: RUN_FEATURE; bf: ANONYMOUS_FEATURE)
       require
          rf.is_once_function
          pending_c_function
@@ -3899,6 +4153,9 @@ feature {} -- ONCE_ROUTINE_POOL
             end
             class_invariant_flag := class_invariant_call_opening(rt.type, True)
             if class_invariant_flag > 0 then
+               if rt.is_expanded and then cpp.need_struct.for(rt) then
+                  pending_c_function_body.extend('&')
+               end
                once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
                class_invariant_call_closing(class_invariant_flag, True)
             end
@@ -3908,10 +4165,20 @@ feature {} -- ONCE_ROUTINE_POOL
          if local_vars /= Void then
             pending_c_function_body.extend('{')
             c_declare_locals(local_vars, rf.type_of_current, False)
+            if has_closures then
+               c_init_closure_locals(local_vars, rf.type_of_current)
+            end
          end
          --
          if rf.routine_body /= Void then
             code_compiler.compile(rf.routine_body, type)
+         end
+         if rf.routine_then /= Void then
+            pending_c_function_body.append(once "/*then*/")
+            once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
+            pending_c_function_body.extend('=')
+            code_compiler.compile(rf.routine_then, type)
+            pending_c_function_body.append(once ";%N")
          end
          --
          if rf.ensure_assertion /= Void then
@@ -3923,7 +4190,7 @@ feature {} -- ONCE_ROUTINE_POOL
          end
       end
 
-   once_flag (mark: STRING): BOOLEAN is
+   once_flag (mark: STRING): BOOLEAN
          -- Flag used to avoid double C definition of globals C variables for
          -- once routines.
       require
@@ -3947,7 +4214,7 @@ feature {} -- ONCE_ROUTINE_POOL
          -- does not use Current and C code is already written.
 
 feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
-   c_define_o_flag (rf: RUN_FEATURE) is
+   c_define_o_flag (rf: RUN_FEATURE)
          -- Add the definition/initialization of the corresponding `o_flag' if not yet done.
       require
          rf.is_once_routine
@@ -3958,13 +4225,17 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          bcbf := bf.class_text
          flag := once_routine_pool.o_flag(bf)
          if not once_flag(flag) then
-            out_h_buffer.copy(once "int ")
+            if smart_eiffel.thread_used then
+               out_h_buffer.copy(once "TLS(int)")
+            else
+               out_h_buffer.copy(once "int ")
+            end
             out_h_buffer.append(flag)
             write_extern_0(out_h_buffer)
          end
       end
 
-   c_define_o_result (rf: RUN_FEATURE) is
+   c_define_o_result (rf: RUN_FEATURE)
       require
          rf.is_once_function
       local
@@ -3978,6 +4249,9 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          unique_result := string_aliaser.string(unique_result)
          if not once_flag(unique_result) then
             out_h_buffer.clear_count
+            if smart_eiffel.thread_used then
+               out_h_buffer.append(once "TLS(")
+            end
             rt := rf.result_type
             out_h_buffer.extend('T')
             if rt.is_expanded then
@@ -3986,13 +4260,16 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
             else
                out_h_buffer.append(once "0*")
             end
+            if smart_eiffel.thread_used then
+               out_h_buffer.append(once ")")
+            end
             out_h_buffer.append(unique_result)
             out_c_buffer.copy(initializer.for(rt))
             write_extern_2(out_h_buffer, out_c_buffer)
          end
       end
 
-   c_test_o_flag (rf: RUN_FEATURE) is
+   c_test_o_flag (rf: RUN_FEATURE)
       require
          rf.is_once_routine
       local
@@ -4006,7 +4283,7 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          pending_c_function_body.append(once "=1;{%N")
       end
 
-   c_test_o_flag_recursion (rf: RUN_FEATURE) is
+   c_test_o_flag_recursion (rf: RUN_FEATURE)
       require
          rf.is_once_routine
       local
@@ -4025,7 +4302,7 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
          end
       end
 
-   c_test_o_flag_introspect (rf: RUN_FEATURE) is
+   c_test_o_flag_introspect (rf: RUN_FEATURE)
       require
          rf.is_once_routine
       local
@@ -4038,28 +4315,28 @@ feature {RUN_FEATURE_5, RUN_FEATURE_6, C_COMPILATION_MIXIN}
       end
 
 feature {} -- CECIL_POOL
-   cecil_define is
+   cecil_define
       local
          save_out_h: like out_h
       do
          save_out_h := out_h
-         cecil_pool.do_all(agent cecil_define_users_for_file(?))
+         cecil_pool.for_each(agent cecil_define_users_for_file(?))
          out_h := save_out_h
       end
 
-   cecil_define_users_for_file (cecil_file: CECIL_FILE) is
+   cecil_define_users_for_file (cecil_file: CECIL_FILE)
       require
          not pending_c_function
       do
          if cecil_file.has_entries then
             echo.put_string(once "Cecil (C function for external code) :%N")
             connect_cecil_out_h(cecil_file.path_h)
-            cecil_file.do_all(agent cecil_define_users_for_entry(cecil_file, ?))
+            cecil_file.for_each(agent cecil_define_users_for_entry(cecil_file, ?))
             disconnect_cecil_out_h
          end
       end
 
-   cecil_define_users_for_entry (cecil_file: CECIL_FILE; cecil_entry: CECIL_ENTRY) is
+   cecil_define_users_for_entry (cecil_file: CECIL_FILE; cecil_entry: CECIL_ENTRY)
       require
          not pending_c_function
       local
@@ -4077,9 +4354,9 @@ feature {} -- CECIL_POOL
          arguments := af.arguments
          prepare_c_function
          if cecil_entry.is_creation then
-            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(external_type.for(cecil_entry.target_type_mark))
          else
-            pending_c_function_signature.append(result_type.for_external(result_type_mark))
+            pending_c_function_signature.append(external_type.for(result_type_mark))
          end
          pending_c_function_signature.extend(' ')
          pending_c_function_signature.append(cecil_entry.c_name)
@@ -4091,7 +4368,7 @@ feature {} -- CECIL_POOL
                external_prototype_in(arguments, pending_c_function_signature, cecil_entry.target_type)
             end
          else
-            pending_c_function_signature.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_signature.append(external_type.for(cecil_entry.target_type_mark))
             pending_c_function_signature.append(once " C")
             if arguments /= Void then
                pending_c_function_signature.extend(',')
@@ -4100,10 +4377,10 @@ feature {} -- CECIL_POOL
          end
          pending_c_function_signature.extend(')')
          if cecil_entry.is_creation then
-            pending_c_function_body.append(result_type.for_external(cecil_entry.target_type_mark))
+            pending_c_function_body.append(external_type.for(cecil_entry.target_type_mark))
             pending_c_function_body.append(once " C;%N")
          elseif result_type_mark /= Void then
-            pending_c_function_body.append(result_type.for_external(result_type_mark))
+            pending_c_function_body.append(external_type.for(result_type_mark))
             pending_c_function_body.append(once " R;%N")
          end
          memory.pre_cecil_define
@@ -4131,8 +4408,10 @@ feature {} -- CECIL_POOL
             internal_c_local.append_in(pending_c_function_body)
             internal_c_local.unlock
             pending_c_function_body.append(once ";%N}")
-         end
-         if cecil_entry.code = Void then
+            push_cecil_create(cecil_entry.target_type, cecil_entry.run_feature)
+            mapper.compile(cecil_entry.run_feature)
+            pop
+         elseif cecil_entry.code = Void then
             -- Well, nothing to do.
          elseif result_type_mark = Void then
             code_compiler.compile(cecil_entry.code, type)
@@ -4155,7 +4434,7 @@ feature {} -- CECIL_POOL
       end
 
 invariant
-   registered_natives.for_all(agent (rf: RUN_FEATURE; native: NATIVE): BOOLEAN is
+   registered_natives.for_all(agent (rf: RUN_FEATURE; native: NATIVE): BOOLEAN
       do
          Result := (({NATIVE_C} ?:= native) or else ({NATIVE_C_PLUS_PLUS} ?:= native))
             and then (({RUN_FEATURE_7} ?:= rf) or else ({RUN_FEATURE_8} ?:= rf))

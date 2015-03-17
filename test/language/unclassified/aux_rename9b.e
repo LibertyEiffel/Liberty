@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   foo: STRING is
+   foo: STRING
       do
          Result := "baz"
       end

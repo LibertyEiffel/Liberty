@@ -15,14 +15,14 @@ insert
       end
 
 feature {ANY} -- Expressions:
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
       require
          certain_state: not is_equal(maybe)
       do
          Result := value = yes_value
       end
 
-   from_boolean (b: BOOLEAN): TRISTATE is
+   from_boolean (b: BOOLEAN): TRISTATE
       do
          if b then
             Result := with_value(yes_value)
@@ -31,12 +31,12 @@ feature {ANY} -- Expressions:
          end
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.value = value
       end
 
-   prefix "not": TRISTATE is
+   prefix "not": TRISTATE
       do
          inspect
             value
@@ -49,17 +49,17 @@ feature {ANY} -- Expressions:
          end
       end
 
-   infix "and" (other: TRISTATE): TRISTATE is
+   infix "and" (other: TRISTATE): TRISTATE
       do
          Result := Current and then other
       end
 
-   infix "or" (other: TRISTATE): TRISTATE is
+   infix "or" (other: TRISTATE): TRISTATE
       do
          Result := Current or else other
       end
 
-   infix "and then" (other: TRISTATE): TRISTATE is
+   infix "and then" (other: TRISTATE): TRISTATE
       do
          if value = maybe_value or else other.value = maybe_value then
             Result := maybe
@@ -68,7 +68,7 @@ feature {ANY} -- Expressions:
          end
       end
 
-   infix "or else" (other: TRISTATE): TRISTATE is
+   infix "or else" (other: TRISTATE): TRISTATE
       do
          if value = maybe_value or else other.value = maybe_value then
             Result := maybe
@@ -77,12 +77,12 @@ feature {ANY} -- Expressions:
          end
       end
 
-   infix "implies" (other: TRISTATE): TRISTATE is
+   infix "implies" (other: TRISTATE): TRISTATE
       do
          Result := (not Current) or else other
       end
 
-   infix "xor" (other: TRISTATE): TRISTATE is
+   infix "xor" (other: TRISTATE): TRISTATE
       do
          if value = maybe_value or else other.value = maybe_value then
             Result := maybe
@@ -91,7 +91,7 @@ feature {ANY} -- Expressions:
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          inspect
             value
@@ -105,7 +105,7 @@ feature {ANY} -- Expressions:
       end
 
 feature {TRISTATE, TRISTATE_VALUES}
-   with_value (a_value: like value): TRISTATE is
+   with_value (a_value: like value): TRISTATE
       do
          value := a_value
          Result := Current
@@ -113,19 +113,19 @@ feature {TRISTATE, TRISTATE_VALUES}
 
    value: INTEGER_8
 
-   yes_value: INTEGER_8 is 1
-   no_value: INTEGER_8 is -1
-   maybe_value: INTEGER_8 is 0
+   yes_value: INTEGER_8 1
+   no_value: INTEGER_8 -1
+   maybe_value: INTEGER_8 0
 
 end -- class TRISTATE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

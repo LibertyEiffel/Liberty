@@ -18,177 +18,177 @@ inherit
    VISITOR
 
 feature {LIBERTY_ETC}
-   tool_name: FIXED_STRING is
+   tool_name: FIXED_STRING
       deferred
       end
 
-   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING] is
+   clusters: MAP[LIBERTY_ETC_CLUSTER, FIXED_STRING]
       deferred
       end
 
-   check_validity is
+   check_validity
       deferred
       end
 
 feature {LIBERTY_ETC_FACTORY} -- Lists
-   visit_environment_variable_list (list: LIBERTY_ETC_LIST) is
+   visit_environment_variable_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
-   visit_cluster_list (list: LIBERTY_ETC_LIST) is
+   visit_cluster_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
-   visit_cluster_configuration_list (list: LIBERTY_ETC_LIST) is
+   visit_cluster_configuration_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
-   visit_debug_configuration_list (list: LIBERTY_ETC_LIST) is
+   visit_debug_configuration_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
-   visit_debug_key_list (list: LIBERTY_ETC_LIST) is
+   visit_debug_key_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
-   visit_location_list (list: LIBERTY_ETC_LIST) is
+   visit_location_list (list: LIBERTY_ETC_LIST)
       require
          list /= Void
       deferred
       end
 
 feature {LIBERTY_ETC_FACTORY} -- Non-Terminals
-   visit_master (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_master (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_definition (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_environment (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_environment (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_environment_variable (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_environment_variable (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_clusters (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_locations (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_locations (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_location (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_location (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_version (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_version (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_needs (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_needs (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_cluster_configuration (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_configuration (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_configure (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_configure (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_cluster_constraints (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_constraints (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_cluster_version_constraint (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_cluster_version_constraint (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_version_operator (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_version_operator (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_assertion (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_assertion (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_assertion_level (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_assertion_level (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_debug (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_debug_configuration (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug_configuration (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_debug_key (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_debug_key (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred
       end
 
-   visit_concurrency (nt: LIBERTY_ETC_NON_TERMINAL) is
+   visit_concurrency (nt: LIBERTY_ETC_NON_TERMINAL)
       require
          nt /= Void
       deferred

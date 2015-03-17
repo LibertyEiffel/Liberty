@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    i: INTEGER
 
-   make is
+   make
       do
          make2
          inspect
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   make2 is
+   make2
       require
          increment_require_count
       do
@@ -48,7 +48,7 @@ feature {ANY}
 
    rescue_count: INTEGER
 
-   increment_require_count: BOOLEAN is
+   increment_require_count: BOOLEAN
       do
          require_count := require_count + 1
          Result := True
@@ -56,7 +56,7 @@ feature {ANY}
 
    require_count: INTEGER
 
-   increment_ensure_count: BOOLEAN is
+   increment_ensure_count: BOOLEAN
       do
          ensure_count := ensure_count + 1
          Result := True
@@ -65,7 +65,7 @@ feature {ANY}
    ensure_count: INTEGER
 
 feature {ANY}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

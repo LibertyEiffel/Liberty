@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a1, a2, a3, a4: like Current
 
-   make is
+   make
       do
          a1 := Current
          a2 := Current
@@ -20,22 +20,22 @@ feature {ANY}
          end
       end
 
-   get_a1: like Current is
+   get_a1: like Current
       do
          Result := a1
       end
 
-   get_a2: like Current is
+   get_a2: like Current
       do
          Result := a2.get_a1
       end
 
-   get_a3: like Current is
+   get_a3: like Current
       do
          Result := a3.get_a2
       end
 
-   get_a4: like Current is
+   get_a4: like Current
       do
          Result := a4.get_a3
       end

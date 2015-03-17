@@ -18,27 +18,27 @@ inherit
    EXPRESSION
 
 feature {ANY}
-   frozen is_writable: BOOLEAN is False
+   frozen is_writable: BOOLEAN False
 
-   frozen is_current: BOOLEAN is False
+   frozen is_current: BOOLEAN False
 
-   frozen is_implicit_current: BOOLEAN is False
+   frozen is_implicit_current: BOOLEAN False
 
-   frozen is_result: BOOLEAN is False
+   frozen is_result: BOOLEAN False
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
       end
 
 feature {}
-   valid_manifest_expression: BOOLEAN is
+   valid_manifest_expression: BOOLEAN
       do
          Result := valid_manifest_expression_set.has(generator)
       ensure
          Result -- (To force usage in assertion only.)
       end
 
-   valid_manifest_expression_set: HASHED_SET[STRING] is
+   valid_manifest_expression_set: HASHED_SET[STRING]
       once
          Result := {HASHED_SET[STRING] << "INTEGER_CONSTANT",
                                           "REAL_CONSTANT",
@@ -64,9 +64,9 @@ end -- class MANIFEST_EXPRESSION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

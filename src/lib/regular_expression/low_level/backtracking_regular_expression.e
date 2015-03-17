@@ -23,7 +23,7 @@ create {ANY}
    make
 
 feature {ANY} -- common
-   set_scanned_string (string: like scanned_string) is
+   set_scanned_string (string: like scanned_string)
          -- Set 'scanned_string' to 'string'.
       do
          Precursor(string)
@@ -38,14 +38,14 @@ feature {ANY} -- common
    group_count: INTEGER
          -- The count of groups
 
-   invalidate_last_match is
+   invalidate_last_match
       require else
          True
       do
          last_match_succeeded := False
       end
 
-   basic_match_first is
+   basic_match_first
          -- Starts to match and try to find the first substring of 'scanned_string'
          -- that matches the regular expression.
       require
@@ -56,7 +56,7 @@ feature {ANY} -- common
          scanned_string_remains: scanned_string = old scanned_string
       end
 
-   basic_match_next is
+   basic_match_next
          -- Continues to match and try to find the next substring of 'scanned_string'
          -- that matches the regular expression.
       require
@@ -69,7 +69,7 @@ feature {ANY} -- common
          scanned_string_remains: scanned_string = old scanned_string
       end
 
-   match_from (text: ABSTRACT_STRING; first_index: INTEGER): BOOLEAN is
+   match_from (text: ABSTRACT_STRING; first_index: INTEGER): BOOLEAN
       do
          set_scanned_string(text)
          goto_position(first_index)
@@ -85,7 +85,7 @@ feature {ANY} -- common
          --
          -- see also 'goto_position'
 
-   set_matches_only_current_position (value: BOOLEAN) is
+   set_matches_only_current_position (value: BOOLEAN)
          -- Sets 'matches_only_current_position' to 'value'.
       do
          matches_only_current_position := value
@@ -94,7 +94,7 @@ feature {ANY} -- common
       end
 
 feature {ANY} -- creation
-   make is
+   make
          -- Creation.
       do
          Precursor
@@ -105,7 +105,7 @@ feature {ANY} -- creation
          direction := 1
       end
 
-   set_pattern (pattern: BACKTRACKING_REGULAR_EXPRESSION_PATTERN) is
+   set_pattern (pattern: BACKTRACKING_REGULAR_EXPRESSION_PATTERN)
          -- Set the matched pattern.
       require
          valid_pattern: pattern.is_valid
@@ -126,7 +126,7 @@ feature {} -- backtracked search
    root_node: BACKTRACKING_NODE
          -- The regular expression to be matched.
 
-   do_match is
+   do_match
          -- Main matching routine.
          -- Starting at the current position it tries to match the
          -- current scanned_string against the current regular expression.
@@ -167,21 +167,21 @@ feature {} -- backtracked search
       end
 
 feature {REGULAR_EXPRESSION_ITEM} -- context managment
-   context_type_frame: INTEGER is -1
+   context_type_frame: INTEGER -1
 
-   context_frame_cut: INTEGER is -2
+   context_frame_cut: INTEGER -2
 
    context: FAST_ARRAY[INTEGER]
 
    context_top: INTEGER
 
-   context_clear is
+   context_clear
       do
          context.clear_count
          context_top := context.upper
       end
 
-   context_push is
+   context_push
       do
          context.add_last(position)
          context.add_last(context_top)
@@ -189,7 +189,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- context managment
          context_top := context.upper
       end
 
-   context_restore is
+   context_restore
       local
          top: INTEGER
       do
@@ -226,7 +226,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- context managment
          goto_position(context.item(context.upper-2))
       end
 
-   context_restore_and_pop is
+   context_restore_and_pop
       do
          context_restore
          check
@@ -237,7 +237,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- context managment
          context.remove_tail(2)
       end
 
-   context_cut is
+   context_cut
       local
          tmp: INTEGER
       do
@@ -253,7 +253,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- context managment
       end
 
 feature {REGULAR_EXPRESSION_ITEM} -- group facilities
-   set_group_first_index (group: INTEGER) is
+   set_group_first_index (group: INTEGER)
          -- Records the beginning of a group.
       require
          valid_group: group.in_range(0, substrings_first_indexes.upper)
@@ -268,7 +268,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- group facilities
          end
       end
 
-   set_group_last_index (group: INTEGER) is
+   set_group_last_index (group: INTEGER)
          -- Records the end of a group.
       require
          valid_group: group.in_range(0, substrings_last_indexes.upper)
@@ -280,14 +280,14 @@ feature {REGULAR_EXPRESSION_ITEM} -- group facilities
          end
       end
 
-   clear_group (group: INTEGER) is
+   clear_group (group: INTEGER)
          -- Set 'group' to empty string.
       do
          substrings_first_indexes.put(0, group)
          substrings_last_indexes.put(0, group)
       end
 
-   clear_all_groups is
+   clear_all_groups
          -- Set all groups to empty string.
       do
          substrings_first_indexes.set_slice_with(0, 0, group_count)
@@ -298,7 +298,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
    saved_look_position: INTEGER
          -- the saved position for look ahead or look behind
 
-   begin_look_ahead is
+   begin_look_ahead
          -- Begins to look-ahead.
       require
          no_look_begun: saved_look_position = 0
@@ -310,7 +310,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
          position_saved: position = saved_look_position
       end
 
-   end_look_ahead is
+   end_look_ahead
          -- Terminates to look-ahead.
       require
          look_ahead_begun: saved_look_position > 0
@@ -323,7 +323,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
          valid_position: position > 0
       end
 
-   begin_look_behind is
+   begin_look_behind
          -- Begins to look-behind.
       require
          no_look_begun: saved_look_position = 0
@@ -338,7 +338,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
          direction_changed: direction = -1
       end
 
-   end_look_behind is
+   end_look_behind
          -- Terminates to look-behind.
       require
          look_behind_begun: saved_look_position < 0
@@ -357,7 +357,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
    direction: INTEGER
          -- direction to advance (normal is +1, inverse is -1)
 
-   advance is
+   advance
          -- Goes to the next character
       require
          not_at_end: not end_of_input
@@ -365,7 +365,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
          goto_position(position + direction)
       end
 
-   advance_end_of_line is
+   advance_end_of_line
          -- Skips the end of line. Must be at end of a line.
       require
          at_end_of_line: end_of_input or else is_end_of_line
@@ -379,7 +379,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- advancing the scan
       end
 
 feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
-   match_character (char: CHARACTER) is
+   match_character (char: CHARACTER)
          -- If the character 'char' matches then advance and continue else backtrack.
       do
          if valid_last_character and then last_character = char then
@@ -390,7 +390,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-   match_character_no_case (char: CHARACTER) is
+   match_character_no_case (char: CHARACTER)
          -- If the character 'char' matches then advance and continue else backtrack.
          -- Case does not care.
       require
@@ -404,7 +404,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-   match_string (text: STRING) is
+   match_string (text: STRING)
          -- If the string 'text' matches then advance and continue else backtrack.
       local
          i, len: INTEGER
@@ -425,7 +425,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-   match_string_no_case (text: STRING) is
+   match_string_no_case (text: STRING)
          -- If the string 'text' matches then advance and continue else backtrack.
          -- Case does not care.
       require
@@ -449,7 +449,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-   match_previous_group (group: INTEGER) is
+   match_previous_group (group: INTEGER)
          -- If the previous 'group' matches then advance and continue else backtrack.
       local
          i, offset, len: INTEGER
@@ -479,7 +479,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
          end
       end
 
-   match_previous_group_no_case (group: INTEGER) is
+   match_previous_group_no_case (group: INTEGER)
          -- If the previous 'group' matches then advance and continue else backtrack.
          -- Case does not care.
       local
@@ -511,7 +511,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- matching facilities
       end
 
 feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
-   is_begin_of_text: BOOLEAN is
+   is_begin_of_text: BOOLEAN
          -- True if at begin of the text
       do
          if direction > 0 then
@@ -523,7 +523,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
          Result implies is_begin_of_line
       end
 
-   is_end_of_text (really: BOOLEAN): BOOLEAN is
+   is_end_of_text (really: BOOLEAN): BOOLEAN
          -- True if at end of the text
       do
          if direction > 0 then
@@ -551,7 +551,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
          Result implies is_end_of_line or else really and end_of_input
       end
 
-   is_begin_of_line: BOOLEAN is
+   is_begin_of_line: BOOLEAN
          -- True if at begin of a line
       do
          if direction > 0 then
@@ -561,7 +561,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
          end
       end
 
-   is_end_of_line: BOOLEAN is
+   is_end_of_line: BOOLEAN
          -- True if at end of a line
       do
          if direction > 0 then
@@ -579,7 +579,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
          end
       end
 
-   is_begin_of_word: BOOLEAN is
+   is_begin_of_word: BOOLEAN
          -- True if at begin of a word
       do
          if direction > 0 then
@@ -593,7 +593,7 @@ feature {REGULAR_EXPRESSION_ITEM} -- positionnal predicates
          end
       end
 
-   is_end_of_word: BOOLEAN is
+   is_end_of_word: BOOLEAN
          -- True if at end of a word
       do
          if direction > 0 then
@@ -613,13 +613,13 @@ invariant
 
 end -- class BACKTRACKING_REGULAR_EXPRESSION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

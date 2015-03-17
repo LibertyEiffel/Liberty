@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          ri: reference INTEGER_GENERAL
       do

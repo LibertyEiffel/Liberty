@@ -9,13 +9,13 @@ inherit
       end
 
 feature {ANY}
-   make (m_rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]]; v: AUX_JLP8_PROVIDER[E]) is
+   make (m_rows: AUX_JLP8_PROVIDER[AUX_JLP8_PROVIDER[E]]; v: AUX_JLP8_PROVIDER[E])
       do
          attach(m_rows)
          vector_items := v
       end
 
-   map_operation (m_elem: AUX_JLP8_PROVIDER[E]): E is
+   map_operation (m_elem: AUX_JLP8_PROVIDER[E]): E
       do
          dot.make(m_elem, vector_items)
          dot.run

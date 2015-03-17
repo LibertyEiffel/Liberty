@@ -13,7 +13,7 @@ create {JSON_HANDLER}
    make
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: JSON_VISITOR
       do
@@ -21,7 +21,7 @@ feature {ANY}
          v.visit_number(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result :=   sign     = other.sign
             and then int      = other.int
@@ -30,12 +30,12 @@ feature {ANY}
             and then exp      = other.exp
       end
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
       do
          Result := frac_exp <= exp --| **** TODO manage overflows
       end
 
-   to_integer: INTEGER_64 is
+   to_integer: INTEGER_64
       require
          is_integer
       do
@@ -43,13 +43,13 @@ feature {ANY}
             + sign * frac.to_integer_64 * {INTEGER_64 10} ^ (exp - frac_exp)
       end
 
-   to_real: REAL_64 is
+   to_real: REAL_64
       do
          Result := sign * int.to_real_64 * ({INTEGER_64 10} ^ exp).to_real_64
             + sign * frac.to_real_64 / ({INTEGER_64 10} ^ (frac_exp - exp)).to_real_64
       end
 
-   append_in (str: STRING) is
+   append_in (str: STRING)
       local
          strout: STRING_OUTPUT_STREAM
       do
@@ -58,7 +58,7 @@ feature {ANY}
          strout.disconnect
       end
 
-   write_to (str: OUTPUT_STREAM) is
+   write_to (str: OUTPUT_STREAM)
       require
          str.is_connected
       local
@@ -86,7 +86,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "JSON_NUMBER[")
          append_in(tagged_out_memory)
@@ -99,7 +99,7 @@ feature {JSON_HANDLER}
    frac_exp, exp: INTEGER_64
 
 feature {}
-   make (a_sign: like sign; a_int: like int; a_frac: like frac; a_frac_exp: like frac_exp; a_exp: like exp) is
+   make (a_sign: like sign; a_int: like int; a_frac: like frac; a_frac_exp: like frac_exp; a_exp: like exp)
       require
          a_sign = 1 or else a_sign = -1
          a_frac_exp >= 0
@@ -123,13 +123,13 @@ invariant
 
 end -- class JSON_NUMBER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

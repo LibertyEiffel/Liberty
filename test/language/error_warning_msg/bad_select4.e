@@ -17,17 +17,17 @@ create {}
    make
 
 feature {}
-   foo is
+   foo
       do
          aux_foo;
          foo_count := foo_count + 1;
       end;
 
-   make is
+   make
       local
          aux: AUX_SELECT;
       do
-         !!aux;
+         create aux;
          aux := Current;
          aux.foo;
          foo;

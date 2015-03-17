@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   p2: AUX_POSITION is
+   p2: AUX_POSITION
       do
       end
 
    p1: like p2 -- To avoid the = /= error message :-(
 
-   make is
+   make
       do
          assert(p1.line = 0)
          assert(p1.column = 0)
@@ -44,7 +44,7 @@ feature {ANY}
          assert(p1.id = 2048)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

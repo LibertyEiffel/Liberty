@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          tmp_string: STRING; i: INTEGER
       do
@@ -338,7 +338,7 @@ feature {ANY}
          assert(tmp_string.is_equal("177"))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

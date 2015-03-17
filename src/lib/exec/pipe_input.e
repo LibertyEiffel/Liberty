@@ -16,7 +16,7 @@ create {ANY}
    make, connect_to, named
 
 feature {ANY}
-   connect_to (a_output: like output) is
+   connect_to (a_output: like output)
       require
          a_output.is_new
       do
@@ -28,7 +28,7 @@ feature {ANY}
 
    is_connected: BOOLEAN
 
-   disconnect is
+   disconnect
       do
          basic_exec_pipe_out_disconnect(data)
          is_connected := False
@@ -36,12 +36,12 @@ feature {ANY}
 
    output: PIPE_OUTPUT
 
-   is_new: BOOLEAN is
+   is_new: BOOLEAN
       do
          Result := data = default_pointer
       end
 
-   has_error: BOOLEAN is
+   has_error: BOOLEAN
       require
          is_connected
       local
@@ -51,7 +51,7 @@ feature {ANY}
          Result := s /= default_pointer
       end
 
-   error: STRING is
+   error: STRING
       require
          is_connected
          has_error
@@ -60,7 +60,7 @@ feature {ANY}
          Result.from_external_copy(basic_exec_pipe_error(data))
       end
 
-   set_write_failure_controler (a_controler: like write_failure_controler) is
+   set_write_failure_controler (a_controler: like write_failure_controler)
       require
          not is_connected
       do
@@ -73,7 +73,7 @@ feature {PIPE_OUTPUT, PROCESS}
    data: POINTER
 
 feature {PIPE_OUTPUT}
-   handshake (a_output: like output) is
+   handshake (a_output: like output)
       require
          a_output.is_new
       do
@@ -83,21 +83,21 @@ feature {PIPE_OUTPUT}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := basic_exec_pipe_out_fd(data)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          check False end
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       local
          ok: BOOLEAN; n: INTEGER
       do
@@ -124,17 +124,17 @@ feature {FILTER}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          basic_exec_pipe_flush(data)
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   named (path: STRING; a_controler: like write_failure_controler) is
+   named (path: STRING; a_controler: like write_failure_controler)
       require
          path /= Void
       do
@@ -147,13 +147,13 @@ feature {}
 
 end -- class PIPE_INPUT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

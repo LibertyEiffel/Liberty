@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_registered_type_info_get_g_type (an_info: POINTER): like long_unsigned is
+	g_registered_type_info_get_g_type (an_info: POINTER): like long_unsigned
  		-- g_registered_type_info_get_g_type
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_registered_type_info_get_type_init (an_info: POINTER): POINTER is
+	g_registered_type_info_get_type_init (an_info: POINTER): POINTER
  		-- g_registered_type_info_get_type_init
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_registered_type_info_get_type_name (an_info: POINTER): POINTER is
+	g_registered_type_info_get_type_name (an_info: POINTER): POINTER
  		-- g_registered_type_info_get_type_name
 		external "plug_in"
 		alias "{

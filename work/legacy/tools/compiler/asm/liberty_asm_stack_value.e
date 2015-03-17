@@ -17,23 +17,23 @@ class LIBERTY_ASM_STACK_VALUE
    -- A value in the stack.
    --
 
-creation {ANY}
+create {ANY}
    as_true, as_false, as_any_boolean, as_integer, as_any_integer
 
 feature {ANY}
    is_constant: BOOLEAN
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
       do
          Result := kind = kind_integer
       end
 
-   is_boolean: BOOLEAN is
+   is_boolean: BOOLEAN
       do
          Result := kind = kind_boolean
       end
 
-   const_boolean: BOOLEAN is
+   const_boolean: BOOLEAN
       require
          is_constant
          is_boolean
@@ -41,7 +41,7 @@ feature {ANY}
          Result := value /= 0
       end
 
-   const_integer: BOOLEAN is
+   const_integer: BOOLEAN
       require
          is_constant
          is_integer
@@ -52,7 +52,7 @@ feature {ANY}
 feature {LIBERTY_ASM_STACK_CONTEXT}
    instruction_index: INTEGER
 
-   set_instruction_index (a_index: like instruction_index) is
+   set_instruction_index (a_index: like instruction_index)
       do
          instruction_index := a_index
       ensure
@@ -61,12 +61,12 @@ feature {LIBERTY_ASM_STACK_CONTEXT}
 
 feature {}
    kind: INTEGER_8
-   kind_integer: INTEGER_8 is 1
-   kind_boolean: INTEGER_8 is 2
+   kind_integer: INTEGER_8 1
+   kind_boolean: INTEGER_8 2
 
    value: INTEGER
 
-   as_true is
+   as_true
       do
          kind := kind_boolean
          is_constant := True
@@ -77,7 +77,7 @@ feature {}
          const_boolean
       end
 
-   as_false is
+   as_false
       do
          kind := kind_boolean
          is_constant := True
@@ -88,7 +88,7 @@ feature {}
          not const_boolean
       end
 
-   as_any_boolean is
+   as_any_boolean
       do
          kind := kind_boolean
       ensure
@@ -96,7 +96,7 @@ feature {}
          not is_constant
       end
 
-   as_integer (a_value: INTEGER) is
+   as_integer (a_value: INTEGER)
       do
          kind := kind_integer
          is_constant := True
@@ -107,7 +107,7 @@ feature {}
          const_integer = a_value
       end
 
-   as_any_integer is
+   as_any_integer
       do
          kind := kind_integer
       ensure

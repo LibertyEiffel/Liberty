@@ -14,7 +14,7 @@ feature {ANY}
 
    c: CAT
 
-   make is
+   make
       do
          create c
          a1 := {ARRAY[CAT] 1, << c >> }

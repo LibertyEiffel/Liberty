@@ -27,22 +27,22 @@ create {ANY}
    make
 
 feature {ANY}
-   is_connected: BOOLEAN is True
+   is_connected: BOOLEAN True
 
-   disconnect is
+   disconnect
       do
          filter := Void
       end
 
 feature {}
-   make is
+   make
       do
          buffer := buffer.calloc(4096)
          capacity := 4096
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          if buffer_position >= 4096 then
             write_buffer
@@ -54,7 +54,7 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          if buffer_position > 0 then
             write_buffer
@@ -63,7 +63,7 @@ feature {FILTER_OUTPUT_STREAM}
       end
 
 feature {ABSTRACT_STRING}
-   put_natively_stored_string (s: NATIVELY_STORED_STRING) is
+   put_natively_stored_string (s: NATIVELY_STORED_STRING)
       local
          unused_result: INTEGER
          fs: FIXED_STRING
@@ -80,22 +80,22 @@ feature {ABSTRACT_STRING}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := sequencer_descriptor(stdout)
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          Result := stdout
       end
 
-   filtered_has_stream_pointer: BOOLEAN is True
+   filtered_has_stream_pointer: BOOLEAN True
 
 feature {STREAM_HANDLER}
-   redirect_to (file_name: STRING) is
+   redirect_to (file_name: STRING)
          -- Redirect standard output to `file_name' instead of the default standard output.  If `file_name'
          -- does not exist, it is created.  If it exists, its previous content is erased.
          --
@@ -104,7 +104,7 @@ feature {STREAM_HANDLER}
          redirect(open_descriptor_for_create(file_name.to_external))
       end
 
-   redirect_append_to (file_name: STRING) is
+   redirect_append_to (file_name: STRING)
          -- Redirect standard output to `file_name' instead of the default standard output.  If `file_name'
          -- does not exist, it is created.  If it exists, the new output is appended to it.
          --
@@ -113,7 +113,7 @@ feature {STREAM_HANDLER}
          redirect(open_descriptor_for_append(file_name.to_external))
       end
 
-   restore_default_output is
+   restore_default_output
          -- Restore standard output to go to the default standard output.
       do
          Precursor
@@ -126,7 +126,7 @@ feature {}
 
    capacity: INTEGER
 
-   write_buffer is
+   write_buffer
       local
          unused_result: INTEGER
       do
@@ -136,7 +136,7 @@ feature {}
          end
       end
 
-   stdout: POINTER is
+   stdout: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -145,7 +145,7 @@ feature {}
          }"
       end
 
-   dispose is
+   dispose
       do
          check
             std_output = Current
@@ -155,13 +155,13 @@ feature {}
 
 end -- class STD_OUTPUT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

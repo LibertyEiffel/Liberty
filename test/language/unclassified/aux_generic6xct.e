@@ -4,29 +4,29 @@
 deferred class AUX_GENERIC6XCT[G]
 
 feature {ANY}
-   start is
+   start
       deferred
       end
 
-   after: BOOLEAN is
+   after: BOOLEAN
       deferred
       end
 
-   forth is
+   forth
       deferred
       end
 
-   item: G is
+   item: G
       deferred
       end
 
-   empty: BOOLEAN is
+   empty: BOOLEAN
       deferred
       end
-      --    cursor: CURSOR is
+      --    cursor: CURSOR
       --        deferred
       --        end;
-      --    go_to (c: CURSOR) is
+      --    go_to (c: CURSOR)
       --        deferred
       --        end;
 

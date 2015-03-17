@@ -22,7 +22,7 @@ create {ANY}
    prepare
 
 feature {ANY} -- Preparation of a call
-   prepare (a_function: POINTER; a_return_type: POINTER; some_argument_types: ARRAYED_COLLECTION[POINTER]) is
+   prepare (a_function: POINTER; a_return_type: POINTER; some_argument_types: ARRAYED_COLLECTION[POINTER])
          -- Initializes Current call according to the given parameters.
          -- Functions with variable number of arguments (also known as varargs) are not supported.
          -- `a_return_type' must be a pointer to an ffi_type structure that describes the return type of the function. See FFI_TYPES.
@@ -69,7 +69,7 @@ feature {ANY} -- Preparation of a call
          -- feature correctly set it.
       end
 
-   invoke (a_result: POINTER; some_values: ARRAYED_COLLECTION[POINTER]) is
+   invoke (a_result: POINTER; some_values: ARRAYED_COLLECTION[POINTER])
          -- Calls `function' according to the description of Current.
          -- `a_result' shall point to a chunk of memory that will hold the
          -- result of the function call.  This must be large enough to hold the
@@ -108,7 +108,7 @@ feature {ANY} -- Status
          -- Pointers to the structures describing the function that will be called
 
 feature {} -- Implementation
-   default_abi: INTEGER_32 is
+   default_abi: INTEGER_32
          -- The enumeration value representing the default ABI. To be removed whenever support for different ABIs will be provided.
       external "plug_in"
       alias "{

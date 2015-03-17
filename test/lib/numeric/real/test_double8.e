@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; d: REAL_64; rd: REFERENCE[REAL_64]
       do

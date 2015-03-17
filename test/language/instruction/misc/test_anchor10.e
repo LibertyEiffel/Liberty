@@ -11,13 +11,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          do_it
       end
 
 feature {ANY}
-   do_it is
+   do_it
       local
          b: like anchor
       do

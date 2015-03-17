@@ -10,12 +10,12 @@ inherit
       end
 
 feature {ANY}
-   before_run is
+   before_run
       do
          sum := sum.zero
       end
 
-   reduce_operation (o, e: E): E is
+   reduce_operation (o, e: E): E
       do
          Result := o + e
       end

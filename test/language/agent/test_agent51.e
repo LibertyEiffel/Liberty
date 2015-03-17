@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          string: STRING; code: FUNCTION[TUPLE[STRING], STRING]
       do

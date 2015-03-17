@@ -7,7 +7,7 @@ create {}
    default_create
 
 feature {}
-   bad_attribute: INTEGER is
+   bad_attribute: INTEGER
       local
          whatever: INTEGER
       attribute

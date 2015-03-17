@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    a4: AUX_EG4_B
 
-   make is
+   make
       local
          a1, a2, a3: AUX_EG4_B
       do
@@ -29,7 +29,7 @@ feature {ANY}
          assert(a4.x = 1.0)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

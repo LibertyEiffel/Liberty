@@ -4,7 +4,7 @@
 class AUX_CALL6
 
 feature {ANY}
-   foo (arg: STRING) is
+   foo (arg: STRING)
       do
       end
 

@@ -35,7 +35,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {C_PRETTY_PRINTER}
-   compile (native: NATIVE; rf: RUN_FEATURE) is
+   compile (native: NATIVE; rf: RUN_FEATURE)
       do
          rf7 := Void
          rf8 := Void
@@ -48,25 +48,25 @@ feature {}
    rf8: RUN_FEATURE_8
 
 feature {RUN_FEATURE_7}
-   visit_run_feature_7 (visited: RUN_FEATURE_7) is
+   visit_run_feature_7 (visited: RUN_FEATURE_7)
       do
          rf7 := visited
       end
 
 feature {RUN_FEATURE_8}
-   visit_run_feature_8 (visited: RUN_FEATURE_8) is
+   visit_run_feature_8 (visited: RUN_FEATURE_8)
       do
          rf8 := visited
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          -- nothing
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
         if rf8 /= Void then
            c_plus_plus_function_definition(visited)
@@ -76,7 +76,7 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {}
-   c_plus_plus_function_definition (visited: NATIVE_C_PLUS_PLUS) is
+   c_plus_plus_function_definition (visited: NATIVE_C_PLUS_PLUS)
       require
          rf8 /= Void
       local
@@ -89,7 +89,7 @@ feature {}
             extra_c_prototype_in_cpp_out_h_buffer(visited.start_position, rf8.type_of_current, rf8.base_feature)
             function_signature.append(out_h)
             function_body.append(once "return ((")
-            function_body.append(cpp.result_type.for_external(rf8.result_type))
+            function_body.append(cpp.external_type.for(rf8.result_type))
             function_body.extend(')')
             if rf8.arguments /= Void then
                args_count := rf8.arguments.count
@@ -100,7 +100,7 @@ feature {}
          end
       end
 
-   c_plus_plus_procedure_definition (visited: NATIVE_C_PLUS_PLUS) is
+   c_plus_plus_procedure_definition (visited: NATIVE_C_PLUS_PLUS)
       require
          rf7 /= Void
       local
@@ -123,7 +123,7 @@ feature {}
 
    external_routine_memory: FAST_ARRAY[EXTERNAL_ROUTINE]
 
-   make is
+   make
       do
          create external_routine_memory.with_capacity(4)
       end
@@ -144,9 +144,9 @@ end -- class C_NATIVE_C_DEFINITION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

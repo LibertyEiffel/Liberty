@@ -9,9 +9,9 @@ create {}
 feature {ANY}
    na1, na2, na3, na4, na5, na6, na7, na8, na9, na10, na11, na12: NATIVE_ARRAY[CHARACTER]
 
-   na_max: INTEGER is 9999
+   na_max: INTEGER 9999
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -85,7 +85,7 @@ feature {ANY}
          end
       end
 
-   check_na (na: NATIVE_ARRAY[CHARACTER]) is
+   check_na (na: NATIVE_ARRAY[CHARACTER])
       local
          i: INTEGER
       do
@@ -99,7 +99,7 @@ feature {ANY}
          end
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          if not b then
             std_output.put_string("Error in TEST_NATIVE_ARRAY5%N")

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
@@ -37,7 +37,7 @@ feature {ANY}
          end
       end
 
-   words: ARRAY[STRING] is
+   words: ARRAY[STRING]
       once
          Result := {ARRAY[STRING] 1, << "foo", "bar", "first", "second", "am", "stram", "gram" >> }
       end
@@ -45,7 +45,7 @@ feature {ANY}
 feature {}
    cpt: INTEGER
 
-   assert_equal (given, expected: STRING) is
+   assert_equal (given, expected: STRING)
       do
          cpt := cpt + 1
          if not given.is_equal(expected) then

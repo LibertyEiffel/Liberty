@@ -24,48 +24,48 @@ create {LIBERTY_BUILDER_TOOLS}
    make
 
 feature {ANY}
-   current_type: LIBERTY_ACTUAL_TYPE is
+   current_type: LIBERTY_ACTUAL_TYPE
       do
          Result := current_entity.result_type
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          if result_entity /= Void then
             Result := result_entity.result_type
          end
       end
 
-   parameters: TRAVERSABLE[LIBERTY_PARAMETER] is
+   parameters: TRAVERSABLE[LIBERTY_PARAMETER]
       do
          Result := parameters_list
       ensure then
          definition: Result = parameters_list
       end
 
-   locals: TRAVERSABLE[LIBERTY_LOCAL] is
+   locals: TRAVERSABLE[LIBERTY_LOCAL]
       do
          Result := locals_list
       ensure then
          definition: Result = locals_list
       end
 
-   is_parameter (name: ABSTRACT_STRING): BOOLEAN is
+   is_parameter (name: ABSTRACT_STRING): BOOLEAN
       do
          Result := parameters_map.has(name.intern)
       end
 
-   parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER is
+   parameter (name: ABSTRACT_STRING): LIBERTY_PARAMETER
       do
          Result := parameters_map.reference_at(name.intern)
       end
 
-   is_local (name: ABSTRACT_STRING): BOOLEAN is
+   is_local (name: ABSTRACT_STRING): BOOLEAN
       do
          Result := locals_map.has(name.intern)
       end
 
-   local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL is
+   local_var (name: ABSTRACT_STRING): LIBERTY_LOCAL
       do
          Result := locals_map.reference_at(name.intern)
       end
@@ -73,45 +73,45 @@ feature {ANY}
    current_entity: LIBERTY_CURRENT
    result_entity: LIBERTY_RESULT
 
-   can_retry: BOOLEAN is False
+   can_retry: BOOLEAN False
 
-   retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY is
+   retry_instruction (a_position: LIBERTY_POSITION): LIBERTY_RETRY
       do
          check False end
       end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_LOCAL_CONTEXT}
-   add_parameter (a_parameter: LIBERTY_PARAMETER) is
+   add_parameter (a_parameter: LIBERTY_PARAMETER)
       do
          parameters_list.add_last(a_parameter)
          parameters_map.add(a_parameter, a_parameter.name)
       end
 
-   add_local (a_local: LIBERTY_LOCAL) is
+   add_local (a_local: LIBERTY_LOCAL)
       do
          locals_list.add_last(a_local)
          locals_map.add(a_local, a_local.name)
       end
 
-   reconcile_retry_instructions (a_feature: LIBERTY_FEATURE) is
+   reconcile_retry_instructions (a_feature: LIBERTY_FEATURE)
       do
          check False end
       end
 
-   set_result_type (a_result_type: like result_type) is
+   set_result_type (a_result_type: like result_type)
       do
          result_entity := a_result_type.result_entity
       end
 
 feature {LIBERTY_INLINE_AGENT, LIBERTY_SEMANTICS_BUILDER}
-   specialized_in (a_type: like current_type): like Current is
+   specialized_in (a_type: like current_type): like Current
       do
          Result := twin
          Result.set_specialized_in(a_type)
       end
 
 feature {LIBERTY_INLINE_AGENT_CONTEXT}
-   set_specialized_in (a_type: like current_type) is
+   set_specialized_in (a_type: like current_type)
       local
          i: INTEGER; p: LIBERTY_PARAMETER; l: LIBERTY_LOCAL
          pl: like parameters_list; pm: like parameters_map
@@ -176,7 +176,7 @@ feature {}
    locals_map: DICTIONARY[LIBERTY_LOCAL, FIXED_STRING]
    locals_list: COLLECTION[LIBERTY_LOCAL]
 
-   make (a_parent_context: LIBERTY_FEATURE_LOCAL_CONTEXT) is
+   make (a_parent_context: LIBERTY_FEATURE_LOCAL_CONTEXT)
       require
          a_parent_context /= Void
       do

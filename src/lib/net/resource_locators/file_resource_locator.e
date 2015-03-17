@@ -13,7 +13,7 @@ create {FILE_PROTOCOL}
    set_uri
 
 feature {FILE_PROTOCOL}
-   path: STRING is
+   path: STRING
       local
          bd: BASIC_DIRECTORY; u, p: STRING
       do
@@ -33,7 +33,7 @@ feature {FILE_PROTOCOL}
          end
       end
 
-   set_uri (a_uri: STRING) is
+   set_uri (a_uri: STRING)
       do
          if uri = Void then
             uri := string_pool.new_twin(a_uri)
@@ -43,7 +43,7 @@ feature {FILE_PROTOCOL}
       end
 
 feature {}
-   normalized_uri (a_uri: STRING): STRING is
+   normalized_uri (a_uri: STRING): STRING
       do
          if a_uri.has_prefix(once "//") then
             Result := once ""
@@ -61,18 +61,18 @@ feature {ANY}
    uri: STRING
 
 feature {URL_VALIDITY}
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       do
          Result := notation.is_valid_path(normalized_uri(a_uri))
       end
 
 feature {URL} -- URL data:
-   absolute_uri (a_uri: STRING): BOOLEAN is
+   absolute_uri (a_uri: STRING): BOOLEAN
       do
          Result := a_uri.has_prefix(once "//") or else notation.is_absolute_path(a_uri)
       end
 
-   set_relative (a_uri: STRING) is
+   set_relative (a_uri: STRING)
       do
          notation.to_parent_directory(uri)
          if uri.is_empty then
@@ -82,18 +82,18 @@ feature {URL} -- URL data:
       end
 
 feature {}
-   string_pool: STRING_RECYCLING_POOL is
+   string_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
-   notation: UNIX_DIRECTORY_NOTATION is
+   notation: UNIX_DIRECTORY_NOTATION
       once
          create Result
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if uri /= Void then
             string_pool.recycle(uri)
@@ -105,13 +105,13 @@ end -- class FILE_RESOURCE_LOCATOR
 --
 -- ------------------------------------------------------------------------------------------------------------
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

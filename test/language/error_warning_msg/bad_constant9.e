@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          print(f.out+"%N")
       end
 
-   f (i:INTEGER): INTEGER is 3
+   f (i:INTEGER): INTEGER 3
 
 end -- class BAD_CONSTANT9
 --

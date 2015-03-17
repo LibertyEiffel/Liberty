@@ -32,7 +32,7 @@ insert
    STDLIB_EXTERNALS
 
 feature {} -- Disposing
-   dispose is
+   dispose
       do
          debug
             print(once "Disposing an Eiffel owned ")

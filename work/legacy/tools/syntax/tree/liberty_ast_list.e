@@ -19,7 +19,7 @@ inherit
    LIBERTY_AST_NON_TERMINAL_NODE
 
 feature {LIBERTY_AST_HANDLER}
-   list: EIFFEL_LIST_NODE is
+   list: EIFFEL_LIST_NODE
       require
          count > 1
       do
@@ -27,14 +27,14 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {LIBERTY_AST_HANDLER}
-   list_valid_index (index: INTEGER): BOOLEAN is
+   list_valid_index (index: INTEGER): BOOLEAN
       do
          if count > 1 then
             Result := list.valid_index(index)
          end
       end
 
-   list_is_empty: BOOLEAN is
+   list_is_empty: BOOLEAN
       do
          if count > 1 then
             Result := list.is_empty
@@ -43,21 +43,21 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   list_count: INTEGER is
+   list_count: INTEGER
       do
          if count > 1 then
             Result := list.count
          end
       end
 
-   list_lower: INTEGER is
+   list_lower: INTEGER
       do
          if count > 1 then
             Result := list.lower
          end
       end
 
-   list_upper: INTEGER is
+   list_upper: INTEGER
       do
          if count > 1 then
             Result := list.upper
@@ -66,21 +66,21 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   list_item (index: INTEGER): N_ is
+   list_item (index: INTEGER): N_
       require
          list_valid_index(index)
       do
          Result ::= list.item(index)
       end
 
-   list_first: N_ is
+   list_first: N_
       require
          list_valid_index(list_lower)
       do
          Result := list_item(list_lower)
       end
 
-   list_last: N_ is
+   list_last: N_
       require
          list_valid_index(list_upper)
       do
@@ -88,13 +88,13 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 2 >> }
       end

@@ -4,14 +4,14 @@ create {ANY}
    make
 
 feature {ANY}
-   print_hello is
+   print_hello
       do
          io.put_string(translator.translation("Hello from the library"))
          io.put_new_line
       end
 
 feature {}
-   make (translator_: GET_TEXT[STRING]) is
+   make (translator_: GET_TEXT[STRING])
       require
          translator_ /= Void
       local
@@ -21,12 +21,12 @@ feature {}
          translator_reference.set_item(library_translator)
       end
 
-   translator: LIBRARY_TRANSLATOR is
+   translator: LIBRARY_TRANSLATOR
       do
          Result := translator_reference.item
       end
 
-   translator_reference: REFERENCE[LIBRARY_TRANSLATOR] is
+   translator_reference: REFERENCE[LIBRARY_TRANSLATOR]
       once
          create Result
       end

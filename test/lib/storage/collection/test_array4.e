@@ -10,14 +10,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          use({ARRAY[STRING] 1, << "titi" >> })
          -- *** INTEGER doesn't conform to COMPARABLE (Vincent Croizier, 04/11/2004) ***
          -- use({ARRAY[INTEGER] 1, <<1>>});
       end
 
-   use (t: ARRAY[COMPARABLE]) is
+   use (t: ARRAY[COMPARABLE])
       do
          t.put(t.last, 1)
       end

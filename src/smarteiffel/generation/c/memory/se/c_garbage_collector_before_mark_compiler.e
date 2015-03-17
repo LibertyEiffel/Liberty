@@ -13,12 +13,16 @@ create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
+         if visited.type.has_local_closure then
+            memory.free_in(visited, function_body, True)
+            function_body.append(once "=(void*)0;%N")
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          function_body.append(once "if(")
          memory.na_env_in(visited, function_body)
@@ -38,13 +42,21 @@ feature {NATIVE_ARRAY_TYPE_MARK}
       end
 
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       do
-         memory.free_in(visited, function_body)
+         memory.free_in(visited, function_body, False)
          function_body.append(once "=(void*)0;%N")
+         if visited.type.has_local_closure then
+            memory.free_in(visited, function_body, True)
+            function_body.append(once "=(void*)0;%N")
+         end
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_kernel_expanded (visited: TYPE_MARK)
+      do
+      end
+
+   gc_expanded (visited: TYPE_MARK)
       do
       end
 
@@ -60,9 +72,9 @@ end -- class C_GARBAGE_COLLECTOR_BEFORE_MARK_COMPILER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

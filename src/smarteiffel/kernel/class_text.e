@@ -15,6 +15,9 @@ inherit
    TAGGED
       redefine is_equal
       end
+   INDEXINGABLE
+      redefine is_equal
+      end
 
 insert
    GLOBALS
@@ -36,9 +39,6 @@ feature {ANY}
 
    cluster: CLUSTER
          -- The `cluster' used to load the class (also gives acces to the directory path).
-
-   index_list: INDEX_LIST
-         -- For the indexing of the class.
 
    heading_comment1: COMMENT
          -- Comment before keyword `class'.
@@ -80,66 +80,66 @@ feature {ANY}
          -- Is the -sedb run-time trace mechanism activated for the
          -- `Current' class?
 
-   no_check: BOOLEAN is
+   no_check: BOOLEAN
          -- Is `Current' in -no_check mode ?
       do
          Result := assertion_level >= level_no
       end
 
-   require_check: BOOLEAN is
+   require_check: BOOLEAN
          -- Is `Current' in -require_check mode ?
       do
          Result := assertion_level >= level_require
       end
 
-   ensure_check: BOOLEAN is
+   ensure_check: BOOLEAN
          -- Is `Current' in -ensure_check mode ?
       do
          Result := assertion_level >= level_ensure
       end
 
-   invariant_check: BOOLEAN is
+   invariant_check: BOOLEAN
          -- Is `Current' in -invariant_check mode ?
       do
          Result := assertion_level >= level_invariant
       end
 
-   loop_check: BOOLEAN is
+   loop_check: BOOLEAN
          -- Is `Current' in -loop_check mode ?
       do
          Result := assertion_level >= level_loop
       end
 
-   all_check: BOOLEAN is
+   all_check: BOOLEAN
          -- Is `Current' in -all_check mode ?
       do
          Result := assertion_level >= level_all
       end
 
-   has_creation_clause: BOOLEAN is
+   has_creation_clause: BOOLEAN
       do
          Result := creation_clause_list /= Void
       end
 
-   is_generic: BOOLEAN is
+   is_generic: BOOLEAN
          -- When class is defined with generic arguments.
       do
          Result := formal_generic_list /= Void
       end
 
-   proper_has (fn: FEATURE_NAME): BOOLEAN is
+   proper_has (fn: FEATURE_NAME): BOOLEAN
          -- True when `fn' is really written in current class.
       do
          Result := feature_dictionary.has(fn)
       end
 
-   proper_get (fn: FEATURE_NAME): ANONYMOUS_FEATURE is
+   proper_get (fn: FEATURE_NAME): ANONYMOUS_FEATURE
          -- Returns the feature really written in current class if it exists.
       do
          Result := feature_dictionary.reference_at(fn)
       end
 
-   proper_name_get (fn: FEATURE_NAME): FEATURE_NAME is
+   proper_name_get (fn: FEATURE_NAME): FEATURE_NAME
          -- Returns the feature name really written in current class.
          -- Useful for frozen test and to have the declaration position.
       require
@@ -154,7 +154,7 @@ feature {ANY}
          Result.start_position.class_text = Current
       end
 
-   get_export_permission_of (other: CLASS_TEXT): BOOLEAN is
+   get_export_permission_of (other: CLASS_TEXT): BOOLEAN
          -- Do `Current' get permission of `other' to use some feature?
          -- Here, `other' is the name of some class in some exportation list and we are trying to
          -- know if `Current' is allowed or not.
@@ -173,7 +173,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   is_any: BOOLEAN is
+   is_any: BOOLEAN
          -- Is it the ANY class ?
       do
          Result := name.to_string = as_any
@@ -183,20 +183,16 @@ feature {ANY}
          -- Actually, in order to speed up the compiler, this is a cache
          -- for value `name.to_string.hash_code'.
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := Current = other
       end
 
-   pretty is
+   pretty
       local
          dummy_comment_flag: BOOLEAN
       do
-         pretty_printer.set_indent_level(0)
-         if index_list /= Void then
-            index_list.pretty
-         end
-         pretty_printer.set_indent_level(0)
+         pretty_index(0, once "top")
          if pretty_printer.replacement_header /= Void then
             pretty_printer.put_string(pretty_printer.replacement_header)
          elseif heading_comment1 /= Void then
@@ -243,6 +239,7 @@ feature {ANY}
             class_invariant.pretty_print_with_tag(0, once "invariant")
          end
          pretty_printer.set_indent_level(0)
+         pretty_index(0, once "bottom")
          if not pretty_printer.zen_mode then
             pretty_printer.skip_one_line
          end
@@ -268,12 +265,12 @@ feature {ANY}
          end
       end
 
-   accept (visitor: CLASS_TEXT_VISITOR) is
+   accept (visitor: CLASS_TEXT_VISITOR)
       do
          visitor.visit_class_text(Current)
       end
 
-   declaration_type_of_like_current: TYPE is
+   declaration_type_of_like_current: TYPE
          -- See also the comment of {TYPE_MARK}.declaration_type, because `declaration_type_of_like_current'
          -- is actually the implementation of `declaration_type' for the "like Current" type mark.
       local
@@ -289,7 +286,7 @@ feature {ANY}
          Result /= Void
       end
 
-   inherits_from (other: CLASS_TEXT): BOOLEAN is
+   inherits_from (other: CLASS_TEXT): BOOLEAN
       require
          other /= Void
          avoid_obvious_questions: other /= Current
@@ -301,7 +298,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   inserts (other: CLASS_TEXT): BOOLEAN is
+   inserts (other: CLASS_TEXT): BOOLEAN
       require
          other /= Void
          avoid_obvious_questions: other /= Current
@@ -313,7 +310,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   insert_inherit_test (other: CLASS_TEXT): INTEGER_8 is
+   insert_inherit_test (other: CLASS_TEXT): INTEGER_8
          -- Simple predicate (i.e. does not fill the `error_handler').
          -- See also xxx yyy which are supposed to be able to explain the problem.
       require
@@ -376,7 +373,7 @@ feature {ANY}
       end
 
 feature {FEATURE_STAMP, CLASS_TEXT}
-   obvious_resolve_static_binding (other: CLASS_TEXT; can_insert: BOOLEAN): BOOLEAN is
+   obvious_resolve_static_binding (other: CLASS_TEXT; can_insert: BOOLEAN): BOOLEAN
          -- Very common case which can avoid complex computations.
       require
          Current.insert_inherit_test(other) /= unrelated_code
@@ -428,7 +425,7 @@ feature {FEATURE_STAMP, CLASS_TEXT}
       end
 
 feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
-   has_creation_check (procedure_name: FEATURE_NAME; call_site: POSITION; type, target_type: TYPE): BOOLEAN is
+   has_creation_check (procedure_name: FEATURE_NAME; call_site: POSITION; type, target_type: TYPE): BOOLEAN
          -- Check that the `procedure_name' is actually a creation procedure for `Current'. Then, also check that
          -- `procedure_name' is written in an allowed base class for creation from `type'.
       require
@@ -475,13 +472,13 @@ feature {CREATE_SUPPORT, MANIFEST_GENERIC, CECIL_ENTRY}
       end
 
 feature {CLASS_CHECKER, EIFFEL_PARSER}
-   set_heading_comment2 (hc: like heading_comment2) is
+   set_heading_comment2 (hc: like heading_comment2)
       do
          heading_comment2 := hc
       end
 
 feature {TYPE}
-   extra_expanded_check (type: TYPE) is
+   extra_expanded_check (type: TYPE)
          -- Performs extra check related to expanded `type' only. Other checks are performed somewhere else
          -- for all types (expanded as well as reference types).
       require
@@ -509,7 +506,7 @@ feature {TYPE}
          end
       end
 
-   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP is
+   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP
          -- Must be called after `extra_expanded_check'.
       require
          type.is_user_expanded
@@ -530,7 +527,7 @@ feature {}
    check_expanded_with_flag: TYPE
 
 feature {CLASS_TEXT}
-   declaration_type_of_like_current_ (sp: POSITION): TYPE_MARK is
+   declaration_type_of_like_current_ (sp: POSITION): TYPE_MARK
          -- Create a valid `is_static' one.
       require
          not sp.is_unknown
@@ -608,7 +605,7 @@ feature {CLASS_TEXT}
       end
 
 feature {ANY}
-   mapping_c_in (str: STRING) is
+   mapping_c_in (str: STRING)
       do
          str.extend('B')
          str.extend('C')
@@ -616,32 +613,21 @@ feature {ANY}
       end
 
 feature {CLASS_TEXT_VISITOR}
-   set_name (new_name: STRING) is
+   set_name (new_name: STRING)
       do
          name.set_string(new_name)
          hash_code := name.hash_code
       end
 
 feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
-   finish_create is
+   finish_create
          -- Common part to finish all create procedure.
       do
          hash_code := name.hash_code
          create {HASHED_DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]} feature_dictionary.make
       end
 
-   add_index_clause (index_clause: INDEX_CLAUSE) is
-      require
-         index_clause /= Void
-      do
-         if index_list = Void then
-            create index_list.make(index_clause)
-         else
-            index_list.add_last(index_clause)
-         end
-      end
-
-   add_creation_clause (cc: CREATION_CLAUSE) is
+   add_creation_clause (cc: CREATION_CLAUSE)
       require
          cc /= Void
       do
@@ -652,7 +638,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
          end
       end
 
-   add_feature_clause (fc: FEATURE_CLAUSE) is
+   add_feature_clause (fc: FEATURE_CLAUSE)
       require
          fc /= Void
       do
@@ -663,7 +649,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
          end
       end
 
-   set_is_deferred is
+   set_is_deferred
       do
          if is_expanded then
             error_vtec1
@@ -671,7 +657,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
          is_deferred := True
       end
 
-   set_is_expanded is
+   set_is_expanded
       do
          if is_deferred then
             error_vtec1
@@ -679,22 +665,22 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
          is_expanded := True
       end
 
-   set_formal_generic_list (fgl: like formal_generic_list) is
+   set_formal_generic_list (fgl: like formal_generic_list)
       do
          formal_generic_list := fgl
       end
 
-   set_heading_comment1 (hc: like heading_comment1) is
+   set_heading_comment1 (hc: like heading_comment1)
       do
          heading_comment1 := hc
       end
 
-   set_end_comment (ec: like end_comment) is
+   set_end_comment (ec: like end_comment)
       do
          end_comment := ec
       end
 
-   set_obsolete_mark (om: like obsolete_mark) is
+   set_obsolete_mark (om: like obsolete_mark)
       require
          not om.start_position.is_unknown
       do
@@ -703,7 +689,7 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
          obsolete_mark = om
       end
 
-   set_invariant (sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION]) is
+   set_invariant (sp: POSITION; hc: COMMENT; al: FAST_ARRAY[ASSERTION])
       do
          if hc /= Void or else al /= Void then
             create class_invariant.make(sp, hc, al)
@@ -712,14 +698,14 @@ feature {EIFFEL_PARSER, CLASS_TEXT_VISITOR}
 
 feature {EIFFEL_PARSER}
    create_parent_lists_using (inherit_hc: COMMENT; inherit_list: FAST_ARRAY[PARENT_EDGE]
-                              insert_hc: COMMENT; insert_list: FAST_ARRAY[PARENT_EDGE]) is
+                              insert_hc: COMMENT; insert_list: FAST_ARRAY[PARENT_EDGE])
       do
          if name.to_string /= as_any then
             create parent_lists.make(Current, inherit_hc, inherit_list, insert_hc, insert_list)
          end
       end
 
-   set_external_type (external_type_: like external_type) is
+   set_external_type (external_type_: like external_type)
       require
          external_type_ /= Void
       do
@@ -728,7 +714,7 @@ feature {EIFFEL_PARSER}
          external_type = external_type_
       end
 
-   next_tuple: like Current is
+   next_tuple: like Current
       require
          name.is_tuple_related
       local
@@ -749,7 +735,7 @@ feature {EIFFEL_PARSER}
          Result.id /= id
       end
 
-   initialize_and_check_level_1 is
+   initialize_and_check_level_1
          -- Called just after parsing to initialize and start checking.
       do
          assertion_level := ace.assertion_level_of(Current)
@@ -779,7 +765,7 @@ feature {EIFFEL_PARSER}
       end
 
 feature {TYPE}
-   check_level_2 (type: TYPE) is
+   check_level_2 (type: TYPE)
       require
          type.class_text = Current
       do
@@ -789,13 +775,13 @@ feature {TYPE}
       end
 
 feature {ACE, CLASS_TEXT}
-   assertion_level_not_yet_computed: BOOLEAN is
+   assertion_level_not_yet_computed: BOOLEAN
       do
          Result := assertion_level = level_not_computed
       end
 
 feature {ACE}
-   default_root_procedure_name: STRING is
+   default_root_procedure_name: STRING
          -- Return the default creation procedure name to be used as the root
          -- procedure (the execution entry point of the system).
       do
@@ -806,7 +792,7 @@ feature {ACE}
       end
 
 feature {SMART_EIFFEL}
-   root_creation_search (a_name: STRING): FEATURE_NAME is
+   root_creation_search (a_name: STRING): FEATURE_NAME
          -- Check that `a_name' is actually member of some creation clause.
       require
          not a_name.is_empty
@@ -824,7 +810,7 @@ feature {SMART_EIFFEL}
          Result.is_simple_feature_name
       end
 
-   id_extra_information (tfw: TEXT_FILE_WRITE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE)
       do
          tfw.put_string(once "class-name: ")
          tfw.put_string(name.to_string)
@@ -840,7 +826,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {LIVE_TYPE, TYPE}
-   obsolete_warning_check (live_usage_site: POSITION) is
+   obsolete_warning_check (live_usage_site: POSITION)
       do
          if obsolete_mark /= Void then
             if smart_eiffel.short_or_class_check_flag then
@@ -858,7 +844,7 @@ feature {LIVE_TYPE, TYPE}
       end
 
 feature {LOCAL_ARGUMENT, LIVE_TYPE}
-   has_simple_feature_name (sfn: STRING): BOOLEAN is
+   has_simple_feature_name (sfn: STRING): BOOLEAN
          -- Simple (and fast) look_up to see if one feature of name `n' exists here.
          --|*** PH: remove this feature!
       require
@@ -870,7 +856,7 @@ feature {LOCAL_ARGUMENT, LIVE_TYPE}
       end
 
 feature {ASSERTION_LIST, PARENT_LISTS}
-   header_comment_for_class_invariant (ci: like class_invariant) is
+   header_comment_for_class_invariant (ci: like class_invariant)
       require
          ci /= Void
       do
@@ -882,7 +868,7 @@ feature {ASSERTION_LIST, PARENT_LISTS}
       end
 
 feature {ANONYMOUS_FEATURE}
-   non_written (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE): FEATURE_TEXT is
+   non_written (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE): FEATURE_TEXT
          -- Add `fn' / `af' as if it was written in `Current' (useful
          -- to create automatically generated features).
       local
@@ -896,7 +882,7 @@ feature {ANONYMOUS_FEATURE}
       end
 
 feature {FEATURE_NAME, ANONYMOUS_FEATURE}
-   fatal_undefine (fn: FEATURE_NAME) is
+   fatal_undefine (fn: FEATURE_NAME)
          --|*** PH(31/03/04) May be this should be removed
       do
          error_handler.append(once "Problem with undefine of %"")
@@ -909,7 +895,7 @@ feature {FEATURE_NAME, ANONYMOUS_FEATURE}
       end
 
 feature {TYPE, TYPE_MARK}
-   constraints_generic_list: ARRAY[TYPE_MARK] is
+   constraints_generic_list: ARRAY[TYPE_MARK]
       local
          fgl: FORMAL_GENERIC_LIST; fga: FORMAL_GENERIC_ARG
          i: INTEGER; t: TYPE_MARK
@@ -937,7 +923,7 @@ feature {TYPE, TYPE_MARK}
          formal_generic_list /= Void implies Result.count = formal_generic_list.count
       end
 
-   formal_generic_list_count_check (usage_position: POSITION; actual_list: ARRAY[TYPE_MARK]) is
+   formal_generic_list_count_check (usage_position: POSITION; actual_list: ARRAY[TYPE_MARK])
          -- To check that the number of elements in the `actual_list' is equal to the number of elements in the
          -- `formal_generic_list' (which may also be Void). In case of problem (i.e. when both lists do not have the same number
          -- of items), a fatal error message is triggered.
@@ -980,11 +966,11 @@ feature {TYPE, TYPE_MARK}
 
 feature {TYPE, CLASS_TEXT_VISITOR}
    feature_dictionary: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]
-         -- All features really defined in the current class. Thus, it is
+         -- All features really defined in the current class. Thus, it
          -- the same features contained in `feature_clause_list' (this
          -- dictionary speed up feature look up).
 
-   creation_list_check (type: TYPE) is
+   creation_list_check (type: TYPE)
       require
          type.class_text = Current
       do
@@ -998,7 +984,7 @@ feature {TYPE, CLASS_TEXT_VISITOR}
       end
 
 feature {ANY}
-   any_copy_feature: ANONYMOUS_FEATURE is
+   any_copy_feature: ANONYMOUS_FEATURE
          -- To get the original definition of feature `copy' from class ANY.
       require
          name.to_string = as_any
@@ -1009,7 +995,7 @@ feature {ANY}
          Result.names.first.to_string = as_copy
       end
 
-   any_twin_feature: ANONYMOUS_FEATURE is
+   any_twin_feature: ANONYMOUS_FEATURE
          -- To get the original definition of feature `twin' from class ANY.
       require
          name.to_string = as_any
@@ -1020,7 +1006,7 @@ feature {ANY}
          Result.names.first.to_string = as_copy
       end
 
-   any_is_equal_feature: ANONYMOUS_FEATURE is
+   any_is_equal_feature: ANONYMOUS_FEATURE
          -- To get the original definition of feature `is_equal' from class ANY.
       require
          name.to_string = as_any
@@ -1031,7 +1017,7 @@ feature {ANY}
          Result.names.first.to_string = as_is_equal
       end
 
-   do_at_exit_feature: ANONYMOUS_FEATURE is
+   do_at_exit_feature: ANONYMOUS_FEATURE
          -- To get the original definition of feature `do_at_exit' from class ANY.
       require
          name.to_string = as_any
@@ -1054,20 +1040,20 @@ feature {}
    creation_list_check_done: BOOLEAN
          -- See `creation_list_check'.
 
-   fn_buffer: FEATURE_NAME is
+   fn_buffer: FEATURE_NAME
          -- Dummy once name to avoid memory leaks.
       once
          create Result.unknown_position(as_storage)
       end
 
-   error_vtec1 is
+   error_vtec1
       do
          error_handler.add_position(name.start_position)
          error_handler.append(once "A class cannot be expanded and deferred (VTEC.1).")
          error_handler.print_as_error
       end
 
-   make (p: like path; my_name: STRING; c: like cluster; i: like id) is
+   make (p: like path; my_name: STRING; c: like cluster; i: like id)
       require
          string_aliaser.registered_one(p)
          string_aliaser.registered_one(my_name)
@@ -1078,7 +1064,7 @@ feature {}
          path := p
          cluster := c
          create insert_inherit_test_memory_cache.with_capacity(1024)
-         create name.unknown_position(string_aliaser.hashed_string(my_name))
+         create name.unknown_position(string_aliaser.hashed_string(my_name), False)
          c.register_class_text(Current)
       ensure
          path = p
@@ -1087,7 +1073,7 @@ feature {}
          id = i
       end
 
-   fatal_error_when_no_creation_clause is
+   fatal_error_when_no_creation_clause
       do
          if creation_clause_list = Void then
             error_handler.add_position(name.start_position)
@@ -1116,9 +1102,9 @@ end -- class CLASS_TEXT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

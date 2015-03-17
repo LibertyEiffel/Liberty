@@ -16,7 +16,7 @@ feature {ANY}
 
    c1, c2, c3, c4, c5, c6: CAT
 
-   make is
+   make
       do
          ti1 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }
          ti2 := {ARRAY[INTEGER] 1, << 1, 2, 3, 4, 5, 6, 7, 8, 9 >> }

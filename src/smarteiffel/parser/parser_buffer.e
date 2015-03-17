@@ -3,7 +3,7 @@
 --
 class PARSER_BUFFER
    --
-   -- Parsers are working in a unique buffered area (the file to parse is
+   -- Parsers are working in a unique buffered area (the file to parse
    -- entirely loaded into this unique buffer during parsing). This solution make
    -- it easy point/line/column counting as well as backward moves.
    -- The acces to the current character (feature `cc') is also very fast.
@@ -19,7 +19,7 @@ create {ANY}
    make
 
 feature {ANY} -- Initializing the `parser_buffer':
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
          -- Is the `parser_buffer' ready to be used?
       do
          Result := hashed_path /= Void
@@ -28,13 +28,13 @@ feature {ANY} -- Initializing the `parser_buffer':
    hashed_path: HASHED_STRING
          -- When `is_ready', gives the `path' of the corresponding buffered file.
 
-   path: STRING is
+   path: STRING
          -- An alias of `hashed_path.to_string'.
       do
          Result := hashed_path.to_string
       end
 
-   load_file (a_path: STRING) is
+   load_file (a_path: STRING)
          -- Try to load `a_path' and set `is_ready' when corresponding file has
          -- been sucessfully loaded. (One must not forget to call `release' when
          -- the parsing is done.)
@@ -76,7 +76,7 @@ feature {ANY} -- Initializing the `parser_buffer':
          end
       end
 
-   release is
+   release
          -- To be called at the end of parsing to release the `parser_buffer'.
       require
          is_ready
@@ -96,7 +96,7 @@ feature {ANY} -- Access and moves into the `parser_buffer':
          -- Number of lines in the source file.
 
 feature {PARSER}
-   item (line: INTEGER): STRING is
+   item (line: INTEGER): STRING
       require
          is_ready
          1 <= line
@@ -108,7 +108,7 @@ feature {PARSER}
       end
 
 feature {CLUSTER, SMART_EIFFEL}
-   set_cluster (c: like cluster) is
+   set_cluster (c: like cluster)
       require
          c /= Void
       do
@@ -118,7 +118,7 @@ feature {CLUSTER, SMART_EIFFEL}
       end
 
 feature {}
-   make is
+   make
       do
          create text.with_capacity(6000)
       end
@@ -127,7 +127,7 @@ feature {}
          -- To store the complete file to parse. Each line is one STRING without
          -- the '%N' end-of-line mark.
 
-   empty_line_at (i: INTEGER): STRING is
+   empty_line_at (i: INTEGER): STRING
       require
          i >= 0
       do
@@ -144,7 +144,7 @@ feature {}
          text.item(i) = Result
       end
 
-   medium_line_size: INTEGER is 128
+   medium_line_size: INTEGER 128
 
 end -- class PARSER_BUFFER
 --
@@ -158,9 +158,9 @@ end -- class PARSER_BUFFER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

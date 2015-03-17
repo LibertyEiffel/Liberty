@@ -13,7 +13,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b_true, b_false: BOOLEAN
       do
@@ -120,17 +120,17 @@ feature {}
          end
       end
 
-   always_run is
+   always_run
       do
          assert(True)
       end
 
-   always_true: BOOLEAN is
+   always_true: BOOLEAN
       do
          Result := True
       end
 
-   always_false: BOOLEAN is
+   always_false: BOOLEAN
       do
       end
 

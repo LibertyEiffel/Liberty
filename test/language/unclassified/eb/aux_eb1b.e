@@ -11,7 +11,7 @@ inherit
 feature {ANY}
    a: BOOLEAN
 
-   set_a (b: BOOLEAN) is
+   set_a (b: BOOLEAN)
       do
          a := b
       end

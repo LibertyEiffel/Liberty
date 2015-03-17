@@ -22,7 +22,7 @@ feature {ANY}
                file.read_line
             until
                file.end_of_input
-            loop
+		   loop
                line := file.last_string
                if line /= Void then
                   words := line.split

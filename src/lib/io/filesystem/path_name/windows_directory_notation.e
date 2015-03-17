@@ -9,7 +9,7 @@ inherit
    PATH_NAME_NOTATION
 
 feature {ANY}
-   is_current_directory (path: STRING): BOOLEAN is
+   is_current_directory (path: STRING): BOOLEAN
       do
          if path.compare(once ".") = 0 or else path.compare(once ".\") = 0 then
             Result := True
@@ -19,7 +19,7 @@ feature {ANY}
          end
       end
 
-   is_parent_directory (path: STRING): BOOLEAN is
+   is_parent_directory (path: STRING): BOOLEAN
       local
          pos: INTEGER
       do
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   to_directory_path (path: STRING) is
+   to_directory_path (path: STRING)
       do
          from
          until path.is_empty or else path.last /= '\'
@@ -45,28 +45,28 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_case_sensitive: BOOLEAN is False
+   is_case_sensitive: BOOLEAN False
 
 feature {}
-   tmp1: MICROSOFT_PATH_NAME is
+   tmp1: MICROSOFT_PATH_NAME
       once
          create Result.make_empty
       end
 
-   tmp2: MICROSOFT_PATH_NAME is
+   tmp2: MICROSOFT_PATH_NAME
       once
          create Result.make_empty
       end
 
 end -- class WINDOWS_DIRECTORY_NOTATION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

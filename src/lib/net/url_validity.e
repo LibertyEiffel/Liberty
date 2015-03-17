@@ -6,9 +6,11 @@
 expanded class URL_VALIDITY
 
 feature {ANY}
-   valid_url (a_url: STRING): BOOLEAN is
-      -- True if the STRING represents a real URL (i.e. with a known protocol and a valid URI for that
-      -- protocol)
+   valid_url (a_url: ABSTRACT_STRING): BOOLEAN
+         -- True if the STRING represents a real URL (i.e. with a known protocol and a valid URI for that
+         -- protocol)
+      require
+         a_url /= Void
       local
          i: INTEGER; protocol_name, protocol_uri: STRING
          p: PROTOCOL; protocols: PROTOCOLS
@@ -29,13 +31,13 @@ feature {ANY}
 
 end -- class URL_VALIDITY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

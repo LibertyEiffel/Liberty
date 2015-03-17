@@ -17,14 +17,14 @@ feature {ANY}
 
    t_any: ARRAY[ANY]
 
-   make is
+   make
       do
          create t_boolean.make(1, 4)
          assert(t_boolean.count = 4)
          assert(t_boolean.fast_occurrences(False) = 4)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

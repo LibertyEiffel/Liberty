@@ -13,9 +13,9 @@ create {}
    main
 
 feature {ANY}
-   command_line_name: STRING is "eiffeltest"
+   command_line_name: STRING "eiffeltest"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: eiffeltest [options] <DirectoryPath>
 
       Option summary:
@@ -45,7 +45,7 @@ feature {}
 
    log_file: TEXT_FILE_WRITE
 
-   main is
+   main
       do
          final_die_with_code_result := exit_success_code
          auto_calibrate_time_1.update
@@ -85,7 +85,7 @@ feature {}
          die_with_code(final_die_with_code_result)
       end
 
-   plural (count: INTEGER): STRING is
+   plural (count: INTEGER): STRING
       do
          if count = 1 then
             Result := once ""
@@ -94,7 +94,7 @@ feature {}
          end
       end
 
-   plural_y (count: INTEGER): STRING is
+   plural_y (count: INTEGER): STRING
       do
          if count = 1 then
             Result := once "y"
@@ -103,7 +103,7 @@ feature {}
          end
       end
 
-   eiffeltest_watch_diff_mode (dir_path: STRING) is
+   eiffeltest_watch_diff_mode (dir_path: STRING)
          -- No other "se test" in progress.
          -- We will now look for diff between existing "log.new" / "log.ref".
       require
@@ -176,10 +176,9 @@ feature {}
          end
       end
 
-   check_eiffel_directory_path is
+   check_eiffel_directory_path
       local
-         path, name: STRING; directory_scanner: BASIC_DIRECTORY
-         subdirectory_list, test_list, bad_list: FAST_ARRAY[STRING]
+         path: STRING
       do
          echo.put_string("Now checking or creating %"eiffeltest%" subdirectory.%N")
          path := directory_path.twin
@@ -228,7 +227,7 @@ feature {}
          end
       end
 
-   eiffeltest_normal_running_mode is
+   eiffeltest_normal_running_mode
       require
          checked: eiffeltest_directory_path /= Void
       local
@@ -335,7 +334,7 @@ feature {}
          echo.put_string(once "Finished %"#(1)%" directory.%N" # directory_path)
       end
 
-   parse_arguments is
+   parse_arguments
       local
          i: INTEGER; arg: STRING
       do
@@ -406,7 +405,7 @@ feature {}
    new_eiffeltest_directory_flag: BOOLEAN
          -- When the subdirectory "eiffeltest" is a new one.
 
-   update_eiffeltest_readme_file is
+   update_eiffeltest_readme_file
       local
          path: STRING; text_file_write: TEXT_FILE_WRITE
       do
@@ -463,7 +462,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          text_file_write.disconnect
       end
 
-   create_the_lock_file is
+   create_the_lock_file
       local
          path: STRING; text_file_write: TEXT_FILE_WRITE
          time: TIME; time_in_english: TIME_IN_ENGLISH
@@ -496,7 +495,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          text_file_write.disconnect
       end
 
-   remove_the_lock_file is
+   remove_the_lock_file
       local
          path: STRING
       do
@@ -507,15 +506,22 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             not basic_directory.last_entry.is_empty
          end
          path.copy(basic_directory.last_entry)
-         file_tools.delete(path)
+         remove_file(path)
+      end
+
+   remove_file (path: STRING)
+      do
          if file_tools.file_exists(path) then
-            echo.w_put_string(once "se test (eiffeltest): Unable to delete LOCK file %"#(1)%".%N%
-                                   %Check for read/write permissions. Weird!%N" # path)
-            die_with_code(exit_failure_code)
+            file_tools.delete(path)
+            if not file_tools.last_delete_succeeded or else file_tools.file_exists(path) then
+               echo.w_put_string(once "se test (eiffeltest): Unable to delete file %"#(1)%".%N%
+                                      %Check for read/write permissions. Weird!%N" # path)
+               die_with_code(exit_failure_code)
+            end
          end
       end
 
-   test_list_check (test_list: FAST_ARRAY[STRING]) is
+   test_list_check (test_list: FAST_ARRAY[STRING])
       require
          not test_list.is_empty
          collection_sorter.is_sorted(test_list)
@@ -639,7 +645,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   check_mocks_with (test_file: STRING) is
+   check_mocks_with (test_file: STRING)
       require
          test_file.has_prefix(once "test_")
          test_file.has_suffix(once ".e")
@@ -667,7 +673,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   test_file_check_with (options: STRING; test_file: STRING) is
+   test_file_check_with (options: STRING; test_file: STRING)
       require
          not options.is_empty
          test_file.has_prefix(once "test_")
@@ -739,12 +745,12 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
             running_of(test_file, exe_name, options)
             if cecil_flag then
                log_line := (once "Removing (#(1)) %"cecil.h%" file." # options).out
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(once "cecil.h"))
+               dummy := excluded_execution_of(log_line, agent remove_file(once "cecil.h"))
             end
          end
       end
 
-   bad_list_check (bad_list: FAST_ARRAY[STRING]) is
+   bad_list_check (bad_list: FAST_ARRAY[STRING])
       require
          not bad_list.is_empty
          collection_sorter.is_sorted(bad_list)
@@ -761,7 +767,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   bad_file_check_of (bad_file: STRING) is
+   bad_file_check_of (bad_file: STRING)
       require
          bad_file.has_prefix(once "bad_")
          bad_file.has_suffix(once ".e")
@@ -803,7 +809,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
                log(once "Abnormal: differing error/warning message for %"#(1)%".%N" # bad_file)
             else
                log_line := (once "Removing %"#(1)%"." # new).out
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(new))
+               dummy := excluded_execution_of(log_line, agent remove_file(new))
             end
          end
 
@@ -824,7 +830,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
 
       end
 
-   log (log_line: ABSTRACT_STRING) is
+   log (log_line: ABSTRACT_STRING)
       require
          not log_line.is_empty
       do
@@ -832,7 +838,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          log_file.flush
       end
 
-   log_file_comparison is
+   log_file_comparison
       require
          checked: eiffeltest_directory_path /= Void
       local
@@ -872,18 +878,18 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   error_message_comparator: ERROR_MESSAGE_COMPARATOR is
+   error_message_comparator: ERROR_MESSAGE_COMPARATOR
       once
          create Result.make
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
       end
 
-   valid_argument_for_ace_mode: STRING is ""
+   valid_argument_for_ace_mode: STRING ""
 
-   subdirectory_list_check (subdirectory_list: FAST_ARRAY[STRING]) is
+   subdirectory_list_check (subdirectory_list: FAST_ARRAY[STRING])
       require
          not subdirectory_list.is_empty
       local
@@ -899,7 +905,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   subdirectory_check_with (subdirectory: STRING) is
+   subdirectory_check_with (subdirectory: STRING)
       require
          file_tools.is_directory(subdirectory)
       local
@@ -925,12 +931,12 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          dummy := excluded_execution_of(log_line, agent execute_command(log_line, cmd, False))
       end
 
-   excluded_lst: FAST_ARRAY[EIFFELTEST_PATTERN] is
+   excluded_lst: FAST_ARRAY[EIFFELTEST_PATTERN]
       once
          create Result.with_capacity(32)
       end
 
-   loading_excluded_lst is
+   loading_excluded_lst
       local
          path, entry: STRING
       do
@@ -953,7 +959,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   log_unused_excluded_entries is
+   log_unused_excluded_entries
       local
          i, total_unused: INTEGER
       do
@@ -979,7 +985,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   count_unused_excluded_lst: INTEGER is
+   count_unused_excluded_lst: INTEGER
       local
          i: INTEGER
       do
@@ -995,7 +1001,7 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   excluded_execution_of (log_line: STRING; action: PROCEDURE[TUPLE]): BOOLEAN is
+   excluded_execution_of (log_line: STRING; action: PROCEDURE[TUPLE]): BOOLEAN
       require
          not log_line.is_empty
          action /= Void
@@ -1022,12 +1028,12 @@ you'll learn a lot. See also the SmartEiffel/test_suite directory for examples.
          end
       end
 
-   long_line_draw_in_log_file is
+   long_line_draw_in_log_file
       do
          log(once "--------------------------------------------------------------------------------%N")
       end
 
-   create_the_default_excluded_lst is
+   create_the_default_excluded_lst
          -- Create the default "excluded.lst" file which comes with a brand new "eiffeltest" subdirectory.
       require
          new_eiffeltest_directory_flag
@@ -1055,7 +1061,7 @@ se c -ensure_check
          text_file_write.disconnect
       end
 
-   ignored_subdirectory_name (name: STRING): BOOLEAN is
+   ignored_subdirectory_name (name: STRING): BOOLEAN
       require
          not name.is_empty
       do
@@ -1073,9 +1079,9 @@ se c -ensure_check
 feature {}
    auto_calibrate_time_1: MICROSECOND_TIME; auto_calibrate_time_2: MICROSECOND_TIME
 
-   default_very_long_run_time: REAL is 300.0
+   default_very_long_run_time: REAL 300.0
 
-   very_long_run_time: REAL is
+   very_long_run_time: REAL
          -- Automatically calibrated in number of seconds.
       local
          seconds: REAL
@@ -1104,7 +1110,7 @@ feature {}
 
    very_long_run_time_memory: REAL
 
-   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN) is
+   execute_command (log_line, cmd: STRING; bad_file_flag: BOOLEAN)
       local
          system: SYSTEM; exit_status: INTEGER; wait_loop_time_1, wait_loop_time_2: TIME
       do
@@ -1134,22 +1140,22 @@ feature {}
          end
       end
 
-   text_file_read: TEXT_FILE_READ is
+   text_file_read: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   log_new: TEXT_FILE_READ   is
+   log_new: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   log_ref: TEXT_FILE_READ   is
+   log_ref: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   ace_test (test_file: STRING): BOOLEAN is
+   ace_test (test_file: STRING): BOOLEAN
          -- Result is True when `test_file' appears to be an ACE test.
       require
          test_file.has_prefix(once "test_")
@@ -1184,7 +1190,7 @@ feature {}
          end
       end
 
-   change_exe_name (test_file: STRING): STRING is
+   change_exe_name (test_file: STRING): STRING
       require
          test_file.has_suffix(once ".e")
       do
@@ -1196,7 +1202,7 @@ feature {}
          not Result.is_empty
       end
 
-   running_of (test_file, exe_name: STRING; options: STRING) is
+   running_of (test_file, exe_name: STRING; options: STRING)
       local
          log_line, exe_path, cmd: STRING; start_time, end_time: TIME; dummy: BOOLEAN
       do
@@ -1246,7 +1252,7 @@ feature {}
                end
                log_line.append(exe_name)
                log_line.append(once "%".")
-               dummy := excluded_execution_of(log_line, agent file_tools.delete(once "profile.se"))
+               dummy := excluded_execution_of(log_line, agent remove_file(once "profile.se"))
             end
          end
 
@@ -1265,11 +1271,11 @@ feature {}
          log_line.append(once "%"")
          log_line.append(exe_name)
          log_line.append(once "%".")
-         dummy := excluded_execution_of(log_line, agent file_tools.delete(exe_name))
+         dummy := excluded_execution_of(log_line, agent remove_file(exe_name))
 
       end
 
-   create_the_time_info_file is
+   create_the_time_info_file
       local
          path: STRING; text_file_write: TEXT_FILE_WRITE; time_in_english: TIME_IN_ENGLISH
          time_1, time_2: TIME;
@@ -1326,9 +1332,9 @@ end -- class EIFFELTEST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

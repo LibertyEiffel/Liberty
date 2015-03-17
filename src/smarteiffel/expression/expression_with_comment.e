@@ -18,7 +18,7 @@ feature {ANY}
    comment: COMMENT
          -- the associated one.
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          e: like expression
       do
@@ -26,7 +26,7 @@ feature {ANY}
          Result := current_or_twin_init(e)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression
       do
@@ -34,12 +34,12 @@ feature {ANY}
          Result := current_or_twin_init(e)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          e: like expression
       do
@@ -47,17 +47,17 @@ feature {ANY}
          Result := current_or_twin_init(e)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := expression.resolve_in(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := expression.collect(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression
       do
@@ -65,122 +65,127 @@ feature {ANY}
          Result := current_or_twin_init(e)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := expression.declaration_type
       end
 
-   is_writable: BOOLEAN is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := expression.written_declaration_type_mark
+      end
+
+   is_writable: BOOLEAN
       do
          Result := expression.is_writable
       end
 
-   is_manifest_string: BOOLEAN is
+   is_manifest_string: BOOLEAN
       do
          Result := expression.is_manifest_string
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
       do
          Result := expression.is_void
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := expression.is_result
       end
 
-   is_current: BOOLEAN is
+   is_current: BOOLEAN
       do
          Result := expression.is_current
       end
 
-   is_implicit_current: BOOLEAN is
+   is_implicit_current: BOOLEAN
       do
          Result := expression.is_implicit_current
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := expression.is_static
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := expression.side_effect_free(type)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := expression.non_void_no_dispatch_type(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          smart_eiffel.magic_count_increment
          Result := expression.simplify(type)
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := expression.start_position
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          Result := expression.extra_bracket_flag
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          expression.pretty(indent_level)
          comment.pretty(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          expression.bracketed_pretty(indent_level)
          comment.pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          expression.pretty_target(indent_level)
          comment.pretty(indent_level)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          expression.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          expression.short_target(type)
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := expression.precedence
       end
 
-   accept (visitor: EXPRESSION_WITH_COMMENT_VISITOR) is
+   accept (visitor: EXPRESSION_WITH_COMMENT_VISITOR)
       do
          visitor.visit_expression_with_comment(Current)
       end
 
 feature {EXPRESSION_WITH_COMMENT}
-   init (e: like expression) is
+   init (e: like expression)
       require
          e /= Void
       do
@@ -190,13 +195,13 @@ feature {EXPRESSION_WITH_COMMENT}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          expression.inline_dynamic_dispatch_(code_accumulator, type)
       end
 
 feature {}
-   make (e: like expression; c: like comment) is
+   make (e: like expression; c: like comment)
       require
          e /= Void
          really_a_comment: c.count > 0
@@ -208,7 +213,7 @@ feature {}
          comment = c
       end
 
-   current_or_twin_init (e: like expression): like Current is
+   current_or_twin_init (e: like expression): like Current
       require
          e /= Void
       do
@@ -239,9 +244,9 @@ end -- class EXPRESSION_WITH_COMMENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -22,13 +22,13 @@ feature {ANY}
 
    image: EIFFEL_IMAGE
 
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       do
          check False end
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       do
          do_indent(output, indent, p)
          output.put_character('"')
@@ -37,7 +37,7 @@ feature {EIFFEL_NODE_HANDLER}
          output.put_line(image.image)
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       do
          o.put_string(image.blanks)
          o.put_string(image.image)
@@ -45,7 +45,7 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {}
-   make (a_name: ABSTRACT_STRING; a_image: like image) is
+   make (a_name: ABSTRACT_STRING; a_image: like image)
       require
          a_name.has_prefix(once "KW ")
       do

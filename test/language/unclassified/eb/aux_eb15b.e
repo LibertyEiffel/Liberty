@@ -16,11 +16,11 @@ insert
             internals_can_be_retrieved
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
       end
 

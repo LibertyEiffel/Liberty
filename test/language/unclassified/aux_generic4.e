@@ -3,11 +3,11 @@
 --
 class AUX_GENERIC4
 
-creation {ANY}
+create {ANY}
    use
 
 feature {ANY}
-   use (t: ARRAY[COMPARABLE]) is
+   use (t: ARRAY[COMPARABLE])
       require
          t.count > 1
       do

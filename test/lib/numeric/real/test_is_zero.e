@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          real_32: REAL_32; real_64: REAL_64; real_extended: REAL_EXTENDED
       do
@@ -37,12 +37,12 @@ feature {ANY}
          assert(real_extended.is_zero)
       end
 
-   infinity_64: REAL_64 is
+   infinity_64: REAL_64
       do
          Result := infinity_32
       end
 
-   infinity_32: REAL_32 is
+   infinity_32: REAL_32
       local
          x, y: REAL_32
       do
@@ -50,12 +50,12 @@ feature {ANY}
          Result := unchecked_c_divide(x, y)
       end
 
-   infinity_extended: REAL_EXTENDED is
+   infinity_extended: REAL_EXTENDED
       do
          Result := infinity_32
       end
 
-   unchecked_c_divide (x, y: REAL_32): REAL_32 is
+   unchecked_c_divide (x, y: REAL_32): REAL_32
       external "C inline"
       alias "($x/$y)"
       end

@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          exp.dummy
       end

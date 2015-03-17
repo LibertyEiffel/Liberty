@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER
       do
@@ -24,7 +24,7 @@ feature {ANY}
 
    func: FUNCTION[TUPLE[INTEGER_8], INTEGER_8]
 
-   func_run (i: INTEGER_8): INTEGER_8 is
+   func_run (i: INTEGER_8): INTEGER_8
       do
          Result := i + 1
       end

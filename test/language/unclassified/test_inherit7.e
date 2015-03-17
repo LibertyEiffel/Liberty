@@ -8,7 +8,7 @@ create {}
    make
 
 feature {} -- Initialization
-   make is
+   make
       local
          a2: AUX_INHERIT7A2; c: AUX_INHERIT7C; b2: REFERENCE[AUX_INHERIT7B1]
       do

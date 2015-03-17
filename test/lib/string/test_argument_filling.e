@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(("# is not changed").arg(1, "dummy").is_equal("# is not changed"))
          assert(("And also #(12345 is not changed").arg(1, "dummy").is_equal("And also #(12345 is not changed"))

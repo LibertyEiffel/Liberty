@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_frozen: BOOLEAN is
+   is_frozen: BOOLEAN
       do
          Result := count = 2
          check
@@ -29,21 +29,21 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   feature_name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS is
+   feature_name_or_alias: LIBERTY_AST_FEATURE_NAME_OR_ALIAS
       do
          Result ::= nodes.last
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Feature_Name"
+   name: STRING "Feature_Name"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

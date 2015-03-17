@@ -12,7 +12,7 @@ create {WRITABLE_ATTRIBUTE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_2_VISITOR) is
+   accept (visitor: RUN_FEATURE_2_VISITOR)
       do
          visitor.visit_run_feature_2(Current)
       end
@@ -22,16 +22,18 @@ feature {ANY}
 
    result_type: TYPE_MARK
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
+
+   has_closures: BOOLEAN False
 
    order: INTEGER
          -- Used for special sorting of LIVE_TYPE.writable_attributes
 
-   side_effect_free: BOOLEAN is
+   side_effect_free: BOOLEAN
       do
          if ace.ensure_check then
             Result := (require_assertion = Void or else require_assertion.side_effect_free(type_of_current)) and then (ensure_assertion = Void or else ensure_assertion.side_effect_free(type_of_current))
@@ -42,28 +44,32 @@ feature {ANY}
          end
       end
 
-   arguments: FORMAL_ARG_LIST is
+   arguments: FORMAL_ARG_LIST
       do
       end
 
    require_assertion: REQUIRE_ASSERTION
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
       end
 
-   routine_body: INSTRUCTION is
+   routine_body: INSTRUCTION
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   routine_then: EXPRESSION
+      do
+      end
+
+   rescue_compound: INSTRUCTION
       do
       end
 
    ensure_assertion: ENSURE_ASSERTION
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -79,7 +85,7 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       do
          -- Adapt the result type:
          result_type := base_feature.result_type.resolve_in(type_of_current).canonical_type_mark --|*** CAD: need of resolve_in?
@@ -88,7 +94,7 @@ feature {}
       end
 
 feature {LIVE_TYPE}
-   set_order (o: like order) is
+   set_order (o: like order)
       require
          o >= 0
       do
@@ -98,13 +104,13 @@ feature {LIVE_TYPE}
       end
 
 feature {}
-   compute_use_current is
+   compute_use_current
       do
          use_current_state := True_state
       end
 
 feature {RUN_FEATURE_2_VISITOR}
-   need_c_function: BOOLEAN is
+   need_c_function: BOOLEAN
       do
          if ace.ensure_check then
             Result := (require_assertion /= Void) or else (ensure_assertion /= Void)
@@ -115,7 +121,8 @@ feature {RUN_FEATURE_2_VISITOR}
 
 invariant
    order >= 0
-
+   has_result_type: result_type /= Void
+   
 end -- class RUN_FEATURE_2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
@@ -128,9 +135,9 @@ end -- class RUN_FEATURE_2
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

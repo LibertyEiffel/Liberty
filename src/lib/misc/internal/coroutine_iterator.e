@@ -11,7 +11,7 @@ create {COROUTINE}
    make
 
 feature {ANY}
-   start is
+   start
       do
          context := do_start(Current, coroutine)
          next
@@ -21,7 +21,7 @@ feature {ANY}
 
    item: Y_
 
-   next is
+   next
       local
          def: Y_
       do
@@ -32,26 +32,26 @@ feature {ANY}
          end
       end
 
-   generation, iterable_generation: INTEGER is 0
+   generation, iterable_generation: INTEGER 0
 
 feature {}
    context: POINTER
 
 feature {COROUTINE}
-   set_item (a_item: like item) is
+   set_item (a_item: like item)
       do
          item := a_item
       ensure
          item = a_item
       end
 
-   yield is
+   yield
       do
          do_yield(context)
       end
 
 feature {} -- called by the plugin using CECIL
-   invoke is
+   invoke
       do
          coroutine.invoke(arguments)
       end
@@ -60,7 +60,7 @@ feature {}
    arguments: O_
    coroutine: COROUTINE[O_, Y_]
 
-   make (a_coroutine: like coroutine; a_arguments: like arguments) is
+   make (a_coroutine: like coroutine; a_arguments: like arguments)
       do
          init
          coroutine := a_coroutine
@@ -71,12 +71,12 @@ feature {}
          arguments = a_arguments
       end
 
-   init is
+   init
       once
          initialize
       end
 
-   initialize is
+   initialize
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -85,7 +85,7 @@ feature {}
          }"
       end
 
-   do_start (a_iterator: like Current; a_coroutine: like coroutine): like context is
+   do_start (a_iterator: like Current; a_coroutine: like coroutine): like context
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -94,7 +94,7 @@ feature {}
          }"
       end
 
-   do_continue (a_context: like context): BOOLEAN is
+   do_continue (a_context: like context): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -103,7 +103,7 @@ feature {}
          }"
       end
 
-   do_yield (a_context: like context) is
+   do_yield (a_context: like context)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -114,13 +114,13 @@ feature {}
 
 end -- class COROUTINE_ITERATOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

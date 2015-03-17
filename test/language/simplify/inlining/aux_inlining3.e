@@ -7,18 +7,18 @@ create {ANY}
    make
 
 feature {ANY}
-   make (i: INTEGER; s: STRING) is
+   make (i: INTEGER; s: STRING)
       do
          attribute_integer := i
          attribute_string := s
       end
 
-   read_attribute_integer: INTEGER is
+   read_attribute_integer: INTEGER
       do
          Result := attribute_integer
       end
 
-   read_attribute_string: STRING is
+   read_attribute_string: STRING
       do
          Result := attribute_string
       end

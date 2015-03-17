@@ -8,16 +8,16 @@ create {}
    make
 
 feature {ANY}
-   Test_count: INTEGER is 1000
+   Test_count: INTEGER 1000
 
-   make is
+   make
       local
          c1: AUX_AC_COMPLEX; c2: AUX_AC_COMPLEX; c3: AUX_AC_COMPLEX
       do
          test_plus(c1, c2, c3)
       end
 
-   test_plus (x, y, z: AUX_AC_COMPLEX) is
+   test_plus (x, y, z: AUX_AC_COMPLEX)
       local
          zero: AUX_AC_COMPLEX
       do

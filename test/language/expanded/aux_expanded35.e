@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED35
 feature {ANY}
    val: INTEGER
 
-   set (v: INTEGER) is
+   set (v: INTEGER)
       do
          val := v
       end

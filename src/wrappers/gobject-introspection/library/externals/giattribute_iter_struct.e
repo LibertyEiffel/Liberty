@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	GOBJECT_INTROSPECTION_TYPES
 feature {} -- Low-level setters
 
-	giattribute_iter_struct_set_data (a_structure: POINTER; a_value: POINTER) is
+	giattribute_iter_struct_set_data (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	giattribute_iter_struct_set_data2 (a_structure: POINTER; a_value: POINTER) is
+	giattribute_iter_struct_set_data2 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data2 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	giattribute_iter_struct_set_data3 (a_structure: POINTER; a_value: POINTER) is
+	giattribute_iter_struct_set_data3 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data3 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	giattribute_iter_struct_set_data4 (a_structure: POINTER; a_value: POINTER) is
+	giattribute_iter_struct_set_data4 (a_structure: POINTER; a_value: POINTER)
 			-- Setter for data4 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	giattribute_iter_struct_get_data (a_structure: POINTER): POINTER is
+	giattribute_iter_struct_get_data (a_structure: POINTER): POINTER
 			-- Query for data field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	giattribute_iter_struct_get_data2 (a_structure: POINTER): POINTER is
+	giattribute_iter_struct_get_data2 (a_structure: POINTER): POINTER
 			-- Query for data2 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	giattribute_iter_struct_get_data3 (a_structure: POINTER): POINTER is
+	giattribute_iter_struct_get_data3 (a_structure: POINTER): POINTER
 			-- Query for data3 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	giattribute_iter_struct_get_data4 (a_structure: POINTER): POINTER is
+	giattribute_iter_struct_get_data4 (a_structure: POINTER): POINTER
 			-- Query for data4 field of GIATTRIBUTE_ITER_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

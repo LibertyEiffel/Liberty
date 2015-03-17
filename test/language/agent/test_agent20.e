@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          flawed: BOOLEAN
       do
@@ -30,7 +30,7 @@ feature {ANY}
 
    assertions: LINKED_LIST[like assertion]
 
-   is_flawed (message_: STRING): BOOLEAN is
+   is_flawed (message_: STRING): BOOLEAN
       do
          Result := (once "is flawed?").is_equal(message_)
       end

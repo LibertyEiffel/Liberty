@@ -10,29 +10,29 @@ inherit
    BASE_TYPE_CONSTANT
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   value: BOOLEAN is
+   value: BOOLEAN
       deferred
       end
 
-   frozen declaration_type: TYPE is
+   frozen declaration_type: TYPE
       once
          Result := smart_eiffel.type_boolean
       end
 
-   frozen resolve_in (type: TYPE): TYPE is
+   frozen resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   frozen simplify_1_, frozen simplify_2: like Current is
+   frozen simplify_1_, frozen simplify_2: like Current
       do
          Result := Current
       end
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       do
          start_position := sp
       end
@@ -49,9 +49,9 @@ end -- class BOOLEAN_CONSTANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

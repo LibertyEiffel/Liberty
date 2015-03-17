@@ -26,13 +26,13 @@ feature {ANY}
    name: FIXED_STRING
    result_type: LIBERTY_TYPE
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "local: ")
          tagged_out_memory.append(name)
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like result_type
       do
@@ -45,7 +45,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          if result_type.is_known and then result_type.known_type.is_runtime_category_set and then result_type.known_type.is_expanded then
             result_type.mark_reachable_code(mark)
@@ -53,7 +53,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_name: like name; a_result_type: like result_type; a_position: like position) is
+   make (a_name: like name; a_result_type: like result_type; a_position: like position)
       require
          a_name /= Void
          a_result_type /= Void
@@ -69,7 +69,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_LOCAL_VISITOR
       do

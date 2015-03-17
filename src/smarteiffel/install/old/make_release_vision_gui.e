@@ -13,32 +13,32 @@ create {MAKE_RELEASE}
    make
 
 feature {MAKE_RELEASE, MAKE_RELEASE_JOB}
-   start (job: MAKE_RELEASE_JOB) is
+   start (job: MAKE_RELEASE_JOB)
       do
       end
 
-   set_title (a_message: STRING) is
+   set_title (a_message: STRING)
       do
       end
 
-   set_action (a_message: STRING) is
+   set_action (a_message: STRING)
       do
       end
 
-   set_progress (a_value, a_max: INTEGER; a_message: STRING) is
+   set_progress (a_value, a_max: INTEGER; a_message: STRING)
       do
       end
 
-   die (death_code: INTEGER) is
+   die (death_code: INTEGER)
       do
       end
 
-   run_command (a_command: STRING): INTEGER is
+   run_command (a_command: STRING): INTEGER
       do
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -54,9 +54,9 @@ end -- class MAKE_RELEASE_VISION_GUI
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

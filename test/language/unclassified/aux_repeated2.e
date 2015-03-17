@@ -6,7 +6,7 @@ class AUX_REPEATED2
 feature {ANY}
    value: INTEGER
 
-   set_value (v: like value) is
+   set_value (v: like value)
       do
          value := v
       end

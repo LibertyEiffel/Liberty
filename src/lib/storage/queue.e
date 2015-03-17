@@ -31,7 +31,7 @@ create {RING_ARRAY}
    collection_make
 
 feature {}
-   make is
+   make
          -- Create an empty array. Also consider `with_capacity',
          -- since growing a full queue is rather expensive.
       do
@@ -40,7 +40,7 @@ feature {}
          is_empty
       end
 
-   with_capacity (needed_capacity: INTEGER) is
+   with_capacity (needed_capacity: INTEGER)
          -- Create an empty array with capacity initialized
          -- at least to `needed_capacity'
       require
@@ -49,7 +49,7 @@ feature {}
          collection_with_capacity(needed_capacity, 1)
       end
 
-   new_iterator: ITERATOR[E_] is
+   new_iterator: ITERATOR[E_]
       do
          check
             False
@@ -58,13 +58,13 @@ feature {}
 
 end -- class QUEUE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: ARRAY[ANY]; c: INTEGER
       do

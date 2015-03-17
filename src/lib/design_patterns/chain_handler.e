@@ -7,14 +7,14 @@ deferred class CHAIN_HANDLER[C_ -> CHAIN_OF_RESPONSIBILITY]
    --
 
 feature {CHAIN_OF_RESPONSIBILITY}
-   can_handle (chain: C_): BOOLEAN is
+   can_handle (chain: C_): BOOLEAN
          -- True if the handler can indeed handle a request from the given chain of responsibility.
       require
          chain /= Void
       deferred
       end
 
-   handle (chain: C_) is
+   handle (chain: C_)
          -- Handle a request from the given chain of responsibility.
       require
          chain /= Void
@@ -24,13 +24,13 @@ feature {CHAIN_OF_RESPONSIBILITY}
 
 end -- class CHAIN_HANDLER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

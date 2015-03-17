@@ -12,7 +12,7 @@ create {JSON_PARSER}
 feature {JSON_PARSER}
    line, column: INTEGER
 
-   item: CHARACTER is
+   item: CHARACTER
       require
          is_valid
       do
@@ -22,12 +22,12 @@ feature {JSON_PARSER}
          Result := data.last_character
       end
 
-   is_valid: BOOLEAN is
+   is_valid: BOOLEAN
       do
          Result := data.is_connected and then not data.end_of_input
       end
 
-   next is
+   next
       require
          is_valid
       do
@@ -38,7 +38,7 @@ feature {JSON_PARSER}
          delay_fix_position := True
       end
 
-   skip_blanks is
+   skip_blanks
       do
          from
          until
@@ -51,7 +51,7 @@ feature {JSON_PARSER}
          index >= old index
       end
 
-   skip (word: STRING): BOOLEAN is
+   skip (word: STRING): BOOLEAN
       require
          not word.is_empty
       local
@@ -69,7 +69,7 @@ feature {JSON_PARSER}
          end
       end
 
-   error (str: ABSTRACT_STRING) is
+   error (str: ABSTRACT_STRING)
       require
          str /= Void
       do
@@ -79,7 +79,7 @@ feature {JSON_PARSER}
          on_error.call([str, line, column])
       end
 
-   debug_position: ABSTRACT_STRING is
+   debug_position: ABSTRACT_STRING
       do
          Result := once "#(1):#(2)" # &line # &column
       ensure
@@ -92,7 +92,7 @@ feature {}
 
    on_error: PROCEDURE[TUPLE[ABSTRACT_STRING, INTEGER, INTEGER]]
 
-   make (a_data: like data; a_on_error: like on_error) is
+   make (a_data: like data; a_on_error: like on_error)
       require
          a_data.is_connected
       do
@@ -108,9 +108,9 @@ feature {}
          line = 1
       end
 
-   item_or_invalid: ABSTRACT_STRING is
+   item_or_invalid: ABSTRACT_STRING
       do
-         create {LAZY_STRING} Result.make(agent: ABSTRACT_STRING is
+         create {LAZY_STRING} Result.make(agent: ABSTRACT_STRING
                                           local
                                              c: CHARACTER
                                           do
@@ -129,7 +129,7 @@ feature {}
 
    delay_fix_position: BOOLEAN
 
-   fix_position is
+   fix_position
       require
          is_valid
          delay_fix_position
@@ -156,13 +156,13 @@ invariant
 
 end -- class JSON_PARSE_CONTEXT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -13,26 +13,26 @@ insert
    CLARG_PARSER
 
 feature {ANY}
-   is_repeatable: BOOLEAN is False
+   is_repeatable: BOOLEAN False
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   prepare_parse is
+   prepare_parse
       do
          unset
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
       do
          Result := is_set
       end
 
-   undo_parse (context: COMMAND_LINE_CONTEXT) is
+   undo_parse (context: COMMAND_LINE_CONTEXT)
       do
          unset
       end
 
 feature {}
-   unset is
+   unset
       deferred
       ensure
          not is_set
@@ -40,13 +40,13 @@ feature {}
 
 end -- class CLARG_WITH_ARG
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

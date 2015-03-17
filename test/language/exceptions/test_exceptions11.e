@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    bad_require: BOOLEAN
 
-   make is
+   make
       local
          done: BOOLEAN
       do
@@ -27,7 +27,7 @@ feature {ANY}
          retry
       end
 
-   do_bad_require is
+   do_bad_require
       require
          bad_require
       do
@@ -35,7 +35,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

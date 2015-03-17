@@ -10,12 +10,12 @@ create {}
 feature {ANY}
    a: AUX_PD01
 
-   a_ref: AUX_PD01 is
+   a_ref: AUX_PD01
       do
          Result := a
       end
 
-   make is
+   make
       do
          check
             a_ref = Void

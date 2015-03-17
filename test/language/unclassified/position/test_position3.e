@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    p1: AUX_POSITION
 
-   make is
+   make
       local
          str: STRING
       do
@@ -29,7 +29,7 @@ feature {ANY}
          assert(str.is_equal("3"))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

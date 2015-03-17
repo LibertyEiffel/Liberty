@@ -24,29 +24,29 @@ create {LIBERTY_ASM_STACK_CONTEXT}
    make
 
 feature {ANY}
-   start is
+   start
       do
          index := stack_values.upper
          generation := iterable_generation
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := index < lower
       end
 
-   item: LIBERTY_ASM_STACK_VALUE is
+   item: LIBERTY_ASM_STACK_VALUE
       do
          Result := stack_values.item(index)
       end
 
-   next is
+   next
       do
          index := index - 1
       end
 
 feature {}
-   make (a_stack_values: like stack_values; a_count: INTEGER) is
+   make (a_stack_values: like stack_values; a_count: INTEGER)
       require
          a_stack_values /= Void
          a_count <= a_stack_values.count
@@ -59,7 +59,7 @@ feature {}
    stack_values: FAST_ARRAY[LIBERTY_ASM_STACK_VALUE]
    index, lower: INTEGER
 
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := stack_values.generation
       end

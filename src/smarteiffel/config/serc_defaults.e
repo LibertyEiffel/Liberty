@@ -16,17 +16,17 @@ create {SERC_FACTORY}
    make
 
 feature {ANY}
-   bin: STRING is
+   bin: STRING
       do
          -- No default, must be provided
       end
 
-   sys: STRING is
+   sys: STRING
       do
          -- No default, must be provided
       end
 
-   short: STRING is
+   short: STRING
       do
          -- No default, must be provided
       end
@@ -35,40 +35,40 @@ feature {ANY}
    flavor: STRING
    jobs: INTEGER
 
-   environment (var: STRING): STRING is
+   environment (var: STRING): STRING
       local
          system: SYSTEM
       do
          Result := system.get_environment_variable(var)
       end
 
-   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING]) is
+   loadpaths_in (loadpaths: DICTIONARY[STRING, STRING])
       do
          -- No default, must be provided
       end
 
-   tools_in (tools: DICTIONARY[STRING, STRING]) is
+   tools_in (tools: DICTIONARY[STRING, STRING])
       do
          -- No default, must be provided
       end
 
-   environment_in (env: DICTIONARY[STRING, STRING]) is
+   environment_in (env: DICTIONARY[STRING, STRING])
       do
          -- No default, must be provided
       end
 
-   c_mode (a_c_mode: STRING): SE_C_MODE is
+   c_mode (a_c_mode: STRING): SE_C_MODE
       do
          -- No default, must be provided
       end
 
-   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING]) is
+   c_modes_in (c_modes: DICTIONARY[SE_C_MODE, STRING])
       do
          -- No default, must be provided
       end
 
 feature {SERC_FACTORY}
-   set_os (a_os: like os) is
+   set_os (a_os: like os)
       require
          a_os /= Void
       do
@@ -77,7 +77,7 @@ feature {SERC_FACTORY}
          os = a_os
       end
 
-   set_flavor (a_flavor: like flavor) is
+   set_flavor (a_flavor: like flavor)
       require
          a_flavor /= Void
       do
@@ -86,7 +86,7 @@ feature {SERC_FACTORY}
          flavor = a_flavor
       end
 
-   set_jobs (a_jobs: like jobs) is
+   set_jobs (a_jobs: like jobs)
       require
          a_jobs > 0
       do
@@ -96,7 +96,7 @@ feature {SERC_FACTORY}
       end
 
 feature {}
-   make is
+   make
       do
          jobs := 1
          flavor := once "generic"
@@ -117,9 +117,9 @@ end -- class SERC_DEFAULTS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

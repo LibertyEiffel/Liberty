@@ -8,7 +8,7 @@ insert
    GLOBALS
 
 feature {CREATION_CLAUSE}
-   display_manifest_generic_for (type: TYPE) is
+   display_manifest_generic_for (type: TYPE)
       local
          af_mm, af_mp, af_msc: ANONYMOUS_FEATURE
          formal_arg_list: FORMAL_ARG_LIST; hc: COMMENT
@@ -135,22 +135,27 @@ feature {CREATION_CLAUSE}
       end
 
 feature {DECLARATION_GROUP}
-   visit_declaration_group (visited: DECLARATION_GROUP) is
+   visit_declaration_group (visited: DECLARATION_GROUP)
       do
       end
 
-feature {EFFECTIVE_ARG_LIST}
-   visit_effective_arg_list (visited: EFFECTIVE_ARG_LIST) is
+feature {EFFECTIVE_ARG_LIST_0}
+   visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0)
+      do
+      end
+
+feature {EFFECTIVE_ARG_LIST_N}
+   visit_effective_arg_list_n (visited: EFFECTIVE_ARG_LIST_N)
       do
       end
 
 feature {FORMAL_ARG_LIST}
-   visit_formal_arg_list (visited: FORMAL_ARG_LIST) is
+   visit_formal_arg_list (visited: FORMAL_ARG_LIST)
       do
       end
 
 feature {LOCAL_VAR_LIST}
-   visit_local_var_list (visited: LOCAL_VAR_LIST) is
+   visit_local_var_list (visited: LOCAL_VAR_LIST)
       do
       end
 

@@ -4,7 +4,7 @@
 class AUX_CREATION4
 create {ANY} blub
 feature {ANY}
-   borg is
+   borg
       do
       end
 end -- class AUX_CREATION4

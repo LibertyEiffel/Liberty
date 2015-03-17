@@ -42,12 +42,12 @@ se_agent* new_agent(Tid id);
     } header;
   };
 
-  extern gc_agent *store_agent;
-  extern gc_agent *gc_free_agent;
-  extern int       store_left_agent;
-  extern fsoc     *store_chunk_agent;
-  extern fsoc      H_agent;
-  extern int       gc_info_nb_agent;
+  extern TLS(gc_agent *) store_agent;
+  extern TLS(gc_agent *) gc_free_agent;
+  extern TLS(int       ) store_left_agent;
+  extern TLS(fsoc     *) store_chunk_agent;
+  extern TLS(fsoc      ) H_agent;
+  extern TLS(int       ) gc_info_nb_agent;
 
   void gc_align_mark_agent(fsoc *c, gc_agent* a);
   void gc_sweep_agent(fsoc *c);

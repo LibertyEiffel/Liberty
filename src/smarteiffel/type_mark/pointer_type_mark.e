@@ -15,48 +15,48 @@ create {ANY}
    make
 
 feature {ANY}
-   id: INTEGER is 8
+   id: INTEGER 8
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
          -- (Is always the same one.)
       once
          Result := string_aliaser.hashed_string(as_pointer)
       end
 
-   type: TYPE is
+   type: TYPE
          --|*** TYPE creation can be quite recursive, so this cannot be a once function <FM-14/10/2004>
       do
          Result := smart_eiffel.type_pointer
       end
 
-   resolve_in (new_type: TYPE): TYPE is
+   resolve_in (new_type: TYPE): TYPE
       do
          Result := type
       end
 
-   default_expression (sp: POSITION): EXPRESSION is
+   default_expression (sp: POSITION): EXPRESSION
       do
          create {NULL_POINTER} Result.make(sp, Current)
       end
 
-   accept (visitor: POINTER_TYPE_MARK_VISITOR) is
+   accept (visitor: POINTER_TYPE_MARK_VISITOR)
       do
          visitor.visit_pointer_type_mark(Current)
       end
 
 feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_pointer)
       end
 
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is 'p'
+   structure_mark: CHARACTER 'p'
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       do
-         create class_text_name.make(written_name, sp)
+         create class_text_name.make(written_name, sp, False)
       end
 
 end -- class POINTER_TYPE_MARK
@@ -71,9 +71,9 @@ end -- class POINTER_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

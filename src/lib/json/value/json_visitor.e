@@ -10,49 +10,49 @@ insert
    JSON_HANDLER
 
 feature {JSON_ARRAY}
-   visit_array (json: JSON_ARRAY) is
+   visit_array (json: JSON_ARRAY)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_FALSE}
-   visit_false (json: JSON_FALSE) is
+   visit_false (json: JSON_FALSE)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_NULL}
-   visit_null (json: JSON_NULL) is
+   visit_null (json: JSON_NULL)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_NUMBER}
-   visit_number (json: JSON_NUMBER) is
+   visit_number (json: JSON_NUMBER)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_OBJECT}
-   visit_object (json: JSON_OBJECT) is
+   visit_object (json: JSON_OBJECT)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_STRING}
-   visit_string (json: JSON_STRING) is
+   visit_string (json: JSON_STRING)
       require
          json /= Void
       deferred
       end
 
 feature {JSON_TRUE}
-   visit_true (json: JSON_TRUE) is
+   visit_true (json: JSON_TRUE)
       require
          json /= Void
       deferred
@@ -60,13 +60,13 @@ feature {JSON_TRUE}
 
 end -- class JSON_VISITOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

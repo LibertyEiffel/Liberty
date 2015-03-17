@@ -15,7 +15,7 @@ create {ANY}
 feature {ANY}
    arguments: EFFECTIVE_ARG_LIST
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a.count = arguments.count
@@ -23,7 +23,7 @@ feature {ANY}
          arguments := a
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          fs: like feature_stamp; t: like target; arg: like arguments
@@ -50,7 +50,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          t: like target; arg: like arguments; fs: like feature_stamp
@@ -82,12 +82,14 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): INSTRUCTION
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
-         --|*** Except for the `procedure_and_argument_count_check' call (Dom. march 28th 2004) ***
+         --|*** Except for the `procedure_check' call (Dom. march 28th 2004) ***
       local
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type: TYPE
+         res: like Current
+         call_n: PROCEDURE_CALL_N; call_1: PROCEDURE_CALL_1; call_0: FUNCTION_CALL_0
       do
          t := target.specialize_and_check(type)
          if target.is_current then
@@ -103,30 +105,62 @@ feature {ANY}
             fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
          end
          af := fs.anonymous_feature(target_type)
-         procedure_and_argument_count_check(af, arguments)
-         arg := arguments.specialize_and_check(type, af, target_type, target.is_current)
-         check
-            arg.count = arguments.count
+         if af = Void then
+            if not target.is_implicit_current then
+               error_handler.add_position(target.start_position)
+            end
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Missing anonymous feature for this call")
+            error_handler.print_as_internal_error
          end
-         if feature_stamp = Void then
-            feature_stamp := fs
-         end
-         if t = target and then feature_stamp = fs and then arg = arguments then
-            Result := Current
+
+         if af.arguments = Void then
+            if fs.anonymous_feature(target_type).result_type /= Void and then target_type.valid_feature_name(parentheses_feature_name) then
+               -- semantic alias "()"
+               create call_0.make(t, feature_name)
+               call_0.set_feature_stamp(fs)
+               call_0.standard_check_export_and_obsolete_calls(type, target_type, af)
+               t := call_0.specialize_and_check(type)
+               create call_n.make(t, parentheses_feature_name, arguments)
+               call_n := call_n.specialize_in(type)
+               Result := call_n.specialize_and_check(type)
+            else
+               error_handler.append(once "The feature called has no formal argument while the actual argument list has ")
+               error_handler.append_integer(arguments.count)
+               error_handler.append(once " arguments.")
+               error_handler.add_position(af.start_position)
+               error_handler.add_position(arguments.start_position)
+               error_handler.print_as_fatal_error
+            end
          else
-            Result := twin
-            Result.init(t, arg, fs)
-         end
-         Result.standard_check_export_and_obsolete_calls(type, target_type, af)
-         check
-            feature_stamp /= Void
-         end
-         check
-            Result.feature_stamp /= Void
+            procedure_check(type, af)
+            arg := arguments.specialize_and_check(type, af, target_type, True)
+            if arg.count > 1 then
+               if feature_stamp = Void then
+                  feature_stamp := fs
+               end
+               if t = target and then feature_stamp = fs and then arg = arguments then
+                  res := Current
+               else
+                  res := twin
+                  res.init(t, arg, fs)
+               end
+               res.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  res.feature_stamp /= Void
+               end
+               Result := res
+            elseif arg.count > 0 then
+               create call_1.make(t, feature_name, arg)
+               call_1.set_feature_stamp(fs)
+               call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
+               Result := call_1.specialize_and_check(type)
+            end
          end
       end
 
-   frozen simplify (type: TYPE): INSTRUCTION is
+   frozen simplify (type: TYPE): INSTRUCTION
       local
          t: like target; args: like arguments; target_type: TYPE; af: ANONYMOUS_FEATURE
          inline_memo: INLINE_MEMO; proc_call_n: PROCEDURE_CALL_N
@@ -173,19 +207,19 @@ feature {ANY}
       --|*** end
       --|*** end
 
-   arg_count: INTEGER is
+   arg_count: INTEGER
       do
          Result := arguments.count
       end
 
 feature {ANY}
-   accept (visitor: PROCEDURE_CALL_N_VISITOR) is
+   accept (visitor: PROCEDURE_CALL_N_VISITOR)
       do
          visitor.visit_procedure_call_n(Current)
       end
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_2 (new_target, new_arg1, new_arg2: EXPRESSION): like Current is
+   frozen inline_2 (new_target, new_arg1, new_arg2: EXPRESSION): like Current
       require
          new_target /= Void
          new_arg1 /= Void
@@ -193,10 +227,10 @@ feature {EFFECTIVE_ROUTINE}
       do
          Result := twin
          Result.set_target(new_target)
-         Result.set_arguments(create {EFFECTIVE_ARG_LIST}.make_2(new_arg1, new_arg2))
+         Result.set_arguments(create {EFFECTIVE_ARG_LIST_N}.make_2(start_position, new_arg1, new_arg2))
       end
 
-   frozen inline_with (new_target: EXPRESSION; new_args: like arguments): like Current is
+   frozen inline_with (new_target: EXPRESSION; new_args: like arguments): like Current
       require
          new_target /= Void
          new_args /= Void
@@ -207,13 +241,13 @@ feature {EFFECTIVE_ROUTINE}
       end
 
 feature {PROCEDURE_CALL_N}
-   set_target_and_arg (t: like target; arg: like arguments) is
+   set_target_and_arg (t: like target; arg: like arguments)
       do
          target := t
          arguments := arg
       end
 
-   init (t: like target; arg: like arguments; fs: like feature_stamp) is
+   init (t: like target; arg: like arguments; fs: like feature_stamp)
       do
          target := t
          arguments := arg
@@ -221,7 +255,7 @@ feature {PROCEDURE_CALL_N}
       end
 
 feature {}
-   make (t: like target; sn: like feature_name; a: like arguments) is
+   make (t: like target; sn: like feature_name; a: like arguments)
       require
          t /= Void
          sn /= Void
@@ -251,9 +285,9 @@ end -- class PROCEDURE_CALL_N
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

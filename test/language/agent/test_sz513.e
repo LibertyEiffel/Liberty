@@ -11,7 +11,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          string: STRING; collection: FAST_ARRAY[AUX_SZ513]; integer: INTEGER; aux_sz513: AUX_SZ513
       do
@@ -26,7 +26,7 @@ feature {ANY}
             integer := integer - 1
          end
          string := ""
-         collection.do_all(agent {AUX_SZ513}.append_in(string))
+         collection.for_each(agent {AUX_SZ513}.append_in(string))
          assert(string.is_equal(" 0  1  2  3  4 "))
       end
 

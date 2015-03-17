@@ -11,7 +11,7 @@ inherit
       end
 
 feature {ANY} -- DIRECTORY_NOTATION interface
-   to_parent_directory (some_path: STRING) is
+   to_parent_directory (some_path: STRING)
       do
          --*** PATH_NAME and DIRECTORY_NOTATION differ on corner cases, which is why this implementation is 
          --*** not as straightforward as expected.
@@ -33,7 +33,7 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          end
       end
 
-   to_subdirectory_with (parent_path, entry_name: STRING) is
+   to_subdirectory_with (parent_path, entry_name: STRING)
       local
          ds: STRING
       do
@@ -54,7 +54,7 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          to_directory_path(parent_path)
       end
 
-   to_file_path_with (parent_path, file_name: STRING) is
+   to_file_path_with (parent_path, file_name: STRING)
       local
          ds: STRING
       do
@@ -74,7 +74,7 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          parent_path.copy(tmp1.to_string)
       end
 
-   to_subpath_with (parent_path, subpath: STRING) is
+   to_subpath_with (parent_path, subpath: STRING)
       do
          tmp1.make_from_string(parent_path)
          tmp2.make_from_string(subpath)
@@ -82,12 +82,12 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          parent_path.copy(tmp1.to_string)
       end
 
-   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN is
+   can_map_drive (source_notation: DIRECTORY_NOTATION; drive: STRING): BOOLEAN
       do
          Result := True
       end
 
-   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING) is
+   to_root (source_notation: DIRECTORY_NOTATION; drive: STRING)
       do
          -- *** `source_notation' is not taken into account
          tmp1.make_empty
@@ -96,30 +96,30 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          drive.copy(tmp1.to_string)
       end
 
-   to_default_root (directory: STRING) is
+   to_default_root (directory: STRING)
       do
          tmp1.make_root
          directory.copy(tmp1.to_string)
       end
 
-   to_current_directory (directory: STRING) is
+   to_current_directory (directory: STRING)
       do
          tmp1.make_current
          directory.copy(tmp1.to_string)
       end
 
-   is_absolute_path (path: STRING): BOOLEAN is
+   is_absolute_path (path: STRING): BOOLEAN
       do
          tmp1.make_from_string(path)
          Result := tmp1.is_absolute
       end
 
-   is_valid_path (a_path: STRING): BOOLEAN is
+   is_valid_path (a_path: STRING): BOOLEAN
       do
          Result := tmp1.is_valid_path(a_path)
       end
 
-   is_valid_directory_path (a_path: STRING): BOOLEAN is
+   is_valid_directory_path (a_path: STRING): BOOLEAN
       do
          Result := tmp1.is_valid_path(a_path)
          if Result then
@@ -128,19 +128,19 @@ feature {ANY} -- DIRECTORY_NOTATION interface
          end
       end
 
-   is_valid_file_name (name: STRING): BOOLEAN is
+   is_valid_file_name (name: STRING): BOOLEAN
       do
          Result := tmp1.is_valid_file_name(name)
       end
 
-   to_short_name_in (buffer, path: STRING) is
+   to_short_name_in (buffer, path: STRING)
       do
          tmp1.make_from_string(path)
          buffer.copy(tmp1.short_name)
       end
 
 feature {DIRECTORY_NOTATION}
-   to_notation (path: STRING; destination: DIRECTORY_NOTATION): STRING is
+   to_notation (path: STRING; destination: DIRECTORY_NOTATION): STRING
       local
          pnn: PATH_NAME_NOTATION
       do
@@ -158,7 +158,7 @@ feature {DIRECTORY_NOTATION}
       end
 
 feature {PATH_JOINER}
-   start_join (drive: STRING; absoluteness: INTEGER) is
+   start_join (drive: STRING; absoluteness: INTEGER)
       do
          -- *** some information about absoluteness is lost
          if absoluteness = 0 then
@@ -172,43 +172,43 @@ feature {PATH_JOINER}
          end
       end
 
-   join_directory (element: STRING) is
+   join_directory (element: STRING)
       do
          destination_notation.to_subdirectory_with(current_path, element)
       end
 
-   join_up is
+   join_up
       do
          -- *** Sometimes, we must actually join ".." or its 
          -- equivalent instead
          destination_notation.to_parent_directory(current_path)
       end
 
-   join_file (element: STRING) is
+   join_file (element: STRING)
       do
          destination_notation.to_file_path_with(current_path, element)
       end
 
-   join_element (element: STRING) is
+   join_element (element: STRING)
       do
          destination_notation.to_subpath_with(current_path, element)
       end
 
-   join_extension (an_extension: STRING) is
+   join_extension (an_extension: STRING)
       do
          --*** Not a very good idea
          current_path.extend('.')
          current_path.append(an_extension)
       end
 
-   end_join is
+   end_join
       do
       end
 
-   join_error: BOOLEAN is False
+   join_error: BOOLEAN False
 
 feature {PATH_NAME_NOTATION}
-   from_path_name (other: PATH_NAME): STRING is
+   from_path_name (other: PATH_NAME): STRING
       require
          other /= tmp1
       do
@@ -218,7 +218,7 @@ feature {PATH_NAME_NOTATION}
       end
 
 feature {}
-   tmp1, tmp2: PATH_NAME is
+   tmp1, tmp2: PATH_NAME
       deferred
       ensure
          tmp1 /= tmp2
@@ -230,13 +230,13 @@ feature {}
 
 end -- class PATH_NAME_NOTATION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

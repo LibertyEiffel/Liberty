@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED29BAR
 feature {ANY}
    x: INTEGER
 
-   set_x (v: INTEGER) is
+   set_x (v: INTEGER)
       do
          x := v
       end

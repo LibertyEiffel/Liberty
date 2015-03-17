@@ -9,9 +9,9 @@ create {}
 feature {ANY}
    array_of_array: ARRAY[ARRAY[INTEGER]]
 
-   timing: INTEGER is 2000
+   timing: INTEGER 2000
 
-   make is
+   make
       local
          i, limit: INTEGER
       do

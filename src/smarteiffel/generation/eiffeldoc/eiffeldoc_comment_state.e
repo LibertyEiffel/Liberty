@@ -13,12 +13,12 @@ insert
    EIFFELDOC_GLOBALS
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
          -- True if this state can handle the characters starting at the offset point
       deferred
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
          -- Handle the comment; returns the next offset where a new state can be considered. Can also remove
          -- an element of the stack or add itself.
       require
@@ -34,7 +34,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       require
          states /= Void
          not states.is_empty
@@ -44,7 +44,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          states.count = old states.count - 1
       end
 
-   handle_first: BOOLEAN is
+   handle_first: BOOLEAN
          -- True if use the EIFFELDOC_COMMENT_WRITER optimisation that makes this object be handled first if
          -- it is at the top of the states stack
       deferred
@@ -53,27 +53,27 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
 feature {}
    context: EIFFELDOC_CONTEXT
 
-   html: EIFFELDOC_OUTPUT_STREAM is
+   html: EIFFELDOC_OUTPUT_STREAM
       do
          Result := context.html
       end
 
-   type: TYPE is
+   type: TYPE
       do
          Result := context.type
       end
 
-   class_type: TYPE is
+   class_type: TYPE
       do
          Result := context.class_type
       end
 
-   client: TYPE_MARK is
+   client: TYPE_MARK
       do
          Result := context.client
       end
 
-   class_text: CLASS_TEXT is
+   class_text: CLASS_TEXT
       do
          Result := context.class_text
       end

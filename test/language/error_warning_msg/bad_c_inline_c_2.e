@@ -7,7 +7,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       do
          c_inline_c("hi", "world");
       end

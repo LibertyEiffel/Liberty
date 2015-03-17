@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	FFI_TYPES
 feature {} -- Low-level setters
 
-	ffi_type_struct_set_size (a_structure: POINTER; a_value: like size_t) is
+	ffi_type_struct_set_size (a_structure: POINTER; a_value: like size_t)
 			-- Setter for size field of FFI_TYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_type_struct_set_alignment (a_structure: POINTER; a_value: NATURAL_16) is
+	ffi_type_struct_set_alignment (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for alignment field of FFI_TYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_type_struct_set_type (a_structure: POINTER; a_value: NATURAL_16) is
+	ffi_type_struct_set_type (a_structure: POINTER; a_value: NATURAL_16)
 			-- Setter for type field of FFI_TYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	ffi_type_struct_set_elements (a_structure: POINTER; a_value: POINTER) is
+	ffi_type_struct_set_elements (a_structure: POINTER; a_value: POINTER)
 			-- Setter for elements field of FFI_TYPE_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	ffi_type_struct_get_size (a_structure: POINTER): like size_t is
+	ffi_type_struct_get_size (a_structure: POINTER): like size_t
 			-- Query for size field of FFI_TYPE_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_type_struct_get_alignment (a_structure: POINTER): NATURAL_16 is
+	ffi_type_struct_get_alignment (a_structure: POINTER): NATURAL_16
 			-- Query for alignment field of FFI_TYPE_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_type_struct_get_type (a_structure: POINTER): NATURAL_16 is
+	ffi_type_struct_get_type (a_structure: POINTER): NATURAL_16
 			-- Query for type field of FFI_TYPE_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	ffi_type_struct_get_elements (a_structure: POINTER): POINTER is
+	ffi_type_struct_get_elements (a_structure: POINTER): POINTER
 			-- Query for elements field of FFI_TYPE_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          echo("a string%N")
          echo("a fixed string%N".intern)
       end
 
-   echo (s: ABSTRACT_STRING) is
+   echo (s: ABSTRACT_STRING)
       do
          s.print_on(std_output)
       end

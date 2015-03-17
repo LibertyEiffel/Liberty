@@ -5,8 +5,8 @@ allowed.
 The source lines involved by the message are the following:
 
 Line 11 column 4 in ANY (/home/cadrian/Workspace/Dev/Liberty/src/lib/kernel/any.e):
-   default_create is
-   ^                
+   default_create
+   ^             
 Line 14 column 10 in BAD_CREATE3 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_create3.e):
          create aux
          ^         

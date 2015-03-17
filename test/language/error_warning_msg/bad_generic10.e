@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          foo: LINKED_LIST[INTEGER->NUMERIC]
       do

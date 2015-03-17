@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       require
          not_so_good: always_true
          very_bab_idea: True
@@ -18,7 +18,7 @@ feature {ANY}
          end
       end
 
-   always_true: BOOLEAN is
+   always_true: BOOLEAN
       local
          dummy: INTEGER
       do

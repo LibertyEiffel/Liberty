@@ -4,12 +4,12 @@
 deferred class AUX_FP1A
 
 feature {}
-   make is
+   make
       do
          init
       end
 
-   init is
+   init
       deferred
       end
 

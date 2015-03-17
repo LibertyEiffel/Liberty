@@ -11,7 +11,7 @@ feature {}
    value: STRING
    the_value: STRING
 
-   make is
+   make
       do
       end
 

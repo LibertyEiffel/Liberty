@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; d, d2: REAL_64
       do
@@ -36,7 +36,7 @@ feature {ANY}
          assert(d.sqrt = d2)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

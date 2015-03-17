@@ -21,33 +21,33 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_clauses: BOOLEAN is
+   has_clauses: BOOLEAN
       do
          Result := count = 5
       end
 
-   rename_clause: LIBERTY_AST_PARENT_RENAME is
+   rename_clause: LIBERTY_AST_PARENT_RENAME
       require
          has_clauses
       do
          Result ::= nodes.item(0)
       end
 
-   export_clause: LIBERTY_AST_PARENT_EXPORT is
+   export_clause: LIBERTY_AST_PARENT_EXPORT
       require
          has_clauses
       do
          Result ::= nodes.item(1)
       end
 
-   undefine_clause: LIBERTY_AST_PARENT_UNDEFINE is
+   undefine_clause: LIBERTY_AST_PARENT_UNDEFINE
       require
          has_clauses
       do
          Result ::= nodes.item(2)
       end
 
-   redefine_clause: LIBERTY_AST_PARENT_REDEFINE is
+   redefine_clause: LIBERTY_AST_PARENT_REDEFINE
       require
          has_clauses
       do
@@ -55,15 +55,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Parent_Clause"
+   name: STRING "Parent_Clause"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 1, 5 >> }
       end

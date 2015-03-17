@@ -29,13 +29,13 @@ create {ANY}
 feature {ANY}
    value: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := value = other.value
             and then Precursor(other)
       end
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_INSTRUCTION_VISITOR
       do
@@ -44,7 +44,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_value: like value) is
+   make (a_value: like value)
       do
          value := a_value
       ensure

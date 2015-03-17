@@ -24,7 +24,7 @@ feature {LIBERTY_INTERPRETER}
    steps: LIBERTY_INTERPRETER_DEBUGGER_STEPS
          -- The object to notify about the running program: entry and exit of functions, code stepping...
 
-   break (a_entry: like entry): BOOLEAN is
+   break (a_entry: like entry): BOOLEAN
          -- `entry' is the debug instructions entered by the user.
          --
          -- Returns True if the program should continue running, False if the debugger should display the
@@ -46,7 +46,7 @@ feature {LIBERTY_INTERPRETER}
       end
 
 feature {}
-   debug_entry: BOOLEAN is
+   debug_entry: BOOLEAN
       require
          entry.first = ':'
       local
@@ -68,7 +68,7 @@ feature {}
          end
       end
 
-   execute is
+   execute
       do
          check
             saved_errors.is_empty
@@ -82,7 +82,7 @@ feature {}
       end
 
 feature {}
-   try_to_execute_expression: BOOLEAN is
+   try_to_execute_expression: BOOLEAN
       local
          ast: LIBERTY_AST_EXPRESSION; exp: LIBERTY_EXPRESSION
          actual_type: LIBERTY_ACTUAL_TYPE; done: BOOLEAN
@@ -113,7 +113,7 @@ feature {}
          end
       end
 
-   try_to_execute_instruction: BOOLEAN is
+   try_to_execute_instruction: BOOLEAN
       local
          ast: LIBERTY_AST_INSTRUCTION; ins: LIBERTY_INSTRUCTION
          actual_type: LIBERTY_ACTUAL_TYPE; done: BOOLEAN
@@ -141,31 +141,31 @@ feature {}
          end
       end
 
-   entry: STRING is ""
+   entry: STRING ""
 
    saved_errors: FAST_ARRAY[PARSE_ERROR]
    error_saved: BOOLEAN
 
-   save_error (parse_error: PARSE_ERROR) is
+   save_error (parse_error: PARSE_ERROR)
       do
          saved_errors.add_last(parse_error)
          error_saved := True
       end
 
-   print_saved_errors is
+   print_saved_errors
       do
          saved_errors.do_all(agent print_error)
       end
 
 feature {}
-   print_error (a_error: PARSE_ERROR) is
+   print_error (a_error: PARSE_ERROR)
       require
          a_error /= Void
       do
          std_error.put_line(a_error.message)
       end
 
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -183,22 +183,22 @@ feature {}
    interpreter: LIBERTY_INTERPRETER
    builder: LIBERTY_INTERPRETER_DEBUGGER_SEMANTICS_BUILDER
 
-   debug_grammar: LIBERTY_INTERPRETER_DEBUGGER_GRAMMAR is
+   debug_grammar: LIBERTY_INTERPRETER_DEBUGGER_GRAMMAR
       once
          create Result.make(create {LIBERTY_INTERPRETER_DEBUGGER_FACTORY}.make)
       end
 
-   parser_buffer: MINI_PARSER_BUFFER is
+   parser_buffer: MINI_PARSER_BUFFER
       once
          create Result
       end
 
-   parser: DESCENDING_PARSER is
+   parser: DESCENDING_PARSER
       once
          create Result.make
       end
 
-   readline: READLINE_INPUT_STREAM is
+   readline: READLINE_INPUT_STREAM
       once
          create Result.make
       end

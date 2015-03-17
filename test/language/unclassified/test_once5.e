@@ -12,12 +12,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(default_value = 16384)
       end
 
-   default_value: INTEGER is
+   default_value: INTEGER
       once
          Result := 16384
       ensure

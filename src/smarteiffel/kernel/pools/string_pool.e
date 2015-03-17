@@ -21,7 +21,7 @@ feature {ANY} -- Interface:
    has_empty: BOOLEAN
       -- The headers list has an empty string
 
-   has (a_string: STRING): BOOLEAN is
+   has (a_string: STRING): BOOLEAN
       require
          string_not_void: a_string /= Void --string_not_empty: a_string.count > 0
       do
@@ -29,7 +29,7 @@ feature {ANY} -- Interface:
          Result := last_match /= unknown_state
       end
 
-   has_substring (a_string: STRING; first, last: INTEGER): BOOLEAN is
+   has_substring (a_string: STRING; first, last: INTEGER): BOOLEAN
       require
          string_not_void: a_string /= Void --string_not_empty:  a_string.count > 0
          first_in_string: first > 0
@@ -40,7 +40,7 @@ feature {ANY} -- Interface:
          Result := last_match /= unknown_state
       end
 
-   index_of (a_string: STRING): INTEGER is
+   index_of (a_string: STRING): INTEGER
       require
          string_not_void: a_string /= Void --string_not_empty: a_string.count > 0
          has_string: has(a_string)
@@ -49,7 +49,7 @@ feature {ANY} -- Interface:
          Result := last_external_match
       end
 
-   index_of_substring (a_string: STRING; first, last: INTEGER): INTEGER is
+   index_of_substring (a_string: STRING; first, last: INTEGER): INTEGER
       require
          string_not_void: a_string /= Void --string_not_empty:  a_string.count > 0
          first_in_string: first > 0
@@ -62,7 +62,7 @@ feature {ANY} -- Interface:
       end
 
 feature {ANY} -- Initialization:
-   from_collection (a_headers: COLLECTION[STRING]) is
+   from_collection (a_headers: COLLECTION[STRING])
          -- Initializes the automaton. The given strings will be the ones
          -- that can be matched. In that case, `match' will return the index
          -- of the matched string in that collection.
@@ -97,7 +97,7 @@ feature {ANY} -- Initialization:
       end
 
 feature {} -- At initialization time:
-   report (a_headers: COLLECTION[STRING]) is
+   report (a_headers: COLLECTION[STRING])
       local
          i, j, n, st: INTEGER; s: STRING
       do
@@ -147,7 +147,7 @@ feature {} -- At initialization time:
          end
       end
 
-   count_states is
+   count_states
       local
          c, k: CHARACTER; i, j: INTEGER; again, next_c: BOOLEAN; s: STRING; defstate, oldstate, newstate: INTEGER
       do
@@ -227,7 +227,7 @@ feature {} -- At initialization time:
          end
       end
 
-   compile_headers is
+   compile_headers
          -- Create the automaton.
       local
          c, k: CHARACTER; i, j: INTEGER; again, next_c: BOOLEAN; s: STRING; defstate, oldstate, newstate: INTEGER
@@ -297,7 +297,7 @@ feature {} -- At initialization time:
          end
       end
 
-   externalize_tags (a_headers: COLLECTION[STRING]) is
+   externalize_tags (a_headers: COLLECTION[STRING])
          -- Create tag_state
       local
          intern, extern: INTEGER; s: STRING
@@ -326,11 +326,11 @@ feature {} -- At initialization time:
       end
 
 feature {} -- State management:
-   make_transitions_array is
+   make_transitions_array
       deferred
       end
 
-   set_state (new_state, previous_state: INTEGER; character: CHARACTER) is
+   set_state (new_state, previous_state: INTEGER; character: CHARACTER)
       require
          previous_state.in_range(unknown_state, maxstate)
          new_state.in_range(0, maxstate)
@@ -339,14 +339,14 @@ feature {} -- State management:
          state(previous_state, character) = new_state
       end
 
-   state (previous_state: INTEGER; character: CHARACTER): INTEGER is
+   state (previous_state: INTEGER; character: CHARACTER): INTEGER
       require
          previous_state.in_range(unknown_state, maxstate)
       deferred
       end
 
 feature {} -- Finding a string:
-   compute_final_state (a_string: STRING; first, last: INTEGER) is
+   compute_final_state (a_string: STRING; first, last: INTEGER)
       do
          last_match := the_final_state(a_string, first, last)
          if last_match > headers.count then
@@ -360,7 +360,7 @@ feature {} -- Finding a string:
          end
       end
 
-   the_final_state (a_string: STRING; first, last: INTEGER): INTEGER is
+   the_final_state (a_string: STRING; first, last: INTEGER): INTEGER
       local
          i: INTEGER
       do
@@ -393,16 +393,16 @@ feature {}
    tag_state: DICTIONARY[INTEGER, INTEGER] -- internal => external states
 
 feature {}
-   unknown_state: INTEGER is -1
+   unknown_state: INTEGER -1
 
    headers: FAST_ARRAY[STRING]
 
-   transition_memory: FAST_ARRAY[INTEGER] is
+   transition_memory: FAST_ARRAY[INTEGER]
       once
          create Result.with_capacity(4)
       end
 
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end
@@ -419,9 +419,9 @@ end -- class STRING_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -3,13 +3,13 @@
 --
 class BUG
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
-   tuning: INTEGER is 3
+   tuning: INTEGER 3
 
-   make is
+   make
       local
          a: ARRAY[CAT]; cat: CAT; i, j: INTEGER
       do

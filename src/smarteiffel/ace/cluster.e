@@ -36,7 +36,7 @@ feature {ACE}
          -- backlink to the classes tree
 
 feature {ACE}
-   remove (a_class_text: CLASS_TEXT) is
+   remove (a_class_text: CLASS_TEXT)
       require
          a_class_text.cluster = Current
       do
@@ -44,7 +44,7 @@ feature {ACE}
       end
 
 feature {ACE, EIFFELDOC}
-   class_text (class_name: CLASS_NAME; report_error, load: BOOLEAN): CLASS_TEXT is
+   class_text (class_name: CLASS_NAME; load: BOOLEAN): CLASS_TEXT
       require
          has(class_name.hashed_name)
       local
@@ -56,9 +56,9 @@ feature {ACE, EIFFELDOC}
             check
                pool.cluster_class(hs) /= Void
             end
-            if parser_buffer_for(hs, report_error) then
+            if parser_buffer_for(hs, class_name.allow_missing) then
                Result := smart_eiffel.analyze_class(class_name, Current)
-            elseif report_error then
+            elseif not class_name.allow_missing then
                error_handler.add_position(class_name.start_position)
                error_handler.append(once "Could not load class in cluster ")
                error_handler.append(directory_path)
@@ -68,23 +68,23 @@ feature {ACE, EIFFELDOC}
       end
 
 feature {CLASSES_TREE}
-   has (class_name: HASHED_STRING): BOOLEAN is
+   has (class_name: HASHED_STRING): BOOLEAN
       do
          Result := pool.has(class_name)
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       do
          Result := pool.class_count
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       do
          Result := class_text_map.count
       end
 
 feature {ANY}
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       local
          i: INTEGER
       do
@@ -98,8 +98,19 @@ feature {ANY}
          end
       end
 
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      do
+         pool.for_all_filtered(name_guard, action)
+      end
+
+feature {CLUSTER_POOL_DATA}
+   do_action (class_name: CLASS_NAME; action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+      do
+         action.call([class_text(class_name, True)])
+      end
+
 feature {CLASS_TEXT}
-   register_class_text (a_class_text: CLASS_TEXT) is
+   register_class_text (a_class_text: CLASS_TEXT)
       require
          a_class_text.cluster = Current
       do
@@ -110,7 +121,7 @@ feature {}
    class_text_map: DICTIONARY[CLASS_TEXT, HASHED_STRING]
 
 feature {}
-   parser_buffer_for (a_name: HASHED_STRING; report_error: BOOLEAN): BOOLEAN is
+   parser_buffer_for (a_name: HASHED_STRING; allow_missing: BOOLEAN): BOOLEAN
          -- The algorithm to search some class on the disk using the `a_name' key which is usually some simple
          -- class name using the standard notation, but which can also be any other kind of notation (even
          -- file path notation). When the `Result' is True, the `parser_buffer' is ready to be used.
@@ -124,7 +135,7 @@ feature {}
             cluster := entry.cluster
             Result := prepare_parser_buffer_for(entry.path)
          end
-         if not Result and then report_error then
+         if not Result and then not allow_missing then
             echo.w_put_string("Unable to find file for class %"")
             echo.w_put_string(a_name.to_string)
             echo.w_put_string("%". ")
@@ -135,7 +146,7 @@ feature {}
          end
       end
 
-   prepare_parser_buffer_for (file_path: STRING): BOOLEAN is
+   prepare_parser_buffer_for (file_path: STRING): BOOLEAN
          -- Try to prepare the `parser_buffer' assuming `file_path' is the path to a class of the `Current'
          -- cluster.
       require
@@ -149,18 +160,18 @@ feature {}
       end
 
 feature {ANY}
-   accept (visitor: CLUSTER_VISITOR) is
+   accept (visitor: CLUSTER_VISITOR)
       do
          visitor.visit_cluster(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.directory_path = directory_path
       end
 
 feature {CLASSES_TREE, CLUSTER_VISITOR}
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
       local
          i: INTEGER
       do
@@ -210,7 +221,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
          msg.extend('%N')
       end
 
-   get_started (highest_encountered_level: INTEGER) is
+   get_started (highest_encountered_level: INTEGER)
          -- Called after the parsing of the whole ACE file (or the whole command line).
       require
          highest_encountered_level.in_range(level_boost, level_all)
@@ -222,7 +233,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
          end
       end
 
-   show is
+   show
       do
          if class_text_count > 0 then
             echo.put_string(once ": ")
@@ -234,7 +245,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
          end
       end
 
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
          -- Performs the `ace_check' and also prepare in `txt' a pretty version
          -- of the Ace file as it is memorized (can be also used to pretty
          -- one's ACE file).
@@ -343,7 +354,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
          txt.extend('%N')
       end
 
-   read_classes is
+   read_classes
       local
          bd: BASIC_DIRECTORY; ft: FILE_TOOLS; path, file_name: STRING; class_name: HASHED_STRING; entry: CLUSTER_CLASS
       do
@@ -395,7 +406,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
          end
       end
 
-   include_parsing is
+   include_parsing
       local
          i: INTEGER; fn: STRING
       do
@@ -422,7 +433,7 @@ feature {CLASSES_TREE, CLUSTER_VISITOR}
       end
 
 feature {ACE}
-   set_default_trace (flag: BOOLEAN) is
+   set_default_trace (flag: BOOLEAN)
       do
          if flag then
             default_trace := 'y'
@@ -431,7 +442,7 @@ feature {ACE}
          end
       end
 
-   set_default_assertion_level (level: INTEGER) is
+   set_default_assertion_level (level: INTEGER)
       require
          level.in_range(level_boost, level_all)
       do
@@ -440,7 +451,7 @@ feature {ACE}
          default_assertion_level = level
       end
 
-   set_option_assertion_level (class_name: CLASS_NAME; level: INTEGER) is
+   set_option_assertion_level (class_name: CLASS_NAME; level: INTEGER)
       require
          class_name /= Void
          level.in_range(level_boost, level_all)
@@ -460,7 +471,7 @@ feature {ACE}
          option_assertion_level.put(level, class_name)
       end
 
-   assertion_level_of (class_name: CLASS_NAME): INTEGER is
+   assertion_level_of (class_name: CLASS_NAME): INTEGER
       require
          class_name /= Void
       do
@@ -482,7 +493,7 @@ feature {ACE}
          Result.in_range(level_boost, level_all)
       end
 
-   add_option_debug_key (class_name: CLASS_NAME; key: STRING) is
+   add_option_debug_key (class_name: CLASS_NAME; key: STRING)
       require
          class_name /= Void
          not key.is_empty
@@ -500,7 +511,7 @@ feature {ACE}
          fas.add_last(key)
       end
 
-   debug_check (class_name: CLASS_NAME; e_debug: DEBUG_COMPOUND): BOOLEAN is
+   debug_check (class_name: CLASS_NAME; e_debug: DEBUG_COMPOUND): BOOLEAN
       local
          fas: FAST_ARRAY[STRING]
       do
@@ -522,7 +533,7 @@ feature {ACE}
          end
       end
 
-   add_option_trace (class_name: CLASS_NAME) is
+   add_option_trace (class_name: CLASS_NAME)
       require
          class_name /= Void
       do
@@ -532,7 +543,7 @@ feature {ACE}
          option_trace.add(class_name)
       end
 
-   trace (class_name: CLASS_NAME): BOOLEAN is
+   trace (class_name: CLASS_NAME): BOOLEAN
       do
          if option_trace = Void then
             Result := default_trace_or_ace_default_trace
@@ -543,7 +554,7 @@ feature {ACE}
          end
       end
 
-   include_add_last (file_name: STRING) is
+   include_add_last (file_name: STRING)
       require
          file_name /= Void
       do
@@ -553,7 +564,7 @@ feature {ACE}
          include_list.add_last(file_name)
       end
 
-   exclude_add_last (file_name: STRING) is
+   exclude_add_last (file_name: STRING)
       require
          file_name /= Void
       do
@@ -575,7 +586,7 @@ feature {}
    default_trace: CHARACTER
          -- The default trace selection for this cluster ('%U'|'y'|'n').
 
-   default_trace_or_ace_default_trace: BOOLEAN is
+   default_trace_or_ace_default_trace: BOOLEAN
          -- If any, gives the default trace of this `Current' cluster
          -- otherwise the `default_trace' of `ace'.
       do
@@ -595,7 +606,7 @@ feature {}
 
    option_trace: SET[CLASS_NAME]
 
-   make (a_name: like name; path: like directory_path; a_tree: like tree) is
+   make (a_name: like name; path: like directory_path; a_tree: like tree)
       require
          a_name /= Void
          string_aliaser.registered_one(a_name)
@@ -615,7 +626,7 @@ feature {}
          string_aliaser.registered_one(directory_path)
       end
 
-   parser_buffer_load: BOOLEAN is
+   parser_buffer_load: BOOLEAN
       do
          if directory_path.is_empty then
             path_buffer.copy(file_name_buffer)
@@ -630,13 +641,13 @@ feature {}
          end
       end
 
-   file_name_buffer: STRING is
+   file_name_buffer: STRING
          -- Temporary buffer to store some file name like eg. "array.e".
       once
          create Result.make(64)
       end
 
-   path_buffer: STRING is
+   path_buffer: STRING
          -- Temporary buffer to store some file path like eg.
          -- "../lib/kernel/array.e".
       once
@@ -647,12 +658,12 @@ feature {}
 
    exclude_list: FAST_ARRAY[STRING]
 
-   for_pretty is
+   for_pretty
       do
          init(pretty_name, level_all)
       end
 
-   pretty_name: STRING is
+   pretty_name: STRING
       once
          Result := string_aliaser.string(once "pretty dummy cluster")
       ensure
@@ -663,7 +674,7 @@ feature {}
 
    pool: CLUSTER_POOL_DATA
 
-   init (a_name: like name; assertion_level: like default_assertion_level) is
+   init (a_name: like name; assertion_level: like default_assertion_level)
       require
          a_name /= Void
          string_aliaser.registered_one(a_name)
@@ -689,9 +700,9 @@ end -- class CLUSTER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

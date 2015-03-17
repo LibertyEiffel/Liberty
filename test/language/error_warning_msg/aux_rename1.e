@@ -4,11 +4,11 @@
 class AUX_RENAME1
 
 feature {ANY}
-   f is
+   f
       do
       end;
 
-   g is
+   g
       do
       end;
 

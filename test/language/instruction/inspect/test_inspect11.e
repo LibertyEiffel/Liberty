@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(test_1)
          assert(test_2)
@@ -21,7 +21,7 @@ feature {ANY}
       end
 
 feature {}
-   test_1: BOOLEAN is
+   test_1: BOOLEAN
       do
          inspect
             "foo"
@@ -32,7 +32,7 @@ feature {}
          end
       end
 
-   test_2: BOOLEAN is
+   test_2: BOOLEAN
       do
          inspect
             "foo_bar"
@@ -43,7 +43,7 @@ feature {}
          end
       end
 
-   test_3: BOOLEAN is
+   test_3: BOOLEAN
       do
          inspect
             ""

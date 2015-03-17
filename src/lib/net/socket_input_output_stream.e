@@ -21,33 +21,35 @@ insert
    STRING_HANDLER
 
 feature {ANY}
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := socket.is_connected
       end
 
-   is_remote_connected: BOOLEAN is
+   is_remote_connected: BOOLEAN
       do
          Result := socket.is_remote_connected
       end
 
-   can_read_character: BOOLEAN is
+   can_read_character: BOOLEAN
          -- Can be ''temporarily'' False because the socket does not yet have available data
       do
-         if delay_read then
-            delayed_read
-         end
-         if is_remote_connected then
+         if socket.sync then
+            Result := is_connected
+         else
+            if delay_read then
+               delayed_read
+            end
             Result := not end_of_stream or else in_buffer.valid_index(next_index)
          end
       end
 
-   can_read_line: BOOLEAN is
+   can_read_line: BOOLEAN
       do
          Result := can_read_character
       end
 
-   can_unread_character: BOOLEAN is
+   can_unread_character: BOOLEAN
       do
          if delay_read then
             delayed_read
@@ -57,7 +59,7 @@ feature {ANY}
          end
       end
 
-   valid_last_character: BOOLEAN is
+   valid_last_character: BOOLEAN
       do
          if delay_read then
             delayed_read
@@ -67,16 +69,16 @@ feature {ANY}
          end
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       do
          Result := not is_connected
       end
 
-   disconnect is
+   disconnect
       deferred
       end
 
-   when_disconnect (handler: PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]]) is
+   when_disconnect (handler: PROCEDURE[TUPLE[SOCKET_INPUT_OUTPUT_STREAM]])
       do
          if disconnect_handlers = Void then
             create disconnect_handlers.with_capacity(2)
@@ -84,15 +86,27 @@ feature {ANY}
          disconnect_handlers.add_last(handler)
       end
 
-   error: STRING is
+   error: STRING
       do
          Result := socket.error
+      end
+
+   set_blocking
+         -- set blocking read mode for the socket
+      do
+         socket.set_sync(True)
+      end
+
+   set_nonblocking
+         -- set non blocking read mode for the socket
+      do
+         socket.set_sync(False)
       end
 
 feature {}
    delay_read: BOOLEAN
 
-   delayed_read is
+   delayed_read
       require
          delay_read
       do
@@ -106,7 +120,7 @@ feature {}
       end
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       do
          if delay_read then
             delayed_read
@@ -114,12 +128,12 @@ feature {FILTER_INPUT_STREAM}
          delay_read := True
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       do
          index := index - 1
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       do
          if delay_read then
             delayed_read
@@ -127,7 +141,7 @@ feature {FILTER_INPUT_STREAM}
          Result := in_buffer.item(index)
       end
 
-   filtered_read_line_in (buffer: STRING) is
+   filtered_read_line_in (buffer: STRING)
       do
          -- Redefined not to take can_read_character into account since it is temporary
          from
@@ -152,7 +166,7 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_read_available_in (buffer: STRING; limit: INTEGER) is
+   filtered_read_available_in (buffer: STRING; limit: INTEGER)
       local
          i, n: INTEGER
       do
@@ -179,7 +193,7 @@ feature {FILTER_INPUT_STREAM}
       end
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          out_buffer.add_last(c)
          if out_buffer.count >= 1472 then
@@ -187,7 +201,7 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          if not out_buffer.is_empty then
             socket.write(out_buffer)
@@ -196,23 +210,23 @@ feature {FILTER_OUTPUT_STREAM}
       end
 
 feature {FILTER}
-   filtered_descriptor: INTEGER is
+   filtered_descriptor: INTEGER
       do
          Result := socket.fd
       end
 
-   filtered_has_descriptor: BOOLEAN is True
+   filtered_has_descriptor: BOOLEAN True
 
-   filtered_stream_pointer: POINTER is
+   filtered_stream_pointer: POINTER
       do
          std_error.put_line("SOCKET_INPUT_OUTPUT_STREAM.filtered_stream_pointer has been called!")
          crash
       end
 
-   filtered_has_stream_pointer: BOOLEAN is False
+   filtered_has_stream_pointer: BOOLEAN False
 
 feature {}
-   ensure_read is
+   ensure_read
          -- Read some new data from the socket if it is available. Does not read anything if all the already
          -- read data is not yet consumed. Set `next_index' to the index of the next character to be read.
       require
@@ -224,17 +238,19 @@ feature {}
             -- It means that a real read operation was performed, or the stream is newly connected.
             -- Otherwise, nothing is to be done.
             if in_buffer.valid_index(index + 1) then
+               -- not yet all data consumed
                check
                   not end_of_stream
                end
                next_index := index + 1
             elseif socket.is_connected then
+               -- read data
                socket.read
                if socket.is_connected then
                   last_read := socket.last_read
                   if last_read.is_empty then
                      end_of_stream := True
-                     --next_index := index + 1
+                     next_index := index + 1
                   else
                      end_of_stream := False
                      -- Remove all previously read characters but the last one (to be able to unread once).
@@ -243,7 +259,7 @@ feature {}
                         beginning_of_stream := False
                         in_buffer.put(in_buffer.last, in_buffer.lower)
                         in_buffer.set_count(1)
-                        next_index := in_buffer.lower + 1
+                        next_index := in_buffer.lower + 1 -- set out-of-bound next_index to signal can_read_character = False
                      else
                         check
                            beginning_of_stream
@@ -258,11 +274,11 @@ feature {}
                   end
                else
                   end_of_stream := True
-                  --next_index := index + 1
+                  next_index := index + 1
                end
             else
                end_of_stream := True
-               --next_index := index + 1
+               next_index := index + 1
             end
          end
       ensure
@@ -280,7 +296,7 @@ feature {}
          -- Set by `ensure_read' to the index of the next character to read
 
 feature {}
-   fire_disconnect is
+   fire_disconnect
       require
          not is_connected
       local
@@ -300,11 +316,11 @@ feature {}
       end
 
 feature {}
-   socket: SOCKET is
+   socket: SOCKET
       deferred
       end
 
-   make is
+   make
          -- Should be called by the creation procedures after the `socket' is set (the assertions ensure just
          -- that)
       require
@@ -315,13 +331,14 @@ feature {}
          out_buffer := ""
          socket.when_disconnected(agent socket_disconnected(?))
          beginning_of_stream := True
+         end_of_stream := True
       ensure
          at_beginning: beginning_of_stream and then index = in_buffer.lower - 1
          must_ensure_read: next_index = index
          called_by_heirs: is_made
       end
 
-   socket_disconnected (a_socket: SOCKET) is
+   socket_disconnected (a_socket: SOCKET)
       require
          a_socket = socket
          not is_connected
@@ -332,7 +349,7 @@ feature {}
    made: BOOLEAN
          -- This flag makes sure that heirs call "make" in their creation procedire(s).
 
-   is_made: BOOLEAN is
+   is_made: BOOLEAN
          -- A trick to be sure that `made' is not alive (therefore not generated) in boost mode.
       do
          Result := made
@@ -354,13 +371,13 @@ invariant
 
 end -- class SOCKET_INPUT_OUTPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

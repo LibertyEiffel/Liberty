@@ -20,7 +20,7 @@ expanded class LIBERTY_FLAME
 feature {LIBERTY_ENLIGHTENING_THE_WORLD}
    light: INTEGER
 
-   set (candela: like light) is
+   set (candela: like light)
       do
          light := candela
       ensure

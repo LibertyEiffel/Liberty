@@ -5,9 +5,9 @@ expanded class GOPTION_ERROR_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = bad_value_low_level)  or else
 				(a_value = failed_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_bad_value is
+	set_bad_value
 		do
 			value := bad_value_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_unknown_option is
+	set_unknown_option
 		do
 			value := unknown_option_low_level
 		end
 
 feature {ANY} -- Queries
-	is_bad_value: BOOLEAN is
+	is_bad_value: BOOLEAN
 		do
 			Result := (value=bad_value_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_unknown_option: BOOLEAN is
+	is_unknown_option: BOOLEAN
 		do
 			Result := (value=unknown_option_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	bad_value_low_level: INTEGER is
+	bad_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unknown_option_low_level: INTEGER is
+	unknown_option_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

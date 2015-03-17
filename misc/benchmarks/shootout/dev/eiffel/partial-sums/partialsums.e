@@ -11,11 +11,11 @@ class PARTIALSUMS
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			sum_1, sum_2, sum_3, flint, cookson, harmonic, riemann, alternating_harmonic, gregory: REAL
 			n_integer, k_integer: INTEGER; k_real, n_real: REAL; c, k_real_2, k_real_3: REAL; flag: BOOLEAN

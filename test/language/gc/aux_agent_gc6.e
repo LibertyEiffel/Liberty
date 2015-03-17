@@ -6,13 +6,13 @@ expanded class AUX_AGENT_GC6
 feature {ANY}
    head, tail: AUX_AGENT_GC7
 
-   clear is
+   clear
       do
          head := Void
          tail := Void
       end
 
-   add (p: AUX_AGENT_GC3) is
+   add (p: AUX_AGENT_GC3)
       local
          node: AUX_AGENT_GC7
       do
@@ -25,7 +25,7 @@ feature {ANY}
          tail := node
       end
 
-   remove (p: AUX_AGENT_GC3) is
+   remove (p: AUX_AGENT_GC3)
       local
          node, previous: AUX_AGENT_GC7
       do
@@ -49,7 +49,7 @@ feature {ANY}
          end
       end
 
-   do_all (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]]) is
+   for_each (proc: ROUTINE[TUPLE[AUX_AGENT_GC3]])
       local
          node: AUX_AGENT_GC7
       do
@@ -63,7 +63,7 @@ feature {ANY}
          end
       end
 
-   accumulate_totals: AUX_AGENT_GC5 is
+   accumulate_totals: AUX_AGENT_GC5
       local
          node: AUX_AGENT_GC7
       do

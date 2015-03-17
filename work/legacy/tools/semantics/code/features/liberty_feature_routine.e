@@ -27,7 +27,7 @@ feature {ANY}
 
    rescue_instruction: LIBERTY_INSTRUCTION
 
-   locals: TRAVERSABLE[LIBERTY_LOCAL] is
+   locals: TRAVERSABLE[LIBERTY_LOCAL]
       require
          has_context
       do
@@ -37,7 +37,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_FEATURE}
-   set_specialized_in (a_original: like Current; a_context: like context) is
+   set_specialized_in (a_original: like Current; a_context: like context)
       do
          Precursor(a_original, a_context)
          block_instruction := block_instruction.specialized_in(a_context.current_type)
@@ -47,7 +47,7 @@ feature {LIBERTY_FEATURE}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   set_rescue (a_rescue: like rescue_instruction) is
+   set_rescue (a_rescue: like rescue_instruction)
       require
          rescue_instruction = Void
          a_rescue /= Void
@@ -58,7 +58,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {}
-   make (a_definition_type: like definition_type; a_instruction: like block_instruction; a_accelerator: like accelerator) is
+   make (a_definition_type: like definition_type; a_instruction: like block_instruction; a_accelerator: like accelerator)
       require
          a_definition_type /= Void
          a_instruction /= Void
@@ -72,7 +72,7 @@ feature {}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       local
          old_mark: like reachable_mark
       do

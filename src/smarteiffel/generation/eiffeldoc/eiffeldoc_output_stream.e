@@ -16,7 +16,7 @@ create {EIFFELDOC_GLOBALS}
    make, connect_to
 
 feature {ANY}
-   put_meta_refresh_api (url_string: STRING) is
+   put_meta_refresh_api (url_string: STRING)
          -- <meta http-equiv="refresh" content="0; url=..." />
       local
          content: STRING
@@ -27,28 +27,28 @@ feature {ANY}
          put_meta(once "refresh", content)
       end
 
-   open_anchor_address (ref, target: STRING) is
+   open_anchor_address (ref, target: STRING)
       do
          Precursor(relocalized(ref), target)
       end
 
-   with_href (ref: STRING) is
+   with_href (ref: STRING)
       do
          with_attribute(once "href", relocalized(ref))
       end
 
-   put_stylesheet (ref: STRING) is
+   put_stylesheet (ref: STRING)
       do
          Precursor(relocalized(ref))
       end
 
-   put_javascript (ref: STRING) is
+   put_javascript (ref: STRING)
       do
          Precursor(relocalized(ref))
       end
 
 feature {EIFFELDOC_GLOBALS}
-   set_depth (a_depth: INTEGER) is
+   set_depth (a_depth: INTEGER)
       local
          i: INTEGER
       do
@@ -65,7 +65,7 @@ feature {EIFFELDOC_GLOBALS}
 
    depth: STRING
 
-   relocalized (ref: STRING): STRING is
+   relocalized (ref: STRING): STRING
       local
          i: INTEGER; s: STRING
       do

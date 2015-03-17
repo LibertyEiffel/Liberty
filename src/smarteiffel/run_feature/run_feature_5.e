@@ -12,7 +12,7 @@ create {ONCE_PROCEDURE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_5_VISITOR) is
+   accept (visitor: RUN_FEATURE_5_VISITOR)
       do
          visitor.visit_run_feature_5(Current)
       end
@@ -28,24 +28,33 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+      do
+      end
+
    rescue_compound: INSTRUCTION
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is True
+   is_once_procedure: BOOLEAN True
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   result_type: TYPE_MARK is
+   has_closures: BOOLEAN
+      do
+         Result := base_feature.has_closures
+      end
+
+   result_type: TYPE_MARK
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -83,12 +92,12 @@ feature {}
          once_routine_pool.register_procedure(Current)
       end
 
-   set_result_type is
+   set_result_type
       do
       end
 
 feature {}
-   compute_use_current is
+   compute_use_current
       do
          if type_of_current.is_reference then
             if ace.no_check then
@@ -113,9 +122,9 @@ end -- class RUN_FEATURE_5
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

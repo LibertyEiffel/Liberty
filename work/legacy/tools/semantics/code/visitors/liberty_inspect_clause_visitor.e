@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INSPECT_CLAUSE}
-   visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE) is
+   visit_liberty_inspect_clause (v: LIBERTY_INSPECT_CLAUSE)
       deferred
       end
 

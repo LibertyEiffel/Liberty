@@ -7,7 +7,7 @@ inherit
    CLASSES
 
 feature {CLUSTERS}
-   find_physical_cluster (system_path: STRING): CLUSTER is
+   find_physical_cluster (system_path: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -22,7 +22,8 @@ feature {CLUSTERS}
       end
 
 feature {} -- Tree handling
-   add_classes (a_classes: CLASSES) is
+   add_classes (a_classes: CLASSES)
+      -- Object sin: knowing your heirs -- here, LOADPATH and UNIVERSE
       require
          a_classes.parent = Void
       local
@@ -49,7 +50,7 @@ feature {} -- Tree handling
       end
 
 feature {ACE, CLASSES} -- Searching
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -63,8 +64,8 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   clusters_of (class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
-      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
+   clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
+      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER)
       local
          i, child_distance: INTEGER; c: CLASSES
       do
@@ -76,13 +77,13 @@ feature {ACE, CLASSES} -- Searching
          loop
             c := classeses.item(i)
             if c /= skip then
-               c.clusters_of(class_name, report_error, skip, clusters, distances, child_distance)
+               c.clusters_of(class_name, skip, clusters, distances, child_distance)
             end
             i := i + 1
          end
       end
 
-   cluster_by_directory_path (path: STRING): CLUSTER is
+   cluster_by_directory_path (path: STRING): CLUSTER
       local
          i: INTEGER
       do
@@ -96,7 +97,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       local
          i: INTEGER
       do
@@ -110,7 +111,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       local
          i: INTEGER
       do
@@ -124,7 +125,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   cluster_count: INTEGER is
+   cluster_count: INTEGER
       local
          i: INTEGER
       do
@@ -138,7 +139,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   has_class (class_name: HASHED_STRING): BOOLEAN is
+   has_class (class_name: HASHED_STRING): BOOLEAN
       local
          i: INTEGER
       do
@@ -152,7 +153,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   has_cluster (c: CLUSTER): BOOLEAN is
+   has_cluster (c: CLUSTER): BOOLEAN
       local
          i: INTEGER
       do
@@ -166,7 +167,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       local
          i: INTEGER
       do
@@ -180,7 +181,21 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]]) is
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      local
+         i: INTEGER
+      do
+         from
+            i := classeses.lower
+         until
+            i > classeses.upper
+         loop
+            classeses.item(i).for_all_filtered(name_guard, action)
+            i := i + 1
+         end
+      end
+
+   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       local
          i: INTEGER
       do
@@ -194,7 +209,7 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   cluster_at (index: INTEGER): CLUSTER is
+   cluster_at (index: INTEGER): CLUSTER
       local
          i, n, c: INTEGER; classes: CLASSES
       do
@@ -219,7 +234,7 @@ feature {ACE, CLASSES} -- Searching
       end
 
 feature {ACE, CLUSTERS} -- Liberty Eiffel specific
-   parse_include is
+   parse_include
       local
          i: INTEGER
       do
@@ -233,7 +248,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
       local
          i: INTEGER
       do
@@ -247,7 +262,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
       local
          i: INTEGER
       do
@@ -261,7 +276,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   get_started (level: INTEGER) is
+   get_started (level: INTEGER)
       local
          i: INTEGER
       do
@@ -275,7 +290,7 @@ feature {ACE, CLUSTERS} -- Liberty Eiffel specific
          end
       end
 
-   show (tab: INTEGER) is
+   show (tab: INTEGER)
       local
          i, t: INTEGER
       do
@@ -303,7 +318,7 @@ feature {}
    classeses: FAST_ARRAY[CLASSES]
          -- Sorted by growing distance. Pretty name ain't it :-)
 
-   show_name is
+   show_name
       deferred
       end
 
@@ -322,9 +337,9 @@ end -- class CLUSTERS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

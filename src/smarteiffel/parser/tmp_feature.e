@@ -7,6 +7,9 @@ class TMP_FEATURE
    -- At the end, the good effective ANONYMOUS_FEATURE is choose.
    --
 
+inherit
+   INDEXINGABLE
+
 insert
    GLOBALS
 
@@ -14,7 +17,7 @@ create {EIFFEL_PARSER}
    initialize
 
 feature {EIFFEL_PARSER}
-   first_name: FEATURE_NAME is
+   first_name: FEATURE_NAME
       do
          Result := names.first
       end
@@ -33,13 +36,17 @@ feature {EIFFEL_PARSER}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+
    names: FAST_ARRAY[FEATURE_NAME]
 
    assigned: FEATURE_NAME
 
    busy: BOOLEAN
 
-   initialize is
+   has_closures: BOOLEAN
+
+   initialize
       require
          not busy
       do
@@ -56,6 +63,8 @@ feature {EIFFEL_PARSER}
          require_assertion := Void
          local_vars := Void
          routine_body := Void
+         routine_then := Void
+         has_closures := False
          busy := True
       ensure
          arguments = Void
@@ -65,12 +74,21 @@ feature {EIFFEL_PARSER}
          require_assertion = Void
          local_vars = Void
          routine_body = Void
+         routine_then = Void
          names.is_empty
          assigned = Void
+         not has_closures
          busy
       end
 
-   done is
+   set_has_closures
+      do
+         has_closures := True
+      ensure
+         has_closures
+      end
+
+   done
       require
          busy
       do
@@ -79,28 +97,46 @@ feature {EIFFEL_PARSER}
          not busy
       end
 
-   add_synonym (a_name: FEATURE_NAME) is
+   add_synonym (a_name: FEATURE_NAME)
       require
          a_name /= Void
+      local
+         buf: STRING
       do
+         debug
+            if echo.is_verbose then
+               buf := once "................................"
+               buf.clear_count
+               a_name.complete_name_in(buf)
+               echo.put_string(once "            > ")
+               echo.put_line(buf)
+            end
+         end
          names.add_last(a_name)
       end
 
-   set_assigned (a: like assigned) is
+   clear_synonyms is
+      require
+         not names.is_empty
+      do
+         names.clear_count
+      end
+
+   set_assigned (a: like assigned)
       require
          a /= Void
       do
          assigned := a
       end
 
-   set_arguments (args: like arguments) is
+   set_arguments (args: like arguments)
       require
          args /= Void
       do
          arguments := args
       end
 
-   set_type (t: like type) is
+   set_type (t: like type)
       require
          t /= Void
       do
@@ -109,50 +145,57 @@ feature {EIFFEL_PARSER}
          type = t
       end
 
-   set_header_comment (hc: like header_comment) is
+   set_header_comment (hc: like header_comment)
       do
          header_comment := hc
       end
 
-   set_obsolete_mark (om: like obsolete_mark) is
+   set_obsolete_mark (om: like obsolete_mark)
       do
          obsolete_mark := om
       end
 
-   set_local_vars (lv: like local_vars) is
+   set_local_vars (lv: like local_vars)
       do
          local_vars := lv
       end
 
-   set_require (sp: POSITION; else_flag: BOOLEAN; hc: COMMENT; al: FAST_ARRAY[ASSERTION]) is
+   set_require (sp: POSITION; else_flag: BOOLEAN; hc: COMMENT; al: FAST_ARRAY[ASSERTION])
       do
          if hc /= Void or else al /= Void then
             create require_assertion.make(sp, else_flag, hc, al)
          end
       end
 
-   set_routine_body (rb: like routine_body) is
+   set_routine_body (rb: like routine_body)
       do
          routine_body := rb
       end
 
-   as_writable_attribute: FEATURE_TEXT is
+   set_routine_then (rt: like routine_then)
+      do
+         routine_then := rt
+      end
+
+   as_writable_attribute: FEATURE_TEXT
       require
          type /= Void
          arguments = Void
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "An attribute cannot be an assigner.")
             error_handler.print_as_fatal_error
          end
-         create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion)
+         create Result.writable_attribute(n, type, obsolete_mark, header_comment, require_assertion, index_list)
       end
 
-   as_boolean_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_boolean_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
          {BOOLEAN_CONSTANT} ?:= value
+         not has_closures
       local
          boolean_constant: BOOLEAN_CONSTANT
       do
@@ -164,7 +207,7 @@ feature {EIFFEL_PARSER}
          boolean_constant ::= value
          constant_attribute_common_checks(value)
          if type.is_boolean then
-            create Result.boolean_constant(n, type, boolean_constant)
+            create Result.boolean_constant(n, type, boolean_constant, index_list)
          else
             error_handler.add_position(type.start_position)
             error_handler.append(once "The type of this constant feature should be BOOLEAN.")
@@ -172,10 +215,11 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_character_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_character_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
          {CHARACTER_CONSTANT} ?:= value
+         not has_closures
       local
          character_constant: CHARACTER_CONSTANT
       do
@@ -191,12 +235,13 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "The type of this constant feature should be CHARACTER.")
             error_handler.print_as_fatal_error
          end
-         create Result.character_constant(n, type, character_constant)
+         create Result.character_constant(n, type, character_constant, index_list)
       end
 
-   as_constant (value: EXPRESSION): FEATURE_TEXT is
+   as_constant (value: EXPRESSION): FEATURE_TEXT
       require
          value /= Void
+         not has_closures
       local
          integer_constant: INTEGER_CONSTANT; integer_type_mark: INTEGER_TYPE_MARK
          real_constant: REAL_CONSTANT
@@ -236,10 +281,10 @@ feature {EIFFEL_PARSER}
                   end
                when 64 then
                end
-               create Result.integer_constant(n, integer_type_mark, integer_constant)
+               create Result.integer_constant(n, integer_type_mark, integer_constant, index_list)
             elseif type.is_real then
                --|*** Check for truncation *** (Dom Oct 2004) ***
-               create Result.real_constant(n, type, integer_constant.to_real_constant)
+               create Result.real_constant(n, type, integer_constant.to_real_constant, index_list)
             else
                error_handler.add_position(type.start_position)
                error_handler.append(once "The type of this constant feature should be INTEGER or REAL.")
@@ -248,7 +293,7 @@ feature {EIFFEL_PARSER}
          elseif {REAL_CONSTANT} ?:= value then
             real_constant ::= value
             if type.is_real then
-               create Result.real_constant(n, type, real_constant)
+               create Result.real_constant(n, type, real_constant, index_list)
                real_constant.set_result_type(type)
             else
                error_handler.add_position(type.start_position)
@@ -268,7 +313,9 @@ feature {EIFFEL_PARSER}
          end
       end
 
-   as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT is
+   as_string_constant (value: MANIFEST_STRING): FEATURE_TEXT
+      require
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)
@@ -281,62 +328,78 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "The type of this constant feature should be STRING.")
             error_handler.print_as_fatal_error
          end
-         create Result.string_constant(n, type, value)
+         create Result.string_constant(n, type, value, index_list)
       end
 
-   as_deferred_routine: FEATURE_TEXT is
+   as_deferred_routine: FEATURE_TEXT
+      require
+         not has_closures
       do
          if type = Void then
-            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned)
+            create Result.deferred_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion)
+            create Result.deferred_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, index_list)
          end
       end
 
-   as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT is
+   as_external_routine (native: NATIVE; alias_tag: MANIFEST_STRING): FEATURE_TEXT
+      require
+         not has_closures
       do
          if type = Void then
-            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned)
+            create Result.external_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, native, alias_tag, assigned, index_list)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag)
+            create Result.external_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, native, alias_tag, index_list)
          end
       end
 
-   as_once_routine: FEATURE_TEXT is
+   as_once_routine: FEATURE_TEXT
       do
          if type = Void then
-            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+            if routine_then /= Void then
+               error_handler.add_position(routine_then.start_position)
+               error_handler.append(once "A procedure cannot have a 'then'.")
+               error_handler.print_as_fatal_error
+            end
+            create Result.once_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.once_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, routine_then, index_list, has_closures)
          end
       end
 
-   as_procedure_or_function: FEATURE_TEXT is
+   as_procedure_or_function: FEATURE_TEXT
       do
          if type = Void then
-            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned)
+            if routine_then /= Void then
+               error_handler.add_position(routine_then.start_position)
+               error_handler.append(once "A procedure cannot have a 'then'.")
+               error_handler.print_as_fatal_error
+            end
+            create Result.e_procedure(n, arguments, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, assigned, index_list, has_closures)
          elseif assigned /= Void then
             error_handler.add_position(assigned.start_position)
             error_handler.append(once "A function cannot be an assigner.")
             error_handler.print_as_fatal_error
          else
-            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body)
+            create Result.e_function(n, arguments, type, obsolete_mark, header_comment, require_assertion, local_vars, routine_body, routine_then, index_list, has_closures)
          end
       end
 
-   as_unique_constant: FEATURE_TEXT is
+   as_unique_constant: FEATURE_TEXT
+      require
+         not has_closures
       do
          if assigned /= Void then
             error_handler.add_position(assigned.start_position)
@@ -349,11 +412,11 @@ feature {EIFFEL_PARSER}
             error_handler.append(once "Unique feature must have INTEGER type.")
             error_handler.print_as_fatal_error
          end
-         create Result.unique_constant(n, type)
+         create Result.unique_constant(n, type, index_list)
       end
 
 feature {}
-   constant_attribute_common_checks (constant_expression: EXPRESSION) is
+   constant_attribute_common_checks (constant_expression: EXPRESSION)
          -- Where `constant_expression' is the one written just after the "is" keyword (except for
          -- a "unique" definition).
       do
@@ -387,7 +450,7 @@ feature {}
          end
       end
 
-   n: FEATURE_NAME_LIST is
+   n: FEATURE_NAME_LIST
       require
          not names.is_empty
       do
@@ -410,9 +473,9 @@ end -- class TMP_FEATURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

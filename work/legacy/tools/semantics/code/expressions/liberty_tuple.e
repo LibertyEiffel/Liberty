@@ -23,29 +23,29 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_TUPLE}
 feature {ANY}
    result_type: LIBERTY_TYPE
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := elements.count
       end
 
-   lower: INTEGER is 1
+   lower: INTEGER 1
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := count = 0
       end
 
-   item (i: INTEGER): LIBERTY_EXPRESSION is
+   item (i: INTEGER): LIBERTY_EXPRESSION
       do
          Result := elements.item(i - lower)
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like result_type
          e: like elements
@@ -76,14 +76,14 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          result_type.mark_reachable_code(mark)
          expressions_marker.mark_reachable_code(mark, elements)
       end
 
 feature {}
-   make (a_result_type: like result_type; a_elements: like elements; a_position: like position) is
+   make (a_result_type: like result_type; a_elements: like elements; a_position: like position)
       require
          a_result_type /= Void
          -- a_result_type is a TUPLE type
@@ -102,7 +102,7 @@ feature {}
    elements: COLLECTION[LIBERTY_EXPRESSION]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_TUPLE_VISITOR
       do

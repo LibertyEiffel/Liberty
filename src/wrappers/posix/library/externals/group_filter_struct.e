@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	POSIX_TYPES
 feature {} -- Low-level setters
 
-	group_filter_struct_set_gf_interface (a_structure: POINTER; a_value: like uint32_t) is
+	group_filter_struct_set_gf_interface (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for gf_interface field of GROUP_FILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	group_filter_struct_set_gf_fmode (a_structure: POINTER; a_value: like uint32_t) is
+	group_filter_struct_set_gf_fmode (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for gf_fmode field of GROUP_FILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	group_filter_struct_set_gf_numsrc (a_structure: POINTER; a_value: like uint32_t) is
+	group_filter_struct_set_gf_numsrc (a_structure: POINTER; a_value: like uint32_t)
 			-- Setter for gf_numsrc field of GROUP_FILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	group_filter_struct_set_gf_slist (a_structure: POINTER; a_value: POINTER) is
+	group_filter_struct_set_gf_slist (a_structure: POINTER; a_value: POINTER)
 			-- Setter for gf_slist field of GROUP_FILTER_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	group_filter_struct_get_gf_interface (a_structure: POINTER): like uint32_t is
+	group_filter_struct_get_gf_interface (a_structure: POINTER): like uint32_t
 			-- Query for gf_interface field of GROUP_FILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -71,7 +71,7 @@ feature {} -- Low-level queries
 		end
 
 	-- Unwrappable field gf_group.
-	group_filter_struct_get_gf_fmode (a_structure: POINTER): like uint32_t is
+	group_filter_struct_get_gf_fmode (a_structure: POINTER): like uint32_t
 			-- Query for gf_fmode field of GROUP_FILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -83,7 +83,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	group_filter_struct_get_gf_numsrc (a_structure: POINTER): like uint32_t is
+	group_filter_struct_get_gf_numsrc (a_structure: POINTER): like uint32_t
 			-- Query for gf_numsrc field of GROUP_FILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -95,7 +95,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	group_filter_struct_get_gf_slist (a_structure: POINTER): POINTER is
+	group_filter_struct_get_gf_slist (a_structure: POINTER): POINTER
 			-- Query for gf_slist field of GROUP_FILTER_STRUCT structure.
 			-- TODO: getter description
 
@@ -108,7 +108,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

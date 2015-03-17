@@ -9,14 +9,14 @@ insert ANY undefine is_equal, copy end
 	STANDARD_C_LIBRARY_TYPES
 
 feature -- C type definitions (typedefs)
-	histdata_t: POINTER is
+	histdata_t: POINTER
 		-- typedef histdata_t
 		-- Empty by design, used for anchored declarations.
 	do
 	ensure Result.is_default
 	end
 
-	keymap: POINTER is
+	keymap: POINTER
 		-- typedef Keymap
 		-- Empty by design, used for anchored declarations.
 	do

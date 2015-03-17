@@ -15,7 +15,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          string: STRING; i: INTEGER
       do
@@ -32,7 +32,7 @@ feature {ANY}
          -- ("foo%N"), the former should overwrite the latter.
 
          from
-            i := 100_000
+            i := 10_000
          until
             i = 0
          loop
@@ -45,24 +45,24 @@ feature {ANY}
          io.put_string(string)
       end
 
-   new_string (c_string: POINTER): STRING is
+   new_string (c_string: POINTER): STRING
       do
          create Result.from_external_copy(c_string)
       end
 
-   send_factory_to_c (factory: like Current) is
+   send_factory_to_c (factory: like Current)
       external "C"
       end
 
-   string_back_to_eiffel: STRING is
+   string_back_to_eiffel: STRING
       external "C"
       end
 
-   call_eif_adopt_from_c is
+   call_eif_adopt_from_c
       external "C"
       end
 
-   call_eif_wean_from_c is
+   call_eif_wean_from_c
       external "C"
       end
 

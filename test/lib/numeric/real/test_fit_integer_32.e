@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert({INTEGER_64 -2147483648}.fit_integer_32)
          assert({INTEGER_64 2147483647}.fit_integer_32)

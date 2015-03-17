@@ -8,21 +8,21 @@ inherit
    PATH_JOINER
 
 feature {ANY} -- Creation/ Initialization
-   make_empty is
+   make_empty
          -- Make a 'null' path
       deferred
       ensure
          is_empty
       end
 
-   make_root is
+   make_root
          -- Path to root directory (in current drive)
       deferred
       ensure
          is_absolute
       end
 
-   make_current is
+   make_current
          -- Path to current directory (relative). See also `to_absolute'
          -- if you need the absolute current working directory
       deferred
@@ -30,7 +30,7 @@ feature {ANY} -- Creation/ Initialization
          not is_absolute
       end
 
-   make_from_string (s: STRING) is
+   make_from_string (s: STRING)
       require
          s /= Void
          s.is_empty or else is_valid_path(s)
@@ -40,7 +40,7 @@ feature {ANY} -- Creation/ Initialization
          (old to_string /= s) implies to_string /= s
       end
 
-   make_from_path_name (pn: PATH_NAME) is
+   make_from_path_name (pn: PATH_NAME)
       require
          pn /= Void
       do
@@ -49,19 +49,19 @@ feature {ANY} -- Creation/ Initialization
       end
 
 feature {ANY} -- Constants
-   extension_separator: CHARACTER is
+   extension_separator: CHARACTER
          -- Character used to separate filenames from extensions
       deferred
       end
 
-   directory_separator: CHARACTER is
+   directory_separator: CHARACTER
          -- Character used to separate directories
          -- This character is forbidden in filenames
       deferred
       end
 
 feature {ANY} -- Access
-   to_string: STRING is
+   to_string: STRING
          -- String representation
       deferred
       ensure
@@ -69,21 +69,21 @@ feature {ANY} -- Access
          Result.is_empty or else is_valid_path(Result)
       end
 
-   drive_specification: STRING is
+   drive_specification: STRING
          -- Drive specified by the current path, Void if none
       deferred
       ensure
          Result /= Void implies to_string.has_prefix(Result)
       end
 
-   count: INTEGER is
+   count: INTEGER
          -- Number of elements in_path
       deferred
       ensure
          Result >= 0
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Path is null. Note that you can have a null absolute path
          -- (i.e., root) or a null relative path (current directory)
       do
@@ -92,7 +92,7 @@ feature {ANY} -- Access
          Result = (count = 0)
       end
 
-   last: STRING is
+   last: STRING
          -- Last component (also known as "basename")
       require
          not is_empty
@@ -102,7 +102,7 @@ feature {ANY} -- Access
          is_valid_file_name(Result)
       end
 
-   extension: STRING is
+   extension: STRING
          -- Path extension (may be empty)
       deferred
       ensure
@@ -113,12 +113,12 @@ feature {ANY} -- Access
          is_empty implies Result.is_empty
       end
 
-   is_absolute: BOOLEAN is
+   is_absolute: BOOLEAN
          -- absolute path?
       deferred
       end
 
-   as_absolute: like Current is
+   as_absolute: like Current
          -- Equivalent absolute path
       do
          Result := twin
@@ -128,14 +128,14 @@ feature {ANY} -- Access
          Result.is_normalized
       end
 
-   is_normalized: BOOLEAN is
+   is_normalized: BOOLEAN
          -- Has no redundant separators, or redundant up-references
       deferred
       end
 
-   is_valid_path (path: STRING): BOOLEAN is
+   is_valid_path (path: STRING): BOOLEAN
          -- Does `path' represent a syntactically valid file or
-         -- directory path? The result does not imply that there is
+         -- directory path? The result does not imply that there
          -- actually a file or directory with that name. This
          -- operation does not perform any disk access.
       require
@@ -145,7 +145,7 @@ feature {ANY} -- Access
          path.is_equal(old path.twin)
       end
 
-   is_valid_file_name (name: STRING): BOOLEAN is
+   is_valid_file_name (name: STRING): BOOLEAN
          -- Does `path' only contain valid characters for a file? The
          -- result does not imply that there is actually a file or
          -- directory with that name. Not the same as `is_valid_path':
@@ -159,7 +159,7 @@ feature {ANY} -- Access
          name.is_equal(old name.twin)
       end
 
-   is_valid_directory: BOOLEAN is
+   is_valid_directory: BOOLEAN
          -- Does `Current' represent a syntactically valid directory
          -- path? For many Systems, there may be no syntactical
          -- difference between file paths and directory paths, in
@@ -169,7 +169,7 @@ feature {ANY} -- Access
          Result or is_valid_file
       end
 
-   is_valid_file: BOOLEAN is
+   is_valid_file: BOOLEAN
          -- Does `Current' represent a syntactically valid directory
          -- path? For many Systems, there may be no syntactical
          -- difference between file paths and directory paths, in
@@ -179,19 +179,19 @@ feature {ANY} -- Access
          Result or is_valid_directory
       end
 
-   is_file: BOOLEAN is
+   is_file: BOOLEAN
          -- Path points to an existing regular file?
       do
          Result := (create {FILE_TOOLS}).is_file(to_string)
       end
 
-   is_directory: BOOLEAN is
+   is_directory: BOOLEAN
          -- Path points to an existing directory?
       do
          Result := (create {FILE_TOOLS}).is_directory(to_string)
       end
 
-   infix "+" (other: like Current): like Current is
+   infix "+" (other: like Current): like Current
          -- Join with `other' using filesystem semantics
       require
          other /= Void
@@ -202,7 +202,7 @@ feature {ANY} -- Access
       -- Result is a fresh instance
       end
 
-   infix "/" (elem: STRING): like Current is
+   infix "/" (elem: STRING): like Current
          -- Path with `elem' inside current
       require
          elem /= Void
@@ -216,14 +216,14 @@ feature {ANY} -- Access
          Result.last.is_equal(elem)
       end
 
-   short_name: STRING is
+   short_name: STRING
       deferred
       ensure
          Result /= Void
       end
 
 feature {ANY} -- Operations
-   to_absolute is
+   to_absolute
          -- Transform into equivalent absolute path
       deferred
       ensure
@@ -231,13 +231,13 @@ feature {ANY} -- Operations
          is_normalized
       end
 
-   normalize_case is
+   normalize_case
          -- Transform into normalized case version (equivalent), with
          -- standard path separators
       deferred
       end
 
-   normalize is
+   normalize
          -- Normalize removing double separators, and up-references
       deferred
       ensure
@@ -245,7 +245,7 @@ feature {ANY} -- Operations
          old is_normalized implies to_string.is_equal(old to_string.twin)
       end
 
-   remove_last is
+   remove_last
          -- Remove last component of path (keep the "dirname")
       require
          not is_empty
@@ -256,12 +256,12 @@ feature {ANY} -- Operations
          count = old count - 1
       end
 
-   go_up is
+   go_up
          -- Go up by one directory
       deferred
       end
 
-   add_last (elem: STRING) is
+   add_last (elem: STRING)
       require
          elem /= Void
          not elem.has(directory_separator)
@@ -272,7 +272,7 @@ feature {ANY} -- Operations
          may_grow_one: count <= old count + 1
       end
 
-   join (other: PATH_NAME) is
+   join (other: PATH_NAME)
          -- Join with `other' using filesystem semantics
       require
          other /= Void
@@ -284,20 +284,20 @@ feature {ANY} -- Operations
       -- assertion above is commented out because of SE bug
       end
 
-   join_to (other: PATH_JOINER) is
+   join_to (other: PATH_JOINER)
       require
          other /= Void
       deferred
       end
 
-   expand_user is
+   expand_user
          -- Replace an initial "~" or "~user" by user home directory
       deferred
       ensure
          not (old to_string.twin).has_prefix(once "~") implies to_string.is_equal(old to_string.twin)
       end
 
-   expand_variables is
+   expand_variables
          -- Replace substrings of form $name or ${name} with environment
          -- variable values
       local
@@ -364,7 +364,7 @@ feature {ANY} -- Operations
          not (old to_string.twin).has('$') implies to_string.is_equal(old to_string.twin)
       end
 
-   expand_shellouts is
+   expand_shellouts
          -- Replace substrings of form $(command) with execution of
          -- shell commands
       deferred
@@ -373,12 +373,12 @@ feature {ANY} -- Operations
       end
 
 feature {PATH_JOINER}
-   join_up is
+   join_up
       do
          go_up
       end
 
-   end_join is
+   end_join
       do
          if is_empty and then not is_absolute then
             make_current
@@ -386,7 +386,7 @@ feature {PATH_JOINER}
       end
 
 feature {}
-   tmp: like Current is
+   tmp: like Current
       deferred
       ensure
          Result /= Void
@@ -394,13 +394,13 @@ feature {}
 
 end -- class PATH_NAME
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

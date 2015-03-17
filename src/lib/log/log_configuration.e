@@ -7,7 +7,7 @@ expanded class LOG_CONFIGURATION
 --
 
 feature {ANY}
-   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE]) is
+   load (a_stream: INPUT_STREAM; when_error: PROCEDURE[TUPLE[STRING]]; path_resolver: FUNCTION[TUPLE[STRING], STRING]; a_load_completion: PROCEDURE[TUPLE])
       require
          a_stream.is_connected
       do
@@ -15,7 +15,7 @@ feature {ANY}
       end
 
 feature {LOGGING}
-   logger (a_tag: FIXED_STRING): LOGGER is
+   logger (a_tag: FIXED_STRING): LOGGER
       require
          a_tag /= Void
       do
@@ -25,26 +25,26 @@ feature {LOGGING}
       end
 
 feature {LOGGER}
-   generation_id: INTEGER is
+   generation_id: INTEGER
       do
          Result := internal.generation_id
       end
 
 feature {}
-   internal: LOG_INTERNAL_CONF is
+   internal: LOG_INTERNAL_CONF
       once
          create Result.make
       end
 
 end -- class LOG_CONFIGURATION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

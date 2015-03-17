@@ -18,10 +18,11 @@ insert
          visit_assertion,
          visit_fake_target,
          visit_fake_tuple,
-         visit_argument_name2,
+         visit_argument_name_ref,
          visit_loop_variant,
          visit_compound_expression,
          visit_dynamic_dispatch_temporary1_id,
+         visit_void_call,
          visit_writable_attribute_name
       end
 
@@ -29,7 +30,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {}
-   visit_abstract_current (visited: ABSTRACT_CURRENT) is
+   visit_abstract_current (visited: ABSTRACT_CURRENT)
       do
          if type.is_reference then
             cpp.pending_c_function_body.append(once "(T0*)")
@@ -44,55 +45,89 @@ feature {}
          end
       end
 
-   compile_arg (arg: EXPRESSION) is
+   compile_arg (arg: EXPRESSION)
       do
          arg.accept(Current)
       end
 
 feature {ASSERTION}
-   visit_assertion (visited: ASSERTION) is
+   visit_assertion (visited: ASSERTION)
       do
          crash
       end
 
 feature {FAKE_TARGET}
-   visit_fake_target (visited: FAKE_TARGET) is
+   visit_fake_target (visited: FAKE_TARGET)
       do
          crash -- Not a fake argument
       end
 
 feature {FAKE_TUPLE}
-   visit_fake_tuple (visited: FAKE_TUPLE) is
+   visit_fake_tuple (visited: FAKE_TUPLE)
       do
          crash
       end
 
-feature {ARGUMENT_NAME2}
-   visit_argument_name2 (visited: ARGUMENT_NAME2) is
+feature {ARGUMENT_NAME_REF}
+   visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
-         cpp.print_argument(visited.rank)
+         function_body.append(once "/*`")
+         function_body.append(visited.to_string)
+         function_body.append(once "'*/")
+         if visited.closure_rank = 0 then
+            cpp.print_argument(visited.rank)
+         else
+            function_body.append(once "CA_")
+            visited.closure_rank.append_in(function_body)
+            function_body.extend('_')
+            visited.rank.append_in(function_body)
+         end
       end
 
 feature {LOOP_VARIANT}
-   visit_loop_variant (visited: LOOP_VARIANT) is
+   visit_loop_variant (visited: LOOP_VARIANT)
       do
          crash -- Already moved as an EXPRESSION into the enclosing LOOP_INSTRUCTION.
       end
 
 feature {COMPOUND_EXPRESSION}
-   visit_compound_expression (visited: COMPOUND_EXPRESSION) is
+   visit_compound_expression (visited: COMPOUND_EXPRESSION)
+      local
+         i: INTEGER; exp: EXPRESSION
       do
-         not_yet_implemented
+         -- GCC specific?? (anyway it will at least work with that compiler, it is a good step from the
+         -- previous terse not_yet_implemented)
+         function_body.append(once "({%N")
+         from
+            i := visited.list.lower
+         until
+            i = visited.list.upper
+         loop
+            cpp.code_compiler.compile(visited.list.item(i), type)
+            i := i + 1
+         end
+         exp ::= visited.list.last
+         exp.accept(Current)
+         function_body.append(once ";%N})")
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
-   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID) is
+   visit_dynamic_dispatch_temporary1_id (visited: DYNAMIC_DISPATCH_TEMPORARY1_ID)
       do
          not_yet_implemented
       end
 
+feature {VOID_CALL}
+   visit_void_call (visited: VOID_CALL)
+      local
+         rt: TYPE
+      do
+         rt := visited.resolve_in(type)
+         cpp.se_evobt(rt.canonical_type_mark, type, create {E_VOID}.make(visited.start_position), False)
+      end
+
 feature {WRITABLE_ATTRIBUTE_NAME}
-   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME) is
+   visit_writable_attribute_name (visited: WRITABLE_ATTRIBUTE_NAME)
       do
          crash -- Cannot be syntactically in arg position.
       end
@@ -109,9 +144,9 @@ end -- class C_ARG_MAPPER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

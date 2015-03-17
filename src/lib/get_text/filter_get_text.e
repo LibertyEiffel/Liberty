@@ -4,30 +4,30 @@ inherit
    GET_TEXT[O_]
 
 feature {ANY}
-   message_locale: STRING is
+   message_locale: STRING
       do
          Result := filtered.message_locale
       end
 
-   is_message_locale_set: BOOLEAN is
+   is_message_locale_set: BOOLEAN
       do
          Result := filtered.is_message_locale_set
       end
 
 feature {FILTER_GET_TEXT}
-   register_domain (domain_name: STRING) is
+   register_domain (domain_name: STRING)
       do
          filtered.register_domain(domain_name)
       end
 
 feature {}
-   filtered: GET_TEXT[I_] is
+   filtered: GET_TEXT[I_]
       deferred
       ensure
          Result /= Void
       end
 
-   filter_domain_if_needed (filtered_: like filtered): like filtered is
+   filter_domain_if_needed (filtered_: like filtered): like filtered
          -- Return `filtered_' wrapped, if necessary, in a DYNAMIC_DOMAIN_GET_TEXT.
       require
          filtered_ /= Void

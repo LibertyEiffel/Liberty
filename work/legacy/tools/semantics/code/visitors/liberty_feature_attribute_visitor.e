@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_FEATURE_ATTRIBUTE}
-   visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE) is
+   visit_liberty_feature_attribute (v: LIBERTY_FEATURE_ATTRIBUTE)
       deferred
       end
 

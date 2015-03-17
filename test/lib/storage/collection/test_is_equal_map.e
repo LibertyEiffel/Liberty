@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c1, c2: COLLECTION[STRING]; d1, d2: HASHED_DICTIONARY[STRING, INTEGER]
       do
@@ -32,7 +32,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

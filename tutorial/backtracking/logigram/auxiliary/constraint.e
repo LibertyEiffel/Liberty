@@ -5,7 +5,7 @@ deferred class CONSTRAINT
    -- any constraint
 
 feature {ANY}
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
          -- collect the items
       deferred
       end

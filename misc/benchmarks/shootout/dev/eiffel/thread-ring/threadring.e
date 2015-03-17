@@ -3,13 +3,13 @@ class THREADRING
 insert
 	ARGUMENTS
 
-creation {}
+create {}
 	make
 
 feature {}
-	number_of_threads: INTEGER is 503
+	number_of_threads: INTEGER 503
 
-	make is
+	make
 		local
 			n: INTEGER
 			pi: PIPE_INPUT
@@ -29,7 +29,7 @@ feature {}
 	linkme: PIPE_OUTPUT
 	links: FAST_ARRAY[PIPE_INPUT]
 
-	create_links is
+	create_links
 		local
 			i: INTEGER; po: PIPE_OUTPUT; pi: PIPE_INPUT
 		do
@@ -47,7 +47,7 @@ feature {}
 			links.put(links.first, i)
 		end
 
-	create_threads (linktome: PIPE_INPUT) is
+	create_threads (linktome: PIPE_INPUT)
 		local
 			i: INTEGER; tp: THREADRING_PROCESS
 		do
@@ -61,7 +61,7 @@ feature {}
 			end
 		end
 
-	kill_threads is
+	kill_threads
 		local
 			i: INTEGER
 		do

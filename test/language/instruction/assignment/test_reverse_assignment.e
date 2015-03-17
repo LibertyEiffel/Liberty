@@ -20,7 +20,7 @@ feature {ANY}
 
    any_string: ABSTRACT_STRING
 
-   make is
+   make
       do
          any_string := "foo"
          assert(any_string /= Void)

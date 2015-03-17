@@ -8,17 +8,17 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(1)
          bar(c)
       end
 
-   foo (param: like c) is
+   foo (param: like c)
       do
       end
 
-   bar (param: like b) is
+   bar (param: like b)
       do
       end
 

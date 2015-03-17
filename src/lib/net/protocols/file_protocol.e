@@ -15,9 +15,12 @@ create {PROTOCOLS}
    make
 
 feature {ANY}
-   name: STRING is "file"
+   name: FIXED_STRING
+      once
+         Result := "file".intern
+      end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          if stream /= Void then
             Result := stream.is_connected
@@ -31,13 +34,13 @@ feature {ANY}
    error: STRING
 
 feature {URL_VALIDITY}
-   valid_uri (a_uri: STRING): BOOLEAN is
+   valid_uri (a_uri: STRING): BOOLEAN
       do
          Result := notation.is_valid_path(a_uri)
       end
 
 feature {URL}
-   connect_to (url: URL; read, write: BOOLEAN) is
+   connect_to (url: URL; read, write: BOOLEAN)
       local
          frl: FILE_RESOURCE_LOCATOR
       do
@@ -91,7 +94,7 @@ feature {URL}
          end
       end
 
-   disconnect is
+   disconnect
       do
          if stream /= Void then
             stream.disconnect
@@ -101,11 +104,12 @@ feature {URL}
             instream.disconnect
             r.recycle(instream)
             instream := Void
-         else
-            check outstream /= Void end
+         elseif outstream /= Void then
             outstream.disconnect
             w.recycle(outstream)
             outstream := Void
+         else
+            check False end
          end
       ensure then
          stream = Void
@@ -113,7 +117,7 @@ feature {URL}
          outstream = Void
       end
 
-   input: INPUT_STREAM is
+   input: INPUT_STREAM
       do
          if instream /= Void then
             Result := instream
@@ -122,7 +126,7 @@ feature {URL}
          end
       end
 
-   output: OUTPUT_STREAM is
+   output: OUTPUT_STREAM
       do
          if outstream /= Void then
             Result := outstream
@@ -131,7 +135,7 @@ feature {URL}
          end
       end
 
-   locator (a_uri: STRING): FILE_RESOURCE_LOCATOR is
+   locator (a_uri: STRING): FILE_RESOURCE_LOCATOR
       do
          if locators.is_empty then
             create Result.set_uri(a_uri)
@@ -141,7 +145,7 @@ feature {URL}
          end
       end
 
-   recycle_locator (a_locator: RESOURCE_LOCATOR) is
+   recycle_locator (a_locator: RESOURCE_LOCATOR)
       local
          frl: FILE_RESOURCE_LOCATOR
       do
@@ -154,37 +158,37 @@ feature {}
    instream: TEXT_FILE_READ
    outstream: TEXT_FILE_WRITE
 
-   make is
+   make
       do
       end
 
 feature {} -- Recycling
-   locators: RECYCLING_POOL[FILE_RESOURCE_LOCATOR] is
+   locators: RECYCLING_POOL[FILE_RESOURCE_LOCATOR]
       once
          create Result.make
       end
 
-   notation: UNIX_DIRECTORY_NOTATION is
+   notation: UNIX_DIRECTORY_NOTATION
       once
          create Result
       end
 
-   rw: RECYCLING_POOL[TEXT_FILE_READ_WRITE] is
+   rw: RECYCLING_POOL[TEXT_FILE_READ_WRITE]
       once
          create Result.make
       end
 
-   r: RECYCLING_POOL[TEXT_FILE_READ] is
+   r: RECYCLING_POOL[TEXT_FILE_READ]
       once
          create Result.make
       end
 
-   w: RECYCLING_POOL[TEXT_FILE_WRITE] is
+   w: RECYCLING_POOL[TEXT_FILE_WRITE]
       once
          create Result.make
       end
 
-   rwstream: TEXT_FILE_READ_WRITE is
+   rwstream: TEXT_FILE_READ_WRITE
       do
          if rw.is_empty then
             create Result.make
@@ -193,7 +197,7 @@ feature {} -- Recycling
          end
       end
 
-   rstream: TEXT_FILE_READ is
+   rstream: TEXT_FILE_READ
       do
          if r.is_empty then
             create Result.make
@@ -202,7 +206,7 @@ feature {} -- Recycling
          end
       end
 
-   wstream: TEXT_FILE_WRITE is
+   wstream: TEXT_FILE_WRITE
       do
          if w.is_empty then
             create Result.make
@@ -218,13 +222,13 @@ invariant
 
 end -- class FILE_PROTOCOL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

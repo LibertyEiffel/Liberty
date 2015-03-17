@@ -4,7 +4,7 @@
 class AUX_UNDEFINE1A
 
 feature {ANY}
-   my_feature is
+   my_feature
       do
          io.put_string("Error in AUX_UNDEFINE1A%N")
       end

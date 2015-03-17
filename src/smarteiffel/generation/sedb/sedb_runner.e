@@ -10,7 +10,7 @@ create {SE_DEBUG}
    run
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
@@ -18,7 +18,7 @@ feature {LOOP_ITEM}
          events.expect(t.timeout(1000))
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          user_input := events.event_occurred(std_input.event_can_read)
          Result := True
@@ -31,7 +31,7 @@ feature {LOOP_ITEM}
          end
       end
 
-   continue is
+   continue
       do
          if user_input then
             check_user_input
@@ -42,7 +42,7 @@ feature {LOOP_ITEM}
 
    done: BOOLEAN
 
-   restart is
+   restart
       do
          check False end
       end
@@ -51,7 +51,7 @@ feature {}
    user_input: BOOLEAN
    pid: INTEGER
 
-   check_user_input is
+   check_user_input
       require
          user_input
       local
@@ -163,7 +163,7 @@ feature {}
          end
       end
 
-   send_command (command: STRING) is
+   send_command (command: STRING)
       local
          p: SEDB_PROCESS
       do
@@ -184,7 +184,7 @@ feature {}
          end
       end
 
-   check_processes is
+   check_processes
       do
          debug
             std_error.put_line(once ">> Checking processes")
@@ -208,7 +208,7 @@ feature {}
          end
       end
 
-   check_process (a_pid: INTEGER) is
+   check_process (a_pid: INTEGER)
       local
          proc: SEDB_PROCESS
       do
@@ -225,7 +225,7 @@ feature {}
       end
 
 feature {}
-   run (a_path: like path) is
+   run (a_path: like path)
       require
          not a_path.is_empty
       do
@@ -248,7 +248,7 @@ feature {}
 
    processes: AVL_DICTIONARY[SEDB_PROCESS, INTEGER]
 
-   good_pid (proc: SEDB_PROCESS; a_pid: INTEGER): BOOLEAN is
+   good_pid (proc: SEDB_PROCESS; a_pid: INTEGER): BOOLEAN
       do
          Result := proc.pid = a_pid
       end
@@ -268,9 +268,9 @@ end -- class SEDB_RUNNER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

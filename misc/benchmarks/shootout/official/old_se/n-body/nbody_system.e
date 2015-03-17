@@ -1,12 +1,12 @@
 class NBODY_SYSTEM
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
 	bodies: FAST_ARRAY[BODY]
 
-	make is
+	make
 		local
 			b: BODY; px: DOUBLE; py: DOUBLE; pz: DOUBLE; i: INTEGER; bi: BODY
 		do
@@ -35,7 +35,7 @@ feature {ANY}
 			bodies.item(0).offset_momentum(px, py, pz)
 		end
 
-	advance (dt: DOUBLE) is
+	advance (dt: DOUBLE)
 		local
 			dx: DOUBLE; dy: DOUBLE; dz: DOUBLE; distance: DOUBLE; mag: DOUBLE; i: INTEGER; j: INTEGER; bi: BODY; bj: BODY
 		do
@@ -79,7 +79,7 @@ feature {ANY}
 			end
 		end
 
-	energy: DOUBLE is
+	energy: DOUBLE
 		local
 			dx: DOUBLE; dy: DOUBLE; dz: DOUBLE; distance: DOUBLE; e: DOUBLE; i: INTEGER; j: INTEGER; bi: BODY; bj: BODY
 		do

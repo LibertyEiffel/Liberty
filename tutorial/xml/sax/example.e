@@ -13,29 +13,37 @@ create {}
    make
 
 feature {}
-   make is
+   parser: XML_PARSER
+
+   make
       local
-         in: URL; parser: XML_PARSER
+         in: URL
       do
          create in.absolute("file://" + argument(1))
-         -- then connect the parser
+
+         -- connect the parser
          create parser.connect_to(in)
+
          -- create the nodes stack (current_node must be correctly
          -- implemented because the contracts check that)
-
          create nodes.make
-         -- and parse the flow. Everything else is handled by the
-         -- parser that calls back the following features.
 
+         -- parse the flow. Everything else is handled by the
+         -- parser that calls back the following features.
          parser.parse(Current)
-         -- then disconnect from the stream
-         in.disconnect
+
+         -- then disconnect
+         parser.disconnect
+
+         if at_error then
+            die_with_code(1)
+         end
       end
 
 feature {XML_PARSER}
    nodes: STACK[UNICODE_STRING]
 
-   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER) is
+   with_attribute (attribute_name: UNICODE_STRING; attribute_value: UNICODE_STRING; line, column: INTEGER)
       do
          io.put_string(once "with attribute: ")
          io.put_unicode_string(attribute_name)
@@ -48,7 +56,7 @@ feature {XML_PARSER}
          io.put_new_line
       end
 
-   open_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          io.put_string(once "open node %"")
          io.put_unicode_string(node_name)
@@ -60,7 +68,7 @@ feature {XML_PARSER}
          nodes.push(node_name)
       end
 
-   close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          io.put_string(once "close node %"")
          io.put_unicode_string(node_name)
@@ -72,7 +80,7 @@ feature {XML_PARSER}
          nodes.pop
       end
 
-   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER) is
+   open_close_node (node_name: UNICODE_STRING; line, column: INTEGER)
       do
          io.put_string(once "open and close node %"")
          io.put_unicode_string(node_name)
@@ -83,7 +91,7 @@ feature {XML_PARSER}
          io.put_new_line
       end
 
-   xml_header (line, column: INTEGER) is
+   xml_header (line, column: INTEGER)
       do
          io.put_string(once "that's the XML header at ")
          io.put_integer(line)
@@ -92,7 +100,7 @@ feature {XML_PARSER}
          io.put_new_line
       end
 
-   processing_instruction (a_target, a_data: UNICODE_STRING) is
+   processing_instruction (a_target, a_data: UNICODE_STRING)
       do
          io.put_string(once "a processing instruction: target is %"")
          io.put_unicode_string(a_target)
@@ -101,18 +109,18 @@ feature {XML_PARSER}
          io.put_string(once "%"")
       end
 
-   current_node: UNICODE_STRING is
+   current_node: UNICODE_STRING
       do
          if not nodes.is_empty then
             Result := nodes.top
          end
       end
 
-   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING is
+   entity (a_entity: UNICODE_STRING; line, column: INTEGER): UNICODE_STRING
       do -- no entoty recognized
       end
 
-   data (a_data: UNICODE_STRING; line, column: INTEGER) is
+   data (a_data: UNICODE_STRING; line, column: INTEGER)
       do
          io.put_string(once "data at ")
          io.put_integer(line)
@@ -123,7 +131,7 @@ feature {XML_PARSER}
          io.put_string(once "%N.%N")
       end
 
-   parse_error (line, column: INTEGER; message: STRING) is
+   parse_error (line, column: INTEGER; message: STRING)
       do
          at_error := True -- that's useless since we die, but respect the poscondition anyway ;-)
          io.put_string(once "error at ")
@@ -131,10 +139,26 @@ feature {XML_PARSER}
          io.put_string(once ", ")
          io.put_integer(column)
          io.put_string(once "!%N")
-         io.put_string(message)
-         die_with_code(1)
+         io.put_line(message)
+         sedb_breakpoint
       end
 
    at_error: BOOLEAN
+
+   open_entity_url (a_entity: UNICODE_STRING; a_url: URL)
+      do
+         io.put_string(once "open entity url &")
+         io.put_string(a_entity.as_utf8)
+         io.put_string(once ": ")
+         io.put_line(a_url.out)
+      end
+
+   close_entity_url (a_entity: UNICODE_STRING; a_url: URL)
+      do
+         io.put_string(once "close entity url &")
+         io.put_string(a_entity.as_utf8)
+         io.put_string(once ": ")
+         io.put_line(a_url.out)
+      end
 
 end -- class EXAMPLE

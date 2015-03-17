@@ -20,28 +20,28 @@ feature {ANY}
    expression: EXPRESSION
          -- The one after keyword "old".
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   extra_bracket_flag: BOOLEAN is True
+   extra_bracket_flag: BOOLEAN True
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          exp: like expression
       do
@@ -58,7 +58,7 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          exp: like expression
       do
@@ -66,7 +66,7 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          exp: like expression
       do
@@ -74,33 +74,38 @@ feature {ANY}
          Result := current_or_twin_init(exp)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          -- As the `expression' is memorized and always evaluated once:
          Result := True
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := expression.declaration_type
       end
 
-   resolve_in (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := expression.written_declaration_type_mark
+      end
+
+   resolve_in (type: TYPE): TYPE
       do
          Result := expression.resolve_in(type)
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := expression.non_void_no_dispatch_type(type)
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          not_yet_implemented
          check
@@ -108,14 +113,14 @@ feature {ANY}
          end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.keyword(once "old")
          if expression.precedence <= precedence then
@@ -125,7 +130,7 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
@@ -133,46 +138,46 @@ feature {ANY}
          pretty_printer.put_character('.')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.hook_or(once "old", once "old ")
          expression.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := 11
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := expression.collect(type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := current_or_twin_init(expression.adapt_for(type))
          smart_eiffel.register_old(Result)
       end
 
-   accept (visitor: E_OLD_VISITOR) is
+   accept (visitor: E_OLD_VISITOR)
       do
          visitor.visit_e_old(Current)
       end
 
 feature {E_OLD}
-   init (exp: like expression) is
+   init (exp: like expression)
       require
          exp /= Void
       do
@@ -182,7 +187,7 @@ feature {E_OLD}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          exp: like expression
       do
@@ -194,7 +199,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (sp: like start_position; exp: like expression) is
+   make (sp: like start_position; exp: like expression)
       require
          not sp.is_unknown
          exp /= Void
@@ -206,7 +211,7 @@ feature {}
          expression = exp
       end
 
-   current_or_twin_init (exp: like expression): like Current is
+   current_or_twin_init (exp: like expression): like Current
       require
          exp /= Void
       do
@@ -220,7 +225,7 @@ feature {}
          Result.expression = exp
       end
 
-   vaol_check_memory: REFERENCE[E_OLD] is
+   vaol_check_memory: REFERENCE[E_OLD]
       once
          create Result
       end
@@ -240,9 +245,9 @@ end -- class E_OLD
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -7,13 +7,13 @@ create {}
    make
 
 feature {}
-   f (i : INTEGER) : BOOLEAN is
+   f (i : INTEGER) : BOOLEAN
       do
          if i = old (old i) then
          end;
       end
 
-   make is
+   make
       do
          f(1);
       end

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   fct (s: STRING): FAST_ARRAY[STRING] is
+   fct (s: STRING): FAST_ARRAY[STRING]
       do
          create Result.make(0)
       ensure
@@ -21,12 +21,12 @@ feature {ANY}
          Result.for_all(agent work_around(?))
       end
 
-   work_around (string: STRING): BOOLEAN is
+   work_around (string: STRING): BOOLEAN
       do
          Result := string.occurrences('%N').is_odd
       end
 
-   make is
+   make
       local
          s: like fct
       do

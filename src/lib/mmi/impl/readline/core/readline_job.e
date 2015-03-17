@@ -13,19 +13,19 @@ create {USER_INTERFACE}
    connect
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       local
          t: TIME_EVENTS
       do
          events.expect(t.timeout(0)) -- because readline cannot be select(2)'ed
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := True
       end
 
-   continue is
+   continue
       local
          context: READLINE_CONTEXT
       do
@@ -43,43 +43,43 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := stream = Void or else not stream.is_connected
       end
 
-   restart is
+   restart
       do
          create stream.make
       end
 
 feature {UI_ITEM}
-   new_bridge_application (ui: UI_APPLICATION): READLINE_APPLICATION is
+   new_bridge_application (ui: UI_APPLICATION): READLINE_APPLICATION
       do
          create Result.make(ui)
       end
 
-   new_bridge_window (ui: UI_WINDOW): READLINE_WINDOW is
+   new_bridge_window (ui: UI_WINDOW): READLINE_WINDOW
       do
          create Result.make(ui)
       end
 
-   new_bridge_panel (ui: UI_PANEL): READLINE_PANEL is
+   new_bridge_panel (ui: UI_PANEL): READLINE_PANEL
       do
          create Result.make(ui)
       end
 
-   new_bridge_menu (ui: UI_MENU): READLINE_MENU is
+   new_bridge_menu (ui: UI_MENU): READLINE_MENU
       do
          create Result.make(ui)
       end
 
-   new_bridge_text_field (ui: UI_TEXT_FIELD): READLINE_TEXT_FIELD is
+   new_bridge_text_field (ui: UI_TEXT_FIELD): READLINE_TEXT_FIELD
       do
          create Result.make(ui)
       end
 
-   new_bridge_button (ui: UI_BUTTON): READLINE_BUTTON is
+   new_bridge_button (ui: UI_BUTTON): READLINE_BUTTON
       do
          create Result.make(ui)
       end
@@ -90,13 +90,13 @@ feature {}
 
 end -- class READLINE_JOB
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

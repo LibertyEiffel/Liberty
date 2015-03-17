@@ -26,7 +26,7 @@ feature {ANY}
    entity: LIBERTY_FEATURE_ENTITY
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          if target /= Void then
             target.mark_reachable_code(mark)
@@ -36,7 +36,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+   make (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position)
       require
          a_target /= Void
          a_entity /= Void
@@ -55,7 +55,7 @@ feature {}
          position = a_position
       end
 
-   implicit_current (a_entity: like entity; a_actuals: like actuals_list; a_position: like position) is
+   implicit_current (a_entity: like entity; a_actuals: like actuals_list; a_position: like position)
       require
          a_entity /= Void
          a_actuals /= Void
@@ -73,7 +73,7 @@ feature {}
 
    actuals_list: COLLECTION[LIBERTY_EXPRESSION]
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       do
          if a_target = Void then
             create Result.implicit_current(a_entity, a_actuals, a_position)
@@ -83,18 +83,18 @@ feature {}
       end
 
 feature {LIBERTY_CALL_PROMOTION}
-   set_entity (a_entity: like entity) is
+   set_entity (a_entity: like entity)
       do
          entity := a_entity
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       do
          target := a_target
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CALL_INSTRUCTION_VISITOR
       do

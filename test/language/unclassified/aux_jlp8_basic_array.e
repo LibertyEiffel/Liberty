@@ -7,11 +7,11 @@ insert
    ANY
 
 feature {ANY}
-   make (nb: INTEGER) is
+   make (nb: INTEGER)
       deferred
       end
 
-   init (first, last: INTEGER) is
+   init (first, last: INTEGER)
       local
          a_item: E; i: INTEGER
       do
@@ -25,15 +25,15 @@ feature {ANY}
          end
       end
 
-   capacity: INTEGER is
+   capacity: INTEGER
       deferred
       end
 
-   put (v: E; i: INTEGER) is
+   put (v: E; i: INTEGER)
       deferred
       end
 
-   force (v: E; i: INTEGER) is
+   force (v: E; i: INTEGER)
       do
          if i < capacity then
             put(v, i)
@@ -43,15 +43,15 @@ feature {ANY}
          end
       end
 
-   item (i: INTEGER): E is
+   item (i: INTEGER): E
       deferred
       end
 
-   resize (new_size: INTEGER) is
+   resize (new_size: INTEGER)
       deferred
       end
 
-   valid_index (i: INTEGER): BOOLEAN is
+   valid_index (i: INTEGER): BOOLEAN
       do
       end
 

@@ -15,7 +15,7 @@ create {}
 feature {}
    rai: RING_ARRAY[INTEGER]
 
-   make is
+   make
       local
          i: INTEGER
       do

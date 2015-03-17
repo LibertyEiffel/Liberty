@@ -3,18 +3,18 @@
 --
 deferred class COMPLEX_MATH[A_PRECISION->FLOAT]
 
-feature {ANY} -- 
-   complex (a_real, an_imaginary: A_PRECISION): COMPLEX_GENERAL[A_PRECISION] is
+feature {ANY} --
+   complex (a_real, an_imaginary: A_PRECISION): COMPLEX_GENERAL[A_PRECISION]
       do
-			Result.set(a_real,an_imaginary)
-		end
+         Result.set(a_real,an_imaginary)
+      end
 
 feature {ANY} -- Complex constants:
-   i: COMPLEX_GENERAL[A_PRECISION] is
+   i: COMPLEX_GENERAL[A_PRECISION]
          -- complex i
       local
          a_number: A_PRECISION
-      do 
+      do
          Result.set(a_number.zero, a_number.one)
       end
 
@@ -26,7 +26,7 @@ end -- class COMPLEX_MATH
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

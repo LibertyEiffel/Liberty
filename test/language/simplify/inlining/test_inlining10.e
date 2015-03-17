@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a1, a2, a3, a4: like Current
 
-   make is
+   make
       do
          a1 := Current
          a2 := Current
@@ -21,22 +21,22 @@ feature {ANY}
          end
       end
 
-   foo_a1 is
+   foo_a1
       do
          a1 := Void
       end
 
-   foo_a2 is
+   foo_a2
       do
          a2.foo_a1
       end
 
-   foo_a3 is
+   foo_a3
       do
          a3.foo_a2
       end
 
-   foo_a4 is
+   foo_a4
       do
          a4.foo_a3
       end

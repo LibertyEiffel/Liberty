@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          if argument_count = 1 then
             create_process
@@ -24,7 +24,7 @@ feature {}
          end
       end
 
-   create_process is
+   create_process
       local
          pf: PROCESS_FACTORY; process: PROCESS
       do
@@ -33,7 +33,7 @@ feature {}
          assert(process.is_connected)
       end
 
-   process_group: PROCESS_GROUP is
+   process_group: PROCESS_GROUP
       local
          pf: PROCESS_FACTORY
       do

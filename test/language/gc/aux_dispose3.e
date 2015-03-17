@@ -6,20 +6,20 @@ class AUX_DISPOSE3
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   dispose_count: COUNTER is
+   dispose_count: COUNTER
       once
          create Result
       end
 
-   make is
+   make
       do
       end
 
-   dispose is
+   dispose
       do
          disposed := True
          dispose_count.next

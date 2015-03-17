@@ -5,9 +5,9 @@ expanded class GTRAVERSE_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = all_low_level)  or else
 				(a_value = leafs_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_all is
+	set_all
 		do
 			value := all_low_level
 		end
 
-	set_leafs is
+	set_leafs
 		do
 			value := leafs_low_level
 		end
 
-	set_leaves is
+	set_leaves
 		do
 			value := leaves_low_level
 		end
 
-	set_mask is
+	set_mask
 		do
 			value := mask_low_level
 		end
 
-	set_non_leafs is
+	set_non_leafs
 		do
 			value := non_leafs_low_level
 		end
 
-	set_non_leaves is
+	set_non_leaves
 		do
 			value := non_leaves_low_level
 		end
 
 feature {ANY} -- Queries
-	is_all: BOOLEAN is
+	is_all: BOOLEAN
 		do
 			Result := (value=all_low_level)
 		end
 
-	is_leafs: BOOLEAN is
+	is_leafs: BOOLEAN
 		do
 			Result := (value=leafs_low_level)
 		end
 
-	is_leaves: BOOLEAN is
+	is_leaves: BOOLEAN
 		do
 			Result := (value=leaves_low_level)
 		end
 
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=mask_low_level)
 		end
 
-	is_non_leafs: BOOLEAN is
+	is_non_leafs: BOOLEAN
 		do
 			Result := (value=non_leafs_low_level)
 		end
 
-	is_non_leaves: BOOLEAN is
+	is_non_leaves: BOOLEAN
 		do
 			Result := (value=non_leaves_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	all_low_level: INTEGER is
+	all_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	leafs_low_level: INTEGER is
+	leafs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	leaves_low_level: INTEGER is
+	leaves_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mask_low_level: INTEGER is
+	mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non_leafs_low_level: INTEGER is
+	non_leafs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	non_leaves_low_level: INTEGER is
+	non_leaves_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

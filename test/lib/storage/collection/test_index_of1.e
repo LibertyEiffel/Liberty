@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: ARRAY[INTEGER]; fa: FAST_ARRAY[INTEGER]; ll: LINKED_LIST[INTEGER]; l2l: TWO_WAY_LINKED_LIST[INTEGER]
       do
@@ -22,7 +22,7 @@ feature {ANY}
       end
 
 feature {}
-   test (c: COLLECTION[INTEGER]) is
+   test (c: COLLECTION[INTEGER])
       do
          assert(c.count = 3)
          assert(c.first_index_of(1) = c.lower + 0)
@@ -38,7 +38,7 @@ feature {}
          assert(c.first_index_of(1) = c.lower)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

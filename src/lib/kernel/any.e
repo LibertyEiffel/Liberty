@@ -8,13 +8,13 @@ deferred class ANY
    --
 
 feature {}
-   default_create is
+   default_create
          -- Default creation method. It is used when no creation
          -- method is specified if allowed. Note it may be renamed.
       do
       end
 
-   frozen manifest_creation is
+   frozen manifest_creation
          -- This procedure is used as a placeholder in creation
          -- clauses. Instances of a class can be created using the
          -- "manifest generic" notation if and only if this class has
@@ -27,19 +27,19 @@ feature {}
       end
 
 feature {ANY} -- Access:
-   generating_type: STRING is
+   generating_type: STRING
          -- Name of current object's generating type (type of which it is a direct instance).
       external "built_in"
       end
 
-   generator: STRING is
+   generator: STRING
          -- Name of current object's generating class (base class of the type of which it is a direct
          -- instance).
       external "built_in"
       end
 
 feature {ANY} -- Status report:
-   frozen same_dynamic_type (other: like Current): BOOLEAN is
+   frozen same_dynamic_type (other: like Current): BOOLEAN
          -- Is the dynamic type of `Current' identical to the dynamic type of `other'?
       require
          other /= Void
@@ -47,7 +47,7 @@ feature {ANY} -- Status report:
       end
 
 feature {ANY} -- Comparison:
-   infix "~" (other: like Current): BOOLEAN is
+   infix "~" (other: like Current): BOOLEAN
       -- Is `other' attached to an object considered equal to current object? Shorthand for `is_equal'
       require
          other /= Void
@@ -57,7 +57,7 @@ feature {ANY} -- Comparison:
          commutative: generating_type = other.generating_type implies Result = other.is_equal(Current)
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Is `other' attached to an object considered equal to current object?
       require
          other /= Void
@@ -66,7 +66,7 @@ feature {ANY} -- Comparison:
          commutative: generating_type = other.generating_type implies Result = other.is_equal(Current)
       end
 
-   frozen standard_is_equal (other: like Current): BOOLEAN is
+   frozen standard_is_equal (other: like Current): BOOLEAN
          -- Are Current and `other' field-by-field identical?
       require
          other /= Void
@@ -77,7 +77,7 @@ feature {ANY} -- Comparison:
       end
 
 feature {ANY} -- Deep Comparison:
-   frozen is_deep_equal (other: like Current): BOOLEAN is
+   frozen is_deep_equal (other: like Current): BOOLEAN
          -- Is `Current' recursively isomorph with `other' ?
       require
          other_not_void: other /= Void
@@ -85,7 +85,7 @@ feature {ANY} -- Deep Comparison:
       end
 
 feature {ANY} -- Duplication:
-   frozen twin: like Current is
+   frozen twin: like Current
          -- Return a new object with the dynamic type of Current.
          -- Before being returned, the new object is initialized using feature `copy' (Current is passed as the argument).
          -- Thus, when feature `copy' of ANY is not redefined, `twin' has exactly the same behavior as `standard_twin'.
@@ -94,7 +94,7 @@ feature {ANY} -- Duplication:
          equal: Result.is_equal(Current)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Update current object using fields of object attached
          -- to `other', so as to yield equal objects.
          -- Note: you can't copy object from a different dynamic type.
@@ -106,17 +106,17 @@ feature {ANY} -- Duplication:
          is_equal(other)
       end
 
-   immutable: BOOLEAN is False
+   immutable: BOOLEAN False
          -- Is the object immutable?
 
-   frozen standard_twin: like Current is
+   frozen standard_twin: like Current
          -- Return a new object with the dynamic type of Current.
          -- Before being returned, the new object is initialized using
          -- feature `standard_copy' (Current is passed as the argument).
       external "built_in"
       end
 
-   frozen standard_copy (other: like Current) is
+   frozen standard_copy (other: like Current)
          -- Copy every field of `other' onto corresponding field of
          -- current object.
       require
@@ -127,7 +127,7 @@ feature {ANY} -- Duplication:
       end
 
 feature {ANY} -- Deep Duplication:
-   frozen deep_twin: like Current is
+   frozen deep_twin: like Current
          -- Return a new object with the dynamic type of Current.
          -- The new object structure is recursively duplicated from the one
          -- attached to `Current'.
@@ -135,14 +135,14 @@ feature {ANY} -- Deep Duplication:
       end
 
 feature {ANY} -- Basic operations:
-   frozen default: like Current is
+   frozen default: like Current
          -- Default value of entities declared with the `Current' type.
          -- Hence, the `Result' is Void for all reference types and, as another
          -- example, the `Result' is 0 for an INTEGER expression.
       do
       end
 
-   is_default: BOOLEAN is
+   is_default: BOOLEAN
          -- Is the `Current' object in the `default' state?
          -- For example, when this feature is applied on an INTEGER, the
          -- `Result' is True only when the INTEGER is 0.  If not redefined, the
@@ -155,7 +155,7 @@ feature {ANY} -- Basic operations:
       end
 
 feature {}
-   frozen default_pointer: POINTER is
+   frozen default_pointer: POINTER
          -- Default value of type POINTER (avoid the need to write p.default
          -- for some `p' of type POINTER).
       do
@@ -163,13 +163,13 @@ feature {}
          Result = Result.default
       end
 
-   default_rescue is
+   default_rescue
          -- Handle exception if no Rescue clause. (Default: do nothing.)
       do
       end
 
 feature {} -- Input and Output:
-   io: STD_INPUT_OUTPUT is
+   io: STD_INPUT_OUTPUT
          -- Handle to standard file setup.
          -- To use the standard input/output file.
          -- Has type STD_FILES in ELKS 95.
@@ -179,7 +179,7 @@ feature {} -- Input and Output:
          Result /= Void
       end
 
-   std_input: STD_INPUT is
+   std_input: STD_INPUT
          -- The standard input stream
       once
          create Result.make
@@ -187,7 +187,7 @@ feature {} -- Input and Output:
          Result /= Void
       end
 
-   std_output: STD_OUTPUT is
+   std_output: STD_OUTPUT
          -- The standard output stream
       once
          create Result.make
@@ -195,7 +195,7 @@ feature {} -- Input and Output:
          Result /= Void
       end
 
-   std_error: STD_ERROR is
+   std_error: STD_ERROR
          -- The standard error stream
       once
          create Result.make
@@ -203,7 +203,7 @@ feature {} -- Input and Output:
          Result /= Void
       end
 
-   standard_streams: STANDARD_STREAMS is
+   standard_streams: STANDARD_STREAMS
       once
          create Result.make
       ensure
@@ -211,7 +211,7 @@ feature {} -- Input and Output:
       end
 
 feature {} -- Object Printing:
-   frozen print (some: STRING) is
+   frozen print (some: STRING)
          -- When some is Void, output "Void" on `std_output', otherwise, output `some' on `std_output'.
          -- Note: still here for historal reasons.
       do
@@ -223,7 +223,7 @@ feature {} -- Object Printing:
       end
 
 feature {ANY} -- Object Printing:
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
          -- Default printing of current object on a `file'.
          -- One may redefine `fill_tagged_out_memory' or `out_in_tagged_out_memory' to adapt the behavior of
          -- `print_on'.
@@ -238,7 +238,7 @@ feature {ANY} -- Object Printing:
          unlock_tagged_out
       end
 
-   frozen tagged_out: STRING is
+   frozen tagged_out: STRING
          -- New string containing printable representation of current
          -- object, each field preceded by its attribute name, a
          -- colon and a space.
@@ -250,7 +250,7 @@ feature {ANY} -- Object Printing:
          unlock_tagged_out
       end
 
-   out: STRING is
+   out: STRING
          -- Create a new string containing terse printable
          -- representation of current object.
       do
@@ -261,16 +261,16 @@ feature {ANY} -- Object Printing:
          unlock_tagged_out
       end
 
-   lazy_out, prefix "&": ABSTRACT_STRING is
+   lazy_out, prefix "&": ABSTRACT_STRING
            -- A newly allocate "lazy" representation of current object. Lazy means
-           -- that actual representation is made only on demand when the string is
+           -- that actual representation is made only on demand when the string
            -- actually used; the actual content of the representation is made using
            -- running `out' query as an agent.
       do
          create {LAZY_STRING} Result.make(agent out)
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
          -- Append terse printable represention of current object in `tagged_out_memory'.
       require
          locked: tagged_out_locked
@@ -292,7 +292,7 @@ feature {ANY} -- Object Printing:
          append_only: (old tagged_out_memory.twin).is_equal(tagged_out_memory.substring(1, old tagged_out_memory.count))
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
          -- Append a viewable information in `tagged_out_memory' in
          -- order to affect the behavior of `out', `tagged_out', etc.
       require
@@ -305,17 +305,17 @@ feature {ANY} -- Object Printing:
       end
 
 feature {} -- tagged_out management:
-   frozen tagged_out_memory_pool: STRING_RECYCLING_POOL is
+   frozen tagged_out_memory_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
-   frozen tagged_out_memories: STACK[STRING] is
+   frozen tagged_out_memories: STACK[STRING]
       once
          create Result.make
       end
 
-   frozen lock_tagged_out is
+   frozen lock_tagged_out
       do
          tagged_out_memories.push(tagged_out_memory)
          tagged_out_memory_ref.set_item(tagged_out_memory_pool.new)
@@ -323,7 +323,7 @@ feature {} -- tagged_out management:
          tagged_out_locked
       end
 
-   frozen unlock_tagged_out is
+   frozen unlock_tagged_out
       require
          tagged_out_locked
       do
@@ -332,23 +332,23 @@ feature {} -- tagged_out management:
          tagged_out_memories.pop
       end
 
-   frozen tagged_out_locked: BOOLEAN is
+   frozen tagged_out_locked: BOOLEAN
       do
          Result := not tagged_out_memories.is_empty
       end
 
-   frozen tagged_out_memory: STRING is
+   frozen tagged_out_memory: STRING
       do
          Result := tagged_out_memory_ref.item
       end
 
-   frozen tagged_out_memory_ref: REFERENCE[STRING] is
+   frozen tagged_out_memory_ref: REFERENCE[STRING]
       once
          create Result
       end
 
 feature {} -- Various useful tools:
-   frozen crash is
+   frozen crash
          -- Print Run Time Stack and then exit with `exit_failure_code'.
       do
          print_run_time_stack
@@ -359,29 +359,29 @@ feature {} -- Various useful tools:
          die_with_code(exit_failure_code)
       end
 
-   frozen trace_switch (flag: BOOLEAN) is
+   frozen trace_switch (flag: BOOLEAN)
          -- May be used in combination with option "-sedb" of command
          -- `compile_to_c' (see compile_to_c documentation for details).
       external "built_in"
       end
 
-   frozen sedb_breakpoint is
+   frozen sedb_breakpoint
          -- May be used in combination with option "-sedb" of command
          -- `compile_to_c' to set a breakpoint for sedb, the SmartEiffel debugger.
       external "built_in"
       end
 
-   frozen breakpoint is
+   frozen breakpoint
       do
          sedb_breakpoint
       end
 
-   frozen defer_breakpoint is
+   frozen defer_breakpoint
       do
          deferred_breakpoint_memory.set_item(True)
       end
 
-   frozen break_if_deferred is
+   frozen break_if_deferred
       do
          if deferred_breakpoint_memory.item then
             sedb_breakpoint
@@ -389,7 +389,7 @@ feature {} -- Various useful tools:
          end
       end
 
-   frozen die_with_code (code: INTEGER) is
+   frozen die_with_code (code: INTEGER)
          -- Terminate execution with exit status code `code'.
          -- Do not print any message.
          -- Note: you can use predefined `exit_success_code' or
@@ -397,11 +397,11 @@ feature {} -- Various useful tools:
       external "built_in"
       end
 
-   exit_success_code: INTEGER is 0
+   exit_success_code: INTEGER 0
 
-   exit_failure_code: INTEGER is 1
+   exit_failure_code: INTEGER 1
 
-   not_yet_implemented is
+   not_yet_implemented
       do
          breakpoint
          std_error.put_string("[
@@ -418,18 +418,18 @@ feature {} -- Various useful tools:
       end
 
 feature {ANY} -- The Guru section:
-   to_pointer: POINTER is
+   to_pointer: POINTER
          -- The memory address of `Current'.
          -- This routine can be used only if `Current' is not expanded or
          -- if `Current' is some NATIVE_ARRAY or some FIXED_ARRAY.
-         -- Actually, this routine does nothing: the value of `Current' which is
+         -- Actually, this routine does nothing: the value of `Current' which
          -- a memory address is returned.
          -- The compiler will emit an error message if you try to use `to_pointer'
          -- on some expanded type which is not a NATIVE_ARRAY nor FIXED_ARRAY.
       external "built_in"
       end
 
-   frozen is_basic_expanded_type: BOOLEAN is
+   frozen is_basic_expanded_type: BOOLEAN
          -- The `Result' is True if the target static type is one of the following
          -- basic types: BOOLEAN, CHARACTER, INTEGER, REAL or POINTER.
          --
@@ -438,7 +438,7 @@ feature {ANY} -- The Guru section:
       external "built_in"
       end
 
-   frozen object_size: INTEGER is
+   frozen object_size: INTEGER
          -- Gives the size of the current object at first level
          -- only (pointed-to sub-object are not concerned).
          -- The result is given in number of CHARACTER.
@@ -446,20 +446,20 @@ feature {ANY} -- The Guru section:
       end
 
 feature {} -- The C Guru section:
-   frozen c_inline_h (c_code: STRING) is
+   frozen c_inline_h (c_code: STRING)
          -- Target must be Current and `c_code' must be a manifest
          -- string. Write `c_code' in the heading C file.
       external "built_in"
       end
 
-   frozen c_inline_c (c_code: STRING) is
+   frozen c_inline_c (c_code: STRING)
          -- Target must be Current and `c_code' must be a manifest
          -- string. Write `c_code' in the stream at current position.
       external "built_in"
       end
 
 feature {}
-   frozen do_at_exit (action: PROCEDURE[TUPLE]) is
+   frozen do_at_exit (action: PROCEDURE[TUPLE])
          -- An `action` to execute at exit.
       local
          at_exit_actions: AT_EXIT
@@ -468,14 +468,14 @@ feature {}
       end
 
 feature {} -- Implementation of ANY (do not use directly):
-   print_run_time_stack is
+   print_run_time_stack
          -- Prints the run time stack.
          -- The result depends on compilation mode.
          -- Usually, in mode -boost, no information is printed.
       external "built_in"
       end
 
-   se_atexit is
+   se_atexit
          -- Called automatically at exit when either `std_output' is used or `do_at_exit' is called.
          -- (Do not call explicitly. Implementation purpose.)
       local
@@ -486,14 +486,14 @@ feature {} -- Implementation of ANY (do not use directly):
       end
 
 feature {INTERNALS_HANDLER}
-   frozen to_internals: INTERNALS is
-         -- The effect of this built_in is
+   frozen to_internals: INTERNALS
+         -- The effect of this built_in
          --   create {TYPED_INTERNALS[like Current]} Result.for_object(Current)
       external "built_in"
       end
 
 feature {TYPED_INTERNALS}
-   internals_can_be_retrieved is
+   internals_can_be_retrieved
          -- Called when the function `set_can_be_retrieved' is called on a TYPED_INTERNALS having built this
          -- object `from_blank'.
          -- Note that the invariant must hold at feature entry.
@@ -502,26 +502,26 @@ feature {TYPED_INTERNALS}
       end
 
 feature {}
-   frozen deferred_breakpoint_memory: REFERENCE[BOOLEAN] is
+   frozen deferred_breakpoint_memory: REFERENCE[BOOLEAN]
       once
          create Result
       end
 
 feature {}
-   se_fault is
+   se_fault
          -- raise a SEGFAULT signal
       external "built_in"
       end
 
 end -- class ANY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

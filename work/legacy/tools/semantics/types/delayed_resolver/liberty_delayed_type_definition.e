@@ -22,11 +22,11 @@ insert
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation {LIBERTY_TYPE_RESOLVER, LIBERTY_DELAYED_TYPE_DEFINITION}
+create {LIBERTY_TYPE_RESOLVER, LIBERTY_DELAYED_TYPE_DEFINITION}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if can_resolve then
             resolved.out_in_tagged_out_memory
@@ -38,18 +38,18 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := full_name_memory.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {LIBERTY_DELAYED_TYPE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       do
          if type_memory /= Void then
             Result := True
@@ -69,7 +69,7 @@ feature {LIBERTY_DELAYED_TYPE}
          Result implies type_memory /= Void
       end
 
-   resolved: LIBERTY_KNOWN_TYPE is
+   resolved: LIBERTY_KNOWN_TYPE
       local
          ok: BOOLEAN
       do
@@ -81,12 +81,12 @@ feature {LIBERTY_DELAYED_TYPE}
          Result := type_memory
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       do
          Result := full_name_memory
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          r: like resolver
       do
@@ -102,7 +102,7 @@ feature {LIBERTY_DELAYED_TYPE}
       end
 
 feature {}
-   make (a_type_definition: like type_definition; a_resolver: like resolver) is
+   make (a_type_definition: like type_definition; a_resolver: like resolver)
       require
          a_type_definition /= Void
          a_resolver /= Void
@@ -119,7 +119,7 @@ feature {}
    resolver: LIBERTY_TYPE_RESOLVER
    type_memory: LIBERTY_ACTUAL_TYPE
 
-   create_full_name_memory is
+   create_full_name_memory
       do
          buffer_stream.clear
          type_definition.generate(buffer_stream)
@@ -128,7 +128,7 @@ feature {}
          full_name_memory /= Void
       end
 
-   buffer_stream: STRING_OUTPUT_STREAM is
+   buffer_stream: STRING_OUTPUT_STREAM
       once
          create Result.make
       end

@@ -31,7 +31,7 @@ create {PARSER_FACET}
    with_capacity
 
 feature {ANY}
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
          -- True if all the used atoms are defined
       local
          i: INTEGER; atom: PARSE_ATOM[C_]
@@ -53,14 +53,14 @@ feature {ANY}
          must_be_coherent: Result
       end
 
-   has (atom_name: ABSTRACT_STRING): BOOLEAN is
+   has (atom_name: ABSTRACT_STRING): BOOLEAN
       require
          not atom_name.is_empty
       do
          Result := atoms.fast_has(atom_name.intern)
       end
 
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       require
          is_coherent
       local
@@ -76,7 +76,7 @@ feature {ANY}
          end
       end
 
-   extend (a_table: like Current) is
+   extend (a_table: like Current)
          -- Extends Current with a *copy* of the atoms of `a_table'. Any atom with a name already existing in
          -- Current is ignored.
       require
@@ -99,7 +99,7 @@ feature {ANY}
          end
       end
 
-   add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
+   add_or_replace (atom_name: ABSTRACT_STRING; atom: PARSE_ATOM[C_])
       require
          atom_name /= Void
          atom /= Void
@@ -109,7 +109,7 @@ feature {ANY}
          item(atom_name.intern) = atom
       end
 
-   item (atom_name: ABSTRACT_STRING): PARSE_ATOM[C_] is
+   item (atom_name: ABSTRACT_STRING): PARSE_ATOM[C_]
       require
          not atom_name.is_empty
          has(atom_name)
@@ -121,34 +121,34 @@ feature {ANY}
                log.trace.put_line(atom_name)
                log.trace.put_line(once "Known atoms:")
                log.trace.put_line(once "--8<--------")
-               atoms.do_all(agent print_atom(?, ?))
+               atoms.for_each(agent print_atom(?, ?))
                log.trace.put_line(once "-------->8--")
                breakpoint
             end
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          for_all_atoms(agent (atom: PARSE_ATOM[C_]) is do atom.out_in_tagged_out_memory; tagged_out_memory.extend('%N') end)
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   pretty_print_on (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       do
          for_all_atoms(agent {PARSE_ATOM[C_]}.pretty_print_on(stream))
       end
 
-   for_all_atoms (action: PROCEDURE[TUPLE[PARSE_ATOM[C_]]]) is
+   for_all_atoms (action: PROCEDURE[TUPLE[PARSE_ATOM[C_]]])
       require
          action /= Void
       do
-         atoms.do_all(action)
+         atoms.for_each(action)
       end
 
 feature {}
-   print_atom (v: PARSE_ATOM[C_]; k: FIXED_STRING) is
+   print_atom (v: PARSE_ATOM[C_]; k: FIXED_STRING)
       do
          log.trace.put_character('"')
          log.trace.put_string(k)
@@ -161,7 +161,7 @@ feature {PARSE_TABLE}
    atoms: LINKED_HASHED_DICTIONARY[PARSE_ATOM[C_], FIXED_STRING]
 
 feature {PARSER_FACET}
-   add (name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
+   add (name: ABSTRACT_STRING; atom: PARSE_ATOM[C_])
       require
          not has(name)
          atom.name = Void
@@ -174,12 +174,12 @@ feature {PARSER_FACET}
       end
 
 feature {}
-   with_capacity, manifest_make (needed_capacity: INTEGER) is
+   with_capacity, manifest_make (needed_capacity: INTEGER)
       do
          create atoms.with_capacity(needed_capacity)
       end
 
-   manifest_put (index: INTEGER; name: ABSTRACT_STRING; atom: PARSE_ATOM[C_]) is
+   manifest_put (index: INTEGER; name: ABSTRACT_STRING; atom: PARSE_ATOM[C_])
       require
          not has(name)
          atom.name = Void
@@ -192,17 +192,17 @@ feature {}
          atoms.last = atom
       end
 
-   manifest_semicolon_check: INTEGER is 2
+   manifest_semicolon_check: INTEGER 2
 
 end -- class PARSE_TABLE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

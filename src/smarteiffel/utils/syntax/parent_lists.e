@@ -29,25 +29,25 @@ feature {ANY}
          -- This flag indicates that ANY has been automatically added in the `insert_list' in order to reach
          -- the canonical form (necessary for `pretty' and for error messages printing).
 
-   class_text_name: CLASS_NAME is
+   class_text_name: CLASS_NAME
       do
          Result := class_text.name
       end
 
-   accept (visitor: PARENT_LISTS_VISITOR) is
+   accept (visitor: PARENT_LISTS_VISITOR)
       do
          visitor.visit_parent_lists(Current)
       end
 
 feature {PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER, CLASS_TEXT, LIVE_TYPE}
-    inherit_count: INTEGER is
+    inherit_count: INTEGER
        do
          if inherit_list /= Void then
             Result := inherit_list.count
          end
       end
 
-    insert_count: INTEGER is
+    insert_count: INTEGER
        do
          if insert_list /= Void then
             Result := insert_list.count
@@ -55,21 +55,21 @@ feature {PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER, CLASS_TEXT, LIVE_TYPE}
       end
 
 feature {CLASS_TEXT}
-   inherit_edge (i: INTEGER): PARENT_EDGE is
+   inherit_edge (i: INTEGER): PARENT_EDGE
       require
          i.in_range(1, inherit_count)
       do
          Result := inherit_list.item(i - 1)
       end
 
-   insert_edge (i: INTEGER): PARENT_EDGE is
+   insert_edge (i: INTEGER): PARENT_EDGE
       require
          i.in_range(1, insert_count)
       do
          Result := insert_list.item(i - 1)
       end
 
-    undefine_position_of (fn: FEATURE_NAME): POSITION is
+    undefine_position_of (fn: FEATURE_NAME): POSITION
           --|*** PH(31/03/04): I think it should be removed.
           -- Search the POSITION of `fn' in one undefine lists.
        require
@@ -102,7 +102,7 @@ feature {CLASS_TEXT}
           not Result.is_unknown
        end
 
-    id_extra_information (tfw: TEXT_FILE_WRITE) is
+    id_extra_information (tfw: TEXT_FILE_WRITE)
        local
           i: INTEGER
        do
@@ -141,7 +141,7 @@ feature {CLASS_TEXT}
          end
        end
 
-    get_permission_of (other: CLASS_TEXT): BOOLEAN is
+    get_permission_of (other: CLASS_TEXT): BOOLEAN
       require
           not other.is_any
        local
@@ -183,7 +183,7 @@ feature {CLASS_TEXT}
           end
        end
 
-    header_comment_for_class_invariant (class_invariant: CLASS_INVARIANT) is
+    header_comment_for_class_invariant (class_invariant: CLASS_INVARIANT)
        local
           i: INTEGER
        do
@@ -209,7 +209,7 @@ feature {CLASS_TEXT}
          end
        end
 
-    initialize_and_check_level_1 is
+    initialize_and_check_level_1
        local
           i: INTEGER
        do
@@ -235,7 +235,7 @@ feature {CLASS_TEXT}
          end
        end
 
-   check_level_2 (type: TYPE) is
+   check_level_2 (type: TYPE)
       require
          type.class_text = class_text
        local
@@ -263,7 +263,7 @@ feature {CLASS_TEXT}
          end
       end
 
-   pretty is
+   pretty
       local
          i: INTEGER
       do
@@ -323,7 +323,7 @@ feature {TYPE, PARENT_LISTS_VISITOR, PARENT_LISTS_HANDLER, TAGGER}
          -- (Items are in the same order as they are in the source text file.)
 
 feature {TYPE}
-   set_insert_member (i: INTEGER) is
+   set_insert_member (i: INTEGER)
          -- Makes the `i'th member of the `inherit_list' a member of the `insert_list' instead
       require
          i.in_range(0, inherit_count-1)
@@ -347,7 +347,7 @@ feature {TYPE}
 
 feature {}
    make (ct: like class_text;   hc1: like inherit_comment; l1: like inherit_list;
-         hc2: like insert_comment; l2: like insert_list) is
+         hc2: like insert_comment; l2: like insert_list)
       require
          not ct.is_any -- Because class ANY must have no parent to avoid cycles.
       local
@@ -372,7 +372,7 @@ feature {}
          default_insert_any_added_flag xor insert_list = l2
       end
 
-   em1: STRING is "Inheritance clash."
+   em1: STRING "Inheritance clash."
 
 invariant
    class_text /= Void
@@ -399,9 +399,9 @@ end -- class PARENT_LISTS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

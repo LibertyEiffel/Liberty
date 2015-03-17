@@ -20,22 +20,22 @@ insert
       export {} ll_make, ll_forth, ll_start, ll_has, ll_put, extend
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (sz: INTEGER) is
+   make (sz: INTEGER)
       do
          ll_make
          create keys.make
       end
 
-   put (x: G; k: K) is
+   put (x: G; k: K)
       do
          extend(x)
          keys.extend(k)
       end
-      --    item(k : K): G is
+      --    item(k : K): G
       --   local
       --       c: CURSOR;
       --   do
@@ -54,28 +54,28 @@ feature {ANY}
       --       go_to(c);
       --   end; -- item
 
-   key_for_iteration: K is
+   key_for_iteration: K
       do
          Result := keys.item
       end
 
-   forth is
+   forth
       do
          ll_forth
          keys.forth
       end
 
-   start is
+   start
       do
          ll_start
          keys.start
       end
 
-   has (x: K): BOOLEAN is
+   has (x: K): BOOLEAN
       do
          Result := keys.has(x)
       end
-      --    go_to(c: CURSOR) is
+      --    go_to(c: CURSOR)
       --   do
       --       ll_go_to(c);
       --       keys.go_to(c);

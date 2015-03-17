@@ -8,13 +8,13 @@ feature {ANY}
 
    value2: CHARACTER
 
-   make is
+   make
       do
          value1 := 1
          value2 := 'A'
       end
 
-   clear is
+   clear
       do
          value1 := 0
          value2 := '%/0/'

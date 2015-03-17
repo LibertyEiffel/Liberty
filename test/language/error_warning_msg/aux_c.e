@@ -4,10 +4,10 @@
 class AUX_C
 inherit AUX_B redefine foo, foo2 end
 feature {ANY}
-   foo(bar: AUX_B) is
+   foo(bar: AUX_B)
       do
       end
-   foo2(bar: AUX_A) is
+   foo2(bar: AUX_A)
       do
       end
 end -- class AUX_C

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tfw: TEXT_FILE_WRITE; ft: FILE_TOOLS; txt, cpy, msg: STRING
       do
@@ -21,6 +21,7 @@ feature {}
          tfw.put_string(msg)
          tfw.disconnect
          ft.copy_to(txt, cpy)
+         assert(ft.last_copy_succeeded)
          assert(ft.same_files(txt, cpy))
          ft.delete(txt)
          ft.delete(cpy)

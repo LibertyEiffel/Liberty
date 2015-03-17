@@ -37,49 +37,54 @@ feature {ANY}
    base_feature: ANONYMOUS_FEATURE
          -- Original base feature definition.
 
-   feature_stamp: FEATURE_STAMP is
+   feature_stamp: FEATURE_STAMP
       do
          Result := type_of_current.lookup(name)
       ensure
          Result.anonymous_feature(type_of_current) = base_feature
       end
 
-   arguments: FORMAL_ARG_LIST is
+   arguments: FORMAL_ARG_LIST
          -- Runnable arguments list if any.
       deferred
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
          -- Runnable Result type if any.
       deferred
       end
 
-   require_assertion: REQUIRE_ASSERTION is
+   require_assertion: REQUIRE_ASSERTION
          -- Runnable collected require assertion if any.
       deferred
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
          -- Runnable local var list if any.
       deferred
       end
 
-   routine_body: INSTRUCTION is
+   routine_body: INSTRUCTION
          -- Runnable routine body if any.
       deferred
       end
 
-   ensure_assertion: ENSURE_ASSERTION is
+   routine_then: EXPRESSION
+         -- Routine "then" if any.
+      deferred
+      end
+
+   ensure_assertion: ENSURE_ASSERTION
          -- Runnable collected ensure assertion if any.
       deferred
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
          -- Runnable rescue compound if any.
       deferred
       end
 
-   is_once_procedure: BOOLEAN is
+   is_once_procedure: BOOLEAN
          -- This is not only True for RUN_FEATURE_5, but it may be also
          -- True when some once procedure is wrapped (RUN_FEATURE_10).
       deferred
@@ -87,7 +92,7 @@ feature {ANY}
          Result implies result_type = Void
       end
 
-   is_once_function: BOOLEAN is
+   is_once_function: BOOLEAN
          -- This is not only True for RUN_FEATURE_6, but it may be also
          -- True when some once function is wrapped (RUN_FEATURE_11).
       deferred
@@ -95,11 +100,11 @@ feature {ANY}
          Result implies result_type /= Void
       end
 
-   is_deferred: BOOLEAN is
+   is_deferred: BOOLEAN
       deferred
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := to_pointer.hash_code
       end
@@ -110,20 +115,20 @@ feature {ANY}
          -- assertion. (This way, no extra memory is used for a production
          -- compiler because this is dead code.)
 
-   frozen is_once_routine: BOOLEAN is
+   frozen is_once_routine: BOOLEAN
          -- Is it a once routine?
       do
          Result := is_once_function or else is_once_procedure
       end
 
-   side_effect_free: BOOLEAN is
+   side_effect_free: BOOLEAN
          -- If calling `Current' has no side effect at all.
       require
          smart_eiffel.is_ready
       deferred
       end
 
-   frozen use_current: BOOLEAN is
+   frozen use_current: BOOLEAN
       require
          smart_eiffel.is_ready
       do
@@ -142,7 +147,7 @@ feature {ANY}
          end
       end
 
-   frozen debug_info_in (buffer: STRING) is
+   frozen debug_info_in (buffer: STRING)
          -- For debugging only.
       local
          i: INTEGER
@@ -173,20 +178,24 @@ feature {ANY}
          end
       end
 
-   frozen start_position: POSITION is
+   frozen start_position: POSITION
       do
          Result := base_feature.start_position
       end
 
-   mapping_name_in (buffer: STRING) is
+   mapping_name_in (buffer: STRING)
       do
          buffer.extend('r')
          type_of_current.live_type.id.append_in(buffer)
          name.mapping_c_in(buffer)
       end
 
+   has_closures: BOOLEAN
+      deferred
+      end
+
 feature {RUN_FEATURE}
-   is_in_computation: BOOLEAN is
+   is_in_computation: BOOLEAN
       do
          Result := use_current_state = Computing_state
       end
@@ -203,9 +212,9 @@ feature {}
    True_state,     -- already computed and True.
    Unknown_state,  -- not yet computed.
    Computing_state -- during computation.
-   : INTEGER is unique
+   : INTEGER unique
 
-   frozen std_compute_use_current is
+   frozen std_compute_use_current
       require
          is_in_computation
       do
@@ -246,7 +255,7 @@ feature {}
          use_current_state = False_state or else use_current_state = True_state
       end
 
-   compute_use_current is
+   compute_use_current
       require
          is_in_computation
       deferred
@@ -254,7 +263,7 @@ feature {}
          use_current_state = True_state or else use_current_state = False_state
       end
 
-   frozen for (lt: LIVE_TYPE; origin: like base_feature; fn: FEATURE_NAME) is
+   frozen for (lt: LIVE_TYPE; origin: like base_feature; fn: FEATURE_NAME)
          -- Creation feature for the new lookup. Just creates the run feature, without adapting it yet.
       require
          not smart_eiffel.is_ready
@@ -278,19 +287,19 @@ feature {}
          smart_eiffel.register_run_feature(Current)
       end
 
-   set_result_type is
+   set_result_type
       deferred
       end
 
    debug_info: STRING -- To view more under sedb.
 
-   do_adapt is
+   do_adapt
          -- Called by `adapt'.
       deferred
       end
 
 feature {LIVE_TYPE}
-   frozen adapt is
+   frozen adapt
          -- Adapt the feature to make it suitable for use by the good old C_PRETTY_PRINTER.
       require
          smart_eiffel.registered(Current)
@@ -331,9 +340,9 @@ end -- class RUN_FEATURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

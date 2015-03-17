@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          window := new(toplevel)
       end
@@ -17,18 +17,18 @@ feature {}
    window: POINTER
 
 feature {ANY}
-   signal_connect (signal: STRING; callback: ROUTINE[TUPLE]) is
+   signal_connect (signal: STRING; callback: ROUTINE[TUPLE])
       do
          g_signal_connect(window, signal.to_external, callback_agent, callback.to_pointer)
       end
 
-   show is
+   show
       do
          gtk_widget_show(window)
       end
 
 feature {}
-   toplevel: INTEGER is
+   toplevel: INTEGER
       external "plug_in"
       alias "{
          location: "."
@@ -37,7 +37,7 @@ feature {}
          }"
       end
 
-   new (type: INTEGER): POINTER is
+   new (type: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "."
@@ -46,7 +46,7 @@ feature {}
          }"
       end
 
-   g_signal_connect (object, signal, callback, data: POINTER) is
+   g_signal_connect (object, signal, callback, data: POINTER)
       external "plug_in"
       alias "{
          location: "."
@@ -55,7 +55,7 @@ feature {}
          }"
       end
 
-   gtk_widget_show (widget: POINTER) is
+   gtk_widget_show (widget: POINTER)
       external "plug_in"
       alias "{
          location: "."

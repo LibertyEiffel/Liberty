@@ -16,12 +16,12 @@ feature {ANY}
    start_position: POSITION
          -- Of keyword "export".
 
-   clients_for (fn: FEATURE_NAME): CLIENT_LIST is
+   clients_for (fn: FEATURE_NAME): CLIENT_LIST
       do
          Result := permissions.reference_at(fn)
       end
 
-   pretty is
+   pretty
       local
          i, rank: INTEGER
       do
@@ -44,7 +44,7 @@ feature {ANY}
 
    for_all: CLIENT_LIST
 
-   accept (visitor: EXPORT_LIST_VISITOR) is
+   accept (visitor: EXPORT_LIST_VISITOR)
       do
          visitor.visit_export_list(Current)
       end
@@ -55,7 +55,7 @@ feature {EXPORT_LIST_VISITOR}
    permissions: DICTIONARY[CLIENT_LIST, FEATURE_NAME]
 
 feature {PARENT_EDGE}
-   check_level_2 (parent_edge: PARENT_EDGE; parent_type: TYPE) is
+   check_level_2 (parent_edge: PARENT_EDGE; parent_type: TYPE)
          -- Called once for each loaded class.
       require
          parent_edge /= Void
@@ -99,7 +99,7 @@ feature {PARENT_EDGE}
       end
 
 feature {}
-   make (sp: like start_position; it: like items) is
+   make (sp: like start_position; it: like items)
       require
          not sp.is_unknown
          it.lower = 1
@@ -177,9 +177,9 @@ end -- class EXPORT_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

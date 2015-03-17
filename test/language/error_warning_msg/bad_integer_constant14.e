@@ -8,7 +8,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          t1, t2 : TUPLE[ CHARACTER, INTEGER ]
       do

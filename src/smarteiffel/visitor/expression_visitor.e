@@ -21,8 +21,10 @@ inherit
    FAKE_TUPLE_VISITOR
    FUNCTION_CALL_VISITOR
    GENERATOR_GENERATING_TYPE_VISITOR
+   IFTHENELSE_EXP_VISITOR
+   IFTHEN_EXP_VISITOR
    IMPLICIT_CAST_VISITOR
-   LOCAL_ARGUMENT2_VISITOR
+   LOCAL_ARGUMENT_REF_VISITOR
    LOOP_VARIANT_VISITOR
    MANIFEST_EXPRESSION_VISITOR
    MANIFEST_GENERIC_VISITOR
@@ -46,9 +48,9 @@ end -- class EXPRESSION_VISITOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

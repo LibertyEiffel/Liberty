@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   default_value: INTEGER is
+   default_value: INTEGER
       do
          Result := 400
       ensure then

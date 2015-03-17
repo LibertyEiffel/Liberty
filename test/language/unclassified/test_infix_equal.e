@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: CHARACTER; d, d2: REAL_64; r: REAL_32; animal: ANIMAL; dog: DOG
       do
@@ -61,7 +61,7 @@ feature {ANY}
          assert(dog = animal)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

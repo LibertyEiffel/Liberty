@@ -4,7 +4,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          io.put_line(generator)
       end

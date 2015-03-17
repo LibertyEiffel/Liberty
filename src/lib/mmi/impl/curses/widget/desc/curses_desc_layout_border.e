@@ -31,7 +31,7 @@ create {CURSES_DESC_PANEL}
    make
 
 feature {CURSES_DESCRIPTOR}
-   build (parent: NCURSES_WINDOW) is
+   build (parent: NCURSES_WINDOW)
       do
          ncurses_widget := parent.create_sub_window(0, 0, parent.width, parent.height)
          center_win := make_sub(center)
@@ -41,7 +41,7 @@ feature {CURSES_DESCRIPTOR}
          west_win := make_sub(west)
       end
 
-   layout (a_x, a_y, a_width, a_height: INTEGER) is
+   layout (a_x, a_y, a_width, a_height: INTEGER)
       local
          cx, cy, cw, cwm, ch, chm, nx, ny, nw, nwm, nh, nhm, sx, sy, sw, swm, sh, shm, wx, wy, ww, wwm, wh, whm, ex, ey, ew, ewm, eh, ehm, hh, hhm: INTEGER
       do
@@ -231,7 +231,7 @@ feature {CURSES_DESCRIPTOR}
 
    x, y, width, height: INTEGER
 
-   min_width: INTEGER is
+   min_width: INTEGER
       do
          if east /= Void then
             Result := Result + east.min_width
@@ -250,7 +250,7 @@ feature {CURSES_DESCRIPTOR}
          end
       end
 
-   max_width: INTEGER is
+   max_width: INTEGER
       do
          if east /= Void then
             Result := Result + east.max_width
@@ -269,7 +269,7 @@ feature {CURSES_DESCRIPTOR}
          end
       end
 
-   min_height: INTEGER is
+   min_height: INTEGER
       local
          h: INTEGER
       do
@@ -302,7 +302,7 @@ feature {CURSES_DESCRIPTOR}
          end
       end
 
-   max_height: INTEGER is
+   max_height: INTEGER
       local
          h: INTEGER
       do
@@ -336,7 +336,7 @@ feature {CURSES_DESCRIPTOR}
       end
 
 feature {}
-   make_sub (desc: CURSES_DESC_WIDGET): NCURSES_WINDOW is
+   make_sub (desc: CURSES_DESC_WIDGET): NCURSES_WINDOW
       do
          if desc /= Void then
             Result := ncurses_widget.create_sub_window(0, 0, 1, 1)
@@ -344,7 +344,7 @@ feature {}
          end
       end
 
-   make (ui: UI_WINDOW; options: JSON_ARRAY; desc_widgets: JSON_VALUE) is
+   make (ui: UI_WINDOW; options: JSON_ARRAY; desc_widgets: JSON_VALUE)
       local
          obj: JSON_OBJECT
          str: JSON_STRING
@@ -383,13 +383,13 @@ feature {}
 
 end -- class CURSES_DESC_LAYOUT_BORDER
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

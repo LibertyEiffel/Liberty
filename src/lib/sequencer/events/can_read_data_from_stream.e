@@ -13,13 +13,13 @@ create {INPUT_STREAM}
    make
 
 feature {EVENTS_SET}
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       do
          events.when_data(input_stream)
          set_expected(events)
       end
 
-   occurred (events: EVENTS_SET): BOOLEAN is
+   occurred (events: EVENTS_SET): BOOLEAN
       do
          Result := events.is_data(input_stream)
       end
@@ -27,7 +27,7 @@ feature {EVENTS_SET}
 feature {}
    input_stream: INPUT_STREAM
 
-   make (a_input_stream: like input_stream) is
+   make (a_input_stream: like input_stream)
       require
          not is_expected
          a_input_stream /= Void
@@ -41,13 +41,13 @@ feature {}
 
 end -- class CAN_READ_DATA_FROM_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

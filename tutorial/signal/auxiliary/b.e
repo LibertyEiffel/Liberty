@@ -9,14 +9,14 @@ feature {ANY}
    j: INTEGER
 
 feature {}
-   make is
+   make
       do
          create s.make
          create s1.make
       end
 
 feature {ANY}
-   test (counter: INTEGER) is
+   test (counter: INTEGER)
       local
          i: INTEGER
       do
@@ -30,7 +30,7 @@ feature {ANY}
          end
       end
 
-   test_direct_0 (counter: INTEGER) is
+   test_direct_0 (counter: INTEGER)
       local
          i: INTEGER
       do
@@ -43,7 +43,7 @@ feature {ANY}
          end
       end
 
-   test_direct_1 (counter: INTEGER) is
+   test_direct_1 (counter: INTEGER)
       local
          i: INTEGER
       do
@@ -57,7 +57,7 @@ feature {ANY}
          end
       end
 
-   test_direct_2 (counter: INTEGER) is
+   test_direct_2 (counter: INTEGER)
       local
          i: INTEGER
       do
@@ -72,7 +72,7 @@ feature {ANY}
          end
       end
 
-   test_direct_3 (counter: INTEGER) is
+   test_direct_3 (counter: INTEGER)
       local
          i: INTEGER
       do
@@ -88,7 +88,7 @@ feature {ANY}
          end
       end
 
-   foo (k: INTEGER) is
+   foo (k: INTEGER)
       do
          j := k + 1
       end

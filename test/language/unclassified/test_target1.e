@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(True.to_string.is_equal("True"))
          assert(False.to_string.is_equal("False"))

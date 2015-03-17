@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: AUX_AGENT38B; c: AUX_AGENT38C; gb: AUX_AGENT38G[AUX_AGENT38B]; gc: AUX_AGENT38G[AUX_AGENT38C]
       do
@@ -20,11 +20,11 @@ feature {}
          gc.set_agent(agent on_c(?))
       end
 
-   on_b (b: AUX_AGENT38B) is
+   on_b (b: AUX_AGENT38B)
       do
       end
 
-   on_c (c: AUX_AGENT38C) is
+   on_c (c: AUX_AGENT38C)
       do
       end
 

@@ -16,10 +16,10 @@ create {ANY}
    connect_to
 
 feature {}
-   local_can_disconnect: BOOLEAN is True
+   local_can_disconnect: BOOLEAN True
 
 feature {FILTER_OUTPUT_STREAM}
-   filtered_put_character (c: CHARACTER) is
+   filtered_put_character (c: CHARACTER)
       do
          stream.filtered_put_character(c)
          if c = '%N' then
@@ -27,13 +27,13 @@ feature {FILTER_OUTPUT_STREAM}
          end
       end
 
-   filtered_flush is
+   filtered_flush
       do
          stream.filtered_flush
       end
 
 feature {}
-   connect_to (a_stream: like stream) is
+   connect_to (a_stream: like stream)
       require
          a_stream /= Void
       do
@@ -53,7 +53,7 @@ end -- class LINES_OUTPUT_STREAM
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -22,11 +22,11 @@ insert
       redefine out_in_tagged_out_memory, is_equal
       end
 
-creation {LIBERTY_FEATURE_ENTITY, LIBERTY_DELAYED_FEATURE_TYPE}
+create {LIBERTY_FEATURE_ENTITY, LIBERTY_DELAYED_FEATURE_TYPE}
    make
 
 feature {ANY}
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if can_resolve then
             resolved.out_in_tagged_out_memory
@@ -39,36 +39,36 @@ feature {ANY}
          end
       end
 
-   full_name: FIXED_STRING is
+   full_name: FIXED_STRING
       do
          Result := full_name_memory
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := full_name_memory.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other = Current
       end
 
 feature {LIBERTY_DELAYED_TYPE}
-   can_resolve: BOOLEAN is
+   can_resolve: BOOLEAN
       do
          Result := is_ready
             and then the_feature.result_type /= Void
             and then the_feature.result_type.is_known
       end
 
-   resolved: LIBERTY_KNOWN_TYPE is
+   resolved: LIBERTY_KNOWN_TYPE
       do
          Result := the_feature.result_type.known_type
       end
 
 feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          t: like type
       do
@@ -81,14 +81,14 @@ feature {LIBERTY_DELAYED_TYPE, LIBERTY_FEATURE_ENTITY}
       end
 
 feature {LIBERTY_FEATURE_ENTITY}
-   is_ready: BOOLEAN is
+   is_ready: BOOLEAN
       do
          Result := type.is_known
             and then type.known_type.has_feature(name)
             and then type.known_type.feature_definition(name).the_feature /= Void
       end
 
-   the_feature: LIBERTY_FEATURE is
+   the_feature: LIBERTY_FEATURE
       require
          is_ready
       do
@@ -99,7 +99,7 @@ feature {LIBERTY_FEATURE_ENTITY}
    type: LIBERTY_TYPE
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          type.mark_reachable_code(mark)
          if is_ready then
@@ -108,7 +108,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_type: like type; a_name: like name) is
+   make (a_type: like type; a_name: like name)
       require
          a_type /= Void
          a_name /= Void

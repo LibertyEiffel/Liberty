@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          t: TUPLE[INTEGER, STRING]
       do
@@ -26,13 +26,13 @@ feature {ANY}
 
    error: INTEGER
 
-   messages: ARRAY[TUPLE[INTEGER, STRING]] is
+   messages: ARRAY[TUPLE[INTEGER, STRING]]
       once
          Result := {ARRAY[TUPLE[INTEGER, STRING]] 1, << [success, "Normal successful completion"], [error, "Unable to allocate additional storage"] >> }
          Result.reindex(0)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

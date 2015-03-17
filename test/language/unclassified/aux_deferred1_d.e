@@ -4,11 +4,11 @@
 deferred class AUX_DEFERRED1_D
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   r is
+   r
       do
       end
 

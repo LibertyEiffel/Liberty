@@ -17,7 +17,7 @@ feature {ANY}
 
    e: AUX_AS1_E
 
-   make is
+   make
       do
          create e
          create a.make(e)

@@ -22,12 +22,12 @@ feature {ANY}
    nested: JSON_CODEC[DATA_]
 
 feature {JSON_HANDLER}
-   build (data: DATA_): JSON_TEXT is
+   build (data: DATA_): JSON_TEXT
       do
          Result := nested.build(data)
       end
 
-   parse (data: INPUT_STREAM): JSON_TEXT is
+   parse (data: INPUT_STREAM): JSON_TEXT
       do
          error_message := Void
          error_line := -1
@@ -35,7 +35,7 @@ feature {JSON_HANDLER}
          Result := Precursor(data)
       end
 
-   on_error (a_message: ABSTRACT_STRING; a_line, a_column: INTEGER) is
+   on_error (a_message: ABSTRACT_STRING; a_line, a_column: INTEGER)
       do
          error_message := a_message
          error_line := a_line
@@ -45,53 +45,53 @@ feature {JSON_HANDLER}
          end
       end
 
-   create_array: JSON_DATA is
+   create_array: JSON_DATA
       do
          Result := nested.create_array
       end
 
-   add_to_array (array, value: JSON_DATA) is
+   add_to_array (array, value: JSON_DATA)
       do
          nested.add_to_array(array, value)
       end
 
-   create_object: JSON_DATA is
+   create_object: JSON_DATA
       do
          Result := nested.create_object
       end
 
-   add_to_object (object, key, value: JSON_DATA) is
+   add_to_object (object, key, value: JSON_DATA)
       do
          nested.add_to_object(object, key, value)
       end
 
-   create_string (string: JSON_STRING): JSON_DATA is
+   create_string (string: JSON_STRING): JSON_DATA
       do
          Result := nested.create_string(string)
       end
 
-   create_number (number: JSON_NUMBER): JSON_DATA is
+   create_number (number: JSON_NUMBER): JSON_DATA
       do
          Result := nested.create_number(number)
       end
 
-   true_value: JSON_DATA is
+   true_value: JSON_DATA
       do
          Result := nested.true_value
       end
 
-   false_value: JSON_DATA is
+   false_value: JSON_DATA
       do
          Result := nested.false_value
       end
 
-   null_value: JSON_DATA is
+   null_value: JSON_DATA
       do
          Result := nested.null_value
       end
 
 feature {}
-   make (a_nested: like nested) is
+   make (a_nested: like nested)
       require
          a_nested /= Void
       do
@@ -105,13 +105,13 @@ invariant
 
 end -- class JSON_CODEC_IMPL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

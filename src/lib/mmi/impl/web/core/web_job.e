@@ -13,17 +13,17 @@ create {USER_INTERFACE}
    connect
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          events.expect(server.event_connection)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := events.event_occurred(server.event_connection)
       end
 
-   continue is
+   continue
       local
          stream: SOCKET_INPUT_OUTPUT_STREAM
          cnx: WEB_CONNECTION
@@ -37,43 +37,43 @@ feature {LOOP_ITEM}
          end
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := server = Void or else not server.can_connect
       end
 
-   restart is
+   restart
       do
          server := application.new_server
       end
 
 feature {UI_ITEM}
-   new_bridge_application (ui: UI_APPLICATION): WEB_APPLICATION is
+   new_bridge_application (ui: UI_APPLICATION): WEB_APPLICATION
       do
          create Result.make(ui)
       end
 
-   new_bridge_window (ui: UI_WINDOW): WEB_WINDOW is
+   new_bridge_window (ui: UI_WINDOW): WEB_WINDOW
       do
          create Result.make(ui)
       end
 
-   new_bridge_panel (ui: UI_PANEL): WEB_PANEL is
+   new_bridge_panel (ui: UI_PANEL): WEB_PANEL
       do
          create Result.make(ui)
       end
 
-   new_bridge_menu (ui: UI_MENU): WEB_MENU is
+   new_bridge_menu (ui: UI_MENU): WEB_MENU
       do
          create Result.make(ui)
       end
 
-   new_bridge_text_field (ui: UI_TEXT_FIELD): WEB_TEXT_FIELD is
+   new_bridge_text_field (ui: UI_TEXT_FIELD): WEB_TEXT_FIELD
       do
          create Result.make(ui)
       end
 
-   new_bridge_button (ui: UI_BUTTON): WEB_BUTTON is
+   new_bridge_button (ui: UI_BUTTON): WEB_BUTTON
       do
          create Result.make(ui)
       end
@@ -84,13 +84,13 @@ feature {}
 
 end -- class WEB_JOB
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

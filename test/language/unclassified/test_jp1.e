@@ -9,7 +9,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_JP1[INTEGER]; aux_aux: AUX_JP1[AUX_JP1[INTEGER]]
       do
@@ -17,7 +17,7 @@ feature {ANY}
          assert(aux_aux = Void)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

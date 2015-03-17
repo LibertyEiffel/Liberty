@@ -11,7 +11,7 @@ feature {ANY}
 
    apple: APPLE
 
-   make is
+   make
       local
          i, limit: INTEGER
       do

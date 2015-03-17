@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          tab: ARRAY[INTEGER]; s: COLLECTION_SORTER[INTEGER]
       do
@@ -21,7 +21,7 @@ feature {}
          assert(tab.is_equal({ARRAY[INTEGER] 1, << 1, 2, 3, 3, 4, 5, 9 >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

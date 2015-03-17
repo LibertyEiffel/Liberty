@@ -11,13 +11,13 @@ inherit
 feature {ANY}
    anchor: AUX_ASSIGNMENT2_B
 
-   foo (other: AUX_ASSIGNMENT2_B) is
+   foo (other: AUX_ASSIGNMENT2_B)
       do
          anchor := other
          anchor.crash_if_not_c
       end
 
-   crash_if_not_c is
+   crash_if_not_c
       do
       end
 

@@ -13,12 +13,12 @@ create {ANY}
    make
 
 feature {ANY}
-   name (i: INTEGER): ARGUMENT_NAME1 is
+   name (i: INTEGER): ARGUMENT_NAME_DEF
       do
          Result := flat_list.item(i)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i, j, column, wrap_limit: INTEGER; buffer: STRING; c: CHARACTER
       do
@@ -98,7 +98,7 @@ feature {ANY}
          pretty_printer.put_character(')')
       end
 
-   short (shorted_type: TYPE) is
+   short (shorted_type: TYPE)
       local
          i: INTEGER
       do
@@ -117,40 +117,43 @@ feature {ANY}
          short_printer.hook_or(once "hook306", once ")")
       end
 
-   accept (visitor: FORMAL_ARG_LIST_VISITOR) is
+   accept (visitor: FORMAL_ARG_LIST_VISITOR)
       do
          visitor.visit_formal_arg_list(Current)
       end
 
 feature {AGENT_CREATION}
-   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST is
-         -- Create the corresponding ommited open arguments list.
+   omitted_open_arguments (type, target_type: TYPE; sp: POSITION): EFFECTIVE_ARG_LIST_N
+         -- Create the corresponding omitted open arguments list.
       local
-         rank: INTEGER; open_operand: OPEN_OPERAND; resolved: TYPE
+         rank: INTEGER; open_operand_1, open_operand: OPEN_OPERAND; resolved: TYPE; remainder: FAST_ARRAY[EXPRESSION]
       do
-         create open_operand.question_mark(sp)
-         open_operand.set_rank(1)
+         create open_operand_1.question_mark(sp)
+         open_operand_1.set_rank(1)
          resolved := type_mark(1).resolve_in(target_type)
-         open_operand.update_resolved_memory(type, resolved)
-         create Result.make_1(open_operand)
-         from
-            rank := 2
-         until
-            rank > count
-         loop
-            create open_operand.question_mark(sp)
-            open_operand.set_rank(rank)
-            resolved := type_mark(rank).resolve_in(target_type)
-            open_operand.update_resolved_memory(type, resolved)
-            Result.add_last(open_operand)
-            rank := rank + 1
+         open_operand_1.update_resolved_memory(type, resolved)
+         if count > 1 then
+            create remainder.with_capacity(count - 2)
+            from
+               rank := 2
+            until
+               rank > count
+            loop
+               create open_operand.question_mark(sp)
+               open_operand.set_rank(rank)
+               resolved := type_mark(rank).resolve_in(target_type)
+               open_operand.update_resolved_memory(type, resolved)
+               remainder.add_last(open_operand)
+               rank := rank + 1
+            end
          end
+         create Result.make_n(start_position, open_operand_1, remainder)
       ensure
          Result.count = count
       end
 
 feature {ANY}
-   has_like_current: BOOLEAN is
+   has_like_current: BOOLEAN
       local
          i: INTEGER
       do
@@ -165,9 +168,9 @@ feature {ANY}
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT1) is
+   add_last (n: LOCAL_ARGUMENT_DEF)
       require
-         {ARGUMENT_NAME1} ?:= n
+         {ARGUMENT_NAME_DEF} ?:= n
       local
          i: INTEGER; n1, n2: like name
       do
@@ -191,15 +194,16 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (l: like list) is
+   make (sp: POSITION; l: like list)
          -- Parsing creation procedure.
       require
          l.lower = 1
          not l.is_empty
       local
-         an: like name; tlf: LIKE_FEATURE_TYPE_MARK; an2: ARGUMENT_NAME2; tla, tla2: LIKE_ARGUMENT_TYPE_MARK
+         an: like name; tlf: LIKE_FEATURE_TYPE_MARK; an2: ARGUMENT_NAME_REF; tla, tla2: LIKE_ARGUMENT_TYPE_MARK
          i, rank, il, actual_count: INTEGER
       do
+         start_position := sp
          list := l
          -- Setting up the `flat_list' first:
          actual_count := compute_flat_list_count_by_using_list
@@ -230,7 +234,7 @@ feature {}
                   error_handler.append(fz_cad)
                   error_handler.print_as_fatal_error
                elseif rank > 0 then
-                  create an2.refer_to(tlf.like_what.start_position, Current, rank)
+                  create an2.refer_to(tlf.like_what.start_position, Current, rank, 0)
                   create tla.make(tlf.start_position, an2)
                   an.set_result_type(tla)
                end
@@ -262,7 +266,7 @@ feature {}
          flat_list /= Void
       end
 
-   tmp_string: STRING is
+   tmp_string: STRING
       once
          create Result.make(32)
       end
@@ -279,9 +283,9 @@ end -- class FORMAL_ARG_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

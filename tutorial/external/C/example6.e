@@ -13,7 +13,7 @@ create {ANY}
 feature {ANY}
    point_pointer: POINTER
 
-   make is
+   make
       local
          r: REAL; size: INTEGER
       do
@@ -33,7 +33,7 @@ feature {ANY}
       end
 
 feature {}
-   malloc_point: POINTER is
+   malloc_point: POINTER
          -- Call the C `malloc_point' function (see c_glue4.c).
       external "[
                  C use "c_glue6.h"
@@ -42,7 +42,7 @@ feature {}
          Result.is_not_null
       end
 
-   set_x (point_star: POINTER; x_value: REAL) is
+   set_x (point_star: POINTER; x_value: REAL)
       require
          point_star.is_not_null
       external "[
@@ -50,13 +50,13 @@ feature {}
                ]"
       end
 
-   get_x (point_star: POINTER): REAL is
+   get_x (point_star: POINTER): REAL
       external "[
                  C struct Point access x use "c_glue6.h"
                ]"
       end
 
-   sizeof_point: INTEGER is
+   sizeof_point: INTEGER
       external "[
                  C
                    inline

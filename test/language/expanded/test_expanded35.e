@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          list: LINKED_LIST[AUX_EXPANDED35]; it: ITERATOR[AUX_EXPANDED35]; x: AUX_EXPANDED35
       do

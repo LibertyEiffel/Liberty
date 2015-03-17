@@ -4,7 +4,7 @@
 deferred class COLORS
 
 feature {ANY}
-   red: COLOR is
+   red: COLOR
       once
          Result := create {COLOR}.make_rgb(0xff, 0x00, 0x00)
       end

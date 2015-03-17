@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_BOOLEAN_MANIFEST}
-   visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST) is
+   visit_liberty_boolean_manifest (v: LIBERTY_BOOLEAN_MANIFEST)
       deferred
       end
 

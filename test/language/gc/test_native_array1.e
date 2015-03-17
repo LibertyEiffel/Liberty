@@ -10,7 +10,7 @@ create {TEST_NATIVE_ARRAY1}
    make2
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; na: NATIVE_ARRAY[CHARACTER]; other: like Current
       do
@@ -25,7 +25,7 @@ feature {ANY}
          end
       end
 
-   make2 is
+   make2
       do
       end
 

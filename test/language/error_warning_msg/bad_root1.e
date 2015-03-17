@@ -4,7 +4,7 @@
 class BAD_ROOT1
 
 feature {}
-   make is
+   make
       do
       end;
 

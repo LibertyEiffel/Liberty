@@ -12,11 +12,11 @@ inherit
       end
 
 feature {ANY}
-   arg_count: INTEGER is 1
+   arg_count: INTEGER 1
 
    arguments: EFFECTIVE_ARG_LIST
 
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          check
             a.count = 1
@@ -24,20 +24,20 @@ feature {ANY}
          arguments := a
       end
 
-   frozen arg1: EXPRESSION is
+   frozen arg1: EXPRESSION
       do
          Result := arguments.first
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       local
          target_type, argument_type: TYPE
       do
-         if declaration_type_memory = Void then
+         if written_declaration_type_mark_memory = Void then
             Result := Precursor
             -- Looking first for the balancing_rule:
             if is_balanced_operator(feature_name.to_string) then
-               if declaration_type_memory.is_boolean then
+               if Result.is_boolean then
                   -- Balancing won't change the `Result'.
                else
                   target_type := target.declaration_type
@@ -47,7 +47,7 @@ feature {ANY}
                         if argument_type /= target_type then
                            if target_type.can_be_assigned_to(argument_type) then
                               Result := argument_type
-                              declaration_type_memory := Void
+                              written_declaration_type_mark_memory := Void
                            end
                         end
                      end
@@ -55,11 +55,11 @@ feature {ANY}
                end
             end
          else
-            Result := declaration_type_memory
+            Result := Precursor
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---- except balancing rule here ---------------
       local
@@ -82,7 +82,7 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
       local
          t: like target; arg: like arguments; fs: like feature_stamp
@@ -104,87 +104,123 @@ feature {ANY}
          Result /= Current implies Result.feature_stamp /= feature_stamp or else Result.target /= target or else Result.arguments /= arguments
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
          ----------- Duplicate code call_1/proc_call_1/call_n/proc_call_n  -----------
          ---------------except AGENT_INSTRUCTION stuff ------------------------------
-         --|*** Except for the `function_and_argument_count_check' call (Dom. march 28th 2004) ***
+         --|*** Except for the `function_check' call (Dom. march 28th 2004) ***
       local
          fs: like feature_stamp; af: ANONYMOUS_FEATURE; arg: like arguments; t: like target
          target_type, target_declaration_type, argument_type: TYPE;
          a1: like arg1; like_current_result: like Current
+         call_n: FUNCTION_CALL_N; call_1: FUNCTION_CALL_1; call_0: FUNCTION_CALL_0
       do
          t := target.specialize_and_check(type)
-         target_type := t.resolve_in(type)
-
-         if feature_name.name.to_string = as_item and then target_type.is_agent then
-            fs := target_type.search(feature_name)
-            if fs = Void then
-               smart_eiffel.unknown_feature_fatal_error(target, target_type, feature_name)
-            end
-            af := fs.anonymous_feature(target_type)
-            function_and_argument_count_check(af, arguments)
-            create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arguments)
+         if target.is_current then
+            target_type := type
          else
-            arg := arguments
-            a1 := arg1
-            a1 := a1.specialize_and_check(type)
-            if a1 /= arg1 then
-               arg := arg.twin
-               arg.put(a1, 1)
-            end
+            target_type := t.resolve_in(type)
+         end
 
-            -- Looking for the balancing_rule:
-            if is_balanced_operator(feature_name.to_string) then
-               if target_type.is_integer or else target_type.is_real then
-                  if is_question_mark_open_operand(a1) then
-                     -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in'
-                     -- yet and, by nature, we must not apply balancing rule here.
-                     -- (If one want to allow balancing he must use a curly typed OPEN_OPERAND.)
-                  else
-                     argument_type := a1.resolve_in(type)
-                     if argument_type.is_integer or else argument_type.is_real then
-                        if argument_type /= target_type then
-                           if target_type.can_be_assigned_to(argument_type) then
-                              t := assignment_handler.implicit_cast(t, target_type, argument_type)
-                              target_type := argument_type
-                           end
+         arg := arguments
+         a1 := arg1
+         a1 := a1.specialize_and_check(type)
+         if a1 /= arg1 then
+            arg := arg.twin
+            arg.put(a1, 1)
+         end
+
+         -- Looking for the balancing_rule:
+         --| **** TODO replace by conversion here
+         if is_balanced_operator(feature_name.to_string) then
+            if target_type.is_integer or else target_type.is_real then
+               if is_question_mark_open_operand(a1) then
+                  -- In the case of a question mark (?) OPEN_OPERAND, we cannot call `resolve_in'
+                  -- yet and, by nature, we must not apply balancing rule here.
+                  -- (If one want to allow balancing he must use a curly typed OPEN_OPERAND.)
+               else
+                  argument_type := a1.resolve_in(type)
+                  if argument_type.is_integer or else argument_type.is_real then
+                     if argument_type /= target_type then
+                        if target_type.can_be_assigned_to(argument_type) then
+                           t := assignment_handler.implicit_cast(t, target_type, argument_type)
+                           target_type := argument_type
                         end
                      end
                   end
                end
             end
+         end
 
-            if target.is_current and then target = t then
-               fs := feature_stamp
+         if target.is_current then
+            fs := feature_stamp
+         else
+            target_declaration_type := t.declaration_type
+            fs := target_declaration_type.search(feature_name) -- *** OBSOLETE *** Dom march 15th 2006 ***
+            if fs = Void then
+               smart_eiffel.unknown_feature_fatal_error(target, target_declaration_type, feature_name)
+            end
+            fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
+         end
+
+         af := fs.anonymous_feature(target_type)
+         if af = Void then
+            if not target.is_implicit_current then
+               error_handler.add_position(target.start_position)
+            end
+            error_handler.add_position(feature_name.start_position)
+            error_handler.append(once "Missing anonymous feature for this call")
+            error_handler.print_as_internal_error
+         end
+
+         if af.arguments = Void then
+            if fs.anonymous_feature(target_type).result_type /= Void and then target_type.valid_feature_name(parentheses_feature_name) then
+               -- semantic alias "()"
+               create call_0.make(t, feature_name)
+               call_0.set_feature_stamp(fs)
+               call_0.standard_check_export_and_obsolete_calls(type, target_type, af)
+               t := call_0.specialize_and_check(type)
+               create call_1.make(t, parentheses_feature_name, arguments)
+               call_1 := call_1.specialize_in(type)
+               Result := call_1.specialize_and_check(type)
             else
-               target_declaration_type := t.declaration_type
-               fs := target_declaration_type.search(feature_name)
-               if fs = Void then
-                  smart_eiffel.unknown_feature_fatal_error(target, target_declaration_type, feature_name)
+               error_handler.append(once "The feature called has no formal argument while the actual argument list has 1 argument.")
+               error_handler.add_position(af.start_position)
+               error_handler.add_position(arguments.start_position)
+               error_handler.print_as_fatal_error
+            end
+         else
+            if function_check(type, af) then
+               --sedb_breakpoint
+            end
+            arg := arg.specialize_and_check(type, af, target_type, True)
+            if af.names.first.to_string = as_item and then target_type.is_agent then
+               create {AGENT_EXPRESSION} Result.make(type, Current, target_type, t, arg)
+            elseif arg.count = arguments.count then
+               if feature_stamp = Void then
+                  feature_stamp := fs
                end
-               fs := fs.resolve_static_binding_for(target_declaration_type, target_type)
+               like_current_result := current_or_twin_init(t, arg, fs)
+               like_current_result.standard_check_export_and_obsolete_calls(type, target_type, af)
+               check
+                  feature_stamp /= Void
+                  like_current_result.feature_stamp /= Void
+               end
+               Result := like_current_result
+            elseif arg.count > arguments.count then
+               create call_n.make(t, feature_name, arg)
+               call_n.set_feature_stamp(fs)
+               call_n.standard_check_export_and_obsolete_calls(type, target_type, af)
+               Result := call_n.specialize_and_check(type)
+            else
+               error_handler.append("Strange formal/actual arguments mismatch!")
+               error_handler.add_position(arg.start_position)
+               error_handler.add_position(af.arguments.start_position)
+               error_handler.print_as_internal_error
             end
-            af := fs.anonymous_feature(target_type)
-            function_and_argument_count_check(af, arguments)
-
-            arg := arg.specialize_and_check(type, af, target_type, target.is_current)
-            check
-               arg.count = arguments.count
-            end
-            if feature_stamp = Void then
-               feature_stamp := fs
-            end
-            like_current_result := current_or_twin_init(t, arg, fs)
-            like_current_result.standard_check_export_and_obsolete_calls(type, target_type, af)
-            check
-               feature_stamp /= Void
-               like_current_result.feature_stamp /= Void
-            end
-            Result := like_current_result
          end
       end
 
-   frozen simplify (type: TYPE): EXPRESSION is
+   frozen simplify (type: TYPE): EXPRESSION
       local
          t: like target; args: like arguments; target_type: TYPE; af: ANONYMOUS_FEATURE
          inline_memo: INLINE_MEMO
@@ -212,18 +248,18 @@ feature {ANY}
       end
 
 feature {EFFECTIVE_ROUTINE}
-   frozen inline_with (new_target, new_arg1: EXPRESSION): like Current is
+   frozen inline_with (new_target, new_arg1: EXPRESSION): like Current
       require
          new_target /= Void
          new_arg1 /= Void
       do
          Result := twin
          Result.set_target(new_target)
-         Result.set_arguments(create {EFFECTIVE_ARG_LIST}.make_1(new_arg1))
+         Result.set_arguments(create {EFFECTIVE_ARG_LIST_N}.make_1(start_position, new_arg1))
       end
 
 feature {CALL_1}
-   init (t: like target; arg: like arguments; fs: like feature_stamp) is
+   init (t: like target; arg: like arguments; fs: like feature_stamp)
       do
          target := t
          arguments := arg
@@ -231,7 +267,7 @@ feature {CALL_1}
       end
 
 feature {}
-   current_or_twin_init (t: like target; arg: like arguments; fs: like feature_stamp): like Current is
+   current_or_twin_init (t: like target; arg: like arguments; fs: like feature_stamp): like Current
       do
          if t = target and then feature_stamp = fs and then arg = arguments then
             Result := Current
@@ -241,7 +277,7 @@ feature {}
          end
       end
 
-   is_balanced_operator (operator_name: STRING): BOOLEAN is
+   is_balanced_operator (operator_name: STRING): BOOLEAN
          -- Obviously, the list is limited to usual maths notations.
       do
          inspect
@@ -255,7 +291,7 @@ feature {}
          end
       end
 
-   is_question_mark_open_operand (expression: EXPRESSION): BOOLEAN is
+   is_question_mark_open_operand (expression: EXPRESSION): BOOLEAN
       local
          open_operand: OPEN_OPERAND
       do
@@ -280,9 +316,9 @@ end -- class CALL_1
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -11,7 +11,7 @@ feature {}
 
    continue: BOOLEAN
 
-   make is
+   make
       local
          job1, job2: SIMPLE_BACKGROUND_JOB
       do
@@ -24,7 +24,7 @@ feature {}
          lm.run
       end
 
-   work1: BOOLEAN is
+   work1: BOOLEAN
       do
          io.put_integer(counter)
          io.put_new_line
@@ -36,7 +36,7 @@ feature {}
          Result := continue
       end
 
-   work2: BOOLEAN is
+   work2: BOOLEAN
       do
          io.put_string("Hello !%N")
          Result := continue

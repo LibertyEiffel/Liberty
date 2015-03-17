@@ -9,6 +9,6 @@ create {ANY}
    init
 
 feature {ANY}
-   text_domain: STRING is "library_example_program"
+   text_domain: STRING "library_example_program"
 
 end -- class PROGRAM_TRANSLATOR

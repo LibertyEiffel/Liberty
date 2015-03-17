@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          -- the program takes no argument
          create args.make(no_parameters)
@@ -39,7 +39,7 @@ feature {}
       assert(usage_called)
       end
 
-   setup is
+   setup
       do
          command_arguments.make(1)
          usage_called := False
@@ -48,7 +48,7 @@ feature {}
    args: COMMAND_LINE_ARGUMENTS
 
    usage_called: BOOLEAN
-   call_usage (a_args: COMMAND_LINE_ARGUMENTS) is
+   call_usage (a_args: COMMAND_LINE_ARGUMENTS)
       do
          assert(a_args = args)
          -- a_args.usage(std_output)

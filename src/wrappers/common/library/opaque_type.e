@@ -11,18 +11,18 @@ inherit
    WRAPPER
 
 feature {ANY}
-   copy (another: like Current) is
+   copy (another: like Current)
       do
          handle := another.handle
       end
 
-   is_equal (another: like Current): BOOLEAN is
+   is_equal (another: like Current): BOOLEAN
       do
          Result := handle = another.handle
       end
 
 feature {WRAPPER, WRAPPER_HANDLER}
-   struct_size: like size_t is
+   struct_size: like size_t
       do
          breakpoint
          std_error.put_string("Trying to access the structure size of the opaque type '")

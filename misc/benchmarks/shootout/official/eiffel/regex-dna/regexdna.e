@@ -9,11 +9,11 @@ class REGEXDNA
 insert
 	REGULAR_EXPRESSION_BUILDER
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 			-- Perform regex-dna benchmark
 		local
 			initial_length, cleaned_length, final_length: INTEGER; cleaning_regex: REGULAR_EXPRESSION
@@ -40,7 +40,7 @@ feature {ANY}
 			io.put_new_line
 		end
 
-	count_variants is
+	count_variants
 			-- Count the number of occurences of each variant pattern
 		local
 			i, count: INTEGER; match_pattern: REGULAR_EXPRESSION; variants: ARRAY[STRING]
@@ -71,7 +71,7 @@ feature {ANY}
 			end
 		end
 
-	expand_patterns is
+	expand_patterns
 			-- Expand IUB code alternatives
 		local
 			i: INTEGER; iub_code: REGULAR_EXPRESSION; iub_code_patterns, replacement_patterns: ARRAY[STRING]

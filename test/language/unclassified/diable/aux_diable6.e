@@ -3,17 +3,17 @@
 --
 class AUX_DIABLE6[T]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create column_buffer.make(1, 1)
       end
 
 feature {ANY}
-   column (j: INTEGER): ARRAY[T] is
+   column (j: INTEGER): ARRAY[T]
       do
          Result := column_buffer
       end

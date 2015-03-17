@@ -21,28 +21,28 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   then_clause: LIBERTY_AST_IF is
+   then_clause: LIBERTY_AST_IF
       do
          Result ::= nodes.item(0)
       end
 
-   elseif_list: EIFFEL_LIST_NODE is
+   elseif_list: EIFFEL_LIST_NODE
       do
          Result ::= nodes.item(1)
       end
 
-   else_clause: LIBERTY_AST_ELSE is
+   else_clause: LIBERTY_AST_ELSE
       do
          Result ::= nodes.item(2)
       end
 
 feature {ANY}
-   count: INTEGER is 4
+   count: INTEGER 4
 
-   name: STRING is "If_Then_Else"
+   name: STRING "If_Then_Else"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 4 >> }
       end

@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          mbi1: MUTABLE_BIG_INTEGER; v: INTEGER_64
       do
@@ -72,7 +72,7 @@ feature {ANY}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then
@@ -83,7 +83,7 @@ feature {ANY}
          end
       end
 
-   check_range (min, max: INTEGER_64) is
+   check_range (min, max: INTEGER_64)
       require
          min < max
       local

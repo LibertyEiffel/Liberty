@@ -27,34 +27,31 @@ feature {ANY}
    specialized_parent: CLASS_TEXT
          -- The parent the feature effectively comes from.
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
          -- Could be actually better.
          Result := True
       end
 
-   frozen safety_check (type: TYPE) is
+   frozen safety_check (type: TYPE)
       do
          if arguments /= Void then
             arguments.safety_check(type)
          end
       end
 
-   frozen specialize_and_check (type: TYPE): like Current is
+   frozen specialize_and_check (type: TYPE): like Current
       local
          saf: like specialized_anonymous_feature; args: like arguments
       do
          saf := specialized_anonymous_feature.specialize_and_check(type)
          if arguments /= Void then
-            args := arguments.specialize_and_check(type, saf, type, True)
-            check
-               specialized_anonymous_feature.arguments.count = args.count
-            end
+            args := arguments.specialize_and_check(type, saf, type, False)
          end
          Result := current_or_twin_init(saf, args)
       end
 
-   frozen specialize_in (new_type: TYPE): like Current is
+   frozen specialize_in (new_type: TYPE): like Current
       local
          saf: like specialized_anonymous_feature; arg: like arguments
       do
@@ -63,11 +60,10 @@ feature {ANY}
          if arguments /= Void then
             arg := arguments.specialize_in(new_type)
          end
-         smart_eiffel.argument_count_check(Void, start_position, saf, arg)
          Result := current_or_twin_init(saf, arg)
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          saf: like specialized_anonymous_feature; arg: like arguments
       do
@@ -81,14 +77,14 @@ feature {ANY}
          Result := current_or_twin_init(saf, arg)
       end
 
-   frozen has_been_specialized: BOOLEAN is
+   frozen has_been_specialized: BOOLEAN
       do
          Result := arguments /= Void implies arguments.has_been_specialized
          Result := Result and then specialized_anonymous_feature /= Void
          Result := Result and then specialized_parent /= Void
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := specialized_anonymous_feature.side_effect_free(type)
          if arguments /= Void then
@@ -96,7 +92,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          arg: like arguments; run_feature: RUN_FEATURE
       do
@@ -116,7 +112,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          saf: like specialized_anonymous_feature; arg: like arguments
       do
@@ -128,7 +124,7 @@ feature {ANY}
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   set_specialized_parent (sp: like specialized_parent) is
+   set_specialized_parent (sp: like specialized_parent)
       require
          sp /= Void
          parent /= Void implies parent.class_text = sp
@@ -140,19 +136,19 @@ feature {ANONYMOUS_FEATURE_MIXER}
       end
 
 feature {PRECURSOR_CALL}
-   set_arguments (a: like arguments) is
+   set_arguments (a: like arguments)
       do
          arguments := a
       end
 
-   init (saf: like specialized_anonymous_feature; arg: like arguments) is
+   init (saf: like specialized_anonymous_feature; arg: like arguments)
       do
          specialized_anonymous_feature := saf
          arguments := arg
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          args: like arguments; saf: like specialized_anonymous_feature
          new_precursor: like Current
@@ -168,7 +164,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (sp: like start_position; pc: like parent; pal: like arguments) is
+   make (sp: like start_position; pc: like parent; pal: like arguments)
       require
          not sp.is_unknown
       do
@@ -181,7 +177,7 @@ feature {}
          arguments = pal
       end
 
-   current_or_twin_init (saf: like specialized_anonymous_feature; a: like arguments): like Current is
+   current_or_twin_init (saf: like specialized_anonymous_feature; a: like arguments): like Current
       require
          saf /= Void
          a /= Void = (arguments /= Void)
@@ -197,7 +193,7 @@ feature {}
          Result.arguments = a
       end
 
-   frozen pretty_ (indent_level: INTEGER) is
+   frozen pretty_ (indent_level: INTEGER)
       local
          buffer: STRING
       do
@@ -232,9 +228,9 @@ end -- class PRECURSOR_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

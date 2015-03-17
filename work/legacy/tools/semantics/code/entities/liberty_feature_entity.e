@@ -41,12 +41,12 @@ create {LIBERTY_FEATURE_ENTITY}
 feature {ANY}
    target_type: LIBERTY_TYPE
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
       do
          Result := feature_name.name
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "feature: ")
          feature_name.out_in_tagged_out_memory
@@ -54,7 +54,7 @@ feature {ANY}
 
    feature_name: LIBERTY_FEATURE_NAME
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          if the_feature /= Void then
             Result := the_feature.result_type
@@ -66,24 +66,24 @@ feature {ANY}
          end
       end
 
-   has_feature: BOOLEAN is
+   has_feature: BOOLEAN
       do
          Result := target_type.known_type.has_feature(feature_name)
       end
 
-   feature_definition: LIBERTY_FEATURE_DEFINITION is
+   feature_definition: LIBERTY_FEATURE_DEFINITION
       require
          has_feature
       do
          Result := target_type.known_type.feature_definition(feature_name)
       end
 
-   debug_display is
+   debug_display
       do
          target_type.known_type.debug_display(log.trace, True)
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          f: like the_feature
          dft: like delayed_feature_type
@@ -114,7 +114,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_CALL_EXPRESSION}
-   can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN is
+   can_check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): BOOLEAN
       require
          a_agent_call /= Void
       do
@@ -123,7 +123,7 @@ feature {LIBERTY_CALL_EXPRESSION}
          can_also_check_result_type: Result implies (the_feature.result_type = Void or else the_feature.result_type.is_known)
       end
 
-   agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE] is
+   agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION): COLLECTION[LIBERTY_KNOWN_TYPE]
       require
          can_check_agent_signature(a_agent_call)
          a_agent_call.is_agent_call
@@ -131,7 +131,7 @@ feature {LIBERTY_CALL_EXPRESSION}
          Result := the_feature.agent_signature(a_agent_call)
       end
 
-   check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION) is
+   check_agent_signature (a_agent_call: LIBERTY_CALL_EXPRESSION)
       require
          can_check_agent_signature(a_agent_call)
          a_agent_call.is_agent_call
@@ -140,7 +140,7 @@ feature {LIBERTY_CALL_EXPRESSION}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       local
          rt: like result_type
       do
@@ -172,7 +172,7 @@ feature {}
    delayed_feature_type: LIBERTY_DELAYED_FEATURE_TYPE
    result_type_memory: LIBERTY_TYPE
 
-   make (a_name: like feature_name; a_target_type: like target_type) is
+   make (a_name: like feature_name; a_target_type: like target_type)
       require
          a_name /= Void
          a_target_type /= Void
@@ -188,7 +188,7 @@ feature {}
          position = a_name.position
       end
 
-   specialized (a_name: like feature_name; a_target_type: like target_type; a_feature: like the_feature; a_delayed_feature_type: like delayed_feature_type) is
+   specialized (a_name: like feature_name; a_target_type: like target_type; a_feature: like the_feature; a_delayed_feature_type: like delayed_feature_type)
       require
          a_name /= Void
          a_target_type /= Void
@@ -213,7 +213,7 @@ feature {}
    torch: LIBERTY_ENLIGHTENING_THE_WORLD
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_FEATURE_ENTITY_VISITOR
       do

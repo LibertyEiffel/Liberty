@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          mt1, mt2: MICROSECOND_TIME; string: STRING
       do
@@ -19,14 +19,14 @@ feature {}
          print_microsecond_time(mt2)
       end
 
-   print_microsecond_time (mt: MICROSECOND_TIME) is
+   print_microsecond_time (mt: MICROSECOND_TIME)
       do
          time_in_english.set_short_mode(True)
          time_in_english.set_time(mt.time)
          io.put_string(time_in_english.to_string + " " + mt.time.second.to_string + " seconds and " + mt.microsecond.to_string + " microseconds%N")
       end
 
-   time_in_english: TIME_IN_ENGLISH is
+   time_in_english: TIME_IN_ENGLISH
       once
          create Result
       end

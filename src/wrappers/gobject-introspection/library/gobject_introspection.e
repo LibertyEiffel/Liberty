@@ -4,7 +4,7 @@ deferred class GOBJECT_INTROSPECTION
 insert GTYPE_EXTERNALS
 
 feature {} -- Initialization
-	initialization is
+	initialization
 		do
 			g_type_init
 		end

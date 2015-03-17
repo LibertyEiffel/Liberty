@@ -5,9 +5,9 @@ expanded class XML_PARSER_ERRORS_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_c14n_create_ctxt_low_level)  or else
 				(a_value = xml_c14n_create_stack_low_level)  or else
@@ -744,7319 +744,7319 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_c14n_create_ctxt is
+	set_xml_c14n_create_ctxt
 		do
 			value := xml_c14n_create_ctxt_low_level
 		end
 
-	set_xml_c14n_create_stack is
+	set_xml_c14n_create_stack
 		do
 			value := xml_c14n_create_stack_low_level
 		end
 
-	set_xml_c14n_invalid_node is
+	set_xml_c14n_invalid_node
 		do
 			value := xml_c14n_invalid_node_low_level
 		end
 
-	set_xml_c14n_relative_namespace is
+	set_xml_c14n_relative_namespace
 		do
 			value := xml_c14n_relative_namespace_low_level
 		end
 
-	set_xml_c14n_requires_utf8 is
+	set_xml_c14n_requires_utf8
 		do
 			value := xml_c14n_requires_utf8_low_level
 		end
 
-	set_xml_c14n_unknow_node is
+	set_xml_c14n_unknow_node
 		do
 			value := xml_c14n_unknow_node_low_level
 		end
 
-	set_xml_catalog_entry_broken is
+	set_xml_catalog_entry_broken
 		do
 			value := xml_catalog_entry_broken_low_level
 		end
 
-	set_xml_catalog_missing_attr is
+	set_xml_catalog_missing_attr
 		do
 			value := xml_catalog_missing_attr_low_level
 		end
 
-	set_xml_catalog_not_catalog is
+	set_xml_catalog_not_catalog
 		do
 			value := xml_catalog_not_catalog_low_level
 		end
 
-	set_xml_catalog_prefer_value is
+	set_xml_catalog_prefer_value
 		do
 			value := xml_catalog_prefer_value_low_level
 		end
 
-	set_xml_catalog_recursion is
+	set_xml_catalog_recursion
 		do
 			value := xml_catalog_recursion_low_level
 		end
 
-	set_xml_check_entity_type is
+	set_xml_check_entity_type
 		do
 			value := xml_check_entity_type_low_level
 		end
 
-	set_xml_check_found_attribute is
+	set_xml_check_found_attribute
 		do
 			value := xml_check_found_attribute_low_level
 		end
 
-	set_xml_check_found_cdata is
+	set_xml_check_found_cdata
 		do
 			value := xml_check_found_cdata_low_level
 		end
 
-	set_xml_check_found_comment is
+	set_xml_check_found_comment
 		do
 			value := xml_check_found_comment_low_level
 		end
 
-	set_xml_check_found_doctype is
+	set_xml_check_found_doctype
 		do
 			value := xml_check_found_doctype_low_level
 		end
 
-	set_xml_check_found_element is
+	set_xml_check_found_element
 		do
 			value := xml_check_found_element_low_level
 		end
 
-	set_xml_check_found_entity is
+	set_xml_check_found_entity
 		do
 			value := xml_check_found_entity_low_level
 		end
 
-	set_xml_check_found_entityref is
+	set_xml_check_found_entityref
 		do
 			value := xml_check_found_entityref_low_level
 		end
 
-	set_xml_check_found_fragment is
+	set_xml_check_found_fragment
 		do
 			value := xml_check_found_fragment_low_level
 		end
 
-	set_xml_check_found_notation is
+	set_xml_check_found_notation
 		do
 			value := xml_check_found_notation_low_level
 		end
 
-	set_xml_check_found_pi is
+	set_xml_check_found_pi
 		do
 			value := xml_check_found_pi_low_level
 		end
 
-	set_xml_check_found_text is
+	set_xml_check_found_text
 		do
 			value := xml_check_found_text_low_level
 		end
 
-	set_xml_check_name_not_null is
+	set_xml_check_name_not_null
 		do
 			value := xml_check_name_not_null_low_level
 		end
 
-	set_xml_check_no_dict is
+	set_xml_check_no_dict
 		do
 			value := xml_check_no_dict_low_level
 		end
 
-	set_xml_check_no_doc is
+	set_xml_check_no_doc
 		do
 			value := xml_check_no_doc_low_level
 		end
 
-	set_xml_check_no_elem is
+	set_xml_check_no_elem
 		do
 			value := xml_check_no_elem_low_level
 		end
 
-	set_xml_check_no_href is
+	set_xml_check_no_href
 		do
 			value := xml_check_no_href_low_level
 		end
 
-	set_xml_check_no_name is
+	set_xml_check_no_name
 		do
 			value := xml_check_no_name_low_level
 		end
 
-	set_xml_check_no_next is
+	set_xml_check_no_next
 		do
 			value := xml_check_no_next_low_level
 		end
 
-	set_xml_check_no_parent is
+	set_xml_check_no_parent
 		do
 			value := xml_check_no_parent_low_level
 		end
 
-	set_xml_check_no_prev is
+	set_xml_check_no_prev
 		do
 			value := xml_check_no_prev_low_level
 		end
 
-	set_xml_check_not_attr is
+	set_xml_check_not_attr
 		do
 			value := xml_check_not_attr_low_level
 		end
 
-	set_xml_check_not_attr_decl is
+	set_xml_check_not_attr_decl
 		do
 			value := xml_check_not_attr_decl_low_level
 		end
 
-	set_xml_check_not_dtd is
+	set_xml_check_not_dtd
 		do
 			value := xml_check_not_dtd_low_level
 		end
 
-	set_xml_check_not_elem_decl is
+	set_xml_check_not_elem_decl
 		do
 			value := xml_check_not_elem_decl_low_level
 		end
 
-	set_xml_check_not_entity_decl is
+	set_xml_check_not_entity_decl
 		do
 			value := xml_check_not_entity_decl_low_level
 		end
 
-	set_xml_check_not_ncname is
+	set_xml_check_not_ncname
 		do
 			value := xml_check_not_ncname_low_level
 		end
 
-	set_xml_check_not_ns_decl is
+	set_xml_check_not_ns_decl
 		do
 			value := xml_check_not_ns_decl_low_level
 		end
 
-	set_xml_check_not_utf8 is
+	set_xml_check_not_utf8
 		do
 			value := xml_check_not_utf8_low_level
 		end
 
-	set_xml_check_ns_ancestor is
+	set_xml_check_ns_ancestor
 		do
 			value := xml_check_ns_ancestor_low_level
 		end
 
-	set_xml_check_ns_scope is
+	set_xml_check_ns_scope
 		do
 			value := xml_check_ns_scope_low_level
 		end
 
-	set_xml_check_outside_dict is
+	set_xml_check_outside_dict
 		do
 			value := xml_check_outside_dict_low_level
 		end
 
-	set_xml_check_unknown_node is
+	set_xml_check_unknown_node
 		do
 			value := xml_check_unknown_node_low_level
 		end
 
-	set_xml_check_wrong_doc is
+	set_xml_check_wrong_doc
 		do
 			value := xml_check_wrong_doc_low_level
 		end
 
-	set_xml_check_wrong_name is
+	set_xml_check_wrong_name
 		do
 			value := xml_check_wrong_name_low_level
 		end
 
-	set_xml_check_wrong_next is
+	set_xml_check_wrong_next
 		do
 			value := xml_check_wrong_next_low_level
 		end
 
-	set_xml_check_wrong_parent is
+	set_xml_check_wrong_parent
 		do
 			value := xml_check_wrong_parent_low_level
 		end
 
-	set_xml_check_wrong_prev is
+	set_xml_check_wrong_prev
 		do
 			value := xml_check_wrong_prev_low_level
 		end
 
-	set_xml_dtd_attribute_default is
+	set_xml_dtd_attribute_default
 		do
 			value := xml_dtd_attribute_default_low_level
 		end
 
-	set_xml_dtd_attribute_redefined is
+	set_xml_dtd_attribute_redefined
 		do
 			value := xml_dtd_attribute_redefined_low_level
 		end
 
-	set_xml_dtd_attribute_value is
+	set_xml_dtd_attribute_value
 		do
 			value := xml_dtd_attribute_value_low_level
 		end
 
-	set_xml_dtd_content_error is
+	set_xml_dtd_content_error
 		do
 			value := xml_dtd_content_error_low_level
 		end
 
-	set_xml_dtd_content_model is
+	set_xml_dtd_content_model
 		do
 			value := xml_dtd_content_model_low_level
 		end
 
-	set_xml_dtd_content_not_determinist is
+	set_xml_dtd_content_not_determinist
 		do
 			value := xml_dtd_content_not_determinist_low_level
 		end
 
-	set_xml_dtd_different_prefix is
+	set_xml_dtd_different_prefix
 		do
 			value := xml_dtd_different_prefix_low_level
 		end
 
-	set_xml_dtd_dup_token is
+	set_xml_dtd_dup_token
 		do
 			value := xml_dtd_dup_token_low_level
 		end
 
-	set_xml_dtd_elem_default_namespace is
+	set_xml_dtd_elem_default_namespace
 		do
 			value := xml_dtd_elem_default_namespace_low_level
 		end
 
-	set_xml_dtd_elem_namespace is
+	set_xml_dtd_elem_namespace
 		do
 			value := xml_dtd_elem_namespace_low_level
 		end
 
-	set_xml_dtd_elem_redefined is
+	set_xml_dtd_elem_redefined
 		do
 			value := xml_dtd_elem_redefined_low_level
 		end
 
-	set_xml_dtd_empty_notation is
+	set_xml_dtd_empty_notation
 		do
 			value := xml_dtd_empty_notation_low_level
 		end
 
-	set_xml_dtd_entity_type is
+	set_xml_dtd_entity_type
 		do
 			value := xml_dtd_entity_type_low_level
 		end
 
-	set_xml_dtd_id_fixed is
+	set_xml_dtd_id_fixed
 		do
 			value := xml_dtd_id_fixed_low_level
 		end
 
-	set_xml_dtd_id_redefined is
+	set_xml_dtd_id_redefined
 		do
 			value := xml_dtd_id_redefined_low_level
 		end
 
-	set_xml_dtd_id_subset is
+	set_xml_dtd_id_subset
 		do
 			value := xml_dtd_id_subset_low_level
 		end
 
-	set_xml_dtd_invalid_child is
+	set_xml_dtd_invalid_child
 		do
 			value := xml_dtd_invalid_child_low_level
 		end
 
-	set_xml_dtd_invalid_default is
+	set_xml_dtd_invalid_default
 		do
 			value := xml_dtd_invalid_default_low_level
 		end
 
-	set_xml_dtd_load_error is
+	set_xml_dtd_load_error
 		do
 			value := xml_dtd_load_error_low_level
 		end
 
-	set_xml_dtd_missing_attribute is
+	set_xml_dtd_missing_attribute
 		do
 			value := xml_dtd_missing_attribute_low_level
 		end
 
-	set_xml_dtd_mixed_corrupt is
+	set_xml_dtd_mixed_corrupt
 		do
 			value := xml_dtd_mixed_corrupt_low_level
 		end
 
-	set_xml_dtd_multiple_id is
+	set_xml_dtd_multiple_id
 		do
 			value := xml_dtd_multiple_id_low_level
 		end
 
-	set_xml_dtd_no_doc is
+	set_xml_dtd_no_doc
 		do
 			value := xml_dtd_no_doc_low_level
 		end
 
-	set_xml_dtd_no_dtd is
+	set_xml_dtd_no_dtd
 		do
 			value := xml_dtd_no_dtd_low_level
 		end
 
-	set_xml_dtd_no_elem_name is
+	set_xml_dtd_no_elem_name
 		do
 			value := xml_dtd_no_elem_name_low_level
 		end
 
-	set_xml_dtd_no_prefix is
+	set_xml_dtd_no_prefix
 		do
 			value := xml_dtd_no_prefix_low_level
 		end
 
-	set_xml_dtd_no_root is
+	set_xml_dtd_no_root
 		do
 			value := xml_dtd_no_root_low_level
 		end
 
-	set_xml_dtd_not_empty is
+	set_xml_dtd_not_empty
 		do
 			value := xml_dtd_not_empty_low_level
 		end
 
-	set_xml_dtd_not_pcdata is
+	set_xml_dtd_not_pcdata
 		do
 			value := xml_dtd_not_pcdata_low_level
 		end
 
-	set_xml_dtd_not_standalone is
+	set_xml_dtd_not_standalone
 		do
 			value := xml_dtd_not_standalone_low_level
 		end
 
-	set_xml_dtd_notation_redefined is
+	set_xml_dtd_notation_redefined
 		do
 			value := xml_dtd_notation_redefined_low_level
 		end
 
-	set_xml_dtd_notation_value is
+	set_xml_dtd_notation_value
 		do
 			value := xml_dtd_notation_value_low_level
 		end
 
-	set_xml_dtd_root_name is
+	set_xml_dtd_root_name
 		do
 			value := xml_dtd_root_name_low_level
 		end
 
-	set_xml_dtd_standalone_defaulted is
+	set_xml_dtd_standalone_defaulted
 		do
 			value := xml_dtd_standalone_defaulted_low_level
 		end
 
-	set_xml_dtd_standalone_white_space is
+	set_xml_dtd_standalone_white_space
 		do
 			value := xml_dtd_standalone_white_space_low_level
 		end
 
-	set_xml_dtd_unknown_attribute is
+	set_xml_dtd_unknown_attribute
 		do
 			value := xml_dtd_unknown_attribute_low_level
 		end
 
-	set_xml_dtd_unknown_elem is
+	set_xml_dtd_unknown_elem
 		do
 			value := xml_dtd_unknown_elem_low_level
 		end
 
-	set_xml_dtd_unknown_entity is
+	set_xml_dtd_unknown_entity
 		do
 			value := xml_dtd_unknown_entity_low_level
 		end
 
-	set_xml_dtd_unknown_id is
+	set_xml_dtd_unknown_id
 		do
 			value := xml_dtd_unknown_id_low_level
 		end
 
-	set_xml_dtd_unknown_notation is
+	set_xml_dtd_unknown_notation
 		do
 			value := xml_dtd_unknown_notation_low_level
 		end
 
-	set_xml_dtd_xmlid_type is
+	set_xml_dtd_xmlid_type
 		do
 			value := xml_dtd_xmlid_type_low_level
 		end
 
-	set_xml_dtd_xmlid_value is
+	set_xml_dtd_xmlid_value
 		do
 			value := xml_dtd_xmlid_value_low_level
 		end
 
-	set_xml_err_attlist_not_finished is
+	set_xml_err_attlist_not_finished
 		do
 			value := xml_err_attlist_not_finished_low_level
 		end
 
-	set_xml_err_attlist_not_started is
+	set_xml_err_attlist_not_started
 		do
 			value := xml_err_attlist_not_started_low_level
 		end
 
-	set_xml_err_attribute_not_finished is
+	set_xml_err_attribute_not_finished
 		do
 			value := xml_err_attribute_not_finished_low_level
 		end
 
-	set_xml_err_attribute_not_started is
+	set_xml_err_attribute_not_started
 		do
 			value := xml_err_attribute_not_started_low_level
 		end
 
-	set_xml_err_attribute_redefined is
+	set_xml_err_attribute_redefined
 		do
 			value := xml_err_attribute_redefined_low_level
 		end
 
-	set_xml_err_attribute_without_value is
+	set_xml_err_attribute_without_value
 		do
 			value := xml_err_attribute_without_value_low_level
 		end
 
-	set_xml_err_cdata_not_finished is
+	set_xml_err_cdata_not_finished
 		do
 			value := xml_err_cdata_not_finished_low_level
 		end
 
-	set_xml_err_charref_at_eof is
+	set_xml_err_charref_at_eof
 		do
 			value := xml_err_charref_at_eof_low_level
 		end
 
-	set_xml_err_charref_in_dtd is
+	set_xml_err_charref_in_dtd
 		do
 			value := xml_err_charref_in_dtd_low_level
 		end
 
-	set_xml_err_charref_in_epilog is
+	set_xml_err_charref_in_epilog
 		do
 			value := xml_err_charref_in_epilog_low_level
 		end
 
-	set_xml_err_charref_in_prolog is
+	set_xml_err_charref_in_prolog
 		do
 			value := xml_err_charref_in_prolog_low_level
 		end
 
-	set_xml_err_comment_not_finished is
+	set_xml_err_comment_not_finished
 		do
 			value := xml_err_comment_not_finished_low_level
 		end
 
-	set_xml_err_condsec_invalid is
+	set_xml_err_condsec_invalid
 		do
 			value := xml_err_condsec_invalid_low_level
 		end
 
-	set_xml_err_condsec_invalid_keyword is
+	set_xml_err_condsec_invalid_keyword
 		do
 			value := xml_err_condsec_invalid_keyword_low_level
 		end
 
-	set_xml_err_condsec_not_finished is
+	set_xml_err_condsec_not_finished
 		do
 			value := xml_err_condsec_not_finished_low_level
 		end
 
-	set_xml_err_condsec_not_started is
+	set_xml_err_condsec_not_started
 		do
 			value := xml_err_condsec_not_started_low_level
 		end
 
-	set_xml_err_doctype_not_finished is
+	set_xml_err_doctype_not_finished
 		do
 			value := xml_err_doctype_not_finished_low_level
 		end
 
-	set_xml_err_document_empty is
+	set_xml_err_document_empty
 		do
 			value := xml_err_document_empty_low_level
 		end
 
-	set_xml_err_document_end is
+	set_xml_err_document_end
 		do
 			value := xml_err_document_end_low_level
 		end
 
-	set_xml_err_document_start is
+	set_xml_err_document_start
 		do
 			value := xml_err_document_start_low_level
 		end
 
-	set_xml_err_elemcontent_not_finished is
+	set_xml_err_elemcontent_not_finished
 		do
 			value := xml_err_elemcontent_not_finished_low_level
 		end
 
-	set_xml_err_elemcontent_not_started is
+	set_xml_err_elemcontent_not_started
 		do
 			value := xml_err_elemcontent_not_started_low_level
 		end
 
-	set_xml_err_encoding_name is
+	set_xml_err_encoding_name
 		do
 			value := xml_err_encoding_name_low_level
 		end
 
-	set_xml_err_entity_boundary is
+	set_xml_err_entity_boundary
 		do
 			value := xml_err_entity_boundary_low_level
 		end
 
-	set_xml_err_entity_char_error is
+	set_xml_err_entity_char_error
 		do
 			value := xml_err_entity_char_error_low_level
 		end
 
-	set_xml_err_entity_is_external is
+	set_xml_err_entity_is_external
 		do
 			value := xml_err_entity_is_external_low_level
 		end
 
-	set_xml_err_entity_is_parameter is
+	set_xml_err_entity_is_parameter
 		do
 			value := xml_err_entity_is_parameter_low_level
 		end
 
-	set_xml_err_entity_loop is
+	set_xml_err_entity_loop
 		do
 			value := xml_err_entity_loop_low_level
 		end
 
-	set_xml_err_entity_not_finished is
+	set_xml_err_entity_not_finished
 		do
 			value := xml_err_entity_not_finished_low_level
 		end
 
-	set_xml_err_entity_not_started is
+	set_xml_err_entity_not_started
 		do
 			value := xml_err_entity_not_started_low_level
 		end
 
-	set_xml_err_entity_pe_internal is
+	set_xml_err_entity_pe_internal
 		do
 			value := xml_err_entity_pe_internal_low_level
 		end
 
-	set_xml_err_entity_processing is
+	set_xml_err_entity_processing
 		do
 			value := xml_err_entity_processing_low_level
 		end
 
-	set_xml_err_entityref_at_eof is
+	set_xml_err_entityref_at_eof
 		do
 			value := xml_err_entityref_at_eof_low_level
 		end
 
-	set_xml_err_entityref_in_dtd is
+	set_xml_err_entityref_in_dtd
 		do
 			value := xml_err_entityref_in_dtd_low_level
 		end
 
-	set_xml_err_entityref_in_epilog is
+	set_xml_err_entityref_in_epilog
 		do
 			value := xml_err_entityref_in_epilog_low_level
 		end
 
-	set_xml_err_entityref_in_prolog is
+	set_xml_err_entityref_in_prolog
 		do
 			value := xml_err_entityref_in_prolog_low_level
 		end
 
-	set_xml_err_entityref_no_name is
+	set_xml_err_entityref_no_name
 		do
 			value := xml_err_entityref_no_name_low_level
 		end
 
-	set_xml_err_entityref_semicol_missing is
+	set_xml_err_entityref_semicol_missing
 		do
 			value := xml_err_entityref_semicol_missing_low_level
 		end
 
-	set_xml_err_equal_required is
+	set_xml_err_equal_required
 		do
 			value := xml_err_equal_required_low_level
 		end
 
-	set_xml_err_ext_entity_standalone is
+	set_xml_err_ext_entity_standalone
 		do
 			value := xml_err_ext_entity_standalone_low_level
 		end
 
-	set_xml_err_ext_subset_not_finished is
+	set_xml_err_ext_subset_not_finished
 		do
 			value := xml_err_ext_subset_not_finished_low_level
 		end
 
-	set_xml_err_extra_content is
+	set_xml_err_extra_content
 		do
 			value := xml_err_extra_content_low_level
 		end
 
-	set_xml_err_gt_required is
+	set_xml_err_gt_required
 		do
 			value := xml_err_gt_required_low_level
 		end
 
-	set_xml_err_hyphen_in_comment is
+	set_xml_err_hyphen_in_comment
 		do
 			value := xml_err_hyphen_in_comment_low_level
 		end
 
-	set_xml_err_internal_error is
+	set_xml_err_internal_error
 		do
 			value := xml_err_internal_error_low_level
 		end
 
-	set_xml_err_invalid_char is
+	set_xml_err_invalid_char
 		do
 			value := xml_err_invalid_char_low_level
 		end
 
-	set_xml_err_invalid_charref is
+	set_xml_err_invalid_charref
 		do
 			value := xml_err_invalid_charref_low_level
 		end
 
-	set_xml_err_invalid_dec_charref is
+	set_xml_err_invalid_dec_charref
 		do
 			value := xml_err_invalid_dec_charref_low_level
 		end
 
-	set_xml_err_invalid_encoding is
+	set_xml_err_invalid_encoding
 		do
 			value := xml_err_invalid_encoding_low_level
 		end
 
-	set_xml_err_invalid_hex_charref is
+	set_xml_err_invalid_hex_charref
 		do
 			value := xml_err_invalid_hex_charref_low_level
 		end
 
-	set_xml_err_invalid_uri is
+	set_xml_err_invalid_uri
 		do
 			value := xml_err_invalid_uri_low_level
 		end
 
-	set_xml_err_literal_not_finished is
+	set_xml_err_literal_not_finished
 		do
 			value := xml_err_literal_not_finished_low_level
 		end
 
-	set_xml_err_literal_not_started is
+	set_xml_err_literal_not_started
 		do
 			value := xml_err_literal_not_started_low_level
 		end
 
-	set_xml_err_lt_in_attribute is
+	set_xml_err_lt_in_attribute
 		do
 			value := xml_err_lt_in_attribute_low_level
 		end
 
-	set_xml_err_lt_required is
+	set_xml_err_lt_required
 		do
 			value := xml_err_lt_required_low_level
 		end
 
-	set_xml_err_ltslash_required is
+	set_xml_err_ltslash_required
 		do
 			value := xml_err_ltslash_required_low_level
 		end
 
-	set_xml_err_misplaced_cdata_end is
+	set_xml_err_misplaced_cdata_end
 		do
 			value := xml_err_misplaced_cdata_end_low_level
 		end
 
-	set_xml_err_missing_encoding is
+	set_xml_err_missing_encoding
 		do
 			value := xml_err_missing_encoding_low_level
 		end
 
-	set_xml_err_mixed_not_finished is
+	set_xml_err_mixed_not_finished
 		do
 			value := xml_err_mixed_not_finished_low_level
 		end
 
-	set_xml_err_mixed_not_started is
+	set_xml_err_mixed_not_started
 		do
 			value := xml_err_mixed_not_started_low_level
 		end
 
-	set_xml_err_name_required is
+	set_xml_err_name_required
 		do
 			value := xml_err_name_required_low_level
 		end
 
-	set_xml_err_nmtoken_required is
+	set_xml_err_nmtoken_required
 		do
 			value := xml_err_nmtoken_required_low_level
 		end
 
-	set_xml_err_no_dtd is
+	set_xml_err_no_dtd
 		do
 			value := xml_err_no_dtd_low_level
 		end
 
-	set_xml_err_no_memory is
+	set_xml_err_no_memory
 		do
 			value := xml_err_no_memory_low_level
 		end
 
-	set_xml_err_not_standalone is
+	set_xml_err_not_standalone
 		do
 			value := xml_err_not_standalone_low_level
 		end
 
-	set_xml_err_not_well_balanced is
+	set_xml_err_not_well_balanced
 		do
 			value := xml_err_not_well_balanced_low_level
 		end
 
-	set_xml_err_notation_not_finished is
+	set_xml_err_notation_not_finished
 		do
 			value := xml_err_notation_not_finished_low_level
 		end
 
-	set_xml_err_notation_not_started is
+	set_xml_err_notation_not_started
 		do
 			value := xml_err_notation_not_started_low_level
 		end
 
-	set_xml_err_notation_processing is
+	set_xml_err_notation_processing
 		do
 			value := xml_err_notation_processing_low_level
 		end
 
-	set_xml_err_ns_decl_error is
+	set_xml_err_ns_decl_error
 		do
 			value := xml_err_ns_decl_error_low_level
 		end
 
-	set_xml_err_ok is
+	set_xml_err_ok
 		do
 			value := xml_err_ok_low_level
 		end
 
-	set_xml_err_pcdata_required is
+	set_xml_err_pcdata_required
 		do
 			value := xml_err_pcdata_required_low_level
 		end
 
-	set_xml_err_peref_at_eof is
+	set_xml_err_peref_at_eof
 		do
 			value := xml_err_peref_at_eof_low_level
 		end
 
-	set_xml_err_peref_in_epilog is
+	set_xml_err_peref_in_epilog
 		do
 			value := xml_err_peref_in_epilog_low_level
 		end
 
-	set_xml_err_peref_in_int_subset is
+	set_xml_err_peref_in_int_subset
 		do
 			value := xml_err_peref_in_int_subset_low_level
 		end
 
-	set_xml_err_peref_in_prolog is
+	set_xml_err_peref_in_prolog
 		do
 			value := xml_err_peref_in_prolog_low_level
 		end
 
-	set_xml_err_peref_no_name is
+	set_xml_err_peref_no_name
 		do
 			value := xml_err_peref_no_name_low_level
 		end
 
-	set_xml_err_peref_semicol_missing is
+	set_xml_err_peref_semicol_missing
 		do
 			value := xml_err_peref_semicol_missing_low_level
 		end
 
-	set_xml_err_pi_not_finished is
+	set_xml_err_pi_not_finished
 		do
 			value := xml_err_pi_not_finished_low_level
 		end
 
-	set_xml_err_pi_not_started is
+	set_xml_err_pi_not_started
 		do
 			value := xml_err_pi_not_started_low_level
 		end
 
-	set_xml_err_pubid_required is
+	set_xml_err_pubid_required
 		do
 			value := xml_err_pubid_required_low_level
 		end
 
-	set_xml_err_reserved_xml_name is
+	set_xml_err_reserved_xml_name
 		do
 			value := xml_err_reserved_xml_name_low_level
 		end
 
-	set_xml_err_separator_required is
+	set_xml_err_separator_required
 		do
 			value := xml_err_separator_required_low_level
 		end
 
-	set_xml_err_space_required is
+	set_xml_err_space_required
 		do
 			value := xml_err_space_required_low_level
 		end
 
-	set_xml_err_standalone_value is
+	set_xml_err_standalone_value
 		do
 			value := xml_err_standalone_value_low_level
 		end
 
-	set_xml_err_string_not_closed is
+	set_xml_err_string_not_closed
 		do
 			value := xml_err_string_not_closed_low_level
 		end
 
-	set_xml_err_string_not_started is
+	set_xml_err_string_not_started
 		do
 			value := xml_err_string_not_started_low_level
 		end
 
-	set_xml_err_tag_name_mismatch is
+	set_xml_err_tag_name_mismatch
 		do
 			value := xml_err_tag_name_mismatch_low_level
 		end
 
-	set_xml_err_tag_not_finished is
+	set_xml_err_tag_not_finished
 		do
 			value := xml_err_tag_not_finished_low_level
 		end
 
-	set_xml_err_undeclared_entity is
+	set_xml_err_undeclared_entity
 		do
 			value := xml_err_undeclared_entity_low_level
 		end
 
-	set_xml_err_unknown_encoding is
+	set_xml_err_unknown_encoding
 		do
 			value := xml_err_unknown_encoding_low_level
 		end
 
-	set_xml_err_unknown_version is
+	set_xml_err_unknown_version
 		do
 			value := xml_err_unknown_version_low_level
 		end
 
-	set_xml_err_unparsed_entity is
+	set_xml_err_unparsed_entity
 		do
 			value := xml_err_unparsed_entity_low_level
 		end
 
-	set_xml_err_unsupported_encoding is
+	set_xml_err_unsupported_encoding
 		do
 			value := xml_err_unsupported_encoding_low_level
 		end
 
-	set_xml_err_uri_fragment is
+	set_xml_err_uri_fragment
 		do
 			value := xml_err_uri_fragment_low_level
 		end
 
-	set_xml_err_uri_required is
+	set_xml_err_uri_required
 		do
 			value := xml_err_uri_required_low_level
 		end
 
-	set_xml_err_value_required is
+	set_xml_err_value_required
 		do
 			value := xml_err_value_required_low_level
 		end
 
-	set_xml_err_version_mismatch is
+	set_xml_err_version_mismatch
 		do
 			value := xml_err_version_mismatch_low_level
 		end
 
-	set_xml_err_version_missing is
+	set_xml_err_version_missing
 		do
 			value := xml_err_version_missing_low_level
 		end
 
-	set_xml_err_xmldecl_not_finished is
+	set_xml_err_xmldecl_not_finished
 		do
 			value := xml_err_xmldecl_not_finished_low_level
 		end
 
-	set_xml_err_xmldecl_not_started is
+	set_xml_err_xmldecl_not_started
 		do
 			value := xml_err_xmldecl_not_started_low_level
 		end
 
-	set_xml_ftp_accnt is
+	set_xml_ftp_accnt
 		do
 			value := xml_ftp_accnt_low_level
 		end
 
-	set_xml_ftp_epsv_answer is
+	set_xml_ftp_epsv_answer
 		do
 			value := xml_ftp_epsv_answer_low_level
 		end
 
-	set_xml_ftp_pasv_answer is
+	set_xml_ftp_pasv_answer
 		do
 			value := xml_ftp_pasv_answer_low_level
 		end
 
-	set_xml_ftp_url_syntax is
+	set_xml_ftp_url_syntax
 		do
 			value := xml_ftp_url_syntax_low_level
 		end
 
-	set_xml_html_strucure_error is
+	set_xml_html_strucure_error
 		do
 			value := xml_html_strucure_error_low_level
 		end
 
-	set_xml_html_unknown_tag is
+	set_xml_html_unknown_tag
 		do
 			value := xml_html_unknown_tag_low_level
 		end
 
-	set_xml_http_unknown_host is
+	set_xml_http_unknown_host
 		do
 			value := xml_http_unknown_host_low_level
 		end
 
-	set_xml_http_url_syntax is
+	set_xml_http_url_syntax
 		do
 			value := xml_http_url_syntax_low_level
 		end
 
-	set_xml_http_use_ip is
+	set_xml_http_use_ip
 		do
 			value := xml_http_use_ip_low_level
 		end
 
-	set_xml_i18n_conv_failed is
+	set_xml_i18n_conv_failed
 		do
 			value := xml_i18n_conv_failed_low_level
 		end
 
-	set_xml_i18n_excess_handler is
+	set_xml_i18n_excess_handler
 		do
 			value := xml_i18n_excess_handler_low_level
 		end
 
-	set_xml_i18n_no_handler is
+	set_xml_i18n_no_handler
 		do
 			value := xml_i18n_no_handler_low_level
 		end
 
-	set_xml_i18n_no_name is
+	set_xml_i18n_no_name
 		do
 			value := xml_i18n_no_name_low_level
 		end
 
-	set_xml_i18n_no_output is
+	set_xml_i18n_no_output
 		do
 			value := xml_i18n_no_output_low_level
 		end
 
-	set_xml_io_buffer_full is
+	set_xml_io_buffer_full
 		do
 			value := xml_io_buffer_full_low_level
 		end
 
-	set_xml_io_eacces is
+	set_xml_io_eacces
 		do
 			value := xml_io_eacces_low_level
 		end
 
-	set_xml_io_eaddrinuse is
+	set_xml_io_eaddrinuse
 		do
 			value := xml_io_eaddrinuse_low_level
 		end
 
-	set_xml_io_eafnosupport is
+	set_xml_io_eafnosupport
 		do
 			value := xml_io_eafnosupport_low_level
 		end
 
-	set_xml_io_eagain is
+	set_xml_io_eagain
 		do
 			value := xml_io_eagain_low_level
 		end
 
-	set_xml_io_ealready is
+	set_xml_io_ealready
 		do
 			value := xml_io_ealready_low_level
 		end
 
-	set_xml_io_ebadf is
+	set_xml_io_ebadf
 		do
 			value := xml_io_ebadf_low_level
 		end
 
-	set_xml_io_ebadmsg is
+	set_xml_io_ebadmsg
 		do
 			value := xml_io_ebadmsg_low_level
 		end
 
-	set_xml_io_ebusy is
+	set_xml_io_ebusy
 		do
 			value := xml_io_ebusy_low_level
 		end
 
-	set_xml_io_ecanceled is
+	set_xml_io_ecanceled
 		do
 			value := xml_io_ecanceled_low_level
 		end
 
-	set_xml_io_echild is
+	set_xml_io_echild
 		do
 			value := xml_io_echild_low_level
 		end
 
-	set_xml_io_econnrefused is
+	set_xml_io_econnrefused
 		do
 			value := xml_io_econnrefused_low_level
 		end
 
-	set_xml_io_edeadlk is
+	set_xml_io_edeadlk
 		do
 			value := xml_io_edeadlk_low_level
 		end
 
-	set_xml_io_edom is
+	set_xml_io_edom
 		do
 			value := xml_io_edom_low_level
 		end
 
-	set_xml_io_eexist is
+	set_xml_io_eexist
 		do
 			value := xml_io_eexist_low_level
 		end
 
-	set_xml_io_efault is
+	set_xml_io_efault
 		do
 			value := xml_io_efault_low_level
 		end
 
-	set_xml_io_efbig is
+	set_xml_io_efbig
 		do
 			value := xml_io_efbig_low_level
 		end
 
-	set_xml_io_einprogress is
+	set_xml_io_einprogress
 		do
 			value := xml_io_einprogress_low_level
 		end
 
-	set_xml_io_eintr is
+	set_xml_io_eintr
 		do
 			value := xml_io_eintr_low_level
 		end
 
-	set_xml_io_einval is
+	set_xml_io_einval
 		do
 			value := xml_io_einval_low_level
 		end
 
-	set_xml_io_eio is
+	set_xml_io_eio
 		do
 			value := xml_io_eio_low_level
 		end
 
-	set_xml_io_eisconn is
+	set_xml_io_eisconn
 		do
 			value := xml_io_eisconn_low_level
 		end
 
-	set_xml_io_eisdir is
+	set_xml_io_eisdir
 		do
 			value := xml_io_eisdir_low_level
 		end
 
-	set_xml_io_emfile is
+	set_xml_io_emfile
 		do
 			value := xml_io_emfile_low_level
 		end
 
-	set_xml_io_emlink is
+	set_xml_io_emlink
 		do
 			value := xml_io_emlink_low_level
 		end
 
-	set_xml_io_emsgsize is
+	set_xml_io_emsgsize
 		do
 			value := xml_io_emsgsize_low_level
 		end
 
-	set_xml_io_enametoolong is
+	set_xml_io_enametoolong
 		do
 			value := xml_io_enametoolong_low_level
 		end
 
-	set_xml_io_encoder is
+	set_xml_io_encoder
 		do
 			value := xml_io_encoder_low_level
 		end
 
-	set_xml_io_enetunreach is
+	set_xml_io_enetunreach
 		do
 			value := xml_io_enetunreach_low_level
 		end
 
-	set_xml_io_enfile is
+	set_xml_io_enfile
 		do
 			value := xml_io_enfile_low_level
 		end
 
-	set_xml_io_enodev is
+	set_xml_io_enodev
 		do
 			value := xml_io_enodev_low_level
 		end
 
-	set_xml_io_enoent is
+	set_xml_io_enoent
 		do
 			value := xml_io_enoent_low_level
 		end
 
-	set_xml_io_enoexec is
+	set_xml_io_enoexec
 		do
 			value := xml_io_enoexec_low_level
 		end
 
-	set_xml_io_enolck is
+	set_xml_io_enolck
 		do
 			value := xml_io_enolck_low_level
 		end
 
-	set_xml_io_enomem is
+	set_xml_io_enomem
 		do
 			value := xml_io_enomem_low_level
 		end
 
-	set_xml_io_enospc is
+	set_xml_io_enospc
 		do
 			value := xml_io_enospc_low_level
 		end
 
-	set_xml_io_enosys is
+	set_xml_io_enosys
 		do
 			value := xml_io_enosys_low_level
 		end
 
-	set_xml_io_enotdir is
+	set_xml_io_enotdir
 		do
 			value := xml_io_enotdir_low_level
 		end
 
-	set_xml_io_enotempty is
+	set_xml_io_enotempty
 		do
 			value := xml_io_enotempty_low_level
 		end
 
-	set_xml_io_enotsock is
+	set_xml_io_enotsock
 		do
 			value := xml_io_enotsock_low_level
 		end
 
-	set_xml_io_enotsup is
+	set_xml_io_enotsup
 		do
 			value := xml_io_enotsup_low_level
 		end
 
-	set_xml_io_enotty is
+	set_xml_io_enotty
 		do
 			value := xml_io_enotty_low_level
 		end
 
-	set_xml_io_enxio is
+	set_xml_io_enxio
 		do
 			value := xml_io_enxio_low_level
 		end
 
-	set_xml_io_eperm is
+	set_xml_io_eperm
 		do
 			value := xml_io_eperm_low_level
 		end
 
-	set_xml_io_epipe is
+	set_xml_io_epipe
 		do
 			value := xml_io_epipe_low_level
 		end
 
-	set_xml_io_erange is
+	set_xml_io_erange
 		do
 			value := xml_io_erange_low_level
 		end
 
-	set_xml_io_erofs is
+	set_xml_io_erofs
 		do
 			value := xml_io_erofs_low_level
 		end
 
-	set_xml_io_espipe is
+	set_xml_io_espipe
 		do
 			value := xml_io_espipe_low_level
 		end
 
-	set_xml_io_esrch is
+	set_xml_io_esrch
 		do
 			value := xml_io_esrch_low_level
 		end
 
-	set_xml_io_etimedout is
+	set_xml_io_etimedout
 		do
 			value := xml_io_etimedout_low_level
 		end
 
-	set_xml_io_exdev is
+	set_xml_io_exdev
 		do
 			value := xml_io_exdev_low_level
 		end
 
-	set_xml_io_flush is
+	set_xml_io_flush
 		do
 			value := xml_io_flush_low_level
 		end
 
-	set_xml_io_load_error is
+	set_xml_io_load_error
 		do
 			value := xml_io_load_error_low_level
 		end
 
-	set_xml_io_network_attempt is
+	set_xml_io_network_attempt
 		do
 			value := xml_io_network_attempt_low_level
 		end
 
-	set_xml_io_no_input is
+	set_xml_io_no_input
 		do
 			value := xml_io_no_input_low_level
 		end
 
-	set_xml_io_unknown is
+	set_xml_io_unknown
 		do
 			value := xml_io_unknown_low_level
 		end
 
-	set_xml_io_write is
+	set_xml_io_write
 		do
 			value := xml_io_write_low_level
 		end
 
-	set_xml_module_close is
+	set_xml_module_close
 		do
 			value := xml_module_close_low_level
 		end
 
-	set_xml_module_open is
+	set_xml_module_open
 		do
 			value := xml_module_open_low_level
 		end
 
-	set_xml_ns_err_attribute_redefined is
+	set_xml_ns_err_attribute_redefined
 		do
 			value := xml_ns_err_attribute_redefined_low_level
 		end
 
-	set_xml_ns_err_colon is
+	set_xml_ns_err_colon
 		do
 			value := xml_ns_err_colon_low_level
 		end
 
-	set_xml_ns_err_empty is
+	set_xml_ns_err_empty
 		do
 			value := xml_ns_err_empty_low_level
 		end
 
-	set_xml_ns_err_qname is
+	set_xml_ns_err_qname
 		do
 			value := xml_ns_err_qname_low_level
 		end
 
-	set_xml_ns_err_undefined_namespace is
+	set_xml_ns_err_undefined_namespace
 		do
 			value := xml_ns_err_undefined_namespace_low_level
 		end
 
-	set_xml_ns_err_xml_namespace is
+	set_xml_ns_err_xml_namespace
 		do
 			value := xml_ns_err_xml_namespace_low_level
 		end
 
-	set_xml_regexp_compile_error is
+	set_xml_regexp_compile_error
 		do
 			value := xml_regexp_compile_error_low_level
 		end
 
-	set_xml_rngp_anyname_attr_ancestor is
+	set_xml_rngp_anyname_attr_ancestor
 		do
 			value := xml_rngp_anyname_attr_ancestor_low_level
 		end
 
-	set_xml_rngp_attr_conflict is
+	set_xml_rngp_attr_conflict
 		do
 			value := xml_rngp_attr_conflict_low_level
 		end
 
-	set_xml_rngp_attribute_children is
+	set_xml_rngp_attribute_children
 		do
 			value := xml_rngp_attribute_children_low_level
 		end
 
-	set_xml_rngp_attribute_content is
+	set_xml_rngp_attribute_content
 		do
 			value := xml_rngp_attribute_content_low_level
 		end
 
-	set_xml_rngp_attribute_empty is
+	set_xml_rngp_attribute_empty
 		do
 			value := xml_rngp_attribute_empty_low_level
 		end
 
-	set_xml_rngp_attribute_noop is
+	set_xml_rngp_attribute_noop
 		do
 			value := xml_rngp_attribute_noop_low_level
 		end
 
-	set_xml_rngp_choice_content is
+	set_xml_rngp_choice_content
 		do
 			value := xml_rngp_choice_content_low_level
 		end
 
-	set_xml_rngp_choice_empty is
+	set_xml_rngp_choice_empty
 		do
 			value := xml_rngp_choice_empty_low_level
 		end
 
-	set_xml_rngp_create_failure is
+	set_xml_rngp_create_failure
 		do
 			value := xml_rngp_create_failure_low_level
 		end
 
-	set_xml_rngp_data_content is
+	set_xml_rngp_data_content
 		do
 			value := xml_rngp_data_content_low_level
 		end
 
-	set_xml_rngp_def_choice_and_interleave is
+	set_xml_rngp_def_choice_and_interleave
 		do
 			value := xml_rngp_def_choice_and_interleave_low_level
 		end
 
-	set_xml_rngp_define_create_failed is
+	set_xml_rngp_define_create_failed
 		do
 			value := xml_rngp_define_create_failed_low_level
 		end
 
-	set_xml_rngp_define_empty is
+	set_xml_rngp_define_empty
 		do
 			value := xml_rngp_define_empty_low_level
 		end
 
-	set_xml_rngp_define_missing is
+	set_xml_rngp_define_missing
 		do
 			value := xml_rngp_define_missing_low_level
 		end
 
-	set_xml_rngp_define_name_missing is
+	set_xml_rngp_define_name_missing
 		do
 			value := xml_rngp_define_name_missing_low_level
 		end
 
-	set_xml_rngp_elem_content_empty is
+	set_xml_rngp_elem_content_empty
 		do
 			value := xml_rngp_elem_content_empty_low_level
 		end
 
-	set_xml_rngp_elem_content_error is
+	set_xml_rngp_elem_content_error
 		do
 			value := xml_rngp_elem_content_error_low_level
 		end
 
-	set_xml_rngp_elem_text_conflict is
+	set_xml_rngp_elem_text_conflict
 		do
 			value := xml_rngp_elem_text_conflict_low_level
 		end
 
-	set_xml_rngp_element_content is
+	set_xml_rngp_element_content
 		do
 			value := xml_rngp_element_content_low_level
 		end
 
-	set_xml_rngp_element_empty is
+	set_xml_rngp_element_empty
 		do
 			value := xml_rngp_element_empty_low_level
 		end
 
-	set_xml_rngp_element_name is
+	set_xml_rngp_element_name
 		do
 			value := xml_rngp_element_name_low_level
 		end
 
-	set_xml_rngp_element_no_content is
+	set_xml_rngp_element_no_content
 		do
 			value := xml_rngp_element_no_content_low_level
 		end
 
-	set_xml_rngp_empty is
+	set_xml_rngp_empty
 		do
 			value := xml_rngp_empty_low_level
 		end
 
-	set_xml_rngp_empty_construct is
+	set_xml_rngp_empty_construct
 		do
 			value := xml_rngp_empty_construct_low_level
 		end
 
-	set_xml_rngp_empty_content is
+	set_xml_rngp_empty_content
 		do
 			value := xml_rngp_empty_content_low_level
 		end
 
-	set_xml_rngp_empty_not_empty is
+	set_xml_rngp_empty_not_empty
 		do
 			value := xml_rngp_empty_not_empty_low_level
 		end
 
-	set_xml_rngp_error_type_lib is
+	set_xml_rngp_error_type_lib
 		do
 			value := xml_rngp_error_type_lib_low_level
 		end
 
-	set_xml_rngp_except_empty is
+	set_xml_rngp_except_empty
 		do
 			value := xml_rngp_except_empty_low_level
 		end
 
-	set_xml_rngp_except_missing is
+	set_xml_rngp_except_missing
 		do
 			value := xml_rngp_except_missing_low_level
 		end
 
-	set_xml_rngp_except_multiple is
+	set_xml_rngp_except_multiple
 		do
 			value := xml_rngp_except_multiple_low_level
 		end
 
-	set_xml_rngp_except_no_content is
+	set_xml_rngp_except_no_content
 		do
 			value := xml_rngp_except_no_content_low_level
 		end
 
-	set_xml_rngp_external_ref_failure is
+	set_xml_rngp_external_ref_failure
 		do
 			value := xml_rngp_external_ref_failure_low_level
 		end
 
-	set_xml_rngp_externalref_emtpy is
+	set_xml_rngp_externalref_emtpy
 		do
 			value := xml_rngp_externalref_emtpy_low_level
 		end
 
-	set_xml_rngp_externalref_recurse is
+	set_xml_rngp_externalref_recurse
 		do
 			value := xml_rngp_externalref_recurse_low_level
 		end
 
-	set_xml_rngp_forbidden_attribute is
+	set_xml_rngp_forbidden_attribute
 		do
 			value := xml_rngp_forbidden_attribute_low_level
 		end
 
-	set_xml_rngp_foreign_element is
+	set_xml_rngp_foreign_element
 		do
 			value := xml_rngp_foreign_element_low_level
 		end
 
-	set_xml_rngp_grammar_content is
+	set_xml_rngp_grammar_content
 		do
 			value := xml_rngp_grammar_content_low_level
 		end
 
-	set_xml_rngp_grammar_empty is
+	set_xml_rngp_grammar_empty
 		do
 			value := xml_rngp_grammar_empty_low_level
 		end
 
-	set_xml_rngp_grammar_missing is
+	set_xml_rngp_grammar_missing
 		do
 			value := xml_rngp_grammar_missing_low_level
 		end
 
-	set_xml_rngp_grammar_no_start is
+	set_xml_rngp_grammar_no_start
 		do
 			value := xml_rngp_grammar_no_start_low_level
 		end
 
-	set_xml_rngp_group_attr_conflict is
+	set_xml_rngp_group_attr_conflict
 		do
 			value := xml_rngp_group_attr_conflict_low_level
 		end
 
-	set_xml_rngp_href_error is
+	set_xml_rngp_href_error
 		do
 			value := xml_rngp_href_error_low_level
 		end
 
-	set_xml_rngp_include_empty is
+	set_xml_rngp_include_empty
 		do
 			value := xml_rngp_include_empty_low_level
 		end
 
-	set_xml_rngp_include_failure is
+	set_xml_rngp_include_failure
 		do
 			value := xml_rngp_include_failure_low_level
 		end
 
-	set_xml_rngp_include_recurse is
+	set_xml_rngp_include_recurse
 		do
 			value := xml_rngp_include_recurse_low_level
 		end
 
-	set_xml_rngp_interleave_add is
+	set_xml_rngp_interleave_add
 		do
 			value := xml_rngp_interleave_add_low_level
 		end
 
-	set_xml_rngp_interleave_create_failed is
+	set_xml_rngp_interleave_create_failed
 		do
 			value := xml_rngp_interleave_create_failed_low_level
 		end
 
-	set_xml_rngp_interleave_empty is
+	set_xml_rngp_interleave_empty
 		do
 			value := xml_rngp_interleave_empty_low_level
 		end
 
-	set_xml_rngp_interleave_no_content is
+	set_xml_rngp_interleave_no_content
 		do
 			value := xml_rngp_interleave_no_content_low_level
 		end
 
-	set_xml_rngp_invalid_define_name is
+	set_xml_rngp_invalid_define_name
 		do
 			value := xml_rngp_invalid_define_name_low_level
 		end
 
-	set_xml_rngp_invalid_uri is
+	set_xml_rngp_invalid_uri
 		do
 			value := xml_rngp_invalid_uri_low_level
 		end
 
-	set_xml_rngp_invalid_value is
+	set_xml_rngp_invalid_value
 		do
 			value := xml_rngp_invalid_value_low_level
 		end
 
-	set_xml_rngp_missing_href is
+	set_xml_rngp_missing_href
 		do
 			value := xml_rngp_missing_href_low_level
 		end
 
-	set_xml_rngp_name_missing is
+	set_xml_rngp_name_missing
 		do
 			value := xml_rngp_name_missing_low_level
 		end
 
-	set_xml_rngp_need_combine is
+	set_xml_rngp_need_combine
 		do
 			value := xml_rngp_need_combine_low_level
 		end
 
-	set_xml_rngp_notallowed_not_empty is
+	set_xml_rngp_notallowed_not_empty
 		do
 			value := xml_rngp_notallowed_not_empty_low_level
 		end
 
-	set_xml_rngp_nsname_attr_ancestor is
+	set_xml_rngp_nsname_attr_ancestor
 		do
 			value := xml_rngp_nsname_attr_ancestor_low_level
 		end
 
-	set_xml_rngp_nsname_no_ns is
+	set_xml_rngp_nsname_no_ns
 		do
 			value := xml_rngp_nsname_no_ns_low_level
 		end
 
-	set_xml_rngp_param_forbidden is
+	set_xml_rngp_param_forbidden
 		do
 			value := xml_rngp_param_forbidden_low_level
 		end
 
-	set_xml_rngp_param_name_missing is
+	set_xml_rngp_param_name_missing
 		do
 			value := xml_rngp_param_name_missing_low_level
 		end
 
-	set_xml_rngp_parentref_create_failed is
+	set_xml_rngp_parentref_create_failed
 		do
 			value := xml_rngp_parentref_create_failed_low_level
 		end
 
-	set_xml_rngp_parentref_name_invalid is
+	set_xml_rngp_parentref_name_invalid
 		do
 			value := xml_rngp_parentref_name_invalid_low_level
 		end
 
-	set_xml_rngp_parentref_no_name is
+	set_xml_rngp_parentref_no_name
 		do
 			value := xml_rngp_parentref_no_name_low_level
 		end
 
-	set_xml_rngp_parentref_no_parent is
+	set_xml_rngp_parentref_no_parent
 		do
 			value := xml_rngp_parentref_no_parent_low_level
 		end
 
-	set_xml_rngp_parentref_not_empty is
+	set_xml_rngp_parentref_not_empty
 		do
 			value := xml_rngp_parentref_not_empty_low_level
 		end
 
-	set_xml_rngp_parse_error is
+	set_xml_rngp_parse_error
 		do
 			value := xml_rngp_parse_error_low_level
 		end
 
-	set_xml_rngp_pat_anyname_except_anyname is
+	set_xml_rngp_pat_anyname_except_anyname
 		do
 			value := xml_rngp_pat_anyname_except_anyname_low_level
 		end
 
-	set_xml_rngp_pat_attr_attr is
+	set_xml_rngp_pat_attr_attr
 		do
 			value := xml_rngp_pat_attr_attr_low_level
 		end
 
-	set_xml_rngp_pat_attr_elem is
+	set_xml_rngp_pat_attr_elem
 		do
 			value := xml_rngp_pat_attr_elem_low_level
 		end
 
-	set_xml_rngp_pat_data_except_attr is
+	set_xml_rngp_pat_data_except_attr
 		do
 			value := xml_rngp_pat_data_except_attr_low_level
 		end
 
-	set_xml_rngp_pat_data_except_elem is
+	set_xml_rngp_pat_data_except_elem
 		do
 			value := xml_rngp_pat_data_except_elem_low_level
 		end
 
-	set_xml_rngp_pat_data_except_empty is
+	set_xml_rngp_pat_data_except_empty
 		do
 			value := xml_rngp_pat_data_except_empty_low_level
 		end
 
-	set_xml_rngp_pat_data_except_group is
+	set_xml_rngp_pat_data_except_group
 		do
 			value := xml_rngp_pat_data_except_group_low_level
 		end
 
-	set_xml_rngp_pat_data_except_interleave is
+	set_xml_rngp_pat_data_except_interleave
 		do
 			value := xml_rngp_pat_data_except_interleave_low_level
 		end
 
-	set_xml_rngp_pat_data_except_list is
+	set_xml_rngp_pat_data_except_list
 		do
 			value := xml_rngp_pat_data_except_list_low_level
 		end
 
-	set_xml_rngp_pat_data_except_onemore is
+	set_xml_rngp_pat_data_except_onemore
 		do
 			value := xml_rngp_pat_data_except_onemore_low_level
 		end
 
-	set_xml_rngp_pat_data_except_ref is
+	set_xml_rngp_pat_data_except_ref
 		do
 			value := xml_rngp_pat_data_except_ref_low_level
 		end
 
-	set_xml_rngp_pat_data_except_text is
+	set_xml_rngp_pat_data_except_text
 		do
 			value := xml_rngp_pat_data_except_text_low_level
 		end
 
-	set_xml_rngp_pat_list_attr is
+	set_xml_rngp_pat_list_attr
 		do
 			value := xml_rngp_pat_list_attr_low_level
 		end
 
-	set_xml_rngp_pat_list_elem is
+	set_xml_rngp_pat_list_elem
 		do
 			value := xml_rngp_pat_list_elem_low_level
 		end
 
-	set_xml_rngp_pat_list_interleave is
+	set_xml_rngp_pat_list_interleave
 		do
 			value := xml_rngp_pat_list_interleave_low_level
 		end
 
-	set_xml_rngp_pat_list_list is
+	set_xml_rngp_pat_list_list
 		do
 			value := xml_rngp_pat_list_list_low_level
 		end
 
-	set_xml_rngp_pat_list_ref is
+	set_xml_rngp_pat_list_ref
 		do
 			value := xml_rngp_pat_list_ref_low_level
 		end
 
-	set_xml_rngp_pat_list_text is
+	set_xml_rngp_pat_list_text
 		do
 			value := xml_rngp_pat_list_text_low_level
 		end
 
-	set_xml_rngp_pat_nsname_except_anyname is
+	set_xml_rngp_pat_nsname_except_anyname
 		do
 			value := xml_rngp_pat_nsname_except_anyname_low_level
 		end
 
-	set_xml_rngp_pat_nsname_except_nsname is
+	set_xml_rngp_pat_nsname_except_nsname
 		do
 			value := xml_rngp_pat_nsname_except_nsname_low_level
 		end
 
-	set_xml_rngp_pat_onemore_group_attr is
+	set_xml_rngp_pat_onemore_group_attr
 		do
 			value := xml_rngp_pat_onemore_group_attr_low_level
 		end
 
-	set_xml_rngp_pat_onemore_interleave_attr is
+	set_xml_rngp_pat_onemore_interleave_attr
 		do
 			value := xml_rngp_pat_onemore_interleave_attr_low_level
 		end
 
-	set_xml_rngp_pat_start_attr is
+	set_xml_rngp_pat_start_attr
 		do
 			value := xml_rngp_pat_start_attr_low_level
 		end
 
-	set_xml_rngp_pat_start_data is
+	set_xml_rngp_pat_start_data
 		do
 			value := xml_rngp_pat_start_data_low_level
 		end
 
-	set_xml_rngp_pat_start_empty is
+	set_xml_rngp_pat_start_empty
 		do
 			value := xml_rngp_pat_start_empty_low_level
 		end
 
-	set_xml_rngp_pat_start_group is
+	set_xml_rngp_pat_start_group
 		do
 			value := xml_rngp_pat_start_group_low_level
 		end
 
-	set_xml_rngp_pat_start_interleave is
+	set_xml_rngp_pat_start_interleave
 		do
 			value := xml_rngp_pat_start_interleave_low_level
 		end
 
-	set_xml_rngp_pat_start_list is
+	set_xml_rngp_pat_start_list
 		do
 			value := xml_rngp_pat_start_list_low_level
 		end
 
-	set_xml_rngp_pat_start_onemore is
+	set_xml_rngp_pat_start_onemore
 		do
 			value := xml_rngp_pat_start_onemore_low_level
 		end
 
-	set_xml_rngp_pat_start_text is
+	set_xml_rngp_pat_start_text
 		do
 			value := xml_rngp_pat_start_text_low_level
 		end
 
-	set_xml_rngp_pat_start_value is
+	set_xml_rngp_pat_start_value
 		do
 			value := xml_rngp_pat_start_value_low_level
 		end
 
-	set_xml_rngp_prefix_undefined is
+	set_xml_rngp_prefix_undefined
 		do
 			value := xml_rngp_prefix_undefined_low_level
 		end
 
-	set_xml_rngp_ref_create_failed is
+	set_xml_rngp_ref_create_failed
 		do
 			value := xml_rngp_ref_create_failed_low_level
 		end
 
-	set_xml_rngp_ref_cycle is
+	set_xml_rngp_ref_cycle
 		do
 			value := xml_rngp_ref_cycle_low_level
 		end
 
-	set_xml_rngp_ref_name_invalid is
+	set_xml_rngp_ref_name_invalid
 		do
 			value := xml_rngp_ref_name_invalid_low_level
 		end
 
-	set_xml_rngp_ref_no_def is
+	set_xml_rngp_ref_no_def
 		do
 			value := xml_rngp_ref_no_def_low_level
 		end
 
-	set_xml_rngp_ref_no_name is
+	set_xml_rngp_ref_no_name
 		do
 			value := xml_rngp_ref_no_name_low_level
 		end
 
-	set_xml_rngp_ref_not_empty is
+	set_xml_rngp_ref_not_empty
 		do
 			value := xml_rngp_ref_not_empty_low_level
 		end
 
-	set_xml_rngp_start_choice_and_interleave is
+	set_xml_rngp_start_choice_and_interleave
 		do
 			value := xml_rngp_start_choice_and_interleave_low_level
 		end
 
-	set_xml_rngp_start_content is
+	set_xml_rngp_start_content
 		do
 			value := xml_rngp_start_content_low_level
 		end
 
-	set_xml_rngp_start_empty is
+	set_xml_rngp_start_empty
 		do
 			value := xml_rngp_start_empty_low_level
 		end
 
-	set_xml_rngp_start_missing is
+	set_xml_rngp_start_missing
 		do
 			value := xml_rngp_start_missing_low_level
 		end
 
-	set_xml_rngp_text_expected is
+	set_xml_rngp_text_expected
 		do
 			value := xml_rngp_text_expected_low_level
 		end
 
-	set_xml_rngp_text_has_child is
+	set_xml_rngp_text_has_child
 		do
 			value := xml_rngp_text_has_child_low_level
 		end
 
-	set_xml_rngp_type_missing is
+	set_xml_rngp_type_missing
 		do
 			value := xml_rngp_type_missing_low_level
 		end
 
-	set_xml_rngp_type_not_found is
+	set_xml_rngp_type_not_found
 		do
 			value := xml_rngp_type_not_found_low_level
 		end
 
-	set_xml_rngp_type_value is
+	set_xml_rngp_type_value
 		do
 			value := xml_rngp_type_value_low_level
 		end
 
-	set_xml_rngp_unknown_attribute is
+	set_xml_rngp_unknown_attribute
 		do
 			value := xml_rngp_unknown_attribute_low_level
 		end
 
-	set_xml_rngp_unknown_combine is
+	set_xml_rngp_unknown_combine
 		do
 			value := xml_rngp_unknown_combine_low_level
 		end
 
-	set_xml_rngp_unknown_construct is
+	set_xml_rngp_unknown_construct
 		do
 			value := xml_rngp_unknown_construct_low_level
 		end
 
-	set_xml_rngp_unknown_type_lib is
+	set_xml_rngp_unknown_type_lib
 		do
 			value := xml_rngp_unknown_type_lib_low_level
 		end
 
-	set_xml_rngp_uri_fragment is
+	set_xml_rngp_uri_fragment
 		do
 			value := xml_rngp_uri_fragment_low_level
 		end
 
-	set_xml_rngp_uri_not_absolute is
+	set_xml_rngp_uri_not_absolute
 		do
 			value := xml_rngp_uri_not_absolute_low_level
 		end
 
-	set_xml_rngp_value_empty is
+	set_xml_rngp_value_empty
 		do
 			value := xml_rngp_value_empty_low_level
 		end
 
-	set_xml_rngp_value_no_content is
+	set_xml_rngp_value_no_content
 		do
 			value := xml_rngp_value_no_content_low_level
 		end
 
-	set_xml_rngp_xml_ns is
+	set_xml_rngp_xml_ns
 		do
 			value := xml_rngp_xml_ns_low_level
 		end
 
-	set_xml_rngp_xmlns_name is
+	set_xml_rngp_xmlns_name
 		do
 			value := xml_rngp_xmlns_name_low_level
 		end
 
-	set_xml_save_char_invalid is
+	set_xml_save_char_invalid
 		do
 			value := xml_save_char_invalid_low_level
 		end
 
-	set_xml_save_no_doctype is
+	set_xml_save_no_doctype
 		do
 			value := xml_save_no_doctype_low_level
 		end
 
-	set_xml_save_not_utf8 is
+	set_xml_save_not_utf8
 		do
 			value := xml_save_not_utf8_low_level
 		end
 
-	set_xml_save_unknown_encoding is
+	set_xml_save_unknown_encoding
 		do
 			value := xml_save_unknown_encoding_low_level
 		end
 
-	set_xml_schemap_a_props_correct_2 is
+	set_xml_schemap_a_props_correct_2
 		do
 			value := xml_schemap_a_props_correct_2_low_level
 		end
 
-	set_xml_schemap_a_props_correct_3 is
+	set_xml_schemap_a_props_correct_3
 		do
 			value := xml_schemap_a_props_correct_3_low_level
 		end
 
-	set_xml_schemap_ag_props_correct is
+	set_xml_schemap_ag_props_correct
 		do
 			value := xml_schemap_ag_props_correct_low_level
 		end
 
-	set_xml_schemap_attr_noname_noref is
+	set_xml_schemap_attr_noname_noref
 		do
 			value := xml_schemap_attr_noname_noref_low_level
 		end
 
-	set_xml_schemap_attrformdefault_value is
+	set_xml_schemap_attrformdefault_value
 		do
 			value := xml_schemap_attrformdefault_value_low_level
 		end
 
-	set_xml_schemap_attrgrp_noname_noref is
+	set_xml_schemap_attrgrp_noname_noref
 		do
 			value := xml_schemap_attrgrp_noname_noref_low_level
 		end
 
-	set_xml_schemap_au_props_correct is
+	set_xml_schemap_au_props_correct
 		do
 			value := xml_schemap_au_props_correct_low_level
 		end
 
-	set_xml_schemap_au_props_correct_2 is
+	set_xml_schemap_au_props_correct_2
 		do
 			value := xml_schemap_au_props_correct_2_low_level
 		end
 
-	set_xml_schemap_c_props_correct is
+	set_xml_schemap_c_props_correct
 		do
 			value := xml_schemap_c_props_correct_low_level
 		end
 
-	set_xml_schemap_complextype_noname_noref is
+	set_xml_schemap_complextype_noname_noref
 		do
 			value := xml_schemap_complextype_noname_noref_low_level
 		end
 
-	set_xml_schemap_cos_all_limited is
+	set_xml_schemap_cos_all_limited
 		do
 			value := xml_schemap_cos_all_limited_low_level
 		end
 
-	set_xml_schemap_cos_ct_extends_1_1 is
+	set_xml_schemap_cos_ct_extends_1_1
 		do
 			value := xml_schemap_cos_ct_extends_1_1_low_level
 		end
 
-	set_xml_schemap_cos_ct_extends_1_2 is
+	set_xml_schemap_cos_ct_extends_1_2
 		do
 			value := xml_schemap_cos_ct_extends_1_2_low_level
 		end
 
-	set_xml_schemap_cos_ct_extends_1_3 is
+	set_xml_schemap_cos_ct_extends_1_3
 		do
 			value := xml_schemap_cos_ct_extends_1_3_low_level
 		end
 
-	set_xml_schemap_cos_st_derived_ok_2_1 is
+	set_xml_schemap_cos_st_derived_ok_2_1
 		do
 			value := xml_schemap_cos_st_derived_ok_2_1_low_level
 		end
 
-	set_xml_schemap_cos_st_derived_ok_2_2 is
+	set_xml_schemap_cos_st_derived_ok_2_2
 		do
 			value := xml_schemap_cos_st_derived_ok_2_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_1_1 is
+	set_xml_schemap_cos_st_restricts_1_1
 		do
 			value := xml_schemap_cos_st_restricts_1_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_1_2 is
+	set_xml_schemap_cos_st_restricts_1_2
 		do
 			value := xml_schemap_cos_st_restricts_1_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_1_3_1 is
+	set_xml_schemap_cos_st_restricts_1_3_1
 		do
 			value := xml_schemap_cos_st_restricts_1_3_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_1_3_2 is
+	set_xml_schemap_cos_st_restricts_1_3_2
 		do
 			value := xml_schemap_cos_st_restricts_1_3_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_1 is
+	set_xml_schemap_cos_st_restricts_2_1
 		do
 			value := xml_schemap_cos_st_restricts_2_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_1_1 is
+	set_xml_schemap_cos_st_restricts_2_3_1_1
 		do
 			value := xml_schemap_cos_st_restricts_2_3_1_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_1_2 is
+	set_xml_schemap_cos_st_restricts_2_3_1_2
 		do
 			value := xml_schemap_cos_st_restricts_2_3_1_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_2_1 is
+	set_xml_schemap_cos_st_restricts_2_3_2_1
 		do
 			value := xml_schemap_cos_st_restricts_2_3_2_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_2_2 is
+	set_xml_schemap_cos_st_restricts_2_3_2_2
 		do
 			value := xml_schemap_cos_st_restricts_2_3_2_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_2_3 is
+	set_xml_schemap_cos_st_restricts_2_3_2_3
 		do
 			value := xml_schemap_cos_st_restricts_2_3_2_3_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_2_4 is
+	set_xml_schemap_cos_st_restricts_2_3_2_4
 		do
 			value := xml_schemap_cos_st_restricts_2_3_2_4_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_2_3_2_5 is
+	set_xml_schemap_cos_st_restricts_2_3_2_5
 		do
 			value := xml_schemap_cos_st_restricts_2_3_2_5_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_1 is
+	set_xml_schemap_cos_st_restricts_3_1
 		do
 			value := xml_schemap_cos_st_restricts_3_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_1 is
+	set_xml_schemap_cos_st_restricts_3_3_1
 		do
 			value := xml_schemap_cos_st_restricts_3_3_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_1_2 is
+	set_xml_schemap_cos_st_restricts_3_3_1_2
 		do
 			value := xml_schemap_cos_st_restricts_3_3_1_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_2_1 is
+	set_xml_schemap_cos_st_restricts_3_3_2_1
 		do
 			value := xml_schemap_cos_st_restricts_3_3_2_1_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_2_2 is
+	set_xml_schemap_cos_st_restricts_3_3_2_2
 		do
 			value := xml_schemap_cos_st_restricts_3_3_2_2_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_2_3 is
+	set_xml_schemap_cos_st_restricts_3_3_2_3
 		do
 			value := xml_schemap_cos_st_restricts_3_3_2_3_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_2_4 is
+	set_xml_schemap_cos_st_restricts_3_3_2_4
 		do
 			value := xml_schemap_cos_st_restricts_3_3_2_4_low_level
 		end
 
-	set_xml_schemap_cos_st_restricts_3_3_2_5 is
+	set_xml_schemap_cos_st_restricts_3_3_2_5
 		do
 			value := xml_schemap_cos_st_restricts_3_3_2_5_low_level
 		end
 
-	set_xml_schemap_cos_valid_default_1 is
+	set_xml_schemap_cos_valid_default_1
 		do
 			value := xml_schemap_cos_valid_default_1_low_level
 		end
 
-	set_xml_schemap_cos_valid_default_2_1 is
+	set_xml_schemap_cos_valid_default_2_1
 		do
 			value := xml_schemap_cos_valid_default_2_1_low_level
 		end
 
-	set_xml_schemap_cos_valid_default_2_2_1 is
+	set_xml_schemap_cos_valid_default_2_2_1
 		do
 			value := xml_schemap_cos_valid_default_2_2_1_low_level
 		end
 
-	set_xml_schemap_cos_valid_default_2_2_2 is
+	set_xml_schemap_cos_valid_default_2_2_2
 		do
 			value := xml_schemap_cos_valid_default_2_2_2_low_level
 		end
 
-	set_xml_schemap_ct_props_correct_1 is
+	set_xml_schemap_ct_props_correct_1
 		do
 			value := xml_schemap_ct_props_correct_1_low_level
 		end
 
-	set_xml_schemap_ct_props_correct_2 is
+	set_xml_schemap_ct_props_correct_2
 		do
 			value := xml_schemap_ct_props_correct_2_low_level
 		end
 
-	set_xml_schemap_ct_props_correct_3 is
+	set_xml_schemap_ct_props_correct_3
 		do
 			value := xml_schemap_ct_props_correct_3_low_level
 		end
 
-	set_xml_schemap_ct_props_correct_4 is
+	set_xml_schemap_ct_props_correct_4
 		do
 			value := xml_schemap_ct_props_correct_4_low_level
 		end
 
-	set_xml_schemap_ct_props_correct_5 is
+	set_xml_schemap_ct_props_correct_5
 		do
 			value := xml_schemap_ct_props_correct_5_low_level
 		end
 
-	set_xml_schemap_cvc_simple_type is
+	set_xml_schemap_cvc_simple_type
 		do
 			value := xml_schemap_cvc_simple_type_low_level
 		end
 
-	set_xml_schemap_def_and_prefix is
+	set_xml_schemap_def_and_prefix
 		do
 			value := xml_schemap_def_and_prefix_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_1 is
+	set_xml_schemap_derivation_ok_restriction_1
 		do
 			value := xml_schemap_derivation_ok_restriction_1_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_2_1_1 is
+	set_xml_schemap_derivation_ok_restriction_2_1_1
 		do
 			value := xml_schemap_derivation_ok_restriction_2_1_1_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_2_1_2 is
+	set_xml_schemap_derivation_ok_restriction_2_1_2
 		do
 			value := xml_schemap_derivation_ok_restriction_2_1_2_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_2_1_3 is
+	set_xml_schemap_derivation_ok_restriction_2_1_3
 		do
 			value := xml_schemap_derivation_ok_restriction_2_1_3_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_2_2 is
+	set_xml_schemap_derivation_ok_restriction_2_2
 		do
 			value := xml_schemap_derivation_ok_restriction_2_2_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_3 is
+	set_xml_schemap_derivation_ok_restriction_3
 		do
 			value := xml_schemap_derivation_ok_restriction_3_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_4_1 is
+	set_xml_schemap_derivation_ok_restriction_4_1
 		do
 			value := xml_schemap_derivation_ok_restriction_4_1_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_4_2 is
+	set_xml_schemap_derivation_ok_restriction_4_2
 		do
 			value := xml_schemap_derivation_ok_restriction_4_2_low_level
 		end
 
-	set_xml_schemap_derivation_ok_restriction_4_3 is
+	set_xml_schemap_derivation_ok_restriction_4_3
 		do
 			value := xml_schemap_derivation_ok_restriction_4_3_low_level
 		end
 
-	set_xml_schemap_e_props_correct_2 is
+	set_xml_schemap_e_props_correct_2
 		do
 			value := xml_schemap_e_props_correct_2_low_level
 		end
 
-	set_xml_schemap_e_props_correct_3 is
+	set_xml_schemap_e_props_correct_3
 		do
 			value := xml_schemap_e_props_correct_3_low_level
 		end
 
-	set_xml_schemap_e_props_correct_4 is
+	set_xml_schemap_e_props_correct_4
 		do
 			value := xml_schemap_e_props_correct_4_low_level
 		end
 
-	set_xml_schemap_e_props_correct_5 is
+	set_xml_schemap_e_props_correct_5
 		do
 			value := xml_schemap_e_props_correct_5_low_level
 		end
 
-	set_xml_schemap_e_props_correct_6 is
+	set_xml_schemap_e_props_correct_6
 		do
 			value := xml_schemap_e_props_correct_6_low_level
 		end
 
-	set_xml_schemap_elem_default_fixed is
+	set_xml_schemap_elem_default_fixed
 		do
 			value := xml_schemap_elem_default_fixed_low_level
 		end
 
-	set_xml_schemap_elem_noname_noref is
+	set_xml_schemap_elem_noname_noref
 		do
 			value := xml_schemap_elem_noname_noref_low_level
 		end
 
-	set_xml_schemap_elemformdefault_value is
+	set_xml_schemap_elemformdefault_value
 		do
 			value := xml_schemap_elemformdefault_value_low_level
 		end
 
-	set_xml_schemap_extension_no_base is
+	set_xml_schemap_extension_no_base
 		do
 			value := xml_schemap_extension_no_base_low_level
 		end
 
-	set_xml_schemap_facet_no_value is
+	set_xml_schemap_facet_no_value
 		do
 			value := xml_schemap_facet_no_value_low_level
 		end
 
-	set_xml_schemap_failed_build_import is
+	set_xml_schemap_failed_build_import
 		do
 			value := xml_schemap_failed_build_import_low_level
 		end
 
-	set_xml_schemap_failed_load is
+	set_xml_schemap_failed_load
 		do
 			value := xml_schemap_failed_load_low_level
 		end
 
-	set_xml_schemap_failed_parse is
+	set_xml_schemap_failed_parse
 		do
 			value := xml_schemap_failed_parse_low_level
 		end
 
-	set_xml_schemap_group_noname_noref is
+	set_xml_schemap_group_noname_noref
 		do
 			value := xml_schemap_group_noname_noref_low_level
 		end
 
-	set_xml_schemap_import_namespace_not_uri is
+	set_xml_schemap_import_namespace_not_uri
 		do
 			value := xml_schemap_import_namespace_not_uri_low_level
 		end
 
-	set_xml_schemap_import_redefine_nsname is
+	set_xml_schemap_import_redefine_nsname
 		do
 			value := xml_schemap_import_redefine_nsname_low_level
 		end
 
-	set_xml_schemap_import_schema_not_uri is
+	set_xml_schemap_import_schema_not_uri
 		do
 			value := xml_schemap_import_schema_not_uri_low_level
 		end
 
-	set_xml_schemap_include_schema_no_uri is
+	set_xml_schemap_include_schema_no_uri
 		do
 			value := xml_schemap_include_schema_no_uri_low_level
 		end
 
-	set_xml_schemap_include_schema_not_uri is
+	set_xml_schemap_include_schema_not_uri
 		do
 			value := xml_schemap_include_schema_not_uri_low_level
 		end
 
-	set_xml_schemap_internal is
+	set_xml_schemap_internal
 		do
 			value := xml_schemap_internal_low_level
 		end
 
-	set_xml_schemap_intersection_not_expressible is
+	set_xml_schemap_intersection_not_expressible
 		do
 			value := xml_schemap_intersection_not_expressible_low_level
 		end
 
-	set_xml_schemap_invalid_attr_combination is
+	set_xml_schemap_invalid_attr_combination
 		do
 			value := xml_schemap_invalid_attr_combination_low_level
 		end
 
-	set_xml_schemap_invalid_attr_inline_combination is
+	set_xml_schemap_invalid_attr_inline_combination
 		do
 			value := xml_schemap_invalid_attr_inline_combination_low_level
 		end
 
-	set_xml_schemap_invalid_attr_name is
+	set_xml_schemap_invalid_attr_name
 		do
 			value := xml_schemap_invalid_attr_name_low_level
 		end
 
-	set_xml_schemap_invalid_attr_use is
+	set_xml_schemap_invalid_attr_use
 		do
 			value := xml_schemap_invalid_attr_use_low_level
 		end
 
-	set_xml_schemap_invalid_boolean is
+	set_xml_schemap_invalid_boolean
 		do
 			value := xml_schemap_invalid_boolean_low_level
 		end
 
-	set_xml_schemap_invalid_enum is
+	set_xml_schemap_invalid_enum
 		do
 			value := xml_schemap_invalid_enum_low_level
 		end
 
-	set_xml_schemap_invalid_facet is
+	set_xml_schemap_invalid_facet
 		do
 			value := xml_schemap_invalid_facet_low_level
 		end
 
-	set_xml_schemap_invalid_facet_value is
+	set_xml_schemap_invalid_facet_value
 		do
 			value := xml_schemap_invalid_facet_value_low_level
 		end
 
-	set_xml_schemap_invalid_maxoccurs is
+	set_xml_schemap_invalid_maxoccurs
 		do
 			value := xml_schemap_invalid_maxoccurs_low_level
 		end
 
-	set_xml_schemap_invalid_minoccurs is
+	set_xml_schemap_invalid_minoccurs
 		do
 			value := xml_schemap_invalid_minoccurs_low_level
 		end
 
-	set_xml_schemap_invalid_ref_and_subtype is
+	set_xml_schemap_invalid_ref_and_subtype
 		do
 			value := xml_schemap_invalid_ref_and_subtype_low_level
 		end
 
-	set_xml_schemap_invalid_white_space is
+	set_xml_schemap_invalid_white_space
 		do
 			value := xml_schemap_invalid_white_space_low_level
 		end
 
-	set_xml_schemap_mg_props_correct_1 is
+	set_xml_schemap_mg_props_correct_1
 		do
 			value := xml_schemap_mg_props_correct_1_low_level
 		end
 
-	set_xml_schemap_mg_props_correct_2 is
+	set_xml_schemap_mg_props_correct_2
 		do
 			value := xml_schemap_mg_props_correct_2_low_level
 		end
 
-	set_xml_schemap_missing_simpletype_child is
+	set_xml_schemap_missing_simpletype_child
 		do
 			value := xml_schemap_missing_simpletype_child_low_level
 		end
 
-	set_xml_schemap_no_xmlns is
+	set_xml_schemap_no_xmlns
 		do
 			value := xml_schemap_no_xmlns_low_level
 		end
 
-	set_xml_schemap_no_xsi is
+	set_xml_schemap_no_xsi
 		do
 			value := xml_schemap_no_xsi_low_level
 		end
 
-	set_xml_schemap_noattr_noref is
+	set_xml_schemap_noattr_noref
 		do
 			value := xml_schemap_noattr_noref_low_level
 		end
 
-	set_xml_schemap_noroot is
+	set_xml_schemap_noroot
 		do
 			value := xml_schemap_noroot_low_level
 		end
 
-	set_xml_schemap_not_deterministic is
+	set_xml_schemap_not_deterministic
 		do
 			value := xml_schemap_not_deterministic_low_level
 		end
 
-	set_xml_schemap_not_schema is
+	set_xml_schemap_not_schema
 		do
 			value := xml_schemap_not_schema_low_level
 		end
 
-	set_xml_schemap_notation_no_name is
+	set_xml_schemap_notation_no_name
 		do
 			value := xml_schemap_notation_no_name_low_level
 		end
 
-	set_xml_schemap_nothing_to_parse is
+	set_xml_schemap_nothing_to_parse
 		do
 			value := xml_schemap_nothing_to_parse_low_level
 		end
 
-	set_xml_schemap_notype_noref is
+	set_xml_schemap_notype_noref
 		do
 			value := xml_schemap_notype_noref_low_level
 		end
 
-	set_xml_schemap_p_props_correct_1 is
+	set_xml_schemap_p_props_correct_1
 		do
 			value := xml_schemap_p_props_correct_1_low_level
 		end
 
-	set_xml_schemap_p_props_correct_2_1 is
+	set_xml_schemap_p_props_correct_2_1
 		do
 			value := xml_schemap_p_props_correct_2_1_low_level
 		end
 
-	set_xml_schemap_p_props_correct_2_2 is
+	set_xml_schemap_p_props_correct_2_2
 		do
 			value := xml_schemap_p_props_correct_2_2_low_level
 		end
 
-	set_xml_schemap_prefix_undefined is
+	set_xml_schemap_prefix_undefined
 		do
 			value := xml_schemap_prefix_undefined_low_level
 		end
 
-	set_xml_schemap_recursive is
+	set_xml_schemap_recursive
 		do
 			value := xml_schemap_recursive_low_level
 		end
 
-	set_xml_schemap_redefined_attr is
+	set_xml_schemap_redefined_attr
 		do
 			value := xml_schemap_redefined_attr_low_level
 		end
 
-	set_xml_schemap_redefined_attrgroup is
+	set_xml_schemap_redefined_attrgroup
 		do
 			value := xml_schemap_redefined_attrgroup_low_level
 		end
 
-	set_xml_schemap_redefined_element is
+	set_xml_schemap_redefined_element
 		do
 			value := xml_schemap_redefined_element_low_level
 		end
 
-	set_xml_schemap_redefined_group is
+	set_xml_schemap_redefined_group
 		do
 			value := xml_schemap_redefined_group_low_level
 		end
 
-	set_xml_schemap_redefined_notation is
+	set_xml_schemap_redefined_notation
 		do
 			value := xml_schemap_redefined_notation_low_level
 		end
 
-	set_xml_schemap_redefined_type is
+	set_xml_schemap_redefined_type
 		do
 			value := xml_schemap_redefined_type_low_level
 		end
 
-	set_xml_schemap_ref_and_content is
+	set_xml_schemap_ref_and_content
 		do
 			value := xml_schemap_ref_and_content_low_level
 		end
 
-	set_xml_schemap_ref_and_subtype is
+	set_xml_schemap_ref_and_subtype
 		do
 			value := xml_schemap_ref_and_subtype_low_level
 		end
 
-	set_xml_schemap_regexp_invalid is
+	set_xml_schemap_regexp_invalid
 		do
 			value := xml_schemap_regexp_invalid_low_level
 		end
 
-	set_xml_schemap_restriction_noname_noref is
+	set_xml_schemap_restriction_noname_noref
 		do
 			value := xml_schemap_restriction_noname_noref_low_level
 		end
 
-	set_xml_schemap_s4s_attr_invalid_value is
+	set_xml_schemap_s4s_attr_invalid_value
 		do
 			value := xml_schemap_s4s_attr_invalid_value_low_level
 		end
 
-	set_xml_schemap_s4s_attr_missing is
+	set_xml_schemap_s4s_attr_missing
 		do
 			value := xml_schemap_s4s_attr_missing_low_level
 		end
 
-	set_xml_schemap_s4s_attr_not_allowed is
+	set_xml_schemap_s4s_attr_not_allowed
 		do
 			value := xml_schemap_s4s_attr_not_allowed_low_level
 		end
 
-	set_xml_schemap_s4s_elem_missing is
+	set_xml_schemap_s4s_elem_missing
 		do
 			value := xml_schemap_s4s_elem_missing_low_level
 		end
 
-	set_xml_schemap_s4s_elem_not_allowed is
+	set_xml_schemap_s4s_elem_not_allowed
 		do
 			value := xml_schemap_s4s_elem_not_allowed_low_level
 		end
 
-	set_xml_schemap_simpletype_noname is
+	set_xml_schemap_simpletype_noname
 		do
 			value := xml_schemap_simpletype_noname_low_level
 		end
 
-	set_xml_schemap_src_attribute_1 is
+	set_xml_schemap_src_attribute_1
 		do
 			value := xml_schemap_src_attribute_1_low_level
 		end
 
-	set_xml_schemap_src_attribute_2 is
+	set_xml_schemap_src_attribute_2
 		do
 			value := xml_schemap_src_attribute_2_low_level
 		end
 
-	set_xml_schemap_src_attribute_3_1 is
+	set_xml_schemap_src_attribute_3_1
 		do
 			value := xml_schemap_src_attribute_3_1_low_level
 		end
 
-	set_xml_schemap_src_attribute_3_2 is
+	set_xml_schemap_src_attribute_3_2
 		do
 			value := xml_schemap_src_attribute_3_2_low_level
 		end
 
-	set_xml_schemap_src_attribute_4 is
+	set_xml_schemap_src_attribute_4
 		do
 			value := xml_schemap_src_attribute_4_low_level
 		end
 
-	set_xml_schemap_src_attribute_group_1 is
+	set_xml_schemap_src_attribute_group_1
 		do
 			value := xml_schemap_src_attribute_group_1_low_level
 		end
 
-	set_xml_schemap_src_attribute_group_2 is
+	set_xml_schemap_src_attribute_group_2
 		do
 			value := xml_schemap_src_attribute_group_2_low_level
 		end
 
-	set_xml_schemap_src_attribute_group_3 is
+	set_xml_schemap_src_attribute_group_3
 		do
 			value := xml_schemap_src_attribute_group_3_low_level
 		end
 
-	set_xml_schemap_src_ct_1 is
+	set_xml_schemap_src_ct_1
 		do
 			value := xml_schemap_src_ct_1_low_level
 		end
 
-	set_xml_schemap_src_element_1 is
+	set_xml_schemap_src_element_1
 		do
 			value := xml_schemap_src_element_1_low_level
 		end
 
-	set_xml_schemap_src_element_2_1 is
+	set_xml_schemap_src_element_2_1
 		do
 			value := xml_schemap_src_element_2_1_low_level
 		end
 
-	set_xml_schemap_src_element_2_2 is
+	set_xml_schemap_src_element_2_2
 		do
 			value := xml_schemap_src_element_2_2_low_level
 		end
 
-	set_xml_schemap_src_element_3 is
+	set_xml_schemap_src_element_3
 		do
 			value := xml_schemap_src_element_3_low_level
 		end
 
-	set_xml_schemap_src_import is
+	set_xml_schemap_src_import
 		do
 			value := xml_schemap_src_import_low_level
 		end
 
-	set_xml_schemap_src_import_1_1 is
+	set_xml_schemap_src_import_1_1
 		do
 			value := xml_schemap_src_import_1_1_low_level
 		end
 
-	set_xml_schemap_src_import_1_2 is
+	set_xml_schemap_src_import_1_2
 		do
 			value := xml_schemap_src_import_1_2_low_level
 		end
 
-	set_xml_schemap_src_import_2 is
+	set_xml_schemap_src_import_2
 		do
 			value := xml_schemap_src_import_2_low_level
 		end
 
-	set_xml_schemap_src_import_2_1 is
+	set_xml_schemap_src_import_2_1
 		do
 			value := xml_schemap_src_import_2_1_low_level
 		end
 
-	set_xml_schemap_src_import_2_2 is
+	set_xml_schemap_src_import_2_2
 		do
 			value := xml_schemap_src_import_2_2_low_level
 		end
 
-	set_xml_schemap_src_import_3_1 is
+	set_xml_schemap_src_import_3_1
 		do
 			value := xml_schemap_src_import_3_1_low_level
 		end
 
-	set_xml_schemap_src_import_3_2 is
+	set_xml_schemap_src_import_3_2
 		do
 			value := xml_schemap_src_import_3_2_low_level
 		end
 
-	set_xml_schemap_src_include is
+	set_xml_schemap_src_include
 		do
 			value := xml_schemap_src_include_low_level
 		end
 
-	set_xml_schemap_src_list_itemtype_or_simpletype is
+	set_xml_schemap_src_list_itemtype_or_simpletype
 		do
 			value := xml_schemap_src_list_itemtype_or_simpletype_low_level
 		end
 
-	set_xml_schemap_src_redefine is
+	set_xml_schemap_src_redefine
 		do
 			value := xml_schemap_src_redefine_low_level
 		end
 
-	set_xml_schemap_src_resolve is
+	set_xml_schemap_src_resolve
 		do
 			value := xml_schemap_src_resolve_low_level
 		end
 
-	set_xml_schemap_src_restriction_base_or_simpletype is
+	set_xml_schemap_src_restriction_base_or_simpletype
 		do
 			value := xml_schemap_src_restriction_base_or_simpletype_low_level
 		end
 
-	set_xml_schemap_src_simple_type_1 is
+	set_xml_schemap_src_simple_type_1
 		do
 			value := xml_schemap_src_simple_type_1_low_level
 		end
 
-	set_xml_schemap_src_simple_type_2 is
+	set_xml_schemap_src_simple_type_2
 		do
 			value := xml_schemap_src_simple_type_2_low_level
 		end
 
-	set_xml_schemap_src_simple_type_3 is
+	set_xml_schemap_src_simple_type_3
 		do
 			value := xml_schemap_src_simple_type_3_low_level
 		end
 
-	set_xml_schemap_src_simple_type_4 is
+	set_xml_schemap_src_simple_type_4
 		do
 			value := xml_schemap_src_simple_type_4_low_level
 		end
 
-	set_xml_schemap_src_union_membertypes_or_simpletypes is
+	set_xml_schemap_src_union_membertypes_or_simpletypes
 		do
 			value := xml_schemap_src_union_membertypes_or_simpletypes_low_level
 		end
 
-	set_xml_schemap_st_props_correct_1 is
+	set_xml_schemap_st_props_correct_1
 		do
 			value := xml_schemap_st_props_correct_1_low_level
 		end
 
-	set_xml_schemap_st_props_correct_2 is
+	set_xml_schemap_st_props_correct_2
 		do
 			value := xml_schemap_st_props_correct_2_low_level
 		end
 
-	set_xml_schemap_st_props_correct_3 is
+	set_xml_schemap_st_props_correct_3
 		do
 			value := xml_schemap_st_props_correct_3_low_level
 		end
 
-	set_xml_schemap_supernumerous_list_item_type is
+	set_xml_schemap_supernumerous_list_item_type
 		do
 			value := xml_schemap_supernumerous_list_item_type_low_level
 		end
 
-	set_xml_schemap_type_and_subtype is
+	set_xml_schemap_type_and_subtype
 		do
 			value := xml_schemap_type_and_subtype_low_level
 		end
 
-	set_xml_schemap_union_not_expressible is
+	set_xml_schemap_union_not_expressible
 		do
 			value := xml_schemap_union_not_expressible_low_level
 		end
 
-	set_xml_schemap_unknown_all_child is
+	set_xml_schemap_unknown_all_child
 		do
 			value := xml_schemap_unknown_all_child_low_level
 		end
 
-	set_xml_schemap_unknown_anyattribute_child is
+	set_xml_schemap_unknown_anyattribute_child
 		do
 			value := xml_schemap_unknown_anyattribute_child_low_level
 		end
 
-	set_xml_schemap_unknown_attr_child is
+	set_xml_schemap_unknown_attr_child
 		do
 			value := xml_schemap_unknown_attr_child_low_level
 		end
 
-	set_xml_schemap_unknown_attrgrp_child is
+	set_xml_schemap_unknown_attrgrp_child
 		do
 			value := xml_schemap_unknown_attrgrp_child_low_level
 		end
 
-	set_xml_schemap_unknown_attribute_group is
+	set_xml_schemap_unknown_attribute_group
 		do
 			value := xml_schemap_unknown_attribute_group_low_level
 		end
 
-	set_xml_schemap_unknown_base_type is
+	set_xml_schemap_unknown_base_type
 		do
 			value := xml_schemap_unknown_base_type_low_level
 		end
 
-	set_xml_schemap_unknown_choice_child is
+	set_xml_schemap_unknown_choice_child
 		do
 			value := xml_schemap_unknown_choice_child_low_level
 		end
 
-	set_xml_schemap_unknown_complexcontent_child is
+	set_xml_schemap_unknown_complexcontent_child
 		do
 			value := xml_schemap_unknown_complexcontent_child_low_level
 		end
 
-	set_xml_schemap_unknown_complextype_child is
+	set_xml_schemap_unknown_complextype_child
 		do
 			value := xml_schemap_unknown_complextype_child_low_level
 		end
 
-	set_xml_schemap_unknown_elem_child is
+	set_xml_schemap_unknown_elem_child
 		do
 			value := xml_schemap_unknown_elem_child_low_level
 		end
 
-	set_xml_schemap_unknown_extension_child is
+	set_xml_schemap_unknown_extension_child
 		do
 			value := xml_schemap_unknown_extension_child_low_level
 		end
 
-	set_xml_schemap_unknown_facet_child is
+	set_xml_schemap_unknown_facet_child
 		do
 			value := xml_schemap_unknown_facet_child_low_level
 		end
 
-	set_xml_schemap_unknown_facet_type is
+	set_xml_schemap_unknown_facet_type
 		do
 			value := xml_schemap_unknown_facet_type_low_level
 		end
 
-	set_xml_schemap_unknown_group_child is
+	set_xml_schemap_unknown_group_child
 		do
 			value := xml_schemap_unknown_group_child_low_level
 		end
 
-	set_xml_schemap_unknown_import_child is
+	set_xml_schemap_unknown_import_child
 		do
 			value := xml_schemap_unknown_import_child_low_level
 		end
 
-	set_xml_schemap_unknown_include_child is
+	set_xml_schemap_unknown_include_child
 		do
 			value := xml_schemap_unknown_include_child_low_level
 		end
 
-	set_xml_schemap_unknown_list_child is
+	set_xml_schemap_unknown_list_child
 		do
 			value := xml_schemap_unknown_list_child_low_level
 		end
 
-	set_xml_schemap_unknown_member_type is
+	set_xml_schemap_unknown_member_type
 		do
 			value := xml_schemap_unknown_member_type_low_level
 		end
 
-	set_xml_schemap_unknown_notation_child is
+	set_xml_schemap_unknown_notation_child
 		do
 			value := xml_schemap_unknown_notation_child_low_level
 		end
 
-	set_xml_schemap_unknown_prefix is
+	set_xml_schemap_unknown_prefix
 		do
 			value := xml_schemap_unknown_prefix_low_level
 		end
 
-	set_xml_schemap_unknown_processcontent_child is
+	set_xml_schemap_unknown_processcontent_child
 		do
 			value := xml_schemap_unknown_processcontent_child_low_level
 		end
 
-	set_xml_schemap_unknown_ref is
+	set_xml_schemap_unknown_ref
 		do
 			value := xml_schemap_unknown_ref_low_level
 		end
 
-	set_xml_schemap_unknown_restriction_child is
+	set_xml_schemap_unknown_restriction_child
 		do
 			value := xml_schemap_unknown_restriction_child_low_level
 		end
 
-	set_xml_schemap_unknown_schemas_child is
+	set_xml_schemap_unknown_schemas_child
 		do
 			value := xml_schemap_unknown_schemas_child_low_level
 		end
 
-	set_xml_schemap_unknown_sequence_child is
+	set_xml_schemap_unknown_sequence_child
 		do
 			value := xml_schemap_unknown_sequence_child_low_level
 		end
 
-	set_xml_schemap_unknown_simplecontent_child is
+	set_xml_schemap_unknown_simplecontent_child
 		do
 			value := xml_schemap_unknown_simplecontent_child_low_level
 		end
 
-	set_xml_schemap_unknown_simpletype_child is
+	set_xml_schemap_unknown_simpletype_child
 		do
 			value := xml_schemap_unknown_simpletype_child_low_level
 		end
 
-	set_xml_schemap_unknown_type is
+	set_xml_schemap_unknown_type
 		do
 			value := xml_schemap_unknown_type_low_level
 		end
 
-	set_xml_schemap_unknown_union_child is
+	set_xml_schemap_unknown_union_child
 		do
 			value := xml_schemap_unknown_union_child_low_level
 		end
 
-	set_xml_schemap_warn_attr_pointless_proh is
+	set_xml_schemap_warn_attr_pointless_proh
 		do
 			value := xml_schemap_warn_attr_pointless_proh_low_level
 		end
 
-	set_xml_schemap_warn_attr_redecl_proh is
+	set_xml_schemap_warn_attr_redecl_proh
 		do
 			value := xml_schemap_warn_attr_redecl_proh_low_level
 		end
 
-	set_xml_schemap_warn_skip_schema is
+	set_xml_schemap_warn_skip_schema
 		do
 			value := xml_schemap_warn_skip_schema_low_level
 		end
 
-	set_xml_schemap_warn_unlocated_schema is
+	set_xml_schemap_warn_unlocated_schema
 		do
 			value := xml_schemap_warn_unlocated_schema_low_level
 		end
 
-	set_xml_schemap_wildcard_invalid_ns_member is
+	set_xml_schemap_wildcard_invalid_ns_member
 		do
 			value := xml_schemap_wildcard_invalid_ns_member_low_level
 		end
 
-	set_xml_schematronv_assert is
+	set_xml_schematronv_assert
 		do
 			value := xml_schematronv_assert_low_level
 		end
 
-	set_xml_schematronv_report is
+	set_xml_schematronv_report
 		do
 			value := xml_schematronv_report_low_level
 		end
 
-	set_xml_schemav_attrinvalid is
+	set_xml_schemav_attrinvalid
 		do
 			value := xml_schemav_attrinvalid_low_level
 		end
 
-	set_xml_schemav_attrunknown is
+	set_xml_schemav_attrunknown
 		do
 			value := xml_schemav_attrunknown_low_level
 		end
 
-	set_xml_schemav_construct is
+	set_xml_schemav_construct
 		do
 			value := xml_schemav_construct_low_level
 		end
 
-	set_xml_schemav_cvc_attribute_1 is
+	set_xml_schemav_cvc_attribute_1
 		do
 			value := xml_schemav_cvc_attribute_1_low_level
 		end
 
-	set_xml_schemav_cvc_attribute_2 is
+	set_xml_schemav_cvc_attribute_2
 		do
 			value := xml_schemav_cvc_attribute_2_low_level
 		end
 
-	set_xml_schemav_cvc_attribute_3 is
+	set_xml_schemav_cvc_attribute_3
 		do
 			value := xml_schemav_cvc_attribute_3_low_level
 		end
 
-	set_xml_schemav_cvc_attribute_4 is
+	set_xml_schemav_cvc_attribute_4
 		do
 			value := xml_schemav_cvc_attribute_4_low_level
 		end
 
-	set_xml_schemav_cvc_au is
+	set_xml_schemav_cvc_au
 		do
 			value := xml_schemav_cvc_au_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_1 is
+	set_xml_schemav_cvc_complex_type_1
 		do
 			value := xml_schemav_cvc_complex_type_1_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_2_1 is
+	set_xml_schemav_cvc_complex_type_2_1
 		do
 			value := xml_schemav_cvc_complex_type_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_2_2 is
+	set_xml_schemav_cvc_complex_type_2_2
 		do
 			value := xml_schemav_cvc_complex_type_2_2_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_2_3 is
+	set_xml_schemav_cvc_complex_type_2_3
 		do
 			value := xml_schemav_cvc_complex_type_2_3_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_2_4 is
+	set_xml_schemav_cvc_complex_type_2_4
 		do
 			value := xml_schemav_cvc_complex_type_2_4_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_3_1 is
+	set_xml_schemav_cvc_complex_type_3_1
 		do
 			value := xml_schemav_cvc_complex_type_3_1_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_3_2_1 is
+	set_xml_schemav_cvc_complex_type_3_2_1
 		do
 			value := xml_schemav_cvc_complex_type_3_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_3_2_2 is
+	set_xml_schemav_cvc_complex_type_3_2_2
 		do
 			value := xml_schemav_cvc_complex_type_3_2_2_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_4 is
+	set_xml_schemav_cvc_complex_type_4
 		do
 			value := xml_schemav_cvc_complex_type_4_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_5_1 is
+	set_xml_schemav_cvc_complex_type_5_1
 		do
 			value := xml_schemav_cvc_complex_type_5_1_low_level
 		end
 
-	set_xml_schemav_cvc_complex_type_5_2 is
+	set_xml_schemav_cvc_complex_type_5_2
 		do
 			value := xml_schemav_cvc_complex_type_5_2_low_level
 		end
 
-	set_xml_schemav_cvc_datatype_valid_1_2_1 is
+	set_xml_schemav_cvc_datatype_valid_1_2_1
 		do
 			value := xml_schemav_cvc_datatype_valid_1_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_datatype_valid_1_2_2 is
+	set_xml_schemav_cvc_datatype_valid_1_2_2
 		do
 			value := xml_schemav_cvc_datatype_valid_1_2_2_low_level
 		end
 
-	set_xml_schemav_cvc_datatype_valid_1_2_3 is
+	set_xml_schemav_cvc_datatype_valid_1_2_3
 		do
 			value := xml_schemav_cvc_datatype_valid_1_2_3_low_level
 		end
 
-	set_xml_schemav_cvc_elt_1 is
+	set_xml_schemav_cvc_elt_1
 		do
 			value := xml_schemav_cvc_elt_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_2 is
+	set_xml_schemav_cvc_elt_2
 		do
 			value := xml_schemav_cvc_elt_2_low_level
 		end
 
-	set_xml_schemav_cvc_elt_3_1 is
+	set_xml_schemav_cvc_elt_3_1
 		do
 			value := xml_schemav_cvc_elt_3_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_3_2_1 is
+	set_xml_schemav_cvc_elt_3_2_1
 		do
 			value := xml_schemav_cvc_elt_3_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_3_2_2 is
+	set_xml_schemav_cvc_elt_3_2_2
 		do
 			value := xml_schemav_cvc_elt_3_2_2_low_level
 		end
 
-	set_xml_schemav_cvc_elt_4_1 is
+	set_xml_schemav_cvc_elt_4_1
 		do
 			value := xml_schemav_cvc_elt_4_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_4_2 is
+	set_xml_schemav_cvc_elt_4_2
 		do
 			value := xml_schemav_cvc_elt_4_2_low_level
 		end
 
-	set_xml_schemav_cvc_elt_4_3 is
+	set_xml_schemav_cvc_elt_4_3
 		do
 			value := xml_schemav_cvc_elt_4_3_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_1_1 is
+	set_xml_schemav_cvc_elt_5_1_1
 		do
 			value := xml_schemav_cvc_elt_5_1_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_1_2 is
+	set_xml_schemav_cvc_elt_5_1_2
 		do
 			value := xml_schemav_cvc_elt_5_1_2_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_2_1 is
+	set_xml_schemav_cvc_elt_5_2_1
 		do
 			value := xml_schemav_cvc_elt_5_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_2_2_1 is
+	set_xml_schemav_cvc_elt_5_2_2_1
 		do
 			value := xml_schemav_cvc_elt_5_2_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_2_2_2_1 is
+	set_xml_schemav_cvc_elt_5_2_2_2_1
 		do
 			value := xml_schemav_cvc_elt_5_2_2_2_1_low_level
 		end
 
-	set_xml_schemav_cvc_elt_5_2_2_2_2 is
+	set_xml_schemav_cvc_elt_5_2_2_2_2
 		do
 			value := xml_schemav_cvc_elt_5_2_2_2_2_low_level
 		end
 
-	set_xml_schemav_cvc_elt_6 is
+	set_xml_schemav_cvc_elt_6
 		do
 			value := xml_schemav_cvc_elt_6_low_level
 		end
 
-	set_xml_schemav_cvc_elt_7 is
+	set_xml_schemav_cvc_elt_7
 		do
 			value := xml_schemav_cvc_elt_7_low_level
 		end
 
-	set_xml_schemav_cvc_enumeration_valid is
+	set_xml_schemav_cvc_enumeration_valid
 		do
 			value := xml_schemav_cvc_enumeration_valid_low_level
 		end
 
-	set_xml_schemav_cvc_facet_valid is
+	set_xml_schemav_cvc_facet_valid
 		do
 			value := xml_schemav_cvc_facet_valid_low_level
 		end
 
-	set_xml_schemav_cvc_fractiondigits_valid is
+	set_xml_schemav_cvc_fractiondigits_valid
 		do
 			value := xml_schemav_cvc_fractiondigits_valid_low_level
 		end
 
-	set_xml_schemav_cvc_idc is
+	set_xml_schemav_cvc_idc
 		do
 			value := xml_schemav_cvc_idc_low_level
 		end
 
-	set_xml_schemav_cvc_length_valid is
+	set_xml_schemav_cvc_length_valid
 		do
 			value := xml_schemav_cvc_length_valid_low_level
 		end
 
-	set_xml_schemav_cvc_maxexclusive_valid is
+	set_xml_schemav_cvc_maxexclusive_valid
 		do
 			value := xml_schemav_cvc_maxexclusive_valid_low_level
 		end
 
-	set_xml_schemav_cvc_maxinclusive_valid is
+	set_xml_schemav_cvc_maxinclusive_valid
 		do
 			value := xml_schemav_cvc_maxinclusive_valid_low_level
 		end
 
-	set_xml_schemav_cvc_maxlength_valid is
+	set_xml_schemav_cvc_maxlength_valid
 		do
 			value := xml_schemav_cvc_maxlength_valid_low_level
 		end
 
-	set_xml_schemav_cvc_minexclusive_valid is
+	set_xml_schemav_cvc_minexclusive_valid
 		do
 			value := xml_schemav_cvc_minexclusive_valid_low_level
 		end
 
-	set_xml_schemav_cvc_mininclusive_valid is
+	set_xml_schemav_cvc_mininclusive_valid
 		do
 			value := xml_schemav_cvc_mininclusive_valid_low_level
 		end
 
-	set_xml_schemav_cvc_minlength_valid is
+	set_xml_schemav_cvc_minlength_valid
 		do
 			value := xml_schemav_cvc_minlength_valid_low_level
 		end
 
-	set_xml_schemav_cvc_pattern_valid is
+	set_xml_schemav_cvc_pattern_valid
 		do
 			value := xml_schemav_cvc_pattern_valid_low_level
 		end
 
-	set_xml_schemav_cvc_totaldigits_valid is
+	set_xml_schemav_cvc_totaldigits_valid
 		do
 			value := xml_schemav_cvc_totaldigits_valid_low_level
 		end
 
-	set_xml_schemav_cvc_type_1 is
+	set_xml_schemav_cvc_type_1
 		do
 			value := xml_schemav_cvc_type_1_low_level
 		end
 
-	set_xml_schemav_cvc_type_2 is
+	set_xml_schemav_cvc_type_2
 		do
 			value := xml_schemav_cvc_type_2_low_level
 		end
 
-	set_xml_schemav_cvc_type_3_1_1 is
+	set_xml_schemav_cvc_type_3_1_1
 		do
 			value := xml_schemav_cvc_type_3_1_1_low_level
 		end
 
-	set_xml_schemav_cvc_type_3_1_2 is
+	set_xml_schemav_cvc_type_3_1_2
 		do
 			value := xml_schemav_cvc_type_3_1_2_low_level
 		end
 
-	set_xml_schemav_cvc_wildcard is
+	set_xml_schemav_cvc_wildcard
 		do
 			value := xml_schemav_cvc_wildcard_low_level
 		end
 
-	set_xml_schemav_document_element_missing is
+	set_xml_schemav_document_element_missing
 		do
 			value := xml_schemav_document_element_missing_low_level
 		end
 
-	set_xml_schemav_elemcont is
+	set_xml_schemav_elemcont
 		do
 			value := xml_schemav_elemcont_low_level
 		end
 
-	set_xml_schemav_element_content is
+	set_xml_schemav_element_content
 		do
 			value := xml_schemav_element_content_low_level
 		end
 
-	set_xml_schemav_extracontent is
+	set_xml_schemav_extracontent
 		do
 			value := xml_schemav_extracontent_low_level
 		end
 
-	set_xml_schemav_facet is
+	set_xml_schemav_facet
 		do
 			value := xml_schemav_facet_low_level
 		end
 
-	set_xml_schemav_havedefault is
+	set_xml_schemav_havedefault
 		do
 			value := xml_schemav_havedefault_low_level
 		end
 
-	set_xml_schemav_internal is
+	set_xml_schemav_internal
 		do
 			value := xml_schemav_internal_low_level
 		end
 
-	set_xml_schemav_invalidattr is
+	set_xml_schemav_invalidattr
 		do
 			value := xml_schemav_invalidattr_low_level
 		end
 
-	set_xml_schemav_invalidelem is
+	set_xml_schemav_invalidelem
 		do
 			value := xml_schemav_invalidelem_low_level
 		end
 
-	set_xml_schemav_isabstract is
+	set_xml_schemav_isabstract
 		do
 			value := xml_schemav_isabstract_low_level
 		end
 
-	set_xml_schemav_misc is
+	set_xml_schemav_misc
 		do
 			value := xml_schemav_misc_low_level
 		end
 
-	set_xml_schemav_missing is
+	set_xml_schemav_missing
 		do
 			value := xml_schemav_missing_low_level
 		end
 
-	set_xml_schemav_norollback is
+	set_xml_schemav_norollback
 		do
 			value := xml_schemav_norollback_low_level
 		end
 
-	set_xml_schemav_noroot is
+	set_xml_schemav_noroot
 		do
 			value := xml_schemav_noroot_low_level
 		end
 
-	set_xml_schemav_notdeterminist is
+	set_xml_schemav_notdeterminist
 		do
 			value := xml_schemav_notdeterminist_low_level
 		end
 
-	set_xml_schemav_notempty is
+	set_xml_schemav_notempty
 		do
 			value := xml_schemav_notempty_low_level
 		end
 
-	set_xml_schemav_notnillable is
+	set_xml_schemav_notnillable
 		do
 			value := xml_schemav_notnillable_low_level
 		end
 
-	set_xml_schemav_notsimple is
+	set_xml_schemav_notsimple
 		do
 			value := xml_schemav_notsimple_low_level
 		end
 
-	set_xml_schemav_nottoplevel is
+	set_xml_schemav_nottoplevel
 		do
 			value := xml_schemav_nottoplevel_low_level
 		end
 
-	set_xml_schemav_notype is
+	set_xml_schemav_notype
 		do
 			value := xml_schemav_notype_low_level
 		end
 
-	set_xml_schemav_undeclaredelem is
+	set_xml_schemav_undeclaredelem
 		do
 			value := xml_schemav_undeclaredelem_low_level
 		end
 
-	set_xml_schemav_value is
+	set_xml_schemav_value
 		do
 			value := xml_schemav_value_low_level
 		end
 
-	set_xml_schemav_wrongelem is
+	set_xml_schemav_wrongelem
 		do
 			value := xml_schemav_wrongelem_low_level
 		end
 
-	set_xml_tree_invalid_dec is
+	set_xml_tree_invalid_dec
 		do
 			value := xml_tree_invalid_dec_low_level
 		end
 
-	set_xml_tree_invalid_hex is
+	set_xml_tree_invalid_hex
 		do
 			value := xml_tree_invalid_hex_low_level
 		end
 
-	set_xml_tree_not_utf8 is
+	set_xml_tree_not_utf8
 		do
 			value := xml_tree_not_utf8_low_level
 		end
 
-	set_xml_tree_unterminated_entity is
+	set_xml_tree_unterminated_entity
 		do
 			value := xml_tree_unterminated_entity_low_level
 		end
 
-	set_xml_war_catalog_pi is
+	set_xml_war_catalog_pi
 		do
 			value := xml_war_catalog_pi_low_level
 		end
 
-	set_xml_war_entity_redefined is
+	set_xml_war_entity_redefined
 		do
 			value := xml_war_entity_redefined_low_level
 		end
 
-	set_xml_war_lang_value is
+	set_xml_war_lang_value
 		do
 			value := xml_war_lang_value_low_level
 		end
 
-	set_xml_war_ns_column is
+	set_xml_war_ns_column
 		do
 			value := xml_war_ns_column_low_level
 		end
 
-	set_xml_war_ns_uri is
+	set_xml_war_ns_uri
 		do
 			value := xml_war_ns_uri_low_level
 		end
 
-	set_xml_war_ns_uri_relative is
+	set_xml_war_ns_uri_relative
 		do
 			value := xml_war_ns_uri_relative_low_level
 		end
 
-	set_xml_war_space_value is
+	set_xml_war_space_value
 		do
 			value := xml_war_space_value_low_level
 		end
 
-	set_xml_war_undeclared_entity is
+	set_xml_war_undeclared_entity
 		do
 			value := xml_war_undeclared_entity_low_level
 		end
 
-	set_xml_war_unknown_version is
+	set_xml_war_unknown_version
 		do
 			value := xml_war_unknown_version_low_level
 		end
 
-	set_xml_xinclude_build_failed is
+	set_xml_xinclude_build_failed
 		do
 			value := xml_xinclude_build_failed_low_level
 		end
 
-	set_xml_xinclude_deprecated_ns is
+	set_xml_xinclude_deprecated_ns
 		do
 			value := xml_xinclude_deprecated_ns_low_level
 		end
 
-	set_xml_xinclude_entity_def_mismatch is
+	set_xml_xinclude_entity_def_mismatch
 		do
 			value := xml_xinclude_entity_def_mismatch_low_level
 		end
 
-	set_xml_xinclude_fallback_not_in_include is
+	set_xml_xinclude_fallback_not_in_include
 		do
 			value := xml_xinclude_fallback_not_in_include_low_level
 		end
 
-	set_xml_xinclude_fallbacks_in_include is
+	set_xml_xinclude_fallbacks_in_include
 		do
 			value := xml_xinclude_fallbacks_in_include_low_level
 		end
 
-	set_xml_xinclude_fragment_id is
+	set_xml_xinclude_fragment_id
 		do
 			value := xml_xinclude_fragment_id_low_level
 		end
 
-	set_xml_xinclude_href_uri is
+	set_xml_xinclude_href_uri
 		do
 			value := xml_xinclude_href_uri_low_level
 		end
 
-	set_xml_xinclude_include_in_include is
+	set_xml_xinclude_include_in_include
 		do
 			value := xml_xinclude_include_in_include_low_level
 		end
 
-	set_xml_xinclude_invalid_char is
+	set_xml_xinclude_invalid_char
 		do
 			value := xml_xinclude_invalid_char_low_level
 		end
 
-	set_xml_xinclude_multiple_root is
+	set_xml_xinclude_multiple_root
 		do
 			value := xml_xinclude_multiple_root_low_level
 		end
 
-	set_xml_xinclude_no_fallback is
+	set_xml_xinclude_no_fallback
 		do
 			value := xml_xinclude_no_fallback_low_level
 		end
 
-	set_xml_xinclude_no_href is
+	set_xml_xinclude_no_href
 		do
 			value := xml_xinclude_no_href_low_level
 		end
 
-	set_xml_xinclude_parse_value is
+	set_xml_xinclude_parse_value
 		do
 			value := xml_xinclude_parse_value_low_level
 		end
 
-	set_xml_xinclude_recursion is
+	set_xml_xinclude_recursion
 		do
 			value := xml_xinclude_recursion_low_level
 		end
 
-	set_xml_xinclude_text_document is
+	set_xml_xinclude_text_document
 		do
 			value := xml_xinclude_text_document_low_level
 		end
 
-	set_xml_xinclude_text_fragment is
+	set_xml_xinclude_text_fragment
 		do
 			value := xml_xinclude_text_fragment_low_level
 		end
 
-	set_xml_xinclude_unknown_encoding is
+	set_xml_xinclude_unknown_encoding
 		do
 			value := xml_xinclude_unknown_encoding_low_level
 		end
 
-	set_xml_xinclude_xptr_failed is
+	set_xml_xinclude_xptr_failed
 		do
 			value := xml_xinclude_xptr_failed_low_level
 		end
 
-	set_xml_xinclude_xptr_result is
+	set_xml_xinclude_xptr_result
 		do
 			value := xml_xinclude_xptr_result_low_level
 		end
 
-	set_xml_xpath_encoding_error is
+	set_xml_xpath_encoding_error
 		do
 			value := xml_xpath_encoding_error_low_level
 		end
 
-	set_xml_xpath_expr_error is
+	set_xml_xpath_expr_error
 		do
 			value := xml_xpath_expr_error_low_level
 		end
 
-	set_xml_xpath_expression_ok is
+	set_xml_xpath_expression_ok
 		do
 			value := xml_xpath_expression_ok_low_level
 		end
 
-	set_xml_xpath_invalid_arity is
+	set_xml_xpath_invalid_arity
 		do
 			value := xml_xpath_invalid_arity_low_level
 		end
 
-	set_xml_xpath_invalid_char_error is
+	set_xml_xpath_invalid_char_error
 		do
 			value := xml_xpath_invalid_char_error_low_level
 		end
 
-	set_xml_xpath_invalid_ctxt_position is
+	set_xml_xpath_invalid_ctxt_position
 		do
 			value := xml_xpath_invalid_ctxt_position_low_level
 		end
 
-	set_xml_xpath_invalid_ctxt_size is
+	set_xml_xpath_invalid_ctxt_size
 		do
 			value := xml_xpath_invalid_ctxt_size_low_level
 		end
 
-	set_xml_xpath_invalid_operand is
+	set_xml_xpath_invalid_operand
 		do
 			value := xml_xpath_invalid_operand_low_level
 		end
 
-	set_xml_xpath_invalid_predicate_error is
+	set_xml_xpath_invalid_predicate_error
 		do
 			value := xml_xpath_invalid_predicate_error_low_level
 		end
 
-	set_xml_xpath_invalid_type is
+	set_xml_xpath_invalid_type
 		do
 			value := xml_xpath_invalid_type_low_level
 		end
 
-	set_xml_xpath_memory_error is
+	set_xml_xpath_memory_error
 		do
 			value := xml_xpath_memory_error_low_level
 		end
 
-	set_xml_xpath_number_error is
+	set_xml_xpath_number_error
 		do
 			value := xml_xpath_number_error_low_level
 		end
 
-	set_xml_xpath_start_literal_error is
+	set_xml_xpath_start_literal_error
 		do
 			value := xml_xpath_start_literal_error_low_level
 		end
 
-	set_xml_xpath_unclosed_error is
+	set_xml_xpath_unclosed_error
 		do
 			value := xml_xpath_unclosed_error_low_level
 		end
 
-	set_xml_xpath_undef_prefix_error is
+	set_xml_xpath_undef_prefix_error
 		do
 			value := xml_xpath_undef_prefix_error_low_level
 		end
 
-	set_xml_xpath_undef_variable_error is
+	set_xml_xpath_undef_variable_error
 		do
 			value := xml_xpath_undef_variable_error_low_level
 		end
 
-	set_xml_xpath_unfinished_literal_error is
+	set_xml_xpath_unfinished_literal_error
 		do
 			value := xml_xpath_unfinished_literal_error_low_level
 		end
 
-	set_xml_xpath_unknown_func_error is
+	set_xml_xpath_unknown_func_error
 		do
 			value := xml_xpath_unknown_func_error_low_level
 		end
 
-	set_xml_xpath_variable_ref_error is
+	set_xml_xpath_variable_ref_error
 		do
 			value := xml_xpath_variable_ref_error_low_level
 		end
 
-	set_xml_xptr_childseq_start is
+	set_xml_xptr_childseq_start
 		do
 			value := xml_xptr_childseq_start_low_level
 		end
 
-	set_xml_xptr_eval_failed is
+	set_xml_xptr_eval_failed
 		do
 			value := xml_xptr_eval_failed_low_level
 		end
 
-	set_xml_xptr_extra_objects is
+	set_xml_xptr_extra_objects
 		do
 			value := xml_xptr_extra_objects_low_level
 		end
 
-	set_xml_xptr_resource_error is
+	set_xml_xptr_resource_error
 		do
 			value := xml_xptr_resource_error_low_level
 		end
 
-	set_xml_xptr_sub_resource_error is
+	set_xml_xptr_sub_resource_error
 		do
 			value := xml_xptr_sub_resource_error_low_level
 		end
 
-	set_xml_xptr_syntax_error is
+	set_xml_xptr_syntax_error
 		do
 			value := xml_xptr_syntax_error_low_level
 		end
 
-	set_xml_xptr_unknown_scheme is
+	set_xml_xptr_unknown_scheme
 		do
 			value := xml_xptr_unknown_scheme_low_level
 		end
 
 feature -- Queries
-	is_xml_c14n_create_ctxt: BOOLEAN is
+	is_xml_c14n_create_ctxt: BOOLEAN
 		do
 			Result := (value=xml_c14n_create_ctxt_low_level)
 		end
 
-	is_xml_c14n_create_stack: BOOLEAN is
+	is_xml_c14n_create_stack: BOOLEAN
 		do
 			Result := (value=xml_c14n_create_stack_low_level)
 		end
 
-	is_xml_c14n_invalid_node: BOOLEAN is
+	is_xml_c14n_invalid_node: BOOLEAN
 		do
 			Result := (value=xml_c14n_invalid_node_low_level)
 		end
 
-	is_xml_c14n_relative_namespace: BOOLEAN is
+	is_xml_c14n_relative_namespace: BOOLEAN
 		do
 			Result := (value=xml_c14n_relative_namespace_low_level)
 		end
 
-	is_xml_c14n_requires_utf8: BOOLEAN is
+	is_xml_c14n_requires_utf8: BOOLEAN
 		do
 			Result := (value=xml_c14n_requires_utf8_low_level)
 		end
 
-	is_xml_c14n_unknow_node: BOOLEAN is
+	is_xml_c14n_unknow_node: BOOLEAN
 		do
 			Result := (value=xml_c14n_unknow_node_low_level)
 		end
 
-	is_xml_catalog_entry_broken: BOOLEAN is
+	is_xml_catalog_entry_broken: BOOLEAN
 		do
 			Result := (value=xml_catalog_entry_broken_low_level)
 		end
 
-	is_xml_catalog_missing_attr: BOOLEAN is
+	is_xml_catalog_missing_attr: BOOLEAN
 		do
 			Result := (value=xml_catalog_missing_attr_low_level)
 		end
 
-	is_xml_catalog_not_catalog: BOOLEAN is
+	is_xml_catalog_not_catalog: BOOLEAN
 		do
 			Result := (value=xml_catalog_not_catalog_low_level)
 		end
 
-	is_xml_catalog_prefer_value: BOOLEAN is
+	is_xml_catalog_prefer_value: BOOLEAN
 		do
 			Result := (value=xml_catalog_prefer_value_low_level)
 		end
 
-	is_xml_catalog_recursion: BOOLEAN is
+	is_xml_catalog_recursion: BOOLEAN
 		do
 			Result := (value=xml_catalog_recursion_low_level)
 		end
 
-	is_xml_check_entity_type: BOOLEAN is
+	is_xml_check_entity_type: BOOLEAN
 		do
 			Result := (value=xml_check_entity_type_low_level)
 		end
 
-	is_xml_check_found_attribute: BOOLEAN is
+	is_xml_check_found_attribute: BOOLEAN
 		do
 			Result := (value=xml_check_found_attribute_low_level)
 		end
 
-	is_xml_check_found_cdata: BOOLEAN is
+	is_xml_check_found_cdata: BOOLEAN
 		do
 			Result := (value=xml_check_found_cdata_low_level)
 		end
 
-	is_xml_check_found_comment: BOOLEAN is
+	is_xml_check_found_comment: BOOLEAN
 		do
 			Result := (value=xml_check_found_comment_low_level)
 		end
 
-	is_xml_check_found_doctype: BOOLEAN is
+	is_xml_check_found_doctype: BOOLEAN
 		do
 			Result := (value=xml_check_found_doctype_low_level)
 		end
 
-	is_xml_check_found_element: BOOLEAN is
+	is_xml_check_found_element: BOOLEAN
 		do
 			Result := (value=xml_check_found_element_low_level)
 		end
 
-	is_xml_check_found_entity: BOOLEAN is
+	is_xml_check_found_entity: BOOLEAN
 		do
 			Result := (value=xml_check_found_entity_low_level)
 		end
 
-	is_xml_check_found_entityref: BOOLEAN is
+	is_xml_check_found_entityref: BOOLEAN
 		do
 			Result := (value=xml_check_found_entityref_low_level)
 		end
 
-	is_xml_check_found_fragment: BOOLEAN is
+	is_xml_check_found_fragment: BOOLEAN
 		do
 			Result := (value=xml_check_found_fragment_low_level)
 		end
 
-	is_xml_check_found_notation: BOOLEAN is
+	is_xml_check_found_notation: BOOLEAN
 		do
 			Result := (value=xml_check_found_notation_low_level)
 		end
 
-	is_xml_check_found_pi: BOOLEAN is
+	is_xml_check_found_pi: BOOLEAN
 		do
 			Result := (value=xml_check_found_pi_low_level)
 		end
 
-	is_xml_check_found_text: BOOLEAN is
+	is_xml_check_found_text: BOOLEAN
 		do
 			Result := (value=xml_check_found_text_low_level)
 		end
 
-	is_xml_check_name_not_null: BOOLEAN is
+	is_xml_check_name_not_null: BOOLEAN
 		do
 			Result := (value=xml_check_name_not_null_low_level)
 		end
 
-	is_xml_check_no_dict: BOOLEAN is
+	is_xml_check_no_dict: BOOLEAN
 		do
 			Result := (value=xml_check_no_dict_low_level)
 		end
 
-	is_xml_check_no_doc: BOOLEAN is
+	is_xml_check_no_doc: BOOLEAN
 		do
 			Result := (value=xml_check_no_doc_low_level)
 		end
 
-	is_xml_check_no_elem: BOOLEAN is
+	is_xml_check_no_elem: BOOLEAN
 		do
 			Result := (value=xml_check_no_elem_low_level)
 		end
 
-	is_xml_check_no_href: BOOLEAN is
+	is_xml_check_no_href: BOOLEAN
 		do
 			Result := (value=xml_check_no_href_low_level)
 		end
 
-	is_xml_check_no_name: BOOLEAN is
+	is_xml_check_no_name: BOOLEAN
 		do
 			Result := (value=xml_check_no_name_low_level)
 		end
 
-	is_xml_check_no_next: BOOLEAN is
+	is_xml_check_no_next: BOOLEAN
 		do
 			Result := (value=xml_check_no_next_low_level)
 		end
 
-	is_xml_check_no_parent: BOOLEAN is
+	is_xml_check_no_parent: BOOLEAN
 		do
 			Result := (value=xml_check_no_parent_low_level)
 		end
 
-	is_xml_check_no_prev: BOOLEAN is
+	is_xml_check_no_prev: BOOLEAN
 		do
 			Result := (value=xml_check_no_prev_low_level)
 		end
 
-	is_xml_check_not_attr: BOOLEAN is
+	is_xml_check_not_attr: BOOLEAN
 		do
 			Result := (value=xml_check_not_attr_low_level)
 		end
 
-	is_xml_check_not_attr_decl: BOOLEAN is
+	is_xml_check_not_attr_decl: BOOLEAN
 		do
 			Result := (value=xml_check_not_attr_decl_low_level)
 		end
 
-	is_xml_check_not_dtd: BOOLEAN is
+	is_xml_check_not_dtd: BOOLEAN
 		do
 			Result := (value=xml_check_not_dtd_low_level)
 		end
 
-	is_xml_check_not_elem_decl: BOOLEAN is
+	is_xml_check_not_elem_decl: BOOLEAN
 		do
 			Result := (value=xml_check_not_elem_decl_low_level)
 		end
 
-	is_xml_check_not_entity_decl: BOOLEAN is
+	is_xml_check_not_entity_decl: BOOLEAN
 		do
 			Result := (value=xml_check_not_entity_decl_low_level)
 		end
 
-	is_xml_check_not_ncname: BOOLEAN is
+	is_xml_check_not_ncname: BOOLEAN
 		do
 			Result := (value=xml_check_not_ncname_low_level)
 		end
 
-	is_xml_check_not_ns_decl: BOOLEAN is
+	is_xml_check_not_ns_decl: BOOLEAN
 		do
 			Result := (value=xml_check_not_ns_decl_low_level)
 		end
 
-	is_xml_check_not_utf8: BOOLEAN is
+	is_xml_check_not_utf8: BOOLEAN
 		do
 			Result := (value=xml_check_not_utf8_low_level)
 		end
 
-	is_xml_check_ns_ancestor: BOOLEAN is
+	is_xml_check_ns_ancestor: BOOLEAN
 		do
 			Result := (value=xml_check_ns_ancestor_low_level)
 		end
 
-	is_xml_check_ns_scope: BOOLEAN is
+	is_xml_check_ns_scope: BOOLEAN
 		do
 			Result := (value=xml_check_ns_scope_low_level)
 		end
 
-	is_xml_check_outside_dict: BOOLEAN is
+	is_xml_check_outside_dict: BOOLEAN
 		do
 			Result := (value=xml_check_outside_dict_low_level)
 		end
 
-	is_xml_check_unknown_node: BOOLEAN is
+	is_xml_check_unknown_node: BOOLEAN
 		do
 			Result := (value=xml_check_unknown_node_low_level)
 		end
 
-	is_xml_check_wrong_doc: BOOLEAN is
+	is_xml_check_wrong_doc: BOOLEAN
 		do
 			Result := (value=xml_check_wrong_doc_low_level)
 		end
 
-	is_xml_check_wrong_name: BOOLEAN is
+	is_xml_check_wrong_name: BOOLEAN
 		do
 			Result := (value=xml_check_wrong_name_low_level)
 		end
 
-	is_xml_check_wrong_next: BOOLEAN is
+	is_xml_check_wrong_next: BOOLEAN
 		do
 			Result := (value=xml_check_wrong_next_low_level)
 		end
 
-	is_xml_check_wrong_parent: BOOLEAN is
+	is_xml_check_wrong_parent: BOOLEAN
 		do
 			Result := (value=xml_check_wrong_parent_low_level)
 		end
 
-	is_xml_check_wrong_prev: BOOLEAN is
+	is_xml_check_wrong_prev: BOOLEAN
 		do
 			Result := (value=xml_check_wrong_prev_low_level)
 		end
 
-	is_xml_dtd_attribute_default: BOOLEAN is
+	is_xml_dtd_attribute_default: BOOLEAN
 		do
 			Result := (value=xml_dtd_attribute_default_low_level)
 		end
 
-	is_xml_dtd_attribute_redefined: BOOLEAN is
+	is_xml_dtd_attribute_redefined: BOOLEAN
 		do
 			Result := (value=xml_dtd_attribute_redefined_low_level)
 		end
 
-	is_xml_dtd_attribute_value: BOOLEAN is
+	is_xml_dtd_attribute_value: BOOLEAN
 		do
 			Result := (value=xml_dtd_attribute_value_low_level)
 		end
 
-	is_xml_dtd_content_error: BOOLEAN is
+	is_xml_dtd_content_error: BOOLEAN
 		do
 			Result := (value=xml_dtd_content_error_low_level)
 		end
 
-	is_xml_dtd_content_model: BOOLEAN is
+	is_xml_dtd_content_model: BOOLEAN
 		do
 			Result := (value=xml_dtd_content_model_low_level)
 		end
 
-	is_xml_dtd_content_not_determinist: BOOLEAN is
+	is_xml_dtd_content_not_determinist: BOOLEAN
 		do
 			Result := (value=xml_dtd_content_not_determinist_low_level)
 		end
 
-	is_xml_dtd_different_prefix: BOOLEAN is
+	is_xml_dtd_different_prefix: BOOLEAN
 		do
 			Result := (value=xml_dtd_different_prefix_low_level)
 		end
 
-	is_xml_dtd_dup_token: BOOLEAN is
+	is_xml_dtd_dup_token: BOOLEAN
 		do
 			Result := (value=xml_dtd_dup_token_low_level)
 		end
 
-	is_xml_dtd_elem_default_namespace: BOOLEAN is
+	is_xml_dtd_elem_default_namespace: BOOLEAN
 		do
 			Result := (value=xml_dtd_elem_default_namespace_low_level)
 		end
 
-	is_xml_dtd_elem_namespace: BOOLEAN is
+	is_xml_dtd_elem_namespace: BOOLEAN
 		do
 			Result := (value=xml_dtd_elem_namespace_low_level)
 		end
 
-	is_xml_dtd_elem_redefined: BOOLEAN is
+	is_xml_dtd_elem_redefined: BOOLEAN
 		do
 			Result := (value=xml_dtd_elem_redefined_low_level)
 		end
 
-	is_xml_dtd_empty_notation: BOOLEAN is
+	is_xml_dtd_empty_notation: BOOLEAN
 		do
 			Result := (value=xml_dtd_empty_notation_low_level)
 		end
 
-	is_xml_dtd_entity_type: BOOLEAN is
+	is_xml_dtd_entity_type: BOOLEAN
 		do
 			Result := (value=xml_dtd_entity_type_low_level)
 		end
 
-	is_xml_dtd_id_fixed: BOOLEAN is
+	is_xml_dtd_id_fixed: BOOLEAN
 		do
 			Result := (value=xml_dtd_id_fixed_low_level)
 		end
 
-	is_xml_dtd_id_redefined: BOOLEAN is
+	is_xml_dtd_id_redefined: BOOLEAN
 		do
 			Result := (value=xml_dtd_id_redefined_low_level)
 		end
 
-	is_xml_dtd_id_subset: BOOLEAN is
+	is_xml_dtd_id_subset: BOOLEAN
 		do
 			Result := (value=xml_dtd_id_subset_low_level)
 		end
 
-	is_xml_dtd_invalid_child: BOOLEAN is
+	is_xml_dtd_invalid_child: BOOLEAN
 		do
 			Result := (value=xml_dtd_invalid_child_low_level)
 		end
 
-	is_xml_dtd_invalid_default: BOOLEAN is
+	is_xml_dtd_invalid_default: BOOLEAN
 		do
 			Result := (value=xml_dtd_invalid_default_low_level)
 		end
 
-	is_xml_dtd_load_error: BOOLEAN is
+	is_xml_dtd_load_error: BOOLEAN
 		do
 			Result := (value=xml_dtd_load_error_low_level)
 		end
 
-	is_xml_dtd_missing_attribute: BOOLEAN is
+	is_xml_dtd_missing_attribute: BOOLEAN
 		do
 			Result := (value=xml_dtd_missing_attribute_low_level)
 		end
 
-	is_xml_dtd_mixed_corrupt: BOOLEAN is
+	is_xml_dtd_mixed_corrupt: BOOLEAN
 		do
 			Result := (value=xml_dtd_mixed_corrupt_low_level)
 		end
 
-	is_xml_dtd_multiple_id: BOOLEAN is
+	is_xml_dtd_multiple_id: BOOLEAN
 		do
 			Result := (value=xml_dtd_multiple_id_low_level)
 		end
 
-	is_xml_dtd_no_doc: BOOLEAN is
+	is_xml_dtd_no_doc: BOOLEAN
 		do
 			Result := (value=xml_dtd_no_doc_low_level)
 		end
 
-	is_xml_dtd_no_dtd: BOOLEAN is
+	is_xml_dtd_no_dtd: BOOLEAN
 		do
 			Result := (value=xml_dtd_no_dtd_low_level)
 		end
 
-	is_xml_dtd_no_elem_name: BOOLEAN is
+	is_xml_dtd_no_elem_name: BOOLEAN
 		do
 			Result := (value=xml_dtd_no_elem_name_low_level)
 		end
 
-	is_xml_dtd_no_prefix: BOOLEAN is
+	is_xml_dtd_no_prefix: BOOLEAN
 		do
 			Result := (value=xml_dtd_no_prefix_low_level)
 		end
 
-	is_xml_dtd_no_root: BOOLEAN is
+	is_xml_dtd_no_root: BOOLEAN
 		do
 			Result := (value=xml_dtd_no_root_low_level)
 		end
 
-	is_xml_dtd_not_empty: BOOLEAN is
+	is_xml_dtd_not_empty: BOOLEAN
 		do
 			Result := (value=xml_dtd_not_empty_low_level)
 		end
 
-	is_xml_dtd_not_pcdata: BOOLEAN is
+	is_xml_dtd_not_pcdata: BOOLEAN
 		do
 			Result := (value=xml_dtd_not_pcdata_low_level)
 		end
 
-	is_xml_dtd_not_standalone: BOOLEAN is
+	is_xml_dtd_not_standalone: BOOLEAN
 		do
 			Result := (value=xml_dtd_not_standalone_low_level)
 		end
 
-	is_xml_dtd_notation_redefined: BOOLEAN is
+	is_xml_dtd_notation_redefined: BOOLEAN
 		do
 			Result := (value=xml_dtd_notation_redefined_low_level)
 		end
 
-	is_xml_dtd_notation_value: BOOLEAN is
+	is_xml_dtd_notation_value: BOOLEAN
 		do
 			Result := (value=xml_dtd_notation_value_low_level)
 		end
 
-	is_xml_dtd_root_name: BOOLEAN is
+	is_xml_dtd_root_name: BOOLEAN
 		do
 			Result := (value=xml_dtd_root_name_low_level)
 		end
 
-	is_xml_dtd_standalone_defaulted: BOOLEAN is
+	is_xml_dtd_standalone_defaulted: BOOLEAN
 		do
 			Result := (value=xml_dtd_standalone_defaulted_low_level)
 		end
 
-	is_xml_dtd_standalone_white_space: BOOLEAN is
+	is_xml_dtd_standalone_white_space: BOOLEAN
 		do
 			Result := (value=xml_dtd_standalone_white_space_low_level)
 		end
 
-	is_xml_dtd_unknown_attribute: BOOLEAN is
+	is_xml_dtd_unknown_attribute: BOOLEAN
 		do
 			Result := (value=xml_dtd_unknown_attribute_low_level)
 		end
 
-	is_xml_dtd_unknown_elem: BOOLEAN is
+	is_xml_dtd_unknown_elem: BOOLEAN
 		do
 			Result := (value=xml_dtd_unknown_elem_low_level)
 		end
 
-	is_xml_dtd_unknown_entity: BOOLEAN is
+	is_xml_dtd_unknown_entity: BOOLEAN
 		do
 			Result := (value=xml_dtd_unknown_entity_low_level)
 		end
 
-	is_xml_dtd_unknown_id: BOOLEAN is
+	is_xml_dtd_unknown_id: BOOLEAN
 		do
 			Result := (value=xml_dtd_unknown_id_low_level)
 		end
 
-	is_xml_dtd_unknown_notation: BOOLEAN is
+	is_xml_dtd_unknown_notation: BOOLEAN
 		do
 			Result := (value=xml_dtd_unknown_notation_low_level)
 		end
 
-	is_xml_dtd_xmlid_type: BOOLEAN is
+	is_xml_dtd_xmlid_type: BOOLEAN
 		do
 			Result := (value=xml_dtd_xmlid_type_low_level)
 		end
 
-	is_xml_dtd_xmlid_value: BOOLEAN is
+	is_xml_dtd_xmlid_value: BOOLEAN
 		do
 			Result := (value=xml_dtd_xmlid_value_low_level)
 		end
 
-	is_xml_err_attlist_not_finished: BOOLEAN is
+	is_xml_err_attlist_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_attlist_not_finished_low_level)
 		end
 
-	is_xml_err_attlist_not_started: BOOLEAN is
+	is_xml_err_attlist_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_attlist_not_started_low_level)
 		end
 
-	is_xml_err_attribute_not_finished: BOOLEAN is
+	is_xml_err_attribute_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_attribute_not_finished_low_level)
 		end
 
-	is_xml_err_attribute_not_started: BOOLEAN is
+	is_xml_err_attribute_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_attribute_not_started_low_level)
 		end
 
-	is_xml_err_attribute_redefined: BOOLEAN is
+	is_xml_err_attribute_redefined: BOOLEAN
 		do
 			Result := (value=xml_err_attribute_redefined_low_level)
 		end
 
-	is_xml_err_attribute_without_value: BOOLEAN is
+	is_xml_err_attribute_without_value: BOOLEAN
 		do
 			Result := (value=xml_err_attribute_without_value_low_level)
 		end
 
-	is_xml_err_cdata_not_finished: BOOLEAN is
+	is_xml_err_cdata_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_cdata_not_finished_low_level)
 		end
 
-	is_xml_err_charref_at_eof: BOOLEAN is
+	is_xml_err_charref_at_eof: BOOLEAN
 		do
 			Result := (value=xml_err_charref_at_eof_low_level)
 		end
 
-	is_xml_err_charref_in_dtd: BOOLEAN is
+	is_xml_err_charref_in_dtd: BOOLEAN
 		do
 			Result := (value=xml_err_charref_in_dtd_low_level)
 		end
 
-	is_xml_err_charref_in_epilog: BOOLEAN is
+	is_xml_err_charref_in_epilog: BOOLEAN
 		do
 			Result := (value=xml_err_charref_in_epilog_low_level)
 		end
 
-	is_xml_err_charref_in_prolog: BOOLEAN is
+	is_xml_err_charref_in_prolog: BOOLEAN
 		do
 			Result := (value=xml_err_charref_in_prolog_low_level)
 		end
 
-	is_xml_err_comment_not_finished: BOOLEAN is
+	is_xml_err_comment_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_comment_not_finished_low_level)
 		end
 
-	is_xml_err_condsec_invalid: BOOLEAN is
+	is_xml_err_condsec_invalid: BOOLEAN
 		do
 			Result := (value=xml_err_condsec_invalid_low_level)
 		end
 
-	is_xml_err_condsec_invalid_keyword: BOOLEAN is
+	is_xml_err_condsec_invalid_keyword: BOOLEAN
 		do
 			Result := (value=xml_err_condsec_invalid_keyword_low_level)
 		end
 
-	is_xml_err_condsec_not_finished: BOOLEAN is
+	is_xml_err_condsec_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_condsec_not_finished_low_level)
 		end
 
-	is_xml_err_condsec_not_started: BOOLEAN is
+	is_xml_err_condsec_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_condsec_not_started_low_level)
 		end
 
-	is_xml_err_doctype_not_finished: BOOLEAN is
+	is_xml_err_doctype_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_doctype_not_finished_low_level)
 		end
 
-	is_xml_err_document_empty: BOOLEAN is
+	is_xml_err_document_empty: BOOLEAN
 		do
 			Result := (value=xml_err_document_empty_low_level)
 		end
 
-	is_xml_err_document_end: BOOLEAN is
+	is_xml_err_document_end: BOOLEAN
 		do
 			Result := (value=xml_err_document_end_low_level)
 		end
 
-	is_xml_err_document_start: BOOLEAN is
+	is_xml_err_document_start: BOOLEAN
 		do
 			Result := (value=xml_err_document_start_low_level)
 		end
 
-	is_xml_err_elemcontent_not_finished: BOOLEAN is
+	is_xml_err_elemcontent_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_elemcontent_not_finished_low_level)
 		end
 
-	is_xml_err_elemcontent_not_started: BOOLEAN is
+	is_xml_err_elemcontent_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_elemcontent_not_started_low_level)
 		end
 
-	is_xml_err_encoding_name: BOOLEAN is
+	is_xml_err_encoding_name: BOOLEAN
 		do
 			Result := (value=xml_err_encoding_name_low_level)
 		end
 
-	is_xml_err_entity_boundary: BOOLEAN is
+	is_xml_err_entity_boundary: BOOLEAN
 		do
 			Result := (value=xml_err_entity_boundary_low_level)
 		end
 
-	is_xml_err_entity_char_error: BOOLEAN is
+	is_xml_err_entity_char_error: BOOLEAN
 		do
 			Result := (value=xml_err_entity_char_error_low_level)
 		end
 
-	is_xml_err_entity_is_external: BOOLEAN is
+	is_xml_err_entity_is_external: BOOLEAN
 		do
 			Result := (value=xml_err_entity_is_external_low_level)
 		end
 
-	is_xml_err_entity_is_parameter: BOOLEAN is
+	is_xml_err_entity_is_parameter: BOOLEAN
 		do
 			Result := (value=xml_err_entity_is_parameter_low_level)
 		end
 
-	is_xml_err_entity_loop: BOOLEAN is
+	is_xml_err_entity_loop: BOOLEAN
 		do
 			Result := (value=xml_err_entity_loop_low_level)
 		end
 
-	is_xml_err_entity_not_finished: BOOLEAN is
+	is_xml_err_entity_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_entity_not_finished_low_level)
 		end
 
-	is_xml_err_entity_not_started: BOOLEAN is
+	is_xml_err_entity_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_entity_not_started_low_level)
 		end
 
-	is_xml_err_entity_pe_internal: BOOLEAN is
+	is_xml_err_entity_pe_internal: BOOLEAN
 		do
 			Result := (value=xml_err_entity_pe_internal_low_level)
 		end
 
-	is_xml_err_entity_processing: BOOLEAN is
+	is_xml_err_entity_processing: BOOLEAN
 		do
 			Result := (value=xml_err_entity_processing_low_level)
 		end
 
-	is_xml_err_entityref_at_eof: BOOLEAN is
+	is_xml_err_entityref_at_eof: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_at_eof_low_level)
 		end
 
-	is_xml_err_entityref_in_dtd: BOOLEAN is
+	is_xml_err_entityref_in_dtd: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_in_dtd_low_level)
 		end
 
-	is_xml_err_entityref_in_epilog: BOOLEAN is
+	is_xml_err_entityref_in_epilog: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_in_epilog_low_level)
 		end
 
-	is_xml_err_entityref_in_prolog: BOOLEAN is
+	is_xml_err_entityref_in_prolog: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_in_prolog_low_level)
 		end
 
-	is_xml_err_entityref_no_name: BOOLEAN is
+	is_xml_err_entityref_no_name: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_no_name_low_level)
 		end
 
-	is_xml_err_entityref_semicol_missing: BOOLEAN is
+	is_xml_err_entityref_semicol_missing: BOOLEAN
 		do
 			Result := (value=xml_err_entityref_semicol_missing_low_level)
 		end
 
-	is_xml_err_equal_required: BOOLEAN is
+	is_xml_err_equal_required: BOOLEAN
 		do
 			Result := (value=xml_err_equal_required_low_level)
 		end
 
-	is_xml_err_ext_entity_standalone: BOOLEAN is
+	is_xml_err_ext_entity_standalone: BOOLEAN
 		do
 			Result := (value=xml_err_ext_entity_standalone_low_level)
 		end
 
-	is_xml_err_ext_subset_not_finished: BOOLEAN is
+	is_xml_err_ext_subset_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_ext_subset_not_finished_low_level)
 		end
 
-	is_xml_err_extra_content: BOOLEAN is
+	is_xml_err_extra_content: BOOLEAN
 		do
 			Result := (value=xml_err_extra_content_low_level)
 		end
 
-	is_xml_err_gt_required: BOOLEAN is
+	is_xml_err_gt_required: BOOLEAN
 		do
 			Result := (value=xml_err_gt_required_low_level)
 		end
 
-	is_xml_err_hyphen_in_comment: BOOLEAN is
+	is_xml_err_hyphen_in_comment: BOOLEAN
 		do
 			Result := (value=xml_err_hyphen_in_comment_low_level)
 		end
 
-	is_xml_err_internal_error: BOOLEAN is
+	is_xml_err_internal_error: BOOLEAN
 		do
 			Result := (value=xml_err_internal_error_low_level)
 		end
 
-	is_xml_err_invalid_char: BOOLEAN is
+	is_xml_err_invalid_char: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_char_low_level)
 		end
 
-	is_xml_err_invalid_charref: BOOLEAN is
+	is_xml_err_invalid_charref: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_charref_low_level)
 		end
 
-	is_xml_err_invalid_dec_charref: BOOLEAN is
+	is_xml_err_invalid_dec_charref: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_dec_charref_low_level)
 		end
 
-	is_xml_err_invalid_encoding: BOOLEAN is
+	is_xml_err_invalid_encoding: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_encoding_low_level)
 		end
 
-	is_xml_err_invalid_hex_charref: BOOLEAN is
+	is_xml_err_invalid_hex_charref: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_hex_charref_low_level)
 		end
 
-	is_xml_err_invalid_uri: BOOLEAN is
+	is_xml_err_invalid_uri: BOOLEAN
 		do
 			Result := (value=xml_err_invalid_uri_low_level)
 		end
 
-	is_xml_err_literal_not_finished: BOOLEAN is
+	is_xml_err_literal_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_literal_not_finished_low_level)
 		end
 
-	is_xml_err_literal_not_started: BOOLEAN is
+	is_xml_err_literal_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_literal_not_started_low_level)
 		end
 
-	is_xml_err_lt_in_attribute: BOOLEAN is
+	is_xml_err_lt_in_attribute: BOOLEAN
 		do
 			Result := (value=xml_err_lt_in_attribute_low_level)
 		end
 
-	is_xml_err_lt_required: BOOLEAN is
+	is_xml_err_lt_required: BOOLEAN
 		do
 			Result := (value=xml_err_lt_required_low_level)
 		end
 
-	is_xml_err_ltslash_required: BOOLEAN is
+	is_xml_err_ltslash_required: BOOLEAN
 		do
 			Result := (value=xml_err_ltslash_required_low_level)
 		end
 
-	is_xml_err_misplaced_cdata_end: BOOLEAN is
+	is_xml_err_misplaced_cdata_end: BOOLEAN
 		do
 			Result := (value=xml_err_misplaced_cdata_end_low_level)
 		end
 
-	is_xml_err_missing_encoding: BOOLEAN is
+	is_xml_err_missing_encoding: BOOLEAN
 		do
 			Result := (value=xml_err_missing_encoding_low_level)
 		end
 
-	is_xml_err_mixed_not_finished: BOOLEAN is
+	is_xml_err_mixed_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_mixed_not_finished_low_level)
 		end
 
-	is_xml_err_mixed_not_started: BOOLEAN is
+	is_xml_err_mixed_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_mixed_not_started_low_level)
 		end
 
-	is_xml_err_name_required: BOOLEAN is
+	is_xml_err_name_required: BOOLEAN
 		do
 			Result := (value=xml_err_name_required_low_level)
 		end
 
-	is_xml_err_nmtoken_required: BOOLEAN is
+	is_xml_err_nmtoken_required: BOOLEAN
 		do
 			Result := (value=xml_err_nmtoken_required_low_level)
 		end
 
-	is_xml_err_no_dtd: BOOLEAN is
+	is_xml_err_no_dtd: BOOLEAN
 		do
 			Result := (value=xml_err_no_dtd_low_level)
 		end
 
-	is_xml_err_no_memory: BOOLEAN is
+	is_xml_err_no_memory: BOOLEAN
 		do
 			Result := (value=xml_err_no_memory_low_level)
 		end
 
-	is_xml_err_not_standalone: BOOLEAN is
+	is_xml_err_not_standalone: BOOLEAN
 		do
 			Result := (value=xml_err_not_standalone_low_level)
 		end
 
-	is_xml_err_not_well_balanced: BOOLEAN is
+	is_xml_err_not_well_balanced: BOOLEAN
 		do
 			Result := (value=xml_err_not_well_balanced_low_level)
 		end
 
-	is_xml_err_notation_not_finished: BOOLEAN is
+	is_xml_err_notation_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_notation_not_finished_low_level)
 		end
 
-	is_xml_err_notation_not_started: BOOLEAN is
+	is_xml_err_notation_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_notation_not_started_low_level)
 		end
 
-	is_xml_err_notation_processing: BOOLEAN is
+	is_xml_err_notation_processing: BOOLEAN
 		do
 			Result := (value=xml_err_notation_processing_low_level)
 		end
 
-	is_xml_err_ns_decl_error: BOOLEAN is
+	is_xml_err_ns_decl_error: BOOLEAN
 		do
 			Result := (value=xml_err_ns_decl_error_low_level)
 		end
 
-	is_xml_err_ok: BOOLEAN is
+	is_xml_err_ok: BOOLEAN
 		do
 			Result := (value=xml_err_ok_low_level)
 		end
 
-	is_xml_err_pcdata_required: BOOLEAN is
+	is_xml_err_pcdata_required: BOOLEAN
 		do
 			Result := (value=xml_err_pcdata_required_low_level)
 		end
 
-	is_xml_err_peref_at_eof: BOOLEAN is
+	is_xml_err_peref_at_eof: BOOLEAN
 		do
 			Result := (value=xml_err_peref_at_eof_low_level)
 		end
 
-	is_xml_err_peref_in_epilog: BOOLEAN is
+	is_xml_err_peref_in_epilog: BOOLEAN
 		do
 			Result := (value=xml_err_peref_in_epilog_low_level)
 		end
 
-	is_xml_err_peref_in_int_subset: BOOLEAN is
+	is_xml_err_peref_in_int_subset: BOOLEAN
 		do
 			Result := (value=xml_err_peref_in_int_subset_low_level)
 		end
 
-	is_xml_err_peref_in_prolog: BOOLEAN is
+	is_xml_err_peref_in_prolog: BOOLEAN
 		do
 			Result := (value=xml_err_peref_in_prolog_low_level)
 		end
 
-	is_xml_err_peref_no_name: BOOLEAN is
+	is_xml_err_peref_no_name: BOOLEAN
 		do
 			Result := (value=xml_err_peref_no_name_low_level)
 		end
 
-	is_xml_err_peref_semicol_missing: BOOLEAN is
+	is_xml_err_peref_semicol_missing: BOOLEAN
 		do
 			Result := (value=xml_err_peref_semicol_missing_low_level)
 		end
 
-	is_xml_err_pi_not_finished: BOOLEAN is
+	is_xml_err_pi_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_pi_not_finished_low_level)
 		end
 
-	is_xml_err_pi_not_started: BOOLEAN is
+	is_xml_err_pi_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_pi_not_started_low_level)
 		end
 
-	is_xml_err_pubid_required: BOOLEAN is
+	is_xml_err_pubid_required: BOOLEAN
 		do
 			Result := (value=xml_err_pubid_required_low_level)
 		end
 
-	is_xml_err_reserved_xml_name: BOOLEAN is
+	is_xml_err_reserved_xml_name: BOOLEAN
 		do
 			Result := (value=xml_err_reserved_xml_name_low_level)
 		end
 
-	is_xml_err_separator_required: BOOLEAN is
+	is_xml_err_separator_required: BOOLEAN
 		do
 			Result := (value=xml_err_separator_required_low_level)
 		end
 
-	is_xml_err_space_required: BOOLEAN is
+	is_xml_err_space_required: BOOLEAN
 		do
 			Result := (value=xml_err_space_required_low_level)
 		end
 
-	is_xml_err_standalone_value: BOOLEAN is
+	is_xml_err_standalone_value: BOOLEAN
 		do
 			Result := (value=xml_err_standalone_value_low_level)
 		end
 
-	is_xml_err_string_not_closed: BOOLEAN is
+	is_xml_err_string_not_closed: BOOLEAN
 		do
 			Result := (value=xml_err_string_not_closed_low_level)
 		end
 
-	is_xml_err_string_not_started: BOOLEAN is
+	is_xml_err_string_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_string_not_started_low_level)
 		end
 
-	is_xml_err_tag_name_mismatch: BOOLEAN is
+	is_xml_err_tag_name_mismatch: BOOLEAN
 		do
 			Result := (value=xml_err_tag_name_mismatch_low_level)
 		end
 
-	is_xml_err_tag_not_finished: BOOLEAN is
+	is_xml_err_tag_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_tag_not_finished_low_level)
 		end
 
-	is_xml_err_undeclared_entity: BOOLEAN is
+	is_xml_err_undeclared_entity: BOOLEAN
 		do
 			Result := (value=xml_err_undeclared_entity_low_level)
 		end
 
-	is_xml_err_unknown_encoding: BOOLEAN is
+	is_xml_err_unknown_encoding: BOOLEAN
 		do
 			Result := (value=xml_err_unknown_encoding_low_level)
 		end
 
-	is_xml_err_unknown_version: BOOLEAN is
+	is_xml_err_unknown_version: BOOLEAN
 		do
 			Result := (value=xml_err_unknown_version_low_level)
 		end
 
-	is_xml_err_unparsed_entity: BOOLEAN is
+	is_xml_err_unparsed_entity: BOOLEAN
 		do
 			Result := (value=xml_err_unparsed_entity_low_level)
 		end
 
-	is_xml_err_unsupported_encoding: BOOLEAN is
+	is_xml_err_unsupported_encoding: BOOLEAN
 		do
 			Result := (value=xml_err_unsupported_encoding_low_level)
 		end
 
-	is_xml_err_uri_fragment: BOOLEAN is
+	is_xml_err_uri_fragment: BOOLEAN
 		do
 			Result := (value=xml_err_uri_fragment_low_level)
 		end
 
-	is_xml_err_uri_required: BOOLEAN is
+	is_xml_err_uri_required: BOOLEAN
 		do
 			Result := (value=xml_err_uri_required_low_level)
 		end
 
-	is_xml_err_value_required: BOOLEAN is
+	is_xml_err_value_required: BOOLEAN
 		do
 			Result := (value=xml_err_value_required_low_level)
 		end
 
-	is_xml_err_version_mismatch: BOOLEAN is
+	is_xml_err_version_mismatch: BOOLEAN
 		do
 			Result := (value=xml_err_version_mismatch_low_level)
 		end
 
-	is_xml_err_version_missing: BOOLEAN is
+	is_xml_err_version_missing: BOOLEAN
 		do
 			Result := (value=xml_err_version_missing_low_level)
 		end
 
-	is_xml_err_xmldecl_not_finished: BOOLEAN is
+	is_xml_err_xmldecl_not_finished: BOOLEAN
 		do
 			Result := (value=xml_err_xmldecl_not_finished_low_level)
 		end
 
-	is_xml_err_xmldecl_not_started: BOOLEAN is
+	is_xml_err_xmldecl_not_started: BOOLEAN
 		do
 			Result := (value=xml_err_xmldecl_not_started_low_level)
 		end
 
-	is_xml_ftp_accnt: BOOLEAN is
+	is_xml_ftp_accnt: BOOLEAN
 		do
 			Result := (value=xml_ftp_accnt_low_level)
 		end
 
-	is_xml_ftp_epsv_answer: BOOLEAN is
+	is_xml_ftp_epsv_answer: BOOLEAN
 		do
 			Result := (value=xml_ftp_epsv_answer_low_level)
 		end
 
-	is_xml_ftp_pasv_answer: BOOLEAN is
+	is_xml_ftp_pasv_answer: BOOLEAN
 		do
 			Result := (value=xml_ftp_pasv_answer_low_level)
 		end
 
-	is_xml_ftp_url_syntax: BOOLEAN is
+	is_xml_ftp_url_syntax: BOOLEAN
 		do
 			Result := (value=xml_ftp_url_syntax_low_level)
 		end
 
-	is_xml_html_strucure_error: BOOLEAN is
+	is_xml_html_strucure_error: BOOLEAN
 		do
 			Result := (value=xml_html_strucure_error_low_level)
 		end
 
-	is_xml_html_unknown_tag: BOOLEAN is
+	is_xml_html_unknown_tag: BOOLEAN
 		do
 			Result := (value=xml_html_unknown_tag_low_level)
 		end
 
-	is_xml_http_unknown_host: BOOLEAN is
+	is_xml_http_unknown_host: BOOLEAN
 		do
 			Result := (value=xml_http_unknown_host_low_level)
 		end
 
-	is_xml_http_url_syntax: BOOLEAN is
+	is_xml_http_url_syntax: BOOLEAN
 		do
 			Result := (value=xml_http_url_syntax_low_level)
 		end
 
-	is_xml_http_use_ip: BOOLEAN is
+	is_xml_http_use_ip: BOOLEAN
 		do
 			Result := (value=xml_http_use_ip_low_level)
 		end
 
-	is_xml_i18n_conv_failed: BOOLEAN is
+	is_xml_i18n_conv_failed: BOOLEAN
 		do
 			Result := (value=xml_i18n_conv_failed_low_level)
 		end
 
-	is_xml_i18n_excess_handler: BOOLEAN is
+	is_xml_i18n_excess_handler: BOOLEAN
 		do
 			Result := (value=xml_i18n_excess_handler_low_level)
 		end
 
-	is_xml_i18n_no_handler: BOOLEAN is
+	is_xml_i18n_no_handler: BOOLEAN
 		do
 			Result := (value=xml_i18n_no_handler_low_level)
 		end
 
-	is_xml_i18n_no_name: BOOLEAN is
+	is_xml_i18n_no_name: BOOLEAN
 		do
 			Result := (value=xml_i18n_no_name_low_level)
 		end
 
-	is_xml_i18n_no_output: BOOLEAN is
+	is_xml_i18n_no_output: BOOLEAN
 		do
 			Result := (value=xml_i18n_no_output_low_level)
 		end
 
-	is_xml_io_buffer_full: BOOLEAN is
+	is_xml_io_buffer_full: BOOLEAN
 		do
 			Result := (value=xml_io_buffer_full_low_level)
 		end
 
-	is_xml_io_eacces: BOOLEAN is
+	is_xml_io_eacces: BOOLEAN
 		do
 			Result := (value=xml_io_eacces_low_level)
 		end
 
-	is_xml_io_eaddrinuse: BOOLEAN is
+	is_xml_io_eaddrinuse: BOOLEAN
 		do
 			Result := (value=xml_io_eaddrinuse_low_level)
 		end
 
-	is_xml_io_eafnosupport: BOOLEAN is
+	is_xml_io_eafnosupport: BOOLEAN
 		do
 			Result := (value=xml_io_eafnosupport_low_level)
 		end
 
-	is_xml_io_eagain: BOOLEAN is
+	is_xml_io_eagain: BOOLEAN
 		do
 			Result := (value=xml_io_eagain_low_level)
 		end
 
-	is_xml_io_ealready: BOOLEAN is
+	is_xml_io_ealready: BOOLEAN
 		do
 			Result := (value=xml_io_ealready_low_level)
 		end
 
-	is_xml_io_ebadf: BOOLEAN is
+	is_xml_io_ebadf: BOOLEAN
 		do
 			Result := (value=xml_io_ebadf_low_level)
 		end
 
-	is_xml_io_ebadmsg: BOOLEAN is
+	is_xml_io_ebadmsg: BOOLEAN
 		do
 			Result := (value=xml_io_ebadmsg_low_level)
 		end
 
-	is_xml_io_ebusy: BOOLEAN is
+	is_xml_io_ebusy: BOOLEAN
 		do
 			Result := (value=xml_io_ebusy_low_level)
 		end
 
-	is_xml_io_ecanceled: BOOLEAN is
+	is_xml_io_ecanceled: BOOLEAN
 		do
 			Result := (value=xml_io_ecanceled_low_level)
 		end
 
-	is_xml_io_echild: BOOLEAN is
+	is_xml_io_echild: BOOLEAN
 		do
 			Result := (value=xml_io_echild_low_level)
 		end
 
-	is_xml_io_econnrefused: BOOLEAN is
+	is_xml_io_econnrefused: BOOLEAN
 		do
 			Result := (value=xml_io_econnrefused_low_level)
 		end
 
-	is_xml_io_edeadlk: BOOLEAN is
+	is_xml_io_edeadlk: BOOLEAN
 		do
 			Result := (value=xml_io_edeadlk_low_level)
 		end
 
-	is_xml_io_edom: BOOLEAN is
+	is_xml_io_edom: BOOLEAN
 		do
 			Result := (value=xml_io_edom_low_level)
 		end
 
-	is_xml_io_eexist: BOOLEAN is
+	is_xml_io_eexist: BOOLEAN
 		do
 			Result := (value=xml_io_eexist_low_level)
 		end
 
-	is_xml_io_efault: BOOLEAN is
+	is_xml_io_efault: BOOLEAN
 		do
 			Result := (value=xml_io_efault_low_level)
 		end
 
-	is_xml_io_efbig: BOOLEAN is
+	is_xml_io_efbig: BOOLEAN
 		do
 			Result := (value=xml_io_efbig_low_level)
 		end
 
-	is_xml_io_einprogress: BOOLEAN is
+	is_xml_io_einprogress: BOOLEAN
 		do
 			Result := (value=xml_io_einprogress_low_level)
 		end
 
-	is_xml_io_eintr: BOOLEAN is
+	is_xml_io_eintr: BOOLEAN
 		do
 			Result := (value=xml_io_eintr_low_level)
 		end
 
-	is_xml_io_einval: BOOLEAN is
+	is_xml_io_einval: BOOLEAN
 		do
 			Result := (value=xml_io_einval_low_level)
 		end
 
-	is_xml_io_eio: BOOLEAN is
+	is_xml_io_eio: BOOLEAN
 		do
 			Result := (value=xml_io_eio_low_level)
 		end
 
-	is_xml_io_eisconn: BOOLEAN is
+	is_xml_io_eisconn: BOOLEAN
 		do
 			Result := (value=xml_io_eisconn_low_level)
 		end
 
-	is_xml_io_eisdir: BOOLEAN is
+	is_xml_io_eisdir: BOOLEAN
 		do
 			Result := (value=xml_io_eisdir_low_level)
 		end
 
-	is_xml_io_emfile: BOOLEAN is
+	is_xml_io_emfile: BOOLEAN
 		do
 			Result := (value=xml_io_emfile_low_level)
 		end
 
-	is_xml_io_emlink: BOOLEAN is
+	is_xml_io_emlink: BOOLEAN
 		do
 			Result := (value=xml_io_emlink_low_level)
 		end
 
-	is_xml_io_emsgsize: BOOLEAN is
+	is_xml_io_emsgsize: BOOLEAN
 		do
 			Result := (value=xml_io_emsgsize_low_level)
 		end
 
-	is_xml_io_enametoolong: BOOLEAN is
+	is_xml_io_enametoolong: BOOLEAN
 		do
 			Result := (value=xml_io_enametoolong_low_level)
 		end
 
-	is_xml_io_encoder: BOOLEAN is
+	is_xml_io_encoder: BOOLEAN
 		do
 			Result := (value=xml_io_encoder_low_level)
 		end
 
-	is_xml_io_enetunreach: BOOLEAN is
+	is_xml_io_enetunreach: BOOLEAN
 		do
 			Result := (value=xml_io_enetunreach_low_level)
 		end
 
-	is_xml_io_enfile: BOOLEAN is
+	is_xml_io_enfile: BOOLEAN
 		do
 			Result := (value=xml_io_enfile_low_level)
 		end
 
-	is_xml_io_enodev: BOOLEAN is
+	is_xml_io_enodev: BOOLEAN
 		do
 			Result := (value=xml_io_enodev_low_level)
 		end
 
-	is_xml_io_enoent: BOOLEAN is
+	is_xml_io_enoent: BOOLEAN
 		do
 			Result := (value=xml_io_enoent_low_level)
 		end
 
-	is_xml_io_enoexec: BOOLEAN is
+	is_xml_io_enoexec: BOOLEAN
 		do
 			Result := (value=xml_io_enoexec_low_level)
 		end
 
-	is_xml_io_enolck: BOOLEAN is
+	is_xml_io_enolck: BOOLEAN
 		do
 			Result := (value=xml_io_enolck_low_level)
 		end
 
-	is_xml_io_enomem: BOOLEAN is
+	is_xml_io_enomem: BOOLEAN
 		do
 			Result := (value=xml_io_enomem_low_level)
 		end
 
-	is_xml_io_enospc: BOOLEAN is
+	is_xml_io_enospc: BOOLEAN
 		do
 			Result := (value=xml_io_enospc_low_level)
 		end
 
-	is_xml_io_enosys: BOOLEAN is
+	is_xml_io_enosys: BOOLEAN
 		do
 			Result := (value=xml_io_enosys_low_level)
 		end
 
-	is_xml_io_enotdir: BOOLEAN is
+	is_xml_io_enotdir: BOOLEAN
 		do
 			Result := (value=xml_io_enotdir_low_level)
 		end
 
-	is_xml_io_enotempty: BOOLEAN is
+	is_xml_io_enotempty: BOOLEAN
 		do
 			Result := (value=xml_io_enotempty_low_level)
 		end
 
-	is_xml_io_enotsock: BOOLEAN is
+	is_xml_io_enotsock: BOOLEAN
 		do
 			Result := (value=xml_io_enotsock_low_level)
 		end
 
-	is_xml_io_enotsup: BOOLEAN is
+	is_xml_io_enotsup: BOOLEAN
 		do
 			Result := (value=xml_io_enotsup_low_level)
 		end
 
-	is_xml_io_enotty: BOOLEAN is
+	is_xml_io_enotty: BOOLEAN
 		do
 			Result := (value=xml_io_enotty_low_level)
 		end
 
-	is_xml_io_enxio: BOOLEAN is
+	is_xml_io_enxio: BOOLEAN
 		do
 			Result := (value=xml_io_enxio_low_level)
 		end
 
-	is_xml_io_eperm: BOOLEAN is
+	is_xml_io_eperm: BOOLEAN
 		do
 			Result := (value=xml_io_eperm_low_level)
 		end
 
-	is_xml_io_epipe: BOOLEAN is
+	is_xml_io_epipe: BOOLEAN
 		do
 			Result := (value=xml_io_epipe_low_level)
 		end
 
-	is_xml_io_erange: BOOLEAN is
+	is_xml_io_erange: BOOLEAN
 		do
 			Result := (value=xml_io_erange_low_level)
 		end
 
-	is_xml_io_erofs: BOOLEAN is
+	is_xml_io_erofs: BOOLEAN
 		do
 			Result := (value=xml_io_erofs_low_level)
 		end
 
-	is_xml_io_espipe: BOOLEAN is
+	is_xml_io_espipe: BOOLEAN
 		do
 			Result := (value=xml_io_espipe_low_level)
 		end
 
-	is_xml_io_esrch: BOOLEAN is
+	is_xml_io_esrch: BOOLEAN
 		do
 			Result := (value=xml_io_esrch_low_level)
 		end
 
-	is_xml_io_etimedout: BOOLEAN is
+	is_xml_io_etimedout: BOOLEAN
 		do
 			Result := (value=xml_io_etimedout_low_level)
 		end
 
-	is_xml_io_exdev: BOOLEAN is
+	is_xml_io_exdev: BOOLEAN
 		do
 			Result := (value=xml_io_exdev_low_level)
 		end
 
-	is_xml_io_flush: BOOLEAN is
+	is_xml_io_flush: BOOLEAN
 		do
 			Result := (value=xml_io_flush_low_level)
 		end
 
-	is_xml_io_load_error: BOOLEAN is
+	is_xml_io_load_error: BOOLEAN
 		do
 			Result := (value=xml_io_load_error_low_level)
 		end
 
-	is_xml_io_network_attempt: BOOLEAN is
+	is_xml_io_network_attempt: BOOLEAN
 		do
 			Result := (value=xml_io_network_attempt_low_level)
 		end
 
-	is_xml_io_no_input: BOOLEAN is
+	is_xml_io_no_input: BOOLEAN
 		do
 			Result := (value=xml_io_no_input_low_level)
 		end
 
-	is_xml_io_unknown: BOOLEAN is
+	is_xml_io_unknown: BOOLEAN
 		do
 			Result := (value=xml_io_unknown_low_level)
 		end
 
-	is_xml_io_write: BOOLEAN is
+	is_xml_io_write: BOOLEAN
 		do
 			Result := (value=xml_io_write_low_level)
 		end
 
-	is_xml_module_close: BOOLEAN is
+	is_xml_module_close: BOOLEAN
 		do
 			Result := (value=xml_module_close_low_level)
 		end
 
-	is_xml_module_open: BOOLEAN is
+	is_xml_module_open: BOOLEAN
 		do
 			Result := (value=xml_module_open_low_level)
 		end
 
-	is_xml_ns_err_attribute_redefined: BOOLEAN is
+	is_xml_ns_err_attribute_redefined: BOOLEAN
 		do
 			Result := (value=xml_ns_err_attribute_redefined_low_level)
 		end
 
-	is_xml_ns_err_colon: BOOLEAN is
+	is_xml_ns_err_colon: BOOLEAN
 		do
 			Result := (value=xml_ns_err_colon_low_level)
 		end
 
-	is_xml_ns_err_empty: BOOLEAN is
+	is_xml_ns_err_empty: BOOLEAN
 		do
 			Result := (value=xml_ns_err_empty_low_level)
 		end
 
-	is_xml_ns_err_qname: BOOLEAN is
+	is_xml_ns_err_qname: BOOLEAN
 		do
 			Result := (value=xml_ns_err_qname_low_level)
 		end
 
-	is_xml_ns_err_undefined_namespace: BOOLEAN is
+	is_xml_ns_err_undefined_namespace: BOOLEAN
 		do
 			Result := (value=xml_ns_err_undefined_namespace_low_level)
 		end
 
-	is_xml_ns_err_xml_namespace: BOOLEAN is
+	is_xml_ns_err_xml_namespace: BOOLEAN
 		do
 			Result := (value=xml_ns_err_xml_namespace_low_level)
 		end
 
-	is_xml_regexp_compile_error: BOOLEAN is
+	is_xml_regexp_compile_error: BOOLEAN
 		do
 			Result := (value=xml_regexp_compile_error_low_level)
 		end
 
-	is_xml_rngp_anyname_attr_ancestor: BOOLEAN is
+	is_xml_rngp_anyname_attr_ancestor: BOOLEAN
 		do
 			Result := (value=xml_rngp_anyname_attr_ancestor_low_level)
 		end
 
-	is_xml_rngp_attr_conflict: BOOLEAN is
+	is_xml_rngp_attr_conflict: BOOLEAN
 		do
 			Result := (value=xml_rngp_attr_conflict_low_level)
 		end
 
-	is_xml_rngp_attribute_children: BOOLEAN is
+	is_xml_rngp_attribute_children: BOOLEAN
 		do
 			Result := (value=xml_rngp_attribute_children_low_level)
 		end
 
-	is_xml_rngp_attribute_content: BOOLEAN is
+	is_xml_rngp_attribute_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_attribute_content_low_level)
 		end
 
-	is_xml_rngp_attribute_empty: BOOLEAN is
+	is_xml_rngp_attribute_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_attribute_empty_low_level)
 		end
 
-	is_xml_rngp_attribute_noop: BOOLEAN is
+	is_xml_rngp_attribute_noop: BOOLEAN
 		do
 			Result := (value=xml_rngp_attribute_noop_low_level)
 		end
 
-	is_xml_rngp_choice_content: BOOLEAN is
+	is_xml_rngp_choice_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_choice_content_low_level)
 		end
 
-	is_xml_rngp_choice_empty: BOOLEAN is
+	is_xml_rngp_choice_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_choice_empty_low_level)
 		end
 
-	is_xml_rngp_create_failure: BOOLEAN is
+	is_xml_rngp_create_failure: BOOLEAN
 		do
 			Result := (value=xml_rngp_create_failure_low_level)
 		end
 
-	is_xml_rngp_data_content: BOOLEAN is
+	is_xml_rngp_data_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_data_content_low_level)
 		end
 
-	is_xml_rngp_def_choice_and_interleave: BOOLEAN is
+	is_xml_rngp_def_choice_and_interleave: BOOLEAN
 		do
 			Result := (value=xml_rngp_def_choice_and_interleave_low_level)
 		end
 
-	is_xml_rngp_define_create_failed: BOOLEAN is
+	is_xml_rngp_define_create_failed: BOOLEAN
 		do
 			Result := (value=xml_rngp_define_create_failed_low_level)
 		end
 
-	is_xml_rngp_define_empty: BOOLEAN is
+	is_xml_rngp_define_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_define_empty_low_level)
 		end
 
-	is_xml_rngp_define_missing: BOOLEAN is
+	is_xml_rngp_define_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_define_missing_low_level)
 		end
 
-	is_xml_rngp_define_name_missing: BOOLEAN is
+	is_xml_rngp_define_name_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_define_name_missing_low_level)
 		end
 
-	is_xml_rngp_elem_content_empty: BOOLEAN is
+	is_xml_rngp_elem_content_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_elem_content_empty_low_level)
 		end
 
-	is_xml_rngp_elem_content_error: BOOLEAN is
+	is_xml_rngp_elem_content_error: BOOLEAN
 		do
 			Result := (value=xml_rngp_elem_content_error_low_level)
 		end
 
-	is_xml_rngp_elem_text_conflict: BOOLEAN is
+	is_xml_rngp_elem_text_conflict: BOOLEAN
 		do
 			Result := (value=xml_rngp_elem_text_conflict_low_level)
 		end
 
-	is_xml_rngp_element_content: BOOLEAN is
+	is_xml_rngp_element_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_element_content_low_level)
 		end
 
-	is_xml_rngp_element_empty: BOOLEAN is
+	is_xml_rngp_element_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_element_empty_low_level)
 		end
 
-	is_xml_rngp_element_name: BOOLEAN is
+	is_xml_rngp_element_name: BOOLEAN
 		do
 			Result := (value=xml_rngp_element_name_low_level)
 		end
 
-	is_xml_rngp_element_no_content: BOOLEAN is
+	is_xml_rngp_element_no_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_element_no_content_low_level)
 		end
 
-	is_xml_rngp_empty: BOOLEAN is
+	is_xml_rngp_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_empty_low_level)
 		end
 
-	is_xml_rngp_empty_construct: BOOLEAN is
+	is_xml_rngp_empty_construct: BOOLEAN
 		do
 			Result := (value=xml_rngp_empty_construct_low_level)
 		end
 
-	is_xml_rngp_empty_content: BOOLEAN is
+	is_xml_rngp_empty_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_empty_content_low_level)
 		end
 
-	is_xml_rngp_empty_not_empty: BOOLEAN is
+	is_xml_rngp_empty_not_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_empty_not_empty_low_level)
 		end
 
-	is_xml_rngp_error_type_lib: BOOLEAN is
+	is_xml_rngp_error_type_lib: BOOLEAN
 		do
 			Result := (value=xml_rngp_error_type_lib_low_level)
 		end
 
-	is_xml_rngp_except_empty: BOOLEAN is
+	is_xml_rngp_except_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_except_empty_low_level)
 		end
 
-	is_xml_rngp_except_missing: BOOLEAN is
+	is_xml_rngp_except_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_except_missing_low_level)
 		end
 
-	is_xml_rngp_except_multiple: BOOLEAN is
+	is_xml_rngp_except_multiple: BOOLEAN
 		do
 			Result := (value=xml_rngp_except_multiple_low_level)
 		end
 
-	is_xml_rngp_except_no_content: BOOLEAN is
+	is_xml_rngp_except_no_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_except_no_content_low_level)
 		end
 
-	is_xml_rngp_external_ref_failure: BOOLEAN is
+	is_xml_rngp_external_ref_failure: BOOLEAN
 		do
 			Result := (value=xml_rngp_external_ref_failure_low_level)
 		end
 
-	is_xml_rngp_externalref_emtpy: BOOLEAN is
+	is_xml_rngp_externalref_emtpy: BOOLEAN
 		do
 			Result := (value=xml_rngp_externalref_emtpy_low_level)
 		end
 
-	is_xml_rngp_externalref_recurse: BOOLEAN is
+	is_xml_rngp_externalref_recurse: BOOLEAN
 		do
 			Result := (value=xml_rngp_externalref_recurse_low_level)
 		end
 
-	is_xml_rngp_forbidden_attribute: BOOLEAN is
+	is_xml_rngp_forbidden_attribute: BOOLEAN
 		do
 			Result := (value=xml_rngp_forbidden_attribute_low_level)
 		end
 
-	is_xml_rngp_foreign_element: BOOLEAN is
+	is_xml_rngp_foreign_element: BOOLEAN
 		do
 			Result := (value=xml_rngp_foreign_element_low_level)
 		end
 
-	is_xml_rngp_grammar_content: BOOLEAN is
+	is_xml_rngp_grammar_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_grammar_content_low_level)
 		end
 
-	is_xml_rngp_grammar_empty: BOOLEAN is
+	is_xml_rngp_grammar_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_grammar_empty_low_level)
 		end
 
-	is_xml_rngp_grammar_missing: BOOLEAN is
+	is_xml_rngp_grammar_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_grammar_missing_low_level)
 		end
 
-	is_xml_rngp_grammar_no_start: BOOLEAN is
+	is_xml_rngp_grammar_no_start: BOOLEAN
 		do
 			Result := (value=xml_rngp_grammar_no_start_low_level)
 		end
 
-	is_xml_rngp_group_attr_conflict: BOOLEAN is
+	is_xml_rngp_group_attr_conflict: BOOLEAN
 		do
 			Result := (value=xml_rngp_group_attr_conflict_low_level)
 		end
 
-	is_xml_rngp_href_error: BOOLEAN is
+	is_xml_rngp_href_error: BOOLEAN
 		do
 			Result := (value=xml_rngp_href_error_low_level)
 		end
 
-	is_xml_rngp_include_empty: BOOLEAN is
+	is_xml_rngp_include_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_include_empty_low_level)
 		end
 
-	is_xml_rngp_include_failure: BOOLEAN is
+	is_xml_rngp_include_failure: BOOLEAN
 		do
 			Result := (value=xml_rngp_include_failure_low_level)
 		end
 
-	is_xml_rngp_include_recurse: BOOLEAN is
+	is_xml_rngp_include_recurse: BOOLEAN
 		do
 			Result := (value=xml_rngp_include_recurse_low_level)
 		end
 
-	is_xml_rngp_interleave_add: BOOLEAN is
+	is_xml_rngp_interleave_add: BOOLEAN
 		do
 			Result := (value=xml_rngp_interleave_add_low_level)
 		end
 
-	is_xml_rngp_interleave_create_failed: BOOLEAN is
+	is_xml_rngp_interleave_create_failed: BOOLEAN
 		do
 			Result := (value=xml_rngp_interleave_create_failed_low_level)
 		end
 
-	is_xml_rngp_interleave_empty: BOOLEAN is
+	is_xml_rngp_interleave_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_interleave_empty_low_level)
 		end
 
-	is_xml_rngp_interleave_no_content: BOOLEAN is
+	is_xml_rngp_interleave_no_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_interleave_no_content_low_level)
 		end
 
-	is_xml_rngp_invalid_define_name: BOOLEAN is
+	is_xml_rngp_invalid_define_name: BOOLEAN
 		do
 			Result := (value=xml_rngp_invalid_define_name_low_level)
 		end
 
-	is_xml_rngp_invalid_uri: BOOLEAN is
+	is_xml_rngp_invalid_uri: BOOLEAN
 		do
 			Result := (value=xml_rngp_invalid_uri_low_level)
 		end
 
-	is_xml_rngp_invalid_value: BOOLEAN is
+	is_xml_rngp_invalid_value: BOOLEAN
 		do
 			Result := (value=xml_rngp_invalid_value_low_level)
 		end
 
-	is_xml_rngp_missing_href: BOOLEAN is
+	is_xml_rngp_missing_href: BOOLEAN
 		do
 			Result := (value=xml_rngp_missing_href_low_level)
 		end
 
-	is_xml_rngp_name_missing: BOOLEAN is
+	is_xml_rngp_name_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_name_missing_low_level)
 		end
 
-	is_xml_rngp_need_combine: BOOLEAN is
+	is_xml_rngp_need_combine: BOOLEAN
 		do
 			Result := (value=xml_rngp_need_combine_low_level)
 		end
 
-	is_xml_rngp_notallowed_not_empty: BOOLEAN is
+	is_xml_rngp_notallowed_not_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_notallowed_not_empty_low_level)
 		end
 
-	is_xml_rngp_nsname_attr_ancestor: BOOLEAN is
+	is_xml_rngp_nsname_attr_ancestor: BOOLEAN
 		do
 			Result := (value=xml_rngp_nsname_attr_ancestor_low_level)
 		end
 
-	is_xml_rngp_nsname_no_ns: BOOLEAN is
+	is_xml_rngp_nsname_no_ns: BOOLEAN
 		do
 			Result := (value=xml_rngp_nsname_no_ns_low_level)
 		end
 
-	is_xml_rngp_param_forbidden: BOOLEAN is
+	is_xml_rngp_param_forbidden: BOOLEAN
 		do
 			Result := (value=xml_rngp_param_forbidden_low_level)
 		end
 
-	is_xml_rngp_param_name_missing: BOOLEAN is
+	is_xml_rngp_param_name_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_param_name_missing_low_level)
 		end
 
-	is_xml_rngp_parentref_create_failed: BOOLEAN is
+	is_xml_rngp_parentref_create_failed: BOOLEAN
 		do
 			Result := (value=xml_rngp_parentref_create_failed_low_level)
 		end
 
-	is_xml_rngp_parentref_name_invalid: BOOLEAN is
+	is_xml_rngp_parentref_name_invalid: BOOLEAN
 		do
 			Result := (value=xml_rngp_parentref_name_invalid_low_level)
 		end
 
-	is_xml_rngp_parentref_no_name: BOOLEAN is
+	is_xml_rngp_parentref_no_name: BOOLEAN
 		do
 			Result := (value=xml_rngp_parentref_no_name_low_level)
 		end
 
-	is_xml_rngp_parentref_no_parent: BOOLEAN is
+	is_xml_rngp_parentref_no_parent: BOOLEAN
 		do
 			Result := (value=xml_rngp_parentref_no_parent_low_level)
 		end
 
-	is_xml_rngp_parentref_not_empty: BOOLEAN is
+	is_xml_rngp_parentref_not_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_parentref_not_empty_low_level)
 		end
 
-	is_xml_rngp_parse_error: BOOLEAN is
+	is_xml_rngp_parse_error: BOOLEAN
 		do
 			Result := (value=xml_rngp_parse_error_low_level)
 		end
 
-	is_xml_rngp_pat_anyname_except_anyname: BOOLEAN is
+	is_xml_rngp_pat_anyname_except_anyname: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_anyname_except_anyname_low_level)
 		end
 
-	is_xml_rngp_pat_attr_attr: BOOLEAN is
+	is_xml_rngp_pat_attr_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_attr_attr_low_level)
 		end
 
-	is_xml_rngp_pat_attr_elem: BOOLEAN is
+	is_xml_rngp_pat_attr_elem: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_attr_elem_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_attr: BOOLEAN is
+	is_xml_rngp_pat_data_except_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_attr_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_elem: BOOLEAN is
+	is_xml_rngp_pat_data_except_elem: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_elem_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_empty: BOOLEAN is
+	is_xml_rngp_pat_data_except_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_empty_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_group: BOOLEAN is
+	is_xml_rngp_pat_data_except_group: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_group_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_interleave: BOOLEAN is
+	is_xml_rngp_pat_data_except_interleave: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_interleave_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_list: BOOLEAN is
+	is_xml_rngp_pat_data_except_list: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_list_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_onemore: BOOLEAN is
+	is_xml_rngp_pat_data_except_onemore: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_onemore_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_ref: BOOLEAN is
+	is_xml_rngp_pat_data_except_ref: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_ref_low_level)
 		end
 
-	is_xml_rngp_pat_data_except_text: BOOLEAN is
+	is_xml_rngp_pat_data_except_text: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_data_except_text_low_level)
 		end
 
-	is_xml_rngp_pat_list_attr: BOOLEAN is
+	is_xml_rngp_pat_list_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_attr_low_level)
 		end
 
-	is_xml_rngp_pat_list_elem: BOOLEAN is
+	is_xml_rngp_pat_list_elem: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_elem_low_level)
 		end
 
-	is_xml_rngp_pat_list_interleave: BOOLEAN is
+	is_xml_rngp_pat_list_interleave: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_interleave_low_level)
 		end
 
-	is_xml_rngp_pat_list_list: BOOLEAN is
+	is_xml_rngp_pat_list_list: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_list_low_level)
 		end
 
-	is_xml_rngp_pat_list_ref: BOOLEAN is
+	is_xml_rngp_pat_list_ref: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_ref_low_level)
 		end
 
-	is_xml_rngp_pat_list_text: BOOLEAN is
+	is_xml_rngp_pat_list_text: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_list_text_low_level)
 		end
 
-	is_xml_rngp_pat_nsname_except_anyname: BOOLEAN is
+	is_xml_rngp_pat_nsname_except_anyname: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_nsname_except_anyname_low_level)
 		end
 
-	is_xml_rngp_pat_nsname_except_nsname: BOOLEAN is
+	is_xml_rngp_pat_nsname_except_nsname: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_nsname_except_nsname_low_level)
 		end
 
-	is_xml_rngp_pat_onemore_group_attr: BOOLEAN is
+	is_xml_rngp_pat_onemore_group_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_onemore_group_attr_low_level)
 		end
 
-	is_xml_rngp_pat_onemore_interleave_attr: BOOLEAN is
+	is_xml_rngp_pat_onemore_interleave_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_onemore_interleave_attr_low_level)
 		end
 
-	is_xml_rngp_pat_start_attr: BOOLEAN is
+	is_xml_rngp_pat_start_attr: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_attr_low_level)
 		end
 
-	is_xml_rngp_pat_start_data: BOOLEAN is
+	is_xml_rngp_pat_start_data: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_data_low_level)
 		end
 
-	is_xml_rngp_pat_start_empty: BOOLEAN is
+	is_xml_rngp_pat_start_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_empty_low_level)
 		end
 
-	is_xml_rngp_pat_start_group: BOOLEAN is
+	is_xml_rngp_pat_start_group: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_group_low_level)
 		end
 
-	is_xml_rngp_pat_start_interleave: BOOLEAN is
+	is_xml_rngp_pat_start_interleave: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_interleave_low_level)
 		end
 
-	is_xml_rngp_pat_start_list: BOOLEAN is
+	is_xml_rngp_pat_start_list: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_list_low_level)
 		end
 
-	is_xml_rngp_pat_start_onemore: BOOLEAN is
+	is_xml_rngp_pat_start_onemore: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_onemore_low_level)
 		end
 
-	is_xml_rngp_pat_start_text: BOOLEAN is
+	is_xml_rngp_pat_start_text: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_text_low_level)
 		end
 
-	is_xml_rngp_pat_start_value: BOOLEAN is
+	is_xml_rngp_pat_start_value: BOOLEAN
 		do
 			Result := (value=xml_rngp_pat_start_value_low_level)
 		end
 
-	is_xml_rngp_prefix_undefined: BOOLEAN is
+	is_xml_rngp_prefix_undefined: BOOLEAN
 		do
 			Result := (value=xml_rngp_prefix_undefined_low_level)
 		end
 
-	is_xml_rngp_ref_create_failed: BOOLEAN is
+	is_xml_rngp_ref_create_failed: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_create_failed_low_level)
 		end
 
-	is_xml_rngp_ref_cycle: BOOLEAN is
+	is_xml_rngp_ref_cycle: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_cycle_low_level)
 		end
 
-	is_xml_rngp_ref_name_invalid: BOOLEAN is
+	is_xml_rngp_ref_name_invalid: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_name_invalid_low_level)
 		end
 
-	is_xml_rngp_ref_no_def: BOOLEAN is
+	is_xml_rngp_ref_no_def: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_no_def_low_level)
 		end
 
-	is_xml_rngp_ref_no_name: BOOLEAN is
+	is_xml_rngp_ref_no_name: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_no_name_low_level)
 		end
 
-	is_xml_rngp_ref_not_empty: BOOLEAN is
+	is_xml_rngp_ref_not_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_ref_not_empty_low_level)
 		end
 
-	is_xml_rngp_start_choice_and_interleave: BOOLEAN is
+	is_xml_rngp_start_choice_and_interleave: BOOLEAN
 		do
 			Result := (value=xml_rngp_start_choice_and_interleave_low_level)
 		end
 
-	is_xml_rngp_start_content: BOOLEAN is
+	is_xml_rngp_start_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_start_content_low_level)
 		end
 
-	is_xml_rngp_start_empty: BOOLEAN is
+	is_xml_rngp_start_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_start_empty_low_level)
 		end
 
-	is_xml_rngp_start_missing: BOOLEAN is
+	is_xml_rngp_start_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_start_missing_low_level)
 		end
 
-	is_xml_rngp_text_expected: BOOLEAN is
+	is_xml_rngp_text_expected: BOOLEAN
 		do
 			Result := (value=xml_rngp_text_expected_low_level)
 		end
 
-	is_xml_rngp_text_has_child: BOOLEAN is
+	is_xml_rngp_text_has_child: BOOLEAN
 		do
 			Result := (value=xml_rngp_text_has_child_low_level)
 		end
 
-	is_xml_rngp_type_missing: BOOLEAN is
+	is_xml_rngp_type_missing: BOOLEAN
 		do
 			Result := (value=xml_rngp_type_missing_low_level)
 		end
 
-	is_xml_rngp_type_not_found: BOOLEAN is
+	is_xml_rngp_type_not_found: BOOLEAN
 		do
 			Result := (value=xml_rngp_type_not_found_low_level)
 		end
 
-	is_xml_rngp_type_value: BOOLEAN is
+	is_xml_rngp_type_value: BOOLEAN
 		do
 			Result := (value=xml_rngp_type_value_low_level)
 		end
 
-	is_xml_rngp_unknown_attribute: BOOLEAN is
+	is_xml_rngp_unknown_attribute: BOOLEAN
 		do
 			Result := (value=xml_rngp_unknown_attribute_low_level)
 		end
 
-	is_xml_rngp_unknown_combine: BOOLEAN is
+	is_xml_rngp_unknown_combine: BOOLEAN
 		do
 			Result := (value=xml_rngp_unknown_combine_low_level)
 		end
 
-	is_xml_rngp_unknown_construct: BOOLEAN is
+	is_xml_rngp_unknown_construct: BOOLEAN
 		do
 			Result := (value=xml_rngp_unknown_construct_low_level)
 		end
 
-	is_xml_rngp_unknown_type_lib: BOOLEAN is
+	is_xml_rngp_unknown_type_lib: BOOLEAN
 		do
 			Result := (value=xml_rngp_unknown_type_lib_low_level)
 		end
 
-	is_xml_rngp_uri_fragment: BOOLEAN is
+	is_xml_rngp_uri_fragment: BOOLEAN
 		do
 			Result := (value=xml_rngp_uri_fragment_low_level)
 		end
 
-	is_xml_rngp_uri_not_absolute: BOOLEAN is
+	is_xml_rngp_uri_not_absolute: BOOLEAN
 		do
 			Result := (value=xml_rngp_uri_not_absolute_low_level)
 		end
 
-	is_xml_rngp_value_empty: BOOLEAN is
+	is_xml_rngp_value_empty: BOOLEAN
 		do
 			Result := (value=xml_rngp_value_empty_low_level)
 		end
 
-	is_xml_rngp_value_no_content: BOOLEAN is
+	is_xml_rngp_value_no_content: BOOLEAN
 		do
 			Result := (value=xml_rngp_value_no_content_low_level)
 		end
 
-	is_xml_rngp_xml_ns: BOOLEAN is
+	is_xml_rngp_xml_ns: BOOLEAN
 		do
 			Result := (value=xml_rngp_xml_ns_low_level)
 		end
 
-	is_xml_rngp_xmlns_name: BOOLEAN is
+	is_xml_rngp_xmlns_name: BOOLEAN
 		do
 			Result := (value=xml_rngp_xmlns_name_low_level)
 		end
 
-	is_xml_save_char_invalid: BOOLEAN is
+	is_xml_save_char_invalid: BOOLEAN
 		do
 			Result := (value=xml_save_char_invalid_low_level)
 		end
 
-	is_xml_save_no_doctype: BOOLEAN is
+	is_xml_save_no_doctype: BOOLEAN
 		do
 			Result := (value=xml_save_no_doctype_low_level)
 		end
 
-	is_xml_save_not_utf8: BOOLEAN is
+	is_xml_save_not_utf8: BOOLEAN
 		do
 			Result := (value=xml_save_not_utf8_low_level)
 		end
 
-	is_xml_save_unknown_encoding: BOOLEAN is
+	is_xml_save_unknown_encoding: BOOLEAN
 		do
 			Result := (value=xml_save_unknown_encoding_low_level)
 		end
 
-	is_xml_schemap_a_props_correct_2: BOOLEAN is
+	is_xml_schemap_a_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_a_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_a_props_correct_3: BOOLEAN is
+	is_xml_schemap_a_props_correct_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_a_props_correct_3_low_level)
 		end
 
-	is_xml_schemap_ag_props_correct: BOOLEAN is
+	is_xml_schemap_ag_props_correct: BOOLEAN
 		do
 			Result := (value=xml_schemap_ag_props_correct_low_level)
 		end
 
-	is_xml_schemap_attr_noname_noref: BOOLEAN is
+	is_xml_schemap_attr_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_attr_noname_noref_low_level)
 		end
 
-	is_xml_schemap_attrformdefault_value: BOOLEAN is
+	is_xml_schemap_attrformdefault_value: BOOLEAN
 		do
 			Result := (value=xml_schemap_attrformdefault_value_low_level)
 		end
 
-	is_xml_schemap_attrgrp_noname_noref: BOOLEAN is
+	is_xml_schemap_attrgrp_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_attrgrp_noname_noref_low_level)
 		end
 
-	is_xml_schemap_au_props_correct: BOOLEAN is
+	is_xml_schemap_au_props_correct: BOOLEAN
 		do
 			Result := (value=xml_schemap_au_props_correct_low_level)
 		end
 
-	is_xml_schemap_au_props_correct_2: BOOLEAN is
+	is_xml_schemap_au_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_au_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_c_props_correct: BOOLEAN is
+	is_xml_schemap_c_props_correct: BOOLEAN
 		do
 			Result := (value=xml_schemap_c_props_correct_low_level)
 		end
 
-	is_xml_schemap_complextype_noname_noref: BOOLEAN is
+	is_xml_schemap_complextype_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_complextype_noname_noref_low_level)
 		end
 
-	is_xml_schemap_cos_all_limited: BOOLEAN is
+	is_xml_schemap_cos_all_limited: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_all_limited_low_level)
 		end
 
-	is_xml_schemap_cos_ct_extends_1_1: BOOLEAN is
+	is_xml_schemap_cos_ct_extends_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_ct_extends_1_1_low_level)
 		end
 
-	is_xml_schemap_cos_ct_extends_1_2: BOOLEAN is
+	is_xml_schemap_cos_ct_extends_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_ct_extends_1_2_low_level)
 		end
 
-	is_xml_schemap_cos_ct_extends_1_3: BOOLEAN is
+	is_xml_schemap_cos_ct_extends_1_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_ct_extends_1_3_low_level)
 		end
 
-	is_xml_schemap_cos_st_derived_ok_2_1: BOOLEAN is
+	is_xml_schemap_cos_st_derived_ok_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_derived_ok_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_derived_ok_2_2: BOOLEAN is
+	is_xml_schemap_cos_st_derived_ok_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_derived_ok_2_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_1_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_1_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_1_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_1_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_1_3_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_1_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_1_3_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_1_3_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_1_3_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_1_3_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_1_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_1_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_1_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_1_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_2_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_2_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_2_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_2_3: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_2_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_2_3_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_2_4: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_2_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_2_4_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_2_3_2_5: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_2_3_2_5: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_2_3_2_5_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_1_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_1_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_2_1: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_2_2: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_2_2_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_2_3: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_2_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_2_3_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_2_4: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_2_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_2_4_low_level)
 		end
 
-	is_xml_schemap_cos_st_restricts_3_3_2_5: BOOLEAN is
+	is_xml_schemap_cos_st_restricts_3_3_2_5: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_st_restricts_3_3_2_5_low_level)
 		end
 
-	is_xml_schemap_cos_valid_default_1: BOOLEAN is
+	is_xml_schemap_cos_valid_default_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_valid_default_1_low_level)
 		end
 
-	is_xml_schemap_cos_valid_default_2_1: BOOLEAN is
+	is_xml_schemap_cos_valid_default_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_valid_default_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_valid_default_2_2_1: BOOLEAN is
+	is_xml_schemap_cos_valid_default_2_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_valid_default_2_2_1_low_level)
 		end
 
-	is_xml_schemap_cos_valid_default_2_2_2: BOOLEAN is
+	is_xml_schemap_cos_valid_default_2_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_cos_valid_default_2_2_2_low_level)
 		end
 
-	is_xml_schemap_ct_props_correct_1: BOOLEAN is
+	is_xml_schemap_ct_props_correct_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_ct_props_correct_1_low_level)
 		end
 
-	is_xml_schemap_ct_props_correct_2: BOOLEAN is
+	is_xml_schemap_ct_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_ct_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_ct_props_correct_3: BOOLEAN is
+	is_xml_schemap_ct_props_correct_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_ct_props_correct_3_low_level)
 		end
 
-	is_xml_schemap_ct_props_correct_4: BOOLEAN is
+	is_xml_schemap_ct_props_correct_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_ct_props_correct_4_low_level)
 		end
 
-	is_xml_schemap_ct_props_correct_5: BOOLEAN is
+	is_xml_schemap_ct_props_correct_5: BOOLEAN
 		do
 			Result := (value=xml_schemap_ct_props_correct_5_low_level)
 		end
 
-	is_xml_schemap_cvc_simple_type: BOOLEAN is
+	is_xml_schemap_cvc_simple_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_cvc_simple_type_low_level)
 		end
 
-	is_xml_schemap_def_and_prefix: BOOLEAN is
+	is_xml_schemap_def_and_prefix: BOOLEAN
 		do
 			Result := (value=xml_schemap_def_and_prefix_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_1: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_1_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_2_1_1: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_2_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_2_1_1_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_2_1_2: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_2_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_2_1_2_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_2_1_3: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_2_1_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_2_1_3_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_2_2: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_2_2_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_3: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_3_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_4_1: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_4_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_4_1_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_4_2: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_4_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_4_2_low_level)
 		end
 
-	is_xml_schemap_derivation_ok_restriction_4_3: BOOLEAN is
+	is_xml_schemap_derivation_ok_restriction_4_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_derivation_ok_restriction_4_3_low_level)
 		end
 
-	is_xml_schemap_e_props_correct_2: BOOLEAN is
+	is_xml_schemap_e_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_e_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_e_props_correct_3: BOOLEAN is
+	is_xml_schemap_e_props_correct_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_e_props_correct_3_low_level)
 		end
 
-	is_xml_schemap_e_props_correct_4: BOOLEAN is
+	is_xml_schemap_e_props_correct_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_e_props_correct_4_low_level)
 		end
 
-	is_xml_schemap_e_props_correct_5: BOOLEAN is
+	is_xml_schemap_e_props_correct_5: BOOLEAN
 		do
 			Result := (value=xml_schemap_e_props_correct_5_low_level)
 		end
 
-	is_xml_schemap_e_props_correct_6: BOOLEAN is
+	is_xml_schemap_e_props_correct_6: BOOLEAN
 		do
 			Result := (value=xml_schemap_e_props_correct_6_low_level)
 		end
 
-	is_xml_schemap_elem_default_fixed: BOOLEAN is
+	is_xml_schemap_elem_default_fixed: BOOLEAN
 		do
 			Result := (value=xml_schemap_elem_default_fixed_low_level)
 		end
 
-	is_xml_schemap_elem_noname_noref: BOOLEAN is
+	is_xml_schemap_elem_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_elem_noname_noref_low_level)
 		end
 
-	is_xml_schemap_elemformdefault_value: BOOLEAN is
+	is_xml_schemap_elemformdefault_value: BOOLEAN
 		do
 			Result := (value=xml_schemap_elemformdefault_value_low_level)
 		end
 
-	is_xml_schemap_extension_no_base: BOOLEAN is
+	is_xml_schemap_extension_no_base: BOOLEAN
 		do
 			Result := (value=xml_schemap_extension_no_base_low_level)
 		end
 
-	is_xml_schemap_facet_no_value: BOOLEAN is
+	is_xml_schemap_facet_no_value: BOOLEAN
 		do
 			Result := (value=xml_schemap_facet_no_value_low_level)
 		end
 
-	is_xml_schemap_failed_build_import: BOOLEAN is
+	is_xml_schemap_failed_build_import: BOOLEAN
 		do
 			Result := (value=xml_schemap_failed_build_import_low_level)
 		end
 
-	is_xml_schemap_failed_load: BOOLEAN is
+	is_xml_schemap_failed_load: BOOLEAN
 		do
 			Result := (value=xml_schemap_failed_load_low_level)
 		end
 
-	is_xml_schemap_failed_parse: BOOLEAN is
+	is_xml_schemap_failed_parse: BOOLEAN
 		do
 			Result := (value=xml_schemap_failed_parse_low_level)
 		end
 
-	is_xml_schemap_group_noname_noref: BOOLEAN is
+	is_xml_schemap_group_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_group_noname_noref_low_level)
 		end
 
-	is_xml_schemap_import_namespace_not_uri: BOOLEAN is
+	is_xml_schemap_import_namespace_not_uri: BOOLEAN
 		do
 			Result := (value=xml_schemap_import_namespace_not_uri_low_level)
 		end
 
-	is_xml_schemap_import_redefine_nsname: BOOLEAN is
+	is_xml_schemap_import_redefine_nsname: BOOLEAN
 		do
 			Result := (value=xml_schemap_import_redefine_nsname_low_level)
 		end
 
-	is_xml_schemap_import_schema_not_uri: BOOLEAN is
+	is_xml_schemap_import_schema_not_uri: BOOLEAN
 		do
 			Result := (value=xml_schemap_import_schema_not_uri_low_level)
 		end
 
-	is_xml_schemap_include_schema_no_uri: BOOLEAN is
+	is_xml_schemap_include_schema_no_uri: BOOLEAN
 		do
 			Result := (value=xml_schemap_include_schema_no_uri_low_level)
 		end
 
-	is_xml_schemap_include_schema_not_uri: BOOLEAN is
+	is_xml_schemap_include_schema_not_uri: BOOLEAN
 		do
 			Result := (value=xml_schemap_include_schema_not_uri_low_level)
 		end
 
-	is_xml_schemap_internal: BOOLEAN is
+	is_xml_schemap_internal: BOOLEAN
 		do
 			Result := (value=xml_schemap_internal_low_level)
 		end
 
-	is_xml_schemap_intersection_not_expressible: BOOLEAN is
+	is_xml_schemap_intersection_not_expressible: BOOLEAN
 		do
 			Result := (value=xml_schemap_intersection_not_expressible_low_level)
 		end
 
-	is_xml_schemap_invalid_attr_combination: BOOLEAN is
+	is_xml_schemap_invalid_attr_combination: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_attr_combination_low_level)
 		end
 
-	is_xml_schemap_invalid_attr_inline_combination: BOOLEAN is
+	is_xml_schemap_invalid_attr_inline_combination: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_attr_inline_combination_low_level)
 		end
 
-	is_xml_schemap_invalid_attr_name: BOOLEAN is
+	is_xml_schemap_invalid_attr_name: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_attr_name_low_level)
 		end
 
-	is_xml_schemap_invalid_attr_use: BOOLEAN is
+	is_xml_schemap_invalid_attr_use: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_attr_use_low_level)
 		end
 
-	is_xml_schemap_invalid_boolean: BOOLEAN is
+	is_xml_schemap_invalid_boolean: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_boolean_low_level)
 		end
 
-	is_xml_schemap_invalid_enum: BOOLEAN is
+	is_xml_schemap_invalid_enum: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_enum_low_level)
 		end
 
-	is_xml_schemap_invalid_facet: BOOLEAN is
+	is_xml_schemap_invalid_facet: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_facet_low_level)
 		end
 
-	is_xml_schemap_invalid_facet_value: BOOLEAN is
+	is_xml_schemap_invalid_facet_value: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_facet_value_low_level)
 		end
 
-	is_xml_schemap_invalid_maxoccurs: BOOLEAN is
+	is_xml_schemap_invalid_maxoccurs: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_maxoccurs_low_level)
 		end
 
-	is_xml_schemap_invalid_minoccurs: BOOLEAN is
+	is_xml_schemap_invalid_minoccurs: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_minoccurs_low_level)
 		end
 
-	is_xml_schemap_invalid_ref_and_subtype: BOOLEAN is
+	is_xml_schemap_invalid_ref_and_subtype: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_ref_and_subtype_low_level)
 		end
 
-	is_xml_schemap_invalid_white_space: BOOLEAN is
+	is_xml_schemap_invalid_white_space: BOOLEAN
 		do
 			Result := (value=xml_schemap_invalid_white_space_low_level)
 		end
 
-	is_xml_schemap_mg_props_correct_1: BOOLEAN is
+	is_xml_schemap_mg_props_correct_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_mg_props_correct_1_low_level)
 		end
 
-	is_xml_schemap_mg_props_correct_2: BOOLEAN is
+	is_xml_schemap_mg_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_mg_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_missing_simpletype_child: BOOLEAN is
+	is_xml_schemap_missing_simpletype_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_missing_simpletype_child_low_level)
 		end
 
-	is_xml_schemap_no_xmlns: BOOLEAN is
+	is_xml_schemap_no_xmlns: BOOLEAN
 		do
 			Result := (value=xml_schemap_no_xmlns_low_level)
 		end
 
-	is_xml_schemap_no_xsi: BOOLEAN is
+	is_xml_schemap_no_xsi: BOOLEAN
 		do
 			Result := (value=xml_schemap_no_xsi_low_level)
 		end
 
-	is_xml_schemap_noattr_noref: BOOLEAN is
+	is_xml_schemap_noattr_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_noattr_noref_low_level)
 		end
 
-	is_xml_schemap_noroot: BOOLEAN is
+	is_xml_schemap_noroot: BOOLEAN
 		do
 			Result := (value=xml_schemap_noroot_low_level)
 		end
 
-	is_xml_schemap_not_deterministic: BOOLEAN is
+	is_xml_schemap_not_deterministic: BOOLEAN
 		do
 			Result := (value=xml_schemap_not_deterministic_low_level)
 		end
 
-	is_xml_schemap_not_schema: BOOLEAN is
+	is_xml_schemap_not_schema: BOOLEAN
 		do
 			Result := (value=xml_schemap_not_schema_low_level)
 		end
 
-	is_xml_schemap_notation_no_name: BOOLEAN is
+	is_xml_schemap_notation_no_name: BOOLEAN
 		do
 			Result := (value=xml_schemap_notation_no_name_low_level)
 		end
 
-	is_xml_schemap_nothing_to_parse: BOOLEAN is
+	is_xml_schemap_nothing_to_parse: BOOLEAN
 		do
 			Result := (value=xml_schemap_nothing_to_parse_low_level)
 		end
 
-	is_xml_schemap_notype_noref: BOOLEAN is
+	is_xml_schemap_notype_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_notype_noref_low_level)
 		end
 
-	is_xml_schemap_p_props_correct_1: BOOLEAN is
+	is_xml_schemap_p_props_correct_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_p_props_correct_1_low_level)
 		end
 
-	is_xml_schemap_p_props_correct_2_1: BOOLEAN is
+	is_xml_schemap_p_props_correct_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_p_props_correct_2_1_low_level)
 		end
 
-	is_xml_schemap_p_props_correct_2_2: BOOLEAN is
+	is_xml_schemap_p_props_correct_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_p_props_correct_2_2_low_level)
 		end
 
-	is_xml_schemap_prefix_undefined: BOOLEAN is
+	is_xml_schemap_prefix_undefined: BOOLEAN
 		do
 			Result := (value=xml_schemap_prefix_undefined_low_level)
 		end
 
-	is_xml_schemap_recursive: BOOLEAN is
+	is_xml_schemap_recursive: BOOLEAN
 		do
 			Result := (value=xml_schemap_recursive_low_level)
 		end
 
-	is_xml_schemap_redefined_attr: BOOLEAN is
+	is_xml_schemap_redefined_attr: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_attr_low_level)
 		end
 
-	is_xml_schemap_redefined_attrgroup: BOOLEAN is
+	is_xml_schemap_redefined_attrgroup: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_attrgroup_low_level)
 		end
 
-	is_xml_schemap_redefined_element: BOOLEAN is
+	is_xml_schemap_redefined_element: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_element_low_level)
 		end
 
-	is_xml_schemap_redefined_group: BOOLEAN is
+	is_xml_schemap_redefined_group: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_group_low_level)
 		end
 
-	is_xml_schemap_redefined_notation: BOOLEAN is
+	is_xml_schemap_redefined_notation: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_notation_low_level)
 		end
 
-	is_xml_schemap_redefined_type: BOOLEAN is
+	is_xml_schemap_redefined_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_redefined_type_low_level)
 		end
 
-	is_xml_schemap_ref_and_content: BOOLEAN is
+	is_xml_schemap_ref_and_content: BOOLEAN
 		do
 			Result := (value=xml_schemap_ref_and_content_low_level)
 		end
 
-	is_xml_schemap_ref_and_subtype: BOOLEAN is
+	is_xml_schemap_ref_and_subtype: BOOLEAN
 		do
 			Result := (value=xml_schemap_ref_and_subtype_low_level)
 		end
 
-	is_xml_schemap_regexp_invalid: BOOLEAN is
+	is_xml_schemap_regexp_invalid: BOOLEAN
 		do
 			Result := (value=xml_schemap_regexp_invalid_low_level)
 		end
 
-	is_xml_schemap_restriction_noname_noref: BOOLEAN is
+	is_xml_schemap_restriction_noname_noref: BOOLEAN
 		do
 			Result := (value=xml_schemap_restriction_noname_noref_low_level)
 		end
 
-	is_xml_schemap_s4s_attr_invalid_value: BOOLEAN is
+	is_xml_schemap_s4s_attr_invalid_value: BOOLEAN
 		do
 			Result := (value=xml_schemap_s4s_attr_invalid_value_low_level)
 		end
 
-	is_xml_schemap_s4s_attr_missing: BOOLEAN is
+	is_xml_schemap_s4s_attr_missing: BOOLEAN
 		do
 			Result := (value=xml_schemap_s4s_attr_missing_low_level)
 		end
 
-	is_xml_schemap_s4s_attr_not_allowed: BOOLEAN is
+	is_xml_schemap_s4s_attr_not_allowed: BOOLEAN
 		do
 			Result := (value=xml_schemap_s4s_attr_not_allowed_low_level)
 		end
 
-	is_xml_schemap_s4s_elem_missing: BOOLEAN is
+	is_xml_schemap_s4s_elem_missing: BOOLEAN
 		do
 			Result := (value=xml_schemap_s4s_elem_missing_low_level)
 		end
 
-	is_xml_schemap_s4s_elem_not_allowed: BOOLEAN is
+	is_xml_schemap_s4s_elem_not_allowed: BOOLEAN
 		do
 			Result := (value=xml_schemap_s4s_elem_not_allowed_low_level)
 		end
 
-	is_xml_schemap_simpletype_noname: BOOLEAN is
+	is_xml_schemap_simpletype_noname: BOOLEAN
 		do
 			Result := (value=xml_schemap_simpletype_noname_low_level)
 		end
 
-	is_xml_schemap_src_attribute_1: BOOLEAN is
+	is_xml_schemap_src_attribute_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_1_low_level)
 		end
 
-	is_xml_schemap_src_attribute_2: BOOLEAN is
+	is_xml_schemap_src_attribute_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_2_low_level)
 		end
 
-	is_xml_schemap_src_attribute_3_1: BOOLEAN is
+	is_xml_schemap_src_attribute_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_3_1_low_level)
 		end
 
-	is_xml_schemap_src_attribute_3_2: BOOLEAN is
+	is_xml_schemap_src_attribute_3_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_3_2_low_level)
 		end
 
-	is_xml_schemap_src_attribute_4: BOOLEAN is
+	is_xml_schemap_src_attribute_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_4_low_level)
 		end
 
-	is_xml_schemap_src_attribute_group_1: BOOLEAN is
+	is_xml_schemap_src_attribute_group_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_group_1_low_level)
 		end
 
-	is_xml_schemap_src_attribute_group_2: BOOLEAN is
+	is_xml_schemap_src_attribute_group_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_group_2_low_level)
 		end
 
-	is_xml_schemap_src_attribute_group_3: BOOLEAN is
+	is_xml_schemap_src_attribute_group_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_attribute_group_3_low_level)
 		end
 
-	is_xml_schemap_src_ct_1: BOOLEAN is
+	is_xml_schemap_src_ct_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_ct_1_low_level)
 		end
 
-	is_xml_schemap_src_element_1: BOOLEAN is
+	is_xml_schemap_src_element_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_element_1_low_level)
 		end
 
-	is_xml_schemap_src_element_2_1: BOOLEAN is
+	is_xml_schemap_src_element_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_element_2_1_low_level)
 		end
 
-	is_xml_schemap_src_element_2_2: BOOLEAN is
+	is_xml_schemap_src_element_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_element_2_2_low_level)
 		end
 
-	is_xml_schemap_src_element_3: BOOLEAN is
+	is_xml_schemap_src_element_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_element_3_low_level)
 		end
 
-	is_xml_schemap_src_import: BOOLEAN is
+	is_xml_schemap_src_import: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_low_level)
 		end
 
-	is_xml_schemap_src_import_1_1: BOOLEAN is
+	is_xml_schemap_src_import_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_1_1_low_level)
 		end
 
-	is_xml_schemap_src_import_1_2: BOOLEAN is
+	is_xml_schemap_src_import_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_1_2_low_level)
 		end
 
-	is_xml_schemap_src_import_2: BOOLEAN is
+	is_xml_schemap_src_import_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_2_low_level)
 		end
 
-	is_xml_schemap_src_import_2_1: BOOLEAN is
+	is_xml_schemap_src_import_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_2_1_low_level)
 		end
 
-	is_xml_schemap_src_import_2_2: BOOLEAN is
+	is_xml_schemap_src_import_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_2_2_low_level)
 		end
 
-	is_xml_schemap_src_import_3_1: BOOLEAN is
+	is_xml_schemap_src_import_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_3_1_low_level)
 		end
 
-	is_xml_schemap_src_import_3_2: BOOLEAN is
+	is_xml_schemap_src_import_3_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_import_3_2_low_level)
 		end
 
-	is_xml_schemap_src_include: BOOLEAN is
+	is_xml_schemap_src_include: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_include_low_level)
 		end
 
-	is_xml_schemap_src_list_itemtype_or_simpletype: BOOLEAN is
+	is_xml_schemap_src_list_itemtype_or_simpletype: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_list_itemtype_or_simpletype_low_level)
 		end
 
-	is_xml_schemap_src_redefine: BOOLEAN is
+	is_xml_schemap_src_redefine: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_redefine_low_level)
 		end
 
-	is_xml_schemap_src_resolve: BOOLEAN is
+	is_xml_schemap_src_resolve: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_resolve_low_level)
 		end
 
-	is_xml_schemap_src_restriction_base_or_simpletype: BOOLEAN is
+	is_xml_schemap_src_restriction_base_or_simpletype: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_restriction_base_or_simpletype_low_level)
 		end
 
-	is_xml_schemap_src_simple_type_1: BOOLEAN is
+	is_xml_schemap_src_simple_type_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_simple_type_1_low_level)
 		end
 
-	is_xml_schemap_src_simple_type_2: BOOLEAN is
+	is_xml_schemap_src_simple_type_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_simple_type_2_low_level)
 		end
 
-	is_xml_schemap_src_simple_type_3: BOOLEAN is
+	is_xml_schemap_src_simple_type_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_simple_type_3_low_level)
 		end
 
-	is_xml_schemap_src_simple_type_4: BOOLEAN is
+	is_xml_schemap_src_simple_type_4: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_simple_type_4_low_level)
 		end
 
-	is_xml_schemap_src_union_membertypes_or_simpletypes: BOOLEAN is
+	is_xml_schemap_src_union_membertypes_or_simpletypes: BOOLEAN
 		do
 			Result := (value=xml_schemap_src_union_membertypes_or_simpletypes_low_level)
 		end
 
-	is_xml_schemap_st_props_correct_1: BOOLEAN is
+	is_xml_schemap_st_props_correct_1: BOOLEAN
 		do
 			Result := (value=xml_schemap_st_props_correct_1_low_level)
 		end
 
-	is_xml_schemap_st_props_correct_2: BOOLEAN is
+	is_xml_schemap_st_props_correct_2: BOOLEAN
 		do
 			Result := (value=xml_schemap_st_props_correct_2_low_level)
 		end
 
-	is_xml_schemap_st_props_correct_3: BOOLEAN is
+	is_xml_schemap_st_props_correct_3: BOOLEAN
 		do
 			Result := (value=xml_schemap_st_props_correct_3_low_level)
 		end
 
-	is_xml_schemap_supernumerous_list_item_type: BOOLEAN is
+	is_xml_schemap_supernumerous_list_item_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_supernumerous_list_item_type_low_level)
 		end
 
-	is_xml_schemap_type_and_subtype: BOOLEAN is
+	is_xml_schemap_type_and_subtype: BOOLEAN
 		do
 			Result := (value=xml_schemap_type_and_subtype_low_level)
 		end
 
-	is_xml_schemap_union_not_expressible: BOOLEAN is
+	is_xml_schemap_union_not_expressible: BOOLEAN
 		do
 			Result := (value=xml_schemap_union_not_expressible_low_level)
 		end
 
-	is_xml_schemap_unknown_all_child: BOOLEAN is
+	is_xml_schemap_unknown_all_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_all_child_low_level)
 		end
 
-	is_xml_schemap_unknown_anyattribute_child: BOOLEAN is
+	is_xml_schemap_unknown_anyattribute_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_anyattribute_child_low_level)
 		end
 
-	is_xml_schemap_unknown_attr_child: BOOLEAN is
+	is_xml_schemap_unknown_attr_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_attr_child_low_level)
 		end
 
-	is_xml_schemap_unknown_attrgrp_child: BOOLEAN is
+	is_xml_schemap_unknown_attrgrp_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_attrgrp_child_low_level)
 		end
 
-	is_xml_schemap_unknown_attribute_group: BOOLEAN is
+	is_xml_schemap_unknown_attribute_group: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_attribute_group_low_level)
 		end
 
-	is_xml_schemap_unknown_base_type: BOOLEAN is
+	is_xml_schemap_unknown_base_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_base_type_low_level)
 		end
 
-	is_xml_schemap_unknown_choice_child: BOOLEAN is
+	is_xml_schemap_unknown_choice_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_choice_child_low_level)
 		end
 
-	is_xml_schemap_unknown_complexcontent_child: BOOLEAN is
+	is_xml_schemap_unknown_complexcontent_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_complexcontent_child_low_level)
 		end
 
-	is_xml_schemap_unknown_complextype_child: BOOLEAN is
+	is_xml_schemap_unknown_complextype_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_complextype_child_low_level)
 		end
 
-	is_xml_schemap_unknown_elem_child: BOOLEAN is
+	is_xml_schemap_unknown_elem_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_elem_child_low_level)
 		end
 
-	is_xml_schemap_unknown_extension_child: BOOLEAN is
+	is_xml_schemap_unknown_extension_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_extension_child_low_level)
 		end
 
-	is_xml_schemap_unknown_facet_child: BOOLEAN is
+	is_xml_schemap_unknown_facet_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_facet_child_low_level)
 		end
 
-	is_xml_schemap_unknown_facet_type: BOOLEAN is
+	is_xml_schemap_unknown_facet_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_facet_type_low_level)
 		end
 
-	is_xml_schemap_unknown_group_child: BOOLEAN is
+	is_xml_schemap_unknown_group_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_group_child_low_level)
 		end
 
-	is_xml_schemap_unknown_import_child: BOOLEAN is
+	is_xml_schemap_unknown_import_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_import_child_low_level)
 		end
 
-	is_xml_schemap_unknown_include_child: BOOLEAN is
+	is_xml_schemap_unknown_include_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_include_child_low_level)
 		end
 
-	is_xml_schemap_unknown_list_child: BOOLEAN is
+	is_xml_schemap_unknown_list_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_list_child_low_level)
 		end
 
-	is_xml_schemap_unknown_member_type: BOOLEAN is
+	is_xml_schemap_unknown_member_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_member_type_low_level)
 		end
 
-	is_xml_schemap_unknown_notation_child: BOOLEAN is
+	is_xml_schemap_unknown_notation_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_notation_child_low_level)
 		end
 
-	is_xml_schemap_unknown_prefix: BOOLEAN is
+	is_xml_schemap_unknown_prefix: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_prefix_low_level)
 		end
 
-	is_xml_schemap_unknown_processcontent_child: BOOLEAN is
+	is_xml_schemap_unknown_processcontent_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_processcontent_child_low_level)
 		end
 
-	is_xml_schemap_unknown_ref: BOOLEAN is
+	is_xml_schemap_unknown_ref: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_ref_low_level)
 		end
 
-	is_xml_schemap_unknown_restriction_child: BOOLEAN is
+	is_xml_schemap_unknown_restriction_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_restriction_child_low_level)
 		end
 
-	is_xml_schemap_unknown_schemas_child: BOOLEAN is
+	is_xml_schemap_unknown_schemas_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_schemas_child_low_level)
 		end
 
-	is_xml_schemap_unknown_sequence_child: BOOLEAN is
+	is_xml_schemap_unknown_sequence_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_sequence_child_low_level)
 		end
 
-	is_xml_schemap_unknown_simplecontent_child: BOOLEAN is
+	is_xml_schemap_unknown_simplecontent_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_simplecontent_child_low_level)
 		end
 
-	is_xml_schemap_unknown_simpletype_child: BOOLEAN is
+	is_xml_schemap_unknown_simpletype_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_simpletype_child_low_level)
 		end
 
-	is_xml_schemap_unknown_type: BOOLEAN is
+	is_xml_schemap_unknown_type: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_type_low_level)
 		end
 
-	is_xml_schemap_unknown_union_child: BOOLEAN is
+	is_xml_schemap_unknown_union_child: BOOLEAN
 		do
 			Result := (value=xml_schemap_unknown_union_child_low_level)
 		end
 
-	is_xml_schemap_warn_attr_pointless_proh: BOOLEAN is
+	is_xml_schemap_warn_attr_pointless_proh: BOOLEAN
 		do
 			Result := (value=xml_schemap_warn_attr_pointless_proh_low_level)
 		end
 
-	is_xml_schemap_warn_attr_redecl_proh: BOOLEAN is
+	is_xml_schemap_warn_attr_redecl_proh: BOOLEAN
 		do
 			Result := (value=xml_schemap_warn_attr_redecl_proh_low_level)
 		end
 
-	is_xml_schemap_warn_skip_schema: BOOLEAN is
+	is_xml_schemap_warn_skip_schema: BOOLEAN
 		do
 			Result := (value=xml_schemap_warn_skip_schema_low_level)
 		end
 
-	is_xml_schemap_warn_unlocated_schema: BOOLEAN is
+	is_xml_schemap_warn_unlocated_schema: BOOLEAN
 		do
 			Result := (value=xml_schemap_warn_unlocated_schema_low_level)
 		end
 
-	is_xml_schemap_wildcard_invalid_ns_member: BOOLEAN is
+	is_xml_schemap_wildcard_invalid_ns_member: BOOLEAN
 		do
 			Result := (value=xml_schemap_wildcard_invalid_ns_member_low_level)
 		end
 
-	is_xml_schematronv_assert: BOOLEAN is
+	is_xml_schematronv_assert: BOOLEAN
 		do
 			Result := (value=xml_schematronv_assert_low_level)
 		end
 
-	is_xml_schematronv_report: BOOLEAN is
+	is_xml_schematronv_report: BOOLEAN
 		do
 			Result := (value=xml_schematronv_report_low_level)
 		end
 
-	is_xml_schemav_attrinvalid: BOOLEAN is
+	is_xml_schemav_attrinvalid: BOOLEAN
 		do
 			Result := (value=xml_schemav_attrinvalid_low_level)
 		end
 
-	is_xml_schemav_attrunknown: BOOLEAN is
+	is_xml_schemav_attrunknown: BOOLEAN
 		do
 			Result := (value=xml_schemav_attrunknown_low_level)
 		end
 
-	is_xml_schemav_construct: BOOLEAN is
+	is_xml_schemav_construct: BOOLEAN
 		do
 			Result := (value=xml_schemav_construct_low_level)
 		end
 
-	is_xml_schemav_cvc_attribute_1: BOOLEAN is
+	is_xml_schemav_cvc_attribute_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_attribute_1_low_level)
 		end
 
-	is_xml_schemav_cvc_attribute_2: BOOLEAN is
+	is_xml_schemav_cvc_attribute_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_attribute_2_low_level)
 		end
 
-	is_xml_schemav_cvc_attribute_3: BOOLEAN is
+	is_xml_schemav_cvc_attribute_3: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_attribute_3_low_level)
 		end
 
-	is_xml_schemav_cvc_attribute_4: BOOLEAN is
+	is_xml_schemav_cvc_attribute_4: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_attribute_4_low_level)
 		end
 
-	is_xml_schemav_cvc_au: BOOLEAN is
+	is_xml_schemav_cvc_au: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_au_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_1: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_1_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_2_1: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_2_2: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_2_2_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_2_3: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_2_3: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_2_3_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_2_4: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_2_4: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_2_4_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_3_1: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_3_1_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_3_2_1: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_3_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_3_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_3_2_2: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_3_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_3_2_2_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_4: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_4: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_4_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_5_1: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_5_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_5_1_low_level)
 		end
 
-	is_xml_schemav_cvc_complex_type_5_2: BOOLEAN is
+	is_xml_schemav_cvc_complex_type_5_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_complex_type_5_2_low_level)
 		end
 
-	is_xml_schemav_cvc_datatype_valid_1_2_1: BOOLEAN is
+	is_xml_schemav_cvc_datatype_valid_1_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_datatype_valid_1_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_datatype_valid_1_2_2: BOOLEAN is
+	is_xml_schemav_cvc_datatype_valid_1_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_datatype_valid_1_2_2_low_level)
 		end
 
-	is_xml_schemav_cvc_datatype_valid_1_2_3: BOOLEAN is
+	is_xml_schemav_cvc_datatype_valid_1_2_3: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_datatype_valid_1_2_3_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_2: BOOLEAN is
+	is_xml_schemav_cvc_elt_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_2_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_3_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_3_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_3_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_3_2_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_3_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_3_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_3_2_2: BOOLEAN is
+	is_xml_schemav_cvc_elt_3_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_3_2_2_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_4_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_4_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_4_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_4_2: BOOLEAN is
+	is_xml_schemav_cvc_elt_4_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_4_2_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_4_3: BOOLEAN is
+	is_xml_schemav_cvc_elt_4_3: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_4_3_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_1_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_1_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_1_2: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_1_2_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_2_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_2_2_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_2_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_2_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_2_2_2_1: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_2_2_2_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_2_2_2_1_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_5_2_2_2_2: BOOLEAN is
+	is_xml_schemav_cvc_elt_5_2_2_2_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_5_2_2_2_2_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_6: BOOLEAN is
+	is_xml_schemav_cvc_elt_6: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_6_low_level)
 		end
 
-	is_xml_schemav_cvc_elt_7: BOOLEAN is
+	is_xml_schemav_cvc_elt_7: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_elt_7_low_level)
 		end
 
-	is_xml_schemav_cvc_enumeration_valid: BOOLEAN is
+	is_xml_schemav_cvc_enumeration_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_enumeration_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_facet_valid: BOOLEAN is
+	is_xml_schemav_cvc_facet_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_facet_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_fractiondigits_valid: BOOLEAN is
+	is_xml_schemav_cvc_fractiondigits_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_fractiondigits_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_idc: BOOLEAN is
+	is_xml_schemav_cvc_idc: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_idc_low_level)
 		end
 
-	is_xml_schemav_cvc_length_valid: BOOLEAN is
+	is_xml_schemav_cvc_length_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_length_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_maxexclusive_valid: BOOLEAN is
+	is_xml_schemav_cvc_maxexclusive_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_maxexclusive_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_maxinclusive_valid: BOOLEAN is
+	is_xml_schemav_cvc_maxinclusive_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_maxinclusive_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_maxlength_valid: BOOLEAN is
+	is_xml_schemav_cvc_maxlength_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_maxlength_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_minexclusive_valid: BOOLEAN is
+	is_xml_schemav_cvc_minexclusive_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_minexclusive_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_mininclusive_valid: BOOLEAN is
+	is_xml_schemav_cvc_mininclusive_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_mininclusive_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_minlength_valid: BOOLEAN is
+	is_xml_schemav_cvc_minlength_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_minlength_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_pattern_valid: BOOLEAN is
+	is_xml_schemav_cvc_pattern_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_pattern_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_totaldigits_valid: BOOLEAN is
+	is_xml_schemav_cvc_totaldigits_valid: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_totaldigits_valid_low_level)
 		end
 
-	is_xml_schemav_cvc_type_1: BOOLEAN is
+	is_xml_schemav_cvc_type_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_type_1_low_level)
 		end
 
-	is_xml_schemav_cvc_type_2: BOOLEAN is
+	is_xml_schemav_cvc_type_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_type_2_low_level)
 		end
 
-	is_xml_schemav_cvc_type_3_1_1: BOOLEAN is
+	is_xml_schemav_cvc_type_3_1_1: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_type_3_1_1_low_level)
 		end
 
-	is_xml_schemav_cvc_type_3_1_2: BOOLEAN is
+	is_xml_schemav_cvc_type_3_1_2: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_type_3_1_2_low_level)
 		end
 
-	is_xml_schemav_cvc_wildcard: BOOLEAN is
+	is_xml_schemav_cvc_wildcard: BOOLEAN
 		do
 			Result := (value=xml_schemav_cvc_wildcard_low_level)
 		end
 
-	is_xml_schemav_document_element_missing: BOOLEAN is
+	is_xml_schemav_document_element_missing: BOOLEAN
 		do
 			Result := (value=xml_schemav_document_element_missing_low_level)
 		end
 
-	is_xml_schemav_elemcont: BOOLEAN is
+	is_xml_schemav_elemcont: BOOLEAN
 		do
 			Result := (value=xml_schemav_elemcont_low_level)
 		end
 
-	is_xml_schemav_element_content: BOOLEAN is
+	is_xml_schemav_element_content: BOOLEAN
 		do
 			Result := (value=xml_schemav_element_content_low_level)
 		end
 
-	is_xml_schemav_extracontent: BOOLEAN is
+	is_xml_schemav_extracontent: BOOLEAN
 		do
 			Result := (value=xml_schemav_extracontent_low_level)
 		end
 
-	is_xml_schemav_facet: BOOLEAN is
+	is_xml_schemav_facet: BOOLEAN
 		do
 			Result := (value=xml_schemav_facet_low_level)
 		end
 
-	is_xml_schemav_havedefault: BOOLEAN is
+	is_xml_schemav_havedefault: BOOLEAN
 		do
 			Result := (value=xml_schemav_havedefault_low_level)
 		end
 
-	is_xml_schemav_internal: BOOLEAN is
+	is_xml_schemav_internal: BOOLEAN
 		do
 			Result := (value=xml_schemav_internal_low_level)
 		end
 
-	is_xml_schemav_invalidattr: BOOLEAN is
+	is_xml_schemav_invalidattr: BOOLEAN
 		do
 			Result := (value=xml_schemav_invalidattr_low_level)
 		end
 
-	is_xml_schemav_invalidelem: BOOLEAN is
+	is_xml_schemav_invalidelem: BOOLEAN
 		do
 			Result := (value=xml_schemav_invalidelem_low_level)
 		end
 
-	is_xml_schemav_isabstract: BOOLEAN is
+	is_xml_schemav_isabstract: BOOLEAN
 		do
 			Result := (value=xml_schemav_isabstract_low_level)
 		end
 
-	is_xml_schemav_misc: BOOLEAN is
+	is_xml_schemav_misc: BOOLEAN
 		do
 			Result := (value=xml_schemav_misc_low_level)
 		end
 
-	is_xml_schemav_missing: BOOLEAN is
+	is_xml_schemav_missing: BOOLEAN
 		do
 			Result := (value=xml_schemav_missing_low_level)
 		end
 
-	is_xml_schemav_norollback: BOOLEAN is
+	is_xml_schemav_norollback: BOOLEAN
 		do
 			Result := (value=xml_schemav_norollback_low_level)
 		end
 
-	is_xml_schemav_noroot: BOOLEAN is
+	is_xml_schemav_noroot: BOOLEAN
 		do
 			Result := (value=xml_schemav_noroot_low_level)
 		end
 
-	is_xml_schemav_notdeterminist: BOOLEAN is
+	is_xml_schemav_notdeterminist: BOOLEAN
 		do
 			Result := (value=xml_schemav_notdeterminist_low_level)
 		end
 
-	is_xml_schemav_notempty: BOOLEAN is
+	is_xml_schemav_notempty: BOOLEAN
 		do
 			Result := (value=xml_schemav_notempty_low_level)
 		end
 
-	is_xml_schemav_notnillable: BOOLEAN is
+	is_xml_schemav_notnillable: BOOLEAN
 		do
 			Result := (value=xml_schemav_notnillable_low_level)
 		end
 
-	is_xml_schemav_notsimple: BOOLEAN is
+	is_xml_schemav_notsimple: BOOLEAN
 		do
 			Result := (value=xml_schemav_notsimple_low_level)
 		end
 
-	is_xml_schemav_nottoplevel: BOOLEAN is
+	is_xml_schemav_nottoplevel: BOOLEAN
 		do
 			Result := (value=xml_schemav_nottoplevel_low_level)
 		end
 
-	is_xml_schemav_notype: BOOLEAN is
+	is_xml_schemav_notype: BOOLEAN
 		do
 			Result := (value=xml_schemav_notype_low_level)
 		end
 
-	is_xml_schemav_undeclaredelem: BOOLEAN is
+	is_xml_schemav_undeclaredelem: BOOLEAN
 		do
 			Result := (value=xml_schemav_undeclaredelem_low_level)
 		end
 
-	is_xml_schemav_value: BOOLEAN is
+	is_xml_schemav_value: BOOLEAN
 		do
 			Result := (value=xml_schemav_value_low_level)
 		end
 
-	is_xml_schemav_wrongelem: BOOLEAN is
+	is_xml_schemav_wrongelem: BOOLEAN
 		do
 			Result := (value=xml_schemav_wrongelem_low_level)
 		end
 
-	is_xml_tree_invalid_dec: BOOLEAN is
+	is_xml_tree_invalid_dec: BOOLEAN
 		do
 			Result := (value=xml_tree_invalid_dec_low_level)
 		end
 
-	is_xml_tree_invalid_hex: BOOLEAN is
+	is_xml_tree_invalid_hex: BOOLEAN
 		do
 			Result := (value=xml_tree_invalid_hex_low_level)
 		end
 
-	is_xml_tree_not_utf8: BOOLEAN is
+	is_xml_tree_not_utf8: BOOLEAN
 		do
 			Result := (value=xml_tree_not_utf8_low_level)
 		end
 
-	is_xml_tree_unterminated_entity: BOOLEAN is
+	is_xml_tree_unterminated_entity: BOOLEAN
 		do
 			Result := (value=xml_tree_unterminated_entity_low_level)
 		end
 
-	is_xml_war_catalog_pi: BOOLEAN is
+	is_xml_war_catalog_pi: BOOLEAN
 		do
 			Result := (value=xml_war_catalog_pi_low_level)
 		end
 
-	is_xml_war_entity_redefined: BOOLEAN is
+	is_xml_war_entity_redefined: BOOLEAN
 		do
 			Result := (value=xml_war_entity_redefined_low_level)
 		end
 
-	is_xml_war_lang_value: BOOLEAN is
+	is_xml_war_lang_value: BOOLEAN
 		do
 			Result := (value=xml_war_lang_value_low_level)
 		end
 
-	is_xml_war_ns_column: BOOLEAN is
+	is_xml_war_ns_column: BOOLEAN
 		do
 			Result := (value=xml_war_ns_column_low_level)
 		end
 
-	is_xml_war_ns_uri: BOOLEAN is
+	is_xml_war_ns_uri: BOOLEAN
 		do
 			Result := (value=xml_war_ns_uri_low_level)
 		end
 
-	is_xml_war_ns_uri_relative: BOOLEAN is
+	is_xml_war_ns_uri_relative: BOOLEAN
 		do
 			Result := (value=xml_war_ns_uri_relative_low_level)
 		end
 
-	is_xml_war_space_value: BOOLEAN is
+	is_xml_war_space_value: BOOLEAN
 		do
 			Result := (value=xml_war_space_value_low_level)
 		end
 
-	is_xml_war_undeclared_entity: BOOLEAN is
+	is_xml_war_undeclared_entity: BOOLEAN
 		do
 			Result := (value=xml_war_undeclared_entity_low_level)
 		end
 
-	is_xml_war_unknown_version: BOOLEAN is
+	is_xml_war_unknown_version: BOOLEAN
 		do
 			Result := (value=xml_war_unknown_version_low_level)
 		end
 
-	is_xml_xinclude_build_failed: BOOLEAN is
+	is_xml_xinclude_build_failed: BOOLEAN
 		do
 			Result := (value=xml_xinclude_build_failed_low_level)
 		end
 
-	is_xml_xinclude_deprecated_ns: BOOLEAN is
+	is_xml_xinclude_deprecated_ns: BOOLEAN
 		do
 			Result := (value=xml_xinclude_deprecated_ns_low_level)
 		end
 
-	is_xml_xinclude_entity_def_mismatch: BOOLEAN is
+	is_xml_xinclude_entity_def_mismatch: BOOLEAN
 		do
 			Result := (value=xml_xinclude_entity_def_mismatch_low_level)
 		end
 
-	is_xml_xinclude_fallback_not_in_include: BOOLEAN is
+	is_xml_xinclude_fallback_not_in_include: BOOLEAN
 		do
 			Result := (value=xml_xinclude_fallback_not_in_include_low_level)
 		end
 
-	is_xml_xinclude_fallbacks_in_include: BOOLEAN is
+	is_xml_xinclude_fallbacks_in_include: BOOLEAN
 		do
 			Result := (value=xml_xinclude_fallbacks_in_include_low_level)
 		end
 
-	is_xml_xinclude_fragment_id: BOOLEAN is
+	is_xml_xinclude_fragment_id: BOOLEAN
 		do
 			Result := (value=xml_xinclude_fragment_id_low_level)
 		end
 
-	is_xml_xinclude_href_uri: BOOLEAN is
+	is_xml_xinclude_href_uri: BOOLEAN
 		do
 			Result := (value=xml_xinclude_href_uri_low_level)
 		end
 
-	is_xml_xinclude_include_in_include: BOOLEAN is
+	is_xml_xinclude_include_in_include: BOOLEAN
 		do
 			Result := (value=xml_xinclude_include_in_include_low_level)
 		end
 
-	is_xml_xinclude_invalid_char: BOOLEAN is
+	is_xml_xinclude_invalid_char: BOOLEAN
 		do
 			Result := (value=xml_xinclude_invalid_char_low_level)
 		end
 
-	is_xml_xinclude_multiple_root: BOOLEAN is
+	is_xml_xinclude_multiple_root: BOOLEAN
 		do
 			Result := (value=xml_xinclude_multiple_root_low_level)
 		end
 
-	is_xml_xinclude_no_fallback: BOOLEAN is
+	is_xml_xinclude_no_fallback: BOOLEAN
 		do
 			Result := (value=xml_xinclude_no_fallback_low_level)
 		end
 
-	is_xml_xinclude_no_href: BOOLEAN is
+	is_xml_xinclude_no_href: BOOLEAN
 		do
 			Result := (value=xml_xinclude_no_href_low_level)
 		end
 
-	is_xml_xinclude_parse_value: BOOLEAN is
+	is_xml_xinclude_parse_value: BOOLEAN
 		do
 			Result := (value=xml_xinclude_parse_value_low_level)
 		end
 
-	is_xml_xinclude_recursion: BOOLEAN is
+	is_xml_xinclude_recursion: BOOLEAN
 		do
 			Result := (value=xml_xinclude_recursion_low_level)
 		end
 
-	is_xml_xinclude_text_document: BOOLEAN is
+	is_xml_xinclude_text_document: BOOLEAN
 		do
 			Result := (value=xml_xinclude_text_document_low_level)
 		end
 
-	is_xml_xinclude_text_fragment: BOOLEAN is
+	is_xml_xinclude_text_fragment: BOOLEAN
 		do
 			Result := (value=xml_xinclude_text_fragment_low_level)
 		end
 
-	is_xml_xinclude_unknown_encoding: BOOLEAN is
+	is_xml_xinclude_unknown_encoding: BOOLEAN
 		do
 			Result := (value=xml_xinclude_unknown_encoding_low_level)
 		end
 
-	is_xml_xinclude_xptr_failed: BOOLEAN is
+	is_xml_xinclude_xptr_failed: BOOLEAN
 		do
 			Result := (value=xml_xinclude_xptr_failed_low_level)
 		end
 
-	is_xml_xinclude_xptr_result: BOOLEAN is
+	is_xml_xinclude_xptr_result: BOOLEAN
 		do
 			Result := (value=xml_xinclude_xptr_result_low_level)
 		end
 
-	is_xml_xpath_encoding_error: BOOLEAN is
+	is_xml_xpath_encoding_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_encoding_error_low_level)
 		end
 
-	is_xml_xpath_expr_error: BOOLEAN is
+	is_xml_xpath_expr_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_expr_error_low_level)
 		end
 
-	is_xml_xpath_expression_ok: BOOLEAN is
+	is_xml_xpath_expression_ok: BOOLEAN
 		do
 			Result := (value=xml_xpath_expression_ok_low_level)
 		end
 
-	is_xml_xpath_invalid_arity: BOOLEAN is
+	is_xml_xpath_invalid_arity: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_arity_low_level)
 		end
 
-	is_xml_xpath_invalid_char_error: BOOLEAN is
+	is_xml_xpath_invalid_char_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_char_error_low_level)
 		end
 
-	is_xml_xpath_invalid_ctxt_position: BOOLEAN is
+	is_xml_xpath_invalid_ctxt_position: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_ctxt_position_low_level)
 		end
 
-	is_xml_xpath_invalid_ctxt_size: BOOLEAN is
+	is_xml_xpath_invalid_ctxt_size: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_ctxt_size_low_level)
 		end
 
-	is_xml_xpath_invalid_operand: BOOLEAN is
+	is_xml_xpath_invalid_operand: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_operand_low_level)
 		end
 
-	is_xml_xpath_invalid_predicate_error: BOOLEAN is
+	is_xml_xpath_invalid_predicate_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_predicate_error_low_level)
 		end
 
-	is_xml_xpath_invalid_type: BOOLEAN is
+	is_xml_xpath_invalid_type: BOOLEAN
 		do
 			Result := (value=xml_xpath_invalid_type_low_level)
 		end
 
-	is_xml_xpath_memory_error: BOOLEAN is
+	is_xml_xpath_memory_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_memory_error_low_level)
 		end
 
-	is_xml_xpath_number_error: BOOLEAN is
+	is_xml_xpath_number_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_number_error_low_level)
 		end
 
-	is_xml_xpath_start_literal_error: BOOLEAN is
+	is_xml_xpath_start_literal_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_start_literal_error_low_level)
 		end
 
-	is_xml_xpath_unclosed_error: BOOLEAN is
+	is_xml_xpath_unclosed_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_unclosed_error_low_level)
 		end
 
-	is_xml_xpath_undef_prefix_error: BOOLEAN is
+	is_xml_xpath_undef_prefix_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_undef_prefix_error_low_level)
 		end
 
-	is_xml_xpath_undef_variable_error: BOOLEAN is
+	is_xml_xpath_undef_variable_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_undef_variable_error_low_level)
 		end
 
-	is_xml_xpath_unfinished_literal_error: BOOLEAN is
+	is_xml_xpath_unfinished_literal_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_unfinished_literal_error_low_level)
 		end
 
-	is_xml_xpath_unknown_func_error: BOOLEAN is
+	is_xml_xpath_unknown_func_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_unknown_func_error_low_level)
 		end
 
-	is_xml_xpath_variable_ref_error: BOOLEAN is
+	is_xml_xpath_variable_ref_error: BOOLEAN
 		do
 			Result := (value=xml_xpath_variable_ref_error_low_level)
 		end
 
-	is_xml_xptr_childseq_start: BOOLEAN is
+	is_xml_xptr_childseq_start: BOOLEAN
 		do
 			Result := (value=xml_xptr_childseq_start_low_level)
 		end
 
-	is_xml_xptr_eval_failed: BOOLEAN is
+	is_xml_xptr_eval_failed: BOOLEAN
 		do
 			Result := (value=xml_xptr_eval_failed_low_level)
 		end
 
-	is_xml_xptr_extra_objects: BOOLEAN is
+	is_xml_xptr_extra_objects: BOOLEAN
 		do
 			Result := (value=xml_xptr_extra_objects_low_level)
 		end
 
-	is_xml_xptr_resource_error: BOOLEAN is
+	is_xml_xptr_resource_error: BOOLEAN
 		do
 			Result := (value=xml_xptr_resource_error_low_level)
 		end
 
-	is_xml_xptr_sub_resource_error: BOOLEAN is
+	is_xml_xptr_sub_resource_error: BOOLEAN
 		do
 			Result := (value=xml_xptr_sub_resource_error_low_level)
 		end
 
-	is_xml_xptr_syntax_error: BOOLEAN is
+	is_xml_xptr_syntax_error: BOOLEAN
 		do
 			Result := (value=xml_xptr_syntax_error_low_level)
 		end
 
-	is_xml_xptr_unknown_scheme: BOOLEAN is
+	is_xml_xptr_unknown_scheme: BOOLEAN
 		do
 			Result := (value=xml_xptr_unknown_scheme_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_c14n_create_ctxt_low_level: INTEGER is
+	xml_c14n_create_ctxt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8065,7 +8065,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_c14n_create_stack_low_level: INTEGER is
+	xml_c14n_create_stack_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8074,7 +8074,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_c14n_invalid_node_low_level: INTEGER is
+	xml_c14n_invalid_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8083,7 +8083,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_c14n_relative_namespace_low_level: INTEGER is
+	xml_c14n_relative_namespace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8092,7 +8092,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_c14n_requires_utf8_low_level: INTEGER is
+	xml_c14n_requires_utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8101,7 +8101,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_c14n_unknow_node_low_level: INTEGER is
+	xml_c14n_unknow_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8110,7 +8110,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_catalog_entry_broken_low_level: INTEGER is
+	xml_catalog_entry_broken_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8119,7 +8119,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_catalog_missing_attr_low_level: INTEGER is
+	xml_catalog_missing_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8128,7 +8128,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_catalog_not_catalog_low_level: INTEGER is
+	xml_catalog_not_catalog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8137,7 +8137,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_catalog_prefer_value_low_level: INTEGER is
+	xml_catalog_prefer_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8146,7 +8146,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_catalog_recursion_low_level: INTEGER is
+	xml_catalog_recursion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8155,7 +8155,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_entity_type_low_level: INTEGER is
+	xml_check_entity_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8164,7 +8164,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_attribute_low_level: INTEGER is
+	xml_check_found_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8173,7 +8173,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_cdata_low_level: INTEGER is
+	xml_check_found_cdata_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8182,7 +8182,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_comment_low_level: INTEGER is
+	xml_check_found_comment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8191,7 +8191,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_doctype_low_level: INTEGER is
+	xml_check_found_doctype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8200,7 +8200,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_element_low_level: INTEGER is
+	xml_check_found_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8209,7 +8209,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_entity_low_level: INTEGER is
+	xml_check_found_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8218,7 +8218,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_entityref_low_level: INTEGER is
+	xml_check_found_entityref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8227,7 +8227,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_fragment_low_level: INTEGER is
+	xml_check_found_fragment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8236,7 +8236,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_notation_low_level: INTEGER is
+	xml_check_found_notation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8245,7 +8245,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_pi_low_level: INTEGER is
+	xml_check_found_pi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8254,7 +8254,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_found_text_low_level: INTEGER is
+	xml_check_found_text_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8263,7 +8263,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_name_not_null_low_level: INTEGER is
+	xml_check_name_not_null_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8272,7 +8272,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_dict_low_level: INTEGER is
+	xml_check_no_dict_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8281,7 +8281,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_doc_low_level: INTEGER is
+	xml_check_no_doc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8290,7 +8290,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_elem_low_level: INTEGER is
+	xml_check_no_elem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8299,7 +8299,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_href_low_level: INTEGER is
+	xml_check_no_href_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8308,7 +8308,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_name_low_level: INTEGER is
+	xml_check_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8317,7 +8317,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_next_low_level: INTEGER is
+	xml_check_no_next_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8326,7 +8326,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_parent_low_level: INTEGER is
+	xml_check_no_parent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8335,7 +8335,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_no_prev_low_level: INTEGER is
+	xml_check_no_prev_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8344,7 +8344,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_attr_low_level: INTEGER is
+	xml_check_not_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8353,7 +8353,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_attr_decl_low_level: INTEGER is
+	xml_check_not_attr_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8362,7 +8362,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_dtd_low_level: INTEGER is
+	xml_check_not_dtd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8371,7 +8371,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_elem_decl_low_level: INTEGER is
+	xml_check_not_elem_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8380,7 +8380,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_entity_decl_low_level: INTEGER is
+	xml_check_not_entity_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8389,7 +8389,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_ncname_low_level: INTEGER is
+	xml_check_not_ncname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8398,7 +8398,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_ns_decl_low_level: INTEGER is
+	xml_check_not_ns_decl_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8407,7 +8407,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_not_utf8_low_level: INTEGER is
+	xml_check_not_utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8416,7 +8416,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_ns_ancestor_low_level: INTEGER is
+	xml_check_ns_ancestor_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8425,7 +8425,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_ns_scope_low_level: INTEGER is
+	xml_check_ns_scope_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8434,7 +8434,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_outside_dict_low_level: INTEGER is
+	xml_check_outside_dict_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8443,7 +8443,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_unknown_node_low_level: INTEGER is
+	xml_check_unknown_node_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8452,7 +8452,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_wrong_doc_low_level: INTEGER is
+	xml_check_wrong_doc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8461,7 +8461,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_wrong_name_low_level: INTEGER is
+	xml_check_wrong_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8470,7 +8470,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_wrong_next_low_level: INTEGER is
+	xml_check_wrong_next_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8479,7 +8479,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_wrong_parent_low_level: INTEGER is
+	xml_check_wrong_parent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8488,7 +8488,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_check_wrong_prev_low_level: INTEGER is
+	xml_check_wrong_prev_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8497,7 +8497,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_attribute_default_low_level: INTEGER is
+	xml_dtd_attribute_default_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8506,7 +8506,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_attribute_redefined_low_level: INTEGER is
+	xml_dtd_attribute_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8515,7 +8515,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_attribute_value_low_level: INTEGER is
+	xml_dtd_attribute_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8524,7 +8524,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_content_error_low_level: INTEGER is
+	xml_dtd_content_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8533,7 +8533,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_content_model_low_level: INTEGER is
+	xml_dtd_content_model_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8542,7 +8542,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_content_not_determinist_low_level: INTEGER is
+	xml_dtd_content_not_determinist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8551,7 +8551,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_different_prefix_low_level: INTEGER is
+	xml_dtd_different_prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8560,7 +8560,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_dup_token_low_level: INTEGER is
+	xml_dtd_dup_token_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8569,7 +8569,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_elem_default_namespace_low_level: INTEGER is
+	xml_dtd_elem_default_namespace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8578,7 +8578,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_elem_namespace_low_level: INTEGER is
+	xml_dtd_elem_namespace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8587,7 +8587,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_elem_redefined_low_level: INTEGER is
+	xml_dtd_elem_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8596,7 +8596,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_empty_notation_low_level: INTEGER is
+	xml_dtd_empty_notation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8605,7 +8605,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_entity_type_low_level: INTEGER is
+	xml_dtd_entity_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8614,7 +8614,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_id_fixed_low_level: INTEGER is
+	xml_dtd_id_fixed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8623,7 +8623,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_id_redefined_low_level: INTEGER is
+	xml_dtd_id_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8632,7 +8632,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_id_subset_low_level: INTEGER is
+	xml_dtd_id_subset_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8641,7 +8641,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_invalid_child_low_level: INTEGER is
+	xml_dtd_invalid_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8650,7 +8650,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_invalid_default_low_level: INTEGER is
+	xml_dtd_invalid_default_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8659,7 +8659,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_load_error_low_level: INTEGER is
+	xml_dtd_load_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8668,7 +8668,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_missing_attribute_low_level: INTEGER is
+	xml_dtd_missing_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8677,7 +8677,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_mixed_corrupt_low_level: INTEGER is
+	xml_dtd_mixed_corrupt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8686,7 +8686,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_multiple_id_low_level: INTEGER is
+	xml_dtd_multiple_id_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8695,7 +8695,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_no_doc_low_level: INTEGER is
+	xml_dtd_no_doc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8704,7 +8704,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_no_dtd_low_level: INTEGER is
+	xml_dtd_no_dtd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8713,7 +8713,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_no_elem_name_low_level: INTEGER is
+	xml_dtd_no_elem_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8722,7 +8722,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_no_prefix_low_level: INTEGER is
+	xml_dtd_no_prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8731,7 +8731,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_no_root_low_level: INTEGER is
+	xml_dtd_no_root_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8740,7 +8740,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_not_empty_low_level: INTEGER is
+	xml_dtd_not_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8749,7 +8749,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_not_pcdata_low_level: INTEGER is
+	xml_dtd_not_pcdata_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8758,7 +8758,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_not_standalone_low_level: INTEGER is
+	xml_dtd_not_standalone_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8767,7 +8767,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_notation_redefined_low_level: INTEGER is
+	xml_dtd_notation_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8776,7 +8776,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_notation_value_low_level: INTEGER is
+	xml_dtd_notation_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8785,7 +8785,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_root_name_low_level: INTEGER is
+	xml_dtd_root_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8794,7 +8794,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_standalone_defaulted_low_level: INTEGER is
+	xml_dtd_standalone_defaulted_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8803,7 +8803,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_standalone_white_space_low_level: INTEGER is
+	xml_dtd_standalone_white_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8812,7 +8812,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_unknown_attribute_low_level: INTEGER is
+	xml_dtd_unknown_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8821,7 +8821,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_unknown_elem_low_level: INTEGER is
+	xml_dtd_unknown_elem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8830,7 +8830,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_unknown_entity_low_level: INTEGER is
+	xml_dtd_unknown_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8839,7 +8839,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_unknown_id_low_level: INTEGER is
+	xml_dtd_unknown_id_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8848,7 +8848,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_unknown_notation_low_level: INTEGER is
+	xml_dtd_unknown_notation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8857,7 +8857,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_xmlid_type_low_level: INTEGER is
+	xml_dtd_xmlid_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8866,7 +8866,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_dtd_xmlid_value_low_level: INTEGER is
+	xml_dtd_xmlid_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8875,7 +8875,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attlist_not_finished_low_level: INTEGER is
+	xml_err_attlist_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8884,7 +8884,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attlist_not_started_low_level: INTEGER is
+	xml_err_attlist_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8893,7 +8893,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attribute_not_finished_low_level: INTEGER is
+	xml_err_attribute_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8902,7 +8902,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attribute_not_started_low_level: INTEGER is
+	xml_err_attribute_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8911,7 +8911,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attribute_redefined_low_level: INTEGER is
+	xml_err_attribute_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8920,7 +8920,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_attribute_without_value_low_level: INTEGER is
+	xml_err_attribute_without_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8929,7 +8929,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_cdata_not_finished_low_level: INTEGER is
+	xml_err_cdata_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8938,7 +8938,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_charref_at_eof_low_level: INTEGER is
+	xml_err_charref_at_eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8947,7 +8947,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_charref_in_dtd_low_level: INTEGER is
+	xml_err_charref_in_dtd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8956,7 +8956,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_charref_in_epilog_low_level: INTEGER is
+	xml_err_charref_in_epilog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8965,7 +8965,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_charref_in_prolog_low_level: INTEGER is
+	xml_err_charref_in_prolog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8974,7 +8974,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_comment_not_finished_low_level: INTEGER is
+	xml_err_comment_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8983,7 +8983,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_condsec_invalid_low_level: INTEGER is
+	xml_err_condsec_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -8992,7 +8992,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_condsec_invalid_keyword_low_level: INTEGER is
+	xml_err_condsec_invalid_keyword_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9001,7 +9001,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_condsec_not_finished_low_level: INTEGER is
+	xml_err_condsec_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9010,7 +9010,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_condsec_not_started_low_level: INTEGER is
+	xml_err_condsec_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9019,7 +9019,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_doctype_not_finished_low_level: INTEGER is
+	xml_err_doctype_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9028,7 +9028,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_document_empty_low_level: INTEGER is
+	xml_err_document_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9037,7 +9037,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_document_end_low_level: INTEGER is
+	xml_err_document_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9046,7 +9046,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_document_start_low_level: INTEGER is
+	xml_err_document_start_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9055,7 +9055,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_elemcontent_not_finished_low_level: INTEGER is
+	xml_err_elemcontent_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9064,7 +9064,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_elemcontent_not_started_low_level: INTEGER is
+	xml_err_elemcontent_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9073,7 +9073,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_encoding_name_low_level: INTEGER is
+	xml_err_encoding_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9082,7 +9082,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_boundary_low_level: INTEGER is
+	xml_err_entity_boundary_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9091,7 +9091,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_char_error_low_level: INTEGER is
+	xml_err_entity_char_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9100,7 +9100,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_is_external_low_level: INTEGER is
+	xml_err_entity_is_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9109,7 +9109,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_is_parameter_low_level: INTEGER is
+	xml_err_entity_is_parameter_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9118,7 +9118,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_loop_low_level: INTEGER is
+	xml_err_entity_loop_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9127,7 +9127,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_not_finished_low_level: INTEGER is
+	xml_err_entity_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9136,7 +9136,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_not_started_low_level: INTEGER is
+	xml_err_entity_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9145,7 +9145,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_pe_internal_low_level: INTEGER is
+	xml_err_entity_pe_internal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9154,7 +9154,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entity_processing_low_level: INTEGER is
+	xml_err_entity_processing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9163,7 +9163,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_at_eof_low_level: INTEGER is
+	xml_err_entityref_at_eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9172,7 +9172,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_in_dtd_low_level: INTEGER is
+	xml_err_entityref_in_dtd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9181,7 +9181,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_in_epilog_low_level: INTEGER is
+	xml_err_entityref_in_epilog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9190,7 +9190,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_in_prolog_low_level: INTEGER is
+	xml_err_entityref_in_prolog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9199,7 +9199,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_no_name_low_level: INTEGER is
+	xml_err_entityref_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9208,7 +9208,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_entityref_semicol_missing_low_level: INTEGER is
+	xml_err_entityref_semicol_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9217,7 +9217,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_equal_required_low_level: INTEGER is
+	xml_err_equal_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9226,7 +9226,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_ext_entity_standalone_low_level: INTEGER is
+	xml_err_ext_entity_standalone_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9235,7 +9235,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_ext_subset_not_finished_low_level: INTEGER is
+	xml_err_ext_subset_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9244,7 +9244,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_extra_content_low_level: INTEGER is
+	xml_err_extra_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9253,7 +9253,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_gt_required_low_level: INTEGER is
+	xml_err_gt_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9262,7 +9262,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_hyphen_in_comment_low_level: INTEGER is
+	xml_err_hyphen_in_comment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9271,7 +9271,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_internal_error_low_level: INTEGER is
+	xml_err_internal_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9280,7 +9280,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_char_low_level: INTEGER is
+	xml_err_invalid_char_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9289,7 +9289,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_charref_low_level: INTEGER is
+	xml_err_invalid_charref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9298,7 +9298,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_dec_charref_low_level: INTEGER is
+	xml_err_invalid_dec_charref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9307,7 +9307,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_encoding_low_level: INTEGER is
+	xml_err_invalid_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9316,7 +9316,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_hex_charref_low_level: INTEGER is
+	xml_err_invalid_hex_charref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9325,7 +9325,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_invalid_uri_low_level: INTEGER is
+	xml_err_invalid_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9334,7 +9334,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_literal_not_finished_low_level: INTEGER is
+	xml_err_literal_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9343,7 +9343,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_literal_not_started_low_level: INTEGER is
+	xml_err_literal_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9352,7 +9352,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_lt_in_attribute_low_level: INTEGER is
+	xml_err_lt_in_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9361,7 +9361,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_lt_required_low_level: INTEGER is
+	xml_err_lt_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9370,7 +9370,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_ltslash_required_low_level: INTEGER is
+	xml_err_ltslash_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9379,7 +9379,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_misplaced_cdata_end_low_level: INTEGER is
+	xml_err_misplaced_cdata_end_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9388,7 +9388,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_missing_encoding_low_level: INTEGER is
+	xml_err_missing_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9397,7 +9397,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_mixed_not_finished_low_level: INTEGER is
+	xml_err_mixed_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9406,7 +9406,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_mixed_not_started_low_level: INTEGER is
+	xml_err_mixed_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9415,7 +9415,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_name_required_low_level: INTEGER is
+	xml_err_name_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9424,7 +9424,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_nmtoken_required_low_level: INTEGER is
+	xml_err_nmtoken_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9433,7 +9433,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_no_dtd_low_level: INTEGER is
+	xml_err_no_dtd_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9442,7 +9442,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_no_memory_low_level: INTEGER is
+	xml_err_no_memory_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9451,7 +9451,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_not_standalone_low_level: INTEGER is
+	xml_err_not_standalone_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9460,7 +9460,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_not_well_balanced_low_level: INTEGER is
+	xml_err_not_well_balanced_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9469,7 +9469,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_notation_not_finished_low_level: INTEGER is
+	xml_err_notation_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9478,7 +9478,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_notation_not_started_low_level: INTEGER is
+	xml_err_notation_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9487,7 +9487,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_notation_processing_low_level: INTEGER is
+	xml_err_notation_processing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9496,7 +9496,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_ns_decl_error_low_level: INTEGER is
+	xml_err_ns_decl_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9505,7 +9505,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_ok_low_level: INTEGER is
+	xml_err_ok_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9514,7 +9514,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_pcdata_required_low_level: INTEGER is
+	xml_err_pcdata_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9523,7 +9523,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_at_eof_low_level: INTEGER is
+	xml_err_peref_at_eof_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9532,7 +9532,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_in_epilog_low_level: INTEGER is
+	xml_err_peref_in_epilog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9541,7 +9541,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_in_int_subset_low_level: INTEGER is
+	xml_err_peref_in_int_subset_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9550,7 +9550,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_in_prolog_low_level: INTEGER is
+	xml_err_peref_in_prolog_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9559,7 +9559,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_no_name_low_level: INTEGER is
+	xml_err_peref_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9568,7 +9568,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_peref_semicol_missing_low_level: INTEGER is
+	xml_err_peref_semicol_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9577,7 +9577,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_pi_not_finished_low_level: INTEGER is
+	xml_err_pi_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9586,7 +9586,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_pi_not_started_low_level: INTEGER is
+	xml_err_pi_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9595,7 +9595,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_pubid_required_low_level: INTEGER is
+	xml_err_pubid_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9604,7 +9604,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_reserved_xml_name_low_level: INTEGER is
+	xml_err_reserved_xml_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9613,7 +9613,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_separator_required_low_level: INTEGER is
+	xml_err_separator_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9622,7 +9622,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_space_required_low_level: INTEGER is
+	xml_err_space_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9631,7 +9631,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_standalone_value_low_level: INTEGER is
+	xml_err_standalone_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9640,7 +9640,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_string_not_closed_low_level: INTEGER is
+	xml_err_string_not_closed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9649,7 +9649,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_string_not_started_low_level: INTEGER is
+	xml_err_string_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9658,7 +9658,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_tag_name_mismatch_low_level: INTEGER is
+	xml_err_tag_name_mismatch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9667,7 +9667,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_tag_not_finished_low_level: INTEGER is
+	xml_err_tag_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9676,7 +9676,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_undeclared_entity_low_level: INTEGER is
+	xml_err_undeclared_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9685,7 +9685,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_unknown_encoding_low_level: INTEGER is
+	xml_err_unknown_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9694,7 +9694,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_unknown_version_low_level: INTEGER is
+	xml_err_unknown_version_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9703,7 +9703,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_unparsed_entity_low_level: INTEGER is
+	xml_err_unparsed_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9712,7 +9712,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_unsupported_encoding_low_level: INTEGER is
+	xml_err_unsupported_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9721,7 +9721,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_uri_fragment_low_level: INTEGER is
+	xml_err_uri_fragment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9730,7 +9730,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_uri_required_low_level: INTEGER is
+	xml_err_uri_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9739,7 +9739,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_value_required_low_level: INTEGER is
+	xml_err_value_required_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9748,7 +9748,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_version_mismatch_low_level: INTEGER is
+	xml_err_version_mismatch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9757,7 +9757,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_version_missing_low_level: INTEGER is
+	xml_err_version_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9766,7 +9766,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_xmldecl_not_finished_low_level: INTEGER is
+	xml_err_xmldecl_not_finished_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9775,7 +9775,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_xmldecl_not_started_low_level: INTEGER is
+	xml_err_xmldecl_not_started_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9784,7 +9784,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ftp_accnt_low_level: INTEGER is
+	xml_ftp_accnt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9793,7 +9793,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ftp_epsv_answer_low_level: INTEGER is
+	xml_ftp_epsv_answer_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9802,7 +9802,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ftp_pasv_answer_low_level: INTEGER is
+	xml_ftp_pasv_answer_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9811,7 +9811,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ftp_url_syntax_low_level: INTEGER is
+	xml_ftp_url_syntax_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9820,7 +9820,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_html_strucure_error_low_level: INTEGER is
+	xml_html_strucure_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9829,7 +9829,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_html_unknown_tag_low_level: INTEGER is
+	xml_html_unknown_tag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9838,7 +9838,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_http_unknown_host_low_level: INTEGER is
+	xml_http_unknown_host_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9847,7 +9847,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_http_url_syntax_low_level: INTEGER is
+	xml_http_url_syntax_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9856,7 +9856,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_http_use_ip_low_level: INTEGER is
+	xml_http_use_ip_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9865,7 +9865,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_i18n_conv_failed_low_level: INTEGER is
+	xml_i18n_conv_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9874,7 +9874,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_i18n_excess_handler_low_level: INTEGER is
+	xml_i18n_excess_handler_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9883,7 +9883,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_i18n_no_handler_low_level: INTEGER is
+	xml_i18n_no_handler_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9892,7 +9892,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_i18n_no_name_low_level: INTEGER is
+	xml_i18n_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9901,7 +9901,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_i18n_no_output_low_level: INTEGER is
+	xml_i18n_no_output_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9910,7 +9910,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_buffer_full_low_level: INTEGER is
+	xml_io_buffer_full_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9919,7 +9919,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eacces_low_level: INTEGER is
+	xml_io_eacces_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9928,7 +9928,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eaddrinuse_low_level: INTEGER is
+	xml_io_eaddrinuse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9937,7 +9937,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eafnosupport_low_level: INTEGER is
+	xml_io_eafnosupport_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9946,7 +9946,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eagain_low_level: INTEGER is
+	xml_io_eagain_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9955,7 +9955,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_ealready_low_level: INTEGER is
+	xml_io_ealready_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9964,7 +9964,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_ebadf_low_level: INTEGER is
+	xml_io_ebadf_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9973,7 +9973,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_ebadmsg_low_level: INTEGER is
+	xml_io_ebadmsg_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9982,7 +9982,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_ebusy_low_level: INTEGER is
+	xml_io_ebusy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -9991,7 +9991,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_ecanceled_low_level: INTEGER is
+	xml_io_ecanceled_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10000,7 +10000,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_echild_low_level: INTEGER is
+	xml_io_echild_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10009,7 +10009,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_econnrefused_low_level: INTEGER is
+	xml_io_econnrefused_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10018,7 +10018,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_edeadlk_low_level: INTEGER is
+	xml_io_edeadlk_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10027,7 +10027,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_edom_low_level: INTEGER is
+	xml_io_edom_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10036,7 +10036,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eexist_low_level: INTEGER is
+	xml_io_eexist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10045,7 +10045,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_efault_low_level: INTEGER is
+	xml_io_efault_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10054,7 +10054,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_efbig_low_level: INTEGER is
+	xml_io_efbig_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10063,7 +10063,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_einprogress_low_level: INTEGER is
+	xml_io_einprogress_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10072,7 +10072,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eintr_low_level: INTEGER is
+	xml_io_eintr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10081,7 +10081,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_einval_low_level: INTEGER is
+	xml_io_einval_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10090,7 +10090,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eio_low_level: INTEGER is
+	xml_io_eio_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10099,7 +10099,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eisconn_low_level: INTEGER is
+	xml_io_eisconn_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10108,7 +10108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eisdir_low_level: INTEGER is
+	xml_io_eisdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10117,7 +10117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_emfile_low_level: INTEGER is
+	xml_io_emfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10126,7 +10126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_emlink_low_level: INTEGER is
+	xml_io_emlink_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10135,7 +10135,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_emsgsize_low_level: INTEGER is
+	xml_io_emsgsize_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10144,7 +10144,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enametoolong_low_level: INTEGER is
+	xml_io_enametoolong_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10153,7 +10153,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_encoder_low_level: INTEGER is
+	xml_io_encoder_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10162,7 +10162,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enetunreach_low_level: INTEGER is
+	xml_io_enetunreach_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10171,7 +10171,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enfile_low_level: INTEGER is
+	xml_io_enfile_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10180,7 +10180,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enodev_low_level: INTEGER is
+	xml_io_enodev_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10189,7 +10189,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enoent_low_level: INTEGER is
+	xml_io_enoent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10198,7 +10198,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enoexec_low_level: INTEGER is
+	xml_io_enoexec_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10207,7 +10207,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enolck_low_level: INTEGER is
+	xml_io_enolck_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10216,7 +10216,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enomem_low_level: INTEGER is
+	xml_io_enomem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10225,7 +10225,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enospc_low_level: INTEGER is
+	xml_io_enospc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10234,7 +10234,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enosys_low_level: INTEGER is
+	xml_io_enosys_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10243,7 +10243,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enotdir_low_level: INTEGER is
+	xml_io_enotdir_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10252,7 +10252,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enotempty_low_level: INTEGER is
+	xml_io_enotempty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10261,7 +10261,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enotsock_low_level: INTEGER is
+	xml_io_enotsock_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10270,7 +10270,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enotsup_low_level: INTEGER is
+	xml_io_enotsup_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10279,7 +10279,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enotty_low_level: INTEGER is
+	xml_io_enotty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10288,7 +10288,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_enxio_low_level: INTEGER is
+	xml_io_enxio_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10297,7 +10297,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_eperm_low_level: INTEGER is
+	xml_io_eperm_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10306,7 +10306,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_epipe_low_level: INTEGER is
+	xml_io_epipe_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10315,7 +10315,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_erange_low_level: INTEGER is
+	xml_io_erange_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10324,7 +10324,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_erofs_low_level: INTEGER is
+	xml_io_erofs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10333,7 +10333,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_espipe_low_level: INTEGER is
+	xml_io_espipe_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10342,7 +10342,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_esrch_low_level: INTEGER is
+	xml_io_esrch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10351,7 +10351,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_etimedout_low_level: INTEGER is
+	xml_io_etimedout_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10360,7 +10360,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_exdev_low_level: INTEGER is
+	xml_io_exdev_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10369,7 +10369,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_flush_low_level: INTEGER is
+	xml_io_flush_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10378,7 +10378,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_load_error_low_level: INTEGER is
+	xml_io_load_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10387,7 +10387,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_network_attempt_low_level: INTEGER is
+	xml_io_network_attempt_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10396,7 +10396,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_no_input_low_level: INTEGER is
+	xml_io_no_input_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10405,7 +10405,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_unknown_low_level: INTEGER is
+	xml_io_unknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10414,7 +10414,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_io_write_low_level: INTEGER is
+	xml_io_write_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10423,7 +10423,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_module_close_low_level: INTEGER is
+	xml_module_close_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10432,7 +10432,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_module_open_low_level: INTEGER is
+	xml_module_open_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10441,7 +10441,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_attribute_redefined_low_level: INTEGER is
+	xml_ns_err_attribute_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10450,7 +10450,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_colon_low_level: INTEGER is
+	xml_ns_err_colon_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10459,7 +10459,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_empty_low_level: INTEGER is
+	xml_ns_err_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10468,7 +10468,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_qname_low_level: INTEGER is
+	xml_ns_err_qname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10477,7 +10477,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_undefined_namespace_low_level: INTEGER is
+	xml_ns_err_undefined_namespace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10486,7 +10486,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_ns_err_xml_namespace_low_level: INTEGER is
+	xml_ns_err_xml_namespace_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10495,7 +10495,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_regexp_compile_error_low_level: INTEGER is
+	xml_regexp_compile_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10504,7 +10504,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_anyname_attr_ancestor_low_level: INTEGER is
+	xml_rngp_anyname_attr_ancestor_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10513,7 +10513,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_attr_conflict_low_level: INTEGER is
+	xml_rngp_attr_conflict_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10522,7 +10522,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_attribute_children_low_level: INTEGER is
+	xml_rngp_attribute_children_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10531,7 +10531,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_attribute_content_low_level: INTEGER is
+	xml_rngp_attribute_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10540,7 +10540,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_attribute_empty_low_level: INTEGER is
+	xml_rngp_attribute_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10549,7 +10549,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_attribute_noop_low_level: INTEGER is
+	xml_rngp_attribute_noop_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10558,7 +10558,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_choice_content_low_level: INTEGER is
+	xml_rngp_choice_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10567,7 +10567,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_choice_empty_low_level: INTEGER is
+	xml_rngp_choice_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10576,7 +10576,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_create_failure_low_level: INTEGER is
+	xml_rngp_create_failure_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10585,7 +10585,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_data_content_low_level: INTEGER is
+	xml_rngp_data_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10594,7 +10594,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_def_choice_and_interleave_low_level: INTEGER is
+	xml_rngp_def_choice_and_interleave_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10603,7 +10603,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_define_create_failed_low_level: INTEGER is
+	xml_rngp_define_create_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10612,7 +10612,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_define_empty_low_level: INTEGER is
+	xml_rngp_define_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10621,7 +10621,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_define_missing_low_level: INTEGER is
+	xml_rngp_define_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10630,7 +10630,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_define_name_missing_low_level: INTEGER is
+	xml_rngp_define_name_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10639,7 +10639,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_elem_content_empty_low_level: INTEGER is
+	xml_rngp_elem_content_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10648,7 +10648,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_elem_content_error_low_level: INTEGER is
+	xml_rngp_elem_content_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10657,7 +10657,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_elem_text_conflict_low_level: INTEGER is
+	xml_rngp_elem_text_conflict_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10666,7 +10666,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_element_content_low_level: INTEGER is
+	xml_rngp_element_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10675,7 +10675,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_element_empty_low_level: INTEGER is
+	xml_rngp_element_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10684,7 +10684,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_element_name_low_level: INTEGER is
+	xml_rngp_element_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10693,7 +10693,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_element_no_content_low_level: INTEGER is
+	xml_rngp_element_no_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10702,7 +10702,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_empty_low_level: INTEGER is
+	xml_rngp_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10711,7 +10711,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_empty_construct_low_level: INTEGER is
+	xml_rngp_empty_construct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10720,7 +10720,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_empty_content_low_level: INTEGER is
+	xml_rngp_empty_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10729,7 +10729,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_empty_not_empty_low_level: INTEGER is
+	xml_rngp_empty_not_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10738,7 +10738,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_error_type_lib_low_level: INTEGER is
+	xml_rngp_error_type_lib_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10747,7 +10747,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_except_empty_low_level: INTEGER is
+	xml_rngp_except_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10756,7 +10756,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_except_missing_low_level: INTEGER is
+	xml_rngp_except_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10765,7 +10765,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_except_multiple_low_level: INTEGER is
+	xml_rngp_except_multiple_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10774,7 +10774,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_except_no_content_low_level: INTEGER is
+	xml_rngp_except_no_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10783,7 +10783,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_external_ref_failure_low_level: INTEGER is
+	xml_rngp_external_ref_failure_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10792,7 +10792,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_externalref_emtpy_low_level: INTEGER is
+	xml_rngp_externalref_emtpy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10801,7 +10801,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_externalref_recurse_low_level: INTEGER is
+	xml_rngp_externalref_recurse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10810,7 +10810,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_forbidden_attribute_low_level: INTEGER is
+	xml_rngp_forbidden_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10819,7 +10819,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_foreign_element_low_level: INTEGER is
+	xml_rngp_foreign_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10828,7 +10828,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_grammar_content_low_level: INTEGER is
+	xml_rngp_grammar_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10837,7 +10837,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_grammar_empty_low_level: INTEGER is
+	xml_rngp_grammar_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10846,7 +10846,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_grammar_missing_low_level: INTEGER is
+	xml_rngp_grammar_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10855,7 +10855,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_grammar_no_start_low_level: INTEGER is
+	xml_rngp_grammar_no_start_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10864,7 +10864,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_group_attr_conflict_low_level: INTEGER is
+	xml_rngp_group_attr_conflict_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10873,7 +10873,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_href_error_low_level: INTEGER is
+	xml_rngp_href_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10882,7 +10882,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_include_empty_low_level: INTEGER is
+	xml_rngp_include_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10891,7 +10891,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_include_failure_low_level: INTEGER is
+	xml_rngp_include_failure_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10900,7 +10900,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_include_recurse_low_level: INTEGER is
+	xml_rngp_include_recurse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10909,7 +10909,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_interleave_add_low_level: INTEGER is
+	xml_rngp_interleave_add_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10918,7 +10918,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_interleave_create_failed_low_level: INTEGER is
+	xml_rngp_interleave_create_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10927,7 +10927,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_interleave_empty_low_level: INTEGER is
+	xml_rngp_interleave_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10936,7 +10936,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_interleave_no_content_low_level: INTEGER is
+	xml_rngp_interleave_no_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10945,7 +10945,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_invalid_define_name_low_level: INTEGER is
+	xml_rngp_invalid_define_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10954,7 +10954,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_invalid_uri_low_level: INTEGER is
+	xml_rngp_invalid_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10963,7 +10963,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_invalid_value_low_level: INTEGER is
+	xml_rngp_invalid_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10972,7 +10972,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_missing_href_low_level: INTEGER is
+	xml_rngp_missing_href_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10981,7 +10981,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_name_missing_low_level: INTEGER is
+	xml_rngp_name_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10990,7 +10990,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_need_combine_low_level: INTEGER is
+	xml_rngp_need_combine_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -10999,7 +10999,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_notallowed_not_empty_low_level: INTEGER is
+	xml_rngp_notallowed_not_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11008,7 +11008,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_nsname_attr_ancestor_low_level: INTEGER is
+	xml_rngp_nsname_attr_ancestor_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11017,7 +11017,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_nsname_no_ns_low_level: INTEGER is
+	xml_rngp_nsname_no_ns_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11026,7 +11026,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_param_forbidden_low_level: INTEGER is
+	xml_rngp_param_forbidden_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11035,7 +11035,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_param_name_missing_low_level: INTEGER is
+	xml_rngp_param_name_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11044,7 +11044,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parentref_create_failed_low_level: INTEGER is
+	xml_rngp_parentref_create_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11053,7 +11053,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parentref_name_invalid_low_level: INTEGER is
+	xml_rngp_parentref_name_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11062,7 +11062,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parentref_no_name_low_level: INTEGER is
+	xml_rngp_parentref_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11071,7 +11071,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parentref_no_parent_low_level: INTEGER is
+	xml_rngp_parentref_no_parent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11080,7 +11080,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parentref_not_empty_low_level: INTEGER is
+	xml_rngp_parentref_not_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11089,7 +11089,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_parse_error_low_level: INTEGER is
+	xml_rngp_parse_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11098,7 +11098,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_anyname_except_anyname_low_level: INTEGER is
+	xml_rngp_pat_anyname_except_anyname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11107,7 +11107,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_attr_attr_low_level: INTEGER is
+	xml_rngp_pat_attr_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11116,7 +11116,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_attr_elem_low_level: INTEGER is
+	xml_rngp_pat_attr_elem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11125,7 +11125,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_attr_low_level: INTEGER is
+	xml_rngp_pat_data_except_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11134,7 +11134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_elem_low_level: INTEGER is
+	xml_rngp_pat_data_except_elem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11143,7 +11143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_empty_low_level: INTEGER is
+	xml_rngp_pat_data_except_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11152,7 +11152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_group_low_level: INTEGER is
+	xml_rngp_pat_data_except_group_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11161,7 +11161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_interleave_low_level: INTEGER is
+	xml_rngp_pat_data_except_interleave_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11170,7 +11170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_list_low_level: INTEGER is
+	xml_rngp_pat_data_except_list_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11179,7 +11179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_onemore_low_level: INTEGER is
+	xml_rngp_pat_data_except_onemore_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11188,7 +11188,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_ref_low_level: INTEGER is
+	xml_rngp_pat_data_except_ref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11197,7 +11197,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_data_except_text_low_level: INTEGER is
+	xml_rngp_pat_data_except_text_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11206,7 +11206,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_attr_low_level: INTEGER is
+	xml_rngp_pat_list_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11215,7 +11215,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_elem_low_level: INTEGER is
+	xml_rngp_pat_list_elem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11224,7 +11224,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_interleave_low_level: INTEGER is
+	xml_rngp_pat_list_interleave_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11233,7 +11233,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_list_low_level: INTEGER is
+	xml_rngp_pat_list_list_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11242,7 +11242,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_ref_low_level: INTEGER is
+	xml_rngp_pat_list_ref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11251,7 +11251,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_list_text_low_level: INTEGER is
+	xml_rngp_pat_list_text_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11260,7 +11260,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_nsname_except_anyname_low_level: INTEGER is
+	xml_rngp_pat_nsname_except_anyname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11269,7 +11269,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_nsname_except_nsname_low_level: INTEGER is
+	xml_rngp_pat_nsname_except_nsname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11278,7 +11278,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_onemore_group_attr_low_level: INTEGER is
+	xml_rngp_pat_onemore_group_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11287,7 +11287,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_onemore_interleave_attr_low_level: INTEGER is
+	xml_rngp_pat_onemore_interleave_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11296,7 +11296,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_attr_low_level: INTEGER is
+	xml_rngp_pat_start_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11305,7 +11305,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_data_low_level: INTEGER is
+	xml_rngp_pat_start_data_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11314,7 +11314,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_empty_low_level: INTEGER is
+	xml_rngp_pat_start_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11323,7 +11323,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_group_low_level: INTEGER is
+	xml_rngp_pat_start_group_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11332,7 +11332,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_interleave_low_level: INTEGER is
+	xml_rngp_pat_start_interleave_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11341,7 +11341,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_list_low_level: INTEGER is
+	xml_rngp_pat_start_list_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11350,7 +11350,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_onemore_low_level: INTEGER is
+	xml_rngp_pat_start_onemore_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11359,7 +11359,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_text_low_level: INTEGER is
+	xml_rngp_pat_start_text_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11368,7 +11368,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_pat_start_value_low_level: INTEGER is
+	xml_rngp_pat_start_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11377,7 +11377,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_prefix_undefined_low_level: INTEGER is
+	xml_rngp_prefix_undefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11386,7 +11386,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_create_failed_low_level: INTEGER is
+	xml_rngp_ref_create_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11395,7 +11395,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_cycle_low_level: INTEGER is
+	xml_rngp_ref_cycle_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11404,7 +11404,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_name_invalid_low_level: INTEGER is
+	xml_rngp_ref_name_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11413,7 +11413,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_no_def_low_level: INTEGER is
+	xml_rngp_ref_no_def_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11422,7 +11422,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_no_name_low_level: INTEGER is
+	xml_rngp_ref_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11431,7 +11431,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_ref_not_empty_low_level: INTEGER is
+	xml_rngp_ref_not_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11440,7 +11440,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_start_choice_and_interleave_low_level: INTEGER is
+	xml_rngp_start_choice_and_interleave_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11449,7 +11449,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_start_content_low_level: INTEGER is
+	xml_rngp_start_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11458,7 +11458,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_start_empty_low_level: INTEGER is
+	xml_rngp_start_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11467,7 +11467,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_start_missing_low_level: INTEGER is
+	xml_rngp_start_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11476,7 +11476,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_text_expected_low_level: INTEGER is
+	xml_rngp_text_expected_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11485,7 +11485,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_text_has_child_low_level: INTEGER is
+	xml_rngp_text_has_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11494,7 +11494,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_type_missing_low_level: INTEGER is
+	xml_rngp_type_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11503,7 +11503,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_type_not_found_low_level: INTEGER is
+	xml_rngp_type_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11512,7 +11512,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_type_value_low_level: INTEGER is
+	xml_rngp_type_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11521,7 +11521,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_unknown_attribute_low_level: INTEGER is
+	xml_rngp_unknown_attribute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11530,7 +11530,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_unknown_combine_low_level: INTEGER is
+	xml_rngp_unknown_combine_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11539,7 +11539,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_unknown_construct_low_level: INTEGER is
+	xml_rngp_unknown_construct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11548,7 +11548,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_unknown_type_lib_low_level: INTEGER is
+	xml_rngp_unknown_type_lib_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11557,7 +11557,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_uri_fragment_low_level: INTEGER is
+	xml_rngp_uri_fragment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11566,7 +11566,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_uri_not_absolute_low_level: INTEGER is
+	xml_rngp_uri_not_absolute_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11575,7 +11575,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_value_empty_low_level: INTEGER is
+	xml_rngp_value_empty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11584,7 +11584,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_value_no_content_low_level: INTEGER is
+	xml_rngp_value_no_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11593,7 +11593,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_xml_ns_low_level: INTEGER is
+	xml_rngp_xml_ns_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11602,7 +11602,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_rngp_xmlns_name_low_level: INTEGER is
+	xml_rngp_xmlns_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11611,7 +11611,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_save_char_invalid_low_level: INTEGER is
+	xml_save_char_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11620,7 +11620,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_save_no_doctype_low_level: INTEGER is
+	xml_save_no_doctype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11629,7 +11629,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_save_not_utf8_low_level: INTEGER is
+	xml_save_not_utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11638,7 +11638,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_save_unknown_encoding_low_level: INTEGER is
+	xml_save_unknown_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11647,7 +11647,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_a_props_correct_2_low_level: INTEGER is
+	xml_schemap_a_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11656,7 +11656,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_a_props_correct_3_low_level: INTEGER is
+	xml_schemap_a_props_correct_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11665,7 +11665,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ag_props_correct_low_level: INTEGER is
+	xml_schemap_ag_props_correct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11674,7 +11674,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_attr_noname_noref_low_level: INTEGER is
+	xml_schemap_attr_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11683,7 +11683,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_attrformdefault_value_low_level: INTEGER is
+	xml_schemap_attrformdefault_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11692,7 +11692,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_attrgrp_noname_noref_low_level: INTEGER is
+	xml_schemap_attrgrp_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11701,7 +11701,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_au_props_correct_low_level: INTEGER is
+	xml_schemap_au_props_correct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11710,7 +11710,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_au_props_correct_2_low_level: INTEGER is
+	xml_schemap_au_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11719,7 +11719,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_c_props_correct_low_level: INTEGER is
+	xml_schemap_c_props_correct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11728,7 +11728,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_complextype_noname_noref_low_level: INTEGER is
+	xml_schemap_complextype_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11737,7 +11737,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_all_limited_low_level: INTEGER is
+	xml_schemap_cos_all_limited_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11746,7 +11746,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_ct_extends_1_1_low_level: INTEGER is
+	xml_schemap_cos_ct_extends_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11755,7 +11755,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_ct_extends_1_2_low_level: INTEGER is
+	xml_schemap_cos_ct_extends_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11764,7 +11764,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_ct_extends_1_3_low_level: INTEGER is
+	xml_schemap_cos_ct_extends_1_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11773,7 +11773,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_derived_ok_2_1_low_level: INTEGER is
+	xml_schemap_cos_st_derived_ok_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11782,7 +11782,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_derived_ok_2_2_low_level: INTEGER is
+	xml_schemap_cos_st_derived_ok_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11791,7 +11791,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_1_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11800,7 +11800,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_1_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11809,7 +11809,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_1_3_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_1_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11818,7 +11818,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_1_3_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_1_3_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11827,7 +11827,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11836,7 +11836,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_1_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11845,7 +11845,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_1_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11854,7 +11854,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_2_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11863,7 +11863,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_2_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11872,7 +11872,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_2_3_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_2_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11881,7 +11881,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_2_4_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_2_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11890,7 +11890,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_2_3_2_5_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_2_3_2_5_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11899,7 +11899,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11908,7 +11908,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11917,7 +11917,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_1_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11926,7 +11926,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_2_1_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11935,7 +11935,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_2_2_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11944,7 +11944,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_2_3_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_2_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11953,7 +11953,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_2_4_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_2_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11962,7 +11962,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_st_restricts_3_3_2_5_low_level: INTEGER is
+	xml_schemap_cos_st_restricts_3_3_2_5_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11971,7 +11971,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_valid_default_1_low_level: INTEGER is
+	xml_schemap_cos_valid_default_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11980,7 +11980,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_valid_default_2_1_low_level: INTEGER is
+	xml_schemap_cos_valid_default_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11989,7 +11989,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_valid_default_2_2_1_low_level: INTEGER is
+	xml_schemap_cos_valid_default_2_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -11998,7 +11998,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cos_valid_default_2_2_2_low_level: INTEGER is
+	xml_schemap_cos_valid_default_2_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12007,7 +12007,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ct_props_correct_1_low_level: INTEGER is
+	xml_schemap_ct_props_correct_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12016,7 +12016,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ct_props_correct_2_low_level: INTEGER is
+	xml_schemap_ct_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12025,7 +12025,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ct_props_correct_3_low_level: INTEGER is
+	xml_schemap_ct_props_correct_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12034,7 +12034,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ct_props_correct_4_low_level: INTEGER is
+	xml_schemap_ct_props_correct_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12043,7 +12043,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ct_props_correct_5_low_level: INTEGER is
+	xml_schemap_ct_props_correct_5_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12052,7 +12052,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_cvc_simple_type_low_level: INTEGER is
+	xml_schemap_cvc_simple_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12061,7 +12061,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_def_and_prefix_low_level: INTEGER is
+	xml_schemap_def_and_prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12070,7 +12070,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_1_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12079,7 +12079,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_2_1_1_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_2_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12088,7 +12088,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_2_1_2_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_2_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12097,7 +12097,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_2_1_3_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_2_1_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12106,7 +12106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_2_2_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12115,7 +12115,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_3_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12124,7 +12124,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_4_1_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_4_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12133,7 +12133,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_4_2_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_4_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12142,7 +12142,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_derivation_ok_restriction_4_3_low_level: INTEGER is
+	xml_schemap_derivation_ok_restriction_4_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12151,7 +12151,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_e_props_correct_2_low_level: INTEGER is
+	xml_schemap_e_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12160,7 +12160,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_e_props_correct_3_low_level: INTEGER is
+	xml_schemap_e_props_correct_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12169,7 +12169,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_e_props_correct_4_low_level: INTEGER is
+	xml_schemap_e_props_correct_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12178,7 +12178,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_e_props_correct_5_low_level: INTEGER is
+	xml_schemap_e_props_correct_5_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12187,7 +12187,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_e_props_correct_6_low_level: INTEGER is
+	xml_schemap_e_props_correct_6_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12196,7 +12196,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_elem_default_fixed_low_level: INTEGER is
+	xml_schemap_elem_default_fixed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12205,7 +12205,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_elem_noname_noref_low_level: INTEGER is
+	xml_schemap_elem_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12214,7 +12214,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_elemformdefault_value_low_level: INTEGER is
+	xml_schemap_elemformdefault_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12223,7 +12223,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_extension_no_base_low_level: INTEGER is
+	xml_schemap_extension_no_base_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12232,7 +12232,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_facet_no_value_low_level: INTEGER is
+	xml_schemap_facet_no_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12241,7 +12241,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_failed_build_import_low_level: INTEGER is
+	xml_schemap_failed_build_import_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12250,7 +12250,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_failed_load_low_level: INTEGER is
+	xml_schemap_failed_load_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12259,7 +12259,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_failed_parse_low_level: INTEGER is
+	xml_schemap_failed_parse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12268,7 +12268,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_group_noname_noref_low_level: INTEGER is
+	xml_schemap_group_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12277,7 +12277,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_import_namespace_not_uri_low_level: INTEGER is
+	xml_schemap_import_namespace_not_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12286,7 +12286,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_import_redefine_nsname_low_level: INTEGER is
+	xml_schemap_import_redefine_nsname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12295,7 +12295,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_import_schema_not_uri_low_level: INTEGER is
+	xml_schemap_import_schema_not_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12304,7 +12304,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_include_schema_no_uri_low_level: INTEGER is
+	xml_schemap_include_schema_no_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12313,7 +12313,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_include_schema_not_uri_low_level: INTEGER is
+	xml_schemap_include_schema_not_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12322,7 +12322,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_internal_low_level: INTEGER is
+	xml_schemap_internal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12331,7 +12331,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_intersection_not_expressible_low_level: INTEGER is
+	xml_schemap_intersection_not_expressible_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12340,7 +12340,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_attr_combination_low_level: INTEGER is
+	xml_schemap_invalid_attr_combination_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12349,7 +12349,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_attr_inline_combination_low_level: INTEGER is
+	xml_schemap_invalid_attr_inline_combination_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12358,7 +12358,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_attr_name_low_level: INTEGER is
+	xml_schemap_invalid_attr_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12367,7 +12367,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_attr_use_low_level: INTEGER is
+	xml_schemap_invalid_attr_use_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12376,7 +12376,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_boolean_low_level: INTEGER is
+	xml_schemap_invalid_boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12385,7 +12385,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_enum_low_level: INTEGER is
+	xml_schemap_invalid_enum_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12394,7 +12394,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_facet_low_level: INTEGER is
+	xml_schemap_invalid_facet_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12403,7 +12403,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_facet_value_low_level: INTEGER is
+	xml_schemap_invalid_facet_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12412,7 +12412,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_maxoccurs_low_level: INTEGER is
+	xml_schemap_invalid_maxoccurs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12421,7 +12421,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_minoccurs_low_level: INTEGER is
+	xml_schemap_invalid_minoccurs_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12430,7 +12430,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_ref_and_subtype_low_level: INTEGER is
+	xml_schemap_invalid_ref_and_subtype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12439,7 +12439,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_invalid_white_space_low_level: INTEGER is
+	xml_schemap_invalid_white_space_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12448,7 +12448,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_mg_props_correct_1_low_level: INTEGER is
+	xml_schemap_mg_props_correct_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12457,7 +12457,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_mg_props_correct_2_low_level: INTEGER is
+	xml_schemap_mg_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12466,7 +12466,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_missing_simpletype_child_low_level: INTEGER is
+	xml_schemap_missing_simpletype_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12475,7 +12475,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_no_xmlns_low_level: INTEGER is
+	xml_schemap_no_xmlns_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12484,7 +12484,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_no_xsi_low_level: INTEGER is
+	xml_schemap_no_xsi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12493,7 +12493,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_noattr_noref_low_level: INTEGER is
+	xml_schemap_noattr_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12502,7 +12502,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_noroot_low_level: INTEGER is
+	xml_schemap_noroot_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12511,7 +12511,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_not_deterministic_low_level: INTEGER is
+	xml_schemap_not_deterministic_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12520,7 +12520,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_not_schema_low_level: INTEGER is
+	xml_schemap_not_schema_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12529,7 +12529,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_notation_no_name_low_level: INTEGER is
+	xml_schemap_notation_no_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12538,7 +12538,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_nothing_to_parse_low_level: INTEGER is
+	xml_schemap_nothing_to_parse_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12547,7 +12547,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_notype_noref_low_level: INTEGER is
+	xml_schemap_notype_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12556,7 +12556,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_p_props_correct_1_low_level: INTEGER is
+	xml_schemap_p_props_correct_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12565,7 +12565,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_p_props_correct_2_1_low_level: INTEGER is
+	xml_schemap_p_props_correct_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12574,7 +12574,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_p_props_correct_2_2_low_level: INTEGER is
+	xml_schemap_p_props_correct_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12583,7 +12583,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_prefix_undefined_low_level: INTEGER is
+	xml_schemap_prefix_undefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12592,7 +12592,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_recursive_low_level: INTEGER is
+	xml_schemap_recursive_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12601,7 +12601,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_attr_low_level: INTEGER is
+	xml_schemap_redefined_attr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12610,7 +12610,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_attrgroup_low_level: INTEGER is
+	xml_schemap_redefined_attrgroup_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12619,7 +12619,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_element_low_level: INTEGER is
+	xml_schemap_redefined_element_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12628,7 +12628,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_group_low_level: INTEGER is
+	xml_schemap_redefined_group_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12637,7 +12637,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_notation_low_level: INTEGER is
+	xml_schemap_redefined_notation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12646,7 +12646,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_redefined_type_low_level: INTEGER is
+	xml_schemap_redefined_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12655,7 +12655,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ref_and_content_low_level: INTEGER is
+	xml_schemap_ref_and_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12664,7 +12664,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_ref_and_subtype_low_level: INTEGER is
+	xml_schemap_ref_and_subtype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12673,7 +12673,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_regexp_invalid_low_level: INTEGER is
+	xml_schemap_regexp_invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12682,7 +12682,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_restriction_noname_noref_low_level: INTEGER is
+	xml_schemap_restriction_noname_noref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12691,7 +12691,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_s4s_attr_invalid_value_low_level: INTEGER is
+	xml_schemap_s4s_attr_invalid_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12700,7 +12700,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_s4s_attr_missing_low_level: INTEGER is
+	xml_schemap_s4s_attr_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12709,7 +12709,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_s4s_attr_not_allowed_low_level: INTEGER is
+	xml_schemap_s4s_attr_not_allowed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12718,7 +12718,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_s4s_elem_missing_low_level: INTEGER is
+	xml_schemap_s4s_elem_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12727,7 +12727,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_s4s_elem_not_allowed_low_level: INTEGER is
+	xml_schemap_s4s_elem_not_allowed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12736,7 +12736,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_simpletype_noname_low_level: INTEGER is
+	xml_schemap_simpletype_noname_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12745,7 +12745,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_1_low_level: INTEGER is
+	xml_schemap_src_attribute_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12754,7 +12754,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_2_low_level: INTEGER is
+	xml_schemap_src_attribute_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12763,7 +12763,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_3_1_low_level: INTEGER is
+	xml_schemap_src_attribute_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12772,7 +12772,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_3_2_low_level: INTEGER is
+	xml_schemap_src_attribute_3_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12781,7 +12781,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_4_low_level: INTEGER is
+	xml_schemap_src_attribute_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12790,7 +12790,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_group_1_low_level: INTEGER is
+	xml_schemap_src_attribute_group_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12799,7 +12799,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_group_2_low_level: INTEGER is
+	xml_schemap_src_attribute_group_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12808,7 +12808,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_attribute_group_3_low_level: INTEGER is
+	xml_schemap_src_attribute_group_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12817,7 +12817,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_ct_1_low_level: INTEGER is
+	xml_schemap_src_ct_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12826,7 +12826,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_element_1_low_level: INTEGER is
+	xml_schemap_src_element_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12835,7 +12835,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_element_2_1_low_level: INTEGER is
+	xml_schemap_src_element_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12844,7 +12844,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_element_2_2_low_level: INTEGER is
+	xml_schemap_src_element_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12853,7 +12853,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_element_3_low_level: INTEGER is
+	xml_schemap_src_element_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12862,7 +12862,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_low_level: INTEGER is
+	xml_schemap_src_import_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12871,7 +12871,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_1_1_low_level: INTEGER is
+	xml_schemap_src_import_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12880,7 +12880,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_1_2_low_level: INTEGER is
+	xml_schemap_src_import_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12889,7 +12889,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_2_low_level: INTEGER is
+	xml_schemap_src_import_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12898,7 +12898,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_2_1_low_level: INTEGER is
+	xml_schemap_src_import_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12907,7 +12907,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_2_2_low_level: INTEGER is
+	xml_schemap_src_import_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12916,7 +12916,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_3_1_low_level: INTEGER is
+	xml_schemap_src_import_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12925,7 +12925,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_import_3_2_low_level: INTEGER is
+	xml_schemap_src_import_3_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12934,7 +12934,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_include_low_level: INTEGER is
+	xml_schemap_src_include_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12943,7 +12943,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_list_itemtype_or_simpletype_low_level: INTEGER is
+	xml_schemap_src_list_itemtype_or_simpletype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12952,7 +12952,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_redefine_low_level: INTEGER is
+	xml_schemap_src_redefine_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12961,7 +12961,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_resolve_low_level: INTEGER is
+	xml_schemap_src_resolve_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12970,7 +12970,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_restriction_base_or_simpletype_low_level: INTEGER is
+	xml_schemap_src_restriction_base_or_simpletype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12979,7 +12979,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_simple_type_1_low_level: INTEGER is
+	xml_schemap_src_simple_type_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12988,7 +12988,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_simple_type_2_low_level: INTEGER is
+	xml_schemap_src_simple_type_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -12997,7 +12997,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_simple_type_3_low_level: INTEGER is
+	xml_schemap_src_simple_type_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13006,7 +13006,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_simple_type_4_low_level: INTEGER is
+	xml_schemap_src_simple_type_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13015,7 +13015,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_src_union_membertypes_or_simpletypes_low_level: INTEGER is
+	xml_schemap_src_union_membertypes_or_simpletypes_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13024,7 +13024,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_st_props_correct_1_low_level: INTEGER is
+	xml_schemap_st_props_correct_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13033,7 +13033,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_st_props_correct_2_low_level: INTEGER is
+	xml_schemap_st_props_correct_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13042,7 +13042,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_st_props_correct_3_low_level: INTEGER is
+	xml_schemap_st_props_correct_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13051,7 +13051,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_supernumerous_list_item_type_low_level: INTEGER is
+	xml_schemap_supernumerous_list_item_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13060,7 +13060,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_type_and_subtype_low_level: INTEGER is
+	xml_schemap_type_and_subtype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13069,7 +13069,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_union_not_expressible_low_level: INTEGER is
+	xml_schemap_union_not_expressible_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13078,7 +13078,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_all_child_low_level: INTEGER is
+	xml_schemap_unknown_all_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13087,7 +13087,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_anyattribute_child_low_level: INTEGER is
+	xml_schemap_unknown_anyattribute_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13096,7 +13096,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_attr_child_low_level: INTEGER is
+	xml_schemap_unknown_attr_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13105,7 +13105,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_attrgrp_child_low_level: INTEGER is
+	xml_schemap_unknown_attrgrp_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13114,7 +13114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_attribute_group_low_level: INTEGER is
+	xml_schemap_unknown_attribute_group_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13123,7 +13123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_base_type_low_level: INTEGER is
+	xml_schemap_unknown_base_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13132,7 +13132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_choice_child_low_level: INTEGER is
+	xml_schemap_unknown_choice_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13141,7 +13141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_complexcontent_child_low_level: INTEGER is
+	xml_schemap_unknown_complexcontent_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13150,7 +13150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_complextype_child_low_level: INTEGER is
+	xml_schemap_unknown_complextype_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13159,7 +13159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_elem_child_low_level: INTEGER is
+	xml_schemap_unknown_elem_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13168,7 +13168,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_extension_child_low_level: INTEGER is
+	xml_schemap_unknown_extension_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13177,7 +13177,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_facet_child_low_level: INTEGER is
+	xml_schemap_unknown_facet_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13186,7 +13186,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_facet_type_low_level: INTEGER is
+	xml_schemap_unknown_facet_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13195,7 +13195,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_group_child_low_level: INTEGER is
+	xml_schemap_unknown_group_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13204,7 +13204,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_import_child_low_level: INTEGER is
+	xml_schemap_unknown_import_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13213,7 +13213,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_include_child_low_level: INTEGER is
+	xml_schemap_unknown_include_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13222,7 +13222,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_list_child_low_level: INTEGER is
+	xml_schemap_unknown_list_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13231,7 +13231,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_member_type_low_level: INTEGER is
+	xml_schemap_unknown_member_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13240,7 +13240,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_notation_child_low_level: INTEGER is
+	xml_schemap_unknown_notation_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13249,7 +13249,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_prefix_low_level: INTEGER is
+	xml_schemap_unknown_prefix_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13258,7 +13258,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_processcontent_child_low_level: INTEGER is
+	xml_schemap_unknown_processcontent_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13267,7 +13267,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_ref_low_level: INTEGER is
+	xml_schemap_unknown_ref_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13276,7 +13276,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_restriction_child_low_level: INTEGER is
+	xml_schemap_unknown_restriction_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13285,7 +13285,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_schemas_child_low_level: INTEGER is
+	xml_schemap_unknown_schemas_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13294,7 +13294,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_sequence_child_low_level: INTEGER is
+	xml_schemap_unknown_sequence_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13303,7 +13303,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_simplecontent_child_low_level: INTEGER is
+	xml_schemap_unknown_simplecontent_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13312,7 +13312,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_simpletype_child_low_level: INTEGER is
+	xml_schemap_unknown_simpletype_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13321,7 +13321,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_type_low_level: INTEGER is
+	xml_schemap_unknown_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13330,7 +13330,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_unknown_union_child_low_level: INTEGER is
+	xml_schemap_unknown_union_child_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13339,7 +13339,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_warn_attr_pointless_proh_low_level: INTEGER is
+	xml_schemap_warn_attr_pointless_proh_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13348,7 +13348,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_warn_attr_redecl_proh_low_level: INTEGER is
+	xml_schemap_warn_attr_redecl_proh_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13357,7 +13357,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_warn_skip_schema_low_level: INTEGER is
+	xml_schemap_warn_skip_schema_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13366,7 +13366,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_warn_unlocated_schema_low_level: INTEGER is
+	xml_schemap_warn_unlocated_schema_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13375,7 +13375,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemap_wildcard_invalid_ns_member_low_level: INTEGER is
+	xml_schemap_wildcard_invalid_ns_member_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13384,7 +13384,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schematronv_assert_low_level: INTEGER is
+	xml_schematronv_assert_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13393,7 +13393,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schematronv_report_low_level: INTEGER is
+	xml_schematronv_report_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13402,7 +13402,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_attrinvalid_low_level: INTEGER is
+	xml_schemav_attrinvalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13411,7 +13411,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_attrunknown_low_level: INTEGER is
+	xml_schemav_attrunknown_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13420,7 +13420,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_construct_low_level: INTEGER is
+	xml_schemav_construct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13429,7 +13429,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_attribute_1_low_level: INTEGER is
+	xml_schemav_cvc_attribute_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13438,7 +13438,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_attribute_2_low_level: INTEGER is
+	xml_schemav_cvc_attribute_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13447,7 +13447,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_attribute_3_low_level: INTEGER is
+	xml_schemav_cvc_attribute_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13456,7 +13456,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_attribute_4_low_level: INTEGER is
+	xml_schemav_cvc_attribute_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13465,7 +13465,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_au_low_level: INTEGER is
+	xml_schemav_cvc_au_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13474,7 +13474,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_1_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13483,7 +13483,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_2_1_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13492,7 +13492,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_2_2_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13501,7 +13501,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_2_3_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_2_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13510,7 +13510,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_2_4_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_2_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13519,7 +13519,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_3_1_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13528,7 +13528,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_3_2_1_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_3_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13537,7 +13537,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_3_2_2_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_3_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13546,7 +13546,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_4_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_4_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13555,7 +13555,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_5_1_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_5_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13564,7 +13564,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_complex_type_5_2_low_level: INTEGER is
+	xml_schemav_cvc_complex_type_5_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13573,7 +13573,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_datatype_valid_1_2_1_low_level: INTEGER is
+	xml_schemav_cvc_datatype_valid_1_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13582,7 +13582,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_datatype_valid_1_2_2_low_level: INTEGER is
+	xml_schemav_cvc_datatype_valid_1_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13591,7 +13591,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_datatype_valid_1_2_3_low_level: INTEGER is
+	xml_schemav_cvc_datatype_valid_1_2_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13600,7 +13600,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13609,7 +13609,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_2_low_level: INTEGER is
+	xml_schemav_cvc_elt_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13618,7 +13618,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_3_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_3_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13627,7 +13627,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_3_2_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_3_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13636,7 +13636,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_3_2_2_low_level: INTEGER is
+	xml_schemav_cvc_elt_3_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13645,7 +13645,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_4_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_4_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13654,7 +13654,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_4_2_low_level: INTEGER is
+	xml_schemav_cvc_elt_4_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13663,7 +13663,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_4_3_low_level: INTEGER is
+	xml_schemav_cvc_elt_4_3_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13672,7 +13672,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_1_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13681,7 +13681,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_1_2_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13690,7 +13690,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_2_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13699,7 +13699,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_2_2_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_2_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13708,7 +13708,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_2_2_2_1_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_2_2_2_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13717,7 +13717,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_5_2_2_2_2_low_level: INTEGER is
+	xml_schemav_cvc_elt_5_2_2_2_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13726,7 +13726,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_6_low_level: INTEGER is
+	xml_schemav_cvc_elt_6_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13735,7 +13735,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_elt_7_low_level: INTEGER is
+	xml_schemav_cvc_elt_7_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13744,7 +13744,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_enumeration_valid_low_level: INTEGER is
+	xml_schemav_cvc_enumeration_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13753,7 +13753,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_facet_valid_low_level: INTEGER is
+	xml_schemav_cvc_facet_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13762,7 +13762,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_fractiondigits_valid_low_level: INTEGER is
+	xml_schemav_cvc_fractiondigits_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13771,7 +13771,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_idc_low_level: INTEGER is
+	xml_schemav_cvc_idc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13780,7 +13780,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_length_valid_low_level: INTEGER is
+	xml_schemav_cvc_length_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13789,7 +13789,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_maxexclusive_valid_low_level: INTEGER is
+	xml_schemav_cvc_maxexclusive_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13798,7 +13798,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_maxinclusive_valid_low_level: INTEGER is
+	xml_schemav_cvc_maxinclusive_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13807,7 +13807,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_maxlength_valid_low_level: INTEGER is
+	xml_schemav_cvc_maxlength_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13816,7 +13816,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_minexclusive_valid_low_level: INTEGER is
+	xml_schemav_cvc_minexclusive_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13825,7 +13825,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_mininclusive_valid_low_level: INTEGER is
+	xml_schemav_cvc_mininclusive_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13834,7 +13834,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_minlength_valid_low_level: INTEGER is
+	xml_schemav_cvc_minlength_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13843,7 +13843,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_pattern_valid_low_level: INTEGER is
+	xml_schemav_cvc_pattern_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13852,7 +13852,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_totaldigits_valid_low_level: INTEGER is
+	xml_schemav_cvc_totaldigits_valid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13861,7 +13861,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_type_1_low_level: INTEGER is
+	xml_schemav_cvc_type_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13870,7 +13870,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_type_2_low_level: INTEGER is
+	xml_schemav_cvc_type_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13879,7 +13879,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_type_3_1_1_low_level: INTEGER is
+	xml_schemav_cvc_type_3_1_1_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13888,7 +13888,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_type_3_1_2_low_level: INTEGER is
+	xml_schemav_cvc_type_3_1_2_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13897,7 +13897,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_cvc_wildcard_low_level: INTEGER is
+	xml_schemav_cvc_wildcard_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13906,7 +13906,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_document_element_missing_low_level: INTEGER is
+	xml_schemav_document_element_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13915,7 +13915,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_elemcont_low_level: INTEGER is
+	xml_schemav_elemcont_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13924,7 +13924,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_element_content_low_level: INTEGER is
+	xml_schemav_element_content_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13933,7 +13933,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_extracontent_low_level: INTEGER is
+	xml_schemav_extracontent_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13942,7 +13942,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_facet_low_level: INTEGER is
+	xml_schemav_facet_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13951,7 +13951,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_havedefault_low_level: INTEGER is
+	xml_schemav_havedefault_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13960,7 +13960,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_internal_low_level: INTEGER is
+	xml_schemav_internal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13969,7 +13969,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_invalidattr_low_level: INTEGER is
+	xml_schemav_invalidattr_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13978,7 +13978,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_invalidelem_low_level: INTEGER is
+	xml_schemav_invalidelem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13987,7 +13987,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_isabstract_low_level: INTEGER is
+	xml_schemav_isabstract_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -13996,7 +13996,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_misc_low_level: INTEGER is
+	xml_schemav_misc_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14005,7 +14005,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_missing_low_level: INTEGER is
+	xml_schemav_missing_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14014,7 +14014,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_norollback_low_level: INTEGER is
+	xml_schemav_norollback_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14023,7 +14023,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_noroot_low_level: INTEGER is
+	xml_schemav_noroot_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14032,7 +14032,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_notdeterminist_low_level: INTEGER is
+	xml_schemav_notdeterminist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14041,7 +14041,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_notempty_low_level: INTEGER is
+	xml_schemav_notempty_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14050,7 +14050,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_notnillable_low_level: INTEGER is
+	xml_schemav_notnillable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14059,7 +14059,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_notsimple_low_level: INTEGER is
+	xml_schemav_notsimple_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14068,7 +14068,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_nottoplevel_low_level: INTEGER is
+	xml_schemav_nottoplevel_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14077,7 +14077,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_notype_low_level: INTEGER is
+	xml_schemav_notype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14086,7 +14086,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_undeclaredelem_low_level: INTEGER is
+	xml_schemav_undeclaredelem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14095,7 +14095,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_value_low_level: INTEGER is
+	xml_schemav_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14104,7 +14104,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_schemav_wrongelem_low_level: INTEGER is
+	xml_schemav_wrongelem_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14113,7 +14113,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_tree_invalid_dec_low_level: INTEGER is
+	xml_tree_invalid_dec_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14122,7 +14122,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_tree_invalid_hex_low_level: INTEGER is
+	xml_tree_invalid_hex_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14131,7 +14131,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_tree_not_utf8_low_level: INTEGER is
+	xml_tree_not_utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14140,7 +14140,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_tree_unterminated_entity_low_level: INTEGER is
+	xml_tree_unterminated_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14149,7 +14149,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_catalog_pi_low_level: INTEGER is
+	xml_war_catalog_pi_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14158,7 +14158,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_entity_redefined_low_level: INTEGER is
+	xml_war_entity_redefined_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14167,7 +14167,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_lang_value_low_level: INTEGER is
+	xml_war_lang_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14176,7 +14176,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_ns_column_low_level: INTEGER is
+	xml_war_ns_column_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14185,7 +14185,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_ns_uri_low_level: INTEGER is
+	xml_war_ns_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14194,7 +14194,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_ns_uri_relative_low_level: INTEGER is
+	xml_war_ns_uri_relative_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14203,7 +14203,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_space_value_low_level: INTEGER is
+	xml_war_space_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14212,7 +14212,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_undeclared_entity_low_level: INTEGER is
+	xml_war_undeclared_entity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14221,7 +14221,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_war_unknown_version_low_level: INTEGER is
+	xml_war_unknown_version_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14230,7 +14230,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_build_failed_low_level: INTEGER is
+	xml_xinclude_build_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14239,7 +14239,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_deprecated_ns_low_level: INTEGER is
+	xml_xinclude_deprecated_ns_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14248,7 +14248,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_entity_def_mismatch_low_level: INTEGER is
+	xml_xinclude_entity_def_mismatch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14257,7 +14257,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_fallback_not_in_include_low_level: INTEGER is
+	xml_xinclude_fallback_not_in_include_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14266,7 +14266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_fallbacks_in_include_low_level: INTEGER is
+	xml_xinclude_fallbacks_in_include_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14275,7 +14275,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_fragment_id_low_level: INTEGER is
+	xml_xinclude_fragment_id_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14284,7 +14284,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_href_uri_low_level: INTEGER is
+	xml_xinclude_href_uri_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14293,7 +14293,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_include_in_include_low_level: INTEGER is
+	xml_xinclude_include_in_include_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14302,7 +14302,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_invalid_char_low_level: INTEGER is
+	xml_xinclude_invalid_char_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14311,7 +14311,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_multiple_root_low_level: INTEGER is
+	xml_xinclude_multiple_root_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14320,7 +14320,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_no_fallback_low_level: INTEGER is
+	xml_xinclude_no_fallback_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14329,7 +14329,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_no_href_low_level: INTEGER is
+	xml_xinclude_no_href_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14338,7 +14338,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_parse_value_low_level: INTEGER is
+	xml_xinclude_parse_value_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14347,7 +14347,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_recursion_low_level: INTEGER is
+	xml_xinclude_recursion_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14356,7 +14356,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_text_document_low_level: INTEGER is
+	xml_xinclude_text_document_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14365,7 +14365,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_text_fragment_low_level: INTEGER is
+	xml_xinclude_text_fragment_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14374,7 +14374,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_unknown_encoding_low_level: INTEGER is
+	xml_xinclude_unknown_encoding_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14383,7 +14383,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_xptr_failed_low_level: INTEGER is
+	xml_xinclude_xptr_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14392,7 +14392,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xinclude_xptr_result_low_level: INTEGER is
+	xml_xinclude_xptr_result_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14401,7 +14401,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_encoding_error_low_level: INTEGER is
+	xml_xpath_encoding_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14410,7 +14410,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_expr_error_low_level: INTEGER is
+	xml_xpath_expr_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14419,7 +14419,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_expression_ok_low_level: INTEGER is
+	xml_xpath_expression_ok_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14428,7 +14428,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_arity_low_level: INTEGER is
+	xml_xpath_invalid_arity_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14437,7 +14437,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_char_error_low_level: INTEGER is
+	xml_xpath_invalid_char_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14446,7 +14446,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_ctxt_position_low_level: INTEGER is
+	xml_xpath_invalid_ctxt_position_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14455,7 +14455,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_ctxt_size_low_level: INTEGER is
+	xml_xpath_invalid_ctxt_size_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14464,7 +14464,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_operand_low_level: INTEGER is
+	xml_xpath_invalid_operand_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14473,7 +14473,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_predicate_error_low_level: INTEGER is
+	xml_xpath_invalid_predicate_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14482,7 +14482,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_invalid_type_low_level: INTEGER is
+	xml_xpath_invalid_type_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14491,7 +14491,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_memory_error_low_level: INTEGER is
+	xml_xpath_memory_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14500,7 +14500,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_number_error_low_level: INTEGER is
+	xml_xpath_number_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14509,7 +14509,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_start_literal_error_low_level: INTEGER is
+	xml_xpath_start_literal_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14518,7 +14518,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_unclosed_error_low_level: INTEGER is
+	xml_xpath_unclosed_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14527,7 +14527,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_undef_prefix_error_low_level: INTEGER is
+	xml_xpath_undef_prefix_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14536,7 +14536,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_undef_variable_error_low_level: INTEGER is
+	xml_xpath_undef_variable_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14545,7 +14545,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_unfinished_literal_error_low_level: INTEGER is
+	xml_xpath_unfinished_literal_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14554,7 +14554,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_unknown_func_error_low_level: INTEGER is
+	xml_xpath_unknown_func_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14563,7 +14563,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xpath_variable_ref_error_low_level: INTEGER is
+	xml_xpath_variable_ref_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14572,7 +14572,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_childseq_start_low_level: INTEGER is
+	xml_xptr_childseq_start_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14581,7 +14581,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_eval_failed_low_level: INTEGER is
+	xml_xptr_eval_failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14590,7 +14590,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_extra_objects_low_level: INTEGER is
+	xml_xptr_extra_objects_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14599,7 +14599,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_resource_error_low_level: INTEGER is
+	xml_xptr_resource_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14608,7 +14608,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_sub_resource_error_low_level: INTEGER is
+	xml_xptr_sub_resource_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14617,7 +14617,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_syntax_error_low_level: INTEGER is
+	xml_xptr_syntax_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -14626,7 +14626,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_xptr_unknown_scheme_low_level: INTEGER is
+	xml_xptr_unknown_scheme_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

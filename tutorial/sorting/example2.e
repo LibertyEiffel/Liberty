@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[STRING]; sorter: COLLECTION_SORTER[STRING]; reverse_sorter: REVERSE_COLLECTION_SORTER[STRING]
       do
@@ -25,7 +25,7 @@ feature {ANY}
       end
 
 feature {}
-   print_collection (c: COLLECTION[STRING]) is
+   print_collection (c: COLLECTION[STRING])
       local
          i: INTEGER
       do

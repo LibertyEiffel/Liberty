@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          foo_pointer, bar_pointer: POINTER; c: CHARACTER
       do
@@ -24,7 +24,7 @@ feature {ANY}
          io.put_new_line
       end
 
-   new_foo: POINTER is
+   new_foo: POINTER
          -- Creation of a C++ `Foo' object. The file "Foo.h" must be
          -- #included and the C++ creation function has no argument.
       external "[
@@ -32,7 +32,7 @@ feature {ANY}
                ]"
       end
 
-   new_bar (c: CHARACTER): POINTER is
+   new_bar (c: CHARACTER): POINTER
          -- Creation of a C++ `Bar' object. The file "Bar.h" must be
          -- #included and the C++ creation function has one argument
          -- (matching with `c') of type EIF_CHARACTER (matching with
@@ -42,7 +42,7 @@ feature {ANY}
                ]"
       end
 
-   get_character (bar_pointer: POINTER): CHARACTER is
+   get_character (bar_pointer: POINTER): CHARACTER
          -- Calling C++ `get_character' member function without argument using
          -- `bar_pointer' as target of the C++ call. The file "Bar.h" must be
          -- #included (if not yet done).

@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          t7: TEST_EXPANDED7; t8: TEST_EXPANDED8; t9: TEST_EXPANDED9; t10: TEST_EXPANDED10
       do

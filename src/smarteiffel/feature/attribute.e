@@ -13,17 +13,17 @@ inherit
 feature {ANY}
    result_type: TYPE_MARK
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   is_attribute: BOOLEAN is True
+   is_attribute: BOOLEAN True
 
    obsolete_mark: MANIFEST_STRING
 
-   frozen rescue_compound: INSTRUCTION is
+   frozen rescue_compound: INSTRUCTION
       do
       end
 
-   frozen set_rescue_compound (instruction: like rescue_compound) is
+   frozen set_rescue_compound (instruction: like rescue_compound)
       do
          if instruction /= Void then
             error_handler.add_position(instruction.start_position)
@@ -34,12 +34,12 @@ feature {ANY}
          error_handler.print_as_fatal_error
       end
 
-   frozen arguments: FORMAL_ARG_LIST is
+   frozen arguments: FORMAL_ARG_LIST
       do
       end
 
 feature {FEATURE_STAMP, PRECURSOR_CALL}
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          ra: like require_assertion; ea: like ensure_assertion
       do
@@ -63,13 +63,13 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
       end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
-   simplify (type: TYPE): ANONYMOUS_FEATURE is
+   simplify (type: TYPE): ANONYMOUS_FEATURE
       do
          Result := Current
       end
 
 feature {}
-   frozen try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   frozen try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          error_handler.add_position(start_position)
          error_handler.add_position(fn.start_position)
@@ -93,9 +93,9 @@ end -- class ATTRIBUTE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

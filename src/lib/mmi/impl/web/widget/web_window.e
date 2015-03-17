@@ -17,24 +17,24 @@ feature {ANY}
    panel: WEB_PANEL
    menu: WEB_MENU
 
-   title: UNICODE_STRING is
+   title: UNICODE_STRING
       do
          Result := ui.title
       end
 
 feature {UI_WINDOW}
-   set_panel (a_panel: WEB_PANEL) is
+   set_panel (a_panel: WEB_PANEL)
       do
          panel := a_panel
       end
 
-   set_menu (a_menu: WEB_MENU) is
+   set_menu (a_menu: WEB_MENU)
       do
          menu := a_menu
       end
 
 feature {WEB_APPLICATION}
-   reply (context: WEB_CONTEXT) is
+   reply (context: WEB_CONTEXT)
       require
          context /= Void
       local
@@ -68,21 +68,21 @@ feature {WEB_APPLICATION}
       end
 
 feature {WEB_ITEM}
-   save (context: WEB_CONTEXT) is
+   save (context: WEB_CONTEXT)
          -- gather static data (field contents and so on)
       do
          menu.save(context)
          panel.save(context)
       end
 
-   run (context: WEB_CONTEXT) is
+   run (context: WEB_CONTEXT)
          -- execute actions (button clicks etc.)
       do
          menu.run(context)
          panel.run(context)
       end
 
-   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING
       do
          debug
             log.trace.put_line("**** retrieve_name(%"#(1)%")" # a_name)
@@ -105,20 +105,20 @@ feature {WEB_ITEM}
       end
 
 feature {}
-   template_parser: WEB_TEMPLATE_PARSER is
+   template_parser: WEB_TEMPLATE_PARSER
       once
          create Result.make
       end
 
 end -- class WEB_WINDOW
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

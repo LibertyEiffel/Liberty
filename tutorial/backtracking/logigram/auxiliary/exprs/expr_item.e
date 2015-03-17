@@ -11,19 +11,19 @@ create {ANY}
 feature {ANY}
    item: ITEM
 
-   make (it: ITEM) is
+   make (it: ITEM)
       require
          it.is_like_integer
       do
          item := it
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          Result := item.to_integer
       end
 
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
       do
          collector.put(item)
       end

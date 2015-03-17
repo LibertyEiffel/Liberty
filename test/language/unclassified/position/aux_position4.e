@@ -3,13 +3,13 @@
 --
 class AUX_POSITION4
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    position: AUX_POSITION
 
-   make (p: like position) is
+   make (p: like position)
       do
          position := p
       end

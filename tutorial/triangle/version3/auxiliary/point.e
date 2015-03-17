@@ -11,7 +11,7 @@ feature {ANY}
    y: REAL
       -- The `y' coordinate.
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate `Current' using `dx' and `dy'.
       do
          x := x + dx
@@ -21,7 +21,7 @@ feature {ANY}
          y = dy + old y
       end
 
-   display is
+   display
          -- Display `Current' on `io'.
       do
          io.put_string("POINT[")
@@ -32,7 +32,7 @@ feature {ANY}
       end
 
 feature {}
-   make (vx, vy: REAL) is
+   make (vx, vy: REAL)
          -- To create a new POINT.
       do
          x := vx

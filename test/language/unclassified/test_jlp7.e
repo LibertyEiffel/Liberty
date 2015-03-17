@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    a: AUX_JLP7[REAL]
 
-   make is
+   make
       local
          i: INTEGER
       do
@@ -20,7 +20,7 @@ feature {ANY}
          assert(i = 0)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -25,17 +25,14 @@ feature {DECLARATION_LIST, VISITOR}
          -- The same contents as `list' but flat.
 
 feature {ANY}
-   start_position: POSITION is
-      do
-         Result := flat_list.first.start_position
-      end
+   start_position: POSITION
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := flat_list.count
       end
 
-   fast_rank_of (n: STRING): INTEGER is
+   fast_rank_of (n: STRING): INTEGER
          -- Result is greater than 0 when `n' is in the list.
       require
          string_aliaser.registered_one(n)
@@ -51,7 +48,7 @@ feature {ANY}
          Result.in_range(0, count)
       end
 
-   rank_of (n: STRING): INTEGER is
+   rank_of (n: STRING): INTEGER
          -- Result is greater than 0 when `n' is in the list.
       require
          not string_aliaser.registered_one(n)
@@ -67,7 +64,7 @@ feature {ANY}
          Result.in_range(0, count)
       end
 
-   name (i: INTEGER): LOCAL_ARGUMENT1 is
+   name (i: INTEGER): LOCAL_ARGUMENT_DEF
       require
          i.in_range(1, count)
       deferred
@@ -75,7 +72,7 @@ feature {ANY}
          Result /= Void
       end
 
-   type_mark (i: INTEGER): TYPE_MARK is
+   type_mark (i: INTEGER): TYPE_MARK
       require
          i.in_range(1, count)
       do
@@ -84,7 +81,7 @@ feature {ANY}
          Result /= Void
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       require
          type /= Void
       local
@@ -146,7 +143,7 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
          new_type.direct_thru_step(parent_type, parent_edge)
          has_been_specialized
@@ -209,7 +206,7 @@ feature {ANY}
          Result.has_been_specialized
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -237,14 +234,14 @@ feature {ANY}
       end
 
 feature {DECLARATION_LIST}
-   set_flat_list (fl: like flat_list) is
+   set_flat_list (fl: like flat_list)
       require
          fl /= Void
       do
          flat_list := fl
       end
 
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l /= Void
       do
@@ -252,7 +249,7 @@ feature {DECLARATION_LIST}
       end
 
 feature {RUN_FEATURE}
-   adapt_for (t: TYPE): like Current is
+   adapt_for (t: TYPE): like Current
       local
          i: INTEGER; n1, n2: like name; fl: like flat_list
       do
@@ -283,7 +280,7 @@ feature {RUN_FEATURE}
       end
 
 feature {DECLARATION_LIST}
-   frozen name_clash_check (type: TYPE) is
+   frozen name_clash_check (type: TYPE)
       require
          type /= Void
       local
@@ -300,9 +297,9 @@ feature {DECLARATION_LIST}
       end
 
 feature {}
-   em1: STRING is "Bad declaration."
+   em1: STRING "Bad declaration."
 
-   compute_flat_list_count_by_using_list: INTEGER is
+   compute_flat_list_count_by_using_list: INTEGER
       local
          i: INTEGER
       do
@@ -335,9 +332,9 @@ end -- class DECLARATION_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

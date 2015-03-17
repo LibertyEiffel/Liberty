@@ -3,13 +3,13 @@
 --
 class POINT
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    x, y: REAL_64
 
-   make (vx, vy: REAL_64) is
+   make (vx, vy: REAL_64)
       do
          x := vx
          y := vy

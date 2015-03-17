@@ -18,7 +18,7 @@ create {}
    make
 
 feature {ANY}
-   reset is
+   reset
       do
          aa_reset
          reset_count := reset_count + 1

@@ -24,7 +24,7 @@ feature {INSPECT_STATEMENT_VISITOR}
 
    headers: FAST_ARRAY[STRING]
 
-   has_empty: BOOLEAN is
+   has_empty: BOOLEAN
       local
          unknown_position: POSITION
       do
@@ -32,13 +32,16 @@ feature {INSPECT_STATEMENT_VISITOR}
       end
 
 feature {}
-   make (ei: INSPECT_STATEMENT) is
+   start_position: POSITION
+
+   make (ei: INSPECT_STATEMENT)
       require
          ei /= Void
       local
          when_list: FAST_ARRAY[WHEN_CLAUSE]; val: FAST_ARRAY[WHEN_ITEM]; i, j, n: INTEGER; wi1: WHEN_ITEM_1
          s: STRING; ms: MANIFEST_STRING
       do
+         start_position := ei.start_position
          create headers.make(0)
          when_list := ei.when_list
          from
@@ -120,7 +123,7 @@ feature {}
    empty_index: INTEGER
 
 feature {INSPECT_STATEMENT}
-   simplify (type: TYPE; inspect_statement: INSPECT_STATEMENT): INSTRUCTION is
+   simplify (type: TYPE; inspect_statement: INSPECT_STATEMENT): INSTRUCTION
       local
          exp, count_call, local_expression: EXPRESSION; assign_expression, string_inspect: INSTRUCTION
          item_call: FUNCTION_CALL_1; i, s, c: INTEGER; inspect_compound, compound: COMPOUND
@@ -182,10 +185,10 @@ feature {INSPECT_STATEMENT}
 
 feature {}
    inline_inspect (type: TYPE; state_local: INTERNAL_LOCAL2; item_call: FUNCTION_CALL_1; count_call: EXPRESSION;
-                   a_prefix: STRING; pos: POSITION): INSTRUCTION is
+                   a_prefix: STRING; pos: POSITION): INSTRUCTION
       local
          i_call: FUNCTION_CALL_1
-         args: EFFECTIVE_ARG_LIST
+         args: EFFECTIVE_ARG_LIST_N
          then_compound, else_compound, when_compound: INSTRUCTION; ifthenelse: IFTHENELSE
          inspect_chars: OTHER_INSPECT_STATEMENT; eq: BUILT_IN_EQ_NEQ
          when_clause: WHEN_CLAUSE
@@ -220,7 +223,7 @@ feature {}
             -- 0 (not found).
             create {ASSIGNMENT} else_compound.inline_make(state_local, create {INTEGER_CONSTANT}.make(0, pos))
          else
-            create args.make_1(create {INTEGER_CONSTANT}.make(level + 1, pos))
+            create args.make_1(start_position, create {INTEGER_CONSTANT}.make(level + 1, pos))
             i_call := item_call.twin
             i_call.set_arguments(args)
             if chars.count = 1 then
@@ -290,9 +293,9 @@ end -- class MANIFEST_STRING_INSPECTOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

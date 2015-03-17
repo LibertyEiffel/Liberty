@@ -29,7 +29,7 @@
 -- ------------------------------------------------------------------------------------------------------------
 */
 /*
-  This file (SmartEiffel/sys/runtime/base.h) contains all basic Eiffel
+  This file (Liberty/sys/runtime/base.h) contains all basic Eiffel
   type definitions.
   This file is automatically included in the header for all modes of
   compilation: -boost, -no_check, -require_check, -ensure_check, ...
@@ -68,12 +68,14 @@
 #  include <unistd.h>
 #endif
 #if !defined(WIN32) && \
-       (defined(WINVER) || defined(_WIN32_WINNT) || defined(_WIN32) || \
-        defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
+           (defined(WINVER) || defined(_WIN32_WINNT) || defined(_WIN32) || \
+                defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
+#ifdef SE_THREAD
 #ifdef WIN32
 #  include <windows.h>
+#  define TLS(type) __declspec(thread) type
 #else
 #  ifndef O_RDONLY
 #    include <sys/file.h>
@@ -81,6 +83,10 @@
 #  ifndef O_RDONLY
 #    define O_RDONLY 0000
 #  endif
+#  define TLS(type) __thread type
+#endif
+#else
+#define TLS(type) type
 #endif
 
 #if defined(_MSC_VER) && (_MSC_VER < 1600) /* MSVC older than v10 */
@@ -218,6 +224,19 @@ typedef int_least8_t int8_t;
 #  define INT8_MIN (-INT8_C(127)-1)
 #endif
 
+/*
+ C compiler specific declaration for non-returning functions. Use
+ NO_RETURN void foo(int bar);
+ to declare a function prototype for function that doesn't return.
+ */
+#if defined __GNUC__
+#  define NO_RETURN __attribute__ ((noreturn))
+#elif defined __POCC__ || defined __BORLANDC__ || defined _MSC_VER
+#  define NO_RETURN __declspec(noreturn)
+#else
+#  define NO_RETURN
+/* maybe some warning occur unless NO_RETURN is defined for your compiler */
+#endif
 
 /*
   Endian stuff
@@ -267,33 +286,33 @@ typedef int_least8_t int8_t;
 #  elif defined(__ARMEB__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  elif defined(__arm__)
-#    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to SmartEiffel@loria.fr"
+#    error "ARMs are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
 
 /* HP RISC */
 #  if defined(__hppa__) || defined(__hppa) || defined(__hp9000) || \
-      defined(__hp9000s300) || defined(hp9000s300) || \
-      defined(__hp9000s700) || defined(hp9000s700) || \
-      defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
+          defined(__hp9000s300) || defined(hp9000s300) || \
+          defined(__hp9000s700) || defined(hp9000s700) || \
+          defined(__hp9000s800) || defined(hp9000s800) || defined(hp9000s820)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
 /* IBM */
 #  if defined(ibm032) || defined(ibm370) || defined(_IBMR2) || \
-      defined(IBM370) || defined(__MVS__)
+          defined(IBM370) || defined(__MVS__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
 /* Intel x86 */
 #  if defined(i386) || defined(__i386__) || defined(__i386) || \
-      defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL) || \
-      defined(sun386)
+          defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL) || \
+          defined(sun386)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
 /* Intel Itanium */
 #  if defined(__ia64__) || defined(_IA64) || defined(__IA64__) || \
-      defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86) || defined(_AMD64_)
+          defined(_M_IA64) || defined(_M_AMD64) || defined(_M_IX86) || defined(_AMD64_)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
@@ -313,14 +332,14 @@ typedef int_least8_t int8_t;
 #  elif defined(MIPSEB) || defined(_MIPSEB)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  elif defined(__mips__) || defined(__mips) || defined(__MIPS__)
-#    error "MIPS are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to SmartEiffel@loria.fr"
+#    error "MIPS are bi-endian processors. Endianness is unknown for this system, please drop an e-mail to liberty-eiffel@gnu.org"
 #  endif
 
 /* Power PC */
 /* this processor is bi-endian, how to know if little-endian is set? */
 #  if defined(__powerpc) || defined(__powerpc__) || defined(__POWERPC__) || \
-      defined(__ppc__) || defined(__ppc) || defined(_M_PPC) || \
-      defined(__PPC) || defined(__PPC__)
+          defined(__ppc__) || defined(__ppc) || defined(_M_PPC) || \
+          defined(__PPC) || defined(__PPC__)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
@@ -331,7 +350,7 @@ typedef int_least8_t int8_t;
 
 /* RS/6000 */
 #  if defined(__THW_RS6000) || defined(_IBMR2) || defined(_POWER) || \
-      defined(_ARCH_PWR) || defined(_ARCH_PWR2)
+          defined(_ARCH_PWR) || defined(_ARCH_PWR2)
 #    define BYTE_ORDER      BIG_ENDIAN
 #  endif
 
@@ -347,7 +366,7 @@ typedef int_least8_t int8_t;
 
 /* VAX */
 #  if defined(vax) || defined(VAX) || defined(__vax__) || defined(_vax_) || \
-      defined(__vax) || defined(__VAX)
+          defined(__vax) || defined(__VAX)
 #    define BYTE_ORDER      LITTLE_ENDIAN
 #  endif
 
@@ -369,10 +388,10 @@ typedef int_least8_t int8_t;
 
 
 #if !defined(BYTE_ORDER)
-#  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to SmartEiffel@loria.fr"
+#  error "Unknown byte order. Add your system in above macros once you know your system type. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
 #if (BYTE_ORDER != BIG_ENDIAN && BYTE_ORDER != LITTLE_ENDIAN)
-#  error "Only little-endian and big-endian are valid at this time. Please drop an e-mail to SmartEiffel@loria.fr"
+#  error "Only little-endian and big-endian are valid at this time. Please drop an e-mail to liberty-eiffel@gnu.org"
 #endif
 
 
@@ -545,9 +564,12 @@ typedef void* T8;
 /*
    Wrappers for `malloc' and `calloc':
 */
+void se_check_malloc(const void*result, const char*format, ...);
 void* se_malloc(size_t size);
 void* se_calloc(size_t nmemb, size_t size);
 void* se_realloc(void* src, size_t size);
+void* se_malloc_(size_t size, void*(*alloc)(size_t));
+void* se_calloc_(size_t nmemb, size_t size, void*(*alloc)(size_t,size_t));
 
 /*
    die method.
@@ -555,21 +577,21 @@ void* se_realloc(void* src, size_t size);
 void se_die(int code);
 
 /*
-    Runtime hooks. They allow different runtime modules to be quite independant. In time, they will also allow
-    thread-safe operations.
+        Runtime hooks. They allow different runtime modules to be quite independant. In time, they will also allow
+        thread-safe operations.
 
-    Currently known modules:
-      - boost
-      - no_check
-      - sedb
-      - gc
-      - print stack
-      - profile
-      - plugins
+        Currently known modules:
+          - boost
+          - no_check
+          - sedb
+          - gc
+          - print stack
+          - profile
+          - plugins
 
-    However, currently only profile uses this method. It will be extended to other modules later.
+        However, currently only profile uses this method. It will be extended to other modules later.
 
-    The currently defined hooks are described in the enum below (the names should be self-explanatory).
+        The currently defined hooks are described in the enum below (the names should be self-explanatory).
  */
 typedef enum {
   SE_HANDLE_EXCEPTION_SET, /* called when an exception handler is set, prior to SETJMP */

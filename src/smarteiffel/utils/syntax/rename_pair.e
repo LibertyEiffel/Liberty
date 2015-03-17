@@ -19,7 +19,7 @@ create {ANY}
 feature {ANY}
    old_name, new_name: FEATURE_NAME
 
-   make (on:like old_name; nn: like new_name) is
+   make (on:like old_name; nn: like new_name)
       require
          on /= Void
          nn /= Void
@@ -50,7 +50,7 @@ feature {ANY}
          new_name = nn
       end
 
-   pretty (rank: INTEGER) is
+   pretty (rank: INTEGER)
       do
          if rank > 1 then
             pretty_printer.set_indent_level(3)
@@ -60,7 +60,7 @@ feature {ANY}
          new_name.declaration_pretty_print
       end
 
-   accept (visitor: RENAME_PAIR_VISITOR) is
+   accept (visitor: RENAME_PAIR_VISITOR)
       do
          visitor.visit_rename_pair(Current)
       end
@@ -77,9 +77,9 @@ end -- class RENAME_PAIR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

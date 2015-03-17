@@ -12,7 +12,7 @@ create {E_PROCEDURE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_3_VISITOR) is
+   accept (visitor: RUN_FEATURE_3_VISITOR)
       do
          visitor.visit_run_feature_3(Current)
       end
@@ -28,21 +28,30 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
+   routine_then: EXPRESSION
+      do
+      end
+
    rescue_compound: INSTRUCTION
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   result_type: TYPE_MARK is
+   has_closures: BOOLEAN
+      do
+         Result := base_feature.has_closures
+      end
+
+   result_type: TYPE_MARK
       do
       end
 
-   side_effect_free: BOOLEAN is
+   side_effect_free: BOOLEAN
       do
          if side_effect_free_flag then
             Result := False
@@ -54,7 +63,7 @@ feature {ANY}
       end
 
 feature {C_PRETTY_PRINTER}
-   set_is_root: BOOLEAN is
+   set_is_root: BOOLEAN
          -- This function is called via a require. This way, no extra memory is used for a production
          -- compiler (i.e. it is actually dead code.).
       once
@@ -65,7 +74,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -102,12 +111,12 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       do
       end
 
 feature {RUN_FEATURE_3}
-   compute_use_current is
+   compute_use_current
       do
          if type_of_current.is_reference then
             if ace.no_check then
@@ -120,7 +129,7 @@ feature {RUN_FEATURE_3}
          end
       end
 
-   is_empty_or_null_body: BOOLEAN is
+   is_empty_or_null_body: BOOLEAN
          -- The body is empty or has only unreacheable code.
       local
          rb: INSTRUCTION
@@ -130,7 +139,7 @@ feature {RUN_FEATURE_3}
       end
 
 feature {LIVE_TYPE}
-   memory_dispose: like Current is
+   memory_dispose: like Current
          -- Non Void when there is actually a non-empty `dispose' feature to call.
       do
          if not smart_eiffel.is_ready or else not is_empty_or_null_body then
@@ -139,7 +148,7 @@ feature {LIVE_TYPE}
       end
 
 feature {RUN_FEATURE_3_VISITOR}
-   empty_body_side_effect_free_in_boost: BOOLEAN is
+   empty_body_side_effect_free_in_boost: BOOLEAN
       require
          ace.boost
       do
@@ -163,9 +172,9 @@ end -- class RUN_FEATURE_3
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: CHARACTER; s, s1, s2: STRING
       do

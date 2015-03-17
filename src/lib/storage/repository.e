@@ -13,7 +13,7 @@ deferred class REPOSITORY[O_ -> STORABLE]
    --
 
 feature {ANY} -- Getting and setting objects in the repository:
-   frozen has (object_name: STRING): BOOLEAN is
+   frozen has (object_name: STRING): BOOLEAN
          -- Is `object_name' the name of some stored object.
       require
          not object_name.is_empty
@@ -21,7 +21,7 @@ feature {ANY} -- Getting and setting objects in the repository:
          Result := repository.has(object_name)
       end
 
-   frozen at (object_name: STRING): O_ is
+   frozen at (object_name: STRING): O_
          -- Return the object currently associated to `object_name'.
       require
          has(object_name)
@@ -31,7 +31,7 @@ feature {ANY} -- Getting and setting objects in the repository:
          Result /= Void
       end
 
-   frozen add (object: O_; object_name: STRING) is
+   frozen add (object: O_; object_name: STRING)
          -- Add a new `object' in the `Current' repository.
       require
          object /= Void
@@ -42,7 +42,7 @@ feature {ANY} -- Getting and setting objects in the repository:
          reference_stored: object = at(object_name)
       end
 
-   frozen put (object: O_; object_name: STRING) assign at is
+   frozen put (object: O_; object_name: STRING) assign at
          -- Update or add a new `object' in the `Current' repository.
       require
          object /= Void
@@ -52,7 +52,7 @@ feature {ANY} -- Getting and setting objects in the repository:
          reference_stored: object = at(object_name)
       end
 
-   remove (object_name: STRING) is
+   remove (object_name: STRING)
          -- Remove entry `object_name' from the `Current' repository.
       require
          has(object_name)
@@ -63,13 +63,13 @@ feature {ANY} -- Getting and setting objects in the repository:
       end
 
 feature {ANY} -- Counting:
-   count: INTEGER is
+   count: INTEGER
          -- Actual `count' of stored elements.
       do
          Result := repository.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Is it empty ?
       do
          Result := count = 0
@@ -78,23 +78,23 @@ feature {ANY} -- Counting:
       end
 
 feature {ANY} -- Iterating facilities:
-   lower: INTEGER is 1
+   lower: INTEGER 1
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count
       ensure
          Result = count
       end
 
-   valid_index (index: INTEGER): BOOLEAN is
+   valid_index (index: INTEGER): BOOLEAN
       do
          Result := 1 <= index and then index <= count
       ensure
          Result = index.in_range(lower, upper)
       end
 
-   item (index: INTEGER): O_ is
+   item (index: INTEGER): O_
       require
          valid_index(index)
       do
@@ -103,7 +103,7 @@ feature {ANY} -- Iterating facilities:
          Result = at(key(index))
       end
 
-   key (index: INTEGER): STRING is
+   key (index: INTEGER): STRING
       require
          valid_index(index)
       do
@@ -112,21 +112,21 @@ feature {ANY} -- Iterating facilities:
          at(Result) = item(index)
       end
 
-   new_iterator_on_items: ITERATOR[O_] is
+   new_iterator_on_items: ITERATOR[O_]
       do
          Result := repository.new_iterator_on_items
       ensure
          Result /= Void
       end
 
-   new_iterator_on_keys: ITERATOR[STRING] is
+   new_iterator_on_keys: ITERATOR[STRING]
       do
          Result := repository.new_iterator_on_keys
       ensure
          Result /= Void
       end
 
-   key_map_in (buffer: COLLECTION[STRING]) is
+   key_map_in (buffer: COLLECTION[STRING])
          -- Append in `buffer', all available keys (this may be useful to
          -- speed up the traversal).
       require
@@ -137,7 +137,7 @@ feature {ANY} -- Iterating facilities:
          buffer.count = count + old buffer.count
       end
 
-   item_map_in (buffer: COLLECTION[O_]) is
+   item_map_in (buffer: COLLECTION[O_])
          -- Append in `buffer', all available items (this may be useful to
          -- speed up the traversal).
       require
@@ -149,33 +149,33 @@ feature {ANY} -- Iterating facilities:
       end
 
 feature {ANY} -- Really storing data:
-   update is
+   update
          -- Update the repository objects. Get all objects from the physical store.
       require
          is_updateable
       deferred
       end
 
-   commit is
+   commit
          -- Commit all the repository objects to the physical store.
       require
          is_commitable
       deferred
       end
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- True if the repository is connected to a physical store.
       deferred
       end
 
-   is_updateable: BOOLEAN is
+   is_updateable: BOOLEAN
          -- True if the repository can be updated from data in the physical store.
       deferred
       ensure
          Result implies is_connected
       end
 
-   is_commitable: BOOLEAN is
+   is_commitable: BOOLEAN
          -- True if the repository can be committed to the underlying physical store.
       deferred
       ensure
@@ -185,7 +185,7 @@ feature {ANY} -- Really storing data:
 feature {} -- Implementation
    repository: DICTIONARY[O_, STRING]
 
-   objects_are_expanded: BOOLEAN is
+   objects_are_expanded: BOOLEAN
       local
          o: O_
       do
@@ -198,13 +198,13 @@ invariant
 
 end -- class REPOSITORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

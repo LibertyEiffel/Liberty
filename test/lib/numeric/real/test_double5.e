@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          d, d1, d2: REAL_64; str: STRING
       do
@@ -26,7 +26,7 @@ feature {ANY}
          assert(d2 >= d1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          bwr: WEAK_REFERENCE[expanded BAD_WEAK_REFERENCE03]
       do

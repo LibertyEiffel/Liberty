@@ -6,13 +6,13 @@ class BINARYTREES
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	min_depth: INTEGER is 4
+	min_depth: INTEGER 4
 
-	max_depth: INTEGER is
+	max_depth: INTEGER
 		once
 			if argument_count >= 1 and then argument(1).is_integer then
 				Result := argument(1).to_integer
@@ -20,12 +20,12 @@ feature {ANY}
 			Result := Result.max(min_depth + 2)
 		end
 
-	stretch_depth: INTEGER is
+	stretch_depth: INTEGER
 		do
 			Result := max_depth + 1
 		end
 
-	make is
+	make
 		local
 			long_lived_tree: NODE; depth, iterations, i, c: INTEGER
 		do
@@ -52,7 +52,7 @@ feature {ANY}
 			print("long lived tree of depth " + max_depth.out + "%T check: " + long_lived_tree.test.out + "%N")
 		end
 
-	maketree (depth, item: INTEGER): NODE is
+	maketree (depth, item: INTEGER): NODE
 		local
 			d, i: INTEGER
 		do

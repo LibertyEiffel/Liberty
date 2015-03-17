@@ -12,7 +12,7 @@ create {ANY}
 feature {}
    t: INTEGER;
 
-   make is
+   make
       do
       ensure
          t : = 0

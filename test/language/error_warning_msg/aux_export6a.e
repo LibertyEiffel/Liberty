@@ -3,7 +3,7 @@
 --
 class AUX_EXPORT6A
 feature {ANY}
-   f is
+   f
       do
          if a1 = Void then
          else

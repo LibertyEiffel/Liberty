@@ -3,9 +3,9 @@ class LIST_GTK
 insert
 	GTYPE_EXTERNALS
 
-creation make
+create make
 feature 
-	make is
+	make
 		local gtk: GI_TYPELIB
 		do
 			g_type_init

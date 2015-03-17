@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          n: NUMBER; s: STRING
       do
@@ -48,7 +48,7 @@ feature {ANY}
          compute_factorial(n)
       end
 
-   compute_factorial (n: NUMBER) is
+   compute_factorial (n: NUMBER)
       do
          io.put_character('(')
          io.put_number(n)

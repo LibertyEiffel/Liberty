@@ -10,13 +10,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(str1 /= str2)
          assert(str1.is_equal(str2))
       end
 
-   str1, str2: STRING is "Ouupps ..."
+   str1, str2: STRING "Ouupps ..."
 
 end -- class TEST_STRING7
 --

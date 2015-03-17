@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
       end
 
-   method (foo: like zoo; zoo: INTEGER) is
+   method (foo: like zoo; zoo: INTEGER)
       local
          bar: like foo
       do

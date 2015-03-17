@@ -21,7 +21,7 @@ feature {}
 
    events: EVENTS_SET
 
-   make is
+   make
       do
          create job_list.make(0)
          create finished_jobs.make(0)
@@ -38,7 +38,7 @@ feature {LOOP_STACK}
 
    break: BOOLEAN
 
-   run is
+   run
       require
          pause and not break
       local
@@ -112,14 +112,14 @@ feature {LOOP_STACK}
          pause or job_list.is_empty or break
       end
 
-   break_loop is
+   break_loop
       do
          break := True
       ensure
          break
       end
 
-   pause_loop is
+   pause_loop
       require
          not pause
       do
@@ -128,7 +128,7 @@ feature {LOOP_STACK}
          pause
       end
 
-   add_job (j: JOB) is
+   add_job (j: JOB)
       require
          j /= Void
       local
@@ -144,7 +144,7 @@ feature {LOOP_STACK}
          job_list.add(j, i)
       end
 
-   restart is
+   restart
       require
          not pause or break
       do
@@ -165,13 +165,13 @@ feature {LOOP_STACK}
 
 end -- class LOOP_ITEM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

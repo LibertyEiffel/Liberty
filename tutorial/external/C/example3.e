@@ -11,7 +11,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER; output_ptr: POINTER
       do
@@ -23,14 +23,14 @@ feature {ANY}
       end
 
 feature {}
-   sum (a, b: INTEGER): INTEGER is
+   sum (a, b: INTEGER): INTEGER
          -- (Corresponding C function defined in c_glue2.c)
       external "[
                  C macro use "c_glue3.h"
                ]"
       end
 
-   stdout: POINTER is
+   stdout: POINTER
       external "C macro use <stdio.h>"
       end
 

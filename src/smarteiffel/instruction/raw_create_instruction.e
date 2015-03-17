@@ -12,13 +12,13 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: CREATE_INSTRUCTION_VISITOR) is
+   accept (visitor: CREATE_INSTRUCTION_VISITOR)
       do
          visitor.visit_raw_create_instruction(Current)
       end
 
 feature {}
-   make (sp: like start_position; et: like explicit_type; w: like writable) is
+   make (sp: like start_position; et: like explicit_type; w: like writable)
       require
          not sp.is_unknown
          w /= Void

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          assert_number("1".intern, True)
          assert_number("a".intern, False)
@@ -20,7 +20,7 @@ feature {}
          assert_number("2.6.31".intern, False)
       end
 
-   assert_number (num: FIXED_STRING; is_num: BOOLEAN) is
+   assert_number (num: FIXED_STRING; is_num: BOOLEAN)
       local
          aux: AUX_AUTOMATON_01
       do
@@ -35,17 +35,17 @@ feature {}
       end
 
 feature {} -- assert messages
-   is_a_number (num: FIXED_STRING): STRING is
+   is_a_number (num: FIXED_STRING): STRING
       do
          Result := num.out + once " is a number"
       end
 
-   expected (num: FIXED_STRING; aux: AUX_AUTOMATON_01): STRING is
+   expected (num: FIXED_STRING; aux: AUX_AUTOMATON_01): STRING
       do
          Result := "Expected " + num.out + " but got " + aux.found_number.out
       end
 
-   is_not_a_number (num: FIXED_STRING): STRING is
+   is_not_a_number (num: FIXED_STRING): STRING
       do
          Result := num.out + once " is not a number"
       end

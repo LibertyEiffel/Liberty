@@ -10,15 +10,15 @@ class NSIEVEBITS
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
 	flags: FAST_ARRAY[INTEGER_32]
 
-	Bit_length: INTEGER is 32
+	Bit_length: INTEGER 32
 
-	make is
+	make
 		local
 			n, m: INTEGER
 		do
@@ -55,7 +55,7 @@ feature {ANY}
 			std_output.put_new_line
 		end
 
-	nsieves (is_prime: like flags; upper: INTEGER): INTEGER is
+	nsieves (is_prime: like flags; upper: INTEGER): INTEGER
 		local
 			i, j, k: INTEGER
 		do

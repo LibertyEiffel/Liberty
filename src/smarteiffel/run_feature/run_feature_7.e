@@ -12,7 +12,7 @@ create {EXTERNAL_PROCEDURE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_7_VISITOR) is
+   accept (visitor: RUN_FEATURE_7_VISITOR)
       do
          visitor.visit_run_feature_7(Current)
       end
@@ -30,33 +30,39 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
-   is_deferred: BOOLEAN is False
+   routine_then: EXPRESSION
+      do
+      end
 
-   is_static: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   side_effect_free: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   arg_count: INTEGER is
+   is_once_function: BOOLEAN False
+
+   has_closures: BOOLEAN False
+
+   arg_count: INTEGER
       do
          if arguments /= Void then
             Result := arguments.count
          end
       end
 
-   result_type: TYPE_MARK is
+   result_type: TYPE_MARK
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   rescue_compound: INSTRUCTION
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -84,11 +90,11 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       do
       end
 
-   compute_use_current is
+   compute_use_current
       do
          if base_feature.use_current(type_of_current) then
             use_current_state := True_state
@@ -109,9 +115,9 @@ end -- class RUN_FEATURE_7
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

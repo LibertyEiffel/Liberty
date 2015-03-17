@@ -7,7 +7,7 @@ create {}
    make
 
 feature {INTROUVABLE} -- To be sure that this place is in the error message.
-   make is
+   make
       local
          aux: like Current
       do

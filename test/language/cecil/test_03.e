@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          str: STRING
       do
@@ -19,15 +19,15 @@ feature {}
          is_true(("foooo").is_equal(str))
       end
 
-   call_c1 (s: STRING) is
+   call_c1 (s: STRING)
       external "C"
       end
 
-   call_c2 (s: STRING) is
+   call_c2 (s: STRING)
       external "C"
       end
 
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

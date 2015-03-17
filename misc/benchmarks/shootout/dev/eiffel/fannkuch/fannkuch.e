@@ -8,7 +8,7 @@ class FANNKUCH
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
@@ -16,7 +16,7 @@ feature {ANY}
 
 	buffer: STRING
 
-	make is
+	make
 		do
 			if argument_count > 0 and then argument(1).is_integer then
 				n := argument(1).to_integer
@@ -27,7 +27,7 @@ feature {ANY}
 			end
 		end
 
-	fannkuch (x: like n): like n is
+	fannkuch (x: like n): like n
 		require
 			x > 1
 		local

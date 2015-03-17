@@ -3,7 +3,7 @@
 --
 class IMPLICIT_CAST
    --
-   -- To memorize an implicit legal conversion from one type to another. This invisible expression is
+   -- To memorize an implicit legal conversion from one type to another. This invisible expression
    -- used for all kinds of legal implicit conversions:
    --
    --   from INTEGER_8 to INTEGER_16
@@ -39,79 +39,84 @@ feature {ANY}
    expression_type: TYPE
          -- The original one at the creation of this IMPLICIT_CAST.
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := expression.start_position
       end
 
-   is_manifest_string: BOOLEAN is
+   is_manifest_string: BOOLEAN
       do
          Result := expression.is_manifest_string
       end
 
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          Result := expression.extra_bracket_flag
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := resolved_memory
       end
 
-   is_void: BOOLEAN is
+   is_void: BOOLEAN
       do
          Result := expression.is_void
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       do
          Result := resolved_memory
       end
 
-   is_writable: BOOLEAN is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
+   is_writable: BOOLEAN
       do
          Result := expression.is_writable
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := expression.is_result
       end
 
-   is_implicit_current, is_current: BOOLEAN is
+   is_implicit_current, is_current: BOOLEAN
       do
          -- (Even if expression is a `Current', we must not forget this IMPLICIT_CAST.)
       end
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       do
          Result := expression.is_static
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          expression.safety_check(type)
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := expression.use_current(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := expression.side_effect_free(type)
       end
 
-   specialize_in (new_type: TYPE): like Current is
+   specialize_in (new_type: TYPE): like Current
       do
          check
             False -- (IMPLICIT_CAST are not written.)
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          e: like expression; implicit_cast: IMPLICIT_CAST
       do
@@ -130,7 +135,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): EXPRESSION is
+   specialize_and_check (type: TYPE): EXPRESSION
       local
          e: like expression
       do
@@ -146,18 +151,18 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := expression.has_been_specialized
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := expression.collect(type)
          Result := resolved_memory
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          e: like expression
       do
@@ -170,12 +175,12 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          --|*** To be done. *** (Dom. june 18th 2004) ***
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       local
          e: like expression; ic: INTEGER_CONSTANT; rc: REAL_CONSTANT; et: like expression_type
       do
@@ -210,49 +215,49 @@ feature {ANY}
          end
       end
 
-   accept (visitor: IMPLICIT_CAST_VISITOR) is
+   accept (visitor: IMPLICIT_CAST_VISITOR)
       do
          visitor.visit_implicit_cast(Current)
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          expression.pretty(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          expression.bracketed_pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          expression.pretty_target(indent_level)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          expression.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          expression.short_target(type)
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := expression.precedence
       end
 
 feature {IMPLICIT_CAST}
-   set_expression (e: like expression) is
+   set_expression (e: like expression)
       do
          expression := e
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          e: like expression; implicit_cast: like Current
       do
@@ -269,7 +274,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make (e: like expression; et: like expression_type; rm: like resolved_memory) is
+   make (e: like expression; et: like expression_type; rm: like resolved_memory)
       require
          no_implicit_cast_of_implicit_cast: not e.generating_type.is_equal(once "IMPLICIT_CAST")
          at_least_one_expanded: et.is_expanded or rm.is_expanded
@@ -284,7 +289,7 @@ feature {}
          resolved_memory = rm
       end
 
-   canonical_form: BOOLEAN is
+   canonical_form: BOOLEAN
       do
          Result := not ({IMPLICIT_CAST} ?:= expression)
       ensure
@@ -312,9 +317,9 @@ end -- class IMPLICIT_CAST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

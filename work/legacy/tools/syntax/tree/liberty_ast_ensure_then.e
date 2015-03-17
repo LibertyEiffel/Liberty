@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_ensure_then: BOOLEAN is
+   is_ensure_then: BOOLEAN
       do
          Result := count = 2
          check
@@ -30,15 +30,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Ensure_Then"
+   name: STRING "Ensure_Then"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

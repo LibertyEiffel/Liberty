@@ -8,11 +8,11 @@ inherit
       rename memb as memc
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          memc := Current
       end

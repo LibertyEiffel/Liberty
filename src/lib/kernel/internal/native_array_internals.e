@@ -21,28 +21,28 @@ create {INTERNALS_HANDLER}
    make_blank
 
 feature {INTERNALS_HANDLER, INTERNALS} -- Getting information about the described object's type
-   type_is_native_array: BOOLEAN is True
+   type_is_native_array: BOOLEAN True
 
-   type_attribute_is_expanded (i: INTEGER): BOOLEAN is
+   type_attribute_is_expanded (i: INTEGER): BOOLEAN
       do
          Result := type_item_is_expanded
       end
 
-   type_item_is_expanded: BOOLEAN is
+   type_item_is_expanded: BOOLEAN
       external "built_in"
       end
 
-   type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN is
+   type_can_be_assigned_to_attribute (other: INTERNALS; i: INTEGER): BOOLEAN
       do
          Result := type_can_be_assigned_to_item(other)
       end
 
-   type_can_be_assigned_to_item (other: INTERNALS): BOOLEAN is
+   type_can_be_assigned_to_item (other: INTERNALS): BOOLEAN
       external "built_in"
       end
 
 feature {INTERNALS_HANDLER}
-   for_object (native_array: like object_memory; capacity_: like capacity) is
+   for_object (native_array: like object_memory; capacity_: like capacity)
          -- Attach `Current' to `native_array'
       require
          native_array.is_null = (capacity_ = 0)
@@ -57,7 +57,7 @@ feature {INTERNALS_HANDLER}
          capacity = capacity_
       end
 
-   make_blank (capacity_: like capacity) is
+   make_blank (capacity_: like capacity)
          -- Attach `Current' to a blank object: all items of the object have their default value
          -- (references are Void, INTEGERs are 0, BOOLEANs are False, etc)
       external "built_in"
@@ -67,7 +67,7 @@ feature {INTERNALS_HANDLER}
       end
 
 feature {INTERNALS_HANDLER} -- Getting information about the type's attributes
-   type_attribute_count: INTEGER is
+   type_attribute_count: INTEGER
       external "built_in"
       ensure
          Result = capacity or Result = 0
@@ -75,7 +75,7 @@ feature {INTERNALS_HANDLER} -- Getting information about the type's attributes
 
    capacity: INTEGER
 
-   type_attribute_name (i: INTEGER): STRING is
+   type_attribute_name (i: INTEGER): STRING
       do
          Result := once ""
          Result.copy(once "item(")
@@ -83,30 +83,30 @@ feature {INTERNALS_HANDLER} -- Getting information about the type's attributes
          Result.extend(')')
       end
 
-   type_attribute_generator (i: INTEGER): STRING is
+   type_attribute_generator (i: INTEGER): STRING
       do
          Result := type_item_generator
       end
 
-   type_item_generator: STRING is
+   type_item_generator: STRING
       external "built_in"
       end
 
-   type_attribute_generating_type (i: INTEGER): STRING is
+   type_attribute_generating_type (i: INTEGER): STRING
       do
          Result := type_item_generating_type
       end
 
-   type_item_generating_type: STRING is
+   type_item_generating_type: STRING
       external "built_in"
       end
 
 feature {INTERNALS_HANDLER} -- Accessing the object's attributes
-   object_attribute (i: INTEGER): INTERNALS is
+   object_attribute (i: INTEGER): INTERNALS
       external "built_in"
       end
 
-   set_object_attribute (element: INTERNALS; i: INTEGER) is
+   set_object_attribute (element: INTERNALS; i: INTEGER)
       external "built_in"
       end
 
@@ -115,13 +115,13 @@ invariant
 
 end -- class NATIVE_ARRAY_INTERNALS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

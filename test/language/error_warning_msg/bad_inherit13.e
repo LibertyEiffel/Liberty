@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          a: AUX_INHERIT13A
          b: AUX_INHERIT13B
@@ -34,7 +34,7 @@ feature {}
          b.foo2
       end;
 
-   foo is
+   foo
       do
          count := count + 1;
       end;

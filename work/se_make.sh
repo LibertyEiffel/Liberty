@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #--
 #-- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 #-- See the Copyright notice at the end of this file.
@@ -19,6 +19,7 @@ OPTIONS=''
 TOOL=compile_to_c
 BUILD=true
 GDB=false
+CC=
 
 SE_BIN=$(grep ^bin: $HOME/.config/liberty-eiffel/liberty.se | cut -c6-)
 
@@ -82,6 +83,11 @@ while [ $# -gt 0 ]; do
             OPTIONS="$OPTIONS -c_mode $2"
             shift
             ;;
+        x-cc)
+            OPTIONS="$OPTIONS -cc $2"
+            CC=$2
+            shift
+            ;;
         x-*|x/*)
             OPTIONS="$OPTIONS $1"
             ;;
@@ -105,6 +111,9 @@ fi
 if $BDWGC; then
     outdir=${outdir}.bdw_gc
 fi
+if [[ -n "$CC" ]]; then
+    outdir=${outdir}.cc\=$CC
+fi
 
 test -d $outdir || mkdir -p $outdir
 cd $outdir
@@ -113,7 +122,7 @@ if $BUILD; then
     test -d old && rm -rf old
     if [ -d new ]; then
         mkdir old
-        cp -a new/$TOOL* old/
+        ln new/$TOOL* old/
     else
         mkdir new
     fi
@@ -139,9 +148,9 @@ fi
 if [ -e $TOOL.out ]; then
     echo "Copying $TOOL..."
     test -e $SE_BIN/$TOOL && /bin/mv $SE_BIN/$TOOL $SE_BIN/$TOOL.old
-    /bin/cp $TOOL.out $SE_BIN/$TOOL
+    ln $TOOL.out $SE_BIN/$TOOL
 else
-    echo "$TOOL was not compiled. Keeping the older version." 2>&1
+    echo "**** $TOOL was not compiled. Keeping the older version." 2>&1
     exit 1
 fi
 

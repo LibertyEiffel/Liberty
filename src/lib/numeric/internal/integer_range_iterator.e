@@ -10,22 +10,22 @@ create {INTEGER_RANGE}
    make
 
 feature {ANY}
-   start is
+   start
       do
          item_ := lower
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := item_ > upper
       end
 
-   item: E_ is
+   item: E_
       do
          Result := itemize.item([item_])
       end
 
-   next is
+   next
       do
          item_ := item_ + 1
       end
@@ -35,7 +35,7 @@ feature {}
    upper: INTEGER
    item_: INTEGER
 
-   make (low, up: INTEGER; a_itemize: like itemize) is
+   make (low, up: INTEGER; a_itemize: like itemize)
       require
          low <= up
          a_itemize /= Void
@@ -52,21 +52,21 @@ feature {}
    itemize: FUNCTION[TUPLE[INTEGER], E_]
 
 feature {ANY} -- Read-only, hence always valid
-   iterable_generation: INTEGER is 0
-   generation: INTEGER is 0
+   iterable_generation: INTEGER 0
+   generation: INTEGER 0
 
 invariant
    itemize /= Void
 
 end -- class INTEGER_RANGE_ITERATOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

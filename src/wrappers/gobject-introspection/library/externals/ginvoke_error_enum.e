@@ -5,9 +5,9 @@ expanded class GINVOKE_ERROR_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = argument_mismatch_low_level)  or else
 				(a_value = failed_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_argument_mismatch is
+	set_argument_mismatch
 		do
 			value := argument_mismatch_low_level
 		end
 
-	set_failed is
+	set_failed
 		do
 			value := failed_low_level
 		end
 
-	set_symbol_not_found is
+	set_symbol_not_found
 		do
 			value := symbol_not_found_low_level
 		end
 
 feature {ANY} -- Queries
-	is_argument_mismatch: BOOLEAN is
+	is_argument_mismatch: BOOLEAN
 		do
 			Result := (value=argument_mismatch_low_level)
 		end
 
-	is_failed: BOOLEAN is
+	is_failed: BOOLEAN
 		do
 			Result := (value=failed_low_level)
 		end
 
-	is_symbol_not_found: BOOLEAN is
+	is_symbol_not_found: BOOLEAN
 		do
 			Result := (value=symbol_not_found_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	argument_mismatch_low_level: INTEGER is
+	argument_mismatch_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	failed_low_level: INTEGER is
+	failed_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	symbol_not_found_low_level: INTEGER is
+	symbol_not_found_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

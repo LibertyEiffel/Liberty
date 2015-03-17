@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          capacity := 1
          honeypot := honeypot.calloc(capacity)
@@ -19,7 +19,7 @@ feature {ANY}
          assert(flag)
       end
 
-   mark_native_arrays is
+   mark_native_arrays
       do
          flag := True
       end
@@ -30,7 +30,7 @@ feature {ANY}
 
    honeypot: NATIVE_ARRAY[STRING]
 
-   full_collect is
+   full_collect
       local
          m: MEMORY
       do
@@ -38,7 +38,7 @@ feature {ANY}
          m.full_collect
       end
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do

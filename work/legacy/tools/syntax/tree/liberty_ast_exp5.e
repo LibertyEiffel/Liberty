@@ -21,17 +21,17 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_plus: BOOLEAN is
+   is_plus: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW +")
       end
 
-   is_minus: BOOLEAN is
+   is_minus: BOOLEAN
       do
          Result := not is_empty and then nodes.item(1).name.is_equal(once "KW -")
       end
 
 feature {ANY}
-   name: STRING is "e5-exp"
+   name: STRING "e5-exp"
 
 end

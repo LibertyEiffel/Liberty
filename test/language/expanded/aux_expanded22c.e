@@ -6,7 +6,7 @@ expanded class AUX_EXPANDED22C
 feature {ANY}
    value: INTEGER
 
-   set_value (v: INTEGER) is
+   set_value (v: INTEGER)
       do
          value := v
       end

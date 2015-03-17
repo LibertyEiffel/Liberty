@@ -9,12 +9,12 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          test
       end
 
-   test is
+   test
       do
       end
 

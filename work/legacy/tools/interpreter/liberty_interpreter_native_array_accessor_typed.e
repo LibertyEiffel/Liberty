@@ -17,22 +17,22 @@ class LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_TYPED[E_]
 inherit
    LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR
 
-creation {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY}
+create {LIBERTY_INTERPRETER_NATIVE_ARRAY_ACCESSOR_FACTORY}
    make
 
 feature {LIBERTY_INTERPRETER_NATIVE_ARRAY, LIBERTY_INTERPRETER_NATIVE_ARRAY_ITERATOR}
-   retrieve (item: E_): LIBERTY_INTERPRETER_OBJECT is
+   retrieve (item: E_): LIBERTY_INTERPRETER_OBJECT
       do
          Result := retriever.item([item])
       end
 
-   store (item: LIBERTY_INTERPRETER_OBJECT): E_ is
+   store (item: LIBERTY_INTERPRETER_OBJECT): E_
       do
          Result := storer.item([item])
       end
 
 feature {}
-   make (a_retriever: like retriever; a_storer: like storer) is
+   make (a_retriever: like retriever; a_storer: like storer)
       require
          a_retriever /= Void
          a_storer /= Void

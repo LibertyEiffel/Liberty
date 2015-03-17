@@ -2,14 +2,14 @@
 -- See the Copyright notice at the end of this file.
 --
 class TEST_WEAK_REF05
-   -- Found by José Bollo: weak reference code tries to use AUX_WEAK_REF05A but it can't because the type is
+   -- Found by José Bollo: weak reference code tries to use AUX_WEAK_REF05A but it can't because the type
    -- dead.
 
 create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: HASHED_DICTIONARY[AUX_WEAK_REF05A, INTEGER]; c: HASHED_DICTIONARY[AUX_WEAK_REF05B, INTEGER]
       do

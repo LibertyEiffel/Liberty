@@ -15,13 +15,13 @@ feature {ANY}
 
    alias_string: MANIFEST_STRING
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   frozen rescue_compound: INSTRUCTION is
+   frozen rescue_compound: INSTRUCTION
       do
       end
 
-   frozen set_rescue_compound (rc: like rescue_compound) is
+   frozen set_rescue_compound (rc: like rescue_compound)
       do
          if rc /= Void then
             error_handler.add_position(rc.start_position)
@@ -32,7 +32,7 @@ feature {ANY}
          error_handler.print_as_fatal_error
       end
 
-   frozen use_current (type: TYPE): BOOLEAN is
+   frozen use_current (type: TYPE): BOOLEAN
       do
          Result := native.use_current(Current)
          if not Result and then not ace.boost then
@@ -45,7 +45,7 @@ feature {ANY}
          end
       end
 
-   external_name: STRING is
+   external_name: STRING
       local
          tmp: STRING
       do
@@ -61,10 +61,12 @@ feature {ANY}
          end
       end
 
-   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_in (new_type: TYPE; can_twin: BOOLEAN): like Current
       local
          type_name: STRING
-         lv: like local_vars; rb: like routine_body
+         lv, lv_memory: like local_vars; clv, clv_memory: like closure_local_vars
+         cfa: like closure_arguments
+         rb: like routine_body
       do
          type_name := new_type.class_text.name.to_string
          if type_name = as_typed_internals then
@@ -78,51 +80,64 @@ feature {ANY}
          else
             if local_vars /= Void then
                lv := local_vars.specialize_in(new_type)
-               check
-                  smart_eiffel.specializing_feature_local_var_list = Void
-               end
-               smart_eiffel.set_specializing_feature_variables(lv)
             end
+            clv := specialize_closure_local_var_lists_in(new_type)
+            cfa := specialize_closure_arguments_lists_in(new_type)
+            lv_memory := smart_eiffel.specializing_feature_local_var_list
+            clv_memory := smart_eiffel.specializing_closure_local_var_lists
+            smart_eiffel.set_specializing_feature_variables(lv, clv)
             if routine_body /= Void then
                rb := routine_body.specialize_in(new_type)
             end
-            if lv /= Void then
-               check
-                  smart_eiffel.specializing_feature_local_var_list = lv
-               end
-               smart_eiffel.set_specializing_feature_variables(Void)
+            Result := current_or_twin_init(lv, clv, cfa, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            check
+               smart_eiffel.specializing_feature_local_var_list = lv
+               smart_eiffel.specializing_closure_local_var_lists = clv
             end
-            Result := current_or_twin_init(lv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
          end
       end
 
-   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current is
+   specialize_body_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE; can_twin: BOOLEAN): like Current
       local
-         lv, lv_memory: like local_vars; rb: like routine_body
+         lv, lv_memory: like local_vars
+         clv, clv_memory: like closure_local_vars
+         cfa: like closure_arguments
+         rb: like routine_body
       do
          if local_vars /= Void then
             lv := local_vars.specialize_thru(parent_type, parent_edge, new_type)
-            lv_memory := smart_eiffel.specializing_feature_local_var_list
-            smart_eiffel.set_specializing_feature_variables(lv)
          end
+         clv := specialize_closure_local_var_lists_thru(parent_type, parent_edge, new_type)
+         cfa := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(lv, clv)
          if routine_body /= Void and then new_type.class_text.name.to_string /= as_typed_internals then
             rb := routine_body.specialize_thru(parent_type, parent_edge, new_type)
-            Result := current_or_twin_init(lv, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            Result := current_or_twin_init(lv, clv, cfa, rb, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          else
-            Result := current_or_twin_init_no_body(lv, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
+            Result := current_or_twin_init_no_body(lv, clv, cfa, is_generated_eiffel, ensure_assertion, require_assertion, can_twin)
          end
-         if lv /= Void then
-            check
-               smart_eiffel.specializing_feature_local_var_list = lv
-            end
-            smart_eiffel.set_specializing_feature_variables(lv_memory)
+         check
+            smart_eiffel.specializing_feature_local_var_list = lv
+            smart_eiffel.specializing_closure_local_var_lists = clv
          end
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   specialize_and_check (type: TYPE): E_ROUTINE is
+   specialize_and_check (type: TYPE): E_ROUTINE
       local
+         lv_memory: like local_vars; clv_memory: like closure_local_vars
+         fa_memory: like arguments; cfa_memory: like closure_arguments
          ra: like require_assertion; ea: like ensure_assertion; rb: like routine_body
       do
+         lv_memory := smart_eiffel.specializing_feature_local_var_list
+         clv_memory := smart_eiffel.specializing_closure_local_var_lists
+         smart_eiffel.set_specializing_feature_variables(local_vars, closure_local_vars)
+         fa_memory := smart_eiffel.specializing_feature_arguments_list
+         cfa_memory := smart_eiffel.specializing_closure_arguments_lists
+         smart_eiffel.set_specializing_feature_arguments(arguments, closure_arguments)
          if routine_body /= Void then
             if class_text_name.to_string = as_internals_handler then
                -- specialize_and_check is deferred until the adapt phase
@@ -147,10 +162,16 @@ feature {ANY}
                ea := ensure_assertion.specialize_and_check(type)
             end
          end
-         Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ea, ra, True)
+         Result := current_or_twin_init(local_vars, closure_local_vars, closure_arguments, rb, is_generated_eiffel, ea, ra, True)
+         check
+            smart_eiffel.specializing_feature_local_var_list = local_vars
+            smart_eiffel.specializing_closure_local_var_lists = closure_local_vars
+         end
+         smart_eiffel.set_specializing_feature_arguments(fa_memory, cfa_memory)
+         smart_eiffel.set_specializing_feature_variables(lv_memory, clv_memory)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := (routine_body /= Void implies routine_body.has_been_specialized)
             and then (local_vars /= Void implies local_vars.has_been_specialized)
@@ -165,7 +186,7 @@ feature {ANY}
       end
 
 feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          rb: like routine_body
       do
@@ -173,7 +194,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
          if routine_body /= Void then
             rb := routine_body.simplify(type)
             if rb /= Void or else not is_generated_eiffel then
-               Result := current_or_twin_init(local_vars, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
+               Result := current_or_twin_init(local_vars, closure_local_vars, closure_arguments, rb, is_generated_eiffel, ensure_assertion, require_assertion, True)
             else
                debug --| **** TODO: find why generated code does not simplify correctly (see TEST_JSON_04)
                   sedb_breakpoint
@@ -190,7 +211,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
       end
 
 feature {ANY}
-   argument_rank_of (arg_name: STRING): INTEGER is
+   argument_rank_of (arg_name: STRING): INTEGER
          -- Gives 0 or the index of `arg_name'.
       require
          string_aliaser.registered_one(arg_name)
@@ -204,7 +225,7 @@ feature {ANY}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   c_plus_plus_name: STRING is
+   c_plus_plus_name: STRING
          -- The name of the corresponding member in C++ is the
          -- `alias_string' if any or the `first_name' itself.
       do
@@ -216,12 +237,12 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {}
-   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]) is
+   add_into_ (ft: like feature_text; fd: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME])
       do
          add_into_shared(ft, fd)
       end
 
-   pretty_print_routine_body (indent_level: INTEGER) is
+   pretty_print_routine_body (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "external")
@@ -233,11 +254,11 @@ feature {}
          end
       end
 
-   pretty_print_rescue (indent_level: INTEGER) is
+   pretty_print_rescue (indent_level: INTEGER)
       do
       end
 
-   make_external_routine (n: like native; description: like alias_string) is
+   make_external_routine (n: like native; description: like alias_string)
       require
          n /= Void
       do
@@ -245,10 +266,10 @@ feature {}
          alias_string := description
       end
 
-   current_or_twin_init_no_body (lv: like local_vars; is_generated: like is_generated_eiffel;
-      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
+   current_or_twin_init_no_body (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; is_generated: like is_generated_eiffel;
+      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current
       do
-         if lv = local_vars and then Void = routine_body and then is_generated = is_generated_eiffel
+         if lv = local_vars and then clv = closure_local_vars and then cfa = closure_arguments and then Void = routine_body and then is_generated = is_generated_eiffel
             and then ea = ensure_assertion and then ra = require_assertion then
             Result := Current
          else
@@ -257,12 +278,12 @@ feature {}
             else
                Result := Current
             end
-            Result.init(lv, Void, is_generated, ea, ra)
+            Result.init(lv, clv, cfa, Void, is_generated, ea, ra)
          end
       end
 
 feature {RUN_FEATURE_7, RUN_FEATURE_8}
-   adapt_routine_body_for (t: TYPE): like routine_body is
+   adapt_routine_body_for (t: TYPE): like routine_body
          -- Remove parts of the body that are not needed because they
          -- refer to dead features.
       local
@@ -290,7 +311,7 @@ feature {ANY}
          -- Must `routine_body' be used instead of `native' ?
 
 feature {INTROSPECTION_HANDLER}
-   set_routine_body (rb: like routine_body) is
+   set_routine_body (rb: like routine_body)
       require
          is_generated_eiffel
          rb /= Void
@@ -301,16 +322,20 @@ feature {INTROSPECTION_HANDLER}
       end
 
 feature {EXTERNAL_ROUTINE}
-   init (lv: like local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
-         ea: like ensure_assertion; ra: like require_assertion) is
+   init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; is_generated: like is_generated_eiffel;
+         ea: like ensure_assertion; ra: like require_assertion)
       do
          local_vars := lv
+         closure_local_vars := clv
+         closure_arguments := cfa
          routine_body := rb
          is_generated_eiffel := is_generated
          ensure_assertion := ea
          require_assertion := ra
       ensure
          local_vars = lv
+         closure_local_vars = clv
+         closure_arguments = cfa
          routine_body = rb
          is_generated_eiffel = is_generated
          ensure_assertion = ea
@@ -318,12 +343,12 @@ feature {EXTERNAL_ROUTINE}
       end
 
 feature {INTROSPECTION_HANDLER}
-   current_or_twin_init (lv: like local_vars; rb: like routine_body; is_generated: like is_generated_eiffel;
-      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current is
+   current_or_twin_init (lv: like local_vars; clv: like closure_local_vars; cfa: like closure_arguments; rb: like routine_body; is_generated: like is_generated_eiffel;
+      ea: like ensure_assertion; ra: like require_assertion; can_twin: BOOLEAN): like Current
       require
          routine_body /= Void implies rb /= Void
       do
-         if lv = local_vars and then rb = routine_body and then is_generated = is_generated_eiffel
+         if lv = local_vars and then clv = closure_local_vars and then cfa = closure_arguments and then rb = routine_body and then is_generated = is_generated_eiffel
             and then ea = ensure_assertion and then ra = require_assertion then
             Result := Current
          else
@@ -332,12 +357,12 @@ feature {INTROSPECTION_HANDLER}
             else
                Result := Current
             end
-            Result.init(lv, rb, is_generated, ea, ra)
+            Result.init(lv, clv, cfa, rb, is_generated, ea, ra)
          end
       end
 
 feature {}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          if routine_body /= Void then
             routine_body := routine_body.inline_dynamic_dispatch(code_accumulator, type)
@@ -356,9 +381,9 @@ end -- class EXTERNAL_ROUTINE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

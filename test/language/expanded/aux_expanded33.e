@@ -6,12 +6,12 @@ expanded class AUX_EXPANDED33
 feature {ANY}
    item: INTEGER
 
-   set (v: INTEGER) is
+   set (v: INTEGER)
       do
          item := v
       end
 
-   morethan (v: INTEGER): BOOLEAN is
+   morethan (v: INTEGER): BOOLEAN
       do
          Result := item > v
       end

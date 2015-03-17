@@ -12,7 +12,7 @@ inherit
    JOB
 
 feature {SERVER}
-   set_io (a_io: SOCKET_INPUT_OUTPUT_STREAM) is
+   set_io (a_io: SOCKET_INPUT_OUTPUT_STREAM)
       require
          a_io.is_connected
       do
@@ -22,22 +22,22 @@ feature {SERVER}
       end
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
       do
          events.expect(ios.event_can_read)
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       do
          Result := events.event_occurred(ios.event_can_read)
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
       do
          Result := not ios.is_connected
       end
 
-   restart is
+   restart
       do
          -- cannot restart a connection
          --|*** (the postcondition will not be respected, how can I do otherwise? Philippe?)
@@ -48,13 +48,13 @@ feature {}
 
 end -- class CONNECTION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

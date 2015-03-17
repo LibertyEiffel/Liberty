@@ -4,7 +4,7 @@
 class AUX_REDEFINE1
 
 feature {ANY}
-   foo(file: STD_FILE_WRITE) is do end;
+   foo(file: STD_FILE_WRITE) do end;
 
 end -- class AUX_REDEFINE1
 --

@@ -15,21 +15,21 @@ create {}
 feature {ANY}
    r: like Current
 
-   make is
+   make
       do
          foo
       rescue
          retry
       end
 
-   dummy is
+   dummy
       do
          r := Current
          if r = Void then
          end
       end
 
-   foo is
+   foo
       do
          if r = Void then
          end

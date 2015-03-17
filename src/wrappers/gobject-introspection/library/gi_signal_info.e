@@ -10,16 +10,16 @@ inherit GI_CALLABLE_INFO
 
 insert GISIGNALINFO_EXTERNALS
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 	
 feature {ANY} 
-	flags: GSIGNAL_FLAGS_ENUM is
+	flags: GSIGNAL_FLAGS_ENUM
 		-- the flags for this signal info.
 		do
 			Result.set(g_signal_info_get_flags(handle))
 		end 
 		
-	closure: GI_VFUNC_INFO is
+	closure: GI_VFUNC_INFO
 		-- the class closure for this signal if one is set. The class closure
 		-- is a virtual function on the type that the signal belongs to. Void
 		-- if the signal lacks a closure.
@@ -32,7 +32,7 @@ feature {ANY}
 		end
 	end
 
-	true_stops_emit: BOOLEAN is
+	true_stops_emit: BOOLEAN
 		-- Will a signal's True result stop the signal emission? 
 		do
 			Result := g_signal_info_true_stops_emit(handle).to_boolean

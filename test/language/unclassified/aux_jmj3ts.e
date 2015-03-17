@@ -9,11 +9,11 @@ inherit
       redefine dimension
       end
 
-creation {ANY}
+create {ANY}
    array2d_make, dimension
 
 feature {ANY}
-   dimension (first_dim, second_dim, tile_width: INTEGER) is
+   dimension (first_dim, second_dim, tile_width: INTEGER)
       do
          tile := tile_width
          array2d_make(0, first_dim - 1 + 2 * tile_width, 0, second_dim - 1 + 2 * tile_width)
@@ -24,12 +24,12 @@ feature {ANY}
    tile: INTEGER
 
 feature {ANY}
-   row (i: INTEGER): T is
+   row (i: INTEGER): T
       do
          Result := storage.item(i)
       end
 
-   column (j: INTEGER): ARRAY[T] is
+   column (j: INTEGER): ARRAY[T]
       local
          i: INTEGER
       do
@@ -46,13 +46,13 @@ feature {ANY}
 
 feature {ANY}
    --PH: this function is wrong and unused, so I commented it out.
-   --    set_row(new_row: like row; i: INTEGER) is
+   --    set_row(new_row: like row; i: INTEGER)
    --       require
    --     same_width: new_row.count = dim2
    --       do
    --     storage.put(new_row,i)
    --       end
-   set_column (new_col: like column; j: INTEGER) is
+   set_column (new_col: like column; j: INTEGER)
       require
          same_width: new_col.count = dim1
       local

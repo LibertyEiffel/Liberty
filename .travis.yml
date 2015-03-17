@@ -1,0 +1,28 @@
+language: c
+compiler:
+- gcc
+env:
+  global:
+  - LANG=C
+  - PKG_DATE=$(date -u +'%Y%m%d.%H%M%S')
+  - secure: "bRS2LX4L9aVmo4euWKlKH/mysQZyZfzATKQSav3+7z4mr7KuRP1i3GlJA7S0tfqiMVfkj0Iuy4OOLiprmdje3vKr/idelCC7a45ZmjpHioJ20oilE0sQrIuXpm8ejP2b4ymFr4dROusMylVWGxEFqYMmHM/+Q8Mt24q9xkSFB0o="
+before_install:
+- if openssl aes-256-cbc -K $encrypted_44cc7cd09b43_key -iv $encrypted_44cc7cd09b43_iv -in work/libertyeiffel_ssh.tar.gz.enc -d | tar xfz - -C $HOME ; then
+     chmod 600 $HOME/.ssh/* ;
+  fi
+- sudo apt-get update -qq
+- sudo apt-get install -qq g++ gccxml reprepro devscripts docbook-to-man libgc-dev libperl-dev libgc1c2 coreutils netcat-openbsd curl reprepro
+install:
+- ./install.sh -plain -bootstrap
+- work/packaging/build_debian.sh -commit."$PKG_DATE" -nodoc
+- sudo dpkg -i work/packaging/debs/*.deb
+- if [[ -r $HOME/.ssh/id_rsa_libertyeiffel ]]; then
+     rsync -aSH --stats -e 'ssh -i '$HOME'/.ssh/id_rsa_libertyeiffel -q -C -o StrictHostKeyChecking=no' work/packaging/debs/* $RSYNC ;
+  fi
+- rm -rf $HOME/.config/liberty-eiffel
+script:
+- work/packaging/build_debian.sh -deploy
+- work/se_run_tutorial.sh
+notifications:
+  slack:
+    secure: NLCxaRIda57mSi5Bv8tYJp+sB110tXtmOPRbcdqdAdWjv5csatyqUB3U/QCsNPR0KrUE4Z8Abp+LS75TZXthKUs6It8Emns4RZtdjsJBZBOc1jD89YNRt2ogDZTXJh47XymvruMuBXRKOrAthBRFFI4Zsk45ivgfw0egcN7+Ua8=

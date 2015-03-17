@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   f_0: BOOLEAN is
+   f_0: BOOLEAN
       local
          a: INTEGER; b: CHARACTER; c: STRING
       do
@@ -24,7 +24,7 @@ feature {ANY}
          Result := True
       end
 
-   f_1 (a1: INTEGER): BOOLEAN is
+   f_1 (a1: INTEGER): BOOLEAN
       local
          a: INTEGER; b: CHARACTER; c: STRING
       do
@@ -34,7 +34,7 @@ feature {ANY}
          Result := True
       end
 
-   f_2 (a1, a2: INTEGER): BOOLEAN is
+   f_2 (a1, a2: INTEGER): BOOLEAN
       local
          a: INTEGER; b: CHARACTER; c: STRING
       do
@@ -44,7 +44,7 @@ feature {ANY}
          Result := True
       end
 
-   make is
+   make
       do
          if f_0 then
             assert(True)

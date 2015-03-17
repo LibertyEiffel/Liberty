@@ -27,7 +27,7 @@ feature {ANY}
    instruction: LIBERTY_INSTRUCTION
 
 feature {LIBERTY_CONDITIONAL}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: like expression
          i: like instruction
@@ -42,14 +42,14 @@ feature {LIBERTY_CONDITIONAL}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          expression.mark_reachable_code(mark)
          instruction.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_expression: like expression; a_instruction: like instruction; a_position: like position) is
+   make (a_expression: like expression; a_instruction: like instruction; a_position: like position)
       require
          a_expression /= Void
          a_instruction /= Void
@@ -65,7 +65,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CONDITION_VISITOR
       do

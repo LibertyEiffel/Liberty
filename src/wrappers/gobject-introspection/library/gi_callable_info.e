@@ -15,14 +15,14 @@ insert
    GICALLABLEINFO_EXTERNALS
 
 feature {ANY}
-   return_type: GI_TYPE_INFO is
+   return_type: GI_TYPE_INFO
          -- the return type of a callable item.
       do
          -- Implementation note: Free the struct by calling g_base_info_unref() when done. [transfer full]
          create Result.from_external_pointer(g_callable_info_get_return_type(handle))
       end
 
-   caller_owns: BOOLEAN is
+   caller_owns: BOOLEAN
          -- DOes the caller owns the return value of this callable?
          -- Note: the library actually uses a GITransfer enum which contains a
          -- list of possible transfer values but it just use TRUE if the caller
@@ -31,13 +31,13 @@ feature {ANY}
          Result := g_callable_info_get_caller_owns(handle).to_boolean
       end
 
-   may_return_null: BOOLEAN is
+   may_return_null: BOOLEAN
          -- Can Current callable return a NULL value?
       do
          Result := g_callable_info_may_return_null(handle).to_boolean
       end
 
-   return_attribute (a_name: ABSTRACT_STRING): FIXED_STRING is
+   return_attribute (a_name: ABSTRACT_STRING): FIXED_STRING
          -- An arbitrary attribute associated with the return value, named with the freeform string `a_name'.
          -- Void if no such attribute exists
       require
@@ -73,58 +73,57 @@ feature {ANY}
       --
 
 feature {ANY} -- Indexing over arguments
-   lower: INTEGER is 0
+   lower: INTEGER 0
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count - 1
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := g_callable_info_get_n_args(handle)
          -- Obtain the number of arguments (both IN and OUT) for this callable.
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := count = 0
       end
 
-   item (i: INTEGER): GI_ARG_INFO is
+   item (i: INTEGER): GI_ARG_INFO
       do
          create Result.from_external_pointer(g_callable_info_get_arg(handle, i))
          -- Obtain information about a particular argument of this callable. Full ownership transfer full.
       end
 
-	new_iterator: ITERATOR[GI_ARG_INFO] is
-	do
-		create {ITERATOR_OVER_ARGUMENTS} Result.from_callable(Current)
-	end
+        new_iterator: ITERATOR[GI_ARG_INFO]
+        do
+                create {ITERATOR_OVER_ARGUMENTS} Result.from_callable(Current)
+        end
 
-	first: GI_ARG_INFO is do Result := item(lower) end
-	last: GI_ARG_INFO is do Result := item(upper) end
+        first: GI_ARG_INFO do Result := item(lower) end
+        last: GI_ARG_INFO do Result := item(upper) end
 
-feature {} -- Unwrapperd 
+feature {} -- Unwrapperd
 
-	--   g_callable_info_load_return_type and g_callable_info_load_arg () should not be necessary neither useful in Eiffel.
+        --   g_callable_info_load_return_type and g_callable_info_load_arg () should not be necessary neither useful in Eiffel.
 
 end -- class GI_CALLABLE_INFO
 
 -- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
--- 
+--
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License
 -- as published by the Free Software Foundation; either version 2.1 of
 -- the License, or (at your option) any later version.
--- 
+--
 -- This library is distributed in the hope that it will be useful, but
 -- WITHOUT ANY WARRANTY; without even the implied warranty of
 -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 -- Lesser General Public License for more details.
--- 
+--
 -- You should have received a copy of the GNU Lesser General Public
 -- License along with this library; if not, write to the Free Software
 -- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 -- 02110-1301 USA
-	

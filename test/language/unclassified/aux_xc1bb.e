@@ -6,11 +6,11 @@ class AUX_XC1BB
 inherit
    AUX_XC1A2[STRING, INTEGER]
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make (v: STRING) is
+   make (v: STRING)
       local
          i: INTEGER
       do

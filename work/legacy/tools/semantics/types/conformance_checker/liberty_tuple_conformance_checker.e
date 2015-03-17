@@ -23,22 +23,22 @@ inherit
 insert
    SINGLETON
 
-creation {LIBERTY_UNIVERSE}
+create {LIBERTY_UNIVERSE}
    make
 
 feature {LIBERTY_ACTUAL_TYPE}
-   inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   inherits (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN
       do
          Result := check_inheritance(parent, child, True)
       end
 
-   inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN is
+   inserts (parent, child: LIBERTY_KNOWN_TYPE): BOOLEAN
       do
          Result := check_inheritance(parent, child, False)
       end
 
 feature {}
-   check_inheritance (parent, child: LIBERTY_KNOWN_TYPE; conformance: BOOLEAN): BOOLEAN is
+   check_inheritance (parent, child: LIBERTY_KNOWN_TYPE; conformance: BOOLEAN): BOOLEAN
       local
          i: INTEGER
       do
@@ -65,7 +65,7 @@ feature {}
       end
 
 feature {}
-   make is
+   make
       do
       end
 

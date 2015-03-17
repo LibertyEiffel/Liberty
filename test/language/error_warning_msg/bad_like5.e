@@ -11,12 +11,12 @@ feature {}
 
    b: like a;
 
-   make is
+   make
       do
          foo(a,b);
       end;
 
-   foo(arg1: like arg2; arg2: like a) is
+   foo(arg1: like arg2; arg2: like a)
       do
       end;
 

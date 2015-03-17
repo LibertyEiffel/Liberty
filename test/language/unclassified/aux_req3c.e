@@ -10,7 +10,7 @@ insert
    AUX_REQ3A
 
 feature {ANY}
-   make is
+   make
       require
          not f.b
       do

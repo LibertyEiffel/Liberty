@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_old: BOOLEAN is
+   has_old: BOOLEAN
       do
          Result := count = 2
          check
@@ -29,7 +29,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   e10: LIBERTY_AST_E10 is
+   e10: LIBERTY_AST_E10
       do
          if has_old then
             Result ::= nodes.item(1)
@@ -39,15 +39,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "e9"
+   name: STRING "e9"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

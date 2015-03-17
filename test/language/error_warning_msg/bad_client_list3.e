@@ -4,7 +4,7 @@ create {}
    main
 
 feature {like Current}
-   main is
+   main
       do
       end
 

@@ -14,14 +14,14 @@ create {ANY}
    make
 
 feature {ANY}
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   accept (visitor: PRECURSOR_INSTRUCTION_VISITOR) is
+   accept (visitor: PRECURSOR_INSTRUCTION_VISITOR)
       do
          visitor.visit_precursor_instruction(Current)
       end
 
-   collect (t: TYPE): TYPE is
+   collect (t: TYPE): TYPE
       do
          --|*** Attention ici on fait simple : si le Precursor s'appelle
          --| lui-même, la liaison dynamique est suivie (-> rappel de la
@@ -35,7 +35,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_(indent_level)
@@ -56,9 +56,9 @@ end -- class PRECURSOR_INSTRUCTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

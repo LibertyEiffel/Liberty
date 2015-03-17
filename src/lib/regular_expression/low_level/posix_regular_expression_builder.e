@@ -26,7 +26,7 @@ create {ANY}
    make
 
 feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER} -- parsing
-   internal_parse is
+   internal_parse
          -- Main parse of a POSIX regular expression.
       do
          if end_of_input then
@@ -41,7 +41,7 @@ feature {BACKTRACKING_REGULAR_EXPRESSION_BUILDER} -- parsing
       end
 
 feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
-   parse_alternative is
+   parse_alternative
          -- Parses an alternative of sequences.
          -- alternative ::= sequence [ '|' sequence ]...
       require
@@ -83,7 +83,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          state_known: has_error or else end_of_input or else last_character = ')'
       end
 
-   parse_sequence is
+   parse_sequence
          -- Parses a sequence of terms.
          -- sequence ::= term [ term ]...
       require
@@ -112,7 +112,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          state_known: has_error or else end_of_input or else last_character = '|' or else last_character = ')'
       end
 
-   parse_term is
+   parse_term
          -- Parses a term.
          -- term        ::= factor [ repeat-spec ]
          -- repeat-spec ::= '?' | '*' | '+' | '{' integer [',' [integer]] '}'
@@ -173,7 +173,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_factor is
+   parse_factor
          -- Parses a factor.
          -- factor      ::= group | union | '.' | '^' | '$' | escaped | text
       require
@@ -207,7 +207,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_group is
+   parse_group
          -- Parses a group.
          -- group       ::= '(' alternative ')'
       require
@@ -232,7 +232,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_escaped is
+   parse_escaped
          -- Parses an escaped character.
          -- escaped     ::= '\' CHARACTER
       require
@@ -251,7 +251,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_text is
+   parse_text
          -- Parses a text.
          -- text        ::= A SEQUENCE NOT FOLLOWED BY EITHER '*', '+', '?', '{' OF NOT ESCAPED CHARACTERS
       require
@@ -308,7 +308,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_union is
+   parse_union
          -- Parses a union.
          -- union       ::= '[' ['^'] union_term... ']'
       require
@@ -352,7 +352,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- parsing
       end
 
 feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
-   parse_union_term is
+   parse_union_term
          -- Parses a union term.
          -- union_term  ::= union_factor ['-' union_factor]
       require
@@ -395,7 +395,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
          error_or_stack_incremented_by_one: has_error or else stack.count = old stack.count + 1
       end
 
-   parse_union_factor is
+   parse_union_factor
          -- Parses a union factor.
          -- union_factor::= '[.' TEXT '.]' | '[:' CLASS ':]' | '[:<:]' | '[:>:]' | CHARACTER
       require
@@ -454,7 +454,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
          end
       end
 
-   read_embedded is
+   read_embedded
          -- Parses the text embedded in one of '[.' TEXT '.]',
          -- '[:' TEXT ':]' or '[=' TEXT '=]'.
          -- The parsed text is put in feature 'last_string'.
@@ -503,7 +503,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
    recorded_item: BACKTRACKING_NODE
          -- Last union_factor's item (complex expression) recorded.
 
-   set_recorded_character (value: CHARACTER) is
+   set_recorded_character (value: CHARACTER)
          -- Records the union_factor's character 'value'.
       do
          recorded_item := Void
@@ -513,7 +513,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
          recorded_character = value
       end
 
-   set_recorded_item (value: BACKTRACKING_NODE) is
+   set_recorded_item (value: BACKTRACKING_NODE)
          -- Records the union_factor's item (complex expression) 'value'.
       require
          item_not_void: value /= Void
@@ -524,7 +524,7 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
          recorded_item = value
       end
 
-   emit_recorded is
+   emit_recorded
          -- Emits the last union_factor's recorded character or item,
          -- depending on its kind.
       do
@@ -539,13 +539,13 @@ feature {POSIX_REGULAR_EXPRESSION_BUILDER} -- sub parts of union
 
 end -- class POSIX_REGULAR_EXPRESSION_BUILDER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

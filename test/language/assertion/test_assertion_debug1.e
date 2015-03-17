@@ -12,7 +12,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          trace: ARRAY[INTEGER]; aux: AUX_ASSERTION
       do

@@ -12,7 +12,7 @@ create {DEFERRED_ROUTINE}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_9_VISITOR) is
+   accept (visitor: RUN_FEATURE_9_VISITOR)
       do
          visitor.visit_run_feature_9(Current)
       end
@@ -28,28 +28,34 @@ feature {ANY}
 
    ensure_assertion: ENSURE_ASSERTION
 
-   is_deferred: BOOLEAN is True
+   is_deferred: BOOLEAN True
 
-   side_effect_free: BOOLEAN is False
+   side_effect_free: BOOLEAN False
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   routine_body: INSTRUCTION is
+   has_closures: BOOLEAN False
+
+   routine_body: INSTRUCTION
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   routine_then: EXPRESSION
       do
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   rescue_compound: INSTRUCTION
+      do
+      end
+
+   local_vars: LOCAL_VAR_LIST
       do
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       local
          class_text: CLASS_TEXT
       do
@@ -70,7 +76,7 @@ feature {}
          end
       end
 
-   set_result_type is
+   set_result_type
       local
          rt: TYPE_MARK
       do
@@ -83,7 +89,7 @@ feature {}
          base_feature.result_type /= Void implies result_type /= Void
       end
 
-   compute_use_current is
+   compute_use_current
       do
          use_current_state := True_state
       end
@@ -100,9 +106,9 @@ end -- class RUN_FEATURE_9
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

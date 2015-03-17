@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   default_value: INTEGER is
+   default_value: INTEGER
       once
          Result := 300
       ensure then

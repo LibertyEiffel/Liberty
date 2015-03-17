@@ -30,17 +30,17 @@ insert
    LIBERTY_REACHABLE
 
 feature {ANY}
-   name: FIXED_STRING is
+   name: FIXED_STRING
       deferred
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       deferred
       ensure
          -- Result may be Void in the particular case of procedures
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       require
          a_type /= Void
       deferred

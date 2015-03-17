@@ -10,7 +10,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: AUX_PRECURSOR08B; array: ARRAY[STRING]
       do

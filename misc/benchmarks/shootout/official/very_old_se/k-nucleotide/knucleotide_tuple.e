@@ -3,10 +3,10 @@ class KNUCLEOTIDE_TUPLE
 inherit
 	COMPARABLE
 
-creation make
+create make
 
 feature {}
-	make(f: like first; s: like second) is
+	make(f: like first; s: like second)
 		do
 			first := f
 			second := s
@@ -17,12 +17,12 @@ feature
 
 	second: STRING
 
-	infix "<" (other: like Current): BOOLEAN is
+	infix "<" (other: like Current): BOOLEAN
 		do
 			Result := other.first < first or else first = other.first and then second < other.second
 		end
 
-	set_first(f: like first) is
+	set_first(f: like first)
       do
          first := f
       end

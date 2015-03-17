@@ -12,11 +12,11 @@ create {}
    make
 
 feature {}
-   foo (bar: INTEGER_16) is
+   foo (bar: INTEGER_16)
       do
       end
 
-   make is
+   make
       do
       end
 

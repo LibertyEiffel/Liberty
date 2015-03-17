@@ -35,22 +35,25 @@
 */
 void copy_swap_16(const uint16_t *src, uint16_t *dest, int count){
   while (count--) {
-    *dest++ = (*src << 8) | (*src >> 8);
-    src++;
+	*dest++ = (*src << 8) | (*src >> 8);
+	src++;
   }
 }
 
 
-void se_check_malloc(void*result) {
+void se_check_malloc(const void*result, const char*format, ...) {
   if (result == NULL) {
-    handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
+	handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
 #ifdef SE_EXCEPTIONS
-    internal_exception_handler(No_more_memory);
+	internal_exception_handler(No_more_memory);
 #elif !defined(SE_BOOST)
-    error0("No more memory.", NULL);
+	error0("No more memory.", NULL);
 #else
-  fprintf(SE_ERR,"No more memory (malloc failed).\n");
-  exit(EXIT_FAILURE);
+	va_list arg;
+	va_start(arg, format);
+	vfprintf(SE_ERR,format, arg);
+	va_end(arg);
+	exit(EXIT_FAILURE);
 #endif
   }
 }
@@ -60,8 +63,12 @@ void se_check_malloc(void*result) {
   only `se_malloc' instead of direct `malloc').
 */
 void* se_malloc(size_t size) {
-  void *result = malloc(size);
-  se_check_malloc(result);
+   return se_malloc_(size, malloc);
+}
+
+void* se_malloc_(size_t size, void*(*alloc)(size_t)) {
+  void *result = alloc(size);
+  se_check_malloc(result, "No more memory (malloc failed).\n");
   return result;
 }
 
@@ -70,18 +77,12 @@ void* se_malloc(size_t size) {
   only `se_calloc' instead of direct `calloc').
 */
 void* se_calloc(size_t nmemb, size_t size) {
-  void *result = calloc(nmemb,size);
-  if (result == NULL) {
-    handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
-#ifdef SE_EXCEPTIONS
-    internal_exception_handler(No_more_memory);
-#elif !defined(SE_BOOST)
-    error0("No more memory.", NULL);
-#else
-  fprintf(SE_ERR,"No more memory (calloc failed: %lu x %lu).\n", nmemb, size);
-  exit(EXIT_FAILURE);
-#endif
-  }
+   return se_calloc_(nmemb, size, calloc);
+}
+
+void* se_calloc_(size_t nmemb, size_t size, void*(*alloc)(size_t,size_t)) {
+  void *result = alloc(nmemb,size);
+  se_check_malloc(result, "No more memory (calloc failed: %lu x %lu).\n", nmemb, size);
   return result;
 }
 
@@ -91,17 +92,7 @@ void* se_calloc(size_t nmemb, size_t size) {
 */
 void* se_realloc(void* src, size_t size) {
   void *result = realloc(src, size);
-  if (result == NULL) {
-    handle(SE_HANDLE_NO_MORE_MEMORY, NULL);
-#ifdef SE_EXCEPTIONS
-    internal_exception_handler(No_more_memory);
-#elif !defined(SE_BOOST)
-    error0("No more memory.", NULL);
-#else
-  fprintf(SE_ERR,"No more memory (realloc failed).\n");
-  exit(EXIT_FAILURE);
-#endif
-  }
+  se_check_malloc(result, "No more memory (realloc failed).\n");
   return result;
 }
 
@@ -113,7 +104,7 @@ void se_die (int code) {
 }
 
 /*
-    Runtime hooks
+	Runtime hooks
  */
 
 static se_runtime_handler_t** handlers = NULL;
@@ -129,7 +120,7 @@ void register_handler(se_runtime_handler_t*handler) {
 void _handle(se_handler_action_t action, void*data) {
   int i;
   for (i = 0; i < handlers_count; i++) {
-    handlers[i](action, data);
-    /* *** Check type of this array. Function pointer may have different size from data pointer. (PH 17/07/08) */
+	handlers[i](action, data);
+	/* *** Check type of this array. Function pointer may have different size from data pointer. (PH 17/07/08) */
   }
 }

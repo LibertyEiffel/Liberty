@@ -8,9 +8,9 @@ create {ANY}
    run
 
 feature {ANY}
-   a : ARRAY[ INTEGER ] is {ARRAY[ INTEGER ] 1, << 1, 3, 2 >> }
+   a : ARRAY[ INTEGER ] {ARRAY[ INTEGER ] 1, << 1, 3, 2 >> }
 
-   run is
+   run
       do
          if a.first = 1 then
          end

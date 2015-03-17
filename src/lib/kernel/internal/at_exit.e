@@ -7,12 +7,12 @@ expanded class AT_EXIT
 --
 
 feature {ANY}
-   add (a_action: PROCEDURE[TUPLE]) is
+   add (a_action: PROCEDURE[TUPLE])
       do
          actions.add_last(a_action)
       end
 
-   run is
+   run
       require
          not is_running
       local
@@ -30,18 +30,18 @@ feature {ANY}
          is_running_memory.set_item(False)
       end
 
-   is_running: BOOLEAN is
+   is_running: BOOLEAN
       do
          Result := is_running_memory.item
       end
 
 feature {}
-   actions: RING_ARRAY[PROCEDURE[TUPLE]] is
+   actions: RING_ARRAY[PROCEDURE[TUPLE]]
       once
          create Result.make(1, 0)
       end
 
-   is_running_memory: REFERENCE[BOOLEAN] is
+   is_running_memory: REFERENCE[BOOLEAN]
       once
          create Result
       end
@@ -54,7 +54,7 @@ end -- class AT_EXIT
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

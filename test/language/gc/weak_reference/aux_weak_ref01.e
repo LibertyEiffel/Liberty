@@ -6,18 +6,18 @@ class AUX_WEAK_REF01
 inherit
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
    twr: TEST_WEAK_REF01
 
-   dispose is
+   dispose
       do
          twr.set_aux_wr_disposed
       end
 
-   make (tst: TEST_WEAK_REF01) is
+   make (tst: TEST_WEAK_REF01)
       do
          twr := tst
       end

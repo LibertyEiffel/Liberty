@@ -8,7 +8,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       local
          b: AUX_ASSERTION1_B
       do

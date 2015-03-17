@@ -8,13 +8,13 @@ inherit
       redefine resolve_in
       end
 
-create {EIFFEL_PARSER, CREATE_INSTRUCTION}
+create {EIFFEL_PARSER, CREATE_INSTRUCTION, ABSTRACT_CURRENT}
    make
 
 feature {ANY}
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   declaration_type: TYPE_MARK is
+   declaration_type: TYPE_MARK
       local
          ct: CLASS_TEXT
       do
@@ -22,48 +22,45 @@ feature {ANY}
          Result := ct.declaration_type_of_like_current.canonical_type_mark
       end
 
-   specialize_in (new_type: TYPE) is
+   specialize_in (new_type: TYPE)
       do
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       do
-         check
-            not allow_raw_class_name
-         end
          Result := new_type.canonical_type_mark
       end
 
-   resolve_in, signature_resolve_in (new_type: TYPE): TYPE is
+   resolve_in, signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := new_type
       end
 
-   written_name: HASHED_STRING is
+   written_name: HASHED_STRING
          -- (Is always the same one.)
       once
          Result := string_aliaser.hashed_string(as_like_current)
       end
 
-   accept (visitor: LIKE_CURRENT_TYPE_MARK_VISITOR) is
+   accept (visitor: LIKE_CURRENT_TYPE_MARK_VISITOR)
       do
          visitor.visit_like_current_type_mark(Current)
       end
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_printer.hook_or(once "like", once "like ")
          short_printer.hook_or(as_current, as_current)
       end
 
 feature {}
-   make (sp: like start_position) is
+   make (sp: like start_position)
       require
          not sp.is_unknown
       do
@@ -84,9 +81,9 @@ end -- class LIKE_CURRENT_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -8,15 +8,15 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   a, b, c is
+   a, b, c
       do
       end
 
-   d, b, f is
+   d, b, f
       do
       end
 

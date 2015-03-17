@@ -13,20 +13,20 @@ feature {ANY}
    name: FIXED_STRING
    path: FIXED_STRING
 
-   is_directory: BOOLEAN is False
-   is_regular: BOOLEAN is True
+   is_directory: BOOLEAN False
+   is_regular: BOOLEAN True
 
-   as_directory: DIRECTORY is
+   as_directory: DIRECTORY
       do
          check False end
       end
 
-   as_regular: REGULAR_FILE is
+   as_regular: REGULAR_FILE
       do
          Result := Current
       end
 
-   exists: BOOLEAN is
+   exists: BOOLEAN
       local
          ft: FILE_TOOLS
       do
@@ -34,7 +34,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Text stream access
-   read: INPUT_STREAM is
+   read: INPUT_STREAM
          -- Returns a stream connected for reading the file. If the read stream is not connected anymore,
          -- connects it again.
          -- Always returns the same object.
@@ -51,12 +51,12 @@ feature {ANY} -- Text stream access
          is_reading
       end
 
-   is_reading: BOOLEAN is
+   is_reading: BOOLEAN
       do
          Result := read_memory /= Void and then read_memory.is_connected
       end
 
-   write: OUTPUT_STREAM is
+   write: OUTPUT_STREAM
          -- Returns a stream connected for writing to the file. If the write stream is not connected anymore,
          -- connects it again.
          -- Always returns the same object.
@@ -73,7 +73,7 @@ feature {ANY} -- Text stream access
          is_writing
       end
 
-   append: OUTPUT_STREAM is
+   append: OUTPUT_STREAM
          -- Returns a stream connected for appending to the file. If the write stream is already conencted,
          -- use `write' instead.
          -- Always returns the same object.
@@ -91,13 +91,13 @@ feature {ANY} -- Text stream access
          is_writing
       end
 
-   is_writing: BOOLEAN is
+   is_writing: BOOLEAN
       do
          Result := write_memory /= Void and then write_memory.is_connected
       end
 
 feature {}
-   make (a_file_path: ABSTRACT_STRING) is
+   make (a_file_path: ABSTRACT_STRING)
       do
          path := a_file_path.intern
          basic_directory.compute_short_name_of(path)
@@ -109,13 +109,13 @@ feature {}
 
 end -- class REGULAR_FILE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

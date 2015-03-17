@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          f: AUX_JLP_F[REAL]; str: STRING
       do

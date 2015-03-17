@@ -3,13 +3,13 @@
 --
 class TRIANGLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    p1, p2, p3: POINT
 
-   make (vp1, vp2, vp3: POINT) is
+   make (vp1, vp2, vp3: POINT)
       do
          p1 := vp1
          p2 := vp2

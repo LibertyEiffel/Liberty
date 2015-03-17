@@ -6,13 +6,13 @@ class AUX_ONCE3B
 inherit
    TEST_ONCE3
 
-creation {ANY}
+create {ANY}
    make_b
 
 feature {ANY}
    value: CHARACTER
 
-   make_b is
+   make_b
       do
          value := 'b'
          -- ***         assert(once_a.value = 'a'); -- *** No more recursive once.

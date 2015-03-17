@@ -24,33 +24,33 @@ feature {}
    static_expression_count: INTEGER
 
 feature {SMART_EIFFEL}
-   compile is
+   compile
          -- The real output is done here
       deferred
       end
 
 feature {ANY}
-   incr_real_procedure_count is
+   incr_real_procedure_count
       do
          real_procedure_count := real_procedure_count + 1
       end
 
-   incr_procedure_count is
+   incr_procedure_count
       do
          procedure_count := procedure_count + 1
       end
 
-   incr_real_function_count is
+   incr_real_function_count
       do
          real_function_count := real_function_count + 1
       end
 
-   incr_function_count is
+   incr_function_count
       do
          function_count := function_count + 1
       end
 
-   incr_precursor_routine_count is
+   incr_precursor_routine_count
       do
          precursor_routine_count := precursor_routine_count + 1
       end
@@ -59,14 +59,14 @@ feature {} -- Context stacks:
    top: INTEGER
          -- Index for top of followings stacks.
 
-   context_stack: FAST_ARRAY[CODE_CONTEXT] is
+   context_stack: FAST_ARRAY[CODE_CONTEXT]
          -- The indicating stack. It contains only one
          -- of the following unique code.
       once
          create Result.make(stack_first_size)
       end
 
-   stack_top: CODE_CONTEXT is
+   stack_top: CODE_CONTEXT
       require
          context_stack.valid_index(top)
       do
@@ -75,9 +75,9 @@ feature {} -- Context stacks:
          Result.valid
       end
 
-   stack_first_size: INTEGER is 12
+   stack_first_size: INTEGER 12
 
-   stack_push (code: INTEGER) is
+   stack_push (code: INTEGER)
          -- Push the `code' and resize all stacks if needed.
       local
          new_size: INTEGER; ctx: CODE_CONTEXT
@@ -105,7 +105,7 @@ feature {} -- Context stacks:
 
    unused_contexts: ARRAY[FAST_ARRAY[CODE_CONTEXT]]
 
-   reserve_context (code: INTEGER): CODE_CONTEXT is
+   reserve_context (code: INTEGER): CODE_CONTEXT
       local
          free_contexts: FAST_ARRAY[CODE_CONTEXT]
       do
@@ -128,7 +128,7 @@ feature {} -- Context stacks:
          Result.valid
       end
 
-   free_context (ctx: CODE_CONTEXT) is
+   free_context (ctx: CODE_CONTEXT)
       require
          ctx.valid
       local
@@ -156,7 +156,7 @@ feature {} -- Context stacks:
       end
 
 feature {ANY}
-   pop is
+   pop
       local
          st: like stack_top
       do
@@ -179,7 +179,7 @@ feature {ANY}
       end
 
 feature {}
-   check_top (st: like stack_top): BOOLEAN is
+   check_top (st: like stack_top): BOOLEAN
          -- To make checks coherent, the stack must be cleaned
       do
          Result := context_stack.fast_first_index_of(st) = top
@@ -188,7 +188,7 @@ feature {}
       end
 
 feature {PRECURSOR_CALL}
-   push_direct (rf: RUN_FEATURE; type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST) is
+   push_direct (rf: RUN_FEATURE; type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST)
       require
          rf /= Void
          type /= Void
@@ -201,7 +201,7 @@ feature {PRECURSOR_CALL}
       end
 
 feature {PRECURSOR_CALL}
-   push_precursor (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST) is
+   push_precursor (type: TYPE; rf: RUN_FEATURE; args: EFFECTIVE_ARG_LIST)
       require
          rf /= Void
       do
@@ -212,13 +212,13 @@ feature {PRECURSOR_CALL}
       end
 
 feature {RUN_FEATURE_3}
-   stack_not_full: BOOLEAN is
+   stack_not_full: BOOLEAN
       do
          Result := top < 50
       end
 
 feature {}
-   stack_overflow is
+   stack_overflow
       local
          i: INTEGER; type: TYPE; af: ANONYMOUS_FEATURE; rtm: STRING; rtma: FAST_ARRAY[STRING]
       do
@@ -252,7 +252,7 @@ feature {}
       end
 
 feature {}
-   new_context (code: INTEGER): CODE_CONTEXT is
+   new_context (code: INTEGER): CODE_CONTEXT
       do
          inspect
             code
@@ -285,9 +285,9 @@ end -- class CODE_PRINTER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

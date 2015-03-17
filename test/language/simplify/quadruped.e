@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   fornicate_with (other: ANIMAL): ANIMAL is
+   fornicate_with (other: ANIMAL): ANIMAL
       do
          -- *** Because the 2.0 release is checking all the code !
          -- Result := other.reproduction_avec_quadrupede(Current);

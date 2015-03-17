@@ -1,7 +1,7 @@
 class FORKING
 create {ANY} make
 feature {ANY} 
-	make is
+	make
 		do
 			print("Father genertaing 5 childred%N")
 			create children.with_capacity(5);

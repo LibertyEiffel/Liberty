@@ -1,7 +1,7 @@
 expanded class AUX_XML_STRINGS
 
 feature {}
-   string_twin (unicode: UNICODE_STRING): UNICODE_STRING is
+   string_twin (unicode: UNICODE_STRING): UNICODE_STRING
       do
          if string_pool.is_empty then
             Result := unicode.twin
@@ -11,7 +11,7 @@ feature {}
          end
       end
 
-   string_pool: RECYCLING_POOL[UNICODE_STRING] is
+   string_pool: RECYCLING_POOL[UNICODE_STRING]
       once
          create Result.make
       end

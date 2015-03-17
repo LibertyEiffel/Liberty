@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_CREATE04; i: INTEGER
       do

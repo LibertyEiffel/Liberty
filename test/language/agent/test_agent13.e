@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    b: AUX_AGENT13B
 
-   make is
+   make
       do
          b.setup
       end

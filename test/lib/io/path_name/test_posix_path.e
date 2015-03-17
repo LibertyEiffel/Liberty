@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
          set_up
          test_count
@@ -67,7 +67,7 @@ feature {}
          test_extension_removal
       end
 
-   set_up is
+   set_up
       local
          sys: SYSTEM; bd: BASIC_DIRECTORY
       do
@@ -86,7 +86,7 @@ feature {}
          -- Path where tests are being run. Used to restore state
          -- between tests, not for the tests themselvesl.
 
-   tear_down is
+   tear_down
       local
          sys: SYSTEM; bd: BASIC_DIRECTORY
       do
@@ -96,18 +96,18 @@ feature {}
 
    empty, single, root, absolute, multi_slash, final_slash, simple: POSIX_PATH_NAME
 
-   mkpath (s: STRING): POSIX_PATH_NAME is
+   mkpath (s: STRING): POSIX_PATH_NAME
       do
          create Result.make_from_string(s)
       end
 
 feature {}
-   assert_integers_equal (name: STRING; i1, i2: INTEGER) is
+   assert_integers_equal (name: STRING; i1, i2: INTEGER)
       do
          assert(name, i1 = i2)
       end
 
-   assert_equal (name: STRING; o1, o2: STRING) is
+   assert_equal (name: STRING; o1, o2: STRING)
       do
          assert(name, o1.is_equal(o2))
       end
@@ -116,7 +116,7 @@ feature {} -- Tests
    path: POSIX_PATH_NAME
          --  MISSING exists, same_file, expand_shellouts
 
-   test_count is
+   test_count
       do
          assert("empty count", empty.count=0)
          assert("single count", single.count=1)
@@ -127,7 +127,7 @@ feature {} -- Tests
          assert("simple count", simple.count=4)
       end
 
-   test_last is
+   test_last
       do
          assert("single last",  "xyz.png".is_equal( single.last))
          assert("absolute last",  "y.txt".is_equal( absolute.last))
@@ -136,7 +136,7 @@ feature {} -- Tests
          assert("simple last",  "d.".is_equal( simple.last))
       end
 
-   test_extension is
+   test_extension
       do
          print("single extention «"+single.extension+"»%N")
          assert("single extention",  ".png".is_equal(single.extension))
@@ -146,7 +146,7 @@ feature {} -- Tests
          --assert("simple extention",  ".".is_equal(simple.extension))
       end
 
-   test_is_absolute is
+   test_is_absolute
       do
          assert("empty absolute", not empty.is_absolute)
          assert("single absolute", not single.is_absolute)
@@ -157,7 +157,7 @@ feature {} -- Tests
          assert("simple absolute", not simple.is_absolute)
       end
 
-   test_plus is
+   test_plus
       do
          assert("empty_empty",  "".is_equal( (empty + empty).to_string))
          assert("empty_simple",  simple.to_string.is_equal( (empty + simple).to_string))
@@ -167,7 +167,7 @@ feature {} -- Tests
          assert("simple_empty",  "a/b/ccc/d.".is_equal( (simple + empty).to_string))
       end
 
-   test_to_absolute is
+   test_to_absolute
       local
          bd: BASIC_DIRECTORY
       do
@@ -188,7 +188,7 @@ feature {} -- Tests
          assert("simple",  "/usr/bin/a/b/ccc/d.".is_equal( simple.to_string))
       end
 
-   test_normalize is
+   test_normalize
       local
          p: POSIX_PATH_NAME
       do
@@ -226,7 +226,7 @@ feature {} -- Tests
          assert("root_this",  "/".is_equal( p.to_string))
       end
 
-   test_is_normalized is
+   test_is_normalized
       do
          assert("empty", not empty.is_normalized)
          assert("single", single.is_normalized)
@@ -249,7 +249,7 @@ feature {} -- Tests
          assert("root_this", not mkpath("/.").is_normalized)
       end
 
-   test_remove_last is
+   test_remove_last
       do
          single.remove_last
          assert("single",  "".is_equal( single.to_string))
@@ -263,7 +263,7 @@ feature {} -- Tests
          assert("simple", "a/b/ccc".is_equal(simple.to_string))
       end
 
-   test_add_last is
+   test_add_last
       do
          assert("empty",  "foo".is_equal( (empty / "foo").to_string))
          assert("single",  "xyz.png/foo".is_equal( (single / "foo").to_string))
@@ -274,7 +274,7 @@ feature {} -- Tests
          assert("simple",  "a/b/ccc/d./foo".is_equal( (simple / "foo").to_string))
       end
 
-   test_expand_user is
+   test_expand_user
       local
          p: POSIX_PATH_NAME; sys: SYSTEM
       do
@@ -292,11 +292,11 @@ feature {} -- Tests
          p.expand_user
          assert("home_from_$HOME",  "/boot/vmlinuz".is_equal( p.to_string))
       end
-   --   test_expand_explicit_user is
+   --   test_expand_explicit_user
    --           do
    --                   crash -- not done yet
    --           end
-   --   test_common_prefix is
+   --   test_common_prefix
    --           do
    --                   assert_equal ("empty", "", (mkpath("").common_prefix(mkpath(""))).to_string)
    --                   assert_equal ("root", "/", (mkpath("/bin").common_prefix(mkpath("/usr/bin"))).to_string)
@@ -305,7 +305,7 @@ feature {} -- Tests
    --                   assert_equal ("complete", "/usr/bin/", (mkpath("/usr/bin/X11R6").common_prefix(mkpath("/usr/bin/foo"))).to_string)
    --           end
 
-   test_expand_variables is
+   test_expand_variables
       local
          p1, p2: POSIX_PATH_NAME; sys: SYSTEM
       do
@@ -346,7 +346,7 @@ feature {} -- Tests
          assert("incomplete2",  "${".is_equal( p2.to_string))
       end
 
-   test_is_file is
+   test_is_file
       local
          p: POSIX_PATH_NAME
       do
@@ -357,7 +357,7 @@ feature {} -- Tests
          assert("nonexisting", not p.is_file)
       end
 
-   test_is_directory is
+   test_is_directory
       local
          p: POSIX_PATH_NAME
       do
@@ -369,7 +369,7 @@ feature {} -- Tests
          assert("nonexisting", not p.is_directory)
       end
 
-   test_extension_removal is
+   test_extension_removal
       local p: POSIX_PATH_NAME; s,s2,s3: STRING
       do
          create p.make_from_string("/this/string/resemble-a-complete.path")

@@ -4,7 +4,7 @@
 expanded class AUX_EG8B[T]
 
 feature {ANY}
-   put (x: like item) is
+   put (x: like item)
       do
          item := x
       end

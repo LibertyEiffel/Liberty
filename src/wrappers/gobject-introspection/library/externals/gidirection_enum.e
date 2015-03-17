@@ -5,9 +5,9 @@ expanded class GIDIRECTION_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = in_low_level)  or else
 				(a_value = inout_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_in is
+	set_in
 		do
 			value := in_low_level
 		end
 
-	set_inout is
+	set_inout
 		do
 			value := inout_low_level
 		end
 
-	set_out_external is
+	set_out_external
 		do
 			value := out_external_low_level
 		end
 
 feature {ANY} -- Queries
-	is_in: BOOLEAN is
+	is_in: BOOLEAN
 		do
 			Result := (value=in_low_level)
 		end
 
-	is_inout: BOOLEAN is
+	is_inout: BOOLEAN
 		do
 			Result := (value=inout_low_level)
 		end
 
-	is_out_external: BOOLEAN is
+	is_out_external: BOOLEAN
 		do
 			Result := (value=out_external_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	in_low_level: INTEGER is
+	in_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	inout_low_level: INTEGER is
+	inout_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	out_external_low_level: INTEGER is
+	out_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

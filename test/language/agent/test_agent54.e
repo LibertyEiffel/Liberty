@@ -14,7 +14,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          v: INTEGER
       do
@@ -35,14 +35,14 @@ feature {}
 
    func: FUNCTION[TUPLE, INTEGER]
 
-   func_run (i: INTEGER): INTEGER is
+   func_run (i: INTEGER): INTEGER
       do
          Result := i
       end
 
    proc: PROCEDURE[TUPLE]
 
-   proc_run (i: INTEGER) is
+   proc_run (i: INTEGER)
       do
          n := i
       end

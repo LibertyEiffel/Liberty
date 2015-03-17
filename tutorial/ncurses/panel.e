@@ -17,7 +17,7 @@ feature {ANY}
 
    active_tab: INTEGER
 
-   main is
+   main
       local
          root_window, sub_window: NCURSES_WINDOW; labels: FAST_ARRAY[NCURSES_LABEL]
       do
@@ -38,32 +38,40 @@ feature {ANY}
          tabs.add_last(ncurses_panel.add_tab("Tic"))
          tabs.add_last(ncurses_panel.add_tab("Tac"))
          tabs.add_last(ncurses_panel.add_tab("Toe"))
+         if tabs.exists(agent (t: NCURSES_PANELTAB): BOOLEAN then t = Void end (?)) then
+            ncurses.disable
+            std_error.put_line("Could not create tabs!!")
+            die_with_code(0)
+         end
          -- In each tab, we create a label:
          create labels.with_capacity(3)
          labels.add_last(create {NCURSES_LABEL}.make(tabs.item(0), "Tic Panel 0 (first)", 2, 3, 25, 1))
          labels.add_last(create {NCURSES_LABEL}.make(tabs.item(1), "Tac Panel 1 (middle)", 2, 3, 25, 1))
          labels.add_last(create {NCURSES_LABEL}.make(tabs.item(2), "Toe Panel 2 (last)", 2, 3, 25, 1))
 
-         active_tab := tabs.lower
+         activate_tab(tabs.lower)
 
          ncurses.when_key_pressed(agent key_press(?))
          ncurses.start
       end
 
-   key_press (key: INTEGER) is
+   key_press (key: INTEGER)
       do
-         -- Move left
          if key = key_left and then active_tab > tabs.lower then
-            active_tab := active_tab - 1
-            -- Move right
+            activate_tab(active_tab - 1)
          elseif key = key_right and then active_tab < tabs.upper then
-            active_tab := active_tab + 1
-         end
-         -- Raise the possibly new active tab
-         tabs.item(active_tab).raise
-         ncurses.get_root_window.redraw_now
-         if key.to_character.to_upper = 'Q' then
+            activate_tab(active_tab + 1)
+         elseif key.to_character.to_upper = 'Q' then
             ncurses.disable
+         end
+      end
+
+   activate_tab (tab: like active_tab)
+      do
+         if active_tab /= tab then
+            active_tab := tab
+            tabs.item(active_tab).raise
+            ncurses.get_root_window.redraw_now
          end
       end
 

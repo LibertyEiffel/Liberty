@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   r is
+   r
       local
          my_current: like Current
       do

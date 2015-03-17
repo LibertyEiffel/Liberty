@@ -10,7 +10,7 @@ create {}
 feature {}
    r: AUX_AGENT57[FUNCTION[TUPLE, INTEGER]]
 
-   make is
+   make
       do
          die_with_code(exit_success_code)
          if r.item.item([]) = 1 then

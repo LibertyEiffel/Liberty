@@ -12,13 +12,13 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          if (agent foo(create {STRING}.make(?))).item([2]) then
          end
       end
 
-   foo (repeat: STRING): BOOLEAN is
+   foo (repeat: STRING): BOOLEAN
       do
          Result := repeat.count = 2
       end

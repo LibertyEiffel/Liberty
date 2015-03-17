@@ -1,7 +1,7 @@
 deferred class ANIMAL
 
 feature {ANY}
-   cry: STRING is
+   cry: STRING
       deferred
       end
 

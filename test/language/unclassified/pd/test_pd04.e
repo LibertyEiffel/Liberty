@@ -8,14 +8,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: STORABLE; b: ARRAY[STORABLE]
       do
          a := die(b)
       end
 
-   die (arg: ARRAY[STORABLE]): STORABLE is
+   die (arg: ARRAY[STORABLE]): STORABLE
       do
          Result := {ARRAY[STORABLE] 1, << "", arg >> }
       end

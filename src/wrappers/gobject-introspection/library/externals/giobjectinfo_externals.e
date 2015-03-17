@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_object_info_find_method (an_info: POINTER; a_name: POINTER): POINTER is
+	g_object_info_find_method (an_info: POINTER; a_name: POINTER): POINTER
  		-- g_object_info_find_method
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_find_method_using_interfaces (an_info: POINTER; a_name: POINTER; an_implementor: POINTER): POINTER is
+	g_object_info_find_method_using_interfaces (an_info: POINTER; a_name: POINTER; an_implementor: POINTER): POINTER
  		-- g_object_info_find_method_using_interfaces
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_find_signal (an_info: POINTER; a_name: POINTER): POINTER is
+	g_object_info_find_signal (an_info: POINTER; a_name: POINTER): POINTER
  		-- g_object_info_find_signal
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_find_vfunc (an_info: POINTER; a_name: POINTER): POINTER is
+	g_object_info_find_vfunc (an_info: POINTER; a_name: POINTER): POINTER
  		-- g_object_info_find_vfunc
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_find_vfunc_using_interfaces (an_info: POINTER; a_name: POINTER; an_implementor: POINTER): POINTER is
+	g_object_info_find_vfunc_using_interfaces (an_info: POINTER; a_name: POINTER; an_implementor: POINTER): POINTER
  		-- g_object_info_find_vfunc_using_interfaces
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_abstract (an_info: POINTER): INTEGER is
+	g_object_info_get_abstract (an_info: POINTER): INTEGER
  		-- g_object_info_get_abstract
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_class_struct (an_info: POINTER): POINTER is
+	g_object_info_get_class_struct (an_info: POINTER): POINTER
  		-- g_object_info_get_class_struct
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_constant (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_constant (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_constant
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_field (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_field (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_field
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_fundamental (an_info: POINTER): INTEGER is
+	g_object_info_get_fundamental (an_info: POINTER): INTEGER
  		-- g_object_info_get_fundamental
 		external "plug_in"
 		alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_get_value_function (an_info: POINTER): POINTER is
+	g_object_info_get_get_value_function (an_info: POINTER): POINTER
  		-- g_object_info_get_get_value_function
 		external "plug_in"
 		alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_get_value_function_pointer (an_info: POINTER): POINTER is
+	g_object_info_get_get_value_function_pointer (an_info: POINTER): POINTER
  		-- g_object_info_get_get_value_function_pointer
 		external "plug_in"
 		alias "{
@@ -129,7 +129,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_interface (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_interface (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_interface
 		external "plug_in"
 		alias "{
@@ -139,7 +139,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_method (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_method
 		external "plug_in"
 		alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_constants (an_info: POINTER): INTEGER is
+	g_object_info_get_n_constants (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_constants
 		external "plug_in"
 		alias "{
@@ -159,7 +159,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_fields (an_info: POINTER): INTEGER is
+	g_object_info_get_n_fields (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_fields
 		external "plug_in"
 		alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_interfaces (an_info: POINTER): INTEGER is
+	g_object_info_get_n_interfaces (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_interfaces
 		external "plug_in"
 		alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_methods (an_info: POINTER): INTEGER is
+	g_object_info_get_n_methods (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_methods
 		external "plug_in"
 		alias "{
@@ -189,7 +189,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_properties (an_info: POINTER): INTEGER is
+	g_object_info_get_n_properties (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_properties
 		external "plug_in"
 		alias "{
@@ -199,7 +199,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_signals (an_info: POINTER): INTEGER is
+	g_object_info_get_n_signals (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_signals
 		external "plug_in"
 		alias "{
@@ -209,7 +209,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_n_vfuncs (an_info: POINTER): INTEGER is
+	g_object_info_get_n_vfuncs (an_info: POINTER): INTEGER
  		-- g_object_info_get_n_vfuncs
 		external "plug_in"
 		alias "{
@@ -219,7 +219,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_parent (an_info: POINTER): POINTER is
+	g_object_info_get_parent (an_info: POINTER): POINTER
  		-- g_object_info_get_parent
 		external "plug_in"
 		alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_property (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_property (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_property
 		external "plug_in"
 		alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_ref_function (an_info: POINTER): POINTER is
+	g_object_info_get_ref_function (an_info: POINTER): POINTER
  		-- g_object_info_get_ref_function
 		external "plug_in"
 		alias "{
@@ -249,7 +249,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_ref_function_pointer (an_info: POINTER): POINTER is
+	g_object_info_get_ref_function_pointer (an_info: POINTER): POINTER
  		-- g_object_info_get_ref_function_pointer
 		external "plug_in"
 		alias "{
@@ -259,7 +259,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_set_value_function (an_info: POINTER): POINTER is
+	g_object_info_get_set_value_function (an_info: POINTER): POINTER
  		-- g_object_info_get_set_value_function
 		external "plug_in"
 		alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_set_value_function_pointer (an_info: POINTER): POINTER is
+	g_object_info_get_set_value_function_pointer (an_info: POINTER): POINTER
  		-- g_object_info_get_set_value_function_pointer
 		external "plug_in"
 		alias "{
@@ -279,7 +279,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_signal (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_signal (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_signal
 		external "plug_in"
 		alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_type_init (an_info: POINTER): POINTER is
+	g_object_info_get_type_init (an_info: POINTER): POINTER
  		-- g_object_info_get_type_init
 		external "plug_in"
 		alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_type_name (an_info: POINTER): POINTER is
+	g_object_info_get_type_name (an_info: POINTER): POINTER
  		-- g_object_info_get_type_name
 		external "plug_in"
 		alias "{
@@ -309,7 +309,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_unref_function (an_info: POINTER): POINTER is
+	g_object_info_get_unref_function (an_info: POINTER): POINTER
  		-- g_object_info_get_unref_function
 		external "plug_in"
 		alias "{
@@ -319,7 +319,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_unref_function_pointer (an_info: POINTER): POINTER is
+	g_object_info_get_unref_function_pointer (an_info: POINTER): POINTER
  		-- g_object_info_get_unref_function_pointer
 		external "plug_in"
 		alias "{
@@ -329,7 +329,7 @@ feature {} -- External calls
 		}"
 		end
 
-	g_object_info_get_vfunc (an_info: POINTER; a_n: INTEGER): POINTER is
+	g_object_info_get_vfunc (an_info: POINTER; a_n: INTEGER): POINTER
  		-- g_object_info_get_vfunc
 		external "plug_in"
 		alias "{

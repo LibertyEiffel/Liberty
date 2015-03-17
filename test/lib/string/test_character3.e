@@ -12,10 +12,10 @@ create {}
    make
 
 feature {ANY}
-   qwerty: STRING is "`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ %
+   qwerty: STRING "`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./ %
       %!@#$^&*()_+QWERTYUIOP{}|ASDFGHJKL:ZXCVBNM<>?"
 
-   make is
+   make
       local
          i: INTEGER; c: CHARACTER
       do

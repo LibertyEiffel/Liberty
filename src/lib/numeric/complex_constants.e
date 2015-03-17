@@ -2,34 +2,34 @@
 -- See the full copyright at the end.
 --
 expanded class COMPLEX_CONSTANTS
-   -- Complex constants 
+   -- Complex constants
 
-feature {ANY} -- 
-	complex (a_real, an_imaginary: REAL_64): COMPLEX_64 is
-		do
-			Result.set(a_real,an_imaginary)
-		end
+feature {ANY} --
+   complex (a_real, an_imaginary: REAL_64): COMPLEX_64
+      do
+         Result.set(a_real,an_imaginary)
+      end
 
 feature {ANY} -- Maths constants:
-   i: COMPLEX_64 is 
-		-- complex i
-	do 
-		Result.set(0.0, 1.0) -- set({REAL_32 0.0},{REAL_32 -1.0}) 
-	end 
-
-   zero: COMPLEX_64 is
-	   -- zero
-   do
-	   check
-		   Result.real = 0.0
-		   Result.imaginary = 0.0
-	   end
-	end
-
-   one: COMPLEX_64 is
+   i: COMPLEX_64
+         -- complex i
       do
-		  Result.set(1.0,0.0)
-	  end
+         Result.set(0.0, 1.0) -- set({REAL_32 0.0},{REAL_32 -1.0})
+      end
+
+   zero: COMPLEX_64
+         -- zero
+      do
+         check
+            Result.real = 0.0
+            Result.imaginary = 0.0
+         end
+      end
+
+   one: COMPLEX_64
+      do
+         Result.set(1.0,0.0)
+      end
 
 end -- class COMPLEX_CONSTANTS
 --
@@ -39,7 +39,7 @@ end -- class COMPLEX_CONSTANTS
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

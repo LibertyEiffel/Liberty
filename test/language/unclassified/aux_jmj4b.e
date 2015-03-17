@@ -10,7 +10,7 @@ inherit
       end
 
 feature {ANY}
-   met (new: like container) is
+   met (new: like container)
       do
          container := new
       end

@@ -8,7 +8,7 @@ inherit
    EIFFELTEST_TOOLS
 
 feature {ANY}
-   get_agent: PROCEDURE[TUPLE] is
+   get_agent: PROCEDURE[TUPLE]
       do
          Result := agent foo
       end
@@ -16,12 +16,12 @@ feature {ANY}
 feature {}
    is_disposed: BOOLEAN
 
-   dispose is
+   dispose
       do
          is_disposed := True
       end
 
-   foo is
+   foo
       do
          assert(not is_disposed)
       end

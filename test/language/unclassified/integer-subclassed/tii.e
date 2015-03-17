@@ -13,8 +13,8 @@ class TII
 
    -- but zero is defined like Current so this error should not occour.
 
-creation make
-feature make is
+create make
+feature make
       local i: II
       do
          i.print_on(std_output)

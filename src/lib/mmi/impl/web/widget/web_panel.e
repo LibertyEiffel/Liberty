@@ -16,23 +16,23 @@ create {WEB_JOB}
    make
 
 feature {UI_PANEL}
-   add (a_child: WEB_WIDGET[UI_WIDGET]) is
+   add (a_child: WEB_WIDGET[UI_WIDGET])
       do
          children.add(a_child, a_child.id)
       end
 
 feature {WEB_ITEM}
-   save (context: WEB_CONTEXT) is
+   save (context: WEB_CONTEXT)
       do
-         children.do_all(agent {WEB_WIDGET[UI_WIDGET]}.save(context))
+         children.for_each(agent {WEB_WIDGET[UI_WIDGET]}.save(context))
       end
 
-   run (context: WEB_CONTEXT) is
+   run (context: WEB_CONTEXT)
       do
-         children.do_all(agent {WEB_WIDGET[UI_WIDGET]}.run(context))
+         children.for_each(agent {WEB_WIDGET[UI_WIDGET]}.run(context))
       end
 
-   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING is
+   retrieve_name (a_name: STRING; a_extension: COLLECTION[STRING]): ABSTRACT_STRING
       local
          dot_index: INTEGER; child: WEB_WIDGET[UI_WIDGET]
       do
@@ -48,7 +48,7 @@ feature {WEB_ITEM}
 feature {}
    children: HASHED_DICTIONARY[WEB_WIDGET[UI_WIDGET], FIXED_STRING]
 
-   make (a_ui: like ui) is
+   make (a_ui: like ui)
       do
          Precursor(a_ui)
          create children.make
@@ -59,13 +59,13 @@ invariant
 
 end -- class WEB_PANEL
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

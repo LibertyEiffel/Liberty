@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   s: STRING is "hello"
+   s: STRING "hello"
 
-   make is
+   make
       local
          s1, s2, s3: STRING; n: NUMBER
       do

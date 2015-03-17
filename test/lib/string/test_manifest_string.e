@@ -10,7 +10,7 @@ create {}
 feature {}
    check_mode: BOOLEAN
 
-   make is
+   make
       local
          s: STRING
       do
@@ -35,7 +35,7 @@ feature {}
          io.put_line(s)
       end
 
-   set_check_mode: BOOLEAN is
+   set_check_mode: BOOLEAN
       do
          check_mode := True
          Result := True

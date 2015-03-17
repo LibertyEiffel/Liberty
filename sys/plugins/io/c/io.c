@@ -28,34 +28,35 @@
 #if defined __USE_POSIX || defined __unix__ || defined _POSIX_C_SOURCE
 /* macro read is used of read_stdin */
 
-void io_copy (char*source, char*target) {
-  /* We use the low-level descriptor functions rather than stream-oriented functions.
-   * This allows us to copy the file's permissions. */
+int io_copy (char*source, char*target) {
+     /* We use the low-level descriptor functions rather than stream-oriented functions.
+      * This allows us to copy the file's permissions. */
 
-  int src;
-  int tgt;
-  struct stat info;
-  static char *buffer = NULL;
-  static int bufsize = 0;
-  int read_count, write_count, written;
+     int src;
+     int tgt;
+     struct stat info;
+     static char *buffer = NULL;
+     static int bufsize = 0;
+     int read_count, write_count, written;
 
-  src=open (source, O_RDONLY);
-  if (fstat (src, &info))
-    return; /* Ooops */
-  if (bufsize < info.st_blksize)
-    buffer=se_realloc (buffer, info.st_blksize);
-  tgt=creat (target, info.st_mode);
-  do {
-    read_count = read (src, buffer, info.st_blksize);
-    write_count = 0; written = 0;
-    while  ((write_count < read_count) && (written >= 0))
-      {
-	written = write (tgt, buffer + write_count, read_count - write_count);
-	write_count += written;
-      }
-  } while ((read_count > 0) && (written >= 0));
-  close (src);
-  close (tgt);
+     src = open(source, O_RDONLY);
+     if (fstat (src, &info))
+          return 0; /* Ooops */
+     if (bufsize < info.st_blksize)
+          buffer = se_realloc (buffer, info.st_blksize);
+     tgt = creat(target, info.st_mode);
+     do {
+          read_count = read(src, buffer, info.st_blksize);
+          write_count = 0; written = 0;
+          while ((write_count < read_count) && (written >= 0)) {
+               written = write(tgt, buffer + write_count, read_count - write_count);
+               write_count += written;
+          }
+     } while ((read_count > 0) && (written >= 0));
+     close (src);
+     close (tgt);
+
+     return written >= 0;
 }
 
 int io_same_physical_file(char*path1,char*path2) {
@@ -79,20 +80,24 @@ int read_stdin(EIF_CHARACTER *buffer, int size) {
   return 1;
 }
 
-void io_copy(char*source, char*target) {
-  static char *buffer = NULL;
-  int read_count;
-  FILE*src=fopen(source, "rb");
-  FILE*tgt=fopen(target, "wb");
+int io_copy(char*source, char*target) {
+     static char *buffer = NULL;
+     int read_count;
+     FILE*src = fopen(source, "rb");
+     FILE*tgt = fopen(target, "wb");
 
-  if(!buffer)
-    buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
+     if (!buffer)
+          buffer = (char*)se_malloc(IO_COPY_BUFSIZE);
 
-  while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
-    size_t dummy = fwrite(buffer, 1, read_count, tgt);
-  }
-  fclose(src);
-  fclose(tgt);
+     while ((read_count = fread(buffer, 1, IO_COPY_BUFSIZE, src)), read_count) {
+          size_t dummy = fwrite(buffer, 1, read_count, tgt);
+          if (errno)
+               return 0;
+     }
+     fclose(src);
+     fclose(tgt);
+
+     return 1;
 }
 
 int io_same_physical_file(char*path1,char*path2) {

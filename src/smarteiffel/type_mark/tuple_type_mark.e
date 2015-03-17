@@ -12,41 +12,44 @@ inherit
       end
 
 feature {ANY}
-   is_tuple: BOOLEAN is True
+   is_tuple: BOOLEAN True
 
-   is_reference: BOOLEAN is True
+   is_reference: BOOLEAN True
 
-   is_expanded, is_user_expanded, is_empty_expanded: BOOLEAN is False
+   is_expanded, is_user_expanded: BOOLEAN False
 
-   is_static: BOOLEAN is
+   is_static: BOOLEAN
       deferred
       end
 
-   as_type_mark: TYPE_MARK is
+   as_type_mark: TYPE_MARK
       deferred
       end
 
-   generic_list: ARRAY[TYPE_MARK] is
+   generic_list: ARRAY[TYPE_MARK]
       deferred
       end
 
-   type: TYPE is
+   type: TYPE
       deferred
       end
 
-   count: INTEGER is
+   count: INTEGER
       deferred
       ensure
          Result >= 0
       end
 
-   id: INTEGER is
+   id: INTEGER
       do
          Result := type.live_type.id
       end
 
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
+
 feature {}
-   canonical_long_name: HASHED_STRING is
+   canonical_long_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end
@@ -63,9 +66,9 @@ end -- class TUPLE_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

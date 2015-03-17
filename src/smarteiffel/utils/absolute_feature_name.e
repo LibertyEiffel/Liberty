@@ -19,20 +19,31 @@ feature {ANY}
 
    hash_code: INTEGER
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.matches(class_name, feature_name)
       end
 
-   matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN is
+   matches (class_name_: like class_name; feature_name_: like feature_name): BOOLEAN
       do
-         Result := class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_)
+         if class_name = Void then
+            Result := class_name_ = Void
+         else
+            Result := class_name.is_equal(class_name_)
+         end
+         if Result then
+            if feature_name = Void then
+               Result := feature_name_ = Void
+            else
+               Result := feature_name.is_equal(feature_name_)
+            end
+         end
       ensure
-         Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
+         --Result = (class_name.is_equal(class_name_) and then feature_name.is_equal(feature_name_))
       end
 
 feature {}
-   make (class_name_: like class_name; feature_name_: like feature_name) is
+   make (class_name_: like class_name; feature_name_: like feature_name)
       require
          class_name_ /= Void
          feature_name_ /= Void
@@ -57,9 +68,9 @@ end -- class ABSOLUTE_FEATURE_NAME
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -10,12 +10,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(3)
       end
 
-   foo (arg: like bar) is
+   foo (arg: like bar)
       local
          loc: like arg
       do

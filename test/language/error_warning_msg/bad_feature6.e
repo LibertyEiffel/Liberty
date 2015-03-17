@@ -7,11 +7,11 @@ create {}
    main
 
 feature {}
-   frozen MY_FUNCTION: INTEGER is
+   frozen MY_FUNCTION: INTEGER
       do
       end
 
-   main is
+   main
       do
       end
 

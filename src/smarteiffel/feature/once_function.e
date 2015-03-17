@@ -5,7 +5,7 @@ class ONCE_FUNCTION
 
 inherit
    ONCE_ROUTINE
-      redefine specialize_signature_in, specialize_signature_thru, hook_collect, hook_for,
+      redefine specialize_signature_in, specialize_signature_thru, hook_collect,
          inline_expression_0
       end
 
@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
@@ -21,7 +21,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION; return_type: TYPE): INLINE_MEMO
       do
          if target.side_effect_free(type) and then
             target.non_void_no_dispatch_type(type) /= Void and then
@@ -42,53 +42,55 @@ feature {ANY}
    result_type: TYPE_MARK
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          result_type.specialize_in(new_type)
          if arguments /= Void then
             args := arguments.specialize_in(new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_in(new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
-         args: like arguments; rt: like result_type
+         args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
          rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
          if arguments /= Void then
             args := arguments.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if result_type = rt and then args = arguments then
+         cfal := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         if result_type = rt and then args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
             Result.set_result_type(rt)
          end
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_6 is
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_6
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: ONCE_FUNCTION_VISITOR) is
+   accept (visitor: ONCE_FUNCTION_VISITOR)
       do
          visitor.visit_once_function(Current)
       end
 
 feature {ONCE_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -96,7 +98,7 @@ feature {ONCE_FUNCTION}
       end
 
 feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
-   hook_collect (t: TYPE) is
+   hook_collect (t: TYPE)
       local
          flush_type: TYPE
       do
@@ -110,47 +112,32 @@ feature {RUN_FEATURE} -- hooks for STD_OUTPUT.flush:
          end
       end
 
-   hook_for (lt: LIVE_TYPE) is
-      do
-         --|*** rf: RUN_FEATURE; t: TYPE
-         --| Make live STD_OUTPUT.flush
-         --|*** *** Since the modification of Cyril about io, std_output is no
-         --|    longer a once function !
-         --|*** (Dom. June 13th 2004) ***
-         --|*** if class_text.name.to_string = as_general and then first_name.to_string = as_std_output then
-         --|*** t := result_type.resolve_in(lt.type)
-         --|*** rf := t.live_type.at(t.name_from_string(as_flush))
-         --|*** check rf /= Void end
-         --|*** once_routine_pool.set_std_output_flush_atexit(rf)
-         --|*** end
-      end
-
 feature {}
-   make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body) is
+   make (fa: like arguments; rty: like result_type; om: like obsolete_mark; hc: like header_comment
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; rt: like routine_then; c: like has_closures)
       require
-         rt /= Void
+         rty /= Void
       do
-         if not rt.is_static then
-            smart_eiffel.vffd7_fatal_error(rt.start_position)
+         if not rty.is_static then
+            smart_eiffel.vffd7_fatal_error(rty.start_position)
          end
-         make_effective_routine(fa, om, hc, ra, lv, rb)
-         result_type := rt
+         make_effective_routine(fa, om, hc, ra, lv, rb, rt, c)
+         result_type := rty
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_FUNCTION} Result.from_effective(fn, arguments, result_type, require_assertion, ensure_assertion, bc, permissions)
       end
 
-   type_std_output: CLASS_TYPE_MARK is
+   type_std_output: CLASS_TYPE_MARK
          --|*** Could be better (see caller) ***
          --|*** (Dom Oct. 21th 2005)
       local
          hs: HASHED_STRING; bcn: CLASS_NAME
       once
          hs := string_aliaser.hashed_string(once "STD_OUTPUT")
-         create bcn.unknown_position(hs)
+         create bcn.unknown_position(hs, False)
          create Result.make(bcn)
       end
 
@@ -169,9 +156,9 @@ end -- class ONCE_FUNCTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

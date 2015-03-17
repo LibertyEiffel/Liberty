@@ -15,7 +15,7 @@ create {EIFFEL_PARSER, FORMAL_ARG_LIST}
    make
 
 feature {ANY}
-   like_what: ARGUMENT_NAME2
+   like_what: ARGUMENT_NAME_REF
          -- The one written.
 
    written_name: HASHED_STRING
@@ -23,12 +23,12 @@ feature {ANY}
    type_marks_memory: HASHED_DICTIONARY[TYPE_MARK, TYPE]
          -- Memorize the corresponding TYPE_MARK for all context TYPEs.
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
-         Result := type_marks_memory /= Void
+         Result := True
       end
 
-   frozen specialize_in (new_type: TYPE) is
+   frozen specialize_in (new_type: TYPE)
       local
          type_mark: TYPE_MARK
       do
@@ -46,7 +46,7 @@ feature {ANY}
          type_marks_memory.fast_put(type_mark, new_type)
       end
 
-   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   frozen specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          type_mark: TYPE_MARK
       do
@@ -56,17 +56,17 @@ feature {ANY}
          Result := Current
       end
 
-   declaration_type: TYPE_MARK is
+   declaration_type: TYPE_MARK
       do
          Result := like_what.formal_arg_list.type_mark(like_what.rank).declaration_type
       end
 
-   accept (visitor: LIKE_ARGUMENT_TYPE_MARK_VISITOR) is
+   accept (visitor: LIKE_ARGUMENT_TYPE_MARK_VISITOR)
       do
          visitor.visit_like_argument_type_mark(Current)
       end
 
-   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK is
+   to_static (new_type: TYPE; allow_raw_class_name: BOOLEAN): TYPE_MARK
       do
          check
             not allow_raw_class_name
@@ -87,7 +87,7 @@ feature {ANY}
          end
       end
 
-   signature_resolve_in (new_type: TYPE): TYPE is
+   signature_resolve_in (new_type: TYPE): TYPE
       do
          Result := type_marks_memory.fast_reference_at(new_type).signature_resolve_in(new_type)
       end
@@ -96,14 +96,14 @@ feature {}
    like_argument_computing: BOOLEAN
 
 feature {TYPE_MARK}
-   short_ (shorted_type: TYPE) is
+   short_ (shorted_type: TYPE)
       do
          short_printer.hook_or(once "like", once "like ")
          like_what.short(shorted_type)
       end
 
 feature {}
-   make (sp: like start_position; lw: like like_what) is
+   make (sp: like start_position; lw: like like_what)
       require
          not sp.is_unknown
          lw /= Void
@@ -135,9 +135,9 @@ end -- class LIKE_ARGUMENT_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

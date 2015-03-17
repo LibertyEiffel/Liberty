@@ -6,28 +6,28 @@ class AUX_AGENT_GC3
 feature {ANY}
    remaining_time, hospital_time, hospital_visits: INTEGER
 
-   wait (t: INTEGER) is
+   wait (t: INTEGER)
       do
          remaining_time := t
          hospital_time := hospital_time + t
       end
 
-   enter_hospital is
+   enter_hospital
       do
          hospital_visits := hospital_visits + 1
       end
 
-   next_time is
+   next_time
       do
          remaining_time := remaining_time - 1
       end
 
-   finished: BOOLEAN is
+   finished: BOOLEAN
       do
          Result := remaining_time = 0
       end
 
-   incr_hospital_time is
+   incr_hospital_time
       do
          hospital_time := hospital_time + 1
       end

@@ -11,7 +11,7 @@ create {READLINE_JOB}
    make
 
 feature {READLINE_ITEM}
-   run (context: READLINE_CONTEXT): BOOLEAN is
+   run (context: READLINE_CONTEXT): BOOLEAN
       do
          ui.set_value(context.read(once "  | "))
          Result := True
@@ -19,13 +19,13 @@ feature {READLINE_ITEM}
 
 end -- class READLINE_TEXT_FIELD
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

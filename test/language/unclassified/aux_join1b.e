@@ -7,7 +7,7 @@ inherit
    AUX_JOIN1A
 
 feature {ANY}
-   v: AUX_JOIN1B is
+   v: AUX_JOIN1B
       do
       end
 

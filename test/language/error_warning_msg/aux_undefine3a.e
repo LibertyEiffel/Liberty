@@ -5,7 +5,7 @@ class AUX_UNDEFINE3A
 insert
    ANY
 feature {ANY}
-   test is
+   test
       do
       end
 

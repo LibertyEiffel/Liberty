@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes representing yes/no questions (properties)"
    status:
@@ -22,7 +22,7 @@ create {ANY}
    make_simple, make_full
 
 feature {ANY}
-   make_simple (prop: STRING) is
+   make_simple (prop: STRING)
          -- set up node with property `prop'
       require
          good_property: prop /= Void and then prop.count > 0
@@ -30,7 +30,7 @@ feature {ANY}
          make_simple_yes_no(prop)
       end
 
-   make_full (y, n, p: AUX_UW01YES_NO_NODE; prop: STRING) is
+   make_full (y, n, p: AUX_UW01YES_NO_NODE; prop: STRING)
          -- set up node with property `prop', yes link `y',
          -- no link `n', and parent `p'
       require
@@ -39,13 +39,13 @@ feature {ANY}
          make_full_yes_no(y, n, p, prop)
       end
 
-   execute is
+   execute
          -- perform action
       do
          extra_io.print_multi({ARRAY[STRING] 1, << property, language.s5 >> })
       end
 
-   read_answer is
+   read_answer
          -- ask question
       do
          extra_io.read_yes_no(language.s6)

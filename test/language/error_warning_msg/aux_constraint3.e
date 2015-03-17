@@ -1,13 +1,13 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_CONSTRAINT3[X,Y->X]
+class AUX_CONSTRAINT3[X_, Y_ -> X_]
 
 feature {ANY}
 
-   item1: X;
+   item1: X_
 
-   item2: Y;
+   item2: Y_
 
 end -- class AUX_CONSTRAINT3
 --

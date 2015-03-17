@@ -12,7 +12,7 @@ feature {ANY}
    keep_environment: BOOLEAN
    command_line: STRING
 
-   execute (program_: like program; arguments_: like arguments; keep_environment_: like keep_environment) is
+   execute (program_: like program; arguments_: like arguments; keep_environment_: like keep_environment)
       require
          program_ /= Void
          arguments_ /= Void
@@ -27,7 +27,7 @@ feature {ANY}
          keep_environment = keep_environment_
       end
 
-   execute_command_line (command_line_: like command_line; keep_environment_: like keep_environment) is
+   execute_command_line (command_line_: like command_line; keep_environment_: like keep_environment)
       require
          command_line_ /= Void
       do
@@ -47,13 +47,13 @@ invariant
 
 end -- class PROCESS_LAUNCH_INFO
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

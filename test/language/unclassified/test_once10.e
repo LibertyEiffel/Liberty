@@ -1,6 +1,6 @@
 class TEST_ONCE10
 -- test that a once feature with multiple names is executed only once
-   
+
 insert
    EIFFELTEST_TOOLS
 
@@ -8,14 +8,13 @@ create {}
    make
 
 feature {ANY}
-   foo, bar: INTEGER is
+   foo, bar: INTEGER
       once
          count := count + 1
          Result := count
       end
 
-   
-   make is
+   make
       do
          assert(foo = 1)
          assert(bar = 1)
@@ -29,6 +28,7 @@ feature {ANY}
 
       end
 
-feature {NONE}
+feature {}
+
    count: INTEGER
 end

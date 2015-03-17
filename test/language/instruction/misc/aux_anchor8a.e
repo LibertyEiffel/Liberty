@@ -4,7 +4,7 @@
 class AUX_ANCHOR8A
 
 feature {ANY}
-   t: INTEGER is
+   t: INTEGER
       do
       end
 

@@ -4,17 +4,17 @@
 deferred class FILE
 
 feature {ANY}
-   name: FIXED_STRING is
+   name: FIXED_STRING
          -- The short name of the file.
       deferred
       end
 
-   path: FIXED_STRING is
+   path: FIXED_STRING
          -- The file path.
       deferred
       end
 
-   frozen parent: DIRECTORY is
+   frozen parent: DIRECTORY
       local
          parent_path: STRING
       do
@@ -31,15 +31,15 @@ feature {ANY}
          end
       end
 
-   is_directory: BOOLEAN is
+   is_directory: BOOLEAN
       deferred
       end
 
-   is_regular: BOOLEAN is
+   is_regular: BOOLEAN
       deferred
       end
 
-   as_directory: DIRECTORY is
+   as_directory: DIRECTORY
       require
          is_directory
       deferred
@@ -47,7 +47,7 @@ feature {ANY}
          Result = Current
       end
 
-   as_regular: REGULAR_FILE is
+   as_regular: REGULAR_FILE
       require
          is_regular
       deferred
@@ -55,12 +55,12 @@ feature {ANY}
          Result = Current
       end
 
-   exists: BOOLEAN is
+   exists: BOOLEAN
       deferred
       end
 
 feature {DIRECTORY}
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       do
       ensure
          parent = a_parent
@@ -78,13 +78,13 @@ invariant
 
 end -- class FILE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

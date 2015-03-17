@@ -11,12 +11,12 @@ create {}
    make
 
 feature {ANY}
-   global_aux: AUX_PRE_ONCE6 is
+   global_aux: AUX_PRE_ONCE6
       once
          create Result
       end
 
-   make is
+   make
       local
          aux: AUX_PRE_ONCE6
       do

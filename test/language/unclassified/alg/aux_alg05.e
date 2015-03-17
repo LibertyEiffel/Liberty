@@ -3,13 +3,13 @@
 --
 class AUX_ALG05
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    field: INTEGER
 
-   make is
+   make
       do
          field := field + 1
       end

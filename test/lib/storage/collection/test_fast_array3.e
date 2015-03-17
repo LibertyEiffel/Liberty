@@ -10,7 +10,7 @@ create {}
 feature {ANY}
    aux: AUX_FAST_ARRAY3
 
-   make is
+   make
       do
          create aux.test
       end

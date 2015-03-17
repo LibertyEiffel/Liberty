@@ -4,7 +4,7 @@
 class AUX_EXPORT1A
 
 feature {}
-   f is
+   f
       do
       end
 

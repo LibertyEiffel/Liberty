@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_FEATURE_CONSTANT}
-   visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT) is
+   visit_liberty_feature_constant (v: LIBERTY_FEATURE_CONSTANT)
       deferred
       end
 

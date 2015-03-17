@@ -4,7 +4,7 @@
 class AUX_ONCE7A
 
 feature {ANY}
-   default_value: INTEGER is
+   default_value: INTEGER
       once
          Result := 200
       ensure

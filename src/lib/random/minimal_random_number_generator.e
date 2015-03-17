@@ -13,18 +13,18 @@ create {ANY}
    make, with_seed
 
 feature {}
-   im: INTEGER is 2147483647
+   im: INTEGER 2147483647
 
-   ia: INTEGER is 16807
+   ia: INTEGER 16807
 
-   iq: INTEGER is 127773
+   iq: INTEGER 127773
 
-   ir: INTEGER is 2836
+   ir: INTEGER 2836
 
    seed: INTEGER
 
 feature {ANY}
-   make is
+   make
       local
          seed_init: INTEGER
       do
@@ -38,7 +38,7 @@ feature {ANY}
          with_seed(seed_init)
       end
 
-   with_seed (seed_value: INTEGER) is
+   with_seed (seed_value: INTEGER)
       require
          valid_seed: seed_value > 0 and seed_value < im
       do
@@ -46,7 +46,7 @@ feature {ANY}
          next
       end
 
-   next is
+   next
       local
          k: INTEGER
       do
@@ -57,12 +57,12 @@ feature {ANY}
          end
       end
 
-   last_real: REAL is
+   last_real: REAL
       do
          Result := seed / im
       end
 
-   last_integer (n: INTEGER): INTEGER is
+   last_integer (n: INTEGER): INTEGER
       do
          Result := seed #\\ n + 1
       end
@@ -72,13 +72,13 @@ invariant
 
 end -- class MINIMAL_RANDOM_NUMBER_GENERATOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

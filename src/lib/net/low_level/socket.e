@@ -13,42 +13,54 @@ insert
    DISPOSABLE
 
 feature {SOCKET_HANDLER}
-   default_buffer_size: INTEGER is 8192
+   default_buffer_size: INTEGER 8192
 
-   is_connected: BOOLEAN is
+   set_sync(a_sync: BOOLEAN)
+         -- set blocking mode for reading, True is blocking, False nonblocking
+      deferred
+      ensure
+         sync = a_sync
+      end
+
+   sync: BOOLEAN
+         -- the blocking mode for reading from the socket, True is blocking, False nonblocking
+      deferred
+      end
+   
+   is_connected: BOOLEAN
       deferred
       ensure
          Result implies is_remote_connected
       end
 
-   is_remote_connected: BOOLEAN is
+   is_remote_connected: BOOLEAN
       deferred
       end
 
-   error: STRING is
+   error: STRING
       deferred
       end
 
-   read is
+   read
       require
          is_connected
       deferred
       end
 
-   last_read: STRING is
+   last_read: STRING
       require
          is_connected
       deferred
       end
 
-   write (data: STRING) is
+   write (data: STRING)
       require
          is_connected
          data /= Void
       deferred
       end
 
-   disconnect is
+   disconnect
       require
          is_connected
       deferred
@@ -57,17 +69,17 @@ feature {SOCKET_HANDLER}
          not is_remote_connected
       end
 
-   clear is
+   clear
       require
          not is_connected
       deferred
       end
 
-   fd: INTEGER is
+   fd: INTEGER
       deferred
       end
 
-   when_disconnected (a_listener: PROCEDURE[TUPLE[SOCKET]]) is
+   when_disconnected (a_listener: PROCEDURE[TUPLE[SOCKET]])
       require
          a_listener /= Void
       do
@@ -80,7 +92,7 @@ feature {SOCKET_HANDLER}
 feature {} -- socket listeners
    disconnected_listeners: FAST_ARRAY[PROCEDURE[TUPLE[SOCKET]]]
 
-   fire_disconnected is
+   fire_disconnected
       local
          i: INTEGER
       do
@@ -97,13 +109,13 @@ feature {} -- socket listeners
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          clear
       end
 
 feature {} -- really low level
-   dispose is
+   dispose
       require
          should_not_rely_on_gc: not is_connected
       do
@@ -114,13 +126,13 @@ feature {} -- really low level
 
 end -- class SOCKET
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

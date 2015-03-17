@@ -3,7 +3,7 @@
 --
 class AUX_EXPORT1C
 feature {ANY}
-   make is
+   make
       do
       end
 end -- class AUX_EXPORT1C

@@ -3,18 +3,18 @@
 --
 class AUX_SCR1B
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          next := 0
          create clients.make(0, max_clients - 1)
       end
 
 feature {AUX_SCR1A}
-   manage (d: AUX_SCR1A) is
+   manage (d: AUX_SCR1A)
       require
          not_full: next < max_clients
       do
@@ -24,13 +24,13 @@ feature {AUX_SCR1A}
          job_done: is_managed(d)
       end
 
-   is_managed (d: AUX_SCR1A): BOOLEAN is
+   is_managed (d: AUX_SCR1A): BOOLEAN
       do
          Result := True
       end
 
 feature {ANY}
-   max_clients: INTEGER is 99
+   max_clients: INTEGER 99
 
    next: INTEGER
 

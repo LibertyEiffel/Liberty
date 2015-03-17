@@ -13,7 +13,7 @@ create {}
 feature {}
    x: INTEGER
 
-   make is
+   make
       local
          p: PROCEDURE[TUPLE]
       do
@@ -24,12 +24,12 @@ feature {}
          retry
       end
 
-   set_x (v: INTEGER) is
+   set_x (v: INTEGER)
       do
          x := v
       end
 
-   exec (p: PROCEDURE[TUPLE]) is
+   exec (p: PROCEDURE[TUPLE])
       do
          p.call([])
       end

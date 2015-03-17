@@ -26,7 +26,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   compile (a_rf7: RUN_FEATURE_7) is
+   compile (a_rf7: RUN_FEATURE_7)
       require
          rf7_does_need_c_wrapper(a_rf7)
       local
@@ -56,7 +56,7 @@ feature {}
    rf7: RUN_FEATURE_7
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       local
          cbd: BOOLEAN
       do
@@ -103,7 +103,9 @@ feature {NATIVE_BUILT_IN}
                cpp.put_ith_argument(1)
                function_body.append(once ",sizeof(T")
                type_of_current.id.append_in(function_body)
-               function_body.append(once "));%N")
+               function_body.append(once "/*")
+               function_body.append(type_of_current.live_type.structure_signature)
+               function_body.append(once "*/));%N")
             end
          elseif as_print_run_time_stack = name then
             function_body.append(once "se_print_run_time_stack();%N")
@@ -192,15 +194,21 @@ feature {NATIVE_BUILT_IN}
             cpp.memory.mark_item(rf7)
          elseif as_se_fault = name then
             function_body.append(once "/*se_fault*/{int*i=0;*i=0;}%N")
+         elseif as_thread_context = bcn then
+            c_mapping_thread_context_proc
+         elseif as_thread_lock = bcn then
+            c_mapping_thread_lock_proc
          else
-            check -- Unknown external.
-               False
-            end
+            echo.w_put_string(once "Unknown ")
+            echo.w_put_string(bcn)
+            echo.w_put_string(once " built-in: ")
+            echo.w_put_line(name)
+            not_yet_implemented
          end
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
          if not cpp.c_plus_plus_registered(visited) then
             extra_c_prototype(visited.external_tag.start_position, type_of_current, rf7.base_feature)
@@ -211,7 +219,7 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          visited.parse_external_tag
          if visited.need_prototype and then not cpp.c_registered(visited) then
@@ -223,18 +231,18 @@ feature {NATIVE_C}
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       do
          mapping_plug_in(visited, rf7.arguments)
          function_body.append(once ";%N")
       end
 
 feature {} -- built-ins
-   c_mapping_native_array_procedure is
+   c_mapping_native_array_procedure
       local
          elt_type: TYPE
       do
-         elt_type := rf7.type_of_current.private_generic_list.item(1)
+         elt_type := rf7.type_of_current.generic_list.first
          if name = as_put then
             if elt_type.is_user_expanded then
                if elt_type.is_empty_expanded then
@@ -252,7 +260,9 @@ feature {} -- built-ins
                   cpp.put_ith_argument(2)
                   function_body.append(once "]),&a1tmp,sizeof(T")
                   elt_type.id.append_in(function_body)
-                  function_body.append(once "));}%N")
+                  function_body.append(once "/*")
+                  function_body.append(elt_type.live_type.structure_signature)
+                  function_body.append(once "*/));}%N")
                end
             else
                cpp.memory.put_ref_in_native_array(rf7)
@@ -273,6 +283,9 @@ feature {} -- built-ins
                function_body.append(once "0*")
             else
                elt_type.id.append_in(function_body) --|**** TODO: that is wrong; should use the type's copy feature
+               function_body.append(once "/*")
+               function_body.append(elt_type.live_type.structure_signature)
+               function_body.append(once "*/")
             end
             function_body.append(once "));}%N")
          else
@@ -283,7 +296,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_integer_procedure is
+   c_mapping_integer_procedure
       do
          if as_bit_put = name then
             function_body.append(once "if(")
@@ -318,6 +331,69 @@ feature {} -- built-ins
          end
       end
 
+feature {} -- Threads
+   c_mapping_thread_context_proc
+      do
+         if as_run = name then
+            function_body.append(once "((T")
+            type_of_current.id.append_in(function_body);
+            function_body.append(once "*)")
+            cpp.put_target_as_value
+            function_body.append(once ")->_native_data=se_thread_run((void(*)(T0*,void(*)(void*),void*))thread_run")
+            type_of_current.id.append_in(function_body);
+            function_body.append(once ",(T0*)(")
+            cpp.put_target_as_value
+            function_body.append(once "));%N")
+         elseif as_wait = name then
+            function_body.append(once "se_thread_wait((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         end
+      end
+
+   c_mapping_thread_lock_proc
+      do
+         if as_lock = name then
+            function_body.append(once "se_thread_lock_lock((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_unlock = name then
+            function_body.append(once "se_thread_lock_unlock((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_wait = name then
+            function_body.append(once "se_thread_lock_wait((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_notify = name then
+            function_body.append(once "se_thread_lock_notify((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_notify_all = name then
+            function_body.append(once "se_thread_lock_notify_all((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         elseif as_alloc_native_data = name then
+            function_body.append(once "(")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data = se_thread_lock_alloc();%N")
+         elseif as_free_native_data = name then
+            function_body.append(once "se_thread_lock_free((")
+            cpp.put_target_as_target(type_of_current)
+            function_body.append(once ")->_native_data);%N")
+         end
+      end
+
+   fs_thread_name: HASHED_STRING
+      once
+         Result := string_aliaser.hashed_string(once "thread")
+      end
+
+   fs_args_name: HASHED_STRING
+      once
+         Result := string_aliaser.hashed_string(once "args")
+      end
+
 end -- class C_NATIVE_PROCEDURE_MAPPER
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
@@ -330,9 +406,9 @@ end -- class C_NATIVE_PROCEDURE_MAPPER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

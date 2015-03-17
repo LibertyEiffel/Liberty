@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_alias: BOOLEAN is
+   has_alias: BOOLEAN
       do
          Result := count = 2
       end
 
-   definition: LIBERTY_AST_STRING is
+   definition: LIBERTY_AST_STRING
       require
          has_alias
       do
@@ -34,15 +34,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Alias"
+   name: STRING "Alias"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 2 >> }
       end

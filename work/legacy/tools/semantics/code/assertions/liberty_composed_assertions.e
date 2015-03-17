@@ -21,14 +21,14 @@ feature {ANY}
    left, right: LIBERTY_ASSERTIONS
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          left.mark_reachable_code(mark)
          right.mark_reachable_code(mark)
       end
 
 feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          l, r: LIBERTY_ASSERTIONS
       do
@@ -43,14 +43,14 @@ feature {LIBERTY_FEATURE, LIBERTY_ASSERTIONS}
       end
 
 feature {LIBERTY_COMPOSED_ASSERTIONS}
-   set_specialized_in (l: like left; r: like right) is
+   set_specialized_in (l: like left; r: like right)
       do
          left := l
          right := r
       end
 
 feature {}
-   make (a_left: like left; a_right: like right) is
+   make (a_left: like left; a_right: like right)
       require
          a_left /= Void
          a_right /= Void

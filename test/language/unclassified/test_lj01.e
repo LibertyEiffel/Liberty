@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER
       do
@@ -30,7 +30,7 @@ feature {ANY}
    board2: AUX_LJ01B2
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

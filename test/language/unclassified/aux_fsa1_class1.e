@@ -4,17 +4,17 @@
 deferred class AUX_FSA1_CLASS1
 
 feature {ANY} --  {ALL}
-   level: INTEGER is
+   level: INTEGER
       deferred
       end
 
-   apply is
+   apply
          -- apply action
       deferred
       end
 
 feature {}
-   initiate is
+   initiate
       do
          dummy := 1
       end

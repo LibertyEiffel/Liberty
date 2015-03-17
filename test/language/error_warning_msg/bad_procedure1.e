@@ -7,14 +7,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          bar: BOOLEAN
       do
          bar := foo
       end
 
-   foo is
+   foo
       do
       end
 

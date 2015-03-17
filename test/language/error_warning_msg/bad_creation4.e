@@ -9,7 +9,7 @@ create {}
 feature {}
    x: AUX_CREATION4
 
-   ga is
+   ga
       do
          x.borg
       end

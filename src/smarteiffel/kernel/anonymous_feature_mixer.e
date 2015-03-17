@@ -18,7 +18,7 @@ create {FEATURE_ACCUMULATOR}
    make
 
 feature {FEATURE_ACCUMULATOR}
-   make (a_fn: FEATURE_NAME) is
+   make (a_fn: FEATURE_NAME)
       require
          a_fn /= Void
       do
@@ -42,7 +42,7 @@ feature {FEATURE_ACCUMULATOR}
          not is_ready
       end
 
-   add_inherited_definition (t: TYPE; parent_edge: PARENT_EDGE; an_af: ANONYMOUS_FEATURE) is
+   add_inherited_definition (t: TYPE; parent_edge: PARENT_EDGE; an_af: ANONYMOUS_FEATURE)
       require
          t /= Void
          an_af /= Void
@@ -59,7 +59,7 @@ feature {FEATURE_ACCUMULATOR}
          is_ready
       end
 
-   set_body (an_af: ANONYMOUS_FEATURE; parent_type: TYPE; parent_edge: PARENT_EDGE) is
+   set_body (an_af: ANONYMOUS_FEATURE; parent_type: TYPE; parent_edge: PARENT_EDGE)
       require
          parent_type /= Void
          --|*** parent_edge /= Void implies parent_type.feature_accumulator.context_type.direct_thru_step(parent_type, parent_edge)
@@ -76,14 +76,14 @@ feature {FEATURE_ACCUMULATOR}
          is_ready
       end
 
-   remove_body is
+   remove_body
       do
          body_feature := Void
          body_type := Void
          body_inherit := Void
       end
 
-   add_local_definition (an_af: ANONYMOUS_FEATURE) is
+   add_local_definition (an_af: ANONYMOUS_FEATURE)
       require
          an_af /= Void
          body_feature = Void
@@ -94,7 +94,7 @@ feature {FEATURE_ACCUMULATOR}
          is_ready
       end
 
-   specialize_signature (context_type: TYPE) is
+   specialize_signature (context_type: TYPE)
          -- At this stage, all the `feature_stamp's for `context_type' are created and linked with it. The `anonymous_feature's
          -- are not yet connected to the `feature_stamp's.
          --
@@ -210,7 +210,7 @@ feature {FEATURE_ACCUMULATOR}
          build_definition /= Void --|*** result_type(context_type) = Void or else result_type(context_type).is_static
       end
 
-   specialize_feature (context_type: TYPE) is
+   specialize_feature (context_type: TYPE)
          -- Prepare a specialized version of the feature: collect and specialize assertions, then specialize the body too.
          --
          -- Specializing means modifying the CALLs and PROC_CALLs having "Current" as target (be it explicit or not). Those calls
@@ -376,7 +376,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {}
-   export_status_for (original: ANONYMOUS_FEATURE; context_type: TYPE): CLIENT_LIST is
+   export_status_for (original: ANONYMOUS_FEATURE; context_type: TYPE): CLIENT_LIST
       local
          conforming_parent_clients, tmp_clients, parent_clients: CLIENT_LIST;
          parent_edge: PARENT_EDGE; i: INTEGER; redefined_name: FEATURE_NAME
@@ -396,7 +396,7 @@ feature {}
                   -- There are both an export clause and a local definition.
                   -- Ignore the export clause and display a warning
                   redefined_name := parent_edge.get_redefine(feature_name)
-                  if   redefined_name /= Void then
+                  if redefined_name /= Void then
                      error_handler.add_position(redefined_name.start_position)
                   end
                   error_handler.add_position(tmp_clients.start_position)
@@ -425,13 +425,15 @@ feature {}
                i > parents_af.upper
             loop
                parent_edge := parents_edges.item(i)
-               tmp_clients := parent_edge.exports_for(feature_name)
                parent_clients := parents_af.item(i).permissions
+               tmp_clients := parent_edge.exports_for(feature_name)
                if tmp_clients = Void then
                   tmp_clients := parent_edge.exports_for_all
-                  if tmp_clients = Void then
-                     tmp_clients := parent_clients
-                  end
+               end
+               if tmp_clients = Void then
+                  tmp_clients := parent_clients
+               else
+                  tmp_clients.specialize_in(parent_edge.type_mark.resolve_in(context_type))
                end
                if Result = Void then
                   Result := tmp_clients
@@ -457,12 +459,14 @@ feature {}
             loop
                parent_edge := parents_edges.item(i)
                tmp_clients := parent_edge.exports_for(feature_name)
-               if tmp_clients /= Void  and then not tmp_clients.wider_than(Result) then
-                  error_handler.add_position(tmp_clients.start_position)
-                  error_handler.append(once "The final client list for ")
-                  error_handler.append(feature_name.to_string)
-                  error_handler.append(once " is different from the one explicitly listed here.")
-                  error_handler_show_resulting_client_list(Result)
+               if tmp_clients /= Void then
+                  if not tmp_clients.wider_than(Result) then
+                     error_handler.add_position(tmp_clients.start_position)
+                     error_handler.append(once "The final client list for ")
+                     error_handler.append(feature_name.to_string)
+                     error_handler.append(once " is different from the one explicitly listed here.")
+                     error_handler_show_resulting_client_list(Result)
+                  end
                end
                i := i + 1
             end
@@ -517,10 +521,11 @@ feature {}
          end
       ensure
          Result /= Void
+         Result.has_been_specialized
       end
 
 feature {PRECURSOR_CALL}
-   build_precursor (pc: PRECURSOR_CALL; new_type: TYPE): ANONYMOUS_FEATURE is
+   build_precursor (pc: PRECURSOR_CALL; new_type: TYPE): ANONYMOUS_FEATURE
       require
          pc /= Void
          new_type /= Void
@@ -643,7 +648,7 @@ feature {PRECURSOR_CALL}
          build_definition := old_af
       end
 
-   specialize_precursor (af: ANONYMOUS_FEATURE; parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): ANONYMOUS_FEATURE is
+   specialize_precursor (af: ANONYMOUS_FEATURE; parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): ANONYMOUS_FEATURE
       require
          af.has_been_specialized
          af.start_position.class_text /= new_type.class_text
@@ -672,7 +677,7 @@ feature {PRECURSOR_CALL}
       end
 
 feature {}
-   error_handler_add_export_positions (client_list: CLIENT_LIST) is
+   error_handler_add_export_positions (client_list: CLIENT_LIST)
       local
          i: INTEGER; export_clause: CLIENT_LIST
       do
@@ -690,7 +695,7 @@ feature {}
          end
       end
 
-   error_handler_show_resulting_client_list (client_list: CLIENT_LIST) is
+   error_handler_show_resulting_client_list (client_list: CLIENT_LIST)
          -- Show the computed client list, and emit a warning
       local
          b: STRING
@@ -708,29 +713,37 @@ feature {}
          error_handler.print_as_warning
       end
 
-feature {FEATURE_ACCUMULATOR, RESULT, ARGUMENT_NAME2, LOCAL_NAME2} --|*** should be F_A only
-   is_ready: BOOLEAN is
+feature {FEATURE_ACCUMULATOR, RESULT, ARGUMENT_NAME_REF, LOCAL_NAME_REF} --|*** should be F_A only
+   is_ready: BOOLEAN
       do
          Result := not parents_af.is_empty or else body_feature /= Void
       end
 
-feature {ARGUMENT_NAME2}
-   formal_arg_list (context_type: TYPE): FORMAL_ARG_LIST is
+feature {ARGUMENT_NAME_REF}
+   formal_arg_list: FORMAL_ARG_LIST
       require
          is_ready
       do
          check
             signature_ready
          end
-         --|*** PH(13/04/03) To be removed
-         --|if not signature_ready then
-         --|   specialize_signature(context_type)
-         --|end
          Result := build_definition.arguments
       end
 
+   closure_formal_arg_list (closure_rank: INTEGER): FORMAL_ARG_LIST
+      require
+         is_ready
+         closure_rank > 0
+      do
+         check
+            signature_ready
+            build_definition.closure_arguments /= Void
+         end
+         Result := build_definition.closure_arguments.item(closure_rank + build_definition.closure_arguments.lower - 1)
+      end
+
 feature {FEATURE_ACCUMULATOR, RESULT}
-   result_type (context_type: TYPE): TYPE_MARK is
+   result_type (context_type: TYPE): TYPE_MARK
       require
          is_ready
       do
@@ -783,7 +796,7 @@ feature {FEATURE_ACCUMULATOR, PRECURSOR_CALL} --|*** should be F_A only?
    local_definition: BOOLEAN --|*** remove it? *** Is there a proper definition in the context type.
 
 feature {}
-   implicit_any: PARENT_EDGE is
+   implicit_any: PARENT_EDGE
       once
          create Result.make(False, smart_eiffel.type_any.canonical_type_mark)
       ensure
@@ -809,9 +822,9 @@ end -- class ANONYMOUS_FEATURE_MIXER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

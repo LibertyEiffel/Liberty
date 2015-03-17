@@ -14,7 +14,7 @@ class UNICODE_STRING
    --                    no matter what the language.
    --
    -- WARNING: a grapheme may be described with many code.
-   -- grapheme may be defined as "user character". Angstrom sign is
+   -- grapheme may be defined as "user character". Angstrom sign
    -- one grapheme but may be defined using (LETTER A + COMBINING RING).
    -- Unicode strings may be acceded in two ways:
    --      - low-level (code by code)
@@ -51,7 +51,7 @@ create {ANY}
 feature {UNICODE_STRING, UNICODE_STRING_HANDLER}
    storage: NATIVE_ARRAY[INTEGER_16]
          -- The place where characters are stored.
-         -- WARNING: it's only `storage' area. Each Unicode value is
+         -- WARNING: it's only `storage' area. Each Unicode value
          -- stored using 2 bytes (CHARACTER). Encoding used is UTF-16NE.
          -- low surrogates are stored in other way for direct acces.
 
@@ -64,13 +64,13 @@ feature {ANY}
    capacity: INTEGER
          -- Capacity of the `storage' area.
 
-   lower: INTEGER is 1
-         -- Minimum index; actually, this is always 1 (this feature is
+   lower: INTEGER 1
+         -- Minimum index; actually, this is always 1 (this feature
          -- here to mimic the one of the COLLECTION hierarchy).
          --
          -- See also `upper', `valid_index', `item'.
 
-   upper: INTEGER is
+   upper: INTEGER
          -- Maximum index; actually the same value as `count' (this
          -- feature is here to mimic the one of the COLLECTION hierarchy).
          --
@@ -82,7 +82,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Creation / Modification:
-   make (needed_capacity: INTEGER) is
+   make (needed_capacity: INTEGER)
          -- Initialize the string to have at least `needed_capacity'
          -- characters of storage.
       require
@@ -108,13 +108,13 @@ feature {ANY} -- Creation / Modification:
          empty_string: count = 0
       end
 
-   make_empty is
+   make_empty
          -- Create an empty string.
       do
          make(0)
       end
 
-   make_filled (unicode: INTEGER; n: INTEGER) is
+   make_filled (unicode: INTEGER; n: INTEGER)
          -- Initialize string with `n' copies of `unicode'.
       require
          valid_count: n >= 0
@@ -129,7 +129,7 @@ feature {ANY} -- Creation / Modification:
       end
 
 feature {ANY} -- Testing:
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Has string length 0?
          --
          -- See also `count'.
@@ -137,7 +137,7 @@ feature {ANY} -- Testing:
          Result := count = 0
       end
 
-   item (i: INTEGER): INTEGER is
+   item (i: INTEGER): INTEGER
          -- Get unicode at position `i'.
          --
          -- See also `lower', `upper', `valid_index', `put'.
@@ -153,7 +153,7 @@ feature {ANY} -- Testing:
          end
       end
 
-   infix "@" (i: INTEGER): INTEGER is
+   infix "@" (i: INTEGER): INTEGER
          -- The infix notation which is actually just a synonym for `item'.
          --
          -- See also `item', `put'.
@@ -165,7 +165,7 @@ feature {ANY} -- Testing:
          definition: Result = item(i)
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       local
          i, j: INTEGER
       do
@@ -191,7 +191,7 @@ feature {ANY} -- Testing:
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
          -- Is `Current' less than `other'?
          --
          -- See also `>', `<=', `>=', `min', `max'.
@@ -214,13 +214,13 @@ feature {ANY} -- Testing:
          --not_yet_implemented
       end
 
-   compare, three_way_comparison (other: like Current): INTEGER is
+   compare, three_way_comparison (other: like Current): INTEGER
       do
          not_yet_implemented
          -- redefine needed ?
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
          -- Do both strings have the same character sequence?
          --
          -- See also `same_as'.
@@ -237,7 +237,7 @@ feature {ANY} -- Testing:
          end
       end
 
-   same_as (other: UNICODE_STRING): BOOLEAN is
+   same_as (other: UNICODE_STRING): BOOLEAN
          -- Case insensitive `is_equal'.
       require
          other /= Void
@@ -245,7 +245,7 @@ feature {ANY} -- Testing:
          not_yet_implemented
       end
 
-   index_of, fast_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
+   index_of, fast_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER
          -- Index of first occurrence of `unicode' at or after `start_index',
          -- 0 if none.
          --
@@ -295,7 +295,7 @@ feature {ANY} -- Testing:
          Result /= 0 implies item(Result) = unicode
       end
 
-   reverse_index_of, fast_reverse_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER is
+   reverse_index_of, fast_reverse_index_of (unicode: INTEGER; start_index: INTEGER): INTEGER
          -- Index of first occurrence of `unicode' at or before `start_index', 0 if none.
          -- The search is done in reverse direction, which means from the `start_index' down
          -- to the first character.
@@ -316,7 +316,7 @@ feature {ANY} -- Testing:
          Result /= 0 implies item(Result) = unicode
       end
 
-   first_index_of, fast_first_index_of (unicode: INTEGER): INTEGER is
+   first_index_of, fast_first_index_of (unicode: INTEGER): INTEGER
          -- Index of first occurrence of `unicode' at index 1 or after index 1.
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
@@ -324,7 +324,7 @@ feature {ANY} -- Testing:
          Result := index_of(unicode, 1)
       end
 
-   last_index_of, fast_last_index_of (unicode: INTEGER): INTEGER is
+   last_index_of, fast_last_index_of (unicode: INTEGER): INTEGER
          -- Index of last occurrence of `unicode', 0 if none.
          --
          -- See also `first_index_of', `reverse_index_of', `index_of'.
@@ -332,7 +332,7 @@ feature {ANY} -- Testing:
          Result := reverse_index_of(unicode, upper)
       end
 
-   has, fast_has (unicode: INTEGER): BOOLEAN is
+   has, fast_has (unicode: INTEGER): BOOLEAN
          -- True if `unicode' is in the STRING.
          --
          -- See also `index_of', `occurrences', `has_substring'.
@@ -342,7 +342,7 @@ feature {ANY} -- Testing:
          Result := index_of(unicode, 1) /= 0
       end
 
-   has_substring (other: UNICODE_STRING): BOOLEAN is
+   has_substring (other: UNICODE_STRING): BOOLEAN
          -- True if `Current' contains `other'.
          --
          -- See also `substring_index', `has'.
@@ -352,7 +352,7 @@ feature {ANY} -- Testing:
          Result := substring_index(other, 1) /= 0
       end
 
-   occurrences (unicode: INTEGER): INTEGER is
+   occurrences (unicode: INTEGER): INTEGER
          -- Number of times character `unicode' appears in the string.
          --
          -- See also `remove_all_occurrences', `has'.
@@ -373,7 +373,7 @@ feature {ANY} -- Testing:
          Result >= 0
       end
 
-   has_suffix (s: UNICODE_STRING): BOOLEAN is
+   has_suffix (s: UNICODE_STRING): BOOLEAN
          -- True if suffix of `Current' is `s'.
          --
          -- See also `remove_suffix', `has_prefix', `has_substring'.
@@ -394,7 +394,7 @@ feature {ANY} -- Testing:
          end
       end
 
-   has_prefix (p: UNICODE_STRING): BOOLEAN is
+   has_prefix (p: UNICODE_STRING): BOOLEAN
          -- True if prefix of `Current' is `p'.
       require
          p /= Void
@@ -413,7 +413,7 @@ feature {ANY} -- Testing:
       end
 
 feature {ANY} -- Testing and Conversion:
-   is_ascii: BOOLEAN is
+   is_ascii: BOOLEAN
          -- True if all unicode value is in range 0..127
       local
          i: INTEGER
@@ -428,7 +428,7 @@ feature {ANY} -- Testing and Conversion:
          Result := i < 0
       end
 
-   to_utf8: STRING is
+   to_utf8: STRING
          -- New string is created, current unicode string is encoded
          -- with UTF-8 format.
          --
@@ -439,7 +439,7 @@ feature {ANY} -- Testing and Conversion:
          Result := tmp_buffer.twin
       end
 
-   as_utf8: STRING is
+   as_utf8: STRING
          -- Encode the string in UTF-8. Always returns the same once object.
          --
          -- See also: `to_utf8', `utf8_encode_in'.
@@ -449,7 +449,7 @@ feature {ANY} -- Testing and Conversion:
          utf8_encode_in(Result)
       end
 
-   utf8_encode_in (s: STRING) is
+   utf8_encode_in (s: STRING)
          -- Append the string in UTF-8 to `s'.
          --
          -- See also: `to_utf8', `as_utf8'.
@@ -468,7 +468,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   utf16be_encode_in (s: STRING) is
+   utf16be_encode_in (s: STRING)
          -- Append the string in UTF-16BE to `s'
       require
          s /= Void
@@ -494,7 +494,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   utf8_decode_from (s: STRING): BOOLEAN is
+   utf8_decode_from (s: STRING): BOOLEAN
          -- Use `s' as UTF-8 format encoded unicode string
          -- Return `False' if decoding process failed
       require
@@ -561,7 +561,7 @@ feature {ANY} -- Testing and Conversion:
       end
 
 feature {}
-   from_utf8 (s: STRING) is
+   from_utf8 (s: STRING)
          -- Use `s' as UTF-8 format encoded unicode string
          -- This function may be used for manifest strings
          -- See `utf8_decode_from' for error detection
@@ -575,7 +575,7 @@ feature {}
       end
 
 feature {ANY} -- Modification:
-   resize (new_count: INTEGER) is
+   resize (new_count: INTEGER)
          -- Resize Current. When `new_count' is greater than
          -- `count', new positions are initialized with unicode 0.
       require
@@ -611,9 +611,9 @@ feature {ANY} -- Modification:
          capacity >= old capacity
       end
 
-   clear_count, wipe_out is
+   clear_count, wipe_out
          -- Discard all characters so that `is_empty' is True after that call.
-         --   The internal `capacity' is not changed by this call (i.e. the internal `storage' memory is
+         --   The internal `capacity' is not changed by this call (i.e. the internal `storage' memory
          --   neither released nor shrunk).
          --
          -- See also `clear_count_and_capacity'.
@@ -627,7 +627,7 @@ feature {ANY} -- Modification:
          capacity = old capacity
       end
 
-   clear_count_and_capacity is
+   clear_count_and_capacity
          -- Discard all characters (`is_empty' is True after that call). The internal `capacity' may also be
          -- reduced after this call.
          --
@@ -644,7 +644,7 @@ feature {ANY} -- Modification:
          capacity = 0
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
          -- Copy `other' onto Current.
          --
          -- See also `copy_substring'.
@@ -668,7 +668,7 @@ feature {ANY} -- Modification:
          count = other.count
       end
 
-   copy_substring (s: like Current; start_index, end_index: INTEGER) is
+   copy_substring (s: like Current; start_index, end_index: INTEGER)
          -- Copy the substring from `s' from `start_index' to `end_index'
          -- to Current.
          --
@@ -684,7 +684,7 @@ feature {ANY} -- Modification:
          append_substring(s, start_index, end_index)
       end
 
-   fill_with (unicode: INTEGER) is
+   fill_with (unicode: INTEGER)
          -- Replace every unicode with the new value.
       require
          valid_unicode_value: valid_unicode(unicode)
@@ -718,7 +718,7 @@ feature {ANY} -- Modification:
          occurrences(unicode) = count
       end
 
-   replace_all (old_code, new_code: like item) is
+   replace_all (old_code, new_code: like item)
          -- Replace all occurrences of the element `old_code' by `new_code'.
       require
          valid_unicode_value: valid_unicode(old_code)
@@ -743,7 +743,7 @@ feature {ANY} -- Modification:
          old_code /= new_code implies occurrences(old_code) = 0
       end
 
-   append, append_string (s: UNICODE_STRING) is
+   append, append_string (s: UNICODE_STRING)
          -- Append a copy of 's' to `Current'.
          --
          -- See also `add_last', `add_first', `prepend', '+'.
@@ -778,7 +778,7 @@ feature {ANY} -- Modification:
          next_generation
       end
 
-   append_substring (s: like Current; start_index, end_index: INTEGER) is
+   append_substring (s: like Current; start_index, end_index: INTEGER)
          -- Append the substring from `s' from `start_index' to `end_index'
          -- to Current.
          --|*** DUMB IMPLEMENTATION
@@ -800,7 +800,7 @@ feature {ANY} -- Modification:
          end
       end
 
-   prepend (other: UNICODE_STRING) is
+   prepend (other: UNICODE_STRING)
          -- Prepend `other' to `Current'.
          --
          -- See also `append'.
@@ -839,7 +839,7 @@ feature {ANY} -- Modification:
          (old other.twin + old Current.twin).is_equal(Current)
       end
 
-   insert_string (s: UNICODE_STRING; i: INTEGER) is
+   insert_string (s: UNICODE_STRING; i: INTEGER)
          -- Insert `s' at index `i', shifting characters from index `i'
          -- to `count' rightwards.
       require
@@ -885,7 +885,7 @@ feature {ANY} -- Modification:
          next_generation
       end
 
-   replace_substring (s: UNICODE_STRING; start_index, end_index: INTEGER) is
+   replace_substring (s: UNICODE_STRING; start_index, end_index: INTEGER)
          -- Replace the substring from `start_index' to `end_index',
          -- inclusive, with `s'.
       require
@@ -899,7 +899,7 @@ feature {ANY} -- Modification:
          insert_string(s, start_index)
       end
 
-   infix "+" (other: UNICODE_STRING): like Current is
+   infix "+" (other: UNICODE_STRING): like Current
          -- Create a new UNICODE_STRING which is the concatenation of
          -- `Current' and `other'.
          --
@@ -914,7 +914,7 @@ feature {ANY} -- Modification:
          result_count: Result.count = count + other.count
       end
 
-   put (unicode: INTEGER; i: INTEGER) is
+   put (unicode: INTEGER; i: INTEGER)
          -- Put `unicode' at position `i'.
          --
          -- See also `item', `lower', `upper', `swap'.
@@ -954,7 +954,7 @@ feature {ANY} -- Modification:
          item(i) = unicode
       end
 
-   swap (i1, i2: INTEGER) is
+   swap (i1, i2: INTEGER)
          -- Swap two characters.
          --
          -- See also `item', `put'.
@@ -1019,7 +1019,7 @@ feature {ANY} -- Modification:
          item(i2) = old item(i1)
       end
 
-   insert_character (unicode: INTEGER; i: INTEGER) is
+   insert_character (unicode: INTEGER; i: INTEGER)
          -- Inserts `unicode' at index `i', shifting characters from
          -- position 'i' to `count' rightwards.
       require
@@ -1047,7 +1047,7 @@ feature {ANY} -- Modification:
          item(i) = unicode
       end
 
-   shrink (min_index, max_index: INTEGER) is
+   shrink (min_index, max_index: INTEGER)
          -- Keep only the slice [`min_index' .. `max_index'] or nothing
          -- when the slice is empty.
       require
@@ -1092,7 +1092,7 @@ feature {ANY} -- Modification:
          count = max_index - min_index + 1
       end
 
-   remove (i: INTEGER) is
+   remove (i: INTEGER)
          -- Remove character at position `i'.
          --
          -- See also `remove_head', `remove_between', `remove_suffix', `remove_prefix'.
@@ -1104,7 +1104,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   add_first, precede (unicode: INTEGER) is
+   add_first, precede (unicode: INTEGER)
          -- Add `unicode' at first position.
          --
          -- See also `add_last'.
@@ -1132,7 +1132,7 @@ feature {ANY} -- Modification:
          item(1) = unicode
       end
 
-   add_last, append_character, extend (unicode: INTEGER) is
+   add_last, append_character, extend (unicode: INTEGER)
          -- Append `unicode' to string.
          --
          -- See also `add_first'.
@@ -1166,7 +1166,7 @@ feature {ANY} -- Modification:
          item(count) = unicode
       end
 
-   to_lower is
+   to_lower
          -- Convert all characters to lower case.
          --
          -- See also `to_upper', `as_lower', `as_upper'.
@@ -1174,7 +1174,7 @@ feature {ANY} -- Modification:
          not_yet_implemented
       end
 
-   to_upper is
+   to_upper
          -- Convert all characters to upper case.
          --
          -- See also `to_lower', `as_upper', `as_lower'.
@@ -1182,7 +1182,7 @@ feature {ANY} -- Modification:
          not_yet_implemented
       end
 
-   as_lower: like Current is
+   as_lower: like Current
          -- New object with all letters in lower case.
          --
          -- See also `as_upper', `to_lower', `to_upper'.
@@ -1191,7 +1191,7 @@ feature {ANY} -- Modification:
          Result.to_lower
       end
 
-   as_upper: like Current is
+   as_upper: like Current
          -- New object with all letters in upper case.
          --
          -- See also `as_lower', `to_upper', `to_lower'.
@@ -1200,7 +1200,7 @@ feature {ANY} -- Modification:
          Result.to_upper
       end
 
-   keep_head (n: INTEGER) is
+   keep_head (n: INTEGER)
          -- Remove all characters except for the first `n'.
          -- Do nothing if `n' >= `count'.
          --
@@ -1215,7 +1215,7 @@ feature {ANY} -- Modification:
          count = n.min(old count)
       end
 
-   keep_tail (n: INTEGER) is
+   keep_tail (n: INTEGER)
          -- Remove all characters except for the last `n'.
          -- Do nothing if `n' >= `count'.
          --
@@ -1230,7 +1230,7 @@ feature {ANY} -- Modification:
          count = n.min(old count)
       end
 
-   remove_first is
+   remove_first
          -- Remove the `first' item.
          --
          -- See also `remove_head', `remove_last', `remove'.
@@ -1243,7 +1243,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   remove_head (n: INTEGER) is
+   remove_head (n: INTEGER)
          -- Remove `n' first characters. If `n' >= `count', remove all.
          --
          -- See also `remove_tail', `remove', `remove_the_first'.
@@ -1264,7 +1264,7 @@ feature {ANY} -- Modification:
          count = (old count - n).max(0)
       end
 
-   remove_last is
+   remove_last
          -- Remove the `last' item.
          --
          -- See also `remove_tail', `remove_first', `remove'.
@@ -1277,7 +1277,7 @@ feature {ANY} -- Modification:
          count = old count - 1
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
          -- Remove `n' last characters. If `n' >= `count', remove all.
          --
          -- See also `remove_head', `remove', `remove_the_last'.
@@ -1301,7 +1301,7 @@ feature {ANY} -- Modification:
          count = (old count - n).max(0)
       end
 
-   remove_substring, remove_between (start_index, end_index: INTEGER) is
+   remove_substring, remove_between (start_index, end_index: INTEGER)
          -- Remove all characters from `strt_index' to `end_index' inclusive.
       require
          valid_start_index: 1 <= start_index
@@ -1333,7 +1333,7 @@ feature {ANY} -- Modification:
          count = old count - (end_index - start_index + 1)
       end
 
-   remove_suffix (s: UNICODE_STRING) is
+   remove_suffix (s: UNICODE_STRING)
          -- Remove the suffix `s' of current string.
          --
          -- See also `remove_prefix', `remove_tail', `remove'.
@@ -1346,7 +1346,7 @@ feature {ANY} -- Modification:
          (old Current.twin).is_equal(Current + old s.twin)
       end
 
-   remove_prefix (s: UNICODE_STRING) is
+   remove_prefix (s: UNICODE_STRING)
          -- Remove the prefix `s' of current string.
          --
          -- See also `remove_suffix', `remove_head', `remove'.
@@ -1359,7 +1359,7 @@ feature {ANY} -- Modification:
          (old Current.twin).is_equal(old s.twin + Current)
       end
 
-   left_adjust is
+   left_adjust
          -- Remove leading blanks.
          --
          -- See also `remove_head', `first'.
@@ -1380,7 +1380,7 @@ feature {ANY} -- Modification:
          stripped: is_empty or else not is_space(first)
       end
 
-   right_adjust is
+   right_adjust
          -- Remove trailing blanks.
          --
          -- See also `remove_tail', `last'.
@@ -1404,12 +1404,12 @@ feature {ANY} -- Modification:
       end
 
 feature {ANY} -- Printing:
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          utf8_encode_in(tagged_out_memory)
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       do
          tagged_out_memory.append(once "count: ")
          count.append_in(tagged_out_memory)
@@ -1421,7 +1421,7 @@ feature {ANY} -- Printing:
       end
 
 feature {ANY} -- Other features:
-   first: INTEGER is
+   first: INTEGER
          -- Access to the very `first' character.
          --
          -- See also `last', `item'.
@@ -1440,7 +1440,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   last: INTEGER is
+   last: INTEGER
          -- Access to the very `last' character.
          --
          -- See also `first', `item'.
@@ -1456,7 +1456,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
          -- New string consisting of items [`start_index'.. `end_index'].
          --
          -- See also `substring_index' and `copy_substring' to save memory.
@@ -1486,7 +1486,7 @@ feature {ANY} -- Other features:
          substring_count: Result.count = end_index - start_index + 1
       end
 
-   extend_multiple (unicode: INTEGER; n: INTEGER) is
+   extend_multiple (unicode: INTEGER; n: INTEGER)
          -- Extend Current with `n' times character `unicode'.
       require
          n >= 0
@@ -1506,7 +1506,7 @@ feature {ANY} -- Other features:
          count = n + old count
       end
 
-   precede_multiple (unicode: INTEGER; n: INTEGER) is
+   precede_multiple (unicode: INTEGER; n: INTEGER)
          -- Prepend `n' times character `unicode' to Current.
       require
          n >= 0
@@ -1533,7 +1533,7 @@ feature {ANY} -- Other features:
          count = n + old count
       end
 
-   extend_to_count (unicode: INTEGER; needed_count: INTEGER) is
+   extend_to_count (unicode: INTEGER; needed_count: INTEGER)
          -- Extend Current with `unicode' until `needed_count' is reached.
          -- Do nothing if `needed_count' is already greater or equal
          -- to `count'.
@@ -1548,7 +1548,7 @@ feature {ANY} -- Other features:
          count >= needed_count
       end
 
-   precede_to_count (unicode: INTEGER; needed_count: INTEGER) is
+   precede_to_count (unicode: INTEGER; needed_count: INTEGER)
          -- Prepend `unicode' to Current until `needed_count' is reached.
          -- Do nothing if `needed_count' is already greater or equal
          -- to `count'.
@@ -1563,7 +1563,7 @@ feature {ANY} -- Other features:
          count >= needed_count
       end
 
-   reverse is
+   reverse
          -- Reverse the string.
       local
          i1, i2: INTEGER
@@ -1582,7 +1582,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   remove_all_occurrences (unicode: INTEGER) is
+   remove_all_occurrences (unicode: INTEGER)
          -- Remove all occurrences of `unicode'.
          --
          -- See also `occurrences', `remove'.
@@ -1604,7 +1604,7 @@ feature {ANY} -- Other features:
          count = old count - old occurrences(unicode)
       end
 
-   substring_index (other: UNICODE_STRING; start_index: INTEGER): INTEGER is
+   substring_index (other: UNICODE_STRING; start_index: INTEGER): INTEGER
          -- Position of first occurrence of `other' at or after `start', 0 if none.
          --
          -- See also `substring', `first_substring_index'.
@@ -1615,7 +1615,7 @@ feature {ANY} -- Other features:
          not_yet_implemented
       end
 
-   first_substring_index (other: UNICODE_STRING): INTEGER is
+   first_substring_index (other: UNICODE_STRING): INTEGER
          -- Position of first occurrence of `other' at or after 1, 0 if none.
          --
          -- See also `substring_index'.
@@ -1628,7 +1628,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Splitting a STRING:
-   split: ARRAY[UNICODE_STRING] is
+   split: ARRAY[UNICODE_STRING]
          -- Split the string into an array of words. Uses `is_separator'
          -- to find words. Gives Void or a non empty array.
          --
@@ -1645,7 +1645,7 @@ feature {ANY} -- Splitting a STRING:
          Result /= Void implies not Result.is_empty
       end
 
-   split_in (words: COLLECTION[UNICODE_STRING]) is
+   split_in (words: COLLECTION[UNICODE_STRING])
          -- Same jobs as `split' but result is appended in `words'.
          --
          -- See also `split'.
@@ -1689,7 +1689,7 @@ feature {ANY} -- Splitting a STRING:
       end
 
 feature {ANY} -- Other features:
-   extend_unless (unicode: INTEGER) is
+   extend_unless (unicode: INTEGER)
          -- Extend `Current' (using `extend') with `unicode' unless
          -- unicode `ch' is already the `last' character.
       require
@@ -1703,12 +1703,12 @@ feature {ANY} -- Other features:
          count >= old count
       end
 
-   new_iterator: ITERATOR[INTEGER] is
+   new_iterator: ITERATOR[INTEGER]
       do
          create {ITERATOR_ON_UNICODE_STRING} Result.make(Current)
       end
 
-   valid_unicode (unicode: INTEGER): BOOLEAN is
+   valid_unicode (unicode: INTEGER): BOOLEAN
       do
          Result := unicode.in_range(0, 0x0010FFFF) and then not unicode.in_range(0x0000D800, 0x0000DFFF) and then unicode /= 0x0000FFFE and then unicode /= 0x0000FFFF
          -- surrogates
@@ -1716,19 +1716,19 @@ feature {ANY} -- Other features:
          -- not valid unicode value
       end
 
-   is_space (unicode: INTEGER): BOOLEAN is
+   is_space (unicode: INTEGER): BOOLEAN
       do
          -- not_yet_implemented; should handle combining characters
          Result := unicode = ' '.code
       end
 
-   is_separator (unicode: INTEGER): BOOLEAN is
+   is_separator (unicode: INTEGER): BOOLEAN
       do
          -- not_yet_implemented; should handle combining characters
          Result := unicode = ' '.code
       end
 
-   is_combining (unicode: INTEGER): BOOLEAN is
+   is_combining (unicode: INTEGER): BOOLEAN
       do
          not_yet_implemented
          -- 0x0300 -> 0x036f
@@ -1744,7 +1744,7 @@ feature {UNICODE_STRING, UNICODE_STRING_HANDLER}
          -- low surrogate value is stored without 0xDC00 part and
          -- endianness dependant !
 
-   set_count (new_count: INTEGER) is
+   set_count (new_count: INTEGER)
       require
          new_count <= capacity
       do
@@ -1752,24 +1752,24 @@ feature {UNICODE_STRING, UNICODE_STRING_HANDLER}
       end
 
 feature {}
-   string_buffer: UNICODE_STRING is
+   string_buffer: UNICODE_STRING
          -- Private, temporary once buffer.
       once
          create Result.make(256)
       end
 
-   tmp_buffer: STRING is
+   tmp_buffer: STRING
          -- Private, temporary once buffer.
       once
          create Result.make(256)
       end
 
-   split_buffer: ARRAY[UNICODE_STRING] is
+   split_buffer: ARRAY[UNICODE_STRING]
       once
          create Result.with_capacity(4, 1)
       end
 
-   low_surrogate_value (index: INTEGER): INTEGER_16 is
+   low_surrogate_value (index: INTEGER): INTEGER_16
       require
          storage.item(index) & 0xF800 = 0xD800
       do
@@ -1778,7 +1778,7 @@ feature {}
          Result.in_range(0, 1023)
       end
 
-   low_surrogate_index (index: INTEGER): INTEGER is
+   low_surrogate_index (index: INTEGER): INTEGER
       require
          low_surrogate_indexes.has(index)
       do
@@ -1788,7 +1788,7 @@ feature {}
          low_surrogate_values.valid_index(Result)
       end
 
-   low_surrogate_position (index: INTEGER): INTEGER is
+   low_surrogate_position (index: INTEGER): INTEGER
          -- return position to use in low_surrogate* arrays relative to
          -- character at `index' in the string (return the good answer
          -- if the corresponding character is not surrogate)
@@ -1808,7 +1808,7 @@ feature {}
          Result <= low_surrogate_indexes.upper implies low_surrogate_indexes.item(Result + 1) >= index
       end
 
-   valid_surrogates: BOOLEAN is
+   valid_surrogates: BOOLEAN
       local
          i, j: INTEGER
       do
@@ -1836,7 +1836,7 @@ feature {}
 
 feature {}
    manifest_initialize (c: like capacity; s: like storage; ls_cap: INTEGER; lsv: NATIVE_ARRAY[INTEGER_16]
-      lsi: NATIVE_ARRAY[INTEGER]) is
+      lsi: NATIVE_ARRAY[INTEGER])
          -- This function is a compiler-hook automatically called when
          -- a manifest unicode string (i.e. U"foo") is used in the Eiffel
          -- source code.
@@ -1867,7 +1867,7 @@ feature {}
 feature {}
    debug_utf8: STRING
 
-   set_debug_utf8 is
+   set_debug_utf8
       do
          if debug_utf8 = Void then
             debug_utf8 := to_utf8
@@ -1876,7 +1876,7 @@ feature {}
          end
       end
 
-   next_generation is
+   next_generation
       do
          Precursor
          debug
@@ -1885,7 +1885,7 @@ feature {}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          clear_count
       end
@@ -1899,13 +1899,13 @@ invariant
 
 end -- class UNICODE_STRING
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

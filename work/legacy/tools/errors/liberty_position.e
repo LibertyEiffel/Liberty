@@ -15,11 +15,11 @@
 deferred class LIBERTY_POSITION
 
 feature {ANY}
-   is_unknown: BOOLEAN is
+   is_unknown: BOOLEAN
       deferred
       end
 
-   show (stream: OUTPUT_STREAM) is
+   show (stream: OUTPUT_STREAM)
       require
          not is_unknown
       do
@@ -44,11 +44,11 @@ feature {}
    line, column: INTEGER
    file: FIXED_STRING
    index: INTEGER
-   source: STRING is
+   source: STRING
       deferred
       end
 
-   set_error_position is
+   set_error_position
       require
          source /= Void
          index.in_range(source.lower, source.upper)
@@ -80,7 +80,7 @@ feature {}
       end
 
 feature {LIBERTY_ERROR}
-   emit (stream: OUTPUT_STREAM) is
+   emit (stream: OUTPUT_STREAM)
       local
          l, c, i, a: INTEGER
          arrow: STRING

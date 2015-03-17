@@ -7,12 +7,12 @@ create {}
    make
 
 feature {ANY}
-   collection: COLLECTION[INTEGER] is
+   collection: COLLECTION[INTEGER]
       once
          create {ARRAY[INTEGER]} Result.make(1, 1)
       end
 
-   make is
+   make
       do
          collection.put(1, 1)
       end

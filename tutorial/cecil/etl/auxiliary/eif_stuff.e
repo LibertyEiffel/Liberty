@@ -4,12 +4,12 @@ expanded class EIF_STUFF
    --
 
 feature {ANY}
-   adopted: FAST_ARRAY[ABSTRACT_STRING] is
+   adopted: FAST_ARRAY[ABSTRACT_STRING]
       once
          create Result.with_capacity(16)
       end
 
-   adopt (object: ABSTRACT_STRING) is
+   adopt (object: ABSTRACT_STRING)
          -- A reference to object is stored in `adopted' to avoid
          -- its collection at GC time.
       do
@@ -18,7 +18,7 @@ feature {ANY}
          end
       end
 
-   wean (object: ABSTRACT_STRING) is
+   wean (object: ABSTRACT_STRING)
          -- Remove the reference to `object' in adopted.
       local
          i: INTEGER

@@ -12,7 +12,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (i: like item) is
+   make (i: like item)
       do
          if parents_edge_load = Void then
             create parents_edge_load.make(0)
@@ -22,21 +22,21 @@ feature {ANY}
       end
 
 feature {ANY}
-   parent_edge_load (i: INTEGER): LOAD is
+   parent_edge_load (i: INTEGER): LOAD
       require
          i.in_range(1, parents_count)
       do
          Result := parents_edge_load.item(i - 1)
       end
 
-   child_edge_load (i: INTEGER): LOAD is
+   child_edge_load (i: INTEGER): LOAD
       require
          i.in_range(1, children_count)
       do
          Result := children_edge_load.item(i - 1)
       end
 
-   add_parent (node: like Current) is
+   add_parent (node: like Current)
       local
          null: LOAD
       do
@@ -44,7 +44,7 @@ feature {ANY}
          parents_edge_load.add_last(null)
       end
 
-   add_child (node: like Current) is
+   add_child (node: like Current)
       local
          null: LOAD
       do
@@ -52,7 +52,7 @@ feature {ANY}
          children_edge_load.add_last(null)
       end
 
-   remove_parent (node: like Current) is
+   remove_parent (node: like Current)
       local
          i: INTEGER
       do
@@ -62,7 +62,7 @@ feature {ANY}
          parents_edge_load.remove(i)
       end
 
-   remove_child (node: like Current) is
+   remove_child (node: like Current)
       local
          i: INTEGER
       do
@@ -79,13 +79,13 @@ feature {LOADED_HIERARCHIC_GRAPH_NODE}
 
 end -- class LOADED_HIERARCHIC_GRAPH_NODE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

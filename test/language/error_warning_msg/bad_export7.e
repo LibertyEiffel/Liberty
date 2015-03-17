@@ -7,7 +7,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          ga
          Current.ga      -- This one is forbidden
@@ -15,12 +15,12 @@ feature {}
          Current.bu
       end
 
-   ga is
+   ga
       do
       end
 
 feature {BAD_EXPORT7}
-   bu is
+   bu
       do
       end
 

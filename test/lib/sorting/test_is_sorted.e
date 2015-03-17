@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          s: COLLECTION_SORTER[INTEGER]; a: ARRAY[INTEGER]
       do
@@ -20,7 +20,7 @@ feature {}
          assert(not s.is_sorted({ARRAY[INTEGER] 1, << 1, 3, 2 >> }))
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

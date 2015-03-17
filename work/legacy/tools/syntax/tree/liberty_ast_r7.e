@@ -24,7 +24,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_power: BOOLEAN is
+   is_power: BOOLEAN
       do
          Result := not is_empty
          check
@@ -33,6 +33,6 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   name: STRING is "r7"
+   name: STRING "r7"
 
 end

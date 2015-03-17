@@ -11,13 +11,13 @@ class NSIEVE
 insert
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
 	flags: FAST_ARRAY[BOOLEAN]
 
-	make is
+	make
 		local
 			n, m: INTEGER
 		do
@@ -44,7 +44,7 @@ feature {ANY}
 			print("Primes up to " + m.to_string_format(8) + " " + nsieves(flags).to_string_format(8) + "%N")
 		end
 
-	nsieves (is_prime: like flags): INTEGER is
+	nsieves (is_prime: like flags): INTEGER
 		local
 			i, j: INTEGER
 		do

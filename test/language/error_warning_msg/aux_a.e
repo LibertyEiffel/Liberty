@@ -3,7 +3,7 @@
 --
 class AUX_A
 feature {ANY}
-   foo(bar: like Current) is
+   foo(bar: like Current)
       do
       end
 end -- class AUX_A

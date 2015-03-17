@@ -13,13 +13,13 @@ create {TIME_EVENTS}
    make
 
 feature {EVENTS_SET}
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       do
          events.at(expiration)
          set_expected(events)
       end
 
-   occurred (events: EVENTS_SET): BOOLEAN is
+   occurred (events: EVENTS_SET): BOOLEAN
       do
          Result := events.current_time > expiration
       end
@@ -27,7 +27,7 @@ feature {EVENTS_SET}
 feature {TIME_EVENTS}
    expiration: MICROSECOND_TIME
 
-   in_time (timeout_ms: INTEGER) is
+   in_time (timeout_ms: INTEGER)
          -- `timeout_ms' is the maximum time in milliseconds to wait from now.
       require
          not is_expected
@@ -38,7 +38,7 @@ feature {TIME_EVENTS}
          expiration.add_millisecond(timeout_ms #\\ 1000)
       end
 
-   at_date (date: MICROSECOND_TIME) is
+   at_date (date: MICROSECOND_TIME)
          -- `date' is the last moment `wait' can wait.
       require
          not is_expected
@@ -47,19 +47,19 @@ feature {TIME_EVENTS}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
 end -- class DATE_EVENT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

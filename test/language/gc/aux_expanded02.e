@@ -3,13 +3,13 @@
 --
 expanded class AUX_EXPANDED02
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    string: STRING
 
-   make is
+   make
       do
          create string.make_filled(' ', 16)
       end

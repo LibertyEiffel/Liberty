@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s1, s2: STRING
       do
@@ -22,9 +22,9 @@ feature {ANY}
          assert(("ABCDE").is_equal(s2))
       end
 
-   str: STRING is "ABCDE"
+   str: STRING "ABCDE"
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

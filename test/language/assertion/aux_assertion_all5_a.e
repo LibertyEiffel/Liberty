@@ -8,25 +8,25 @@ feature {ANY}
 
    ensure_counter: INTEGER
 
-   empty_procedure1 is
+   empty_procedure1
       require
          side_effect_require
       do
       end
    
-   empty_procedure2 is
+   empty_procedure2
       do
       ensure
          side_effect_ensure
       end
    
-   side_effect_require: BOOLEAN is
+   side_effect_require: BOOLEAN
       do
          require_counter := require_counter + 1
          Result := True
       end
 
-   side_effect_ensure: BOOLEAN is
+   side_effect_ensure: BOOLEAN
       do
          ensure_counter := ensure_counter + 1
          Result := True

@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   to_integer: INTEGER is
+   to_integer: INTEGER
       do
          Result := expr.to_integer.abs
       end

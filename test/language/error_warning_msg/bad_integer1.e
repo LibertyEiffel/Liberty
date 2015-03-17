@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   bi: INTEGER is 3.5;
+   bi: INTEGER 3.5;
 
-   make is
+   make
       local
          i: INTEGER;
       do

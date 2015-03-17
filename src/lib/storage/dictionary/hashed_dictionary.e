@@ -18,12 +18,12 @@ create {ABSTRACT_HASHED_DICTIONARY}
    special_common_dictionary
 
 feature {}
-   hash_code (k: K_): INTEGER is
+   hash_code (k: K_): INTEGER
       do
          Result := k.hash_code
       end
 
-   special_common_dictionary (fn: like free_nodes) is
+   special_common_dictionary (fn: like free_nodes)
          -- Used to avoid having a recursive once function while initializing `common_free_nodes'.
       require
          fn /= Void
@@ -48,13 +48,13 @@ feature {}
 
 end -- class HASHED_DICTIONARY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

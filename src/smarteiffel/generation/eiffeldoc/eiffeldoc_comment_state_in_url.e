@@ -15,7 +15,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       do
          if offset < comment.count then
             if comment.item(offset) = '[' then
@@ -28,7 +28,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       local
          i: INTEGER; buffer: STRING; tagged: BOOLEAN
       do
@@ -74,16 +74,16 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          html.close_anchor
          states.pop
       end
 
-   handle_first: BOOLEAN is True
+   handle_first: BOOLEAN True
 
 feature {}
-   is_url (comment: STRING; offset: INTEGER): BOOLEAN is
+   is_url (comment: STRING; offset: INTEGER): BOOLEAN
       local
          i, o: INTEGER
       do
@@ -100,13 +100,13 @@ feature {}
          end
       end
 
-   url_protocols: FAST_ARRAY[STRING] is
+   url_protocols: FAST_ARRAY[STRING]
       once
          Result := {FAST_ARRAY[STRING] << "http:", "ftp:", "https:", "mailto:" >>}
       end
 
 feature {}
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do

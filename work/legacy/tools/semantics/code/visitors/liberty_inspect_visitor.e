@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INSPECT}
-   visit_liberty_inspect (v: LIBERTY_INSPECT) is
+   visit_liberty_inspect (v: LIBERTY_INSPECT)
       deferred
       end
 

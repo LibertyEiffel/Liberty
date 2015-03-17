@@ -7,7 +7,7 @@ insert
 	ARGUMENTS
 	PLATFORM
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
@@ -15,7 +15,7 @@ feature {ANY}
 
 	complement: FAST_ARRAY[CHARACTER]
 
-	make is
+	make
 		local
 			line: STRING
 		do
@@ -44,7 +44,7 @@ feature {ANY}
 			end
 		end
 
-	process is
+	process
 		local
 			i, j, k: INTEGER
 		do
@@ -85,7 +85,7 @@ feature {ANY}
 			end
 		end
 
-	make_complement is
+	make_complement
 		local
 			code: INTEGER_16
 		do
@@ -105,7 +105,7 @@ feature {ANY}
 			make_complementar('R', 'Y')
 		end
 
-	make_complementar (a, b: CHARACTER) is
+	make_complementar (a, b: CHARACTER)
 		do
 			complement.put(a, b.code)
 			complement.put(a, b.to_lower.code)

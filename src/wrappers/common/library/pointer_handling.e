@@ -28,12 +28,12 @@ insert
       end
 
 feature {WRAPPER} -- Pointer referencing and de-referencing
-   address_of (a_pointer: POINTER): POINTER is
+   address_of (a_pointer: POINTER): POINTER
       external "C inline"
       alias "(& ($a_pointer))"
       end
 
-   content_of (a_pointer: POINTER): POINTER is
+   content_of (a_pointer: POINTER): POINTER
          -- The pointer referenced by `a_pointer' which has to be a
          -- pointer to a pointer (i.e.: void **). Note: the type
          -- cannot be checked by Eiffel AFAIK. Paolo 2006-05-08q.
@@ -42,7 +42,7 @@ feature {WRAPPER} -- Pointer referencing and de-referencing
       end
 
 feature {WRAPPER} -- Dealing with "char **" return types
-	strings_array_from (a_pointer: POINTER): FAST_ARRAY[FIXED_STRING] is
+	strings_array_from (a_pointer: POINTER): FAST_ARRAY[FIXED_STRING]
 		-- Build a FAST_ARRAY of STRINGs from `a_pointer' which must be of a
 		-- NULL-terminated array of C strings, that is a "char**" String
 		-- contents and array itself are copied.
@@ -63,7 +63,7 @@ feature {WRAPPER} -- Dealing with "char **" return types
 		end
 	end
 
-	sized_strings_array_from (a_pointer: POINTER; a_size: INTEGER_32): FAST_ARRAY[FIXED_STRING] is
+	sized_strings_array_from (a_pointer: POINTER; a_size: INTEGER_32): FAST_ARRAY[FIXED_STRING]
 		-- Build a FAST_ARRAY of STRINGs from `a_pointer' which must be of a
 		-- array of C strings of `a_size' elements. The actual C type must be
 		-- "char**" String contents and array itself are copied.

@@ -8,10 +8,11 @@ create {}
    make
 
 feature {}
-   make is
-      local d: AUX_GENERIC3B[INTEGER];
+   make
+      local
+         d: AUX_GENERIC3B[INTEGER];
       do
-         !!d;
+         create d;
          d.machin(242);
       end;
 

@@ -21,7 +21,7 @@ feature {}
       -- argument
 
 feature {}
-   make is
+   make
       local
          random: PRESS_RANDOM_NUMBER_GENERATOR; s: STRING
       do
@@ -53,7 +53,7 @@ feature {}
          io.put_new_line
          -- The target of an agent can also be open.  To this effect,
          -- just replace the target of the call with a type between
-         -- curly braces.  When calling the agent, the open target is
+         -- curly braces.  When calling the agent, the open target
          -- treated exactly like an open argument.
 
          f2 := agent {STRING}.as_upper

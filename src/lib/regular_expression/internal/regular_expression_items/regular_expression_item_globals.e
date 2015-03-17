@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class REGULAR_EXPRESSION_ITEM_GLOBALS
+deferred class REGULAR_EXPRESSION_ITEM_GLOBALS
    --
    -- common invariant nodes and POSIX classes naming
    --
@@ -10,124 +10,124 @@ inherit
    BACKTRACKING_NODE_GLOBALS
 
 feature {ANY} -- assertions
-   the_any_character_item: REGULAR_EXPRESSION_ITEM_ANY is
+   the_any_character_item: REGULAR_EXPRESSION_ITEM_ANY
       once
          create Result
       end
 
-   the_not_end_of_line_item: REGULAR_EXPRESSION_ITEM_NOT_END_OF_LINE is
+   the_not_end_of_line_item: REGULAR_EXPRESSION_ITEM_NOT_END_OF_LINE
       once
          create Result
       end
 
-   the_begin_of_line_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_LINE is
+   the_begin_of_line_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_LINE
       once
          create Result
       end
 
-   the_end_of_line_item: REGULAR_EXPRESSION_ITEM_END_OF_LINE is
+   the_end_of_line_item: REGULAR_EXPRESSION_ITEM_END_OF_LINE
       once
          create Result
       end
 
-   the_begin_of_text_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_TEXT is
+   the_begin_of_text_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_TEXT
       once
          create Result
       end
 
-   the_real_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
+   the_real_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT
       once
          create Result.make(True)
       end
 
-   the_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT is
+   the_end_of_text_item: REGULAR_EXPRESSION_ITEM_END_OF_TEXT
       once
          create Result.make(False)
       end
 
-   the_begin_of_word_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_WORD is
+   the_begin_of_word_item: REGULAR_EXPRESSION_ITEM_BEGIN_OF_WORD
       once
          create Result
       end
 
-   the_end_of_word_item: REGULAR_EXPRESSION_ITEM_END_OF_WORD is
+   the_end_of_word_item: REGULAR_EXPRESSION_ITEM_END_OF_WORD
       once
          create Result
       end
 
 feature {ANY} -- character classes
-   the_is_posix_alnum_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALNUM is
+   the_is_posix_alnum_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALNUM
       once
          create Result
       end
 
-   the_is_posix_alpha_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALPHA is
+   the_is_posix_alpha_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ALPHA
       once
          create Result
       end
 
-   the_is_posix_ascii_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ASCII is
+   the_is_posix_ascii_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_ASCII
       once
          create Result
       end
 
-   the_is_posix_blank_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_BLANK is
+   the_is_posix_blank_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_BLANK
       once
          create Result
       end
 
-   the_is_posix_cntrl_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_CNTRL is
+   the_is_posix_cntrl_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_CNTRL
       once
          create Result
       end
 
-   the_is_posix_digit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_DIGIT is
+   the_is_posix_digit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_DIGIT
       once
          create Result
       end
 
-   the_is_posix_graph_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_GRAPH is
+   the_is_posix_graph_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_GRAPH
       once
          create Result
       end
 
-   the_is_posix_lower_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_LOWER is
+   the_is_posix_lower_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_LOWER
       once
          create Result
       end
 
-   the_is_posix_print_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PRINT is
+   the_is_posix_print_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PRINT
       once
          create Result
       end
 
-   the_is_posix_punct_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PUNCT is
+   the_is_posix_punct_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_PUNCT
       once
          create Result
       end
 
-   the_is_posix_space_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_SPACE is
+   the_is_posix_space_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_SPACE
       once
          create Result
       end
 
-   the_is_posix_upper_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_UPPER is
+   the_is_posix_upper_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_UPPER
       once
          create Result
       end
 
-   the_is_posix_word_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_WORD is
+   the_is_posix_word_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_WORD
       once
          create Result
       end
 
-   the_is_posix_xdigit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_XDIGIT is
+   the_is_posix_xdigit_item: REGULAR_EXPRESSION_ITEM_IS_POSIX_XDIGIT
       once
          create Result
       end
 
 feature {ANY} -- character class naming
-   has_named_posix_item (name: STRING): BOOLEAN is
+   has_named_posix_item (name: STRING): BOOLEAN
          -- True if 'name' is for a valid posix character class
       require
          name_not_void: name /= Void
@@ -135,7 +135,7 @@ feature {ANY} -- character class naming
          Result := internal_named_posix_item(name) /= Void
       end
 
-   named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+   named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM
          -- the item for the valid posix character class 'name'
       require
          name_not_void: name /= Void
@@ -146,7 +146,7 @@ feature {ANY} -- character class naming
          good_result: Result /= Void
       end
 
-   has_named_perl_item (name: STRING): BOOLEAN is
+   has_named_perl_item (name: STRING): BOOLEAN
          -- True if 'name' is for a valid perl character class
       require
          name_not_void: name /= Void
@@ -154,7 +154,7 @@ feature {ANY} -- character class naming
          Result := internal_named_perl_item(name) /= Void
       end
 
-   named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+   named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM
          -- the item for the valid perl character class 'name'
       require
          name_not_void: name /= Void
@@ -166,7 +166,7 @@ feature {ANY} -- character class naming
       end
 
 feature {}
-   internal_named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+   internal_named_posix_item (name: STRING): REGULAR_EXPRESSION_ITEM
          -- the item for a presumed posix character class 'name'
       require
          name_not_void: name /= Void
@@ -205,7 +205,7 @@ feature {}
          end
       end
 
-   internal_named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM is
+   internal_named_perl_item (name: STRING): REGULAR_EXPRESSION_ITEM
          -- the item for a presumed perl character class 'name'
       require
          name_not_void: name /= Void
@@ -245,13 +245,13 @@ feature {}
 
 end -- class REGULAR_EXPRESSION_ITEM_GLOBALS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

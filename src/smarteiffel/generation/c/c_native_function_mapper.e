@@ -20,7 +20,7 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {ANY}
-   compile (a_rf8: RUN_FEATURE_8) is
+   compile (a_rf8: RUN_FEATURE_8)
       require
          rf8_does_need_c_wrapper(a_rf8)
       local
@@ -52,7 +52,7 @@ feature {}
    bcn, name: STRING
 
 feature {NATIVE_BUILT_IN}
-   visit_native_built_in (visited: NATIVE_BUILT_IN) is
+   visit_native_built_in (visited: NATIVE_BUILT_IN)
       local
          cbd, cda: BOOLEAN; live_type_of_current: LIVE_TYPE; copy_run_feature: RUN_FEATURE
          i, id: INTEGER
@@ -186,7 +186,9 @@ feature {NATIVE_BUILT_IN}
             elseif type_of_current.is_agent then
                function_body.append(once "(((se_agent*)C)->u0.eq==((se_agent*)a1)->u0.eq)&&(((se_agent*)C)->u0.eq((se_agent*)C,(se_agent*)a1))")
             elseif live_type_of_current.is_tagged then
-               function_body.append(once "((T6)((C->id==a1->id)?!memcmp(C,a1,sizeof(*C)):0))")
+               function_body.append(once "((T6)((C->id==a1->id)?!memcmp(C,a1,sizeof(*C/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)):0))")
             elseif live_type_of_current.writable_attributes = Void then
                if ace.boost then
                   cbd := cpp.cannot_drop_all
@@ -203,7 +205,9 @@ feature {NATIVE_BUILT_IN}
             elseif type_of_current.is_user_expanded or else not ace.boost then
                function_body.append(once "(T6)!memcmp(C,&a1,sizeof(T")
                type_of_current.id.append_in(function_body)
-               function_body.append(once "))")
+               function_body.append(once ")/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)")
             else
                function_body.append(once "!memcmp(")
                cpp.put_target_as_target(type_of_current)
@@ -215,7 +219,9 @@ feature {NATIVE_BUILT_IN}
                cpp.put_ith_argument(1)
                function_body.append(once "),sizeof(T")
                live_type_of_current.id.append_in(function_body)
-               function_body.append(once "))")
+               function_body.append(once ")/*")
+               function_body.append(live_type_of_current.structure_signature)
+               function_body.append(once "*/)")
             end
          elseif as_standard_twin = name then
             c_mapping_standard_twin
@@ -256,7 +262,7 @@ feature {NATIVE_BUILT_IN}
                if ace.no_check then
                   function_body.append(once ";%Nerror0(%"Invalid deep_twin.%",NULL)")
                end
-            elseif type_of_current.is_user_expanded and then type_of_current.is_empty_expanded then
+            elseif type_of_current.is_empty_expanded then
                cpp.put_target_as_target(type_of_current)
             else
                check
@@ -410,6 +416,16 @@ feature {NATIVE_BUILT_IN}
             if cbd then
                function_body.extend(')')
             end
+         elseif as_thread_lock = bcn then
+            if as_is_locked = name then
+               function_body.append(once "se_thread_lock_is_locked((")
+               cpp.put_target_as_target(type_of_current)
+               function_body.append(once ")->_native_data)")
+            elseif as_timed_wait = name then
+               function_body.append(once "se_thread_lock_timed_wait((")
+               cpp.put_target_as_target(type_of_current)
+               function_body.append(once ")->_native_data)")
+            end
          else
             echo.w_put_string(once "Unknown ")
             echo.w_put_string(bcn)
@@ -420,9 +436,9 @@ feature {NATIVE_BUILT_IN}
       end
 
 feature {NATIVE_C_PLUS_PLUS}
-   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS) is
+   visit_native_c_plus_plus (visited: NATIVE_C_PLUS_PLUS)
       do
-         if cpp.c_plus_plus_registered(visited) then
+         if not cpp.c_plus_plus_registered(visited) then
             extra_c_prototype(visited.external_tag.start_position, type_of_current, rf8.base_feature)
             cpp.c_plus_plus_register(visited, rf8)
          end
@@ -430,7 +446,7 @@ feature {NATIVE_C_PLUS_PLUS}
       end
 
 feature {NATIVE_C}
-   visit_native_c (visited: NATIVE_C) is
+   visit_native_c (visited: NATIVE_C)
       do
          visited.parse_external_tag
          if visited.need_prototype and then not cpp.c_registered(visited) then
@@ -441,13 +457,13 @@ feature {NATIVE_C}
       end
 
 feature {NATIVE_PLUG_IN}
-   visit_native_plug_in (visited: NATIVE_PLUG_IN) is
+   visit_native_plug_in (visited: NATIVE_PLUG_IN)
       do
          mapping_plug_in(visited, rf8.arguments)
       end
 
 feature {}
-   extra_c_prototype (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE) is
+   extra_c_prototype (position: POSITION; context_type: TYPE; er: EXTERNAL_ROUTINE)
       do
          extra_c_prototype_in_cpp_out_h_buffer(position, context_type, er)
          out_h.append(once ";%N")
@@ -456,7 +472,7 @@ feature {}
          cpp.write_out_c_buffer
       end
 
-   mapping_c (visited: NATIVE_C; er: EXTERNAL_ROUTINE; wrapped, is_function: BOOLEAN; arg_count: INTEGER) is
+   mapping_c (visited: NATIVE_C; er: EXTERNAL_ROUTINE; wrapped, is_function: BOOLEAN; arg_count: INTEGER)
          -- Where `wrapped' means that the code is wrapped inside some function (-no_check mode).
       local
          tcbd, stop: BOOLEAN; p: POSITION; c_code, arg: STRING; cc: CHARACTER; i, arg_idx: INTEGER
@@ -604,7 +620,7 @@ feature {}
          cpp.put_position_comment(p)
       end
 
-   mapping_plug_in (plugin: NATIVE_PLUG_IN; arguments: FORMAL_ARG_LIST) is
+   mapping_plug_in (plugin: NATIVE_PLUG_IN; arguments: FORMAL_ARG_LIST)
       local
          cbd: BOOLEAN
       do
@@ -624,7 +640,7 @@ feature {}
       end
 
 feature {} -- built-ins
-   c_mapping_standard_twin is
+   c_mapping_standard_twin
       do
          if type_of_current.is_kernel_expanded then
             cpp.put_target_as_value
@@ -638,7 +654,10 @@ feature {} -- built-ins
                   function_body.has_suffix(once "R=")
                end
                function_body.remove_tail(2)
-               function_body.append(once "memcpy(&R,C,sizeof(R))")
+               function_body.append(once "memcpy(&R,C,sizeof(R")
+               function_body.append(once ")/*")
+               function_body.append(type_of_current.live_type.structure_signature)
+               function_body.append(once "*/)")
             end
          else
             function_body.append(once "((void*)")
@@ -649,11 +668,11 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_native_array_function is
+   c_mapping_native_array_function
       local
          elt_type: TYPE; tcbd: BOOLEAN
       do
-         elt_type := type_of_current.private_generic_list.first
+         elt_type := type_of_current.generic_list.first
          if as_element_sizeof = name then
             tcbd := cpp.target_cannot_be_dropped
             if tcbd then
@@ -661,7 +680,9 @@ feature {} -- built-ins
             end
             function_body.append(once "sizeof(")
             function_body.append(cpp.argument_type.for(elt_type.canonical_type_mark))
-            function_body.extend(')')
+            function_body.append(once "/*")
+            function_body.append(elt_type.live_type.structure_signature)
+            function_body.append(once "*/)")
             if tcbd then
                function_body.extend(')')
             end
@@ -710,7 +731,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_real is
+   c_mapping_real
       require
          type_of_current.is_real
          rf8.arg_count = 0 or rf8.arg_count = 1
@@ -861,7 +882,7 @@ feature {} -- built-ins
          end
       end
 
-   c_mapping_integer_function is
+   c_mapping_integer_function
       require
          type_of_current.is_integer
       local
@@ -1037,7 +1058,7 @@ feature {} -- built-ins
          end
       end
 
-   c_modular_computation (integer_bit_count: INTEGER; operator: CHARACTER) is
+   c_modular_computation (integer_bit_count: INTEGER; operator: CHARACTER)
       do
          function_body.append(once "(int")
          integer_bit_count.append_in(function_body)
@@ -1054,7 +1075,7 @@ feature {} -- built-ins
          function_body.append(once ")))")
       end
 
-   c_mapping_natural_function is
+   c_mapping_natural_function
       require
          type_of_current.is_natural
       local
@@ -1182,7 +1203,7 @@ feature {} -- built-ins
          end
       end
 
-   c_deep_twin_body (live_type: LIVE_TYPE) is
+   c_deep_twin_body (live_type: LIVE_TYPE)
       require
          cpp.pending_c_function
          live_type.at_run_time
@@ -1276,7 +1297,7 @@ feature {} -- built-ins
                   function_body.extend(',')
                   c_field_access(live_type, internal_c_local, as_capacity)
                   function_body.append(once ");%N")
-               elseif tm.is_empty_expanded then
+               elseif tm.type.is_empty_expanded then
                elseif tm.is_user_expanded then
                   c_field_access(live_type, internal_c_local, field_name)
                   function_body.append(once "=r")
@@ -1308,7 +1329,7 @@ feature {} -- built-ins
          internal_c_local.unlock
       end
 
-   c_field_access (live_type: LIVE_TYPE; internal_c_local: INTERNAL_C_LOCAL; field_name: STRING) is
+   c_field_access (live_type: LIVE_TYPE; internal_c_local: INTERNAL_C_LOCAL; field_name: STRING)
       do
          if live_type.is_reference then
             function_body.append(once "((T")
@@ -1324,12 +1345,12 @@ feature {} -- built-ins
             check
                live_type.is_user_expanded
             end
-            function_body.append(once "._")
+            function_body.append(once ".is_")
          end
          function_body.append(field_name)
       end
 
-   is_deep_equal_c_code (live_type: LIVE_TYPE) is
+   is_deep_equal_c_code (live_type: LIVE_TYPE)
       require
          cpp.pending_c_function
       local
@@ -1439,7 +1460,7 @@ feature {} -- built-ins
                   function_body.append(once ",a1ptr->_")
                   function_body.append(field_name)
                   function_body.append(once ",C->_capacity);%N")
-               elseif tm.is_empty_expanded then
+               elseif tm.type.is_empty_expanded then
                elseif tm.is_user_expanded then
                   function_body.append(once "if(R)R=r")
                   tm.id.append_in(function_body)
@@ -1462,10 +1483,10 @@ feature {} -- built-ins
          function_body.append(once "}%Nse_deep_equal_trats()%N")
       end
 
-   em1: STRING is "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
+   em1: STRING "The `deep_twin'/`is_deep_equal' problem comes from this attribute."
 
 feature {} -- C++
-   wrapped_external_call_in (visited: NATIVE_C_PLUS_PLUS; body: STRING; er: EXTERNAL_ROUTINE; arg_count: INTEGER) is
+   wrapped_external_call_in (visited: NATIVE_C_PLUS_PLUS; body: STRING; er: EXTERNAL_ROUTINE; arg_count: INTEGER)
       local
          i: INTEGER
       do
@@ -1493,7 +1514,7 @@ feature {} -- C++
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -1509,9 +1530,9 @@ end -- class C_NATIVE_FUNCTION_MAPPER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

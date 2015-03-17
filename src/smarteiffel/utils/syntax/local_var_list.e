@@ -9,16 +9,16 @@ class LOCAL_VAR_LIST
 inherit
    DECLARATION_LIST
 
-create {EIFFEL_PARSER, INTROSPECTION_HANDLER}
+create {ANY}
    make
 
 feature {ANY}
-   name (i: INTEGER): LOCAL_NAME1 is
+   name (i: INTEGER): LOCAL_NAME_DEF
       do
          Result := flat_list.item(i)
       end
 
-   collect (t: TYPE) is
+   collect (t: TYPE)
       local
          i, c: INTEGER; t2: TYPE
       do
@@ -36,7 +36,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       require
          smart_eiffel.status.collecting_done
       local
@@ -56,7 +56,7 @@ feature {ANY}
          end
       end
 
-   pretty is
+   pretty
       local
          i, j, column, wrap_limit: INTEGER; buffer: STRING; c: CHARACTER
       do
@@ -141,15 +141,15 @@ feature {ANY}
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: LOCAL_VAR_LIST_VISITOR) is
+   accept (visitor: LOCAL_VAR_LIST_VISITOR)
       do
          visitor.visit_local_var_list(Current)
       end
 
 feature {DECLARATION}
-   add_last (n: LOCAL_ARGUMENT1) is
+   add_last (n: LOCAL_ARGUMENT_DEF)
       require
-         {LOCAL_NAME1} ?:= n
+         {LOCAL_NAME_DEF} ?:= n
       local
          i: INTEGER; n1, n2: like name
       do
@@ -173,13 +173,14 @@ feature {DECLARATION}
       end
 
 feature {}
-   make (l: like list) is
+   make (sp: POSITION; l: like list)
       require
          l.lower = 1
          not l.is_empty
       local
          il, actual_count: INTEGER
       do
+         start_position := sp
          list := l
          actual_count := compute_flat_list_count_by_using_list
          create flat_list.make(1, actual_count)
@@ -209,9 +210,9 @@ end -- class LOCAL_VAR_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

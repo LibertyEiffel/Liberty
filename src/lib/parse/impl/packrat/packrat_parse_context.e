@@ -18,14 +18,14 @@ feature {ANY}
    actions: COLLECTION[PARSE_ACTION]
 
 feature {PACKRAT_INTERNAL}
-   memo: PACKRAT_CONTEXT_MEMO is
+   memo: PACKRAT_CONTEXT_MEMO
       do
          Result.set(buffer.memo, actions.count)
       ensure
          Result.is_set
       end
 
-   restore (a_memo: like memo) is
+   restore (a_memo: like memo)
       require
          a_memo.is_set
       do
@@ -35,7 +35,7 @@ feature {PACKRAT_INTERNAL}
          end
       end
 
-   save_actions: like actions is
+   save_actions: like actions
       do
          Result := actions
          create {FAST_ARRAY[PARSE_ACTION]} actions.make(0)
@@ -44,7 +44,7 @@ feature {PACKRAT_INTERNAL}
          Result = old actions
       end
 
-   restore_old_actions (old_actions: like actions) is
+   restore_old_actions (old_actions: like actions)
       require
          old_actions /= Void
       do
@@ -54,7 +54,7 @@ feature {PACKRAT_INTERNAL}
       end
 
 feature {PACKRAT_PRIMARY}
-   pack (atom: PACKRAT_PRIMARY; index: INTEGER): PACKRAT_PACK is
+   pack (atom: PACKRAT_PRIMARY; index: INTEGER): PACKRAT_PACK
       local
          atom_data: AVL_DICTIONARY[PACKRAT_PACK, INTEGER]
       do
@@ -64,7 +64,7 @@ feature {PACKRAT_PRIMARY}
          end
       end
 
-   set_pack (atom: PACKRAT_PRIMARY; index: INTEGER; parsed: TRISTATE; position: PACKRAT_CONTEXT_MEMO): PACKRAT_PACK is
+   set_pack (atom: PACKRAT_PRIMARY; index: INTEGER; parsed: TRISTATE; position: PACKRAT_CONTEXT_MEMO): PACKRAT_PACK
       require
          not pack(atom, index).is_set
       local
@@ -89,7 +89,7 @@ feature {PACKRAT_PRIMARY}
       end
 
 feature {}
-   make (a_buffer: like buffer; a_actions: like actions) is
+   make (a_buffer: like buffer; a_actions: like actions)
       require
          a_buffer /= Void
          a_actions /= Void
@@ -111,13 +111,13 @@ invariant
 
 end -- class PACKRAT_PARSE_CONTEXT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

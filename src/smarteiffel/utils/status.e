@@ -24,7 +24,7 @@ feature {} -- Visitable attributes:
 
    specializing_type_memory: like specializing_type
 
-   phase_stack: like internal_phase_stack is
+   phase_stack: like internal_phase_stack
          -- Stacked phases. Changing this array will not change the internal saved phases (hence, don't do
          -- it, it's useless).
          -- The top of the stack is the last element. RETURNS A ONCE OBJECT.
@@ -35,19 +35,19 @@ feature {} -- Visitable attributes:
 
 feature {}
    -- Numbering of following constants is important, see documentation below:
-   getting_started:            INTEGER is 1
-   specializing_one_type:      INTEGER is 2
-   specializing_and_checking:  INTEGER is 3
-   collecting_features:        INTEGER is 4
-   simplifying:                INTEGER is 5
-   inlining_dynamic_dispatch:  INTEGER is 6
-   adapting_features:          INTEGER is 7
-   safety_checking:            INTEGER is 8
-   generating:                 INTEGER is 9
-   done:                       INTEGER is 10
-   safety_check_not_done:      INTEGER is 11
-   safety_check_ok:            INTEGER is 12
-   safety_check_failed:        INTEGER is 13
+   getting_started:            INTEGER 1
+   specializing_one_type:      INTEGER 2
+   specializing_and_checking:  INTEGER 3
+   collecting_features:        INTEGER 4
+   simplifying:                INTEGER 5
+   inlining_dynamic_dispatch:  INTEGER 6
+   adapting_features:          INTEGER 7
+   safety_checking:            INTEGER 8
+   generating:                 INTEGER 9
+   done:                       INTEGER 10
+   safety_check_not_done:      INTEGER 11
+   safety_check_ok:            INTEGER 12
+   safety_check_failed:        INTEGER 13
 
 feature {}
    -- The known phases (in somewhat chronological order)
@@ -114,20 +114,20 @@ feature {}
 
 
 feature {} -- State change support
-   visitable_phase_stack: FAST_ARRAY[INTEGER] is
+   visitable_phase_stack: FAST_ARRAY[INTEGER]
          -- Used by visitors getting the `phase_stack': security trick not to let the visitor modify the stack.
          --|*** Not used internally: will not be compiled in the normal tools
       once
          create Result.with_capacity(2)
       end
 
-   internal_phase_stack: FAST_ARRAY[INTEGER] is
+   internal_phase_stack: FAST_ARRAY[INTEGER]
          -- Keeps the previous phases in a stack. Required by the special "specializing" phases.
       once
          create Result.with_capacity(2)
       end
 
-   set_phase (p: like phase) is
+   set_phase (p: like phase)
       require
          p > getting_started and then p <= done
          internal_phase_stack.is_empty
@@ -135,7 +135,7 @@ feature {} -- State change support
          set_phase_(p)
       end
 
-   push_phase (p: like phase) is
+   push_phase (p: like phase)
       require
          p > getting_started and then p <= done
       do
@@ -143,7 +143,7 @@ feature {} -- State change support
          set_phase_(p)
       end
 
-   pop_phase is
+   pop_phase
       require
          not internal_phase_stack.is_empty
       do
@@ -152,7 +152,7 @@ feature {} -- State change support
       end
 
 feature {}
-   set_phase_ (p: like phase) is
+   set_phase_ (p: like phase)
       require
          p > 0
       local
@@ -166,7 +166,7 @@ feature {}
       end
 
 feature {FEATURE_ACCUMULATOR}
-   start_specializing (t: TYPE) is
+   start_specializing (t: TYPE)
       require
          is_collecting
       do
@@ -177,7 +177,7 @@ feature {FEATURE_ACCUMULATOR}
          is_specializing
       end
 
-   end_specializing (t: TYPE) is
+   end_specializing (t: TYPE)
       require
          is_specializing
          specializing_type = t
@@ -187,7 +187,7 @@ feature {FEATURE_ACCUMULATOR}
          is_collecting
       end
 
-   start_specializing_and_checking (t: TYPE) is
+   start_specializing_and_checking (t: TYPE)
       require
          is_specializing
          specializing_type = t
@@ -197,7 +197,7 @@ feature {FEATURE_ACCUMULATOR}
          is_specializing_and_checking
       end
 
-   end_specializing_and_checking (t: TYPE) is
+   end_specializing_and_checking (t: TYPE)
       require
          is_specializing_and_checking
          specializing_type = t
@@ -208,7 +208,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {CODE_PRINTER}
-   set_generating is
+   set_generating
       require
          is_safety_checking
       do
@@ -218,7 +218,7 @@ feature {CODE_PRINTER}
       end
 
 feature {SMART_EIFFEL}
-   set_collecting is
+   set_collecting
       require
          is_getting_started or else collecting_done and not is_adapting
       do
@@ -228,7 +228,7 @@ feature {SMART_EIFFEL}
          is_collecting
       end
 
-   set_collecting_done is
+   set_collecting_done
       require
          not collecting_done
       do
@@ -237,7 +237,7 @@ feature {SMART_EIFFEL}
          collecting_done
       end
 
-   start_simplifying is
+   start_simplifying
       require
          collecting_done and not is_adapting
          not is_inlining_dynamic_dispatch
@@ -247,7 +247,7 @@ feature {SMART_EIFFEL}
          is_simplifying
       end
 
-   end_simplifying is
+   end_simplifying
       require
          is_simplifying
       do
@@ -257,7 +257,7 @@ feature {SMART_EIFFEL}
          collecting_done and not is_adapting
       end
 
-   set_inlining_dynamic_dispatch is
+   set_inlining_dynamic_dispatch
       require
          collecting_done and not is_adapting
          not is_simplifying
@@ -268,7 +268,7 @@ feature {SMART_EIFFEL}
          is_inlining_dynamic_dispatch
       end
 
-   set_inlining_dynamic_dispatch_done is
+   set_inlining_dynamic_dispatch_done
       require
          not inlining_dynamic_dispatch_done
       do
@@ -277,7 +277,7 @@ feature {SMART_EIFFEL}
          inlining_dynamic_dispatch_done
       end
 
-   set_adapting is
+   set_adapting
       require
          is_collecting
       do
@@ -286,7 +286,7 @@ feature {SMART_EIFFEL}
          is_adapting
       end
 
-   set_safety_checking is
+   set_safety_checking
       require
          is_adapting
       do
@@ -295,7 +295,7 @@ feature {SMART_EIFFEL}
          is_safety_checking
       end
 
-   set_safety_check_ok is
+   set_safety_check_ok
       require
          is_safety_checking
       do
@@ -305,7 +305,7 @@ feature {SMART_EIFFEL}
          safety_check_state := safety_check_ok
       end
 
-   set_safety_check_failed is
+   set_safety_check_failed
       require
          is_safety_checking
       do
@@ -316,7 +316,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {SMART_EIFFEL}
-   echo_information is
+   echo_information
       do
          echo_phase_information(once "getting started", getting_started)
          echo_phase_information(once "specializing one type", specializing_one_type)
@@ -340,7 +340,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   echo_phase_information (phase_tag: STRING; p: INTEGER) is
+   echo_phase_information (phase_tag: STRING; p: INTEGER)
       local
          time: INTEGER_64
       do
@@ -355,60 +355,60 @@ feature {}
       end
 
 feature {ANY} -- State checking
-   specializing_type: TYPE is
+   specializing_type: TYPE
       require
          is_specializing or else is_specializing_and_checking
       do
          Result := specializing_type_memory
       end
 
-   is_getting_started: BOOLEAN is
+   is_getting_started: BOOLEAN
          -- True if the system has just started gathering the first types from the given root
       do
          Result := phase = getting_started
       end
 
-   is_analyzing: BOOLEAN is
+   is_analyzing: BOOLEAN
          -- True if the system is being analyzed (making live types, run features and so on)
       do
          Result := phase <= adapting_features
       end
 
-   is_collecting: BOOLEAN is
+   is_collecting: BOOLEAN
          -- True if the system is being collected
       do
          Result := phase < adapting_features
       end
 
-   is_simplifying: BOOLEAN is
+   is_simplifying: BOOLEAN
       do
          Result := phase = simplifying
       end
 
-   is_inlining_dynamic_dispatch: BOOLEAN is
+   is_inlining_dynamic_dispatch: BOOLEAN
       do
          Result := phase = inlining_dynamic_dispatch
       end
 
-   is_adapting: BOOLEAN is
+   is_adapting: BOOLEAN
          -- True if the system is being tailored (before code production)
       do
          Result := phase = adapting_features
       end
 
-   is_specializing: BOOLEAN is
+   is_specializing: BOOLEAN
          -- True if the system is creating one new type
       do
          Result := phase = specializing_one_type
       end
 
-   is_specializing_and_checking: BOOLEAN is
+   is_specializing_and_checking: BOOLEAN
          -- True if the system is calling `specialize_and_check' on the newly created type
       do
          Result := phase = specializing_and_checking
       end
 
-   is_safety_checking: BOOLEAN is
+   is_safety_checking: BOOLEAN
          -- True if the system is currently being safety-checked
       do
          Result := phase = safety_checking
@@ -422,28 +422,28 @@ feature {ANY} -- State checking
          -- Indicates that all calls are now monomorphic (i.e. dynamic dispatch is implemented with
          -- inspect instructions).
 
-   safety_check_done: BOOLEAN is
+   safety_check_done: BOOLEAN
       do
          Result := safety_check_state /= safety_check_not_done
       end
 
-   is_generating: BOOLEAN is
+   is_generating: BOOLEAN
          -- True if the system is generating the code.
       do
          Result := phase = generating
       end
 
-   is_done: BOOLEAN is
+   is_done: BOOLEAN
          -- True if the system has finished the compilation.
       do
          Result := phase = done
       end
 
 feature {} -- The constructor
-   make is
+   make
       do
          create times.make(13)
-         set_phase(getting_started)
+         set_phase_(getting_started)
          safety_check_state := safety_check_not_done
       end
 
@@ -469,9 +469,9 @@ end -- class STATUS
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

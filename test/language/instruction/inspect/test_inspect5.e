@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          if foo then
             std_output.put_string("TEST_INSPECT5: ERROR Test #1%N")
@@ -17,7 +17,7 @@ feature {ANY}
          end
       end
 
-   foo: BOOLEAN is
+   foo: BOOLEAN
       local
          i: INTEGER
       do
@@ -29,7 +29,7 @@ feature {ANY}
          end
       end
 
-   bar: BOOLEAN is
+   bar: BOOLEAN
       local
          i: INTEGER
       do

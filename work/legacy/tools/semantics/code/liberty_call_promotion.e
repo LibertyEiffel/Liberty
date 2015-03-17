@@ -21,7 +21,7 @@ create {LIBERTY_CALL}
    make
 
 feature {LIBERTY_TYPE}
-   on_type_known (type: LIBERTY_TYPE) is
+   on_type_known (type: LIBERTY_TYPE)
       do
          if not done and then target_type.is_known and then arg_type.is_known then
             done := True
@@ -29,13 +29,13 @@ feature {LIBERTY_TYPE}
          end
       end
 
-   on_type_built (type: LIBERTY_ACTUAL_TYPE) is
+   on_type_built (type: LIBERTY_ACTUAL_TYPE)
       do
          -- nothing
       end
 
 feature {}
-   check_and_set_promotion is
+   check_and_set_promotion
       require
          target_type.is_known
          arg_type.is_known
@@ -61,7 +61,7 @@ feature {}
       end
 
 feature {}
-   make (a_call: like call; a_target_type: like target_type; a_arg_type: like arg_type) is
+   make (a_call: like call; a_target_type: like target_type; a_arg_type: like arg_type)
       require
          a_call /= Void
          a_target_type /= Void

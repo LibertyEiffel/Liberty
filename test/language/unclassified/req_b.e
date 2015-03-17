@@ -11,18 +11,18 @@ inherit
 feature {ANY}
    bc: CHARACTER
 
-   set_bc (c: CHARACTER) is
+   set_bc (c: CHARACTER)
       do
          bc := c
       end
 
-   rb is
+   rb
       require else
          bc = 'b'
       do
       end
 
-   rc is
+   rc
       require else
          4 = 2 + 2
       local

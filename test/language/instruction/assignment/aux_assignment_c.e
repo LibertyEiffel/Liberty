@@ -7,12 +7,12 @@ inherit
    AUX_ASSIGNMENT_B
 
 feature {ANY}
-   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B is
+   x (other: AUX_ASSIGNMENT_A): AUX_ASSIGNMENT_B
       do
          Result := other.with_c(Current)
       end
 
-   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_C is
+   with_c (other: AUX_ASSIGNMENT_C): AUX_ASSIGNMENT_C
       do
          create Result
          Result.set_value(1)

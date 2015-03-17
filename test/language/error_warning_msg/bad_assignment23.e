@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          comparable: COMPARABLE; integer: INTEGER
       do

@@ -21,7 +21,7 @@ feature {}
          --  Current position on `piece'.
 
 feature {ANY}
-   make (r: like root) is
+   make (r: like root)
       require
          r /= Void
       do
@@ -30,7 +30,7 @@ feature {ANY}
          root = r
       end
 
-   start is
+   start
       do
          right_visited := False
          iter := root.left.new_iterator
@@ -39,17 +39,17 @@ feature {ANY}
          iter /= Void
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := iter = Void
       end
 
-   item: CHARACTER is
+   item: CHARACTER
       do
          Result := iter.item
       end
 
-   next is
+   next
       do
          iter.next
          if iter.is_off then -- switch to the next piece of rope
@@ -64,7 +64,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := root.generation
       end
@@ -73,13 +73,13 @@ feature {ANY}
 
 end -- class ITERATOR_ON_ROPE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

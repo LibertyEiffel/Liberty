@@ -10,7 +10,7 @@ inherit
    COMMAND_LINE_TOOLS
 
 feature {}
-   parent_list: FAST_ARRAY[TYPE] is
+   parent_list: FAST_ARRAY[TYPE]
          -- All paths from the type to `short' to the ANY type excluded (when the class to `short' is ANY, ANY is the first
          -- element). Actually, this `parent_list' is used to select the order of features output of command `short'.
          -- Indeed, we have to use the order of the original text source as a guide. As an example, if you short ARRAY, the
@@ -36,14 +36,14 @@ feature {}
 
    output: OUTPUT_STREAM
 
-   root_class_names: FAST_ARRAY[HASHED_STRING] is
+   root_class_names: FAST_ARRAY[HASHED_STRING]
       once
          create Result.with_capacity(1)
       end
 
    short: BOOLEAN
 
-   start is
+   start
          -- Should be called by the make procedure of `short' or `class_check'.
       require
          output /= Void
@@ -66,22 +66,22 @@ feature {}
          until
             i > root_class_names.upper
          loop
-            create cn.unknown_position(root_class_names.item(i))
-            bc := smart_eiffel.class_text(cn, True)
+            create cn.unknown_position(root_class_names.item(i), False)
+            bc := smart_eiffel.class_text(cn)
             obsolete_mark := bc.obsolete_mark
             class_check(bc)
             i := i + 1
          end
       end
 
-   parse_arguments is
+   parse_arguments
       deferred
       ensure
          format /= Void
          not root_class_names.is_empty
       end
 
-   class_check (class_text: CLASS_TEXT) is
+   class_check (class_text: CLASS_TEXT)
          -- Actually check the class `class_text'.
       require
          class_text /= Void
@@ -137,26 +137,32 @@ feature {}
          end
       end
 
-   set_format (a_format: like format) is
+   set_format (a_format: like format)
       do
          format := a_format
       end
 
-   set_client (a_client_or_void: HASHED_STRING) is
+   set_client (a_client_or_void: HASHED_STRING)
          -- A Void argument indicates that all features are visibles.
       local
-         cn: CLASS_NAME
+         sp: POSITION
       do
          if a_client_or_void = Void then
             client := Void
          else
-            create cn.unknown_position(a_client_or_void)
-            create {CLASS_TYPE_MARK} client.make(cn)
+            client := eiffel_parser.predefined_type_mark(a_client_or_void.to_string, sp)
+            if client = Void then
+               if a_client_or_void.to_string.is_equal(once "TUPLE") then
+                  create {EMPTY_TUPLE_TYPE_MARK} client.make(sp)
+               else
+                  create {CLASS_TYPE_MARK} client.make(create {CLASS_NAME}.unknown_position(a_client_or_void, True))
+               end
+            end
          end
          short_printer.set_client(client)
       end
 
-   prepare_or_collect_features_for (tm: TYPE_MARK) is
+   prepare_or_collect_features_for (tm: TYPE_MARK)
       local
          i: INTEGER; ct: CLASS_TEXT; fcl: FEATURE_CLAUSE_LIST; parent: TYPE
       do
@@ -175,7 +181,7 @@ feature {}
          end
       end
 
-   fatal_bad_usage is
+   fatal_bad_usage
       do
          system_tools.bad_use_exit(command_name, command_line_help_summary)
       end
@@ -195,9 +201,9 @@ end -- class CLASS_CHECKER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

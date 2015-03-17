@@ -3,7 +3,7 @@
 --
 class RUN_TIME_SET
    --
-   -- The set of all possible `at_run_time' LIVE_TYPEs which are associated with some `owner' LIVE_TYPE. There is
+   -- The set of all possible `at_run_time' LIVE_TYPEs which are associated with some `owner' LIVE_TYPE. There
    -- exactely one RUN_TIME_SET object for each LIVE_TYPE. The RUN_TIME_SET of a LIVE_TYPE is the set of
    -- possible `at_run_time' LIVE_TYPEs which can be assigned into a variable of this LIVE_TYPE and which may be
    -- actually held by an expression of the type of `owner'.
@@ -21,14 +21,14 @@ create {LIVE_TYPE}
    make
 
 feature {ANY} -- Basic accessing:
-   count: INTEGER is
+   count: INTEGER
       do
          Result := set.count
       ensure
          Result >= 0
       end
 
-   item (index: INTEGER): LIVE_TYPE is
+   item (index: INTEGER): LIVE_TYPE
       require
          index.in_range(1, count)
       do
@@ -40,14 +40,14 @@ feature {ANY} -- Basic accessing:
          Result /= Void
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := set.is_empty
       ensure
          Result = (count = 0)
       end
 
-   has (live_type: LIVE_TYPE): BOOLEAN is
+   has (live_type: LIVE_TYPE): BOOLEAN
       require
          live_type /= Void
       do
@@ -57,7 +57,7 @@ feature {ANY} -- Basic accessing:
    owner: LIVE_TYPE
          -- The `owner' of the `Current' set.
 
-   first: LIVE_TYPE is
+   first: LIVE_TYPE
       require
          count = 1
       do
@@ -66,15 +66,15 @@ feature {ANY} -- Basic accessing:
          Result = item(1)
       end
 
-   do_all (action: PROCEDURE[TUPLE[LIVE_TYPE]]) is
+   for_each (action: PROCEDURE[TUPLE[LIVE_TYPE]])
       require
          action /= Void
       do
-         set.do_all(action)
+         set.for_each(action)
       end
 
 feature {LIVE_TYPE}
-   id_extra_information (tfw: TEXT_FILE_WRITE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE)
       local
          i: INTEGER; lt: LIVE_TYPE
       do
@@ -101,7 +101,7 @@ feature {LIVE_TYPE}
          end
       end
 
-   reset is
+   reset
       do
          set.clear_count
          debug
@@ -117,7 +117,7 @@ feature {RUN_TIME_SET}
          -- of the `owner' type.
 
 feature {GRAPH_NODE}
-   add_set (other: like Current): INTEGER is
+   add_set (other: like Current): INTEGER
          -- Add elements of `other' into `Current' and return the number of actually added elements.
       require
          not smart_eiffel.is_ready
@@ -150,7 +150,7 @@ feature {GRAPH_NODE}
       end
 
 feature {LIVE_TYPE}
-   force_add (live_type: LIVE_TYPE) is
+   force_add (live_type: LIVE_TYPE)
       require
          live_type.is_expanded implies live_type = owner
       do
@@ -163,7 +163,7 @@ feature {LIVE_TYPE}
 
    debug_info: STRING
 
-   make (o: like owner) is
+   make (o: like owner)
       require
          o /= Void
       do
@@ -192,9 +192,9 @@ end -- class RUN_TIME_SET
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

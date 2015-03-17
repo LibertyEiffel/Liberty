@@ -13,12 +13,12 @@ create {}
    make
 
 feature {ANY}
-   identity: STRING is
+   identity: STRING
       do
          Result := "TEST_JB04.identity"
       end
 
-   make is
+   make
       do
          link := Current
          assert(identity.is_equal("TEST_JB04.identity"))
@@ -26,7 +26,7 @@ feature {ANY}
          assert(link.identity.is_equal("TEST_JB04.identity"))
       end
 
-   assert (boolean: BOOLEAN) is
+   assert (boolean: BOOLEAN)
       do
          cpt := cpt + 1
          if not boolean then

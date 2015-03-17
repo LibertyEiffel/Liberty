@@ -11,7 +11,7 @@ create {}
 feature {ANY}
    pad: NCURSES_PAD
 
-   make is
+   make
       local
          root_window: NCURSES_WINDOW
       do
@@ -38,13 +38,13 @@ feature {ANY}
          ncurses.start
       end
 
-   update (x, y: INTEGER) is
+   update (x, y: INTEGER)
       do
          pad.set_visible(x, y)
          pad.redraw_now
       end
 
-   key_press (key_code: INTEGER) is
+   key_press (key_code: INTEGER)
       do
          if key_code = key_left and then pad.visible_left > 0 then
             update(pad.visible_left - 1, pad.visible_top)

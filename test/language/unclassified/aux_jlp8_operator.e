@@ -4,53 +4,53 @@
 deferred class AUX_JLP8_OPERATOR[E]
 
 feature {ANY}
-   run is
+   run
       do
          before_run
-         do_all
+         for_each
          after_run
       end
 
-   make (p: AUX_JLP8_PROVIDER[E]) is
+   make (p: AUX_JLP8_PROVIDER[E])
       do
          provider := p.twin
       end
 
-   attach (p: AUX_JLP8_PROVIDER[E]) is
+   attach (p: AUX_JLP8_PROVIDER[E])
       do
          provider := p
       end
 
-   is_runnable: BOOLEAN is
+   is_runnable: BOOLEAN
       do
          Result := provider /= Void and then provider.is_runnable
       end
 
-   abort is
+   abort
       do
          provider.abort
       end
 
-   aborted: BOOLEAN is
+   aborted: BOOLEAN
       do
          Result := provider.aborted
       end
 
-   before_run is
+   before_run
       do
       end
 
-   after_run is
+   after_run
       do
       end
 
-   item_action (elem: E) is
+   item_action (elem: E)
       deferred
       end
 
    provider: AUX_JLP8_PROVIDER[E]
 
-   do_all is
+   for_each
       do
          from
             provider.start

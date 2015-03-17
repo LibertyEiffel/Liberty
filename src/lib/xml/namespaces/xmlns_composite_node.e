@@ -1,3 +1,5 @@
+-- See the Copyright notice at the end of this file.
+--
 class XMLNS_COMPOSITE_NODE
    --
    -- A node in an XMLNS_TREE
@@ -16,7 +18,7 @@ feature {ANY}
    name: UNICODE_STRING
          -- The name of the node
 
-   attribute_namespace (index: INTEGER): UNICODE_STRING is
+   attribute_namespace (index: INTEGER): UNICODE_STRING
          -- The namespace of the i'th attribute
       require
          index.in_range(1, attributes_count)
@@ -43,7 +45,7 @@ feature {ANY}
          end
       end
 
-   attribute_name (index: INTEGER): UNICODE_STRING is
+   attribute_name (index: INTEGER): UNICODE_STRING
          -- The name of the i'th attribute
       require
          index.in_range(1, attributes_count)
@@ -70,7 +72,7 @@ feature {ANY}
          end
       end
 
-   attribute_value (index: INTEGER): UNICODE_STRING is
+   attribute_value (index: INTEGER): UNICODE_STRING
          -- The value of the i'th attribute
       require
          index.in_range(1, attributes_count)
@@ -97,7 +99,7 @@ feature {ANY}
          end
       end
 
-   attribute_at (a_attribute_namespace, a_attribute_name: UNICODE_STRING): UNICODE_STRING is
+   attribute_at (a_attribute_namespace, a_attribute_name: UNICODE_STRING): UNICODE_STRING
          -- The value of the attribute given by its name; Void if not set
       local
          att: HASHED_DICTIONARY[UNICODE_STRING, UNICODE_STRING]
@@ -112,7 +114,7 @@ feature {ANY}
          end
       end
 
-   attributes_count: INTEGER is
+   attributes_count: INTEGER
          -- The number of attributes
       local
          i: INTEGER
@@ -128,7 +130,7 @@ feature {ANY}
          end
       end
 
-   child (index: INTEGER): XMLNS_NODE is
+   child (index: INTEGER): XMLNS_NODE
          -- The i'th child
       require
          index.in_range(1, children_count)
@@ -136,14 +138,14 @@ feature {ANY}
          Result := children.item(index - 1)
       end
 
-   children_count: INTEGER is
+   children_count: INTEGER
          -- The number of children
       do
          Result := children.count
       end
 
 feature {ANY}
-   accept (visitor: VISITOR) is
+   accept (visitor: VISITOR)
       local
          v: XMLNS_NODE_VISITOR
       do
@@ -152,7 +154,7 @@ feature {ANY}
       end
 
 feature {XMLNS_TREE}
-   set_attribute (a_attribute_namespace, a_attribute_name, a_attribute_value: UNICODE_STRING) is
+   set_attribute (a_attribute_namespace, a_attribute_name, a_attribute_value: UNICODE_STRING)
       require
          a_attribute_name /= Void
          a_attribute_value /= Void
@@ -173,7 +175,7 @@ feature {XMLNS_TREE}
          attribute_at(a_attribute_namespace, a_attribute_name) = a_attribute_value
       end
 
-   add_child (node: XMLNS_NODE) is
+   add_child (node: XMLNS_NODE)
       require
          node /= Void
          node.parent = Void
@@ -191,7 +193,7 @@ feature {}
 
    children: FAST_ARRAY[XMLNS_NODE]
 
-   make (a_namespace: like namespace; a_name: like name; a_line: like line; a_column: like column) is
+   make (a_namespace: like namespace; a_name: like name; a_line: like line; a_column: like column)
       require
          a_name /= Void
          a_line > 0
@@ -210,3 +212,23 @@ invariant
    name /= Void
 
 end -- class XMLNS_COMPOSITE_NODE
+--
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software
+-- furnished to do so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

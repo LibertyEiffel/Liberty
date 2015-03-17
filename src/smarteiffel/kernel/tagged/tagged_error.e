@@ -18,7 +18,7 @@ feature {ERROR_HANDLER}
    positions: FAST_ARRAY[POSITION]
    is_emitted: BOOLEAN
 
-   set_emitted is
+   set_emitted
       require
          not is_emitted
       do
@@ -27,7 +27,7 @@ feature {ERROR_HANDLER}
          is_emitted
       end
 
-   make (exp: like explanation; pos: like positions) is
+   make (exp: like explanation; pos: like positions)
       require
          exp /= Void
          pos /= Void
@@ -49,7 +49,7 @@ feature {ERROR_HANDLER}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          explanation.clear_count
          positions.clear_count
@@ -72,9 +72,9 @@ end -- class TAGGED_ERROR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

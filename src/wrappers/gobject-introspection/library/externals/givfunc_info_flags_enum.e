@@ -5,9 +5,9 @@ expanded class GIVFUNC_INFO_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (must_chain_up_low_level | 
 				must_not_override_low_level | 
@@ -17,69 +17,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_must_chain_up is
+	set_must_chain_up
 		do
 			value := value.bit_or(must_chain_up_low_level)
 		end
 
-	unset_must_chain_up is
+	unset_must_chain_up
 		do
 			value := value.bit_xor(must_chain_up_low_level)
 		end
 
-	set_must_not_override is
+	set_must_not_override
 		do
 			value := value.bit_or(must_not_override_low_level)
 		end
 
-	unset_must_not_override is
+	unset_must_not_override
 		do
 			value := value.bit_xor(must_not_override_low_level)
 		end
 
-	set_must_override is
+	set_must_override
 		do
 			value := value.bit_or(must_override_low_level)
 		end
 
-	unset_must_override is
+	unset_must_override
 		do
 			value := value.bit_xor(must_override_low_level)
 		end
 
-	set_throws is
+	set_throws
 		do
 			value := value.bit_or(throws_low_level)
 		end
 
-	unset_throws is
+	unset_throws
 		do
 			value := value.bit_xor(throws_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_must_chain_up: BOOLEAN is
+	is_must_chain_up: BOOLEAN
 		do
 			Result := (value=must_chain_up_low_level)
 		end
 
-	is_must_not_override: BOOLEAN is
+	is_must_not_override: BOOLEAN
 		do
 			Result := (value=must_not_override_low_level)
 		end
 
-	is_must_override: BOOLEAN is
+	is_must_override: BOOLEAN
 		do
 			Result := (value=must_override_low_level)
 		end
 
-	is_throws: BOOLEAN is
+	is_throws: BOOLEAN
 		do
 			Result := (value=throws_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	must_chain_up_low_level: INTEGER is
+	must_chain_up_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -88,7 +88,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	must_not_override_low_level: INTEGER is
+	must_not_override_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -97,7 +97,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	must_override_low_level: INTEGER is
+	must_override_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -106,7 +106,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	throws_low_level: INTEGER is
+	throws_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

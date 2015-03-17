@@ -5,9 +5,9 @@ expanded class GITYPE_TAG_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = array_low_level)  or else
 				(a_value = boolean_low_level)  or else
@@ -35,229 +35,229 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_array is
+	set_array
 		do
 			value := array_low_level
 		end
 
-	set_boolean is
+	set_boolean
 		do
 			value := boolean_low_level
 		end
 
-	set_double is
+	set_double
 		do
 			value := double_low_level
 		end
 
-	set_error is
+	set_error
 		do
 			value := error_low_level
 		end
 
-	set_filename is
+	set_filename
 		do
 			value := filename_low_level
 		end
 
-	set_float is
+	set_float
 		do
 			value := float_low_level
 		end
 
-	set_ghash is
+	set_ghash
 		do
 			value := ghash_low_level
 		end
 
-	set_glist is
+	set_glist
 		do
 			value := glist_low_level
 		end
 
-	set_gslist is
+	set_gslist
 		do
 			value := gslist_low_level
 		end
 
-	set_gtype is
+	set_gtype
 		do
 			value := gtype_low_level
 		end
 
-	set_int16 is
+	set_int16
 		do
 			value := int16_low_level
 		end
 
-	set_int32 is
+	set_int32
 		do
 			value := int32_low_level
 		end
 
-	set_int64 is
+	set_int64
 		do
 			value := int64_low_level
 		end
 
-	set_int8 is
+	set_int8
 		do
 			value := int8_low_level
 		end
 
-	set_interface is
+	set_interface
 		do
 			value := interface_low_level
 		end
 
-	set_uint16 is
+	set_uint16
 		do
 			value := uint16_low_level
 		end
 
-	set_uint32 is
+	set_uint32
 		do
 			value := uint32_low_level
 		end
 
-	set_uint64 is
+	set_uint64
 		do
 			value := uint64_low_level
 		end
 
-	set_uint8 is
+	set_uint8
 		do
 			value := uint8_low_level
 		end
 
-	set_unichar is
+	set_unichar
 		do
 			value := unichar_low_level
 		end
 
-	set_utf8 is
+	set_utf8
 		do
 			value := utf8_low_level
 		end
 
-	set_void is
+	set_void
 		do
 			value := void_low_level
 		end
 
 feature {ANY} -- Queries
-	is_array: BOOLEAN is
+	is_array: BOOLEAN
 		do
 			Result := (value=array_low_level)
 		end
 
-	is_boolean: BOOLEAN is
+	is_boolean: BOOLEAN
 		do
 			Result := (value=boolean_low_level)
 		end
 
-	is_double: BOOLEAN is
+	is_double: BOOLEAN
 		do
 			Result := (value=double_low_level)
 		end
 
-	is_error: BOOLEAN is
+	is_error: BOOLEAN
 		do
 			Result := (value=error_low_level)
 		end
 
-	is_filename: BOOLEAN is
+	is_filename: BOOLEAN
 		do
 			Result := (value=filename_low_level)
 		end
 
-	is_float: BOOLEAN is
+	is_float: BOOLEAN
 		do
 			Result := (value=float_low_level)
 		end
 
-	is_ghash: BOOLEAN is
+	is_ghash: BOOLEAN
 		do
 			Result := (value=ghash_low_level)
 		end
 
-	is_glist: BOOLEAN is
+	is_glist: BOOLEAN
 		do
 			Result := (value=glist_low_level)
 		end
 
-	is_gslist: BOOLEAN is
+	is_gslist: BOOLEAN
 		do
 			Result := (value=gslist_low_level)
 		end
 
-	is_gtype: BOOLEAN is
+	is_gtype: BOOLEAN
 		do
 			Result := (value=gtype_low_level)
 		end
 
-	is_int16: BOOLEAN is
+	is_int16: BOOLEAN
 		do
 			Result := (value=int16_low_level)
 		end
 
-	is_int32: BOOLEAN is
+	is_int32: BOOLEAN
 		do
 			Result := (value=int32_low_level)
 		end
 
-	is_int64: BOOLEAN is
+	is_int64: BOOLEAN
 		do
 			Result := (value=int64_low_level)
 		end
 
-	is_int8: BOOLEAN is
+	is_int8: BOOLEAN
 		do
 			Result := (value=int8_low_level)
 		end
 
-	is_interface: BOOLEAN is
+	is_interface: BOOLEAN
 		do
 			Result := (value=interface_low_level)
 		end
 
-	is_uint16: BOOLEAN is
+	is_uint16: BOOLEAN
 		do
 			Result := (value=uint16_low_level)
 		end
 
-	is_uint32: BOOLEAN is
+	is_uint32: BOOLEAN
 		do
 			Result := (value=uint32_low_level)
 		end
 
-	is_uint64: BOOLEAN is
+	is_uint64: BOOLEAN
 		do
 			Result := (value=uint64_low_level)
 		end
 
-	is_uint8: BOOLEAN is
+	is_uint8: BOOLEAN
 		do
 			Result := (value=uint8_low_level)
 		end
 
-	is_unichar: BOOLEAN is
+	is_unichar: BOOLEAN
 		do
 			Result := (value=unichar_low_level)
 		end
 
-	is_utf8: BOOLEAN is
+	is_utf8: BOOLEAN
 		do
 			Result := (value=utf8_low_level)
 		end
 
-	is_void: BOOLEAN is
+	is_void: BOOLEAN
 		do
 			Result := (value=void_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	array_low_level: INTEGER is
+	array_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -266,7 +266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	boolean_low_level: INTEGER is
+	boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -275,7 +275,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	double_low_level: INTEGER is
+	double_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -284,7 +284,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	error_low_level: INTEGER is
+	error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -293,7 +293,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	filename_low_level: INTEGER is
+	filename_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -302,7 +302,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	float_low_level: INTEGER is
+	float_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -311,7 +311,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	ghash_low_level: INTEGER is
+	ghash_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -320,7 +320,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	glist_low_level: INTEGER is
+	glist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -329,7 +329,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gslist_low_level: INTEGER is
+	gslist_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -338,7 +338,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	gtype_low_level: INTEGER is
+	gtype_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -347,7 +347,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int16_low_level: INTEGER is
+	int16_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -356,7 +356,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int32_low_level: INTEGER is
+	int32_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -365,7 +365,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int64_low_level: INTEGER is
+	int64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -374,7 +374,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	int8_low_level: INTEGER is
+	int8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -383,7 +383,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	interface_low_level: INTEGER is
+	interface_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -392,7 +392,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint16_low_level: INTEGER is
+	uint16_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -401,7 +401,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint32_low_level: INTEGER is
+	uint32_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -410,7 +410,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint64_low_level: INTEGER is
+	uint64_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -419,7 +419,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	uint8_low_level: INTEGER is
+	uint8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -428,7 +428,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	unichar_low_level: INTEGER is
+	unichar_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -437,7 +437,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	utf8_low_level: INTEGER is
+	utf8_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -446,7 +446,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	void_low_level: INTEGER is
+	void_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

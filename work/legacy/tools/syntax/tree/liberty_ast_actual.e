@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_expression: BOOLEAN is
+   is_expression: BOOLEAN
       do
          Result := count = 1
          check
@@ -29,7 +29,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   is_ref_to_entity: BOOLEAN is
+   is_ref_to_entity: BOOLEAN
       do
          Result := count = 2
          check
@@ -37,14 +37,14 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   expression: LIBERTY_AST_EXPRESSION is
+   expression: LIBERTY_AST_EXPRESSION
       require
          is_expression
       do
          Result ::= nodes.item(0)
       end
 
-   ref_entity_name: LIBERTY_AST_ENTITY_NAME is
+   ref_entity_name: LIBERTY_AST_ENTITY_NAME
       require
          is_ref_to_entity
       do
@@ -52,15 +52,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Actual"
+   name: STRING "Actual"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

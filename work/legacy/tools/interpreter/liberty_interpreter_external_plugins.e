@@ -18,7 +18,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-   call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION) is
+   call (plugin_call: LIBERTY_INTERPRETER_FEATURE_CALL; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION)
       local
          tags: LIBERTY_TAGS
          plugin_agent: FOREIGN_AGENT
@@ -52,7 +52,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do
@@ -66,7 +66,7 @@ feature {}
 
    interpreter: LIBERTY_INTERPRETER
 
-   parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION): FOREIGN_AGENT is
+   parse_plugin_spec (the_feature: LIBERTY_FEATURE; plugin_spec: FIXED_STRING; position: LIBERTY_POSITION): FOREIGN_AGENT
       local
          i, key_start, key_end, value_start, value_end, state: INTEGER
          key: FIXED_STRING; value, location, module_name, feature_name: STRING
@@ -164,7 +164,7 @@ feature {}
          Result := foreign_agent(the_feature, location, module_name, feature_name, position)
       end
 
-   foreign_agent (the_feature: LIBERTY_FEATURE; location, module_name, feature_name: STRING; position: LIBERTY_POSITION): FOREIGN_AGENT is
+   foreign_agent (the_feature: LIBERTY_FEATURE; location, module_name, feature_name: STRING; position: LIBERTY_POSITION): FOREIGN_AGENT
       require
          location /= Void
          module_name /= Void
@@ -189,7 +189,7 @@ feature {}
          end
       end
 
-   foreign_parameters_types (the_feature: LIBERTY_FEATURE): COLLECTION[FOREIGN_TYPE] is
+   foreign_parameters_types (the_feature: LIBERTY_FEATURE): COLLECTION[FOREIGN_TYPE]
       local
          i: INTEGER
       do
@@ -204,7 +204,7 @@ feature {}
          end
       end
 
-   foreign_result_type (the_feature: LIBERTY_FEATURE): FOREIGN_TYPE is
+   foreign_result_type (the_feature: LIBERTY_FEATURE): FOREIGN_TYPE
       local
          types: FOREIGN_TYPES
       do
@@ -215,7 +215,7 @@ feature {}
          end
       end
 
-   parameters_to_external (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): COLLECTION[FOREIGN_OBJECT] is
+   parameters_to_external (parameters: TRAVERSABLE[LIBERTY_INTERPRETER_OBJECT]): COLLECTION[FOREIGN_OBJECT]
       local
          i: INTEGER
       do

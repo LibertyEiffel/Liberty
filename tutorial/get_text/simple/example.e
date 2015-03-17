@@ -4,13 +4,13 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       do
          io.put_string(translator.translation("Hello world!"))
          io.put_new_line
       end
 
-   translator: TRANSLATOR is
+   translator: TRANSLATOR
       once
          create Result.init
       end

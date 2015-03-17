@@ -7,7 +7,7 @@ insert
    ANY
 
 feature {ANY}
-   f: CHARACTER is
+   f: CHARACTER
       do
          Result := 'A'
       end

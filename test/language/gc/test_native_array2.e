@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER; na: NATIVE_ARRAY[TRIANGLE]; p: POINT; t: TRIANGLE
       do

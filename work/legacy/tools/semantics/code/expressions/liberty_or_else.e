@@ -24,18 +24,18 @@ create {LIBERTY_OR_ELSE}
    new
 
 feature {}
-   the_infix_name: FIXED_STRING is
+   the_infix_name: FIXED_STRING
       once
          Result := "or else".intern
       end
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       do
          create Result.new(a_target, a_entity, a_actuals, a_position)
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_OR_ELSE_VISITOR
       do

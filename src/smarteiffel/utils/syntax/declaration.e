@@ -15,25 +15,25 @@ insert
    GLOBALS
 
 feature {ANY}
-   pretty_in (buffer: STRING) is
+   pretty_in (buffer: STRING)
       require
          buffer /= Void
       deferred
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       deferred
       end
 
 feature {DECLARATION_LIST}
-   count: INTEGER is
+   count: INTEGER
          -- One or more items.
       deferred
       ensure
          Result >= 1
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       require
          type /= Void
       deferred
@@ -41,7 +41,7 @@ feature {DECLARATION_LIST}
          Result.has_been_specialized
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       require
          new_type.direct_thru_step(parent_type, parent_edge)
          has_been_specialized
@@ -52,14 +52,14 @@ feature {DECLARATION_LIST}
       end
 
 feature {DECLARATION, DECLARATION_LIST}
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       deferred
       ensure
          Result
       end
 
 feature {FORMAL_ARG_LIST}
-   append_in_formal_arg_list (fal: FORMAL_ARG_LIST) is
+   append_in_formal_arg_list (fal: FORMAL_ARG_LIST)
          -- Append current declaration in `fal'.
       require
          fal /= Void
@@ -67,7 +67,7 @@ feature {FORMAL_ARG_LIST}
       end
 
 feature {LOCAL_VAR_LIST}
-   append_in_local_var_list (lvl: LOCAL_VAR_LIST) is
+   append_in_local_var_list (lvl: LOCAL_VAR_LIST)
          -- Append current declaration in `lvl'.
       require
          lvl /= Void
@@ -86,9 +86,9 @@ end -- class DECLARATION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

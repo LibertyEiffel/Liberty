@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          loc: AUX_CONSTRAINT4[ANY,STRING]
       do

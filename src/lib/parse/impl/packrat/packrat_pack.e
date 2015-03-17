@@ -10,32 +10,32 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
-         Result := is_set = other.is_set
-            and then parsed = other.parsed
-            and then memo = other.memo
-            and then (actions = other.actions
-                      or else (actions /= Void
-                               and then other.actions /= Void
-                               and then actions.is_equal(other.actions)))
+         Result := Precursor(other) -- because this class is expanded, therefore `twin` must succeed
+            or else (is_set and then other.is_set
+               and then (parsed = other.parsed
+                  and then memo = other.memo
+                  and then (actions = other.actions
+                     or else (actions /= Void and then other.actions /= Void
+                        and then actions.is_equal(other.actions)))))
       end
 
-   parsed: TRISTATE is
+   parsed: TRISTATE
       require
          is_set
       do
          Result := my_parsed
       end
 
-   memo: PACKRAT_CONTEXT_MEMO is
+   memo: PACKRAT_CONTEXT_MEMO
       require
          is_set
       do
          Result := my_memo
       end
 
-   actions: COLLECTION[PARSE_ACTION] is
+   actions: COLLECTION[PARSE_ACTION]
       require
          is_set
       do
@@ -44,13 +44,13 @@ feature {ANY}
 
    is_set: BOOLEAN
 
-   default_create is
+   default_create
       do
          is_set := False
       end
 
 feature {PACKRAT_INTERNAL}
-   set (a_parsed: like parsed; a_memo: like memo; a_actions: like actions) is
+   set (a_parsed: like parsed; a_memo: like memo; a_actions: like actions)
       require
          not is_set
          ;(a_parsed = no) = (a_actions = Void)
@@ -75,13 +75,13 @@ invariant
 
 end -- class PACKRAT_PACK
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

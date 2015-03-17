@@ -7,20 +7,20 @@ inherit
    CODE_CONTEXT
 
 feature {CODE_PRINTER}
-   code: INTEGER is
+   code: INTEGER
       do
          Result := C_direct_call
       end
 
-   valid_anonymous_feature: BOOLEAN is True
-   
-   valid_target: BOOLEAN is True
+   valid_anonymous_feature: BOOLEAN True
 
-   valid_effective_arguments: BOOLEAN is True
+   valid_target: BOOLEAN True
 
-   valid_static_type: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN True
 
-   valid_internal_c_local: BOOLEAN is False
+   valid_static_type: BOOLEAN False
+
+   valid_internal_c_local: BOOLEAN False
 
 end -- class CODE_CONTEXT_DIRECT_CALL
 --
@@ -34,9 +34,9 @@ end -- class CODE_CONTEXT_DIRECT_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -24,28 +24,28 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_do: BOOLEAN is
+   is_do: BOOLEAN
       do
          Result := keyword.name.is_equal(once "KW do")
       ensure
          Result implies count = 3
       end
 
-   is_once: BOOLEAN is
+   is_once: BOOLEAN
       do
          Result := keyword.name.is_equal(once "KW once")
       ensure
          Result implies count = 3
       end
 
-   is_deferred: BOOLEAN is
+   is_deferred: BOOLEAN
       do
          Result := keyword.name.is_equal(once "KW deferred")
       ensure
          Result implies count = 1
       end
 
-   is_attribute: BOOLEAN is
+   is_attribute: BOOLEAN
       do
          Result := keyword.name.is_equal(once "KW attribute")
       ensure
@@ -53,16 +53,16 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {}
-   keyword: EIFFEL_TERMINAL_NODE is
+   keyword: EIFFEL_TERMINAL_NODE
       do
          Result ::= nodes.item(0)
       end
 
 feature {ANY}
-   name: STRING is "Do_Block"
+   name: STRING "Do_Block"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 3 >> }
       end

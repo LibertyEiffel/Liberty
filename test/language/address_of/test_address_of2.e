@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          ptr: POINTER
       do
@@ -18,7 +18,7 @@ feature {ANY}
       end
 
 feature {}
-   exit (ptr: POINTER) is
+   exit (ptr: POINTER)
       do
          check
             to_pointer = ptr

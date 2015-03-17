@@ -23,75 +23,75 @@ feature {ANY}
    explicit_type_mark: TYPE_MARK
          -- The written one between curly brackets.
 
-   is_current, is_implicit_current: BOOLEAN is False
+   is_current, is_implicit_current: BOOLEAN False
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          explicit_type_mark.specialize_in(type)
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := current_or_twin_init(explicit_type_mark.specialize_thru(parent_type, parent_edge, new_type))
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := current_or_twin_init(explicit_type_mark.to_static(type, False))
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := explicit_type_mark.has_been_specialized
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
          Result := resolve_in(type)
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := explicit_type_mark.resolve_in(type)
       end
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       local
          type: TYPE
       do
@@ -106,30 +106,35 @@ feature {ANY}
          Result := declaration_type_memory
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := explicit_type_mark
+      end
+
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          --|*** To be done. *** (Dom. june 18th 2004) ***
       end
 
-   simplify (type: TYPE): FAKE_TARGET is
+   simplify (type: TYPE): FAKE_TARGET
       do
          Result := Current
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          pretty(indent_level)
          pretty_printer.put_character('.')
       end
 
-   pretty, bracketed_pretty (indent_level: INTEGER) is
+   pretty, bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('{')
          pretty_printer.put_type_mark(explicit_type_mark)
          pretty_printer.put_character('}')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.hook_or(once "open_curly_bracket", once "{")
          explicit_type_mark.short(type)
@@ -137,17 +142,17 @@ feature {ANY}
          short_printer.hook_or(once "dot", once ".")
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
       end
 
-   accept (visitor: FAKE_TARGET_VISITOR) is
+   accept (visitor: FAKE_TARGET_VISITOR)
       do
          visitor.visit_fake_target(Current)
       end
 
 feature {FAKE_TARGET}
-   init (etm: like explicit_type_mark) is
+   init (etm: like explicit_type_mark)
       require
          etm /= Void
       do
@@ -157,7 +162,7 @@ feature {FAKE_TARGET}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
@@ -165,7 +170,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
 feature {}
    declaration_type_memory: TYPE
 
-   make (sp: like start_position; etm: like explicit_type_mark) is
+   make (sp: like start_position; etm: like explicit_type_mark)
       require
          etm /= Void
       do
@@ -175,7 +180,7 @@ feature {}
          explicit_type_mark = etm
       end
 
-   current_or_twin_init (etm: like explicit_type_mark): like Current is
+   current_or_twin_init (etm: like explicit_type_mark): like Current
       require
          etm /= Void
       do
@@ -204,9 +209,9 @@ end -- class FAKE_TARGET
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

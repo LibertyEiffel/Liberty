@@ -21,59 +21,59 @@ inherit
       end
 
 feature {ANY}
-   eiffel_name: FIXED_STRING is
+   eiffel_name: FIXED_STRING
       do
          Result := name.intern
       end
 
-   name: STRING is
+   name: STRING
       deferred
       end
 
-   name_at (index: INTEGER): FIXED_STRING is
+   name_at (index: INTEGER): FIXED_STRING
       do
          Result := nodes.item(index).name
       end
 
-   node_at (index: INTEGER): EIFFEL_NODE is
+   node_at (index: INTEGER): EIFFEL_NODE
       do
          Result := nodes.item(index)
       end
 
-   valid_index (index: INTEGER): BOOLEAN is
+   valid_index (index: INTEGER): BOOLEAN
       do
          Result := index.in_range(lower, upper)
       end
 
-   lower: INTEGER is 0
+   lower: INTEGER 0
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count - 1
       end
 
-   count: INTEGER is
+   count: INTEGER
       deferred
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := count = 0
       end
 
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       do
          check False end
       end
 
 feature {EIFFEL_GRAMMAR}
-   set (index: INTEGER; node: EIFFEL_NODE) is
+   set (index: INTEGER; node: EIFFEL_NODE)
       do
          nodes.put(node, index)
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       local
          i: INTEGER
       do
@@ -91,7 +91,7 @@ feature {EIFFEL_NODE_HANDLER}
          end
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -107,13 +107,13 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       deferred
       end
 
    nodes: FAST_ARRAY[EIFFEL_NODE]
 
-   make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING]) is
+   make (a_name: like eiffel_name; a_names: TRAVERSABLE[FIXED_STRING])
       require
          valid_name(a_name)
          possible_counts.has(a_names.count)
@@ -123,7 +123,7 @@ feature {}
          nodes.count = a_names.count
       end
 
-   valid_name (a_name: like eiffel_name): BOOLEAN is
+   valid_name (a_name: like eiffel_name): BOOLEAN
       do
          Result := a_name = eiffel_name
       end

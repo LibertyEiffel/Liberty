@@ -8,7 +8,7 @@ inherit
 feature {ANY}
    done2: BOOLEAN
 
-   execute_once is
+   execute_once
       once
          Precursor
          done2 := True

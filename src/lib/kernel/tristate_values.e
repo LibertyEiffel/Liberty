@@ -9,30 +9,30 @@ expanded class TRISTATE_VALUES
 --
 
 feature {ANY}
-   yes: TRISTATE is
+   yes: TRISTATE
       do
          Result := Result.with_value(Result.yes_value)
       end
 
-   no: TRISTATE is
+   no: TRISTATE
       do
          Result := Result.with_value(Result.no_value)
       end
 
-   maybe: TRISTATE is
+   maybe: TRISTATE
       do
          Result := Result.with_value(Result.maybe_value)
       end
 
 end -- class TRISTATE_VALUES
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

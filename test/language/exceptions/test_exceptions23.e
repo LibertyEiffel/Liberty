@@ -11,17 +11,17 @@ create {TEST_EXCEPTIONS23}
    make_exception
 
 feature {ANY}
-   make is
+   make
       do
          exception_test
       end
 
-   make_exception is
+   make_exception
       do
          my_invariant := True
       end
 
-   exception_test is
+   exception_test
       local
          done: BOOLEAN; test: TEST_EXCEPTIONS23
       do

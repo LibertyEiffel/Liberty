@@ -10,7 +10,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          a8, b8, c8, d8, e8, f8, g8, h8, j8: NATURAL_8
          a64, b64, c64, d64, e64, f64, g64, h64, j64: NATURAL_64

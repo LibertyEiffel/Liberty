@@ -11,12 +11,12 @@ feature {ANY}
 	child_process_id: like process_id
 		-- The process ID of the child process
 
-	is_child: BOOLEAN is
+	is_child: BOOLEAN
 		do
 			Result := child_process_id=0
 		end
 
-	start is
+	start
 		-- Create the new process and make it run 
 		-- TODO:require not_invoked_multiple_times: not 
 		do
@@ -31,18 +31,18 @@ feature {ANY}
 			end
 		end
 
-	run is
+	run
 		-- The command that will be executed in the child process
 		deferred
 		end
 
-	terminate is
+	terminate
 		-- Send SIGTERM signal to Current process
 		do
 			not_yet_implemented
 		end
 
-	is_running: BOOLEAN is
+	is_running: BOOLEAN
 		do
 			not_yet_implemented
 		end

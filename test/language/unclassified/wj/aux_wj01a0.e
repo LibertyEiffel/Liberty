@@ -4,7 +4,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (s: STRING) is
+   make (s: STRING)
       do
          x0 := s
          if x0 /= Void then

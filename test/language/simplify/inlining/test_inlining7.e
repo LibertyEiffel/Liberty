@@ -9,18 +9,18 @@ create {}
 feature {ANY}
    an_attribute: like Current
 
-   make is
+   make
       do
          an_attribute := Current
          an_attribute := foo
       end
 
-   foo: like Current is
+   foo: like Current
       do
          Result := an_attribute.bar
       end
 
-   bar: like Current is
+   bar: like Current
       do
          Result := Current
       end

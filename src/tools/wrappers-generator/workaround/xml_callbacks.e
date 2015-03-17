@@ -1,4 +1,4 @@
--- See the Copyright notice at the end of this file.
+-- See the Copyright notice at the end of th file.
 --
 deferred class XML_CALLBACKS
 	--
@@ -10,8 +10,8 @@ deferred class XML_CALLBACKS
 	-- See also XML_PARSER
 	--
 feature {XML_PARSER}
-	set_validator (a_validator: like validator) is
-			-- Sets a validator for this XML file. The parser uses it when setting a DTD, but you may use it too
+	set_validator (a_validator: like validator)
+			-- Sets a validator for th XML file. The parser uses it when setting a DTD, but you may use it too
 			-- to implement other validators (such as an XML Schema).
 		require
 			validator = Void
@@ -23,9 +23,9 @@ feature {XML_PARSER}
 		end
 
 	validator: XML_VALIDATOR
-			-- The XML validator for this file (DTD, XML Schema...)
+			-- The XML validator for th file (DTD, XML Schema...)
 
-	with_attribute (attribute_name: STRING; attribute_value: STRING; line, column: INTEGER) is
+	with_attribute (attribute_name: STRING; attribute_value: STRING; line, column: INTEGER)
 			-- Called by the parser to add an attribute of a node BEFORE calling `open_node'
 		require
 			not attribute_name.is_empty
@@ -33,7 +33,7 @@ feature {XML_PARSER}
 		deferred
 		end
 
-	open_node (node_name: STRING; line, column: INTEGER) is
+	open_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads an opening node
 		require
 			not node_name.is_empty
@@ -42,7 +42,7 @@ feature {XML_PARSER}
 			current_node.is_equal(node_name)
 		end
 
-	close_node (node_name: STRING; line, column: INTEGER) is
+	close_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads a closing node
 		require
 			not node_name.is_empty
@@ -50,46 +50,46 @@ feature {XML_PARSER}
 		deferred
 		end
 
-	open_close_node (node_name: STRING; line, column: INTEGER) is
+	open_close_node (node_name: STRING; line, column: INTEGER)
 			-- When the parser reads a node that opens and closes immediately (syntax "<node/>")
 		require
 			not node_name.is_empty
 		deferred
 		end
 
-	xml_header (line, column: INTEGER) is
+	xml_header (line, column: INTEGER)
 			-- Called by the parser if a "<?xml ... ?>" header is read.
 			-- Note that with_attribute may have been called first (usually with the version and encoding
 			-- attributes)
 		deferred
 		end
 
-	processing_instruction (a_target, a_data: STRING) is
+	processing_instruction (a_target, a_data: STRING)
 			-- Called by the parser if a "<?...?>" processing instruction is read.
 		deferred
 		end
 
-	entity (a_entity: STRING; line, column: INTEGER): STRING is
+	entity (a_entity: STRING; line, column: INTEGER): STRING
 			-- Called by the parser when an '''&entity;''' is found. Note that standard XML attributes (''lt'',
-			-- ''gt'', ''amp'', ''apos'' and ''quot'') are automatically handled and not given to this feature
+			-- ''gt'', ''amp'', ''apos'' and ''quot'') are automatically handled and not given to th feature
 			-- (they cannot be bypassed).
 			-- Returns Void if the entity is not recognized.
 		deferred
 		end
 
-	current_node: STRING is
+	current_node: STRING
 			-- The current node
 		deferred
 		end
 
-	data (a_data: STRING; line, column: INTEGER) is
+	data (a_data: STRING; line, column: INTEGER)
 			-- Called by the parser when the node contains raw data
 		require
 			not a_data.is_empty
 		deferred
 		end
 
-	parse_error (line, column: INTEGER; message: STRING) is
+	parse_error (line, column: INTEGER; message: STRING)
 			-- Called by the parser if there is an error
 		require
 			message /= Void
@@ -98,7 +98,7 @@ feature {XML_PARSER}
 			at_error
 		end
 
-	at_error: BOOLEAN is
+	at_error: BOOLEAN
 			-- True if there was at least an error
 		deferred
 		end
@@ -116,11 +116,11 @@ end -- class XML_CALLBACKS
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 -- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- limitation the rights to use, copy, modify, merge, publh, dtribute, sublicense, and/or sell copies of
 -- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
 -- conditions:
 --
--- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- The above copyright notice and th permsion notice shall be included in all copies or substantial
 -- portions of the Software.
 --
 -- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT

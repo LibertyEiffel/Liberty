@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          oa: AUX_INHERIT1A; ob: AUX_INHERIT1B; oc: AUX_INHERIT1C; t: ARRAY[AUX_INHERIT1A]
       do
@@ -43,7 +43,7 @@ feature {ANY}
       end
 
 feature {}
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

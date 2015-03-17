@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert('0'.is_decimal_digit)
          assert('0'.decimal_value = 0)

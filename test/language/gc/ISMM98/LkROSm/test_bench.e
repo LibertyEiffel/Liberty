@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    s: STRING
 
-   make is
+   make
       local
          i, j: INTEGER
       do

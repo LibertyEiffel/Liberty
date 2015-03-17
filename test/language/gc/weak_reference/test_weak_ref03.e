@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          mem: MEMORY; i, wr_voided: INTEGER; na_aux: NATIVE_ARRAY[AUX_WEAK_REF03]
          na_wr: NATIVE_ARRAY[WEAK_REFERENCE[AUX_WEAK_REF03]]; aux_wr: AUX_WEAK_REF03
@@ -66,9 +66,9 @@ feature {}
          assert(aux_wr_nb_disposed <= wr_voided) -- Test # 43
       end
 
-   Nb_items: INTEGER is 13
+   Nb_items: INTEGER 13
 
-   generate_garbage is
+   generate_garbage
       local
          i: INTEGER; s: STRING
       do
@@ -85,7 +85,7 @@ feature {}
    aux_wr_nb_disposed: INTEGER
 
 feature {AUX_WEAK_REF03}
-   increment_aux_wr_nb_disposed is
+   increment_aux_wr_nb_disposed
       do
          aux_wr_nb_disposed := aux_wr_nb_disposed + 1
       end

@@ -30,7 +30,7 @@ insert
       end
 
 feature {}
-   errno: INTEGER_32 is
+   errno: INTEGER_32
          -- number of last error
       external "plug_in"
       alias "{
@@ -40,7 +40,7 @@ feature {}
       }"
       end
 
-   e2big: INTEGER_32 is
+   e2big: INTEGER_32
          -- Argument list too long (POSIX.1)
       external "plug_in"
       alias "{
@@ -50,7 +50,7 @@ feature {}
       }"
       end
 
-   eacces: INTEGER_32 is
+   eacces: INTEGER_32
          -- Permission denied (POSIX.1)
       external "plug_in"
       alias "{
@@ -60,7 +60,7 @@ feature {}
       }"
       end
 
-   eaddrinuse: INTEGER_32 is
+   eaddrinuse: INTEGER_32
          -- Address already in use (POSIX.1)
       external "plug_in"
       alias "{
@@ -70,7 +70,7 @@ feature {}
       }"
       end
 
-   eaddrnotavail: INTEGER_32 is
+   eaddrnotavail: INTEGER_32
          -- Address not available (POSIX.1)
       external "plug_in"
       alias "{
@@ -80,7 +80,7 @@ feature {}
       }"
       end
 
-   eafnosupport: INTEGER_32 is
+   eafnosupport: INTEGER_32
          -- Address family not supported (POSIX.1)
       external "plug_in"
       alias "{
@@ -90,7 +90,7 @@ feature {}
       }"
       end
 
-   eagain: INTEGER_32 is
+   eagain: INTEGER_32
          -- Resource temporarily unavailable (may be the same value as EWOULDBLOCK) (POSIX.1)
       external "plug_in"
       alias "{
@@ -100,7 +100,7 @@ feature {}
       }"
       end
 
-   ealready: INTEGER_32 is
+   ealready: INTEGER_32
          -- Connection already in progress (POSIX.1)
       external "plug_in"
       alias "{
@@ -110,7 +110,7 @@ feature {}
       }"
       end
 
-   ebade: INTEGER_32 is
+   ebade: INTEGER_32
          -- Invalid exchange
       external "plug_in"
       alias "{
@@ -120,7 +120,7 @@ feature {}
       }"
       end
 
-   ebadf: INTEGER_32 is
+   ebadf: INTEGER_32
          -- Bad file descriptor (POSIX.1)
       external "plug_in"
       alias "{
@@ -130,7 +130,7 @@ feature {}
       }"
       end
 
-   ebadfd: INTEGER_32 is
+   ebadfd: INTEGER_32
          -- File descriptor in bad state
       external "plug_in"
       alias "{
@@ -140,7 +140,7 @@ feature {}
       }"
       end
 
-   ebadmsg: INTEGER_32 is
+   ebadmsg: INTEGER_32
          -- Bad message (POSIX.1)
       external "plug_in"
       alias "{
@@ -150,7 +150,7 @@ feature {}
       }"
       end
 
-   ebadr: INTEGER_32 is
+   ebadr: INTEGER_32
          -- Invalid request descriptor
       external "plug_in"
       alias "{
@@ -160,7 +160,7 @@ feature {}
       }"
       end
 
-   ebadrqc: INTEGER_32 is
+   ebadrqc: INTEGER_32
          -- Invalid request code
       external "plug_in"
       alias "{
@@ -170,7 +170,7 @@ feature {}
       }"
       end
 
-   ebadslt: INTEGER_32 is
+   ebadslt: INTEGER_32
          -- Invalid slot
       external "plug_in"
       alias "{
@@ -180,7 +180,7 @@ feature {}
       }"
       end
 
-   ebusy: INTEGER_32 is
+   ebusy: INTEGER_32
          -- Device or resource busy (POSIX.1)
       external "plug_in"
       alias "{
@@ -190,7 +190,7 @@ feature {}
       }"
       end
 
-   ecanceled: INTEGER_32 is
+   ecanceled: INTEGER_32
          -- Operation canceled (POSIX.1)
       external "plug_in"
       alias "{
@@ -200,7 +200,7 @@ feature {}
       }"
       end
 
-   echild: INTEGER_32 is
+   echild: INTEGER_32
          -- No child processes (POSIX.1)
       external "plug_in"
       alias "{
@@ -210,7 +210,7 @@ feature {}
       }"
       end
 
-   echrng: INTEGER_32 is
+   echrng: INTEGER_32
          -- Channel number out of range
       external "plug_in"
       alias "{
@@ -220,7 +220,7 @@ feature {}
       }"
       end
 
-   ecomm: INTEGER_32 is
+   ecomm: INTEGER_32
          -- Communication error on send
       external "plug_in"
       alias "{
@@ -230,7 +230,7 @@ feature {}
       }"
       end
 
-   econnaborted: INTEGER_32 is
+   econnaborted: INTEGER_32
          -- Connection aborted (POSIX.1)
       external "plug_in"
       alias "{
@@ -240,7 +240,7 @@ feature {}
       }"
       end
 
-   econnrefused: INTEGER_32 is
+   econnrefused: INTEGER_32
          -- Connection refused (POSIX.1)
       external "plug_in"
       alias "{
@@ -250,7 +250,7 @@ feature {}
       }"
       end
 
-   econnreset: INTEGER_32 is
+   econnreset: INTEGER_32
          -- Connection reset (POSIX.1)
       external "plug_in"
       alias "{
@@ -260,7 +260,7 @@ feature {}
       }"
       end
 
-   edeadlk: INTEGER_32 is
+   edeadlk: INTEGER_32
          -- Resource deadlock avoided (POSIX.1)
       external "plug_in"
       alias "{
@@ -270,7 +270,7 @@ feature {}
       }"
       end
 
-   edeadlock: INTEGER_32 is
+   edeadlock: INTEGER_32
          -- Synonym for EDEADLK
       external "plug_in"
       alias "{
@@ -280,7 +280,7 @@ feature {}
       }"
       end
 
-   edestaddrreq: INTEGER_32 is
+   edestaddrreq: INTEGER_32
          -- Destination address required (POSIX.1)
       external "plug_in"
       alias "{
@@ -290,7 +290,7 @@ feature {}
       }"
       end
 
-   edom: INTEGER_32 is
+   edom: INTEGER_32
          -- Mathematics argument out of domain of function (POSIX.1, C99)
       external "plug_in"
       alias "{
@@ -300,7 +300,7 @@ feature {}
       }"
       end
 
-   edquot: INTEGER_32 is
+   edquot: INTEGER_32
          -- Disk quota exceeded (POSIX.1)
       external "plug_in"
       alias "{
@@ -310,7 +310,7 @@ feature {}
       }"
       end
 
-   eexist: INTEGER_32 is
+   eexist: INTEGER_32
          -- File exists (POSIX.1)
       external "plug_in"
       alias "{
@@ -320,7 +320,7 @@ feature {}
       }"
       end
 
-   efault: INTEGER_32 is
+   efault: INTEGER_32
          -- Bad address (POSIX.1)
       external "plug_in"
       alias "{
@@ -330,7 +330,7 @@ feature {}
       }"
       end
 
-   efbig: INTEGER_32 is
+   efbig: INTEGER_32
          -- File too large (POSIX.1)
       external "plug_in"
       alias "{
@@ -340,7 +340,7 @@ feature {}
       }"
       end
 
-   ehostdown: INTEGER_32 is
+   ehostdown: INTEGER_32
          -- Host is down
       external "plug_in"
       alias "{
@@ -350,7 +350,7 @@ feature {}
       }"
       end
 
-   ehostunreach: INTEGER_32 is
+   ehostunreach: INTEGER_32
          -- Host is unreachable (POSIX.1)
       external "plug_in"
       alias "{
@@ -360,7 +360,7 @@ feature {}
       }"
       end
 
-   eidrm: INTEGER_32 is
+   eidrm: INTEGER_32
          -- Identifier removed (POSIX.1)
       external "plug_in"
       alias "{
@@ -370,7 +370,7 @@ feature {}
       }"
       end
 
-   eilseq: INTEGER_32 is
+   eilseq: INTEGER_32
          -- Illegal byte sequence (POSIX.1, C99)
       external "plug_in"
       alias "{
@@ -380,7 +380,7 @@ feature {}
       }"
       end
 
-   einprogress: INTEGER_32 is
+   einprogress: INTEGER_32
          -- Operation in progress (POSIX.1)
       external "plug_in"
       alias "{
@@ -390,7 +390,7 @@ feature {}
       }"
       end
 
-   eintr: INTEGER_32 is
+   eintr: INTEGER_32
          -- Interrupted function call (POSIX.1); see signal(7).
       external "plug_in"
       alias "{
@@ -400,7 +400,7 @@ feature {}
       }"
       end
 
-   einval: INTEGER_32 is
+   einval: INTEGER_32
          -- Invalid argument (POSIX.1)
       external "plug_in"
       alias "{
@@ -410,7 +410,7 @@ feature {}
       }"
       end
 
-   eio: INTEGER_32 is
+   eio: INTEGER_32
          -- Input/output error (POSIX.1)
       external "plug_in"
       alias "{
@@ -420,7 +420,7 @@ feature {}
       }"
       end
 
-   eisconn: INTEGER_32 is
+   eisconn: INTEGER_32
          -- Socket is connected (POSIX.1)
       external "plug_in"
       alias "{
@@ -430,7 +430,7 @@ feature {}
       }"
       end
 
-   eisdir: INTEGER_32 is
+   eisdir: INTEGER_32
          -- Is a directory (POSIX.1)
       external "plug_in"
       alias "{
@@ -440,7 +440,7 @@ feature {}
       }"
       end
 
-   eisnam: INTEGER_32 is
+   eisnam: INTEGER_32
          -- Is a named type file
       external "plug_in"
       alias "{
@@ -450,7 +450,7 @@ feature {}
       }"
       end
 
-   ekeyexpired: INTEGER_32 is
+   ekeyexpired: INTEGER_32
          -- Key has expired
       external "plug_in"
       alias "{
@@ -460,7 +460,7 @@ feature {}
       }"
       end
 
-   ekeyrejected: INTEGER_32 is
+   ekeyrejected: INTEGER_32
          -- Key was rejected by service
       external "plug_in"
       alias "{
@@ -470,7 +470,7 @@ feature {}
       }"
       end
 
-   ekeyrevoked: INTEGER_32 is
+   ekeyrevoked: INTEGER_32
          -- Key has been revoked
       external "plug_in"
       alias "{
@@ -480,7 +480,7 @@ feature {}
       }"
       end
 
-   el2hlt: INTEGER_32 is
+   el2hlt: INTEGER_32
          -- Level 2 halted
       external "plug_in"
       alias "{
@@ -490,7 +490,7 @@ feature {}
       }"
       end
 
-   el2nsync: INTEGER_32 is
+   el2nsync: INTEGER_32
          -- Level 2 not synchronized
       external "plug_in"
       alias "{
@@ -500,7 +500,7 @@ feature {}
       }"
       end
 
-   el3hlt: INTEGER_32 is
+   el3hlt: INTEGER_32
          -- Level 3 halted
       external "plug_in"
       alias "{
@@ -510,7 +510,7 @@ feature {}
       }"
       end
 
-   el3rst: INTEGER_32 is
+   el3rst: INTEGER_32
          -- Level 3 halted
       external "plug_in"
       alias "{
@@ -520,7 +520,7 @@ feature {}
       }"
       end
 
-   elibacc: INTEGER_32 is
+   elibacc: INTEGER_32
          -- Cannot access a needed shared library
       external "plug_in"
       alias "{
@@ -530,7 +530,7 @@ feature {}
       }"
       end
 
-   elibbad: INTEGER_32 is
+   elibbad: INTEGER_32
          -- Accessing a corrupted shared library
       external "plug_in"
       alias "{
@@ -540,7 +540,7 @@ feature {}
       }"
       end
 
-   elibmax: INTEGER_32 is
+   elibmax: INTEGER_32
          -- Attempting to link in too many shared libraries
       external "plug_in"
       alias "{
@@ -550,7 +550,7 @@ feature {}
       }"
       end
 
-   elibscn: INTEGER_32 is
+   elibscn: INTEGER_32
          -- lib section in a.out corrupted
       external "plug_in"
       alias "{
@@ -560,7 +560,7 @@ feature {}
       }"
       end
 
-   elibexec: INTEGER_32 is
+   elibexec: INTEGER_32
          -- Cannot exec a shared library directly
       external "plug_in"
       alias "{
@@ -570,7 +570,7 @@ feature {}
       }"
       end
 
-   eloop: INTEGER_32 is
+   eloop: INTEGER_32
          -- Too many levels of symbolic links (POSIX.1)
       external "plug_in"
       alias "{
@@ -580,7 +580,7 @@ feature {}
       }"
       end
 
-   emediumtype: INTEGER_32 is
+   emediumtype: INTEGER_32
          -- Wrong medium type
       external "plug_in"
       alias "{
@@ -590,7 +590,7 @@ feature {}
       }"
       end
 
-   emfile: INTEGER_32 is
+   emfile: INTEGER_32
          -- Too many open files (POSIX.1)
       external "plug_in"
       alias "{
@@ -600,7 +600,7 @@ feature {}
       }"
       end
 
-   emlink: INTEGER_32 is
+   emlink: INTEGER_32
          -- Too many links (POSIX.1)
       external "plug_in"
       alias "{
@@ -610,7 +610,7 @@ feature {}
       }"
       end
 
-   emsgsize: INTEGER_32 is
+   emsgsize: INTEGER_32
          -- Message too long (POSIX.1)
       external "plug_in"
       alias "{
@@ -620,7 +620,7 @@ feature {}
       }"
       end
 
-   emultihop: INTEGER_32 is
+   emultihop: INTEGER_32
          -- Multihop attempted (POSIX.1)
       external "plug_in"
       alias "{
@@ -630,7 +630,7 @@ feature {}
       }"
       end
 
-   enametoolong: INTEGER_32 is
+   enametoolong: INTEGER_32
          -- Filename too long (POSIX.1)
       external "plug_in"
       alias "{
@@ -640,7 +640,7 @@ feature {}
       }"
       end
 
-   enetdown: INTEGER_32 is
+   enetdown: INTEGER_32
          -- Network is down (POSIX.1)
       external "plug_in"
       alias "{
@@ -650,7 +650,7 @@ feature {}
       }"
       end
 
-   enetreset: INTEGER_32 is
+   enetreset: INTEGER_32
          -- Connection aborted by network (POSIX.1)
       external "plug_in"
       alias "{
@@ -660,7 +660,7 @@ feature {}
       }"
       end
 
-   enetunreach: INTEGER_32 is
+   enetunreach: INTEGER_32
          -- Network unreachable (POSIX.1)
       external "plug_in"
       alias "{
@@ -670,7 +670,7 @@ feature {}
       }"
       end
 
-   enfile: INTEGER_32 is
+   enfile: INTEGER_32
          -- Too many open files in system (POSIX.1)
       external "plug_in"
       alias "{
@@ -680,7 +680,7 @@ feature {}
       }"
       end
 
-   enobufs: INTEGER_32 is
+   enobufs: INTEGER_32
          -- No buffer space available (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
@@ -690,7 +690,7 @@ feature {}
       }"
       end
 
-   enodata: INTEGER_32 is
+   enodata: INTEGER_32
          -- No message is available on the STREAM head read queue (POSIX.1)
       external "plug_in"
       alias "{
@@ -700,7 +700,7 @@ feature {}
       }"
       end
 
-   enodev: INTEGER_32 is
+   enodev: INTEGER_32
          -- No such device (POSIX.1)
       external "plug_in"
       alias "{
@@ -710,7 +710,7 @@ feature {}
       }"
       end
 
-   enoent: INTEGER_32 is
+   enoent: INTEGER_32
          -- No such file or directory (POSIX.1)
       external "plug_in"
       alias "{
@@ -720,7 +720,7 @@ feature {}
       }"
       end
 
-   enoexec: INTEGER_32 is
+   enoexec: INTEGER_32
          -- Exec format error (POSIX.1)
       external "plug_in"
       alias "{
@@ -730,7 +730,7 @@ feature {}
       }"
       end
 
-   enokey: INTEGER_32 is
+   enokey: INTEGER_32
          -- Required key not available
       external "plug_in"
       alias "{
@@ -740,7 +740,7 @@ feature {}
       }"
       end
 
-   enolck: INTEGER_32 is
+   enolck: INTEGER_32
          -- No locks available (POSIX.1)
       external "plug_in"
       alias "{
@@ -750,7 +750,7 @@ feature {}
       }"
       end
 
-   enolink: INTEGER_32 is
+   enolink: INTEGER_32
          -- Link has been severed (POSIX.1)
       external "plug_in"
       alias "{
@@ -760,7 +760,7 @@ feature {}
       }"
       end
 
-   enomedium: INTEGER_32 is
+   enomedium: INTEGER_32
          -- No medium found
       external "plug_in"
       alias "{
@@ -770,7 +770,7 @@ feature {}
       }"
       end
 
-   enomem: INTEGER_32 is
+   enomem: INTEGER_32
          -- Not enough space (POSIX.1)
       external "plug_in"
       alias "{
@@ -780,7 +780,7 @@ feature {}
       }"
       end
 
-   enomsg: INTEGER_32 is
+   enomsg: INTEGER_32
          -- No message of the desired type (POSIX.1)
       external "plug_in"
       alias "{
@@ -790,7 +790,7 @@ feature {}
       }"
       end
 
-   enonet: INTEGER_32 is
+   enonet: INTEGER_32
          -- Machine is not on the network
       external "plug_in"
       alias "{
@@ -800,7 +800,7 @@ feature {}
       }"
       end
 
-   enopkg: INTEGER_32 is
+   enopkg: INTEGER_32
          -- Package not installed
       external "plug_in"
       alias "{
@@ -810,7 +810,7 @@ feature {}
       }"
       end
 
-   enoprotoopt: INTEGER_32 is
+   enoprotoopt: INTEGER_32
          -- Protocol not available (POSIX.1)
       external "plug_in"
       alias "{
@@ -820,7 +820,7 @@ feature {}
       }"
       end
 
-   enospc: INTEGER_32 is
+   enospc: INTEGER_32
          -- No space left on device (POSIX.1)
       external "plug_in"
       alias "{
@@ -830,7 +830,7 @@ feature {}
       }"
       end
 
-   enosr: INTEGER_32 is
+   enosr: INTEGER_32
          -- No STREAM resources (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
@@ -840,7 +840,7 @@ feature {}
       }"
       end
 
-   enostr: INTEGER_32 is
+   enostr: INTEGER_32
          -- Not a STREAM (POSIX.1 (XSI STREAMS option))
       external "plug_in"
       alias "{
@@ -850,7 +850,7 @@ feature {}
       }"
       end
 
-   enosys: INTEGER_32 is
+   enosys: INTEGER_32
          -- Function not implemented (POSIX.1)
       external "plug_in"
       alias "{
@@ -860,7 +860,7 @@ feature {}
       }"
       end
 
-   enotblk: INTEGER_32 is
+   enotblk: INTEGER_32
          -- Block device required
       external "plug_in"
       alias "{
@@ -870,7 +870,7 @@ feature {}
       }"
       end
 
-   enotconn: INTEGER_32 is
+   enotconn: INTEGER_32
          -- The socket is not connected (POSIX.1)
       external "plug_in"
       alias "{
@@ -880,7 +880,7 @@ feature {}
       }"
       end
 
-   enotdir: INTEGER_32 is
+   enotdir: INTEGER_32
          -- Not a directory (POSIX.1)
       external "plug_in"
       alias "{
@@ -890,7 +890,7 @@ feature {}
       }"
       end
 
-   enotempty: INTEGER_32 is
+   enotempty: INTEGER_32
          -- Directory not empty (POSIX.1)
       external "plug_in"
       alias "{
@@ -900,7 +900,7 @@ feature {}
       }"
       end
 
-   enotsock: INTEGER_32 is
+   enotsock: INTEGER_32
          -- Not a socket (POSIX.1)
       external "plug_in"
       alias "{
@@ -910,7 +910,7 @@ feature {}
       }"
       end
 
-   enotsup: INTEGER_32 is
+   enotsup: INTEGER_32
          -- Operation not supported (POSIX.1)
       external "plug_in"
       alias "{
@@ -920,7 +920,7 @@ feature {}
       }"
       end
 
-   enotty: INTEGER_32 is
+   enotty: INTEGER_32
          -- Inappropriate I/O control operation (POSIX.1)
       external "plug_in"
       alias "{
@@ -930,7 +930,7 @@ feature {}
       }"
       end
 
-   enotuniq: INTEGER_32 is
+   enotuniq: INTEGER_32
          -- Name not unique on network
       external "plug_in"
       alias "{
@@ -940,7 +940,7 @@ feature {}
       }"
       end
 
-   enxio: INTEGER_32 is
+   enxio: INTEGER_32
          -- No such device or address (POSIX.1)
       external "plug_in"
       alias "{
@@ -950,7 +950,7 @@ feature {}
       }"
       end
 
-   eopnotsupp: INTEGER_32 is
+   eopnotsupp: INTEGER_32
          -- Operation not supported on socket (POSIX.1) (ENOTSUP  and  EOPNOTSUPP  have the same value on Linux, but according to POSIX.1 these error values should be distinct.)
       external "plug_in"
       alias "{
@@ -960,7 +960,7 @@ feature {}
       }"
       end
 
-   eoverflow: INTEGER_32 is
+   eoverflow: INTEGER_32
          -- Value too large to be stored in data type (POSIX.1)
       external "plug_in"
       alias "{
@@ -970,7 +970,7 @@ feature {}
       }"
       end
 
-   eperm: INTEGER_32 is
+   eperm: INTEGER_32
          -- Operation not permitted (POSIX.1)
       external "plug_in"
       alias "{
@@ -980,7 +980,7 @@ feature {}
       }"
       end
 
-   epfnosupport: INTEGER_32 is
+   epfnosupport: INTEGER_32
          -- Protocol family not supported
       external "plug_in"
       alias "{
@@ -990,7 +990,7 @@ feature {}
       }"
       end
 
-   epipe: INTEGER_32 is
+   epipe: INTEGER_32
          -- Broken pipe (POSIX.1)
       external "plug_in"
       alias "{
@@ -1000,7 +1000,7 @@ feature {}
       }"
       end
 
-   eproto: INTEGER_32 is
+   eproto: INTEGER_32
          -- Protocol error (POSIX.1)
       external "plug_in"
       alias "{
@@ -1010,7 +1010,7 @@ feature {}
       }"
       end
 
-   eprotonosupport: INTEGER_32 is
+   eprotonosupport: INTEGER_32
          -- Protocol not supported (POSIX.1)
       external "plug_in"
       alias "{
@@ -1020,7 +1020,7 @@ feature {}
       }"
       end
 
-   eprototype: INTEGER_32 is
+   eprototype: INTEGER_32
          -- Protocol wrong type for socket (POSIX.1)
       external "plug_in"
       alias "{
@@ -1030,7 +1030,7 @@ feature {}
       }"
       end
 
-   erange: INTEGER_32 is
+   erange: INTEGER_32
          -- Result too large (POSIX.1, C99)
       external "plug_in"
       alias "{
@@ -1040,7 +1040,7 @@ feature {}
       }"
       end
 
-   eremchg: INTEGER_32 is
+   eremchg: INTEGER_32
          -- Remote address changed
       external "plug_in"
       alias "{
@@ -1050,7 +1050,7 @@ feature {}
       }"
       end
 
-   eremote: INTEGER_32 is
+   eremote: INTEGER_32
          -- Object is remote
       external "plug_in"
       alias "{
@@ -1060,7 +1060,7 @@ feature {}
       }"
       end
 
-   eremoteio: INTEGER_32 is
+   eremoteio: INTEGER_32
          -- Remote I/O error
       external "plug_in"
       alias "{
@@ -1070,7 +1070,7 @@ feature {}
       }"
       end
 
-   erestart: INTEGER_32 is
+   erestart: INTEGER_32
          -- Interrupted system call should be restarted
       external "plug_in"
       alias "{
@@ -1080,7 +1080,7 @@ feature {}
       }"
       end
 
-   erofs: INTEGER_32 is
+   erofs: INTEGER_32
          -- Read-only file system (POSIX.1)
       external "plug_in"
       alias "{
@@ -1090,7 +1090,7 @@ feature {}
       }"
       end
 
-   eshutdown: INTEGER_32 is
+   eshutdown: INTEGER_32
          -- Cannot send after transport endpoint shutdown
       external "plug_in"
       alias "{
@@ -1100,7 +1100,7 @@ feature {}
       }"
       end
 
-   espipe: INTEGER_32 is
+   espipe: INTEGER_32
          -- Invalid seek (POSIX.1)
       external "plug_in"
       alias "{
@@ -1110,7 +1110,7 @@ feature {}
       }"
       end
 
-   esocktnosupport: INTEGER_32 is
+   esocktnosupport: INTEGER_32
          -- Socket type not supported
       external "plug_in"
       alias "{
@@ -1120,7 +1120,7 @@ feature {}
       }"
       end
 
-   esrch: INTEGER_32 is
+   esrch: INTEGER_32
          -- No such process (POSIX.1)
       external "plug_in"
       alias "{
@@ -1130,7 +1130,7 @@ feature {}
       }"
       end
 
-   estale: INTEGER_32 is
+   estale: INTEGER_32
          -- Stale file handle (POSIX.1)   This error can occur for NFS and for other file systems
       external "plug_in"
       alias "{
@@ -1140,7 +1140,7 @@ feature {}
       }"
       end
 
-   estrpipe: INTEGER_32 is
+   estrpipe: INTEGER_32
          -- Streams pipe error
       external "plug_in"
       alias "{
@@ -1150,7 +1150,7 @@ feature {}
       }"
       end
 
-   etime: INTEGER_32 is
+   etime: INTEGER_32
          -- Timer expired (POSIX.1 (XSI STREAMS option))   (POSIX.1 says "STREAM ioctl(2) timeout")
       external "plug_in"
       alias "{
@@ -1160,7 +1160,7 @@ feature {}
       }"
       end
 
-   etimedout: INTEGER_32 is
+   etimedout: INTEGER_32
          -- Connection timed out (POSIX.1)
       external "plug_in"
       alias "{
@@ -1170,7 +1170,7 @@ feature {}
       }"
       end
 
-   etxtbsy: INTEGER_32 is
+   etxtbsy: INTEGER_32
          -- Text file busy (POSIX.1)
       external "plug_in"
       alias "{
@@ -1180,7 +1180,7 @@ feature {}
       }"
       end
 
-   euclean: INTEGER_32 is
+   euclean: INTEGER_32
          -- Structure needs cleaning
       external "plug_in"
       alias "{
@@ -1190,7 +1190,7 @@ feature {}
       }"
       end
 
-   eunatch: INTEGER_32 is
+   eunatch: INTEGER_32
          -- Protocol driver not attached
       external "plug_in"
       alias "{
@@ -1200,7 +1200,7 @@ feature {}
       }"
       end
 
-   eusers: INTEGER_32 is
+   eusers: INTEGER_32
          -- Too many users
       external "plug_in"
       alias "{
@@ -1210,7 +1210,7 @@ feature {}
       }"
       end
 
-   ewouldblock: INTEGER_32 is
+   ewouldblock: INTEGER_32
          -- Operation would block (may be same value as EAGAIN) (POSIX.1)
       external "plug_in"
       alias "{
@@ -1220,7 +1220,7 @@ feature {}
       }"
       end
 
-   exdev: INTEGER_32 is
+   exdev: INTEGER_32
          -- Improper link (POSIX.1)
       external "plug_in"
       alias "{
@@ -1230,7 +1230,7 @@ feature {}
       }"
       end
 
-   exfull: INTEGER_32 is
+   exfull: INTEGER_32
          -- Exchange full
       external "plug_in"
       alias "{

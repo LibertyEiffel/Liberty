@@ -1,7 +1,7 @@
 deferred class DL_FLAGS
 	-- Integer flag values used by DYNAMIC_SHARED_OBJECT
 feature {ANY} -- Validity
-	are_valid_dlflags (a_value: INTEGER): BOOLEAN is
+	are_valid_dlflags (a_value: INTEGER): BOOLEAN
 		-- Are `a_value' valid flags to be used when creation a DYNAMIC_SHARED_OBJECT? 
 		local optionals: INTEGER
 		do
@@ -13,7 +13,7 @@ feature {ANY} -- Validity
 		end
 
 feature {ANY} -- Required flags, either one must be specified
-	rtld_lazy: INTEGER is
+	rtld_lazy: INTEGER
 		-- Perform lazy binding.  Only resolve symbols as the code that references them is executed.  If the symbol is never referenced, then it is never resolved.  (Lazy binding is only performed for function references; references to variables are always immediately bound when the library is loaded.)
 	external "plug_in"
 	alias "{
@@ -23,7 +23,7 @@ feature {ANY} -- Required flags, either one must be specified
 		}"
 	end
 
-	rtld_now: INTEGER is
+	rtld_now: INTEGER
 		-- If this value is specified, or the environment variable LD_BIND_NOW is set to a non-empty string, all undeined symbols in the library are resolved before dlopen() returns.  If this cannot be  done,  an  error  is returned.
 	external "plug_in"
 	alias "{
@@ -34,7 +34,7 @@ feature {ANY} -- Required flags, either one must be specified
 	end
 
 feature {ANY} -- Optional flags: zero of more of the following values may also be ORed
-	rtld_global: INTEGER is
+	rtld_global: INTEGER
 		-- The  symbols  defined  by  this library will be made available for symbol resolution of subsequently loaded libraries.
 	external "plug_in"
 	alias "{
@@ -44,7 +44,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 		}"
 	end
 
-	rtld_local: INTEGER is
+	rtld_local: INTEGER
 		-- This is the converse of RTLD_GLOBAL, and the default if neither flag is specified.  Symbols defined in this library are not made available to resolve references in subsequently loaded libraries.
 	external "plug_in"
 	alias "{
@@ -54,7 +54,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 		}"
 	end
 
-	rtld_nodelete: INTEGER is
+	rtld_nodelete: INTEGER
 		-- (since glibc 2.2) Do  not  unload  the library during dlclose().  Consequently, the library's static variables are not reini‐ tialized if the library is reloaded with dlopen()  at  a  later  time.   This  flag  is  not  specified  in POSIX.1-2001.
 	external "plug_in"
 	alias "{
@@ -64,7 +64,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 		}"
 	end
 
-	rtld_noload: INTEGER is
+	rtld_noload: INTEGER
 		-- (since glibc 2.2) Don't load the library.  This can be used to test if the library is already resident (dlopen() returns NULL if it is not, or the library's handle if it is resident).  This flag can also be used to promote the  flags on a library that is already loaded.  For example, a library that was previously loaded with RTLD_LOCAL can be re-opened with RTLD_NOLOAD | RTLD_GLOBAL.  This flag is not specified in POSIX.1-2001.
 	external "plug_in"
 	alias "{
@@ -74,7 +74,7 @@ feature {ANY} -- Optional flags: zero of more of the following values may also b
 		}"
 	end
 
-	rtld_deepbind: INTEGER is
+	rtld_deepbind: INTEGER
 		-- (since glibc 2.3.4) Place the lookup scope of the symbols in this library ahead of the global scope.  This means that  a  self- contained  library will use its own symbols in preference to global symbols with the same name contained in libraries that have already been loaded.  This flag is not specified in POSIX.1-2001.
 	external "plug_in"
 	alias "{

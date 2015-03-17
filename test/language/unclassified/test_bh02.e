@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          create {HASHED_DICTIONARY[BOOLEAN, STRING]} dict.make
          dict.put(True, "one")
@@ -19,7 +19,7 @@ feature {ANY}
 
    dict: DICTIONARY[BOOLEAN, STRING]
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          if not b then
             std_output.put_string("Error in TEST_BH02.%N")

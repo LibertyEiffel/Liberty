@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux: AUX_AGENT46
       do
@@ -26,7 +26,7 @@ feature {ANY}
          assert(assert_counter.item = 3)
       end
 
-   f is
+   f
       do
          assert(assert_counter.item.in_range(1, 2))
       end

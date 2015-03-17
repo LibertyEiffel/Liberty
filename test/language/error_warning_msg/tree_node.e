@@ -9,7 +9,7 @@ inherit
    end
 
 feature {ANY}
-   make (i : like item) is
+   make (i : like item)
       do
          Precursor (i) {HIERARCHIC_GRAPH_NODE}
       end

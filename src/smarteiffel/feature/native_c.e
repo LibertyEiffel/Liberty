@@ -13,12 +13,12 @@ create {ANY}
    make
 
 feature {ANY}
-   accept (visitor: NATIVE_C_VISITOR) is
+   accept (visitor: NATIVE_C_VISITOR)
       do
          visitor.visit_native_c(Current)
       end
 
-   use_current (er: EXTERNAL_ROUTINE): BOOLEAN is
+   use_current (er: EXTERNAL_ROUTINE): BOOLEAN
       do
          -- Without assertion, an external routine uses only its arguments.
          -- Note: assertion of the corresponding `er' may use `Current' and the check is done at
@@ -26,13 +26,13 @@ feature {ANY}
       end
 
 feature {EXTERNAL_ROUTINE}
-   collect (t: TYPE; external_routine: EXTERNAL_ROUTINE) is
+   collect (t: TYPE; external_routine: EXTERNAL_ROUTINE)
       do
          notify_external_assignments(t, external_routine)
       end
 
 feature {EXTERNAL_TYPE}
-   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE) is
+   parse_external_type (alias_string: MANIFEST_STRING; target: EXTERNAL_TYPE)
       do
          not_yet_implemented
       end
@@ -56,7 +56,7 @@ feature {NATIVE_C_VISITOR}
    access_mode: INTEGER
          -- Either `set_access', `get_access' or `getset_access'
 
-   set_access, get_access, getset_access: INTEGER is unique
+   set_access, get_access, getset_access: INTEGER unique
 
    signature: FAST_ARRAY[STRING]
          -- Non Void when some external `signature' is used.
@@ -65,7 +65,7 @@ feature {NATIVE_C_VISITOR}
          -- When the C inline is used.
 
 feature {ANY}
-   parse_external_tag is
+   parse_external_tag
       local
          file_name: STRING
       do
@@ -123,7 +123,7 @@ feature {ANY}
          end
       end
 
-   bad_external (msg: STRING) is
+   bad_external (msg: STRING)
       do
          error_handler.add_position(start_position)
          error_handler.append(msg)
@@ -142,9 +142,9 @@ end -- class NATIVE_C
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

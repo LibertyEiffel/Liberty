@@ -6,18 +6,18 @@ class AUX_BEFORE_EXIT1
 insert
    DISPOSABLE
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    text_file_write: TEXT_FILE_WRITE
 
-   make is
+   make
       do
          create text_file_write.connect_to(once "before_exit.new")
       end
 
-   dispose is
+   dispose
       do
          text_file_write.put_string("The before_exit run is ok.%N")
          text_file_write.put_string("This file must be kept unchanged under git control.%N")

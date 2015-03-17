@@ -23,11 +23,11 @@ feature {}
 feature {CODE_PRINTER}
    valid: BOOLEAN
 
-   code: INTEGER is
+   code: INTEGER
       deferred
       end
 
-   reserve is
+   reserve
       require
          not_valid: validate
       do
@@ -41,7 +41,7 @@ feature {CODE_PRINTER}
          valid
       end
 
-   free is
+   free
       require
          valid: invalidate
       do
@@ -49,42 +49,42 @@ feature {CODE_PRINTER}
          not valid
       end
 
-   type: like type_memory is
+   type: like type_memory
       require
          valid
       do
          Result := type_memory
       end
 
-   anonymous_feature: like anonymous_feature_memory is
+   anonymous_feature: like anonymous_feature_memory
       require
          valid
       do
          Result := anonymous_feature_memory
       end
 
-   target: like target_memory is
+   target: like target_memory
       require
          valid and then valid_target
       do
          Result := target_memory
       end
 
-   effective_arguments: like effective_arguments_memory is
+   effective_arguments: like effective_arguments_memory
       require
          valid and then valid_effective_arguments
       do
          Result := effective_arguments_memory
       end
 
-   static_type: like static_type_memory is
+   static_type: like static_type_memory
       require
          valid and then valid_static_type
       do
          Result := static_type_memory
       end
 
-   internal_c_local: like internal_c_local_memory is
+   internal_c_local: like internal_c_local_memory
       require
          valid and then valid_internal_c_local
       do
@@ -92,20 +92,20 @@ feature {CODE_PRINTER}
       end
 
 feature {CODE_PRINTER} -- The good old "assertion-sets-its-own-flag" trick
-   frozen validate: BOOLEAN is
+   frozen validate: BOOLEAN
       do
          Result := not valid
          valid := True
       end
 
-   frozen invalidate: BOOLEAN is
+   frozen invalidate: BOOLEAN
       do
          Result := valid
          valid := False
       end
 
 feature {CODE_PRINTER} -- Modification:
-   set_type (a_type: like type) is
+   set_type (a_type: like type)
       require
          valid
          type = Void
@@ -115,7 +115,7 @@ feature {CODE_PRINTER} -- Modification:
          type = a_type
       end
 
-   set_anonymous_feature (a_anonymous_feature: like anonymous_feature) is
+   set_anonymous_feature (a_anonymous_feature: like anonymous_feature)
       require
          valid and then valid_anonymous_feature
          anonymous_feature = Void
@@ -125,7 +125,7 @@ feature {CODE_PRINTER} -- Modification:
          anonymous_feature = a_anonymous_feature
       end
 
-   set_target (a_target: like target) is
+   set_target (a_target: like target)
       require
          valid and then valid_target
          target = Void
@@ -135,7 +135,7 @@ feature {CODE_PRINTER} -- Modification:
          target = a_target
       end
 
-   set_effective_arguments (a_effective_arguments: like effective_arguments) is
+   set_effective_arguments (a_effective_arguments: like effective_arguments)
       require
          valid and then valid_effective_arguments
          effective_arguments = Void
@@ -145,7 +145,7 @@ feature {CODE_PRINTER} -- Modification:
          effective_arguments = a_effective_arguments
       end
 
-   set_static_type (a_static_type: like static_type) is
+   set_static_type (a_static_type: like static_type)
       require
          valid and then valid_static_type
          static_type = Void
@@ -155,7 +155,7 @@ feature {CODE_PRINTER} -- Modification:
          static_type = a_static_type
       end
 
-   set_internal_c_local (a_internal_c_local: like internal_c_local) is
+   set_internal_c_local (a_internal_c_local: like internal_c_local)
       require
          valid and then valid_internal_c_local
          internal_c_local = Void
@@ -166,23 +166,23 @@ feature {CODE_PRINTER} -- Modification:
       end
 
 feature {CODE_PRINTER} -- Validation:
-   valid_anonymous_feature: BOOLEAN is
+   valid_anonymous_feature: BOOLEAN
       deferred
       end
 
-   valid_target: BOOLEAN is
+   valid_target: BOOLEAN
       deferred
       end
 
-   valid_effective_arguments: BOOLEAN is
+   valid_effective_arguments: BOOLEAN
       deferred
       end
 
-   valid_static_type: BOOLEAN is
+   valid_static_type: BOOLEAN
       deferred
       end
 
-   valid_internal_c_local: BOOLEAN is
+   valid_internal_c_local: BOOLEAN
       deferred
       end
 
@@ -209,9 +209,9 @@ end -- class CODE_CONTEXT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

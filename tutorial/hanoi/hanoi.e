@@ -22,7 +22,7 @@ feature {}
    tower1, tower2, tower3: TOWER
 
 feature {ANY}
-   make is
+   make
       do
          if argument_count = 0 then
             io.put_string("Number of discus: ")
@@ -47,7 +47,7 @@ feature {ANY}
          print_on(io)
       end
 
-   move (how_many: INTEGER; source, intermediate, destination: TOWER) is
+   move (how_many: INTEGER; source, intermediate, destination: TOWER)
       local
          discus: INTEGER
       do
@@ -60,7 +60,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do

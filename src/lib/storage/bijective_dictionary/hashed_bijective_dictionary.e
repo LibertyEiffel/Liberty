@@ -18,7 +18,7 @@ create {ANY}
 feature {ANY}
    count: INTEGER
 
-   has (k: K_): BOOLEAN is
+   has (k: K_): BOOLEAN
       local
          node: like cache_node
       do
@@ -32,7 +32,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   at (k: K_): V_ is
+   at (k: K_): V_
       local
          node: like cache_node
       do
@@ -46,7 +46,7 @@ feature {ANY}
          Result := node.val
       end
 
-   reference_at (k: K_): V_ is
+   reference_at (k: K_): V_
       local
          node: like cache_node
       do
@@ -62,7 +62,7 @@ feature {ANY}
          end
       end
 
-   fast_has (k: K_): BOOLEAN is
+   fast_has (k: K_): BOOLEAN
       local
          node: like cache_node
       do
@@ -76,7 +76,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   fast_at (k: K_): V_ is
+   fast_at (k: K_): V_
       local
          node: like cache_node
       do
@@ -90,7 +90,7 @@ feature {ANY}
          Result := node.val
       end
 
-   fast_reference_at (k: K_): V_ is
+   fast_reference_at (k: K_): V_
       local
          node: like cache_node
       do
@@ -106,7 +106,7 @@ feature {ANY}
          end
       end
 
-   has_value (v: V_): BOOLEAN is
+   has_value (v: V_): BOOLEAN
       local
          node: like cache_node
       do
@@ -120,7 +120,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   key_at (v: V_): K_ is
+   key_at (v: V_): K_
       local
          node: like cache_node
       do
@@ -134,7 +134,7 @@ feature {ANY}
          Result := node.key
       end
 
-   fast_has_value (v: V_): BOOLEAN is
+   fast_has_value (v: V_): BOOLEAN
       local
          node: like cache_node
       do
@@ -148,7 +148,7 @@ feature {ANY}
          Result := node /= Void
       end
 
-   fast_key_at (v: V_): K_ is
+   fast_key_at (v: V_): K_
       local
          node: like cache_node
       do
@@ -162,7 +162,7 @@ feature {ANY}
          Result := node.key
       end
 
-   put (v: V_; k: K_) is
+   put (v: V_; k: K_)
       local
          key_idx, val_idx: INTEGER; node: like cache_node
       do
@@ -192,7 +192,7 @@ feature {ANY}
          next_generation
       end
 
-   add (v: V_; k: K_) is
+   add (v: V_; k: K_)
       local
          key_idx, val_idx: INTEGER; node: like cache_node
       do
@@ -210,7 +210,7 @@ feature {ANY}
          next_generation
       end
 
-   remove (k: K_) is
+   remove (k: K_)
       local
          key_idx: INTEGER; node, previous_node: like cache_node
       do
@@ -243,7 +243,7 @@ feature {ANY}
          next_generation
       end
 
-   clear_count, clear_count_and_capacity is
+   clear_count, clear_count_and_capacity
       require
          capacity > 0
       local
@@ -272,22 +272,22 @@ feature {ANY}
          capacity = old capacity
       end
 
-   item (index: INTEGER): V_ is
+   item (index: INTEGER): V_
       do
          set_cache_user(index)
          Result := cache_node.val
       end
 
-   key (index: INTEGER): K_ is
+   key (index: INTEGER): K_
       do
          set_cache_user(index)
          Result := cache_node.key
       end
 
-   Default_size: INTEGER is 193
+   Default_size: INTEGER 193
          -- Default size for the storage area in number of items.
 
-   internal_key (k: K_): K_ is
+   internal_key (k: K_): K_
          -- Retrieve the internal key object which correspond to the existing
          -- entry `k' (the one memorized into the `Current' dictionary).
       local
@@ -324,7 +324,7 @@ feature {ANY}
          -- the `capacity' value may not be always accurate depending of the implementation (anyway, this
          -- `capacity' value is at least equals to `count').
 
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          i: INTEGER
       do
@@ -361,7 +361,7 @@ feature {}
    free_nodes: WEAK_REFERENCE[HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]]
          -- If any, they are ready to be recycled.
 
-   set_cache_user (index: INTEGER) is
+   set_cache_user (index: INTEGER)
          -- Set the internal memory cache (`cache_user', `cache_node' and `cache_buckets') to the appropriate
          -- valid value.
       require
@@ -404,7 +404,7 @@ feature {}
          cache_node /= Void
       end
 
-   make is
+   make
          -- Create an empty dictionary. Internal storage `capacity' of the dictionary is initialized using
          -- the `Default_size' value. Then, tuning of needed storage `capacity' is performed automatically
          -- according to usage. If you are really sure that your dictionary is always really bigger than
@@ -415,7 +415,7 @@ feature {}
          capacity = Default_size
       end
 
-   with_capacity (medium_size: INTEGER) is
+   with_capacity (medium_size: INTEGER)
          -- May be used to save some execution time if one is sure that storage size will rapidly become
          -- really bigger than `Default_size'.
          -- When first `remove' occurs, storage size may naturally become smaller than `medium_size'.
@@ -432,7 +432,7 @@ feature {}
          capacity >= medium_size
       end
 
-   basic_make (new_capacity: like capacity) is
+   basic_make (new_capacity: like capacity)
       require
          new_capacity = prime_number_ceiling(new_capacity)
       do
@@ -451,7 +451,7 @@ feature {}
          capacity = new_capacity
       end
 
-   increase_capacity is
+   increase_capacity
          -- There is no more free slots: the dictionary must grow.
       require
          should_increase_capacity(capacity, count)
@@ -510,12 +510,12 @@ feature {}
          capacity > old capacity
       end
 
-   common_free_nodes: HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE], STRING] is
+   common_free_nodes: HASHED_DICTIONARY[WEAK_REFERENCE[ANY_HASHED_BIJECTIVE_DICTIONARY_NODE], STRING]
       once
          create Result.make
       end
 
-   dispose_node (node: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]): HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_] is
+   dispose_node (node: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]): HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
          -- Add `node' in the `free_nodes' list.
       require
          node /= Void
@@ -527,7 +527,7 @@ feature {}
          Result = old node.next_key
       end
 
-   new_node (v: V_; nv: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]; k: K_; nk: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]): HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_] is
+   new_node (v: V_; nv: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]; k: K_; nk: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]): HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]
          -- Recycle from `free_nodes' or create a new one.
       do
          Result := free_nodes.item
@@ -544,7 +544,7 @@ feature {}
          Result.next_key = nk
       end
 
-   val_buckets_remove (node: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_]) is
+   val_buckets_remove (node: HASHED_BIJECTIVE_DICTIONARY_NODE[V_, K_])
       require
          node /= Void
       local
@@ -568,7 +568,7 @@ feature {}
       end
 
 feature {} -- Implement manifest generic creation:
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation of a dictionary.
       do
          with_capacity(needed_capacity.max(Default_size))
@@ -580,13 +580,13 @@ invariant
 
 end -- class HASHED_BIJECTIVE_DICTIONARY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_INVARIANT}
-   visit_liberty_invariant (v: LIBERTY_INVARIANT) is
+   visit_liberty_invariant (v: LIBERTY_INVARIANT)
       deferred
       end
 

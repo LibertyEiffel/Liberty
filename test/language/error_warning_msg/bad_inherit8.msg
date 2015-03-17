@@ -7,12 +7,12 @@ be.
 The source lines involved by the message are the following:
 
 Line 17 column 4 in STRING (/home/cadrian/Workspace/Dev/Liberty/src/lib/string/string.e):
-   make, with_capacity (needed_capacity: INTEGER) is
-   ^                                                
+   make, with_capacity (needed_capacity: INTEGER)
+   ^                                             
 Line 7 column 4 in BAD_INHERIT8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit8.e):
    STRING
    ^     
 Line 12 column 4 in BAD_INHERIT8 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_inherit8.e):
-   make is do end
-   ^             
+   make do end
+   ^          
 ------

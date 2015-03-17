@@ -28,7 +28,7 @@ feature {ARRAY3}
          -- Number of elements in `storage'.
 
 feature {ANY} -- Creation / modification:
-   make (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER) is
+   make (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
          -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum'
          -- `column_maximum' / `depth_min' and `depth_max' using arguments as
          -- new values. All elements are set to the default value of type E_.
@@ -62,7 +62,7 @@ feature {ANY} -- Creation / modification:
          depth_maximum = depth_max
       end
 
-   from_collection3 (model: COLLECTION3[like item]) is
+   from_collection3 (model: COLLECTION3[like item])
       local
          i, j, k: INTEGER
       do
@@ -96,7 +96,7 @@ feature {ANY} -- Creation / modification:
       end
 
    from_collection (contents: COLLECTION[E_]
-      line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER) is
+      line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
          --  Reset all bounds using `line_min', `line_max', `column_min',
          --  `column_max', `depth_min', and `depth_max'.
          --  Copy all elements of `contents', line by line into Current.
@@ -127,7 +127,7 @@ feature {ANY} -- Creation / modification:
          count = contents.count
       end
 
-   from_model (model: COLLECTION[COLLECTION[COLLECTION[E_]]]) is
+   from_model (model: COLLECTION[COLLECTION[COLLECTION[E_]]])
          -- The `model' is used to fill line by line the COLLECTION3.
          -- Assume all sub-collections of have the same indexing.
       local
@@ -166,7 +166,7 @@ feature {ANY} -- Creation / modification:
       end
 
 feature {ANY} -- Resizing:
-   resize (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER) is
+   resize (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER)
          -- Resize bounds of the Current array
       require
          line_max >= line_min
@@ -213,17 +213,17 @@ feature {ANY} -- Resizing:
       end
 
 feature {ANY} -- Implementation of others feature from COLLECTION3:
-   item (line, column, depth: INTEGER): E_ is
+   item (line, column, depth: INTEGER): E_
       do
          Result := storage.item((line - lower1) * count2 * count3 + (column - lower2) * count3 + depth - lower3)
       end
 
-   put (element: like item; line, column, depth: INTEGER) is
+   put (element: like item; line, column, depth: INTEGER)
       do
          storage.put(element, (line - lower1) * count2 * count3 + (column - lower2) * count3 + depth - lower3)
       end
 
-   force (x: like item; line, column, depth: INTEGER) is
+   force (x: like item; line, column, depth: INTEGER)
       require else
          True
       do
@@ -233,22 +233,22 @@ feature {ANY} -- Implementation of others feature from COLLECTION3:
          put(x, line, column, depth)
       end
 
-   set_all_with (element: E_) is
+   set_all_with (element: E_)
       do
          storage.set_all_with(element, count - 1)
       end
 
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
       do
          storage.replace_all(old_value, new_value, count - 1)
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
       do
          storage.fast_replace_all(old_value, new_value, count - 1)
       end
 
-   sub_collection3 (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER): like Current is
+   sub_collection3 (line_min, line_max, column_min, column_max, depth_min, depth_max: INTEGER): like Current
       local
          i, j, k, n: INTEGER
       do
@@ -287,17 +287,17 @@ feature {ANY} -- Implementation of others feature from COLLECTION3:
       end
 
 feature {ANY} --  Looking and comparison:
-   occurrences (elt: E_): INTEGER is
+   occurrences (elt: E_): INTEGER
       do
          Result := storage.occurrences(elt, count - 1)
       end
 
-   fast_occurrences (elt: E_): INTEGER is
+   fast_occurrences (elt: E_): INTEGER
       do
          Result := storage.fast_occurrences(elt, count - 1)
       end
 
-   has (x: like item): BOOLEAN is
+   has (x: like item): BOOLEAN
          -- Search if a element x is in the array using `equal'.
          -- See also `fast_has' to choose the apropriate one.
       do
@@ -306,7 +306,7 @@ feature {ANY} --  Looking and comparison:
          end
       end
 
-   fast_has (x: like item): BOOLEAN is
+   fast_has (x: like item): BOOLEAN
          --  Search if a element x is in the array using `='.
       do
          if count > 0 then
@@ -314,12 +314,12 @@ feature {ANY} --  Looking and comparison:
          end
       end
 
-   all_default: BOOLEAN is
+   all_default: BOOLEAN
       do
          Result := storage.all_default(count - 1)
       end
 
-   swap (line1, column1, depth1, line2, column2, depth2: INTEGER) is
+   swap (line1, column1, depth1, line2, column2, depth2: INTEGER)
       local
          tmp: like item; index1, index2: INTEGER
       do
@@ -330,7 +330,7 @@ feature {ANY} --  Looking and comparison:
          storage.put(tmp, index2)
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          lower1 := other.lower1
          upper1 := other.upper1
@@ -350,15 +350,13 @@ feature {ANY} --  Looking and comparison:
       end
 
 feature {} -- Garbage collector tuning (very low-level):
-   mark_native_arrays is
+   mark_native_arrays
          -- For performance reasons, the unused area of `storage' is always left as it is when
          -- some elements are removed. No time is lost to clean the released area with a Void 
          -- or a 0 value. Thus, the unused area of `storage' may contains references of 
          -- actually unreachable objects. The following `mark_native_arrays' actually replace 
          -- the default behavior (the call is automatic) in order to mark only reachable 
          -- objects.
-         --
-         -- See also class GARBAGE_COLLECTOR_TUNING.
       local
          i: INTEGER
       do
@@ -380,13 +378,13 @@ invariant
 
 end -- class ARRAY3
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

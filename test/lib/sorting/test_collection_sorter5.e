@@ -14,7 +14,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[STRING]
       do
@@ -37,7 +37,7 @@ feature {ANY}
 
    by_first_char: BOOLEAN
 
-   lt (x, y: STRING): BOOLEAN is
+   lt (x, y: STRING): BOOLEAN
       do
          if by_first_char then
             Result := x.item(1) < y.item(1)
@@ -47,7 +47,7 @@ feature {ANY}
       end
 
 feature {}
-   print_collection (c: COLLECTION[STRING]) is
+   print_collection (c: COLLECTION[STRING])
       local
          i: INTEGER
       do

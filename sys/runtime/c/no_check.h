@@ -74,7 +74,7 @@ struct _se_frame_descriptor {
 };
 
 /* For flat_check opion */
-extern int assertion_depth;
+extern TLS(int) assertion_depth;
 
 /*
   To keep the track of execution in order to be able to print a
@@ -91,7 +91,7 @@ struct _se_dump_stack {
   int depth;
 };
 
-extern se_dump_stack* se_dst;
+extern TLS(se_dump_stack*) se_dst;
 #define set_se_dst(ds) do { if (!se_dst) (ds)->depth = 1; else if (se_dst->caller != (ds)) (ds)->depth = se_dst->depth+1; se_dst=(ds); } while (0)
 
 int se_stack_size(se_dump_stack* ds);
@@ -102,7 +102,7 @@ int se_print_one_frame_in(FILE* file, se_dump_stack*ds, se_dump_stack* cur, int 
 
 int se_rci(se_dump_stack*caller,void*C);
 void error0(char*m,char*vv);
-void error1(char*m,se_position position);
+NO_RETURN void error1(char*m,se_position position);
 void error2(T0* o,se_position position);
 T0* vc(T0* o, se_position position);
 T0* se_string_inspect_check(T0* o, se_position position);
@@ -123,16 +123,7 @@ void se_gc_check_id(void*o,int id);
 se_dump_stack* se_new_dump_stack(se_dump_stack* copy);
 void se_delete_dump_stack(se_dump_stack* ds);
 
-#ifndef SE_TRACE
-#    define set_dump_stack_top(ds) do {                   \
-          se_dump_stack *ds0 = (ds);                      \
-          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
-     } while(0)
-#else
-#    define set_dump_stack_top(ds)                        \
-     do {                                                 \
-          se_dump_stack *ds0 = (ds);                      \
-          se_print_call_trace(ds0);                       \
-          if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
-     } while(0)
-#endif
+#define set_dump_stack_top(ds) do {                 \
+    se_dump_stack *ds0 = (ds);                      \
+    if (ds0) set_se_dst(ds0); else se_dst=(void*)0; \
+  } while(0)

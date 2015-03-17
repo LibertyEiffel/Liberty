@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    memo: BOOLEAN
 
-   called_from_c is
+   called_from_c
       local
          i: INTEGER
       do
@@ -20,7 +20,7 @@ feature {ANY}
          end
       end
 
-   make is
+   make
       do
          call_c(Current)
       rescue
@@ -28,7 +28,7 @@ feature {ANY}
          retry
       end
 
-   call_c (c: like Current) is
+   call_c (c: like Current)
          -- To avoid creating a C file ourself,
          -- we'll force SE to use "call_c"
          -- as the Cecil wrapper name for called_from_c.

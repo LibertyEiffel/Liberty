@@ -4,12 +4,12 @@
 class AUX_IS_EXPANDED_TYPE[E]
 
 feature {ANY}
-   item: E is
+   item: E
       do
          Result := item_memory
       end
 
-   set_item (i: like item) is
+   set_item (i: like item)
       do
          item_memory := i
       end

@@ -11,12 +11,12 @@ create {}
    make
 
 feature {ANY}
-   scale_factor: INTEGER is 1
+   scale_factor: INTEGER 1
          -- 3
          -- 2
          -- 1 -> 38Mo
 
-   make is
+   make
       local
          d0, d1, d2: ARRAY[ARRAY[REAL_64]]; a: ARRAY[REAL_64]; i, j: INTEGER
       do

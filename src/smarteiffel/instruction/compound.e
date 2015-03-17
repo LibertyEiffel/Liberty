@@ -24,12 +24,12 @@ create   {COMPOUND}
    set_list
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := list.first.start_position
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       local
          i: INTEGER
       do
@@ -43,7 +43,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       local
          inst1, inst2: INSTRUCTION; i, i2: INTEGER; l: like list
       do
@@ -93,7 +93,7 @@ feature {ANY}
          end
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -107,7 +107,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       local
          i: INTEGER
       do
@@ -122,7 +122,7 @@ feature {ANY}
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -152,7 +152,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -182,7 +182,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -212,7 +212,7 @@ feature {ANY}
          end
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          l: like list; inst1, inst2: INSTRUCTION; i: INTEGER
       do
@@ -242,9 +242,9 @@ feature {ANY}
          end
       end
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER; instruction, previous_instruction: INSTRUCTION; lnbc: CHARACTER
          extra_semicolon_flag: BOOLEAN; comment: COMMENT; index_in_pretty_printer: INTEGER
@@ -322,7 +322,7 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       local
          i: INTEGER
       do
@@ -337,7 +337,7 @@ feature {ANY}
          end
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          i: INTEGER; dummy: TYPE
       do
@@ -351,13 +351,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: COMPOUND_VISITOR) is
+   accept (visitor: COMPOUND_VISITOR)
       do
          visitor.visit_compound(Current)
       end
 
 feature {EIFFEL_PARSER, EFFECTIVE_ROUTINE, EFFECTIVE_ARG_LIST}
-   add_last (instruction: INSTRUCTION) is
+   add_last (instruction: INSTRUCTION)
       require
          instruction.is_not_a_compound
       do
@@ -367,41 +367,41 @@ feature {EIFFEL_PARSER, EFFECTIVE_ROUTINE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ANY} -- Implementation of TRAVERSABLE:
-   lower: INTEGER is
+   lower: INTEGER
       do
          Result := list.lower
       end
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := list.upper
       end
 
-   count: INTEGER is
+   count: INTEGER
       do
          Result := list.count
       end
 
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          check
             False
          end
       end
 
-   item (i: INTEGER): INSTRUCTION is
+   item (i: INTEGER): INSTRUCTION
       do
          Result := list.item(i)
       end
 
-   first: like item is
+   first: like item
       require else
          True
       do
          Result := list.first
       end
 
-   last: like item is
+   last: like item
       require else
          True
       do
@@ -409,7 +409,7 @@ feature {ANY} -- Implementation of TRAVERSABLE:
       end
 
 feature {}
-   new_iterator: ITERATOR[INSTRUCTION] is
+   new_iterator: ITERATOR[INSTRUCTION]
       do
          check
             False -- Just use the usual pattern instead please.
@@ -421,7 +421,7 @@ feature {COMPOUND, COMPOUND_VISITOR}
          -- Contains at least 2 INSTRUCTIONs (just because this is the canonical form to be enforced).
 
 feature {COMPOUND}
-   set_list (l: like list) is
+   set_list (l: like list)
       require
          l.count >= 2
       do
@@ -431,7 +431,7 @@ feature {COMPOUND}
       end
 
 feature {ANONYMOUS_FEATURE}
-   twin_remove_first: INSTRUCTION is
+   twin_remove_first: INSTRUCTION
       local
          l: like list
       do
@@ -447,7 +447,7 @@ feature {ANONYMOUS_FEATURE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i, stamp, code_accumulator_index: INTEGER; instruction: INSTRUCTION
       do
@@ -473,7 +473,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {}
-   make_2 (i1, i2: INSTRUCTION) is
+   make_2 (i1, i2: INSTRUCTION)
       require
          i1.is_not_a_compound
          i2.is_not_a_compound
@@ -486,7 +486,7 @@ feature {}
          list.count = list.capacity
       end
 
-   make_3 (i1, i2, i3: INSTRUCTION) is
+   make_3 (i1, i2, i3: INSTRUCTION)
       require
          i1.is_not_a_compound
          i2.is_not_a_compound
@@ -501,7 +501,7 @@ feature {}
          list.count = list.capacity
       end
 
-   make_4 (i1, i2, i3, i4: INSTRUCTION) is
+   make_4 (i1, i2, i3, i4: INSTRUCTION)
       require
          i1.is_not_a_compound
          i2.is_not_a_compound
@@ -518,7 +518,7 @@ feature {}
          list.count = list.capacity
       end
 
-   make_n (i1, i2, i3, i4, i5: INSTRUCTION) is
+   make_n (i1, i2, i3, i4, i5: INSTRUCTION)
       require
          i1.is_not_a_compound
          i2.is_not_a_compound
@@ -537,7 +537,7 @@ feature {}
          list.count < list.capacity
       end
 
-   from_list (l: FAST_ARRAY[CODE]) is
+   from_list (l: FAST_ARRAY[CODE])
       require
          l.count >= 2
       local
@@ -557,7 +557,7 @@ feature {}
          list.count = l.count
       end
 
-   canonical_form (l: like list): BOOLEAN is
+   canonical_form (l: like list): BOOLEAN
       require
          canonical_form(l)
       local
@@ -576,7 +576,7 @@ feature {}
          assertion_check_only: Result
       end
 
-   simplify_add (l: like list; new_item: INSTRUCTION) is
+   simplify_add (l: like list; new_item: INSTRUCTION)
       require
          l /= Void
       local
@@ -601,7 +601,7 @@ feature {}
          l.count >= old l.count
       end
 
-   is_a_comment (instruction: INSTRUCTION): BOOLEAN is
+   is_a_comment (instruction: INSTRUCTION): BOOLEAN
       local
          comment: COMMENT
       do
@@ -626,9 +626,9 @@ end -- class COMPOUND
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

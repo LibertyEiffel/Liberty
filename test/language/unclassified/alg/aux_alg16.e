@@ -3,13 +3,13 @@
 --
 expanded class AUX_ALG16
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    item: INTEGER
 
-   make is
+   make
       do
          item := 1
       end

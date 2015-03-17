@@ -3,7 +3,7 @@
 --
 class AUX_AGENT_GC1
 
-creation {ANY}
+create {ANY}
    make_region, make_main
 
 feature {ANY}
@@ -11,16 +11,16 @@ feature {ANY}
 
    hospital: AUX_AGENT_GC2
 
-   Levels: INTEGER is 5
+   Levels: INTEGER 5
 
-   Districts: INTEGER is 4
+   Districts: INTEGER 4
 
-   make_main is
+   make_main
       do
          make_region(Levels, 0, 42)
       end
 
-   make_region (level, seed1, seed2: INTEGER) is
+   make_region (level, seed1, seed2: INTEGER)
       local
          staff: INTEGER; hr: AUX_AGENT_GC1; i: INTEGER
       do
@@ -40,25 +40,25 @@ feature {ANY}
          end
       end
 
-   make (staff, seed: INTEGER; is_main: BOOLEAN) is
+   make (staff, seed: INTEGER; is_main: BOOLEAN)
       do
          create hospital.make(staff, seed, is_main)
          create districts.with_capacity(Districts)
       end
 
-   next_time is
+   next_time
       do
-         districts.do_all(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
+         districts.for_each(agent {AUX_AGENT_GC1}.next_time_and_transfer_to(hospital))
          hospital.triage_examination
       end
 
-   next_time_and_transfer_to (destination: AUX_AGENT_GC2) is
+   next_time_and_transfer_to (destination: AUX_AGENT_GC2)
       do
          next_time
-         hospital.transfers.do_all(agent destination.new_arrival(?))
+         hospital.transfers.for_each(agent destination.new_arrival(?))
       end
 
-   accumulate_totals: AUX_AGENT_GC5 is
+   accumulate_totals: AUX_AGENT_GC5
       local
          i: INTEGER
       do

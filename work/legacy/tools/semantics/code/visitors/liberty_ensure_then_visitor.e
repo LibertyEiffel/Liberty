@@ -18,7 +18,7 @@ inherit
    VISITOR
 
 feature {LIBERTY_ENSURE_THEN}
-   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN) is
+   visit_liberty_ensure_then (v: LIBERTY_ENSURE_THEN)
       deferred
       end
 

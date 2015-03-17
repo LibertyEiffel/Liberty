@@ -7,6 +7,6 @@ Line 15 column 25 in BAD_AGENT08 (/home/cadrian/Workspace/Dev/Liberty/test/langu
          r := agent f(?,2)
                         ^ 
 Line 20 column 20 in BAD_AGENT08 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_agent08.e):
-   f(s: STRING; i: STRING) is
-                   ^         
+   f(s: STRING; i: STRING)
+                   ^      
 ------

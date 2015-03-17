@@ -3,16 +3,16 @@
 --
 class AUX_SINGLETON3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 
 feature {}
-   singleton_memory: AUX_SINGLETON3 is
+   singleton_memory: AUX_SINGLETON3
       once
          Result := Current
       end

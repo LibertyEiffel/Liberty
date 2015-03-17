@@ -5,11 +5,11 @@ valid.
 The source lines involved by the message are the following:
 
 Line 14 column 14 in BAD_REDEFINE15 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine15.e):
-   foo (bar: ARRAY[INTEGER_16]) is
-             ^                    
+   foo (bar: ARRAY[INTEGER_16])
+             ^                 
 Line 7 column 14 in AUX_REDEFINE15 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_redefine15.e):
-   foo (bar: ARRAY[INTEGER_32]) is
-             ^                    
+   foo (bar: ARRAY[INTEGER_32])
+             ^                 
 ------
 ****** Error: 
 
@@ -23,9 +23,9 @@ Line 6 column 4 in BAD_REDEFINE15 (/home/cadrian/Workspace/Dev/Liberty/test/lang
    AUX_REDEFINE15
    ^             
 Line 14 column 4 in BAD_REDEFINE15 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine15.e):
-   foo (bar: ARRAY[INTEGER_16]) is
-   ^                              
+   foo (bar: ARRAY[INTEGER_16])
+   ^                           
 Line 7 column 4 in AUX_REDEFINE15 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_redefine15.e):
-   foo (bar: ARRAY[INTEGER_32]) is
-   ^                              
+   foo (bar: ARRAY[INTEGER_32])
+   ^                           
 ------

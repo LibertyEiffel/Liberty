@@ -37,13 +37,13 @@ insert
       end
 
 feature {ANY}
-   lower: INTEGER is 1
-         -- Minimum index; actually, this is always 1 (this feature is
+   lower: INTEGER 1
+         -- Minimum index; actually, this is always 1 (this feature
          -- here to mimic the one of the COLLECTION hierarchy).
          --
          -- See also `upper', `valid_index', `item'.
 
-   upper: INTEGER is
+   upper: INTEGER
          -- Maximum index; actually the same value as `count' (this
          -- feature is here to mimic the one of the COLLECTION hierarchy).
          --
@@ -54,19 +54,19 @@ feature {ANY}
          Result = count
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       deferred
       ensure then
          count = other.count
       end
 
-   print_on (file: OUTPUT_STREAM) is
+   print_on (file: OUTPUT_STREAM)
       do
          file.put_abstract_string(Current)
       end
 
 feature {ANY} -- Testing:
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
          -- Has string length 0?
          --
          -- See also `count'.
@@ -74,14 +74,14 @@ feature {ANY} -- Testing:
          Result := count = 0
       end
 
-   item (i: INTEGER): CHARACTER is
+   item (i: INTEGER): CHARACTER
          -- Character at position `i'.
          --
          -- See also `lower', `upper', `valid_index', `put'.
       deferred
       end
 
-   frozen infix "@" (i: INTEGER): CHARACTER is
+   frozen infix "@" (i: INTEGER): CHARACTER
          -- The infix notation which is actually just a synonym for `item'.
          --
          -- See also `item', `put'.
@@ -93,7 +93,7 @@ feature {ANY} -- Testing:
          definition: Result = item(i)
       end
 
-    infix "^" (a_range: INTEGER_RANGE[INTEGER]): ABSTRACT_STRING is
+    infix "^" (a_range: INTEGER_RANGE[INTEGER]): ABSTRACT_STRING
         -- Substring of items in `a_range' .
     require valid_range: valid_index(a_range.lower) and valid_index(a_range.upper)
     do
@@ -103,7 +103,7 @@ feature {ANY} -- Testing:
         has_substring(Result) -- This is the same of writing "substring_index(Result,lower)=a_range.lower"
     end
 
-   infix "<" (other: ABSTRACT_STRING): BOOLEAN is
+   infix "<" (other: ABSTRACT_STRING): BOOLEAN
          -- Is `Current' less than `other'?
          --
          -- See also `>', `<=', `>=', `min', `max'.
@@ -125,22 +125,22 @@ feature {ANY} -- Testing:
          end
       end
 
-   infix "<=" (other: ABSTRACT_STRING): BOOLEAN is
+   infix "<=" (other: ABSTRACT_STRING): BOOLEAN
       do
          Result := not (other < Current)
       end
 
-   infix ">" (other: ABSTRACT_STRING): BOOLEAN is
+   infix ">" (other: ABSTRACT_STRING): BOOLEAN
       do
          Result := other < Current
       end
 
-   infix ">=" (other: ABSTRACT_STRING): BOOLEAN is
+   infix ">=" (other: ABSTRACT_STRING): BOOLEAN
       do
          Result := not (Current < other)
       end
 
-   compare, three_way_comparison (other: ABSTRACT_STRING): INTEGER is
+   compare, three_way_comparison (other: ABSTRACT_STRING): INTEGER
       local
          i: INTEGER; maxi: INTEGER
       do
@@ -166,21 +166,21 @@ feature {ANY} -- Testing:
          end
       end
 
-   is_equal (other: ABSTRACT_STRING): BOOLEAN is
+   is_equal (other: ABSTRACT_STRING): BOOLEAN
          -- Do both strings have the same character sequence?
          --
          -- See also `same_as'.
       deferred
       end
 
-   same_as (other: ABSTRACT_STRING): BOOLEAN is
+   same_as (other: ABSTRACT_STRING): BOOLEAN
          -- Case insensitive `is_equal'.
       require
          other /= Void
       deferred
       end
 
-   item_code (i: INTEGER): INTEGER is
+   item_code (i: INTEGER): INTEGER
          -- Code of character at position `i'.
          --
          -- See also `item'.
@@ -194,23 +194,23 @@ feature {ANY} -- Testing:
          definition: Result = item(i).code
       end
 
-   first_index_of, fast_first_index_of (c: CHARACTER): INTEGER is
-         -- Index of first occurrence of `c', 0 if none.
+   first_index_of, fast_first_index_of (c: CHARACTER): INTEGER
+         -- Index of first occurrence of `c', `upper` + 1 if none.
          --
          -- See also `last_index_of', `index_of', `reverse_index_of'.
       do
          Result := index_of(c, lower)
       end
 
-   last_index_of, fast_last_index_of (c: CHARACTER): INTEGER is
-         -- Index of last occurrence of `c', 0 if none.
+   last_index_of, fast_last_index_of (c: CHARACTER): INTEGER
+         -- Index of last occurrence of `c', `lower` - 1 if none.
          --
          -- See also `first_index_of', `reverse_index_of', `index_of'.
       do
          Result := reverse_index_of(c, upper)
       end
 
-   has_substring (other: ABSTRACT_STRING): BOOLEAN is
+   has_substring (other: ABSTRACT_STRING): BOOLEAN
          -- True if `Current' contains `other'.
          --
          -- See also `substring_index', `has'.
@@ -220,7 +220,7 @@ feature {ANY} -- Testing:
          Result := substring_index(other, lower)>=lower
       end
 
-   occurrences (c: CHARACTER): INTEGER is
+   occurrences (c: CHARACTER): INTEGER
          -- Number of times character `c' appears in the string.
          --
          -- See also `remove_all_occurrences', `has'.
@@ -229,7 +229,7 @@ feature {ANY} -- Testing:
          Result >= 0
       end
 
-   has_suffix (s: ABSTRACT_STRING): BOOLEAN is
+   has_suffix (s: ABSTRACT_STRING): BOOLEAN
          -- True if suffix of `Current' is `s'.
          --
          -- See also `remove_suffix', `has_prefix', `has_substring'.
@@ -252,7 +252,7 @@ feature {ANY} -- Testing:
          end
       end
 
-   has_prefix (p: ABSTRACT_STRING): BOOLEAN is
+   has_prefix (p: ABSTRACT_STRING): BOOLEAN
          -- True if prefix of `Current' is `p'.
          --
          -- See also `remove_prefix', `has_suffix', `has_substring'.
@@ -276,7 +276,7 @@ feature {ANY} -- Testing:
       end
 
 feature {ANY} -- Testing and Conversion:
-   is_ascii: BOOLEAN is
+   is_ascii: BOOLEAN
          -- Is `Current' only made of (7 bit) ASCII characters?
       local
          i: INTEGER
@@ -294,14 +294,14 @@ feature {ANY} -- Testing and Conversion:
          Result = for_all(agent {CHARACTER}.is_ascii)
       end
 
-   is_boolean: BOOLEAN is
+   is_boolean: BOOLEAN
          -- Does `Current' represent a BOOLEAN?
          -- Valid BOOLEANs are "True" and "False".
       do
          Result := (once "True").is_equal(Current) or else (once "False").is_equal(Current)
       end
 
-   to_boolean: BOOLEAN is
+   to_boolean: BOOLEAN
          -- Boolean value
          -- "True" yields True, "False" yields False (what a surprise).
       require
@@ -310,7 +310,7 @@ feature {ANY} -- Testing and Conversion:
          Result := (once "True").is_equal(Current)
       end
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
          -- Does 'Current' represent an INTEGER?
          -- `Result' is True if and only if the following two conditions
          -- hold:
@@ -408,7 +408,7 @@ feature {ANY} -- Testing and Conversion:
          Result := state >= 3
       end
 
-   to_integer: INTEGER is
+   to_integer: INTEGER
          -- `Current' must look like an INTEGER.
       require
          is_integer
@@ -461,7 +461,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   is_integer_64: BOOLEAN is
+   is_integer_64: BOOLEAN
          -- Does 'Current' represent an INTEGER_64?
          -- `Result' is True if and only if the following two conditions
          -- hold:
@@ -559,7 +559,7 @@ feature {ANY} -- Testing and Conversion:
          Result := state >= 3
       end
 
-   to_integer_64: INTEGER_64 is
+   to_integer_64: INTEGER_64
          -- `Current' must look like an INTEGER_64.
       require
          is_integer_64
@@ -612,7 +612,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   is_real: BOOLEAN is
+   is_real: BOOLEAN
          -- Can contents be read as a REAL ?
          -- Fails for numbers where the base or "10 ^ exponent" are not in
          -- the range `Minimum_real' ... `Maximum_real'. Parsing is done
@@ -767,7 +767,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   to_real: REAL is
+   to_real: REAL
          -- Conversion to the corresponding REAL value. The string must looks like a REAL (or like an
          -- INTEGER because the fractionnal part is optional). For an exact definition see 'is_real'.
          -- Note that this conversion might not be exact.
@@ -885,7 +885,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   is_number: BOOLEAN is
+   is_number: BOOLEAN
          -- Can contents be read as a NUMBER?
       local
          number_tools: NUMBER_TOOLS
@@ -893,7 +893,7 @@ feature {ANY} -- Testing and Conversion:
          Result := number_tools.is_number(Current)
       end
 
-   to_number: NUMBER is
+   to_number: NUMBER
          -- Current must looks like an INTEGER.
       require
          is_number
@@ -903,7 +903,7 @@ feature {ANY} -- Testing and Conversion:
          Result := number_tools.from_string(Current)
       end
 
-   is_bit: BOOLEAN is
+   is_bit: BOOLEAN
          -- True when the contents is a sequence of bits (i.e., mixed
          -- characters `0' and characters `1').
       local
@@ -922,7 +922,7 @@ feature {ANY} -- Testing and Conversion:
          Result = (count = occurrences('0') + occurrences('1'))
       end
 
-   binary_to_integer: INTEGER is
+   binary_to_integer: INTEGER
          -- Assume there is enougth space in the INTEGER to store
          -- the corresponding decimal value.
       require
@@ -946,7 +946,7 @@ feature {ANY} -- Testing and Conversion:
       end
 
 feature {ANY} -- Concatenation
-   infix "+" (other: ABSTRACT_STRING): STRING is
+   infix "+" (other: ABSTRACT_STRING): STRING
          -- Create a new STRING which is the concatenation of `Current' and `other'.
          --
          -- See also `append'.
@@ -960,7 +960,7 @@ feature {ANY} -- Concatenation
          result_count: Result.count = count + other.count
       end
 
-   infix "|" (other: ABSTRACT_STRING): ROPE is
+   infix "|" (other: ABSTRACT_STRING): ROPE
          -- Current and `other' concatenated into a new ROPE, an ABSTRACT_STRING that can be efficiently
          -- concatenated.
       require
@@ -971,8 +971,8 @@ feature {ANY} -- Concatenation
          Result.out.is_equal(Current + other)
       end
 
-   infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING is
-         -- Current and `other' concatenating into a new object. The actual effective type of Result is
+   infix "&" (other: ABSTRACT_STRING): ABSTRACT_STRING
+         -- Current and `other' concatenating into a new object. The actual effective type of Result
          -- chosen by the implementation, possibly based on heuristics.
       require
          other_exists: other /= Void
@@ -981,7 +981,7 @@ feature {ANY} -- Concatenation
          Result.out.is_equal(Current + other)
       end
 
-    arg (an_index: INTEGER; a_value: ABSTRACT_STRING): ABSTRACT_STRING is
+    arg (an_index: INTEGER; a_value: ABSTRACT_STRING): ABSTRACT_STRING
         -- A copy of Current with the placeholder "#(an_index)" is replaced (if present) with the content of `a_value'.
     local
          i, backtrack_i: INTEGER
@@ -993,7 +993,7 @@ feature {ANY} -- Concatenation
       do
           delimeter := '#'; opening_brace := '('; closing_brace := ')'
           -- The above constants are not put in the class to avoid "polluting"
-          -- its namespace. Feel free to move it outside this feature if it is
+          -- its namespace. Feel free to move it outside this feature if it
           -- fitter, i.e. redefining them in an heir.
           accumulator := ""
           Result := accumulator
@@ -1051,7 +1051,7 @@ feature {ANY} -- Concatenation
         substitution_not_made: not has_substring("#("+an_index.out+")") implies Current.is_equal(Result)
     end
 
-    infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING is
+    infix "#" (a_value: ABSTRACT_STRING): ABSTRACT_STRING
          -- A copy of Current with a placeholder "#(n)" is replaced with the content of `a_value'. A chain of # queries will progressively replace placeholder 1, 2 ...
          --
          -- For example a_string#"foo"#"bar"#"maman" is equivalent to a_string.arg(1,"foo").arg(2,"bar").arg(3,"maman")
@@ -1062,7 +1062,7 @@ feature {ANY} -- Concatenation
       end
 
 feature {ANY} -- Case convertion
-   as_lower: STRING is
+   as_lower: STRING
          -- New object with all letters in lower case.
          --
          -- See also `as_upper', `to_lower', `to_upper'.
@@ -1071,7 +1071,7 @@ feature {ANY} -- Case convertion
          Result.to_lower
       end
 
-   as_upper: STRING is
+   as_upper: STRING
          -- New object with all letters in upper case.
          --
          -- See also `as_lower', `to_upper', `to_lower'.
@@ -1081,17 +1081,17 @@ feature {ANY} -- Case convertion
       end
 
 feature {ANY} -- Printing:
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(Current)
       end
 
-   fill_tagged_out_memory is
+   fill_tagged_out_memory
       deferred
       end
 
 feature {ANY} -- String replacing
-   replacing (an_old, a_new: ABSTRACT_STRING): STRING is
+   replacing (an_old, a_new: ABSTRACT_STRING): STRING
          -- Current with all occurrences of `an_old' string replaced with `a_new'.
       require
          not an_old.is_empty
@@ -1105,7 +1105,7 @@ feature {ANY} -- String replacing
          Result.first_substring_index(a_new) = first_substring_index(an_old) --| **** TODO to be improved
       end
 
-   replacing_in (an_old, a_new: ABSTRACT_STRING; buffer: STRING) is
+   replacing_in (an_old, a_new: ABSTRACT_STRING; buffer: STRING)
          -- Current with all occurrences of `an_old' string replaced with `a_new' in `buffer'.
       require
          not an_old.is_empty
@@ -1133,21 +1133,21 @@ feature {ANY} -- String replacing
       end
 
 feature {ANY} -- Other features:
-   first: CHARACTER is
+   first: CHARACTER
          -- Access to the very `first' character.
          --
          -- See also `last', `item'.
       deferred
       end
 
-   last: CHARACTER is
+   last: CHARACTER
          -- Access to the very `last' character.
          --
          -- See also `first', `item'.
       deferred
       end
 
-   substring (start_index, end_index: INTEGER): like Current is
+   substring (start_index, end_index: INTEGER): like Current
          -- New string consisting of items [`start_index'.. `end_index'].
          --
          -- See also `substring_index' and `copy_substring' to save memory.
@@ -1160,7 +1160,7 @@ feature {ANY} -- Other features:
          substring_count: Result.count = end_index - start_index + 1
       end
 
-   substring_index (other: ABSTRACT_STRING; start_index: INTEGER): INTEGER is
+   substring_index (other: ABSTRACT_STRING; start_index: INTEGER): INTEGER
          -- Position of first occurrence of `other' at or after `start_index'.
          -- If there is no occurrence Result will be an invalid index, usually 0 when lower is 1.
          --
@@ -1191,7 +1191,7 @@ feature {ANY} -- Other features:
          end
       end
 
-   first_substring_index (other: ABSTRACT_STRING): INTEGER is
+   first_substring_index (other: ABSTRACT_STRING): INTEGER
          -- Position of first occurrence of `other' at or after 1, 0 if none.
          --
          -- See also `substring_index'.
@@ -1204,7 +1204,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Splitting a STRING:
-   split: ARRAY[STRING] is
+   split: ARRAY[STRING]
          -- Split the string into an array of words. Uses `is_separator' of
          -- CHARACTER to find words. Gives Void or a non empty array.
          --
@@ -1221,7 +1221,7 @@ feature {ANY} -- Splitting a STRING:
          Result /= Void implies not Result.is_empty
       end
 
-   split_in (words: COLLECTION[STRING]) is
+   split_in (words: COLLECTION[STRING])
          -- Same jobs as `split' but result is appended in `words'.
          --
          -- See also `split'.
@@ -1264,12 +1264,12 @@ feature {ANY} -- Splitting a STRING:
       end
 
 feature {ANY} -- Other features:
-   new_iterator: ITERATOR[CHARACTER] is
+   new_iterator: ITERATOR[CHARACTER]
       do
          create {ITERATOR_ON_STRING} Result.make(Current)
       end
 
-   intern: FIXED_STRING is
+   intern: FIXED_STRING
          -- A shared version of this string.
       deferred
       ensure
@@ -1280,7 +1280,7 @@ feature {ANY} -- Other features:
       end
 
 feature {ANY} -- Interfacing with C string:
-   to_external: POINTER is
+   to_external: POINTER
              -- The address of a memory region containing the text of Current, useful to interact with the C language.
 
                  -- A NATIVELY_STORED_STRING implementation usually gives direct access
@@ -1300,7 +1300,7 @@ feature {ANY} -- Interfacing with C string:
       end
 
 feature {ANY} -- Other features here for ELKS compatibility:
-   same_string (other: ABSTRACT_STRING): BOOLEAN is
+   same_string (other: ABSTRACT_STRING): BOOLEAN
          -- (Here for ELKS compatibility.)
          -- Do `Current' and `other' have the same character sequence?
          -- Useful in proper descendants of STRING.
@@ -1310,7 +1310,7 @@ feature {ANY} -- Other features here for ELKS compatibility:
          Result := string.is_equal(other.string)
       end
 
-   string: STRING is
+   string: STRING
          -- (Here for ELKS compatibility.)
          -- New STRING having the same character sequence as `Current'.
          -- Useful in proper descendants of STRING.
@@ -1319,18 +1319,18 @@ feature {ANY} -- Other features here for ELKS compatibility:
       end
 
 feature {}
-   string_buffer: STRING is
+   string_buffer: STRING
          -- Private, temporary once buffer.
       once
          create Result.make(256)
       end
 
-   split_buffer: ARRAY[STRING] is
+   split_buffer: ARRAY[STRING]
       once
          create Result.with_capacity(4, 1)
       end
 
-   computed_hash_code: INTEGER is
+   computed_hash_code: INTEGER
       local
          i: INTEGER
       do
@@ -1347,7 +1347,7 @@ feature {}
          end
       end
 
-   interned: HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING], INTEGER] is
+   interned: HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING], INTEGER]
          -- Key: `hash_code'
          -- Item: interned string
       once
@@ -1355,7 +1355,7 @@ feature {}
       end
 
 feature {STRING_HANDLER}
-   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER) is
+   copy_slice_to_native (start_index, end_index: INTEGER; target: NATIVE_ARRAY[CHARACTER]; target_offset: INTEGER)
       require
          start_index >= lower
          end_index <= upper
@@ -1376,10 +1376,10 @@ feature {STRING_HANDLER}
       end
 
 feature {} -- The states of the finite state automaton used in `arg' feature
-   always_print_state: INTEGER is -1
-   normal_state: INTEGER is 0
-   after_delimiter_state: INTEGER is 1
-   after_brace_state: INTEGER is 2
+   always_print_state: INTEGER -1
+   normal_state: INTEGER 0
+   after_delimiter_state: INTEGER 1
+   after_brace_state: INTEGER 2
          -- Please note that we picked the same values used in MESSAGE_FORMATTER. It may also be written like
 
          -- "always_print_state, normal_state, after_delimiter_state, after_brace_state: INTEGER is unique"
@@ -1399,13 +1399,13 @@ invariant
 
 end -- class ABSTRACT_STRING
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

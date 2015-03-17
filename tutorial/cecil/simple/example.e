@@ -17,13 +17,13 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          values := {ARRAY[INTEGER] 1, << 1, 2, 3 >> }
          call_c_prog(Current)
       end
 
-   show_values is
+   show_values
       local
          i: INTEGER
       do
@@ -41,7 +41,7 @@ feature {ANY}
 feature {}
    values: ARRAY[INTEGER]
 
-   call_c_prog (current_object: like Current) is
+   call_c_prog (current_object: like Current)
       external "C"
       alias "c_prog"
       end

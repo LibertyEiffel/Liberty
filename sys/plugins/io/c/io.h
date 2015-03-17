@@ -43,8 +43,8 @@
 #define io_fread(b, n, f) (fread((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
 #define io_fwrite(b, n, f) (fwrite((void *)(b),(size_t)(1), (size_t)(n),(FILE*)(f)))
 #define io_feof(f) (feof(((FILE*)(f))))
-#define io_rename(o, n) (rename(((char*)(o)),((char*)(n))))
-#define io_remove(f) (remove(((char*)(f))))
+#define io_rename(o, n) (rename(((char*)(o)),((char*)(n))) == 0)
+#define io_remove(f) (remove(((char*)(f))) == 0)
 #define io_fseek(f, o) (fseek((FILE*)(f),(o),SEEK_SET))
 #define io_ftell(f) ((EIF_INTEGER_64)ftell((FILE*)(f)))
 
@@ -54,6 +54,6 @@
    extern int read_stdin(EIF_CHARACTER *buffer, int size);
 #endif
 
-extern void io_copy(char*source, char*target);
+extern int io_copy(char*source, char*target);
 extern int io_file_exists(char*source);
 extern int io_same_physical_file(char*path1,char*path2);

@@ -19,7 +19,7 @@ feature {ANY}
    node: BACKTRACKING_NODE
          -- the node to negate
 
-   make, set_node (value: BACKTRACKING_NODE) is
+   make, set_node (value: BACKTRACKING_NODE)
       require
          value_not_void: value /= Void
       do
@@ -29,7 +29,7 @@ feature {ANY}
          node_not_void: node /= Void
       end
 
-   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION) is
+   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION)
       do
          matcher.push_cut_point
          matcher.push_or(the_any_character_item)
@@ -39,13 +39,13 @@ feature {ANY}
 
 end -- class REGULAR_EXPRESSION_ITEM_NOT_THEN_ANY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

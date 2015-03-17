@@ -16,43 +16,56 @@ create {MANIFEST_STRING_INSPECTOR, INSPECT_STATEMENT}
    make_specialized
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := dot_precedence
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       local
          target_type: TYPE; fs: FEATURE_STAMP
       do
          target.short_target(type)
          target_type := target.resolve_in(type)
-         fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
-         target_type.get_feature_name(fs).short(type)
+         if feature_stamp = Void then
+            fs := type.search(feature_name)
+         else
+            fs := feature_stamp.resolve_static_binding_for(target.declaration_type, target_type)
+         end
+         if fs = Void then
+            error_handler.add_position(start_position)
+            error_handler.append(once "Feature ")
+            error_handler.append(feature_name.to_string)
+            error_handler.append(once " not found in type ")
+            error_handler.append(target_type.canonical_type_mark.written_mark)
+            error_handler.print_as_warning
+         else
+            target_type.get_feature_name(fs).short(type)
+         end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          short(type)
          short_printer.put_dot
       end
 
-   bracketed_pretty, pretty (indent_level: INTEGER) is
+   bracketed_pretty, pretty (indent_level: INTEGER)
       do
          target.pretty_target(indent_level)
          pretty_printer.put_string(feature_name.to_string)
       end
 
 feature {ANY}
-   accept (visitor: FUNCTION_CALL_0_VISITOR) is
+   accept (visitor: FUNCTION_CALL_0_VISITOR)
       do
          visitor.visit_function_call_0(Current)
       end
 
 feature {}
-   make (t: like target; fn: like feature_name) is
+   make (t: like target; fn: like feature_name)
       require
          t /= Void
          fn /= Void
@@ -64,7 +77,7 @@ feature {}
          feature_name = fn
       end
 
-   make_specialized (t: like target; type: TYPE; fn: like feature_name) is
+   make_specialized (t: like target; type: TYPE; fn: like feature_name)
       do
          make(t, fn)
          feature_stamp := type.search(fn)
@@ -82,9 +95,9 @@ end -- class FUNCTION_CALL_0
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

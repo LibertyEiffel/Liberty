@@ -114,7 +114,6 @@ feature {ANY} -- Type-system translations
                   -- "complex long double"
                   log("Unhandled complex type found at line @(1): @(2)%N",
                   <<an_argument.line.out, name>>)
-
                   last_error := unhandled_complex_type
                elseif name.has_substring(once "unsigned") then
                   -- check name.has_substring(once "int") end
@@ -287,7 +286,7 @@ invariant
    non_void_typedefs: typedefs /= Void
 
 end -- class TYPE_TRANSLATOR
--- Copyright 2008,2009 Paolo Redaelli
+-- Copyright 2008,2009,2014 Paolo Redaelli
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

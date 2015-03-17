@@ -5,7 +5,7 @@ class CLASS_CHECK
    --
    -- The `class_check' command.
    --
-   -- Note: actually, from the implementation point of view, doing "class_check my_class" is
+   -- Note: actually, from the implementation point of view, doing "class_check my_class"
    -- equivalent to run "short -all_features my_class > /dev/null".
    --
 
@@ -16,9 +16,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "class_check"
+   command_line_name: STRING "class_check"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: class_check [options] <ClassName>
 
       Option summary:
@@ -39,14 +39,14 @@ feature {ANY}
       ]"
 
 feature {}
-   make is
+   make
       do
          create {NULL_OUTPUT_STREAM} output
          start
          smart_eiffel.very_last_information
       end
 
-   parse_arguments is
+   parse_arguments
       local
          i: INTEGER; arg: STRING
       do
@@ -85,7 +85,14 @@ feature {}
          if version_flag then
             die_with_code(exit_success_code)
          end
-         root_class_names.append_traversable(ace.root_class_names)
+         from
+            ace.reset_roots
+         until
+            not ace.has_root
+         loop
+            root_class_names.add_last(ace.root_class_name)
+            ace.next_root
+         end
          if root_class_names.is_empty then
             fatal_bad_usage
          end
@@ -93,7 +100,7 @@ feature {}
          set_format(once "plain")
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
          -- Because of style options, this function always returns True.
          -- Futhermore, this function is used for non ACE mode too.
       do
@@ -115,7 +122,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the -version, -help, -no_warning, and -style_warning are%N%
+   valid_argument_for_ace_mode: STRING "Only the -version, -help, -no_warning, and -style_warning are%N%
       %allowed in ACE file mode.%N"
 
 end -- class CLASS_CHECK
@@ -130,9 +137,9 @@ end -- class CLASS_CHECK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

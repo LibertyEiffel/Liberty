@@ -11,24 +11,24 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          my_collection: COLLECTION[STRING]; my_list: LINKED_LIST[STRING]; my_set: HASHED_SET[STRING]
       do
          my_collection := {ARRAY[STRING] 1, << "Benedicte", "Lucien", "Marie" >> }
          create my_list.make
          -- Using an agent to fill `my_list' using `my_collection':
-         my_collection.do_all(agent my_list.add_last(?))
+         my_collection.for_each(agent my_list.add_last(?))
          create my_set.make
          -- Using an agent to fill `my_set' with `my_list':
-         my_list.do_all(agent my_set.add(?))
+         my_list.for_each(agent my_set.add(?))
          -- Using an agent to print `my_set':
-         my_set.do_all(agent print_item(?))
+         my_set.for_each(agent print_item(?))
       end
 
    counter: INTEGER
 
-   print_item (item: STRING) is
+   print_item (item: STRING)
       do
          counter := counter + 1
          inspect

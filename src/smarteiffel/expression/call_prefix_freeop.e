@@ -16,21 +16,21 @@ create {CALL_PREFIX}
    with
 
 feature {ANY}
-   precedence: INTEGER is 11
+   precedence: INTEGER 11
 
-   operator: STRING is
+   operator: STRING
       do
          Result := feature_name.to_string
       end
 
 feature {ANY}
-   accept (visitor: CALL_PREFIX_FREEOP_VISITOR) is
+   accept (visitor: CALL_PREFIX_FREEOP_VISITOR)
       do
          visitor.visit_call_prefix_freeop(Current)
       end
 
 feature {}
-   make (t: like target; pn: like feature_name) is
+   make (t: like target; pn: like feature_name)
       require
          t /= Void
          pn.is_free_operator
@@ -54,9 +54,9 @@ end -- class CALL_PREFIX_FREEOP
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

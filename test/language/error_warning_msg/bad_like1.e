@@ -12,17 +12,17 @@ create {}
 feature {}
    an_attribute: INTEGER
 
-   make is
+   make
       do
          an_attribute := a;
       end;
 
-   a: like b is
+   a: like b
       do
          Result := b;
       end;
 
-   b: like a is
+   b: like a
       do
          Result := a;
       end;

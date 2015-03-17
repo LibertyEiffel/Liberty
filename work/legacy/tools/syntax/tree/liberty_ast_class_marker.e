@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {}
-   first_keyword: FIXED_STRING is
+   first_keyword: FIXED_STRING
       local
          keyword: EIFFEL_TERMINAL_NODE
       do
@@ -30,31 +30,31 @@ feature {}
       end
 
 feature {LIBERTY_AST_HANDLER}
-   is_deferred: BOOLEAN is
+   is_deferred: BOOLEAN
       do
          Result := count = 2 and then first_keyword.is_equal(once "KW deferred")
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := count = 2 and then first_keyword.is_equal(once "KW expanded")
       end
 
-   is_separate: BOOLEAN is
+   is_separate: BOOLEAN
       do
          Result := count = 2 and then first_keyword.is_equal(once "KW separate")
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Class_Marker"
+   name: STRING "Class_Marker"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

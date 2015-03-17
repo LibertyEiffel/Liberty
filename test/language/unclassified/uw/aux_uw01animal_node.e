@@ -1,4 +1,4 @@
-indexing
+note
    description:
       "nodes representing animals"
    status:
@@ -23,7 +23,7 @@ create {ANY}
    make_simple, make_full
 
 feature {ANY}
-   make_simple (nam: STRING) is
+   make_simple (nam: STRING)
          -- set up node with name `nam'
       require
          good_name: nam /= Void and then nam.count > 0
@@ -31,7 +31,7 @@ feature {ANY}
          make_simple_yes_no(nam)
       end
 
-   make_full (y, n, p: AUX_UW01YES_NO_NODE; nam: STRING) is
+   make_full (y, n, p: AUX_UW01YES_NO_NODE; nam: STRING)
          -- set up node with name `nam', yes link `y',
          -- no link `n', and parent `p'
       require
@@ -40,25 +40,25 @@ feature {ANY}
          make_full_yes_no(y, n, p, nam)
       end
 
-   execute is
+   execute
          -- perform action
       do
          extra_io.print_multi({ARRAY[STRING] 1, << language.s4, name, language.s5 >> })
       end
 
-   yes_action is
+   yes_action
          -- the animal has been guessed correctly
       do
          io.put_string(language.s2)
       end
 
-   no_action is
+   no_action
          -- the animal is unknown
       do
          io.put_string(language.s3)
       end
 
-   read_answer is
+   read_answer
          -- ask question about animal
       do
          extra_io.read_yes_no(language.s6)

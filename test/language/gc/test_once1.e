@@ -7,19 +7,19 @@ create {}
    make, make2
 
 feature {ANY}
-   object: TEST_ONCE1 is
+   object: TEST_ONCE1
       once
          create Result.make2
       end
 
    access_count: INTEGER
 
-   make2 is
+   make2
       do
          access_count := access_count + 1
       end
 
-   make is
+   make
       local
          i: INTEGER; o: like Current; old_access_count: INTEGER
       do

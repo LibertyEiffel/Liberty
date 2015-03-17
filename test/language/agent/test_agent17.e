@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          f: FUNCTION[TUPLE[INTEGER, INTEGER], INTEGER]; d: REAL
       do
@@ -20,7 +20,7 @@ feature {ANY}
          assert(d = 6)
       end
 
-   multiply (i, j: INTEGER): INTEGER is
+   multiply (i, j: INTEGER): INTEGER
       do
          Result := i * j
       end

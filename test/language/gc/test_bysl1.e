@@ -8,12 +8,12 @@ create {}
    make
 
 feature {ANY}
-   array: ARRAY[STRING] is
+   array: ARRAY[STRING]
       once
          Result := {ARRAY[STRING] 1, << "one", once "two", "three", "four" >> }
       end
 
-   show is
+   show
       local
          i: INTEGER
       do
@@ -27,7 +27,7 @@ feature {ANY}
          end
       end
 
-   make is
+   make
       local
          i, j: INTEGER; s: STRING
       do

@@ -20,7 +20,7 @@ create {ANY}
    make
 
 feature {ANY}
-   registered_one (model: STRING): BOOLEAN is
+   registered_one (model: STRING): BOOLEAN
          -- Is the `model' _the_ already registered one? (i.e. True only if
          -- `model' has been returned by some previous `item' call).
       require
@@ -40,7 +40,7 @@ feature {ANY}
          end
       end
 
-   hashed_string (model: STRING): HASHED_STRING is
+   hashed_string (model: STRING): HASHED_STRING
       require
          model /= Void
       local
@@ -61,7 +61,7 @@ feature {ANY}
          Result.to_string.is_equal(model)
       end
 
-   string (model: STRING): STRING is
+   string (model: STRING): STRING
          -- Assuming that `model' is not the registered string,
          -- retrieve or create the aliased string.
          -- Note: the constraining require assertion is here to try to avoid
@@ -77,13 +77,13 @@ feature {ANY}
       end
 
 feature {ANY} -- Some common HASHED_STRING to be shared:
-   tuple_name: HASHED_STRING is
+   tuple_name: HASHED_STRING
       once
          Result := string_aliaser.hashed_string(as_tuple)
       end
 
 feature {COMPILE_TO_C}
-   echo_information is
+   echo_information
       do
          echo.put_string(once "Aliased STRINGs: ")
          echo.put_integer(memory.count)
@@ -91,26 +91,27 @@ feature {COMPILE_TO_C}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
-   hashed_string_buffer: HASHED_STRING is
+   hashed_string_buffer: HASHED_STRING
       once
          create Result.make(as_any, as_any.hash_code)
       end
 
-   create_hashed_string (aliased_string: STRING): HASHED_STRING is
+   create_hashed_string (aliased_string: STRING): HASHED_STRING
       do
          create Result.make(aliased_string, aliased_string.hash_code)
       end
 
-   memory: HASHED_SET[HASHED_STRING] is
+   memory: HASHED_SET[HASHED_STRING]
       once
          Result := {HASHED_SET[HASHED_STRING]
                       <<
                         create_hashed_string(as_any),
                         create_hashed_string(as_allocated_bytes),
+                        create_hashed_string(as_alloc_native_data),
                         create_hashed_string(as_array),
                         create_hashed_string(as_boolean),
                         create_hashed_string(as_character),
@@ -151,16 +152,19 @@ feature {}
                         create_hashed_string(as_string),
                         create_hashed_string(as_text_file_read),
                         create_hashed_string(as_text_file_write),
+                        create_hashed_string(as_thread_context),
+                        create_hashed_string(as_thread_lock),
                         create_hashed_string(as_tuple),
                         create_hashed_string(as_type),
                         create_hashed_string(as_typed_internals),
                         create_hashed_string(as_unicode_string),
                         create_hashed_string(as_weak_reference),
-                        -- Operator/Infix/Prefix list:
+                        -- Operator/Infix/Prefix/Alias list:
                         create_hashed_string(as_and),
                         create_hashed_string(as_and_then),
                         create_hashed_string(as_at),
                         create_hashed_string(as_backslash_backslash),
+                        create_hashed_string(as_brackets),
                         create_hashed_string(as_bit_and),
                         create_hashed_string(as_bit_clear),
                         create_hashed_string(as_bit_not),
@@ -184,6 +188,7 @@ feature {}
                         create_hashed_string(as_not),
                         create_hashed_string(as_or),
                         create_hashed_string(as_or_else),
+                        create_hashed_string(as_parentheses),
                         create_hashed_string(as_plus),
                         create_hashed_string(as_pow),
                         create_hashed_string(as_sharp_backslash_backslash),
@@ -243,31 +248,38 @@ feature {}
                         create_hashed_string(as_floor),
                         create_hashed_string(as_flush),
                         create_hashed_string(as_fourth),
+                        create_hashed_string(as_free_native_data),
                         create_hashed_string(as_from_external_sized_copy),
                         create_hashed_string(as_from_pointer),
                         create_hashed_string(as_full_collect),
                         create_hashed_string(as_generating_type),
-                        create_hashed_string(as_generation),
                         create_hashed_string(as_generator),
                         create_hashed_string(as_io),
                         create_hashed_string(as_integer_bits),
                         create_hashed_string(as_internals_from_generating_type),
                         create_hashed_string(as_is_basic_expanded_type),
                         create_hashed_string(as_is_deep_equal),
-                        create_hashed_string(as_is_equal),
-                        create_hashed_string(as_is_infinity),
                         create_hashed_string(as_is_empty),
+                        create_hashed_string(as_is_equal),
+                        create_hashed_string(as_is_finished),
+                        create_hashed_string(as_is_infinity),
+                        create_hashed_string(as_is_locked),
                         create_hashed_string(as_is_normal),
                         create_hashed_string(as_is_not_a_number),
                         create_hashed_string(as_is_not_null),
+                        create_hashed_string(as_is_started),
                         create_hashed_string(as_is_subnormal),
                         create_hashed_string(as_item),
                         create_hashed_string(as_last),
+                        create_hashed_string(as_lock),
                         create_hashed_string(as_lower),
                         create_hashed_string(as_low_8),
                         create_hashed_string(as_low_16),
                         create_hashed_string(as_low_32),
                         create_hashed_string(as_native_array_internals_from_generating_type),
+                        create_hashed_string(as_native_data),
+                        create_hashed_string(as_notify),
+                        create_hashed_string(as_notify_all),
                         create_hashed_string(as_make),
                         create_hashed_string(as_make_blank),
                         create_hashed_string(as_mark_item),
@@ -306,6 +318,7 @@ feature {}
                         create_hashed_string(as_real_bits),
                         create_hashed_string(as_realloc),
                         create_hashed_string(as_rounded),
+                        create_hashed_string(as_run),
                         create_hashed_string(as_second),
                         create_hashed_string(as_same_dynamic_type),
                         create_hashed_string(as_se_argc),
@@ -320,6 +333,7 @@ feature {}
                         create_hashed_string(as_standard_copy),
                         create_hashed_string(as_standard_is_equal),
                         create_hashed_string(as_standard_twin),
+                        create_hashed_string(as_status),
                         create_hashed_string(as_std_error),
                         create_hashed_string(as_std_input),
                         create_hashed_string(as_std_output),
@@ -327,6 +341,7 @@ feature {}
                         create_hashed_string(as_stdin),
                         create_hashed_string(as_stdout),
                         create_hashed_string(as_storage),
+                        create_hashed_string(as_timed_wait),
                         create_hashed_string(as_third),
                         create_hashed_string(as_to_character),
                         create_hashed_string(as_to_integer_8),
@@ -354,9 +369,11 @@ feature {}
                         create_hashed_string(as_type_item_generating_type),
                         create_hashed_string(as_type_item_generator),
                         create_hashed_string(as_type_item_is_expanded),
+                        create_hashed_string(as_unlock),
                         create_hashed_string(as_upper),
                         create_hashed_string(as_valid_generating_type_for_internals),
                         create_hashed_string(as_valid_generating_type_for_native_array_internals),
+                        create_hashed_string(as_wait),
                         create_hashed_string(as_with_capacity),
                         -- Other names:
                         create_hashed_string(as_arguments),
@@ -388,9 +405,9 @@ end -- class STRING_ALIASER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

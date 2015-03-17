@@ -15,7 +15,7 @@ create {ANY}
 feature {ANY}
    item: E_
 
-   set_item (an_item: like item) is
+   set_item (an_item: like item)
          -- Sets an item to this FOREIGN_TYPED_OBJECT.
          -- If `an_item' exists then `an_item' must match the `type'.
       require
@@ -27,13 +27,13 @@ feature {ANY}
       end
 
 feature {FOREIGN_PARAMETERS, FOREIGN_AGENT}
-   as_pointer: POINTER is
+   as_pointer: POINTER
       do
          Result := $item
       end
 
 feature {}
-   make (a_type: like type; an_item: like item) is
+   make (a_type: like type; an_item: like item)
          -- Create a FOREIGN_TYPED_OBJECT of `a_type' from `an_item'.
          -- If `an_item' exists then `a_type' and `an_item' must match.
       require
@@ -46,7 +46,7 @@ feature {}
          item = an_item
       end
 
-   with (an_item: like item) is
+   with (an_item: like item)
          -- Creates a FOREIGN_TYPED_OBJECT from `an_item'. The actual type of `an_item' is discovered (computed)
          -- at runtime. This requires CPU run-time; this cost may be avoided providing the correct type to `make'
          -- creation feature which requires - as a precondition - it to be the correct type.
@@ -64,7 +64,7 @@ feature {}
    end
 
 feature {ANY} -- Type querying
-   type_of (an_item: like item): like type is
+   type_of (an_item: like item): like type
          -- The type of `an_item'.
       local
          types: FOREIGN_TYPES
@@ -104,13 +104,13 @@ feature {ANY} -- Type querying
 
 end -- class FOREIGN_TYPED_OBJECT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

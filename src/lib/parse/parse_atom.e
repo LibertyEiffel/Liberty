@@ -14,7 +14,7 @@ feature {ANY}
    name: FIXED_STRING
    table: PARSE_TABLE[C_]
 
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       require
          table /= Void
       deferred
@@ -22,14 +22,14 @@ feature {ANY}
          must_be_coherent: Result
       end
 
-   pretty_print_on (stream: OUTPUT_STREAM) is
+   pretty_print_on (stream: OUTPUT_STREAM)
       require
          stream.is_connected
       deferred
       end
 
 feature {PARSE_TABLE}
-   set (a_name: ABSTRACT_STRING; a_table: like table) is
+   set (a_name: ABSTRACT_STRING; a_table: like table)
       require
          name = Void
          table = Void
@@ -43,7 +43,7 @@ feature {PARSE_TABLE}
          table = a_table
       end
 
-   set_table (a_table: like table) is
+   set_table (a_table: like table)
       require
          a_table /= Void
       do
@@ -52,14 +52,14 @@ feature {PARSE_TABLE}
          table = a_table
       end
 
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       require
          is_coherent
       deferred
       end
 
 feature {PARSER_FACET}
-   parse (context: C_): TRISTATE is
+   parse (context: C_): TRISTATE
          -- The Result is `yes' if the parsing succeeded, `no' if there was a syntax error, or `maybe' if the
          -- parse could complete with some more text.
       require
@@ -71,7 +71,7 @@ feature {PARSER_FACET}
       end
 
 feature {}
-   add_error_position (error: STRING; buffer: MINI_PARSER_BUFFER) is
+   add_error_position (error: STRING; buffer: MINI_PARSER_BUFFER)
       local
          n, l, c: INTEGER
       do
@@ -100,7 +100,7 @@ feature {}
          c.append_in(error)
       end
 
-   print_error_position (o: OUTPUT_STREAM; buffer: MINI_PARSER_BUFFER) is
+   print_error_position (o: OUTPUT_STREAM; buffer: MINI_PARSER_BUFFER)
       local
          s: STRING
       do
@@ -112,13 +112,13 @@ feature {}
 
 end -- class PARSE_ATOM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

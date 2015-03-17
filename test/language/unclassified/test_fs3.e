@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_FS3_A[AUX_FS3_C]; c: AUX_FS3_C
       do
@@ -19,7 +19,7 @@ feature {ANY}
          assert(c.aux_fs3_c_run)
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

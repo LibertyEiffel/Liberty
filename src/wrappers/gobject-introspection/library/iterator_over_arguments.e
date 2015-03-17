@@ -1,8 +1,8 @@
 class ITERATOR_OVER_ARGUMENTS
 inherit ITERATOR[GI_ARG_INFO]
-creation {GI_CALLABLE_INFO} from_callable
+create {GI_CALLABLE_INFO} from_callable
 feature {} -- Creation
-	from_callable (a_callable: GI_CALLABLE_INFO) is
+	from_callable (a_callable: GI_CALLABLE_INFO)
 	require a_callable/=Void
 	do
 		callable:=a_callable
@@ -10,22 +10,22 @@ feature {} -- Creation
 	end
 
 feature {ANY}
-	start is
+	start
 	do
 		i:=callable.lower
 	end
 
-	item: GI_ARG_INFO is
+	item: GI_ARG_INFO
 		do
 			Result := callable.item(i)
 		end
 
-	is_off: BOOLEAN is 
+	is_off: BOOLEAN 
 	do
 		Result:=callable.valid_index(i)
 	end
 
-	next is
+	next
 	do
 		i:=i+1
 	end
@@ -35,11 +35,11 @@ feature {}
 	i: INTEGER	
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

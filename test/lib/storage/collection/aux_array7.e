@@ -6,7 +6,7 @@ expanded class AUX_ARRAY7
 feature {ANY}
    x, y, z: INTEGER
 
-   set (a, b, c: INTEGER) is
+   set (a, b, c: INTEGER)
       do
          x := a
          y := b

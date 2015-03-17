@@ -14,12 +14,12 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := capacity = other.capacity
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          set_capacity(other.capacity)
       end
@@ -27,7 +27,7 @@ feature {ANY}
 feature {STRING_RECYCLING_POOL, STRING_RECYCLING_ITEM, STRING_RECYCLING_ITEM_SORTER}
    capacity: INTEGER
 
-   item: STRING is
+   item: STRING
          -- The STRING item. May become Void if the GC decides so.
       do
          if item_memory /= Void then
@@ -35,7 +35,7 @@ feature {STRING_RECYCLING_POOL, STRING_RECYCLING_ITEM, STRING_RECYCLING_ITEM_SOR
          end
       end
 
-   set_item (a_item: like item) is
+   set_item (a_item: like item)
          -- Stores the STRING as being reusable. The GC may remove it afterwards.
       require
          a_item = Void or else a_item.is_empty
@@ -56,7 +56,7 @@ feature {STRING_RECYCLING_POOL, STRING_RECYCLING_ITEM, STRING_RECYCLING_ITEM_SOR
          item = a_item
       end
 
-   set_capacity (a_capacity: like capacity) is
+   set_capacity (a_capacity: like capacity)
          -- Sets the capacity. Useful for array sorting and element comparison. Should not be used when a
          -- STRING is stored.
       require
@@ -78,13 +78,13 @@ invariant
 
 end -- class STRING_RECYCLING_ITEM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

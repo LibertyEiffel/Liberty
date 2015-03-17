@@ -8,12 +8,12 @@ inherit
 feature {ANY}
    expr: EXPR
 
-   make (e: EXPR) is
+   make (e: EXPR)
       do
          expr := e
       end
 
-   get_items (collector: ITEM_COLLECTOR) is
+   get_items (collector: ITEM_COLLECTOR)
       do
          expr.get_items(collector)
       end

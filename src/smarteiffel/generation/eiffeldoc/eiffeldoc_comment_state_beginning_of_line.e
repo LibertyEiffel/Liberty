@@ -13,7 +13,7 @@ create {EIFFELDOC_CONTEXT}
    make
 
 feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
-   can_handle (comment: STRING; offset: INTEGER): BOOLEAN is
+   can_handle (comment: STRING; offset: INTEGER): BOOLEAN
       do
          Result := offset = comment.lower
             or else (offset <= comment.upper
@@ -24,7 +24,7 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER is
+   handle (comment: STRING; offset: INTEGER; for_feature: ANONYMOUS_FEATURE; states: STACK[EIFFELDOC_COMMENT_STATE]): INTEGER
       require else
          can_handle(comment, offset) -- To handle empty comments
       local
@@ -78,25 +78,25 @@ feature {EIFFELDOC_COMMENT_WRITER, EIFFELDOC_COMMENT_STATE}
          end
       end
 
-   abort (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   abort (states: STACK[EIFFELDOC_COMMENT_STATE])
       do
          html.close_div
          states.pop
       end
 
-   handle_first: BOOLEAN is False
+   handle_first: BOOLEAN False
 
 feature {}
    skipped: INTEGER
 
-   make (a_context: like context) is
+   make (a_context: like context)
       require
          a_context /= Void
       do
          context := a_context
       end
 
-   close_children (states: STACK[EIFFELDOC_COMMENT_STATE]) is
+   close_children (states: STACK[EIFFELDOC_COMMENT_STATE])
          -- Allow pending constructs to close gracefully
       do
          from

@@ -9,7 +9,7 @@ inherit ANY undefine is_equal, copy end
 		-- TODO: insert typedefs class
 feature {} -- External calls
 
-	dladdr (an_address: POINTER; an_info: POINTER): INTEGER_32 is
+	dladdr (an_address: POINTER; an_info: POINTER): INTEGER_32
  		-- dladdr (node at line 14)
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlopen (a_file: POINTER; a_mode: INTEGER_32): POINTER is
+	dlopen (a_file: POINTER; a_mode: INTEGER_32): POINTER
  		-- dlopen (node at line 64)
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dladdr1 (an_address: POINTER; an_info: POINTER; an_extra_info: POINTER; a_flags: INTEGER_32): INTEGER_32 is
+	dladdr1 (an_address: POINTER; an_info: POINTER; an_extra_info: POINTER; a_flags: INTEGER_32): INTEGER_32
  		-- dladdr1 (node at line 104)
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlinfo (a_handle: POINTER; a_request: INTEGER_32; an_arg: POINTER): INTEGER_32 is
+	dlinfo (a_handle: POINTER; a_request: INTEGER_32; an_arg: POINTER): INTEGER_32
  		-- dlinfo (node at line 256)
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlmopen (a_nsid: INTEGER_32; a_file: POINTER; a_mode: INTEGER_32): POINTER is
+	dlmopen (a_nsid: INTEGER_32; a_file: POINTER; a_mode: INTEGER_32): POINTER
  		-- dlmopen (node at line 262)
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlvsym (a_handle: POINTER; a_name: POINTER; a_version: POINTER): POINTER is
+	dlvsym (a_handle: POINTER; a_name: POINTER; a_version: POINTER): POINTER
  		-- dlvsym (node at line 288)
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlerror: POINTER is
+	dlerror: POINTER
  		-- dlerror (node at line 365)
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlsym (a_handle: POINTER; a_name: POINTER): POINTER is
+	dlsym (a_handle: POINTER; a_name: POINTER): POINTER
  		-- dlsym (node at line 375)
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dlclose (a_handle: POINTER): INTEGER_32 is
+	dlclose (a_handle: POINTER): INTEGER_32
  		-- dlclose (node at line 410)
 		external "plug_in"
 		alias "{

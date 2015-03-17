@@ -25,11 +25,11 @@ create {}
    make
 
 feature {ANY}
-   a is do end
-   b is do end
+   a do end
+   b do end
 
 feature {}
-   make is
+   make
       do
          a
          b

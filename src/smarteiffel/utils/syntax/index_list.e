@@ -8,52 +8,56 @@ class INDEX_LIST
 
 inherit
    VISITABLE
+
 insert
    GLOBALS
 
-create {CLASS_TEXT}
+create {INDEXINGABLE}
    make
 
 feature {ANY}
-   pretty is
+   pretty (indent_level: INTEGER; a_spec: STRING)
       local
-         i: INTEGER
+         i: INTEGER; header: BOOLEAN; e: SAFE_EQUAL[STRING]
       do
-         pretty_printer.set_indent_level(0)
-         pretty_printer.put_string(once "indexing")
-         pretty_printer.set_indent_level(1)
          from
             i := list.lower
          until
             i > list.upper
          loop
-            list.item(i).pretty
+            if e.test(a_spec, list.item(i).spec) then
+               if not header then
+                  pretty_printer.set_indent_level(indent_level)
+                  pretty_printer.put_string(once "note")
+                  header := True
+               end
+               list.item(i).pretty(indent_level)
+            end
             i := i + 1
          end
-         pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: INDEX_LIST_VISITOR) is
+   accept (visitor: INDEX_LIST_VISITOR)
       do
          visitor.visit_index_list(Current)
       end
 
 feature {INDEX_LIST_VISITOR}
-   list: ARRAY[INDEX_CLAUSE]
+   list: FAST_ARRAY[INDEX_CLAUSE]
 
 feature {}
-   make (first: INDEX_CLAUSE) is
+   make (first: INDEX_CLAUSE)
       require
          first /= Void
       do
-         create list.with_capacity(4, 1)
+         create list.with_capacity(4)
          list.add_last(first)
       ensure
          list.first = first
       end
 
-feature {CLASS_TEXT}
-   add_last (ic: INDEX_CLAUSE) is
+feature {INDEXINGABLE}
+   add_last (ic: INDEX_CLAUSE)
       require
          ic /= Void
       do
@@ -77,9 +81,9 @@ end -- class INDEX_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -24,27 +24,27 @@ feature {ANY}
    forgotten: FAST_ARRAY[EIFFEL_NODE]
          -- used when this node is in a EIFFEL_LIST_NODE and nodes are between this node and the next one
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
          -- the name of the node in the grammar
       deferred
       ensure
          name /= Void
       end
 
-   source_line: INTEGER is
+   source_line: INTEGER
       deferred
       end
 
-   source_column: INTEGER is
+   source_column: INTEGER
       deferred
       end
 
-   source_index: INTEGER is
+   source_index: INTEGER
       deferred
       end
 
 feature {EIFFEL_GRAMMAR}
-   set_forgotten (a_forgotten: like forgotten) is
+   set_forgotten (a_forgotten: like forgotten)
       do
          forgotten := a_forgotten
       ensure
@@ -52,19 +52,19 @@ feature {EIFFEL_GRAMMAR}
       end
 
 feature {EIFFEL_NODE_HANDLER} -- Basic operations
-   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   display (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
          -- Display the node in a tree fashion in the provided `output' stream
       deferred
       end
 
-   generate (o: OUTPUT_STREAM) is
+   generate (o: OUTPUT_STREAM)
          -- Generate the node exactly as it was written, including blanks and `forgotten' nodes, onto the
          -- provided `output' stream
       deferred
       end
 
 feature {EIFFEL_NODE_HANDLER}
-   generate_forgotten (o: OUTPUT_STREAM) is
+   generate_forgotten (o: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -81,7 +81,7 @@ feature {EIFFEL_NODE_HANDLER}
       end
 
 feature {EIFFEL_NON_TERMINAL_NODE, EIFFEL_LIST_NODE}
-   set_parent (a_parent: like parent) is
+   set_parent (a_parent: like parent)
       require
          a_parent /= Void
          parent = Void
@@ -92,7 +92,7 @@ feature {EIFFEL_NON_TERMINAL_NODE, EIFFEL_LIST_NODE}
       end
 
 feature {}
-   do_indent (output: OUTPUT_STREAM; indent: INTEGER; p: STRING) is
+   do_indent (output: OUTPUT_STREAM; indent: INTEGER; p: STRING)
       local
          i: INTEGER
       do
@@ -111,13 +111,13 @@ feature {}
 
 end -- class EIFFEL_NODE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

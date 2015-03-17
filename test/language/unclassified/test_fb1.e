@@ -13,7 +13,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          gen: AUX_FB1_GEN[AUX_FB1_EXP]; exp: AUX_FB1_EXP
       do

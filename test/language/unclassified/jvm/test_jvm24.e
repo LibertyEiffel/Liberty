@@ -7,13 +7,13 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          foo(28, 27)
       end
 
 feature {}
-   foo (i1: INTEGER; i2: INTEGER) is
+   foo (i1: INTEGER; i2: INTEGER)
       do
          if i1 /= 28 then
             io.put_string("TEST_JVM24: ERROR Test #1%N")

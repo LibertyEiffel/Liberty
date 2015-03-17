@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          done: BOOLEAN
       do
@@ -22,7 +22,7 @@ feature {ANY}
          retry
       end
 
-   do_it_bad is
+   do_it_bad
       local
          str: STRING; i: INTEGER
       do

@@ -7,56 +7,56 @@ inherit
    VISITOR
 
 feature {PACKRAT_NON_TERMINAL}
-   visit_non_terminal (visited: PACKRAT_NON_TERMINAL) is
+   visit_non_terminal (visited: PACKRAT_NON_TERMINAL)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_TERMINAL}
-   visit_terminal (visited: PACKRAT_TERMINAL) is
+   visit_terminal (visited: PACKRAT_TERMINAL)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_AND}
-   visit_and (visited: PACKRAT_AND) is
+   visit_and (visited: PACKRAT_AND)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_CHOICE}
-   visit_choice (visited: PACKRAT_CHOICE) is
+   visit_choice (visited: PACKRAT_CHOICE)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_NOT}
-   visit_not (visited: PACKRAT_NOT) is
+   visit_not (visited: PACKRAT_NOT)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_REFERENCE}
-   visit_reference (visited: PACKRAT_REFERENCE) is
+   visit_reference (visited: PACKRAT_REFERENCE)
       require
          visited /= Void
       deferred
       end
 
 feature {PACKRAT_SEQUENCE}
-   visit_sequence (visited: PACKRAT_SEQUENCE) is
+   visit_sequence (visited: PACKRAT_SEQUENCE)
       require
          visited /= Void
       deferred
       end
 
 feature {}
-   accept_atom (a_atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT]) is
+   accept_atom (a_atom: PARSE_ATOM[PACKRAT_PARSE_CONTEXT])
       local
          atom: PACKRAT_ATOM
       do
@@ -66,13 +66,13 @@ feature {}
 
 end -- class PACKRAT_VISITOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

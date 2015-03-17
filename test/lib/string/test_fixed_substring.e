@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          fixed := source.intern
          substring := fixed.substring(8, 13)
@@ -20,7 +20,7 @@ feature {ANY}
          assert("str".is_equal(subsubstring))
       end
 
-   source: STRING is "Source string...."
+   source: STRING "Source string...."
    fixed: FIXED_STRING
    substring: FIXED_STRING
    subsubstring: FIXED_STRING

@@ -4,7 +4,7 @@
 class AUX_WEAK_REF02B
 
 feature {ANY}
-   do_something is
+   do_something
       do
          dummy := -12 + dummy
       end

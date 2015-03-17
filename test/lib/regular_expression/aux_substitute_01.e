@@ -11,7 +11,7 @@ inherit
       end
 
 feature {ANY}
-   default_create is
+   default_create
       do
          pattern := once "aa"
          create substrings_first_indexes.make(0, 2)
@@ -19,7 +19,7 @@ feature {ANY}
          substitution_pattern_ready := False
       end
 
-   match_from (text: STRING; first_index: INTEGER): BOOLEAN is
+   match_from (text: STRING; first_index: INTEGER): BOOLEAN
       local
          pos, i: INTEGER
       do
@@ -38,7 +38,7 @@ feature {ANY}
          end
       end
 
-   can_match: BOOLEAN is True
+   can_match: BOOLEAN True
 
    pattern: STRING
 

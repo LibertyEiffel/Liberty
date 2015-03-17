@@ -1,7 +1,7 @@
 -- This file is part of SmartEiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class AUX_GENERIC9[E1->INTEGER, E2->INTEGER]
+class AUX_GENERIC9[E1_->INTEGER, E2_->INTEGER]
 end -- class AUX_GENERIC9
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

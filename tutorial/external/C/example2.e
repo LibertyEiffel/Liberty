@@ -17,7 +17,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          v: INTEGER
       do
@@ -84,12 +84,12 @@ feature {ANY}
    integer_attribute: INTEGER
 
 feature {}
-   write_integer_attribute (integer_pointer: POINTER) is
+   write_integer_attribute (integer_pointer: POINTER)
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   procedure_1 is
+   procedure_1
          -- A procedure which only needs `Current'.
       do
          io.put_string("From `procedure_1' :%N")
@@ -97,23 +97,23 @@ feature {}
          io.put_new_line
       end
 
-   call_back_1 (c: like Current; a_routine: POINTER) is
+   call_back_1 (c: like Current; a_routine: POINTER)
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   function_1: INTEGER is
+   function_1: INTEGER
          -- A function which only needs `Current'.
       do
          Result := integer_attribute + 1
       end
 
-   call_back_2 (c: like Current; a_routine: POINTER): INTEGER is
+   call_back_2 (c: like Current; a_routine: POINTER): INTEGER
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   function_2 (s: STRING): INTEGER is
+   function_2 (s: STRING): INTEGER
          -- A function which needs `Current' and a STRING as argument.
       require
          s.count > 0
@@ -122,12 +122,12 @@ feature {}
          Result := integer_attribute + s.count
       end
 
-   call_back_3 (c: like Current; a_routine: POINTER; str: STRING): INTEGER is
+   call_back_3 (c: like Current; a_routine: POINTER; str: STRING): INTEGER
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   function_3 (s: STRING; c: CHARACTER): INTEGER is
+   function_3 (s: STRING; c: CHARACTER): INTEGER
          -- A function which needs two arguments.
       require
          s.count > 0
@@ -138,12 +138,12 @@ feature {}
          Result := s.count
       end
 
-   call_back_4 (c: like Current; a_routine: POINTER; str: STRING): INTEGER is
+   call_back_4 (c: like Current; a_routine: POINTER; str: STRING): INTEGER
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   routine5 (other: like Current) is
+   routine5 (other: like Current)
          -- A procedure.
       require
          other = Current
@@ -151,33 +151,33 @@ feature {}
          io.put_integer(integer_attribute + other.integer_attribute)
       end
 
-   call_back_5 (c: like Current; a_routine: POINTER) is
+   call_back_5 (c: like Current; a_routine: POINTER)
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   once_routine6 is
+   once_routine6
       once
          integer_attribute := integer_attribute + 4
          io.put_string("Only once routine6.%N")
       end
 
-   call_back_6 (c: like Current; a_routine: POINTER) is
+   call_back_6 (c: like Current; a_routine: POINTER)
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   once_routine7: INTEGER is
+   once_routine7: INTEGER
       once
          Result := integer_attribute + 4
       end
 
-   call_back_7 (c: like Current; a_routine: POINTER): INTEGER is
+   call_back_7 (c: like Current; a_routine: POINTER): INTEGER
          -- (Corresponding C function defined in c_glue2.c)
       external "C"
       end
 
-   once_routine8: INTEGER is
+   once_routine8: INTEGER
          -- Just to check that such a pre-computable once
          -- function causes no pain.
       once

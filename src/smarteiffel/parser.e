@@ -24,7 +24,7 @@ feature {}
    cc: CHARACTER
          -- Current character in the `current_line'.
 
-   pos (l, c: INTEGER): POSITION is
+   pos (l, c: INTEGER): POSITION
          -- Initialize a new one at line `l' and column `c'.
       require
          l >= 1
@@ -32,14 +32,14 @@ feature {}
       deferred
       end
 
-   end_of_text: CHARACTER is '%/0/'
+   end_of_text: CHARACTER '%/0/'
          -- Flag of the end of the `text'.
 
-   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string: STRING; source_view: STRING) is
+   update_last_manifest_string (p: POSITION; once_flag, unicode_flag: BOOLEAN; string: STRING; source_view: STRING)
       deferred
       end
 
-   may_expand_var is
+   may_expand_var
          -- Expand an environment variable in curly brackets into
          -- buffer, if variable expansion is active. Else just append
          -- '$' to buffer.
@@ -48,22 +48,22 @@ feature {}
 
    last_manifest_string: MANIFEST_STRING
 
-   S_somewhere_inside_manifest_string:   INTEGER_8 is 0
-   S_just_after_a_percent_character:     INTEGER_8 is 1
-   S_extended_form_at_end_of_line:       INTEGER_8 is 2
-   S_extended_form_at_beginning_of_line: INTEGER_8 is 3
-   S_inside_ascii_code_after_slash:      INTEGER_8 is 4
-   S_inside_ascii_code_after_slash_0x:   INTEGER_8 is 5
-   S_inside_unicode_after_slash_ux:      INTEGER_8 is 6
-   S_after_multiline_open_square:        INTEGER_8 is 7
-   S_after_multiline_open_curly:         INTEGER_8 is 8
-   S_inside_multiline_closing:           INTEGER_8 is 9
+   S_somewhere_inside_manifest_string:   INTEGER_8 0
+   S_just_after_a_percent_character:     INTEGER_8 1
+   S_extended_form_at_end_of_line:       INTEGER_8 2
+   S_extended_form_at_beginning_of_line: INTEGER_8 3
+   S_inside_ascii_code_after_slash:      INTEGER_8 4
+   S_inside_ascii_code_after_slash_0x:   INTEGER_8 5
+   S_inside_unicode_after_slash_ux:      INTEGER_8 6
+   S_after_multiline_open_square:        INTEGER_8 7
+   S_after_multiline_open_curly:         INTEGER_8 8
+   S_inside_multiline_closing:           INTEGER_8 9
    --
-   S_end_of_correct_manifest_string:     INTEGER_8 is 10
-   S_error_in_manifest_string:           INTEGER_8 is 11
+   S_end_of_correct_manifest_string:     INTEGER_8 10
+   S_error_in_manifest_string:           INTEGER_8 11
 
 
-   a_manifest_string (skip_comments_flag: BOOLEAN): BOOLEAN is
+   a_manifest_string (skip_comments_flag: BOOLEAN): BOOLEAN
       local
          state, l, c: INTEGER; once_flag, unicode_flag, stop, source_view_flag: BOOLEAN
          ascii_code, unicode, digit_count: INTEGER; source_view: STRING
@@ -461,17 +461,17 @@ feature {}
          end
       end
 
-   buffer: STRING is
+   buffer: STRING
       once
          create Result.make(80)
       end
 
-   unicode_string_buffer: UNICODE_STRING is
+   unicode_string_buffer: UNICODE_STRING
       once
          create Result.make_empty
       end
 
-   go_back_at (l, c: INTEGER) is
+   go_back_at (l, c: INTEGER)
          -- Go back to some existing line `l', and column `c'.
       require
          l >= 1
@@ -501,19 +501,26 @@ feature {}
    drop_comments: BOOLEAN
          -- When objects COMMENT are not necessary.
 
-   skip_comments is
+   skipped_new_line: BOOLEAN
+         -- True when the last skip_comments skipped a new-line
+
+   skip_comments
          -- Skip separators and comments if any. Unless `drop_comments',
          -- comments are stored in `last_comment'.
       local
          sp: POSITION; stop: BOOLEAN
       do
          from
+            skipped_new_line := False
          until
             stop
          loop
             inspect
                cc
-            when '%N', '%R', '%F', ' ', '%T' then
+            when '%N', '%R' then
+               skipped_new_line := True
+               next_char
+            when '%F', ' ', '%T' then
                next_char
             when '-' then
                next_char
@@ -560,7 +567,7 @@ feature {}
          end
       end
 
-   next_char is
+   next_char
       do
          if column < current_line.count then
             column := column + 1
@@ -586,7 +593,7 @@ feature {}
          -- To store beginning position of : `a_keyword', `a_integer',
          -- `a_real', `skip1', `skip2' and `skip1unless2'.
 
-   a_keyword (keyword: STRING): BOOLEAN is
+   a_keyword (keyword: STRING): BOOLEAN
          -- Look for a `keyword' beginning strictly at current position, then,
          -- `skip_comment' is automatically called. A keyword is never followed
          -- by a character of this set: {'A'..'Z','a'..'z','0'..'9','_'}.
@@ -634,12 +641,13 @@ feature {}
                   Result := True
                   cc := current_line.item(i)
                   column := i
+                  skip_comments
                end
             end
          end
       end
 
-   skip1 (char: CHARACTER): BOOLEAN is
+   skip1 (char: CHARACTER): BOOLEAN
       do
          if char = cc then
             start_line := line
@@ -650,12 +658,12 @@ feature {}
          end
       end
 
-   current_position: POSITION is
+   current_position: POSITION
       do
          Result := pos(line, column)
       end
 
-   lcs: STRING is
+   lcs: STRING
          -- Last Comment String.
       once
          create Result.make(80)
@@ -664,91 +672,93 @@ feature {}
    token_buffer: TOKEN_BUFFER
          -- The temporary buffer for some name.
 
-   em1: STRING is "Underscore in fractionnal part must group 3 digits."
+   em1: STRING "Underscore in fractionnal part must group 3 digits."
 
-   em2: STRING is "Right hand side expression of := assignment expected here."
+   em2: STRING "Right hand side expression of := assignment expected here."
 
-   em3: STRING is "Index value expected (%"indexing ...%")."
+   em3: STRING "Index value expected (%"indexing ...%")."
 
-   em4: STRING is "Error in inspect."
+   em4: STRING "Error in inspect."
 
-   em5: STRING is "Added %",%"."
+   em5: STRING "Added %",%"."
 
-   em6: STRING is "Added %";%"."
+   em6: STRING "Added %";%"."
 
-   em7: STRING is "Unexpected comma (deleted)."
+   em7: STRING "Unexpected comma (deleted)."
 
-   em8: STRING is "Unexpected new line in manifest string."
+   em8: STRING "Unexpected new line in manifest string."
 
-   em9: STRING is "Underscore in number must group exactly 3 digits."
+   em9: STRING "Underscore in number must group exactly 3 digits."
 
-   em10: STRING is "Right hand side expression of ::= assignment expected here."
+   em10: STRING "Right hand side expression of ::= assignment expected here."
 
-   em11: STRING is "Bad clients list."
+   em11: STRING "Bad clients list."
 
-   em12: STRING is "Deleted extra comma."
+   em12: STRING "Deleted extra comma."
 
-   em13: STRING is "Deleted extra separator."
+   em13: STRING "Deleted extra separator."
 
-   em14: STRING is "Variable `Result' is valid only inside a function."
+   em14: STRING "Variable `Result' is valid only inside a function."
 
-   em16: STRING is "Type mark expected."
+   em16: STRING "Type mark expected."
 
-   em17: STRING is "Unexpected character."
+   em17: STRING "Unexpected character."
 
-   em18: STRING is "Useless keyword deleted."
+   em18: STRING "Useless keyword deleted."
 
-   em19: STRING is "Added missing brackets to enclose the previous %"once%" manifest STRING."
+   em19: STRING "Added missing brackets to enclose the previous %"once%" manifest STRING."
 
-   em20: STRING is "Right hand side expression of ?= assignment expected here."
+   em20: STRING "Right hand side expression of ?= assignment expected here."
 
-   em21: STRING is "Expression expected after assignment test %"?:=%"."
+   em21: STRING "Expression expected after assignment test %"?:=%"."
 
-   em22: STRING is "Bad creation/create (writable expected)."
+   em22: STRING "Bad creation/create (writable expected)."
 
-   em23: STRING is "Bad creation/create (procedure name expected)."
+   em23: STRING "Bad creation/create (procedure name expected)."
 
-   em24: STRING is "Deleted extra semi-colon."
+   em24: STRING "Deleted extra semi-colon."
 
-   em26: STRING is "Same identifier appears twice (local/formal)."
+   em26: STRING "Same identifier appears twice (local/formal)."
 
-   em27: STRING is "Added %"(%"."
+   em26_2: STRING "Same identifier appears twice (local/closure)."
 
-   em28: STRING is "Added %")%"."
+   em27: STRING "Added %"(%"."
 
-   em29: STRING is "Added %":%"."
+   em28: STRING "Added %")%"."
 
-   em30: STRING is "Expected %"[%" (to start generic argument list)."
+   em29: STRING "Added %":%"."
 
-   em31: STRING is "Expected %"]%" (to finish generic argument list)."
+   em30: STRING "Expected %"[%" (to start generic argument list)."
 
-   em32: STRING is "Type mark expected."
+   em31: STRING "Expected %"]%" (to finish generic argument list)."
 
-   em34: STRING is "Bad agent (call expected)."
+   em32: STRING "Type mark expected."
 
-   em36: STRING is "Closing %"}%" expected."
+   em34: STRING "Bad agent (call expected)."
 
-   em37: STRING is "Unknown special character."
+   em36: STRING "Closing %"}%" expected."
 
-   em38: STRING is "Unexpected character in decimal ascii code."
+   em37: STRING "Unknown special character."
 
-   em39: STRING is "Bad (empty?) ascii code."
+   em38: STRING "Unexpected character in decimal ascii code."
 
-   em40: STRING is "Decimal CHARACTER code out of range."
+   em39: STRING "Bad (empty?) ascii code."
 
-   em41: STRING is "Error inside multi-line manifest string."
+   em40: STRING "Decimal CHARACTER code out of range."
 
-   em42: STRING is "Extra blank or tab character removed in multi-line %
+   em41: STRING "Error inside multi-line manifest string."
+
+   em42: STRING "Extra blank or tab character removed in multi-line %
          %manifest string."
 
-   em43: STRING is "Invalid free operator (the last character must be %
+   em43: STRING "Invalid free operator (the last character must be %
          %a member of this +-*/\=<>@#|& character list.)."
 
-   em44: STRING is "Invalid free operator. (This character cannot be used.)"
+   em44: STRING "Invalid free operator. (This character cannot be used.)"
 
-   em45: STRING is "Unexpected character in hexadecimal ascii code."
+   em45: STRING "Unexpected character in hexadecimal ascii code."
 
-   em46: STRING is "Unexpected character in hexadecimal unicode."
+   em46: STRING "Unexpected character in hexadecimal unicode."
 
 end -- class PARSER
 --
@@ -762,9 +772,9 @@ end -- class PARSER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

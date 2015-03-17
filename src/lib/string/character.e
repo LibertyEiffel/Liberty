@@ -19,7 +19,7 @@ insert
       end
 
 feature {ANY}
-   code: INTEGER_16 is
+   code: INTEGER_16
          -- ASCII code of Current. (No Sign-extended conversion.)
          --
          -- See also `to_integer_8'.
@@ -28,20 +28,20 @@ feature {ANY}
          Result.in_range(Minimum_character_code, Maximum_character_code)
       end
 
-   to_integer_8: INTEGER_8 is
+   to_integer_8: INTEGER_8
          -- Sign-extended conversion.
          --
          -- See also `code'.
       external "built_in"
       end
 
-   to_integer: INTEGER_8 is
+   to_integer: INTEGER_8
       obsolete "Now use `to_integer_8' instead (march 2006)."
       do
          Result := to_integer_8
       end
 
-   infix "<" (other: CHARACTER): BOOLEAN is
+   infix "<" (other: CHARACTER): BOOLEAN
          -- Comparison using `code'.
       do
          Result := code < other.code
@@ -49,25 +49,25 @@ feature {ANY}
          Result = (code < other.code)
       end
 
-   infix "<=" (other: CHARACTER): BOOLEAN is
+   infix "<=" (other: CHARACTER): BOOLEAN
          -- Comparison using `code'.
       do
          Result := code <= other.code
       end
 
-   infix ">" (other: CHARACTER): BOOLEAN is
+   infix ">" (other: CHARACTER): BOOLEAN
          -- Comparison using `code'.
       do
          Result := code > other.code
       end
 
-   infix ">=" (other: CHARACTER): BOOLEAN is
+   infix ">=" (other: CHARACTER): BOOLEAN
          -- Comparison using `code'.
       do
          Result := code >= other.code
       end
 
-   value, decimal_value: INTEGER_8 is
+   value, decimal_value: INTEGER_8
          -- Gives the value of a decimal digit.
       require
          is_digit
@@ -77,7 +77,7 @@ feature {ANY}
          Result.in_range(0, 9)
       end
 
-   binary_value: INTEGER_8 is
+   binary_value: INTEGER_8
          -- Gives the value of a binary digit.
       require
          is_binary_digit
@@ -87,7 +87,7 @@ feature {ANY}
          Result.in_range(0, 1)
       end
 
-   octal_value: INTEGER_8 is
+   octal_value: INTEGER_8
          -- Gives the value of an octal digit.
       require
          is_octal_digit
@@ -97,7 +97,7 @@ feature {ANY}
          Result.in_range(0, 7)
       end
 
-   hexadecimal_value: INTEGER_8 is
+   hexadecimal_value: INTEGER_8
          -- Gives the value of an hexadecimal digit.
       require
          is_hexadecimal_digit
@@ -114,7 +114,7 @@ feature {ANY}
          Result.in_range(0, 15)
       end
 
-   same_as (other: CHARACTER): BOOLEAN is
+   same_as (other: CHARACTER): BOOLEAN
          -- Case insensitive comparison.
          -- No difference between upper/lower case letters.
       do
@@ -134,7 +134,7 @@ feature {ANY}
          Result implies to_lower = other or to_upper = other
       end
 
-   to_upper: CHARACTER is
+   to_upper: CHARACTER
          -- Conversion to the corresponding upper case.
       do
          if code < 97 then
@@ -146,7 +146,7 @@ feature {ANY}
          end
       end
 
-   to_lower: CHARACTER is
+   to_lower: CHARACTER
          -- Conversion to the corresponding lower case.
       do
          if code < 65 then
@@ -158,7 +158,7 @@ feature {ANY}
          end
       end
 
-   is_letter: BOOLEAN is
+   is_letter: BOOLEAN
          -- Is it a letter ('a' .. 'z' or 'A' .. 'Z') ?
       do
          if Current >= 'a' then
@@ -170,7 +170,7 @@ feature {ANY}
          Result = in_range('A', 'Z') or in_range('a', 'z')
       end
 
-   is_digit, is_decimal_digit: BOOLEAN is
+   is_digit, is_decimal_digit: BOOLEAN
          -- Belongs to '0'..'9'.
          --
          -- See also `value', `decimal_value'
@@ -182,7 +182,7 @@ feature {ANY}
          Result = in_range('0', '9')
       end
 
-   is_binary_digit: BOOLEAN is
+   is_binary_digit: BOOLEAN
          -- Belongs to '0'..'1'.
       do
          if Current >= '0' then
@@ -192,7 +192,7 @@ feature {ANY}
          Result = in_range('0', '1')
       end
 
-   is_octal_digit: BOOLEAN is
+   is_octal_digit: BOOLEAN
          -- Belongs to '0'..'7'.
       do
          if Current >= '0' then
@@ -202,7 +202,7 @@ feature {ANY}
          Result = in_range('0', '7')
       end
 
-   is_hexadecimal_digit: BOOLEAN is
+   is_hexadecimal_digit: BOOLEAN
          -- Is it one character of "0123456789abcdefABCDEF" ?
       do
          if is_digit then
@@ -216,7 +216,7 @@ feature {ANY}
          Result = (once "0123456789abcdefABCDEF").has(Current)
       end
 
-   is_lower: BOOLEAN is
+   is_lower: BOOLEAN
          -- Is it some lowercase letter ('a'..'z')?
       do
          inspect
@@ -227,7 +227,7 @@ feature {ANY}
          end
       end
 
-   is_upper: BOOLEAN is
+   is_upper: BOOLEAN
          -- Is it some uppercase letter ('A'..'Z')?
       do
          inspect
@@ -238,7 +238,7 @@ feature {ANY}
          end
       end
 
-   is_separator: BOOLEAN is
+   is_separator: BOOLEAN
          -- True when character is a separator.
       do
          inspect
@@ -249,7 +249,7 @@ feature {ANY}
          end
       end
 
-   is_letter_or_digit: BOOLEAN is
+   is_letter_or_digit: BOOLEAN
          -- Is it a letter (see `is_letter') or a digit (see `is_digit') ?
       do
          Result := is_letter or else is_digit
@@ -257,13 +257,13 @@ feature {ANY}
          definition: Result = (is_letter or is_digit)
       end
 
-   is_ascii: BOOLEAN is
+   is_ascii: BOOLEAN
          -- Is character a 8-bit ASCII character?
       do
          Result := code < 128
       end
 
-   is_bit: BOOLEAN is
+   is_bit: BOOLEAN
          -- True for `0' and `1'.
       do
          inspect
@@ -274,7 +274,7 @@ feature {ANY}
          end
       end
 
-   next: CHARACTER is
+   next: CHARACTER
          -- Give the next character (the following `code')
       require
          code < Maximum_character_code
@@ -282,7 +282,7 @@ feature {ANY}
          Result := (code + 1).to_character
       end
 
-   previous: CHARACTER is
+   previous: CHARACTER
          -- Give the previous character (the `code' before)
       require
          code > Minimum_character_code
@@ -290,7 +290,7 @@ feature {ANY}
          Result := (code - 1).to_character
       end
 
-   infix "|..|" (other: CHARACTER): INTEGER_RANGE[CHARACTER] is
+   infix "|..|" (other: CHARACTER): INTEGER_RANGE[CHARACTER]
       require
          Current <= other
       do
@@ -298,18 +298,18 @@ feature {ANY}
       end
 
 feature {}
-   integer_range_itemize: FUNCTION[TUPLE[INTEGER], CHARACTER] is
+   integer_range_itemize: FUNCTION[TUPLE[INTEGER], CHARACTER]
       once
-         Result := agent (i: INTEGER): CHARACTER is do Result := i.to_character end (?)
+         Result := agent (i: INTEGER): CHARACTER do Result := i.to_character end (?)
       end
 
-   integer_range_indexize: FUNCTION[TUPLE[CHARACTER], INTEGER] is
+   integer_range_indexize: FUNCTION[TUPLE[CHARACTER], INTEGER]
       once
-         Result := agent (i: CHARACTER): INTEGER is do Result := i.code.to_integer_32 end (?)
+         Result := agent (i: CHARACTER): INTEGER do Result := i.code.to_integer_32 end (?)
       end
 
 feature {ANY} -- Conversions:
-   to_hexadecimal: STRING is
+   to_hexadecimal: STRING
          -- Create a new STRING giving the `code' in hexadecimal.
          -- For example :
          --    (255).to_character.to_hexadecimal gives "FF".
@@ -321,7 +321,7 @@ feature {ANY} -- Conversions:
          Result.count = 2
       end
 
-   to_hexadecimal_in (str: STRING) is
+   to_hexadecimal_in (str: STRING)
          -- Append the equivalent of `to_hexadecimal' at the end of
          -- `str'. Thus you can save memory because no other
          -- STRING is allocated for the job.
@@ -348,7 +348,7 @@ feature {ANY} -- Conversions:
          str.count = 2 + old str.count
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          create Result.make_filled(Current, 1)
       ensure
@@ -357,19 +357,19 @@ feature {ANY} -- Conversions:
       end
 
 feature {ANY} -- Object Printing:
-   out_in_tagged_out_memory, fill_tagged_out_memory is
+   out_in_tagged_out_memory, fill_tagged_out_memory
       do
          tagged_out_memory.extend(Current)
       end
 
 feature {ANY} -- Hashing:
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := code
       end
 
 feature {ANY} -- Miscellaneous:
-   is_alpha: BOOLEAN is
+   is_alpha: BOOLEAN
          -- See `is_letter' (yes this is just a call to `is_letter').
          -- Isn't `is_letter' better English ;-)
       do
@@ -380,13 +380,13 @@ feature {ANY} -- Miscellaneous:
 
 end -- class CHARACTER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

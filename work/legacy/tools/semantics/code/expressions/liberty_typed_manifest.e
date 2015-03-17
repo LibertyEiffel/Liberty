@@ -21,19 +21,19 @@ feature {ANY}
    manifest: E_
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          result_type.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_type: like result_type; a_manifest: like manifest; a_position: like position) is
+   make (a_type: like result_type; a_manifest: like manifest; a_position: like position)
       require
          a_type /= Void
          a_position /= Void

@@ -6,11 +6,11 @@ class AUX_EXCEPTION19SUB1
 inherit
    AUX_EXCEPTION19SUB
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   cause_exception is
+   cause_exception
       local
          dummy: BOOLEAN
       do

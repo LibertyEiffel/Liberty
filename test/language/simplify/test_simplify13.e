@@ -15,7 +15,7 @@ feature {}
 
    dog: DOG
 
-   make is
+   make
       do
          if dog ?:= animal then
             -- Because animal is always Void.

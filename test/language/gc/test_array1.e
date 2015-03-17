@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          array_of_array: ARRAY[ARRAY[INTEGER]]; i, limit: INTEGER
       do
@@ -33,7 +33,7 @@ feature {ANY}
          end
       end
 
-   check_array_contents (a: ARRAY[ARRAY[INTEGER]]) is
+   check_array_contents (a: ARRAY[ARRAY[INTEGER]])
       local
          i: INTEGER
       do

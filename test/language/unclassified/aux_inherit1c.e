@@ -14,7 +14,7 @@ insert
       end
 
 feature {ANY}
-   fonc is
+   fonc
       do
          fonc_a
          c_count := c_count + 1

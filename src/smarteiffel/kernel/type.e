@@ -20,7 +20,7 @@ create {SMART_EIFFEL}
    make
 
 feature {}
-   make (ctm: like canonical_type_mark; allow_raw_class_name: BOOLEAN) is
+   make (ctm: like canonical_type_mark; allow_raw_class_name: BOOLEAN)
       require
          smart_eiffel.status.is_collecting
          ctm.is_static
@@ -135,7 +135,7 @@ feature {}
          end
          if is_generic then
             -- The declaration_type is a parent for the current type, but as there is no inherit
-            -- clause for it we force it's creation before current type:
+            -- clause for it we force its creation before current type:
             generic_type := ctm.class_text.declaration_type_of_like_current
 
             -- Performs some extra checks only for the `canonical_type_mark' (i.e. made only once):
@@ -157,7 +157,7 @@ feature {}
       end
 
 feature {ANY}
-   inherits_from (other: TYPE): BOOLEAN is
+   inherits_from (other: TYPE): BOOLEAN
       require
          other /= Void
          avoid_obvious_questions: other /= Current
@@ -169,7 +169,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   inserts (other: TYPE): BOOLEAN is
+   inserts (other: TYPE): BOOLEAN
       require
          other /= Void
          avoid_obvious_questions: other /= Current
@@ -181,7 +181,7 @@ feature {ANY}
          not_done_to_report_errors: error_handler.is_empty
       end
 
-   insert_inherit_test (other: TYPE): INTEGER_8 is
+   insert_inherit_test (other: TYPE): INTEGER_8
          -- Simple predicate (i.e. does not fill the `error_handler').
          -- See also xxx yyy which are supposed to be able to explain the problem.
       require
@@ -292,8 +292,8 @@ feature {ANY}
       end
 
 feature {SMART_EIFFEL, TYPE}
-   closest_to_constraint (constraint: TYPE): TYPE is
-         -- Find some type this one conforms to, on the inheritance link up to the constraint. If there is
+   closest_to_constraint (constraint: TYPE): TYPE
+         -- Find some type this one conforms to, on the inheritance link up to the constraint. If there
          -- more than one possibility, the choice should not matter.
          --
          -- Used to implement type lookup when shrinking the generic types space.
@@ -336,8 +336,8 @@ feature {SMART_EIFFEL, TYPE}
          Result.inserts(constraint)
       end
 
-feature {OLD_MANIFEST_ARRAY}
-   has_only_one_conformant_parent: like Current is
+feature {OLD_MANIFEST_ARRAY, IFTHENELSE_EXP}
+   has_only_one_conformant_parent: like Current
          -- The `Result' is non Void if and only if `Current' has only one conforming parent.
          -- When `Result' is not Void `Result' is the unique parent of `Current'.
       do
@@ -352,7 +352,7 @@ feature {OLD_MANIFEST_ARRAY}
       end
 
 feature {EFFECTIVE_ROUTINE}
-   collect_default_rescue (caller: ANONYMOUS_FEATURE) is
+   collect_default_rescue (caller: ANONYMOUS_FEATURE)
       require
          smart_eiffel.status.is_collecting
       local
@@ -370,7 +370,7 @@ feature {EFFECTIVE_ROUTINE}
                   effective_routine ?= af_current
                   -- Because the `default_rescue' itself can be deferred:
                   if effective_routine /= Void then
-                     default_rescue_compound := effective_routine.routine_body
+                     default_rescue_compound := effective_routine.routine_body --| **** TODO: what about effective_routine.routine_then ???
                      af_current.collect(Current)
                   end
                end
@@ -391,10 +391,14 @@ feature {}
    default_rescue_collected: BOOLEAN
 
 feature {FEATURE_ACCUMULATOR}
-   do_collect is
+   do_collect
       local
          gl: ARRAY[TYPE_MARK]
       do
+         debug
+            echo.put_string(once "Collecting type: ")
+            echo.put_line(name.to_string)
+         end
          -- Validity check section done here because the newly created TYPE is now really ready for use:
          if is_generic then
             gl := canonical_type_mark.generic_list
@@ -434,7 +438,7 @@ feature {FEATURE_ACCUMULATOR}
          end
       end
 
-   specialize_and_check is
+   specialize_and_check
       local
          i: INTEGER
       do
@@ -453,9 +457,9 @@ feature {FEATURE_ACCUMULATOR}
          class_text.check_level_2(Current)
       end
 
-feature {CLASS_CHECKER, TYPE}
-   up_to_any_in (parent_list: FAST_ARRAY[TYPE]) is
-         -- Add in `parent_list', a path to the ANY class, whithout including the ANY class itself.
+feature {CLASS_CHECKER, TYPE, IFTHENELSE_EXP}
+   up_to_any_in (parent_list: FAST_ARRAY[TYPE])
+         -- Add in `parent_list', a path to the ANY class, without including the ANY class itself.
          --|*** Wrong comment
       require
          not parent_list.is_empty
@@ -492,7 +496,7 @@ feature {ANY}
          -- Because `canonical_type_mark' is static, this is an alias for
          -- `canonical_type_mark.written_name'
 
-   long_name: HASHED_STRING is
+   long_name: HASHED_STRING
          -- This name holds cluster info needed to make different types with the same name distinct. Mainly
          -- used for SMART_EIFFEL.`type_dictionary' storage.
       do
@@ -503,11 +507,12 @@ feature {ANY}
 
    class_text: CLASS_TEXT
 
-   private_generic_list: ARRAY[TYPE]
-
    hash_code: INTEGER
 
-   add_parent (node: like Current) is
+   has_local_closure: BOOLEAN
+         -- True if some object of this type may be stored in an outside local variable (i.e. visible to some closure)
+
+   add_parent (node: like Current)
       local
          et: like external_type
       do
@@ -528,7 +533,7 @@ feature {ANY}
          end
       end
 
-   valid_feature_name (fn: FEATURE_NAME): BOOLEAN is
+   valid_feature_name (fn: FEATURE_NAME): BOOLEAN
          -- Is `fn' an existing final feature name of `Current'?
       require
          fn /= Void
@@ -536,7 +541,7 @@ feature {ANY}
          Result := feature_stamps.has(fn)
       end
 
-   registered_name (fn: FEATURE_NAME): FEATURE_NAME is
+   registered_name (fn: FEATURE_NAME): FEATURE_NAME
          -- Useful for declaration position and frozen status.
       require
          valid_feature_name(fn)
@@ -544,7 +549,7 @@ feature {ANY}
          Result := feature_stamps.internal_key(fn)
       end
 
-   lookup (fn: FEATURE_NAME): FEATURE_STAMP is
+   lookup (fn: FEATURE_NAME): FEATURE_STAMP
          -- Get the FEATURE_STAMP relative to `fn'. (As expressed in the require assertion, we assume that `fn' is really a
          -- final name in `Current'.)
       require
@@ -558,7 +563,7 @@ feature {ANY}
          Result.has_type(Current)
       end
 
-   search (fn: FEATURE_NAME): FEATURE_STAMP is
+   search (fn: FEATURE_NAME): FEATURE_STAMP
          -- To make in a single step a `valid_feature_name' test which may be followed by a `lookup' call. (The require
          -- assertion of `search' is more relaxed and a Void `Result' indicate that `fn' is not a valid final name in
          -- `Current'.)
@@ -573,7 +578,7 @@ feature {ANY}
          Result /= Void implies Result = lookup(fn)
       end
 
-   get_feature_name (fs: FEATURE_STAMP): FEATURE_NAME is
+   get_feature_name (fs: FEATURE_STAMP): FEATURE_NAME
       require
          fs.has_type(Current)
       do
@@ -582,7 +587,7 @@ feature {ANY}
          registered_name(Result) = Result
       end
 
-   has_simple_feature_name (simple_feature_name: HASHED_STRING): BOOLEAN is
+   has_simple_feature_name (simple_feature_name: HASHED_STRING): BOOLEAN
       require
          simple_feature_name.is_simple_feature_name
       do
@@ -594,7 +599,7 @@ feature {ANY}
          Result := valid_feature_name(temporary_simple_feature_name)
       end
 
-   feature_stamp_of (simple_feature_name: HASHED_STRING): FEATURE_STAMP is
+   feature_stamp_of (simple_feature_name: HASHED_STRING): FEATURE_STAMP
          -- Used to get the good one knowing that `simple_feature_name' is the final existing name.
       require
          simple_feature_name.is_simple_feature_name
@@ -610,14 +615,14 @@ feature {ANY}
          Result /= Void
       end
 
-   feature_collection_done: BOOLEAN is
+   feature_collection_done: BOOLEAN
       do
          Result := feature_stamps /= Void
       end
 
    class_invariant: CLASS_INVARIANT
 
-   copy_stamp: FEATURE_STAMP is
+   copy_stamp: FEATURE_STAMP
          -- The one of the `copy' feature (which is magically called inside `twin').
       local
          type_any: like Current; fn: FEATURE_NAME
@@ -631,7 +636,7 @@ feature {ANY}
          Result /= Void
       end
 
-   twin_stamp: FEATURE_STAMP is
+   twin_stamp: FEATURE_STAMP
          -- The one of the `twin' feature (which is magically called by user-expanded assignments).
       local
          type_any: like Current; fn: FEATURE_NAME
@@ -645,7 +650,7 @@ feature {ANY}
          Result /= Void
       end
 
-   is_equal_stamp: FEATURE_STAMP is
+   is_equal_stamp: FEATURE_STAMP
          -- The one of the `is_equal' feature (which is magically called by user-expanded comparisons).
       local
          type_any: like Current; fn: FEATURE_NAME
@@ -659,7 +664,7 @@ feature {ANY}
          Result /= Void
       end
 
-   do_at_exit_stamp: FEATURE_STAMP is
+   do_at_exit_stamp: FEATURE_STAMP
          -- The one of the `do_at_exit' feature (which is magically called by user-expanded comparisons).
       local
          type_any: like Current; fn: FEATURE_NAME
@@ -673,12 +678,12 @@ feature {ANY}
          Result /= Void
       end
 
-   accept (visitor: TYPE_VISITOR) is
+   accept (visitor: TYPE_VISITOR)
       do
          visitor.visit_type(Current)
       end
 
-   id: INTEGER is
+   id: INTEGER
          -- Id of the receiver to produce C code.
       do
          if live_type /= Void then
@@ -688,8 +693,18 @@ feature {ANY}
          end
       end
 
-feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT1}
-   name_from_string (s: STRING): FEATURE_NAME is
+feature {TYPE}
+   private_generic_list: ARRAY[TYPE]
+
+feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT_DEF}
+   set_local_closure
+      do
+         has_local_closure := True
+      ensure
+         has_local_closure
+      end
+
+   name_from_string (s: STRING): FEATURE_NAME
       require
          string_aliaser.registered_one(s)
       local
@@ -711,7 +726,7 @@ feature {C_PRETTY_PRINTER, LOCAL_ARGUMENT1}
       end
 
 feature {ANONYMOUS_FEATURE}
-   name_of (af: ANONYMOUS_FEATURE): FEATURE_NAME is
+   name_of (af: ANONYMOUS_FEATURE): FEATURE_NAME
          -- Warning: TIME CONSUMING TASK. Try to use `get_feature_name' instead.
          --|*** This may be wrong if synonyms are implemented using shared AF.
          --|*** See ANONYMOUS_FEATURE.add_into_shared.
@@ -737,37 +752,37 @@ feature {ANONYMOUS_FEATURE}
 feature {ANY} -- some property similar to TYPE_MARK *without* start_position and some other
    is_deferred: BOOLEAN
 
-   is_generic: BOOLEAN is
+   is_generic: BOOLEAN
       do
          Result := private_generic_list /= Void
       ensure
          is_generic and then is_array implies Result
       end
 
-   is_expanded: BOOLEAN is
+   is_expanded: BOOLEAN
       do
          Result := canonical_type_mark.is_expanded
       ensure
          Result = not is_reference
       end
 
-   is_reference: BOOLEAN is
+   is_reference: BOOLEAN
       do
          Result := canonical_type_mark.is_reference
       ensure
          Result = not is_expanded
       end
 
-   has_external_type: BOOLEAN is
+   has_external_type: BOOLEAN
       do
          Result := external_type /= Void
       end
 
-   external_type: EXTERNAL_TYPE is
+   external_type: EXTERNAL_TYPE
       attribute
       end
 
-   generic_list: ARRAY[TYPE] is
+   generic_list: ARRAY[TYPE]
       require
          is_generic
       do
@@ -777,27 +792,27 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          not Result.is_empty
       end
 
-   is_kernel_expanded: BOOLEAN is
+   is_kernel_expanded: BOOLEAN
          -- True for BOOLEAN, CHARACTER, INTEGER, REAL, DOUBLE and POINTER.
       do
          Result := canonical_type_mark.is_kernel_expanded
       end
 
-   is_boolean: BOOLEAN is
+   is_boolean: BOOLEAN
       do
          Result := canonical_type_mark.is_boolean
       ensure
          Result implies is_kernel_expanded
       end
 
-   is_character: BOOLEAN is
+   is_character: BOOLEAN
       do
          Result := canonical_type_mark.is_character
       ensure
          Result implies is_kernel_expanded
       end
 
-   is_integer: BOOLEAN is
+   is_integer: BOOLEAN
          -- Is it some INTEGER_* type?
       do
          Result := canonical_type_mark.is_integer
@@ -805,7 +820,7 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          Result implies is_kernel_expanded
       end
 
-   is_natural: BOOLEAN is
+   is_natural: BOOLEAN
          -- Is it some NATURAL_* type?
       do
          Result := canonical_type_mark.is_natural
@@ -813,36 +828,36 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          Result implies is_kernel_expanded
       end
 
-   is_real: BOOLEAN is
+   is_real: BOOLEAN
       do
          Result := canonical_type_mark.is_real
       ensure
          Result implies is_kernel_expanded
       end
 
-   is_pointer: BOOLEAN is
+   is_pointer: BOOLEAN
       do
          Result := canonical_type_mark.is_pointer
       ensure
          Result implies is_kernel_expanded
       end
 
-   is_string: BOOLEAN is
+   is_string: BOOLEAN
       do
          Result := canonical_type_mark.is_string
       end
 
-   is_fixed_string: BOOLEAN is
+   is_fixed_string: BOOLEAN
       do
          Result := canonical_type_mark.is_fixed_string
       end
 
-   is_unicode_string: BOOLEAN is
+   is_unicode_string: BOOLEAN
       do
          Result := canonical_type_mark.written_mark = as_unicode_string
       end
 
-   is_array: BOOLEAN is
+   is_array: BOOLEAN
       require
          is_generic
       do
@@ -851,27 +866,27 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          Result implies generic_list.count = 1
       end
 
-   is_any: BOOLEAN is
+   is_any: BOOLEAN
       do
          Result := canonical_type_mark.is_any
       end
 
-   is_native_array: BOOLEAN is
+   is_native_array: BOOLEAN
       do
          Result := canonical_type_mark.is_native_array
       end
 
-   is_agent: BOOLEAN is
+   is_agent: BOOLEAN
       do
          Result := canonical_type_mark.is_agent
       end
 
-   is_tuple: BOOLEAN is
+   is_tuple: BOOLEAN
       do
          Result := canonical_type_mark.is_tuple
       end
 
-   is_empty_expanded: BOOLEAN is
+   is_empty_expanded: BOOLEAN
          -- True when is it a user's expanded type with no attribute.
       require
          smart_eiffel.status.collecting_done
@@ -879,15 +894,17 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          if is_user_expanded then
             Result := live_type.is_empty_expanded
          end
+      ensure
+         Result implies is_user_expanded
       end
 
-   is_user_expanded: BOOLEAN is
+   is_user_expanded: BOOLEAN
          -- Is it really a user expanded type?
       do
          Result := canonical_type_mark.is_user_expanded
       end
 
-   is_always_void: BOOLEAN is
+   is_always_void: BOOLEAN
          -- Is an expression of that TYPE always Void?
       require
          avoid_stupid_questions: not is_expanded
@@ -896,7 +913,7 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          Result := (live_type = Void) or else (live_type.run_time_set.count = 0)
       end
 
-   direct_non_void_call_flag: BOOLEAN is
+   direct_non_void_call_flag: BOOLEAN
       require
          smart_eiffel.status.collecting_done
       local
@@ -908,7 +925,7 @@ feature {ANY} -- some property similar to TYPE_MARK *without* start_position and
          end
       end
 
-   can_be_assigned_to (other: TYPE): BOOLEAN is
+   can_be_assigned_to (other: TYPE): BOOLEAN
          -- Used to know if `Current' can be assigned into `other'.
          -- (See also `valid_redefinition_of'.)
       require
@@ -969,7 +986,7 @@ feature {TYPE, TYPE_VISITOR}
    feature_stamps: HASHED_BIJECTIVE_DICTIONARY[FEATURE_STAMP, FEATURE_NAME]
 
 feature {INTROSPECTION_HANDLER, TYPE_VISITOR}
-   writable_attributes: ARRAY[FEATURE_STAMP] is
+   writable_attributes: ARRAY[FEATURE_STAMP]
       require
          feature_collection_done
       local
@@ -1000,7 +1017,7 @@ feature {}
    writable_attributes_memory: ARRAY[FEATURE_STAMP]
 
 feature {ANY}
-   open_arguments: ARRAY[TYPE] is
+   open_arguments: ARRAY[TYPE]
          -- (The `Result' can be Void when open arguments is the empty TUPLE.)
       require
          is_generic
@@ -1009,7 +1026,7 @@ feature {ANY}
          Result := private_generic_list.item(1).private_generic_list
       end
 
-   agent_result: TYPE is
+   agent_result: TYPE
       require
          is_generic
          canonical_type_mark.is_agent
@@ -1020,14 +1037,14 @@ feature {ANY}
       end
 
 feature {LIVE_TYPE}
-   forget_previous_collect is
+   forget_previous_collect
          --|*** Do not know yet if this feature must be better called directly by `smart_eiffel'?
          --|*** (Dom july 14th 2004) ***
       do
          default_rescue_collected := False
       end
 
-   adapt_class_invariant is
+   adapt_class_invariant
       require
          smart_eiffel.status.is_adapting
       do
@@ -1036,7 +1053,7 @@ feature {LIVE_TYPE}
          end
       end
 
-   set_live_type (lt: like live_type) is
+   set_live_type (lt: like live_type)
       require
          lt /= Void
          must_be_done_once: live_type = Void
@@ -1049,7 +1066,7 @@ feature {LIVE_TYPE}
       end
 
 feature {LIVE_TYPE}
-   expanded_default_create_stamp: FEATURE_STAMP is
+   expanded_default_create_stamp: FEATURE_STAMP
          -- Must be called when we are sure that there is only and only one creation procedure whith no argument.
       require
          is_user_expanded
@@ -1060,7 +1077,7 @@ feature {LIVE_TYPE}
       end
 
 feature {CALL_0}
-   find_manifest_expression_for (fs: FEATURE_STAMP; fn: FEATURE_NAME): MANIFEST_EXPRESSION is
+   find_manifest_expression_for (fs: FEATURE_STAMP; fn: FEATURE_NAME): MANIFEST_EXPRESSION
          -- Used to find some manifest expression in the "when" part of some "inspect" statement.
       require
          fn /= Void
@@ -1087,7 +1104,7 @@ feature {CALL_0}
       end
 
 feature {}
-   find_anonymous_feature_for (fs: FEATURE_STAMP; fn: FEATURE_NAME): ANONYMOUS_FEATURE is
+   find_anonymous_feature_for (fs: FEATURE_STAMP; fn: FEATURE_NAME): ANONYMOUS_FEATURE
       require
          fs /= Void
          fn /= Void
@@ -1107,7 +1124,7 @@ feature {}
       end
 
 feature {FEATURE_ACCUMULATOR}
-   add_feature (fn: FEATURE_NAME; fs: FEATURE_STAMP) is
+   add_feature (fn: FEATURE_NAME; fs: FEATURE_STAMP)
       require
          fn /= Void
          fs /= Void
@@ -1128,7 +1145,7 @@ feature {FEATURE_ACCUMULATOR}
       end
 
 feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
-   add_seeds (final_fs: FEATURE_STAMP; seed_set: SET[ABSOLUTE_FEATURE_NAME]; inherit_link: BOOLEAN) is
+   add_seeds (final_fs: FEATURE_STAMP; seed_set: SET[ABSOLUTE_FEATURE_NAME]; inherit_link: BOOLEAN)
       require
          final_fs.has_type(Current)
          final_fs /= Void
@@ -1157,7 +1174,7 @@ feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
       end
 
 feature {SMART_EIFFEL}
-   collected_feature_count: INTEGER is
+   collected_feature_count: INTEGER
       do
          if live_type /= Void then
             Result := live_type.feature_count
@@ -1165,7 +1182,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
-   print_feature_hierarchy(final_fs: FEATURE_STAMP; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN is
+   print_feature_hierarchy (final_fs: FEATURE_STAMP; seed: ABSOLUTE_FEATURE_NAME; inherit_link: BOOLEAN): BOOLEAN
          -- Code for printing error message (do not care for speed). All TYPEs and NAMEs for the feature are
          -- printed from seed to current type.
       require
@@ -1206,7 +1223,7 @@ feature {FEATURE_ACCUMULATOR, FEATURE_STAMP}
       end
 
 feature {TYPE}
-   print_graph_cycle (first: TYPE) is
+   print_graph_cycle (first: TYPE)
       require
          has_parent_cycle
       local
@@ -1235,7 +1252,7 @@ feature {TYPE}
 feature {}
    inline_dynamic_dispatch_flag: BOOLEAN
 
-   frozen inline_dynamic_dispatch_must_be_done_once: BOOLEAN is
+   frozen inline_dynamic_dispatch_must_be_done_once: BOOLEAN
       do
          if inline_dynamic_dispatch_flag then
             error_handler.append(once "Internal compiler error (TYPE.inline_dynamic_dispatch called twice.")
@@ -1247,7 +1264,7 @@ feature {}
       end
 
 feature {LIVE_TYPE}
-   inline_dynamic_dispatch_for_class_invariant(code_accumulator: CODE_ACCUMULATOR) is
+   inline_dynamic_dispatch_for_class_invariant(code_accumulator: CODE_ACCUMULATOR)
       require
          inline_dynamic_dispatch_must_be_done_once
       do
@@ -1260,7 +1277,7 @@ feature {}
    temporary_simple_feature_name: FEATURE_NAME
          -- Used only as a temporary in `feature_stamp_of' and `has_simple_feature_name'.
 
-   inheritance_cycle_check  is
+   inheritance_cycle_check
       local
          i: INTEGER
       do
@@ -1287,7 +1304,7 @@ feature {}
          end
       end
 
-   collect_features is
+   collect_features
       require
          feature_stamps = Void
          not has_parent_cycle
@@ -1349,10 +1366,10 @@ feature {}
          feature_collection_done
       end
 
-   collect_one_feature (final_fn: FEATURE_NAME; inherit_index: INTEGER) is
+   collect_one_feature (final_fn: FEATURE_NAME; inherit_index: INTEGER)
          -- The loop is done in reverse order, so conforming types will be analyzed first.
          -- Types after `inherit_index' are ignored because they have
-         -- already been used and we know `final_fn' not to be known  into.
+         -- already been used and we know `final_fn' not to be known into.
       local
          accu: FEATURE_ACCUMULATOR; i, j: INTEGER; a_type: TYPE; old_name, new_name: FEATURE_NAME; a_fs: FEATURE_STAMP
          a_parent_edge: PARENT_EDGE; an_af: ANONYMOUS_FEATURE; renamed: BOOLEAN; a_rename: RENAME_PAIR
@@ -1398,7 +1415,7 @@ feature {}
          feature_accumulator.is_known(final_fn)
       end
 
-   collect_local_features is
+   collect_local_features
       local
          i: INTEGER; d: DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]; fn: FEATURE_NAME
          accu: FEATURE_ACCUMULATOR
@@ -1419,7 +1436,7 @@ feature {}
          end
       end
 
-   build_actual_invariant is
+   build_actual_invariant
          -- Called only once per type to gather inherited class invariant and local invariant.
       require
          not ace.boost
@@ -1449,7 +1466,7 @@ feature {}
          end
       end
 
-   valid_feature_stamps: BOOLEAN is
+   valid_feature_stamps: BOOLEAN
          -- All our feature_stamps know us.
       local
          i: INTEGER
@@ -1472,7 +1489,7 @@ feature {}
    debug_known_features: STRING
 
 feature {ANY}
-   direct_thru_step (parent_type: TYPE; a_parent_edge: PARENT_EDGE): BOOLEAN is
+   direct_thru_step (parent_type: TYPE; a_parent_edge: PARENT_EDGE): BOOLEAN
          -- Check that we are actually doing an atomic-valid direct step into the inheritance hierarchy (i.e. we are making
          -- a direct move move from `parent_type' using the `a_parent_edge' path to reach `Current'.
       require
@@ -1507,7 +1524,7 @@ feature {ANY}
       end
 
 feature {ADDRESS_OF}
-   address_of_register (address_of: ADDRESS_OF) is
+   address_of_register (address_of: ADDRESS_OF)
       require
          address_of.feature_stamp /= Void
       do
@@ -1526,12 +1543,12 @@ feature {}
    address_of_memory2: FAST_ARRAY[ADDRESS_OF]
 
 feature {ANY}
-   do_all_address_of (action: PROCEDURE[TUPLE[ADDRESS_OF]]) is
+   do_all_address_of (action: PROCEDURE[TUPLE[ADDRESS_OF]])
       require
          action /= Void
       do
          if address_of_memory2 /= Void then
-            address_of_memory2.do_all(action)
+            address_of_memory2.for_each(action)
          end
       end
 
@@ -1557,9 +1574,9 @@ end -- class TYPE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

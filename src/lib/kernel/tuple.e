@@ -13,17 +13,17 @@ create {ANY}
    default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 0
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "[]")
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
       end
@@ -43,34 +43,34 @@ create {ANY}
    make_1, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 1
       end
 
    item_1: A_
 
-   set_item_1, set_first (i1: like item_1) is
+   set_item_1, set_first (i1: like item_1)
       do
          item_1 := i1
       ensure
          item_1 = i1
       end
 
-   first: like item_1 is
+   first: like item_1
          -- A well-known alias for `item_1'
       do
          Result := item_1
       end
 
-   make_1 (i1: like item_1) is
+   make_1 (i1: like item_1)
       do
          item_1 := i1
       ensure
          item_1 = i1
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -81,7 +81,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -103,27 +103,27 @@ create {ANY}
    make_2, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 2
       end
 
    item_2: B_
 
-   set_item_2, set_second (i2: like item_2) is
+   set_item_2, set_second (i2: like item_2)
       do
          item_2 := i2
       ensure
          item_2 = i2
       end
 
-   second: like item_2 is
+   second: like item_2
          -- A well-known alias for `item_2'
       do
          Result := item_2
       end
 
-   make_2 (i1: like item_1; i2: like item_2) is
+   make_2 (i1: like item_1; i2: like item_2)
       do
          item_1 := i1
          item_2 := i2
@@ -132,7 +132,7 @@ feature {ANY}
          item_2 = i2
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -149,7 +149,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -175,27 +175,27 @@ create {ANY}
    make_3, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 3
       end
 
    item_3: C_
 
-   set_item_3, set_third (i3: like item_3) is
+   set_item_3, set_third (i3: like item_3)
       do
          item_3 := i3
       ensure
          item_3 = i3
       end
 
-   third: like item_3 is
+   third: like item_3
          -- A well-known alias for `item_3'
       do
          Result := item_3
       end
 
-   make_3 (i1: like item_1; i2: like item_2; i3: like item_3) is
+   make_3 (i1: like item_1; i2: like item_2; i3: like item_3)
       do
          item_1 := i1
          item_2 := i2
@@ -206,7 +206,7 @@ feature {ANY}
          item_3 = i3
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -229,7 +229,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -257,27 +257,27 @@ create {ANY}
    make_4, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 4
       end
 
    item_4: D_
 
-   set_item_4, set_fourth (i4: like item_4) is
+   set_item_4, set_fourth (i4: like item_4)
       do
          item_4 := i4
       ensure
          item_4 = i4
       end
 
-   fourth: like item_4 is
+   fourth: like item_4
          -- A well-known alias for `item_4'
       do
          Result := item_4
       end
 
-   make_4 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4) is
+   make_4 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4)
       do
          item_1 := i1
          item_2 := i2
@@ -290,7 +290,7 @@ feature {ANY}
          item_4 = i4
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -319,7 +319,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -351,27 +351,27 @@ create {ANY}
    make_5, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 5
       end
 
    item_5: E_
 
-   set_item_5, set_fifth (i5: like item_5) is
+   set_item_5, set_fifth (i5: like item_5)
       do
          item_5 := i5
       ensure
          item_5 = i5
       end
 
-   fifth: like item_5 is
+   fifth: like item_5
          -- A well-known alias for `item_5'
       do
          Result := item_5
       end
 
-   make_5 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4; i5: like item_5) is
+   make_5 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4; i5: like item_5)
       do
          item_1 := i1
          item_2 := i2
@@ -386,7 +386,7 @@ feature {ANY}
          item_5 = i5
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -421,7 +421,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -455,21 +455,21 @@ create {ANY}
    make_6, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 6
       end
 
    item_6: F_
 
-   set_item_6 (i6: like item_6) is
+   set_item_6 (i6: like item_6)
       do
          item_6 := i6
       ensure
          item_6 = i6
       end
 
-   make_6 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4; i5: like item_5; i6: like item_6) is
+   make_6 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4; i5: like item_5; i6: like item_6)
       do
          item_1 := i1
          item_2 := i2
@@ -486,7 +486,7 @@ feature {ANY}
          item_6 = i6
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -527,7 +527,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -565,14 +565,14 @@ create {ANY}
    make_7, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 7
       end
 
    item_7: G_
 
-   set_item_7 (i7: like item_7) is
+   set_item_7 (i7: like item_7)
       do
          item_7 := i7
       ensure
@@ -580,7 +580,7 @@ feature {ANY}
       end
 
    make_7 (i1: like item_1; i2: like item_2; i3: like item_3;
-           i4: like item_4;i5: like item_5; i6: like item_6; i7: like item_7) is
+           i4: like item_4;i5: like item_5; i6: like item_6; i7: like item_7)
       do
          item_1 := i1
          item_2 := i2
@@ -599,7 +599,7 @@ feature {ANY}
          item_7 = i7
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -646,7 +646,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -687,14 +687,14 @@ create {ANY}
    make_8, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 8
       end
 
    item_8: H_
 
-   set_item_8 (i8: like item_8) is
+   set_item_8 (i8: like item_8)
       do
          item_8 := i8
       ensure
@@ -702,7 +702,7 @@ feature {ANY}
       end
 
    make_8 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4;
-           i5: like item_5; i6: like item_6; i7: like item_7; i8: like item_8) is
+           i5: like item_5; i6: like item_6; i7: like item_7; i8: like item_8)
       do
          item_1 := i1
          item_2 := i2
@@ -723,7 +723,7 @@ feature {ANY}
          item_8 = i8
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -776,7 +776,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -813,21 +813,21 @@ class TUPLE [A_, B_, C_, D_, E_, F_, G_, H_, I_] -- Nine fields TUPLE definition
 
 inherit
    TUPLE [A_, B_, C_, D_, E_, F_, G_, H_]
-      redefine count, out_in_tagged_out_memory
+      redefine count, out_in_tagged_out_memory, is_equal
       end
 
 create {ANY}
    make_9, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 9
       end
 
    item_9: I_
 
-   set_item_9 (i9: like item_9) is
+   set_item_9 (i9: like item_9)
       do
          item_9 := i9
       ensure
@@ -835,7 +835,7 @@ feature {ANY}
       end
 
    make_9 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4;
-           i5: like item_5; i6: like item_6; i7: like item_7; i8: like item_8; i9: like item_9) is
+           i5: like item_5; i6: like item_6; i7: like item_7; i8: like item_8; i9: like item_9)
       do
          item_1 := i1
          item_2 := i2
@@ -858,7 +858,7 @@ feature {ANY}
          item_9 = i9
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -917,7 +917,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -969,14 +969,14 @@ create {ANY}
    make_10, default_create
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := 10
       end
 
    item_10: J_
 
-   set_item_10 (i10: like item_10) is
+   set_item_10 (i10: like item_10)
       do
          item_10 := i10
       ensure
@@ -984,7 +984,7 @@ feature {ANY}
       end
 
    make_10 (i1: like item_1; i2: like item_2; i3: like item_3; i4: like item_4; i5: like item_5;
-            i6: like item_6; i7: like item_7; i8: like item_8; i9: like item_9; i10: like item_10) is
+            i6: like item_6; i7: like item_7; i8: like item_8; i9: like item_9; i10: like item_10)
       do
          item_1 := i1
          item_2 := i2
@@ -1009,7 +1009,7 @@ feature {ANY}
          item_10 = i10
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.extend('[')
          if item_1 = Void then
@@ -1074,7 +1074,7 @@ feature {ANY}
          tagged_out_memory.extend(']')
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := count = other.count
             and then (item_1 = other.item_1
@@ -1111,13 +1111,13 @@ feature {ANY}
 
 end -- TUPLE 10
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

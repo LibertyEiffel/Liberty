@@ -9,7 +9,7 @@ inherit
 feature {ANY}
    is_disposed: BOOLEAN
 
-   dispose is
+   dispose
       do
          is_disposed := True
       end

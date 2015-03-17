@@ -13,9 +13,9 @@ create {}
    make
 
 feature {ANY}
-   command_line_name: STRING is "compile"
+   command_line_name: STRING "compile"
 
-   command_line_help_summary: STRING is "[
+   command_line_help_summary: STRING "[
       Usage: compile [options] <RootClass> <RootProcedure> ...
          or: compile [options] <ACEfileName>.ace
       For information about and examples of ACE files, have a look
@@ -59,6 +59,7 @@ feature {ANY}
         -o <file>           Put the executable program into <file>
         -no_main            Don't include a main() in the generated executable
         -no_gc              Disable garbage collection
+        -bdw_gc             Use Boehm-Demers-Weiser conservative GC
         -gc_info            Enable status messages from the garbage collector
         -no_strip           Don't run 'strip' on the generated executable
         -no_split           Generate only one C file
@@ -85,9 +86,9 @@ feature {ANY}
    ]"
 
 feature {}
-   make is
+   make
       local
-         argi, last_system_call_status: INTEGER; arg, make_script_name: STRING
+         argi: INTEGER; arg: STRING
       do
          if argument_count < 1 then
             system_tools.bad_use_exit(command_line_name, command_line_help_summary)
@@ -127,47 +128,101 @@ feature {}
             parse_command_line(2)
             ace.command_line_parsed(command_line_name)
          end
-         make_script_name := system_tools.new_make_script
-         last_system_call_status := echo.system_call(command)
-         if last_system_call_status /= exit_success_code then
-            echo.w_put_string(once "Error occurs while compiling. Compilation process aborted.%N")
-            die_with_code(last_system_call_status)
+
+         from
+            ace.reset_roots
+         until
+            not ace.has_root
+         loop
+            do_compile
+            ace.next_root
          end
-         system_tools.cygnus_bug(make_file, make_script_name)
-         if not make_file.is_connected then
-            echo.w_put_string(once "Internal error (file %"")
-            echo.w_put_string(make_script_name)
-            echo.w_put_string("%" not found; error(s) during `compile_to_c').%N")
-            die_with_code(exit_failure_code)
-         end
-         echo.put_string(once "C compiling using %"")
-         echo.put_string(make_script_name)
-         echo.put_string(once "%" command file")
-         if max_process_count > 1 then
-            echo.put_string(once " (")
-            echo.put_integer(max_process_count)
-            echo.put_string(once " jobs at a time)")
-         end
-         echo.put_new_line
-         run_make_file
-         make_file.disconnect
-         system_tools.remove_make_script_and_other_extra_files
          if ace.clean then
-            command.clear_count
-            system_tools.append_command_path_to(command, once "clean")
-            if echo.is_verbose then
-               command.append(once " -verbose")
-            end
-            command.extend(' ')
-            command.append(make_script_name)
-            last_system_call_status := echo.system_call(command)
-            if last_system_call_status /= 0 then
-               die_with_code(last_system_call_status)
+            from
+               ace.reset_roots
+            until
+               not ace.has_root
+            loop
+               do_clean
+               ace.next_root
             end
          else
             echo.put_string(once "C code not removed.%N")
          end
          echo.put_string(once "Done.%N")
+      end
+
+   do_compile
+      local
+         make_script_name: STRING; last_system_call_status: INTEGER
+      do
+         from
+            system_tools.reset_paths
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            system_tools.next_path
+            make_script_name := system_tools.path_make
+            echo.file_removing(make_script_name)
+            ace.next_root
+         end
+
+         last_system_call_status := echo.system_call(command)
+         if last_system_call_status /= exit_success_code then
+            echo.w_put_string(once "Error occurs while compiling. Compilation process aborted.%N")
+            die_with_code(last_system_call_status)
+         end
+
+         from
+            system_tools.reset_paths
+            ace.reset_roots
+         until
+            not ace.has_root or else nb_errors /= 0
+         loop
+            system_tools.next_path
+            make_script_name := system_tools.path_make
+
+            system_tools.connect_make_file(make_file, make_script_name)
+            if not make_file.is_connected then
+               echo.w_put_string(once "Internal error (file %"")
+               echo.w_put_string(make_script_name)
+               echo.w_put_string("%" not found; error(s) during `compile_to_c').%N")
+               die_with_code(exit_failure_code)
+            end
+            echo.put_string(once "C compiling using %"")
+            echo.put_string(make_script_name)
+            echo.put_string(once "%" command file")
+            if max_process_count > 1 then
+               echo.put_string(once " (")
+               echo.put_integer(max_process_count)
+               echo.put_string(once " jobs at a time)")
+            end
+            echo.put_new_line
+            run_make_file
+            make_file.disconnect
+            system_tools.remove_make_script_and_other_extra_files
+
+            ace.next_root
+         end
+      end
+
+   do_clean
+      local
+         make_script_name: STRING; last_system_call_status: INTEGER
+      do
+         make_script_name := system_tools.path_make
+         command.clear_count
+         system_tools.append_command_path_to(command, once "clean")
+         if echo.is_verbose then
+            command.append(once " -verbose")
+         end
+         command.extend(' ')
+         command.append(make_script_name)
+         last_system_call_status := echo.system_call(command)
+         if last_system_call_status /= 0 then
+            die_with_code(last_system_call_status)
+         end
       end
 
    max_process_count: INTEGER
@@ -176,7 +231,7 @@ feature {}
    process_count: INTEGER
          -- Number of c-compiler processes that are currently running
 
-   run_make_file is
+   run_make_file
       do
          if max_process_count > 1 then
             run_make_file_parallel
@@ -185,7 +240,7 @@ feature {}
          end
       end
 
-   run_make_file_serial is
+   run_make_file_serial
       local
          last_system_call_status: INTEGER
       do
@@ -205,7 +260,7 @@ feature {}
          end
       end
 
-   run_make_file_parallel is
+   run_make_file_parallel
       local
          ps: PROCESS_SCHEDULER
       do
@@ -232,21 +287,21 @@ feature {}
          ps.wait
       end
 
-   print_launched (command_line: STRING) is
+   print_launched (command_line: STRING)
       do
          echo.put_string(once "System call %"")
          echo.put_string(command_line)
          echo.put_string(once "%".%N")
       end
 
-   check_status (status: INTEGER) is
+   check_status (status: INTEGER)
       do
          if status /= 0 then
             die_with_code(status)
          end
       end
 
-   parse_command_line (pass: INTEGER) is
+   parse_command_line (pass: INTEGER)
       local
          arg, next_arg: STRING; argi: INTEGER
       do
@@ -324,23 +379,23 @@ feature {}
          end
       end
 
-   compile_to_c_pass_argument (arg: STRING) is
+   compile_to_c_pass_argument (arg: STRING)
       do
          command.extend(' ')
          command.append(arg)
       end
 
-   make_file: TEXT_FILE_READ is
+   make_file: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   command: STRING is
+   command: STRING
       once
          create Result.make(256)
       end
 
-   one_arg_flag (flag: STRING): BOOLEAN is
+   one_arg_flag (flag: STRING): BOOLEAN
       do
          Result := fz_o.is_equal(flag)
             or else flag_match(fz_cc, flag)
@@ -349,7 +404,7 @@ feature {}
             or else flag_match(fz_c_mode, flag)
       end
 
-   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN is
+   is_valid_argument_for_ace_mode (arg: STRING): BOOLEAN
       do
          Result := is_version_flag(arg)
             or else is_flymake_mode_flag(arg)
@@ -360,7 +415,7 @@ feature {}
             or else is_clean_flag(arg)
       end
 
-   is_jobs_flag (arg: STRING; argi: INTEGER): BOOLEAN is
+   is_jobs_flag (arg: STRING; argi: INTEGER): BOOLEAN
       local
          num: STRING; ok: BOOLEAN
       do
@@ -383,7 +438,7 @@ feature {}
          end
       end
 
-   valid_argument_for_ace_mode: STRING is "Only the flags -verbose, -version, -help, -clean, and -relax are allowed%Nin ACE file mode.%N"
+   valid_argument_for_ace_mode: STRING "Only the flags -verbose, -version, -help, -clean, and -relax are allowed%Nin ACE file mode.%N"
 
 end -- class COMPILE
 --
@@ -397,9 +452,9 @@ end -- class COMPILE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

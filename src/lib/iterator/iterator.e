@@ -15,12 +15,12 @@ deferred class ITERATOR[E_]
    --
 
 feature {ANY}
-   frozen is_valid: BOOLEAN is
+   frozen is_valid: BOOLEAN
       do
          Result := generation = iterable_generation
       end
 
-   start is
+   start
          -- Positions the iterator to the first object in the
          -- aggregate to be traversed.
       deferred
@@ -28,7 +28,7 @@ feature {ANY}
          is_valid
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
          -- Returns True when there are no more objects in the
          -- sequence.
       require
@@ -39,7 +39,7 @@ feature {ANY}
          is_valid
       end
 
-   item: E_ is
+   item: E_
          -- Returns the object at the current position in the
          -- sequence.
       require
@@ -51,7 +51,7 @@ feature {ANY}
          is_valid
       end
 
-   next is
+   next
          -- Positions the iterator to the next object in the
          -- sequence.
       require
@@ -64,16 +64,16 @@ feature {ANY}
       end
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       deferred
       end
 
-   generation: INTEGER is
+   generation: INTEGER
       deferred
       end
 
 feature {ANY} -- Agent-based features:
-   do_all (action: ROUTINE[TUPLE[E_]]) is
+   for_each (action: PROCEDURE[TUPLE[E_]])
          -- Apply `action' to every item of `Current'.
          --
          -- See also `for_all', `exists', `aggregate'.
@@ -90,10 +90,10 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   for_all (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Do all items satisfy `test'?
          --
-         -- See also `do_all', `exists', `aggregate'.
+         -- See also `for_each', `exists', `aggregate'.
       do
          from
             Result := True
@@ -108,10 +108,10 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN is
+   exists (test: PREDICATE[TUPLE[E_]]): BOOLEAN
          -- Does at least one item satisfy `test'?
          --
-         -- See also `do_all', `for_all', `aggregate'.
+         -- See also `for_each', `for_all', `aggregate'.
       do
          from
             start
@@ -125,10 +125,10 @@ feature {ANY} -- Agent-based features:
          end
       end
 
-   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_ is
+   aggregate (action: FUNCTION[TUPLE[E_, E_], E_]; initial: E_): E_
          -- Aggregate all the elements starting from the initial value.
          --
-         -- See also `do_all', `for_all', `exists'.
+         -- See also `for_each', `for_all', `exists'.
       do
          from
             Result := initial
@@ -146,7 +146,7 @@ feature {ANY} -- Agent-based features:
 feature {} -- Invariant on `generation` dynamics
    generation_for_invariant: INTEGER
 
-   generation_only_grows: BOOLEAN is
+   generation_only_grows: BOOLEAN
       do
          Result := generation >= generation_for_invariant
          generation_for_invariant := generation
@@ -157,13 +157,13 @@ invariant
 
 end -- class ITERATOR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

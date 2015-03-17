@@ -11,7 +11,7 @@ feature {ANY}
 
    p1, p2, p3: POINT
 
-   make is
+   make
       local
          i: INTEGER
       do

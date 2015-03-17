@@ -8,12 +8,12 @@ feature {ANY}
 
    g_count: INTEGER
 
-   f is
+   f
       do
          f_count := f_count + 1
       end
 
-   g is
+   g
       do
          g_count := g_count + 1
       end

@@ -27,7 +27,7 @@ create {LIBERTY_PREFIX_OPERATOR}
    new
 
 feature {}
-   make (a_target: like target; a_entity: like entity; a_position: like position) is
+   make (a_target: like target; a_entity: like entity; a_position: like position)
       require
          a_target /= Void
          a_entity.feature_name.is_prefix
@@ -40,18 +40,18 @@ feature {}
          position = a_position
       end
 
-   the_prefix_name: FIXED_STRING is
+   the_prefix_name: FIXED_STRING
       do
          check False end
       end
 
-   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current is
+   make_new (a_target: like target; a_entity: like entity; a_actuals: like actuals_list; a_position: like position): like Current
       do
          create Result.new(a_target, a_entity, a_actuals, a_position)
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_PREFIX_OPERATOR_VISITOR
       do

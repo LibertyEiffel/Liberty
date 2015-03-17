@@ -18,85 +18,85 @@ inherit
    LIBERTY_ASM_VISITOR
 
 feature {LIBERTY_ASM_INSTRUCTION}
-   visit_and (a_instruction: LIBERTY_ASM_AND) is
+   visit_and (a_instruction: LIBERTY_ASM_AND)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE) is
+   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_jump (a_instruction: LIBERTY_ASM_JUMP) is
+   visit_jump (a_instruction: LIBERTY_ASM_JUMP)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_new (a_instruction: LIBERTY_ASM_NEW) is
+   visit_new (a_instruction: LIBERTY_ASM_NEW)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_not (a_instruction: LIBERTY_ASM_NOT) is
+   visit_not (a_instruction: LIBERTY_ASM_NOT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_or (a_instruction: LIBERTY_ASM_OR) is
+   visit_or (a_instruction: LIBERTY_ASM_OR)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_return (a_instruction: LIBERTY_ASM_RETURN) is
+   visit_return (a_instruction: LIBERTY_ASM_RETURN)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT) is
+   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT) is
+   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT) is
+   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT) is
+   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT) is
+   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT) is
+   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT)
       require
          a_instruction /= Void
       deferred
       end
 
-   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE) is
+   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE)
       require
          a_instruction /= Void
       deferred

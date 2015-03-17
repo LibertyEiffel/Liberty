@@ -7,7 +7,7 @@ feature {ANY}
    x, y: INTEGER
 
 feature {ANY}
-   set (nx, ny: like x) is
+   set (nx, ny: like x)
       do
          x := nx
          y := ny
@@ -16,12 +16,12 @@ feature {ANY}
          y = ny
       end
 
-   next_towards (target: like Current): like Current is
+   next_towards (target: like Current): like Current
       do
          Result.set(target.x - 1, target.y - 1)
       end
 
-   test is
+   test
       local
          h1, h2, next, h3: like Current
       do

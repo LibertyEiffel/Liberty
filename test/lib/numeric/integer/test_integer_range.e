@@ -7,15 +7,15 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          sum: INTEGER
       do
-         sum := (1 |..| 1000).aggregate(agent add, 0)
+         sum := ({INTEGER 1} |..| {INTEGER 1000}).aggregate(agent add(?,?), 0)
          assert(sum = (1000*1001)//2)
       end
 
-   add (a, b: INTEGER): INTEGER is
+   add (a, b: INTEGER): INTEGER
       do
          Result := a + b
       end

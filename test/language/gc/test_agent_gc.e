@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i, n: INTEGER; region: AUX_AGENT_GC1; t: AUX_AGENT_GC5
       do
@@ -33,11 +33,11 @@ feature {ANY}
          --         print("Time:     " + t.time.out + "%N")
          --         print("Visits:   " + t.visits.out + "%N")
          --         print("%NTreatment Queue - Remaining Treatment Time%N")
-         region.hospital.treatment.do_all(agent end_print(?))
+         region.hospital.treatment.for_each(agent end_print(?))
          assert(True)
       end
 
-   end_print (p: AUX_AGENT_GC3) is
+   end_print (p: AUX_AGENT_GC3)
       do
          --         print(p.remaining_time.out + "%Tanonymous patient%N")
       end

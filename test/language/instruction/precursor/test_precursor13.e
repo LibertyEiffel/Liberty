@@ -18,12 +18,12 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          assert(init(1) = 50)
       end
 
-   init (i: INTEGER): INTEGER is
+   init (i: INTEGER): INTEGER
       do
          Result := Precursor {AUX_PRECURSOR13A} (i)
          assert(Result = 5)

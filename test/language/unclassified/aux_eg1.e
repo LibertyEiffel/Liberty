@@ -4,7 +4,7 @@
 expanded class AUX_EG1[T]
 
 feature {ANY}
-   set_x (other_x: T) is
+   set_x (other_x: T)
       do
          x := other_x
       end

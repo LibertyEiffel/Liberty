@@ -12,7 +12,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          in: TEXT_FILE_READ; tree: MY_VALIDATING_TREE; version: UNICODE_STRING
       do

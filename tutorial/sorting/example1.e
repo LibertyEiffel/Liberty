@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          c: COLLECTION[CHARACTER]; sorter: COLLECTION_SORTER[CHARACTER]
       do
@@ -23,7 +23,7 @@ feature {ANY}
       end
 
 feature {}
-   print_collection (c: COLLECTION[CHARACTER]) is
+   print_collection (c: COLLECTION[CHARACTER])
       local
          i: INTEGER
       do

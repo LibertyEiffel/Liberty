@@ -4,7 +4,7 @@ inherit
    ANIMAL
 
 feature {ANY}
-   cry: STRING is
+   cry: STRING
       do
          Result := "BARK"
       end

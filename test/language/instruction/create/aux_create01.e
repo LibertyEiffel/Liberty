@@ -4,7 +4,7 @@
 class AUX_CREATE01
 
 feature {ANY}
-   x: INTEGER is
+   x: INTEGER
       do
          counter := counter + 1
          Result := counter

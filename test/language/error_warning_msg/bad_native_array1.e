@@ -11,7 +11,7 @@ feature {}
 
    store2: NATIVE_ARRAY[INTEGER];
 
-   make is
+   make
       do
          store1 := store2;
       end;

@@ -4,6 +4,9 @@
 class C_TYPE_FOR_VA_ARG
 
 inherit
+   TYPE_MARK_VISITOR
+
+insert
    C_TYPE_FOR_ARGUMENT
       redefine
          visit_boolean_type_mark,
@@ -17,19 +20,19 @@ create {C_PRETTY_PRINTER}
    make
 
 feature {BOOLEAN_TYPE_MARK}
-   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK) is
+   visit_boolean_type_mark (visited: BOOLEAN_TYPE_MARK)
       do
          buffer.append(once "int")
       end
 
 feature {CHARACTER_TYPE_MARK}
-   visit_character_type_mark (visited: CHARACTER_TYPE_MARK) is
+   visit_character_type_mark (visited: CHARACTER_TYPE_MARK)
       do
          buffer.append(once "int")
       end
 
 feature {INTEGER_TYPE_MARK}
-   visit_integer_type_mark (visited: INTEGER_TYPE_MARK) is
+   visit_integer_type_mark (visited: INTEGER_TYPE_MARK)
       do
          inspect
             visited.bit_count
@@ -41,10 +44,10 @@ feature {INTEGER_TYPE_MARK}
       end
 
 feature {NATURAL_TYPE_MARK}
-   visit_natural_type_mark (visited: NATURAL_TYPE_MARK) is
+   visit_natural_type_mark (visited: NATURAL_TYPE_MARK)
       do
          if visited.bit_count <= 32 then
-            buffer.append(once "uint32")
+            buffer.append(once "uint32_t")
          else
             buffer.append(once "uint")
             visited.bit_count.append_in(buffer)
@@ -53,7 +56,7 @@ feature {NATURAL_TYPE_MARK}
       end
 
 feature {REAL_TYPE_MARK}
-   visit_real_type_mark (visited: REAL_TYPE_MARK) is
+   visit_real_type_mark (visited: REAL_TYPE_MARK)
       do
          inspect
             visited.bit_count
@@ -76,9 +79,9 @@ end -- class C_TYPE_FOR_VA_ARG
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

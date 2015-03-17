@@ -7,7 +7,7 @@ create {}
    make
 
 feature {}
-   make(ga, bu, zo, meuh: INTEGER) is
+   make(ga, bu, zo, meuh: INTEGER)
       do
       end;
 

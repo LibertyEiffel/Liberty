@@ -10,7 +10,7 @@ inherit
 create {}
    make
 feature
-   make is
+   make
       do
       end
 end -- class BAD_RENAME5

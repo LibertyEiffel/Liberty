@@ -8,11 +8,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          b: AUX_EXPORT1B
       do
-         !!b
+         create b
          b.foo
       end
 

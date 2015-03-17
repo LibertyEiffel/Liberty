@@ -3,7 +3,7 @@
 --
 class AUX_MANIFEST_ARRAY3
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
@@ -11,7 +11,7 @@ feature {}
          -- The contents of the aux_manifest_array3.
 
 feature {ANY}
-   make (l: ARRAY[STRING]) is
+   make (l: ARRAY[STRING])
       require
          l /= Void
          not l.is_empty

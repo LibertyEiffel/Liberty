@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_saxlocator_struct_set_getpublicid (a_structure: POINTER; a_value: POINTER) is
+	xml_saxlocator_struct_set_getpublicid (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getPublicId field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxlocator_struct_set_getsystemid (a_structure: POINTER; a_value: POINTER) is
+	xml_saxlocator_struct_set_getsystemid (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getSystemId field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxlocator_struct_set_getlinenumber (a_structure: POINTER; a_value: POINTER) is
+	xml_saxlocator_struct_set_getlinenumber (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getLineNumber field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_saxlocator_struct_set_getcolumnnumber (a_structure: POINTER; a_value: POINTER) is
+	xml_saxlocator_struct_set_getcolumnnumber (a_structure: POINTER; a_value: POINTER)
 			-- Setter for getColumnNumber field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: setter description
 
@@ -58,7 +58,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_saxlocator_struct_get_getpublicid (a_structure: POINTER): POINTER is
+	xml_saxlocator_struct_get_getpublicid (a_structure: POINTER): POINTER
 			-- Query for getPublicId field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: getter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxlocator_struct_get_getsystemid (a_structure: POINTER): POINTER is
+	xml_saxlocator_struct_get_getsystemid (a_structure: POINTER): POINTER
 			-- Query for getSystemId field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxlocator_struct_get_getlinenumber (a_structure: POINTER): POINTER is
+	xml_saxlocator_struct_get_getlinenumber (a_structure: POINTER): POINTER
 			-- Query for getLineNumber field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_saxlocator_struct_get_getcolumnnumber (a_structure: POINTER): POINTER is
+	xml_saxlocator_struct_get_getcolumnnumber (a_structure: POINTER): POINTER
 			-- Query for getColumnNumber field of XML_SAXLOCATOR_STRUCT structure.
 			-- TODO: getter description
 
@@ -107,7 +107,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

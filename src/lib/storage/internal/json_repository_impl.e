@@ -17,7 +17,7 @@ feature {} -- Implementation of update
    last_line: INTEGER
    last_column: INTEGER
 
-   do_update (in_stream: INPUT_STREAM) is
+   do_update (in_stream: INPUT_STREAM)
       local
          text: JSON_TEXT
       do
@@ -37,31 +37,31 @@ feature {} -- Implementation of update
    last_number: INTEGER
 
 feature {JSON_ARRAY}
-   visit_array (json: JSON_ARRAY) is
+   visit_array (json: JSON_ARRAY)
       do
          check False end
       end
 
 feature {JSON_FALSE}
-   visit_false (json: JSON_FALSE) is
+   visit_false (json: JSON_FALSE)
       do
          check False end
       end
 
 feature {JSON_NULL}
-   visit_null (json: JSON_NULL) is
+   visit_null (json: JSON_NULL)
       do
          check False end
       end
 
 feature {JSON_NUMBER}
-   visit_number (json: JSON_NUMBER) is
+   visit_number (json: JSON_NUMBER)
       do
          check False end
       end
 
 feature {JSON_OBJECT}
-   visit_object (json: JSON_OBJECT) is
+   visit_object (json: JSON_OBJECT)
          -- everything happens here because the repository structure is well defined
       local
          error: STRING; layout: REPOSITORY_LAYOUT
@@ -92,19 +92,19 @@ feature {JSON_OBJECT}
             open_repository(layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
             jarr ::= json.members.at(json_refs)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING; refs: JSON_ARRAY) is
-                                local
-                                   jn: JSON_NUMBER; r: INTEGER; lo: REPOSITORY_LAYOUT
-                                do
-                                   lo := new_layout(once "reference")
-                                   update_layouts.push(lo)
-                                   last_name := string.string.to_utf8
-                                   jn ::= value
-                                   r := jn.int.to_integer_32
-                                   open_reference(last_name, r, lo, value.line, value.column)
-                                   refs.array.item(r - 1 + refs.array.lower).accept(Current)
-                                   close_reference(value.line, value.column)
-                                end (?, ?, jarr))
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING; refs: JSON_ARRAY)
+                                  local
+                                     jn: JSON_NUMBER; r: INTEGER; lo: REPOSITORY_LAYOUT
+                                  do
+                                     lo := new_layout(once "reference")
+                                     update_layouts.push(lo)
+                                     last_name := string.string.to_utf8
+                                     jn ::= value
+                                     r := jn.int.to_integer_32
+                                     open_reference(last_name, r, lo, value.line, value.column)
+                                     refs.array.item(r - 1 + refs.array.lower).accept(Current)
+                                     close_reference(value.line, value.column)
+                                  end (?, ?, jarr))
             close_repository(json.line, json.column)
 
          when "layout" then
@@ -117,11 +117,11 @@ feature {JSON_OBJECT}
             ref := jnum.int.to_integer_32
             open_layout(type, ref, layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
-                                do
-                                   last_name := string.string.to_utf8
-                                   value.accept(Current)
-                                end)
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING)
+                                  do
+                                     last_name := string.string.to_utf8
+                                     value.accept(Current)
+                                  end)
             close_layout(json.line, json.column)
 
          when "array" then
@@ -134,13 +134,13 @@ feature {JSON_OBJECT}
             cap := jnum.int.to_integer_32
             open_array(last_name, type, cap, layout, json.line, json.column)
             jarr ::= json.members.at(json_data)
-            jarr.array.enumerate.do_all(agent (value: JSON_VALUE; index: INTEGER) is
-                                        do
-                                           last_name := "item("
-                                           (index+1).append_in(last_name)
-                                           last_name.extend(')')
-                                           value.accept(Current)
-                                        end)
+            jarr.array.enumerate.for_each(agent (value: JSON_VALUE; index: INTEGER)
+                                          do
+                                             last_name := "item("
+                                             (index+1).append_in(last_name)
+                                             last_name.extend(')')
+                                             value.accept(Current)
+                                          end)
             close_array(json.line, json.column)
 
          when "basic" then
@@ -163,11 +163,11 @@ feature {JSON_OBJECT}
             type.copy(jstr.string.as_utf8)
             open_embedded(last_name, type, layout, json.line, json.column)
             jobj ::= json.members.at(json_data)
-            jobj.members.do_all(agent (value: JSON_VALUE; string: JSON_STRING) is
-                                do
-                                   last_name := string.string.to_utf8
-                                   value.accept(Current)
-                                end)
+            jobj.members.for_each(agent (value: JSON_VALUE; string: JSON_STRING)
+                                  do
+                                     last_name := string.string.to_utf8
+                                     value.accept(Current)
+                                  end)
             close_embedded(json.line, json.column)
 
          when "reference" then
@@ -184,31 +184,31 @@ feature {JSON_OBJECT}
       end
 
 feature {JSON_STRING}
-   visit_string (json: JSON_STRING) is
+   visit_string (json: JSON_STRING)
       do
       end
 
 feature {JSON_TRUE}
-   visit_true (json: JSON_TRUE) is
+   visit_true (json: JSON_TRUE)
       do
          check False end
       end
 
 feature {} -- Default transient objects
-   register_transient_objects is
+   register_transient_objects
       do
          transient.register(to_internals, once "Repository")
       end
 
-   unregister_transient_objects is
+   unregister_transient_objects
       do
          transient.unregister(once "Repository")
       end
 
 feature {}
-   frozen version: STRING is "1"
+   frozen version: STRING "1"
 
-   make is
+   make
       do
          if parser = Void then
             create parser.make(agent fire_update_error)
@@ -221,13 +221,13 @@ invariant
 
 end -- class JSON_REPOSITORY_IMPL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

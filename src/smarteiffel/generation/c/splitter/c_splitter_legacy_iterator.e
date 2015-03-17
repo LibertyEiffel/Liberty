@@ -10,30 +10,30 @@ create {C_SPLITTER_LEGACY}
    make
 
 feature {ANY}
-   start is
+   start
       do
          index := count
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := index = 0
       end
 
-   item: STRING is
+   item: STRING
       do
          Result := once ""
          Result.clear_count
          index.append_in(Result)
       end
 
-   next is
+   next
       do
          index := index - 1
       end
 
 feature {}
-   make (a_count: like count) is
+   make (a_count: like count)
       require
          a_count > 0
       do
@@ -45,8 +45,8 @@ feature {}
    count: INTEGER
 
 feature {ANY}
-   generation: INTEGER is 0
-   iterable_generation: INTEGER is 0 -- not managed
+   generation: INTEGER 0
+   iterable_generation: INTEGER 0 -- not managed
 
 invariant
    index.in_range(0, count)
@@ -64,9 +64,9 @@ end -- class C_SPLITTER_LEGACY_ITERATOR
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

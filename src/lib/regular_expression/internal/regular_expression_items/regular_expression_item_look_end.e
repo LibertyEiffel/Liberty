@@ -19,7 +19,7 @@ feature {ANY}
    should_continue: BOOLEAN
          -- should continue? (or else backtrack?)
 
-   make (ahead, continue: BOOLEAN) is
+   make (ahead, continue: BOOLEAN)
       do
          is_ahead := ahead
          should_continue := continue
@@ -27,7 +27,7 @@ feature {ANY}
          definition: is_ahead = ahead and should_continue = continue
       end
 
-   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION) is
+   explore (matcher: BACKTRACKING_REGULAR_EXPRESSION)
       do
          if is_ahead then
             matcher.end_look_ahead
@@ -44,13 +44,13 @@ feature {ANY}
 
 end -- class REGULAR_EXPRESSION_ITEM_LOOK_END
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

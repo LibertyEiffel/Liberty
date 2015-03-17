@@ -4,7 +4,7 @@
 class AUX_INSPECT6
 
 feature {ANY}
-   make is
+   make
       local
          a: AUX_INSPECT6
       do
@@ -12,7 +12,7 @@ feature {ANY}
          a.do_inspect
       end
 
-   do_inspect is
+   do_inspect
       local
          do_nothing: INTEGER
       do

@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s1, s2: STRING
       do
@@ -23,7 +23,7 @@ feature {ANY}
          assert(s2.min(s1) = s1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

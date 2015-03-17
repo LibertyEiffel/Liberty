@@ -11,7 +11,7 @@ feature {ANY}
 
    c: ARRAY[ARRAY[INTEGER]]
 
-   make is
+   make
       do
          create a.from_model({ARRAY[ARRAY[INTEGER]] 1, << {ARRAY[INTEGER] 1, << 1, 2, 2 >> }, {ARRAY[INTEGER] 1, << 4, 5, 6 >> }, {ARRAY[INTEGER] 1, << 7, 8, 9 >> } >> })
       end

@@ -12,12 +12,19 @@ create {CLASS_TEXT}
    make
 
 feature {ANY}
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := list.first.start_position
       end
 
-   pretty is
+   count: INTEGER
+      do
+         if list /= Void then
+            Result := list.count
+         end
+      end
+
+   pretty
       local
          i: INTEGER
       do
@@ -31,7 +38,7 @@ feature {ANY}
          end
       end
 
-   short (client: TYPE_MARK; target_type: TYPE): BOOLEAN is
+   short (client: TYPE_MARK; target_type: TYPE): BOOLEAN
          -- True when at least one creation list is printed for the given `client'.
       local
          i: INTEGER
@@ -46,7 +53,7 @@ feature {ANY}
          end
       end
 
-   get_clause (fn: FEATURE_NAME): CREATION_CLAUSE is
+   get_clause (fn: FEATURE_NAME): CREATION_CLAUSE
       local
          i: INTEGER
       do
@@ -62,13 +69,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: CREATION_CLAUSE_LIST_VISITOR) is
+   accept (visitor: CREATION_CLAUSE_LIST_VISITOR)
       do
          visitor.visit_creation_clause_list(Current)
       end
 
 feature {CLASS_TEXT}
-   default_root: STRING is
+   default_root: STRING
          -- Return the default creation procedure name to be used as the root
          -- procedure (the execution entry point of the system).
       local
@@ -95,7 +102,7 @@ feature {CLASS_TEXT}
          end
       end
 
-   root_creation_search (a_name: STRING): FEATURE_NAME is
+   root_creation_search (a_name: STRING): FEATURE_NAME
       local
          i: INTEGER
       do
@@ -109,14 +116,14 @@ feature {CLASS_TEXT}
          end
       end
 
-   add_last (cc: CREATION_CLAUSE) is
+   add_last (cc: CREATION_CLAUSE)
       require
          cc /= Void
       do
          list.add_last(cc)
       end
 
-   extra_expanded_check (type: TYPE) is
+   extra_expanded_check (type: TYPE)
       require
          type.is_user_expanded
       local
@@ -145,7 +152,7 @@ feature {CLASS_TEXT}
          end
       end
 
-   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP is
+   user_expanded_default_create_stamp (type: TYPE): FEATURE_STAMP
          -- Must be called after `extra_expanded_check'.
       require
          type.is_user_expanded
@@ -162,7 +169,7 @@ feature {CLASS_TEXT}
          end
       end
 
-   check_for (type: TYPE) is
+   check_for (type: TYPE)
       local
          i: INTEGER
       do
@@ -177,7 +184,7 @@ feature {CLASS_TEXT}
       end
 
 feature {CREATE_SUPPORT}
-   all_positions_in_error_handler is
+   all_positions_in_error_handler
          -- (To show available creation procedure.)
       local
          i: INTEGER; creation_clause: CREATION_CLAUSE; procedure_list: FEATURE_NAME_LIST
@@ -202,7 +209,7 @@ feature {CREATION_CLAUSE_LIST_VISITOR}
    list: FAST_ARRAY[CREATION_CLAUSE]
 
 feature {}
-   make (first: CREATION_CLAUSE) is
+   make (first: CREATION_CLAUSE)
       require
          first /= Void
       do
@@ -227,9 +234,9 @@ end -- class CREATION_CLAUSE_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

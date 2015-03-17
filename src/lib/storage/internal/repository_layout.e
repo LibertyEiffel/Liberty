@@ -40,7 +40,7 @@ feature {REPOSITORY_IMPL, REPOSITORY_LAYOUT}
 
    solved: BOOLEAN
 
-   solve (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS is
+   solve (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS
       local
          i: INTEGER; layout: REPOSITORY_LAYOUT; attribute_name: STRING; an_attribute: INTERNALS
          s: like solved
@@ -95,7 +95,7 @@ feature {REPOSITORY_LAYOUT}
 feature {}
    internals_memory: INTERNALS
 
-   internals (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS is
+   internals (a_solver: FUNCTION[TUPLE[INTEGER], INTERNALS]): INTERNALS
       require
          not solved
       local
@@ -184,12 +184,12 @@ feature {REPOSITORY_IMPL}
          -- The layout kind. Almost everything is common between layout kinds. If things begin to diverge too
          -- much, change that to a real polymorphism.
 
-   is_clear: BOOLEAN is
+   is_clear: BOOLEAN
       do
          Result := kind.is_empty
       end
 
-   set_kind (a_kind: like kind) is
+   set_kind (a_kind: like kind)
       require
          is_clear
          { FAST_ARRAY[STRING] << "repository", "reference", "layout", "embedded", "basic", "array" >>}.has(a_kind)
@@ -200,7 +200,7 @@ feature {REPOSITORY_IMPL}
          kind.is_equal(a_kind)
       end
 
-   set_type (a_type: like type) is
+   set_type (a_type: like type)
       require
          not is_clear
          type = Void
@@ -212,14 +212,14 @@ feature {REPOSITORY_IMPL}
          type.is_equal(a_type)
       end
 
-   set_capacity (a_capacity: like capacity) is
+   set_capacity (a_capacity: like capacity)
       do
          capacity := a_capacity
       ensure
          capacity = a_capacity
       end
 
-   set_ref (a_ref: like ref) is
+   set_ref (a_ref: like ref)
       require
          not is_clear
          ref = 0
@@ -231,7 +231,7 @@ feature {REPOSITORY_IMPL}
          ref = a_ref
       end
 
-   set_trans_ref (a_trans_ref: like trans_ref) is
+   set_trans_ref (a_trans_ref: like trans_ref)
       require
          not is_clear
          trans_ref = Void
@@ -244,7 +244,7 @@ feature {REPOSITORY_IMPL}
          trans_ref.is_equal(a_trans_ref)
       end
 
-   set_name (a_name: like name) is
+   set_name (a_name: like name)
       require
          not is_clear
          name = Void
@@ -256,7 +256,7 @@ feature {REPOSITORY_IMPL}
          name.is_equal(a_name)
       end
 
-   set_value (a_value: like value) is
+   set_value (a_value: like value)
       require
          not is_clear
          value = Void
@@ -268,7 +268,7 @@ feature {REPOSITORY_IMPL}
          value.is_equal(a_value)
       end
 
-   add_layout (a_layout: REPOSITORY_LAYOUT) is
+   add_layout (a_layout: REPOSITORY_LAYOUT)
       require
          not is_clear
          a_layout.name /= Void
@@ -280,7 +280,7 @@ feature {REPOSITORY_IMPL}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          kind.clear_count
          type_memory.clear_count
@@ -302,7 +302,7 @@ feature {RECYCLING_POOL}
       end
 
 feature {}
-   make is
+   make
       do
          create layouts.make
          create assigned.make
@@ -335,13 +335,13 @@ invariant
 
 end -- class REPOSITORY_LAYOUT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

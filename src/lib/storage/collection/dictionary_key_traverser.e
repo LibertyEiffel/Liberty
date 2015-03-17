@@ -2,8 +2,8 @@
 -- See the full copyright at the end.
 --
 class DICTIONARY_KEY_TRAVERSER[V_, K_]
-   -- This class allows you to view a DICTIONARY[V_, K_] as a TRAVERSABLE[K_].  Note that there is no need for
-   -- a DICTIONARY_ITEM_TRAVERSER because DICTIONARY[V_, K_] is already a TRAVERSABLE[V_].
+   -- This class allows you to view a MAP[V_, K_] as a TRAVERSABLE[K_].  Note that there is no need for
+   -- a DICTIONARY_ITEM_TRAVERSER because MAP[V_, K_] is already a TRAVERSABLE[V_].
 
 inherit
    TRAVERSABLE[K_]
@@ -11,68 +11,78 @@ inherit
 create {ANY}
    from_dictionary
 
-feature {ANY}
-   from_dictionary (dictionary_: like dictionary) is
+create {MAP}
+   from_map
+
+feature {}
+   from_map (map_: like map)
       do
-         dictionary := dictionary_
+         map := map_
       end
 
 feature {ANY}
-   lower: INTEGER is
+   from_dictionary (map_: like map)
+      obsolete "Use map.keys instead"
       do
-         Result := dictionary.lower
-      end
-
-   upper: INTEGER is
-      do
-         Result := dictionary.upper
+         from_map(map)
       end
 
 feature {ANY}
-   count: INTEGER is
+   lower: INTEGER
       do
-         Result := dictionary.count
+         Result := map.lower
       end
 
-   is_empty: BOOLEAN is
+   upper: INTEGER
       do
-         Result := dictionary.is_empty
+         Result := map.upper
       end
 
 feature {ANY}
-   item (i: INTEGER): K_ is
+   count: INTEGER
       do
-         Result := dictionary.key(i)
+         Result := map.count
       end
 
-   first: like item is
+   is_empty: BOOLEAN
+      do
+         Result := map.is_empty
+      end
+
+feature {ANY}
+   item (i: INTEGER): K_
+      do
+         Result := map.key(i)
+      end
+
+   first: like item
       do
          Result := item(lower)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
 feature {ANY}
-   new_iterator: ITERATOR[K_] is
+   new_iterator: ITERATOR[K_]
       do
-         Result := dictionary.new_iterator_on_keys
+         Result := map.new_iterator_on_keys
       end
 
 feature {}
-   dictionary: DICTIONARY[V_, K_]
+   map: MAP[V_, K_]
 
 end -- class DICTIONARY_KEY_TRAVERSER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

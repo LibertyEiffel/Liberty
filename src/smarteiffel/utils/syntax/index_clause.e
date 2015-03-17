@@ -12,11 +12,13 @@ create {ANY}
    with_tag, without_tag
 
 feature {ANY}
-   pretty is
+   spec: STRING
+
+   pretty (indent_level: INTEGER)
       local
          i: INTEGER
       do
-         pretty_printer.set_indent_level(1)
+         pretty_printer.set_indent_level(indent_level + 1)
          if tag /= Void then
             pretty_printer.put_string(tag.to_string)
             pretty_printer.put_string(once ": ")
@@ -27,18 +29,18 @@ feature {ANY}
             until
                i > list.upper
             loop
-               pretty_printer.set_indent_level(2)
-               list.item(i).pretty(3)
-               i := i + 1
-               if i <= list.upper then
+               if i > list.lower then
                   pretty_printer.put_string(once ",%N")
                end
+               pretty_printer.set_indent_level(indent_level + 2)
+               list.item(i).pretty(indent_level + 3)
+               i := i + 1
             end
          end
          pretty_printer.set_indent_level(0)
       end
 
-   accept (visitor: INDEX_CLAUSE_VISITOR) is
+   accept (visitor: INDEX_CLAUSE_VISITOR)
       do
          visitor.visit_index_clause(Current)
       end
@@ -49,22 +51,24 @@ feature {INDEX_CLAUSE, INDEX_CLAUSE_VISITOR}
    list: FAST_ARRAY[MANIFEST_STRING]
 
 feature {}
-   with_tag (i: like tag) is
+   with_tag (i: like tag; s: like spec)
       require
          i /= Void
       do
          tag := i
+         spec := s
       ensure
          tag = i
       end
 
-   without_tag (index_value: MANIFEST_STRING) is
+   without_tag (index_value: MANIFEST_STRING; s: like spec)
       do
+         spec := s
          add_last(index_value)
       end
 
 feature {EIFFEL_PARSER, INDEX_CLAUSE_VISITOR}
-   add_last (index_value: MANIFEST_STRING) is
+   add_last (index_value: MANIFEST_STRING)
       require
          index_value /= Void
       do
@@ -89,9 +93,9 @@ end -- class INDEX_CLAUSE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

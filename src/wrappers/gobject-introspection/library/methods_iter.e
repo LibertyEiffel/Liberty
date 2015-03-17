@@ -2,17 +2,17 @@ expanded class METHODS_ITER
 	-- Expanded iterator over methods of a GI_CLASS
 insert GI_ITERATOR[GI_FUNCTION_INFO]
 feature {ANY}
-	start is
+	start
 		do
 			i:=gi_class.methods_lower
 		end
 	
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result := i>gi_class.methods_upper
 		end
 
-	item: GI_FUNCTION_INFO is
+	item: GI_FUNCTION_INFO
 		do
 			Result:=gi_class.method(i)
 		end

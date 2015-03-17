@@ -9,33 +9,33 @@ insert
 	GIBASEINFO_EXTERNALS
 	GIENUMINFO_EXTERNALS
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} 
-	value: INTEGER_64 is
+	value: INTEGER_64
    		-- the enumeration value. This will always be representable as a 32-bit signed or unsigned value. 64 bits are used to allow both.
 		do
 			Result := g_value_info_get_value(handle)
 		end
 
-	ref is
+	ref
 		local p: POINTER
 		do
 			p:=g_base_info_ref(handle)
 		end
 
-	unref is
+	unref
 		do
 			g_base_info_unref(handle)
 		end
 		
 -- feature {ANY}
--- 	copy (another: like Current) is
+-- 	copy (another: like Current)
 -- 		do
 -- 			handle:=another.handle
 -- 		end
 -- 
--- 	is_equal (another: like Current): BOOLEAN is
+-- 	is_equal (another: like Current): BOOLEAN
 -- 		do
 -- 			Result := handle = another.handle
 -- 		end

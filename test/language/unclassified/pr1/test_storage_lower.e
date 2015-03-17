@@ -11,7 +11,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
          -- Testing
       do
          create a; create b; create c

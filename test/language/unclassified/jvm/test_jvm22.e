@@ -7,15 +7,15 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
-         a: ARRAY[ANY]
+         a: ARRAY[ANY_REFERENCE]
       do
-         a := {ARRAY[ANY] 1, << create {REFERENCE[INTEGER_8]}.set_item(1) >> }
+         a := {ARRAY[ANY_REFERENCE] 1, << create {REFERENCE[INTEGER_8]}.set_item(1) >> }
          assert(a.upper = 1)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

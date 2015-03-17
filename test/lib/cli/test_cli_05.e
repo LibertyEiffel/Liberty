@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          foo_option: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
          bar_option: COMMAND_LINE_TYPED_ARGUMENT[INTEGER]
@@ -80,7 +80,7 @@ feature {}
          assert(bar_option.item = 42)
       end
 
-   setup is
+   setup
       do
          command_arguments.make(1)
       end

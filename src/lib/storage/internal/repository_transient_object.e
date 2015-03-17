@@ -21,25 +21,25 @@ create {REPOSITORY_TRANSIENT}
    make, set
 
 feature {ANY}
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          if internals /= Void then
             Result := internals.object_as_pointer.hash_code
          end
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := hash_code < other.hash_code
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := hash_code = other.hash_code
       end
 
 feature {REPOSITORY_TRANSIENT}
-   set (a_internals: like internals; a_key: like key) is
+   set (a_internals: like internals; a_key: like key)
       require
          not a_internals.type_is_expanded
          a_internals.object_as_pointer /= default_pointer
@@ -56,7 +56,7 @@ feature {REPOSITORY_TRANSIENT}
 
    key: STRING
 
-   reset is
+   reset
       do
          internals := Void
          key := Void
@@ -66,13 +66,13 @@ feature {REPOSITORY_TRANSIENT}
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          reset
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -83,13 +83,13 @@ invariant
 
 end -- class REPOSITORY_TRANSIENT_OBJECT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

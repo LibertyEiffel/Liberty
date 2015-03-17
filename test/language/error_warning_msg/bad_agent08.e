@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          r:ROUTINE[TUPLE[STRING]]
       do
@@ -17,7 +17,7 @@ feature {ANY}
          r.call(["TEST"])
       end
 
-   f(s: STRING; i: STRING) is
+   f(s: STRING; i: STRING)
       do
       end;
 

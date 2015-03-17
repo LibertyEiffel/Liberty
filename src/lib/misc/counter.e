@@ -6,11 +6,14 @@ class COUNTER
    -- Simple counter object (useful as a once function).
    --
 
-feature {ANY}
-   item: INTEGER
-         -- The `value' of the counter.
+insert
+   REFERENCE[INTEGER]
 
-   increment, next is
+create {ANY}
+   default_create, set_item
+
+feature {ANY}
+   increment, next
          -- Increment the `item' of `Current' counter.
       do
          item := item + 1
@@ -18,7 +21,7 @@ feature {ANY}
          item = 1 + old item
       end
 
-   decrement, previous is
+   decrement, previous
          -- Decrement the `item' of `Current' counter.
       do
          item := item - 1
@@ -26,7 +29,7 @@ feature {ANY}
          item + 1 = old item
       end
 
-   reset, start is
+   reset, start
          -- Reset the `item' of `Current' counter.
       do
          item := 0
@@ -34,13 +37,13 @@ feature {ANY}
          item = 0
       end
 
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
          -- Append the `item' of the `Current' counter in the `buffer'.
       do
          item.append_in(buffer)
       end
 
-   value: INTEGER is
+   value: INTEGER
       obsolete "use `item' instead"
       do
          Result := item
@@ -48,13 +51,13 @@ feature {ANY}
 
 end -- class COUNTER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

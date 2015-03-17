@@ -10,7 +10,7 @@ create {CLASSES_TREE_FACTORY}
    make
 
 feature {ANY}
-   to_string: STRING is
+   to_string: STRING
       do
          Result := once ""
          Result.copy(path)
@@ -22,7 +22,7 @@ feature {LOADPATH, CLASSES_TREE_FACTORY}
    path: STRING
 
 feature {} -- Open loadpath files
-   connect (a_system_path: STRING; loadpath: LOADPATH): TEXT_FILE_READ is
+   connect (a_system_path: STRING; loadpath: LOADPATH): TEXT_FILE_READ
       local
          sp: like a_system_path
       do
@@ -69,7 +69,7 @@ feature {} -- Open loadpath files
          Result = Void or else connected.at(path) = Result
       end
 
-   disconnect (in: TEXT_FILE_READ) is
+   disconnect (in: TEXT_FILE_READ)
       require
          in.is_connected
          not files.fast_has(in)
@@ -84,24 +84,24 @@ feature {} -- Open loadpath files
          connected.fast_occurrences(in) = 0
       end
 
-   files: FAST_ARRAY[TEXT_FILE_READ] is
+   files: FAST_ARRAY[TEXT_FILE_READ]
       once
          create Result.make(0)
       end
 
-   connected: DICTIONARY[TEXT_FILE_READ, STRING] is
+   connected: DICTIONARY[TEXT_FILE_READ, STRING]
       once
          create {HASHED_DICTIONARY[TEXT_FILE_READ, STRING]} Result.make
       end
 
-   error_cycle is
+   error_cycle
       do
          error_handler.append(once "Cycle detected:%N")
          show_cycle(Current)
          error_handler.print_as_fatal_error
       end
 
-   show_cycle (tree: CLASSES) is
+   show_cycle (tree: CLASSES)
       local
          p: CLUSTERS; l: LOADPATH
       do
@@ -121,7 +121,7 @@ feature {} -- Open loadpath files
          end
       end
 
-   show_name is
+   show_name
       do
          echo.put_character('"')
          echo.put_string(path)
@@ -129,7 +129,7 @@ feature {} -- Open loadpath files
       end
 
 feature {}
-   make (a_distance: like distance; a_name: like name; a_path, a_system_path: like path; loadpath: LOADPATH; discard_silently: BOOLEAN) is
+   make (a_distance: like distance; a_name: like name; a_path, a_system_path: like path; loadpath: LOADPATH; discard_silently: BOOLEAN)
       require
          a_distance > 0
          not a_name.is_empty
@@ -157,7 +157,7 @@ feature {}
          strings.recycle(loadpath_file)
       end
 
-   create_subtree (loadpath_file, a_path: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN) is
+   create_subtree (loadpath_file, a_path: STRING; loadpath: LOADPATH; discard_silently: BOOLEAN)
       require
          system_notation.is_valid_path(loadpath_file)
          is_classes_path(a_path)
@@ -251,7 +251,7 @@ feature {}
          end
       end
 
-   new_path (notation: DIRECTORY_NOTATION; a_path, a_entry: STRING): STRING is
+   new_path (notation: DIRECTORY_NOTATION; a_path, a_entry: STRING): STRING
       require
          notation.is_valid_path(a_path) --|*** TO BE CHECKED: notation.is_valid_file_name(a_entry)
          not notation.is_absolute_path(a_entry)
@@ -267,7 +267,7 @@ feature {}
          string_aliaser.registered_one(Result)
       end
 
-   new_name (a_name: STRING; index: INTEGER): STRING is
+   new_name (a_name: STRING; index: INTEGER): STRING
       local
          buffer: STRING
       do
@@ -304,9 +304,9 @@ end -- class LOADPATH
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

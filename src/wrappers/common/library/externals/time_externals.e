@@ -9,7 +9,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	asctime (a_tp: POINTER): POINTER is
+	asctime (a_tp: POINTER): POINTER
  		-- asctime
 		external "plug_in"
 		alias "{
@@ -19,7 +19,7 @@ feature {} -- External calls
 		}"
 		end
 
-	asctime_r (a_tp: POINTER; a_buf: POINTER): POINTER is
+	asctime_r (a_tp: POINTER; a_buf: POINTER): POINTER
  		-- asctime_r
 		external "plug_in"
 		alias "{
@@ -29,7 +29,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock: like long is
+	clock: like long
  		-- clock
 		external "plug_in"
 		alias "{
@@ -39,7 +39,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_getcpuclockid (a_pid: INTEGER; a_clock_id: POINTER): INTEGER is
+	clock_getcpuclockid (a_pid: INTEGER; a_clock_id: POINTER): INTEGER
  		-- clock_getcpuclockid
 		external "plug_in"
 		alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_getres (a_clock_id: INTEGER; a_res: POINTER): INTEGER is
+	clock_getres (a_clock_id: INTEGER; a_res: POINTER): INTEGER
  		-- clock_getres
 		external "plug_in"
 		alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_gettime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER is
+	clock_gettime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER
  		-- clock_gettime
 		external "plug_in"
 		alias "{
@@ -69,7 +69,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_nanosleep (a_clock_id: INTEGER; a_flags: INTEGER; a_req: POINTER; a_rem: POINTER): INTEGER is
+	clock_nanosleep (a_clock_id: INTEGER; a_flags: INTEGER; a_req: POINTER; a_rem: POINTER): INTEGER
  		-- clock_nanosleep
 		external "plug_in"
 		alias "{
@@ -79,7 +79,7 @@ feature {} -- External calls
 		}"
 		end
 
-	clock_settime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER is
+	clock_settime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER
  		-- clock_settime
 		external "plug_in"
 		alias "{
@@ -89,7 +89,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ctime (a_timer: POINTER): POINTER is
+	ctime (a_timer: POINTER): POINTER
  		-- ctime
 		external "plug_in"
 		alias "{
@@ -99,7 +99,7 @@ feature {} -- External calls
 		}"
 		end
 
-	ctime_r (a_timer: POINTER; a_buf: POINTER): POINTER is
+	ctime_r (a_timer: POINTER; a_buf: POINTER): POINTER
  		-- ctime_r
 		external "plug_in"
 		alias "{
@@ -110,7 +110,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable __daylight skipped.
-	daylight: INTEGER is
+	daylight: INTEGER
  		-- daylight
 		external "plug_in"
 		alias "{
@@ -120,7 +120,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_daylight: POINTER is
+	address_of_daylight: POINTER
  		-- Address of daylight
 		external "plug_in"
 		alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_daylight (a_value: INTEGER) is
+	set_daylight (a_value: INTEGER)
 		-- Set variable daylight value
 		external "plug_in"
 		alias "{
@@ -140,7 +140,7 @@ feature {} -- External calls
 		}"
 		end
 
-	difftime (a_time1: like long; a_time0: like long): REAL is
+	difftime (a_time1: like long; a_time0: like long): REAL
  		-- difftime
 		external "plug_in"
 		alias "{
@@ -150,7 +150,7 @@ feature {} -- External calls
 		}"
 		end
 
-	dysize (a_year: INTEGER): INTEGER is
+	dysize (a_year: INTEGER): INTEGER
  		-- dysize
 		external "plug_in"
 		alias "{
@@ -160,7 +160,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdate (a_string: POINTER): POINTER is
+	getdate (a_string: POINTER): POINTER
  		-- getdate
 		external "plug_in"
 		alias "{
@@ -170,7 +170,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdate_err: INTEGER is
+	getdate_err: INTEGER
  		-- getdate_err
 		external "plug_in"
 		alias "{
@@ -180,7 +180,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_getdate_err: POINTER is
+	address_of_getdate_err: POINTER
  		-- Address of getdate_err
 		external "plug_in"
 		alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_getdate_err (a_value: INTEGER) is
+	set_getdate_err (a_value: INTEGER)
 		-- Set variable getdate_err value
 		external "plug_in"
 		alias "{
@@ -200,7 +200,7 @@ feature {} -- External calls
 		}"
 		end
 
-	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER is
+	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER
  		-- getdate_r
 		external "plug_in"
 		alias "{
@@ -210,7 +210,7 @@ feature {} -- External calls
 		}"
 		end
 
-	gmtime (a_timer: POINTER): POINTER is
+	gmtime (a_timer: POINTER): POINTER
  		-- gmtime
 		external "plug_in"
 		alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 		}"
 		end
 
-	gmtime_r (a_timer: POINTER; a_tp: POINTER): POINTER is
+	gmtime_r (a_timer: POINTER; a_tp: POINTER): POINTER
  		-- gmtime_r
 		external "plug_in"
 		alias "{
@@ -230,7 +230,7 @@ feature {} -- External calls
 		}"
 		end
 
-	localtime (a_timer: POINTER): POINTER is
+	localtime (a_timer: POINTER): POINTER
  		-- localtime
 		external "plug_in"
 		alias "{
@@ -240,7 +240,7 @@ feature {} -- External calls
 		}"
 		end
 
-	localtime_r (a_timer: POINTER; a_tp: POINTER): POINTER is
+	localtime_r (a_timer: POINTER; a_tp: POINTER): POINTER
  		-- localtime_r
 		external "plug_in"
 		alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 		}"
 		end
 
-	mktime (a_tp: POINTER): like long is
+	mktime (a_tp: POINTER): like long
  		-- mktime
 		external "plug_in"
 		alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 		}"
 		end
 
-	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER is
+	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER
  		-- nanosleep
 		external "plug_in"
 		alias "{
@@ -270,7 +270,7 @@ feature {} -- External calls
 		}"
 		end
 
-	stime (a_when_external: POINTER): INTEGER is
+	stime (a_when_external: POINTER): INTEGER
  		-- stime
 		external "plug_in"
 		alias "{
@@ -280,7 +280,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER): like long_unsigned is
+	strftime (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER): like long_unsigned
  		-- strftime
 		external "plug_in"
 		alias "{
@@ -290,7 +290,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strftime_l (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like long_unsigned is
+	strftime_l (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like long_unsigned
  		-- strftime_l
 		external "plug_in"
 		alias "{
@@ -300,7 +300,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strptime (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER): POINTER is
+	strptime (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER): POINTER
  		-- strptime
 		external "plug_in"
 		alias "{
@@ -310,7 +310,7 @@ feature {} -- External calls
 		}"
 		end
 
-	strptime_l (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER; a_loc: POINTER): POINTER is
+	strptime_l (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER; a_loc: POINTER): POINTER
  		-- strptime_l
 		external "plug_in"
 		alias "{
@@ -320,7 +320,7 @@ feature {} -- External calls
 		}"
 		end
 
-	time (a_timer: POINTER): like long is
+	time (a_timer: POINTER): like long
  		-- time
 		external "plug_in"
 		alias "{
@@ -330,7 +330,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timegm (a_tp: POINTER): like long is
+	timegm (a_tp: POINTER): like long
  		-- timegm
 		external "plug_in"
 		alias "{
@@ -340,7 +340,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timelocal (a_tp: POINTER): like long is
+	timelocal (a_tp: POINTER): like long
  		-- timelocal
 		external "plug_in"
 		alias "{
@@ -350,7 +350,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_create (a_clock_id: INTEGER; an_evp: POINTER; a_timerid: POINTER): INTEGER is
+	timer_create (a_clock_id: INTEGER; an_evp: POINTER; a_timerid: POINTER): INTEGER
  		-- timer_create
 		external "plug_in"
 		alias "{
@@ -360,7 +360,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_delete (a_timerid: POINTER): INTEGER is
+	timer_delete (a_timerid: POINTER): INTEGER
  		-- timer_delete
 		external "plug_in"
 		alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_getoverrun (a_timerid: POINTER): INTEGER is
+	timer_getoverrun (a_timerid: POINTER): INTEGER
  		-- timer_getoverrun
 		external "plug_in"
 		alias "{
@@ -380,7 +380,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER is
+	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER
  		-- timer_gettime
 		external "plug_in"
 		alias "{
@@ -390,7 +390,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalue: POINTER): INTEGER is
+	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalue: POINTER): INTEGER
  		-- timer_settime
 		external "plug_in"
 		alias "{
@@ -400,7 +400,7 @@ feature {} -- External calls
 		}"
 		end
 
-	timezone: like long is
+	timezone: like long
  		-- timezone
 		external "plug_in"
 		alias "{
@@ -410,7 +410,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_timezone: POINTER is
+	address_of_timezone: POINTER
  		-- Address of timezone
 		external "plug_in"
 		alias "{
@@ -420,7 +420,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_timezone (a_value: like long) is
+	set_timezone (a_value: like long)
 		-- Set variable timezone value
 		external "plug_in"
 		alias "{
@@ -431,7 +431,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable __timezone skipped.
-	tzname: POINTER is
+	tzname: POINTER
  		-- tzname
 		external "plug_in"
 		alias "{
@@ -441,7 +441,7 @@ feature {} -- External calls
 		}"
 		end
 
-	address_of_tzname: POINTER is
+	address_of_tzname: POINTER
  		-- Address of tzname
 		external "plug_in"
 		alias "{
@@ -451,7 +451,7 @@ feature {} -- External calls
 		}"
 		end
 
-	set_tzname (a_value: POINTER) is
+	set_tzname (a_value: POINTER)
 		-- Set variable tzname value
 		external "plug_in"
 		alias "{
@@ -462,7 +462,7 @@ feature {} -- External calls
 		end
 
 	-- `hidden' variable __tzname skipped.
-	tzset is
+	tzset
  		-- tzset
 		external "plug_in"
 		alias "{

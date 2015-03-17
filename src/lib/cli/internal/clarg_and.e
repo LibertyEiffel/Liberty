@@ -13,9 +13,9 @@ create {COMMAND_LINE_ARGUMENT}
    make
 
 feature {ANY}
-   is_repeatable: BOOLEAN is False
+   is_repeatable: BOOLEAN False
 
-   infix "and", infix "and then" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT is
+   infix "and", infix "and then" (other: COMMAND_LINE_ARGUMENT): COMMAND_LINE_ARGUMENT
       do
          args.add_last(other)
          mandatory_count_memory := -1
@@ -24,36 +24,36 @@ feature {ANY}
 
    is_set: BOOLEAN
 
-   is_mandatory: BOOLEAN is
+   is_mandatory: BOOLEAN
       do
          Result := args.exists(agent {COMMAND_LINE_ARGUMENT}.is_mandatory)
       end
 
-   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN is
+   is_set_at (context: COMMAND_LINE_CONTEXT): BOOLEAN
       do
          Result := args.exists(agent {COMMAND_LINE_ARGUMENT}.is_set_at(context))
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   prepare_parse is
+   prepare_parse
       do
          is_set := False
          set_count := 0
-         args.do_all(agent {COMMAND_LINE_ARGUMENT}.prepare_parse)
+         args.for_each(agent {COMMAND_LINE_ARGUMENT}.prepare_parse)
       end
 
-   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_command_line (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       do
          Result := parse_cli(context)
          is_set := set_count = mandatory_count
       end
 
-   undo_parse (context: COMMAND_LINE_CONTEXT) is
+   undo_parse (context: COMMAND_LINE_CONTEXT)
       do
-         args.do_all(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
+         args.for_each(agent {COMMAND_LINE_ARGUMENT}.undo_parse(context))
       end
 
-   usage_summary (stream: OUTPUT_STREAM) is
+   usage_summary (stream: OUTPUT_STREAM)
       local
          i: INTEGER
       do
@@ -71,16 +71,16 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
          detailed := False
       end
 
-   usage_details (stream: OUTPUT_STREAM) is
+   usage_details (stream: OUTPUT_STREAM)
       do
          if not detailed then
-            args.do_all(agent {COMMAND_LINE_ARGUMENT}.usage_details(stream))
+            args.for_each(agent {COMMAND_LINE_ARGUMENT}.usage_details(stream))
             detailed := True
          end
       end
 
 feature {}
-   parse_cli (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT is
+   parse_cli (context: COMMAND_LINE_CONTEXT): COMMAND_LINE_CONTEXT
       local
          i: INTEGER; arg: COMMAND_LINE_ARGUMENT; ctx: COMMAND_LINE_CONTEXT
       do
@@ -112,7 +112,7 @@ feature {}
          end
       end
 
-   mandatory_count: INTEGER is
+   mandatory_count: INTEGER
       local
          i: INTEGER
       do
@@ -141,7 +141,7 @@ feature {}
    set_count: INTEGER
    mandatory_count_memory: INTEGER
 
-   make (a_left, a_right: COMMAND_LINE_ARGUMENT) is
+   make (a_left, a_right: COMMAND_LINE_ARGUMENT)
       require
          a_left /= Void
          a_right /= Void
@@ -157,13 +157,13 @@ invariant
 
 end -- class CLARG_AND
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -2,10 +2,6 @@ deferred class SHARED_SETTINGS
    -- Access to the `settings' singleton and commodity features like "proxy"
    -- setters, queries and logging facilities.
 
---insert
---   LOGGING
---      undefine copy, is_equal, out_in_tagged_out_memory
---      end
 insert ANY 
 
 feature {ANY}

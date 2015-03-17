@@ -9,14 +9,14 @@ create {}
 feature {}
    point_pointer: POINTER;
 
-   make is
+   make
       do
          set_x(point_pointer);
       end;
 
 feature {}
 
-   set_x(point_star: POINTER) is
+   set_x(point_star: POINTER)
       external "[
                  C struct Point set x use "c_glue4.h"
                ]"

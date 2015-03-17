@@ -6,7 +6,7 @@ class CLASSES_TREE
 inherit
    CLUSTERS
       redefine find_physical_cluster, cluster_named, clusters_of, cluster_by_directory_path, class_text_count, loaded_class_count,
-         cluster_count, cluster_at, has_class, has_cluster, for_all, for_all_clusters, parse_include,
+         cluster_count, cluster_at, has_class, has_cluster, for_all, for_all_filtered, for_all_clusters, parse_include,
          pretty_in, view_in, get_started
       end
 
@@ -14,14 +14,14 @@ create {CLASSES_TREE_FACTORY}
    make
 
 feature {ANY}
-   to_string: STRING is
+   to_string: STRING
       do
          Result := once ""
          Result.copy(path)
       end
 
 feature {CLUSTERS}
-   find_physical_cluster (system_path: STRING): CLUSTER is
+   find_physical_cluster (system_path: STRING): CLUSTER
       local
          ft: FILE_TOOLS
       do
@@ -33,7 +33,7 @@ feature {CLUSTERS}
       end
 
 feature {ACE, CLASSES} -- Searching
-   cluster_named (cluster_name: STRING): CLUSTER is
+   cluster_named (cluster_name: STRING): CLUSTER
       do
          if name = cluster_name then
             Result := cluster
@@ -42,8 +42,8 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   clusters_of (class_name: CLASS_NAME; report_error: BOOLEAN; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
-      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER) is
+   clusters_of (class_name: CLASS_NAME; skip: CLASSES; clusters: FAST_ARRAY[CLUSTER]
+      distances: FAST_ARRAY[INTEGER]; current_distance: INTEGER)
       local
          sorter: COLLECTION_SORTER[INTEGER]; i: INTEGER
       do
@@ -57,10 +57,10 @@ feature {ACE, CLASSES} -- Searching
                distances.add(current_distance, i)
             end
          end
-         Precursor(class_name, report_error, skip, clusters, distances, current_distance)
+         Precursor(class_name, skip, clusters, distances, current_distance)
       end
 
-   cluster_by_directory_path (a_path: STRING): CLUSTER is
+   cluster_by_directory_path (a_path: STRING): CLUSTER
       do
          if path.is_equal(a_path) then
             Result := cluster
@@ -69,22 +69,22 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   class_text_count: INTEGER is
+   class_text_count: INTEGER
       do
          Result := cluster.class_text_count + Precursor
       end
 
-   loaded_class_count: INTEGER is
+   loaded_class_count: INTEGER
       do
          Result := cluster.loaded_class_count + Precursor
       end
 
-   cluster_count: INTEGER is
+   cluster_count: INTEGER
       do
          Result := 1 + Precursor
       end
 
-   cluster_at (i: INTEGER): CLUSTER is
+   cluster_at (i: INTEGER): CLUSTER
       do
          if i = 1 then
             Result := cluster
@@ -93,48 +93,54 @@ feature {ACE, CLASSES} -- Searching
          end
       end
 
-   has_class (class_name: HASHED_STRING): BOOLEAN is
+   has_class (class_name: HASHED_STRING): BOOLEAN
       do
          Result := cluster.has(class_name) or else Precursor(class_name)
       end
 
-   has_cluster (c: CLUSTER): BOOLEAN is
+   has_cluster (c: CLUSTER): BOOLEAN
       do
          Result := cluster = c or else Precursor(c)
       end
 
-   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]]) is
+   for_all (action: PROCEDURE[TUPLE[CLASS_TEXT]])
       do
          cluster.for_all(action)
          Precursor(action)
       end
 
-   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]]) is
+   for_all_filtered (name_guard: PREDICATE[TUPLE[CLASS_NAME]]; action: PROCEDURE[TUPLE[CLASS_TEXT]])
+      do
+         cluster.for_all_filtered(name_guard, action)
+         Precursor(name_guard, action)
+      end
+
+   for_all_clusters (action: PROCEDURE[TUPLE[CLUSTER]])
       do
          action.call([cluster])
          Precursor(action)
       end
 
 feature {ACE, CLUSTERS} -- Liberty Eiffel specific
-   parse_include is
+   parse_include
       do
          cluster.include_parsing
          Precursor
       end
 
-   pretty_in (txt: STRING) is
+   pretty_in (txt: STRING)
       do
          cluster.pretty_in(txt)
          Precursor(txt)
       end
 
-   view_in (msg: STRING) is
+   view_in (msg: STRING)
       do
          cluster.view_in(msg)
          Precursor(msg)
       end
 
-   get_started (level: INTEGER) is
+   get_started (level: INTEGER)
       do
          cluster.get_started(level)
          Precursor(level)
@@ -150,7 +156,7 @@ feature {CLASSES_TREE_FACTORY}
    path: STRING
 
 feature {}
-   make (a_distance: like distance; a_name: like name; a_path, a_system_path: like path) is
+   make (a_distance: like distance; a_name: like name; a_path, a_system_path: like path)
       require
          a_distance > 0
          not a_name.is_empty
@@ -176,19 +182,19 @@ feature {}
          cluster := system_cluster(a_name, a_system_path)
       end
 
-   show_name is
+   show_name
       do
          echo.put_string(name)
          cluster.show
       end
 
 feature {} -- Avoiding duplicating clusters when they are accessed via different paths:
-   system_clusters: HASHED_DICTIONARY[CLUSTER, STRING] is
+   system_clusters: HASHED_DICTIONARY[CLUSTER, STRING]
       once
          create Result.make
       end
 
-   system_cluster (a_name, a_system_path: STRING): CLUSTER is
+   system_cluster (a_name, a_system_path: STRING): CLUSTER
       require
          (create {FILE_TOOLS}).is_directory(a_system_path)
          not a_name.is_empty
@@ -235,9 +241,9 @@ end -- class CLASSES_TREE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

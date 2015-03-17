@@ -5,14 +5,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          s: STRING
       do
          s := dummy_once
       end
 
-   dummy_once: STRING is
+   dummy_once: STRING
       do
          Result := "Is this stupid ;-)"
       end

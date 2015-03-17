@@ -21,14 +21,14 @@ feature {ANY}
    type_mark: TYPE_MARK
          -- The static type of the wrapped `writable'.
 
-   is_current, is_implicit_current, is_manifest_string, is_void, is_static: BOOLEAN is False
+   is_current, is_implicit_current, is_manifest_string, is_void, is_static: BOOLEAN False
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          Result := writable.start_position
       end
 
-   is_writable: BOOLEAN is
+   is_writable: BOOLEAN
       do
          Result := True
          check
@@ -36,19 +36,24 @@ feature {ANY}
          end
       end
 
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := writable.is_result
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := writable.use_current(type)
       end
 
    declaration_type: TYPE
 
-   specialize_in (new_type: TYPE): like Current is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := type_mark
+      end
+
+   specialize_in (new_type: TYPE): like Current
       local
          w: like writable
       do
@@ -65,7 +70,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          w: like writable; tm: like type_mark
       do
@@ -74,7 +79,7 @@ feature {ANY}
          Result := current_or_twin_init(w, tm)
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          w: like writable
       do
@@ -88,17 +93,17 @@ feature {ANY}
          Result.validity_check(type)
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          Result := writable.has_been_specialized and then type_mark.has_been_specialized and then declaration_type /= Void
       end
 
-   resolve_in (type: TYPE): TYPE is
+   resolve_in (type: TYPE): TYPE
       do
          Result := type_mark.resolve_in(type)
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          writable_type: TYPE; left_live_type: LIVE_TYPE
       do
@@ -108,14 +113,14 @@ feature {ANY}
             -- It may be the time to actually collect the `left_side' LIVE_TYPE:
             if Result.live_type /= Void then
                -- It is the time to actually collect the corresponding LIVE_TYPE:
-               -- (Done in EFFECTIVE_ARG_LIST, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
+               -- (Done in EFFECTIVE_ARG_LIST_N, ASSIGNMENT_ATTEMPT, ASSIGNMENT and CREATE_WRITABLE.)
                left_live_type := smart_eiffel.collect_one_type(writable_type, False)
             end
          end
          assignment_handler.collect_normal(Result, writable_type)
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          w: like writable
       do
@@ -128,71 +133,71 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          check
             False
          end
       end
 
-   simplify (type: TYPE): EXPRESSION is
+   simplify (type: TYPE): EXPRESSION
       do
          Result := Current
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := writable.precedence
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          writable.safety_check(type)
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := writable.side_effect_free(type)
       end
 
 feature {ANY} -- For `pretty' and `short':
-   extra_bracket_flag: BOOLEAN is
+   extra_bracket_flag: BOOLEAN
       do
          Result := writable.extra_bracket_flag
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          writable.pretty(indent_level)
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          writable.pretty_target(indent_level)
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          writable.bracketed_pretty(indent_level)
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          writable.short(type)
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          writable.short_target(type)
       end
 
-   accept (visitor: CREATE_WRITABLE_VISITOR) is
+   accept (visitor: CREATE_WRITABLE_VISITOR)
       do
          visitor.visit_create_writable(Current)
       end
 
 feature {CREATE_WRITABLE}
-   init (w: like writable; tm: like type_mark) is
+   init (w: like writable; tm: like type_mark)
       do
          writable := w
          type_mark := tm
@@ -201,14 +206,14 @@ feature {CREATE_WRITABLE}
          type_mark = tm
       end
 
-   set_writable (w: like writable) is
+   set_writable (w: like writable)
       do
          writable := w
       ensure
          writable = w
       end
 
-   validity_check (type: TYPE) is
+   validity_check (type: TYPE)
       local
          writable_type, type_mark_type: TYPE
       do
@@ -236,13 +241,13 @@ feature {CREATE_WRITABLE}
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.current_context.add_last(Current)
       end
 
 feature {}
-   make (tm: like type_mark; w: like writable) is
+   make (tm: like type_mark; w: like writable)
       require
          tm /= Void
          w /= Void
@@ -254,7 +259,7 @@ feature {}
          writable = w
       end
 
-   make_specialized (tm: like type_mark; w: like writable) is
+   make_specialized (tm: like type_mark; w: like writable)
       require
          tm /= Void
          w /= Void
@@ -268,7 +273,7 @@ feature {}
          has_been_specialized
       end
 
-   current_or_twin_init (w: like writable; tm: like type_mark): like Current is
+   current_or_twin_init (w: like writable; tm: like type_mark): like Current
       require
          w /= Void
          tm /= Void
@@ -301,9 +306,9 @@ end -- class CREATE_WRITABLE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

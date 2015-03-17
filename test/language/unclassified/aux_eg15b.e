@@ -6,7 +6,7 @@ expanded class AUX_EG15B[T]
 feature {ANY}
    a: AUX_EG15A[T]
 
-   put (x: T; i: INTEGER) is
+   put (x: T; i: INTEGER)
       do
          a.put(x, i)
       end

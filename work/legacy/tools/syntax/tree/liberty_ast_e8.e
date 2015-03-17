@@ -21,26 +21,26 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_prefix_operator: BOOLEAN is
+   has_prefix_operator: BOOLEAN
       do
          Result := count = 2
       end
 
-   prefix_operator: EIFFEL_TERMINAL_NODE is
+   prefix_operator: EIFFEL_TERMINAL_NODE
       require
          has_prefix_operator
       do
          Result ::= nodes.item(0)
       end
 
-   prefixed_expression: LIBERTY_AST_E8 is
+   prefixed_expression: LIBERTY_AST_E8
       require
          has_prefix_operator
       do
          Result ::= nodes.item(1)
       end
 
-   e9: LIBERTY_AST_E9 is
+   e9: LIBERTY_AST_E9
       require
          not has_prefix_operator
       do
@@ -48,15 +48,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "e8"
+   name: STRING "e8"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

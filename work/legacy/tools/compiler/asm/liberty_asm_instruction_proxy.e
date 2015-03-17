@@ -24,14 +24,14 @@ create {LIBERTY_ASM_READER}
    new, invoke, jump
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          equal_visitor.start(Current)
          equal_visitor.confirm(other)
          Result := equal_visitor.confirmed and then Precursor(other)
       end
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       local
          v: LIBERTY_ASM_PROXY_VISITOR
       do
@@ -42,22 +42,22 @@ feature {ANY}
 feature {}
    accepter: PROCEDURE[TUPLE[LIBERTY_ASM_PROXY_VISITOR]]
 
-   new (type_id: INTEGER) is
+   new (type_id: INTEGER)
       do
          accepter := agent {LIBERTY_ASM_PROXY_VISITOR}.visit_proxy_new(Current, type_id)
       end
 
-   invoke (method_id, type_id: INTEGER) is
+   invoke (method_id, type_id: INTEGER)
       do
          accepter := agent {LIBERTY_ASM_PROXY_VISITOR}.visit_proxy_invoke(Current, method_id, type_id)
       end
 
-   jump (a_position: INTEGER) is
+   jump (a_position: INTEGER)
       do
          accepter := agent {LIBERTY_ASM_PROXY_VISITOR}.visit_proxy_jump(Current, a_position)
       end
 
-   equal_visitor: LIBERTY_ASM_INSTRUCTION_PROXY_EQUAL_VISITOR is
+   equal_visitor: LIBERTY_ASM_INSTRUCTION_PROXY_EQUAL_VISITOR
       once
          create Result.make
       end

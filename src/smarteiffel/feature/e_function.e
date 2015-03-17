@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   side_effect_free (target_type: TYPE): BOOLEAN is
+   side_effect_free (target_type: TYPE): BOOLEAN
       do
       end
 
@@ -21,7 +21,7 @@ feature {ANY}
 
 feature {CALL_0}
    inline_expression_0 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-                        target_type: TYPE; target: EXPRESSION;   return_type: TYPE): INLINE_MEMO is
+                        target_type: TYPE; target: EXPRESSION;   return_type: TYPE): INLINE_MEMO
       local
          assignment: ASSIGNMENT; built_in_eq_neq: BUILT_IN_EQ_NEQ; call_0: CALL_0
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN
@@ -37,13 +37,17 @@ feature {CALL_0}
                else
                   -- The result is the default value of the corresponding result type:
                   Result := smart_eiffel.get_inline_memo
-                  Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  if routine_then = Void then
+                     Result.set_expression(return_type.canonical_type_mark.default_expression(start_position))
+                  else
+                     Result.set_expression(routine_then)
+                  end
                end
             end
          end
 
          -- To handle non Void `routine_body' which is a single ASSIGNMENT:
-         if Result = Void and then routine_body /= Void then
+         if Result = Void and then routine_body /= Void and then routine_then = Void then
             if direct_non_void_call_flag and then no_rescue_no_local_expanded then
                assignment ?= routine_body
                if assignment /= Void then
@@ -106,7 +110,7 @@ feature {CALL_0}
          -- Looking for: f: X is do Result := Current.f(<static>) end
          if Result = Void and then
             direct_non_void_call_flag and then
-            routine_body /= Void
+            routine_body /= Void and then routine_then = Void
           then
             assignment ?= routine_body
             if assignment /= Void and then assignment.left_side.is_result then
@@ -127,15 +131,15 @@ feature {CALL_0}
 
 feature {CALL_1}
    inline_expression_1 (type: TYPE; feature_stamp: FEATURE_STAMP; call_site: POSITION
-      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO is
+      target_type: TYPE; target, arg: EXPRESSION; return_type: TYPE): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
-         built_in_eq_neq: BUILT_IN_EQ_NEQ; call_1: CALL_1; bc: BOOLEAN_CONSTANT; name: STRING
-         integer_constant: INTEGER_CONSTANT; expression: EXPRESSION
+         bc: BOOLEAN_CONSTANT; name: STRING
+         integer_constant: INTEGER_CONSTANT
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
-         if routine_body = Void and then direct_non_void_call_flag and then no_rescue_no_local_expanded then
+         if routine_body = Void and then routine_then = Void and then direct_non_void_call_flag and then no_rescue_no_local_expanded then
             -- To handle function with an empty body:
             if target.side_effect_free(type) and then arg.side_effect_free(type) then
                if return_type.is_user_expanded and then not return_type.is_empty_expanded then
@@ -148,53 +152,18 @@ feature {CALL_1}
             end
          end
 
-         if Result = Void and then routine_body /= Void and then
-            direct_non_void_call_flag and then no_rescue_no_local_expanded
-          then
-            assignment ?= routine_body
-            if assignment /= Void then
-               if assignment.left_side.is_result then
-                  call_1 ?= assignment.right_side
-                  if call_1 /= Void then
-                     if call_1.resolve_in(target_type) = return_type then
-                        call_1 := inline_call_1(type, call_1, target_type, target, arg)
-                        if call_1 /= Void then
-                           name := first_name.to_string
-                           if target_type.is_boolean and then (name = as_and or else name = as_or) then
-                              -- We must not inline BOOLEAN infix "and" and infix "or":
-                              if arg.side_effect_free(type) then
-                                 -- Except if there is no side effects for the right side:
-                                 Result := smart_eiffel.get_inline_memo
-                                 Result.set_expression(call_1)
-                              end
-                           else
-                              Result := smart_eiffel.get_inline_memo
-                              Result.set_expression(call_1)
-                           end
-                        end
-                     end
-                  elseif assignment.right_side.is_static then
-                     if target.side_effect_free(type) and then arg.side_effect_free(type) then
-                        Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(assignment.right_side)
-                     end
-                  elseif assignment.right_side.is_current and then arg.side_effect_free(type) then
-                     -- The "Result := Current" inline:
-                     if target_type = return_type then
-                        Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(target)
-                     end
-                  elseif return_type.is_boolean then
-                     built_in_eq_neq ?= assignment.right_side
-                     if built_in_eq_neq /= Void then
-                        expression := inline_eq_neq1(type, built_in_eq_neq, target_type, target, arg)
-                        if expression /= Void then
-                           Result := smart_eiffel.get_inline_memo
-                           Result.set_expression(expression)
-                        end
-                     end
+         if Result = Void then
+            if routine_body /= Void and then routine_then = Void then
+               assignment ?= routine_body
+               if assignment /= Void then
+                  if assignment.left_side.is_result then
+                     Result := inline_assign_to_result_1(type, target_type, target, arg, assignment.right_side, return_type,
+                        direct_non_void_call_flag, no_rescue_no_local_expanded)
                   end
                end
+            elseif routine_body = Void and then routine_then /= Void then
+               Result := inline_assign_to_result_1(type, target_type, target, arg, routine_then, return_type,
+                  direct_non_void_call_flag, no_rescue_no_local_expanded)
             end
          end
 
@@ -218,21 +187,73 @@ feature {CALL_1}
                end
             end
          end
+
          if Result /= Void then
             smart_eiffel.magic_count_increment
          end
       end
 
+feature {}
+   inline_assign_to_result_1 (type, target_type: TYPE; target, arg, expr: EXPRESSION; return_type: TYPE
+                              direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN): INLINE_MEMO
+      require
+         expr /= Void
+      local
+         built_in_eq_neq: BUILT_IN_EQ_NEQ; call_1: CALL_1; name: STRING; expression: EXPRESSION
+      do
+         if direct_non_void_call_flag and then no_rescue_no_local_expanded then
+            if call_1 ?:= expr then
+               call_1 ::= expr
+               if call_1.resolve_in(target_type) = return_type then
+                  call_1 := inline_call_1(type, call_1, target_type, target, arg)
+                  if call_1 /= Void then
+                     name := first_name.to_string
+                     if target_type.is_boolean and then (name = as_and or else name = as_or) then
+                        -- We must not inline BOOLEAN infix "and" and infix "or":
+                        if arg.side_effect_free(type) then
+                           -- Except if there is no side effects for the right side:
+                           Result := smart_eiffel.get_inline_memo
+                           Result.set_expression(call_1)
+                        end
+                     else
+                        Result := smart_eiffel.get_inline_memo
+                        Result.set_expression(call_1)
+                     end
+                  end
+               end
+            elseif expr.is_static then
+               if target.side_effect_free(type) and then arg.side_effect_free(type) then
+                  Result := smart_eiffel.get_inline_memo
+                  Result.set_expression(expr)
+               end
+            elseif expr.is_current and then arg.side_effect_free(type) then
+               -- The "Result := Current" inline:
+               if target_type = return_type then
+                  Result := smart_eiffel.get_inline_memo
+                  Result.set_expression(target)
+               end
+            elseif return_type.is_boolean then
+               built_in_eq_neq ?= expr
+               if built_in_eq_neq /= Void then
+                  expression := inline_eq_neq1(type, built_in_eq_neq, target_type, target, arg)
+                  if expression /= Void then
+                     Result := smart_eiffel.get_inline_memo
+                     Result.set_expression(expression)
+                  end
+               end
+            end
+         end
+      end
+
 feature {FUNCTION_CALL_N}
    inline_expression_n (type: TYPE; feature_stamp: FEATURE_STAMP; target_type: TYPE; target: EXPRESSION
-                        args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO is
+                        args: EFFECTIVE_ARG_LIST; return_type: TYPE): INLINE_MEMO
       local
          direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN; assignment: ASSIGNMENT
-         argument_name2: ARGUMENT_NAME2; built_in_eq_neq: BUILT_IN_EQ_NEQ
       do
          direct_non_void_call_flag := target_type.direct_non_void_call_flag
          no_rescue_no_local_expanded := no_rescue_no_local_expanded_in(target_type)
-         if routine_body = Void and then direct_non_void_call_flag and then no_rescue_no_local_expanded then
+         if routine_body = Void and then routine_then = Void and then direct_non_void_call_flag and then no_rescue_no_local_expanded then
             -- To handle function with an empty body:
             if target.side_effect_free(type) and then args.side_effect_free(type) then
                if return_type.is_user_expanded and then not return_type.is_empty_expanded then
@@ -245,103 +266,113 @@ feature {FUNCTION_CALL_N}
             end
          end
 
-         if Result = Void and then routine_body /= Void and then
-            direct_non_void_call_flag and then no_rescue_no_local_expanded
-          then
-            assignment ?= routine_body
-            if assignment /= Void then
-               if assignment.left_side.is_result then
-                  if assignment.right_side.is_static then
-                     if target.side_effect_free(type) and then args.side_effect_free(type) then
-                        Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(assignment.right_side)
-                     end
-                  elseif assignment.right_side.is_current and then args.side_effect_free(type) then
-                     -- The "Result := Current" inline:
-                     if target_type = return_type then
-                        Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(target)
-                     end
+         if Result = Void then
+            if routine_body /= Void and then routine_then = Void then
+               assignment ?= routine_body
+               if assignment /= Void then
+                  if assignment.left_side.is_result then
+                     Result := inline_assign_to_result_n(type, target_type, target, args, assignment.right_side, return_type,
+                        direct_non_void_call_flag, no_rescue_no_local_expanded)
                   end
                end
+            elseif routine_body = Void and then routine_then /= Void then
+               Result := inline_assign_to_result_n(type, target_type, target, args, routine_then, return_type,
+                  direct_non_void_call_flag, no_rescue_no_local_expanded)
             end
          end
 
-         -- Looking for: f (a, b: X): BOOLEAN is do Result := a = b end
-         if Result = Void and then
-            direct_non_void_call_flag and then
-            routine_body /= Void and then
-            args.count = 2 and then
-            target.side_effect_free(type)
-          then
-            assignment ?= routine_body
-            if assignment /= Void and then assignment.left_side.is_result then
-               built_in_eq_neq ?= assignment.right_side
-               if built_in_eq_neq /= Void then
-                  argument_name2 ?= built_in_eq_neq.left_side
-                  if argument_name2 /= Void and then argument_name2.rank = 1 then
-                     argument_name2 ?= built_in_eq_neq.right_side
-                     if argument_name2 /= Void and then argument_name2.rank = 2 then
-                        Result := smart_eiffel.get_inline_memo
-                        Result.set_expression(built_in_eq_neq.inline_with(args.expression(1), args.expression(2), type))
-                     end
-                  end
-               end
-            end
-         end
          if Result /= Void then
             smart_eiffel.magic_count_increment
          end
       end
 
 feature {}
-   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_4 is
+   inline_assign_to_result_n (type, target_type: TYPE; target: EXPRESSION; args: EFFECTIVE_ARG_LIST; expr: EXPRESSION; return_type: TYPE
+                              direct_non_void_call_flag, no_rescue_no_local_expanded: BOOLEAN): INLINE_MEMO
+      require
+         expr /= Void
+      local
+         argument_name_ref: ARGUMENT_NAME_REF; built_in_eq_neq: BUILT_IN_EQ_NEQ
+      do
+         if direct_non_void_call_flag and then no_rescue_no_local_expanded then
+            if expr.is_static then
+               if target.side_effect_free(type) and then args.side_effect_free(type) then
+                  Result := smart_eiffel.get_inline_memo
+                  Result.set_expression(expr)
+               end
+            elseif expr.is_current and then args.side_effect_free(type) then
+               -- The "Result := Current" inline:
+               if target_type = return_type then
+                  Result := smart_eiffel.get_inline_memo
+                  Result.set_expression(target)
+               end
+            end
+         end
+
+         -- Looking for: f (a, b: X): BOOLEAN is do Result := a = b end
+         if Result = Void and then args.count = 2 and then target.side_effect_free(type) and then (built_in_eq_neq ?:= expr) then
+            built_in_eq_neq ::= expr
+            argument_name_ref ?= built_in_eq_neq.left_side
+            if argument_name_ref /= Void and then argument_name_ref.rank = 1 then
+               argument_name_ref ?= built_in_eq_neq.right_side
+               if argument_name_ref /= Void and then argument_name_ref.rank = 2 then
+                  Result := smart_eiffel.get_inline_memo
+                  Result.set_expression(built_in_eq_neq.inline_with(args.expression(1), args.expression(2), type))
+               end
+            end
+         end
+      end
+
+feature {}
+   new_run_feature_for (t: TYPE; fn: FEATURE_NAME): RUN_FEATURE_4
       do
          create Result.for(t.live_type, Current, fn)
       end
 
 feature {ANY}
-   accept (visitor: E_FUNCTION_VISITOR) is
+   accept (visitor: E_FUNCTION_VISITOR)
       do
          visitor.visit_e_function(Current)
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          result_type.specialize_in(new_type)
          if arguments /= Void then
             args := arguments.specialize_in(new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_in(new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
-         args: like arguments; rt: like result_type
+         args: like arguments; rt: like result_type; cfal: like closure_arguments
       do
          rt := result_type.specialize_thru(parent_type, parent_edge, new_type)
          if arguments /= Void then
             args := arguments.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if result_type = rt and then args = arguments then
+         cfal := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         if result_type = rt and then args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
             Result.set_result_type(rt)
          end
       end
 
 feature {E_FUNCTION}
-   set_result_type (rt: like result_type) is
+   set_result_type (rt: like result_type)
       require
          rt /= Void
       do
@@ -349,35 +380,35 @@ feature {E_FUNCTION}
       end
 
 feature {}
-   make (fa: like arguments; rt: like result_type; om: like obsolete_mark; hc: like header_comment
-      ra: like require_assertion; lv: like local_vars; rb: like routine_body) is
+   make (fa: like arguments; rty: like result_type; om: like obsolete_mark; hc: like header_comment
+      ra: like require_assertion; lv: like local_vars; rb: like routine_body; rt: like routine_then; c: like has_closures)
       require
-         rt /= Void
+         rty /= Void
       do
-         make_effective_routine(fa, om, hc, ra, lv, rb)
-         result_type := rt
+         make_effective_routine(fa, om, hc, ra, lv, rb, rt, c)
+         result_type := rty
       end
 
-   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE is
+   try_to_undefine_aux (fn: FEATURE_NAME; bc: CLASS_TEXT): DEFERRED_ROUTINE
       do
          create {DEFERRED_FUNCTION} Result.from_effective(fn, arguments, result_type, require_assertion, ensure_assertion, bc, permissions)
       end
 
-   pretty_print_once_or_do (indent_level: INTEGER) is
+   pretty_print_once_or_do (indent_level: INTEGER)
       do
          pretty_printer.set_indent_level(indent_level)
          pretty_printer.keyword(once "do")
       end
 
-   inline_call_1 (type: TYPE; call_1: CALL_1; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): CALL_1 is
+   inline_call_1 (type: TYPE; call_1: CALL_1; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): CALL_1
       require
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1_arg1: CALL_1
+         argument_name_ref: ARGUMENT_NAME_REF; call_0: CALL_0; call_1_arg1: CALL_1
       do
-         argument_name2 ?= call_1.arg1
-         if argument_name2 /= Void then
+         argument_name_ref ?= call_1.arg1
+         if argument_name_ref /= Void then
             -- The argument is passed as it is:
             if call_1.target.is_current then
                -- Simple "Result := Current.foo(arg1)" relay routine now replaced:
@@ -396,7 +427,7 @@ feature {}
                --*** (PR 01/05/08) Sorry, it's too complex (and wrong
                --as shown by test_fast_array6). We test here if the
                --argument of the call is a call with a static
-               --argument! f(i*j+1), here 1 is static. Now, what is
+               --argument! f(i*j+1), here 1 is static. Now, what
                --the possible inlining?
                --***Turned off with "if False"
 
@@ -412,15 +443,15 @@ feature {}
          end
       end
 
-   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): EXPRESSION is
+   inline_eq_neq1 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION; arg1: EXPRESSION): EXPRESSION
       require
          target /= Void
          arg1 /= Void
       local
-         argument_name2: ARGUMENT_NAME2; call_0: CALL_0; call_1: CALL_1
+         argument_name_ref: ARGUMENT_NAME_REF; call_0: CALL_0; call_1: CALL_1
       do
-         argument_name2 ?= built_in_eq_neq.right_side
-         if argument_name2 /= Void then
+         argument_name_ref ?= built_in_eq_neq.right_side
+         if argument_name_ref /= Void then
             -- The argument is passed as it is:
             if built_in_eq_neq.left_side.is_current then
                -- Simple "Result := Current = arg1" now replaced:
@@ -447,7 +478,7 @@ feature {}
          end
       end
 
-   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): EXPRESSION is
+   inline_eq_neq0 (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; target_type: TYPE; target: EXPRESSION): EXPRESSION
       do
          Result := inline_eq_neq0_(type, built_in_eq_neq, built_in_eq_neq.left_side, built_in_eq_neq.right_side, target_type, target)
          if Result = Void then
@@ -455,7 +486,7 @@ feature {}
          end
       end
 
-   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): EXPRESSION is
+   inline_eq_neq0_ (type: TYPE; built_in_eq_neq: BUILT_IN_EQ_NEQ; e1, e2: EXPRESSION; target_type: TYPE; target: EXPRESSION): EXPRESSION
       local
          call_0: CALL_0
       do
@@ -494,9 +525,9 @@ end -- class E_FUNCTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

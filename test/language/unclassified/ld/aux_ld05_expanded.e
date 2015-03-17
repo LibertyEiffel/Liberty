@@ -6,7 +6,7 @@ expanded class AUX_LD05_EXPANDED
 feature {ANY}
    dummy_value: INTEGER
 
-   set_value (parint: INTEGER) is
+   set_value (parint: INTEGER)
       do
          dummy_value := parint
       end

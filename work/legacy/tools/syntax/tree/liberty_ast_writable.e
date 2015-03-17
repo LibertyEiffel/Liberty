@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_result: BOOLEAN is
+   is_result: BOOLEAN
       do
          Result := nodes.first.name.is_equal(once "KW Result")
       end
 
-   entity_name: LIBERTY_AST_ENTITY_NAME is
+   entity_name: LIBERTY_AST_ENTITY_NAME
       require
          not is_result
       do
@@ -34,12 +34,12 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is 1
+   count: INTEGER 1
 
-   name: STRING is "Writable"
+   name: STRING "Writable"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1 >> }
       end

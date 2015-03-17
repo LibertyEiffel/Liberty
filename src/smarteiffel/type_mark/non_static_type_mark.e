@@ -10,85 +10,75 @@ inherit
    TYPE_MARK
 
 feature {ANY}
-   frozen is_static: BOOLEAN is False
+   frozen is_static: BOOLEAN False
 
-   frozen type: TYPE is
+   frozen type: TYPE
       do
-         check
-            False
-         end
+         err_nonstatic("type")
       end
 
-   frozen is_reference: BOOLEAN is
+   frozen is_reference: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_reference")
       end
 
-   frozen is_expanded: BOOLEAN is
+   frozen is_expanded: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_expanded")
       end
 
-   frozen is_generic: BOOLEAN is
+   frozen is_generic: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_generic")
       end
 
-   frozen generic_list: ARRAY[TYPE_MARK] is
+   frozen generic_list: ARRAY[TYPE_MARK]
       do
-         check
-            False
-         end
+         err_nonstatic("generic_list")
       end
 
-   frozen id: INTEGER is
+   frozen id: INTEGER
       do
-         check
-            False
-         end
+         err_nonstatic("id")
       end
 
-   frozen class_text_name: CLASS_NAME is
+   frozen class_text_name: CLASS_NAME
       do
-         check
-            False
-         end
+         err_nonstatic("class_text_name")
       end
 
-   frozen is_user_expanded: BOOLEAN is
+   frozen is_user_expanded: BOOLEAN
       do
-         check
-            False
-         end
-      end
-
-   frozen is_empty_expanded: BOOLEAN is
-      do
-         check
-            False
-         end
-      end
-
-feature {TYPE, TYPE_MARK, SMART_EIFFEL}
-   frozen long_name: HASHED_STRING is
-      do
-         check
-            False
-         end
+         err_nonstatic("is_user_expanded")
       end
 
 feature {LIVE_TYPE, TYPE_MARK}
-   frozen just_before_gc_mark_in (str: STRING) is
+   frozen is_empty_expanded: BOOLEAN
       do
-         check
-            False
-         end
+         err_nonstatic("is_empty_expanded")
+      end
+
+feature {TYPE, TYPE_MARK, SMART_EIFFEL}
+   frozen long_name: HASHED_STRING
+      do
+         err_nonstatic("long_name")
+      end
+
+feature {LIVE_TYPE, TYPE_MARK}
+   frozen just_before_gc_mark_in (str: STRING)
+      do
+         err_nonstatic("just_before_gc_mark_in")
+      end
+
+feature {}
+   err_nonstatic (tag: STRING)
+      require
+         never_called: False
+      do
+         error_handler.append(tag)
+         error_handler.append(" called on non-static type mark")
+         error_handler.add_position(start_position)
+         error_handler.print_as_internal_error
       end
 
 end -- class NON_STATIC_TYPE_MARK
@@ -103,9 +93,9 @@ end -- class NON_STATIC_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

@@ -10,11 +10,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          m: COLLECTION[INTEGER];
       do
-         !LINKED_LIST!m.make;
+         create {LINKED_LIST} m.make;
       end
 
 end -- class BAD_GENERIC4

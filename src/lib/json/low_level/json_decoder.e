@@ -13,7 +13,7 @@ create {JSON_HANDLER}
    make
 
 feature {JSON_HANDLER}
-   decode (a_codec: like codec; value: JSON_VALUE): JSON_DATA is
+   decode (a_codec: like codec; value: JSON_VALUE): JSON_DATA
       require
          value /= Void
          a_codec /= Void
@@ -26,7 +26,7 @@ feature {JSON_HANDLER}
       end
 
 feature {JSON_ARRAY}
-   visit_array (json: JSON_ARRAY) is
+   visit_array (json: JSON_ARRAY)
       local
          array, value: JSON_DATA
          i: INTEGER
@@ -47,25 +47,25 @@ feature {JSON_ARRAY}
       end
 
 feature {JSON_FALSE}
-   visit_false (json: JSON_FALSE) is
+   visit_false (json: JSON_FALSE)
       do
          data := codec.false_value
       end
 
 feature {JSON_NULL}
-   visit_null (json: JSON_NULL) is
+   visit_null (json: JSON_NULL)
       do
          data := codec.null_value
       end
 
 feature {JSON_NUMBER}
-   visit_number (json: JSON_NUMBER) is
+   visit_number (json: JSON_NUMBER)
       do
          data := codec.create_number(json)
       end
 
 feature {JSON_OBJECT}
-   visit_object (json: JSON_OBJECT) is
+   visit_object (json: JSON_OBJECT)
       local
          object, key, value: JSON_DATA
          i: INTEGER
@@ -88,13 +88,13 @@ feature {JSON_OBJECT}
       end
 
 feature {JSON_STRING}
-   visit_string (json: JSON_STRING) is
+   visit_string (json: JSON_STRING)
       do
          data := codec.create_string(json)
       end
 
 feature {JSON_TRUE}
-   visit_true (json: JSON_TRUE) is
+   visit_true (json: JSON_TRUE)
       do
          data := codec.true_value
       end
@@ -103,19 +103,19 @@ feature {}
    data: JSON_DATA
    codec: JSON_ANY_CODEC
 
-   make is
+   make
       do
       end
 
 end -- class JSON_DECODER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

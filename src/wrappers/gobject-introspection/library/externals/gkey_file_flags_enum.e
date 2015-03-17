@@ -5,9 +5,9 @@ expanded class GKEY_FILE_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = keep_comments_low_level)  or else
 				(a_value = keep_translations_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_keep_comments is
+	set_keep_comments
 		do
 			value := keep_comments_low_level
 		end
 
-	set_keep_translations is
+	set_keep_translations
 		do
 			value := keep_translations_low_level
 		end
 
-	set_none is
+	set_none
 		do
 			value := none_low_level
 		end
 
 feature {ANY} -- Queries
-	is_keep_comments: BOOLEAN is
+	is_keep_comments: BOOLEAN
 		do
 			Result := (value=keep_comments_low_level)
 		end
 
-	is_keep_translations: BOOLEAN is
+	is_keep_translations: BOOLEAN
 		do
 			Result := (value=keep_translations_low_level)
 		end
 
-	is_none: BOOLEAN is
+	is_none: BOOLEAN
 		do
 			Result := (value=none_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	keep_comments_low_level: INTEGER is
+	keep_comments_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	keep_translations_low_level: INTEGER is
+	keep_translations_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	none_low_level: INTEGER is
+	none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

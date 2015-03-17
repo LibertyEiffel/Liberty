@@ -29,7 +29,7 @@ create {ANY}
    from_array
 
 feature {} -- Creation and implementation
-   from_array (an_array: C_ARRAY[ITEM_]) is
+   from_array (an_array: C_ARRAY[ITEM_])
       require
          array_not_void: an_array /= Void
       do
@@ -41,23 +41,23 @@ feature {} -- Creation and implementation
    array: C_ARRAY[ITEM_]
 
 feature {ANY} --
-   start is
+   start
       do
          i := array.lower
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := i > array.upper
          -- Result:=array.valid_index(i)
       end
 
-   item: ITEM_ is
+   item: ITEM_
       do
          Result := array.item(i)
       end
 
-   next is
+   next
       do
          i := i + 1
       end

@@ -5,9 +5,9 @@ expanded class XML_ERROR_LEVEL_ENUM
 
 insert ENUM
 
-creation default_create
+create default_create
 feature -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = xml_err_error_low_level)  or else
 				(a_value = xml_err_fatal_low_level)  or else
@@ -17,49 +17,49 @@ feature -- Validity
 
 feature -- Setters
 	default_create,
-	set_xml_err_error is
+	set_xml_err_error
 		do
 			value := xml_err_error_low_level
 		end
 
-	set_xml_err_fatal is
+	set_xml_err_fatal
 		do
 			value := xml_err_fatal_low_level
 		end
 
-	set_xml_err_none is
+	set_xml_err_none
 		do
 			value := xml_err_none_low_level
 		end
 
-	set_xml_err_warning is
+	set_xml_err_warning
 		do
 			value := xml_err_warning_low_level
 		end
 
 feature -- Queries
-	is_xml_err_error: BOOLEAN is
+	is_xml_err_error: BOOLEAN
 		do
 			Result := (value=xml_err_error_low_level)
 		end
 
-	is_xml_err_fatal: BOOLEAN is
+	is_xml_err_fatal: BOOLEAN
 		do
 			Result := (value=xml_err_fatal_low_level)
 		end
 
-	is_xml_err_none: BOOLEAN is
+	is_xml_err_none: BOOLEAN
 		do
 			Result := (value=xml_err_none_low_level)
 		end
 
-	is_xml_err_warning: BOOLEAN is
+	is_xml_err_warning: BOOLEAN
 		do
 			Result := (value=xml_err_warning_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_err_error_low_level: INTEGER is
+	xml_err_error_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -68,7 +68,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_fatal_low_level: INTEGER is
+	xml_err_fatal_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -77,7 +77,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_none_low_level: INTEGER is
+	xml_err_none_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -86,7 +86,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	xml_err_warning_low_level: INTEGER is
+	xml_err_warning_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

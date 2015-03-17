@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          test: AUX_EXPANDED28
       do
@@ -20,7 +20,7 @@ feature {ANY}
          assert(test.get_val = 7)
       end
 
-   change (this: AUX_EXPANDED28) is
+   change (this: AUX_EXPANDED28)
       do
          this.set_val(3)
       end

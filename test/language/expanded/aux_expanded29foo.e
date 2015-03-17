@@ -7,9 +7,9 @@ feature {ANY}
    ---- Original:
    -- toto: expanded AUX_EXPANDED29BAR;
    toto: AUX_EXPANDED29BAR
-      -- tata: expanded AUX_EXPANDED29BAR is
+      -- tata: expanded AUX_EXPANDED29BAR
 
-   tata: AUX_EXPANDED29BAR is
+   tata: AUX_EXPANDED29BAR
       do
          Result := toto
       end

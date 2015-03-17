@@ -12,7 +12,7 @@ create {CST_ATT}
    for
 
 feature {ANY}
-   accept (visitor: RUN_FEATURE_1_VISITOR) is
+   accept (visitor: RUN_FEATURE_1_VISITOR)
       do
          visitor.visit_run_feature_1(Current)
       end
@@ -24,54 +24,60 @@ feature {ANY}
 
    result_type: TYPE_MARK
 
-   is_deferred: BOOLEAN is False
+   is_deferred: BOOLEAN False
 
-   side_effect_free: BOOLEAN is True
+   side_effect_free: BOOLEAN True
 
-   is_once_procedure: BOOLEAN is False
+   is_once_procedure: BOOLEAN False
 
-   is_once_function: BOOLEAN is False
+   is_once_function: BOOLEAN False
 
-   arguments: FORMAL_ARG_LIST is
+   has_closures: BOOLEAN False
+
+   arguments: FORMAL_ARG_LIST
       do
       end
 
-   require_assertion: REQUIRE_ASSERTION is
+   require_assertion: REQUIRE_ASSERTION
       do
       end
 
-   local_vars: LOCAL_VAR_LIST is
+   local_vars: LOCAL_VAR_LIST
       do
       end
 
-   routine_body: INSTRUCTION is
+   routine_body: INSTRUCTION
       do
       end
 
-   ensure_assertion: ENSURE_ASSERTION is
+   routine_then: EXPRESSION
       do
       end
 
-   rescue_compound: INSTRUCTION is
+   ensure_assertion: ENSURE_ASSERTION
       do
       end
 
-   afd_check is
+   rescue_compound: INSTRUCTION
+      do
+      end
+
+   afd_check
       do
       end
 
 feature {RUN_FEATURE}
-   compute_use_current is
+   compute_use_current
       do
          use_current_state := False_state
       end
 
 feature {}
-   do_adapt is
+   do_adapt
       do
       end
 
-   set_result_type is
+   set_result_type
       do
          result_type := base_feature.result_type
          check
@@ -92,9 +98,9 @@ end -- class RUN_FEATURE_1
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

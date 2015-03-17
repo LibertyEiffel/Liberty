@@ -10,12 +10,12 @@ create {CURSES_DESCRIPTOR}
    make
 
 feature {CURSES_DESCRIPTOR}
-   build (parent: NCURSES_WINDOW) is
+   build (parent: NCURSES_WINDOW)
       do
          -- todo
       end
 
-   layout (a_x, a_y, a_width, a_height: INTEGER) is
+   layout (a_x, a_y, a_width, a_height: INTEGER)
       do
          -- todo
       end
@@ -23,7 +23,7 @@ feature {CURSES_DESCRIPTOR}
    x, y, width, height, min_width, min_height, max_width, max_height: INTEGER
 
 feature {}
-   make (ui: UI_WINDOW; desc: JSON_VALUE) is
+   make (ui: UI_WINDOW; desc: JSON_VALUE)
       do
          if desc = Void or else {JSON_NULL} ?:= desc then
             -- nothing to do
@@ -34,13 +34,13 @@ feature {}
 
 end -- class CURSES_DESC_MENU
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

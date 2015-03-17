@@ -8,9 +8,9 @@ insert DYNAMIC_LINKING_LOADER; DL_FLAGS
 create {ANY} make
 
 feature {ANY}
-	lib: STRING is "libglib-2.0.so" 
+	lib: STRING "libglib-2.0.so" 
 
-	make is
+	make
 		local dl: DL_LOADER
 		do
 			l := new_dynamic_shared_object(lib, rtld_now)

@@ -19,31 +19,31 @@ insert
       end
 
 feature {ANY}
-   read_character is
+   read_character
       do
          filtered_read_character
       ensure then
          is_connected
       end
 
-   read_line_in (buffer: STRING) is
+   read_line_in (buffer: STRING)
       do
          filtered_read_line_in(buffer)
       end
 
-   read_available_in (buffer: STRING; limit: INTEGER) is
+   read_available_in (buffer: STRING; limit: INTEGER)
       do
          filtered_read_available_in(buffer, limit)
       end
 
-   unread_character is
+   unread_character
       do
          filtered_unread_character
       ensure
          not end_of_input
       end
 
-   last_character: CHARACTER is
+   last_character: CHARACTER
       do
          Result := filtered_last_character
       ensure
@@ -51,7 +51,7 @@ feature {ANY}
          not end_of_input
       end
 
-   detach is
+   detach
       do
          if filter /= Void then
             filter.do_detach
@@ -60,28 +60,28 @@ feature {ANY}
       end
 
 feature {FILTER_INPUT_STREAM}
-   filtered_read_character is
+   filtered_read_character
       require
          is_connected
          can_read_character
       deferred
       end
 
-   filtered_unread_character is
+   filtered_unread_character
       require
          is_connected
          can_unread_character
       deferred
       end
 
-   filtered_last_character: CHARACTER is
+   filtered_last_character: CHARACTER
       require
          is_connected
          valid_last_character
       deferred
       end
 
-   filtered_read_available_in (buffer: STRING; limit: INTEGER) is
+   filtered_read_available_in (buffer: STRING; limit: INTEGER)
       require
          is_connected
          buffer /= Void
@@ -106,7 +106,7 @@ feature {FILTER_INPUT_STREAM}
          end
       end
 
-   filtered_read_line_in (buffer: STRING) is
+   filtered_read_line_in (buffer: STRING)
       require
          is_connected
          buffer /= Void
@@ -142,7 +142,7 @@ feature {FILTER}
    filter: FILTER_INPUT_STREAM
 
 feature {ANY}
-   event_can_read: EVENT_DESCRIPTOR is
+   event_can_read: EVENT_DESCRIPTOR
       do
          Result := can_read
          if Result = Void then
@@ -154,20 +154,20 @@ feature {ANY}
 feature {}
    can_read: CAN_READ_DATA_FROM_STREAM
 
-   new_url: URL is
+   new_url: URL
       do
          create Result.from_stream(Current, True, False)
       end
 
 end -- class INPUT_STREAM
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

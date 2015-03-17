@@ -12,7 +12,7 @@ feature {ANY}
 
    size: INTEGER
 
-   make is
+   make
       local
          dot: AUX_JLP8_DOT[like precision]; gemv: AUX_JLP8_GEMV[like precision]
          m: AUX_JLP8_ROW_MATRIX[like precision]

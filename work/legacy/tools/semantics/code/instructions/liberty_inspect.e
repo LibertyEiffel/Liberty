@@ -26,7 +26,7 @@ create {LIBERTY_INSPECT}
 feature {ANY}
    expression: LIBERTY_EXPRESSION
 
-   clauses: TRAVERSABLE[LIBERTY_INSPECT_CLAUSE] is
+   clauses: TRAVERSABLE[LIBERTY_INSPECT_CLAUSE]
       do
          Result := clauses_list
       ensure
@@ -35,7 +35,7 @@ feature {ANY}
 
    else_clause: LIBERTY_DEFAULT
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: like expression
          c: like clauses_list
@@ -70,7 +70,7 @@ feature {ANY}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   add_clause (a_clause: LIBERTY_INSPECT_CLAUSE) is
+   add_clause (a_clause: LIBERTY_INSPECT_CLAUSE)
       require
          a_clause /= Void
       do
@@ -79,7 +79,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          clauses.last = a_clause
       end
 
-   set_else_clause (a_else_clause: like else_clause) is
+   set_else_clause (a_else_clause: like else_clause)
       do
          else_clause := a_else_clause
       ensure
@@ -87,7 +87,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          expression.mark_reachable_code(mark)
          inspect_clauses_marker.mark_reachable_code(mark, clauses)
@@ -97,7 +97,7 @@ feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
       end
 
 feature {}
-   make (a_expression: like expression; a_position: like position) is
+   make (a_expression: like expression; a_position: like position)
       require
          a_expression /= Void
          a_position /= Void
@@ -110,7 +110,7 @@ feature {}
          position = a_position
       end
 
-   specialized (a_expression: like expression; a_clauses_list: like clauses_list; a_else_clause: like else_clause; a_position: like position) is
+   specialized (a_expression: like expression; a_clauses_list: like clauses_list; a_else_clause: like else_clause; a_position: like position)
       require
          a_expression /= Void
          a_clauses_list /= Void
@@ -132,7 +132,7 @@ feature {}
    inspect_clauses_marker: LIBERTY_REACHABLE_COLLECTION_MARKER[LIBERTY_INSPECT_CLAUSE]
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_INSPECT_VISITOR
       do

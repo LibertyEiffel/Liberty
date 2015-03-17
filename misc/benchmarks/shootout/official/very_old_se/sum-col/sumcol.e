@@ -6,11 +6,11 @@ class SUMCOL
 inherit
 	ARGUMENTS
 
-creation {ANY}
+create {ANY}
 	make
 
 feature {ANY}
-	make is
+	make
 		local
 			sum: INTEGER
 		do

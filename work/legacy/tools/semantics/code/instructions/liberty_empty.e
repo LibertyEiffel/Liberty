@@ -21,19 +21,19 @@ create {LIBERTY_BUILDER_TOOLS}
    make
 
 feature {ANY}
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       do
          Result := Current
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {}
-   make is
+   make
       local
          errors: LIBERTY_ERRORS
       do
@@ -41,7 +41,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_EMPTY_VISITOR
       do

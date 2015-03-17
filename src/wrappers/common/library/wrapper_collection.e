@@ -33,14 +33,14 @@ inherit
    WRAPPER_FACTORY[ITEM_]
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
-   wrapper (a_pointer: POINTER): ITEM_ is
+   wrapper (a_pointer: POINTER): ITEM_
          -- The wrapper for `a_pointer'. It could be newly created or
          -- retrieved from a cache, a dictionary, from the underlying
          -- object, depending on the implementation.
       deferred
       end
 
-   as_c_array: NATIVE_ARRAY[POINTER] is
+   as_c_array: NATIVE_ARRAY[POINTER]
          -- Current collection as a C array meant to be passed to C functions
          -- expectiong an array of wrapped items. Result - at C level - will be
          -- a Item**, i.e. a pointer to pointers to Item structures or - in

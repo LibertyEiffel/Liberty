@@ -4,7 +4,7 @@ create {}
    main
 
 feature {2}
-   main is
+   main
       do
       end
 

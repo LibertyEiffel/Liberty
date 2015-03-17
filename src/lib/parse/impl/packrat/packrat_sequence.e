@@ -19,7 +19,7 @@ create {PACKRAT}
    make
 
 feature {ANY}
-   is_coherent: BOOLEAN is
+   is_coherent: BOOLEAN
       local
          i: INTEGER
       do
@@ -34,7 +34,7 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       local
          i: INTEGER
       do
@@ -51,13 +51,13 @@ feature {ANY}
          end
       end
 
-   accept (visitor: PACKRAT_VISITOR) is
+   accept (visitor: PACKRAT_VISITOR)
       do
          visitor.visit_sequence(Current)
       end
 
 feature {PACKRAT_INTERNAL}
-   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]]) is
+   set_default_tree_builders (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]; terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, PARSER_IMAGE]])
       local
          i: INTEGER
       do
@@ -74,7 +74,7 @@ feature {PACKRAT_INTERNAL}
          end
       end
 
-   set_nt (a_nt: like nt) is
+   set_nt (a_nt: like nt)
       local
          i: INTEGER
       do
@@ -90,12 +90,12 @@ feature {PACKRAT_INTERNAL}
          id := a_nt.new_sequence_number
       end
 
-   set_how_many (a_how_many: like how_many) is
+   set_how_many (a_how_many: like how_many)
       do
          how_many := a_how_many
       end
 
-   set_tag (a_tag: ABSTRACT_STRING) is
+   set_tag (a_tag: ABSTRACT_STRING)
       do
          if a_tag = Void then
             tag := Void
@@ -116,7 +116,7 @@ feature {PACKRAT_VISITOR, PACKRAT_INTERNAL}
    tag: FIXED_STRING
 
 feature {}
-   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   pack_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       local
          parsed: TRISTATE
       do
@@ -163,7 +163,7 @@ feature {}
          end
       end
 
-   do_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE is
+   do_parse (context: PACKRAT_PARSE_CONTEXT): TRISTATE
       local
          i: INTEGER; memo: PACKRAT_CONTEXT_MEMO
          parse_action: PARSE_ACTION
@@ -192,13 +192,15 @@ feature {}
          end
       end
 
-   call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]]) is
+   call_non_terminal_builder (non_terminal_builder: PROCEDURE[TUPLE[FIXED_STRING, TRAVERSABLE[FIXED_STRING]]])
+      local
+         t: TRAVERSABLE[FIXED_STRING]
       do
-         non_terminal_builder.call([nt.name, Void])
+         non_terminal_builder.call([nt.name, t])
       end
 
 feature {}
-   make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_tag: ABSTRACT_STRING; a_action: like action) is
+   make (a_primaries: TRAVERSABLE[PACKRAT_PRIMARY]; a_how_many: like how_many; a_tag: ABSTRACT_STRING; a_action: like action)
       require
          a_primaries /= Void
          a_how_many.in_range(one, one_or_more)
@@ -221,13 +223,13 @@ invariant
 
 end -- class PACKRAT_SEQUENCE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

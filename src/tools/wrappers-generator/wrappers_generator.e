@@ -16,7 +16,6 @@ create {ANY}
 
 feature {ANY}
    liberty_authors: STRING "P.REDAELLI"
-
    liberty_dates: STRING "2008-2014"
 
    make
@@ -207,7 +206,6 @@ feature {ANY}
                         std_error.put_string(a_string)
                         std_error.put_string(once "', ")
                      end)
-
                   std_error.put_new_line
                end
             end

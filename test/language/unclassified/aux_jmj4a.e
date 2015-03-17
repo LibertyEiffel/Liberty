@@ -6,7 +6,7 @@ class AUX_JMJ4A[T]
 feature {ANY}
    container: COLLECTION[T]
 
-   set (new: like container) is
+   set (new: like container)
       do
          container := new
          std_output.put_string("TEST_JMJ4: ERROR.%N")

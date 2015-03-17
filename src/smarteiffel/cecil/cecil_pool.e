@@ -13,7 +13,7 @@ insert
    SINGLETON
 
 feature {ACE, COMMAND_LINE_TOOLS, C_PLUGIN}
-   add_cecil_file (path: STRING) is
+   add_cecil_file (path: STRING)
          -- Add `path' as a new -cecil file to be considered.
       require
          path /= Void
@@ -50,7 +50,7 @@ feature {ACE, COMMAND_LINE_TOOLS, C_PLUGIN}
       end
 
 feature {SMART_EIFFEL}
-   parse_cecil_files is
+   parse_cecil_files
       require
          state = State_initial
          may_report_an_error: error_handler.is_empty
@@ -73,7 +73,7 @@ feature {SMART_EIFFEL}
          may_report_an_error: error_handler.is_empty
       end
 
-   collect is
+   collect
       require
          (state = State_parsed) xor (state = State_collected)
       local
@@ -95,7 +95,7 @@ feature {SMART_EIFFEL}
          state = State_collected
       end
 
-   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          i: INTEGER
       do
@@ -112,7 +112,7 @@ feature {SMART_EIFFEL}
          end
       end
 
-   adapt is
+   adapt
       require
          state = State_collected
       local
@@ -137,17 +137,17 @@ feature {SMART_EIFFEL}
 feature {ANY}
    state: INTEGER
 
-   State_initial: INTEGER is 0
-   State_parsed: INTEGER is 1
-   State_collected: INTEGER is 2
-   State_adapted: INTEGER is 3
+   State_initial: INTEGER 0
+   State_parsed: INTEGER 1
+   State_collected: INTEGER 2
+   State_adapted: INTEGER 3
 
-   do_all (action: PROCEDURE[TUPLE[CECIL_FILE]]) is
+   for_each (action: PROCEDURE[TUPLE[CECIL_FILE]])
       require
          action /= Void
       do
          if cecil_files /= Void then
-            cecil_files.do_all(action)
+            cecil_files.for_each(action)
          end
       end
 
@@ -170,9 +170,9 @@ end -- class CECIL_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

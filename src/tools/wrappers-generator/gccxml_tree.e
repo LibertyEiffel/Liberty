@@ -92,7 +92,7 @@ feature {ANY}
             raise(node_name.as_utf8 + " does not have an GCCXML_NODE")
             -- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
          end
-         -- TODO: it would be nide to allow direct inspection of UNICODE_STRING
+         -- TODO: it would be nice to allow direct inspection of UNICODE_STRING
          -- and other COMPARABLE classes
       end
 
@@ -217,7 +217,6 @@ feature {ANY}
                   if not words.last_string.is_empty then
                      value := words.last_string.twin
                      log(once "Symbol #(1) moved to #(2)%N" # symbol # value)
-
                      moved.put(value, symbol)
                   end
                end
@@ -252,7 +251,7 @@ invariant
    moved /= Void
 
 end -- class GCCXML_TREE
--- Copyright 2008,2009,2010 Paolo Redaelli
+-- Copyright 2008,2009,2010i,2014 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

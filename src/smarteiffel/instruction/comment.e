@@ -20,7 +20,7 @@ create {CLASS_CHECKER}
 feature {ANY}
    start_position: POSITION
 
-   short (h1, r1, h2, r2: STRING) is
+   short (h1, r1, h2, r2: STRING)
       local
          i, j: INTEGER; l: STRING; c: CHARACTER; open_quote: BOOLEAN
       do
@@ -63,53 +63,53 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is True
+   has_been_specialized: BOOLEAN True
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       do
          Result := Current
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       do
          Result := Current
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       do
       end
 
-   simplify (type: TYPE): INSTRUCTION is
+   simplify (type: TYPE): INSTRUCTION
       do
          smart_eiffel.magic_count_increment
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       do
          Result := Current
       end
 
-   end_mark_comment: BOOLEAN is False
+   end_mark_comment: BOOLEAN False
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
       end
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
          -- Print the comment, and finish with '%N' output.
       require else
          True
@@ -139,24 +139,24 @@ feature {ANY}
          pretty_printer.set_indent_level(indent_level)
       end
 
-   count: INTEGER is
+   count: INTEGER
          -- Number of lines of the comment.
       do
          Result := list.count
       end
 
-   accept (visitor: COMMENT_VISITOR) is
+   accept (visitor: COMMENT_VISITOR)
       do
          visitor.visit_comment(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
       end
 
 feature {ANONYMOUS_FEATURE}
-   is_dummy_feature_end (e_feature: ANONYMOUS_FEATURE): BOOLEAN is
+   is_dummy_feature_end (e_feature: ANONYMOUS_FEATURE): BOOLEAN
          -- Is this comment a dummy en comment of the `e_feature'?
       local
          first_line, name: STRING
@@ -173,7 +173,7 @@ feature {ANONYMOUS_FEATURE}
       end
 
 feature {CLASS_TEXT, COMMENT_VISITOR}
-   is_dummy_class_text_end (class_text: CLASS_TEXT): BOOLEAN is
+   is_dummy_class_text_end (class_text: CLASS_TEXT): BOOLEAN
          -- Is this comment a dummy en comment of the `class_text'?
       require
          class_text /= Void
@@ -191,7 +191,7 @@ feature {CLASS_TEXT, COMMENT_VISITOR}
          end
       end
 
-   good_end_warning_check (name: CLASS_NAME) is
+   good_end_warning_check (name: CLASS_NAME)
       do
          if not list.item(1).has_substring(name.to_string) then
             error_handler.add_position(name.start_position)
@@ -206,7 +206,7 @@ feature {COMMENT, COMMENT_VISITOR}
          -- The contents of the comment.
 
 feature {PARSER}
-   add_last (line: STRING) is
+   add_last (line: STRING)
       require
          line.occurrences('%N') = 0
       do
@@ -221,7 +221,7 @@ feature {PARSER}
          count = 1 + old count
       end
 
-   append (other: like Current) is
+   append (other: like Current)
       require
          other /= Void
       local
@@ -238,7 +238,7 @@ feature {PARSER}
       end
 
 feature {}
-   make (sp: like start_position; first: STRING) is
+   make (sp: like start_position; first: STRING)
       require
          not sp.is_unknown
          first /= Void
@@ -251,7 +251,7 @@ feature {}
          list.first = first
       end
 
-   from_string (ct: CLASS_TEXT; multi_line: STRING) is
+   from_string (ct: CLASS_TEXT; multi_line: STRING)
          -- To create a multi-line comment for `ct' in a single step.
       require
          multi_line.has('%N')
@@ -259,17 +259,18 @@ feature {}
          one_line: STRING; i1, i2: INTEGER
       do
          start_position.set_class_text(ct)
+
          create list.with_capacity(1 + multi_line.occurrences('%N'), 1)
          from
-            i1 := 1
-            i2 := 1
+            i1 := multi_line.lower
+            i2 := multi_line.lower
          until
-            i2 = 0
+            i2 > multi_line.upper
          loop
             i2 := multi_line.index_of('%N', i1)
-            if i2 = 0 then
+            if i2 > multi_line.upper then
                -- The very last line:
-               one_line := multi_line.substring(i1, multi_line.count)
+               one_line := multi_line.substring(i1, multi_line.upper)
             else
                one_line := multi_line.substring(i1, i2 - 1)
                i1 := i2 + 1
@@ -298,9 +299,9 @@ end -- class COMMENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

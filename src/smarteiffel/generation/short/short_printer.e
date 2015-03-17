@@ -20,7 +20,7 @@ feature {ANY}
    sort_flag: BOOLEAN
          -- Is the "-sort" flag of command "short" used?
 
-   has (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE): BOOLEAN is
+   has (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE): BOOLEAN
          -- Is this one already printed (or memorized)?
       require
          type.lookup(fn).anonymous_feature(type) = af
@@ -31,7 +31,7 @@ feature {ANY}
          end
       end
 
-   hook_or (h, str: STRING) is
+   hook_or (h, str: STRING)
       do
          if hook_exists(h) then
             from
@@ -48,7 +48,7 @@ feature {ANY}
          end
       end
 
-   hook_and_lower (h, name: STRING) is
+   hook_and_lower (h, name: STRING)
          -- When hook `h' exists, the corresponding `name' is printed
          -- one more time (using lower case letters) just before the
          -- contents of `h' hook file.
@@ -72,7 +72,7 @@ feature {ANY}
          end
       end
 
-   hook_and (h, name: STRING) is
+   hook_and (h, name: STRING)
          -- When hook `h' exists, the corresponding `name' is printed
          -- just before the contents of `h' hook file.
       do
@@ -90,7 +90,7 @@ feature {ANY}
          end
       end
 
-   hook (h: STRING) is
+   hook (h: STRING)
       do
          if hook_exists(h) then
             from
@@ -105,7 +105,7 @@ feature {ANY}
          end
       end
 
-   put_class_name (name: CLASS_NAME) is
+   put_class_name (name: CLASS_NAME)
       local
          i: INTEGER; c: CHARACTER; actual_name: STRING
       do
@@ -132,7 +132,7 @@ feature {ANY}
          hook(once "Acn")
       end
 
-   put_integer (value: INTEGER_64) is
+   put_integer (value: INTEGER_64)
       local
          s: STRING; c: CHARACTER; i: INTEGER
       do
@@ -150,12 +150,12 @@ feature {ANY}
          end
       end
 
-   put_character (c: CHARACTER) is
+   put_character (c: CHARACTER)
       do
          out_stream.put_character(c)
       end
 
-   put_dot is
+   put_dot
       do
          hook_or(once "dot", once ".")
       end
@@ -164,7 +164,7 @@ feature {CLASS_CHECKER}
    out_stream: OUTPUT_STREAM
          -- The `output_stream' itself .
 
-   set_out_stream (os: like out_stream) is
+   set_out_stream (os: like out_stream)
       require
          os /= Void
       do
@@ -173,13 +173,13 @@ feature {CLASS_CHECKER}
          out_stream = os
       end
 
-   set_client (cl: like client) is
+   set_client (cl: like client)
       do
          client := cl
       end
 
 feature {CREATION_CLAUSE}
-   put_feature_1 (fn: FEATURE_NAME) is
+   put_feature_1 (fn: FEATURE_NAME)
          -- Produce the output of `fn' assuming that `fn' is really the final name to be used in the current `type'.
          -- (See also `put_feature_2' to avoid recomputation.)
       require
@@ -197,7 +197,7 @@ feature {CREATION_CLAUSE}
       end
 
 feature {}
-   put_feature_2 (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE; hide_current_require: BOOLEAN) is
+   put_feature_2 (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE; hide_current_require: BOOLEAN)
          -- Produce the output for `fn' assuming that `fn' is really the final name in the current `type'.
       require
          type.lookup(fn).anonymous_feature(type) = af
@@ -247,7 +247,7 @@ feature {}
       end
 
 feature {FEATURE_NAME_LIST}
-   delayed_output_of (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE) is
+   delayed_output_of (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
       require
          sort_flag
          not has(fn, af)
@@ -257,7 +257,7 @@ feature {FEATURE_NAME_LIST}
          has(fn, af)
       end
 
-   immediate_output_of (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE) is
+   immediate_output_of (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
       require
          not sort_flag
          not has(fn, af)
@@ -269,12 +269,12 @@ feature {FEATURE_NAME_LIST}
       end
 
 feature {CLASS_CHECKER}
-   is_empty: BOOLEAN is
+   is_empty: BOOLEAN
       do
          Result := memory.is_empty
       end
 
-   do_sorted_print is
+   do_sorted_print
       local
          i: INTEGER; key_map: FAST_ARRAY[FEATURE_NAME]; sorter: COLLECTION_SORTER[FEATURE_NAME]
          name: FEATURE_NAME; af: ANONYMOUS_FEATURE
@@ -295,7 +295,7 @@ feature {CLASS_CHECKER}
       end
 
 feature {FORMAL_GENERIC_ARG, TYPE_MARK, MANIFEST_GENERIC_SAMPLE_PRINTER}
-   put_class_name_without_link (name: CLASS_NAME) is
+   put_class_name_without_link (name: CLASS_NAME)
          -- Used when the class `name' has no corresponding source file.
       local
          i: INTEGER; c: CHARACTER; str: STRING
@@ -321,7 +321,7 @@ feature {FORMAL_GENERIC_ARG, TYPE_MARK, MANIFEST_GENERIC_SAMPLE_PRINTER}
       end
 
 feature {CLASS_CHECKER}
-   start (format: STRING; ct: CLASS_TEXT; t: TYPE) is
+   start (format: STRING; ct: CLASS_TEXT; t: TYPE)
       require
          not format.is_empty
          --|*** t.class_text = ct (not always true: see PREDICATE)
@@ -359,7 +359,7 @@ feature {CLASS_CHECKER}
          type = t
       end
 
-   finish (obsolete_flag: BOOLEAN) is
+   finish (obsolete_flag: BOOLEAN)
          -- The `obsolete_flag' indicates that the class to short itself is obsolete.
       local
          fgl: FORMAL_GENERIC_LIST; class_invariant: CLASS_INVARIANT
@@ -390,13 +390,13 @@ feature {CLASS_CHECKER}
          hook(once "hook999")
       end
 
-   short_for_tuple (format: STRING; tuple_list: FAST_ARRAY[TYPE]) is
+   short_for_tuple (format: STRING; tuple_list: FAST_ARRAY[TYPE])
          -- Where `tuple_list' goes from TUPLE to the maximum TUPLE[ANY, ANY, ...] ever defined.
       local
          tuple_type: TYPE; tuple_class_text, ct: CLASS_TEXT; ccl: CREATION_CLAUSE_LIST; cn: CLASS_NAME
          dummy: BOOLEAN; fcl: FEATURE_CLAUSE_LIST; i, i2: INTEGER
       do
-         create cn.unknown_position(string_aliaser.hashed_string(as_any))
+         create cn.unknown_position(string_aliaser.hashed_string(as_any), False)
          create {CLASS_TYPE_MARK} client.make(cn)
          -- No sort for TUPLE:
          sort_flag := False
@@ -426,16 +426,16 @@ feature {CLASS_CHECKER}
                i2 := i2 + 1
             end
             finish(False)
-            i := i + 1
-            if i <= tuple_list.upper then
+            if i < tuple_list.upper then
                hook_or(once "new_line", once "%N")
                hook_or(once "new_line", once "%N")
             end
+            i := i + 1
          end
       end
 
 feature {CALL_PREFIX}
-   put_prefix_name (pn: FEATURE_NAME) is
+   put_prefix_name (pn: FEATURE_NAME)
          -- Used in an expression.
       require
          pn.is_prefix_name
@@ -460,7 +460,7 @@ feature {CALL_PREFIX}
       end
 
 feature {CALL_INFIX, FEATURE_NAME}
-   put_infix_name (h1, r1, h2, r2: STRING; in: FEATURE_NAME) is
+   put_infix_name (h1, r1, h2, r2: STRING; in: FEATURE_NAME)
       require
          in.is_infix_name
       local
@@ -484,7 +484,7 @@ feature {CALL_INFIX, FEATURE_NAME}
       end
 
 feature {BASE_TYPE_CONSTANT}
-   put_base_type_constant (str: STRING) is
+   put_base_type_constant (str: STRING)
       local
          i: INTEGER; c: CHARACTER
       do
@@ -504,7 +504,7 @@ feature {BASE_TYPE_CONSTANT}
       end
 
 feature {SHORT}
-   set_sort_flag (sf: BOOLEAN) is
+   set_sort_flag (sf: BOOLEAN)
       do
          sort_flag := sf
       ensure
@@ -525,12 +525,12 @@ feature {}
 
    client: TYPE_MARK
 
-   make is
+   make
       do
          create {HASHED_DICTIONARY[ANONYMOUS_FEATURE, FEATURE_NAME]} memory.make
       end
 
-   hook_exists (h: STRING): BOOLEAN is
+   hook_exists (h: STRING): BOOLEAN
       local
          hook_path: STRING
       do
@@ -541,7 +541,7 @@ feature {}
          Result := hook_file.is_connected
       end
 
-   hook_file: TEXT_FILE_READ is
+   hook_file: TEXT_FILE_READ
       once
          create Result.make
       end
@@ -558,9 +558,9 @@ end -- class SHORT_PRINTER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

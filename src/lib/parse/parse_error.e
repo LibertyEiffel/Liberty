@@ -12,7 +12,7 @@ feature {ANY}
    next: PARSE_ERROR
 
 feature {PARSE_ERROR}
-   set_next (a_next: like next) is
+   set_next (a_next: like next)
       require
          a_next /= Void
          a_next /= Current
@@ -26,7 +26,7 @@ feature {PARSE_ERROR}
          last = a_next
       end
 
-   last: PARSE_ERROR is
+   last: PARSE_ERROR
       do
          if next = Void then
             Result := Current
@@ -38,7 +38,7 @@ feature {PARSE_ERROR}
       end
 
 feature {}
-   make (a_index: like index; a_message: like message; a_previous: PARSE_ERROR) is
+   make (a_index: like index; a_message: like message; a_previous: PARSE_ERROR)
       require
          a_message /= Void
       do
@@ -55,13 +55,13 @@ feature {}
 
 end -- class PARSE_ERROR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

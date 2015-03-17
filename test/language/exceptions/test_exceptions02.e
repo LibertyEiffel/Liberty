@@ -12,7 +12,7 @@ create {}
 feature {ANY}
    exception_memory: INTEGER
 
-   make is
+   make
       local
          s: STRING
       do
@@ -29,7 +29,7 @@ feature {ANY}
       end
 
 feature {}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

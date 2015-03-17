@@ -24,12 +24,12 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_ENTITY_EXPRESSION}
 feature {ANY}
    entity: LIBERTY_ENTITY
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          Result := entity.result_type
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: like entity
       do
@@ -42,13 +42,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {}
-   make (a_entity: like entity; a_position: like position) is
+   make (a_entity: like entity; a_position: like position)
       require
          a_entity.result_type /= Void
          a_position /= Void
@@ -61,7 +61,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_ENTITY_EXPRESSION_VISITOR
       do

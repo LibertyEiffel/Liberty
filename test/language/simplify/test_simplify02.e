@@ -13,11 +13,11 @@ create {}
    make
 
 feature {ANY}
-   null_pointer: POINTER is
+   null_pointer: POINTER
       do
       end
 
-   make is
+   make
       local
          b_true, b_false: BOOLEAN; local_pointer: POINTER
       do
@@ -344,26 +344,26 @@ feature {ANY}
 
       end
 
-   is_void: ANY is
+   is_void: ANY
       do
       end
 
-   two: INTEGER is
+   two: INTEGER
       do
          Result := 1 + 1
       end
 
-   always_run is
+   always_run
       do
          assert(True)
       end
 
-   always_true: BOOLEAN is
+   always_true: BOOLEAN
       do
          Result := True
       end
 
-   always_false: BOOLEAN is
+   always_false: BOOLEAN
       do
       end
 

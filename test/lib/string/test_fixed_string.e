@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          fs: FIXED_STRING; s: STRING; p: POINTER
       do

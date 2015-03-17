@@ -6,7 +6,7 @@ insert
 feature {ANY}
    n: INTEGER
 
-   set (i: INTEGER) is
+   set (i: INTEGER)
       do
          n := i
       end

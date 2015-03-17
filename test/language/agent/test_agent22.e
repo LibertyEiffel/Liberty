@@ -13,17 +13,17 @@ create {}
    make
 
 feature {ANY}
-   callback_a (i: AUX_AGENT22A) is
+   callback_a (i: AUX_AGENT22A)
       do
          i.set_c(2)
       end
 
-   callback_b (i: AUX_AGENT22B) is
+   callback_b (i: AUX_AGENT22B)
       do
          i.set_c(5)
       end
 
-   make is
+   make
       do
          doit
       end
@@ -32,7 +32,7 @@ feature {ANY}
 
    cb_agent: PROCEDURE[TUPLE[AUX_AGENT22B]]
 
-   doit is
+   doit
       local
          aux_a: AUX_AGENT22A; aux_b: AUX_AGENT22B
       do

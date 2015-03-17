@@ -16,7 +16,6 @@ deferred class JOB
    --
 
 insert
-   ANY
    PLATFORM
 
 feature {JOB, LOOP_ITEM}
@@ -25,9 +24,9 @@ feature {JOB, LOOP_ITEM}
          -- Priority should only be set at creation time.
 
 feature {LOOP_ITEM}
-   prepare (events: EVENTS_SET) is
+   prepare (events: EVENTS_SET)
          -- Use `events' to descibe condition that make this job ready to `continue'.
-         -- `events' describe the conditions to be satisfied before 
+         -- `events' describe the conditions to be satisfied before
          -- runing this job for one more step.
       require
          events /= Void
@@ -36,7 +35,7 @@ feature {LOOP_ITEM}
       deferred
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
          -- Check if this job is ready to continue his work.
          -- `events' describe the events which occured.
       require
@@ -46,7 +45,7 @@ feature {LOOP_ITEM}
       deferred
       end
 
-   continue is
+   continue
          -- Continue to do the job.
          -- The work to do has to be small work and non blocking, it
          -- will continue on next call.
@@ -55,13 +54,13 @@ feature {LOOP_ITEM}
       deferred
       end
 
-   done: BOOLEAN is
+   done: BOOLEAN
          -- `done' returns `True' when the job is finished. Then the
          -- job may be `restart'(ed) if it need to run again.
       deferred
       end
 
-   restart is
+   restart
          -- Configure the job like the initial state.
          -- Example: when some window dialog appears second time, all
          -- jobs from this window are restarted.
@@ -72,7 +71,7 @@ feature {LOOP_ITEM}
          not done
       end
 
-   infix "<" (other: JOB): BOOLEAN is
+   infix "<" (other: JOB): BOOLEAN
       do
          Result := priority < other.priority
       end
@@ -82,13 +81,13 @@ invariant
 
 end -- class JOB
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -17,7 +17,7 @@ feature {ANY}
    country: FIXED_STRING
    encoding: FIXED_STRING
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(language)
          if country /= Void then
@@ -35,7 +35,7 @@ feature {ANY} -- some useful locale-related items
    -- NOTE: All those features share te same once STRING.
    -- Be sure to copy the result if it is meant to be kept.
 
-   localized_text (text_id: ABSTRACT_STRING): STRING is
+   localized_text (text_id: ABSTRACT_STRING): STRING
          -- Generic text translation
       local
          tid, t: POINTER
@@ -50,82 +50,82 @@ feature {ANY} -- some useful locale-related items
 
     -- see nl_langinfo(3)
 
-   localized_time (time: TIME): STRING is
+   localized_time (time: TIME): STRING
       do
          Result := to_string(i18n_localized_time(time.time_memory))
       end
 
-   localized_date (time: TIME): STRING is
+   localized_date (time: TIME): STRING
       do
          Result := to_string(i18n_localized_date(time.time_memory))
       end
 
-   localized_time_and_date (time: TIME): STRING is
+   localized_time_and_date (time: TIME): STRING
       do
          Result := to_string(i18n_localized_time_and_date(time.time_memory))
       end
 
-   localized_day (day: INTEGER): STRING is
+   localized_day (day: INTEGER): STRING
       require
          day.in_range(0, 7) -- 0 and 7 are Sunday
       do
          Result := to_string(i18n_localized_day(day))
       end
 
-   localized_abbreviated_day (day: INTEGER): STRING is
+   localized_abbreviated_day (day: INTEGER): STRING
       require
          day.in_range(0, 7) -- 0 and 7 are Sunday
       do
          Result := to_string(i18n_localized_abbreviated_day(day))
       end
 
-   localized_month (month: INTEGER): STRING is
+   localized_month (month: INTEGER): STRING
       require
          month.in_range(1, 12)
       do
          Result := to_string(i18n_localized_month(month))
       end
 
-   localized_abbreviated_month (month: INTEGER): STRING is
+   localized_abbreviated_month (month: INTEGER): STRING
       require
          month.in_range(1, 12)
       do
          Result := to_string(i18n_localized_abbreviated_month(month))
       end
 
-   localized_radix_character: STRING is
+   localized_radix_character: STRING
          -- (decimal dot, decimal comma, etc.)
       do
          Result := to_string(i18n_localized_radix_character)
       end
 
-   localized_thousands_separator: STRING is
+   localized_thousands_separator: STRING
       do
          Result := to_string(i18n_localized_thousands_separator)
       end
 
-   localized_yes: STRING is
+   localized_yes: STRING
       do
          Result := to_string(i18n_localized_yes)
       end
 
-   localized_no: STRING is
+   localized_no: STRING
       do
          Result := to_string(i18n_localized_no)
       end
 
-   localized_ante_meridiem: STRING is
+   localized_ante_meridiem: STRING
       do
          Result := to_string(i18n_localized_ante_meridiem)
       end
 
-   localized_post_meridiem: STRING is
+   localized_post_meridiem: STRING
       do
          Result := to_string(i18n_localized_post_meridiem)
       end
 
 feature {}
-   to_string (p: POINTER): STRING is
+   to_string (p: POINTER): STRING
       do
          if p.is_not_null then
             Result := once ""
@@ -137,7 +137,7 @@ feature {}
       end
 
 feature {ANY}
-   valid_spec (spec: ABSTRACT_STRING): BOOLEAN is
+   valid_spec (spec: ABSTRACT_STRING): BOOLEAN
          -- Checking the validity of the argument of `make'.
       local
          i, j: INTEGER
@@ -159,7 +159,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   make_language (a_language: ABSTRACT_STRING) is
+   make_language (a_language: ABSTRACT_STRING)
       require
          a_language.is_equal(a_language.as_lower)
       do
@@ -172,7 +172,7 @@ feature {ANY}
          encoding = Void
       end
 
-   make_country (a_language, a_country: ABSTRACT_STRING) is
+   make_country (a_language, a_country: ABSTRACT_STRING)
       require
          a_language.is_equal(a_language.as_lower)
          a_country.is_equal(a_country.as_upper)
@@ -186,7 +186,7 @@ feature {ANY}
          encoding = Void
       end
 
-   make_encoding (a_language, a_country, a_encoding: ABSTRACT_STRING) is
+   make_encoding (a_language, a_country, a_encoding: ABSTRACT_STRING)
       require
          a_language.is_equal(a_language.as_lower)
          a_country.is_equal(a_country.as_upper)
@@ -201,7 +201,7 @@ feature {ANY}
          encoding.is_equal(a_encoding)
       end
 
-   make (spec: ABSTRACT_STRING) is
+   make (spec: ABSTRACT_STRING)
       require
          valid_spec(spec)
       local
@@ -222,7 +222,7 @@ feature {ANY}
          end
       end
 
-   default_create is
+   default_create
       local
          langp: POINTER; lang: STRING
       do
@@ -237,7 +237,7 @@ feature {ANY}
          end
       end
 
-   i18n_get_environment_language: POINTER is
+   i18n_get_environment_language: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -246,7 +246,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_time (time: INTEGER_64): POINTER is
+   i18n_localized_time (time: INTEGER_64): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -255,7 +255,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_date (time: INTEGER_64): POINTER is
+   i18n_localized_date (time: INTEGER_64): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -264,7 +264,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_time_and_date (time: INTEGER_64): POINTER is
+   i18n_localized_time_and_date (time: INTEGER_64): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -273,7 +273,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_day (day: INTEGER): POINTER is
+   i18n_localized_day (day: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -282,7 +282,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_abbreviated_day (day: INTEGER): POINTER is
+   i18n_localized_abbreviated_day (day: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -291,7 +291,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_month (month: INTEGER): POINTER is
+   i18n_localized_month (month: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -300,7 +300,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_abbreviated_month (month: INTEGER): POINTER is
+   i18n_localized_abbreviated_month (month: INTEGER): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -309,7 +309,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_radix_character: POINTER is
+   i18n_localized_radix_character: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -318,7 +318,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_thousands_separator: POINTER is
+   i18n_localized_thousands_separator: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -327,7 +327,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_yes: POINTER is
+   i18n_localized_yes: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -336,7 +336,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_no: POINTER is
+   i18n_localized_no: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -345,7 +345,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_ante_meridiem: POINTER is
+   i18n_localized_ante_meridiem: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -354,7 +354,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_post_meridiem: POINTER is
+   i18n_localized_post_meridiem: POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -363,7 +363,7 @@ feature {ANY}
       }"
       end
 
-   i18n_localized_text (text_id: POINTER): POINTER is
+   i18n_localized_text (text_id: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "externals"
@@ -378,13 +378,13 @@ invariant
 
 end -- class LOCALE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

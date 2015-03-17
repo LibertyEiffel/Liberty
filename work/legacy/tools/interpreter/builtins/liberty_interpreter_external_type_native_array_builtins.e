@@ -21,11 +21,11 @@ insert
    LIBERTY_INTERPRETER_EXTERNAL_BUILTINS_CALLER
    ARRAYED_COLLECTION_HANDLER
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {}
-   integer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): INTEGER is
+   integer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): INTEGER
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
@@ -34,7 +34,7 @@ feature {}
          Result := obj.item.to_integer_32
       end
 
-   pointer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): POINTER is
+   pointer (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): POINTER
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[POINTER]
       do
@@ -44,7 +44,7 @@ feature {}
       end
 
 feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
-   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT is
+   call (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL): LIBERTY_INTERPRETER_OBJECT
       local
          target: LIBERTY_INTERPRETER_NATIVE_ARRAY
          actual_type: LIBERTY_ACTUAL_TYPE
@@ -81,7 +81,7 @@ feature {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
       end
 
 feature {}
-   put (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is
+   put (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL)
       local
          target: LIBERTY_INTERPRETER_NATIVE_ARRAY
          element: LIBERTY_INTERPRETER_OBJECT
@@ -97,7 +97,7 @@ feature {}
          target.builtin_put(element.as_right_value, index.item.to_integer_32, builtin_call.position)
       end
 
-   slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is
+   slice_copy (builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL)
       local
          target: LIBERTY_INTERPRETER_NATIVE_ARRAY
          at, src_min, src_max: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]

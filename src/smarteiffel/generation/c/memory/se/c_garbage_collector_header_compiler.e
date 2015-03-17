@@ -8,86 +8,156 @@ class C_GARBAGE_COLLECTOR_HEADER_COMPILER
 
 inherit
    C_GARBAGE_COLLECTOR_ABSTRACT_COMPILER
+      redefine
+         make
+      end
 
 create {GC_HANDLER}
    make
 
 feature {AGENT_TYPE_MARK}
-   visit_agent_type_mark (visited: AGENT_TYPE_MARK) is
+   visit_agent_type_mark (visited: AGENT_TYPE_MARK)
       do
          out_h.copy(once "%N#define gc_mark")
-         visited.id.append_in(out_h)
+         ltid_in(visited.type.live_type, out_h, False, False)
          out_h.append(once "(x) (((se_agent0*)(x))->gc_mark_agent_mold((se_agent*)(x)))%N%N")
          cpp.write_out_h_buffer
+         if visited.type.has_local_closure then
+            gc_reference_(visited, True)
+         end
       end
 
 feature {NATIVE_ARRAY_TYPE_MARK}
-   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK) is
+   visit_native_array_type_mark (visited: NATIVE_ARRAY_TYPE_MARK)
       do
          -- ------------------------------------ Declare na_envXXX :
-         out_h.copy(once "na_env ")
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(na_env)")
+         else
+            out_h.copy(once "na_env ")
+         end
          memory.na_env_in(visited, out_h)
          out_c.copy(once "{0,NULL,NULL,NULL,(void(*)(T0*))")
-         memory.mark_in(visited, out_c)
+         memory.mark_in(visited, out_c, False)
          out_c.extend('}')
          cpp.write_extern_2(out_h, out_c)
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
-            out_h.copy(once "int ")
-            memory.info_nb_in(visited, out_h)
+            if smart_eiffel.thread_used then
+               out_h.copy(once "TLS(int)")
+            else
+               out_h.copy(once "int ")
+            end
+            memory.info_nb_in(visited, out_h, False)
             cpp.write_extern_0(out_h)
          end
       end
 
 feature {}
-   gc_reference (visited: TYPE_MARK) is
+   gc_reference_ (visited: TYPE_MARK; for_closure: BOOLEAN)
+      require
+         visited.is_expanded implies for_closure
       local
-         ltid: INTEGER
+         lt: LIVE_TYPE
       do
-         ltid := visited.type.live_type.id
-         -- --------------- Define struct BXXX and typedef gcXXX :
-         out_h.copy(once "typedef struct B")
-         ltid.append_in(out_h)
+         lt := visited.type.live_type
+         -- --------------- Define struct GC_BXXX and typedef gcXXX :
+         out_h.copy(once "typedef struct GC_B")
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once " gc")
-         ltid.append_in(out_h)
-         out_h.append(once ";%Nstruct B")
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, for_closure)
+         out_h.append(once ";%Nstruct GC_B")
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "{T")
-         ltid.append_in(out_h)
-         out_h.append(once " object;union {void*flag;gc")
-         ltid.append_in(out_h)
+         ltid_in(lt, out_h, False, False)
+         if for_closure and then visited.is_reference then
+            out_h.extend('*')
+         else
+            out_h.extend(' ')
+         end
+         out_h.append(once "object;union {void*flag;gc")
+         ltid_in(lt, out_h, False, for_closure)
          out_h.append(once "*next;} header;};%N")
          cpp.write_out_h_buffer
          -- ----------------------------------- Declare storeXXX :
-         out_h.copy(once "gc")
-         ltid.append_in(out_h)
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(gc")
+         else
+            out_h.copy(once "gc")
+         end
+         ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
-         memory.store_in(visited, out_h)
+         if smart_eiffel.thread_used then
+            out_h.extend(')')
+         end
+         memory.store_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- ------------------------------ Declare store_leftXXX :
-         out_h.copy(once "int ")
-         memory.store_left_in(visited, out_h)
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(int)")
+         else
+            out_h.copy(once "int ")
+         end
+         memory.store_left_in(visited, out_h, for_closure)
          cpp.write_extern_0(out_h)
          -- ----------------------------------- Declare store_chunkXXX :
-         out_h.copy(once "fsoc*")
-         memory.store_chunk_in(visited, out_h)
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(fsoc*)")
+         else
+            out_h.copy(once "fsoc*")
+         end
+         memory.store_chunk_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- --------------------------------- Declare gc_freeXXX :
-         out_h.copy(once "gc")
-         ltid.append_in(out_h)
+         if smart_eiffel.thread_used then
+            out_h.copy(once "TLS(gc")
+         else
+            out_h.copy(once "gc")
+         end
+         ltid_in(lt, out_h, False, for_closure)
          out_h.extend('*')
-         memory.free_in(visited, out_h)
+         if smart_eiffel.thread_used then
+            out_h.extend(')')
+         end
+         memory.free_in(visited, out_h, for_closure)
          cpp.write_extern_2(out_h, once "(void*)0")
          -- -------------------------------- Declare gc_info_nbXXX :
          if memory.info_flag then
-            out_h.copy(once "int ")
-            memory.info_nb_in(visited, out_h)
+            if smart_eiffel.thread_used then
+               out_h.copy(once "TLS(int)")
+            else
+               out_h.copy(once "int ")
+            end
+            memory.info_nb_in(visited, out_h, for_closure)
             cpp.write_extern_0(out_h)
          end
       end
 
-   gc_expanded (visited: TYPE_MARK) is
+   gc_reference (visited: TYPE_MARK)
       do
+         gc_reference_(visited, False)
+         if visited.type.has_local_closure then
+            gc_reference_(visited, True)
+         end
+      end
+
+   gc_kernel_expanded (visited: TYPE_MARK)
+      do
+         if visited.type.has_local_closure then
+            gc_reference_(visited, True)
+         end
+      end
+
+   gc_expanded (visited: TYPE_MARK)
+      do
+      end
+
+feature {}
+   structer: C_GARBAGE_COLLECTOR_STRUCTER
+
+   make
+      do
+         create structer.make
       end
 
 end -- class C_GARBAGE_COLLECTOR_HEADER_COMPILER
@@ -102,9 +172,9 @@ end -- class C_GARBAGE_COLLECTOR_HEADER_COMPILER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

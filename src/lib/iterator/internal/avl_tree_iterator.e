@@ -11,7 +11,7 @@ feature {}
    nodes: STACK[AVL_TREE_NODE[E_]]
    cur: AVL_TREE_NODE[E_]
 
-   go_leftmost (node: AVL_TREE_NODE[E_]) is
+   go_leftmost (node: AVL_TREE_NODE[E_])
       require
          node = nodes.top
       local
@@ -26,7 +26,7 @@ feature {}
          end
       end
 
-   go_next_node (node: AVL_TREE_NODE[E_]) is
+   go_next_node (node: AVL_TREE_NODE[E_])
       require
          node = nodes.top
       local
@@ -51,7 +51,7 @@ feature {}
          end
       end
 
-   go_first (root: AVL_TREE_NODE[E_]) is
+   go_first (root: AVL_TREE_NODE[E_])
       do
          from
          until
@@ -63,7 +63,7 @@ feature {}
          go_leftmost(root)
       end
 
-   go_next is
+   go_next
       require
          not nodes.is_empty
       do
@@ -74,13 +74,13 @@ feature {ANY}
    generation: INTEGER
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          nodes_pool.recycle(nodes)
       end
 
 feature {}
-   new_nodes: like nodes is
+   new_nodes: like nodes
       do
          if nodes_pool.is_empty then
             create Result.make
@@ -89,7 +89,7 @@ feature {}
          end
       end
 
-   nodes_pool: RECYCLING_POOL[STACK[AVL_TREE_NODE[E_]]] is
+   nodes_pool: RECYCLING_POOL[STACK[AVL_TREE_NODE[E_]]]
       local
          key: FIXED_STRING
       do
@@ -107,7 +107,7 @@ feature {}
 
    nodes_pool_memory: like nodes_pool
 
-   nodes_pools: HASHED_DICTIONARY[RECYCLING_POOL[STACK[AVL_TREE_NODE_ANY]], FIXED_STRING] is
+   nodes_pools: HASHED_DICTIONARY[RECYCLING_POOL[STACK[AVL_TREE_NODE_ANY]], FIXED_STRING]
       once
          create Result.make
       end

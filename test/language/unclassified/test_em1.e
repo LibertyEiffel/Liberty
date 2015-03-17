@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          aux_em1: AUX_EM1; s: STRING
       do

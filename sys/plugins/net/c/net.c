@@ -39,19 +39,21 @@ static void clear_error(void) {
   net_last_error_number = 0;
 }
 
-static void set_error(void) {
+static void set_error_(const char *file, int line) {
   int err = net_errno;
   switch(err) {
   case 0:
-  case EAGAIN:
+      /*  case EAGAIN: handled by net_last_error_try_again */
     clear_error();
     break;
   default:
     net_last_error = net_error;
     net_last_error_number = err;
-    snprintf((char*)net_last_error, ERROR_BUFFER_SIZE, "%s", strerror(err));
+    snprintf((char*)net_last_error, ERROR_BUFFER_SIZE, "%s:%d -- %s", file, line, strerror(err));
   }
 }
+
+#define set_error() set_error_(__FILE__, __LINE__)
 
 static void set_custom_error(char* error) {
   net_last_error_number = -1;

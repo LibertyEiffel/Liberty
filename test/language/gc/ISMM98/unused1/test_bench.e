@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   tuning: INTEGER is 40_000
+   tuning: INTEGER 40_000
 
-   make is
+   make
       local
          a: ARRAY[ANIMAL]; i: INTEGER
       do
@@ -25,7 +25,7 @@ feature {}
          end
       end
 
-   fill (array: ARRAY[ANIMAL]) is
+   fill (array: ARRAY[ANIMAL])
       local
          i: INTEGER; animal: ANIMAL
       do
@@ -44,7 +44,7 @@ feature {}
          end
       end
 
-   clear (array: ARRAY[ANIMAL]) is
+   clear (array: ARRAY[ANIMAL])
       local
          i: INTEGER; animal: ANIMAL
       do

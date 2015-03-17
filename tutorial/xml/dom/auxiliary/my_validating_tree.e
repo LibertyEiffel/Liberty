@@ -13,22 +13,22 @@ create {EXAMPLE2}
    with_error_handler
 
 feature {}
-   Tree_tag: UNICODE_STRING is
+   Tree_tag: UNICODE_STRING
       once
          Result := U"tree"
       end
 
-   Node_tag: UNICODE_STRING is
+   Node_tag: UNICODE_STRING
       once
          Result := U"node"
       end
 
-   Leaf_tag: UNICODE_STRING is
+   Leaf_tag: UNICODE_STRING
       once
          Result := U"leaf"
       end
 
-   new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE is
+   new_node (node_name: UNICODE_STRING; line, column: INTEGER): XML_COMPOSITE_NODE
       do
          inspect
             node_name.as_utf8

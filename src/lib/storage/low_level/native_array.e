@@ -20,22 +20,23 @@ create {ANY}
    default_create, manifest_creation
 
 feature {ANY} -- Basic features:
-   element_sizeof: INTEGER is
+   element_sizeof: INTEGER
          -- The size in number of bytes for type `E_'.
       external "built_in"
       end
 
-   calloc (nb_elements: INTEGER): like Current is
+   calloc (nb_elements: INTEGER): like Current
          -- Allocate a new array of `nb_elements' of type `E_'.
          -- The new array is initialized with default values.
       require
          nb_elements > 0
       external "built_in"
       ensure
+         Result.is_not_null
          Result.all_default(nb_elements - 1)
       end
 
-   item (index: INTEGER): E_ is
+   item (index: INTEGER): E_
          -- To read an `item'.
          -- Assume that `calloc' is already done and that `index' is the range [0 .. `nb_elements'-1].
       require
@@ -43,7 +44,7 @@ feature {ANY} -- Basic features:
       external "built_in"
       end
 
-   put (element: E_; index: INTEGER) is
+   put (element: E_; index: INTEGER)
          -- To write an item.
          -- Assume that `calloc' is already done and that `index'
          -- is the range [0 .. `nb_elements'-1].
@@ -55,7 +56,7 @@ feature {ANY} -- Basic features:
       end
 
 feature {ANY}
-   realloc (old_nb_elts, new_nb_elts: INTEGER): like Current is
+   realloc (old_nb_elts, new_nb_elts: INTEGER): like Current
          -- Assume Current is a valid NATIVE_ARRAY in range
          -- [0 .. `old_nb_elts'-1]. Allocate a bigger new array in
          -- range [0 .. `new_nb_elts'-1].
@@ -73,7 +74,7 @@ feature {ANY}
       end
 
 feature {ANY} -- Comparison:
-   memcmp (other: like Current; capacity: INTEGER): BOOLEAN is
+   memcmp (other: like Current; capacity: INTEGER): BOOLEAN
          -- True if all elements in range [0 .. `capacity'-1] are identical using `is_equal'.
          -- Assume Current and `other' are big enough.
          -- See also `fast_memcmp'.
@@ -92,7 +93,7 @@ feature {ANY} -- Comparison:
          Result := i < 0
       end
 
-   slice_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
+   slice_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN
          -- True if all elements in range [0 .. `other_upper' - `other_lower'] are identical
          -- to the elements in range [`other_lower' .. `other_upper'] of `other' using
          -- `is_equal'. Assume `Current' and `other' are big enough.
@@ -115,7 +116,7 @@ feature {ANY} -- Comparison:
          Result := i < 0
       end
 
-   fast_memcmp (other: like Current; capacity: INTEGER): BOOLEAN is
+   fast_memcmp (other: like Current; capacity: INTEGER): BOOLEAN
          -- Same jobs as `memcmp' but uses infix "=" instead of `is_equal'.
       require
          capacity > 0 implies other.is_not_null
@@ -132,7 +133,7 @@ feature {ANY} -- Comparison:
          Result := i < 0
       end
 
-   slice_fast_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
+   slice_fast_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN
          -- Same jobs as `slice_memcmp' but uses infix "=" instead of `is_equal'.
       require
          at >= 0
@@ -152,7 +153,7 @@ feature {ANY} -- Comparison:
          Result := i < 0
       end
 
-   deep_memcmp (other: like Current; capacity: INTEGER): BOOLEAN is
+   deep_memcmp (other: like Current; capacity: INTEGER): BOOLEAN
          -- Same jobs as `memcmp' but uses `is_deep_equal' instead of `is_equal'.
       require
          capacity > 0 implies other.is_not_null
@@ -181,7 +182,7 @@ feature {ANY} -- Comparison:
          end
       end
 
-   slice_deep_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN is
+   slice_deep_memcmp (at: INTEGER; other: like Current; other_lower, other_upper: INTEGER): BOOLEAN
          -- Same jobs as `slice_memcmp' but uses `is_deep_equal' instead of `is_equal'.
       require
          at >= 0
@@ -214,7 +215,7 @@ feature {ANY} -- Comparison:
       end
 
 feature {ANY} -- Searching:
-   first_index_of (element: like item; upper: INTEGER): INTEGER is
+   first_index_of (element: like item; upper: INTEGER): INTEGER
          -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or after
          -- `0'. Answer `upper + 1' when the search fail.
          -- See also `fast_index_of', `reverse_index_of'.
@@ -235,7 +236,7 @@ feature {ANY} -- Searching:
          Result <= upper implies safe_equal(element, item(Result))
       end
 
-   index_of (element: like item; start_index, upper: INTEGER): INTEGER is
+   index_of (element: like item; start_index, upper: INTEGER): INTEGER
          -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or after
          -- `start_index'. Answer `upper + 1' when the search fail.
          -- See also `fast_index_of', `reverse_index_of'.
@@ -255,7 +256,7 @@ feature {ANY} -- Searching:
          Result <= upper implies safe_equal(element, item(Result))
       end
 
-   reverse_index_of (element: like item; upper: INTEGER): INTEGER is
+   reverse_index_of (element: like item; upper: INTEGER): INTEGER
          -- Using `is_equal' for comparison, gives the index of the first occurrence of `element' at or before
          -- `upper'. Search is done in reverse direction, which means from `upper' down to the
          -- `0'. Answer `-1' when the search fail.
@@ -275,7 +276,7 @@ feature {ANY} -- Searching:
          Result > 0 implies safe_equal(element, item(Result))
       end
 
-   fast_index_of (element: like item; start_index, upper: INTEGER): INTEGER is
+   fast_index_of (element: like item; start_index, upper: INTEGER): INTEGER
          -- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or after
          -- `start_index'. Answer `upper + 1' when the search fail.
          -- See also `index_of', `reverse_index_of'.
@@ -295,7 +296,7 @@ feature {ANY} -- Searching:
          Result <= upper implies element = item(Result)
       end
 
-   fast_reverse_index_of (element: like item; upper: INTEGER): INTEGER is
+   fast_reverse_index_of (element: like item; upper: INTEGER): INTEGER
          -- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or before
          -- `upper'. Search is done in reverse direction, which means from `upper' down to the
          -- `0'. Answer `-1' when the search fail.
@@ -315,7 +316,7 @@ feature {ANY} -- Searching:
          Result > 0 implies element = item(Result)
       end
 
-   fast_first_index_of (element: like item; upper: INTEGER): INTEGER is
+   fast_first_index_of (element: like item; upper: INTEGER): INTEGER
          -- Using basic `=' for comparison, gives the index of the first occurrence of `element' at or after
          -- `0'. Answer `upper + 1' when the search fail.
          -- See also `fast_index_of', `reverse_index_of'.
@@ -336,7 +337,7 @@ feature {ANY} -- Searching:
          Result <= upper implies element = item(Result)
       end
 
-   has (element: like item; upper: INTEGER): BOOLEAN is
+   has (element: like item; upper: INTEGER): BOOLEAN
          -- Look for `element' using `is_equal' for comparison.
          -- Also consider `fast_has' to choose the most appropriate.
       require
@@ -354,7 +355,7 @@ feature {ANY} -- Searching:
          end
       end
 
-   slice_has (element: like item; lower, upper: INTEGER): BOOLEAN is
+   slice_has (element: like item; lower, upper: INTEGER): BOOLEAN
          -- Look for `element' using `is_equal' for comparison.
          -- Also consider `slice_fast_has' to choose the most appropriate.
       require
@@ -373,7 +374,7 @@ feature {ANY} -- Searching:
          end
       end
 
-   fast_has (element: like item; upper: INTEGER): BOOLEAN is
+   fast_has (element: like item; upper: INTEGER): BOOLEAN
          -- Look for `element' using basic `=' for comparison.
          -- Also consider `has' to choose the most appropriate.
       require
@@ -391,7 +392,7 @@ feature {ANY} -- Searching:
          Result := i >= 0
       end
 
-   slice_fast_has (element: like item; lower, upper: INTEGER): BOOLEAN is
+   slice_fast_has (element: like item; lower, upper: INTEGER): BOOLEAN
          -- Look for `element' using `is_equal' for comparison.
          -- Also consider `slice_fast_has' to choose the most appropriate.
       require
@@ -411,7 +412,7 @@ feature {ANY} -- Searching:
       end
 
 feature {ANY} -- Removing:
-   remove_first (upper: INTEGER) is
+   remove_first (upper: INTEGER)
          -- Assume `upper' is a valid index.
          -- Move range [1 .. `upper'] by 1 position left.
       require
@@ -428,7 +429,7 @@ feature {ANY} -- Removing:
          end
       end
 
-   remove (index, upper: INTEGER) is
+   remove (index, upper: INTEGER)
          -- Assume `upper' is a valid index.
          -- Move range [`index' + 1 .. `upper'] by 1 position left.
       require
@@ -448,7 +449,7 @@ feature {ANY} -- Removing:
       end
 
 feature {ANY} -- Replacing:
-   replace_all (old_value, new_value: like item; upper: INTEGER) is
+   replace_all (old_value, new_value: like item; upper: INTEGER)
          -- Replace all occurrences of the element `old_value' by `new_value' using `is_equal' for comparison.
          -- See also `fast_replace_all' to choose the apropriate one.
       require
@@ -468,7 +469,7 @@ feature {ANY} -- Replacing:
          end
       end
 
-   fast_replace_all (old_value, new_value: like item; upper: INTEGER) is
+   fast_replace_all (old_value, new_value: like item; upper: INTEGER)
          -- Replace all occurrences of the element `old_value' by `new_value'
          -- using basic `=' for comparison.
          -- See also `replace_all' to choose the apropriate one.
@@ -490,7 +491,7 @@ feature {ANY} -- Replacing:
       end
 
 feature {ANY} -- Adding:
-   copy_at (at: INTEGER; src: like Current; src_capacity: INTEGER) is
+   copy_at (at: INTEGER; src: like Current; src_capacity: INTEGER)
          -- Copy range [0 .. `src_capacity - 1'] of `src' to range [`at' .. `at + src_capacity - 1'] of `Current'.
          -- No subscript checking.
       require
@@ -511,7 +512,7 @@ feature {ANY} -- Adding:
          end
       end
 
-   slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER) is
+   slice_copy (at: INTEGER; src: like Current; src_min, src_max: INTEGER)
          -- Copy range [`src_min' .. `src_max'] of `src' to range [`at' .. `at + src_max - src_min'] of `Current'.
          -- No subscript checking.
          --*** NATIVE_ARRAY[CHARACTER/INTEGER_8] are modified byte per byte. Efficiency should be improved here.
@@ -523,7 +524,7 @@ feature {ANY} -- Adding:
       end
 
 feature {ANY} -- Other:
-   set_all_with (v: like item; upper: INTEGER) is
+   set_all_with (v: like item; upper: INTEGER)
          -- Set all elements in range [0 .. `upper'] with value `v'.
       require
          upper >= -1
@@ -531,7 +532,7 @@ feature {ANY} -- Other:
          set_slice_with(v, 0, upper)
       end
 
-   set_slice_with (v: like item; lower, upper: INTEGER) is
+   set_slice_with (v: like item; lower, upper: INTEGER)
          -- Set all elements in range [`lower' .. `upper'] with value `v'.
       require
          lower >= 0
@@ -549,7 +550,7 @@ feature {ANY} -- Other:
          end
       end
 
-   clear_all (upper: INTEGER) is
+   clear_all (upper: INTEGER)
          -- Set all elements in range [0 .. `upper'] with the default value.
       require
          upper >= -1
@@ -568,7 +569,7 @@ feature {ANY} -- Other:
          all_default(upper)
       end
 
-   clear (lower, upper: INTEGER) is
+   clear (lower, upper: INTEGER)
          -- Set all elements in range [`lower' .. `upper'] with the default value.
       require
          lower >= 0
@@ -586,7 +587,7 @@ feature {ANY} -- Other:
          end
       end
 
-   copy_from (model: like Current; upper: INTEGER) is
+   copy_from (model: like Current; upper: INTEGER)
          -- Assume `upper' is a valid index both in Current and `model'.
       require
          upper >= -1
@@ -594,7 +595,7 @@ feature {ANY} -- Other:
          copy_slice_from(model, 0, upper)
       end
 
-   copy_slice_from (model: like Current; lower, upper: INTEGER) is
+   copy_slice_from (model: like Current; lower, upper: INTEGER)
          -- Assume `upper' is a valid index both in Current and `model'.
       require
          lower >= 0
@@ -604,7 +605,7 @@ feature {ANY} -- Other:
          slice_copy(0, model, lower, upper)
       end
 
-   deep_twin_from (capacity: INTEGER): like Current is
+   deep_twin_from (capacity: INTEGER): like Current
          -- To implement `deep_twin'. Allocate a new array of `capacity' initialized  with `deep_twin'.
          --   Assume `capacity' is valid both in `Current' and `model'.
       require
@@ -629,7 +630,7 @@ feature {ANY} -- Other:
          end
       end
 
-   move (lower, upper, offset: INTEGER) is
+   move (lower, upper, offset: INTEGER)
          -- Move range [`lower' .. `upper'] by `offset' positions.
          -- Freed positions are not initialized to default values.
       require
@@ -661,7 +662,7 @@ feature {ANY} -- Other:
          end
       end
 
-   occurrences (element: like item; upper: INTEGER): INTEGER is
+   occurrences (element: like item; upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [0 .. `upper'] using `is_equal' for comparison.
          -- See also `fast_occurrences' to chose the apropriate one.
       require
@@ -681,7 +682,7 @@ feature {ANY} -- Other:
          end
       end
 
-   slice_occurrences (element: like item; lower, upper: INTEGER): INTEGER is
+   slice_occurrences (element: like item; lower, upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [`lower' .. `upper'] using `is_equal' for comparison.
          -- See also `slice_fast_occurrences' to chose the apropriate one.
       require
@@ -702,7 +703,7 @@ feature {ANY} -- Other:
          end
       end
 
-   fast_occurrences (element: like item; upper: INTEGER): INTEGER is
+   fast_occurrences (element: like item; upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [0 .. `upper'] using basic "=" for comparison.
          -- See also `occurrences' to chose the apropriate one.
       require
@@ -722,7 +723,7 @@ feature {ANY} -- Other:
          end
       end
 
-   slice_fast_occurrences (element: like item; lower, upper: INTEGER): INTEGER is
+   slice_fast_occurrences (element: like item; lower, upper: INTEGER): INTEGER
          -- Number of occurrences of `element' in range [`lower' .. `upper']
          -- using basic "=" for comparison.
          -- See also `slice_occurrences' to chose the apropriate one.
@@ -744,7 +745,7 @@ feature {ANY} -- Other:
          end
       end
 
-   all_default (upper: INTEGER): BOOLEAN is
+   all_default (upper: INTEGER): BOOLEAN
          -- Do all items in range [0 .. `upper'] have their type's default value?
          -- Note: for non Void items, the test is performed with the `is_default' predicate.
       require
@@ -753,7 +754,7 @@ feature {ANY} -- Other:
          Result := slice_default(0, upper)
       end
 
-   slice_default (lower, upper: INTEGER): BOOLEAN is
+   slice_default (lower, upper: INTEGER): BOOLEAN
          -- Do all items in range [`lower' .. `upper'] have their type's default value?
          -- Note: for non Void items, the test is performed with the `is_default' predicate.
       require
@@ -777,29 +778,29 @@ feature {ANY} -- Other:
       end
 
 feature {ANY} -- Interfacing with other languages:
-   to_external: POINTER is
+   to_external: POINTER
          -- Gives access to the C pointer on the area of storage.
       do
          Result := to_pointer
       end
 
-   from_pointer (pointer: POINTER): like Current is
+   from_pointer (pointer: POINTER): like Current
          -- Convert `pointer' into Current type.
       external "built_in"
       end
 
-   is_not_null: BOOLEAN is
+   is_not_null: BOOLEAN
       do
          Result := to_pointer.is_not_null
       end
 
-   is_null: BOOLEAN is
+   is_null: BOOLEAN
       do
          Result := to_pointer.is_null
       end
 
 feature {} -- Implement manifest generic creation.
-   manifest_make (needed_capacity: INTEGER) is
+   manifest_make (needed_capacity: INTEGER)
          -- Manifest creation (see also `calloc' and `realloc' for creation).
       do
          check
@@ -808,7 +809,7 @@ feature {} -- Implement manifest generic creation.
          end
       end
 
-   manifest_put (index: INTEGER; element: like item) is
+   manifest_put (index: INTEGER; element: like item)
       do
          check
          -- Automatic usage of `put'.
@@ -816,17 +817,17 @@ feature {} -- Implement manifest generic creation.
          end
       end
 
-   manifest_semicolon_check: BOOLEAN is False
+   manifest_semicolon_check: BOOLEAN False
 
 end -- class NATIVE_ARRAY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

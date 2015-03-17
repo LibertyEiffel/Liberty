@@ -8,7 +8,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          system: LIBERTY_ASM_SYSTEM
          type: LIBERTY_ASM_TYPE

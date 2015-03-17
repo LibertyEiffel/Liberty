@@ -7,12 +7,12 @@ create {}
    make
 
 feature {}
-   make is
+   make
       do
     foo
       end
 
-   foo: BOOLEAN is
+   foo: BOOLEAN
       do
       end
 

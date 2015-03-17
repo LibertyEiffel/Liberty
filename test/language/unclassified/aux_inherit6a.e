@@ -7,15 +7,15 @@ insert
    ANY
 
 feature {ANY}
-   foo is
+   foo
       deferred
       end
 
-   bar is
+   bar
       deferred
       end
 
-   foo2 is
+   foo2
       do
          new_count := new_count + 5
       end

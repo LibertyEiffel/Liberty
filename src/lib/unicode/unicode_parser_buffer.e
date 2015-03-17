@@ -13,10 +13,10 @@ create {ANY}
    connect_to
 
 feature {ANY}
-   unknown_character: INTEGER is 0x0000fffd
+   unknown_character: INTEGER 0x0000fffd
 
 feature {ANY}
-   connect_to (a_url: like url; a_encoding: STRING) is
+   connect_to (a_url: like url; a_encoding: STRING)
       require
          not is_connected
       do
@@ -40,7 +40,7 @@ feature {ANY}
          next
       end
 
-   disconnect is
+   disconnect
       do
          url.disconnect
          url := Void
@@ -49,7 +49,7 @@ feature {ANY}
          not is_connected
       end
 
-   set_encoding (a_encoding: STRING) is
+   set_encoding (a_encoding: STRING)
       require
          a_encoding /= Void
       local
@@ -74,24 +74,24 @@ feature {ANY}
    index, line, column: INTEGER
    at_error: BOOLEAN
 
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
       do
          Result := url /= Void and then url.is_connected
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
       require
          is_connected
       do
          Result := index > backlog.upper and then url.input.end_of_input
       end
 
-   can_read_character: BOOLEAN is
+   can_read_character: BOOLEAN
       do
          Result := index < backlog.upper or else url.input.can_read_character
       end
 
-   next is
+   next
       require
          is_connected
          not end_of_input
@@ -244,7 +244,7 @@ feature {ANY}
          at_error or else (url.input.end_of_input implies index = backlog.upper + 1)
       end
 
-   previous is
+   previous
       require
          is_connected
          index > 0
@@ -271,31 +271,31 @@ feature {ANY}
          backlog.valid_index(index)
       end
 
-   save_position: UNICODE_PARSER_POSITION is
+   save_position: UNICODE_PARSER_POSITION
       do
          Result.set(index, line, column)
       end
 
-   restore_position (a_position: UNICODE_PARSER_POSITION) is
+   restore_position (a_position: UNICODE_PARSER_POSITION)
       do
          index := a_position.index
          line := a_position.line
          column := a_position.column
       end
 
-   set_index (a_index: like index) is
+   set_index (a_index: like index)
       require
          valid_index(a_index)
       do
          index := a_index
       end
 
-   valid_index (a_index: like index): BOOLEAN is
+   valid_index (a_index: like index): BOOLEAN
       do
          Result := backlog.valid_index(index)
       end
 
-   character: CHARACTER is
+   character: CHARACTER
       require
          is_connected
          is_character
@@ -305,14 +305,14 @@ feature {ANY}
          Result.code = code
       end
 
-   code: INTEGER is
+   code: INTEGER
       require
          is_connected
       do
          Result := backlog.item(index)
       end
 
-   is_character: BOOLEAN is
+   is_character: BOOLEAN
       require
          is_connected
       local
@@ -322,7 +322,7 @@ feature {ANY}
          Result := i >= 0 and then i <= Maximum_character_code
       end
 
-   append_substring_in (string: UNICODE_STRING; first, last: INTEGER) is
+   append_substring_in (string: UNICODE_STRING; first, last: INTEGER)
       require
          string /= Void
          first <= last
@@ -346,7 +346,7 @@ feature {}
    size: INTEGER
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          if is_connected then
             disconnect
@@ -355,29 +355,22 @@ feature {RECYCLING_POOL}
 
 end -- class UNICODE_PARSER_BUFFER
 --
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
--- This file is part of the SmartEiffel standard library.
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software
+-- furnished to do so, subject to the following conditions:
 --
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+-- The above copyright notice and this permission notice shall be included in
+-- all copies or substantial portions of the Software.
 --
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+-- THE SOFTWARE.

@@ -16,24 +16,24 @@ create {ANY}
    with
 
 feature {ANY}
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
    value: CHARACTER
 
    pretty_view: STRING
          -- To be used for `pretty'.
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       once
          Result := smart_eiffel.type_character
       end
 
-   frozen resolve_in (type: TYPE): TYPE is
+   frozen resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
       end
 
-   to_string: STRING is
+   to_string: STRING
       do
          if pretty_view /= Void then
             Result := pretty_view.twin
@@ -57,19 +57,19 @@ feature {ANY}
          end
       end
 
-   simplify_1_, simplify_2: like Current is
+   simplify_1_, simplify_2: like Current
       do
          Result := Current
       end
 
 feature {ANY}
-   accept (visitor: CHARACTER_CONSTANT_VISITOR) is
+   accept (visitor: CHARACTER_CONSTANT_VISITOR)
       do
          visitor.visit_character_constant(Current)
       end
 
 feature {}
-   make (sp: like start_position; v: like value; pv: like pretty_view) is
+   make (sp: like start_position; v: like value; pv: like pretty_view)
       require
          not sp.is_unknown
       do
@@ -82,7 +82,7 @@ feature {}
          pretty_view = pv
       end
 
-   with (sp: like start_position; v: like value) is
+   with (sp: like start_position; v: like value)
       require
          not sp.is_unknown
       do
@@ -101,9 +101,9 @@ end -- class CHARACTER_CONSTANT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

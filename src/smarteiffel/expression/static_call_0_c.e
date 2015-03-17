@@ -17,13 +17,13 @@ create {INTROSPECTION_HANDLER}
    make
 
 feature {ANY}
-   accept (visitor: STATIC_CALL_0_C_VISITOR) is
+   accept (visitor: STATIC_CALL_0_C_VISITOR)
       do
          visitor.visit_static_call_0_c(Current)
       end
 
 feature {}
-   c0c_accept (visitor: FUNCTION_CALL_0_VISITOR) is
+   c0c_accept (visitor: FUNCTION_CALL_0_VISITOR)
       do
          check
             False

@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    test_old: TEST_OLD
 
-   make is
+   make
       require
          test_old = Void
       do
@@ -21,7 +21,7 @@ feature {ANY}
          test_old = Void
       end
 
-   f: like Current is
+   f: like Current
       require
          test_old = Void
       do
@@ -33,7 +33,7 @@ feature {ANY}
 
    i: INTEGER
 
-   test2 is
+   test2
       do
          i := i + 1
       ensure

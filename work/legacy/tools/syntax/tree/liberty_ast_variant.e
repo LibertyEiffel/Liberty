@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_expression: BOOLEAN is
+   has_expression: BOOLEAN
       do
          Result := count > 0
       end
 
-   expression: LIBERTY_AST_EXPRESSION is
+   expression: LIBERTY_AST_EXPRESSION
       require
          has_expression
       do
@@ -34,15 +34,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Variant"
+   name: STRING "Variant"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 2 >> }
       end

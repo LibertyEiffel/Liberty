@@ -8,7 +8,7 @@ feature {ANY}
 
    a2: REAL
 
-   item (i: INTEGER): REAL is
+   item (i: INTEGER): REAL
       do
          inspect
             i

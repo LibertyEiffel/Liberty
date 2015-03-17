@@ -10,7 +10,7 @@ create {ANY}
    make
 
 feature {}
-   make is
+   make
       local
          a, b: AUX_EXPANDED41; ar1, ar2: FAST_ARRAY[AUX_EXPANDED41]
       do

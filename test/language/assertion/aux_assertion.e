@@ -6,19 +6,19 @@ class AUX_ASSERTION
 insert
    ASSERTION_CONSTANTS
 
-creation {ANY}
+create {ANY}
    make
 
 feature {}
    trace: ARRAY[INTEGER]
 
-   make (t: like trace) is
+   make (t: like trace)
       do
          trace := t
       end
 
 feature {ANY}
-   do_call is
+   do_call
       require
          require_test
       local
@@ -45,43 +45,43 @@ feature {ANY}
       end
 
 feature {}
-   require_test: BOOLEAN is
+   require_test: BOOLEAN
       do
          trace.put(trace.item(require_index) + 1, require_index)
          Result := True
       end
 
-   ensure_test: BOOLEAN is
+   ensure_test: BOOLEAN
       do
          trace.put(trace.item(ensure_index) + 1, ensure_index)
          Result := True
       end
 
-   class_invariant_test: BOOLEAN is
+   class_invariant_test: BOOLEAN
       do
          trace.put(trace.item(class_invariant_index) + 1, class_invariant_index)
          Result := True
       end
 
-   loop_invariant_test: BOOLEAN is
+   loop_invariant_test: BOOLEAN
       do
          trace.put(trace.item(loop_invariant_index) + 1, loop_invariant_index)
          Result := True
       end
 
-   variant_test: INTEGER is
+   variant_test: INTEGER
       do
          trace.put(trace.item(variant_index) + 1, variant_index)
          Result := 1
       end
 
-   check_test: BOOLEAN is
+   check_test: BOOLEAN
       do
          trace.put(trace.item(check_index) + 1, check_index)
          Result := True
       end
 
-   debug_test is
+   debug_test
       do
          trace.put(trace.item(debug_index) + 1, debug_index)
       end

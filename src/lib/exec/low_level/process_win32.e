@@ -21,16 +21,16 @@ create {ANY}
    execute, execute_command_line, make
 
 feature {ANY}
-   id: INTEGER is
+   id: INTEGER
       do
          Result := basic_exec_id(data)
       end
 
-   is_child: BOOLEAN is False
+   is_child: BOOLEAN False
 
    is_connected: BOOLEAN
 
-   is_finished: BOOLEAN is
+   is_finished: BOOLEAN
       do
          Result := basic_exec_is_finished(data)
          if Result then
@@ -38,12 +38,12 @@ feature {ANY}
          end
       end
 
-   status: INTEGER is
+   status: INTEGER
       do
          Result := basic_exec_status(data)
       end
 
-   wait is
+   wait
       do
          basic_exec_wait(data)
          do_cleanup
@@ -55,7 +55,7 @@ feature {ANY}
 
    error: INPUT_STREAM
 
-   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN) is
+   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN)
       local
          i: INTEGER; st_prog_args: STRING; prog_args: POINTER
       do
@@ -78,7 +78,7 @@ feature {ANY}
          do_execute(prog_args, keep_environment)
       end
 
-   execute_command_line (command_line: STRING; keep_environment: BOOLEAN) is
+   execute_command_line (command_line: STRING; keep_environment: BOOLEAN)
       local
          prog_args: POINTER
       do
@@ -87,7 +87,7 @@ feature {ANY}
          do_execute(prog_args, keep_environment)
       end
 
-   duplicate is
+   duplicate
       do
          -- fork(2) on Windows??
          not_yet_implemented
@@ -96,19 +96,19 @@ feature {ANY}
    group: PROCESS_GROUP_WIN32
 
 feature {PROCESS_GROUP}
-   cleanup (stat: INTEGER) is
+   cleanup (stat: INTEGER)
       do
          basic_exec_cleanup(data, stat)
          do_cleanup
       end
 
-   handle: INTEGER is
+   handle: INTEGER
       do
          Result := basic_exec_win32_handle(data)
       end
 
 feature {}
-   dispose is
+   dispose
       do
          -- Call is_finished to get a last opportunity to clean up
          if not (is_connected implies is_finished) then
@@ -117,13 +117,13 @@ feature {}
          basic_exec_free_data(data)
       end
 
-   do_cleanup is
+   do_cleanup
       do
          group.unregister(Current)
          cleanup_streams
       end
 
-   make is
+   make
       local
          process_factory: PROCESS_FACTORY
       do
@@ -137,7 +137,7 @@ feature {}
 
    outstream, errstream: EXEC_INPUT_STREAM_WIN32
 
-   do_execute (program_arguments: POINTER; keep_environment: BOOLEAN) is
+   do_execute (program_arguments: POINTER; keep_environment: BOOLEAN)
       require
          not program_arguments.is_null
          is_connected implies is_finished
@@ -200,7 +200,7 @@ feature {EXEC_INPUT_STREAM_WIN32, EXEC_OUTPUT_STREAM_WIN32} -- plugin lowlevel d
    data: POINTER
 
 feature {} -- plugin features
-   basic_exec_win32_execute (dat, arguments: POINTER; keep_environment: BOOLEAN; add_environment: POINTER; in_fd, out_fd, err_fd: POINTER): BOOLEAN is
+   basic_exec_win32_execute (dat, arguments: POINTER; keep_environment: BOOLEAN; add_environment: POINTER; in_fd, out_fd, err_fd: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -209,7 +209,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_id (dat: like data): INTEGER is
+   basic_exec_id (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -218,7 +218,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_alloc_data: like data is
+   basic_exec_alloc_data: like data
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -227,7 +227,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_free_data (dat: like data) is
+   basic_exec_free_data (dat: like data)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -236,7 +236,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_win32_handle (dat: like data): INTEGER is
+   basic_exec_win32_handle (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -245,7 +245,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_is_finished (dat: like data): BOOLEAN is
+   basic_exec_is_finished (dat: like data): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -254,7 +254,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_status (dat: like data): INTEGER is
+   basic_exec_status (dat: like data): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -263,7 +263,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_wait (dat: like data) is
+   basic_exec_wait (dat: like data)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -272,7 +272,7 @@ feature {} -- plugin features
          }"
       end
 
-   basic_exec_cleanup (dat: like data; stat: INTEGER) is
+   basic_exec_cleanup (dat: like data; stat: INTEGER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins"
@@ -286,13 +286,13 @@ invariant
 
 end -- class PROCESS_WIN32
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

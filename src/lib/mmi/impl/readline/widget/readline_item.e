@@ -9,7 +9,7 @@ insert
 feature {ANY}
    ui: UI_
 
-   id: FIXED_STRING is
+   id: FIXED_STRING
       do
          Result := ui.id
       ensure
@@ -17,13 +17,13 @@ feature {ANY}
       end
 
 feature {UI_JOB}
-   connect_to (a_job: like job) is
+   connect_to (a_job: like job)
       do
          job := a_job
       end
 
 feature {}
-   make (a_ui: like ui) is
+   make (a_ui: like ui)
       require
          a_ui /= Void
       do
@@ -39,13 +39,13 @@ invariant
 
 end -- class READLINE_ITEM
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

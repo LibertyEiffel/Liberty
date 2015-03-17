@@ -5,9 +5,9 @@ expanded class GMODULE_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = lazy_low_level)  or else
 				(a_value = local_external_low_level)  or else
@@ -16,39 +16,39 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_lazy is
+	set_lazy
 		do
 			value := lazy_low_level
 		end
 
-	set_local_external is
+	set_local_external
 		do
 			value := local_external_low_level
 		end
 
-	set_mask is
+	set_mask
 		do
 			value := mask_low_level
 		end
 
 feature {ANY} -- Queries
-	is_lazy: BOOLEAN is
+	is_lazy: BOOLEAN
 		do
 			Result := (value=lazy_low_level)
 		end
 
-	is_local_external: BOOLEAN is
+	is_local_external: BOOLEAN
 		do
 			Result := (value=local_external_low_level)
 		end
 
-	is_mask: BOOLEAN is
+	is_mask: BOOLEAN
 		do
 			Result := (value=mask_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	lazy_low_level: INTEGER is
+	lazy_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -57,7 +57,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	local_external_low_level: INTEGER is
+	local_external_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	mask_low_level: INTEGER is
+	mask_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

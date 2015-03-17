@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          fast_array: FAST_ARRAY[INTEGER]
       do

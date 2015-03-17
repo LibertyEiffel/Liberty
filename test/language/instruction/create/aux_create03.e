@@ -8,18 +8,18 @@ inherit
       redefine default_create
       end
 
-creation {ANY}
+create {ANY}
    default_create, make
 
 feature {ANY}
    value: INTEGER
 
-   default_create is
+   default_create
       do
          value := 1
       end
 
-   make is
+   make
       do
          value := 2
       end

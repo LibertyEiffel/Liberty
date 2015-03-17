@@ -4,11 +4,11 @@ INTEGER_32. Signature of the redefined feature is not valid.
 The source lines involved by the message are the following:
 
 Line 15 column 14 in BAD_REDEFINE14 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine14.e):
-   foo (bar: INTEGER_16) is
-             ^             
+   foo (bar: INTEGER_16)
+             ^          
 Line 7 column 14 in AUX_REDEFINE14 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_redefine14.e):
-   foo (bar: INTEGER_32) is
-             ^             
+   foo (bar: INTEGER_32)
+             ^          
 ------
 ****** Error: 
 
@@ -22,9 +22,9 @@ Line 7 column 4 in BAD_REDEFINE14 (/home/cadrian/Workspace/Dev/Liberty/test/lang
    AUX_REDEFINE14
    ^             
 Line 15 column 4 in BAD_REDEFINE14 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_redefine14.e):
-   foo (bar: INTEGER_16) is
-   ^                       
+   foo (bar: INTEGER_16)
+   ^                    
 Line 7 column 4 in AUX_REDEFINE14 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/aux_redefine14.e):
-   foo (bar: INTEGER_32) is
-   ^                       
+   foo (bar: INTEGER_32)
+   ^                    
 ------

@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_return_type: BOOLEAN is
+   has_return_type: BOOLEAN
       do
          Result := (count = 3 or else count = 6)
          check
@@ -29,14 +29,14 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   return_type: LIBERTY_AST_TYPE_DEFINITION is
+   return_type: LIBERTY_AST_TYPE_DEFINITION
       require
          has_return_type
       do
          Result ::= nodes.last
       end
 
-   has_parameters: BOOLEAN is
+   has_parameters: BOOLEAN
       do
          Result := (count = 4 or else count = 6)
          check
@@ -44,7 +44,7 @@ feature {LIBERTY_AST_HANDLER}
          end
       end
 
-   parameters: EIFFEL_LIST_NODE is
+   parameters: EIFFEL_LIST_NODE
       require
          has_parameters
       do
@@ -52,15 +52,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Agent_Signature"
+   name: STRING "Agent_Signature"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 3, 4, 6 >> }
       end

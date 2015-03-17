@@ -17,13 +17,13 @@ feature {ANY}
    menu: UI_MENU
    title: UNICODE_STRING
 
-   set_title (a_title: UNICODE_STRING) is
+   set_title (a_title: UNICODE_STRING)
       do
          title := a_title
       end
 
 feature {ANY}
-   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_to (a_job: UI_JOB): UI_CONNECT_ITEM
       local
          connect_result: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_WINDOW]
          connect_panel: UI_CONNECT_TYPED_ITEM[UI_BRIDGE_PANEL]
@@ -38,7 +38,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_id: ABSTRACT_STRING) is
+   make (a_id: ABSTRACT_STRING)
       require
          a_id /= Void
       do
@@ -51,20 +51,20 @@ feature {}
       end
 
 feature {}
-   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM is
+   connect_bridge (a_job: UI_JOB): UI_CONNECT_ITEM
       do
          Result := a_job.connect_bridge_window(Current)
       end
 
 end -- class UI_WINDOW
 --
--- Copyright (c) 2012 Cyril ADRIAN <cyril.adrian@gmail.com>.
+-- Copyright (c) 2012-2015 Cyril ADRIAN <cyril.adrian@gmail.com>.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

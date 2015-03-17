@@ -25,7 +25,7 @@ feature {ANY}
    entity: LIBERTY_ENTITY
    result_type: LIBERTY_TYPE
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          e: like entity
       do
@@ -39,13 +39,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          -- nothing
       end
 
 feature {}
-   make (type: like result_type; a_entity: like entity; a_position: like position) is
+   make (type: like result_type; a_entity: like entity; a_position: like position)
       require
          type /= Void -- type is POINTER
          a_entity /= Void
@@ -61,7 +61,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_ENTITY_REFERENCE_VISITOR
       do

@@ -8,7 +8,7 @@ insert
       end
 
 feature {}
-   command_arguments: FAST_ARRAY[STRING] is
+   command_arguments: FAST_ARRAY[STRING]
       once
          Result := args.twin
       end

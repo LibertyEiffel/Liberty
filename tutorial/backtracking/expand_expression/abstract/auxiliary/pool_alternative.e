@@ -9,7 +9,7 @@ create {ANY}
    make
 
 feature {ANY}
-   get_fresh_instance: EXPAND_ALTERNATIVE is
+   get_fresh_instance: EXPAND_ALTERNATIVE
       do
          create Result
       end

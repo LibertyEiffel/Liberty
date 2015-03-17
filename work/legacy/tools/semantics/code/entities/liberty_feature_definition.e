@@ -29,10 +29,10 @@ insert
          copy, out_in_tagged_out_memory
       end
 
-creation {LIBERTY_BUILDER_TOOLS}
+create {LIBERTY_BUILDER_TOOLS}
    make
 
-creation {LIBERTY_FEATURE_DEFINITION}
+create {LIBERTY_FEATURE_DEFINITION}
    specialized
 
 feature {ANY}
@@ -45,38 +45,38 @@ feature {ANY}
 
    current_type: LIBERTY_ACTUAL_TYPE
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          tagged_out_memory.append(once "feature definition: ")
          feature_name.out_in_tagged_out_memory
       end
 
-   name: FIXED_STRING is
+   name: FIXED_STRING
       do
          Result := feature_name.name
       end
 
-   is_regular: BOOLEAN is
+   is_regular: BOOLEAN
       do
          Result := feature_name.is_regular
       end
 
-   is_prefix: BOOLEAN is
+   is_prefix: BOOLEAN
       do
          Result := feature_name.is_prefix
       end
 
-   is_infix: BOOLEAN is
+   is_infix: BOOLEAN
       do
          Result := feature_name.is_infix
       end
 
-   is_creation: BOOLEAN is
+   is_creation: BOOLEAN
       do
          Result := creation_clients /= Void
       end
 
-   result_type: LIBERTY_TYPE is
+   result_type: LIBERTY_TYPE
       do
          if the_feature /= Void then
             Result := the_feature.result_type
@@ -86,7 +86,7 @@ feature {ANY}
          end
       end
 
-   copy (other: like Current) is
+   copy (other: like Current)
       do
          feature_name := other.feature_name
          current_type := other.current_type
@@ -95,7 +95,7 @@ feature {ANY}
          the_feature := other.the_feature
       end
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          cl, ccl: COLLECTION[LIBERTY_TYPE]
          f, pf: like the_feature
@@ -145,7 +145,7 @@ feature {ANY}
       end
 
 feature {}
-   specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE): like clients is
+   specialized_clients (a_clients: like clients; a_type: LIBERTY_ACTUAL_TYPE): like clients
       require
          a_type /= Void
          a_clients /= Void
@@ -171,7 +171,7 @@ feature {}
       end
 
 feature {LIBERTY_UNIVERSE}
-   set_reachable (mark: like reachable_mark) is
+   set_reachable (mark: like reachable_mark)
       do
          if not is_reachable then
             log.trace.put_string(once "Marked reachable the feature definition: ")
@@ -188,13 +188,13 @@ feature {LIBERTY_UNIVERSE}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          set_reachable(mark)
       end
 
 feature {ANY}
-   debug_display (o: OUTPUT_STREAM; show_details: BOOLEAN) is
+   debug_display (o: OUTPUT_STREAM; show_details: BOOLEAN)
       do
          o.put_string(once "   feature ")
          debug_clients(o, clients)
@@ -227,7 +227,7 @@ feature {ANY}
       end
 
 feature {}
-   debug_clients (o: OUTPUT_STREAM; c: like clients) is
+   debug_clients (o: OUTPUT_STREAM; c: like clients)
       local
          i: INTEGER
       do
@@ -247,7 +247,7 @@ feature {}
       end
 
 feature {LIBERTY_BUILDER_TOOLS}
-   set_clients (a_clients: like clients) is
+   set_clients (a_clients: like clients)
       require
          a_clients /= Void
       do
@@ -256,7 +256,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          clients = a_clients
       end
 
-   set_the_feature (a_feature: like the_feature) is
+   set_the_feature (a_feature: like the_feature)
       require
          a_feature.current_type = current_type
       do
@@ -265,7 +265,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          the_feature = a_feature
       end
 
-   set_creation_clients (a_creation_clients: like creation_clients) is
+   set_creation_clients (a_creation_clients: like creation_clients)
       require
          a_creation_clients /= Void
       do
@@ -275,7 +275,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          creation_clients = a_creation_clients
       end
 
-   join (fd: like Current; a_parent_type: LIBERTY_ACTUAL_TYPE) is
+   join (fd: like Current; a_parent_type: LIBERTY_ACTUAL_TYPE)
       require
          fd.current_type = current_type
          fd.has_precursor(a_parent_type)
@@ -305,7 +305,7 @@ feature {LIBERTY_BUILDER_TOOLS}
          has_precursor(a_parent_type)
       end
 
-   re_name (a_name: like feature_name) is
+   re_name (a_name: like feature_name)
       require
          a_name /= Void
       do
@@ -315,7 +315,7 @@ feature {LIBERTY_BUILDER_TOOLS}
       end
 
 feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
-   fatal_join_error_redefined_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
+   fatal_join_error_redefined_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION)
       do
          debug ("type.building")
             log.trace.put_string(once "Cannot join redefined feature ")
@@ -335,14 +335,14 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
          errors.has_error
       end
 
-   fatal_join_error_concrete_redefined (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
+   fatal_join_error_concrete_redefined (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION)
       do
          with.fatal_join_error_redefined_concrete(type, Current)
       ensure
          errors.has_error
       end
 
-   fatal_join_error_concrete_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION) is
+   fatal_join_error_concrete_concrete (type: LIBERTY_ACTUAL_TYPE; with: LIBERTY_FEATURE_DEFINITION)
       do
          debug ("type.building")
             log.trace.put_string(once "Cannot join concrete feature ")
@@ -363,7 +363,7 @@ feature {LIBERTY_FEATURE, LIBERTY_FEATURE_DEFINITION}
       end
 
 feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
-   add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_ACTUAL_TYPE) is
+   add_precursor (a_precursor_feature: LIBERTY_FEATURE; a_precursor_type: LIBERTY_ACTUAL_TYPE)
       require
          not has_precursor(a_precursor_type)
          a_precursor_feature.current_type = current_type
@@ -377,7 +377,7 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
          precursor_feature(a_precursor_type) = a_precursor_feature
       end
 
-   has_precursor (a_precursor_type: LIBERTY_ACTUAL_TYPE): BOOLEAN is
+   has_precursor (a_precursor_type: LIBERTY_ACTUAL_TYPE): BOOLEAN
       do
          if precursors /= Void then
             if a_precursor_type /= Void then
@@ -388,7 +388,7 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
          end
       end
 
-   precursor_feature (a_precursor_type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE is
+   precursor_feature (a_precursor_type: LIBERTY_ACTUAL_TYPE): LIBERTY_FEATURE
       require
          has_precursor(a_precursor_type)
       do
@@ -400,7 +400,7 @@ feature {LIBERTY_BUILDER_TOOLS, LIBERTY_FEATURE_DEFINITION}
       end
 
 feature {LIBERTY_ACTUAL_TYPE}
-   copy_precursors (other: like Current) is
+   copy_precursors (other: like Current)
       local
          f: LIBERTY_FEATURE; t: LIBERTY_ACTUAL_TYPE
          i: INTEGER
@@ -428,14 +428,14 @@ feature {LIBERTY_ACTUAL_TYPE}
       end
 
 feature {}
-   same_clients (a_clients: like clients): BOOLEAN is
+   same_clients (a_clients: like clients): BOOLEAN
       do
          Result := clients.count = a_clients.count
             and then include(clients, a_clients)
             and then include(a_clients, clients)
       end
 
-   include (set, subset: like clients): BOOLEAN is
+   include (set, subset: like clients): BOOLEAN
       local
          i, j: INTEGER
       do
@@ -459,7 +459,7 @@ feature {}
       end
 
 feature {}
-   make (a_name: like feature_name; a_type: like current_type; a_clients: like clients; a_frozen: like is_frozen; a_position: like position) is
+   make (a_name: like feature_name; a_type: like current_type; a_clients: like clients; a_frozen: like is_frozen; a_position: like position)
       require
          a_name /= Void
          a_type /= Void
@@ -484,7 +484,7 @@ feature {}
       end
 
    specialized (a_name: like feature_name; a_type: like current_type; a_creation_clients: like creation_clients; a_clients: like clients;
-                a_frozen: like is_frozen; a_feature: like the_feature; a_precursors: like precursors; a_position: like position) is
+                a_frozen: like is_frozen; a_feature: like the_feature; a_precursors: like precursors; a_position: like position)
       do
          make(a_name, a_type, a_clients, a_frozen, a_position)
          the_feature := a_feature
@@ -508,7 +508,7 @@ feature {LIBERTY_FEATURE_DEFINITION}
          -- For correct "Precursor" management. All the features have the same `current_type'.
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_FEATURE_DEFINITION_VISITOR
       do

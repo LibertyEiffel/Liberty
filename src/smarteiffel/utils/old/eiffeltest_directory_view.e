@@ -12,7 +12,7 @@ create {EIFFELTEST}
 feature {ANY}
    container: SUB_WINDOW
    
-   set_container (c: like container) is
+   set_container (c: like container)
       do
          container := c
          container.set_background_color(white_color)
@@ -23,14 +23,14 @@ feature {ANY}
          end
       end
 
-   redo_layout (x, y: INTEGER) is
+   redo_layout (x, y: INTEGER)
       do
          check
             container.child.count = 0
          end
       end
 
-   update_requisition is
+   update_requisition
       local
          min_w, min_h, std_w, std_h: INTEGER
       do
@@ -58,7 +58,7 @@ feature {ANY}
       end
 
 feature {CONTAINER}
-   expose_paint is
+   expose_paint
       local
          locked_directory, now_running: STRING; log_ref_size, log_new_size: INTEGER; has_failures: BOOLEAN
       do
@@ -81,7 +81,7 @@ feature {CONTAINER}
       end
 
 feature {EIFFELTEST}
-   redraw is
+   redraw
       local
          locked_directory: STRING; log_ref_size, log_new_size: INTEGER
       do
@@ -105,7 +105,7 @@ feature {}
    
    index: INTEGER
    
-   make (et: like eiffeltest; i: like index) is
+   make (et: like eiffeltest; i: like index)
       require
          et /= Void
          i >= 0
@@ -117,31 +117,31 @@ feature {}
          index = i
       end
    
-   draw_kit_black: DRAW_KIT is
+   draw_kit_black: DRAW_KIT
       once
          create Result
       end
 
-   draw_kit_red: DRAW_KIT is
+   draw_kit_red: DRAW_KIT
       once
          create Result
          Result.set_line_width(5)
          Result.set_color(red_color)
       end
 
-   draw_kit_green: DRAW_KIT is
+   draw_kit_green: DRAW_KIT
       once
          create Result
          Result.set_line_width(5)
          Result.set_color(green_color)
       end
 
-   tiny_mode: BOOLEAN is
+   tiny_mode: BOOLEAN
       do
          Result := container.width < 200
       end
 
-   draw (locked_directory, now_running: STRING; log_ref_size, log_new_size: INTEGER; has_failures: BOOLEAN) is
+   draw (locked_directory, now_running: STRING; log_ref_size, log_new_size: INTEGER; has_failures: BOOLEAN)
       require
          log_ref_size > 0
          log_new_size.in_range(0, log_ref_size)
@@ -184,7 +184,7 @@ feature {}
 
    log_new_size_memory, log_ref_size_memory: INTEGER
    
-   unicode_string: UNICODE_STRING is
+   unicode_string: UNICODE_STRING
       once
          create Result.make(0)
       end
@@ -193,17 +193,17 @@ feature {}
 
    file_tools: FILE_TOOLS
 
-   tfr1: TEXT_FILE_READ is
+   tfr1: TEXT_FILE_READ
       once
          create Result.make
       end
 
-   tfr2: TEXT_FILE_READ is
+   tfr2: TEXT_FILE_READ
       once
          create Result.make
       end
    
-   size_of (dirpath: STRING; file_name: STRING): INTEGER is
+   size_of (dirpath: STRING; file_name: STRING): INTEGER
       local
          file_path: STRING
       do
@@ -215,7 +215,7 @@ feature {}
          Result := file_tools.size_of(file_path).max(0)
       end
 
-   same_files (dirpath: STRING; ref, new: STRING): BOOLEAN is
+   same_files (dirpath: STRING; ref, new: STRING): BOOLEAN
          -- Tests that the ref file is equal to the new file for the length of the new file
       local
          ref_path, new_path: STRING
@@ -254,7 +254,7 @@ feature {}
          end
       end
 
-   now_running_of (dirpath: STRING; file_name: STRING): STRING is
+   now_running_of (dirpath: STRING; file_name: STRING): STRING
       local
          file_path: STRING
       do
@@ -281,7 +281,7 @@ feature {}
          Result /= Void
       end
 
-   text_file_read: TEXT_FILE_READ is
+   text_file_read: TEXT_FILE_READ
       once
          create Result.make
       end

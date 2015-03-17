@@ -28,34 +28,39 @@ feature {ANY}
    calling_code: CODE
          -- Used only when `feature_name' is not Void.
 
-   is_writable: BOOLEAN is False
+   is_writable: BOOLEAN False
 
-   is_current: BOOLEAN is False
+   is_current: BOOLEAN False
 
-   is_implicit_current: BOOLEAN is False
+   is_implicit_current: BOOLEAN False
 
-   is_static: BOOLEAN is False
+   is_static: BOOLEAN False
 
-   is_result: BOOLEAN is False
+   is_result: BOOLEAN False
 
-   is_void: BOOLEAN is False
+   is_void: BOOLEAN False
 
-   is_manifest_string: BOOLEAN is False
+   is_manifest_string: BOOLEAN False
 
-   use_current (type: TYPE): BOOLEAN is
+   use_current (type: TYPE): BOOLEAN
       do
          Result := (feature_name /= Void and then
                     feature_stamp.anonymous_feature(type).is_attribute)
       end
 
-   extra_bracket_flag: BOOLEAN is False
+   extra_bracket_flag: BOOLEAN False
 
-   declaration_type: TYPE is
+   declaration_type: TYPE
       once
          Result := smart_eiffel.type_pointer
       end
 
-   resolve_in (type: TYPE): TYPE is
+   written_declaration_type_mark: TYPE_MARK
+      do
+         Result := declaration_type.canonical_type_mark
+      end
+
+   resolve_in (type: TYPE): TYPE
       do
          Result := declaration_type
          check
@@ -63,12 +68,12 @@ feature {ANY}
          end
       end
 
-   side_effect_free (type: TYPE): BOOLEAN is
+   side_effect_free (type: TYPE): BOOLEAN
       do
          Result := True
       end
 
-   adapt_for (type: TYPE): like Current is
+   adapt_for (type: TYPE): like Current
       local
          ln: like local_name; cc: like calling_code
       do
@@ -96,14 +101,14 @@ feature {ANY}
          end
       end
 
-   safety_check (type: TYPE) is
+   safety_check (type: TYPE)
       do
          if calling_code /= Void then
             calling_code.safety_check(type)
          end
       end
 
-   specialize_in (type: TYPE): like Current is
+   specialize_in (type: TYPE): like Current
       local
          ln: like local_name; fs: like feature_stamp; cc: like calling_code
       do
@@ -143,7 +148,7 @@ feature {ANY}
          end
       end
 
-   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
          ln: like local_name; fs: like feature_stamp; target: IMPLICIT_CURRENT; cc: like calling_code
       do
@@ -173,7 +178,7 @@ feature {ANY}
          end
       end
 
-   specialize_and_check (type: TYPE): like Current is
+   specialize_and_check (type: TYPE): like Current
       local
          af: ANONYMOUS_FEATURE; cst: CST_ATT; target: IMPLICIT_CURRENT; cc: like calling_code
       do
@@ -203,7 +208,7 @@ feature {ANY}
          end
       end
 
-   has_been_specialized: BOOLEAN is
+   has_been_specialized: BOOLEAN
       do
          if feature_name /= Void then
             Result := feature_stamp /= Void
@@ -215,7 +220,7 @@ feature {ANY}
          end
       end
 
-   non_void_no_dispatch_type (type: TYPE): TYPE is
+   non_void_no_dispatch_type (type: TYPE): TYPE
       do
          Result := resolve_in(type)
          check
@@ -223,7 +228,7 @@ feature {ANY}
          end
       end
 
-   simplify (type: TYPE): like Current is
+   simplify (type: TYPE): like Current
       local
          cc: like calling_code
       do
@@ -240,12 +245,12 @@ feature {ANY}
          end
       end
 
-   precedence: INTEGER is
+   precedence: INTEGER
       do
          Result := atomic_precedence
       end
 
-   start_position: POSITION is
+   start_position: POSITION
       do
          if local_name /= Void then
             Result := local_name.start_position
@@ -254,7 +259,7 @@ feature {ANY}
          end
       end
 
-   pretty (indent_level: INTEGER) is
+   pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('%D')
          if local_name /= Void then
@@ -264,21 +269,21 @@ feature {ANY}
          end
       end
 
-   pretty_target (indent_level: INTEGER) is
+   pretty_target (indent_level: INTEGER)
       do
          check
             False
          end
       end
 
-   bracketed_pretty (indent_level: INTEGER) is
+   bracketed_pretty (indent_level: INTEGER)
       do
          pretty_printer.put_character('(')
          pretty(indent_level)
          pretty_printer.put_character(')')
       end
 
-   short (type: TYPE) is
+   short (type: TYPE)
       do
          short_printer.put_character('%D')
          if local_name /= Void then
@@ -288,13 +293,13 @@ feature {ANY}
          end
       end
 
-   short_target (type: TYPE) is
+   short_target (type: TYPE)
       do
          bracketed_short(type)
          short_printer.put_dot
       end
 
-   collect (type: TYPE): TYPE is
+   collect (type: TYPE): TYPE
       local
          dummy: TYPE
       do
@@ -312,13 +317,13 @@ feature {ANY}
          smart_eiffel.collect_create(Result)
       end
 
-   accept (visitor: ADDRESS_OF_VISITOR) is
+   accept (visitor: ADDRESS_OF_VISITOR)
       do
          visitor.visit_address_of(Current)
       end
 
 feature {CODE, EFFECTIVE_ARG_LIST}
-   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE) is
+   inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       local
          cc: like calling_code; new_one: like Current
       do
@@ -342,7 +347,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
       end
 
 feature {ADDRESS_OF}
-   set_local_name (ln: like local_name) is
+   set_local_name (ln: like local_name)
       require
          ln /= Void
       do
@@ -351,7 +356,7 @@ feature {ADDRESS_OF}
          local_name = ln
       end
 
-   set_target_type (tt: like target_type) is
+   set_target_type (tt: like target_type)
       require
          tt /= Void
       do
@@ -360,7 +365,7 @@ feature {ADDRESS_OF}
          target_type = tt
       end
 
-   set_feature_stamp (fs: like feature_stamp) is
+   set_feature_stamp (fs: like feature_stamp)
       require
          fs /= Void
       do
@@ -369,7 +374,7 @@ feature {ADDRESS_OF}
          feature_stamp = fs
       end
 
-   set_calling_code (cc: like calling_code) is
+   set_calling_code (cc: like calling_code)
       do
          calling_code := cc
       ensure
@@ -377,7 +382,7 @@ feature {ADDRESS_OF}
       end
 
 feature {}
-   with_local (ln: like local_name) is
+   with_local (ln: like local_name)
       require
          ln /= Void
       do
@@ -386,7 +391,7 @@ feature {}
          local_name = ln
       end
 
-   with_feature_name (fn: like feature_name) is
+   with_feature_name (fn: like feature_name)
       require
          fn /= Void
       do
@@ -414,9 +419,9 @@ end -- class ADDRESS_OF
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

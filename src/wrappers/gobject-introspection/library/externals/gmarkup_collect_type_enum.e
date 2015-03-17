@@ -5,9 +5,9 @@ expanded class GMARKUP_COLLECT_TYPE_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = boolean_low_level)  or else
 				(a_value = invalid_low_level)  or else
@@ -19,69 +19,69 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_boolean is
+	set_boolean
 		do
 			value := boolean_low_level
 		end
 
-	set_invalid is
+	set_invalid
 		do
 			value := invalid_low_level
 		end
 
-	set_optional is
+	set_optional
 		do
 			value := optional_low_level
 		end
 
-	set_strdup is
+	set_strdup
 		do
 			value := strdup_low_level
 		end
 
-	set_string is
+	set_string
 		do
 			value := string_low_level
 		end
 
-	set_tristate is
+	set_tristate
 		do
 			value := tristate_low_level
 		end
 
 feature {ANY} -- Queries
-	is_boolean: BOOLEAN is
+	is_boolean: BOOLEAN
 		do
 			Result := (value=boolean_low_level)
 		end
 
-	is_invalid: BOOLEAN is
+	is_invalid: BOOLEAN
 		do
 			Result := (value=invalid_low_level)
 		end
 
-	is_optional: BOOLEAN is
+	is_optional: BOOLEAN
 		do
 			Result := (value=optional_low_level)
 		end
 
-	is_strdup: BOOLEAN is
+	is_strdup: BOOLEAN
 		do
 			Result := (value=strdup_low_level)
 		end
 
-	is_string: BOOLEAN is
+	is_string: BOOLEAN
 		do
 			Result := (value=string_low_level)
 		end
 
-	is_tristate: BOOLEAN is
+	is_tristate: BOOLEAN
 		do
 			Result := (value=tristate_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	boolean_low_level: INTEGER is
+	boolean_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -90,7 +90,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	invalid_low_level: INTEGER is
+	invalid_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -99,7 +99,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	optional_low_level: INTEGER is
+	optional_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -108,7 +108,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	strdup_low_level: INTEGER is
+	strdup_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -117,7 +117,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	string_low_level: INTEGER is
+	string_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -126,7 +126,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	tristate_low_level: INTEGER is
+	tristate_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

@@ -24,7 +24,7 @@ create {LIBERTY_ASM_MARSHALLER}
    write
 
 feature {}
-   write (a_stream: OUTPUT_STREAM; a_system: LIBERTY_ASM_SYSTEM) is
+   write (a_stream: OUTPUT_STREAM; a_system: LIBERTY_ASM_SYSTEM)
       require
          a_stream /= Void
          a_system /= Void
@@ -39,19 +39,19 @@ feature {}
 
    stream: OUTPUT_STREAM
 
-   put_string (string: ABSTRACT_STRING) is
+   put_string (string: ABSTRACT_STRING)
       require
          string /= Void
       do
          put_data(string.count)
-         string.do_all(agent (c: CHARACTER) is
+         string.do_all(agent (c: CHARACTER)
                           do
                              put_code(c.to_integer_8)
                           end
                        )
       end
 
-   put_native (native: LIBERTY_ASM_NATIVE_VALUE) is
+   put_native (native: LIBERTY_ASM_NATIVE_VALUE)
       do
          if native = Void then
             put_code(native_void)
@@ -64,12 +64,12 @@ feature {}
          end
       end
 
-   put_code (code: INTEGER_8) is
+   put_code (code: INTEGER_8)
       do
          stream.put_character(code.to_character)
       end
 
-   put_data (int: INTEGER) is
+   put_data (int: INTEGER)
       do
          stream.put_character(( int         & 0xff).to_character)
          stream.put_character(((int |>>  8) & 0xff).to_character)
@@ -77,7 +77,7 @@ feature {}
          stream.put_character(((int |>> 24) & 0xff).to_character)
       end
 
-   visit_type (a_type: LIBERTY_ASM_TYPE) is
+   visit_type (a_type: LIBERTY_ASM_TYPE)
       require
          a_type /= Void
       do
@@ -88,7 +88,7 @@ feature {}
          a_type.do_all_methods(agent visit_method)
       end
 
-   visit_method (a_method: LIBERTY_ASM_METHOD) is
+   visit_method (a_method: LIBERTY_ASM_METHOD)
       local
          flags: INTEGER_8
       do
@@ -111,7 +111,7 @@ feature {}
          visit_code(a_method.postcondition, a_method.postcondition_size)
       end
 
-   visit_code (a_instruction: LIBERTY_ASM_INSTRUCTION; size: INTEGER) is
+   visit_code (a_instruction: LIBERTY_ASM_INSTRUCTION; size: INTEGER)
       require
          size > 0 implies a_instruction /= Void
          size >= 0
@@ -132,77 +132,77 @@ feature {}
       end
 
 feature {LIBERTY_ASM_INSTRUCTION}
-   visit_and (a_instruction: LIBERTY_ASM_AND) is
+   visit_and (a_instruction: LIBERTY_ASM_AND)
       do
          put_code(asm_and)
       end
 
-   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE) is
+   visit_invoke (a_instruction: LIBERTY_ASM_INVOKE)
       do
          put_code(asm_invoke)
          put_data(a_instruction.method.type.id)
          put_data(a_instruction.method.id)
       end
 
-   visit_jump (a_instruction: LIBERTY_ASM_JUMP) is
+   visit_jump (a_instruction: LIBERTY_ASM_JUMP)
       do
          put_code(asm_jump)
          put_data(a_instruction.target.position)
       end
 
-   visit_new (a_instruction: LIBERTY_ASM_NEW) is
+   visit_new (a_instruction: LIBERTY_ASM_NEW)
       do
          put_code(asm_new)
          put_data(a_instruction.type.id)
       end
 
-   visit_not (a_instruction: LIBERTY_ASM_NOT) is
+   visit_not (a_instruction: LIBERTY_ASM_NOT)
       do
          put_code(asm_not)
       end
 
-   visit_or (a_instruction: LIBERTY_ASM_OR) is
+   visit_or (a_instruction: LIBERTY_ASM_OR)
       do
          put_code(asm_or)
       end
 
-   visit_return (a_instruction: LIBERTY_ASM_RETURN) is
+   visit_return (a_instruction: LIBERTY_ASM_RETURN)
       do
          put_code(asm_return)
       end
 
-   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT) is
+   visit_load_int (a_instruction: LIBERTY_ASM_LOAD_INT)
       do
          put_code(asm_load_int)
          put_data(a_instruction.value)
       end
 
-   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT) is
+   visit_add_int (a_instruction: LIBERTY_ASM_ADD_INT)
       do
          put_code(asm_add_int)
       end
 
-   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT) is
+   visit_sub_int (a_instruction: LIBERTY_ASM_SUB_INT)
       do
          put_code(asm_sub_int)
       end
 
-   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT) is
+   visit_mul_int (a_instruction: LIBERTY_ASM_MUL_INT)
       do
          put_code(asm_mul_int)
       end
 
-   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT) is
+   visit_div_int (a_instruction: LIBERTY_ASM_DIV_INT)
       do
          put_code(asm_div_int)
       end
 
-   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT) is
+   visit_rem_int (a_instruction: LIBERTY_ASM_REM_INT)
       do
          put_code(asm_rem_int)
       end
 
-   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE) is
+   visit_call_native (a_instruction: LIBERTY_ASM_CALL_NATIVE)
       do
          put_code(asm_call_native)
          put_string(a_instruction.symbol)

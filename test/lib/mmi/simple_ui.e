@@ -9,7 +9,7 @@ create {}
    make, web, readline
 
 feature {}
-   make is
+   make
       do
          if argument_count < 1 then
             std_error.put_line(once "Not enough arguments")
@@ -31,7 +31,7 @@ feature {}
          end
       end
 
-   curses is
+   curses
       do
          ncurses.when_idle(agent curses_idle)
          ui.run_curses(app)
@@ -39,24 +39,24 @@ feature {}
          ncurses.disable_and_exit
       end
 
-   curses_idle is
+   curses_idle
       do
          -- don't put the agent directly in the when_idle call
          -- because the log target (@L) would not be calculated at the right time
          log.info.put_line(once "idle")
       end
 
-   readline is
+   readline
       do
          ui.run_readline(app)
       end
 
-   web is
+   web
       do
          ui.run_web(app)
       end
 
-   app: UI_APPLICATION is
+   app: UI_APPLICATION
       local
          index: UI_WINDOW; ok, cancel: UI_BUTTON; text: UI_TEXT_FIELD
       once
@@ -80,7 +80,7 @@ feature {}
          Result.add(index)
       end
 
-   click (action: STRING; text: UI_TEXT_FIELD) is
+   click (action: STRING; text: UI_TEXT_FIELD)
       do
          log.info.put_line("Received action '#(1)' on text %"#(2)%"" # action # text.value)
       end

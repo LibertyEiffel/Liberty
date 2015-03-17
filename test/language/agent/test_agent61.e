@@ -12,14 +12,14 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          p: PROCEDURE[TUPLE[TUPLE[INTEGER]]]; x: INTEGER
       do
          p := agent foo([x])
       end
 
-   foo (value: TUPLE[INTEGER]) is
+   foo (value: TUPLE[INTEGER])
       do
       end
 

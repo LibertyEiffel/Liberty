@@ -4,7 +4,7 @@
 class AUX_LD02_KIKI[E]
 
 feature {ANY}
-   setdata (pardata: E) is
+   setdata (pardata: E)
       do
          data := pardata
       end

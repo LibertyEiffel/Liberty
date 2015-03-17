@@ -12,12 +12,12 @@ expanded class NUMBER_TOOLS
    --
 
 feature {ANY}
-   from_integer (n: INTEGER): NUMBER is
+   from_integer (n: INTEGER): NUMBER
       do
          Result := from_integer_64(n)
       end
 
-   from_integer_64 (n: INTEGER_64): NUMBER is
+   from_integer_64 (n: INTEGER_64): NUMBER
          -- Uses value `n' to create a new NUMBER.
       do
          create {INTEGER_64_NUMBER} Result.make(n)
@@ -25,7 +25,7 @@ feature {ANY}
          Result.to_integer_64 = n
       end
 
-   from_string (formula: ABSTRACT_STRING): NUMBER is
+   from_string (formula: ABSTRACT_STRING): NUMBER
          -- Parse the contents of `formula' to create a new NUMBER. If some
          -- error occurs (like for example a division by zero), the `Result'
          -- is Void and the error report is left in the `parser_buffer'.
@@ -42,7 +42,7 @@ feature {ANY}
          Result /= Void xor parser_buffer.last_error /= Void
       end
 
-   from_input_stream (input: INPUT_STREAM): NUMBER is
+   from_input_stream (input: INPUT_STREAM): NUMBER
          -- Create a number from a file or standard input
       require
          input.is_connected
@@ -58,7 +58,7 @@ feature {ANY}
          Result /= Void xor parser_buffer.last_error /= Void
       end
 
-   is_number (formula: ABSTRACT_STRING): BOOLEAN is
+   is_number (formula: ABSTRACT_STRING): BOOLEAN
          -- Is the `formula' a correct notation to create a NUMBER ?
          -- Actually, any correct `formula' using a combination of litteral
          -- integer constants with + - * / () and ! is a correct notation to
@@ -89,7 +89,7 @@ feature {ANY}
          Result xor parser_buffer.last_error /= Void
       end
 
-   parser_buffer: MINI_PARSER_BUFFER is
+   parser_buffer: MINI_PARSER_BUFFER
          -- This once function gives access to the unique `parser_buffer' to
          -- allow the memorization of the `Current' position and the
          -- memorization of the last error message.
@@ -98,23 +98,23 @@ feature {ANY}
       end
 
 feature {}
-   parse_e0: BOOLEAN is
+   parse_e0: BOOLEAN
       do
          Result := parse_e1 and then parse_r1
       end
 
-   parse_e1: BOOLEAN is
+   parse_e1: BOOLEAN
       do
          Result := parse_e2 and then parse_r2
       end
 
-   parse_e2: BOOLEAN is
+   parse_e2: BOOLEAN
       do
          Result := parse_e3
          parse_r3
       end
 
-   parse_e3: BOOLEAN is
+   parse_e3: BOOLEAN
       do
          if parser_buffer.end_reached then
             parser_buffer.set_last_error_message(Integer_expected)
@@ -144,7 +144,7 @@ feature {}
          end
       end
 
-   parse_r1: BOOLEAN is
+   parse_r1: BOOLEAN
       do
          if parser_buffer.end_reached then
             Result := True
@@ -161,7 +161,7 @@ feature {}
          end
       end
 
-   parse_r2: BOOLEAN is
+   parse_r2: BOOLEAN
       do
          if parser_buffer.end_reached then
             Result := True
@@ -178,7 +178,7 @@ feature {}
          end
       end
 
-   parse_r3 is
+   parse_r3
       do
          if not parser_buffer.end_reached then
             if parser_buffer.current_character = '!' then
@@ -188,7 +188,7 @@ feature {}
          end
       end
 
-   parse_constant: BOOLEAN is
+   parse_constant: BOOLEAN
       local
          stop: BOOLEAN
       do
@@ -213,25 +213,25 @@ feature {}
          end
       end
 
-   parse_create_e0: NUMBER is
+   parse_create_e0: NUMBER
       do
          Result := parse_create_e1
          Result := parse_create_r1(Result)
       end
 
-   parse_create_e1: NUMBER is
+   parse_create_e1: NUMBER
       do
          Result := parse_create_e2
          Result := parse_create_r2(Result)
       end
 
-   parse_create_e2: NUMBER is
+   parse_create_e2: NUMBER
       do
          Result := parse_create_e3
          Result := parse_create_r3(Result)
       end
 
-   parse_create_e3: NUMBER is
+   parse_create_e3: NUMBER
       do
          inspect
             parser_buffer.current_character
@@ -254,7 +254,7 @@ feature {}
          end
       end
 
-   parse_create_r1 (left: NUMBER): NUMBER is
+   parse_create_r1 (left: NUMBER): NUMBER
       do
          if parser_buffer.end_reached then
             Result := left
@@ -277,7 +277,7 @@ feature {}
          end
       end
 
-   parse_create_r2 (left: NUMBER): NUMBER is
+   parse_create_r2 (left: NUMBER): NUMBER
       do
          if parser_buffer.end_reached then
             Result := left
@@ -305,7 +305,7 @@ feature {}
          end
       end
 
-   parse_create_r3 (left: NUMBER): NUMBER is
+   parse_create_r3 (left: NUMBER): NUMBER
       do
          Result := left
          if not parser_buffer.end_reached then
@@ -327,7 +327,7 @@ feature {}
          end
       end
 
-   parse_create_constant: NUMBER is
+   parse_create_constant: NUMBER
       local
          stop: BOOLEAN; c: CHARACTER; n, n_save: INTEGER
       do
@@ -370,17 +370,17 @@ feature {}
          Result /= Void
       end
 
-   Integer_expected: STRING is "Integer constant expected."
+   Integer_expected: STRING "Integer constant expected."
 
 end -- class NUMBER_TOOLS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

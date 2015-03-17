@@ -9,7 +9,7 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          clock : MICROSECOND_TIME
       do
@@ -17,7 +17,7 @@ feature {}
          golden_call( clock )
       end
 
-   golden_call( p_clock : TIME ) is
+   golden_call( p_clock : TIME )
       do
          std_output.put_integer( p_clock.second )
       end

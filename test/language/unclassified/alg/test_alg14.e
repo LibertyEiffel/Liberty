@@ -17,7 +17,7 @@ feature {ANY}
    t1: ARRAY[REFERENCE[ABSTRACT_STRING]]
    t2: ARRAY[REFERENCE[ABSTRACT_STRING]]
 
-   make is
+   make
       local
          i1, i2: REFERENCE[STRING]
       do

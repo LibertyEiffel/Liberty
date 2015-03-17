@@ -3,13 +3,13 @@
 --
 class AUX_EXCEPTIONS18A
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
    i: INTEGER
 
-   make (v: INTEGER) is
+   make (v: INTEGER)
       do
          i := v
       end

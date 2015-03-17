@@ -14,7 +14,7 @@ feature {ANY}
 
    aux: AUX_EXCEPTIONS18A
 
-   make is
+   make
       local
          counter: INTEGER
       do
@@ -27,7 +27,7 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_true (b: BOOLEAN) is
+   is_true (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

@@ -21,26 +21,26 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_require_else: BOOLEAN is
+   is_require_else: BOOLEAN
       do
          Result := count = 2 and then nodes.last.name.is_equal(once "KW else")
       end
 
-   is_require_then: BOOLEAN is
+   is_require_then: BOOLEAN
       do
          Result := count = 2 and then nodes.last.name.is_equal(once "KW then")
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Require_Else"
+   name: STRING "Require_Else"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 1, 2 >> }
       end

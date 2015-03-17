@@ -15,17 +15,17 @@ inherit GI_BASE_INFO
 insert GIREGISTEREDTYPEINFO_EXTERNALS
 
 feature {ANY}
-	type_name: FIXED_STRING is
+	type_name: FIXED_STRING
 		-- the type name of the struct within the GObject type system. TODO: provide Eiffel version of "This type can be passed to g_type_name() to get a GType."
 		do
 			create Result.from_external(g_registered_type_info_get_type_name(handle))
 		ensure not_void: Result/=Void
 		end
 
-	type_init: FIXED_STRING is
+	type_init: FIXED_STRING
 		-- the symbol name of the type init function, suitable for passing into
 		-- g_module_symbol(). The type init function is the function which will
-		-- register the GType within the GObject type system. Usually this is
+		-- register the GType within the GObject type system. Usually this
 		-- not called by langauge bindings or applications, use
 		-- g_registered_type_info_get_g_type() directly instead.
 	do

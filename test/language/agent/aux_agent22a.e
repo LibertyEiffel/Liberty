@@ -4,7 +4,7 @@
 class AUX_AGENT22A
 
 feature {ANY}
-   set_c (i: INTEGER) is
+   set_c (i: INTEGER)
       do
          c := i
       end

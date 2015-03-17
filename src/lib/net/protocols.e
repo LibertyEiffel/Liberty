@@ -10,37 +10,43 @@ expanded class PROTOCOLS
 -- See `register_protocol_factory'
 --
 
+insert
+   ANY
+      redefine
+         default_create
+      end
+
 feature {ANY}
-   register_protocol_factory (a_protocol_name: STRING; a_factory: FUNCTION[TUPLE, PROTOCOL]) is
+   register_protocol_factory (a_protocol_name: ABSTRACT_STRING; a_factory: FUNCTION[TUPLE, PROTOCOL])
       require
          a_protocol_name.count > 0
          not known_protocol(a_protocol_name)
       do
-         factories.add(a_factory, a_protocol_name.twin)
+         factories.add(a_factory, a_protocol_name.intern)
       ensure
          known_protocol(a_protocol_name)
       end
 
-   known_protocol (a_protocol_name: STRING): BOOLEAN is
+feature {ANY}
+   known_protocol (a_protocol_name: ABSTRACT_STRING): BOOLEAN
       require
          a_protocol_name.count > 0
       do
-         init
-         Result := factories.has(a_protocol_name)
+         Result := factories.fast_has(a_protocol_name.intern)
       end
 
-feature {URL_VALIDITY}
-   protocol (a_protocol_name: STRING): PROTOCOL is
+   protocol (a_protocol_name: ABSTRACT_STRING): PROTOCOL
       require
          a_protocol_name.count > 0
          known_protocol(a_protocol_name)
       local
          u: RECYCLING_POOL[PROTOCOL]
+         name: FIXED_STRING
       do
-         init
-         u := unused_protocols(a_protocol_name)
+         name := a_protocol_name.intern
+         u := unused_protocols(name)
          if u.is_empty then
-            Result := factories.at(a_protocol_name).item([])
+            Result := factories.fast_at(name).item([])
          else
             Result := u.item
          end
@@ -48,63 +54,75 @@ feature {URL_VALIDITY}
          not Result.is_connected
       end
 
-feature {}
-   factories: DICTIONARY[FUNCTION[TUPLE, PROTOCOL], STRING] is
-      once
-         create {HASHED_DICTIONARY[FUNCTION[TUPLE, PROTOCOL], STRING]} Result.make
-      end
-
-   init is
-      once
-         register_protocol_factory(once "http", agent new_http(once "http", 80))
-         register_protocol_factory(once "https", agent new_http(once "https", 443)) -- that's wrong of course (where is the SSL layer?)
-         register_protocol_factory(once "file", agent new_file)
-      end
-
-   new_http (name: STRING; port: INTEGER): HTTP_PROTOCOL is
-      do
-         create Result.make(name, port)
-      end
-
-   new_file: FILE_PROTOCOL is
-      do
-         create Result.make
-      end
-
-feature {} -- Protocol reuse
-   unused: HASHED_DICTIONARY[RECYCLING_POOL[PROTOCOL], STRING] is
-      once
-         create Result.make
-      end
-
-   unused_protocols (a_protocol_name: STRING): RECYCLING_POOL[PROTOCOL] is
-      do
-         Result := unused.reference_at(a_protocol_name)
-         if Result = Void then
-            create Result.make
-            unused.add(Result, a_protocol_name.twin)
-         end
-      ensure
-         Result /= Void
-      end
-
-feature {URL_VALIDITY}
-   recycle (a_protocol: PROTOCOL) is
+   recycle (a_protocol: PROTOCOL)
       require
          not a_protocol.is_connected
       do
          unused_protocols(a_protocol.name).recycle(a_protocol)
       end
 
+feature {}
+   factories: DICTIONARY[FUNCTION[TUPLE, PROTOCOL], FIXED_STRING]
+      once
+         create {HASHED_DICTIONARY[FUNCTION[TUPLE, PROTOCOL], FIXED_STRING]} Result.make
+      end
+
+   init
+      local
+         http, https: FIXED_STRING
+      once
+         http := "http".intern
+         https := "https".intern
+         register_protocol_factory(http, agent new_http(http, 80))
+         register_protocol_factory(https, agent new_http(https, 443)) -- that's wrong of course (where is the SSL layer?)
+         register_protocol_factory("file".intern, agent new_file)
+      end
+
+   new_http (name: FIXED_STRING; port: INTEGER): HTTP_PROTOCOL
+      require
+         name = name.intern
+      do
+         create Result.make(name, port)
+         Result.sync := True
+      end
+
+   new_file: FILE_PROTOCOL
+      do
+         create Result.make
+      end
+
+feature {} -- Protocol reuse
+   unused: HASHED_DICTIONARY[RECYCLING_POOL[PROTOCOL], FIXED_STRING]
+      once
+         create Result.make
+      end
+
+   unused_protocols (a_protocol_name: FIXED_STRING): RECYCLING_POOL[PROTOCOL]
+      do
+         Result := unused.fast_reference_at(a_protocol_name)
+         if Result = Void then
+            create Result.make
+            unused.add(Result, a_protocol_name)
+         end
+      ensure
+         Result /= Void
+      end
+
+feature {} -- Creation
+   default_create
+      do
+         init
+      end
+
 end -- class PROTOCOLS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

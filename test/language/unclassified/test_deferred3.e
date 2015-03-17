@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          cltn: LINKED_LIST[INTEGER]
       do

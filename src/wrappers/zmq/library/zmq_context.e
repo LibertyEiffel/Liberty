@@ -22,13 +22,13 @@ insert
 
 create {ANY} default_create
 feature {} -- Creation
-	default_create is
+	default_create
 		-- Context creation; currently only non-threaded programs are handled.
 	do
 		from_external_pointer(zmq_init(1))
 	end
 feature {} -- Disposing
-	dispose is
+	dispose
 		local res: INTEGER
 		do
 			res := zmq_term(handle)
@@ -40,12 +40,12 @@ feature {ANY} -- Comparison and copying
 	-- distinguishable so is_equal is always True. Copying just create another
 	-- context.
 
-	is_equal (another: like Current): BOOLEAN is
+	is_equal (another: like Current): BOOLEAN
 		do
 			Result:=True
 		end
 
-	copy (another: like Current) is
+	copy (another: like Current)
 		do
 			default_create	
 		end
@@ -56,7 +56,7 @@ feature {ANY} -- Request-reply pattern
 	-- one or more instances of a service, and receiving subsequent replies to
 	-- each request sent.
 
-	new_req_socket: ZMQ_REQ_SOCKET is
+	new_req_socket: ZMQ_REQ_SOCKET
 		-- A new ZMQ_REQ_SOCKET, that sends requests to and receives replies from a service.
 		-- This socket type allows only an alternating sequence of request -
 		-- sending a message - and subsequent reply - receiving an answer. Each
@@ -67,11 +67,11 @@ feature {ANY} -- Request-reply pattern
 	ensure Result/=Void
 	end
 
-	new_rep_socket: ZMQ_REP_SOCKET is
+	new_rep_socket: ZMQ_REP_SOCKET
 		-- A new ZMQ_REP socket to receive requests from and send replies to a client. 
 
 		-- It allows only an alternating sequence of request (receive) and 
-		-- subsequent reply (send) commands. Each request received is
+		-- subsequent reply (send) commands. Each request received
 		-- fair-queued from among all clients, and each reply sent is routed to
 		-- the client that issued the last request. If the original requester
 		-- doesn’t exist any more the reply is silently discarded.
@@ -157,7 +157,7 @@ feature {ANY} -- Publish-subscribe pattern
 	-- data from a single publisher to multiple subscribers in a fan out
 	-- fashion.
 
-	new_pub_socket: ZMQ_PUB_SOCKET is
+	new_pub_socket: ZMQ_PUB_SOCKET
 		-- A new ZMQ_PUB_SOCKET, used by a publisher to distribute data.
 		-- Messages sent are distributed in a fan out fashion to all connected
 		-- peers. 
@@ -173,7 +173,7 @@ feature {ANY} -- Publish-subscribe pattern
 	end
 
 
-	new_sub_socket: ZMQ_SUB_SOCKET is
+	new_sub_socket: ZMQ_SUB_SOCKET
 		-- A new ZMQ_SUB_SOCKET used by a subscriber to subscribe to data
 		-- distributed by a publisher.  Initially this socket is not subscribed
 		-- to any messages, use `subscribe_to' or `subscribe_to_all' to specify
@@ -188,11 +188,11 @@ feature {ANY} --    Pipeline pattern
 	
 	-- The pipeline pattern is used for distributing data to nodes arranged in
 	-- a pipeline. Data always flows down the pipeline, and each stage of the
-	-- pipeline is connected to at least one node. When a pipeline stage is
+	-- pipeline is connected to at least one node. When a pipeline stage
 	-- connected to multiple nodes data is load-balanced among all connected
 	-- nodes.
 
-	new_push_socket: ZMQ_PUSH_SOCKET is
+	new_push_socket: ZMQ_PUSH_SOCKET
 		-- A new socket used in a pipeline node to send messages to downstream
 		-- pipeline nodes. Messages are load-balanced to all connected
 		-- downstream nodes. 
@@ -221,7 +221,7 @@ feature {ANY} --    Pipeline pattern
 	ensure Result/=Void
 	end
 
-	new_pull_socket: ZMQ_PULL_SOCKET is
+	new_pull_socket: ZMQ_PULL_SOCKET
 		--
 		--        ZMQ_PULL
 		-- 	   A socket of type ZMQ_PULL is used by a pipeline node to receive messages from upstream

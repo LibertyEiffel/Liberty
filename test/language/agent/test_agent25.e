@@ -11,7 +11,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       do
          i := 6
          p := agent do_something(?)
@@ -23,7 +23,7 @@ feature {ANY}
 
    p: PROCEDURE[TUPLE[STRING]]
 
-   do_something (a: STRING) is
+   do_something (a: STRING)
       do
          assert(a.is_equal("6"))
       end

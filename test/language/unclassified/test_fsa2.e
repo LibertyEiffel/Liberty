@@ -8,7 +8,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          test_fsa1: TEST_FSA1
       do

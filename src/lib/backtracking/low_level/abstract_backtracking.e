@@ -68,7 +68,7 @@ insert
    ABSTRACT_BACKTRACKING_GLOBALS
 
 feature {ANY} -- Common client features
-   search_first is
+   search_first
          -- Resets all and searchs the first solution.
          -- The current state must be set. It is the
          -- first state, the root of the search.
@@ -89,7 +89,7 @@ feature {ANY} -- Common client features
          success_or_off: search_is_success and not is_off or is_off and not search_is_success
       end
 
-   search_next is
+   search_next
          -- Searchs the next solution.
          -- When the feature returns, 'search_is_success' must be
          -- checked to know if a solution was found.
@@ -112,7 +112,7 @@ feature {ANY} -- Common client features
    search_is_success: BOOLEAN
          -- True when search is successful
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
          -- True when search is finished
       do
          Result := not search_is_success
@@ -120,7 +120,7 @@ feature {ANY} -- Common client features
          definition: Result = not search_is_success
       end
 
-   clear is
+   clear
          -- Clears the current state to nothing.
       do
          context_clear
@@ -143,7 +143,7 @@ feature {ANY} -- Common client features
          no_solution: is_off
       end
 
-   is_cleared: BOOLEAN is
+   is_cleared: BOOLEAN
          -- True if no partial data remain in the current state
       do
          Result := top_alternative = Void and then top_sequence = Void and then is_off
@@ -152,7 +152,7 @@ feature {ANY} -- Common client features
       end
 
 feature {ANY} -- Control of the exploration
-   push_sequence (sequence: like top_sequence) is
+   push_sequence (sequence: like top_sequence)
          -- Pushes the `sequence' in front of the continuation path.
       require
          sequence_not_void: sequence /= Void
@@ -168,7 +168,7 @@ feature {ANY} -- Control of the exploration
          previous_continuation_linked: top_sequence.continuation = old current_continuation
       end
 
-   push_alternative (alternative: like top_alternative) is
+   push_alternative (alternative: like top_alternative)
          -- Pushes the `alternative' before the continuation path.
       require
          alternative_not_void: alternative /= Void
@@ -190,7 +190,7 @@ feature {ANY} -- Control of the exploration
          continuation_recorded: top_alternative.continuation = old current_continuation
       end
 
-   continue is
+   continue
          -- Continues the exploration of the current path.
       do
          if current_continuation /= Void then
@@ -200,7 +200,7 @@ feature {ANY} -- Control of the exploration
          end
       end
 
-   backtrack is
+   backtrack
          -- Stops the exploration of the current path and
          -- tries to explore the next alternative path.
       do
@@ -219,7 +219,7 @@ feature {ANY} -- Control of the exploration
          end
       end
 
-   push_cut_point is
+   push_cut_point
          -- Inserts a cut point into the continuation path.
          -- The inserted cut point records the current
          -- top of the alternatives.
@@ -232,7 +232,7 @@ feature {ANY} -- Control of the exploration
          push_sequence(cut_point)
       end
 
-   cut is
+   cut
          -- Removes the alternatives until the one recorded by the next
          -- cut point in the continuation path.
       local
@@ -253,12 +253,12 @@ feature {ANY} -- Control of the exploration
                sequence := Void
             end
          end
-         -- removes the alternatives until the one that is
+         -- removes the alternatives until the one that
          -- recorded in the retrieved cut point.
          cut_until(alternative)
       end
 
-   cut_all is
+   cut_all
          -- Cuts all alternatives.
       do
          cut_until(Void)
@@ -273,7 +273,7 @@ feature {} -- Internal
          -- That feature should be modified only by `continue'
          -- and `backtrack'.
 
-   search is
+   search
          -- Common search loop to search_first and search_next
       do
          from
@@ -286,7 +286,7 @@ feature {} -- Internal
          stop_search_loop
       end
 
-   cut_until (alternative: ABSTRACT_BACKTRACKING_ALTERNATIVE) is
+   cut_until (alternative: ABSTRACT_BACKTRACKING_ALTERNATIVE)
          -- Cut all alternatives until 'alternative'.
          -- To cut an alternative is currently to remove it.
       do
@@ -302,33 +302,33 @@ feature {} -- Internal
       end
 
 feature {} -- Internal deferred
-   evaluate_current_state is
+   evaluate_current_state
          -- That feature is called to evaluate the current state.
          -- Called repeatedly by `search' until `stop_search_loop'.
       deferred
       end
 
-   context_clear is
+   context_clear
          -- Clear any saved context.
          -- Called by the features `clear' and `search_first'.
       deferred
       end
 
-   context_push is
+   context_push
          -- Push the current context.
          -- Called each time that an alternative begins.
       deferred
       end
 
-   context_restore is
+   context_restore
          -- Restore the context to the last saved one.
-         -- The saved context MUST remain available for futur use.
+         -- The saved context MUST remain available for future use.
          -- Called each time that a new alternative (of the
          -- previous alternative point) is starting.
       deferred
       end
 
-   context_restore_and_pop is
+   context_restore_and_pop
          -- Restore the context to the last saved one and drop it.
          -- The saved context MUST be removed.
          -- Called each time that the last alternative (of the
@@ -337,7 +337,7 @@ feature {} -- Internal deferred
       deferred
       end
 
-   context_cut is
+   context_cut
          -- Remove the last saved context.
          -- Called by `cut', `cut_all' or `cut_until'.
       deferred
@@ -351,7 +351,7 @@ feature {ABSTRACT_BACKTRACKING_SEQUENCE} -- Specific to sequences
    current_continuation: like top_sequence
          -- The current continuation path
 
-   pop_sequence is
+   pop_sequence
          -- Removes the current sequence and replace it by
          -- the next sequence in the continuation path.
       require
@@ -376,7 +376,7 @@ feature {ABSTRACT_BACKTRACKING_ALTERNATIVE} -- Specific to alternatives
          -- Stack of alternatives represented by its top (can
          -- be Void)
 
-   continue_alternative is
+   continue_alternative
          -- Returns to the alternative on the top of the stack
          -- and put its saved continuation path as the
          -- current continuation path.
@@ -402,7 +402,7 @@ feature {ABSTRACT_BACKTRACKING_ALTERNATIVE} -- Specific to alternatives
          alternative_remain: top_alternative = old top_alternative
       end
 
-   pop_alternative is
+   pop_alternative
          -- Returns to the alternative on the top of the stack
          -- and put its saved continuation path as the
          -- current continuation path.
@@ -430,7 +430,7 @@ feature {ABSTRACT_BACKTRACKING_ALTERNATIVE} -- Specific to alternatives
       end
 
 feature {} -- internal: allocation and collection
-   remove_top_sequence is
+   remove_top_sequence
          -- Removes the top sequence.
       require
          top_sequence /= Void
@@ -444,7 +444,7 @@ feature {} -- internal: allocation and collection
          top_sequence = old top_sequence.previous
       end
 
-   remove_top_alternative is
+   remove_top_alternative
          -- Removes the top alternative.
       require
          top_alternative /= Void
@@ -464,13 +464,13 @@ invariant
 
 end -- class ABSTRACT_BACKTRACKING
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

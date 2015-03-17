@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          p: PROCEDURE[TUPLE[CHARACTER]];
       do
@@ -16,7 +16,7 @@ feature {ANY}
       end;
 
 feature {}
-   proc(c: CHARACTER) is
+   proc(c: CHARACTER)
       do
       end;
 

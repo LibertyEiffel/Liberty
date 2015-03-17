@@ -21,23 +21,23 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   entity_name: LIBERTY_AST_ENTITY_NAME is
+   entity_name: LIBERTY_AST_ENTITY_NAME
       do
          Result ::= nodes.item(0)
       end
 
-   string: LIBERTY_AST_STRING is
+   string: LIBERTY_AST_STRING
       do
          Result ::= nodes.item(2)
       end
 
 feature {ANY}
-   count: INTEGER is 3
+   count: INTEGER 3
 
-   name: STRING is "Indexing_Clause"
+   name: STRING "Indexing_Clause"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 3 >> }
       end

@@ -3,7 +3,7 @@
 --
 expanded class BASIC_DIRECTORY
    --
-   -- Very low-level basic tools for file-system directory handling and file path manipulation.  This class is
+   -- Very low-level basic tools for file-system directory handling and file path manipulation.  This class
    -- intended to be platform independant as much as possible. In order to remove from the client side the
    -- burden of file path computation, this class tries to compute automatically the system file notation
    -- using argument(s) of some of the very first call(s).  As soon as the system notation has been properly
@@ -26,13 +26,13 @@ feature {}
          -- When `is_connected', memorize the current entry in the current  `directory_stream'.
 
 feature {ANY} -- State of `Current' basic directory stream:
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- Is `Current' connected to some directory stream ?
       do
          Result := directory_stream.is_not_null
       end
 
-   end_of_input: BOOLEAN is
+   end_of_input: BOOLEAN
          -- Is end of input reached ?
       require
          is_connected
@@ -41,8 +41,8 @@ feature {ANY} -- State of `Current' basic directory stream:
       end
 
 feature {ANY} -- Connect and disconnect:
-   connect_to (directory_path: ABSTRACT_STRING) is
-         -- Try to connect `Current' to some existing `directory_path'. After this call, the client is
+   connect_to (directory_path: ABSTRACT_STRING)
+         -- Try to connect `Current' to some existing `directory_path'. After this call, the client
          -- supposed to use `is_connected' to check that the stream is ready to be used.
       require
          not is_connected
@@ -59,7 +59,7 @@ feature {ANY} -- Connect and disconnect:
          is_connected implies not end_of_input
       end
 
-   connect_with (some_path: ABSTRACT_STRING) is
+   connect_with (some_path: ABSTRACT_STRING)
          -- Try to connect `Current' to some directory using `some_path' which may be either an existing
          -- directory path or some arbitrary file path name. When `some_path' is the path of some readable
          -- existing directory, this directory is opened and the effect of `connect_with' is equivalent to
@@ -95,7 +95,7 @@ feature {ANY} -- Connect and disconnect:
          is_connected implies not end_of_input
       end
 
-   connect_to_current_working_directory is
+   connect_to_current_working_directory
          -- Try to connect `Current' to the current working directory. After this call, the client is supposed
          -- to use `is_connected' to check that the stream is ready to be used and the `last_entry' buffer to
          -- know about the name of the current working directory.
@@ -124,7 +124,7 @@ feature {ANY} -- Connect and disconnect:
          is_connected implies not end_of_input
       end
 
-   disconnect is
+   disconnect
          -- Do not forget to call this feature when you have finished with some previously opened directory
          -- stream.
       require
@@ -141,7 +141,7 @@ feature {ANY} -- Connect and disconnect:
       end
 
 feature {ANY} -- Scanning:
-   last_entry: STRING is
+   last_entry: STRING
          -- Unique global buffer (once object) to get the last information computed by many routines of this
          -- class: `read_entry', `connect_with' `connect_to_current_working_directory',
          -- `compute_parent_directory_of', ...
@@ -149,7 +149,7 @@ feature {ANY} -- Scanning:
          create Result.make(256)
       end
 
-   read_entry is
+   read_entry
          -- Read the next entry name and update `last_entry' and `end_of_input' accordingly.
       require
          is_connected
@@ -165,7 +165,7 @@ feature {ANY} -- Scanning:
       end
 
 feature {ANY} -- File path handling tools:
-   compute_parent_directory_of (some_path: ABSTRACT_STRING) is
+   compute_parent_directory_of (some_path: ABSTRACT_STRING)
          -- Using `some_path' (which may be either a file path or a directory path) tries to compute in the
          -- `last_entry' buffer the parent directory of `some_path'. When `some_path' is a path with no parent
          -- directory, the `last_entry' buffer `is_empty' after this call. This operation does not perform any
@@ -188,7 +188,7 @@ feature {ANY} -- File path handling tools:
          end
       end
 
-   compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING) is
+   compute_subdirectory_with (parent_path, entry_name: ABSTRACT_STRING)
          -- Try to compute in the `last_entry' buffer the new subdirectory path obtained when trying to
          -- concatenate smartly `parent_path' whith some `entry_name'. When this fails the `last_entry' buffer
          -- `is_empty' after this call. This operation does not perform any disk access. Whatever the result,
@@ -213,7 +213,7 @@ feature {ANY} -- File path handling tools:
          end
       end
 
-   compute_file_path_with (parent_path, file_name: ABSTRACT_STRING) is
+   compute_file_path_with (parent_path, file_name: ABSTRACT_STRING)
          -- Try to compute in the `last_entry' buffer the new file path obtained when trying to concatenate
          -- smartly `parent_path' whith some `file_name'. When this fails the `last_entry' buffer `is_empty'
          -- after this call. This operation does not perform any disk access. Whatever the result,
@@ -238,7 +238,7 @@ feature {ANY} -- File path handling tools:
          end
       end
 
-   compute_absolute_file_path_with (path: ABSTRACT_STRING) is
+   compute_absolute_file_path_with (path: ABSTRACT_STRING)
          -- Try to compute an absolute path equivalent to `path' and store it in `last_entry'. When this fails
          -- the `last_entry' buffer `is_empty' after this call. This operation does not perform any disk
          -- access.  Whatever the result, `path' is left unchanged.
@@ -262,7 +262,7 @@ feature {ANY} -- File path handling tools:
          last_entry.is_empty or else system_notation.is_absolute_path(last_entry.out)
       end
 
-   compute_short_name_of (path: ABSTRACT_STRING) is
+   compute_short_name_of (path: ABSTRACT_STRING)
          -- Try to find the short name of the file or directory given by its `path' and store it in
          -- `last_entry'. When this fails the `last_entry' buffer `is_empty' after the call. This operation
          -- does not perform any disk access.  Whatever the result, `path' is left unchanged.
@@ -281,7 +281,7 @@ feature {ANY} -- File path handling tools:
          end
       end
 
-   valid_path (path: ABSTRACT_STRING): BOOLEAN is
+   valid_path (path: ABSTRACT_STRING): BOOLEAN
          -- Is the syntax of `path' valid for the system notation?
       do
          if system_notation_detected then
@@ -294,8 +294,8 @@ feature {ANY} -- File path handling tools:
          not system_notation_detected implies Result = not path.is_empty
       end
 
-   change_current_working_directory (directory_path: ABSTRACT_STRING) is
-         -- Try to change the current working directory using some `directory_path'.  When the operation is
+   change_current_working_directory (directory_path: ABSTRACT_STRING)
+         -- Try to change the current working directory using some `directory_path'.  When the operation
          -- possible, the `last_entry' buffer is updated with the new current working directory path,
          -- otherwise, when the modification is not possible the `last_entry' buffer `is_empty' after this
          -- call. Whatever the result, `directory_path' is left unchanged.
@@ -323,7 +323,7 @@ feature {ANY} -- File path handling tools:
          not is_connected
       end
 
-   current_working_directory: FIXED_STRING is
+   current_working_directory: FIXED_STRING
          -- The current working directory. Always returns the same once STRING.
       local
          path: POINTER; cwd: STRING
@@ -340,7 +340,7 @@ feature {ANY} -- File path handling tools:
          end
       end
 
-   ensure_system_notation is
+   ensure_system_notation
       local
          dummy: BOOLEAN
       once
@@ -349,7 +349,7 @@ feature {ANY} -- File path handling tools:
          system_notation /= Void
       end
 
-   require_system_notation: BOOLEAN is
+   require_system_notation: BOOLEAN
          -- Same as `ensure_system_notation', useful for contracts
       once
          Result := current_working_directory /= Void
@@ -359,7 +359,7 @@ feature {ANY} -- File path handling tools:
       end
 
 feature {ANY} -- Disk modification:
-   create_new_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
+   create_new_directory (directory_path: ABSTRACT_STRING): BOOLEAN
          -- Try to create a new directory using the `directory_path' name.
          -- Returns True on success.
       require
@@ -373,7 +373,7 @@ feature {ANY} -- Disk modification:
          not is_connected
       end
 
-   remove_directory (directory_path: ABSTRACT_STRING): BOOLEAN is
+   remove_directory (directory_path: ABSTRACT_STRING): BOOLEAN
          -- Try to remove directory `directory_path' which must be empty.
          -- Returns True on success.
       require
@@ -387,7 +387,7 @@ feature {ANY} -- Disk modification:
          not is_connected
       end
 
-   remove_files_of (directory_path: ABSTRACT_STRING) is
+   remove_files_of (directory_path: ABSTRACT_STRING)
          -- Try to remove all files (not subdirectories) of directory specified by `directory_path'.
       require
          not is_connected
@@ -415,7 +415,7 @@ feature {ANY} -- Disk modification:
          not is_connected
       end
 
-   remove_recursively (directory_path: ABSTRACT_STRING): BOOLEAN is
+   remove_recursively (directory_path: ABSTRACT_STRING): BOOLEAN
          -- Try to remove all files and all subdirectories of directory specified by `directory_path'.
       require
          not is_connected
@@ -452,7 +452,7 @@ feature {ANY} -- Disk modification:
       end
 
 feature {ANY} -- Miscellaneous:
-   is_case_sensitive: BOOLEAN is
+   is_case_sensitive: BOOLEAN
       local
          bd: like Current
       do
@@ -473,59 +473,59 @@ feature {ANY} -- Miscellaneous:
          end
       end
 
-   system_notation: DIRECTORY_NOTATION is
+   system_notation: DIRECTORY_NOTATION
       do
          Result := system_notation_buffer.item
       end
 
 feature {DIRECTORY_NOTATION_HANDLER}
-   system_notation_buffer: REFERENCE[DIRECTORY_NOTATION] is
+   system_notation_buffer: REFERENCE[DIRECTORY_NOTATION]
          -- Unique common buffer to memorize the system path notation.
       once
          create Result
       end
 
-   system_notation_detected: BOOLEAN is
+   system_notation_detected: BOOLEAN
       do
          Result := system_notation /= Void
       end
 
-   unix_notation: BOOLEAN is
+   unix_notation: BOOLEAN
          -- The Unix like file path notation looks like:
          --   /SmartEiffel/sys/system.se
       do
          Result := {UNIX_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   windows_notation: BOOLEAN is
+   windows_notation: BOOLEAN
          -- The Windows like file path notation looks like:
          --   C:\SmartEiffel\sys\system.se
       do
          Result := {WINDOWS_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   cygwin_notation: BOOLEAN is
+   cygwin_notation: BOOLEAN
          -- The Cygwin like file path notation looks like:
          --   //C/SmartEiffel/sys/system.se
       do
          Result := {CYGWIN_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   amiga_notation: BOOLEAN is
+   amiga_notation: BOOLEAN
          -- The Amiga file path notation looks like:
          --   DEV:SmartEiffel/sys/system.se
       do
          Result := {AMIGA_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   macintosh_notation: BOOLEAN is
+   macintosh_notation: BOOLEAN
          -- The Macintosh file path notation looks like:
          --   :SmartEiffel:sys:system.se
       do
          Result := {MACINTOSH_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   openvms_notation: BOOLEAN is
+   openvms_notation: BOOLEAN
          -- The VMS file path notation looks like:
          --    DISK:[SmartEiffel.sys]system.se
          -- The current working directory notation is:
@@ -539,7 +539,7 @@ feature {DIRECTORY_NOTATION_HANDLER}
          Result := {OPENVMS_DIRECTORY_NOTATION} ?:= system_notation
       end
 
-   set_notation_using (some_path: ABSTRACT_STRING) is
+   set_notation_using (some_path: ABSTRACT_STRING)
          -- Try to detect automatically the file system notation.
       require
          not some_path.is_empty
@@ -597,26 +597,26 @@ feature {DIRECTORY_NOTATION_HANDLER}
          end
       end
 
-   reset_notation_using (some_path: ABSTRACT_STRING) is
+   reset_notation_using (some_path: ABSTRACT_STRING)
          -- Try to detect automatically the file system notation.
       do
          system_notation_buffer.set_item(Void)
          set_notation_using(some_path)
       end
 
-   reset_notation is
+   reset_notation
       do
          reset_notation_using(current_working_directory)
       end
 
 feature {}
-   tmp_path: STRING is
+   tmp_path: STRING
       once
          create Result.make(256)
       end
 
-   directory_open (path_pointer: POINTER): POINTER is
-         -- Try to open some existing directory using `path'. When `Result' `is_not_null', the directory is
+   directory_open (path_pointer: POINTER): POINTER
+         -- Try to open some existing directory using `path'. When `Result' `is_not_null', the directory
          -- correctly opened and `Result' is a valid handle for this directory.  Using `Result', one can then
          -- scan the content of the directory using function `basic_directory_read_entry' and
          -- `basic_directory_get_entry_name'. Finally, a `is_not_null' directory must be closed using function
@@ -631,7 +631,7 @@ feature {}
          }"
       end
 
-   directory_read_entry (dirstream: POINTER): POINTER is
+   directory_read_entry (dirstream: POINTER): POINTER
          -- Read an return a new entry using the directory handle `dirstream' obtained with function
          -- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
       require
@@ -644,7 +644,7 @@ feature {}
          }"
       end
 
-   directory_get_entry_name (entry: POINTER): POINTER is
+   directory_get_entry_name (entry: POINTER): POINTER
          -- Read an return a new entry using the directory handle `dirstream' obtained with function
          -- `basic_directory_open'. When there is no more entry, the `Result' becomes `is_null'.
       require
@@ -657,8 +657,8 @@ feature {}
          }"
       end
 
-   directory_close (dirstream: POINTER): BOOLEAN is
-         -- Try to close some opened `dirstream' directory. A True result indicates that the directory is
+   directory_close (dirstream: POINTER): BOOLEAN
+         -- Try to close some opened `dirstream' directory. A True result indicates that the directory
          -- correctly closed.
       require
          dirstream.is_not_null
@@ -670,7 +670,7 @@ feature {}
          }"
       end
 
-   directory_current_working_directory: POINTER is
+   directory_current_working_directory: POINTER
          -- Try to get the current working directory path.
       external "plug_in"
       alias "{
@@ -680,7 +680,7 @@ feature {}
          }"
       end
 
-   directory_chdir (destination: POINTER): BOOLEAN is
+   directory_chdir (destination: POINTER): BOOLEAN
          -- Try to change the current working directory using `destination'.
       external "plug_in"
       alias "{
@@ -690,7 +690,7 @@ feature {}
          }"
       end
 
-   directory_mkdir (directory_path: POINTER): BOOLEAN is
+   directory_mkdir (directory_path: POINTER): BOOLEAN
          -- Try to create a new directory using `directory_path'.
       external "plug_in"
       alias "{
@@ -700,7 +700,7 @@ feature {}
          }"
       end
 
-   directory_rmdir (directory_path: POINTER): BOOLEAN is
+   directory_rmdir (directory_path: POINTER): BOOLEAN
          -- Try to remove `directory_path'.
       external "plug_in"
       alias "{
@@ -712,13 +712,13 @@ feature {}
 
 end -- class BASIC_DIRECTORY
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

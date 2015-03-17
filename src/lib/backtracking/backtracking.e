@@ -4,7 +4,7 @@
 deferred class BACKTRACKING
    --
    -- This class is intended to explore structures that matches the and/or
-   -- graph of BACKTRACKING_NODE. The alternatives have a context that is
+   -- graph of BACKTRACKING_NODE. The alternatives have a context that
    -- gotten and restored using the features 'get_context' and 'restore_context'.
    --
    -- See tutorial/backtracking for examples.
@@ -34,7 +34,7 @@ insert
    BACKTRACKING_GLOBALS
 
 feature {ANY}
-   set_current_node (node: like current_node) is
+   set_current_node (node: like current_node)
          -- Sets the next node of the BACKTRACKING_NODE graph to evaluate.
       do
          current_node := node
@@ -42,7 +42,7 @@ feature {ANY}
          definition: current_node = node
       end
 
-   push_and (node: BACKTRACKING_NODE) is
+   push_and (node: BACKTRACKING_NODE)
          -- Pushes `node' in front of the continuation path.
       require
          node_not_void: node /= Void
@@ -54,7 +54,7 @@ feature {ANY}
          push_sequence(sequence)
       end
 
-   push_and_list (list: BACKTRACKING_NODE_AND_LIST) is
+   push_and_list (list: BACKTRACKING_NODE_AND_LIST)
          -- Pushes `list' in front of the continuation path.
       require
          list_not_void: list /= Void
@@ -66,7 +66,7 @@ feature {ANY}
          push_sequence(sequence)
       end
 
-   push_or (node: BACKTRACKING_NODE) is
+   push_or (node: BACKTRACKING_NODE)
          -- Pushes `node' in front of the possible alternatives.
       require
          node_not_void: node /= Void
@@ -78,7 +78,7 @@ feature {ANY}
          push_alternative(alternative)
       end
 
-   push_or_list (list: BACKTRACKING_NODE_OR_LIST) is
+   push_or_list (list: BACKTRACKING_NODE_OR_LIST)
          -- Pushes `list' in front of the possible alternatives.
       require
          list_not_void: list /= Void
@@ -94,7 +94,7 @@ feature {} -- internal
    current_node: BACKTRACKING_NODE
          -- Current node of the BACKTRACKING_NODE graph to be evaluated.
 
-   evaluate_current_state is
+   evaluate_current_state
          -- That feature is called to evaluate the current state
       do
          current_node.explore(Current)
@@ -102,13 +102,13 @@ feature {} -- internal
 
 end -- class BACKTRACKING
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

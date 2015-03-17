@@ -6,7 +6,7 @@ expanded class AUX_AGENT24
 feature {ANY}
    n: INTEGER
 
-   set_n (x: INTEGER) is
+   set_n (x: INTEGER)
       do
          n := x
       end

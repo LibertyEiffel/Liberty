@@ -13,7 +13,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          agent1, agent2: PROCEDURE[TUPLE[STRING]]; agent3: PROCEDURE[TUPLE[STRING, STRING]]; other: like Current
       do
@@ -33,12 +33,12 @@ feature {}
 feature {ANY}
    dummy: INTEGER
 
-   foo (arg: STRING) is
+   foo (arg: STRING)
       do
          dummy := dummy
       end
 
-   bar (arg1, arg2: STRING) is
+   bar (arg1, arg2: STRING)
       do
          dummy := dummy
       end

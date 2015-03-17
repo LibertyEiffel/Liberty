@@ -21,7 +21,7 @@ create {LIBERTY_TAG_REF}
    make
 
 feature {ANY}
-   id: FIXED_STRING is
+   id: FIXED_STRING
       do
          Result := ref.id
       end
@@ -29,7 +29,7 @@ feature {ANY}
    value: T_
 
 feature {LIBERTY_TAG_REF}
-   set (a_value: like value) is
+   set (a_value: like value)
       do
          value := a_value
       ensure
@@ -37,7 +37,7 @@ feature {LIBERTY_TAG_REF}
       end
 
 feature {}
-   make (a_ref: like ref; a_value: like value) is
+   make (a_ref: like ref; a_value: like value)
       require
          a_ref /= Void
       do

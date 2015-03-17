@@ -10,7 +10,7 @@ feature {ANY}
    item: JSON_VALUE
 
 feature {}
-   make (a_item: like item) is
+   make (a_item: like item)
       require
          a_item /= Void
       do

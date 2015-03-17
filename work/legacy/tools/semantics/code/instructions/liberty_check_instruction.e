@@ -23,7 +23,7 @@ create {LIBERTY_BUILDER_TOOLS, LIBERTY_CHECK_INSTRUCTION}
 feature {ANY}
    checks: LIBERTY_CHECK
 
-   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current is
+   specialized_in (a_type: LIBERTY_ACTUAL_TYPE): like Current
       local
          c: like checks
       do
@@ -36,13 +36,13 @@ feature {ANY}
       end
 
 feature {LIBERTY_REACHABLE, LIBERTY_REACHABLE_COLLECTION_MARKER}
-   mark_reachable_code (mark: INTEGER) is
+   mark_reachable_code (mark: INTEGER)
       do
          checks.mark_reachable_code(mark)
       end
 
 feature {}
-   make (a_checks: like checks; a_position: like position) is
+   make (a_checks: like checks; a_position: like position)
       require
          a_checks /= Void
          a_position /= Void
@@ -55,7 +55,7 @@ feature {}
       end
 
 feature {ANY}
-   accept (v: VISITOR) is
+   accept (v: VISITOR)
       local
          v0: LIBERTY_CHECK_INSTRUCTION_VISITOR
       do

@@ -41,7 +41,7 @@ feature {ANY}
 
    parameters: COLLECTION[LIBERTY_ASM_PARAMETER]
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := id = other.id and then type.id = other.type.id -- don't check type.is_equal because it would incur an infinite recursion
             and then parameters.is_equal(other.parameters)
@@ -51,7 +51,7 @@ feature {ANY}
             and then safe_equal(postcondition, other.postcondition)
       end
 
-   set_code (a_code: like code) is
+   set_code (a_code: like code)
       require
          a_code /= Void
       do
@@ -60,7 +60,7 @@ feature {ANY}
          code = a_code
       end
 
-   set_code_size (a_code_size: like code_size) is
+   set_code_size (a_code_size: like code_size)
       require
          code_size = 0
          a_code_size > 0
@@ -70,7 +70,7 @@ feature {ANY}
          code_size = a_code_size
       end
 
-   set_retry (a_retry: like retry_code) is
+   set_retry (a_retry: like retry_code)
       require
          retry_code /= Void implies a_retry /= Void
       do
@@ -79,7 +79,7 @@ feature {ANY}
          retry_code = a_retry
       end
 
-   set_retry_size (a_retry_size: like retry_size) is
+   set_retry_size (a_retry_size: like retry_size)
       require
          a_retry_size > 0
          retry_code /= Void
@@ -89,7 +89,7 @@ feature {ANY}
          retry_size = a_retry_size
       end
 
-   set_precondition (a_precondition: like precondition) is
+   set_precondition (a_precondition: like precondition)
       require
          precondition /= Void implies a_precondition /= Void
       do
@@ -98,7 +98,7 @@ feature {ANY}
          precondition = a_precondition
       end
 
-   set_precondition_size (a_precondition_size: like precondition_size) is
+   set_precondition_size (a_precondition_size: like precondition_size)
       require
          a_precondition_size > 0
          precondition /= Void
@@ -108,7 +108,7 @@ feature {ANY}
          precondition_size = a_precondition_size
       end
 
-   set_postcondition (a_postcondition: like postcondition) is
+   set_postcondition (a_postcondition: like postcondition)
       require
          postcondition /= Void implies a_postcondition /= Void
       do
@@ -117,7 +117,7 @@ feature {ANY}
          postcondition = a_postcondition
       end
 
-   set_postcondition_size (a_postcondition_size: like postcondition_size) is
+   set_postcondition_size (a_postcondition_size: like postcondition_size)
       require
          a_postcondition_size > 0
          postcondition /= Void
@@ -128,7 +128,7 @@ feature {ANY}
       end
 
 feature {}
-   make (a_type: like type; a_code: like code; a_parameters: like parameters) is
+   make (a_type: like type; a_code: like code; a_parameters: like parameters)
       require
          a_type /= Void
          a_code /= Void

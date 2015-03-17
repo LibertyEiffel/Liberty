@@ -6,7 +6,7 @@ deferred class ANIMAL
 feature {ANY}
    name: STRING
 
-   is_cat: BOOLEAN is
+   is_cat: BOOLEAN
       deferred
       end
 

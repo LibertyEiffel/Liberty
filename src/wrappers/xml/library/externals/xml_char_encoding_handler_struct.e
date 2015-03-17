@@ -8,7 +8,7 @@ insert STANDARD_C_LIBRARY_TYPES
 	LIBXML2_TYPES
 feature {} -- Low-level setters
 
-	xml_char_encoding_handler_struct_set_name (a_structure: POINTER; a_value: POINTER) is
+	xml_char_encoding_handler_struct_set_name (a_structure: POINTER; a_value: POINTER)
 			-- Setter for name field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -20,7 +20,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_char_encoding_handler_struct_set_input (a_structure: POINTER; a_value: POINTER) is
+	xml_char_encoding_handler_struct_set_input (a_structure: POINTER; a_value: POINTER)
 			-- Setter for input field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -32,7 +32,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_char_encoding_handler_struct_set_output (a_structure: POINTER; a_value: POINTER) is
+	xml_char_encoding_handler_struct_set_output (a_structure: POINTER; a_value: POINTER)
 			-- Setter for output field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -44,7 +44,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_char_encoding_handler_struct_set_iconv_in (a_structure: POINTER; a_value: POINTER) is
+	xml_char_encoding_handler_struct_set_iconv_in (a_structure: POINTER; a_value: POINTER)
 			-- Setter for iconv_in field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -56,7 +56,7 @@ feature {} -- Low-level setters
 		}"
 		end
 
-	xml_char_encoding_handler_struct_set_iconv_out (a_structure: POINTER; a_value: POINTER) is
+	xml_char_encoding_handler_struct_set_iconv_out (a_structure: POINTER; a_value: POINTER)
 			-- Setter for iconv_out field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: setter description
 
@@ -70,7 +70,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	xml_char_encoding_handler_struct_get_name (a_structure: POINTER): POINTER is
+	xml_char_encoding_handler_struct_get_name (a_structure: POINTER): POINTER
 			-- Query for name field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -82,7 +82,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_char_encoding_handler_struct_get_input (a_structure: POINTER): POINTER is
+	xml_char_encoding_handler_struct_get_input (a_structure: POINTER): POINTER
 			-- Query for input field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -94,7 +94,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_char_encoding_handler_struct_get_output (a_structure: POINTER): POINTER is
+	xml_char_encoding_handler_struct_get_output (a_structure: POINTER): POINTER
 			-- Query for output field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -106,7 +106,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_char_encoding_handler_struct_get_iconv_in (a_structure: POINTER): POINTER is
+	xml_char_encoding_handler_struct_get_iconv_in (a_structure: POINTER): POINTER
 			-- Query for iconv_in field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -118,7 +118,7 @@ feature {} -- Low-level queries
 		}"
 		end
 
-	xml_char_encoding_handler_struct_get_iconv_out (a_structure: POINTER): POINTER is
+	xml_char_encoding_handler_struct_get_iconv_out (a_structure: POINTER): POINTER
 			-- Query for iconv_out field of XML_CHAR_ENCODING_HANDLER_STRUCT structure.
 			-- TODO: getter description
 
@@ -131,7 +131,7 @@ feature {} -- Low-level queries
 		end
 
 feature -- Structure size
-	struct_size: like size_t is
+	struct_size: like size_t
 		external "plug_in"
 		alias "{
 			location: "."

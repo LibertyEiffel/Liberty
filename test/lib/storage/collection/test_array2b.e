@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    a: ARRAY2[INTEGER]
 
-   make is
+   make
       do
          create a.make(1, 3, 1, 3)
          if a.is_equal(a) then

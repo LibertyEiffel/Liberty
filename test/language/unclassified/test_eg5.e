@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          a1, a2: AUX_EG5_A; r: REAL
       do
@@ -20,7 +20,7 @@ feature {ANY}
          assert(r = 3.0)
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

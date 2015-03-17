@@ -13,7 +13,7 @@ feature {ARRAYED_COLLECTION, ARRAYED_COLLECTION_HANDLER}
    storage: NATIVE_ARRAY[E_]
          -- Internal access to storage location.
 
-   from_external (a_storage: POINTER; a_capacity: like capacity) is
+   from_external (a_storage: POINTER; a_capacity: like capacity)
       require
          a_capacity > 0 implies a_storage.is_not_null
       do
@@ -31,7 +31,7 @@ feature {ANY}
    upper: INTEGER
          -- Upper index bound.
 
-   subarray (min, max: INTEGER): like Current is
+   subarray (min, max: INTEGER): like Current
          -- New collection consisting of items at indexes in [`min' .. `max'].
          -- Result has the same dynamic type as `Current'.
          -- See also `slice'.
@@ -47,17 +47,17 @@ feature {ANY}
       end
 
 feature {ANY} -- Implementation of deferred:
-   first: like item is
+   first: like item
       do
          Result := storage.item(0)
       end
 
-   last: like item is
+   last: like item
       do
          Result := item(upper)
       end
 
-   add (element: like item; index: INTEGER) is
+   add (element: like item; index: INTEGER)
       do
          if index = upper + 1 then
             add_last(element)
@@ -68,27 +68,27 @@ feature {ANY} -- Implementation of deferred:
          end
       end
 
-   remove_last is
+   remove_last
       do
          upper := upper - 1
       end
 
-   remove_tail (n: INTEGER) is
+   remove_tail (n: INTEGER)
       do
          upper := upper - n
       end
 
-   replace_all (old_value, new_value: like item) is
+   replace_all (old_value, new_value: like item)
       do
          storage.replace_all(old_value, new_value, count - 1)
       end
 
-   fast_replace_all (old_value, new_value: like item) is
+   fast_replace_all (old_value, new_value: like item)
       do
          storage.fast_replace_all(old_value, new_value, count - 1)
       end
 
-   reverse is
+   reverse
       local
          i, j: INTEGER
       do
@@ -105,7 +105,7 @@ feature {ANY} -- Implementation of deferred:
       end
 
 feature {ANY} -- Interfacing with C:
-   to_external: POINTER is
+   to_external: POINTER
          -- Gives C access into the internal `storage' of the ARRAY.
          -- Result is pointing the element at index `lower'.
          --
@@ -120,7 +120,7 @@ feature {ANY} -- Interfacing with C:
       end
 
 feature {ARRAYED_COLLECTION}
-   set_upper (new_upper: like upper) is
+   set_upper (new_upper: like upper)
       do
          upper := new_upper
       end
@@ -131,13 +131,13 @@ invariant
 
 end -- class ARRAYED_COLLECTION
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

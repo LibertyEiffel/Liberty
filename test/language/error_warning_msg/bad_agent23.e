@@ -8,17 +8,17 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
          f(agent g(?))
       end
 
-   f (p: ROUTINE[TUPLE[INTEGER]]) is
+   f (p: ROUTINE[TUPLE[INTEGER]])
       do
          p.call([{INTEGER 3 }, Void])
       end
 
-   g (i: INTEGER) is
+   g (i: INTEGER)
       do
          if i.out = Void then
          end

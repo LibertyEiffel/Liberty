@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          old_a, new_a: ARRAY[INTEGER]; old_aux, new_aux: AUX_CREATE01; x: INTEGER
       do
@@ -26,14 +26,14 @@ feature {ANY}
          assert(1 = foo(create {AUX_CREATE01}))
       end
 
-   foo (aux: AUX_CREATE01): INTEGER is
+   foo (aux: AUX_CREATE01): INTEGER
       do
          Result := aux.x
       ensure
          not aux.is_equal(create {AUX_CREATE01})
       end
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          cpt := cpt + 1
          if not b then

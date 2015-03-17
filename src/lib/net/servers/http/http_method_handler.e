@@ -9,25 +9,25 @@ feature {HTTP_CONNECTION}
    code: INTEGER
          -- the HTTP answer code
 
-   method: STRING is
+   method: STRING
          -- the method
       deferred
       end
 
-   begin_answer is
+   begin_answer
       do
          response_header.clear_count
          response_body.clear_count
          done := False
       end
 
-   prepare_answer is
+   prepare_answer
       require
          not done
       deferred
       end
 
-   answer (out_stream: OUTPUT_STREAM) is
+   answer (out_stream: OUTPUT_STREAM)
       require
          not done
          prepare_ok
@@ -55,25 +55,31 @@ feature {HTTP_CONNECTION}
          done := True
       end
 
-   add_header (header: STRING) is
+   add_header (header: STRING)
       deferred
       end
 
-   add_body (body: STRING) is
+   expect_body: BOOLEAN
       deferred
       end
 
-   prepare_ok: BOOLEAN is
+   add_body (body: STRING)
+      require
+         expect_body
+      deferred
+      end
+
+   prepare_ok: BOOLEAN
       deferred
       end
 
    done: BOOLEAN
 
-   expect (events: EVENTS_SET) is
+   expect (events: EVENTS_SET)
       deferred
       end
 
-   is_ready (events: EVENTS_SET): BOOLEAN is
+   is_ready (events: EVENTS_SET): BOOLEAN
       deferred
       end
 
@@ -87,7 +93,7 @@ feature {}
    response_header: FAST_ARRAY[STRING]
    response_body: STRING
 
-   default_body is
+   default_body
       local
          r: STRING
       do
@@ -110,7 +116,7 @@ feature {}
          set_content_length
       end
 
-   set_content_length is
+   set_content_length
       local
          l: STRING
       do
@@ -121,7 +127,7 @@ feature {}
          response_header.add_last(l)
       end
 
-   reason: STRING is
+   reason: STRING
       do
          inspect
             code
@@ -210,7 +216,7 @@ feature {}
          end
       end
 
-   newline (out_stream: OUTPUT_STREAM) is
+   newline (out_stream: OUTPUT_STREAM)
          -- output CRLF
       do
          out_stream.put_string(once "%R%N")
@@ -222,13 +228,13 @@ invariant
 
 end -- class HTTP_METHOD_HANDLER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

@@ -18,7 +18,7 @@ create {LIBERTY_INTERPRETER}
    make
 
 feature {LIBERTY_INTERPRETER_FEATURE_CALL}
-   call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL) is
+   call (a_builtin_call: LIBERTY_INTERPRETER_FEATURE_CALL)
       require
          a_builtin_call /= Void
       local
@@ -32,7 +32,7 @@ feature {LIBERTY_INTERPRETER_FEATURE_CALL}
       end
 
 feature {}
-   make (a_interpreter: like interpreter) is
+   make (a_interpreter: like interpreter)
       require
          a_interpreter /= Void
       do

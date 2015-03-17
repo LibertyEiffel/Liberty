@@ -22,13 +22,17 @@ feature {ANY}
 
    end_comment: COMMENT
 
-   is_attribute: BOOLEAN is False
+   is_attribute: BOOLEAN False
 
    local_vars: LOCAL_VAR_LIST
 
    routine_body: INSTRUCTION
 
-   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN) is
+   routine_then: EXPRESSION
+
+   has_closures: BOOLEAN
+
+   pretty (indent_level: INTEGER; is_inline_agent: BOOLEAN)
       local
          fn: FEATURE_NAME; il, level2, level3: INTEGER
       do
@@ -55,14 +59,13 @@ feature {ANY}
             end
             pretty_printer.put_type_mark(result_type)
          end
-         pretty_printer.keyword(once "is")
          pretty_printer.set_indent_level(level2)
          if header_comment /= Void then
             il := pretty_printer.indent_level_for_header_comment_of_feature + indent_level
             pretty_printer.set_indent_level(il)
             header_comment.pretty(il)
          end
-         pretty_printer.set_indent_level(level2)
+         pretty_index(level2, Void)
          if obsolete_mark /= Void then
             pretty_printer.keyword(once "obsolete")
             obsolete_mark.pretty_without_once(level2)
@@ -89,7 +92,7 @@ feature {ANY}
       end
 
 feature {EIFFEL_PARSER}
-   set_end_comment (ec: like end_comment) is
+   set_end_comment (ec: like end_comment)
       require else
          end_comment = Void
          ec /= Void
@@ -100,63 +103,70 @@ feature {EIFFEL_PARSER}
       end
 
 feature {FEATURE_TEXT, EIFFEL_PARSER}
-   set_rescue_compound (rc: like rescue_compound) is
+   set_rescue_compound (rc: like rescue_compound)
       deferred
       end
 
 feature {ANONYMOUS_FEATURE_MIXER}
-   specialize_signature_in (new_type: TYPE): like Current is
+   specialize_signature_in (new_type: TYPE): like Current
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          if arguments /= Void then
             args := arguments.specialize_in(new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_in(new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
-   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current is
+   specialize_signature_thru (parent_type: TYPE; parent_edge: PARENT_EDGE; new_type: TYPE): like Current
       local
-         args: like arguments
+         args: like arguments; cfal: like closure_arguments
       do
          if arguments /= Void then
             args := arguments.specialize_thru(parent_type, parent_edge, new_type)
          end
-         if args = arguments then
+         cfal := specialize_closure_arguments_lists_thru(parent_type, parent_edge, new_type)
+         if args = arguments and then cfal = closure_arguments then
             Result := Current
          else
             Result := twin
-            Result.set_arguments(args)
+            Result.set_arguments(args, cfal)
          end
       end
 
 feature {E_ROUTINE}
-   set_arguments (args: like arguments) is
+   set_arguments (args: like arguments; cfal: like closure_arguments)
       do
          arguments := args
+         closure_arguments := cfal
       end
 
 feature {}
-   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion) is
+   make_routine (fa: like arguments; om: like obsolete_mark; hc: like header_comment; ra: like require_assertion; c: like has_closures)
       do
          header_comment := hc
          arguments := fa
          obsolete_mark := om
          require_assertion := ra
+         has_closures := c
       end
 
-   pretty_print_routine_body (indent_level: INTEGER) is
+   pretty_print_routine_body (indent_level: INTEGER)
       deferred
       end
 
-   pretty_print_rescue (indent_level: INTEGER) is
+   pretty_print_rescue (indent_level: INTEGER)
       deferred
       end
+
+invariant
+   routine_then /= Void implies result_type /= Void
 
 end -- class E_ROUTINE
 --
@@ -170,9 +180,9 @@ end -- class E_ROUTINE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

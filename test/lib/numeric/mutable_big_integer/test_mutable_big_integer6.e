@@ -18,7 +18,7 @@ feature {}
 
    dictionary2: HASHED_DICTIONARY[INTEGER_64, MUTABLE_BIG_INTEGER]
 
-   make is
+   make
       local
          mbi1, mbi2, mbi3: MUTABLE_BIG_INTEGER; v1, v2: INTEGER_64
       do
@@ -54,7 +54,7 @@ feature {}
 
    count: INTEGER
 
-   assert (b: BOOLEAN) is
+   assert (b: BOOLEAN)
       do
          count := count + 1
          if not b then

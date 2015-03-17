@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          cltn: COLLECTION[INTEGER]; i: BOOLEAN; ll: LINKED_LIST[INTEGER]
       do

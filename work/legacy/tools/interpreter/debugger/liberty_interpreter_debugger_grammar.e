@@ -24,7 +24,7 @@ create {LIBERTY_INTERPRETER_DEBUGGER}
    make
 
 feature {}
-   the_table: PARSE_TABLE is
+   the_table: PARSE_TABLE
       once
          Result := {PARSE_TABLE << "Entry", {PARSE_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW show", "Show", "KW end of line" >> }, agent build_root;
                                                                    {FAST_ARRAY[STRING] << "KW up", "Up" >> }, agent build_root;

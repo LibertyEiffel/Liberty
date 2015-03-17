@@ -7,13 +7,13 @@ inherit
    EXPRESSION_ITEM_GLOBALS
 
 feature {ANY}
-   pool: POOL_SEQUENCE is
+   pool: POOL_SEQUENCE
       once
          create Result.make
       end
 
 feature {ABSTRACT_BACKTRACKING}
-   next_sequence (explorer: EXPAND_EXPRESSION) is
+   next_sequence (explorer: EXPAND_EXPRESSION)
       do
          if Iterate and then item.type = And_item then
             explorer.goto_item(item.first)
@@ -28,7 +28,7 @@ feature {}
    item: EXPRESSION_ITEM
 
 feature {EXPAND_EXPRESSION}
-   make (itm: EXPRESSION_ITEM) is
+   make (itm: EXPRESSION_ITEM)
       do
          item := itm
       end

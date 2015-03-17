@@ -14,24 +14,27 @@ insert
    NON_GENERIC_TYPE_MARK
 
 feature {ANY}
-   is_expanded: BOOLEAN is True
+   is_expanded: BOOLEAN True
 
-   is_reference, is_empty_expanded, is_user_expanded: BOOLEAN is False
+   is_reference, is_user_expanded: BOOLEAN False
 
    class_text_name: CLASS_NAME
 
-   frozen start_position: POSITION is
+   frozen start_position: POSITION
       do
          Result := class_text_name.start_position
       end
 
-   frozen run_type: TYPE_MARK is
+   frozen run_type: TYPE_MARK
       do
          Result := Current
       end
 
+feature {LIVE_TYPE, TYPE_MARK}
+   is_empty_expanded: BOOLEAN False
+
 feature {LIVE_TYPE}
-   structure_mark: CHARACTER is
+   structure_mark: CHARACTER
          -- 's' short
          -- 'i' int
          -- 'I' long
@@ -45,17 +48,17 @@ feature {LIVE_TYPE}
       end
 
 feature {LIVE_TYPE, TYPE_MARK}
-   frozen just_before_gc_mark_in (str: STRING) is
+   frozen just_before_gc_mark_in (str: STRING)
       do
       end
 
 feature {TYPE_MARK}
-   frozen short_ (shorted_type: TYPE) is
+   frozen short_ (shorted_type: TYPE)
       do
          short_printer.put_class_name(class_text_name)
       end
 
-   set_start_position (sp: like start_position) is
+   set_start_position (sp: like start_position)
       do
          if start_position /= sp then
             class_text_name := class_text_name.twin
@@ -75,9 +78,9 @@ end -- class KERNEL_EXPANDED_TYPE_MARK
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

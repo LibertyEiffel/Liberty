@@ -15,15 +15,15 @@ insert
          put as comp_put
       end
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   remove_item (e: E) is
+   remove_item (e: E)
       do
       end
 
-   make (nb: INTEGER) is
+   make (nb: INTEGER)
       do
          comp_make(nb)
          count := 0
@@ -31,21 +31,21 @@ feature {ANY}
 
    count: INTEGER
 
-   lower: INTEGER is 0
+   lower: INTEGER 0
 
-   upper: INTEGER is
+   upper: INTEGER
       do
          Result := count - 1
       end
 
-   empty: BOOLEAN is
+   empty: BOOLEAN
       do
          Result := count = 0
       end
 
-   full: BOOLEAN is False
+   full: BOOLEAN False
 
-   add_item (elem: E) is
+   add_item (elem: E)
       do
          if count = capacity then
             resize(count + 10)
@@ -54,7 +54,7 @@ feature {ANY}
          count := count + 1
       end
 
-   put (elem: E; i: INTEGER) is
+   put (elem: E; i: INTEGER)
       do
          if i >= count then
             count := i + 1

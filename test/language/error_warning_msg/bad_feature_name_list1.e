@@ -7,7 +7,7 @@ create {}
    main, BAR
 
 feature {}
-   main is
+   main
       do
       end
 

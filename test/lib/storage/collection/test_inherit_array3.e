@@ -16,7 +16,7 @@ create {ARRAY}
    array_make
 
 feature {ANY}
-   make is
+   make
       do
          array_make(1, 0)
          force(5, 5)

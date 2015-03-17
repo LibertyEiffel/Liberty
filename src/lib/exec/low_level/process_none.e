@@ -21,61 +21,61 @@ create {ANY}
    execute, execute_command_line, make
 
 feature {ANY}
-   id: INTEGER is
+   id: INTEGER
       do
          check
             False
          end
       end
 
-   is_child: BOOLEAN is False
+   is_child: BOOLEAN False
 
-   is_connected: BOOLEAN is False
+   is_connected: BOOLEAN False
 
-   is_finished: BOOLEAN is
+   is_finished: BOOLEAN
       do
          check
             False
          end
       end
 
-   status: INTEGER is
+   status: INTEGER
       do
          check
             False
          end
       end
 
-   wait is
+   wait
       do
          check
             False
          end
       end
 
-   input: OUTPUT_STREAM is
+   input: OUTPUT_STREAM
       do
       end
 
-   output: INPUT_STREAM is
+   output: INPUT_STREAM
       do
       end
 
-   error: INPUT_STREAM is
+   error: INPUT_STREAM
       do
       end
 
-   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN) is
+   execute (program: STRING; arguments: TRAVERSABLE[STRING]; keep_environment: BOOLEAN)
       do
          make
       end
 
-   execute_command_line (command_line: STRING; keep_environment: BOOLEAN) is
+   execute_command_line (command_line: STRING; keep_environment: BOOLEAN)
       do
          make
       end
 
-   duplicate is
+   duplicate
       do
          make
       end
@@ -83,7 +83,7 @@ feature {ANY}
    group: PROCESS_GROUP_NONE
 
 feature {}
-   make is
+   make
       local
          process_factory: PROCESS_FACTORY
       do
@@ -94,13 +94,13 @@ feature {}
 
 end -- class PROCESS_NONE
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

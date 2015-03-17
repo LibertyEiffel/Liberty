@@ -8,7 +8,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          b: EXPANDED_MATRIX_4X4[INTERVAL[REAL]]; bool: BOOLEAN
       do

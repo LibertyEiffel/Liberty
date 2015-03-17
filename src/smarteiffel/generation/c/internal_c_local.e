@@ -31,7 +31,7 @@ feature {INTERNAL_C_LOCAL, CODE_PRINTER}
          -- Corresponding `type' for this INTERNAL_C_LOCAL variable.
 
 feature {ANY}
-   append_in (buffer: STRING) is
+   append_in (buffer: STRING)
       require
          buffer /= Void
       do
@@ -42,7 +42,7 @@ feature {ANY}
          buffer.append(once "*/")
       end
 
-   unlock is
+   unlock
       require
          eiffel_parser_stamp > 0
       do
@@ -56,7 +56,7 @@ feature {ANY}
       end
 
 feature {INTERNAL_C_LOCAL_LIST}
-   declaration_dump (buffer: STRING): BOOLEAN is
+   declaration_dump (buffer: STRING): BOOLEAN
       do
          if eiffel_parser_stamp = 0 then
             -- No need to consider the remainder.
@@ -73,7 +73,7 @@ feature {INTERNAL_C_LOCAL_LIST}
          end
       end
 
-   c_type_in (buffer: STRING) is
+   c_type_in (buffer: STRING)
       do
          if type.is_expanded then
             buffer.append(cpp.argument_type.for(type.canonical_type_mark))
@@ -82,7 +82,7 @@ feature {INTERNAL_C_LOCAL_LIST}
          end
       end
 
-   can_be_recycle_with_type (t: like type): BOOLEAN is
+   can_be_recycle_with_type (t: like type): BOOLEAN
       require
          type /= Void
          t /= Void
@@ -94,7 +94,7 @@ feature {INTERNAL_C_LOCAL_LIST}
          end
       end
 
-   lock_local (stamps_stack: FAST_ARRAY[INTEGER]; t: like type; dt: like doc_tag): like Current is
+   lock_local (stamps_stack: FAST_ARRAY[INTEGER]; t: like type; dt: like doc_tag): like Current
       require
          not stamps_stack.is_empty
          t /= Void
@@ -131,7 +131,7 @@ feature {INTERNAL_C_LOCAL_LIST}
       end
 
 feature {}
-   make (eps: like eiffel_parser_stamp; t: like type; dt: like doc_tag) is
+   make (eps: like eiffel_parser_stamp; t: like type; dt: like doc_tag)
       require
          eps > 0
          t /= Void
@@ -149,7 +149,7 @@ feature {}
       end
 
 feature {}
-   counter: COUNTER is
+   counter: COUNTER
       once
          create Result
       end
@@ -166,9 +166,9 @@ end -- class INTERNAL_C_LOCAL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

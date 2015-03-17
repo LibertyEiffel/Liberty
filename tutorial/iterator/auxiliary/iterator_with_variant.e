@@ -14,7 +14,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make (iterator: like basic_iterator) is
+   make (iterator: like basic_iterator)
       require
          iterator /= Void
       do
@@ -25,35 +25,35 @@ feature {ANY}
 
    variant_value: INTEGER
 
-   item: X is
+   item: X
       do
          Result := basic_iterator.item
       end
 
-   start is
+   start
       do
          basic_iterator.start
          variant_value := Maximum_integer
       end
 
-   next is
+   next
       do
          basic_iterator.next
          variant_value := variant_value - 1
       end
 
-   is_off: BOOLEAN is
+   is_off: BOOLEAN
       do
          Result := basic_iterator.is_off
       end
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
       do
          Result := basic_iterator.iterable_generation
       end
 
-   generation: INTEGER is
+   generation: INTEGER
       do
          Result := basic_iterator.generation
       end

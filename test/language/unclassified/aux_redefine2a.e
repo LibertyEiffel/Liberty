@@ -4,7 +4,7 @@
 class AUX_REDEFINE2A
 
 feature {ANY}
-   f is
+   f
       do
       end
 

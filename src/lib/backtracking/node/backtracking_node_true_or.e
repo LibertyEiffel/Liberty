@@ -16,7 +16,7 @@ create {ANY}
    make
 
 feature {ANY}
-   explore (explorer: BACKTRACKING) is
+   explore (explorer: BACKTRACKING)
       do
          -- Push 'node' in front of the possible alternatives.
          explorer.push_or(node)
@@ -24,15 +24,23 @@ feature {ANY}
          explorer.continue
       end
 
+feature {}
+   do_fill_tagged_out_memory
+      do
+         tagged_out_memory.append(once "<true> or (")
+         node.fill_tagged_out_memory
+         tagged_out_memory.append(once ")")
+      end
+
 end -- class BACKTRACKING_NODE_TRUE_OR
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

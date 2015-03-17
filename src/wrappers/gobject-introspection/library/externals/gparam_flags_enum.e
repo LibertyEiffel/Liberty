@@ -5,9 +5,9 @@ expanded class GPARAM_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = construct_low_level)  or else
 				(a_value = construct_only_low_level)  or else
@@ -23,109 +23,109 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_construct is
+	set_construct
 		do
 			value := construct_low_level
 		end
 
-	set_construct_only is
+	set_construct_only
 		do
 			value := construct_only_low_level
 		end
 
-	set_deprecated is
+	set_deprecated
 		do
 			value := deprecated_low_level
 		end
 
-	set_lax_validation is
+	set_lax_validation
 		do
 			value := lax_validation_low_level
 		end
 
-	set_private is
+	set_private
 		do
 			value := private_low_level
 		end
 
-	set_readable is
+	set_readable
 		do
 			value := readable_low_level
 		end
 
-	set_static_blurb is
+	set_static_blurb
 		do
 			value := static_blurb_low_level
 		end
 
-	set_static_name is
+	set_static_name
 		do
 			value := static_name_low_level
 		end
 
-	set_static_nick is
+	set_static_nick
 		do
 			value := static_nick_low_level
 		end
 
-	set_writable is
+	set_writable
 		do
 			value := writable_low_level
 		end
 
 feature {ANY} -- Queries
-	is_construct: BOOLEAN is
+	is_construct: BOOLEAN
 		do
 			Result := (value=construct_low_level)
 		end
 
-	is_construct_only: BOOLEAN is
+	is_construct_only: BOOLEAN
 		do
 			Result := (value=construct_only_low_level)
 		end
 
-	is_deprecated: BOOLEAN is
+	is_deprecated: BOOLEAN
 		do
 			Result := (value=deprecated_low_level)
 		end
 
-	is_lax_validation: BOOLEAN is
+	is_lax_validation: BOOLEAN
 		do
 			Result := (value=lax_validation_low_level)
 		end
 
-	is_private: BOOLEAN is
+	is_private: BOOLEAN
 		do
 			Result := (value=private_low_level)
 		end
 
-	is_readable: BOOLEAN is
+	is_readable: BOOLEAN
 		do
 			Result := (value=readable_low_level)
 		end
 
-	is_static_blurb: BOOLEAN is
+	is_static_blurb: BOOLEAN
 		do
 			Result := (value=static_blurb_low_level)
 		end
 
-	is_static_name: BOOLEAN is
+	is_static_name: BOOLEAN
 		do
 			Result := (value=static_name_low_level)
 		end
 
-	is_static_nick: BOOLEAN is
+	is_static_nick: BOOLEAN
 		do
 			Result := (value=static_nick_low_level)
 		end
 
-	is_writable: BOOLEAN is
+	is_writable: BOOLEAN
 		do
 			Result := (value=writable_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	construct_low_level: INTEGER is
+	construct_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -134,7 +134,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	construct_only_low_level: INTEGER is
+	construct_only_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -143,7 +143,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	deprecated_low_level: INTEGER is
+	deprecated_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -152,7 +152,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	lax_validation_low_level: INTEGER is
+	lax_validation_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -161,7 +161,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	private_low_level: INTEGER is
+	private_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -170,7 +170,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	readable_low_level: INTEGER is
+	readable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -179,7 +179,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	static_blurb_low_level: INTEGER is
+	static_blurb_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -188,7 +188,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	static_name_low_level: INTEGER is
+	static_name_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -197,7 +197,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	static_nick_low_level: INTEGER is
+	static_nick_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -206,7 +206,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	writable_low_level: INTEGER is
+	writable_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

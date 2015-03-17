@@ -3,28 +3,28 @@ expanded class FIELDS_ITER
 insert ITERATOR[GI_FIELD_INFO]
 
 feature {GI_OBJECT_INFO} 
-	set_class (an_object: GI_OBJECT_INFO) is
+	set_class (an_object: GI_OBJECT_INFO)
 		require an_object/=Void
 		do
 			object:=an_object
 		end
 
 feature {ANY}
-	start is
+	start
 		do
 			i:=object.fields_lower
 		end
-	is_off: BOOLEAN is
+	is_off: BOOLEAN
 		do
 			Result:=i>object.fields_upper
 		end
 
-	item: GI_FIELD_INFO is 
+	item: GI_FIELD_INFO 
 	do 
 		Result:=object.field(i)
 	end
 
-	next is
+	next
 		do
 			i:=i+1
 		end
@@ -34,11 +34,11 @@ feature {GI_OBJECT_INFO} -- Implementation
 	i: INTEGER
 
 feature {ANY} -- Check that the underlying traversable has not changed
-   iterable_generation: INTEGER is
+   iterable_generation: INTEGER
 	  attribute
       end
 
-   generation: INTEGER is
+   generation: INTEGER
 	  attribute
       end
 

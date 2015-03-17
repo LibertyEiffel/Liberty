@@ -9,7 +9,7 @@ create {ANY}
 feature {ANY}
    my_t: T;
 
-   foo: like Current is
+   foo: like Current
     -- foo is the identity in fact
       local
          aa : AUX_GENERIC6[AUX_GENERIC6[T]]
@@ -20,7 +20,7 @@ feature {ANY}
          Result = Current
       end
 
-   make(t: T) is
+   make(t: T)
       do
          my_t := t
       ensure

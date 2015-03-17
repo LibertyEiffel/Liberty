@@ -8,7 +8,7 @@ create {}
 
 feature {}
    c : AUX_C
-   make is
+   make
       do
          create c
          c.foo(c)

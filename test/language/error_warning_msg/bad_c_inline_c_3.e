@@ -12,7 +12,7 @@ create {}
    main
 
 feature {ANY}
-   main is
+   main
       do
          eric_inline_c("hi");
       end

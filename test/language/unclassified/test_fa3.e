@@ -10,7 +10,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          r1: AUX_FA3R1; r1b: AUX_FA3R1B; r2: AUX_FA3R2; b1: AUX_FA3B1; b2: AUX_FA3B2
       do
@@ -52,7 +52,7 @@ feature {ANY}
          assert(r2.autre.is_equal("autre"))
       end
 
-   assert (bool: BOOLEAN) is
+   assert (bool: BOOLEAN)
       do
          cpt := cpt + 1
          if not bool then

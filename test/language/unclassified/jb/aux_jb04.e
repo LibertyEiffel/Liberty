@@ -6,7 +6,7 @@ class AUX_JB04
 feature {ANY}
    link: like Current
 
-   identity: STRING is
+   identity: STRING
       do
          Result := "AUX_JB04.identity"
       end

@@ -9,7 +9,7 @@ inherit
       end
 
 feature {ANY}
-   type: CHARACTER is
+   type: CHARACTER
       do
          Result := 'B'
       end

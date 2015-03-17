@@ -17,21 +17,21 @@ class LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGER_8_BUILTINS
 inherit
    LIBERTY_INTERPRETER_EXTERNAL_TYPE_INTEGERS_BUILTINS[INTEGER_8]
 
-creation {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
+create {LIBERTY_INTERPRETER_EXTERNAL_BUILTIN_CALL}
    make
 
 feature {}
-   new_integer (value: INTEGER_8): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64] is
+   new_integer (value: INTEGER_8): LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do
          Result := interpreter.new_integer_8(value, builtin_call.position)
       end
 
-   left, target: INTEGER_8 is
+   left, target: INTEGER_8
       do
          Result := int64_target.to_integer_8
       end
 
-   right: INTEGER_8 is
+   right: INTEGER_8
       local
          obj: LIBERTY_INTERPRETER_OBJECT_NATIVE[INTEGER_64]
       do

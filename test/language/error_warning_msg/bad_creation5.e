@@ -10,7 +10,7 @@ create {}
    non_exists, make
 
 feature {}
-   make is
+   make
       do
       end
 

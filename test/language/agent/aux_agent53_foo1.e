@@ -6,11 +6,11 @@ class AUX_AGENT53_FOO1
 inherit
    AUX_AGENT53_FOO
 
-creation {ANY}
+create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       do
       end
 

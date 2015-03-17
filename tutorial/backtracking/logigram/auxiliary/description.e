@@ -14,60 +14,60 @@ feature {ANY}
 
    constraints: CONSTRAINT_SET
 
-   make is
+   make
       do
          create group_array.with_capacity(10)
          create group_dictionary.make
          create constraints.make
       end
 
-   add_group_atomic (name: STRING) is
+   add_group_atomic (name: STRING)
       do
          create group.make_atomic(name, 1 + group_array.upper)
          add_group
       end
 
-   add_group_numeric (name: STRING) is
+   add_group_numeric (name: STRING)
       do
          create group.make_numeric(name, 1 + group_array.upper)
          add_group
       end
 
-   add_group_ordered (name: STRING) is
+   add_group_ordered (name: STRING)
       do
          create group.make_ordered(name, 1 + group_array.upper)
          add_group
       end
 
-   get_item (group_name, item_name: STRING): ITEM_ITEM is
+   get_item (group_name, item_name: STRING): ITEM_ITEM
       do
          goto_name(group_name)
          group.goto_name(item_name)
          Result := group.item
       end
 
-   get_group (group_name: STRING): GROUP is
+   get_group (group_name: STRING): GROUP
       do
          goto_name(group_name)
          Result := group
       end
 
-   goto_name (group_name: STRING) is
+   goto_name (group_name: STRING)
       do
          group := group_dictionary.at(group_name)
       end
 
-   goto_index (group_index: INTEGER) is
+   goto_index (group_index: INTEGER)
       do
          group := group_array.item(group_index)
       end
 
-   group_count: INTEGER is
+   group_count: INTEGER
       do
          Result := group_array.count
       end
 
-   is_valid: BOOLEAN is
+   is_valid: BOOLEAN
       local
          i: INTEGER
       do
@@ -84,21 +84,21 @@ feature {ANY}
          end
       end
 
-   dimension: INTEGER is
+   dimension: INTEGER
       require
          is_valid
       do
          Result := group_array.first.item_count
       end
 
-   get_var (group_name, var_name: STRING): ITEM_VAR is
+   get_var (group_name, var_name: STRING): ITEM_VAR
       do
          goto_name(group_name)
          group.get_var(var_name)
          Result := group.var
       end
 
-   get_anonymous_var (group_name: STRING): ITEM_VAR is
+   get_anonymous_var (group_name: STRING): ITEM_VAR
       do
          goto_name(group_name)
          group.get_anonymous_var
@@ -106,7 +106,7 @@ feature {ANY}
       end
 
 feature {}
-   add_group is
+   add_group
       do
          group_array.add_last(group)
          group_dictionary.add(group, group.name)

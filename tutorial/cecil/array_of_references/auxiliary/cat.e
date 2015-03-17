@@ -4,6 +4,6 @@ inherit
    ANIMAL
 
 feature {ANY}
-   cry: STRING is "MEOW"
+   cry: STRING "MEOW"
 
 end -- class CAT

@@ -24,7 +24,7 @@ insert
       end
 
 feature {ANY}
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       local
          eq: SAFE_EQUAL[LIBERTY_ASM_INSTRUCTION]
       do
@@ -37,18 +37,18 @@ feature {ANY}
    position: INTEGER
          -- the position of the instruction in the method
 
-   accept (visitor: LIBERTY_ASM_VISITOR) is
+   accept (visitor: LIBERTY_ASM_VISITOR)
       deferred
       end
 
-   set_position (a_position: like position) is
+   set_position (a_position: like position)
       do
          position := a_position
       ensure
          position = a_position
       end
 
-   set_next (a_next: like next) is
+   set_next (a_next: like next)
       do
          next := a_next
       ensure

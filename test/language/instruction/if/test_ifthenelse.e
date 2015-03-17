@@ -9,7 +9,7 @@ create {}
 feature {ANY}
    tab: ARRAY[BOOLEAN]
 
-   make is
+   make
       do
          create tab.make(0, 0)
          tab.put(1 = 1, 0)

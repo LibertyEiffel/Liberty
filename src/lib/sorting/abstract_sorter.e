@@ -14,27 +14,27 @@ deferred class ABSTRACT_SORTER[X]
    --
 
 feature {} -- Auxiliary functions
-   lt (x, y: X): BOOLEAN is
+   lt (x, y: X): BOOLEAN
       deferred
       end
 
-   gt (x, y: X): BOOLEAN is
+   gt (x, y: X): BOOLEAN
       do
          Result := lt(y, x)
       end
 
-   lte (x, y: X): BOOLEAN is
+   lte (x, y: X): BOOLEAN
       do
          Result := not lt(y, x)
       end
 
-   gte (x, y: X): BOOLEAN is
+   gte (x, y: X): BOOLEAN
       do
          Result := not lt(x, y)
       end
 
 feature {ANY}
-   is_sorted (c: COLLECTION[X]): BOOLEAN is
+   is_sorted (c: COLLECTION[X]): BOOLEAN
          -- Is `c' already sorted ?
          -- Uses `lte' for comparison.
       require
@@ -63,7 +63,7 @@ feature {ANY}
          c.is_equal(old c.twin)
       end
 
-   has (c: COLLECTION[X]; element: X): BOOLEAN is
+   has (c: COLLECTION[X]; element: X): BOOLEAN
       require
          c /= Void
          is_sorted(c)
@@ -73,7 +73,7 @@ feature {ANY}
          Result = c.has(element)
       end
 
-   index_of (c: COLLECTION[X]; element: X): INTEGER is
+   index_of (c: COLLECTION[X]; element: X): INTEGER
       require
          c /= Void
          is_sorted(c)
@@ -93,7 +93,7 @@ feature {ANY}
          c.has(element) implies c.item(Result).is_equal(element)
       end
 
-   add (c: COLLECTION[X]; element: X) is
+   add (c: COLLECTION[X]; element: X)
          -- Add `element' in collection `c' keeping the sorted property.
       require
          c /= Void
@@ -105,7 +105,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   insert_index (c: COLLECTION[X]; element: X): INTEGER is
+   insert_index (c: COLLECTION[X]; element: X): INTEGER
          -- retrieve the upper index for wich gt
       require
          c /= Void
@@ -142,7 +142,7 @@ feature {ANY}
          Result.in_range(c.lower, c.upper + 1)
       end
 
-   sort (c: COLLECTION[X]) is
+   sort (c: COLLECTION[X])
          -- Sort `c' using the default most efficient sorting algorithm
          -- already implemented.
       require
@@ -156,7 +156,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   quick_sort (c: COLLECTION[X]) is
+   quick_sort (c: COLLECTION[X])
          -- Sort `c' using the quick sort algorithm.
       require
          c /= Void
@@ -167,7 +167,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   von_neuman_sort (c: COLLECTION[X]) is
+   von_neuman_sort (c: COLLECTION[X])
          -- Sort `c' using the Von Neuman algorithm.
          -- This algorithm needs to create a second collection.
          -- Uses infix "lte" for comparison.
@@ -215,7 +215,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   heap_sort (c: COLLECTION[X]) is
+   heap_sort (c: COLLECTION[X])
          -- Sort `c' using the heap sort algorithm.
       require
          c /= Void
@@ -250,7 +250,7 @@ feature {ANY}
          is_sorted(c)
       end
 
-   bubble_sort (c: COLLECTION[X]) is
+   bubble_sort (c: COLLECTION[X])
          -- Sort `c' using the bubble sort algorithm.
          -- Uses infix "<" for comparison.
       require
@@ -300,7 +300,7 @@ feature {ANY}
       end
 
 feature {}
-   von_neuman_line (src, dest: COLLECTION[X]; count, d_count, lower, imax: INTEGER) is
+   von_neuman_line (src, dest: COLLECTION[X]; count, d_count, lower, imax: INTEGER)
       require
          src /= dest
          src.lower = dest.lower
@@ -324,7 +324,7 @@ feature {}
          d_count >= dest.count implies is_sorted(dest)
       end
 
-   von_neuman_inner_sort (src, dest: COLLECTION[X]; sg1, count, imax: INTEGER) is
+   von_neuman_inner_sort (src, dest: COLLECTION[X]; sg1, count, imax: INTEGER)
       require
          src.valid_index(sg1)
       local
@@ -369,7 +369,7 @@ feature {}
          end
       end
 
-   heap_repair (c: COLLECTION[X]; c_lower, first, last: INTEGER) is
+   heap_repair (c: COLLECTION[X]; c_lower, first, last: INTEGER)
          -- Repair the heap from the node number `first'
          -- It considers that the last item of c is number `last'
          -- It supposes that children are heaps.
@@ -404,7 +404,7 @@ feature {}
          end
       end
 
-   quick_sort_region (c: COLLECTION[X]; left, right: INTEGER) is
+   quick_sort_region (c: COLLECTION[X]; left, right: INTEGER)
       local
          middle: INTEGER; i: INTEGER
       do
@@ -431,13 +431,13 @@ feature {}
 
 end -- class ABSTRACT_SORTER
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

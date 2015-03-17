@@ -7,7 +7,7 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          dr1, dr2: REFERENCE[REAL]
       do

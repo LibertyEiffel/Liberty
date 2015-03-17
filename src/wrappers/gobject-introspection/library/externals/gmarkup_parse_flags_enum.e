@@ -5,9 +5,9 @@ expanded class GMARKUP_PARSE_FLAGS_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := (a_value & (do_not_use_this_unsupported_flag_low_level | 
 				prefix_error_position_low_level | 
@@ -16,54 +16,54 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_do_not_use_this_unsupported_flag is
+	set_do_not_use_this_unsupported_flag
 		do
 			value := value.bit_or(do_not_use_this_unsupported_flag_low_level)
 		end
 
-	unset_do_not_use_this_unsupported_flag is
+	unset_do_not_use_this_unsupported_flag
 		do
 			value := value.bit_xor(do_not_use_this_unsupported_flag_low_level)
 		end
 
-	set_prefix_error_position is
+	set_prefix_error_position
 		do
 			value := value.bit_or(prefix_error_position_low_level)
 		end
 
-	unset_prefix_error_position is
+	unset_prefix_error_position
 		do
 			value := value.bit_xor(prefix_error_position_low_level)
 		end
 
-	set_treat_cdata_as_text is
+	set_treat_cdata_as_text
 		do
 			value := value.bit_or(treat_cdata_as_text_low_level)
 		end
 
-	unset_treat_cdata_as_text is
+	unset_treat_cdata_as_text
 		do
 			value := value.bit_xor(treat_cdata_as_text_low_level)
 		end
 
 feature {ANY} -- Queries
-	is_do_not_use_this_unsupported_flag: BOOLEAN is
+	is_do_not_use_this_unsupported_flag: BOOLEAN
 		do
 			Result := (value=do_not_use_this_unsupported_flag_low_level)
 		end
 
-	is_prefix_error_position: BOOLEAN is
+	is_prefix_error_position: BOOLEAN
 		do
 			Result := (value=prefix_error_position_low_level)
 		end
 
-	is_treat_cdata_as_text: BOOLEAN is
+	is_treat_cdata_as_text: BOOLEAN
 		do
 			Result := (value=treat_cdata_as_text_low_level)
 		end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	do_not_use_this_unsupported_flag_low_level: INTEGER is
+	do_not_use_this_unsupported_flag_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -72,7 +72,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	prefix_error_position_low_level: INTEGER is
+	prefix_error_position_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."
@@ -81,7 +81,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
  			}"
  		end
 
-	treat_cdata_as_text_low_level: INTEGER is
+	treat_cdata_as_text_low_level: INTEGER
 		external "plug_in"
  		alias "{
  			location: "."

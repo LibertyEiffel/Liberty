@@ -7,7 +7,7 @@ create {}
    main
 
 feature {}
-   main is
+   main
       local
          aux: AUX_INHERIT21[STRING]
       do

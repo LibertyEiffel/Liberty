@@ -8,11 +8,11 @@ create {}
    make
 
 feature {ANY}
-   concat_string: STRING is "hello%N"
+   concat_string: STRING "hello%N"
 
    str: STRING
 
-   make is
+   make
       local
          i, n: INTEGER
       do

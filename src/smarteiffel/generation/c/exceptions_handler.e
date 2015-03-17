@@ -17,7 +17,7 @@ feature {ANY}
          -- Indicate wheter the live code uses EXCEPTIONS or not.
 
 feature {C_CODE_COMPILER}
-   bad_inspect_value (p: POSITION) is
+   bad_inspect_value (p: POSITION)
          -- When some Eiffel "inspect" instruction without the optional "else" part does not match the input.
       require
          cpp.pending_c_function
@@ -33,27 +33,27 @@ feature {C_CODE_COMPILER}
       end
 
 feature {RUN_FEATURE, EXTERNAL_ROUTINE}
-   set_used is
+   set_used
       do
          used := True
       end
 
 feature {C_PRETTY_PRINTER}
-   customize_c_runtime is
+   customize_c_runtime
       do
          if used then
             cpp.sys_runtime_h_and_c(once "exceptions")
          end
       end
 
-   initialize_runtime is
+   initialize_runtime
       do
          if used then
             cpp.pending_c_function_body.append(once "setup_signal_handler();%N")
          end
       end
 
-   se_evobt is
+   se_evobt
       require
          ace.boost
       do
@@ -65,7 +65,7 @@ feature {C_PRETTY_PRINTER}
       end
 
 feature {}
-   make is
+   make
       do
       end
 
@@ -81,9 +81,9 @@ end -- class EXCEPTIONS_HANDLER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

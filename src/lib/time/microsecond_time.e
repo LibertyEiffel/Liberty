@@ -25,7 +25,7 @@ feature {ANY}
          -- Extra information in number of microseconds in range 0 .. 999999.
          -- Note that the accuracy is system dependant.
 
-   update is
+   update
          -- Update `Current' with the current system clock.
       do
          basic_microsecond_update
@@ -33,14 +33,14 @@ feature {ANY}
          microsecond := basic_microsecond_microsecond
       end
 
-   set_time (t: like time) is
+   set_time (t: like time)
       do
          time := t
       ensure
          time = t
       end
 
-   set_microsecond (microsec: INTEGER) is
+   set_microsecond (microsec: INTEGER)
          -- To set `microsecond' in range 0 .. 999 999.
       require
          microsec.in_range(0, 999999)
@@ -50,7 +50,7 @@ feature {ANY}
          microsecond = microsec
       end
 
-   infix "+" (s: REAL): like Current is
+   infix "+" (s: REAL): like Current
          -- Add `s' seconds (2.476 is 2 seconds and 476 milliseconds)
       require
          s >= 0.0
@@ -64,7 +64,7 @@ feature {ANY}
          Result.add_microsecond(b)
       end
 
-   add_second (s: INTEGER) is
+   add_second (s: INTEGER)
          -- Add `s' seconds to `Current'.
       require
          s >= 0
@@ -74,7 +74,7 @@ feature {ANY}
          Current >= old Current
       end
 
-   add_millisecond (millisecond: INTEGER) is
+   add_millisecond (millisecond: INTEGER)
          -- Add `millisecond' milliseconds.
       require
          millisecond.in_range(0, 999)
@@ -84,7 +84,7 @@ feature {ANY}
          Current >= old Current
       end
 
-   add_microsecond (microsec: INTEGER) is
+   add_microsecond (microsec: INTEGER)
          -- Add `microsec' microseconds
       require
          microsec.in_range(0, 999999)
@@ -101,31 +101,31 @@ feature {ANY}
          Current >= old Current
       end
 
-   elapsed_seconds (other: like Current): REAL is
+   elapsed_seconds (other: like Current): REAL
          -- Elapsed time in seconds from `Current' to `other' with sub-second precision.
       do
          Result := time.elapsed_seconds(other.time)
          Result := Result + (other.microsecond - microsecond) / 1000000
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          Result := other.time = time and then other.microsecond = microsecond
       end
 
-   infix "<" (other: like Current): BOOLEAN is
+   infix "<" (other: like Current): BOOLEAN
       do
          Result := time < other.time or else time = other.time and then microsecond < other.microsecond
       ensure then
          Result implies elapsed_seconds(other) > 0
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          Result := time.hash_code.bit_xor(microsecond)
       end
 
-   out: STRING is
+   out: STRING
       local
          mic: STRING
       do
@@ -138,13 +138,13 @@ feature {ANY}
       end
 
 feature {ANY}
-   timestamp: INTEGER_64 is
+   timestamp: INTEGER_64
       do
          Result := time.time_memory * 1000000 + microsecond
       end
 
 feature {}
-   basic_microsecond_time: INTEGER_64 is
+   basic_microsecond_time: INTEGER_64
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -153,7 +153,7 @@ feature {}
          }"
       end
 
-   basic_microsecond_microsecond: INTEGER is
+   basic_microsecond_microsecond: INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -162,7 +162,7 @@ feature {}
          }"
       end
 
-   basic_microsecond_update is
+   basic_microsecond_update
       external "plug_in"
       alias "{
          location: "${sys}/runtime"
@@ -176,13 +176,13 @@ invariant
 
 end -- class MICROSECOND_TIME
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

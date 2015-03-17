@@ -33,7 +33,7 @@ create {STREAM}
    from_stream
 
 feature {ANY}
-   copy (other: like Current) is
+   copy (other: like Current)
       local
          u: like uri
       do
@@ -58,7 +58,7 @@ feature {ANY}
          not is_connected
       end
 
-   is_equal (other: like Current): BOOLEAN is
+   is_equal (other: like Current): BOOLEAN
       do
          if protocol = Void then
             Result := other.protocol = Void
@@ -71,7 +71,7 @@ feature {ANY}
          end
       end
 
-   hash_code: INTEGER is
+   hash_code: INTEGER
       do
          if uri = Void then
             if protocol /= Void then
@@ -82,33 +82,42 @@ feature {ANY}
          end
       end
 
-   out_in_tagged_out_memory is
+   out_in_tagged_out_memory
       do
          if is_stream then
             tagged_out_memory.append(once "URL(stream)")
-         elseif protocol = Void then
+         else
+            append_in(tagged_out_memory)
+         end
+      end
+
+   append_in (s: STRING)
+      require
+         s /= Void
+      do
+         if protocol = Void then
             if uri = Void then
-               tagged_out_memory.append(once "URL(?)")
+               s.append(once "URL(?)")
             else
-               tagged_out_memory.append(uri.uri)
+               s.append(uri.uri)
             end
          else
-            tagged_out_memory.append(protocol.name)
-            tagged_out_memory.extend(':')
+            s.append(protocol.name)
+            s.extend(':')
             if uri /= Void then
-               tagged_out_memory.append(uri.uri)
+               s.append(uri.uri)
             end
          end
       end
 
 feature {ANY} -- URL connection:
-   is_connected: BOOLEAN is
+   is_connected: BOOLEAN
          -- True if the URL is connected to the resource it points to.
       do
          Result := protocol /= Void and then protocol.is_connected
       end
 
-   can_connect: BOOLEAN is
+   can_connect: BOOLEAN
       do
          Result := uri /= Void
          check
@@ -116,7 +125,7 @@ feature {ANY} -- URL connection:
          end
       end
 
-   connect is
+   connect
          -- Connect to the resource pointed by this URL.
       require
          not is_connected
@@ -128,7 +137,7 @@ feature {ANY} -- URL connection:
          end
       end
 
-   disconnect is
+   disconnect
          -- Disconnect from the resource pointed by this URL.
       require
          is_connected
@@ -138,7 +147,7 @@ feature {ANY} -- URL connection:
          not is_connected
       end
 
-   input: INPUT_STREAM is
+   input: INPUT_STREAM
          -- Data coming from the resource this URL points to.
       require
          is_connected
@@ -147,7 +156,7 @@ feature {ANY} -- URL connection:
          Result := protocol.input
       end
 
-   output: OUTPUT_STREAM is
+   output: OUTPUT_STREAM
          -- Data going to the resource this URL points to.
       require
          is_connected
@@ -156,7 +165,7 @@ feature {ANY} -- URL connection:
          Result := protocol.output
       end
 
-   read_only is
+   read_only
       require
          not is_connected
       do
@@ -167,7 +176,7 @@ feature {ANY} -- URL connection:
          not write
       end
 
-   write_only is
+   write_only
       require
          not is_connected
       do
@@ -178,7 +187,7 @@ feature {ANY} -- URL connection:
          write
       end
 
-   read_write is
+   read_write
       require
          not is_connected
       do
@@ -194,7 +203,7 @@ feature {ANY} -- URL connection:
    is_stream: BOOLEAN
 
 feature {ANY} -- URL data:
-   absolute (a_url: STRING) is
+   absolute (a_url: ABSTRACT_STRING)
       require
          valid_url(a_url)
          not is_stream
@@ -205,7 +214,7 @@ feature {ANY} -- URL data:
          i := a_url.first_index_of(':')
          pn := once ""
          pn.copy_substring(a_url, 1, i - 1)
-         set_protocol(pn)
+         set_protocol(pn.intern)
          pu := once ""
          pu.copy_substring(a_url, i + 1, a_url.upper)
          set_uri(pu)
@@ -214,7 +223,7 @@ feature {ANY} -- URL data:
          not is_stream
       end
 
-   relative (url: URL; relative_uri: STRING) is
+   relative (url: URL; relative_uri: STRING)
       require
          url /= Void
          not is_stream
@@ -232,13 +241,13 @@ feature {ANY} -- URL data:
          not is_stream
       end
 
-   set_error_handler (a_error_handler: like error_handler) is
+   set_error_handler (a_error_handler: like error_handler)
       do
          error_handler := a_error_handler
       end
 
 feature {STREAM}
-   from_stream (a_stream: STREAM; a_read: like read; a_write: like write) is
+   from_stream (a_stream: STREAM; a_read: like read; a_write: like write)
       require
          a_stream /= Void
       local
@@ -255,20 +264,20 @@ feature {STREAM}
       end
 
 feature {}
-   set_protocol (protocol_name: STRING) is
+   set_protocol (protocol_name: FIXED_STRING)
          -- Sets the protocol.
       require
-         protocol_name /= Void
+         protocol_name = protocol_name.intern
       local
          protocols: PROTOCOLS
       do
          unset_protocol
          protocol := protocols.protocol(protocol_name)
       ensure
-         protocol.name.is_equal(protocol_name)
+         protocol.name = protocol_name
       end
 
-   set_uri (a_uri: STRING) is
+   set_uri (a_uri: STRING)
          -- Sets the resource name.
       require
          protocol /= Void
@@ -280,7 +289,7 @@ feature {}
          uri.uri.is_equal(a_uri)
       end
 
-   unset_protocol is
+   unset_protocol
       local
          pp: PROTOCOLS
       do
@@ -292,7 +301,7 @@ feature {}
          protocol = Void
       end
 
-   unset_uri is
+   unset_uri
       do
          if uri /= Void then
             protocol.recycle_locator(uri)
@@ -313,13 +322,13 @@ feature {}
    error_handler: PROCEDURE[TUPLE[STRING]]
          -- An optional error handler
 
-   string_pool: STRING_RECYCLING_POOL is
+   string_pool: STRING_RECYCLING_POOL
       once
          create Result.make
       end
 
 feature {RECYCLING_POOL}
-   recycle is
+   recycle
       do
          unset_uri
          unset_protocol
@@ -334,13 +343,13 @@ invariant
 
 end -- class URL
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

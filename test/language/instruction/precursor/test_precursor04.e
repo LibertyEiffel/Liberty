@@ -12,14 +12,14 @@ create {}
    make
 
 feature {ANY}
-   make is
+   make
       local
          i: INTEGER
       do
          i := class_number
       end
 
-   class_number: INTEGER is
+   class_number: INTEGER
       local
          str: STRING
       do

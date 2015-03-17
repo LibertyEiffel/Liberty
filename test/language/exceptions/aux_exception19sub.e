@@ -4,16 +4,16 @@
 deferred class AUX_EXCEPTION19SUB
 
 feature {ANY}
-   make is
+   make
       do
       end
 
-   cause_exception is
+   cause_exception
       deferred
       end
 
 feature {}
-   exceptions: EXCEPTIONS is
+   exceptions: EXCEPTIONS
       once
          create Result
       end

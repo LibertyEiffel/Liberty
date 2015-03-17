@@ -7,11 +7,11 @@ create {}
    make
 
 feature {}
-   make is
+   make
       local
          aux: AUX_GENERIC5[INTEGER];
       do
-         !!aux;
+         create aux;
       end;
 
 end -- class BAD_GENERIC5

@@ -7,9 +7,9 @@ create {}
    make
 
 feature {}
-   dummy: CHARACTER is unique;
+   dummy: CHARACTER unique;
 
-   make is
+   make
       local
          x: CHARACTER;
       do

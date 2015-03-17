@@ -4,7 +4,7 @@
 expanded class PIPE_FUNCTIONS
 
 feature {}
-   basic_exec_pipe_create: POINTER is
+   basic_exec_pipe_create: POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -13,7 +13,7 @@ feature {}
          }"
       end
 
-   basic_exec_pipe_again (data: POINTER): BOOLEAN is
+   basic_exec_pipe_again (data: POINTER): BOOLEAN
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -22,7 +22,7 @@ feature {}
          }"
       end
 
-   basic_exec_pipe_error (data: POINTER): POINTER is
+   basic_exec_pipe_error (data: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -32,7 +32,7 @@ feature {}
       end
 
 feature {} -- for PIPE_OUTPUT
-   basic_exec_pipe_in_disconnect (data: POINTER) is
+   basic_exec_pipe_in_disconnect (data: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -41,7 +41,7 @@ feature {} -- for PIPE_OUTPUT
          }"
       end
 
-   basic_exec_pipe_in_fd (data: POINTER): INTEGER is
+   basic_exec_pipe_in_fd (data: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -50,7 +50,7 @@ feature {} -- for PIPE_OUTPUT
          }"
       end
 
-   basic_exec_pipe_read (data: POINTER; sync: BOOLEAN): INTEGER is
+   basic_exec_pipe_read (data: POINTER; sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -59,7 +59,7 @@ feature {} -- for PIPE_OUTPUT
          }"
       end
 
-   basic_exec_pipe_read_character (data: POINTER): CHARACTER is
+   basic_exec_pipe_read_character (data: POINTER): CHARACTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -68,7 +68,7 @@ feature {} -- for PIPE_OUTPUT
          }"
       end
 
-   basic_exec_pipe_in_named (path: POINTER): POINTER is
+   basic_exec_pipe_in_named (path: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -78,7 +78,7 @@ feature {} -- for PIPE_OUTPUT
       end
 
 feature {} -- for PIPE_INPUT
-   basic_exec_pipe_out_disconnect (data: POINTER) is
+   basic_exec_pipe_out_disconnect (data: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -87,7 +87,7 @@ feature {} -- for PIPE_INPUT
          }"
       end
 
-   basic_exec_pipe_out_fd (data: POINTER): INTEGER is
+   basic_exec_pipe_out_fd (data: POINTER): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -96,7 +96,7 @@ feature {} -- for PIPE_INPUT
          }"
       end
 
-   basic_exec_pipe_write (data: POINTER; c: CHARACTER; sync: BOOLEAN): INTEGER is
+   basic_exec_pipe_write (data: POINTER; c: CHARACTER; sync: BOOLEAN): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -105,7 +105,7 @@ feature {} -- for PIPE_INPUT
          }"
       end
 
-   basic_exec_pipe_flush (data: POINTER) is
+   basic_exec_pipe_flush (data: POINTER)
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -114,7 +114,7 @@ feature {} -- for PIPE_INPUT
          }"
       end
 
-   basic_exec_pipe_out_named (path: POINTER): POINTER is
+   basic_exec_pipe_out_named (path: POINTER): POINTER
       external "plug_in"
       alias "{
          location: "${sys}/plugins/exec"
@@ -125,13 +125,13 @@ feature {} -- for PIPE_INPUT
 
 end -- class PIPE_FUNCTIONS
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

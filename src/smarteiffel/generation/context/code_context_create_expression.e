@@ -7,20 +7,20 @@ inherit
    CODE_CONTEXT
 
 feature {CODE_PRINTER}
-   code: INTEGER is
+   code: INTEGER
       do
          Result := C_create_expression
       end
 
-   valid_anonymous_feature: BOOLEAN is False
+   valid_anonymous_feature: BOOLEAN False
 
-   valid_target: BOOLEAN is False
+   valid_target: BOOLEAN False
 
-   valid_effective_arguments: BOOLEAN is False
+   valid_effective_arguments: BOOLEAN False
 
-   valid_static_type: BOOLEAN is True
+   valid_static_type: BOOLEAN True
 
-   valid_internal_c_local: BOOLEAN is True
+   valid_internal_c_local: BOOLEAN True
 
 end -- class CODE_CONTEXT_CREATE_EXPRESSION
 --
@@ -34,9 +34,9 @@ end -- class CODE_CONTEXT_CREATE_EXPRESSION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)

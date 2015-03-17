@@ -11,18 +11,18 @@ feature {ANY}
    y: REAL
       -- The `y' coordinate.
 
-   rho: REAL is
+   rho: REAL
       do
          Result := x.sin
       end
 
-   make (vx, vy: REAL) is
+   make (vx, vy: REAL)
       do
          x := vx
          y := vy
       end
 
-   translate (dx, dy: REAL) is
+   translate (dx, dy: REAL)
          -- To translate the `Current' POINT.
       do
          x := x + dx

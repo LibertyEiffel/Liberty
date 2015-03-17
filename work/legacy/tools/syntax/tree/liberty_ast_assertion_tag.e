@@ -21,12 +21,12 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   has_tag: BOOLEAN is
+   has_tag: BOOLEAN
       do
          Result := count > 0
       end
 
-   tag: LIBERTY_AST_ENTITY_NAME is
+   tag: LIBERTY_AST_ENTITY_NAME
       require
          has_tag
       do
@@ -34,15 +34,15 @@ feature {LIBERTY_AST_HANDLER}
       end
 
 feature {ANY}
-   count: INTEGER is
+   count: INTEGER
       do
          Result := nodes.count
       end
 
-   name: STRING is "Assertion_Tag"
+   name: STRING "Assertion_Tag"
 
 feature {}
-   possible_counts: SET[INTEGER] is
+   possible_counts: SET[INTEGER]
       once
          Result := {AVL_SET[INTEGER] << 0, 2 >> }
       end

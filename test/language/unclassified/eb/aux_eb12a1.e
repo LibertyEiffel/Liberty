@@ -4,7 +4,7 @@
 class AUX_EB12A1
 
 feature {AUX_EB12A}
-   g is
+   g
       do
       end
 

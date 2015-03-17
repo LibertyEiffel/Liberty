@@ -10,12 +10,12 @@ inherit
    COMMAND_LINE_ARGUMENT
 
 feature {ANY}
-   item: E_ is
+   item: E_
          -- The argument value, if `is_set'
       deferred
       end
 
-   as_mandatory, prefix "+": like Current is
+   as_mandatory, prefix "+": like Current
          -- Make the option mandatory (default for positionals)
       require
          can_be_mandatory
@@ -30,7 +30,7 @@ feature {ANY}
          Result.is_mandatory
       end
 
-   as_optional, prefix "-": like Current is
+   as_optional, prefix "-": like Current
          -- Make the option optional (default for options)
       require
          can_be_optional
@@ -46,14 +46,14 @@ feature {ANY}
       end
 
 feature {ANY}
-   is_mandatory: BOOLEAN is
+   is_mandatory: BOOLEAN
          -- True if the argument must be set at least once.
       deferred
       ensure
          Result implies can_be_mandatory
       end
 
-   is_optional: BOOLEAN is
+   is_optional: BOOLEAN
          -- True if the argument may not be set.
       deferred
       ensure
@@ -62,7 +62,7 @@ feature {ANY}
          Result implies can_be_optional
       end
 
-   is_positional: BOOLEAN is
+   is_positional: BOOLEAN
          -- True if the argument is not introduced by a flag. Such an argument is mandatory and may have an
          -- explicit position on the command line (see `force_index').
       deferred
@@ -71,18 +71,18 @@ feature {ANY}
          Result implies is_mandatory
       end
 
-   can_be_mandatory: BOOLEAN is
+   can_be_mandatory: BOOLEAN
          -- True if the argument can be `set_mandatory'(True).
       deferred
       end
 
-   can_be_optional: BOOLEAN is
+   can_be_optional: BOOLEAN
          -- True if the argument can be `set_mandatory'(False).
       deferred
       end
 
 feature {ANY}
-   short: FIXED_STRING is
+   short: FIXED_STRING
          -- The short (one-letter) option flag introducing the argument, Void for positionals
       deferred
       ensure
@@ -90,7 +90,7 @@ feature {ANY}
          Result /= Void implies Result.count = 1
       end
 
-   long: FIXED_STRING is
+   long: FIXED_STRING
          -- The long option flag introducing the argument, Void for positionals
       deferred
       ensure
@@ -98,12 +98,12 @@ feature {ANY}
          Result /= Void implies not Result.is_empty
       end
 
-   usage: FIXED_STRING is
+   usage: FIXED_STRING
          -- The option usage
       deferred
       end
 
-   force_index (a_index: INTEGER) is
+   force_index (a_index: INTEGER)
          -- Force a positional parameter to be valid only at the given index
       require
          a_index > 0
@@ -113,7 +113,7 @@ feature {ANY}
       end
 
 feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
-   set_mandatory (parent_option: like Current; enable: BOOLEAN) is
+   set_mandatory (parent_option: like Current; enable: BOOLEAN)
       require
          parent_option /= Void
          enable /= is_mandatory
@@ -126,7 +126,7 @@ feature {COMMAND_LINE_ARGUMENTS, COMMAND_LINE_ARGUMENT}
       end
 
 feature {}
-   parent: like Current is
+   parent: like Current
          -- Internal technical trick to ensure that arguments with a non-standard behaviour (`set_mandatory')
          -- are correctly managed.
       deferred
@@ -137,13 +137,13 @@ invariant
 
 end -- class COMMAND_LINE_TYPED_ARGUMENT
 --
--- Copyright (c) 2009 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
 -- in the Software without restriction, including without limitation the rights
 -- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
--- copies of the Software, and to permit persons to whom the Software is
+-- copies of the Software, and to permit persons to whom the Software
 -- furnished to do so, subject to the following conditions:
 --
 -- The above copyright notice and this permission notice shall be included in

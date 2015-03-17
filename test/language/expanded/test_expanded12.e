@@ -13,7 +13,7 @@ create {ANY}
    make
 
 feature {ANY}
-   make is
+   make
       local
          e1, e2: EXPANDED1
       do
@@ -23,7 +23,7 @@ feature {ANY}
          assert(e1.x = 2)
       end
 
-   test_equal (e1, e2: EXPANDED1): BOOLEAN is
+   test_equal (e1, e2: EXPANDED1): BOOLEAN
       do
          Result := e1 = e2
       end

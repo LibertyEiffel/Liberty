@@ -5,6 +5,6 @@ of the feature `zero'. Actually, feature `zero' has no result
 type. Bad constant-attribute definition.
 
 Line 13 column 4 in BAD_CONSTANT2 (/home/cadrian/Workspace/Dev/Liberty/test/language/error_warning_msg/bad_constant2.e):
-   zero is 0.0;
-   ^           
+   zero 0.0;
+   ^        
 ------

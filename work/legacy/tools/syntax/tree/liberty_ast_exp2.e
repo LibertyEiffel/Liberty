@@ -21,7 +21,7 @@ create {LIBERTY_NODE_FACTORY}
    make
 
 feature {LIBERTY_AST_HANDLER}
-   is_or_else: BOOLEAN is
+   is_or_else: BOOLEAN
       do
          Result := count = 4
          check
@@ -32,17 +32,17 @@ feature {LIBERTY_AST_HANDLER}
          Result implies not is_empty
       end
 
-   is_or: BOOLEAN is
+   is_or: BOOLEAN
       do
          Result := count = 3 and then nodes.item(1).name.is_equal(once "KW or")
       end
 
-   is_xor: BOOLEAN is
+   is_xor: BOOLEAN
       do
          Result := count = 3 and then nodes.item(1).name.is_equal(once "KW xor")
       end
 
 feature {ANY}
-   name: STRING is "e2-exp"
+   name: STRING "e2-exp"
 
 end

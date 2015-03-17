@@ -4,7 +4,7 @@ inherit
    GET_TEXT[E_]
 
 feature {ANY}
-   number_translation (message_1, message_other: STRING; n: INTEGER): like translation is
+   number_translation (message_1, message_other: STRING; n: INTEGER): like translation
       require
          message_1.is_ascii
          n >= 0
@@ -17,13 +17,13 @@ feature {ANY}
       end
 
 feature {FILTER_GET_TEXT}
-   domain_translation (domain_name, message: STRING): like translation is
+   domain_translation (domain_name, message: STRING): like translation
       deferred
       ensure
          Result.is_equal(domain_number_translation(domain_name, message, message, 1))
       end
 
-   domain_number_translation (domain_name: STRING; message_1, message_other: STRING; n: INTEGER): like translation is
+   domain_number_translation (domain_name: STRING; message_1, message_other: STRING; n: INTEGER): like translation
       require
          message_1.is_ascii
          n >= 0

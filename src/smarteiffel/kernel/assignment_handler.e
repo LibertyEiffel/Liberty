@@ -20,8 +20,8 @@ insert
       end
    SINGLETON
 
-feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL,   MANIFEST_GENERIC, AGENT_LAUNCHER, CREATE_WRITABLE, AGENT_POOL}
-   collect_normal (source, destination: TYPE) is
+feature {ANY}
+   collect_normal (source, destination: TYPE)
          -- Collect normal allowed assignment of `source' into `destination' (see export and require).
       require
          not_too_early: smart_eiffel.status.is_collecting
@@ -32,7 +32,7 @@ feature {ASSIGNMENT, EFFECTIVE_ARG_LIST, FEATURE_CALL,   MANIFEST_GENERIC, AGENT
       end
 
 feature {ASSIGNMENT_ATTEMPT, EFFECTIVE_ARG_LIST}
-   collect_force (source, destination: TYPE) is
+   collect_force (source, destination: TYPE)
          -- Collect a possibly non normal assignment of `source' into `destination' (see export and require).
       require
          not_too_early: smart_eiffel.status.is_collecting
@@ -61,7 +61,7 @@ feature {ASSIGNMENT_ATTEMPT, EFFECTIVE_ARG_LIST}
       end
 
 feature {SMART_EIFFEL}
-   recompute_all_run_time_sets is
+   recompute_all_run_time_sets
       local
          i: INTEGER; gn: GRAPH_NODE; magic, new_magic: INTEGER
       do
@@ -87,7 +87,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CALL_1, FAKE_TUPLE, E_FUNCTION}
-   implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION is
+   implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION
          -- If necessary, wrap the source `expression' inside an IMPLICIT_CAST invisible wrapper object,
          -- hence the name of this function.
       require
@@ -107,7 +107,7 @@ feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CAL
       end
 
 feature {}
-   implicit_cast_ (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION is
+   implicit_cast_ (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION
       do
          if expression_type = destination_type then
             Result := expression
@@ -132,7 +132,7 @@ feature {}
       end
 
 feature {LIVE_TYPE}
-   id_extra_information (tfw: TEXT_FILE_WRITE; lt: LIVE_TYPE) is
+   id_extra_information (tfw: TEXT_FILE_WRITE; lt: LIVE_TYPE)
       local
          graph_node: GRAPH_NODE
       do
@@ -147,7 +147,7 @@ feature {LIVE_TYPE}
       end
 
 feature {SMART_EIFFEL}
-   reset is
+   reset
          -- Called before a re-collect cycle.
       local
          i: INTEGER
@@ -164,7 +164,7 @@ feature {SMART_EIFFEL}
          end
       end
 
-   echo_information is
+   echo_information
       local
          i, n: INTEGER; graph_node: GRAPH_NODE
       do
@@ -185,7 +185,7 @@ feature {SMART_EIFFEL}
       end
 
 feature {}
-   graph_node_for (type: TYPE): GRAPH_NODE is
+   graph_node_for (type: TYPE): GRAPH_NODE
       require
          type /= Void
       do
@@ -197,7 +197,7 @@ feature {}
       end
 
 feature {NATIVE, CECIL_ENTRY}
-   from_external (type: TYPE; args: FORMAL_ARG_LIST; result_type: TYPE_MARK) is
+   from_external (type: TYPE; args: FORMAL_ARG_LIST; result_type: TYPE_MARK)
       require
          type /= Void
       local
@@ -216,26 +216,27 @@ feature {NATIVE, CECIL_ENTRY}
          if result_type /= Void then
             from_external_(type, result_type)
          end
+         from_external_(type, type.canonical_type_mark)
       end
 
 feature {}
-   buffer: STRING is
+   buffer: STRING
       once
          create Result.make(128)
       end
 
-   graph_node_dictionary: HASHED_DICTIONARY[GRAPH_NODE, TYPE] is
+   graph_node_dictionary: HASHED_DICTIONARY[GRAPH_NODE, TYPE]
          -- To get the corresponding GRAPH_NODE.
       once
          create Result.with_capacity(512)
       end
 
-   external_types: SET[TYPE] is
+   external_types: SET[TYPE]
       once
          create {HASHED_SET[TYPE]} Result.make
       end
 
-   from_external_ (type: TYPE; type_mark: TYPE_MARK) is
+   from_external_ (type: TYPE; type_mark: TYPE_MARK)
       require
          type_mark /= Void
       local
@@ -247,10 +248,10 @@ feature {}
                from
                   i := external_types.lower
                until
-                  i > external_types.count
+                  i > external_types.upper
                loop
                   type2 := external_types.item(i)
-                  -- We must be pessimistic (i.e. everything can happens in the wild external world ;-):
+                  -- We must be pessimistic (i.e. everything can happen in the wild external world ;-):
                   collect_force(type1, type2)
                   collect_force(type2, type1)
                   i := i + 1
@@ -272,9 +273,9 @@ end -- class ASSIGNMENT_HANDLER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2012: Cyril ADRIAN, Paolo REDAELLI
+-- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
--- http://liberty-eiffel.blogspot.com - https://github.com/LibertyEiffel/Liberty
+-- http://www.gnu.org/software/liberty-eiffel/
 --
 --
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)
