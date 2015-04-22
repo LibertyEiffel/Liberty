@@ -734,7 +734,7 @@ do_pkg_extra_libs() {
     _do_pkg_src liberty_extra $LIBERTY_HOME/src/wrappers
 }
 
-do_pkg_extra_libs() {
+do_pkg_staging_libs() {
     _do_pkg_src liberty_staging $LIBERTY_HOME/src/staging
 }
 
