@@ -41,13 +41,17 @@ feature {ANY}
    has_arguments: BOOLEAN
          -- Does Current function have arguments?
       do
-         Result := children_count > 0
+		  inspect children_count
+		  when 0 then Result := False
+		  when 1 then Result := not argument(children_count).is_ellipsis
+		  else Result := True
+		  end
       end
 
    is_variadic: BOOLEAN
          -- Does current function accept a variable number of arguments?
       do
-         if has_arguments then
+         if children_count > 0 then
             Result := argument(children_count).is_ellipsis
          else
             Result := False
@@ -103,7 +107,7 @@ feature {ANY}
          else
             log(once "Function #(1)" # c_string_name)
             buffer.append(once "%T#(1)" # eiffel_name)
-            append_arguments
+			append_arguments
             append_return_type
             append_description
             append_body
@@ -152,33 +156,35 @@ feature {ANY}
       local
          i, last: INTEGER
       do
+		  log(once " (")
          buffer.append(once " (")
-         -- Omit the eventual ellips
-         if is_variadic then
-            -- Skip the last argument
-            last := children_count - 1
-         else
-            last := children_count
-         end
+		 if has_arguments then
+			 -- Omit the eventual ellips
+			 if is_variadic then
+				 -- Skip the last argument
+				 last := children_count - 1
+			 else
+				 last := children_count
+			 end
+			 log(once "(#(1) args: " # &children_count)
+			 from
+				 i := 1
+			 until
+				 i > last - 1
+			 loop
+				 argument(i).put_on(buffer)
+				 buffer.append(once "; ")
+				 i := i + 1
+			 end
 
-         log(once "(#(1) args: " # &children_count)
-         from
-            i := 1
-         until
-            i > last - 1
-         loop
-            argument(i).put_on(buffer)
-            buffer.append(once "; ")
-            i := i + 1
-         end
+			 argument(last).put_on(buffer)
+		 end
+		 log(once ")")
+		 buffer.append(once ")")
+	 end
 
-         argument(last).put_on(buffer)
-         log(once ")")
-         buffer.append(once ")")
-      end
-
-   append_return_type
-         -- Append the Eiffel equivalent type of the return type of
+	 append_return_type
+		 -- Append the Eiffel equivalent type of the return type of
          -- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
          -- POINTER is". When result of `a_node' is "void" only " is" is appended.
       do
