@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-.
-./ace
-./cecil
-./code
-./commands
-./config
-./eiffeltest
-./expression
-./feature
-./generation
-./generation/c/loadpath.se
-./generation/context
-./generation/eiffeldoc
-./generation/fake_generator
-./generation/pretty
-./generation/sedb
-./generation/short
-./install
-./instruction
-./kernel
-./kernel/helpers
-./kernel/pools
-./kernel/tagged
-./parser
-./run_feature
-./type_mark
-./utils
-./utils/get_text
-./utils/syntax
-./visitor
-=======
 ./
 ace/
 cecil/
@@ -61,4 +29,3 @@ utils/
 utils/get_text/
 utils/syntax/
 visitor/
->>>>>>> a516d54a134b128c2b548efe45a61952927e3f6d
