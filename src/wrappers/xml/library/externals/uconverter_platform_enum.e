@@ -1,6 +1,6 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-expanded class ACTION_ENUM
+expanded class UCONVERTER_PLATFORM_ENUM
 
 insert ENUM
 
@@ -8,51 +8,51 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := ((a_value = enter_low_level)  or else
-				(a_value = find_low_level) )
+            Result := ((a_value = ibm_low_level)  or else
+				(a_value = unknown_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_enter
+	set_ibm
                do
-                       value := enter_low_level
+                       value := ibm_low_level
                end
 
-	set_find
+	set_unknown
                do
-                       value := find_low_level
+                       value := unknown_low_level
                end
 
 feature {ANY} -- Queries
-       is_enter: BOOLEAN
+       is_ibm: BOOLEAN
                do
-                       Result := (value=enter_low_level)
+                       Result := (value=ibm_low_level)
                end
 
-       is_find: BOOLEAN
+       is_unknown: BOOLEAN
                do
-                       Result := (value=find_low_level)
+                       Result := (value=unknown_low_level)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-     enter_low_level: INTEGER
+     ibm_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "ENTER"
+                       feature_name: "UCNV_IBM"
                        }"
                end
 
-     find_low_level: INTEGER
+     unknown_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "FIND"
+                       feature_name: "UCNV_UNKNOWN"
                        }"
                end
 
 
-end -- class ACTION_ENUM
+end -- class UCONVERTER_PLATFORM_ENUM

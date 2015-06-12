@@ -1,6 +1,6 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-expanded class IDTYPE_T_ENUM
+expanded class UCONVERTER_UNICODE_SET_ENUM
 
 insert ENUM
 
@@ -8,71 +8,71 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := ((a_value = all_low_level)  or else
-				(a_value = pgid_low_level)  or else
-				(a_value = pid_low_level) )
+            Result := ((a_value = roundtrip_and_fallback_set_low_level)  or else
+				(a_value = roundtrip_set_low_level)  or else
+				(a_value = set_count_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_all
+	set_roundtrip_and_fallback_set
                do
-                       value := all_low_level
+                       value := roundtrip_and_fallback_set_low_level
                end
 
-	set_pgid
+	set_roundtrip_set
                do
-                       value := pgid_low_level
+                       value := roundtrip_set_low_level
                end
 
-	set_pid
+	set_set_count
                do
-                       value := pid_low_level
+                       value := set_count_low_level
                end
 
 feature {ANY} -- Queries
-       is_all: BOOLEAN
+       is_roundtrip_and_fallback_set: BOOLEAN
                do
-                       Result := (value=all_low_level)
+                       Result := (value=roundtrip_and_fallback_set_low_level)
                end
 
-       is_pgid: BOOLEAN
+       is_roundtrip_set: BOOLEAN
                do
-                       Result := (value=pgid_low_level)
+                       Result := (value=roundtrip_set_low_level)
                end
 
-       is_pid: BOOLEAN
+       is_set_count: BOOLEAN
                do
-                       Result := (value=pid_low_level)
+                       Result := (value=set_count_low_level)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-     all_low_level: INTEGER
+     roundtrip_and_fallback_set_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "P_ALL"
+                       feature_name: "UCNV_ROUNDTRIP_AND_FALLBACK_SET"
                        }"
                end
 
-     pgid_low_level: INTEGER
+     roundtrip_set_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "P_PGID"
+                       feature_name: "UCNV_ROUNDTRIP_SET"
                        }"
                end
 
-     pid_low_level: INTEGER
+     set_count_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "P_PID"
+                       feature_name: "UCNV_SET_COUNT"
                        }"
                end
 
 
-end -- class IDTYPE_T_ENUM
+end -- class UCONVERTER_UNICODE_SET_ENUM

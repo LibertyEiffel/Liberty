@@ -1,59 +1,59 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-deferred class DIV_T_STRUCT
+deferred class TCP_REPAIR_OPT_STRUCT
 
 insert STANDARD_C_LIBRARY_TYPES
 
-	STANDARD_C_LIBRARY_TYPES
+	POSIX_TYPES
 feature {} -- Low-level setters
 
-   div_t_struct_set_quot (a_structure: POINTER; a_value: INTEGER) 
-         -- Setter for quot field of DIV_T_STRUCT structure.
+   tcp_repair_opt_struct_set_opt_code (a_structure: POINTER; a_value: NATURAL) 
+         -- Setter for opt_code field of TCP_REPAIR_OPT_STRUCT structure.
          -- TODO: setter description
 
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "div_t_struct_set_quot"
+         feature_name: "tcp_repair_opt_struct_set_opt_code"
       }"
       end
 
-   div_t_struct_set_rem (a_structure: POINTER; a_value: INTEGER) 
-         -- Setter for rem field of DIV_T_STRUCT structure.
+   tcp_repair_opt_struct_set_opt_val (a_structure: POINTER; a_value: NATURAL) 
+         -- Setter for opt_val field of TCP_REPAIR_OPT_STRUCT structure.
          -- TODO: setter description
 
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "div_t_struct_set_rem"
+         feature_name: "tcp_repair_opt_struct_set_opt_val"
       }"
       end
 
 feature {} -- Low-level queries
 
-   div_t_struct_get_quot (a_structure: POINTER): INTEGER 
-         -- Query for quot field of DIV_T_STRUCT structure.
+   tcp_repair_opt_struct_get_opt_code (a_structure: POINTER): NATURAL 
+         -- Query for opt_code field of TCP_REPAIR_OPT_STRUCT structure.
          -- TODO: getter description
 
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "div_t_struct_get_quot"
+         feature_name: "tcp_repair_opt_struct_get_opt_code"
       }"
       end
 
-   div_t_struct_get_rem (a_structure: POINTER): INTEGER 
-         -- Query for rem field of DIV_T_STRUCT structure.
+   tcp_repair_opt_struct_get_opt_val (a_structure: POINTER): NATURAL 
+         -- Query for opt_val field of TCP_REPAIR_OPT_STRUCT structure.
          -- TODO: getter description
 
       external "plug_in"
       alias "{
          location: "."
          module_name: "plugin"
-         feature_name: "div_t_struct_get_rem"
+         feature_name: "tcp_repair_opt_struct_get_opt_val"
       }"
       end
 
@@ -63,10 +63,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof_div_t"
+                       feature_name: "sizeof_tcp_repair_opt"
                }"
                end
 
-end -- class DIV_T_STRUCT
+end -- class TCP_REPAIR_OPT_STRUCT
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.

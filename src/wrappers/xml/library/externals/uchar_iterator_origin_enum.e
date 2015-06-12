@@ -1,6 +1,6 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-expanded class TCP_CA_STATE_ENUM
+expanded class UCHAR_ITERATOR_ORIGIN_ENUM
 
 insert ENUM
 
@@ -8,111 +8,111 @@ creation {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := ((a_value = cwr_low_level)  or else
-				(a_value = disorder_low_level)  or else
-				(a_value = loss_low_level)  or else
-				(a_value = open_low_level)  or else
-				(a_value = recovery_low_level) )
+            Result := ((a_value = current_low_level)  or else
+				(a_value = length_low_level)  or else
+				(a_value = limit_low_level)  or else
+				(a_value = start_low_level)  or else
+				(a_value = zero_low_level) )
 		end
 
 feature {ANY} -- Setters
 	default_create,
-	set_cwr
+	set_current
                do
-                       value := cwr_low_level
+                       value := current_low_level
                end
 
-	set_disorder
+	set_length
                do
-                       value := disorder_low_level
+                       value := length_low_level
                end
 
-	set_loss
+	set_limit
                do
-                       value := loss_low_level
+                       value := limit_low_level
                end
 
-	set_open
+	set_start
                do
-                       value := open_low_level
+                       value := start_low_level
                end
 
-	set_recovery
+	set_zero
                do
-                       value := recovery_low_level
+                       value := zero_low_level
                end
 
 feature {ANY} -- Queries
-       is_cwr: BOOLEAN
+       is_current: BOOLEAN
                do
-                       Result := (value=cwr_low_level)
+                       Result := (value=current_low_level)
                end
 
-       is_disorder: BOOLEAN
+       is_length: BOOLEAN
                do
-                       Result := (value=disorder_low_level)
+                       Result := (value=length_low_level)
                end
 
-       is_loss: BOOLEAN
+       is_limit: BOOLEAN
                do
-                       Result := (value=loss_low_level)
+                       Result := (value=limit_low_level)
                end
 
-       is_open: BOOLEAN
+       is_start: BOOLEAN
                do
-                       Result := (value=open_low_level)
+                       Result := (value=start_low_level)
                end
 
-       is_recovery: BOOLEAN
+       is_zero: BOOLEAN
                do
-                       Result := (value=recovery_low_level)
+                       Result := (value=zero_low_level)
                end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-     cwr_low_level: INTEGER
+     current_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "TCP_CA_CWR"
+                       feature_name: "UITER_CURRENT"
                        }"
                end
 
-     disorder_low_level: INTEGER
+     length_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "TCP_CA_Disorder"
+                       feature_name: "UITER_LENGTH"
                        }"
                end
 
-     loss_low_level: INTEGER
+     limit_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "TCP_CA_Loss"
+                       feature_name: "UITER_LIMIT"
                        }"
                end
 
-     open_low_level: INTEGER
+     start_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "TCP_CA_Open"
+                       feature_name: "UITER_START"
                        }"
                end
 
-     recovery_low_level: INTEGER
+     zero_low_level: INTEGER
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "TCP_CA_Recovery"
+                       feature_name: "UITER_ZERO"
                        }"
                end
 
 
-end -- class TCP_CA_STATE_ENUM
+end -- class UCHAR_ITERATOR_ORIGIN_ENUM

@@ -21,6 +21,9 @@ feature {ANY}
       do
          symbols.put(Current, c_string_name)
          functions.add_first(Current)
+      rescue
+	    std_error.put_string(once "Error!%N")
+		print_on(std_error)
       end
 
    returns: UNICODE_STRING
