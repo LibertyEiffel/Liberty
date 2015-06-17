@@ -19,11 +19,16 @@ create {GCCXML_TREE}
 feature {ANY}
    store
       do
-         symbols.put(Current, c_string_name)
-         functions.add_first(Current)
-      rescue
-	    std_error.put_string(once "Error!%N")
-		print_on(std_error)
+		log("Storing function '#(1)', line #(2)%N" # c_string_name # line_row.to_utf8 )
+		if is_anonymous then
+			log("Skipping anonymous funtion at line #(2)%N" # line_row.as_utf8)
+		else
+			check 
+				c_string_name /= Void 
+			end
+			symbols.put(Current, c_string_name)
+			functions.add_first(Current)
+		end
       end
 
    returns: UNICODE_STRING

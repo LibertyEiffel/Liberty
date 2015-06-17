@@ -68,7 +68,17 @@ feature {ANY}
       local
          setter, getter, getter_description, setter_description: STRING; eiffel_field: ABSTRACT_STRING
       do
-         if is_public and then has_wrapper then
+		  if is_anonymous then
+			  log(once "Anonymous field in structure #(1) at line #(2): not wrappable." # a_structure_name # &line_row)
+			  queries.append(once "%T-- Anonymous field at line #(1).%N" # &line_row)
+		  elseif not is_public then
+			  log(once "private field #(1) in structure #(2) not wrapped." # c_string_name # a_structure_name)
+			  queries.append(once "%T-- Unwrapped private field #(1).%N" # c_string_name)
+		  elseif not has_wrapper then
+			  log(once "Field #(1) in structure #(2) doesn't have a wrapper." # c_string_name # a_structure_name)
+			  queries.append(once "%T-- Unwrappable field #(1).%N"#c_string_name)
+			  -- doesn't have a valid wrapper
+		  else -- we can actually wrap it
             eiffel_field := adapt(c_string_name, once "_field")
             setter := a_structure_name + once "_set_" + eiffel_field
             getter := a_structure_name + once "_get_" + eiffel_field
@@ -122,10 +132,7 @@ feature {ANY}
 			# setter # container.c_type # container.c_string_name
 			# c_string_name).print_on(include)
             -- the above line previously was written, rather unreadably like this  ("#define " + setter + "(a_structure,a_value) do {(((" + container.c_type + " " + container.c_string_name + "*)(a_structure)))->" + c_string_name + " = (a_value);}while(0)%N%N").print_on(include)
-         else
-            log(once "Field #(1) in structure #(2)  not wrappable."#c_string_name#a_structure_name)
-            queries.append(once "%T-- Unwrappable field #(1).%N"#c_string_name)
-         end
+		end
       end
 
 feature {} -- Implementation

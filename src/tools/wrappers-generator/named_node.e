@@ -64,8 +64,17 @@ feature {ANY}
          -- Does `c_name' start with an alphabetical character? Names
          -- starting with underscores or other strange characters are
          -- usually considered private in C/C++ languages.
+      local my_name: STRING
       do
-         Result := c_name /= Void and then c_name.first.to_character.is_letter
+		  my_name := c_name
+		  if my_name /= Void then 
+			  Result := c_name /= Void and then c_name.first.to_character.is_letter
+		  else
+			  check
+				  Result=False
+			  end
+		  end
+		  -- once this feature were written as the one liner Result := c_name /= Void and then c_name.first.to_character.is_letter
       end
 
 feature {} -- Implementation

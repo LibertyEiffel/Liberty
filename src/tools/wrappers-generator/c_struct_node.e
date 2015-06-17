@@ -26,15 +26,17 @@ create {GCCXML_TREE}
 
 feature {ANY}
    store
-      do
-         create {LINKED_LIST[C_FIELD]} fields.make
-         types.put(Current, id)
-         if is_named then
-            symbols.put(Current, c_string_name)
-         end
+	  do
+		  create {LINKED_LIST[C_FIELD]} fields.make
+		  types.put(Current, id)
+		  if is_named then
+			  symbols.put(Current, c_string_name)
+		  else
+			  log("Anonymous struct at line #(1)%N" # line_row.as_utf8)
+		  end
 
-         composed_types.put(Current, id)
-      end
+		  composed_types.put(Current, id)
+	  end
 
    is_fundamental: BOOLEAN False
 
