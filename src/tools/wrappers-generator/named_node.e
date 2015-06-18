@@ -20,7 +20,7 @@ feature {ANY} -- Comparability
 
 feature {ANY}
    is_anonymous: BOOLEAN
-         -- Is Current node anonynmous?
+         -- Is Current node anonynmous? 
       do
          Result := not is_named
       end
@@ -28,27 +28,23 @@ feature {ANY}
    is_named: BOOLEAN
          -- Does Current actually have a name?
       do
-         Result := attributes.has(once U"name")
+		  Result := attributes.has(once U"name") and then not c_name.is_empty
       end
 
    c_name: UNICODE_STRING
       do
-         if cached_c_name = Void then
-            cached_c_name := attribute_at(once U"name")
-         end
-         Result := cached_c_name
+		  Result := attribute_at(once U"name")
       ensure
          is_named implies Result /= Void
       end
 
    c_string_name: STRING
+	  local a_name: UNICODE_STRING
       do
-         if c_name /= Void then
-            if cached_c_string_name = Void then
-               cached_c_string_name := c_name.to_utf8
-            end
-            Result := cached_c_string_name
-         end
+		  a_name := c_name
+		  if a_name/=Void then 
+			  Result:= c_name.to_utf8
+		  end
       end
 
    eiffel_name: STRING
@@ -64,7 +60,8 @@ feature {ANY}
          -- Does `c_name' start with an alphabetical character? Names
          -- starting with underscores or other strange characters are
          -- usually considered private in C/C++ languages.
-      local my_name: STRING
+	 require is_named
+      local my_name: UNICODE_STRING
       do
 		  my_name := c_name
 		  if my_name /= Void then 
@@ -78,10 +75,6 @@ feature {ANY}
       end
 
 feature {} -- Implementation
-   cached_c_name: UNICODE_STRING
-
-   cached_c_string_name: STRING
-
    cached_eiffel_name: STRING
 
    compute_eiffel_name
