@@ -15,12 +15,11 @@ feature {ANY}
       do
       end
 
-
    emit_wrapper
          -- The wrapper of a namespace actually is not any Liberty code but only
          -- a directory that will be the cluster representing that namespace.
       do
-         log("Faking wrappeing of a NamespaceAlias" )
+         log("A NamespaceAlias can be skipped" )
       end
 
 end -- class C_NAMESPACE_ALIAS

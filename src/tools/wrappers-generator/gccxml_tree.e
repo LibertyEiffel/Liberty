@@ -68,6 +68,8 @@ feature {ANY}
             create {METHOD_TYPE_NODE} Result.make(node_name, line, column)
          when "Namespace" then
             create {C_NAMESPACE} Result.make(node_name, line, column)
+         when "NamespaceAlias" then
+            create {C_NAMESPACE_ALIAS} Result.make(node_name, line, column)
          when "OffsetType" then
             create {OFFSET_TYPE_NODE} Result.make(node_name, line, column)
          when "OperatorFunction" then
