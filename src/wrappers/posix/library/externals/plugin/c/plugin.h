@@ -31,6 +31,15 @@
 #define ip_msfilter_struct_set_imsf_slist(a_structure,a_value) do {(((struct ip_msfilter*)(a_structure)))->imsf_slist = (a_value);}while(0)
 
 #define sizeof_ip_msfilter (sizeof(struct ip_msfilter))
+#define tcp_repair_opt_struct_get_opt_code(a_structure) (((struct tcp_repair_opt*) (a_structure))->opt_code)
+
+#define tcp_repair_opt_struct_set_opt_code(a_structure,a_value) do {(((struct tcp_repair_opt*)(a_structure)))->opt_code = (a_value);}while(0)
+
+#define tcp_repair_opt_struct_get_opt_val(a_structure) (((struct tcp_repair_opt*) (a_structure))->opt_val)
+
+#define tcp_repair_opt_struct_set_opt_val(a_structure,a_value) do {(((struct tcp_repair_opt*)(a_structure)))->opt_val = (a_value);}while(0)
+
+#define sizeof_tcp_repair_opt (sizeof(struct tcp_repair_opt))
 #define sizeof_in6_addr (sizeof(struct in6_addr))
 #define sizeof_ip_mreq_source (sizeof(struct ip_mreq_source))
 #define tcp_md5sig_struct_get_tcpm_keylen(a_structure) (((struct tcp_md5sig*) (a_structure))->tcpm_keylen)
@@ -42,71 +51,27 @@
 #define tcp_md5sig_struct_set_tcpm_key(a_structure,a_value) do {(((struct tcp_md5sig*)(a_structure)))->tcpm_key = (a_value);}while(0)
 
 #define sizeof_tcp_md5sig (sizeof(struct tcp_md5sig))
-#define tcphdr_struct_get_source(a_structure) (((struct tcphdr*) (a_structure))->source)
+#define tcp_cookie_transactions_struct_get_tcpct_flags(a_structure) (((struct tcp_cookie_transactions*) (a_structure))->tcpct_flags)
 
-#define tcphdr_struct_set_source(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->source = (a_value);}while(0)
+#define tcp_cookie_transactions_struct_set_tcpct_flags(a_structure,a_value) do {(((struct tcp_cookie_transactions*)(a_structure)))->tcpct_flags = (a_value);}while(0)
 
-#define tcphdr_struct_get_dest(a_structure) (((struct tcphdr*) (a_structure))->dest)
+#define tcp_cookie_transactions_struct_get_tcpct_cookie_desired(a_structure) (((struct tcp_cookie_transactions*) (a_structure))->tcpct_cookie_desired)
 
-#define tcphdr_struct_set_dest(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->dest = (a_value);}while(0)
+#define tcp_cookie_transactions_struct_set_tcpct_cookie_desired(a_structure,a_value) do {(((struct tcp_cookie_transactions*)(a_structure)))->tcpct_cookie_desired = (a_value);}while(0)
 
-#define tcphdr_struct_get_seq(a_structure) (((struct tcphdr*) (a_structure))->seq)
+#define tcp_cookie_transactions_struct_get_tcpct_s_data_desired(a_structure) (((struct tcp_cookie_transactions*) (a_structure))->tcpct_s_data_desired)
 
-#define tcphdr_struct_set_seq(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->seq = (a_value);}while(0)
+#define tcp_cookie_transactions_struct_set_tcpct_s_data_desired(a_structure,a_value) do {(((struct tcp_cookie_transactions*)(a_structure)))->tcpct_s_data_desired = (a_value);}while(0)
 
-#define tcphdr_struct_get_ack_seq(a_structure) (((struct tcphdr*) (a_structure))->ack_seq)
+#define tcp_cookie_transactions_struct_get_tcpct_used(a_structure) (((struct tcp_cookie_transactions*) (a_structure))->tcpct_used)
 
-#define tcphdr_struct_set_ack_seq(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->ack_seq = (a_value);}while(0)
+#define tcp_cookie_transactions_struct_set_tcpct_used(a_structure,a_value) do {(((struct tcp_cookie_transactions*)(a_structure)))->tcpct_used = (a_value);}while(0)
 
-#define tcphdr_struct_get_res1(a_structure) (((struct tcphdr*) (a_structure))->res1)
+#define tcp_cookie_transactions_struct_get_tcpct_value(a_structure) (((struct tcp_cookie_transactions*) (a_structure))->tcpct_value)
 
-#define tcphdr_struct_set_res1(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->res1 = (a_value);}while(0)
+#define tcp_cookie_transactions_struct_set_tcpct_value(a_structure,a_value) do {(((struct tcp_cookie_transactions*)(a_structure)))->tcpct_value = (a_value);}while(0)
 
-#define tcphdr_struct_get_doff(a_structure) (((struct tcphdr*) (a_structure))->doff)
-
-#define tcphdr_struct_set_doff(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->doff = (a_value);}while(0)
-
-#define tcphdr_struct_get_fin(a_structure) (((struct tcphdr*) (a_structure))->fin)
-
-#define tcphdr_struct_set_fin(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->fin = (a_value);}while(0)
-
-#define tcphdr_struct_get_syn(a_structure) (((struct tcphdr*) (a_structure))->syn)
-
-#define tcphdr_struct_set_syn(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->syn = (a_value);}while(0)
-
-#define tcphdr_struct_get_rst(a_structure) (((struct tcphdr*) (a_structure))->rst)
-
-#define tcphdr_struct_set_rst(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->rst = (a_value);}while(0)
-
-#define tcphdr_struct_get_psh(a_structure) (((struct tcphdr*) (a_structure))->psh)
-
-#define tcphdr_struct_set_psh(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->psh = (a_value);}while(0)
-
-#define tcphdr_struct_get_ack(a_structure) (((struct tcphdr*) (a_structure))->ack)
-
-#define tcphdr_struct_set_ack(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->ack = (a_value);}while(0)
-
-#define tcphdr_struct_get_urg(a_structure) (((struct tcphdr*) (a_structure))->urg)
-
-#define tcphdr_struct_set_urg(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->urg = (a_value);}while(0)
-
-#define tcphdr_struct_get_res2(a_structure) (((struct tcphdr*) (a_structure))->res2)
-
-#define tcphdr_struct_set_res2(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->res2 = (a_value);}while(0)
-
-#define tcphdr_struct_get_window(a_structure) (((struct tcphdr*) (a_structure))->window)
-
-#define tcphdr_struct_set_window(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->window = (a_value);}while(0)
-
-#define tcphdr_struct_get_check_field(a_structure) (((struct tcphdr*) (a_structure))->check)
-
-#define tcphdr_struct_set_check_field(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->check = (a_value);}while(0)
-
-#define tcphdr_struct_get_urg_ptr(a_structure) (((struct tcphdr*) (a_structure))->urg_ptr)
-
-#define tcphdr_struct_set_urg_ptr(a_structure,a_value) do {(((struct tcphdr*)(a_structure)))->urg_ptr = (a_value);}while(0)
-
-#define sizeof_tcphdr (sizeof(struct tcphdr))
+#define sizeof_tcp_cookie_transactions (sizeof(struct tcp_cookie_transactions))
 #define ifconf_struct_get_ifc_len(a_structure) (((struct ifconf*) (a_structure))->ifc_len)
 
 #define ifconf_struct_set_ifc_len(a_structure,a_value) do {(((struct ifconf*)(a_structure)))->ifc_len = (a_value);}while(0)
@@ -146,6 +111,23 @@
 #define if_nameindex_struct_set_if_name(a_structure,a_value) do {(((struct if_nameindex*)(a_structure)))->if_name = (a_value);}while(0)
 
 #define sizeof_if_nameindex (sizeof(struct if_nameindex))
+#define group_filter_struct_get_gf_interface(a_structure) (((struct group_filter*) (a_structure))->gf_interface)
+
+#define group_filter_struct_set_gf_interface(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_interface = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_fmode(a_structure) (((struct group_filter*) (a_structure))->gf_fmode)
+
+#define group_filter_struct_set_gf_fmode(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_fmode = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_numsrc(a_structure) (((struct group_filter*) (a_structure))->gf_numsrc)
+
+#define group_filter_struct_set_gf_numsrc(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_numsrc = (a_value);}while(0)
+
+#define group_filter_struct_get_gf_slist(a_structure) (((struct group_filter*) (a_structure))->gf_slist)
+
+#define group_filter_struct_set_gf_slist(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_slist = (a_value);}while(0)
+
+#define sizeof_group_filter (sizeof(struct group_filter))
 #define sockaddr_in_struct_get_sin_family(a_structure) (((struct sockaddr_in*) (a_structure))->sin_family)
 
 #define sockaddr_in_struct_set_sin_family(a_structure,a_value) do {(((struct sockaddr_in*)(a_structure)))->sin_family = (a_value);}while(0)
@@ -312,6 +294,7 @@
 #define in_addr_struct_set_s_addr(a_structure,a_value) do {(((struct in_addr*)(a_structure)))->s_addr = (a_value);}while(0)
 
 #define sizeof_in_addr (sizeof(struct in_addr))
+#define sizeof_tcphdr (sizeof(struct tcphdr))
 #define rpcent_struct_get_r_name(a_structure) (((struct rpcent*) (a_structure))->r_name)
 
 #define rpcent_struct_set_r_name(a_structure,a_value) do {(((struct rpcent*)(a_structure)))->r_name = (a_value);}while(0)
@@ -344,21 +327,4 @@
 #define sizeof_sockaddr_in6 (sizeof(struct sockaddr_in6))
 #define sizeof_ifreq (sizeof(struct ifreq))
 #define sizeof_iface (sizeof(struct iface))
-#define group_filter_struct_get_gf_interface(a_structure) (((struct group_filter*) (a_structure))->gf_interface)
-
-#define group_filter_struct_set_gf_interface(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_interface = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_fmode(a_structure) (((struct group_filter*) (a_structure))->gf_fmode)
-
-#define group_filter_struct_set_gf_fmode(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_fmode = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_numsrc(a_structure) (((struct group_filter*) (a_structure))->gf_numsrc)
-
-#define group_filter_struct_set_gf_numsrc(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_numsrc = (a_value);}while(0)
-
-#define group_filter_struct_get_gf_slist(a_structure) (((struct group_filter*) (a_structure))->gf_slist)
-
-#define group_filter_struct_set_gf_slist(a_structure,a_value) do {(((struct group_filter*)(a_structure)))->gf_slist = (a_value);}while(0)
-
-#define sizeof_group_filter (sizeof(struct group_filter))
 #define set_environ(a_value) environ = (a_value);
