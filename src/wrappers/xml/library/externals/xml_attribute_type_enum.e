@@ -1,219 +1,218 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-
 expanded class XML_ATTRIBUTE_TYPE_ENUM
 
 insert ENUM
 
-create default_create
-feature -- Validity
+creation {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := ((a_value = xml_attribute_cdata_low_level)  or else
-				(a_value = xml_attribute_entities_low_level)  or else
-				(a_value = xml_attribute_entity_low_level)  or else
-				(a_value = xml_attribute_enumeration_low_level)  or else
-				(a_value = xml_attribute_id_low_level)  or else
-				(a_value = xml_attribute_idref_low_level)  or else
-				(a_value = xml_attribute_idrefs_low_level)  or else
-				(a_value = xml_attribute_nmtoken_low_level)  or else
-				(a_value = xml_attribute_nmtokens_low_level)  or else
-				(a_value = xml_attribute_notation_low_level) )
+            Result := ((a_value = cdata_low_level)  or else
+				(a_value = entities_low_level)  or else
+				(a_value = entity_low_level)  or else
+				(a_value = enumeration_low_level)  or else
+				(a_value = id_low_level)  or else
+				(a_value = idref_low_level)  or else
+				(a_value = idrefs_low_level)  or else
+				(a_value = nmtoken_low_level)  or else
+				(a_value = nmtokens_low_level)  or else
+				(a_value = notation_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
-	set_xml_attribute_cdata
-		do
-			value := xml_attribute_cdata_low_level
-		end
+	set_cdata
+               do
+                       value := cdata_low_level
+               end
 
-	set_xml_attribute_entities
-		do
-			value := xml_attribute_entities_low_level
-		end
+	set_entities
+               do
+                       value := entities_low_level
+               end
 
-	set_xml_attribute_entity
-		do
-			value := xml_attribute_entity_low_level
-		end
+	set_entity
+               do
+                       value := entity_low_level
+               end
 
-	set_xml_attribute_enumeration
-		do
-			value := xml_attribute_enumeration_low_level
-		end
+	set_enumeration
+               do
+                       value := enumeration_low_level
+               end
 
-	set_xml_attribute_id
-		do
-			value := xml_attribute_id_low_level
-		end
+	set_id
+               do
+                       value := id_low_level
+               end
 
-	set_xml_attribute_idref
-		do
-			value := xml_attribute_idref_low_level
-		end
+	set_idref
+               do
+                       value := idref_low_level
+               end
 
-	set_xml_attribute_idrefs
-		do
-			value := xml_attribute_idrefs_low_level
-		end
+	set_idrefs
+               do
+                       value := idrefs_low_level
+               end
 
-	set_xml_attribute_nmtoken
-		do
-			value := xml_attribute_nmtoken_low_level
-		end
+	set_nmtoken
+               do
+                       value := nmtoken_low_level
+               end
 
-	set_xml_attribute_nmtokens
-		do
-			value := xml_attribute_nmtokens_low_level
-		end
+	set_nmtokens
+               do
+                       value := nmtokens_low_level
+               end
 
-	set_xml_attribute_notation
-		do
-			value := xml_attribute_notation_low_level
-		end
+	set_notation
+               do
+                       value := notation_low_level
+               end
 
-feature -- Queries
-	is_xml_attribute_cdata: BOOLEAN
-		do
-			Result := (value=xml_attribute_cdata_low_level)
-		end
+feature {ANY} -- Queries
+       is_cdata: BOOLEAN
+               do
+                       Result := (value=cdata_low_level)
+               end
 
-	is_xml_attribute_entities: BOOLEAN
-		do
-			Result := (value=xml_attribute_entities_low_level)
-		end
+       is_entities: BOOLEAN
+               do
+                       Result := (value=entities_low_level)
+               end
 
-	is_xml_attribute_entity: BOOLEAN
-		do
-			Result := (value=xml_attribute_entity_low_level)
-		end
+       is_entity: BOOLEAN
+               do
+                       Result := (value=entity_low_level)
+               end
 
-	is_xml_attribute_enumeration: BOOLEAN
-		do
-			Result := (value=xml_attribute_enumeration_low_level)
-		end
+       is_enumeration: BOOLEAN
+               do
+                       Result := (value=enumeration_low_level)
+               end
 
-	is_xml_attribute_id: BOOLEAN
-		do
-			Result := (value=xml_attribute_id_low_level)
-		end
+       is_id: BOOLEAN
+               do
+                       Result := (value=id_low_level)
+               end
 
-	is_xml_attribute_idref: BOOLEAN
-		do
-			Result := (value=xml_attribute_idref_low_level)
-		end
+       is_idref: BOOLEAN
+               do
+                       Result := (value=idref_low_level)
+               end
 
-	is_xml_attribute_idrefs: BOOLEAN
-		do
-			Result := (value=xml_attribute_idrefs_low_level)
-		end
+       is_idrefs: BOOLEAN
+               do
+                       Result := (value=idrefs_low_level)
+               end
 
-	is_xml_attribute_nmtoken: BOOLEAN
-		do
-			Result := (value=xml_attribute_nmtoken_low_level)
-		end
+       is_nmtoken: BOOLEAN
+               do
+                       Result := (value=nmtoken_low_level)
+               end
 
-	is_xml_attribute_nmtokens: BOOLEAN
-		do
-			Result := (value=xml_attribute_nmtokens_low_level)
-		end
+       is_nmtokens: BOOLEAN
+               do
+                       Result := (value=nmtokens_low_level)
+               end
 
-	is_xml_attribute_notation: BOOLEAN
-		do
-			Result := (value=xml_attribute_notation_low_level)
-		end
+       is_notation: BOOLEAN
+               do
+                       Result := (value=notation_low_level)
+               end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	xml_attribute_cdata_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_CDATA"
- 			}"
- 		end
+     cdata_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_CDATA"
+                       }"
+               end
 
-	xml_attribute_entities_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_ENTITIES"
- 			}"
- 		end
+     entities_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_ENTITIES"
+                       }"
+               end
 
-	xml_attribute_entity_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_ENTITY"
- 			}"
- 		end
+     entity_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_ENTITY"
+                       }"
+               end
 
-	xml_attribute_enumeration_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_ENUMERATION"
- 			}"
- 		end
+     enumeration_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_ENUMERATION"
+                       }"
+               end
 
-	xml_attribute_id_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_ID"
- 			}"
- 		end
+     id_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_ID"
+                       }"
+               end
 
-	xml_attribute_idref_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_IDREF"
- 			}"
- 		end
+     idref_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_IDREF"
+                       }"
+               end
 
-	xml_attribute_idrefs_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_IDREFS"
- 			}"
- 		end
+     idrefs_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_IDREFS"
+                       }"
+               end
 
-	xml_attribute_nmtoken_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_NMTOKEN"
- 			}"
- 		end
+     nmtoken_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_NMTOKEN"
+                       }"
+               end
 
-	xml_attribute_nmtokens_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_NMTOKENS"
- 			}"
- 		end
+     nmtokens_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_NMTOKENS"
+                       }"
+               end
 
-	xml_attribute_notation_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "XML_ATTRIBUTE_NOTATION"
- 			}"
- 		end
+     notation_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "XML_ATTRIBUTE_NOTATION"
+                       }"
+               end
 
 
 end -- class XML_ATTRIBUTE_TYPE_ENUM
