@@ -9,7 +9,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	-- Unwrappable field __in6_u.
+	-- Unwrapped private field __in6_u.
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"

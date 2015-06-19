@@ -81,7 +81,7 @@ feature {} -- Low-level queries
       }"
       end
 
-	-- Unwrappable field __tcpct_pad1.
+	-- Unwrapped private field __tcpct_pad1.
    tcp_cookie_transactions_struct_get_tcpct_cookie_desired (a_structure: POINTER): CHARACTER 
          -- Query for tcpct_cookie_desired field of TCP_COOKIE_TRANSACTIONS_STRUCT structure.
          -- TODO: getter description

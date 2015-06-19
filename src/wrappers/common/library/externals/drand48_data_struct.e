@@ -9,11 +9,11 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	-- Unwrappable field __x.
-	-- Unwrappable field __old_x.
-	-- Unwrappable field __c.
-	-- Unwrappable field __init.
-	-- Unwrappable field __a.
+	-- Unwrapped private field __x.
+	-- Unwrapped private field __old_x.
+	-- Unwrapped private field __c.
+	-- Unwrapped private field __init.
+	-- Unwrapped private field __a.
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"

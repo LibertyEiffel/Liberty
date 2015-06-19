@@ -34,7 +34,7 @@ feature {} -- Low-level setters
 feature {} -- Low-level queries
 
 	-- Unwrappable field tcpm_addr.
-	-- Unwrappable field __tcpm_pad1.
+	-- Unwrapped private field __tcpm_pad1.
    tcp_md5sig_struct_get_tcpm_keylen (a_structure: POINTER): NATURAL_16 
          -- Query for tcpm_keylen field of TCP_MD5SIG_STRUCT structure.
          -- TODO: getter description
@@ -47,7 +47,7 @@ feature {} -- Low-level queries
       }"
       end
 
-	-- Unwrappable field __tcpm_pad2.
+	-- Unwrapped private field __tcpm_pad2.
    tcp_md5sig_struct_get_tcpm_key (a_structure: POINTER): POINTER 
          -- Query for tcpm_key field of TCP_MD5SIG_STRUCT structure.
          -- TODO: getter description
