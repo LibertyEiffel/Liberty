@@ -1,6 +1,6 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-deferred class GISIGNALINFO_EXTERNALS
+deferred class GOBJECT_AUTOCLEANUPS_EXTERNALS
 
 
 insert ANY undefine is_equal, copy end
@@ -8,8 +8,8 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_signal_info_get_class_closure (an_info: POINTER): POINTER 
-               -- g_signal_info_get_class_closure
+	glib_auto_cleanup_gstrv (a_ptr: POINTER) 
+               -- glib_auto_cleanup_GStrv
                external "plug_in"
                alias "{
                        location: "."
@@ -18,8 +18,8 @@ feature {} -- External calls
                }"
                end
 
-	g_signal_info_get_flags (an_info: POINTER): INTEGER 
-               -- g_signal_info_get_flags
+	glib_auto_cleanup_gvalue (a_ptr: POINTER) 
+               -- glib_auto_cleanup_GValue
                external "plug_in"
                alias "{
                        location: "."
@@ -28,8 +28,18 @@ feature {} -- External calls
                }"
                end
 
-	g_signal_info_true_stops_emit (an_info: POINTER): INTEGER 
-               -- g_signal_info_true_stops_emit
+	glib_autoptr_cleanup_ginitially_unowned (a_ptr: POINTER) 
+               -- glib_autoptr_cleanup_GInitiallyUnowned
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "Void"
+               }"
+               end
+
+	glib_autoptr_cleanup_gobject (a_ptr: POINTER) 
+               -- glib_autoptr_cleanup_GObject
                external "plug_in"
                alias "{
                        location: "."
@@ -39,4 +49,4 @@ feature {} -- External calls
                end
 
 
-end -- class GISIGNALINFO_EXTERNALS
+end -- class GOBJECT_AUTOCLEANUPS_EXTERNALS

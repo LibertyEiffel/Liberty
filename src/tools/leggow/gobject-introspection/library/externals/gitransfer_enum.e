@@ -1,13 +1,12 @@
 -- This file have been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-
 expanded class GITRANSFER_ENUM
 
 insert ENUM
 
 creation {ANY} default_create
 feature {ANY} -- Validity
-    is_valid_value (a_value: INTEGER): BOOLEAN is
+    is_valid_value (a_value: INTEGER): BOOLEAN
         do
             Result := ((a_value = container_low_level)  or else
 				(a_value = everything_low_level)  or else
@@ -16,64 +15,64 @@ feature {ANY} -- Validity
 
 feature {ANY} -- Setters
 	default_create,
-	set_container is
-		do
-			value := container_low_level
-		end
+	set_container
+               do
+                       value := container_low_level
+               end
 
-	set_everything is
-		do
-			value := everything_low_level
-		end
+	set_everything
+               do
+                       value := everything_low_level
+               end
 
-	set_nothing is
-		do
-			value := nothing_low_level
-		end
+	set_nothing
+               do
+                       value := nothing_low_level
+               end
 
 feature {ANY} -- Queries
-	is_container: BOOLEAN is
-		do
-			Result := (value=container_low_level)
-		end
+       is_container: BOOLEAN
+               do
+                       Result := (value=container_low_level)
+               end
 
-	is_everything: BOOLEAN is
-		do
-			Result := (value=everything_low_level)
-		end
+       is_everything: BOOLEAN
+               do
+                       Result := (value=everything_low_level)
+               end
 
-	is_nothing: BOOLEAN is
-		do
-			Result := (value=nothing_low_level)
-		end
+       is_nothing: BOOLEAN
+               do
+                       Result := (value=nothing_low_level)
+               end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	container_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "GI_TRANSFER_CONTAINER"
- 			}"
- 		end
+     container_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "GI_TRANSFER_CONTAINER"
+                       }"
+               end
 
-	everything_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "GI_TRANSFER_EVERYTHING"
- 			}"
- 		end
+     everything_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "GI_TRANSFER_EVERYTHING"
+                       }"
+               end
 
-	nothing_low_level: INTEGER is
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "GI_TRANSFER_NOTHING"
- 			}"
- 		end
+     nothing_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "GI_TRANSFER_NOTHING"
+                       }"
+               end
 
 
 end -- class GITRANSFER_ENUM
