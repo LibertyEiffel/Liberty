@@ -35,9 +35,9 @@ feature {ANY} -- Wrapper
 		do
 			-- pi := properties_iter;
 			("Object #(1): #(2) properties %N" # name # properties_count.out).print_on(std_output);
-			-- pi.do_all(agent emit_property(?))
+			-- pi.for_each(agent emit_property(?))
 			("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
-			methods_iter.do_all(agent emit_method(?))
+			methods_iter.for_each(agent emit_method(?))
 		end
 
 	emit_property (a_property: GI_PROPERTY_INFO) is

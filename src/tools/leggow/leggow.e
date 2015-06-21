@@ -31,7 +31,7 @@ insert
 	LOGGING
 	GTYPE_EXTERNALS 
 
-creation {} main
+create {} main
 
 feature {} -- program entry point
 	main is
@@ -44,7 +44,7 @@ feature {} -- program entry point
 			"%NDependencies: ".print_on(std_output);
 			repository.dependencies(library_name).print_on(std_output);
 			"%N".print_on(std_output);
-			repository.namespace_iterator(library_name).do_all(agent {GI_BASE_INFO}.emit_wrapper) --emit(?))
+			repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper) --emit(?))
 		end
 
 	emit (an_info: GI_BASE_INFO) is
@@ -102,7 +102,7 @@ feature {ANY}
       Usage: leggow options 
 
       Option summary:
-        -requisites         Build also all the requisites of library
+        -requisites         Recursively build all the requisites of library
 
       Information:
         -help               Display this help information (no test run)

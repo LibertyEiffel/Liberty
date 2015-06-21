@@ -19,7 +19,7 @@ inherit
 			item as field,
 			first as first_field,
 			last as last_field,
-			do_all as field_do_all, 
+			for_each as field_for_each, 
 			for_all as for_all_fields,
 			exists as field_exists,
 			aggregate as aggregate_fields
@@ -117,14 +117,19 @@ feature {ANY}
 
 	size: NATURAL is
 		-- The total size of the structure in bytes
+	local a_size: like g_struct_info_get_size
 	do
-		Result := g_struct_info_get_size(handle)
+		-- a_size := g_struct_info_get_size(handle)
+		-- if a_size.fit_natural_32 then
+		-- 	Result := a_size.to_natural_32
+		-- end
+		Result := g_struct_info_get_size(handle).to_natural_32 
 	end
 
 	alignment: NATURAL is
 		-- the required alignment of the structure.
 	do
-		Result := g_struct_info_get_alignment(handle)
+		Result := g_struct_info_get_alignment(handle).to_natural_32
 	end 
 
 
