@@ -8,7 +8,7 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	g_binding_flags_get_type (): like long_unsigned 
+	g_binding_flags_get_type: like long_unsigned 
                -- g_binding_flags_get_type
                external "plug_in"
                alias "{
@@ -68,7 +68,7 @@ feature {} -- External calls
                }"
                end
 
-	g_binding_get_type (): like long_unsigned 
+	g_binding_get_type: like long_unsigned 
                -- g_binding_get_type
                external "plug_in"
                alias "{

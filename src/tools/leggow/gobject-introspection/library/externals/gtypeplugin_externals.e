@@ -28,7 +28,7 @@ feature {} -- External calls
                }"
                end
 
-	g_type_plugin_get_type (): like long_unsigned 
+	g_type_plugin_get_type: like long_unsigned 
                -- g_type_plugin_get_type
                external "plug_in"
                alias "{

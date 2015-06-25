@@ -358,7 +358,7 @@ feature {} -- External calls
                }"
                end
 
-	g_type_fundamental_next (): like long_unsigned 
+	g_type_fundamental_next: like long_unsigned 
                -- g_type_fundamental_next
                external "plug_in"
                alias "{
@@ -398,7 +398,7 @@ feature {} -- External calls
                }"
                end
 
-	g_type_get_type_registration_serial (): NATURAL 
+	g_type_get_type_registration_serial: NATURAL 
                -- g_type_get_type_registration_serial
                external "plug_in"
                alias "{
@@ -408,7 +408,7 @@ feature {} -- External calls
                }"
                end
 
-	g_type_init () 
+	g_type_init 
                -- g_type_init
                external "plug_in"
                alias "{

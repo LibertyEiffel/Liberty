@@ -38,7 +38,7 @@ feature {} -- External calls
                }"
                end
 
-	g_closure_get_type (): like long_unsigned 
+	g_closure_get_type: like long_unsigned 
                -- g_closure_get_type
                external "plug_in"
                alias "{
@@ -68,7 +68,7 @@ feature {} -- External calls
                }"
                end
 
-	g_value_get_type (): like long_unsigned 
+	g_value_get_type: like long_unsigned 
                -- g_value_get_type
                external "plug_in"
                alias "{
