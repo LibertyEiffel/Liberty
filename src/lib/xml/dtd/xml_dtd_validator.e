@@ -779,7 +779,7 @@ feature {}
          entity_urls.is_empty
       end
 
-   backtrack_next_pcdata_marker: UNICODE_STRING is once then U"__#PCDATA__" end
+   backtrack_next_pcdata_marker: UNICODE_STRING once then U"__#PCDATA__" end
 
 invariant
    not root_name.is_empty
