@@ -51,9 +51,10 @@ feature {ANY}
       do
 		  inspect children_count
 		  when 0 then Result := False
-		  when 1 then Result := not argument(children_count).is_ellipsis
+		  when 1 then Result := not argument(1).is_ellipsis
 		  else Result := True
 		  end
+
       end
 
    is_variadic: BOOLEAN
@@ -164,34 +165,34 @@ feature {ANY}
       local
          i, last: INTEGER
       do
-		  log(once " (")
-         buffer.append(once " (")
-		 if has_arguments then
-			 -- Omit the eventual ellips
-			 if is_variadic then
-				 -- Skip the last argument
-				 last := children_count - 1
-			 else
-				 last := children_count
-			 end
-			 log(once "(#(1) args: " # &children_count)
-			 from
-				 i := 1
-			 until
-				 i > last - 1
-			 loop
-				 argument(i).put_on(buffer)
-				 buffer.append(once "; ")
-				 i := i + 1
-			 end
+		  if has_arguments then
+			  log(once " (")
+			  buffer.append(once " (")
+			  -- Omit the eventual ellips
+			  if is_variadic then
+				  -- Skip the last argument
+				  last := children_count - 1
+			  else
+				  last := children_count
+			  end
+			  log(once "#(1) args: " # &children_count)
+			  from
+				  i := 1
+			  until
+				  i > last - 1
+			  loop
+				  argument(i).put_on(buffer)
+				  buffer.append(once "; ")
+				  i := i + 1
+			  end
 
-			 argument(last).put_on(buffer)
-		 end
-		 log(once ")")
-		 buffer.append(once ")")
-	 end
+			  argument(last).put_on(buffer)
+			  log(once ")")
+			  buffer.append(once ")")
+		  end
+	  end
 
-	 append_return_type
+	  append_return_type
 		 -- Append the Eiffel equivalent type of the return type of
          -- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
          -- POINTER is". When result of `a_node' is "void" only " is" is appended.

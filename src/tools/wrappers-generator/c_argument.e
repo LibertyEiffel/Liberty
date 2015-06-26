@@ -30,7 +30,7 @@ feature {ANY}
          Result := types.at(dequalify(type)).has_wrapper
       rescue
          log("has_wrapper failed. Known typesi:%N")
-         types.do_all_items(agent (a_type: C_TYPE)
+         types.for_each_item(agent (a_type: C_TYPE)
             do
                io.put_string(a_type.out)
             end)
