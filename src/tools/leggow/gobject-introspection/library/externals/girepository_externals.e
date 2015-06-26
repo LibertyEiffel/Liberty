@@ -28,7 +28,7 @@ feature {} -- External calls
                }"
                end
 
-	g_irepository_error_quark (): NATURAL 
+	g_irepository_error_quark: NATURAL 
                -- g_irepository_error_quark
                external "plug_in"
                alias "{
@@ -78,7 +78,7 @@ feature {} -- External calls
                }"
                end
 
-	g_irepository_get_default (): POINTER 
+	g_irepository_get_default: POINTER 
                -- g_irepository_get_default
                external "plug_in"
                alias "{
@@ -128,7 +128,7 @@ feature {} -- External calls
                }"
                end
 
-	g_irepository_get_option_group (): POINTER 
+	g_irepository_get_option_group: POINTER 
                -- g_irepository_get_option_group
                external "plug_in"
                alias "{
@@ -138,7 +138,7 @@ feature {} -- External calls
                }"
                end
 
-	g_irepository_get_search_path (): POINTER 
+	g_irepository_get_search_path: POINTER 
                -- g_irepository_get_search_path
                external "plug_in"
                alias "{
@@ -158,7 +158,7 @@ feature {} -- External calls
                }"
                end
 
-	g_irepository_get_type (): like long_unsigned 
+	g_irepository_get_type: like long_unsigned 
                -- g_irepository_get_type
                external "plug_in"
                alias "{

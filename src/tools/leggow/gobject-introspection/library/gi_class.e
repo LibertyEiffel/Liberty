@@ -23,7 +23,7 @@ deferred class GI_CLASS
 	-- multiple, repeated inheritance tree would make GI_CLASS needlessly
 	-- complex as each repeated inheritance would require renaming and
 	-- redefining of pratically all the indexable interface (lower, upper,
-	-- valid_index, item, first, last, do_all, for_all, exists, aggregate
+	-- valid_index, item, first, last, for_each, for_all, exists, aggregate
 	-- out_in_tagged_out_memory, count, is_empty)
 
 	-- Given the particular status of this introspection library it seems more
@@ -48,7 +48,7 @@ feature {ANY}
 	emit_wrapper is
 		do
 			("Class: #(1)%N" # name).print_on(std_output)
-			methods_iter.do_all(agent (x: GI_FUNCTION_INFO) is 
+			methods_iter.for_each(agent (x: GI_FUNCTION_INFO) is 
 				do
 					x.emit_wrapper
 				end)

@@ -58,7 +58,7 @@ feature {} -- External calls
                }"
                end
 
-	g_invoke_error_quark (): NATURAL 
+	g_invoke_error_quark: NATURAL 
                -- g_invoke_error_quark
                external "plug_in"
                alias "{

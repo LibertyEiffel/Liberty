@@ -27,7 +27,7 @@ inherit
 			item as field 
 			first as first_field
 			last as last_field
-			do_all as field_do_all 
+			for_each as field_for_each 
 			for_all as for_all_fields
 			exists as field_exists
 			aggregate as aggregate_fields
@@ -112,7 +112,7 @@ feature {ANY} -- Methods
 		-- g_union_info_find_method returns a GIFunctionInfo. Free the struct by calling g_base_info_unref() when done. [transfer full]
 	end
 
-	method_do_all (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]]) is
+	method_for_each (an_action: ROUTINE[TUPLE[GI_FUNCTION_INFO]]) is
 	local i: INTEGER
 	do
 		from i:=methods_lower until i>methods_upper loop
@@ -177,13 +177,13 @@ feature {ANY}
 	size: NATURAL is
 		-- The total size of the union in bytes
 	do
-		Result := g_union_info_get_size(handle)
+		Result := g_union_info_get_size(handle).to_natural_32
 	end 
 
 	alignment: NATURAL is
 		-- The required alignment of the union in bytes.
 	do
-		Result := g_union_info_get_alignment(handle)
+		Result := g_union_info_get_alignment(handle).to_natural_32
 	end 
 
 feature {ANY}

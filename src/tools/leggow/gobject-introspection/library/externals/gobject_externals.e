@@ -48,7 +48,7 @@ feature {} -- External calls
                }"
                end
 
-	g_initially_unowned_get_type (): like long_unsigned 
+	g_initially_unowned_get_type: like long_unsigned 
                -- g_initially_unowned_get_type
                external "plug_in"
                alias "{
@@ -238,7 +238,7 @@ feature {} -- External calls
                }"
                end
 
-	g_object_get_type (): like long_unsigned 
+	g_object_get_type: like long_unsigned 
                -- g_object_get_type
                external "plug_in"
                alias "{
