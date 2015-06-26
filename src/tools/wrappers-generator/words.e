@@ -27,7 +27,7 @@ feature {ANY}
                if line /= Void then
                   words := line.split
                   if words /= Void then
-                     words.for_each(agent add)
+                     words.for_each(agent add(?))
                   end
                end
 

@@ -115,16 +115,16 @@ feature {ANY} -- Wrappers emittions
          node: GCCXML_NODE
       do
          log(once "Moving symbols.%N")
-         moved.for_each(agent move_symbol)
+         moved.for_each(agent move_symbol(?,?))
          log(once "Making typedefs and assigning names to typedeffed types.%N")
          typedefs.emit_wrappers
          -- Assign each field to the composed node it belongs to
          -- Wrap namespaces as Eiffel clusters which are directories containing classes
          -- Assign each function to the file they belong to.
 
-         functions.for_each(agent move_feature)
+         functions.for_each(agent move_feature(?))
          -- Assign each variable to the file they belong to.
-         variables.for_each(agent move_feature)
+         variables.for_each(agent move_feature(?))
          namespaces.for_each(agent {C_NAMESPACE}.emit_wrapper)
          check
             node ?:= root
