@@ -1,5 +1,5 @@
 eiffel_zmq.h
 ----------------------------------------------------------------------
-hub_on_input    EZMQ_HUB_ZMQ ehub_on_input
-hub_on_output   EZMQ_HUB_ZMQ ehub_on_output
-hub_on_timeout  EZMQ_HUB_ZMQ ehub_on_timeout
+ehub_on_input    EZMQ_HUB_ZMQ pollitem_on_input
+ehub_on_output   EZMQ_HUB_ZMQ pollitem_on_output
+ehub_on_timeout  EZMQ_HUB_ZMQ pollitem_on_timeout

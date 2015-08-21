@@ -14,6 +14,12 @@ inherit
 create {ANY}
    make
 
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(message)
+      end
+
 feature {}
    make (a_message: like message)
       require
@@ -25,11 +31,6 @@ feature {}
       end
 
    message: ABSTRACT_STRING
-
-   out_in_tagged_out_memory
-      do
-         tagged_out_memory.append(message)
-      end
 
 invariant
    message /= Void

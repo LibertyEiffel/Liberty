@@ -56,7 +56,7 @@ feature {ANY}
 
    receive (capacity: INTEGER; flags: EZMQ_FLAGS)
       local
-         s: STRING; r: INTEGER
+         r: INTEGER
       do
          last_received := once ""
          last_received.clear_count
