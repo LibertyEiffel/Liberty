@@ -1,3 +1,5 @@
+#include "eiffel_zmq.h"
+
 void *pollitem_new(int a_capacity) {
    zmq_pollitem_t **items = malloc(sizeof(zmq_pollitem_t*));
    if (items == NULL) return NULL;

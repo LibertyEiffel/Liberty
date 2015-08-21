@@ -1,3 +1,5 @@
+#include "eiffel_zmq.h"
+
 int ezmq_socket_fd(void *socket) {
    int res;
    size_t len;

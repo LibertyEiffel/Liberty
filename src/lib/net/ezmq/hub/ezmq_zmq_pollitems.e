@@ -48,7 +48,7 @@ feature {EZMQ_HUB}
       local
          r: INTEGER
       do
-         r := poll_events(items, count, timeout, data)
+         r := poll_events(items, count, timeout, hub, data)
          if r /= 0 then
             poll_error_action.call([r, hub])
          end
@@ -122,7 +122,7 @@ feature {}
          }"
       end
 
-   poll_events (a_items: like items; a_count: like count; a_timeout: INTEGER_64; data: EZMQ_DATA): INTEGER
+   poll_events (a_items: like items; a_count: like count; a_timeout: INTEGER_64; hub: EZMQ_HUB; data: EZMQ_DATA): INTEGER
       external "plug_in"
       alias "{
          location: "${sys}/plugins"

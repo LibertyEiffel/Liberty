@@ -101,7 +101,7 @@ feature {}
 
          stop_address := "zmq_poller_#(1)" # &to_pointer
          create stop_socket.make(t.Pair, create {EZMQ_ENDPOINT_ZMQ}.inproc(stop_address))
-         manifest_put(0, create {EZMQ_POLL_INPUT}.make(stop_socket, agent on_stop))
+         manifest_put(0, create {EZMQ_POLL_INPUT}.make(stop_socket, agent on_stop(?, ?, ?, ?)))
       end
 
    manifest_put (index: INTEGER; action: EZMQ_POLLABLE)

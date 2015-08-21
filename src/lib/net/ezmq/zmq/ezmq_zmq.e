@@ -294,7 +294,7 @@ feature {} -- Transmission
       alias "{
          location: "${sys}/plugins"
          module_name: "net/ezmq"
-         feature_name: "zmq_receive"
+         feature_name: "zmq_recv"
          }"
       end
 
