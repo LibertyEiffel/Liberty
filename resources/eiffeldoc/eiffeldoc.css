@@ -709,6 +709,14 @@ ul.menu > li > a:hover {
     border-right: thin solid #a7d8cf;
 }
 
+.feature_value {
+    display: table-cell;
+    text-align: left;
+    width: 20em;
+    border-bottom: thin solid #a7d8cf;
+    border-right: thin solid #a7d8cf;
+}
+
 .feature_attribute {
     display: table-cell;
     text-align: center;
