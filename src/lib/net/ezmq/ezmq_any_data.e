@@ -5,11 +5,11 @@
 --
 class EZMQ_ANY_DATA[E_]
 
-create {ANY}
-   make
-
 inherit
    EZMQ_DATA
+
+create {ANY}
+   make
 
 feature {ANY}
    item: E_
