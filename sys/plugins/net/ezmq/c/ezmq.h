@@ -11,3 +11,7 @@ int   pollitem_poll(void *a_items, int a_count, int64_t tmout, void *ehub, void 
 
 int ezmq_socket_fd(void *socket);
 int ezmq_socket_events(void *socket);
+
+#if ZMQ_VERSION_MAJOR < 4
+#define ZMQ_STREAM -1
+#endif
