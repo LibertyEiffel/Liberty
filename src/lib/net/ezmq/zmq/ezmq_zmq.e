@@ -169,6 +169,60 @@ feature {} -- Exceptions
          Result := agent default_error("Poll error: ", {INTEGER})
       end
 
+feature {ANY} -- ZMQ version
+   version_major: INTEGER
+      once
+         init_version
+         Result := version_major_ref.item
+      end
+
+   version_minor: INTEGER
+      once
+         init_version
+         Result := version_minor_ref.item
+      end
+
+   version_patch: INTEGER
+      once
+         init_version
+         Result := version_patch_ref.item
+      end
+
+feature {}
+   version_major_ref: REFERENCE[INTEGER]
+      once
+         create Result.set_item(-1)
+      end
+
+   version_minor_ref: REFERENCE[INTEGER]
+      once
+         create Result.set_item(-1)
+      end
+
+   version_patch_ref: REFERENCE[INTEGER]
+      once
+         create Result.set_item(-1)
+      end
+
+   init_version
+      local
+         maj, min, pat: INTEGER
+      once
+         zmq_version($maj, $min, $pat)
+         version_major_ref.item := maj
+         version_minor_ref.item := min
+         version_patch_ref.item := pat
+      end
+
+   zmq_version (maj, min, pat: POINTER)
+      external "plug_in"
+      alias "{
+         location: "${sys}/plugins"
+         module_name: "net/ezmq"
+         feature_name: "zmq_version"
+         }"
+      end
+
 feature {} -- Context
    context: POINTER
       do

@@ -90,8 +90,17 @@ feature {ANY} -- The only valid values:
 
    Stream: EZMQ_TYPE
          -- ZMQ_STREAM
+      require
+         has_stream
       once
          Result.make(Type_stream, True, True)
+      end
+
+   has_stream: BOOLEAN
+      local
+         z: EZMQ_ZMQ
+      once
+         Result := z.version_major >= 4
       end
 
 feature {ANY}
