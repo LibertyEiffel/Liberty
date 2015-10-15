@@ -100,7 +100,7 @@ feature {}
                   state := 2
                when '#' then
                   extend('#')
-                  state := -1
+                  state := 0
                else
                   extend('#')
                   extend(c)
