@@ -19,7 +19,7 @@ invariant
 
 end -- class MOCK_EXPECT
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

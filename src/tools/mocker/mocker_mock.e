@@ -61,6 +61,8 @@ feature {}
       end
 
    expect_: #(3)
+
+
                                  ]"
                                  # mock_name # source_name # expect_name)
 
@@ -99,33 +101,36 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
             output.put_new_line
             if signature.result_type = Void then
-               output.put_string(once "   #(1)#(2)%N%
+               output.put_string(once "   #(1)#(4)%N%
                                       %      local%N%
-                                      %         exp: MOCK_PROCEDURE_EXPECTATION%N%
+                                      %         exp: MOCK_PROCEDURE_EXPECTATION[#(2)]%N%
                                       %      do%N%
                                       %         exp := expect_.assert_#(1)#(3)%N%
                                       %         if exp /= Void then%N%
-                                      %            exp.call%N%
+                                      %            exp.call(#(5))%N%
                                       %         end%N%
                                       %      end%N"
                                  # signature.feature_name
-                                 # signature.arguments
-                                 # signature.arguments_list)
+                                 # signature.simple_argument_types
+                                 # signature.simple_arguments
+                                 # signature.simple_arguments_signature
+                                 # signature.argument_arguments)
             else
-               output.put_string(once "   #(1)#(2): #(3)%N%
+               output.put_string(once "   #(1)#(5): #(3)%N%
                                       %      local%N%
-                                      %         exp: MOCK_FUNCTION_EXPECTATION[#(3)]%N%
+                                      %         exp: MOCK_FUNCTION_EXPECTATION[#(2), #(3)]%N%
                                       %      do%N%
                                       %         exp := expect_.assert_#(1)#(4)%N%
                                       %         if exp /= Void then%N%
-                                      %            exp.call%N%
-                                      %            Result := exp.item%N%
+                                      %            Result := exp.item(#(6))%N%
                                       %         end%N%
                                       %      end%N"
                                  # signature.feature_name
-                                 # signature.arguments
+                                 # signature.simple_argument_types
                                  # signature.result_type
-                                 # signature.arguments_list)
+                                 # signature.simple_arguments
+                                 # signature.simple_arguments_signature
+                                 # signature.argument_arguments)
             end
          else
             Precursor(node)

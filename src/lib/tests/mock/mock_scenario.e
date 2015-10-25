@@ -1,57 +1,57 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_EXPECTATION
+expanded class MOCK_SCENARIO
 
-feature {ANY}
-   ready: BOOLEAN
-      deferred
-      end
-
-   target: MOCK_OBJECT
-      deferred
-      end
-
-   feature_name: FIXED_STRING
-      deferred
-      end
-
-   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: MOCK_ARGUMENTS): BOOLEAN
+feature {EIFFELTEST_TOOLS}
+   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
-         ready
+         not is_replaying
+      do
+         groups.expect(expectations)
+      end
+
+   next
+      require
+         not is_replaying
+      do
+         groups.next
+      end
+
+   replay_all
+      require
+         not is_replaying
+      do
+         groups.replay_all
+      ensure
+         is_replaying
+      end
+
+   is_replaying: BOOLEAN
+      do
+         Result := groups.is_replaying
+      end
+
+feature {MOCK_EXPECT}
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: MOCK_ARGUMENTS): MOCK_EXPECTATION
+      require
          a_target /= Void
          a_feature_name.is_interned
          a_arguments /= Void
-      deferred
-      end
-
-feature {MOCK_EXPECTATION_GROUP}
-   done
-      deferred
+         is_replaying
+      do
+         Result := groups.check_call(a_target, a_feature_name, a_arguments)
       ensure
-         ready
+         Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
       end
 
-   all_called
-      deferred
+feature {}
+   groups: MOCK_EXPECTATION_GROUPS
+      once
+         create Result.make
       end
 
-   all_done_message_in (message: STRING)
-      require
-         message /= Void
-         ready
-      deferred
-      end
-
-   all_done: BOOLEAN
-      deferred
-      end
-
-invariant
-   target /= Void
-   feature_name.is_interned
-
-end -- class MOCK_EXPECTATION
+end -- class MOCK_SCENARIO
 --
 -- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

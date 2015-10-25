@@ -1,57 +1,32 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_EXPECTATION
+class MOCK_EQ[E_]
 
-feature {ANY}
-   ready: BOOLEAN
-      deferred
+inherit
+   MOCK_TYPED_MATCHER[E_]
+
+insert
+   SAFE_EQUAL[E_]
+
+create {ANY}
+   make
+
+feature {MOCK_EXPECTATION}
+   match (a: MOCK_TYPED_ARGUMENT[E_]): BOOLEAN
+      do
+         Result := test(item, a.item)
       end
 
-   target: MOCK_OBJECT
-      deferred
+feature {}
+   make (e: E_)
+      do
+         item := e
       end
 
-   feature_name: FIXED_STRING
-      deferred
-      end
+   item: E_
 
-   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: MOCK_ARGUMENTS): BOOLEAN
-      require
-         ready
-         a_target /= Void
-         a_feature_name.is_interned
-         a_arguments /= Void
-      deferred
-      end
-
-feature {MOCK_EXPECTATION_GROUP}
-   done
-      deferred
-      ensure
-         ready
-      end
-
-   all_called
-      deferred
-      end
-
-   all_done_message_in (message: STRING)
-      require
-         message /= Void
-         ready
-      deferred
-      end
-
-   all_done: BOOLEAN
-      deferred
-      end
-
-invariant
-   target /= Void
-   feature_name.is_interned
-
-end -- class MOCK_EXPECTATION
+end -- class MOCK_EQ
 --
 -- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

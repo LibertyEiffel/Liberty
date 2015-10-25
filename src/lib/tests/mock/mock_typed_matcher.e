@@ -1,59 +1,19 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class MOCK_EXPECTATIONS
+deferred class MOCK_TYPED_MATCHER[E_]
 
-feature {EIFFELTEST_TOOLS}
-   expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
-      require
-         not is_replaying
-      do
-         groups.expect(expectations)
+inherit
+   MOCK_MATCHER
+
+feature {MOCK_EXPECTATION}
+   match (a: MOCK_TYPED_ARGUMENT[E_]): BOOLEAN
+      deferred
       end
 
-   next
-      require
-         not is_replaying
-      do
-         groups.next
-      end
-
-   replay_all
-      require
-         not is_replaying
-      do
-         groups.replay_all
-      ensure
-         is_replaying
-      end
-
-   is_replaying: BOOLEAN
-      do
-         Result := groups.is_replaying
-      end
-
-feature {MOCK_EXPECT}
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
-      require
-         a_target /= Void
-         a_feature_name.is_interned
-         a_arguments /= Void
-         is_replaying
-      do
-         Result := groups.check_call(a_target, a_feature_name, a_arguments)
-      ensure
-         Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
-      end
-
-feature {}
-   groups: MOCK_EXPECTATION_GROUPS
-      once
-         create Result.make
-      end
-
-end -- class MOCK_EXPECTATIONS
+end -- class MOCK_TYPED_MATCHER
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

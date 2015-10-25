@@ -7,10 +7,10 @@ insert
    EIFFELTEST_TOOLS
    DISPOSABLE
 
-create {MOCK_EXPECTATIONS}
+create {MOCK_SCENARIO}
    make
 
-feature {MOCK_EXPECTATIONS}
+feature {MOCK_SCENARIO}
    expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
          not is_replaying
@@ -47,8 +47,8 @@ feature {}
          message_assert(agent all_done_message, all_done)
       end
 
-feature {MOCK_EXPECTATIONS}
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
+feature {MOCK_SCENARIO}
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: MOCK_ARGUMENTS): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -105,7 +105,7 @@ invariant
 
 end -- class MOCK_EXPECTATION_GROUPS
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

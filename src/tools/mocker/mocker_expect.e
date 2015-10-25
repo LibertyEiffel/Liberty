@@ -105,22 +105,45 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             create signature.make(node)
 
             if signature.result_type = Void then
-               expectation_type := once "MOCK_PROCEDURE_EXPECTATION"
+               expectation_type := once "MOCK_PROCEDURE_EXPECTATION[#(1)]" # signature.simple_argument_types
             else
-               expectation_type := once "MOCK_FUNCTION_EXPECTATION[#(1)]" # signature.result_type
+               expectation_type := once "MOCK_FUNCTION_EXPECTATION[#(1), #(2)]" # signature.simple_argument_types # signature.result_type
             end
 
             output.put_line(once "[
 feature {ANY}
-   #(2)#(3): #(6)
+   #(1)#(2): #(3)
       do
-         create Result.make(target, feature_name_#(2), #(4))
+         create Result.make(target, feature_name_#(1), #(4))
       end
 
-feature {#(1)}
-   assert_#(2)#(3): #(6)
+                                ]"
+                                # signature.feature_name
+                                # signature.simple_arguments_signature
+                                # expectation_type
+                                # signature.matcher_arguments)
+
+            if signature.arguments_count > 0 then
+               output.put_line(once "[
+feature {ANY}
+   #(1)__match#(2): #(3)
       do
-         Result ::= scenario.check_call(target, feature_name_#(2), #(4))
+         create Result.make(target, feature_name_#(1), create {MOCK_MATCHERS}.make#(4)#(5))
+      end
+
+                                   ]"
+                                   # signature.feature_name
+                                   # signature.matcher_arguments_signature
+                                   # expectation_type
+                                   # &signature.arguments_count
+                                   # signature.simple_arguments)
+            end
+
+            output.put_line(once "[
+feature {#(1)}
+   assert_#(2)#(3): #(4)
+      do
+         Result ::= scenario.check_call(target, feature_name_#(2), #(5))
          label_assert(feature_name_#(2), Result /= Void)
       end
 
@@ -131,9 +154,10 @@ feature {#(1)}
 
                                 ]"
                                 # mock_name
-                                # signature.feature_name # signature.arguments
-                                # signature.arguments_tuple # signature.arguments_list
-                                # expectation_type)
+                                # signature.feature_name
+                                # signature.simple_arguments_signature
+                                # expectation_type
+                                # signature.argument_arguments)
          else
             Precursor(node)
          end

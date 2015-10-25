@@ -19,9 +19,22 @@ create {ANY}
 feature {ANY}
    result_type: STRING
    feature_name: STRING
-   arguments_list: LAZY_STRING
-   arguments_tuple: LAZY_STRING
-   arguments: LAZY_STRING
+
+   arguments_count: INTEGER
+      do
+         if argument_names /= Void then
+            Result := argument_names.count
+         end
+      end
+
+   simple_arguments: LAZY_STRING
+   simple_argument_types: LAZY_STRING
+   simple_arguments_signature: LAZY_STRING
+
+   matcher_arguments: LAZY_STRING
+   matcher_arguments_signature: LAZY_STRING
+
+   argument_arguments: LAZY_STRING
 
 feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
    visit_eiffel_non_terminal_node_impl (node: EIFFEL_NON_TERMINAL_NODE_IMPL)
@@ -35,14 +48,6 @@ feature {EIFFEL_NON_TERMINAL_NODE_IMPL}
             feature_name := last_image
          when "Signature" then
             Precursor(node)
-            --inspect
-            --   node.count
-            --when 3, 6 then
-            --   -- there is a result type
-            --when 1, 4 then
-            --   -- there is no result type
-            --   result_type := Void
-            --end
          when "Type_Definition" then
             result_type := ""
             create buf.connect_to(result_type)
@@ -85,65 +90,141 @@ feature {}
          a_node.name.same_as(once "Signature")
       do
          a_node.accept(Current)
-         create arguments_list.make(agent build_arguments(once "(#(1))", once ""))
-         create arguments_tuple.make(agent build_arguments(once "[#(1)]", once "[]"))
-         create arguments.make(agent build_arguments_signature)
+         if argument_names /= Void and then argument_names.count > 10 then
+            std_error.put_line("#(1): too many arguments, cannot mock" # feature_name)
+            die_with_code(1)
+         end
+
+         create simple_arguments.make(agent build_arguments)
+         create simple_argument_types.make(agent build_argument_types)
+         create simple_arguments_signature.make(agent build_arguments_signature("#(1)"))
+         create matcher_arguments.make(agent build_mock_arguments("MOCK_MATCHERS", "MOCK_EQ"))
+         create matcher_arguments_signature.make(agent build_arguments_signature("MOCK_TYPED_MATCHER[#(1)]"))
+         create argument_arguments.make(agent build_mock_arguments("MOCK_ARGUMENTS", "MOCK_TYPED_ARGUMENT"))
       end
 
-   build_arguments (format, empty_list: STRING): ABSTRACT_STRING
+   build_arguments: ABSTRACT_STRING
       local
          i: INTEGER
-         args: STRING
+         arg, args: ABSTRACT_STRING
       do
          if argument_names = Void then
-            Result := empty_list
+            Result := ""
          else
-            args := ""
             from
                i := argument_names.lower
             until
                i > argument_names.upper
             loop
-               if not args.is_empty then
-                  args.append(once ", ")
+               arg := argument_names.item(i)
+               if args = Void then
+                  args := arg
+               else
+                  args := "#(1), #(2)" # args #arg
                end
-               args.append(argument_names.item(i))
                i := i + 1
             end
-            Result := format # args
+            Result := "(#(1))" # args
          end
       end
 
-   build_arguments_signature: STRING
+   build_arguments_signature (type_format: STRING): ABSTRACT_STRING
       require
          argument_names /= Void implies argument_names.count = argument_types.count
       local
-         i: INTEGER
+         i: INTEGER; type, arg: ABSTRACT_STRING
       do
-         Result := ""
-         if argument_names /= Void then
-            Result.extend(' ')
-            Result.extend('(')
+         if argument_names = Void then
+            Result := ""
+         else
             from
                i := argument_names.lower
             until
                i > argument_names.upper
             loop
-               if i > argument_types.lower then
-                  if argument_types.item(i - 1) = Void then
-                     Result.append(once ", ")
-                  else
-                     Result.append(once "; ")
-                  end
+               if argument_types.item(i) = Void then
+                  arg := argument_names.item(i)
+               else
+                  type := type_format # argument_types.item(i)
+                  arg := "#(1): #(2)" # argument_names.item(i) # type
                end
-               Result.append(argument_names.item(i))
-               if argument_types.item(i) /= Void then
-                  Result.extend(':')
-                  Result.append(argument_types.item(i))
+               if Result = Void then
+                  Result := arg
+               elseif argument_types.item(i - 1) = Void then
+                  Result := "#(1), #(2)" # Result # arg
+               else
+                  Result := "#(1); #(2)" # Result # arg
                end
                i := i + 1
             end
-            Result.extend(')')
+            Result := " (#(1))" # Result
+         end
+      end
+
+   build_mock_arguments (container_type, item_type: STRING): ABSTRACT_STRING
+      local
+         i, j: INTEGER
+         type, arg, args: ABSTRACT_STRING
+      do
+         if argument_names = Void then
+            Result := "create {#(1)}.make0" # container_type
+         else
+            from
+               i := argument_names.lower
+            until
+               i > argument_names.upper
+            loop
+               from
+                  type := Void
+                  j := i
+               until
+                  type /= Void
+               loop
+                  type := argument_types.item(j)
+                  j := j + 1
+               end
+               arg := "create {#(1)[#(2)]}.make(#(3))" # item_type # type # argument_names.item(i)
+               if args = Void then
+                  args := arg
+               else
+                  args := "#(1), #(2)" # args # arg
+               end
+               i := i + 1
+            end
+            Result := "create {#(1)}.make#(2)(#(3))" # container_type # &i # args
+         end
+      end
+
+   build_argument_types: ABSTRACT_STRING
+      local
+         i, j: INTEGER
+         type: ABSTRACT_STRING
+      do
+         if argument_names = Void then
+            Result := "TUPLE"
+         else
+            from
+               i := argument_names.lower
+            until
+               i > argument_names.upper
+            loop
+               from
+                  type := Void
+                  j := i
+               until
+                  type /= Void
+               loop
+                  type := argument_types.item(j)
+                  j := j + 1
+               end
+               if Result = Void then
+                  Result := type
+               else
+                  Result := "#(1), #(2)" # Result # type
+               end
+               i := i + 1
+            end
+            Result := "TUPLE[#(1)]" # Result
          end
       end
 
