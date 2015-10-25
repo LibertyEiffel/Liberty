@@ -89,10 +89,12 @@ feature {}
                                                              "Variable+", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Variable" >> }, agent build_new_list("Variable", "Variable+");
                                                                                                       {FAST_ARRAY[STRING] << "Variable", "KW ,", "Variable+" >> }, agent build_continue_list("Variable", 1, "Variable+") >> };
                                                              "Variable", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name" >> }, Void >> };
-                                                             "Do_Block", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW do", "Instruction*", "KW ;;" >> }, Void;
-                                                                                                     {FAST_ARRAY[STRING] << "KW once", "Instruction*", "KW ;;" >> }, Void;
+                                                             "Do_Block", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW do", "Instruction*", "Then_Block", "KW ;;" >> }, Void;
+                                                                                                     {FAST_ARRAY[STRING] << "KW once", "Instruction*", "Then_Block", "KW ;;" >> }, Void;
                                                                                                      {FAST_ARRAY[STRING] << "KW deferred" >> }, Void;
                                                                                                      {FAST_ARRAY[STRING] << "KW attribute" >> }, Void >> };
+                                                             "Then_Block", {DESCENDING_NON_TERMINAL << epsilon, Void;
+                                                                                                       {FAST_ARRAY[STRING] << "KW then", "Expression" >> }, Void >> };
                                                              "Rescue_Block", {DESCENDING_NON_TERMINAL << epsilon, Void;
                                                                                                          {FAST_ARRAY[STRING] << "KW rescue", "Instruction*", "KW ;;" >> }, Void >> };
                                                              "Instruction*", {DESCENDING_NON_TERMINAL << epsilon, agent build_empty_list("Instruction*");
@@ -249,8 +251,8 @@ feature {}
                                                              "Client", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Type_Definition" >> }, Void >> }; -- Liberty extension
                                                              "Feature_Definition*", {DESCENDING_NON_TERMINAL << epsilon, agent build_empty_list("Feature_Definition*");
                                                                                                                 {FAST_ARRAY[STRING] << "Feature_Definition", "Feature_Definition*" >> }, agent build_continue_list("Feature_Definition", 0, "Feature_Definition*") >> };
-                                                             "Feature_Definition", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Routine_Definition" >> }, Void;
-                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Routine_Definition" >> }, Void;
+                                                             "Feature_Definition", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Indexing", "Signature", "Assign", "KW is", "Routine_Definition" >> }, Void;
+                                                                                                               {FAST_ARRAY[STRING] << "Indexing", "Signature", "Assign", "Routine_Definition" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "Manifest_Or_Type_Test" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "Manifest_Or_Type_Test" >> }, Void;
                                                                                                                {FAST_ARRAY[STRING] << "Indexing", "Signature", "KW is", "KW unique" >> }, Void;
@@ -260,11 +262,13 @@ feature {}
                                                                                                       {FAST_ARRAY[STRING] << "Feature_Name+", "KW :", "Type_Definition" >> }, Void;
                                                                                                       {FAST_ARRAY[STRING] << "Feature_Name+", "KW (", "Declaration*", "KW )" >> }, Void;
                                                                                                       {FAST_ARRAY[STRING] << "Feature_Name+", "KW (", "Declaration*", "KW )", "KW :", "Type_Definition" >> }, Void >> };
+                                                             "Assign", {DESCENDING_NON_TERMINAL << epsilon, Void;
+                                                                                                   {FAST_ARRAY[STRING] << "KW assign", "Feature_Name" >> }, Void >> };
                                                              "Feature_Name+", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "Feature_Name" >> }, agent build_new_list("Feature_Name", "Feature_Name+");
                                                                                                           {FAST_ARRAY[STRING] << "Feature_Name", "KW ,", "Feature_Name+" >> }, agent build_continue_list("Feature_Name", 1, "Feature_Name+") >> };
                                                              "Feature_Name", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW frozen", "Feature_Name_Or_Alias" >> }, Void;
                                                                                                          {FAST_ARRAY[STRING] << "Feature_Name_Or_Alias" >> }, Void >> };
-                                                             "Feature_Name_Or_Alias", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name" >> }, Void;
+                                                             "Feature_Name_Or_Alias", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW entity name", "Alias" >> }, Void;
                                                                                                                   {FAST_ARRAY[STRING] << "KW infix", "KW string" >> }, Void;
                                                                                                                   {FAST_ARRAY[STRING] << "KW prefix", "KW string" >> }, Void >> };
                                                              "External", {DESCENDING_NON_TERMINAL << {FAST_ARRAY[STRING] << "KW external", "KW string", "Alias" >> }, Void >> };
@@ -314,6 +318,7 @@ feature {}
                                                                                                                  {FAST_ARRAY[STRING] << "Expression" >> }, Void >> };
 
                                                              "KW as", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "as"), Void);
+                                                             "KW assign", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "assign"), Void);
                                                              "KW all", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "all"), Void);
                                                              "KW creation", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "creation"), Void);
                                                              "KW class", create {DESCENDING_TERMINAL}.make(agent parse_keyword(?, "class"), Void);
