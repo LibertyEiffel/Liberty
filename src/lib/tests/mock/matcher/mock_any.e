@@ -8,12 +8,8 @@ inherit
 
 feature {ANY}
    out_in_tagged_out_memory
-      local
-         e: E_
       do
-         tagged_out_memory.append(once "<any ")
-         tagged_out_memory.append(e.generator)
-         tagged_out_memory.extend('>')
+         tagged_out_memory.extend('?')
       end
 
 feature {MOCK_EXPECTATION}
