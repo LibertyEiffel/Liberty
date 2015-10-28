@@ -8,6 +8,9 @@ deferred class MOCK_EXPECT
 
 insert
    EIFFELTEST_TOOLS
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {}
    target: MOCK_TYPED_OBJECT[like Current]

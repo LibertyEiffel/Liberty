@@ -118,7 +118,7 @@ feature {MOCK_EXPECTATION_GROUP}
    all_done_message_in (message: STRING)
       do
          if not all_done then
-            message.append(" - (#(1)).#(2)(#(3))%N" # target.out # feature_name # arg_matchers.out)
+            message.append(" - #(1)%N" # out)
          end
       end
 

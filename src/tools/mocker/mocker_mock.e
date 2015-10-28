@@ -45,6 +45,9 @@ class #(1)
 
 inherit
    #(2)
+      redefine
+         out_in_tagged_out_memory
+      end
    MOCK_TYPED_OBJECT[#(3)]
 
 create {#(3)}
@@ -69,6 +72,12 @@ feature {}
          node.node_at(node.lower+5).accept(Current)
 
          output.put_string(once "[
+
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{#(1)}")
+      end
 
 end -- class #(1)
 

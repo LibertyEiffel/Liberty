@@ -8,6 +8,9 @@ inherit
 
 insert
    EIFFELTEST_TOOLS
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {}
    expect_: E_

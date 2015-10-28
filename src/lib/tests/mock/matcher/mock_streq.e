@@ -1,41 +1,52 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_OBJECT
-   --
-   -- Tag type used by the mock framework
-   --
+class MOCK_STREQ
+
+inherit
+   MOCK_TYPED_MATCHER[ABSTRACT_STRING]
 
 insert
-   ANY
-      undefine
+   SAFE_EQUAL[ABSTRACT_STRING]
+      redefine
          out_in_tagged_out_memory
       end
 
-feature {MOCK_EXPECT}
-   add_missing_expectation(expectation: MOCK_EXPECTATION)
-      require
-         expectation /= Void
-      do
-         missing_expectations.add_last(expectation)
-      end
+create {ANY}
+   make
 
-   can_add_missing_expectation: BOOLEAN
+feature {ANY}
+   out_in_tagged_out_memory
       do
-         Result := missing_expectations /= Void
+         if item = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            tagged_out_memory.extend('"')
+            item.out_in_tagged_out_memory
+            tagged_out_memory.extend('"')
+         end
       end
 
 feature {MOCK_EXPECTATION}
-   missing_expectations: COLLECTION[MOCK_EXPECTATION]
-
-   replay (a_missing_expectations: like missing_expectations)
+   match (a: MOCK_TYPED_ARGUMENT[ABSTRACT_STRING]): BOOLEAN
       do
-         missing_expectations := a_missing_expectations
-      ensure
-         missing_expectations = a_missing_expectations
+         Result := test(item, a.item)
+         if not Result then
+            if item /= Void and then a.item /= Void then
+               Result := item.out.is_equal(a.item.out)
+            end
+         end
       end
 
-end -- class MOCK_OBJECT
+feature {}
+   make (e: ABSTRACT_STRING)
+      do
+         item := e
+      end
+
+   item: ABSTRACT_STRING
+
+end -- class MOCK_STREQ
 --
 -- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --

@@ -72,6 +72,13 @@ feature {}
          node.node_at(node.lower+5).accept(Current)
 
          output.put_string(once "[
+
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "{#(1)}")
+      end
+
 end -- class #(1)
 
                                  ]"
