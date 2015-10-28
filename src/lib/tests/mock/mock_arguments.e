@@ -3,6 +3,12 @@
 --
 class MOCK_ARGUMENTS
 
+insert
+   ANY
+      redefine
+         out_in_tagged_out_memory
+      end
+
 create {MOCK_EXPECT, MOCK_OBJECT}
    make0, make1, make2, make3, make4, make5, make6, make7, make8, make9, make10
 
@@ -22,6 +28,27 @@ feature {ANY}
          valid_index(i)
       do
          Result := arguments.item(i - 1)
+      end
+
+   out_in_tagged_out_memory
+      local
+         i: INTEGER
+      do
+         if count > 0 then
+            tagged_out_memory.extend('(')
+            from
+               i := arguments.lower
+            until
+               i > arguments.upper
+            loop
+               if i > arguments.lower then
+                  tagged_out_memory.append(once ", ")
+               end
+               arguments.item(i).out_in_tagged_out_memory
+               i := i + 1
+            end
+            tagged_out_memory.extend(')')
+         end
       end
 
 feature {}

@@ -5,6 +5,13 @@ deferred class MOCK_ARGUMENT
    --
    -- Tag type used by the mock framework
    --
+
+insert
+   ANY
+      undefine
+         out_in_tagged_out_memory
+      end
+
 end -- class MOCK_ARGUMENT
 --
 -- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>

@@ -25,11 +25,12 @@ feature {MOCK_SCENARIO}
          groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
-   replay_all
+   replay_all (missing_expectations: COLLECTION[MOCK_EXPECTATION])
       require
          not is_replaying
       do
          check_index.set_item(groups.lower)
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.replay_all(missing_expectations))
       ensure
          is_replaying
       end

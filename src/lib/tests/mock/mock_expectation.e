@@ -3,6 +3,12 @@
 --
 deferred class MOCK_EXPECTATION
 
+insert
+   ANY
+      undefine
+         out_in_tagged_out_memory
+      end
+
 feature {ANY}
    ready: BOOLEAN
       deferred
@@ -23,9 +29,20 @@ feature {ANY}
          a_feature_name.is_interned
          a_arguments /= Void
       deferred
+      ensure
+         Result implies target.missing_expectations /= Void
       end
 
 feature {MOCK_EXPECTATION_GROUP}
+   replay (missing_expectations: COLLECTION[MOCK_EXPECTATION])
+      require
+         missing_expectations /= Void
+      do
+         target.replay(missing_expectations)
+      ensure
+         target.missing_expectations = missing_expectations
+      end
+
    done
       deferred
       ensure
@@ -34,6 +51,8 @@ feature {MOCK_EXPECTATION_GROUP}
 
    all_called
       deferred
+      ensure
+         target.missing_expectations = Void
       end
 
    all_done_message_in (message: STRING)

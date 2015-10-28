@@ -6,6 +6,12 @@ deferred class MOCK_MATCHER
    -- Tag type used by the mock framework
    --
 
+insert
+   ANY
+      undefine
+         out_in_tagged_out_memory
+      end
+
 feature {MOCK_EXPECTATION}
    match (a: MOCK_ARGUMENT): BOOLEAN
       require

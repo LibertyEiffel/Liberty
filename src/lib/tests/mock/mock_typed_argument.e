@@ -12,6 +12,11 @@ create {MOCK_EXPECT, MOCK_OBJECT}
 feature {ANY}
    item: E_
 
+   out_in_tagged_out_memory
+      do
+         item.out_in_tagged_out_memory
+      end
+
 feature {}
    make (e: E_)
       do

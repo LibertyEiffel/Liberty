@@ -1,13 +1,16 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-deferred class MOCK_TYPED_EXPECTATION
+deferred class MOCK_TYPED_EXPECTATION[T_ -> TUPLE]
 
 inherit
    MOCK_EXPECTATION
 
 insert
    EIFFELTEST_TOOLS
+      redefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY}
    ready: BOOLEAN
@@ -19,6 +22,14 @@ feature {ANY}
    counter_ready: BOOLEAN
       do
          Result := counter /= Void
+      end
+
+   out_in_tagged_out_memory
+      do
+         target.out_in_tagged_out_memory
+         tagged_out_memory.extend('.')
+         tagged_out_memory.append(feature_name)
+         arg_matchers.out_in_tagged_out_memory
       end
 
 feature {ANY}
@@ -59,6 +70,7 @@ feature {ANY}
             and then feature_name = a_feature_name
             and then match_arguments(a_arguments)
             and then counter.can_call
+            and then target.missing_expectations /= Void
       end
 
 feature {}
@@ -100,6 +112,7 @@ feature {MOCK_EXPECTATION_GROUP}
    all_called
       do
          counter.all_called
+         target.replay(Void)
       end
 
    all_done_message_in (message: STRING)

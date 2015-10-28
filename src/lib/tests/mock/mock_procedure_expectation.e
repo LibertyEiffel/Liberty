@@ -4,7 +4,7 @@
 class MOCK_PROCEDURE_EXPECTATION[T_ -> TUPLE]
 
 inherit
-   MOCK_TYPED_EXPECTATION
+   MOCK_TYPED_EXPECTATION[T_]
       export {MOCK_OBJECT}
          call
       end

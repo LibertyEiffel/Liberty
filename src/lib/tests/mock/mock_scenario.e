@@ -21,16 +21,24 @@ feature {EIFFELTEST_TOOLS}
    replay_all
       require
          not is_replaying
+      local
+         mexps: FAST_ARRAY[MOCK_EXPECTATION]
       do
-         groups.replay_all
+         create mexps.with_capacity(0)
+         missing_expectations := mexps
+         groups.replay_all(mexps)
       ensure
          is_replaying
+         missing_expectations.is_empty
       end
 
    is_replaying: BOOLEAN
       do
          Result := groups.is_replaying
       end
+
+feature {ANY}
+   missing_expectations: TRAVERSABLE[MOCK_EXPECTATION]
 
 feature {MOCK_EXPECT}
    check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: MOCK_ARGUMENTS): MOCK_EXPECTATION

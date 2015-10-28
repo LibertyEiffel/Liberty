@@ -57,6 +57,14 @@ feature {MOCK_EXPECTATION_GROUPS}
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
       end
 
+   replay_all (missing_expectations: COLLECTION[MOCK_EXPECTATION])
+      do
+         expectations.for_each(agent (mexps: COLLECTION[MOCK_EXPECTATION]; exps: FAST_ARRAY[MOCK_EXPECTATION])
+                                  do
+                                     exps.for_each(agent {MOCK_EXPECTATION}.replay(mexps))
+                                  end (missing_expectations, ?))
+      end
+
    all_called
       do
          expectations.for_each(agent {FAST_ARRAY[MOCK_EXPECTATION]}.for_each(agent {MOCK_EXPECTATION}.all_called))

@@ -144,7 +144,14 @@ feature {#(1)}
    assert_#(2)#(3): #(4)
       do
          Result ::= scenario.check_call(target, feature_name_#(2), #(5))
-         label_assert(feature_name_#(2), Result /= Void)
+         if Result = Void then
+            label_assert("Unexpected call to #(2) - missing expect?", False)
+            if target.can_add_missing_expectation then
+               target.add_missing_expectation(create {#(4)}.make(target, feature_name_#(2), #(6)))
+            else
+               label_assert("Unwanted call to #(2) - missing replay_all?", False)
+            end
+         end
       end
 
    feature_name_#(2): FIXED_STRING
@@ -157,7 +164,8 @@ feature {#(1)}
                                 # signature.feature_name
                                 # signature.simple_arguments_signature
                                 # expectation_type
-                                # signature.argument_arguments)
+                                # signature.argument_arguments
+                                # signature.matcher_arguments)
          else
             Precursor(node)
          end

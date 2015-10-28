@@ -8,9 +8,22 @@ inherit
 
 insert
    SAFE_EQUAL[E_]
+      redefine
+         out_in_tagged_out_memory
+      end
 
 create {ANY}
    make
+
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         if item = Void then
+            tagged_out_memory.append(once "Void")
+         else
+            item.out_in_tagged_out_memory
+         end
+      end
 
 feature {MOCK_EXPECTATION}
    match (a: MOCK_TYPED_ARGUMENT[E_]): BOOLEAN

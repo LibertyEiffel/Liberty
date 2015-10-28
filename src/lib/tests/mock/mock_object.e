@@ -5,6 +5,30 @@ deferred class MOCK_OBJECT
    --
    -- Tag type used by the mock framework
    --
+
+feature {MOCK_EXPECT}
+   add_missing_expectation(expectation: MOCK_EXPECTATION)
+      require
+         expectation /= Void
+      do
+         missing_expectations.add_last(expectation)
+      end
+
+   can_add_missing_expectation: BOOLEAN
+      do
+         Result := missing_expectations /= Void
+      end
+
+feature {MOCK_EXPECTATION}
+   missing_expectations: COLLECTION[MOCK_EXPECTATION]
+
+   replay (a_missing_expectations: like missing_expectations)
+      do
+         missing_expectations := a_missing_expectations
+      ensure
+         missing_expectations = a_missing_expectations
+      end
+
 end -- class MOCK_OBJECT
 --
 -- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
