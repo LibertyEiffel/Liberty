@@ -8,6 +8,14 @@ class BINARY_FILE_WRITE
 
 inherit
    DISPOSABLE
+   BINARY_OUTPUT_STREAM
+      redefine
+         dispose
+      end
+   TERMINAL_OUTPUT_STREAM
+      redefine
+         dispose
+      end
    FILE_STREAM
       redefine
          dispose
@@ -60,16 +68,6 @@ feature {ANY}
          end
       end
 
-   flush
-         -- forces a write of unwritten character (write my have been
-         -- delayed, flush writes buffered characters)
-      do
-         if buffer_position > 0 then
-            write_buffer
-         end
-         io_flush(output_stream)
-      end
-
    disconnect
       do
          if buffer_position > 0 then
@@ -78,8 +76,6 @@ feature {ANY}
          fclose(output_stream)
          path := Void
       end
-
-   can_disconnect: BOOLEAN True
 
    put_byte (byte: INTEGER)
       require
@@ -181,6 +177,22 @@ feature {ANY}
          associated: Result.associated_stream = Current
       end
 
+feature {FILTER_OUTPUT_STREAM}
+   filtered_put_character (c: CHARACTER)
+      do
+         put_byte(c.code)
+      end
+
+   filtered_flush
+         -- forces a write of unwritten character (write my have been
+         -- delayed, flush writes buffered characters)
+      do
+         if buffer_position > 0 then
+            write_buffer
+         end
+         io_flush(output_stream)
+      end
+
 feature {FILTER}
    filtered_descriptor: INTEGER 0
    filtered_has_descriptor: BOOLEAN False
@@ -225,11 +237,6 @@ feature {}
          end
       end
 
-   new_url: URL
-      do
-         create Result.from_stream(Current, False, True)
-      end
-
 feature {} -- built-ins
    put_16_ne (a_buf: NATIVE_ARRAY[CHARACTER]; i: INTEGER_16; ch_pos: INTEGER)
       external "built_in"
@@ -270,33 +277,6 @@ feature {} -- built-ins
          location: "${sys}/plugins"
          module_name: "io"
          feature_name: "binary_file_write_append"
-         }"
-      end
-
-   putc (a_byte: CHARACTER; a_stream: POINTER)
-      external "plug_in"
-      alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
-         feature_name: "io_putc"
-         }"
-      end
-
-   io_fwrite (a_buf: NATIVE_ARRAY[CHARACTER]; a_size: INTEGER; a_stream: POINTER): INTEGER
-      external "plug_in"
-      alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
-         feature_name: "io_fwrite"
-         }"
-      end
-
-   io_flush (a_stream_pointer: POINTER)
-      external "plug_in"
-      alias "{
-         location: "${sys}/plugins"
-         module_name: "io"
-         feature_name: "io_flush"
          }"
       end
 
