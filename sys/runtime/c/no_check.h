@@ -102,6 +102,9 @@ int se_print_one_frame_in(FILE* file, se_dump_stack*ds, se_dump_stack* cur, int 
 
 int se_rci(se_dump_stack*caller,void*C);
 void error0(char*m,char*vv);
+#ifndef SE_SEDB
+NO_RETURN
+#endif
 void error1(char*m,se_position position);
 void error2(T0* o,se_position position);
 T0* vc(T0* o, se_position position);
