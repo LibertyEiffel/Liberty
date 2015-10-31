@@ -565,7 +565,7 @@ do_pkg_tools() {
     install -m 0755 -o root -g root $TARGET/bin/se $PUBLIC/
     install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
-    for tool in compile compile_to_c clean pretty short find ace_check class_check eiffeldoc eiffeltest extract_internals mocker
+    for tool in compile compile_to_c clean pretty short finder ace_check class_check eiffeldoc eiffeltest extract_internals mocker
     do
         bin=$TARGET/bin/${tool}.d/$tool
         if test -e $bin; then
