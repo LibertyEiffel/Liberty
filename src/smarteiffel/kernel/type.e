@@ -457,7 +457,7 @@ feature {FEATURE_ACCUMULATOR}
          class_text.check_level_2(Current)
       end
 
-feature {CLASS_CHECKER, TYPE, IFTHENELSE_EXP}
+feature {CLASS_CHECKER, MOCK, TYPE, IFTHENELSE_EXP}
    up_to_any_in (parent_list: FAST_ARRAY[TYPE])
          -- Add in `parent_list', a path to the ANY class, without including the ANY class itself.
          --|*** Wrong comment
