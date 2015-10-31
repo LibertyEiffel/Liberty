@@ -1516,7 +1516,7 @@ feature {}
          end
       end
 
-feature {CLASS_CHECK}
+feature {CLASS_CHECK, MOCK}
    very_last_information
       do
          error_handler.print_live_warnings
