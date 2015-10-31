@@ -1,70 +1,28 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class FLAG_NAME_LIST
-   --
-   -- Shared Frozen String list for command flags.
-   --
-feature {} -- Most of them are command flag names:
-   fz_case_insensitive: STRING "case_insensitive"
+class MOCK_EXPECT_GENERATOR
 
-   fz_cc: STRING "cc"
+inherit
+   MOCK_GENERATOR
 
-   fz_cecil: STRING "cecil"
+create {MOCK}
+   make
 
-   fz_clean: STRING "clean"
+feature {}
+   generate_class_header
+      do
+      end
 
-   fz_c_mode: STRING "c_mode"
+   generate_class_footer
+      do
+      end
 
-   fz_expect: STRING "expect"
+   generate_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
+      do
+      end
 
-   fz_flymake_mode: STRING "flymake_mode"
-
-   fz_gc_info: STRING "gc_info"
-
-   fz_help: STRING "help"
-
-   fz_high_memory_compiler: STRING "high_memory_compiler"
-
-   fz_loadpath: STRING "loadpath"
-
-   fz_manifest_string_trace: STRING "manifest_string_trace"
-
-   fz_mock: STRING "mock"
-
-   fz_no_main: STRING "no_main"
-
-   fz_no_split: STRING "no_split"
-
-   fz_no_strip: STRING "no_strip"
-
-   fz_style_warning: STRING "style_warning"
-
-   fz_no_warning: STRING "no_warning"
-
-   fz_o: STRING "-o"
-
-   fz_profile: STRING "profile"
-
-   fz_relax: STRING "relax"
-
-   fz_safety_check: STRING "safety_check"
-
-   fz_sedb: STRING "sedb"
-
-   fz_split: STRING "split"
-
-   fz_verbose: STRING "verbose"
-
-   fz_version: STRING "version"
-
-   fz_flag_run: STRING "run"
-
-   fz_flag_clean_classes: STRING "clean_classes"
-
-   fz_flag_hard_clean: STRING "hard_clean"
-
-end -- class FLAG_NAME_LIST
+end -- class MOCK_EXPECT_GENERATOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

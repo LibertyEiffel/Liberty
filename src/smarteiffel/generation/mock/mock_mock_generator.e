@@ -1,25 +1,28 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-class MOCK_PRINTER
-   --
-   -- Driver for the 'mock' command.
-   --
-
-insert
-   GLOBALS
+class MOCK_MOCK_GENERATOR
 
 inherit
-   IN_OUT_VISITOR
+   MOCK_GENERATOR
 
-create {ANY}
+create {MOCK}
    make
 
-feature {ANY}
-   type: TYPE
-         -- The `type' to mock.
+feature {}
+   generate_class_header
+      do
+      end
 
-end -- class MOCK_PRINTER
+   generate_class_footer
+      do
+      end
+
+   generate_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
+      do
+      end
+
+end -- class MOCK_MOCK_GENERATOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

@@ -95,6 +95,20 @@ feature {}
                      i := i + 1
                   end
                elseif is_valid_argument_for_ace_mode(arg) then
+               elseif flag_match(fz_mock, arg) then
+                  if i = argument_count then
+                     fatal_bad_usage
+                  else
+                     mock_file := argument(i + 1)
+                     i := i + 1
+                  end
+               elseif flag_match(fz_expect, arg) then
+                  if i = argument_count then
+                     fatal_bad_usage
+                  else
+                     expect_file := argument(i + 1)
+                     i := i + 1
+                  end
                else
                   fatal_bad_usage
                end
@@ -135,7 +149,7 @@ feature {}
          parent_list.is_empty
          not class_text.name.is_tuple_related -- because TUPLE is not deferred
       local
-         i: INTEGER
+         mock_gen: MOCK_MOCK_GENERATOR; expect_gen: MOCK_EXPECT_GENERATOR
       do
          parent_list.add_last(class_text.declaration_type_of_like_current)
          parent_list.last.up_to_any_in(parent_list)
@@ -144,14 +158,28 @@ feature {}
          type := class_text.declaration_type_of_like_current
          collect_features
 
-         from
-            i := features_collector.features.lower
-         until
-            i > features_collector.features.upper
-         loop
-            std_output.put_line(features_collector.features.key(i).to_string)
-            i := i + 1
+         if mock_file = Void then
+            mock_file := compute_file_name(fz_mock)
          end
+         create mock_gen.make(mock_file)
+         mock_gen.generate(features_collector.features)
+
+         if expect_file = Void then
+            expect_file := compute_file_name(fz_expect)
+         end
+         create expect_gen.make(expect_file)
+         expect_gen.generate(features_collector.features)
+      end
+
+   compute_file_name (suffix: STRING): STRING
+      require
+         suffix = fz_mock or else suffix = fz_expect
+      do
+         Result := type.class_text.name.to_string.twin
+         Result.to_lower
+         Result.extend('_')
+         Result.append(suffix)
+         Result.append(once ".e")
       end
 
    collect_features
@@ -200,6 +228,8 @@ feature {}
 
    root_class_name: HASHED_STRING
    type: TYPE
+
+   mock_file, expect_file: STRING
 
    features_collector: MOCK_FEATURES_COLLECTOR
 

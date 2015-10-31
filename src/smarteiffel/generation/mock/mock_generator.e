@@ -1,70 +1,78 @@
 -- This file is part of Liberty Eiffel The GNU Eiffel Compiler Tools and Libraries.
 -- See the Copyright notice at the end of this file.
 --
-deferred class FLAG_NAME_LIST
-   --
-   -- Shared Frozen String list for command flags.
-   --
-feature {} -- Most of them are command flag names:
-   fz_case_insensitive: STRING "case_insensitive"
+deferred class MOCK_GENERATOR
 
-   fz_cc: STRING "cc"
+insert
+   GLOBALS
 
-   fz_cecil: STRING "cecil"
+feature {MOCK}
+   generate (features: MAP[ANONYMOUS_FEATURE, FEATURE_NAME])
+      require
+         features /= Void
+      local
+         i: INTEGER
+      do
+         create file.connect_to(file_name)
+         if file.is_connected then
+            echo.put_string(once "Generating features for ")
+            echo.put_string(file_name)
+            echo.put_new_line
+            generate_class_header
+            from
+               i := features.lower
+            until
+               i > features.upper
+            loop
+               echo.put_string(once " - ")
+               echo.put_line(features.key(i).to_string)
+               generate_feature(features.key(i), features.item(i))
+               i := i + 1
+            end
+            generate_class_footer
+            file.disconnect
+         else
+            error_handler.append(once "Could not write to ")
+            error_handler.append(file_name)
+            error_handler.print_as_fatal_error
+         end
+      end
 
-   fz_clean: STRING "clean"
+feature {}
+   generate_class_header
+      require
+         file.is_connected
+      deferred
+      end
 
-   fz_c_mode: STRING "c_mode"
+   generate_class_footer
+      require
+         file.is_connected
+      deferred
+      end
 
-   fz_expect: STRING "expect"
+   generate_feature (fn: FEATURE_NAME; af: ANONYMOUS_FEATURE)
+      require
+         file.is_connected
+         af.names.has(fn)
+      deferred
+      end
 
-   fz_flymake_mode: STRING "flymake_mode"
+   file: TEXT_FILE_WRITE
 
-   fz_gc_info: STRING "gc_info"
+feature {}
+   make (a_file_name: like file_name)
+      require
+         a_file_name /= Void
+      do
+         file_name := a_file_name
+      ensure
+         file_name = a_file_name
+      end
 
-   fz_help: STRING "help"
+   file_name: STRING
 
-   fz_high_memory_compiler: STRING "high_memory_compiler"
-
-   fz_loadpath: STRING "loadpath"
-
-   fz_manifest_string_trace: STRING "manifest_string_trace"
-
-   fz_mock: STRING "mock"
-
-   fz_no_main: STRING "no_main"
-
-   fz_no_split: STRING "no_split"
-
-   fz_no_strip: STRING "no_strip"
-
-   fz_style_warning: STRING "style_warning"
-
-   fz_no_warning: STRING "no_warning"
-
-   fz_o: STRING "-o"
-
-   fz_profile: STRING "profile"
-
-   fz_relax: STRING "relax"
-
-   fz_safety_check: STRING "safety_check"
-
-   fz_sedb: STRING "sedb"
-
-   fz_split: STRING "split"
-
-   fz_verbose: STRING "verbose"
-
-   fz_version: STRING "version"
-
-   fz_flag_run: STRING "run"
-
-   fz_flag_clean_classes: STRING "clean_classes"
-
-   fz_flag_hard_clean: STRING "hard_clean"
-
-end -- class FLAG_NAME_LIST
+end -- class MOCK_GENERATOR
 --
 -- ------------------------------------------------------------------------------------------------------------------------------
 -- Copyright notice below. Please read.

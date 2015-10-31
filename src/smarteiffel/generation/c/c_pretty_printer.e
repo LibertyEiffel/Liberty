@@ -4115,7 +4115,11 @@ feature {} -- ONCE_ROUTINE_POOL
             echo.put_string(once "}.")
             echo.put_string(once_function.first_name.to_string)
             echo.put_string(once "%N")
-            pending_c_function_body.append(once "/*PCO*/%N")
+            pending_c_function_body.append(once "/*PCO:{")
+            pending_c_function_body.append(once_function.class_text.name.to_string)
+            pending_c_function_body.append(once "}.")
+            pending_c_function_body.append(once_function.first_name.to_string)
+            pending_c_function_body.append(once "*/%N")
             c_pre_compute_once_function(non_void_no_dispatch.run_feature, once_function)
          end
       end
