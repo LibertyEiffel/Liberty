@@ -161,13 +161,17 @@ feature {}
          if mock_file = Void then
             mock_file := compute_file_name(fz_mock)
          end
-         create mock_gen.make(mock_file)
-         mock_gen.generate(features_collector.features)
+         create mock_gen.make(class_text, mock_file)
 
          if expect_file = Void then
             expect_file := compute_file_name(fz_expect)
          end
-         create expect_gen.make(expect_file)
+         create expect_gen.make(class_text, expect_file)
+
+         mock_gen.sibling := expect_gen
+         expect_gen.sibling := mock_gen
+
+         mock_gen.generate(features_collector.features)
          expect_gen.generate(features_collector.features)
       end
 
