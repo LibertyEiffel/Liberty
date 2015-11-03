@@ -13,7 +13,7 @@ insert
       end
 
 feature {}
-   expect_: E_
+   expect__: E_
       deferred
       end
 
