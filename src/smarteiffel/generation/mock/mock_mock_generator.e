@@ -21,17 +21,17 @@ feature {}
          file.put_string(once "}%N   make%N%N")
          file.put_string(once "[
 feature {}
-   make (a_expect: like expect_)
+   make (a_expect: like expect__)
       require
          a_expect /= Void
       do
-         expect_ := a_expect
+         expect__ := a_expect
       ensure
-         expect_ = a_expect
+         expect__ = a_expect
       end
 
          ]")
-         file.put_string(once "%N   expect_: ")
+         file.put_string(once "%N   expect__: ")
          file.put_line(sibling.class_name)
       end
 
@@ -66,7 +66,7 @@ feature {}
          file.put_string(signature.simple_argument_types)
          file.put_string(once "]%N%
                               %      do%N%
-                              %         exp := expect_.assert_")
+                              %         exp := expect__.assert__")
          file.put_string(signature.feature_name)
          file.put_string(signature.simple_arguments)
          file.put_string(once "%N%
