@@ -8,6 +8,8 @@ class MOCK_SIGNATURE
 inherit
    FORMAL_ARG_LIST_VISITOR
    DECLARATION_VISITOR
+   CLIENT_LIST_VISITOR
+   TYPE_MARK_LIST_VISITOR
 
 create {MOCK_GENERATOR}
    make
@@ -23,6 +25,15 @@ feature {MOCK_GENERATOR}
          feature_name.clear_count
          fn.complete_name_in(feature_name)
          feature_name := string_pool.new_twin(feature_name)
+
+         exports := once ""
+         if af.clients = Void then
+            exports.copy(once "ANY")
+         else
+            exports.clear_count
+            af.clients.accept(Current)
+         end
+         exports := string_pool.new_twin(exports)
 
          if af.arguments = Void or else af.arguments.count = 0 then
             set_no_arguments
@@ -46,6 +57,7 @@ feature {MOCK_GENERATOR}
       do
          if feature_name /= Void then
             string_pool.recycle(feature_name)
+            string_pool.recycle(exports)
          end
          clean_arguments
          result_type := Void
@@ -64,6 +76,12 @@ feature {MOCK_GENERATOR}
       end
 
    feature_name: STRING
+      require
+         is_ready
+      attribute
+      end
+
+   exports: STRING
       require
          is_ready
       attribute
@@ -135,8 +153,6 @@ feature {FORMAL_ARG_LIST}
 
 feature {DECLARATION_GROUP}
    visit_declaration_group (visited: DECLARATION_GROUP)
-      require
-         visited.count > 0
       local
          i: INTEGER; type: STRING
       do
@@ -169,6 +185,34 @@ feature {DECLARATION_1}
          type := visited.name.result_type.written_mark
          extend_argument(visited.name.to_string, type)
          extend_argument_signature(type)
+      end
+
+feature {CLIENT_LIST}
+   visit_client_list (visited: CLIENT_LIST)
+      do
+         if visited.is_omitted then
+            exports.append(once "ANY")
+         elseif visited.type_mark_list /= Void then
+            visited.type_mark_list.accept(Current)
+         end
+      end
+
+feature {TYPE_MARK_LIST}
+   visit_type_mark_list (visited: TYPE_MARK_LIST)
+      local
+         i: INTEGER
+      do
+         from
+            i := 1
+         until
+            i > visited.count
+         loop
+            if i > 1 then
+               exports.append(once ", ")
+            end
+            exports.append(visited.item(i).written_mark)
+            i := i + 1
+         end
       end
 
 feature {}

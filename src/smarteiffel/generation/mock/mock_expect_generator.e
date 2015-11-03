@@ -111,6 +111,8 @@ feature {}
                               %      do%N%
                               %         Result ::= scenario.check_call(target, feature_name__")
          file.put_string(signature.feature_name)
+         file.put_string(once ", ")
+         file.put_string(signature.argument_arguments)
          file.put_string(once ")%N%
                               %         if Result = Void then%N%
                               %            label_assert(once %"Unexpected call to ")

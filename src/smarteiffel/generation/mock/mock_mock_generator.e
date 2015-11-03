@@ -48,7 +48,9 @@ feature {}
 
    generate_feature
       do
-         file.put_string(once "%N   ")
+         file.put_string(once "%Nfeature {")
+         file.put_string(signature.exports)
+         file.put_string(once "}%N   ")
          file.put_string(signature.feature_name)
          file.put_string(signature.simple_arguments_signature)
          if signature.result_type /= Void then

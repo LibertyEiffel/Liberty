@@ -187,6 +187,8 @@ feature {}
       end
 
    collect_features
+      require
+         type /= Void
       local
          i: INTEGER
       do
@@ -196,7 +198,7 @@ feature {}
          until
             i > parent_list.upper
          loop
-            features_collector.collect(parent_list.item(i))
+            features_collector.collect(parent_list.item(i), type)
             i := i + 1
          end
       end

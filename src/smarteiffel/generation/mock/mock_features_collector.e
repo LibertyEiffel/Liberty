@@ -18,14 +18,17 @@ create {MOCK}
    make
 
 feature {MOCK}
-   collect (a_type: like type)
+   collect (a_parent: like parent; a_type: like type)
       require
+         a_parent /= Void
          a_type /= Void
          not collecting
       do
+         parent := a_parent
          type := a_type
-         type.class_text.accept(Current)
+         parent.class_text.accept(Current)
          type := Void
+         parent := Void
       end
 
    collecting: BOOLEAN then type /= Void end
@@ -77,24 +80,29 @@ feature {FEATURE_CLAUSE}
 feature {FEATURE_TEXT}
    visit_feature_text (visited: FEATURE_TEXT)
       do
-         if visited.anonymous_feature.is_deferred then
-            anonymous_feature := visited.anonymous_feature
-            anonymous_feature.names.accept(Current)
-            anonymous_feature := Void
-         end
+         visited.names.accept(Current)
       end
 
 feature {FEATURE_NAME_LIST}
    visit_feature_name_list (visited: FEATURE_NAME_LIST)
       local
-         i: INTEGER
+         i: INTEGER; fn, ffn: FEATURE_NAME; fs: FEATURE_STAMP; af: ANONYMOUS_FEATURE
       do
          from
             i := 1
          until
             i > visited.count
          loop
-            visited.item(i).accept(Current)
+            fn := visited.item(i)
+            fs := parent.lookup(fn)
+            fs := fs.resolve_static_binding_for(parent, type)
+            af := fs.anonymous_feature(type)
+            if af.is_deferred then
+               anonymous_feature := af
+               ffn := type.get_feature_name(fs)
+               ffn.accept(Current)
+               anonymous_feature := Void
+            end
             i := i + 1
          end
       end
@@ -102,7 +110,9 @@ feature {FEATURE_NAME_LIST}
 feature {FEATURE_NAME}
    visit_feature_name (visited: FEATURE_NAME)
       do
-         check anonymous_feature.is_deferred end
+         check
+            anonymous_feature.is_deferred
+         end
          features.put(anonymous_feature, visited)
       end
 
@@ -114,7 +124,7 @@ feature {}
 
    anonymous_feature: ANONYMOUS_FEATURE
 
-   type: TYPE
+   parent, type: TYPE
 
 invariant
    anonymous_feature /= Void implies anonymous_feature.is_deferred
