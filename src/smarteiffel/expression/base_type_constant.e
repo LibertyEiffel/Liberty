@@ -101,16 +101,15 @@ feature {ANY}
          smart_eiffel.collect_constant(Result)
       end
 
+   to_string: STRING
+      deferred
+      end
+
 feature {CODE, EFFECTIVE_ARG_LIST}
    inline_dynamic_dispatch_ (code_accumulator: CODE_ACCUMULATOR; type: TYPE)
       do
          code_accumulator.add_sedb(start_position, 'S')
          code_accumulator.current_context.add_last(Current)
-      end
-
-feature {}
-   to_string: STRING
-      deferred
       end
 
 end -- class BASE_TYPE_CONSTANT
