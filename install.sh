@@ -186,7 +186,7 @@ clean: clean
 doc: eiffeldoc
 find: finder
 make: se_make.sh
-mock: mocker
+mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
@@ -407,10 +407,11 @@ EOF
                 cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
             done
     } <<EOF
-5  no se
+5  no  se
 6  bdw clean
 7  bdw ace_check
 8  no  eiffeltest
+9  no  mock
 #9  bdw eiffeltest_ng
 #10 bdw eiffeltest_server
 EOF
@@ -437,23 +438,26 @@ EOF
 16 no  extract_internals
 EOF
 
-        while read i gc tool; do
-            progress 30 $i $MAXTOOLCOUNT "$tool"
-            test -d ${tool}.d || mkdir ${tool}.d
-            cd ${tool}.d
-            if [ -e $tool.ace ]; then
-                run ../se c -verbose $tool.ace
-            else
-                case $gc in
-                    no) GC="-no_gc";;
-                    bdw) GC="$BDW_GC";;
-                    *) GC="";;
-                esac
-                run ../se c -verbose -boost $GC $tool -o $tool || exit 1
-            fi
-            cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
-        done <<EOF
-18 bdw mocker
+    {
+        grep -v '^#' |
+            while read i gc tool; do
+                progress 30 $i $MAXTOOLCOUNT "$tool"
+                test -d ${tool}.d || mkdir ${tool}.d
+                cd ${tool}.d
+                if [ -e $tool.ace ]; then
+                    run ../se c -verbose $tool.ace
+                else
+                    case $gc in
+                        no) GC="-no_gc";;
+                        bdw) GC="$BDW_GC";;
+                        *) GC="";;
+                    esac
+                    run ../se c -verbose -boost $GC $tool -o $tool || exit 1
+                fi
+                cd .. && test -e ${tool} || ln -s ${tool}.d/$tool .
+            done
+    } <<EOF
+#18 bdw mocker
 EOF
 
         progress 30 $(($MAXTOOLCOUNT - 1)) $MAXTOOLCOUNT "se_make.sh"
@@ -565,7 +569,7 @@ do_pkg_tools() {
     install -m 0755 -o root -g root $TARGET/bin/se $PUBLIC/
     install -m 0644 -o root -g root $LIBERTY_HOME/work/eiffel.el $SITE_LISP/
 
-    for tool in compile compile_to_c clean pretty short finder ace_check class_check eiffeldoc eiffeltest extract_internals mocker
+    for tool in compile compile_to_c clean pretty short finder ace_check class_check eiffeldoc eiffeltest extract_internals mock
     do
         bin=$TARGET/bin/${tool}.d/$tool
         if test -e $bin; then
@@ -600,7 +604,7 @@ class_check: class_check
 clean: clean
 doc: eiffeldoc
 find: finder
-mock: mocker
+mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
