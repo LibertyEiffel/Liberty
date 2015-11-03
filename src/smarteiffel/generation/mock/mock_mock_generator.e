@@ -14,7 +14,7 @@ feature {}
       do
          file.put_string(once "%Ninherit%N   ")
          file.put_string(mocked_class.name.to_string)
-         file.put_string(once "%N      inherit out_in_tagged_out_memory%N      end%N   MOCK_TYPED_OBJECT[")
+         file.put_string(once "%N      redefine out_in_tagged_out_memory%N      end%N   MOCK_TYPED_OBJECT[")
          file.put_string(sibling.class_name)
          file.put_string(once "]%N%Ncreate {")
          file.put_string(sibling.class_name)
@@ -60,11 +60,16 @@ feature {}
                               %         exp: ")
          if signature.result_type = Void then
             file.put_string(once "MOCK_PROCEDURE_EXPECTATION[")
+            file.put_string(signature.simple_argument_types)
+            file.put_string(once "]")
          else
             file.put_string(once "MOCK_FUNCTION_EXPECTATION[")
+            file.put_string(signature.simple_argument_types)
+            file.put_string(once ", ")
+            file.put_string(signature.result_type)
+            file.put_string(once "]")
          end
-         file.put_string(signature.simple_argument_types)
-         file.put_string(once "]%N%
+         file.put_string(once "%N%
                               %      do%N%
                               %         exp := expect__.assert__")
          file.put_string(signature.feature_name)

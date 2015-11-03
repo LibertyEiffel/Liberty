@@ -38,7 +38,7 @@ feature {}
          file.put_string(sibling.class_name)
          file.put_string(once "%N%
                               %      do%N%
-                              %         t ::= Mock%N%
+                              %         t ::= mock%N%
                               %         Result := t%N%
                               %      end%N")
       end

@@ -179,6 +179,7 @@ feature {}
       do
          if simple_arguments.count > 1 then -- because it contains at least the opening parenthesis
             simple_arguments.append(once ", ")
+            simple_argument_types.append(once ", ")
             matcher_arguments.append(once ", ")
             argument_arguments.append(once ", ")
          end
