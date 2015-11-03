@@ -64,8 +64,8 @@ feature {ANY}
       local my_name: UNICODE_STRING
       do
 		  my_name := c_name
-		  if my_name /= Void then 
-			  Result := c_name /= Void and then c_name.first.to_character.is_letter
+		  if my_name /= Void and then not my_name.is_empty then 
+			  Result := my_name.first.to_character.is_letter
 		  else
 			  check
 				  Result=False
