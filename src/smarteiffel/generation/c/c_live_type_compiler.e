@@ -69,6 +69,10 @@ feature {}
       do
          cpp.set_live_type(live_type)
          cpp.split_c_file_now(live_type.live_features.count)
+
+         echo.put_character('%T')
+         echo.put_string(live_type.name.to_string)
+
          define_agent_creation_for(live_type.type)
          if live_type.create_function_list /= Void then
             if live_type.create_function_list.is_empty then
@@ -78,8 +82,6 @@ feature {}
             end
          end
 
-         echo.put_character('%T')
-         echo.put_string(live_type.name.to_string)
          feature_count := live_type.live_features.count
          if live_type.precursor_run_features /= Void then
             feature_count := feature_count + live_type.precursor_run_features.count
