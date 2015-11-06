@@ -97,6 +97,10 @@ feature {}
          can_call(target, feature_name, a_arguments)
       do
          do_call(a_arguments)
+         debug
+            io.put_string(once "Calling ")
+            io.put_line(out)
+         end
          counter.call
       end
 
