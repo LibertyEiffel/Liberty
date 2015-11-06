@@ -29,7 +29,7 @@ feature {MOCK_EXPECTATION}
 
    all_called
       do
-         assert(all_done)
+         label_assert(once "all done", all_done)
       end
 
    all_done: BOOLEAN
