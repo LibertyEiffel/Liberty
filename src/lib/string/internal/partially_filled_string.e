@@ -182,6 +182,9 @@ feature {}
       do
          storage.add_last(a_argument)
          memory_ := Void
+         debug
+            debug_string := memory
+         end
       ensure
          storage.last = a_argument
       end
