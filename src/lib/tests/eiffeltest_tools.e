@@ -19,7 +19,7 @@ feature {ANY} -- Action when an assert fails
       end
 
 feature {ANY} -- Mock features
-   scenario: MOCK_EXPECTATIONS
+   scenario: MOCK_SCENARIO
 
 feature {ANY} -- `assert' methods used by tests
    assert (test: BOOLEAN)

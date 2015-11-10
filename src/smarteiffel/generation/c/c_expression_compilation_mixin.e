@@ -453,30 +453,35 @@ feature {CREATE_EXPRESSION}
       do
          id := created_type_memory.live_type.id
          boost := ace.boost
-         function_body.append(once "create")
-         id.append_in(function_body)
-         if visited.call /= Void then
-            args := visited.call.arguments
-            rf := visited.call.run_feature_for(type)
-            function_body.append(rf.name.to_string)
-         end
-         function_body.extend('(')
-         if ace.profile then
-            function_body.append(once "&local_profile")
-         end
-         if not boost then
+
+         if created_type_memory.live_type.create_function_list = Void and then visited.call = Void then
+            cpp.memory.malloc(type.live_type)
+         else
+            function_body.append(once "create")
+            id.append_in(function_body)
+            if visited.call /= Void then
+               args := visited.call.arguments
+               rf := visited.call.run_feature_for(type)
+               function_body.append(rf.name.to_string)
+            end
+            function_body.extend('(')
             if ace.profile then
-               function_body.extend(',')
+               function_body.append(once "&local_profile")
             end
-            function_body.append(once "&ds")
-         end
-         if args /= Void then
-            if not boost or else ace.profile then
-               function_body.extend(',')
+            if not boost then
+               if ace.profile then
+                  function_body.extend(',')
+               end
+               function_body.append(once "&ds")
             end
-            args_compile_to_c(args, rf.arguments)
+            if args /= Void then
+               if not boost or else ace.profile then
+                  function_body.extend(',')
+               end
+               args_compile_to_c(args, rf.arguments)
+            end
+            function_body.extend(')')
          end
-         function_body.extend(')')
       end
 
 feature {CREATE_WRITABLE}

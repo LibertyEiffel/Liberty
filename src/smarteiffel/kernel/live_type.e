@@ -279,11 +279,12 @@ feature {LIVE_TYPE, LIVE_TYPE_VISITOR}
          --|*** PH(12/05/04) it's dangerous to keep here the link between FS and AF (if the AF is changed), but it
          --|speed-up search because live_features.has use he hash code.
 
-   create_function_list: FAST_ARRAY[FEATURE_STAMP]
-
    precursor_classes: FAST_ARRAY[CLASS_TEXT]
 
    precursor_run_features: FAST_ARRAY[RUN_FEATURE]
+
+feature {LIVE_TYPE, LIVE_TYPE_VISITOR, C_COMPILATION_MIXIN}
+   create_function_list: FAST_ARRAY[FEATURE_STAMP]
 
 feature {}
    is_collecting: BOOLEAN

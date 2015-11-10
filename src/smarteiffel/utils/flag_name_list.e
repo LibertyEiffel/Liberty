@@ -16,6 +16,8 @@ feature {} -- Most of them are command flag names:
 
    fz_c_mode: STRING "c_mode"
 
+   fz_expect: STRING "expect"
+
    fz_flymake_mode: STRING "flymake_mode"
 
    fz_gc_info: STRING "gc_info"
@@ -27,6 +29,8 @@ feature {} -- Most of them are command flag names:
    fz_loadpath: STRING "loadpath"
 
    fz_manifest_string_trace: STRING "manifest_string_trace"
+
+   fz_mock: STRING "mock"
 
    fz_no_main: STRING "no_main"
 

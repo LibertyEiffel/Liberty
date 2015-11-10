@@ -4,139 +4,75 @@
 deferred class MOCK_EXPECTATION
 
 insert
-   EIFFELTEST_TOOLS
+   ANY
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {ANY}
    ready: BOOLEAN
+      deferred
+      end
 
    target: MOCK_OBJECT
+      deferred
+      end
+
    feature_name: FIXED_STRING
-   arguments: TUPLE
-
-   counter_ready: BOOLEAN
-      do
-         Result := counter /= Void
+      deferred
       end
 
-feature {ANY}
-   times, infix "*" (how_many: INTEGER): like Current
-      require
-         not ready
-         not counter_ready
-      do
-         create {MOCK_TIMES_COUNTER} counter.set_item(how_many)
-         Result := Current
-      ensure
-         Result = Current
-         counter_ready
-         --counter.item = how_many
-      end
-
-   whenever: like Current
-      require
-         not ready
-         not counter_ready
-      do
-         counter := counter_any_time
-         Result := Current
-      ensure
-         Result = Current
-         counter_ready
-      end
-
-feature {}
-   counter_any_time: MOCK_TIMES_ANY
-      once
-         create Result
-      end
-
-feature {ANY}
-   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments): BOOLEAN
+   can_call (a_target: like target; a_feature_name: like feature_name; a_arguments: MOCK_ARGUMENTS): BOOLEAN
       require
          ready
          a_target /= Void
          a_feature_name.is_interned
          a_arguments /= Void
-      do
-         Result := target = a_target
-            and then feature_name = a_feature_name
-            and then arguments.is_equal(a_arguments)
-            and then counter.can_call
-      end
-
-feature {MOCK_OBJECT}
-   call
-      require
-         can_call(target, feature_name, arguments)
-      do
-         do_call
-         counter.call
+      deferred
+      ensure
+         Result implies target.missing_expectations /= Void
       end
 
 feature {MOCK_EXPECTATION_GROUP}
-   done
+   replay (missing_expectations: COLLECTION[MOCK_EXPECTATION])
+      require
+         missing_expectations /= Void
       do
-         if counter = Void then
-            create {MOCK_TIMES_COUNTER} counter.set_item(1)
-         end
-         ready := True
+         target.replay(missing_expectations)
+      ensure
+         target.missing_expectations = missing_expectations
+      end
+
+   done
+      deferred
       ensure
          ready
       end
 
    all_called
-      do
-         counter.all_called
+      deferred
+      ensure
+         target.missing_expectations = Void
       end
 
    all_done_message_in (message: STRING)
       require
          message /= Void
          ready
-      do
-         if not all_done then
-            message.append(" - (#(1)).#(2)(#(3))%N" # target.out # feature_name # arguments.out)
-         end
-      end
-
-   all_done: BOOLEAN
-      do
-         Result := counter.all_done
-      end
-
-feature {}
-   do_call
       deferred
       end
 
-feature {}
-   make (a_target: like target; a_feature_name: like feature_name; a_arguments: like arguments)
-      require
-         a_target /= Void
-         a_feature_name.is_interned
-      do
-         target := a_target
-         feature_name := a_feature_name
-         arguments := a_arguments
-      ensure
-         target = a_target
-         feature_name = a_feature_name
-         arguments = a_arguments
-         not ready
-         not counter_ready
+   all_done: BOOLEAN
+      deferred
       end
-
-   counter: MOCK_TIMES
 
 invariant
    target /= Void
    feature_name.is_interned
-   arguments /= Void
-   ready implies counter_ready
 
 end -- class MOCK_EXPECTATION
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

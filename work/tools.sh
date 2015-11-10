@@ -143,23 +143,35 @@ progress() {
     label="$4"
     echo '~~~~ '$label' ~~~~' >> $LOG
     if test $plain = TRUE; then
-        awk 'BEGIN {
-                printf(" * %02d/%02d: %s\n", '$current', '$max', "'"$label"'");
+        awk -vmax=$max -vcur=$current '
+            BEGIN {
+                printf(" * %02d/%02d: %s\n", cur, max, "'"$label"'");
                 exit;
-             }' </dev/null
+            }' </dev/null
     else
         col=`expr \`tput cols\` - $size - 11`
         tput setaf 0
         tput sgr0
-        awk 'BEGIN {
-                fill=int('$size' * '$current' / '$max' + .5);
-                printf(" '`tput bold`'%3.1f%%'`tput sgr0`'\t'`tput setab 6`'", 100*'$current'/'$max');
-                for (i=0;    i<fill; i++) printf(" ");
+        # For perceived performance, use a non-minear progress bar
+        # See http://blog.codinghorror.com/actual-performance-perceived-performance/
+        # (Linear is still available if $linear is non-zero)
+        awk -vmax=$max -vcur=$current -vsize=$size -vcol=$col -vlinear=0$linear '
+            BEGIN {
+                x = cur / max;
+                if (linear) {
+                    fill = int(size * x + .5);
+                    printf(" '`tput bold`'%3.1f%%'`tput sgr0`'\t'`tput setab 6`'", 100 * x);
+                } else {
+                    col += 6;
+                    fill = int(size * (x + (1-x)/2) ^ 8 + .5);
+                    printf("  '`tput setab 6`'");
+                }
+                for (i = 0;    i < fill; i++) printf(" ");
                 printf("'`tput setab 4`'");
-                for (i=fill; i<'$size'; i++) printf(" ");
-                printf("'`tput sgr0`' '`tput setaf 5`'%-'$col'.'$col's'`tput sgr0`' \r", "'"$label"'");
+                for (i = fill; i < size; i++) printf(" ");
+                printf("'`tput sgr0`' '`tput setaf 5`'%-*.*s'`tput sgr0`' \r", col, col, "'"$label"'");
                 exit;
-             }' </dev/null >/dev/tty
+            }' </dev/null >/dev/tty
     fi
 }
 

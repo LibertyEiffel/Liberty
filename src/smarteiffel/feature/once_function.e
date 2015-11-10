@@ -26,7 +26,7 @@ feature {CALL_0}
          if target.side_effect_free(type) and then
             target.non_void_no_dispatch_type(type) /= Void and then
             not use_current(target_type)
-          then
+         then
             if inline_result = Void then
                inline_result := once_routine_pool.precomputable_function(feature_stamp, target_type, Current)
             end
