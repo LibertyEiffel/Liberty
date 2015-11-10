@@ -9,7 +9,7 @@ insert
 	GIBASEINFO_EXTERNALS
 	GIENUMINFO_EXTERNALS
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} 
 	value: INTEGER_64 is

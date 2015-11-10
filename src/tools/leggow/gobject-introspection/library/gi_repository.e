@@ -20,7 +20,7 @@ insert
 	GIREPOSITORY_EXTERNALS
 		redefine default_create end
 
-creation {ANY} default_create 
+create {ANY} default_create 
 
 feature {ANY}
 	default_create is

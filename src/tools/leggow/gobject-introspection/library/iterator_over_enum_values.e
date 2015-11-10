@@ -1,6 +1,6 @@
 class ITERATOR_OVER_ENUM_VALUES
 inherit ITERATOR[GI_VALUE_INFO]
-creation {GI_ENUM_INFO} from_enum
+create{GI_ENUM_INFO} from_enum
 feature {} -- Creation
 	from_enum (an_enum: GI_ENUM_INFO) is
 	require a_enum/=Void

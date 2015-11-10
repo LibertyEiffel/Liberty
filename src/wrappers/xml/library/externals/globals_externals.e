@@ -94,13 +94,13 @@ feature {} -- External calls
                }"
                end
 
-	xml_cleanup_globals () 
+	xml_cleanup_globals 
                -- xmlCleanupGlobals
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlCleanupGlobals"
                }"
                end
 
@@ -165,7 +165,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlDeregisterNodeDefault"
                }"
                end
 
@@ -385,13 +385,13 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __xmlIndentTreeOutput skipped.
-	xml_init_globals () 
+	xml_init_globals 
                -- xmlInitGlobals
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlInitGlobals"
                }"
                end
 
@@ -401,7 +401,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlInitializeGlobalState"
                }"
                end
 
@@ -606,7 +606,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlOutputBufferCreateFilenameDefault"
                }"
                end
 
@@ -678,7 +678,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlParserInputBufferCreateFilenameDefault"
                }"
                end
 
@@ -811,7 +811,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlRegisterNodeDefault"
                }"
                end
 
@@ -976,7 +976,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefBufferAllocScheme"
                }"
                end
 
@@ -986,7 +986,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefDefaultBufferSize"
                }"
                end
 
@@ -996,7 +996,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefDeregisterNodeDefault"
                }"
                end
 
@@ -1006,7 +1006,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefDoValidityCheckingDefaultValue"
                }"
                end
 
@@ -1016,7 +1016,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefGetWarningsDefaultValue"
                }"
                end
 
@@ -1026,7 +1026,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefIndentTreeOutput"
                }"
                end
 
@@ -1036,7 +1036,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefKeepBlanksDefaultValue"
                }"
                end
 
@@ -1046,7 +1046,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefLineNumbersDefaultValue"
                }"
                end
 
@@ -1056,7 +1056,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefLoadExtDtdDefaultValue"
                }"
                end
 
@@ -1066,7 +1066,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefOutputBufferCreateFilenameDefault"
                }"
                end
 
@@ -1076,7 +1076,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefParserDebugEntities"
                }"
                end
 
@@ -1086,7 +1086,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefParserInputBufferCreateFilenameDefault"
                }"
                end
 
@@ -1096,7 +1096,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefPedanticParserDefaultValue"
                }"
                end
 
@@ -1106,7 +1106,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefRegisterNodeDefault"
                }"
                end
 
@@ -1116,7 +1116,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefSaveNoEmptyTags"
                }"
                end
 
@@ -1126,7 +1126,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefSetGenericErrorFunc"
                }"
                end
 
@@ -1136,7 +1136,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefSetStructuredErrorFunc"
                }"
                end
 
@@ -1146,7 +1146,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefSubstituteEntitiesDefaultValue"
                }"
                end
 
@@ -1156,7 +1156,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlThrDefTreeIndentString"
                }"
                end
 

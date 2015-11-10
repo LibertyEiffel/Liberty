@@ -2,7 +2,7 @@ expanded class PREREQUISITES_ITERATOR
 insert 
 	ITERATOR[GI_BASE_INFO]
 		redefine default_create end
-creation {GI_INTERFACE_INFO} default_create
+create{GI_INTERFACE_INFO} default_create
 
 feature {ANY}
 	default_create is

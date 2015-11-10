@@ -13,7 +13,7 @@ insert
 	GIINTERFACEINFO_EXTERNALS
 	GI_INFO_FACTORY
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Wrapper
 	emit_wrapper is

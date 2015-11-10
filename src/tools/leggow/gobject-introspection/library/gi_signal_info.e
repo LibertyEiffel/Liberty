@@ -10,7 +10,7 @@ inherit GI_CALLABLE_INFO
 
 insert GISIGNALINFO_EXTERNALS
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY}
 	emit_wrapper is

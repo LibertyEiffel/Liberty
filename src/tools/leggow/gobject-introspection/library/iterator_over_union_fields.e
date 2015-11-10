@@ -1,6 +1,6 @@
 class ITERATOR_OVER_UNION_FIELDS
 inherit ITERATOR[GI_FIELD_INFO]
-creation {GI_UNION_INFO} from_union
+create{GI_UNION_INFO} from_union
 feature {} -- Creation
 	from_union (a_union: GI_UNION_INFO) is
 	require a_union/=Void

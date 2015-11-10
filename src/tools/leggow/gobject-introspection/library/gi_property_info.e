@@ -4,7 +4,7 @@ class GI_PROPERTY_INFO
 
 inherit GI_BASE_INFO
 insert GIPROPERTYINFO_EXTERNALS
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 feature {ANY} -- Wrapper
 	emit_wrapper is
 		do

@@ -5,7 +5,7 @@ inherit GI_BASE_INFO
 
 insert GIFIELDINFO_EXTERNALS
 
-creation {GI_INFO_FACTORY, GI_OBJECT_INFO, GI_STRUCT_INFO, GI_UNION_INFO} from_external_pointer
+create{GI_INFO_FACTORY, GI_OBJECT_INFO, GI_STRUCT_INFO, GI_UNION_INFO} from_external_pointer
 
 feature {ANY} -- Wrapper
 	emit_wrapper is
