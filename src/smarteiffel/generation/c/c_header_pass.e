@@ -168,37 +168,44 @@ feature {}
       local
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf2: RUN_FEATURE_2; t: TYPE_MARK
       do
-         wa := live_type.writable_attributes
-         if wa = Void then
-            if live_type.is_tagged then
-               out_c.extend('{')
-               live_type.id.append_in(out_c)
-               cpp.memory.extra_c_model(live_type.canonical_type_mark)
-               out_c.extend('}')
-            else
-               out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
-            end
+         out_c.append(once "/*init:")
+         out_c.append(live_type.type.canonical_type_mark.written_mark)
+         out_c.append(once "*/")
+         if live_type.is_expanded then
+            out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
          else
-            out_c.extend('{')
-            if live_type.is_tagged then
-               live_type.id.append_in(out_c)
-               out_c.extend(',')
-            end
-            cpp.memory.extra_c_model(live_type.canonical_type_mark)
-            from
-               i := wa.lower
-            until
-               i > wa.upper
-            loop
-               if i > wa.lower then
+            wa := live_type.writable_attributes
+            if wa = Void then
+               if live_type.is_tagged then
+                  out_c.extend('{')
+                  live_type.id.append_in(out_c)
+                  cpp.memory.extra_c_model(live_type.canonical_type_mark)
+                  out_c.extend('}')
+               else
+                  out_c.append(cpp.initializer.for(live_type.canonical_type_mark))
+               end
+            else
+               out_c.extend('{')
+               if live_type.is_tagged then
+                  live_type.id.append_in(out_c)
                   out_c.extend(',')
                end
-               rf2 := wa.item(i)
-               t := rf2.result_type
-               out_c.append(cpp.initializer.for(t))
-               i := i + 1
+               cpp.memory.extra_c_model(live_type.canonical_type_mark)
+               from
+                  i := wa.lower
+               until
+                  i > wa.upper
+               loop
+                  if i > wa.lower then
+                     out_c.extend(',')
+                  end
+                  rf2 := wa.item(i)
+                  t := rf2.result_type
+                  out_c.append(cpp.initializer.for(t))
+                  i := i + 1
+               end
+               out_c.extend('}')
             end
-            out_c.extend('}')
          end
       end
 

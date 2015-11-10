@@ -30,7 +30,7 @@ feature {MOCK_EXPECTATION_GROUPS}
          a_expectations.for_all(agent {MOCK_EXPECTATION}.ready)
       end
 
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: MOCK_ARGUMENTS): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
@@ -55,6 +55,14 @@ feature {MOCK_EXPECTATION_GROUPS}
          end
       ensure
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)
+      end
+
+   replay_all (missing_expectations: COLLECTION[MOCK_EXPECTATION])
+      do
+         expectations.for_each(agent (mexps: COLLECTION[MOCK_EXPECTATION]; exps: FAST_ARRAY[MOCK_EXPECTATION])
+                                  do
+                                     exps.for_each(agent {MOCK_EXPECTATION}.replay(mexps))
+                                  end (missing_expectations, ?))
       end
 
    all_called
@@ -103,7 +111,7 @@ invariant
 
 end -- class MOCK_EXPECTATION_GROUP
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

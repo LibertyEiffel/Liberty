@@ -67,6 +67,7 @@ feature {PARSER_FACET}
             error_message := "*** %""
             error_message.append(name)
             error_message.append(once "%" expected")
+            add_error_position(error_message, context.buffer)
             context.buffer.set_last_error_message(error_message)
             debug ("parse")
                log.trace.put_string(once "** Expected terminal %"")

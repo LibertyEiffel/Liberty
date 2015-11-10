@@ -96,7 +96,7 @@ feature {}
          else
             parent_list.add_last(class_text.declaration_type_of_like_current)
             if not short then
-               parent_list.first.up_to_any_in(parent_list)
+               parent_list.last.up_to_any_in(parent_list)
             end
          end
          -- Prepare data:

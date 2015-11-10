@@ -348,28 +348,28 @@ feature {}
    io_putc (byte: CHARACTER; stream: POINTER)
       external "plug_in"
       alias "{
-    location: "${sys}/plugins"
-    module_name: "io"
-    feature_name: "io_putc"
-    }"
+         location: "${sys}/plugins"
+         module_name: "io"
+         feature_name: "io_putc"
+         }"
       end
 
    io_fwrite (buf: NATIVE_ARRAY[CHARACTER]; size: INTEGER; stream: POINTER): INTEGER
       external "plug_in"
       alias "{
-    location: "${sys}/plugins"
-    module_name: "io"
-    feature_name: "io_fwrite"
-    }"
+         location: "${sys}/plugins"
+         module_name: "io"
+         feature_name: "io_fwrite"
+         }"
       end
 
    io_flush (stream: POINTER)
       external "plug_in"
       alias "{
-    location: "${sys}/plugins"
-    module_name: "io"
-    feature_name: "io_flush"
-    }"
+         location: "${sys}/plugins"
+         module_name: "io"
+         feature_name: "io_flush"
+         }"
       end
 
 end -- class OUTPUT_STREAM_TOOLS

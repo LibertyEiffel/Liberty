@@ -32,7 +32,7 @@ feature {ANY}
 
    end_of_input: BOOLEAN
       do
-         Result := buffer_index > buffer.upper and then raw_eof and then loop_names.is_empty
+         Result := buffer_index > buffer.upper and then raw_eof and then loop_items.is_empty
       end
 
    can_unread_character: BOOLEAN
@@ -137,9 +137,11 @@ feature {}
                when '*' then
                   state := 5
                when ')' then
-                  value := resolver.item(key)
-                  if value /= Void then
-                     append(value)
+                  if not discard then
+                     value := resolver.item(key)
+                     if value /= Void then
+                        append(value)
+                     end
                   end
                   state := -1
                else
@@ -181,31 +183,29 @@ feature {}
       end
 
    start_loop (loop_name: STRING)
+      local
+         item: TEMPLATE_LOOP_ITEM
       do
-         loop_names.push(loop_name.intern)
-         loop_index.push(raw_index)
-         loop_discard.push(discard or else not resolver.while(loop_name))
+         loop_items.push(item.new(loop_name.intern, raw_index, discard or else not resolver.while(loop_name)))
       end
 
    end_loop (loop_name: STRING)
       do
-         if loop_names.is_empty or else loop_names.top /= loop_name.intern then
+         if loop_items.is_empty or else loop_items.top.name /= loop_name.intern then
             append(once "#(")
             append(loop_name)
             append(once "*)")
          elseif discard or else not resolver.while(loop_name) then
-            loop_names.pop
-            loop_index.pop
-            loop_discard.pop
+            loop_items.pop
          else
-            raw_goto(loop_index.top)
+            raw_goto(loop_items.top.index)
          end
       end
 
    discard: BOOLEAN
       do
-         if not loop_discard.is_empty then
-            Result := loop_discard.top
+         if not loop_items.is_empty then
+            Result := loop_items.top.discard
          end
       end
 
@@ -252,9 +252,7 @@ feature {ANY}
          buffer := ""
          raw := ""
 
-         create loop_names.make
-         create loop_index.make
-         create loop_discard.make
+         create loop_items.make
       ensure
          stream = a_stream
          resolver = a_resolver
@@ -273,19 +271,12 @@ feature {}
    buffer_index: INTEGER
          -- Index into the `buffer'
 
-   loop_names: STACK[FIXED_STRING]
-         -- Names of the running loops
-   loop_index: STACK[INTEGER]
-         -- Indexes of the running loops into the `raw' buffer
-   loop_discard: STACK[BOOLEAN]
-         -- Discard values of the currently running loops
+   loop_items: STACK[TEMPLATE_LOOP_ITEM]
+         -- the running loops contexts
 
 invariant
    stream /= Void
    resolver /= Void
-
-   loop_names.count = loop_index.count
-   loop_names.count = loop_discard.count
 
 end -- class TEMPLATE_INPUT_STREAM
 --

@@ -1,31 +1,39 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class MOCK_FUNCTION_EXPECTATION[E_]
+class MOCK_FUNCTION_EXPECTATION[T_ -> TUPLE, R_]
 
 inherit
-   MOCK_EXPECTATION
+   MOCK_TYPED_EXPECTATION[T_]
 
 create {MOCK_EXPECT}
    make
 
 feature {MOCK_OBJECT}
-   item: E_
+   item (a_arguments: MOCK_ARGUMENTS): R_
+      require
+         can_call(target, feature_name, a_arguments)
+      do
+         call(a_arguments)
+         Result := last_item
+      end
 
 feature {}
-   do_call
+   do_call (args: MOCK_ARGUMENTS)
       do
          if side_effect /= Void then
-            item := side_effect.item([])
+            last_item := side_effect.item([args])
          else
-            item := given_result
+            last_item := given_result
          end
       end
+
+   last_item: R_
 
 feature {ANY}
    result_ready: BOOLEAN
 
-   then_return, infix "=>" (a_item: E_): like Current
+   then_return, infix "=>" (a_item: R_): like Current
       require
          not ready
          not result_ready
@@ -40,13 +48,10 @@ feature {ANY}
          result_ready
       end
 
-   with_side_effect, infix "~>" (a_side_effect: FUNCTION[TUPLE, E_]): like Current
+   with_side_effect, infix "~>" (a_side_effect: FUNCTION[TUPLE[MOCK_ARGUMENTS], R_]): like Current
       require
          not ready
-      local
-         def: E_
       do
-         check given_result = def end
          side_effect := a_side_effect
          result_ready := True
          Result := Current
@@ -57,12 +62,12 @@ feature {ANY}
       end
 
 feature {}
-   given_result: E_
-   side_effect: FUNCTION[TUPLE, E_]
+   given_result: R_
+   side_effect: FUNCTION[TUPLE[MOCK_ARGUMENTS], R_]
 
-end -- class MOCK_FUNCTION_EXPECTATION[E_]
+end -- class MOCK_FUNCTION_EXPECTATION
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

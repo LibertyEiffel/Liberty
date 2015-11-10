@@ -8,15 +8,18 @@ inherit
 
 insert
    EIFFELTEST_TOOLS
+      undefine
+         out_in_tagged_out_memory
+      end
 
 feature {}
-   expect_: E_
+   expect__: E_
       deferred
       end
 
 end -- class MOCK_TYPED_OBJECT
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

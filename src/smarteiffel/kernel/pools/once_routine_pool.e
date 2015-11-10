@@ -74,8 +74,8 @@ feature {NON_VOID_NO_DISPATCH}
       require
          non_void_no_dispatch /= Void
       do
+         smart_eiffel.collect_precomputable(type, fs)
          if not collected_precomputable_function.fast_has(non_void_no_dispatch) then
-            smart_eiffel.collect_precomputable(type, fs)
             collected_precomputable_function.add_last(non_void_no_dispatch)
          end
       end
@@ -115,29 +115,29 @@ feature {ONCE_FUNCTION}
       do
          --|*** We should also check that `target_type' has no expanded with side_effects...
          --|*** (Fred. + Dom. Oct 27th) ***
-         create_expression ?= once_function.routine_then
-         if create_expression /= Void and then once_function.routine_body = Void then
-            if precomputable_routine_detector.visit_once_then(target_type, create_expression) then
-               created_type := create_expression.created_type(target_type)
-               Result := non_void_no_dispatch_for(created_type, feature_stamp, target_type)
-            end
-         elseif once_function.routine_then = Void then
-            create_instruction ?= once_function.routine_body
-            if create_instruction /= Void and then create_instruction.writable.is_result then
-               if precomputable_routine_detector.visit_once_body(target_type, create_instruction) then
+         if once_function.routine_then = Void then
+            if create_instruction ?:= once_function.routine_body then
+               create_instruction ::= once_function.routine_body
+               if create_instruction.writable.is_result and then precomputable_routine_detector.visit_once_body(target_type, create_instruction) then
                   created_type := create_instruction.created_type(target_type)
                   Result := non_void_no_dispatch_for(created_type, feature_stamp, target_type)
                end
-            else
-               assignment ?= once_function.routine_body
-               if assignment /= Void and then assignment.left_side.is_result then
-                  if precomputable_routine_detector.visit_once_body(target_type, assignment) then
-                     expression := assignment.right_side
-                     created_type := expression.non_void_no_dispatch_type(target_type)
-                     if created_type /= Void then
-                        Result := non_void_no_dispatch_for(created_type, feature_stamp, target_type)
-                     end
+            elseif assignment ?:= once_function.routine_body then
+               assignment ::= once_function.routine_body
+               if assignment.left_side.is_result and then precomputable_routine_detector.visit_once_body(target_type, assignment) then
+                  expression := assignment.right_side
+                  created_type := expression.non_void_no_dispatch_type(target_type)
+                  if created_type /= Void then
+                     Result := non_void_no_dispatch_for(created_type, feature_stamp, target_type)
                   end
+               end
+            end
+         elseif once_function.routine_then /= Void then
+            if create_expression ?:= once_function.routine_then then
+               create_expression ::= once_function.routine_then
+               if precomputable_routine_detector.visit_once_then(target_type, create_expression) then
+                  created_type := create_expression.created_type(target_type)
+                  Result := non_void_no_dispatch_for(created_type, feature_stamp, target_type)
                end
             end
          end
