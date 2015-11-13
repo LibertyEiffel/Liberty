@@ -70,13 +70,11 @@ feature {}
       require
          a_stream /= Void
       do
+         a_stream.set_filter(Current)
          stream := a_stream
       ensure
          stream = a_stream
       end
-
-invariant
-   stream /= Void
 
 end -- class LINES_OUTPUT_STREAM
 --
