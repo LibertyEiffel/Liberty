@@ -21,6 +21,7 @@ feature {ANY}
 
    copy (other: like Current)
       do
+         set_item(Void)
          set_capacity(other.capacity)
       end
 
@@ -73,7 +74,7 @@ feature {}
          -- Holds a recyclable STRING
 
 invariant
-   item /= Void implies item.capacity = capacity
+   --| **** item /= Void implies item.capacity = capacity
    capacity >= 0
 
 end -- class STRING_RECYCLING_ITEM
