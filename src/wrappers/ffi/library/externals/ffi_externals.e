@@ -8,13 +8,14 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
+	-- `hidden' function __builtin_memcpy skipped.
 	ffi_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) 
                -- ffi_call
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_call"
                }"
                end
 
@@ -24,17 +25,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_closure_alloc"
                }"
                end
 
-	ffi_closure_free (an_argument_l308_c7: POINTER) 
+	ffi_closure_free (an_argument_l108_c7: POINTER) 
                -- ffi_closure_free
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_closure_free"
                }"
                end
 
@@ -44,7 +45,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_java_ptrarray_to_raw"
                }"
                end
 
@@ -54,7 +55,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_java_raw_call"
                }"
                end
 
@@ -64,7 +65,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_java_raw_size"
                }"
                end
 
@@ -74,7 +75,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_java_raw_to_ptrarray"
                }"
                end
 
@@ -84,7 +85,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_cif"
                }"
                end
 
@@ -94,7 +95,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_cif_core"
                }"
                end
 
@@ -104,67 +105,67 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_cif_var"
                }"
                end
 
-	ffi_prep_closure (an_argument_l512_c7: POINTER; an_argument_l513_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_closure (an_argument_l111_c7: POINTER; an_argument_l112_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
                -- ffi_prep_closure
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_closure"
                }"
                end
 
-	ffi_prep_closure_loc (an_argument_l505_c7: POINTER; an_argument_l506_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_closure_loc (an_argument_l117_c7: POINTER; an_argument_l118_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
                -- ffi_prep_closure_loc
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_closure_loc"
                }"
                end
 
-	ffi_prep_java_raw_closure (an_argument_l312_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_java_raw_closure (an_argument_l141_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
                -- ffi_prep_java_raw_closure
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_java_raw_closure"
                }"
                end
 
-	ffi_prep_java_raw_closure_loc (an_argument_l283_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_java_raw_closure_loc (an_argument_l147_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
                -- ffi_prep_java_raw_closure_loc
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_java_raw_closure_loc"
                }"
                end
 
-	ffi_prep_raw_closure (an_argument_l471_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_raw_closure (an_argument_l128_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
                -- ffi_prep_raw_closure
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_raw_closure"
                }"
                end
 
-	ffi_prep_raw_closure_loc (an_argument_l349_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_raw_closure_loc (an_argument_l134_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
                -- ffi_prep_raw_closure_loc
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_prep_raw_closure_loc"
                }"
                end
 
@@ -174,7 +175,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_ptrarray_to_raw"
                }"
                end
 
@@ -184,7 +185,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_raw_call"
                }"
                end
 
@@ -194,7 +195,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_raw_size"
                }"
                end
 
@@ -204,7 +205,40 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffi_raw_to_ptrarray"
+               }"
+               end
+
+       -- Variable ffi_type_complex_double (at line 205 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+       address_of_ffi_type_complex_double: POINTER
+               -- Address of ffi_type_complex_double
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "&ffi_type_complex_double"
+               }"
+               end
+
+       -- Variable ffi_type_complex_float (at line 204 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+       address_of_ffi_type_complex_float: POINTER
+               -- Address of ffi_type_complex_float
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "&ffi_type_complex_float"
+               }"
+               end
+
+       -- Variable ffi_type_complex_longdouble (at line 207 in file /usr/include/x86_64-linux-gnu/ffi.h does not have a wrapper type
+       address_of_ffi_type_complex_longdouble: POINTER
+               -- Address of ffi_type_complex_longdouble
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "&ffi_type_complex_longdouble"
                }"
                end
 

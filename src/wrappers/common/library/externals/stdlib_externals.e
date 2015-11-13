@@ -14,17 +14,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "a64l"
                }"
                end
 
-	abort () 
+	abort 
                -- abort
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "abort"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "abs"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "aligned_alloc"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "at_quick_exit"
                }"
                end
 
@@ -64,7 +64,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "atexit"
+               }"
+               end
+
+	atof (a_nptr: POINTER): REAL 
+               -- atof
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "atof"
                }"
                end
 
@@ -74,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "atoi"
                }"
                end
 
@@ -84,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "atol"
                }"
                end
 
@@ -94,7 +104,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "atoll"
+               }"
+               end
+
+	bsearch (a_key: POINTER; a_base: POINTER; a_nmemb: like long_unsigned; a_size: like long_unsigned; a_compar: POINTER): POINTER 
+               -- bsearch
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "bsearch"
                }"
                end
 
@@ -104,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "calloc"
                }"
                end
 
@@ -114,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "canonicalize_file_name"
                }"
                end
 
@@ -124,29 +144,29 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "cfree"
                }"
                end
 
-	clearenv (): INTEGER 
+	clearenv: INTEGER 
                -- clearenv
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "clearenv"
                }"
                end
 
 	-- `hidden' function __ctype_get_mb_cur_max skipped.
-       -- function div (at line 790 in file /usr/include/stdlib.h is not wrappable
-	drand48 (): REAL 
+       -- function div (at line 789 in file /usr/include/stdlib.h is not wrappable
+	drand48: REAL 
                -- drand48
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "drand48"
                }"
                end
 
@@ -156,7 +176,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "drand48_r"
                }"
                end
 
@@ -166,7 +186,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ecvt"
                }"
                end
 
@@ -176,7 +196,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ecvt_r"
                }"
                end
 
@@ -186,7 +206,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "erand48"
                }"
                end
 
@@ -196,28 +216,28 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "erand48_r"
                }"
                end
 
-	-- `hidden' function _Exit skipped.
 	exit (a_status: INTEGER) 
                -- exit
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "exit"
                }"
                end
 
+	-- `hidden' function _Exit skipped.
 	fcvt (a_value: REAL; a_ndigit: INTEGER; a_decpt: POINTER; a_sign: POINTER): POINTER 
                -- fcvt
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fcvt"
                }"
                end
 
@@ -227,7 +247,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fcvt_r"
                }"
                end
 
@@ -237,7 +257,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "free"
                }"
                end
 
@@ -247,7 +267,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "gcvt"
                }"
                end
 
@@ -257,7 +277,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getenv"
                }"
                end
 
@@ -267,17 +287,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getloadavg"
                }"
                end
 
-	getpt (): INTEGER 
+	getpt: INTEGER 
                -- getpt
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getpt"
                }"
                end
 
@@ -287,7 +307,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getsubopt"
                }"
                end
 
@@ -297,7 +317,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "grantpt"
                }"
                end
 
@@ -307,7 +327,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "initstate"
                }"
                end
 
@@ -317,7 +337,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "initstate_r"
                }"
                end
 
@@ -327,7 +347,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "jrand48"
                }"
                end
 
@@ -337,7 +357,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "jrand48_r"
                }"
                end
 
@@ -347,7 +367,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "l64a"
                }"
                end
 
@@ -357,7 +377,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "labs"
                }"
                end
 
@@ -367,7 +387,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lcong48"
                }"
                end
 
@@ -377,29 +397,29 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lcong48_r"
                }"
                end
 
-       -- function ldiv (at line 792 in file /usr/include/stdlib.h is not wrappable
+       -- function ldiv (at line 791 in file /usr/include/stdlib.h is not wrappable
 	llabs (a_x: INTEGER_64): INTEGER_64 
                -- llabs
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "llabs"
                }"
                end
 
-       -- function lldiv (at line 799 in file /usr/include/stdlib.h is not wrappable
-	lrand48 (): like long 
+       -- function lldiv (at line 797 in file /usr/include/stdlib.h is not wrappable
+	lrand48: like long 
                -- lrand48
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lrand48"
                }"
                end
 
@@ -409,7 +429,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lrand48_r"
                }"
                end
 
@@ -419,7 +439,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "malloc"
                }"
                end
 
@@ -429,7 +449,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mblen"
+               }"
+               end
+
+	mbstowcs (a_pwcs: POINTER; a_s: POINTER; a_n: like long_unsigned): like long_unsigned 
+               -- mbstowcs
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "mbstowcs"
                }"
                end
 
@@ -439,17 +469,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mbtowc"
                }"
                end
 
-	memcpy (a_dest: POINTER; a_src: POINTER; a_len: like long_unsigned): POINTER 
+	memcpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
                -- memcpy
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "memcpy"
                }"
                end
 
@@ -459,7 +489,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkdtemp"
                }"
                end
 
@@ -469,7 +499,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkostemp"
                }"
                end
 
@@ -479,7 +509,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkostemp64"
                }"
                end
 
@@ -489,7 +519,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkostemps"
                }"
                end
 
@@ -499,7 +529,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkostemps64"
                }"
                end
 
@@ -509,7 +539,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkstemp"
                }"
                end
 
@@ -519,7 +549,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkstemp64"
                }"
                end
 
@@ -529,7 +559,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkstemps"
                }"
                end
 
@@ -539,7 +569,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mkstemps64"
                }"
                end
 
@@ -549,17 +579,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mktemp"
                }"
                end
 
-	mrand48 (): like long 
+	mrand48: like long 
                -- mrand48
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mrand48"
                }"
                end
 
@@ -569,7 +599,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "mrand48_r"
                }"
                end
 
@@ -579,7 +609,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "nrand48"
                }"
                end
 
@@ -589,7 +619,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "nrand48_r"
                }"
                end
 
@@ -599,7 +629,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "on_exit"
                }"
                end
 
@@ -609,7 +639,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_memalign"
                }"
                end
 
@@ -619,7 +649,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_openpt"
                }"
                end
 
@@ -629,7 +659,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ptsname"
+               }"
+               end
+
+	ptsname_r (a_fd: INTEGER; a_buf: POINTER; a_buflen: like long_unsigned): INTEGER 
+               -- ptsname_r
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "ptsname_r"
                }"
                end
 
@@ -639,7 +679,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "putenv"
                }"
                end
 
@@ -649,7 +689,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qecvt"
                }"
                end
 
@@ -659,7 +699,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qecvt_r"
                }"
                end
 
@@ -669,7 +709,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qfcvt"
                }"
                end
 
@@ -679,7 +719,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qfcvt_r"
                }"
                end
 
@@ -689,7 +729,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qgcvt"
                }"
                end
 
@@ -699,7 +739,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qsort"
                }"
                end
 
@@ -709,7 +749,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "qsort_r"
                }"
                end
 
@@ -719,17 +759,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "quick_exit"
                }"
                end
 
-	rand (): INTEGER 
+	rand: INTEGER 
                -- rand
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "rand"
                }"
                end
 
@@ -739,17 +779,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "rand_r"
                }"
                end
 
-	random (): like long 
+	random: like long 
                -- random
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "random"
                }"
                end
 
@@ -759,7 +799,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "random_r"
                }"
                end
 
@@ -769,7 +809,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "realloc"
+               }"
+               end
+
+	realpath (a_name: POINTER; a_resolved: POINTER): POINTER 
+               -- realpath
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "realpath"
                }"
                end
 
@@ -779,7 +829,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "rpmatch"
                }"
                end
 
@@ -789,7 +839,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "secure_getenv"
                }"
                end
 
@@ -799,7 +849,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "seed48"
                }"
                end
 
@@ -809,7 +859,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "seed48_r"
                }"
                end
 
@@ -819,7 +869,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setenv"
                }"
                end
 
@@ -829,7 +879,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setkey"
                }"
                end
 
@@ -839,7 +889,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setstate"
                }"
                end
 
@@ -849,7 +899,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setstate_r"
                }"
                end
 
@@ -859,7 +909,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "srand"
                }"
                end
 
@@ -869,7 +919,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "srand48"
                }"
                end
 
@@ -879,7 +929,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "srand48_r"
                }"
                end
 
@@ -889,7 +939,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "srandom"
                }"
                end
 
@@ -899,7 +949,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "srandom_r"
                }"
                end
 
@@ -909,7 +959,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtod"
                }"
                end
 
@@ -919,7 +969,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtod_l"
                }"
                end
 
@@ -929,7 +979,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtof"
                }"
                end
 
@@ -939,7 +989,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtof_l"
                }"
                end
 
@@ -949,7 +999,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtol"
                }"
                end
 
@@ -959,7 +1009,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtol_l"
                }"
                end
 
@@ -969,7 +1019,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtold"
                }"
                end
 
@@ -979,7 +1029,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtold_l"
                }"
                end
 
@@ -989,7 +1039,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoll"
                }"
                end
 
@@ -999,7 +1049,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoll_l"
                }"
                end
 
@@ -1009,7 +1059,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoq"
                }"
                end
 
@@ -1019,7 +1069,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoul"
                }"
                end
 
@@ -1029,7 +1079,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoul_l"
                }"
                end
 
@@ -1039,7 +1089,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoull"
                }"
                end
 
@@ -1049,7 +1099,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtoull_l"
                }"
                end
 
@@ -1059,7 +1109,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtouq"
                }"
                end
 
@@ -1069,7 +1119,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "system"
                }"
                end
 
@@ -1079,7 +1129,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "unlockpt"
                }"
                end
 
@@ -1089,7 +1139,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "unsetenv"
                }"
                end
 
@@ -1099,9 +1149,20 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "valloc"
                }"
                end
 
+	wcstombs (a_s: POINTER; a_pwcs: POINTER; a_n: like long_unsigned): like long_unsigned 
+               -- wcstombs
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "wcstombs"
+               }"
+               end
+
+       -- function wctomb (at line 870 in file /usr/include/stdlib.h is not wrappable
 
 end -- class STDLIB_EXTERNALS

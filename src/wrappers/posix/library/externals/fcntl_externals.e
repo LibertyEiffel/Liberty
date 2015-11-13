@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "creat"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "creat64"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fcntl"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lockf"
                }"
                end
 
@@ -54,7 +54,47 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "lockf64"
+               }"
+               end
+
+	open (a_file: POINTER; an_oflag: INTEGER): INTEGER 
+               -- open (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "open"
+               }"
+               end
+
+	open64 (a_file: POINTER; an_oflag: INTEGER): INTEGER 
+               -- open64 (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "open64"
+               }"
+               end
+
+	openat (a_fd: INTEGER; a_file: POINTER; an_oflag: INTEGER): INTEGER 
+               -- openat (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "openat"
+               }"
+               end
+
+	openat64 (a_fd: INTEGER; a_file: POINTER; an_oflag: INTEGER): INTEGER 
+               -- openat64 (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "openat64"
                }"
                end
 
@@ -64,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_fadvise"
                }"
                end
 
@@ -74,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_fadvise64"
                }"
                end
 
@@ -84,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_fallocate"
                }"
                end
 
@@ -94,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "posix_fallocate64"
                }"
                end
 

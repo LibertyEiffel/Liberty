@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "bindresvport"
                }"
                end
 
@@ -24,18 +24,18 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "bindresvport6"
                }"
                end
 
-       -- function getipv4sourcefilter (at line 603 in file /usr/include/netinet/in.h is not wrappable
+       -- function getipv4sourcefilter (at line 600 in file /usr/include/netinet/in.h is not wrappable
 	getsourcefilter (a_s: INTEGER; an_interface_addr: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: POINTER; a_numsrc: POINTER; a_slist: POINTER): INTEGER 
                -- getsourcefilter
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getsourcefilter"
                }"
                end
 
@@ -45,7 +45,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "htonl"
                }"
                end
 
@@ -55,7 +55,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "htons"
                }"
                end
 
@@ -87,7 +87,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_append"
                }"
                end
 
@@ -97,7 +97,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_find"
                }"
                end
 
@@ -107,7 +107,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_finish"
                }"
                end
 
@@ -117,7 +117,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_get_val"
                }"
                end
 
@@ -127,7 +127,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_init"
                }"
                end
 
@@ -137,7 +137,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_next"
                }"
                end
 
@@ -147,7 +147,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_opt_set_val"
                }"
                end
 
@@ -157,7 +157,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_alloc"
                }"
                end
 
@@ -167,7 +167,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_append"
                }"
                end
 
@@ -177,7 +177,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_find"
                }"
                end
 
@@ -187,7 +187,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_init"
                }"
                end
 
@@ -197,7 +197,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_next"
                }"
                end
 
@@ -207,7 +207,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_option_space"
                }"
                end
 
@@ -217,7 +217,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_add"
                }"
                end
 
@@ -227,7 +227,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_getaddr"
                }"
                end
 
@@ -237,7 +237,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_init"
                }"
                end
 
@@ -247,7 +247,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_reverse"
                }"
                end
 
@@ -257,7 +257,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_segments"
                }"
                end
 
@@ -267,7 +267,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet6_rth_space"
                }"
                end
 
@@ -277,7 +277,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ntohl"
                }"
                end
 
@@ -287,18 +287,18 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ntohs"
                }"
                end
 
-       -- function setipv4sourcefilter (at line 610 in file /usr/include/netinet/in.h is not wrappable
+       -- function setipv4sourcefilter (at line 606 in file /usr/include/netinet/in.h is not wrappable
 	setsourcefilter (a_s: INTEGER; an_interface_addr: like uint32_t; a_group: POINTER; a_grouplen: NATURAL; a_fmode: like uint32_t; a_numsrc: like uint32_t; a_slist: POINTER): INTEGER 
                -- setsourcefilter
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setsourcefilter"
                }"
                end
 

@@ -8,13 +8,24 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
+	-- `hidden' function __asprintf skipped.
+	asprintf (a_ptr: POINTER; a_fmt: POINTER): INTEGER 
+               -- asprintf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "asprintf"
+               }"
+               end
+
 	clearerr (a_stream: POINTER) 
                -- clearerr
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "clearerr"
                }"
                end
 
@@ -24,7 +35,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "clearerr_unlocked"
                }"
                end
 
@@ -34,7 +45,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ctermid"
                }"
                end
 
@@ -44,7 +55,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "cuserid"
+               }"
+               end
+
+	dprintf (a_fd: INTEGER; a_fmt: POINTER): INTEGER 
+               -- dprintf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "dprintf"
                }"
                end
 
@@ -54,17 +75,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fclose"
                }"
                end
 
-	fcloseall (): INTEGER 
+	fcloseall: INTEGER 
                -- fcloseall
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fcloseall"
                }"
                end
 
@@ -74,7 +95,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fdopen"
                }"
                end
 
@@ -84,7 +105,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "feof"
+               }"
+               end
+
+	feof_unlocked (a_stream: POINTER): INTEGER 
+               -- feof_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "feof_unlocked"
                }"
                end
 
@@ -94,7 +125,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ferror"
+               }"
+               end
+
+	ferror_unlocked (a_stream: POINTER): INTEGER 
+               -- ferror_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "ferror_unlocked"
                }"
                end
 
@@ -104,7 +145,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fflush"
                }"
                end
 
@@ -114,7 +155,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fflush_unlocked"
                }"
                end
 
@@ -124,7 +165,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fgetc"
+               }"
+               end
+
+	fgetc_unlocked (a_stream: POINTER): INTEGER 
+               -- fgetc_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fgetc_unlocked"
                }"
                end
 
@@ -134,7 +185,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fgetpos"
                }"
                end
 
@@ -144,7 +195,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fgetpos64"
+               }"
+               end
+
+	fgets (a_s: POINTER; a_n: INTEGER; a_stream: POINTER): POINTER 
+               -- fgets
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fgets"
+               }"
+               end
+
+	fgets_unlocked (a_s: POINTER; a_n: INTEGER; a_stream: POINTER): POINTER 
+               -- fgets_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fgets_unlocked"
                }"
                end
 
@@ -154,7 +225,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fileno"
                }"
                end
 
@@ -164,7 +235,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fileno_unlocked"
                }"
                end
 
@@ -174,7 +245,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "flockfile"
                }"
                end
 
@@ -184,7 +255,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fmemopen"
                }"
                end
 
@@ -194,7 +265,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fopen"
                }"
                end
 
@@ -204,18 +275,38 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fopen64"
                }"
                end
 
-       -- function fopencookie (at line 314 in file /usr/include/stdio.h is not wrappable
+       -- function fopencookie (at line 312 in file /usr/include/stdio.h is not wrappable
+	fprintf (a_stream: POINTER; a_format: POINTER): INTEGER 
+               -- fprintf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fprintf"
+               }"
+               end
+
 	fputc (a_c: INTEGER; a_stream: POINTER): INTEGER 
                -- fputc
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fputc"
+               }"
+               end
+
+	fputc_unlocked (a_c: INTEGER; a_stream: POINTER): INTEGER 
+               -- fputc_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fputc_unlocked"
                }"
                end
 
@@ -225,7 +316,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fputs"
                }"
                end
 
@@ -235,7 +326,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fputs_unlocked"
+               }"
+               end
+
+	fread (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned 
+               -- fread
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fread"
+               }"
+               end
+
+	fread_unlocked (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned 
+               -- fread_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "fread_unlocked"
                }"
                end
 
@@ -245,7 +356,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "freopen"
                }"
                end
 
@@ -255,7 +366,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "freopen64"
                }"
                end
 
@@ -265,7 +376,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fscanf"
                }"
                end
 
@@ -275,7 +386,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fseek"
                }"
                end
 
@@ -285,7 +396,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fseeko"
                }"
                end
 
@@ -295,7 +406,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fseeko64"
                }"
                end
 
@@ -305,7 +416,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fsetpos"
                }"
                end
 
@@ -315,7 +426,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fsetpos64"
                }"
                end
 
@@ -325,7 +436,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ftell"
                }"
                end
 
@@ -335,7 +446,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ftello"
                }"
                end
 
@@ -345,7 +456,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ftello64"
                }"
                end
 
@@ -355,7 +466,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ftrylockfile"
                }"
                end
 
@@ -365,7 +476,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "funlockfile"
                }"
                end
 
@@ -375,7 +486,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fwrite"
                }"
                end
 
@@ -385,7 +496,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "fwrite_unlocked"
                }"
                end
 
@@ -395,28 +506,68 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getc"
                }"
                end
 
+	getc_unlocked (a_stream: POINTER): INTEGER 
+               -- getc_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "getc_unlocked"
+               }"
+               end
+
+	getchar: INTEGER 
+               -- getchar
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "getchar"
+               }"
+               end
+
+	getchar_unlocked: INTEGER 
+               -- getchar_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "getchar_unlocked"
+               }"
+               end
+
+	-- `hidden' function __getdelim skipped.
 	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER; a_stream: POINTER): like long 
                -- getdelim
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getdelim"
                }"
                end
 
-	-- `hidden' function __getdelim skipped.
+	getline (a_lineptr: POINTER; a_n: POINTER; a_stream: POINTER): like long 
+               -- getline
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "getline"
+               }"
+               end
+
 	gets (a_s: POINTER): POINTER 
                -- gets
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "gets"
                }"
                end
 
@@ -426,7 +577,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "getw"
+               }"
+               end
+
+	obstack_printf (an_obstack: POINTER; a_format: POINTER): INTEGER 
+               -- obstack_printf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "obstack_printf"
+               }"
+               end
+
+	obstack_vprintf (an_obstack: POINTER; a_format: POINTER; an_args: POINTER): INTEGER 
+               -- obstack_vprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "obstack_vprintf"
                }"
                end
 
@@ -436,7 +607,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "open_memstream"
                }"
                end
 
@@ -446,7 +617,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "pclose"
                }"
                end
 
@@ -456,7 +627,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "perror"
                }"
                end
 
@@ -466,7 +637,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "popen"
+               }"
+               end
+
+	printf (a_format: POINTER): INTEGER 
+               -- printf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "printf"
                }"
                end
 
@@ -476,7 +657,37 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "putc"
+               }"
+               end
+
+	putc_unlocked (a_c: INTEGER; a_stream: POINTER): INTEGER 
+               -- putc_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "putc_unlocked"
+               }"
+               end
+
+	putchar (a_c: INTEGER): INTEGER 
+               -- putchar
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "putchar"
+               }"
+               end
+
+	putchar_unlocked (a_c: INTEGER): INTEGER 
+               -- putchar_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "putchar_unlocked"
                }"
                end
 
@@ -486,7 +697,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "puts"
                }"
                end
 
@@ -496,7 +707,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "putw"
                }"
                end
 
@@ -506,7 +717,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "remove"
                }"
                end
 
@@ -516,7 +727,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "rename"
                }"
                end
 
@@ -526,7 +737,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "renameat"
                }"
                end
 
@@ -536,7 +747,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "rewind"
                }"
                end
 
@@ -546,7 +757,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "scanf"
                }"
                end
 
@@ -556,7 +767,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setbuf"
                }"
                end
 
@@ -566,7 +777,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setbuffer"
                }"
                end
 
@@ -576,7 +787,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setlinebuf"
                }"
                end
 
@@ -586,7 +797,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "setvbuf"
+               }"
+               end
+
+	snprintf (a_s: POINTER; a_maxlen: like long_unsigned; a_format: POINTER): INTEGER 
+               -- snprintf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "snprintf"
+               }"
+               end
+
+	sprintf (a_s: POINTER; a_format: POINTER): INTEGER 
+               -- sprintf (variadic call) 
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "sprintf"
                }"
                end
 
@@ -596,7 +827,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "sscanf"
                }"
                end
 
@@ -696,27 +927,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "tempnam"
                }"
                end
 
-	tmpfile (): POINTER 
+	tmpfile: POINTER 
                -- tmpfile
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "tmpfile"
                }"
                end
 
-	tmpfile64 (): POINTER 
+	tmpfile64: POINTER 
                -- tmpfile64
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "tmpfile64"
                }"
                end
 
@@ -726,7 +957,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "tmpnam"
                }"
                end
 
@@ -736,7 +967,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "tmpnam_r"
                }"
                end
 
@@ -746,7 +977,37 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ungetc"
+               }"
+               end
+
+	vasprintf (a_ptr: POINTER; a_f: POINTER; an_arg: POINTER): INTEGER 
+               -- vasprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vasprintf"
+               }"
+               end
+
+	vdprintf (a_fd: INTEGER; a_fmt: POINTER; an_arg: POINTER): INTEGER 
+               -- vdprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vdprintf"
+               }"
+               end
+
+	vfprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
+               -- vfprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vfprintf"
                }"
                end
 
@@ -756,7 +1017,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "vfscanf"
+               }"
+               end
+
+	vprintf (a_format: POINTER; an_arg: POINTER): INTEGER 
+               -- vprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vprintf"
                }"
                end
 
@@ -766,7 +1037,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "vscanf"
+               }"
+               end
+
+	vsnprintf (a_s: POINTER; a_maxlen: like long_unsigned; a_format: POINTER; an_arg: POINTER): INTEGER 
+               -- vsnprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vsnprintf"
+               }"
+               end
+
+	vsprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
+               -- vsprintf
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "vsprintf"
                }"
                end
 
@@ -776,7 +1067,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "vsscanf"
                }"
                end
 

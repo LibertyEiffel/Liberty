@@ -7,5 +7,5 @@ wrappers: $(XML)
 
 gobject.gcc-xml:$(HEADER)
 	pkg-config --exists gobject-2.0
-	gccxml -DGLIB_DISABLE_DEPRECATION_WARNINGS  `pkg-config --cflags-only-I gobject-2.0` $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  -DGLIB_DISABLE_DEPRECATION_WARNINGS  `pkg-config --cflags-only-I gobject-2.0` $(HEADER) -o $(XML)
 

@@ -16,7 +16,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "bcmp"
+               }"
+               end
+
+	bcopy (a_src: POINTER; a_dest: POINTER; a_n: like long_unsigned) 
+               -- bcopy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "bcopy"
+               }"
+               end
+
+	bzero (a_s: POINTER; a_n: like long_unsigned) 
+               -- bzero
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "bzero"
                }"
                end
 
@@ -27,7 +47,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffs"
                }"
                end
 
@@ -37,7 +57,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffsl"
                }"
                end
 
@@ -47,7 +67,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "ffsll"
                }"
                end
 
@@ -59,7 +79,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "memccpy"
                }"
                end
 
@@ -71,7 +91,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "memcmp"
                }"
                end
 
@@ -81,7 +101,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "memfrob"
                }"
                end
 
@@ -91,18 +111,68 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "memmem"
+               }"
+               end
+
+	memmove (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
+               -- memmove
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "memmove"
+               }"
+               end
+
+	mempcpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
+               -- mempcpy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "mempcpy"
                }"
                end
 
 	-- `hidden' function __mempcpy skipped.
 	-- function memrchr skipped as requested.
 	-- function memrchr skipped as requested.
+	memset (a_s: POINTER; a_c: INTEGER; a_n: like long_unsigned): POINTER 
+               -- memset
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "memset"
+               }"
+               end
+
 	-- function rawmemchr skipped as requested.
 	-- function rawmemchr skipped as requested.
 	-- function rindex skipped as requested.
 	-- function rindex skipped as requested.
+	stpcpy (a_dest: POINTER; a_src: POINTER): POINTER 
+               -- stpcpy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "stpcpy"
+               }"
+               end
+
 	-- `hidden' function __stpcpy skipped.
+	stpncpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
+               -- stpncpy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "stpncpy"
+               }"
+               end
+
 	-- `hidden' function __stpncpy skipped.
 	strcasecmp (a_s1: POINTER; a_s2: POINTER): INTEGER 
                -- strcasecmp
@@ -110,7 +180,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcasecmp"
                }"
                end
 
@@ -120,12 +190,22 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcasecmp_l"
                }"
                end
 
 	-- function strcasestr skipped as requested.
 	-- function strcasestr skipped as requested.
+	strcat (a_dest: POINTER; a_src: POINTER): POINTER 
+               -- strcat
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "strcat"
+               }"
+               end
+
 	-- function strchr skipped as requested.
 	-- function strchr skipped as requested.
 	-- function strchrnul skipped as requested.
@@ -136,7 +216,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcmp"
                }"
                end
 
@@ -146,7 +226,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcoll"
                }"
                end
 
@@ -156,7 +236,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcoll_l"
+               }"
+               end
+
+	strcpy (a_dest: POINTER; a_src: POINTER): POINTER 
+               -- strcpy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "strcpy"
                }"
                end
 
@@ -166,7 +256,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strcspn"
                }"
                end
 
@@ -176,7 +266,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strdup"
                }"
                end
 
@@ -186,7 +276,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strerror"
                }"
                end
 
@@ -196,7 +286,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strerror_l"
                }"
                end
 
@@ -206,7 +296,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strerror_r"
                }"
                end
 
@@ -216,7 +306,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strfry"
                }"
                end
 
@@ -226,7 +316,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strlen"
                }"
                end
 
@@ -236,7 +326,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strncasecmp"
                }"
                end
 
@@ -246,7 +336,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strncasecmp_l"
+               }"
+               end
+
+	strncat (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
+               -- strncat
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "strncat"
                }"
                end
 
@@ -256,7 +356,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strncmp"
+               }"
+               end
+
+	strncpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
+               -- strncpy
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "strncpy"
                }"
                end
 
@@ -266,7 +376,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strndup"
                }"
                end
 
@@ -276,7 +386,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strnlen"
                }"
                end
 
@@ -290,7 +400,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strsep"
                }"
                end
 
@@ -300,7 +410,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strsignal"
                }"
                end
 
@@ -310,7 +420,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strspn"
                }"
                end
 
@@ -322,7 +432,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtok"
                }"
                end
 
@@ -333,7 +443,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strtok_r"
                }"
                end
 
@@ -343,7 +453,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strverscmp"
                }"
                end
 
@@ -353,7 +463,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strxfrm"
                }"
                end
 
@@ -363,7 +473,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "strxfrm_l"
                }"
                end
 

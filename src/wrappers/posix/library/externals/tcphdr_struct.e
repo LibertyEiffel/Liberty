@@ -9,7 +9,7 @@ feature {} -- Low-level setters
 
 feature {} -- Low-level queries
 
-	-- Anonymous field at line 136.
+	-- Anonymous field at line 76.
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"

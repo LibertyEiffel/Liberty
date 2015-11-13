@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_addr"
                }"
                end
 
@@ -24,19 +24,19 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_aton"
                }"
                end
 
        -- function inet_lnaof (at line 37 in file /usr/include/arpa/inet.h is not wrappable
-       -- function inet_makeaddr (at line 42 in file /usr/include/arpa/inet.h is not wrappable
+       -- function inet_makeaddr (at line 41 in file /usr/include/arpa/inet.h is not wrappable
 	inet_net_ntop (an_af: INTEGER; a_cp: POINTER; a_bits: INTEGER; a_buf: POINTER; a_len: like size_t): POINTER 
                -- inet_net_ntop
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_net_ntop"
                }"
                end
 
@@ -46,7 +46,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_net_pton"
                }"
                end
 
@@ -56,7 +56,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_neta"
                }"
                end
 
@@ -67,7 +67,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_network"
                }"
                end
 
@@ -77,7 +77,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_nsap_addr"
                }"
                end
 
@@ -87,7 +87,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_nsap_ntoa"
                }"
                end
 
@@ -98,7 +98,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_ntop"
                }"
                end
 
@@ -108,7 +108,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "inet_pton"
                }"
                end
 
