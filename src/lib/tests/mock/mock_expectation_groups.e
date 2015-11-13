@@ -40,12 +40,15 @@ feature {MOCK_SCENARIO}
          Result := groups.valid_index(check_index.item)
       end
 
-feature {}
    check_all_done
       require
          is_replaying
       do
          message_assert(agent all_done_message, all_done)
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.stop_replay)
+         check_index.set_item(groups.lower - 1)
+      ensure
+         not is_replaying
       end
 
 feature {MOCK_SCENARIO}

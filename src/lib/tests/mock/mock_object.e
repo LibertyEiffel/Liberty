@@ -13,7 +13,7 @@ insert
       end
 
 feature {MOCK_EXPECT}
-   add_missing_expectation(expectation: MOCK_EXPECTATION)
+   add_missing_expectation (expectation: MOCK_EXPECTATION)
       require
          expectation /= Void
       do
@@ -28,11 +28,18 @@ feature {MOCK_EXPECT}
 feature {MOCK_EXPECTATION}
    missing_expectations: COLLECTION[MOCK_EXPECTATION]
 
-   replay (a_missing_expectations: like missing_expectations)
+   start_replay (a_missing_expectations: like missing_expectations)
       do
          missing_expectations := a_missing_expectations
       ensure
          missing_expectations = a_missing_expectations
+      end
+
+   stop_replay
+      do
+         missing_expectations := Void
+      ensure
+         missing_expectations = Void
       end
 
 end -- class MOCK_OBJECT

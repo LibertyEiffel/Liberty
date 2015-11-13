@@ -37,6 +37,18 @@ feature {EIFFELTEST_TOOLS}
          Result := groups.is_replaying
       end
 
+   check_all_done
+      require
+         is_replaying
+      local
+         mem: MEMORY
+      do
+         groups.check_all_done
+         mem.forbid_gc_before_exit
+      ensure
+         not is_replaying
+      end
+
 feature {ANY}
    missing_expectations: TRAVERSABLE[MOCK_EXPECTATION]
 

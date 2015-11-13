@@ -849,18 +849,26 @@ unsigned int fsocfl_count(void) {
   return r;
 }
 
+static int __se_dispose_before_exit;
+
+void gc_set_dispose_before_exit(int enable) {
+   __se_dispose_before_exit = enable;
+}
+
 void gc_dispose_before_exit(void) {
   mch** p = gcmt;
   mch**eogcmt=gcmt+gcmt_used;
-  handle(SE_HANDLE_ENTER_GC,NULL);
-  while (p < eogcmt) {
-    if (((*p)->state_type == FSO_STORE_CHUNK) ||
-        ((*p)->state_type == FSO_USED_CHUNK)) {
-      ((*p)->swfp)(*p);
+  if (__se_dispose_before_exit) {
+    handle(SE_HANDLE_ENTER_GC,NULL);
+    while (p < eogcmt) {
+      if (((*p)->state_type == FSO_STORE_CHUNK) ||
+          ((*p)->state_type == FSO_USED_CHUNK)) {
+        ((*p)->swfp)(*p);
+      }
+      p++;
     }
-    p++;
+    handle(SE_HANDLE_EXIT_GC,NULL);
   }
-  handle(SE_HANDLE_EXIT_GC,NULL);
 }
 
 fsoc* gc_fsoc_get1(void) {

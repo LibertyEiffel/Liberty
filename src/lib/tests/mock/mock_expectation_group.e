@@ -61,8 +61,16 @@ feature {MOCK_EXPECTATION_GROUPS}
       do
          expectations.for_each(agent (mexps: COLLECTION[MOCK_EXPECTATION]; exps: FAST_ARRAY[MOCK_EXPECTATION])
                                   do
-                                     exps.for_each(agent {MOCK_EXPECTATION}.replay(mexps))
+                                     exps.for_each(agent {MOCK_EXPECTATION}.start_replay(mexps))
                                   end (missing_expectations, ?))
+      end
+
+   stop_replay
+      do
+         expectations.for_each(agent (exps: FAST_ARRAY[MOCK_EXPECTATION])
+                                  do
+                                     exps.for_each(agent {MOCK_EXPECTATION}.stop_replay)
+                                  end (?))
       end
 
    all_called

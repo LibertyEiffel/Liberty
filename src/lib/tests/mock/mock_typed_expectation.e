@@ -116,7 +116,7 @@ feature {MOCK_EXPECTATION_GROUP}
    all_called
       do
          counter.all_called
-         target.replay(Void)
+         target.stop_replay
       end
 
    all_done_message_in (message: STRING)
