@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_atexit"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_bit_nth_lsf"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_bit_nth_msf"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_bit_storage"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_find_program_in_path"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_format_size"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_format_size_for_display"
                }"
                end
 
@@ -84,137 +84,137 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_format_size_full"
                }"
                end
 
-	g_get_application_name (): POINTER 
+	g_get_application_name: POINTER 
                -- g_get_application_name
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_application_name"
                }"
                end
 
-	g_get_home_dir (): POINTER 
+	g_get_home_dir: POINTER 
                -- g_get_home_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_home_dir"
                }"
                end
 
-	g_get_host_name (): POINTER 
+	g_get_host_name: POINTER 
                -- g_get_host_name
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_host_name"
                }"
                end
 
-	g_get_prgname (): POINTER 
+	g_get_prgname: POINTER 
                -- g_get_prgname
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_prgname"
                }"
                end
 
-	g_get_real_name (): POINTER 
+	g_get_real_name: POINTER 
                -- g_get_real_name
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_real_name"
                }"
                end
 
-	g_get_system_config_dirs (): POINTER 
+	g_get_system_config_dirs: POINTER 
                -- g_get_system_config_dirs
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_system_config_dirs"
                }"
                end
 
-	g_get_system_data_dirs (): POINTER 
+	g_get_system_data_dirs: POINTER 
                -- g_get_system_data_dirs
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_system_data_dirs"
                }"
                end
 
-	g_get_tmp_dir (): POINTER 
+	g_get_tmp_dir: POINTER 
                -- g_get_tmp_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_tmp_dir"
                }"
                end
 
-	g_get_user_cache_dir (): POINTER 
+	g_get_user_cache_dir: POINTER 
                -- g_get_user_cache_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_cache_dir"
                }"
                end
 
-	g_get_user_config_dir (): POINTER 
+	g_get_user_config_dir: POINTER 
                -- g_get_user_config_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_config_dir"
                }"
                end
 
-	g_get_user_data_dir (): POINTER 
+	g_get_user_data_dir: POINTER 
                -- g_get_user_data_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_data_dir"
                }"
                end
 
-	g_get_user_name (): POINTER 
+	g_get_user_name: POINTER 
                -- g_get_user_name
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_name"
                }"
                end
 
-	g_get_user_runtime_dir (): POINTER 
+	g_get_user_runtime_dir: POINTER 
                -- g_get_user_runtime_dir
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_runtime_dir"
                }"
                end
 
@@ -224,7 +224,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_user_special_dir"
                }"
                end
 
@@ -234,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_nullify_pointer"
                }"
                end
 
@@ -244,17 +244,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_parse_debug_string"
                }"
                end
 
-	g_reload_user_special_dirs_cache () 
+	g_reload_user_special_dirs_cache 
                -- g_reload_user_special_dirs_cache
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_reload_user_special_dirs_cache"
                }"
                end
 
@@ -264,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_set_application_name"
                }"
                end
 
@@ -274,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_set_prgname"
                }"
                end
 
@@ -284,7 +284,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_snprintf"
                }"
                end
 
@@ -294,7 +294,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_vsnprintf"
                }"
                end
 
