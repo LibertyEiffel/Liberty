@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_length"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_length_unlocked"
                }"
                end
 
@@ -34,17 +34,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_lock"
                }"
                end
 
-	g_async_queue_new (): POINTER 
+	g_async_queue_new: POINTER 
                -- g_async_queue_new
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_new"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_new_full"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_pop"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_pop_unlocked"
                }"
                end
 
@@ -84,7 +84,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_push"
+               }"
+               end
+
+	g_async_queue_push_front (a_queue: POINTER; an_item: POINTER) 
+               -- g_async_queue_push_front
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_async_queue_push_front"
+               }"
+               end
+
+	g_async_queue_push_front_unlocked (a_queue: POINTER; an_item: POINTER) 
+               -- g_async_queue_push_front_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_async_queue_push_front_unlocked"
                }"
                end
 
@@ -94,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_push_sorted"
                }"
                end
 
@@ -104,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_push_sorted_unlocked"
                }"
                end
 
@@ -114,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_push_unlocked"
                }"
                end
 
@@ -124,7 +144,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_ref"
                }"
                end
 
@@ -134,7 +154,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_ref_unlocked"
+               }"
+               end
+
+	g_async_queue_remove (a_queue: POINTER; an_item: POINTER): INTEGER 
+               -- g_async_queue_remove
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_async_queue_remove"
+               }"
+               end
+
+	g_async_queue_remove_unlocked (a_queue: POINTER; an_item: POINTER): INTEGER 
+               -- g_async_queue_remove_unlocked
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_async_queue_remove_unlocked"
                }"
                end
 
@@ -144,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_sort"
                }"
                end
 
@@ -154,7 +194,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_sort_unlocked"
                }"
                end
 
@@ -164,7 +204,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_timed_pop"
                }"
                end
 
@@ -174,7 +214,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_timed_pop_unlocked"
                }"
                end
 
@@ -184,7 +224,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_timeout_pop"
                }"
                end
 
@@ -194,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_timeout_pop_unlocked"
                }"
                end
 
@@ -204,7 +244,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_try_pop"
                }"
                end
 
@@ -214,7 +254,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_try_pop_unlocked"
                }"
                end
 
@@ -224,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_unlock"
                }"
                end
 
@@ -234,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_unref"
                }"
                end
 
@@ -244,7 +284,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_async_queue_unref_and_unlock"
                }"
                end
 

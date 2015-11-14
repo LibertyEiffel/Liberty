@@ -5,6 +5,6 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADER)
 
 $(XML): $(HEADER)
-	gccxml $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 
 

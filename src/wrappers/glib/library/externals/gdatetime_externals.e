@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_days"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_full"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_hours"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_minutes"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_months"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_seconds"
                }"
                end
 
@@ -84,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_weeks"
                }"
                end
 
@@ -94,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_add_years"
                }"
                end
 
@@ -104,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_compare"
                }"
                end
 
@@ -114,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_difference"
                }"
                end
 
@@ -124,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_equal"
                }"
                end
 
@@ -134,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_format"
                }"
                end
 
@@ -144,7 +144,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_day_of_month"
                }"
                end
 
@@ -154,7 +154,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_day_of_week"
                }"
                end
 
@@ -164,7 +164,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_day_of_year"
                }"
                end
 
@@ -174,7 +174,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_hour"
                }"
                end
 
@@ -184,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_microsecond"
                }"
                end
 
@@ -194,7 +194,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_minute"
                }"
                end
 
@@ -204,7 +204,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_month"
                }"
                end
 
@@ -214,7 +214,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_second"
                }"
                end
 
@@ -224,7 +224,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_seconds"
                }"
                end
 
@@ -234,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_timezone_abbreviation"
                }"
                end
 
@@ -244,7 +244,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_utc_offset"
                }"
                end
 
@@ -254,7 +254,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_week_numbering_year"
                }"
                end
 
@@ -264,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_week_of_year"
                }"
                end
 
@@ -274,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_year"
                }"
                end
 
@@ -284,7 +284,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_get_ymd"
                }"
                end
 
@@ -294,7 +294,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_hash"
                }"
                end
 
@@ -304,7 +304,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_is_daylight_savings"
                }"
                end
 
@@ -314,7 +314,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new"
                }"
                end
 
@@ -324,7 +324,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_from_timeval_local"
                }"
                end
 
@@ -334,7 +334,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_from_timeval_utc"
                }"
                end
 
@@ -344,7 +344,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_from_unix_local"
                }"
                end
 
@@ -354,7 +354,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_from_unix_utc"
                }"
                end
 
@@ -364,7 +364,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_local"
                }"
                end
 
@@ -374,27 +374,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_now"
                }"
                end
 
-	g_date_time_new_now_local (): POINTER 
+	g_date_time_new_now_local: POINTER 
                -- g_date_time_new_now_local
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_now_local"
                }"
                end
 
-	g_date_time_new_now_utc (): POINTER 
+	g_date_time_new_now_utc: POINTER 
                -- g_date_time_new_now_utc
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_now_utc"
                }"
                end
 
@@ -404,7 +404,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_new_utc"
                }"
                end
 
@@ -414,7 +414,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_ref"
                }"
                end
 
@@ -424,7 +424,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_to_local"
                }"
                end
 
@@ -434,7 +434,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_to_timeval"
                }"
                end
 
@@ -444,7 +444,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_to_timezone"
                }"
                end
 
@@ -454,7 +454,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_to_unix"
                }"
                end
 
@@ -464,7 +464,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_to_utc"
                }"
                end
 
@@ -474,7 +474,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_date_time_unref"
                }"
                end
 

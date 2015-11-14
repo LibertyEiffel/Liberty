@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_free"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_get_bytes"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_get_contents"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_get_length"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_new"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_new_from_fd"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_ref"
                }"
                end
 
@@ -84,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_mapped_file_unref"
                }"
                end
 

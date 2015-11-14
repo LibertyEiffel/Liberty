@@ -29,7 +29,7 @@ feature {} -- External calls
                end
 
        -- function inet_lnaof (at line 37 in file /usr/include/arpa/inet.h is not wrappable
-       -- function inet_makeaddr (at line 42 in file /usr/include/arpa/inet.h is not wrappable
+       -- function inet_makeaddr (at line 41 in file /usr/include/arpa/inet.h is not wrappable
 	inet_net_ntop (an_af: INTEGER; a_cp: POINTER; a_bits: INTEGER; a_buf: POINTER; a_len: like size_t): POINTER 
                -- inet_net_ntop
                external "plug_in"

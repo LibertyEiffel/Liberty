@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_environ_getenv"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_environ_setenv"
                }"
                end
 
@@ -34,17 +34,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_environ_unsetenv"
                }"
                end
 
-	g_get_environ (): POINTER 
+	g_get_environ: POINTER 
                -- g_get_environ
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_environ"
                }"
                end
 
@@ -54,17 +54,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_getenv"
                }"
                end
 
-	g_listenv (): POINTER 
+	g_listenv: POINTER 
                -- g_listenv
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_listenv"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_setenv"
                }"
                end
 
@@ -84,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unsetenv"
                }"
                end
 

@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assertion_message"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assertion_message_cmpnum"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assertion_message_cmpstr"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assertion_message_error"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assertion_message_expr"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_strcmp0"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_add_data_func"
                }"
                end
 
@@ -84,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_add_data_func_full"
                }"
                end
 
@@ -94,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_add_func"
                }"
                end
 
@@ -104,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_add_vtable"
                }"
                end
 
@@ -114,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_assert_expected_messages_internal"
                }"
                end
 
@@ -124,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_bug"
                }"
                end
 
@@ -134,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_bug_base"
                }"
                end
 
@@ -144,7 +144,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_build_filename"
                }"
                end
 
@@ -184,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_create_case"
                }"
                end
 
@@ -194,7 +194,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_create_suite"
                }"
                end
 
@@ -204,27 +204,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_expect_message"
                }"
                end
 
-	g_test_fail () 
+	g_test_fail 
                -- g_test_fail
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_fail"
                }"
                end
 
-	g_test_failed (): INTEGER 
+	g_test_failed: INTEGER 
                -- g_test_failed
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_failed"
                }"
                end
 
@@ -234,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_get_dir"
                }"
                end
 
@@ -244,17 +244,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_get_filename"
                }"
                end
 
-	g_test_get_root (): POINTER 
+	g_test_get_root: POINTER 
                -- g_test_get_root
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_get_root"
                }"
                end
 
@@ -264,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_incomplete"
                }"
                end
 
@@ -274,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_init"
                }"
                end
 
@@ -284,17 +284,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_buffer_free"
                }"
                end
 
-	g_test_log_buffer_new (): POINTER 
+	g_test_log_buffer_new: POINTER 
                -- g_test_log_buffer_new
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_buffer_new"
                }"
                end
 
@@ -304,7 +304,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_buffer_pop"
                }"
                end
 
@@ -314,7 +314,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_buffer_push"
                }"
                end
 
@@ -324,7 +324,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_msg_free"
                }"
                end
 
@@ -334,7 +334,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_set_fatal_handler"
                }"
                end
 
@@ -344,7 +344,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_log_type_name"
                }"
                end
 
@@ -354,7 +354,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_maximized_result"
                }"
                end
 
@@ -364,7 +364,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_message"
                }"
                end
 
@@ -374,7 +374,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_minimized_result"
                }"
                end
 
@@ -384,7 +384,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_queue_destroy"
                }"
                end
 
@@ -394,17 +394,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_queue_free"
                }"
                end
 
-	g_test_rand_double (): REAL 
+	g_test_rand_double: REAL 
                -- g_test_rand_double
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_rand_double"
                }"
                end
 
@@ -414,17 +414,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_rand_double_range"
                }"
                end
 
-	g_test_rand_int (): INTEGER 
+	g_test_rand_int: INTEGER 
                -- g_test_rand_int
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_rand_int"
                }"
                end
 
@@ -434,17 +434,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_rand_int_range"
                }"
                end
 
-	g_test_run (): INTEGER 
+	g_test_run: INTEGER 
                -- g_test_run
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_run"
                }"
                end
 
@@ -454,17 +454,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_run_suite"
                }"
                end
 
-	g_test_set_nonfatal_assertions () 
+	g_test_set_nonfatal_assertions 
                -- g_test_set_nonfatal_assertions
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_set_nonfatal_assertions"
                }"
                end
 
@@ -474,17 +474,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_skip"
                }"
                end
 
-	g_test_subprocess (): INTEGER 
+	g_test_subprocess: INTEGER 
                -- g_test_subprocess
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_subprocess"
                }"
                end
 
@@ -494,7 +494,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_suite_add"
                }"
                end
 
@@ -504,37 +504,37 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_suite_add_suite"
                }"
                end
 
-	g_test_timer_elapsed (): REAL 
+	g_test_timer_elapsed: REAL 
                -- g_test_timer_elapsed
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_timer_elapsed"
                }"
                end
 
-	g_test_timer_last (): REAL 
+	g_test_timer_last: REAL 
                -- g_test_timer_last
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_timer_last"
                }"
                end
 
-	g_test_timer_start () 
+	g_test_timer_start 
                -- g_test_timer_start
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_timer_start"
                }"
                end
 
@@ -544,7 +544,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_trap_assertions"
                }"
                end
 
@@ -554,27 +554,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_trap_fork"
                }"
                end
 
-	g_test_trap_has_passed (): INTEGER 
+	g_test_trap_has_passed: INTEGER 
                -- g_test_trap_has_passed
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_trap_has_passed"
                }"
                end
 
-	g_test_trap_reached_timeout (): INTEGER 
+	g_test_trap_reached_timeout: INTEGER 
                -- g_test_trap_reached_timeout
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_trap_reached_timeout"
                }"
                end
 
@@ -584,7 +584,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_test_trap_subprocess"
                }"
                end
 

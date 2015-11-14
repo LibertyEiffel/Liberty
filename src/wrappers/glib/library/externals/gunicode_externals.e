@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_ucs4_to_utf16"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_ucs4_to_utf8"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_break_type"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_combining_class"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_compose"
                }"
                end
 
@@ -64,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_decompose"
                }"
                end
 
@@ -74,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_digit_value"
                }"
                end
 
@@ -84,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_fully_decompose"
                }"
                end
 
@@ -94,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_get_mirror_char"
                }"
                end
 
@@ -104,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_get_script"
                }"
                end
 
@@ -114,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isalnum"
                }"
                end
 
@@ -124,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isalpha"
                }"
                end
 
@@ -134,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_iscntrl"
                }"
                end
 
@@ -144,7 +144,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isdefined"
                }"
                end
 
@@ -154,7 +154,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isdigit"
                }"
                end
 
@@ -164,7 +164,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isgraph"
                }"
                end
 
@@ -174,7 +174,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_islower"
                }"
                end
 
@@ -184,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_ismark"
                }"
                end
 
@@ -194,7 +194,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isprint"
                }"
                end
 
@@ -204,7 +204,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_ispunct"
                }"
                end
 
@@ -214,7 +214,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isspace"
                }"
                end
 
@@ -224,7 +224,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_istitle"
                }"
                end
 
@@ -234,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isupper"
                }"
                end
 
@@ -244,7 +244,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_iswide"
                }"
                end
 
@@ -254,7 +254,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_iswide_cjk"
                }"
                end
 
@@ -264,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_isxdigit"
                }"
                end
 
@@ -274,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_iszerowidth"
                }"
                end
 
@@ -284,7 +284,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_to_utf8"
                }"
                end
 
@@ -294,7 +294,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_tolower"
                }"
                end
 
@@ -304,7 +304,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_totitle"
                }"
                end
 
@@ -314,7 +314,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_toupper"
                }"
                end
 
@@ -324,7 +324,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_type"
                }"
                end
 
@@ -334,7 +334,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_validate"
                }"
                end
 
@@ -344,7 +344,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unichar_xdigit_value"
                }"
                end
 
@@ -354,7 +354,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unicode_canonical_decomposition"
                }"
                end
 
@@ -364,7 +364,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unicode_canonical_ordering"
                }"
                end
 
@@ -374,7 +374,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unicode_script_from_iso15924"
                }"
                end
 
@@ -384,7 +384,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_unicode_script_to_iso15924"
                }"
                end
 
@@ -394,7 +394,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf16_to_ucs4"
                }"
                end
 
@@ -404,7 +404,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf16_to_utf8"
                }"
                end
 
@@ -414,7 +414,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_casefold"
                }"
                end
 
@@ -424,7 +424,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_collate"
                }"
                end
 
@@ -434,7 +434,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_collate_key"
                }"
                end
 
@@ -444,7 +444,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_collate_key_for_filename"
                }"
                end
 
@@ -454,7 +454,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_find_next_char"
                }"
                end
 
@@ -464,7 +464,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_find_prev_char"
                }"
                end
 
@@ -474,7 +474,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_get_char"
                }"
                end
 
@@ -484,7 +484,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_get_char_validated"
                }"
                end
 
@@ -495,7 +495,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_normalize"
                }"
                end
 
@@ -505,7 +505,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_offset_to_pointer"
                }"
                end
 
@@ -515,7 +515,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_pointer_to_offset"
                }"
                end
 
@@ -525,7 +525,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_prev_char"
                }"
                end
 
@@ -565,7 +565,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strchr"
                }"
                end
 
@@ -575,7 +575,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strdown"
                }"
                end
 
@@ -585,7 +585,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strlen"
                }"
                end
 
@@ -595,7 +595,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strncpy"
                }"
                end
 
@@ -605,7 +605,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strrchr"
                }"
                end
 
@@ -615,7 +615,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strreverse"
                }"
                end
 
@@ -625,7 +625,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_strup"
                }"
                end
 
@@ -635,7 +635,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_substring"
                }"
                end
 
@@ -645,7 +645,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_to_ucs4"
                }"
                end
 
@@ -655,7 +655,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_to_ucs4_fast"
                }"
                end
 
@@ -665,7 +665,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_to_utf16"
                }"
                end
 
@@ -675,7 +675,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_utf8_validate"
                }"
                end
 

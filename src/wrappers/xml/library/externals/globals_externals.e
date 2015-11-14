@@ -20,7 +20,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __htmlDefaultSAXHandler skipped.
        -- Variable htmlDefaultSAXHandler (at line 271 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
        address_of_html_default_saxhandler: POINTER
                -- Address of html_default_saxhandler
@@ -32,6 +31,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __htmlDefaultSAXHandler skipped.
 	-- `hidden' function __oldXMLWDcompatibility skipped.
 	old_xmlwdcompatibility: INTEGER
                -- old_xmlwdcompatibility
@@ -147,6 +147,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __xmlDefaultSAXHandler skipped.
+	-- `hidden' function __xmlDefaultSAXLocator skipped.
        -- Variable xmlDefaultSAXLocator (at line 330 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
        address_of_xml_default_saxlocator: POINTER
                -- Address of xml_default_saxlocator
@@ -158,7 +159,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlDefaultSAXLocator skipped.
 	xml_deregister_node_default (a_func: POINTER): POINTER 
                -- xmlDeregisterNodeDefault
                external "plug_in"
@@ -200,7 +200,6 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __xmlDeregisterNodeDefaultValue skipped.
-	-- `hidden' function __xmlDoValidityCheckingDefaultValue skipped.
 	xml_do_validity_checking_default_value: INTEGER
                -- xml_do_validity_checking_default_value
                external "plug_in"
@@ -231,6 +230,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlDoValidityCheckingDefaultValue skipped.
 	xml_free: POINTER
                -- xml_free
                external "plug_in"
@@ -261,7 +261,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlGenericError skipped.
 	xml_generic_error: POINTER
                -- xml_generic_error
                external "plug_in"
@@ -292,6 +291,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlGenericError skipped.
 	-- `hidden' function __xmlGenericErrorContext skipped.
 	xml_generic_error_context: POINTER
                -- xml_generic_error_context
@@ -436,7 +436,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlLastError skipped.
        -- Variable xmlLastError (at line 280 in file /usr/include/libxml2/libxml/globals.h does not have a wrapper type
        address_of_xml_last_error: POINTER
                -- Address of xml_last_error
@@ -448,7 +447,7 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlLineNumbersDefaultValue skipped.
+	-- `hidden' function __xmlLastError skipped.
 	xml_line_numbers_default_value: INTEGER
                -- xml_line_numbers_default_value
                external "plug_in"
@@ -479,6 +478,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlLineNumbersDefaultValue skipped.
 	xml_load_ext_dtd_default_value: INTEGER
                -- xml_load_ext_dtd_default_value
                external "plug_in"
@@ -641,6 +641,7 @@ feature {} -- External calls
                end
 
 	-- `hidden' function __xmlOutputBufferCreateFilenameValue skipped.
+	-- `hidden' function __xmlParserDebugEntities skipped.
 	xml_parser_debug_entities: INTEGER
                -- xml_parser_debug_entities
                external "plug_in"
@@ -671,7 +672,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlParserDebugEntities skipped.
 	xml_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER 
                -- xmlParserInputBufferCreateFilenameDefault
                external "plug_in"
@@ -713,6 +713,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlParserVersion skipped.
 	xml_parser_version: POINTER
                -- xml_parser_version
                external "plug_in"
@@ -743,7 +744,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlParserVersion skipped.
 	-- `hidden' function __xmlPedanticParserDefaultValue skipped.
 	xml_pedantic_parser_default_value: INTEGER
                -- xml_pedantic_parser_default_value
@@ -815,6 +815,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlRegisterNodeDefaultValue skipped.
 	xml_register_node_default_value: POINTER
                -- xml_register_node_default_value
                external "plug_in"
@@ -845,7 +846,7 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlRegisterNodeDefaultValue skipped.
+	-- `hidden' function __xmlSaveNoEmptyTags skipped.
 	xml_save_no_empty_tags: INTEGER
                -- xml_save_no_empty_tags
                external "plug_in"
@@ -876,8 +877,6 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlSaveNoEmptyTags skipped.
-	-- `hidden' function __xmlStructuredError skipped.
 	xml_structured_error: POINTER
                -- xml_structured_error
                external "plug_in"
@@ -908,6 +907,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlStructuredError skipped.
 	xml_structured_error_context: POINTER
                -- xml_structured_error_context
                external "plug_in"
@@ -1160,6 +1160,7 @@ feature {} -- External calls
                }"
                end
 
+	-- `hidden' function __xmlTreeIndentString skipped.
 	xml_tree_indent_string: POINTER
                -- xml_tree_indent_string
                external "plug_in"
@@ -1190,6 +1191,5 @@ feature {} -- External calls
                }"
                end
 
-	-- `hidden' function __xmlTreeIndentString skipped.
 
 end -- class GLOBALS_EXTERNALS

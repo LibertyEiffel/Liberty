@@ -268,7 +268,7 @@ feature {} -- External calls
                }"
                end
 
-	xml_free_valid_ctxt (an_argument_l6914_c7: POINTER) 
+	xml_free_valid_ctxt (an_argument_l3105_c7: POINTER) 
                -- xmlFreeValidCtxt
                external "plug_in"
                alias "{

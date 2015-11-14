@@ -1,5 +1,5 @@
 ## To avoid an Ubuntu Intrepid Ibex bug.
-## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
+## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
 ## export GCCXML_COMPILER = gcc-4.5
 
 XML=posix.gcc-xml
@@ -13,7 +13,7 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
-	gccxml $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 
 ## Ideally here we should make wrappers for include files not already wrapped in common wrapper cluster using a command like
 ## (gcc -M ../../../common/library/externals/plugin/c/standard-c-lib.h; gcc -M plugin/c/liberty-posix.h)|sort |uniq --repeated 
