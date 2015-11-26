@@ -26,7 +26,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-creation {GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 
 feature {ANY} -- Wrapper

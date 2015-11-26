@@ -14,7 +14,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_autoptr_cleanup_generic_gfree"
+               }"
+               end
+
+	g_autoptr_cleanup_gstring_free (a_string: POINTER) 
+               -- g_autoptr_cleanup_gstring_free
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_autoptr_cleanup_gstring_free"
                }"
                end
 
@@ -24,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GCond"
                }"
                end
 
@@ -34,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GMutex"
                }"
                end
 
@@ -44,7 +54,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GQueue"
+               }"
+               end
+
+	glib_auto_cleanup_gstrv (a_ptr: POINTER) 
+               -- glib_auto_cleanup_GStrv
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "glib_auto_cleanup_GStrv"
                }"
                end
 
@@ -54,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GVariantBuilder"
                }"
                end
 
@@ -64,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GVariantDict"
                }"
                end
 
@@ -74,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GArray"
                }"
                end
 
@@ -84,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GAsyncQueue"
                }"
                end
 
@@ -94,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GBookmarkFile"
                }"
                end
 
@@ -104,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GByteArray"
                }"
                end
 
@@ -114,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GBytes"
                }"
                end
 
@@ -124,7 +144,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GChecksum"
                }"
                end
 
@@ -134,7 +154,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GDateTime"
                }"
                end
 
@@ -144,7 +164,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GDir"
                }"
                end
 
@@ -154,7 +174,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GError"
                }"
                end
 
@@ -164,7 +184,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GHashTable"
                }"
                end
 
@@ -174,7 +194,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GHmac"
                }"
                end
 
@@ -184,7 +204,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GIOChannel"
                }"
                end
 
@@ -194,7 +214,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GKeyFile"
                }"
                end
 
@@ -204,7 +224,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GList"
                }"
                end
 
@@ -214,7 +234,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMainContext"
                }"
                end
 
@@ -224,7 +244,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMainLoop"
                }"
                end
 
@@ -234,7 +254,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMappedFile"
                }"
                end
 
@@ -244,7 +264,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMarkupParseContext"
                }"
                end
 
@@ -254,7 +274,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMatchInfo"
                }"
                end
 
@@ -264,7 +284,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GMutexLocker"
                }"
                end
 
@@ -274,7 +294,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GNode"
                }"
                end
 
@@ -284,7 +304,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GOptionContext"
                }"
                end
 
@@ -294,7 +314,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GOptionGroup"
                }"
                end
 
@@ -304,7 +324,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GPatternSpec"
                }"
                end
 
@@ -314,7 +334,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GPtrArray"
                }"
                end
 
@@ -324,7 +344,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GQueue"
                }"
                end
 
@@ -334,7 +354,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GRand"
                }"
                end
 
@@ -344,7 +364,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GRegex"
                }"
                end
 
@@ -354,7 +374,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GScanner"
                }"
                end
 
@@ -364,7 +384,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GSequence"
                }"
                end
 
@@ -374,7 +394,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GSList"
                }"
                end
 
@@ -384,7 +404,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GSource"
+               }"
+               end
+
+	glib_autoptr_cleanup_gstring (a_ptr: POINTER) 
+               -- glib_autoptr_cleanup_GString
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "glib_autoptr_cleanup_GString"
                }"
                end
 
@@ -394,7 +424,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GStringChunk"
                }"
                end
 
@@ -404,7 +434,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GThread"
                }"
                end
 
@@ -414,7 +444,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GTimeZone"
                }"
                end
 
@@ -424,7 +454,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GTimer"
                }"
                end
 
@@ -434,7 +464,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GTree"
                }"
                end
 
@@ -444,7 +474,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GVariant"
                }"
                end
 
@@ -454,7 +484,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GVariantBuilder"
                }"
                end
 
@@ -464,7 +494,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GVariantDict"
                }"
                end
 
@@ -474,7 +504,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GVariantIter"
                }"
                end
 
@@ -484,7 +514,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GVariantType"
                }"
                end
 

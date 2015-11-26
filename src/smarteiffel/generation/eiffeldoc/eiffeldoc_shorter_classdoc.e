@@ -687,8 +687,12 @@ feature {}
          not_done_to_report_errors: error_handler.is_empty -- required by gives_permission_to
       local
          i: INTEGER
-         feature_name, id, assign_anchor: STRING
+         feature_name, id, assign_anchor, const_string: STRING
          require_not_empty, ensure_not_empty, need_blank: BOOLEAN
+         c_value: EXPRESSION
+         cst: CST_ATT
+         manifest_string: MANIFEST_STRING
+         btc: BASE_TYPE_CONSTANT
       do
          check
             phase = details_features_phase implies client = Void or else af.permissions.gives_permission_to(client, context.type)
@@ -745,6 +749,29 @@ feature {}
             html.close_anchor
          end
 
+         if {CST_ATT} ?:= af then
+            cst ::= af
+            c_value := cst.value
+            const_string := "is "
+            if {BASE_TYPE_CONSTANT} ?:= c_value then
+               btc ::= c_value
+               const_string.append(btc.to_string)
+            elseif {MANIFEST_STRING} ?:= c_value then
+               manifest_string ::= c_value
+               const_string.append(once "%"")
+               const_string.append(manifest_string.to_string)
+               const_string.append(once "%"")
+            else
+               const_string := once ""
+            end
+               
+            html.close_div
+            set_suffixed_attribute(once "class", css_feature, css_value_suffix, html)
+            html.open_div
+            html.put_string(const_string)
+            need_blank := True
+         end
+        
          if fn.is_frozen then
             html.close_div
             set_suffixed_attribute(once "class", css_feature, css_frozen_suffix, html)

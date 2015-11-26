@@ -87,6 +87,7 @@ feature {}
    css_attribute_suffix: STRING "_attribute"
    css_once_suffix: STRING "_once"
    css_blank_suffix: STRING "_blank"
+   css_value_suffix: STRING "_value"
 
    css_nav_link: STRING "nav_link"
    css_class_link: STRING "class_link"

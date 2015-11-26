@@ -8,23 +8,13 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	glib_auto_cleanup_gstrv (a_ptr: POINTER) 
-               -- glib_auto_cleanup_GStrv
-               external "plug_in"
-               alias "{
-                       location: "."
-                       module_name: "plugin"
-                       feature_name: "Void"
-               }"
-               end
-
 	glib_auto_cleanup_gvalue (a_ptr: POINTER) 
                -- glib_auto_cleanup_GValue
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_auto_cleanup_GValue"
                }"
                end
 
@@ -34,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GInitiallyUnowned"
                }"
                end
 
@@ -44,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "glib_autoptr_cleanup_GObject"
                }"
                end
 

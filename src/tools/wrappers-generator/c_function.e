@@ -228,7 +228,7 @@ feature {ANY}
                         %                       feature_name: %"#(2)%"%N%
                         %               }%"%N%
                         %               end%N%N" #
-						description # actual_c_symbol)
+						description # c_string_name)
          -- For debugging purpose the line where the node occurred were once printed in the comment, like th:
          -- buffer.append(once "%
          -- %            -- #(1) (node at line #(3))%N%

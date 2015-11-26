@@ -148,7 +148,7 @@ feature {}
 
    format_and_print_message
       local
-         i: INTEGER; i18n: I18N
+         i, pid: INTEGER; i18n: I18N; spid: STRING
       do
          time.update
          from
@@ -173,6 +173,13 @@ feature {}
                      output.put_string(i18n.locale.localized_time_and_date(time))
                   when 'm' then
                      output.put_string(message)
+                  when 'I' then
+                     --| **** TODO: cross-platform
+                     c_inline_c("_pid = getpid();%N")
+                     spid := once ""
+                     spid.copy(once "0x")
+                     pid.to_hexadecimal_in(spid)
+                     output.put_string(spid)
                   when '@' then
                      output.put_character('@')
                   else

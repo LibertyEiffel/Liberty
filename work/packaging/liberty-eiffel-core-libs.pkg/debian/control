@@ -2,6 +2,7 @@ Package: liberty-eiffel-core-libs
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Recommends: liberty-eiffel-tools (= #VERSION#)
+Suggests: libzmq3-dev (>= 4.0)
 Description: liberty-eiffel core libraries
  Liberty Eiffel is the proud successor of SmartEiffel, also formerly
  known as the GNU Eiffel compiler.

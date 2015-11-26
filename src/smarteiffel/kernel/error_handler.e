@@ -11,10 +11,14 @@ class ERROR_HANDLER
 insert
    GLOBALS
       undefine is_equal
+      redefine default_create
       end
    SINGLETON
+      redefine default_create
+      end
    TAGGER
       undefine is_equal
+      redefine default_create
       end
 
 feature {ANY}
@@ -396,9 +400,6 @@ feature {}
       end
 
    errors_pool: RECYCLING_POOL[TAGGED_ERROR]
-      once
-         create Result.make
-      end
 
    new_error: TAGGED_ERROR
       do
@@ -424,16 +425,10 @@ feature {}
    explanation: STRING
          -- Current `explanation' text to be print with next Warning,
          -- the next Error or the next Fatal Error.
-      once
-         create Result.make(1024)
-      end
 
    positions: FAST_ARRAY[POSITION]
          -- The list of `positions' to be shown with next Warning,
          -- the next Error or the next Fatal Error.
-      once
-         create Result.with_capacity(16)
-      end
 
    do_print (tag: STRING)
       do
@@ -743,6 +738,19 @@ feature {}
       end
 
    warning_tag: STRING "Warning"
+
+feature {}
+   default_create
+      do
+         create explanation.make(1024)
+         create positions.with_capacity(16)
+         create errors_pool.make
+      end
+
+invariant
+   explanation /= Void
+   positions /= Void
+   errors_pool /= Void
 
 end -- class ERROR_HANDLER
 --

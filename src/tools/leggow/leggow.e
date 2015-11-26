@@ -29,7 +29,6 @@ class LEGGOW
 insert
 	-- COMMAND_LINE_TOOLS
 	LOGGING
-	GTYPE_EXTERNALS 
 
 create {} main
 
@@ -37,9 +36,8 @@ feature {} -- program entry point
 	main is
 		do
 			parse_arguments
-			g_type_init
-			library_name := "Gtk"
-			namespace := repository.load(library_name,Void)
+			-- library_name := "Gtk"
+			namespace := repository.load("Gtk","3.0")
 			repository.loaded_namespaces.print_on(std_output)
 			"%NDependencies: ".print_on(std_output);
 			repository.dependencies(library_name).print_on(std_output);

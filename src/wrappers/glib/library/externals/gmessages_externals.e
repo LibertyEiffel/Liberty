@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_assert_warning"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_default_handler"
                }"
                end
 
@@ -45,7 +45,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_remove_handler"
                }"
                end
 
@@ -55,7 +55,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_set_always_fatal"
                }"
                end
 
@@ -65,7 +65,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_set_default_handler"
                }"
                end
 
@@ -75,7 +75,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_set_fatal_mask"
                }"
                end
 
@@ -85,7 +85,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_log_set_handler"
+               }"
+               end
+
+	g_log_set_handler_full (a_log_domain: POINTER; a_log_levels: INTEGER; a_log_func: POINTER; an_user_data: POINTER; a_destroy: POINTER): NATURAL 
+               -- g_log_set_handler_full
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_log_set_handler_full"
                }"
                end
 
@@ -95,7 +105,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_logv"
                }"
                end
 
@@ -105,7 +115,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_print"
                }"
                end
 
@@ -115,7 +125,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_printerr"
                }"
                end
 
@@ -125,7 +135,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_printf_string_upper_bound"
                }"
                end
 
@@ -135,7 +145,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_return_if_fail_warning"
                }"
                end
 
@@ -145,7 +155,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_set_print_handler"
                }"
                end
 
@@ -155,7 +165,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_set_printerr_handler"
                }"
                end
 
@@ -165,7 +175,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_warn_message"
                }"
                end
 

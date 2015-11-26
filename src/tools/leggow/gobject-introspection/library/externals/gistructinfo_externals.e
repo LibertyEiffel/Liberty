@@ -8,13 +8,23 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
+	g_struct_info_find_field (an_info: POINTER; a_name: POINTER): POINTER 
+               -- g_struct_info_find_field
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_struct_info_find_field"
+               }"
+               end
+
 	g_struct_info_find_method (an_info: POINTER; a_name: POINTER): POINTER 
                -- g_struct_info_find_method
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_find_method"
                }"
                end
 
@@ -24,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_alignment"
                }"
                end
 
@@ -34,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_field"
                }"
                end
 
@@ -44,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_method"
                }"
                end
 
@@ -54,7 +64,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_n_fields"
                }"
                end
 
@@ -64,7 +74,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_n_methods"
                }"
                end
 
@@ -74,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_get_size"
                }"
                end
 
@@ -84,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_is_foreign"
                }"
                end
 
@@ -94,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_struct_info_is_gtype_struct"
                }"
                end
 

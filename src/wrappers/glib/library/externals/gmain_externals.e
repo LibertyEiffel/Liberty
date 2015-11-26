@@ -14,7 +14,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_child_watch_add"
                }"
                end
 
@@ -24,11 +24,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_child_watch_add_full"
                }"
                end
 
-       -- Variable g_child_watch_funcs (at line 605 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
+       -- Variable g_child_watch_funcs (at line 607 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
        address_of_g_child_watch_funcs: POINTER
                -- Address of g_child_watch_funcs
                external "plug_in"
@@ -45,7 +45,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_child_watch_source_new"
                }"
                end
 
@@ -55,27 +55,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_current_time"
                }"
                end
 
-	g_get_monotonic_time (): like long 
+	g_get_monotonic_time: like long 
                -- g_get_monotonic_time
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_monotonic_time"
                }"
                end
 
-	g_get_real_time (): like long 
+	g_get_real_time: like long 
                -- g_get_real_time
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_real_time"
                }"
                end
 
@@ -85,7 +85,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_idle_add"
                }"
                end
 
@@ -95,11 +95,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_idle_add_full"
                }"
                end
 
-       -- Variable g_idle_funcs (at line 606 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
+       -- Variable g_idle_funcs (at line 608 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
        address_of_g_idle_funcs: POINTER
                -- Address of g_idle_funcs
                external "plug_in"
@@ -116,17 +116,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_idle_remove_by_data"
                }"
                end
 
-	g_idle_source_new (): POINTER 
+	g_idle_source_new: POINTER 
                -- g_idle_source_new
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_idle_source_new"
                }"
                end
 
@@ -136,7 +136,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_acquire"
                }"
                end
 
@@ -146,7 +146,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_add_poll"
                }"
                end
 
@@ -156,17 +156,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_check"
                }"
                end
 
-	g_main_context_default (): POINTER 
+	g_main_context_default: POINTER 
                -- g_main_context_default
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_default"
                }"
                end
 
@@ -176,7 +176,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_dispatch"
                }"
                end
 
@@ -186,7 +186,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_find_source_by_funcs_user_data"
                }"
                end
 
@@ -196,7 +196,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_find_source_by_id"
                }"
                end
 
@@ -206,7 +206,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_find_source_by_user_data"
                }"
                end
 
@@ -216,17 +216,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_get_poll_func"
                }"
                end
 
-	g_main_context_get_thread_default (): POINTER 
+	g_main_context_get_thread_default: POINTER 
                -- g_main_context_get_thread_default
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_get_thread_default"
                }"
                end
 
@@ -236,7 +236,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_invoke"
                }"
                end
 
@@ -246,7 +246,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_invoke_full"
                }"
                end
 
@@ -256,7 +256,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_is_owner"
                }"
                end
 
@@ -266,17 +266,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_iteration"
                }"
                end
 
-	g_main_context_new (): POINTER 
+	g_main_context_new: POINTER 
                -- g_main_context_new
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_new"
                }"
                end
 
@@ -286,7 +286,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_pending"
                }"
                end
 
@@ -296,7 +296,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_pop_thread_default"
                }"
                end
 
@@ -306,7 +306,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_prepare"
                }"
                end
 
@@ -316,7 +316,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_push_thread_default"
                }"
                end
 
@@ -326,7 +326,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_query"
                }"
                end
 
@@ -336,17 +336,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_ref"
                }"
                end
 
-	g_main_context_ref_thread_default (): POINTER 
+	g_main_context_ref_thread_default: POINTER 
                -- g_main_context_ref_thread_default
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_ref_thread_default"
                }"
                end
 
@@ -356,7 +356,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_release"
                }"
                end
 
@@ -366,7 +366,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_remove_poll"
                }"
                end
 
@@ -376,7 +376,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_set_poll_func"
                }"
                end
 
@@ -386,7 +386,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_unref"
                }"
                end
 
@@ -396,7 +396,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_wait"
                }"
                end
 
@@ -406,27 +406,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_context_wakeup"
                }"
                end
 
-	g_main_current_source (): POINTER 
+	g_main_current_source: POINTER 
                -- g_main_current_source
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_current_source"
                }"
                end
 
-	g_main_depth (): INTEGER 
+	g_main_depth: INTEGER 
                -- g_main_depth
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_depth"
                }"
                end
 
@@ -436,7 +436,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_get_context"
                }"
                end
 
@@ -446,7 +446,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_is_running"
                }"
                end
 
@@ -456,7 +456,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_new"
                }"
                end
 
@@ -466,7 +466,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_quit"
                }"
                end
 
@@ -476,7 +476,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_ref"
                }"
                end
 
@@ -486,7 +486,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_run"
                }"
                end
 
@@ -496,7 +496,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_main_loop_unref"
                }"
                end
 
@@ -506,7 +506,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_add_child_source"
                }"
                end
 
@@ -516,7 +516,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_add_poll"
                }"
                end
 
@@ -526,7 +526,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_add_unix_fd"
                }"
                end
 
@@ -536,7 +536,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_attach"
                }"
                end
 
@@ -546,7 +546,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_destroy"
                }"
                end
 
@@ -556,7 +556,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_can_recurse"
                }"
                end
 
@@ -566,7 +566,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_context"
                }"
                end
 
@@ -576,7 +576,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_current_time"
                }"
                end
 
@@ -586,7 +586,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_id"
                }"
                end
 
@@ -596,7 +596,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_name"
                }"
                end
 
@@ -606,7 +606,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_priority"
                }"
                end
 
@@ -616,7 +616,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_ready_time"
                }"
                end
 
@@ -626,7 +626,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_get_time"
                }"
                end
 
@@ -636,7 +636,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_is_destroyed"
                }"
                end
 
@@ -646,7 +646,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_modify_unix_fd"
                }"
                end
 
@@ -656,7 +656,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_new"
                }"
                end
 
@@ -666,7 +666,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_query_unix_fd"
                }"
                end
 
@@ -676,7 +676,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_ref"
                }"
                end
 
@@ -686,7 +686,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove"
                }"
                end
 
@@ -696,7 +696,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove_by_funcs_user_data"
                }"
                end
 
@@ -706,7 +706,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove_by_user_data"
                }"
                end
 
@@ -716,7 +716,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove_child_source"
                }"
                end
 
@@ -726,7 +726,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove_poll"
                }"
                end
 
@@ -736,7 +736,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_remove_unix_fd"
                }"
                end
 
@@ -746,7 +746,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_callback"
                }"
                end
 
@@ -756,7 +756,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_callback_indirect"
                }"
                end
 
@@ -766,7 +766,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_can_recurse"
                }"
                end
 
@@ -776,7 +776,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_funcs"
                }"
                end
 
@@ -786,7 +786,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_name"
                }"
                end
 
@@ -796,7 +796,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_name_by_id"
                }"
                end
 
@@ -806,7 +806,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_priority"
                }"
                end
 
@@ -816,7 +816,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_set_ready_time"
                }"
                end
 
@@ -826,7 +826,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_source_unref"
                }"
                end
 
@@ -836,7 +836,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_add"
                }"
                end
 
@@ -846,7 +846,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_add_full"
                }"
                end
 
@@ -856,7 +856,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_add_seconds"
                }"
                end
 
@@ -866,11 +866,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_add_seconds_full"
                }"
                end
 
-       -- Variable g_timeout_funcs (at line 604 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
+       -- Variable g_timeout_funcs (at line 606 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
        address_of_g_timeout_funcs: POINTER
                -- Address of g_timeout_funcs
                external "plug_in"
@@ -887,7 +887,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_source_new"
                }"
                end
 
@@ -897,11 +897,11 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_timeout_source_new_seconds"
                }"
                end
 
-       -- Variable g_unix_fd_source_funcs (at line 609 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
+       -- Variable g_unix_fd_source_funcs (at line 611 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
        address_of_g_unix_fd_source_funcs: POINTER
                -- Address of g_unix_fd_source_funcs
                external "plug_in"
@@ -912,7 +912,7 @@ feature {} -- External calls
                }"
                end
 
-       -- Variable g_unix_signal_funcs (at line 608 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
+       -- Variable g_unix_signal_funcs (at line 610 in file /usr/include/glib-2.0/glib/gmain.h does not have a wrapper type
        address_of_g_unix_signal_funcs: POINTER
                -- Address of g_unix_signal_funcs
                external "plug_in"

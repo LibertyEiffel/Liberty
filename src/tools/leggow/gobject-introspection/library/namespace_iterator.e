@@ -9,7 +9,7 @@ inherit
 
 insert GIREPOSITORY_EXTERNALS
 
-creation {GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
+create{GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
 
 feature {} -- Creation
 	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is

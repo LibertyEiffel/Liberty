@@ -81,14 +81,14 @@ feature {ANY}
 feature {}
    target_formal_type: TYPE
 
-   frozen standard_mapping_c_target (target: EXPRESSION)
+   frozen standard_mapping_c_target (target: EXPRESSION; is_addressable: BOOLEAN)
          -- The standard definition for `mapping_c_target'.
       require
          smart_eiffel.is_ready
          type.live_type /= Void
          target_formal_type.live_type /= Void
       local
-         class_invariant_flag: INTEGER; actual_type: TYPE
+         class_invariant_flag: INTEGER; actual_type: TYPE; internal_c_local: INTERNAL_C_LOCAL
       do
          class_invariant_flag := cpp.class_invariant_call_opening(target_formal_type, True)
          -- ***
@@ -101,11 +101,26 @@ feature {}
             function_body.extend(')')
             compile_expression(target)
             function_body.extend(')')
-         else
+         elseif is_addressable then
             if actual_type.has_external_type or else cpp.need_struct.for(actual_type.canonical_type_mark) then
                function_body.extend('&')
             end
             compile_expression(target)
+         else
+            if actual_type.has_external_type or else cpp.need_struct.for(actual_type.canonical_type_mark) then
+               internal_c_local := cpp.pending_c_function_lock_local(actual_type, once "userexpandedagent")
+               function_body.extend('(')
+               internal_c_local.append_in(function_body)
+               function_body.extend('=')
+               compile_expression(target)
+               function_body.extend(',')
+               function_body.extend('&')
+               internal_c_local.append_in(function_body)
+               function_body.extend(')')
+               internal_c_local.unlock
+            else
+               compile_expression(target)
+            end
          end
          cpp.class_invariant_call_closing(class_invariant_flag, False)
       end
@@ -129,7 +144,7 @@ feature {WRITTEN_CURRENT}
 feature {AGENT_EXPRESSION}
    visit_agent_expression (visited: AGENT_EXPRESSION)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, False)
       end
 
 feature {ASSERTION}
@@ -153,7 +168,7 @@ feature {CLOSED_OPERAND}
             -- No field to store such a static value:
             visited.original_capture.accept(Current)
          elseif visited.inside_agent_launcher_flag then
-            standard_mapping_c_target(visited)
+            standard_mapping_c_target(visited, True)
          else
             -- Well, outside of the agent:
             visited.capture_memory.reference_at(type).accept(Current)
@@ -198,7 +213,7 @@ feature {CREATE_WRITABLE}
 feature {E_OLD}
    visit_e_old (visited: E_OLD)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {EXPRESSION_WITH_COMMENT}
@@ -216,7 +231,7 @@ feature {FAKE_ARGUMENT}
 feature {FAKE_TARGET}
    visit_fake_target (visited: FAKE_TARGET)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {FAKE_TUPLE}
@@ -228,19 +243,19 @@ feature {FAKE_TUPLE}
 feature {GENERATOR_GENERATING_TYPE}
    visit_generator_generating_type (visited: GENERATOR_GENERATING_TYPE)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {ARGUMENT_NAME_REF}
    visit_argument_name_ref (visited: ARGUMENT_NAME_REF)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {LOCAL_NAME_REF}
    visit_local_name_ref (visited: LOCAL_NAME_REF)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {LOOP_VARIANT}
@@ -316,7 +331,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY2}
             compile_expression(visited.dynamic_dispatch_temporary1)
             function_body.extend(')')
          else
-            compile_expression(visited.dynamic_dispatch_temporary1)
+            compile_expression(visited.dynamic_dispatch_temporary1) -- should be compile_expanded_target???
          end
       end
 
@@ -395,19 +410,19 @@ feature {OLD_MANIFEST_ARRAY}
 feature {OPEN_OPERAND}
    visit_open_operand (visited: OPEN_OPERAND)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {PRECURSOR_EXPRESSION}
    visit_precursor_expression (visited: PRECURSOR_EXPRESSION)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, False)
       end
 
 feature {RESULT}
    visit_result (visited: RESULT)
       do
-         standard_mapping_c_target(visited)
+         standard_mapping_c_target(visited, True)
       end
 
 feature {WRITABLE_ATTRIBUTE_NAME}

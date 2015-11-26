@@ -118,6 +118,7 @@ feature {ANY} -- Validity
 				(a_value = regex_error_start_low_level)  or else
 				(a_value = regex_internal_error_low_level)  or else
 				(a_value = regex_invalid_back_ref_low_level)  or else
+				(a_value = regex_invalid_capture_group_name_low_level)  or else
 				(a_value = regex_invalid_flag_low_level)  or else
 				(a_value = regex_invalid_range_low_level)  or else
 				(a_value = regex_invalid_state_low_level)  or else
@@ -719,6 +720,11 @@ feature {ANY} -- Setters
 	set_regex_invalid_back_ref
                do
                        value := regex_invalid_back_ref_low_level
+               end
+
+	set_regex_invalid_capture_group_name
+               do
+                       value := regex_invalid_capture_group_name_low_level
                end
 
 	set_regex_invalid_flag
@@ -1515,6 +1521,11 @@ feature {ANY} -- Queries
        is_regex_invalid_back_ref: BOOLEAN
                do
                        Result := (value=regex_invalid_back_ref_low_level)
+               end
+
+       is_regex_invalid_capture_group_name: BOOLEAN
+               do
+                       Result := (value=regex_invalid_capture_group_name_low_level)
                end
 
        is_regex_invalid_flag: BOOLEAN
@@ -2750,6 +2761,15 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                        location: "."
                        module_name: "plugin"
                        feature_name: "U_REGEX_INVALID_BACK_REF"
+                       }"
+               end
+
+     regex_invalid_capture_group_name_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "U_REGEX_INVALID_CAPTURE_GROUP_NAME"
                        }"
                end
 

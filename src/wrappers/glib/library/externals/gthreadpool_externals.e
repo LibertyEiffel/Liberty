@@ -14,17 +14,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_free"
                }"
                end
 
-	g_thread_pool_get_max_idle_time (): NATURAL 
+	g_thread_pool_get_max_idle_time: NATURAL 
                -- g_thread_pool_get_max_idle_time
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_get_max_idle_time"
                }"
                end
 
@@ -34,17 +34,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_get_max_threads"
                }"
                end
 
-	g_thread_pool_get_max_unused_threads (): INTEGER 
+	g_thread_pool_get_max_unused_threads: INTEGER 
                -- g_thread_pool_get_max_unused_threads
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_get_max_unused_threads"
                }"
                end
 
@@ -54,17 +54,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_get_num_threads"
                }"
                end
 
-	g_thread_pool_get_num_unused_threads (): NATURAL 
+	g_thread_pool_get_num_unused_threads: NATURAL 
                -- g_thread_pool_get_num_unused_threads
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_get_num_unused_threads"
+               }"
+               end
+
+	g_thread_pool_move_to_front (a_pool: POINTER; a_data: POINTER): INTEGER 
+               -- g_thread_pool_move_to_front
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "g_thread_pool_move_to_front"
                }"
                end
 
@@ -74,7 +84,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_new"
                }"
                end
 
@@ -84,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_push"
                }"
                end
 
@@ -94,7 +104,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_set_max_idle_time"
                }"
                end
 
@@ -104,7 +114,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_set_max_threads"
                }"
                end
 
@@ -114,7 +124,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_set_max_unused_threads"
                }"
                end
 
@@ -124,17 +134,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_set_sort_function"
                }"
                end
 
-	g_thread_pool_stop_unused_threads () 
+	g_thread_pool_stop_unused_threads 
                -- g_thread_pool_stop_unused_threads
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_stop_unused_threads"
                }"
                end
 
@@ -144,7 +154,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_thread_pool_unprocessed"
                }"
                end
 

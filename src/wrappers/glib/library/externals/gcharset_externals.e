@@ -14,27 +14,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_charset"
                }"
                end
 
-	g_get_codeset (): POINTER 
+	g_get_codeset: POINTER 
                -- g_get_codeset
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_codeset"
                }"
                end
 
-	g_get_language_names (): POINTER 
+	g_get_language_names: POINTER 
                -- g_get_language_names
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_language_names"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "g_get_locale_variants"
                }"
                end
 

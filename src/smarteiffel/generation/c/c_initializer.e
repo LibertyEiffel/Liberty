@@ -109,10 +109,10 @@ feature {CLASS_TYPE_MARK}
             check
                visited.is_user_expanded
             end
-            if not visited.type.has_external_type then
-               c_initialize_user_expanded(visited)
-            else
+            if visited.type.has_external_type then
                buffer.append(visited.type.external_type.default_value)
+            else
+               c_initialize_user_expanded(visited)
             end
          else
             buffer.append(once "(void*)0")
@@ -182,7 +182,7 @@ feature {}
          wa: ARRAY[RUN_FEATURE_2]; i: INTEGER; rf: RUN_FEATURE_2
       do
          if type_mark.type.is_empty_expanded then
-            buffer.extend('0')
+            buffer.append(once "0/*empty expanded*/")
          else
             buffer.extend('{')
             wa := type_mark.type.live_type.writable_attributes

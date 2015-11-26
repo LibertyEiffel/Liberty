@@ -8,13 +8,13 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xml_cleanup_threads () 
+	xml_cleanup_threads 
                -- xmlCleanupThreads
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlCleanupThreads"
                }"
                end
 
@@ -24,7 +24,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlFreeMutex"
                }"
                end
 
@@ -34,57 +34,57 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlFreeRMutex"
                }"
                end
 
-	xml_get_global_state (): POINTER 
+	xml_get_global_state: POINTER 
                -- xmlGetGlobalState
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlGetGlobalState"
                }"
                end
 
-	xml_get_thread_id (): INTEGER 
+	xml_get_thread_id: INTEGER 
                -- xmlGetThreadId
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlGetThreadId"
                }"
                end
 
-	xml_init_threads () 
+	xml_init_threads 
                -- xmlInitThreads
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlInitThreads"
                }"
                end
 
-	xml_is_main_thread (): INTEGER 
+	xml_is_main_thread: INTEGER 
                -- xmlIsMainThread
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlIsMainThread"
                }"
                end
 
-	xml_lock_library () 
+	xml_lock_library 
                -- xmlLockLibrary
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlLockLibrary"
                }"
                end
 
@@ -94,7 +94,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlMutexLock"
                }"
                end
 
@@ -104,27 +104,27 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlMutexUnlock"
                }"
                end
 
-	xml_new_mutex (): POINTER 
+	xml_new_mutex: POINTER 
                -- xmlNewMutex
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlNewMutex"
                }"
                end
 
-	xml_new_rmutex (): POINTER 
+	xml_new_rmutex: POINTER 
                -- xmlNewRMutex
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlNewRMutex"
                }"
                end
 
@@ -134,7 +134,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlRMutexLock"
                }"
                end
 
@@ -144,17 +144,17 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlRMutexUnlock"
                }"
                end
 
-	xml_unlock_library () 
+	xml_unlock_library 
                -- xmlUnlockLibrary
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xmlUnlockLibrary"
                }"
                end
 

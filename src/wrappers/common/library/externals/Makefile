@@ -1,5 +1,5 @@
 ## To avoid an Ubuntu Intrepid Ibex bug.
-## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
+## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
 
 ##export GCCXML_COMPILER = gcc-4.2
 
@@ -18,7 +18,7 @@ HEADERS= /usr/include/assert.h \
 	 /usr/include/time.h
 
 wrappers: $(XML)
-	wrappers-generator --verbose --emit-standard-typedefs --local $(XML) $(HEADERS)
+	wrappers-generator --emit-standard-typedefs --local $(XML) $(HEADERS)
 
 $(XML): 
-	gccxml $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)

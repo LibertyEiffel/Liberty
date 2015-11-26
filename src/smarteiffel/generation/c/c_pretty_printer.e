@@ -4115,7 +4115,11 @@ feature {} -- ONCE_ROUTINE_POOL
             echo.put_string(once "}.")
             echo.put_string(once_function.first_name.to_string)
             echo.put_string(once "%N")
-            pending_c_function_body.append(once "/*PCO*/%N")
+            pending_c_function_body.append(once "/*PCO:{")
+            pending_c_function_body.append(once_function.class_text.name.to_string)
+            pending_c_function_body.append(once "}.")
+            pending_c_function_body.append(once_function.first_name.to_string)
+            pending_c_function_body.append(once "*/%N")
             c_pre_compute_once_function(non_void_no_dispatch.run_feature, once_function)
          end
       end
@@ -4130,10 +4134,14 @@ feature {} -- ONCE_ROUTINE_POOL
       do
          type := rf.type_of_current
          if rf.require_assertion /= Void then
+            pending_c_function_body.append(once "/*  - require*/%N")
             code_compiler.compile(rf.require_assertion, type)
+         else
+            pending_c_function_body.append(once "/*  - NO require*/%N")
          end
          rt := rf.result_type
          if rt.is_user_expanded then
+            pending_c_function_body.append(once "/*  - user expanded*/%N")
             default_create_procedure := rt.type.live_type.default_create_run_feature
             if default_create_procedure /= Void then
                id := rt.type.id
@@ -4159,19 +4167,27 @@ feature {} -- ONCE_ROUTINE_POOL
                once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
                class_invariant_call_closing(class_invariant_flag, True)
             end
+         else
+            pending_c_function_body.append(once "/*  - NO user expanded*/%N")
          end
          --
          local_vars := rf.local_vars
          if local_vars /= Void then
+            pending_c_function_body.append(once "/*  - local vars*/%N")
             pending_c_function_body.extend('{')
             c_declare_locals(local_vars, rf.type_of_current, False)
             if has_closures then
                c_init_closure_locals(local_vars, rf.type_of_current)
             end
+         else
+            pending_c_function_body.append(once "/*  - NO local vars*/%N")
          end
          --
          if rf.routine_body /= Void then
+            pending_c_function_body.append(once "/*  - routine body*/%N")
             code_compiler.compile(rf.routine_body, type)
+         else
+            pending_c_function_body.append(once "/*  - NO routine body*/%N")
          end
          if rf.routine_then /= Void then
             pending_c_function_body.append(once "/*then*/")
@@ -4179,10 +4195,15 @@ feature {} -- ONCE_ROUTINE_POOL
             pending_c_function_body.extend('=')
             code_compiler.compile(rf.routine_then, type)
             pending_c_function_body.append(once ";%N")
+         else
+            pending_c_function_body.append(once "/*  - NO then*/%N")
          end
          --
          if rf.ensure_assertion /= Void then
+            pending_c_function_body.append(once "/*  - ensure*/%N")
             code_compiler.compile(rf.ensure_assertion, type)
+         else
+            pending_c_function_body.append(once "/*  - NO ensure*/%N")
          end
          --
          if local_vars /= Void then

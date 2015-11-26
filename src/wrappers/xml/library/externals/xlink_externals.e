@@ -8,23 +8,23 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	xlink_get_default_detect (): POINTER 
+	xlink_get_default_detect: POINTER 
                -- xlinkGetDefaultDetect
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xlinkGetDefaultDetect"
                }"
                end
 
-	xlink_get_default_handler (): POINTER 
+	xlink_get_default_handler: POINTER 
                -- xlinkGetDefaultHandler
                external "plug_in"
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xlinkGetDefaultHandler"
                }"
                end
 
@@ -34,7 +34,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xlinkIsLink"
                }"
                end
 
@@ -44,7 +44,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xlinkSetDefaultDetect"
                }"
                end
 
@@ -54,7 +54,7 @@ feature {} -- External calls
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "Void"
+                       feature_name: "xlinkSetDefaultHandler"
                }"
                end
 
