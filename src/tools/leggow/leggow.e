@@ -36,13 +36,13 @@ feature {} -- program entry point
 	main is
 		do
 			parse_arguments
-			-- library_name := "Gtk"
-			namespace := repository.load("Gtk","3.0")
-			repository.loaded_namespaces.print_on(std_output)
+			library_name := library_argument.item
+			namespace := repository.load(library_name,Void)
+			repository.loaded_namespaces.print_on(std_output);
 			"%NDependencies: ".print_on(std_output);
 			repository.dependencies(library_name).print_on(std_output);
 			"%N".print_on(std_output);
-			repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper) --emit(?))
+			repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper)
 		end
 
 	emit (an_info: GI_BASE_INFO) is
@@ -51,31 +51,54 @@ feature {} -- program entry point
 		an_info.emit_wrapper
 	end
 
-   parse_arguments is
-      -- local
-      --   i: INTEGER; arg: STRING
-      do
-         -- level := once "warning"
-         -- from i := 1 until i > argument_count
-         -- loop
-         --    arg := argument(i)
-         --    if is_verbose_flag(arg) then level := once "info"
-         --    elseif flag_match(once "debug", arg) then level := once "trace"
-         --    elseif is_version_flag(arg) then
-         --       check
-         --          version_flag
-         --       end
-         --    elseif is_help_flag(arg) then
-         --       check
-         --          help_flag
-         --       end
-         --    else
-		 --    	-- "Unknown argument or option '#(1)' # arg
-         --       die_with_code(exit_failure_code)
-         --    end
-         --    i := i + 1
-         -- end
-      end
+feature	{} -- Command line arguments
+
+	arguments: COMMAND_LINE_ARGUMENTS
+
+	parse_arguments  is
+	do
+		create arguments.make (all_dependecies_option and directory_option and help_option and verbose_option and library_argument)
+		if not arguments.parse_command_line then
+			arguments.usage(std_error)
+			die_with_code(1)
+		else 
+			arguments.usage(std_output)
+			die_with_code(0)
+		end
+	end
+
+
+	library_argument: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
+	once
+		Result := options_factory.positional_string ("library","the name of the library to wrap")
+	end
+
+	all_dependecies_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
+	once
+		Result:=options_factory.option_boolean("-r","recursive","requisites","Recursively build wrappers for all the required libraries")
+	end
+
+	directory_option: COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY] 
+	once
+		Result := options_factory.option_directory ("d","directory","directory", "Set the base directory of the wrappers clusters")
+	end
+
+	help_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
+	once
+		Result := options_factory.option_boolean("h", "help", "help","Display this help information and exit")
+	end
+
+	verbose_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
+	once
+		Result:= options_factory.option_boolean("v","verbose","verbose","Display detailed information about what leggow is doing")
+	end
+
+	option_version: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
+	once
+		Result := options_factory.option_boolean(Void, "version"," Display version and exit)")
+	end
+
+	options_factory: COMMAND_LINE_ARGUMENT_FACTORY
 
 feature {ANY} -- Program wide enviroment
 	repository: GI_REPOSITORY is
@@ -86,7 +109,7 @@ feature {ANY} -- Program wide enviroment
    namespace: GI_TYPELIB 
    		-- The initial namespace to wrap
    
-   library_name: STRING
+   library_name: ABSTRACT_STRING 
    	    -- The name of the library to wrap
 
 
@@ -95,19 +118,6 @@ feature {ANY}
    -- Please note that the query `command_name' contains the name actually used to invoke the current command
 
    version: STRING is "2013-04-02"
-
-   command_line_help_summary: STRING is "[
-      Usage: leggow options 
-
-      Option summary:
-        -requisites         Recursively build all the requisites of library
-
-      Information:
-        -help               Display this help information (no test run)
-        -version            Display Liberty Eiffel version information (no test run)
-        -verbose            Display detailed information about what eiffeltest is doing
-
-      ]"
 
 
 end -- class LEGGOW

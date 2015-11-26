@@ -1,3 +1,4 @@
 .
 ./gobject-introspection/loadpath.se
+../wrappers-generator/loadpath.se
 

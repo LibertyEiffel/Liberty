@@ -9,10 +9,13 @@ inherit
 
 insert GIREPOSITORY_EXTERNALS
 
-create{GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
+create {GI_INFO_FACTORY, WRAPPER} from_repository_and_namespace
 
 feature {} -- Creation
 	from_repository_and_namespace (a_repository: GI_REPOSITORY; a_namespace: ABSTRACT_STRING) is
+	require 
+		a_repository /= Void
+		a_namespace /= Void
 		do 
 			repo_ptr := a_repository.handle
 			-- Since the string `a_namespace' may be changed during lifetime of

@@ -15,8 +15,10 @@ inherit
       -- redefine is_equal end
 
 insert
-   GIBASEINFO_EXTERNALS
-   GITYPEINFO_EXTERNALS
+   -- ANY undefine copy end
+   GIBASEINFO_EXTERNALS undefine copy, is_equal end
+   GITYPEINFO_EXTERNALS undefine copy, is_equal end
+   NAME_CONVERTER undefine copy, is_equal end
 
 feature {ANY} -- Eiffel wrapper generation
 	emit_wrapper is
