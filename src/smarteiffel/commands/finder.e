@@ -65,7 +65,7 @@ feature {}
             elseif flag_match(fz_loadpath, arg) then
                if argi < argc then
                   system_tools.add_loadpath_file(argument(argi + 1))
-                  argi := argi + 2
+                  argi := argi + 1
                else
                   echo.w_put_string(command_line_name)
                   echo.w_put_string(once ": missing loadpath file path after -loadpath flag.%N")
