@@ -33,9 +33,12 @@ feature {ANY}
 		-- conventions.
 
 		do
-			from_external_pointer(g_irepository_get_default);
+			-- actually invoking g_irepository_get_default is quite irrelevant
+			-- as all methods (C functions) on GIRepository also accept NULL as
+			-- an instance parameter to mean this default repository, which is
+			-- usually more convenient for C.
 
-			-- Note: All methods (C functions) on GIRepository also accept NULL as an instance parameter to mean this default repository, which is usually more convenient for C.
+			-- unnecessary from_external_pointer(g_irepository_get_default);
 		end
 
 feature {ANY}
