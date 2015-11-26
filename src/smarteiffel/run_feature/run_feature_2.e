@@ -58,10 +58,6 @@ feature {ANY}
       do
       end
 
-   routine_then: EXPRESSION
-      do
-      end
-
    rescue_compound: INSTRUCTION
       do
       end
@@ -122,7 +118,7 @@ feature {RUN_FEATURE_2_VISITOR}
 invariant
    order >= 0
    has_result_type: result_type /= Void
-   
+
 end -- class RUN_FEATURE_2
 --
 -- ------------------------------------------------------------------------------------------------------------------------------

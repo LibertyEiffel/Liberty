@@ -882,7 +882,7 @@ feature {SMART_EIFFEL}
       require
          for_boost_mode_only_or_asked_for: ace.boost or else ace.safety_check
       local
-         rf: RUN_FEATURE; i: INTEGER; rb: INSTRUCTION; rt: EXPRESSION
+         rf: RUN_FEATURE; i: INTEGER; rb: INSTRUCTION
       do
          from
             i := live_features.lower
@@ -893,10 +893,6 @@ feature {SMART_EIFFEL}
             rb := rf.routine_body
             if rb /= Void then
                rb.safety_check(type)
-            end
-            rt := rf.routine_then
-            if rt /= Void then
-               rt.safety_check(type)
             end
             i := i + 1
          end
