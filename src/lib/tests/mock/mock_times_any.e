@@ -5,6 +5,15 @@ class MOCK_TIMES_ANY
 
 inherit
    MOCK_TIMES
+      redefine
+         out_in_tagged_out_memory
+      end
+
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "whenever")
+      end
 
 feature {MOCK_EXPECTATION}
    can_call: BOOLEAN True

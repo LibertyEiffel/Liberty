@@ -60,6 +60,13 @@ feature {MOCK_EXPECT}
          a_arguments /= Void
          is_replaying
       do
+         debug
+            io.put_string(once "SCENARIO: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          Result := groups.check_call(a_target, a_feature_name, a_arguments)
       ensure
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)

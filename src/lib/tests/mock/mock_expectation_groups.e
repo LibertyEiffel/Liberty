@@ -59,6 +59,13 @@ feature {MOCK_SCENARIO}
          a_arguments /= Void
          is_replaying
       do
+         debug
+            io.put_string(once "  GROUPS: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          from
          until
             Result /= Void or else not groups.valid_index(check_index.item)
