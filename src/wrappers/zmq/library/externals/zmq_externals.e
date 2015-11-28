@@ -8,7 +8,6 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	-- `hidden' function __builtin_memcpy skipped.
 	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER 
                -- zmq_bind
                external "plug_in"

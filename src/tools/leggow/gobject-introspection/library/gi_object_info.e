@@ -31,21 +31,26 @@ create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Wrapper
 	emit_wrapper is
-		local pi: PROPERTIES_ITER; mi: METHODS_ITER
-		do
-			-- pi := properties_iter;
+		--
+	local pi: PROPERTIES_ITER; mi: METHODS_ITER
+		properties_text: STRING
+	do
+		create properties_text.with_capacity( quite a lot )
+		if verbose then
 			("Object #(1): #(2) properties %N" # name # properties_count.out).print_on(std_output);
-			-- pi.for_each(agent emit_property(?))
-			("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
-			methods_iter.for_each(agent emit_method(?))
 		end
+		pi := properties_iter;
+		pi.for_each(agent emit_property(?))
+		("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
+		methods_iter.for_each(agent emit_method(?))
+end
 
-	emit_property (a_property: GI_PROPERTY_INFO) is
+emit_property (a_property: GI_PROPERTY_INFO) is
 		do
 			("'#(1)', " # a_property.name).print_on(std_output)
 		end
 
-	emit_method (a_method: GI_FUNCTION_INFO) is 
+		emit_method (a_method: GI_FUNCTION_INFO) is 
 		do
 			("'").print_on(std_output); 
 			(a_method.name).print_on(std_output); 

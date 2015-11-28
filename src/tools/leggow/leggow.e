@@ -75,22 +75,22 @@ feature	{} -- Command line arguments
 
 	all_dependecies_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
 	once
-		Result:=options_factory.option_boolean("-r","recursive","requisites","Recursively build wrappers for all the required libraries")
+		Result:=options_factory.option_boolean("r","recursive","Recursively build wrappers for all the required libraries")
 	end
 
 	directory_option: COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY] 
 	once
-		Result := options_factory.option_directory ("d","directory","directory", "Set the base directory of the wrappers clusters")
+		Result := options_factory.option_directory ("d","directory", "output directory","Set the base directory of the wrappers clusters")
 	end
 
 	help_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
 	once
-		Result := options_factory.option_boolean("h", "help", "help","Display this help information and exit")
+		Result := options_factory.option_boolean("h", "help","Display this help information and exit")
 	end
 
 	verbose_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
 	once
-		Result:= options_factory.option_boolean("v","verbose","verbose","Display detailed information about what leggow is doing")
+		Result:= options_factory.option_boolean("v","verbose","Display detailed information about what leggow is doing")
 	end
 
 	option_version: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
@@ -117,7 +117,7 @@ feature {ANY}
    command_line_name: STRING is "leggow"
    -- Please note that the query `command_name' contains the name actually used to invoke the current command
 
-   version: STRING is "2013-04-02"
+   version: STRING is "2015-11-25"
 
 
 end -- class LEGGOW
