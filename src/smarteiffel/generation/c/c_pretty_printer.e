@@ -4189,15 +4189,6 @@ feature {} -- ONCE_ROUTINE_POOL
          else
             pending_c_function_body.append(once "/*  - NO routine body*/%N")
          end
-         if rf.routine_then /= Void then
-            pending_c_function_body.append(once "/*then*/")
-            once_routine_pool.unique_result_in(pending_c_function_body, rf.base_feature)
-            pending_c_function_body.extend('=')
-            code_compiler.compile(rf.routine_then, type)
-            pending_c_function_body.append(once ";%N")
-         else
-            pending_c_function_body.append(once "/*  - NO then*/%N")
-         end
          --
          if rf.ensure_assertion /= Void then
             pending_c_function_body.append(once "/*  - ensure*/%N")

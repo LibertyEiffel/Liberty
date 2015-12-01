@@ -198,7 +198,7 @@ feature {CREATE_SUPPORT}
          Result := Result.twin
       end
 
-feature {RESULT, IFTHEN, INTROSPECTION_HANDLER}
+feature {RESULT, IFTHEN, INTROSPECTION_HANDLER, EFFECTIVE_ROUTINE}
    set_type_mark_memory (tmm: like type_mark_memory)
       require
          tmm /= Void

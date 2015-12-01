@@ -42,10 +42,6 @@ feature {ANY}
       do
       end
 
-   routine_then: EXPRESSION
-      do
-      end
-
    rescue_compound: INSTRUCTION
       do
       end

@@ -181,6 +181,12 @@ feature {ANY}
             else
                target_type := t.resolve_in(type)
                af := feature_stamp.anonymous_feature(target_type)
+               if af = Void then
+                  error_handler.add_position(start_position)
+                  error_handler.append(once " Context type was ")
+                  error_handler.append(type.name.to_string)
+                  error_handler.print_as_internal_error
+               end
                -- Attempt to inline first:
                inline_memo := af.inline_expression_0(type, feature_stamp, feature_name.start_position,
                                                      target_type, t, resolve_in(type))

@@ -14,7 +14,7 @@ Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
 Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
 D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
     http://smarteiffel.loria.fr
-C Compiler options used: -pipe -O2 -fno-gcse -Werror
+C Compiler options used: -pipe -O2 -fno-gcse
 */
 
 #ifdef __cplusplus
@@ -119,14 +119,14 @@ T6 tmp1;
 T0* R=(void*)0;
 T0*_strings=(void*)0;
 T2 _i=0;
-_strings=/*RF4:reference_at*/r935reference_at((T935*)(/*RF6:interned*/r7interned()/*:RF6*/),/*RF4:computed_hash_code*/r7computed_hash_code(C)/*:RF4*/)/*:RF4*/;
+_strings=/*RF4:reference_at*/r936reference_at((T936*)(/*RF6:interned*/r7interned()/*:RF6*/),/*RF4:computed_hash_code*/r7computed_hash_code(C)/*:RF4*/)/*:RF4*/;
 if((_strings)==((void*)((void*)0))){
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T936/*niii*/))));
-*((T936*)tmp0/*new*/)=M936;
-/*RF3:with_capacity*/r936with_capacity(((T936*)tmp0/*new*/),INT32_C(4));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T937/*niii*/))));
+*((T937*)tmp0/*new*/)=M937;
+/*RF3:with_capacity*/r937with_capacity(((T937*)tmp0/*new*/),INT32_C(4));
 /*:RF3*/_strings=tmp0/*new*/;
 /*tmp0.unlock*/
-/*RF3:add*/r935add((T935*)(/*RF6:interned*/r7interned()/*:RF6*/),_strings,/*RF4:computed_hash_code*/r7computed_hash_code(C)/*:RF4*/);
+/*RF3:add*/r936add((T936*)(/*RF6:interned*/r7interned()/*:RF6*/),_strings,/*RF4:computed_hash_code*/r7computed_hash_code(C)/*:RF4*/);
 /*:RF3*/}
 _i=INT32_C(0);
 while(1){
@@ -134,11 +134,11 @@ tmp1/*or else*/=((T6)((R)!=((void*)((void*)0))));
 if(tmp1/*or else*/){
 }
 else{
-tmp1/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T936*)_strings))->_upper/*niii*//*:RF2*/))/*:RF8*/));
+tmp1/*or else*/=((T6)(/*RF8:>*/((int32_t)(_i))>((/*RF2:upper*/(((T937*)_strings))->_upper/*niii*//*:RF2*/))/*:RF8*/));
 }
 /*until*/if(tmp1/*or else*/) break;
-if(/*RF4:same_as*/r306same_as((T306*)(/*RF8:item*/((/*RF2:storage*/(((T936*)_strings))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/),(T0*)C)/*:RF4*/){
-R=/*RF8:item*/((/*RF2:storage*/(((T936*)_strings))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
+if(/*RF4:same_as*/r306same_as((T306*)(/*RF8:item*/((/*RF2:storage*/(((T937*)_strings))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/),(T0*)C)/*:RF4*/){
+R=/*RF8:item*/((/*RF2:storage*/(((T937*)_strings))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
 }
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
@@ -389,9 +389,9 @@ int fBC40interned=0;
 T0* tmp0;
 /*INTERNAL_C_LOCAL list]*/
 if(fBC40interned==0){fBC40interned=1;{
-tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T935/*pniiii*/))));
-*((T935*)tmp0/*new*/)=M935;
-/*RF3:make*/r935make(((T935*)tmp0/*new*/));
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T936/*pniiii*/))));
+*((T936*)tmp0/*new*/)=M936;
+/*RF3:make*/r936make(((T936*)tmp0/*new*/));
 /*:RF3*/oBC40interned=tmp0/*new*/;
 /*tmp0.unlock*/
 }}

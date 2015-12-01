@@ -370,7 +370,10 @@ feature {EFFECTIVE_ROUTINE}
                   effective_routine ?= af_current
                   -- Because the `default_rescue' itself can be deferred:
                   if effective_routine /= Void then
-                     default_rescue_compound := effective_routine.routine_body --| **** TODO: what about effective_routine.routine_then ???
+                     default_rescue_compound := effective_routine.routine_body
+                     check
+                        effective_routine.routine_then = Void
+                     end
                      af_current.collect(Current)
                   end
                end

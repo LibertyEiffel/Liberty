@@ -69,6 +69,8 @@ feature {}
    local_can_disconnect: BOOLEAN True
 
    read_more
+      require
+         is_connected
       local
          state: INTEGER; c: CHARACTER; key: STRING; value: ABSTRACT_STRING
       do
@@ -210,6 +212,8 @@ feature {}
       end
 
    raw_next
+      require
+         is_connected
       do
          raw_index := raw_index + 1
          if raw_index > raw.upper then
@@ -235,6 +239,8 @@ feature {}
       end
 
    raw_eof: BOOLEAN
+      require
+         is_connected
       do
          Result := raw_index > raw.upper and then stream.end_of_input
       end
@@ -275,7 +281,6 @@ feature {}
          -- the running loops contexts
 
 invariant
-   stream /= Void
    resolver /= Void
 
 end -- class TEMPLATE_INPUT_STREAM

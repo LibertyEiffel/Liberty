@@ -69,11 +69,6 @@ feature {ANY}
       deferred
       end
 
-   routine_then: EXPRESSION
-         -- Routine "then" if any.
-      deferred
-      end
-
    ensure_assertion: ENSURE_ASSERTION
          -- Runnable collected ensure assertion if any.
       deferred

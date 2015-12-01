@@ -159,3 +159,5 @@ fsoc* gc_fsoc_get1(void);
 fsoc* gc_fsoc_get2(void);
 
 int gc_memory_used(void);
+
+void gc_set_dispose_before_exit(int enable);

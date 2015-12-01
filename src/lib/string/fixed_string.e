@@ -48,7 +48,7 @@ feature {ANY} -- Creation:
          holders := new_holders
          hash_code := computed_hash_code
 
-         debug
+         debug("FIXED_STRING")
             debug_string := out
          end
       ensure
@@ -156,7 +156,7 @@ feature {}
          share_with(other)
          hash_code := computed_hash_code
 
-         debug
+         debug("FIXED_STRING")
             debug_string := out
          end
       ensure
@@ -203,7 +203,7 @@ feature {STRING_HANDLER} -- Creation from C string:
          holders := new_holders
          hash_code := computed_hash_code
 
-         debug
+         debug("FIXED_STRING")
             debug_string := out
          end
       ensure
@@ -238,7 +238,7 @@ feature {STRING_HANDLER} -- Creation from C string:
          holders := new_holders
          hash_code := computed_hash_code
 
-         debug
+         debug("FIXED_STRING")
             debug_string := out
          end
       ensure
@@ -274,7 +274,7 @@ feature {STRING_HANDLER} -- Creation from C string:
          holders := new_holders
          hash_code := computed_hash_code
 
-         debug
+         debug("FIXED_STRING")
             debug_string := out
          end
       ensure

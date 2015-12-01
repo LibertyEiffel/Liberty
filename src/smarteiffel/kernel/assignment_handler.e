@@ -86,7 +86,7 @@ feature {SMART_EIFFEL}
          echo.put_string(once ".(done).%N")
       end
 
-feature {CALL_1, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, PROCEDURE_CALL_1, FAKE_TUPLE, E_FUNCTION}
+feature {FEATURE_CALL, ASSIGNMENT, EFFECTIVE_ARG_LIST, MANIFEST_GENERIC, FAKE_TUPLE, EFFECTIVE_ROUTINE}
    implicit_cast (expression: EXPRESSION; expression_type, destination_type: TYPE): EXPRESSION
          -- If necessary, wrap the source `expression' inside an IMPLICIT_CAST invisible wrapper object,
          -- hence the name of this function.

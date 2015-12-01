@@ -19,6 +19,7 @@ OPTIONS=''
 TOOL=compile_to_c
 BUILD=true
 GDB=false
+VALGRIND=false
 CC=
 
 SE_BIN=$(grep ^bin: $HOME/.config/liberty-eiffel/liberty.se | cut -c6-)
@@ -75,6 +76,9 @@ while [ $# -gt 0 ]; do
         x-gdb|x--gdb|x/gdb)
             GDB=true
             ;;
+        x-valgrind|x--valgrind|x/valgrind)
+            VALGRIND=true
+            ;;
         x-version|x--version|x/version|x-v|x--v|x/v)
             $SE_BIN/compile_to_c $1
             exit 0
@@ -115,6 +119,11 @@ if [[ -n "$CC" ]]; then
     outdir=${outdir}.cc\=$CC
 fi
 
+if $GDB && $VALGRIND; then
+    echo "Cannot use gdb and valgrind at the same time!" >&2
+    exit 1
+fi
+
 test -d $outdir || mkdir -p $outdir
 cd $outdir
 
@@ -130,6 +139,14 @@ if $BUILD; then
     echo "Compiling $TOOL..."
     if $GDB; then
         gdb --args $SE_BIN/compile_to_c $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out || exit 1
+        if [ -e $TOOL.make ]; then
+            while read cmd; do
+                echo "$cmd"
+                eval "$cmd" || exit 1
+            done < $TOOL.make
+        fi
+    elif $VALGRIND; then
+        valgrind $SE_BIN/compile_to_c $OPTIONS -split by_type $CHECK_LEVEL $TOOL -o $TOOL.out || exit 1
         if [ -e $TOOL.make ]; then
             while read cmd; do
                 echo "$cmd"

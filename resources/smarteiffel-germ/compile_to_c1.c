@@ -14,7 +14,7 @@ Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
 Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
 D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
     http://smarteiffel.loria.fr
-C Compiler options used: -pipe -O2 -fno-gcse -Werror
+C Compiler options used: -pipe -O2 -fno-gcse
 */
 
 #ifdef __cplusplus
@@ -295,6 +295,92 @@ int io_file_exists(char*source) {
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
+
+EIF_INTEGER fstat_st_size(EIF_POINTER path) {
+
+	struct stat buf;
+	int test;
+
+	test = stat(path, &buf);
+	return (test == 0 ? buf.st_size : -1);
+
+}
+
+EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path) {
+
+	struct stat buf;
+	int test;
+
+	test = stat(path, &buf);
+	return (test == 0 ? buf.st_mtime : -1);
+
+}
+
+EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path) {
+#if defined S_ISREG
+  struct stat buf;
+
+  return stat((const char *)path, &buf)?0:!!S_ISREG(buf.st_mode);
+#elif defined WIN32
+  EIF_BOOLEAN result;
+  HANDLE h=CreateFile((LPCTSTR)path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
+		      NULL, OPEN_EXISTING, 0, NULL);
+
+  if(INVALID_HANDLE_VALUE == h) {
+    return 0;
+  }
+  result = (GetFileType(h) == FILE_TYPE_DISK)
+    && !(GetFileAttributes((LPCTSTR) path) & FILE_ATTRIBUTE_DIRECTORY);
+  CloseHandle(h);
+  return result;
+#else
+  printf("fstat_st_is_file (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
+  se_print_run_time_stack();
+  exit(EXIT_FAILURE);
+#endif
+}
+
+EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path) {
+#if defined S_ISDIR
+  struct stat buf;
+
+  return stat((const char *)path, &buf)?0:!!S_ISDIR(buf.st_mode);
+#elif defined WIN32
+  DWORD attr =GetFileAttributes((LPCTSTR) path);
+  return (attr != INVALID_FILE_ATTRIBUTES)  && (attr & FILE_ATTRIBUTE_DIRECTORY);
+#else
+  printf("fstat_st_is_dir (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
+  se_print_run_time_stack();
+  exit(EXIT_FAILURE);
+#endif
+}
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
 EIF_BOOLEAN mbi_inc (int32_t *p) {
     if ((++(*p)) == 0) {
       return 1;
@@ -379,6 +465,61 @@ EIF_INTEGER mbi_divide (int32_t a, int32_t b, int32_t d, int32_t *r) {
   x = (((uint64_t)((uint32_t)(a))) << 32) + ((uint32_t)(b));
   (*r) = (uint32_t)(x % ((uint32_t)(d)));
   return ((uint32_t)(x / ((uint32_t)(d))));
+}
+/*
+-- ------------------------------------------------------------------------------------------------------------
+-- Copyright notice below. Please read.
+--
+-- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
+-- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
+--
+-- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+-- documentation files (the "Software"), to deal in the Software without restriction, including without
+-- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+-- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+-- conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all copies or substantial
+-- portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+-- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+-- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+-- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+-- OR OTHER DEALINGS IN THE SOFTWARE.
+--
+-- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
+-- ------------------------------------------------------------------------------------------------------------
+*/
+EIF_INTEGER basic_microsecond_microsecond = 0;
+EIF_INTEGER_64 basic_microsecond_time = 0;
+
+void _basic_microsecond_update(void) {
+#ifndef WIN32
+  struct timeval t;
+
+  gettimeofday (&t, NULL);
+  basic_microsecond_time = t.tv_sec;
+  basic_microsecond_microsecond = t.tv_usec;
+#else
+  static DWORD ref_uptime = -1; /* max value as ref_uptime is unsigned */
+  static time_t ref_time;
+  DWORD uptime;
+
+  /*  uptime = timeGetTime();*/
+  uptime = GetTickCount();
+
+  if (uptime < ref_uptime) {
+    /* !!! this test manages first call AND 50th day ;-)  */
+    ref_uptime = uptime;
+    time(&ref_time);
+  }
+
+  basic_microsecond_time = ref_time + (uptime - ref_uptime)/1000;
+  basic_microsecond_microsecond = ((uptime - ref_uptime) % 1000) * 1000;
+#endif
 }
 /*
 -- ------------------------------------------------------------------------------------------------------------
@@ -1340,147 +1481,6 @@ EIF_BOOLEAN directory_rmdir(EIF_POINTER directory_path){
 -- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
 -- ------------------------------------------------------------------------------------------------------------
 */
-
-EIF_INTEGER fstat_st_size(EIF_POINTER path) {
-
-	struct stat buf;
-	int test;
-
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_size : -1);
-
-}
-
-EIF_INTEGER_64 fstat_st_mtime(EIF_POINTER path) {
-
-	struct stat buf;
-	int test;
-
-	test = stat(path, &buf);
-	return (test == 0 ? buf.st_mtime : -1);
-
-}
-
-EIF_BOOLEAN fstat_st_is_file(EIF_POINTER path) {
-#if defined S_ISREG
-  struct stat buf;
-
-  return stat((const char *)path, &buf)?0:!!S_ISREG(buf.st_mode);
-#elif defined WIN32
-  EIF_BOOLEAN result;
-  HANDLE h=CreateFile((LPCTSTR)path, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE,
-		      NULL, OPEN_EXISTING, 0, NULL);
-
-  if(INVALID_HANDLE_VALUE == h) {
-    return 0;
-  }
-  result = (GetFileType(h) == FILE_TYPE_DISK)
-    && !(GetFileAttributes((LPCTSTR) path) & FILE_ATTRIBUTE_DIRECTORY);
-  CloseHandle(h);
-  return result;
-#else
-  printf("fstat_st_is_file (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
-  se_print_run_time_stack();
-  exit(EXIT_FAILURE);
-#endif
-}
-
-EIF_BOOLEAN fstat_st_is_dir(EIF_POINTER path) {
-#if defined S_ISDIR
-  struct stat buf;
-
-  return stat((const char *)path, &buf)?0:!!S_ISDIR(buf.st_mode);
-#elif defined WIN32
-  DWORD attr =GetFileAttributes((LPCTSTR) path);
-  return (attr != INVALID_FILE_ATTRIBUTES)  && (attr & FILE_ATTRIBUTE_DIRECTORY);
-#else
-  printf("fstat_st_is_dir (in SmartEiffel/sys/io/c/fstat.c)\nnot yet implemented for this architecture.\n");
-  se_print_run_time_stack();
-  exit(EXIT_FAILURE);
-#endif
-}
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
-EIF_INTEGER basic_microsecond_microsecond = 0;
-EIF_INTEGER_64 basic_microsecond_time = 0;
-
-void _basic_microsecond_update(void) {
-#ifndef WIN32
-  struct timeval t;
-
-  gettimeofday (&t, NULL);
-  basic_microsecond_time = t.tv_sec;
-  basic_microsecond_microsecond = t.tv_usec;
-#else
-  static DWORD ref_uptime = -1; /* max value as ref_uptime is unsigned */
-  static time_t ref_time;
-  DWORD uptime;
-
-  /*  uptime = timeGetTime();*/
-  uptime = GetTickCount();
-
-  if (uptime < ref_uptime) {
-    /* !!! this test manages first call AND 50th day ;-)  */
-    ref_uptime = uptime;
-    time(&ref_time);
-  }
-
-  basic_microsecond_time = ref_time + (uptime - ref_uptime)/1000;
-  basic_microsecond_microsecond = ((uptime - ref_uptime) % 1000) * 1000;
-#endif
-}
-/*
--- ------------------------------------------------------------------------------------------------------------
--- Copyright notice below. Please read.
---
--- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
--- Copyright(C) 2003-2005: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
---
--- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
--- documentation files (the "Software"), to deal in the Software without restriction, including without
--- limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
--- the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
--- conditions:
---
--- The above copyright notice and this permission notice shall be included in all copies or substantial
--- portions of the Software.
---
--- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
--- LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
--- EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
--- AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
--- OR OTHER DEALINGS IN THE SOFTWARE.
---
--- http://SmartEiffel.loria.fr - SmartEiffel@loria.fr
--- ------------------------------------------------------------------------------------------------------------
-*/
 void sprintf_real_64(EIF_CHARACTER* b, EIF_CHARACTER m, int32_t f, real64_t r) {
   char fmt[32];
   fmt[0]='%';
@@ -1571,7 +1571,7 @@ return R;
 T1067 M1067={1067,NULL};
 T1070 M1070={1070,NULL};
 T1075 M1075={1075,NULL};
-T1085 M1085={1085,NULL};
+T1086 M1086={1086,NULL};
 T1089 M1089={1089,NULL};
 
 int se_cmpT324(T324* o1,T324* o2){
@@ -1672,13 +1672,13 @@ T281 M281=/*init:STRING_ALIASER*/(void*)0;
 T297 M297=/*init:MEMORY_HANDLER_FACTORY*/0/*empty expanded*/;
 T7 M7=/*init:STRING*/{7,(void*)0,0,0,0,0,0};
 T908 M908=/*init:FAST_ARRAY[STRING]*/{908,(void*)0,0,0,0};
-T293 M293=/*init:ERROR_HANDLER*/{(void*)0,0,0,0,0,0};
+T293 M293=/*init:ERROR_HANDLER*/{(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T86 M86=/*init:CECIL_POOL*/{(void*)0,0};
 T909 M909=/*init:REFERENCE[CECIL_POOL]*/{(void*)0};
 T295 M295=/*init:FILE_TOOLS*/{0,0};
 T554 M554=/*init:SERC_FACTORY*/0/*empty expanded*/;
 T546 M546=/*init:BASIC_DIRECTORY*/{(void*)0,(void*)0};
-T78 M78=/*init:STD_INPUT_OUTPUT*/{78};
+T78 M78=/*init:STD_INPUT_OUTPUT*/{78,(void*)0};
 T910 M910=/*init:HASHED_DICTIONARY[STRING,STRING]*/{910,(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T557 M557=/*init:UNIX_DIRECTORY_NOTATION*/{557,(void*)0,(void*)0};
 T561 M561=/*init:WINDOWS_DIRECTORY_NOTATION*/{561,(void*)0,(void*)0};
@@ -1692,7 +1692,7 @@ T102 M102=/*init:TEXT_FILE_READ*/{(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0,0,
 T556 M556=/*init:SE_C_MODE*/{(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0};
 T545 M545=/*init:SYSTEM*/0/*empty expanded*/;
 T464 M464=/*init:TEXT_FILE_WRITE*/{464,(void*)0,(void*)0,(void*)0,(void*)0,0,0,0};
-T665 M665=/*init:LINES_OUTPUT_STREAM*/{665,(void*)0};
+T665 M665=/*init:LINES_OUTPUT_STREAM*/{665,(void*)0,(void*)0};
 T81 M81=/*init:STD_ERROR*/{81,(void*)0};
 T69 M69=/*init:STD_OUTPUT*/{69,(void*)0,(void*)0,0,0};
 T467 M467=/*init:TMP_FEATURE*/{467,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
@@ -1772,14 +1772,14 @@ T727 M727=/*init:NO_GC*/{727,0};
 T728 M728=/*init:BDW_GC*/{728,(void*)0,(void*)0,(void*)0,0};
 T729 M729=/*init:GC_HANDLER*/{729,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T318 M318=/*init:PARTIALLY_FILLED_STRING*/{318,(void*)0,(void*)0,(void*)0,(void*)0};
-T551 M551=/*init:RUN_TIME_SET*/{(void*)0,(void*)0};
 T934 M934=/*init:FAST_ARRAY[POSITION]*/{(void*)0,0,0,0};
-T935 M935=/*init:HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING],INTEGER_32]*/{(void*)0,(void*)0,0,0,0,0};
-T936 M936=/*init:FAST_ARRAY[FIXED_STRING]*/{(void*)0,0,0,0};
-T720 M720=/*init:TAGGED_ERRORS*/{720,(void*)0};
-T937 M937=/*init:RING_ARRAY[TAGGED_ERROR]*/{(void*)0,0,0,0,0,0};
+T935 M935=/*init:RECYCLING_POOL[TAGGED_ERROR]*/{(void*)0,0,0,0};
 T719 M719=/*init:TAGGED_ERROR*/{(void*)0,(void*)0,0};
-T938 M938=/*init:RECYCLING_POOL[TAGGED_ERROR]*/{(void*)0,0,0,0};
+T551 M551=/*init:RUN_TIME_SET*/{(void*)0,(void*)0};
+T936 M936=/*init:HASHED_DICTIONARY[FAST_ARRAY[FIXED_STRING],INTEGER_32]*/{(void*)0,(void*)0,0,0,0,0};
+T937 M937=/*init:FAST_ARRAY[FIXED_STRING]*/{(void*)0,0,0,0};
+T720 M720=/*init:TAGGED_ERRORS*/{720,(void*)0};
+T938 M938=/*init:RING_ARRAY[TAGGED_ERROR]*/{(void*)0,0,0,0,0,0};
 T340 M340=/*init:CECIL_FILE*/{(void*)0,(void*)0,(void*)0};
 T942 M942=/*init:HASHED_DICTIONARY[CECIL_FILE,STRING]*/{(void*)0,(void*)0,(void*)0,0,0,0,0,0};
 T807 M807=/*init:XDG*/0/*empty expanded*/;
@@ -2019,8 +2019,8 @@ T1079 M1079=/*init:FAST_ARRAY[C_GARBAGE_COLLECTOR_TAG]*/{(void*)0,0,0,0};
 T845 M845=/*init:C_GARBAGE_COLLECTOR_TAG*/{845,(void*)0,0,0};
 T852 M852=/*init:C_GARBAGE_COLLECTOR_TAGGER*/{852,(void*)0,(void*)0};
 T1080 M1080=/*init:FAST_ARRAY[ABSTRACT_STRING]*/{(void*)0,0,0,0};
-T1081 M1081=/*init:AVL_SET[LIVE_TYPE]*/{(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
-T1084 M1084=/*init:HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]*/{(void*)0,(void*)0,0};
+T1083 M1083=/*init:AVL_SET[LIVE_TYPE]*/{(void*)0,(void*)0,(void*)0,(void*)0,0,0,0,0};
+T1085 M1085=/*init:HASHED_DICTIONARY_NODE[FAST_ARRAY[FIXED_STRING],INTEGER_32]*/{(void*)0,(void*)0,0};
 T1088 M1088=/*init:FAST_ARRAY[CECIL_ENTRY]*/{(void*)0,0,0,0};
 T583 M583=/*init:CECIL_ENTRY*/{(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T1090 M1090=/*init:HASHED_DICTIONARY_NODE[CECIL_FILE,STRING]*/{(void*)0,(void*)0,(void*)0};
@@ -2186,19 +2186,19 @@ T429 M429=/*init:STATIC_CALL_0_C*/{429,(void*)0,(void*)0,(void*)0,(void*)0,(void
 T426 M426=/*init:RAW_CREATE_INSTRUCTION*/{426,(void*)0,{0},(void*)0,(void*)0,0,0};
 T380 M380=/*init:GENERATOR_GENERATING_TYPE*/{380,{0},(void*)0,'\0'};
 T820 M820=/*init:RUN_FEATURE_1*/{820,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
-T663 M663=/*init:RUN_FEATURE_6*/{663,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T663 M663=/*init:RUN_FEATURE_6*/{663,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T818 M818=/*init:RUN_FEATURE_9*/{818,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T771 M771=/*init:RUN_FEATURE_7*/{771,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T669 M669=/*init:NATIVE_ARRAY_ITEM*/{669,{0},(void*)0,(void*)0,(void*)0};
 T553 M553=/*init:RUN_FEATURE_3*/{553,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0,0};
 T1358 M1358=/*init:ARRAY[RUN_FEATURE_2]*/{(void*)0,0,0,0,0};
-T819 M819=/*init:RUN_FEATURE_4*/{819,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
+T819 M819=/*init:RUN_FEATURE_4*/{819,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T662 M662=/*init:RUN_FEATURE_5*/{662,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T350 M350=/*init:COUNTER*/{0};
 T1360 M1360=/*init:FAST_ARRAY[POINTER]*/{(void*)0,0,0,0};
-T871 M871=/*init:EXEC_OUTPUT_STREAM_POSIX*/{871,(void*)0,(void*)0,0,0};
+T871 M871=/*init:EXEC_OUTPUT_STREAM_POSIX*/{871,(void*)0,(void*)0,(void*)0,0,0};
 T873 M873=/*init:EXEC_INPUT_STREAM_POSIX*/{873,(void*)0,(void*)0,0,0,0,0,'\0',0,'\0'};
-T874 M874=/*init:EXEC_OUTPUT_STREAM_WIN32*/{874,(void*)0,(void*)0,(void*)0,0};
+T874 M874=/*init:EXEC_OUTPUT_STREAM_WIN32*/{874,(void*)0,(void*)0,(void*)0,(void*)0,0};
 T875 M875=/*init:EXEC_INPUT_STREAM_WIN32*/{875,(void*)0,(void*)0,(void*)0,0,0,0,'\0',0,'\0'};
 T1362 M1362=/*init:HASHED_DICTIONARY_NODE[TUPLE[TYPE,TYPE],TYPE]*/{(void*)0,(void*)0,(void*)0};
 T1364 M1364=/*init:HASHED_DICTIONARY_NODE[TYPE,TYPE]*/{(void*)0,(void*)0,(void*)0};
@@ -2707,7 +2707,6 @@ char*s34_2233396A="runtime";
 char*s727_273418685A="se_calloc(";
 char*s30_1724187394A=": missing output name after -o flag.\n";
 char*s34_48390502A="all_check";
-char*s586_1534527465A=" but the Result type is ";
 char*s108_589A="bc";
 char*s653_591A="_t";
 char*s113_2077353217A="\" (alternate mode) selected.\n";
@@ -2851,6 +2850,7 @@ char*s848_2092663259A="goto begin;\n";
 char*s647_6946A=",0))";
 char*s117_1994813154A="];\nse_profile_t sorted_all_profile[";
 char*s33_567319829A="to_integer_64";
+char*s117_220957020A="/*  - local vars*/\n";
 char*s647_1738839292A="se_thread_lock_is_locked((";
 char*s436_282823780A="Invalid creation procedure. A \"once\" procedure is not allowed as a creation procedure.";
 char*s647_1824713404A="deep_memcmp(";
@@ -2882,6 +2882,7 @@ char*s34_11251026A="undefine";
 char*s436_170383550A="Manifest generic creation not yet implemented for expanded types (";
 char*s113_373286592A="\".\nCurrently handled system names:\n";
 char*s104_1275558331A="A routine must be ended with \"end\".";
+char*s117_1860992059A="/*  - NO ensure*/\n";
 char*s637_4571057A="/*:RF9*/";
 char*s104_888875725A="Missing \";\" added.";
 char*s848_1648235130A="->header.state_type=FSO_USED_CHUNK;\nn=";
@@ -3379,7 +3380,6 @@ char*s104_1289042164A="Void cannot be the left-hand side of the binary \"//\" op
 char*s647_32456A=")+.5)";
 char*s117_1946737844A="Order of evaluation for pre-computed once functions:\n";
 char*s117_14005A="[];\n";
-char*s625_119281896A="/*then*/R=";
 char*s117_192841706A="NULL, NULL";
 char*s383_1348774A="AT_EXIT";
 char*s415_1337425939A=" which is out of range 0 ..63 because target type is INTEGER_64.";
@@ -3409,7 +3409,7 @@ char*s104_941240074A="Keyword \"end\" expected at the end of check clause.";
 char*s283_608446371A="You have to fix the problem in your ACE file. Valid assertion level tags are: \"no\", \"require\", \"ensure\", \"invariant\", \"loop\", \"check\", \"all\", and \"debug\".";
 char*s494_1753A="0e0";
 char*s495_112048371A=" creation.";
-char*s120_22612837A=" in type ";
+char*s89_22612837A=" in type ";
 char*s117_1765A="=((";
 char*s420_176104896A=" ... << ... >> \175"" manifest creation notation.";
 char*s386_1712194128A="\' is out of INTEGER_8 range.";
@@ -3483,6 +3483,7 @@ char*s624_832280A="(*o)->_";
 char*s117_438660461A="Cannot produce C code.";
 char*s104_502181838A="Missing \"\175""\" to terminate manifest generic creation.";
 char*s33_403163040A="THREAD_CONTEXT";
+char*s117_870017790A="/*  - require*/\n";
 char*s104_307717976A="Error while reading a number. Missing \"\175""\" \?";
 char*s111_327902A="TUPLE ";
 char*s647_1900A=">>(";
@@ -3536,8 +3537,8 @@ char*s728_1949186219A="/*mark_item*/";
 char*s650_8131A=")_r=";
 char*s117_11086084A="sizeof(T";
 char*s625_4996600A="*a1=(se_";
-char*s104_676728857A="Error in manifest constant or \"\?:=\" type test \?";
 char*s486_444860A="thread";
+char*s104_676728857A="Error in manifest constant or \"\?:=\" type test \?";
 char*s34_451011A="unique";
 char*s33_55041141A="put_32_le";
 char*s120_1127406485A="An attribute cannot be undefined.";
@@ -3662,6 +3663,7 @@ char*s104_599810839A="There is no need for the \"expanded\" keyword in an \"inse
 char*s33_451252A="unlock";
 char*s648_376332712A=")->_native_data = se_thread_lock_alloc();\n";
 char*s624_1112927266A="void se_prinT";
+char*s362_206355982A=" Context type was ";
 char*s33_840111968A="collection_on";
 char*s495_115013643A="Actually, for class ";
 char*s647_234933541A="_t)-((uint";
@@ -3792,8 +3794,8 @@ char*s729_118716790A="fprintf(SE_GCINFO,\"==== Last GC before exit ====\\n\");\n
 char*s642_48939847A="default: ";
 char*s104_554066118A="\" is not valid identifier. For a better readability Liberty Eiffel _is_ case sensitive. Hence \"";
 char*s104_1439398002A="A Precursor type mark annotation must not be anchored.";
-char*s104_1193216533A="A type mark is not a valid item for a manifest array. Keep in mind that Liberty Eiffel is case-sensitive and that ";
 char*s488_1917908900A="feature_name";
+char*s104_1193216533A="A type mark is not a valid item for a manifest array. Keep in mind that Liberty Eiffel is case-sensitive and that ";
 char*s642_279959115A="\173""\nse_dump_stack *caller=&ds;\n\173""\nse_dump_stack ds=\173""NULL,NULL,caller->p,caller,NULL,NULL\175"";\n";
 char*s104_277837020A="Missing items in manifest creation \"<< ... >>\" list. The last bunch should have ";
 char*s33_2504A="SET";
@@ -4265,6 +4267,7 @@ char*s642_23451005A="/*i*/=0;\n";
 char*s117_3393A="lsv";
 char*s104_883016350A="Missing \",\" added.";
 char*s420_739187517A="Creation call on formal generic type (";
+char*s117_693319512A="/*  - NO require*/\n";
 char*s33_89510A="stdin";
 char*s33_1297876698A="is_not_null";
 char*s117_42279221A="Procedure";
@@ -4328,7 +4331,6 @@ char*s104_46597328A="Removed unexpected blank space(s) just before this dot (ass
 char*s104_1631593164A="Void cannot be the left-hand side of the binary \"*\" operator.";
 char*s848_1173325215A="void gc_update_weak_ref_item";
 char*s122_253892190A="exceptions";
-char*s586_812052383A="Cannot assign this expression to Result. The expression type is ";
 char*s497_1387816739A="Cannot rename feature `c_inline_h\' because this name is used as a keyword to handle the corresponding \"built_in\" feature of ANY.";
 char*s849_136857117A=",(unsigned long)(";
 char*s624_1199805276A="fprintf(file,\"\\n\\t[ \");\n";
@@ -4338,6 +4340,7 @@ char*s91_3520A="ti_";
 char*s113_15828A="cpml";
 char*s848_1058430701A="o1->header.next=gc_free";
 char*s117_1728206941A="((/*UT*/(void)(";
+char*s117_333756789A="/*  - routine body*/\n";
 char*s33_15831A="copy";
 char*s467_1606367935A="Using a static constant expression just after the \"is\" keyword is suitable only for a constant attribute definition. The constant found (i.e. ";
 char*s33_1947246A="bit_set";
@@ -4484,7 +4487,6 @@ char*s805_65332A="] in ";
 char*s625_2187432A="return ";
 char*s728_357653724A=")GC_call_with_alloc_lock((GC_fn_type)bdw_weakref_getlink,(bdw_Twr*)(";
 char*s625_403650A="u->CL_";
-char*s765_16139A="il2@";
 char*s105_372047073A="Deleted extra separator.";
 char*s678_1864907075A="To many actual arguments for agent call. (The agent you are trying to call has no arguments.)";
 char*s117_1595351811A="(/*thread context*/T";
@@ -4517,6 +4519,7 @@ char*s293_1224218969A="The source lines involved by the message are the followin
 char*s293_1750778A="Warning";
 char*s112_2107398012A="\nLiberty Eiffel The GNU Eiffel Compiler, Eiffel tools and libraries\n    release #(1)\n\nCopyright (C), #(2) - #(3)\n    http://www.liberty-eiffel.org\n";
 char*s106_745978733A="\' is defined more than once";
+char*s117_2123661269A="/*  - NO user expanded*/\n";
 char*s848_384078512A="\173""rsoh*h=((rsoh*)o)-1;\nif((h->header.magic_flag)==RSOH_UNMARKED)\173""\nh->header.magic_flag=RSOH_MARKED;\n\173""\n";
 char*s111_2045223723A="Cannot collect feature \173""";
 char*s678_191115496A=". Its type is ";
@@ -4606,6 +4609,7 @@ char*s425_626532654A="This feature name is not an expression (no result and not 
 char*s33_197002174A="force_to_natural_16";
 char*s489_397949195A="\"\n_________";
 char*s408_647790517A="This variable is used in a closure. Beware, each time the method is called, a lot of memory may be wasted.";
+char*s117_1922677534A="/*  - NO local vars*/\n";
 char*s117_2114508771A="int c,char*e)";
 char*s283_1805205737A="Files are being searched for in the following list of clusters (";
 char*s33_573080478A="raise_exception";
@@ -4666,7 +4670,6 @@ char*s904_2072196164A="The default key \"function\" was not found. Invalid auto_
 char*s33_1744612358A="is_basic_expanded_type";
 char*s104_1759774576A="You are probably trying to use the new inherit/insert mechanism. With Liberty Eiffel, this can be achieved thanks to the new \"insert\" clause. The new \"insert\" clause comes just after the traditional \"inherit\" clause with a similar syntax.";
 char*s456_1118729658A="When the context of the validation is ";
-char*s117_4771257A="/*then*/";
 char*s117_2096892436A="p[0]=\"\?\?\?\";\n";
 char*s420_1061310076A="). No create constraint specified.";
 char*s104_4235A=" \011""\000""\n";
@@ -4748,7 +4751,6 @@ char*s33_999658760A="THREAD_LOCK";
 char*s849_666336072A=")\nfprintf(SE_GCINFO,\"%d\\t%lu\\t%d\\t";
 char*s849_41300A=";\nif(";
 char*s704_355003A="][0-9]";
-char*s765_78209A="ddt1@";
 char*s844_1037766A="(int n)";
 char*s117_561301605A="*/: error2(expression,/*unknown-position*/0);break;\n";
 char*s117_988839165A="se_frame_descriptor root=\173""\"<system root>\",1,0,\"";
@@ -4902,6 +4904,7 @@ char*s126_27561173A="Trying to read file \"";
 char*s117_1533928773A=".......................................";
 char*s825_2007377394A="Unknown loadpath";
 char*s105_1658160521A="Expected \"[\" (to start generic argument list).";
+char*s89_988999384A=". Compiler lost!";
 char*s647_933501A="(NULL!=";
 char*s490_1136691048A="\"set\", \"get\", or \"access\" keyword expected.";
 char*s117_1170250908A="(/*UA*/((void)(";
@@ -4964,6 +4967,7 @@ char*s621_565060278A="/* C Header Pass 1: */\n";
 char*s647_78629A="ds.p,";
 char*s111_1605895597A="\" redefined as \"";
 char*s106_126291003A="Bad program.\n(Closing \")\" not found.)";
+char*s729_790599008A="gc_set_dispose_before_exit(0);\n";
 char*s283_1658492806A="\" file.\nACE file not found.";
 char*s33_48856070A="arguments";
 char*s33_1622700141A="deep_twin_from";
@@ -5022,6 +5026,7 @@ char*s763_1762204931A="Not a good slice. The lower bound (";
 char*s848_1497878015A=";\nif(gc_find_chunk(na)!=NULL)\173""/* non external NA */\n   rsoh*h=((rsoh*)na)-1;\n   if((h->header.magic_flag)==RSOH_UNMARKED)\173""\n      h->header.magic_flag=RSOH_MARKED;\n";
 char*s104_2127445170A="Character \'%\"\' inserted after \"prefix\".";
 char*s33_50246319A="generator";
+char*s729_790599133A="gc_set_dispose_before_exit(1);\n";
 char*s283_926093361A="The valid values for split are either \"legacy\" or \"by_type\".";
 char*s552_1134353920A="safety checking";
 char*s642_1898591066A="creatinstexp";
@@ -5064,6 +5069,7 @@ char*s625_2142146116A="int R=1;\nse_";
 char*s642_380218A="ac_liv";
 char*s844_101355036A="if(bdw_in_assign)bdw_delayed_finalize=1;\nelse\173""\nhandle(SE_HANDLE_ENTER_GC,NULL);\n";
 char*s415_1057872442A=" which is out of range -63 ..63 because target type is INTEGER_64.";
+char*s117_1717499533A="/*  - NO routine body*/\n";
 char*s647_204519611A="if(R)\173""\nT0*o1=C->_";
 char*s904_838816886A="). No description file found.";
 char*s120_1998329594A="\" come from the same original feature via multiple \"insert\" paths, but none comes via an \"inherit\" path.\nBelow, you get the feature evolution step by step. Note that in the end (type ";
@@ -5245,6 +5251,7 @@ char*s104_568400887A="`indexing\' is an obsolete keyword, please use `note\' ins
 char*s117_1968768303A="master_profile.profile=NULL;\n";
 char*s104_783329131A="Total time spent in parser: ";
 char*s625_180709512A="return u->R;\n";
+char*s117_169662319A="/*  - ensure*/\n";
 char*s104_1984637890A=" is not a feature name.";
 char*s120_1605047378A=" type.\n\nFirst \"inherit\" path (from parent to child):\n   ";
 char*s117_1435285930A="Define initialize stuff.\n";
@@ -5279,6 +5286,7 @@ char*s624_1151663379A="fprintf(file,\"%llu\",(long long unsigned int)((uint64_t)
 char*s104_776600004A="Explicit creation/create type mark should not be anchored.";
 char*s846_1126647264A="*next;\175"" header;\175"";\n";
 char*s391_2014931627A="External feature must not have rescue compound.";
+char*s89_1331038845A="Cannot find the feature ";
 char*s104_150329797A="Error while reading hexadecimal value.";
 char*s117_802495724A="\");\nstart_profile(parent_profile, &local_profile);\n";
 char*s126_1723571071A="................................................................";
@@ -5427,6 +5435,7 @@ char*s126_809686569A="\".\nCommand aborted.\n";
 char*s642_6575105A=";break;\n";
 char*s115_18144A="vpcc";
 char*s104_18150A="void";
+char*s117_457314246A="/*  - user expanded*/\n";
 char*s120_290966604A=") there are two versions of the same initial feature with two different names. To  fix this, either use enough \"inherit\" links in place of \"insert\" links to have one \"inherit\" path or rename the feature to get the same name in ";
 char*s848_322115272A="*)(wr->o);\nif (obj_ptr != NULL)\173""\nint swept = (((void*)obj_ptr) <= ((void*)wr));\nif (swept != (obj_ptr->header.flag == FSOH_MARKED)) /* **** TODO: was FSOH_UNMARKED\?\?\?\? (incoherent with comment below) */\n/* (already swept) xor marked */\nwr->o = NULL;\n\175""\n";
 char*s648_2122389958A="se_print_run_time_stack();\n";

@@ -132,7 +132,7 @@ feature {ONCE_FUNCTION}
                   end
                end
             end
-         elseif once_function.routine_then /= Void then
+         elseif once_function.routine_body = Void then
             if create_expression ?:= once_function.routine_then then
                create_expression ::= once_function.routine_then
                if precomputable_routine_detector.visit_once_then(target_type, create_expression) then
