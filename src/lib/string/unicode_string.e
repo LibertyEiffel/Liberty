@@ -494,7 +494,7 @@ feature {ANY} -- Testing and Conversion:
          end
       end
 
-   utf8_decode_from (s: STRING): BOOLEAN
+   utf8_decode_from (s: ABSTRACT_STRING): BOOLEAN
          -- Use `s' as UTF-8 format encoded unicode string
          -- Return `False' if decoding process failed
       require
@@ -561,7 +561,7 @@ feature {ANY} -- Testing and Conversion:
       end
 
 feature {}
-   from_utf8 (s: STRING)
+   from_utf8 (s: ABSTRACT_STRING)
          -- Use `s' as UTF-8 format encoded unicode string
          -- This function may be used for manifest strings
          -- See `utf8_decode_from' for error detection
@@ -1879,7 +1879,7 @@ feature {}
    next_generation
       do
          Precursor
-         debug
+         debug("UNICODE_STRING")
             set_debug_utf8
          end
       end

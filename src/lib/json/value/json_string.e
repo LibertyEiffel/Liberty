@@ -97,16 +97,26 @@ feature {ANY}
 feature {JSON_HANDLER}
    string: UNICODE_STRING
 
+   invalidate
+         -- Allows to modify the string, e.g. to clean it. Note: an invalidated string cannot be revalidated.
+      do
+         is_valid := False
+      end
+
+   is_valid: BOOLEAN
+
 feature {}
    make (a_string: like string)
       require
          a_string /= Void
       do
+         is_valid := True
          string := a_string
          hash_code := a_string.hash_code
       ensure
          string = a_string
          set_string_invariant(a_string)
+         is_valid
       end
 
    from_string (a_string: ABSTRACT_STRING)
@@ -145,8 +155,8 @@ feature {}
 
 invariant
    string_exists: string /= Void
-   invariant_string: string_invariant.is_equal(string)
-   invariant_hash_code: hash_code = string.hash_code -- of course, but better said...
+   invariant_string: is_valid implies string_invariant.is_equal(string)
+   invariant_hash_code: is_valid implies hash_code = string.hash_code -- of course, but better said...
 
 end -- class JSON_STRING
 --
