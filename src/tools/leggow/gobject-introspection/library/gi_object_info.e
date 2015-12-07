@@ -34,16 +34,14 @@ feature {ANY} -- Wrapper
 		--
 	local pi: PROPERTIES_ITER; mi: METHODS_ITER
 		properties_text: STRING
-	do
-		create properties_text.with_capacity( quite a lot )
-		if verbose then
-			("Object #(1): #(2) properties %N" # name # properties_count.out).print_on(std_output);
-		end
+    do
+		create properties_text.with_capacity( 2048 )
+		log.info.put_string("Object #(1): #(2) properties %N" # name # &properties_count )
 		pi := properties_iter;
 		pi.for_each(agent emit_property(?))
 		("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
 		methods_iter.for_each(agent emit_method(?))
-end
+    end
 
 emit_property (a_property: GI_PROPERTY_INFO) is
 		do

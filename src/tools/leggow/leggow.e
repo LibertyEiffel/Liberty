@@ -36,7 +36,9 @@ feature {} -- program entry point
 	main is
 		do
 			parse_arguments
-			library_name := library_argument.item
+			print("foo%N")
+			library_name := library_argument.item;
+			("Wrapping «#(1)».%N" # library_name).print_on(std_output);
 			namespace := repository.load(library_name,Void)
 			repository.loaded_namespaces.print_on(std_output);
 			"%NDependencies: ".print_on(std_output);
@@ -57,13 +59,17 @@ feature	{} -- Command line arguments
 
 	parse_arguments  is
 	do
-		create arguments.make (all_dependecies_option and directory_option and help_option and verbose_option and library_argument)
+		create arguments.make (all_dependecies_option or directory_option or help_option or verbose_option or library_argument)
 		if not arguments.parse_command_line then
 			arguments.usage(std_error)
 			die_with_code(1)
-		else 
+		elseif help_option.item then
 			arguments.usage(std_output)
 			die_with_code(0)
+		elseif not library_argument.is_set then
+			std_output.put_line("No library name specified.")
+			arguments.usage(std_error)
+			die_with_code(1)
 		end
 	end
 
