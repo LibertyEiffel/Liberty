@@ -119,7 +119,7 @@ feature {}
                                                 if c.code >= 32 then
                                                    Result := once "'#(1)' (#(2), #(3))" # c.out # line.out # column.out
                                                 else
-                                                   Result := once "##(1) (#(2), #(3))" # c.code.out # line.out # column.out
+                                                   Result := once "###(1) (#(2), #(3))" # c.code.out # line.out # column.out
                                                 end
                                              else
                                                 Result := once "(invalid)"
