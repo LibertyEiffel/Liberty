@@ -20,7 +20,7 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+            Result := "class " | eiffel_class_name(name,"_ENUMERATION") | "%N%T-- not_yet_implemented%Nend"
 		end
 
 

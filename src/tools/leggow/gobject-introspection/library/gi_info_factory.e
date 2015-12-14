@@ -12,6 +12,7 @@ feature {WRAPPER, WRAPPER_HANDLER}
 		local type: GIINFO_TYPE_ENUM
 		do
 			type.set(g_base_info_get_type(a_pointer))
+            -- std_error.put_line("Got #(1)" # & type)
 			if     type.is_arg then create {GI_ARG_INFO} Result.from_external_pointer(a_pointer)
 			elseif type.is_boxed then not_yet_implemented
 			elseif type.is_callback then create {GI_FUNCTION_INFO} Result.from_external_pointer(a_pointer)
@@ -34,6 +35,9 @@ feature {WRAPPER, WRAPPER_HANDLER}
 			elseif type.is_vfunc then create {GI_VFUNC_INFO} Result.from_external_pointer(a_pointer)
 			else not_yet_implemented
 			end
+            debug
+                std_error.put_line("Got #(1)" # &Result)
+            end
 	end
 
 end -- class GI_INFO_FACTORY

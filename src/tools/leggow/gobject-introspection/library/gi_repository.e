@@ -19,6 +19,8 @@ insert
 		redefine default_create end 
 	GIREPOSITORY_EXTERNALS
 		redefine default_create end
+    LOGGING
+        undefine is_equal, copy, default_create end
 
 create {ANY} default_create 
 
@@ -116,7 +118,10 @@ feature {ANY}
 		-- `a_version' of namespace may be specified. If version is not
 		-- speocified, the latest will be used.
 
-		-- Note: this feature is known as "require" in other languages. It has been renamed because "require" is a reserved word in Eiffel
+        -- Note: this feature is known as "require" in other languages. It has
+        -- been renamed because "require" is a reserved word in Eiffel. It
+        -- could have been named "require_library" but it would keep spreading
+        -- the misconception that Eiffel is unnecessary verbose
 
 		-- TODO: add support for flags (GIRepositoryLoadFlags that may be 0) and error usage (GError). 
  		local a_ptr: POINTER
@@ -128,7 +133,7 @@ feature {ANY}
 			if a_ptr.is_not_null then
 				create Result.from_external_pointer(a_ptr)
 			end
-		ensure registered (a_name_space, a_version)
+		ensure Result/=Void implies registered (a_name_space, a_version)
 		end
 
 	--
@@ -201,6 +206,9 @@ feature {ANY}
 	do
 		create Result.from_repository_and_namespace(Current,a_namespace)
 		-- Note: NAMESPACE_ITERATOR is implemented using and wraps g_irepository_get_n_infos and g_irepository_get_info
+        debug
+            log.trace.put_line("Iterating over #(1) elements of #(2)" # & Result.n_infos # Result.namespace )
+        end
 	end
 
   --  g_irepository_get_typelib_path ()

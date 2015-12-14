@@ -60,7 +60,9 @@ feature {ANY}
 	 local
 		 ptr: POINTER
 	 do
+         -- debug std_error.put_string("GI_BASE_INFO.name...") end
 		 ptr := g_base_info_get_name(handle)
+         -- debug std_error.put_line("(done)") end
 		 if ptr.is_not_null then
 			 create Result.from_external(ptr)
 		 else 

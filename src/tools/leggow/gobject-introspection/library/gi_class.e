@@ -54,11 +54,6 @@ feature {ANY}
 				end)
 		end
 
-	eiffel_wrapper: ABSTRACT_STRING is
-		do
-			not_yet_implemented
-		end
-		
 feature {ANY} -- Methods 
 	methods_lower: INTEGER is 0
 	methods_upper: INTEGER is do Result:=methods_count-1 end

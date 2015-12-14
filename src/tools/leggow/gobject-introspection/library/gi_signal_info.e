@@ -20,7 +20,7 @@ feature {ANY}
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+            Result := "unimplemented wrapper for GI_SIGNAL_INFO"
 		end
 		
 feature {ANY} 

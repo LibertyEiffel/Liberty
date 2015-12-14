@@ -36,21 +36,31 @@ feature {} -- program entry point
 	main is
 		do
 			parse_arguments
-			print("foo%N")
 			library_name := library_argument.item;
-			("Wrapping «#(1)».%N" # library_name).print_on(std_output);
+			log.info.put_line("Wrapping «#(1)».%N" # library_name)
 			namespace := repository.load(library_name,Void)
-			repository.loaded_namespaces.print_on(std_output);
-			"%NDependencies: ".print_on(std_output);
-			repository.dependencies(library_name).print_on(std_output);
-			"%N".print_on(std_output);
-			repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper)
+
+			if namespace/=Void then
+				repository.loaded_namespaces.print_on(std_output);
+
+				-- log.info.put_line("#(1) dependencies:" # library_name);
+				-- repository.dependencies(library_name).for_each (agent (a_dep: FIXED_STRING) do log.info.put_line(a_dep) end) 
+
+				-- repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper)
+				repository.namespace_iterator(library_name).for_each(agent emit)
+			else
+				log.info.put_line("#(1) library not found."#library_name)
+				die_with_code(1)
+			end
+
 		end
 
 	emit (an_info: GI_BASE_INFO) is
 		-- 
 	do
-		an_info.emit_wrapper
+        debug std_error.put_line("LEGGOW.emit #(1)" # & an_info ) end
+        log.info.put_line(an_info.eiffel_wrapper) 
+		-- an_info.emit_wrapper
 	end
 
 feature	{} -- Command line arguments

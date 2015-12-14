@@ -42,7 +42,7 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+            Result := "class " | eiffel_class_name(name,Void) | "-- not_yet_implemented%Nend"
 		end
 
 
@@ -112,7 +112,7 @@ feature {ANY} -- Methods
 feature {ANY} 
 	out_in_tagged_out_memory is
 	do
-		not_yet_implemented
+        tagged_out_memory.append("GI_STRUCT #(1)" # name)
 	end
 
 	size: NATURAL is

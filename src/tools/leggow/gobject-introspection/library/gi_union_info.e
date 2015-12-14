@@ -189,7 +189,7 @@ feature {ANY}
 feature {ANY}
 	out_in_tagged_out_memory is
 		do
-			not_yet_implemented
+            tagged_out_memory.append("GI_UNION_INFO #(1)"#name)
 		end
 
 end -- class GI_UNION_INFO

@@ -19,7 +19,7 @@ feature {ANY}
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+			Result := "not_yet_implemented GI_CONSTANT_INFO"
 		end
 	
 feature {ANY}

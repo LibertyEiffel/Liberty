@@ -33,23 +33,28 @@ feature {ANY} -- Wrapper
 	emit_wrapper is
 		--
 	local pi: PROPERTIES_ITER; mi: METHODS_ITER
-		properties_text: STRING
+		properties_text: STRING; 
+        a_name, a_count: ABSTRACT_STRING
     do
+        -- debug std_error.put_line("GI_OBJECT_INFO.emit_wrapper #(1)" # & Current ) end
 		create properties_text.with_capacity( 2048 )
-		log.info.put_string("Object #(1): #(2) properties %N" # name # &properties_count )
-		pi := properties_iter;
-		pi.for_each(agent emit_property(?))
+        a_name := name; a_count := &properties_count 
+		log.info.put_string("Object #(1) with #(2) properties: " # name # & properties_count )
+		-- log.info.put_string("Object #(1) with #(2) properties: " # a_name # & a_count )
+        -- properties_iter.for_each(agent emit_property)
+        debug std_error.put_string("propiter ") end
+        pi := properties_iter
 		("%N#(1) methods:%N "# methods_count.out).print_on(std_output);
 		methods_iter.for_each(agent emit_method(?))
     end
 
-emit_property (a_property: GI_PROPERTY_INFO) is
+    emit_property (a_property: GI_PROPERTY_INFO) is
 		do
 			("'#(1)', " # a_property.name).print_on(std_output)
 		end
 
-		emit_method (a_method: GI_FUNCTION_INFO) is 
-		do
+       emit_method (a_method: GI_FUNCTION_INFO) is 
+    do
 			("'").print_on(std_output); 
 			(a_method.name).print_on(std_output); 
 			(once "',").print_on(std_output)
@@ -58,7 +63,7 @@ emit_property (a_property: GI_PROPERTY_INFO) is
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+            Result := once "class " | eiffel_class_name(name,Void) | once "%N"
 		end
 
 feature {ANY}
@@ -109,7 +114,9 @@ feature {ANY} -- Properties
 	properties_count: INTEGER is
 		--the number of properties that this object type has. 
 	do
+        debug std_error.put_string("n. properties: ") end
 		Result:=g_object_info_get_n_properties(handle)
+        debug std_error.put_line(" #(1) " # & Result) end
 	end
 
 	property (n: INTEGER): GI_PROPERTY_INFO is
@@ -263,7 +270,7 @@ feature {ANY} -- Constants
 feature {ANY}
 	out_in_tagged_out_memory is
 	do
-		not_yet_implemented
+		tagged_out_memory.append("GI_OBJECT_INFO #(1) n.prop #(2)" # type_name # & properties_count)
 	end
 
 feature {} -- Implementation

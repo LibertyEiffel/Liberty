@@ -13,7 +13,7 @@ feature {ANY} -- Wrapper
 	
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+			Result := " -- GI_PROPERTY_INFO not_yet_implemented%N"
 		end
 
 feature {ANY}

@@ -6,6 +6,7 @@ inherit
 	ITERATOR[GI_BASE_INFO]
 	GI_INFO_FACTORY 
 	WRAPPER_HANDLER
+    LOGGING
 
 insert GIREPOSITORY_EXTERNALS
 
@@ -41,20 +42,30 @@ feature {ANY}
 		end
 
 	item: GI_BASE_INFO is
+        local ptr: POINTER
 		do
-			-- Too much verbose("Iterator item #(1) of #(2)%N" # &index # &n_infos).print_on(std_output)
+			-- Too much verbose
+            debug 
+                log.trace.put_line("Iterator item #(1) of #(2)" # &index # & n_infos)
+            end
 			Result := wrapper(g_irepository_get_info(repo_ptr,namespace.to_external,index))
+            debug 
+                log.trace.put_line("namespace iterator item: #(1)" # & Result)
+            end
 		end
 
 	next is
 		do
 			index:=index+1
 		end
-feature {} -- Implementation
-	repo_ptr: POINTER -- Pointer to the GIRepository
+
+feature {ANY} -- Information 
 	namespace: STRING
 	n_infos: INTEGER -- number of elements for `namespace'
 	index: INTEGER -- current index
+
+feature {} -- Implementation
+	repo_ptr: POINTER -- Pointer to the GIRepository
 feature {ANY} 
 	generation: INTEGER
 	iterable_generation: INTEGER 

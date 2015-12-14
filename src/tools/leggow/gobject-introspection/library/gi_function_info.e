@@ -19,7 +19,7 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+			Result := "-- GI_FUNCTION_INFO not_yet_implemented"
 		end
 
 --   enum GInvokeError
