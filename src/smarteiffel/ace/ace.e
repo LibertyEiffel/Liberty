@@ -406,7 +406,9 @@ feature {ACE_HANDLER}
          executable_names.add_last(executable_name_memory)
          root_index := root_class_names.upper
 
-         echo.put_string(once "Root class: ")
+         echo.put_string(once "Root class #")
+         echo.put_string(root_class_names.upper.to_string)
+         echo.put_string(once ": ")
          echo.put_line(rcn.to_string)
       ensure
          root_class_name = rcn
@@ -422,8 +424,8 @@ feature {ACE_HANDLER}
       do
          root_procedure_names.put(rp, root_index)
 
-         echo.put_string(once "Root procedure for ")
-         echo.put_line(root_class_names.upper.to_string)
+         echo.put_string(once "Root procedure #")
+         echo.put_string(root_class_names.upper.to_string)
          echo.put_string(once ": ")
          echo.put_line(rp)
       ensure

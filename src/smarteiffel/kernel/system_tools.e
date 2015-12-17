@@ -586,13 +586,8 @@ feature {COMPILE, COMPILE_TO_C}
                add_external_lib(arg)
                Result := argi + 1
             elseif root_class_wait_for_procedure then
-               if ace.root_procedure_name /= Void then
-                  ace.set_root_class_name(ace.root_class_name)
-                  check
-                     ace.root_procedure_name = Void
-                  end
-               end
-               ace.set_root_procedure_name(next_arg)
+               ace.set_root_procedure_name(arg)
+               root_class_wait_for_procedure := False
                Result := argi + 1
             else -- root class name
                ace.set_root_class_name_using(arg)
