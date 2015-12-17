@@ -9,15 +9,22 @@ class TWO_WAY_LINKED_LIST[E_]
 
 inherit
    COLLECTION[E_]
-      undefine 
-	  	 default_create
-	  end
+      redefine default_create
+      end
 
 insert
    LINKED_COLLECTION[E_]
+      redefine default_create
+      end
 
 create {ANY}
-   make, from_collection, manifest_creation
+   make, from_collection, manifest_creation, default_create
+
+feature {}
+   default_create
+      do
+         make
+      end
 
 feature {TWO_WAY_LINKED_LIST, ITERATOR_ON_TWO_WAY_LINKED_LIST}
    first_link: TWO_WAY_LINKED_LIST_NODE[E_]

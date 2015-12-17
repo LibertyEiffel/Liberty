@@ -16,16 +16,26 @@ class ARRAY[E_]
 
 inherit
    COLLECTION[E_]
-      undefine default_create
+      redefine default_create
       end
    ARRAYED_COLLECTION[E_]
+      redefine default_create
+      end
+
 insert
    NATIVE_ARRAY_COLLECTOR[E_]
       undefine default_create, out_in_tagged_out_memory
+      redefine default_create
       end
 
 create {ANY}
    default_create, make, with_capacity, from_collection, manifest_creation
+
+feature {}
+   default_create
+      do
+         make(0, -1)
+      end
 
 feature {ANY}
    lower: INTEGER
