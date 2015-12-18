@@ -188,7 +188,9 @@ feature {}
       local
          item: TEMPLATE_LOOP_ITEM
       do
-         loop_items.push(item.new(loop_name.intern, raw_index, discard or else not resolver.while(loop_name)))
+         if resolver.start(loop_name) then
+            loop_items.push(item.new(loop_name.intern, raw_index, discard or else not resolver.while(loop_name)))
+         end
       end
 
    end_loop (loop_name: STRING)
@@ -198,6 +200,7 @@ feature {}
             append(loop_name)
             append(once "*)")
          elseif discard or else not resolver.while(loop_name) then
+            resolver.break(loop_name)
             loop_items.pop
          else
             raw_goto(loop_items.top.index)

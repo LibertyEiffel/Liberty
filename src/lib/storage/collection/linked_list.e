@@ -14,15 +14,22 @@ class LINKED_LIST[E_]
 
 inherit
    COLLECTION[E_]
-      undefine
-		  default_create
-	  end
+      redefine default_create
+      end
 
 insert
    LINKED_COLLECTION[E_]
+      redefine default_create
+      end
 
 create {ANY}
-	default_create, make, from_collection, manifest_creation
+   default_create, make, from_collection, manifest_creation
+
+feature {}
+   default_create
+      do
+         make
+      end
 
 feature {LINKED_LIST, ITERATOR_ON_LINKED_LIST}
    first_link: LINKED_LIST_NODE[E_]

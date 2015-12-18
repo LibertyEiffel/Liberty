@@ -236,7 +236,7 @@ feature {CLIENT_LIST}
             if tm.start_position.class_text = new_type.class_text then
                tm.specialize_in(new_type)
             else
-               --sedb_breakpoint
+               sedb_breakpoint
             end
             i := i + 1
          end

@@ -18,17 +18,26 @@ class RING_ARRAY[E_]
 
 inherit
    COLLECTION[E_]
+      redefine default_create
+      end
 
 insert
    ARRAYED_COLLECTION[E_]
-      redefine first, to_external
+      redefine first, to_external, default_create
       end
    NATIVE_ARRAY_COLLECTOR[E_]
       undefine out_in_tagged_out_memory
+      redefine default_create
       end
 
 create {ANY}
-   make, with_capacity, from_collection, manifest_creation
+   make, with_capacity, from_collection, manifest_creation, default_create
+
+feature {}
+   default_create
+      do
+         make(0, -1)
+      end
 
 feature {ANY}
    lower: INTEGER
