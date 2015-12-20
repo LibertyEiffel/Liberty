@@ -50,10 +50,6 @@ feature {ANY}
       do
       end
 
-   routine_then: EXPRESSION
-      do
-      end
-
    ensure_assertion: ENSURE_ASSERTION
       do
       end

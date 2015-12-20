@@ -5,6 +5,15 @@ class MOCK_TIMES_ANY
 
 inherit
    MOCK_TIMES
+      redefine
+         out_in_tagged_out_memory
+      end
+
+feature {ANY}
+   out_in_tagged_out_memory
+      do
+         tagged_out_memory.append(once "whenever")
+      end
 
 feature {MOCK_EXPECTATION}
    can_call: BOOLEAN True
@@ -21,7 +30,7 @@ feature {MOCK_EXPECTATION}
 
 end -- class MOCK_TIMES_ANY
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

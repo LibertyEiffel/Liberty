@@ -90,7 +90,7 @@ feature {CGI}
                end
             end
             if a_cgi.script_name.is_set then
-               uri.extend('/')
+               uri.extend_unless('/')
                uri.append(a_cgi.script_name.name)
             end
 

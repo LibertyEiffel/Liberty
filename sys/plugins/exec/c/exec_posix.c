@@ -221,7 +221,7 @@ void basic_exec_waitpid_init(EIF_OBJECT obj) {
 }
 
 EIF_INTEGER basic_exec_waitpid_fd(void) {
-   static init = 0;
+   static int init = 0;
    static struct sigaction act;
    if (!init) {
       init = 1;

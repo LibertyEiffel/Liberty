@@ -24,7 +24,7 @@ inherit
       end
    ARRAYED_COLLECTION[E_]
       redefine default_create
-          end
+      end
 
 insert
    NATIVE_ARRAY_COLLECTOR[E_]

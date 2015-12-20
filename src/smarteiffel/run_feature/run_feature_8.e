@@ -32,10 +32,6 @@ feature {ANY}
 
    routine_body: INSTRUCTION
 
-   routine_then: EXPRESSION
-      do
-      end
-
    is_deferred: BOOLEAN False
 
    side_effect_free: BOOLEAN False

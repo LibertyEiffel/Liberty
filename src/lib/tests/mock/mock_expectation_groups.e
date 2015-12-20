@@ -7,10 +7,10 @@ insert
    EIFFELTEST_TOOLS
    DISPOSABLE
 
-create {MOCK_EXPECTATIONS}
+create {MOCK_SCENARIO}
    make
 
-feature {MOCK_EXPECTATIONS}
+feature {MOCK_SCENARIO}
    expect (expectations: TRAVERSABLE[MOCK_EXPECTATION])
       require
          not is_replaying
@@ -25,11 +25,12 @@ feature {MOCK_EXPECTATIONS}
          groups.add_last(create {MOCK_EXPECTATION_GROUP}.make)
       end
 
-   replay_all
+   replay_all (missing_expectations: COLLECTION[MOCK_EXPECTATION])
       require
          not is_replaying
       do
          check_index.set_item(groups.lower)
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.replay_all(missing_expectations))
       ensure
          is_replaying
       end
@@ -39,22 +40,32 @@ feature {MOCK_EXPECTATIONS}
          Result := groups.valid_index(check_index.item)
       end
 
-feature {}
    check_all_done
       require
          is_replaying
       do
          message_assert(agent all_done_message, all_done)
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.stop_replay)
+         check_index.set_item(groups.lower - 1)
+      ensure
+         not is_replaying
       end
 
-feature {MOCK_EXPECTATIONS}
-   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: TUPLE): MOCK_EXPECTATION
+feature {MOCK_SCENARIO}
+   check_call (a_target: MOCK_OBJECT; a_feature_name: FIXED_STRING; a_arguments: MOCK_ARGUMENTS): MOCK_EXPECTATION
       require
          a_target /= Void
          a_feature_name.is_interned
          a_arguments /= Void
          is_replaying
       do
+         debug
+            io.put_string(once "  GROUPS: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          from
          until
             Result /= Void or else not groups.valid_index(check_index.item)
@@ -105,7 +116,7 @@ invariant
 
 end -- class MOCK_EXPECTATION_GROUPS
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

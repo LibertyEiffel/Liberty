@@ -69,6 +69,10 @@ feature {}
       do
          cpp.set_live_type(live_type)
          cpp.split_c_file_now(live_type.live_features.count)
+
+         echo.put_character('%T')
+         echo.put_string(live_type.name.to_string)
+
          define_agent_creation_for(live_type.type)
          if live_type.create_function_list /= Void then
             if live_type.create_function_list.is_empty then
@@ -78,8 +82,6 @@ feature {}
             end
          end
 
-         echo.put_character('%T')
-         echo.put_string(live_type.name.to_string)
          feature_count := live_type.live_features.count
          if live_type.precursor_run_features /= Void then
             feature_count := feature_count + live_type.precursor_run_features.count
@@ -1416,11 +1418,6 @@ feature {RUN_FEATURE_4}
          if visited.routine_body /= Void then
             cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
          end
-         if visited.routine_then /= Void then
-            function_body.append(once "/*then*/R=")
-            cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)
-            function_body.append(once ";%N")
-         end
          c_define_closing(visited)
          function_body.append(once "return R;%N")
          cpp.dump_pending_c_function(True)
@@ -1451,17 +1448,10 @@ feature {RUN_FEATURE_6}
             cpp.prepare_c_function
             define_c_signature(visited)
             c_define_opening(visited)
-            if visited.routine_body /= Void or else visited.routine_then /= Void then
+            if visited.routine_body /= Void then
                cpp.c_test_o_flag(visited)
                if visited.routine_body /= Void then
                   cpp.code_compiler.compile(visited.routine_body, visited.type_of_current)
-               end
-               if visited.routine_then /= Void then
-                  function_body.append(once "/*then*/")
-                  once_routine_pool.unique_result_in(function_body, visited.base_feature)
-                  function_body.extend('=')
-                  cpp.code_compiler.compile(visited.routine_then, visited.type_of_current)
-                  function_body.append(once ";%N")
                end
                cpp.c_test_o_flag_recursion(visited)
             end

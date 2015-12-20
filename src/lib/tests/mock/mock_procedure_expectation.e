@@ -1,24 +1,27 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-class MOCK_PROCEDURE_EXPECTATION
+class MOCK_PROCEDURE_EXPECTATION[T_ -> TUPLE]
 
 inherit
-   MOCK_EXPECTATION
+   MOCK_TYPED_EXPECTATION[T_]
+      export {MOCK_OBJECT}
+         call
+      end
 
 create {MOCK_EXPECT}
    make
 
 feature {}
-   do_call
+   do_call (args: MOCK_ARGUMENTS)
       do
          if side_effect /= Void then
-            side_effect.call([])
+            side_effect.call([args])
          end
       end
 
 feature {ANY}
-   with_side_effect, infix "~>" (a_side_effect: PROCEDURE[TUPLE]): like Current
+   with_side_effect, infix "~>" (a_side_effect: PROCEDURE[TUPLE[MOCK_ARGUMENTS]]): like Current
       require
          not ready
          not result_ready
@@ -33,12 +36,12 @@ feature {ANY}
       end
 
 feature {}
-   side_effect: PROCEDURE[TUPLE]
+   side_effect: PROCEDURE[TUPLE[MOCK_ARGUMENTS]]
    result_ready: BOOLEAN
 
 end -- class MOCK_PROCEDURE_EXPECTATION
 --
--- Copyright (c) 2013 Cyril ADRIAN <cyril.adrian@gmail.com>
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

@@ -370,7 +370,10 @@ feature {EFFECTIVE_ROUTINE}
                   effective_routine ?= af_current
                   -- Because the `default_rescue' itself can be deferred:
                   if effective_routine /= Void then
-                     default_rescue_compound := effective_routine.routine_body --| **** TODO: what about effective_routine.routine_then ???
+                     default_rescue_compound := effective_routine.routine_body
+                     check
+                        effective_routine.routine_then = Void
+                     end
                      af_current.collect(Current)
                   end
                end
@@ -457,7 +460,7 @@ feature {FEATURE_ACCUMULATOR}
          class_text.check_level_2(Current)
       end
 
-feature {CLASS_CHECKER, TYPE, IFTHENELSE_EXP}
+feature {COMMAND_LINE_TOOLS, TYPE}
    up_to_any_in (parent_list: FAST_ARRAY[TYPE])
          -- Add in `parent_list', a path to the ANY class, without including the ANY class itself.
          --|*** Wrong comment

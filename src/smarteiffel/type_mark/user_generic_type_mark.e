@@ -29,8 +29,15 @@ feature {ANY}
       end
 
    id: INTEGER
+      local
+         lt: LIVE_TYPE
       do
-         Result := type.live_type.id
+         lt := type.live_type
+         if lt /= Void then
+            Result := lt.id
+         else
+            sedb_breakpoint
+         end
       end
 
    accept (visitor: USER_GENERIC_TYPE_MARK_VISITOR)

@@ -14,11 +14,23 @@ feature {TEMPLATE_INPUT_STREAM}
       deferred
       end
 
+   start (key: STRING): BOOLEAN
+         -- True if start the loop
+      do
+         Result := True
+      end
+
    while (key: STRING): BOOLEAN
-         -- True if the template must loop, False otherwise
+         -- True while the template must loop, False otherwise
       require
          key /= Void
       deferred
+      end
+
+   break (key: STRING)
+         -- finish the loop
+      do
+         -- nothing by default
       end
 
 end -- class TEMPLATE_RESOLVER

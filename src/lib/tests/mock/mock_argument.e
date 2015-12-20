@@ -1,32 +1,20 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
--- See the Copyright notice at the end of this file.
---
-class EZMQ_POLL_ERROR
+deferred class MOCK_ARGUMENT
+   --
+   -- Tag type used by the mock framework
+   --
 
-inherit
-   EZMQ_POLL_INOUT
-
-create {ANY}
-   make
-
-feature {}
-   make (a_socket: like socket; a_action: like action)
-      require
-         a_socket /= Void
-         a_action /= Void
-      do
-         make0(a_socket, a_action, type.Pollerr)
-      ensure
-         socket = a_socket
-         action = a_action
-         type = type.Pollerr
+insert
+   ANY
+      undefine
+         out_in_tagged_out_memory
       end
 
-end -- class EZMQ_POLL_ERROR
+end -- class MOCK_ARGUMENT
 --
--- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
+-- Copyright (c) 2013-2015 Cyril ADRIAN <cyril.adrian@gmail.com>
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

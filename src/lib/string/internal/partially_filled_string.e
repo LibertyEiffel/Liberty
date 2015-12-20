@@ -45,6 +45,9 @@ feature {ANY}
                   save_i := i
                   state := 2
                   accu := 0
+               elseif c = '#' then
+                  tagged_out_memory.extend('#')
+                  state := 0
                else
                   tagged_out_memory.extend('#')
                   i := i - 1
@@ -179,6 +182,9 @@ feature {}
       do
          storage.add_last(a_argument)
          memory_ := Void
+         debug
+            debug_string := memory
+         end
       ensure
          storage.last = a_argument
       end

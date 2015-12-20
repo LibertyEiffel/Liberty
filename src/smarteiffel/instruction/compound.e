@@ -17,10 +17,10 @@ insert
 create {ANY}
    make_2, make_3, make_4, make_n
 
-create   {CODE_ACCUMULATOR}
+create {CODE_ACCUMULATOR}
    from_list
 
-create   {COMPOUND}
+create {COMPOUND}
    set_list
 
 feature {ANY}

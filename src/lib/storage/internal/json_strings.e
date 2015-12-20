@@ -162,10 +162,12 @@ feature {JSON_HANDLER}
       do
          str := a_string.intern
          Result := json_strings.fast_reference_at(str)
-         if Result = Void then
+         if Result = Void or else not Result.is_valid then
             create Result.from_string(str)
-            json_strings.add(Result, str)
+            json_strings.put(Result, str)
          end
+      ensure
+         Result.is_valid
       end
 
 feature {}
