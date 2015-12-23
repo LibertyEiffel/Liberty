@@ -134,7 +134,7 @@ feature {ANY} -- "Flag" enumeration
                 %               external %"plug_in%"%N%
                 %               alias %"{%N%
                 %                       location: %".%"%N%
-                %                       module: %"plugin%"%N%
+                %                       module_name: %"plugin%"%N%
                 %                       feature_name: %"#(2)%"%N%
                 %                       }%"%N%
                 %               end%N%N" # eiffel_name # c_string_name)
