@@ -114,7 +114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_ERR"
                        }"
                end
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_HUP"
                        }"
                end
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_IN"
                        }"
                end
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_NVAL"
                        }"
                end
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_OUT"
                        }"
                end
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_IO_PRI"
                        }"
                end

@@ -26,7 +26,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 
 feature {ANY} -- Wrapper
@@ -53,18 +53,42 @@ feature {ANY} -- Wrapper
 			("'#(1)', " # a_property.name).print_on(std_output)
 		end
 
-       emit_method (a_method: GI_FUNCTION_INFO) is 
+    emit_method (a_method: GI_FUNCTION_INFO) is 
     do
-			("'").print_on(std_output); 
-			(a_method.name).print_on(std_output); 
-			(once "',").print_on(std_output)
-		end
+        ("'").print_on(std_output); 
+        (a_method.name).print_on(std_output); 
+        (once "',").print_on(std_output)
+    end
 
-
-	eiffel_wrapper: ABSTRACT_STRING is
+	eiffel_wrapper: STRING is
 		do
-            Result := once "class " | eiffel_class_name(name,Void) | once "%N"
+            if is_deferred then Result := "deferred class "
+            else Result := "class "
+            end
+            Result.append(class_name) 
+            Result.append(once "%Ncreate {ANY} ")
+            Result.append(constructors.out)
+            Result.append(once "%Nfeature {ANY} -- Properties")
+            Result.append(once "%Nfeature {ANY} -- Methods")
+            Result.append(once "%Nfeature {ANY} -- Fields")
+            Result.append(once "%Nfeature {ANY} -- Signals")
+            Result.append(once "%Nfeature {ANY} -- Virtual functions")
+            Result.append(once "%Nfeature {ANY} -- Constants")
+            Result.append(once "%Nend -- class ")
+            Result.append(class_name)
 		end
+
+    suffix: STRING is ""
+
+feature {ANY} 
+    constructors: COLLECTION[GI_FUNCTION_INFO] 
+        -- The constructors of Current GI_OBJECT_INFO
+    do
+        if cached_constructors=Void then compute_constructors end
+        Result := cached_constructors 
+    end
+
+feature {} 
 
 feature {ANY}
 	type_name: FIXED_STRING is
@@ -276,6 +300,21 @@ feature {ANY}
 feature {} -- Implementation
 	stored_type_name: like type_name
 	stored_type_init: like type_init
+    cached_constructors: LINKED_LIST[GI_FUNCTION_INFO]
+
+    compute_constructors 
+    local mi: METHODS_ITER
+    do
+        create cached_constructors
+        from mi := methods_iter; mi.start; until mi.is_off 
+        loop
+            if mi.item.flags.is_is_constructor then
+                cached_constructors.add_last(mi.item)
+            end
+            mi.next
+        end
+    ensure not_void: cached_constructors/=Void
+    end
 
 feature {} -- Unwrapped 
 -- g_object_info_get_unref_function ()

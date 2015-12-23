@@ -14,7 +14,7 @@ create{GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
 feature {ANY} -- Wrapper
 	emit_wrapper is
 		do
-			("GI_CONSTANT: #(1)%N" # name).print_on(std_output)
+			("GI_FUNCTON: #(1)%N" # name).print_on(std_output)
 		end
 
 	eiffel_wrapper: ABSTRACT_STRING is
@@ -22,25 +22,9 @@ feature {ANY} -- Wrapper
 			Result := "-- GI_FUNCTION_INFO not_yet_implemented"
 		end
 
---   enum GInvokeError
--- 
---  typedef enum {
---    G_INVOKE_ERROR_FAILED,
---    G_INVOKE_ERROR_SYMBOL_NOT_FOUND,
---    G_INVOKE_ERROR_ARGUMENT_MISMATCH
---  } GInvokeError;
--- 
---    An error occuring while invoking a function via g_function_info_invoke().
--- 
---    G_INVOKE_ERROR_FAILED            invokation failed, unknown error.
---    G_INVOKE_ERROR_SYMBOL_NOT_FOUND  symbol couldn't be found in any of the libraries associated with the typelib of the
---                                     function.
---    G_INVOKE_ERROR_ARGUMENT_MISMATCH the arguments provided didn't match the expected arguments for the functions type
---                                     signature.
--- 
---    -----------------------------------------------------------------------------------------------------------------------
--- 
--- 
+    suffix: STRING is "_FUNCTION"
+
+
 feature {ANY}
 	symbol: FIXED_STRING is
 		-- The symbol of the function; the symbol is the name of the exported function, suitable to be used as an argument to g_module_symbol().
@@ -116,6 +100,25 @@ feature {ANY}
 	--                  NULL
 	--   error :        return location for detailed error information, or NULL
 	--   Returns :      TRUE if the function has been invoked, FALSE if an error occurred.
+--   enum GInvokeError
+-- 
+--  typedef enum {
+--    G_INVOKE_ERROR_FAILED,
+--    G_INVOKE_ERROR_SYMBOL_NOT_FOUND,
+--    G_INVOKE_ERROR_ARGUMENT_MISMATCH
+--  } GInvokeError;
+-- 
+--    An error occuring while invoking a function via g_function_info_invoke().
+-- 
+--    G_INVOKE_ERROR_FAILED            invokation failed, unknown error.
+--    G_INVOKE_ERROR_SYMBOL_NOT_FOUND  symbol couldn't be found in any of the libraries associated with the typelib of the
+--                                     function.
+--    G_INVOKE_ERROR_ARGUMENT_MISMATCH the arguments provided didn't match the expected arguments for the functions type
+--                                     signature.
+-- 
+--    -----------------------------------------------------------------------------------------------------------------------
+-- 
+-- 
 end -- class GI_FUNCTION_INFO
 	
 -- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>

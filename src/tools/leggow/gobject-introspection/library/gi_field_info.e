@@ -1,11 +1,11 @@
 class GI_FIELD_INFO
-	-- A GObject Introspection metadata representing a struct or a union.
+	-- A GObject Introspection metadata representing a field of a structure or of a union.
 
 inherit GI_BASE_INFO
 
 insert GIFIELDINFO_EXTERNALS
 
-create{GI_INFO_FACTORY, GI_OBJECT_INFO, GI_STRUCT_INFO, GI_UNION_INFO} from_external_pointer
+create {GI_INFO_FACTORY, GI_OBJECT_INFO, GI_STRUCT_INFO, GI_UNION_INFO} from_external_pointer
 
 feature {ANY} -- Wrapper
 	emit_wrapper is
@@ -17,6 +17,8 @@ feature {ANY} -- Wrapper
 		do
 			Result := " -- GI_FIELD_INFO not_yet_implemented"
 		end
+
+    suffix: STRING is ""
 
 
 feature {ANY} --

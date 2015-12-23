@@ -114,7 +114,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_IS_CONSTRUCTOR"
                        }"
                end
@@ -123,7 +123,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_IS_GETTER"
                        }"
                end
@@ -132,7 +132,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_IS_METHOD"
                        }"
                end
@@ -141,7 +141,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_IS_SETTER"
                        }"
                end
@@ -150,7 +150,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_THROWS"
                        }"
                end
@@ -159,7 +159,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_FUNCTION_WRAPS_VFUNC"
                        }"
                end

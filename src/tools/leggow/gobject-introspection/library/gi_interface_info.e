@@ -22,20 +22,20 @@ feature {ANY} -- Wrapper
 		end
 
 	eiffel_wrapper: ABSTRACT_STRING is
-        local an_eiffel_class_name: STRING
 		do
-            an_eiffel_class_name := eiffel_class_name(name,Void) -- Void means without any suffix
             -- Result could be a STRING like 
             -- create {STRING} Result.with_capacity(2048) 
             -- Or we could just issue Result:="" and let string manage all the additions.
             -- Actually since most -- it would be interesting to benchmark it
             Result := once "deferred class " 
-            | an_eiffel_class_name
+            | class_name
             | once "%N -- Wrapper for " | name 
             | once "%N -- Automatically made by Liberty Eiffel Generator of GObject Wrappers%N"
             | prerequisites_wrapper 
-            | once "end -- class " | an_eiffel_class_name
+            | once "end -- class " | class_name
 		end
+
+    suffix: STRING is "_INTERFACE"
 
     prerequisites_wrapper: STRING 
     local pi: PREREQUISITES_ITERATOR
@@ -44,7 +44,7 @@ feature {ANY} -- Wrapper
         Result := once "inherit %N"
         from pi:=prerequisites_iter; pi.start until pi.is_off loop
             Result.append(once "%T")
-            Result.append(eiffel_class_name(pi.item.name,Void))
+            Result.append(pi.item.class_name) 
             pi.next
         end
         Result.append(once "%N")

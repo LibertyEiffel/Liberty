@@ -66,7 +66,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_TEST_TRAP_INHERIT_STDIN"
                        }"
                end
@@ -75,7 +75,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_TEST_TRAP_SILENCE_STDERR"
                        }"
                end
@@ -84,7 +84,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_TEST_TRAP_SILENCE_STDOUT"
                        }"
                end

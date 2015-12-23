@@ -22,6 +22,8 @@ feature {ANY}
 		do
             Result := "unimplemented wrapper for GI_SIGNAL_INFO"
 		end
+
+    suffix: STRING is "_SIGNAL"
 		
 feature {ANY} 
 	flags: GSIGNAL_FLAGS_ENUM is

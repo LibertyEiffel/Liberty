@@ -19,13 +19,14 @@ feature {ANY} -- Wrapper
 			("GI_ARG_INFO: #(1)%N" # name).print_on(std_output)
 		end
 
-eiffel_wrapper: ABSTRACT_STRING is
+    eiffel_wrapper: ABSTRACT_STRING is
 		do
 			if name/=Void then
-				Result:=name|": "|"FOOBAR"
+				Result:=name | ": " | "FOOBAR"
 			end
 		end
 
+    suffix: STRING is "_ARGUMENT"
 feature {ANY}
 
    direction: GIDIRECTION_ENUM is

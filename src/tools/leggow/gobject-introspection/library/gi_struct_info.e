@@ -32,7 +32,7 @@ insert
 		redefine out_in_tagged_out_memory
 		end
 
-create{GI_INFO_FACTORY, WRAPPER} from_external_pointer
+create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
 
 feature {ANY} -- Wrapper
 	emit_wrapper is
@@ -45,6 +45,10 @@ feature {ANY} -- Wrapper
             Result := "class " | eiffel_class_name(name,Void) | "-- not_yet_implemented%Nend"
 		end
 
+    suffix: STRING is ""
+    -- Note: an empty suffix for structures and unions produces shorter names.
+    -- They usually are quite meaningful and not verbose as Gobject libraries
+    -- are usually well designed.
 
 feature {ANY} -- Fields
 	fields_lower: INTEGER is 0

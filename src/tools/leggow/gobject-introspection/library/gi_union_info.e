@@ -48,8 +48,13 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+			Result := " -- GI_UNION_INFO.eiffel_wrapper not_yet_implemented"
 		end
+
+    suffix: STRING is ""
+    -- Note: an empty suffix for structures and unions produces shorter names.
+    -- They usually are quite meaningful and not verbose as Gobject libraries
+    -- are usually well designed.
 
 feature {ANY} -- Fields
 	fields_lower: INTEGER is 0

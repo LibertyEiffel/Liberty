@@ -33,6 +33,23 @@ feature {ANY} -- Eiffel wrapper generation
 		ensure Result/=Void
 		end
 
+    class_name: FIXED_STRING is
+        -- The name of the Eiffel wrapper class
+    do
+        if stored_class_name = Void then
+            create stored_class_name.make_from_string(eiffel_class_name(name,suffix))
+        end
+        Result := stored_class_name
+    end
+
+    suffix: ABSTRACT_STRING 
+        -- The suffix of this class of wrappers
+        deferred
+        end
+
+feature {} -- Implementation
+    stored_class_name: FIXED_STRING
+
 feature {WRAPPER_HANDLER} -- Memory handling
    ref is
       local

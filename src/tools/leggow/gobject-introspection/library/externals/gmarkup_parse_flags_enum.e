@@ -82,7 +82,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_MARKUP_DO_NOT_USE_THIS_UNSUPPORTED_FLAG"
                        }"
                end
@@ -91,7 +91,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_MARKUP_IGNORE_QUALIFIED"
                        }"
                end
@@ -100,7 +100,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_MARKUP_PREFIX_ERROR_POSITION"
                        }"
                end
@@ -109,7 +109,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_MARKUP_TREAT_CDATA_AS_TEXT"
                        }"
                end

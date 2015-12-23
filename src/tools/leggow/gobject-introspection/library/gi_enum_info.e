@@ -23,6 +23,7 @@ feature {ANY} -- Wrapper
             Result := "class " | eiffel_class_name(name,"_ENUMERATION") | "%N%T-- not_yet_implemented%Nend"
 		end
 
+    suffix: STRING is "_ENUM" 
 
 feature {ANY} -- Enumeration values
 	lower: INTEGER is 0

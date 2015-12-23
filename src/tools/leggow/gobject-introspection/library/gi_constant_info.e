@@ -19,9 +19,11 @@ feature {ANY}
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			Result := "not_yet_implemented GI_CONSTANT_INFO"
-		end
-	
+			Result := "-- GI_CONSTANT_INFO.eiffel_wrapper not_yet_implemented "
+        end
+
+    suffix: STRING is "_CONSTANT" 
+
 feature {ANY}
 	   constant_type: GI_TYPE_INFO is
          -- The type of the constant

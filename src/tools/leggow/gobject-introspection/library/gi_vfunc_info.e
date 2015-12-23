@@ -20,8 +20,10 @@ feature {ANY}
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+		    Result := "-- GI_VFUNC_INFO.eiffel_wrapper not_yet_implemented"
 		end
+
+    suffix: STRING is "_VIRTUAL_FUNCTION"
 		
 feature {ANY}
 	flags: GIVFUNC_INFO_FLAGS_ENUM is

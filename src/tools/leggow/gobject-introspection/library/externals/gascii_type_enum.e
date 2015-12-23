@@ -194,7 +194,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_ALNUM"
                        }"
                end
@@ -203,7 +203,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_ALPHA"
                        }"
                end
@@ -212,7 +212,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_CNTRL"
                        }"
                end
@@ -221,7 +221,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_DIGIT"
                        }"
                end
@@ -230,7 +230,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_GRAPH"
                        }"
                end
@@ -239,7 +239,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_LOWER"
                        }"
                end
@@ -248,7 +248,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_PRINT"
                        }"
                end
@@ -257,7 +257,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_PUNCT"
                        }"
                end
@@ -266,7 +266,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_SPACE"
                        }"
                end
@@ -275,7 +275,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_UPPER"
                        }"
                end
@@ -284,7 +284,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "G_ASCII_XDIGIT"
                        }"
                end

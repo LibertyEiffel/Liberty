@@ -82,7 +82,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_VFUNC_MUST_CHAIN_UP"
                        }"
                end
@@ -91,7 +91,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_VFUNC_MUST_NOT_OVERRIDE"
                        }"
                end
@@ -100,7 +100,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_VFUNC_MUST_OVERRIDE"
                        }"
                end
@@ -109,7 +109,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
                external "plug_in"
                alias "{
                        location: "."
-                       module: "plugin"
+                       module_name: "plugin"
                        feature_name: "GI_VFUNC_THROWS"
                        }"
                end

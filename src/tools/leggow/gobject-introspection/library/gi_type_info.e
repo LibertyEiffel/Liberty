@@ -22,8 +22,10 @@ feature {ANY} -- Wrapper
 
 	eiffel_wrapper: ABSTRACT_STRING is
 		do
-			not_yet_implemented
+			Result := "-- GI_TYPE_INFO.eiffel_wrapper not_yet_implemented"
 		end
+
+    suffix: STRING is "_TYPE"
 
 feature {ANY}
 

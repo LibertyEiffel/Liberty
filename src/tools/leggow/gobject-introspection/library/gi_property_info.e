@@ -16,6 +16,8 @@ feature {ANY} -- Wrapper
 			Result := " -- GI_PROPERTY_INFO not_yet_implemented%N"
 		end
 
+    suffix: STRING is "_PROPERTY" 
+
 feature {ANY}
 	flags: GPARAM_FLAGS_ENUM is
 		-- The flags for this property info. See GParamFags for more information about possible flag values.
