@@ -67,7 +67,7 @@ void* se_malloc(size_t size) {
 }
 
 void* se_malloc_(size_t size, void*(*alloc)(size_t)) {
-  void *result = alloc(size);
+  void *result = malloc(size);
   se_check_malloc(result, "No more memory (malloc failed).\n");
   return result;
 }
@@ -81,7 +81,7 @@ void* se_calloc(size_t nmemb, size_t size) {
 }
 
 void* se_calloc_(size_t nmemb, size_t size, void*(*alloc)(size_t,size_t)) {
-  void *result = alloc(nmemb,size);
+  void *result = calloc(nmemb,size);
   se_check_malloc(result, "No more memory (calloc failed: %lu x %lu).\n", nmemb, size);
   return result;
 }
