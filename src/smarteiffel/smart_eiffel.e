@@ -437,6 +437,7 @@ feature {}
             loop
                lt := live_type_map.item(i)
                --if lt.at_run_time then
+               -- TODO: why is this if commented out? -> cleanup
                   lt.make_run_features
                --end
                i := i + 1
@@ -461,7 +462,7 @@ feature {}
 
          if nb_errors = 0 then
             safety_check
-            echo.print_count(once "Loaded Classe", ace.class_text_count)
+            echo.print_count(once "Loaded Classes", ace.class_text_count)
          end
       end
 
