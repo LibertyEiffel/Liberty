@@ -9,6 +9,9 @@ deferred class EXTERNAL_ROUTINE
 
 inherit
    E_ROUTINE
+      redefine
+         is_external
+      end
 
 feature {ANY}
    native: NATIVE
@@ -16,6 +19,11 @@ feature {ANY}
    alias_string: MANIFEST_STRING
 
    is_deferred: BOOLEAN False
+
+   is_external: BOOLEAN
+      do
+         Result := True
+      end
 
    frozen rescue_compound: INSTRUCTION
       do
