@@ -22,6 +22,9 @@ feature {ANY}
          assert(aux.deferred_ensure_counter = 0)
 
          x := aux.value + aux.value
+         -- TODO, Rmk: clarify, what ECMA specifies about contracts 
+         -- of attributes. Why did I once add " + aux.value"? 
+         
          -- aux.value cannot change between the two successive calls, 
          -- as no feature with side effects is called in between.
          -- Therefore the optimizer might choose to evaluate it (and 
