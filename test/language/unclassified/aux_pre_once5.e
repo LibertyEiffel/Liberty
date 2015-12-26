@@ -3,7 +3,7 @@
 --
 class AUX_PRE_ONCE5
 
-inherit
+insert
    EXCEPTIONS
 
 create {ANY}
