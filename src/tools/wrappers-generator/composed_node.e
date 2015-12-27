@@ -31,6 +31,13 @@ feature {ANY}
          Result := attribute_at(once U"members")
       end
 
+   is_to_be_emitted: BOOLEAN
+      do
+         Result := is_named and then (is_public or has_assigned_name) and then (global or else headers.has(c_file.c_string_name))
+      end
+
+
+
 end -- class COMPOSED_NODE
 -- Copyright 2008,2009,2010 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

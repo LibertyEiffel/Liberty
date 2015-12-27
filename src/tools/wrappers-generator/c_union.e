@@ -41,17 +41,19 @@ feature {ANY}
 
    wrapper_type: STRING
       do
-         not_yet_implemented
-      end
-
-   is_to_be_emitted: BOOLEAN
-      do
-         not_yet_implemented
-      end
+          debug
+              print(once "C_UNION.wrapper_type requires creation%
+              % of external/expanded types; currently returning an empty string")
+          end
+      not_yet_implemented
+  end
 
    emit_wrapper
+       -- Emit a reference wrapper for Current C structure.
+       -- A reference wrapper handles the structure as a memory area referred by a pointer.
+       -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
       do
-         log(once "C_UNION.emit_wrapper not yet implemented.%N")
+          log(once "C_UNION.emit_wrapper not yet implemented.%N")
       end
 
    suffix: STRING "_UNION"

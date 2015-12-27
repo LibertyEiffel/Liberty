@@ -62,11 +62,6 @@ feature {ANY}
          not_yet_implemented -- Result := eiffel_name
       end
 
-   is_to_be_emitted: BOOLEAN
-      do
-         Result := is_named and then (is_public or has_assigned_name) and then (global or else headers.has(c_file.c_string_name))
-      end
-
    emit_wrapper
          -- Emit a reference wrapper for Current C structure.
          -- A reference wrapper handles the structure as a memory area referred by a pointer.
