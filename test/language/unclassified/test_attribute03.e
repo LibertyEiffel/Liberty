@@ -27,6 +27,9 @@ feature {ANY}
          -- even system level if you want)
       ensure
          Result = 5
+         -- TODO: check what ECMA defines: When is the postcondition 
+         -- of an atterbute to be executed? Only for the case a 
+         -- Compound is given (i. e. it is initialized by the code above??
       end
          
 

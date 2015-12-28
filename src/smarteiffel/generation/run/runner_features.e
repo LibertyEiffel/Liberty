@@ -418,9 +418,6 @@ feature {}
                end
             end
          end
-         if a_routine.routine_then /= Void then
-            not_yet_implemented
-         end
       end
 
 feature {RUN_FEATURE_3}

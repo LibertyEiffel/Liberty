@@ -362,6 +362,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
 
 feature {FEATURE_STAMP, LIVE_TYPE}
    frozen brand_new_run_feature_for (t: TYPE; fn: FEATURE_NAME; is_precursor: BOOLEAN): RUN_FEATURE
+   -- TODO: translate comment
          --|*** Supprimer cette fonction intermediaire et transmettre is_precursor, ca devrait servir.
       require
          t /= Void
