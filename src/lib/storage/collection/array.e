@@ -414,10 +414,15 @@ feature {ANY} -- Implementation of deferred:
 
    slice (min, max: INTEGER): like Current
       do
-         create Result.make(lower, lower + max - min)
+         Result := standard_twin
+         
          if max >= min then
             -- Slice not empty
+            Result.make(min, max)
+            Result.reindex(lower)
             Result.storage.slice_copy(0, storage, min - lower, max - lower)
+         else
+            Result.with_capacity(0, lower)
          end
       end
 
