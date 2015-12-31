@@ -116,7 +116,7 @@ feature {ONCE_FUNCTION}
          --|*** We should also check that `target_type' has no expanded with side_effects...
          --|*** (Fred. + Dom. Oct 27th) ***
          if once_function.routine_then = Void then
-            if create_instruction ?:= once_function.routine_body then
+            if once_function.routine_body /= Void and create_instruction ?:= once_function.routine_body then
                create_instruction ::= once_function.routine_body
                if create_instruction.writable.is_result and then precomputable_routine_detector.visit_once_body(target_type, create_instruction) then
                   created_type := create_instruction.created_type(target_type)
