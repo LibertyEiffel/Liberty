@@ -89,8 +89,6 @@ feature {ANY}
    put_integer_16_native_endian (i: INTEGER_16)
          -- Write in the same order as the machine running this code.
          -- The result is machine dependant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer

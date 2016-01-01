@@ -191,9 +191,7 @@ EIF_INTEGER basic_exec_posix_get_character (EIF_INTEGER fd) {
 }
 
 void basic_exec_posix_put_character(EIF_INTEGER fd, EIF_CHARACTER c) {
-  char buf[1];
-  buf[0] = c;
-  check_write(1, write(fd, buf, 1));
+  check_write(1, write(fd, &c, 1));
 }
 
 void basic_exec_posix_wait_any(se_exec_data_t*data) {
