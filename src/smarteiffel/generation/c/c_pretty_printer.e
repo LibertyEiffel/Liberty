@@ -1681,6 +1681,7 @@ feature {ANY}
       require
          smart_eiffel.is_ready
          arguments_count > 0
+         current_call_has_arguments: stack_top.effective_arguments /= Void
       local
          i: INTEGER
       do
@@ -1702,6 +1703,7 @@ feature {ANY}
       require
          smart_eiffel.is_ready
          index >= 1
+         current_call_has_arguments: stack_top.effective_arguments /= Void
       local
          code: INTEGER; fal: FORMAL_ARG_LIST; type: TYPE
       do
@@ -1731,8 +1733,8 @@ feature {C_EXPRESSION_COMPILATION_MIXIN}
    args_compile_to_c_ith (type: TYPE; args: EFFECTIVE_ARG_LIST; fal: FORMAL_ARG_LIST; index: INTEGER)
          -- Produce C code for expression `index'.
       require
-         args.count = fal.count
-         index.in_range(1, args.count)
+         args /= Void and then args.count = fal.count
+         args /= Void and then index.in_range(1, args.count)
       local
          e: EXPRESSION; boolean_cast_flag: BOOLEAN
       do
