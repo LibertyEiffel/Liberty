@@ -20,14 +20,27 @@ feature {ANY}
          assert(aux.deferred_require_counter = 0)
          assert(aux.attribute_ensure_counter = 0)
          assert(aux.deferred_ensure_counter = 0)
+
          x := aux.value + aux.value
+         -- TODO, Rmk: clarify, what ECMA specifies about contracts 
+         -- of attributes. Why did I once add " + aux.value"? 
+         
+         -- aux.value cannot change between the two successive calls, 
+         -- as no feature with side effects is called in between.
+         -- Therefore the optimizer might choose to evaluate it (and 
+         -- therefore also its contracts) only once.
          if require_flag then
-            assert(aux.attribute_require_counter = 1)
+            label_assert("precondition evaluated (1 or 2 times)",
+                            aux.attribute_require_counter = 1
+                         or aux.attribute_require_counter = 2)
             assert(aux.deferred_require_counter = 0)
          end
          if ensure_flag then
-            assert(aux.attribute_ensure_counter = 1)
-            assert(aux.deferred_ensure_counter = 1)
+            label_assert("postcondition evaluated (1 or 2 times)",
+                            aux.attribute_ensure_counter = 1
+                         or aux.attribute_ensure_counter = 2)
+            label_assert("inherited postcondition evaluated (equal times)",
+                            aux.deferred_ensure_counter = aux.attribute_ensure_counter)
          end
       end
 

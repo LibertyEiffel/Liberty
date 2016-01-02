@@ -1,0 +1,13 @@
+se c -profile
+se c -no_gc
+se c -loop_check
+se c -invariant_check
+se c -ensure_check
+se c -require_check
+se c -flat_check
+se c -boost -bdw_gc
+se c -boost -debug
+se c -no_check -bdw_gc
+se c -no_split
+se c -no_check
+se c -all_check -bdw_gc

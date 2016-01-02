@@ -24,6 +24,11 @@ feature {ANY}
 
    is_attribute: BOOLEAN False
 
+   is_external: BOOLEAN
+      do
+         Result := False
+      end
+
    local_vars: LOCAL_VAR_LIST
 
    routine_body: INSTRUCTION

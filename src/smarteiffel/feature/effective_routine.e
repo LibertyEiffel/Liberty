@@ -75,6 +75,7 @@ feature {FEATURE_ACCUMULATOR}
       do
          Result := Precursor(other)
          if Result then
+            -- TODO: Rmk, 2015-12-31: check why we have this empty if clause...
             -- ***
          end
       end

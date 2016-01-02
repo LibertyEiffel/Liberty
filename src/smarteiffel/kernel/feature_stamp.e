@@ -59,6 +59,7 @@ feature {ANY}
                else
                   error_handler.append(anonymous_features.item(1).first_name.to_string)
                end
+               -- TODO: translate error message
                error_handler.append(once " non collectee dans ")
                error_handler.append(t.name.to_string)
                error_handler.append(once "... ca va planter.")

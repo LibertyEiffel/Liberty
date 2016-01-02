@@ -17,7 +17,7 @@ create {}
 
 -----------------------------------------------------------------------------
 
-feature
+feature {}
 
 -----------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ feature
       local
          point_array:     ARRAY[AUX_PN1]
       do
-         !!point_array.make (0, 1)
+         create point_array.make (0, 1)
          c_code_bug (point_array)
       end
 

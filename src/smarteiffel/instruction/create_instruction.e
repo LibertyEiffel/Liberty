@@ -113,12 +113,14 @@ feature {ANY}
          if call /= Void then
             c := call.simplify_arguments(type)
             if explicit_type = Void then
+               -- TODO: check why it is sufficient to do this 
+               -- "type_to_create"-stuff only if call /= Void
                type_to_create := writable.resolve_in(type)
             else
                type_to_create := explicit_type.resolve_in(type)
             end
             creation_proc ::= c.feature_stamp.anonymous_feature(type_to_create)
-            if creation_proc.routine_body = Void then
+            if creation_proc.routine_body = Void and not creation_proc.is_external then
                args := c.arguments
                if args = Void or else args.side_effect_free(type) then
                   c := Void

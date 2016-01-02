@@ -7,6 +7,8 @@ inherit
    EIFFELTEST_TOOLS
       redefine default_rescue
       end
+
+insert
    EXCEPTIONS
       --SZ:224:
       -- OK from debug_check to invariant_check
