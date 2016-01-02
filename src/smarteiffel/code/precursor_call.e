@@ -104,6 +104,16 @@ feature {ANY}
          check
             run_feature.type_of_current = type
          end
+
+         if (arg = Void) /= (specialized_anonymous_feature.arguments = Void) then
+            error_handler.add_position(start_position)
+            error_handler.add_position(run_feature.start_position)
+            error_handler.append(once "Actual argument list of Precursor call doesn't match the procedures signature.")
+            error_handler.print_as_error
+         end
+         -- TODO: check whether we have to check the types or the 
+         -- length of the argument lists here...
+         
          if arg /= arguments then
             Result := twin
             Result.set_arguments(arg)
