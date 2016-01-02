@@ -13,7 +13,12 @@
 <?php } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {?>
    <meta http-equiv="refresh" content="1; URL=/">
 <?php }?>
+<?php if(array_key_exists("history", $_GET)){?>
+   <title>ET: History(<?php echo $_GET["history"]; ?>) Liberty Eiffel automated tests (master)</title>
+<?php } else {?>
    <title>ET: Liberty Eiffel automated tests (master)</title>
+<?php }?>
+
    <link rel="stylesheet" href="style.css" type="text/css" />
 
    <style type="text/css">
