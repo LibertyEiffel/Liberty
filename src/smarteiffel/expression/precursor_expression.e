@@ -92,6 +92,7 @@ feature {ANY}
 
    collect (t: TYPE): TYPE
       do
+         -- TODO: translate comment
          --|*** Attention ici on fait simple : si le Precursor s'appelle
          --| lui-même, la liaison dynamique est suivie (-> rappel de la
          --| fonction redéfinie).
