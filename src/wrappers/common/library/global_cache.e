@@ -3,7 +3,7 @@ indexing
       "."
    copyright:
       "[
-               Copyright (C) 2008 Paolo Redaelli
+               Copyright (C) 2008-2016: Paolo Redaelli
 
                This library is free software; you can redistribute it and/or
                modify it under the terms of the GNU Lesser General Public License

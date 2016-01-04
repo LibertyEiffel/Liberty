@@ -1,7 +1,7 @@
 indexing
 	description: "An expanded G_OBJECT factory, useful as a local feature in classes that generates many kind of wrapper objects."
 	copyright: "[
-					Copyright (C) 2007 Paolo Redaelli
+					Copyright (C) 2007-2016: Paolo Redaelli
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

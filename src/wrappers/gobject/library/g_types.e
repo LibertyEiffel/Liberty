@@ -1,7 +1,7 @@
 indexing
 	description: "The numerical values of fundamental GTypes"
 	copyright: "[
-					Copyright (C) 2006 Paolo Redaelli, GTK+ team
+					Copyright (C) 2006-2016: Paolo Redaelli, GTK+ team
 					
 					This library is free software; you can redistribute it and/or
 					modify it under the terms of the GNU Lesser General Public License

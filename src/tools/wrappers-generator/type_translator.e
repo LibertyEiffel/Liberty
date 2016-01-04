@@ -286,7 +286,7 @@ invariant
    non_void_typedefs: typedefs /= Void
 
 end -- class TYPE_TRANSLATOR
--- Copyright 2008,2009 Paolo Redaelli
+-- Copyright (C) 2008-2016: ,2009 Paolo Redaelli
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
