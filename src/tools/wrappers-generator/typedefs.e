@@ -19,7 +19,7 @@ inherit
    LINKED_LIST[C_TYPEDEF]
 
 insert
-   SHARED_SETTINGS undefine copy, is_equal, out_in_tagged_out_memory end
+   SHARED_SETTINGS
    SHARED_COLLECTIONS 
 
 create {ANY}

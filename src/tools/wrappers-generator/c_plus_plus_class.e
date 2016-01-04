@@ -1,4 +1,6 @@
-class C_PLUS_PLUS_CLASS
+obsolete class C_PLUS_PLUS_CLASS
+
+   
 	-- A "Class" node of an XML file made by gccxml representing a C++ class.
 
 	-- Beware class names includes templates, so they may be like
@@ -84,11 +86,6 @@ feature {ANY}
 			
 		end
 	end
-
-	is_artificial: BOOLEAN is
-		do
-			Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
-		end
 
 	suffix: STRING is "_CLASS"
 	

@@ -31,7 +31,7 @@ feature {ANY}
          create Result.from_external_pointer(g_constant_info_get_type(handle))
          -- full onwership transferred to the client
       end
-      -- TODO:  value: should be GI_ARGUMENT but GIArgument is not documented
+      -- TODO:  value: should be GI_ARGUMENT but GIArgument is a union; wrappers-generator currently don't wrap unions.
       -- gint                g_constant_info_get_value           (GIConstantInfo *info,
       --                                                          GIArgument *value);
       --

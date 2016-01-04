@@ -5,22 +5,18 @@ class CPP_CLASS
    -- C++ and therefore also GccXml does not have the concept of template
    -- classes at parsed code level, only within source code.
 
+
 inherit
    C_TYPE
       -- strictly speaking a C++ class hardly is a C type. Here we use "C type" as a synonim for "C/C++ type" which includes the concept of class. Anyone wiser than me could fix this little note and point you to a more correct definition of this wide concept.
-   NAMED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
    CONTEXTED_NODE
    FILED_NODE
    IDENTIFIED_NODE
-   COMPOSED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
-   WRAPPER_CLASS
-      -- This node also has those fields: demangled, size, align, bases
+   COMPOSED_NODE -- hence NAMED, WRAPPER_CLASS
+    redefine
+        emit_wrapper, is_to_be_emitted
+    end
+   -- This node also has those fields: demangled, size, align, bases
 
 insert
    NAME_CONVERTER
@@ -94,11 +90,6 @@ feature {ANY}
                log(once "Struct #(1) skipped%N" # c_string_name )
             end
          end
-      end
-
-   is_artificial: BOOLEAN
-      do
-         Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
       end
 
    suffix: STRING "_CLASS"

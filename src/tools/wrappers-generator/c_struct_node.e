@@ -6,17 +6,10 @@ inherit
    IDENTIFIED_NODE
    CONTEXTED_NODE
    COMPOSED_NODE
-      -- hence also a STORABLE_NODE and a NAMED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
-   NAMED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
+      -- hence also a STORABLE_NODE, a NAMED_NODE
+      -- and a WRAPPER_CLASS
    FILED_NODE
       -- TODO: since it's both named and filed it could also be a MOVABLE_NODE
-   WRAPPER_CLASS
 
 insert
    NAME_CONVERTER
@@ -46,11 +39,13 @@ feature {ANY}
 
    c_type: STRING
       do
-         if is_artificial then
-            Result := once "struct"
-         else
-            Result := once ""
-         end
+          Result := once "struct"
+          -- Note: 2016-01-01 I cannot work out why this query depends on the value of the artificial attribute; I inspected the XML made by castxml but coulnd't find any feasible reason 
+          -- if is_artificial then
+          --    Result := once "struct"
+          -- else
+          --    Result := once ""
+          -- end
       end
 
    wrapper_type: STRING
@@ -62,112 +57,10 @@ feature {ANY}
          not_yet_implemented -- Result := eiffel_name
       end
 
-   emit_wrapper
-         -- Emit a reference wrapper for Current C structure.
-         -- A reference wrapper handles the structure as a memory area referred by a pointer.
-         -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
-      local
-         path: POSIX_PATH_NAME; filename: STRING
-      do
-         if is_to_be_emitted then
-            create path.make_from_string(directory)
-            path.add_last(eiffel_name.as_lower + once ".e")
-            filename := path.to_string
-            log(once "Struct #(1) to #(2) in #(3)%N" #
-			 c_string_name # eiffel_name # filename)
-
-            create {TEXT_FILE_WRITE} output.connect_to(filename)
-            emit_header
-            emit_members
-            emit_size
-            emit_footer
-            output.flush
-            output.disconnect
-         else
-            if is_anonymous then
-               log(once "Skipping anonymous structure at line #(1).%N" # line.out)
-            else
-               log(once "Struct #(1) skipped%N" # c_string_name)
-            end
-         end
-      end
-
-   emit_header
-         -- Append the header of Current structure to `buffer'.
-      do
-         buffer.append(automatically_generated_header)
-         buffer.append(deferred_class)
-         buffer.append(eiffel_name)
-         -- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
-         buffer.append(struct_inherits)
-         buffer.append(once "%T#(1)%N" # settings.typedefs)
-         buffer.print_on(output)
-      end
-
-   emit_members
-         -- local
-         --      members: UNICODE_STRING; members_iter: ITERATOR[UNICODE_STRING]; field: XML_COMPOSITE_NODE
-      do
-         if fields /= Void and then not fields.is_empty then
-            setters.reset
-            queries.reset
-            setters.append(setters_header)
-            queries.append(queries_header)
-            fields.for_each(agent {C_FIELD}.append_getter_and_setter(eiffel_name))
-            setters.print_on(output)
-            queries.print_on(output)
-         else
-            (once "%T-- Fieldless structure%N").print_on(output)
-			log(once "Struct #(1) have no fields%N" # c_string_name)
-         end
-      end
-
-   emit_size
-         -- Append to `output' the `struct_size' query for Current.
-      do
-         -- buffer.reset
-         buffer.append(once "feature {WRAPPER, WRAPPER_HANDLER} -- Structure size%N%
-                %       struct_size: like size_t %N%
-                %               external %"plug_in%"%N%
-                %               alias %"{%N%
-                %                       location: %".%"%N%
-                %                       module_name: %"plugin%"%N%
-                %                       feature_name: %"sizeof_#(1)%"%N%
-                %               }%"%N%
-                %               end%N%N" # c_string_name)
-
-         buffer.print_on(output)
-         sedb_breakpoint;
-
-         ("#define sizeof_#(1) (sizeof(#(2) #(1)))%N" # c_string_name # c_type).print_on(include)
-		 -- Paolo's Note: the ; at the beginning ensures that the expression is
-		 -- not taken as an argument for the previous argument-less command. It
-		 -- doesn't look readable as I would like.
-      end
-
-   emit_footer
-      do
-         buffer.append(once "end -- class ")
-         buffer.append(eiffel_name)
-         buffer.append_new_line
-         buffer.append(automatically_generated_header)
-         buffer.print_on(output)
-      end
-
-   is_artificial: BOOLEAN
-      do
-         Result := attributes.has(once U"artificial") and then attributes.at(once U"artificial").is_equal(once U"1")
-      end
-
    suffix: STRING "_STRUCT"
 
-   struct_inherits: STRING "%N%Ninsert STANDARD_C_LIBRARY_TYPES%N%N"
-         -- TODO: the above reference to STANDARD_C_LIBRARY_TYPES creates requires
-         -- to wrap standard C library using a file called
-         -- "standard-c-library.gcc-xml"; allow the user to specify its name,
-
 end -- class C_STRUCT_NODE
--- Copyright 2008,2009,2010 Paolo Redaelli
+-- Copyright 2008,2009,2010,2016 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)
