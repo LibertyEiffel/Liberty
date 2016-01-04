@@ -7,7 +7,7 @@ insert
    ARGUMENTS
 
 feature {ANY}
-   liberty_release: STRING "2015.dev (Alexander Graham Bell)"
+   liberty_release: STRING "2016.dev (Alexander Graham Bell)"
 
    copyright: ABSTRACT_STRING
       once
