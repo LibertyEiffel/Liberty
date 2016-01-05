@@ -146,6 +146,7 @@ feature {ANY}
                call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
                Result := call_1.specialize_and_check(type)
             elseif t = target and then feature_stamp = fs then
+               standard_check_export_and_obsolete_calls(type, target_type, af)
                Result := Current
             else
                res := twin
