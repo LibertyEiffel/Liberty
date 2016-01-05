@@ -294,7 +294,7 @@ feature {CLASS_CHECKER}
          end
       end
 
-feature {CLASS_CHECKER, EXTERNAL_TOOL}
+feature {COMMAND_LINE_TOOLS}
    set_short_or_class_check_flag
       do
          short_or_class_check_flag := True
