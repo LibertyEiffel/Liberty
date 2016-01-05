@@ -96,7 +96,7 @@ feature {ANY}
                if written_site = as_integer_general or else written_site = as_real_general or written_site = as_natural_general then
                   -- Relaxed rule to share more code in INTEGER_* / REAL_* / NATURAL_*.
                else
-                  fatal_error_for("Assignment of a reference type into an expanded type is not allowed. ",
+                  fatal_error_for("Assignment of a reference type into an expanded type is not allowed.",
                                   type, lt, rt)
                end
             end
