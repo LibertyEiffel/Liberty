@@ -45,7 +45,15 @@ feature {ANY}
          saf: like specialized_anonymous_feature; args: like arguments
       do
          saf := specialized_anonymous_feature.specialize_and_check(type)
-         if arguments /= Void then
+
+         if (arguments = Void) /= (specialized_anonymous_feature.arguments = Void) then
+            error_handler.add_position(start_position)
+            error_handler.add_position(specialized_anonymous_feature.start_position)
+            error_handler.append(once "Actual argument list of Precursor call doesn't match the procedures signature.")
+            error_handler.print_as_error
+         end
+
+         if arguments /= Void and (specialized_anonymous_feature.arguments /= Void) then
             args := arguments.specialize_and_check(type, saf, type, False)
          end
          Result := current_or_twin_init(saf, args)
