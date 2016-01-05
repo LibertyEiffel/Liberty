@@ -644,7 +644,7 @@ T0* se_evobt(T0* o, se_position position) {
 }
 
 void se_signal_handler(int sig) {
-  printf("Received signal %d.\n",sig);
+  printf("Received signal %d in '%s'.\n", sig, se_argv[0]);
 #ifdef SE_SEDB
   signal(sig,se_signal_handler);
   sedb_signal_handler(sig);
