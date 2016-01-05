@@ -2,7 +2,10 @@
 -- See the full copyright at the end.
 --
 class BAD_ATTRIBUTE4
-
+-- Goal: test whether a reference to a self-initialized attribute in 
+-- its own precondition is reported as error.
+-- only relevant after bug #43266 https://savannah.gnu.org/bugs/index.php?43266 is implemented
+   
 insert
    EIFFELTEST_TOOLS
 
