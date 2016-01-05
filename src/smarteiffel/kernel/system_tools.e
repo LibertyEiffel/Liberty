@@ -907,23 +907,6 @@ feature {C_PRETTY_PRINTER}
          tmp_file_read.is_connected
       end
 
-   reset_paths
-      do
-         path_id := 0
-      end
-
-   next_path
-      do
-         path_h_memory.clear_count
-         path_c_memory.clear_count
-         path_make_memory.clear_count
-         path_id := path_id + 1
-         if path_id > 99 then
-            error_handler.append("Too many root classes")
-            error_handler.print_as_fatal_error
-         end
-      end
-
    strip_executable: STRING
       local
          executable_name: STRING
@@ -1012,6 +995,23 @@ feature {C_PRETTY_PRINTER, COMPILE}
          end
       ensure
          Result.has_suffix(make_suffix)
+      end
+
+   reset_paths
+      do
+         path_id := 0
+      end
+
+   next_path
+      do
+         path_h_memory.clear_count
+         path_c_memory.clear_count
+         path_make_memory.clear_count
+         path_id := path_id + 1
+         if path_id > 99 then
+            error_handler.append("Too many root classes")
+            error_handler.print_as_fatal_error
+         end
       end
 
 feature {NATIVE_PLUG_IN}
