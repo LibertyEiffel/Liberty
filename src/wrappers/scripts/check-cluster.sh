@@ -84,7 +84,7 @@ check_class () {
     if se class_check $CLASS >$RESULT 2>&1
     then 
         echo correct.
-        echo >>$CORRECT_CLASSES $CLASS 
+        WRONG_CLASSES="$CLASS $WRONG_CLASSES"
     else 
         echo contains errors.
         cat $RESULT
@@ -110,7 +110,7 @@ check_classes () {
         then 
             echo Using parallel command
             changed_classes_first | 
-            parallel --no-notice class_check {} 
+            parallel --no-notice class_check {} 2>&1
         else
             for CLASS in $( changed_classes_first ) # $( wrong_and_correct_classes )
             do

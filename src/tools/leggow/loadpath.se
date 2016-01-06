@@ -1,4 +1,4 @@
 .
-./gobject-introspection/loadpath.se
+./externals/
 ../wrappers-generator/loadpath.se
 

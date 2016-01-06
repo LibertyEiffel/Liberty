@@ -5,7 +5,7 @@ deferred class XML_REG_EXEC_CTXT_STRUCT
 insert STANDARD_C_LIBRARY_TYPES
 
 	LIBXML2_TYPES
-	-- Fieldless structure
+	-- Fieldless struct
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"

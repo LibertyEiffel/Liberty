@@ -76,7 +76,7 @@ feature {ANY}
          buffer.append(eiffel_name)
          buffer.append_new_line
          emit_description_on(class_descriptions.reference_at(c_string_name), buffer)
-         buffer.append(once "%Ninsert ENUM%N%Ncreation {ANY} default_create%N")
+         buffer.append(once "%Ninsert ENUM%N%Ncreate {ANY} default_create%N")
          buffer.print_on(output)
       end
 
