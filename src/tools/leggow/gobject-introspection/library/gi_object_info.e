@@ -12,7 +12,10 @@ class GI_OBJECT_INFO
 
 inherit 
 	GI_CLASS -- providing properties access
-		redefine emit_wrapper, eiffel_wrapper end
+		redefine 
+            emit_wrapper 
+        end
+
 
 	GI_REGISTERED_TYPE_INFO
 		redefine 

@@ -1,4 +1,4 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GPARAM_SPEC_TYPE_INFO_STRUCT
 
@@ -212,5 +212,5 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                end
 
 end -- class GPARAM_SPEC_TYPE_INFO_STRUCT
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.

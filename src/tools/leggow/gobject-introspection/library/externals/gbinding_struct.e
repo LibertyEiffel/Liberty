@@ -1,11 +1,11 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class GBINDING_STRUCT
 
 insert STANDARD_C_LIBRARY_TYPES
 
 	GOBJECT_INTROSPECTION_TYPES
-	-- Fieldless structure
+	-- Fieldless struct
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"
@@ -17,5 +17,5 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                end
 
 end -- class GBINDING_STRUCT
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.

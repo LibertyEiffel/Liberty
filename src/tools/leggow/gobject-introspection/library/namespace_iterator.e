@@ -42,7 +42,6 @@ feature {ANY}
 		end
 
 	item: GI_BASE_INFO is
-        local ptr: POINTER
 		do
 			-- Too much verbose
             debug 

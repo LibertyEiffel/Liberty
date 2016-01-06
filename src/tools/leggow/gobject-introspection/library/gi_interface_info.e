@@ -6,7 +6,7 @@ class GI_INTERFACE_INFO
 	-- constants, virtual functions and prerequisites.
 
 inherit 
-	GI_CLASS redefine emit_wrapper, eiffel_wrapper end
+	GI_CLASS redefine emit_wrapper end
 	GI_REGISTERED_TYPE_INFO
 
 insert 

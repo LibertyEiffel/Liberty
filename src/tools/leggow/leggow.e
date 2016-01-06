@@ -47,7 +47,7 @@ feature {} -- program entry point
 				-- repository.dependencies(library_name).for_each (agent (a_dep: FIXED_STRING) do log.info.put_line(a_dep) end) 
 
 				-- repository.namespace_iterator(library_name).for_each(agent {GI_BASE_INFO}.emit_wrapper)
-				repository.namespace_iterator(library_name).for_each(agent emit)
+				repository.namespace_iterator(library_name).for_each(agent emit(?))
 			else
 				log.info.put_line("#(1) library not found."#library_name)
 				die_with_code(1)
