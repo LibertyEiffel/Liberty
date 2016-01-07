@@ -224,14 +224,14 @@ feature {ANY} -- Emitting "flag" enumeration
       do
          validity_query.reset_with(once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
-            %            Result := (a_value & (")
+            %            Result := (a_value=0 or (a_value & (")
       ensure
          validity_query_grew: validity_query.count > old validity_query.count
       end
 
    finalize_flag_validity_query
       do
-         validity_query.append(once ")).to_boolean%N%T%Tend%N%N")
+         validity_query.append(once ")).to_boolean)%N%T%Tend%N%N")
       ensure
          validity_query_grew: validity_query.count > old validity_query.count
       end
