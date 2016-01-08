@@ -192,6 +192,7 @@ function printSubStages($dir){
       if(file_exists("$stagedir/result.txt")){
          $cur_res = file_get_contents("$stagedir/result.txt");
          $diff = 0;
+         echo "<!-- XXX $stagedir $stageout_cfg " . substr($stagedir, 0, strlen($stageout_cfg) - 1) . strlen($stageout_cfg) . " -->";
          if (substr($stagedir, 0, strlen($stageout_cfg) - 1) == $stageout_cfg){
             $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root) - 1);
             if (file_exists("$last_stage_dir/result.txt")) {
