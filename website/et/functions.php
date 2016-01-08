@@ -40,18 +40,27 @@ function htmlForRetVal($in)
   }
 }
 
-function htmlForResult($in)
+function htmlForResult($in, $diff)
 {
   $in = trim($in);
+
+  if($diff == 0){
+    $diff_str = "";
+  }elseif($diff > 0){
+    $diff_str = ", <span style=\"color:red\">+" . $diff . "</span>";
+  }else{
+    $diff_str = ", <span style=\"color:green\">" . $diff . "</span>";
+  }
+
   if(strlen($in) == 0){
     return "<span style=\"color:blue\">active</span>";
   }elseif($in < 0){
     $nb_warn = 0 - $in;
-    return "<span style=\"color:orange\">warn (" . $nb_warn . ")</span>";
+    return "<span style=\"color:orange\">warn (" . $nb_warn . $diff_str . ")</span>";
   }elseif($in == 0){
     return "<span style=\"color:green\">ok</span>";
   }else{
-    return "<span style=\"color:red\">failed (" . $in . ")</span>";
+    return "<span style=\"color:red\">failed (" . $in . $diff_str . ")</span>";
   }
 }
 
