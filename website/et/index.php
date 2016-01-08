@@ -48,7 +48,7 @@ if (array_key_exists('history', $_GET)){
    $history = 0;
 }
 
-$last_stage_root = $stageout_cfg . "_" . $history + 1;
+$last_stage_root = $stageout_cfg . "_" . ($history + 1);
 $current_stage_root = $stageout;
 
 if (file_exists($activeJsonObj)) {
@@ -172,6 +172,9 @@ function filedatecompare($a,$b){
 function printSubStages($dir){
    global $img;
    global $stage;
+   global $stageout_cfg;
+   global $current_stage_root;
+   global $last_stage_root;
 
    $substageNo = 0;
 
@@ -192,14 +195,11 @@ function printSubStages($dir){
       if(file_exists("$stagedir/result.txt")){
          $cur_res = file_get_contents("$stagedir/result.txt");
          $diff = 0;
-!-- XXX /home/et/Liberty/website/et/stages_1/class check ANY  /home/et/Liberty/website/et/stages_1/class check AN0 --> 
-echo "<!-- XXX '$stagedir' " . $stageout_cfg . " = " . substr($stagedir, 0, strlen($current_stage_root)) . " - " . strlen($stageout_cfg) . " -->";
          if (substr($stagedir, 0, strlen($current_stage_root)) == $current_stage_root){
-            $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root) - 1);
-echo "<!-- XXX2 $last_stage_dir -->";
+            $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root));
             if (file_exists("$last_stage_dir/result.txt")) {
                $last_res = file_get_contents("$last_stage_dir/result.txt");
-               $diff = abs($last_res) - abs($cur_res);
+               $diff = abs($cur_res) - abs($last_res);
             }
             else{
              echo "<!-- $last_stage_dir " . file_exists("$last_stage_dir/result.txt") . " $last_res -->";
