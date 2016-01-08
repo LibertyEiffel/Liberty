@@ -192,9 +192,11 @@ function printSubStages($dir){
       if(file_exists("$stagedir/result.txt")){
          $cur_res = file_get_contents("$stagedir/result.txt");
          $diff = 0;
-echo "<!-- XXX $stagedir $stageout_cfg " . substr($stagedir, 0, strlen($current_stage_root) - 1) . strlen($stageout_cfg) . " -->";
-         if (substr($stagedir, 0, strlen($current_stage_root) - 1) == $current_stage_root){
+!-- XXX /home/et/Liberty/website/et/stages_1/class check ANY  /home/et/Liberty/website/et/stages_1/class check AN0 --> 
+echo "<!-- XXX '$stagedir' " . $stageout_cfg . " = " . substr($stagedir, 0, strlen($current_stage_root)) . " - " . strlen($stageout_cfg) . " -->";
+         if (substr($stagedir, 0, strlen($current_stage_root)) == $current_stage_root){
             $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root) - 1);
+echo "<!-- XXX2 $last_stage_dir -->";
             if (file_exists("$last_stage_dir/result.txt")) {
                $last_res = file_get_contents("$last_stage_dir/result.txt");
                $diff = abs($last_res) - abs($cur_res);
