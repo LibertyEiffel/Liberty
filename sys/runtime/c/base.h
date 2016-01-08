@@ -69,9 +69,11 @@
                 defined(__WIN32__) || defined(__TOS_WIN__) || defined(_MSC_VER))
 #  define WIN32 1
 #endif
-#ifdef SE_THREAD
 #ifdef WIN32
 #  include <windows.h>
+#endif
+#ifdef SE_THREAD
+#ifdef WIN32
 #  define TLS(type) __declspec(thread) type
 #else
 #  ifndef O_RDONLY
