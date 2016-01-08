@@ -189,14 +189,17 @@ function printSubStages($dir){
       $stage = $parentStage . "_" . $substageNo;
 
       $stageName = file_get_contents("$stagedir/stagename.txt");
+      if(file_exists("$stagedir/result.txt")){
          $cur_res = file_get_contents("$stagedir/result.txt");
-         if(file_exists("$stagedir/result.txt")){
          $diff = 0;
          if (substr($stagedir, 0, strlen($stageout_cfg) - 1) == $stageout_cfg){
             $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root) - 1);
             if (file_exists("$last_stage_dir/result.txt")) {
                $last_res = file_get_contents("$last_stage_dir/result.txt");
                $diff = abs($last_res) - abs($cur_res);
+            }
+            else{
+             echo "<!-- $last_stage_dir " . file_exists("$last_stage_dir/result.txt") . " $last_res -->";
             }
          }
 
