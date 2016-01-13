@@ -1,5 +1,5 @@
 /*
-** This file have been created by wrapper-generator.
+** This file has been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
 #define keymap_entry_struct_get_type(a_structure) (((struct _keymap_entry*) (a_structure))->type)
