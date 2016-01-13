@@ -28,6 +28,7 @@ class LEGGOW
 
 insert
 	-- COMMAND_LINE_TOOLS
+    LEGGOW_OPTIONS
 	LOGGING
 
 create {} main
@@ -83,39 +84,6 @@ feature	{} -- Command line arguments
 		end
 	end
 
-
-	library_argument: COMMAND_LINE_TYPED_ARGUMENT[FIXED_STRING]
-	once
-		Result := options_factory.positional_string ("library","the name of the library to wrap")
-	end
-
-	all_dependecies_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
-	once
-		Result:=options_factory.option_boolean("r","recursive","Recursively build wrappers for all the required libraries")
-	end
-
-	directory_option: COMMAND_LINE_TYPED_ARGUMENT[DIRECTORY] 
-	once
-		Result := options_factory.option_directory ("d","directory", "output directory","Set the base directory of the wrappers clusters")
-	end
-
-	help_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
-	once
-		Result := options_factory.option_boolean("h", "help","Display this help information and exit")
-	end
-
-	verbose_option: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
-	once
-		Result:= options_factory.option_boolean("v","verbose","Display detailed information about what leggow is doing")
-	end
-
-	option_version: COMMAND_LINE_TYPED_ARGUMENT[BOOLEAN]
-	once
-		Result := options_factory.option_boolean(Void, "version"," Display version and exit)")
-	end
-
-	options_factory: COMMAND_LINE_ARGUMENT_FACTORY
-
 feature {ANY} -- Program wide enviroment
 	repository: GI_REPOSITORY is
 		-- The Glib-Object Introspection repository of known libraries/namespaces.
@@ -159,5 +127,3 @@ end -- class LEGGOW
 -- Copyright(C) 2003-2006: INRIA - LORIA (INRIA Lorraine) - I.U.T. Charlemagne - University of Nancy 2 - FRANCE
 --
 -- Authors: Dominique COLNET, Philippe RIBET, Cyril ADRIAN, Vincent CROIZIER, Frederic MERIZEN
---
--- ------------------------------------------------------------------------------------------------------------------------------

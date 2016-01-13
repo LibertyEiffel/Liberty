@@ -8,10 +8,10 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (do_not_use_this_unsupported_flag_low_level | 
+            Result := (a_value=0 or (a_value & (do_not_use_this_unsupported_flag_low_level | 
 				ignore_qualified_low_level | 
 				prefix_error_position_low_level | 
-				treat_cdata_as_text_low_level)).to_boolean
+				treat_cdata_as_text_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

@@ -14,12 +14,47 @@ create{GI_REPOSITORY, GI_INFO_FACTORY, WRAPPER} from_external_pointer
 feature {ANY} -- Wrapper
 	emit_wrapper is
 		do
-			("GI_FUNCTON: #(1)%N" # name).print_on(std_output)
+			("GI_FUNCTION: #(1)%N" # name).print_on(std_output)
 		end
 
-	eiffel_wrapper: ABSTRACT_STRING is
+	eiffel_wrapper: STRING is
+        local i: like lower
 		do
-			Result := "-- GI_FUNCTION_INFO not_yet_implemented"
+            Result := eiffel_feature(name)  --no, name is not right
+
+            if has_arguments then
+                debug 
+                    log.info.put_line("#(1) arguments from #(2) to #(3)" # & count # & lower # & upper)
+                end
+                    
+                Result.append(once "(")
+                from i:=lower until i>upper-1
+                loop -- iterate from first to next to second-last element
+                    log.info.put_line("arg #(1): #(2)" # &i # & item(i))
+                    Result.append(item(i).eiffel_wrapper)
+                    Result.append(once "; ")
+                    i:=i+1
+                end
+                Result.append(last.eiffel_wrapper)
+                Result.append(once ")")
+            end
+            if is_query then
+                Result.append(once ": #(1) -- C type #(2)" # return_type.eiffel_wrapper # name)
+            end
+            Result.append(once "    -- TODO: add a description")
+            Result.append("[
+                
+                external "plug_in"
+                alias "{
+                    location: "."
+                    module_name: "plugin"
+                    feature_name: "#(1)"
+                    }"
+                end
+
+            ]" # symbol)
+
+            -- "-- GI_FUNCTION_INFO not_yet_implemented"
 		end
 
     suffix: STRING is "_FUNCTION"
@@ -28,8 +63,10 @@ feature {ANY} -- Wrapper
 feature {ANY}
 	symbol: FIXED_STRING is
 		-- The symbol of the function; the symbol is the name of the exported function, suitable to be used as an argument to g_module_symbol().
+    local ptr: POINTER
 	do
-		create Result.from_external(g_function_info_get_symbol(handle))
+        ptr:=g_function_info_get_symbol(handle)
+		create Result.from_external(ptr)
 	ensure not_void: Result/=Void
 	end
    
@@ -43,7 +80,9 @@ feature {ANY}
 		-- GI_FUNCTION_THROWS         the function may throw an error.
 	do
 		Result.set(g_function_info_get_flags(handle))
-	end
+    rescue
+        std_error.put_line("Invalid gi function info flags enum value: #(1), valid values are #(2), #(3) #(4) #(5) #(6) #(7)%N " # & Result.value # & Result.is_constructor_low_level   # & Result.is_getter_low_level    # & Result.is_method_low_level    # & Result.is_setter_low_level    # & Result.throws_low_level# &  Result.wraps_vfunc_low_level)
+    end
 
 	property: GI_PROPERTY_INFO is
 		-- The property associated with this GIFunctionInfo. Only
@@ -62,7 +101,7 @@ feature {ANY}
 	vfunc: GI_VFUNC_INFO is
 		-- The virtual function associated with this GIFunctionInfo.
 		-- Only GIFunctionInfo with the flag GI_FUNCTION_WRAPS_VFUNC has a
-		-- virtual function set. For other cases, NULL will be returned.
+		-- virtual function set. For other cases, Void will be returned.
 	local res: POINTER
 	do
 		res := g_function_info_get_vfunc(handle)

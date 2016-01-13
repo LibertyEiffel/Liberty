@@ -8,11 +8,11 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (exists_low_level | 
+            Result := (a_value=0 or (a_value & (exists_low_level | 
 				is_dir_low_level | 
 				is_executable_low_level | 
 				is_regular_low_level | 
-				is_symlink_low_level)).to_boolean
+				is_symlink_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

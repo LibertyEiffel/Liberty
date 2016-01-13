@@ -8,7 +8,7 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (g_irepository_load_flag_lazy_low_level)).to_boolean
+            Result := (a_value=0 or (a_value & (g_irepository_load_flag_lazy_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

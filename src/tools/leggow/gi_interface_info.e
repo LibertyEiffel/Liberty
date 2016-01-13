@@ -32,6 +32,11 @@ feature {ANY} -- Wrapper
             | once "%N -- Wrapper for " | name 
             | once "%N -- Automatically made by Liberty Eiffel Generator of GObject Wrappers%N"
             | prerequisites_wrapper 
+            | properties_wrapper
+            | methods_wrapper
+            | signals_wrapper
+            | virtual_functions_wrapper
+            | constants_wrapper
             | once "end -- class " | class_name
 		end
 
@@ -50,6 +55,41 @@ feature {ANY} -- Wrapper
         Result.append(once "%N")
     end
 
+    properties_wrapper: STRING 
+    local a_partial_result: STRING -- In order to ease some pressure from the compiler a differently named reference to the accumulator result of this query is passed to the agent.
+    do
+        a_partial_result := once "feature {ANY} -- Properties"
+        properties_iter.for_each (agent (a_property: GI_PROPERTY_INFO) do
+            a_partial_result.append(a_property.eiffel_wrapper)
+        end)
+        Result := a_partial_result
+        -- could also be implemented like:
+        -- from pi:=properties_iter; pi.start until pi.is_off loop
+        --  Result.append(pi.item.eiffel_wrapper)
+        --  pi.next
+        -- end
+            
+    end
+
+    methods_wrapper: STRING 
+    do
+        Result := once "feature {ANY} -- Methods"
+    end
+
+    signals_wrapper: STRING 
+    do
+        Result := once "feature {ANY} -- Signals"
+    end
+
+    virtual_functions_wrapper: STRING 
+    do
+        Result := once "feature {ANY} -- Deferred features (virtual functions)"
+    end
+
+    constants_wrapper: STRING 
+    do
+        Result := once "feature {ANY} -- Constants"
+    end
 
 feature {ANY} -- Interface prerequisites
 	prerequisites_lower: INTEGER is 0
@@ -195,7 +235,7 @@ feature {ANY} -- Constants
 --    Returns : the GIStructInfo or NULL. Free it with g_base_info_unref() when done. [transfer full]
 end 
 
--- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013, 2016 Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

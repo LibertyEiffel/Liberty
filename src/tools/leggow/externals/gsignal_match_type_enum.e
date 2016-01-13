@@ -8,12 +8,12 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (closure_low_level | 
+            Result := (a_value=0 or (a_value & (closure_low_level | 
 				data_low_level | 
 				detail_low_level | 
 				func_low_level | 
 				id_low_level | 
-				unblocked_low_level)).to_boolean
+				unblocked_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

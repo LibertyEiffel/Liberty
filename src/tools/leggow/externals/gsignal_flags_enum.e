@@ -8,7 +8,7 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (action_low_level | 
+            Result := (a_value=0 or (a_value & (action_low_level | 
 				deprecated_low_level | 
 				detailed_low_level | 
 				must_collect_low_level | 
@@ -16,7 +16,7 @@ feature {ANY} -- Validity
 				no_recurse_low_level | 
 				run_cleanup_low_level | 
 				run_first_low_level | 
-				run_last_low_level)).to_boolean
+				run_last_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

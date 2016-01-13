@@ -8,7 +8,7 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (alnum_low_level | 
+            Result := (a_value=0 or (a_value & (alnum_low_level | 
 				alpha_low_level | 
 				cntrl_low_level | 
 				digit_low_level | 
@@ -18,7 +18,7 @@ feature {ANY} -- Validity
 				punct_low_level | 
 				space_low_level | 
 				upper_low_level | 
-				xdigit_low_level)).to_boolean
+				xdigit_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

@@ -7,12 +7,23 @@ deferred class GI_CALLABLE_INFO
 
 inherit
    GI_BASE_INFO
+   redefine
+       from_external_pointer
+   end
+
    TRAVERSABLE[GI_ARG_INFO]
    undefine copy, is_equal, out_in_tagged_out_memory
       end
 
 insert
    GICALLABLEINFO_EXTERNALS
+
+feature 
+    from_external_pointer (a_ptr: POINTER) 
+    do
+        handle:=a_ptr
+        create cached_items.make(lower,upper)
+    end
 
 feature {ANY}
 --	eiffel_wrapper: ABSTRACT_STRING is
@@ -43,12 +54,11 @@ feature {ANY}
    is_query: BOOLEAN is 
          -- Does Current callable return some values?
       do
-		  Result := return_type.tag.is_void
-		  not_yet_implemented
+		  Result := not return_type.tag.is_void
 	  end
 
 
-   caller_owns: BOOLEAN is
+   caller_owns_result: BOOLEAN is
          -- DOes the caller owns the return value of this callable?
          -- Note: the library actually uses a GITransfer enum which contains a
          -- list of possible transfer values but it just use TRUE if the caller
@@ -124,7 +134,12 @@ feature {ANY} -- Indexing over arguments
 
    item (i: INTEGER): GI_ARG_INFO is
       do
-         create Result.from_external_pointer(g_callable_info_get_arg(handle, i))
+          -- To comply with postconditions like item(upper)=last we shall cache the result.
+          Result := cached_items.item(i)
+          if Result=Void then
+              create Result.from_external_pointer(g_callable_info_get_arg(handle, i))
+              cached_items.put(Result,i)
+          end
          -- Obtain information about a particular argument of this callable. Full ownership transfer full.
       end
 
@@ -139,6 +154,9 @@ feature {ANY} -- Indexing over arguments
 feature {} -- Unwrapperd 
 
 	--   g_callable_info_load_return_type and g_callable_info_load_arg () should not be necessary neither useful in Eiffel.
+
+feature {} -- Implementation
+   cached_items: ARRAY[GI_ARG_INFO] 
 
 end -- class GI_CALLABLE_INFO
 

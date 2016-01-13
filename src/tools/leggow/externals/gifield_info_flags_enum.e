@@ -8,8 +8,8 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (readable_low_level | 
-				writable_low_level)).to_boolean
+            Result := (a_value=0 or (a_value & (readable_low_level | 
+				writable_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

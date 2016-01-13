@@ -124,16 +124,13 @@ feature {} -- Unwrapped
       --   info :    a GIArgInfo
       --   Returns : index of the GDestroyNotify argument or -1 if there is none
       --
-      --  g_arg_info_get_type ()
-      --
-      -- GITypeInfo *        g_arg_info_get_type                 (GIArgInfo *info);
-      --
-      --   Obtain the type information for info.
-      --
-      --   info :    a GIArgInfo
-      --   Returns : the GIArgInfo, free it with g_base_info_unref() when done. [transfer full]
-      --
-      --   -----------------------------------------------------------------------------------------------------------------------
+
+    type: GI_TYPE_INFO 
+        -- Type information of Current argument
+    do
+        create Result.from_external_pointer(g_arg_info_get_type(handle))
+    ensure Result/=Void
+    end
       --
       --  g_arg_info_load_type ()
       --
@@ -151,7 +148,7 @@ feature {} -- Unwrapped
 
 end -- class GI_ARG_INFO
 
--- Copyright (C) 2013 Paolo Redaelli <paolo.redaelli@gmail.com>
+-- Copyright (C) 2013, 2016 Paolo Redaelli <paolo.redaelli@gmail.com>
 -- 
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public License

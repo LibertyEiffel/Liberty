@@ -15,7 +15,7 @@ inherit
       -- redefine is_equal end
 
 insert
-   -- ANY undefine copy end
+   LEGGOW_OPTIONS
    LOGGING undefine copy, is_equal end
    GIBASEINFO_EXTERNALS -- undefine copy, is_equal end
    GITYPEINFO_EXTERNALS -- undefine copy, is_equal end
@@ -37,7 +37,11 @@ feature {ANY} -- Eiffel wrapper generation
         -- The name of the Eiffel wrapper class
     do
         if stored_class_name = Void then
-            create stored_class_name.make_from_string(eiffel_class_name(name,suffix))
+            if add_prefix_option.is_set then
+                create stored_class_name.make_from_string(eiffel_class_name(add_prefix_option.item|name,suffix))
+            else
+                create stored_class_name.make_from_string(eiffel_class_name(name,suffix))
+            end
         end
         Result := stored_class_name
     end
@@ -83,7 +87,7 @@ feature {ANY}
 		 if ptr.is_not_null then
 			 create Result.from_external(ptr)
 		 else 
-			 Result := (once "horror vacui").intern
+			 Result := (once "horror vacui fixme").intern
 		 end
 	 end
 

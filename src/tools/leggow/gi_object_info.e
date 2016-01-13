@@ -16,7 +16,6 @@ inherit
             emit_wrapper 
         end
 
-
 	GI_REGISTERED_TYPE_INFO
 		redefine 
 			type_name,
@@ -30,7 +29,6 @@ insert
 		end
 
 create {GI_INFO_FACTORY, WRAPPER} from_external_pointer
-
 
 feature {ANY} -- Wrapper
 	emit_wrapper is
@@ -64,15 +62,34 @@ feature {ANY} -- Wrapper
     end
 
 	eiffel_wrapper: STRING is
+        local res: STRING
 		do
             if is_deferred then Result := "deferred class "
             else Result := "class "
             end
+            res:=Result -- to be fed to agents
             Result.append(class_name) 
             Result.append(once "%Ncreate {ANY} ")
             Result.append(constructors.out)
             Result.append(once "%Nfeature {ANY} -- Properties")
-            Result.append(once "%Nfeature {ANY} -- Methods")
+            --properties_iter.for_each(agent (a_property: GI_PROPERTY_INFO) do
+            --    res.append(once "-- Property #(1)%N"#a_property.name)
+            --    if a_property.flags.is_readable then
+            --        -- emit getter query
+            --    end
+            --    if a_property.flags.is_writable then
+            --        -- emit setter command
+            --    end
+            --end)
+            
+            Result.append(once "%Nfeature {ANY} -- Methods%N")
+            methods_iter.for_each(agent (a_method: GI_FUNCTION_INFO) do
+                -- Methods includes plain methods, constructors, getters and setters. Setters and getters are already wrapped as properties
+                if a_method.flags.is_is_method or a_method.flags.is_is_constructor then
+                    res.append(a_method.eiffel_wrapper)
+                end
+            end)
+
             Result.append(once "%Nfeature {ANY} -- Fields")
             Result.append(once "%Nfeature {ANY} -- Signals")
             Result.append(once "%Nfeature {ANY} -- Virtual functions")

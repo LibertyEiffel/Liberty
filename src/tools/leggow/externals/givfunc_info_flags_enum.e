@@ -8,10 +8,10 @@ create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (must_chain_up_low_level | 
+            Result := (a_value=0 or (a_value & (must_chain_up_low_level | 
 				must_not_override_low_level | 
 				must_override_low_level | 
-				throws_low_level)).to_boolean
+				throws_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters
