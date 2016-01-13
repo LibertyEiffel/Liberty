@@ -26,6 +26,12 @@ feature {ANY}
 
    out_in_tagged_out_memory
       do
+         if counter_ready then
+            tagged_out_memory.extend('(')
+            counter.out_in_tagged_out_memory
+            tagged_out_memory.extend(')')
+            tagged_out_memory.extend(' ')
+         end
          target.out_in_tagged_out_memory
          tagged_out_memory.extend('.')
          tagged_out_memory.append(feature_name)
@@ -96,11 +102,13 @@ feature {}
       require
          can_call(target, feature_name, a_arguments)
       do
-         do_call(a_arguments)
          debug
-            io.put_string(once "Calling ")
-            io.put_line(out)
+            io.put_string(once " => Calling ")
+            io.put_string(out)
+            io.put_string(once " with arguments ")
+            io.put_line(a_arguments.out)
          end
+         do_call(a_arguments)
          counter.call
       end
 
@@ -116,7 +124,7 @@ feature {MOCK_EXPECTATION_GROUP}
    all_called
       do
          counter.all_called
-         target.replay(Void)
+         target.stop_replay
       end
 
    all_done_message_in (message: STRING)
@@ -156,6 +164,8 @@ feature {}
       end
 
 invariant
+   target /= Void
+   feature_name.is_interned
    arg_matchers /= Void
    ready implies counter_ready
 

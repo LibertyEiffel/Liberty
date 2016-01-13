@@ -25,6 +25,10 @@ feature {MOCK_EXPECTATION_GROUPS}
                                        expectations.add(exps, expectation.target)
                                     end
                                     exps.add_last(expectation)
+                                    debug
+                                       io.put_string(once "Expect: ")
+                                       io.put_line(expectation.out)
+                                    end
                                  end (?))
       ensure
          a_expectations.for_all(agent {MOCK_EXPECTATION}.ready)
@@ -39,6 +43,13 @@ feature {MOCK_EXPECTATION_GROUPS}
          exps: FAST_ARRAY[MOCK_EXPECTATION]
          i: INTEGER
       do
+         debug
+            io.put_string(once "   GROUP: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          exps := expectations.fast_reference_at(a_target)
          if exps /= Void then
             from
@@ -47,6 +58,10 @@ feature {MOCK_EXPECTATION_GROUPS}
                Result /= Void or else i > exps.upper
             loop
                Result := exps.item(i)
+               debug
+                  io.put_string(once "        > ")
+                  io.put_line(Result.out)
+               end
                if not Result.can_call(a_target, a_feature_name, a_arguments) then
                   Result := Void
                end
@@ -61,8 +76,16 @@ feature {MOCK_EXPECTATION_GROUPS}
       do
          expectations.for_each(agent (mexps: COLLECTION[MOCK_EXPECTATION]; exps: FAST_ARRAY[MOCK_EXPECTATION])
                                   do
-                                     exps.for_each(agent {MOCK_EXPECTATION}.replay(mexps))
+                                     exps.for_each(agent {MOCK_EXPECTATION}.start_replay(mexps))
                                   end (missing_expectations, ?))
+      end
+
+   stop_replay
+      do
+         expectations.for_each(agent (exps: FAST_ARRAY[MOCK_EXPECTATION])
+                                  do
+                                     exps.for_each(agent {MOCK_EXPECTATION}.stop_replay)
+                                  end (?))
       end
 
    all_called

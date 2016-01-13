@@ -23,6 +23,7 @@ create {INSPECT_STATEMENT}
 feature {EFFECTIVE_ARG_LIST_0}
    visit_effective_arg_list_0 (visited: EFFECTIVE_ARG_LIST_0)
       do
+         trace.append(once "()")
       end
 
 feature {EFFECTIVE_ARG_LIST_N}
@@ -30,14 +31,17 @@ feature {EFFECTIVE_ARG_LIST_N}
       local
          i: INTEGER
       do
+         trace.extend('(')
          from
             i := visited.lower
          until
             not trace_result or else i > visited.upper
          loop
             visited.item(i).accept(Current)
+            trace.extend(',')
             i := i + 1
          end
+         trace.extend(')')
       end
 
 feature {COMPOUND}
@@ -93,7 +97,7 @@ feature {ASSIGNMENT_ATTEMPT}
    visit_assignment_attempt (visited: ASSIGNMENT_ATTEMPT)
       do
          visited.left_side.accept(Current)
-         trace.append(once "?=")
+         trace.append(if visited.forced_flag then once "::=" else once "?=" end)
          visited.right_side.accept(Current)
       end
 
@@ -176,14 +180,7 @@ feature {FAKE_ARGUMENT}
 feature {C_INLINE}
    visit_c_inline (visited: C_INLINE)
       do
-         if visited.is_c_inline_c then
-            trace.append(once "c_inline_c")
-         else
-            trace.append(once "c_inline_h")
-         end
-         trace.extend('(')
-         trace.append(visited.c_code)
-         trace.extend(')')
+         trace_result := False
       end
 
 feature {MANIFEST_STRING_INSPECT_STATEMENT}
@@ -203,8 +200,9 @@ feature {FUNCTION_CALL_0}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             trace.append(once "()")
          end
@@ -215,8 +213,9 @@ feature {FUNCTION_CALL_1}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             visited.arguments.accept(Current)
          end
@@ -227,8 +226,9 @@ feature {FUNCTION_CALL_N}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             visited.arguments.accept(Current)
          end
@@ -239,8 +239,9 @@ feature {PROCEDURE_CALL_0}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             trace.append(once "()")
          end
@@ -251,8 +252,9 @@ feature {PROCEDURE_CALL_1}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             visited.arguments.accept(Current)
          end
@@ -263,8 +265,9 @@ feature {PROCEDURE_CALL_N}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             visited.arguments.accept(Current)
          end
@@ -315,8 +318,7 @@ feature {ADDRESS_OF}
 feature {DYNAMIC_DISPATCH_TEMPORARY1}
    visit_dynamic_dispatch_temporary1 (visited: DYNAMIC_DISPATCH_TEMPORARY1)
       do
-         trace.append(once "ddt1@")
-         visited.to_pointer.append_in(trace)
+         trace_result := False
       end
 
 feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
@@ -328,7 +330,7 @@ feature {DYNAMIC_DISPATCH_TEMPORARY1_ID}
 feature {DYNAMIC_DISPATCH_TEMPORARY2}
    visit_dynamic_dispatch_temporary2 (visited: DYNAMIC_DISPATCH_TEMPORARY2)
       do
-         visited.dynamic_dispatch_temporary1.accept(Current)
+         trace_result := False
       end
 
 feature {CHARACTER_CONSTANT}
@@ -358,8 +360,7 @@ feature {NULL_POINTER}
 feature {INTERNAL_LOCAL2}
    visit_internal_local2 (visited: INTERNAL_LOCAL2)
       do
-         trace.append(once "il2@")
-         visited.to_pointer.append_in(trace)
+         trace_result := False
       end
 
 feature {NATIVE_ARRAY_ITEM}
@@ -368,6 +369,7 @@ feature {NATIVE_ARRAY_ITEM}
          if visited.array /= Void then
             visited.array.accept(Current)
          end
+         trace.extend('@')
          visited.index.accept(Current)
       end
 
@@ -381,6 +383,7 @@ feature {NON_VOID_NO_DISPATCH}
    visit_non_void_no_dispatch (visited: NON_VOID_NO_DISPATCH)
       do
          trace.append(visited.dynamic_type.name.to_string)
+         trace.extend('.')
          trace.append(visited.feature_stamp.name.to_string)
       end
 
@@ -463,8 +466,9 @@ feature {}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
             visited.arguments.accept(Current)
          end
@@ -616,8 +620,9 @@ feature {}
       do
          visited.target.accept(Current)
          if trace_result then
-            trace.extend('.')
+            trace.extend(':')
             trace.append(visited.target.resolve_in(type).name.to_string)
+            trace.extend('.')
             trace.append(visited.feature_stamp.name.to_string)
          end
       end
@@ -810,7 +815,7 @@ feature {INSPECT_STATEMENT}
       end
 
 feature {}
-   type: TYPE;
+   type: TYPE
          -- The classic context TYPE.
 
    trace: STRING

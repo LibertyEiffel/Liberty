@@ -9,8 +9,6 @@ insert
 feature {JSON_HANDLER}
    create_array: JSON_DATA
       deferred
-      ensure
-         Result /= Void
       end
 
    add_to_array (array, value: JSON_DATA)
@@ -20,10 +18,14 @@ feature {JSON_HANDLER}
       deferred
       end
 
+   finalize_array (array: JSON_DATA)
+      require
+         array /= Void
+      deferred
+      end
+
    create_object: JSON_DATA
       deferred
-      ensure
-         Result /= Void
       end
 
    add_to_object (object, key, value: JSON_DATA)
@@ -31,6 +33,12 @@ feature {JSON_HANDLER}
          object /= Void
          key /= Void
          value /= Void
+      deferred
+      end
+
+   finalize_object (object: JSON_DATA)
+      require
+         object /= Void
       deferred
       end
 

@@ -291,7 +291,7 @@ feature {CODE, EFFECTIVE_ARG_LIST}
                       exceptions.System_level_type_error)
                inspect_statement.set_else_compound(feature_name.start_position, run_time_error_instruction)
             end
-         end
+      end
          from
             code_accumulator_index := code_accumulator_index + 1
          until

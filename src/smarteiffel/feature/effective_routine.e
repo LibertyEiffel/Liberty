@@ -177,9 +177,9 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
       local
          lv_memory: like local_vars; clv_memory: like closure_local_vars
          fa_memory: like arguments; cfa_memory: like closure_arguments
-         rb: like routine_body; rt: like routine_then; rc: like rescue_compound; ra: like require_assertion
+         rb: like routine_body; rc: like rescue_compound; ra: like require_assertion
          ea: like ensure_assertion
-         restype, rttype: TYPE
+         ass: ASSIGNMENT; r: RESULT; c: COMPOUND
       do
          lv_memory := smart_eiffel.specializing_feature_local_var_list
          clv_memory := smart_eiffel.specializing_closure_local_var_lists
@@ -198,34 +198,29 @@ feature {FEATURE_STAMP, PRECURSOR_CALL}
                ea := ensure_assertion.specialize_and_check(type)
             end
          end
-         if routine_body /= Void then
-            rb := routine_body.specialize_and_check(type)
-         end
          if routine_then /= Void then
-            rt := routine_then.specialize_and_check(type)
-            rttype := rt.collect(type)
-            restype := result_type.resolve_in(type)
-            if rttype.can_be_assigned_to(restype) then
-               assignment_handler.collect_normal(rttype, restype)
+            -- Back to canonical code: replace the "then" by an assignment to Result
+            create r.make(start_position)
+            r.set_type_mark_memory(result_type)
+            create ass.make(r, routine_then)
+            if routine_body = Void then
+               rb := ass
             else
-               error_handler.add_position(rt.start_position)
-               error_handler.add_position(result_type.start_position)
-               error_handler.append("Cannot assign this expression to Result. The expression type is ")
-               error_handler.add_type(rttype)
-               error_handler.append(" but the Result type is ")
-               error_handler.add_type(restype)
-               error_handler.append(".")
-               error_handler.print_as_fatal_error
+               create c.make_2(routine_body, ass)
+               rb := c
             end
+            rb := rb.specialize_and_check(type)
+         elseif routine_body /= Void then
+            rb := routine_body.specialize_and_check(type)
          end
          if rescue_compound /= Void then
             rc := rescue_compound.specialize_and_check(type)
          end
-         if rb = routine_body and then rt = routine_then and then rc = rescue_compound and then ra = require_assertion and then ea = ensure_assertion then
+         if rb = routine_body and then routine_then = Void and then rc = rescue_compound and then ra = require_assertion and then ea = ensure_assertion then
             Result := Current
          else
             Result := twin
-            Result.init(local_vars, closure_local_vars, closure_arguments, rb, rt, rc)
+            Result.init(local_vars, closure_local_vars, closure_arguments, rb, Void, rc)
             Result.set_require_assertion(ra)
             Result.set_ensure_assertion(ea)
          end

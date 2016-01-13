@@ -406,7 +406,9 @@ feature {ACE_HANDLER}
          executable_names.add_last(executable_name_memory)
          root_index := root_class_names.upper
 
-         echo.put_string(once "Root class: ")
+         echo.put_string(once "Root class #")
+         echo.put_string(root_class_names.upper.to_string)
+         echo.put_string(once ": ")
          echo.put_line(rcn.to_string)
       ensure
          root_class_name = rcn
@@ -422,8 +424,8 @@ feature {ACE_HANDLER}
       do
          root_procedure_names.put(rp, root_index)
 
-         echo.put_string(once "Root procedure for ")
-         echo.put_line(root_class_names.upper.to_string)
+         echo.put_string(once "Root procedure #")
+         echo.put_string(root_class_names.upper.to_string)
          echo.put_string(once ": ")
          echo.put_line(rp)
       ensure
@@ -1412,6 +1414,11 @@ feature {}
       local
          mhf: MEMORY_HANDLER_FACTORY
       do
+         if not skip1('(') then
+            error_handler.add_position(current_position)
+            error_handler.append(em27)
+            error_handler.print_as_warning
+         end
          if a_manifest_string(True) then
             inspect
                buffer
@@ -1426,10 +1433,15 @@ feature {}
                error_handler.append(once "Invalid collect value: must be either yes, no, or %"bdw%"")
                error_handler.print_as_fatal_error
             end
-         elseif a_yes_no_all then
+         elseif a_yes_no_all_inside then
             -- nothing to do
          else
             mhf.set_no_gc
+         end
+         if not skip1(')') then
+            error_handler.add_position(current_position)
+            error_handler.append(em28)
+            error_handler.print_as_warning
          end
       end
 
@@ -1864,6 +1876,18 @@ feature {}
             error_handler.append(em27)
             error_handler.print_as_warning
          end
+         Result := a_yes_no_all_inside
+         if not skip1(')') then
+            error_handler.add_position(current_position)
+            error_handler.append(em28)
+            error_handler.print_as_warning
+         end
+      end
+
+   a_yes_no_all_inside: BOOLEAN
+         -- Return True for a notation like "(yes)" or for a notation
+         -- like "(all)". Return False for a notation like "(no)".
+      do
          if a_keyword(fz_no) then
          elseif a_keyword(fz_all) or else a_keyword(fz_yes) then
             Result := True
@@ -1872,11 +1896,6 @@ feature {}
             error_handler.append(once "At this point in the ACE file, you are supposed to %
                                  %say %"yes%", %"no%", or %"all%".")
             error_handler.print_as_fatal_error
-         end
-         if not skip1(')') then
-            error_handler.add_position(current_position)
-            error_handler.append(em28)
-            error_handler.print_as_warning
          end
       end
 

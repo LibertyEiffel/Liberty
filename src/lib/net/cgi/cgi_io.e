@@ -17,7 +17,7 @@ feature {ANY}
 
    set_output (a_output: like output) assign output
       require
-         a_output.is_connected
+         a_output /= Void
       do
          output_memory.set_item(a_output)
       ensure
@@ -29,9 +29,6 @@ feature {}
       once
          create Result.set_item(std_output)
       end
-
-invariant
-   output.is_connected
 
 end -- class CGI_IO
 --

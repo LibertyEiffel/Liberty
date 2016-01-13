@@ -8,8 +8,16 @@ inherit
 
 feature {ANY}
    out_in_tagged_out_memory
+      local
+         s: STRING
       do
-         tagged_out_memory.extend('?')
+         s := once ""
+         s.copy(generating_type)
+         s.remove_prefix(once "MOCK_ANY[")
+         s.remove_suffix(once "]")
+         tagged_out_memory.extend('{')
+         tagged_out_memory.append(s)
+         tagged_out_memory.extend('}')
       end
 
 feature {MOCK_EXPECTATION}

@@ -40,12 +40,15 @@ feature {MOCK_SCENARIO}
          Result := groups.valid_index(check_index.item)
       end
 
-feature {}
    check_all_done
       require
          is_replaying
       do
          message_assert(agent all_done_message, all_done)
+         groups.for_each(agent {MOCK_EXPECTATION_GROUP}.stop_replay)
+         check_index.set_item(groups.lower - 1)
+      ensure
+         not is_replaying
       end
 
 feature {MOCK_SCENARIO}
@@ -56,6 +59,13 @@ feature {MOCK_SCENARIO}
          a_arguments /= Void
          is_replaying
       do
+         debug
+            io.put_string(once "  GROUPS: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          from
          until
             Result /= Void or else not groups.valid_index(check_index.item)

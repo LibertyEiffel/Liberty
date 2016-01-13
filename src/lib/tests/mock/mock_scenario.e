@@ -37,6 +37,18 @@ feature {EIFFELTEST_TOOLS}
          Result := groups.is_replaying
       end
 
+   check_all_done
+      require
+         is_replaying
+      local
+         mem: MEMORY
+      do
+         groups.check_all_done
+         mem.forbid_gc_before_exit
+      ensure
+         not is_replaying
+      end
+
 feature {ANY}
    missing_expectations: TRAVERSABLE[MOCK_EXPECTATION]
 
@@ -48,6 +60,13 @@ feature {MOCK_EXPECT}
          a_arguments /= Void
          is_replaying
       do
+         debug
+            io.put_string(once "SCENARIO: Looking up {")
+            io.put_string(a_target.generating_type)
+            io.put_string(once "}.")
+            io.put_string(a_feature_name)
+            io.put_line(a_arguments.out)
+         end
          Result := groups.check_call(a_target, a_feature_name, a_arguments)
       ensure
          Result /= Void implies Result.can_call(a_target, a_feature_name, a_arguments)

@@ -14,7 +14,7 @@ Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
 Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
 D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
     http://smarteiffel.loria.fr
-C Compiler options used: -pipe -O2 -fno-gcse -Werror
+C Compiler options used: -pipe -O2 -fno-gcse
 */
 
 #ifdef __cplusplus
@@ -2664,9 +2664,27 @@ else{
 return R;
 }/*--*/
 
-/*HASHED_SET[STRING]*/void r1035manifest_put(T1035*C,T2 a1,T0*a2){
-/*RF3:add*/r1035add(C,/*`element'*/a2);
-/*:RF3*/}/*--*/
+/*HASHED_SET[STRING]*/T6 r1035safe_equal(T0*a1,T0*a2){
+T6 R=0;
+T0*_e_type=(void*)0;
+if((/*`e1'*/a1)==((void*)(/*`e2'*/a2))){
+R=((T6)(1));
+}
+else{
+if((/*`e1'*/a1)==((void*)((void*)0))){
+}
+else{
+if((/*`e2'*/a2)==((void*)((void*)0))){
+}
+else{
+if((_e_type)==((void*)((void*)0))){
+R=((T6)(/*RF4:is_equal*/r7is_equal(((T7*)/*`e1'*/a1),/*`e2'*/a2)/*:RF4*/));
+}
+}
+}
+}
+return R;
+}/*--*/
 
 /*HASHED_SET[STRING]*/void r1035add(T1035*C,T0*a1){
 /*[INTERNAL_C_LOCAL list*/
@@ -2701,27 +2719,9 @@ _node=/*RF4:new_node*/r1035new_node(C,/*`e'*/a1,/*RF8:item*/((/*RF2:buckets*/(C)
 /*RF3:next_generation*/r1035next_generation(C);
 /*:RF3*/}/*--*/
 
-/*HASHED_SET[STRING]*/T6 r1035safe_equal(T0*a1,T0*a2){
-T6 R=0;
-T0*_e_type=(void*)0;
-if((/*`e1'*/a1)==((void*)(/*`e2'*/a2))){
-R=((T6)(1));
-}
-else{
-if((/*`e1'*/a1)==((void*)((void*)0))){
-}
-else{
-if((/*`e2'*/a2)==((void*)((void*)0))){
-}
-else{
-if((_e_type)==((void*)((void*)0))){
-R=((T6)(/*RF4:is_equal*/r7is_equal(((T7*)/*`e1'*/a1),/*`e2'*/a2)/*:RF4*/));
-}
-}
-}
-}
-return R;
-}/*--*/
+/*HASHED_SET[STRING]*/void r1035manifest_put(T1035*C,T2 a1,T0*a2){
+/*RF3:add*/r1035add(C,/*`element'*/a2);
+/*:RF3*/}/*--*/
 
 /*HASHED_SET[STRING]*/T2 r1035prime_capacity(T2 a1){
 T2 R=0;

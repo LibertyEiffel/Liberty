@@ -69,6 +69,8 @@ feature {}
    local_can_disconnect: BOOLEAN True
 
    read_more
+      require
+         is_connected
       local
          state: INTEGER; c: CHARACTER; key: STRING; value: ABSTRACT_STRING
       do
@@ -186,7 +188,9 @@ feature {}
       local
          item: TEMPLATE_LOOP_ITEM
       do
-         loop_items.push(item.new(loop_name.intern, raw_index, discard or else not resolver.while(loop_name)))
+         if resolver.start(loop_name) then
+            loop_items.push(item.new(loop_name.intern, raw_index, discard or else not resolver.while(loop_name)))
+         end
       end
 
    end_loop (loop_name: STRING)
@@ -196,6 +200,7 @@ feature {}
             append(loop_name)
             append(once "*)")
          elseif discard or else not resolver.while(loop_name) then
+            resolver.break(loop_name)
             loop_items.pop
          else
             raw_goto(loop_items.top.index)
@@ -210,6 +215,8 @@ feature {}
       end
 
    raw_next
+      require
+         is_connected
       do
          raw_index := raw_index + 1
          if raw_index > raw.upper then
@@ -235,6 +242,8 @@ feature {}
       end
 
    raw_eof: BOOLEAN
+      require
+         is_connected
       do
          Result := raw_index > raw.upper and then stream.end_of_input
       end
@@ -275,7 +284,6 @@ feature {}
          -- the running loops contexts
 
 invariant
-   stream /= Void
    resolver /= Void
 
 end -- class TEMPLATE_INPUT_STREAM

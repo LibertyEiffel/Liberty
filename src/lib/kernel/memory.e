@@ -125,6 +125,28 @@ feature {ANY} -- SmartEiffel Garbage collector information and tuning:
       external "built_in"
       end
 
+   frozen allow_gc_before_exit
+         -- Allow the SmartEiffel GC to run before the process exists. That is the default state when the
+         -- SmartEiffel GC is used and contracts are checked.
+      require
+         smart_eiffel_collector
+      do
+         c_inline_c("#ifdef SE_GC_LIB%N")
+         c_inline_c("gc_set_dispose_before_exit(1);%N")
+         c_inline_c("#endif%N")
+      end
+
+   frozen forbid_gc_before_exit
+         -- Forbid the SmartEiffel GC to run at the end of the process run. That is the default state when
+         -- the SmartEiffel GC is used but the contracts are not checked.
+      require
+         smart_eiffel_collector
+      do
+         c_inline_c("#ifdef SE_GC_LIB%N")
+         c_inline_c("gc_set_dispose_before_exit(0);%N")
+         c_inline_c("#endif%N")
+      end
+
 end -- class MEMORY
 --
 -- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.

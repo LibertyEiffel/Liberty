@@ -14,7 +14,7 @@ Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
 Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
 D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
     http://smarteiffel.loria.fr
-C Compiler options used: -pipe -O2 -fno-gcse -Werror
+C Compiler options used: -pipe -O2 -fno-gcse
 */
 
 #ifdef __cplusplus
@@ -1466,7 +1466,7 @@ return oBC32eiffel_parser;
 T6 R=0;
 if(/*RF4:flag_match*/r29flag_match(ms35_822199910Abc35A,/*`flag'*/a1)/*:RF4*/){
 R=((T6)(1));
-(/*RF2:style_warning*/(((T293*)oBC32error_handler))->_style_warning/*piippp*//*:RF2*/)=((T6)(1));
+(/*RF2:style_warning*/((T293*)(/*RF6:error_handler*/r29error_handler()/*:RF6*/))->_style_warning/*4piippp*//*:RF2*/)=((T6)(1));
 }
 return R;
 }/*--*/
@@ -1528,7 +1528,7 @@ T0*oBC32smart_eiffel=(void*)0;
 T6 R=0;
 if(/*RF4:flag_match*/r29flag_match(ms35_2028737205Abc35A,/*`flag'*/a1)/*:RF4*/){
 R=((T6)(1));
-(/*RF2:flymake_mode*/(((T293*)oBC32error_handler))->_flymake_mode/*piippp*//*:RF2*/)=((T6)(1));
+(/*RF2:flymake_mode*/((T293*)(/*RF6:error_handler*/r29error_handler()/*:RF6*/))->_flymake_mode/*4piippp*//*:RF2*/)=((T6)(1));
 }
 return R;
 }/*--*/
@@ -2211,7 +2211,7 @@ return R;
 T6 R=0;
 if(/*RF4:flag_match*/r29flag_match(ms35_267875778Abc35A,/*`flag'*/a1)/*:RF4*/){
 R=((T6)(1));
-(/*RF2:no_warning*/(((T293*)oBC32error_handler))->_no_warning/*piippp*//*:RF2*/)=((T6)(1));
+(/*RF2:no_warning*/((T293*)(/*RF6:error_handler*/r29error_handler()/*:RF6*/))->_no_warning/*4piippp*//*:RF2*/)=((T6)(1));
 }
 return R;
 }/*--*/
@@ -2413,6 +2413,21 @@ _argi=/*RF8:+*/((int32_t)(_argi))+(INT32_C(1))/*:RF8*/;
 /*RF3:put_line*/r126put_line((T126*)(/*RF6:echo*/r29echo()/*:RF6*/),/*RF6:copyright*/r111copyright(((T111*)oBC32smart_eiffel))/*:RF6*/);
 /*:RF3*/}/*--*/
 T0*oBC32error_handler=(void*)0;
+int fBC32error_handler=0;
+
+/*COMPILE_TO_C*/T0*r29error_handler(void){
+/*[INTERNAL_C_LOCAL list*/
+T0* tmp0;
+/*INTERNAL_C_LOCAL list]*/
+if(fBC32error_handler==0){fBC32error_handler=1;{
+tmp0/*new*/=/*alloc*/((T0*)(se_malloc(sizeof(T293/*4piippp*/))));
+*((T293*)tmp0/*new*/)=M293;
+/*RF3:default_create*/r293default_create(((T293*)tmp0/*new*/));
+/*:RF3*/oBC32error_handler=tmp0/*new*/;
+/*tmp0.unlock*/
+}}
+return oBC32error_handler;
+}/*--*/
 
 /*COMPILE_TO_C*/void r29check_for_level(T29*C,T0*a1){
 if(((/*RF2:level_flag*/(C)->_level_flag/*ppp*//*:RF2*/))!=((void*)((void*)0))){

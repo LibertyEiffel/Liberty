@@ -14,7 +14,7 @@ Copyright (C), 1994-2002 - INRIA - LORIA - ESIAL UHP Nancy 1 - FRANCE
 Copyright (C), 2003-2005 - INRIA - LORIA - IUT Charlemagne Nancy 2 - FRANCE
 D.COLNET, P.RIBET, C.ADRIAN, V.CROIZIER, F.MERIZEN
     http://smarteiffel.loria.fr
-C Compiler options used: -pipe -O2 -fno-gcse -Werror
+C Compiler options used: -pipe -O2 -fno-gcse
 */
 
 #ifdef __cplusplus
@@ -640,18 +640,18 @@ T2 _middle=0;
 T2 _i=0;
 if(/*RF8:<*/((int32_t)(/*`left'*/a2))<(/*`right'*/a3)/*:RF8*/){
 _i=/*RF8:+*/((int32_t)(/*RF8:+*/((int32_t)(/*`left'*/a2))+(/*RF8:#//*/((int32_t)(/*RF8:-*/((int32_t)(/*`right'*/a3))-(/*`left'*/a2)/*:RF8*/))/(INT32_C(2))/*:RF8*/)/*:RF8*/))+(INT32_C(1))/*:RF8*/;
-/*RF3:swap*/r936swap(((T936*)/*ND*/(T0*)(/*`c'*/a1)),/*`left'*/a2,_i);
+/*RF3:swap*/r937swap(((T937*)/*ND*/(T0*)(/*`c'*/a1)),/*`left'*/a2,_i);
 /*:RF3*/_middle=/*`left'*/a2;
 _i=/*RF8:+*/((int32_t)(/*`left'*/a2))+(INT32_C(1))/*:RF8*/;
 while(1){
 /*until*/if(/*RF8:>*/((int32_t)(_i))>(/*`right'*/a3)/*:RF8*/) break;
-if(/*RF4:lt*/r957lt(/*RF8:item*/((/*RF2:storage*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/,/*RF8:item*/((/*RF2:storage*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[/*`left'*/a2]/*:RF8*/)/*:RF4*/){
+if(/*RF4:lt*/r957lt(/*RF8:item*/((/*RF2:storage*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/,/*RF8:item*/((/*RF2:storage*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[/*`left'*/a2]/*:RF8*/)/*:RF4*/){
 _middle=/*RF8:+*/((int32_t)(_middle))+(INT32_C(1))/*:RF8*/;
-/*RF3:swap*/r936swap(((T936*)/*ND*/(T0*)(/*`c'*/a1)),_middle,_i);
+/*RF3:swap*/r937swap(((T937*)/*ND*/(T0*)(/*`c'*/a1)),_middle,_i);
 /*:RF3*/}
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
 }
-/*RF3:swap*/r936swap(((T936*)/*ND*/(T0*)(/*`c'*/a1)),/*`left'*/a2,_middle);
+/*RF3:swap*/r937swap(((T937*)/*ND*/(T0*)(/*`c'*/a1)),/*`left'*/a2,_middle);
 /*:RF3*//*RF3:quick_sort_region*/r957quick_sort_region(/*`c'*/a1,/*`left'*/a2,/*RF8:-*/((int32_t)(_middle))-(INT32_C(1))/*:RF8*/);
 /*:RF3*//*RF3:quick_sort_region*/r957quick_sort_region(/*`c'*/a1,/*RF8:+*/((int32_t)(_middle))+(INT32_C(1))/*:RF8*/,/*`right'*/a3);
 /*:RF3*/}
@@ -664,7 +664,7 @@ return R;
 }/*--*/
 
 /*COLLECTION_SORTER[FIXED_STRING]*/void r957quick_sort(T0*a1){
-/*RF3:quick_sort_region*/r957quick_sort_region(/*`c'*/a1,INT32_C(0),(/*RF2:upper*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_upper/*niii*//*:RF2*/));
+/*RF3:quick_sort_region*/r957quick_sort_region(/*`c'*/a1,INT32_C(0),(/*RF2:upper*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_upper/*niii*//*:RF2*/));
 /*:RF3*/}/*--*/
 
 /*COLLECTION_SORTER[FIXED_STRING]*/T6 r957lte(T0*a1,T0*a2){
@@ -688,10 +688,10 @@ T2 _i=0;
 T2 _c_upper=0;
 T0*_elt1=(void*)0;
 T0*_elt2=(void*)0;
-_c_upper=(/*RF2:upper*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_upper/*niii*//*:RF2*/);
+_c_upper=(/*RF2:upper*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_upper/*niii*//*:RF2*/);
 R=((T6)(1));
 if(/*RF8:>*/((int32_t)(_c_upper))>(_i)/*:RF8*/){
-_elt1=/*RF8:item*/((/*RF2:storage*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
+_elt1=/*RF8:item*/((/*RF2:storage*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
 while(1){
 tmp0/*or else*/=((T6)((R)==(0)));
 if(tmp0/*or else*/){
@@ -701,7 +701,7 @@ tmp0/*or else*/=((T6)(/*RF8:>=*/((int32_t)(_i))>=(_c_upper)/*:RF8*/));
 }
 /*until*/if(tmp0/*or else*/) break;
 _i=/*RF8:+*/((int32_t)(_i))+(INT32_C(1))/*:RF8*/;
-_elt2=/*RF8:item*/((/*RF2:storage*/(((T936*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
+_elt2=/*RF8:item*/((/*RF2:storage*/(((T937*)/*ND*/(T0*)(/*`c'*/a1)))->_storage/*niii*//*:RF2*/))[_i]/*:RF8*/;
 R=((T6)(/*RF4:lte*/r957lte(_elt1,_elt2)/*:RF4*/));
 _elt1=_elt2;
 }
