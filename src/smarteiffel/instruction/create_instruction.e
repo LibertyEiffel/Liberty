@@ -113,12 +113,14 @@ feature {ANY}
          if call /= Void then
             c := call.simplify_arguments(type)
             if explicit_type = Void then
+               -- TODO: check why it is sufficient to do this 
+               -- "type_to_create"-stuff only if call /= Void
                type_to_create := writable.resolve_in(type)
             else
                type_to_create := explicit_type.resolve_in(type)
             end
             creation_proc ::= c.feature_stamp.anonymous_feature(type_to_create)
-            if creation_proc.routine_body = Void then
+            if creation_proc.routine_body = Void and not creation_proc.is_external then
                args := c.arguments
                if args = Void or else args.side_effect_free(type) then
                   c := Void
@@ -345,7 +347,7 @@ end -- class CREATE_INSTRUCTION
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

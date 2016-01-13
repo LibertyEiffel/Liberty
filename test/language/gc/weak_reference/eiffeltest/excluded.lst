@@ -1,9 +1,6 @@
--boost
 -require_check
 -profile
--all_check
 -loop_check
 -invariant_check
 -ensure_check
 -no_gc
--bdw_gc

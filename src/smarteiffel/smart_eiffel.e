@@ -294,7 +294,7 @@ feature {CLASS_CHECKER}
          end
       end
 
-feature {CLASS_CHECKER, EXTERNAL_TOOL}
+feature {COMMAND_LINE_TOOLS}
    set_short_or_class_check_flag
       do
          short_or_class_check_flag := True
@@ -437,6 +437,7 @@ feature {}
             loop
                lt := live_type_map.item(i)
                --if lt.at_run_time then
+               -- TODO: why is this if commented out? -> cleanup
                   lt.make_run_features
                --end
                i := i + 1
@@ -461,7 +462,7 @@ feature {}
 
          if nb_errors = 0 then
             safety_check
-            echo.print_count(once "Loaded Classe", ace.class_text_count)
+            echo.print_count(once "Loaded Classes", ace.class_text_count)
          end
       end
 
@@ -2567,7 +2568,7 @@ end -- class SMART_EIFFEL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

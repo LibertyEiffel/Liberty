@@ -27,12 +27,15 @@ feature {ANY}
          -- even system level if you want)
       ensure
          Result = 5
+         -- TODO: check what ECMA defines: When is the postcondition 
+         -- of an atterbute to be executed? Only for the case a 
+         -- Compound is given (i. e. it is initialized by the code above??
       end
          
 
 end -- class TEST_ATTRIBUTE03
 --
--- Copyright (c) 2015-2015 by all the people cited in the AUTHORS file.
+-- Copyright (C) 2015-2016: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

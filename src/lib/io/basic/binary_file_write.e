@@ -78,8 +78,6 @@ feature {ANY}
       end
 
    put_byte (byte: INTEGER)
-      require
-         is_connected
       do
          if buffer_position >= 4096 then
             write_buffer
@@ -91,8 +89,6 @@ feature {ANY}
    put_integer_16_native_endian (i: INTEGER_16)
          -- Write in the same order as the machine running this code.
          -- The result is machine dependant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -104,8 +100,6 @@ feature {ANY}
    put_integer_16_big_endian (i: INTEGER_16)
          -- Write `i' in big endian mode.
          -- The result is machine independant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -117,8 +111,6 @@ feature {ANY}
    put_integer_16_little_endian (i: INTEGER_16)
          -- Write `i' in little endian mode.
          -- The result is machine independant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -130,8 +122,6 @@ feature {ANY}
    put_integer_32_native_endian (i: INTEGER_32)
          -- Write in the same order as the machine running this code.
          -- The result is machine dependant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -143,8 +133,6 @@ feature {ANY}
    put_integer_32_big_endian (i: INTEGER_32)
          -- Write `i' in big endian mode.
          -- The result is machine independant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -156,8 +144,6 @@ feature {ANY}
    put_integer_32_little_endian (i: INTEGER_32)
          -- Write `i' in little endian mode.
          -- The result is machine independant.
-      require
-         is_connected
       do
          if buffer_position >= 4095 or else buffer_position.is_odd then
             write_buffer
@@ -291,7 +277,7 @@ feature {} -- built-ins
 
 end -- class BINARY_FILE_WRITE
 --
--- Copyright (c) 2009-2015 by all the people cited in the AUTHORS file.
+-- Copyright (C) 2009-2016: by all the people cited in the AUTHORS file.
 --
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal

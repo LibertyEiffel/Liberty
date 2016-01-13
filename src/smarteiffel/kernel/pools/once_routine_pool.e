@@ -115,7 +115,7 @@ feature {ONCE_FUNCTION}
       do
          --|*** We should also check that `target_type' has no expanded with side_effects...
          --|*** (Fred. + Dom. Oct 27th) ***
-         if once_function.routine_then = Void then
+         if once_function.routine_body /= Void then
             if create_instruction ?:= once_function.routine_body then
                create_instruction ::= once_function.routine_body
                if create_instruction.writable.is_result and then precomputable_routine_detector.visit_once_body(target_type, create_instruction) then
@@ -132,7 +132,7 @@ feature {ONCE_FUNCTION}
                   end
                end
             end
-         elseif once_function.routine_body = Void then
+         elseif once_function.routine_then /= Void then
             if create_expression ?:= once_function.routine_then then
                create_expression ::= once_function.routine_then
                if precomputable_routine_detector.visit_once_then(target_type, create_expression) then
@@ -257,7 +257,7 @@ end -- class ONCE_ROUTINE_POOL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

@@ -2112,6 +2112,7 @@ feature {}
                Result := True
             end
          end
+
          if not Result then
             inspect
                cc
@@ -2145,12 +2146,15 @@ feature {}
                   error_handler.append(em43)
                   error_handler.print_as_fatal_error
                end
+
                if buffer.count = 1 and then buffer.first = '=' then
                   error_handler.add_position(pos(l, c))
                   error_handler.append(once "The basic = operator cannot be redefined. (This is a hard-coded builtin that we must trust.)")
                   error_handler.print_as_fatal_error
                end
                create_infix_prefix(freeop, l, c)
+            else
+               -- illegal infix name
             end
          end
       end

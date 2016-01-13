@@ -17,6 +17,7 @@ feature {}
          routine;
       end;
 
+feature {ANY}
    routine
       do
          Precursor(1);

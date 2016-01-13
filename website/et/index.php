@@ -48,6 +48,9 @@ if (array_key_exists('history', $_GET)){
    $history = 0;
 }
 
+$last_stage_root = $stageout_cfg . "_" . ($history + 1);
+$current_stage_root = $stageout;
+
 if (file_exists($activeJsonObj)) {
    $json_array = unserialize(file_get_contents($activeJsonObj));
 } else {
@@ -169,6 +172,9 @@ function filedatecompare($a,$b){
 function printSubStages($dir){
    global $img;
    global $stage;
+   global $stageout_cfg;
+   global $current_stage_root;
+   global $last_stage_root;
 
    $substageNo = 0;
 
@@ -187,13 +193,26 @@ function printSubStages($dir){
 
       $stageName = file_get_contents("$stagedir/stagename.txt");
       if(file_exists("$stagedir/result.txt")){
-         $stageresult = htmlForResult(file_get_contents("$stagedir/result.txt"));
+         $cur_res = file_get_contents("$stagedir/result.txt");
+         $diff = 0;
+         if (substr($stagedir, 0, strlen($current_stage_root)) == $current_stage_root){
+            $last_stage_dir = substr_replace($stagedir, $last_stage_root, 0, strlen($current_stage_root));
+            if (file_exists("$last_stage_dir/result.txt")) {
+               $last_res = file_get_contents("$last_stage_dir/result.txt");
+               $diff = abs($cur_res) - abs($last_res);
+            }
+            else{
+             echo "<!-- $last_stage_dir " . file_exists("$last_stage_dir/result.txt") . " $last_res -->";
+            }
+         }
+
+         $stageresult = htmlForResult($cur_res, $diff);
          $display_style = displayStyleForResult(file_get_contents("$stagedir/result.txt"));
       }else{
-         $stageresult = htmlForResult("");
+         $stageresult = htmlForResult("", 0);
          $display_style = displayStyleForResult("");
       }
-
+      
       $stageStack = explode("/", $stageName);
 
       if(file_exists("$stagedir/stagelink.txt")){

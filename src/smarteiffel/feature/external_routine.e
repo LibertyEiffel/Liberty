@@ -9,6 +9,9 @@ deferred class EXTERNAL_ROUTINE
 
 inherit
    E_ROUTINE
+      redefine
+         is_external
+      end
 
 feature {ANY}
    native: NATIVE
@@ -16,6 +19,11 @@ feature {ANY}
    alias_string: MANIFEST_STRING
 
    is_deferred: BOOLEAN False
+
+   is_external: BOOLEAN
+      do
+         Result := True
+      end
 
    frozen rescue_compound: INSTRUCTION
       do
@@ -381,7 +389,7 @@ end -- class EXTERNAL_ROUTINE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

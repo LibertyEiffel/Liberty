@@ -39,6 +39,8 @@ feature {ANY}
       end
 
    random_complex (rnd: RANDOM_NUMBER_GENERATOR): AUX_AC_COMPLEX
+      require
+         rnd /= Void
       local
          re: REAL; im: REAL
       do
@@ -54,13 +56,13 @@ feature {ANY}
          zero, tmp1, tmp2: AUX_AC_COMPLEX
       do
          zero := zero.zero
-         assert((x + zero).is_equal(x))
-         assert(x.is_equal(x + zero))
-         assert((x + y).is_equal(y + x))
-         assert((x + y + z).is_near_equal(x + (y + z)))
+         label_assert("(x + zero).is_equal(x); x = " + x.out, (x + zero).is_near_equal(x))
+         label_assert("x.is_equal(x + zero); x = " + x.out, x.is_near_equal(x + zero))
+         label_assert("(x + y).is_equal(y + x); x = " + x.out+ " y = " + y.out, (x + y).is_near_equal(y + x))
+         label_assert("(x + y + z).is_near_equal(x + (y + z)); x = " + x.out + " y = " + y.out + " z = " + z.out, (x + y + z).is_near_equal(x + (y + z)))
          tmp1 := x + y + z
          tmp2 := x + (y + z)
-         assert(tmp1.is_near_equal(tmp2))
+         label_assert("tmp1.is_near_equal(tmp2); x = " + x.out + " y = " + y.out + " z = " + z.out, tmp1.is_near_equal(tmp2))
       end
 
    test_times (x, y, z: AUX_AC_COMPLEX)
@@ -68,15 +70,15 @@ feature {ANY}
          one, p1, p2: AUX_AC_COMPLEX
       do
          one := one.one
-         assert((x * one).is_equal(x))
+         label_assert("(x * one).is_near_equal(x); x = " + x.out, (x * one).is_near_equal(x))
 
          p1 := x * y
          p2 := y * x
-         assert(p1.is_near_equal(p2))
+         label_assert("p1.is_near_equal(p2); x = " + x.out + " y = " + y.out, p1.is_near_equal(p2))
 
          p1 := x * y * z
          p2 := x * (y * z)
-         assert(p1.is_near_equal(p2))
+         label_assert("p1.is_near_equal(p2); x = " + x.out + " y = " + y.out + " z = " + z.out, p1.is_near_equal(p2))
       end
 
    test_plus_and_times (x, y, z: AUX_AC_COMPLEX)
@@ -85,7 +87,7 @@ feature {ANY}
       do
          p1 := (x + y) * z
          p2 := x * z + y * z
-         assert(p1.is_near_equal(p2))
+         label_assert("plus_and_times: p1.is_near_equal(p2); x = " + x.out + " y = " + y.out + " z = " + z.out, p1.is_near_equal(p2))
       end
 
 end -- class TEST_AC01

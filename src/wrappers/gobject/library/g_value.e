@@ -1,6 +1,6 @@
 indexing
 	description: "Generic values, a polymorphic type that can hold values of any other type"
-	copyright: "Copyright (c) 2005, Paolo Redaelli"
+	copyright: "Copyright (C) 2005-2016: , Paolo Redaelli"
 	license: "LGPL"
 	date: "$Date:  $"
 	revision: "$ $"

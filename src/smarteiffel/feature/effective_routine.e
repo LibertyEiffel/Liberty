@@ -75,6 +75,7 @@ feature {FEATURE_ACCUMULATOR}
       do
          Result := Precursor(other)
          if Result then
+            -- TODO: Rmk, 2015-12-31: check why we have this empty if clause...
             -- ***
          end
       end
@@ -521,7 +522,7 @@ end -- class EFFECTIVE_ROUTINE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

@@ -146,6 +146,7 @@ feature {ANY}
                call_1.standard_check_export_and_obsolete_calls(type, target_type, af)
                Result := call_1.specialize_and_check(type)
             elseif t = target and then feature_stamp = fs then
+               standard_check_export_and_obsolete_calls(type, target_type, af)
                Result := Current
             else
                res := twin
@@ -251,7 +252,7 @@ end -- class PROCEDURE_CALL_0
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

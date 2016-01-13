@@ -235,8 +235,6 @@ feature {CLIENT_LIST}
             tm := item(i)
             if tm.start_position.class_text = new_type.class_text then
                tm.specialize_in(new_type)
-            else
-               sedb_breakpoint
             end
             i := i + 1
          end
@@ -418,7 +416,7 @@ end -- class TYPE_MARK_LIST
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

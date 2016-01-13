@@ -45,7 +45,15 @@ feature {ANY}
          saf: like specialized_anonymous_feature; args: like arguments
       do
          saf := specialized_anonymous_feature.specialize_and_check(type)
-         if arguments /= Void then
+
+         if (arguments = Void) /= (specialized_anonymous_feature.arguments = Void) then
+            error_handler.add_position(start_position)
+            error_handler.add_position(specialized_anonymous_feature.start_position)
+            error_handler.append(once "Actual argument list of Precursor call doesn't match the procedures signature.")
+            error_handler.print_as_error
+         end
+
+         if arguments /= Void and (specialized_anonymous_feature.arguments /= Void) then
             args := arguments.specialize_and_check(type, saf, type, False)
          end
          Result := current_or_twin_init(saf, args)
@@ -104,6 +112,16 @@ feature {ANY}
          check
             run_feature.type_of_current = type
          end
+
+         if (arg = Void) /= (specialized_anonymous_feature.arguments = Void) then
+            error_handler.add_position(start_position)
+            error_handler.add_position(run_feature.start_position)
+            error_handler.append(once "Actual argument list of Precursor call doesn't match the procedures signature.")
+            error_handler.print_as_error
+         end
+         -- TODO: check whether we have to check the types or the 
+         -- length of the argument lists here...
+         
          if arg /= arguments then
             Result := twin
             Result.set_arguments(arg)
@@ -228,7 +246,7 @@ end -- class PRECURSOR_CALL
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

@@ -34,7 +34,7 @@ void se_print_run_time_stack (void) {
 
 void se_signal_handler(int sig) {
   handle(SE_HANDLE_RUNTIME_ERROR, NULL);
-  printf("Received signal %d.\n",sig);
+  printf("Received signal %d in '%s'.\n", sig, se_argv[0]);
   se_print_run_time_stack();
   exit(EXIT_FAILURE);
 }

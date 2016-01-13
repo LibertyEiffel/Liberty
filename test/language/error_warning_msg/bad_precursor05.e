@@ -5,7 +5,8 @@ class BAD_PRECURSOR05
 
 inherit
    AUX_PRECURSOR04
-      redefine routine
+      redefine
+         routine
       end;
 
 create {}
@@ -14,9 +15,10 @@ create {}
 feature {}
    make
       do
-         routine(3);
-      end;
-
+         routine(3)
+      end
+   
+feature {ANY}
    routine(i: INTEGER)
       do
          Precursor;

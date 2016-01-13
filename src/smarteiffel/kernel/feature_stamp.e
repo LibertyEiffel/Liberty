@@ -59,6 +59,7 @@ feature {ANY}
                else
                   error_handler.append(anonymous_features.item(1).first_name.to_string)
                end
+               -- TODO: translate error message
                error_handler.append(once " non collectee dans ")
                error_handler.append(t.name.to_string)
                error_handler.append(once "... ca va planter.")
@@ -717,7 +718,7 @@ end -- class FEATURE_STAMP
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

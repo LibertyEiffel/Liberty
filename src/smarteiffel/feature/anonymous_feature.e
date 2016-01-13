@@ -362,6 +362,7 @@ feature {FEATURE_STAMP, LIVE_TYPE, PRECURSOR_CALL}
 
 feature {FEATURE_STAMP, LIVE_TYPE}
    frozen brand_new_run_feature_for (t: TYPE; fn: FEATURE_NAME; is_precursor: BOOLEAN): RUN_FEATURE
+   -- TODO: translate comment
          --|*** Supprimer cette fonction intermediaire et transmettre is_precursor, ca devrait servir.
       require
          t /= Void
@@ -1280,7 +1281,7 @@ end -- class ANONYMOUS_FEATURE
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

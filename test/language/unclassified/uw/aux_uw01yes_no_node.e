@@ -118,8 +118,8 @@ invariant
       --consistent_no: no /= Void implies no.parent = Current
 
 end -- class AUX_UW01YES_NO_NODE
--- Copyright (c) 1998 by Ulrich Windl
--- Copyright (c) 1998 by Klinikum der Universität Regensburg,
+-- Copyright (C) 1998-2016: by Ulrich Windl
+-- Copyright (C) 1998-2016: by Klinikum der Universität Regensburg,
 --      D-93042 Regensburg
 --
 --  This program is free software; you can redistribute it and/or modify

@@ -418,9 +418,6 @@ feature {}
                end
             end
          end
-         if a_routine.routine_then /= Void then
-            not_yet_implemented
-         end
       end
 
 feature {RUN_FEATURE_3}
@@ -542,7 +539,7 @@ end -- class RUNNER_FEATURES
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

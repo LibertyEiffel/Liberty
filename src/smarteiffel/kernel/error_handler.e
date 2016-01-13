@@ -470,7 +470,7 @@ feature {}
 
    do_print_standard (tag: STRING)
       local
-         i, cpt: INTEGER; cc: CHARACTER
+         i: INTEGER; cc: CHARACTER
       do
          echo.w_put_string(fz_error_stars)
          echo.w_put_string(tag)
@@ -479,30 +479,12 @@ feature {}
          --
          from
             i := explanation.lower
-            cpt := 9 + tag.count
          until
             i > explanation.upper
          loop
             cc := explanation.item(i)
             i := i + 1
-            if cpt > 60 then
-               if cc = ' ' or else cc = '%N' then
-                  echo.w_put_character('%N')
-                  cpt := 0
-               else
-                  echo.w_put_character(cc)
-                  cpt := cpt + 1
-               end
-            else
-               echo.w_put_character(cc)
-               inspect
-                  cc
-               when '%N' then
-                  cpt := 0
-               else
-                  cpt := cpt + 1
-               end
-            end
+            echo.w_put_character(cc)
          end
          echo.w_put_character('%N')
          echo.w_put_character('%N')
@@ -764,7 +746,7 @@ end -- class ERROR_HANDLER
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

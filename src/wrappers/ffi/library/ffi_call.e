@@ -120,7 +120,7 @@ feature {} -- Implementation
 
 end -- class FFI_CALL
 
---    Liberty Eiffel FFI wrappers - Copyright (c) 2012-2013 Cyril Adrian, Paolo Redaelli
+--    Liberty Eiffel FFI wrappers - Copyright (C) 2012-2016: Cyril Adrian, Paolo Redaelli
 --
 --    Permission is hereby granted, free of charge, to any person obtaining
 --    a copy of this software and associated documentation files (the

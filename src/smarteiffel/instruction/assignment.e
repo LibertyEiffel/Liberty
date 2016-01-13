@@ -96,7 +96,7 @@ feature {ANY}
                if written_site = as_integer_general or else written_site = as_real_general or written_site = as_natural_general then
                   -- Relaxed rule to share more code in INTEGER_* / REAL_* / NATURAL_*.
                else
-                  fatal_error_for("Assignment of a reference type into an expanded type is not allowed. ",
+                  fatal_error_for("Assignment of a reference type into an expanded type is not allowed.",
                                   type, lt, rt)
                end
             end
@@ -311,7 +311,7 @@ end -- class ASSIGNMENT
 -- received a copy of the GNU General Public License along with Liberty Eiffel; see the file COPYING. If not, write to the Free
 -- Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 --
--- Copyright(C) 2011-2015: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
+-- Copyright (C) 2011-2016: Cyril ADRIAN, Paolo REDAELLI, Raphael MACK
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --

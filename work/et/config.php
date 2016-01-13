@@ -4,7 +4,8 @@ $commitbaselink = "http://git.savannah.gnu.org/cgit/liberty-eiffel.git/commit/?i
 $BaseDir = "/home/et";
 $LibertyBase = "$BaseDir/Liberty";
 $out = "$BaseDir/Liberty/website/et";
-$stageout = "$out/stages";
+$stageout_cfg = "$out/stages";
+$stageout = "$stageout_cfg"; // do not change, this is kept for backward compatibility
 
 $historysize = 5; // note: delete stagehistory manually on decrease
 
