@@ -1,5 +1,5 @@
 /*
-** This file have been created by wrapper-generator.
+** This file has been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
 #define ffi_type_struct_get_size(a_structure) (((struct _ffi_type*) (a_structure))->size)
