@@ -30,7 +30,9 @@ feature {ANY} -- Wrapper
                 Result.append(once "(")
                 from i:=lower until i>upper-1
                 loop -- iterate from first to next to second-last element
-                    log.info.put_line("arg #(1): #(2)" # &i # & item(i))
+                    debug 
+                        log.info.put_line("arg #(1): #(2)" # &i # & item(i))
+                    end
                     Result.append(item(i).eiffel_wrapper)
                     Result.append(once "; ")
                     i:=i+1
