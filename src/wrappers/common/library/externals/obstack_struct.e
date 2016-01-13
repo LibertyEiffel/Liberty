@@ -5,7 +5,7 @@ deferred class OBSTACK_STRUCT
 insert STANDARD_C_LIBRARY_TYPES
 
 	STANDARD_C_LIBRARY_TYPES
-	-- Fieldless structure
+	-- Fieldless struct
 feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
        struct_size: like size_t 
                external "plug_in"

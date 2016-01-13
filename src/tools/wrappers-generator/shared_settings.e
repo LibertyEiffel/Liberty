@@ -2,7 +2,14 @@ deferred class SHARED_SETTINGS
    -- Access to the `settings' singleton and commodity features like "proxy"
    -- setters, queries and logging facilities.
 
-insert ANY 
+insert 
+    ANY 
+        undefine 
+            copy, 
+            default_create,
+            is_equal, 
+            out_in_tagged_out_memory
+        end
 
 feature {ANY}
    settings: SETTINGS
@@ -110,22 +117,22 @@ feature {} -- Constants
    footer: STRING "end%N"
 
    automatically_generated_header: STRING "[
-                -- This file have been created by wrapper-generator.
+                -- This file has been created by wrapper-generator.
                 -- Any change will be lost by the next execution of the tool.
 
                 ]"
 
    automatically_generated_c_file: STRING "[
                 /*
-                ** This file have been created by wrapper-generator.
+                ** This file has been created by wrapper-generator.
                 ** Any change will be lost by the next execution of the tool.
                 */
 
                 ]"
 
    automatically_patched_header: STRING "[
-                -- Th file have been automatically created combining the output file
-                -- of eiffel-gcc-xml @(1)
+                -- Th file has been automatically created combining the output file
+                -- of wrappers-generator @(1)
                 -- with the differences patches found into @(2)
 
                 -- Any change will be lost by the next execution of the tool.

@@ -3,18 +3,15 @@ class C_UNION
 inherit
    C_TYPE
    IDENTIFIED_NODE
-   NAMED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
    CONTEXTED_NODE
+       -- hence also a STORABLE_NODE, a NAMED_NODE
+      -- and a WRAPPER_CLASS
+  COMPOSED_NODE
+
    FILED_NODE
       -- TODO: since it's both named and filed it could also be a MOVABLE_NODE
-   COMPOSED_NODE
-      -- using the definition made in WRAPPER_CLASS
-      undefine compute_eiffel_name
-      end
-   WRAPPER_CLASS
+
+insert NAME_CONVERTER
 
 create {GCCXML_TREE}
    make
@@ -26,6 +23,8 @@ feature {ANY}
          types.fast_put(Current, id)
          if is_named then
             symbols.put(Current, c_string_name)
+         else 
+             log("Anonimous union at line #(1)%N" # &line_row)
          end
 
          composed_types.fast_put(Current, id)
@@ -41,24 +40,18 @@ feature {ANY}
 
    wrapper_type: STRING
       do
-         not_yet_implemented
-      end
-
-   is_to_be_emitted: BOOLEAN
-      do
-         not_yet_implemented
-      end
-
-   emit_wrapper
-      do
-         log(once "C_UNION.emit_wrapper not yet implemented.%N")
-      end
+          debug
+              print(once "C_UNION.wrapper_type requires creation%
+              % of external/expanded types; currently returning an empty string")
+          end
+      not_yet_implemented
+  end
 
    suffix: STRING "_UNION"
          -- invariant name.is_equal(once U"Union")
 
 end -- class C_UNION
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

@@ -1,6 +1,9 @@
 deferred class NAMED_NODE
    -- A GCC_XML node that MAY have a "name" attribute.
-   -- It is made comparable using the `eiffel_name' feature as sorting value to get a more stable output.
+
+   -- Comparable using the `eiffel_name' feature for comparison to get a more stable output.
+
+   -- Nameless nodes are considered non-public
 
 inherit
    GCCXML_NODE
@@ -57,21 +60,11 @@ feature {ANY}
       end
 
    is_public: BOOLEAN
-         -- Does `c_name' start with an alphabetical character? Names
+         -- Does Current node have a name and does it start with an alphabetical character? Names
          -- starting with underscores or other strange characters are
          -- usually considered private in C/C++ languages.
-	 require is_named
-      local my_name: UNICODE_STRING
       do
-		  my_name := c_name
-		  if my_name /= Void then 
-			  Result := c_name /= Void and then c_name.first.to_character.is_letter
-		  else
-			  check
-				  Result=False
-			  end
-		  end
-		  -- once this feature were written as the one liner Result := c_name /= Void and then c_name.first.to_character.is_letter
+          Result := is_named and then c_name.first.to_character.is_letter
       end
 
 feature {} -- Implementation

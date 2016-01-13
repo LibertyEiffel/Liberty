@@ -5,6 +5,7 @@ insert
    ANY
       undefine 
 	  	copy, 
+        default_create,
 		is_equal, 
 		out_in_tagged_out_memory
 	end

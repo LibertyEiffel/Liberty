@@ -73,7 +73,7 @@ feature {ANY} -- Methods
 
 feature {ANY} -- Properties
         properties_lower: INTEGER 0
-        properties_upper: INTEGER do Result := properties_upper-1 end
+        properties_upper: INTEGER do Result := properties_count-1 end
         properties_count: INTEGER deferred end
 
         property (i: INTEGER): GI_PROPERTY_INFO

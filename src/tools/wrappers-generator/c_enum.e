@@ -76,7 +76,7 @@ feature {ANY}
          buffer.append(eiffel_name)
          buffer.append_new_line
          emit_description_on(class_descriptions.reference_at(c_string_name), buffer)
-         buffer.append(once "%Ninsert ENUM%N%Ncreation {ANY} default_create%N")
+         buffer.append(once "%Ninsert ENUM%N%Ncreate {ANY} default_create%N")
          buffer.print_on(output)
       end
 
@@ -224,14 +224,14 @@ feature {ANY} -- Emitting "flag" enumeration
       do
          validity_query.reset_with(once "    is_valid_value (a_value: INTEGER): BOOLEAN%N%
             %        do%N%
-            %            Result := (a_value & (")
+            %            Result := (a_value=0 or (a_value & (")
       ensure
          validity_query_grew: validity_query.count > old validity_query.count
       end
 
    finalize_flag_validity_query
       do
-         validity_query.append(once ")).to_boolean%N%T%Tend%N%N")
+         validity_query.append(once ")).to_boolean)%N%T%Tend%N%N")
       ensure
          validity_query_grew: validity_query.count > old validity_query.count
       end

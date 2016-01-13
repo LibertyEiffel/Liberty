@@ -33,4 +33,5 @@ string/loadpath.se
 tests/loadpath.se
 time/loadpath.se
 unicode/
+variant/
 xml/loadpath.se
