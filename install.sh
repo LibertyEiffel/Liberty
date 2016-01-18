@@ -190,6 +190,8 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
@@ -606,6 +608,8 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 

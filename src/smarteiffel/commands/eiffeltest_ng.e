@@ -86,7 +86,6 @@ feature {}
          end
          io.put_line(once "Master log: #(1)" # conf_file_name)
          create conf.from_string(conf_string)
-         log_conf.load(conf, Void, Void, agent main)
       end
 
    level: STRING

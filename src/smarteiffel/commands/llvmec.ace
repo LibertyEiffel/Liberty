@@ -1,0 +1,50 @@
+system "llvmec"
+   -- debug only.
+
+root
+  LLVMEC: make
+
+default
+   assertion(no)
+   collect(yes)
+   debug(no)
+   trace(no)
+
+cluster
+   liberty: "${path_liberty}src/loadpath.se"
+      default
+         assertion(no)
+      -- option debug(yes): FIXED_STRING, HASHED_DICTIONARY
+      end
+
+  llvm: "${path_liberty}src/wrappers/llvm/loadpath.se"
+      default
+         assertion(all)
+      end
+
+  zmq: "${path_liberty}src/wrappers/zmq/loadpath.se"
+      default
+         assertion(all)
+      end
+
+  posix: "${path_liberty}src/wrappers/posix/loadpath.se"
+      default
+         assertion(all)
+      end
+
+   llvmec: "${path_tools}generation/llvm/loadpath.se"
+      default
+         assertion(no)
+      -- option debug(yes): POSITION debug("run_feature_for"): FEATURE_STAMP
+      end
+
+   smarteiffel: "${path_tools}loadpath.se"
+      default
+         assertion(no)
+      -- option debug(yes): POSITION debug("run_feature_for"): FEATURE_STAMP
+      end
+
+generate
+   no_strip(yes)
+   split("by_type")
+end -- system "llvmec"

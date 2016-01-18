@@ -80,7 +80,6 @@ end -- class EIFFELTEST_CLIENT_RESULT
 --
 -- http://www.gnu.org/software/liberty-eiffel/
 --
---
 -- Liberty Eiffel is based on SmartEiffel (Copyrights below)
 --
 -- Copyright(C) 1994-2002: INRIA - LORIA (INRIA Lorraine) - ESIAL U.H.P.       - University of Nancy 1 - FRANCE
