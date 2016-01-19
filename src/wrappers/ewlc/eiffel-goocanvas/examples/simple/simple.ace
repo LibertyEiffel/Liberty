@@ -1,0 +1,72 @@
+system "simple"
+
+root
+
+ SIMPLE: make
+
+default -- section of the system
+	assertion (all); 
+	-- Choose the appropriate value: boost, no, require, ensure, invariant, loop, check, all.
+	assertion_flat_check (no);
+	debug (no);
+	trace (no);
+	collect (yes);
+	no_style_warning (no);
+	no_warning (no);
+	verbose (no);
+	manifest_string_trace (no);
+	high_memory_compiler (yes);	
+	profile (no);
+	relax (no);
+
+cluster -- section
+	tool: "."
+	-- goo: "./eiffel-goocanvas/"
+	goo: "${eiffel_libraries}/eiffel-goocanvas/loadpath.se"
+	-- goo_ex: "./eiffel-goocanvas/externals/"
+	-- gdk: "${eiffel_libraries}/eiffel-gdk/loadpath.se"
+	gtk: "${eiffel_libraries}/eiffel-gtk/loadpath.se"
+	-- glib: "${eiffel_libraries}/eiffel-glib/loadpath.se"
+	-- gobject: "${eiffel_libraries}/eiffel-gobject/loadpath.se"
+	-- pango: "${eiffel_libraries}/eiffel-pango/loadpath.se"
+	
+	standard: "${path_lib}/loadpath.se"
+	
+	
+
+
+--    optional_cluster_name: "cluster_path_using_system_file_notation_here"
+--       default -- at this cluster level
+--          assertion (require)
+--          debug (no);
+--          trace (no);
+--       option -- for this cluster
+--          assertion (loop) : CLASS_NAME1, CLASS_NAME2;
+--          assertion (all)  : CLASS_NAME3, CLASS_NAME4;
+--          -- ...
+--          debug (yes) : CLASS_NAME1, CLASS_NAME2, ...;
+--          debug ("KEY") : CLASS_NAME1, CLASS_NAME2, ...;
+--          -- ...
+--          trace : CLASS_NAME1, CLASS_NAME2;
+--          trace : CLASS_NAME3, CLASS_NAME4;
+--          -- ...
+--       end -- of one cluster
+
+	-- Pull in SmartEiffel's standard library. Always put this last so 
+	-- that you can override options for parts of the library.
+
+
+
+external -- section for elements written in another language
+
+
+generate -- section
+	no_strip(yes);
+	no_split(no);
+	clean(no);
+
+	c_compiler_options : "$(pkg-config --cflags gtk+-2.0  goocanvas)"
+	
+	linker_options : "$(pkg-config --libs gtk+-2.0  goocanvas)"
+
+end

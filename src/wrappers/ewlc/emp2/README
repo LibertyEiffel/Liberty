@@ -1,0 +1,361 @@
+Eiffel Multi Processing Message Passing = EMPMP = E(MP)^2
+
+This implementation is mostly inspired by AmigaOS Exec microkernel design.
+
+communication between separate objects shall happen throught MESSAGE_PORTs
+
+A message port is a linked list of messages. Each message can have an optional message body.
+ports, messages and their bodies are stored into a memory mapped area that is a memory mapped area that is writable by the message sender and readable by the message receiver.
+
+When a message have been put by the sender in the message port the port send a signal to the separete object. The separate object process read the message and it is allowed to access the memory of the message and its body until it answers the message.
+
+processes communicates using mmaped memory areas and signals
+object that shall be shared are "allocated" in that area, and handled thorught messages
+a message is composed together with the objects it refers to in the shared area, a signal is sent to the hearing process which read the message, start proper computation and answer the message
+until that the message and all the objects it refers to (the message body) shall not be "touched" by the sender as they "are not ready" 
+some issues:
+when the number of processes increases the shared memory areas goes up as O(n^2)
+this is clearly not acceptable. MESSAGE_PORTs shall ideally be shared by multiple processes...
+
+
+To allow the program to be composed by multiple executable you can use the trick explained in
+
+http://smarteiffel.loria.fr/wiki/en/index.php/Extract_internals
+
+to "fix" the IDs of the various classes.
+This
+
+21:09:57) PR@gmail: no worries. Have you ever considered a message passing architecture for multiple processing in Eiffel?
+(21:10:19) PR@gmail: I still haven't grasped your design (esec).
+(21:10:20) Cyril Adrian: a la scoop?
+(21:10:28) PR@gmail: not at all a-la-scoop
+(21:11:15) PR@gmail: I started trying to conceive the fastest possible way to implement inter-process communication for Eiffel
+(21:11:22) Cyril Adrian: wow, esec is in a bad shape nowadays, and it's been a time since I worked on it. Nowadays I try much more humble tools before reshaping esec.
+(21:11:51) PR@gmail: my idea was to "share" some objects stored into mmaped memory areas;
+(21:12:23) Cyril Adrian: yes, some kind of mmapped REPOSITORY?
+(21:13:11) PR@gmail: Mostly no.... the idea is to create MESSAGE_PORTs, small memory area shared by two processes to pass objects
+(21:13:23) PR@gmail: this is a local mechanism.
+(21:14:13) Cyril Adrian: remember that REPOSITORY is a high level interface to share objects, it does not presume neither its implementation nor its usage
+(21:14:52) PR@gmail: process A create a MESSAGE which is stored in the mmaped memory area, the message port. Then notify throught siqgueue the address of the shared area to process B. Process B mmaps that area, being able to access data created by process A
+(21:16:41) PR@gmail: until process B answers to the message process A won't touch that memory; process B copies what's needed for its computation into its space or execute the processing then answers to process A still using sigqueue. 
+(21:17:51) PR@gmail: in a single-computer enviroment it has O(1) performance. i.e. Zero copy at all. 
+(21:18:16) PR@gmail: to be sure that both processes can share the objects at the same address B is forked from A
+(21:18:17) Cyril Adrian: OK, why not, but it's really one low-level implementation solution. What I look at is high level: your low-level scheme could be implemented with thre high level REPOSITORY client interface. What I mean is, your idea is interesting ;-)
+(21:18:59) Cyril Adrian: Did you look at the very last commit by Frederic? http://cia.vc/stats/project/smarteiffel -- it's promising
+(21:19:29) PR@gmail: truly right, but using REPOSITORY is really really slow.... My approach has some requirements but could achieve really really high performances
+(21:19:48) Cyril Adrian: why?
+(21:19:58) PR@gmail: external types? Yes promising
+(21:20:02) Cyril Adrian: I mean, REPOSITORY is only an interface
+(21:20:22) ***PR@gmail shall refresh his knowledge of REPOSITORY
+(21:20:58) Cyril Adrian: OK, SmartEiffel (/me) provides only one implementation using an XML structure, but why not using an mmapped memory...
+(21:21:51) Cyril Adrian: REPOSITORY gives the following abstraction: a shared collection of objects accessed by a (STRING) key
+(21:23:10) PR@gmail: accessing throught STRING keys is slow.... direct references are "faster": they're the native reference type of Eiffel, isn't it?
+(21:23:23) PR@gmail: ago 10 01:19:08 <Tybor> hayden_via, fine... I'm thinkering about a generic AMiga
+-Exec like multithreading-multiprocessing approach for Eiffel (both dialects....
+)
+ago 10 01:21:07 <Tybor> implemented using real-time posix signals and shared mmaped memory regions
+
+(21:24:16) PR@gmail: .... sorry
+(21:24:27) Cyril Adrian: but shared references are tricky -- you need locks and special infrastructure -- how do you manage that?
+(21:24:32) ***PR@gmail searches for a better sytesis
+(21:24:44) PR@gmail: Eiffel Multi Processing Message Passing = EMPMP = E(MP)^2
+
+This implementation is mostly inspired by AmigaOS Exec microkernel design.
+
+communication between separate objects shall happen throught MESSAGE_PORTs
+
+A message port is a linked list of messages. Each message can have an optional message body.
+ports, messages and their bodies are stored into a memory mapped area that is a memory mapped area that is writable by th
+e message sender and readable by the message receiver.
+
+When a message have been put by the sender in the message port the port send a signal to the separete object. The separat
+e object process read the message and it is allowed to access the memory of the message and its body until it answers the
+ message.
+
+processes communicates using mmaped memory areas and signals
+object that shall be shared are "allocated" in that area, and handled thorught messages
+a message is composed together with the objects it refers to in the shared area, a signal is sent to the hearing process 
+which read the message, start proper computation and answer the message
+until that the message and all the objects it refers to (the message body) shall not be "touched" by the sender as they "
+are not ready" 
+some issues:
+when the number of processes increases the shared memory areas goes up as O(n^2)
+this is clearly not acceptable. MESSAGE_PORTs shall ideally be shared by multiple processes...
+
+
+
+(21:24:57) Cyril Adrian: wow- let me read ;-)
+(21:27:15) Cyril Adrian: I like the idea of automatic critical section by the fact that only either the sender or the receiver can use the shared object... Did I grasp that right?
+(21:29:11) PR@gmail: Yes.... the special infrastructure is not needed because both processes access the mapped area at the same starting address. Locking is simple. When process A sends a a message to process B it locks the message. A cannot touch it anymore until process B answers the message. When B answers the message it don't touch it and A is free to "free" the message and touch it... :)
+(21:29:58) Cyril Adrian: OK, how do you intend to implement that? (I mean, without changing the core compiler)
+(21:30:24) PR@gmail: using mmap, fork and sigqueue
+(21:30:25) Cyril Adrian: You're getting me interested ;-)
+(21:30:52) Cyril Adrian: I don't know sigqueue
+(21:31:03) ***Cyril Adrian is fetching google...
+(21:31:09) PR@gmail: I;m thinkering about making this scheme mostly efficient for single computer processing yet scalable to multiple nodes of the internet
+(21:31:21) PR@gmail: real-time POSIX signals
+(21:31:43) PR@gmail: that can pass an address or an integer to the receiver.
+(21:32:31) PR@gmail: I was anxious to get in touch with you to discover if my approach has some unseen design error or if you were making progresses with esec.
+(21:33:19) Cyril Adrian: I'm not currently working on esec, and I'd be glad to have help ;-)
+(21:33:52) PR@gmail: Now I know I shall hurry and provide a working demo. 
+There's one glitch in current idea. Forking processes would leave in "processes B" too much garbage. It would be better to run "another" executable, or run all the sibling processes at startup
+(21:34:33) PR@gmail: another issue are once routines. But programmer won't use once features or SINGLETONS into MESSAGEs
+(21:35:33) Cyril Adrian: about the fork/exec: AFAIR esec handles that to help having "common" types (I mean, at the C level of the se generated code)
+(21:36:13) Cyril Adrian: once routines are more tricky, since you really share objects.
+(21:37:04) PR@gmail: ouch... I haven't thought about it... Differenc exes could have different id for the same class.... so we're stuck to fork until further notice. 
+(21:38:25) Cyril Adrian: no no, esec really handles that. Client and servers share ids, even though they are launched by different command lines.
+(21:39:04) Cyril Adrian: AFAIR the trick lies in extract_internals and having a false common root for all executables.
+(21:39:43) Cyril Adrian: See http://smarteiffel.loria.fr/wiki/en/index.php/Extract_internals (N-way sharing)
+(21:39:56) PR@gmail: oh ... you're right...
+(21:40:09) Cyril Adrian: thats 'tricky but it works ;-)
+(21:40:31) PR@gmail: BTW: I took inspiration from http://en.wikipedia.org/wiki/Exec_(Amiga) and http://www.cunningham-lee.com/misc/amiga_exec.html (the message paragraph)
+(21:40:50) PR@gmail: the idea was to have Zero-Copy IPC. 
+(21:41:05) Cyril Adrian: good to see some people can take a look outside ;-)
+(21:43:10) Cyril Adrian: thanks for the references, I'm having a look
+(21:43:17) PR@gmail: Actually I digged into my memories. I was a proud owner of Amiga
+(21:43:59) PR@gmail: its multitask was snappier on an 68000 7mhz than on recent hardware.... 
+(21:44:03) Cyril Adrian: I did not have that chance although I always heard favorably of it.
+(21:44:43) PR@gmail: the trick was no usage of  supervisor/ring 0 mode and single address space shared by all application AND by the OS
+(21:45:25) PR@gmail: this is crazy by current standards. It's almost like having all threads in Linux...
+(21:46:26) PR@gmail: my idea was to have the benefits of "single addressing" for selected part of application. This is achieved this way
+(21:46:38) PR@gmail: B is forked from A and waits for  message from A
+(21:51:22) PR@gmail: Pardon... I was wrong
+(21:52:25) Cyril Adrian: that's all right... take your time, I'm reading the Exec article at cunningham-lee :-)
+(21:56:10) PR@gmail: \ufeffA "allocates" a memory area using mmap, forks process B; this way both A and B shares the mmaped area at the same address. B waits for signals. When A has composed a message in that memory area it sends a signal to B containing the address of that message. On sending the message area is locked for A. B can read from the message but shall not write to it.B makes its processing on the message, reads the data it needs; when it has finished reading it answers the message, sending a signal to A containing the address of the answerd message. So A can unlock the message/memory area
+(21:58:26) Cyril Adrian: ok, how do you implement the locking mechanism? What happens if the A process tries to write in the mmapped memory while B has exclusive access on it?
+(21:59:41) PR@gmail: it's handled using precondition. When message is "sent" to B it becomes locked for A until B answers
+(22:00:37) Cyril Adrian: OK, let's take an example, what if the shared object is a STRING? Do you have to modify the preconditions of that class?
+(22:00:41) PR@gmail: A can always read memory from the message. It cannot change it. This shall be achieved using preconditions or an invarinat like "invariant locked implies Current.is_equal(old Current)"
+(22:01:09) PR@gmail: shared obejcts cannot be "normal" objects but heirs of MESSAGE
+(22:01:23) PR@gmail: so you won't share a STRING but a MESSAGE_CONTAINED_STRING
+(22:03:33) Cyril Adrian: OK, I can understand that. Now, how do you really implement that "locked" predicate?
+(22:05:07) PR@gmail: send is do locked:=True; sigqueue(pid_of_process_b, address_of_message) end 
+when B has finished it invokes answer is do siqueue(pid_of_process_a, address_of_message) end
+(22:05:09) Cyril Adrian: Also, I think the precondition is not enough. If the user changes the STRING in the shared MESSAGE_CONTAINED_STRING, even if the invariant of the latter is triggered some time, I think it will be too late. What if the B client calls only once the MESSAGE_CONTAINED_STRING, gets the STRING, and then only uses that one? No contract failure will ever be raised and A will never know.
+(22:06:19) PR@gmail: A has installed a handler for that signal (I still haven't fixed them, but SIGUSR1 and SIGUSR2 would suffice) that will reset locked to False.... 
+(22:07:22) Cyril Adrian: yes but the STRING is still shared and the object can be in a state not coherent with what A expects!
+(22:07:25) PR@gmail: well MESSAGE_CONTAINED_STRING would not hold a STRING. It will be an heir of STRING with all modifying features redefined....
+(22:07:33) Cyril Adrian: ah ah!
+(22:08:14) PR@gmail: see C_STRING in $eiffel_libraries/common/library/const_string.e
+(22:08:20) Cyril Adrian: so it means that the user cannot create its own shared objects without real special care? IOW we need a special generator. Good news, ESE is becoming quite good at those ;-)
+(22:08:22) PR@gmail: for a similar technique
+(22:08:47) Cyril Adrian: I'm afraid of having to encapsulate the whole SE library
+(22:09:18) PR@gmail: LINKED_LISTs would suffice.... 
+(22:09:30) ***PR@gmail thinks this chat is highly useful
+(22:09:57) Cyril Adrian: ? what if I want to share a NUMBER? Or a MINI_PARSER_BUFFER?
+(22:10:12) Cyril Adrian: (examples taken at random)
+(22:10:23) PR@gmail: you won't. You shares only heirs of MESSAGE
+(22:10:48) Cyril Adrian: ah ah again :-) So you need a special STRING that is a heir of MESSAGE?
+(22:11:06) PR@gmail: not every object can pass in the message port, only heirs of MESSAGE.
+(22:11:27) Cyril Adrian: the other objects are not shared?
+(22:11:49) Cyril Adrian: I mean, when I pass a MESSAGE_CONTAINED_STRING, that one is shared but not the contained STRING?
+(22:11:55) PR@gmail: I will provide special heir of STRING, LINKED_LIST and some other data structures, ensuring that all the referred objects by a MESSAGE will be stored into the MESSAGE_PORT
+(22:12:26) PR@gmail: you shall do "message_port.add_message (create {MESSAGE_STRING}.from_string(your_string))"
+(22:13:05) PR@gmail: or even better you won't allocate the STRING at all. You operate directly on the MESSAGE_STRING until its sent 
+(22:14:35) Cyril Adrian: But what if one wants to share a more complex object?
+(22:16:15) PR@gmail: such an object would be an heir of MESSAGE; it will be allocated in the shared memory area and it will *not* have references outside the shared memory area. This is verified using an invariant based on TYPED_INTERNALS ... 
+(22:18:53) Cyril Adrian: OK, as I understand it, any object in the mmap is an heir of MESSAGE, and they cannot have references outside of it. Good. But it also means you cannot put anything in your special LINKED_LIST (a MESSAGE itself) except a MESSAGE, do I understand you right?
+(22:19:51) PR@gmail: yes...
+(22:20:03) PR@gmail: \ufeffcontained_in_message_port (a_message_port: MESSAGE_PORT): BOOLEAN is
+	local internal: TYPED_INTERNAL[like Current]; i: INTEGER
+	do
+		from Result:=True i:=1 until REsult=False or else i>internal.type_attribute_count
+		loop
+			
+(22:20:10) PR@gmail: ouch... sorry...
+(22:22:20) ***PR@gmail is coding live... :)
+(22:22:26) Cyril Adrian: :-)
+(22:24:02) Cyril Adrian: OK, I understand the principle. The mmap is self-sufficient: the application may make references to object into it, but the mmap itself may not make links outwards.
+(22:24:21) Cyril Adrian: It has a great side effect: you can save the mmap in a file :-)
+(22:24:50) PR@gmail: I started from that indeed!
+(22:24:55) Cyril Adrian: :-)
+(22:25:19) PR@gmail: I was working on STORED  objects that lives in a STORE, a memory mapped file
+(22:25:50) PR@gmail: the "problem" is that when you reload the store you can't be sure it will be placed at the same address it where the last time
+(22:26:02) PR@gmail: it is solvable at load time tought
+(22:26:13) Cyril Adrian: yes
+(22:26:50) PR@gmail: you store the original starting address at the beginnind of the store. When you reload it you tries to reallocate it at the same address
+(22:27:21) PR@gmail: if it fails you have to navigate in all the STORED objects using internals updating all references addresses
+(22:27:44) Cyril Adrian: so anyway, there's a technical solution... sounds good
+(22:28:26) Cyril Adrian: another question: how do you keep the GC happy?
+(22:28:56) PR@gmail: ehrm.... :) 
+(22:29:48) PR@gmail: actually I was thinkering about it. Such magics requires to be able to write the GC in Eiffel, ... still using the omnipresent INTERNALS.... :)
+(22:30:57) Cyril Adrian: there is another solution
+(22:31:04) PR@gmail: but this can't actually be done.... INTERNALS can't access INTERNALSs of referred objects
+(22:32:02) Cyril Adrian: let the mmap part be managed via an external shared library, itself compiled in SmartEiffel using the -no_main flag, with its own GC :-) That's possible since there is no outward reference
+(22:32:55) PR@gmail: can I add a syntesis of our chat to the DESIGN file of emp^2? Obviously sharing copyright of the design. (I was planning to release everything under LGPL)
+(22:33:18) Cyril Adrian: what's emp^2 ?
+(22:33:43) PR@gmail: I would rather avoid separate compiling. It can quickly becomes really hard to understant
+(22:34:02) PR@gmail: Eiffel Massively Parallel Message Passing = EMPMP = E(MP)^2 ....
+(22:34:18) Cyril Adrian: wow :-)
+(22:34:23) Cyril Adrian: Where will the code live?
+(22:35:18) PR@gmail: In hacking it in EWLC. Currently it resides on my disk... ASAP I will upload a demo, but such chats are precious to start with a reasoable sound design
+(22:35:58) Cyril Adrian: about separate compiling: it's OK, we can have a tools layer that handles that (that's one of the main aims of ESE, esp. esec: hide the complexity using tools)
+(22:37:04) Cyril Adrian: I think your code is not really library wrapping... Is it? I mean you can come to ESE if you want to ;-))
+(22:37:23) PR@gmail: fine... My aims are not so great. I hoped to put down something as simple as possible, that ideally won't require further tools...
+(22:38:01) PR@gmail: Yes... such code conceptually belongs to ese; I would not dirt other's playfield until the toy is usable tought... :)
+(22:38:44) Cyril Adrian: I have a special "blackboard" folder in ESE exactly used for that sort of things.
+(22:39:21) PR@gmail: oh my! I didn't saw INTERNALS.   object_attribute (i: INTEGER_32): INTERNALS ... this is waht I need
+(22:39:30) Cyril Adrian: And yes, I like your idea, plus the shared library idea it could become a great basis for plugins! ha ha ha! World domination is near :()
+(22:41:34) Cyril Adrian: yes, object_attribute is really useful. The whole XML implementation of REPOSITORY relies on it.
+(22:43:36) PR@gmail: ah, speaking of XML repositories.... isn't XML a little slow/memory hog? Isn't JSON a little better? 
+(22:45:55) Cyril Adrian: Certainly, but I don't know JSON and it did not exist (or I was not aware of it) when REPOSITORY was written... And my XML parser is slow? ;-)
+(22:46:27) Cyril Adrian: (/me is grinning because he knows the XML implementation in SE is quite buggy)
+(22:47:54) PR@gmail: I'm not saying that *your* XML parser is slow. I'm saying that parsing XML is way slower and uses far more memory that parsing JSON
+(22:48:11) PR@gmail: :)
+(22:48:43) Cyril Adrian: you know, I'm kidding ;-) Maybe it's time to learn JSON and invent ESON, because NIH :-)
+(22:49:55) Cyril Adrian: or maybe write a JSON parser and put it in ESE? :-)
+(22:50:05) PR@gmail: print(NIH.description)
+(22:50:47) PR@gmail: {      "firstName": "John",      "lastName": "Smith",      "address": {          "streetAddress": "21 2nd Street",          "city": "New York",          "state": "NY",          "postalCode": 10021      },      "phoneNumbers": [          "212 555-1234",          "646 555-4567"      ]  }  -- JSON is *THAT* simple
+(22:51:05) Cyril Adrian: Not Invented Here, a syndrom quite heavy in the SE core team :-/
+(22:51:36) PR@gmail: ahh... SE team is not the only one affected by NIH.... 
+(22:51:56) PR@gmail: their model is too much cathedral and not bazaar enough...
+(22:52:00) Cyril Adrian: indeed
+(22:52:14) PR@gmail: http://www.json.org/ contains the entire definition of JSON in a bunch of lines
+(22:52:34) Cyril Adrian: good, thanks, I'll have a look
+(22:52:34) PR@gmail: so few lines I was going to paste them here :-P
+
+
+---
+
+22:50
+(22:54:16) Cyril Adrian: OK, the grammar is simple enough.
+22:55
+(22:54:59) Cyril Adrian: I could implement it either by hand or using ESE's parse library.
+(22:55:21) PR@gmail: oh my! I had to kill pidgin.... 
+(22:55:49) Cyril Adrian: ouch. I'm using gmail's internal chat client, it's good enough ;-)
+(22:55:51) PR@gmail: really didn't you knew it, you did?
+(22:56:10) Cyril Adrian: in fact I heard of it recently but I did not have time to dig
+(22:56:24) PR@gmail: well... going all javascript is too heavy for the iBook clamshell I'm using...
+(22:56:37) PR@gmail: (G3 466 mhz, 368mb ram)
+(22:56:56) Cyril Adrian: sure
+(22:57:09) PR@gmail: Hacking on *old* machines makes you write good code. :)
+(22:57:22) Cyril Adrian: :-)
+(22:57:27) PR@gmail: It's one of my little manias
+(22:57:56) Cyril Adrian: you're right, but with the upcoming SE version I think you'll have problems
+(22:58:08) PR@gmail: Also because it's cool enoght to be kept on lap for hours ... its power source is 45W
+(22:58:32) Cyril Adrian: wow! I have a laptop... hooked to the wall ;-)
+(22:58:55) PR@gmail: slower than 2.3? (ehehe...to compile I actually use ssh)
+(22:59:32) Cyril Adrian: not actually slower, but more memory hungry. Executables are thrice bigger.
+(22:59:39) PR@gmail: another way to do is gcc integration. For this eiffel-gcc-xml could be useful, *when* unions could be easily wrappable and external types are usable
+23:00
+(23:00:06) PR@gmail: have you ever considered the idea of making SE producing shared libraries?
+(23:00:23) Cyril Adrian: oh yes, many times :-)
+(23:00:26) PR@gmail: it is indeed possible to implement redefines using ELF weak symbols
+(23:01:01) PR@gmail: too many projects, to few monkeys hitting the keyboards... :-P
+(23:01:44) Cyril Adrian: indeed... Currently I'm hacking on a data mapper for ESE... To simplify the "database" side of it. Another class generator ;-)
+(23:04:20) PR@gmail: .... isn't so many class generators a sign that the compiler itself shall be made more "pluggable"/extensible? And that development model of SE is a little too closed? :)
+(23:04:41) Cyril Adrian: hem... :-D
+
+
+From http://acmqueue.com/modules.php?name=Content&pa=showpage&pid=337&page=1
+
+Queuecasts
+	Developer Tools
+	Legacy Systems
+	QA & Optimization
+	Security
+	Virtualization
+	Development Tools Directory
+Learning from THE WEB
+
+
+From Semi-Structured Data
+      Vol. 3, No. 8 - October 2005
+by Adam Bosworth, Google
+The Web has much to teach us about managing and modeling distributed data. It's time we began listening.
+
+In the past decade we have seen a revolution in computing that transcends anything seen to date in terms of scope and reach, but also in terms of how we think about what makes up \u201cgood\u201d and \u201cbad\u201d computing. The Web taught us several unintuitive lessons:
+
+1. Simple, relaxed, sloppily extensible text formats and protocols often work better than complex and efficient binary ones. Because there are no barriers to entry, these are ideal. A bottom-up initiative can quickly form around them and reach a tipping point in terms of adoption. In other words, anyone can write HTML, no matter how syntax-challenged they may be, because the browsers are so forgiving; and even writing an HTTP server is within the reach of orders of magnitude more than, say, writing a CORBA or DCOM server. What\u2019s more, if the text format doesn\u2019t work, one can easily mail around the HTTP request or HTML to friends who will examine it in their text tool of choice and explain what is incorrect. In short, having a format that \u201cnormal\u201d people can inspect, understand, augment, and author is hugely important to adoption in a bottom-up world.
+
+2. It is worth making things simple enough that one can harness Moore\u2019s law in parallel. This means that a system can scale more or less linearly both to handle the volume of the requests coming in and, ideally, to handle the complexity. For example, Google is able to handle huge numbers of requests that ask for quite complex work (find all the documents out of billions that are \u201cmost relevant\u201d to the following words) largely because it can scale linearly with respect to both the size of the underlying corpus and the volume of queries. DNS is, of course, the best example of this, but so is caching, which brings me to point 3.
+
+3. It is acceptable to be stale much of the time. Most data isn\u2019t updated frequently, if at all. It is inserted as a new version (because of audit trail issues, etc.). Therefore, it doesn\u2019t matter if what you see is a bit out of date. For example, if one uses the tracker for FedEx to look for a package and the data it shows is 30 minutes out of date, it will hardly be catastrophic. Unless one runs too fine a line on meetings or catching flights, even an airline\u2019s landing info may be two to three minutes out of date without any serious ramifications. This fact inherently enables scalability by enabling the lazy copying of data to extra disks.
+
+4. The wisdom of crowds works amazingly well. Successful systems on the Web are bottom-up. They don\u2019t mandate much in a top-down way. Instead, they control themselves through tipping points. For example, Flickr doesn\u2019t tell its users what tags to use for photos. Far from it. Any user can tag any photo with anything (well, I don\u2019t think you can use spaces). But, and this is a key but, Flickr does provide feedback about the most popular tags, and people seeking attention for their photos, or photos that they like, quickly learn to use that lexicon if it makes sense. It turns out to be amazingly stable. Del.icio.us does the same for links (and did it first, actually). Google\u2019s success in making a more relevant search was based on leveraging the wisdom of crowds (PageRank). RSS 2.0 is taking off because there is a critical mass of people reading it and it is easy to read/write, so people have decided to leverage that when publishing content. It isn\u2019t that it is a good or bad format for things other than syndicated content (for which I think it is very good). Rather, it works well enough.
+
+5. People understand a graph composed of tree-like documents (HTML) related by links (URLs). In some ways I find this the most surprising of all. For years we assumed people had trouble with trees, never mind graphs. And suddenly hyperlinks come along, and as long as there is a Back button, they work.
+
+There were some unsurprising lessons to be relearned as well:
+
+6. Pay attention to physics. As a simple rule of thumb, an individual server can normally handle perhaps 100 requests a second (I\u2019ll say within one order of magnitude up if simple ones and down if very hard ones). If the goal is for each server to support 1,000 concurrent users, therefore, try to avoid an event model in which each user pings the server more than once per 10 seconds, let alone one. In short, avoid a fine-grained model of code on the server responding to events at the level of mouse moves or keys typed or each time the scrollbar is dragged three millimeters because if you do, you\u2019ll be generating about 10 events per second or two orders of magnitude too many. By the way, even if supporting only 10 concurrent users per server is acceptable, communications are often fragile, and it isn\u2019t a great idea to be extremely fine-grained because a small rare glitch in communications can much more easily break the system.
+
+7. Be as loosely coupled as possible. Ideally, the server runs asynchronously with respect to the client. They are loosely coupled with respect to time. Then it is easy to maximize overall server throughput and handle prioritization of requests and failover. Unfortunately, this isn\u2019t widely practiced because of the nature of most of today\u2019s applications frameworks, which do not make asynchrony easy enough for mere mortal programmers, and because the one thing about which asynchrony is unreliable is guaranteed latency, which is essential to a good user experience. The frameworks were derived to support killer apps, which were all about user interface. Failing asynchrony, then at least have a model in which there isn\u2019t a hard link (meaning an IP link) between the client and the server because load and code on servers are always altering and machines do fail. So always go through indirection on the way to the server. URLs and redirects both obviously serve this purpose and, between them, do it very well. Some people swizzle at the DNS level and others at the redirect level, but both let one handle moving load and code around, even at runtime. In either case, don\u2019t require shared secrets, let alone shared code, to make things work. For example, the browser will continue to work with a site even if the code at the site is completely replaced and the language switched and the operating system switched. There is a limit to this. HTTP and HTML are shared secrets between the browser and the server, so perhaps the rule should be to have incredibly few of them and make them incredibly simple, flexible, forgiving, and generic.
+
+8. KISS. Keep it (the design) simple and stupid. Complex systems tend to fail. They are hard to tune. They tend not to scale as well. They require smarter people to keep the wheels on the road. In short, they are a pain in the you-know-what. Conversely, simple systems tend to be easy to tune and debug and tend to fail less and scale better and are usually easier to operate. This isn\u2019t news. As I\u2019ve argued before, spreadsheets and SQL and PHP all succeeded precisely because they are simple and stupid\u2014and forgiving. Interestingly, standards bodies tend to keep working on standards long after they should have been frozen. They forget these lessons and add a million bells and whistles that would, if adopted, undoubtedly cause the systems to fail. Luckily this doesn\u2019t happen because by then there is a large body of installed code (and even hardware) out there that assumes the simpler spec and cannot handle the new bells and whistles. Therefore, no one uses them and we are all protected.
+
+Some of us learned these lessons seven or eight years ago and applied them to distributed computing. We had the explicit goal of using XML over HTTP to exchange information between applications via messages to build a loosely coupled, robust, Web-friendly model for distributed computing. In my humble opinion, however, we ignored or forgot lessons 3, 4, and 5.
+
+Lesson 3 tells us that elements in XML with values that are unlikely to change for some known period of time (or where it is acceptable that they are stale for that period of time, such as the title of a book) should be marked to say this. XML has no such model. You can use the HTTP protocol to say this in a very coarse way, but, for example, a book may mostly be invariant, though occasionally have a price change or a new comment, and certainly an item up for auction may see the price change.
+
+Lesson 4 says that we shouldn\u2019t over-invest in making schemas universally understood. Certain ones will win when they hit critical mass (as RSS 2.0 has done), and others will not. Some will support several variant but successful strains (as RSS has also done where most readers can read RSS .92, RSS 1.0, RSS 2.0, and Atom). It also suggests that trying to mandate universal URLs for semantics is unlikely to work because, in general, they will not reach a critical mass, and thus people will not know about them\u2014never mind take the trouble to use them. In short, if a large number of people aren\u2019t using something or there isn\u2019t a feedback mechanism to know what to use, then it will not be used.
+
+Lessons 1 and 5 tell us that XML should be easy to understand without schemas and should let the clients intelligently decide how and when to fetch related information, especially large files such as photos, videos, and music, but even just related sets of XML such as comments on a post, reviews of a candidate, or ratings for a restaurant.
+
+Hmm. There are some interesting implications in all of this.
+
+One is that the Semantic Web is in for a lot of heartbreak. It has been trying for five years to convince the world to use it. It actually has a point. XML is supposed to be self-describing so that loosely coupled works. If you require a shared secret on both sides, then I\u2019d argue the system isn\u2019t loosely coupled, even if the only shared secret is a schema. What\u2019s more, XML itself has three serious weaknesses in this regard:
+
+1. It doesn\u2019t handle binary data well. No sensible person will encode large amounts of binary data into XML. But then no sensible person would push binary data in the first place. They would let the receiver get it using existing protocols for streaming in binary data (or maybe BitTorrent these days).
+
+2. It doesn\u2019t handle links. The world is not one giant tree that can be freeze-dried and put into text. You have to break it up into chunks. And one man\u2019s chunk is another man\u2019s set of chunks. The way to deal with this is self-describing links, which could, optionally, show you the MIME type and/or purpose of the link as in <Link purpose=\u201dcomments\u201d type=\u201dText/Atom\u201d/> and/or a self-describing syntax for what the server \u201cthinks\u201d is chunks (see point 3 below).
+
+If you examine XML, it typically is made up of sets of data and even sets of sets of data. The problem is that one cannot look at XML (supposedly self-describing, remember) and know which elements are instances of a set and which are not. If one sees, for example:
+
+   <Person><Name>\u2026</Name><email>\u2026</email>
+
+   <email>\u2026</email></Person>
+
+one can\u2019t safely assume that there is a set of <email> elements. Now the schema will describe this but, it\u2019s both hard (the XML schema language is very complex) and, more to the point, requires a shared secret. Ideally, this wouldn\u2019t be required, and a tool, without constantly downloading and analyzing schemas for each and every XML document, could easily figure this out from the instance.
+
+3. XML documents tend to be monolithic. Given a purchase order, for example, and the desire to insert a line item or replace the address, it is very hard to know how, since the items don\u2019t contain IDs or the date they were last created/updated. By contrast, the database world breaks things down into rows, each of which typically has a unique ID and a date created, although the last varies from database to database. This lets people \u201cchunk\u201d the information while they still have the ability to assemble it. By default in XML, the order of child elements matters. This encourages errors, however. It violates the rule of letting sloppy people author. A lot of XML errors are simple differences in the order of child elements. In most cases (except documents intended for printing) this does not and should not matter.
+
+Recently, an opportunity has arisen to transcend these limitations. RSS 2.0 has become an extremely popular format on the Web. RSS 2.0 and Atom (which is essentially isomorphic) both support a base schema that provides a model for sets. Atom\u2019s general model is a container (a <feed>) of <entry> elements in which each <entry> may contain any namespace scoped elements it chooses (thus any XML), must contain a small number of required elements (<id>, <updated>, and <title>), and may contain some other well-known ones in the Atom namespace such as <link>s.
+
+Even better, Atom clearly says that the order doesn\u2019t matter. This immediately gives a simple model for sets missing in XML. All one has to do is create a <feed> for a set and put each item in the set into an <entry>. Since all <entry> elements contain an <id> (which is a GUID) and an <updated> element (which is the date it was last altered), it is easy to define the semantics of replacing specific entries and even confirm that you are replacing the ones that you think (e.g., they have the same <id> and the same <updated>. Since they have a title, it is easy to build a user interface to display menus of them. Virtually all Atom entries have a <content> or <summary> element (or both) that summarizes the value of the entry in a user-friendly way and enhances the automatic user interface. If the entry has related binary information such as pictures or sound, it contains <link> elements that have attributes describing the MIME type and size of the target, thus letting the consumer of an Atom feed make intelligent choices about which media to fetch when and how, and resolving the outage XML has in this regard.
+
+Atom also supports links of other sorts, such as comments, so clearly an Atom entry can contain links to related feeds (e.g., Reviews for a Restaurant or Complaints for a Customer) or links to specific posts. This gives us the network and graph model that is missing in XML. Atom contains a simple HTTP-based way to INSERT, DELETE, and REPLACE <entry>s within a <feed>. There is a killer app for all these documents because the browsers already can view RSS 2.0 and Atom and, hopefully, will soon natively support the Atom protocol as well, which would mean read and write capabilities.
+
+ atomEntry =
+   element atom:entry {
+      atomCommonAttributes,
+      (atomAuthor*
+      & atomCategory*
+      & atomContent?
+      & atomContributor*
+      & atomId
+      & atomLink*
+      & atomPublished?
+      & atomRights?
+      & atomSource?
+      & atomSummary?
+      & atomTitle
+      & atomUpdated
+      & extensionElement*)
+   }
+
+RSS 2.0 has reached the tipping point where it is universally understood. Missing from RSS is the time-to-live (TTL) indicator necessary for caching, but as discussed, HTTP provides a coarse-grained model for this. In short, it may well be that a lot of useful information is going to flow over the Web as either RSS 2.0 or Atom (or both, depending on the type the requester asks for). It addresses many of the serious limitations or outages in XML today.
+
+All of this has profound implications for databases. Today databases violate essentially every lesson we have learned from the Web.
+
+1. Are simple relaxed text formats and protocols supported? No. We\u2019re still in the CORBA world. One still requires custom code to read a database. It is as though the browser required a driver to talk to each site (or at least type of site). It makes no sense in this day and age, and, as we have just seen, there is now a worthy candidate in Atom for a default protocol that every database should support, and in both Atom and RSS 2.0 for a wire format.
+
+2. Have databases enabled people to harness Moore\u2019s law in parallel? This would mean that databases could scale more or less linearly to handle both the volume of the requests coming in and even the complexity. The answer is no. Things like ORDER BY, joins, subqueries, and many others make it almost impossible to push the query logic down to an arbitrary number of leaf nodes and simply sort/merge/aggregate the results. The easier way to limit queries to avoid this would be to limit all predicates to ones that can be computed against a single row at a time, at least where efficiency and scale are paramount.
+
+3. Do databases optimize caching when it is OK to be stale? No. Databases in general don\u2019t have a way to mark what the TTL of fields is and then typically don\u2019t have a way in the query language to describe the acceptable staleness. Thus, caching across a sea of machines, the other best mechanism for speed, is rendered almost impossible.
+
+4. Do databases let schemas evolve for a set of items using a bottom-up consensus/tipping point? Obviously not. They typically are extremely rigid about the schema. This is regarded as a feature. Do databases let users \u201ctag\u201d data? Not at all easily because the point of tag rows would be that the foreign key in each row might point at any other row in any table, and relational databases don\u2019t typically enable this.
+
+5. Do databases handle flexible graphs (or trees) well? No, they do not. It has long been known that walking an arbitrary tree is a nightmare for databases. This is a big problem even today for many sites. While you can model any link that is normative in a database, it is almost impossible to model specific links to specific sets. In other words, I can have a WhoToGoTo field be a foreign key into People, but not into People or Companies or Friends or Helpdesks, or sometimes be a single value and sometimes a set and sometimes a pointer to an HTML page. Today\u2019s databases are to graphs as IMPROV was to a spreadsheet\u2014namely, much more formal, rigorous, and inflexible. The spreadsheet turned out to be the more robust and useful tool.
+
+6. Have the databases learned from the Web and made their queries simple and flexible? No, just ask a database if it has anyone who, if they have an age, are older than 40; and if they have a city, live in New York; and if they have an income, earn more than $100,000. This is a nightmare because of all the tests for NULL. There isn\u2019t a simple effective standard for the most basic query of all, which is \u201cabout\u201d the following words (e.g., tell me about everything: friends, people, employees, projects\u2026). Yet this is the type of query that is most forgiving, most flexible, and most widely understood.
+
+This is changing. Oracle has done a remarkable job of adding XML to its database in the various ways that customers might want. In so doing, it has added a lot of these capabilities. Its ROWID type allows some forms of flexible linkage. But none really shows that they have learned from the Web.
+TIME FOR DATABASE VENDORS TO STEP UP TO THE PLATE
+
+Distributed computing has been learning and evolving in response to the lessons of the Web. Formats and protocols are arising to overcome the limitations of XML\u2014even as XML in turn arose to overcome the limitations of CORBA and DCOM. It is time that the database vendors stepped up to the plate and started to support a native RSS 2.0/Atom protocol and wire format; a simple way to ask very general queries; a way to model data that encompasses trees and arbitrary graphs in ways that humans think about them; far more fluid schemas that don\u2019t require complex joins to model variations on a theme about anything from products to people to places; and built-in linear scaling so that the database salespeople can tell their customers, in good conscience, for this class of queries you can scale arbitrarily with regard to throughput and extremely well even with regard to latency, as long as you limit yourself to the following types of queries. Then we will know that the database vendors have joined the 21st century.
+
+ADAM BOSWORTH joined Google in 2004 as vice president of engineering. He came to Google from BEA Systems where he was chief architect and senior vice president of advanced development, responsible for the engineering efforts for BEA\u2019s Framework Division. Prior to joining BEA, he co-founded Crossgain, a software development firm acquired by BEA. Known as one of the pioneers of XML, Bosworth held various senior management positions at Microsoft, including general manager of the WebData group, a team focused on defining and driving XML strategy. While at Microsoft, he was responsible for designing the Microsoft Access PC database product and assembling and driving the team that developed Internet Explorer 4.0\u2019s HTML engine.
+
+Back to Learning from THE WEB
+

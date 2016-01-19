@@ -1,0 +1,135 @@
+system
+"cairosimple"
+
+root
+
+ CAIROSIMPLE: make
+
+default -- section of the system
+
+	assertion (check);
+	assertion_flat_check (no);
+	debug (no);
+	trace (no);
+	collect (yes);
+	no_style_warning (no);
+	no_warning (no);
+	verbose (no);
+	manifest_string_trace (no);
+	high_memory_compiler (no);	
+	profile (no);
+	relax (yes);
+cluster -- section
+	cairosimple: "."
+	cairo: "../../library/loadpath.se"
+	cairo: "../../../common/library/loadpath.se"
+
+	standard: "${path_lib}/loadpath.se"
+
+external -- section for elements written in another language
+	-- Directories where to search for C .h files:
+	-- external_header_path: "/usr/local/expat/include /usr/local/include/mjpegtools"
+	-- external_header_path: "$(pkg-config --cflags glib-2.0)"
+
+	-- External object files to be considered; update and uncomment the
+	-- following line:
+	-- external_object_files: "foo.o bar.o"
+
+	-- External C files to be considered; update and uncomment the
+	-- following line:
+	-- external_c_files: "foo.c bar.c"
+
+	-- External C++ files to be considered; update and uncomment the
+	-- following line:
+	-- external_c_plus_plus_files: "foo.cpp bar.cpp"
+
+	-- The equivalent of the -cecil flag of the traditional command line mode.
+	-- To indicate some cecil file to be considered, update and uncomment
+	-- the following lines:
+	-- cecil ("my_cecil_file1.se")
+	-- cecil ("my_cecil_file2.se")
+	-- cecil ("my_cecil_file3.se")
+	-- ...
+
+	-- External libraries directory path to be considered; update and uncomment
+	-- the following line:
+	--external_lib_path: "$(pkg-config --cflags --libs glib-2.0)"
+
+	-- From release -0.74Beta#20 and later SmartEiffel supports linker
+	-- external_lib_path. Just leave out the -L:
+	-- external_lib_path: "/usr/local /foo/bar"
+	-- In this case external_lib_path will work on Windows too.
+
+	-- External libraries to be considered; update and uncomment the following
+	-- line:
+	-- external_lib: "$(pkg-config --libs glib-2.0)"
+
+	-- or linker independent:
+	-- external_lib: "m X11"
+
+generate -- section
+
+	no_strip(yes);
+	-- Yes would mean that you don't want to run "strip" on the generated
+	-- executable. This is the equivalent of the -no_strip flag of the
+	-- traditional command line mode. (I.e. to use a C level debugger on your
+	-- system, you should choose yes here).
+
+	no_split(no);
+	-- Yes would mean that you want one big single C file for the complete
+	-- system, pinstead of the many small C files produced by default ("no").
+	-- This may be useful for delivery of the most efficient version. (Some
+	-- C compilers including gcc can then do better inlining.)
+
+	clean(no);
+	-- Yes would mean that you want to remove all generated C files, all
+	-- generated object files as well as other temporary files generated
+	-- during the compilation process. (See also command clean.)
+
+	-- The equivalent of the -cc flag of the traditional command line mode.
+	-- To select a different C compiler from the default, update and uncomment
+	-- the following line:
+	-- cc : "gcc"
+
+	-- To decide which C compiler options are to be passed, you need to use
+	-- this keyword as well as a good understanding of your C compiler.
+	-- Update and uncomment the following line:
+	c_compiler_options : "$(pkg-config --cflags cairo) -g"
+
+	-- Some options are to be passed only to the linker. Update and uncomment
+	-- the following line:
+	linker_options : "$(pkg-config --libs --cflags cairo) -g"
+
+	-- For the equivalent of the -no_main flag of the traditional command line
+	-- mode, uncomment the following line:
+	-- no_main (yes)
+
+	-- For the equivalent of the -gc_info flag of the traditional command line
+	-- mode, uncomment the following line:
+	-- gc_info (yes)
+
+	-- For the equivalent of the -wedit flag of the traditional command line
+	-- mode. To Include support for the Wedit debugger uncomment the following
+	-- line:
+	-- wedit (yes)
+
+
+-- Additional information about system environment variables:
+--    Inside manifest strings, you are allowed to use system
+--    environment variables using the same notation as in the traditional
+--    "loadpath.se" files. Actually, this notation is inspired by the
+--    traditional UNIX bracketed notation as for example: ${FOO} or ${Bar}
+--    or ${SmartEiffel}.
+--
+-- Additional information about the ${SmartEiffelDirectory} variable:
+--    If not explicitely set by the user, the ${SmartEiffelDirectory} variable
+--    is automatically computed using the value of the ${SmartEiffel} variable.
+--    (Keep in mind that the ${SmartEiffel} variable is mandatory for using
+--    SmartEiffel.)  The computed value indicates the SmartEiffel main
+--    directory. For example, if the value of ${SmartEiffel} is
+--    "/usr/local/lib/SmartEiffel/sys/system.se"
+--    the computed value is "/usr/local/lib/SmartEiffel/". This automatically
+--    defined variable ${SmartEiffelDirectory} is useful for indicating the
+--    location of the SmartEiffel standard library.
+--
+end
