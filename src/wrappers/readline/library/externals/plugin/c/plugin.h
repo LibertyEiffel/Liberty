@@ -1,5 +1,5 @@
 /*
-** This file have been created by wrapper-generator.
+** This file has been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
 #define keymap_entry_struct_get_type(a_structure) (((struct _keymap_entry*) (a_structure))->type)
@@ -11,40 +11,6 @@
 #define keymap_entry_struct_set_function(a_structure,a_value) do {(((struct _keymap_entry*)(a_structure)))->function = (a_value);}while(0)
 
 #define sizeof__keymap_entry (sizeof(struct _keymap_entry))
-#define hist_state_struct_get_entries(a_structure) (((struct _hist_state*) (a_structure))->entries)
-
-#define hist_state_struct_set_entries(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->entries = (a_value);}while(0)
-
-#define hist_state_struct_get_offset(a_structure) (((struct _hist_state*) (a_structure))->offset)
-
-#define hist_state_struct_set_offset(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->offset = (a_value);}while(0)
-
-#define hist_state_struct_get_length(a_structure) (((struct _hist_state*) (a_structure))->length)
-
-#define hist_state_struct_set_length(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->length = (a_value);}while(0)
-
-#define hist_state_struct_get_size(a_structure) (((struct _hist_state*) (a_structure))->size)
-
-#define hist_state_struct_set_size(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->size = (a_value);}while(0)
-
-#define hist_state_struct_get_flags(a_structure) (((struct _hist_state*) (a_structure))->flags)
-
-#define hist_state_struct_set_flags(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->flags = (a_value);}while(0)
-
-#define sizeof__hist_state (sizeof(struct _hist_state))
-#define hist_entry_struct_get_line(a_structure) (((struct _hist_entry*) (a_structure))->line)
-
-#define hist_entry_struct_set_line(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->line = (a_value);}while(0)
-
-#define hist_entry_struct_get_timestamp(a_structure) (((struct _hist_entry*) (a_structure))->timestamp)
-
-#define hist_entry_struct_set_timestamp(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->timestamp = (a_value);}while(0)
-
-#define hist_entry_struct_get_data(a_structure) (((struct _hist_entry*) (a_structure))->data)
-
-#define hist_entry_struct_set_data(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->data = (a_value);}while(0)
-
-#define sizeof__hist_entry (sizeof(struct _hist_entry))
 #define undo_list_struct_get_next(a_structure) (((struct undo_list*) (a_structure))->next)
 
 #define undo_list_struct_set_next(a_structure,a_value) do {(((struct undo_list*)(a_structure)))->next = (a_value);}while(0)
@@ -66,6 +32,15 @@
 #define undo_list_struct_set_what(a_structure,a_value) do {(((struct undo_list*)(a_structure)))->what = (a_value);}while(0)
 
 #define sizeof_undo_list (sizeof(struct undo_list))
+#define funmap_struct_get_name(a_structure) (((struct _funmap*) (a_structure))->name)
+
+#define funmap_struct_set_name(a_structure,a_value) do {(((struct _funmap*)(a_structure)))->name = (a_value);}while(0)
+
+#define funmap_struct_get_function(a_structure) (((struct _funmap*) (a_structure))->function)
+
+#define funmap_struct_set_function(a_structure,a_value) do {(((struct _funmap*)(a_structure)))->function = (a_value);}while(0)
+
+#define sizeof__funmap (sizeof(struct _funmap))
 #define readline_state_struct_get_point(a_structure) (((struct readline_state*) (a_structure))->point)
 
 #define readline_state_struct_set_point(a_structure,a_value) do {(((struct readline_state*)(a_structure)))->point = (a_value);}while(0)
@@ -151,20 +126,49 @@
 #define readline_state_struct_set_reserved(a_structure,a_value) do {(((struct readline_state*)(a_structure)))->reserved = (a_value);}while(0)
 
 #define sizeof_readline_state (sizeof(struct readline_state))
-#define funmap_struct_get_name(a_structure) (((struct _funmap*) (a_structure))->name)
+#define hist_entry_struct_get_line(a_structure) (((struct _hist_entry*) (a_structure))->line)
 
-#define funmap_struct_set_name(a_structure,a_value) do {(((struct _funmap*)(a_structure)))->name = (a_value);}while(0)
+#define hist_entry_struct_set_line(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->line = (a_value);}while(0)
 
-#define funmap_struct_get_function(a_structure) (((struct _funmap*) (a_structure))->function)
+#define hist_entry_struct_get_timestamp(a_structure) (((struct _hist_entry*) (a_structure))->timestamp)
 
-#define funmap_struct_set_function(a_structure,a_value) do {(((struct _funmap*)(a_structure)))->function = (a_value);}while(0)
+#define hist_entry_struct_set_timestamp(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->timestamp = (a_value);}while(0)
 
-#define sizeof__funmap (sizeof(struct _funmap))
+#define hist_entry_struct_get_data(a_structure) (((struct _hist_entry*) (a_structure))->data)
+
+#define hist_entry_struct_set_data(a_structure,a_value) do {(((struct _hist_entry*)(a_structure)))->data = (a_value);}while(0)
+
+#define sizeof__hist_entry (sizeof(struct _hist_entry))
+#define hist_state_struct_get_entries(a_structure) (((struct _hist_state*) (a_structure))->entries)
+
+#define hist_state_struct_set_entries(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->entries = (a_value);}while(0)
+
+#define hist_state_struct_get_offset(a_structure) (((struct _hist_state*) (a_structure))->offset)
+
+#define hist_state_struct_set_offset(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->offset = (a_value);}while(0)
+
+#define hist_state_struct_get_length(a_structure) (((struct _hist_state*) (a_structure))->length)
+
+#define hist_state_struct_set_length(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->length = (a_value);}while(0)
+
+#define hist_state_struct_get_size(a_structure) (((struct _hist_state*) (a_structure))->size)
+
+#define hist_state_struct_set_size(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->size = (a_value);}while(0)
+
+#define hist_state_struct_get_flags(a_structure) (((struct _hist_state*) (a_structure))->flags)
+
+#define hist_state_struct_set_flags(a_structure,a_value) do {(((struct _hist_state*)(a_structure)))->flags = (a_value);}while(0)
+
+#define sizeof__hist_state (sizeof(struct _hist_state))
 #define set_emacs_ctlx_keymap(a_value) emacs_ctlx_keymap = (a_value);
 #define set_emacs_meta_keymap(a_value) emacs_meta_keymap = (a_value);
 #define set_emacs_standard_keymap(a_value) emacs_standard_keymap = (a_value);
 #define set_vi_insertion_keymap(a_value) vi_insertion_keymap = (a_value);
 #define set_vi_movement_keymap(a_value) vi_movement_keymap = (a_value);
+#define set_tilde_additional_prefixes(a_value) tilde_additional_prefixes = (a_value);
+#define set_tilde_additional_suffixes(a_value) tilde_additional_suffixes = (a_value);
+#define set_tilde_expansion_failure_hook(a_value) tilde_expansion_failure_hook = (a_value);
+#define set_tilde_expansion_preexpansion_hook(a_value) tilde_expansion_preexpansion_hook = (a_value);
 #define set_funmap(a_value) funmap = (a_value);
 #define set_rl_already_prompted(a_value) rl_already_prompted = (a_value);
 #define set_rl_attempted_completion_function(a_value) rl_attempted_completion_function = (a_value);
@@ -174,6 +178,7 @@
 #define set_rl_binding_keymap(a_value) rl_binding_keymap = (a_value);
 #define set_rl_catch_signals(a_value) rl_catch_signals = (a_value);
 #define set_rl_catch_sigwinch(a_value) rl_catch_sigwinch = (a_value);
+#define set_rl_change_environment(a_value) rl_change_environment = (a_value);
 #define set_rl_char_is_quoted_p(a_value) rl_char_is_quoted_p = (a_value);
 #define set_rl_completer_quote_characters(a_value) rl_completer_quote_characters = (a_value);
 #define set_rl_completer_word_break_characters(a_value) rl_completer_word_break_characters = (a_value);
@@ -199,7 +204,9 @@
 #define set_rl_end(a_value) rl_end = (a_value);
 #define set_rl_erase_empty_line(a_value) rl_erase_empty_line = (a_value);
 #define set_rl_event_hook(a_value) rl_event_hook = (a_value);
+#define set_rl_executing_key(a_value) rl_executing_key = (a_value);
 #define set_rl_executing_keymap(a_value) rl_executing_keymap = (a_value);
+#define set_rl_executing_keyseq(a_value) rl_executing_keyseq = (a_value);
 #define set_rl_executing_macro(a_value) rl_executing_macro = (a_value);
 #define set_rl_explicit_arg(a_value) rl_explicit_arg = (a_value);
 #define set_rl_filename_completion_desired(a_value) rl_filename_completion_desired = (a_value);
@@ -208,13 +215,16 @@
 #define set_rl_filename_quoting_desired(a_value) rl_filename_quoting_desired = (a_value);
 #define set_rl_filename_quoting_function(a_value) rl_filename_quoting_function = (a_value);
 #define set_rl_filename_rewrite_hook(a_value) rl_filename_rewrite_hook = (a_value);
+#define set_rl_filename_stat_hook(a_value) rl_filename_stat_hook = (a_value);
 #define set_rl_getc_function(a_value) rl_getc_function = (a_value);
 #define set_rl_gnu_readline_p(a_value) rl_gnu_readline_p = (a_value);
 #define set_rl_ignore_completion_duplicates(a_value) rl_ignore_completion_duplicates = (a_value);
 #define set_rl_ignore_some_completions_function(a_value) rl_ignore_some_completions_function = (a_value);
 #define set_rl_inhibit_completion(a_value) rl_inhibit_completion = (a_value);
+#define set_rl_input_available_hook(a_value) rl_input_available_hook = (a_value);
 #define set_rl_insert_mode(a_value) rl_insert_mode = (a_value);
 #define set_rl_instream(a_value) rl_instream = (a_value);
+#define set_rl_key_sequence_length(a_value) rl_key_sequence_length = (a_value);
 #define set_rl_last_func(a_value) rl_last_func = (a_value);
 #define set_rl_library_version(a_value) rl_library_version = (a_value);
 #define set_rl_line_buffer(a_value) rl_line_buffer = (a_value);
@@ -233,15 +243,12 @@
 #define set_rl_readline_state(a_value) rl_readline_state = (a_value);
 #define set_rl_readline_version(a_value) rl_readline_version = (a_value);
 #define set_rl_redisplay_function(a_value) rl_redisplay_function = (a_value);
+#define set_rl_signal_event_hook(a_value) rl_signal_event_hook = (a_value);
 #define set_rl_sort_completion_matches(a_value) rl_sort_completion_matches = (a_value);
 #define set_rl_special_prefixes(a_value) rl_special_prefixes = (a_value);
 #define set_rl_startup_hook(a_value) rl_startup_hook = (a_value);
 #define set_rl_terminal_name(a_value) rl_terminal_name = (a_value);
 #define set_rl_undo_list(a_value) rl_undo_list = (a_value);
-#define set_tilde_additional_prefixes(a_value) tilde_additional_prefixes = (a_value);
-#define set_tilde_additional_suffixes(a_value) tilde_additional_suffixes = (a_value);
-#define set_tilde_expansion_failure_hook(a_value) tilde_expansion_failure_hook = (a_value);
-#define set_tilde_expansion_preexpansion_hook(a_value) tilde_expansion_preexpansion_hook = (a_value);
 #define set_history_base(a_value) history_base = (a_value);
 #define set_history_comment_char(a_value) history_comment_char = (a_value);
 #define set_history_expansion_char(a_value) history_expansion_char = (a_value);

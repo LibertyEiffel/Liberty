@@ -4,7 +4,7 @@ class C_ELLIPSIS
 inherit
    C_FUNCTION_ARGUMENT
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

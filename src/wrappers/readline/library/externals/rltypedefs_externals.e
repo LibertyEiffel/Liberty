@@ -1,6 +1,5 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-
 deferred class RLTYPEDEFS_EXTERNALS
 
 

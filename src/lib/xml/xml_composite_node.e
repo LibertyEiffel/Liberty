@@ -72,7 +72,7 @@ feature {XML_TREE}
          a_attribute_name /= Void
          a_attribute_value /= Void
       do
-         attributes.add(a_attribute_value, a_attribute_name)
+         attributes.put(a_attribute_value, a_attribute_name)
       ensure
          attribute_at(a_attribute_name) = a_attribute_value
       end

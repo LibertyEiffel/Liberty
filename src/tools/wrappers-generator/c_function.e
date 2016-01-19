@@ -5,6 +5,7 @@ inherit
    CONTEXTED_NODE
    IDENTIFIED_NODE
    MOVABLE_NODE
+      -- hence a NAMED_NODE and a FILED_NODE
       redefine compute_eiffel_name
       end
    STORABLE_NODE
@@ -12,14 +13,22 @@ inherit
       redefine compute_eiffel_name
       end
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
    store
       do
-         symbols.put(Current, c_string_name)
-         functions.add_first(Current)
+		log("Storing function '#(1)', line #(2)%N" # c_string_name # line_row.to_utf8 )
+		if is_anonymous then
+			log("Skipping anonymous funtion at line #(2)%N" # line_row.as_utf8)
+		else
+			check 
+				c_string_name /= Void 
+			end
+			symbols.put(Current, c_string_name)
+			functions.add_first(Current)
+		end
       end
 
    returns: UNICODE_STRING
@@ -27,7 +36,7 @@ feature {ANY}
          Result := attribute_at(once U"returns")
       end
 
-   return_type: TYPED_NODE
+   return_type: C_TYPE
       do
          Result := types.at(returns)
       end
@@ -40,13 +49,18 @@ feature {ANY}
    has_arguments: BOOLEAN
          -- Does Current function have arguments?
       do
-         Result := children_count > 0
+		  inspect children_count
+		  when 0 then Result := False
+		  when 1 then Result := not argument(1).is_ellipsis
+		  else Result := True
+		  end
+
       end
 
    is_variadic: BOOLEAN
          -- Does current function accept a variable number of arguments?
       do
-         if has_arguments then
+         if children_count > 0 then
             Result := argument(children_count).is_ellipsis
          else
             Result := False
@@ -60,7 +74,7 @@ feature {ANY}
       local
          i: INTEGER_32
       do
-         Result := return_type.is_void or return_type.has_wrapper
+         Result := return_type.is_void or return_type.has_wrapper -- return_type.referree.has_wrapper
          if Result then
             -- Check for
             from
@@ -82,40 +96,31 @@ feature {ANY}
    wrap_on (a_stream: OUTPUT_STREAM)
       do
          if not is_wrappable then
-            log("Function `@(1)'  not wrappable%N",
-            <<c_string_name>>)
+			log("Function `#(1)' is  not wrappable%N" #  c_string_name)
             buffer.reset
-            buffer.put_message(once "       -- function @(1) (at line @(2) in file @(3) is not wrappable%N",
-            <<c_string_name, line_row.to_utf8, c_file.c_string_name>>)
+            buffer.append(once "       -- function #(1) (at line #(2) in file #(3) is not wrappable%N" #
+					c_string_name # line_row.to_utf8 # c_file.c_string_name)
             -- TODO: provide the reason; using developer_exception_name
             -- triggers some recursion bug AFAIK. Paolo 2009-10-02
          elseif not is_public then
-            log(once "Skipping 'hidden' function `@(1)'%N",
-            <<c_string_name>>)
-            buffer.put_message(once "%T-- `hidden' function @(1) skipped.%N",
-            <<c_string_name>>)
+            log(once "Skipping 'hidden' function `#(1)'%N" # c_string_name)
+            buffer.append(once "%T-- `hidden' function #(1) skipped.%N" # c_string_name)
          elseif not namespace.is_main then
-            log(once "Skipping function `@(1)' belonging to namespace @(2) which is not wrapped%N",
-            <<c_string_name, namespace.c_string_name>>)
-            buffer.put_message(once "%T-- function @(1) in unwrapped namespace @(2) skipped.%N",
-            <<c_string_name, namespace.c_string_name>>)
-         elseif avoided.has(c_string_name) then
-            log(once "Skipping function `@(1)' as requested.%N",
-            <<c_string_name>>)
-            buffer.put_message(once "%T-- function @(1) @(2) skipped as requested.%N",
-            <<c_string_name>>)
+            log(once "Skipping function `#(1)' belonging to namespace #(2) which is not wrapped%N" #
+				c_string_name # namespace.c_string_name)
+            buffer.append(once "%T-- function #(1) in unwrapped namespace #(2) skipped.%N" #
+				c_string_name # namespace.c_string_name)
+         elseif avoided_symbols.has(c_string_name) then
+            log(once "Skipping function `#(1)' as requested.%N" # c_string_name)
+            buffer.append(once "%T-- function #(1) skipped as requested.%N" # c_string_name)
          else
-            log(once "Function @(1)",
-            <<c_string_name>>)
-            buffer.put_message(once "%T@(1)",
-            <<eiffel_name>>)
-            if has_arguments then
-               append_arguments
-            end
+            log(once "Function #(1)" # c_string_name)
+            buffer.append(once "%T#(1)" # eiffel_name)
+			append_arguments
             append_return_type
             append_description
             append_body
-            log_string(once "%N")
+            log(once "%N")
          end
          buffer.print_on(a_stream)
       end
@@ -153,39 +158,42 @@ feature {ANY}
          -- C requires at least one argument before the eventual ellips;
          -- C++ allows ellips to be the only argument. (source
          -- http://publib.boulder.ibm.com/infocenter/iadthelp/v7r0/index.jsp?topic=/com.ibm.etools.eries.langref.doc/as400clr155.htm)
-      require
-         has_arguments
+		 -- This command also deals with argument-less functions like "fork". For example an
+         -- argument-less function returning an integer shall be marked with
+         -- "()", the empty argument lt, otherwe the C compiler will
+         -- interpret it as the address of the call casted to an integer.
       local
          i, last: INTEGER
       do
-         buffer.append(once " (")
-         -- Omit the eventual ellips
-         if is_variadic then
-            -- Skip the last argument
-            last := children_count - 1
-         else
-            last := children_count
-         end
+		  if has_arguments then
+			  log(once " (")
+			  buffer.append(once " (")
+			  -- Omit the eventual ellips
+			  if is_variadic then
+				  -- Skip the last argument
+				  last := children_count - 1
+			  else
+				  last := children_count
+			  end
+			  log(once "#(1) args: " # &children_count)
+			  from
+				  i := 1
+			  until
+				  i > last - 1
+			  loop
+				  argument(i).put_on(buffer)
+				  buffer.append(once "; ")
+				  i := i + 1
+			  end
 
-         log(once "(@(1) args: ",
-         <<children_count.out>>)
-         from
-            i := 1
-         until
-            i > last - 1
-         loop
-            argument(i).put_on(buffer)
-            buffer.append(once "; ")
-            i := i + 1
-         end
+			  argument(last).put_on(buffer)
+			  log(once ")")
+			  buffer.append(once ")")
+		  end
+	  end
 
-         argument(last).put_on(buffer)
-         log_string(once ")")
-         buffer.append(once ")")
-      end
-
-   append_return_type
-         -- Append the Eiffel equivalent type of the return type of
+	  append_return_type
+		 -- Append the Eiffel equivalent type of the return type of
          -- Current node to `buffer' and the "is" keyword, i.e. ": INTEGER_32 is " or ":
          -- POINTER is". When result of `a_node' is "void" only " is" is appended.
       do
@@ -198,51 +206,40 @@ feature {ANY}
          end
          buffer.append(once " %N")
       rescue
-         log(once "Unwrappable return type: @(1)... ",
-         <<developer_exception_name>>)
+         log(once "Unwrappable return type: #(1)... " # developer_exception_name)
       end
 
    append_body
          -- Append the body of function to `buffer'
       local
-         actual_c_symbol, description: STRING
+         actual_c_symbol, description: ABSTRACT_STRING
       do
-         description := c_string_name
          if is_variadic then
-            description := description + variadic_function_note
-         end
-         -- Deal with argument-less functions like "fork". An
-         -- argument-less function returning an integer shall be marked with
-         -- "()", the empty argument lt, otherwe the C compiler will
-         -- interpret it as the address of the call casted to an integer.
-
-         if not has_arguments then
-            actual_c_symbol := c_string_name + once "()"
+            description := c_string_name & variadic_function_note
          else
-            actual_c_symbol := c_string_name
+            description := c_string_name
          end
-
-         buffer.put_message(once "%
-                        %               -- @(1)%N%
+         buffer.append(once "%
+                        %               -- #(1)%N%
                         %               external %"plug_in%"%N%
                         %               alias %"{%N%
                         %                       location: %".%"%N%
                         %                       module_name: %"plugin%"%N%
-                        %                       feature_name: %"@(2)%"%N%
+                        %                       feature_name: %"#(2)%"%N%
                         %               }%"%N%
-                        %               end%N%N",
-         <<description, actual_c_symbol>>)
+                        %               end%N%N" #
+						description # c_string_name)
          -- For debugging purpose the line where the node occurred were once printed in the comment, like th:
-         -- buffer.put_message(once "%
-         -- %            -- @(1) (node at line @(3))%N%
+         -- buffer.append(once "%
+         -- %            -- #(1) (node at line #(3))%N%
          -- %            external %"plug_in%"%N%
          -- %            alias %"{%N%
          -- %                    location: %".%"%N%
          -- %                    module_name: %"plugin%"%N%
-         -- %                    feature_name: %"@(2)%"%N%
+         -- %                    feature_name: %"#(2)%"%N%
          -- %            }%"%N%
-         -- %            end%N%N",
-         -- <<description, actual_c_symbol, line.out>>)
+         -- %            end%N%N" #
+         -- description # actual_c_symbol # line.out)
          -- th feature has been removed to make the generated classes a little more stable, avoiding unnecessary changes.
       end
 
@@ -256,7 +253,7 @@ feature {} -- Implementation
       end -- invariant name.is_equal(once U"Function")
 
 end -- class C_FUNCTION
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

@@ -3,12 +3,13 @@ class C_REFERENCE_TYPE
    -- Currently crudely wrapped as a POINTER.
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
    TYPED_NODE
    STORABLE_NODE
+      -- ReferenceType nodes also has size and align attributes
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

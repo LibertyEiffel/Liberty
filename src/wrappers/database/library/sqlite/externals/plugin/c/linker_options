@@ -1,0 +1,2 @@
+[UNIX]
+sqlite: "$(pkg-config --libs sqlite3) -Xlinker --no-as-needed"

@@ -33,18 +33,18 @@ feature {ANY}
          when "ArrayType" then
             create {C_ARRAY_TYPE} Result.make(node_name, line, column)
          when "Base" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {CPP_BASE_NODE} Result.make(node_name, line, column)
          when "Class" then
-            create {C_PLUS_PLUS_CLASS} Result.make(node_name, line, column)
+            create {CPP_CLASS} Result.make(node_name, line, column)
          when "Constructor" then
             create {C_CONSTRUCTOR} Result.make(node_name, line, column)
          when "Converter" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {CONVERTER_NODE} Result.make(node_name, line, column)
          when "CvQualifiedType" then
             create {C_QUALIFIED_TYPE} Result.make(node_name, line, column)
          when "Destructor" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
-         when "Ellips" then
+            create {DESTRUCTOR_NODE} Result.make(node_name, line, column)
+         when "Ellipsis" then
             create {C_ELLIPSIS} Result.make(node_name, line, column)
          when "Enumeration" then
             create {C_ENUM} Result.make(node_name, line, column)
@@ -63,17 +63,19 @@ feature {ANY}
          when "GCC_XML" then
             create {GCC_XML} Result.make(node_name, line, column)
          when "Method" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {METHOD_NODE} Result.make(node_name, line, column)
          when "MethodType" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {METHOD_TYPE_NODE} Result.make(node_name, line, column)
          when "Namespace" then
             create {C_NAMESPACE} Result.make(node_name, line, column)
+         when "NamespaceAlias" then
+            create {C_NAMESPACE_ALIAS} Result.make(node_name, line, column)
          when "OffsetType" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {OFFSET_TYPE_NODE} Result.make(node_name, line, column)
          when "OperatorFunction" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {OPERATOR_FUNCTION_NODE} Result.make(node_name, line, column)
          when "OperatorMethod" then
-            create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
+            create {OPERATOR_METHOD_NODE} Result.make(node_name, line, column)
          when "PointerType" then
             create {C_POINTER_TYPE} Result.make(node_name, line, column)
          when "ReferenceType" then
@@ -92,7 +94,8 @@ feature {ANY}
             raise(node_name.as_utf8 + " does not have an GCCXML_NODE")
             -- create {XML_COMPOSITE_NODE} Result.make(node_name, line, column)
          end
-         -- TODO: turn th into an inspect when UNICODE_STRING will be comparable
+         -- TODO: it would be nice to allow direct inspection of UNICODE_STRING
+         -- and other COMPARABLE classes
       end
 
    open_node (node_name: UNICODE_STRING; line, column: INTEGER)
@@ -111,21 +114,22 @@ feature {ANY} -- Wrappers emittions
       local
          node: GCCXML_NODE
       do
-         log_string(once "Moving symbols.%N")
-         moved.for_each(agent move_symbol)
-         log_string(once "Making typedefs and assigning names to typedeffed types.%N")
+         log(once "Moving symbols.%N")
+         moved.for_each(agent move_symbol(?,?))
+         log(once "Making typedefs and assigning names to typedeffed types.%N")
          typedefs.emit_wrappers
          -- Assign each field to the composed node it belongs to
          -- Wrap namespaces as Eiffel clusters which are directories containing classes
-
-         namespaces.for_each(agent {C_NAMESPACE}.emit_wrapper)
          -- Assign each function to the file they belong to.
-         functions.for_each(agent move_feature)
+
+         functions.for_each(agent move_feature(?))
          -- Assign each variable to the file they belong to.
-         variables.for_each(agent move_feature)
+         variables.for_each(agent move_feature(?))
+         namespaces.for_each(agent {C_NAMESPACE}.emit_wrapper)
          check
             node ?:= root
-         end -- this is not stricly necessary, we check that root is actually a GCCXML_NODE
+         end
+         -- this is not stricly necessary, we check that root is actually a GCCXML_NODE
          node ::= root
          node.emit_wrappers
          -- Note that an eventual assertion like "check node/=Void end" or a
@@ -137,19 +141,19 @@ feature {ANY} -- Wrappers emittions
       require
          a_feature /= Void
       local
-         destination: STRING; file: C_FILE
+         destination: ABSTRACT_STRING; file: C_FILE
       do
          destination := moved.reference_at(a_feature.c_string_name)
          if destination /= Void then
             -- user required move
             file := files_by_name.reference_at(destination)
-            log(once "Moving @(1) into @(2) as requested.%N",
-            <<a_feature.c_string_name, file.c_string_name>>)
+            log(once "Moving #(1) into #(2) as requested.%N"
+			# a_feature.c_string_name # file.c_string_name)
          else
             -- a_feature belong to the file as declared in the gcc-xml file
             file := files.reference_at(a_feature.c_file.id)
-            log(once "Moving @(1) from @(2) into @(3).%N",
-            <<a_feature.c_string_name, a_feature.c_file.c_string_name, file.c_string_name>>)
+            log(once "Moving #(1) from #(2) into #(3).%N" 
+            # a_feature.c_string_name # a_feature.c_file.c_string_name # file.c_string_name)
          end
 
          check
@@ -167,7 +171,7 @@ feature {ANY}
          file_exists(a_file_name)
          is_file(a_file_name)
       do
-         flags.add_from_file(a_file_name)
+         flag_enums.add_from_file(a_file_name)
       end
 
    read_avoided_from (a_file_name: STRING)
@@ -178,10 +182,10 @@ feature {ANY}
          file_exists(a_file_name)
          is_file(a_file_name)
       do
-         avoided.add_from_file(a_file_name)
+         avoided_symbols.add_from_file(a_file_name)
       end
 
-   moved: HASHED_DICTIONARY[STRING, STRING]
+   moved: HASHED_DICTIONARY[ABSTRACT_STRING, ABSTRACT_STRING]
 
    read_moved_from (a_name: STRING)
          -- Read the file with `a_name' and fills `moved' dictionary. For each line the
@@ -214,8 +218,7 @@ feature {ANY}
                   words.read_word
                   if not words.last_string.is_empty then
                      value := words.last_string.twin
-                     log(once "Symbol @(1) moved to @(2)%N",
-                     <<symbol, value>>)
+                     log(once "Symbol #(1) moved to #(2)%N" # symbol # value)
                      moved.put(value, symbol)
                   end
                end
@@ -225,24 +228,23 @@ feature {ANY}
          end
       end
 
-   move_symbol (a_file_name, a_symbol: STRING)
+   move_symbol (a_file_name, a_symbol: ABSTRACT_STRING)
          -- Makes `a_symbol' as if it was part of file with `a_file_name'.
       local
          f: C_FILE; symbol: MOVABLE_NODE
       do
          f := files_by_name.reference_at(a_file_name)
          if f = Void then
-            log(once "Symbol `@(1)' can't be considered part of file @(2): file not referenced by in input file%N",
-            <<a_symbol, a_file_name>>)
+            log(once "Symbol `#(1)' can't be considered part of file #(2): file not referenced by in input file%N" # a_symbol # a_file_name)
          else
             symbol ?= symbols.reference_at(a_symbol)
             if symbol /= Void then
-               log(once "Considering @(1) as declared into file @(2)%N",
-               <<a_symbol, a_file_name>>)
+               log(once "Considering #(1) as declared into file #(2)%N"
+			   # a_symbol # a_file_name)
                symbol.set_file(f)
             else
-               log(once "Cannot find symbol @(1) (that would be considered part of @(2))%N",
-               <<a_symbol, a_file_name>>)
+               log(once "Cannot find symbol #(1) (that would be considered part of #(2))%N"
+			   # a_symbol # a_file_name)
             end
          end
       end
@@ -251,7 +253,7 @@ invariant
    moved /= Void
 
 end -- class GCCXML_TREE
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

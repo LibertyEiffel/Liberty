@@ -4,7 +4,7 @@ class GCC_XML
 inherit
    GCCXML_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 end -- class GCC_XML

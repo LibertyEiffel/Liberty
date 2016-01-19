@@ -7,16 +7,15 @@ class C_FUNDAMENTAL_TYPE
    -- count the need of crosscompiling .
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
    NAMED_NODE
-   TYPED_NODE
    STORABLE_NODE
 
 insert
    WRAPPER_GENERATOR_EXCEPTIONS
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

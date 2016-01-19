@@ -1,7 +1,7 @@
 -- This file is part of a Liberty Eiffel library.
 -- See the full copyright at the end.
 --
-expanded class COLLECTION_SORTER[X -> COMPARABLE]
+expanded class COLLECTION_SORTER[X_ -> COMPARABLE]
    --
    -- Some algorithms to sort any COLLECTION[COMPARABLE].
    --
@@ -24,10 +24,10 @@ expanded class COLLECTION_SORTER[X -> COMPARABLE]
    --
 
 insert
-   ABSTRACT_SORTER[X]
+   ABSTRACT_SORTER[X_]
 
 feature {}
-   lt (x, y: X): BOOLEAN
+   lt (x, y: X_): BOOLEAN
       do
          Result := x < y
       end

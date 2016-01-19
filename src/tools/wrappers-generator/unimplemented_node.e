@@ -4,7 +4,7 @@ class UNIMPLEMENTED_NODE
 inherit
    GCCXML_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 end -- class UNIMPLEMENTED_NODE

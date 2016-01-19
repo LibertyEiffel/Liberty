@@ -15,7 +15,7 @@ wrappers: $(XML)
 
 $(XML): 
 	pkg-config --exists libzmq --atleast-version=2.1.9
-	gccxml `pkg-config --cflags libzmq` $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  `pkg-config --cflags libzmq` $(HEADER) -o $(XML)
 
 
 

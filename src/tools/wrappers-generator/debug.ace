@@ -1,7 +1,7 @@
 -- This file is a template for building an ACE file for your own project.
 -- Copy this file into your working directory (the directory used to
 -- run the SmartEiffel compiler) and edit it.
-system "wrappers-generator"
+system "wrappers-generator.debug"
 root WRAPPERS_GENERATOR: make
 
 default -- section of the system
@@ -20,31 +20,23 @@ default -- section of the system
    profile (no);
 
 cluster -- section
-
-   -- The cluster section is an ordered list of clusters. Roughly speaking,
-   -- a cluster can be considered as a directory where Eiffel source files
-   -- are to be searched for. Thus, the order of this list of clusters is
-   -- important because clusters are considered sequentially while
-   -- searching for an Eiffel source file. Each cluster is described
-   -- as follows:
-
-   wrappers_generator: "."
-        -- All the classes of wrappers-generator, including a sligthly patched
-        -- xml cluster from SmartEiffel
-        default
-                assertion (all)
-        end
-
-   wrapping_facilities: "../../wrappers/common/loadpath.se"
+   wrappers_generator: "${path_liberty}/src/tools/wrappers-generator/loadpath.se"
+      default
+         assertion (all)
+      end
 
    lib: "${path_liberty}/src/lib/loadpath.se"
-                default
-                   assertion(boost)
-                option
-                        -- debug(all): FIXED_STRING -- `debug_string' is very useful
-                        -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
-                end
+      default
+         assertion(require)
+      option
+         -- debug(all): FIXED_STRING -- `debug_string' is very useful
+         -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME
+      end
 
+   tools: "${path_liberty}/src/tools/loadpath.se"
+      default
+         assertion(boost)
+      end
 external -- section for elements written in another language
 generate -- section
 

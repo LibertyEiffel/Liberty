@@ -39,7 +39,7 @@ feature {ANY}
          create Result.copy(buffer)
       end
 
-   append (a_string: STRING)
+   append (a_string: ABSTRACT_STRING)
          -- Append `a_string' to the content of Current
       do
          buffer.append(a_string)

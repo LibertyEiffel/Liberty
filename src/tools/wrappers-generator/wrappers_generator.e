@@ -7,6 +7,7 @@ insert
    ARGUMENTS
    FILE_TOOLS
    SHARED_SETTINGS
+   SHARED_COLLECTIONS
    NAME_CONVERTER
    LIBERTY_VERSION
 
@@ -15,42 +16,37 @@ create {ANY}
 
 feature {ANY}
    liberty_authors: STRING "P.REDAELLI"
-
-   liberty_dates: STRING "2008-2013"
+   liberty_dates: STRING "2008-2014"
 
    make
       do
-         log_string(once "wrappers generator rel 0.2%N")
+         log(once "wrappers generator rel 0.3 2014-07-19%N")
          process_arguments
-         log_string(once "Loading XML file: ")
+         log(once "Loading XML file: ")
          create tree.make(input.url)
-         log_string(once "done.%N")
+         log(once "done.%N")
          open_plugin_files
          if file_exists(avoided) and then is_file(avoided) then
-            log(once "Reading lt of avoided symbols from '@(1)'.%N",
-            <<avoided>>)
+            log(once "Reading list of avoided symbols from '#(1)'.%N" # avoided)
             tree.read_avoided_from(avoided)
          end
 
          if file_exists(moved) and then is_file(moved) then
-            log(once "Reading symbols to be moved/renamed from '@(1)'.%N",
-            <<moved>>)
+            log(once "Reading symbols to be moved/renamed from '#(1)'.%N" # moved)
             tree.read_moved_from(moved)
          end
 
          if file_exists(flags) and then is_file(flags) then
-            log(once "Reading enumerations that will be forcefully wrapped as flags from '@(1)'.%N",
-            <<flags>>)
+            log(once "Reading enumerations that will be forcefully wrapped as flags from '#(1)'.%N" # flags)
             tree.read_flags_from(flags)
          end
 
          if file_exists(descriptions) and then is_file(descriptions) then
-            log(once "Reading descriptions flags from '@(1)'.%N",
-            <<descriptions>>)
+            log(once "Reading descriptions flags from '#(1)'.%N" # descriptions)
             tree.read_descriptions_from(descriptions)
          end
 
-         log_string(once "Making wrappers.%N")
+         log(once "Making wrappers.%N")
          tree.emit_wrappers
          -- tree.namespaces.for_each(agent {GCCXML_NODE}.emit_wrappers)
          close_plugin_files
@@ -186,7 +182,7 @@ feature {ANY}
                i := i + 1
             end
             if input = Void then
-               log_string(once "Using standard input. Prefix will be the basename of the current directory.")
+               log(once "Using standard input. Prefix will be the basename of the current directory.")
                create path.make_current
                input := std_input
             end
@@ -204,7 +200,12 @@ feature {ANY}
                   std_error.put_string(once "Generating low-level wrappers only for ")
                   std_error.put_integer(headers.count)
                   std_error.put_string(once " files: ")
-                  headers.for_each(agent put_comma_separated_string(std_error, ?))
+                  headers.for_each(agent (a_string: ABSTRACT_STRING)
+                     do
+                        std_error.put_string(once "'")
+                        std_error.put_string(a_string)
+                        std_error.put_string(once "', ")
+                     end)
                   std_error.put_new_line
                end
             end
@@ -218,28 +219,28 @@ feature {ANY}
          create cwd.scan_current_working_directory
          if not cwd.has_file(once "plugin") then
             if not bd.create_new_directory(once "plugin") then
-               log_string("Couldn't create plugin directory")
+               log("Couldn't create plugin directory")
                die_with_code(exit_failure_code)
             end
          end
 
          file := cwd.file("plugin")
          if not file.is_directory then
-            log_string("%'plugin'  not a directory")
+            log("%'plugin'  not a directory")
             die_with_code(exit_failure_code)
          end
 
          plugin := file.as_directory
          if not plugin.has_file(once "c") then
             if not bd.create_new_directory(once "plugin/c") then
-               log_string("Couldn't create plugin/c directory")
+               log("Couldn't create plugin/c directory")
                die_with_code(exit_failure_code)
             end
          end
 
          file := plugin.file(once "c")
          if not file.is_directory then
-            log_string("%'plugin/c'  not a directory")
+            log("%'plugin/c'  not a directory")
             die_with_code(exit_failure_code)
          end
          -- TODO: check that both pdirectory exists.
@@ -320,13 +321,6 @@ feature {ANY}
          % The basename of the provided XML file made by gccxml will be used %N%
          % as prefix for the typedef class and proprocessor symbol.%N")
          die_with_code(exit_success_code)
-      end
-
-   put_comma_separated_string (a_stream: OUTPUT_STREAM; a_str: STRING)
-      do
-         a_stream.put_string(once "'")
-         a_stream.put_string(a_str)
-         a_stream.put_string(once "', ")
       end
 
 end -- class WRAPPERS_GENERATOR

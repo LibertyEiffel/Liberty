@@ -1,99 +1,98 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
-
 expanded class UNDO_CODE_ENUM
 
 insert ENUM
 
-create default_create
-feature -- Validity
+create {ANY} default_create
+feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := ((a_value = undo_begin_low_level)  or else
-				(a_value = undo_delete_low_level)  or else
-				(a_value = undo_end_low_level)  or else
-				(a_value = undo_insert_low_level) )
+            Result := ((a_value = begin_low_level)  or else
+				(a_value = delete_low_level)  or else
+				(a_value = end_external_low_level)  or else
+				(a_value = insert_external_low_level) )
 		end
 
-feature -- Setters
+feature {ANY} -- Setters
 	default_create,
-	set_undo_begin
-		do
-			value := undo_begin_low_level
-		end
+	set_begin
+               do
+                       value := begin_low_level
+               end
 
-	set_undo_delete
-		do
-			value := undo_delete_low_level
-		end
+	set_delete
+               do
+                       value := delete_low_level
+               end
 
-	set_undo_end
-		do
-			value := undo_end_low_level
-		end
+	set_end_external
+               do
+                       value := end_external_low_level
+               end
 
-	set_undo_insert
-		do
-			value := undo_insert_low_level
-		end
+	set_insert_external
+               do
+                       value := insert_external_low_level
+               end
 
-feature -- Queries
-	is_undo_begin: BOOLEAN
-		do
-			Result := (value=undo_begin_low_level)
-		end
+feature {ANY} -- Queries
+       is_begin: BOOLEAN
+               do
+                       Result := (value=begin_low_level)
+               end
 
-	is_undo_delete: BOOLEAN
-		do
-			Result := (value=undo_delete_low_level)
-		end
+       is_delete: BOOLEAN
+               do
+                       Result := (value=delete_low_level)
+               end
 
-	is_undo_end: BOOLEAN
-		do
-			Result := (value=undo_end_low_level)
-		end
+       is_end_external: BOOLEAN
+               do
+                       Result := (value=end_external_low_level)
+               end
 
-	is_undo_insert: BOOLEAN
-		do
-			Result := (value=undo_insert_low_level)
-		end
+       is_insert_external: BOOLEAN
+               do
+                       Result := (value=insert_external_low_level)
+               end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Low level values
-	undo_begin_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "UNDO_BEGIN"
- 			}"
- 		end
+     begin_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "UNDO_BEGIN"
+                       }"
+               end
 
-	undo_delete_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "UNDO_DELETE"
- 			}"
- 		end
+     delete_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "UNDO_DELETE"
+                       }"
+               end
 
-	undo_end_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "UNDO_END"
- 			}"
- 		end
+     end_external_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "UNDO_END"
+                       }"
+               end
 
-	undo_insert_low_level: INTEGER
-		external "plug_in"
- 		alias "{
- 			location: "."
- 			module_name: "plugin"
- 			feature_name: "UNDO_INSERT"
- 			}"
- 		end
+     insert_external_low_level: INTEGER
+               external "plug_in"
+               alias "{
+                       location: "."
+                       module_name: "plugin"
+                       feature_name: "UNDO_INSERT"
+                       }"
+               end
 
 
 end -- class UNDO_CODE_ENUM

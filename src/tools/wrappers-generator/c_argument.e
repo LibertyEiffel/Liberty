@@ -5,11 +5,11 @@ inherit
    C_FUNCTION_ARGUMENT
    NAMED_NODE
    TYPED_NODE
-
+ 
 insert
    NAME_CONVERTER
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
@@ -28,6 +28,15 @@ feature {ANY}
    has_wrapper: BOOLEAN
       do
          Result := types.at(dequalify(type)).has_wrapper
+      rescue
+         log("has_wrapper failed. Known typesi:%N")
+         types.for_each_item(agent (a_type: C_TYPE)
+            do
+               io.put_string(a_type.out)
+            end)
+
+         print_run_time_stack
+         die_with_code(5)
       end
 
    wrapper_type: STRING
@@ -62,10 +71,9 @@ feature {ANY}
          -- Cache results of `placeholder' and `wrapper_type' queries
          a_placeholder := placeholder
          a_wrapper_type := wrapper_type
-         log(once "@(1): @(2) ",
-         <<a_placeholder, a_wrapper_type>>)
-         a_buffer.put_message(once "@(1): @(2)",
-         <<a_placeholder, a_wrapper_type>>)
+         log(once "#(1): #(2) " # a_placeholder # a_wrapper_type)
+
+         a_buffer.append(once "#(1): #(2)" # a_placeholder # a_wrapper_type)
       end
 
 end -- class C_ARGUMENT

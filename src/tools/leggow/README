@@ -1,0 +1,20 @@
+LEGGOW - Liberty Eiffel Generator of GObject Wrappers
+
+Most Gobject-based libraries provides enough metadata and introspection nicely
+packaged with a comfortable C library to access them. 
+
+It has been written to ease the work of providing scripting languages such as
+Python and JavaScript with bindings for all GObject libraries such as Gtk.
+
+This tools uses this library to provide ahead-of-time wappers for Liberty
+Eiffel.
+
+The wrappers of the gobject-introspection library are a little special.In fact
+the introspection library is written with GObject itself. Trying to generate
+the wrappers for this introspection library with leggow would require a
+circular dependency so the low level wrappers are generated using the generic
+wrappers-generatos and the high-level ones, the classes actually used during
+usual programming are written and maintained entirely manually.
+
+Such wrappers are not currently used elsewhere so are kept here, tightly
+integrated to provide a self-contained tool, avoiding circular dependencies

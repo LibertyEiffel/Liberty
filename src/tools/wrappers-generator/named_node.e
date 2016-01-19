@@ -1,6 +1,9 @@
 deferred class NAMED_NODE
-   -- A GCC_XML node that may have a "name" attribute.
-   -- It is made comparable using the `eiffel_name' feature as sorting value to get a more stable output.
+   -- A GCC_XML node that MAY have a "name" attribute.
+
+   -- Comparable using the `eiffel_name' feature for comparison to get a more stable output.
+
+   -- Nameless nodes are considered non-public
 
 inherit
    GCCXML_NODE
@@ -20,7 +23,7 @@ feature {ANY} -- Comparability
 
 feature {ANY}
    is_anonymous: BOOLEAN
-         -- Is Current node anonynmous?
+         -- Is Current node anonynmous? 
       do
          Result := not is_named
       end
@@ -28,27 +31,23 @@ feature {ANY}
    is_named: BOOLEAN
          -- Does Current actually have a name?
       do
-         Result := attributes.has(once U"name")
+		  Result := attributes.has(once U"name") and then not c_name.is_empty
       end
 
    c_name: UNICODE_STRING
       do
-         if cached_c_name = Void then
-            cached_c_name := attribute_at(once U"name")
-         end
-         Result := cached_c_name
+		  Result := attribute_at(once U"name")
       ensure
          is_named implies Result /= Void
       end
 
    c_string_name: STRING
+	  local a_name: UNICODE_STRING
       do
-         if c_name /= Void then
-            if cached_c_string_name = Void then
-               cached_c_string_name := c_name.to_utf8
-            end
-            Result := cached_c_string_name
-         end
+		  a_name := c_name
+		  if a_name/=Void then 
+			  Result:= c_name.to_utf8
+		  end
       end
 
    eiffel_name: STRING
@@ -61,35 +60,42 @@ feature {ANY}
       end
 
    is_public: BOOLEAN
-         -- Does `c_name' start with an alphabetical character? Names
+         -- Does Current node have a name and does it start with an alphabetical character? Names
          -- starting with underscores or other strange characters are
          -- usually considered private in C/C++ languages.
       do
-         Result := c_name /= Void and then c_name.first.to_character.is_letter
+          Result := is_named and then c_name.first.to_character.is_letter
       end
 
 feature {} -- Implementation
-   cached_c_name: UNICODE_STRING
-
-   cached_c_string_name: STRING
-
    cached_eiffel_name: STRING
 
    compute_eiffel_name
-      require
-         is_named
       do
-         cached_eiffel_name := eiffel_feature(c_string_name)
-         check
-            is_public: cached_eiffel_name.first /= '_'
-            not cached_eiffel_name.has_substring("__")
+         if is_named then
+            cached_eiffel_name := eiffel_feature(c_string_name)
+            check
+               is_public: cached_eiffel_name.first /= '_'
+               not cached_eiffel_name.has_substring("__")
+            end
+         else
+            -- Actually trying to wrap a nameless element that is not
+            -- identified by its position in a file is quite hopeless. We
+            -- neverethells may assign a unique name, using the line of the
+            -- gccxml file as unique id. Quite a shameless trick, but I guess
+            -- that such elements are quite esoteric and unreachable and
+            -- unusable also on C level.
+            create cached_eiffel_name.make_from_string(once "anonymous_gccxml_element_at_l@(1)_r@(2)" # &line # &column)
+            -- TODO once we have convert this create will be mimicked by a simple assignment.
+            -- It could also be written like this:
+            -- cached_eiffel_name := (once "anonymous_gccxml_element_at_l@(1)_r@(2)" # &line # &column).string
          end
       ensure
          cached_eiffel_name /= Void
       end
 
 end -- class NAMED_NODE
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

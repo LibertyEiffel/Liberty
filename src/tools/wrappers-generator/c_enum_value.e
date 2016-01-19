@@ -10,7 +10,7 @@ insert
    SHARED_COLLECTIONS
    NAME_CONVERTER
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
@@ -33,14 +33,13 @@ feature {ANY}
             enum ?= parent
             if enum /= Void then
                if enum.longest_prefix > 0 then
-                  -- th further test may be buggy and enum.prefix_length < c_string_name.count then
+                  -- this further test may be buggy and enum.prefix_length < c_string_name.count then
                   stored_eiffel_name.remove_head(enum.longest_prefix)
                else
-                  log("(1) enumeration values: value '@(2)' (at line @(3))  the longest prefix: keeping name to avoid problems%N",
-                  <<enum.values.count.to_string, c_string_name, line.out>>)
+                  log("#(1) enumeration values: value '#(2)' (at line #(3))  the longest prefix: keeping name to avoid problems%N"
+	                  # enum.values.count.to_string # c_string_name # line.out)
                end
-            else
-               print("The parent of C_ENUM_VALUE at line " + line.out + "  not a C_ENUM!%N")
+            else log("The parent of C_ENUM_VALUE at line #(1) not a C_ENUM!%N" # line.out)
             end
 
             stored_eiffel_name := eiffel_feature(stored_eiffel_name)
@@ -62,41 +61,36 @@ feature {ANY} -- Plain enumeration
          -- Append in `queries' the text of a query for an enumeration value
          -- with `a_name' with a low level value `a_value'.
       do
-         log(once "enum item @(1) wrapped as @(2)%N",
-         <<c_string_name, eiffel_name>>)
+         log(once "enum item #(1) wrapped as #(2)%N" # c_string_name # eiffel_name)
          -- Append to `validity_query' the part of the comparon dealing with
          -- Current value, i.e. "(a_value = FooBarOne)"....
 
-         validity_query.put_message(once "(a_value = @(1)_low_level) ",
-         <<eiffel_name>>)
+         validity_query.append (once "(a_value = #(1)_low_level) " # eiffel_name)
          -- append_enum setter
-         setters.put_message(once "%Tset_@(1)%N%
+         setters.append(once "%Tset_#(1)%N%
                 %               do%N%
-                %                       value := @(1)_low_level%N%
-                %               end%N%N",
-         <<eiffel_name>>)
+                %                       value := #(1)_low_level%N%
+                %               end%N%N" # eiffel_name)
          -- TODO: formatted_description(feature_description(class_name,setter_name))
          -- Append enum query
 
-         queries.put_message(once "       is_@(1): BOOLEAN%N%
+         queries.append(once "       is_#(1): BOOLEAN%N%
                 %               do%N%
-                %                       Result := (value=@(1)_low_level)%N%
-                %               end%N%N",
-         <<eiffel_name>>)
+                %                       Result := (value=#(1)_low_level)%N%
+                %               end%N%N" # eiffel_name)
          -- TODO: add formatted_description(feature_description(class_name,getter_name)),
          -- Append in `low_level_values' a declaration labelled
          -- `an_eiffel_value' to access `a_low_level_value' found in
          -- `a_file_name'
 
-         low_level_values.put_message(once "     @(1)_low_level: INTEGER%N%
+         low_level_values.append(once "     #(1)_low_level: INTEGER%N%
                 %               external %"plug_in%"%N%
                 %               alias %"{%N%
                 %                       location: %".%"%N%
                 %                       module_name: %"plugin%"%N%
-                %                       feature_name: %"@(2)%"%N%
+                %                       feature_name: %"#(2)%"%N%
                 %                       }%"%N%
-                %               end%N%N",
-         <<eiffel_name, c_string_name>>)
+                %               end%N%N" # eiffel_name # c_string_name)
       end
 
 feature {ANY} -- "Flag" enumeration
@@ -106,48 +100,44 @@ feature {ANY} -- "Flag" enumeration
          --and a low level value
          -- `a_value'.
       do
-         log(once "flag item @(1) wrapped as @(2)%N",
-         <<c_string_name, eiffel_name>>)
+         log(once "flag item #(1) wrapped as #(2)%N" # 
+		 	c_string_name # eiffel_name)
          -- Append to `validity_query' the part of the comparon dealing with
          -- Current value, i.e. "(a_value = FooBarOne)"....
 
-         validity_query.put_message(once "@(1)_low_level",
-         <<eiffel_name>>)
+         validity_query.append(once "#(1)_low_level" # eiffel_name)
          -- append_enum setter
-         setters.put_message(once "%Tset_@(1)%N%
+         setters.append(once "%Tset_#(1)%N%
                 %               do%N%
-                %                       value := value.bit_or(@(1)_low_level)%N%
+                %                       value := value.bit_or(#(1)_low_level)%N%
                 %               end%N%
                 %%N%
-                %%Tunset_@(1)%N%
+                %%Tunset_#(1)%N%
                 %               do%N%
-                %                       value := value.bit_xor(@(1)_low_level)%N%
+                %                       value := value.bit_xor(#(1)_low_level)%N%
                 %               end%N%
-                %%N",
-         <<eiffel_name>>)
+                %%N" # eiffel_name)
          -- formatted_description(feature_description(class_name,setter_name))
          -- TODO: put descriptions into setter and unsetter
          -- Append enum query
 
-         queries.put_message(once "       is_@(1): BOOLEAN%N%
+         queries.append(once "       is_#(1): BOOLEAN%N%
                 %               do%N%
-                %                       Result := (value=@(1)_low_level)%N%
-                %               end%N%N",
-         <<eiffel_name>>)
+                %                       Result := (value=#(1)_low_level)%N%
+                %               end%N%N" # eiffel_name)
          -- TODO: add formatted_description(feature_description(class_name,getter_name)),
          -- Append in `low_level_values' a declaration labelled
          -- `an_eiffel_value' to access `a_low_level_value' found in
          -- `a_file_name'
 
-         low_level_values.put_message(once "     @(1)_low_level: INTEGER%N%
+         low_level_values.append(once "     #(1)_low_level: INTEGER%N%
                 %               external %"plug_in%"%N%
                 %               alias %"{%N%
                 %                       location: %".%"%N%
-                %                       module: %"plugin%"%N%
-                %                       feature_name: %"@(2)%"%N%
+                %                       module_name: %"plugin%"%N%
+                %                       feature_name: %"#(2)%"%N%
                 %                       }%"%N%
-                %               end%N%N",
-         <<eiffel_name, c_string_name>>)
+                %               end%N%N" # eiffel_name # c_string_name)
          -- TODO: add description
       end
 
@@ -155,7 +145,11 @@ feature {} -- Implementation
    stored_eiffel_name: STRING
 
 end -- class C_ENUM_VALUE
+<<<<<<< HEAD
+-- Copyright 2008,2009,2010, 2015 Paolo Redaelli
+=======
 -- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+>>>>>>> 05f0c9b18fc14142423c64d6627f47dd4bfe3012
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

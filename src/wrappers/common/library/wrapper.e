@@ -76,6 +76,9 @@ insert
    STDLIB_EXTERNALS
    STRING_EXTERNALS
    STANDARD_C_LIBRARY_TYPES
+   export 
+       {} all -- hide all underlying low-level code
+   end
 
 feature {WRAPPER, WRAPPER_HANDLER} -- Implementation
    from_external_pointer (a_ptr: POINTER)

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # An home-grown script to check all the classes
 # found in a wrapper library having a library and
@@ -11,6 +11,8 @@ CORRECT_CLASSES=correct-classes
 
 WRONG_EXAMPLES=examples-with-errors
 CORRECT_EXAMPLES=correct-examples
+
+
 
 check_position () {
 	if [ ! $eiffel_libraries ] 
@@ -74,10 +76,27 @@ changed_classes_first () {
 	# touch $TIMESTAMP
 }
 
-check_classes () {
-	# check all the library classes, starting with those that had
-	# error the oast time the check-cluster script were launched
+check_class () {
+    RESULT=$(mktemp -t check-class-XXXXX)
+    CLASS=$1
 
+    echo -n "Checking $CLASS: "
+    if se class_check $CLASS >$RESULT 2>&1
+    then 
+        echo correct.
+        WRONG_CLASSES="$CLASS $WRONG_CLASSES"
+    else 
+        echo contains errors.
+        cat $RESULT
+        echo >>$WRONG_CLASSES $CLASS
+    fi
+    rm --force $RESULT
+}
+
+export -f check_class # to satisfy parallel command; this command is bash specific.
+
+check_classes () {
+	# check all the library classes
 	if [ ! -d library ] ; then
 		echo "Couldn't find library in current directory cluster"
 		exit 5
@@ -86,22 +105,18 @@ check_classes () {
 		if [ -s $WRONG_CLASSES ] ; then rm $WRONG_CLASSES; fi
 		if [ -s  $CORRECT_CLASSES ] ; then rm  $CORRECT_CLASSES; fi
 
-		for CLASS in $( changed_classes_first ) # $( wrong_and_correct_classes )
-		do
-			RESULT=$(mktemp -t check-class-XXXXX)
-
-			echo -n "Checking $CLASS: "
-			if se class_check $CLASS >$RESULT 2>&1
-			then 
-				echo correct.
-				echo >>$CORRECT_CLASSES $CLASS 
-			else 
-				echo contains errors.
-				cat $RESULT
-				echo >>$WRONG_CLASSES $CLASS
-			fi
-			rm --force $RESULT
-		done
+        touch $WRONG_CLASSES $CORRECT_CLASSES
+        if which parallel >/dev/null
+        then 
+            echo Using parallel command
+            changed_classes_first | 
+            parallel --no-notice class_check {} 2>&1
+        else
+            for CLASS in $( changed_classes_first ) # $( wrong_and_correct_classes )
+            do
+                class_check $CLASS
+            done
+        fi
 
 		if [ -s $CORRECT_CLASSES ]
 		then echo $(wc -l $CORRECT_CLASSES) correct classes.

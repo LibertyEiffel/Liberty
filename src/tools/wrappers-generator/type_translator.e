@@ -166,7 +166,7 @@ feature {ANY} -- Type-system translations
                   inspect
                      size
                   when 32 then
-                     log_string(once "What a pretty strange thing: a 32 bit double! They are usually called float.")
+                     log(once "What a pretty strange thing: a 32 bit double! They are usually called float.")
                      Result := once "REAL_32"
                   when 64 then
                      Result := once "REAL_64"
@@ -232,7 +232,7 @@ feature {ANY} -- Type-system translations
          when "Struct" then
             last_error := unhandled_structure_type
          when "Function" then
-            log_string(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
+            log(once "C functions does not have a valid Eiffel wrapper type (a function pointer does have it).")
             last_error := unhandled_type
          when "Union" then
             last_error := unhandled_union_type
@@ -286,7 +286,7 @@ invariant
    non_void_typedefs: typedefs /= Void
 
 end -- class TYPE_TRANSLATOR
--- Copyright (C) 2008-2016: ,2009 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- eiffel-gcc-xml  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

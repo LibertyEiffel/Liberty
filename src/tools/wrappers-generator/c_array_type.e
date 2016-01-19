@@ -6,12 +6,12 @@ class C_ARRAY_TYPE
    -- Currently mapped to POINTER.
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
    TYPED_NODE
    STORABLE_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

@@ -1,6 +1,6 @@
 ## Let's see if the following bug is solved.
 ## To avoid an Ubuntu Intrepid Ibex bug.
-## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
+## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
 ##export GCCXML_COMPILER = gcc-4.2
 
 XML=dl.gcc-xml
@@ -11,5 +11,5 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
-	gccxml $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 

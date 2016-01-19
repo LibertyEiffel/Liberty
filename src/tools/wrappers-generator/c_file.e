@@ -13,7 +13,7 @@ insert
    FILE_TOOLS
    COLLECTION_SORTER[WRAPPER_FEATURE]
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
@@ -43,17 +43,16 @@ feature {ANY}
             create path.make_from_string(directory)
             path.add_last(eiffel_name.as_lower + once ".e")
             -- if path.is_file then
-            --      log(once "Copying existing file @(1) onto @(1).orig.%N",<<path.to_string>>)
+            --      log(once "Copying existing file #(1) onto #(1).orig.%N" # path.to_string)
             --      copy_to(path.to_string, path.to_string+once ".orig")
             -- end
 
-            log(once "Outputting wrapper for functions found in file @(1) on @(2).%N",
-            <<c_name.as_utf8, path.to_string>>)
+            log(once "Outputting wrapper for functions found in file #(1) on #(2).%N" # c_name.as_utf8 # path.to_string)
 
             create {TEXT_FILE_WRITE} output.connect_to(path.to_string)
             -- end
             emit_header_on(output)
-            log_string(once "Sorting file features%N")
+            log(once "Sorting file features%N")
             if features.count > 1 then
                sort(features)
             end
@@ -62,8 +61,7 @@ feature {ANY}
             emit_footer_on(output)
             output.disconnect
          else
-            log(once "Skipping file '@(1)'.%N",
-            <<c_string_name>>)
+            log(once "Skipping file '#(1)'.%N"#c_string_name)
          end
       end
 
@@ -101,7 +99,8 @@ feature {ANY}
          -- CamelCase is converted into CAMEL_CASE, dashes are converted to
          -- underscores, `suffix' is added at the endi, eventual; i.e.:
          -- class_name_from_header("/usr/include/foo/bar/maman.h").is_equal("MAMAN_EXTERNALS")
-         create path.make_from_string(c_string_name)
+         create path.make_from_string(c_string_name.string)
+         -- TODO: change PATH_NAME.make_from_string to accept ABSTRACT_STRING instead of plain STRINGs
          create cached_eiffel_name.copy(path.last)
          cached_eiffel_name.remove_tail(path.extension.count)
          -- camelcase_translator.substitute_all_in(cached_eiffel_name) -- insert_underscores(cached_eiffel_name)

@@ -7,7 +7,7 @@ inherit
    TYPED_NODE
    FILED_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

@@ -3,12 +3,12 @@ class C_QUALIFIED_TYPE
    -- Known attributes are: const, restrict, volatile
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
    TYPED_NODE
    STORABLE_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

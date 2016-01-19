@@ -3,12 +3,11 @@ class C_FUNCTION_TYPE
    -- Th node usually has a "returns" attribute, currently unused.
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
-   TYPED_NODE
    STORABLE_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
@@ -27,7 +26,7 @@ feature {ANY}
          -- invariant name.is_equal(once U"FunctionType")
 
 end -- class C_FUNCTION_TYPE
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

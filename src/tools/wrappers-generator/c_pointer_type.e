@@ -2,12 +2,12 @@ class C_POINTER_TYPE
    -- A GccXml node representing a pointer type.
 
 inherit
-   GCCXML_NODE
+   C_TYPE
    IDENTIFIED_NODE
    STORABLE_NODE
    TYPED_NODE
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}

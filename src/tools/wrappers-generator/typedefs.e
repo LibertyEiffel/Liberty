@@ -20,7 +20,7 @@ inherit
 
 insert
    SHARED_SETTINGS
-   SHARED_COLLECTIONS
+   SHARED_COLLECTIONS 
 
 create {ANY}
    make
@@ -34,8 +34,8 @@ feature {ANY}
       do
          create path.make_from_string(directory)
          path.add_last(settings.typedefs.as_lower + once ".e")
-         log(once "Outputting anchor queries (for typedefs) into @(1) on `@(2)'.%N",
-         <<settings.typedefs, path.to_string>>)
+         log(once "Outputting anchor queries (for typedefs) into #(1) on `#(2)'.%N" 
+		 	# settings.typedefs # path.to_string )
 
          create {TEXT_FILE_WRITE} file.connect_to(path.to_string)
 
@@ -57,7 +57,7 @@ feature {ANY}
          file.put_string(footer)
          file.disconnect
          file := Void
-         log_string(once " done.%N")
+         log(once " done.%N")
       end
 
    emit_variable_sized_typedefs

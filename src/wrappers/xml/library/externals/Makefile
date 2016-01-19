@@ -1,5 +1,5 @@
 ## To avoid an Ubuntu
-## See https://bugs.launchpad.net/ubuntu/+source/gccxml/+bug/293807 for further informations.
+## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
 ##GCCXML_COMPILER=gcc-4.2
 
 XML=libxml2.gcc-xml
@@ -11,5 +11,5 @@ wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS) 
 
 $(XML): $(HEADER) 
-	gccxml `pkg-config --cflags libxml-2.0` $(HEADER) -fxml=$(XML)
+	castxml --castxml-gccxml -x c++  `pkg-config --cflags libxml-2.0` $(HEADER) -o $(XML)
 

@@ -2,21 +2,20 @@ deferred class SHARED_SETTINGS
    -- Access to the `settings' singleton and commodity features like "proxy"
    -- setters, queries and logging facilities.
 
-insert
-   ANY
-      undefine copy, is_equal, out_in_tagged_out_memory
-      end
+insert 
+    ANY 
+        undefine 
+            copy, 
+            default_create,
+            is_equal, 
+            out_in_tagged_out_memory
+        end
 
 feature {ANY}
    settings: SETTINGS
          -- The singleton to access all the shared settings
       once
          create Result
-      end
-
-   headers: WORDS
-      once
-         create Result.make
       end
 
    directory: STRING
@@ -75,6 +74,12 @@ feature {} -- Type mangling
       end
 
 feature {} -- Auxiliary features
+   log (a_string: ABSTRACT_STRING) do
+      if verbose then
+		  std_error.put_string(a_string)
+	  end
+  end
+
    buffer: FORMATTER
          -- Buffer to render the text of the feature currently being
          -- wrapped (a function call, a structure or an enumeration).
@@ -112,70 +117,28 @@ feature {} -- Constants
    footer: STRING "end%N"
 
    automatically_generated_header: STRING "[
-                -- Th file have been created by wrapper-generator.
+                -- This file has been created by wrapper-generator.
                 -- Any change will be lost by the next execution of the tool.
-
 
                 ]"
 
    automatically_generated_c_file: STRING "[
                 /*
-                ** Th file have been created by wrapper-generator.
+                ** This file has been created by wrapper-generator.
                 ** Any change will be lost by the next execution of the tool.
                 */
 
                 ]"
 
    automatically_patched_header: STRING "[
-                -- Th file have been automatically created combining the output file
-                -- of eiffel-gcc-xml @(1)
+                -- Th file has been automatically created combining the output file
+                -- of wrappers-generator @(1)
                 -- with the differences patches found into @(2)
 
                 -- Any change will be lost by the next execution of the tool.
 
                 ]"
          -- Label
-
-feature {} -- Logging
-   logger: STRING_PRINTER
-         -- The formatter used to log messages
-      once
-         create Result.make(std_error)
-      ensure
-         Result /= Void
-      end
-
-   log_string (a_string: ABSTRACT_STRING)
-         -- If verbose print `a_string' to logger's output
-      require
-         a_string /= Void
-      do
-         if verbose then
-            std_error.put_string(a_string)
-         end
-      end
-
-   log_word (a_word: STRING)
-         -- If verboe print 'a_word' and a whitespace to logger's output
-      require
-         a_word /= Void
-      do
-         if verbose then
-            std_error.put_string(a_word)
-            std_error.put_character(' ')
-         end
-      end
-
-   log (a_message: TRAVERSABLE[CHARACTER]; some_arguments: TRAVERSABLE[ABSTRACT_STRING])
-         -- Utility feature to replace "if verbose then logger.put_message(foo,bar) end" with "log(foo,bar)"
-      require
-         a_message /= Void
-         some_arguments /= Void
-      do
-         if verbose then
-            logger.put_message(a_message, some_arguments)
-         end
-      end
 
 end -- class SHARED_SETTINGS
 -- Copyright (C) 2008-2016: ,2009 Paolo Redaelli

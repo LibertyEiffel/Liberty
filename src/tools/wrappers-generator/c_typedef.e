@@ -1,14 +1,19 @@
 class C_TYPEDEF
 
 inherit
-   CONTEXTED_NODE
+   C_TYPE
    IDENTIFIED_NODE
    MOVABLE_NODE
-   STORABLE_NODE
+      -- Hence a NAMED_NODE and FILED_NODE
+      -- using the definition made in WRAPPER_CLASS
+      undefine compute_eiffel_name
+      end
    TYPED_NODE
-   WRAPPABLE_NODE
+   CONTEXTED_NODE
+   STORABLE_NODE
+   WRAPPER_CLASS
 
-create {ANY}
+create {GCCXML_TREE}
    make
 
 feature {ANY}
@@ -39,14 +44,21 @@ feature {ANY}
             if referree.has_wrapper then
                Result := referree.wrapper_type
             else
-               not_yet_implemented
+				log("C typedef #(1) at line #(2) is not wrappable" # c_string_name # &line)
             end
          end
       end
 
    is_fundamental: BOOLEAN
+      local
+         a_type: C_TYPE
       do
-         Result := types.at(type).is_fundamental
+         a_type := types.at(type)
+         if a_type /= Void then
+            Result := a_type.is_fundamental
+         else
+            raise("unknown type")
+         end
       end
 
    is_void: BOOLEAN False
@@ -70,19 +82,17 @@ feature {ANY}
             if is_fundamental then
                if has_wrapper then
                   query_name := eiffel_feature(c_string_name)
-                  log(once "Anchored query @(2) for typedef @(1)%N",
-                  <<c_string_name, query_name>>)
-                  buffer.put_message(once "       @(1): @(2)%N%
-                                        %               -- typedef @(3)%N%
-                                        %               -- Empty by design, used for anchored declarations.%N%
-                                        %       do%N%
-                                        %       ensure Result.is_default%N%
-                                        %       end%N%
-                                        %%N",
-                  <<query_name, wrapper_type, c_string_name>>)
-               else
-                  buffer.put_message(once "%T-- @(1) unwrappable: no wrapper type.%N",
-                  <<c_string_name>>)
+                  log(once "Anchored query #(2) for typedef #(1)%N" # c_string_name # query_name)
+
+				  buffer.append(once "       #(1): #(2)%N%
+							  %               -- typedef #(3)%N%
+							  %               -- Empty by design, used for anchored declarations.%N%
+							  %       do%N%
+							  %       ensure Result.is_default%N%
+							  %       end%N%
+							  %%N" # query_name # wrapper_type # c_string_name)
+			  else
+				  buffer.append(once "%T-- #(1) unwrappable: no wrapper type.%N" # c_string_name)
                   -- TODO: add the case of typedef to void
                end
                buffer.print_on(a_stream)
@@ -92,6 +102,14 @@ feature {ANY}
             end
          end
       end -- invariant name.is_equal(once U"Typedef")
+
+feature {ANY}
+   emit_wrapper
+      do
+         -- Nothing, wrappers of C typedefs are handled in TYPEDEF collection.
+      end
+
+   suffix: STRING ""
 
 end -- class C_TYPEDEF
 -- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli

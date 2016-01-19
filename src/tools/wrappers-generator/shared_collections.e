@@ -3,16 +3,24 @@ deferred class SHARED_COLLECTIONS
 
 insert
    ANY
-      undefine copy, is_equal, out_in_tagged_out_memory
-      end
-
-feature {ANY}
+      undefine 
+	  	copy, 
+        default_create,
+		is_equal, 
+		out_in_tagged_out_memory
+	end
+feature {}
    files: HASHED_DICTIONARY[C_FILE, UNICODE_STRING]
       once
          create Result.make
       end
 
-   files_by_name: HASHED_DICTIONARY[C_FILE, STRING]
+   files_by_name: HASHED_DICTIONARY[C_FILE, ABSTRACT_STRING]
+      once
+         create Result.make
+      end
+
+   headers: HASHED_SET[ABSTRACT_STRING]
       once
          create Result.make
       end
@@ -27,7 +35,7 @@ feature {ANY}
          create Result.make
       end
 
-   symbols: HASHED_DICTIONARY[NAMED_NODE, STRING]
+   symbols: HASHED_DICTIONARY[NAMED_NODE, ABSTRACT_STRING]
       once
          create Result.make
       end
@@ -37,7 +45,8 @@ feature {ANY}
          create Result.make
       end
 
-   types: HASHED_DICTIONARY[TYPED_NODE, UNICODE_STRING]
+   types: HASHED_DICTIONARY[C_TYPE, UNICODE_STRING]
+         -- perhaps its a dictionary of WRAPPER_FEATURE or WRAPPABLE_NODE
       once
          create Result.make
       end
@@ -52,14 +61,14 @@ feature {ANY}
          create Result.make
       end
 
-feature {ANY}
-   flags: WORDS
+feature {}
+   flag_enums: WORDS
          -- Enumerations that will be forcefully wrapped as a flag.
       once
          create Result.make
       end
 
-   avoided: WORDS
+   avoided_symbols: WORDS
          -- Symbols that will not be wrapped.
       once
          create Result.make
@@ -89,7 +98,7 @@ feature {}
       end
 
 end -- class SHARED_COLLECTIONS
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

@@ -2,7 +2,426 @@
 ** This file have been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
-#define sizeof__xmlList (sizeof(struct _xmlList))
+#define xml_buffer_struct_get_content(a_structure) (((struct _xmlBuffer*) (a_structure))->content)
+
+#define xml_buffer_struct_set_content(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->content = (a_value);}while(0)
+
+#define xml_buffer_struct_get_use(a_structure) (((struct _xmlBuffer*) (a_structure))->use)
+
+#define xml_buffer_struct_set_use(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->use = (a_value);}while(0)
+
+#define xml_buffer_struct_get_size(a_structure) (((struct _xmlBuffer*) (a_structure))->size)
+
+#define xml_buffer_struct_set_size(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->size = (a_value);}while(0)
+
+#define xml_buffer_struct_get_alloc(a_structure) (((struct _xmlBuffer*) (a_structure))->alloc)
+
+#define xml_buffer_struct_set_alloc(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->alloc = (a_value);}while(0)
+
+#define xml_buffer_struct_get_contentio(a_structure) (((struct _xmlBuffer*) (a_structure))->contentIO)
+
+#define xml_buffer_struct_set_contentio(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->contentIO = (a_value);}while(0)
+
+#define sizeof__xmlBuffer (sizeof(struct _xmlBuffer))
+#define xml_notation_struct_get_name(a_structure) (((struct _xmlNotation*) (a_structure))->name)
+
+#define xml_notation_struct_set_name(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_notation_struct_get_publicid(a_structure) (((struct _xmlNotation*) (a_structure))->PublicID)
+
+#define xml_notation_struct_set_publicid(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->PublicID = (a_value);}while(0)
+
+#define xml_notation_struct_get_systemid(a_structure) (((struct _xmlNotation*) (a_structure))->SystemID)
+
+#define xml_notation_struct_set_systemid(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->SystemID = (a_value);}while(0)
+
+#define sizeof__xmlNotation (sizeof(struct _xmlNotation))
+#define xml_enumeration_struct_get_next(a_structure) (((struct _xmlEnumeration*) (a_structure))->next)
+
+#define xml_enumeration_struct_set_next(a_structure,a_value) do {(((struct _xmlEnumeration*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_enumeration_struct_get_name(a_structure) (((struct _xmlEnumeration*) (a_structure))->name)
+
+#define xml_enumeration_struct_set_name(a_structure,a_value) do {(((struct _xmlEnumeration*)(a_structure)))->name = (a_value);}while(0)
+
+#define sizeof__xmlEnumeration (sizeof(struct _xmlEnumeration))
+#define xml_attribute_struct_get_type(a_structure) (((struct _xmlAttribute*) (a_structure))->type)
+
+#define xml_attribute_struct_set_type(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_attribute_struct_get_name(a_structure) (((struct _xmlAttribute*) (a_structure))->name)
+
+#define xml_attribute_struct_set_name(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_attribute_struct_get_children(a_structure) (((struct _xmlAttribute*) (a_structure))->children)
+
+#define xml_attribute_struct_set_children(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->children = (a_value);}while(0)
+
+#define xml_attribute_struct_get_last(a_structure) (((struct _xmlAttribute*) (a_structure))->last)
+
+#define xml_attribute_struct_set_last(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->last = (a_value);}while(0)
+
+#define xml_attribute_struct_get_parent(a_structure) (((struct _xmlAttribute*) (a_structure))->parent)
+
+#define xml_attribute_struct_set_parent(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_attribute_struct_get_next(a_structure) (((struct _xmlAttribute*) (a_structure))->next)
+
+#define xml_attribute_struct_set_next(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_attribute_struct_get_prev(a_structure) (((struct _xmlAttribute*) (a_structure))->prev)
+
+#define xml_attribute_struct_set_prev(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->prev = (a_value);}while(0)
+
+#define xml_attribute_struct_get_doc(a_structure) (((struct _xmlAttribute*) (a_structure))->doc)
+
+#define xml_attribute_struct_set_doc(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->doc = (a_value);}while(0)
+
+#define xml_attribute_struct_get_nexth(a_structure) (((struct _xmlAttribute*) (a_structure))->nexth)
+
+#define xml_attribute_struct_set_nexth(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->nexth = (a_value);}while(0)
+
+#define xml_attribute_struct_get_atype(a_structure) (((struct _xmlAttribute*) (a_structure))->atype)
+
+#define xml_attribute_struct_set_atype(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->atype = (a_value);}while(0)
+
+#define xml_attribute_struct_get_def(a_structure) (((struct _xmlAttribute*) (a_structure))->def)
+
+#define xml_attribute_struct_set_def(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->def = (a_value);}while(0)
+
+#define xml_attribute_struct_get_defaultvalue(a_structure) (((struct _xmlAttribute*) (a_structure))->defaultValue)
+
+#define xml_attribute_struct_set_defaultvalue(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->defaultValue = (a_value);}while(0)
+
+#define xml_attribute_struct_get_tree(a_structure) (((struct _xmlAttribute*) (a_structure))->tree)
+
+#define xml_attribute_struct_set_tree(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->tree = (a_value);}while(0)
+
+#define xml_attribute_struct_get_prefix(a_structure) (((struct _xmlAttribute*) (a_structure))->prefix)
+
+#define xml_attribute_struct_set_prefix(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->prefix = (a_value);}while(0)
+
+#define xml_attribute_struct_get_elem(a_structure) (((struct _xmlAttribute*) (a_structure))->elem)
+
+#define xml_attribute_struct_set_elem(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->elem = (a_value);}while(0)
+
+#define sizeof__xmlAttribute (sizeof(struct _xmlAttribute))
+#define xml_element_content_struct_get_type(a_structure) (((struct _xmlElementContent*) (a_structure))->type)
+
+#define xml_element_content_struct_set_type(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_element_content_struct_get_ocur(a_structure) (((struct _xmlElementContent*) (a_structure))->ocur)
+
+#define xml_element_content_struct_set_ocur(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->ocur = (a_value);}while(0)
+
+#define xml_element_content_struct_get_name(a_structure) (((struct _xmlElementContent*) (a_structure))->name)
+
+#define xml_element_content_struct_set_name(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_element_content_struct_get_c1(a_structure) (((struct _xmlElementContent*) (a_structure))->c1)
+
+#define xml_element_content_struct_set_c1(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->c1 = (a_value);}while(0)
+
+#define xml_element_content_struct_get_c2(a_structure) (((struct _xmlElementContent*) (a_structure))->c2)
+
+#define xml_element_content_struct_set_c2(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->c2 = (a_value);}while(0)
+
+#define xml_element_content_struct_get_parent(a_structure) (((struct _xmlElementContent*) (a_structure))->parent)
+
+#define xml_element_content_struct_set_parent(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_element_content_struct_get_prefix(a_structure) (((struct _xmlElementContent*) (a_structure))->prefix)
+
+#define xml_element_content_struct_set_prefix(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->prefix = (a_value);}while(0)
+
+#define sizeof__xmlElementContent (sizeof(struct _xmlElementContent))
+#define xml_element_struct_get_type(a_structure) (((struct _xmlElement*) (a_structure))->type)
+
+#define xml_element_struct_set_type(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_element_struct_get_name(a_structure) (((struct _xmlElement*) (a_structure))->name)
+
+#define xml_element_struct_set_name(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_element_struct_get_children(a_structure) (((struct _xmlElement*) (a_structure))->children)
+
+#define xml_element_struct_set_children(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->children = (a_value);}while(0)
+
+#define xml_element_struct_get_last(a_structure) (((struct _xmlElement*) (a_structure))->last)
+
+#define xml_element_struct_set_last(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->last = (a_value);}while(0)
+
+#define xml_element_struct_get_parent(a_structure) (((struct _xmlElement*) (a_structure))->parent)
+
+#define xml_element_struct_set_parent(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_element_struct_get_next(a_structure) (((struct _xmlElement*) (a_structure))->next)
+
+#define xml_element_struct_set_next(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_element_struct_get_prev(a_structure) (((struct _xmlElement*) (a_structure))->prev)
+
+#define xml_element_struct_set_prev(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->prev = (a_value);}while(0)
+
+#define xml_element_struct_get_doc(a_structure) (((struct _xmlElement*) (a_structure))->doc)
+
+#define xml_element_struct_set_doc(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->doc = (a_value);}while(0)
+
+#define xml_element_struct_get_etype(a_structure) (((struct _xmlElement*) (a_structure))->etype)
+
+#define xml_element_struct_set_etype(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->etype = (a_value);}while(0)
+
+#define xml_element_struct_get_content(a_structure) (((struct _xmlElement*) (a_structure))->content)
+
+#define xml_element_struct_set_content(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->content = (a_value);}while(0)
+
+#define xml_element_struct_get_attributes(a_structure) (((struct _xmlElement*) (a_structure))->attributes)
+
+#define xml_element_struct_set_attributes(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->attributes = (a_value);}while(0)
+
+#define xml_element_struct_get_prefix(a_structure) (((struct _xmlElement*) (a_structure))->prefix)
+
+#define xml_element_struct_set_prefix(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->prefix = (a_value);}while(0)
+
+#define xml_element_struct_get_contmodel(a_structure) (((struct _xmlElement*) (a_structure))->contModel)
+
+#define xml_element_struct_set_contmodel(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->contModel = (a_value);}while(0)
+
+#define sizeof__xmlElement (sizeof(struct _xmlElement))
+#define xml_ns_struct_get_next(a_structure) (((struct _xmlNs*) (a_structure))->next)
+
+#define xml_ns_struct_set_next(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_ns_struct_get_type(a_structure) (((struct _xmlNs*) (a_structure))->type)
+
+#define xml_ns_struct_set_type(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_ns_struct_get_href(a_structure) (((struct _xmlNs*) (a_structure))->href)
+
+#define xml_ns_struct_set_href(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->href = (a_value);}while(0)
+
+#define xml_ns_struct_get_prefix(a_structure) (((struct _xmlNs*) (a_structure))->prefix)
+
+#define xml_ns_struct_set_prefix(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->prefix = (a_value);}while(0)
+
+#define xml_ns_struct_get_context(a_structure) (((struct _xmlNs*) (a_structure))->context)
+
+#define xml_ns_struct_set_context(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->context = (a_value);}while(0)
+
+#define sizeof__xmlNs (sizeof(struct _xmlNs))
+#define xml_dtd_struct_get_type(a_structure) (((struct _xmlDtd*) (a_structure))->type)
+
+#define xml_dtd_struct_set_type(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_dtd_struct_get_name(a_structure) (((struct _xmlDtd*) (a_structure))->name)
+
+#define xml_dtd_struct_set_name(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_dtd_struct_get_children(a_structure) (((struct _xmlDtd*) (a_structure))->children)
+
+#define xml_dtd_struct_set_children(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->children = (a_value);}while(0)
+
+#define xml_dtd_struct_get_last(a_structure) (((struct _xmlDtd*) (a_structure))->last)
+
+#define xml_dtd_struct_set_last(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->last = (a_value);}while(0)
+
+#define xml_dtd_struct_get_parent(a_structure) (((struct _xmlDtd*) (a_structure))->parent)
+
+#define xml_dtd_struct_set_parent(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_dtd_struct_get_next(a_structure) (((struct _xmlDtd*) (a_structure))->next)
+
+#define xml_dtd_struct_set_next(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_dtd_struct_get_prev(a_structure) (((struct _xmlDtd*) (a_structure))->prev)
+
+#define xml_dtd_struct_set_prev(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->prev = (a_value);}while(0)
+
+#define xml_dtd_struct_get_doc(a_structure) (((struct _xmlDtd*) (a_structure))->doc)
+
+#define xml_dtd_struct_set_doc(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->doc = (a_value);}while(0)
+
+#define xml_dtd_struct_get_notations(a_structure) (((struct _xmlDtd*) (a_structure))->notations)
+
+#define xml_dtd_struct_set_notations(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->notations = (a_value);}while(0)
+
+#define xml_dtd_struct_get_elements(a_structure) (((struct _xmlDtd*) (a_structure))->elements)
+
+#define xml_dtd_struct_set_elements(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->elements = (a_value);}while(0)
+
+#define xml_dtd_struct_get_attributes(a_structure) (((struct _xmlDtd*) (a_structure))->attributes)
+
+#define xml_dtd_struct_set_attributes(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->attributes = (a_value);}while(0)
+
+#define xml_dtd_struct_get_entities(a_structure) (((struct _xmlDtd*) (a_structure))->entities)
+
+#define xml_dtd_struct_set_entities(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->entities = (a_value);}while(0)
+
+#define xml_dtd_struct_get_externalid(a_structure) (((struct _xmlDtd*) (a_structure))->ExternalID)
+
+#define xml_dtd_struct_set_externalid(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->ExternalID = (a_value);}while(0)
+
+#define xml_dtd_struct_get_systemid(a_structure) (((struct _xmlDtd*) (a_structure))->SystemID)
+
+#define xml_dtd_struct_set_systemid(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->SystemID = (a_value);}while(0)
+
+#define xml_dtd_struct_get_pentities(a_structure) (((struct _xmlDtd*) (a_structure))->pentities)
+
+#define xml_dtd_struct_set_pentities(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->pentities = (a_value);}while(0)
+
+#define sizeof__xmlDtd (sizeof(struct _xmlDtd))
+#define xml_attr_struct_get_type(a_structure) (((struct _xmlAttr*) (a_structure))->type)
+
+#define xml_attr_struct_set_type(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_attr_struct_get_name(a_structure) (((struct _xmlAttr*) (a_structure))->name)
+
+#define xml_attr_struct_set_name(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_attr_struct_get_children(a_structure) (((struct _xmlAttr*) (a_structure))->children)
+
+#define xml_attr_struct_set_children(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->children = (a_value);}while(0)
+
+#define xml_attr_struct_get_last(a_structure) (((struct _xmlAttr*) (a_structure))->last)
+
+#define xml_attr_struct_set_last(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->last = (a_value);}while(0)
+
+#define xml_attr_struct_get_parent(a_structure) (((struct _xmlAttr*) (a_structure))->parent)
+
+#define xml_attr_struct_set_parent(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_attr_struct_get_next(a_structure) (((struct _xmlAttr*) (a_structure))->next)
+
+#define xml_attr_struct_set_next(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_attr_struct_get_prev(a_structure) (((struct _xmlAttr*) (a_structure))->prev)
+
+#define xml_attr_struct_set_prev(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->prev = (a_value);}while(0)
+
+#define xml_attr_struct_get_doc(a_structure) (((struct _xmlAttr*) (a_structure))->doc)
+
+#define xml_attr_struct_set_doc(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->doc = (a_value);}while(0)
+
+#define xml_attr_struct_get_ns(a_structure) (((struct _xmlAttr*) (a_structure))->ns)
+
+#define xml_attr_struct_set_ns(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->ns = (a_value);}while(0)
+
+#define xml_attr_struct_get_atype(a_structure) (((struct _xmlAttr*) (a_structure))->atype)
+
+#define xml_attr_struct_set_atype(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->atype = (a_value);}while(0)
+
+#define xml_attr_struct_get_psvi(a_structure) (((struct _xmlAttr*) (a_structure))->psvi)
+
+#define xml_attr_struct_set_psvi(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->psvi = (a_value);}while(0)
+
+#define sizeof__xmlAttr (sizeof(struct _xmlAttr))
+#define xml_id_struct_get_next(a_structure) (((struct _xmlID*) (a_structure))->next)
+
+#define xml_id_struct_set_next(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_id_struct_get_value(a_structure) (((struct _xmlID*) (a_structure))->value)
+
+#define xml_id_struct_set_value(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->value = (a_value);}while(0)
+
+#define xml_id_struct_get_attr(a_structure) (((struct _xmlID*) (a_structure))->attr)
+
+#define xml_id_struct_set_attr(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->attr = (a_value);}while(0)
+
+#define xml_id_struct_get_name(a_structure) (((struct _xmlID*) (a_structure))->name)
+
+#define xml_id_struct_set_name(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_id_struct_get_lineno(a_structure) (((struct _xmlID*) (a_structure))->lineno)
+
+#define xml_id_struct_set_lineno(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->lineno = (a_value);}while(0)
+
+#define xml_id_struct_get_doc(a_structure) (((struct _xmlID*) (a_structure))->doc)
+
+#define xml_id_struct_set_doc(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->doc = (a_value);}while(0)
+
+#define sizeof__xmlID (sizeof(struct _xmlID))
+#define xml_ref_struct_get_next(a_structure) (((struct _xmlRef*) (a_structure))->next)
+
+#define xml_ref_struct_set_next(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_ref_struct_get_value(a_structure) (((struct _xmlRef*) (a_structure))->value)
+
+#define xml_ref_struct_set_value(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->value = (a_value);}while(0)
+
+#define xml_ref_struct_get_attr(a_structure) (((struct _xmlRef*) (a_structure))->attr)
+
+#define xml_ref_struct_set_attr(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->attr = (a_value);}while(0)
+
+#define xml_ref_struct_get_name(a_structure) (((struct _xmlRef*) (a_structure))->name)
+
+#define xml_ref_struct_set_name(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_ref_struct_get_lineno(a_structure) (((struct _xmlRef*) (a_structure))->lineno)
+
+#define xml_ref_struct_set_lineno(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->lineno = (a_value);}while(0)
+
+#define sizeof__xmlRef (sizeof(struct _xmlRef))
+#define xml_node_struct_get_type(a_structure) (((struct _xmlNode*) (a_structure))->type)
+
+#define xml_node_struct_set_type(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->type = (a_value);}while(0)
+
+#define xml_node_struct_get_name(a_structure) (((struct _xmlNode*) (a_structure))->name)
+
+#define xml_node_struct_set_name(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_node_struct_get_children(a_structure) (((struct _xmlNode*) (a_structure))->children)
+
+#define xml_node_struct_set_children(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->children = (a_value);}while(0)
+
+#define xml_node_struct_get_last(a_structure) (((struct _xmlNode*) (a_structure))->last)
+
+#define xml_node_struct_set_last(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->last = (a_value);}while(0)
+
+#define xml_node_struct_get_parent(a_structure) (((struct _xmlNode*) (a_structure))->parent)
+
+#define xml_node_struct_set_parent(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->parent = (a_value);}while(0)
+
+#define xml_node_struct_get_next(a_structure) (((struct _xmlNode*) (a_structure))->next)
+
+#define xml_node_struct_set_next(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->next = (a_value);}while(0)
+
+#define xml_node_struct_get_prev(a_structure) (((struct _xmlNode*) (a_structure))->prev)
+
+#define xml_node_struct_set_prev(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->prev = (a_value);}while(0)
+
+#define xml_node_struct_get_doc(a_structure) (((struct _xmlNode*) (a_structure))->doc)
+
+#define xml_node_struct_set_doc(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->doc = (a_value);}while(0)
+
+#define xml_node_struct_get_ns(a_structure) (((struct _xmlNode*) (a_structure))->ns)
+
+#define xml_node_struct_set_ns(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->ns = (a_value);}while(0)
+
+#define xml_node_struct_get_content(a_structure) (((struct _xmlNode*) (a_structure))->content)
+
+#define xml_node_struct_set_content(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->content = (a_value);}while(0)
+
+#define xml_node_struct_get_properties(a_structure) (((struct _xmlNode*) (a_structure))->properties)
+
+#define xml_node_struct_set_properties(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->properties = (a_value);}while(0)
+
+#define xml_node_struct_get_nsdef(a_structure) (((struct _xmlNode*) (a_structure))->nsDef)
+
+#define xml_node_struct_set_nsdef(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->nsDef = (a_value);}while(0)
+
+#define xml_node_struct_get_psvi(a_structure) (((struct _xmlNode*) (a_structure))->psvi)
+
+#define xml_node_struct_set_psvi(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->psvi = (a_value);}while(0)
+
+#define xml_node_struct_get_line(a_structure) (((struct _xmlNode*) (a_structure))->line)
+
+#define xml_node_struct_set_line(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->line = (a_value);}while(0)
+
+#define xml_node_struct_get_extra(a_structure) (((struct _xmlNode*) (a_structure))->extra)
+
+#define xml_node_struct_set_extra(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->extra = (a_value);}while(0)
+
+#define sizeof__xmlNode (sizeof(struct _xmlNode))
 #define xml_doc_struct_get_type(a_structure) (((struct _xmlDoc*) (a_structure))->type)
 
 #define xml_doc_struct_set_type(a_structure,a_value) do {(((struct _xmlDoc*)(a_structure)))->type = (a_value);}while(0)
@@ -96,68 +515,72 @@
 #define xml_doc_struct_set_properties(a_structure,a_value) do {(((struct _xmlDoc*)(a_structure)))->properties = (a_value);}while(0)
 
 #define sizeof__xmlDoc (sizeof(struct _xmlDoc))
-#define sizeof__xmlHashTable (sizeof(struct _xmlHashTable))
-#define xml_dtd_struct_get_type(a_structure) (((struct _xmlDtd*) (a_structure))->type)
+#define xml_domwrap_ctxt_struct_get_type(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->type)
 
-#define xml_dtd_struct_set_type(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->type = (a_value);}while(0)
+#define xml_domwrap_ctxt_struct_set_type(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->type = (a_value);}while(0)
 
-#define xml_dtd_struct_get_name(a_structure) (((struct _xmlDtd*) (a_structure))->name)
+#define xml_domwrap_ctxt_struct_get_namespacemap(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->namespaceMap)
 
-#define xml_dtd_struct_set_name(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->name = (a_value);}while(0)
+#define xml_domwrap_ctxt_struct_set_namespacemap(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->namespaceMap = (a_value);}while(0)
 
-#define xml_dtd_struct_get_children(a_structure) (((struct _xmlDtd*) (a_structure))->children)
+#define xml_domwrap_ctxt_struct_get_getnsfornodefunc(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->getNsForNodeFunc)
 
-#define xml_dtd_struct_set_children(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->children = (a_value);}while(0)
+#define xml_domwrap_ctxt_struct_set_getnsfornodefunc(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->getNsForNodeFunc = (a_value);}while(0)
 
-#define xml_dtd_struct_get_last(a_structure) (((struct _xmlDtd*) (a_structure))->last)
+#define sizeof__xmlDOMWrapCtxt (sizeof(struct _xmlDOMWrapCtxt))
+#define xml_error_struct_get_domain(a_structure) (((struct _xmlError*) (a_structure))->domain)
 
-#define xml_dtd_struct_set_last(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->last = (a_value);}while(0)
+#define xml_error_struct_set_domain(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->domain = (a_value);}while(0)
 
-#define xml_dtd_struct_get_parent(a_structure) (((struct _xmlDtd*) (a_structure))->parent)
+#define xml_error_struct_get_code(a_structure) (((struct _xmlError*) (a_structure))->code)
 
-#define xml_dtd_struct_set_parent(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->parent = (a_value);}while(0)
+#define xml_error_struct_set_code(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->code = (a_value);}while(0)
 
-#define xml_dtd_struct_get_next(a_structure) (((struct _xmlDtd*) (a_structure))->next)
+#define xml_error_struct_get_message(a_structure) (((struct _xmlError*) (a_structure))->message)
 
-#define xml_dtd_struct_set_next(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->next = (a_value);}while(0)
+#define xml_error_struct_set_message(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->message = (a_value);}while(0)
 
-#define xml_dtd_struct_get_prev(a_structure) (((struct _xmlDtd*) (a_structure))->prev)
+#define xml_error_struct_get_level(a_structure) (((struct _xmlError*) (a_structure))->level)
 
-#define xml_dtd_struct_set_prev(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->prev = (a_value);}while(0)
+#define xml_error_struct_set_level(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->level = (a_value);}while(0)
 
-#define xml_dtd_struct_get_doc(a_structure) (((struct _xmlDtd*) (a_structure))->doc)
+#define xml_error_struct_get_file(a_structure) (((struct _xmlError*) (a_structure))->file)
 
-#define xml_dtd_struct_set_doc(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->doc = (a_value);}while(0)
+#define xml_error_struct_set_file(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->file = (a_value);}while(0)
 
-#define xml_dtd_struct_get_notations(a_structure) (((struct _xmlDtd*) (a_structure))->notations)
+#define xml_error_struct_get_line(a_structure) (((struct _xmlError*) (a_structure))->line)
 
-#define xml_dtd_struct_set_notations(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->notations = (a_value);}while(0)
+#define xml_error_struct_set_line(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->line = (a_value);}while(0)
 
-#define xml_dtd_struct_get_elements(a_structure) (((struct _xmlDtd*) (a_structure))->elements)
+#define xml_error_struct_get_str1(a_structure) (((struct _xmlError*) (a_structure))->str1)
 
-#define xml_dtd_struct_set_elements(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->elements = (a_value);}while(0)
+#define xml_error_struct_set_str1(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str1 = (a_value);}while(0)
 
-#define xml_dtd_struct_get_attributes(a_structure) (((struct _xmlDtd*) (a_structure))->attributes)
+#define xml_error_struct_get_str2(a_structure) (((struct _xmlError*) (a_structure))->str2)
 
-#define xml_dtd_struct_set_attributes(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->attributes = (a_value);}while(0)
+#define xml_error_struct_set_str2(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str2 = (a_value);}while(0)
 
-#define xml_dtd_struct_get_entities(a_structure) (((struct _xmlDtd*) (a_structure))->entities)
+#define xml_error_struct_get_str3(a_structure) (((struct _xmlError*) (a_structure))->str3)
 
-#define xml_dtd_struct_set_entities(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->entities = (a_value);}while(0)
+#define xml_error_struct_set_str3(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str3 = (a_value);}while(0)
 
-#define xml_dtd_struct_get_externalid(a_structure) (((struct _xmlDtd*) (a_structure))->ExternalID)
+#define xml_error_struct_get_int1(a_structure) (((struct _xmlError*) (a_structure))->int1)
 
-#define xml_dtd_struct_set_externalid(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->ExternalID = (a_value);}while(0)
+#define xml_error_struct_set_int1(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->int1 = (a_value);}while(0)
 
-#define xml_dtd_struct_get_systemid(a_structure) (((struct _xmlDtd*) (a_structure))->SystemID)
+#define xml_error_struct_get_int2(a_structure) (((struct _xmlError*) (a_structure))->int2)
 
-#define xml_dtd_struct_set_systemid(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->SystemID = (a_value);}while(0)
+#define xml_error_struct_set_int2(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->int2 = (a_value);}while(0)
 
-#define xml_dtd_struct_get_pentities(a_structure) (((struct _xmlDtd*) (a_structure))->pentities)
+#define xml_error_struct_get_ctxt(a_structure) (((struct _xmlError*) (a_structure))->ctxt)
 
-#define xml_dtd_struct_set_pentities(a_structure,a_value) do {(((struct _xmlDtd*)(a_structure)))->pentities = (a_value);}while(0)
+#define xml_error_struct_set_ctxt(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->ctxt = (a_value);}while(0)
 
-#define sizeof__xmlDtd (sizeof(struct _xmlDtd))
+#define xml_error_struct_get_node(a_structure) (((struct _xmlError*) (a_structure))->node)
+
+#define xml_error_struct_set_node(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->node = (a_value);}while(0)
+
+#define sizeof__xmlError (sizeof(struct _xmlError))
 #define xml_valid_ctxt_struct_get_userdata(a_structure) (((struct _xmlValidCtxt*) (a_structure))->userData)
 
 #define xml_valid_ctxt_struct_set_userdata(a_structure,a_value) do {(((struct _xmlValidCtxt*)(a_structure)))->userData = (a_value);}while(0)
@@ -223,349 +646,6 @@
 #define xml_valid_ctxt_struct_set_state(a_structure,a_value) do {(((struct _xmlValidCtxt*)(a_structure)))->state = (a_value);}while(0)
 
 #define sizeof__xmlValidCtxt (sizeof(struct _xmlValidCtxt))
-#define sizeof__xmlExpNode (sizeof(struct _xmlExpNode))
-#define xml_attribute_struct_get_type(a_structure) (((struct _xmlAttribute*) (a_structure))->type)
-
-#define xml_attribute_struct_set_type(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_attribute_struct_get_name(a_structure) (((struct _xmlAttribute*) (a_structure))->name)
-
-#define xml_attribute_struct_set_name(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_attribute_struct_get_children(a_structure) (((struct _xmlAttribute*) (a_structure))->children)
-
-#define xml_attribute_struct_set_children(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->children = (a_value);}while(0)
-
-#define xml_attribute_struct_get_last(a_structure) (((struct _xmlAttribute*) (a_structure))->last)
-
-#define xml_attribute_struct_set_last(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->last = (a_value);}while(0)
-
-#define xml_attribute_struct_get_parent(a_structure) (((struct _xmlAttribute*) (a_structure))->parent)
-
-#define xml_attribute_struct_set_parent(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->parent = (a_value);}while(0)
-
-#define xml_attribute_struct_get_next(a_structure) (((struct _xmlAttribute*) (a_structure))->next)
-
-#define xml_attribute_struct_set_next(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_attribute_struct_get_prev(a_structure) (((struct _xmlAttribute*) (a_structure))->prev)
-
-#define xml_attribute_struct_set_prev(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->prev = (a_value);}while(0)
-
-#define xml_attribute_struct_get_doc(a_structure) (((struct _xmlAttribute*) (a_structure))->doc)
-
-#define xml_attribute_struct_set_doc(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->doc = (a_value);}while(0)
-
-#define xml_attribute_struct_get_nexth(a_structure) (((struct _xmlAttribute*) (a_structure))->nexth)
-
-#define xml_attribute_struct_set_nexth(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->nexth = (a_value);}while(0)
-
-#define xml_attribute_struct_get_atype(a_structure) (((struct _xmlAttribute*) (a_structure))->atype)
-
-#define xml_attribute_struct_set_atype(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->atype = (a_value);}while(0)
-
-#define xml_attribute_struct_get_def(a_structure) (((struct _xmlAttribute*) (a_structure))->def)
-
-#define xml_attribute_struct_set_def(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->def = (a_value);}while(0)
-
-#define xml_attribute_struct_get_defaultvalue(a_structure) (((struct _xmlAttribute*) (a_structure))->defaultValue)
-
-#define xml_attribute_struct_set_defaultvalue(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->defaultValue = (a_value);}while(0)
-
-#define xml_attribute_struct_get_tree(a_structure) (((struct _xmlAttribute*) (a_structure))->tree)
-
-#define xml_attribute_struct_set_tree(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->tree = (a_value);}while(0)
-
-#define xml_attribute_struct_get_prefix(a_structure) (((struct _xmlAttribute*) (a_structure))->prefix)
-
-#define xml_attribute_struct_set_prefix(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->prefix = (a_value);}while(0)
-
-#define xml_attribute_struct_get_elem(a_structure) (((struct _xmlAttribute*) (a_structure))->elem)
-
-#define xml_attribute_struct_set_elem(a_structure,a_value) do {(((struct _xmlAttribute*)(a_structure)))->elem = (a_value);}while(0)
-
-#define sizeof__xmlAttribute (sizeof(struct _xmlAttribute))
-#define sizeof__xmlDict (sizeof(struct _xmlDict))
-#define xml_attr_struct_get_type(a_structure) (((struct _xmlAttr*) (a_structure))->type)
-
-#define xml_attr_struct_set_type(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_attr_struct_get_name(a_structure) (((struct _xmlAttr*) (a_structure))->name)
-
-#define xml_attr_struct_set_name(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_attr_struct_get_children(a_structure) (((struct _xmlAttr*) (a_structure))->children)
-
-#define xml_attr_struct_set_children(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->children = (a_value);}while(0)
-
-#define xml_attr_struct_get_last(a_structure) (((struct _xmlAttr*) (a_structure))->last)
-
-#define xml_attr_struct_set_last(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->last = (a_value);}while(0)
-
-#define xml_attr_struct_get_parent(a_structure) (((struct _xmlAttr*) (a_structure))->parent)
-
-#define xml_attr_struct_set_parent(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->parent = (a_value);}while(0)
-
-#define xml_attr_struct_get_next(a_structure) (((struct _xmlAttr*) (a_structure))->next)
-
-#define xml_attr_struct_set_next(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_attr_struct_get_prev(a_structure) (((struct _xmlAttr*) (a_structure))->prev)
-
-#define xml_attr_struct_set_prev(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->prev = (a_value);}while(0)
-
-#define xml_attr_struct_get_doc(a_structure) (((struct _xmlAttr*) (a_structure))->doc)
-
-#define xml_attr_struct_set_doc(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->doc = (a_value);}while(0)
-
-#define xml_attr_struct_get_ns(a_structure) (((struct _xmlAttr*) (a_structure))->ns)
-
-#define xml_attr_struct_set_ns(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->ns = (a_value);}while(0)
-
-#define xml_attr_struct_get_atype(a_structure) (((struct _xmlAttr*) (a_structure))->atype)
-
-#define xml_attr_struct_set_atype(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->atype = (a_value);}while(0)
-
-#define xml_attr_struct_get_psvi(a_structure) (((struct _xmlAttr*) (a_structure))->psvi)
-
-#define xml_attr_struct_set_psvi(a_structure,a_value) do {(((struct _xmlAttr*)(a_structure)))->psvi = (a_value);}while(0)
-
-#define sizeof__xmlAttr (sizeof(struct _xmlAttr))
-#define sizeof__xmlMutex (sizeof(struct _xmlMutex))
-#define xml_error_struct_get_domain(a_structure) (((struct _xmlError*) (a_structure))->domain)
-
-#define xml_error_struct_set_domain(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->domain = (a_value);}while(0)
-
-#define xml_error_struct_get_code(a_structure) (((struct _xmlError*) (a_structure))->code)
-
-#define xml_error_struct_set_code(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->code = (a_value);}while(0)
-
-#define xml_error_struct_get_message(a_structure) (((struct _xmlError*) (a_structure))->message)
-
-#define xml_error_struct_set_message(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->message = (a_value);}while(0)
-
-#define xml_error_struct_get_level(a_structure) (((struct _xmlError*) (a_structure))->level)
-
-#define xml_error_struct_set_level(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->level = (a_value);}while(0)
-
-#define xml_error_struct_get_file(a_structure) (((struct _xmlError*) (a_structure))->file)
-
-#define xml_error_struct_set_file(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->file = (a_value);}while(0)
-
-#define xml_error_struct_get_line(a_structure) (((struct _xmlError*) (a_structure))->line)
-
-#define xml_error_struct_set_line(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->line = (a_value);}while(0)
-
-#define xml_error_struct_get_str1(a_structure) (((struct _xmlError*) (a_structure))->str1)
-
-#define xml_error_struct_set_str1(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str1 = (a_value);}while(0)
-
-#define xml_error_struct_get_str2(a_structure) (((struct _xmlError*) (a_structure))->str2)
-
-#define xml_error_struct_set_str2(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str2 = (a_value);}while(0)
-
-#define xml_error_struct_get_str3(a_structure) (((struct _xmlError*) (a_structure))->str3)
-
-#define xml_error_struct_set_str3(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->str3 = (a_value);}while(0)
-
-#define xml_error_struct_get_int1(a_structure) (((struct _xmlError*) (a_structure))->int1)
-
-#define xml_error_struct_set_int1(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->int1 = (a_value);}while(0)
-
-#define xml_error_struct_get_int2(a_structure) (((struct _xmlError*) (a_structure))->int2)
-
-#define xml_error_struct_set_int2(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->int2 = (a_value);}while(0)
-
-#define xml_error_struct_get_ctxt(a_structure) (((struct _xmlError*) (a_structure))->ctxt)
-
-#define xml_error_struct_set_ctxt(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->ctxt = (a_value);}while(0)
-
-#define xml_error_struct_get_node(a_structure) (((struct _xmlError*) (a_structure))->node)
-
-#define xml_error_struct_set_node(a_structure,a_value) do {(((struct _xmlError*)(a_structure)))->node = (a_value);}while(0)
-
-#define sizeof__xmlError (sizeof(struct _xmlError))
-#define xml_global_state_struct_get_xmlparserversion(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserVersion)
-
-#define xml_global_state_struct_set_xmlparserversion(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserVersion = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlfree(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlFree)
-
-#define xml_global_state_struct_set_xmlfree(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlFree = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlmalloc(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMalloc)
-
-#define xml_global_state_struct_set_xmlmalloc(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMalloc = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlmemstrdup(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMemStrdup)
-
-#define xml_global_state_struct_set_xmlmemstrdup(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMemStrdup = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlrealloc(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlRealloc)
-
-#define xml_global_state_struct_set_xmlrealloc(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlRealloc = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlgenericerror(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGenericError)
-
-#define xml_global_state_struct_set_xmlgenericerror(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGenericError = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlstructurederror(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlStructuredError)
-
-#define xml_global_state_struct_set_xmlstructurederror(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlStructuredError = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlgenericerrorcontext(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGenericErrorContext)
-
-#define xml_global_state_struct_set_xmlgenericerrorcontext(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGenericErrorContext = (a_value);}while(0)
-
-#define xml_global_state_struct_get_oldxmlwdcompatibility(a_structure) (((struct _xmlGlobalState*) (a_structure))->oldXMLWDcompatibility)
-
-#define xml_global_state_struct_set_oldxmlwdcompatibility(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->oldXMLWDcompatibility = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlbufferallocscheme(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlBufferAllocScheme)
-
-#define xml_global_state_struct_set_xmlbufferallocscheme(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlBufferAllocScheme = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmldefaultbuffersize(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDefaultBufferSize)
-
-#define xml_global_state_struct_set_xmldefaultbuffersize(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDefaultBufferSize = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlsubstituteentitiesdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlSubstituteEntitiesDefaultValue)
-
-#define xml_global_state_struct_set_xmlsubstituteentitiesdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlSubstituteEntitiesDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmldovaliditycheckingdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDoValidityCheckingDefaultValue)
-
-#define xml_global_state_struct_set_xmldovaliditycheckingdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDoValidityCheckingDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlgetwarningsdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGetWarningsDefaultValue)
-
-#define xml_global_state_struct_set_xmlgetwarningsdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGetWarningsDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlkeepblanksdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlKeepBlanksDefaultValue)
-
-#define xml_global_state_struct_set_xmlkeepblanksdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlKeepBlanksDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmllinenumbersdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlLineNumbersDefaultValue)
-
-#define xml_global_state_struct_set_xmllinenumbersdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlLineNumbersDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlloadextdtddefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlLoadExtDtdDefaultValue)
-
-#define xml_global_state_struct_set_xmlloadextdtddefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlLoadExtDtdDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlparserdebugentities(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserDebugEntities)
-
-#define xml_global_state_struct_set_xmlparserdebugentities(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserDebugEntities = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlpedanticparserdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlPedanticParserDefaultValue)
-
-#define xml_global_state_struct_set_xmlpedanticparserdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlPedanticParserDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlsavenoemptytags(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlSaveNoEmptyTags)
-
-#define xml_global_state_struct_set_xmlsavenoemptytags(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlSaveNoEmptyTags = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlindenttreeoutput(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlIndentTreeOutput)
-
-#define xml_global_state_struct_set_xmlindenttreeoutput(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlIndentTreeOutput = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmltreeindentstring(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlTreeIndentString)
-
-#define xml_global_state_struct_set_xmltreeindentstring(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlTreeIndentString = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlregisternodedefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlRegisterNodeDefaultValue)
-
-#define xml_global_state_struct_set_xmlregisternodedefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlRegisterNodeDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlderegisternodedefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDeregisterNodeDefaultValue)
-
-#define xml_global_state_struct_set_xmlderegisternodedefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDeregisterNodeDefaultValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlmallocatomic(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMallocAtomic)
-
-#define xml_global_state_struct_set_xmlmallocatomic(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMallocAtomic = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlparserinputbuffercreatefilenamevalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserInputBufferCreateFilenameValue)
-
-#define xml_global_state_struct_set_xmlparserinputbuffercreatefilenamevalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserInputBufferCreateFilenameValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmloutputbuffercreatefilenamevalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlOutputBufferCreateFilenameValue)
-
-#define xml_global_state_struct_set_xmloutputbuffercreatefilenamevalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlOutputBufferCreateFilenameValue = (a_value);}while(0)
-
-#define xml_global_state_struct_get_xmlstructurederrorcontext(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlStructuredErrorContext)
-
-#define xml_global_state_struct_set_xmlstructurederrorcontext(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlStructuredErrorContext = (a_value);}while(0)
-
-#define sizeof__xmlGlobalState (sizeof(struct _xmlGlobalState))
-#define xml_output_buffer_struct_get_context(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->context)
-
-#define xml_output_buffer_struct_set_context(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->context = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_writecallback(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->writecallback)
-
-#define xml_output_buffer_struct_set_writecallback(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->writecallback = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_closecallback(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->closecallback)
-
-#define xml_output_buffer_struct_set_closecallback(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->closecallback = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_encoder(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->encoder)
-
-#define xml_output_buffer_struct_set_encoder(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->encoder = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_buffer(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->buffer)
-
-#define xml_output_buffer_struct_set_buffer(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->buffer = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_conv(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->conv)
-
-#define xml_output_buffer_struct_set_conv(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->conv = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_written(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->written)
-
-#define xml_output_buffer_struct_set_written(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->written = (a_value);}while(0)
-
-#define xml_output_buffer_struct_get_error(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->error)
-
-#define xml_output_buffer_struct_set_error(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->error = (a_value);}while(0)
-
-#define sizeof__xmlOutputBuffer (sizeof(struct _xmlOutputBuffer))
-#define xml_buffer_struct_get_content(a_structure) (((struct _xmlBuffer*) (a_structure))->content)
-
-#define xml_buffer_struct_set_content(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->content = (a_value);}while(0)
-
-#define xml_buffer_struct_get_use(a_structure) (((struct _xmlBuffer*) (a_structure))->use)
-
-#define xml_buffer_struct_set_use(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->use = (a_value);}while(0)
-
-#define xml_buffer_struct_get_size(a_structure) (((struct _xmlBuffer*) (a_structure))->size)
-
-#define xml_buffer_struct_set_size(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->size = (a_value);}while(0)
-
-#define xml_buffer_struct_get_alloc(a_structure) (((struct _xmlBuffer*) (a_structure))->alloc)
-
-#define xml_buffer_struct_set_alloc(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->alloc = (a_value);}while(0)
-
-#define xml_buffer_struct_get_contentio(a_structure) (((struct _xmlBuffer*) (a_structure))->contentIO)
-
-#define xml_buffer_struct_set_contentio(a_structure,a_value) do {(((struct _xmlBuffer*)(a_structure)))->contentIO = (a_value);}while(0)
-
-#define sizeof__xmlBuffer (sizeof(struct _xmlBuffer))
-#define sizeof__xmlAutomataState (sizeof(struct _xmlAutomataState))
-#define xlink_handler_struct_get_simple(a_structure) (((struct _xlinkHandler*) (a_structure))->simple)
-
-#define xlink_handler_struct_set_simple(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->simple = (a_value);}while(0)
-
-#define xlink_handler_struct_get_extended(a_structure) (((struct _xlinkHandler*) (a_structure))->extended)
-
-#define xlink_handler_struct_set_extended(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->extended = (a_value);}while(0)
-
-#define xlink_handler_struct_get_set(a_structure) (((struct _xlinkHandler*) (a_structure))->set)
-
-#define xlink_handler_struct_set_set(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->set = (a_value);}while(0)
-
-#define sizeof__xlinkHandler (sizeof(struct _xlinkHandler))
 #define xml_entity_struct_get_type(a_structure) (((struct _xmlEntity*) (a_structure))->type)
 
 #define xml_entity_struct_set_type(a_structure,a_value) do {(((struct _xmlEntity*)(a_structure)))->type = (a_value);}while(0)
@@ -639,353 +719,6 @@
 #define xml_entity_struct_set_checked(a_structure,a_value) do {(((struct _xmlEntity*)(a_structure)))->checked = (a_value);}while(0)
 
 #define sizeof__xmlEntity (sizeof(struct _xmlEntity))
-#define xml_element_content_struct_get_type(a_structure) (((struct _xmlElementContent*) (a_structure))->type)
-
-#define xml_element_content_struct_set_type(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_element_content_struct_get_ocur(a_structure) (((struct _xmlElementContent*) (a_structure))->ocur)
-
-#define xml_element_content_struct_set_ocur(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->ocur = (a_value);}while(0)
-
-#define xml_element_content_struct_get_name(a_structure) (((struct _xmlElementContent*) (a_structure))->name)
-
-#define xml_element_content_struct_set_name(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_element_content_struct_get_c1(a_structure) (((struct _xmlElementContent*) (a_structure))->c1)
-
-#define xml_element_content_struct_set_c1(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->c1 = (a_value);}while(0)
-
-#define xml_element_content_struct_get_c2(a_structure) (((struct _xmlElementContent*) (a_structure))->c2)
-
-#define xml_element_content_struct_set_c2(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->c2 = (a_value);}while(0)
-
-#define xml_element_content_struct_get_parent(a_structure) (((struct _xmlElementContent*) (a_structure))->parent)
-
-#define xml_element_content_struct_set_parent(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->parent = (a_value);}while(0)
-
-#define xml_element_content_struct_get_prefix(a_structure) (((struct _xmlElementContent*) (a_structure))->prefix)
-
-#define xml_element_content_struct_set_prefix(a_structure,a_value) do {(((struct _xmlElementContent*)(a_structure)))->prefix = (a_value);}while(0)
-
-#define sizeof__xmlElementContent (sizeof(struct _xmlElementContent))
-#define xml_parser_node_info_struct_get_node(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->node)
-
-#define xml_parser_node_info_struct_set_node(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->node = (a_value);}while(0)
-
-#define xml_parser_node_info_struct_get_begin_pos(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->begin_pos)
-
-#define xml_parser_node_info_struct_set_begin_pos(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->begin_pos = (a_value);}while(0)
-
-#define xml_parser_node_info_struct_get_begin_line(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->begin_line)
-
-#define xml_parser_node_info_struct_set_begin_line(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->begin_line = (a_value);}while(0)
-
-#define xml_parser_node_info_struct_get_end_pos(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->end_pos)
-
-#define xml_parser_node_info_struct_set_end_pos(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->end_pos = (a_value);}while(0)
-
-#define xml_parser_node_info_struct_get_end_line(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->end_line)
-
-#define xml_parser_node_info_struct_set_end_line(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->end_line = (a_value);}while(0)
-
-#define sizeof__xmlParserNodeInfo (sizeof(struct _xmlParserNodeInfo))
-#define xml_saxhandler_struct_get_internalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->internalSubset)
-
-#define xml_saxhandler_struct_set_internalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->internalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_isstandalone(a_structure) (((struct _xmlSAXHandler*) (a_structure))->isStandalone)
-
-#define xml_saxhandler_struct_set_isstandalone(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->isStandalone = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_hasinternalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->hasInternalSubset)
-
-#define xml_saxhandler_struct_set_hasinternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->hasInternalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_hasexternalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->hasExternalSubset)
-
-#define xml_saxhandler_struct_set_hasexternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->hasExternalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_resolveentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->resolveEntity)
-
-#define xml_saxhandler_struct_set_resolveentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->resolveEntity = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_getentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->getEntity)
-
-#define xml_saxhandler_struct_set_getentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->getEntity = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_entitydecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->entityDecl)
-
-#define xml_saxhandler_struct_set_entitydecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->entityDecl = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_notationdecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->notationDecl)
-
-#define xml_saxhandler_struct_set_notationdecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->notationDecl = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_attributedecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->attributeDecl)
-
-#define xml_saxhandler_struct_set_attributedecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->attributeDecl = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_elementdecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->elementDecl)
-
-#define xml_saxhandler_struct_set_elementdecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->elementDecl = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_unparsedentitydecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->unparsedEntityDecl)
-
-#define xml_saxhandler_struct_set_unparsedentitydecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->unparsedEntityDecl = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_setdocumentlocator(a_structure) (((struct _xmlSAXHandler*) (a_structure))->setDocumentLocator)
-
-#define xml_saxhandler_struct_set_setdocumentlocator(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->setDocumentLocator = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_startdocument(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startDocument)
-
-#define xml_saxhandler_struct_set_startdocument(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startDocument = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_enddocument(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endDocument)
-
-#define xml_saxhandler_struct_set_enddocument(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endDocument = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_startelement(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startElement)
-
-#define xml_saxhandler_struct_set_startelement(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startElement = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_endelement(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endElement)
-
-#define xml_saxhandler_struct_set_endelement(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endElement = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_reference(a_structure) (((struct _xmlSAXHandler*) (a_structure))->reference)
-
-#define xml_saxhandler_struct_set_reference(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->reference = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_characters(a_structure) (((struct _xmlSAXHandler*) (a_structure))->characters)
-
-#define xml_saxhandler_struct_set_characters(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->characters = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_ignorablewhitespace(a_structure) (((struct _xmlSAXHandler*) (a_structure))->ignorableWhitespace)
-
-#define xml_saxhandler_struct_set_ignorablewhitespace(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->ignorableWhitespace = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_processinginstruction(a_structure) (((struct _xmlSAXHandler*) (a_structure))->processingInstruction)
-
-#define xml_saxhandler_struct_set_processinginstruction(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->processingInstruction = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_comment(a_structure) (((struct _xmlSAXHandler*) (a_structure))->comment)
-
-#define xml_saxhandler_struct_set_comment(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->comment = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_warning(a_structure) (((struct _xmlSAXHandler*) (a_structure))->warning)
-
-#define xml_saxhandler_struct_set_warning(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->warning = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_error(a_structure) (((struct _xmlSAXHandler*) (a_structure))->error)
-
-#define xml_saxhandler_struct_set_error(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->error = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_fatalerror(a_structure) (((struct _xmlSAXHandler*) (a_structure))->fatalError)
-
-#define xml_saxhandler_struct_set_fatalerror(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->fatalError = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_getparameterentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->getParameterEntity)
-
-#define xml_saxhandler_struct_set_getparameterentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->getParameterEntity = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_cdatablock(a_structure) (((struct _xmlSAXHandler*) (a_structure))->cdataBlock)
-
-#define xml_saxhandler_struct_set_cdatablock(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->cdataBlock = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_externalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->externalSubset)
-
-#define xml_saxhandler_struct_set_externalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->externalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_initialized(a_structure) (((struct _xmlSAXHandler*) (a_structure))->initialized)
-
-#define xml_saxhandler_struct_set_initialized(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->initialized = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_startelementns(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startElementNs)
-
-#define xml_saxhandler_struct_set_startelementns(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startElementNs = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_endelementns(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endElementNs)
-
-#define xml_saxhandler_struct_set_endelementns(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endElementNs = (a_value);}while(0)
-
-#define xml_saxhandler_struct_get_serror(a_structure) (((struct _xmlSAXHandler*) (a_structure))->serror)
-
-#define xml_saxhandler_struct_set_serror(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->serror = (a_value);}while(0)
-
-#define sizeof__xmlSAXHandler (sizeof(struct _xmlSAXHandler))
-#define sizeof__xmlLink (sizeof(struct _xmlLink))
-#define xml_node_struct_get_type(a_structure) (((struct _xmlNode*) (a_structure))->type)
-
-#define xml_node_struct_set_type(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_node_struct_get_name(a_structure) (((struct _xmlNode*) (a_structure))->name)
-
-#define xml_node_struct_set_name(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_node_struct_get_children(a_structure) (((struct _xmlNode*) (a_structure))->children)
-
-#define xml_node_struct_set_children(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->children = (a_value);}while(0)
-
-#define xml_node_struct_get_last(a_structure) (((struct _xmlNode*) (a_structure))->last)
-
-#define xml_node_struct_set_last(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->last = (a_value);}while(0)
-
-#define xml_node_struct_get_parent(a_structure) (((struct _xmlNode*) (a_structure))->parent)
-
-#define xml_node_struct_set_parent(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->parent = (a_value);}while(0)
-
-#define xml_node_struct_get_next(a_structure) (((struct _xmlNode*) (a_structure))->next)
-
-#define xml_node_struct_set_next(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_node_struct_get_prev(a_structure) (((struct _xmlNode*) (a_structure))->prev)
-
-#define xml_node_struct_set_prev(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->prev = (a_value);}while(0)
-
-#define xml_node_struct_get_doc(a_structure) (((struct _xmlNode*) (a_structure))->doc)
-
-#define xml_node_struct_set_doc(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->doc = (a_value);}while(0)
-
-#define xml_node_struct_get_ns(a_structure) (((struct _xmlNode*) (a_structure))->ns)
-
-#define xml_node_struct_set_ns(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->ns = (a_value);}while(0)
-
-#define xml_node_struct_get_content(a_structure) (((struct _xmlNode*) (a_structure))->content)
-
-#define xml_node_struct_set_content(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->content = (a_value);}while(0)
-
-#define xml_node_struct_get_properties(a_structure) (((struct _xmlNode*) (a_structure))->properties)
-
-#define xml_node_struct_set_properties(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->properties = (a_value);}while(0)
-
-#define xml_node_struct_get_nsdef(a_structure) (((struct _xmlNode*) (a_structure))->nsDef)
-
-#define xml_node_struct_set_nsdef(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->nsDef = (a_value);}while(0)
-
-#define xml_node_struct_get_psvi(a_structure) (((struct _xmlNode*) (a_structure))->psvi)
-
-#define xml_node_struct_set_psvi(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->psvi = (a_value);}while(0)
-
-#define xml_node_struct_get_line(a_structure) (((struct _xmlNode*) (a_structure))->line)
-
-#define xml_node_struct_set_line(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->line = (a_value);}while(0)
-
-#define xml_node_struct_get_extra(a_structure) (((struct _xmlNode*) (a_structure))->extra)
-
-#define xml_node_struct_set_extra(a_structure,a_value) do {(((struct _xmlNode*)(a_structure)))->extra = (a_value);}while(0)
-
-#define sizeof__xmlNode (sizeof(struct _xmlNode))
-#define xml_enumeration_struct_get_next(a_structure) (((struct _xmlEnumeration*) (a_structure))->next)
-
-#define xml_enumeration_struct_set_next(a_structure,a_value) do {(((struct _xmlEnumeration*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_enumeration_struct_get_name(a_structure) (((struct _xmlEnumeration*) (a_structure))->name)
-
-#define xml_enumeration_struct_set_name(a_structure,a_value) do {(((struct _xmlEnumeration*)(a_structure)))->name = (a_value);}while(0)
-
-#define sizeof__xmlEnumeration (sizeof(struct _xmlEnumeration))
-#define sizeof__xmlRMutex (sizeof(struct _xmlRMutex))
-#define xml_char_encoding_handler_struct_get_name(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->name)
-
-#define xml_char_encoding_handler_struct_set_name(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_char_encoding_handler_struct_get_input(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->input)
-
-#define xml_char_encoding_handler_struct_set_input(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->input = (a_value);}while(0)
-
-#define xml_char_encoding_handler_struct_get_output(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->output)
-
-#define xml_char_encoding_handler_struct_set_output(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->output = (a_value);}while(0)
-
-#define xml_char_encoding_handler_struct_get_iconv_in(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->iconv_in)
-
-#define xml_char_encoding_handler_struct_set_iconv_in(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->iconv_in = (a_value);}while(0)
-
-#define xml_char_encoding_handler_struct_get_iconv_out(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->iconv_out)
-
-#define xml_char_encoding_handler_struct_set_iconv_out(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->iconv_out = (a_value);}while(0)
-
-#define sizeof__xmlCharEncodingHandler (sizeof(struct _xmlCharEncodingHandler))
-#define xml_id_struct_get_next(a_structure) (((struct _xmlID*) (a_structure))->next)
-
-#define xml_id_struct_set_next(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_id_struct_get_value(a_structure) (((struct _xmlID*) (a_structure))->value)
-
-#define xml_id_struct_set_value(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->value = (a_value);}while(0)
-
-#define xml_id_struct_get_attr(a_structure) (((struct _xmlID*) (a_structure))->attr)
-
-#define xml_id_struct_set_attr(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->attr = (a_value);}while(0)
-
-#define xml_id_struct_get_name(a_structure) (((struct _xmlID*) (a_structure))->name)
-
-#define xml_id_struct_set_name(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_id_struct_get_lineno(a_structure) (((struct _xmlID*) (a_structure))->lineno)
-
-#define xml_id_struct_set_lineno(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->lineno = (a_value);}while(0)
-
-#define xml_id_struct_get_doc(a_structure) (((struct _xmlID*) (a_structure))->doc)
-
-#define xml_id_struct_set_doc(a_structure,a_value) do {(((struct _xmlID*)(a_structure)))->doc = (a_value);}while(0)
-
-#define sizeof__xmlID (sizeof(struct _xmlID))
-#define sizeof__xmlValidState (sizeof(struct _xmlValidState))
-#define xml_element_struct_get_type(a_structure) (((struct _xmlElement*) (a_structure))->type)
-
-#define xml_element_struct_set_type(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_element_struct_get_name(a_structure) (((struct _xmlElement*) (a_structure))->name)
-
-#define xml_element_struct_set_name(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_element_struct_get_children(a_structure) (((struct _xmlElement*) (a_structure))->children)
-
-#define xml_element_struct_set_children(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->children = (a_value);}while(0)
-
-#define xml_element_struct_get_last(a_structure) (((struct _xmlElement*) (a_structure))->last)
-
-#define xml_element_struct_set_last(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->last = (a_value);}while(0)
-
-#define xml_element_struct_get_parent(a_structure) (((struct _xmlElement*) (a_structure))->parent)
-
-#define xml_element_struct_set_parent(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->parent = (a_value);}while(0)
-
-#define xml_element_struct_get_next(a_structure) (((struct _xmlElement*) (a_structure))->next)
-
-#define xml_element_struct_set_next(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_element_struct_get_prev(a_structure) (((struct _xmlElement*) (a_structure))->prev)
-
-#define xml_element_struct_set_prev(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->prev = (a_value);}while(0)
-
-#define xml_element_struct_get_doc(a_structure) (((struct _xmlElement*) (a_structure))->doc)
-
-#define xml_element_struct_set_doc(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->doc = (a_value);}while(0)
-
-#define xml_element_struct_get_etype(a_structure) (((struct _xmlElement*) (a_structure))->etype)
-
-#define xml_element_struct_set_etype(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->etype = (a_value);}while(0)
-
-#define xml_element_struct_get_content(a_structure) (((struct _xmlElement*) (a_structure))->content)
-
-#define xml_element_struct_set_content(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->content = (a_value);}while(0)
-
-#define xml_element_struct_get_attributes(a_structure) (((struct _xmlElement*) (a_structure))->attributes)
-
-#define xml_element_struct_set_attributes(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->attributes = (a_value);}while(0)
-
-#define xml_element_struct_get_prefix(a_structure) (((struct _xmlElement*) (a_structure))->prefix)
-
-#define xml_element_struct_set_prefix(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->prefix = (a_value);}while(0)
-
-#define xml_element_struct_get_contmodel(a_structure) (((struct _xmlElement*) (a_structure))->contModel)
-
-#define xml_element_struct_set_contmodel(a_structure,a_value) do {(((struct _xmlElement*)(a_structure)))->contModel = (a_value);}while(0)
-
-#define sizeof__xmlElement (sizeof(struct _xmlElement))
 #define xml_parser_input_struct_get_buf(a_structure) (((struct _xmlParserInput*) (a_structure))->buf)
 
 #define xml_parser_input_struct_set_buf(a_structure,a_value) do {(((struct _xmlParserInput*)(a_structure)))->buf = (a_value);}while(0)
@@ -1047,228 +780,27 @@
 #define xml_parser_input_struct_set_id(a_structure,a_value) do {(((struct _xmlParserInput*)(a_structure)))->id = (a_value);}while(0)
 
 #define sizeof__xmlParserInput (sizeof(struct _xmlParserInput))
-#define sizeof__xmlRegExecCtxt (sizeof(struct _xmlRegExecCtxt))
-#define sizeof__xmlRegexp (sizeof(struct _xmlRegexp))
-#define xml_ns_struct_get_next(a_structure) (((struct _xmlNs*) (a_structure))->next)
+#define xml_parser_node_info_struct_get_node(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->node)
 
-#define xml_ns_struct_set_next(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->next = (a_value);}while(0)
+#define xml_parser_node_info_struct_set_node(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->node = (a_value);}while(0)
 
-#define xml_ns_struct_get_type(a_structure) (((struct _xmlNs*) (a_structure))->type)
+#define xml_parser_node_info_struct_get_begin_pos(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->begin_pos)
 
-#define xml_ns_struct_set_type(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->type = (a_value);}while(0)
+#define xml_parser_node_info_struct_set_begin_pos(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->begin_pos = (a_value);}while(0)
 
-#define xml_ns_struct_get_href(a_structure) (((struct _xmlNs*) (a_structure))->href)
+#define xml_parser_node_info_struct_get_begin_line(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->begin_line)
 
-#define xml_ns_struct_set_href(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->href = (a_value);}while(0)
+#define xml_parser_node_info_struct_set_begin_line(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->begin_line = (a_value);}while(0)
 
-#define xml_ns_struct_get_prefix(a_structure) (((struct _xmlNs*) (a_structure))->prefix)
+#define xml_parser_node_info_struct_get_end_pos(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->end_pos)
 
-#define xml_ns_struct_set_prefix(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->prefix = (a_value);}while(0)
+#define xml_parser_node_info_struct_set_end_pos(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->end_pos = (a_value);}while(0)
 
-#define xml_ns_struct_get_context(a_structure) (((struct _xmlNs*) (a_structure))->context)
+#define xml_parser_node_info_struct_get_end_line(a_structure) (((struct _xmlParserNodeInfo*) (a_structure))->end_line)
 
-#define xml_ns_struct_set_context(a_structure,a_value) do {(((struct _xmlNs*)(a_structure)))->context = (a_value);}while(0)
+#define xml_parser_node_info_struct_set_end_line(a_structure,a_value) do {(((struct _xmlParserNodeInfo*)(a_structure)))->end_line = (a_value);}while(0)
 
-#define sizeof__xmlNs (sizeof(struct _xmlNs))
-#define xml_domwrap_ctxt_struct_get_type(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->type)
-
-#define xml_domwrap_ctxt_struct_set_type(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->type = (a_value);}while(0)
-
-#define xml_domwrap_ctxt_struct_get_namespacemap(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->namespaceMap)
-
-#define xml_domwrap_ctxt_struct_set_namespacemap(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->namespaceMap = (a_value);}while(0)
-
-#define xml_domwrap_ctxt_struct_get_getnsfornodefunc(a_structure) (((struct _xmlDOMWrapCtxt*) (a_structure))->getNsForNodeFunc)
-
-#define xml_domwrap_ctxt_struct_set_getnsfornodefunc(a_structure,a_value) do {(((struct _xmlDOMWrapCtxt*)(a_structure)))->getNsForNodeFunc = (a_value);}while(0)
-
-#define sizeof__xmlDOMWrapCtxt (sizeof(struct _xmlDOMWrapCtxt))
-#define xml_saxhandler_v1_struct_get_internalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->internalSubset)
-
-#define xml_saxhandler_v1_struct_set_internalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->internalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_isstandalone(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->isStandalone)
-
-#define xml_saxhandler_v1_struct_set_isstandalone(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->isStandalone = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_hasinternalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->hasInternalSubset)
-
-#define xml_saxhandler_v1_struct_set_hasinternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->hasInternalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_hasexternalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->hasExternalSubset)
-
-#define xml_saxhandler_v1_struct_set_hasexternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->hasExternalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_resolveentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->resolveEntity)
-
-#define xml_saxhandler_v1_struct_set_resolveentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->resolveEntity = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_getentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->getEntity)
-
-#define xml_saxhandler_v1_struct_set_getentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->getEntity = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_entitydecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->entityDecl)
-
-#define xml_saxhandler_v1_struct_set_entitydecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->entityDecl = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_notationdecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->notationDecl)
-
-#define xml_saxhandler_v1_struct_set_notationdecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->notationDecl = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_attributedecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->attributeDecl)
-
-#define xml_saxhandler_v1_struct_set_attributedecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->attributeDecl = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_elementdecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->elementDecl)
-
-#define xml_saxhandler_v1_struct_set_elementdecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->elementDecl = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_unparsedentitydecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->unparsedEntityDecl)
-
-#define xml_saxhandler_v1_struct_set_unparsedentitydecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->unparsedEntityDecl = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_setdocumentlocator(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->setDocumentLocator)
-
-#define xml_saxhandler_v1_struct_set_setdocumentlocator(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->setDocumentLocator = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_startdocument(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->startDocument)
-
-#define xml_saxhandler_v1_struct_set_startdocument(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->startDocument = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_enddocument(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->endDocument)
-
-#define xml_saxhandler_v1_struct_set_enddocument(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->endDocument = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_startelement(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->startElement)
-
-#define xml_saxhandler_v1_struct_set_startelement(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->startElement = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_endelement(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->endElement)
-
-#define xml_saxhandler_v1_struct_set_endelement(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->endElement = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_reference(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->reference)
-
-#define xml_saxhandler_v1_struct_set_reference(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->reference = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_characters(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->characters)
-
-#define xml_saxhandler_v1_struct_set_characters(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->characters = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_ignorablewhitespace(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->ignorableWhitespace)
-
-#define xml_saxhandler_v1_struct_set_ignorablewhitespace(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->ignorableWhitespace = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_processinginstruction(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->processingInstruction)
-
-#define xml_saxhandler_v1_struct_set_processinginstruction(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->processingInstruction = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_comment(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->comment)
-
-#define xml_saxhandler_v1_struct_set_comment(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->comment = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_warning(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->warning)
-
-#define xml_saxhandler_v1_struct_set_warning(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->warning = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_error(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->error)
-
-#define xml_saxhandler_v1_struct_set_error(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->error = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_fatalerror(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->fatalError)
-
-#define xml_saxhandler_v1_struct_set_fatalerror(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->fatalError = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_getparameterentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->getParameterEntity)
-
-#define xml_saxhandler_v1_struct_set_getparameterentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->getParameterEntity = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_cdatablock(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->cdataBlock)
-
-#define xml_saxhandler_v1_struct_set_cdatablock(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->cdataBlock = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_externalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->externalSubset)
-
-#define xml_saxhandler_v1_struct_set_externalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->externalSubset = (a_value);}while(0)
-
-#define xml_saxhandler_v1_struct_get_initialized(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->initialized)
-
-#define xml_saxhandler_v1_struct_set_initialized(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->initialized = (a_value);}while(0)
-
-#define sizeof__xmlSAXHandlerV1 (sizeof(struct _xmlSAXHandlerV1))
-#define sizeof__xmlExpCtxt (sizeof(struct _xmlExpCtxt))
-#define xml_parser_input_buffer_struct_get_context(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->context)
-
-#define xml_parser_input_buffer_struct_set_context(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->context = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_readcallback(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->readcallback)
-
-#define xml_parser_input_buffer_struct_set_readcallback(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->readcallback = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_closecallback(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->closecallback)
-
-#define xml_parser_input_buffer_struct_set_closecallback(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->closecallback = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_encoder(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->encoder)
-
-#define xml_parser_input_buffer_struct_set_encoder(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->encoder = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_buffer(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->buffer)
-
-#define xml_parser_input_buffer_struct_set_buffer(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->buffer = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_raw(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->raw)
-
-#define xml_parser_input_buffer_struct_set_raw(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->raw = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_compressed(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->compressed)
-
-#define xml_parser_input_buffer_struct_set_compressed(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->compressed = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_error(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->error)
-
-#define xml_parser_input_buffer_struct_set_error(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->error = (a_value);}while(0)
-
-#define xml_parser_input_buffer_struct_get_rawconsumed(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->rawconsumed)
-
-#define xml_parser_input_buffer_struct_set_rawconsumed(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->rawconsumed = (a_value);}while(0)
-
-#define sizeof__xmlParserInputBuffer (sizeof(struct _xmlParserInputBuffer))
-#define xml_notation_struct_get_name(a_structure) (((struct _xmlNotation*) (a_structure))->name)
-
-#define xml_notation_struct_set_name(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_notation_struct_get_publicid(a_structure) (((struct _xmlNotation*) (a_structure))->PublicID)
-
-#define xml_notation_struct_set_publicid(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->PublicID = (a_value);}while(0)
-
-#define xml_notation_struct_get_systemid(a_structure) (((struct _xmlNotation*) (a_structure))->SystemID)
-
-#define xml_notation_struct_set_systemid(a_structure,a_value) do {(((struct _xmlNotation*)(a_structure)))->SystemID = (a_value);}while(0)
-
-#define sizeof__xmlNotation (sizeof(struct _xmlNotation))
-#define sizeof__xmlAutomata (sizeof(struct _xmlAutomata))
-#define xml_ref_struct_get_next(a_structure) (((struct _xmlRef*) (a_structure))->next)
-
-#define xml_ref_struct_set_next(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->next = (a_value);}while(0)
-
-#define xml_ref_struct_get_value(a_structure) (((struct _xmlRef*) (a_structure))->value)
-
-#define xml_ref_struct_set_value(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->value = (a_value);}while(0)
-
-#define xml_ref_struct_get_attr(a_structure) (((struct _xmlRef*) (a_structure))->attr)
-
-#define xml_ref_struct_set_attr(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->attr = (a_value);}while(0)
-
-#define xml_ref_struct_get_name(a_structure) (((struct _xmlRef*) (a_structure))->name)
-
-#define xml_ref_struct_set_name(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->name = (a_value);}while(0)
-
-#define xml_ref_struct_get_lineno(a_structure) (((struct _xmlRef*) (a_structure))->lineno)
-
-#define xml_ref_struct_set_lineno(a_structure,a_value) do {(((struct _xmlRef*)(a_structure)))->lineno = (a_value);}while(0)
-
-#define sizeof__xmlRef (sizeof(struct _xmlRef))
+#define sizeof__xmlParserNodeInfo (sizeof(struct _xmlParserNodeInfo))
 #define xml_parser_node_info_seq_struct_get_maximum(a_structure) (((struct _xmlParserNodeInfoSeq*) (a_structure))->maximum)
 
 #define xml_parser_node_info_seq_struct_set_maximum(a_structure,a_value) do {(((struct _xmlParserNodeInfoSeq*)(a_structure)))->maximum = (a_value);}while(0)
@@ -1614,6 +1146,14 @@
 
 #define xml_parser_ctxt_struct_set_nodeinfotab(a_structure,a_value) do {(((struct _xmlParserCtxt*)(a_structure)))->nodeInfoTab = (a_value);}while(0)
 
+#define xml_parser_ctxt_struct_get_input_id(a_structure) (((struct _xmlParserCtxt*) (a_structure))->input_id)
+
+#define xml_parser_ctxt_struct_set_input_id(a_structure,a_value) do {(((struct _xmlParserCtxt*)(a_structure)))->input_id = (a_value);}while(0)
+
+#define xml_parser_ctxt_struct_get_sizeentcopy(a_structure) (((struct _xmlParserCtxt*) (a_structure))->sizeentcopy)
+
+#define xml_parser_ctxt_struct_set_sizeentcopy(a_structure,a_value) do {(((struct _xmlParserCtxt*)(a_structure)))->sizeentcopy = (a_value);}while(0)
+
 #define sizeof__xmlParserCtxt (sizeof(struct _xmlParserCtxt))
 #define xml_saxlocator_struct_get_getpublicid(a_structure) (((struct _xmlSAXLocator*) (a_structure))->getPublicId)
 
@@ -1632,6 +1172,494 @@
 #define xml_saxlocator_struct_set_getcolumnnumber(a_structure,a_value) do {(((struct _xmlSAXLocator*)(a_structure)))->getColumnNumber = (a_value);}while(0)
 
 #define sizeof__xmlSAXLocator (sizeof(struct _xmlSAXLocator))
+#define xml_saxhandler_struct_get_internalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->internalSubset)
+
+#define xml_saxhandler_struct_set_internalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->internalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_isstandalone(a_structure) (((struct _xmlSAXHandler*) (a_structure))->isStandalone)
+
+#define xml_saxhandler_struct_set_isstandalone(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->isStandalone = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_hasinternalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->hasInternalSubset)
+
+#define xml_saxhandler_struct_set_hasinternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->hasInternalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_hasexternalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->hasExternalSubset)
+
+#define xml_saxhandler_struct_set_hasexternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->hasExternalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_resolveentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->resolveEntity)
+
+#define xml_saxhandler_struct_set_resolveentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->resolveEntity = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_getentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->getEntity)
+
+#define xml_saxhandler_struct_set_getentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->getEntity = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_entitydecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->entityDecl)
+
+#define xml_saxhandler_struct_set_entitydecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->entityDecl = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_notationdecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->notationDecl)
+
+#define xml_saxhandler_struct_set_notationdecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->notationDecl = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_attributedecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->attributeDecl)
+
+#define xml_saxhandler_struct_set_attributedecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->attributeDecl = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_elementdecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->elementDecl)
+
+#define xml_saxhandler_struct_set_elementdecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->elementDecl = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_unparsedentitydecl(a_structure) (((struct _xmlSAXHandler*) (a_structure))->unparsedEntityDecl)
+
+#define xml_saxhandler_struct_set_unparsedentitydecl(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->unparsedEntityDecl = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_setdocumentlocator(a_structure) (((struct _xmlSAXHandler*) (a_structure))->setDocumentLocator)
+
+#define xml_saxhandler_struct_set_setdocumentlocator(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->setDocumentLocator = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_startdocument(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startDocument)
+
+#define xml_saxhandler_struct_set_startdocument(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startDocument = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_enddocument(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endDocument)
+
+#define xml_saxhandler_struct_set_enddocument(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endDocument = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_startelement(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startElement)
+
+#define xml_saxhandler_struct_set_startelement(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startElement = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_endelement(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endElement)
+
+#define xml_saxhandler_struct_set_endelement(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endElement = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_reference(a_structure) (((struct _xmlSAXHandler*) (a_structure))->reference)
+
+#define xml_saxhandler_struct_set_reference(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->reference = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_characters(a_structure) (((struct _xmlSAXHandler*) (a_structure))->characters)
+
+#define xml_saxhandler_struct_set_characters(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->characters = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_ignorablewhitespace(a_structure) (((struct _xmlSAXHandler*) (a_structure))->ignorableWhitespace)
+
+#define xml_saxhandler_struct_set_ignorablewhitespace(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->ignorableWhitespace = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_processinginstruction(a_structure) (((struct _xmlSAXHandler*) (a_structure))->processingInstruction)
+
+#define xml_saxhandler_struct_set_processinginstruction(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->processingInstruction = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_comment(a_structure) (((struct _xmlSAXHandler*) (a_structure))->comment)
+
+#define xml_saxhandler_struct_set_comment(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->comment = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_warning(a_structure) (((struct _xmlSAXHandler*) (a_structure))->warning)
+
+#define xml_saxhandler_struct_set_warning(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->warning = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_error(a_structure) (((struct _xmlSAXHandler*) (a_structure))->error)
+
+#define xml_saxhandler_struct_set_error(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->error = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_fatalerror(a_structure) (((struct _xmlSAXHandler*) (a_structure))->fatalError)
+
+#define xml_saxhandler_struct_set_fatalerror(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->fatalError = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_getparameterentity(a_structure) (((struct _xmlSAXHandler*) (a_structure))->getParameterEntity)
+
+#define xml_saxhandler_struct_set_getparameterentity(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->getParameterEntity = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_cdatablock(a_structure) (((struct _xmlSAXHandler*) (a_structure))->cdataBlock)
+
+#define xml_saxhandler_struct_set_cdatablock(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->cdataBlock = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_externalsubset(a_structure) (((struct _xmlSAXHandler*) (a_structure))->externalSubset)
+
+#define xml_saxhandler_struct_set_externalsubset(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->externalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_initialized(a_structure) (((struct _xmlSAXHandler*) (a_structure))->initialized)
+
+#define xml_saxhandler_struct_set_initialized(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->initialized = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_startelementns(a_structure) (((struct _xmlSAXHandler*) (a_structure))->startElementNs)
+
+#define xml_saxhandler_struct_set_startelementns(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->startElementNs = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_endelementns(a_structure) (((struct _xmlSAXHandler*) (a_structure))->endElementNs)
+
+#define xml_saxhandler_struct_set_endelementns(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->endElementNs = (a_value);}while(0)
+
+#define xml_saxhandler_struct_get_serror(a_structure) (((struct _xmlSAXHandler*) (a_structure))->serror)
+
+#define xml_saxhandler_struct_set_serror(a_structure,a_value) do {(((struct _xmlSAXHandler*)(a_structure)))->serror = (a_value);}while(0)
+
+#define sizeof__xmlSAXHandler (sizeof(struct _xmlSAXHandler))
+#define xml_saxhandler_v1_struct_get_internalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->internalSubset)
+
+#define xml_saxhandler_v1_struct_set_internalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->internalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_isstandalone(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->isStandalone)
+
+#define xml_saxhandler_v1_struct_set_isstandalone(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->isStandalone = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_hasinternalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->hasInternalSubset)
+
+#define xml_saxhandler_v1_struct_set_hasinternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->hasInternalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_hasexternalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->hasExternalSubset)
+
+#define xml_saxhandler_v1_struct_set_hasexternalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->hasExternalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_resolveentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->resolveEntity)
+
+#define xml_saxhandler_v1_struct_set_resolveentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->resolveEntity = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_getentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->getEntity)
+
+#define xml_saxhandler_v1_struct_set_getentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->getEntity = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_entitydecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->entityDecl)
+
+#define xml_saxhandler_v1_struct_set_entitydecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->entityDecl = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_notationdecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->notationDecl)
+
+#define xml_saxhandler_v1_struct_set_notationdecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->notationDecl = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_attributedecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->attributeDecl)
+
+#define xml_saxhandler_v1_struct_set_attributedecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->attributeDecl = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_elementdecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->elementDecl)
+
+#define xml_saxhandler_v1_struct_set_elementdecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->elementDecl = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_unparsedentitydecl(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->unparsedEntityDecl)
+
+#define xml_saxhandler_v1_struct_set_unparsedentitydecl(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->unparsedEntityDecl = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_setdocumentlocator(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->setDocumentLocator)
+
+#define xml_saxhandler_v1_struct_set_setdocumentlocator(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->setDocumentLocator = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_startdocument(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->startDocument)
+
+#define xml_saxhandler_v1_struct_set_startdocument(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->startDocument = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_enddocument(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->endDocument)
+
+#define xml_saxhandler_v1_struct_set_enddocument(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->endDocument = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_startelement(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->startElement)
+
+#define xml_saxhandler_v1_struct_set_startelement(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->startElement = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_endelement(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->endElement)
+
+#define xml_saxhandler_v1_struct_set_endelement(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->endElement = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_reference(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->reference)
+
+#define xml_saxhandler_v1_struct_set_reference(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->reference = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_characters(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->characters)
+
+#define xml_saxhandler_v1_struct_set_characters(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->characters = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_ignorablewhitespace(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->ignorableWhitespace)
+
+#define xml_saxhandler_v1_struct_set_ignorablewhitespace(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->ignorableWhitespace = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_processinginstruction(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->processingInstruction)
+
+#define xml_saxhandler_v1_struct_set_processinginstruction(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->processingInstruction = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_comment(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->comment)
+
+#define xml_saxhandler_v1_struct_set_comment(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->comment = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_warning(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->warning)
+
+#define xml_saxhandler_v1_struct_set_warning(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->warning = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_error(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->error)
+
+#define xml_saxhandler_v1_struct_set_error(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->error = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_fatalerror(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->fatalError)
+
+#define xml_saxhandler_v1_struct_set_fatalerror(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->fatalError = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_getparameterentity(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->getParameterEntity)
+
+#define xml_saxhandler_v1_struct_set_getparameterentity(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->getParameterEntity = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_cdatablock(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->cdataBlock)
+
+#define xml_saxhandler_v1_struct_set_cdatablock(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->cdataBlock = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_externalsubset(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->externalSubset)
+
+#define xml_saxhandler_v1_struct_set_externalsubset(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->externalSubset = (a_value);}while(0)
+
+#define xml_saxhandler_v1_struct_get_initialized(a_structure) (((struct _xmlSAXHandlerV1*) (a_structure))->initialized)
+
+#define xml_saxhandler_v1_struct_set_initialized(a_structure,a_value) do {(((struct _xmlSAXHandlerV1*)(a_structure)))->initialized = (a_value);}while(0)
+
+#define sizeof__xmlSAXHandlerV1 (sizeof(struct _xmlSAXHandlerV1))
+#define uconv_t_struct_get_uconv(a_structure) (((struct _uconv_t*) (a_structure))->uconv)
+
+#define uconv_t_struct_set_uconv(a_structure,a_value) do {(((struct _uconv_t*)(a_structure)))->uconv = (a_value);}while(0)
+
+#define uconv_t_struct_get_utf8(a_structure) (((struct _uconv_t*) (a_structure))->utf8)
+
+#define uconv_t_struct_set_utf8(a_structure,a_value) do {(((struct _uconv_t*)(a_structure)))->utf8 = (a_value);}while(0)
+
+#define sizeof__uconv_t (sizeof(struct _uconv_t))
+#define xml_char_encoding_handler_struct_get_name(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->name)
+
+#define xml_char_encoding_handler_struct_set_name(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->name = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_input(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->input)
+
+#define xml_char_encoding_handler_struct_set_input(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->input = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_output(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->output)
+
+#define xml_char_encoding_handler_struct_set_output(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->output = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_iconv_in(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->iconv_in)
+
+#define xml_char_encoding_handler_struct_set_iconv_in(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->iconv_in = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_iconv_out(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->iconv_out)
+
+#define xml_char_encoding_handler_struct_set_iconv_out(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->iconv_out = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_uconv_in(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->uconv_in)
+
+#define xml_char_encoding_handler_struct_set_uconv_in(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->uconv_in = (a_value);}while(0)
+
+#define xml_char_encoding_handler_struct_get_uconv_out(a_structure) (((struct _xmlCharEncodingHandler*) (a_structure))->uconv_out)
+
+#define xml_char_encoding_handler_struct_set_uconv_out(a_structure,a_value) do {(((struct _xmlCharEncodingHandler*)(a_structure)))->uconv_out = (a_value);}while(0)
+
+#define sizeof__xmlCharEncodingHandler (sizeof(struct _xmlCharEncodingHandler))
+#define xlink_handler_struct_get_simple(a_structure) (((struct _xlinkHandler*) (a_structure))->simple)
+
+#define xlink_handler_struct_set_simple(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->simple = (a_value);}while(0)
+
+#define xlink_handler_struct_get_extended(a_structure) (((struct _xlinkHandler*) (a_structure))->extended)
+
+#define xlink_handler_struct_set_extended(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->extended = (a_value);}while(0)
+
+#define xlink_handler_struct_get_set(a_structure) (((struct _xlinkHandler*) (a_structure))->set)
+
+#define xlink_handler_struct_set_set(a_structure,a_value) do {(((struct _xlinkHandler*)(a_structure)))->set = (a_value);}while(0)
+
+#define sizeof__xlinkHandler (sizeof(struct _xlinkHandler))
+#define xml_global_state_struct_get_xmlparserversion(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserVersion)
+
+#define xml_global_state_struct_set_xmlparserversion(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserVersion = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlfree(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlFree)
+
+#define xml_global_state_struct_set_xmlfree(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlFree = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlmalloc(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMalloc)
+
+#define xml_global_state_struct_set_xmlmalloc(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMalloc = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlmemstrdup(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMemStrdup)
+
+#define xml_global_state_struct_set_xmlmemstrdup(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMemStrdup = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlrealloc(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlRealloc)
+
+#define xml_global_state_struct_set_xmlrealloc(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlRealloc = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlgenericerror(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGenericError)
+
+#define xml_global_state_struct_set_xmlgenericerror(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGenericError = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlstructurederror(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlStructuredError)
+
+#define xml_global_state_struct_set_xmlstructurederror(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlStructuredError = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlgenericerrorcontext(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGenericErrorContext)
+
+#define xml_global_state_struct_set_xmlgenericerrorcontext(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGenericErrorContext = (a_value);}while(0)
+
+#define xml_global_state_struct_get_oldxmlwdcompatibility(a_structure) (((struct _xmlGlobalState*) (a_structure))->oldXMLWDcompatibility)
+
+#define xml_global_state_struct_set_oldxmlwdcompatibility(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->oldXMLWDcompatibility = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlbufferallocscheme(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlBufferAllocScheme)
+
+#define xml_global_state_struct_set_xmlbufferallocscheme(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlBufferAllocScheme = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmldefaultbuffersize(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDefaultBufferSize)
+
+#define xml_global_state_struct_set_xmldefaultbuffersize(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDefaultBufferSize = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlsubstituteentitiesdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlSubstituteEntitiesDefaultValue)
+
+#define xml_global_state_struct_set_xmlsubstituteentitiesdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlSubstituteEntitiesDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmldovaliditycheckingdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDoValidityCheckingDefaultValue)
+
+#define xml_global_state_struct_set_xmldovaliditycheckingdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDoValidityCheckingDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlgetwarningsdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlGetWarningsDefaultValue)
+
+#define xml_global_state_struct_set_xmlgetwarningsdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlGetWarningsDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlkeepblanksdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlKeepBlanksDefaultValue)
+
+#define xml_global_state_struct_set_xmlkeepblanksdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlKeepBlanksDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmllinenumbersdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlLineNumbersDefaultValue)
+
+#define xml_global_state_struct_set_xmllinenumbersdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlLineNumbersDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlloadextdtddefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlLoadExtDtdDefaultValue)
+
+#define xml_global_state_struct_set_xmlloadextdtddefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlLoadExtDtdDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlparserdebugentities(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserDebugEntities)
+
+#define xml_global_state_struct_set_xmlparserdebugentities(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserDebugEntities = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlpedanticparserdefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlPedanticParserDefaultValue)
+
+#define xml_global_state_struct_set_xmlpedanticparserdefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlPedanticParserDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlsavenoemptytags(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlSaveNoEmptyTags)
+
+#define xml_global_state_struct_set_xmlsavenoemptytags(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlSaveNoEmptyTags = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlindenttreeoutput(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlIndentTreeOutput)
+
+#define xml_global_state_struct_set_xmlindenttreeoutput(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlIndentTreeOutput = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmltreeindentstring(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlTreeIndentString)
+
+#define xml_global_state_struct_set_xmltreeindentstring(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlTreeIndentString = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlregisternodedefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlRegisterNodeDefaultValue)
+
+#define xml_global_state_struct_set_xmlregisternodedefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlRegisterNodeDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlderegisternodedefaultvalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlDeregisterNodeDefaultValue)
+
+#define xml_global_state_struct_set_xmlderegisternodedefaultvalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlDeregisterNodeDefaultValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlmallocatomic(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlMallocAtomic)
+
+#define xml_global_state_struct_set_xmlmallocatomic(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlMallocAtomic = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlparserinputbuffercreatefilenamevalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlParserInputBufferCreateFilenameValue)
+
+#define xml_global_state_struct_set_xmlparserinputbuffercreatefilenamevalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlParserInputBufferCreateFilenameValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmloutputbuffercreatefilenamevalue(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlOutputBufferCreateFilenameValue)
+
+#define xml_global_state_struct_set_xmloutputbuffercreatefilenamevalue(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlOutputBufferCreateFilenameValue = (a_value);}while(0)
+
+#define xml_global_state_struct_get_xmlstructurederrorcontext(a_structure) (((struct _xmlGlobalState*) (a_structure))->xmlStructuredErrorContext)
+
+#define xml_global_state_struct_set_xmlstructurederrorcontext(a_structure,a_value) do {(((struct _xmlGlobalState*)(a_structure)))->xmlStructuredErrorContext = (a_value);}while(0)
+
+#define sizeof__xmlGlobalState (sizeof(struct _xmlGlobalState))
+#define xml_parser_input_buffer_struct_get_context(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->context)
+
+#define xml_parser_input_buffer_struct_set_context(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->context = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_readcallback(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->readcallback)
+
+#define xml_parser_input_buffer_struct_set_readcallback(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->readcallback = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_closecallback(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->closecallback)
+
+#define xml_parser_input_buffer_struct_set_closecallback(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->closecallback = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_encoder(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->encoder)
+
+#define xml_parser_input_buffer_struct_set_encoder(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->encoder = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_buffer(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->buffer)
+
+#define xml_parser_input_buffer_struct_set_buffer(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->buffer = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_raw(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->raw)
+
+#define xml_parser_input_buffer_struct_set_raw(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->raw = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_compressed(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->compressed)
+
+#define xml_parser_input_buffer_struct_set_compressed(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->compressed = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_error(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->error)
+
+#define xml_parser_input_buffer_struct_set_error(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->error = (a_value);}while(0)
+
+#define xml_parser_input_buffer_struct_get_rawconsumed(a_structure) (((struct _xmlParserInputBuffer*) (a_structure))->rawconsumed)
+
+#define xml_parser_input_buffer_struct_set_rawconsumed(a_structure,a_value) do {(((struct _xmlParserInputBuffer*)(a_structure)))->rawconsumed = (a_value);}while(0)
+
+#define sizeof__xmlParserInputBuffer (sizeof(struct _xmlParserInputBuffer))
+#define xml_output_buffer_struct_get_context(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->context)
+
+#define xml_output_buffer_struct_set_context(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->context = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_writecallback(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->writecallback)
+
+#define xml_output_buffer_struct_set_writecallback(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->writecallback = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_closecallback(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->closecallback)
+
+#define xml_output_buffer_struct_set_closecallback(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->closecallback = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_encoder(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->encoder)
+
+#define xml_output_buffer_struct_set_encoder(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->encoder = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_buffer(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->buffer)
+
+#define xml_output_buffer_struct_set_buffer(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->buffer = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_conv(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->conv)
+
+#define xml_output_buffer_struct_set_conv(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->conv = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_written(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->written)
+
+#define xml_output_buffer_struct_set_written(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->written = (a_value);}while(0)
+
+#define xml_output_buffer_struct_get_error(a_structure) (((struct _xmlOutputBuffer*) (a_structure))->error)
+
+#define xml_output_buffer_struct_set_error(a_structure,a_value) do {(((struct _xmlOutputBuffer*)(a_structure)))->error = (a_value);}while(0)
+
+#define sizeof__xmlOutputBuffer (sizeof(struct _xmlOutputBuffer))
+#define sizeof__xmlBuf (sizeof(struct _xmlBuf))
+#define sizeof__xmlRegexp (sizeof(struct _xmlRegexp))
+#define sizeof__xmlRegExecCtxt (sizeof(struct _xmlRegExecCtxt))
+#define sizeof__xmlDict (sizeof(struct _xmlDict))
+#define sizeof__xmlExpCtxt (sizeof(struct _xmlExpCtxt))
+#define sizeof__xmlExpNode (sizeof(struct _xmlExpNode))
+#define sizeof__xmlHashTable (sizeof(struct _xmlHashTable))
+#define sizeof__xmlLink (sizeof(struct _xmlLink))
+#define sizeof__xmlList (sizeof(struct _xmlList))
+#define sizeof__xmlAutomata (sizeof(struct _xmlAutomata))
+#define sizeof__xmlAutomataState (sizeof(struct _xmlAutomataState))
+#define sizeof__xmlValidState (sizeof(struct _xmlValidState))
+#define sizeof__xmlMutex (sizeof(struct _xmlMutex))
+#define sizeof__xmlRMutex (sizeof(struct _xmlRMutex))
+#define set_emptyExp(a_value) emptyExp = (a_value);
+#define set_forbiddenExp(a_value) forbiddenExp = (a_value);
 #define set_oldXMLWDcompatibility(a_value) oldXMLWDcompatibility = (a_value);
 #define set_xmlBufferAllocScheme(a_value) xmlBufferAllocScheme = (a_value);
 #define set_xmlDefaultBufferSize(a_value) xmlDefaultBufferSize = (a_value);
@@ -1660,5 +1688,3 @@
 #define set_xmlStructuredErrorContext(a_value) xmlStructuredErrorContext = (a_value);
 #define set_xmlSubstituteEntitiesDefaultValue(a_value) xmlSubstituteEntitiesDefaultValue = (a_value);
 #define set_xmlTreeIndentString(a_value) xmlTreeIndentString = (a_value);
-#define set_emptyExp(a_value) emptyExp = (a_value);
-#define set_forbiddenExp(a_value) forbiddenExp = (a_value);
