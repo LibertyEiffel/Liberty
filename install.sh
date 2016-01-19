@@ -190,6 +190,8 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
@@ -408,10 +410,10 @@ EOF
 5  no  se
 6  bdw clean
 7  bdw ace_check
-8  no  eiffeltest
+8  bdw eiffeltest
 9  no  mock
-#9  bdw eiffeltest_ng
-#10 bdw eiffeltest_server
+9  bdw eiffeltest_ng
+10 bdw eiffeltest_server
 EOF
     {
         grep -v '^#' |
@@ -606,6 +608,8 @@ mock: mock
 pretty: pretty
 short: short
 test: eiffeltest
+test_ng: eiffeltest_ng
+test_server: eiffeltest_server
 wrap: wrappers-generator
 x_int: extract_internals
 
