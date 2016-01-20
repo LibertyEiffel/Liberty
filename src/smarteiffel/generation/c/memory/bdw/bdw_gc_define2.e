@@ -233,6 +233,8 @@ feature {}
             cpp.pending_c_function_body.append(once ",NULL,NULL,NULL);%N")
          end
          if cpp.need_struct.for(tm) then
+-- TODO: check whether this is really necessary... it seems 
+-- duplicated in TEST_AC01
             cpp.pending_c_function_body.append(once "*R=M")
             live_type.id.append_in(cpp.pending_c_function_body)
             cpp.pending_c_function_body.append(once ";%N")
