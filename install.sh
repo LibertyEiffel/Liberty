@@ -436,6 +436,7 @@ EOF
 14 no  finder
 15 bdw  eiffeldoc
 16 no  extract_internals
+16 bdw  wrappers-generator
 EOF
 
     {
