@@ -192,7 +192,7 @@ short: short
 test: eiffeltest
 test_ng: eiffeltest_ng
 test_server: eiffeltest_server
-wrap: wrappers-generator
+wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
@@ -436,6 +436,7 @@ EOF
 14 no  finder
 15 bdw  eiffeldoc
 16 no  extract_internals
+16 bdw  wrappers_generator
 EOF
 
     {
