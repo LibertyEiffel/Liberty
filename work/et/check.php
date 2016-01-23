@@ -393,6 +393,34 @@ if (substage("TestSuite")) {
    endsubstage();
 }
 
+if (substage("wrappers")) {
+   if (substage("generate wrappers")) {
+      execute("cd $LibertyBase/src/wrappers && make", $ulimit_time = 3600);
+      endsubstage();
+   }
+
+   if (substage("compile examples")) {
+      foreach (glob("$LibertyBase/src/wrappers/*/examples/*_example.e") as $filename) {
+         if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
+            $class = strtoupper(basename($filename, ".e"));
+            if (substage($class)) {
+               execute("se c --clean " . $class, $ulimit_time = 3600);
+               endsubstage();
+            }
+         }
+      }
+      endsubstage();
+   }
+
+   if (substage("cleanup wrappers")) {
+      execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
+      endsubstage();
+   }
+   
+   endsubstage();
+}
+
+
 file_put_contents("$stageout/current_stage.txt","");
 
 $times = recordTime($times, "", (int)(time() - $startTime), $historysize);
