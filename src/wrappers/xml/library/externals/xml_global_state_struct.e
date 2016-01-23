@@ -1,4 +1,4 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_GLOBAL_STATE_STRUCT
 
@@ -697,5 +697,5 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                end
 
 end -- class XML_GLOBAL_STATE_STRUCT
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.

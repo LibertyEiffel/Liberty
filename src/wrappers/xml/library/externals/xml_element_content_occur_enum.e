@@ -1,10 +1,10 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ELEMENT_CONTENT_OCCUR_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do

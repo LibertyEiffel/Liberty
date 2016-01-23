@@ -1,21 +1,21 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_DOC_PROPERTIES_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (dtdvalid_low_level | 
+            Result := (a_value=0 or (a_value & (dtdvalid_low_level | 
 				html_low_level | 
 				internal_low_level | 
 				nsvalid_low_level | 
 				old10_low_level | 
 				userbuilt_low_level | 
 				wellformed_low_level | 
-				xinclude_low_level)).to_boolean
+				xinclude_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters

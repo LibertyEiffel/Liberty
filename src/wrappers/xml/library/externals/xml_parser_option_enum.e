@@ -1,14 +1,14 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_PARSER_OPTION_ENUM
 
 insert ENUM
 
-creation {ANY} default_create
+create {ANY} default_create
 feature {ANY} -- Validity
     is_valid_value (a_value: INTEGER): BOOLEAN
         do
-            Result := (a_value & (big_lines_low_level | 
+            Result := (a_value=0 or (a_value & (big_lines_low_level | 
 				compact_low_level | 
 				dtdattr_low_level | 
 				dtdload_low_level | 
@@ -30,7 +30,7 @@ feature {ANY} -- Validity
 				pedantic_low_level | 
 				recover_low_level | 
 				sax1_low_level | 
-				xinclude_low_level)).to_boolean
+				xinclude_low_level)).to_boolean)
 		end
 
 feature {ANY} -- Setters
