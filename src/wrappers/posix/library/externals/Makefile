@@ -2,12 +2,11 @@
 ## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
 ## export GCCXML_COMPILER = gcc-4.5
 
-XML=posix.gcc-xml
+XML=posix.castxml
 HEADER=plugin/c/liberty-posix.h
 HEADERS=/usr/include/fcntl.h \
 	/usr/include/sys/mman.h \
-	/usr/include/unistd.h \
-    /usr/include/*/*
+	/usr/include/unistd.h 
 
 wrappers: $(XML)
 	wrappers-generator --local $(XML) $(HEADERS)

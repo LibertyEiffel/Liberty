@@ -1,5 +1,5 @@
 /*
-** This file have been created by wrapper-generator.
+** This file has been created by wrapper-generator.
 ** Any change will be lost by the next execution of the tool.
 */
 #define xml_buffer_struct_get_content(a_structure) (((struct _xmlBuffer*) (a_structure))->content)
