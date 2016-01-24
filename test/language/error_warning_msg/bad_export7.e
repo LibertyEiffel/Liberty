@@ -2,6 +2,9 @@
 -- See the Copyright notice at the end of this file.
 --
 class BAD_EXPORT7
+-- Goal: test whether the compiler checks export rules for qualified 
+-- calls on Current
+-- show #46962 https://savannah.gnu.org/bugs/index.php?46962
 
 create {ANY}
    make
@@ -10,7 +13,8 @@ feature {}
    make
       do
          ga
-         Current.ga      -- This one is forbidden
+         Current.ga      -- This one is forbidden - See ECMA Ch 8.23.11 Validity: Export rule (VUEX)
+                         -- This check is not planned for the Bell release
          bu
          Current.bu
       end
