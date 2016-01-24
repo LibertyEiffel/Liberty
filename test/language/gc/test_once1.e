@@ -4,7 +4,10 @@
 class TEST_ONCE1
 
 create {}
-   make, make2
+   make
+
+create {TEST_ONCE1}
+   make2
 
 feature {ANY}
    object: TEST_ONCE1
