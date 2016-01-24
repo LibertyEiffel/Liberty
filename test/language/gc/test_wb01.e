@@ -19,7 +19,7 @@ feature {ANY}
             i > upper
          loop
             create an_any.make(10)
-            an_array.put(an_any, i)
+            an_array.put(an_any.item(i \\ 10), i)
             i := i + 1
          end
       end
