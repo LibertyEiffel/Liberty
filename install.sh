@@ -492,12 +492,12 @@ compile_plugins() {
 generate_wrappers() {
     title "Generating wrappers"
     cd $TARGET/bin
-    cd wrappers-generator.d
+    cd wrappers_generator.d
     n=$(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile | wc -l)
     n=$((n+1))
     progress 30 0 $n "Building the wrappers generator"
-    run ../se c -verbose wrappers-generator.ace
-    cd .. && test -e wrappers-generator || ln -s wrappers-generator.d/wrappers-generator .
+    run ../se c -verbose wrappers_generator.ace
+    cd .. && test -e wrappers_generator || ln -s wrappers_generator.d/wrappers_generator .
     i=1
     for f in $(ls $LIBERTY_HOME/src/wrappers/*/library/externals/Makefile); do
         cd ${f%/Makefile}
@@ -611,7 +611,7 @@ short: short
 test: eiffeltest
 test_ng: eiffeltest_ng
 test_server: eiffeltest_server
-wrap: wrappers-generator
+wrap: wrappers_generator
 x_int: extract_internals
 
 [boost]
