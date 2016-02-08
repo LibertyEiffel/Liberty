@@ -1,5 +1,5 @@
 deferred class WRAPPABLE_NODE
-   -- A node of an XML file made by GccXml representing an entity that may be wrapped in Liberty. It may be wrapped either as a feature, as a class or a cluster.
+   -- A node of an XML file made by GccXml representing an entity that may be wrapped in Liberty Eiffel either as a feature, as a class or a cluster.
 
 inherit
    NAMED_NODE

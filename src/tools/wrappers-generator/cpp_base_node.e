@@ -22,7 +22,7 @@ feature {ANY}
    wrapper_type: STRING
       do
          raise("Asked for wrapper type of a %"Base%" node. This should have never happened because wrapper_type has the precondition of has_wrapper.")
-      end -- access in a fairly extensive parsing of Qt4 library has alwayes been found to be an attribute with "public" value.
+      end 
 
 end -- class CPP_BASE_NODE
 

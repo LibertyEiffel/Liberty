@@ -258,13 +258,6 @@ feature {ANY} -- Type-system translations
 
    typedefs: LINKED_LIST[XML_COMPOSITE_NODE]
 
-feature {} -- Implementation:
-   deconst (a_string: UNICODE_STRING): UNICODE_STRING
-      obsolete "Use dequalify instead"
-      do
-         Result := dequalify(a_string)
-      end
-
 feature {ANY} -- Constants
    integer_size: INTEGER
          -- The size of an INTEGER in bytes

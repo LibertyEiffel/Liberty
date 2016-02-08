@@ -104,15 +104,27 @@ feature {ANY}
       end -- invariant name.is_equal(once U"Typedef")
 
 feature {ANY}
-   emit_wrapper
-      do
-         -- Nothing, wrappers of C typedefs are handled in TYPEDEF collection.
-      end
+    emit_wrapper
+    local a_composed_type: COMPOSED_NODE
+    do
+        if a_composed_type ?:= referree then
+            log("Emitting wrapper for typedef #(1)%N" # c_string_name)
+            a_composed_type ::= referree 
+            if not a_composed_type.is_named then
+                log("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" # 
+                a_composed_type.c_type # c_string_name)
+                a_composed_type.set_name(c_string_name)
+            end
+            a_composed_type.emit_wrapper  
+        else
+            log("No wrapper for typedef #(1)%N" # c_string_name)
+        end
+    end
 
    suffix: STRING ""
 
 end -- class C_TYPEDEF
--- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
+-- Copyright (C) 2008-2016:  Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
 -- Software Foundation, either version 2 of the License, or (at your option)

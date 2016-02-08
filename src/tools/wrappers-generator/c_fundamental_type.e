@@ -92,13 +92,13 @@ feature {} -- Implementation
             -- supported architectures: Long doble is 96bit long on i386, 128
             -- bit on x64 and 64 bit on ARM.
          when "long int" then
-            -- long int is the most problematic C type to be wrapped since its
-            -- usage is quite wide (think about fseek) and the fact that's it's
-            -- 32bit on x86 and ARM, and 64 bits on x64. It just cannot be
-            -- wrapped with an integer with an explicit size (INTEGER_32,
-            -- INTEGER_64) because it would require to change user code.
-            -- Perhaphs an anchored declaration (i.e. "like long_int") could be
-            -- a solution
+            -- long int is the most problematic C type to be wrapped since it
+            -- is widely used (think about fseek) and its size changes
+            -- depending on the architecture: 32bit on x86 and ARM, and 64 bits
+            -- on x64. It just cannot be wrapped with an integer with an
+            -- explicit size (INTEGER_32, INTEGER_64) because it would require
+            -- to change user code.  Perhaphs an anchored declaration (i.e.
+            -- "like long_int") could be a solution
             stored_wrapper_type := once "like long"
          when "long long int" then
             stored_wrapper_type := once "INTEGER_64"

@@ -1,29 +1,35 @@
-deferred class TYPED_NODE
-   -- A Gccxml node with "type" attribute
+deferred class WRAPPED_TYPE
+    -- A node of a GccXml/CastXml file representing a C/C++ type that is wrappable as an Eiffel class:
+
+    -- * struct
+    -- * union
+    -- * class
 
 inherit
-   GCCXML_NODE
-
-insert
-   SHARED_COLLECTIONS
+   WRAPPABLE_NODE
+      -- To make sure that it is a correct class name
+      redefine compute_eiffel_name
+      end
 
 feature {ANY}
-   type: UNICODE_STRING
-      do
-         Result := attribute_at(once U"type")
-      ensure
-         Result /= Void
+   emit_wrapper
+      deferred
       end
 
-   is_void: BOOLEAN  deferred
-
-   referree: C_TYPE
-         -- The node referred by `type' in `types' dictionary.
+   compute_eiffel_name
       do
-         Result := types.at(type)
+         cached_eiffel_name := eiffel_class_name(c_string_name, suffix)
       end
 
-end -- class TYPED_NODE
+   suffix: STRING
+      deferred
+      end
+
+feature {} -- Implementation
+   output: TERMINAL_OUTPUT_STREAM
+
+end -- class WRAPPER_CLASS
+
 -- Copyright (C) 2008-2016: Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as publhed by the Free
