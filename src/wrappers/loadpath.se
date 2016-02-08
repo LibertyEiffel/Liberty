@@ -3,3 +3,4 @@
 ./posix/loadpath.se
 ./readline/library/loadpath.se
 ./zmq/loadpath.se
+./database/loadpath.se
