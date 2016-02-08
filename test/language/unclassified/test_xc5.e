@@ -32,7 +32,7 @@ feature {ANY}
          c: AUX_XC5_A[INTEGER]
       do
          create c
-         p({ARRAY[ANY] 1, << "toto", Result >> })
+         p({ARRAY[ANY] 1, << c, Result >> })
       end
 
 end -- class TEST_XC5
