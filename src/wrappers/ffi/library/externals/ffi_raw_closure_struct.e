@@ -1,4 +1,4 @@
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FFI_RAW_CLOSURE_STRUCT
 
@@ -159,10 +159,10 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof_ffi_raw_closure"
+                       feature_name: "sizeof_"
                }"
                end
 
 end -- class FFI_RAW_CLOSURE_STRUCT
--- This file have been created by wrapper-generator.
+-- This file has been created by wrapper-generator.
 -- Any change will be lost by the next execution of the tool.
