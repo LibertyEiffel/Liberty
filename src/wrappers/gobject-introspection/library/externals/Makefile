@@ -4,10 +4,10 @@ HEADERS=/usr/include/gobject-introspection-1.0/*.h
 ## /usr/include/glib-2.0/gobject/*.h
 
 wrappers: $(XML)
-	wrappers-generator --local $(XML) $(HEADERS)
+	wrappers_generator --local $(XML) $(HEADERS)
 
 verbose: $(XML)
-	wrappers-generator --verbose --local $(XML) $(HEADERS)
+	wrappers_generator --verbose --local $(XML) $(HEADERS)
 
 
 $(XML): $(HEADER) $(HEADERS)

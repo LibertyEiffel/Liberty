@@ -8,7 +8,7 @@ HEADER=plugin/c/liberty-dynamic-loader.h
 HEADERS=/usr/include/dlfcn.h
 
 wrappers: $(XML)
-	wrappers-generator --local $(XML) $(HEADERS)
+	wrappers_generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)

@@ -9,7 +9,7 @@ HEADERS=/usr/include/fcntl.h \
 	/usr/include/unistd.h 
 
 wrappers: $(XML)
-	wrappers-generator --local $(XML) $(HEADERS)
+	wrappers_generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
