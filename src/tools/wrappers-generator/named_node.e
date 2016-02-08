@@ -78,6 +78,8 @@ feature {} -- Implementation
                is_public: cached_eiffel_name.first /= '_'
                not cached_eiffel_name.has_substring("__")
             end
+         elseif has_assigned_name then
+            cached_eiffel_name := eiffel_feature(assigned_name)
          else
             -- Actually trying to wrap a nameless element that is not
             -- identified by its position in a file is quite hopeless. We

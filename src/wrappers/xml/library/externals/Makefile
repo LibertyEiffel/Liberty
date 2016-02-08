@@ -8,7 +8,7 @@ HEADERS := $(shell pkg-config --cflags-only-I libxml-2.0| cut -c 3- |tr --delete
 ## The previous variable is computed from the output of pkg-config, removing the "-I" 
 
 wrappers: $(XML)
-	wrappers-generator --local $(XML) $(HEADERS) 
+	wrappers_generator --local $(XML) $(HEADERS) 
 
 $(XML): $(HEADER) 
 	castxml --castxml-gccxml -x c++  `pkg-config --cflags libxml-2.0` $(HEADER) -o $(XML)

@@ -606,9 +606,6 @@ feature {}
       local
          buf: like buffer
       do
-         io.put_string(once "connect_buffer(%"")
-         io.put_string(a_url.out)
-         io.put_string(once "%", ")
          if a_face_url = Void then
             io.put_string(once "Void")
          else
@@ -682,8 +679,6 @@ feature {}
       require
          not open_buffers.is_empty
       do
-         io.put_line(once "disconnect_buffer")
-
          buffer.disconnect
          if open_buffers.top.entity /= Void then
             callbacks.close_entity_url(open_buffers.top.entity, open_buffers.top.url)

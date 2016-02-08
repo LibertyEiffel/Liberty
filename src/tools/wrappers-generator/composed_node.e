@@ -1,7 +1,10 @@
 deferred class COMPOSED_NODE
-   -- A GCCXML node having "members" attribute. Th attribute contains the
+   -- GCCXML node representing a type andhaving "members" attribute.
+   
+   -- The "members" attribute contains the
    -- ids of the fields that compose the actual object referred by Current
-   -- node, for example a structure, a union, a C++ class.
+   -- node that can be a struct, a union or a C++ class.
+
    -- Note that Namespace nodes also have a "members" attribute that
    -- conceptually different since they are modelled as Liberty clusters and
    -- do not belong to a single file.
@@ -13,6 +16,9 @@ inherit
 
    STORABLE_NODE
       -- inherited to add the non-void fields postcondition to the store command
+
+
+   C_TYPE
 
 feature {ANY}
    store
@@ -35,7 +41,7 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         Result := is_named and then (is_public or has_assigned_name) and then (global or else headers.has(c_file.c_string_name))
+         Result := (is_named or has_assigned_name) and then (is_public or has_assigned_name) and then (global or else headers.has(c_file.c_string_name))
       end
 
    emit_wrapper
@@ -116,9 +122,9 @@ feature {ANY}
          sedb_breakpoint;
 
          ("#define sizeof_#(1) (sizeof(#(2) #(1)))%N" # c_string_name # c_type).print_on(include)
-		 -- Paolo's Note: the ; at the beginning ensures that the expression is
-		 -- not taken as an argument for the previous argument-less command. It
-		 -- doesn't look readable as I would like.
+         -- the eventual ";" at the beginning of the above expression ensures
+         -- that is not understood as an argument of a previous argument-less
+         -- command. 
       end
 
    emit_footer

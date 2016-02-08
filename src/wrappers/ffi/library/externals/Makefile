@@ -8,9 +8,10 @@ HEADERS=`dpkg -L libffi-dev | grep "\.h$$"`
 
 wrappers: $(XML)
 	@echo "Using dpkg to locate include files; please provide a portable way to locate them." $(HEADERS)
-	wrappers-generator --verbose --local $(XML) $(HEADERS)
-.PHONY: wrappers
+	wrappers_generator --verbose --local $(XML) $(HEADERS)
 
+debug:
+	wrappers_generator.debug --verbose --local $(XML) $(HEADERS)
 
 $(XML):
 	pkg-config --exists libffi
@@ -18,4 +19,7 @@ $(XML):
 
 clean:
 	rm -f $(XML) ffi*.e plugin/c/plugin.[ch]
-.PHONY: clean
+
+.PHONY: wrappers debug clean
+
+

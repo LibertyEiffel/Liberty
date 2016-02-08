@@ -3,7 +3,7 @@ HEADER=plugin/c/gsl_liberty.h
 HEADERS=/usr/include/gsl/*.h
 
 wrappers: $(XML)
-	wrappers-generator --local  $(XML) $(HEADERS)
+	wrappers_generator --local  $(XML) $(HEADERS)
 
 
 $(XML): 

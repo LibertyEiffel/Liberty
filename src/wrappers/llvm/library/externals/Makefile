@@ -6,7 +6,7 @@ LLVM_VERSION=`llvm-config --version`
 .PHONY: clean
 
 wrappers: $(XML)
-	wrappers-generator --verbose $(XML) $(HEADERS)
+	wrappers_generator --verbose $(XML) $(HEADERS)
 
 $(XML): 
 	@echo "Using LLVM $(LLVM_VERSION)"

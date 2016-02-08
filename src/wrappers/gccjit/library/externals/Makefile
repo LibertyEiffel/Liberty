@@ -1,6 +1,6 @@
-XML=zlib.gcc-xml
-HEADER=/usr/include/zlib.h
-HEADERS=/usr/include/zlib.h
+XML=gccjit.cast-xml
+HEADER=/usr/lib/gcc/x86_64-linux-gnu/5/include/libgccjit.h
+HEADERS=/usr/lib/gcc/x86_64-linux-gnu/5/include/libgccjit.h
 
 wrappers: $(XML)
 	wrappers_generator --local  $(XML) $(HEADERS)
@@ -14,8 +14,8 @@ wrappers: $(XML)
 ## Since it does not work reliably I now assume that the library is installed in usual places.
 
 $(XML): 
-	pkg-config --exists zlib 
-	castxml --castxml-gccxml -x c++  `pkg-config --cflags libzlib` $(HEADER) -o $(XML)
+	find -path $(HEADER)
+	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 
 
 
