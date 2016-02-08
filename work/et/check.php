@@ -403,13 +403,13 @@ if (substage("wrappers")) {
       foreach (glob("$LibertyBase/src/wrappers/*/examples/*_example.e") as $filename) {
          if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
             $class = strtoupper(basename($filename, ".e"));
-
+            $dir = dirname($filename);
             system("echo \"should compile $class here\" > '" . $stagedir . "/out.txt");
             
-//            if (substage($class)) {
-//               execute("se c --clean " . $class, $ulimit_time = 3600);
-//               endsubstage();
-//            }
+            if (substage($class)) {
+               execute("cd " . $dir . " && se c --clean " . $class, $ulimit_time = 3600);
+               endsubstage();
+            }
          }
       }
       endsubstage();
