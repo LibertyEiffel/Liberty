@@ -278,7 +278,7 @@ feature {ANY}
             error_handler.append(name.to_string)
             error_handler.append(once " in type ")
             error_handler.append(target_type.name.to_string)
-            error_handler.append(once ". Compiler lost!")
+            error_handler.append(once ". Compiler lost! ")
             --error_handler.print_as_internal_error
          end
       ensure
