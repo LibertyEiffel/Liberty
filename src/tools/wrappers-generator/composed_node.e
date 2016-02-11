@@ -13,13 +13,23 @@ inherit
    WRAPPER_CLASS 
         -- so also a NAMED_NODE as all effective heirs (Class,
         -- Struct, Namespace, Union) are also named
+        redefine set_name end
 
    STORABLE_NODE
       -- inherited to add the non-void fields postcondition to the store command
-
+        redefine set_name end
 
    C_TYPE
+        redefine set_name end
 
+feature {ANY}
+    set_name (a_name: STRING) 
+    do
+        Precursor{WRAPPER_CLASS}(a_name)
+        set_attribute(once U"name",a_name.as_utf8) 
+        cached_eiffel_name := Void
+    end
+        
 feature {ANY}
    store
       deferred
