@@ -5,18 +5,10 @@ class TYPED_VARIANT[E_]
 
 inherit
 	VARIANT
+    REFERENCE[E_]
 
-create {ANY}
-	make
+create {ANY} set_item
 
-feature {ANY}
-	item: E_
-
-feature {}
-	make (a_item: like item) is
-		do
-			item := a_item
-		end
 end -- class TYPED_VARIANT
 
 -- Copyright (c) 2013 by all the people cited in the AUTHORS file.
