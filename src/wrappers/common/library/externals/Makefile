@@ -21,7 +21,7 @@ $(XML):
 ifdef CASTXML
 	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 else
-	gccxml.real $(HEADER) -fxml=$(XML)
+	gccxml $(HEADER) -fxml=$(XML)
 endif
 
 clean:
