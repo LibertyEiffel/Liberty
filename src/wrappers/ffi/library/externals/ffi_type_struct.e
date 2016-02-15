@@ -111,7 +111,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__ffi_type"
+                       feature_name: "sizeof_ffi_type"
                }"
                end
 

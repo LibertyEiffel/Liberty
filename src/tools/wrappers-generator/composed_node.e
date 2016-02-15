@@ -26,7 +26,9 @@ feature {ANY}
     set_name (a_name: STRING) 
     do
         Precursor{WRAPPER_CLASS}(a_name)
-        set_attribute(once U"name",a_name.as_utf8) 
+        set_attribute(once U"name",create {UNICODE_STRING}.from_utf8(a_name)) 
+        -- TODO: when STRING will convert to UNICODE_STRING the line above could be 
+        -- set_attribute(once U"name",a_name) 
         cached_eiffel_name := Void
     end
         

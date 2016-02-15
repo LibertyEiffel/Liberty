@@ -23,7 +23,7 @@ setlocal nocindent
 setlocal autoindent
 setlocal comments=:--
 setlocal indentkeys+==end,=else,=ensure,=require,=check,=loop,=until
-setlocal indentkeys+==creation,=feature,=inherit,=insert,=class,=is,=redefine,=rename,=variant
+setlocal indentkeys+==creation,=feature,=inherit,=insert,=class,=redefine,=rename,=variant
 setlocal indentkeys+==invariant,=do,=once,=external,=alias,=local,=export
 setlocal shiftwidth=4
 " setlocal tw=78
@@ -33,11 +33,11 @@ setlocal tabstop=4
 " Define some stuff
 " keywords grouped by indenting
 let s:trust_user_indent = '\(+\)\(\s*\(--\).*\)\=$'
-let s:relative_indent = '^\s*\(deferred\|class\|feature\|creation\|inherit\|insert\|loop\|from\|until\|if\|else\|elseif\|ensure\|require\|check\|do\|once\|external\|alias\|local\|invariant\|variant\|rename\|redefine\|export\)\>'
+let s:relative_indent = '^\s*\(deferred\|class\|feature\|creation\|inherit\|insert\|loop\|from\|until\|if\|else\|elseif\|ensure\|require\|check\|do\|once\|external\|alias\|local\|invariant\|variant\|rename\|redefine\|export\|convert\)\>'
 let s:outdent = '^\s*\(else\|invariant\|variant\|do\|once\|external\|alias\|require\|ensure\|until\|loop\|local\)\>'
 let s:no_indent = '^\s*\(class\|feature\|creation\|inherit\|insert\)\>'
-let s:single_dent = '^[^-]\+[[:alnum:]]\+ is\(\s*\(--\).*\)\=$'
-let s:inheritance_dent = '\s*\(redefine\|rename\|export\)\>'
+let s:single_dent = '^[^-]\+[[:alnum:]]\+ \(\s*\(--\).*\)\=$'
+let s:inheritance_dent = '\s*\(redefine\|rename\|export\|convert\)\>'
 
 
 " Only define the function once.

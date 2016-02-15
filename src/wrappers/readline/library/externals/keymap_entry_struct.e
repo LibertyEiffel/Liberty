@@ -63,7 +63,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__keymap_entry"
+                       feature_name: "sizeof_keymap_entry"
                }"
                end
 

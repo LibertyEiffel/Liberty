@@ -399,7 +399,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlValidCtxt"
+                       feature_name: "sizeof_xml_valid_ctxt"
                }"
                end
 

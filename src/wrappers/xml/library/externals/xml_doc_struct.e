@@ -568,7 +568,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlDoc"
+                       feature_name: "sizeof_xml_doc"
                }"
                end
 
