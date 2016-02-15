@@ -687,7 +687,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlSAXHandlerV1"
+                       feature_name: "sizeof_xml_saxhandler_v1"
                }"
                end
 

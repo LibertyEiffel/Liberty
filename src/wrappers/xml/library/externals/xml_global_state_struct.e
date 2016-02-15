@@ -692,7 +692,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlGlobalState"
+                       feature_name: "sizeof_xml_global_state"
                }"
                end
 

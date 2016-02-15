@@ -2,13 +2,13 @@ class C_STRUCT_NODE
    -- A "Struct" node of an XML file made by gccxml.
 
 inherit
-   C_TYPE
-   IDENTIFIED_NODE
-   CONTEXTED_NODE
+    IDENTIFIED_NODE undefine set_name end
+    CONTEXTED_NODE undefine set_name end
    COMPOSED_NODE
       -- hence also a STORABLE_NODE, a NAMED_NODE
       -- and a WRAPPER_CLASS
-   FILED_NODE
+   FILED_NODE undefine set_name end
+
       -- TODO: since it's both named and filed it could also be a MOVABLE_NODE
 
 insert

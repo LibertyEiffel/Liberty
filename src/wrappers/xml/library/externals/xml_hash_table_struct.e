@@ -12,7 +12,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlHashTable"
+                       feature_name: "sizeof_xml_hash_table"
                }"
                end
 

@@ -63,7 +63,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__funmap"
+                       feature_name: "sizeof_funmap"
                }"
                end
 

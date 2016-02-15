@@ -12,7 +12,7 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                alias "{
                        location: "."
                        module_name: "plugin"
-                       feature_name: "sizeof__xmlRegExecCtxt"
+                       feature_name: "sizeof_xml_reg_exec_ctxt"
                }"
                end
 
