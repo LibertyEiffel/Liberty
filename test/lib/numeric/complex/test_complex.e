@@ -31,17 +31,14 @@ feature {ANY}
          d.set(3.1, 3.3)
          assert (b*c = complex(-4.41,8.37))
 
-         create rnd.make
-         10.times(agent test_random)
+         test_further
       end
 
-   rnd: PRESS_RANDOM_NUMBER_GENERATOR
-
-   test_random
+   test_further
       do
-         a := random_complex(rnd)
-         b := random_complex(rnd)
-         c := random_complex(rnd)
+         a.set(156.5, 17.0)
+         b.set(1.6E4, 9.4E-8)
+         c.set(17.0, 23.9) 
          --("Testing with a="| &a | ", b=" | &b | ", c=" | &c|"%N").print_on(std_error);
          test_plus
          test_times
@@ -52,7 +49,7 @@ feature {ANY}
       local
          tmp1, tmp2: COMPLEX_64
       do
-         label_assert ("C+0=c",   c + zero = c)
+         label_assert ("c+0=c",   c + zero = c)
          label_assert ("c+d=d+c", (c+d) = (d+c))
          label_assert ("a+b+c=a+(b+c)", (a+b+c) ~= (a+(b+c)))
          tmp1 := a+b+c
@@ -74,14 +71,5 @@ feature {ANY}
       end
 
    a,b,c,d: COMPLEX_64
-
-   random_complex (a_gen: RANDOM_NUMBER_GENERATOR): COMPLEX_64
-      local
-         re,im: REAL_64
-      do
-         a_gen.next; re := a_gen.last_real * 1000.0
-         a_gen.next; im := a_gen.last_real * 1000.0
-         Result.set(re,im)
-      end
 
 end -- class TEST_COMPLEX

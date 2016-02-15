@@ -3,6 +3,7 @@ class TEST_ECURL_SIMPLE
 
 insert
    EIFFELTEST_TOOLS
+   ECURL_HANDLER
 
 create {}
    make

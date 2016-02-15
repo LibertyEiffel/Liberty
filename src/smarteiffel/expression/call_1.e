@@ -168,7 +168,7 @@ feature {ANY}
                error_handler.add_position(target.start_position)
             end
             error_handler.add_position(feature_name.start_position)
-            error_handler.append(once "Missing anonymous feature for this call")
+            error_handler.append(once "Missing anonymous feature for this call.")
             error_handler.print_as_internal_error
          end
 
