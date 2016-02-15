@@ -404,10 +404,29 @@ if (substage("wrappers")) {
          if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
             $class = strtoupper(basename($filename, ".e"));
             $dir = dirname($filename);
-            system("echo \"should compile $class here\" > '" . $stagedir . "/out.txt");
             
             if (substage($class)) {
-               execute("cd " . $dir . " && se c --clean " . $class, $ulimit_time = 3600);
+               $ret = execute("cd $dir && se c --clean " . $class, $ulimit_time = 3600);
+
+               if ($ret > 0) {
+                  $curRes = $ret;
+               } else {
+                  $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $curRes = -$warnCnt;
+               }
+               if ($curRes <= 0) {
+                  if ($result <= 0) {
+                     $result += $curRes;
+                  }
+               } else {
+                  if ($result >= 0) {
+                     $result += $curRes;
+                  } else {
+                     $result = $curRes;
+                  }
+               }
+               file_put_contents($stagedir ."/result.txt", $curRes);
+
                endsubstage();
             }
          }
@@ -417,6 +436,7 @@ if (substage("wrappers")) {
 
    if (substage("cleanup wrappers")) {
       execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
+
       endsubstage();
    }
    
