@@ -395,11 +395,12 @@ if (substage("TestSuite")) {
 
 if (substage("wrappers")) {
    if (substage("generate wrappers")) {
-      execute("cd $LibertyBase/src/wrappers && make", $ulimit_time = 3600);
+      $wrapperresult = execute("cd $LibertyBase/src/wrappers && make", $ulimit_time = 3600);
       endsubstage();
    }
 
    if (substage("compile examples")) {
+      $result = 0;
       foreach (glob("$LibertyBase/src/wrappers/*/examples/*_example.e") as $filename) {
          if (is_file($filename) && preg_match("/(.*)\.e$/", $filename)) {
             $class = strtoupper(basename($filename, ".e"));
@@ -431,15 +432,28 @@ if (substage("wrappers")) {
             }
          }
       }
+      file_put_contents($stagedir ."/result.txt", $result);
+
+      if(   ($wrapperresult >= 0 && $result > 0
+         || ($wrapperresult <= 0 && $result < 0))
+      {
+         $wrapperresult += $result;
+      }
       endsubstage();
    }
 
    if (substage("cleanup wrappers")) {
-      execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
+      $result = execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
+      if(   ($wrapperresult >= 0 && $result > 0
+         || ($wrapperresult <= 0 && $result < 0))
+      {
+         $wrapperresult += $result;
+      }
 
       endsubstage();
    }
    
+   file_put_contents($stagedir ."/result.txt", $wrapperresult);
    endsubstage();
 }
 
