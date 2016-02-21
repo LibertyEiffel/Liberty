@@ -44,7 +44,7 @@ feature {ANY}
          fn: STRING
       do
          fn := c_file.c_string_name
-         Result := file_exists(fn) and (global or else headers.has(fn)) and then not avoided_symbols.has(c_string_name)
+         Result := is_named and then file_exists(fn) and (global or else headers.has(fn)) and then not avoided_symbols.has(c_string_name)
       end
 
    emit_wrapper
