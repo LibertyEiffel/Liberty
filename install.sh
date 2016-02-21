@@ -212,7 +212,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [no_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -O1
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -224,7 +224,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [require_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -236,7 +236,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [ensure_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -248,7 +248,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [invariant_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -260,7 +260,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [loop_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -272,7 +272,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [all_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe
+c_compiler_options: -pipe -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++
@@ -284,7 +284,7 @@ cpp_linker_options: -Xlinker -${hyphen}no-as-needed
 [debug_check]
 c_compiler_type: $CC_TYPE
 c_compiler_path: $CC
-c_compiler_options: -pipe -g
+c_compiler_options: -pipe -g -O1 -fno-gcse
 c_linker_path: $CC
 c_linker_options: -Xlinker -${hyphen}no-as-needed
 cpp_compiler_type: g++

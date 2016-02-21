@@ -3,8 +3,8 @@ class MANIFEST_NOTATION
    -- To know more or to discover manifest notation syntax and semantic, you
    -- can just read this file, or even better, run this code under our debugger:
    --
-   --           compile -sedb manifest_notation
-   --
+   --           se c -sedb manifest_notation -o manifest_notation
+   --           ./manifest_notation
 
 create {ANY}
    make
