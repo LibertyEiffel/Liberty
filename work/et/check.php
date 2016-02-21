@@ -434,7 +434,7 @@ if (substage("wrappers")) {
       }
       file_put_contents($stagedir ."/result.txt", $result);
 
-      if(   ($wrapperresult >= 0 && $result > 0
+      if(   ($wrapperresult >= 0 && $result > 0)
          || ($wrapperresult <= 0 && $result < 0))
       {
          $wrapperresult += $result;
