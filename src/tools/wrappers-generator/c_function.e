@@ -90,7 +90,7 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         not_yet_implemented
+          Result := not avoided_symbols.has(c_string_name)
       end
 
    wrap_on (a_stream: OUTPUT_STREAM)
@@ -111,7 +111,7 @@ feature {ANY}
             buffer.append(once "%T-- function #(1) in unwrapped namespace #(2) skipped.%N" #
 				c_string_name # namespace.c_string_name)
          elseif avoided_symbols.has(c_string_name) then
-            log(once "Skipping function `#(1)' as requested.%N" # c_string_name)
+             log(once "Function `#(1)' is among the avoided symbols: not wrapping as requested.%N" # c_string_name)
             buffer.append(once "%T-- function #(1) skipped as requested.%N" # c_string_name)
          else
             log(once "Function #(1)" # c_string_name)
@@ -130,7 +130,9 @@ feature {ANY}
          -- with lines shorter that 'description_lenght' characters.
          -- local description: COLLECTION[STRING];  word: STRING; iter: ITERATOR[STRING];  length,new_length: INTEGER
       do
-         -- TODO: implement C_FUNCTION.append_description%N")
+         -- TODO: complete C_FUNCTION.append_description
+         buffer.append(once "%N%T%T-- function #(1) (in #(2) at line #(3))i%N" #
+					c_string_name # line_row.to_utf8 # c_file.c_string_name)
          -- description := feature_description(class_name, name)
          -- if description/=Void then
          --      from
@@ -212,7 +214,7 @@ feature {ANY}
    append_body
          -- Append the body of function to `buffer'
       local
-         actual_c_symbol, description: ABSTRACT_STRING
+         description: ABSTRACT_STRING
       do
          if is_variadic then
             description := c_string_name & variadic_function_note

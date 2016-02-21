@@ -112,8 +112,7 @@ feature {ANY} -- Type-system translations
                elseif name.has_substring(once "complex") then
                   -- could be "complex double" "complex float",
                   -- "complex long double"
-                  log("Unhandled complex type found at line @(1): @(2)%N",
-                  <<an_argument.line.out, name>>)
+                  log("Unhandled complex type found at line #(1): #(2)%N" # an_argument.line.out # name)
                   last_error := unhandled_complex_type
                elseif name.has_substring(once "unsigned") then
                   -- check name.has_substring(once "int") end
@@ -127,8 +126,7 @@ feature {ANY} -- Type-system translations
                      when 64 then
                         Result := once "NATURAL_64"
                      else
-                        log(once "Unknown unsigned int of sizei @(1)",
-                        <<size.out>>)
+                        log(once "Unknown unsigned int of size #(1)" # size.out)
                         last_error := unhandled_unsigned_integer_type
                      end
                   else
@@ -141,8 +139,7 @@ feature {ANY} -- Type-system translations
                      when 64 then
                         Result := once "INTEGER_64"
                      else
-                        log(once "Unknown unsigned int of size @(1)",
-                        <<size.out>>)
+                        log(once "Unknown unsigned int of size #(1)" # size.out)
                         last_error := unhandled_unsigned_integer_type
                      end
                   end
@@ -175,13 +172,11 @@ feature {ANY} -- Type-system translations
                   when 128 then
                      Result := once "REAL_128"
                   else
-                     log(once "Double of unhandled length @(1) using REAL_128",
-                     <<size.out>>)
+                     log(once "Double of unhandled length #(1) using REAL_128" # size.out )
                      last_error := unhandled_double_type
                   end
                else
-                  log("@(1) @(2)",
-                  <<unhandled_type, name>>)
+                  log("#(1) #(2)" # unhandled_type # name )
                   last_error := unhandled_type
                end
             end
@@ -218,8 +213,7 @@ feature {ANY} -- Type-system translations
                Result := eiffel_type_of(referred)
             else
                name := an_argument.attribute_at(once U"name").to_utf8
-               log(once "Warning! Type Argument/Variable/Field @(1) - @(2) has no Eiffel type",
-               <<name, uniname.as_utf8>>)
+               log(once "Warning! Type Argument/Variable/Field #(1) - #(2) has no Eiffel type" # name # uniname.as_utf8)
 
                last_error := unhandled_type
             end

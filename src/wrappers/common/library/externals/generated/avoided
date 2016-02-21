@@ -10,3 +10,5 @@ strchrnul
 strpbrk
 strrchr
 strstr
+idtype_t
+

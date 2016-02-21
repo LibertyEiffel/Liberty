@@ -85,12 +85,13 @@ feature {ANY}
                   log(once "Anchored query #(2) for typedef #(1)%N" # c_string_name # query_name)
 
 				  buffer.append(once "       #(1): #(2)%N%
-							  %               -- typedef #(3)%N%
+							  %               -- typedef #(3) from #(4) line #(5)%N%
 							  %               -- Empty by design, used for anchored declarations.%N%
 							  %       do%N%
 							  %       ensure Result.is_default%N%
 							  %       end%N%
-							  %%N" # query_name # wrapper_type # c_string_name)
+							  %%N" # query_name # wrapper_type # c_string_name 
+                              # c_file.c_string_name # line_row.to_utf8 )
 			  else
 				  buffer.append(once "%T-- #(1) unwrappable: no wrapper type.%N" # c_string_name)
                   -- TODO: add the case of typedef to void

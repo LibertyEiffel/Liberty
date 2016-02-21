@@ -214,6 +214,7 @@ feature {ANY}
                create words.from_string(file.last_string)
                words.read_word
                if not words.last_string.is_empty then
+                   -- twin is used because last_string is reused. Otherwise the symbols will change once stored. And this is bad, like crossing rays.
                   symbol := words.last_string.twin
                   words.read_word
                   if not words.last_string.is_empty then

@@ -53,7 +53,10 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         Result := (is_named or has_assigned_name) and then (is_public or has_assigned_name) and then (global or else headers.has(c_file.c_string_name))
+         Result := (is_named or has_assigned_name) and then 
+            (is_public or has_assigned_name) and then 
+            (global or else headers.has(c_file.c_string_name)) and then 
+            not avoided_symbols.has(c_string_name)
       end
 
    emit_wrapper
@@ -92,6 +95,10 @@ feature {ANY}
          buffer.append(automatically_generated_header)
          buffer.append(deferred_class)
          buffer.append(eiffel_name)
+         buffer.append(once "[
+            
+            -- Wrapper of #(1) #(2) defined in file #(3) line #(4)
+            ]" # c_type # c_string_name # c_file.c_string_name # line_row.to_utf8 )
          -- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
          buffer.append(insert_tense)
          buffer.append(once "%T#(1)%N" # settings.typedefs)

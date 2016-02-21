@@ -40,7 +40,11 @@ feature {ANY}
    c_type: STRING
       do
           Result := once "struct"
-          -- Note: 2016-01-01 I cannot work out why this query depends on the value of the artificial attribute; I inspected the XML made by castxml but coulnd't find any feasible reason 
+          -- Note: 2016-01-01 I cannot work out why this query were once
+          -- written as if it depended on the value of the artificial
+          -- attribute; I inspected the XML made by castxml but coulnd't find
+          -- any feasible reason; I leave here it here commented out
+
           -- if is_artificial then
           --    Result := once "struct"
           -- else

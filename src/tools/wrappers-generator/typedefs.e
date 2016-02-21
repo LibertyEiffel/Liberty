@@ -53,7 +53,14 @@ feature {ANY}
          end
 
          file.put_string(typedefs_features_header)
-         for_each(agent {C_TYPEDEF}.wrap_on(file))
+         for_each(agent (a_typedef:C_TYPEDEF) do
+            if a_typedef.is_to_be_emitted  then
+                log("Wrapping typedef #(1)" # a_typedef.c_string_name)
+                a_typedef.wrap_on(file) 
+            else 
+                log("Typedef #(1) is not to be emitted" # a_typedef.c_string_name)
+            end
+         end(?))
          file.put_string(footer)
          file.disconnect
          file := Void

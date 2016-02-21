@@ -22,7 +22,7 @@ feature {ANY}
             container_type.fields.add_last(Current)
          else
             -- Fields may be part of a composed type that will be not be wrapped, for example PThread structures when wrapping GObject introspection facilities. Therefore its container will not be present in the composed types!
-            log("Ignoring field @(1) of @(2) in %"@(3)%"%N" # c_string_name # context.to_utf8)
+            log("Ignoring field #(1) of #(2) in %"#(3)%"%N" # c_string_name # context.to_utf8)
          end
       end
 

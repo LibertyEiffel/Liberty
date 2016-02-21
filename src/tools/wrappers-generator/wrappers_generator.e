@@ -205,7 +205,7 @@ feature {ANY}
                         std_error.put_string(once "'")
                         std_error.put_string(a_string)
                         std_error.put_string(once "', ")
-                     end)
+                     end(?))
                   std_error.put_new_line
                end
             end

@@ -8,8 +8,8 @@ default -- section of the system
    assertion (boost); -- or boost, no, require, ensure, invariant, loop, check, all.
    assertion_flat_check (no);
    debug (no);
-   trace (no);
-   collect (no);
+   trace (yes);
+   collect (yes);
    style_warning (yes);
    no_warning (no);
    verbose (no);

@@ -29,11 +29,11 @@ feature {ANY}
       do
          Result := types.at(dequalify(type)).has_wrapper
       rescue
-         log("has_wrapper failed. Known typesi:%N")
+         log("has_wrapper failed. Known types:%N")
          types.for_each_item(agent (a_type: C_TYPE)
             do
                io.put_string(a_type.out)
-            end)
+            end(?))
 
          print_run_time_stack
          die_with_code(5)
