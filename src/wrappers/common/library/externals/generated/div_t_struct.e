@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class DIV_T_STRUCT
--- Wrapper of struct div_t defined in file /usr/include/stdlib.h line 97
+-- Wrapper of struct  defined in file /usr/include/stdlib.h line 97
 
 insert STANDARD_C_LIBRARY_TYPES
 

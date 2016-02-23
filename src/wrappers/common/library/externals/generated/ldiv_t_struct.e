@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class LDIV_T_STRUCT
--- Wrapper of struct ldiv_t defined in file /usr/include/stdlib.h line 105
+-- Wrapper of struct  defined in file /usr/include/stdlib.h line 105
 
 insert STANDARD_C_LIBRARY_TYPES
 

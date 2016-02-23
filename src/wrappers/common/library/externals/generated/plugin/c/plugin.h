@@ -3,60 +3,60 @@
 ** Any change will be lost by the next execution of the tool.
 */
 #define sizeof_obstack (sizeof(struct obstack))
-#define div_t_struct_get_quot(a_structure) (((struct div_t*) (a_structure))->quot)
+#define div_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define div_t_struct_set_quot(a_structure,a_value) do {(((struct div_t*)(a_structure)))->quot = (a_value);}while(0)
+#define div_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define div_t_struct_get_rem(a_structure) (((struct div_t*) (a_structure))->rem)
+#define div_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define div_t_struct_set_rem(a_structure,a_value) do {(((struct div_t*)(a_structure)))->rem = (a_value);}while(0)
+#define div_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_div_t (sizeof(struct div_t))
-#define div_t_struct_get_quot(a_structure) (((struct div_t*) (a_structure))->quot)
+#define sizeof_div_t (sizeof(div_t))
+#define div_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define div_t_struct_set_quot(a_structure,a_value) do {(((struct div_t*)(a_structure)))->quot = (a_value);}while(0)
+#define div_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define div_t_struct_get_rem(a_structure) (((struct div_t*) (a_structure))->rem)
+#define div_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define div_t_struct_set_rem(a_structure,a_value) do {(((struct div_t*)(a_structure)))->rem = (a_value);}while(0)
+#define div_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_div_t (sizeof(struct div_t))
-#define ldiv_t_struct_get_quot(a_structure) (((struct ldiv_t*) (a_structure))->quot)
+#define sizeof_div_t (sizeof(div_t))
+#define ldiv_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define ldiv_t_struct_set_quot(a_structure,a_value) do {(((struct ldiv_t*)(a_structure)))->quot = (a_value);}while(0)
+#define ldiv_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define ldiv_t_struct_get_rem(a_structure) (((struct ldiv_t*) (a_structure))->rem)
+#define ldiv_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define ldiv_t_struct_set_rem(a_structure,a_value) do {(((struct ldiv_t*)(a_structure)))->rem = (a_value);}while(0)
+#define ldiv_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_ldiv_t (sizeof(struct ldiv_t))
-#define ldiv_t_struct_get_quot(a_structure) (((struct ldiv_t*) (a_structure))->quot)
+#define sizeof_ldiv_t (sizeof(ldiv_t))
+#define ldiv_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define ldiv_t_struct_set_quot(a_structure,a_value) do {(((struct ldiv_t*)(a_structure)))->quot = (a_value);}while(0)
+#define ldiv_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define ldiv_t_struct_get_rem(a_structure) (((struct ldiv_t*) (a_structure))->rem)
+#define ldiv_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define ldiv_t_struct_set_rem(a_structure,a_value) do {(((struct ldiv_t*)(a_structure)))->rem = (a_value);}while(0)
+#define ldiv_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_ldiv_t (sizeof(struct ldiv_t))
-#define lldiv_t_struct_get_quot(a_structure) (((struct lldiv_t*) (a_structure))->quot)
+#define sizeof_ldiv_t (sizeof(ldiv_t))
+#define lldiv_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define lldiv_t_struct_set_quot(a_structure,a_value) do {(((struct lldiv_t*)(a_structure)))->quot = (a_value);}while(0)
+#define lldiv_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define lldiv_t_struct_get_rem(a_structure) (((struct lldiv_t*) (a_structure))->rem)
+#define lldiv_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define lldiv_t_struct_set_rem(a_structure,a_value) do {(((struct lldiv_t*)(a_structure)))->rem = (a_value);}while(0)
+#define lldiv_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_lldiv_t (sizeof(struct lldiv_t))
-#define lldiv_t_struct_get_quot(a_structure) (((struct lldiv_t*) (a_structure))->quot)
+#define sizeof_lldiv_t (sizeof(lldiv_t))
+#define lldiv_t_struct_get_quot(a_structure) (((struct *) (a_structure))->quot)
 
-#define lldiv_t_struct_set_quot(a_structure,a_value) do {(((struct lldiv_t*)(a_structure)))->quot = (a_value);}while(0)
+#define lldiv_t_struct_set_quot(a_structure,a_value) do {(((struct *)(a_structure)))->quot = (a_value);}while(0)
 
-#define lldiv_t_struct_get_rem(a_structure) (((struct lldiv_t*) (a_structure))->rem)
+#define lldiv_t_struct_get_rem(a_structure) (((struct *) (a_structure))->rem)
 
-#define lldiv_t_struct_set_rem(a_structure,a_value) do {(((struct lldiv_t*)(a_structure)))->rem = (a_value);}while(0)
+#define lldiv_t_struct_set_rem(a_structure,a_value) do {(((struct *)(a_structure)))->rem = (a_value);}while(0)
 
-#define sizeof_lldiv_t (sizeof(struct lldiv_t))
+#define sizeof_lldiv_t (sizeof(lldiv_t))
 #define timespec_struct_get_tv_sec(a_structure) (((struct timespec*) (a_structure))->tv_sec)
 
 #define timespec_struct_set_tv_sec(a_structure,a_value) do {(((struct timespec*)(a_structure)))->tv_sec = (a_value);}while(0)
