@@ -13,6 +13,9 @@ feature {ANY} -- Emittability
       deferred
       end
 
+   emitted: BOOLEAN 
+      -- Has Current node been already been wrapped?
+
 end -- class WRAPPABLE_NODE
 -- Copyright (C) 2008-2016: ,2009,2010 Paolo Redaelli
 -- wrappers-generator  is free software: you can redistribute it and/or modify it

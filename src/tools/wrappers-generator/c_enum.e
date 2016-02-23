@@ -44,7 +44,7 @@ feature {ANY}
          fn: STRING
       do
          fn := c_file.c_string_name
-         Result := is_named and then file_exists(fn) and (global or else headers.has(fn)) and then not avoided_symbols.has(c_string_name)
+         Result := not emitted and then is_named and then file_exists(fn) and (global or else headers.has(fn)) and then not avoided_symbols.has(c_string_name)
       end
 
    emit_wrapper
@@ -67,6 +67,7 @@ feature {ANY}
          else
             log(once "Skipping enum `#(1)'.%N" # c_string_name) 
          end
+         emitted:=True
       end
 
    emit_header

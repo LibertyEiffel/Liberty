@@ -11,7 +11,8 @@ inherit
 
 feature {ANY}
     emit_wrapper
-        deferred
+    deferred
+    ensure emitted
     end
 
     compute_eiffel_name

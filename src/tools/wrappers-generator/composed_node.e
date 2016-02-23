@@ -25,11 +25,12 @@ inherit
 feature {ANY}
     set_name (a_name: STRING) 
     do
-        Precursor{WRAPPER_CLASS}(a_name)
-        set_attribute(once U"name",create {UNICODE_STRING}.from_utf8(a_name)) 
+        -- better to rewrite the one-liner instead of having "Precursor{WRAPPER_CLASS}(a_name)"
+        assigned_name := a_name.twin
+        -- set_attribute(once U"name",create {UNICODE_STRING}.from_utf8(a_name)) 
         -- TODO: when STRING will convert to UNICODE_STRING the line above could be 
         -- set_attribute(once U"name",a_name) 
-        cached_eiffel_name := Void
+        -- cached_eiffel_name := Void
     end
         
 feature {ANY}
@@ -97,7 +98,7 @@ feature {ANY}
          buffer.append(eiffel_name)
          buffer.append(once "[
             
-            -- Wrapper of #(1) #(2) defined in file #(3) line #(4)
+                -- Wrapper of #(1) #(2) defined in file #(3) line #(4)
             ]" # c_type # c_string_name # c_file.c_string_name # line_row.to_utf8 )
          -- TODO: emit_description(class_descriptions.reference_at(eiffel_name))
          buffer.append(insert_tense)
@@ -125,8 +126,19 @@ feature {ANY}
 
    emit_size
          -- Append to `output' the `struct_size' query for Current.
-      do
-         -- buffer.reset
+     local a_name: STRING
+     do
+         sedb_breakpoint;
+         if has_assigned_name then 
+             a_name := assigned_name
+             ("#define sizeof_#(1) (sizeof(#(1)))%N" # a_name).print_on(include) 
+         elseif not is_anonymous then
+             a_name := c_string_name 
+             ("#define sizeof_#(1) (sizeof(#(2) #(1)))%N" # c_string_name # c_type).print_on(include)
+         else
+             raise("Trying to emit size query of an anonymous, not typedeffed composed elementt (either a struct, union or perhaps class): I don't know hot to call the query")
+         end
+
          buffer.append(once "feature {WRAPPER, WRAPPER_HANDLER} -- Structure size%N%
                 %       struct_size: like size_t %N%
                 %               external %"plug_in%"%N%
@@ -135,15 +147,10 @@ feature {ANY}
                 %                       module_name: %"plugin%"%N%
                 %                       feature_name: %"sizeof_#(1)%"%N%
                 %               }%"%N%
-                %               end%N%N" # c_string_name)
+                %               end%N%N" # a_name)
 
          buffer.print_on(output)
-         sedb_breakpoint;
-
-         ("#define sizeof_#(1) (sizeof(#(2) #(1)))%N" # c_string_name # c_type).print_on(include)
-         -- the eventual ";" at the beginning of the above expression ensures
-         -- that is not understood as an argument of a previous argument-less
-         -- command. 
+      
       end
 
    emit_footer
