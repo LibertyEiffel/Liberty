@@ -12,7 +12,7 @@ inherit
 
 insert
 	DL_FLAGS
-	DLFCNEXTERNALS
+	DLFCN_EXTERNALS
 
 create {DYNAMIC_LINKING_LOADER} from_external_pointer
 
