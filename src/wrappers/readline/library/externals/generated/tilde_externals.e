@@ -1,4 +1,4 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class TILDE_EXTERNALS
 
@@ -69,6 +69,8 @@ feature {} -- External calls
                end
 
 	tilde_expand (an_argument_l1097_c7: POINTER): POINTER 
+
+		-- function tilde_expand (in 67 at line /usr/include/readline/tilde.h)i
                -- tilde_expand
                external "plug_in"
                alias "{
@@ -79,6 +81,8 @@ feature {} -- External calls
                end
 
 	tilde_expand_word (an_argument_l1100_c7: POINTER): POINTER 
+
+		-- function tilde_expand_word (in 71 at line /usr/include/readline/tilde.h)i
                -- tilde_expand_word
                external "plug_in"
                alias "{
@@ -149,6 +153,8 @@ feature {} -- External calls
                end
 
 	tilde_find_word (an_argument_l1103_c7: POINTER; an_argument_l1104_c7: INTEGER; an_argument_l1105_c7: POINTER): POINTER 
+
+		-- function tilde_find_word (in 74 at line /usr/include/readline/tilde.h)i
                -- tilde_find_word
                external "plug_in"
                alias "{

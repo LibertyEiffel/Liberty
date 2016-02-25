@@ -1,4 +1,4 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class KEYMAPS_EXTERNALS
 
@@ -99,6 +99,8 @@ feature {} -- External calls
                end
 
 	rl_copy_keymap (an_argument_l1078_c7: POINTER): POINTER 
+
+		-- function rl_copy_keymap (in 71 at line /usr/include/readline/keymaps.h)i
                -- rl_copy_keymap
                external "plug_in"
                alias "{
@@ -109,6 +111,8 @@ feature {} -- External calls
                end
 
 	rl_discard_keymap (an_argument_l1082_c7: POINTER) 
+
+		-- function rl_discard_keymap (in 79 at line /usr/include/readline/keymaps.h)i
                -- rl_discard_keymap
                external "plug_in"
                alias "{
@@ -119,6 +123,8 @@ feature {} -- External calls
                end
 
 	rl_get_keymap: POINTER 
+
+		-- function rl_get_keymap (in 88 at line /usr/include/readline/keymaps.h)i
                -- rl_get_keymap
                external "plug_in"
                alias "{
@@ -129,6 +135,8 @@ feature {} -- External calls
                end
 
 	rl_get_keymap_by_name (an_argument_l1085_c7: POINTER): POINTER 
+
+		-- function rl_get_keymap_by_name (in 85 at line /usr/include/readline/keymaps.h)i
                -- rl_get_keymap_by_name
                external "plug_in"
                alias "{
@@ -139,6 +147,8 @@ feature {} -- External calls
                end
 
 	rl_make_bare_keymap: POINTER 
+
+		-- function rl_make_bare_keymap (in 68 at line /usr/include/readline/keymaps.h)i
                -- rl_make_bare_keymap
                external "plug_in"
                alias "{
@@ -149,6 +159,8 @@ feature {} -- External calls
                end
 
 	rl_make_keymap: POINTER 
+
+		-- function rl_make_keymap (in 76 at line /usr/include/readline/keymaps.h)i
                -- rl_make_keymap
                external "plug_in"
                alias "{
@@ -159,6 +171,8 @@ feature {} -- External calls
                end
 
 	rl_set_keymap (an_argument_l1089_c7: POINTER) 
+
+		-- function rl_set_keymap (in 91 at line /usr/include/readline/keymaps.h)i
                -- rl_set_keymap
                external "plug_in"
                alias "{

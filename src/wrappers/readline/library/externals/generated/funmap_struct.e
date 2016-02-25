@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FUNMAP_STRUCT
+-- Wrapper of struct _funmap defined in file /usr/include/readline/readline.h line 69
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -68,5 +69,5 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                end
 
 end -- class FUNMAP_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.

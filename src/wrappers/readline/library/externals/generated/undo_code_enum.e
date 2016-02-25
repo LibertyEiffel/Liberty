@@ -1,7 +1,8 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 expanded class UNDO_CODE_ENUM
 
+-- Wrapper of enum undo_code defined in file /usr/include/readline/readline.h line 55
 insert ENUM
 
 create {ANY} default_create

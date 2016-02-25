@@ -1,14 +1,15 @@
-## To avoid an Ubuntu Intrepid Ibex bug.
-## See https://bugs.launchpad.net/ubuntu/+source/ castxml --castxml-gccxml -x c++ /+bug/293807 for further informations.
-## GCCXML_COMPILER = gcc-4.2
-
 XML=readline.gcc-xml
 HEADER=readline.h
 HEADERS=/usr/include/readline/*.h
+CASTXML:=$(shell command -v castxml 2>/dev/null)
 
 wrappers: $(XML)
 	wrappers_generator --local $(XML) $(HEADERS)  
 
 $(XML): $(HEADER)
+ifdef CASTXML
 	castxml --castxml-gccxml -x c++  -o $(XML) $(HEADER) 
+else
+	gccxml $(HEADER) -fxml=$(XML)
+endif
 
