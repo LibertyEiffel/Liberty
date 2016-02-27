@@ -6,13 +6,13 @@ CASTXML:=$(shell command -v castxml 2>/dev/null)
 .PHONY: clean
 
 wrappers: $(XML)
-	wrappers_generator --local $(XML) $(HEADERS)
+	@wrappers_generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 ifdef CASTXML
-	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
+	@castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 else
-	gccxml $(HEADER) -fxml=$(XML)
+	@gccxml $(HEADER) -fxml=$(XML)
 endif
 
 clean: 
