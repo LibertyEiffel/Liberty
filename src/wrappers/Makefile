@@ -28,19 +28,16 @@ GCCXML=$(shell which gccxml)
 
 update: $(LIBRARIES) 
 	@echo Clusters that will be updated: $^
-	ifdef CASTXML
+ifdef CASTXML
 	@echo using castxml
-	else	
+else	
 	@echo using gccxml
-	endif
+endif
 
 clean: 
 	@echo Removing generated files
-	rm */library/externals/generated/*.gcc-xml
-	rm */library/externals/generated/*.e
-	rm */library/externals/generated/plugin/c/plugin.[ch]
+	@$(MAKE) -C $@/library/externals/generated clean
 
 $(LIBRARIES) : 
 	@echo Updating generated classes of $@
-	@$(MAKE) -C $@/library/externals/
 	@$(MAKE) -C $@/library/externals/generated
