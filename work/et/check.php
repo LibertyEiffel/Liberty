@@ -31,6 +31,26 @@ if (file_exists($timesHistory)) {
 }
 $times = timesArray($times);
 
+// adds two warning/error counts
+// if $a and $b have the same sign, the sum is returned
+// other wise the positive (=the error count) is returnd
+function warnErrAdd($a, $b) {
+   if ($a <= 0) {
+      if ($b < 0) {
+         $result = $a + $b;
+      }else{
+         $result = $b;
+      }
+   } else {
+      if ($b >= 0) {
+         $result = $a + $b;
+      } else {
+         $result = $a;
+      }
+   }
+   return $result;
+}
+
 // ends current stage and terminates ET
 // call for stages where continuing is not useful
 function failed(){
@@ -248,7 +268,7 @@ function tutorialDir($dir) {
             if ($ret > 0) {
                $curRes = $ret;
             } else {
-               $curRes = 0 - exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+               $curRes = 0 - exec("grep -i" . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
             if ($curRes > 0 || $result == 0) {
                $result = $curRes;
@@ -273,7 +293,7 @@ function tutorialDir($dir) {
                if ($ret > 0) {
                   $curRes = $ret;
                } else {
-                  $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
                   $curRes = -$warnCnt;
                   if (file_exists("$dir/output")) {
                      $ret = execute("$dir/$exe > $dir/$exe.out && diff -u $dir/output $dir/$exe.out");
@@ -363,10 +383,10 @@ function testDir($dir) {
          }
          $res = execute("se test -flat $dir");
          if ($res == 0) {
-            $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
+            $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg("$stagedir/err.txt") . " | wc -l");
             $res = -$warnCnt;
          } else {
-            $res += exec("grep " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
+            $res += exec("grep -i " . escapeshellarg("Abnormal:") . " " . escapeshellarg("$dir/eiffeltest/log.new") . " | wc -l");
          }
       } else {
          file_put_contents("$stagedir/err.txt", "missing eiffeltest directory - please add to repository");
@@ -393,9 +413,27 @@ if (substage("TestSuite")) {
    endsubstage();
 }
 
+// generate the wrapper $name
+function genWrapper($name) {
+   $result = 0;
+
+   if (substage($name)) {
+      $result = execute("cd $LibertyBase/src/wrappers && make " . $name, $ulimit_time = 3600);
+      endsubstage();
+   }
+   return $result;
+}
+
 if (substage("wrappers")) {
+
    if (substage("generate wrappers")) {
-      $wrapperresult = execute("cd $LibertyBase/src/wrappers && make", $ulimit_time = 3600);
+      $genresult =                        genWrapper("common");
+      $genresult = warnErrAdd($genresult, genWrapper("ffi"));
+      $genresult = warnErrAdd($genresult, genWrapper("posix"));
+      $genresult = warnErrAdd($genresult, genWrapper("posix/dynamic-linking"));
+      $genresult = warnErrAdd($genresult, genWrapper("readline"));
+      $genresult = warnErrAdd($genresult, genWrapper("xml"));
+      $genresult = warnErrAdd($genresult, genWrapper("zmq"));
       endsubstage();
    }
 
@@ -412,7 +450,7 @@ if (substage("wrappers")) {
                if ($ret > 0) {
                   $curRes = $ret;
                } else {
-                  $warnCnt = exec("grep " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+                  $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
                   $curRes = -$warnCnt;
                }
                if ($curRes <= 0) {
