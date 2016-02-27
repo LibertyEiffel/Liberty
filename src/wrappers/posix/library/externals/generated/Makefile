@@ -1,4 +1,4 @@
-XML=posix.txml
+XML=posix.xml
 HEADER=liberty-posix.h
 HEADERS=/usr/include/fcntl.h \
 	/usr/include/sys/mman.h \
@@ -6,13 +6,13 @@ HEADERS=/usr/include/fcntl.h \
 CASTXML:=$(shell command -v castxml 2>/dev/null)
 
 wrappers: $(XML)
-	wrappers_generator --local $(XML) $(HEADERS)
+	@wrappers_generator --local $(XML) $(HEADERS)
 
 $(XML): $(HEADER)
 ifdef CASTXML
-	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
+	@castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 else
-	gccxml $(HEADER) -fxml=$(XML)
+	@gccxml $(HEADER) -fxml=$(XML)
 endif
 
 ## Ideally here we should make wrappers for include files not already wrapped in common wrapper cluster using a command like

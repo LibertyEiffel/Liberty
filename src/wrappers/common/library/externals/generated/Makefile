@@ -13,7 +13,7 @@ HEADERS= /usr/include/assert.h \
 	 /usr/include/time.h
 
 wrappers: $(XML)
-	wrappers_generator --emit-standard-typedefs --local $(XML) $(HEADERS)
+	@wrappers_generator --emit-standard-typedefs --local $(XML) $(HEADERS)
 
 debug: $(XML)
 	wrappers_generator.debug --verbose --emit-standard-typedefs --local $(XML) $(HEADERS)
@@ -26,9 +26,9 @@ CASTXML:=$(shell command -v castxml 2>/dev/null)
 
 $(XML): 
 ifdef CASTXML
-	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
+	@castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 else
-	gccxml $(HEADER) -fxml=$(XML)
+	@gccxml $(HEADER) -fxml=$(XML)
 endif
 
 clean:
