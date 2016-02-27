@@ -1,4 +1,4 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class READLINE_TYPES
 
@@ -9,14 +9,14 @@ insert ANY undefine is_equal, copy end
 
 feature {ANY} -- C type definitions (typedefs)
        histdata_t: POINTER
-               -- typedef histdata_t
+               -- typedef histdata_t from /usr/include/readline/history.h line 41
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default
        end
 
        keymap: POINTER
-               -- typedef Keymap
+               -- typedef Keymap from /usr/include/readline/keymaps.h line 56
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

@@ -1,6 +1,7 @@
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class READLINE_STATE_STRUCT
+-- Wrapper of struct readline_state defined in file /usr/include/readline/readline.h line 878
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -524,5 +525,5 @@ feature {WRAPPER, WRAPPER_HANDLER} -- Structure size
                end
 
 end -- class READLINE_STATE_STRUCT
--- This file has been created by wrapper-generator.
+-- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
