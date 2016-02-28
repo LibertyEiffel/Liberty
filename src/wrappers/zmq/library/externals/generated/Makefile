@@ -1,9 +1,11 @@
 XML=zmq.gcc-xml
-HEADER=plugin/c/zmq_liberty.h
+HEADER=/usr/include/zmq.h
 HEADERS=/usr/include/zmq.h
+CASTXML:=$(shell command -v castxml 2>/dev/null)
+
 
 wrappers: $(XML)
-	wrappers_generator --local  $(XML) $(HEADERS)
+	@wrappers_generator --local  $(XML) $(HEADERS)
 
 ## Previous versions used
 ## `pkg-config --cflags-only-I libzmq| cut -c 3- |tr --delete  '[:space:]' `/zmq.h 
@@ -14,8 +16,12 @@ wrappers: $(XML)
 ## Since it does not work reliably I now assume that the library is installed in usual places.
 
 $(XML): 
-	pkg-config --exists libzmq --atleast-version=2.1.9
-	castxml --castxml-gccxml -x c++  `pkg-config --cflags libzmq` $(HEADER) -o $(XML)
+	@pkg-config --exists libzmq --atleast-version=2.1.9
+ifdef CASTXML
+	@castxml --castxml-gccxml -x c++  `pkg-config --cflags libzmq` $(HEADER) -o $(XML)
+else
+	@gccxml `pkg-config --cflags libzmq` $(HEADER) -fxml=$(XML)
+endif
 
 
 

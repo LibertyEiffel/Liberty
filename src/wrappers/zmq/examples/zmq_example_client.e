@@ -12,7 +12,6 @@ feature {ANY}
 	make
 		local  now: TIME; exc: ZMQ_EXCEPTION; my_pid: ABSTRACT_STRING
 		do
-			use_zmq
 			my_pid := & process_id
 			create context -- Initialise 0MQ context 
 			socket := context.new_req_socket -- to send requests and receive replies
@@ -37,16 +36,6 @@ feature {ANY}
 					# &now # my_pid # exc.description # & exc.error_code).print_on(std_output)
 				end
 			end
-		end
-
-	use_zmq
-		-- Dummy plugin feature to work around SE bug. At time of writing (2012-02-20) if you don't invoke it the smarteiffel compiler will not compile in ømq wrappers
-		external "plug_in"
-		alias "{
-			location: "../library/externals/"
-			module_name: "plugin"
-			feature_name: "/*bug-workaround*/"
-		}"
 		end
 
 end -- ZMQ_EXAMPLE_CLIENT

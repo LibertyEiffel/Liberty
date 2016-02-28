@@ -443,7 +443,7 @@ feature {} -- Constants
    zmq_noblock: INTEGER_32
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ZMQ_NOBLOCK"
       }"
@@ -452,7 +452,7 @@ feature {} -- Constants
    zmq_sndmore: INTEGER_32
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ZMQ_SNDMORE"
       }"
@@ -460,7 +460,7 @@ feature {} -- Constants
    zmq_type: INTEGER_32
       external "plug_in"
       alias "{
-         location: "externals"
+         location: "externals/generated"
          module_name: "plugin"
          feature_name: "ZMQ_TYPE"
       }"
