@@ -445,7 +445,7 @@ if (substage("wrappers")) {
             $dir = dirname($filename);
             
             if (substage($class)) {
-               $ret = execute("cd $dir && se c --clean " . $class, $ulimit_time = 3600);
+               $ret = execute("cd $dir && se c --clean -o " . strtolower(basename($filename, ".e")) . " " . $class, $ulimit_time = 3600);
 
                if ($ret > 0) {
                   $curRes = $ret;
