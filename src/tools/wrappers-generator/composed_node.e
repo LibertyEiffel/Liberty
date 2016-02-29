@@ -61,7 +61,7 @@ feature {ANY}
       end
 
    emit_wrapper
-         -- Emit a reference wrapper for Current C structure.
+         -- Emit a reference wrapper for Current C composed type.
          -- A reference wrapper handles the structure as a memory area referred by a pointer.
          -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
       local
@@ -88,6 +88,7 @@ feature {ANY}
                log(once "Skipping #(1) #(2)%N" # c_type # c_string_name)
             end
          end
+         emitted := True
       end
 
    emit_header

@@ -111,15 +111,20 @@ feature {ANY}
         if a_composed_type ?:= referree then
             log("Emitting wrapper for typedef #(1)%N" # c_string_name)
             a_composed_type ::= referree 
-            if not a_composed_type.is_named then
-                log("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" # 
-                a_composed_type.c_type # c_string_name)
-                a_composed_type.set_name(c_string_name)
+            if a_composed_type /=Void then
+                if not a_composed_type.is_named then
+                    log("Referred #(1) is anonymous, forcingly setting its name to #(2)%N" # 
+                    a_composed_type.c_type # c_string_name)
+                    a_composed_type.set_name(c_string_name)
+                end
+                a_composed_type.emit_wrapper  
+            else
+                log(" typedef #(1) has no referree node%N" # c_string_name)
             end
-            a_composed_type.emit_wrapper  
         else
             log("No wrapper for typedef #(1)%N" # c_string_name)
         end
+        emitted := True
     end
 
    suffix: STRING ""

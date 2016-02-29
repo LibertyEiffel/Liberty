@@ -89,6 +89,7 @@ feature {ANY}
                log(once "Struct #(1) skipped%N" # c_string_name )
             end
          end
+         emitted := True
       end
 
    suffix: STRING "_CLASS"

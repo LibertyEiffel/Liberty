@@ -63,6 +63,7 @@ feature {ANY}
          else
             log(once "Skipping file '#(1)'.%N"#c_string_name)
          end
+         emitted := True
       end
 
    emit_header_on (a_stream: OUTPUT_STREAM)
