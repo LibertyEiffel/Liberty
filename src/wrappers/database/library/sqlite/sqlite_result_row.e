@@ -1,6 +1,6 @@
 indexing
 	description: "A tuple from an SQLite query."
-	copyright: "(C) 2006 Paolo Redaelli "
+	copyright: "(C) 2006,2016 Paolo Redaelli "
 	license: "LGPL v2 or later"
 	date: "$Date:$"
 	revision: "$Revision:$"
@@ -10,11 +10,12 @@ class SQLITE_RESULT_ROW
 inherit 
 	RESULT_ROW
 		undefine
+            default_create,
 			fill_tagged_out_memory,
 			out_in_tagged_out_memory
 		end
 
-	FAST_ARRAY [SQLITE_VALUE]
+	TRAVERSABLE [VARIANT]
 		undefine
 			copy,
 			is_equal
@@ -23,12 +24,14 @@ inherit
 insert
 	SQLITE3_EXTERNALS
 		undefine
+            default_create,
 			fill_tagged_out_memory,
 			out_in_tagged_out_memory
 		end
 
 	SQLITE_ERROR_CODES
 		undefine
+            default_create,
 			copy, is_equal,
 			fill_tagged_out_memory,
 			out_in_tagged_out_memory
@@ -36,6 +39,7 @@ insert
 
 	EXCEPTIONS
 		undefine
+            default_create,
 			copy, is_equal,
 			fill_tagged_out_memory,
 			out_in_tagged_out_memory
