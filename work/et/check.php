@@ -268,7 +268,7 @@ function tutorialDir($dir) {
             if ($ret > 0) {
                $curRes = $ret;
             } else {
-               $curRes = 0 - exec("grep -i" . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+               $curRes = 0 - exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
             if ($curRes > 0 || $result == 0) {
                $result = $curRes;
@@ -415,6 +415,7 @@ if (substage("TestSuite")) {
 
 // generate the wrapper $name
 function genWrapper($name) {
+   global $LibertyBase;
    $result = 0;
 
    if (substage($name)) {
@@ -425,7 +426,7 @@ function genWrapper($name) {
 }
 
 if (substage("wrappers")) {
-
+   $wrapperresult = 0;
    if (substage("generate wrappers")) {
       $genresult =                        genWrapper("common");
       $genresult = warnErrAdd($genresult, genWrapper("ffi"));
@@ -434,6 +435,7 @@ if (substage("wrappers")) {
       $genresult = warnErrAdd($genresult, genWrapper("readline"));
       $genresult = warnErrAdd($genresult, genWrapper("xml"));
       $genresult = warnErrAdd($genresult, genWrapper("zmq"));
+      $wrapperresult = $genresult;
       endsubstage();
    }
 
@@ -465,6 +467,7 @@ if (substage("wrappers")) {
                   }
                }
                file_put_contents($stagedir ."/result.txt", $curRes);
+               $wrapperresult =  warnErrAdd($wrapperresult, $result);
 
                endsubstage();
             }
@@ -472,21 +475,13 @@ if (substage("wrappers")) {
       }
       file_put_contents($stagedir ."/result.txt", $result);
 
-      if(   ($wrapperresult >= 0 && $result > 0)
-         || ($wrapperresult <= 0 && $result < 0))
-      {
-         $wrapperresult += $result;
-      }
+      $wrapperresult =  warnErrAdd($wrapperresult, $result);
       endsubstage();
    }
 
    if (substage("cleanup wrappers")) {
       $result = execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
-      if(   ($wrapperresult >= 0 && $result > 0)
-         || ($wrapperresult <= 0 && $result < 0))
-      {
-         $wrapperresult += $result;
-      }
+      $wrapperresult =  warnErrAdd($wrapperresult, $result);
 
       endsubstage();
    }
