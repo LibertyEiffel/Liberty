@@ -9,7 +9,7 @@ default -- section of the system
    assertion_flat_check (no);
    debug (no);
    trace (no);
-   collect (no);
+   collect ("bdw");
    style_warning (yes);
    no_warning (no);
    verbose (no);
