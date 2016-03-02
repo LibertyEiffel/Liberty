@@ -13,7 +13,7 @@ feature {} -- External calls
 	-- `hidden' function __ctype_toupper_loc skipped.
 	isalnum (an_argument_l95_c7: INTEGER): INTEGER 
 
-		-- function isalnum (in 110 at line /usr/include/ctype.h)i
+		-- function isalnum (in 110 at line /usr/include/ctype.h)
                -- isalnum
                external "plug_in"
                alias "{
@@ -25,7 +25,7 @@ feature {} -- External calls
 
 	isalnum_l (an_argument_l156_c7: INTEGER; an_argument_l157_c7: POINTER): INTEGER 
 
-		-- function isalnum_l (in 271 at line /usr/include/ctype.h)i
+		-- function isalnum_l (in 271 at line /usr/include/ctype.h)
                -- isalnum_l
                external "plug_in"
                alias "{
@@ -37,7 +37,7 @@ feature {} -- External calls
 
 	isalpha (an_argument_l98_c7: INTEGER): INTEGER 
 
-		-- function isalpha (in 111 at line /usr/include/ctype.h)i
+		-- function isalpha (in 111 at line /usr/include/ctype.h)
                -- isalpha
                external "plug_in"
                alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 
 	isalpha_l (an_argument_l160_c7: INTEGER; an_argument_l161_c7: POINTER): INTEGER 
 
-		-- function isalpha_l (in 272 at line /usr/include/ctype.h)i
+		-- function isalpha_l (in 272 at line /usr/include/ctype.h)
                -- isalpha_l
                external "plug_in"
                alias "{
@@ -61,7 +61,7 @@ feature {} -- External calls
 
 	isascii (a_c: INTEGER): INTEGER 
 
-		-- function isascii (in 150 at line /usr/include/ctype.h)i
+		-- function isascii (in 150 at line /usr/include/ctype.h)
                -- isascii
                external "plug_in"
                alias "{
@@ -73,7 +73,7 @@ feature {} -- External calls
 
 	isblank (an_argument_l134_c7: INTEGER): INTEGER 
 
-		-- function isblank (in 136 at line /usr/include/ctype.h)i
+		-- function isblank (in 136 at line /usr/include/ctype.h)
                -- isblank
                external "plug_in"
                alias "{
@@ -85,7 +85,7 @@ feature {} -- External calls
 
 	isblank_l (an_argument_l200_c7: INTEGER; an_argument_l201_c7: POINTER): INTEGER 
 
-		-- function isblank_l (in 283 at line /usr/include/ctype.h)i
+		-- function isblank_l (in 283 at line /usr/include/ctype.h)
                -- isblank_l
                external "plug_in"
                alias "{
@@ -97,7 +97,7 @@ feature {} -- External calls
 
 	iscntrl (an_argument_l101_c7: INTEGER): INTEGER 
 
-		-- function iscntrl (in 112 at line /usr/include/ctype.h)i
+		-- function iscntrl (in 112 at line /usr/include/ctype.h)
                -- iscntrl
                external "plug_in"
                alias "{
@@ -109,7 +109,7 @@ feature {} -- External calls
 
 	iscntrl_l (an_argument_l164_c7: INTEGER; an_argument_l165_c7: POINTER): INTEGER 
 
-		-- function iscntrl_l (in 273 at line /usr/include/ctype.h)i
+		-- function iscntrl_l (in 273 at line /usr/include/ctype.h)
                -- iscntrl_l
                external "plug_in"
                alias "{
@@ -121,7 +121,7 @@ feature {} -- External calls
 
 	isctype (a_c: INTEGER; a_mask: INTEGER): INTEGER 
 
-		-- function isctype (in 143 at line /usr/include/ctype.h)i
+		-- function isctype (in 143 at line /usr/include/ctype.h)
                -- isctype
                external "plug_in"
                alias "{
@@ -133,7 +133,7 @@ feature {} -- External calls
 
 	isdigit (an_argument_l104_c7: INTEGER): INTEGER 
 
-		-- function isdigit (in 113 at line /usr/include/ctype.h)i
+		-- function isdigit (in 113 at line /usr/include/ctype.h)
                -- isdigit
                external "plug_in"
                alias "{
@@ -145,7 +145,7 @@ feature {} -- External calls
 
 	isdigit_l (an_argument_l168_c7: INTEGER; an_argument_l169_c7: POINTER): INTEGER 
 
-		-- function isdigit_l (in 274 at line /usr/include/ctype.h)i
+		-- function isdigit_l (in 274 at line /usr/include/ctype.h)
                -- isdigit_l
                external "plug_in"
                alias "{
@@ -157,7 +157,7 @@ feature {} -- External calls
 
 	isgraph (an_argument_l110_c7: INTEGER): INTEGER 
 
-		-- function isgraph (in 115 at line /usr/include/ctype.h)i
+		-- function isgraph (in 115 at line /usr/include/ctype.h)
                -- isgraph
                external "plug_in"
                alias "{
@@ -169,7 +169,7 @@ feature {} -- External calls
 
 	isgraph_l (an_argument_l176_c7: INTEGER; an_argument_l177_c7: POINTER): INTEGER 
 
-		-- function isgraph_l (in 276 at line /usr/include/ctype.h)i
+		-- function isgraph_l (in 276 at line /usr/include/ctype.h)
                -- isgraph_l
                external "plug_in"
                alias "{
@@ -181,7 +181,7 @@ feature {} -- External calls
 
 	islower (an_argument_l107_c7: INTEGER): INTEGER 
 
-		-- function islower (in 114 at line /usr/include/ctype.h)i
+		-- function islower (in 114 at line /usr/include/ctype.h)
                -- islower
                external "plug_in"
                alias "{
@@ -193,7 +193,7 @@ feature {} -- External calls
 
 	islower_l (an_argument_l172_c7: INTEGER; an_argument_l173_c7: POINTER): INTEGER 
 
-		-- function islower_l (in 275 at line /usr/include/ctype.h)i
+		-- function islower_l (in 275 at line /usr/include/ctype.h)
                -- islower_l
                external "plug_in"
                alias "{
@@ -205,7 +205,7 @@ feature {} -- External calls
 
 	isprint (an_argument_l113_c7: INTEGER): INTEGER 
 
-		-- function isprint (in 116 at line /usr/include/ctype.h)i
+		-- function isprint (in 116 at line /usr/include/ctype.h)
                -- isprint
                external "plug_in"
                alias "{
@@ -217,7 +217,7 @@ feature {} -- External calls
 
 	isprint_l (an_argument_l180_c7: INTEGER; an_argument_l181_c7: POINTER): INTEGER 
 
-		-- function isprint_l (in 277 at line /usr/include/ctype.h)i
+		-- function isprint_l (in 277 at line /usr/include/ctype.h)
                -- isprint_l
                external "plug_in"
                alias "{
@@ -229,7 +229,7 @@ feature {} -- External calls
 
 	ispunct (an_argument_l116_c7: INTEGER): INTEGER 
 
-		-- function ispunct (in 117 at line /usr/include/ctype.h)i
+		-- function ispunct (in 117 at line /usr/include/ctype.h)
                -- ispunct
                external "plug_in"
                alias "{
@@ -241,7 +241,7 @@ feature {} -- External calls
 
 	ispunct_l (an_argument_l184_c7: INTEGER; an_argument_l185_c7: POINTER): INTEGER 
 
-		-- function ispunct_l (in 278 at line /usr/include/ctype.h)i
+		-- function ispunct_l (in 278 at line /usr/include/ctype.h)
                -- ispunct_l
                external "plug_in"
                alias "{
@@ -253,7 +253,7 @@ feature {} -- External calls
 
 	isspace (an_argument_l119_c7: INTEGER): INTEGER 
 
-		-- function isspace (in 118 at line /usr/include/ctype.h)i
+		-- function isspace (in 118 at line /usr/include/ctype.h)
                -- isspace
                external "plug_in"
                alias "{
@@ -265,7 +265,7 @@ feature {} -- External calls
 
 	isspace_l (an_argument_l188_c7: INTEGER; an_argument_l189_c7: POINTER): INTEGER 
 
-		-- function isspace_l (in 279 at line /usr/include/ctype.h)i
+		-- function isspace_l (in 279 at line /usr/include/ctype.h)
                -- isspace_l
                external "plug_in"
                alias "{
@@ -277,7 +277,7 @@ feature {} -- External calls
 
 	isupper (an_argument_l122_c7: INTEGER): INTEGER 
 
-		-- function isupper (in 119 at line /usr/include/ctype.h)i
+		-- function isupper (in 119 at line /usr/include/ctype.h)
                -- isupper
                external "plug_in"
                alias "{
@@ -289,7 +289,7 @@ feature {} -- External calls
 
 	isupper_l (an_argument_l192_c7: INTEGER; an_argument_l193_c7: POINTER): INTEGER 
 
-		-- function isupper_l (in 280 at line /usr/include/ctype.h)i
+		-- function isupper_l (in 280 at line /usr/include/ctype.h)
                -- isupper_l
                external "plug_in"
                alias "{
@@ -301,7 +301,7 @@ feature {} -- External calls
 
 	isxdigit (an_argument_l125_c7: INTEGER): INTEGER 
 
-		-- function isxdigit (in 120 at line /usr/include/ctype.h)i
+		-- function isxdigit (in 120 at line /usr/include/ctype.h)
                -- isxdigit
                external "plug_in"
                alias "{
@@ -313,7 +313,7 @@ feature {} -- External calls
 
 	isxdigit_l (an_argument_l196_c7: INTEGER; an_argument_l197_c7: POINTER): INTEGER 
 
-		-- function isxdigit_l (in 281 at line /usr/include/ctype.h)i
+		-- function isxdigit_l (in 281 at line /usr/include/ctype.h)
                -- isxdigit_l
                external "plug_in"
                alias "{
@@ -325,7 +325,7 @@ feature {} -- External calls
 
 	toascii (a_c: INTEGER): INTEGER 
 
-		-- function toascii (in 154 at line /usr/include/ctype.h)i
+		-- function toascii (in 154 at line /usr/include/ctype.h)
                -- toascii
                external "plug_in"
                alias "{
@@ -337,7 +337,7 @@ feature {} -- External calls
 
 	tolower (a_c: INTEGER): INTEGER 
 
-		-- function tolower (in 124 at line /usr/include/ctype.h)i
+		-- function tolower (in 124 at line /usr/include/ctype.h)
                -- tolower
                external "plug_in"
                alias "{
@@ -351,7 +351,7 @@ feature {} -- External calls
 	-- `hidden' function __tolower_l skipped.
 	tolower_l (a_c: INTEGER; a_l: POINTER): INTEGER 
 
-		-- function tolower_l (in 288 at line /usr/include/ctype.h)i
+		-- function tolower_l (in 288 at line /usr/include/ctype.h)
                -- tolower_l
                external "plug_in"
                alias "{
@@ -363,7 +363,7 @@ feature {} -- External calls
 
 	toupper (a_c: INTEGER): INTEGER 
 
-		-- function toupper (in 127 at line /usr/include/ctype.h)i
+		-- function toupper (in 127 at line /usr/include/ctype.h)
                -- toupper
                external "plug_in"
                alias "{
@@ -377,7 +377,7 @@ feature {} -- External calls
 	-- `hidden' function __toupper_l skipped.
 	toupper_l (a_c: INTEGER; a_l: POINTER): INTEGER 
 
-		-- function toupper_l (in 292 at line /usr/include/ctype.h)i
+		-- function toupper_l (in 292 at line /usr/include/ctype.h)
                -- toupper_l
                external "plug_in"
                alias "{

@@ -5,11 +5,16 @@ expanded class FOREIGN_TYPES
 
 insert
    FFI_EXTERNALS
+   ANY
+        redefine 
+            copy,
+            is_equal
+        end
 
 feature {ANY}
    copy (other: like Current)
-      do
-      end
+       do
+       end
 
    is_equal (other: like Current): BOOLEAN
       do

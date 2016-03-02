@@ -12,7 +12,7 @@ feature {} -- External calls
 	-- function basename skipped as requested.
 	bcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function bcmp (in 462 at line /usr/include/string.h)i
+		-- function bcmp (in 462 at line /usr/include/string.h)
                -- bcmp
                external "plug_in"
                alias "{
@@ -24,7 +24,7 @@ feature {} -- External calls
 
 	bcopy (a_src: POINTER; a_dest: POINTER; a_n: like long_unsigned) 
 
-		-- function bcopy (in 455 at line /usr/include/string.h)i
+		-- function bcopy (in 455 at line /usr/include/string.h)
                -- bcopy
                external "plug_in"
                alias "{
@@ -36,7 +36,7 @@ feature {} -- External calls
 
 	bzero (a_s: POINTER; a_n: like long_unsigned) 
 
-		-- function bzero (in 459 at line /usr/include/string.h)i
+		-- function bzero (in 459 at line /usr/include/string.h)
                -- bzero
                external "plug_in"
                alias "{
@@ -49,7 +49,7 @@ feature {} -- External calls
 	-- `hidden' function __bzero skipped.
 	ffs (an_i: INTEGER): INTEGER 
 
-		-- function ffs (in 523 at line /usr/include/string.h)i
+		-- function ffs (in 523 at line /usr/include/string.h)
                -- ffs
                external "plug_in"
                alias "{
@@ -61,7 +61,7 @@ feature {} -- External calls
 
 	ffsl (a_l: like long): INTEGER 
 
-		-- function ffsl (in 528 at line /usr/include/string.h)i
+		-- function ffsl (in 528 at line /usr/include/string.h)
                -- ffsl
                external "plug_in"
                alias "{
@@ -73,7 +73,7 @@ feature {} -- External calls
 
 	ffsll (a_ll: INTEGER_64): INTEGER 
 
-		-- function ffsll (in 529 at line /usr/include/string.h)i
+		-- function ffsll (in 529 at line /usr/include/string.h)
                -- ffsll
                external "plug_in"
                alias "{
@@ -87,7 +87,7 @@ feature {} -- External calls
 	-- function index skipped as requested.
 	memccpy (a_dest: POINTER; a_src: POINTER; a_c: INTEGER; a_n: like long_unsigned): POINTER 
 
-		-- function memccpy (in 58 at line /usr/include/string.h)i
+		-- function memccpy (in 58 at line /usr/include/string.h)
                -- memccpy
                external "plug_in"
                alias "{
@@ -101,7 +101,7 @@ feature {} -- External calls
 	-- function memchr skipped as requested.
 	memcmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function memcmp (in 69 at line /usr/include/string.h)i
+		-- function memcmp (in 69 at line /usr/include/string.h)
                -- memcmp
                external "plug_in"
                alias "{
@@ -113,7 +113,7 @@ feature {} -- External calls
 
 	memfrob (a_s: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function memfrob (in 591 at line /usr/include/string.h)i
+		-- function memfrob (in 591 at line /usr/include/string.h)
                -- memfrob
                external "plug_in"
                alias "{
@@ -125,7 +125,7 @@ feature {} -- External calls
 
 	memmem (a_haystack: POINTER; a_haystacklen: like long_unsigned; a_needle: POINTER; a_needlelen: like long_unsigned): POINTER 
 
-		-- function memmem (in 382 at line /usr/include/string.h)i
+		-- function memmem (in 382 at line /usr/include/string.h)
                -- memmem
                external "plug_in"
                alias "{
@@ -137,7 +137,7 @@ feature {} -- External calls
 
 	memmove (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function memmove (in 50 at line /usr/include/string.h)i
+		-- function memmove (in 50 at line /usr/include/string.h)
                -- memmove
                external "plug_in"
                alias "{
@@ -149,7 +149,7 @@ feature {} -- External calls
 
 	mempcpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function mempcpy (in 391 at line /usr/include/string.h)i
+		-- function mempcpy (in 391 at line /usr/include/string.h)
                -- mempcpy
                external "plug_in"
                alias "{
@@ -164,7 +164,7 @@ feature {} -- External calls
 	-- function memrchr skipped as requested.
 	memset (a_s: POINTER; a_c: INTEGER; a_n: like long_unsigned): POINTER 
 
-		-- function memset (in 66 at line /usr/include/string.h)i
+		-- function memset (in 66 at line /usr/include/string.h)
                -- memset
                external "plug_in"
                alias "{
@@ -180,7 +180,7 @@ feature {} -- External calls
 	-- function rindex skipped as requested.
 	stpcpy (a_dest: POINTER; a_src: POINTER): POINTER 
 
-		-- function stpcpy (in 569 at line /usr/include/string.h)i
+		-- function stpcpy (in 569 at line /usr/include/string.h)
                -- stpcpy
                external "plug_in"
                alias "{
@@ -193,7 +193,7 @@ feature {} -- External calls
 	-- `hidden' function __stpcpy skipped.
 	stpncpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function stpncpy (in 577 at line /usr/include/string.h)i
+		-- function stpncpy (in 577 at line /usr/include/string.h)
                -- stpncpy
                external "plug_in"
                alias "{
@@ -206,7 +206,7 @@ feature {} -- External calls
 	-- `hidden' function __stpncpy skipped.
 	strcasecmp (a_s1: POINTER; a_s2: POINTER): INTEGER 
 
-		-- function strcasecmp (in 534 at line /usr/include/string.h)i
+		-- function strcasecmp (in 534 at line /usr/include/string.h)
                -- strcasecmp
                external "plug_in"
                alias "{
@@ -218,7 +218,7 @@ feature {} -- External calls
 
 	strcasecmp_l (a_s1: POINTER; a_s2: POINTER; a_loc: POINTER): INTEGER 
 
-		-- function strcasecmp_l (in 545 at line /usr/include/string.h)i
+		-- function strcasecmp_l (in 545 at line /usr/include/string.h)
                -- strcasecmp_l
                external "plug_in"
                alias "{
@@ -232,7 +232,7 @@ feature {} -- External calls
 	-- function strcasestr skipped as requested.
 	strcat (a_dest: POINTER; a_src: POINTER): POINTER 
 
-		-- function strcat (in 137 at line /usr/include/string.h)i
+		-- function strcat (in 137 at line /usr/include/string.h)
                -- strcat
                external "plug_in"
                alias "{
@@ -248,7 +248,7 @@ feature {} -- External calls
 	-- function strchrnul skipped as requested.
 	strcmp (a_s1: POINTER; a_s2: POINTER): INTEGER 
 
-		-- function strcmp (in 144 at line /usr/include/string.h)i
+		-- function strcmp (in 144 at line /usr/include/string.h)
                -- strcmp
                external "plug_in"
                alias "{
@@ -260,7 +260,7 @@ feature {} -- External calls
 
 	strcoll (a_s1: POINTER; a_s2: POINTER): INTEGER 
 
-		-- function strcoll (in 151 at line /usr/include/string.h)i
+		-- function strcoll (in 151 at line /usr/include/string.h)
                -- strcoll
                external "plug_in"
                alias "{
@@ -272,7 +272,7 @@ feature {} -- External calls
 
 	strcoll_l (a_s1: POINTER; a_s2: POINTER; a_l: POINTER): INTEGER 
 
-		-- function strcoll_l (in 166 at line /usr/include/string.h)i
+		-- function strcoll_l (in 166 at line /usr/include/string.h)
                -- strcoll_l
                external "plug_in"
                alias "{
@@ -284,7 +284,7 @@ feature {} -- External calls
 
 	strcpy (a_dest: POINTER; a_src: POINTER): POINTER 
 
-		-- function strcpy (in 129 at line /usr/include/string.h)i
+		-- function strcpy (in 129 at line /usr/include/string.h)
                -- strcpy
                external "plug_in"
                alias "{
@@ -296,7 +296,7 @@ feature {} -- External calls
 
 	strcspn (a_s: POINTER; a_reject: POINTER): like long_unsigned 
 
-		-- function strcspn (in 285 at line /usr/include/string.h)i
+		-- function strcspn (in 285 at line /usr/include/string.h)
                -- strcspn
                external "plug_in"
                alias "{
@@ -308,7 +308,7 @@ feature {} -- External calls
 
 	strdup (a_s: POINTER): POINTER 
 
-		-- function strdup (in 176 at line /usr/include/string.h)i
+		-- function strdup (in 176 at line /usr/include/string.h)
                -- strdup
                external "plug_in"
                alias "{
@@ -320,7 +320,7 @@ feature {} -- External calls
 
 	strerror (an_errnum: INTEGER): POINTER 
 
-		-- function strerror (in 413 at line /usr/include/string.h)i
+		-- function strerror (in 413 at line /usr/include/string.h)
                -- strerror
                external "plug_in"
                alias "{
@@ -332,7 +332,7 @@ feature {} -- External calls
 
 	strerror_l (an_errnum: INTEGER; a_l: POINTER): POINTER 
 
-		-- function strerror_l (in 445 at line /usr/include/string.h)i
+		-- function strerror_l (in 445 at line /usr/include/string.h)
                -- strerror_l
                external "plug_in"
                alias "{
@@ -344,7 +344,7 @@ feature {} -- External calls
 
 	strerror_r (an_errnum: INTEGER; a_buf: POINTER; a_buflen: like long_unsigned): POINTER 
 
-		-- function strerror_r (in 438 at line /usr/include/string.h)i
+		-- function strerror_r (in 438 at line /usr/include/string.h)
                -- strerror_r
                external "plug_in"
                alias "{
@@ -356,7 +356,7 @@ feature {} -- External calls
 
 	strfry (a_string: POINTER): POINTER 
 
-		-- function strfry (in 588 at line /usr/include/string.h)i
+		-- function strfry (in 588 at line /usr/include/string.h)
                -- strfry
                external "plug_in"
                alias "{
@@ -368,7 +368,7 @@ feature {} -- External calls
 
 	strlen (a_s: POINTER): like long_unsigned 
 
-		-- function strlen (in 399 at line /usr/include/string.h)i
+		-- function strlen (in 399 at line /usr/include/string.h)
                -- strlen
                external "plug_in"
                alias "{
@@ -380,7 +380,7 @@ feature {} -- External calls
 
 	strncasecmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function strncasecmp (in 538 at line /usr/include/string.h)i
+		-- function strncasecmp (in 538 at line /usr/include/string.h)
                -- strncasecmp
                external "plug_in"
                alias "{
@@ -392,7 +392,7 @@ feature {} -- External calls
 
 	strncasecmp_l (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned; a_loc: POINTER): INTEGER 
 
-		-- function strncasecmp_l (in 549 at line /usr/include/string.h)i
+		-- function strncasecmp_l (in 549 at line /usr/include/string.h)
                -- strncasecmp_l
                external "plug_in"
                alias "{
@@ -404,7 +404,7 @@ feature {} -- External calls
 
 	strncat (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function strncat (in 140 at line /usr/include/string.h)i
+		-- function strncat (in 140 at line /usr/include/string.h)
                -- strncat
                external "plug_in"
                alias "{
@@ -416,7 +416,7 @@ feature {} -- External calls
 
 	strncmp (a_s1: POINTER; a_s2: POINTER; a_n: like long_unsigned): INTEGER 
 
-		-- function strncmp (in 147 at line /usr/include/string.h)i
+		-- function strncmp (in 147 at line /usr/include/string.h)
                -- strncmp
                external "plug_in"
                alias "{
@@ -428,7 +428,7 @@ feature {} -- External calls
 
 	strncpy (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function strncpy (in 132 at line /usr/include/string.h)i
+		-- function strncpy (in 132 at line /usr/include/string.h)
                -- strncpy
                external "plug_in"
                alias "{
@@ -440,7 +440,7 @@ feature {} -- External calls
 
 	strndup (a_string: POINTER; a_n: like long_unsigned): POINTER 
 
-		-- function strndup (in 184 at line /usr/include/string.h)i
+		-- function strndup (in 184 at line /usr/include/string.h)
                -- strndup
                external "plug_in"
                alias "{
@@ -452,7 +452,7 @@ feature {} -- External calls
 
 	strnlen (a_string: POINTER; a_maxlen: like long_unsigned): like long_unsigned 
 
-		-- function strnlen (in 406 at line /usr/include/string.h)i
+		-- function strnlen (in 406 at line /usr/include/string.h)
                -- strnlen
                external "plug_in"
                alias "{
@@ -468,7 +468,7 @@ feature {} -- External calls
 	-- function strrchr skipped as requested.
 	strsep (a_stringp: POINTER; a_delim: POINTER): POINTER 
 
-		-- function strsep (in 557 at line /usr/include/string.h)i
+		-- function strsep (in 557 at line /usr/include/string.h)
                -- strsep
                external "plug_in"
                alias "{
@@ -480,7 +480,7 @@ feature {} -- External calls
 
 	strsignal (a_sig: INTEGER): POINTER 
 
-		-- function strsignal (in 564 at line /usr/include/string.h)i
+		-- function strsignal (in 564 at line /usr/include/string.h)
                -- strsignal
                external "plug_in"
                alias "{
@@ -492,7 +492,7 @@ feature {} -- External calls
 
 	strspn (a_s: POINTER; an_accept: POINTER): like long_unsigned 
 
-		-- function strspn (in 289 at line /usr/include/string.h)i
+		-- function strspn (in 289 at line /usr/include/string.h)
                -- strspn
                external "plug_in"
                alias "{
@@ -506,7 +506,7 @@ feature {} -- External calls
 	-- function strstr skipped as requested.
 	strtok (a_s: POINTER; a_delim: POINTER): POINTER 
 
-		-- function strtok (in 348 at line /usr/include/string.h)i
+		-- function strtok (in 348 at line /usr/include/string.h)
                -- strtok
                external "plug_in"
                alias "{
@@ -519,7 +519,7 @@ feature {} -- External calls
 	-- `hidden' function __strtok_r skipped.
 	strtok_r (a_s: POINTER; a_delim: POINTER; a_save_ptr: POINTER): POINTER 
 
-		-- function strtok_r (in 359 at line /usr/include/string.h)i
+		-- function strtok_r (in 359 at line /usr/include/string.h)
                -- strtok_r
                external "plug_in"
                alias "{
@@ -531,7 +531,7 @@ feature {} -- External calls
 
 	strverscmp (a_s1: POINTER; a_s2: POINTER): INTEGER 
 
-		-- function strverscmp (in 584 at line /usr/include/string.h)i
+		-- function strverscmp (in 584 at line /usr/include/string.h)
                -- strverscmp
                external "plug_in"
                alias "{
@@ -543,7 +543,7 @@ feature {} -- External calls
 
 	strxfrm (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned): like long_unsigned 
 
-		-- function strxfrm (in 154 at line /usr/include/string.h)i
+		-- function strxfrm (in 154 at line /usr/include/string.h)
                -- strxfrm
                external "plug_in"
                alias "{
@@ -555,7 +555,7 @@ feature {} -- External calls
 
 	strxfrm_l (a_dest: POINTER; a_src: POINTER; a_n: like long_unsigned; a_l: POINTER): like long_unsigned 
 
-		-- function strxfrm_l (in 169 at line /usr/include/string.h)i
+		-- function strxfrm_l (in 169 at line /usr/include/string.h)
                -- strxfrm_l
                external "plug_in"
                alias "{

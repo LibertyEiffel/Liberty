@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	asctime (a_tp: POINTER): POINTER 
 
-		-- function asctime (in 261 at line /usr/include/time.h)i
+		-- function asctime (in 261 at line /usr/include/time.h)
                -- asctime
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	asctime_r (a_tp: POINTER; a_buf: POINTER): POINTER 
 
-		-- function asctime_r (in 272 at line /usr/include/time.h)i
+		-- function asctime_r (in 272 at line /usr/include/time.h)
                -- asctime_r
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	clock: like long 
 
-		-- function clock (in 189 at line /usr/include/time.h)i
+		-- function clock (in 189 at line /usr/include/time.h)
                -- clock
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	clock_getcpuclockid (a_pid: INTEGER; a_clock_id: POINTER): INTEGER 
 
-		-- function clock_getcpuclockid (in 358 at line /usr/include/time.h)i
+		-- function clock_getcpuclockid (in 358 at line /usr/include/time.h)
                -- clock_getcpuclockid
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	clock_getres (a_clock_id: INTEGER; a_res: POINTER): INTEGER 
 
-		-- function clock_getres (in 339 at line /usr/include/time.h)i
+		-- function clock_getres (in 339 at line /usr/include/time.h)
                -- clock_getres
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	clock_gettime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER 
 
-		-- function clock_gettime (in 342 at line /usr/include/time.h)i
+		-- function clock_gettime (in 342 at line /usr/include/time.h)
                -- clock_gettime
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	clock_nanosleep (a_clock_id: INTEGER; a_flags: INTEGER; a_req: POINTER; a_rem: POINTER): INTEGER 
 
-		-- function clock_nanosleep (in 353 at line /usr/include/time.h)i
+		-- function clock_nanosleep (in 353 at line /usr/include/time.h)
                -- clock_nanosleep
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	clock_settime (a_clock_id: INTEGER; a_tp: POINTER): INTEGER 
 
-		-- function clock_settime (in 345 at line /usr/include/time.h)i
+		-- function clock_settime (in 345 at line /usr/include/time.h)
                -- clock_settime
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	ctime (a_timer: POINTER): POINTER 
 
-		-- function ctime (in 264 at line /usr/include/time.h)i
+		-- function ctime (in 264 at line /usr/include/time.h)
                -- ctime
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	ctime_r (a_timer: POINTER; a_buf: POINTER): POINTER 
 
-		-- function ctime_r (in 276 at line /usr/include/time.h)i
+		-- function ctime_r (in 276 at line /usr/include/time.h)
                -- ctime_r
                external "plug_in"
                alias "{
@@ -161,7 +161,7 @@ feature {} -- External calls
 
 	difftime (a_time1: like long; a_time0: like long): REAL 
 
-		-- function difftime (in 195 at line /usr/include/time.h)i
+		-- function difftime (in 195 at line /usr/include/time.h)
                -- difftime
                external "plug_in"
                alias "{
@@ -173,7 +173,7 @@ feature {} -- External calls
 
 	dysize (a_year: INTEGER): INTEGER 
 
-		-- function dysize (in 325 at line /usr/include/time.h)i
+		-- function dysize (in 325 at line /usr/include/time.h)
                -- dysize
                external "plug_in"
                alias "{
@@ -185,7 +185,7 @@ feature {} -- External calls
 
 	getdate (a_string: POINTER): POINTER 
 
-		-- function getdate (in 412 at line /usr/include/time.h)i
+		-- function getdate (in 412 at line /usr/include/time.h)
                -- getdate
                external "plug_in"
                alias "{
@@ -227,7 +227,7 @@ feature {} -- External calls
 
 	getdate_r (a_string: POINTER; a_resbufp: POINTER): INTEGER 
 
-		-- function getdate_r (in 426 at line /usr/include/time.h)i
+		-- function getdate_r (in 426 at line /usr/include/time.h)
                -- getdate_r
                external "plug_in"
                alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 
 	gmtime (a_timer: POINTER): POINTER 
 
-		-- function gmtime (in 239 at line /usr/include/time.h)i
+		-- function gmtime (in 239 at line /usr/include/time.h)
                -- gmtime
                external "plug_in"
                alias "{
@@ -251,7 +251,7 @@ feature {} -- External calls
 
 	gmtime_r (a_timer: POINTER; a_tp: POINTER): POINTER 
 
-		-- function gmtime_r (in 249 at line /usr/include/time.h)i
+		-- function gmtime_r (in 249 at line /usr/include/time.h)
                -- gmtime_r
                external "plug_in"
                alias "{
@@ -263,7 +263,7 @@ feature {} -- External calls
 
 	localtime (a_timer: POINTER): POINTER 
 
-		-- function localtime (in 243 at line /usr/include/time.h)i
+		-- function localtime (in 243 at line /usr/include/time.h)
                -- localtime
                external "plug_in"
                alias "{
@@ -275,7 +275,7 @@ feature {} -- External calls
 
 	localtime_r (a_timer: POINTER; a_tp: POINTER): POINTER 
 
-		-- function localtime_r (in 254 at line /usr/include/time.h)i
+		-- function localtime_r (in 254 at line /usr/include/time.h)
                -- localtime_r
                external "plug_in"
                alias "{
@@ -287,7 +287,7 @@ feature {} -- External calls
 
 	mktime (a_tp: POINTER): like long 
 
-		-- function mktime (in 199 at line /usr/include/time.h)i
+		-- function mktime (in 199 at line /usr/include/time.h)
                -- mktime
                external "plug_in"
                alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 
 	nanosleep (a_requested_time: POINTER; a_remaining: POINTER): INTEGER 
 
-		-- function nanosleep (in 334 at line /usr/include/time.h)i
+		-- function nanosleep (in 334 at line /usr/include/time.h)
                -- nanosleep
                external "plug_in"
                alias "{
@@ -311,7 +311,7 @@ feature {} -- External calls
 
 	stime (a_when_external: POINTER): INTEGER 
 
-		-- function stime (in 304 at line /usr/include/time.h)i
+		-- function stime (in 304 at line /usr/include/time.h)
                -- stime
                external "plug_in"
                alias "{
@@ -323,7 +323,7 @@ feature {} -- External calls
 
 	strftime (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER): like long_unsigned 
 
-		-- function strftime (in 205 at line /usr/include/time.h)i
+		-- function strftime (in 205 at line /usr/include/time.h)
                -- strftime
                external "plug_in"
                alias "{
@@ -335,7 +335,7 @@ feature {} -- External calls
 
 	strftime_l (a_s: POINTER; a_maxsize: like long_unsigned; a_format: POINTER; a_tp: POINTER; a_loc: POINTER): like long_unsigned 
 
-		-- function strftime_l (in 223 at line /usr/include/time.h)i
+		-- function strftime_l (in 223 at line /usr/include/time.h)
                -- strftime_l
                external "plug_in"
                alias "{
@@ -347,7 +347,7 @@ feature {} -- External calls
 
 	strptime (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER): POINTER 
 
-		-- function strptime (in 213 at line /usr/include/time.h)i
+		-- function strptime (in 213 at line /usr/include/time.h)
                -- strptime
                external "plug_in"
                alias "{
@@ -359,7 +359,7 @@ feature {} -- External calls
 
 	strptime_l (a_s: POINTER; a_fmt: POINTER; a_tp: POINTER; a_loc: POINTER): POINTER 
 
-		-- function strptime_l (in 230 at line /usr/include/time.h)i
+		-- function strptime_l (in 230 at line /usr/include/time.h)
                -- strptime_l
                external "plug_in"
                alias "{
@@ -371,7 +371,7 @@ feature {} -- External calls
 
 	time (a_timer: POINTER): like long 
 
-		-- function time (in 192 at line /usr/include/time.h)i
+		-- function time (in 192 at line /usr/include/time.h)
                -- time
                external "plug_in"
                alias "{
@@ -383,7 +383,7 @@ feature {} -- External calls
 
 	timegm (a_tp: POINTER): like long 
 
-		-- function timegm (in 319 at line /usr/include/time.h)i
+		-- function timegm (in 319 at line /usr/include/time.h)
                -- timegm
                external "plug_in"
                alias "{
@@ -395,7 +395,7 @@ feature {} -- External calls
 
 	timelocal (a_tp: POINTER): like long 
 
-		-- function timelocal (in 322 at line /usr/include/time.h)i
+		-- function timelocal (in 322 at line /usr/include/time.h)
                -- timelocal
                external "plug_in"
                alias "{
@@ -407,7 +407,7 @@ feature {} -- External calls
 
 	timer_create (a_clock_id: INTEGER; an_evp: POINTER; a_timerid: POINTER): INTEGER 
 
-		-- function timer_create (in 363 at line /usr/include/time.h)i
+		-- function timer_create (in 363 at line /usr/include/time.h)
                -- timer_create
                external "plug_in"
                alias "{
@@ -419,7 +419,7 @@ feature {} -- External calls
 
 	timer_delete (a_timerid: POINTER): INTEGER 
 
-		-- function timer_delete (in 368 at line /usr/include/time.h)i
+		-- function timer_delete (in 368 at line /usr/include/time.h)
                -- timer_delete
                external "plug_in"
                alias "{
@@ -431,7 +431,7 @@ feature {} -- External calls
 
 	timer_getoverrun (a_timerid: POINTER): INTEGER 
 
-		-- function timer_getoverrun (in 380 at line /usr/include/time.h)i
+		-- function timer_getoverrun (in 380 at line /usr/include/time.h)
                -- timer_getoverrun
                external "plug_in"
                alias "{
@@ -443,7 +443,7 @@ feature {} -- External calls
 
 	timer_gettime (a_timerid: POINTER; a_value: POINTER): INTEGER 
 
-		-- function timer_gettime (in 376 at line /usr/include/time.h)i
+		-- function timer_gettime (in 376 at line /usr/include/time.h)
                -- timer_gettime
                external "plug_in"
                alias "{
@@ -455,7 +455,7 @@ feature {} -- External calls
 
 	timer_settime (a_timerid: POINTER; a_flags: INTEGER; a_value: POINTER; an_ovalue: POINTER): INTEGER 
 
-		-- function timer_settime (in 371 at line /usr/include/time.h)i
+		-- function timer_settime (in 371 at line /usr/include/time.h)
                -- timer_settime
                external "plug_in"
                alias "{
@@ -467,7 +467,7 @@ feature {} -- External calls
 
 	timespec_get (a_ts: POINTER; a_base: INTEGER): INTEGER 
 
-		-- function timespec_get (in 386 at line /usr/include/time.h)i
+		-- function timespec_get (in 386 at line /usr/include/time.h)
                -- timespec_get
                external "plug_in"
                alias "{
@@ -541,7 +541,7 @@ feature {} -- External calls
 	-- `hidden' variable __tzname skipped.
 	tzset 
 
-		-- function tzset (in 293 at line /usr/include/time.h)i
+		-- function tzset (in 293 at line /usr/include/time.h)
                -- tzset
                external "plug_in"
                alias "{

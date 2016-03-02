@@ -11,7 +11,7 @@ feature {} -- External calls
 	-- `hidden' function __builtin_memcpy skipped.
 	dladdr (an_address: POINTER; an_info: POINTER): INTEGER 
 
-		-- function dladdr (in 98 at line /usr/include/dlfcn.h)i
+		-- function dladdr (in 98 at line /usr/include/dlfcn.h)
                -- dladdr
                external "plug_in"
                alias "{
@@ -23,7 +23,7 @@ feature {} -- External calls
 
 	dladdr1 (an_address: POINTER; an_info: POINTER; an_extra_info: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function dladdr1 (in 102 at line /usr/include/dlfcn.h)i
+		-- function dladdr1 (in 102 at line /usr/include/dlfcn.h)
                -- dladdr1
                external "plug_in"
                alias "{
@@ -35,7 +35,7 @@ feature {} -- External calls
 
 	dlclose (a_handle: POINTER): INTEGER 
 
-		-- function dlclose (in 60 at line /usr/include/dlfcn.h)i
+		-- function dlclose (in 60 at line /usr/include/dlfcn.h)
                -- dlclose
                external "plug_in"
                alias "{
@@ -47,7 +47,7 @@ feature {} -- External calls
 
 	dlerror: POINTER 
 
-		-- function dlerror (in 82 at line /usr/include/dlfcn.h)i
+		-- function dlerror (in 82 at line /usr/include/dlfcn.h)
                -- dlerror
                external "plug_in"
                alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 
 	dlinfo (a_handle: POINTER; a_request: INTEGER; an_arg: POINTER): INTEGER 
 
-		-- function dlinfo (in 123 at line /usr/include/dlfcn.h)i
+		-- function dlinfo (in 123 at line /usr/include/dlfcn.h)
                -- dlinfo
                external "plug_in"
                alias "{
@@ -71,7 +71,7 @@ feature {} -- External calls
 
 	dlmopen (a_nsid: like long; a_file: POINTER; a_mode: INTEGER): POINTER 
 
-		-- function dlmopen (in 69 at line /usr/include/dlfcn.h)i
+		-- function dlmopen (in 69 at line /usr/include/dlfcn.h)
                -- dlmopen
                external "plug_in"
                alias "{
@@ -83,7 +83,7 @@ feature {} -- External calls
 
 	dlopen (a_file: POINTER; a_mode: INTEGER): POINTER 
 
-		-- function dlopen (in 56 at line /usr/include/dlfcn.h)i
+		-- function dlopen (in 56 at line /usr/include/dlfcn.h)
                -- dlopen
                external "plug_in"
                alias "{
@@ -95,7 +95,7 @@ feature {} -- External calls
 
 	dlsym (a_handle: POINTER; a_name: POINTER): POINTER 
 
-		-- function dlsym (in 64 at line /usr/include/dlfcn.h)i
+		-- function dlsym (in 64 at line /usr/include/dlfcn.h)
                -- dlsym
                external "plug_in"
                alias "{
@@ -107,7 +107,7 @@ feature {} -- External calls
 
 	dlvsym (a_handle: POINTER; a_name: POINTER; a_version: POINTER): POINTER 
 
-		-- function dlvsym (in 73 at line /usr/include/dlfcn.h)i
+		-- function dlvsym (in 73 at line /usr/include/dlfcn.h)
                -- dlvsym
                external "plug_in"
                alias "{
