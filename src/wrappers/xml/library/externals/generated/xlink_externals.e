@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xlink_get_default_detect: POINTER 
 
-		-- function xlinkGetDefaultDetect (in 164 at line /usr/include/libxml2/libxml/xlink.h)i
+		-- function xlinkGetDefaultDetect (in 164 at line /usr/include/libxml2/libxml/xlink.h)
                -- xlinkGetDefaultDetect
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xlink_get_default_handler: POINTER 
 
-		-- function xlinkGetDefaultHandler (in 172 at line /usr/include/libxml2/libxml/xlink.h)i
+		-- function xlinkGetDefaultHandler (in 172 at line /usr/include/libxml2/libxml/xlink.h)
                -- xlinkGetDefaultHandler
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xlink_is_link (a_doc: POINTER; a_node: POINTER): INTEGER 
 
-		-- function xlinkIsLink (in 180 at line /usr/include/libxml2/libxml/xlink.h)i
+		-- function xlinkIsLink (in 180 at line /usr/include/libxml2/libxml/xlink.h)
                -- xlinkIsLink
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xlink_set_default_detect (a_func: POINTER) 
 
-		-- function xlinkSetDefaultDetect (in 166 at line /usr/include/libxml2/libxml/xlink.h)i
+		-- function xlinkSetDefaultDetect (in 166 at line /usr/include/libxml2/libxml/xlink.h)
                -- xlinkSetDefaultDetect
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xlink_set_default_handler (a_handler: POINTER) 
 
-		-- function xlinkSetDefaultHandler (in 174 at line /usr/include/libxml2/libxml/xlink.h)i
+		-- function xlinkSetDefaultHandler (in 174 at line /usr/include/libxml2/libxml/xlink.h)
                -- xlinkSetDefaultHandler
                external "plug_in"
                alias "{

@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_automata_compile (an_am: POINTER): POINTER 
 
-		-- function xmlAutomataCompile (in 135 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataCompile (in 135 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataCompile
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_automata_get_init_state (an_am: POINTER): POINTER 
 
-		-- function xmlAutomataGetInitState (in 49 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataGetInitState (in 49 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataGetInitState
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_automata_is_determinist (an_am: POINTER): INTEGER 
 
-		-- function xmlAutomataIsDeterminist (in 137 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataIsDeterminist (in 137 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataIsDeterminist
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_automata_new_all_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_lax: INTEGER): POINTER 
 
-		-- function xmlAutomataNewAllTrans (in 111 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewAllTrans (in 111 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewAllTrans
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_automata_new_count_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_min: INTEGER; a_max: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewCountTrans (in 77 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewCountTrans (in 77 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewCountTrans
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_automata_new_count_trans2 (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_token2: POINTER; a_min: INTEGER; a_max: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewCountTrans2 (in 85 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewCountTrans2 (in 85 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewCountTrans2
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_automata_new_counted_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_counter: INTEGER): POINTER 
 
-		-- function xmlAutomataNewCountedTrans (in 120 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewCountedTrans (in 120 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewCountedTrans
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_automata_new_counter (an_am: POINTER; a_min: INTEGER; a_max: INTEGER): INTEGER 
 
-		-- function xmlAutomataNewCounter (in 130 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewCounter (in 130 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewCounter
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_automata_new_counter_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_counter: INTEGER): POINTER 
 
-		-- function xmlAutomataNewCounterTrans (in 125 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewCounterTrans (in 125 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewCounterTrans
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_automata_new_epsilon (an_am: POINTER; a_from_external: POINTER; a_to: POINTER): POINTER 
 
-		-- function xmlAutomataNewEpsilon (in 116 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewEpsilon (in 116 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewEpsilon
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_automata_new_neg_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_token2: POINTER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewNegTrans (in 69 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewNegTrans (in 69 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewNegTrans
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_automata_new_once_trans (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_min: INTEGER; a_max: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewOnceTrans (in 94 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewOnceTrans (in 94 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewOnceTrans
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_automata_new_once_trans2 (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_token2: POINTER; a_min: INTEGER; a_max: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewOnceTrans2 (in 102 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewOnceTrans2 (in 102 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewOnceTrans2
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_automata_new_state (an_am: POINTER): POINTER 
 
-		-- function xmlAutomataNewState (in 54 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewState (in 54 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewState
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_automata_new_transition (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewTransition (in 56 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewTransition (in 56 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewTransition
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_automata_new_transition2 (an_am: POINTER; a_from_external: POINTER; a_to: POINTER; a_token: POINTER; a_token2: POINTER; a_data: POINTER): POINTER 
 
-		-- function xmlAutomataNewTransition2 (in 62 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataNewTransition2 (in 62 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataNewTransition2
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_automata_set_final_state (an_am: POINTER; a_state: POINTER): INTEGER 
 
-		-- function xmlAutomataSetFinalState (in 51 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlAutomataSetFinalState (in 51 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlAutomataSetFinalState
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_free_automata (an_am: POINTER) 
 
-		-- function xmlFreeAutomata (in 46 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlFreeAutomata (in 46 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlFreeAutomata
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_new_automata: POINTER 
 
-		-- function xmlNewAutomata (in 44 at line /usr/include/libxml2/libxml/xmlautomata.h)i
+		-- function xmlNewAutomata (in 44 at line /usr/include/libxml2/libxml/xmlautomata.h)
                -- xmlNewAutomata
                external "plug_in"
                alias "{

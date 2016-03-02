@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_byte_consumed (a_ctxt: POINTER): like long 
 
-		-- function xmlByteConsumed (in 1078 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlByteConsumed (in 1078 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlByteConsumed
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_cleanup_parser 
 
-		-- function xmlCleanupParser (in 825 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCleanupParser (in 825 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCleanupParser
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_clear_node_info_seq (a_seq: POINTER) 
 
-		-- function xmlClearNodeInfoSeq (in 1053 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlClearNodeInfoSeq (in 1053 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlClearNodeInfoSeq
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_clear_parser_ctxt (a_ctxt: POINTER) 
 
-		-- function xmlClearParserCtxt (in 981 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlClearParserCtxt (in 981 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlClearParserCtxt
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_create_doc_parser_ctxt (a_cur: POINTER): POINTER 
 
-		-- function xmlCreateDocParserCtxt (in 991 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCreateDocParserCtxt (in 991 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCreateDocParserCtxt
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_create_ioparser_ctxt (a_sax: POINTER; an_user_data: POINTER; an_ioread: POINTER; an_ioclose: POINTER; an_ioctx: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlCreateIOParserCtxt (in 1032 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCreateIOParserCtxt (in 1032 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCreateIOParserCtxt
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_create_push_parser_ctxt (a_sax: POINTER; an_user_data: POINTER; a_chunk: POINTER; a_size: INTEGER; a_filename: POINTER): POINTER 
 
-		-- function xmlCreatePushParserCtxt (in 1015 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCreatePushParserCtxt (in 1015 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCreatePushParserCtxt
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_ctxt_read_doc (a_ctxt: POINTER; a_cur: POINTER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlCtxtReadDoc (in 1156 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReadDoc (in 1156 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReadDoc
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_ctxt_read_fd (a_ctxt: POINTER; a_fd: INTEGER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlCtxtReadFd (in 1174 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReadFd (in 1174 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReadFd
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_ctxt_read_file (a_ctxt: POINTER; a_filename: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlCtxtReadFile (in 1162 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReadFile (in 1162 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReadFile
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_ctxt_read_io (a_ctxt: POINTER; an_ioread: POINTER; an_ioclose: POINTER; an_ioctx: POINTER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlCtxtReadIO (in 1180 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReadIO (in 1180 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReadIO
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_ctxt_read_memory (a_ctxt: POINTER; a_buffer: POINTER; a_size: INTEGER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlCtxtReadMemory (in 1167 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReadMemory (in 1167 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReadMemory
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_ctxt_reset (a_ctxt: POINTER) 
 
-		-- function xmlCtxtReset (in 1118 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtReset (in 1118 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtReset
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_ctxt_reset_push (a_ctxt: POINTER; a_chunk: POINTER; a_size: INTEGER; a_filename: POINTER; an_encoding: POINTER): INTEGER 
 
-		-- function xmlCtxtResetPush (in 1120 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtResetPush (in 1120 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtResetPush
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_ctxt_use_options (a_ctxt: POINTER; an_options: INTEGER): INTEGER 
 
-		-- function xmlCtxtUseOptions (in 1126 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlCtxtUseOptions (in 1126 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlCtxtUseOptions
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	xml_free_parser_ctxt (a_ctxt: POINTER) 
 
-		-- function xmlFreeParserCtxt (in 983 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlFreeParserCtxt (in 983 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlFreeParserCtxt
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	xml_get_external_entity_loader: POINTER 
 
-		-- function xmlGetExternalEntityLoader (in 1068 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlGetExternalEntityLoader (in 1068 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlGetExternalEntityLoader
                external "plug_in"
                alias "{
@@ -214,7 +214,7 @@ feature {} -- External calls
 
 	xml_get_feature (a_ctxt: POINTER; a_name: POINTER; a_result: POINTER): INTEGER 
 
-		-- function xmlGetFeature (in 1001 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlGetFeature (in 1001 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlGetFeature
                external "plug_in"
                alias "{
@@ -226,7 +226,7 @@ feature {} -- External calls
 
 	xml_get_features_list (a_len: POINTER; a_result: POINTER): INTEGER 
 
-		-- function xmlGetFeaturesList (in 998 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlGetFeaturesList (in 998 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlGetFeaturesList
                external "plug_in"
                alias "{
@@ -238,7 +238,7 @@ feature {} -- External calls
 
 	xml_has_feature (a_feature_external: INTEGER): INTEGER 
 
-		-- function xmlHasFeature (in 1236 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlHasFeature (in 1236 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlHasFeature
                external "plug_in"
                alias "{
@@ -250,7 +250,7 @@ feature {} -- External calls
 
 	xml_init_node_info_seq (a_seq: POINTER) 
 
-		-- function xmlInitNodeInfoSeq (in 1051 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlInitNodeInfoSeq (in 1051 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlInitNodeInfoSeq
                external "plug_in"
                alias "{
@@ -262,7 +262,7 @@ feature {} -- External calls
 
 	xml_init_parser 
 
-		-- function xmlInitParser (in 823 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlInitParser (in 823 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlInitParser
                external "plug_in"
                alias "{
@@ -274,7 +274,7 @@ feature {} -- External calls
 
 	xml_init_parser_ctxt (a_ctxt: POINTER): INTEGER 
 
-		-- function xmlInitParserCtxt (in 979 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlInitParserCtxt (in 979 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlInitParserCtxt
                external "plug_in"
                alias "{
@@ -286,7 +286,7 @@ feature {} -- External calls
 
 	xml_ioparse_dtd (a_sax: POINTER; an_input: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlIOParseDTD (in 930 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlIOParseDTD (in 930 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlIOParseDTD
                external "plug_in"
                alias "{
@@ -298,7 +298,7 @@ feature {} -- External calls
 
 	xml_keep_blanks_default (a_val: INTEGER): INTEGER 
 
-		-- function xmlKeepBlanksDefault (in 852 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlKeepBlanksDefault (in 852 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlKeepBlanksDefault
                external "plug_in"
                alias "{
@@ -310,7 +310,7 @@ feature {} -- External calls
 
 	xml_line_numbers_default (a_val: INTEGER): INTEGER 
 
-		-- function xmlLineNumbersDefault (in 858 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlLineNumbersDefault (in 858 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlLineNumbersDefault
                external "plug_in"
                alias "{
@@ -322,7 +322,7 @@ feature {} -- External calls
 
 	xml_load_external_entity (an_url: POINTER; an_id: POINTER; a_ctxt: POINTER): POINTER 
 
-		-- function xmlLoadExternalEntity (in 1070 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlLoadExternalEntity (in 1070 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlLoadExternalEntity
                external "plug_in"
                alias "{
@@ -334,7 +334,7 @@ feature {} -- External calls
 
 	xml_new_ioinput_stream (a_ctxt: POINTER; an_input: POINTER; an_enc: INTEGER): POINTER 
 
-		-- function xmlNewIOInputStream (in 1040 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlNewIOInputStream (in 1040 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlNewIOInputStream
                external "plug_in"
                alias "{
@@ -346,7 +346,7 @@ feature {} -- External calls
 
 	xml_new_parser_ctxt: POINTER 
 
-		-- function xmlNewParserCtxt (in 977 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlNewParserCtxt (in 977 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlNewParserCtxt
                external "plug_in"
                alias "{
@@ -358,7 +358,7 @@ feature {} -- External calls
 
 	xml_parse_balanced_chunk_memory (a_doc: POINTER; a_sax: POINTER; an_user_data: POINTER; a_depth: INTEGER; a_string: POINTER; a_lst: POINTER): INTEGER 
 
-		-- function xmlParseBalancedChunkMemory (in 936 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseBalancedChunkMemory (in 936 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseBalancedChunkMemory
                external "plug_in"
                alias "{
@@ -370,7 +370,7 @@ feature {} -- External calls
 
 	xml_parse_balanced_chunk_memory_recover (a_doc: POINTER; a_sax: POINTER; an_user_data: POINTER; a_depth: INTEGER; a_string: POINTER; a_lst: POINTER; a_recover: INTEGER): INTEGER 
 
-		-- function xmlParseBalancedChunkMemoryRecover (in 951 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseBalancedChunkMemoryRecover (in 951 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseBalancedChunkMemoryRecover
                external "plug_in"
                alias "{
@@ -382,7 +382,7 @@ feature {} -- External calls
 
 	xml_parse_chunk (a_ctxt: POINTER; a_chunk: POINTER; a_size: INTEGER; a_terminate: INTEGER): INTEGER 
 
-		-- function xmlParseChunk (in 1021 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseChunk (in 1021 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseChunk
                external "plug_in"
                alias "{
@@ -394,7 +394,7 @@ feature {} -- External calls
 
 	xml_parse_ctxt_external_entity (a_ctx: POINTER; an_url: POINTER; an_id: POINTER; a_lst: POINTER): INTEGER 
 
-		-- function xmlParseCtxtExternalEntity (in 968 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseCtxtExternalEntity (in 968 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseCtxtExternalEntity
                external "plug_in"
                alias "{
@@ -406,7 +406,7 @@ feature {} -- External calls
 
 	xml_parse_doc (a_cur: POINTER): POINTER 
 
-		-- function xmlParseDoc (in 842 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseDoc (in 842 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseDoc
                external "plug_in"
                alias "{
@@ -418,7 +418,7 @@ feature {} -- External calls
 
 	xml_parse_document (a_ctxt: POINTER): INTEGER 
 
-		-- function xmlParseDocument (in 877 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseDocument (in 877 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseDocument
                external "plug_in"
                alias "{
@@ -430,7 +430,7 @@ feature {} -- External calls
 
 	xml_parse_dtd (an_external_id: POINTER; a_system_id: POINTER): POINTER 
 
-		-- function xmlParseDTD (in 927 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseDTD (in 927 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseDTD
                external "plug_in"
                alias "{
@@ -442,7 +442,7 @@ feature {} -- External calls
 
 	xml_parse_entity (a_filename: POINTER): POINTER 
 
-		-- function xmlParseEntity (in 918 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseEntity (in 918 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseEntity
                external "plug_in"
                alias "{
@@ -454,7 +454,7 @@ feature {} -- External calls
 
 	xml_parse_ext_parsed_ent (a_ctxt: POINTER): INTEGER 
 
-		-- function xmlParseExtParsedEnt (in 879 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseExtParsedEnt (in 879 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseExtParsedEnt
                external "plug_in"
                alias "{
@@ -466,7 +466,7 @@ feature {} -- External calls
 
 	xml_parse_external_entity (a_doc: POINTER; a_sax: POINTER; an_user_data: POINTER; a_depth: INTEGER; an_url: POINTER; an_id: POINTER; a_lst: POINTER): INTEGER 
 
-		-- function xmlParseExternalEntity (in 959 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseExternalEntity (in 959 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseExternalEntity
                external "plug_in"
                alias "{
@@ -478,7 +478,7 @@ feature {} -- External calls
 
 	xml_parse_file (a_filename: POINTER): POINTER 
 
-		-- function xmlParseFile (in 844 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseFile (in 844 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseFile
                external "plug_in"
                alias "{
@@ -490,7 +490,7 @@ feature {} -- External calls
 
 	xml_parse_in_node_context (a_node: POINTER; a_data: POINTER; a_datalen: INTEGER; an_options: INTEGER; a_lst: POINTER): INTEGER 
 
-		-- function xmlParseInNodeContext (in 944 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseInNodeContext (in 944 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseInNodeContext
                external "plug_in"
                alias "{
@@ -502,7 +502,7 @@ feature {} -- External calls
 
 	xml_parse_memory (a_buffer: POINTER; a_size: INTEGER): POINTER 
 
-		-- function xmlParseMemory (in 846 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParseMemory (in 846 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParseMemory
                external "plug_in"
                alias "{
@@ -514,7 +514,7 @@ feature {} -- External calls
 
 	xml_parser_add_node_info (a_ctxt: POINTER; an_info: POINTER) 
 
-		-- function xmlParserAddNodeInfo (in 1058 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParserAddNodeInfo (in 1058 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParserAddNodeInfo
                external "plug_in"
                alias "{
@@ -526,7 +526,7 @@ feature {} -- External calls
 
 	xml_parser_find_node_info (a_ctxt: POINTER; a_node: POINTER): POINTER 
 
-		-- function xmlParserFindNodeInfo (in 1048 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParserFindNodeInfo (in 1048 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParserFindNodeInfo
                external "plug_in"
                alias "{
@@ -538,7 +538,7 @@ feature {} -- External calls
 
 	xml_parser_find_node_info_index (a_seq: POINTER; a_node: POINTER): like long_unsigned 
 
-		-- function xmlParserFindNodeInfoIndex (in 1055 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParserFindNodeInfoIndex (in 1055 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParserFindNodeInfoIndex
                external "plug_in"
                alias "{
@@ -550,7 +550,7 @@ feature {} -- External calls
 
 	xml_parser_input_grow (an_in: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlParserInputGrow (in 834 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParserInputGrow (in 834 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParserInputGrow
                external "plug_in"
                alias "{
@@ -562,7 +562,7 @@ feature {} -- External calls
 
 	xml_parser_input_read (an_in: POINTER; a_len: INTEGER): INTEGER 
 
-		-- function xmlParserInputRead (in 831 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlParserInputRead (in 831 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlParserInputRead
                external "plug_in"
                alias "{
@@ -574,7 +574,7 @@ feature {} -- External calls
 
 	xml_pedantic_parser_default (a_val: INTEGER): INTEGER 
 
-		-- function xmlPedanticParserDefault (in 856 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlPedanticParserDefault (in 856 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlPedanticParserDefault
                external "plug_in"
                alias "{
@@ -586,7 +586,7 @@ feature {} -- External calls
 
 	xml_read_doc (a_cur: POINTER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlReadDoc (in 1129 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlReadDoc (in 1129 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlReadDoc
                external "plug_in"
                alias "{
@@ -598,7 +598,7 @@ feature {} -- External calls
 
 	xml_read_fd (a_fd: INTEGER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlReadFd (in 1144 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlReadFd (in 1144 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlReadFd
                external "plug_in"
                alias "{
@@ -610,7 +610,7 @@ feature {} -- External calls
 
 	xml_read_file (an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlReadFile (in 1134 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlReadFile (in 1134 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlReadFile
                external "plug_in"
                alias "{
@@ -622,7 +622,7 @@ feature {} -- External calls
 
 	xml_read_io (an_ioread: POINTER; an_ioclose: POINTER; an_ioctx: POINTER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlReadIO (in 1149 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlReadIO (in 1149 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlReadIO
                external "plug_in"
                alias "{
@@ -634,7 +634,7 @@ feature {} -- External calls
 
 	xml_read_memory (a_buffer: POINTER; a_size: INTEGER; an_url: POINTER; an_encoding: POINTER; an_options: INTEGER): POINTER 
 
-		-- function xmlReadMemory (in 1138 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlReadMemory (in 1138 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlReadMemory
                external "plug_in"
                alias "{
@@ -646,7 +646,7 @@ feature {} -- External calls
 
 	xml_recover_doc (a_cur: POINTER): POINTER 
 
-		-- function xmlRecoverDoc (in 865 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlRecoverDoc (in 865 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlRecoverDoc
                external "plug_in"
                alias "{
@@ -658,7 +658,7 @@ feature {} -- External calls
 
 	xml_recover_file (a_filename: POINTER): POINTER 
 
-		-- function xmlRecoverFile (in 870 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlRecoverFile (in 870 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlRecoverFile
                external "plug_in"
                alias "{
@@ -670,7 +670,7 @@ feature {} -- External calls
 
 	xml_recover_memory (a_buffer: POINTER; a_size: INTEGER): POINTER 
 
-		-- function xmlRecoverMemory (in 867 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlRecoverMemory (in 867 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlRecoverMemory
                external "plug_in"
                alias "{
@@ -682,7 +682,7 @@ feature {} -- External calls
 
 	xml_saxparse_doc (a_sax: POINTER; a_cur: POINTER; a_recovery: INTEGER): POINTER 
 
-		-- function xmlSAXParseDoc (in 891 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseDoc (in 891 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseDoc
                external "plug_in"
                alias "{
@@ -694,7 +694,7 @@ feature {} -- External calls
 
 	xml_saxparse_dtd (a_sax: POINTER; an_external_id: POINTER; a_system_id: POINTER): POINTER 
 
-		-- function xmlSAXParseDTD (in 923 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseDTD (in 923 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseDTD
                external "plug_in"
                alias "{
@@ -706,7 +706,7 @@ feature {} -- External calls
 
 	xml_saxparse_entity (a_sax: POINTER; a_filename: POINTER): POINTER 
 
-		-- function xmlSAXParseEntity (in 915 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseEntity (in 915 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseEntity
                external "plug_in"
                alias "{
@@ -718,7 +718,7 @@ feature {} -- External calls
 
 	xml_saxparse_file (a_sax: POINTER; a_filename: POINTER; a_recovery: INTEGER): POINTER 
 
-		-- function xmlSAXParseFile (in 906 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseFile (in 906 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseFile
                external "plug_in"
                alias "{
@@ -730,7 +730,7 @@ feature {} -- External calls
 
 	xml_saxparse_file_with_data (a_sax: POINTER; a_filename: POINTER; a_recovery: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlSAXParseFileWithData (in 910 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseFileWithData (in 910 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseFileWithData
                external "plug_in"
                alias "{
@@ -742,7 +742,7 @@ feature {} -- External calls
 
 	xml_saxparse_memory (a_sax: POINTER; a_buffer: POINTER; a_size: INTEGER; a_recovery: INTEGER): POINTER 
 
-		-- function xmlSAXParseMemory (in 895 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseMemory (in 895 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseMemory
                external "plug_in"
                alias "{
@@ -754,7 +754,7 @@ feature {} -- External calls
 
 	xml_saxparse_memory_with_data (a_sax: POINTER; a_buffer: POINTER; a_size: INTEGER; a_recovery: INTEGER; a_data: POINTER): POINTER 
 
-		-- function xmlSAXParseMemoryWithData (in 900 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXParseMemoryWithData (in 900 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXParseMemoryWithData
                external "plug_in"
                alias "{
@@ -766,7 +766,7 @@ feature {} -- External calls
 
 	xml_saxuser_parse_file (a_sax: POINTER; an_user_data: POINTER; a_filename: POINTER): INTEGER 
 
-		-- function xmlSAXUserParseFile (in 882 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXUserParseFile (in 882 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXUserParseFile
                external "plug_in"
                alias "{
@@ -778,7 +778,7 @@ feature {} -- External calls
 
 	xml_saxuser_parse_memory (a_sax: POINTER; an_user_data: POINTER; a_buffer: POINTER; a_size: INTEGER): INTEGER 
 
-		-- function xmlSAXUserParseMemory (in 886 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSAXUserParseMemory (in 886 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSAXUserParseMemory
                external "plug_in"
                alias "{
@@ -790,7 +790,7 @@ feature {} -- External calls
 
 	xml_set_external_entity_loader (a_f: POINTER) 
 
-		-- function xmlSetExternalEntityLoader (in 1066 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSetExternalEntityLoader (in 1066 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSetExternalEntityLoader
                external "plug_in"
                alias "{
@@ -802,7 +802,7 @@ feature {} -- External calls
 
 	xml_set_feature (a_ctxt: POINTER; a_name: POINTER; a_value: POINTER): INTEGER 
 
-		-- function xmlSetFeature (in 1005 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSetFeature (in 1005 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSetFeature
                external "plug_in"
                alias "{
@@ -814,7 +814,7 @@ feature {} -- External calls
 
 	xml_setup_parser_for_buffer (a_ctxt: POINTER; a_buffer: POINTER; a_filename: POINTER) 
 
-		-- function xmlSetupParserForBuffer (in 986 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSetupParserForBuffer (in 986 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSetupParserForBuffer
                external "plug_in"
                alias "{
@@ -826,7 +826,7 @@ feature {} -- External calls
 
 	xml_stop_parser (a_ctxt: POINTER) 
 
-		-- function xmlStopParser (in 854 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlStopParser (in 854 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlStopParser
                external "plug_in"
                alias "{
@@ -838,7 +838,7 @@ feature {} -- External calls
 
 	xml_substitute_entities_default (a_val: INTEGER): INTEGER 
 
-		-- function xmlSubstituteEntitiesDefault (in 850 at line /usr/include/libxml2/libxml/parser.h)i
+		-- function xmlSubstituteEntitiesDefault (in 850 at line /usr/include/libxml2/libxml/parser.h)
                -- xmlSubstituteEntitiesDefault
                external "plug_in"
                alias "{

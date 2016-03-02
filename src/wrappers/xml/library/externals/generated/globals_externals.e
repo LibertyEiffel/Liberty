@@ -96,7 +96,7 @@ feature {} -- External calls
 
 	xml_cleanup_globals 
 
-		-- function xmlCleanupGlobals (in 29 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlCleanupGlobals (in 29 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlCleanupGlobals
                external "plug_in"
                alias "{
@@ -163,7 +163,7 @@ feature {} -- External calls
 
 	xml_deregister_node_default (a_func: POINTER): POINTER 
 
-		-- function xmlDeregisterNodeDefault (in 186 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlDeregisterNodeDefault (in 186 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlDeregisterNodeDefault
                external "plug_in"
                alias "{
@@ -391,7 +391,7 @@ feature {} -- External calls
 	-- `hidden' function __xmlIndentTreeOutput skipped.
 	xml_init_globals 
 
-		-- function xmlInitGlobals (in 28 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlInitGlobals (in 28 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlInitGlobals
                external "plug_in"
                alias "{
@@ -403,7 +403,7 @@ feature {} -- External calls
 
 	xml_initialize_global_state (a_gs: POINTER) 
 
-		-- function xmlInitializeGlobalState (in 178 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlInitializeGlobalState (in 178 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlInitializeGlobalState
                external "plug_in"
                alias "{
@@ -610,7 +610,7 @@ feature {} -- External calls
 
 	xml_output_buffer_create_filename_default (a_func: POINTER): POINTER 
 
-		-- function xmlOutputBufferCreateFilenameDefault (in 64 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlOutputBufferCreateFilenameDefault (in 64 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlOutputBufferCreateFilenameDefault
                external "plug_in"
                alias "{
@@ -684,7 +684,7 @@ feature {} -- External calls
 
 	xml_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER 
 
-		-- function xmlParserInputBufferCreateFilenameDefault (in 62 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlParserInputBufferCreateFilenameDefault (in 62 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlParserInputBufferCreateFilenameDefault
                external "plug_in"
                alias "{
@@ -819,7 +819,7 @@ feature {} -- External calls
 
 	xml_register_node_default (a_func: POINTER): POINTER 
 
-		-- function xmlRegisterNodeDefault (in 184 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlRegisterNodeDefault (in 184 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlRegisterNodeDefault
                external "plug_in"
                alias "{
@@ -986,7 +986,7 @@ feature {} -- External calls
 	-- `hidden' function __xmlSubstituteEntitiesDefaultValue skipped.
 	xml_thr_def_buffer_alloc_scheme (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefBufferAllocScheme (in 306 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefBufferAllocScheme (in 306 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefBufferAllocScheme
                external "plug_in"
                alias "{
@@ -998,7 +998,7 @@ feature {} -- External calls
 
 	xml_thr_def_default_buffer_size (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefDefaultBufferSize (in 315 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefDefaultBufferSize (in 315 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefDefaultBufferSize
                external "plug_in"
                alias "{
@@ -1010,7 +1010,7 @@ feature {} -- External calls
 
 	xml_thr_def_deregister_node_default (a_func: POINTER): POINTER 
 
-		-- function xmlThrDefDeregisterNodeDefault (in 187 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefDeregisterNodeDefault (in 187 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefDeregisterNodeDefault
                external "plug_in"
                alias "{
@@ -1022,7 +1022,7 @@ feature {} -- External calls
 
 	xml_thr_def_do_validity_checking_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefDoValidityCheckingDefaultValue (in 340 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefDoValidityCheckingDefaultValue (in 340 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefDoValidityCheckingDefaultValue
                external "plug_in"
                alias "{
@@ -1034,7 +1034,7 @@ feature {} -- External calls
 
 	xml_thr_def_get_warnings_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefGetWarningsDefaultValue (in 381 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefGetWarningsDefaultValue (in 381 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefGetWarningsDefaultValue
                external "plug_in"
                alias "{
@@ -1046,7 +1046,7 @@ feature {} -- External calls
 
 	xml_thr_def_indent_tree_output (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefIndentTreeOutput (in 390 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefIndentTreeOutput (in 390 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefIndentTreeOutput
                external "plug_in"
                alias "{
@@ -1058,7 +1058,7 @@ feature {} -- External calls
 
 	xml_thr_def_keep_blanks_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefKeepBlanksDefaultValue (in 408 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefKeepBlanksDefaultValue (in 408 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefKeepBlanksDefaultValue
                external "plug_in"
                alias "{
@@ -1070,7 +1070,7 @@ feature {} -- External calls
 
 	xml_thr_def_line_numbers_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefLineNumbersDefaultValue (in 417 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefLineNumbersDefaultValue (in 417 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefLineNumbersDefaultValue
                external "plug_in"
                alias "{
@@ -1082,7 +1082,7 @@ feature {} -- External calls
 
 	xml_thr_def_load_ext_dtd_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefLoadExtDtdDefaultValue (in 426 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefLoadExtDtdDefaultValue (in 426 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefLoadExtDtdDefaultValue
                external "plug_in"
                alias "{
@@ -1094,7 +1094,7 @@ feature {} -- External calls
 
 	xml_thr_def_output_buffer_create_filename_default (a_func: POINTER): POINTER 
 
-		-- function xmlThrDefOutputBufferCreateFilenameDefault (in 190 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefOutputBufferCreateFilenameDefault (in 190 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefOutputBufferCreateFilenameDefault
                external "plug_in"
                alias "{
@@ -1106,7 +1106,7 @@ feature {} -- External calls
 
 	xml_thr_def_parser_debug_entities (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefParserDebugEntities (in 435 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefParserDebugEntities (in 435 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefParserDebugEntities
                external "plug_in"
                alias "{
@@ -1118,7 +1118,7 @@ feature {} -- External calls
 
 	xml_thr_def_parser_input_buffer_create_filename_default (a_func: POINTER): POINTER 
 
-		-- function xmlThrDefParserInputBufferCreateFilenameDefault (in 192 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefParserInputBufferCreateFilenameDefault (in 192 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefParserInputBufferCreateFilenameDefault
                external "plug_in"
                alias "{
@@ -1130,7 +1130,7 @@ feature {} -- External calls
 
 	xml_thr_def_pedantic_parser_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefPedanticParserDefaultValue (in 452 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefPedanticParserDefaultValue (in 452 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefPedanticParserDefaultValue
                external "plug_in"
                alias "{
@@ -1142,7 +1142,7 @@ feature {} -- External calls
 
 	xml_thr_def_register_node_default (a_func: POINTER): POINTER 
 
-		-- function xmlThrDefRegisterNodeDefault (in 185 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefRegisterNodeDefault (in 185 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefRegisterNodeDefault
                external "plug_in"
                alias "{
@@ -1154,7 +1154,7 @@ feature {} -- External calls
 
 	xml_thr_def_save_no_empty_tags (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefSaveNoEmptyTags (in 461 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefSaveNoEmptyTags (in 461 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefSaveNoEmptyTags
                external "plug_in"
                alias "{
@@ -1166,7 +1166,7 @@ feature {} -- External calls
 
 	xml_thr_def_set_generic_error_func (a_ctx: POINTER; a_handler: POINTER) 
 
-		-- function xmlThrDefSetGenericErrorFunc (in 180 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefSetGenericErrorFunc (in 180 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefSetGenericErrorFunc
                external "plug_in"
                alias "{
@@ -1178,7 +1178,7 @@ feature {} -- External calls
 
 	xml_thr_def_set_structured_error_func (a_ctx: POINTER; a_handler: POINTER) 
 
-		-- function xmlThrDefSetStructuredErrorFunc (in 182 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefSetStructuredErrorFunc (in 182 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefSetStructuredErrorFunc
                external "plug_in"
                alias "{
@@ -1190,7 +1190,7 @@ feature {} -- External calls
 
 	xml_thr_def_substitute_entities_default_value (a_v: INTEGER): INTEGER 
 
-		-- function xmlThrDefSubstituteEntitiesDefaultValue (in 470 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefSubstituteEntitiesDefaultValue (in 470 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefSubstituteEntitiesDefaultValue
                external "plug_in"
                alias "{
@@ -1202,7 +1202,7 @@ feature {} -- External calls
 
 	xml_thr_def_tree_indent_string (a_v: POINTER): POINTER 
 
-		-- function xmlThrDefTreeIndentString (in 399 at line /usr/include/libxml2/libxml/globals.h)i
+		-- function xmlThrDefTreeIndentString (in 399 at line /usr/include/libxml2/libxml/globals.h)
                -- xmlThrDefTreeIndentString
                external "plug_in"
                alias "{
