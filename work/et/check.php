@@ -415,6 +415,7 @@ if (substage("TestSuite")) {
 
 // generate the wrapper $name
 function genWrapper($name) {
+   global $LibertyBase;
    $result = 0;
 
    if (substage($name)) {
