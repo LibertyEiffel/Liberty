@@ -268,7 +268,7 @@ function tutorialDir($dir) {
             if ($ret > 0) {
                $curRes = $ret;
             } else {
-               $curRes = 0 - exec("grep -i" . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
+               $curRes = 0 - exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
             }
             if ($curRes > 0 || $result == 0) {
                $result = $curRes;
