@@ -436,6 +436,8 @@ if (substage("wrappers")) {
       $genresult = warnErrAdd($genresult, genWrapper("xml"));
       $genresult = warnErrAdd($genresult, genWrapper("zmq"));
       $wrapperresult = $genresult;
+      
+      file_put_contents($stagedir ."/result.txt", $curRes);
       endsubstage();
    }
 
@@ -455,27 +457,16 @@ if (substage("wrappers")) {
                   $warnCnt = exec("grep -i " . escapeshellarg("Warning:") . " " . escapeshellarg($stagedir . "/err.txt") . " | wc -l");
                   $curRes = -$warnCnt;
                }
-               if ($curRes <= 0) {
-                  if ($result <= 0) {
-                     $result += $curRes;
-                  }
-               } else {
-                  if ($result >= 0) {
-                     $result += $curRes;
-                  } else {
-                     $result = $curRes;
-                  }
-               }
                file_put_contents($stagedir ."/result.txt", $curRes);
-               $wrapperresult =  warnErrAdd($wrapperresult, $result);
+               $result =  warnErrAdd($result, $curRes);
 
                endsubstage();
             }
          }
       }
       file_put_contents($stagedir ."/result.txt", $result);
-
       $wrapperresult =  warnErrAdd($wrapperresult, $result);
+
       endsubstage();
    }
 
