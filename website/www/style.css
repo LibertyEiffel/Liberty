@@ -191,3 +191,10 @@ a:active {
     display: none;
     visibility:hidden;
 }
+
+.boxed {
+    border: 3px solid #b51c39;
+    background: #5ab0a1;
+    margin: 14px;
+    padding: 5px;
+}
