@@ -54,10 +54,11 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         Result := (is_named or has_assigned_name) and then 
+         Result := (is_named and then (not avoided_symbols.has(c_string_name)) 
+            or has_assigned_name) and then 
             (is_public or has_assigned_name) and then 
-            (global or else headers.has(c_file.c_string_name)) and then 
-            not avoided_symbols.has(c_string_name)
+            (global or else headers.has(c_file.c_string_name)) 
+
       end
 
    emit_wrapper
