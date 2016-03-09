@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FFI_TYPE_STRUCT
--- Wrapper of struct _ffi_type defined in file /usr/include/x86_64-linux-gnu/ffi.h line 112
+-- Wrapper of struct _ffi_type defined in file /usr/include/x86_64-linux-gnu/ffi.h line 113
 
 insert STANDARD_C_LIBRARY_TYPES
 

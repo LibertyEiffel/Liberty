@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FFI_CLOSURE_STRUCT
--- Wrapper of struct  defined in file /usr/include/x86_64-linux-gnu/ffi.h line 314
+-- Wrapper of struct Void defined in file /usr/include/x86_64-linux-gnu/ffi.h line 314
 
 insert STANDARD_C_LIBRARY_TYPES
 
