@@ -471,7 +471,7 @@ if (substage("wrappers")) {
    }
 
    if (substage("cleanup wrappers")) {
-      $result = execute("cd $LibertyBase && git checkout -- src/wrappers", $ulimit_time = 3600);
+      $result = execute("cd $LibertyBase && git checkout -f -- src/wrappers", $ulimit_time = 3600);
       $wrapperresult =  warnErrAdd($wrapperresult, $result);
 
       endsubstage();
