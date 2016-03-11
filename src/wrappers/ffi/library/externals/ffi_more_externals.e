@@ -1,6 +1,7 @@
 deferred class FFI_MORE_EXTERNALS
 
-insert FFI_EXTERNALS
+insert
+    FFI_EXTERNALS
 
 feature {} -- Implementation
    default_abi: INTEGER_32

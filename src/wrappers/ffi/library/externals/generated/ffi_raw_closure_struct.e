@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FFI_RAW_CLOSURE_STRUCT
--- Wrapper of struct  defined in file /usr/include/x86_64-linux-gnu/ffi.h line 352
+-- Wrapper of struct ffi_raw_closure defined in file /usr/include/x86_64-linux-gnu/ffi.h line 375
 
 insert STANDARD_C_LIBRARY_TYPES
 

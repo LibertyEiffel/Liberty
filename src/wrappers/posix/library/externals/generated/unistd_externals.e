@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	access (a_name: POINTER; a_type: INTEGER): INTEGER 
 
-		-- function access (in 287 at line /usr/include/unistd.h)i
+		-- function access (in 287 at line /usr/include/unistd.h)
                -- access
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	acct (a_name: POINTER): INTEGER 
 
-		-- function acct (in 925 at line /usr/include/unistd.h)i
+		-- function acct (in 925 at line /usr/include/unistd.h)
                -- acct
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	alarm (a_seconds: NATURAL): NATURAL 
 
-		-- function alarm (in 432 at line /usr/include/unistd.h)i
+		-- function alarm (in 432 at line /usr/include/unistd.h)
                -- alarm
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	brk (an_addr: POINTER): INTEGER 
 
-		-- function brk (in 1037 at line /usr/include/unistd.h)i
+		-- function brk (in 1037 at line /usr/include/unistd.h)
                -- brk
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	chdir (a_path: POINTER): INTEGER 
 
-		-- function chdir (in 497 at line /usr/include/unistd.h)i
+		-- function chdir (in 497 at line /usr/include/unistd.h)
                -- chdir
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	chown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER 
 
-		-- function chown (in 473 at line /usr/include/unistd.h)i
+		-- function chown (in 473 at line /usr/include/unistd.h)
                -- chown
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	chroot (a_path: POINTER): INTEGER 
 
-		-- function chroot (in 944 at line /usr/include/unistd.h)i
+		-- function chroot (in 944 at line /usr/include/unistd.h)
                -- chroot
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	close (a_fd: INTEGER): INTEGER 
 
-		-- function close (in 353 at line /usr/include/unistd.h)i
+		-- function close (in 353 at line /usr/include/unistd.h)
                -- close
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	confstr (a_name: INTEGER; a_buf: POINTER; a_len: like size_t): like size_t 
 
-		-- function confstr (in 623 at line /usr/include/unistd.h)i
+		-- function confstr (in 623 at line /usr/include/unistd.h)
                -- confstr
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	crypt (a_key: POINTER; a_salt: POINTER): POINTER 
 
-		-- function crypt (in 1120 at line /usr/include/unistd.h)i
+		-- function crypt (in 1120 at line /usr/include/unistd.h)
                -- crypt
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	daemon (a_nochdir: INTEGER; a_noclose: INTEGER): INTEGER 
 
-		-- function daemon (in 937 at line /usr/include/unistd.h)i
+		-- function daemon (in 937 at line /usr/include/unistd.h)
                -- daemon
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	dup (a_fd: INTEGER): INTEGER 
 
-		-- function dup (in 531 at line /usr/include/unistd.h)i
+		-- function dup (in 531 at line /usr/include/unistd.h)
                -- dup
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	dup2 (a_fd: INTEGER; a_fd2: INTEGER): INTEGER 
 
-		-- function dup2 (in 534 at line /usr/include/unistd.h)i
+		-- function dup2 (in 534 at line /usr/include/unistd.h)
                -- dup2
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	dup3 (a_fd: INTEGER; a_fd2: INTEGER; a_flags: INTEGER): INTEGER 
 
-		-- function dup3 (in 539 at line /usr/include/unistd.h)i
+		-- function dup3 (in 539 at line /usr/include/unistd.h)
                -- dup3
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	eaccess (a_name: POINTER; a_type: INTEGER): INTEGER 
 
-		-- function eaccess (in 296 at line /usr/include/unistd.h)i
+		-- function eaccess (in 296 at line /usr/include/unistd.h)
                -- eaccess
                external "plug_in"
                alias "{
@@ -190,7 +190,7 @@ feature {} -- External calls
 
 	encrypt (a_glibc_block: POINTER; an_edflag: INTEGER) 
 
-		-- function encrypt (in 1125 at line /usr/include/unistd.h)i
+		-- function encrypt (in 1125 at line /usr/include/unistd.h)
                -- encrypt
                external "plug_in"
                alias "{
@@ -202,7 +202,7 @@ feature {} -- External calls
 
 	endusershell 
 
-		-- function endusershell (in 930 at line /usr/include/unistd.h)i
+		-- function endusershell (in 930 at line /usr/include/unistd.h)
                -- endusershell
                external "plug_in"
                alias "{
@@ -245,7 +245,7 @@ feature {} -- External calls
 
 	euidaccess (a_name: POINTER; a_type: INTEGER): INTEGER 
 
-		-- function euidaccess (in 292 at line /usr/include/unistd.h)i
+		-- function euidaccess (in 292 at line /usr/include/unistd.h)
                -- euidaccess
                external "plug_in"
                alias "{
@@ -257,7 +257,7 @@ feature {} -- External calls
 
 	execl (a_path: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function execl (in 573 at line /usr/include/unistd.h)i
+		-- function execl (in 573 at line /usr/include/unistd.h)
                -- execl (variadic call) 
                external "plug_in"
                alias "{
@@ -269,7 +269,7 @@ feature {} -- External calls
 
 	execle (a_path: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function execle (in 568 at line /usr/include/unistd.h)i
+		-- function execle (in 568 at line /usr/include/unistd.h)
                -- execle (variadic call) 
                external "plug_in"
                alias "{
@@ -281,7 +281,7 @@ feature {} -- External calls
 
 	execlp (a_file: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function execlp (in 584 at line /usr/include/unistd.h)i
+		-- function execlp (in 584 at line /usr/include/unistd.h)
                -- execlp (variadic call) 
                external "plug_in"
                alias "{
@@ -293,7 +293,7 @@ feature {} -- External calls
 
 	execv (a_path: POINTER; an_argv: POINTER): INTEGER 
 
-		-- function execv (in 563 at line /usr/include/unistd.h)i
+		-- function execv (in 563 at line /usr/include/unistd.h)
                -- execv
                external "plug_in"
                alias "{
@@ -305,7 +305,7 @@ feature {} -- External calls
 
 	execve (a_path: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER 
 
-		-- function execve (in 551 at line /usr/include/unistd.h)i
+		-- function execve (in 551 at line /usr/include/unistd.h)
                -- execve
                external "plug_in"
                alias "{
@@ -317,7 +317,7 @@ feature {} -- External calls
 
 	execvp (a_file: POINTER; an_argv: POINTER): INTEGER 
 
-		-- function execvp (in 578 at line /usr/include/unistd.h)i
+		-- function execvp (in 578 at line /usr/include/unistd.h)
                -- execvp
                external "plug_in"
                alias "{
@@ -329,7 +329,7 @@ feature {} -- External calls
 
 	execvpe (a_file: POINTER; an_argv: POINTER; an_envp: POINTER): INTEGER 
 
-		-- function execvpe (in 590 at line /usr/include/unistd.h)i
+		-- function execvpe (in 590 at line /usr/include/unistd.h)
                -- execvpe
                external "plug_in"
                alias "{
@@ -342,7 +342,7 @@ feature {} -- External calls
 	-- `hidden' function _exit skipped.
 	faccessat (a_fd: INTEGER; a_file: POINTER; a_type: INTEGER; a_flag: INTEGER): INTEGER 
 
-		-- function faccessat (in 304 at line /usr/include/unistd.h)i
+		-- function faccessat (in 304 at line /usr/include/unistd.h)
                -- faccessat
                external "plug_in"
                alias "{
@@ -354,7 +354,7 @@ feature {} -- External calls
 
 	fchdir (a_fd: INTEGER): INTEGER 
 
-		-- function fchdir (in 501 at line /usr/include/unistd.h)i
+		-- function fchdir (in 501 at line /usr/include/unistd.h)
                -- fchdir
                external "plug_in"
                alias "{
@@ -366,7 +366,7 @@ feature {} -- External calls
 
 	fchown (a_fd: INTEGER; an_owner: NATURAL; a_group: NATURAL): INTEGER 
 
-		-- function fchown (in 478 at line /usr/include/unistd.h)i
+		-- function fchown (in 478 at line /usr/include/unistd.h)
                -- fchown
                external "plug_in"
                alias "{
@@ -378,7 +378,7 @@ feature {} -- External calls
 
 	fchownat (a_fd: INTEGER; a_file: POINTER; an_owner: NATURAL; a_group: NATURAL; a_flag: INTEGER): INTEGER 
 
-		-- function fchownat (in 491 at line /usr/include/unistd.h)i
+		-- function fchownat (in 491 at line /usr/include/unistd.h)
                -- fchownat
                external "plug_in"
                alias "{
@@ -390,7 +390,7 @@ feature {} -- External calls
 
 	fdatasync (a_fildes: INTEGER): INTEGER 
 
-		-- function fdatasync (in 1112 at line /usr/include/unistd.h)i
+		-- function fdatasync (in 1112 at line /usr/include/unistd.h)
                -- fdatasync
                external "plug_in"
                alias "{
@@ -402,7 +402,7 @@ feature {} -- External calls
 
 	fexecve (a_fd: INTEGER; an_argv: POINTER; an_envp: POINTER): INTEGER 
 
-		-- function fexecve (in 557 at line /usr/include/unistd.h)i
+		-- function fexecve (in 557 at line /usr/include/unistd.h)
                -- fexecve
                external "plug_in"
                alias "{
@@ -414,7 +414,7 @@ feature {} -- External calls
 
 	fork: INTEGER 
 
-		-- function fork (in 756 at line /usr/include/unistd.h)i
+		-- function fork (in 756 at line /usr/include/unistd.h)
                -- fork
                external "plug_in"
                alias "{
@@ -426,7 +426,7 @@ feature {} -- External calls
 
 	fpathconf (a_fd: INTEGER; a_name: INTEGER): like long 
 
-		-- function fpathconf (in 616 at line /usr/include/unistd.h)i
+		-- function fpathconf (in 616 at line /usr/include/unistd.h)
                -- fpathconf
                external "plug_in"
                alias "{
@@ -438,7 +438,7 @@ feature {} -- External calls
 
 	fsync (a_fd: INTEGER): INTEGER 
 
-		-- function fsync (in 956 at line /usr/include/unistd.h)i
+		-- function fsync (in 956 at line /usr/include/unistd.h)
                -- fsync
                external "plug_in"
                alias "{
@@ -450,7 +450,7 @@ feature {} -- External calls
 
 	ftruncate (a_fd: INTEGER; a_length: like long): INTEGER 
 
-		-- function ftruncate (in 1016 at line /usr/include/unistd.h)i
+		-- function ftruncate (in 1016 at line /usr/include/unistd.h)
                -- ftruncate
                external "plug_in"
                alias "{
@@ -462,7 +462,7 @@ feature {} -- External calls
 
 	ftruncate64 (a_fd: INTEGER; a_length: like long): INTEGER 
 
-		-- function ftruncate64 (in 1026 at line /usr/include/unistd.h)i
+		-- function ftruncate64 (in 1026 at line /usr/include/unistd.h)
                -- ftruncate64
                external "plug_in"
                alias "{
@@ -474,7 +474,7 @@ feature {} -- External calls
 
 	get_current_dir_name: POINTER 
 
-		-- function get_current_dir_name (in 517 at line /usr/include/unistd.h)i
+		-- function get_current_dir_name (in 517 at line /usr/include/unistd.h)
                -- get_current_dir_name
                external "plug_in"
                alias "{
@@ -486,7 +486,7 @@ feature {} -- External calls
 
 	getcwd (a_buf: POINTER; a_size: like size_t): POINTER 
 
-		-- function getcwd (in 511 at line /usr/include/unistd.h)i
+		-- function getcwd (in 511 at line /usr/include/unistd.h)
                -- getcwd
                external "plug_in"
                alias "{
@@ -498,7 +498,7 @@ feature {} -- External calls
 
 	getdomainname (a_name: POINTER; a_len: like size_t): INTEGER 
 
-		-- function getdomainname (in 897 at line /usr/include/unistd.h)i
+		-- function getdomainname (in 897 at line /usr/include/unistd.h)
                -- getdomainname
                external "plug_in"
                alias "{
@@ -510,7 +510,7 @@ feature {} -- External calls
 
 	getdtablesize: INTEGER 
 
-		-- function getdtablesize (in 983 at line /usr/include/unistd.h)i
+		-- function getdtablesize (in 983 at line /usr/include/unistd.h)
                -- getdtablesize
                external "plug_in"
                alias "{
@@ -522,7 +522,7 @@ feature {} -- External calls
 
 	getegid: NATURAL 
 
-		-- function getegid (in 684 at line /usr/include/unistd.h)i
+		-- function getegid (in 684 at line /usr/include/unistd.h)
                -- getegid
                external "plug_in"
                alias "{
@@ -534,7 +534,7 @@ feature {} -- External calls
 
 	geteuid: NATURAL 
 
-		-- function geteuid (in 678 at line /usr/include/unistd.h)i
+		-- function geteuid (in 678 at line /usr/include/unistd.h)
                -- geteuid
                external "plug_in"
                alias "{
@@ -546,7 +546,7 @@ feature {} -- External calls
 
 	getgid: NATURAL 
 
-		-- function getgid (in 681 at line /usr/include/unistd.h)i
+		-- function getgid (in 681 at line /usr/include/unistd.h)
                -- getgid
                external "plug_in"
                alias "{
@@ -558,7 +558,7 @@ feature {} -- External calls
 
 	getgroups (a_size: INTEGER; a_list: POINTER): INTEGER 
 
-		-- function getgroups (in 689 at line /usr/include/unistd.h)i
+		-- function getgroups (in 689 at line /usr/include/unistd.h)
                -- getgroups
                external "plug_in"
                alias "{
@@ -570,7 +570,7 @@ feature {} -- External calls
 
 	gethostid: like long 
 
-		-- function gethostid (in 969 at line /usr/include/unistd.h)i
+		-- function gethostid (in 969 at line /usr/include/unistd.h)
                -- gethostid
                external "plug_in"
                alias "{
@@ -582,7 +582,7 @@ feature {} -- External calls
 
 	gethostname (a_name: POINTER; a_len: like size_t): INTEGER 
 
-		-- function gethostname (in 879 at line /usr/include/unistd.h)i
+		-- function gethostname (in 879 at line /usr/include/unistd.h)
                -- gethostname
                external "plug_in"
                alias "{
@@ -594,7 +594,7 @@ feature {} -- External calls
 
 	getlogin: POINTER 
 
-		-- function getlogin (in 849 at line /usr/include/unistd.h)i
+		-- function getlogin (in 849 at line /usr/include/unistd.h)
                -- getlogin
                external "plug_in"
                alias "{
@@ -606,7 +606,7 @@ feature {} -- External calls
 
 	getlogin_r (a_name: POINTER; a_name_len: like size_t): INTEGER 
 
-		-- function getlogin_r (in 857 at line /usr/include/unistd.h)i
+		-- function getlogin_r (in 857 at line /usr/include/unistd.h)
                -- getlogin_r
                external "plug_in"
                alias "{
@@ -618,7 +618,7 @@ feature {} -- External calls
 
 	getpagesize: INTEGER 
 
-		-- function getpagesize (in 978 at line /usr/include/unistd.h)i
+		-- function getpagesize (in 978 at line /usr/include/unistd.h)
                -- getpagesize
                external "plug_in"
                alias "{
@@ -630,7 +630,7 @@ feature {} -- External calls
 
 	getpass (a_prompt: POINTER): POINTER 
 
-		-- function getpass (in 948 at line /usr/include/unistd.h)i
+		-- function getpass (in 948 at line /usr/include/unistd.h)
                -- getpass
                external "plug_in"
                alias "{
@@ -643,7 +643,7 @@ feature {} -- External calls
 	-- `hidden' function __getpgid skipped.
 	getpgid (a_pid: INTEGER): INTEGER 
 
-		-- function getpgid (in 639 at line /usr/include/unistd.h)i
+		-- function getpgid (in 639 at line /usr/include/unistd.h)
                -- getpgid
                external "plug_in"
                alias "{
@@ -655,7 +655,7 @@ feature {} -- External calls
 
 	getpgrp: INTEGER 
 
-		-- function getpgrp (in 634 at line /usr/include/unistd.h)i
+		-- function getpgrp (in 634 at line /usr/include/unistd.h)
                -- getpgrp
                external "plug_in"
                alias "{
@@ -667,7 +667,7 @@ feature {} -- External calls
 
 	getpid: INTEGER 
 
-		-- function getpid (in 628 at line /usr/include/unistd.h)i
+		-- function getpid (in 628 at line /usr/include/unistd.h)
                -- getpid
                external "plug_in"
                alias "{
@@ -679,7 +679,7 @@ feature {} -- External calls
 
 	getppid: INTEGER 
 
-		-- function getppid (in 631 at line /usr/include/unistd.h)i
+		-- function getppid (in 631 at line /usr/include/unistd.h)
                -- getppid
                external "plug_in"
                alias "{
@@ -691,7 +691,7 @@ feature {} -- External calls
 
 	getresgid (a_rgid: POINTER; an_egid: POINTER; a_sgid: POINTER): INTEGER 
 
-		-- function getresgid (in 738 at line /usr/include/unistd.h)i
+		-- function getresgid (in 738 at line /usr/include/unistd.h)
                -- getresgid
                external "plug_in"
                alias "{
@@ -703,7 +703,7 @@ feature {} -- External calls
 
 	getresuid (a_ruid: POINTER; an_euid: POINTER; a_suid: POINTER): INTEGER 
 
-		-- function getresuid (in 733 at line /usr/include/unistd.h)i
+		-- function getresuid (in 733 at line /usr/include/unistd.h)
                -- getresuid
                external "plug_in"
                alias "{
@@ -715,7 +715,7 @@ feature {} -- External calls
 
 	getsid (a_pid: INTEGER): INTEGER 
 
-		-- function getsid (in 671 at line /usr/include/unistd.h)i
+		-- function getsid (in 671 at line /usr/include/unistd.h)
                -- getsid
                external "plug_in"
                alias "{
@@ -727,7 +727,7 @@ feature {} -- External calls
 
 	getuid: NATURAL 
 
-		-- function getuid (in 675 at line /usr/include/unistd.h)i
+		-- function getuid (in 675 at line /usr/include/unistd.h)
                -- getuid
                external "plug_in"
                alias "{
@@ -739,7 +739,7 @@ feature {} -- External calls
 
 	getusershell: POINTER 
 
-		-- function getusershell (in 929 at line /usr/include/unistd.h)i
+		-- function getusershell (in 929 at line /usr/include/unistd.h)
                -- getusershell
                external "plug_in"
                alias "{
@@ -751,7 +751,7 @@ feature {} -- External calls
 
 	getwd (a_buf: POINTER): POINTER 
 
-		-- function getwd (in 525 at line /usr/include/unistd.h)i
+		-- function getwd (in 525 at line /usr/include/unistd.h)
                -- getwd
                external "plug_in"
                alias "{
@@ -763,7 +763,7 @@ feature {} -- External calls
 
 	group_member (a_gid: NATURAL): INTEGER 
 
-		-- function group_member (in 693 at line /usr/include/unistd.h)i
+		-- function group_member (in 693 at line /usr/include/unistd.h)
                -- group_member
                external "plug_in"
                alias "{
@@ -775,7 +775,7 @@ feature {} -- External calls
 
 	isatty (a_fd: INTEGER): INTEGER 
 
-		-- function isatty (in 779 at line /usr/include/unistd.h)i
+		-- function isatty (in 779 at line /usr/include/unistd.h)
                -- isatty
                external "plug_in"
                alias "{
@@ -787,7 +787,7 @@ feature {} -- External calls
 
 	lchown (a_file: POINTER; an_owner: NATURAL; a_group: NATURAL): INTEGER 
 
-		-- function lchown (in 483 at line /usr/include/unistd.h)i
+		-- function lchown (in 483 at line /usr/include/unistd.h)
                -- lchown
                external "plug_in"
                alias "{
@@ -799,7 +799,7 @@ feature {} -- External calls
 
 	link (a_from_external: POINTER; a_to: POINTER): INTEGER 
 
-		-- function link (in 790 at line /usr/include/unistd.h)i
+		-- function link (in 790 at line /usr/include/unistd.h)
                -- link
                external "plug_in"
                alias "{
@@ -811,7 +811,7 @@ feature {} -- External calls
 
 	linkat (a_fromfd: INTEGER; a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function linkat (in 796 at line /usr/include/unistd.h)i
+		-- function linkat (in 796 at line /usr/include/unistd.h)
                -- linkat
                external "plug_in"
                alias "{
@@ -823,7 +823,7 @@ feature {} -- External calls
 
 	lseek (a_fd: INTEGER; an_offset: like long; a_whence: INTEGER): like long 
 
-		-- function lseek (in 334 at line /usr/include/unistd.h)i
+		-- function lseek (in 334 at line /usr/include/unistd.h)
                -- lseek
                external "plug_in"
                alias "{
@@ -835,7 +835,7 @@ feature {} -- External calls
 
 	lseek64 (a_fd: INTEGER; an_offset: like long; a_whence: INTEGER): like long 
 
-		-- function lseek64 (in 345 at line /usr/include/unistd.h)i
+		-- function lseek64 (in 345 at line /usr/include/unistd.h)
                -- lseek64
                external "plug_in"
                alias "{
@@ -847,7 +847,7 @@ feature {} -- External calls
 
 	nice (an_inc: INTEGER): INTEGER 
 
-		-- function nice (in 598 at line /usr/include/unistd.h)i
+		-- function nice (in 598 at line /usr/include/unistd.h)
                -- nice
                external "plug_in"
                alias "{
@@ -859,7 +859,7 @@ feature {} -- External calls
 
 	pathconf (a_path: POINTER; a_name: INTEGER): like long 
 
-		-- function pathconf (in 612 at line /usr/include/unistd.h)i
+		-- function pathconf (in 612 at line /usr/include/unistd.h)
                -- pathconf
                external "plug_in"
                alias "{
@@ -871,7 +871,7 @@ feature {} -- External calls
 
 	pause: INTEGER 
 
-		-- function pause (in 469 at line /usr/include/unistd.h)i
+		-- function pause (in 469 at line /usr/include/unistd.h)
                -- pause
                external "plug_in"
                alias "{
@@ -883,7 +883,7 @@ feature {} -- External calls
 
 	pipe (a_pipedes: POINTER): INTEGER 
 
-		-- function pipe (in 417 at line /usr/include/unistd.h)i
+		-- function pipe (in 417 at line /usr/include/unistd.h)
                -- pipe
                external "plug_in"
                alias "{
@@ -895,7 +895,7 @@ feature {} -- External calls
 
 	pipe2 (a_pipedes: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function pipe2 (in 422 at line /usr/include/unistd.h)i
+		-- function pipe2 (in 422 at line /usr/include/unistd.h)
                -- pipe2
                external "plug_in"
                alias "{
@@ -907,7 +907,7 @@ feature {} -- External calls
 
 	pread (a_fd: INTEGER; a_buf: POINTER; a_nbytes: like size_t; an_offset: like long): like ssize_t 
 
-		-- function pread (in 376 at line /usr/include/unistd.h)i
+		-- function pread (in 376 at line /usr/include/unistd.h)
                -- pread
                external "plug_in"
                alias "{
@@ -919,7 +919,7 @@ feature {} -- External calls
 
 	pread64 (a_fd: INTEGER; a_buf: POINTER; a_nbytes: like size_t; an_offset: like long): like ssize_t 
 
-		-- function pread64 (in 404 at line /usr/include/unistd.h)i
+		-- function pread64 (in 404 at line /usr/include/unistd.h)
                -- pread64
                external "plug_in"
                alias "{
@@ -931,7 +931,7 @@ feature {} -- External calls
 
 	profil (a_sample_buffer: POINTER; a_size: like size_t; an_offset: like size_t; a_scale: NATURAL): INTEGER 
 
-		-- function profil (in 917 at line /usr/include/unistd.h)i
+		-- function profil (in 917 at line /usr/include/unistd.h)
                -- profil
                external "plug_in"
                alias "{
@@ -943,7 +943,7 @@ feature {} -- External calls
 
 	pwrite (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: like long): like ssize_t 
 
-		-- function pwrite (in 384 at line /usr/include/unistd.h)i
+		-- function pwrite (in 384 at line /usr/include/unistd.h)
                -- pwrite
                external "plug_in"
                alias "{
@@ -955,7 +955,7 @@ feature {} -- External calls
 
 	pwrite64 (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t; an_offset: like long): like ssize_t 
 
-		-- function pwrite64 (in 408 at line /usr/include/unistd.h)i
+		-- function pwrite64 (in 408 at line /usr/include/unistd.h)
                -- pwrite64
                external "plug_in"
                alias "{
@@ -967,7 +967,7 @@ feature {} -- External calls
 
 	read (a_fd: INTEGER; a_buf: POINTER; a_nbytes: like size_t): like ssize_t 
 
-		-- function read (in 360 at line /usr/include/unistd.h)i
+		-- function read (in 360 at line /usr/include/unistd.h)
                -- read
                external "plug_in"
                alias "{
@@ -979,7 +979,7 @@ feature {} -- External calls
 
 	readlink (a_path: POINTER; a_buf: POINTER; a_len: like size_t): like ssize_t 
 
-		-- function readlink (in 809 at line /usr/include/unistd.h)i
+		-- function readlink (in 809 at line /usr/include/unistd.h)
                -- readlink
                external "plug_in"
                alias "{
@@ -991,7 +991,7 @@ feature {} -- External calls
 
 	readlinkat (a_fd: INTEGER; a_path: POINTER; a_buf: POINTER; a_len: like size_t): like ssize_t 
 
-		-- function readlinkat (in 820 at line /usr/include/unistd.h)i
+		-- function readlinkat (in 820 at line /usr/include/unistd.h)
                -- readlinkat
                external "plug_in"
                alias "{
@@ -1003,7 +1003,7 @@ feature {} -- External calls
 
 	revoke (a_file: POINTER): INTEGER 
 
-		-- function revoke (in 909 at line /usr/include/unistd.h)i
+		-- function revoke (in 909 at line /usr/include/unistd.h)
                -- revoke
                external "plug_in"
                alias "{
@@ -1015,7 +1015,7 @@ feature {} -- External calls
 
 	rmdir (a_path: POINTER): INTEGER 
 
-		-- function rmdir (in 835 at line /usr/include/unistd.h)i
+		-- function rmdir (in 835 at line /usr/include/unistd.h)
                -- rmdir
                external "plug_in"
                alias "{
@@ -1027,7 +1027,7 @@ feature {} -- External calls
 
 	sbrk (a_delta: like intptr_t): POINTER 
 
-		-- function sbrk (in 1043 at line /usr/include/unistd.h)i
+		-- function sbrk (in 1043 at line /usr/include/unistd.h)
                -- sbrk
                external "plug_in"
                alias "{
@@ -1039,7 +1039,7 @@ feature {} -- External calls
 
 	setdomainname (a_name: POINTER; a_len: like size_t): INTEGER 
 
-		-- function setdomainname (in 899 at line /usr/include/unistd.h)i
+		-- function setdomainname (in 899 at line /usr/include/unistd.h)
                -- setdomainname
                external "plug_in"
                alias "{
@@ -1051,7 +1051,7 @@ feature {} -- External calls
 
 	setegid (a_gid: NATURAL): INTEGER 
 
-		-- function setegid (in 727 at line /usr/include/unistd.h)i
+		-- function setegid (in 727 at line /usr/include/unistd.h)
                -- setegid
                external "plug_in"
                alias "{
@@ -1063,7 +1063,7 @@ feature {} -- External calls
 
 	seteuid (an_uid: NATURAL): INTEGER 
 
-		-- function seteuid (in 710 at line /usr/include/unistd.h)i
+		-- function seteuid (in 710 at line /usr/include/unistd.h)
                -- seteuid
                external "plug_in"
                alias "{
@@ -1075,7 +1075,7 @@ feature {} -- External calls
 
 	setgid (a_gid: NATURAL): INTEGER 
 
-		-- function setgid (in 717 at line /usr/include/unistd.h)i
+		-- function setgid (in 717 at line /usr/include/unistd.h)
                -- setgid
                external "plug_in"
                alias "{
@@ -1087,7 +1087,7 @@ feature {} -- External calls
 
 	sethostid (an_id: like long): INTEGER 
 
-		-- function sethostid (in 891 at line /usr/include/unistd.h)i
+		-- function sethostid (in 891 at line /usr/include/unistd.h)
                -- sethostid
                external "plug_in"
                alias "{
@@ -1099,7 +1099,7 @@ feature {} -- External calls
 
 	sethostname (a_name: POINTER; a_len: like size_t): INTEGER 
 
-		-- function sethostname (in 886 at line /usr/include/unistd.h)i
+		-- function sethostname (in 886 at line /usr/include/unistd.h)
                -- sethostname
                external "plug_in"
                alias "{
@@ -1111,7 +1111,7 @@ feature {} -- External calls
 
 	setlogin (a_name: POINTER): INTEGER 
 
-		-- function setlogin (in 862 at line /usr/include/unistd.h)i
+		-- function setlogin (in 862 at line /usr/include/unistd.h)
                -- setlogin
                external "plug_in"
                alias "{
@@ -1123,7 +1123,7 @@ feature {} -- External calls
 
 	setpgid (a_pid: INTEGER; a_pgid: INTEGER): INTEGER 
 
-		-- function setpgid (in 646 at line /usr/include/unistd.h)i
+		-- function setpgid (in 646 at line /usr/include/unistd.h)
                -- setpgid
                external "plug_in"
                alias "{
@@ -1135,7 +1135,7 @@ feature {} -- External calls
 
 	setpgrp: INTEGER 
 
-		-- function setpgrp (in 660 at line /usr/include/unistd.h)i
+		-- function setpgrp (in 660 at line /usr/include/unistd.h)
                -- setpgrp
                external "plug_in"
                alias "{
@@ -1147,7 +1147,7 @@ feature {} -- External calls
 
 	setregid (a_rgid: NATURAL; an_egid: NATURAL): INTEGER 
 
-		-- function setregid (in 722 at line /usr/include/unistd.h)i
+		-- function setregid (in 722 at line /usr/include/unistd.h)
                -- setregid
                external "plug_in"
                alias "{
@@ -1159,7 +1159,7 @@ feature {} -- External calls
 
 	setresgid (a_rgid: NATURAL; an_egid: NATURAL; a_sgid: NATURAL): INTEGER 
 
-		-- function setresgid (in 748 at line /usr/include/unistd.h)i
+		-- function setresgid (in 748 at line /usr/include/unistd.h)
                -- setresgid
                external "plug_in"
                alias "{
@@ -1171,7 +1171,7 @@ feature {} -- External calls
 
 	setresuid (a_ruid: NATURAL; an_euid: NATURAL; a_suid: NATURAL): INTEGER 
 
-		-- function setresuid (in 743 at line /usr/include/unistd.h)i
+		-- function setresuid (in 743 at line /usr/include/unistd.h)
                -- setresuid
                external "plug_in"
                alias "{
@@ -1183,7 +1183,7 @@ feature {} -- External calls
 
 	setreuid (a_ruid: NATURAL; an_euid: NATURAL): INTEGER 
 
-		-- function setreuid (in 705 at line /usr/include/unistd.h)i
+		-- function setreuid (in 705 at line /usr/include/unistd.h)
                -- setreuid
                external "plug_in"
                alias "{
@@ -1195,7 +1195,7 @@ feature {} -- External calls
 
 	setsid: INTEGER 
 
-		-- function setsid (in 667 at line /usr/include/unistd.h)i
+		-- function setsid (in 667 at line /usr/include/unistd.h)
                -- setsid
                external "plug_in"
                alias "{
@@ -1207,7 +1207,7 @@ feature {} -- External calls
 
 	setuid (an_uid: NATURAL): INTEGER 
 
-		-- function setuid (in 700 at line /usr/include/unistd.h)i
+		-- function setuid (in 700 at line /usr/include/unistd.h)
                -- setuid
                external "plug_in"
                alias "{
@@ -1219,7 +1219,7 @@ feature {} -- External calls
 
 	setusershell 
 
-		-- function setusershell (in 931 at line /usr/include/unistd.h)i
+		-- function setusershell (in 931 at line /usr/include/unistd.h)
                -- setusershell
                external "plug_in"
                alias "{
@@ -1231,7 +1231,7 @@ feature {} -- External calls
 
 	sleep (a_seconds: NATURAL): NATURAL 
 
-		-- function sleep (in 444 at line /usr/include/unistd.h)i
+		-- function sleep (in 444 at line /usr/include/unistd.h)
                -- sleep
                external "plug_in"
                alias "{
@@ -1243,7 +1243,7 @@ feature {} -- External calls
 
 	swab (a_from_external: POINTER; a_to: POINTER; a_n: like ssize_t) 
 
-		-- function swab (in 1133 at line /usr/include/unistd.h)i
+		-- function swab (in 1133 at line /usr/include/unistd.h)
                -- swab
                external "plug_in"
                alias "{
@@ -1255,7 +1255,7 @@ feature {} -- External calls
 
 	symlink (a_from_external: POINTER; a_to: POINTER): INTEGER 
 
-		-- function symlink (in 803 at line /usr/include/unistd.h)i
+		-- function symlink (in 803 at line /usr/include/unistd.h)
                -- symlink
                external "plug_in"
                alias "{
@@ -1267,7 +1267,7 @@ feature {} -- External calls
 
 	symlinkat (a_from_external: POINTER; a_tofd: INTEGER; a_to: POINTER): INTEGER 
 
-		-- function symlinkat (in 816 at line /usr/include/unistd.h)i
+		-- function symlinkat (in 816 at line /usr/include/unistd.h)
                -- symlinkat
                external "plug_in"
                alias "{
@@ -1279,7 +1279,7 @@ feature {} -- External calls
 
 	sync 
 
-		-- function sync (in 972 at line /usr/include/unistd.h)i
+		-- function sync (in 972 at line /usr/include/unistd.h)
                -- sync
                external "plug_in"
                alias "{
@@ -1291,7 +1291,7 @@ feature {} -- External calls
 
 	syncfs (a_fd: INTEGER): INTEGER 
 
-		-- function syncfs (in 962 at line /usr/include/unistd.h)i
+		-- function syncfs (in 962 at line /usr/include/unistd.h)
                -- syncfs
                external "plug_in"
                alias "{
@@ -1303,7 +1303,7 @@ feature {} -- External calls
 
 	syscall (a_sysno: like long): like long 
 
-		-- function syscall (in 1058 at line /usr/include/unistd.h)i
+		-- function syscall (in 1058 at line /usr/include/unistd.h)
                -- syscall (variadic call) 
                external "plug_in"
                alias "{
@@ -1315,7 +1315,7 @@ feature {} -- External calls
 
 	sysconf (a_name: INTEGER): like long 
 
-		-- function sysconf (in 619 at line /usr/include/unistd.h)i
+		-- function sysconf (in 619 at line /usr/include/unistd.h)
                -- sysconf
                external "plug_in"
                alias "{
@@ -1327,7 +1327,7 @@ feature {} -- External calls
 
 	tcgetpgrp (a_fd: INTEGER): INTEGER 
 
-		-- function tcgetpgrp (in 839 at line /usr/include/unistd.h)i
+		-- function tcgetpgrp (in 839 at line /usr/include/unistd.h)
                -- tcgetpgrp
                external "plug_in"
                alias "{
@@ -1339,7 +1339,7 @@ feature {} -- External calls
 
 	tcsetpgrp (a_fd: INTEGER; a_pgrp_id: INTEGER): INTEGER 
 
-		-- function tcsetpgrp (in 842 at line /usr/include/unistd.h)i
+		-- function tcsetpgrp (in 842 at line /usr/include/unistd.h)
                -- tcsetpgrp
                external "plug_in"
                alias "{
@@ -1351,7 +1351,7 @@ feature {} -- External calls
 
 	truncate (a_file: POINTER; a_length: like long): INTEGER 
 
-		-- function truncate (in 993 at line /usr/include/unistd.h)i
+		-- function truncate (in 993 at line /usr/include/unistd.h)
                -- truncate
                external "plug_in"
                alias "{
@@ -1363,7 +1363,7 @@ feature {} -- External calls
 
 	truncate64 (a_file: POINTER; a_length: like long): INTEGER 
 
-		-- function truncate64 (in 1005 at line /usr/include/unistd.h)i
+		-- function truncate64 (in 1005 at line /usr/include/unistd.h)
                -- truncate64
                external "plug_in"
                alias "{
@@ -1375,7 +1375,7 @@ feature {} -- External calls
 
 	ttyname (a_fd: INTEGER): POINTER 
 
-		-- function ttyname (in 770 at line /usr/include/unistd.h)i
+		-- function ttyname (in 770 at line /usr/include/unistd.h)
                -- ttyname
                external "plug_in"
                alias "{
@@ -1387,7 +1387,7 @@ feature {} -- External calls
 
 	ttyname_r (a_fd: INTEGER; a_buf: POINTER; a_buflen: like size_t): INTEGER 
 
-		-- function ttyname_r (in 774 at line /usr/include/unistd.h)i
+		-- function ttyname_r (in 774 at line /usr/include/unistd.h)
                -- ttyname_r
                external "plug_in"
                alias "{
@@ -1399,7 +1399,7 @@ feature {} -- External calls
 
 	ttyslot: INTEGER 
 
-		-- function ttyslot (in 785 at line /usr/include/unistd.h)i
+		-- function ttyslot (in 785 at line /usr/include/unistd.h)
                -- ttyslot
                external "plug_in"
                alias "{
@@ -1411,7 +1411,7 @@ feature {} -- External calls
 
 	ualarm (a_value: NATURAL; an_interval: NATURAL): NATURAL 
 
-		-- function ualarm (in 452 at line /usr/include/unistd.h)i
+		-- function ualarm (in 452 at line /usr/include/unistd.h)
                -- ualarm
                external "plug_in"
                alias "{
@@ -1423,7 +1423,7 @@ feature {} -- External calls
 
 	unlink (a_name: POINTER): INTEGER 
 
-		-- function unlink (in 826 at line /usr/include/unistd.h)i
+		-- function unlink (in 826 at line /usr/include/unistd.h)
                -- unlink
                external "plug_in"
                alias "{
@@ -1435,7 +1435,7 @@ feature {} -- External calls
 
 	unlinkat (a_fd: INTEGER; a_name: POINTER; a_flag: INTEGER): INTEGER 
 
-		-- function unlinkat (in 830 at line /usr/include/unistd.h)i
+		-- function unlinkat (in 830 at line /usr/include/unistd.h)
                -- unlinkat
                external "plug_in"
                alias "{
@@ -1447,7 +1447,7 @@ feature {} -- External calls
 
 	usleep (an_useconds: NATURAL): INTEGER 
 
-		-- function usleep (in 460 at line /usr/include/unistd.h)i
+		-- function usleep (in 460 at line /usr/include/unistd.h)
                -- usleep
                external "plug_in"
                alias "{
@@ -1459,7 +1459,7 @@ feature {} -- External calls
 
 	vfork: INTEGER 
 
-		-- function vfork (in 764 at line /usr/include/unistd.h)i
+		-- function vfork (in 764 at line /usr/include/unistd.h)
                -- vfork
                external "plug_in"
                alias "{
@@ -1471,7 +1471,7 @@ feature {} -- External calls
 
 	vhangup: INTEGER 
 
-		-- function vhangup (in 906 at line /usr/include/unistd.h)i
+		-- function vhangup (in 906 at line /usr/include/unistd.h)
                -- vhangup
                external "plug_in"
                alias "{
@@ -1483,7 +1483,7 @@ feature {} -- External calls
 
 	write (a_fd: INTEGER; a_buf: POINTER; a_n: like size_t): like ssize_t 
 
-		-- function write (in 366 at line /usr/include/unistd.h)i
+		-- function write (in 366 at line /usr/include/unistd.h)
                -- write
                external "plug_in"
                alias "{

@@ -159,10 +159,10 @@ feature {ANY} -- Statement state
 
 
 	-- TODO: Temporary implementation
-	is_prepared: BOOLEAN is do Result:=(res_code=sqlite_ok) end
-	is_stepped: BOOLEAN is do Result:=(res_code=sqlite_row) end
-	is_failed: BOOLEAN is do Result:=((not is_prepared) and (not is_stepped)) end
-	last_exec_success: BOOLEAN is
+	is_prepared: BOOLEAN do Result:=(res_code=sqlite_ok) end
+	is_stepped: BOOLEAN do Result:=(res_code=sqlite_row) end
+	is_failed: BOOLEAN do Result:=((not is_prepared) and (not is_stepped)) end
+	last_exec_success: BOOLEAN
 		do
 			Result := (not is_failed) or else res_code = sqlite_done
 		end

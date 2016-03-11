@@ -26,17 +26,10 @@ deferred class SQLITE_VALUE
 inherit VARIANT
 insert SQLITE_TYPE_CODES
 
-create
-	{ANY} from_integer, from_integer_64, from_string
-	-- {SQLITE_DATABASE} make
-
-	-- It outght convert INTEGER, INTEGER_64, ABSTRACT_STRING,
-
 feature {ANY}
 	from_integer (an_integer: INTEGER) is
 		do
 			content := an_integer.to_string
-			y
 		end
 
 	from_integer_64 (an_int_64: INTEGER_64) is

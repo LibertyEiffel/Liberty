@@ -34,8 +34,28 @@ feature {ANY}
    is_void: BOOLEAN False
 
    has_wrapper: BOOLEAN
+      local field_type: C_TYPE
       do
-         Result := types.at(dequalify(type)).has_wrapper
+          Result := types.at(dequalify(type)).has_wrapper
+      rescue
+          log("C_FIELD.has_wrapper failed%N")
+          print_run_time_stack
+          log("=========== foo! ============%N")
+          die_with_code (exit_failure_code)
+          -- if type/=Void then
+          --     field_type := types.at(dequalify(type))
+          --     if field_type /= Void then
+          --         Result := field_type.has_wrapper
+          --     else
+          --         log(once "Warning: C field #(1) in line  #(2) is of an unknown type!%N"
+          --         # c_string_name # &line )
+          --         Result := False
+          --     end
+          -- else
+          --     log(once "Warning: C field #(1) in line #(2) is typeless!%N"
+          --     # c_string_name # &line )
+          --     Result := False
+          -- end
       end
 
    wrapper_type: STRING
@@ -75,7 +95,7 @@ feature {ANY}
 			  log(once "Private field #(1) in #(2) not wrapped." # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrapped private field #(1).%N" # c_string_name)
 		  elseif not has_wrapper then
-			  log(once "Field #(1) in #(2) doesn't have a wrapper." # c_string_name # a_structure_name)
+			  log(once "Field #(1) in #(2) doesn't have a wrapper.%N" # c_string_name # a_structure_name)
 			  queries.append(once "%T-- Unwrappable field #(1).%N"#c_string_name)
 			  -- doesn't have a valid wrapper
 		  else -- we can actually wrap it

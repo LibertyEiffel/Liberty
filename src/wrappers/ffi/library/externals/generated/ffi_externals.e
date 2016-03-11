@@ -8,10 +8,9 @@ insert ANY undefine is_equal, copy end
 		STANDARD_C_LIBRARY_TYPES
 feature {} -- External calls
 
-	-- `hidden' function __builtin_memcpy skipped.
 	ffi_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) 
 
-		-- function ffi_call (in 446 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_call (in 449 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_call
                external "plug_in"
                alias "{
@@ -23,7 +22,7 @@ feature {} -- External calls
 
 	ffi_closure_alloc (a_size: like size_t; a_code: POINTER): POINTER 
 
-		-- function ffi_closure_alloc (in 333 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_closure_alloc (in 333 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_closure_alloc
                external "plug_in"
                alias "{
@@ -33,9 +32,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_closure_free (an_argument_l108_c7: POINTER) 
+	ffi_closure_free (an_argument_l58_c7: POINTER) 
 
-		-- function ffi_closure_free (in 334 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_closure_free (in 334 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_closure_free
                external "plug_in"
                alias "{
@@ -47,7 +46,7 @@ feature {} -- External calls
 
 	ffi_java_ptrarray_to_raw (a_cif: POINTER; an_args: POINTER; a_raw: POINTER) 
 
-		-- function ffi_java_ptrarray_to_raw (in 303 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_java_ptrarray_to_raw (in 303 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_java_ptrarray_to_raw
                external "plug_in"
                alias "{
@@ -59,7 +58,7 @@ feature {} -- External calls
 
 	ffi_java_raw_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) 
 
-		-- function ffi_java_raw_call (in 298 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_java_raw_call (in 301 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_java_raw_call
                external "plug_in"
                alias "{
@@ -71,7 +70,7 @@ feature {} -- External calls
 
 	ffi_java_raw_size (a_cif: POINTER): like size_t 
 
-		-- function ffi_java_raw_size (in 305 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_java_raw_size (in 305 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_java_raw_size
                external "plug_in"
                alias "{
@@ -83,7 +82,7 @@ feature {} -- External calls
 
 	ffi_java_raw_to_ptrarray (a_cif: POINTER; a_raw: POINTER; an_args: POINTER) 
 
-		-- function ffi_java_raw_to_ptrarray (in 304 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_java_raw_to_ptrarray (in 304 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_java_raw_to_ptrarray
                external "plug_in"
                alias "{
@@ -95,7 +94,7 @@ feature {} -- External calls
 
 	ffi_prep_cif (a_cif: POINTER; an_abi: INTEGER; a_nargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER 
 
-		-- function ffi_prep_cif (in 433 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_cif (in 437 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_cif
                external "plug_in"
                alias "{
@@ -107,7 +106,7 @@ feature {} -- External calls
 
 	ffi_prep_cif_core (a_cif: POINTER; an_abi: INTEGER; an_isvariadic: NATURAL; a_nfixedargs: NATURAL; a_ntotalargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER 
 
-		-- function ffi_prep_cif_core (in 240 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_cif_core (in 246 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_cif_core
                external "plug_in"
                alias "{
@@ -119,7 +118,7 @@ feature {} -- External calls
 
 	ffi_prep_cif_var (a_cif: POINTER; an_abi: INTEGER; a_nfixedargs: NATURAL; a_ntotalargs: NATURAL; a_rtype: POINTER; an_atypes: POINTER): INTEGER 
 
-		-- function ffi_prep_cif_var (in 439 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_cif_var (in 444 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_cif_var
                external "plug_in"
                alias "{
@@ -129,9 +128,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_closure (an_argument_l111_c7: POINTER; an_argument_l112_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_closure (an_argument_l144_c7: POINTER; an_argument_l145_c7: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
-		-- function ffi_prep_closure (in 337 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_closure (in 340 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_closure
                external "plug_in"
                alias "{
@@ -141,9 +140,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_closure_loc (an_argument_l117_c7: POINTER; an_argument_l118_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_closure_loc (an_argument_l137_c7: POINTER; an_argument_l138_c7: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
-		-- function ffi_prep_closure_loc (in 343 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_closure_loc (in 347 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_closure_loc
                external "plug_in"
                alias "{
@@ -153,9 +152,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_java_raw_closure (an_argument_l141_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_java_raw_closure (an_argument_l62_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
-		-- function ffi_prep_java_raw_closure (in 417 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_java_raw_closure (in 420 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_java_raw_closure
                external "plug_in"
                alias "{
@@ -165,9 +164,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_java_raw_closure_loc (an_argument_l147_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_java_raw_closure_loc (an_argument_l42_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
-		-- function ffi_prep_java_raw_closure_loc (in 423 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_java_raw_closure_loc (in 427 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_java_raw_closure_loc
                external "plug_in"
                alias "{
@@ -177,9 +176,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_raw_closure (an_argument_l128_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
+	ffi_prep_raw_closure (an_argument_l131_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER): INTEGER 
 
-		-- function ffi_prep_raw_closure (in 404 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_raw_closure (in 407 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_raw_closure
                external "plug_in"
                alias "{
@@ -189,9 +188,9 @@ feature {} -- External calls
                }"
                end
 
-	ffi_prep_raw_closure_loc (an_argument_l134_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
+	ffi_prep_raw_closure_loc (an_argument_l68_c7: POINTER; a_cif: POINTER; a_fun: POINTER; an_user_data: POINTER; a_codeloc: POINTER): INTEGER 
 
-		-- function ffi_prep_raw_closure_loc (in 410 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_prep_raw_closure_loc (in 414 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_prep_raw_closure_loc
                external "plug_in"
                alias "{
@@ -203,7 +202,7 @@ feature {} -- External calls
 
 	ffi_ptrarray_to_raw (a_cif: POINTER; an_args: POINTER; a_raw: POINTER) 
 
-		-- function ffi_ptrarray_to_raw (in 290 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_ptrarray_to_raw (in 290 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_ptrarray_to_raw
                external "plug_in"
                alias "{
@@ -215,7 +214,7 @@ feature {} -- External calls
 
 	ffi_raw_call (a_cif: POINTER; a_fn: POINTER; a_rvalue: POINTER; an_avalue: POINTER) 
 
-		-- function ffi_raw_call (in 285 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_raw_call (in 288 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_raw_call
                external "plug_in"
                alias "{
@@ -227,7 +226,7 @@ feature {} -- External calls
 
 	ffi_raw_size (a_cif: POINTER): like size_t 
 
-		-- function ffi_raw_size (in 292 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_raw_size (in 292 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_raw_size
                external "plug_in"
                alias "{
@@ -239,7 +238,7 @@ feature {} -- External calls
 
 	ffi_raw_to_ptrarray (a_cif: POINTER; a_raw: POINTER; an_args: POINTER) 
 
-		-- function ffi_raw_to_ptrarray (in 291 at line /usr/include/x86_64-linux-gnu/ffi.h)i
+		-- function ffi_raw_to_ptrarray (in 291 at line /usr/include/x86_64-linux-gnu/ffi.h)
                -- ffi_raw_to_ptrarray
                external "plug_in"
                alias "{

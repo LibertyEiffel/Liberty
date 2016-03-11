@@ -11,7 +11,7 @@ feature {} -- External calls
 	-- `hidden' function __builtin_memcpy skipped.
 	zmq_bind (a_s: POINTER; an_addr: POINTER): INTEGER 
 
-		-- function zmq_bind (in 227 at line /usr/include/zmq.h)i
+		-- function zmq_bind (in 227 at line /usr/include/zmq.h)
                -- zmq_bind
                external "plug_in"
                alias "{
@@ -23,7 +23,7 @@ feature {} -- External calls
 
 	zmq_close (a_s: POINTER): INTEGER 
 
-		-- function zmq_close (in 222 at line /usr/include/zmq.h)i
+		-- function zmq_close (in 222 at line /usr/include/zmq.h)
                -- zmq_close
                external "plug_in"
                alias "{
@@ -35,7 +35,7 @@ feature {} -- External calls
 
 	zmq_connect (a_s: POINTER; an_addr: POINTER): INTEGER 
 
-		-- function zmq_connect (in 228 at line /usr/include/zmq.h)i
+		-- function zmq_connect (in 228 at line /usr/include/zmq.h)
                -- zmq_connect
                external "plug_in"
                alias "{
@@ -47,7 +47,7 @@ feature {} -- External calls
 
 	zmq_device (a_device: INTEGER; an_insocket: POINTER; an_outsocket: POINTER): INTEGER 
 
-		-- function zmq_device (in 262 at line /usr/include/zmq.h)i
+		-- function zmq_device (in 262 at line /usr/include/zmq.h)
                -- zmq_device
                external "plug_in"
                alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 
 	zmq_errno: INTEGER 
 
-		-- function zmq_errno (in 115 at line /usr/include/zmq.h)i
+		-- function zmq_errno (in 115 at line /usr/include/zmq.h)
                -- zmq_errno
                external "plug_in"
                alias "{
@@ -71,7 +71,7 @@ feature {} -- External calls
 
 	zmq_getsockopt (a_s: POINTER; an_option: INTEGER; an_optval: POINTER; an_optvallen: POINTER): INTEGER 
 
-		-- function zmq_getsockopt (in 225 at line /usr/include/zmq.h)i
+		-- function zmq_getsockopt (in 225 at line /usr/include/zmq.h)
                -- zmq_getsockopt
                external "plug_in"
                alias "{
@@ -83,7 +83,7 @@ feature {} -- External calls
 
 	zmq_init (an_io_threads: INTEGER): POINTER 
 
-		-- function zmq_init (in 169 at line /usr/include/zmq.h)i
+		-- function zmq_init (in 169 at line /usr/include/zmq.h)
                -- zmq_init
                external "plug_in"
                alias "{
@@ -95,7 +95,7 @@ feature {} -- External calls
 
 	zmq_msg_close (a_msg: POINTER): INTEGER 
 
-		-- function zmq_msg_close (in 159 at line /usr/include/zmq.h)i
+		-- function zmq_msg_close (in 159 at line /usr/include/zmq.h)
                -- zmq_msg_close
                external "plug_in"
                alias "{
@@ -107,7 +107,7 @@ feature {} -- External calls
 
 	zmq_msg_copy (a_dest: POINTER; a_src: POINTER): INTEGER 
 
-		-- function zmq_msg_copy (in 161 at line /usr/include/zmq.h)i
+		-- function zmq_msg_copy (in 161 at line /usr/include/zmq.h)
                -- zmq_msg_copy
                external "plug_in"
                alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 
 	zmq_msg_data (a_msg: POINTER): POINTER 
 
-		-- function zmq_msg_data (in 162 at line /usr/include/zmq.h)i
+		-- function zmq_msg_data (in 162 at line /usr/include/zmq.h)
                -- zmq_msg_data
                external "plug_in"
                alias "{
@@ -131,7 +131,7 @@ feature {} -- External calls
 
 	zmq_msg_init (a_msg: POINTER): INTEGER 
 
-		-- function zmq_msg_init (in 155 at line /usr/include/zmq.h)i
+		-- function zmq_msg_init (in 155 at line /usr/include/zmq.h)
                -- zmq_msg_init
                external "plug_in"
                alias "{
@@ -143,7 +143,7 @@ feature {} -- External calls
 
 	zmq_msg_init_data (a_msg: POINTER; a_data: POINTER; a_size: like size_t; a_ffn: POINTER; a_hint: POINTER): INTEGER 
 
-		-- function zmq_msg_init_data (in 157 at line /usr/include/zmq.h)i
+		-- function zmq_msg_init_data (in 157 at line /usr/include/zmq.h)
                -- zmq_msg_init_data
                external "plug_in"
                alias "{
@@ -155,7 +155,7 @@ feature {} -- External calls
 
 	zmq_msg_init_size (a_msg: POINTER; a_size: like size_t): INTEGER 
 
-		-- function zmq_msg_init_size (in 156 at line /usr/include/zmq.h)i
+		-- function zmq_msg_init_size (in 156 at line /usr/include/zmq.h)
                -- zmq_msg_init_size
                external "plug_in"
                alias "{
@@ -167,7 +167,7 @@ feature {} -- External calls
 
 	zmq_msg_move (a_dest: POINTER; a_src: POINTER): INTEGER 
 
-		-- function zmq_msg_move (in 160 at line /usr/include/zmq.h)i
+		-- function zmq_msg_move (in 160 at line /usr/include/zmq.h)
                -- zmq_msg_move
                external "plug_in"
                alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 
 	zmq_msg_size (a_msg: POINTER): like size_t 
 
-		-- function zmq_msg_size (in 163 at line /usr/include/zmq.h)i
+		-- function zmq_msg_size (in 163 at line /usr/include/zmq.h)
                -- zmq_msg_size
                external "plug_in"
                alias "{
@@ -191,7 +191,7 @@ feature {} -- External calls
 
 	zmq_poll (an_items: POINTER; a_nitems: INTEGER; a_timeout: like long): INTEGER 
 
-		-- function zmq_poll (in 252 at line /usr/include/zmq.h)i
+		-- function zmq_poll (in 252 at line /usr/include/zmq.h)
                -- zmq_poll
                external "plug_in"
                alias "{
@@ -203,7 +203,7 @@ feature {} -- External calls
 
 	zmq_recv (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function zmq_recv (in 230 at line /usr/include/zmq.h)i
+		-- function zmq_recv (in 230 at line /usr/include/zmq.h)
                -- zmq_recv
                external "plug_in"
                alias "{
@@ -215,7 +215,7 @@ feature {} -- External calls
 
 	zmq_send (a_s: POINTER; a_msg: POINTER; a_flags: INTEGER): INTEGER 
 
-		-- function zmq_send (in 229 at line /usr/include/zmq.h)i
+		-- function zmq_send (in 229 at line /usr/include/zmq.h)
                -- zmq_send
                external "plug_in"
                alias "{
@@ -227,7 +227,7 @@ feature {} -- External calls
 
 	zmq_setsockopt (a_s: POINTER; an_option: INTEGER; an_optval: POINTER; an_optvallen: like size_t): INTEGER 
 
-		-- function zmq_setsockopt (in 223 at line /usr/include/zmq.h)i
+		-- function zmq_setsockopt (in 223 at line /usr/include/zmq.h)
                -- zmq_setsockopt
                external "plug_in"
                alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 
 	zmq_socket (a_context: POINTER; a_type: INTEGER): POINTER 
 
-		-- function zmq_socket (in 221 at line /usr/include/zmq.h)i
+		-- function zmq_socket (in 221 at line /usr/include/zmq.h)
                -- zmq_socket
                external "plug_in"
                alias "{
@@ -251,7 +251,7 @@ feature {} -- External calls
 
 	zmq_strerror (an_errnum: INTEGER): POINTER 
 
-		-- function zmq_strerror (in 118 at line /usr/include/zmq.h)i
+		-- function zmq_strerror (in 118 at line /usr/include/zmq.h)
                -- zmq_strerror
                external "plug_in"
                alias "{
@@ -263,7 +263,7 @@ feature {} -- External calls
 
 	zmq_term (a_context: POINTER): INTEGER 
 
-		-- function zmq_term (in 170 at line /usr/include/zmq.h)i
+		-- function zmq_term (in 170 at line /usr/include/zmq.h)
                -- zmq_term
                external "plug_in"
                alias "{
@@ -275,7 +275,7 @@ feature {} -- External calls
 
 	zmq_version (a_major: POINTER; a_minor: POINTER; a_patch: POINTER) 
 
-		-- function zmq_version (in 66 at line /usr/include/zmq.h)i
+		-- function zmq_version (in 66 at line /usr/include/zmq.h)
                -- zmq_version
                external "plug_in"
                alias "{

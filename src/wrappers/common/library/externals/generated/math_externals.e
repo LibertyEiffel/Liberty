@@ -11,7 +11,7 @@ feature {} -- External calls
 	-- `hidden' variable _LIB_VERSION skipped.
 	matherr (an_exc: POINTER): INTEGER 
 
-		-- function matherr (in 337 at line /usr/include/math.h)i
+		-- function matherr (in 337 at line /usr/include/math.h)
                -- matherr
                external "plug_in"
                alias "{

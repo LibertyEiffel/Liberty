@@ -8,8 +8,8 @@ default -- section of the system
    assertion (boost); -- or boost, no, require, ensure, invariant, loop, check, all.
    assertion_flat_check (no);
    debug (no);
-   trace (yes);
-   collect (yes);
+   trace (no);
+   collect ("bdw");
    style_warning (yes);
    no_warning (no);
    verbose (no);
@@ -19,9 +19,9 @@ default -- section of the system
 
 cluster -- section
    wrappers_generator: "${path_liberty}/src/tools/wrappers-generator/loadpath.se"
-      default
-         assertion (boost)
-      end
+     --  default
+     --     assertion (boost)
+     --  end
 
    lib: "${path_liberty}/src/lib/loadpath.se"
       default

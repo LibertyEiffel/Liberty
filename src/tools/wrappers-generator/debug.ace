@@ -27,7 +27,7 @@ cluster -- section
 
    lib: "${path_liberty}/src/lib/loadpath.se"
       default
-         assertion(require)
+         assertion(boost)
       option
          -- debug(all): FIXED_STRING -- `debug_string' is very useful
          -- assertion(ensure): HASHED_DICTIONARY, FAST_ARRAY, STRING, PATH_NAME, POSIX_PATH_NAME

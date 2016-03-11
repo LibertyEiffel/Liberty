@@ -11,7 +11,7 @@ feature {} -- External calls
 	-- `hidden' function __asprintf skipped.
 	asprintf (a_ptr: POINTER; a_fmt: POINTER): INTEGER 
 
-		-- function asprintf (in 405 at line /usr/include/stdio.h)i
+		-- function asprintf (in 405 at line /usr/include/stdio.h)
                -- asprintf (variadic call) 
                external "plug_in"
                alias "{
@@ -23,7 +23,7 @@ feature {} -- External calls
 
 	clearerr (a_stream: POINTER) 
 
-		-- function clearerr (in 826 at line /usr/include/stdio.h)i
+		-- function clearerr (in 826 at line /usr/include/stdio.h)
                -- clearerr
                external "plug_in"
                alias "{
@@ -35,7 +35,7 @@ feature {} -- External calls
 
 	clearerr_unlocked (a_stream: POINTER) 
 
-		-- function clearerr_unlocked (in 835 at line /usr/include/stdio.h)i
+		-- function clearerr_unlocked (in 835 at line /usr/include/stdio.h)
                -- clearerr_unlocked
                external "plug_in"
                alias "{
@@ -47,7 +47,7 @@ feature {} -- External calls
 
 	ctermid (a_s: POINTER): POINTER 
 
-		-- function ctermid (in 885 at line /usr/include/stdio.h)i
+		-- function ctermid (in 885 at line /usr/include/stdio.h)
                -- ctermid
                external "plug_in"
                alias "{
@@ -59,7 +59,7 @@ feature {} -- External calls
 
 	cuserid (a_s: POINTER): POINTER 
 
-		-- function cuserid (in 891 at line /usr/include/stdio.h)i
+		-- function cuserid (in 891 at line /usr/include/stdio.h)
                -- cuserid
                external "plug_in"
                alias "{
@@ -71,7 +71,7 @@ feature {} -- External calls
 
 	dprintf (a_fd: INTEGER; a_fmt: POINTER): INTEGER 
 
-		-- function dprintf (in 415 at line /usr/include/stdio.h)i
+		-- function dprintf (in 415 at line /usr/include/stdio.h)
                -- dprintf (variadic call) 
                external "plug_in"
                alias "{
@@ -83,7 +83,7 @@ feature {} -- External calls
 
 	fclose (a_stream: POINTER): INTEGER 
 
-		-- function fclose (in 237 at line /usr/include/stdio.h)i
+		-- function fclose (in 237 at line /usr/include/stdio.h)
                -- fclose
                external "plug_in"
                alias "{
@@ -95,7 +95,7 @@ feature {} -- External calls
 
 	fcloseall: INTEGER 
 
-		-- function fcloseall (in 262 at line /usr/include/stdio.h)i
+		-- function fcloseall (in 262 at line /usr/include/stdio.h)
                -- fcloseall
                external "plug_in"
                alias "{
@@ -107,7 +107,7 @@ feature {} -- External calls
 
 	fdopen (a_fd: INTEGER; a_modes: POINTER): POINTER 
 
-		-- function fdopen (in 306 at line /usr/include/stdio.h)i
+		-- function fdopen (in 306 at line /usr/include/stdio.h)
                -- fdopen
                external "plug_in"
                alias "{
@@ -119,7 +119,7 @@ feature {} -- External calls
 
 	feof (a_stream: POINTER): INTEGER 
 
-		-- function feof (in 828 at line /usr/include/stdio.h)i
+		-- function feof (in 828 at line /usr/include/stdio.h)
                -- feof
                external "plug_in"
                alias "{
@@ -131,7 +131,7 @@ feature {} -- External calls
 
 	feof_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function feof_unlocked (in 836 at line /usr/include/stdio.h)i
+		-- function feof_unlocked (in 836 at line /usr/include/stdio.h)
                -- feof_unlocked
                external "plug_in"
                alias "{
@@ -143,7 +143,7 @@ feature {} -- External calls
 
 	ferror (a_stream: POINTER): INTEGER 
 
-		-- function ferror (in 830 at line /usr/include/stdio.h)i
+		-- function ferror (in 830 at line /usr/include/stdio.h)
                -- ferror
                external "plug_in"
                alias "{
@@ -155,7 +155,7 @@ feature {} -- External calls
 
 	ferror_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function ferror_unlocked (in 837 at line /usr/include/stdio.h)i
+		-- function ferror_unlocked (in 837 at line /usr/include/stdio.h)
                -- ferror_unlocked
                external "plug_in"
                alias "{
@@ -167,7 +167,7 @@ feature {} -- External calls
 
 	fflush (a_stream: POINTER): INTEGER 
 
-		-- function fflush (in 242 at line /usr/include/stdio.h)i
+		-- function fflush (in 242 at line /usr/include/stdio.h)
                -- fflush
                external "plug_in"
                alias "{
@@ -179,7 +179,7 @@ feature {} -- External calls
 
 	fflush_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function fflush_unlocked (in 252 at line /usr/include/stdio.h)i
+		-- function fflush_unlocked (in 252 at line /usr/include/stdio.h)
                -- fflush_unlocked
                external "plug_in"
                alias "{
@@ -191,7 +191,7 @@ feature {} -- External calls
 
 	fgetc (a_stream: POINTER): INTEGER 
 
-		-- function fgetc (in 531 at line /usr/include/stdio.h)i
+		-- function fgetc (in 531 at line /usr/include/stdio.h)
                -- fgetc
                external "plug_in"
                alias "{
@@ -203,7 +203,7 @@ feature {} -- External calls
 
 	fgetc_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function fgetc_unlocked (in 561 at line /usr/include/stdio.h)i
+		-- function fgetc_unlocked (in 561 at line /usr/include/stdio.h)
                -- fgetc_unlocked
                external "plug_in"
                alias "{
@@ -215,7 +215,7 @@ feature {} -- External calls
 
 	fgetpos (a_stream: POINTER; a_pos: POINTER): INTEGER 
 
-		-- function fgetpos (in 798 at line /usr/include/stdio.h)i
+		-- function fgetpos (in 798 at line /usr/include/stdio.h)
                -- fgetpos
                external "plug_in"
                alias "{
@@ -227,7 +227,7 @@ feature {} -- External calls
 
 	fgetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER 
 
-		-- function fgetpos64 (in 820 at line /usr/include/stdio.h)i
+		-- function fgetpos64 (in 820 at line /usr/include/stdio.h)
                -- fgetpos64
                external "plug_in"
                alias "{
@@ -239,7 +239,7 @@ feature {} -- External calls
 
 	fgets (a_s: POINTER; a_n: INTEGER; a_stream: POINTER): POINTER 
 
-		-- function fgets (in 622 at line /usr/include/stdio.h)i
+		-- function fgets (in 622 at line /usr/include/stdio.h)
                -- fgets
                external "plug_in"
                alias "{
@@ -251,7 +251,7 @@ feature {} -- External calls
 
 	fgets_unlocked (a_s: POINTER; a_n: INTEGER; a_stream: POINTER): POINTER 
 
-		-- function fgets_unlocked (in 649 at line /usr/include/stdio.h)i
+		-- function fgets_unlocked (in 649 at line /usr/include/stdio.h)
                -- fgets_unlocked
                external "plug_in"
                alias "{
@@ -263,7 +263,7 @@ feature {} -- External calls
 
 	fileno (a_stream: POINTER): INTEGER 
 
-		-- function fileno (in 858 at line /usr/include/stdio.h)i
+		-- function fileno (in 858 at line /usr/include/stdio.h)
                -- fileno
                external "plug_in"
                alias "{
@@ -275,7 +275,7 @@ feature {} -- External calls
 
 	fileno_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function fileno_unlocked (in 863 at line /usr/include/stdio.h)i
+		-- function fileno_unlocked (in 863 at line /usr/include/stdio.h)
                -- fileno_unlocked
                external "plug_in"
                alias "{
@@ -287,7 +287,7 @@ feature {} -- External calls
 
 	flockfile (a_stream: POINTER) 
 
-		-- function flockfile (in 913 at line /usr/include/stdio.h)i
+		-- function flockfile (in 913 at line /usr/include/stdio.h)
                -- flockfile
                external "plug_in"
                alias "{
@@ -299,7 +299,7 @@ feature {} -- External calls
 
 	fmemopen (a_s: POINTER; a_len: like long_unsigned; a_modes: POINTER): POINTER 
 
-		-- function fmemopen (in 319 at line /usr/include/stdio.h)i
+		-- function fmemopen (in 319 at line /usr/include/stdio.h)
                -- fmemopen
                external "plug_in"
                alias "{
@@ -311,7 +311,7 @@ feature {} -- External calls
 
 	fopen (a_filename: POINTER; a_modes: POINTER): POINTER 
 
-		-- function fopen (in 272 at line /usr/include/stdio.h)i
+		-- function fopen (in 272 at line /usr/include/stdio.h)
                -- fopen
                external "plug_in"
                alias "{
@@ -323,7 +323,7 @@ feature {} -- External calls
 
 	fopen64 (a_filename: POINTER; a_modes: POINTER): POINTER 
 
-		-- function fopen64 (in 297 at line /usr/include/stdio.h)i
+		-- function fopen64 (in 297 at line /usr/include/stdio.h)
                -- fopen64
                external "plug_in"
                alias "{
@@ -333,10 +333,10 @@ feature {} -- External calls
                }"
                end
 
-       -- function fopencookie (at line 312 in file /usr/include/stdio.h is not wrappable
+       -- unwrappable function fopencookie in file /usr/include/stdio.h line 312
 	fprintf (a_stream: POINTER; a_format: POINTER): INTEGER 
 
-		-- function fprintf (in 356 at line /usr/include/stdio.h)i
+		-- function fprintf (in 356 at line /usr/include/stdio.h)
                -- fprintf (variadic call) 
                external "plug_in"
                alias "{
@@ -348,7 +348,7 @@ feature {} -- External calls
 
 	fputc (a_c: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function fputc (in 573 at line /usr/include/stdio.h)i
+		-- function fputc (in 573 at line /usr/include/stdio.h)
                -- fputc
                external "plug_in"
                alias "{
@@ -360,7 +360,7 @@ feature {} -- External calls
 
 	fputc_unlocked (a_c: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function fputc_unlocked (in 594 at line /usr/include/stdio.h)i
+		-- function fputc_unlocked (in 594 at line /usr/include/stdio.h)
                -- fputc_unlocked
                external "plug_in"
                alias "{
@@ -372,7 +372,7 @@ feature {} -- External calls
 
 	fputs (a_s: POINTER; a_stream: POINTER): INTEGER 
 
-		-- function fputs (in 689 at line /usr/include/stdio.h)i
+		-- function fputs (in 689 at line /usr/include/stdio.h)
                -- fputs
                external "plug_in"
                alias "{
@@ -384,7 +384,7 @@ feature {} -- External calls
 
 	fputs_unlocked (a_s: POINTER; a_stream: POINTER): INTEGER 
 
-		-- function fputs_unlocked (in 726 at line /usr/include/stdio.h)i
+		-- function fputs_unlocked (in 726 at line /usr/include/stdio.h)
                -- fputs_unlocked
                external "plug_in"
                alias "{
@@ -396,7 +396,7 @@ feature {} -- External calls
 
 	fread (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned 
 
-		-- function fread (in 709 at line /usr/include/stdio.h)i
+		-- function fread (in 709 at line /usr/include/stdio.h)
                -- fread
                external "plug_in"
                alias "{
@@ -408,7 +408,7 @@ feature {} -- External calls
 
 	fread_unlocked (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned 
 
-		-- function fread_unlocked (in 737 at line /usr/include/stdio.h)i
+		-- function fread_unlocked (in 737 at line /usr/include/stdio.h)
                -- fread_unlocked
                external "plug_in"
                alias "{
@@ -420,7 +420,7 @@ feature {} -- External calls
 
 	freopen (a_filename: POINTER; a_modes: POINTER; a_stream: POINTER): POINTER 
 
-		-- function freopen (in 278 at line /usr/include/stdio.h)i
+		-- function freopen (in 278 at line /usr/include/stdio.h)
                -- freopen
                external "plug_in"
                alias "{
@@ -432,7 +432,7 @@ feature {} -- External calls
 
 	freopen64 (a_filename: POINTER; a_modes: POINTER; a_stream: POINTER): POINTER 
 
-		-- function freopen64 (in 299 at line /usr/include/stdio.h)i
+		-- function freopen64 (in 299 at line /usr/include/stdio.h)
                -- freopen64
                external "plug_in"
                alias "{
@@ -444,7 +444,7 @@ feature {} -- External calls
 
 	fscanf (a_stream: POINTER; a_format: POINTER): INTEGER 
 
-		-- function fscanf (in 425 at line /usr/include/stdio.h)i
+		-- function fscanf (in 425 at line /usr/include/stdio.h)
                -- fscanf (variadic call) 
                external "plug_in"
                alias "{
@@ -456,7 +456,7 @@ feature {} -- External calls
 
 	fseek (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER 
 
-		-- function fseek (in 749 at line /usr/include/stdio.h)i
+		-- function fseek (in 749 at line /usr/include/stdio.h)
                -- fseek
                external "plug_in"
                alias "{
@@ -468,7 +468,7 @@ feature {} -- External calls
 
 	fseeko (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER 
 
-		-- function fseeko (in 773 at line /usr/include/stdio.h)i
+		-- function fseeko (in 773 at line /usr/include/stdio.h)
                -- fseeko
                external "plug_in"
                alias "{
@@ -480,7 +480,7 @@ feature {} -- External calls
 
 	fseeko64 (a_stream: POINTER; an_off: like long; a_whence: INTEGER): INTEGER 
 
-		-- function fseeko64 (in 818 at line /usr/include/stdio.h)i
+		-- function fseeko64 (in 818 at line /usr/include/stdio.h)
                -- fseeko64
                external "plug_in"
                alias "{
@@ -492,7 +492,7 @@ feature {} -- External calls
 
 	fsetpos (a_stream: POINTER; a_pos: POINTER): INTEGER 
 
-		-- function fsetpos (in 803 at line /usr/include/stdio.h)i
+		-- function fsetpos (in 803 at line /usr/include/stdio.h)
                -- fsetpos
                external "plug_in"
                alias "{
@@ -504,7 +504,7 @@ feature {} -- External calls
 
 	fsetpos64 (a_stream: POINTER; a_pos: POINTER): INTEGER 
 
-		-- function fsetpos64 (in 821 at line /usr/include/stdio.h)i
+		-- function fsetpos64 (in 821 at line /usr/include/stdio.h)
                -- fsetpos64
                external "plug_in"
                alias "{
@@ -516,7 +516,7 @@ feature {} -- External calls
 
 	ftell (a_stream: POINTER): like long 
 
-		-- function ftell (in 754 at line /usr/include/stdio.h)i
+		-- function ftell (in 754 at line /usr/include/stdio.h)
                -- ftell
                external "plug_in"
                alias "{
@@ -528,7 +528,7 @@ feature {} -- External calls
 
 	ftello (a_stream: POINTER): like long 
 
-		-- function ftello (in 778 at line /usr/include/stdio.h)i
+		-- function ftello (in 778 at line /usr/include/stdio.h)
                -- ftello
                external "plug_in"
                alias "{
@@ -540,7 +540,7 @@ feature {} -- External calls
 
 	ftello64 (a_stream: POINTER): like long 
 
-		-- function ftello64 (in 819 at line /usr/include/stdio.h)i
+		-- function ftello64 (in 819 at line /usr/include/stdio.h)
                -- ftello64
                external "plug_in"
                alias "{
@@ -552,7 +552,7 @@ feature {} -- External calls
 
 	ftrylockfile (a_stream: POINTER): INTEGER 
 
-		-- function ftrylockfile (in 917 at line /usr/include/stdio.h)i
+		-- function ftrylockfile (in 917 at line /usr/include/stdio.h)
                -- ftrylockfile
                external "plug_in"
                alias "{
@@ -564,7 +564,7 @@ feature {} -- External calls
 
 	funlockfile (a_stream: POINTER) 
 
-		-- function funlockfile (in 920 at line /usr/include/stdio.h)i
+		-- function funlockfile (in 920 at line /usr/include/stdio.h)
                -- funlockfile
                external "plug_in"
                alias "{
@@ -576,7 +576,7 @@ feature {} -- External calls
 
 	fwrite (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_s: POINTER): like long_unsigned 
 
-		-- function fwrite (in 715 at line /usr/include/stdio.h)i
+		-- function fwrite (in 715 at line /usr/include/stdio.h)
                -- fwrite
                external "plug_in"
                alias "{
@@ -588,7 +588,7 @@ feature {} -- External calls
 
 	fwrite_unlocked (a_ptr: POINTER; a_size: like long_unsigned; a_n: like long_unsigned; a_stream: POINTER): like long_unsigned 
 
-		-- function fwrite_unlocked (in 739 at line /usr/include/stdio.h)i
+		-- function fwrite_unlocked (in 739 at line /usr/include/stdio.h)
                -- fwrite_unlocked
                external "plug_in"
                alias "{
@@ -600,7 +600,7 @@ feature {} -- External calls
 
 	getc (a_stream: POINTER): INTEGER 
 
-		-- function getc (in 532 at line /usr/include/stdio.h)i
+		-- function getc (in 532 at line /usr/include/stdio.h)
                -- getc
                external "plug_in"
                alias "{
@@ -612,7 +612,7 @@ feature {} -- External calls
 
 	getc_unlocked (a_stream: POINTER): INTEGER 
 
-		-- function getc_unlocked (in 550 at line /usr/include/stdio.h)i
+		-- function getc_unlocked (in 550 at line /usr/include/stdio.h)
                -- getc_unlocked
                external "plug_in"
                alias "{
@@ -624,7 +624,7 @@ feature {} -- External calls
 
 	getchar: INTEGER 
 
-		-- function getchar (in 538 at line /usr/include/stdio.h)i
+		-- function getchar (in 538 at line /usr/include/stdio.h)
                -- getchar
                external "plug_in"
                alias "{
@@ -636,7 +636,7 @@ feature {} -- External calls
 
 	getchar_unlocked: INTEGER 
 
-		-- function getchar_unlocked (in 551 at line /usr/include/stdio.h)i
+		-- function getchar_unlocked (in 551 at line /usr/include/stdio.h)
                -- getchar_unlocked
                external "plug_in"
                alias "{
@@ -649,7 +649,7 @@ feature {} -- External calls
 	-- `hidden' function __getdelim skipped.
 	getdelim (a_lineptr: POINTER; a_n: POINTER; a_delimiter: INTEGER; a_stream: POINTER): like long 
 
-		-- function getdelim (in 668 at line /usr/include/stdio.h)i
+		-- function getdelim (in 668 at line /usr/include/stdio.h)
                -- getdelim
                external "plug_in"
                alias "{
@@ -661,7 +661,7 @@ feature {} -- External calls
 
 	getline (a_lineptr: POINTER; a_n: POINTER; a_stream: POINTER): like long 
 
-		-- function getline (in 678 at line /usr/include/stdio.h)i
+		-- function getline (in 678 at line /usr/include/stdio.h)
                -- getline
                external "plug_in"
                alias "{
@@ -673,7 +673,7 @@ feature {} -- External calls
 
 	gets (a_s: POINTER): POINTER 
 
-		-- function gets (in 638 at line /usr/include/stdio.h)i
+		-- function gets (in 638 at line /usr/include/stdio.h)
                -- gets
                external "plug_in"
                alias "{
@@ -685,7 +685,7 @@ feature {} -- External calls
 
 	getw (a_stream: POINTER): INTEGER 
 
-		-- function getw (in 610 at line /usr/include/stdio.h)i
+		-- function getw (in 610 at line /usr/include/stdio.h)
                -- getw
                external "plug_in"
                alias "{
@@ -697,7 +697,7 @@ feature {} -- External calls
 
 	obstack_printf (an_obstack: POINTER; a_format: POINTER): INTEGER 
 
-		-- function obstack_printf (in 899 at line /usr/include/stdio.h)i
+		-- function obstack_printf (in 899 at line /usr/include/stdio.h)
                -- obstack_printf (variadic call) 
                external "plug_in"
                alias "{
@@ -709,7 +709,7 @@ feature {} -- External calls
 
 	obstack_vprintf (an_obstack: POINTER; a_format: POINTER; an_args: POINTER): INTEGER 
 
-		-- function obstack_vprintf (in 902 at line /usr/include/stdio.h)i
+		-- function obstack_vprintf (in 902 at line /usr/include/stdio.h)
                -- obstack_vprintf
                external "plug_in"
                alias "{
@@ -721,7 +721,7 @@ feature {} -- External calls
 
 	open_memstream (a_bufloc: POINTER; a_sizeloc: POINTER): POINTER 
 
-		-- function open_memstream (in 325 at line /usr/include/stdio.h)i
+		-- function open_memstream (in 325 at line /usr/include/stdio.h)
                -- open_memstream
                external "plug_in"
                alias "{
@@ -733,7 +733,7 @@ feature {} -- External calls
 
 	pclose (a_stream: POINTER): INTEGER 
 
-		-- function pclose (in 879 at line /usr/include/stdio.h)i
+		-- function pclose (in 879 at line /usr/include/stdio.h)
                -- pclose
                external "plug_in"
                alias "{
@@ -745,7 +745,7 @@ feature {} -- External calls
 
 	perror (a_s: POINTER) 
 
-		-- function perror (in 846 at line /usr/include/stdio.h)i
+		-- function perror (in 846 at line /usr/include/stdio.h)
                -- perror
                external "plug_in"
                alias "{
@@ -757,7 +757,7 @@ feature {} -- External calls
 
 	popen (a_command: POINTER; a_modes: POINTER): POINTER 
 
-		-- function popen (in 873 at line /usr/include/stdio.h)i
+		-- function popen (in 873 at line /usr/include/stdio.h)
                -- popen
                external "plug_in"
                alias "{
@@ -769,7 +769,7 @@ feature {} -- External calls
 
 	printf (a_format: POINTER): INTEGER 
 
-		-- function printf (in 362 at line /usr/include/stdio.h)i
+		-- function printf (in 362 at line /usr/include/stdio.h)
                -- printf (variadic call) 
                external "plug_in"
                alias "{
@@ -781,7 +781,7 @@ feature {} -- External calls
 
 	putc (a_c: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function putc (in 574 at line /usr/include/stdio.h)i
+		-- function putc (in 574 at line /usr/include/stdio.h)
                -- putc
                external "plug_in"
                alias "{
@@ -793,7 +793,7 @@ feature {} -- External calls
 
 	putc_unlocked (a_c: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function putc_unlocked (in 602 at line /usr/include/stdio.h)i
+		-- function putc_unlocked (in 602 at line /usr/include/stdio.h)
                -- putc_unlocked
                external "plug_in"
                alias "{
@@ -805,7 +805,7 @@ feature {} -- External calls
 
 	putchar (a_c: INTEGER): INTEGER 
 
-		-- function putchar (in 580 at line /usr/include/stdio.h)i
+		-- function putchar (in 580 at line /usr/include/stdio.h)
                -- putchar
                external "plug_in"
                alias "{
@@ -817,7 +817,7 @@ feature {} -- External calls
 
 	putchar_unlocked (a_c: INTEGER): INTEGER 
 
-		-- function putchar_unlocked (in 603 at line /usr/include/stdio.h)i
+		-- function putchar_unlocked (in 603 at line /usr/include/stdio.h)
                -- putchar_unlocked
                external "plug_in"
                alias "{
@@ -829,7 +829,7 @@ feature {} -- External calls
 
 	puts (a_s: POINTER): INTEGER 
 
-		-- function puts (in 695 at line /usr/include/stdio.h)i
+		-- function puts (in 695 at line /usr/include/stdio.h)
                -- puts
                external "plug_in"
                alias "{
@@ -841,7 +841,7 @@ feature {} -- External calls
 
 	putw (a_w: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function putw (in 613 at line /usr/include/stdio.h)i
+		-- function putw (in 613 at line /usr/include/stdio.h)
                -- putw
                external "plug_in"
                alias "{
@@ -853,7 +853,7 @@ feature {} -- External calls
 
 	remove (a_filename: POINTER): INTEGER 
 
-		-- function remove (in 178 at line /usr/include/stdio.h)i
+		-- function remove (in 178 at line /usr/include/stdio.h)
                -- remove
                external "plug_in"
                alias "{
@@ -865,7 +865,7 @@ feature {} -- External calls
 
 	rename_external (an_old: POINTER; a_new: POINTER): INTEGER 
 
-		-- function rename (in 180 at line /usr/include/stdio.h)i
+		-- function rename (in 180 at line /usr/include/stdio.h)
                -- rename
                external "plug_in"
                alias "{
@@ -877,7 +877,7 @@ feature {} -- External calls
 
 	renameat (an_oldfd: INTEGER; an_old: POINTER; a_newfd: INTEGER; a_new: POINTER): INTEGER 
 
-		-- function renameat (in 185 at line /usr/include/stdio.h)i
+		-- function renameat (in 185 at line /usr/include/stdio.h)
                -- renameat
                external "plug_in"
                alias "{
@@ -889,7 +889,7 @@ feature {} -- External calls
 
 	rewind (a_stream: POINTER) 
 
-		-- function rewind (in 759 at line /usr/include/stdio.h)i
+		-- function rewind (in 759 at line /usr/include/stdio.h)
                -- rewind
                external "plug_in"
                alias "{
@@ -901,7 +901,7 @@ feature {} -- External calls
 
 	scanf (a_format: POINTER): INTEGER 
 
-		-- function scanf (in 431 at line /usr/include/stdio.h)i
+		-- function scanf (in 431 at line /usr/include/stdio.h)
                -- scanf (variadic call) 
                external "plug_in"
                alias "{
@@ -913,7 +913,7 @@ feature {} -- External calls
 
 	setbuf (a_stream: POINTER; a_buf: POINTER) 
 
-		-- function setbuf (in 332 at line /usr/include/stdio.h)i
+		-- function setbuf (in 332 at line /usr/include/stdio.h)
                -- setbuf
                external "plug_in"
                alias "{
@@ -925,7 +925,7 @@ feature {} -- External calls
 
 	setbuffer (a_stream: POINTER; a_buf: POINTER; a_size: like long_unsigned) 
 
-		-- function setbuffer (in 343 at line /usr/include/stdio.h)i
+		-- function setbuffer (in 343 at line /usr/include/stdio.h)
                -- setbuffer
                external "plug_in"
                alias "{
@@ -937,7 +937,7 @@ feature {} -- External calls
 
 	setlinebuf (a_stream: POINTER) 
 
-		-- function setlinebuf (in 347 at line /usr/include/stdio.h)i
+		-- function setlinebuf (in 347 at line /usr/include/stdio.h)
                -- setlinebuf
                external "plug_in"
                alias "{
@@ -949,7 +949,7 @@ feature {} -- External calls
 
 	setvbuf (a_stream: POINTER; a_buf: POINTER; a_modes: INTEGER; a_n: like long_unsigned): INTEGER 
 
-		-- function setvbuf (in 336 at line /usr/include/stdio.h)i
+		-- function setvbuf (in 336 at line /usr/include/stdio.h)
                -- setvbuf
                external "plug_in"
                alias "{
@@ -961,7 +961,7 @@ feature {} -- External calls
 
 	snprintf (a_s: POINTER; a_maxlen: like long_unsigned; a_format: POINTER): INTEGER 
 
-		-- function snprintf (in 386 at line /usr/include/stdio.h)i
+		-- function snprintf (in 386 at line /usr/include/stdio.h)
                -- snprintf (variadic call) 
                external "plug_in"
                alias "{
@@ -973,7 +973,7 @@ feature {} -- External calls
 
 	sprintf (a_s: POINTER; a_format: POINTER): INTEGER 
 
-		-- function sprintf (in 364 at line /usr/include/stdio.h)i
+		-- function sprintf (in 364 at line /usr/include/stdio.h)
                -- sprintf (variadic call) 
                external "plug_in"
                alias "{
@@ -985,7 +985,7 @@ feature {} -- External calls
 
 	sscanf (a_s: POINTER; a_format: POINTER): INTEGER 
 
-		-- function sscanf (in 433 at line /usr/include/stdio.h)i
+		-- function sscanf (in 433 at line /usr/include/stdio.h)
                -- sscanf (variadic call) 
                external "plug_in"
                alias "{
@@ -1087,7 +1087,7 @@ feature {} -- External calls
 
 	tempnam (a_dir: POINTER; a_pfx: POINTER): POINTER 
 
-		-- function tempnam (in 227 at line /usr/include/stdio.h)i
+		-- function tempnam (in 227 at line /usr/include/stdio.h)
                -- tempnam
                external "plug_in"
                alias "{
@@ -1099,7 +1099,7 @@ feature {} -- External calls
 
 	tmpfile: POINTER 
 
-		-- function tmpfile (in 195 at line /usr/include/stdio.h)i
+		-- function tmpfile (in 195 at line /usr/include/stdio.h)
                -- tmpfile
                external "plug_in"
                alias "{
@@ -1111,7 +1111,7 @@ feature {} -- External calls
 
 	tmpfile64: POINTER 
 
-		-- function tmpfile64 (in 205 at line /usr/include/stdio.h)i
+		-- function tmpfile64 (in 205 at line /usr/include/stdio.h)
                -- tmpfile64
                external "plug_in"
                alias "{
@@ -1123,7 +1123,7 @@ feature {} -- External calls
 
 	tmpnam (a_s: POINTER): POINTER 
 
-		-- function tmpnam (in 209 at line /usr/include/stdio.h)i
+		-- function tmpnam (in 209 at line /usr/include/stdio.h)
                -- tmpnam
                external "plug_in"
                alias "{
@@ -1135,7 +1135,7 @@ feature {} -- External calls
 
 	tmpnam_r (a_s: POINTER): POINTER 
 
-		-- function tmpnam_r (in 215 at line /usr/include/stdio.h)i
+		-- function tmpnam_r (in 215 at line /usr/include/stdio.h)
                -- tmpnam_r
                external "plug_in"
                alias "{
@@ -1147,7 +1147,7 @@ feature {} -- External calls
 
 	ungetc (a_c: INTEGER; a_stream: POINTER): INTEGER 
 
-		-- function ungetc (in 702 at line /usr/include/stdio.h)i
+		-- function ungetc (in 702 at line /usr/include/stdio.h)
                -- ungetc
                external "plug_in"
                alias "{
@@ -1159,7 +1159,7 @@ feature {} -- External calls
 
 	vasprintf (a_ptr: POINTER; a_f: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vasprintf (in 399 at line /usr/include/stdio.h)i
+		-- function vasprintf (in 399 at line /usr/include/stdio.h)
                -- vasprintf
                external "plug_in"
                alias "{
@@ -1171,7 +1171,7 @@ feature {} -- External calls
 
 	vdprintf (a_fd: INTEGER; a_fmt: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vdprintf (in 412 at line /usr/include/stdio.h)i
+		-- function vdprintf (in 412 at line /usr/include/stdio.h)
                -- vdprintf
                external "plug_in"
                alias "{
@@ -1183,7 +1183,7 @@ feature {} -- External calls
 
 	vfprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vfprintf (in 371 at line /usr/include/stdio.h)i
+		-- function vfprintf (in 371 at line /usr/include/stdio.h)
                -- vfprintf
                external "plug_in"
                alias "{
@@ -1195,7 +1195,7 @@ feature {} -- External calls
 
 	vfscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vfscanf (in 471 at line /usr/include/stdio.h)i
+		-- function vfscanf (in 471 at line /usr/include/stdio.h)
                -- vfscanf
                external "plug_in"
                alias "{
@@ -1207,7 +1207,7 @@ feature {} -- External calls
 
 	vprintf (a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vprintf (in 377 at line /usr/include/stdio.h)i
+		-- function vprintf (in 377 at line /usr/include/stdio.h)
                -- vprintf
                external "plug_in"
                alias "{
@@ -1219,7 +1219,7 @@ feature {} -- External calls
 
 	vscanf (a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vscanf (in 479 at line /usr/include/stdio.h)i
+		-- function vscanf (in 479 at line /usr/include/stdio.h)
                -- vscanf
                external "plug_in"
                alias "{
@@ -1231,7 +1231,7 @@ feature {} -- External calls
 
 	vsnprintf (a_s: POINTER; a_maxlen: like long_unsigned; a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vsnprintf (in 390 at line /usr/include/stdio.h)i
+		-- function vsnprintf (in 390 at line /usr/include/stdio.h)
                -- vsnprintf
                external "plug_in"
                alias "{
@@ -1243,7 +1243,7 @@ feature {} -- External calls
 
 	vsprintf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vsprintf (in 379 at line /usr/include/stdio.h)i
+		-- function vsprintf (in 379 at line /usr/include/stdio.h)
                -- vsprintf
                external "plug_in"
                alias "{
@@ -1255,7 +1255,7 @@ feature {} -- External calls
 
 	vsscanf (a_s: POINTER; a_format: POINTER; an_arg: POINTER): INTEGER 
 
-		-- function vsscanf (in 483 at line /usr/include/stdio.h)i
+		-- function vsscanf (in 483 at line /usr/include/stdio.h)
                -- vsscanf
                external "plug_in"
                alias "{

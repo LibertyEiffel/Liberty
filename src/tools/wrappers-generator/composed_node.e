@@ -54,14 +54,15 @@ feature {ANY}
 
    is_to_be_emitted: BOOLEAN
       do
-         Result := (is_named or has_assigned_name) and then 
+         Result := (is_named and then (not avoided_symbols.has(c_string_name)) 
+            or has_assigned_name) and then 
             (is_public or has_assigned_name) and then 
-            (global or else headers.has(c_file.c_string_name)) and then 
-            not avoided_symbols.has(c_string_name)
+            (global or else headers.has(c_file.c_string_name)) 
+
       end
 
    emit_wrapper
-         -- Emit a reference wrapper for Current C structure.
+         -- Emit a reference wrapper for Current C composed type.
          -- A reference wrapper handles the structure as a memory area referred by a pointer.
          -- An expanded wrapper is an expanded Eiffel type that is the actual C structure. This require the usage  of "external types"
       local
@@ -88,6 +89,7 @@ feature {ANY}
                log(once "Skipping #(1) #(2)%N" # c_type # c_string_name)
             end
          end
+         emitted := True
       end
 
    emit_header
