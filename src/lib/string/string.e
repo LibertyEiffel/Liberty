@@ -641,14 +641,15 @@ feature {ANY} -- Modification:
 feature {ANY} -- Other features:
    substring (start_index, end_index: INTEGER): like Current
       local
-         c: INTEGER
+         new_count: INTEGER
+         new_store: like storage
       do
-         c := end_index - start_index + 1
-         create Result.make(c)
-         if c > 0 then
-            Result.set_count(c)
-            Result.storage.slice_copy(0, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
-         end
+         new_count := end_index - start_index + 1
+         new_store := new_store.calloc(new_count + 1)
+         new_store.slice_copy(0, storage, storage_lower + start_index - lower, storage_lower + end_index - lower)
+
+         Result := standard_twin
+         Result.from_external_sized(new_store.to_external, new_count)
       end
 
    extend_multiple (c: CHARACTER; n: INTEGER)
