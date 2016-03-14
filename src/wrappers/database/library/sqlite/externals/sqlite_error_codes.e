@@ -14,7 +14,7 @@ feature {ANY} -- Result codes
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_OK"
 			}"
@@ -24,7 +24,7 @@ feature {ANY} -- Result codes
 			-- SQL error or missing database 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_ERROR"
 			}"
@@ -34,7 +34,7 @@ feature {ANY} -- Result codes
 			-- An internal logic error in SQLite 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_INTERNAL"
 			}"
@@ -44,7 +44,7 @@ feature {ANY} -- Result codes
 			-- Access permission denied 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_PERM"
 			}"
@@ -54,7 +54,7 @@ feature {ANY} -- Result codes
 			-- Callback routine requested an abort 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_ABORT"
 			}"
@@ -64,7 +64,7 @@ feature {ANY} -- Result codes
 			-- The database file is locked 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_BUSY"
 			}"
@@ -74,7 +74,7 @@ feature {ANY} -- Result codes
 			-- A table in the database is locked 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_LOCKED"
 			}"
@@ -84,7 +84,7 @@ feature {ANY} -- Result codes
 			-- A malloc() failed 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_NOMEM"
 			}"
@@ -94,7 +94,7 @@ feature {ANY} -- Result codes
 			-- Attempt to write a readonly database 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_READONLY"
 			}"
@@ -104,7 +104,7 @@ feature {ANY} -- Result codes
 			-- Operation terminated by sqlite_interrupt() 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_INTERRUPT"
 			}"
@@ -114,7 +114,7 @@ feature {ANY} -- Result codes
 			-- Some kind of disk I/O error occurred 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_IOERR"
 			}"
@@ -124,7 +124,7 @@ feature {ANY} -- Result codes
 			-- The database disk image is malformed 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_CORRUPT"
 			}"
@@ -134,7 +134,7 @@ feature {ANY} -- Result codes
 			-- (Internal Only) Table or record not found 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_NOTFOUND"
 			}"
@@ -144,7 +144,7 @@ feature {ANY} -- Result codes
 			-- Insertion failed because database is full 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_FULL"
 			}"
@@ -154,7 +154,7 @@ feature {ANY} -- Result codes
 			-- Unable to open the database file 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_CANTOPEN"
 			}"
@@ -164,7 +164,7 @@ feature {ANY} -- Result codes
 			-- Database lock protocol error 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_PROTOCOL"
 			}"
@@ -174,7 +174,7 @@ feature {ANY} -- Result codes
 			-- (Internal Only) Database table is empty 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_EMPTY"
 			}"
@@ -184,7 +184,7 @@ feature {ANY} -- Result codes
 			-- The database schema changed 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_SCHEMA"
 			}"
@@ -194,7 +194,7 @@ feature {ANY} -- Result codes
 			-- Too much data for one row of a table 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_TOOBIG"
 			}"
@@ -204,7 +204,7 @@ feature {ANY} -- Result codes
 			-- Abort due to constraint violation 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_CONSTRAINT"
 			}"
@@ -214,7 +214,7 @@ feature {ANY} -- Result codes
 			-- Data type mismatch 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_MISMATCH"
 			}"
@@ -224,7 +224,7 @@ feature {ANY} -- Result codes
 			-- Library used incorrectly 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_MISUSE"
 			}"
@@ -234,7 +234,7 @@ feature {ANY} -- Result codes
 			-- Uses OS features not supported on host 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_NOLFS"
 			}"
@@ -244,7 +244,7 @@ feature {ANY} -- Result codes
 			-- Authorization denied 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_AUTH"
 			}"
@@ -254,7 +254,7 @@ feature {ANY} -- Result codes
 			-- sqlite_step() has another row ready 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_ROW"
 			}"
@@ -264,7 +264,7 @@ feature {ANY} -- Result codes
 			-- sqlite_step() has finished executing 
 		external "plug_in"
 		alias "{
-			location: "."
+			location: "generated"
 			module_name: "plugin"
 			feature_name: "SQLITE_DONE"
 			}"
