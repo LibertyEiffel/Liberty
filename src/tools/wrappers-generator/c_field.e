@@ -40,7 +40,6 @@ feature {ANY}
       rescue
           log("C_FIELD.has_wrapper failed%N")
           print_run_time_stack
-          log("=========== foo! ============%N")
           die_with_code (exit_failure_code)
           -- if type/=Void then
           --     field_type := types.at(dequalify(type))
