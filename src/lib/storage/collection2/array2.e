@@ -25,6 +25,34 @@ feature {ARRAY2}
    capacity: INTEGER
          -- Number of elements in `storage'.
 
+   alloc_storage
+      -- allocate a new storage of size capacity
+      require
+         count > 0
+      do
+         storage := storage.calloc(count)
+         capacity := count
+      ensure
+         capacity_updated: capacity = count
+      end
+
+   set_limits(line_min, line_max, column_min, column_max: INTEGER)
+      -- set lower1,2 and upper1,2 to the given values
+      require
+         line_min <= line_max + 1
+         column_min <= column_max + 1
+      do
+         lower1 := line_min
+         upper1 := line_max
+         lower2 := column_min
+         upper2 := column_max
+      ensure
+         lower1_set: lower1 = line_min
+         lower2_set: upper1 = line_max
+         upper1_set: lower2 = column_min
+         upper2_set: upper2 = column_max
+      end
+   
 feature {ANY} -- Creation / modification:
    make (line_min, line_max, column_min, column_max: INTEGER)
          -- Reset all bounds `line_minimum' / `line_maximum' / `column_minimum' and
@@ -34,15 +62,12 @@ feature {ANY} -- Creation / modification:
          line_min <= line_max + 1
          column_min <= column_max + 1
       do
-         lower1 := line_min
-         upper1 := line_max
-         lower2 := column_min
-         upper2 := column_max
+         set_limits(line_min, line_max, column_min, column_max)
          if capacity >= count then
             storage.clear_all(count - 1)
          else
             capacity := count
-            storage := storage.calloc(count)
+            alloc_storage
          end
       ensure
          line_minimum = line_min
@@ -146,7 +171,10 @@ feature {ANY} -- Resizing:
       local
          tmp: like Current; l, c: INTEGER
       do
-         create tmp.make(line_min, line_max, column_min, column_max)
+         tmp := standard_twin
+         tmp.set_limits(line_min, line_max, column_min, column_max)
+         tmp.alloc_storage
+
          --|*** It may be possible to avoid this creation when :
          --|    new `capacity' <= old `capacity'
          --|*** May be improved a lot.
@@ -230,7 +258,10 @@ feature {ANY} -- Implementation of others feature from COLLECTION2:
       local
          i, j, k: INTEGER
       do
-         create Result.make(line_min, line_max, column_min, column_max)
+         Result := standard_twin
+         Result.set_limits(line_min, line_max, column_min, column_max)
+         Result.alloc_storage
+
          from
             i := line_min
             k := 0
@@ -308,7 +339,7 @@ feature {ANY} --  Looking and comparison:
          upper2 := other.upper2
          if capacity < count then
             capacity := count
-            storage := storage.calloc(count)
+            alloc_storage
          end
          storage.copy_from(other.storage, count - 1)
       end
