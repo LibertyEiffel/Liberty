@@ -5,6 +5,6 @@ wrappers: $(XML)
 	wrappers_generator --local $(XML) $(HEADER)
 
 $(XML): $(HEADER)
-	castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
+	castxml --castxml-gccxml -DSQLITE_OMIT_DEPRECATED -x c++  $(HEADER) -o $(XML)
 
 
