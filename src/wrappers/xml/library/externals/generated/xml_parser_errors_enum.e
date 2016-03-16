@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_PARSER_ERRORS_ENUM
 
--- Wrapper of enum xmlParserErrors defined in file /usr/include/libxml2/libxml/xmlerror.h line 99
+-- Wrapper of enum xmlParserErrors defined in file /usr/include/libxml2/libxml/xmlerror.h
 insert ENUM
 
 create {ANY} default_create

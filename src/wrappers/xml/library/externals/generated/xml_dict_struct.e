@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_DICT_STRUCT
--- Wrapper of struct _xmlDict defined in file /usr/include/libxml2/libxml/dict.h line 25
+-- Wrapper of struct _xmlDict defined in file /usr/include/libxml2/libxml/dict.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

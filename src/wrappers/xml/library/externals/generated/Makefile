@@ -18,7 +18,7 @@ $(XML): $(HEADER)
 ifdef CASTXML
 	@castxml --castxml-gccxml -x c++  `pkg-config --cflags libxml-2.0` $(HEADER) -o $(XML)
 else
-	@gccxml `pkg-config --cflags libxml-2.0` $(HEADER) -fxml=$(XML)
+	@gccxml --gccxml-compiler gcc-4.9 `pkg-config --cflags libxml-2.0` $(HEADER) -fxml=$(XML)
 endif
 
 clean:

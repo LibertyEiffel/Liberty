@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_CHAR_ENCODING_ENUM
 
--- Wrapper of enum xmlCharEncoding defined in file /usr/include/libxml2/libxml/encoding.h line 58
+-- Wrapper of enum xmlCharEncoding defined in file /usr/include/libxml2/libxml/encoding.h
 insert ENUM
 
 create {ANY} default_create

@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_PARSER_INPUT_STATE_ENUM
 
--- Wrapper of enum xmlParserInputState defined in file /usr/include/libxml2/libxml/parser.h line 112
+-- Wrapper of enum xmlParserInputState defined in file /usr/include/libxml2/libxml/parser.h
 insert ENUM
 
 create {ANY} default_create

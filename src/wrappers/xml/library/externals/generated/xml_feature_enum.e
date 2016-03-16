@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_FEATURE_ENUM
 
--- Wrapper of enum xmlFeature defined in file /usr/include/libxml2/libxml/parser.h line 1198
+-- Wrapper of enum xmlFeature defined in file /usr/include/libxml2/libxml/parser.h
 insert ENUM
 
 create {ANY} default_create

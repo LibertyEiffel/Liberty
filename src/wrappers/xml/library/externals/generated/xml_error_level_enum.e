@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ERROR_LEVEL_ENUM
 
--- Wrapper of enum xmlErrorLevel defined in file /usr/include/libxml2/libxml/xmlerror.h line 24
+-- Wrapper of enum xmlErrorLevel defined in file /usr/include/libxml2/libxml/xmlerror.h
 insert ENUM
 
 create {ANY} default_create

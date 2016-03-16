@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	add_history (an_argument_l2214_c7: POINTER) 
 
-		-- function add_history (in 84 at line /usr/include/readline/history.h)i
+		-- function add_history (in `/usr/include/readline/history.h')
                -- add_history
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	add_history_time (an_argument_l2217_c7: POINTER) 
 
-		-- function add_history_time (in 88 at line /usr/include/readline/history.h)i
+		-- function add_history_time (in `/usr/include/readline/history.h')
                -- add_history_time
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	append_history (an_argument_l2276_c7: INTEGER; an_argument_l2277_c7: POINTER): INTEGER 
 
-		-- function append_history (in 203 at line /usr/include/readline/history.h)i
+		-- function append_history (in `/usr/include/readline/history.h')
                -- append_history
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	clear_history 
 
-		-- function clear_history (in 105 at line /usr/include/readline/history.h)i
+		-- function clear_history (in `/usr/include/readline/history.h')
                -- clear_history
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	current_history: POINTER 
 
-		-- function current_history (in 131 at line /usr/include/readline/history.h)i
+		-- function current_history (in `/usr/include/readline/history.h')
                -- current_history
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	free_history_entry (an_argument_l2223_c7: POINTER): POINTER 
 
-		-- function free_history_entry (in 97 at line /usr/include/readline/history.h)i
+		-- function free_history_entry (in `/usr/include/readline/history.h')
                -- free_history_entry
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	get_history_event (an_argument_l2293_c7: POINTER; an_argument_l2294_c7: POINTER; an_argument_l2295_c7: INTEGER): POINTER 
 
-		-- function get_history_event (in 235 at line /usr/include/readline/history.h)i
+		-- function get_history_event (in `/usr/include/readline/history.h')
                -- get_history_event
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	history_arg_extract (an_argument_l2288_c7: INTEGER; an_argument_l2289_c7: INTEGER; an_argument_l2290_c7: POINTER): POINTER 
 
-		-- function history_arg_extract (in 227 at line /usr/include/readline/history.h)i
+		-- function history_arg_extract (in `/usr/include/readline/history.h')
                -- history_arg_extract
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	history_expand (an_argument_l2284_c7: POINTER; an_argument_l2285_c7: POINTER): INTEGER 
 
-		-- function history_expand (in 222 at line /usr/include/readline/history.h)i
+		-- function history_expand (in `/usr/include/readline/history.h')
                -- history_expand
                external "plug_in"
                alias "{
@@ -208,7 +208,7 @@ feature {} -- External calls
 
 	history_get (an_argument_l2240_c7: INTEGER): POINTER 
 
-		-- function history_get (in 135 at line /usr/include/readline/history.h)i
+		-- function history_get (in `/usr/include/readline/history.h')
                -- history_get
                external "plug_in"
                alias "{
@@ -220,7 +220,7 @@ feature {} -- External calls
 
 	history_get_history_state: POINTER 
 
-		-- function history_get_history_state (in 75 at line /usr/include/readline/history.h)i
+		-- function history_get_history_state (in `/usr/include/readline/history.h')
                -- history_get_history_state
                external "plug_in"
                alias "{
@@ -232,7 +232,7 @@ feature {} -- External calls
 
 	history_get_time (an_argument_l2243_c7: POINTER): like long 
 
-		-- function history_get_time (in 139 at line /usr/include/readline/history.h)i
+		-- function history_get_time (in `/usr/include/readline/history.h')
                -- history_get_time
                external "plug_in"
                alias "{
@@ -274,7 +274,7 @@ feature {} -- External calls
 
 	history_is_stifled: INTEGER 
 
-		-- function history_is_stifled (in 116 at line /usr/include/readline/history.h)i
+		-- function history_is_stifled (in `/usr/include/readline/history.h')
                -- history_is_stifled
                external "plug_in"
                alias "{
@@ -316,7 +316,7 @@ feature {} -- External calls
 
 	history_list: POINTER 
 
-		-- function history_list (in 123 at line /usr/include/readline/history.h)i
+		-- function history_list (in `/usr/include/readline/history.h')
                -- history_list
                external "plug_in"
                alias "{
@@ -418,7 +418,7 @@ feature {} -- External calls
 
 	history_search (an_argument_l2252_c7: POINTER; an_argument_l2253_c7: INTEGER): INTEGER 
 
-		-- function history_search (in 168 at line /usr/include/readline/history.h)i
+		-- function history_search (in `/usr/include/readline/history.h')
                -- history_search
                external "plug_in"
                alias "{
@@ -460,7 +460,7 @@ feature {} -- External calls
 
 	history_search_pos (an_argument_l2260_c7: POINTER; an_argument_l2261_c7: INTEGER; an_argument_l2262_c7: INTEGER): INTEGER 
 
-		-- function history_search_pos (in 180 at line /usr/include/readline/history.h)i
+		-- function history_search_pos (in `/usr/include/readline/history.h')
                -- history_search_pos
                external "plug_in"
                alias "{
@@ -472,7 +472,7 @@ feature {} -- External calls
 
 	history_search_prefix (an_argument_l2256_c7: POINTER; an_argument_l2257_c7: INTEGER): INTEGER 
 
-		-- function history_search_prefix (in 173 at line /usr/include/readline/history.h)i
+		-- function history_search_prefix (in `/usr/include/readline/history.h')
                -- history_search_prefix
                external "plug_in"
                alias "{
@@ -484,7 +484,7 @@ feature {} -- External calls
 
 	history_set_history_state (an_argument_l2211_c7: POINTER) 
 
-		-- function history_set_history_state (in 78 at line /usr/include/readline/history.h)i
+		-- function history_set_history_state (in `/usr/include/readline/history.h')
                -- history_set_history_state
                external "plug_in"
                alias "{
@@ -496,7 +496,7 @@ feature {} -- External calls
 
 	history_set_pos (an_argument_l2247_c7: INTEGER): INTEGER 
 
-		-- function history_set_pos (in 148 at line /usr/include/readline/history.h)i
+		-- function history_set_pos (in `/usr/include/readline/history.h')
                -- history_set_pos
                external "plug_in"
                alias "{
@@ -538,7 +538,7 @@ feature {} -- External calls
 
 	history_tokenize (an_argument_l2298_c7: POINTER): POINTER 
 
-		-- function history_tokenize (in 239 at line /usr/include/readline/history.h)i
+		-- function history_tokenize (in `/usr/include/readline/history.h')
                -- history_tokenize
                external "plug_in"
                alias "{
@@ -550,7 +550,7 @@ feature {} -- External calls
 
 	history_total_bytes: INTEGER 
 
-		-- function history_total_bytes (in 143 at line /usr/include/readline/history.h)i
+		-- function history_total_bytes (in `/usr/include/readline/history.h')
                -- history_total_bytes
                external "plug_in"
                alias "{
@@ -562,7 +562,7 @@ feature {} -- External calls
 
 	history_truncate_file (an_argument_l2280_c7: POINTER; an_argument_l2281_c7: INTEGER): INTEGER 
 
-		-- function history_truncate_file (in 206 at line /usr/include/readline/history.h)i
+		-- function history_truncate_file (in `/usr/include/readline/history.h')
                -- history_truncate_file
                external "plug_in"
                alias "{
@@ -664,7 +664,7 @@ feature {} -- External calls
 
 	next_history: POINTER 
 
-		-- function next_history (in 158 at line /usr/include/readline/history.h)i
+		-- function next_history (in `/usr/include/readline/history.h')
                -- next_history
                external "plug_in"
                alias "{
@@ -676,7 +676,7 @@ feature {} -- External calls
 
 	previous_history: POINTER 
 
-		-- function previous_history (in 153 at line /usr/include/readline/history.h)i
+		-- function previous_history (in `/usr/include/readline/history.h')
                -- previous_history
                external "plug_in"
                alias "{
@@ -688,7 +688,7 @@ feature {} -- External calls
 
 	read_history (an_argument_l2265_c7: POINTER): INTEGER 
 
-		-- function read_history (in 187 at line /usr/include/readline/history.h)i
+		-- function read_history (in `/usr/include/readline/history.h')
                -- read_history
                external "plug_in"
                alias "{
@@ -700,7 +700,7 @@ feature {} -- External calls
 
 	read_history_range (an_argument_l2268_c7: POINTER; an_argument_l2269_c7: INTEGER; an_argument_l2270_c7: INTEGER): INTEGER 
 
-		-- function read_history_range (in 194 at line /usr/include/readline/history.h)i
+		-- function read_history_range (in `/usr/include/readline/history.h')
                -- read_history_range
                external "plug_in"
                alias "{
@@ -712,7 +712,7 @@ feature {} -- External calls
 
 	remove_history (an_argument_l2220_c7: INTEGER): POINTER 
 
-		-- function remove_history (in 93 at line /usr/include/readline/history.h)i
+		-- function remove_history (in `/usr/include/readline/history.h')
                -- remove_history
                external "plug_in"
                alias "{
@@ -724,7 +724,7 @@ feature {} -- External calls
 
 	replace_history_entry (an_argument_l2226_c7: INTEGER; an_argument_l2227_c7: POINTER; an_argument_l2228_c7: POINTER): POINTER 
 
-		-- function replace_history_entry (in 102 at line /usr/include/readline/history.h)i
+		-- function replace_history_entry (in `/usr/include/readline/history.h')
                -- replace_history_entry
                external "plug_in"
                alias "{
@@ -736,7 +736,7 @@ feature {} -- External calls
 
 	stifle_history (an_argument_l2232_c7: INTEGER) 
 
-		-- function stifle_history (in 108 at line /usr/include/readline/history.h)i
+		-- function stifle_history (in `/usr/include/readline/history.h')
                -- stifle_history
                external "plug_in"
                alias "{
@@ -748,7 +748,7 @@ feature {} -- External calls
 
 	unstifle_history: INTEGER 
 
-		-- function unstifle_history (in 113 at line /usr/include/readline/history.h)i
+		-- function unstifle_history (in `/usr/include/readline/history.h')
                -- unstifle_history
                external "plug_in"
                alias "{
@@ -760,7 +760,7 @@ feature {} -- External calls
 
 	using_history 
 
-		-- function using_history (in 72 at line /usr/include/readline/history.h)i
+		-- function using_history (in `/usr/include/readline/history.h')
                -- using_history
                external "plug_in"
                alias "{
@@ -772,7 +772,7 @@ feature {} -- External calls
 
 	where_history: INTEGER 
 
-		-- function where_history (in 127 at line /usr/include/readline/history.h)i
+		-- function where_history (in `/usr/include/readline/history.h')
                -- where_history
                external "plug_in"
                alias "{
@@ -784,7 +784,7 @@ feature {} -- External calls
 
 	write_history (an_argument_l2273_c7: POINTER): INTEGER 
 
-		-- function write_history (in 199 at line /usr/include/readline/history.h)i
+		-- function write_history (in `/usr/include/readline/history.h')
                -- write_history
                external "plug_in"
                alias "{

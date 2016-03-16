@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XLINK_ACTUATE_ENUM
 
--- Wrapper of enum xlinkActuate defined in file /usr/include/libxml2/libxml/xlink.h line 50
+-- Wrapper of enum xlinkActuate defined in file /usr/include/libxml2/libxml/xlink.h
 insert ENUM
 
 create {ANY} default_create

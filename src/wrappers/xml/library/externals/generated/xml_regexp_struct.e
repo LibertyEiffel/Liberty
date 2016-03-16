@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_REGEXP_STRUCT
--- Wrapper of struct _xmlRegexp defined in file /usr/include/libxml2/libxml/xmlregexp.h line 28
+-- Wrapper of struct _xmlRegexp defined in file /usr/include/libxml2/libxml/xmlregexp.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

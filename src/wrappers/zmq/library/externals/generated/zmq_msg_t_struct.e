@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class ZMQ_MSG_T_STRUCT
--- Wrapper of struct  defined in file /usr/include/zmq.h line 145
+-- Wrapper of struct  defined in file /usr/include/zmq.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

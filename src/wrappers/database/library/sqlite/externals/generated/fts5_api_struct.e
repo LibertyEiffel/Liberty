@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FTS5_API_STRUCT
--- Wrapper of struct fts5_api defined in file /usr/include/sqlite3.h line 8590
+-- Wrapper of struct fts5_api defined in file /usr/include/sqlite3.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

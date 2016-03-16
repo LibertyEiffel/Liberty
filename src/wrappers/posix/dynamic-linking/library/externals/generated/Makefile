@@ -12,7 +12,7 @@ $(XML): $(HEADER)
 ifdef CASTXML
 	@castxml --castxml-gccxml -x c++  $(HEADER) -o $(XML)
 else
-	@gccxml $(HEADER) -fxml=$(XML)
+		@gccxml --gccxml-compiler gcc-4.9 $(HEADER) -fxml=$(XML)
 endif
 
 clean: 

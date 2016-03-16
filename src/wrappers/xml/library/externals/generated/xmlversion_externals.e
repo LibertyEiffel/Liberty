@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	xml_check_version (a_version: INTEGER) 
 
-		-- function xmlCheckVersion (in 24 at line /usr/include/libxml2/libxml/xmlversion.h)
+		-- function xmlCheckVersion (in `/usr/include/libxml2/libxml/xmlversion.h')
                -- xmlCheckVersion
                external "plug_in"
                alias "{

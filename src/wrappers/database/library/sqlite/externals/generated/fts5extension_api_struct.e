@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class FTS5EXTENSION_API_STRUCT
--- Wrapper of struct Fts5ExtensionApi defined in file /usr/include/sqlite3.h line 8321
+-- Wrapper of struct Fts5ExtensionApi defined in file /usr/include/sqlite3.h
 
 insert STANDARD_C_LIBRARY_TYPES
 
@@ -224,6 +224,30 @@ feature {} -- Low-level setters
       }"
       end
 
+   fts5extension_api_struct_set_xphrasefirstcolumn (a_structure: POINTER; a_value: POINTER) 
+         -- Setter for xPhraseFirstColumn field of FTS5EXTENSION_API_STRUCT structure.
+         -- TODO: setter description
+
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "fts5extension_api_struct_set_xphrasefirstcolumn"
+      }"
+      end
+
+   fts5extension_api_struct_set_xphrasenextcolumn (a_structure: POINTER; a_value: POINTER) 
+         -- Setter for xPhraseNextColumn field of FTS5EXTENSION_API_STRUCT structure.
+         -- TODO: setter description
+
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "fts5extension_api_struct_set_xphrasenextcolumn"
+      }"
+      end
+
 feature {} -- Low-level queries
 
    fts5extension_api_struct_get_iversion (a_structure: POINTER): INTEGER 
@@ -439,6 +463,30 @@ feature {} -- Low-level queries
          location: "."
          module_name: "plugin"
          feature_name: "fts5extension_api_struct_get_xphrasenext"
+      }"
+      end
+
+   fts5extension_api_struct_get_xphrasefirstcolumn (a_structure: POINTER): POINTER 
+         -- Query for xPhraseFirstColumn field of FTS5EXTENSION_API_STRUCT structure.
+         -- TODO: getter description
+
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "fts5extension_api_struct_get_xphrasefirstcolumn"
+      }"
+      end
+
+   fts5extension_api_struct_get_xphrasenextcolumn (a_structure: POINTER): POINTER 
+         -- Query for xPhraseNextColumn field of FTS5EXTENSION_API_STRUCT structure.
+         -- TODO: getter description
+
+      external "plug_in"
+      alias "{
+         location: "."
+         module_name: "plugin"
+         feature_name: "fts5extension_api_struct_get_xphrasenextcolumn"
       }"
       end
 

@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class XML_GLOBAL_STATE_STRUCT
--- Wrapper of struct _xmlGlobalState defined in file /usr/include/libxml2/libxml/globals.h line 122
+-- Wrapper of struct _xmlGlobalState defined in file /usr/include/libxml2/libxml/globals.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

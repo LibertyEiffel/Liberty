@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_PARSER_OPTION_ENUM
 
--- Wrapper of enum xmlParserOption defined in file /usr/include/libxml2/libxml/parser.h line 1089
+-- Wrapper of enum xmlParserOption defined in file /usr/include/libxml2/libxml/parser.h
 insert ENUM
 
 create {ANY} default_create

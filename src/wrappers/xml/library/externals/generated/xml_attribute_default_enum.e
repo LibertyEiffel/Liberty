@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ATTRIBUTE_DEFAULT_ENUM
 
--- Wrapper of enum xmlAttributeDefault defined in file /usr/include/libxml2/libxml/tree.h line 225
+-- Wrapper of enum xmlAttributeDefault defined in file /usr/include/libxml2/libxml/tree.h
 insert ENUM
 
 create {ANY} default_create

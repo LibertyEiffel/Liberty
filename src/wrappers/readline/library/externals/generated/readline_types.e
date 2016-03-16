@@ -9,14 +9,14 @@ insert ANY undefine is_equal, copy end
 
 feature {ANY} -- C type definitions (typedefs)
        histdata_t: POINTER
-               -- typedef histdata_t from /usr/include/readline/history.h line 41
+               -- typedef histdata_t from /usr/include/readline/history.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default
        end
 
        keymap: POINTER
-               -- typedef Keymap from /usr/include/readline/keymaps.h line 56
+               -- typedef Keymap from /usr/include/readline/keymaps.h
                -- Empty by design, used for anchored declarations.
        do
        ensure Result.is_default

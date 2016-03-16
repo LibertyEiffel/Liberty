@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class UNDO_LIST_STRUCT
--- Wrapper of struct undo_list defined in file /usr/include/readline/readline.h line 58
+-- Wrapper of struct undo_list defined in file /usr/include/readline/readline.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

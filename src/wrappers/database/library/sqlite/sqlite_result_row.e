@@ -47,6 +47,24 @@ insert
 
 create {ANY} make
 
+feature {ANY} -- Accessing
+    is_empty: BOOLEAN
+
+    lower: INTEGER 0
+
+last: VARIANT
+
+first: VARIANT
+
+upper: INTEGER
+
+item(an_index: INTEGER): VARIANT
+
+new_iterator: ITERATOR[VARIANT]
+
+count: INTEGER 
+
+
 feature {ANY} -- Type queries
 	is_integer (a_column: INTEGER): BOOLEAN is
 		do

@@ -10,7 +10,7 @@ feature {} -- External calls
 
 	init_generic_error_default_func (a_handler: POINTER) 
 
-		-- function initGenericErrorDefaultFunc (in 866 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function initGenericErrorDefaultFunc (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- initGenericErrorDefaultFunc
                external "plug_in"
                alias "{
@@ -22,7 +22,7 @@ feature {} -- External calls
 
 	xml_copy_error (a_from_external: POINTER; a_to: POINTER): INTEGER 
 
-		-- function xmlCopyError (in 910 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlCopyError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlCopyError
                external "plug_in"
                alias "{
@@ -34,7 +34,7 @@ feature {} -- External calls
 
 	xml_ctxt_get_last_error (a_ctx: POINTER): POINTER 
 
-		-- function xmlCtxtGetLastError (in 904 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlCtxtGetLastError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlCtxtGetLastError
                external "plug_in"
                alias "{
@@ -46,7 +46,7 @@ feature {} -- External calls
 
 	xml_ctxt_reset_last_error (a_ctx: POINTER) 
 
-		-- function xmlCtxtResetLastError (in 906 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlCtxtResetLastError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlCtxtResetLastError
                external "plug_in"
                alias "{
@@ -58,7 +58,7 @@ feature {} -- External calls
 
 	xml_get_last_error: POINTER 
 
-		-- function xmlGetLastError (in 900 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlGetLastError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlGetLastError
                external "plug_in"
                alias "{
@@ -70,7 +70,7 @@ feature {} -- External calls
 
 	xml_parser_error (a_ctx: POINTER; a_msg: POINTER) 
 
-		-- function xmlParserError (in 876 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserError (variadic call) 
                external "plug_in"
                alias "{
@@ -82,7 +82,7 @@ feature {} -- External calls
 
 	xml_parser_print_file_context (an_input: POINTER) 
 
-		-- function xmlParserPrintFileContext (in 894 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserPrintFileContext (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserPrintFileContext
                external "plug_in"
                alias "{
@@ -94,7 +94,7 @@ feature {} -- External calls
 
 	xml_parser_print_file_info (an_input: POINTER) 
 
-		-- function xmlParserPrintFileInfo (in 892 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserPrintFileInfo (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserPrintFileInfo
                external "plug_in"
                alias "{
@@ -106,7 +106,7 @@ feature {} -- External calls
 
 	xml_parser_validity_error (a_ctx: POINTER; a_msg: POINTER) 
 
-		-- function xmlParserValidityError (in 884 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserValidityError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserValidityError (variadic call) 
                external "plug_in"
                alias "{
@@ -118,7 +118,7 @@ feature {} -- External calls
 
 	xml_parser_validity_warning (a_ctx: POINTER; a_msg: POINTER) 
 
-		-- function xmlParserValidityWarning (in 888 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserValidityWarning (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserValidityWarning (variadic call) 
                external "plug_in"
                alias "{
@@ -130,7 +130,7 @@ feature {} -- External calls
 
 	xml_parser_warning (a_ctx: POINTER; a_msg: POINTER) 
 
-		-- function xmlParserWarning (in 880 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlParserWarning (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlParserWarning (variadic call) 
                external "plug_in"
                alias "{
@@ -142,7 +142,7 @@ feature {} -- External calls
 
 	xml_reset_error (an_err: POINTER) 
 
-		-- function xmlResetError (in 908 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlResetError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlResetError
                external "plug_in"
                alias "{
@@ -154,7 +154,7 @@ feature {} -- External calls
 
 	xml_reset_last_error 
 
-		-- function xmlResetLastError (in 902 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlResetLastError (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlResetLastError
                external "plug_in"
                alias "{
@@ -166,7 +166,7 @@ feature {} -- External calls
 
 	xml_set_generic_error_func (a_ctx: POINTER; a_handler: POINTER) 
 
-		-- function xmlSetGenericErrorFunc (in 863 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlSetGenericErrorFunc (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlSetGenericErrorFunc
                external "plug_in"
                alias "{
@@ -178,7 +178,7 @@ feature {} -- External calls
 
 	xml_set_structured_error_func (a_ctx: POINTER; a_handler: POINTER) 
 
-		-- function xmlSetStructuredErrorFunc (in 869 at line /usr/include/libxml2/libxml/xmlerror.h)
+		-- function xmlSetStructuredErrorFunc (in `/usr/include/libxml2/libxml/xmlerror.h')
                -- xmlSetStructuredErrorFunc
                external "plug_in"
                alias "{

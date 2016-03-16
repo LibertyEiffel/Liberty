@@ -1,7 +1,7 @@
 -- This file has been created by wrappers_generator.
 -- Any change will be lost by the next execution of the tool.
 deferred class TIMESPEC_STRUCT
--- Wrapper of struct timespec defined in file /usr/include/time.h line 120
+-- Wrapper of struct timespec defined in file /usr/include/time.h
 
 insert STANDARD_C_LIBRARY_TYPES
 

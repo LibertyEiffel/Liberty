@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_ELEMENT_CONTENT_OCCUR_ENUM
 
--- Wrapper of enum xmlElementContentOccur defined in file /usr/include/libxml2/libxml/tree.h line 290
+-- Wrapper of enum xmlElementContentOccur defined in file /usr/include/libxml2/libxml/tree.h
 insert ENUM
 
 create {ANY} default_create

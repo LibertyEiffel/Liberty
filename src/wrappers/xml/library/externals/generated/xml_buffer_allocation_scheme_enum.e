@@ -2,7 +2,7 @@
 -- Any change will be lost by the next execution of the tool.
 expanded class XML_BUFFER_ALLOCATION_SCHEME_ENUM
 
--- Wrapper of enum xmlBufferAllocationScheme defined in file /usr/include/libxml2/libxml/tree.h line 74
+-- Wrapper of enum xmlBufferAllocationScheme defined in file /usr/include/libxml2/libxml/tree.h
 insert ENUM
 
 create {ANY} default_create
