@@ -4,25 +4,11 @@ class TYPED_VARIANT[E_]
 	-- another a date.
 
 inherit
-    VARIANT
-        undefine
-            out
-        end
+	VARIANT
     REFERENCE[E_]
-        redefine 
-            out
-        end
 
 create {ANY} set_item
 
-feature 
-    out: STRING do
-        if item/=Void then
-            Result:=item.out
-        else    
-            Result:=once "Void"
-        end
-    end
 end -- class TYPED_VARIANT
 
 -- Copyright (c) 2013 by all the people cited in the AUTHORS file.
