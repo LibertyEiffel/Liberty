@@ -24,7 +24,7 @@ deferred class SQLITE_VALUE
 	-- type affinity. "
 
 inherit VARIANT
-insert SQLITE_TYPE_CODES
+insert SQLITE_ERROR_CODES
 
 feature {ANY}
 	from_integer (an_integer: INTEGER) is

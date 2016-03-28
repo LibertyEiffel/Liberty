@@ -40,19 +40,21 @@ feature {ANY}
 			end
 		end
 feature {ANY} 
-	entries: ARRAY[FAST_ARRAY[SQLITE_VALUE]] is
-		once
-			Result := << 
-							<<s("Linus Torvalds"), int(50)>>,
-							<<s("Richard Stallman"), int(60)>>,
-							<<s("Raphael Mack"), int(35)>>,
-							<<s("Cyril Adrian"), int(40)>>
-							>>
-		end
-	
+    entries: ARRAY[FAST_ARRAY[SQLITE_VALUE]] once
+        Result := << <<s("Linus Torvalds"), int(50)>>,
+            <<s("Richard Stallman"), int(60)>>,
+            <<s("Raphael Mack"), int(35)>>,
+            <<s("Cyril Adrian"), int(40)>>
+        >>
+    end
+
+feature {ANY} -- Commodities
+    -- Those commodity features are just shortcuts needed because current
+    -- compiler (as of March 2016) does not support convert
     s(a_str: STRING): SQLITE_STRING_VALUE do create Result.from_string(a_str) end  
     int (an_i: INTEGER): SQLITE_INTEGER_VALUE do create Result.from_integer(an_i) end
 
+feature {ANY}
     use_prepared_insert is
 		local
 			a_command: PREPARED_COMMAND
