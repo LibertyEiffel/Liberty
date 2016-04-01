@@ -1,4 +1,4 @@
-class TEST_GCD
+class LOOPS
    --
    -- Have a look at feature `gcd' to have an example of assertions in a loop.
    -- Also note that LibertyEiffel handle recursivity in assertions.
@@ -66,4 +66,4 @@ feature {ANY}
          Result = gcd(value_2, value_1)
       end
 
-end -- class TEST_GCD
+end -- class LOOPS
