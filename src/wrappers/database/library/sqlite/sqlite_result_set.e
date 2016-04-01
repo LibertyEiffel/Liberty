@@ -1,4 +1,4 @@
-indexing
+note
 	description: "Result set of an SQL query from an SQLite database."
 	copyright: "(C) 2006 Paolo Redaelli "
 	license: "LGPL v2 or later"
@@ -6,13 +6,16 @@ indexing
 	revision: "$Revision:$"
 
 class SQLITE_RESULT_SET
+
 inherit
 	-- Features inheriting
 	RESULT_SET [SQLITE_RESULT_ROW]
 	-- Implementation
 	LINKED_LIST [SQLITE_RESULT_ROW]
-		undefine copy, is_equal 
+		undefine
+         copy, is_equal, default_create
 		end
+   
 create {ANY}  make
 
 feature {ANY}

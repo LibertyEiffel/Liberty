@@ -1,4 +1,4 @@
-indexing
+note
 	description: "A tuple from an SQLite query."
 	copyright: "(C) 2006,2016 Paolo Redaelli "
 	license: "LGPL v2 or later"
