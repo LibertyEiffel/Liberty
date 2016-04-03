@@ -55,7 +55,7 @@ feature {ANY} -- Commodities
     int (an_i: INTEGER): SQLITE_INTEGER_VALUE do create Result.from_integer(an_i) end
 
 feature {ANY}
-    use_prepared_insert is
+    use_prepared_insert 
 		local
 			a_command: PREPARED_COMMAND
 			i: INTEGER
@@ -77,7 +77,7 @@ feature {ANY}
 			-- end
 		end
 	
-	delete_inserted_data is
+	delete_inserted_data 
 		local
 			a_command: PREPARED_COMMAND
 			i: INTEGER
@@ -98,7 +98,7 @@ feature {ANY}
 	age_limit: INTEGER is 32
 			-- Age above which a programmer is considered "old" 8-)
 
-	use_prepared_query is
+	use_prepared_query 
 		local
 			name: STRING
 			age: INTEGER

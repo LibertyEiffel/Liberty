@@ -48,86 +48,28 @@ insert
 create {ANY} make
 
 feature {ANY} -- Accessing
-    is_empty: BOOLEAN
+    is_empty: BOOLEAN do
+    end
 
     lower: INTEGER 0
 
-last: VARIANT
+    last: VARIANT do
+    end
 
-first: VARIANT
+    first: VARIANT do
+    end
 
-upper: INTEGER
+    upper: INTEGER do
+    end
 
-item(an_index: INTEGER): VARIANT
+    item(an_index: INTEGER): VARIANT do
+    end
 
-new_iterator: ITERATOR[VARIANT]
+    new_iterator: ITERATOR[VARIANT] do
+        create {SQLITE_RESULT_ROW_ITERATOR} Result.from_row(Current)
+    end
 
-count: INTEGER 
-
-
-feature {ANY} -- Type queries
-	is_integer (a_column: INTEGER): BOOLEAN is
-		do
-			Result := ( {REFERENCE[INTEGER]} ?:= item(a_column) )
-		end
-
-	is_real (a_column: INTEGER): BOOLEAN is
-		do
-			Result := ( {REFERENCE[REAL_64]} ?:= item(a_column) )
-		end
-	
-	is_string (a_column: INTEGER): BOOLEAN is
-		do
-			Result := ( {STRING} ?:= item(a_column) )
-		end
-	
-	is_boolean (a_column: INTEGER): BOOLEAN is
-		do
-			Result := False
-		end
-
-feature {ANY} -- Column queries 
-	integer_item (a_column: INTEGER): INTEGER is
-		local
-			ri: REFERENCE[INTEGER]
-		do
-			ri ::= item(a_column)
-				check
-					ri /= Void
-				end
-			Result := ri.item
-		end
-
-	real_item (a_column: INTEGER): REAL is
-		local
-			ri: REFERENCE[REAL]
-		do
-			ri ::= item(a_column)
-				check
-					ri /= Void
-				end
-			Result := ri.item
-		end
-
-	string_item (a_column: INTEGER): STRING is
-		do
-			Result ::= item(a_column)
-			-- ensure result_not_void: Result /= Void
-		end
-
-	boolean_item (a_column: INTEGER): BOOLEAN is
-		local
-			ri: REFERENCE[INTEGER]
-		do
-			debug 
-				raise("SQLITE_RESULT_ROW boolean value encountered. SQLite does *NOT* have boolean values!")
-			end
-			ri ::= item(a_column)
-				check
-					ri /= Void
-				end
-			Result := ri.item.to_boolean
-		end
+    count: INTEGER 
 
 
 -- feature 

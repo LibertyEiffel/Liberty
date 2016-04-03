@@ -24,7 +24,12 @@ deferred class SQLITE_VALUE
 	-- type affinity. "
 
 inherit VARIANT
-insert SQLITE_TYPE_CODES
+
+insert 
+    SQLITE3_EXTERNALS
+    SQLITE_ERROR_CODES
+    SQLITE_TYPE_CODES
+    SQLITE_CONSTANTS
 
 feature {SQLITE_PREPARED_STATEMENT} 
 	bind_in (a_statement: SQLITE_PREPARED_STATEMENT; an_index: INTEGER) is
@@ -41,6 +46,42 @@ feature {ANY}
 		end
 	type: INTEGER is
 		deferred
+		end
+
+feature {ANY} -- Type queries
+    -- design: "Not really proper oo design; candy"
+	is_integer: BOOLEAN
+		do
+		end
+
+	is_real (a_column: INTEGER): BOOLEAN
+		do
+		end
+	
+	is_string (a_column: INTEGER): BOOLEAN
+		do
+		end
+	
+	is_boolean (a_column: INTEGER): BOOLEAN
+		do
+			Result := False
+		end
+
+feature {ANY} -- Column queries 
+	integer_item (a_column: INTEGER): INTEGER
+		do
+		end
+
+	real_item (a_column: INTEGER): REAL
+		do
+		end
+
+	string_item (a_column: INTEGER): STRING
+		do
+		end
+
+	boolean_item (a_column: INTEGER): BOOLEAN
+		do
 		end
 end
 
